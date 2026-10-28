@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "contexts": 7009,
+  "compiledRoutineHashes": {
+    "D2GAME_AI_Unk_110_111_6FCECC40": "d56331ed3d285f62ec8402a196f24196881ecd56513fb3b906750cebcedf7423",
+    "AITHINK_Fn111_CycleOfLife": "e2b3b9f428d10340cf5552e4c343a2976bf52a03496614af923ba444feadc035"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "preflightSha256": "1c2aba9861fff051d9d30a716a1296e7519c28a60b6aef73f806df0853e5c329",
+  "sanitizerClean": true,
+  "artifacts": {
+    "tools/probe_recycler_vines_ai_reference.py": "77532f3a1b5159a881ebaf819787f9f5bbed79999bb565382a97a637197e5da2",
+    ".local/class-skills/recycler-vines-ai-source-probe.cpp": "1e1bd56b4fc31ea3306eb628a3f30c8ae4db420a1e56d09e3098cb319105bce7",
+    ".local/class-skills/recycler-vines-ai-source-probe.json": "219a3f7face64d5aad739d5e6675e00931ee975976e5794fbfca73f62801619c",
+    ".local/class-skills/recycler-vines-ai-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "declaredServices": [
+    "Owner and primary-target lookups; corpse finder result and distance/melee geometry.",
+    "Current fixed AI parameters and scalar aura-range evaluation with complete source clamping.",
+    "Pet/common movement results, skill dispatch result and ordered action capture.",
+    "Resource fullness, innate skill lookup and percentage RNG inputs; no game-wide RNG stream or native actor is executed."
+  ],
+  "established": [
+    "Complete initializer and AI111 match the independent action/state oracle. Missing owner returns without a neutral stall. Owner distance>=35 attempts follow before corpse search; successful follow stops processing. Search requires positive innate skill plus valid row/learned skill, clamps radius5..50, drops a corpse at distance>=20 and passes the melee result to common movement.",
+    "Relevant full owner life/mana suppresses eating but does not suppress walking to a usable corpse. Actual corpse skill dispatch requires melee and a strictly elapsed>50frame interval. Failed UseSkill return still stores the current frame. Unknown-class controls do not acquire an invented resource-fullness restriction.",
+    "Live combat targets permit an independent25percent escape branch when not consuming. Dead primary targets clear combat before that roll. No corpse and no escape gives25frame idle; selected corpse otherwise walks with flag7. These decisions are not an actor-animation or wall-clock certificate."
+  ],
+  "remaining": [
+    "Source finder/usable-corpse/target interaction, full movement/room/order/timers/animation, corpse reservations, delayed resource callbacks and native actors/saves/input remain separate. Shared underground exposure and Solar formula-slot conflict remain explicit; final effects/audio/icons are separately inventoried."
+  ]
+}

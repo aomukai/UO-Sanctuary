@@ -1,0 +1,485 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "executedContexts": 0,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "publicCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "localTables": {
+    "skills": {
+      "localFilename": "skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "publicSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "missiles": {
+      "localFilename": "missiles.txt",
+      "sha256": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+      "publicSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+    },
+    "states": {
+      "localFilename": "states-creeper-verified.txt",
+      "sha256": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+      "publicSha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+    }
+  },
+  "currentRows": {
+    "skills": {
+      "Arctic Blast": {
+        "skill": "Arctic Blast",
+        "*Id": "230",
+        "charclass": "dru",
+        "skilldesc": "arctic blast",
+        "srvstfunc": "11",
+        "srvdofunc": "19",
+        "srvmissilea": "arcticblast1",
+        "aurarangecalc": "ln12/4-2",
+        "prgoverlay": "arctic_blast_cast",
+        "prgsound": "druid_windcast",
+        "cltstfunc": "15",
+        "cltdofunc": "24",
+        "cltmissilea": "arcticblast1",
+        "cltmissileb": "arcticblast2",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "none",
+        "anim": "SQ",
+        "seqtrans": "SQ",
+        "monanim": "xx",
+        "seqnum": "18",
+        "seqinput": "10",
+        "KeepCursorStateOnKill": "1",
+        "ContinueCastUnselected": "1",
+        "ClearSelectedOnHold": "1",
+        "reqlevel": "6",
+        "maxlvl": "20",
+        "leftskill": "1",
+        "rightskill": "1",
+        "repeat": "1",
+        "startmana": "6",
+        "minmana": "0",
+        "manashift": "2",
+        "mana": "24",
+        "lvlmana": "1",
+        "interrupt": "1",
+        "calc1": "ln12/2",
+        "*calc1 desc": "Range (Duration of Missile) (Min=1)",
+        "calc2": "20",
+        "*calc2 desc": "Duration to channel if caster is a Monster (Min=1)",
+        "Param1": "35",
+        "*Param1 Description": "Range baseline (Duration of missile)",
+        "Param2": "2",
+        "*Param2 Description": "Range per level (Duration of missile)",
+        "Param3": "4",
+        "*Param3 Description": "Min Mana required to start casting",
+        "Param8": "15",
+        "*Param8 Description": "Damage synergy",
+        "InGame": "1",
+        "HitShift": "3",
+        "EType": "cold",
+        "EMin": "32",
+        "EMinLev1": "20",
+        "EMinLev2": "26",
+        "EMinLev3": "28",
+        "EMinLev4": "32",
+        "EMinLev5": "36",
+        "EMax": "64",
+        "EMaxLev1": "21",
+        "EMaxLev2": "27",
+        "EMaxLev3": "29",
+        "EMaxLev4": "33",
+        "EMaxLev5": "37",
+        "EDmgSymPerCalc": "skill('Cyclone Armor'.blvl)*par8",
+        "ELen": "100",
+        "ELevLen1": "15",
+        "ELevLen2": "15",
+        "ELevLen3": "15",
+        "cost mult": "384",
+        "cost add": "3000",
+        "*eol": "0"
+      },
+      "Inferno": {
+        "skill": "Inferno",
+        "*Id": "41",
+        "charclass": "sor",
+        "skilldesc": "inferno",
+        "srvstfunc": "11",
+        "srvdofunc": "19",
+        "srvmissilea": "infernoflame1",
+        "srvmissileb": "infernoflame1",
+        "srvmissilec": "infernoflame1",
+        "aurarangecalc": "ln12/4-2",
+        "cltstfunc": "15",
+        "cltdofunc": "24",
+        "cltmissilea": "infernoflame1",
+        "cltmissileb": "infernoflame2",
+        "enhanceable": "1",
+        "attackrank": "7",
+        "range": "rng",
+        "anim": "SQ",
+        "seqtrans": "SQ",
+        "monanim": "xx",
+        "seqnum": "6",
+        "seqinput": "10",
+        "KeepCursorStateOnKill": "1",
+        "ContinueCastUnselected": "1",
+        "ClearSelectedOnHold": "1",
+        "reqlevel": "6",
+        "maxlvl": "20",
+        "leftskill": "1",
+        "rightskill": "1",
+        "repeat": "1",
+        "startmana": "6",
+        "minmana": "0",
+        "manashift": "2",
+        "mana": "24",
+        "lvlmana": "1",
+        "interrupt": "1",
+        "calc1": "ln12/2",
+        "*calc1 desc": "Range (Duration of Missile) (Min=1)",
+        "calc2": "20",
+        "*calc2 desc": "Duration to channel if caster is a Monster (Min=1)",
+        "Param1": "35",
+        "*Param1 Description": "Range baseline (Duration of missile)",
+        "Param2": "3",
+        "*Param2 Description": "Range per level (Duration of missile)",
+        "Param3": "4",
+        "*Param3 Description": "Min Mana required to start casting",
+        "Param8": "16",
+        "*Param8 Description": "Damage synergy",
+        "InGame": "1",
+        "HitShift": "3",
+        "EType": "fire",
+        "EMin": "36",
+        "EMinLev1": "24",
+        "EMinLev2": "30",
+        "EMinLev3": "34",
+        "EMinLev4": "38",
+        "EMinLev5": "42",
+        "EMax": "72",
+        "EMaxLev1": "25",
+        "EMaxLev2": "31",
+        "EMaxLev3": "35",
+        "EMaxLev4": "39",
+        "EMaxLev5": "43",
+        "EDmgSymPerCalc": "(skill('Warmth'.blvl))*par8",
+        "cost mult": "384",
+        "cost add": "3000",
+        "*eol": "0"
+      }
+    },
+    "missiles": {
+      "arcticblast1": {
+        "Missile": "arcticblast1",
+        "*ID": "459",
+        "pCltDoFunc": "1",
+        "pSrvDoFunc": "1",
+        "Vel": "12",
+        "MaxVel": "12",
+        "Range": "30",
+        "Red": "255",
+        "Green": "255",
+        "Blue": "255",
+        "InitSteps": "1",
+        "Activate": "0",
+        "LoopAnim": "0",
+        "CelFile": "expansion\\ArcticBlastIce",
+        "animrate": "1024",
+        "AnimLen": "16",
+        "AnimSpeed": "16",
+        "CollideType": "3",
+        "LastCollide": "1",
+        "ClientCol": "1",
+        "Size": "1",
+        "GetHit": "1",
+        "Trans": "1",
+        "Skill": "Arctic Blast",
+        "ResultFlags": "4",
+        "HitClass": "32",
+        "NumDirections": "16",
+        "DamageRate": "41",
+        "TravelSound": "druid_arcticblast",
+        "*eol": "0"
+      },
+      "arcticblast2": {
+        "Missile": "arcticblast2",
+        "*ID": "460",
+        "pCltDoFunc": "1",
+        "pSrvDoFunc": "1",
+        "Vel": "12",
+        "MaxVel": "12",
+        "Range": "30",
+        "Red": "255",
+        "Green": "255",
+        "Blue": "255",
+        "InitSteps": "1",
+        "Activate": "0",
+        "LoopAnim": "0",
+        "CelFile": "expansion\\ArcticBlastIce_2",
+        "animrate": "1024",
+        "AnimLen": "16",
+        "AnimSpeed": "16",
+        "CollideType": "3",
+        "LastCollide": "1",
+        "Size": "1",
+        "GetHit": "1",
+        "Trans": "1",
+        "Skill": "Arctic Blast",
+        "ResultFlags": "4",
+        "HitClass": "32",
+        "NumDirections": "16",
+        "DamageRate": "41",
+        "TravelSound": "druid_arcticblast",
+        "*eol": "0"
+      },
+      "infernoflame1": {
+        "Missile": "infernoflame1",
+        "*ID": "60",
+        "pCltDoFunc": "1",
+        "pSrvDoFunc": "1",
+        "Param2": "7",
+        "*param2 desc": "Baseline Range",
+        "Vel": "12",
+        "MaxVel": "12",
+        "Range": "30",
+        "Light": "5",
+        "Red": "255",
+        "Green": "178",
+        "Blue": "64",
+        "InitSteps": "1",
+        "Activate": "0",
+        "LoopAnim": "0",
+        "CelFile": "Flamethrower",
+        "animrate": "1024",
+        "AnimLen": "15",
+        "AnimSpeed": "16",
+        "CollideType": "3",
+        "LastCollide": "1",
+        "Size": "1",
+        "CanSlow": "1",
+        "GetHit": "1",
+        "Trans": "1",
+        "Skill": "Inferno",
+        "ResultFlags": "4",
+        "HitClass": "32",
+        "NumDirections": "1",
+        "DamageRate": "82",
+        "TravelSound": "sorceress_inferno",
+        "*eol": "0"
+      }
+    },
+    "states": {
+      "inferno": {
+        "state": "inferno",
+        "*ID": "12",
+        "nosend": "1",
+        "*eol": "0"
+      }
+    }
+  },
+  "publicFieldsCompared": 214,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_SrvSt11_Inferno_ArcticBlast": "af0cfdd74bf1fb060991de20dfc8095d8299130ac1c6de092b6bf516eeddf0e0",
+    "SKILLS_StartInferno": "f58f91aacdc046528dac4a6eb30de9cafaefa1bfe3969e97374e7df7b0a6a788",
+    "SKILLS_SrvDo019_Inferno_ArcticBlast": "47e581f2b0c5d0e7e7fe161d1696bcb0818982eb9f6a610e707e60c243274e5f",
+    "SKILLS_DoInferno": "c0014c7fcbc89574bec9e58b8b31f24fab9d8a6cd2bb2cead10e85962afc50d1",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD12FD0": "652267d1698d99a0ec9b56fc69f14142e4e87b29d298c43b83dd90ae48b185d5",
+    "sub_6FD13410": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "sub_6FCBD120": "81fc71dd01d80ea8700a239227e6a42c9f9265fadfb757cb00fc663a9ad94ac8"
+  },
+  "legacySequences": {
+    "gPlayerSequenceArcticBlast": {
+      "sha256": "cf755396b4a70f9af7219462e7bef344f172de0a12afda07a3a50b67c357e1f2",
+      "points": [
+        [
+          "PLRMODE_SPECIAL1",
+          "0",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "1",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "2",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "3",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "4",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "5",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "6",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "7",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "8",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "9",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "9",
+          "ANIMSEQ_EVENT_MELEE_ATTACK"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "10",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "11",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "12",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_SPECIAL1",
+          "13",
+          "ANIMSEQ_EVENT_NONE"
+        ]
+      ]
+    },
+    "gPlayerSequenceInferno": {
+      "sha256": "5e95809dba77d5a536957619aceed26ebb8fb700113aa97f0ca5a7d886217f9e",
+      "points": [
+        [
+          "PLRMODE_CAST",
+          "0",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "1",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "2",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "3",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "4",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "5",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "6",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "7",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "8",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "9",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "9",
+          "ANIMSEQ_EVENT_MELEE_ATTACK"
+        ],
+        [
+          "PLRMODE_CAST",
+          "10",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "11",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "12",
+          "ANIMSEQ_EVENT_NONE"
+        ],
+        [
+          "PLRMODE_CAST",
+          "13",
+          "ANIMSEQ_EVENT_NONE"
+        ]
+      ]
+    }
+  },
+  "reuseCandidates": [
+    "InfernoFlames.cs",
+    "AssassinInfernoControl.cs",
+    "AssassinInfernoBurst.cs",
+    "BladeFurySequence.cs",
+    "BladeFuryResources.cs",
+    "MissileVectors.cs",
+    "SkillCombat.cs"
+  ],
+  "reusableEvidence": [
+    "tools/reference/inferno-source-evidence.json",
+    "tools/reference/blade-fury-sequence-source-evidence.json",
+    "tools/reference/inferno-sentry-controller-source-evidence.json"
+  ],
+  "established": [
+    "Current Arctic Blast230 shares player start11/do19 with Inferno41, but selects SQ18 instead of SQ6. Older compiled-in sequences have matching frame/event coordinates across15points and sole action at index10, but Arctic Blast uses SPECIAL1 poses while Inferno uses CAST. This is older sequence evidence, not a modern sequence or channel trace.",
+    "The complete older start wrapper tests startmana6 as a threshold, bypassed while the Inferno state bit is active. StartInferno allocates a20frame list on first entry; existing-list reentry renews it for6frames and invokes DoInferno. The first do suppresses emission, sets param1 and rewinds; subsequent do creates flags0x8020 with a skill-derived lifetime. Do not invent a six-mana upfront payment or use the monster-only duration branch for a player.",
+    "Arctic Blast has cold HitShift3 endpoints, hard Cyclone Armor15percent synergy,100+15/rank cold length, and floor((35+2*(rank-1))/2) missile lifetime with minimum1. Source missile459 uses Size1/LastCollide1 and DamageRate41; Inferno uses82 and CanSlow1. Shared flight consumers require explicit cold, collision and damage integration rather than an element-only copy of Inferno."
+  ],
+  "remaining": [
+    "Blocked individually on the shared player channel: compose actual SQ/action/end scheduling, held reentry, stop/state-list removal and fractional mana debit with modern2.4+ free-form input. The older rank1 consume routine has a zero/minimum branch; current payment must not be silently inferred from that legacy quirk. Existing Blade Fury and NPC Inferno proofs provide components, not acceptance for this player route.",
+    "Execute current cold endpoint/mastery/pierce/chill and hard-only synergy capture, complete missile factory/Size1/LastCollide/DamageRate delivery, live aim, collision, owner/facet/offline/expiry and native input/save behavior before enabling learned Arctic Blast. No damage model, channel implementation, native tests or installation is certified by this preflight.",
+    "Final arctic cast overlay, stream/contact/chill/expiry/audio and talent/left/right/quick icons are missing in the separate effects and icon registers. Keep the talent gated for the mechanical channel gap and continue unaffected Creeper/Vine skills."
+  ]
+}
