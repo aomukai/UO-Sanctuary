@@ -5,6 +5,7 @@ import csv
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 from review_weapon_event_order import function
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,7 +59,7 @@ def build(check=False):
     for relative, names in [
         ('source/D2Game/src/SKILLS/SkillDruid.cpp', ['SKILLS_SrvSt57_Rabies', 'sub_6FCFEDD0', 'SKILLS_SrvDo121_Rabies', 'sub_6FCFF2E0', 'sub_6FD00370']),
         ('source/D2Game/src/SKILLS/Skills.cpp', ['sub_6FD155E0', 'sub_6FD11D90', 'D2GAME_RollElementalDamage_6FD14DD0']),
-        ('source/D2Game/src/MISSILES/MissMode.cpp', ['MISSMODE_SrvDo30_RabiesPlague', 'MISSMODE_SrvHit53_RabiesContagion', 'MISSMODE_SrvDmg11_RabiesContagion']),
+        ('source/D2Game/src/MISSILES/MissMode.cpp', ['MISSMODE_SrvDo30_RabiesPlague', 'MISSMODE_SrvHit53_RabiesContagion', 'MISSMODE_SrvDmg11_RabiesContagion', 'MISSMODE_SrvDmgHitHandler']),
         ('source/D2Game/src/UNIT/SUnitDmg.cpp', ['SUNITDMG_AllocCombat', 'SUNITDMG_DrainItemDurability']),
         ('source/D2Common/src/D2Skills.cpp', ['SKILLS_GetElementalLength']),
     ]:
@@ -85,7 +86,7 @@ def build(check=False):
         currentExecutableParity=False, legacyCommit=tree['sha'], publicCommit=manifest['commit'],
         sourcePinSha256=sha(pin_path), localTables=hashes, publicFieldsCompared=compared, currentRows=rows,
         sourceHashes=source_hashes, completeRoutineHashes=routines, orderedDoAnchors=anchors, s3ClockEvidenceSha256=sha(clock_path),
-        reuseCandidates={name:sha(ROOT / 'src/Sanctuary.Content' / name) for name in ['DruidHunger.cs', 'DruidFormAttacks.cs', 'DruidChargedAttacks.cs', 'PoisonPackets.cs', 'PoisonStates.cs', 'PoisonJavelins.cs', 'DruidCreeperPoison.cs']},
+        reuseCommit='5f6caa3', reuseCandidates={name:hashlib.sha256(subprocess.check_output(['git', 'show', '5f6caa3:src/Sanctuary.Content/' + name], cwd=ROOT)).hexdigest() for name in ['DruidHunger.cs', 'DruidFormAttacks.cs', 'DruidChargedAttacks.cs', 'PoisonPackets.cs', 'PoisonStates.cs', 'PoisonJavelins.cs', 'DruidCreeperPoison.cs']},
         established=[
             'Current Rabies238uses start57/do121,wolf-only S3,10mana and hard-only Poison Creeper20percent synergy. Poison uses HitShift3and duration100+10per extra rank. Current ResultFlags1and HitFlags2are essential route inputs,not ordinary weapon-poison merging instructions. The skill SrcDam field is blank; the ordinary helper inherits form SrcDam128and the later poison allocator explicitly receives128. Do not invent a skill-row SrcDam value.',
             'Older start57checks the skill/target/form-state and one result roll,then stores param1success. Do121requires that flag and clears it,allocates/drains a separate ordinary transformed weapon attack,applies a separate rabies target marker/emitter if absent,then allocates/drains the skill poison packet. The second packet uses current forced-success/fill-once flags. Do not collapse these into one Hunger-style weapon packet or silently omit the first ordinary attack.',
@@ -96,7 +97,7 @@ def build(check=False):
             'Execute complete start/do,host-marker/expiry,emitter and child hit/damage functions with explicit services. Establish the separate ordinary-attack/poison event ordering,initial payment/miss/block/failure behavior,source modifiers and child owner/deadline propagation before a native handler. Initial rank1minimum-mana and modern target-loss/failed-start behavior remain uncertain.',
             'Reuse verified S3progress/scheduler and poison packet/state/mitigation services where semantics match. Capture or refresh skill damage/mastery/pierce/gear/synergy only at the source-supported phase. Do not use a weapon-poison average,reset every infected host to full duration,assume one uniform AoE pulse,or make curing poison silently clear its independent rabies marker.',
             'Exact modern spread path/event/seed/geometry,caster death/logout/facet policy and exceptional recipients remain open. The earlier low-mana ordinary-form shield omission is corrected in the frozen Hunger candidate; human/ranged common attack scope remains separate. Keep that running canonical package unchanged while preparing Rabies.',
-            'No Rabies handler,installation or final art is enabled by this static preparation. Wolf S3bite,infected-host/plague/contagion/poison/contact/audio and separate talent/left/right/quick icons remain pending with identified placeholders. Other seven Druid/earlier-class/Warlock gaps stay open.',
+            'No Rabies handler,installation or final art is enabled by this static preparation. Wolf S3bite,infected-host/plague/contagion/poison/contact/audio and separate talent/left/right/quick icons remain pending with identified placeholders. Remaining Druid/earlier-class/Warlock gaps stay open.',
         ])
     path = ROOT / 'tools/reference/druid-rabies-preflight.json'
     text = json.dumps(result, indent=2) + '\n'

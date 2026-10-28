@@ -199,6 +199,7 @@
     "MISSMODE_SrvDo30_RabiesPlague": "9d8dcc27a7fcf87e5b2f491efda86ec52fdd95c02ccc43a984fe0eb38912755a",
     "MISSMODE_SrvHit53_RabiesContagion": "1ba8442ab588d1379f7c8d81e55d8d55fd1ba45dcd6af872d0f561c870c676a1",
     "MISSMODE_SrvDmg11_RabiesContagion": "46ce0ccd89c3a38d17f9539f71a8bb80ceda575ce86cf16396154ca4c0d1aec2",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
     "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
     "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
     "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907"
@@ -216,6 +217,7 @@
     "SUNITDMG_AllocCombat"
   ],
   "s3ClockEvidenceSha256": "53137ae11afb554a4c986caa8304305de2258056bf9739e5114a6eac4a303ef6",
+  "reuseCommit": "5f6caa3",
   "reuseCandidates": {
     "DruidHunger.cs": "65647f02452fe9eb6cc2b7cd2de1ea4af5e648a542569da464ebb5782be107c8",
     "DruidFormAttacks.cs": "747acfa331c39d562ae5ed60dbb644dfe9b2dad7f3b45b8f4be7946202d6b973",
@@ -236,6 +238,6 @@
     "Execute complete start/do,host-marker/expiry,emitter and child hit/damage functions with explicit services. Establish the separate ordinary-attack/poison event ordering,initial payment/miss/block/failure behavior,source modifiers and child owner/deadline propagation before a native handler. Initial rank1minimum-mana and modern target-loss/failed-start behavior remain uncertain.",
     "Reuse verified S3progress/scheduler and poison packet/state/mitigation services where semantics match. Capture or refresh skill damage/mastery/pierce/gear/synergy only at the source-supported phase. Do not use a weapon-poison average,reset every infected host to full duration,assume one uniform AoE pulse,or make curing poison silently clear its independent rabies marker.",
     "Exact modern spread path/event/seed/geometry,caster death/logout/facet policy and exceptional recipients remain open. The earlier low-mana ordinary-form shield omission is corrected in the frozen Hunger candidate; human/ranged common attack scope remains separate. Keep that running canonical package unchanged while preparing Rabies.",
-    "No Rabies handler,installation or final art is enabled by this static preparation. Wolf S3bite,infected-host/plague/contagion/poison/contact/audio and separate talent/left/right/quick icons remain pending with identified placeholders. Other seven Druid/earlier-class/Warlock gaps stay open."
+    "No Rabies handler,installation or final art is enabled by this static preparation. Wolf S3bite,infected-host/plague/contagion/poison/contact/audio and separate talent/left/right/quick icons remain pending with identified placeholders. Remaining Druid/earlier-class/Warlock gaps stay open."
   ]
 }

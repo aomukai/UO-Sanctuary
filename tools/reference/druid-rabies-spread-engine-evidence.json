@@ -1,0 +1,74 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "b440977d2ff5d8c6b2097dc787d710055ab86fe0c2f6b30e5509ef0a23011b07",
+  "contexts": 51408,
+  "completeRoutineHashes": {
+    "sub_6FCFEDD0": "770bd94da284c55c121a11d04de559700363c6b4b4e1b3ed47be5f2ec60c8c08",
+    "MISSMODE_SrvDo30_RabiesPlague": "9d8dcc27a7fcf87e5b2f491efda86ec52fdd95c02ccc43a984fe0eb38912755a",
+    "MISSMODE_SrvHit53_RabiesContagion": "1ba8442ab588d1379f7c8d81e55d8d55fd1ba45dcd6af872d0f561c870c676a1",
+    "MISSMODE_SrvDmg11_RabiesContagion": "46ce0ccd89c3a38d17f9539f71a8bb80ceda575ce86cf16396154ca4c0d1aec2"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "generatedSourceSha256": "5f26dcb919f593e01786c9aeca9d4dce47b09fdd91a35af602b94f98d52acc47",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-rabies-spread-source-probe.json",
+    "sha256": "cae1dac77ea0392af91d026db460d3ad42c855a4a97f245f7eca0c81b2e56ff1"
+  },
+  "columns": [
+    "rank",
+    "remainingInfectionFrames",
+    "emitterRemainingFrames",
+    "rngX",
+    "rngY",
+    "scene",
+    "do",
+    "hostMoves",
+    "collisionCalls",
+    "retirements",
+    "rngCalls",
+    "childAttempts",
+    "childCreated",
+    "aimOffsetX",
+    "aimOffsetY",
+    "childDeadline",
+    "hit",
+    "poisonRate",
+    "poisonFrames",
+    "markerAllocations",
+    "markerPosts",
+    "auraApplications",
+    "markerEventFrame",
+    "targetMarked",
+    "targetMarkerDeadline",
+    "plagueAttempts",
+    "plagueCreated",
+    "plagueTimeout",
+    "plagueOriginalType",
+    "plagueOriginalId",
+    "orderedServices"
+  ],
+  "established": [
+    "Four complete older routines execute51408bounded contexts under ASan/UBSan: marker/secondary plague creation, host-following emitter30, child hit53 and damage11. Ranks1,3,20,28,60,255and both lifetime boundaries are crossed with seven emitter phases and all nine low/mid/high independent random offsets.",
+    "The emitter follows its living host,spawns only on remaining-frame multiples of4,uses the original caster seed for both[-7,7]offsets and assigns that caster as the child owner. It copies the host marker absolute deadline to child targetX. New host markers and secondary emitters inherit only the remaining lifetime; already-marked targets keep their existing marker deadline even while a valid child poison packet retains its original remaining duration.",
+    "Missing original caster/host,dead host and negative emitter frame retire; an explicitly dead but present original caster does not. Missing rows/submissile/null emitter are early returns. Failed child/list/plague allocations and missing progressive missile have distinct ordered results; marker application is not rolled back after a missing or failed secondary emitter.",
+    "Both hit and damage use the same10<=remaining<=currentLength bound. Outside it, child hit returns1and damage clears poison rate/length. Inside it,hit returns2even if the marker helper skips an existing marker or cannot allocate. Independent poison state/cure/replacement is not collapsed into this marker test."
+  ],
+  "declaredServices": [
+    "State-list allocation/posting/expiry callbacks, aura application, owner lookup, missile creation, following-path relocation, collision and elemental-length formula are declared services. Event delivery,natural expiry,world movement,flight/footprint and actual poison ticks are not executed. Current aura fields are empty; the aura callback is counted,not a general stat engine. Emitter phase and infection time are independent supplied boundary inputs,not a composed missile-age schedule.",
+    "The harness invokes hit53and damage11independently after a declared collision. The complete generic router is statically pinned but not executed here: its hit-result bit2gates damage creation/damage11. Invalid-window damage11calls are isolated zeroing controls,not proof that the real router calls it when hit53returns1. Compose the actual router before native contact acceptance.",
+    "Minimal structures and synthetic scene failures are not original ABI or modern reachable-gameplay proofs. RNG supplies chosen legal values without real seed advancement. Newly created missile target storage defaults to0in the declared factory; the missing-host-marker control tests that declared default,not an accepted modern missing-list behavior."
+  ],
+  "remaining": [
+    "Compose complete Rabies start57/do121,ordinary transformed weapon packet,skill poison packet and initial payment. Verify source min/max/mastery/synergy capture phases,poison creation/state replacement/cure,marker and emitter lifecycles in native world code with actual input and save/reload.",
+    "Current executable path/seed/event/geometry,marker-versus-poison dispel behavior,caster death/logout/facet policy,initial miss/block/lost-target/payment and unsupported recipients remain uncertain. Preserve the running Hunger package. No Rabies handler,installation or final asset is enabled by this source probe; effects/icons remain separate."
+  ]
+}
