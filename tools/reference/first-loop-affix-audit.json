@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "4eacbd7e31892fd07c60d9dbc1d45071df792602a5677edbfc4a7887ae317bfb",
-  "ContentAssemblyPath": ".local/class-skills/warlock-ground-launch/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "f183bcc6f3e14081632dee40f63dbf6900cfbe17b611ad5eb17c1a4fb0bce433",
+  "ContentAssemblyPath": ".local/class-skills/iron-golem-items/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

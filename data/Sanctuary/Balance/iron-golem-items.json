@@ -1,0 +1,5538 @@
+[
+  {
+    "Code": "hax",
+    "ItemId": 0,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "axe",
+    "ItemId": 1,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "2ax",
+    "ItemId": 2,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "mpi",
+    "ItemId": 3,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wax",
+    "ItemId": 4,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lax",
+    "ItemId": 5,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bax",
+    "ItemId": 6,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "btx",
+    "ItemId": 7,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gax",
+    "ItemId": 8,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gix",
+    "ItemId": 9,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wnd",
+    "ItemId": 10,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ywn",
+    "ItemId": 11,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bwn",
+    "ItemId": 12,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gwn",
+    "ItemId": 13,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "clb",
+    "ItemId": 14,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "scp",
+    "ItemId": 15,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gsc",
+    "ItemId": 16,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wsp",
+    "ItemId": 17,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "spc",
+    "ItemId": 18,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "mac",
+    "ItemId": 19,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "mst",
+    "ItemId": 20,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "fla",
+    "ItemId": 21,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "whm",
+    "ItemId": 22,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "mau",
+    "ItemId": 23,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gma",
+    "ItemId": 24,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ssd",
+    "ItemId": 25,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "scm",
+    "ItemId": 26,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "sbr",
+    "ItemId": 27,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "flc",
+    "ItemId": 28,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "crs",
+    "ItemId": 29,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bsd",
+    "ItemId": 30,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lsd",
+    "ItemId": 31,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wsd",
+    "ItemId": 32,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "2hs",
+    "ItemId": 33,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "clm",
+    "ItemId": 34,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gis",
+    "ItemId": 35,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bsw",
+    "ItemId": 36,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "flb",
+    "ItemId": 37,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gsd",
+    "ItemId": 38,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "dgr",
+    "ItemId": 39,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "dir",
+    "ItemId": 40,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "kri",
+    "ItemId": 41,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bld",
+    "ItemId": 42,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "tkf",
+    "ItemId": 43,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "tax",
+    "ItemId": 44,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bkf",
+    "ItemId": 45,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bal",
+    "ItemId": 46,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "jav",
+    "ItemId": 47,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "pil",
+    "ItemId": 48,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ssp",
+    "ItemId": 49,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "glv",
+    "ItemId": 50,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "tsp",
+    "ItemId": 51,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "spr",
+    "ItemId": 52,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "tri",
+    "ItemId": 53,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "brn",
+    "ItemId": 54,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "spt",
+    "ItemId": 55,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "pik",
+    "ItemId": 56,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bar",
+    "ItemId": 57,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "vou",
+    "ItemId": 58,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "scy",
+    "ItemId": 59,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "pax",
+    "ItemId": 60,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "hal",
+    "ItemId": 61,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wsc",
+    "ItemId": 62,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "sst",
+    "ItemId": 63,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lst",
+    "ItemId": 64,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "cst",
+    "ItemId": 65,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "bst",
+    "ItemId": 66,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wst",
+    "ItemId": 67,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "sbw",
+    "ItemId": 68,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "hbw",
+    "ItemId": 69,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lbw",
+    "ItemId": 70,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "cbw",
+    "ItemId": 71,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "sbb",
+    "ItemId": 72,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lbb",
+    "ItemId": 73,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "swb",
+    "ItemId": 74,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lwb",
+    "ItemId": 75,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "lxb",
+    "ItemId": 76,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "mxb",
+    "ItemId": 77,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "hxb",
+    "ItemId": 78,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "rxb",
+    "ItemId": 79,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gps",
+    "ItemId": 80,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ops",
+    "ItemId": 81,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gpm",
+    "ItemId": 82,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "opm",
+    "ItemId": 83,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "gpl",
+    "ItemId": 84,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "opl",
+    "ItemId": 85,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "d33",
+    "ItemId": 86,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "g33",
+    "ItemId": 87,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "leg",
+    "ItemId": 88,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "hdm",
+    "ItemId": 89,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "hfh",
+    "ItemId": 90,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "hst",
+    "ItemId": 91,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "msf",
+    "ItemId": 92,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ha",
+    "ItemId": 93,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ax",
+    "ItemId": 94,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "92a",
+    "ItemId": 95,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9mp",
+    "ItemId": 96,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9wa",
+    "ItemId": 97,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9la",
+    "ItemId": 98,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ba",
+    "ItemId": 99,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9bt",
+    "ItemId": 100,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ga",
+    "ItemId": 101,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9gi",
+    "ItemId": 102,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9wn",
+    "ItemId": 103,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9yw",
+    "ItemId": 104,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9bw",
+    "ItemId": 105,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9gw",
+    "ItemId": 106,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9cl",
+    "ItemId": 107,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9sc",
+    "ItemId": 108,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9qs",
+    "ItemId": 109,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ws",
+    "ItemId": 110,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9sp",
+    "ItemId": 111,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ma",
+    "ItemId": 112,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9mt",
+    "ItemId": 113,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9fl",
+    "ItemId": 114,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9wh",
+    "ItemId": 115,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9m9",
+    "ItemId": 116,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9gm",
+    "ItemId": 117,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ss",
+    "ItemId": 118,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9sm",
+    "ItemId": 119,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9sb",
+    "ItemId": 120,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9fc",
+    "ItemId": 121,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9cr",
+    "ItemId": 122,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9bs",
+    "ItemId": 123,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ls",
+    "ItemId": 124,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9wd",
+    "ItemId": 125,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "92h",
+    "ItemId": 126,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9cm",
+    "ItemId": 127,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9gs",
+    "ItemId": 128,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9b9",
+    "ItemId": 129,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9fb",
+    "ItemId": 130,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9gd",
+    "ItemId": 131,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9dg",
+    "ItemId": 132,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9di",
+    "ItemId": 133,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9kr",
+    "ItemId": 134,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9bl",
+    "ItemId": 135,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9tk",
+    "ItemId": 136,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ta",
+    "ItemId": 137,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9bk",
+    "ItemId": 138,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9b8",
+    "ItemId": 139,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ja",
+    "ItemId": 140,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9pi",
+    "ItemId": 141,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9s9",
+    "ItemId": 142,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9gl",
+    "ItemId": 143,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ts",
+    "ItemId": 144,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9sr",
+    "ItemId": 145,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9tr",
+    "ItemId": 146,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9br",
+    "ItemId": 147,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9st",
+    "ItemId": 148,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9p9",
+    "ItemId": 149,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9b7",
+    "ItemId": 150,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9vo",
+    "ItemId": 151,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9s8",
+    "ItemId": 152,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9pa",
+    "ItemId": 153,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9h9",
+    "ItemId": 154,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9wc",
+    "ItemId": 155,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8ss",
+    "ItemId": 156,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8ls",
+    "ItemId": 157,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8cs",
+    "ItemId": 158,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8bs",
+    "ItemId": 159,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8ws",
+    "ItemId": 160,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8sb",
+    "ItemId": 161,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8hb",
+    "ItemId": 162,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8lb",
+    "ItemId": 163,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8cb",
+    "ItemId": 164,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8s8",
+    "ItemId": 165,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8l8",
+    "ItemId": 166,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8sw",
+    "ItemId": 167,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8lw",
+    "ItemId": 168,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8lx",
+    "ItemId": 169,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8mx",
+    "ItemId": 170,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8hx",
+    "ItemId": 171,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "8rx",
+    "ItemId": 172,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "qf1",
+    "ItemId": 173,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "qf2",
+    "ItemId": 174,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ktr",
+    "ItemId": 175,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "wrb",
+    "ItemId": 176,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "axf",
+    "ItemId": 177,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ces",
+    "ItemId": 178,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "clw",
+    "ItemId": 179,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "btl",
+    "ItemId": 180,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "skr",
+    "ItemId": 181,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9ar",
+    "ItemId": 182,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9wb",
+    "ItemId": 183,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9xf",
+    "ItemId": 184,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9cs",
+    "ItemId": 185,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9lw",
+    "ItemId": 186,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9tw",
+    "ItemId": 187,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "9qr",
+    "ItemId": 188,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ar",
+    "ItemId": 189,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7wb",
+    "ItemId": 190,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7xf",
+    "ItemId": 191,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7cs",
+    "ItemId": 192,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7lw",
+    "ItemId": 193,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7tw",
+    "ItemId": 194,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7qr",
+    "ItemId": 195,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ha",
+    "ItemId": 196,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ax",
+    "ItemId": 197,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "72a",
+    "ItemId": 198,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7mp",
+    "ItemId": 199,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7wa",
+    "ItemId": 200,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7la",
+    "ItemId": 201,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ba",
+    "ItemId": 202,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7bt",
+    "ItemId": 203,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ga",
+    "ItemId": 204,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7gi",
+    "ItemId": 205,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7wn",
+    "ItemId": 206,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7yw",
+    "ItemId": 207,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7bw",
+    "ItemId": 208,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7gw",
+    "ItemId": 209,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7cl",
+    "ItemId": 210,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7sc",
+    "ItemId": 211,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7qs",
+    "ItemId": 212,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ws",
+    "ItemId": 213,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7sp",
+    "ItemId": 214,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ma",
+    "ItemId": 215,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7mt",
+    "ItemId": 216,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7fl",
+    "ItemId": 217,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7wh",
+    "ItemId": 218,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7m7",
+    "ItemId": 219,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7gm",
+    "ItemId": 220,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ss",
+    "ItemId": 221,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7sm",
+    "ItemId": 222,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7sb",
+    "ItemId": 223,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7fc",
+    "ItemId": 224,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7cr",
+    "ItemId": 225,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7bs",
+    "ItemId": 226,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ls",
+    "ItemId": 227,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7wd",
+    "ItemId": 228,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "72h",
+    "ItemId": 229,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7cm",
+    "ItemId": 230,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7gs",
+    "ItemId": 231,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7b7",
+    "ItemId": 232,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7fb",
+    "ItemId": 233,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7gd",
+    "ItemId": 234,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7dg",
+    "ItemId": 235,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7di",
+    "ItemId": 236,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7kr",
+    "ItemId": 237,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7bl",
+    "ItemId": 238,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7tk",
+    "ItemId": 239,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ta",
+    "ItemId": 240,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7bk",
+    "ItemId": 241,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7b8",
+    "ItemId": 242,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ja",
+    "ItemId": 243,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7pi",
+    "ItemId": 244,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7s7",
+    "ItemId": 245,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7gl",
+    "ItemId": 246,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7ts",
+    "ItemId": 247,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7sr",
+    "ItemId": 248,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7tr",
+    "ItemId": 249,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7br",
+    "ItemId": 250,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7st",
+    "ItemId": 251,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7p7",
+    "ItemId": 252,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7o7",
+    "ItemId": 253,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7vo",
+    "ItemId": 254,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7s8",
+    "ItemId": 255,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7pa",
+    "ItemId": 256,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7h7",
+    "ItemId": 257,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "7wc",
+    "ItemId": 258,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6ss",
+    "ItemId": 259,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6ls",
+    "ItemId": 260,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6cs",
+    "ItemId": 261,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6bs",
+    "ItemId": 262,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6ws",
+    "ItemId": 263,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6sb",
+    "ItemId": 264,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6hb",
+    "ItemId": 265,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6lb",
+    "ItemId": 266,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6cb",
+    "ItemId": 267,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6s7",
+    "ItemId": 268,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6l7",
+    "ItemId": 269,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6sw",
+    "ItemId": 270,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6lw",
+    "ItemId": 271,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6lx",
+    "ItemId": 272,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6mx",
+    "ItemId": 273,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6hx",
+    "ItemId": 274,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "6rx",
+    "ItemId": 275,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob1",
+    "ItemId": 276,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob2",
+    "ItemId": 277,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob3",
+    "ItemId": 278,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob4",
+    "ItemId": 279,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob5",
+    "ItemId": 280,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am1",
+    "ItemId": 281,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am2",
+    "ItemId": 282,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am3",
+    "ItemId": 283,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am4",
+    "ItemId": 284,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am5",
+    "ItemId": 285,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob6",
+    "ItemId": 286,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob7",
+    "ItemId": 287,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob8",
+    "ItemId": 288,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ob9",
+    "ItemId": 289,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "oba",
+    "ItemId": 290,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am6",
+    "ItemId": 291,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am7",
+    "ItemId": 292,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am8",
+    "ItemId": 293,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "am9",
+    "ItemId": 294,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ama",
+    "ItemId": 295,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "obb",
+    "ItemId": 296,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "obc",
+    "ItemId": 297,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "obd",
+    "ItemId": 298,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "obe",
+    "ItemId": 299,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "obf",
+    "ItemId": 300,
+    "Flags": 5,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "amb",
+    "ItemId": 301,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "amc",
+    "ItemId": 302,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "amd",
+    "ItemId": 303,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "ame",
+    "ItemId": 304,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "amf",
+    "ItemId": 305,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "weapons"
+  },
+  {
+    "Code": "cap",
+    "ItemId": 306,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "skp",
+    "ItemId": 307,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "hlm",
+    "ItemId": 308,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "fhl",
+    "ItemId": 309,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ghm",
+    "ItemId": 310,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "crn",
+    "ItemId": 311,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "msk",
+    "ItemId": 312,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "qui",
+    "ItemId": 313,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "lea",
+    "ItemId": 314,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "hla",
+    "ItemId": 315,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "stu",
+    "ItemId": 316,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "rng",
+    "ItemId": 317,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "scl",
+    "ItemId": 318,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "chn",
+    "ItemId": 319,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "brs",
+    "ItemId": 320,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "spl",
+    "ItemId": 321,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "plt",
+    "ItemId": 322,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "fld",
+    "ItemId": 323,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "gth",
+    "ItemId": 324,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ful",
+    "ItemId": 325,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "aar",
+    "ItemId": 326,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ltp",
+    "ItemId": 327,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "buc",
+    "ItemId": 328,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "sml",
+    "ItemId": 329,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "lrg",
+    "ItemId": 330,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "kit",
+    "ItemId": 331,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "tow",
+    "ItemId": 332,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "gts",
+    "ItemId": 333,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "lgl",
+    "ItemId": 334,
+    "Flags": 1,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "vgl",
+    "ItemId": 335,
+    "Flags": 1,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "mgl",
+    "ItemId": 336,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "tgl",
+    "ItemId": 337,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "hgl",
+    "ItemId": 338,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "lbt",
+    "ItemId": 339,
+    "Flags": 1,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "vbt",
+    "ItemId": 340,
+    "Flags": 1,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "mbt",
+    "ItemId": 341,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "tbt",
+    "ItemId": 342,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "hbt",
+    "ItemId": 343,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "lbl",
+    "ItemId": 344,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "vbl",
+    "ItemId": 345,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "mbl",
+    "ItemId": 346,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "tbl",
+    "ItemId": 347,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "hbl",
+    "ItemId": 348,
+    "Flags": 3,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "bhm",
+    "ItemId": 349,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "bsh",
+    "ItemId": 350,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "spk",
+    "ItemId": 351,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xap",
+    "ItemId": 352,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xkp",
+    "ItemId": 353,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xlm",
+    "ItemId": 354,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xhl",
+    "ItemId": 355,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xhm",
+    "ItemId": 356,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xrn",
+    "ItemId": 357,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xsk",
+    "ItemId": 358,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xui",
+    "ItemId": 359,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xea",
+    "ItemId": 360,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xla",
+    "ItemId": 361,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xtu",
+    "ItemId": 362,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xng",
+    "ItemId": 363,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xcl",
+    "ItemId": 364,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xhn",
+    "ItemId": 365,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xrs",
+    "ItemId": 366,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xpl",
+    "ItemId": 367,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xlt",
+    "ItemId": 368,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xld",
+    "ItemId": 369,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xth",
+    "ItemId": 370,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xul",
+    "ItemId": 371,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xar",
+    "ItemId": 372,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xtp",
+    "ItemId": 373,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xuc",
+    "ItemId": 374,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xml",
+    "ItemId": 375,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xrg",
+    "ItemId": 376,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xit",
+    "ItemId": 377,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xow",
+    "ItemId": 378,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xts",
+    "ItemId": 379,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xlg",
+    "ItemId": 380,
+    "Flags": 1,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xvg",
+    "ItemId": 381,
+    "Flags": 1,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xmg",
+    "ItemId": 382,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xtg",
+    "ItemId": 383,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xhg",
+    "ItemId": 384,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xlb",
+    "ItemId": 385,
+    "Flags": 1,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xvb",
+    "ItemId": 386,
+    "Flags": 1,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xmb",
+    "ItemId": 387,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xtb",
+    "ItemId": 388,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xhb",
+    "ItemId": 389,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "zlb",
+    "ItemId": 390,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "zvb",
+    "ItemId": 391,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "zmb",
+    "ItemId": 392,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ztb",
+    "ItemId": 393,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "zhb",
+    "ItemId": 394,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xh9",
+    "ItemId": 395,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xsh",
+    "ItemId": 396,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "xpk",
+    "ItemId": 397,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr1",
+    "ItemId": 398,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr2",
+    "ItemId": 399,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr3",
+    "ItemId": 400,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr4",
+    "ItemId": 401,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr5",
+    "ItemId": 402,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba1",
+    "ItemId": 403,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba2",
+    "ItemId": 404,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba3",
+    "ItemId": 405,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba4",
+    "ItemId": 406,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba5",
+    "ItemId": 407,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa1",
+    "ItemId": 408,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa2",
+    "ItemId": 409,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa3",
+    "ItemId": 410,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa4",
+    "ItemId": 411,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa5",
+    "ItemId": 412,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne1",
+    "ItemId": 413,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne2",
+    "ItemId": 414,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne3",
+    "ItemId": 415,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne4",
+    "ItemId": 416,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne5",
+    "ItemId": 417,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ci0",
+    "ItemId": 418,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ci1",
+    "ItemId": 419,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ci2",
+    "ItemId": 420,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ci3",
+    "ItemId": 421,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uap",
+    "ItemId": 422,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ukp",
+    "ItemId": 423,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ulm",
+    "ItemId": 424,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uhl",
+    "ItemId": 425,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uhm",
+    "ItemId": 426,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "urn",
+    "ItemId": 427,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "usk",
+    "ItemId": 428,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uui",
+    "ItemId": 429,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uea",
+    "ItemId": 430,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ula",
+    "ItemId": 431,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "utu",
+    "ItemId": 432,
+    "Flags": 1,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ung",
+    "ItemId": 433,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ucl",
+    "ItemId": 434,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uhn",
+    "ItemId": 435,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "urs",
+    "ItemId": 436,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "upl",
+    "ItemId": 437,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ult",
+    "ItemId": 438,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uld",
+    "ItemId": 439,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uth",
+    "ItemId": 440,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uul",
+    "ItemId": 441,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uar",
+    "ItemId": 442,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "utp",
+    "ItemId": 443,
+    "Flags": 3,
+    "Body1": 3,
+    "Body2": 3,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uuc",
+    "ItemId": 444,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uml",
+    "ItemId": 445,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "urg",
+    "ItemId": 446,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uit",
+    "ItemId": 447,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uow",
+    "ItemId": 448,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uts",
+    "ItemId": 449,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ulg",
+    "ItemId": 450,
+    "Flags": 1,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uvg",
+    "ItemId": 451,
+    "Flags": 1,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "umg",
+    "ItemId": 452,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "utg",
+    "ItemId": 453,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uhg",
+    "ItemId": 454,
+    "Flags": 3,
+    "Body1": 10,
+    "Body2": 10,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ulb",
+    "ItemId": 455,
+    "Flags": 1,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uvb",
+    "ItemId": 456,
+    "Flags": 1,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "umb",
+    "ItemId": 457,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "utb",
+    "ItemId": 458,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uhb",
+    "ItemId": 459,
+    "Flags": 3,
+    "Body1": 9,
+    "Body2": 9,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ulc",
+    "ItemId": 460,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uvc",
+    "ItemId": 461,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "umc",
+    "ItemId": 462,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "utc",
+    "ItemId": 463,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uhc",
+    "ItemId": 464,
+    "Flags": 1,
+    "Body1": 8,
+    "Body2": 8,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "uh9",
+    "ItemId": 465,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ush",
+    "ItemId": 466,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "upk",
+    "ItemId": 467,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr6",
+    "ItemId": 468,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr7",
+    "ItemId": 469,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr8",
+    "ItemId": 470,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dr9",
+    "ItemId": 471,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dra",
+    "ItemId": 472,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba6",
+    "ItemId": 473,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba7",
+    "ItemId": 474,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba8",
+    "ItemId": 475,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ba9",
+    "ItemId": 476,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "baa",
+    "ItemId": 477,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa6",
+    "ItemId": 478,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa7",
+    "ItemId": 479,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa8",
+    "ItemId": 480,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pa9",
+    "ItemId": 481,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "paa",
+    "ItemId": 482,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne6",
+    "ItemId": 483,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne7",
+    "ItemId": 484,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne8",
+    "ItemId": 485,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ne9",
+    "ItemId": 486,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "nea",
+    "ItemId": 487,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "drb",
+    "ItemId": 488,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "drc",
+    "ItemId": 489,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "drd",
+    "ItemId": 490,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "dre",
+    "ItemId": 491,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "drf",
+    "ItemId": 492,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "bab",
+    "ItemId": 493,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "bac",
+    "ItemId": 494,
+    "Flags": 1,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "bad",
+    "ItemId": 495,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "bae",
+    "ItemId": 496,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "baf",
+    "ItemId": 497,
+    "Flags": 3,
+    "Body1": 1,
+    "Body2": 1,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pab",
+    "ItemId": 498,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pac",
+    "ItemId": 499,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pad",
+    "ItemId": 500,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "pae",
+    "ItemId": 501,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "paf",
+    "ItemId": 502,
+    "Flags": 3,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "neb",
+    "ItemId": 503,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "neg",
+    "ItemId": 504,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "ned",
+    "ItemId": 505,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "nee",
+    "ItemId": 506,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "nef",
+    "ItemId": 507,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa1",
+    "ItemId": 508,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa2",
+    "ItemId": 509,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa3",
+    "ItemId": 510,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa4",
+    "ItemId": 511,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa5",
+    "ItemId": 512,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa6",
+    "ItemId": 513,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa7",
+    "ItemId": 514,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa8",
+    "ItemId": 515,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wa9",
+    "ItemId": 516,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "waa",
+    "ItemId": 517,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wab",
+    "ItemId": 518,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wac",
+    "ItemId": 519,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wad",
+    "ItemId": 520,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "wae",
+    "ItemId": 521,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "waf",
+    "ItemId": 522,
+    "Flags": 1,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "armor"
+  },
+  {
+    "Code": "elx",
+    "ItemId": 523,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hpo",
+    "ItemId": 524,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mpo",
+    "ItemId": 525,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hpf",
+    "ItemId": 526,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mpf",
+    "ItemId": 527,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "vps",
+    "ItemId": 528,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "yps",
+    "ItemId": 529,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "rvs",
+    "ItemId": 530,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "rvl",
+    "ItemId": 531,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "wms",
+    "ItemId": 532,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tbk",
+    "ItemId": 533,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ibk",
+    "ItemId": 534,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "amu",
+    "ItemId": 535,
+    "Flags": 1,
+    "Body1": 2,
+    "Body2": 2,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "vip",
+    "ItemId": 536,
+    "Flags": 1,
+    "Body1": 2,
+    "Body2": 2,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "rin",
+    "ItemId": 537,
+    "Flags": 1,
+    "Body1": 6,
+    "Body2": 7,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gld",
+    "ItemId": 538,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bks",
+    "ItemId": 539,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bkd",
+    "ItemId": 540,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "aqv",
+    "ItemId": 541,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tch",
+    "ItemId": 542,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "cqv",
+    "ItemId": 543,
+    "Flags": 0,
+    "Body1": 4,
+    "Body2": 5,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tsc",
+    "ItemId": 544,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "isc",
+    "ItemId": 545,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hrt",
+    "ItemId": 546,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "brz",
+    "ItemId": 547,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "jaw",
+    "ItemId": 548,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "eyz",
+    "ItemId": 549,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hrn",
+    "ItemId": 550,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tal",
+    "ItemId": 551,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "flg",
+    "ItemId": 552,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "fng",
+    "ItemId": 553,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "qll",
+    "ItemId": 554,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "sol",
+    "ItemId": 555,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "scz",
+    "ItemId": 556,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "spe",
+    "ItemId": 557,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "key",
+    "ItemId": 558,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "luv",
+    "ItemId": 559,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "xyz",
+    "ItemId": 560,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "j34",
+    "ItemId": 561,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "g34",
+    "ItemId": 562,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bbb",
+    "ItemId": 563,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "box",
+    "ItemId": 564,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tr1",
+    "ItemId": 565,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mss",
+    "ItemId": 566,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ass",
+    "ItemId": 567,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "qey",
+    "ItemId": 568,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "qhr",
+    "ItemId": 569,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "qbr",
+    "ItemId": 570,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ear",
+    "ItemId": 571,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gcv",
+    "ItemId": 572,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gfv",
+    "ItemId": 573,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gsv",
+    "ItemId": 574,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gzv",
+    "ItemId": 575,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gpv",
+    "ItemId": 576,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gcy",
+    "ItemId": 577,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gfy",
+    "ItemId": 578,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gsy",
+    "ItemId": 579,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gly",
+    "ItemId": 580,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gpy",
+    "ItemId": 581,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gcb",
+    "ItemId": 582,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gfb",
+    "ItemId": 583,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gsb",
+    "ItemId": 584,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "glb",
+    "ItemId": 585,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gpb",
+    "ItemId": 586,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gcg",
+    "ItemId": 587,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gfg",
+    "ItemId": 588,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gsg",
+    "ItemId": 589,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "glg",
+    "ItemId": 590,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gpg",
+    "ItemId": 591,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gcr",
+    "ItemId": 592,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gfr",
+    "ItemId": 593,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gsr",
+    "ItemId": 594,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "glr",
+    "ItemId": 595,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gpr",
+    "ItemId": 596,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gcw",
+    "ItemId": 597,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gfw",
+    "ItemId": 598,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gsw",
+    "ItemId": 599,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "glw",
+    "ItemId": 600,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "gpw",
+    "ItemId": 601,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hp1",
+    "ItemId": 602,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hp2",
+    "ItemId": 603,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hp3",
+    "ItemId": 604,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hp4",
+    "ItemId": 605,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hp5",
+    "ItemId": 606,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mp1",
+    "ItemId": 607,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mp2",
+    "ItemId": 608,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mp3",
+    "ItemId": 609,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mp4",
+    "ItemId": 610,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mp5",
+    "ItemId": 611,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "skc",
+    "ItemId": 612,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "skf",
+    "ItemId": 613,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "sku",
+    "ItemId": 614,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "skl",
+    "ItemId": 615,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "skz",
+    "ItemId": 616,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "hrb",
+    "ItemId": 617,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "cm1",
+    "ItemId": 618,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "cm2",
+    "ItemId": 619,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "cm3",
+    "ItemId": 620,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "rps",
+    "ItemId": 621,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "rpl",
+    "ItemId": 622,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bps",
+    "ItemId": 623,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bpl",
+    "ItemId": 624,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r01",
+    "ItemId": 625,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r02",
+    "ItemId": 626,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r03",
+    "ItemId": 627,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r04",
+    "ItemId": 628,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r05",
+    "ItemId": 629,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r06",
+    "ItemId": 630,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r07",
+    "ItemId": 631,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r08",
+    "ItemId": 632,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r09",
+    "ItemId": 633,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r10",
+    "ItemId": 634,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r11",
+    "ItemId": 635,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r12",
+    "ItemId": 636,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r13",
+    "ItemId": 637,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r14",
+    "ItemId": 638,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r15",
+    "ItemId": 639,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r16",
+    "ItemId": 640,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r17",
+    "ItemId": 641,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r18",
+    "ItemId": 642,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r19",
+    "ItemId": 643,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r20",
+    "ItemId": 644,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r21",
+    "ItemId": 645,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r22",
+    "ItemId": 646,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r23",
+    "ItemId": 647,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r24",
+    "ItemId": 648,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r25",
+    "ItemId": 649,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r26",
+    "ItemId": 650,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r27",
+    "ItemId": 651,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r28",
+    "ItemId": 652,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r29",
+    "ItemId": 653,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r30",
+    "ItemId": 654,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r31",
+    "ItemId": 655,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r32",
+    "ItemId": 656,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "r33",
+    "ItemId": 657,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "jew",
+    "ItemId": 658,
+    "Flags": 1,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ice",
+    "ItemId": 659,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "0sc",
+    "ItemId": 660,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tr2",
+    "ItemId": 661,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "pk1",
+    "ItemId": 662,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "pk2",
+    "ItemId": 663,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "pk3",
+    "ItemId": 664,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "dhn",
+    "ItemId": 665,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bey",
+    "ItemId": 666,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "mbr",
+    "ItemId": 667,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "toa",
+    "ItemId": 668,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "tes",
+    "ItemId": 669,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ceh",
+    "ItemId": 670,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "bet",
+    "ItemId": 671,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "fed",
+    "ItemId": 672,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "std",
+    "ItemId": 673,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "xa1",
+    "ItemId": 674,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "xa2",
+    "ItemId": 675,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "xa3",
+    "ItemId": 676,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "xa4",
+    "ItemId": 677,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "xa5",
+    "ItemId": 678,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ua1",
+    "ItemId": 679,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ua2",
+    "ItemId": 680,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ua3",
+    "ItemId": 681,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ua4",
+    "ItemId": 682,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "ua5",
+    "ItemId": 683,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "um1",
+    "ItemId": 684,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "um2",
+    "ItemId": 685,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "um3",
+    "ItemId": 686,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "um4",
+    "ItemId": 687,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "um5",
+    "ItemId": 688,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "um6",
+    "ItemId": 689,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "cjw",
+    "ItemId": 690,
+    "Flags": 1,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  },
+  {
+    "Code": "cs2",
+    "ItemId": 691,
+    "Flags": 0,
+    "Body1": 0,
+    "Body2": 0,
+    "SourceTable": "misc"
+  }
+]

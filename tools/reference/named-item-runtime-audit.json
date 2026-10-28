@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "4eacbd7e31892fd07c60d9dbc1d45071df792602a5677edbfc4a7887ae317bfb",
+  "ContentAssemblySha256": "f183bcc6f3e14081632dee40f63dbf6900cfbe17b611ad5eb17c1a4fb0bce433",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -56,6 +56,7 @@
     "data/Sanctuary/Balance/imbuing-tiers.json": "0bb3fb6968e86c86b0bfae4abebcde9dadd89b594aa7706f8c7ba32d1cf118ce",
     "data/Sanctuary/Balance/inscription-utilities.json": "b582330f29557a74f0e991150abf182ac2f6c2e208ae8b65652c213617affd67",
     "data/Sanctuary/Balance/insurance.json": "075cac439a1f319c2a3ce547b565c992d677ac4d0edd549b63ed3271b57172ac",
+    "data/Sanctuary/Balance/iron-golem-items.json": "534e9ec6bb71ae3989414f55ac70e3436f6ae7cf43db7b75cc1d36baa9f5050c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
     "data/Sanctuary/Balance/jewellery-grades.json": "941828b133ef89e4c6a1f61460f5bdfd064a08fd09f653527c4cfe2b898f4025",
     "data/Sanctuary/Balance/kick-boots.json": "e9d75fa929eb325dabfdfd68ce8098a6629273b160881c0cac9650ce9412085f",
@@ -529,6 +530,8 @@
     "src/Sanctuary.Content/InscriptionGump.cs": "277c3324ffa276f2714265e6d5f7eeb9e45721ba39f8e6ebc6b98768212b7761",
     "src/Sanctuary.Content/InsuranceGump.cs": "9199fca404c7b235b45a47e109cbfad5c3ecc5722f9d9073c08ae6c8ea9c2a96",
     "src/Sanctuary.Content/InsuranceProfiles.cs": "2a7d9f9ad03f4dee259fb2867b65a339d88ca298ee08a0f209bb7d7a04e5ecb2",
+    "src/Sanctuary.Content/IronGolemItemCast.cs": "a19fdc85bdd601864d2656d973df7a25d890ef11b2d2a0a54f3a1f380c27dae3",
+    "src/Sanctuary.Content/IronGolemItems.cs": "608c6cee5eb2a7fae1366ee36b28a9edc3d5efb65d8b52bb71317a38e4310664",
     "src/Sanctuary.Content/JewelleryCrafting.cs": "a4c86d8e4d739768ec0efec16f7bd4bdd24704bd0d94cb1ae521ade67c67935c",
     "src/Sanctuary.Content/LandingReservations.cs": "cd2f123547c5df86aad9aef498c8764ace5365c838277101c299105753fb482c",
     "src/Sanctuary.Content/LeapGeometry.cs": "29bde817512de3c6b20e09808eaec7219574a20e6a1c2b9676e9c62d93e21a47",
