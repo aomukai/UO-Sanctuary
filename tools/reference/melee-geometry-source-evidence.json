@@ -1,0 +1,69 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Complete melee distance, NPC reach, collision endpoints and range predicate",
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "handlerEnabled": false,
+  "compiledUnchangedRoutineHashes": {
+    "D2Common_10399": "7bed0291cee73d6fbc0def3ad0457bee245affbc0ffcd505e797db46399f09b6",
+    "UNITS_GetMeleeRange": "5adf30261b4b602ee82c53db33485f16821b3c3f9d52e5a77bc55ea4aaa44c0c",
+    "UNITS_TestCollision": "fb64b30091366d788d2aa61782dd3d8ea295262f84e734f61967913e75b33393",
+    "UNITS_TestCollisionWithUnit": "fd00661a4e0f7c1faea53306a315eb8e77366ca6b0e111e01beeaa7f2712c4c3",
+    "UNITS_IsInMeleeRange": "a1bbda0e98fcd12bdc8782d215e1bd8bfd14f5cd4103cb4521cee4f3c70d501e"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "tools/probe_melee_geometry.py": "7291a6ce710f219068c869e2540219a0ec77e9dcd0fdeb1d404ca3c4263315a8"
+  },
+  "artifacts": {
+    ".local/class-skills/melee-geometry-source/source.cpp": "c316d39bfa58b7bcb305390663bbce9959bc266c7136343f3e978f765f45ca04",
+    ".local/class-skills/melee-geometry-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/melee-geometry-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/melee-geometry-source-probe.json": "bbb0a0e1085c3f88b5a6a535805e49284e89009d5da3305fef8f04c7774cb72c",
+    "data/Sanctuary/Balance/npc-melee-geometry.json": "16d651e7047b363f8b15d072f043faea06a1bf0ae6cd6564953c5d5f7ded0c36",
+    ".local/class-skills/melee-geometry-source/diagnostics/initial-mask-label-preflight.log": "e948c690ba6222b024d92df166aaac651302c3e46dffc32b6814959485602d0f"
+  },
+  "verified": {
+    "geometryContexts": 32400,
+    "rangeContexts": 91464,
+    "currentNpcProfiles": [
+      {
+        "Key": "warbighead",
+        "BaseId": 743,
+        "Size": 3,
+        "RawRange": 0
+      },
+      {
+        "Key": "wargoatman",
+        "BaseId": 742,
+        "Size": 2,
+        "RawRange": 2
+      },
+      {
+        "Key": "warputriddefiler",
+        "BaseId": 744,
+        "Size": 2,
+        "RawRange": 0
+      }
+    ],
+    "flyingCollisionMask": 2052,
+    "tentacleBaseIds": [
+      258,
+      261
+    ]
+  },
+  "established": [
+    "Five complete unchanged routines compose source melee distance, NPC row reach including255weapon-class sentinel, collision endpoint shrinking and final range. Collision-ray service records exact endpoint requests and mask0x804;overlap or missing attacker room avoids the ray. Tentacle special reach uses a strict comparison and bypasses ordinary collision on success;zero distance also bypasses collision.",
+    "The distance table uses distinct near-field size rules and a separate far/size>=4 branch. Full-axis source sizes0..255 are tested,including size0 and255. Current owned rows pin the three demon size/reach/base-ID profiles and corroborate special target IDs."
+  ],
+  "remaining": [
+    "The ray body,collision grids/doors/barriers,world facet/height mapping,source base-ID resolution,live monster metadata and current executable linkage remain explicit external services. Player weapon range is not exercised;its inventory branch is retained unchanged but unreachable in these NPC-attacker fixtures. No learned summon or class completion is certified."
+  ]
+}

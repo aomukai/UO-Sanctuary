@@ -1,0 +1,20 @@
+[
+  {
+    "Key": "warbighead",
+    "BaseId": 743,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "wargoatman",
+    "BaseId": 742,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "warputriddefiler",
+    "BaseId": 744,
+    "Size": 2,
+    "RawRange": 0
+  }
+]

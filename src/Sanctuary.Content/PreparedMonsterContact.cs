@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
@@ -16,6 +17,13 @@ internal abstract class MonsterContactServices
     internal abstract bool AttackerAllowedInTown();
     internal abstract bool DefenderKillable();
     internal abstract bool DefenderDead();
+}
+internal abstract class GeometricMonsterContactServices:MonsterContactServices
+{
+    internal abstract MeleeGeometryUnit AttackerGeometry();
+    internal abstract MeleeGeometryUnit DefenderGeometry();
+    internal abstract bool CollisionRay(Point2D first,Point2D second,int mask);
+    internal override bool InMeleeRange(int bonus)=>SourceMeleeGeometry.Within(AttackerGeometry(),DefenderGeometry(),bonus,CollisionRay);
 }
 internal enum MonsterContactExit{MissingPacket,OutOfRangeFreed,DeathModeRetained,Finished}
 internal sealed record MonsterContactResult(MonsterContactExit Exit,PreparedMonsterDamagePacket Packet,

@@ -21,12 +21,7 @@ internal static class DruidWolfGeometry
     internal static int MeleeDistance(Point2D a,Point2D b,int firstSize,int secondSize)
     {
         if(firstSize is <0 or >3 || secondSize is <0 or >3){throw new NotSupportedException("Unsupported mapped wolf melee size");}
-        int x=Math.Abs(a.X-b.X),y=Math.Abs(a.Y-b.Y);
-        if(x>=8 || y>=8)
-        {int size=firstSize/2+secondSize/2;return Math.Min(Math.Max(0,x-size),Math.Max(0,y-size))+2*Math.Max(Math.Max(0,x-size),Math.Max(0,y-size));}
-        int d=SourceTowardPath.ShortDistance(x,y);if(d<0){return 0;}
-        if(firstSize==3 || secondSize==3){d=Math.Max(0,d-1);}
-        return d+(firstSize<=1 || secondSize<=1?1:0);
+        return SourceMeleeGeometry.Distance(a,b,firstSize,secondSize);
     }
     internal static (int Action,int End) Clock(string mode,int? suppliedSpeed=null,string source="spiritwolf-animation")
     {
