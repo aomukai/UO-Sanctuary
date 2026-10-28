@@ -47,7 +47,9 @@ def record(check=False):
     verified = native['verified']
     assert verified['passMarkers'] == 72 and verified['retainedDruidMarkers'] == 193 and verified['fullClassMarkers'] == 1184
     assert verified['boots'] == verified['fullClassBoots'] == 3 and verified['actualReloads'] == verified['fullClassReloads'] == 2
-    assert verified['actualCreeper frame correctionInputs'] == 9 and verified['retainedMeleeInputs'] == 30
+    assert verified['actualFuryInputs'] == 9 and verified['retainedMeleeInputs'] == 30
+    assert verified['sourceFrameVectors'] == 7400 and verified['actualMatSteps'] == 7375
+    assert native['profile'] == 'charged-motion-elapsed-age-contact-v2' and not native['learnedHandlerEnabled']
     ns = runpy.run_path(str(runtime / 'dev'))
     ns['require_stopped']('server')
     ns['require_stopped']('client')
