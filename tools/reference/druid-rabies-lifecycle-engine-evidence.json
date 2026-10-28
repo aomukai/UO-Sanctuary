@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "completeRoutineHashes": {
+    "MISSILE_AllocMissileData": "ac02d00a58fa6188d06d1d25b921c6d0b1cc513ca42e03f885d1e2297991643a",
+    "MISSILE_SetTotalFrames": "67cbc746068a4163080ebefb21cedd13f4608307b69ea94326c91aeece158826",
+    "MISSILE_SetCurrentFrame": "b7ed6b7d8a4d9291dd270abc388de19f76327c87fbf36f69d01329723cf6f0eb",
+    "MISSILE_GetCurrentFrame": "dd0993c6c1eb35da18600d9706b5e32a3c0aa0e2a459fccd407beef4db85e296",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "MISSILE_SetActivateFrame": "c00efe22d05d90cd998186a897788109b5ca094a132a2310680386a12d3eed47",
+    "MISSILE_GetActivateFrame": "a0749457c7dcacfb26f15a49a1fa06e8c6157c46960debff1a4ae8210bbf8e84",
+    "MISSILE_SetTargetX": "311ecd01dbfef017178cb8f59d76416500d7dfa581e7edbfe786c1494642c594",
+    "MISSILE_GetTargetX": "6501371e1dd0fd1d986893fb2e9d0c7873d0ba6a3b530a035505778c3ed0d674",
+    "MISSILE_SetTargetY": "af3d66a6221ba76a361c1397904d237c3f52fbdcacf16c0025a69e3c289f6cd3",
+    "MISSILE_GetTargetY": "22953b91788c79525d62af861bfbe713521e578c58445cdd384fe94495618ee3",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19",
+    "MISSMODE_SrvDo30_RabiesPlague": "9d8dcc27a7fcf87e5b2f491efda86ec52fdd95c02ccc43a984fe0eb38912755a"
+  },
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "emitterContexts": 1275,
+  "childContexts": 5,
+  "fixture": {
+    "path": ".local/class-skills/druid-rabies-lifecycle-source-probe.json",
+    "sha256": "b970f5fc492b641e51a719ec0d0e9854438a60e55f01e9f90a45b365bef487a6"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-rabies-lifecycle-source-probe.cpp": "4a4a9f28af32efffb0f186fb640405ce73be4f633ab250a21ec7fbcb7405c2af",
+    ".local/class-skills/druid-rabies-lifecycle-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-rabies-lifecycle-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete do30 plus generic collision, original getters/setters and zeroing allocator execute across all255ranks and five marker/owner cases. Emitter births observe elapsed ages0,4,etc,including age=total when divisible by4. Generic ending returns are ignored twice; do30returns2at the total+2callback with current=-1. Host death or missing original caster retires on its next callback.",
+    "A marker removed before the tail leaves newly allocated child targetXzero through the complete allocator/getter. A replacement marker instead supplies its new absolute deadline while the old emitter retains its original rank/caster. State-list expiration/replacement times are explicit independent inputs,not a claimed modern global event order.",
+    "Complete basic child collision decrements20to0, permits ordinary flagged scans at callback2through19, and returns2at20. Bad path flags retire after the first decrement; zero flags suppress scans but retain lifetime. Moving-path service is invoked before each decrement. Real path motion/collision/HP are declared boundaries."
+  ],
+  "limits": [
+    "World/path/room, movement, stat-list existence/deadline, random offsets, child factory and ending router are declared services. Full allocator/getters/do30/basic/generic collision bodies execute unchanged under ASan/UBSan; the complete router and full relative-origin factory have separate earlier proofs. No actual modern unit-list/event order,ABI,global seed or Fog geometry is certified.",
+    "Native migration,independent markers/emitters,tail/replacement ownership,invalid deadline delivery and actual reload acceptance remain separate. No learned Rabies handler or installation is enabled by source preparation."
+  ]
+}

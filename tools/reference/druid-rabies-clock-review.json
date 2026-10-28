@@ -27,7 +27,7 @@
     "The marker remove callback is pinned separately. Source emitter creation is an independent missile owned by the infected host, with original caster identity in metadata. Marker and emitter must be independently representable before claiming complete lifecycle parity; their clocks cannot be silently collapsed."
   ],
   "nativePreparationLimits": [
-    "The current prepared native ledger combines one emitter with its marker and removes both at marker deadline. It verifies ordinary same-facet propagation, poison cure independence, no-refresh deadlines and saved paths/seeds, but does not yet represent the source negative-frame emitter tail or overlapping old/new emitters on a replaced marker. Casting remains disabled.",
+    "Historical9e104e8preparation combined an emitter with its marker and stopped both at the marker deadline. The later lifecycle source/native evidence records separate markers/emitters, negative-current retirement, replacement-marker deadlines, zeroed missing-marker metadata and version0 migration. This static review remains distinct from that compiled/native acceptance; casting remains disabled.",
     "Exact modern unit/event tie order, Fog path integration, source factory default deadline when no marker exists, global player/missile seed streams, Slow Missiles damage capture, and original-caster death/logout/facet behavior remain explicit gaps. This is a static source review, not a new compiled or current-executable certificate."
   ]
 }

@@ -35,7 +35,7 @@ public static class DruidRabiesInfectionChecks
         foreach(var type in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Poison,ResistanceType.Energy}){target.SetResistance(type,0);}return target;
     }
     private static TimedEffectState[] Poison(uint a,uint b)=>TimedEffects.Snapshot().Where(x=>x.Owner==a||x.Owner==b).OrderBy(x=>x.Owner).ToArray();
-    private static void Cases()
+    internal static void Cases()
     {
         var owner=Fresh();var host=Target(owner,1);var other=Target(owner,8);var third=Target(owner,10);
         var original=DruidRabiesInfections.Snapshot();var low=DruidRabiesInfections.SeedLow;
@@ -44,7 +44,7 @@ public static class DruidRabiesInfectionChecks
             DruidRabiesInfections.SeedLow=()=>17;var at=TimedEffects.Now.Add(FixtureSpace.Retention);
             int mana=NecromancerEffects.ManaBalance256(owner);
             var first=DruidRabiesInfections.Mark(owner,host,1,100,at);
-            Require(first.UntilUtc==at.AddSeconds(4)&&first.Rank==1&&first.Age==0,"Initial infection lifetime/rank");
+            Require(first.UntilUtc==at.AddSeconds(4)&&first.Rank==1&&first.StartedUtc==at,"Initial infection lifetime/rank");
             Require(DruidRabiesInfections.Mark(owner,host,20,290,at.AddMilliseconds(200))==first,"Repeated bite refreshed deadline, rank or owner");
             Require(NecromancerEffects.ManaBalance256(owner)==mana,"Infection marking spent cast mana");
             DruidRabiesInfections.Tick(at.AddMilliseconds(40),true,owner.Serial.Value);
@@ -79,7 +79,7 @@ public static class DruidRabiesInfectionChecks
             // Existing children are independent after their spawning host dies.
             host.Kill();var children=DruidRabiesInfections.Children(owner.Serial.Value).Select(x=>x.Id).ToArray();
             DruidRabiesInfections.Tick(at.AddMilliseconds(240),true,owner.Serial.Value);
-            Require(DruidRabiesInfections.Infection(host) is{Emitting:false}&&children.All(id=>DruidRabiesInfections.Children(owner.Serial.Value).Any(x=>x.Id==id)),"Host death erased emitted children or kept emitting");
+            Require(DruidRabiesInfections.Infection(host)!=null&&DruidRabiesInfections.Emitters(owner.Serial.Value).All(x=>x.Host!=host.Serial.Value)&&children.All(id=>DruidRabiesInfections.Children(owner.Serial.Value).Any(x=>x.Id==id)),"Host death erased emitted children or kept emitting");
             Require(DruidRabiesInfections.Contact(moved,owner,other,first.UntilUtc.AddMilliseconds(-400),out _),"Inclusive10frame contact was rejected");
             Require(!DruidRabiesInfections.Contact(moved,owner,third,first.UntilUtc.AddMilliseconds(-360),out _),"Invalid9frame contact retained child");
             DruidRabiesInfections.Tick(at.AddMinutes(1),false,owner.Serial.Value);
