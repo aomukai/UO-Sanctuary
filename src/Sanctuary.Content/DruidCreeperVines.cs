@@ -27,15 +27,17 @@ internal static class DruidCreeperVines
         }
         return heads;
     }
-    internal static bool EmitsTrail(int remainingFrames,int parameter)
-        =>remainingFrames%Math.Max(parameter,1)==0;
-    internal static bool EmitsTrail(int remainingFrames)
+    // Legacy MISSILE_GetRemainingFrames is total minus current countdown:
+    // elapsed age, despite its name. Do not pass native Remaining here.
+    internal static bool EmitsTrail(int ageFrames,int parameter)
+        =>ageFrames%Math.Max(parameter,1)==0;
+    internal static bool EmitsTrail(int ageFrames)
     {
         if(NecromancerSummons.Source("plague vines","pSrvDoFunc")!=26)
         {throw new NotSupportedException("Unsupported plague-vines head callback");}
-        return EmitsTrail(remainingFrames,NecromancerSummons.Source("plague vines","Param1"));
+        return EmitsTrail(ageFrames,NecromancerSummons.Source("plague vines","Param1"));
     }
-    internal static CreeperTrailContact Contact(int totalFrames,int remainingFrames,uint lastCollision,uint victim,
+    internal static CreeperTrailContact Contact(int totalFrames,int ageFrames,uint lastCollision,uint victim,
         bool hasOwner,bool hostile,bool ending)
     {
         if(NecromancerSummons.Source("plague vines trail","pSrvHitFunc")!=50
@@ -48,9 +50,10 @@ internal static class DruidCreeperVines
             lastCollision=victim;
             if(hasOwner && !hostile){return new(false,false,false,lastCollision);}
         }
-        // Full hit50/router: age15 is still inactive; damage bit2 begins at16.
+        // Full hit50/router permits early contacts and excludes the last15
+        // frames. Its misleading RemainingFrames getter returns elapsed age.
         // LastCollide has already changed, including on inactive/refused hits.
-        bool damage=victim!=0 && (long)remainingFrames<(long)totalFrames-NecromancerSummons.Source("plague vines trail","sHitPar1");
+        bool damage=victim!=0 && (long)ageFrames<(long)totalFrames-NecromancerSummons.Source("plague vines trail","sHitPar1");
         return new(damage,ending,true,lastCollision);
     }
 }

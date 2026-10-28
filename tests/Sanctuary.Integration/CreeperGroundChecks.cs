@@ -73,13 +73,17 @@ public static class CreeperGroundChecks
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidCreeperWorld.Create(p,new(p.X+2,p.Y,p.Z),at,823,1000);
         try
         {
-            var embedded=new CreeperFields([], [new(1,1,(p.X+3)*2,p.Y*2,125,100,123){Z=100}],1,1,123);
+            var embedded=new CreeperFields([], [new(1,1,(p.X+3)*2,p.Y*2,125,100,123){Z=100}],1,1,123)
+                {Profile="charged-motion-current-range-contact-capture-v1"};
             body.RestorePrepared(body.Prepared with{Controller=body.Prepared.Controller with{Fields=embedded,LastFieldId=0}});
             DruidCreeperGround.Migrate(body);var id=body.Prepared.Controller.LastFieldId;
-            Require(id>0&&body.Prepared.Controller.Fields.Mats.Length==0&&JsonSerializer.Serialize(DruidCreeperGround.Get(id).Fields)==JsonSerializer.Serialize(embedded),"Legacy migration lost field age/history");
+            Require(id>0&&body.Prepared.Controller.Fields.Mats.Length==0&&JsonSerializer.Serialize(DruidCreeperGround.Get(id).Fields)==JsonSerializer.Serialize(DruidCreeperFields.Copy(embedded)),"Legacy migration lost field age/history");
             long sequence=DruidCreeperGround.Snapshot().NextId;DruidCreeperGround.Migrate(body);
             Require(DruidCreeperGround.Snapshot().NextId==sequence,"Legacy migration duplicated the flight");
             var valid=DruidCreeperGround.Snapshot();string before=JsonSerializer.Serialize(valid);bool refused=false;
+            var old=valid with{Flights=valid.Flights.Select(s=>s with{Fields=s.Fields with{Profile="charged-motion-current-range-contact-capture-v1"}}).ToArray()};
+            DruidCreeperGround.Restore(JsonSerializer.Deserialize<CreeperGroundSave>(JsonSerializer.Serialize(old)));
+            Require(JsonSerializer.Serialize(DruidCreeperGround.Snapshot())==before,"Independent legacy restore changed age/history/position/poison or replayed actions");
             try{DruidCreeperGround.Restore(valid with{Flights=[..valid.Flights,valid.Flights.Single(s=>s.Id==id)]});}catch(InvalidDataException){refused=true;}
             Require(refused&&JsonSerializer.Serialize(DruidCreeperGround.Snapshot())==before,"Duplicate restore was not atomic");
             refused=false;try{DruidCreeperGround.Restore(valid with{Flights=[valid.Flights.Single(s=>s.Id==id) with{Map=-1}]});}catch(InvalidDataException){refused=true;}

@@ -59,7 +59,7 @@ public static class CreeperStatsChecks
     {bool rejected=false;try{action();}catch(NotSupportedException){rejected=true;}Require(rejected,"Unsupported route accepted");}
     private static void Vines()
     {
-        using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"creeper-vines-source-probe.json")));int heads=0,emissions=0,contacts=0;
+        using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"creeper-vines-age-source-probe.json")));int heads=0,emissions=0,contacts=0;
         foreach(var row in data.RootElement.GetProperty("launch").EnumerateArray())
         {
             int N(int i)=>row[i].GetInt32();if(N(1)!=0){continue;}
@@ -72,20 +72,20 @@ public static class CreeperStatsChecks
         foreach(var row in data.RootElement.GetProperty("head").EnumerateArray())
         {
             int N(int i)=>row[i].GetInt32();if(N(2)!=5){continue;}
-            Require(DruidCreeperVines.EmitsTrail(N(0),N(1))==(N(4)!=0),"Head remaining-frame modulo source comparison");
+            Require(DruidCreeperVines.EmitsTrail(N(0),N(1))==(N(4)!=0),"Head elapsed-age modulo source comparison");
             if(N(1)==9){Require(DruidCreeperVines.EmitsTrail(N(0))==(N(4)!=0),"Pinned head parameter");}emissions++;
         }
         foreach(var row in data.RootElement.GetProperty("trail").EnumerateArray())
         {
             int N(int i)=>row[i].GetInt32();uint last=N(4)!=0?10u:0u;
-            var actual=DruidCreeperVines.Contact(N(0),N(0)-N(1),last,N(2)!=0?10u:0u,N(5)!=0,N(6)!=0,N(3)!=0);
+            var actual=DruidCreeperVines.Contact(N(0),N(1),last,N(2)!=0?10u:0u,N(5)!=0,N(6)!=0,N(3)!=0);
             Require(actual.Damage==(N(8)!=0) && actual.Remove==(N(7)==2) && actual.HitEvent==(N(11)!=0)
                 && actual.LastCollision==(N(10)<0?0u:(uint)N(10)),"Complete hit50/router/history comparison");contacts++;
         }
         uint previous=0;
         foreach(var row in data.RootElement.GetProperty("sequence").EnumerateArray())
         {
-            int N(int i)=>row[i].GetInt32();var actual=DruidCreeperVines.Contact(125,125-N(0),previous,(uint)N(1),true,true,false);
+            int N(int i)=>row[i].GetInt32();var actual=DruidCreeperVines.Contact(125,N(0),previous,(uint)N(1),true,true,false);
             Require(actual.Damage==(N(3)!=0) && !actual.Remove && actual.LastCollision==(uint)N(4),"Sequential early/alternating/repeated LastCollide");previous=actual.LastCollision;
         }
         Require(heads==255 && emissions==75 && contacts==864,"Incomplete prepared vine callback coverage");

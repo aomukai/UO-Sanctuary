@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "nativeAccepted": false,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "compiledRoutineHashes": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_SrvHit50_PlagueVinesTrail": "af8bbaf7333748e0acdf016ccb24391b3b436b0bae629efd55bd693c79edc641",
+    "MISSMODE_SrvDo26_Vines_PlagueVines": "9e8a9ac4c2be6730bd528f4afa3c17620649cffa551ca8bb5c01f88c1ddb88a4",
+    "SKILLS_SrvDo130_VineAttack": "16c087ddf59af598e661e39d8b3aa2b27b7e4f41e8f0c876aefe0b4f5b0b31ec",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "MISSILE_GetTotalFrames": "3d2a8cbf863156175ebf1094b5ef06e4c9e20f339e26b76e202af468b5beefb3"
+  },
+  "artifacts": {
+    "tools/probe_creeper_vines_age_reference.py": "39f1fd46fcb3e96916b5a0a293a04a123485a06c2d1262ccea893ef41d8d1154",
+    "tools/reference/creeper-vines-source-evidence.json": "854bbae54f8980b0ee49ee7c75b223ad7138a47a708d5ae458cf401ad878bdb1",
+    ".local/class-skills/creeper-vines-source-probe.cpp": "40b59e7ecf8acb7a6d982913bd06694b4f6fc028c6701506d2b2a238afd337a6",
+    ".local/class-skills/creeper-vines-source-probe.json": "49454517d2b305b099be2734b2cbacf4f5ea2e138ffcbffe662d8b462ea7b20e",
+    ".local/class-skills/creeper-vines-age-source-probe.cpp": "b260dbe1c2641081b6add9037bb0fa44e65fb1a10372c5b48582ed23f98279fd",
+    ".local/class-skills/creeper-vines-age-source-probe.json": "dd924f4f264b8dccfe2cc885c35511e9c3cb5934c7e43c7bbadb5f550f261906",
+    ".local/class-skills/creeper-vines-age-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "contexts": {
+    "launch": 1785,
+    "head": 450,
+    "trail": 864,
+    "sequence": 6,
+    "changedTrailOutputs": 102
+  },
+  "sanitizerClean": true,
+  "established": [
+    "The old launch/router/do26/hit50 source bodies are retained unchanged. Two complete source getters replace ambiguous scalar stubs; fixture setup supplies total lifetime and current countdown. Launch and head outputs stay identical when the scalar head input is correctly interpreted as elapsed age.",
+    "Complete hit50/router now permits initial contact and suppresses the final15frames. Exactly102of864old bounded trail outputs change; LastCollide still updates before damage/hostility checks, repeated-last targets still skip, and null-target terminal routing remains distinct. Initial sequential contact now damages; repeated age15/16contacts still skip because the collider identity was already recorded."
+  ],
+  "remaining": [
+    "Lookup/factory/formula/damage-fill/mitigation/event/room/collision and global queue services retain their declared limits. Total/age controls include expiry/out-of-window values and are not proof such callbacks occur naturally. Correct and compare native phase/contact call sites, saved fields, real poison and connected clocks separately."
+  ]
+}

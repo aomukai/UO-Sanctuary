@@ -12,7 +12,7 @@ internal sealed record CreeperMat(long Id,int Rank,int X,int Y,int Total,int Rem
 {public int Z{get;init;}public CreeperMatPoison Poison{get;init;}}
 internal sealed record CreeperFields(CreeperHead[] Heads,CreeperMat[] Mats,long NextId=0,int Contacts=0,uint LastVictim=0)
 {
-    public string Profile{get;init;}="charged-motion-current-range-contact-capture-v1";
+    public string Profile{get;init;}="charged-motion-elapsed-age-contact-v2";
 }
 
 // Internal motion/contact engine. A supplied packet initializer/delivery pair
@@ -20,8 +20,12 @@ internal sealed record CreeperFields(CreeperHead[] Heads,CreeperMat[] Mats,long 
 // Tick ordering, geometry and selection are explicit world adapter services.
 internal static class DruidCreeperFields
 {
+    private static CreeperFields Current(CreeperFields s)=>s.Profile=="charged-motion-elapsed-age-contact-v2"?s:s with{Profile="charged-motion-elapsed-age-contact-v2"};
     internal static CreeperFields Empty()=>new([],[]);
-    internal static CreeperFields Copy(CreeperFields s)=>s with{Heads=s.Heads.Select(h=>h with{Path=[..h.Path]}).ToArray(),Mats=[..s.Mats]};
+    // Old snapshots already store countdowns, so migration changes only the
+    // interpretation/profile. Do not recreate children or replay past hits.
+    internal static CreeperFields Copy(CreeperFields s)=>s with{Profile="charged-motion-elapsed-age-contact-v2",
+        Heads=s.Heads.Select(h=>h with{Path=[..h.Path]}).ToArray(),Mats=[..s.Mats]};
     internal static int Lifetime(int rank)
     {
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
@@ -43,7 +47,7 @@ internal static class DruidCreeperFields
     }
     internal static CreeperFields Launch(CreeperFields state,int rank,CreeperHeadRequest[] requests,int velocityPercent=100,int z=0)
     {
-        Route();Validate(state);ArgumentNullException.ThrowIfNull(requests);
+        Route();Validate(state);state=Current(state);ArgumentNullException.ThrowIfNull(requests);
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
         if(requests.Length>24){throw new NotSupportedException("Too many Creeper heads");}
         if(requests.Length==0){return Copy(state);}
@@ -64,7 +68,7 @@ internal static class DruidCreeperFields
     }
     internal static CreeperFields Inactive(CreeperFields state,long frames)
     {
-        Validate(state);if(frames<0){throw new ArgumentOutOfRangeException(nameof(frames));}
+        Validate(state);state=Current(state);if(frames<0){throw new ArgumentOutOfRangeException(nameof(frames));}
         return state with{Heads=state.Heads.Where(h=>h.Remaining>frames).Select(h=>h with{Remaining=h.Remaining-(int)frames}).ToArray(),
             Mats=state.Mats.Where(m=>m.Remaining>frames).Select(m=>m with{Remaining=m.Remaining-(int)frames}).ToArray()};
     }
@@ -72,7 +76,7 @@ internal static class DruidCreeperFields
         Func<CreeperMat,uint> recipient,Func<uint,bool> hostile,Func<CreeperHead,bool> createMat=null,bool hasOwner=true,
         Func<CreeperMat,CreeperMat> initializeMat=null,Func<CreeperMat,uint,CreeperMat> deliver=null)
     {
-        Validate(state);Route();ArgumentNullException.ThrowIfNull(blocked);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(hostile);
+        Validate(state);state=Current(state);Route();ArgumentNullException.ThrowIfNull(blocked);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(hostile);
         var heads=new List<CreeperHead>();var mats=new List<CreeperMat>();var created=new List<CreeperMat>();
         long id=state.NextId;int contacts=state.Contacts;uint victim=state.LastVictim;
         // Existing fields run before children first advance on the next tick.
@@ -84,7 +88,7 @@ internal static class DruidCreeperFields
             if(actions)
             {
                 uint target=recipient(next);
-                var contact=DruidCreeperVines.Contact(mat.Total,remaining,mat.LastCollision,target,hasOwner,target!=0&&hostile(target),false);
+                var contact=DruidCreeperVines.Contact(mat.Total,mat.Total-remaining,mat.LastCollision,target,hasOwner,target!=0&&hostile(target),false);
                 next=next with{LastCollision=contact.LastCollision};
                 if(contact.Damage){contacts=checked(contacts+1);victim=target;next=deliver?.Invoke(next,target)??next;}
             }
@@ -95,7 +99,7 @@ internal static class DruidCreeperFields
             int remaining=head.Remaining-1;
             if(!actions){if(remaining>0){heads.Add(head with{Remaining=remaining});}continue;}
             // Complete do26 emits before generic movement/decrement/removal.
-            if(DruidCreeperVines.EmitsTrail(head.Remaining) && (createMat?.Invoke(head)??true))
+            if(DruidCreeperVines.EmitsTrail(20-head.Remaining) && (createMat?.Invoke(head)??true))
             {
                 int total=Lifetime(head.Rank);
                 var mat=new CreeperMat(checked(++id),head.Rank,(int)Math.Floor(head.X*2+.5),(int)Math.Floor(head.Y*2+.5),total,total){Z=head.Z};
@@ -113,7 +117,7 @@ internal static class DruidCreeperFields
     }
     internal static void Validate(CreeperFields s)
     {
-        if(s?.Heads==null || s.Mats==null || s.NextId<0 || s.Contacts<0 || s.Profile!="charged-motion-current-range-contact-capture-v1"
+        if(s?.Heads==null || s.Mats==null || s.NextId<0 || s.Contacts<0 || s.Profile is not("charged-motion-current-range-contact-capture-v1" or "charged-motion-elapsed-age-contact-v2")
             || s.Heads.Length>512 || s.Mats.Length>4096 || (s.Contacts==0)!=(s.LastVictim==0))
         {throw new InvalidDataException("Invalid Creeper field state");}
         var ids=new HashSet<long>();

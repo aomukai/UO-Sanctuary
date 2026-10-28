@@ -88,7 +88,7 @@ public static class CreeperWorldChecks
         Require(ground.Fields.Heads.Length==3 && ground.Fields.Mats.Length==6 && body.Prepared.Controller.Fields.Heads.Length==0,"World attack did not create independent heads/mats");
         e.Delete();SkillHealth.SetBalance256(body,6007);PersistentMinions.Suspend(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),p.Map.MapID,p.Location,ground)));
-        Log.Information("Creeper world: common-pet follow, mature/early game-frame distinction, kind2moving heads and finite mats without damage, exact100resistance escape, offline/restore controls pass; poison and VINE_BEAST remain pending");
+        Log.Information("Creeper world: common-pet follow, mature/early game-frame distinction, kind2moving heads and finite mats, exact100resistance escape, offline/restore controls pass; poison is separately checked and VINE_BEAST remains pending");
     }
     private static void Reload()
     {

@@ -44,7 +44,7 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
         for name, kind in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / kind / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
-        for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', *extra_probes]:
+        for name in ['creeper-ai', 'creeper-vines-age', 'creeper-components', 'creeper-frame', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', *extra_probes]:
             shutil.copy2(ROOT / '.local/class-skills' / (name + '-source-probe.json'), folder / (name + '-source-probe.json'))
         for name in extra_probe_files:
             shutil.copy2(ROOT / '.local/class-skills' / name, folder / name)
@@ -65,7 +65,7 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
         configpath.write_text(json.dumps(config))
         paths = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration'] for p in (ROOT / directory).glob('*.cs')]
         paths += [Path(__file__).resolve(), ROOT / '.local/class-skills/raven-components-source-probe.json', ROOT / '.local/class-skills/valkyrie-creation-source-probe.json']
-        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path']]
+        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['creeper-ai', 'creeper-vines-age', 'creeper-components', 'creeper-frame', 'raven-circle', 'toward-path']]
         paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in extra_probes]
         paths += [ROOT / '.local/class-skills' / name for name in extra_probe_files]
         inventory = dict(sourceInputs={str(p.relative_to(ROOT)): sha(p) for p in sorted(paths)},
