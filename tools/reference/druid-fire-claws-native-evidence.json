@@ -23,10 +23,10 @@
       21
     ],
     "unchangedNamedDefinitions": 573,
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenPriorAcceptance": {
     "commit": "5db6bc5",
@@ -1041,6 +1041,11 @@
     ".local/class-skills/druid-fire-claws-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/druid-fire-claws/named-item-runtime-audit.json": "ad77496ef84d0fa13e414ca16986f2751f33b13cd32bd6ed327c3a935734ae28",
     ".local/class-skills/druid-fire-claws/first-loop-affix-audit.json": "0be51884e2e47b830e0ffdbdfdb4b880dceeeaffea10bcf9839bdee11c347a7b",
+    ".local/class-skills/druid-fire-claws/full-named-item-runtime-audit.json": "ad77496ef84d0fa13e414ca16986f2751f33b13cd32bd6ed327c3a935734ae28",
+    ".local/class-skills/druid-fire-claws/full-first-loop-affix-audit.json": "0be51884e2e47b830e0ffdbdfdb4b880dceeeaffea10bcf9839bdee11c347a7b",
+    ".local/class-skills/druid-fire-claws/class-inputs.json": "de8d4354db1f8de62d778d8debc6543ee74eff7ca853dafa8224a76ce448b91a",
+    ".local/class-skills/druid-fire-claws/class-native-checks.log": "d014787f8f6a1c5556dea5ce45420c1d8e426849fa2f28a5370cd33f3eb720b9",
+    ".local/class-skills/druid-fire-claws/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_druid_fire_claws.py": "3b9c5eb8b87cdf947448fa8c225d7449dc3a547f5f490e9adbac103893c9f4d2",
     "tests/check_druid_fire_claws.py": "c197e8c0bcc7f5638920929dde125eb0a20aabfd35785c3bdd5f1786408df0f3",
     "tests/check_creeper_stats.py": "3f0916e7b85ecb74f18068ba261c47491b7063a395f14ebb4218781eef1b3dfd",
