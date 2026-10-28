@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedDeviation": false,
+  "currentExecutableParity": false,
+  "retrieved": "2026-10-28",
+  "sources": [
+    {
+      "url": "https://news.blizzard.com/en-us/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+      "kind": "Blizzard released2.7notes",
+      "finding": "The release isolates Next Hit Delay by skill and distinguishes martial charge triggers as separate casts. It does not expose every internal identity field."
+    },
+    {
+      "url": "https://www.reddit.com/r/diablo2resurrected/comments/136937i/8_hours_of_testing_compiled_into_1_video/",
+      "kind": "Original firsthand testing report by MacroBioBoi",
+      "finding": "The original tester reports independent executions and independent characters,including simultaneous trap hits."
+    },
+    {
+      "url": "https://us.forums.blizzard.com/en/d2r/t/how-next-hit-delay-actually-works-another-essay/159394",
+      "kind": "Primary explanatory/testing account by Kabryxis",
+      "finding": "The author describes a delay shared by missiles from one skill execution,with different executions retaining independent windows."
+    }
+  ],
+  "selectedAdapter": "All five Shock Wave waves from one execution share a persisted (cast,target)four-frame window; different executions/casters do not share it. LastCollide remains per wave and both filters run before native candidate selection.",
+  "inference": "This matches the released change and original testing; it is an evidence-based interpretation of the pinned build,not an instrumented3.3.93847 executable certificate. The old global JUSTHIT source proves ordering rather than modern identity.",
+  "timing": {
+    "reference": "druid-form-cast-clock-engine-evidence.json",
+    "decision": "Reuse the shared transformed SC/FCR clock. The reviewed source dispatcher selects FCR before attack rate; UseAttackRate1alone does not replace bear SC with IAS. Current bear AnimData10frames/speed152/action5is pinned in the Shock Wave preflight."
+  },
+  "followup": "The same official release corroborates direct Werewolf/Werebear switching. Retain that as a source lead for the earlier form-switch acceptance gap; no unrelated form implementation is changed here."
+}

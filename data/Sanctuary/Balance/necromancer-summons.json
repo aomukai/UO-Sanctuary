@@ -5332,6 +5332,43 @@
     }
   },
   {
+    "key": "shockwave",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 1,
+      "pSrvDmgFunc": 7,
+      "dParam1": 0,
+      "Vel": 20,
+      "MaxVel": 20,
+      "Range": 14,
+      "Red": 255,
+      "Green": 255,
+      "Blue": 255,
+      "InitSteps": 0,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "CelFile": "expansion\\shockwave",
+      "animrate": 1024,
+      "AnimLen": 7,
+      "AnimSpeed": 8,
+      "CollideType": 3,
+      "LastCollide": 1,
+      "ClientCol": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "Size": 1,
+      "CanSlow": 1,
+      "ReturnFire": 1,
+      "GetHit": 1,
+      "Trans": 1,
+      "Skill": "Shock Wave",
+      "ResultFlags": 4,
+      "HitClass": 64,
+      "NumDirections": 8,
+      "TravelSound": "druid_shockwave"
+    }
+  },
+  {
     "key": "shout",
     "fields": {
       "pCltDoFunc": 1,

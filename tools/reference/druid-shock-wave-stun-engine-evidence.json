@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "executedCompleteRoutineHashes": {
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "contexts": 17925,
+  "inheritedScaffold": {
+    "evidence": "tools/reference/bear-smite-engine-evidence.json",
+    "sha256": "df4b8a98935541b3ba2ffea97485556ac8f6cf05b08bc25462bd0077089a8e00"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-shock-wave-stun-source-probe.cpp": "612d7d7d9ec8a13a78a8a3985a96efa98aa01396d8a146de315566140785268a",
+    ".local/class-skills/druid-shock-wave-stun-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-stun-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-stun-source-probe.json": "a49ed7cae2ed316ed8ac311b85f683007d878e6fd448008b102b8d9ed52522ec"
+  },
+  "established": [
+    "Complete missile ExecuteEvents calls complete total-damage/resistance helpers and commits fractional HP before creating/refreshing stun. Physical immunity can remove all damage without suppressing eligible stun. The less-than-one-life lethal boundary is preserved; this probe does not replace death-mode handling.",
+    "Raw stun caps at250frames; hirelings cap at13. Unique recipients roll once against100and require90or higher; bosses and stationary monsters refuse new stun. Unique RNG occurs before boss/velocity exclusion,as in the unchanged condition. Both new-state creation and unconditional replacement expiration are recorded after health commitment.",
+    "Hostility,missing-room,town,unkillable and already-dead controls return before new health/stun delivery. Existing stun is not erased by failed eligibility. Surviving ordinary/immune controls and lethal HP-field controls retain explicit source order."
+  ],
+  "services": [
+    "Actor stats/types,monster boss/unique/velocity/hireling metadata,selected RNG,empty event subscribers,stat-list allocation/post/callback/expiration scheduling and health storage are declared services. Complete production function bodies are unchanged and checked against the pinned Git tree.",
+    "The matrix executes17925contexts under ASan/UBSan. Allocation success is supplied; state expiry delivery,death transitions,FHR/animation and graphical behavior are separate native/event concerns. Player victims,foreign equipment and nonzero leech/typed channels are outside this physical source-zero matrix."
+  ],
+  "remaining": [
+    "Connect the same health-before-stun order in native Shock Wave,with existing mitigation,hit recovery and persisted stun. Keep lethal/reentrant chronology and unsupported recipients explicit instead of borrowing the existing War Cry stun-before-health order silently.",
+    "Then verify actual travelling fan waves,LastCollide/pre-selection cast-local windows,bear SC/FCR,7mana,input/cancellation,gear/resistance/owner and real reloads. Final effects/audio and talent/hotkey icons remain separate placeholders."
+  ]
+}

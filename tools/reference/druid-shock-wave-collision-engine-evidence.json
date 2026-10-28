@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "preflightSha256": "d2ffaeaefee699c95c7e729bf67ed91c08ef53466484a28179bb4994372927fc",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "completeRoutineHashes": {
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_SrvDmg07_Warcry_ShockWave": "0f6739089728e64d873c8ce4b362d41949070fa771b175beb9214cc37833e755",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+  },
+  "inheritedScaffold": {
+    "evidence": "tools/reference/druid-rabies-router-engine-evidence.json",
+    "sha256": "ad4a70e2a38e0cf8318d8376ca9edac9e5d64b27fb91d49fc7b8e02e2e8b356a"
+  },
+  "contexts": 384,
+  "artifacts": {
+    ".local/class-skills/druid-shock-wave-collision-source-probe.cpp": "9bd7af5e2c966e2b15a3ec716b6d4462d3bff97688f203ba8ab738dd6d40b163",
+    ".local/class-skills/druid-shock-wave-collision-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-collision-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-collision-source-probe.json": "7334be113cb9fb069dbd6bad20abbbf3d0c70ee4ed59b9247e984d12030301ea"
+  },
+  "established": [
+    "Complete hit router,LastCollide setter/checker and damage7 compose384current Shock Wave control contexts with ASan/UBSan clean. Current hit callback0is not replaced by another skill callback. Ending/null-contact/current no-AR/no-Pierce/no-CollideKill paths retain the actual source decisions.",
+    "Historical NextHit rejection precedes LastCollide mutation. Otherwise the target identity is stored before owner hostility. A valid contact allocates the four-frame lease before the hit-by-missile event,damage fill,damage7and final damage-flags service. Failed lease allocation does not suppress that current contact damage.",
+    "Damage7supplies raw40+15*(rank-1)stun after physical fill and before damage-flags dispatch. Waves continue after ordinary contact; explicit ending removes them. An absent-owner control can still reach damage7but the separately executed actual damage-flags routine refuses ownerless health delivery."
+  ],
+  "services": [
+    "Damage fill/final flags,hostility,stat-list allocation/post/expiry events,room/collision masks and hit event subscribers are explicit boundaries. Current physical creation/roll/flags are established separately; this program does not invent a health/stun service.",
+    "The unchanged older router uses global JUSTHIT. This proves order and four-frame timing only. Modern per-execution grouping is a separate evidence-based adapter,not a claim that the old global flag is correct for3.3.93847."
+  ],
+  "remaining": [
+    "Verify the full final health/stun event consumer,including zero physical damage,unique chance,boss/stationary/hireling caps and replacement. Then connect saved native linear waves,modern cast-local windows,bear SC/FCR,input/resources/cancellation and actual reloads.",
+    "Mode3 candidate filtering is established by the retained complete finder proof; native spatial ordering/terrain and exact current event/RNG/geometry/owner/client remain explicit. Final effects/audio and talent/left/right/quick icons remain separate placeholders."
+  ]
+}
