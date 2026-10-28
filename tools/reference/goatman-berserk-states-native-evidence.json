@@ -2201,7 +2201,7 @@
     "data/Sanctuary/Balance/warlock-npc-skills.json": "bc74d1c3ed392229fddf05378f869882fe8d06c0bd4e4ab1bbb4b427893258b9",
     "tests/check_goatman_berserk_states.py": "1ee9bd50f6d1336e3cd8e3a73148b8315295a82eb39d192f3f08d23906e5391e",
     "tools/build_class_skills.py": "d293df00516c9371e99dc9d4ec66ad86c55e9bc940782b0b1166d64ab964dff9",
-    "tools/build_skill_roadmap.py": "da2b693770d87f9c884be78d66f5c18938b5ad948e664d51f6e81e1244969771",
+    "tools/build_skill_roadmap.py": "13d14801e9becea152d56686a0eeedd46c9992ddb819d4b28a8c5fab70f1dbbb",
     "tools/probe_goatman_npc_melee.py": "4e37f982cd8afe39b6a996c06430ab402b906a8e34674a939c40c0e47fb12228",
     "tools/record_goatman_berserk_states.py": "1979d32db7c69e0c9b0eed5e27d9515dbe109cb803a18bb24963e0e9020631e9",
     "tools/reference/bear-smite-engine-evidence.json": "df4b8a98935541b3ba2ffea97485556ac8f6cf05b08bc25462bd0077089a8e00",
