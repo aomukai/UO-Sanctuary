@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "staticReview": true,
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "newExecutedContexts": 0,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "cef96c8ba75ab0b3ba67aff36a5c1e9a00287889893beca9f4da826e741ae1b4",
+  "licensedSkillsSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+  "sourceHashes": {
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "completeRoutineHashes": {
+    "D2GAME_PLRMODES_First_6FC7F340": "f03ac114e6a1e8fe1cba6390a6092bde5c5d7000a585741d18f88d3e46447ef7",
+    "sub_6FC817D0": "b779bd4eaa80f928c93b2da229cfb96bc8060a5c20f26fd4a671da70ae6b79cb",
+    "sub_6FC81890": "77066203168e24f55ae6eabdd2ed3c5e61d2e037fade4ee68f81a2a1e860f1a4",
+    "SUNITDMG_GetResultFlags": "402644f61dbe202b411a3e44c40c3f25654dc98181b2f4d79abf7512b2556186",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf"
+  },
+  "reusedExecutedProof": {
+    "path": "tools/reference/druid-form-death-interrupt-engine-evidence.json",
+    "sha256": "4c73ebcd1a0ed02900a48c3a38cf892eee2324417a25bb618833884d7198afae",
+    "interruptCases": 4800,
+    "generatedSourceSha256": "cb3fe7a368102ea70acdd4ec75a3680f787bb274fdf1b81da1cba8b3e6c329b1",
+    "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "artifacts": {
+    "tools/review_druid_fury_contacts.py": "444455aad79db587b8882937c7ff3bdeb7ad0cd495feaee44278c2637330cde8",
+    "tools/reference/druid-fury-preflight.json": "cef96c8ba75ab0b3ba67aff36a5c1e9a00287889893beca9f4da826e741ae1b4",
+    "tools/reference/druid-forms-preflight.json": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7",
+    "tools/reference/druid-form-death-interrupt-engine-evidence.json": "4c73ebcd1a0ed02900a48c3a38cf892eee2324417a25bb618833884d7198afae",
+    ".local/class-skills/druid-form-death-interrupt-probe.cpp": "cb3fe7a368102ea70acdd4ec75a3680f787bb274fdf1b81da1cba8b3e6c329b1",
+    ".local/class-skills/druid-form-death-interrupt-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "sourceDerivedBaseline": [
+    "Do not borrow Fend/Zeal hit-recovery locks solely because Fury shares do13. Current Fury interrupt1and wolf-only restriction combine with the complete older player mode gate: ordinary used interruptible skills allow gethit unless separate Concentration/Concentrate/Uninterruptable state protects the active action. Current Werewolf has no skill_concentration supplier; current Werebear has100but cannot use Fury. The identical First gate already executes4800declared contexts in the reused proof; this review adds no new executions.",
+    "The complete XY mode wrapper calls sub_6FC81890then First unless explicitly bypassed. The ordinary A1mode guard admits gethit/block requests before the interruptibility/concentration decision; it does not supply an unconditional Fury-series lock. Modern released block protection is a distinct shared native policy,not evidence for Fury FHR immunity. Exact current game dispatch remains unverified.",
+    "Do13 allocates an ordinary Src128combat packet even on miss; DrainItemDurability looks up that packet and rechecks melee contact. Successful result gates health/events,weapon/armor durability and thorns. A miss/block still consumes a series attempt but must not be passed to the successful weapon-strike consumer. Native Fury should use the existing shared AR/typed weapon/critical/leech/proc/resistance pipeline and explicit NPC shield consumer instead of source-zero spell damage.",
+    "DrainItemDurability posts DOMELEEATTACK/ATTACKEDINMELEE even for an unsuccessful packet,then applies thorns only on success,and finally executes/free-cleans combat. Those full source events are reviewed,not compiled here. Existing native attempt/packet/health/item-event chronology remains a declared adapter; this static review does not certify complete modern event ordering or reentry."
+  ],
+  "nextNativeWork": [
+    "Connect a wolf-only2..5attempt series with start37/do13,once-only pinned4mana payment,source-derived ordinary interruptibility,per-contact current-target revalidation/cyclic replacement,actual shield/miss handling and shared typed weapon/charge/drain consumers. Existing Feral charge must not be gained,consumed or refreshed by Fury.",
+    "Use the verified shared Ceiling/Rollback70and prepared action7/end13clock. Keep final whole-cycle recovery separate from extra post-hit time. Current progression refresh/rank capture/payment/reentry and full outer executable equivalence remain explicit questions rather than silently certified mechanics.",
+    "Stop,accepted movement,weapon changes,unshift/death/history/logout and restart need native/input checks. Preserve already-paid resources and discard unspent series events on reload. Test actual left/right/quick input,hard/effective ranks,real gear,immunity,critical,leech,miss/block,retargeting and low-mana ordinary Attack deviation. No runtime handler/build/save or final asset changes occur in this review."
+  ]
+}
