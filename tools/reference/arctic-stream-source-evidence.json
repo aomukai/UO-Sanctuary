@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "learnedHandlerEnabled": false,
+  "currentExecutableParity": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "artifacts": {
+    "tools/probe_arctic_stream_reference.py": "433e5f932ad6a931071d4e8e1b820f84c5cae22b7188048f10a7ca3a4b3a2fc0",
+    ".local/class-skills/arctic-stream/damage-abi-base.cpp": "7bf979729851ec1cad0616be87689e7bc0890eba21ab1565d760dcfdf62495e1",
+    ".local/class-skills/arctic-stream/factory-abi-base.cpp": "727393fffa0479434a8c4ac3de5ee47b78b260acf44552919899cd33076438b4",
+    "tools/reference/arctic-blast-preflight.json": "64e3bb6b3a29c7b0cd8ba88aa947b92f9540b9bf005b47dbdcd43bcee82affca",
+    ".local/class-skills/arctic-stream/arctic-stream-damage.cpp": "b44327227cf283f019d71a892336690298b3c21e9185e8c206c858c51a46f9bc",
+    ".local/class-skills/arctic-stream/arctic-stream-damage.compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/arctic-stream/arctic-stream-damage.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/arctic-stream-damage-source-probe.json": "1e9dfcf55f3eef91d1318b51c032bac4bc7c833836bc543265a17a682567b90e",
+    ".local/class-skills/arctic-stream/arctic-stream-factory.cpp": "9cd0b6a888f10e4ac487612648389aabdd125f1a45c1c541a707fbb02f11b63e",
+    ".local/class-skills/arctic-stream/arctic-stream-factory.compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/arctic-stream/arctic-stream-factory.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/arctic-stream-factory-source-probe.json": "aa87808bbf4b89b81d94b50a029219d468b85492c84d31e0551d579b944b9d7a"
+  },
+  "verified": {
+    "damageContexts": 4590,
+    "factoryContexts": 14280,
+    "sanitizers": "ASan/UBSan exit0; empty runtime stderr"
+  },
+  "established": [
+    "Complete source getters/creator/writer use all255current Arctic ranks,independent0/1/20hard Cyclone Armor,0/7/50cold item mastery and99999unrelated owner/origin stat controls. Cold synergy follows HitShift3; mastery truncates once after synergy. Length100+15per rank; physical/fire/critical inheritance remains zero.",
+    "Complete factory with playerdo19flags0x8020 overrides tableRange30using floor((35+2*(rank-1))/2),sets actual last-collider owner,skill230/rank and DamageRate41. Vel12becomes2304FP8. CanSlow0ignores the supplied50percent Slow Missiles velocity; self aim nudges(+1,+1),absolute deltas>=100fail before allocation."
+  ],
+  "services": [
+    "Explicit ABI/stat/formula/ratio/weapon services; unselected weapon branches are retained. Factory room/allocation/path/owner/damage services are supplied,not current executable simulation. The complete cold damage producer and complete factory execute separately; source do19-to-factory flags were already checked in player-inferno-channel.",
+    "Public table hashes and licensed214-field preflight identify3.3.93847. Current input/FCR/callback cadence,owner lifecycle,room order/terrain and native damage commitment need their own checks. The rounded12\u201324tooltip is not used to calibrate an emission rate."
+  ]
+}

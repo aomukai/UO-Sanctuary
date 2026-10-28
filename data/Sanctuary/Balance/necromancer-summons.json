@@ -1855,6 +1855,38 @@
     }
   },
   {
+    "key": "arcticblast1",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 1,
+      "Vel": 12,
+      "MaxVel": 12,
+      "Range": 30,
+      "Red": 255,
+      "Green": 255,
+      "Blue": 255,
+      "InitSteps": 1,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "CelFile": "expansion\\ArcticBlastIce",
+      "animrate": 1024,
+      "AnimLen": 16,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "LastCollide": 1,
+      "ClientCol": 1,
+      "Size": 1,
+      "GetHit": 1,
+      "Trans": 1,
+      "Skill": "Arctic Blast",
+      "ResultFlags": 4,
+      "HitClass": 32,
+      "NumDirections": 16,
+      "DamageRate": 41,
+      "TravelSound": "druid_arcticblast"
+    }
+  },
+  {
     "key": "armageddoncontrol",
     "fields": {
       "pCltDoFunc": 1,

@@ -4,6 +4,8 @@ This register is independent of mechanical completion. No final assets have been
 
 Sanctuary presentation preference: visible damaging effects should match their active damaging lifetime. This is user taste, not D2R reference evidence; final assets must communicate the supported mechanics. See [reference precedence and recorded preference](skill-mechanical-reference.md#sanctuary-decisions-retained).
 
+Prepared Arctic Blast emissions use generic UO0x374A hue0x480 cold markers. Final ArcticBlastIce directional stream, arctic_blast_cast overlay, contact/expiry, druid_arcticblast travel and druid_windcast audio remain pending. The public channel is disabled; its talent-tree and left/right/quick icons are listed separately.
+
 Carrion Vine and Solar Creeper prepared bodies use silent UO corpser0x8 with explicit placeholder names. Prepared summon sound0x1E5and generic0x376Adelayed steal-life/mana overlay are identified placeholders. Final K9 bodies, underground/surface/corpse-feed, recycler vines/explosion, steallife/stealmana overlays and summon/feed/expiry audio are still needed. NPC307/325are internal actions; the separate icon register retains each player talent and right/quick-hotkey icon.
 
 Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporary placeholders. Names, damage type and mechanics are authoritative independently of their placeholder appearance. Effect concepts for unimplemented skills are a source-derived backlog, not an implementation claim.

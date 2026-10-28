@@ -1695,7 +1695,7 @@
       "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Prepared shared player st11/do19/state/resource helpers match19200legacy contexts plus19200current-cost controls; all255rank costs per skill are checked. Arctic lifetime increments2per rank,Inferno3. User rank1tooltip confirms cost4,minimum6mana,5.3yards,4seconds cold and12\u201324damage; exact drain/synergy context is unmeasured. SQ18scheduling,modern input/cadence and own cold packet/Size1flight remain open. Talent gated; final stream/audio/icons stay separate. See player-inferno-channel-native-evidence.json."
+      "remaining": "Prepared shared player st11/do19 and supplied-intent SQ18/state/resource helpers are checked separately from modern input/cadence. Own cold packet and saved Size1/LastCollide stream now reuse the existing Q12 motion/source-cell/cold-state kernels. Hard Cyclone Armor15percent synergy, birth cold mastery, live owner pierce, lifetime35+2per rank divided by2 and DamageRate41 remain distinct from Inferno. Learned input/FCR/payment frequency, modern owner lifecycle and Slow Missiles damage/potion ordering remain open; no handler enabled. User rank1tooltip confirms cost4,minimum6mana,5.3yards,4seconds cold and12\u201324damage without determining fractional cadence. Final stream/audio/icons stay separate; see current checkpoint."
     },
     {
       "talentId": "druid.fissure",
