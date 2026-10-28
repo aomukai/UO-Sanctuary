@@ -2341,10 +2341,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 373,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared birth/source suppliers match a current Nightmare user tooltip, including separate displayed/server AR formulas. Exact unclosed damage text passes complete Fog controls; shared do56/base routines have bounded source/native comparisons. Learned cast/world actor remain gated by new GenericPet AI, extended12-slot passives/duplicate sunder/event behavior and Goatman Frenzy/Cleave starts. No generic parser repair or guessed NPC combat is introduced. See goatman-native-evidence.json; effects/icons remain separate."
     },
     {
       "talentId": "warlock.bloodoath",

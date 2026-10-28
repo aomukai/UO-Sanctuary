@@ -11,7 +11,9 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
-| 8 | Warlock | 1 / 30 | 7 | 22 | Open |
+| 8 | Warlock | 1 / 30 | 8 | 21 | Open |
+
+Prepared Goatman birth components pass 165 native checks over three boots and two actual reloads, retaining all 162 earlier markers. Exact current formula text is checked through complete Fog compilation, with shared do56/base routines and the user Nightmare tooltip as separate evidence. Life/damage, raw passives, hard-only cap, NPC unlocks and display-versus-server AR remain explicit. See [Goatman evidence](../tools/reference/goatman-native-evidence.json). New GenericPet AI, modern extended passive writer and NPC Frenzy/Cleave still gate a learned actor. Coverage stays 183 handlers / Warlock 1; no class is complete.
 
 Prepared Mirrored Blades components pass 162 native checks over three boots and two actual reloads, retaining all 159 earlier markers. Shared player sequence data supplies SQ24/SQ25 without choosing rates or dispatch. Total attacks cap at five at effective rank 15; the primary keeps normal damage while duplicates have their own damage percentage and raw Crushing Blow divisors. Real Warlock/Witch gear crosses the rank14-to15 cap and persists. See [Mirrored Blades evidence](../tools/reference/mirrored-blades-native-evidence.json). New start68/do166, actual emission/selection, packet/proc/target divisor order and potion eligibility remain unresolved. No learned route or class completion is claimed; coverage stays 183 handlers / Warlock 1.
 
@@ -337,7 +339,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |
 | --- | ---: | --- | --- |
 | Demonic Mastery | 374 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Summon Goatman | 373 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Summon Goatman | 373 | blocked | Prepared birth/source suppliers match a current Nightmare user tooltip, including separate displayed/server AR formulas. Exact unclosed damage text passes complete Fog controls; shared do56/base routines have bounded source/native comparisons. Learned cast/world actor remain gated by new GenericPet AI, extended12-slot passives/duplicate sunder/event behavior and Goatman Frenzy/Cleave starts. No generic parser repair or guessed NPC combat is introduced. See goatman-native-evidence.json; effects/icons remain separate. |
 | Blood Oath | 378 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Death Mark | 375 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Summon Tainted | 376 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

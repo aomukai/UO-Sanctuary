@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "User observation in their running Reign of the Warlock installation",
+  "reportedDate": "2026-10-29",
+  "ownerLevel": 47,
+  "difficulty": "Nightmare",
+  "summonGoatmanEffectiveRank": 4,
+  "summonGoatmanHardRank": 1,
+  "demonicMasteryEffectiveRank": 17,
+  "demonicMasteryHardRank": 16,
+  "bloodOathEffectiveRank": 6,
+  "bloodOathHardRank": 5,
+  "tooltip": {
+    "life": 752,
+    "minimumDamage": 114,
+    "maximumDamage": 176,
+    "attackSpeedPercent": 34,
+    "attackRatingBonus": 585,
+    "defenseBonus": 160,
+    "manaCost": 16.5
+  },
+  "reports": [
+    "right now goatman 4 (1) , mastery 17 (16), path 6 (5). goatman has 752",
+    "yes, 752 is the goatman's tooltip life. my warlock is 47 and in nightmare. current skill level: 4 (base 1), damage 114-176, attack speed +34%, attack rating +585, life 752, defense 160, mana cost 16.5"
+  ],
+  "interpretation": "Effective/base pairs follow the user's established convention. The first reply's 'path' answers the Blood Oath rank question. Life and difficulty were separately confirmed. These are displayed tooltip values, not measurements of every underlying NPC stat or combat event."
+}

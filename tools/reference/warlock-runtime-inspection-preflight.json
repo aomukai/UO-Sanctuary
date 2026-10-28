@@ -1,0 +1,20 @@
+{
+  "pid": 11897,
+  "name": "Main",
+  "startTicks": 134406,
+  "sameUid": true,
+  "referenceExecutableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "preferredImageBase": "0x140000000",
+  "memoryBytesRead": 0,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "memoryOpenAllowed": true,
+  "observedDate": "2026-10-29",
+  "scope": "Read-only process metadata and a file-open permission check only; no process memory bytes were read.",
+  "candidateImageRangeCount": 1154,
+  "readableExecutableRangeCount": 575,
+  "metadataFile": ".local/research/warlock-community/runtime-inspection-feasibility.json",
+  "metadataSha256": "9da8acf6cad6d6b7a7677e559c9d05a503b4c3accbc82046d5a2f2768e30112f",
+  "next": "Revalidate process identity,reference image and readable code bounds before any narrowly scoped executable-code sample. Do not reuse a stale PID or change security settings."
+}

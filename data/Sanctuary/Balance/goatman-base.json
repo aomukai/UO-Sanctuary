@@ -1,0 +1,26 @@
+[
+  {
+    "Difficulty": "Normal",
+    "Life": 100,
+    "MinimumDamage": 3,
+    "MaximumDamage": 4,
+    "Armor": 100,
+    "Attack": 60
+  },
+  {
+    "Difficulty": "Nightmare",
+    "Life": 175,
+    "MinimumDamage": 30,
+    "MaximumDamage": 50,
+    "Armor": 150,
+    "Attack": 66
+  },
+  {
+    "Difficulty": "Hell",
+    "Life": 275,
+    "MinimumDamage": 230,
+    "MaximumDamage": 275,
+    "Armor": 200,
+    "Attack": 92
+  }
+]

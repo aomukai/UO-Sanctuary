@@ -78,6 +78,11 @@ public sealed class SkillValues
         // Fog's EOF flush evaluates this outer group despite its missing closing token. Keep the pinned text intact.
         if (_skill.Ability == CombatAbility.FireWall && field == "EDmgSymPerCalc"
             && expression == "(skill('Warmth'.blvl)*par8+skill('Inferno'.blvl)*par7") { expression += ")"; }
+        // The exact Goatman outer group reaches EOF after its nested skill()
+        // call closes. Complete Fog compiler controls and a current-build
+        // tooltip corroborate the additive result. Keep all other forms strict.
+        if (_skill.Ability == CombatAbility.SummonGoatman && field == "passivecalc3"
+            && expression == "(ln56 + (skill('Demonic Mastery'.ln21))") { expression += ")"; }
         return Formula(expression);
     }
     public long Formula(string expression) => SkillFormula.Evaluate(expression, Resolve);

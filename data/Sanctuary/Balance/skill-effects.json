@@ -2968,7 +2968,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared birth suppliers create no summon actor or visual. Final Khazra/Goatman body, equipment appearance and summon/idle/move/hit/death animations, warlock_shadow_cast_2 and Warlock_Skill_Cast_Khazra_03, Stun impact, Berserk/Frenzy state and Cleave sweep/contact audio remain pending. Learned summon remains gated; talent/right/quick icons are separately tracked."
   },
   {
     "talentId": "warlock.bloodoath",
