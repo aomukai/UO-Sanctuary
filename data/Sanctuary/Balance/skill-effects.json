@@ -2352,7 +2352,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared infection and contagion have no dedicated rendering. Shared native poison status is an identified placeholder; it does not own the independent infection deadline. Final Werewolf S3 bite/contact, rabies infection overlay, contagion presentation and cast/contact/expiry audio remain pending. The source contagion missile itself has a null cel. Talent/left/right/quick icons remain separate text placeholders. Learned casting is not yet enabled."
   },
   {
     "talentId": "druid.shockwave",

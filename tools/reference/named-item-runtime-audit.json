@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "c32c97520d0d61fe237e75a63a6abce5b26efa6823e41187cbe595bfe9d5103d",
+  "ContentAssemblySha256": "5241e29d6cf8a52855291ee74c86f2fc34686b88e275e0d3c6add3137d6123bd",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -68,7 +68,7 @@
     "data/Sanctuary/Balance/named-item-properties.json": "dc5f3b95c4eb24d5dc756381b8b08272db84134c5fc0ea6c8e77f11e4fa58762",
     "data/Sanctuary/Balance/named-skill-backlog.json": "2a9e4b686189b51e41910020dd27cc3f2a065d73edc5c3f530c3c10d84b2a3cb",
     "data/Sanctuary/Balance/named-skill-bindings.json": "b7859dfea4db641ec9c84ca3661d5ec7734098a0676fb7b0e45fa760490b4438",
-    "data/Sanctuary/Balance/necromancer-summons.json": "9684ce07270767daf09e6de285503e1e252deca633d8d5232536b0240bcc0694",
+    "data/Sanctuary/Balance/necromancer-summons.json": "41e60d7585c9a899c901f568667672b9630d17ca05b6e7249fd0a470dcedd3cf",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/potion-belts.json": "97081b7cca48cb3dc17c16c1f54cf8c151fee82474858dc6966653c04a3f9a42",
     "data/Sanctuary/Balance/power-scrolls.json": "4563cb89d0b75f26c14bed8121b3c56c33bd44234047f9d9276d4c508f531f8f",
@@ -81,7 +81,7 @@
     "data/Sanctuary/Balance/runebark.json": "07a8470d21e5895b36a085b4e77a6ced89a9d2d20904e81561072d6e8fc698d7",
     "data/Sanctuary/Balance/sentry-npc-skills.json": "45b312ccec0f90a04f3efa862eb2693cdd46d5f7a0ab00a82e0734e009ae83ed",
     "data/Sanctuary/Balance/set-items.json": "64f9778a8308c4e4fe953efe510dca01c5ec0f28039a76be4b5fccf63b8418eb",
-    "data/Sanctuary/Balance/skill-effects.json": "94f642bc25b988b3bca7f713be30c191f08d5fbb4604690659977a6f2bbfa1ad",
+    "data/Sanctuary/Balance/skill-effects.json": "5228933dfd8d07cfffb9eeaaec83897c916e5b945319a730920b8dd1f7143eba",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
     "data/Sanctuary/Balance/smite-shields.json": "5e35a9df0f6650115033c6e594d4c8365962dc2b58027d02fdcd3b5b5067948b",
     "data/Sanctuary/Balance/socket-gems.json": "95f811ec9b294d5ab01c032204765e6215fce627fb5485c6349c373958d76d45",
@@ -407,6 +407,7 @@
     "src/Sanctuary.Content/DruidOakStats.cs": "3cd9a6f4c3cb600d7ff045124b314692c2939e7d6e41591bd32206bd03f2f982",
     "src/Sanctuary.Content/DruidOakWorld.cs": "d56a4db1f79325cbb6a08badbb558bbdbf590b410309aa881e2d718593e99dd9",
     "src/Sanctuary.Content/DruidPlayerForms.cs": "29424b35de4a773b3e4580f26938b2a68352a03c257e4eb3fd066498fb4b98ae",
+    "src/Sanctuary.Content/DruidRabiesInfections.cs": "eb0ac44ac1c89e8f0762e6767bdc2a1f389b61cae139c11cd5045045fc780362",
     "src/Sanctuary.Content/DruidRabiesPackets.cs": "0bfceb764692233fd409b3f133e049d5f275b5956b976326cc46b8a774f3e53a",
     "src/Sanctuary.Content/DruidRavenBody.cs": "f34e4016a289f4e12dadd2bc65fbe7d5bacb389af17a17d7136d37f16b5b539c",
     "src/Sanctuary.Content/DruidRavenCasting.cs": "f6eea3ad0cab281e374bac35b134a6148dbce93b8f013d81dbeafdc5c973e6d3",

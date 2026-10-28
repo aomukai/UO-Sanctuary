@@ -4802,6 +4802,60 @@
     }
   },
   {
+    "key": "rabiescontagion",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 53,
+      "pSrvDmgFunc": 11,
+      "Vel": 5,
+      "MaxVel": 5,
+      "Range": 20,
+      "Red": 0,
+      "Green": 0,
+      "Blue": 0,
+      "InitSteps": 0,
+      "Activate": 2,
+      "LoopAnim": 0,
+      "animrate": 1024,
+      "AnimLen": 1,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "LastCollide": 1,
+      "ClientCol": 1,
+      "Size": 1,
+      "CanSlow": 1,
+      "Skill": "Rabies",
+      "HitShift": 8,
+      "NumDirections": 1
+    }
+  },
+  {
+    "key": "rabiesplague",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 30,
+      "Param1": 4,
+      "Param2": 7,
+      "Range": "10 +  (lvl *  5)",
+      "Red": 0,
+      "Green": 0,
+      "Blue": 0,
+      "InitSteps": 1,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "animrate": 1024,
+      "AnimLen": 2,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "Size": 3,
+      "CanSlow": 1,
+      "HitShift": 8,
+      "NumDirections": 1,
+      "SubMissile1": "rabiescontagion"
+    }
+  },
+  {
     "key": "royalstrikechainlightning",
     "fields": {
       "pCltDoFunc": 8,
