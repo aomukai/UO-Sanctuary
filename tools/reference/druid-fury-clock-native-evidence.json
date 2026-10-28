@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "preparedComponent": true,
+  "handlerEnabled": false,
+  "installed": false,
+  "currentExecutableParity": false,
+  "nativeAssemblySha256": "c46cd055fabf11f1950810b95659738a6b691a785023f69e40981095712473a5",
+  "nativeSourceCommit": "8949002",
+  "nativeHelpers": [
+    "AmazonFend.Ceiling",
+    "AmazonFend.Rollback"
+  ],
+  "contexts": {
+    "schedules": 1308,
+    "contacts": 4578,
+    "distinctAdvances": 327
+  },
+  "nativeDependencies": {
+    "Sanctuary.Content": "c46cd055fabf11f1950810b95659738a6b691a785023f69e40981095712473a5",
+    "Server": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "UOContent": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "artifacts": {
+    "tools/probe_druid_fury_clock_native.py": "3b4ebc156d7f971549d5e87db2607e516cf12c572838a9e43d70b3ad775a8b5c",
+    "tools/reference/druid-fury-clock-engine-evidence.json": "3b46cd9a9780731e664487b6af897e57b2859de03cbb510e2a61170d48910769",
+    ".local/class-skills/druid-fury-clock-source-probe.json": "44cae8468cf1527239133b850585d62bce65d2279c99ba2f5702e191e5954e93",
+    ".local/class-skills/druid-fury-clock-native/FuryClock.csproj": "d25cd4a158d7db264c760e9a7673c730405afece22d1d3d7dfb33ed71009e622",
+    ".local/class-skills/druid-fury-clock-native/Program.cs": "0a6e4e92b267d3be6934fb2275102ccd4a725318008d766595e4f93007d9d806",
+    ".local/class-skills/druid-fury-clock-native/build.log": "6641d61b7ea78635a372bc3dcc48b2b83b52aaf64bc33aae9d064b42aece496b",
+    ".local/class-skills/druid-fury-clock-native/run.log": "d84db25d1a6c02bead8fd06f6a8f37451e5f6c943cc8410bd626b1e891a6a24c",
+    ".local/class-skills/druid-fury-clock-native/out/FuryClock.dll": "fcbe84220768de0016c2c84c54409f1d5804f51cc78e9e5c6a5b25593561b373",
+    ".local/class-skills/druid-fury-clock-native/out/FuryClock.deps.json": "62ceb91c2c1ac23ef21f9888c58c47f6f9ad7b115c7f9cb8da28e398b3ed1b72",
+    ".local/class-skills/druid-fury-clock-native/out/FuryClock.runtimeconfig.json": "f9bc8e9f0c46247078ed47309f19a7576b4b94e4300e9de0003917d6bd2d667a",
+    ".local/class-skills/druid-shock-wave-casting/content/Sanctuary.Content.dll": "c46cd055fabf11f1950810b95659738a6b691a785023f69e40981095712473a5",
+    ".local/class-skills/druid-fury-clock-native/out/Sanctuary.Content.dll": "c46cd055fabf11f1950810b95659738a6b691a785023f69e40981095712473a5",
+    ".local/class-skills/druid-fury-clock-native/out/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    ".local/class-skills/druid-fury-clock-native/out/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/class-skills/druid-fury-clock-native/out/Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "established": [
+    "An isolated net10console invokes the actual accepted content assembly helpers by reflection,without editing/rebuilding canonical content or integration. Every prepared2..5hit Fury schedule matches primary original-author vectors/shared current-animation arithmetic. Both action and final full-cycle timing use the real shared native Ceiling and rate-scaled Rollback70helpers.",
+    "Generated driver,project,build/run logs and exact content DLL are hash-bound. Build and run exit0 with zero warnings/errors. The original world,client,canonical runtime data and running Shock Wave full regression remain untouched."
+  ],
+  "remaining": [
+    "The console driver supplies action7/end13/current progress and source count; it is not a connected player or full Fury series. Native combat/input/payment/rank capture/retargeting/interruptions,outer dispatch,save/reload and full class acceptance remain next.",
+    "This retains the supplementary original-author model limits. Exact current executable chronology,live progress changes and low-rank outer behavior are not certified. Final effects/audio and separate icons remain pending."
+  ]
+}
