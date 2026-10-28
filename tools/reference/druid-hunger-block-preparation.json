@@ -1,0 +1,89 @@
+{
+  "referenceVersion": "3.3.93847",
+  "canonicalParent": "0d32e8e",
+  "installed": false,
+  "canonicalHandlerEnabled": false,
+  "isolatedDraftHandlerEnabled": true,
+  "canonicalHandlers": 178,
+  "canonicalDruidHandlers": 22,
+  "completedClasses": [],
+  "currentExecutableParity": false,
+  "verified": {
+    "markers": 20,
+    "boots": 3,
+    "actualReloads": 2,
+    "actualHungerInputs": 6,
+    "sourceContexts": 34560,
+    "sourceRoutines": 8,
+    "nativeS3Contexts": 28800,
+    "zeroWarningBuilds": 2,
+    "nativeBlockControls": 16,
+    "fullRegression": false,
+    "canonicalPythonAcceptance": false
+  },
+  "frozenHungerPreparation": {
+    "commit": "8d7b5d4",
+    "receipt": "tools/reference/druid-hunger-preparation.json",
+    "sha256": "3973e5a0c30f961e9348ef6d73712804089f11d41fd50648b59c8acdeaaf8585"
+  },
+  "preparedInputsSha256": "043db81cedec1c6d9691613701a91ac3106527801f4e016f1507554fe8b48a95",
+  "preparedSourceChanges": {
+    "src/Sanctuary.Content/ActionTiming.cs": "f42b1e02bbb8e0e32395ba75faf43b0088544dd1af6b5b99a106df1bcfd4be15",
+    "src/Sanctuary.Content/CharacterProfiles.cs": "70eb7a919589289cce9e7877d31a427c9a04b2de43f2701f0bac42d4d5766e47",
+    "src/Sanctuary.Content/ClassCombat.cs": "dc61d0b7497647172a7e79ec4143aee596d735481ba0b7b33c3ae54a653ecf39",
+    "src/Sanctuary.Content/ClassMovement.cs": "8d218cb970a7348d0df41c9c40efe9f6773f3bf0a9d245fa6bb35ed7535f4ea6",
+    "src/Sanctuary.Content/DruidCombat.cs": "f98afbc308bf18a4775ddde0232b88272278a48693079427d501805f9b9523ca",
+    "src/Sanctuary.Content/DruidFormAttacks.cs": "ac396067c4dd759c849c6ac382501d02174308dcbdc086c5990596e8cbedf498",
+    "src/Sanctuary.Content/DruidHunger.cs": "65647f02452fe9eb6cc2b7cd2de1ea4af5e648a542569da464ebb5782be107c8",
+    "src/Sanctuary.Content/DruidPlayerForms.cs": "29424b35de4a773b3e4580f26938b2a68352a03c257e4eb3fd066498fb4b98ae",
+    "src/Sanctuary.Content/GearEffects.cs": "e10fe4b25cb936e440b35326823f2e097f23bb88fa782eb82eb1098ad9619a5c",
+    "src/Sanctuary.Content/HitRecovery.cs": "3cd9b0f4e0cd1ff7a2f086d03a41845a9a8937ab6f41706bf52ce2d5105599f4",
+    "tests/Sanctuary.Integration/DruidHungerChecks.cs": "30286fdc54453abe343ef177970b8f685649e0c35598b8ad601b563d6fba1a02"
+  },
+  "patch": {
+    "path": "tools/reference/druid-hunger-block-prepared.patch",
+    "sha256": "0ee3890b331b9fb3470f616bec3352e0750f9e89b496d4d24d08a69328562963"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-hunger-block-next/attempt1-prepared-inputs.json": "2fb120b9c5849205c680da4a625f44e1467e1e8b5764d8c0b8f511113aaf390b",
+    ".local/class-skills/druid-hunger-block-next/attempt1-prepared-native-checks.log": "b3ab6c7e9cd8da1597758e66dd1a3906322c6181a9fd8ed10fb3c0d3a178a5d6",
+    ".local/class-skills/druid-hunger-block-next/attempt1-prepared-run.log": "e9cacd1d63b8e0321716a5febfaf2292ee785033638a0354ee74b6cafdb2e81f",
+    ".local/class-skills/druid-hunger-block-next/attempt2-prepared-inputs.json": "087a1df9285ec706fcc59cd459ebb91f81e67d276552c76e20445a25d3d11b7d",
+    ".local/class-skills/druid-hunger-block-next/attempt2-prepared-native-checks.log": "579868a07f61044446072356156207c6994a4ba819a179175ad29cdb6ed6d8a8",
+    ".local/class-skills/druid-hunger-block-next/attempt2-prepared-run.log": "e706241799cefb7fb10019bfa4a632d9843e269435da23020741a44d37676b7e",
+    ".local/class-skills/druid-hunger-block-next/attempt3-prepared-inputs.json": "3c6efd5b02a073ea5663197615c6249db01cf909d8f2142a4faeb451b9aab2ff",
+    ".local/class-skills/druid-hunger-block-next/attempt3-prepared-native-checks.log": "7d64c50930df4e1e7a827c37f6dd135620928a6c36007f3008a0fdf18d314739",
+    ".local/class-skills/druid-hunger-block-next/attempt3-prepared-run.log": "72d1a60112b2d6c226d4957636fe1ae8625efdafaf9161ae2237b310920a1500",
+    ".local/class-skills/druid-hunger-block-next/attempt4-prepared-inputs.json": "04a8cded3a44bb868731d58b8d7a7860bb12005215891119944879cca16f3f72",
+    ".local/class-skills/druid-hunger-block-next/attempt4-prepared-native-checks.log": "0271cd84b789ad69879081b982b454bb50421a6fb50a6534c6846a2024fd2345",
+    ".local/class-skills/druid-hunger-block-next/attempt4-prepared-run.log": "1a5396042d49dc88a51bac7a00ac1c659f6bc7a68fed65e5e43f32bb11c0a465",
+    ".local/class-skills/druid-hunger-block-next/basic-block-before-prepared-inputs.json": "6db4a1dfb259d2b91be36f312a3dcee2cc8df8567adc611df0fedee531be81b0",
+    ".local/class-skills/druid-hunger-block-next/basic-block-before-prepared-native-checks.log": "92377b9c06eb4c006231a35bbee4106a5760783b5c254e1d61b812f2fa433387",
+    ".local/class-skills/druid-hunger-block-next/basic-block-before-prepared-run.log": "da975b8dd35b6b7b35d3c61d6226d472ab908c9f5956185d8b7a75e2b7e94ddb",
+    ".local/class-skills/druid-hunger-block-next/content/Sanctuary.Content.dll": "ea7f6fed1ef7970522bea074a2edb9e79fd23a7495516ef14e3d32270dee86cb",
+    ".local/class-skills/druid-hunger-block-next/content-build.log": "6ed9524f9c441caf90e17b45cc298a2bb94e79dacee83deedc6cfd4c468abe87",
+    ".local/class-skills/druid-hunger-block-next/integration/Sanctuary.Integration.dll": "f34582dda4a4ac206383fa5ce1e51004d05942431fb544d4439dc843fc67c6d8",
+    ".local/class-skills/druid-hunger-block-next/integration-build.log": "7eb888d6b60bac43d7af222cade7d1712c6a9f18814c93351e3f6d7c6ccbf5ea",
+    ".local/class-skills/druid-hunger-block-next/prepared-hunger-fixtures.json": "c6e988a049801c178e0a63c08268c4417e342b651cf9f19c73a190c942f0e73e",
+    ".local/class-skills/druid-hunger-block-next/prepared-inputs.json": "043db81cedec1c6d9691613701a91ac3106527801f4e016f1507554fe8b48a95",
+    ".local/class-skills/druid-hunger-block-next/prepared-native-checks.log": "8b1a7f96c9f4d7dc1c8e027a59e410e587f3abdd2426144c90dcf491587939f5",
+    ".local/class-skills/druid-hunger-block-next/prepared-run.log": "e3c762f6afea7b5ac494d12d0ee300b8ffd39953009f8d48341e795589f5964f",
+    ".local/class-skills/druid-hunger-block-next/prepared-runner.py": "cd70a0546b71b711e8f22608f55c38dc28298d2a12aedda9a63f6d2275a89e2f",
+    ".local/class-skills/druid-hunger-source-probe.json": "c154171cad41ed32e15f16fde786cbe3b3f99068462500e79a205bda76cc2c3e",
+    ".local/class-skills/druid-s3-clock-source-probe.json": "15a015632ea385b06e258191d4fe094474885f5e356a2d1e34ed24bd1a5c608c",
+    "tools/reference/druid-hunger-engine-evidence.json": "c9a54a6de3f0e948af21e1134384dce14777ae4e3f3bccb4f870b289bbe5646f",
+    "tools/reference/druid-s3-clock-engine-evidence.json": "53137ae11afb554a4c986caa8304305de2258056bf9739e5114a6eac4a303ef6"
+  },
+  "runnerSource": "#!/usr/bin/env python3\n\"\"\"Bound isolated Hunger functional draft; not canonical or full acceptance.\"\"\"\nimport hashlib,json,os,shutil,socket,struct,sys,tempfile,threading\nfrom pathlib import Path\nROOT=Path('/home/aomukai/.codex/worktrees/druid-barbs-actor/Sanctuary')\nsys.path.insert(0,str(ROOT/'tests'))\nfrom check_britain import Session\nfrom check_raven_stats import drain\nSTAGE=ROOT/'.local/class-skills/druid-hunger-block-next'\nSERVER=Path('/media/aomukai/FILES/Sanctuary/.local/server')\nNATIVE=Path('/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution')\ndef sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()\nlogpath=STAGE/'prepared-native-checks.log'\nwith tempfile.TemporaryDirectory(prefix='sanctuary-hunger-prepared-',dir='/dev/shm') as temporary:\n folder=Path(temporary)\n for entry in SERVER.iterdir():\n  if entry.is_file() and entry.suffix in ['.dll','.json','.config']:shutil.copy2(entry,folder/entry.name)\n (folder/'runtimes').symlink_to(SERVER/'runtimes',target_is_directory=True)\n shutil.copytree(SERVER/'Configuration',folder/'Configuration')\n for name in ['Assemblies','Data']:\n  (folder/name).mkdir()\n  for entry in (SERVER/name).iterdir():\n   if entry.name not in ['Sanctuary.Content.dll','Sanctuary.Integration.dll','UOContent.dll','Sanctuary','assemblies.json']:\n    (folder/name/entry.name).symlink_to(entry,target_is_directory=entry.is_dir())\n for rel in ['ModernUO.dll','Server.dll','Assemblies/UOContent.dll']:shutil.copy2(NATIVE/rel,folder/rel)\n for kind in ['content','integration']:(folder/'Assemblies'/('Sanctuary.'+kind.title()+'.dll')).symlink_to(STAGE/kind/('Sanctuary.'+kind.title()+'.dll'))\n shutil.copytree(ROOT/'data/Sanctuary',folder/'Data/Sanctuary')\n for name in ['druid-hunger','druid-s3-clock']:shutil.copy2(ROOT/'.local/class-skills'/(name+'-source-probe.json'),folder/(name+'-source-probe.json'))\n assemblies=json.loads((SERVER/'Data/assemblies.json').read_text())\n for name in ['Sanctuary.Content.dll','Sanctuary.Integration.dll']:\n  if name not in assemblies:assemblies.append(name)\n (folder/'Data/assemblies.json').write_text(json.dumps(assemblies))\n configpath=folder/'Configuration/modernuo.json';config=json.loads(configpath.read_text())\n with socket.socket() as reservation:reservation.bind(('127.0.0.1',0));port=reservation.getsockname()[1]\n with socket.socket(type=socket.SOCK_DGRAM) as reservation:reservation.bind(('127.0.0.1',0));ping=reservation.getsockname()[1]\n config['listeners']=[f'127.0.0.1:{port}']\n config['settings'].update({'autosave.enabled':'False','pingServer.enabled':'True','pingServer.port':str(ping),'sanctuary.graveyard.enabled':'False','world.savePath':'Saves','crashGuard.restartServer':'False'})\n configpath.write_text(json.dumps(config))\n sources={str(p.relative_to(STAGE)):sha(p) for p in (STAGE/'prepared-source').rglob('*.cs') if 'obj' not in p.parts and 'bin' not in p.parts}\n artifacts={str(p.relative_to(folder)):sha(p) for p in [folder/'ModernUO.dll',folder/'Server.dll',folder/'Assemblies/UOContent.dll',folder/'Assemblies/Sanctuary.Content.dll',folder/'Assemblies/Sanctuary.Integration.dll']}\n inventory=dict(preparedSources=sources,artifacts=artifacts,copiedData={str(p.relative_to(folder)):sha(p) for p in (folder/'Data/Sanctuary').rglob('*') if p.is_file()})\n (STAGE/'prepared-inputs.json').write_text(json.dumps(inventory,indent=2)+'\\n')\n with logpath.open('w') as log:\n  for boot in range(3):\n   session=Session(folder,log)\n   try:\n    ready=session.expect(r'create the owner account now\\? \\(y/n\\):|Listening: 127.0.0.1:'+str(port))\n    if ready.group(0).startswith('create'):session.send('n');session.expect('Listening: 127.0.0.1:'+str(port))\n    commands=['druid-form-basic-block-check','druid-hunger-model-check','druid-hunger-check'] if boot==0 else ['druid-hunger-reload-check']\n    for command in commands:\n     session.send(command);assert session.expect(command+r': (passed|failed)',timeout=120).group(1)=='passed',logpath.read_text()[-5000:]\n    for family in ['hunger-right','hunger-quick']:\n     with socket.create_connection(('127.0.0.1',port),timeout=5) as client:\n      threading.Thread(target=drain,args=(client,),daemon=True).start()\n      session.send(family+'-check');assert session.expect(family+r'-check: (passed|failed)').group(1)=='passed'\n      ready=session.expect(family+r': ready ability=(\\d+) class=(\\d+) target=(\\d+) x=(\\d+) y=(\\d+) z=(-?\\d+)')\n      ability,character,target,x,y,z=map(int,ready.groups())\n      if family.endswith('right'):client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,4,1,ability,target,x,y,z))\n      else:client.sendall(struct.pack('>BHHBBIBBBIHHb',0xBF,23,0xF7,2,4,1,character,7,ability,target,x,y,z))\n      session.expect(family+': windup')\n      if family.endswith('right'):client.sendall(struct.pack('>BHHBBI',0xBF,11,0xF2,7,5,2))\n      assert session.expect(family+r'-result: (passed|failed)',timeout=10).group(1)=='passed',logpath.read_text()[-5000:]\n    session.send('druid-hunger-snapshot-check');assert session.expect(r'druid-hunger-snapshot-check: (passed|failed)').group(1)=='passed'\n    session.send('save');session.expect('Writing world save snapshot done')\n    session.send('shutdown');assert session.process.wait(timeout=20)==0\n   finally:session.close()\n shutil.copy2(folder/'druid-hunger-fixtures.json',STAGE/'prepared-hunger-fixtures.json')\n for name,digest in artifacts.items():assert sha(folder/name)==digest,name\nfor name,digest in sources.items():assert sha(STAGE/name)==digest,name\ntext=logpath.read_text();assert ': failed' not in text and ' ERR]' not in text and text.count('Shutting down')==3 and text.count(': passed')==20\nprint('Isolated Hunger/block draft:20markers/3boots/2reloads,34560source/28800clock model cases and actual dual-drain consumers;6actual right+quick inputs;canonical/full acceptance pending.')\n",
+  "established": [
+    "A deterministic native before-control proves transformed Basic Attack ignores a positive NPC shield decision. The isolated correction calls the existing SourceBlocking consumer after a successful ordinary form hit, before weapon damage. Sixteen positive/negative block controls pass for both forms and direct Basic Attack plus Hunger/Fire Claws/Feral/Maul low-mana fallbacks. Blocked attacks cause no damage/leech/mana debit; failed blocks retain ordinary damage. Human/ranged/other class paths are outside this scoped correction.",
+    "The isolated learned Hunger/block draft passes both forms with release-time contact/results, S3timing, post-critical signed physical reduction, retained nonphysical components, real Highlord critical/soft rank, additive physical-only life/mana drain, full-mana post-leech payment, old Feral/Maul charge preservation, physical immunity, shield block and cancellation controls.",
+    "Retained failed attempts distinguish fixture/integration mistakes from accepted behavior: the first clock fixture supplied already-slowed SIAS instead of the captured unslowed Werewolf rate; the route guard initially used an empty string where absent catalogue fields return0; reload then exposed a one-point mana tick because the fixture regeneration hold ran before default initialization. The accepted fixture reapplies its hold at late Initialize,matching the retained form fixtures. Exact resource assertions remain unchanged. A high-rank declared diminishing-formula service was also corrected to retain its100percent cap before native comparison.",
+    "Six real wolf-right/bear-quick casts pay three mana at action, not at start. Fractional owner/target life,mana,form,original charge and bindings survive two actual reloads without a pending packet replay. Source/native model compares34560bounded Hunger cases and28800S3schedules. This isolated scope does not establish canonical focused/full acceptance or installation."
+  ],
+  "remaining": [
+    "Keep canonical Fire Claws source/data/DLLs frozen until its running full regression is terminal and accepted. Apply this checked patch as a new candidate only afterward, update generated status/effect/icon inventories, build both assemblies and run retained focused/Python/full suites against that candidate.",
+    "Hunger no-start/do122 differs from Fire Claws start58: contact and weapon packet capture happen at release. Old outer handler consumes after do; exact modern payment/minimum-mana quirks,lost-target/lost-mana,reentrant events,seed/geometry/reentry and client remain uncertain. The draft refuses lost-mana release and cancels lost contact explicitly. Ordinary low-mana Attack follows the existing table/older-dispatcher adapter, not a modern executable certificate.",
+    "Item-only/foreign classes/PvP/unmapped recipients remain unsupported. Final S3bite/body/contact/leech/audio and talent/left/right/quick icons remain separate placeholders. Main installed build/client/configuration/saves remain preserved."
+  ]
+}
