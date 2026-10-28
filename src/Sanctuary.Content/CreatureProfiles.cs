@@ -174,6 +174,7 @@ public static class CreatureProfiles
     {
         if(creature is DruidOakBody spirit){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned spirit entity","native",spirit.SourceMonsterId,"Saved vulnerable Totem body; individual aura/casting and exact-current acceptance scope is recorded separately");}
         if(creature is DruidCreeperBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned plaguepoppy entity","native","plaguepoppy","Prepared saved noRatio life/ownership only; world state, mats and learned casting pending");}
+        if(creature is DruidRecyclerBody recycler){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned recycler vine entity","native",recycler.SourceMonsterId,"Prepared saved recycler life/ownership; corpse controller,exposure and learned acceptance remain separate");}
         if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Saved life/movement/cold hit and learned casting; modern full parity pending");}
         if(creature is DruidGrizzlyBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned druidbear entity","native","druidbear","Prepared saved vulnerable Grizzly life/ownership; AI112world,BearSmite and learned casting pending");}
         if(creature is DruidDireWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Fenris entity","native","fenris","Prepared saved vulnerable Fenris world/rage/physical combat; learned casting and full current parity pending");}
@@ -200,6 +201,12 @@ public static class CreatureProfiles
             Traits=new("Vine",false,false,false,false,false,0,3,
                 NecromancerSummons.Source("plaguepoppy","Drain",difficulty??creeper.SummonDifficulty),
                 Math.Abs(NecromancerSummons.Source("plaguepoppy","coldeffect",difficulty??creeper.SummonDifficulty)),0),
+            HitRecovery=new(false)}
+            : creature is DruidRecyclerBody recycler ? _native with{Enabled=true,ApplyStats=false,
+            Resistances=new(0,0,0,0,0,0),
+            Traits=new("Vine",false,false,false,false,false,0,3,
+                NecromancerSummons.Source(recycler.SourceMonsterId,"Drain",difficulty??recycler.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source(recycler.SourceMonsterId,"coldeffect",difficulty??recycler.SummonDifficulty)),0),
             HitRecovery=new(false)}
             : creature is DruidSpiritWolfBody wolf ? _native with{Enabled=true,ApplyStats=false,
             Traits=new("Wolf",false,false,false,false,false,2,4,

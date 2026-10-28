@@ -4,6 +4,8 @@ This register is independent of mechanical completion. No final assets have been
 
 Sanctuary presentation preference: visible damaging effects should match their active damaging lifetime. This is user taste, not D2R reference evidence; final assets must communicate the supported mechanics. See [reference precedence and recorded preference](skill-mechanical-reference.md#sanctuary-decisions-retained).
 
+Carrion Vine and Solar Creeper prepared bodies use silent UO corpser0x8 with explicit placeholder names. Generic0x376A is an identified delayed steal-life/mana overlay placeholder. Final K9 bodies, underground/surface/corpse-feed, recycler vines/explosion, steallife/stealmana overlays and summon/feed/expiry audio are still needed. NPC307/325are internal actions; the separate icon register retains each player talent and right/quick-hotkey icon.
+
 Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporary placeholders. Names, damage type and mechanics are authoritative independently of their placeholder appearance. Effect concepts for unimplemented skills are a source-derived backlog, not an implementation claim.
 
 Grizzly's prepared saved body is explicitly **Grizzly [placeholder]**,using silent UO bear0xD4. Final B7 emergence/body/walk,A1attack,A2BearSmite sequence,contact/knockback,hurt/death and bear/summon audio are still needed. The separate icon register retains its talent/right/quick icon work. Detailed placeholder descriptions are kept in [the runtime effects register](../data/Sanctuary/Balance/skill-effects.json).

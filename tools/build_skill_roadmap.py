@@ -378,6 +378,9 @@ def render(data):
             if row['talentId'] == 'druid.poisoncreeper' and implementation == 'pending':
                 implementation = 'prepared; learned disabled'
                 remaining = 'Saved body/controller, independent damaging mats and internal 8-mana allocation/payment/replacement pass three boots/two reloads. Modern underground exposure, provisional birth/live Rabies and gear transport, learned SC/input, full regression and graphical acceptance remain open; see the checkpoint and creeper-world-native-evidence.json. This individual gate does not block other Druid work. Effects and icons remain separate.'
+            if row['talentId'] in ['druid.carrionvine','druid.solarcreeper'] and implementation=='pending':
+                implementation='prepared; learned disabled'
+                remaining='Prepared shared do115stats,saved vulnerable body,AI111policy and independent corpse-recovery components pass52native checks over3boots/2actual reloads,including three automatic healing runs. See recycler-vines-native-evidence.json for bounded source/native acceptance. Automatic movement/corpse-seeking connection,casting/input and underground exposure remain open; Solar current calc2versus old do33calc1is an explicit provisional model,not a resolved current-engine fact. See the current checkpoint. Final effects/audio and talent/right/quick icons remain separate.'
             lines.append(f"| {row['name']} | {row['sourceId']} | {implementation} | {remaining} |")
         lines.append('')
     return '\n'.join(lines)
@@ -395,6 +398,7 @@ def assets(kind):
         lines += [f"| {r['characterClass']} | {r['name']} | {r['talentIcon']} | {r['hotkeyIcon']} |" for r in rows]
     else:
         lines += ['Sanctuary presentation preference: visible damaging effects should match their active damaging lifetime. This is user taste, not D2R reference evidence; final assets must communicate the supported mechanics. See [reference precedence and recorded preference](skill-mechanical-reference.md#sanctuary-decisions-retained).','']
+        lines += ['Carrion Vine and Solar Creeper prepared bodies use silent UO corpser0x8 with explicit placeholder names. Generic0x376A is an identified delayed steal-life/mana overlay placeholder. Final K9 bodies, underground/surface/corpse-feed, recycler vines/explosion, steallife/stealmana overlays and summon/feed/expiry audio are still needed. NPC307/325are internal actions; the separate icon register retains each player talent and right/quick-hotkey icon.','']
         lines += ['Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporary placeholders. '
                   'Names, damage type and mechanics are authoritative independently of their placeholder appearance. '
                   'Effect concepts for unimplemented skills are a source-derived backlog, not an implementation claim.','',

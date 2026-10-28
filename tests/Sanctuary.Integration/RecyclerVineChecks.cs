@@ -10,6 +10,18 @@ using Server.Logging;
 using Server.Mobiles;
 namespace Sanctuary.Integration;
 
+// Isolate exact recovery/save assertions from unrelated background player
+// regeneration. This class is confined to disposable integration worlds.
+public sealed class RecyclerFixturePlayer:PlayerMobile
+{
+    public RecyclerFixturePlayer(){}
+    public RecyclerFixturePlayer(Serial serial):base(serial){}
+    public override bool CanRegenHits=>false;
+    public override bool CanRegenMana=>false;
+    public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+    public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Invalid recycler fixture version");}}
+}
+
 public static class RecyclerVineChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(RecyclerVineChecks));
@@ -91,7 +103,7 @@ public static class RecyclerVineChecks
     }
     internal static PlayerMobile Fresh()
     {
-        var p=new PlayerMobile{Body=0x190,Player=true,Name="RecyclerVineFixture"};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Druid);
+        var p=new RecyclerFixturePlayer{Body=0x190,Player=true,Name="RecyclerVineFixture"};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Druid);
         ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.carrionvine");Train(p,"druid.solarcreeper");FixtureSpace.Corridor(p,6790,25,2100);return p;
     }
     private static void Bodies()
