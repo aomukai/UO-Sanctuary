@@ -66,6 +66,16 @@ internal static class GoatmanNpcMelee
         if(sourceId is not(416 or 418)){throw new NotSupportedException("Unsupported Goatman release state");}
         if(sourceId==418){GoatmanBerserkEffects.Impact(actor,rank,at);}
     }
+    internal static PreparedMonsterDamageResult ReleaseQualified(BaseCreature actor,int sourceId,int rank,BaseCreature target,
+        GoatmanNpcPrepared captured,PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
+    {
+        // Source do2 refreshes the self-state before target/contact work. The
+        // actual contact and mode gates still belong to the actor consumer.
+        RefreshForRelease(actor,sourceId,rank,at);
+        ArgumentNullException.ThrowIfNull(captured);
+        return PreparedMonsterDamage.Release(actor,target,new(captured.Physical256,captured.Total256,captured.StunFrames,
+            captured.ColdFrames,captured.ResultFlags,captured.HitClass,false,captured.CriticalOverlay),recipient,limited,services,at);
+    }
     internal static GoatmanBerserkState StartBerserk(int frame,int rank,GoatmanBerserkState existing,bool allocationSucceeds)
     {
         var values=GoatmanNpcSkills.Values(418,rank);
