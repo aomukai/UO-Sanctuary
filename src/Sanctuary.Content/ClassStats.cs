@@ -93,7 +93,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            int basis=CreatureProfiles.AttackRating(creature),percent=skillPercent+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature);
+            int basis=CreatureProfiles.AttackRating(creature),percent=skillPercent+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature)+HexBane.TargetAttackPercent(creature);
             return basis+(int)((long)basis*percent/100);
         }
         if (mobile is not PlayerMobile player || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))
@@ -112,7 +112,7 @@ public static class ClassStats
         return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att");
     }
     internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)
-        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player)+DruidPlayerForms.AttackPercent(player);
+        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player)+DruidPlayerForms.AttackPercent(player)+HexBane.AttackPercent(player)+HexBane.TargetAttackPercent(player);
     internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
     {
@@ -131,7 +131,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return AmazonInnerSight.Defense(creature,CreatureProfiles.Defense(creature),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature));
+            return AmazonInnerSight.Defense(creature,CreatureProfiles.Defense(creature),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {
@@ -147,7 +147,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player)+DruidPlayerForms.ArmorPercent(player));
+            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player)+DruidPlayerForms.ArmorPercent(player)+HexBane.DefensePercent(player));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }
@@ -163,7 +163,7 @@ public static class ClassStats
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
         if (!classAttack && !classDefense && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
-            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null)
+            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null && HexBane.Debuff(attacker)==null && HexBane.Debuff(defender)==null)
         {
             return null;
         }

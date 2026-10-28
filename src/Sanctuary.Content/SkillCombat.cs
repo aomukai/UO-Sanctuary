@@ -128,7 +128,7 @@ public static class SkillCombat
             && (!weapon || SorceressEffects.Enchantment(source) == null && !PaladinElements.WeaponActive(source) && PaladinAuras.NativeWeaponMultiplier(source,true)==1)) { return null; }
         var parts = Mitigate(source, target, new(damage * physical / 100.0 * PaladinAuras.NativeWeaponMultiplier(source,weapon),
             damage * fire / 100.0 + (weapon ? SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),source.Weapon is BaseRanged) : 0),
-            damage * cold / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * lightning / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * poison / 100.0), spell);
+            damage * cold / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * lightning / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * poison / 100.0, Magic: weapon?HexBane.WeaponMagic(source):0), spell);
         return new ClassSkillDamage((int)Math.Max(0, parts.Total), (int)Math.Max(0, parts.Physical))
             {Total256=NamedElements.To256(parts.Total),Physical256=NamedElements.To256(parts.Physical)};
     }
@@ -199,7 +199,7 @@ public static class SkillCombat
     {
         if (source == null || target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return default; }
         if (ranged) { SorceressEffects.MissileHit(source, target, "arrow"); }
-        if (weapon) { damage = damage with { Physical = damage.Physical * PaladinAuras.NativeWeaponMultiplier(source,true), Fire = damage.Fire + SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),ranged), Cold=damage.Cold+PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),ranged), Lightning=damage.Lightning+PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),ranged) }; }
+        if (weapon) { damage = damage with { Physical = damage.Physical * PaladinAuras.NativeWeaponMultiplier(source,true), Fire = damage.Fire + SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),ranged), Cold=damage.Cold+PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),ranged), Lightning=damage.Lightning+PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),ranged), Magic=damage.Magic+HexBane.WeaponMagic(source) }; }
         var parts = Mitigate(source, target, damage with { Poison = 0 }, spell,enhanceBase);
         double physical = parts.Physical, total = parts.Total;
         int before = target.Hits;

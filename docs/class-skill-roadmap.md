@@ -11,7 +11,9 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
-| 8 | Warlock | 1 / 30 | 2 | 27 | Open |
+| 8 | Warlock | 1 / 30 | 3 | 26 | Open |
+
+Prepared Hex: Bane enchant/debuff consumers pass 141 native checks over three boots and two real reloads, including Enchant and the retained 135 markers. Whole-point magic endpoints, independent hard synergies, fractional mana, weapon-conditioned AR/damage, physical-only critical, separate noncurse target defense/AR, lifecycle and exact saved Warlock/Witch values are covered. See [Bane evidence](../tools/reference/hex-bane-native-evidence.json). Automatic event36 delivery, modern hex groups6/7 replacement, nonzero magic mastery and learned SC/input remain individually gated. The user has no Hex trained; no respec is requested. Coverage remains 183 handlers / Warlock 1, with no completed class.
 
 Prepared Psychic Ward pool/group behavior passes 135 checks across three boots and two real reloads. Fractional physical absorption, real gear mitigation, five implemented group1 armors, death/respec/history clearing and saved Warlock/Witch pools are covered; existing Bone/cold/Cyclone Armor checks pass again. See [Ward evidence](../tools/reference/psychic-ward-native-evidence.json). New callbacks40/37, fully absorbed/breaking-hit stun delivery, Energy Shield priority and learned SC/input remain individually gated. No current-game observation is assumed: the user has not trained Ward. Coverage stays 183 handlers / Warlock 1, with no completed class.
 
@@ -337,7 +339,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Consume | 381 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Bind Demon | 382 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Levitation Mastery | 383 | handler-present | Live effective rank supplies weapon-layer AR,physical damage and mastery critical through shared consumers. Normal weapon requirements use owner-specific capped reduction,including first equip; item-ease/ethereal stacking is explicitly unsupported. Global tooltips label owner requirements separately. Innate two-hand/offhand handling and Eldritch-specific throwing overrides remain separate. Native/current acceptance is recorded in the checkpoint; no class complete. |
-| Hex: Bane | 385 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Hex: Bane | 385 | blocked | Prepared whole-point magic enchantment, effective-rank AR, hard-only35percent synergies, fractional mana and separate noncurse target defense/AR debuff have source/native controls. New event36 delivery, modern hex groups6/7, nonzero magic mastery and learned SC/input remain gated. Supplied eligible events use an explicitly prepared receiver; no automatic melee-miss/missile/hextrigger rule is inferred. See hex-bane-native-evidence.json; effects and icons remain separate. |
 | Cleave | 391 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Echoing Strike | 388 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Hex: Purge | 389 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

@@ -144,7 +144,7 @@ public static class GearEffects
             reference * ClassGear.Material(weapon, "damage-fire") + GemCombat.Value(weapon, "fire-damage", roll) + NamedGear.Elemental(player, "fire", roll) + SorceressEffects.EnchantFire(player, roll) + PaladinElements.Weapon(player,"fire",roll),
             cold + GemCombat.Value(weapon, "cold-damage", roll) + NamedGear.Elemental(player, "cold", roll) + PaladinElements.Weapon(player,"cold",roll),
             reference * ClassGear.Material(weapon, "damage-lightning") + GemCombat.Value(weapon, "lightning-damage", roll) + NamedGear.Elemental(player, "lightning", roll) + PaladinElements.Weapon(player,"ltng",roll),
-            poison.Total, poison.Duration, coldMs, NamedGear.Elemental(player, "magic", roll));
+            poison.Total, poison.Duration, coldMs, NamedGear.Elemental(player, "magic", roll)+HexBane.WeaponMagic(player,roll));
     }
     private static double WeaponElement(PlayerMobile player,double total,string element,double roll,bool ranged)
     {

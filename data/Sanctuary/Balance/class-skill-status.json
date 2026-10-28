@@ -2451,10 +2451,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 385,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared whole-point magic enchantment, effective-rank AR, hard-only35percent synergies, fractional mana and separate noncurse target defense/AR debuff have source/native controls. New event36 delivery, modern hex groups6/7, nonzero magic mastery and learned SC/input remain gated. Supplied eligible events use an explicitly prepared receiver; no automatic melee-miss/missile/hextrigger rule is inferred. See hex-bane-native-evidence.json; effects and icons remain separate."
     },
     {
       "talentId": "warlock.cleave",

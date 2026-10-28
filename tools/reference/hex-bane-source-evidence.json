@@ -1,0 +1,166 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    ".local/class-skills/warlock-foundation/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    ".local/class-skills/warlock-foundation/skillcalc-extraction.json": "0ed55d24aa5875323103c959fed1b60ff0424f9dc180e5c64fc1914aadac8241",
+    "tools/probe_inner_sight_reference.py": "e209aeefc6e565be0cd66695efbb25ad2b3485315e525f785fe048f064889acc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/research/warlock-community/warlock-skills-notes.txt": "72453ee7e8a7419f9e4e142fa3d5f04953da5777a495dcdb0af3c2b610b34151"
+  },
+  "routines": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126",
+    "SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay": "6568ca91b2cb1e42051248d5bbc0eca4b854430c7be3fe9975c37f637411cf54",
+    "SKILLS_GetSpecialParamValue": "725f034cfdece6722e4a13ac7194ea6a0d0216b1ab9dc0bca31d22ab3fbc0328"
+  },
+  "skill": {
+    "skill": "Hex Bane",
+    "*Id": 385,
+    "charclass": "war",
+    "skilldesc": "hex bane",
+    "srvdofunc": 23,
+    "aurastate": "hexbane",
+    "auratargetstate": "hexbanedebuff",
+    "auralencalc": "ln34",
+    "aurastat1": "skill_armor_percent",
+    "aurastatcalc1": "\"min(ln56,50)*-1\"",
+    "aurastat2": "item_tohit_percent",
+    "aurastatcalc2": -25,
+    "auraevent1": "domeleeattack",
+    "auraeventfunc1": 36,
+    "auraevent2": "domissiledamage",
+    "auraeventfunc2": 36,
+    "auraevent3": "hextrigger",
+    "auraeventfunc3": 36,
+    "passiveitype": "weap",
+    "passivereqweaponcount": 1,
+    "passivestat1": "magicmindam",
+    "passivecalc1": "enma",
+    "passivestat2": "magicmaxdam",
+    "passivecalc2": "exma",
+    "passivestat3": "item_tohit_percent",
+    "passivecalc3": "toht",
+    "stsound": "Warlock_Skill_Hex_Bane_01",
+    "castoverlay": "warlock_psychic_cast_2",
+    "enhanceable": 1,
+    "attackrank": 4,
+    "requiresweapon": 1,
+    "itypea1": "weap",
+    "etypea1": "h2h",
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "reqlevel": 1,
+    "maxlvl": 20,
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 7,
+    "mana": 12,
+    "lvlmana": 1,
+    "interrupt": 1,
+    "InTown": 1,
+    "calc1": "150+(((skill('Eldritch Blast'.blvl)) *par9))",
+    "*calc1 desc": "Debuff Duration",
+    "Param3": 3600,
+    "*Param3 Description": "Hex Duration baseline",
+    "Param4": 300,
+    "*Param4 Description": "Hex Duration per level",
+    "Param5": 30,
+    "*Param5 Description": "Defense % baseline",
+    "Param6": 1,
+    "*Param6 Description": "Defense % per level",
+    "Param8": 50,
+    "*Param8 Description": "Damage synergy",
+    "Param9": 5,
+    "*Param9 Description": "Duration Synergy",
+    "Param10": 35,
+    "*Param10 Description2": "Hex Purge Damage synergy",
+    "InGame": 1,
+    "ToHit": 20,
+    "LevToHit": 9,
+    "HitShift": 7,
+    "EType": "mag",
+    "EMin": 9,
+    "EMinLev1": 3,
+    "EMinLev2": 7,
+    "EMinLev3": 11,
+    "EMinLev4": 15,
+    "EMinLev5": 19,
+    "EMax": 16,
+    "EMaxLev1": 5,
+    "EMaxLev2": 9,
+    "EMaxLev3": 13,
+    "EMaxLev4": 17,
+    "EMaxLev5": 21,
+    "EDmgSymPerCalc": "(skill('Consume'.blvl)*pa10)+(skill('Hex Purge'.blvl)*pa10)+(skill('Mirrored Blades'.blvl)*pa10)",
+    "cost mult": 256,
+    "cost add": 1000,
+    "lineNumber": 385
+  },
+  "stateGroups": {
+    "6": [
+      [
+        "hexbane",
+        198,
+        0
+      ],
+      [
+        "hexpurge",
+        202,
+        0
+      ],
+      [
+        "hexsiphon",
+        200,
+        0
+      ]
+    ],
+    "7": [
+      [
+        "hexbanedebuff",
+        199,
+        0
+      ],
+      [
+        "hexpurgedebuff",
+        217,
+        0
+      ],
+      [
+        "hexsiphondebuff",
+        201,
+        0
+      ]
+    ]
+  },
+  "cases": 192,
+  "artifacts": {
+    "tools/probe_hex_bane.py": "ac6546d3643410e181da9eb2e69879c987fbc8ed9cd5abd11fbffdb792d122d3",
+    ".local/class-skills/hex-bane/bane-buff.cpp": "f59dde42c3fde7fa94ca70878199b12394330bcedd5c42c767406b47f9684195",
+    ".local/class-skills/hex-bane/bane-buff.compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/hex-bane/bane-buff.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/hex-bane-source-probe.json": "7462f559f654c3846cc77c5cd3ec7fc5ea8411c4beb094069c447487c2941af9"
+  },
+  "established": [
+    "Local pinned skillcalc aliases49/50are enma/exma. The reviewed complete legacy SkillCalc returns mastered elemental endpoints shifted right8for those callbacks. Bane stores whole-point magicmindam52/magicmaxdam53,not FP256 values. Nonzero modern magic mastery is excluded from prepared capture.",
+    "Complete legacy do23/factory/passive writer execute192contexts including lower/equal/higher same-skill state, invalid rows/states,NPC and attackability guards. Lower rank rejects, equal refreshes expiry but rewrites passive values and descriptors, higher replaces. All three event descriptors register36with cast rank. No event36body is available in this legacy engine.",
+    "Current noncurse group6contains all three weapon hexes; noncurse group7contains their enemy debuffs. Legacy do23does not call the group-clearing helper used by do18,and the old factory does not implement these modern groups. Cross-hex replacement is not inferred.",
+    "Current damage uses hard Consume/HexPurge/MirroredBlades35percent per point,not the unused Param8value50. Buff3600+300per rank;debuff150+5per hard EldritchBlast;AR20+9per rank;defense-minusmin(30+rank-1,50);targetARminus25;mana(12+rank-1)/2."
+  ],
+  "services": [
+    "Formula values,statlist storage,allocation,event queue/registry and source masks are declared services. Formula consumers and actual persistence are checked separately in native C#. No complete current executable or new event36body is claimed."
+  ],
+  "remaining": [
+    "Automatic event36target/eligibility/order,including melee miss versus missile damage and new hextrigger,need integration. Supplied primary research reports melee attempts and successful missile hits but exact executable build is unstated.",
+    "User has no Hex trained; their Warlock uses summons,sigils and the BladeWarp path. No respec or points requested. Cross-hex group6/7replacement remains uncertain. Modern mastery/double-dip,death/owner transition nuance,SC/input and complete client acceptance remain separate."
+  ]
+}

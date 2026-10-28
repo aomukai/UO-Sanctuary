@@ -3112,7 +3112,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared cast uses UO0x375A hue0x48D flash and0x1E5 audio; supplied debuff uses the same identified flash. Final hex_enchant weapon overlay, warlock_psychic_cast_2, hexbanedebuff, curse_hit and Warlock cast/hit/expiry sounds remain pending. Learned input/event36 remain gated; talent/right/quick icons are separately tracked."
   },
   {
     "talentId": "warlock.cleave",
