@@ -1,0 +1,136 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "publicCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "formsPreflightSha256": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7",
+  "localTable": {
+    "filename": "skills.txt",
+    "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f"
+  },
+  "publicTableSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "publicFieldsCompared": 52,
+  "currentRow": {
+    "skill": "Hunger",
+    "*Id": "242",
+    "charclass": "dru",
+    "skilldesc": "hunger",
+    "srvdofunc": "122",
+    "enhanceable": "1",
+    "attackrank": "0",
+    "range": "h2h",
+    "anim": "S3",
+    "seqtrans": "S3",
+    "monanim": "S3",
+    "UseAttackRate": "1",
+    "TargetableOnly": "1",
+    "SearchEnemyXY": "1",
+    "AttackNoMana": "1",
+    "KeepCursorStateOnKill": "1",
+    "reqlevel": "24",
+    "maxlvl": "20",
+    "reqskill1": "Fire Claws",
+    "restrict": "2",
+    "State1": "wolf",
+    "State2": "bear",
+    "leftskill": "1",
+    "rightskill": "1",
+    "minmana": "1",
+    "manashift": "8",
+    "mana": "3",
+    "lvlmana": "0",
+    "interrupt": "1",
+    "calc1": "par5",
+    "*calc1 desc": "Damage %",
+    "calc2": "dm12",
+    "*calc2 desc": "Lifesteal %",
+    "calc3": "dm34",
+    "*calc3 desc": "Manasteal %",
+    "Param1": "50",
+    "*Param1 Description": "Lifesteal % Min",
+    "Param2": "200",
+    "*Param2 Description": "Lifesteal % Max",
+    "Param3": "50",
+    "*Param3 Description": "Manasteal % Min",
+    "Param4": "200",
+    "*Param4 Description": "Manasteal % Max",
+    "Param5": "-75",
+    "*Param5 Description": "Damage %",
+    "InGame": "1",
+    "ToHit": "50",
+    "LevToHit": "10",
+    "HitShift": "8",
+    "SrcDam": "128",
+    "cost mult": "768",
+    "cost add": "32000",
+    "*eol": "0"
+  },
+  "animation": {
+    "TGS3HTH": {
+      "code": "TGS3HTH",
+      "frames": 10,
+      "speed": 208,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    "40S3HTH": {
+      "code": "40S3HTH",
+      "frames": 10,
+      "speed": 240,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    }
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_SrvDo122_Hunger": "ca24d82c78917658e86a557a11ae0dc9e74796a146903f02360119a5250f9aa6",
+    "sub_6FD155E0": "547c0042f87255cb57c734619e0cf288ac5d544da97b1e0aec48fe6872b6ece5",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "SKILLS_GetManaCosts": "445c640231d7535e5cb12445b442bc6bb6a69a1ee59811857803f0bc2f4fecaa"
+  },
+  "orderedAnchors": [
+    "sub_6FD155E0",
+    "damage.dwHitFlags |= 2",
+    "SUNITDMG_FillDamageValues",
+    "D2GAME_RollElementalDamage_6FD14DD0",
+    "damage.dwPhysDamage += MONSTERUNIQUE_CalculatePercentage",
+    "damage.dwLifeLeech +=",
+    "damage.dwManaLeech +=",
+    "SUNITDMG_AllocCombat",
+    "SUNITDMG_DrainItemDurability"
+  ],
+  "established": [
+    "Hunger242uses do122 with no start routine, S3/attack-rate, three mana, SrcDam128 and both wolf/bear. It has no elemental damage of its own or impact overlay. It is not a shared A1 action.",
+    "On successful contact the complete older do122 fills weapon/critical values once, calls the elemental roller, then adds the -75percent physical adjustment to the filled physical packet. This is a post-fill multiplier, not additive off-weapon enhanced damage. Life/mana drain formulas are then added before allocation/mitigation and durability/combat drain. Misses do not call that success-only drain path.",
+    "The complete shared percentage helper truncates negative division toward zero and changes division order above physical256=1048576. Reuse SourcePercentage.Calculate rather than multiplying the ordinary damage scalar or using the nonnegative Damage helper.",
+    "Current S3metadata has10frames and a melee event at frame6 for both forms; raw animation speeds are240wolf/208bear. The existing A1rate normalization uses the modern author model, not raw animation speed. S3needs its own corroborated rate/scheduler composition before native acceptance."
+  ],
+  "remaining": [
+    "Execute bounded do122/percentage/result/allocator composition and validate diminishing life/mana formulas, real gear, physical-only reduction, elemental retention, critical ordering, existing Feral/Maul channels, miss/block, immunity/drain/difficulty, timing, cancellation, actual input and saved state.",
+    "Modern exact event/seed/geometry/reentry, low-mana fallback and target-loss timing remain uncertain. Old do122selects its target and rolls combat at the action event, unlike start58FireClaws. Do not silently carry start58preparation into Hunger. Item-only/foreign classes/PvP/unmapped recipients remain separate.",
+    "Source preparation enables no handler and changes no installed build/saves. Hunger bite/body/contact/leech/audio and separate talent/left/right/quick icons remain pending; existing generic effects are identified placeholders."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "692a08ed9071386b9ba9d0a9ceb38a1bace31a17a9652bc027b0e8ccd2e27118",
+  "predecessorClockSha256": "f8e7d2166adb327f8096aca4439c08204abeb6826a9692eb92381fa7e08d63dc",
+  "predecessorProgressSha256": "ffd464e7568102c03bca695b82eae653a7ba5d58502db978d976e9501a45efe4",
+  "authorCommit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+  "sourceFiles": {
+    "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+    "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe",
+    "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+    "index.html": "665a401907be80e053a1bd6638063d06ea4067248d2db47d05e76a455da1fae0"
+  },
+  "completeRoutineHashes": {
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "contexts": 28800,
+  "frameBonusControls": 28,
+  "animation": {
+    "TGS3HTH": {
+      "code": "TGS3HTH",
+      "frames": 10,
+      "speed": 208,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    "40S3HTH": {
+      "code": "40S3HTH",
+      "frames": 10,
+      "speed": 240,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    }
+  },
+  "driverSha256": "60586af975e7c8564ee096de9bc0ee1f6dc4eb972d703433710fe1a90ff7965c",
+  "rateLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "generatedSourceSha256": "50a440c65ad6c63de326c1a061221fd67c7582b4a232cdf1f6c2672993450a5f",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-s3-clock-source-probe.json",
+    "sha256": "15a015632ea385b06e258191d4fe094474885f5e356a2d1e34ed24bd1a5c608c"
+  },
+  "columns": [
+    "skill",
+    "authorForm",
+    "weapon",
+    "weaponModifier",
+    "weaponIas",
+    "gearIas",
+    "werewolfRank",
+    "slow",
+    "authorOutput",
+    "scheduledEvents"
+  ],
+  "established": [
+    "Pinned3.3author calculator executes Hunger and Rabies across28,800single-weapon contexts. Its first-loop progress equals the accepted standard-attack progress for identical inputs: normalization retains A1form length13wolf/12bear, while S3action length is10. Raw S3animation speed240/208 is not substituted into that author model.",
+    "Three complete older routines execute unchanged with each prepared progress: Druid frame bonus, ordinary initializer and event scheduler. Both forms use current S3event6/length10, yielding action ceil(6*256/progress) and ENDANIM ceil(10*256/progress). All28form/weapon S3frame-bonus controls are zero.",
+    "The author cycle is ENDANIM minus one, as for the predecessor. This is a distinct quantity and does not certify modern accepted-input reentry. Rabies timing is prepared only; its infection/damage mechanism is not implemented by this probe. Rabies/bear inputs are synthetic clock controls,not permission to use the wolf-only skill in bear form."
+  ],
+  "remaining": [
+    "Mode conversion, animation metadata transport and event queue insertion remain declared services. Rate selection is the pinned modern community model, not current executable disassembly. Exact reentry/global callback order/geometry/seed/client acceptance remain open.",
+    "Connect S3without adding Hunger/Rabies to the A1only dispatcher. Verify live normalized timing, real input, movement/weapon/form/recovery cancellation and save/reload when their learned mechanics are connected. No new handler, installed change or final asset is claimed."
+  ]
+}

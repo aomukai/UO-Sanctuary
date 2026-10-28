@@ -1,0 +1,86 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "692a08ed9071386b9ba9d0a9ceb38a1bace31a17a9652bc027b0e8ccd2e27118",
+  "contexts": 34560,
+  "completeRoutineHashes": {
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "SKILLS_GetManaCosts": "445c640231d7535e5cb12445b442bc6bb6a69a1ee59811857803f0bc2f4fecaa",
+    "sub_6FD155E0": "547c0042f87255cb57c734619e0cf288ac5d544da97b1e0aec48fe6872b6ece5",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SKILLS_SrvDo122_Hunger": "ca24d82c78917658e86a557a11ae0dc9e74796a146903f02360119a5250f9aa6"
+  },
+  "pinnedEnumHashes": {
+    "D2C_ElemTypes": "1172cc567ac2be50644cf3ef3b7e34a73da319e730d14b165d42781eb9f01246",
+    "D2C_ItemStats": "f1144f71d3bfdec1eb8546a438e92ba57737680a0d841d946d64314ded68fb15",
+    "D2DamageResultFlags": "723b921cbf7a1a1adaec54e3dd3101a260742053bbe16d04eaa9b125d362d1b4",
+    "D2DamageHitFlags": "2e5136ae538087b718c1bc58853a7c3a0aa50d9ec4ad6043af74e831eac692b8"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/D2Combat.h": "a71edc6ccae97fa388d0a0689edbf89e59bbb47ab42e5dcbafcb802084c9b5ec",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "generatedSourceSha256": "d3c8994a5b0c5f377005a545d2127658837419f8f503b76acc326bd0f2e63d89",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-hunger-source-probe.json",
+    "sha256": "c154171cad41ed32e15f16fde786cbe3b3f99068462500e79a205bda76cc2c3e"
+  },
+  "columns": [
+    "rank",
+    "declaredPhysical256",
+    "declaredCritical",
+    "declaredGearDrain",
+    "mitigationProfile",
+    "scene",
+    "do",
+    "weaponFills",
+    "zeroElementRollCalls",
+    "calculations",
+    "allocations",
+    "drains",
+    "attackPercent",
+    "mana256",
+    "rawPhysical256",
+    "rawFire256",
+    "physical256",
+    "fire256",
+    "cold256",
+    "lightning256",
+    "magic256",
+    "poison256",
+    "lifeDrain",
+    "manaDrain",
+    "resultFlags",
+    "hitFlags",
+    "hitClass",
+    "ownerFlags",
+    "orderedServices"
+  ],
+  "established": [
+    "Eight complete older routines compose34,560bounded contexts under ASan/UBSan, with four original header enums. Hunger do122rolls result at release, fills weapon/critical once, calls a zero-bound elemental roll for current ETypeNone, applies physical -75percent, adds both drain formulas, allocates/mitigates and drains combat/durability. Hitflag2prevents a second fill.",
+    "Post-critical physical reduction preserves signed truncation and early-division boundaries, including original physical0..2,097,153and both sides of1,048,576after critical. Every declared nonphysical weapon component remains unchanged by Hunger. Existing captured drain is additive to each rank formula; ranks1..255cover diminishing life/mana percent inputs.",
+    "Missing row/target,miss,dodge,force-hit and synthetic inconsistent weaponblock/object/explicit hitclass controls have explicit ordered outcomes. Synthetic successful weaponblock skips total calculation but still allocates; source object control calculates before rejecting allocation. These branches are controlled source inputs, not claims of reachable modern contacts."
+  ],
+  "declaredServices": [
+    "Weapon fill/critical choice,typed mitigation,total calculation,HP/drain/durability,event delivery and memory allocation are declared services,not execution of complete combat/HP/leech. Packet field ordering and signed percentage execute unchanged around them. Current zero elemental endpoints/length and diminishing formula handles are explicit services; Fog is not executed.",
+    "The zero-bound RNG call is counted but returns0without a real seed. Game seed advancement is unverified. Minimal structures and synthetic flags are not an ABI or current executable. No native learned Hunger handler, installation or final asset is claimed."
+  ],
+  "remaining": [
+    "Connect release-time target/result/weapon capture without copying start58preparation. Reuse the verified S3scheduler, SourcePercentage.Calculate, physical-only critical, normal elemental/weapon/leech consumers and existing charge/form lifecycle. Test native gear,miss/block,immunities/drain/difficulty,action cancellation,right/quick and saved fractional resources.",
+    "Exact modern event/seed/geometry/reentry/target-loss/low-mana and unsupported recipients remain explicit. Final bite/body/contact/leech/audio and separate talent/left/right/quick icons remain pending."
+  ]
+}
