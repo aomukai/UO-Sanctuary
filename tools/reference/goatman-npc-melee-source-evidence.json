@@ -1,0 +1,72 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Goatman NPC Stun/Berserk packet and self-state preparation",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "packetCases": 24000,
+  "stateCases": 216,
+  "guardCases": 16,
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "processMemoryRead": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Combat.h": "a71edc6ccae97fa388d0a0689edbf89e59bbb47ab42e5dcbafcb802084c9b5ec",
+    "tools/reference/bear-smite-engine-evidence.json": "df4b8a98935541b3ba2ffea97485556ac8f6cf05b08bc25462bd0077089a8e00",
+    ".local/class-skills/bear-smite-source-probe.cpp": "d835c3bcd09b8d9e2fbe53bd5ff002fec9c012eb59141ac48c82a2ff313a4d40",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f"
+  },
+  "artifacts": {
+    ".local/class-skills/goatman-npc-melee/source.cpp": "fdabe91ec491596d50d3401bd798dc9e64e591018f241c26fcfa784a0e34a773",
+    ".local/class-skills/goatman-npc-melee/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/goatman-npc-melee/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/goatman-npc-melee-source-probe.json": "e12387c0c1740103bb5696ebb60b297dc3dd276f00a0c0008f9c30b1dd562e23",
+    "tools/probe_goatman_npc_melee.py": "4e37f982cd8afe39b6a996c06430ab402b906a8e34674a939c40c0e47fb12228",
+    "tools/build_class_skills.py": "d293df00516c9371e99dc9d4ec66ad86c55e9bc940782b0b1166d64ab964dff9",
+    "data/Sanctuary/Balance/warlock-npc-skills.json": "bc74d1c3ed392229fddf05378f869882fe8d06c0bd4e4ab1bbb4b427893258b9",
+    "data/Sanctuary/Balance/necromancer-summons.json": "a3b64e536c21a9a14e4e7a0b0adb6c619f646ed23add8c61c04377f844049dc0"
+  },
+  "unchangedRoutines": {
+    "SKILLS_SrvSt39_Berserk": "01566d7e7f1f8bfbe05a54d35ef0c645fcefca75022cf0349bd1f09e29757dff",
+    "SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2"
+  },
+  "retainedFullPacketRoutines": {
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_GetDamageFromUnits": "ebcca4e339c1f1b85ae69b13af1909394d6598a7aa6566b3614cdae55a7f6c03",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11"
+  },
+  "established": [
+    "Owned current NPC416/418rows differ from player Stun/Berserk. Source start32/39,elemental assignment/roll,allocation,fill,percentage,monster critical,mitigation/total and full do2remain unchanged. NPCBerserk converts before intrinsic monster critical;large-value early division can leave a small physical remainder even at100percentconversion.",
+    "Berserk start creates/refreshes timed flag2state even on a miss. Existing flags remain unchanged;do2refreshes an existing state without extending expiry and can recreate an absent temporary flag4state. State tests make the release target absent to isolate the complete do2self-state path;no health/action acceptance is claimed."
+  ],
+  "services": [
+    "NPCformula/AR/element-length values are supplied from pinned row arithmetic. Hit flags,stat access,random endpoints,allocation/statlist/event/refresh and other shared scaffold services remain declared. No weapon/equipment/strength,nonzero mastery/extra item-critical,poison or modern Goatman event16callbacks are certified.",
+    "All original functions are compiled unchanged with ASan+UBSan;this is supplementary older engine evidence,not a current executable certificate. Current raw Frenzy/Cleave rows are retained but their new callback bodies remain gated."
+  ]
+}

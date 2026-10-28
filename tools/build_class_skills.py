@@ -184,11 +184,18 @@ def products():
         druid_npc += [{**owner,'name':name,'sourceId':source_id,'sourceKey':name,'left':False,'right':False,
             'sourceFields':{k:v for k,v in source.items() if not k.startswith('*') and k!='lineNumber'},
             'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,21)}}]
+    goat=next(row for row in rows if row['talentId']=='warlock.summongoatman')
+    warlock_npc=[]
+    for source_id,name in [(416,'Goatman Stun'),(417,'Goatman Frenzy'),(418,'Goatman Berserk'),(419,'Goatman Cleave')]:
+        source=source_skills[str(source_id)];assert source['skill']==name
+        warlock_npc.append({**goat,'name':name,'sourceId':source_id,'sourceKey':name,'left':False,'right':False,
+            'sourceFields':{k:v for k,v in source.items() if not k.startswith('*') and k!='lineNumber'},
+            'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,21)}})
     monsters = json.loads((SOURCE / 'json/monstats.json').read_text())
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
-               if r.get('Id','').lower() in ['druidbear','fenris','spiritofbarbs','heartofwolverine','oaksage','spiritwolf','plaguepoppy','cycleoflife','vinecreature','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
+               if r.get('Id','').lower() in ['wargoatman','druidbear','fenris','spiritofbarbs','heartofwolverine','oaksage','spiritwolf','plaguepoppy','cycleoflife','vinecreature','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
     raven_properties = json.loads((ROOT/'tools/reference/raven-preflight.json').read_text())['currentRows']['monprop']
     assert [raven_properties[k] for k in ['Id','prop1','min1','max1','prop1 (N)','min1 (N)','max1 (N)','prop1 (H)','min1 (H)','max1 (H)']] == ['druidhawk'] + ['stupidity','-1','-1']*3
     summons += [{'key':'druidhawk-properties','fields':{'item_stupidity':int(raven_properties['min1'])}}]
@@ -395,6 +402,7 @@ def products():
            ROOT/'data/Sanctuary/Balance/class-skills.json':json.dumps(rows,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/sentry-npc-skills.json':json.dumps(sentry_npc,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/druid-npc-skills.json':json.dumps(druid_npc,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/warlock-npc-skills.json':json.dumps(warlock_npc,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/druid-spirit-auras.json':json.dumps(spirit_auras,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-states.json':json.dumps([dict(state=r['state'],curse=bool(r.get('curse')),curable=bool(r.get('curable'))) for r in json.loads((SOURCE/'json/states.json').read_text()).values() if r.get('state')],indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/skill-icons.json':json.dumps(icons,indent=2)+'\n',
