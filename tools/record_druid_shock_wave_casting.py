@@ -58,7 +58,7 @@ def record(check=False,full_class=False):
     python=(STAGE/'python-tests.log').read_text();assert 'Ran 70 tests' in python and '\nOK\n' in python and 'FAILED' not in python
     frozen_receipt('6bac43c','tools/reference/druid-shock-wave-prepared-native-evidence.json')
     for name in ['druid-rabies-native-evidence.json','druid-rabies-away-native-evidence.json']:frozen_receipt('2a38d48','tools/reference/'+name)
-    paths += [ROOT/name for name in ['tools/record_druid_shock_wave_casting.py','tests/check_shock_wave_casting.py','tests/check_shock_wave_retained.py',
+    paths += [ROOT/name for name in ['tools/record_druid_shock_wave_casting.py','tests/check_shock_wave_casting.py','tests/check_shock_wave_retained.py','tests/check_shock_wave_full.py',
         'tools/reference/druid-shock-wave-modern-scope.json','tools/reference/druid-form-cast-clock-engine-evidence.json',
         'tools/build_skill_roadmap.py','tools/build_class_skills.py','data/Sanctuary/Balance/skill-effects.json','data/Sanctuary/Balance/skill-icons.json']]
     full_markers=full_saves=None
