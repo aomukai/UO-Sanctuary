@@ -170,6 +170,7 @@ public sealed class CharacterProfiles : GenericPersistence
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         DruidCycloneArmor.Clear(player);
+        PsychicWard.Clear(player);
         DruidHurricane.Clear(player);
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
@@ -344,6 +345,7 @@ public sealed class CharacterProfiles : GenericPersistence
         player.Mana = CarryPool(mana, maxMana, player.ManaMax);
         player.Stam = CarryPool(stam, maxStam, player.StamMax);
         DruidCycloneArmor.Clear(player);
+        PsychicWard.Clear(player);
         DruidHurricane.Clear(player);
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);

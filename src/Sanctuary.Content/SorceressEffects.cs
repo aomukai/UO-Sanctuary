@@ -88,6 +88,7 @@ public static class SorceressEffects
     public static int Defense(Mobile actor) => Armor(actor)?.Defense ?? 0;
     public static void CastArmor(PlayerMobile owner, CombatAbility ability, SkillValues values)
     {
+        DefensiveArmors.ClearGroup(owner);
         var armor = new ColdArmorState(ability, TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40),
             (int)values.Eval("aurastatcalc1"), ability == CombatAbility.FrozenArmor ? (int)values.Eval("calc1") : 0,
             values.Damage256(false), values.Damage256(true), values.DurationFrames);

@@ -2506,10 +2506,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 387,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared physical FP256 pool, group1 armor replacement, pinned capacity/mana/stun suppliers and persistence have dedicated controls. Learned SC/input and automatic new event37 reaction remain gated by fully absorbed/breaking-hit qualification and event40/37 order. Modern Energy Shield priority is unsupported; the prepared caster rejects it. Supplied eligible events reuse the shared stun consumer. See psychic-ward-native-evidence.json; final effects and icons remain separate."
     },
     {
       "talentId": "warlock.eldritchblast",

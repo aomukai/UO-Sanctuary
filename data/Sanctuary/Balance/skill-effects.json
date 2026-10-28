@@ -3185,7 +3185,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared cast uses UO0x375A hue0x48D shield flash and sound0x1E5; supplied stun events reuse the shared0x375A hue0x481 marker. Persistent psychicward overlay, cast/recast, shield contact/depletion, psychicward_hit0, stun and Warlock audio remain pending. Learned input is gated; talent/right/quick icons are separately tracked."
   },
   {
     "talentId": "warlock.eldritchblast",

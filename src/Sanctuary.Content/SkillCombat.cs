@@ -173,7 +173,7 @@ public static class SkillCombat
         }
         var parts=raw with
         {
-            Physical=Channel(NecromancerEffects.AbsorbPhysical(target,raw.Physical),"physical"),
+            Physical=Channel(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw.Physical)),"physical"),
             Fire=Channel(raw.Fire,"fire"),Cold=Channel(raw.Cold,"cold"),Lightning=Channel(raw.Lightning,"ltng"),
             Poison=Channel(raw.Poison,"pois"),Magic=Channel(raw.Magic,"mag")
         };

@@ -252,6 +252,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'warlock.psychicward':'Prepared cast uses UO0x375A hue0x48D shield flash and sound0x1E5; supplied stun events reuse the shared0x375A hue0x481 marker. Persistent psychicward overlay, cast/recast, shield contact/depletion, psychicward_hit0, stun and Warlock audio remain pending. Learned input is gated; talent/right/quick icons are separately tracked.',
         'warlock.miasmabolt':'Prepared numerical packet suppliers produce no new visual. Learned cast/bolt/cloud presentation is not enabled. Final shadow cast overlay, travelling magic bolt, impact, lingering entropy cloud, expiry and audio remain pending; talent/left/right/quick icons are tracked separately.',
         'warlock.levitationmastery':'Passive: no active cast or independent hotkey effect. Existing human/weapon appearance is a placeholder for Warlock levitated-weapon/class presentation; final class animations and passive talent-tree icon remain pending independently of the mastery mechanics.',
         'druid.fury':'Identified human Wrestle pose and0x238weapon-contact sound placeholders cover the candidate wolf multi-hit series. Final Werewolf A1multi-swing,contacts,miss/block/interruption/recovery audio and talent/left/right/quick icons remain separate. Mechanical acceptance is recorded in the isolated Fury checkpoint; final art is pending.',
@@ -348,6 +349,7 @@ def products():
         'paladin.holyfreeze':'Staged UO0x375A cold pulse; final radial frost, weapon accents, slowed-state and corpse-shatter effects pending',
         'paladin.holyshock':'Staged UO0x375A self pulse, hue0x481; final radial pulse and weapon accents pending',
     }
+    assert set(staged_effects).issubset({a['talentId'] for a in assets}), 'Unknown skill asset entry'
     effects = [{k:v for k,v in asset.items() if k not in ['talentIcon','hotkeyIcon']} | {'placeholder':staged_effects.get(asset['talentId'],
         'Existing UO art; final effect pending' if asset['effects']!='not-applicable' else 'None required')} for asset in assets]
     class_stats = [r for r in json.loads((ROOT/'data/Sanctuary/Balance/classes.json').read_text()) if r['name'] != 'Warlock'] + [warlock_stats()]

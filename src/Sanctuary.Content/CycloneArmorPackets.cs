@@ -14,7 +14,7 @@ internal static class CycloneArmorPackets
         {throw new NotSupportedException("Unsupported negative Cyclone Armor context");}
         if(pool.Maximum256==0){return new(pool,fire256,cold256,lightning256,false,false,false);}
         int remaining=pool.Remaining256;
-        int Part(int damage){int absorbed=Math.Min(remaining,damage);remaining-=absorbed;return damage-absorbed;}
+        int Part(int damage){var step=SourceAbsorptionPool.Take(remaining,damage);remaining=step.Remaining256;return step.Damage256;}
         fire256=Part(fire256);cold256=Part(cold256);lightning256=Part(lightning256);
         bool removed=remaining==0;
         int percent=removed?0:SourcePercentage.Calculate(100,remaining,pool.Maximum256);

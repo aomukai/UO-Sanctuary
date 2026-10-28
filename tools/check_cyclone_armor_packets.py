@@ -29,7 +29,7 @@ def build(check=False):
  subprocess.run(['python3',str(ROOT/'tools/probe_cyclone_armor_reference.py'),'--check'],check=True,stdout=subprocess.DEVNULL)
  stage=STAGE/'cyclone-armor-packets';stage.mkdir(exist_ok=True)
  (stage/'Program.cs').write_text(PROGRAM)
- paths=['src/Sanctuary.Content/CycloneArmorPackets.cs','src/Sanctuary.Content/SourcePercentage.cs']
+ paths=['src/Sanctuary.Content/CycloneArmorPackets.cs','src/Sanctuary.Content/SourcePercentage.cs','src/Sanctuary.Content/SourceAbsorptionPool.cs']
  project='<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup><ItemGroup><Compile Include="Program.cs"/>'+''.join(f'<Compile Include="{ROOT/p}"/>' for p in paths)+'</ItemGroup></Project>'
  (stage/'check.csproj').write_text(project)
  with (STAGE/'cyclone-armor-packets-build.log').open('w') as log:subprocess.run([str(ROOT/'.tools/dotnet/dotnet'),'build',str(stage/'check.csproj'),'-c','Release','-o',str(stage/'out')],check=True,stdout=log,stderr=subprocess.STDOUT)

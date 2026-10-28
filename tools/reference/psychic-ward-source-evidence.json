@@ -1,0 +1,130 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/probe_assassin_buff_reference.py": "a42e7b88e19a9476436711bb1323700f06b6c206e374f08b01ced51716c8f6ae",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/research/warlock-community/warlock-skills-notes.txt": "72453ee7e8a7419f9e4e142fa3d5f04953da5777a495dcdb0af3c2b610b34151"
+  },
+  "routines": {
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126",
+    "SKILLS_CurseStateCallback_DefensiveBuff": "f652788863509aad517a2ec9efeb407d03e3e4cd37ecc585c1156d8797d03704",
+    "SKILLS_SrvDo018_DefensiveBuff": "14356a01a90b9150a1333683ab2e7538f77168c54dc13e71de891ebee9fc1fbc",
+    "D2GAME_EventFunc22_6FD0F000": "9810ac6c3fba54d4a9fe803dcc5bd10a49acf2fff2a3df8dd14ced29a7d5548e"
+  },
+  "cases": 2304,
+  "skill": {
+    "skill": "Psychic Ward",
+    "*Id": 387,
+    "charclass": "war",
+    "skilldesc": "psychic ward",
+    "srvdofunc": 18,
+    "aurastate": "psychicward",
+    "aurastat1": "psychicward",
+    "aurastatcalc1": "(ln34 + (skill('Levitate'.blvl) + skill('Cleave'.blvl)) * par8)*256",
+    "aurastat2": "psychicwardmax",
+    "aurastatcalc2": "(ln34 + (skill('Levitate'.blvl) + skill('Cleave'.blvl)) * par8)*256",
+    "auraevent1": "absorbdamage",
+    "auraeventfunc1": 40,
+    "auraevent2": "damagedinmelee",
+    "auraeventfunc2": 37,
+    "stsound": "Warlock_Skill_Psychic_Ward_Cast_03",
+    "dosound": "Warlock_Skill_Psychic_Ward_03",
+    "prgoverlay": "psychicward_hit0",
+    "castoverlay": "warlock_psychic_cast_1_no_hex",
+    "enhanceable": 1,
+    "attackrank": 4,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "ItemEffect": 18,
+    "reqlevel": 18,
+    "maxlvl": 20,
+    "reqskill1": "Cleave",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 20,
+    "lvlmana": 2,
+    "interrupt": 1,
+    "InTown": 1,
+    "calc1": "dm12",
+    "*calc1 desc": "Stun Length",
+    "Param1": 37,
+    "*Param1 Description": "Stun Length baseline",
+    "Param2": 85,
+    "*Param2 Description": "Stun Length per level",
+    "Param3": 15,
+    "*Param3 Description": "Damage absorbed baseline",
+    "Param4": 10,
+    "*Param4 Description": "Damage absorbed per level",
+    "Param8": 15,
+    "*Param8 Description": "Damage Absorbed synergy",
+    "*Param9 Description": "Duration Synergy",
+    "InGame": 1,
+    "HitShift": 8,
+    "cost mult": 640,
+    "cost add": 16000,
+    "lineNumber": 387
+  },
+  "stateGroup1": [
+    [
+      "bonearmor",
+      14
+    ],
+    [
+      "chillingarmor",
+      20
+    ],
+    [
+      "frozenarmor",
+      10
+    ],
+    [
+      "justhit",
+      86
+    ],
+    [
+      "mindbarrier",
+      203
+    ],
+    [
+      "psychicward",
+      206
+    ],
+    [
+      "shiverarmor",
+      88
+    ]
+  ],
+  "artifacts": {
+    "tools/probe_psychic_ward.py": "c9835b069dfae2b45a98d96d0e7c3d7a359367f212d6b5399416a7a151fbb0cf",
+    ".local/class-skills/psychic-ward/ward-buff.cpp": "08b6219753f2f4173dd2b57c636f11f87b93cd71f05f1e733bcecbf776ac6697",
+    ".local/class-skills/psychic-ward/ward-buff.compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/psychic-ward/ward-buff.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/psychic-ward-source-probe.json": "fcaf96a319be29deacbc20de08e2f4e0fb0dc4d6779182b0ee7704d02b82f096"
+  },
+  "established": [
+    "Current Ward387uses do18, physical-pool stats361/362 and new callbacks40(absorb)/37(damagedinmelee), state206in group1, zero duration, capacity(15+10*(rank-1)+15*(hardLevitate+hardCleave))*256, mana20+2*(rank-1), stun dm12(37,85)frames.",
+    "The complete shared cast/group/stat/passive/remove routines execute2304contexts with all128old-group combinations, three captured ranks, allocation failure and invalid row/state guards. A valid group1cast clears old group states before allocation; the two event descriptors retain cast rank. Callback40and37bodies are not compiled or inferred from registration.",
+    "User-supplied primary research reports physical-only absorption, always-applicable stun on a damaging melee event, and incompatibility with Bone Armor/cold armors. Its exact executable build is unstated."
+  ],
+  "services": [
+    "Formula results, statlist allocation/attachment and event registry are declared services. Allocation failure deliberately remains a declared service. Current formulas are checked separately in actual native skill consumers.",
+    "Source group contains justhit and unused mindbarrier too. Native group clearing covers the implemented armor members; no generic hit-recovery reset is inferred for those unmapped states."
+  ],
+  "remaining": [
+    "The legacy Bone Armor event22exhaustion branch zeroes its local pool before subtracting it from damage. Do not copy that suspicious branch into modern Ward40. The candidate uses the existing Sanctuary min-pool absorption operation; exact modern event40overflow, display and priority remain unverified.",
+    "Fully absorbed/breaking-hit stun delivery, event37qualification/order, modern shield priority and callback rank interpretation require further evidence. Prepared reaction consumes an explicit eligible event; no automatic HP-loss/on-hit rule is invented. Learned casting remains gated."
+  ]
+}

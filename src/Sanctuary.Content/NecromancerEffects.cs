@@ -231,6 +231,7 @@ public static class NecromancerEffects
     }
     public static void BoneArmor(PlayerMobile owner, SkillValues values)
     {
+        DefensiveArmors.ClearGroup(owner);
         int amount = (int)Math.Clamp(values.Eval("aurastatcalc1") / 256, 0, int.MaxValue);
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { BoneArmor = amount });
         owner.FixedEffect(0x375A, 10, 15, 0x481, 0); // Placeholder shield marker.

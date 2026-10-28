@@ -11,7 +11,9 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
-| 8 | Warlock | 1 / 30 | 1 | 28 | Open |
+| 8 | Warlock | 1 / 30 | 2 | 27 | Open |
+
+Prepared Psychic Ward pool/group behavior passes 135 checks across three boots and two real reloads. Fractional physical absorption, real gear mitigation, five implemented group1 armors, death/respec/history clearing and saved Warlock/Witch pools are covered; existing Bone/cold/Cyclone Armor checks pass again. See [Ward evidence](../tools/reference/psychic-ward-native-evidence.json). New callbacks40/37, fully absorbed/breaking-hit stun delivery, Energy Shield priority and learned SC/input remain individually gated. No current-game observation is assumed: the user has not trained Ward. Coverage stays 183 handlers / Warlock 1, with no completed class.
 
 Miasma launch/update preparation and the reference-row footprint fix pass 126 checks over three boots and two real reloads. Standard launch plans compare 3,600 complete-source cases; the generic update kernel compares 5,120, with additional ordered-service checks. The previous packet projection exposed a closed footprint-inventory regression; two Miasma reference rows are now explicitly deferred while all 15 active producers remain supported. Existing Fissure footprint controls and three connected natural damage/expiry runs pass. See [launch and footprint evidence](../tools/reference/miasma-launch-native-evidence.json). No moving Miasma world actor or learned cast is enabled; continue another Warlock skill while modern cloud callbacks remain unsupported.
 
@@ -340,7 +342,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Echoing Strike | 388 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Hex: Purge | 389 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Blade Warp | 390 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Psychic Ward | 387 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Psychic Ward | 387 | blocked | Prepared physical FP256 pool, group1 armor replacement, pinned capacity/mana/stun suppliers and persistence have dedicated controls. Learned SC/input and automatic new event37 reaction remain gated by fully absorbed/breaking-hit qualification and event40/37 order. Modern Energy Shield priority is unsupported; the prepared caster rejects it. Supplied eligible events reuse the shared stun consumer. See psychic-ward-native-evidence.json; final effects and icons remain separate. |
 | Eldritch Blast | 384 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Hex: Siphon | 386 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Mirrored Blades | 392 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
