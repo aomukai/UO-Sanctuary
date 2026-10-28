@@ -7,20 +7,32 @@ using System.Text.Json;
 using ModernUO.Serialization;
 using Server;
 using Server.Mobiles;
+using Server.Logging;
 namespace Sanctuary;
 
 internal sealed record RecyclerBodyState(uint Owner,RecyclerSnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
-{public string Profile{get;init;}="prepared-recycler-life-owner-v1";}
+{
+    public string Profile{get;init;}="prepared-recycler-life-owner-v1";
+    public RecyclerWorldState Controller{get;init;}
+}
 
 // Saved life/ownership backend. Visible, vulnerable and silent placeholders;
-// underground exposure and the automatic corpse-seeking controller are separate.
+// underground exposure and learned casting remain separate.
 [SerializationGenerator(0)]
 public partial class DruidRecyclerBody:SkeletonGuardian,ISourceLifeMaximum
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private RecyclerBodyState _prepared;
     private bool _loaded;
-    internal RecyclerBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<RecyclerBodyState>(_saved));
+    internal bool ControllerLoaded{get;set;}
+    internal RecyclerBodyState Prepared
+    {
+        get
+        {
+            var s=_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<RecyclerBodyState>(_saved));
+            return s?.Controller is{} c?s with{Controller=DruidRecyclerWorld.Copy(c)}:s;
+        }
+    }
     internal string SavedText=>_saved;
     internal CombatAbility VineAbility=>Prepared?.Snapshot.Birth.Ability??CombatAbility.CarrionVine;
     public override DiabloClass SummonClass=>DiabloClass.Druid;
@@ -59,12 +71,13 @@ public partial class DruidRecyclerBody:SkeletonGuardian,ISourceLifeMaximum
                 ||state.NextRecoveryUtc.Kind!=DateTimeKind.Utc||state.NextRecoveryUtc==DateTime.MaxValue
                 ||state.Profile!="prepared-recycler-life-owner-v1"||DruidRecyclerStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid recycler body snapshot");}
+            if(state.Controller!=null){DruidRecyclerWorld.Validate(state.Controller);}
         }
         catch(Exception e)when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported recycler body snapshot",e);}
     }
     internal void RestorePrepared(RecyclerBodyState state)
-    {Validate(state);string text=JsonSerializer.Serialize(state);_prepared=state;_saved=text;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidRecyclerWorld.Copy(c)}:state;string text=JsonSerializer.Serialize(copy);_prepared=copy;_saved=text;}
     internal static DruidRecyclerBody CreatePrepared(PlayerMobile owner,CombatAbility ability,Point3D point,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-40)||owner?.Map==null||owner.Map==Map.Internal
@@ -88,6 +101,7 @@ public partial class DruidRecyclerBody:SkeletonGuardian,ISourceLifeMaximum
     {if(Prepared is{} s){RestorePrepared(s with{Difficulty=SummonDifficulty,Snapshot=DruidRecyclerStats.Rescale(s.Snapshot,SummonDifficulty)});}base.RefreshDifficulty();SetResistances();}
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
+        if(Prepared?.Controller!=null){throw new InvalidOperationException("Recycler recovery belongs to its world controller");}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Recycler clock must be UTC");}
         if(Deleted||Prepared is not{} s||s.NextRecoveryUtc>at){return;}
         if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=s.Owner){Delete();return;}
@@ -102,12 +116,15 @@ public partial class DruidRecyclerBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterRecyclerLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<RecyclerBodyState>(_saved);Validate(_prepared);_loaded=true;DruidRecyclerBodies.Track(this);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<RecyclerBodyState>(_saved);Validate(_prepared);_loaded=true;ControllerLoaded=_prepared.Controller!=null;DruidRecyclerBodies.Track(this);}
+    public override void SuspendActions()
+    {base.SuspendActions();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidRecyclerWorld.Park(c)});}}
     public override void OnAfterDelete(){DruidRecyclerBodies.Forget(this);base.OnAfterDelete();}
 }
 
 public static class DruidRecyclerBodies
 {
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(DruidRecyclerBodies));
     private static readonly HashSet<uint> _actors=new();
     internal static void Track(DruidRecyclerBody body)=>_actors.Add(body.Serial.Value);
     internal static void Forget(DruidRecyclerBody body)=>_actors.Remove(body.Serial.Value);
@@ -117,7 +134,13 @@ public static class DruidRecyclerBodies
         foreach(uint id in _actors.ToArray())
         {
             if(World.FindMobile((Serial)id) is not DruidRecyclerBody{Deleted:false} body){_actors.Remove(id);continue;}
-            body.AdvanceRecovery(at,actions??body.ControlMaster?.NetState is{Running:true});
+            bool active=actions??body.ControlMaster?.NetState is{Running:true};
+            try
+            {
+                if(body.Prepared?.Controller!=null){DruidRecyclerWorld.Advance(body,at,active);}
+                else{body.AdvanceRecovery(at,active);}
+            }
+            catch(Exception e){DruidRecyclerWorld.Fault(body,e.Message);Log.Error(e,"Recycler controller refused unsupported context for {Serial}",body.Serial);}
         }
     }
 }

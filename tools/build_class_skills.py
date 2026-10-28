@@ -232,6 +232,14 @@ def products():
     assert [creeper_animations['K9S1HTH'][k] for k in ['frames','speed','events']] == [2,256,[[1,2]]]
     summons += [{'key':'plaguepoppy-animation','fields':{'S1Frames':2,'S1Speed':256,'S1SkillAction':1,
         'WLFrames':creeper_animations['K9WLHTH']['frames'],'WLSpeed':creeper_animations['K9WLHTH']['speed']}}]
+    recycler_preflight=json.loads((ROOT/'tools/reference/recycler-vines-preflight.json').read_text())
+    for key in ['cycleoflife','vinecreature']:
+        monster=recycler_preflight['currentRows']['monstats'][key]
+        body=recycler_preflight['currentRows']['monstats2'][key]
+        assert monster['Code'].upper()=='K9' and body['mS1']=='1' and body.get('S1mv','0')=='0'
+        assert body['SizeX']==body['SizeY']=='0' and body['MeleeRng']=='1'
+    summons += [{'key':'recycler-animation','fields':{'S1Frames':2,'S1Speed':256,'S1SkillAction':1,
+        'WLFrames':creeper_animations['K9WLHTH']['frames'],'WLSpeed':creeper_animations['K9WLHTH']['speed']}}]
     vine = source_skills['294']
     summons += [{'key':'Vine Attack','fields':{k:v for k,v in vine.items() if isinstance(v,(int,str)) and not k.startswith('*') and k != 'lineNumber'}}]
     models = json.loads((SOURCE / 'json/monstats2.json').read_text())

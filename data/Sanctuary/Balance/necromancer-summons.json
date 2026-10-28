@@ -1654,6 +1654,16 @@
     }
   },
   {
+    "key": "recycler-animation",
+    "fields": {
+      "S1Frames": 2,
+      "S1Speed": 256,
+      "S1SkillAction": 1,
+      "WLFrames": 2,
+      "WLSpeed": 256
+    }
+  },
+  {
     "key": "Vine Attack",
     "fields": {
       "skill": "Vine Attack",

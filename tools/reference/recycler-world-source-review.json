@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "compiled": false,
+  "currentExecutableParity": false,
+  "completeRoutines": 10,
+  "routineHashes": {
+    "AITACTICS_UseSkill": "a4b175d5383a9d494fef0cffc20a913a44d5f767d9a1b37fbdd4653c317ef243",
+    "AITACTICS_WalkToTargetUnitWithFlags": "e18e856638525a95d22bff3f7685531e4ca6bcc4887fe0ebc8f32d4114a6a801",
+    "AITACTICS_MoveToTarget": "395367e2c5eec56ca7d0c914e698c52de6206e7906caf95aa77fedc8b00a8193",
+    "AITACTICS_WalkCloseToUnit": "0ddbffb39d07a44d33de644f50b740f8caecd4f7d08641007d56faa2555cafcb",
+    "sub_6FC645E0": "0974fabbe5032e2cf6ee285470a555aafa7575186f5ec783e32d99b28021f742",
+    "sub_6FD12FD0": "652267d1698d99a0ec9b56fc69f14142e4e87b29d298c43b83dd90ae48b185d5",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "SKILLS_SrvSt63_Corpse_VineCycler": "939725bfe89abd42123e08ff1f1432ea6e99ee0bc3895bbbf76f2ba5f90ae436",
+    "SKILLS_FindUseableCorpse": "40ccfec0c4ab2a3ae68850feed01174951c375385029eb4c52cd07f1eef29c48",
+    "UNITS_IsInMeleeRange": "a1bbda0e98fcd12bdc8782d215e1bd8bfd14f5cd4103cb4521cee4f3c70d501e"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "reviewed": [
+    "AITACTICS_UseSkill selects the innate skill and requests mode8. The mode8 entry callback sets combat mode and calls the skill start wrapper immediately; it returns1 independently of the start result. Current recycler bodies have no S1-moving flag, so this callback does not require a live path.",
+    "The start wrappers validate target flags/corpse state, skill eligibility, town and declared LOS before start63. Start63 reserves/refreshes the corpse before allocating a delay owned by the original player; no later action-frame dofunc creates it.",
+    "WalkToTargetUnitWithFlags passes7 as failure flags, not as a path type. On movement failure it deletes think, sets AI control0x40 and uses a70percent walk-close/30percent idle fallback. Successful approach uses the ordinary movement path. The native controller must not substitute path type7 for this argument.",
+    "Corpse finder takes the first usable target in source room/unit order, not the nearest corpse. Native sector/item order and access/LOS/loot safeguards are explicit adapters. Size0 vines use ordinary melee range1 plus1 against mapped corpse sizes; special tentacle reach remains outside this bounded route."
+  ],
+  "remaining": [
+    "This is complete-source review, not compilation/execution of all composed outer dispatch. Current executable timing, skill prerequisites/exceptional grants, global event/list ordering, room geometry and underground exposure remain separate.",
+    "Native walk failure flags now dispatch through a shared ordered policy. The source AI-control0x40consumer is projected to a fresh native hostility scan; exact source vision/room/lookup composition remains unverified rather than certified.",
+    "Missing historical corpse-owner/size metadata is unsupported. Battle Command innate transport and modern Solar calc2 behavior remain separately gated."
+  ]
+}

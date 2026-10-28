@@ -25,9 +25,9 @@ public static class RecyclerRecoveryChecks
         Register("recycler-recovery-live-check",()=>FixtureClock.NextLoop("recycler-recovery-live-result",
             ()=>FixtureNetwork.Connected("recycler-recovery-live-result",Live)));
     }
-    private static Corpse Corpse(PlayerMobile owner)
+    internal static Corpse Corpse(PlayerMobile owner,int offset=3)
     {
-        var victim=new GraveyardZombie{CantWalk=true,NoKillAwards=true};victim.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);victim.AIObject.AITimer.Stop();Corpse corpse=null;
+        var victim=new GraveyardZombie{CantWalk=true,NoKillAwards=true};victim.MoveToWorld(new(owner.X+offset,owner.Y,owner.Z),owner.Map);victim.AIObject.AITimer.Stop();Corpse corpse=null;
         var previous=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(actor,container)=>{if(actor!=victim){previous?.Invoke(actor,container);return;}CorpseSkillRules.Capture(actor,container);corpse=container as Corpse;corpse?.DropItem(new Gold(1));};
         try{owner.DoHarmful(victim,true);victim.Damage(victim.Hits+1,owner);CombatDamage.Finish(victim,owner);}finally{ClassLootHooks.CreatureDied=previous;}

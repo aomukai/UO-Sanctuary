@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 12800,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "sanitizerClean": true,
+  "completeRoutine": "AITACTICS_MoveToTarget",
+  "routineSha256": "395367e2c5eec56ca7d0c914e698c52de6206e7906caf95aa77fedc8b00a8193",
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a"
+  },
+  "artifacts": {
+    "tools/probe_pet_walk_flags.py": "c0161ebb09263aa24e38f5721081a99fe067d4c614f7097302d04c7e6afc5d2e",
+    ".local/class-skills/pet-walk-flags-source-probe.cpp": "f4afe63de47145ecf55e0b396dd7a321bf4f033af50eb21b504450a44b099ab6",
+    ".local/class-skills/pet-walk-flags-source-probe.json": "d79cf96f4fa3b700360138c055223e2ed7e5217214227c972ceeccbc83070248",
+    ".local/class-skills/pet-walk-flags-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "declaredServices": [
+    "Mode/terrain success, Decrepify lookup, path step, AI control, RNG draw, idle and close-walk are explicit services. Ordered flag dispatch is executed unchanged."
+  ],
+  "established": [
+    "Success bypasses all failure flags. Failure executes delete-think4, AI-control0x401 and70percent close-walk4/30percent idle10from flag2 in that order. Flags are not path types."
+  ],
+  "remaining": [
+    "Native controller/path/vision composition and current executable behavior require separate acceptance."
+  ]
+}
