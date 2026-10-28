@@ -7,9 +7,10 @@
   "approvedDeviation": "Suppress Rabies propagation while its original caster is logged out or on another facet. Existing infection, emitter and contagion lifetimes keep advancing; absence must not extend deadlines or replay missed spreading actions.",
   "observedReferenceBehavior": "This is an approved Sanctuary policy, not a D2R executable observation.",
   "implementation": {
-    "status": "policy recorded; explicit native policy acceptance pending",
-    "existingBehavior": "The current Unsupported guard suppresses emission/contact and advances clocks for offline or different-facet casters, but labels these contexts unverified. Current full regression inputs remain frozen.",
-    "next": "After the frozen regression is terminal, separate approved propagation suppression from unsupported dead/history/host-facet contexts and verify actual disconnect/facet transitions, expiry, unchanged poison and no missed-action replay."
+    "status": "approved controller policy verified against unchanged full-tested gameplay; installation separate",
+    "existingBehavior": "Current propagation guards suppress and age offline/different-facet contexts; diagnostic Fault strings retain legacy unverified wording without changing the approved behavior.",
+    "verification": "See druid-rabies-away-native-evidence.json:5markers/3boots/2actual reloads/2real native disconnects,connected facet departure/return,future-only resumption,original expiry and independent poison.",
+    "next": "Install the accepted candidate with preservation checks. Keep unrelated original-caster death/history/host-facet and modern event/geometry/seed limits explicit."
   },
   "limits": [
     "Existing poison damage and unrelated caster death, class/history change, host facet transitions and exact source/global event order are separate questions; this policy does not silently change them.",

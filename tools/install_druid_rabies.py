@@ -29,7 +29,7 @@ def generic_outputs(runtime):
 
 
 def cache_verification_inputs(runtime):
-    receipts=[json.loads((ROOT/'tools/reference/druid-rabies-native-evidence.json').read_text())]
+    receipts=[json.loads((ROOT/'tools/reference'/name).read_text()) for name in ['druid-rabies-native-evidence.json','druid-rabies-away-native-evidence.json']]
     for commit,name in [('d72d844','druid-rabies-lifecycle-native-evidence.json'),('1fb5518','druid-hunger-native-evidence.json')]:
         receipts.append(json.loads(subprocess.check_output(['git','show',commit+':tools/reference/'+name],cwd=ROOT)))
     files={}
@@ -56,6 +56,7 @@ def run(runtime):
     server = runtime / '.local/server'
     client = runtime / '.local/client'
     subprocess.run([sys.executable, str(ROOT / 'tools/record_druid_rabies.py'), '--check', '--full-class'], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, str(ROOT / 'tools/record_druid_rabies_away.py'), '--check'], cwd=ROOT, check=True)
     inputs = json.loads((STAGE / 'class-inputs.json').read_text())
     for name, digest in inputs['sourceInputs'].items():
         assert sha(ROOT / name) == digest, name
@@ -147,7 +148,7 @@ def run(runtime):
         sourceCommitAtInstall=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
         runtimeSourceBefore=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=runtime, text=True).strip(),
         protected=protected, backup=str(backup.relative_to(runtime)), verificationCache=cached,
-        sourceArtifacts={str(path.relative_to(ROOT)):sha(path) for path in [Path(__file__).resolve(), ROOT / 'tools/reference/druid-rabies-native-evidence.json', logpath, preservation]},
+        sourceArtifacts={str(path.relative_to(ROOT)):sha(path) for path in [Path(__file__).resolve(), ROOT / 'tools/reference/druid-rabies-native-evidence.json', ROOT / 'tools/reference/druid-rabies-away-native-evidence.json', logpath, preservation]},
         installedArtifacts={str(path.relative_to(runtime)):sha(path) for path in installed + [server / name for name in inputs['copiedData']]})
     (BASE / 'druid-rabies-installation.json').write_text(json.dumps(receipt, indent=2) + '\n')
     if runtime!=ROOT:

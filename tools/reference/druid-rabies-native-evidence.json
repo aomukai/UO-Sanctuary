@@ -1053,13 +1053,15 @@
     ".local/class-skills/druid-rabies/class-inputs.json": "c67ac331e7e47090b95dbe34a37b655b03b6f716740bfe11dd3e265ac759ef41",
     ".local/class-skills/druid-rabies/class-native-checks.log": "f82f2e9736c41d23a2d20ac8b002b092f14977307ed075cf9d5868c4338d8823",
     ".local/class-skills/druid-rabies/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
-    "tools/record_druid_rabies.py": "53a3f94d5027633545252d18202d63ed5f07f539107e4e70fe7e0b1ccbb9f9b5",
+    "tools/record_druid_rabies.py": "a130ffa91094affe17d914eecf90db07b033909062e75a490396acf676d54bdb",
     "tests/check_druid_rabies.py": "9f89cafcdee92a424e2a66bbccab02f1e03c77d5da5b1b7d7d924c3d10519819",
     "tests/check_creeper_stats.py": "3f0916e7b85ecb74f18068ba261c47491b7063a395f14ebb4218781eef1b3dfd",
     "tools/build_class_skills.py": "220fbb61ac04bb30768f605d90e5fb6841588295cf98a275d55a4458ce17c1cf",
     "tools/build_skill_roadmap.py": "3f2bd6f6085d2d0887e19589680df73a90915a30bb3fd12129fd408555792bbb",
     "data/Sanctuary/Balance/skill-effects.json": "f8abb937282235ec5124c5388cecb9d0a10968226e46b44a8fa50d6ed0674376",
-    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2"
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    "tools/reference/druid-rabies-away-deviation.json": "20e6e351b9480a57cc83c800d11b5322386f95efc12eed15c081710b86d091ca",
+    "tools/reference/druid-rabies-away-native-evidence.json": "79549597ff834f27d75a01e0fcdbcc3f84d54ed72b041e486b0b57b8f543da1b"
   },
   "frozenPredecessors": [
     {
@@ -1082,6 +1084,6 @@
   "remaining": [
     "Modern initial miss/block payment and failed-start presentation are not instrumented; the complete older free-failed-start gate is the explicit source-derived baseline while modern table10mana overrides the older rank1minimum-mana quirk. Extra transformed AR that uses Rabies rank in the old ordinary helper is not silently added to existing native form AR; its modern applicability remains unverified.",
     "Lost-contact remote marker attachment is explicitly refused and reported in session.RabiesFault,retaining already-paid mana. Lethal or reentrant first-packet context changes end the supported native path with an explicit fault. Postdeath marker/corpse chronology and modern release-rank/event sequencing remain unverified,not invented. Item-only,foreign/PvP/unmapped recipients remain unsupported.",
-    "Original-caster death/history/logout/facet and host facet transitions retain documented unsupported handling pending policy/reference; exact global event ties,actual source RNG streams,Fog geometry,modern Slow Missiles damage and complete client/body acceptance remain open. Final effects/audio and separate talent/left/right/quick icons remain placeholders. No class/goal completion or installation is claimed."
+    "Approved original-caster logout/facet suppression keeps timers running and resumes only future activity; separate5-marker/3-boot/2-reload/2-real-disconnect policy acceptance uses this identical gameplay/data. Legacy Fault diagnostics still label those contexts unverified. Original-caster death/history and host facet transitions,exact global event ties,actual source RNG streams,Fog geometry,modern Slow Missiles damage and complete client/body acceptance remain open. Final effects/audio and separate talent/left/right/quick icons remain placeholders. No class/goal completion or installation is claimed."
   ]
 }

@@ -11,6 +11,7 @@ from install_druid_rabies import ROOT, BASE, STAGE, sha, hashes, generic_outputs
 
 def record(check=False):
     subprocess.run([sys.executable, str(ROOT / 'tools/record_druid_rabies.py'), '--check', '--full-class'], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, str(ROOT / 'tools/record_druid_rabies_away.py'), '--check'], cwd=ROOT, check=True)
     rawpath = BASE / 'druid-rabies-installation.json'
     receipt = json.loads(rawpath.read_text())
     assert receipt['installed'] and receipt['originalWorldSmoke'] and receipt['smokeReturnCode'] == 0

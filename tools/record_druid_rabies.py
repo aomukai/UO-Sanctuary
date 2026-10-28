@@ -68,7 +68,7 @@ def record(check=False,full_class=False):
     status=json.loads((ROOT/'data/Sanctuary/Balance/class-skill-status.json').read_text());handlers=[x for x in status['skills'] if x['implementation']=='handler-present']
     assert len(handlers)==180 and sum(x['characterClass']=='Druid' for x in handlers)==24 and status['completedClasses']==[]
     artifacts += [ROOT/name for name in ['tools/record_druid_rabies.py','tests/check_druid_rabies.py','tests/check_creeper_stats.py','tools/build_class_skills.py','tools/build_skill_roadmap.py',
-        'data/Sanctuary/Balance/skill-effects.json','data/Sanctuary/Balance/skill-icons.json']]
+        'data/Sanctuary/Balance/skill-effects.json','data/Sanctuary/Balance/skill-icons.json','tools/reference/druid-rabies-away-deviation.json','tools/reference/druid-rabies-away-native-evidence.json']]
     result=dict(referenceVersion='3.3.93847',installed=False,handlers=180,druidHandlers=24,completedClasses=[],goalComplete=False,currentExecutableParity=False,
         verified=dict(passMarkers=193,boots=3,actualReloads=2,actualRabiesInputs=6,retainedHungerFireFeralMaulInputs=24,retainedFormInputs=15,
             retainedPacketComparisons=12240,retainedInfectionWindows=1296,nativeS3Schedules=28800,pythonTests=70,unchangedNamedDefinitions=573,
@@ -84,7 +84,7 @@ def record(check=False,full_class=False):
         ],remaining=[
             'Modern initial miss/block payment and failed-start presentation are not instrumented; the complete older free-failed-start gate is the explicit source-derived baseline while modern table10mana overrides the older rank1minimum-mana quirk. Extra transformed AR that uses Rabies rank in the old ordinary helper is not silently added to existing native form AR; its modern applicability remains unverified.',
             'Lost-contact remote marker attachment is explicitly refused and reported in session.RabiesFault,retaining already-paid mana. Lethal or reentrant first-packet context changes end the supported native path with an explicit fault. Postdeath marker/corpse chronology and modern release-rank/event sequencing remain unverified,not invented. Item-only,foreign/PvP/unmapped recipients remain unsupported.',
-            'Original-caster death/history/logout/facet and host facet transitions retain documented unsupported handling pending policy/reference; exact global event ties,actual source RNG streams,Fog geometry,modern Slow Missiles damage and complete client/body acceptance remain open. Final effects/audio and separate talent/left/right/quick icons remain placeholders. No class/goal completion or installation is claimed.',
+            'Approved original-caster logout/facet suppression keeps timers running and resumes only future activity; separate5-marker/3-boot/2-reload/2-real-disconnect policy acceptance uses this identical gameplay/data. Legacy Fault diagnostics still label those contexts unverified. Original-caster death/history and host facet transitions,exact global event ties,actual source RNG streams,Fog geometry,modern Slow Missiles damage and complete client/body acceptance remain open. Final effects/audio and separate talent/left/right/quick icons remain placeholders. No class/goal completion or installation is claimed.',
         ])
     path=ROOT/'tools/reference/druid-rabies-native-evidence.json';encoded=json.dumps(result,indent=2)+'\n'
     if check:assert path.read_text()==encoded

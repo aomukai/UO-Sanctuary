@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ModernUODistribution>$(MSBuildThisFileDirectory)../../upstream/ModernUO/Distribution</ModernUODistribution>
+    <SanctuaryContentAssembly Condition="'$(SanctuaryContentAssembly)' == ''">$(MSBuildThisFileDirectory)../../.local/class-skills/druid-rabies/content/Sanctuary.Content.dll</SanctuaryContentAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Sanctuary.Integration/*.cs" Link="Retained/%(Filename)%(Extension)" />
+    <Reference Include="Server" HintPath="$(ModernUODistribution)/Server.dll" Private="false" />
+    <Reference Include="UOContent" HintPath="$(ModernUODistribution)/Assemblies/UOContent.dll" Private="false" />
+    <Reference Include="Logger" HintPath="$(ModernUODistribution)/Logger.dll" Private="false" />
+    <Reference Include="Sanctuary.Content" HintPath="$(SanctuaryContentAssembly)" Private="false" />
+  </ItemGroup>
+</Project>
