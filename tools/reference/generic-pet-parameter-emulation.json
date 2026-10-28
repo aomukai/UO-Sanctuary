@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "unicornVersion": "2.1.4",
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "currentCapturedInitializerRva": "0x4b0b90",
+  "machineCodeBytes": 818,
+  "matrixCases": 2016,
+  "profiles": [
+    "warbighead",
+    "wargoatman",
+    "warputriddefiler"
+  ],
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "services": [
+    "Copy/reset the initial parameter prefix from the supplied default temporary;dynamic container ownership is not emulated.",
+    "Target lookup returns a supplied synthetic pointer;one-unit property returns11/12.",
+    "Owner callback iteration is a declared no-op;actual owner/buff changes remain unverified.",
+    "Stack cookie checking is a declared emulator service."
+  ],
+  "established": "Captured current instructions decode all3monstats columns together,square signed16leash/warp and melee/ranged endpoints,retain raw close/wander/swarm/flags/ratings,clamp gather0..2and choose0..1and AItype0..13,and ignore slots20..23. This proves the raw parameter prefix before unspecified owner-iterator effects,not complete GenericPet AI.",
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/generic-parameter-emulation.json": "eba00308f4678facb66b5f2fd41d4035552c17c92fbfa392ca974d5f4540b7e6",
+    ".local/class-skills/generic-pet-parameters-source-probe.json": "eba00308f4678facb66b5f2fd41d4035552c17c92fbfa392ca974d5f4540b7e6",
+    "data/Sanctuary/Balance/generic-pet-parameters.json": "279df12b94ef257f9c90f33ce718118badcd52ec7985adc0ecc02899da69b704",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    ".local/class-skills/warlock-runtime-reference/generic-helpers-actions.json": "f746ccce172fd99398fef4ff7a1a7584da1b58f32ac476c48ae2341b8e0b74f5",
+    ".local/class-skills/warlock-runtime-reference/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/warlock-runtime-reference/monstats-extraction.json": "2bcd5d4d59662112b011192ba3a76deba11bc1c35fbde8ce4a152f4110e90474",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part0.bin": "6d96b7553f5b5f1e616a08266d62dfd2c052a65ae15161412cb86451223be302",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part1.bin": "8f6aa7a6d97024aac6ebc13a99cb1321b5dcff47ed86ad9a74713b574da74811",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part2.bin": "f0a7a8b9e16bd1c143a8b6fcc4c42b2fbe4b6cce684e712095794ee7e5c66e6c",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part3.bin": "eb8ca8269d3f0830af00827aa95902ca422524e702e1e8c9b06a67f9832abac9",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part4.bin": "ab89dd63c831dcd5b0e58d2642673a522e127a5e0cfc219b43d2781302c781fe",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part5.bin": "1f64e9b78bdc874ad838383df151ac9ad99c5a1a2a643d1a9d8a2f55fc675647"
+  }
+}

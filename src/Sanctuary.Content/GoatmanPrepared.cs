@@ -17,6 +17,7 @@ internal sealed record GoatmanBirth(int OwnerLevel,int PetLevel,MonsterDifficult
 // slots stay separate; no aggregation or current AI behavior is invented.
 internal static class GoatmanPrepared
 {
+    internal static GenericPetParameters RawAiParameters=>GenericPetProfiles.Raw(CombatAbility.SummonGoatman);
     private static readonly Lazy<GoatmanBase[]> Bases=new(()=>
     {
         var rows=BalanceCatalog.Read<GoatmanBase>("goatman-base");

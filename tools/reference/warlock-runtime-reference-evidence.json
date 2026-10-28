@@ -1,0 +1,201 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bounded current-code reference and GenericPet raw initializer",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "processMemoryRead": true,
+  "readOnly": true,
+  "targetProcessCodeExecuted": false,
+  "offlineInitializerCodeExecuted": true,
+  "dispatcherLinkVerified": false,
+  "completeAiVerified": false,
+  "ownerCallbacksVerified": false,
+  "handlerEnabled": false,
+  "goalComplete": false,
+  "verified": {
+    "classicNullnessPatterns": 148,
+    "classicAliasPairs": 4,
+    "changedClassicFlags": [
+      {
+        "index": 15,
+        "legacy": 4,
+        "current": 5
+      },
+      {
+        "index": 23,
+        "legacy": 1,
+        "current": 3
+      },
+      {
+        "index": 52,
+        "legacy": 5,
+        "current": 6
+      }
+    ],
+    "genericPetIndex": 148,
+    "genericPetRootBytes": 781,
+    "currentInitializerBytes": 818,
+    "offlineInitializerContexts": 2016,
+    "ownedDemonProfiles": 3
+  },
+  "snapshots": {
+    "code-sample": {
+      "bytesRead": 816,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "event-candidates": {
+      "bytesRead": 1536,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "event-bodies-17-28-36-37-40": {
+      "bytesRead": 2164,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "inactive-known-code-sample": {
+      "bytesRead": 624,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "known-cold-code-sample": {
+      "bytesRead": 624,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "event36-window": {
+      "bytesRead": 1216,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "generic-pet-candidate": {
+      "bytesRead": 2634,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    },
+    "generic-helpers-actions": {
+      "bytesRead": 7826,
+      "process": {
+        "pid": 11897,
+        "startTicks": 134406,
+        "name": "Main"
+      }
+    }
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/generic-pet-parameters-source-probe.json": "eba00308f4678facb66b5f2fd41d4035552c17c92fbfa392ca974d5f4540b7e6",
+    ".local/class-skills/warlock-runtime-reference/code-sample.json": "1cfd1662ad3b5e08cacb4d83a641de40198868a7a43f75e5d02e385f1a79d78b",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot17-part0.asm": "312e35f725fafa4ab7fe8faf2e1fdbac53ac17ea4455c64f08a71a4e4850b08a",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot17-part0.bin": "e919022aeacbf1e2ad4021f810374d83dbfb13f2aba5c3c8aa3b1d2b1b3b0ed6",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot17-part1.asm": "b803264a6c208f7ec78ffcb22ed35c481a2860c203339e4c84301d1c914c1c35",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot17-part1.bin": "74f86051a6ce9fd2972f24ed9c12a52c92b4585d2107fcaaaedfc2d97e5daa3c",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot17-part2.asm": "99de0524e1f505fd781a87df87ad63f5e7149510e0335f9bf275cc5086e216b3",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot17-part2.bin": "f267bb45cab91b11be968cee32a640b74c883e7330d7d6f8526338f4958d5b9f",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot28-part0.asm": "0ee8666a634c718bfc38bce21bc018b6b971552fc37dc0435758da4e704c4714",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot28-part0.bin": "3028627f032602b9e165890cc5e50ff7168a1c230ca9b9d11b1d75b598dce89e",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot28-part1.asm": "4b4f88769e6269b7cd28e242d30304177b91ded927e9053b9ec79dcd1f74721e",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot28-part1.bin": "abfcce5f87fd91439babfb54ec693dd2cdffae3f8acd0e52529a23971392c445",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot28-part2.asm": "6b08cc4aa78eb48b0ec3ae51598f4eef762d959dc7029ab940290e617e483758",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40-slot28-part2.bin": "eff397b9e4077f8a86efbd1b9ab490e6623050fc9821ad566d2fd26d29076932",
+    ".local/class-skills/warlock-runtime-reference/event-bodies-17-28-36-37-40.json": "106982e1c43e304cfd777829af08fd864e29d6545ba6d3327280ea59daf1aec3",
+    ".local/class-skills/warlock-runtime-reference/event-candidate-17.asm": "282511b55ee7362df33baac1692021fe04fae2486a51db8ca1d983dfd242b51e",
+    ".local/class-skills/warlock-runtime-reference/event-candidate-17.bin": "e919022aeacbf1e2ad4021f810374d83dbfb13f2aba5c3c8aa3b1d2b1b3b0ed6",
+    ".local/class-skills/warlock-runtime-reference/event-candidate-28.asm": "d1b059d9d6299262258fc643c79bac2e8ca6d8da9de98479f227a086e9510301",
+    ".local/class-skills/warlock-runtime-reference/event-candidate-28.bin": "3028627f032602b9e165890cc5e50ff7168a1c230ca9b9d11b1d75b598dce89e",
+    ".local/class-skills/warlock-runtime-reference/event-candidate-table.bin": "39793258788194da859abb7dc52f33c3213f474ecd765119dafe19c060c8e649",
+    ".local/class-skills/warlock-runtime-reference/event-candidates.json": "9b56161edbd911fd908613444fbd65f3d2c1de7d9fe53ca05ec7036c289ee350",
+    ".local/class-skills/warlock-runtime-reference/event36-window.json": "577a515be70efd7d3fa74e2618c24a853a7f611195cbccb68ed8d03755e5589c",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part0.asm": "d1cf9bfef9e9bd1c117bcfe7ced03b9c3976ee57e8f097a2e51a04e2fd2ef15a",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part0.bin": "6d96b7553f5b5f1e616a08266d62dfd2c052a65ae15161412cb86451223be302",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part1.asm": "d3c940193b3c01c0856d982a916a2855a6eccb594e975ec42f0e586531b15253",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part1.bin": "8f6aa7a6d97024aac6ebc13a99cb1321b5dcff47ed86ad9a74713b574da74811",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part2.asm": "e91e04ba71b47cda3ccb47d4f766b944068cda800e4656443cb83c00010ab022",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part2.bin": "f0a7a8b9e16bd1c143a8b6fcc4c42b2fbe4b6cce684e712095794ee7e5c66e6c",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part3.asm": "fb7fb35fdeda0741521153e46bb5f44ea39cdf26935ec0948f4519a8bc5dca74",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part3.bin": "eb8ca8269d3f0830af00827aa95902ca422524e702e1e8c9b06a67f9832abac9",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part4.asm": "538111cdcb6a77e7fe299b37a082bbd5e8ffa293f73f83829ac0bcabdf4ea198",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part4.bin": "ab89dd63c831dcd5b0e58d2642673a522e127a5e0cfc219b43d2781302c781fe",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part5.asm": "e8390c5fc4ce5aea5948abd5226bc5ad0495f350833181541a7ae6258f36ab7d",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b0b90-part5.bin": "1f64e9b78bdc874ad838383df151ac9ad99c5a1a2a643d1a9d8a2f55fc675647",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part0.asm": "4c6f04ab7d9885dd1429509c7ee5b7923536e60af69fae46750e61fea83e975c",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part0.bin": "22f7134453614637aa262cb48728d755cbb9c087e042c53f0dac8552be5e169f",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part1.asm": "b65847933cba5e26a28ff2926b1f24d8734aec228b25e1eb883c594a3a638ec1",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part1.bin": "1b17e600a9db85fa5fa194ad5d2df374ae0471da7b14546ddae9742404411540",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part2.asm": "51e353e496a2b9e039baa7a6e04172d5b2c302b9bd3d77a094e49ed2e3250aeb",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part2.bin": "3d8f83731defc0a205e35329de8d5e097e489240627acd3171e23f42cf0465e9",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part3.asm": "b897abf30fcc09660fcc198c237d56b97e49c48cbc044a2bd95378a4985b6c9e",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part3.bin": "5bd19b27993c1895118070c29604cd0c7aa2650f1e11e8b51a78fdf36da95b3d",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b58a0-part0.asm": "bc202abccd3421c7174612c4bfa50d95c537c857dc2164db8f1db6a9b52b4f13",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b58a0-part0.bin": "8400b1007da1e92f37cf10c0bd30a1e49c74c06d577de9869f8f721226fe6700",
+    ".local/class-skills/warlock-runtime-reference/generic-helpers-actions.json": "f746ccce172fd99398fef4ff7a1a7584da1b58f32ac476c48ae2341b8e0b74f5",
+    ".local/class-skills/warlock-runtime-reference/generic-parameter-emulation.json": "eba00308f4678facb66b5f2fd41d4035552c17c92fbfa392ca974d5f4540b7e6",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part0.asm": "d45bd51260e65cf9c94e69f132ec1992e06bf2d47edb12ca8a98dfcd811325e8",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part0.bin": "f9c8ff54f50e9b86c227f53914d63d08732e16a63e97bf25d6521281e61859bd",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part1.asm": "fb6a1b2a2f9151f135640eb7d440560c990f0c7123ac239ce6b8000014bfb016",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part1.bin": "48b03a52240c21578c541c860d087b0a82907383c3bb6a09fee33c7dcafc85e2",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part2.asm": "526de7c353ee063fbc9940808a0ed7f75010c369b65fb08722f12d682571b8c3",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part2.bin": "2177079bfa917539c9ed2cb80108424b05525e77d084e84f60bcf9eb63d0fd38",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate.json": "b43a32d2254d96fd26345609543840d858e3532ccf4066a2183127882ddb4413",
+    ".local/class-skills/warlock-runtime-reference/inactive-known-code-sample.asm": "12a7b701da9197c9d2dbfb9c988d4402bd2f6a8c3f2d46c9f55a4e09d9c615a2",
+    ".local/class-skills/warlock-runtime-reference/inactive-known-code-sample.bin": "dd25e5e9942be6debde576fd5d420f8ef2ab1eee022835c965c4f6480c1673a4",
+    ".local/class-skills/warlock-runtime-reference/inactive-known-code-sample.json": "fea59c97501d4c2b4eb88616f32ff24a0c77b4f268ce8633ec011d81e82392e1",
+    ".local/class-skills/warlock-runtime-reference/known-cold-code-sample.asm": "a14ed797d8c01bd24b80b4e7058085bca1162490d40052d3e8357f947430c17a",
+    ".local/class-skills/warlock-runtime-reference/known-cold-code-sample.bin": "4359599b17e05c30826375198ee4bddd67aab2705dee34e4b79ba7247663cc63",
+    ".local/class-skills/warlock-runtime-reference/known-cold-code-sample.json": "e7fe05f70a7462ab1c5ced667e28b015ade06672d8cf8c538db4bd0fce83ceb2",
+    ".local/class-skills/warlock-runtime-reference/monai-extraction.json": "d2ea7c87ccc35746841a913cc258bb2af3f3b2a0b7ed3a5a9462d96a85ca46df",
+    ".local/class-skills/warlock-runtime-reference/monai.txt": "7c7c7b8866c46078356bcc6118789699351004f39edea92922425699d6aa86a8",
+    ".local/class-skills/warlock-runtime-reference/monstats-extraction.json": "2bcd5d4d59662112b011192ba3a76deba11bc1c35fbde8ce4a152f4110e90474",
+    ".local/class-skills/warlock-runtime-reference/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/warlock-runtime-reference/sample-file.asm": "2e6fb112691a655d292b2df17f5e6fb48eafd2ace2d9eafd84e6487be229d3b2",
+    ".local/class-skills/warlock-runtime-reference/sample-file.bin": "c4ef9358150fc58518b4879b7aa6271c1dc58ffd4c4f5636abde2b0a7bbb6cdb",
+    ".local/class-skills/warlock-runtime-reference/sample-runtime.asm": "97c14e23e86d284cb8582c896fb34d10237673638c239a46c917d24c888fa0c9",
+    ".local/class-skills/warlock-runtime-reference/sample-runtime.bin": "5e72650e3967eaae6955f1665508dfb8e356da164c06fed495455c8f7a8f4284",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "data/Sanctuary/Balance/generic-pet-parameters.json": "279df12b94ef257f9c90f33ce718118badcd52ec7985adc0ecc02899da69b704",
+    "tools/capture_generic_pet_helpers.py": "5350d1b8bd978fff18e76a1409f6c0b712d02dd34fcea6eac74d21b804eb3b3b",
+    "tools/capture_warlock_event_bodies.py": "08ac70c28b4ea9952be5c45bd7ecee617d8f32758cc62d878d3420df5a7823fb",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_generic_pet_reference.py": "8b65745e6cf6b098ad73fb9603fa42f2afe5f6f6d146daa4d31e85adda2e300c",
+    "tools/probe_warlock_event_reference.py": "a5bf0e827cb848c109778737033f3055d905dda446e3f744349bc4d487f1617c",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/record_warlock_runtime_reference.py": "3167a88cfa3511b4d377bf37c6221f2c9f5ff3218ab5a74ee371122e98dd9a1e",
+    "tools/reference/generic-pet-parameter-emulation.json": "ef8f4970e3b9edd689021750a91ed9db47f2d10c57d8b4148e38e855868f435b",
+    "tools/watch_warlock_code_window.py": "78cd838d9a96beefcc759ae193888c7e4766b2b120354e7aa1ca8176d09dc6ac"
+  },
+  "established": [
+    "Existing OS permissions allowed bounded double-stable reads of pinned headers, immutable tables and known executable ranges. No attach, target input, memory writes or security changes. Full argv, heap, saves and authentication contents were not sampled.",
+    "Current AI table layout is corroborated by 148 classic callback-nullness patterns, four aliases and eight runtime descriptor matches. Three flag differences remain explicit. Owned monai names index148 GenericPet; a current dispatcher link is still unverified.",
+    "All known chained-unwind fragments of the GenericPet root and its initializer/follow/combat candidates were captured. Chained unwind grouping is not a certificate of every exception or failure path. Full AI and owner callbacks remain unverified.",
+    "Actual captured initializer instructions run only offline against synthetic memory and declared services. 2016 boundary contexts and three owned demon profiles establish raw decoding before unspecified owner-iterator effects. No current-game code is executed in the target by these tools.",
+    "A separate 32-byte cold-page experiment through an existing read-only procfs descriptor matched encrypted disk bytes and is unusable as behavioral evidence. No protection was changed and no forced decryption was attempted. A 45-second natural readability watch captured no new callback body."
+  ],
+  "remaining": [
+    "Verify current dispatcher/index linkage, owner callback adjustments, target/skill choice, movement/event/seed and NPC combat dependencies before enabling a summon.",
+    "Modern passive writer, duplicated sunder fields, ordinary-hit events and unlocked NPC skill callbacks remain independent gaps.",
+    "Proprietary captured binaries/disassembly remain ignored local files; the committed receipt records hashes and scope only. Historical zero-memory receipts describe their earlier snapshots."
+  ]
+}
