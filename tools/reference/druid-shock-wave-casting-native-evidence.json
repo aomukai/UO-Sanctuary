@@ -28,10 +28,10 @@
       674,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "inputInventory": {
     "sourceInputs": {
@@ -1035,7 +1035,12 @@
     "tools/build_skill_roadmap.py": "ba648954efec280dfd8bfb2d72cb229c1e75dbe724a6bd236290f3cfad456510",
     "tools/build_class_skills.py": "217ea51072945b9ef0859c71acbd3138e2547aec856005d8e0e7d3da10ea340e",
     "data/Sanctuary/Balance/skill-effects.json": "cc052d4cb5e4dcadf2e9d4ada8c10130ac11380d4904efd778fc2e2d38e632cb",
-    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2"
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    ".local/class-skills/druid-shock-wave-casting/full-named-item-runtime-audit.json": "26bf9b1dfe669883c75b4cba74737d1a7a11e97be67a31e6cbca87369a0c9b82",
+    ".local/class-skills/druid-shock-wave-casting/full-first-loop-affix-audit.json": "812f6215602701eade585d60fabdc74f7005b3c51f39e1954380c3a4f146cb42",
+    ".local/class-skills/druid-shock-wave-casting/class-inputs.json": "345fa445cbae749142fdc522cbb1989d2abe6a3b1f626261f66b2b863f320c4f",
+    ".local/class-skills/druid-shock-wave-casting/class-native-checks.log": "5084aa3ce8c86fa05b4d34fd852da218087b34d217b4b03f7b079b44c533fbe6",
+    ".local/class-skills/druid-shock-wave-casting/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "frozenPredecessors": [
     {
