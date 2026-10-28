@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7eebf30825754cb2c1af4497922d6d7e2ce056b4015314639f5218b67ee8eeee",
+  "ContentAssemblySha256": "b9fdab66e6562e049d59134c02c3a0e7f2c19824f52ac349992a4b94ed795bee",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -579,6 +579,7 @@
     "src/Sanctuary.Content/PetWalkFailure.cs": "131eb1db19a66a7015b98b9144d6933d12228771cd01e5fa19bdac3b59664229",
     "src/Sanctuary.Content/PlagueJavelins.cs": "30d95e7c2232bff5f22427cbc6f1c0b888a587dca198d40d3a536a3ccc38d897",
     "src/Sanctuary.Content/PlayerInfernoChannel.cs": "f7ca917b1af6cf8c7b2116001079b7b904a2619e0b7c9c3027abcd9d764b52da",
+    "src/Sanctuary.Content/PlayerInfernoSequence.cs": "c066bc4813b79ba752003408242721b2dae0274f3f9aafb3a83571feaa5f2e52",
     "src/Sanctuary.Content/PoisonJavelinPackets.cs": "d12831c58c075b1e33c82e2362f07616a70fb86e870b7d0ad49024a3e99e2a45",
     "src/Sanctuary.Content/PoisonJavelins.cs": "19be4e3bc97bb79e67e8d8124c021bc6a804cbd493ccadfd16cd127c632cef45",
     "src/Sanctuary.Content/PoisonPackets.cs": "180d8c6392cb32af87974ab92a60f0bdfd9f14262697988fa806b06c23f54a9c",

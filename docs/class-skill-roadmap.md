@@ -13,6 +13,8 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
+Prepared Arctic Blast/Inferno sequence composition now matches4,608complete older-source contexts/188,928event frames per boot,with explicit current-cost and JSON continuation controls. The74-check retained suite passes3boots/2reloads. Normal rate and accepted intents are supplied; modern input/cadence and cold flight remain open. Both talents stay disabled; see [sequence evidence](../tools/reference/player-inferno-sequence-native-evidence.json) and the current checkpoint.
+
 Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.
 
 Use [the current checkpoint](class-skills-resume-checkpoint.md) for verification evidence, unanswered questions and the next executable work. Use the independent [effect](skill-effects.md) and [icon](skill-icons.md) registers for the asset phase.

@@ -1,0 +1,73 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 4608,
+  "frames": 188928,
+  "sanitizerClean": true,
+  "currentExecutableParity": false,
+  "nativeAccepted": false,
+  "compiledRoutineHashes": {
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo048_BladeFury": "7955cadcc3e83991969e62797b4fd03a2462ffa283ec73f85559f77d354f64ab",
+    "SKILLS_SrvSt26_BladeFury": "ead80372d972461f9786ccbd3dd9cdbafa3dad1301844ea8f607181f10102ac7",
+    "SKILLS_StatRemoveCallback_RemoveState": "93a390dff6ba7f8309a4d2c936a5f7231af89740538084175ba35ae11fc1cd2d",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "BITMANIP_SetBitsValueForMask": "1cd6d84279ee2a1e25ddfb1b5db86743648eb6b20eece6b2bd052223e411be56",
+    "D2Common_STATES_ToggleState_6FDB8900": "f5f001b4dec27c00e18c36338c97d6c30f5bad29183df302c20522fce2202f61",
+    "STATES_ToggleState": "d6c81dc9500968ca31763763962cd891e21188546b0c5a84b7582ea516e3def9",
+    "STATES_CheckState": "4fdaddb0ff2ebcad76664f33fc9cb1e1327d5daad363280c69deca24ce87b023",
+    "D2Common_GetStateFromStatListEx_6FDB8190": "fc27d4a8baa8735cdf4f2355ee8eb4d9c1fec5f1d1153105b5f0c075d71b810b",
+    "STATLIST_GetStatListFromUnitAndState": "8435bec7805ba63b7a065d4aee91a4393caf95832baa07483a65898dee939b36",
+    "D2GAME_PACKETCALLBACK_Rcv0x12_6FC84670": "f7a8d7f5fed85c068f19cbd13c897f392d1c4c30cf86551c800a33fa597eff8e",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "D2GAME_DeletePlayerPerFrameEvents_6FCBCE50": "f7ce06ba27b31de718ff15c909a5ad9dc353f3b6f870758c3dee7bf8723c6463",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBD120": "81fc71dd01d80ea8700a239227e6a42c9f9265fadfb757cb00fc663a9ad94ac8",
+    "sub_6FC81250": "2103872e7c43337c183feb05957daee7bc9b994d77cdc2077f37206c39f56026",
+    "sub_6FD12FD0": "652267d1698d99a0ec9b56fc69f14142e4e87b29d298c43b83dd90ae48b185d5",
+    "sub_6FD13410": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+    "PLRMODE_StartXY_AttackCastThrowKickSpecialSequence": "a6624358f1bbf60140485dabdecf2fc3f22376ac186f0d53efb1ed7c9677f9d2",
+    "PLRMODE_StartID_AttackCastThrowKickSpecialSequence": "063047d321348ddaa2df7d4acc3eca1b6dcef5ffdc305045bcdc559357cd2ae8",
+    "sub_6FC80EE0": "7aa059e046e52e4688c30ef03b67f193336c66b643268593a79c92d0f8bafab2",
+    "SKILLS_DoInferno": "c0014c7fcbc89574bec9e58b8b31f24fab9d8a6cd2bb2cead10e85962afc50d1",
+    "SKILLS_StartInferno": "f58f91aacdc046528dac4a6eb30de9cafaefa1bfe3969e97374e7df7b0a6a788",
+    "SKILLS_SrvSt11_Inferno_ArcticBlast": "af0cfdd74bf1fb060991de20dfc8095d8299130ac1c6de092b6bf516eeddf0e0",
+    "SKILLS_SrvDo019_Inferno_ArcticBlast": "47e581f2b0c5d0e7e7fe161d1696bcb0818982eb9f6a610e707e60c243274e5f"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/Fog/include/D2BitManip.h": "bbb5e735e165f41e8c299a3a03930d2b3b9f20702c52012643bd4fe387e9834a",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/src/D2States.cpp": "0df430381b0c7af1ce270c0584d5cbec496d227f92740c8dc3a3a2a8f37dce80",
+    "source/D2Game/src/PLAYER/PlrMsg.cpp": "ffeff8d5a1448ed72f250fe647d3ee8ae53034cf47e6dd29cae11878d5d63056",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "artifacts": {
+    "tools/probe_player_inferno_sequence.py": "1a9608a4987bce014007ef3321c5afb010387470ddc8fe4ebf2567e8fff786e3",
+    ".local/class-skills/player-inferno-sequence/abi-base.cpp": "dc50ebd6a43c944738eab4bac0f4ce7d83481acccb4f366a04e0e589bf8d52b1",
+    ".local/class-skills/player-inferno-sequence/player-inferno-sequence-source-probe.cpp": "b495808da3884b7e3b5f5465e0374e26710b51235607c069c12ec5b2668f7e5b",
+    ".local/class-skills/player-inferno-sequence-source-probe.json": "4066249dbc52cccf48a1363b2cffd8342f420465fa82362d0cec768fb158d504",
+    ".local/class-skills/player-inferno-sequence/source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/reference/arctic-blast-preflight.json": "64e3bb6b3a29c7b0cd8ba88aa947b92f9540b9bf005b47dbdcd43bcee82affca"
+  },
+  "established": [
+    "Both complete15-point arrays execute with full ordinary XY/ID mode entry,initial/rewind scheduling,start/do wrappers,st11/do19,state/list/stop helpers and action/end callbacks. Source skill identities and Inferno3/Arctic2range increments stay distinct.",
+    "Explicit no-reentry,single-reentry and repeated two-frame accepted-callback controls preserve per-owner FIFO insertion order,stale/duplicate removal callbacks and same-frame stop-before-start-before-events ordering. These controls do not establish when modern input accepts callbacks."
+  ],
+  "declaredServices": [
+    "Per-owner FIFO queue; normal256sequence initializer/rate,used-skill/path/target/room/LOS,stat ABI and missile allocation are explicit services. Full game queue/cross-owner order and current client/FCR/rate remain outside this probe."
+  ],
+  "remaining": [
+    "Native sequence bridge,JSON continuation and current-table rank1policy require separate comparison. Very early same-frame double-rewind negative-index contexts are excluded; do not invent padded pre-sequence events. No production channel or cold flight acceptance."
+  ]
+}
