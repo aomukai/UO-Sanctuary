@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record GoatmanNpcWeapon(int Minimum,int Maximum,int DamagePercent,int FireMinimum256=0,int FireMaximum256=0,
@@ -49,6 +50,21 @@ internal static class GoatmanNpcMelee
         int total=checked(damage.Physical256+damage.Magic256+damage.Fire256+damage.Lightning256+damage.Cold256);
         if(hit&&(resultFlags&NoFill)==0&&(total&~255)>(targetLife256&~255)){resultFlags|=2;}
         return new(damage.Physical256,damage.Magic256,damage.Fire256,damage.Lightning256,damage.Cold256,damage.ColdFrames,damage.StunFrames,total,resultFlags,hitClass,overlay,critical);
+    }
+    // Explicit NPC start adapter;caller owns targeting,mode/mana rules and
+    // scheduling. Prepare failure cannot install a self-state.
+    internal static GoatmanNpcPrepared BeginFor(BaseCreature actor,int sourceId,int rank,int resultFlags,int targetLife256,
+        GoatmanNpcWeapon weapon,Func<GoatmanNpcDamage,GoatmanNpcDamage> mitigate,Func<int,int> limited,Func<uint> raw,DateTime at)
+    {
+        if(actor is not{Alive:true,Deleted:false}||at.Kind!=DateTimeKind.Utc){throw new ArgumentException("NPC melee start needs a living actor and UTC clock");}
+        var packet=Prepare(sourceId,rank,resultFlags,targetLife256,weapon,mitigate,limited,raw);
+        if(sourceId==418){GoatmanBerserkEffects.Begin(actor,rank,at);}
+        return packet;
+    }
+    internal static void RefreshForRelease(BaseCreature actor,int sourceId,int rank,DateTime at)
+    {
+        if(sourceId is not(416 or 418)){throw new NotSupportedException("Unsupported Goatman release state");}
+        if(sourceId==418){GoatmanBerserkEffects.Impact(actor,rank,at);}
     }
     internal static GoatmanBerserkState StartBerserk(int frame,int rank,GoatmanBerserkState existing,bool allocationSucceeds)
     {

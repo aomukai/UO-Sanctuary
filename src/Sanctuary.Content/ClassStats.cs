@@ -123,7 +123,8 @@ public static class ClassStats
     public static int Defense(Mobile mobile)
     {
         int defense=EliteAuras.Defense(mobile,Math.Max(0,BaseDefense(mobile)-TimedEffects.DefenseLoss(mobile)));
-        return mobile is PlayerMobile player?BarbarianBerserk.ApplyOverride(defense,BarbarianBerserk.DefenseOverride(player)):defense;
+        int percent=mobile is PlayerMobile player?BarbarianBerserk.DefenseOverride(player):GoatmanBerserkEffects.DefenseOverride(mobile);
+        return BarbarianBerserk.ApplyOverride(defense,percent);
     }
     internal static int ScaleDefense(int basis,int percent)=>
         (int)Math.Clamp((long)basis+(long)basis*percent/100,0,int.MaxValue);
