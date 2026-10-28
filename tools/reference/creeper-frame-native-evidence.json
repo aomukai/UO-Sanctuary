@@ -32,10 +32,10 @@
       675,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "inputInventory": {
     "sourceInputs": {
@@ -2055,7 +2055,12 @@
     "tests/check_creeper_stats.py": "d706b89311f4d6d703fc39eb5b00a6787df79d42bae09057b550063529cd4271",
     "data/Sanctuary/Balance/class-skill-status.json": "3fce8e293e2fcc55b384b2d2c5bf64d32e7b8e0b3292ceae33c83e2e53c6380f",
     "data/Sanctuary/Balance/skill-effects.json": "7c20cf266fe845c6040d22c31b4e833ffea6d41f86f3e74ba6f74709da076f80",
-    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2"
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    ".local/class-skills/creeper-frame-correction/full-named-item-runtime-audit.json": "62cd8a49d266cf0582758dcbf17902ae29c35c9c935868efa0355251ebf25a23",
+    ".local/class-skills/creeper-frame-correction/full-first-loop-affix-audit.json": "68fbf3cc820f5b3d73b0580351416351ab300025445ebb3b872cf0b701701707",
+    ".local/class-skills/creeper-frame-correction/class-inputs.json": "1c9842de25ceeca3624f787777b5a004ee4c0b96017fde9700de800d03280f30",
+    ".local/class-skills/creeper-frame-correction/class-native-checks.log": "157a643848ae76dc8fb2439696b4d0e0b1a501fb9579e3cab2f1fcebdef65028",
+    ".local/class-skills/creeper-frame-correction/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "frozenPredecessor": {
     "commit": "27a7a54",
