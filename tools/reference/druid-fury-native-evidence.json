@@ -29,10 +29,10 @@
       675,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "inputInventory": {
     "sourceInputs": {
@@ -1066,7 +1066,12 @@
     "tools/build_class_skills.py": "10246036de8035685e6ef1e50165f17d620935a13a40fce75237a365e944214a",
     "tools/build_skill_roadmap.py": "e7c18c00973e44ff8c02000640a60e1f835c907abd82c23a451e6def36e806ba",
     "data/Sanctuary/Balance/skill-effects.json": "7c20cf266fe845c6040d22c31b4e833ffea6d41f86f3e74ba6f74709da076f80",
-    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2"
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    ".local/class-skills/druid-fury/full-named-item-runtime-audit.json": "f4af2bc061213f547037b3aefde8d312f12438ad55a62b11732877ee8cca7bc0",
+    ".local/class-skills/druid-fury/full-first-loop-affix-audit.json": "d68603c5115a3b2ee141229beca08123a46548a0c5d29e6dae234241b9c45cc0",
+    ".local/class-skills/druid-fury/class-inputs.json": "331fdec23efac516224196da2c349db64a84065a743409593eef350146a9994e",
+    ".local/class-skills/druid-fury/class-native-checks.log": "5c48c09e4cf881f0bf70b4475328f42f0d3cb735aeb06c89452d5e8304413cad",
+    ".local/class-skills/druid-fury/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "frozenPredecessor": {
     "commit": "f0d14e6",
