@@ -44,6 +44,7 @@ public static class ClassCombat
         internal DruidHunger.Pending HungerAttack;
         internal DruidRabies.Pending RabiesAttack;
         internal DruidShockWave.Pending ShockWaveAttack;
+        internal DruidFury.Series Fury;
         internal string RabiesFault;
         internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
@@ -114,7 +115,7 @@ public static class ClassCombat
                 BladeFuryModes.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
-                DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);
+                DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);DruidFury.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
         };
@@ -238,7 +239,7 @@ public static class ClassCombat
         AmazonMelee.Cancel(from);
         TigerStrikes.Cancel(from);
         DruidChargedAttacks.Cancel(from);
-        DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);DruidRabies.Cancel(from);DruidShockWave.Cancel(from);
+        DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);DruidRabies.Cancel(from);DruidShockWave.Cancel(from);DruidFury.Cancel(from);
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
@@ -336,7 +337,7 @@ public static class ClassCombat
         BarbarianConcentrate.Tick(from,now);
         BarbarianBerserk.Tick(from,now);
         var session = For(from);
-        if(session.ClawAttack!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null){return;}
+        if(session.ClawAttack!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null || session.Fury!=null){return;}
         if (session.HeldAbility != CombatAbility.None)
         {
             UpdateHeldCast(from, now);
@@ -465,7 +466,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
-        if((DruidFormAttacks.SingleA1(ability)||ability is (CombatAbility.Hunger or CombatAbility.Rabies))&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
+        if((DruidFormAttacks.SingleA1(ability)||ability is (CombatAbility.Hunger or CombatAbility.Rabies or CombatAbility.Fury))&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
         if (ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
         {
@@ -498,6 +499,7 @@ public static class ClassCombat
         if(For(from).Impale!=null){return AmazonImpale.Resolve(from,now);}
         if(For(from).Strafe!=null){return AmazonStrafe.Resolve(from,now);}
         if(For(from).Fend!=null){return AmazonFend.Resolve(from,now);}
+        if(For(from).Fury!=null){return DruidFury.Resolve(from,now);}
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}

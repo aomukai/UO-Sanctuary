@@ -1879,10 +1879,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 248,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned wolf-only start37/do13 candidate uses two-to-five ordinary weapon attempts,shared Fend rollback70and action7/end13timing,once-only4mana start payment,cyclic per-contact target revalidation and approved low-mana ordinary Attack. Source-derived interruptibility keeps Fury outside Fend/Zeal hit-recovery locks. Shared typed physical/critical/leech/charges/gear and explicit NPC shields are reused; no source-zero spell substitute. Native combat/input/rank/gear/recovery/retarget/reentry/reload acceptance is pending in the isolated Fury checkpoint. Exact modern timing/rank/progression refresh,event/RNG/owner/PvP/item-only and final graphical acceptance remain explicit gaps. Final wolf swing/contact/audio and talent/left/right/quick icons remain separate placeholders."
     },
     {
       "talentId": "druid.raven",

@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "learnedHandlerPresent": true,
+  "gameplayAccepted": false,
+  "installed": false,
+  "currentExecutableParity": false,
+  "nativeMethod": "DruidFury.Schedule",
+  "contexts": {
+    "schedules": 1996,
+    "contacts": 6986,
+    "invalidGuards": 5,
+    "advances": 499,
+    "minimumAdvance": 22,
+    "maximumAdvance": 520
+  },
+  "dependencies": {
+    "Sanctuary.Content": "98b43e3af6e899459f69d52b833a8e601beb51c3bfdb9829a070475ae8ae4c86",
+    "Server": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "UOContent": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "artifacts": {
+    "tools/probe_druid_fury_schedule_native.py": "cba4d9836b478ea52190e41b54e8b631f1950d32d51d6be02111aeaca42ed429",
+    "tools/reference/druid-fury-full-clock-engine-evidence.json": "77bdd9ef857f919e447991ed45b6b1b060744d7db7bffb79af4e140a377ef68b",
+    ".local/class-skills/druid-fury-full-clock-source-probe.json": "cc96d62422f00854e76deca8fe9c96a7c5a45f0af235a0d6fa35d9cdf7d40e03",
+    ".local/class-skills/druid-fury-schedule-native/FurySchedule.csproj": "429e212659d6a333d1a1e8b372ab8f4d142b565eccc723fd27570c5a20fc7a06",
+    ".local/class-skills/druid-fury-schedule-native/Program.cs": "c28379070d7b9d279b52dfed635ad064e8b1581521b78139ae72eb81d8847e80",
+    ".local/class-skills/druid-fury-schedule-native/build.log": "c95e984e92069d1d44f55aac97b8cd7b4126edffa0938dacd3d2d424570dd571",
+    ".local/class-skills/druid-fury-schedule-native/run.log": "c78f7bb5b14c9497a6dc49bbca38e3c3e583b3cce0334072e9eb23c3b39a7749",
+    ".local/class-skills/druid-fury/content/Sanctuary.Content.dll": "98b43e3af6e899459f69d52b833a8e601beb51c3bfdb9829a070475ae8ae4c86",
+    ".local/class-skills/druid-fury-schedule-native/out/FurySchedule.dll": "4137ace2af8ffb1bb3da7ceef1d3c99c8c50ded73a0f513554a916ddac353a9a",
+    ".local/class-skills/druid-fury-schedule-native/out/FurySchedule.deps.json": "3a81943240738456c7f2444ee66da27abd626641e135891e8235c731464b8fd7",
+    ".local/class-skills/druid-fury-schedule-native/out/FurySchedule.runtimeconfig.json": "f9bc8e9f0c46247078ed47309f19a7576b4b94e4300e9de0003917d6bd2d667a",
+    ".local/class-skills/druid-fury-schedule-native/out/Sanctuary.Content.dll": "98b43e3af6e899459f69d52b833a8e601beb51c3bfdb9829a070475ae8ae4c86",
+    ".local/class-skills/druid-fury-schedule-native/out/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    ".local/class-skills/druid-fury-schedule-native/out/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/class-skills/druid-fury-schedule-native/out/Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0",
+    "src/Sanctuary.Content/DruidFury.cs": "97209a22164237bd1bae3a335bb97e84cf913a05eed316d721f41e8756019b01",
+    "src/Sanctuary.Content/AmazonFend.cs": "e8ef325cde3c62712e43f8cbe2e32b5642de1d229be68a94a579ff488e34f8ee",
+    "src/Sanctuary.Content/DruidFormRates.cs": "ab87d7e8c29dacebfaac04c0e28f3f4ac64c79b49a80323dac957567a0db9747"
+  },
+  "established": [
+    "An isolated net10console invokes the actual new internal DruidFury.Schedule from the candidate assembly and compares every legal22..520advance/two-to-five-contact series with the pinned original-author preparation. Final cycle and all6986contact deadlines match; five invalid advance/count controls refuse. Driver/dependencies/source/build/run are hash-bound with zero-warning build and exit0."
+  ],
+  "remaining": [
+    "This covers the actual pure Fury clock,not a connected player or weapon contact. Source-derived interruptibility,4mana,AR/block/typed damage/charges/drain/procs,retargeting,reentry,real L/R/quick input,cancellation and save/reload remain pending. Modern author-model and exact current dispatch limits remain explicit. Main retains the separately accepted installed Shock Wave package; final effects/icons remain separate."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "predecessor": {
+    "path": "tools/reference/druid-fury-clock-engine-evidence.json",
+    "sha256": "3b46cd9a9780731e664487b6af897e57b2859de03cbb510e2a61170d48910769"
+  },
+  "normalizedModelSha256": "ab87d7e8c29dacebfaac04c0e28f3f4ac64c79b49a80323dac957567a0db9747",
+  "legalAdvance": {
+    "minimum": 22,
+    "maximum": 520
+  },
+  "contexts": {
+    "originalAuthorVectors": 499,
+    "preparedSchedules": 1996,
+    "contacts": 6986
+  },
+  "artifacts": {
+    "tools/probe_druid_fury_full_clock.py": "298411476bde9c86f2e5e82afb096360c6deb419eb7d435a5fafee86fcb64476",
+    "tools/reference/druid-fury-clock-engine-evidence.json": "3b46cd9a9780731e664487b6af897e57b2859de03cbb510e2a61170d48910769",
+    "src/Sanctuary.Content/DruidFormRates.cs": "ab87d7e8c29dacebfaac04c0e28f3f4ac64c79b49a80323dac957567a0db9747",
+    ".local/class-skills/druid-fury-full-clock-source-probe.mjs": "d4543dd6677477c66764b9f03e04ef72d45542dbecc7a772ebcf0bfd475c6796",
+    ".local/class-skills/druid-fury-full-clock-source-probe.json": "cc96d62422f00854e76deca8fe9c96a7c5a45f0af235a0d6fa35d9cdf7d40e03"
+  },
+  "established": [
+    "Original unmodified author functions and complete rollback block execute every integer22..520advance admitted by the existing normalized wolf model. This covers extreme slowing below the earlier7200sampled contexts. All two-to-five-contact preparations preserve frame2rollback and the final whole-cycle convention; five-hit vectors equal every author output."
+  ],
+  "remaining": [
+    "Prepared lower-rank truncation and original-author model limits remain explicit. Actual DruidFury.Schedule/contact/input/gear/recovery/retarget/persistence tests are required; this source script does not certify native gameplay or exact current executable timing. Old327-vector and native Fend-helper proofs remain frozen and unmodified."
+  ]
+}
