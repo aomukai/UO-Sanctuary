@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "preflightSha256": "cef96c8ba75ab0b3ba67aff36a5c1e9a00287889893beca9f4da826e741ae1b4",
+  "progressEvidenceSha256": "ffd464e7568102c03bca695b82eae653a7ba5d58502db978d976e9501a45efe4",
+  "progressFixtureSha256": "f14f3493adffe1a97e280068389cffa16e74d7279223f52ead8e98f0cec89377",
+  "originalAuthor": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+    "fileHashes": {
+      "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+      "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+      "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+    },
+    "functionHashes": {
+      "fpd1": "d4a0afb879e155828f2d6a46180490bd403234e29cd8e44d1db0802ba7454405",
+      "fpd2": "11424ab2ea3b75c19506e78e6a3454883bb66862208317226b21ca01d441254b",
+      "rbf": "f1b665fc0e40708db5720878697fd9f2cf41e6eda4a6c0fc88bbd1e1d1319b4a",
+      "rhits": "fb6b6b4515da0a1aaff29f71347dd41c25e6e0082afff41ea45c35013a761388",
+      "getStartingFrame": "ee06905636d7f8d1ac252fa52c2f39d1ac12961461b2e2cd81b0bc9c821328c5"
+    },
+    "rollbackBlockSha256": "88bcfedf1282fb869b0fdc1e275fc0bfe1480014b6293d900c6c76aaf1a3178c"
+  },
+  "contexts": {
+    "wolfProgressInputs": 7200,
+    "distinctAdvances": 327,
+    "originalAuthorVectors": 327,
+    "preparedTwoToFiveHitSchedules": 1308
+  },
+  "sharedNativeExpression": {
+    "commit": "8949002",
+    "file": "src/Sanctuary.Content/AmazonFend.cs",
+    "fileSha256": "e8ef325cde3c62712e43f8cbe2e32b5642de1d229be68a94a579ff488e34f8ee",
+    "expression": "(int)((start*256L+advance*(long)elapsed)/256)*(100-factor)/100;",
+    "executedByThisProbe": false
+  },
+  "artifacts": {
+    "tools/probe_druid_fury_clock.py": "d25728902345bc766fe7aacec035e12e05245d167fa47a7e133423a7e490198a",
+    ".local/class-skills/druid-fury-clock-source-probe.mjs": "daf40e8f3b2333ed3bd13e7b0245ade0155a4320d95311af88b3a32a56c732b5",
+    ".local/class-skills/druid-fury-clock-source-probe.json": "44cae8468cf1527239133b850585d62bce65d2279c99ba2f5702e191e5954e93"
+  },
+  "established": [
+    "The original unmodified author functions select Fury action7/end13,start0,rollback70 and three displayed rollback intervals. The unchanged complete rollback block executes327distinct advances from the7200prepared wolf contexts. Its final displayed value includes the last full cycle; it is not an extra recovery appended after the last contact.",
+    "At the selected72..520progress range,each rate-scaled rollback reaches animation frame2. The existing Fend expression prepares dynamic2..5contact clocks whose five-hit prefix/final-cycle vector equals every author output. Complete current/licensed wolf A1/A2 metadata and source count contracts are pinned separately. Lower count truncation is an explicitly prepared extension using the complete source count; it is not an author UI observation."
+  ],
+  "remaining": [
+    "This executes primary original-author calculator code with declared UI/table formatting and supplied progress; it is not a current game executable trace. Actual shared native helper invocation,outer transformed event composition,live rate/gear changes,payment,hit packets,interruption and a Fury handler remain next.",
+    "The older isolated scheduler works in elapsed-clock units and its missing outer animation anchors must not be silently conflated with this rate-scaled model. Original-author timing is the same supplementary model already used for prepared form progress; exact3.3dispatch remains explicitly uncertain.",
+    "No canonical C#,runtime data,installed assembly,saves or final assets are changed by this preparation. Final wolf attack/contact/audio and separate icons remain pending."
+  ]
+}
