@@ -5,7 +5,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record PreparedMonsterDamagePacket(int Physical256,int Total256,int StunFrames,int ColdFrames,int ResultFlags,
-    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0);
+    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0);
 internal sealed record PreparedMonsterRecipient(bool Unique,Func<bool> Boss,Func<int> Velocity,Func<bool> Hireling);
 // These services are mandatory. Supplying the actual callbacks, metadata and
 // return/mode policy remains the actor consumer's job; no missing event is
@@ -31,6 +31,8 @@ internal abstract class PreparedMonsterDamageServices
 }
 internal sealed record PreparedMonsterDamageResult(PreparedMonsterDamagePacket Packet,int Before256,int AfterHealth256,
     int StunFrames,bool DeathModeAttempted);
+internal sealed record PreparedMonsterCommitResult(PreparedMonsterDamagePacket Packet,int Before256,int AfterHealth256,int StunFrames);
+internal sealed record PreparedMonsterFinishResult(PreparedMonsterDamagePacket Packet,bool DeathModeAttempted);
 
 internal static class PreparedMonsterDamage
 {
@@ -44,6 +46,16 @@ internal static class PreparedMonsterDamage
     // checked target/room/town/hostility/killable/death/contact and captured the
     // packet. Leech/absorb/regen/proc services are explicit, not approximated.
     internal static PreparedMonsterDamageResult Release(BaseCreature attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
+        PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
+    {
+        var commit=CommitQualified(attacker,target,packet,recipient,limited,services,at);
+        var finish=Finish(attacker,target,commit.Packet,services);
+        return new(finish.Packet,commit.Before256,commit.AfterHealth256,commit.StunFrames,finish.DeathModeAttempted);
+    }
+    // The contact wrapper can reject health/event eligibility while still
+    // continuing attack-attempt callbacks and return. Keep that boundary
+    // separate from the already-qualified health/Stun/death event phase.
+    internal static PreparedMonsterCommitResult CommitQualified(BaseCreature attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
         PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
     {
         Checked(packet);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(services);
@@ -77,8 +89,17 @@ internal static class PreparedMonsterDamage
         if((packet.ResultFlags&32)==0&&(packet.ResultFlags&2)!=0)
         {packet=Checked(services.Killed(packet));packet=Checked(services.Kill(packet));}
         else if((packet.ResultFlags&2)==0&&packet.Total256!=0){services.SurvivedDamage();}
-        if(packet.Overlay>0){services.PresentOverlay(packet.Overlay);}
-        if(!packet.HitClassActive&&(packet.HitClass&15)==0){packet=packet with{HitClass=packet.HitClass|services.BaseHitClass()};}
+        return new(packet,before,after,stun);
+    }
+    internal static PreparedMonsterFinishResult Finish(BaseCreature attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
+        PreparedMonsterDamageServices services,bool hitPresentation=true)
+    {
+        Checked(packet);ArgumentNullException.ThrowIfNull(services);
+        if(hitPresentation)
+        {
+            if(packet.Overlay>0){services.PresentOverlay(packet.Overlay);}
+            if(!packet.HitClassActive&&(packet.HitClass&15)==0){packet=packet with{HitClass=packet.HitClass|services.BaseHitClass()};}
+        }
         packet=Checked(services.MeleeAttack(packet));packet=Checked(services.AttackedInMelee(packet));
         if((packet.ResultFlags&1)!=0&&services.AttackerInActiveMode()){services.Thorns(packet);}
         bool death=false,inReturn=true;
@@ -92,6 +113,6 @@ internal static class PreparedMonsterDamage
         }
         try{services.Return(ref packet,EnterDeathMode);Checked(packet);}finally{inReturn=false;}
         services.FreePacket();
-        return new(packet,before,after,stun,death);
+        return new(packet,death);
     }
 }

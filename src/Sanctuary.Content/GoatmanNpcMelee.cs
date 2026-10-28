@@ -76,6 +76,19 @@ internal static class GoatmanNpcMelee
         return PreparedMonsterDamage.Release(actor,target,new(captured.Physical256,captured.Total256,captured.StunFrames,
             captured.ColdFrames,captured.ResultFlags,captured.HitClass,false,captured.CriticalOverlay,captured.Magic256,captured.Fire256,captured.Lightning256,captured.Cold256),recipient,limited,services,at);
     }
+    internal static (bool Action,MonsterContactResult Contact) ReleaseContact(BaseCreature actor,int sourceId,int rank,
+        Func<BaseCreature> target,MonsterContactServices contact,PreparedMonsterRecipient recipient,Func<int,int> limited,
+        PreparedMonsterDamageServices damage,DateTime at)
+    {
+        ArgumentNullException.ThrowIfNull(target);
+        // Both owned NPC rows have no server overlay or target aura state.
+        // do2 refreshes Berserk before looking up the target; no new damage is
+        // allocated here,even if rank/weapon/resistance changed during windup.
+        RefreshForRelease(actor,sourceId,rank,at);
+        var defender=target();
+        if(defender==null){return (false,null);}
+        return (true,PreparedMonsterContact.Release(actor,defender,contact,recipient,limited,damage,at));
+    }
     internal static GoatmanBerserkState StartBerserk(int frame,int rank,GoatmanBerserkState existing,bool allocationSucceeds)
     {
         var values=GoatmanNpcSkills.Values(418,rank);

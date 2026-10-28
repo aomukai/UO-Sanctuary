@@ -15,7 +15,7 @@ public static class MonsterOrderedReleaseChecks
     private sealed record Saved(uint Target,int MaximumLife,int Life256,CombatStunState Stun,uint Buffed,int BuffedMaximum,int BuffedLife256,BattleOrdersState Buff);
     private static void Require(bool b,string why){if(!b){throw new InvalidOperationException(why);}}
     private static int[] N(JsonElement e)=>e.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
-    private static EncounterCreature Body(bool wideLife=true)
+    internal static EncounterCreature Body(bool wideLife=true)
     {
         var b=new EncounterCreature{Name="Ordered monster release [fixture]"};b.Frozen=b.CantWalk=true;b.AIObject?.AITimer.Stop();if(wideLife){b.SetHits(50000);b.Hits=b.HitsMax;}return b;
     }
@@ -24,7 +24,7 @@ public static class MonsterOrderedReleaseChecks
         Register("monster-ordered-release-check",Start);Register("monster-ordered-release-reload-check",Reload);Register("monster-ordered-release-health-stage-check",StageHealth);
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Ordered prepared NPC health/Stun/death release",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private sealed class Services:PreparedMonsterDamageServices
+    internal class Services:PreparedMonsterDamageServices
     {
         internal BaseCreature Body;internal DateTime At;internal int Frame,ExpectedLife,ExpectedUntil,ExpectedCold,StunChange;internal bool ExpectedStun,HealBeforeDeath,TryTwice,HealthWrite;
         internal Action Escaped;internal int DeathCalls;internal List<int[]> Trace=new();

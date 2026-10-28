@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "56122181dcf1da47880f6a89f9bca325b4950ad9fb74267eea83f223954d62d3",
+  "ContentAssemblySha256": "ba33ea0b30db7b865016fc25f1e70f36f580e2ccf3914f0024435344f039fac4",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -497,7 +497,7 @@
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
     "src/Sanctuary.Content/GlobalUsings.cs": "935c9f61673850542058ba06d42504fd5b329a00b53abed54d4c3913b3938435",
     "src/Sanctuary.Content/GoatmanBerserkEffects.cs": "b16852d05bf932ca9c1b7bc3929a9d7c45a25c66e649e06caaa08d5a076da899",
-    "src/Sanctuary.Content/GoatmanNpcMelee.cs": "eb9320b6141da8244a73249a5e95410a7aad6040b511e0d4a013b281c721beac",
+    "src/Sanctuary.Content/GoatmanNpcMelee.cs": "9c807204a68121ee3b1cb7a90a81c20d3f5c2c7efb767729668006700f898203",
     "src/Sanctuary.Content/GoatmanNpcSkills.cs": "5e804578db39477c5d8b9e1d8340f06c064ed0a5c3b8aff6c90d3d2ae0b2f91e",
     "src/Sanctuary.Content/GoatmanPrepared.cs": "b1a589a7462a27922b584c6cbd68b95c03a861d794d64aa328a01edbaef59555",
     "src/Sanctuary.Content/GraveyardHealer.cs": "aedd3e618359b4b7d6d89bd68fde2f1e750c9d62bc42d508ee0f8661d93f2f06",
@@ -616,7 +616,8 @@
     "src/Sanctuary.Content/PotionRestoration.cs": "ef83f851e04e90b57777553bff00f67e96cc9604e4029ab5e3f067b577e17347",
     "src/Sanctuary.Content/PotionTabards.cs": "6a183494f46ba3b8cf8a95d9dd26fff5b268ee646b563ce324aea1336bb7c163",
     "src/Sanctuary.Content/PowerScrollGump.cs": "0624900c7c98dab161c061c9c0fec7098289dee1ede1cf3eb969424694131dc3",
-    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "cb74c348535adc72d120204eb9e33e2be5bbfa621d894fe86704ed36eede91a0",
+    "src/Sanctuary.Content/PreparedMonsterContact.cs": "f7f2075b8261c52cd9f0a8092ee9f085974ebd5329fe260790a481de1da2671a",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "09c331df0e043061d76b209a30290c7a4894acea9848fd6c820efc7ba3a759d2",
     "src/Sanctuary.Content/PreparedMonsterReturn.cs": "5b4ad2d715f14ca3aea510b51d0cce31608a446ad4453c891ee80ca149f88735",
     "src/Sanctuary.Content/PreparedMonsterStun.cs": "bd67b1cb53c996119306c43fb69762b5f607d617ebcc1fcdfa238ab1aab5a612",
     "src/Sanctuary.Content/PreparedWeaponEvents.cs": "a8284917dee2fc5a263399e9548acf89ccb85b45c0ffc40014da979f46685cd6",
