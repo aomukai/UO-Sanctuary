@@ -1,0 +1,84 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "preflightSha256": "d2ffaeaefee699c95c7e729bf67ed91c08ef53466484a28179bb4994372927fc",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSMODE_RollDamageValue": "b7a3f2d3ca90820d1ef8f41fe5cbbc8fbd52011a472a3396efd55de5517e8951",
+    "MISSMODE_SrvDmg07_Warcry_ShockWave": "0f6739089728e64d873c8ce4b362d41949070fa771b175beb9214cc37833e755",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "UNITS_GetBlockRate": "5e2427485cb591b59d8fd046a512d89f6d0dc163262926b5307fa794bfd15c16",
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "MONSTER_SetComponents": "f8f56e2fe4747972b3dd6dc122e1b9f28f70f4faeef1439ea19f9bc003add8ce",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "sub_6FD140D0": "d2c431f320d4e7c44e22aa1ca2bfa02718b1fb845ff8473b929e8fda1d562e08",
+    "sub_6FD14120": "8416e7e662cbb94f7614770a2d567e99243c08fdd6ae22c007aff667a2164b09",
+    "SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave": "21aa2ea1359a1b81fa758e5d34e6e67841298514edfb783f9421c57878e54ed9"
+  },
+  "inheritedScaffolds": {
+    "tools/reference/warcry-engine-evidence.json": "4327f424e7aa31c4655562cb137ea454def85149e81a2643afd922f4c527ae1d",
+    "tools/reference/druid-rabies-factory-engine-evidence.json": "7bfb39180c1db5e96c8b13da2e23087b97a7594b9b4d244388e69ec4027e71ed",
+    "tools/reference/fan-engine-evidence.json": "d225a34085063eef5434d14347d1fc6b1201d0e3e22cf9d17f812c29bd11edf8"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-shock-wave-damage-source-probe.cpp": "e9698b579af370071837579407fc5fcc3e9fd29e175a32f7ac63b5595eff47a5",
+    ".local/class-skills/druid-shock-wave-damage-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-damage-source-probe.json": "d0933ad94fc5754f617a4ef3428783aadff8253c51e1393fffa1dc2e53062d83",
+    ".local/class-skills/druid-shock-wave-capture-source-probe.cpp": "b30b0396285bb198ab7bf8fb41dcbbf314195ce1ecbaa6217dbc4f6516a9c5b0",
+    ".local/class-skills/druid-shock-wave-capture-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-capture-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-capture-source-probe.json": "1f8574bade72d6aeac6adc062b5d826563c54997b6e4608a74deb3dff2eebb8e",
+    ".local/class-skills/druid-shock-wave-fan-source-probe.cpp": "604dcfae8dd3c32d4c5e1255948bfb33ac626a70cb62ce991d6c9c430267e089",
+    ".local/class-skills/druid-shock-wave-fan-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-fan-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-fan-source-probe.json": "61e330b9a8354c508f3fce6b06666001eb0b5bff23dfe089b8e1e24652502b35"
+  },
+  "verified": {
+    "physicalCapturesAndRolls": 3825,
+    "stunCallbacks": 2048,
+    "orderedCallbackFlagDispatch": 216,
+    "sourceZeroCreatorAndWriter": 6120,
+    "currentFiveWaveFans": 3468,
+    "sanitizers": "ASan/UBSan clean"
+  },
+  "established": [
+    "Current Shock Wave physical endpoints use whole-point hard-Maul synergy before HitShift8. The complete no-weapon getters and per-hit roll match all255ranks and three hard-point levels; changing the supplied owner synergy after capture does not alter the stored per-hit endpoint roll.",
+    "Complete damage7 writes40+15*(rank-1)raw stun frames and hit class0x60 for the current dParam1=0. Positive dParam1, missing row and invalid rank are independent controls. This is raw length, not the eventual250-frame cap or target eligibility.",
+    "Current missile ResultFlags4 enters flag dispatch already carrying GetHit. The uninterruptable check does not remove that preexisting flag; physical shield blocking clears success and suppresses the event-service call, while final missile presentation is requested in both branches. Callback stun length survives in the packet even on blocked hits; native stun must follow successful event dispatch.",
+    "Current do8 makes five cursor-relative requests for missile511,all with flags2080,activation0,captured rank and owner/origin identity. Both weapon selectors agree because both rows select511. Failed allocation attempts still leave the do routine successful. Shared unchanged fan helpers match retained source vectors; no fixed cone is substituted.",
+    "The complete missile creator/writer plus complete physical getters match6120current Shock Wave contexts/all255ranks. Owner elemental/weapon/drain noise and a separate noisy origin contribute nothing to a source-zero packet; critical collection is never requested. Physical endpoints are stored exactly. Two DAMAGE_VS_MONTYPE layers are copied from the owner independently of source damage,so this special item-stat branch cannot be silently omitted."
+  ],
+  "services": [
+    "Inherited declared tables,formula evaluation,stat/inventory/component lookup and RNG services supply the current row,hard synergy and selected rolls. Complete extracted routines are compared byte-for-byte to the pinned tree before compilation.",
+    "Fan allocation records requests; actual missile factory,path and world collision are outside that program. A separate creator/writer program executes complete damage capture with declared stat-layer copy/set services. Ordered dispatch records event and final presentation calls; it does not replace those services with an invented health or stun consumer."
+  ],
+  "remaining": [
+    "Compose the actual missile factory,path and collision with the accepted source-zero physical writer,including its separately copied DAMAGE_VS_MONTYPE layers. Verify full damage/event/stun eligibility and caps,ReturnFire,LastCollide and modern same-skill NextHit scope before enabling learned casting.",
+    "Bear SC/UseAttackRate timing,input,mana,cancellation,saved travelling waves,world geometry/owner transitions and current-executable behavior remain native acceptance work. Separate final directional wave/cast/contact/stun effects/audio and talent/left/right/quick icons are still missing."
+  ]
+}
