@@ -66,7 +66,7 @@ public static class DruidPlayerForms
         if(owner==null||!_states.ContainsKey(owner.Serial.Value)){return false;}
         var before=owner is{Alive:true,Deleted:false}?BattleOrders.Capture(owner):(BattleOrders.Pools?)null;
         _states=_states.Remove(owner.Serial.Value);
-        DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);
+        DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);DruidShockWave.Cancel(owner);
         if(before is{} pools){BattleOrders.Change(owner,pools);}
         else if(!owner.Deleted){ClassStats.Refresh(owner);}
         return true;
@@ -78,7 +78,7 @@ public static class DruidPlayerForms
         {
             var owner=World.FindMobile((Serial)pair.Key) as PlayerMobile;
             if(owner==null||!Owner(owner))
-            {_states=_states.Remove(pair.Key);if(owner!=null){DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);}continue;}
+            {_states=_states.Remove(pair.Key);if(owner!=null){DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);DruidShockWave.Cancel(owner);}continue;}
             if(pair.Value.UntilUtc<=at){Clear(owner);}
         }
     }

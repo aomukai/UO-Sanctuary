@@ -2368,7 +2368,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared five-wave fan uses identified UO0x37CC hue0x481 travel/contact and shared0x375A stun placeholders. Final expansion/shockwave directional sprite, bear SC pose, cast/travel/contact/stun/expiry audio and talent/left/right/quick icons remain separate. Learned casting and final art are not enabled by the prepared controller."
+    "placeholder": "Learned bear SC cast and five-wave fan use identified UO0x37CC hue0x481 travel/contact and shared0x375A stun placeholders. Final expansion/shockwave directional sprite, bear SC pose, cast/travel/contact/stun/expiry audio and talent/left/right/quick icons remain separate. Final assets remain pending; mechanical casting does not imply graphical acceptance."
   },
   {
     "talentId": "druid.hunger",

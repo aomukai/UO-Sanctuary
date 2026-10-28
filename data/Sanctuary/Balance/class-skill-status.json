@@ -1857,10 +1857,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 243,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bear-only SC/FCR route creates five source-zero physical/stun waves and pays7mana once after do8, including individual factory failures. Saved waves retain rank/endpoints/RNG/history/cast-target delay windows. Source/native prepared composition has three boots/two reloads; learned payment/input/cancellation/rank/gear and retained/full regression acceptance are tracked in the checkpoint. Modern Slow Missiles damage scaling,DAMAGE_VS_MONTYPE,exact modern geometry/room/event/seed/PvP/death and graphical acceptance remain explicit gaps. Final cast/wave/contact/stun/audio and talent/left/right/quick icons remain separate identified placeholders."
     },
     {
       "talentId": "druid.hunger",

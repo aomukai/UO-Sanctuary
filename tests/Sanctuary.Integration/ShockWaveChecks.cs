@@ -106,7 +106,7 @@ public static class ShockWaveChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.ShockWave),"Prepared scope unexpectedly enabled learned casting");Arithmetic();Cases();
+        Arithmetic();Cases();
         var p=Fresh();var t=Target(p,1);var at=TimedEffects.Now.Add(FixtureSpace.Retention);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try{One(p,at);DruidShockWave.Tick(at.AddMilliseconds(40),true);}finally{SourceBlocking.BlockRoll=block;}
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,t.Serial.Value,SkillHealth.Balance256(t),DruidShockWave.Snapshot(),CombatStuns.Snapshot())));

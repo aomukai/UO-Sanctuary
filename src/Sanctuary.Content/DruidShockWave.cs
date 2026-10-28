@@ -24,11 +24,43 @@ public sealed class ShockWaveProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Shock Wave version");}DruidShockWave.Restore(JsonSerializer.Deserialize<ShockWaveSave>(reader.ReadString()));}
 }
 
-// Prepared source-zero physical fan. Learned casting is enabled separately.
+// Source-zero physical fan and learned bear SC/FCR cast.
 // Native Q12/terrain/room enumeration and modern per-execution delay grouping
 // retain the documented adapters; unsupported owner contexts age harmlessly.
 public static class DruidShockWave
 {
+    internal sealed record Pending(DruidPlayerForm Form,long EffectAt);
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+    {
+        if(DruidPlayerForms.State(owner) is not{Form.Ability:CombatAbility.Werebear} form
+            ||!DruidGroundCasting.Aim(owner,selected,ref point,false)) {return false;}
+        Routes();
+        if(!SkillCombat.Begin(owner,CombatAbility.ShockWave,selected,point,now,(p,_,_,aim)=>DruidGroundCasting.Ground(p,aim))) {return false;}
+        var action=ClassCombat.For(owner);action.ShockWaveAttack=new(form,action.EffectAt);return true;
+    }
+    public static bool Release(PlayerMobile owner,long now)
+    {
+        var action=ClassCombat.For(owner);var pending=action.ShockWaveAttack;
+        if(pending==null||now<pending.EffectAt){return false;}action.ShockWaveAttack=null;
+        if(!ReferenceEquals(pending.Form,DruidPlayerForms.State(owner))||!DruidCombat.Available(owner,CombatAbility.ShockWave)) {return false;}
+        var point=action.PendingPoint;
+        if(!DruidGroundCasting.Aim(owner,action.PendingTarget,ref point,true)){return false;}
+        var values=SkillMechanics.Values(owner,CombatAbility.ShockWave);
+        // Native server actions are serialized. Refuse lost mana before any
+        // factory call; pay after do8 even if every individual allocation fails.
+        // Exact legacy reentrant payment behavior is not reconstructed here.
+        if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        var before=_pool;
+        try{Create(owner,point,values,TimedEffects.Now);}
+        catch(NotSupportedException){owner.SendMessage(0x22,"Shock Wave cannot be used in this context yet.");return false;}
+        if(!NecromancerEffects.Pay(owner,values.Mana256)){_pool=before;return false;}
+        owner.PlaySound(0x655); // Identified cast-audio placeholder.
+        return true;
+    }
+    internal static void Cancel(PlayerMobile owner)
+    {var action=ClassCombat.Existing(owner);if(action==null){return;}action.ShockWaveAttack=null;if(action.PendingAbility==CombatAbility.ShockWave){action.PendingAbility=CombatAbility.None;}}
+    internal static void EquipmentChanged(PlayerMobile owner)
+    {var action=ClassCombat.Existing(owner);if(action?.ShockWaveAttack!=null&&(CombatTiming.Equipped(owner)?.Serial??Serial.Zero)!=action.PendingWeapon){Cancel(owner);}}
     private sealed record Pool(ImmutableDictionary<long,ShockWaveMissile> Missiles,
         ImmutableDictionary<(long,uint),WeaponFlightLease> Leases,long NextId);
     private static Pool _pool=new(ImmutableDictionary<long,ShockWaveMissile>.Empty,ImmutableDictionary<(long,uint),WeaponFlightLease>.Empty,0);

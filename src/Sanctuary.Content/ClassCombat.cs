@@ -43,6 +43,7 @@ public static class ClassCombat
         internal DruidFireClaws.Pending FireClawAttack;
         internal DruidHunger.Pending HungerAttack;
         internal DruidRabies.Pending RabiesAttack;
+        internal DruidShockWave.Pending ShockWaveAttack;
         internal string RabiesFault;
         internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
@@ -113,7 +114,7 @@ public static class ClassCombat
                 BladeFuryModes.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
-                DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);
+                DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
         };
@@ -237,7 +238,7 @@ public static class ClassCombat
         AmazonMelee.Cancel(from);
         TigerStrikes.Cancel(from);
         DruidChargedAttacks.Cancel(from);
-        DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);DruidRabies.Cancel(from);
+        DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);DruidRabies.Cancel(from);DruidShockWave.Cancel(from);
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
@@ -525,6 +526,7 @@ public static class ClassCombat
             if(ability==CombatAbility.FireClaws){session.FireClawAttack=null;}
             if(ability==CombatAbility.Hunger){session.HungerAttack=null;}
             if(ability==CombatAbility.Rabies){session.RabiesAttack=null;}
+            if(ability==CombatAbility.ShockWave){session.ShockWaveAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
             if(ability==CombatAbility.Berserk){BarbarianBerserk.CancelMode(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
