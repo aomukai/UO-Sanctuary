@@ -12,7 +12,7 @@
   "sourceHashes": {
     "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
   },
-  "preflightSha256": "1c2aba9861fff051d9d30a716a1296e7519c28a60b6aef73f806df0853e5c329",
+  "preflightSha256": "81666e24cf52677c270343969c62f7a51c46ee5fdfc9cf450159dc748e4f79cb",
   "sanitizerClean": true,
   "artifacts": {
     "tools/probe_recycler_vines_ai_reference.py": "77532f3a1b5159a881ebaf819787f9f5bbed79999bb565382a97a637197e5da2",

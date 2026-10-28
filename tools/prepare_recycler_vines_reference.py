@@ -74,6 +74,7 @@ def build(check=False):
         ('source/D2Game/src/SKILLS/SkillDruid.cpp', ['SKILLS_SrvDo115_Vines', 'SKILLS_SrvSt63_Corpse_VineCycler', 'SKILLS_FindUseableCorpse']),
         ('source/D2Game/src/AI/AiThink.cpp', ['D2GAME_AI_Unk_110_111_6FCECC40', 'AITHINK_Fn111_CycleOfLife']),
         ('source/D2Game/src/MISSILES/MissMode.cpp', ['MISSMODE_SrvDo29_RecyclerDelay', 'MISSMODE_SrvDo33_VineRecyclerDelay']),
+        ('source/D2Common/src/Units/Missile.cpp', ['MISSILE_GetRemainingFrames']),
     ]:
         path = BASE / 'd2moo-pinned-source' / relative
         raw = path.read_bytes()
@@ -93,14 +94,14 @@ def build(check=False):
             'Carrion231 and Solar241 share do115 and one vine category with Poison Creeper. They inherit effective-rank Vine Attack plus CorpseCycler307 or VineCycler325. Current Carrion costs10mana; Solar costs14+rank-1. Birth HP scales25percent or20percent per additional rank from95or165base life; body/source-state acceptance remains separate.',
             'AI111 first follows an owner at distance>=35, then searches corpse radius clamped5..50(current10), filters distance<20 and delegates common pet movement. It only starts eating in melee when the relevant owner resource is below maximum and the last-skill frame+50 is strictly less than current frame. It can still walk toward a corpse while the owner resource is full; do not replace this with an unconditional fixed healing aura.',
             'Complete start63 reserves corpse_noselect and refreshes the corpse before requesting a delay missile owned by the original minion owner and originating at the corpse. It invokes the skill-state packet even if missile allocation fails. The visible corpse reservation and delayed resource credit are distinct events.',
-            'Delay missiles have47frame base lifetime and Param1=45. Older do29/do33 compare remainingFrames exactly to45, not age45, and grant a percentage of the living owner maximum after truncating current/max resource to whole points. Source callbacks clamp to max and delegate ordinary missile collision. Generic factory/update ordering must establish the actual activation time; a45frame wait is not justified by the Param label.',
+            'Delay missiles have47frame base lifetime and Param1=45. Despite its name,complete MISSILE_GetRemainingFrames returns total minus current countdown:elapsed age. Older do29/do33 therefore compare elapsed age exactly to45,and grant a percentage of the living owner maximum after truncating current/max resource to whole points. Source callbacks clamp to max and delegate ordinary missile collision. Generic factory/update ordering and actual dispatch must still establish the wall-clock activation boundary.',
         ],
         uncertainties=[
             'Solar formula-slot conflict: current VineCycler325 places ln12 in calc2 and leaves calc1 blank; complete older do33 reads dwCalc[0]. Copying that body with current rows would restore zero mana. Intended mana recovery is clear from current table labels, but modern executed slot/rounding/timing is not established. User has never used this skill; no observation resolves it. Keep the discrepancy explicit; do not silently patch the older body or promote an inferred implementation to exact parity.',
             'Shared VINE_BEAST underground exposure and incoming-damage timing remain unresolved from prepared Poison Creeper. Source state bits, zero-size collision and visible placeholder bodies do not prove modern underground invulnerability. Current source scan/list/ties/room/geometry, actor animation/corpse-reservation timing and owner facet/logout/death policies require dedicated execution/native checks.',
         ],
         next=[
-            'Execute complete AI111/start63/do29/do33 using declared corpse, owner, movement, formula and collision services. Include full-resource, strict50frame gate, failed allocation, corpse reservation, remaining-frame equality, owner death/missing and fractional-resource controls; preserve the Solar zero-calc control as evidence of the conflict.',
+            'Execute complete AI111/start63/do29/do33 and the misleadingly named elapsed-frame getter using declared corpse, owner, movement, formula and collision services. Include full-resource, strict50frame gate, failed allocation, corpse reservation, age equality, owner death/missing and fractional-resource controls; preserve the Solar zero-calc control as evidence of the conflict.',
             'Reuse saved summon stats/facet scaling, shared vine replacement, SC casting and corpse consumers only where source semantics agree. Then verify real actors, delayed credit, corpse contention/consumption, right/quick input and saves before enabling a learned handler. Final body/feed/resource-overlay/expiry/audio and talent/right/quick icons stay in separate existing asset registers.',
         ],
     )

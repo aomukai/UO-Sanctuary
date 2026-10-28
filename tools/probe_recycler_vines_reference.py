@@ -42,16 +42,17 @@ def build(check=False):
 #include <cstdint>
 #include <cstdio>
 #define __fastcall
-constexpr int UNIT_MONSTER=1, STATE_CORPSE_NOSELECT=1, STAT_HITPOINTS=0, STAT_MANA=1;
+constexpr int UNIT_MONSTER=1,UNIT_MISSILE=3, STATE_CORPSE_NOSELECT=1, STAT_HITPOINTS=0, STAT_MANA=1;
 struct D2GameStrc{} game;
-struct D2UnitStrc{int dwUnitType=1,dwClassId=1,life=0,mana=0,maxLife=100*256+211,maxMana=100*256+211;bool dead=false;}vine,owner,corpse,missile;
+struct D2MissileDataStrc{int nTotalFrames=47,nCurrentFrame=47;}data;
+struct D2UnitStrc{int dwUnitType=1,dwClassId=1,life=0,mana=0,maxLife=100*256+211,maxMana=100*256+211;bool dead=false;D2MissileDataStrc*pMissileData=nullptr;}vine,owner,corpse,missile;
 struct D2SkillsTxt{int wSrvMissileA=1,dwCalc[2]={1,0};}skill;
 struct D2MissilesTxt{int dwParam[1]={45},wProgOverlay=1;}row;
 struct Tables{int nMissilesTxtRecordCount=2,nOverlayTxtRecordCount=2;}tables;
 Tables* sgptDataTables=&tables;
 struct D2MissileStrc{int nMissile=0,nSkill=0,nSkillLevel=0;D2UnitStrc*pOwner=nullptr,*pOrigin=nullptr;}created;
 bool skillRecord=true,missileRecord=true,hasOwner=true,hasTarget=true,reserved=false,allocation=true;
-int refreshed=0,creates=0,messages=0,collision=0,overlays=0,rank=1,skillId=307,remaining=45;
+int refreshed=0,creates=0,messages=0,collision=0,overlays=0,rank=1,skillId=307;
 D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int){return skillRecord?&skill:nullptr;}
 D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int){return missileRecord?&row:nullptr;}
 D2UnitStrc* AIGENERAL_GetMinionOwner(D2UnitStrc*){return hasOwner?&owner:nullptr;}
@@ -63,7 +64,6 @@ D2UnitStrc* MISSILES_CreateMissileFromParams(D2GameStrc*,D2MissileStrc*p){create
 void sub_6FCC6300(D2UnitStrc*p,D2UnitStrc*q,int id,int level,int x,int y,int last){assert(p==&vine&&q==&corpse&&id==skillId&&level==1&&x==0&&y==0&&last==0);messages++;}
 int MISSILE_GetSkill(D2UnitStrc*){return skillId;}
 int MISSILE_GetLevel(D2UnitStrc*){return rank;}
-int MISSILE_GetRemainingFrames(D2UnitStrc*){return remaining;}
 D2UnitStrc* SUNIT_GetOwner(D2GameStrc*,D2UnitStrc*){return hasOwner?&owner:nullptr;}
 bool SUNIT_IsDead(D2UnitStrc*p){return p->dead;}
 int STATLIST_UnitGetStatValue(D2UnitStrc*p,int stat,int){return stat==STAT_MANA?p->mana:p->life;}
@@ -74,19 +74,21 @@ void STATLIST_SetUnitStat(D2UnitStrc*p,int stat,int value,int){if(stat==STAT_MAN
 void UNITS_SetOverlay(D2UnitStrc*p,int overlay,int zero){assert(p==&owner&&overlay==1&&zero==0);overlays++;}
 int MISSMODE_HandleMissileCollision(D2GameStrc*,D2UnitStrc*){collision++;return 7;}
 '''
+    cpp = cpp.replace('#define __fastcall\n', '#define __fastcall\n#define __stdcall\n', 1)
+    cpp += extract('source/D2Common/src/Units/Missile.cpp', 'MISSILE_GetRemainingFrames')
     cpp += extract('source/D2Game/src/MONSTER/MonsterUnique.cpp', 'MONSTERUNIQUE_CalculatePercentage')
     cpp += extract('source/D2Game/src/SKILLS/SkillDruid.cpp', 'SKILLS_SrvSt63_Corpse_VineCycler')
     for name in ['MISSMODE_SrvDo29_RecyclerDelay', 'MISSMODE_SrvDo33_VineRecyclerDelay']:
         cpp += extract('source/D2Game/src/MISSILES/MissMode.cpp', name)
     cpp += r'''
 bool first=true;
-void reset(){vine={};owner={};corpse={};missile={};skill={};row={};created={};skillRecord=missileRecord=hasOwner=hasTarget=allocation=true;reserved=false;refreshed=creates=messages=collision=overlays=0;}
-void delay(int kind,int level,int frames,int amount,int ownerState,int invalid){
-reset();skillId=kind?325:307;rank=level;remaining=frames;owner.life=owner.mana=amount;hasOwner=ownerState!=0;owner.dead=ownerState==2;
+void reset(){vine={};owner={};corpse={};missile={};data={};missile.dwUnitType=UNIT_MISSILE;missile.pMissileData=&data;skill={};row={};created={};skillRecord=missileRecord=hasOwner=hasTarget=allocation=true;reserved=false;refreshed=creates=messages=collision=overlays=0;}
+void delay(int kind,int level,int age,int amount,int ownerState,int invalid){
+reset();skillId=kind?325:307;rank=level;data.nCurrentFrame=data.nTotalFrames-age;owner.life=owner.mana=amount;hasOwner=ownerState!=0;owner.dead=ownerState==2;
 skill.dwCalc[0]=kind?0:1;skill.dwCalc[1]=kind?1:0;
 missileRecord=invalid!=2;skillRecord=invalid!=3;
 int result=kind?MISSMODE_SrvDo33_VineRecyclerDelay(&game,invalid==1?nullptr:&missile):MISSMODE_SrvDo29_RecyclerDelay(&game,invalid==1?nullptr:&missile);
-printf("%s[1,[%d,%d,%d,%d,%d,%d],[%d,%d,%d,%d,%d]]",first?"":",",kind,level,frames,amount,ownerState,invalid,result,owner.life,owner.mana,collision,overlays);first=false;
+printf("%s[1,[%d,%d,%d,%d,%d,%d],[%d,%d,%d,%d,%d]]",first?"":",",kind,level,age,amount,ownerState,invalid,result,owner.life,owner.mana,collision,overlays);first=false;
 }
 int main(){printf("[");
 for(int unit:{0,1,2})for(int record:{0,1})for(int miss:{-1,0,1,2})for(int own:{0,1})for(int target:{0,1,2})for(int allocate:{0,1}){
@@ -135,12 +137,12 @@ printf("]\n");}
     result = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], nativeAccepted=False, handlerEnabled=False,
         currentExecutableParity=False, compiledRoutineHashes=routines, sourceHashes=hashes,
         preflightSha256=sha(preflight_path), contexts=len(cases), corpseReservationContexts=counts[0], delayedResourceContexts=counts[1],
-        sanitizerClean=True, allRanks=list(range(1, 256)),
+        sanitizerClean=True, allRanks=list(range(1, 256)), frameInput='Elapsed age; complete source getter subtracts current countdown from total47.',
         artifacts={str(p.relative_to(ROOT)): sha(p) for p in [Path(__file__).resolve(), generated, output, sanitizer]},
         declaredServices=['Current-table ln12 and blank-formula evaluation, not the full formula interpreter.', 'Owner/target/skill/row lookups, resource stat storage and overlay capture.', 'Missile allocation captures original-player ownership and corpse origin; allocation failure is independent.', 'Ordinary collision returns a distinct sentinel to verify callback delegation; factory, travel, queue and actual expiry are not executed.'],
         established=[
             'Complete start63 rejects missing/nonmonster caster, invalid row/missile, missing owner/target and reserved corpse. Success reserves/refreshes before creation and sends the skill packet even when allocation fails; origin is corpse and owner is the original player.',
-            'Complete do29/do33 only attempt resource recovery at exactly45remaining frames with living owner, valid rows and whole-point resource below whole-point maximum. Other frames delegate ordinary collision without credit. Invalid callback arguments return2. Fractional resources can be truncated even by zero gain; full whole-point resources are left unchanged.',
+            'Complete do29/do33 only attempt resource recovery at exactly45elapsed frames with living owner, valid rows and whole-point resource below whole-point maximum. The complete misleadingly named MISSILE_GetRemainingFrames reads total minus current countdown; it is compiled here rather than replaced by a service. Other ages delegate ordinary collision without credit. Invalid callback arguments return2. Fractional resources can be truncated even by zero gain; full whole-point resources are left unchanged.',
             'Across all255ranks, Carrion current ln12 supplies4..258percent of maximum before clamping. Solar with current calc1 blank supplies zero to the unmodified older do33 and can discard the fractional current mana part. This is a reproduced source/table conflict, not an accepted Solar implementation.',
         ], remaining=[
             'AI111, corpse search/consumption/packet side effects, generic missile factory and per-frame remaining-count chronology, native actor and delayed save/reload remain separate. This probe does not establish wall-clock recovery delay or current underground exposure.',
@@ -152,7 +154,7 @@ printf("]\n");}
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print(f'Recycler source: {len(cases)} contexts, four complete routines, ASan/UBSan clean; Solar conflict reproduced, no learned/native acceptance.')
+    print(f'Recycler source: {len(cases)} contexts, five complete routines including elapsed-age getter, ASan/UBSan clean; Solar conflict reproduced, no learned/native acceptance.')
 
 
 if __name__ == '__main__':

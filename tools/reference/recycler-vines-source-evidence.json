@@ -5,17 +5,19 @@
   "handlerEnabled": false,
   "currentExecutableParity": false,
   "compiledRoutineHashes": {
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
     "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
     "SKILLS_SrvSt63_Corpse_VineCycler": "939725bfe89abd42123e08ff1f1432ea6e99ee0bc3895bbbf76f2ba5f90ae436",
     "MISSMODE_SrvDo29_RecyclerDelay": "779d769be8ecbc48101d61131d4f979afe49a95166ba2fc8fa871ee902101f15",
     "MISSMODE_SrvDo33_VineRecyclerDelay": "4457da152eb2caa6dbdeee79b4ccfc9cd14f4a867e777ab1b4d995f85ac64703"
   },
   "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
     "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
   },
-  "preflightSha256": "1c2aba9861fff051d9d30a716a1296e7519c28a60b6aef73f806df0853e5c329",
+  "preflightSha256": "81666e24cf52677c270343969c62f7a51c46ee5fdfc9cf450159dc748e4f79cb",
   "contexts": 3318,
   "corpseReservationContexts": 288,
   "delayedResourceContexts": 3030,
@@ -277,9 +279,10 @@
     254,
     255
   ],
+  "frameInput": "Elapsed age; complete source getter subtracts current countdown from total47.",
   "artifacts": {
-    "tools/probe_recycler_vines_reference.py": "4e6373487fc372cf926c095e4f26e1ba2f07c101347dbe4732e48864aecb27b9",
-    ".local/class-skills/recycler-vines-source-probe.cpp": "072ab3bc9203ee9ad4cc779f408f11603af20ee3441ff342cd8770bf4339c718",
+    "tools/probe_recycler_vines_reference.py": "cf1aed4246dcce127c7801b0246fc4794dbc7f479265339593c9b4b99e2a3106",
+    ".local/class-skills/recycler-vines-source-probe.cpp": "0445972c496936555966b5f2346ef469ade25448aa172e9e268f64e91225da9a",
     ".local/class-skills/recycler-vines-source-probe.json": "0b313a39efcefd1de8179cfadf259bb37ba738aa28b1bda3677a33bb3a5d17f6",
     ".local/class-skills/recycler-vines-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
@@ -291,7 +294,7 @@
   ],
   "established": [
     "Complete start63 rejects missing/nonmonster caster, invalid row/missile, missing owner/target and reserved corpse. Success reserves/refreshes before creation and sends the skill packet even when allocation fails; origin is corpse and owner is the original player.",
-    "Complete do29/do33 only attempt resource recovery at exactly45remaining frames with living owner, valid rows and whole-point resource below whole-point maximum. Other frames delegate ordinary collision without credit. Invalid callback arguments return2. Fractional resources can be truncated even by zero gain; full whole-point resources are left unchanged.",
+    "Complete do29/do33 only attempt resource recovery at exactly45elapsed frames with living owner, valid rows and whole-point resource below whole-point maximum. The complete misleadingly named MISSILE_GetRemainingFrames reads total minus current countdown; it is compiled here rather than replaced by a service. Other ages delegate ordinary collision without credit. Invalid callback arguments return2. Fractional resources can be truncated even by zero gain; full whole-point resources are left unchanged.",
     "Across all255ranks, Carrion current ln12 supplies4..258percent of maximum before clamping. Solar with current calc1 blank supplies zero to the unmodified older do33 and can discard the fractional current mana part. This is a reproduced source/table conflict, not an accepted Solar implementation."
   ],
   "remaining": [
