@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "preflightSha256": "d2ffaeaefee699c95c7e729bf67ed91c08ef53466484a28179bb4994372927fc",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129"
+  },
+  "completeRoutineHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "sub_6FD140D0": "d2c431f320d4e7c44e22aa1ca2bfa02718b1fb845ff8473b929e8fda1d562e08",
+    "sub_6FD14120": "8416e7e662cbb94f7614770a2d567e99243c08fdd6ae22c007aff667a2164b09",
+    "SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave": "21aa2ea1359a1b81fa758e5d34e6e67841298514edfb783f9421c57878e54ed9"
+  },
+  "inheritedScaffold": {
+    "evidence": "tools/reference/druid-rabies-factory-engine-evidence.json",
+    "sha256": "7bfb39180c1db5e96c8b13da2e23087b97a7594b9b4d244388e69ec4027e71ed"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-shock-wave-factory-source-probe.cpp": "e259968031e343bda94a2ae8129e8ead00665d6660dbab6640e6b80b34b15520",
+    ".local/class-skills/druid-shock-wave-factory-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-factory-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-shock-wave-factory-source-probe.json": "2cedbdaf72365e345d30292e980badf70209209960a08b0554db2d542f1c15ee",
+    "tools/reference/druid-shock-wave-engine-evidence.json": "f908f35437d7a6d20d07b7f7a6c162e029b573c428d290f2f16bd48fe9815213",
+    ".local/class-skills/druid-shock-wave-fan-source-probe.json": "61e330b9a8354c508f3fce6b06666001eb0b5bff23dfe089b8e1e24652502b35"
+  },
+  "verified": {
+    "fanFactoryContexts": 6936,
+    "allocationAttempts": 34680,
+    "createdWaves": 17340,
+    "completeBodies": 4,
+    "sanitizers": "ASan/UBSan clean"
+  },
+  "established": [
+    "Complete do8 calls the complete missile factory five times per current Shock Wave cast. Both weapon selectors yield511. Allocation failures do not turn do8 into failure,while no child is recorded. Skill/rank and original owner survive all successful factory calls.",
+    "Current20velocity becomes3840FP8path velocity after the75percent factory factor; the declared50percent Slow Missiles service gives1920. Lifetime14and activation marker14are independent from the five-wave count. Same-point aim nudges(+1,+1)inside the actual factory after the fan helpers; empty-ground click direction is retained.",
+    "Each created wave starts at the caster and carries the actual factory-initialized last-collider owner identity. No pierce rolls occur for this row. Original source routines are unchanged and hash-bound to the pinned tree."
+  ],
+  "services": [
+    "World/room availability, allocation, stat lists, path setters, owner storage and50percent Slow Missiles value are explicit services inherited from the separately accepted factory scaffold. Final factory service records the completed wave. It does not simulate geometric flight or collision.",
+    "The complete source-zero damage creator/writer is executed in the separate Shock Wave engine matrix; factory damage services remain declared here. This is actual fan-to-factory composition,not a complete world/damage simulation."
+  ],
+  "remaining": [
+    "Execute full source collision/history/NextHit/hit callbacks and final damage/stun event flow,then connect saved native waves,bear SC/UseAttackRate,input,7mana,cancellation,ReturnFire and item-stat transport. Modern same-skill delay scope and exact geometry/owner/client behavior remain explicit.",
+    "Final directional wave/cast/contact/stun art/audio and separate talent/left/right/quick icons are still pending. No learned handler,installation,class completion or current-executable parity is claimed."
+  ]
+}
