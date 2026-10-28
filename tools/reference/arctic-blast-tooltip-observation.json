@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "expansion": "Reign of the Warlock",
+  "source": "User tooltip reading in pinned playable installation",
+  "reportedAt": "2026-10-28",
+  "rank": 1,
+  "manaCostDisplayed": 4,
+  "minimumManaToCast": 6,
+  "rangeYardsDisplayed": 5.3,
+  "coldLengthSecondsDisplayed": 4,
+  "coldDamageDisplayed": [12, 24],
+  "originalAnswer": "rank 1 is mana cost 4, range 5.3yards, cold length 4sec, avg cold damage 12-24, min mana to cast 6",
+  "scope": "Displayed tooltip values; payment interval, fractional resource drain, synergy/gear context and release timing were not measured."
+}

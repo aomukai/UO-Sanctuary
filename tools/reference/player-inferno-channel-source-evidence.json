@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 19200,
+  "sanitizerClean": true,
+  "currentExecutableParity": false,
+  "nativeAccepted": false,
+  "compiledRoutineHashes": {
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo048_BladeFury": "7955cadcc3e83991969e62797b4fd03a2462ffa283ec73f85559f77d354f64ab",
+    "SKILLS_SrvSt26_BladeFury": "ead80372d972461f9786ccbd3dd9cdbafa3dad1301844ea8f607181f10102ac7",
+    "SKILLS_StatRemoveCallback_RemoveState": "93a390dff6ba7f8309a4d2c936a5f7231af89740538084175ba35ae11fc1cd2d",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "BITMANIP_SetBitsValueForMask": "1cd6d84279ee2a1e25ddfb1b5db86743648eb6b20eece6b2bd052223e411be56",
+    "D2Common_STATES_ToggleState_6FDB8900": "f5f001b4dec27c00e18c36338c97d6c30f5bad29183df302c20522fce2202f61",
+    "STATES_ToggleState": "d6c81dc9500968ca31763763962cd891e21188546b0c5a84b7582ea516e3def9",
+    "STATES_CheckState": "4fdaddb0ff2ebcad76664f33fc9cb1e1327d5daad363280c69deca24ce87b023",
+    "D2Common_GetStateFromStatListEx_6FDB8190": "fc27d4a8baa8735cdf4f2355ee8eb4d9c1fec5f1d1153105b5f0c075d71b810b",
+    "STATLIST_GetStatListFromUnitAndState": "8435bec7805ba63b7a065d4aee91a4393caf95832baa07483a65898dee939b36",
+    "D2GAME_PACKETCALLBACK_Rcv0x12_6FC84670": "f7a8d7f5fed85c068f19cbd13c897f392d1c4c30cf86551c800a33fa597eff8e",
+    "SKILLS_DoInferno": "c0014c7fcbc89574bec9e58b8b31f24fab9d8a6cd2bb2cead10e85962afc50d1",
+    "SKILLS_StartInferno": "f58f91aacdc046528dac4a6eb30de9cafaefa1bfe3969e97374e7df7b0a6a788",
+    "SKILLS_SrvSt11_Inferno_ArcticBlast": "af0cfdd74bf1fb060991de20dfc8095d8299130ac1c6de092b6bf516eeddf0e0",
+    "SKILLS_SrvDo019_Inferno_ArcticBlast": "47e581f2b0c5d0e7e7fe161d1696bcb0818982eb9f6a610e707e60c243274e5f"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/Fog/include/D2BitManip.h": "bbb5e735e165f41e8c299a3a03930d2b3b9f20702c52012643bd4fe387e9834a",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/src/D2States.cpp": "0df430381b0c7af1ce270c0584d5cbec496d227f92740c8dc3a3a2a8f37dce80",
+    "source/D2Game/src/PLAYER/PlrMsg.cpp": "ffeff8d5a1448ed72f250fe647d3ee8ae53034cf47e6dd29cae11878d5d63056",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "artifacts": {
+    "tools/probe_player_inferno_reference.py": "f61cfce2af5e017701d77de1a054ddccf970aa363619c96a0b57dde2bfb614ae",
+    ".local/class-skills/player-inferno-channel/abi-base.cpp": "32b06a04993b9900560b04f724222d4e30c8cc2a37ae2955a33fe963e074a9ff",
+    ".local/class-skills/player-inferno-channel/player-inferno-source-probe.cpp": "7faa37646db4e12b4ca822bc894fca1b34b97fca04825b1a2888b1d5bae63010",
+    ".local/class-skills/player-inferno-channel-source-probe.json": "9aa6d3233aac4e7b6d1c31213583c4ba84c5ad8fd7c32bb730e761ff5bd190c2",
+    ".local/class-skills/player-inferno-channel/source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/reference/arctic-blast-preflight.json": "64e3bb6b3a29c7b0cd8ba88aa947b92f9540b9bf005b47dbdcd43bcee82affca"
+  },
+  "established": [
+    "Complete st11/StartInferno/do19/DoInferno compose with the existing compiled generic start/do/mana and state/list helpers. Both player skill identities, threshold/state/list separation, first emission suppression, reentry renewals and factory failures execute.",
+    "Arctic lifetime uses35+2per extra rank,whereas Inferno uses35+3per extra rank,both divided by2and clamped to1. Their shared handlers do not imply matching range formulas.",
+    "The legacy consumer still writes zero debit at rank1. Current table per-invocation costs are separate controls; this source fixture does not measure modern payment frequency or infer four displayed mana as an exact fractional drain."
+  ],
+  "declaredServices": [
+    "Player-only used skill, constant target coordinates, rewind, stat allocation/posting and missile allocation. Monster branch, Blood Mana, charges, world room/LOS and real scheduling are excluded or asserted."
+  ],
+  "remaining": [
+    "Sequence event composition, modern held-input cadence/release, current resource drain and cold/flight/world delivery remain separate acceptance."
+  ]
+}

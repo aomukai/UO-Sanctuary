@@ -1,13 +1,13 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "5b91cda18fe1045c9c5eb4039d76a56448e9e7f9419fdc08024af3383a89b34c",
+  "ContentAssemblySha256": "7eebf30825754cb2c1af4497922d6d7e2ce056b4015314639f5218b67ee8eeee",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/alchemy-restoratives.json": "15d82f3a3c74aa7c6df41aaa1a6fe288c99364fbd77d6e1bc913880559790319",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "3fce8e293e2fcc55b384b2d2c5bf64d32e7b8e0b3292ceae33c83e2e53c6380f",
+    "data/Sanctuary/Balance/class-skill-status.json": "7802d03742a4fd921fa024962c383ef160b68224d7ffa4bd8591a5ec93a9c964",
     "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "cede42642ee40d8a141c370300f6f8caf2344fad5c60499131ec5bf3bd20248c",
@@ -578,6 +578,7 @@
     "src/Sanctuary.Content/PetOwnerRoutes.cs": "5d5d076423b69af304608cfa317e15c7c97e3261f9789bbf639fc891ecf8f456",
     "src/Sanctuary.Content/PetWalkFailure.cs": "131eb1db19a66a7015b98b9144d6933d12228771cd01e5fa19bdac3b59664229",
     "src/Sanctuary.Content/PlagueJavelins.cs": "30d95e7c2232bff5f22427cbc6f1c0b888a587dca198d40d3a536a3ccc38d897",
+    "src/Sanctuary.Content/PlayerInfernoChannel.cs": "f7ca917b1af6cf8c7b2116001079b7b904a2619e0b7c9c3027abcd9d764b52da",
     "src/Sanctuary.Content/PoisonJavelinPackets.cs": "d12831c58c075b1e33c82e2362f07616a70fb86e870b7d0ad49024a3e99e2a45",
     "src/Sanctuary.Content/PoisonJavelins.cs": "19be4e3bc97bb79e67e8d8124c021bc6a804cbd493ccadfd16cd127c632cef45",
     "src/Sanctuary.Content/PoisonPackets.cs": "180d8c6392cb32af87974ab92a60f0bdfd9f14262697988fa806b06c23f54a9c",
