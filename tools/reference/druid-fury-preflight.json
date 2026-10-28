@@ -1,0 +1,176 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "executedContexts": 0,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "publicCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "predecessorSha256": "d2ffaeaefee699c95c7e729bf67ed91c08ef53466484a28179bb4994372927fc",
+  "localTables": {
+    "skills": {
+      "localFilename": "skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "publicSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "states": {
+      "localFilename": "states-creeper-verified.txt",
+      "sha256": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+      "publicSha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+    }
+  },
+  "currentRows": {
+    "skills": {
+      "Fury": {
+        "skill": "Fury",
+        "*Id": "248",
+        "charclass": "dru",
+        "skilldesc": "fury",
+        "srvstfunc": "37",
+        "srvdofunc": "13",
+        "cltstfunc": "53",
+        "cltdofunc": "21",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "h2h",
+        "anim": "A1",
+        "seqtrans": "A1",
+        "monanim": "A1",
+        "UseAttackRate": "1",
+        "TargetableOnly": "1",
+        "SearchEnemyXY": "1",
+        "KeepCursorStateOnKill": "1",
+        "reqlevel": "30",
+        "maxlvl": "20",
+        "reqskill1": "Rabies",
+        "restrict": "2",
+        "State1": "wolf",
+        "leftskill": "1",
+        "rightskill": "1",
+        "minmana": "1",
+        "manashift": "8",
+        "mana": "4",
+        "lvlmana": "0",
+        "interrupt": "1",
+        "calc1": "min((par5 + lvl -1), par6)",
+        "*calc1 desc": "# of hits",
+        "calc2": "ln34",
+        "*calc2 desc": "Damage %",
+        "calc4": "0",
+        "*calc4 desc": "% Damage Dealt as Elemental (Used only if there is an Etype)",
+        "Param2": "70",
+        "*Param2 Description": "% Anim frame rollback",
+        "Param3": "100",
+        "*Param3 Description": "Damage % baseline",
+        "Param4": "17",
+        "*Param4 Description": "Damage % per level",
+        "Param5": "2",
+        "*Param5 Description": "# of hits Min",
+        "Param6": "5",
+        "*Param6 Description": "# of hits Max",
+        "InGame": "1",
+        "ToHit": "50",
+        "LevToHit": "10",
+        "HitShift": "8",
+        "SrcDam": "128",
+        "cost mult": "896",
+        "cost add": "64000",
+        "*eol": "0"
+      }
+    },
+    "states": {
+      "wolf": {
+        "state": "wolf",
+        "*ID": "139",
+        "group": "3",
+        "transform": "1",
+        "restrict": "1",
+        "disguise": "1",
+        "attblue": "1",
+        "meleeonly": "1",
+        "setfunc": "14",
+        "onsound": "druid_morph",
+        "offsound": "druid_morph",
+        "gfxtype": "1",
+        "gfxclass": "430",
+        "*eol": "0"
+      }
+    }
+  },
+  "publicFieldsCompared": 58,
+  "animation": {
+    "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "wolfAttacks": [
+      {
+        "code": "40A1HTH",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "40A2HTH",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      }
+    ],
+    "formPreflightSha256": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy": "8ef8842f668076b9d629418d88defc64f60ef18a23aa8323b8d1b6a2e476f93e",
+    "SKILLS_SrvDo013_Fend_Zeal_Fury": "0d6dfa1da37877194eee912ee9bfa6fd1fae478cd908a57bb0905153a7e8acb4",
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "sub_6FD15080": "e0ca12e42f1522440648499323acb2e62688a7bbe5b81bffc7f3609fbbe45eab",
+    "sub_6FD15460": "31c619f497f24208cbb772d0d808a93dd5b32c03fc7b93aaf1791903ca7efde2",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "SKILLS_GetManaCosts": "445c640231d7535e5cb12445b442bc6bb6a69a1ee59811857803f0bc2f4fecaa"
+  },
+  "reuseCommit": "8949002",
+  "reuseCandidates": {
+    "PaladinZeal.cs": "e7940a98be03e20fc17f1ab8d509bdfd09c3ffd0ac68fc2cee07e9f25361da8f",
+    "AmazonFend.cs": "e8ef325cde3c62712e43f8cbe2e32b5642de1d229be68a94a579ff488e34f8ee",
+    "DruidFormAttacks.cs": "747acfa331c39d562ae5ed60dbb644dfe9b2dad7f3b45b8f4be7946202d6b973",
+    "DruidFormRates.cs": "ab87d7e8c29dacebfaac04c0e28f3f4ac64c79b49a80323dac957567a0db9747",
+    "DruidFormInterruption.cs": "b61f8857a620fda84df0ca8c2e46c2a44416629ec7744f552b550fa4c9833b77",
+    "GearEffects.cs": "e10fe4b25cb936e440b35326823f2e097f23bb88fa782eb82eb1098ad9619a5c",
+    "WeaponHands.cs": "57f2c4d3c823a642543c1203d2aa78983604defad2e5a087d3b9e53d8854d43d",
+    "SkillCombat.cs": "39261d383ec9073c7fdcecdbac8053fc67c91d5317a3a664b40cddf7344c206d"
+  },
+  "reusableEvidence": [
+    "tools/reference/zeal-engine-evidence.json",
+    "tools/reference/fend-engine-evidence.json",
+    "tools/reference/modern-form-progress-source-evidence.json",
+    "tools/reference/druid-form-attack-clock-engine-evidence.json"
+  ],
+  "established": [
+    "Current skill248 is wolf-only ordinary A1 with start37/do13 shared by Zeal/Fend. Count is min(rank+1,5),4mana,SrcDam128,50+10/rank AR and100+17/rank enhanced physical damage with no hard-skill synergy. SearchEnemyXY/TargetableOnly retain targeted melee acquisition; do not substitute the free-aim Shock Wave fan.",
+    "Complete older start37 stores the chosen target identity and count. Each do13 revalidates/reselects current melee contact,allocates an ordinary Src128 packet and drains wear,then decrements count and chooses the next cyclic identity. The shared next-target selector can wrap to a sole surviving monster. Actual source/native composition,hit/block/charge/drain/item callbacks and modern target policy still require verification.",
+    "Param2=70 is a rollback argument passed through sub_6FD15080 to the full SUnit animation scheduler. It differs from Zeal100 and Fend30. Current wolf A1/A2 both have13frames,speed256 and action7; transformed modern weapon-normalized progress is already prepared separately. Do not copy a human Paladin clock or assume a constant shortened follow-up period."
+  ],
+  "remaining": [
+    "Compose complete shared start/do13,selection,ordinary weapon packet/payment and wolf rate-scaled rollback with outer animation-anchor/event scheduling. Existing Zeal/Fend proofs declare transformed or incomplete outer-clock limits; their bounded outputs do not certify Fury timing.",
+    "Then connect a saved or explicitly discarded pending series,actual left/right/quick inputs,rank/gear/resources,per-hit retargeting,interruption/unshift/Stop/movement and real reloads. Current initial miss/block payment,low/lost mana,extra transformed AR and current packet/callback chronology must be resolved or marked uncertain. Approved Sanctuary melee fallback takes precedence where applicable.",
+    "Final wolf multi-swing poses/contact/series audio and talent/left/right/quick icons remain separate placeholders. No Fury handler,full acceptance,class completion or installed build changes are claimed by this source preparation."
+  ]
+}
