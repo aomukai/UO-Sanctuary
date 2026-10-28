@@ -1,0 +1,93 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Abyss/Apocalypse shared ground launch and hit23 dispatch boundary",
+  "handlerEnabled": false,
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/volcano-source-probe.cpp": "05f4645a49ae53d952953ce27d0543a76e3a142ec66a49bf227add352aa43993",
+    "tools/reference/volcano-engine-evidence.json": "e0845c2f981a25dc30a16331b91319910d00f2e3ce88955e7541ce05545c1989",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/d2r-local-missile-data-evidence.json": "56adf8600f25379a88a756faee8ca41f801d4ab157abe4b0d763259612dd1bb7",
+    "tools/reference/warlock-foundation-preflight.json": "f6246b9eb3de1dbdfbcbec4ef7e6d8d4f0f11a0130dc8a350fca53b807742e31",
+    ".local/research/d2r-3.3.93847/missiles.txt": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "tools/probe_warlock_ground_launch.py": "4b4a0493fcf5ae3069750b07e69c47a633f4e69dd16abe2a6e34d2d4f138a376"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "SEED_GetLowSeed": "1e24a1efadca878d97ee2b06d1ec562ecb3e0d2ac8bd800f51ad976f38ed5a85",
+    "SEED_RollRandomNumber": "0f7446538510a1431085b9fa7b66dd15dc9d8495c2b344973c36010e1ddcb3fa",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "D2GAME_GetXAndYFromTargetUnit_6FD14020": "bf7cb76f34f9b068913104c633a7d6fa7b71ff3c319e15ef3106fca54df04a76",
+    "sub_6FD15340": "fcc11156066751615d8f2476c2ab213fb83242c05fab39e4218d1fbe02cb146a",
+    "SKILLS_SrvDo123_Volcano": "41938134a869ddee31efb319ff68f91771256d5fb5aba355ed753750674cc27e",
+    "MISSMODE_SrvDo28_Volcano": "979d1619368f11a1196fc38ca2c05660c28bbb70c61f90b249fb0aba2453b35a",
+    "MISSMODE_SrvHit51_VolcanoDebris": "ad9e6d7ee15ec60a49d4f83b983dde2a2083cc6b55097bd2b13b85367d797c4c",
+    "SKILLS_SrvSt14_Hydra": "2c10cad8bddbe591f098611be6e421d1ffd76b0bfc17979a979f6bc658f19f33",
+    "D2GAME_CreateMissile_6FD115E0": "0bfc42e76f340ab44d81e9d1d21763d5cabb4e9af9bca3259a6821050dd9038a",
+    "SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult": "19668608a1478c3af83f89a5fe636b0ffb5d98bff390621fb4107ad0eb335de8",
+    "MISSMODE_SrvHit23_Unused": "1181af72c4cbf2898ca8594ade7531c896c0d4276de5a8f7903cd28bbbece649"
+  },
+  "verified": {
+    "caseCounts": {
+      "start": 64,
+      "launch": 2304,
+      "hit23": 144
+    },
+    "profiles": [
+      {
+        "Ability": 241,
+        "SkillId": 402,
+        "StartFunction": 14,
+        "DoFunction": 28,
+        "Missile": 709,
+        "Size": 3,
+        "MissileDo": 39,
+        "MissileHit": 11,
+        "HitDispatch": 0,
+        "Lifetime": 50,
+        "RadiusFormula": "\"min((par3+(sksrc('Enhanced Entropy'.lvl)/par5)),11)\""
+      },
+      {
+        "Ability": 240,
+        "SkillId": 401,
+        "StartFunction": 0,
+        "DoFunction": 123,
+        "Missile": 722,
+        "Size": 1,
+        "MissileDo": 1,
+        "MissileHit": 23,
+        "HitDispatch": 163,
+        "Lifetime": 50,
+        "RadiusFormula": "skill('Apocalypse'.rng)"
+      }
+    ],
+    "legacySkill163IsNull": true
+  },
+  "artifacts": {
+    ".local/class-skills/warlock-ground-launch-source/source.cpp": "34fd8a234076a4a872424b052d5b2e7bb160049a388187d2f6eb731f9e7334a7",
+    ".local/class-skills/warlock-ground-launch-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/warlock-ground-launch-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/warlock-ground-launch-source-probe.json": "5e5786587f6bc30564911804c8d2c7c807451cb01a964f942a31def208f14e7a",
+    "data/Sanctuary/Balance/warlock-ground-launch.json": "0f4252e7a0e2155ed85b3a3cdc376383dbd619c533024381bf5d6b9ababdea51"
+  },
+  "established": [
+    "Complete source start14/do28/create helper and reused do123/coordinate/placement/RNG routines retain distinct flags and allocation ordering. Abyss sets the do flag before placement and uses the generic100distance check;Apocalypse sets it after placement and consumes one caster RNG draw before allocation,including failed allocation. Requested missile seeds and client notification are retained only on successful allocation.",
+    "Complete hit23 requests skill do163 with the retained original skill/rank after optional target assignment;it does not implement do163. The older dispatcher slot163is null. Current Abysscenter/abyssexplode use new missile do39;those bodies are also unavailable here."
+  ],
+  "remaining": [
+    "Actual current do39pull/pulse/explosion and do163area/resistance/roll/filter ordering remain unknown. No learned cast or damage substitute is enabled. Factory/stat/room/geometry/network services and modern outer casting/payment clocks remain explicit. Raw Abyss Radius uses sksrc and is retained without assuming supplier semantics. Source damage/ray/owner lifecycle and final effects/audio/icons remain separate."
+  ]
+}

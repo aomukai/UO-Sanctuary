@@ -2638,10 +2638,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 401,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared do123ground allocation/caster RNG/client notification and complete missile hit23have source/native controls. Hit23forwards original skill401/rank to new skill do163;the older dispatcher has a null163slot. Exact area/filter/LOS,one-roll-versus-target damage,fire-resistance state/immunity penalty and restoration/expiry remain unverified. No generic Volcano explosion or guessed curse is substituted. The prepared launch does not enable a cast. See warlock-ground-launch-native-evidence.json; final cast/detonation/debuff effects/audio and talent/hotkey icons remain separate."
     },
     {
       "talentId": "warlock.abyss",
@@ -2649,10 +2649,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 402,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared start14/do28 target/room/town/placement and generic factory launch have source/native controls. Current center709and terminal715use new missile do39;pull path,periodic damage,terminal burst,NextHit/LastCollide,creator/mastery/pierce and owner lifecycle remain unsupported. Raw Radius uses sksrc,whose source-skill lookup semantics are not inferred from skill(). The shared launch alone does not enable a cast. See warlock-ground-launch-native-evidence.json; final open/pulse/pull/close effects/audio and talent/hotkey icons remain separate."
     }
   ]
 }

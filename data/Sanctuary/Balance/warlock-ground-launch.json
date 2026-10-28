@@ -1,0 +1,28 @@
+[
+  {
+    "Ability": 241,
+    "SkillId": 402,
+    "StartFunction": 14,
+    "DoFunction": 28,
+    "Missile": 709,
+    "Size": 3,
+    "MissileDo": 39,
+    "MissileHit": 11,
+    "HitDispatch": 0,
+    "Lifetime": 50,
+    "RadiusFormula": "\"min((par3+(sksrc('Enhanced Entropy'.lvl)/par5)),11)\""
+  },
+  {
+    "Ability": 240,
+    "SkillId": 401,
+    "StartFunction": 0,
+    "DoFunction": 123,
+    "Missile": 722,
+    "Size": 1,
+    "MissileDo": 1,
+    "MissileHit": 23,
+    "HitDispatch": 163,
+    "Lifetime": 50,
+    "RadiusFormula": "skill('Apocalypse'.rng)"
+  }
+]
