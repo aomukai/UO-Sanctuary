@@ -272,7 +272,7 @@ public static class CreatureProfiles
     public static int Defense(BaseCreature mob) => For(mob) is { ApplyStats: true, Defense: { } defense } ? defense : NativeDefense(mob);
 
     // Explicit opt-in prevents an unreviewed mapping from silently rebalancing a native creature.
-    internal static void Initialize(BaseCreature creature)
+    internal static void Initialize(BaseCreature creature,bool preserveLoadedLife=false)
     {
         var state = Session(creature);
         if (state.Initialized)
@@ -289,7 +289,12 @@ public static class CreatureProfiles
         {
             int before = creature.Hits, maximum = creature.HitsMax;
             creature.SetHits(life);
-            creature.Hits = Math.Clamp((int)((long)before * life / Math.Max(1, maximum)), 0, life);
+            // During world load the resource hook intentionally exposes a
+            // temporary 65000 maximum. A saved encounter already contains its
+            // injured life; do not treat that load guard as a prior stat pool.
+            // Let the restored resource states establish their real maximum
+            // before ordinary native clamps, including an active life buff.
+            creature.Hits = preserveLoadedLife?before:Math.Clamp((int)((long)before * life / Math.Max(1, maximum)), 0, life);
         }
         if (row.Attack1.MinDamage is { } min && row.Attack1.MaxDamage is { } max)
         {

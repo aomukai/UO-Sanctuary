@@ -210,7 +210,7 @@ public partial class EncounterCreature : GraveyardUndead
         { throw new InvalidDataException("Invalid saved encounter identity."); }
         _profile = null; EnsureProfile(); _teleportAfter = Core.TickCount;
         // Native mobile fields already contain the injured life and stat roll; do not roll or heal on load.
-        CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this);
+        CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this,preserveLoadedLife:true);
         EliteAuras.Observe(this);
     }
 }

@@ -12,7 +12,7 @@ public static class MonsterOrderedReleaseChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MonsterOrderedReleaseChecks));
     private static string Manifest=>Path.Join(Core.BaseDirectory,"monster-ordered-release-fixtures.json");
-    private sealed record Saved(uint Target,int MaximumLife,int Life256,CombatStunState Stun);
+    private sealed record Saved(uint Target,int MaximumLife,int Life256,CombatStunState Stun,uint Buffed,int BuffedMaximum,int BuffedLife256,BattleOrdersState Buff);
     private static void Require(bool b,string why){if(!b){throw new InvalidOperationException(why);}}
     private static int[] N(JsonElement e)=>e.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
     private static EncounterCreature Body(bool wideLife=true)
@@ -115,13 +115,22 @@ public static class MonsterOrderedReleaseChecks
         Require(!result.DeathModeAttempted&&SkillHealth.Balance256(body)==99984,"Fractional release save setup failed");
         var state=new CombatStunState(body.Serial.Value,at.Add(FixtureSpace.Retention));
         CombatStuns.Restore(CombatStuns.Snapshot().Where(s=>s.Target!=body.Serial.Value).Append(state).ToArray());
-        body.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(body.Serial.Value,body.HitsMax,99984,state)));actor.Delete();
+        // A saved buffed encounter may legitimately have more current life than
+        // its unbuffed profile maximum. The loading guard must preserve it too.
+        var buffed=Body(false);int basis=buffed.HitsMax;var supplier=new PlayerMobile{Name="Ordered release Orders supplier [fixture]",Body=0x190,Player=true};
+        ClassCreation.Profiles.Assign(supplier,DiabloClass.Barbarian);BattleOrders.Apply(supplier,buffed,20,at);
+        var buff=BattleOrders.State(buffed) with{UntilUtc=at.Add(FixtureSpace.Retention)};var orders=BattleOrders.Snapshot();
+        BattleOrders.Restore(orders with{States=orders.States.Where(s=>s.Recipient!=buffed.Serial.Value).Append(buff).ToArray()});
+        int buffedLife=(basis+10)*256-17;Require(buffedLife>basis*256&&buffedLife<buffed.HitsMax*256,"Buffed life fixture must exceed the ordinary maximum");SkillHealth.SetBalance256(buffed,buffedLife);
+        body.Internalize();buffed.Internalize();supplier.Internalize();
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(body.Serial.Value,body.HitsMax,99984,state,buffed.Serial.Value,buffed.HitsMax,buffedLife,buff)));actor.Delete();
     }
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var body=World.FindMobile((Serial)saved.Target) as EncounterCreature;
         Require(body is{Alive:true,Deleted:false}&&body.HitsMax==saved.MaximumLife&&SkillHealth.Balance256(body)==saved.Life256&&SkillHealth.Remainder256(body)==112,$"Released fractional HP did not persist exactly once: target={saved.Target},life={body?.Hits}/{body?.HitsMax},expectedMax={saved.MaximumLife},balance={(body==null?-1:SkillHealth.Balance256(body))},fraction={(body==null?-1:SkillHealth.Remainder256(body))},expected={saved.Life256}");
         Require(CombatStuns.Snapshot().Single(s=>s.Target==saved.Target)==saved.Stun,"Released recipient Stun deadline did not persist");
+        CheckBuff(saved);
         Log.Information("Ordered monster release:saved post-release FP health/stun resumes without replay or double subtraction");
     }
     private static void StageHealth()
@@ -129,5 +138,11 @@ public static class MonsterOrderedReleaseChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var body=World.FindMobile((Serial)saved.Target) as EncounterCreature;
         Require(body is{Alive:true,Deleted:false}&&body.HitsMax==saved.MaximumLife&&SkillHealth.Balance256(body)==saved.Life256&&SkillHealth.Remainder256(body)==112,"Post-release FP health drifted before save");
         Require(CombatStuns.Snapshot().Single(s=>s.Target==saved.Target)==saved.Stun,"Post-release Stun changed before save");
+        CheckBuff(saved);
+    }
+    private static void CheckBuff(Saved saved)
+    {
+        var body=World.FindMobile((Serial)saved.Buffed) as EncounterCreature;
+        Require(body is{Alive:true,Deleted:false}&&body.HitsMax==saved.BuffedMaximum&&SkillHealth.Balance256(body)==saved.BuffedLife256&&SkillHealth.Remainder256(body)==17&&BattleOrders.State(body)==saved.Buff,"Saved encounter buff/above-base injured health was clamped or rescaled");
     }
 }
