@@ -11,7 +11,9 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
-| 8 | Warlock | 1 / 30 | 0 | 29 | Open |
+| 8 | Warlock | 1 / 30 | 1 | 28 | Open |
+
+Prepared Miasma Bolt suppliers pass 114 native checks across three boots and two real reloads, including 9,180 complete-source packet comparisons per boot. Bolt and cloud use separate magic-damage endpoints and synergy rounding; missile-local formula parameters remain distinct from skill references. Effective Enhanced Entropy supplies duration and raw source radius. See [packet evidence](../tools/reference/miasma-packets-native-evidence.json). Learned Miasma remains individually gated by its new projectile/cloud callbacks, emission geometry, hit-delay identity and modern magic mastery/pierce timing. Coverage remains 183 handlers / Warlock 1; no class is complete.
 
 Levitation Mastery is the first Warlock passive handler: supported normal-weapon requirements, effective-rank attack rating, physical damage and critical consumers pass 111 native checks across three boots and two real reloads. This includes retained Barbarian checks and automatic equipment validation after loss of a soft rank. See [native evidence](../tools/reference/levitation-mastery-native-evidence.json) and [reference limits](../tools/reference/levitation-mastery-reference.json). Ethereal/item-ease combinations are temporarily refused for trained-Warlock weapon equip until modifier order is resolved; innate offhand permissions and Eldritch overrides remain separate. The candidate is not installed, and no class is complete.
 
@@ -340,7 +342,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Eldritch Blast | 384 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Hex: Siphon | 386 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Mirrored Blades | 392 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Miasma Bolt | 395 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Miasma Bolt | 395 | blocked | Prepared bolt/cloud magic damage, distinct synergy rounding, mana and Enhanced Entropy duration/radius suppliers have dedicated source/native controls. Learned cast remains gated by new hit41/cloud-do41 dispatch, emission geometry, hit-delay identity and modern magic mastery/pierce timing. No poison model or guessed expiry/double tick is substituted. See miasma-packets-native-evidence.json and the checkpoint; final effects/icons remain separate. |
 | Ring of Fire | 394 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Sigil: Lethargy | 393 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Sigil: Rancor | 396 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

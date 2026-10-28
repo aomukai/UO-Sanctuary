@@ -25,6 +25,7 @@ public static class NecromancerSummons
         => Source(key, difficulty == MonsterDifficulty.Normal ? field
             : (field == "minHP" ? "MinHP" : field == "maxHP" ? "MaxHP" : field)
                 + (difficulty == MonsterDifficulty.Nightmare ? "(N)" : "(H)"));
+    internal static IReadOnlyDictionary<string,JsonElement> Fields(string key)=>_sources[key];
     public static int Formula(string key, string field, SkillValues values)
     {
         if (!_sources[key].TryGetValue(field, out var value)) { return 0; }

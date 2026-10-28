@@ -81,6 +81,8 @@ public sealed class SkillValues
         return Formula(expression);
     }
     public long Formula(string expression) => SkillFormula.Evaluate(expression, Resolve);
+    // Missile parameters are local, while skill() keeps this captured context.
+    internal long Reference(string name,string argument,string property)=>Resolve(name,argument,property);
     // Summon creation supplies an explicit captured source-stat context. Do not
     // infer missing accrued stats from native UO properties or default them to 0.
     public long StatEval(string field, Func<string, int> accrued) => SkillFormula.Evaluate(_skill.Text(field),

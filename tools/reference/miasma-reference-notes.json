@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "primaryReleasedPatch": {
+    "url": "https://news.blizzard.com/en-us/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded",
+    "cache": ".local/research/warlock-community/patch-3.2-live.html",
+    "sha256": "f7bf26161c135cc60c020390ebe4d5693ab9ecf1119077dbdf38cef5915f2b64",
+    "claims": [
+      "Released direct-hit damage is1\u20132at rank1and22\u201325at rank20.",
+      "The extra damage on cloud expiry and double-tick behavior were fixed. Cloud Explosion is1.",
+      "PTR cloud spawn delay and cloud damage reduction were reverted.",
+      "The separate Chain next-hit delay applies within clouds from one chain,not across all chains. Do not automatically infer Bolt hit-window identity from that Chain-specific note."
+    ]
+  },
+  "localData": "tools/reference/d2r-local-missile-data-evidence.json",
+  "compiledData": "tools/reference/miasma-packets-source-evidence.json",
+  "boundaries": [
+    "Bolt697uses hit41; cloud705uses server-do41. Those modern callbacks are unavailable in the pinned older reconstruction. Source comments and field values alone do not prove cloud layer geometry,child creation or first/last contacts.",
+    "Cloud-maker736uses do37/Param1=1/Range3and names cloud705. Legacy do37can be reused only after proving event composition. Unused dot693must not be silently substituted for cloud705.",
+    "Magic mastery and magic pierce modern timing are not established by the legacy elemental branch. Current unsupported contexts remain gated.",
+    "Optional current-build question is pending:does maximum-range expiry without monster contact leave a damaging cloud? No answer is assumed."
+  ]
+}

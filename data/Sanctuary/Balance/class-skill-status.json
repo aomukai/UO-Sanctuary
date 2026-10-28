@@ -2550,10 +2550,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 395,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared bolt/cloud magic damage, distinct synergy rounding, mana and Enhanced Entropy duration/radius suppliers have dedicated source/native controls. Learned cast remains gated by new hit41/cloud-do41 dispatch, emission geometry, hit-delay identity and modern magic mastery/pierce timing. No poison model or guessed expiry/double tick is substituted. See miasma-packets-native-evidence.json and the checkpoint; final effects/icons remain separate."
     },
     {
       "talentId": "warlock.ringoffire",
