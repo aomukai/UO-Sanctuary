@@ -41,6 +41,7 @@ public static class ClassCombat
         internal TigerStrikes.Pending TigerAttack;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal DruidFireClaws.Pending FireClawAttack;
+        internal DruidHunger.Pending HungerAttack;
         internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
@@ -110,7 +111,7 @@ public static class ClassCombat
                 BladeFuryModes.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
-                DruidFireClaws.EquipmentChanged(from);
+                DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
         };
@@ -234,7 +235,7 @@ public static class ClassCombat
         AmazonMelee.Cancel(from);
         TigerStrikes.Cancel(from);
         DruidChargedAttacks.Cancel(from);
-        DruidFireClaws.Cancel(from);
+        DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
@@ -461,7 +462,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
-        if(DruidFormAttacks.SingleA1(ability)&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
+        if((DruidFormAttacks.SingleA1(ability)||ability==CombatAbility.Hunger)&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
         if (ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
         {
@@ -520,6 +521,7 @@ public static class ClassCombat
             if(TigerStrikes.Handles(ability)){session.TigerAttack=null;}
             if(DruidChargedAttacks.Handles(ability)){session.DruidChargeAttack=null;}
             if(ability==CombatAbility.FireClaws){session.FireClawAttack=null;}
+            if(ability==CombatAbility.Hunger){session.HungerAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
             if(ability==CombatAbility.Berserk){BarbarianBerserk.CancelMode(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
@@ -618,7 +620,8 @@ public static class ClassCombat
             }
             else if ((formMelee?ClassStats.CheckHit(from,target,0,DruidFormAttacks.HitRoll,projectile:false):ClassStats.CheckHit(from,target)) == true)
             {
-                GearEffects.Strike(from, target, Utility.RandomDouble(), wearWeapon: pierces == 0,projectileCritical:throwing?.Critical); weaponHit = true;
+                bool blocked=formMelee&&target is BaseCreature defender&&SourceBlocking.TryBlock(defender,true,out bool shielded)&&shielded;
+                if(!blocked){GearEffects.Strike(from, target, Utility.RandomDouble(), wearWeapon: pierces == 0,projectileCritical:throwing?.Critical); weaponHit = true;}
             }
             else
             {

@@ -6,9 +6,9 @@ using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
-// Prepared Druid ordinary A1 only. Human weapon animation lengths normalize
-// the modern rate; form metadata supplies the action/end schedule. The legacy
-// extra ToHit allocation path is deliberately not asserted current here.
+// Human weapon A1lengths normalize modern single-weapon form progress.
+// Ordinary A1and Hunger S3use separate current action/end schedules. The
+// legacy extra ToHit allocation path is not asserted current here.
 internal static class DruidFormAttacks
 {
     internal static Func<double> HitRoll=Utility.RandomDouble;
@@ -31,7 +31,14 @@ internal static class DruidFormAttacks
         // Source ENDANIM is distinct from the supplementary calculator cycle.
         return new(checked((frames*256+advance-1)/advance),checked((7*256+advance-1)/advance));
     }
-    internal static ActionTiming Timing(PlayerMobile owner)
+    internal static ActionTiming Timing(PlayerMobile owner)=>Schedule(DruidPlayerForms.State(owner).Form.Ability,Progress(owner));
+    internal static ActionTiming ScheduleS3(int advance)
+    {
+        if(advance<=0){throw new ArgumentOutOfRangeException(nameof(advance));}
+        return new(checked((10*256+advance-1)/advance),checked((6*256+advance-1)/advance));
+    }
+    internal static ActionTiming S3Timing(PlayerMobile owner)=>ScheduleS3(Progress(owner));
+    internal static int Progress(PlayerMobile owner)
     {
         var state=DruidPlayerForms.State(owner)??throw new InvalidOperationException("No Druid form attack context");
         int frames=HumanFrames(WeaponAnimationClasses.Equipped(owner));
@@ -41,7 +48,7 @@ internal static class DruidFormAttacks
         // Existing native IAS already supplies the selected equipment total.
         var rate=DruidFormRates.Calculate(new(state.Form.Ability,frames,256,weapon.Modifier,0,CombatTiming.Ias(owner),
             state.Form.Modifiers.AttackRate+DruidAttackCharges.AttackRate(owner)+PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),Math.Max(0,GearEffects.AttackSlow(owner))));
-        return Schedule(state.Form.Ability,rate.Progress256);
+        return rate.Progress256;
     }
     internal static int Reach(PlayerMobile owner)
     {

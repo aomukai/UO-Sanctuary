@@ -318,3 +318,5 @@ Lightning Fury uses logical projectile0xF42 and throw sound0x238 as identified p
 Fire Claws uses human Wrestle,weapon sound0x238 and fire contact0x374A/hue0x489 as identified placeholders. Final fire_hit,both player-form A1/contact/cast audio and independent talent/left/right/quick icons remain pending.
 
 Feral Rage uses identified human Wrestle/contact sound0x238 and generic charge flash0x375A. Final feralrage orb front/back overlays,charge-size display,wolf A1/contact and cast/expiry audio remain pending independently of leech/speed mechanics. Its talent/left/right/quick icons remain in the separate register.
+
+Hunger uses identified human Wrestle pose for its S3bite and contact sound0x238. Shared life/mana recovery uses0x376A with life hue0x26 or mana hue0x489; current Hunger has no separate source impact overlay. Final wolf/bear S3body,bite/contact,leech and audio remain pending independently of mechanics.

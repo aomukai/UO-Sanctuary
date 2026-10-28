@@ -7,9 +7,9 @@ internal readonly record struct DruidFormRateInput(CombatAbility Form,int HumanF
 internal readonly record struct DruidFormRateResult(int ItemEias,long Eias,int LimitedEias,int Progress256,int CycleFrames);
 
 // Independently written arithmetic for the pinned3.3author-calculator model.
-// Only single-weapon Druid standard attacks are covered. The current licensed
-// human A1metadata is a caller input; actual animation/action scheduling and
-// other attacks need separate consumers. No live timing caller is installed.
+// Standard A1and Hunger/Rabies S3share this single-weapon normalized progress.
+// Human A1metadata is a caller input; action/end schedules are separate.
+// CycleFrames remains the standard A1author cycle,not the S3end deadline.
 internal static class DruidFormRates
 {
     internal static DruidFormRateResult Calculate(DruidFormRateInput input)

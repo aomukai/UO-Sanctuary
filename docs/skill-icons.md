@@ -253,6 +253,8 @@ Maul needs talent-tree and left/right/quick-hotkey artwork; current text labels 
 | Warlock | Apocalypse | needed | needed |
 | Warlock | Abyss | needed | needed |
 
+Hunger needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
+
 Fire Claws needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
 
 Feral Rage needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.

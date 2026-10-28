@@ -25,7 +25,7 @@ public static class ClassMovement
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
         TigerStrikes.Cancel(player);
-        DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);
+        DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);
         AssassinClaws.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);

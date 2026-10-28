@@ -1868,10 +1868,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 242,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned wolf/bear S3 route uses release-time contact and weapon capture,three-mana payment after the bite,post-critical signed physical reduction and additive life/mana drain. Current diminishing formulas,retained typed weapon damage,existing Feral/Maul charges,physical immunity,shield blocks,cancellation and six actual right/quick inputs pass isolated preparation. Shared ordinary form attacks now respect NPC shields,including low-mana fallbacks. Canonical retained verification is in progress; exact modern event/seed/geometry/reentry,lost-target/lost-mana/payment quirks and client remain uncertain. Lost-mana release and item-only/foreign-class/PvP/unmapped recipients are unsupported. Final S3bite/body/contact/leech/audio and talent/left/right/quick icons remain separate placeholders. No class complete."
     },
     {
       "talentId": "druid.fury",

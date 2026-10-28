@@ -63,7 +63,7 @@ public static class HitRecovery
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
         TigerStrikes.Cancel(player);
-        DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);
+        DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);
         AssassinClaws.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
         ClassCombat.SendState(player, session);
@@ -123,7 +123,7 @@ public static class HitRecovery
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
         TigerStrikes.Cancel(player);
-        DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);
+        DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);
         AssassinClaws.Cancel(player);
         BarbarianBerserk.CancelMode(player);
         session.PendingTeleport = null;
