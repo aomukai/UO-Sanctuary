@@ -69,6 +69,19 @@ public static class CombatStuns
         int duration=Frames(frames,true,unique,boss,velocity,false,unique?Roll(100):0);
         DateTime until=(at??TimedEffects.Now).AddMilliseconds(duration*40);
         if(duration<=0 || until<=TimedEffects.Now){return false;}
+        return Commit(target,until);
+    }
+    // Recipient duration has already passed the source unique/boss/velocity/
+    // hireling selection. Do not roll or resolve metadata a second time.
+    internal static bool ApplyPreparedDuration(BaseCreature target,int duration,DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc || duration is <1 or >250){throw new ArgumentOutOfRangeException();}
+        if(target is not{Alive:true,Deleted:false}){return false;}
+        var until=at.AddMilliseconds(duration*40);
+        return until>TimedEffects.Now&&Commit(target,until);
+    }
+    private static bool Commit(BaseCreature target,DateTime until)
+    {
         _states[target.Serial.Value]=new(target.Serial.Value,until);
         if(target is GraveyardUndead undead){undead.InterruptForRecovery();}
         else if(target is SkeletonGuardian guardian){guardian.InterruptForRecovery();}

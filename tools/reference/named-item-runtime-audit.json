@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "9b5534f30dd4691d8902342ad6f4d6024754f5b7a35a6ed6bf83cbb29aab765d",
+  "ContentAssemblySha256": "bef8958ae29b56a4a1843bc1aeb3248060c07e85197699c0b0eff8ec2c9c3939",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -339,7 +339,7 @@
     "src/Sanctuary.Content/CombatItemEvents.cs": "d049246dfe6d6cb57703f21cf26a5bd0d6fd83e891c53273e09140ce8bc028c2",
     "src/Sanctuary.Content/CombatPotions.cs": "05436c9243be26d540bad24ba9d5a5163687f3d1234cb828da4829ad414440b8",
     "src/Sanctuary.Content/CombatPractice.cs": "2a3552999a9c6cdcf644917f551629f8a3c62c7eda31e90378415d935509765f",
-    "src/Sanctuary.Content/CombatStuns.cs": "9138999d4c86db7398f8b53e0a782698161234ef59daff9700f11c9262d56cc3",
+    "src/Sanctuary.Content/CombatStuns.cs": "af64cdd6e32abc34ce39bd72def8bb36372d45fdb58e545e2e58249d232f6097",
     "src/Sanctuary.Content/CorpseBaseLife.cs": "cd955dd78f589c3db7dbb70602518955cdc3524b835d40ac87c8030b7e012e4e",
     "src/Sanctuary.Content/CorpseBaseSnapshots.cs": "914319aab2c8671640cbf0e9adf7ca824dd7d0bd42f2450721fcd1262f718d57",
     "src/Sanctuary.Content/CorpseEscrow.cs": "2fd3e85eb8171715defb7e478929b8bc20a534e21ab6d519ba78911764af4c4e",
@@ -615,6 +615,7 @@
     "src/Sanctuary.Content/PotionRestoration.cs": "ef83f851e04e90b57777553bff00f67e96cc9604e4029ab5e3f067b577e17347",
     "src/Sanctuary.Content/PotionTabards.cs": "6a183494f46ba3b8cf8a95d9dd26fff5b268ee646b563ce324aea1336bb7c163",
     "src/Sanctuary.Content/PowerScrollGump.cs": "0624900c7c98dab161c061c9c0fec7098289dee1ede1cf3eb969424694131dc3",
+    "src/Sanctuary.Content/PreparedMonsterStun.cs": "bd67b1cb53c996119306c43fb69762b5f607d617ebcc1fcdfa238ab1aab5a612",
     "src/Sanctuary.Content/PreparedWeaponEvents.cs": "a8284917dee2fc5a263399e9548acf89ccb85b45c0ffc40014da979f46685cd6",
     "src/Sanctuary.Content/ProcessingGump.cs": "99cfcb697946354b4895c2e887a3a7867740fca0d87514ac8597c6988687f26b",
     "src/Sanctuary.Content/ProfessionGumps.cs": "42e68ab03c4dc75c1ed516439ca1a98a822bc4c1dfffbc520d78c5427c38cb49",
