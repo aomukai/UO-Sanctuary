@@ -25,10 +25,10 @@
       21
     ],
     "unchangedNamedDefinitions": 573,
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenPriorAcceptance": {
     "commit": "9bb73b3",
@@ -1054,6 +1054,11 @@
     ".local/class-skills/druid-s3-rate-source-probe.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/druid-hunger/named-item-runtime-audit.json": "249cd26e5b5067788ec00f2863945b94a3d1366319395c9d509a558409ab7697",
     ".local/class-skills/druid-hunger/first-loop-affix-audit.json": "8e3bd33d271d60088ea9dc7656e4126db2c2acbdc7ddf679ef594eaa69beba0a",
+    ".local/class-skills/druid-hunger/full-named-item-runtime-audit.json": "249cd26e5b5067788ec00f2863945b94a3d1366319395c9d509a558409ab7697",
+    ".local/class-skills/druid-hunger/full-first-loop-affix-audit.json": "8e3bd33d271d60088ea9dc7656e4126db2c2acbdc7ddf679ef594eaa69beba0a",
+    ".local/class-skills/druid-hunger/class-inputs.json": "a9d94f3889bc151fa856e453ff0c14a68d2c6e762918aa21a12153d1aaefa74a",
+    ".local/class-skills/druid-hunger/class-native-checks.log": "e98d60be013ab785a7cb355d83c16acf43bda2916141768d3233b6b9efe27097",
+    ".local/class-skills/druid-hunger/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_druid_hunger.py": "0ac72f026c7df439c09cbbae45c25e22ccbe4ed142682111c140e5c1fc5f474d",
     "tests/check_druid_hunger.py": "80ef0b5a36e18bad8d152f03ad75b1db0b326b9abb5c318e20254fce199e4bda",
     "tests/check_creeper_stats.py": "3f0916e7b85ecb74f18068ba261c47491b7063a395f14ebb4218781eef1b3dfd",

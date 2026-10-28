@@ -1,0 +1,76 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "b440977d2ff5d8c6b2097dc787d710055ab86fe0c2f6b30e5509ef0a23011b07",
+  "contexts": 12288,
+  "completeRoutineHashes": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "sub_6FCFEDD0": "770bd94da284c55c121a11d04de559700363c6b4b4e1b3ed47be5f2ec60c8c08",
+    "MISSMODE_SrvHit53_RabiesContagion": "1ba8442ab588d1379f7c8d81e55d8d55fd1ba45dcd6af872d0f561c870c676a1",
+    "MISSMODE_SrvDmg11_RabiesContagion": "46ce0ccd89c3a38d17f9539f71a8bb80ceda575ce86cf16396154ca4c0d1aec2"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/include/DataTbls/MissilesTbls.h": "51a302675c1ed590667005e1a7eaed5a980573068844a5372a231e3d839e3b51",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "flagEnumSha256": "58375a6fc7e9bdaded43cea6cd8e83e36f318cc5d5e586f8c11ab34ac601f439",
+  "generatedSourceSha256": "5de24398c1efa28a89b92d253af92eaa1b5ae384d8e97cd4c6b436120fc47920",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-rabies-router-source-probe.json",
+    "sha256": "bd5b93dd5361314b5a2c9ffe2bf42bad7a03d8435013bbd169bd7a81ab5229d9"
+  },
+  "columns": [
+    "rank",
+    "remainingFrames",
+    "hasTarget",
+    "ending",
+    "repeatLastTarget",
+    "hasCaster",
+    "existingMarker",
+    "allocationFailure",
+    "hostile",
+    "targetType",
+    "routeResult",
+    "damageFills",
+    "damageFlags",
+    "collisionResets",
+    "hitEventServiceCalls",
+    "markerAllocations",
+    "markerPosts",
+    "lengthReads",
+    "plagueCreations",
+    "plagueTimeout",
+    "poisonRate",
+    "poisonFrames",
+    "markedAtFill",
+    "marked",
+    "markerDeadline",
+    "lastTargetType",
+    "lastTargetGuid",
+    "plagueCasterGuid"
+  ],
+  "established": [
+    "Six complete unchanged older routines compose12288bounded contacts under ASan/UBSan: generic hit router,original LastCollide setter/checker,Rabies hit53/damage11and secondary marker/emitter helper. Current LastCollide flag uses its original enum index. Unselected callback table entries abort if accidentally reached; current child has no AR,Pierce,NHD or CollideKill.",
+    "Valid lifetime hit53returns2: marker/emitter processing precedes direct FillDamageParams,then damage11sets the remaining poison frames,then SetDamageFlags. The child continues after normal contact. Explicit ending/a4can deliver that final valid packet and then return removal2. An existing marker is not refreshed but a valid poison packet still passes; allocation failure also does not suppress that valid packet.",
+    "An initial oracle expected no hit-event service call for a null-target ending. The unchanged complete router calls that service before hit53even with a null recipient; the oracle now records the call. This does not assert downstream null-target event effects.",
+    "Invalid remaining time or missing caster makes hit53return1: the real router skips both damage fill and damage11and removes the child on that contact. Thus the standalone damage11zeroing controls in the predecessor are not actual invalid-window damage deliveries.",
+    "Consecutive most-recent-target contacts are rejected before callbacks or damage. Target type/GUID is stored before hostility checks. No global permanent per-child hit set is introduced. Declared nonhostile controls and null-contact/end paths retain their exact source decisions without claiming all are spatially reachable."
+  ],
+  "declaredServices": [
+    "Damage fill/flags,stat-list allocation/events,poison mitigation/application,hostility,room/collision masks,elemental-length lookup and missile creation remain declared services. This is complete routing around those boundaries,not native HP/poison ticks,flight/candidate selection,full ABI or modern executable equivalence. Valid missile/current row inputs are assumed; unsafe unrelated null-row branches are not exercised.",
+    "The current row supplies only LastCollide among selected router flags. Other stat/event constants are surrogate service identifiers; the flag enum and six executed function bodies are original pinned source. Current player versus monster recipients are control inputs; native PvP/exceptional-recipient permission remains separate."
+  ],
+  "remaining": [
+    "Compose initial start57/do121,separate ordinary weapon and poison packets,payment,full skill/child damage creation and relative-origin/zero-aim factory semantics. Reuse existing poison state/mitigation and most-recent collision consumers only where these exact rules match.",
+    "No learned Rabies handler or installed change is enabled here. Native independent marker/emitter persistence,poison cure/replacement,owner/history/logout/facet policy,actual input and graphical acceptance remain open. Final effects/icons stay separate; preserve the running Hunger candidate."
+  ]
+}
