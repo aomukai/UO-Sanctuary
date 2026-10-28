@@ -1,0 +1,98 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "b440977d2ff5d8c6b2097dc787d710055ab86fe0c2f6b30e5509ef0a23011b07",
+  "completeRoutineHashes": {
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedEnumHashes": {
+    "D2C_MissilesTxtFlagIndices": "58375a6fc7e9bdaded43cea6cd8e83e36f318cc5d5e586f8c11ab34ac601f439",
+    "D2C_ItemStats": "f1144f71d3bfdec1eb8546a438e92ba57737680a0d841d946d64314ded68fb15",
+    "D2C_ElemTypes": "1172cc567ac2be50644cf3ef3b7e34a73da319e730d14b165d42781eb9f01246",
+    "D2C_UnitFlags": "2e42a6cfdba9802ea453d6cd005a137b208270e608c3ef3bd3dc261c69b1bcfc"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/DataTbls/MissilesTbls.h": "51a302675c1ed590667005e1a7eaed5a980573068844a5372a231e3d839e3b51",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Common/include/D2Combat.h": "a71edc6ccae97fa388d0a0689edbf89e59bbb47ab42e5dcbafcb802084c9b5ec",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "reusedScaffolds": {
+    "tools/reference/bow-launch-engine-evidence.json": "9153055ae67f5b644cff255e4238367d9a930f01838ea8a3bb638d6e46f06032",
+    "tools/reference/guided-arrow-engine-evidence.json": "9126ed2711cb4945174947bcb512f948e6b6addb4d947ec0557b32d2a6704428"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-rabies-damage-source-probe.cpp": "31eddf1112481836ee0b6c401dd399b3bfb328485151068957c070414a702c7b",
+    ".local/class-skills/druid-rabies-damage-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-rabies-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-rabies-factory-source-probe.cpp": "727393fffa0479434a8c4ac3de5ee47b78b260acf44552919899cd33076438b4",
+    ".local/class-skills/druid-rabies-factory-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/druid-rabies-factory-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture": {
+    "path": ".local/class-skills/druid-rabies-factory-source-probe.json",
+    "sha256": "a0d0ba2fe01463ea6d1a4de7b9aab1aec73e0c3a44973251ce438f023a2e8630"
+  },
+  "damageContexts": 12240,
+  "factoryContexts": 5400,
+  "damageColumns": [
+    "rank",
+    "hardCreeper",
+    "poisonMastery",
+    "ownerNoise",
+    "originPresent",
+    "damageFields",
+    "storedRate256",
+    "storedFrames",
+    "storedCount",
+    "storedMastery",
+    "criticalCalls"
+  ],
+  "factoryColumns": [
+    "missileId",
+    "rank",
+    "offsetX",
+    "offsetY",
+    "slowMissiles",
+    "created",
+    "originX",
+    "originY",
+    "aimX",
+    "aimY",
+    "pathVelocity256",
+    "totalFrames",
+    "currentFrames",
+    "storedSkill",
+    "storedRank",
+    "ownerRetained",
+    "pierceDraws",
+    "activationFrame"
+  ],
+  "established": [
+    "Complete child516 creator/getters/stat writer recalculate skill238 poison endpoints at the supplied retained rank, using declared live caster hard Creeper points and poison mastery. Source damage0 excludes weapon physical, typed damage, item poison/rate/length/count/drain, critical and origin packet stats. Mastery applies once after hard synergy; stored missile mastery is0. All255ranks and independent hard/mastery/origin/noise controls pass.",
+    "Complete factory positions both515and516at supplied origin, not original caster coordinates. Child flags2interprets independent offsets[-7,7]relative to emitter. Zero/zero is accepted and changes aim to origin+(1,1); it is not silently dropped. Child velocity5becomes960fixed-path units after the75percent factor; declared50percent Slow Missiles gives480. Range20and activation2remain distinct from inherited infection deadline.",
+    "Plague flags0x8000uses supplied infection lifetime at stationary host origin. Child retains original caster owner, while plague retains its supplied infected-host owner. Factory does not consume pierce RNG for these records; no damage packet is inherited from the origin. Existing spread proof separately binds original caster identity/deadline in emitter metadata."
+  ],
+  "declaredServices": [
+    "Factory world/room allocation, path integration, collision masks, stat-list lifecycle, damage creator/writer calls and owner/event services are explicit adapters. It executes the full factory but not real geometric flight/collision or modern ABI. The separate damage matrix executes complete creator/getters/stat writer, not a combined factory+damage+world simulation.",
+    "Hard-point formula lookup, stat projection, ratio, zero physical getters, zero unselected missile endpoints, critical selection and empty monster-type stat copy are declared damage services. No actual modern gear preparation, seed or damage events execute. Skill and child rows come from licensed/current preflight; old source is behavioral evidence with explicit modern limits."
+  ],
+  "remaining": [
+    "Connect native retained-rank/live caster child capture, zero-offset aim, independent marker/emitter, poison mitigation/replacement/cure and true input/resources/persistence. Exact Fog path, world contact order/activation, logout/facet ownership, lethal bite ordering and current executable payment/snapshot phases remain open. No Rabies handler or installed build changes are enabled by this source proof."
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "98be0185daf8eb4569cdd6245e996931ad780729e74d5dd6c0c214ab6b5a5a3c",
+  "ContentAssemblySha256": "c32c97520d0d61fe237e75a63a6abce5b26efa6823e41187cbe595bfe9d5103d",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -407,6 +407,7 @@
     "src/Sanctuary.Content/DruidOakStats.cs": "3cd9a6f4c3cb600d7ff045124b314692c2939e7d6e41591bd32206bd03f2f982",
     "src/Sanctuary.Content/DruidOakWorld.cs": "d56a4db1f79325cbb6a08badbb558bbdbf590b410309aa881e2d718593e99dd9",
     "src/Sanctuary.Content/DruidPlayerForms.cs": "29424b35de4a773b3e4580f26938b2a68352a03c257e4eb3fd066498fb4b98ae",
+    "src/Sanctuary.Content/DruidRabiesPackets.cs": "0bfceb764692233fd409b3f133e049d5f275b5956b976326cc46b8a774f3e53a",
     "src/Sanctuary.Content/DruidRavenBody.cs": "f34e4016a289f4e12dadd2bc65fbe7d5bacb389af17a17d7136d37f16b5b539c",
     "src/Sanctuary.Content/DruidRavenCasting.cs": "f6eea3ad0cab281e374bac35b134a6148dbce93b8f013d81dbeafdc5c973e6d3",
     "src/Sanctuary.Content/DruidRavenMotion.cs": "9bc5a129c5b3ad1dc4f0fc787a01ea260434c2ec00112c19f75bbfbb94cb9865",

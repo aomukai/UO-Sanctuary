@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "98be0185daf8eb4569cdd6245e996931ad780729e74d5dd6c0c214ab6b5a5a3c",
-  "ContentAssemblyPath": ".local/class-skills/druid-hunger/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "c32c97520d0d61fe237e75a63a6abce5b26efa6823e41187cbe595bfe9d5103d",
+  "ContentAssemblyPath": ".local/class-skills/druid-rabies-packets/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
