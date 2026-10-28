@@ -91,7 +91,7 @@ def run(runtime):
     from check_britain import Session
     try:
         for target in installed:
-            pending = target.with_suffix('.dll.fury-pending')
+            pending = target.with_suffix('.dll.creeper-frame-pending')
             assert not pending.exists()
             shutil.copy2(STAGE / 'content/Sanctuary.Content.dll', pending)
             pending.replace(target)
