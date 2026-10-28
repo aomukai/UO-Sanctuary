@@ -21,6 +21,9 @@ internal static class MissileFootprints
     private static readonly string[] Sources = ["armageddonfire", "blaze", "erruption crack 1", "erruption crack 2", "firewall",
         "fistsoffirefirewall", "hydra", "immolationfire", "meteorfire", "moltenboulderfirepath", "plaguejavcloud",
         "poisonexplosioncloud", "royalstrikemeteorfire", "shock field on ground", "volcano"];
+    // These rows are numerical reference inputs, with no world producer yet.
+    // Keep the closed inventory without registering imaginary footprints.
+    private static readonly string[] ReferenceOnlySources=["miasmaboltcloud","miasmaboltdot"];
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), Prune);
     private static int Cell(double coordinate) => checked((int)Math.Floor(coordinate * 2 + .5));
     internal static void ValidateSources()
@@ -28,7 +31,7 @@ internal static class MissileFootprints
         if (Sizes.Count != 0) { return; }
         var actual = BalanceCatalog.Read<SummonSource>("necromancer-summons").Where(r => r.Fields.TryGetValue("Collision", out var c)
             && c.ValueKind == JsonValueKind.Number && c.GetInt32() != 0).ToArray();
-        if (!actual.Select(r => r.Key).Order().SequenceEqual(Sources.Order()))
+        if (!actual.Select(r => r.Key).Order().SequenceEqual(Sources.Concat(ReferenceOnlySources).Order()))
         { throw new NotSupportedException("Unmapped missile footprint producer"); }
         var sizes = new Dictionary<string, int>(StringComparer.Ordinal);
         foreach (var row in actual)
@@ -36,7 +39,13 @@ internal static class MissileFootprints
             if (row.Fields["Collision"].GetInt32() != 1 || !row.Fields.TryGetValue("Size", out var size)
                 || !size.TryGetInt32(out int value) || value is < 1 or > 3)
             { throw new NotSupportedException("Unmapped missile footprint size/mask"); }
-            sizes.Add(row.Key, value);
+            if(ReferenceOnlySources.Contains(row.Key))
+            {
+                int expected=row.Key=="miasmaboltcloud"?1:2;
+                if(value!=expected || !row.Fields.TryGetValue("pSrvDoFunc",out var route) || route.GetInt32()!=41)
+                {throw new NotSupportedException("Unmapped reference-only missile footprint row");}
+            }
+            else{sizes.Add(row.Key, value);}
         }
         foreach (var entry in sizes) { Sizes.Add(entry.Key, entry.Value); }
     }
