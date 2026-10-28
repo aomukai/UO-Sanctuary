@@ -130,13 +130,13 @@ public static class NecromancerEffects
     }
     // STAT_DAMAGEPERCENT joins weapon ED before its -90 floor. It does not
     // scale arbitrary physical spell/retaliation packets at mitigation time.
-    public static int DamageStatPercent(Mobile actor) => Curse(actor) is { } curse ? curse.Ability switch
+    public static int DamageStatPercent(Mobile actor) => HexSiphon.DamagePercent(actor)+(Curse(actor) is { } curse ? curse.Ability switch
     {
         CombatAbility.Weaken => Values(curse).Linear(5, 6),
         CombatAbility.Decrepify => -50,
         CombatAbility.BattleCry or CombatAbility.Taunt => (int)Values(curse).Eval("aurastatcalc2"),
         _ => 0
-    } : 0;
+    } : 0);
     public static int OutgoingPhysicalPercent(Mobile actor)=>100+DamageStatPercent(actor);
     internal static int DefenseStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.BattleCry or CombatAbility.CloakOfShadows} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
     internal static int AttackStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.Taunt} curse?(int)Values(curse).Eval("aurastatcalc1"):0;

@@ -2528,10 +2528,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 386,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared weapon-conditioned AR/life-after-kill/mana-after-kill and separate noncurse minus33damagepercent state have source/native controls. Generic kill callbacks preserve FP resources and use direct-killer eligibility; actual owner weapon/spell versus dependent kills are checked separately. New event36, cross-hex groups6/7 and learned SC/input remain gated. Prepared cross-hex combinations are explicitly refused. See hex-siphon-native-evidence.json; effects/icons remain separate."
     },
     {
       "talentId": "warlock.mirroredblades",

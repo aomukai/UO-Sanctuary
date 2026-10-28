@@ -3216,7 +3216,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared cast uses UO0x375A hue0x48C flash and0x1E5 audio; supplied target hex uses the same identified flash. Final hex_enchant weapon state, warlock_psychic_cast_2, hexsyphondebuff, curse_hit, life/mana-return overlays and cast/hit/expiry audio remain pending. Learned input/event36 remain gated; talent/right/quick icons are separately tracked."
   },
   {
     "talentId": "warlock.mirroredblades",

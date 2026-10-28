@@ -51,10 +51,9 @@ public static class HexBane
         return new(v.Damage256(false)/256,v.Damage256(true)/256,checked((int)v.Eval("passivecalc3")),
             checked((int)v.Eval("auralencalc")),checked((int)v.Eval("calc1")),checked((int)v.Eval("aurastatcalc1")),checked((int)v.Eval("aurastatcalc2")),v.Mana256);
     }
-    private static bool Equipped(PlayerMobile p)=>CombatTiming.Equipped(p) is{} w&&WarlockLevitation.Weapon(w)&&ClassGear.Active(p,w);
     internal static bool CastPrepared(PlayerMobile p)
     {
-        if(!Alive(p)||p.Map==null||p.Map==Map.Internal||!ClassCreation.Profiles.TryGet(p.Serial,out var c)||c.Class!=DiabloClass.Warlock||!Equipped(p)||ClassItemTypes.Is(ClassGear.Base(CombatTiming.Equipped(p)).Type,"h2h")){return false;}
+        if(!WeaponHexes.CanCast(p)){return false;}WeaponHexes.GuardBuff(p,CombatAbility.HexBane);
         if(NamedElements.MasteryPercent(p,"mag")!=0){throw new NotSupportedException("Modern Hex Bane magic mastery timing remains unverified");}
         var v=SkillMechanics.Values(p,CombatAbility.HexBane);var values=Capture(v);var old=Buff(p);
         // Complete shared do23/factory preserves a stronger same-skill state.
@@ -65,22 +64,27 @@ public static class HexBane
         _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48D,0);p.PlaySound(0x1E5); // Identified hex-enchant/cast placeholders.
         return true;
     }
-    internal static int AttackPercent(Mobile p)=>p is PlayerMobile owner&&Equipped(owner)?Buff(p)?.Values.AttackPercent??0:0;
-    internal static double WeaponMagic(Mobile p)=>p is PlayerMobile owner&&Equipped(owner)&&Buff(p)!=null?WeaponMagic(p,Utility.RandomDouble()):0;
+    internal static int AttackPercent(Mobile p)
+    {if(p is not PlayerMobile owner||!WeaponHexes.Equipped(owner)||Buff(p) is not{} b){return 0;}WeaponHexes.GuardBuff(p,CombatAbility.HexBane);return b.Values.AttackPercent;}
+    internal static double WeaponMagic(Mobile p)
+    {if(p is not PlayerMobile owner||!WeaponHexes.Equipped(owner)||Buff(p)==null){return 0;}WeaponHexes.GuardBuff(p,CombatAbility.HexBane);return WeaponMagic(p,Utility.RandomDouble());}
     internal static double WeaponMagic(Mobile p,double roll)
     {
-        if(p is not PlayerMobile owner||!Equipped(owner)||Buff(p) is not{} b){return 0;}
+        if(p is not PlayerMobile owner||!WeaponHexes.Equipped(owner)||Buff(p) is not{} b){return 0;}
+        WeaponHexes.GuardBuff(p,CombatAbility.HexBane);
         if(NamedElements.MasteryPercent(owner,"mag")!=0){throw new NotSupportedException("Modern Hex Bane magic mastery timing remains unverified");}
         return b.Values.Minimum+(b.Values.Maximum-b.Values.Minimum)*Math.Clamp(roll,0,1);
     }
-    internal static int DefensePercent(Mobile p)=>Debuff(p)?.DefensePercent??0;
-    internal static int TargetAttackPercent(Mobile p)=>Debuff(p)?.AttackPercent??0;
+    internal static int DefensePercent(Mobile p)
+    {if(Debuff(p) is not{} d){return 0;}WeaponHexes.GuardTarget(p,CombatAbility.HexBane);return d.DefensePercent;}
+    internal static int TargetAttackPercent(Mobile p)
+    {if(Debuff(p) is not{} d){return 0;}WeaponHexes.GuardTarget(p,CombatAbility.HexBane);return d.AttackPercent;}
     // The caller must establish event36 eligibility and target selection. No
     // generic hit/miss/hextrigger hook or speculative event ordering is added.
     internal static bool ApplyPrepared(PlayerMobile p,BaseCreature target,HexBaneBuff registered,bool eligible,DateTime at)
     {
         if(!eligible||!Alive(p)||registered==null||registered.Owner!=p.Serial.Value||registered.UntilUtc<=at||!ClassCreation.Profiles.TryGet(p.Serial,out var c)||c.Class!=DiabloClass.Warlock||!ClassCombat.IsHostile(p,target)||!SourceAuraTargets.Eligible(target)){return false;}
-        Validate(registered);var old=Debuff(target);
+        WeaponHexes.GuardTarget(target,CombatAbility.HexBane);Validate(registered);var old=Debuff(target);
         if(old!=null&&old.Rank>registered.Rank){return false;}
         var until=at.AddMilliseconds(registered.Values.DebuffFrames*40L);
         var next=old!=null&&old.Rank==registered.Rank?old with{UntilUtc=until}:new(target.Serial.Value,p.Serial.Value,registered.Rank,until,registered.Values.DefensePercent,registered.Values.TargetAttackPercent);

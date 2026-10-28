@@ -135,7 +135,11 @@ public static class NamedCombat
     public static void Killed(PlayerMobile player, BaseCreature target)
     {
         if (target.LastKiller != player || !player.Alive) { return; }
-        player.Mana += Math.Max(0, ClassGear.Bonus(player, "mana-kill"));
-        player.Hits += Math.Max(0, ClassGear.Bonus(player, "heal-kill") + (Demon(target) ? ClassGear.Bonus(player, "demon-heal") : 0));
+        var siphon=HexSiphon.AfterKill(player);
+        // The item callbacks add whole points to FP256 balances before capping.
+        // Keep existing fractions, including the final fraction below maximum.
+        int mana=Math.Max(0,ClassGear.Bonus(player,"mana-kill")+siphon.Mana);
+        int life=Math.Max(0,ClassGear.Bonus(player,"heal-kill")+(Demon(target)?ClassGear.Bonus(player,"demon-heal"):0)+siphon.Life);
+        NecromancerEffects.AddMana(player,checked(mana*256));SkillHealth.Heal(player,checked(life*256));
     }
 }

@@ -172,6 +172,7 @@ public sealed class CharacterProfiles : GenericPersistence
         DruidCycloneArmor.Clear(player);
         PsychicWard.Clear(player);
         HexBane.Clear(player);
+        HexSiphon.Clear(player);
         DruidHurricane.Clear(player);
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
@@ -348,6 +349,7 @@ public sealed class CharacterProfiles : GenericPersistence
         DruidCycloneArmor.Clear(player);
         PsychicWard.Clear(player);
         HexBane.Clear(player);
+        HexSiphon.Clear(player);
         DruidHurricane.Clear(player);
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
