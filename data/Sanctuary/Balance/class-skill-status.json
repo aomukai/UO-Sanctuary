@@ -1574,7 +1574,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Selected-hand/stat foundation has7824 compiled legacy selector/merge cases and pinned damage-related property/alias metadata. Native player equip now supports eligible ordinary/named Barbarian pairs with transactional rollback and saved primary identity independent of presentation layers. Real lift/equip packet and reverse-layer/save/reload checks cover this foundation; Double Swing itself remains pending. Modern start68 is null in the older table, so do70 alone does not establish current start/payment/SQ11 events. Full requirements/lifecycle/client and crafted/rune/material pairs remain separately unsupported. No new talent or item-skill gate enabled."
+      "remaining": "Selected-hand/stat foundation has7824 compiled legacy selector/merge cases and pinned damage-related property/alias metadata. Native player equip now supports eligible ordinary/named Barbarian pairs with transactional rollback and saved primary identity independent of presentation layers. Real lift/equip packet and reverse-layer/save/reload checks cover this foundation; Double Swing itself remains pending. Modern start68 is null in the older table, so do70 alone does not establish current start/payment behavior. Current SQ11 file rows now match the older data as part of322classic descriptors in cleave-source-evidence.json; current rate/dispatch and input remain unverified. Full requirements/lifecycle/client and crafted/rune/material pairs remain separately unsupported. No new talent or item-skill gate enabled."
     },
     {
       "talentId": "barbarian.leap",
@@ -2462,10 +2462,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 391,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared physical ED/AR/speed suppliers, current player SQ24 file rows and supplied-rate event plans plus explicitly qualified ordinary melee contacts have dedicated native controls. All322classic sequence descriptors corroborate the current file layout. Older start68 is null; new start68/do164, actual target/range/arc/payment/durability and input remain gated. Rank20 owned table/tooltip says240degrees while supplied research says360; no actual arc is chosen. See cleave-native-evidence.json. Effects and icons remain separate."
     },
     {
       "talentId": "warlock.echoingstrike",
