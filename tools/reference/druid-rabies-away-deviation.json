@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "druid.rabies",
+  "source": "Direct user approval in this task; Sanctuary approved deviations take precedence over reference behavior.",
+  "question": "For Rabies after you leave the facet or log out: should existing infections keep spreading there until their original expiry, or stop spreading while their timers continue?",
+  "userDecision": "Stop spreading; timers continue",
+  "approvedDeviation": "Suppress Rabies propagation while its original caster is logged out or on another facet. Existing infection, emitter and contagion lifetimes keep advancing; absence must not extend deadlines or replay missed spreading actions.",
+  "observedReferenceBehavior": "This is an approved Sanctuary policy, not a D2R executable observation.",
+  "implementation": {
+    "status": "policy recorded; explicit native policy acceptance pending",
+    "existingBehavior": "The current Unsupported guard suppresses emission/contact and advances clocks for offline or different-facet casters, but labels these contexts unverified. Current full regression inputs remain frozen.",
+    "next": "After the frozen regression is terminal, separate approved propagation suppression from unsupported dead/history/host-facet contexts and verify actual disconnect/facet transitions, expiry, unchanged poison and no missed-action replay."
+  },
+  "limits": [
+    "Existing poison damage and unrelated caster death, class/history change, host facet transitions and exact source/global event order are separate questions; this policy does not silently change them.",
+    "Return to the same facet while connected resumes only future eligible activity within the original deadlines; no timer or resource reset. This is the operational interpretation of temporary suppression, not an additional gameplay observation."
+  ]
+}
