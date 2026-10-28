@@ -11,7 +11,9 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
-| 8 | Warlock | 0 / 30 | 0 | 30 | Open |
+| 8 | Warlock | 1 / 30 | 0 | 29 | Open |
+
+Levitation Mastery is the first Warlock passive handler: supported normal-weapon requirements, effective-rank attack rating, physical damage and critical consumers pass 111 native checks across three boots and two real reloads. This includes retained Barbarian checks and automatic equipment validation after loss of a soft rank. See [native evidence](../tools/reference/levitation-mastery-native-evidence.json) and [reference limits](../tools/reference/levitation-mastery-reference.json). Ethereal/item-ease combinations are temporarily refused for trained-Warlock weapon equip until modifier order is resolved; innate offhand permissions and Eldritch overrides remain separate. The candidate is not installed, and no class is complete.
 
 Prepared Arctic native mode plus its saved cold stream now pass96checks over3boots/2real reloads. The ordinary older-engine rate router/current SQ flags retain sequence256/action10/end15in144controls; connected timers verify live aim/rank,interruptions,damage/chill,expiry and disconnect cleanup. Raw held-input/reentry cadence,current executable rate/release and sustained mana drain remain gated; see [mode evidence](../tools/reference/arctic-modes-native-evidence.json),[stream evidence](../tools/reference/arctic-stream-native-evidence.json) and the current checkpoint. No class is complete.
 
@@ -328,7 +330,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Engorge | 379 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Consume | 381 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Bind Demon | 382 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Levitation Mastery | 383 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Levitation Mastery | 383 | handler-present | Live effective rank supplies weapon-layer AR,physical damage and mastery critical through shared consumers. Normal weapon requirements use owner-specific capped reduction,including first equip; item-ease/ethereal stacking is explicitly unsupported. Global tooltips label owner requirements separately. Innate two-hand/offhand handling and Eldritch-specific throwing overrides remain separate. Native/current acceptance is recorded in the checkpoint; no class complete. |
 | Hex: Bane | 385 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Cleave | 391 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Echoing Strike | 388 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

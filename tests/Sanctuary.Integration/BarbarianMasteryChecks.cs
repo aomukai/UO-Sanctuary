@@ -121,7 +121,7 @@ public static class BarbarianMasteryChecks
             if(i==0)
             {
                 var dagger=Equip(owner,new Dagger());Bonus(owner,dagger,200,128,29);dagger.Delete();
-                var bow=Equip(owner,new Bow());Bonus(owner,bow,0,0,0);var rolls=new Rolls(0);Require(NamedCombat.Deadly(owner,rolls)==1 && rolls.Calls==0,"Bow used melee critical");bow.Delete();
+                var bow=Equip(owner,new Bow());Bonus(owner,bow,0,0,0);var rolls=new Rolls(0);Require(NamedCombat.Deadly(owner,rolls)==1 && rolls.Calls==1,"Bow missed unconditional projectile critical draw or used blade mastery");bow.Delete();
                 Bonus(owner,null,0,0,0);var naked=new Rolls(0);Require(NamedCombat.Deadly(owner,naked)==1 && naked.Calls==0,"Unarmed used melee critical");
                 var thrown=Equip(owner,new NamedThrowingKnife());Bonus(owner,thrown,0,0,0);thrown.Delete();
                 Critical(owner);

@@ -11,5 +11,5 @@ public static class WeaponMasteries
     // Current class-specific suppliers are mutually exclusive; foreign oskill
     // mastery grants remain part of the deferred item-skill work.
     public static int Bonus(PlayerMobile owner,BaseWeapon weapon,int stat)=>Math.Max(
-        BarbarianMasteries.Bonus(owner,weapon,stat),AssassinCombat.Mastery(owner,weapon,stat));
+        Math.Max(BarbarianMasteries.Bonus(owner,weapon,stat),AssassinCombat.Mastery(owner,weapon,stat)),WarlockLevitation.Bonus(owner,weapon,stat));
 }

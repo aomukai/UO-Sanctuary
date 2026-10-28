@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BALANCE = ROOT/'data/Sanctuary/Balance'
 ORDER = ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin','Druid','Warlock']
 BLOCKERS = {
+    'warlock.levitationmastery':'Live effective rank supplies weapon-layer AR,physical damage and mastery critical through shared consumers. Normal weapon requirements use owner-specific capped reduction,including first equip; item-ease/ethereal stacking is explicitly unsupported. Global tooltips label owner requirements separately. Innate two-hand/offhand handling and Eldritch-specific throwing overrides remain separate. Native/current acceptance is recorded in the checkpoint; no class complete.',
     'druid.fury':'Learned wolf-only start37/do13 candidate uses two-to-five ordinary weapon attempts,shared Fend rollback70and action7/end13timing,once-only4mana start payment,cyclic per-contact target revalidation and approved low-mana ordinary Attack. Source-derived interruptibility keeps Fury outside Fend/Zeal hit-recovery locks. Shared typed physical/critical/leech/charges/gear and explicit NPC shields are reused; no source-zero spell substitute. Native combat/input/rank/gear/recovery/retarget/reentry/reload verification and installation scope are recorded in the isolated Fury checkpoint. Exact modern timing/rank/progression refresh,event/RNG/owner/PvP/item-only and final graphical acceptance remain explicit gaps. Final wolf swing/contact/audio and talent/left/right/quick icons remain separate placeholders.',
     'druid.shockwave':'Learned bear-only SC/FCR route creates five source-zero physical/stun waves and pays7mana once after do8, including individual factory failures. Saved waves retain rank/endpoints/RNG/history/cast-target delay windows. Source/native prepared composition has three boots/two reloads; learned payment/input/cancellation/rank/gear and retained/full regression acceptance are tracked in the checkpoint. Modern Slow Missiles damage scaling,DAMAGE_VS_MONTYPE,exact modern geometry/room/event/seed/PvP/death and graphical acceptance remain explicit gaps. Final cast/wave/contact/stun/audio and talent/left/right/quick icons remain separate identified placeholders.',
     'druid.rabies':'Learned Werewolf S3 candidate uses a source-derived initial hit gate and pinned10mana, then a distinct ordinary weapon bite followed by independent infection and forced-success skill poison. Saved markers/emitters, retained child rank/live synergy, negative-current tail/reinfection and migration have bounded source/native evidence. Actual learned input/payment/cancellation/full-regression acceptance is recorded in the current checkpoint. Modern initial miss/block presentation/payment, extra transformed AR, lost-range attachment, lethal/reentrant chronology, owner logout/facet and exact event/seed/geometry remain explicit gaps. Human Wrestle/contact audio and poison status are identified placeholders; final effects and talent/left/right/quick icons remain separate.',
@@ -199,6 +200,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'warlock.levitationmastery',
     'druid.fury',
     'druid.shockwave',
     'druid.hunger',
@@ -315,7 +317,7 @@ def build():
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
     symbols=dict(re.findall(r'new\(CombatAbility\.(\w+), "([^"]+)"',protocol))
     implemented=set()
-    for character in ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin','Druid']:
+    for character in ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin','Druid','Warlock']:
         text=(ROOT/f'src/Sanctuary.Content/{character}Combat.cs').read_text()
         expression=re.search(r'public static bool Implemented\(CombatAbility \w+\) => (.*?);',text,re.S).group(1)
         if 'NecromancerEffects.IsCurse' in expression:
@@ -344,6 +346,7 @@ def render(data):
         rows=[r for r in data['skills'] if r['characterClass']==character]
         count=lambda status:sum(r['implementation']==status for r in rows)
         lines.append(f'| {index} | {character} | {count("handler-present")} / 30 | {count("blocked")} | {count("pending")} | Open |')
+    lines += ['', 'Levitation Mastery is the first Warlock passive handler: supported normal-weapon requirements, effective-rank attack rating, physical damage and critical consumers pass 111 native checks across three boots and two real reloads. This includes retained Barbarian checks and automatic equipment validation after loss of a soft rank. See [native evidence](../tools/reference/levitation-mastery-native-evidence.json) and [reference limits](../tools/reference/levitation-mastery-reference.json). Ethereal/item-ease combinations are temporarily refused for trained-Warlock weapon equip until modifier order is resolved; innate offhand permissions and Eldritch overrides remain separate. The candidate is not installed, and no class is complete.']
     lines += ['', 'Prepared Arctic native mode plus its saved cold stream now pass96checks over3boots/2real reloads. The ordinary older-engine rate router/current SQ flags retain sequence256/action10/end15in144controls; connected timers verify live aim/rank,interruptions,damage/chill,expiry and disconnect cleanup. Raw held-input/reentry cadence,current executable rate/release and sustained mana drain remain gated; see [mode evidence](../tools/reference/arctic-modes-native-evidence.json),[stream evidence](../tools/reference/arctic-stream-native-evidence.json) and the current checkpoint. No class is complete.']
     lines += ['', 'Later-class order is a dependency-based working assumption; only Necromancer-first was required. '
               'Warlock/Witch identity, trees and growth are staged. Extended formula aliases and20parameter projection now pass99checks/3boots/2reloads; [foundation evidence](../tools/reference/warlock-foundation-native-evidence.json) records the current data/source limits. Warlock talent handlers remain pending.','',

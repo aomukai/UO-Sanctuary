@@ -240,6 +240,9 @@ public static class ClassGear
         {
             return null;
         }
+        if(stat is ClassGearStat.StrengthRequirement or ClassGearStat.DexterityRequirement
+            &&DualEquip.RequirementOwner(item) is{} actor&&WarlockLevitation.TryRequirements(actor,item,out int strength,out int dexterity))
+        {return stat==ClassGearStat.StrengthRequirement?strength:dexterity;}
         var basis = Slot(item) == GearSlot.Cosmetic ? null : Base(item);
         return stat switch
         {
@@ -302,6 +305,15 @@ public static class ClassGear
     {
         if (mobile is not PlayerMobile player || !ClassCombat.Enabled(player))
         {
+            // An item still worn by a Warlock may expose that owner's native
+            // requirement getter. Validate the recipient's raw requirements
+            // before native NPC equip so the owner's skill cannot leak.
+            if(Converted(item)&&item.Parent is PlayerMobile wearer&&WarlockLevitation.Applies(wearer,item))
+            {
+                var npcBasis=Base(item);int strength=Math.Max(0,npcBasis.Strength-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
+                int dexterity=Math.Max(0,npcBasis.Dexterity-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
+                if(mobile.Str<strength||mobile.Dex<dexterity){return false;}
+            }
             return null;
         }
         if (!Converted(item))
@@ -313,9 +325,21 @@ public static class ClassGear
             player.SendMessage("Identify this item before equipping it.");
             return false;
         }
+        int requiredStrength,requiredDexterity;
+        if(WarlockLevitation.Applies(player,item))
+        {
+            if(!WarlockLevitation.TryRequirements(player,item,out requiredStrength,out requiredDexterity))
+            {player.SendMessage("Levitation's requirement reduction is not supported for this item's modifiers yet.");return false;}
+        }
+        else
+        {
+            // Explicit recipient: never inherit a previous owner's mastery.
+            var recipientBasis=Base(item);
+            requiredStrength=Math.Max(0,(recipientBasis?.Strength??0)-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
+            requiredDexterity=Math.Max(0,(recipientBasis?.Dexterity??0)-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
+        }
         if (ClassStats.Level(player) < RequiredLevel(item)
-            || player.Str < (Stat(item, ClassGearStat.StrengthRequirement) ?? 0)
-            || player.Dex < (Stat(item, ClassGearStat.DexterityRequirement) ?? 0))
+            || player.Str < requiredStrength || player.Dex < requiredDexterity)
         {
             player.SendMessage("You do not meet this item's level or attribute requirements.");
             return false;
@@ -339,7 +363,7 @@ public static class ClassGear
             string code = profile.Class switch
             {
                 DiabloClass.Amazon => "ama", DiabloClass.Sorceress => "sor", DiabloClass.Necromancer => "nec",
-                DiabloClass.Paladin => "pal", DiabloClass.Barbarian => "bar", DiabloClass.Druid => "dru", _ => "ass"
+                DiabloClass.Paladin => "pal", DiabloClass.Barbarian => "bar", DiabloClass.Druid => "dru", DiabloClass.Warlock => "war", _ => "ass"
             };
             if (required != code)
             {
@@ -428,6 +452,7 @@ public static class ClassGear
             list.Add($"{"Chance to block: "}{BlockChance(player)}{"%"}");
         }
         list.Add($"{"Requires level "}{RequiredLevel(item)}{"; Strength "}{basis.Strength}{"; Dexterity "}{basis.Dexterity}");
+        WarlockLevitation.Properties(item,list);
         if (roll != null)
         {
             foreach (var affix in roll.Affixes)
@@ -497,6 +522,7 @@ public static class ClassGear
         player.Mana = Math.Min(player.Mana, player.ManaMax);
         player.Stam = Math.Min(player.Stam, player.StamMax);
         NamedSetVisuals.Track(player);
+        WarlockLevitation.InvalidateProperties(player);
     }
     public static void Configure()
     {

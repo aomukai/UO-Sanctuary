@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "d1c386e002aafd3a6ac1c76f539d39ce4e24afc7c375f758267c5c0b66e01f06",
-  "ContentAssemblyPath": ".local/class-skills/warlock-foundation/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "63c2ba60919b50a37919f0e32e8d99b22b308888cfb330ff31da68940ad4abde",
+  "ContentAssemblyPath": ".local/class-skills/levitation-mastery/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -10,7 +10,7 @@
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "src/Sanctuary.Content/ActionTiming.cs": "c1b36bb979619fa584340c1fe975a68aeaa51c9cdc390c39df3eb82ad38b657b",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
-    "src/Sanctuary.Content/ClassGear.cs": "e5caf9f2ab07da6a6231ba9ca50b43e332badd3b3f121648abda79f059a58b51",
+    "src/Sanctuary.Content/ClassGear.cs": "3b97a68973b38952ff41a2177ffac237227bf7139afba52fd9884db0e0ddbac5",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
     "src/Sanctuary.Content/ClassStats.cs": "edabc2e35e8e7db4a325527ab7d8a79818b44b1bf7d3ed10ac2e925da8172f53",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",

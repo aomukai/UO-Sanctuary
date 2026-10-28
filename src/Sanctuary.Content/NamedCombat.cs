@@ -26,6 +26,7 @@ public static class NamedCombat
         (CreatureProfiles.For(creature).Traits.Boss == true || creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique });
     public static double Deadly(PlayerMobile player, Random random)
     {
+        if(Ranged(player)){return ProjectileCritical(player,random)?2:1;}
         // Normal melee tries mastery, generic critical, then Deadly Strike; double once.
         int mastery=WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),3);
         int chance = Math.Clamp(ClassGear.Bonus(player, "deadly"), 0, 100);
@@ -41,7 +42,7 @@ public static class NamedCombat
     internal static bool ProjectileCritical(PlayerMobile player,Random random)
     {
         int deadly=Math.Clamp(ClassGear.Bonus(player,"deadly"),0,100);
-        int mastery=BarbarianMasteries.Throwing(player,CombatTiming.Equipped(player),3);
+        int mastery=WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),3);
         return ProjectileCritical(AmazonCombat.CriticalChance(player),deadly,mastery,random);
     }
     internal static bool ProjectileCritical(int generic,int deadly,int mastery,Random random)

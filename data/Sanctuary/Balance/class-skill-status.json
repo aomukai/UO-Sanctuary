@@ -2440,10 +2440,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 383,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Live effective rank supplies weapon-layer AR,physical damage and mastery critical through shared consumers. Normal weapon requirements use owner-specific capped reduction,including first equip; item-ease/ethereal stacking is explicitly unsupported. Global tooltips label owner requirements separately. Innate two-hand/offhand handling and Eldritch-specific throwing overrides remain separate. Native/current acceptance is recorded in the checkpoint; no class complete."
     },
     {
       "talentId": "warlock.hexbane",

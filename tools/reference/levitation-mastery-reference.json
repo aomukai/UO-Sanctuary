@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "skill": {
+    "skill": "Levitate",
+    "*Id": 383,
+    "passivestate": "levitate_mastery",
+    "passiveitype": "weap",
+    "passivereqweaponcount": 1,
+    "passivestat1": "passive_mastery_melee_crit",
+    "passivecalc1": "dm12",
+    "passivestat2": "passive_mastery_item_req_percent",
+    "passivecalc2": "\"-1*min(ln78,50)\"",
+    "passivestat3": "passive_mastery_melee_th",
+    "passivecalc3": "ln56",
+    "passivestat4": "passive_mastery_melee_dmg",
+    "passivecalc4": "ln34",
+    "passive": 1,
+    "Param1": 0,
+    "Param2": 35,
+    "Param3": 25,
+    "Param4": 4,
+    "Param5": 40,
+    "Param6": 5,
+    "Param7": 2,
+    "Param8": 2
+  },
+  "observations": {
+    "effectiveRank": 2,
+    "hardRank": 1,
+    "reportedItems": [
+      "Ripsaw",
+      "Rogue Bow",
+      "Rusthandle"
+    ],
+    "normalWeaponRequirements": [
+      {
+        "code": "flb",
+        "baseStrength": 70,
+        "baseDexterity": 49,
+        "observedStrength": 68,
+        "observedDexterity": 48
+      },
+      {
+        "code": "cbw",
+        "baseStrength": 25,
+        "baseDexterity": 35,
+        "observedStrength": 24,
+        "observedDexterity": 34
+      },
+      {
+        "code": "gsc",
+        "baseStrength": 37,
+        "baseDexterity": 0,
+        "observedStrength": 36,
+        "observedDexterity": 0
+      }
+    ],
+    "unequippedCheck": "Rusthandle shows the same36Strength while unarmed and equipped.",
+    "modifierCheck": "User has no ethereal/requirements-minus example available; no additional observation assumed.",
+    "level": "Rusthandle level18reported; raw unique17and Vengeance unlock18do not establish exact required-level override."
+  },
+  "reusedRoutineHashes": {
+    "D2Common_11024": "e7c0452c295ed5fdb0492215118283167037411c84afd79c1ef42f048bc50eaa",
+    "SKILLS_GetWeaponMasteryBonus": "e7a919e9608305b09bd0dd7e640cb76c9a4888d9bc95a31503e3e222f5fa462f",
+    "MISSILE_HasBonusStats": "a176a57753d2e9a208feb4715ff14721b6152fbfb33a3ab31db7a58c243606da",
+    "ITEMS_CheckRequirements": "32c799b3c60f2c0601bd12fd36490b27e6b13a1d8adf6456823dfaedb438a810"
+  },
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "tools/reference/barbarian-mastery-engine-evidence.json": "c818eea73d50c66754871d8d91fed003e2e8a6c69b998935e0bf46438af750a2",
+    "tools/reference/throwing-projectile-engine-evidence.json": "321d1cf37bb8b0d59001558bc39035b65b3ca3321ab9219a721d0919560fb061",
+    "tools/reference/warlock-foundation-preflight.json": "f6246b9eb3de1dbdfbcbec4ef7e6d8d4f0f11a0130dc8a350fca53b807742e31"
+  },
+  "established": [
+    "Current four passive stats use weap type, one-weapon condition and effective rank. AR40+5/rank;damage25+4/rank;critical dm12(0,35);requirements -min(2*rank,50).",
+    "Shared diminishing arithmetic remains unchanged. Current Dodge/Avoid/Evade observations support its early integer curve, but do not independently instrument modern Levitation critical rounding.",
+    "Three current weapon requirement reports match basis + trunc(basis * -4 /100). Legacy item requirement percentage uses the same signed-truncation operation; its item-modifier/ethereal order is not assumed for the new Warlock stat.",
+    "Reuse already compiled strongest-layer mastery and missile-critical references. Missile critical calls full weapon mastery after generic critical and Deadly Strike; weap can include bows. An explicit thrown used-skill route selects throw layers and skips melee layers. Native basic-throw adaptation follows that separate route."
+  ],
+  "limits": [
+    "Reference preparation and reused bounded legacy routines do not certify the modern executable or every Warlock skill override.",
+    "Ethereal/item-ease stacking is unresolved. The candidate explicitly rejects equipping those weapon combinations on a trained Warlock rather than silently choosing an order. This temporary restriction must be removed after resolving the mechanic.",
+    "Innate two-hand/offhand weapon permissions, Eldritch-specific throwing overrides, other passives and all unimplemented talents remain separate. Rusthandle/Rogue Bow named effects remain gated.",
+    "Final levitated weapon/class animation, sound and passive talent icon remain placeholders in the separate asset registers. No independent passive hotkey is applicable."
+  ]
+}

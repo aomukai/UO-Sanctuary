@@ -42,6 +42,11 @@ public static class DualEquip
         ClassGearHooks.ConflictingLayer=(mobile,first,second)=>mobile is PlayerMobile owner && _transactions.TryGetValue(owner.Serial,out var transaction)
             && transaction.PairConflict(first,second)?false:null;
     }
+    internal static PlayerMobile RequirementOwner(Item item)
+    {
+        foreach(var transaction in _transactions.Values){if(transaction.Item==item){return transaction.Owner;}}
+        return item.Parent as PlayerMobile;
+    }
     internal static bool Deferred(PlayerMobile owner)=>_transactions.ContainsKey(owner.Serial);
     internal static Serial? Primary(PlayerMobile owner)=>Profiles?.Find(owner);
     private static bool Barbarian(PlayerMobile owner)=>ClassCreation.Profiles?.TryGet(owner.Serial,out var p)==true && p.Class==DiabloClass.Barbarian;
@@ -98,6 +103,8 @@ public static class DualEquip
     }
     private sealed class Transaction:IClassEquipTransaction
     {
+        internal PlayerMobile Owner=>_owner;
+        internal Item Item=>_item;
         private readonly PlayerMobile _owner;
         private readonly Item _item,_companion,_shifted;
         private readonly Layer _oldLayer,_companionLayer;

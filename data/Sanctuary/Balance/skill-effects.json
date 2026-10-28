@@ -3098,7 +3098,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "None required"
+    "placeholder": "Passive: no active cast or independent hotkey effect. Existing human/weapon appearance is a placeholder for Warlock levitated-weapon/class presentation; final class animations and passive talent-tree icon remain pending independently of the mastery mechanics."
   },
   {
     "talentId": "warlock.hexbane",
