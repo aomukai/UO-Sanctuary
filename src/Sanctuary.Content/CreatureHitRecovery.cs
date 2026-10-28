@@ -70,6 +70,19 @@ public static class CreatureHitRecovery
             return;
         }
         int duration = Frames(row) * ActionTiming.FrameMs;
+        Begin(creature,duration);
+    }
+    // Called only after an actor consumer accepts a source GH mode request.
+    // Its source policy has already handled stun, thresholds and target RNG;
+    // do not suppress it with Remaining or roll an aggregate chance again.
+    internal static bool BeginPreparedGetHit(BaseCreature creature,int duration)
+    {
+        if(duration<1){throw new ArgumentOutOfRangeException(nameof(duration));}
+        if(creature is not{Alive:true,Deleted:false}){return false;}
+        Begin(creature,duration);return true;
+    }
+    private static void Begin(BaseCreature creature,int duration)
+    {
         CreatureProfiles.Session(creature).RecoveryUntil = Core.TickCount + duration;
         creature.AIObject?.ResetApproachState();
         if (creature is GraveyardUndead undead)

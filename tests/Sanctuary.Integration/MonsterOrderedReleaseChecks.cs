@@ -52,7 +52,7 @@ public static class MonsterOrderedReleaseChecks
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>Event(3,p);
         internal override bool AttackerInActiveMode()=>true;
         internal override void Thorns(PreparedMonsterDamagePacket p)=>Trace.Add(new[]{7,0,0});
-        internal override void Return(PreparedMonsterDamagePacket p,Action death)
+        internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
         {
             Trace.Add(new[]{8,p.ResultFlags,p.HitClass});Escaped=death;
             if((p.ResultFlags&2)==0){return;}

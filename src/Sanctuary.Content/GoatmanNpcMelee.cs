@@ -74,7 +74,7 @@ internal static class GoatmanNpcMelee
         RefreshForRelease(actor,sourceId,rank,at);
         ArgumentNullException.ThrowIfNull(captured);
         return PreparedMonsterDamage.Release(actor,target,new(captured.Physical256,captured.Total256,captured.StunFrames,
-            captured.ColdFrames,captured.ResultFlags,captured.HitClass,false,captured.CriticalOverlay),recipient,limited,services,at);
+            captured.ColdFrames,captured.ResultFlags,captured.HitClass,false,captured.CriticalOverlay,captured.Magic256,captured.Fire256,captured.Lightning256,captured.Cold256),recipient,limited,services,at);
     }
     internal static GoatmanBerserkState StartBerserk(int frame,int rank,GoatmanBerserkState existing,bool allocationSucceeds)
     {

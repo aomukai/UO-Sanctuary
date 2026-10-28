@@ -5,7 +5,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record PreparedMonsterDamagePacket(int Physical256,int Total256,int StunFrames,int ColdFrames,int ResultFlags,
-    int HitClass=0,bool HitClassActive=false,int Overlay=0);
+    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0);
 internal sealed record PreparedMonsterRecipient(bool Unique,Func<bool> Boss,Func<int> Velocity,Func<bool> Hireling);
 // These services are mandatory. Supplying the actual callbacks, metadata and
 // return/mode policy remains the actor consumer's job; no missing event is
@@ -26,7 +26,7 @@ internal abstract class PreparedMonsterDamageServices
     internal abstract PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket packet);
     internal abstract bool AttackerInActiveMode();
     internal abstract void Thorns(PreparedMonsterDamagePacket packet);
-    internal abstract void Return(PreparedMonsterDamagePacket packet,Action enterDeathMode);
+    internal abstract void Return(ref PreparedMonsterDamagePacket packet,Action enterDeathMode);
     internal abstract void FreePacket();
 }
 internal sealed record PreparedMonsterDamageResult(PreparedMonsterDamagePacket Packet,int Before256,int AfterHealth256,
@@ -36,7 +36,7 @@ internal static class PreparedMonsterDamage
 {
     private static PreparedMonsterDamagePacket Checked(PreparedMonsterDamagePacket p)
     {
-        if(p==null||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0||(p.ResultFlags&~0xffff)!=0)
+        if(p==null||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||(p.ResultFlags&~0xffff)!=0)
         {throw new NotSupportedException("Unsupported prepared monster damage packet");}
         return p;
     }
@@ -89,7 +89,7 @@ internal static class PreparedMonsterDamage
             death=true;
             if(target is{Alive:true,Deleted:false}){target.LastKiller=attacker;target.Kill();}
         }
-        try{services.Return(packet,EnterDeathMode);}finally{inReturn=false;}
+        try{services.Return(ref packet,EnterDeathMode);Checked(packet);}finally{inReturn=false;}
         services.FreePacket();
         return new(packet,before,after,stun,death);
     }
