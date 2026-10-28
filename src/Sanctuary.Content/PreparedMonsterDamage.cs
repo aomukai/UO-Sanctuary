@@ -51,6 +51,7 @@ internal static class PreparedMonsterDamage
             ||SkillHealth.Balance256(target)<=0||(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Monster release requires qualified living source/recipient and a successful cached packet");}
         services.StoreLastAttacker();
+        MonsterUninterruptibles.RecordLastAttacker(target,attacker);
         if((packet.ResultFlags&32)==0)
         {packet=Checked(services.DealtDamage(packet));packet=Checked(services.TookDamage(packet));}
         int before=SkillHealth.Balance256(target);

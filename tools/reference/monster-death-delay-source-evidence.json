@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Uninterruptible removal and deferred NPC death completion source",
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "handlerEnabled": false,
+  "processMemoryRead": false,
+  "compiledUnchangedRoutineHashes": {
+    "sub_6FC62DF0": "46297de7356f41f678d240bfec4ed9f472d42b6ae029c7be156a9b6fe2eb6eaa",
+    "SUNITDMG_GetHitClass": "03dfc6f6668f817e635d0e2abe7c27980783b453a121ca23b321f8fc41895470",
+    "sub_6FCC1870": "79e9050fe70da0c3bca898c1b97a23077a2e0146a4a743e9a5cbe1702426c17b",
+    "sub_6FC62F50": "c554d3c5b836e868b15474544f3352c1f61486b39ff2c8d841d9bd1d400b9d1a",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "sub_6FCBDE90": "16937ef0bd086f6e32052b1c28ea96911153ad0b0d44719eb4139777497d4a3b"
+  },
+  "inputs": {
+    "tools/reference/monster-return-source-evidence.json": "ec1da87854b2828c3f7573f5e295f93e091eb96aa5b2bae7028a98149816b39b",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    "tools/reference/molten-boulder-impact-source-evidence.json": "ad49c4fb0bf9e8c1951db1e63e8326dcafe4d08d2cf09991cf27b9564208afe2",
+    ".local/class-skills/molten-boulder-impact-source-probe.cpp": "34ed63e79ad9afe4a2aceded41ba17a31f32ff84b2d73f496055375e489a5e1c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2DataTbls.h": "6a24aae3b33a3f5bf6e78745849d822432cad902b9307387ca713207471e9a9b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "tools/probe_monster_return.py": "124fba6fefdfd1ceeaaa5674170aa6cf084e9807aa6c17efcfff4d198f665c92",
+    ".local/class-skills/monster-return/source.cpp": "d03518ad77e3be9aee0047cdbe8faf07af5d293fbe42f5f074b3ae210ec634a5",
+    ".local/class-skills/monster-return/diagnostics/initial-initializer-types.log": "91c57540b6b5514f52d0b14ab37aa3d70d4ad677ff41d9c421f0e3363b8867b2",
+    ".local/class-skills/monster-return/diagnostics/initial-monster-enum-alias.log": "b087b8dd57d525fe466b347a284eed90925c6b0c370f60c9a324e91000eb163a",
+    ".local/class-skills/monster-return/diagnostics/initial-seed-literal-preflight.log": "2a842bceff6bab186304880271e0405556b66affe2c8b3bb35aed234853bda89",
+    ".local/class-skills/monster-return/classic-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/classic-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/classic.json": "43dd9ff7788f60cb611ae6036c384551569fbd12cdca405325f4df9134cc5c30",
+    ".local/class-skills/monster-return/ubers-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/ubers-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/ubers.json": "75cf5c606f90340dba7127a99632c9365e2922539f8e34bc9e44bd1a80bc1996",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/probe_monster_death_delay.py": "23d0a3461b89c61c1116f92b6d31d97930af19db52ab3a8f3fefc5451e81eac7"
+  },
+  "artifacts": {
+    ".local/class-skills/monster-death-delay/source.cpp": "68638c5f01ecca0c1e46727c229e2089d56d00b3f538209403c4b2241dd9316f",
+    ".local/class-skills/monster-death-delay/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-death-delay/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-death-delay-source-probe.json": "f57aa76c487623ed24fd43d97d577a6df691211644429192a2f07f8c0c45ee95"
+  },
+  "verified": {
+    "contexts": 9216,
+    "returnRequests": 576,
+    "directKillRequests": 576,
+    "deathRequestsAtPositiveLife": 388,
+    "townSuppressedReturn": 176,
+    "missingGameRetainsDelay": 2304
+  },
+  "established": [
+    "Complete sub_6FCBDE90 composes with the unchanged full NPC return,typed class,recovery and source seed routines. Uninterruptible toggles before game lookup. Missing game returns without clearing pending death. Clearing with a game clears death delay before last-attacker resolution,then sends a fresh zeroed death-only packet through return or directly requests kill without an attacker.",
+    "Queued AI-think deletion follows death processing on each call. Repeated clearing does not dispatch another death. Cached delayed death can request kill at positive HP. A present attacker follows return town/dead-mode guards;missing attacker uses the declared direct-kill service. These requests are not the complete kill routine."
+  ],
+  "services": [
+    "NPC targets;room/row/state/game/last-attacker registry,kill/mode/deleted-think services are explicit. Full return is namespace-linked only to observe the fresh packet without editing its body. No actual actor mode scheduler,timer,persistence,owner lifecycle or current executable parity is certified. The inherited seed literal platform shim remains unchanged."
+  ]
+}

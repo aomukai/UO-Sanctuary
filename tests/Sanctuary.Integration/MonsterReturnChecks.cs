@@ -20,7 +20,7 @@ public static class MonsterReturnChecks
         Register("monster-return-check",Start);Register("monster-return-reload-check",Reload);
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Exact prepared NPC return/recovery policy",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private class Services:MonsterReturnServices
+    internal class Services:MonsterReturnServices
     {
         internal int[] P;internal int ModeValue,Last=777,Requested=-1,KillCount,ModeCount,RecoveryCount,Draws;
         internal uint Flags=0x10000000;internal ulong Seed;internal bool Delayed;internal List<int[]> Trace=new();
@@ -77,7 +77,7 @@ public static class MonsterReturnChecks
     {
         var b=new EncounterCreature{Name="Monster return [fixture]"};b.Frozen=b.CantWalk=true;b.AIObject?.AITimer.Stop();return b;
     }
-    private sealed class WorldServices:Services
+    internal class WorldServices:Services
     {
         internal BaseCreature Body;internal Action Death;
         internal WorldServices(BaseCreature body,bool guard=false):base(new[]{0,1,0,1,0,guard?1:0,1,5,413,0,(1<<3)|(1<<6)|(1<<13),0,0,3,0,0,0,0,body.HitsMax*256,0,128,123}){Body=body;}
@@ -92,7 +92,7 @@ public static class MonsterReturnChecks
             {Require(CreatureHitRecovery.BeginPreparedGetHit(Body,320),"Accepted native GH entry failed");}
         }
     }
-    private sealed class Release:PreparedMonsterDamageServices
+    internal class Release:PreparedMonsterDamageServices
     {
         internal WorldServices World;
         internal Release(WorldServices world)=>World=world;
