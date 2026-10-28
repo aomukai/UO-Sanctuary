@@ -1,13 +1,13 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "95f331b07f34d0a2892fd78f13023b3bc53c253a6e86cf808090a44352ff0b42",
+  "ContentAssemblySha256": "b8d58fb45c75500af9c0142426579746538cb7beb72236d69968dc6441df55b0",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/alchemy-restoratives.json": "15d82f3a3c74aa7c6df41aaa1a6fe288c99364fbd77d6e1bc913880559790319",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "d2f2c978fa78919d6a45e471b494dfdf24a42e68f8fcdba5add7c4129ef2999e",
+    "data/Sanctuary/Balance/class-skill-status.json": "54f6c4d37f612eab6e5dc9a861db2c7ca84a4cfac2358f092b58a8ddf98c9846",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "cede42642ee40d8a141c370300f6f8caf2344fad5c60499131ec5bf3bd20248c",
@@ -491,6 +491,7 @@
     "src/Sanctuary.Content/GemSockets.cs": "b0cfa08c554468f986d4bbbff76f6e8c10ba09c81b837001bec074ab630fc992",
     "src/Sanctuary.Content/GemUpgradeGump.cs": "ea8d010d4e3b2f15a95ac9bcd3f969c3526acec343e6b66ee86eec88822d7f83",
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
+    "src/Sanctuary.Content/GenericPetDecisions.cs": "1dd5a119570f94eb75436e2b0f9f97f89821f485f7fa47dda5ab07642ab08847",
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
     "src/Sanctuary.Content/GlobalUsings.cs": "935c9f61673850542058ba06d42504fd5b329a00b53abed54d4c3913b3938435",
     "src/Sanctuary.Content/GoatmanPrepared.cs": "b1a589a7462a27922b584c6cbd68b95c03a861d794d64aa328a01edbaef59555",

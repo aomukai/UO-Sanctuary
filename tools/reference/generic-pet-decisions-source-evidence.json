@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current GenericPet root and follow policy",
+  "unicornVersion": "2.1.4",
+  "rootBytes": 781,
+  "followBytes": 748,
+  "rootCases": 12816,
+  "followCases": 46936,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "services": [
+    "Root initializer supplies declared parameters,target and state;owner lookup,event removal,distance,room lookup,follow,combat,idle and finish are explicit synthetic services. Finish mutates state before root copies it back. Dynamic temporary allocation is not exercised.",
+    "Follow distance and owner-moving predicate are supplied. Room-coordinate and region services have independent no-room/no-region/region controls. Final movement executor returns a supplied result. No actual movement,collision,combat or owner callback is certified."
+  ],
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-decisions-source-probe.json": "201d5ca3fd227c1cf493acbaaab4df02a859619f28b3e4fbf67a22e13e99d2ee",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part0.bin": "22f7134453614637aa262cb48728d755cbb9c087e042c53f0dac8552be5e169f",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part1.bin": "1b17e600a9db85fa5fa194ad5d2df374ae0471da7b14546ddae9742404411540",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part2.bin": "3d8f83731defc0a205e35329de8d5e097e489240627acd3171e23f42cf0465e9",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b2060-part3.bin": "5bd19b27993c1895118070c29604cd0c7aa2650f1e11e8b51a78fdf36da95b3d",
+    ".local/class-skills/warlock-runtime-reference/generic-helpers-actions.json": "f746ccce172fd99398fef4ff7a1a7584da1b58f32ac476c48ae2341b8e0b74f5",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part0.bin": "f9c8ff54f50e9b86c227f53914d63d08732e16a63e97bf25d6521281e61859bd",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part1.bin": "48b03a52240c21578c541c860d087b0a82907383c3bb6a09fee33c7dcafc85e2",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate-part2.bin": "2177079bfa917539c9ed2cb80108424b05525e77d084e84f60bcf9eb63d0fd38",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate.json": "b43a32d2254d96fd26345609543840d858e3532ccf4066a2183127882ddb4413",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  }
+}
