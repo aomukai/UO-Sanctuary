@@ -22,10 +22,10 @@
       673,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "inputInventory": {
     "sourceInputs": {
@@ -1048,6 +1048,11 @@
     ".local/class-skills/druid-rabies-lifecycle-source-probe.json": "b970f5fc492b641e51a719ec0d0e9854438a60e55f01e9f90a45b365bef487a6",
     ".local/class-skills/druid-rabies/named-item-runtime-audit.json": "5d206464ed5130c70591d1eb285b543db561dbbcb14395f0b87b081d9e52cfe7",
     ".local/class-skills/druid-rabies/first-loop-affix-audit.json": "32b777f38f4efdc03bf18d0b6a42ae2f278a6474c7848d36745cfcf050e35112",
+    ".local/class-skills/druid-rabies/full-named-item-runtime-audit.json": "5d206464ed5130c70591d1eb285b543db561dbbcb14395f0b87b081d9e52cfe7",
+    ".local/class-skills/druid-rabies/full-first-loop-affix-audit.json": "32b777f38f4efdc03bf18d0b6a42ae2f278a6474c7848d36745cfcf050e35112",
+    ".local/class-skills/druid-rabies/class-inputs.json": "c67ac331e7e47090b95dbe34a37b655b03b6f716740bfe11dd3e265ac759ef41",
+    ".local/class-skills/druid-rabies/class-native-checks.log": "f82f2e9736c41d23a2d20ac8b002b092f14977307ed075cf9d5868c4338d8823",
+    ".local/class-skills/druid-rabies/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_druid_rabies.py": "53a3f94d5027633545252d18202d63ed5f07f539107e4e70fe7e0b1ccbb9f9b5",
     "tests/check_druid_rabies.py": "9f89cafcdee92a424e2a66bbccab02f1e03c77d5da5b1b7d7d924c3d10519819",
     "tests/check_creeper_stats.py": "3f0916e7b85ecb74f18068ba261c47491b7063a395f14ebb4218781eef1b3dfd",
