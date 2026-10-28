@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "learnedHandlerEnabled": false,
+  "contexts": 144,
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865"
+  },
+  "compiledRoutineHashes": {
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_IsAnimModeBlocking": "7f5c5ee26f4eddb80954f602cc76b10ed3601489d8f810b685e138cf47abc08d",
+    "UNITS_IsAnimModeGetHit": "9274bc655b13019f29363f1dae3ca8e5cf475ad7c051db167a528829e0cf5d3f",
+    "UNITS_IsAnimModeKnockBack": "5fe8df87f461353e8c90ee13b92efc689969ade300436a5123964b1897a1961b",
+    "UNITS_CanAnimModeUseVelocityModifier": "e82b95369e08773a3daab3d21e8159559107ee66785cc26664b767c326df35d2",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_AnimModeAllowsAnimSpeed": "499c5c402bdc2f5eb3dffdfc38cd5f79d790b9dc54e71db2b165299d27a19279",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220",
+    "sub_6FC81890": "77066203168e24f55ae6eabdd2ed3c5e61d2e037fade4ee68f81a2a1e860f1a4"
+  },
+  "artifacts": {
+    "tools/probe_player_inferno_rate.py": "bbe0888fc75c652e58347b4eb3baace63105c5d9fe1a8e6cdf805dd1f69351b6",
+    ".local/class-skills/arctic-modes/rate-abi-base.cpp": "27feca3c4390b6b74652fb24e14879ecf8bb7653a829888d1eac32e99306a686",
+    ".local/class-skills/arctic-modes/player-inferno-rate.cpp": "89db0ca17a0146af49c808313a2b26d33d27ffb3375ffd19331f7e7255bc36ce",
+    ".local/class-skills/arctic-modes/rate-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/arctic-modes/rate-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/player-inferno-rate-source-probe.json": "80c756dcd4e7c29475d17eb9cb98a0a40ba25f6527af4c92dc4b60f4e0ca145d",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete ordinary SQ initialization,rate router/selected predicates/other writer and source scheduler retain sequence256/action10/end15for both SQ6andSQ18 across ordinary animation metadata/other-rate and0/75/200FCR controls. FCR item-stat service is never queried. Current seqtransSQ/useAttackRate0 select that route; other-rate changes pose speed,not sequence clock.",
+    "The full sub_6FC81890permission body is hash-bound but not executed by this rate matrix; its nonzero seqinput branch is not a threshold on elapsed sequence frames. Full packet/First-mode accepted reentry remains outside scope."
+  ],
+  "remaining": [
+    "Identity ConvertMode,ordinary player animation lookup and metadata are declared services. Morphs,full modern executable rate/input/payment cadence and native controller need separate acceptance. Nonselected rate writers reject execution."
+  ]
+}

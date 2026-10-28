@@ -112,7 +112,7 @@ public static class ClassCombat
                 ClassGear.Changed(from);
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
-                BladeFuryModes.EquipmentChanged(from);
+                BladeFuryModes.EquipmentChanged(from);DruidArcticModes.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
                 DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);DruidFury.EquipmentChanged(from);
@@ -243,7 +243,7 @@ public static class ClassCombat
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
-        BladeFuryModes.Interrupt(from);
+        BladeFuryModes.Interrupt(from);DruidArcticModes.Interrupt(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;

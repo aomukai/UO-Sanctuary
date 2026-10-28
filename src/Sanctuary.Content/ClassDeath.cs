@@ -30,7 +30,7 @@ public static class ClassDeath
         ChargedStrikeBolts.Cancel(player);
         AmazonJavelins.Cancel(player);
         BladeFuryMissiles.Cancel(player);
-        BladeFuryModes.Cancel(player);
+        BladeFuryModes.Cancel(player);DruidArcticModes.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
         ImpaleSlow.Clear(player);

@@ -13,7 +13,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 7 | Druid | 26 / 30 | 1 | 3 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
-Prepared Arctic Blast cold emissions now pass85checks over3boots/2real reloads,including4,590cold-producer and14,280factory controls per boot,three connected sequence-to-stream damage/chill/expiry runs and two overdue-reload no-replay checks. Existing player sequence and recycler checks are retained. Learned channel input/FCR/modern payment cadence and final assets remain open; see [stream evidence](../tools/reference/arctic-stream-native-evidence.json) and the current checkpoint. No class is complete.
+Prepared Arctic native mode plus its saved cold stream now pass96checks over3boots/2real reloads. The ordinary older-engine rate router/current SQ flags retain sequence256/action10/end15in144controls; connected timers verify live aim/rank,interruptions,damage/chill,expiry and disconnect cleanup. Raw held-input/reentry cadence,current executable rate/release and sustained mana drain remain gated; see [mode evidence](../tools/reference/arctic-modes-native-evidence.json),[stream evidence](../tools/reference/arctic-stream-native-evidence.json) and the current checkpoint. No class is complete.
 
 Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.
 
