@@ -67,7 +67,7 @@ def record(check=False):
         sourceArtifacts={**receipt['sourceArtifacts'], str(rawpath.relative_to(ROOT)):sha(rawpath),
             'tools/record_druid_shock_wave_installation.py':sha(Path(__file__).resolve())},
         installedArtifacts=receipt['installedArtifacts'],
-        remaining=[*native['remaining'], 'The installed package adds no final assets or class-completion certificate. Original-world server smoke does not establish graphical playtesting.'],
+        remaining=[*[x.replace('Original-world installation and complete-class acceptance remain separate.','Complete-class acceptance remains separate from this installed skill.') for x in native['remaining']], 'The installed package adds no final assets or class-completion certificate. Original-world server smoke does not establish graphical playtesting.'],
         next='Continue remaining Druid handlers:Arctic Blast,Fury,Poison Creeper,Carrion Vine,Solar Creeper. Earlier class gaps and Warlock remain in scope.')
     path = ROOT / 'tools/reference/druid-shock-wave-installation-evidence.json'
     rendered = json.dumps(result, indent=2) + '\n'
