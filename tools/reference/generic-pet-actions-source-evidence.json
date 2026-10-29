@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current GenericPet action/disposition/weighted-choice helpers",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "verified": {
+    "contexts": 18070,
+    "byKind": {
+      "disposition": 5446,
+      "act": 10512,
+      "weighted": 1056,
+      "composed": 1056
+    },
+    "machineCodeBytes": 1601,
+    "fatalBoundaries": 108,
+    "booleanReturnUpperWordControls": 6164
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-actions-source-probe.json": "5ead719a1981da10377a7548f71c845626ee80e76c8fb033145b285d865ad09f",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-disposition-20261029-4b2350-part0.bin": "b7243c0aabe7248ea031fa25add656c506f5499710ae2e180e181a20572ffe73",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-disposition-20261029.json": "bda9ca0f1e354a09cb239e86911d6c674c8b2dc03cad0c38a6c123cc82e57ea8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b54d0-part0.bin": "12b5c8a3733cc3a888c0d734c1ccc721e0364e9a1b5d0c49c6d25590a28835ea",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b56e0-part0.bin": "db83fa0e197e31163395942381f8982f2658256c14527c8280a71be17e4a265b",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029.json": "202d740541dad9026a96f3480baf1f1850e6c058357545648eeb72db1da57918",
+    "tools/probe_generic_pet_actions.py": "c37f23ccdd64fba4ee500903cd5ce7b90dee2375e69d45a30beec3a36f0673e0",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Range/collision,target metadata,mode/base execution,skill/monster rows,approach and skill selection are declared services. Their arguments,order and effects are compared;real world behavior is not inferred. The declared mode initializer supplies target/coordinates plus four opaque words,which the wrapper must preserve except the selected fields.",
+    "Boolean action/chooser results are consumed from AL by their captured callers;the disposition uses EAX. Unspecified upper bits are not a return value. Initial fixture register-width diagnostics remain preserved.",
+    "The disposition body executes as captured inside action;weighted composition executes all three captured helpers together. A separate weighted matrix uses declared action acceptance to isolate cumulative weights,edge sentinels,fallback retries and exact inline pet RNG. Null target on types5/11is an invalid source descriptor and excluded,rather than inventing a null guard. Dynamic allocation/reentrant vector resizing are not certified."
+  ],
+  "remaining": [
+    "Native policies and real AI integration remain required. Current gathering/rating/ordering,mode/skill effects,world metadata/geometry,full actor lifecycle and complete dispatch linkage are separate gaps. No learned demon or class completion is enabled."
+  ]
+}

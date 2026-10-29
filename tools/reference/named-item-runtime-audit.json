@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "16220db2f681aa50da598b144a9c5c61d0a1e36a2ae25ac335acc3aca62e40fa",
+  "ContentAssemblySha256": "1cb0a5312b45ee40077cb5b9115d3cce504f9ef94fc75ec054cb4d77afe218e5",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -500,6 +500,7 @@
     "src/Sanctuary.Content/GemSockets.cs": "b0cfa08c554468f986d4bbbff76f6e8c10ba09c81b837001bec074ab630fc992",
     "src/Sanctuary.Content/GemUpgradeGump.cs": "ea8d010d4e3b2f15a95ac9bcd3f969c3526acec343e6b66ee86eec88822d7f83",
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
+    "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCombat.cs": "2364d76ca78aa565ec846f6f1b1be631672c25395ecc56c2b3cf0e5c0e4c9021",
     "src/Sanctuary.Content/GenericPetDecisions.cs": "1dd5a119570f94eb75436e2b0f9f97f89821f485f7fa47dda5ab07642ab08847",
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
