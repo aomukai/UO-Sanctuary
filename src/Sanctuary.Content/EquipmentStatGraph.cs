@@ -3,8 +3,14 @@ using System;
 using System.Collections.Generic;
 namespace Sanctuary;
 
+internal static class EquipmentStatKey
+{
+    internal static uint Pack(int stat,int layer=0)
+    {if(stat is <0 or >65535||layer is <0 or >65535){throw new ArgumentOutOfRangeException();}return ((uint)stat<<16)|(uint)layer;}
+    internal static ushort Stat(uint packed)=>(ushort)(packed>>16);
+}
 internal readonly record struct EquipmentStatValue(uint Packed,int Value)
-{internal ushort Stat=>(ushort)Packed;}
+{internal ushort Stat=>EquipmentStatKey.Stat(Packed);}
 internal readonly record struct EquipmentStatCost(bool DamageRelated,bool AppliesToItem);
 internal sealed class EquipmentStatUnit(object entity,int kind)
 {
@@ -17,6 +23,7 @@ internal sealed class EquipmentStatNode
     internal const uint NewLength=2,TempOnly=4,Set=0x2000,Permanent=0x20000000,Dynamic=0x40000000,Extended=0x80000000;
     internal uint Flags;
     internal int State;
+    internal int OwnerKind=4;
     internal EquipmentStatValue[] BaseValues=[],FullValues=[];
     internal EquipmentStatNode Parent,Previous,Next,Last,Sets;
     internal EquipmentStatUnit Owner,Recipient;
@@ -43,7 +50,7 @@ internal static class EquipmentStatGraph
         var ids=new List<uint>();
         foreach(var value in node.FullValues){if(services.Cost(value.Stat) is{AppliesToItem:true}){ids.Add(value.Packed);}}
         if(ids.Count>16){throw new NotSupportedException("Source item-operation scratch capacity exceeded");}
-        foreach(uint id in ids){if(services.Cost((ushort)id)!=null){services.Recalculate(node,id);}}
+        foreach(uint id in ids){if(services.Cost(EquipmentStatKey.Stat(id))!=null){services.Recalculate(node,id);}}
     }
     internal static void Detach(EquipmentStatNode node,EquipmentStatServices services)
     {

@@ -54,7 +54,7 @@ public static class IronGolemItems
         var original=Equipment(pet,sourceRecipientLevel).Item;
         ArgumentNullException.ThrowIfNull(recipientBase);ArgumentNullException.ThrowIfNull(itemBase);ArgumentNullException.ThrowIfNull(itemFull);
         var recipient=new EquipmentStatUnit(pet,1);var held=new EquipmentStatUnit(original,4);
-        recipient.Stats=new(){Flags=EquipmentStatNode.Extended,Owner=recipient,BaseValues=(EquipmentStatValue[])recipientBase.Clone(),FullValues=(EquipmentStatValue[])recipientBase.Clone()};
+        recipient.Stats=new(){Flags=EquipmentStatNode.Extended,OwnerKind=1,Owner=recipient,BaseValues=(EquipmentStatValue[])recipientBase.Clone(),FullValues=(EquipmentStatValue[])recipientBase.Clone()};
         held.Stats=new(){Flags=EquipmentStatNode.Extended,Owner=held,BaseValues=(EquipmentStatValue[])itemBase.Clone(),FullValues=(EquipmentStatValue[])itemFull.Clone()};
         return(recipient,held);
     }

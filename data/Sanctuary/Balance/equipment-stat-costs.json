@@ -1,0 +1,8032 @@
+[
+  {
+    "Id": 0,
+    "Name": "strength",
+    "Flags": 1024,
+    "KeepZero": false,
+    "Minimum": 1,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 220,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 274,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 1,
+    "Name": "energy",
+    "Flags": 1184,
+    "KeepZero": false,
+    "Minimum": 1,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 8,
+    "Parameter": 0,
+    "Targets": [
+      9,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 222,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 276,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "Name": "dexterity",
+    "Flags": 1024,
+    "KeepZero": false,
+    "Minimum": 1,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 221,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 275,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "vitality",
+    "Flags": 1376,
+    "KeepZero": false,
+    "Minimum": 1,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 9,
+    "Parameter": 0,
+    "Targets": [
+      7,
+      11,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 223,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 277,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "statpts",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 5,
+    "Name": "newskills",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 6,
+    "Name": "hitpoints",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 7,
+    "Name": "maxhp",
+    "Flags": 3072,
+    "KeepZero": false,
+    "Minimum": 1,
+    "Shift": 8,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 9,
+        "Stat": 3,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 11,
+        "Stat": 76,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 2,
+        "Stat": 216,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 270,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 8,
+    "Name": "mana",
+    "Flags": 0,
+    "KeepZero": true,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 9,
+    "Name": "maxmana",
+    "Flags": 3072,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 8,
+        "Stat": 1,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 11,
+        "Stat": 77,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 2,
+        "Stat": 217,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 271,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 10,
+    "Name": "stamina",
+    "Flags": 0,
+    "KeepZero": true,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 11,
+    "Name": "maxstamina",
+    "Flags": 3072,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 9,
+        "Stat": 3,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 1,
+        "Stat": 162,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 1,
+        "Stat": 163,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 2,
+        "Stat": 242,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 295,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 12,
+    "Name": "level",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      232,
+      233,
+      234,
+      235,
+      236,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      247,
+      248,
+      249,
+      250,
+      365
+    ],
+    "Operations": []
+  },
+  {
+    "Id": 13,
+    "Name": "experience",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 14,
+    "Name": "gold",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 15,
+    "Name": "goldbank",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 16,
+    "Name": "item_armor_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 13,
+    "Parameter": 0,
+    "Targets": [
+      31,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 17,
+    "Name": "item_maxdamage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 13,
+    "Parameter": 0,
+    "Targets": [
+      22,
+      24,
+      160
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 18,
+    "Name": "item_mindamage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 13,
+    "Parameter": 0,
+    "Targets": [
+      21,
+      23,
+      159
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 19,
+    "Name": "tohit",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 224,
+        "Base": 12,
+        "Parameter": 1
+      },
+      {
+        "Operation": 6,
+        "Stat": 278,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 20,
+    "Name": "toblock",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 21,
+    "Name": "mindamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 18,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 22,
+    "Name": "maxdamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 17,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 4,
+        "Stat": 218,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 5,
+        "Stat": 219,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 272,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 7,
+        "Stat": 273,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 23,
+    "Name": "secondary_mindamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 18,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 7,
+        "Stat": 273,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 24,
+    "Name": "secondary_maxdamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 17,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 4,
+        "Stat": 218,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 5,
+        "Stat": 219,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 272,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 25,
+    "Name": "damagepercent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 26,
+    "Name": "manarecovery",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 27,
+    "Name": "manarecoverybonus",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 28,
+    "Name": "staminarecoverybonus",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 241,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 294,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 29,
+    "Name": "lastexp",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 30,
+    "Name": "nextexp",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 31,
+    "Name": "armorclass",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 16,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 4,
+        "Stat": 214,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 5,
+        "Stat": 215,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 268,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 7,
+        "Stat": 269,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 32,
+    "Name": "armorclass_vs_missile",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 33,
+    "Name": "armorclass_vs_hth",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 34,
+    "Name": "normal_damage_reduction",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 35,
+    "Name": "magic_damage_reduction",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 36,
+    "Name": "damageresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 37,
+    "Name": "magicresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 38,
+    "Name": "maxmagicresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 39,
+    "Name": "fireresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 231,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 285,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 40,
+    "Name": "maxfireresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 41,
+    "Name": "lightresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 232,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 286,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 42,
+    "Name": "maxlightresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 43,
+    "Name": "coldresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 230,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 284,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 44,
+    "Name": "maxcoldresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 45,
+    "Name": "poisonresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 233,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 287,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 46,
+    "Name": "maxpoisonresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 47,
+    "Name": "damageaura",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 48,
+    "Name": "firemindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 49,
+    "Name": "firemaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 227,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 281,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 50,
+    "Name": "lightmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 51,
+    "Name": "lightmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 228,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 282,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 52,
+    "Name": "magicmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 53,
+    "Name": "magicmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 365,
+        "Base": 12,
+        "Parameter": 3
+      }
+    ]
+  },
+  {
+    "Id": 54,
+    "Name": "coldmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 55,
+    "Name": "coldmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 226,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 280,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 56,
+    "Name": "coldlength",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 57,
+    "Name": "poisonmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 58,
+    "Name": "poisonmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 229,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 283,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 59,
+    "Name": "poisonlength",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 60,
+    "Name": "lifedrainmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 61,
+    "Name": "lifedrainmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 62,
+    "Name": "manadrainmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 63,
+    "Name": "manadrainmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 64,
+    "Name": "stamdrainmindam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 65,
+    "Name": "stamdrainmaxdam",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 66,
+    "Name": "stunlength",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 67,
+    "Name": "velocitypercent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 68,
+    "Name": "attackrate",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 69,
+    "Name": "other_animrate",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 70,
+    "Name": "quantity",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 71,
+    "Name": "value",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 72,
+    "Name": "durability",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 73,
+    "Name": "maxdurability",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 75,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 74,
+    "Name": "hpregen",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 75,
+    "Name": "item_maxdurability_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 13,
+    "Parameter": 0,
+    "Targets": [
+      73,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 76,
+    "Name": "item_maxhp_percent",
+    "Flags": 96,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 11,
+    "Parameter": 0,
+    "Targets": [
+      7,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 77,
+    "Name": "item_maxmana_percent",
+    "Flags": 160,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 11,
+    "Parameter": 0,
+    "Targets": [
+      9,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 78,
+    "Name": "item_attackertakesdamage",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 238,
+        "Base": 12,
+        "Parameter": 3
+      }
+    ]
+  },
+  {
+    "Id": 79,
+    "Name": "item_goldbonus",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 239,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 292,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 80,
+    "Name": "item_magicbonus",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 240,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 293,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 81,
+    "Name": "item_knockback",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 82,
+    "Name": "item_timeduration",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 83,
+    "Name": "item_addclassskills",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 84,
+    "Name": "unsentparam1",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 85,
+    "Name": "item_addexperience",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 86,
+    "Name": "item_healafterkill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 87,
+    "Name": "item_reducedprices",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 88,
+    "Name": "item_doubleherbduration",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 89,
+    "Name": "item_lightradius",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 90,
+    "Name": "item_lightcolor",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 91,
+    "Name": "item_req_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 92,
+    "Name": "item_levelreq",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 94,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 93,
+    "Name": "item_fasterattackrate",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 94,
+    "Name": "item_levelreqpct",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 13,
+    "Parameter": 0,
+    "Targets": [
+      92,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 95,
+    "Name": "lastblockframe",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 96,
+    "Name": "item_fastermovevelocity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 97,
+    "Name": "item_nonclassskill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 98,
+    "Name": "state",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 99,
+    "Name": "item_fastergethitrate",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 100,
+    "Name": "monster_playercount",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 101,
+    "Name": "skill_poison_override_length",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 102,
+    "Name": "item_fasterblockrate",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 103,
+    "Name": "skill_bypass_undead",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 104,
+    "Name": "skill_bypass_demons",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 105,
+    "Name": "item_fastercastrate",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 106,
+    "Name": "skill_bypass_beasts",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 107,
+    "Name": "item_singleskill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 108,
+    "Name": "item_restinpeace",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 109,
+    "Name": "curse_resistance",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 110,
+    "Name": "item_poisonlengthresist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 111,
+    "Name": "item_normaldamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 112,
+    "Name": "item_howl",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 113,
+    "Name": "item_stupidity",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 114,
+    "Name": "item_damagetomana",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 115,
+    "Name": "item_ignoretargetac",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 116,
+    "Name": "item_fractionaltargetac",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 117,
+    "Name": "item_preventheal",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 118,
+    "Name": "item_halffreezeduration",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 119,
+    "Name": "item_tohit_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 225,
+        "Base": 12,
+        "Parameter": 1
+      },
+      {
+        "Operation": 6,
+        "Stat": 279,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 120,
+    "Name": "item_damagetargetac",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 121,
+    "Name": "item_demondamage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 243,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 296,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 122,
+    "Name": "item_undeaddamage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 244,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 297,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 123,
+    "Name": "item_demon_tohit",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 245,
+        "Base": 12,
+        "Parameter": 1
+      },
+      {
+        "Operation": 6,
+        "Stat": 298,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 124,
+    "Name": "item_undead_tohit",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 246,
+        "Base": 12,
+        "Parameter": 1
+      },
+      {
+        "Operation": 6,
+        "Stat": 299,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 125,
+    "Name": "item_throwable",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 126,
+    "Name": "item_elemskill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 127,
+    "Name": "item_allskills",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 128,
+    "Name": "item_attackertakeslightdamage",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 129,
+    "Name": "ironmaiden_level",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 130,
+    "Name": "lifetap_level",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 131,
+    "Name": "thorns_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 132,
+    "Name": "bonearmor",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 133,
+    "Name": "bonearmormax",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 134,
+    "Name": "item_freeze",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 135,
+    "Name": "item_openwounds",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 248,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 301,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 136,
+    "Name": "item_crushingblow",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 247,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 300,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 137,
+    "Name": "item_kickdamage",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 249,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 302,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 138,
+    "Name": "item_manaafterkill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 139,
+    "Name": "item_healafterdemonkill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 140,
+    "Name": "item_extrablood",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 141,
+    "Name": "item_deadlystrike",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 250,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 303,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 142,
+    "Name": "item_absorbfire_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 143,
+    "Name": "item_absorbfire",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 235,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 289,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 144,
+    "Name": "item_absorblight_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 145,
+    "Name": "item_absorblight",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 236,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 290,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 146,
+    "Name": "item_absorbmagic_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 147,
+    "Name": "item_absorbmagic",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 237,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 291,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 148,
+    "Name": "item_absorbcold_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 149,
+    "Name": "item_absorbcold",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 2,
+        "Stat": 234,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 288,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 150,
+    "Name": "item_slow",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 151,
+    "Name": "item_aura",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 152,
+    "Name": "item_indesctructible",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 153,
+    "Name": "item_cannotbefrozen",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 154,
+    "Name": "item_staminadrainpct",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 155,
+    "Name": "item_reanimate",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 156,
+    "Name": "item_pierce",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 157,
+    "Name": "item_magicarrow",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 158,
+    "Name": "item_explosivearrow",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 159,
+    "Name": "item_throw_mindamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 18,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 7,
+        "Stat": 273,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 160,
+    "Name": "item_throw_maxdamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": true,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": [
+      {
+        "Operation": 13,
+        "Stat": 17,
+        "Base": 65535,
+        "Parameter": 0
+      },
+      {
+        "Operation": 4,
+        "Stat": 218,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 5,
+        "Stat": 219,
+        "Base": 12,
+        "Parameter": 3
+      },
+      {
+        "Operation": 6,
+        "Stat": 272,
+        "Base": 65535,
+        "Parameter": 0
+      }
+    ]
+  },
+  {
+    "Id": 161,
+    "Name": "skill_handofathena",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 162,
+    "Name": "skill_staminapercent",
+    "Flags": 288,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 1,
+    "Parameter": 0,
+    "Targets": [
+      11,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 163,
+    "Name": "skill_passive_staminapercent",
+    "Flags": 288,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 1,
+    "Parameter": 0,
+    "Targets": [
+      11,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 164,
+    "Name": "skill_concentration",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 165,
+    "Name": "skill_enchant",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 166,
+    "Name": "skill_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 167,
+    "Name": "skill_conviction",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 168,
+    "Name": "skill_chillingarmor",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 169,
+    "Name": "skill_frenzy",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 170,
+    "Name": "skill_decrepify",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 171,
+    "Name": "skill_armor_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 172,
+    "Name": "alignment",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 173,
+    "Name": "target0",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 174,
+    "Name": "target1",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 175,
+    "Name": "goldlost",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 176,
+    "Name": "conversion_level",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 177,
+    "Name": "conversion_maxhp",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 178,
+    "Name": "unit_dooverlay",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 179,
+    "Name": "attack_vs_montype",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 180,
+    "Name": "damage_vs_montype",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 181,
+    "Name": "fade",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 182,
+    "Name": "armor_override_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 183,
+    "Name": "lasthitreactframe",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 184,
+    "Name": "create_season",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 185,
+    "Name": "bonus_mindamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 186,
+    "Name": "bonus_maxdamage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 187,
+    "Name": "item_pierce_cold_immunity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 188,
+    "Name": "item_addskill_tab",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 189,
+    "Name": "item_pierce_fire_immunity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 190,
+    "Name": "item_pierce_light_immunity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 191,
+    "Name": "item_pierce_poison_immunity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 192,
+    "Name": "item_pierce_damage_immunity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 193,
+    "Name": "item_pierce_magic_immunity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 194,
+    "Name": "item_numsockets",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 195,
+    "Name": "item_skillonattack",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 196,
+    "Name": "item_skillonkill",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 197,
+    "Name": "item_skillondeath",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 198,
+    "Name": "item_skillonhit",
+    "Flags": 2052,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 199,
+    "Name": "item_skillonlevelup",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 200,
+    "Name": "item_charge_noconsume",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 201,
+    "Name": "item_skillongethit",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 202,
+    "Name": "modifierlist_castid",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 203,
+    "Name": "passive_mastery_item_req_percent",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 204,
+    "Name": "item_charged_skill",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 205,
+    "Name": "item_noconsume",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 206,
+    "Name": "passive_mastery_noconsume",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 207,
+    "Name": "passive_mastery_replenish_oncrit",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 208,
+    "Name": "missile_thorns_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 209,
+    "Name": "passive_mastery_item_level_req_percent",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 210,
+    "Name": "ua_escalation",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 211,
+    "Name": "ua_defeated",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 212,
+    "Name": "passive_mastery_gethit_rate",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 213,
+    "Name": "passive_mastery_attack_speed",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 214,
+    "Name": "item_armor_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": true,
+    "Operation": 4,
+    "Parameter": 3,
+    "Targets": [
+      31,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 215,
+    "Name": "item_armorpercent_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": true,
+    "Operation": 5,
+    "Parameter": 3,
+    "Targets": [
+      31,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 216,
+    "Name": "item_hp_perlevel",
+    "Flags": 96,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      7,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 217,
+    "Name": "item_mana_perlevel",
+    "Flags": 160,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 8,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      9,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 218,
+    "Name": "item_maxdamage_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": true,
+    "Operation": 4,
+    "Parameter": 3,
+    "Targets": [
+      22,
+      24,
+      160
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 219,
+    "Name": "item_maxdamage_percent_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": true,
+    "Operation": 5,
+    "Parameter": 3,
+    "Targets": [
+      22,
+      24,
+      160
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 220,
+    "Name": "item_strength_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      0,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 221,
+    "Name": "item_dexterity_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      2,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 222,
+    "Name": "item_energy_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      1,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 223,
+    "Name": "item_vitality_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      3,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 224,
+    "Name": "item_tohit_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 1,
+    "Targets": [
+      19,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 225,
+    "Name": "item_tohitpercent_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 1,
+    "Targets": [
+      119,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 226,
+    "Name": "item_cold_damagemax_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      55,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 227,
+    "Name": "item_fire_damagemax_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      49,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 228,
+    "Name": "item_ltng_damagemax_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      51,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 229,
+    "Name": "item_pois_damagemax_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      58,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 230,
+    "Name": "item_resist_cold_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      43,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 231,
+    "Name": "item_resist_fire_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      39,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 232,
+    "Name": "item_resist_ltng_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      41,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 233,
+    "Name": "item_resist_pois_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      45,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 234,
+    "Name": "item_absorb_cold_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      149,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 235,
+    "Name": "item_absorb_fire_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      143,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 236,
+    "Name": "item_absorb_ltng_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      145,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 237,
+    "Name": "item_absorb_pois_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      147,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 238,
+    "Name": "item_thorns_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      78,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 239,
+    "Name": "item_find_gold_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      79,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 240,
+    "Name": "item_find_magic_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      80,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 241,
+    "Name": "item_regenstamina_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      28,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 242,
+    "Name": "item_stamina_perlevel",
+    "Flags": 288,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      11,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 243,
+    "Name": "item_damage_demon_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      121,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 244,
+    "Name": "item_damage_undead_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      122,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 245,
+    "Name": "item_tohit_demon_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 1,
+    "Targets": [
+      123,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 246,
+    "Name": "item_tohit_undead_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 1,
+    "Targets": [
+      124,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 247,
+    "Name": "item_crushingblow_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      136,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 248,
+    "Name": "item_openwounds_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      135,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 249,
+    "Name": "item_kick_damage_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      137,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 250,
+    "Name": "item_deadlystrike_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      141,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 251,
+    "Name": "item_find_gems_perlevel",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 252,
+    "Name": "item_replenish_durability",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 253,
+    "Name": "item_replenish_quantity",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 254,
+    "Name": "item_extra_stack",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 255,
+    "Name": "item_find_item",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 256,
+    "Name": "item_slash_damage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 257,
+    "Name": "item_slash_damage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 258,
+    "Name": "item_crush_damage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 259,
+    "Name": "item_crush_damage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 260,
+    "Name": "item_thrust_damage",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 261,
+    "Name": "item_thrust_damage_percent",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 262,
+    "Name": "item_absorb_slash",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 263,
+    "Name": "item_absorb_crush",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 264,
+    "Name": "item_absorb_thrust",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 265,
+    "Name": "item_absorb_slash_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 266,
+    "Name": "item_absorb_crush_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 267,
+    "Name": "item_absorb_thrust_percent",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 268,
+    "Name": "item_armor_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      31,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 269,
+    "Name": "item_armorpercent_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 7,
+    "Parameter": 0,
+    "Targets": [
+      31,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 270,
+    "Name": "item_hp_bytime",
+    "Flags": 96,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      7,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 271,
+    "Name": "item_mana_bytime",
+    "Flags": 160,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      9,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 272,
+    "Name": "item_maxdamage_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      22,
+      24,
+      160
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 273,
+    "Name": "item_maxdamage_percent_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 7,
+    "Parameter": 0,
+    "Targets": [
+      22,
+      23,
+      159
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 274,
+    "Name": "item_strength_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      0,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 275,
+    "Name": "item_dexterity_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      2,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 276,
+    "Name": "item_energy_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      1,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 277,
+    "Name": "item_vitality_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      3,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 278,
+    "Name": "item_tohit_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      19,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 279,
+    "Name": "item_tohitpercent_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      119,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 280,
+    "Name": "item_cold_damagemax_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      55,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 281,
+    "Name": "item_fire_damagemax_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      49,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 282,
+    "Name": "item_ltng_damagemax_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      51,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 283,
+    "Name": "item_pois_damagemax_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      58,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 284,
+    "Name": "item_resist_cold_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      43,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 285,
+    "Name": "item_resist_fire_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      39,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 286,
+    "Name": "item_resist_ltng_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      41,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 287,
+    "Name": "item_resist_pois_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      45,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 288,
+    "Name": "item_absorb_cold_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      149,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 289,
+    "Name": "item_absorb_fire_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      143,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 290,
+    "Name": "item_absorb_ltng_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      145,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 291,
+    "Name": "item_absorb_pois_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      147,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 292,
+    "Name": "item_find_gold_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      79,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 293,
+    "Name": "item_find_magic_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      80,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 294,
+    "Name": "item_regenstamina_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      28,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 295,
+    "Name": "item_stamina_bytime",
+    "Flags": 288,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      11,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 296,
+    "Name": "item_damage_demon_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      121,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 297,
+    "Name": "item_damage_undead_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      122,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 298,
+    "Name": "item_tohit_demon_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      123,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 299,
+    "Name": "item_tohit_undead_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      124,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 300,
+    "Name": "item_crushingblow_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      136,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 301,
+    "Name": "item_openwounds_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      135,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 302,
+    "Name": "item_kick_damage_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      137,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 303,
+    "Name": "item_deadlystrike_bytime",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 6,
+    "Parameter": 0,
+    "Targets": [
+      141,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 304,
+    "Name": "item_find_gems_bytime",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 305,
+    "Name": "item_pierce_cold",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 306,
+    "Name": "item_pierce_fire",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 307,
+    "Name": "item_pierce_ltng",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 308,
+    "Name": "item_pierce_pois",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 309,
+    "Name": "item_damage_vs_monster",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 310,
+    "Name": "item_damage_percent_vs_monster",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 311,
+    "Name": "item_tohit_vs_monster",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 312,
+    "Name": "item_tohit_percent_vs_monster",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 313,
+    "Name": "item_ac_vs_monster",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 314,
+    "Name": "item_ac_percent_vs_monster",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 315,
+    "Name": "firelength",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 316,
+    "Name": "burningmin",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 317,
+    "Name": "burningmax",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 318,
+    "Name": "progressive_damage",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 319,
+    "Name": "progressive_steal",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 320,
+    "Name": "progressive_other",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 321,
+    "Name": "progressive_fire",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 322,
+    "Name": "progressive_cold",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 323,
+    "Name": "progressive_lightning",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 324,
+    "Name": "item_extra_charges",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 325,
+    "Name": "progressive_tohit",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 326,
+    "Name": "poison_count",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 327,
+    "Name": "damage_framerate",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 328,
+    "Name": "pierce_idx",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 329,
+    "Name": "passive_fire_mastery",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 330,
+    "Name": "passive_ltng_mastery",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 331,
+    "Name": "passive_cold_mastery",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 332,
+    "Name": "passive_pois_mastery",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 333,
+    "Name": "passive_fire_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 334,
+    "Name": "passive_ltng_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 335,
+    "Name": "passive_cold_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 336,
+    "Name": "passive_pois_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 337,
+    "Name": "passive_critical_strike",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 338,
+    "Name": "passive_dodge",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 339,
+    "Name": "passive_avoid",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 340,
+    "Name": "passive_evade",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 341,
+    "Name": "passive_warmth",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 342,
+    "Name": "passive_mastery_melee_th",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 343,
+    "Name": "passive_mastery_melee_dmg",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 344,
+    "Name": "passive_mastery_melee_crit",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 345,
+    "Name": "passive_mastery_throw_th",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 346,
+    "Name": "passive_mastery_throw_dmg",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 347,
+    "Name": "passive_mastery_throw_crit",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 348,
+    "Name": "passive_weaponblock",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 349,
+    "Name": "passive_summon_resist",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 350,
+    "Name": "modifierlist_skill",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 351,
+    "Name": "modifierlist_level",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 352,
+    "Name": "last_sent_hp_pct",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 353,
+    "Name": "source_unit_type",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 354,
+    "Name": "source_unit_id",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 355,
+    "Name": "shortparam1",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 356,
+    "Name": "questitemdifficulty",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 357,
+    "Name": "passive_mag_mastery",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 358,
+    "Name": "passive_mag_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 359,
+    "Name": "skill_cooldown",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 360,
+    "Name": "skill_missile_damage_scale",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 361,
+    "Name": "psychicward",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 362,
+    "Name": "psychicwardmax",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 363,
+    "Name": "skill_channeling_tick",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 364,
+    "Name": "customization_index",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 365,
+    "Name": "item_magic_damagemax_perlevel",
+    "Flags": 4,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": true,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 2,
+    "Parameter": 3,
+    "Targets": [
+      53,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 366,
+    "Name": "passive_dmg_pierce",
+    "Flags": 0,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  },
+  {
+    "Id": 367,
+    "Name": "heraldtier",
+    "Flags": 2048,
+    "KeepZero": false,
+    "Minimum": 0,
+    "Shift": 0,
+    "BaseOfOther": false,
+    "HasOperations": false,
+    "AppliesToItem": false,
+    "Operation": 0,
+    "Parameter": 0,
+    "Targets": [
+      65535,
+      65535,
+      65535
+    ],
+    "Dependents": [],
+    "Operations": []
+  }
+]

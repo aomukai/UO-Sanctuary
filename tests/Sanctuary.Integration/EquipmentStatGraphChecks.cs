@@ -15,6 +15,8 @@ public static class EquipmentStatGraphChecks
     private static string Manifest=>Path.Join(Core.BaseDirectory,"item-stat-attachment-fixtures.json");
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private sealed record Saved(uint Owner,uint Pet,uint Item,string Gear,int Life256,int Defense,int ItemLife256,int ItemDefense,int ItemMaximum);
+    // The frozen attachment proof uses abstract IDs0/1/2; translate only its
+    // trace keys while exercising canonical native packed keys here.
     private sealed class Fixture:EquipmentStatServices
     {
         internal EquipmentStatUnit A,B,Item;internal EquipmentStatNode Node;internal int Body;
@@ -22,15 +24,15 @@ public static class EquipmentStatGraphChecks
         private static int Id(EquipmentStatUnit unit)=>unit==null?0:(int)unit.Entity;
         internal override int BodyLocation(EquipmentStatUnit u){Trace.Add([1,Id(u),Body,0,0]);return Body;}
         internal override EquipmentStatCost? Cost(ushort id)=>id<3?new(id!=0,id==2):null;
-        internal override void Recalculate(EquipmentStatNode n,uint id)=>Trace.Add([2,Id(n.Recipient),(int)id,0,0]);
+        internal override void Recalculate(EquipmentStatNode n,uint id)=>Trace.Add([2,Id(n.Recipient),(int)EquipmentStatKey.Stat(id),0,0]);
         internal override void Propagate(EquipmentStatNode n,uint id,int value,EquipmentStatUnit owner)
-        {int target=n==A.Stats?1:2;Sums[target,id]+=value;Trace.Add([3,target,(int)id,value,Id(owner)]);}
+        {int target=n==A.Stats?1:2;Sums[target,EquipmentStatKey.Stat(id)]+=value;Trace.Add([3,target,(int)EquipmentStatKey.Stat(id),value,Id(owner)]);}
         internal Fixture(int[] i)
         {
             A=new(1,1){Stats=new(){Flags=i[5]!=0?EquipmentStatNode.Extended:0}};B=new(2,1){Stats=new(){Flags=EquipmentStatNode.Extended}};Item=new(29,i[0]);Body=i[1];
             A.Stats.Owner=A;B.Stats.Owner=B;
             uint flags=(i[6]!=0?EquipmentStatNode.Extended:0)|(i[8]%2!=0?EquipmentStatNode.Set:0)|((i[8]&2)!=0?EquipmentStatNode.Dynamic:0)|((i[8]&4)!=0?EquipmentStatNode.Permanent:0)|((i[8]&8)!=0?EquipmentStatNode.TempOnly:0);
-            Node=new(){Flags=flags,State=13,Owner=Item,BaseValues=[new(0,10),new(1,20),new(2,30)],FullValues=[new(0,12),new(1,24),new(2,36)]};
+            Node=new(){Flags=flags,State=13,Owner=Item,BaseValues=[new(EquipmentStatKey.Pack(0),10),new(EquipmentStatKey.Pack(1),20),new(EquipmentStatKey.Pack(2),30)],FullValues=[new(EquipmentStatKey.Pack(0),12),new(EquipmentStatKey.Pack(1),24),new(EquipmentStatKey.Pack(2),36)]};
             Node.Removed=(u,state,n)=>Trace.Add([4,Id(u),state,n.Parent!=null?1:0,n.Recipient!=null?1:0]);if(i[4]!=0){Item.Stats=Node;}
             if(i[7]!=0)
             {
@@ -74,19 +76,19 @@ public static class EquipmentStatGraphChecks
         internal override EquipmentStatCost? Cost(ushort id)=>id switch{7 or 31=>new(false,false),22=>new(true,false),_=>throw new NotSupportedException("Undeclared fixture stat")};
         internal override void Recalculate(EquipmentStatNode n,uint id)=>throw new NotSupportedException("No numeric operation-recalculation service in this adapter fixture");
         internal override void Propagate(EquipmentStatNode n,uint id,int delta,EquipmentStatUnit source)
-        {Require(n==Root&&source.Entity==Original,"Delta lost recipient or original owner");Totals[id]=checked(Totals.GetValueOrDefault(id)+delta);Updates++;}
+        {Require(n==Root&&source.Entity==Original,"Delta lost recipient or original owner");uint stat=EquipmentStatKey.Stat(id);Totals[stat]=checked(Totals.GetValueOrDefault(stat)+delta);Updates++;}
     }
     private static Saved Exercise(BaseCreature pet,Item item)
     {
         var c=IronGolemItems.Equipment(pet,37);int life=SkillHealth.Balance256(pet),defense=ClassStats.Defense(pet);
         string gear=JsonSerializer.Serialize(ClassGear.State(item));object parent=item.Parent;
-        EquipmentStatValue[] basis=[new(7,life),new(31,defense),new(22,0)];
-        EquipmentStatValue[] full=[new(7,c.LifeBonus256),new(31,c.Defense),new(22,c.WeaponDamage.Max)];
+        EquipmentStatValue[] basis=[new(EquipmentStatKey.Pack(7),life),new(EquipmentStatKey.Pack(31),defense),new(EquipmentStatKey.Pack(22),0)];
+        EquipmentStatValue[] full=[new(EquipmentStatKey.Pack(7),c.LifeBonus256),new(EquipmentStatKey.Pack(31),c.Defense),new(EquipmentStatKey.Pack(22),c.WeaponDamage.Max)];
         var units=IronGolemItems.StatUnits(pet,37,basis,[],full);var node=units.Item.Stats;
         Require(units.Recipient.Entity==pet&&units.Item.Entity==item&&node.Owner==units.Item,"Native wrappers substituted original entities");
-        var service=new NativeServices{Root=units.Recipient.Stats,Original=item};foreach(var v in basis){service.Totals.Add(v.Packed,v.Value);}
+        var service=new NativeServices{Root=units.Recipient.Stats,Original=item};foreach(var v in basis){service.Totals.Add(v.Stat,v.Value);}
         // Inputs are copied; later caller edits must not mutate a posted list.
-        basis[0]=new(7,-1);full[0]=new(7,-1);
+        basis[0]=new(EquipmentStatKey.Pack(7),-1);full[0]=new(EquipmentStatKey.Pack(7),-1);
         Require(units.Recipient.Stats.FullValues[0].Value==life&&node.FullValues[0].Value==c.LifeBonus256,"Stat arrays alias caller input");
         node.Removed=(u,state,n)=>{Require(u.Entity==pet&&n.Parent==null&&n.Recipient==null&&n.Previous==null&&n.Next==null,"Removal callback saw linked original");service.Removed++;};
         void Totals(bool attached,bool damage)

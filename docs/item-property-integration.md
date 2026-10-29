@@ -29,6 +29,11 @@ The prepared original-item reader now takes an explicit recipient level for ordi
 The prepared C# graph matches the source posting/removal/owner/damage-toggle policy over 12,288 contexts and exact ordered service traces. An explicit adapter wraps actual bound original items and recipients, copies caller-supplied stat arrays and requires recalculation/propagation services. Native original armor/sword fixtures pass attachment, repeat, damage toggle and removal before and after two world reloads. Their aggregate is deliberately a fixture service; no live NPC life/defense/damage setter or automatic full-stat projection is certified. The transient graph is not serialized or replayed. Multi-item ordering, cycles, reentrancy, real recipient-level mapping and complete stat operations remain unfinished. See [scoped attachment acceptance](../tools/reference/item-stat-attachment-native-evidence.json).
 
 
+## Numeric stat graph
+
+The prepared numeric service now supplies recursive queries, dependency recalculation, propagation and base setters to the ownership graph. Source-assembled metadata covers 368 rows; 4,784 fields and every row ordinal match the owned build. Native results match 105,984 queries and 480 six-stage update cases from 23 complete source routines, including layered keys and value-change callbacks. Actual original armor/sword suppliers enter and leave transient numeric graphs before and after two reloads. The item projection is still explicitly supplied, with no live NPC stat setter or automatic graph replay. Player ModStats registration and world-time/class mapping remain outside the NPC adapter. By-time arithmetic is source-verified under declared clock angles; the world-time item consumer is still unfinished. See [numeric graph acceptance](../tools/reference/item-stat-values-native-evidence.json).
+
+
 ## Exact ordinary-affix gap in the current Valkyrie pool
 
 | Source property code | Affixes containing the gap | Existing named registration |
