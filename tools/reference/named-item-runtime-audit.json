@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f3b4dee55f4736e1b36ec0153e3be0201c9da349d8b99204126b6347bee5b05f",
+  "ContentAssemblySha256": "3a9fa57b2299506bd90a201f24fd75cdf7d3bf24b9a4b2cb3418653343e3fad6",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -53,6 +53,8 @@
     "data/Sanctuary/Balance/gear-drops-nightmare.json": "eabac4f65e772392731a640e57e2cafd9783156138867e65a6aed0450d293711",
     "data/Sanctuary/Balance/gear-drops.json": "d8bd6dbb945883f502056129740b122602e18651909783a6847af6ea5a05fd8e",
     "data/Sanctuary/Balance/generic-pet-parameters.json": "279df12b94ef257f9c90f33ce718118badcd52ec7985adc0ecc02899da69b704",
+    "data/Sanctuary/Balance/generic-pet-search-levels.json": "4c8d8a059fb67b08726357d5aa9093bb24a2b422db83d8a328d60104a91138a2",
+    "data/Sanctuary/Balance/generic-pet-search-monsters.json": "980afedac2ca0bc0deef9a96a1723e3b9de299a6f8ec737ec86f50b59a6b4170",
     "data/Sanctuary/Balance/generic-pet-skills.json": "8bcdf23f251dbf0322fc52a27926b1a61dcb0a199838e15eb4f1f3a4aa3f3f20",
     "data/Sanctuary/Balance/generic-pet-states.json": "07a8256015a8a391075cd7f0d76b30cd8000c9b10be9d873ea80778153a09ed5",
     "data/Sanctuary/Balance/goatman-base.json": "c762551ddd286c0001e50910c89a618505ff01db64eff6cbc8be73cef5d6a162",
@@ -514,6 +516,7 @@
     "src/Sanctuary.Content/GenericPetPreparation.cs": "80dc44dc94555a6fcf615a03a8f43f1d88c81e2ea0fdd4200ce62bff5bc916c0",
     "src/Sanctuary.Content/GenericPetRatingRouting.cs": "d820257cd1e7b2062dbb3324fc1742f46eaa3721e62a6604903fd1d7e7e6c148",
     "src/Sanctuary.Content/GenericPetSearch.cs": "077d1c45f5067c2af57686755774f39e9318ca352fbcf3dd8cf653620a5e4eea",
+    "src/Sanctuary.Content/GenericPetSearchWorld.cs": "b2b51d63513c339700e548177d317956d9a1027ddf24a46e54074400c52a2df4",
     "src/Sanctuary.Content/GenericPetSearchWrapper.cs": "0e6980721b3df4676af260bcdcd4b90caec9fc65d44269df9121be30df6dc534",
     "src/Sanctuary.Content/GenericPetStateGroups.cs": "0ff6a340a8e9652f689900a89405ebd91f3632d8d655b0bd86ba63c9ddb24f1d",
     "src/Sanctuary.Content/GenericPetTargetScoring.cs": "e292ab5de99dbe211a20d187c1c96ad3bc0dc264a80380134e2acbd7a92c131f",

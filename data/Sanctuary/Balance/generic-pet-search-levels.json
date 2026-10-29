@@ -1,0 +1,692 @@
+[
+  {
+    "id": 0,
+    "name": "Null",
+    "walk63": 0
+  },
+  {
+    "id": 1,
+    "name": "Act 1 - Town",
+    "walk63": 0
+  },
+  {
+    "id": 2,
+    "name": "Act 1 - Wilderness 1",
+    "walk63": 0
+  },
+  {
+    "id": 3,
+    "name": "Act 1 - Wilderness 2",
+    "walk63": 0
+  },
+  {
+    "id": 4,
+    "name": "Act 1 - Wilderness 3",
+    "walk63": 0
+  },
+  {
+    "id": 5,
+    "name": "Act 1 - Wilderness 4",
+    "walk63": 0
+  },
+  {
+    "id": 6,
+    "name": "Act 1 - Wilderness 5",
+    "walk63": 0
+  },
+  {
+    "id": 7,
+    "name": "Act 1 - Wilderness 6",
+    "walk63": 0
+  },
+  {
+    "id": 8,
+    "name": "Act 1 - Cave 1",
+    "walk63": 0
+  },
+  {
+    "id": 9,
+    "name": "Act 1 - Cave 2",
+    "walk63": 0
+  },
+  {
+    "id": 10,
+    "name": "Act 1 - Cave 3",
+    "walk63": 0
+  },
+  {
+    "id": 11,
+    "name": "Act 1 - Cave 4",
+    "walk63": 0
+  },
+  {
+    "id": 12,
+    "name": "Act 1 - Cave 5",
+    "walk63": 0
+  },
+  {
+    "id": 13,
+    "name": "Act 1 - Cave 2 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 14,
+    "name": "Act 1 - Cave 3 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 15,
+    "name": "Act 1 - Cave 4 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 16,
+    "name": "Act 1 - Cave 5 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 17,
+    "name": "Act 1 - Graveyard",
+    "walk63": 0
+  },
+  {
+    "id": 18,
+    "name": "Act 1 - Crypt 1 A",
+    "walk63": 0
+  },
+  {
+    "id": 19,
+    "name": "Act 1 - Crypt 2 A",
+    "walk63": 0
+  },
+  {
+    "id": 20,
+    "name": "Act 1 - Tower 2",
+    "walk63": 0
+  },
+  {
+    "id": 21,
+    "name": "Act 1 - Crypt 3 A",
+    "walk63": 0
+  },
+  {
+    "id": 22,
+    "name": "Act 1 - Crypt 3 B",
+    "walk63": 0
+  },
+  {
+    "id": 23,
+    "name": "Act 1 - Crypt 3 C",
+    "walk63": 0
+  },
+  {
+    "id": 24,
+    "name": "Act 1 - Crypt 3 D",
+    "walk63": 0
+  },
+  {
+    "id": 25,
+    "name": "Act 1 - Crypt 3 E",
+    "walk63": 0
+  },
+  {
+    "id": 26,
+    "name": "Act 1 - Monastery",
+    "walk63": 0
+  },
+  {
+    "id": 27,
+    "name": "Act 1 - Courtyard 1",
+    "walk63": 0
+  },
+  {
+    "id": 28,
+    "name": "Act 1 - Barracks",
+    "walk63": 0
+  },
+  {
+    "id": 29,
+    "name": "Act 1 - Jail 1",
+    "walk63": 1
+  },
+  {
+    "id": 30,
+    "name": "Act 1 - Jail 2",
+    "walk63": 1
+  },
+  {
+    "id": 31,
+    "name": "Act 1 - Jail 3",
+    "walk63": 1
+  },
+  {
+    "id": 32,
+    "name": "Act 1 - Courtyard 2",
+    "walk63": 0
+  },
+  {
+    "id": 33,
+    "name": "Act 1 - Cathedral",
+    "walk63": 0
+  },
+  {
+    "id": 34,
+    "name": "Act 1 - Catacombs 1",
+    "walk63": 0
+  },
+  {
+    "id": 35,
+    "name": "Act 1 - Catacombs 2",
+    "walk63": 0
+  },
+  {
+    "id": 36,
+    "name": "Act 1 - Catacombs 3",
+    "walk63": 0
+  },
+  {
+    "id": 37,
+    "name": "Act 1 - Catacombs 4",
+    "walk63": 0
+  },
+  {
+    "id": 38,
+    "name": "Act 1 - Tristram",
+    "walk63": 0
+  },
+  {
+    "id": 39,
+    "name": "Act 1 - Moo Moo Farm",
+    "walk63": 0
+  },
+  {
+    "id": 40,
+    "name": "Act 2 - Town",
+    "walk63": 0
+  },
+  {
+    "id": 41,
+    "name": "Act 2 - Desert 1",
+    "walk63": 0
+  },
+  {
+    "id": 42,
+    "name": "Act 2 - Desert 2",
+    "walk63": 0
+  },
+  {
+    "id": 43,
+    "name": "Act 2 - Desert 3",
+    "walk63": 0
+  },
+  {
+    "id": 44,
+    "name": "Act 2 - Desert 4",
+    "walk63": 0
+  },
+  {
+    "id": 45,
+    "name": "Act 2 - Desert 5",
+    "walk63": 0
+  },
+  {
+    "id": 46,
+    "name": "Act 2 - Valley of the Kings",
+    "walk63": 0
+  },
+  {
+    "id": 47,
+    "name": "Act 2 - Sewer 1 A",
+    "walk63": 0
+  },
+  {
+    "id": 48,
+    "name": "Act 2 - Sewer 1 B",
+    "walk63": 0
+  },
+  {
+    "id": 49,
+    "name": "Act 2 - Sewer 1 C",
+    "walk63": 0
+  },
+  {
+    "id": 50,
+    "name": "Act 2 - Harem",
+    "walk63": 0
+  },
+  {
+    "id": 51,
+    "name": "Act 2 - Corrupt Harem 1",
+    "walk63": 0
+  },
+  {
+    "id": 52,
+    "name": "Act 2 - Basement 1",
+    "walk63": 1
+  },
+  {
+    "id": 53,
+    "name": "Act 2 - Basement 2",
+    "walk63": 1
+  },
+  {
+    "id": 54,
+    "name": "Act 2 - Basement 3",
+    "walk63": 1
+  },
+  {
+    "id": 55,
+    "name": "Act 2 - Tomb 1 A",
+    "walk63": 0
+  },
+  {
+    "id": 56,
+    "name": "Act 2 - Tomb 2 A",
+    "walk63": 0
+  },
+  {
+    "id": 57,
+    "name": "Act 2 - Tomb 2 B",
+    "walk63": 0
+  },
+  {
+    "id": 58,
+    "name": "Act 2 - Tomb 3 A",
+    "walk63": 0
+  },
+  {
+    "id": 59,
+    "name": "Act 2 - Tomb 1 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 60,
+    "name": "Act 2 - Tomb 2 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 61,
+    "name": "Act 2 - Tomb 3 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 62,
+    "name": "Act 2 - Lair 1 A",
+    "walk63": 0
+  },
+  {
+    "id": 63,
+    "name": "Act 2 - Lair 1 B",
+    "walk63": 0
+  },
+  {
+    "id": 64,
+    "name": "Act 2 - Lair 1 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 65,
+    "name": "Act 2 - Sewer 2 A",
+    "walk63": 0
+  },
+  {
+    "id": 66,
+    "name": "Act 2 - Tomb Tal 1",
+    "walk63": 0
+  },
+  {
+    "id": 67,
+    "name": "Act 2 - Tomb Tal 2",
+    "walk63": 0
+  },
+  {
+    "id": 68,
+    "name": "Act 2 - Tomb Tal 3",
+    "walk63": 0
+  },
+  {
+    "id": 69,
+    "name": "Act 2 - Tomb Tal 4",
+    "walk63": 0
+  },
+  {
+    "id": 70,
+    "name": "Act 2 - Tomb Tal 5",
+    "walk63": 0
+  },
+  {
+    "id": 71,
+    "name": "Act 2 - Tomb Tal 6",
+    "walk63": 0
+  },
+  {
+    "id": 72,
+    "name": "Act 2 - Tomb Tal 7",
+    "walk63": 0
+  },
+  {
+    "id": 73,
+    "name": "Act 2 - Duriel's Lair",
+    "walk63": 0
+  },
+  {
+    "id": 74,
+    "name": "Act 2 - Arcane",
+    "walk63": 0
+  },
+  {
+    "id": 75,
+    "name": "Act 3 - Town",
+    "walk63": 0
+  },
+  {
+    "id": 76,
+    "name": "Act 3 - Jungle 1",
+    "walk63": 5
+  },
+  {
+    "id": 77,
+    "name": "Act 3 - Jungle 2",
+    "walk63": 5
+  },
+  {
+    "id": 78,
+    "name": "Act 3 - Jungle 3",
+    "walk63": 5
+  },
+  {
+    "id": 79,
+    "name": "Act 3 - Kurast 1",
+    "walk63": 0
+  },
+  {
+    "id": 80,
+    "name": "Act 3 - Kurast 2",
+    "walk63": 0
+  },
+  {
+    "id": 81,
+    "name": "Act 3 - Kurast 3",
+    "walk63": 0
+  },
+  {
+    "id": 82,
+    "name": "Act 3 - Kurast 4",
+    "walk63": 0
+  },
+  {
+    "id": 83,
+    "name": "Act 3 - Travincal",
+    "walk63": 0
+  },
+  {
+    "id": 84,
+    "name": "Act 3 - Spider 1",
+    "walk63": 0
+  },
+  {
+    "id": 85,
+    "name": "Act 3 - Spider 2",
+    "walk63": 0
+  },
+  {
+    "id": 86,
+    "name": "Act 3 - Dungeon 1 A",
+    "walk63": 0
+  },
+  {
+    "id": 87,
+    "name": "Act 3 - Dungeon 1 B",
+    "walk63": 0
+  },
+  {
+    "id": 88,
+    "name": "Act 3 - Dungeon 2 A",
+    "walk63": 0
+  },
+  {
+    "id": 89,
+    "name": "Act 3 - Dungeon 2 B",
+    "walk63": 0
+  },
+  {
+    "id": 90,
+    "name": "Act 3 - Dungeon 1 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 91,
+    "name": "Act 3 - Dungeon 2 Treasure",
+    "walk63": 0
+  },
+  {
+    "id": 92,
+    "name": "Act 3 - Sewer 1",
+    "walk63": 0
+  },
+  {
+    "id": 93,
+    "name": "Act 3 - Sewer 2",
+    "walk63": 0
+  },
+  {
+    "id": 94,
+    "name": "Act 3 - Temple 1",
+    "walk63": 0
+  },
+  {
+    "id": 95,
+    "name": "Act 3 - Temple 2",
+    "walk63": 0
+  },
+  {
+    "id": 96,
+    "name": "Act 3 - Temple 3",
+    "walk63": 0
+  },
+  {
+    "id": 97,
+    "name": "Act 3 - Temple 4",
+    "walk63": 0
+  },
+  {
+    "id": 98,
+    "name": "Act 3 - Temple 5",
+    "walk63": 0
+  },
+  {
+    "id": 99,
+    "name": "Act 3 - Temple 6",
+    "walk63": 0
+  },
+  {
+    "id": 100,
+    "name": "Act 3 - Mephisto 1",
+    "walk63": 0
+  },
+  {
+    "id": 101,
+    "name": "Act 3 - Mephisto 2",
+    "walk63": 0
+  },
+  {
+    "id": 102,
+    "name": "Act 3 - Mephisto 3",
+    "walk63": 0
+  },
+  {
+    "id": 103,
+    "name": "Act 4 - Town",
+    "walk63": 0
+  },
+  {
+    "id": 104,
+    "name": "Act 4 - Mesa 1",
+    "walk63": 0
+  },
+  {
+    "id": 105,
+    "name": "Act 4 - Mesa 2",
+    "walk63": 0
+  },
+  {
+    "id": 106,
+    "name": "Act 4 - Mesa 3",
+    "walk63": 0
+  },
+  {
+    "id": 107,
+    "name": "Act 4 - Lava 1",
+    "walk63": 5
+  },
+  {
+    "id": 108,
+    "name": "Act 4 - Diablo 1",
+    "walk63": 0
+  },
+  {
+    "id": 109,
+    "name": "Act 5 - Town",
+    "walk63": 0
+  },
+  {
+    "id": 110,
+    "name": "Act 5 - Siege 1",
+    "walk63": 0
+  },
+  {
+    "id": 111,
+    "name": "Act 5 - Barricade 1",
+    "walk63": 0
+  },
+  {
+    "id": 112,
+    "name": "Act 5 - Barricade 2",
+    "walk63": 0
+  },
+  {
+    "id": 113,
+    "name": "Act 5 - Ice Cave 1",
+    "walk63": 0
+  },
+  {
+    "id": 114,
+    "name": "Act 5 - Ice Cave 1A",
+    "walk63": 0
+  },
+  {
+    "id": 115,
+    "name": "Act 5 - Ice Cave 2",
+    "walk63": 0
+  },
+  {
+    "id": 116,
+    "name": "Act 5 - Ice Cave 2A",
+    "walk63": 0
+  },
+  {
+    "id": 117,
+    "name": "Act 5 - Barricade Snow",
+    "walk63": 0
+  },
+  {
+    "id": 118,
+    "name": "Act 5 - Ice Cave 3",
+    "walk63": 0
+  },
+  {
+    "id": 119,
+    "name": "Act 5 - Ice Cave 3A",
+    "walk63": 0
+  },
+  {
+    "id": 120,
+    "name": "Act 5 - Mountain Top",
+    "walk63": 0
+  },
+  {
+    "id": 121,
+    "name": "Act 5 - Temple Entrance",
+    "walk63": 0
+  },
+  {
+    "id": 122,
+    "name": "Act 5 - Temple 1",
+    "walk63": 0
+  },
+  {
+    "id": 123,
+    "name": "Act 5 - Temple 2",
+    "walk63": 0
+  },
+  {
+    "id": 124,
+    "name": "Act 5 - Temple Boss",
+    "walk63": 0
+  },
+  {
+    "id": 125,
+    "name": "Act 5 - Hell 1",
+    "walk63": 0
+  },
+  {
+    "id": 126,
+    "name": "Act 5 - Hell 2",
+    "walk63": 0
+  },
+  {
+    "id": 127,
+    "name": "Act 5 - Hell 3",
+    "walk63": 0
+  },
+  {
+    "id": 128,
+    "name": "Act 5 - Baal Temple 1",
+    "walk63": 0
+  },
+  {
+    "id": 129,
+    "name": "Act 5 - Baal Temple 2",
+    "walk63": 0
+  },
+  {
+    "id": 130,
+    "name": "Act 5 - Baal Temple 3",
+    "walk63": 0
+  },
+  {
+    "id": 131,
+    "name": "Act 5 - Throne Room",
+    "walk63": 0
+  },
+  {
+    "id": 132,
+    "name": "Act 5 - World Stone",
+    "walk63": 0
+  },
+  {
+    "id": 133,
+    "name": "Act 5 - Pandemonium 1",
+    "walk63": 0
+  },
+  {
+    "id": 134,
+    "name": "Act 5 - Pandemonium 2",
+    "walk63": 0
+  },
+  {
+    "id": 135,
+    "name": "Act 5 - Pandemonium 3",
+    "walk63": 0
+  },
+  {
+    "id": 136,
+    "name": "Act 5 - Pandemonium Finale",
+    "walk63": 0
+  },
+  {
+    "id": 137,
+    "name": "Act 5 - Colossal Summit",
+    "walk63": 0
+  }
+]

@@ -1,0 +1,138 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Nested search references only; not mechanical acceptance",
+  "processMemoryRead": true,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "handlerEnabled": false,
+  "nativeMechanicsAccepted": false,
+  "verified": {
+    "completeFunctions": 10,
+    "completeFunctionBytes": 1976,
+    "instructionAndPaddingBytes": 1952,
+    "inlineSwitchDataBytes": 24,
+    "totalReadBytes": 6192,
+    "maximumReadBytesPerCall": 3108
+  },
+  "records": [
+    {
+      "rva": "0x24fd30",
+      "bytes": 95,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x377dc0",
+      "bytes": 135,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x27c500",
+      "bytes": 219,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x27c5e0",
+      "bytes": 293,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x40c060",
+      "bytes": 378,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x277db0",
+      "bytes": 176,
+      "rawDisassemblyMarkers": 1,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x277e60",
+      "bytes": 208,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x6bd00",
+      "bytes": 138,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x296f60",
+      "bytes": 167,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    },
+    {
+      "rva": "0x24eb30",
+      "bytes": 167,
+      "rawDisassemblyMarkers": 0,
+      "allUnwindFragmentsCaptured": true
+    }
+  ],
+  "instructionDataAnnotation": {
+    "rva": "0x277db0",
+    "codeBytes": 152,
+    "tableRva": "0x277e48",
+    "tableBytes": 24,
+    "entries": [
+      2588129,
+      2588139,
+      2588165,
+      2588193,
+      2588183,
+      2588222
+    ],
+    "rawInvalidMarkers": 1,
+    "codeOnlyInvalidMarkers": 0,
+    "reason": "The six-entry switch table is included in the captured unwind range. The single raw disassembly marker lies in table data;all six RVA entries target actual code instruction boundaries. The original capture and raw disassembly are preserved."
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-services/size-x-instructions.asm": "981cae9a433e63f01fa2f2fe2fd46beb69219214d78c67968427366d5795aeeb",
+    ".local/class-skills/generic-pet-search-services/size-x-instructions.bin": "98304f01ef3013ebd097a702877c668df1cf8a3b940bd1c580ed9918af299ce9",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030.json": "9863f6e7ac832299d981fd8be7a7caa05499d381a5c338be15e276798febce89",
+    ".local/class-skills/warlock-runtime-reference/callees-search-alignment-idle-20261030-24eb30-part0.asm": "64e3c2587f60e9125219426aff402aaab6374d85890ca166b0887e7d7aa3a172",
+    ".local/class-skills/warlock-runtime-reference/callees-search-alignment-idle-20261030-24eb30-part0.bin": "468ff27ec6b662f55dc56eee34f3e1e0ebb0fb7f6b8a0d9432682d5d622025fc",
+    ".local/class-skills/warlock-runtime-reference/callees-search-alignment-idle-20261030.json": "9291a700f233ff08c6a9c75c55117ec9a90be5775ed9193c2c7ce221b3e599cc",
+    ".local/class-skills/warlock-runtime-reference/callees-search-allegiance-idle-20261030-24fd30-part0.asm": "a92c8c3082fd9beca57663a47b63869a1b3b3f6854540d3a17de78c472ca3b3e",
+    ".local/class-skills/warlock-runtime-reference/callees-search-allegiance-idle-20261030-24fd30-part0.bin": "e895992e0c05c0d0e3e9b3bb6790e4b988b56a22c35c52241864a6199a8b4b26",
+    ".local/class-skills/warlock-runtime-reference/callees-search-allegiance-idle-20261030-377dc0-part0.asm": "f5e224ed16f8e1584e7e1ad3b7e8ff4918d2564f3ed35e38db1b92af46bb2aa0",
+    ".local/class-skills/warlock-runtime-reference/callees-search-allegiance-idle-20261030-377dc0-part0.bin": "76c6ab2b9effa96b42da825829f3a5bafacc249a5b986ce3358e253412e57773",
+    ".local/class-skills/warlock-runtime-reference/callees-search-allegiance-idle-20261030.json": "aed62c490f61b19b96291ca1e73844e1908cb8f6663875a29184b060927755fd",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-277db0-part0.asm": "d079c9b142c5b41fe59394fe13c0d3626a290286d1f80d737cb1a20fd7b31ff2",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-277db0-part0.bin": "82771f5734dd02d3382452ad1a3b13c0c19c6e1c6b35af411c17782caead4273",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-277e60-part0.asm": "a88f7af41a8d117e288d7adf442fd5fde1c40fe7246acb1741ade95717125234",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-277e60-part0.bin": "7c3d17cc0b1b4a1c0b45636a1cad855e5c55988fd0e1d80b49b64f31e2b24c69",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c500-part0.asm": "f9b1383dbacbced28b8f1794e468a26117c9aeb7620d4e9f5e215c220dd0705c",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c500-part0.bin": "660048ac08ff1a7f8937edddf8920f93f85842c81f3d0bbdb7d7a28ea0992236",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c5e0-part0.asm": "5fc85400dbefe228ce217a5a52d95d8e4f8fbe4676dfb56d6e2f46ff7a548518",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c5e0-part0.bin": "e7c86cfd3958e2248dfbabd71875c040d469f2171793658754addd66a3cf4ad2",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c5e0-part1.asm": "803170dfdeeecf11760c0d6e39c01fb227e16f263328d3b4f67466c617b0e7cb",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c5e0-part1.bin": "40a46f50953d4a100637df1143908338fbb5665847d7705fcee490417f9d21dd",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c5e0-part2.asm": "c5ed461c4e0d3dbacf156d12677413e116e4135a868074ef493c559b7149da6a",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c5e0-part2.bin": "27770c244d90cb94618da61083dc95fbd02a2979d35a1eaa5d30bde7587e9154",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-40c060-part0.asm": "4e27f440915d043c7f3969c62bcdfb388e31c2a3b0ee8d9bc7dfe23e5530dbd1",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-40c060-part0.bin": "dbe5a71522bb7058efbea6c53e3a7f2114d47cd6885e8d1594bfc96d496d7af7",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030.json": "a2fa94c313ad15d463cf0f0aeae2936f90f821d6c209422556b2510bd18d02f4",
+    ".local/class-skills/warlock-runtime-reference/callees-search-state-mask-idle-20261030-296f60-part0.asm": "4f3a1d6711e0c4fef0d901ac826f6ef37ba963b7e212154ca5c226cb0cdbbac3",
+    ".local/class-skills/warlock-runtime-reference/callees-search-state-mask-idle-20261030-296f60-part0.bin": "0a9a0ddb55adac3a4d224ccbdfb233b9105bde1c8ea9ecb12917a163b12ae0ec",
+    ".local/class-skills/warlock-runtime-reference/callees-search-state-mask-idle-20261030-6bd00-part0.asm": "0ed9ead4a1f4f862aa55f728a3ae9f96f1df6fc1b4e8d08000397c1394ea84a7",
+    ".local/class-skills/warlock-runtime-reference/callees-search-state-mask-idle-20261030-6bd00-part0.bin": "3882754d04ac6b2e9d45981e31065036f18dfa699bd9cdb43cb4ec89531c8724",
+    ".local/class-skills/warlock-runtime-reference/callees-search-state-mask-idle-20261030.json": "80881cbd32676edb7e4baa229614795346720f4f90bed6451a4837e01b7b74e3",
+    "tools/capture_reference_callees.py": "addf38dc41603fd7a180f5ab2863f8eecccc810f23bde0f8b78ae96282ffeb99",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/record_generic_pet_search_references.py": "296f39b3edd466d8f4f62e7ecada91507a28f79f65016fa01492f6d871b30fc7"
+  },
+  "remaining": [
+    "These are cached references,not accepted managed behavior. Compare nested allegiance/alignment,player relation,point/ray geometry,size and corpse-mask services next. Their own nested metadata/stat/collision services still need explicit contracts;do not infer Britannia geometry or ownership from these captures."
+  ]
+}

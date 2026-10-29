@@ -1,0 +1,4508 @@
+[
+  {
+    "id": 0,
+    "name": "skeleton1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 1,
+    "name": "skeleton2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 2,
+    "name": "skeleton3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 3,
+    "name": "skeleton4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 4,
+    "name": "skeleton5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 5,
+    "name": "zombie1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 6,
+    "name": "zombie2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 7,
+    "name": "zombie3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 8,
+    "name": "zombie4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 9,
+    "name": "zombie5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 10,
+    "name": "bighead1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 11,
+    "name": "bighead2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 12,
+    "name": "bighead3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 13,
+    "name": "bighead4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 14,
+    "name": "bighead5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 15,
+    "name": "foulcrow1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 16,
+    "name": "foulcrow2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 17,
+    "name": "foulcrow3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 18,
+    "name": "foulcrow4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 19,
+    "name": "fallen1",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 20,
+    "name": "fallen2",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 21,
+    "name": "fallen3",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 22,
+    "name": "fallen4",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 23,
+    "name": "fallen5",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 24,
+    "name": "brute2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 25,
+    "name": "brute3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 26,
+    "name": "brute4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 27,
+    "name": "brute5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 28,
+    "name": "brute1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 29,
+    "name": "sandraider1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 30,
+    "name": "sandraider2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 31,
+    "name": "sandraider3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 32,
+    "name": "sandraider4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 33,
+    "name": "sandraider5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 34,
+    "name": "gorgon1",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 35,
+    "name": "gorgon2",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 36,
+    "name": "gorgon3",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 37,
+    "name": "gorgon4",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 38,
+    "name": "wraith1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 39,
+    "name": "wraith2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 40,
+    "name": "wraith3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 41,
+    "name": "wraith4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 42,
+    "name": "wraith5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 43,
+    "name": "corruptrogue1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 44,
+    "name": "corruptrogue2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 45,
+    "name": "corruptrogue3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 46,
+    "name": "corruptrogue4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 47,
+    "name": "corruptrogue5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 48,
+    "name": "baboon1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 49,
+    "name": "baboon2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 50,
+    "name": "baboon3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 51,
+    "name": "baboon4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 52,
+    "name": "baboon5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 53,
+    "name": "goatman1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 54,
+    "name": "goatman2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 55,
+    "name": "goatman3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 56,
+    "name": "goatman4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 57,
+    "name": "goatman5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 58,
+    "name": "fallenshaman1",
+    "flags60": 25,
+    "threat137": 12
+  },
+  {
+    "id": 59,
+    "name": "fallenshaman2",
+    "flags60": 25,
+    "threat137": 12
+  },
+  {
+    "id": 60,
+    "name": "fallenshaman3",
+    "flags60": 25,
+    "threat137": 12
+  },
+  {
+    "id": 61,
+    "name": "fallenshaman4",
+    "flags60": 25,
+    "threat137": 12
+  },
+  {
+    "id": 62,
+    "name": "fallenshaman5",
+    "flags60": 25,
+    "threat137": 12
+  },
+  {
+    "id": 63,
+    "name": "quillrat1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 64,
+    "name": "quillrat2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 65,
+    "name": "quillrat3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 66,
+    "name": "quillrat4",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 67,
+    "name": "quillrat5",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 68,
+    "name": "sandmaggot1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 69,
+    "name": "sandmaggot2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 70,
+    "name": "sandmaggot3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 71,
+    "name": "sandmaggot4",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 72,
+    "name": "sandmaggot5",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 73,
+    "name": "clawviper1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 74,
+    "name": "clawviper2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 75,
+    "name": "clawviper3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 76,
+    "name": "clawviper4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 77,
+    "name": "clawviper5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 78,
+    "name": "sandleaper1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 79,
+    "name": "sandleaper2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 80,
+    "name": "sandleaper3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 81,
+    "name": "sandleaper4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 82,
+    "name": "sandleaper5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 83,
+    "name": "pantherwoman1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 84,
+    "name": "pantherwoman2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 85,
+    "name": "pantherwoman3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 86,
+    "name": "pantherwoman4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 87,
+    "name": "swarm1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 88,
+    "name": "swarm2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 89,
+    "name": "swarm3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 90,
+    "name": "swarm4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 91,
+    "name": "scarab1",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 92,
+    "name": "scarab2",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 93,
+    "name": "scarab3",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 94,
+    "name": "scarab4",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 95,
+    "name": "scarab5",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 96,
+    "name": "mummy1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 97,
+    "name": "mummy2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 98,
+    "name": "mummy3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 99,
+    "name": "mummy4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 100,
+    "name": "mummy5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 101,
+    "name": "unraveler1",
+    "flags60": 9,
+    "threat137": 12
+  },
+  {
+    "id": 102,
+    "name": "unraveler2",
+    "flags60": 9,
+    "threat137": 12
+  },
+  {
+    "id": 103,
+    "name": "unraveler3",
+    "flags60": 9,
+    "threat137": 12
+  },
+  {
+    "id": 104,
+    "name": "unraveler4",
+    "flags60": 9,
+    "threat137": 12
+  },
+  {
+    "id": 105,
+    "name": "unraveler5",
+    "flags60": 9,
+    "threat137": 12
+  },
+  {
+    "id": 106,
+    "name": "chaoshorde1",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 107,
+    "name": "chaoshorde2",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 108,
+    "name": "chaoshorde3",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 109,
+    "name": "chaoshorde4",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 110,
+    "name": "vulture1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 111,
+    "name": "vulture2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 112,
+    "name": "vulture3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 113,
+    "name": "vulture4",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 114,
+    "name": "mosquito1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 115,
+    "name": "mosquito2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 116,
+    "name": "mosquito3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 117,
+    "name": "mosquito4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 118,
+    "name": "willowisp1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 119,
+    "name": "willowisp2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 120,
+    "name": "willowisp3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 121,
+    "name": "willowisp4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 122,
+    "name": "arach1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 123,
+    "name": "arach2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 124,
+    "name": "arach3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 125,
+    "name": "arach4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 126,
+    "name": "arach5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 127,
+    "name": "thornhulk1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 128,
+    "name": "thornhulk2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 129,
+    "name": "thornhulk3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 130,
+    "name": "thornhulk4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 131,
+    "name": "vampire1",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 132,
+    "name": "vampire2",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 133,
+    "name": "vampire3",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 134,
+    "name": "vampire4",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 135,
+    "name": "vampire5",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 136,
+    "name": "batdemon1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 137,
+    "name": "batdemon2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 138,
+    "name": "batdemon3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 139,
+    "name": "batdemon4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 140,
+    "name": "batdemon5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 141,
+    "name": "fetish1",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 142,
+    "name": "fetish2",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 143,
+    "name": "fetish3",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 144,
+    "name": "fetish4",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 145,
+    "name": "fetish5",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 146,
+    "name": "cain1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 147,
+    "name": "gheed",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 148,
+    "name": "akara",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 149,
+    "name": "chicken",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 150,
+    "name": "kashya",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 151,
+    "name": "rat",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 152,
+    "name": "rogue1",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 153,
+    "name": "hellmeteor",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 154,
+    "name": "charsi",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 155,
+    "name": "warriv1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 156,
+    "name": "andariel",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 157,
+    "name": "bird1",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 158,
+    "name": "bird2",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 159,
+    "name": "bat",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 160,
+    "name": "cr_archer1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 161,
+    "name": "cr_archer2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 162,
+    "name": "cr_archer3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 163,
+    "name": "cr_archer4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 164,
+    "name": "cr_archer5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 165,
+    "name": "cr_lancer1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 166,
+    "name": "cr_lancer2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 167,
+    "name": "cr_lancer3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 168,
+    "name": "cr_lancer4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 169,
+    "name": "cr_lancer5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 170,
+    "name": "sk_archer1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 171,
+    "name": "sk_archer2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 172,
+    "name": "sk_archer3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 173,
+    "name": "sk_archer4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 174,
+    "name": "sk_archer5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 175,
+    "name": "warriv2",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 176,
+    "name": "atma",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 177,
+    "name": "drognan",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 178,
+    "name": "fara",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 179,
+    "name": "cow",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 180,
+    "name": "maggotbaby1",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 181,
+    "name": "maggotbaby2",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 182,
+    "name": "maggotbaby3",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 183,
+    "name": "maggotbaby4",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 184,
+    "name": "maggotbaby5",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 185,
+    "name": "camel",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 186,
+    "name": "blunderbore1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 187,
+    "name": "blunderbore2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 188,
+    "name": "blunderbore3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 189,
+    "name": "blunderbore4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 190,
+    "name": "maggotegg1",
+    "flags60": 2,
+    "threat137": 8
+  },
+  {
+    "id": 191,
+    "name": "maggotegg2",
+    "flags60": 2,
+    "threat137": 8
+  },
+  {
+    "id": 192,
+    "name": "maggotegg3",
+    "flags60": 2,
+    "threat137": 8
+  },
+  {
+    "id": 193,
+    "name": "maggotegg4",
+    "flags60": 2,
+    "threat137": 8
+  },
+  {
+    "id": 194,
+    "name": "maggotegg5",
+    "flags60": 2,
+    "threat137": 8
+  },
+  {
+    "id": 195,
+    "name": "act2male",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 196,
+    "name": "act2female",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 197,
+    "name": "act2child",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 198,
+    "name": "greiz",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 199,
+    "name": "elzix",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 200,
+    "name": "geglash",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 201,
+    "name": "jerhyn",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 202,
+    "name": "lysander",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 203,
+    "name": "act2guard1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 204,
+    "name": "act2vendor1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 205,
+    "name": "act2vendor2",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 206,
+    "name": "crownest1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 207,
+    "name": "crownest2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 208,
+    "name": "crownest3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 209,
+    "name": "crownest4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 210,
+    "name": "meshif1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 211,
+    "name": "duriel",
+    "flags60": 194,
+    "threat137": 0
+  },
+  {
+    "id": 212,
+    "name": "bonefetish1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 213,
+    "name": "bonefetish2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 214,
+    "name": "bonefetish3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 215,
+    "name": "bonefetish4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 216,
+    "name": "bonefetish5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 217,
+    "name": "darkguard1",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 218,
+    "name": "darkguard2",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 219,
+    "name": "darkguard3",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 220,
+    "name": "darkguard4",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 221,
+    "name": "darkguard5",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 222,
+    "name": "bloodmage1",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 223,
+    "name": "bloodmage2",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 224,
+    "name": "bloodmage3",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 225,
+    "name": "bloodmage4",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 226,
+    "name": "bloodmage5",
+    "flags60": 8,
+    "threat137": 0
+  },
+  {
+    "id": 227,
+    "name": "maggot",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 228,
+    "name": "sarcophagus",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 229,
+    "name": "radament",
+    "flags60": 73,
+    "threat137": 14
+  },
+  {
+    "id": 230,
+    "name": "firebeast",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 231,
+    "name": "iceglobe",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 232,
+    "name": "lightningbeast",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 233,
+    "name": "poisonorb",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 234,
+    "name": "flyingscimitar",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 235,
+    "name": "zealot1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 236,
+    "name": "zealot2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 237,
+    "name": "zealot3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 238,
+    "name": "cantor1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 239,
+    "name": "cantor2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 240,
+    "name": "cantor3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 241,
+    "name": "cantor4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 242,
+    "name": "mephisto",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 243,
+    "name": "diablo",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 244,
+    "name": "cain2",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 245,
+    "name": "cain3",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 246,
+    "name": "cain4",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 247,
+    "name": "frogdemon1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 248,
+    "name": "frogdemon2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 249,
+    "name": "frogdemon3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 250,
+    "name": "summoner",
+    "flags60": 64,
+    "threat137": 14
+  },
+  {
+    "id": 251,
+    "name": "tyrael1",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 252,
+    "name": "asheara",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 253,
+    "name": "hratli",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 254,
+    "name": "alkor",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 255,
+    "name": "ormus",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 256,
+    "name": "izual",
+    "flags60": 66,
+    "threat137": 14
+  },
+  {
+    "id": 257,
+    "name": "halbu",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 258,
+    "name": "tentacle1",
+    "flags60": 0,
+    "threat137": 8
+  },
+  {
+    "id": 259,
+    "name": "tentacle2",
+    "flags60": 0,
+    "threat137": 8
+  },
+  {
+    "id": 260,
+    "name": "tentacle3",
+    "flags60": 0,
+    "threat137": 8
+  },
+  {
+    "id": 261,
+    "name": "tentaclehead1",
+    "flags60": 17,
+    "threat137": 8
+  },
+  {
+    "id": 262,
+    "name": "tentaclehead2",
+    "flags60": 17,
+    "threat137": 8
+  },
+  {
+    "id": 263,
+    "name": "tentaclehead3",
+    "flags60": 17,
+    "threat137": 8
+  },
+  {
+    "id": 264,
+    "name": "meshif2",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 265,
+    "name": "cain5",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 266,
+    "name": "navi",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 267,
+    "name": "bloodraven",
+    "flags60": 64,
+    "threat137": 13
+  },
+  {
+    "id": 268,
+    "name": "bug",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 269,
+    "name": "scorpion",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 270,
+    "name": "rogue2",
+    "flags60": 0,
+    "threat137": 10
+  },
+  {
+    "id": 271,
+    "name": "roguehire",
+    "flags60": 8,
+    "threat137": 10
+  },
+  {
+    "id": 272,
+    "name": "rogue3",
+    "flags60": 0,
+    "threat137": 10
+  },
+  {
+    "id": 273,
+    "name": "gargoyletrap",
+    "flags60": 1,
+    "threat137": 9
+  },
+  {
+    "id": 274,
+    "name": "skmage_pois1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 275,
+    "name": "skmage_pois2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 276,
+    "name": "skmage_pois3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 277,
+    "name": "skmage_pois4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 278,
+    "name": "fetishshaman1",
+    "flags60": 59,
+    "threat137": 12
+  },
+  {
+    "id": 279,
+    "name": "fetishshaman2",
+    "flags60": 59,
+    "threat137": 12
+  },
+  {
+    "id": 280,
+    "name": "fetishshaman3",
+    "flags60": 59,
+    "threat137": 12
+  },
+  {
+    "id": 281,
+    "name": "fetishshaman4",
+    "flags60": 59,
+    "threat137": 12
+  },
+  {
+    "id": 282,
+    "name": "fetishshaman5",
+    "flags60": 59,
+    "threat137": 12
+  },
+  {
+    "id": 283,
+    "name": "larva",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 284,
+    "name": "maggotqueen1",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 285,
+    "name": "maggotqueen2",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 286,
+    "name": "maggotqueen3",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 287,
+    "name": "maggotqueen4",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 288,
+    "name": "maggotqueen5",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 289,
+    "name": "claygolem",
+    "flags60": 12,
+    "threat137": 11
+  },
+  {
+    "id": 290,
+    "name": "bloodgolem",
+    "flags60": 12,
+    "threat137": 11
+  },
+  {
+    "id": 291,
+    "name": "irongolem",
+    "flags60": 12,
+    "threat137": 11
+  },
+  {
+    "id": 292,
+    "name": "firegolem",
+    "flags60": 12,
+    "threat137": 11
+  },
+  {
+    "id": 293,
+    "name": "familiar",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 294,
+    "name": "act3male",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 295,
+    "name": "baboon6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 296,
+    "name": "act3female",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 297,
+    "name": "natalya",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 298,
+    "name": "vilemother1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 299,
+    "name": "vilemother2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 300,
+    "name": "vilemother3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 301,
+    "name": "vilechild1",
+    "flags60": 3,
+    "threat137": 9
+  },
+  {
+    "id": 302,
+    "name": "vilechild2",
+    "flags60": 3,
+    "threat137": 9
+  },
+  {
+    "id": 303,
+    "name": "vilechild3",
+    "flags60": 3,
+    "threat137": 9
+  },
+  {
+    "id": 304,
+    "name": "fingermage1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 305,
+    "name": "fingermage2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 306,
+    "name": "fingermage3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 307,
+    "name": "regurgitator1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 308,
+    "name": "regurgitator2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 309,
+    "name": "regurgitator3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 310,
+    "name": "doomknight1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 311,
+    "name": "doomknight2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 312,
+    "name": "doomknight3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 313,
+    "name": "quillbear1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 314,
+    "name": "quillbear2",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 315,
+    "name": "quillbear3",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 316,
+    "name": "quillbear4",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 317,
+    "name": "quillbear5",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 318,
+    "name": "snake",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 319,
+    "name": "parrot",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 320,
+    "name": "fish",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 321,
+    "name": "evilhole1",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 322,
+    "name": "evilhole2",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 323,
+    "name": "evilhole3",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 324,
+    "name": "evilhole4",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 325,
+    "name": "evilhole5",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 326,
+    "name": "trap-firebolt",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 327,
+    "name": "trap-horzmissile",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 328,
+    "name": "trap-vertmissile",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 329,
+    "name": "trap-poisoncloud",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 330,
+    "name": "trap-lightning",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 331,
+    "name": "act2guard2",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 332,
+    "name": "invisospawner",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 333,
+    "name": "diabloclone",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 334,
+    "name": "suckernest1",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 335,
+    "name": "suckernest2",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 336,
+    "name": "suckernest3",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 337,
+    "name": "suckernest4",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 338,
+    "name": "act2hire",
+    "flags60": 2,
+    "threat137": 11
+  },
+  {
+    "id": 339,
+    "name": "minispider",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 340,
+    "name": "boneprison1",
+    "flags60": 2,
+    "threat137": 1
+  },
+  {
+    "id": 341,
+    "name": "boneprison2",
+    "flags60": 2,
+    "threat137": 1
+  },
+  {
+    "id": 342,
+    "name": "boneprison3",
+    "flags60": 2,
+    "threat137": 1
+  },
+  {
+    "id": 343,
+    "name": "boneprison4",
+    "flags60": 2,
+    "threat137": 1
+  },
+  {
+    "id": 344,
+    "name": "bonewall",
+    "flags60": 6,
+    "threat137": 1
+  },
+  {
+    "id": 345,
+    "name": "councilmember1",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 346,
+    "name": "councilmember2",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 347,
+    "name": "councilmember3",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 348,
+    "name": "turret1",
+    "flags60": 0,
+    "threat137": 9
+  },
+  {
+    "id": 349,
+    "name": "turret2",
+    "flags60": 0,
+    "threat137": 9
+  },
+  {
+    "id": 350,
+    "name": "turret3",
+    "flags60": 0,
+    "threat137": 9
+  },
+  {
+    "id": 351,
+    "name": "hydra1",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 352,
+    "name": "hydra2",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 353,
+    "name": "hydra3",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 354,
+    "name": "trap-melee",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 355,
+    "name": "seventombs",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 356,
+    "name": "dopplezon",
+    "flags60": 6,
+    "threat137": 14
+  },
+  {
+    "id": 357,
+    "name": "valkyrie",
+    "flags60": 6,
+    "threat137": 11
+  },
+  {
+    "id": 358,
+    "name": "act2guard3",
+    "flags60": 10,
+    "threat137": 11
+  },
+  {
+    "id": 359,
+    "name": "act3hire",
+    "flags60": 8,
+    "threat137": 11
+  },
+  {
+    "id": 360,
+    "name": "megademon1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 361,
+    "name": "megademon2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 362,
+    "name": "megademon3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 363,
+    "name": "necroskeleton",
+    "flags60": 12,
+    "threat137": 10
+  },
+  {
+    "id": 364,
+    "name": "necromage",
+    "flags60": 12,
+    "threat137": 10
+  },
+  {
+    "id": 365,
+    "name": "griswold",
+    "flags60": 74,
+    "threat137": 11
+  },
+  {
+    "id": 366,
+    "name": "compellingorb",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 367,
+    "name": "tyrael2",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 368,
+    "name": "darkwanderer",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 369,
+    "name": "trap-nova",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 370,
+    "name": "spiritmummy",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 371,
+    "name": "lightningspire",
+    "flags60": 1,
+    "threat137": 9
+  },
+  {
+    "id": 372,
+    "name": "firetower",
+    "flags60": 1,
+    "threat137": 9
+  },
+  {
+    "id": 373,
+    "name": "slinger1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 374,
+    "name": "slinger2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 375,
+    "name": "slinger3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 376,
+    "name": "slinger4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 377,
+    "name": "act2guard4",
+    "flags60": 2,
+    "threat137": 11
+  },
+  {
+    "id": 378,
+    "name": "act2guard5",
+    "flags60": 2,
+    "threat137": 11
+  },
+  {
+    "id": 379,
+    "name": "skmage_cold1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 380,
+    "name": "skmage_cold2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 381,
+    "name": "skmage_cold3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 382,
+    "name": "skmage_cold4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 383,
+    "name": "skmage_fire1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 384,
+    "name": "skmage_fire2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 385,
+    "name": "skmage_fire3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 386,
+    "name": "skmage_fire4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 387,
+    "name": "skmage_ltng1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 388,
+    "name": "skmage_ltng2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 389,
+    "name": "skmage_ltng3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 390,
+    "name": "skmage_ltng4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 391,
+    "name": "hellbovine",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 392,
+    "name": "window1",
+    "flags60": 2,
+    "threat137": 1
+  },
+  {
+    "id": 393,
+    "name": "window2",
+    "flags60": 2,
+    "threat137": 1
+  },
+  {
+    "id": 394,
+    "name": "slinger5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 395,
+    "name": "slinger6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 396,
+    "name": "fetishblow1",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 397,
+    "name": "fetishblow2",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 398,
+    "name": "fetishblow3",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 399,
+    "name": "fetishblow4",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 400,
+    "name": "fetishblow5",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 401,
+    "name": "mephistospirit",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 402,
+    "name": "smith",
+    "flags60": 10,
+    "threat137": 11
+  },
+  {
+    "id": 403,
+    "name": "trappedsoul1",
+    "flags60": 2,
+    "threat137": 4
+  },
+  {
+    "id": 404,
+    "name": "trappedsoul2",
+    "flags60": 2,
+    "threat137": 4
+  },
+  {
+    "id": 405,
+    "name": "jamella",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 406,
+    "name": "izualghost",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 407,
+    "name": "fetish11",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 408,
+    "name": "malachai",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 409,
+    "name": "hephasto",
+    "flags60": 10,
+    "threat137": 12
+  },
+  {
+    "id": 410,
+    "name": "wakeofdestruction",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 411,
+    "name": "chargeboltsentry",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 412,
+    "name": "lightningsentry",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 413,
+    "name": "bladecreeper",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 414,
+    "name": "invisopet",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 415,
+    "name": "infernosentry",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 416,
+    "name": "deathsentry",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 417,
+    "name": "shadowwarrior",
+    "flags60": 15,
+    "threat137": 11
+  },
+  {
+    "id": 418,
+    "name": "shadowmaster",
+    "flags60": 15,
+    "threat137": 11
+  },
+  {
+    "id": 419,
+    "name": "druidhawk",
+    "flags60": 13,
+    "threat137": 0
+  },
+  {
+    "id": 420,
+    "name": "spiritwolf",
+    "flags60": 15,
+    "threat137": 10
+  },
+  {
+    "id": 421,
+    "name": "fenris",
+    "flags60": 15,
+    "threat137": 10
+  },
+  {
+    "id": 422,
+    "name": "spiritofbarbs",
+    "flags60": 5,
+    "threat137": 8
+  },
+  {
+    "id": 423,
+    "name": "heartofwolverine",
+    "flags60": 5,
+    "threat137": 8
+  },
+  {
+    "id": 424,
+    "name": "oaksage",
+    "flags60": 5,
+    "threat137": 8
+  },
+  {
+    "id": 425,
+    "name": "plaguepoppy",
+    "flags60": 7,
+    "threat137": 0
+  },
+  {
+    "id": 426,
+    "name": "cycleoflife",
+    "flags60": 7,
+    "threat137": 0
+  },
+  {
+    "id": 427,
+    "name": "vinecreature",
+    "flags60": 7,
+    "threat137": 0
+  },
+  {
+    "id": 428,
+    "name": "druidbear",
+    "flags60": 13,
+    "threat137": 11
+  },
+  {
+    "id": 429,
+    "name": "eagle",
+    "flags60": 5,
+    "threat137": 0
+  },
+  {
+    "id": 430,
+    "name": "wolf",
+    "flags60": 5,
+    "threat137": 14
+  },
+  {
+    "id": 431,
+    "name": "bear",
+    "flags60": 5,
+    "threat137": 14
+  },
+  {
+    "id": 432,
+    "name": "barricadedoor1",
+    "flags60": 1,
+    "threat137": 6
+  },
+  {
+    "id": 433,
+    "name": "barricadedoor2",
+    "flags60": 1,
+    "threat137": 6
+  },
+  {
+    "id": 434,
+    "name": "prisondoor",
+    "flags60": 1,
+    "threat137": 6
+  },
+  {
+    "id": 435,
+    "name": "barricadetower",
+    "flags60": 1,
+    "threat137": 6
+  },
+  {
+    "id": 436,
+    "name": "reanimatedhorde1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 437,
+    "name": "reanimatedhorde2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 438,
+    "name": "reanimatedhorde3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 439,
+    "name": "reanimatedhorde4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 440,
+    "name": "reanimatedhorde5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 441,
+    "name": "siegebeast1",
+    "flags60": 19,
+    "threat137": 10
+  },
+  {
+    "id": 442,
+    "name": "siegebeast2",
+    "flags60": 19,
+    "threat137": 10
+  },
+  {
+    "id": 443,
+    "name": "siegebeast3",
+    "flags60": 19,
+    "threat137": 10
+  },
+  {
+    "id": 444,
+    "name": "siegebeast4",
+    "flags60": 19,
+    "threat137": 10
+  },
+  {
+    "id": 445,
+    "name": "siegebeast5",
+    "flags60": 19,
+    "threat137": 10
+  },
+  {
+    "id": 446,
+    "name": "snowyeti1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 447,
+    "name": "snowyeti2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 448,
+    "name": "snowyeti3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 449,
+    "name": "snowyeti4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 450,
+    "name": "wolfrider1",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 451,
+    "name": "wolfrider2",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 452,
+    "name": "wolfrider3",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 453,
+    "name": "minion1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 454,
+    "name": "minion2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 455,
+    "name": "minion3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 456,
+    "name": "minion4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 457,
+    "name": "minion5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 458,
+    "name": "minion6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 459,
+    "name": "minion7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 460,
+    "name": "minion8",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 461,
+    "name": "suicideminion1",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 462,
+    "name": "suicideminion2",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 463,
+    "name": "suicideminion3",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 464,
+    "name": "suicideminion4",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 465,
+    "name": "suicideminion5",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 466,
+    "name": "suicideminion6",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 467,
+    "name": "suicideminion7",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 468,
+    "name": "suicideminion8",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 469,
+    "name": "succubus1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 470,
+    "name": "succubus2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 471,
+    "name": "succubus3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 472,
+    "name": "succubus4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 473,
+    "name": "succubus5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 474,
+    "name": "succubuswitch1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 475,
+    "name": "succubuswitch2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 476,
+    "name": "succubuswitch3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 477,
+    "name": "succubuswitch4",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 478,
+    "name": "succubuswitch5",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 479,
+    "name": "overseer1",
+    "flags60": 17,
+    "threat137": 10
+  },
+  {
+    "id": 480,
+    "name": "overseer2",
+    "flags60": 17,
+    "threat137": 10
+  },
+  {
+    "id": 481,
+    "name": "overseer3",
+    "flags60": 17,
+    "threat137": 10
+  },
+  {
+    "id": 482,
+    "name": "overseer4",
+    "flags60": 17,
+    "threat137": 10
+  },
+  {
+    "id": 483,
+    "name": "overseer5",
+    "flags60": 17,
+    "threat137": 10
+  },
+  {
+    "id": 484,
+    "name": "minionspawner1",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 485,
+    "name": "minionspawner2",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 486,
+    "name": "minionspawner3",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 487,
+    "name": "minionspawner4",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 488,
+    "name": "minionspawner5",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 489,
+    "name": "minionspawner6",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 490,
+    "name": "minionspawner7",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 491,
+    "name": "minionspawner8",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 492,
+    "name": "imp1",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 493,
+    "name": "imp2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 494,
+    "name": "imp3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 495,
+    "name": "imp4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 496,
+    "name": "imp5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 497,
+    "name": "catapult1",
+    "flags60": 1,
+    "threat137": 7
+  },
+  {
+    "id": 498,
+    "name": "catapult2",
+    "flags60": 1,
+    "threat137": 7
+  },
+  {
+    "id": 499,
+    "name": "catapult3",
+    "flags60": 1,
+    "threat137": 7
+  },
+  {
+    "id": 500,
+    "name": "catapult4",
+    "flags60": 1,
+    "threat137": 7
+  },
+  {
+    "id": 501,
+    "name": "frozenhorror1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 502,
+    "name": "frozenhorror2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 503,
+    "name": "frozenhorror3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 504,
+    "name": "frozenhorror4",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 505,
+    "name": "frozenhorror5",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 506,
+    "name": "bloodlord1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 507,
+    "name": "bloodlord2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 508,
+    "name": "bloodlord3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 509,
+    "name": "bloodlord4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 510,
+    "name": "bloodlord5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 511,
+    "name": "larzuk",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 512,
+    "name": "drehya",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 513,
+    "name": "malah",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 514,
+    "name": "nihlathak",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 515,
+    "name": "qual-kehk",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 516,
+    "name": "catapultspotter1",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 517,
+    "name": "catapultspotter2",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 518,
+    "name": "catapultspotter3",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 519,
+    "name": "catapultspotter4",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 520,
+    "name": "cain6",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 521,
+    "name": "tyrael3",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 522,
+    "name": "act5barb1",
+    "flags60": 11,
+    "threat137": 11
+  },
+  {
+    "id": 523,
+    "name": "act5barb2",
+    "flags60": 11,
+    "threat137": 11
+  },
+  {
+    "id": 524,
+    "name": "barricadewall1",
+    "flags60": 1,
+    "threat137": 2
+  },
+  {
+    "id": 525,
+    "name": "barricadewall2",
+    "flags60": 1,
+    "threat137": 2
+  },
+  {
+    "id": 526,
+    "name": "nihlathakboss",
+    "flags60": 66,
+    "threat137": 14
+  },
+  {
+    "id": 527,
+    "name": "drehyaiced",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 528,
+    "name": "evilhut",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 529,
+    "name": "deathmauler1",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 530,
+    "name": "deathmauler2",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 531,
+    "name": "deathmauler3",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 532,
+    "name": "deathmauler4",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 533,
+    "name": "deathmauler5",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 534,
+    "name": "act5pow",
+    "flags60": 3,
+    "threat137": 1
+  },
+  {
+    "id": 535,
+    "name": "act5barb3",
+    "flags60": 11,
+    "threat137": 11
+  },
+  {
+    "id": 536,
+    "name": "act5barb4",
+    "flags60": 11,
+    "threat137": 11
+  },
+  {
+    "id": 537,
+    "name": "ancientstatue1",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 538,
+    "name": "ancientstatue2",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 539,
+    "name": "ancientstatue3",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 540,
+    "name": "ancientbarb1",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 541,
+    "name": "ancientbarb2",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 542,
+    "name": "ancientbarb3",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 543,
+    "name": "baalthrone",
+    "flags60": 0,
+    "threat137": 0
+  },
+  {
+    "id": 544,
+    "name": "baalcrab",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 545,
+    "name": "baaltaunt",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 546,
+    "name": "putriddefiler1",
+    "flags60": 75,
+    "threat137": 10
+  },
+  {
+    "id": 547,
+    "name": "putriddefiler2",
+    "flags60": 75,
+    "threat137": 10
+  },
+  {
+    "id": 548,
+    "name": "putriddefiler3",
+    "flags60": 75,
+    "threat137": 10
+  },
+  {
+    "id": 549,
+    "name": "putriddefiler4",
+    "flags60": 75,
+    "threat137": 10
+  },
+  {
+    "id": 550,
+    "name": "putriddefiler5",
+    "flags60": 75,
+    "threat137": 10
+  },
+  {
+    "id": 551,
+    "name": "painworm1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 552,
+    "name": "painworm2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 553,
+    "name": "painworm3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 554,
+    "name": "painworm4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 555,
+    "name": "painworm5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 556,
+    "name": "bunny",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 557,
+    "name": "baalhighpriest",
+    "flags60": 9,
+    "threat137": 11
+  },
+  {
+    "id": 558,
+    "name": "venomlord",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 559,
+    "name": "baalcrabstairs",
+    "flags60": 72,
+    "threat137": 0
+  },
+  {
+    "id": 560,
+    "name": "act5hire1",
+    "flags60": 11,
+    "threat137": 11
+  },
+  {
+    "id": 561,
+    "name": "act5hire2",
+    "flags60": 11,
+    "threat137": 11
+  },
+  {
+    "id": 562,
+    "name": "baaltentacle1",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 563,
+    "name": "baaltentacle2",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 564,
+    "name": "baaltentacle3",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 565,
+    "name": "baaltentacle4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 566,
+    "name": "baaltentacle5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 567,
+    "name": "injuredbarb1",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 568,
+    "name": "injuredbarb2",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 569,
+    "name": "injuredbarb3",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 570,
+    "name": "baalclone",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 571,
+    "name": "baalminion1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 572,
+    "name": "baalminion2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 573,
+    "name": "baalminion3",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 574,
+    "name": "worldstoneeffect",
+    "flags60": 1,
+    "threat137": 0
+  },
+  {
+    "id": 575,
+    "name": "sk_archer6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 576,
+    "name": "sk_archer7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 577,
+    "name": "sk_archer8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 578,
+    "name": "sk_archer9",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 579,
+    "name": "sk_archer10",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 580,
+    "name": "bighead6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 581,
+    "name": "bighead7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 582,
+    "name": "bighead8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 583,
+    "name": "bighead9",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 584,
+    "name": "bighead10",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 585,
+    "name": "goatman6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 586,
+    "name": "goatman7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 587,
+    "name": "goatman8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 588,
+    "name": "goatman9",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 589,
+    "name": "goatman10",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 590,
+    "name": "foulcrow5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 591,
+    "name": "foulcrow6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 592,
+    "name": "foulcrow7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 593,
+    "name": "foulcrow8",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 594,
+    "name": "clawviper6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 595,
+    "name": "clawviper7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 596,
+    "name": "clawviper8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 597,
+    "name": "clawviper9",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 598,
+    "name": "clawviper10",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 599,
+    "name": "sandraider6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 600,
+    "name": "sandraider7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 601,
+    "name": "sandraider8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 602,
+    "name": "sandraider9",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 603,
+    "name": "sandraider10",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 604,
+    "name": "deathmauler6",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 605,
+    "name": "quillrat6",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 606,
+    "name": "quillrat7",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 607,
+    "name": "quillrat8",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 608,
+    "name": "vulture5",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 609,
+    "name": "thornhulk5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 610,
+    "name": "slinger7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 611,
+    "name": "slinger8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 612,
+    "name": "slinger9",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 613,
+    "name": "cr_archer6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 614,
+    "name": "cr_archer7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 615,
+    "name": "cr_lancer6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 616,
+    "name": "cr_lancer7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 617,
+    "name": "cr_lancer8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 618,
+    "name": "blunderbore5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 619,
+    "name": "blunderbore6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 620,
+    "name": "skmage_fire5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 621,
+    "name": "skmage_fire6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 622,
+    "name": "skmage_ltng5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 623,
+    "name": "skmage_ltng6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 624,
+    "name": "skmage_cold5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 625,
+    "name": "skmage_pois5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 626,
+    "name": "skmage_pois6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 627,
+    "name": "pantherwoman5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 628,
+    "name": "pantherwoman6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 629,
+    "name": "sandleaper6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 630,
+    "name": "sandleaper7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 631,
+    "name": "wraith6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 632,
+    "name": "wraith7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 633,
+    "name": "wraith8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 634,
+    "name": "succubus6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 635,
+    "name": "succubus7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 636,
+    "name": "succubuswitch6",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 637,
+    "name": "succubuswitch7",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 638,
+    "name": "succubuswitch8",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 639,
+    "name": "willowisp5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 640,
+    "name": "willowisp6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 641,
+    "name": "willowisp7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 642,
+    "name": "fallen6",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 643,
+    "name": "fallen7",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 644,
+    "name": "fallen8",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 645,
+    "name": "fallenshaman6",
+    "flags60": 25,
+    "threat137": 10
+  },
+  {
+    "id": 646,
+    "name": "fallenshaman7",
+    "flags60": 25,
+    "threat137": 10
+  },
+  {
+    "id": 647,
+    "name": "fallenshaman8",
+    "flags60": 25,
+    "threat137": 10
+  },
+  {
+    "id": 648,
+    "name": "skeleton6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 649,
+    "name": "skeleton7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 650,
+    "name": "batdemon6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 651,
+    "name": "batdemon7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 652,
+    "name": "bloodlord6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 653,
+    "name": "bloodlord7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 654,
+    "name": "scarab6",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 655,
+    "name": "scarab7",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 656,
+    "name": "fetish6",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 657,
+    "name": "fetish7",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 658,
+    "name": "fetish8",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 659,
+    "name": "fetishblow6",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 660,
+    "name": "fetishblow7",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 661,
+    "name": "fetishblow8",
+    "flags60": 57,
+    "threat137": 10
+  },
+  {
+    "id": 662,
+    "name": "fetishshaman6",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 663,
+    "name": "fetishshaman7",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 664,
+    "name": "fetishshaman8",
+    "flags60": 59,
+    "threat137": 10
+  },
+  {
+    "id": 665,
+    "name": "baboon7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 666,
+    "name": "baboon8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 667,
+    "name": "unraveler6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 668,
+    "name": "unraveler7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 669,
+    "name": "unraveler8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 670,
+    "name": "unraveler9",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 671,
+    "name": "zealot4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 672,
+    "name": "zealot5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 673,
+    "name": "cantor5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 674,
+    "name": "cantor6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 675,
+    "name": "vilemother4",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 676,
+    "name": "vilemother5",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 677,
+    "name": "vilechild4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 678,
+    "name": "vilechild5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 679,
+    "name": "sandmaggot6",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 680,
+    "name": "maggotbaby6",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 681,
+    "name": "maggotegg6",
+    "flags60": 2,
+    "threat137": 10
+  },
+  {
+    "id": 682,
+    "name": "minion9",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 683,
+    "name": "minion10",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 684,
+    "name": "minion11",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 685,
+    "name": "arach6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 686,
+    "name": "megademon4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 687,
+    "name": "megademon5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 688,
+    "name": "imp6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 689,
+    "name": "imp7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 690,
+    "name": "bonefetish6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 691,
+    "name": "bonefetish7",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 692,
+    "name": "fingermage4",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 693,
+    "name": "fingermage5",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 694,
+    "name": "regurgitator4",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 695,
+    "name": "vampire6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 696,
+    "name": "vampire7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 697,
+    "name": "vampire8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 698,
+    "name": "reanimatedhorde6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 699,
+    "name": "dkfig1",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 700,
+    "name": "dkfig2",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 701,
+    "name": "dkmag1",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 702,
+    "name": "dkmag2",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 703,
+    "name": "mummy6",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 704,
+    "name": "ubermephisto",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 705,
+    "name": "uberdiablo",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 706,
+    "name": "uberizual",
+    "flags60": 66,
+    "threat137": 14
+  },
+  {
+    "id": 707,
+    "name": "uberandariel",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 708,
+    "name": "uberduriel",
+    "flags60": 194,
+    "threat137": 0
+  },
+  {
+    "id": 709,
+    "name": "uberbaal",
+    "flags60": 200,
+    "threat137": 14
+  },
+  {
+    "id": 710,
+    "name": "demonspawner",
+    "flags60": 0,
+    "threat137": 11
+  },
+  {
+    "id": 711,
+    "name": "demonhole",
+    "flags60": 2,
+    "threat137": 9
+  },
+  {
+    "id": 712,
+    "name": "megademon6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 713,
+    "name": "dkmag3",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 714,
+    "name": "imp8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 715,
+    "name": "swarm5",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 716,
+    "name": "sandmaggot7",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 717,
+    "name": "arach7",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 718,
+    "name": "scarab8",
+    "flags60": 51,
+    "threat137": 10
+  },
+  {
+    "id": 719,
+    "name": "succubus8",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 720,
+    "name": "succubuswitch9",
+    "flags60": 1,
+    "threat137": 10
+  },
+  {
+    "id": 721,
+    "name": "corruptrogue6",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 722,
+    "name": "cr_archer8",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 723,
+    "name": "cr_lancer9",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 724,
+    "name": "overseer6",
+    "flags60": 17,
+    "threat137": 10
+  },
+  {
+    "id": 725,
+    "name": "skeleton8",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 726,
+    "name": "sk_archer11",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 727,
+    "name": "skmage_fire7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 728,
+    "name": "skmage_ltng7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 729,
+    "name": "skmage_cold6",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 730,
+    "name": "skmage_pois7",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 731,
+    "name": "vampire9",
+    "flags60": 9,
+    "threat137": 10
+  },
+  {
+    "id": 732,
+    "name": "wraith9",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 733,
+    "name": "willowisp8",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 734,
+    "name": "horse",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 735,
+    "name": "cowking",
+    "flags60": 11,
+    "threat137": 10
+  },
+  {
+    "id": 736,
+    "name": "darkelder",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 737,
+    "name": "pig",
+    "flags60": 3,
+    "threat137": 0
+  },
+  {
+    "id": 738,
+    "name": "seagull",
+    "flags60": 2,
+    "threat137": 0
+  },
+  {
+    "id": 739,
+    "name": "suicideminion9",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 740,
+    "name": "suicideminion10",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 741,
+    "name": "suicideminion11",
+    "flags60": 3,
+    "threat137": 11
+  },
+  {
+    "id": 742,
+    "name": "wargoatman",
+    "flags60": 14,
+    "threat137": 10
+  },
+  {
+    "id": 743,
+    "name": "warbighead",
+    "flags60": 12,
+    "threat137": 10
+  },
+  {
+    "id": 744,
+    "name": "warputriddefiler",
+    "flags60": 14,
+    "threat137": 10
+  },
+  {
+    "id": 745,
+    "name": "colossal1",
+    "flags60": 194,
+    "threat137": 10
+  },
+  {
+    "id": 746,
+    "name": "colossal2",
+    "flags60": 194,
+    "threat137": 10
+  },
+  {
+    "id": 747,
+    "name": "colossal3",
+    "flags60": 194,
+    "threat137": 10
+  },
+  {
+    "id": 748,
+    "name": "colbarbwhirl",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 749,
+    "name": "colbarbthrow",
+    "flags60": 3,
+    "threat137": 10
+  },
+  {
+    "id": 750,
+    "name": "colbarbfrenzy",
+    "flags60": 3,
+    "threat137": 10
+  }
+]

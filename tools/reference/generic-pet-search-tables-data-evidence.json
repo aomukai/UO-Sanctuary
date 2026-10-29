@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned search monster/level metadata",
+  "processMemoryRead": false,
+  "processInput": false,
+  "handlerEnabled": false,
+  "worldSelectorBindingVerified": false,
+  "verified": {
+    "tables": {
+      "monstats": {
+        "rows": 751,
+        "stride": 508
+      },
+      "levels": {
+        "rows": 138,
+        "stride": 404
+      }
+    },
+    "compiledToTextFieldMatches": 6897
+  },
+  "fields": {
+    "monsterFlags60": [
+      "isSpawn",
+      "isMelee",
+      "noRatio",
+      "opendoors",
+      "SetBoss",
+      "BossXfer",
+      "boss",
+      "primeevil"
+    ],
+    "monsterThreat137": "threat",
+    "levelWalk63": "MonSpcWalk"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-services/levels.bin": "d356106e45955b38bdd50ceb794cfac29c3e0c584d7c47b41215cd5fdc41a6d2",
+    ".local/class-skills/generic-pet-search-services/levels.bin.extract.log": "b157802f7c2526a882a17da75e03a4e242d9de2cf65ca60f2707ef24e888db86",
+    ".local/class-skills/generic-pet-search-services/levels.txt": "67b99ee9c928d758c25a08f3fbc8d2e02acf57f98e5d351567e20a0fdf37427e",
+    ".local/class-skills/generic-pet-search-services/levels.txt.extract.log": "2a16cc7fe8d656cea1908040d3de857d2fb4cbda8bbd1fb34a55452868d1ba93",
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/generic-pet-search-services/monstats.bin.extract.log": "b17a6af06f07bb76a82054bcaf706cd77471881daef6ca14fe25944e132dce18",
+    ".local/class-skills/generic-pet-search-services/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/generic-pet-search-services/monstats.txt.extract.log": "a6bbe48ef3019c43e6616b1d434d24b1bfc8edc566e7ece33fe93a7aa30bcd6d",
+    ".local/class-skills/warlock-foundation/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/warlock-foundation/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "data/Sanctuary/Balance/generic-pet-search-levels.json": "4c8d8a059fb67b08726357d5aa9093bb24a2b422db83d8a328d60104a91138a2",
+    "data/Sanctuary/Balance/generic-pet-search-monsters.json": "980afedac2ca0bc0deef9a96a1723e3b9de299a6f8ec737ec86f50b59a6b4170",
+    "tools/build_generic_pet_search_tables.py": "4709a4d2bebdb9e587d87f7affc565a8370d159f10a9c64674d463c49816db4e",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "remaining": [
+    "Native explicit-view catalog loading and source helper comparison required. These tables establish selected compiled fields,not real source-selector aliases,difficulty mapping or Britannia level membership. No learned handler is enabled."
+  ]
+}
