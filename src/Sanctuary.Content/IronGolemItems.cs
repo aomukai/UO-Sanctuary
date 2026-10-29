@@ -38,6 +38,13 @@ public static class IronGolemItems
     public static void Configure()=>Profiles=new();
     internal static IronGolemItemBase Metadata(string code)=>code!=null&&Bases.Value.TryGetValue(code,out var row)?row:throw new NotSupportedException("No verified Iron Golem item base");
     internal static IronGolemItemBinding State(BaseCreature pet)=>pet==null?null:States.GetValueOrDefault(pet.Serial.Value);
+    internal static ItemStatContext Equipment(BaseCreature pet,int sourceRecipientLevel)
+    {
+        if(pet is not{Deleted:false}||State(pet) is not{} state||World.FindItem((Serial)state.Item) is not{Deleted:false} item
+            ||item.Parent!=pet||(ClassGear.State(item)?.BaseCode??ClassGear.Definition(item)?.BaseCode)!=state.BaseCode)
+        {throw new NotSupportedException("No intact original Iron Golem equipment binding");}
+        return new(item,sourceRecipientLevel);
+    }
     private sealed class Target(Item item):IronGolemTargetServices
     {
         internal string Reason;

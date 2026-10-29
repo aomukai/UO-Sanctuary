@@ -17,6 +17,13 @@ Valkyrie additionally needs NPC consumers for the selected equipment. Existing p
 3. After the relevant class mechanics are ready, return to the deferred skill-effect list: skill-event dispatch, charges, oskills/item auras and remaining newer properties, using the relevant class handlers and exact ownership/resource/target/trigger rules. Individually uncertain mechanics remain recorded while unaffected work continues.
 4. Verify real ordinary magic/rare and named items plus NPC equipment through damage/resources/skills/events and two save/reload cycles. Refresh acquisition eligibility only after its consumer checks pass.
 
+## Recipient-level numeric suppliers
+
+The prepared original-item reader now takes an explicit recipient level for ordinary and named properties, local armor and weapon endpoints. Its life/mana suppliers retain FP256 fractions. Four source to-hit properties (`att/lvl`, `att%/lvl`, `att-dem/lvl`, `att-und/lvl`) use halves rather than the eighths used by the other registered scaled properties. See [scoped native evidence](../tools/reference/npc-item-suppliers-native-evidence.json). This is a numeric reader, not a complete NPC stat graph or combat/event consumer.
+
+**Open numeric routing gap:** `dmg%/lvl` is source operation5 and affects maximum weapon damage only. The existing player route projects it into general `dmg%`; its full item-operation order still needs correction and verification. The new NPC context refuses such items explicitly and leaves the original intact. These existing named definitions are not newly enabled by this work.
+
+
 ## Exact ordinary-affix gap in the current Valkyrie pool
 
 | Source property code | Affixes containing the gap | Existing named registration |

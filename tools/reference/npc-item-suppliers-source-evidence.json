@@ -1,0 +1,276 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Recipient-level equipment stat operations",
+  "currentExecutableParity": false,
+  "localReadOnly": true,
+  "processMemoryRead": false,
+  "processInput": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/ItemsTbls.h": "6f9b72363d068c0623193205e3f3a37c9231bdf6812e5bbb268a4c148f7bd4dc",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    ".local/class-skills/warlock-foundation/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/warlock-foundation/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "tools/probe_npc_item_suppliers.py": "7ac7340fe740ccbef225ff8ca763a8787b0ba0037c93187eb606e74031471c46",
+    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "a6d0fecf64b69986f94ac9f5a23fe9bfd8383ce1418ff860384de774b51dff36",
+    ".local/class-skills/npc-item-suppliers-source/properties.txt": "382528362751c68646e98d4a296c357276ab9a1ee0b7053c29e5df6b6252a1ef",
+    ".local/class-skills/npc-item-suppliers-source/itemstatcost.txt": "99960b46e1963b20fa120bd4d1f77e4b28138330ccec65c7fab0bfd3db6fd8e8"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "ComputeStatPercentage": "f9803075da80b9cf9c273f9e7906f394fc9f1ec569eb31611302ba4272cdf628",
+    "sub_6FDB5830": "e757710b6226906a6e4778786ceea851caa5eba6a9e20c1c1cfb1ff9e6e3ad0b"
+  },
+  "verified": {
+    "sourceContexts": 27648,
+    "scaledProperties": 27,
+    "ownedComparedFields": 189,
+    "halfScaleProperties": [
+      "att/lvl",
+      "att%/lvl",
+      "att-dem/lvl",
+      "att-und/lvl"
+    ]
+  },
+  "profiles": [
+    {
+      "Code": "str/lvl",
+      "Target": "str",
+      "SourceStat": "item_strength_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dex/lvl",
+      "Target": "dex",
+      "SourceStat": "item_dexterity_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "vit/lvl",
+      "Target": "vit",
+      "SourceStat": "item_vitality_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "hp/lvl",
+      "Target": "hp",
+      "SourceStat": "item_hp_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 8
+    },
+    {
+      "Code": "mana/lvl",
+      "Target": "mana",
+      "SourceStat": "item_mana_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 8
+    },
+    {
+      "Code": "stam/lvl",
+      "Target": "stam",
+      "SourceStat": "item_stamina_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "ac/lvl",
+      "Target": "ac",
+      "SourceStat": "item_armor_perlevel",
+      "Operation": 4,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "att/lvl",
+      "Target": "att",
+      "SourceStat": "item_tohit_perlevel",
+      "Operation": 2,
+      "Shift": 1,
+      "ValueShift": 0
+    },
+    {
+      "Code": "att%/lvl",
+      "Target": "att%",
+      "SourceStat": "item_tohitpercent_perlevel",
+      "Operation": 2,
+      "Shift": 1,
+      "ValueShift": 0
+    },
+    {
+      "Code": "mag%/lvl",
+      "Target": "mag%",
+      "SourceStat": "item_find_magic_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "gold%/lvl",
+      "Target": "gold%",
+      "SourceStat": "item_find_gold_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg/lvl",
+      "Target": "dmg-max",
+      "SourceStat": "item_maxdamage_perlevel",
+      "Operation": 4,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg%/lvl",
+      "Target": "dmg%",
+      "SourceStat": "item_maxdamage_percent_perlevel",
+      "Operation": 5,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "thorns/lvl",
+      "Target": "thorns",
+      "SourceStat": "item_thorns_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg-dem/lvl",
+      "Target": "dmg-demon%",
+      "SourceStat": "item_damage_demon_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg-und/lvl",
+      "Target": "dmg-undead%",
+      "SourceStat": "item_damage_undead_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "att-dem/lvl",
+      "Target": "att-demon",
+      "SourceStat": "item_tohit_demon_perlevel",
+      "Operation": 2,
+      "Shift": 1,
+      "ValueShift": 0
+    },
+    {
+      "Code": "att-und/lvl",
+      "Target": "att-undead",
+      "SourceStat": "item_tohit_undead_perlevel",
+      "Operation": 2,
+      "Shift": 1,
+      "ValueShift": 0
+    },
+    {
+      "Code": "regen-stam/lvl",
+      "Target": "regen-stam",
+      "SourceStat": "item_regenstamina_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg-cold/lvl",
+      "Target": "cold-max",
+      "SourceStat": "item_cold_damagemax_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg-ltng/lvl",
+      "Target": "ltng-max",
+      "SourceStat": "item_ltng_damagemax_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "deadly/lvl",
+      "Target": "deadly",
+      "SourceStat": "item_deadlystrike_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "res-ltng/lvl",
+      "Target": "res-ltng",
+      "SourceStat": "item_resist_ltng_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "abs-fire/lvl",
+      "Target": "abs-fire",
+      "SourceStat": "item_absorb_fire_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "abs-cold/lvl",
+      "Target": "abs-cold",
+      "SourceStat": "item_absorb_cold_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "abs-ltng/lvl",
+      "Target": "abs-ltng",
+      "SourceStat": "item_absorb_ltng_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    },
+    {
+      "Code": "dmg-fire/lvl",
+      "Target": "fire-max",
+      "SourceStat": "item_fire_damagemax_perlevel",
+      "Operation": 2,
+      "Shift": 3,
+      "ValueShift": 0
+    }
+  ],
+  "artifacts": {
+    ".local/class-skills/npc-item-suppliers-source/source.cpp": "a89c7b91af75dec1707816299f8b4267eb1c78ff5d64bee65ebc36f2a86b3187",
+    ".local/class-skills/npc-item-suppliers-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-suppliers-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-suppliers-source-probe.json": "682330ea044c7b14483fae78b49b3c965125295b51ad7467e0dcde13f81b42b7",
+    ".local/class-skills/npc-item-suppliers-source/diagnostics/initial-case-count/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-suppliers-source/diagnostics/initial-case-count/probe": "8c489c1a0f0e47bb25af1134aa4067fdc6558ffec3b2879c4d1e36a695c07e59",
+    ".local/class-skills/npc-item-suppliers-source/diagnostics/initial-case-count/producer.py": "11e4b4b59dd3c393c0a526b6117c79836988e1f21d91376656a6eebf4ba79fbb",
+    ".local/class-skills/npc-item-suppliers-source/diagnostics/initial-case-count/run.log": "0dda03dbccf2e2147862a35efd840aa88c1a48e7145775afd79fafdb1b02a5f8",
+    ".local/class-skills/npc-item-suppliers-source/diagnostics/initial-case-count/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-suppliers-source/diagnostics/initial-case-count/source.cpp": "a89c7b91af75dec1707816299f8b4267eb1c78ff5d64bee65ebc36f2a86b3187"
+  },
+  "established": [
+    "Complete recursive query and percentage helper retain unchanged source. Declared base/full-stat lookup services distinguish own-level op2 from recipient-level op4, missing/wrong recipients, both level shifts and FP256 coefficient units. The matrix exercises those two operations, not all other branches of the compiled body.",
+    "Owned3.3.93847properties/itemstatcost corroborate189fields for27registered scaled properties. Four to-hit properties use halves, not eighths. Item-local ac/lvl and dmg/lvl use recipient context; hp/mana carry FP256 through the source op before whole-number projection."
+  ],
+  "remaining": [
+    "Full stat graph posting, damageRelated/primary weapon arbitration, all other op families, dynamic callbacks and actual NPC combat consumers remain separate. dmg%/lvl is an op5max-damage-only supplier;its existing general dmg%projection remains an explicit unresolved local-damage routing gap. No learned Iron Golem or other NPC equipment handler is enabled."
+  ]
+}

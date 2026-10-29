@@ -79,13 +79,27 @@ public static class NamedPropertyRuntime
     public static int Bonus(NamedProperty template, NamedPropertyRoll roll, string code, int level)
     {
         if (_scaled.TryGetValue(template.Code, out string scaled))
-        { return scaled == code ? (int)((long)roll.Value * Math.Clamp(level, 1, 99) / 8) : 0; }
+        {
+            return scaled == code ? ScaledBonus(template, roll, level, 0) : 0;
+        }
         if (template.Code == "all-stats") { return code is "str" or "dex" or "enr" or "vit" ? roll.Value : 0; }
         if (template.Code == "dmg-norm") { return code == "dmg-min" ? roll.Value : code == "dmg-max" ? roll.Maximum : 0; }
         // Keep item_normaldamage distinct for shield-based Smite. Existing weapon
         // endpoints still consume its min/max projection exactly once.
         if (template.Code == "dmg") { return code is "dmg-min" or "dmg-max" or "normal-damage" ? roll.Value : 0; }
         return (_aliases.GetValueOrDefault(template.Code) ?? template.Code) == code ? roll.Value : 0;
+    }
+    private static int ScaledBonus(NamedProperty template, NamedPropertyRoll roll, int level, int valueShift)
+    {
+        // The four to-hit suppliers use op param1 (halves); the other
+        // registered per-level suppliers use op param3 (eighths).
+        int shift = template.Code is "att/lvl" or "att%/lvl" or "att-dem/lvl" or "att-und/lvl" ? 1 : 3;
+        return checked((int)((long)roll.Value * Math.Clamp(level, 1, 99) * (1 << valueShift) >> shift));
+    }
+    internal static int Bonus256(NamedProperty template, NamedPropertyRoll roll, string code, int level)
+    {
+        if (_scaled.TryGetValue(template.Code, out string scaled)) { return scaled == code ? ScaledBonus(template, roll, level, 8) : 0; }
+        return checked(Bonus(template, roll, code, level) * 256);
     }
 
     public static IEnumerable<(string Key, NamedProperty Property)> Templates(NamedItemDefinition item)

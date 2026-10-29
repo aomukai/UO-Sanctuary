@@ -266,17 +266,26 @@ public static class NamedGear
         { if (bonus.Scope == "Piece" && bonus.OwnerId == id && bonus.Property.Slot == slot) { return true; } }
         return false;
     }
-    public static int Bonus(Item item, string code)
+    public static int Bonus(Item item, string code) => Bonus(item, code, ClassGear.RecipientLevel(item));
+    internal static IEnumerable<(NamedProperty Property, NamedPropertyRoll Roll)> IntrinsicProperties(Item item)
     {
+        if (ClassGear.State(item) is not { NamedItemId: not null, Identified: true } state || ClassGear.Broken(item)) { yield break; }
+        foreach (var template in _templates[state.NamedItemId])
+        {
+            if (template.Key.StartsWith("p/", StringComparison.Ordinal)) { yield return (template.Property, FindRoll(state, template.Key)); }
+        }
+    }
+    internal static int Bonus(Item item, string code, int recipientLevel)
+    {
+        if (recipientLevel is < 1 or > 99) { throw new ArgumentOutOfRangeException(nameof(recipientLevel)); }
         if (ClassGear.State(item) is not { NamedItemId: not null, Identified: true } state || ClassGear.Broken(item)) { return 0; }
         var definition = Catalog.Item(state.NamedItemId);
-        int level = item.RootParent is PlayerMobile owner ? ClassStats.Level(owner) : 1;
         int sum = 0;
         foreach (var template in _templates[definition.Id])
         {
             if (template.Key.StartsWith("a/", StringComparison.Ordinal) && (item.Parent is not PlayerMobile wearer
                 || !ClassGear.Active(wearer, item) || !PieceBonusEnabled(wearer, definition.Id, template.Property.Slot))) { continue; }
-            sum += NamedPropertyRuntime.Bonus(template.Property, FindRoll(state, template.Key), code, level);
+            sum += NamedPropertyRuntime.Bonus(template.Property, FindRoll(state, template.Key), code, recipientLevel);
         }
         return sum;
     }

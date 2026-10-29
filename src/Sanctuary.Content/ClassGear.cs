@@ -105,14 +105,19 @@ public static class ClassGear
         }
         return true;
     }
-    public static int Bonus(Item item, string code)
+    internal static int RecipientLevel(Item item) => item?.RootParent is PlayerMobile owner ? ClassStats.Level(owner) : 1;
+    public static int Bonus(Item item, string code) => Bonus(item, code, RecipientLevel(item));
+    // Summon equipment supplies the recipient's source level explicitly. Item
+    // level and the summoner's level are independent contexts.
+    internal static int Bonus(Item item, string code, int recipientLevel)
     {
+        if (recipientLevel is < 1 or > 99) { throw new ArgumentOutOfRangeException(nameof(recipientLevel)); }
         if (Slot(item) == GearSlot.Cosmetic || Broken(item) || State(item) is not { Identified: true } state)
         {
             return 0;
         }
-        int value = GemSockets.Bonus(item, state, code) + NamedGear.Bonus(item, code);
-        value+=OrdinaryAffixProperties.Bonus(state,code,item.RootParent is PlayerMobile owner?ClassStats.Level(owner):1);
+        int value = GemSockets.Bonus(item, state, code) + NamedGear.Bonus(item, code, recipientLevel);
+        value+=OrdinaryAffixProperties.Bonus(state,code,recipientLevel);
         foreach (var rune in state.Runes) { if (rune.Pattern.EffectCode == code) { value += rune.Percentage; } }
         string materialCode = code switch
         {
@@ -155,9 +160,9 @@ public static class ClassGear
         }
         return value;
     }
-    private static int Enhanced(Item item, string code)
+    private static int Enhanced(Item item, string code, int recipientLevel)
     {
-        int value = Bonus(item, code);
+        int value = Bonus(item, code, recipientLevel);
         // Rune percentages apply in every permitted host slot. Local affixes stay local.
         if (item.Parent is PlayerMobile player && Active(player, item))
         {
@@ -170,21 +175,25 @@ public static class ClassGear
         }
         return value;
     }
-    public static int Defense(Item item)
+    public static int Defense(Item item) => Defense(item, RecipientLevel(item));
+    internal static int Defense(Item item, int recipientLevel)
     {
+        if (recipientLevel is < 1 or > 99) { throw new ArgumentOutOfRangeException(nameof(recipientLevel)); }
         if (Slot(item) == GearSlot.Cosmetic || Broken(item) || Base(item) is not { } basis)
         {
             return 0;
         }
         if (basis.MaxDefense <= 0) { return 0; }
-        int enhanced = Enhanced(item, "ac%");
+        int enhanced = Enhanced(item, "ac%", recipientLevel);
         int defense = enhanced > 0 ? basis.MaxDefense + 1 : State(item)?.Defense
             ?? basis.MinDefense + (int)(item.Serial.Value % (uint)(basis.MaxDefense - basis.MinDefense + 1));
         if (NamedGear.Ethereal(item)) { defense = defense * 3 / 2; }
-        return defense * (100 + enhanced) / 100 + Bonus(item, "ac");
+        return defense * (100 + enhanced) / 100 + Bonus(item, "ac", recipientLevel);
     }
-    public static (int Min, int Max) Damage(Item item)
+    public static (int Min, int Max) Damage(Item item) => Damage(item, RecipientLevel(item));
+    internal static (int Min, int Max) Damage(Item item, int recipientLevel)
     {
+        if (recipientLevel is < 1 or > 99) { throw new ArgumentOutOfRangeException(nameof(recipientLevel)); }
         if (item == null || !Converted(item))
         {
             return (1, 2);
@@ -201,10 +210,10 @@ public static class ClassGear
             min = basis.MissileMin;
             max = basis.MissileMax;
         }
-        int enhanced = Enhanced(item, "dmg%");
+        int enhanced = Enhanced(item, "dmg%", recipientLevel);
         if (NamedGear.Ethereal(item)) { min = min * 3 / 2; max = max * 3 / 2; }
-        min = min * (100 + enhanced) / 100 + Bonus(item, "dmg-min");
-        max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max");
+        min = min * (100 + enhanced) / 100 + Bonus(item, "dmg-min", recipientLevel);
+        max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max", recipientLevel);
         return (min, Math.Max(min, max));
     }
     public static int RequiredLevel(Item item) => Slot(item) == GearSlot.Cosmetic ? 0

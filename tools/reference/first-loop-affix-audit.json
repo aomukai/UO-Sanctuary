@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "f183bcc6f3e14081632dee40f63dbf6900cfbe17b611ad5eb17c1a4fb0bce433",
-  "ContentAssemblyPath": ".local/class-skills/iron-golem-items/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "1b499d40b1f714aa4aae2e621d2bda839578d1812a563d70625912a5dcbbefdc",
+  "ContentAssemblyPath": ".local/class-skills/npc-item-suppliers/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -10,7 +10,7 @@
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "src/Sanctuary.Content/ActionTiming.cs": "df41f65e74c7850f3550a2b5c15dcfed090f9e95c9cdd1ad44bdde234870e860",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
-    "src/Sanctuary.Content/ClassGear.cs": "3b97a68973b38952ff41a2177ffac237227bf7139afba52fd9884db0e0ddbac5",
+    "src/Sanctuary.Content/ClassGear.cs": "8e0b032beb5b318ff3953647e521a230510515c40cdb7c15dc111d9fe4ce9e9d",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
     "src/Sanctuary.Content/ClassStats.cs": "92be74a87153222d79e39b0eb1e3afc6a571042160ce0ae924691ea5500af535",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
@@ -21,9 +21,9 @@
     "src/Sanctuary.Content/GearProfiles.cs": "a459917ea82a2960688164755280906ca1692e093e516962eb17f7961ff09d15",
     "src/Sanctuary.Content/HitRecovery.cs": "ec0cf4802859c03c2e191cb80af56543f85db711f994ff2343622c13ee06c97e",
     "src/Sanctuary.Content/NamedAmmunition.cs": "f09c11acb35685ee0aa3019fc83e890ecbde0e92190425ed9fb30e001386dd2d",
-    "src/Sanctuary.Content/NamedGear.cs": "9c1866e70c4a4cbd9b3d6506cdef5f4801a8067970d3e6772b69f01784702989",
+    "src/Sanctuary.Content/NamedGear.cs": "8788daf4c2920ba1443624f261e3f7f1202a1e87a694d59735568ed5843c8f58",
     "src/Sanctuary.Content/NamedMaintenance.cs": "d3c6afab506c9507da88f188209c4bf7aa428cbcd37b27c87da39bb1d9ff7a0b",
-    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "a11767e4c1f6badf27271f0959417f714aff7c9af9f6ce1f080b92302a1425bb",
+    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "a6d0fecf64b69986f94ac9f5a23fe9bfd8383ce1418ff860384de774b51dff36",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464"
   },
   "ImplementedCodes": [
