@@ -815,7 +815,7 @@
     "src/Sanctuary.Content/NamedGear.cs": "8788daf4c2920ba1443624f261e3f7f1202a1e87a694d59735568ed5843c8f58",
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
-    "tools/reference/named-item-runtime-audit.json": "6bbf0a945d7b3b742607b59571d42e7d5de529c71481442d5cb8ce788ee3630f"
+    "tools/reference/named-item-runtime-audit.json": "3d40c3008fea41feec793aef190feeea3cfc09a8281c17860dcd61efa57d6282"
   },
   "recipientNumericContext": {
     "status": "Prepared numeric suppliers; full NPC stat graph/combat remains unfinished",

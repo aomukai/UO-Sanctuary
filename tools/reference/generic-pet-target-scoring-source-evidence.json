@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current GenericPet full per-target scoring and routing compositions",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "verified": {
+    "contexts": 25115,
+    "byKind": {
+      "score": 20939,
+      "composed": 4176
+    },
+    "scorerEntries": 24111,
+    "capturedHelperBytes": 3812,
+    "inlineTableBytes": 156,
+    "fatalBoundaries": 321,
+    "unsupportedType2Metadata": 6,
+    "branchLandmarksVisited": [
+      "flags4",
+      "flags8",
+      "state-type2",
+      "owner-type3",
+      "ranged",
+      "movement-type7",
+      "midpoint",
+      "random-destination",
+      "owner-or-clear-target",
+      "owner-frame104",
+      "monster-gate",
+      "melee",
+      "collision",
+      "reject",
+      "leave",
+      "missing-pet-fatal",
+      "first-selector-fatal"
+    ],
+    "branchLandmarksUnvisited": [
+      "loop-selector-fatal"
+    ]
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-target-scoring-source-probe.json": "068ddce32bf0d0681a8c3b2c2088f3f158852a8fcfda22c6fa0c711fd71c50d8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b5200-part0.bin": "198c98be9a1bee65bd98d8e4a526ba652ada3ba3379e08c31eb69b58db93903a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b5200-part1.bin": "e3e2fc1556113d97ae54dc097d5eddc823dcba8f5fa4de921473621b79f3665a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b5200-part2.bin": "bd9db900329643e0b02fcbf83dd8c4b403533a29a73d807aa908f7a878f8d286",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029.json": "202d740541dad9026a96f3480baf1f1850e6c058357545648eeb72db1da57918",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-rating-20261029-4b45e0-part0.bin": "6f1101fca2be4d203f775fdf589fa88dcb2c677db0fc958b874f47a9c62070d6",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-rating-20261029-4b45e0-part1.bin": "4eff56f0273c2248dd2ad46b9b910aba3883bb9d1ee0af7baae977c07250b021",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-rating-20261029-4b45e0-part2.bin": "d70e9efabee091725bc7d0ca0b02ea072ec2f51f342afa39712168727fc11e92",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-rating-20261029-4b45e0-part3.bin": "95331d3c452fde41708cef231947072cbc272ce434a601bf390b13f8c76f919a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-rating-20261029.json": "1e9fa9c9c1ecaf36ddeceb2eaca99334e5a4e3c4573c268e00b0025661b24d85",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_rating_routing.py": "7fa2e00eaed9bec7fff433c555a7ba7d891041e9a2c7c8bb141a356ad5fbd63a",
+    "tools/probe_generic_pet_target_scoring.py": "d3c4cfb4959087ddc77213936d8330aa437472886336d12278d103cef9ec6b78",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Complete3092-byte scoring and720-byte routing bodies execute as captured. Skill/stat/state/monster metadata,distance/collision,owner counters and formula output are declared services;exact arguments and order are retained. Actual current pet RNG executes inline and its final64-bit seed is retained.",
+    "Three13-entry inline tables,total156bytes,are validated and executed as data. Required source type2metadata-null reads are recorded as explicit unsupported contexts;missing pet/invalid state selectors stop at the source fatal boundary. No fake scoring function replaces the scorer in compositions.",
+    "Current type7coordinate paths deliberately retain repeated X-field reads. Static paths require a valid path;dynamic null paths yield zero coordinates. The loop-only selector fatal requires a selector mutation during metadata calls and is not exercised;arbitrary reentrant metadata mutations are outside this matrix. RNG advancement for discarded temporary candidates is covered explicitly."
+  ],
+  "remaining": [
+    "Managed/native verification,real metadata/formula/geometry/state/owner adapters,target search,ordering,mode/skill effects and complete actor lifecycle remain required. No learned demon enabled or class completed."
+  ]
+}

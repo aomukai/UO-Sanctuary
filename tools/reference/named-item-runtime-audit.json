@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "4815a0f9b7ae5257663ed9cb74f48d180960626efcac3f43aaf5eb871f490ffb",
+  "ContentAssemblySha256": "a606aecc87d52150334ca880c5e44941bddcbc6de3051dbee3d064c4d273ed26",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -507,6 +507,7 @@
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
     "src/Sanctuary.Content/GenericPetPreparation.cs": "3c0ab30c305842c06edf0528c456de5f35f4c0a138830bd8258fb6cba6b035e9",
     "src/Sanctuary.Content/GenericPetRatingRouting.cs": "d820257cd1e7b2062dbb3324fc1742f46eaa3721e62a6604903fd1d7e7e6c148",
+    "src/Sanctuary.Content/GenericPetTargetScoring.cs": "e292ab5de99dbe211a20d187c1c96ad3bc0dc264a80380134e2acbd7a92c131f",
     "src/Sanctuary.Content/GlobalUsings.cs": "935c9f61673850542058ba06d42504fd5b329a00b53abed54d4c3913b3938435",
     "src/Sanctuary.Content/GoatmanBerserkEffects.cs": "b16852d05bf932ca9c1b7bc3929a9d7c45a25c66e649e06caaa08d5a076da899",
     "src/Sanctuary.Content/GoatmanNpcMelee.cs": "9c807204a68121ee3b1cb7a90a81c20d3f5c2c7efb767729668006700f898203",
