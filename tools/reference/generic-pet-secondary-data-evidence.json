@@ -1,0 +1,155 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned secondary-monster links,corpse flags and signed dimensions",
+  "processMemoryRead": false,
+  "processInput": false,
+  "handlerEnabled": false,
+  "worldSelectorBindingVerified": false,
+  "verified": {
+    "secondaryRows": 623,
+    "secondaryStride": 296,
+    "monsterLinks": 751,
+    "compiledTextFieldMatches": 10719,
+    "compiledRowIdChecks": 623,
+    "reservedUpperFlagChecks": 623,
+    "textIdentityDifferences": 19
+  },
+  "fields": {
+    "monsterSecondaryId": 76,
+    "secondaryFlags4": [
+      "noGfxHitTest",
+      "noMap",
+      "noOvly",
+      "isSel",
+      "alSel",
+      "noSel",
+      "shiftSel",
+      "corpseSel"
+    ],
+    "secondaryFlags6": [
+      "compositeDeath",
+      "inert",
+      "objCol",
+      "deadCol",
+      "unflatDead",
+      "limitCorpses"
+    ],
+    "secondarySizeX": 8,
+    "secondarySizeY": 9
+  },
+  "identityDifferences": [
+    {
+      "compiledId": 604,
+      "textHcIdx": 704,
+      "name": "ubermephisto"
+    },
+    {
+      "compiledId": 605,
+      "textHcIdx": 707,
+      "name": "uberandariel"
+    },
+    {
+      "compiledId": 606,
+      "textHcIdx": 706,
+      "name": "uberizual"
+    },
+    {
+      "compiledId": 607,
+      "textHcIdx": 708,
+      "name": "uberduriel"
+    },
+    {
+      "compiledId": 608,
+      "textHcIdx": 709,
+      "name": "uberbaal"
+    },
+    {
+      "compiledId": 609,
+      "textHcIdx": 734,
+      "name": "horse"
+    },
+    {
+      "compiledId": 610,
+      "textHcIdx": 735,
+      "name": "cowking"
+    },
+    {
+      "compiledId": 611,
+      "textHcIdx": 736,
+      "name": "darkelder"
+    },
+    {
+      "compiledId": 612,
+      "textHcIdx": 737,
+      "name": "pig"
+    },
+    {
+      "compiledId": 613,
+      "textHcIdx": 738,
+      "name": "seagull"
+    },
+    {
+      "compiledId": 614,
+      "textHcIdx": 742,
+      "name": "wargoatman"
+    },
+    {
+      "compiledId": 615,
+      "textHcIdx": 743,
+      "name": "warbighead"
+    },
+    {
+      "compiledId": 616,
+      "textHcIdx": 744,
+      "name": "warputriddefiler"
+    },
+    {
+      "compiledId": 617,
+      "textHcIdx": 745,
+      "name": "colossal2"
+    },
+    {
+      "compiledId": 618,
+      "textHcIdx": 746,
+      "name": "colossal1"
+    },
+    {
+      "compiledId": 619,
+      "textHcIdx": 747,
+      "name": "colossal3"
+    },
+    {
+      "compiledId": 620,
+      "textHcIdx": 748,
+      "name": "colbarbwhirl"
+    },
+    {
+      "compiledId": 621,
+      "textHcIdx": 749,
+      "name": "colbarbthrow"
+    },
+    {
+      "compiledId": 622,
+      "textHcIdx": 750,
+      "name": "colbarbfrenzy"
+    }
+  ],
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-nested/monstats2.bin": "f13b15eafdf4b9ef2416a0dbc55202a5fb81e076ae47111551098e46a2ab1248",
+    ".local/class-skills/generic-pet-search-nested/monstats2.bin.extract.log": "b3ea4f36b4bf5ba1c5238e8454c04aeb92e70e1f0849f68de12705f8a0ef03cb",
+    ".local/class-skills/generic-pet-search-nested/monstats2.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/class-skills/generic-pet-search-nested/monstats2.txt.extract.log": "1940705456e0405e9b10c6b1eb01e124a521e39de3ecbd95a1c1a3bf0625e024",
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/generic-pet-search-services/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/warlock-foundation/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/warlock-foundation/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "data/Sanctuary/Balance/generic-pet-search-monster-links.json": "7f9d7af007a87a27dc9cb76e3b8392249552a255c362a3d29da727d9c8e18823",
+    "data/Sanctuary/Balance/generic-pet-search-monster2.json": "8e5679f5137901963988b04914514c04685ae933aece82939cf048e09f359fc0",
+    "tools/build_generic_pet_search_tables.py": "4709a4d2bebdb9e587d87f7affc565a8370d159f10a9c64674d463c49816db4e",
+    "tools/build_generic_pet_secondary_tables.py": "7a7aaead8fd5876f75379989317b41a8fa88596ffbb10aef74777b9bb53c9855",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "remaining": [
+    "Native current getter/size/corpse composition required. Compiled ordinals,not text hcIdx,are used by current links. Real selector aliases,world membership and state-mask producer remain unverified."
+  ]
+}

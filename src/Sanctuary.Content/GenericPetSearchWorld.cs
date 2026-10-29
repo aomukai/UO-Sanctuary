@@ -120,7 +120,7 @@ internal static class GenericPetSearchWorld
         {return (int)(s.RelationFlags4(origin,candidate).GetValueOrDefault()&8);}
         return s.Allegiance24fd30(origin,candidate)==0?1:0;
     }
-    private static void Sizes(int subject,GenericPetSearchWorldUnit u,GenericPetSearchWorldServices s)
+    internal static void Sizes(int subject,GenericPetSearchWorldUnit u,GenericPetSearchWorldServices s)
     {
         var cache=u.Cache??throw new NotSupportedException("Missing source size cache");
         if(cache.Kind==u.Position.Kind&&cache.ClassId==u.ClassId){return;}

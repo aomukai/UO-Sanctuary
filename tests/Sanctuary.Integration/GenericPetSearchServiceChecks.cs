@@ -17,10 +17,10 @@ public static class GenericPetSearchServiceChecks
     private static void Register(string name)=>ConsoleInputHandler.RegisterCommand(name,"Nine actual search helpers and full pipeline",_=>Core.LoopContext.Post(()=>
     {try{Check();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     public static void Configure(){Register("generic-pet-search-services-check");Register("generic-pet-search-services-reload-check");}
-    private sealed record Scene(GenericPetSearchWrapperContext Input,List<GenericPetCombatCandidate> Rows,
+    internal sealed record Scene(GenericPetSearchWrapperContext Input,List<GenericPetCombatCandidate> Rows,
         GenericPetSearchWrapperServices Wrapper,GenericPetSearchWorldServices World,Dictionary<int,GenericPetSearchWorldUnit> Units,
         Dictionary<int,GenericPetTraversalUnit> Traversal,List<object[]> Trace);
-    private static Scene Create(JsonElement p)
+    internal static Scene Create(JsonElement p)
     {
             int[] v=Ints(p.GetProperty("params"));
             var input=new GenericPetSearchWrapperContext(p.GetProperty("selector").GetByte(),p.GetProperty("pet").GetInt32(),p.GetProperty("owner").GetInt32(),
@@ -101,7 +101,7 @@ public static class GenericPetSearchServiceChecks
             var services=GenericPetTraversal.Bind(original,1,traversal);
             return new(input,rows,services,worldServices,worldUnits,live,trace);
     }
-    private static object[] Caches(Scene scene)=>scene.Units.Values.Select(u=>new[]{u.Cache.Kind,u.Cache.ClassId,u.Cache.SizeX,u.Cache.SizeY}).Cast<object>().ToArray();
+    internal static object[] Caches(Scene scene)=>scene.Units.Values.Select(u=>new[]{u.Cache.Kind,u.Cache.ClassId,u.Cache.SizeX,u.Cache.SizeY}).Cast<object>().ToArray();
     private static void Check()
     {
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"generic-pet-search-services-source-probe.json")));
