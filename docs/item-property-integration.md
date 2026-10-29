@@ -24,6 +24,11 @@ The prepared original-item reader now takes an explicit recipient level for ordi
 `dmg%/lvl` now uses the dedicated `dmg-max%` field, with a separate maximum calculation after ordinary ED and flat maximum damage. Actual Reaver/Eaglehorn equipment, weapon packets/strikes and original-item reloads verify the correction; see [maximum damage acceptance](../tools/reference/item-maximum-operations-native-evidence.json). The former numeric-reader rejection is removed. Full NPC stat application, callbacks and item procs remain unfinished. Existing base-ED integer rounding remains unchanged while its modern parity is uncertain; by-time operations6/7 and property17 parameter-zero fallback generation remain separate gaps. Named acquisition decisions are unchanged.
 
 
+## Original-item stat attachment
+
+The prepared C# graph matches the source posting/removal/owner/damage-toggle policy over 12,288 contexts and exact ordered service traces. An explicit adapter wraps actual bound original items and recipients, copies caller-supplied stat arrays and requires recalculation/propagation services. Native original armor/sword fixtures pass attachment, repeat, damage toggle and removal before and after two world reloads. Their aggregate is deliberately a fixture service; no live NPC life/defense/damage setter or automatic full-stat projection is certified. The transient graph is not serialized or replayed. Multi-item ordering, cycles, reentrancy, real recipient-level mapping and complete stat operations remain unfinished. See [scoped attachment acceptance](../tools/reference/item-stat-attachment-native-evidence.json).
+
+
 ## Exact ordinary-affix gap in the current Valkyrie pool
 
 | Source property code | Affixes containing the gap | Existing named registration |

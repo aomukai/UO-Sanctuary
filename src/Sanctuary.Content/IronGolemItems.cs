@@ -45,6 +45,19 @@ public static class IronGolemItems
         {throw new NotSupportedException("No intact original Iron Golem equipment binding");}
         return new(item,sourceRecipientLevel);
     }
+    // Build an explicit transient stat-list context around the real original
+    // objects. Callers must supply their verified stat arrays and services;
+    // this does not guess a complete NPC stat projection or replay it on load.
+    internal static (EquipmentStatUnit Recipient,EquipmentStatUnit Item) StatUnits(BaseCreature pet,int sourceRecipientLevel,
+        EquipmentStatValue[] recipientBase,EquipmentStatValue[] itemBase,EquipmentStatValue[] itemFull)
+    {
+        var original=Equipment(pet,sourceRecipientLevel).Item;
+        ArgumentNullException.ThrowIfNull(recipientBase);ArgumentNullException.ThrowIfNull(itemBase);ArgumentNullException.ThrowIfNull(itemFull);
+        var recipient=new EquipmentStatUnit(pet,1);var held=new EquipmentStatUnit(original,4);
+        recipient.Stats=new(){Flags=EquipmentStatNode.Extended,Owner=recipient,BaseValues=(EquipmentStatValue[])recipientBase.Clone(),FullValues=(EquipmentStatValue[])recipientBase.Clone()};
+        held.Stats=new(){Flags=EquipmentStatNode.Extended,Owner=held,BaseValues=(EquipmentStatValue[])itemBase.Clone(),FullValues=(EquipmentStatValue[])itemFull.Clone()};
+        return(recipient,held);
+    }
     private sealed class Target(Item item):IronGolemTargetServices
     {
         internal string Reason;

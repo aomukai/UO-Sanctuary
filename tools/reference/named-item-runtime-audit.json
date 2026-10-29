@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a5530fbe5bd02e8740a3a88e75422e5cddb4736cebce3e3ce85021fe15b0a5e1",
+  "ContentAssemblySha256": "ece95b58c4293d9db52990f1b6f45d09e59241de276a4986d64c4181262a6df0",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -470,6 +470,7 @@
     "src/Sanctuary.Content/EquipmentInsurance.cs": "cc6bb67b78b980b989ec60163034e5abb3453f484748dbb0da0085480fb68ba4",
     "src/Sanctuary.Content/EquipmentRepairs.cs": "1054a65cb71c0a5b1f6eef8b47c99df722758d9bf911f746aebf1bc14305417b",
     "src/Sanctuary.Content/EquipmentSalvage.cs": "695be4ca9b945d8572a5f60399f175bb5bfae16e852fc4a0ee79c3d1b78bb354",
+    "src/Sanctuary.Content/EquipmentStatGraph.cs": "b94a556bf785dc6b6567158c517957f2285a4fae3411c73a4c9b8c3d081425c6",
     "src/Sanctuary.Content/EscrowValuation.cs": "dfd434ac964f51acb82196a6862e81a198a4eccec7d7597eff6470c811c573b8",
     "src/Sanctuary.Content/EssenceGump.cs": "0705f9f65525be47b5be896ab60b3e2f4e47e642710536f8cdb3e021cd5d5660",
     "src/Sanctuary.Content/ExperienceLevels.cs": "ea57918e5227d532435e87bdb802976de196c3145c9b45ab6cea46b15e4acea3",
@@ -531,7 +532,7 @@
     "src/Sanctuary.Content/InsuranceGump.cs": "9199fca404c7b235b45a47e109cbfad5c3ecc5722f9d9073c08ae6c8ea9c2a96",
     "src/Sanctuary.Content/InsuranceProfiles.cs": "2a7d9f9ad03f4dee259fb2867b65a339d88ca298ee08a0f209bb7d7a04e5ecb2",
     "src/Sanctuary.Content/IronGolemItemCast.cs": "a19fdc85bdd601864d2656d973df7a25d890ef11b2d2a0a54f3a1f380c27dae3",
-    "src/Sanctuary.Content/IronGolemItems.cs": "7f2bcf52d9af291486d11f7f4e777d9a57e08b3b030c198555fa7b81be23f771",
+    "src/Sanctuary.Content/IronGolemItems.cs": "580139f3ebc0fd5ef0254c90eaa3d5f41a2903c1f3c44d0c9df4ec15be900b2f",
     "src/Sanctuary.Content/ItemDamageOperations.cs": "383ec1bd2a683e754d1b0531d10813e5183af2c2ed0b860cd35ac7788373adda",
     "src/Sanctuary.Content/ItemStatContext.cs": "f799e5f994e00dcb1419e766d049bbe9e596bab551bc4c926a1c02fd92670c3c",
     "src/Sanctuary.Content/JewelleryCrafting.cs": "a4c86d8e4d739768ec0efec16f7bd4bdd24704bd0d94cb1ae521ade67c67935c",
