@@ -40,7 +40,7 @@ public static class NamedPropertyRuntime
         ["str/lvl"] = "str", ["dex/lvl"] = "dex", ["vit/lvl"] = "vit", ["hp/lvl"] = "hp",
         ["mana/lvl"] = "mana", ["stam/lvl"] = "stam", ["ac/lvl"] = "ac", ["att/lvl"] = "att",
         ["att%/lvl"] = "att%", ["mag%/lvl"] = "mag%", ["gold%/lvl"] = "gold%", ["dmg/lvl"] = "dmg-max",
-        ["dmg%/lvl"] = "dmg%", ["thorns/lvl"] = "thorns", ["dmg-dem/lvl"] = "dmg-demon%",
+        ["dmg%/lvl"] = "dmg-max%", ["thorns/lvl"] = "thorns", ["dmg-dem/lvl"] = "dmg-demon%",
         ["dmg-und/lvl"] = "dmg-undead%", ["att-dem/lvl"] = "att-demon", ["att-und/lvl"] = "att-undead",
         ["regen-stam/lvl"] = "regen-stam", ["dmg-cold/lvl"] = "cold-max", ["dmg-ltng/lvl"] = "ltng-max",
         ["deadly/lvl"] = "deadly", ["res-ltng/lvl"] = "res-ltng", ["abs-fire/lvl"] = "abs-fire",

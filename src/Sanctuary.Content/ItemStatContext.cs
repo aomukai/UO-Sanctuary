@@ -19,10 +19,6 @@ internal readonly struct ItemStatContext
     private void RequireItem()
     {
         if (Item is not { Deleted: false }) { throw new InvalidOperationException("Original equipment item no longer exists"); }
-        foreach (var p in Properties())
-        {
-            if (p.Property.Code == "dmg%/lvl") { throw new NotSupportedException("Equipment op5 maximum-only damage scaling is not integrated yet"); }
-        }
     }
     private IEnumerable<(NamedProperty Property, NamedPropertyRoll Roll)> Properties()
     {

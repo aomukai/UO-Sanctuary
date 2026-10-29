@@ -212,8 +212,9 @@ public static class ClassGear
         }
         int enhanced = Enhanced(item, "dmg%", recipientLevel);
         if (NamedGear.Ethereal(item)) { min = min * 3 / 2; max = max * 3 / 2; }
+        int levelMaximum = ItemDamageOperations.LevelMaximum(max, Bonus(item, "dmg-max%", recipientLevel));
         min = min * (100 + enhanced) / 100 + Bonus(item, "dmg-min", recipientLevel);
-        max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max", recipientLevel);
+        max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max", recipientLevel) + levelMaximum;
         return (min, Math.Max(min, max));
     }
     public static int RequiredLevel(Item item) => Slot(item) == GearSlot.Cosmetic ? 0

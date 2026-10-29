@@ -808,14 +808,14 @@
     "Verify real ordinary magic/rare and named items plus NPC equipment through damage/resources/skills/events and two save/reload cycles. Refresh acquisition eligibility only after its consumer checks pass."
   ],
   "sourceHashes": {
-    "src/Sanctuary.Content/ClassGear.cs": "8e0b032beb5b318ff3953647e521a230510515c40cdb7c15dc111d9fe4ce9e9d",
-    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "a6d0fecf64b69986f94ac9f5a23fe9bfd8383ce1418ff860384de774b51dff36",
+    "src/Sanctuary.Content/ClassGear.cs": "fcef3c3bf8caace4491a61b0a2ce961b2b4dbf41e8c174e176a6d55132b8b7a7",
+    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "2741f36e2aa824252ff9a5660d5373d8bad46711ca34654a1d379522912d7a2a",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464",
     "src/Sanctuary.Content/NamedSkills.cs": "2a86ad26fb5a288f34179da98e18a9e74a829f0036753b574abc4ac11b71f5a2",
     "src/Sanctuary.Content/NamedGear.cs": "8788daf4c2920ba1443624f261e3f7f1202a1e87a694d59735568ed5843c8f58",
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
-    "tools/reference/named-item-runtime-audit.json": "19dc8f70c06270424c824c601c98f23245f2b4c1bcb3152b763f0a4d8b09de09"
+    "tools/reference/named-item-runtime-audit.json": "3d17372068cdbfa95555ed6580546cc6d67e8a4bfa7915fcac316aa555e58f38"
   },
   "recipientNumericContext": {
     "status": "Prepared numeric suppliers; full NPC stat graph/combat remains unfinished",
@@ -830,14 +830,29 @@
       "att-und/lvl"
     ]
   },
+  "maximumLevelDamage": {
+    "code": "dmg%/lvl",
+    "runtimeChannel": "dmg-max%",
+    "sourceOperation": 5,
+    "status": "Verified numeric supplier;full NPC stat graph/combat remains unfinished",
+    "receipt": "tools/reference/item-maximum-operations-native-evidence.json",
+    "sourceReceipt": "tools/reference/item-maximum-operations-source-evidence.json",
+    "minimumUnaffected": true,
+    "generalDamagePoolExcluded": true,
+    "separateMaximumRounding": true
+  },
   "numericOperationGaps": [
     {
-      "code": "dmg%/lvl",
-      "sourceOperation": 5,
-      "sourceScope": "Maximum weapon damage only, including secondary/throw maximum channels",
-      "existingRoute": "Legacy general dmg% projection still needs correction and complete source operation-order verification",
-      "npcContext": "Explicitly rejected without consuming the original item",
-      "status": "Open; do not infer full NPC support from scalar registration"
+      "feature": "Base enhanced-damage rounding",
+      "status": "Legacy double source and current integer implementation differ in720source controls;modern executable parity unresolved;existing base ED behavior preserved"
+    },
+    {
+      "feature": "By-time operations6/7",
+      "status": "Current asymmetric channel targets retained in source metadata;time/environment services and native consumers remain unimplemented"
+    },
+    {
+      "feature": "Full property17parameter-zero fallback generation",
+      "status": "Source writer fallback is recorded;native named/ordinary zero-parameter range rolling remains outside numeric reader acceptance"
     }
   ],
   "deferredSkillEffects": [

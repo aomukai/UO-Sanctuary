@@ -35,6 +35,7 @@ public static class NpcItemSupplierChecks
         foreach(var profile in doc.RootElement.GetProperty("profiles").EnumerateArray())
         {
             string code=profile.GetProperty("Code").GetString(),target=profile.GetProperty("Target").GetString();int shift=profile.GetProperty("Shift").GetInt32();
+            if(profile.GetProperty("Operation").GetInt32()==5){Require(code=="dmg%/lvl","Unknown maximum-damage projection migration");target="dmg-max%";}
             foreach(int coefficient in new[]{0,1,3,8,17,255})foreach(int level in new[]{1,37,47,99})
             {
                 var property=new NamedProperty("0",code,code,true,JsonSerializer.SerializeToElement(coefficient),0,0);var roll=new NamedPropertyRoll("0",coefficient,coefficient);
@@ -99,13 +100,13 @@ public static class NpcItemSupplierChecks
         var prior=ClassGear.State(sword);ClassGear.Profiles.Store(sword,prior with{Identified=false});Require(IronGolemItems.Equipment(pets[0],37).Bonus("att")==0,"Unidentified item bonus leaked");ClassGear.Profiles.Store(sword,prior);
         int durability=sword.HitPoints;sword.HitPoints=0;Require(IronGolemItems.Equipment(pets[0],37).WeaponDamage==(0,0)&&IronGolemItems.Equipment(pets[0],37).Bonus("att")==0,"Broken item contributed");sword.HitPoints=durability;
         foreach(int level in new[]{0,100}){bool refused=false;try{_=IronGolemItems.Equipment(pets[0],level);}catch(ArgumentOutOfRangeException){refused=true;}Require(refused,"Unsupported recipient level silently clamped");}
-        var pending=Named("Messerschmidt's Reaver",45);bool op5=false;try{_=new ItemStatContext(pending,37).Bonus("str");}catch(NotSupportedException e){op5=e.Message.Contains("op5");}Require(op5&&!pending.Deleted,"Unresolved maximum-only op5 silently admitted or consumed");pending.Delete();
+        var pending=Named("Messerschmidt's Reaver",45);var op5=new ItemStatContext(pending,37);Require(op5.Bonus("dmg-max%")==92&&op5.Bonus("dmg%")==200&&!pending.Deleted,"Maximum-only supplier mixed into ordinary ED or consumed original");pending.Delete();
         // Moving the same original must not make the bound reader guess a replacement.
         var first=items[0];first.MoveToWorld(owner.Location,owner.Map);bool moved=false;try{_=IronGolemItems.Equipment(pets[0],37);}catch(NotSupportedException){moved=true;}Require(moved,"Moved original equipment retained a bound supplier");pets[0].AddItem(first);
         owner.AutoStablePets();Require(pets.All(p=>p.ControlMaster==owner&&!p.IsStabled),"Persistent holder entered ordinary pet stabling");
         Require(saved.SequenceEqual(items.Select((item,n)=>Capture(pets[n],item))),"Read/eligibility controls changed original gear or suppliers");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,saved)));foreach(var pet in pets){pet.Internalize();}owner.Internalize();
-        Log.Information("NPC item suppliers:27648complete-source op2/op4 contexts/27owned scaled properties;explicit recipient37 versus owner47/item99,half-scaled AR610/live-player AR775,FP256life quarter,original ordinary/named items and op5refusal pass;full NPC stat graph/combat remains gated");
+        Log.Information("NPC item suppliers:27648complete-source op2/op4 contexts/27owned scaled properties;explicit recipient37 versus owner47/item99,half-scaled AR610/live-player AR775,FP256life quarter,original ordinary/named items and separate op5supplier pass;full NPC stat graph/combat remains gated");
     }
     private static void Reload()
     {

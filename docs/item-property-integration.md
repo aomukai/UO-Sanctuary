@@ -21,7 +21,7 @@ Valkyrie additionally needs NPC consumers for the selected equipment. Existing p
 
 The prepared original-item reader now takes an explicit recipient level for ordinary and named properties, local armor and weapon endpoints. Its life/mana suppliers retain FP256 fractions. Four source to-hit properties (`att/lvl`, `att%/lvl`, `att-dem/lvl`, `att-und/lvl`) use halves rather than the eighths used by the other registered scaled properties. See [scoped native evidence](../tools/reference/npc-item-suppliers-native-evidence.json). This is a numeric reader, not a complete NPC stat graph or combat/event consumer.
 
-**Open numeric routing gap:** `dmg%/lvl` is source operation5 and affects maximum weapon damage only. The existing player route projects it into general `dmg%`; its full item-operation order still needs correction and verification. The new NPC context refuses such items explicitly and leaves the original intact. These existing named definitions are not newly enabled by this work.
+`dmg%/lvl` now uses the dedicated `dmg-max%` field, with a separate maximum calculation after ordinary ED and flat maximum damage. Actual Reaver/Eaglehorn equipment, weapon packets/strikes and original-item reloads verify the correction; see [maximum damage acceptance](../tools/reference/item-maximum-operations-native-evidence.json). The former numeric-reader rejection is removed. Full NPC stat application, callbacks and item procs remain unfinished. Existing base-ED integer rounding remains unchanged while its modern parity is uncertain; by-time operations6/7 and property17 parameter-zero fallback generation remain separate gaps. Named acquisition decisions are unchanged.
 
 
 ## Exact ordinary-affix gap in the current Valkyrie pool

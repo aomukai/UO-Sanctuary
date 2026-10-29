@@ -448,6 +448,10 @@
     "damageRelated": true
   },
   {
+    "code": "dmg-max%",
+    "damageRelated": true
+  },
+  {
     "code": "dmg-min",
     "damageRelated": true
   },

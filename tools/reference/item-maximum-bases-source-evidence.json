@@ -1,0 +1,24 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned real-item maximum-damage base controls",
+  "processMemoryRead": false,
+  "processInput": false,
+  "newGameReads": false,
+  "inputs": {
+    "tools/reference/iron-golem-local-items-evidence.json": "61662e17d313ec79aa6db514b5740e6691a580cd48a9945349c42a2b8b146204",
+    ".local/class-skills/iron-golem-items-source/owned/weapons.txt": "b0890901f87fd42fcb474ce835b6e1a9fe1e66dbab4e7c2f236a3d9c3224f923",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "tools/probe_item_maximum_bases.py": "52f4ac71925afa0be5eaa6a032d940864edc008481af400c476ef02e678b39d3"
+  },
+  "verified": {
+    "bases": 3,
+    "ownedComparedFields": 39,
+    "unexplainedDifferences": 0
+  },
+  "artifacts": {
+    ".local/class-skills/item-maximum-bases-source-probe.json": "900f75e572158c533b6d64cd95a38810ae398b0f4d91416e45dec816509a54c3"
+  },
+  "remaining": [
+    "Current tables corroborate base/requirements/attribute factors;this is not runtime item initialization,ethereal or complete NPC stat-graph acceptance."
+  ]
+}
