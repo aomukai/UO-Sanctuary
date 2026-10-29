@@ -48,6 +48,17 @@ class ClassSkillCatalogueTests(unittest.TestCase):
         for path,text in builder.products().items():
             self.assertEqual(path.read_text(),text,str(path.relative_to(ROOT)))
 
+    def test_generated_corpse_routing_matches_pinned_skill_flags(self):
+        # Runtime UI routing must survive regeneration,including disabled skills.
+        # Derive expected IDs from the source flags independently of the template.
+        expected={r['ability'] for r in self.skills if r['sourceFields'].get('TargetCorpse')}
+        for text in [builder.generated_protocol(self.skills),(ROOT/'shared/ClassAbilities.cs').read_text()]:
+            ids={name:int(value) for name,value in re.findall(r'^    (\w+) = (\d+),$',text,re.M)}
+            body=re.search(r'bool CorpseTarget\(CombatAbility value\) => value is ([^;]+);',text).group(1)
+            actual={ids[name] for name in re.findall(r'CombatAbility\.(\w+)',body)}
+            self.assertEqual(actual,expected)
+            self.assertIn(123,actual)  # Find Potion's stable saved/wire ID.
+
     def test_icons_and_effects_are_independent_and_explicitly_unfinished(self):
         icons=json.loads((ROOT/'data/Sanctuary/Balance/skill-icons.json').read_text())
         effects=json.loads((ROOT/'data/Sanctuary/Balance/skill-effects.json').read_text())

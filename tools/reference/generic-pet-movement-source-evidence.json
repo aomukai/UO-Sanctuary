@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current approach,movement preparation/mode wrapper and think-event maintenance",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "verified": {
+    "contexts": 6144,
+    "retainedEarlierSourceResults": 5760,
+    "byKind": {
+      "prepare": 1980,
+      "think": 144,
+      "execute": 3200,
+      "approach": 514,
+      "bound": 286,
+      "bound-range": 20
+    },
+    "sourceFunctions": 6,
+    "machineCodeBytes": 1905,
+    "leafCodeBytes": 174,
+    "leafPaddingBytes": 2,
+    "fatalBoundaries": 2446,
+    "realApproachCompositions": 514,
+    "realDispositionApproachCompositions": 286,
+    "realRangedPreparationThinkCompositions": 20
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-movement/diagnostics/distinct-slot88/generic-pet-movement-source-probe.json": "acd6f5035b16d0197e8e7100e1d46f0f57512c76a77c27bbb8727e7308f28ea6",
+    ".local/class-skills/generic-pet-movement-source-probe.json": "f70e932e8088cb0f2b67c8920d1babc629e4bea42870f09a358ef387ea4b734c",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-approach-20261029-4b1600-part0.bin": "18a00a770c9e467957423e72f5d86130ae676d0a870b1e47649d9e643dab1360",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-approach-20261029.json": "fdfc8fcc4f0fe2a7f9d033fc041a33545de9f54af2441e827c4113b16edcab87",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-disposition-20261029-4b2350-part0.bin": "b7243c0aabe7248ea031fa25add656c506f5499710ae2e180e181a20572ffe73",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-disposition-20261029.json": "bda9ca0f1e354a09cb239e86911d6c674c8b2dc03cad0c38a6c123cc82e57ea8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-approach-core-20261029-4b1550-part0.bin": "c139d7e6dbb28df1404e537ac2f9febbb9abfbb8422888430dc77b2d9be9c018",
+    ".local/class-skills/warlock-runtime-reference/callees-live-approach-core-20261029.json": "bf51bf04d02ac2501004e764cf1e921c78b1a81d039e85d9721106335d9eb073",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4257a0-part0.bin": "7ae2866973e917d95f32d1f2396e8f6483449042f00a6c93b73277b7cd9db441",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4257a0-part1.bin": "f48158af8c506131a444a19e23a5041cee09855c873a734bab1465dea2a31c1c",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4257a0-part2.bin": "1f56ae2c0dd2a075e19d1cc96c6ca2ef72c5e863097dd2034bb3f605d3aaab9a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4b12d0-part0.bin": "3aac2cc42d5a48b703d08c4965d78059a63260fee0b79aabf311a94e079ea5e9",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029.json": "eadb82923bf62a482f179922afd8d373a183f78e879ebf012192f7c057c6babc",
+    ".local/class-skills/warlock-runtime-reference/movement-prepare-leaf-complete-20261029.bin": "411be6c8785b5108b09b666676657d57a304a5c3ea808e2ca9e894ca4d23d9fd",
+    ".local/class-skills/warlock-runtime-reference/movement-prepare-leaf-complete-20261029.json": "1ec01da186cfa477e97d8de5b606a034612b141019f5bc103a66c95504146d09",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_actions.py": "c37f23ccdd64fba4ee500903cd5ce7b90dee2375e69d45a30beec3a36f0673e0",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_movement.py": "8902dca2e57b371738e8fea9f5f019705c44dd6987850acd2d565e0ffc209f00"
+  },
+  "services": [
+    "Mode initializer supplies48explicit bytes including four opaque words. Actual movement/pathfinding and mode acceptance remain declared services,not world adapters. Their raw integer results and exact selected request fields are compared.",
+    "Current movement preparation is a174-byte leaf with all direct branches inside its body,one return and two trailingINT3bytes before the next known unwind entry. A prior64-byte sample remains explicitly incomplete. Invalid null/nonmonster/missing-data writes are unsupported boundaries,not invented guards.",
+    "Approach executes all five real movement bodies together;bound compositions additionally execute the captured disposition body. The unwritten fifth approach-core stack argument is never read by the complete core. Mode request does not depend on its residue.",
+    "Queue removal services preserve node identities and next links. Scheduling,mode effects,table records and all native actor-clock/seed ownership/persistence remain separate integration work. Source RNG is the actual inline movement fallback code."
+  ],
+  "remaining": [
+    "Bind real NPC metadata,path/mode actions,event queue/clock and persistent shared actor seed. Follow executor,target search callback/sorter,ordering,full root scheduling/owner callbacks and learned demon lifecycle remain unfinished. No new talent or class completion."
+  ]
+}

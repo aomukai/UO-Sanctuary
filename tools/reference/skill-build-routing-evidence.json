@@ -1,0 +1,78 @@
+{
+  "component": "Generated routing/build-input consistency correction",
+  "referenceVersion": "3.3.93847",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "ownProjectAssemblyCodeExecutedOffline": true,
+  "frozenCommit": "bd5bad9",
+  "frozenSourceCorpseTargetIds": [
+    3,
+    67,
+    72,
+    75,
+    77,
+    127
+  ],
+  "acceptedFrozenDllCorpseTargetIds": [
+    3,
+    67,
+    72,
+    75,
+    77,
+    123,
+    127
+  ],
+  "freshPreFixDllCorpseTargetIds": [
+    3,
+    67,
+    72,
+    75,
+    77,
+    127
+  ],
+  "currentDllCorpseTargetIds": [
+    3,
+    67,
+    72,
+    75,
+    77,
+    123,
+    127,
+    129,
+    219
+  ],
+  "pinnedSourceCorpseTargetIds": [
+    3,
+    67,
+    72,
+    75,
+    77,
+    123,
+    127,
+    129,
+    219
+  ],
+  "artifacts": {
+    ".local/class-skills/find-potion/content/Sanctuary.Content.dll": "e96e3b94ac6648a909193884f0a1c23a2658320750e9e9dc3d5a64941a3acf5a",
+    ".local/class-skills/generic-pet-movement/diagnostics/generated-corpse-routing/content/Sanctuary.Content.dll": "730f9895737b08f96c57ddea13ad4cdab77ee3f80e6b7722c439ecb91ce04444",
+    ".local/class-skills/generic-pet-movement/content/Sanctuary.Content.dll": "9440579d022f14daafc942e536d3d1b18d02f6fa4375dc1fc58e45528fb22fc0",
+    ".local/class-skills/generic-pet-movement/routing-probe/Program.cs": "7bd28b46a095e3e454caf92fe3ae04e9f2e0ad9596d326f3aa172c73fc5551a6",
+    ".local/class-skills/generic-pet-movement/routing-probe/RoutingProbe.csproj": "363b76fde413f7b9b66d427b17d2dcf37c2f65b41d2e539b6ca4a6dbed239a70",
+    ".local/class-skills/generic-pet-movement/routing-probe/bin/Debug/net10.0/RoutingProbe.dll": "3d88b474c4873da6c92e9f5e7ddd42b19107a2edef855fe98371f356bcc79c24",
+    ".local/class-skills/generic-pet-movement/routing-probe/build.log": "0ff81b08d9dad6d3215a369a058b5c795c394001c228e9cd0e3d725cfa30ed24",
+    "tools/probe_skill_build_routing.py": "f90053d06f4865a81dd3feb1350b1c28d72b8ea98a37891166c0bbab6084b9a1",
+    "shared/ClassAbilities.cs": "863ec89acc57ab006fc18eced3d896de100667624b5ce8f7bc207ead3c6bbe1d",
+    "tools/build_class_skills.py": "aca8deaae945773d2f6f89409b63f3c524bb0d6f594d06fc0745819177e23879",
+    "tests/test_class_skills.py": "0e27eeff34c545db3556d422d9a690c1417f0d8a39637d064a3b0e98f60ea28e",
+    ".local/class-skills/generic-pet-movement/pre-build-inputs.json": "f7a425a3570f6d6bbdc05c248f7745b6741b2118cf568a2c159234e52f9adb4f",
+    "tools/snapshot_skill_build.py": "ccea175675d65b79355a645f5b3b71ccd1f6476957cf0e57851847f3450c2a3c"
+  },
+  "established": [
+    "Frozen Find Potion DLL behavior was accepted,but its manual corpse-routing edit had been removed from generated source by the unchanged template. Reflection independently confirms7compiled flags versus6frozen source flags;the subsequent fresh build exposed the missing quick-cast route.",
+    "The generator now derives all9corpse-capability flags from owned skill rows. Current generated source and cleanly rebuilt DLL agree. Grim Ward/Engorge metadata does not enable their unsupported handlers. The new Python regression compares runtime routing metadata with pinned data independently of the template.",
+    "A pre-build source/data snapshot is checked before/after clean content/integration rebuilds and against native copied inputs. This receipt supersedes any implication that the older post-build inventory alone certified which source bytes produced the old DLL. Its observed staged behavior and earlier native markers remain historical evidence."
+  ],
+  "remaining": [
+    "Complete current native three-boot/two-reload regression and aggregate receipt required. This probe executes only our own ClassAbilities method in isolated load contexts;it does not load or execute the D2R reference executable or access the game process."
+  ]
+}

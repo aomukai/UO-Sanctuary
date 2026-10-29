@@ -15,6 +15,7 @@ public static class FindPotionChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(FindPotionChecks));
     private sealed record Saved(uint Owner,uint Used,uint Pending,uint Potion,uint Loot,int Mana256,Point3D Origin,int Map);
+    private static int _starts;
     private static string Manifest=>Path.Join(Core.BaseDirectory,"find-potion-fixtures.json");
     public static void Configure()
     {
@@ -104,7 +105,11 @@ public static class FindPotionChecks
     private static void Start(PlayerMobile p,Corpse corpse)
     {
         Ready(p);int mana=NecromancerEffects.ManaBalance256(p);
-        Require(SkillBindingNetwork.Use(p,DiabloClass.Barbarian,0,CombatAbility.FindPotion,corpse.Serial,corpse.Location),"Quick corpse cast");
+        _starts++;
+        Require(SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Barbarian,0)==CombatAbility.FindPotion,"Find Potion quick binding changed");
+        Require(ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Barbarian,"Find Potion class changed");
+        Require(p.Spell==null&&FireGround.Ready(p,CombatAbility.FindPotion)&&NecromancerEffects.CanPay(p,SkillMechanics.Values(p,CombatAbility.FindPotion).Mana256),$"Find Potion spell={p.Spell?.GetType().Name},cooldown={FireGround.Ready(p,CombatAbility.FindPotion)},cost={SkillMechanics.Values(p,CombatAbility.FindPotion).Mana256}");
+        Require(SkillBindingNetwork.Use(p,DiabloClass.Barbarian,0,CombatAbility.FindPotion,corpse.Serial,corpse.Location),$"Quick corpse cast #{_starts}:ready={ClassProfessions.Ready(p)},alive={p.Alive},frozen={p.Frozen},paralyzed={p.Paralyzed},cursor={p.Target!=null},available={ClassCombat.Available(p,CombatAbility.FindPotion)},overlap={AlliedOverlap.Allowed(p)},recovery={HitRecovery.Active(p,Core.TickCount)},pending={ClassCombat.For(p).PendingAbility},next={ClassCombat.For(p).NextAction-Core.TickCount},mana={NecromancerEffects.ManaBalance256(p)},area={PotionAreas.TryGet(p,out _)},valid={BarbarianFindPotion.ValidTarget(p,corpse.Serial)},owner={p.Location},corpse={corpse.Location},row={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse))}");
         Require(ClassCombat.For(p).FindPotionTarget==corpse.Serial&&NecromancerEffects.ManaBalance256(p)==mana-512&&!CorpseSkillRules.NoSelect(corpse),"Start payment/token/reservation timing");
         Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt-1),"Early effect");
     }
@@ -120,7 +125,7 @@ public static class FindPotionChecks
     }
     private static void Check()
     {
-        Source();var p=Fresh();Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.FindPotion)&&SkillBindings.Instance.Assign(p,false,CombatAbility.FindPotion)&&SkillBindings.Instance.AssignQuick(p,0,CombatAbility.FindPotion),"Right/quick bindings");
+        Source();Require(ClassAbilities.CorpseTarget(CombatAbility.FindPotion)&&ClassCombat.CorpseCast(CombatAbility.FindPotion),"Generated corpse routing lost Find Potion");var p=Fresh();Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.FindPotion)&&SkillBindings.Instance.Assign(p,false,CombatAbility.FindPotion)&&SkillBindings.Instance.AssignQuick(p,0,CombatAbility.FindPotion),"Right/quick bindings");
         var entries=PotionAreas.Entries();var facets=SummonDifficulties.Facets();var roll=BarbarianFindPotion.Roll;Region region=null;
         try
         {

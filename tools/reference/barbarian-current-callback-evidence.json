@@ -1,0 +1,151 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "staticCorroboration": {
+    "tableCandidateRva": "0x163aeb0",
+    "candidateCount": 1,
+    "classicPrefixSlots": 66,
+    "classicNullnessMatches": 65,
+    "classicNullnessDifferences": [
+      30
+    ],
+    "classicAlias25_64Retained": false,
+    "currentUsedStartMaximum": 70,
+    "zeroTailSlots": [
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90
+    ],
+    "selected": [
+      {
+        "slot": 41,
+        "label": "Leap Attack start41",
+        "candidateRva": "0x46d000",
+        "unwindBytes": 1221,
+        "fragments": [
+          {
+            "rva": "0x46d000",
+            "size": 32
+          },
+          {
+            "rva": "0x46d020",
+            "size": 300
+          },
+          {
+            "rva": "0x46d14c",
+            "size": 174
+          },
+          {
+            "rva": "0x46d1fa",
+            "size": 498
+          },
+          {
+            "rva": "0x46d3ec",
+            "size": 31
+          },
+          {
+            "rva": "0x46d40b",
+            "size": 186
+          }
+        ]
+      },
+      {
+        "slot": 67,
+        "label": "Frenzy start67",
+        "candidateRva": "0x469ae0",
+        "unwindBytes": 84,
+        "fragments": [
+          {
+            "rva": "0x469ae0",
+            "size": 84
+          }
+        ]
+      },
+      {
+        "slot": 68,
+        "label": "Double Swing start68",
+        "candidateRva": "0x468390",
+        "unwindBytes": 137,
+        "fragments": [
+          {
+            "rva": "0x468390",
+            "size": 137
+          }
+        ]
+      }
+    ],
+    "currentUsedNonzeroStartsNonNull": true
+  },
+  "process": {
+    "pid": 11422,
+    "startTicks": 106431,
+    "name": "Main"
+  },
+  "observedPermissions": [
+    {
+      "slot": 41,
+      "permissions": [
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "readableExecutable": false
+    },
+    {
+      "slot": 67,
+      "permissions": [
+        "---s"
+      ],
+      "readableExecutable": false
+    },
+    {
+      "slot": 68,
+      "permissions": [
+        "---s"
+      ],
+      "readableExecutable": false
+    }
+  ],
+  "processMemoryRead": false,
+  "memoryBytesRead": 0,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "dispatcherIndexLinkVerified": false,
+  "callbackSemanticsVerified": false,
+  "handlerEnabled": false,
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/probe_barbarian_callback_tables.py": "34e98ed00e7eae432c61084e0d8c817311b7172367fe569015f527506d8de566",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e"
+  },
+  "limits": [
+    "This is a corroborated table candidate,not a verified dispatcher/index/semantic identity. Matching nullness,used-start coverage and tail shape cannot certify callback behavior. Old slot30 and25/64alias differences remain explicit.",
+    "Only the pinned executable file and owned-process identity/map permissions are inspected. No protected callback bytes are read or forced. The observed entries are unreadable;older null start67/68 and changed modern Leap Attack still block those learned mechanics. Continue unaffected work."
+  ]
+}
