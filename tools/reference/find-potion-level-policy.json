@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedDate": "2026-10-30",
+  "approvedBy": "User chose monster level,then Every20levels:1\u201319light,20\u201339regular,40\u201359greater,60+super;full rejuvenation from40.",
+  "supersedes": "tools/reference/find-potion-area-policy.json",
+  "scope": "Find Potion potion strength only;reference chance,type odds,2mana,start/payment/cancellation and one-attempt corpse behavior are retained.",
+  "configuration": "data/Sanctuary/Balance/find-potion-level-bands.json",
+  "level": "CreatureProfiles.Level(monster) captured with corpse metadata;character level and caster facet/region do not choose potion strength.",
+  "bands": [
+    {
+      "minLevel": 1,
+      "maxLevel": 19,
+      "healingTier": 2,
+      "manaTier": 2,
+      "rejuvenationTier": 1
+    },
+    {
+      "minLevel": 20,
+      "maxLevel": 39,
+      "healingTier": 3,
+      "manaTier": 3,
+      "rejuvenationTier": 1
+    },
+    {
+      "minLevel": 40,
+      "maxLevel": 59,
+      "healingTier": 4,
+      "manaTier": 4,
+      "rejuvenationTier": 2
+    },
+    {
+      "minLevel": 60,
+      "maxLevel": null,
+      "healingTier": 5,
+      "manaTier": 5,
+      "rejuvenationTier": 2
+    }
+  ],
+  "legacySaves": "Missing optional MonsterLevel remains compatible with version0. Use an existing captured BaseLife.Level or Treasure.Level;reject disagreements or missing levels. Never infer a tier from the player,current owner profile or corpse body.",
+  "regionActs": "No region Act tag required;the superseded empty region-acts.json and runtime lookup are removed.",
+  "assets": "Existing search cry/flash and potion item graphics remain identified placeholders;effects/audio and talent/hotkey icons are separate work."
+}

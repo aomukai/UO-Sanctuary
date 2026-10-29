@@ -9,44 +9,36 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-// Acts are explicit area designations, not inferred from monster level or loot.
-// The closest named ancestor wins; an untagged area has no fallback Act.
-public sealed record RegionAct(int Map, string Region, int Act);
-public readonly record struct PotionArea(int Act, MonsterDifficulty Difficulty);
-public static class PotionAreas
+// Approved Sanctuary yield policy:use the corpse's recorded monster level.
+public sealed record PotionLevelBand(int MinLevel,int HealingTier,int ManaTier,int RejuvenationTier);
+public static class PotionLevelBands
 {
-    private static Dictionary<(int,string),int> _acts = new();
-    public static void Configure() => Set(BalanceCatalog.Read<RegionAct>("region-acts"));
-    internal static RegionAct[] Entries()
+    private static PotionLevelBand[] _bands=[];
+    public static void Configure()=>Set(BalanceCatalog.Read<PotionLevelBand>("find-potion-level-bands"));
+    internal static PotionLevelBand[] Entries()=>(PotionLevelBand[])_bands.Clone();
+    internal static void Set(PotionLevelBand[] definitions)
     {
-        var rows = new List<RegionAct>();
-        foreach (var (key,act) in _acts) { rows.Add(new(key.Item1,key.Item2,act)); }
-        return rows.ToArray();
-    }
-    internal static void Set(RegionAct[] definitions)
-    {
-        ArgumentNullException.ThrowIfNull(definitions);
-        var acts = new Dictionary<(int,string),int>();
-        foreach (var row in definitions)
+        ArgumentNullException.ThrowIfNull(definitions);int previous=0;
+        foreach(var row in definitions)
         {
-            if (row == null || row.Map < 0 || row.Map >= Map.Maps.Length || Map.Maps[row.Map] == null
-                || Map.Maps[row.Map] == Map.Internal || string.IsNullOrWhiteSpace(row.Region)
-                || row.Region != row.Region.Trim() || row.Act is < 1 or > 5
-                || !acts.TryAdd((row.Map,row.Region),row.Act))
-            { throw new InvalidDataException("Invalid or duplicate region Act designation"); }
+            if(row==null||row.MinLevel<=previous||previous==0&&row.MinLevel!=1||row.HealingTier is <2 or >5
+                ||row.ManaTier is <2 or >5||row.RejuvenationTier is <1 or >2)
+            {throw new InvalidDataException("Invalid Find Potion monster-level bands");}
+            previous=row.MinLevel;
         }
-        _acts = acts;
+        if(definitions.Length==0){throw new InvalidDataException("Missing Find Potion monster-level bands");}
+        _bands=(PotionLevelBand[])definitions.Clone();
     }
-    public static bool TryGet(PlayerMobile owner, out PotionArea area)
+    internal static PotionLevelBand For(int level)
     {
-        area = default;
-        if (owner is not { Deleted:false, Map:not null } || owner.Map == Map.Internal) { return false; }
-        for (var region = Region.Find(owner.Location,owner.Map); region != null; region = region.Parent)
-        {
-            if (region.Name != null && _acts.TryGetValue((owner.Map.MapID,region.Name),out int act))
-            { area = new(act,SummonDifficulties.For(owner.Map)); return true; }
-        }
-        return false;
+        if(level<1||_bands.Length==0){throw new NotSupportedException("No recorded monster level or potion policy");}
+        var selected=_bands[0];foreach(var band in _bands){if(level<band.MinLevel){break;}selected=band;}return selected;
+    }
+    internal static uint Code(PotionLevelBand band,uint draw,int manaChance,int rejuvenationChance)
+    {
+        draw%=100;
+        return FindPotionPolicy.Code(draw<manaChance?"mp"+band.ManaTier:draw<manaChance+rejuvenationChance
+            ?band.RejuvenationTier==1?"rvs":"rvl":"hp"+band.HealingTier);
     }
 }
 
@@ -83,14 +75,13 @@ public static class BarbarianFindPotion
     internal static bool ValidTarget(PlayerMobile owner,Serial selected)
     {
         var corpse = World.FindItem(selected) as Corpse;
-        return PotionAreas.TryGet(owner,out _) && CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
+        return CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
+            && CorpseSkillRules.TryMonsterLevel(corpse,out _)
             && CorpseSkillRules.Soft(corpse) && SpellHelper.CheckTown(owner.Location,owner)
             && SpellHelper.CheckTown(corpse.Location,owner);
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
-        if (!PotionAreas.TryGet(owner,out _))
-        { owner.SendMessage("Find Potion requires an Act designation for this region."); return false; }
         if (!ValidTarget(owner,selected) || !SkillCombat.Begin(owner,CombatAbility.FindPotion,selected,
             ((Corpse)World.FindItem(selected)).Location,now,(p,_,id,_) => ValidTarget(p,id))) { return false; }
         if (NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,CombatAbility.FindPotion).Mana256))
@@ -103,15 +94,16 @@ public static class BarbarianFindPotion
         bool paid = selected != Serial.Zero && session.FindPotionTarget == selected;
         session.FindPotionTarget = Serial.Zero;
         if (!paid || !BarbarianCombat.Available(owner,CombatAbility.FindPotion) || !ValidTarget(owner,selected)
-            || !PotionAreas.TryGet(owner,out var area)) { return false; }
+            || !CorpseSkillRules.TryMonsterLevel(World.FindItem(selected) as Corpse,out int level)) { return false; }
         var corpse = (Corpse)World.FindItem(selected);
         if (!CorpseSkillRules.Reserve(corpse)) { return false; }
         var values = SkillMechanics.Values(owner,CombatAbility.FindPotion);
         // Identified search-cry/flash placeholders, independent of potion output.
         owner.PlaySound(0x1E5); Effects.SendLocationEffect(corpse.Location,corpse.Map,0x375A,5,10,0x481,0);
-        return FindPotionPolicy.Execute(true,true,() => { },() => (int)values.Eval("calc1"),Roll,
-            true,area.Act-1,(int)area.Difficulty,SkillMechanics.For(CombatAbility.FindPotion).Parameter(3),SkillMechanics.For(CombatAbility.FindPotion).Parameter(4),
-            (code,_) => corpse.DropItem(CreatePotion(code))) != 0;
+        if(Roll()%100>=(int)values.Eval("calc1")){return true;}
+        uint code=PotionLevelBands.Code(PotionLevelBands.For(level),Roll(),
+            SkillMechanics.For(CombatAbility.FindPotion).Parameter(3),SkillMechanics.For(CombatAbility.FindPotion).Parameter(4));
+        corpse.DropItem(CreatePotion(code));return true;
     }
     internal static RestorationPotion CreatePotion(uint code)
     {

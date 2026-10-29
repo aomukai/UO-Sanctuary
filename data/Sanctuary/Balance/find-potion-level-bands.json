@@ -1,0 +1,6 @@
+[
+  { "minLevel": 1, "healingTier": 2, "manaTier": 2, "rejuvenationTier": 1 },
+  { "minLevel": 20, "healingTier": 3, "manaTier": 3, "rejuvenationTier": 1 },
+  { "minLevel": 40, "healingTier": 4, "manaTier": 4, "rejuvenationTier": 2 },
+  { "minLevel": 60, "healingTier": 5, "manaTier": 5, "rejuvenationTier": 2 }
+]

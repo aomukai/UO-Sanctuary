@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Historical source preflight superseded by native Find Potion work; explicit no-default caster-region Act policy approved 2026-10-29. See find-potion-native-evidence.json for accepted verification scope.",
+  "status": "Historical source preflight;native potion-strength context now uses the user-approved monster-level brackets instead of Acts. See find-potion-level-policy.json and find-potion-level-native-evidence.json.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
@@ -78,9 +78,9 @@
   ],
   "questions": [
     {
-      "blockingScope": "Resolved design question; untagged areas deliberately refuse the learned cast.",
+      "blockingScope": "Resolved policy;missing or conflicting old corpse level is individually unsupported.",
       "question": "How should Britannia map caster location to D2R Act and game difficulty?",
-      "status": "Resolved by user 2026-10-29: No default \u2014 require an explicit region tag. Difficulty follows configured facet.",
+      "status": "Resolved/superseded2026-10-30:use corpse monster level with20level bands and full rejuvenation from40.",
       "options": [
         "Use corpse source Act/difficulty as explicit Sanctuary deviation",
         "Define Britannia region Act/difficulty tiers"
@@ -89,8 +89,8 @@
     }
   ],
   "nextSteps": [
-    "Verify prepared native casting, corpse reservation, all 15 tier rows and persistence in the scoped native suite.",
-    "Remaining exact modern chance rounding/shared owner RNG, h2h/auto-approach, current input/SC/FCR/client behavior stay explicit; no class completion claimed."
+    "Verify captured monster levels,all band boundaries,existing potion items,payment and backward-compatible saves in the scoped native suite.",
+    "Retain explicit modern chance/RNG,range/input/client and unsupported item/target gaps;no class completion."
   ],
   "limits": [
     "5004 bounded compiled legacy source cases pass; separate source evidence declares stubs and limits. Native handler verification is recorded separately; no current-executable parity certificate.",
@@ -98,5 +98,5 @@
     "Final effect and talent/hotkey icon remain separately tracked placeholders."
   ],
   "evidence": "tools/reference/find-potion-engine-evidence.json",
-  "areaPolicy": "tools/reference/find-potion-area-policy.json"
+  "areaPolicy": "tools/reference/find-potion-level-policy.json"
 }

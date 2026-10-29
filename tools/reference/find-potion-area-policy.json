@@ -14,5 +14,8 @@
   "initialDesignations": [],
   "scope": "Find Potion only; other skills retain existing area policies.",
   "sourceFallback": "Legacy generic item-code zero is documented but unsupported in the native potion factory. Required valid area context prevents reaching it.",
-  "assets": "Identified UO search cry/flash placeholders. Final effects/audio and talent/hotkey icons are separate asset work."
+  "assets": "Identified UO search cry/flash placeholders. Final effects/audio and talent/hotkey icons are separate asset work.",
+  "status": "superseded",
+  "supersededDate": "2026-10-30",
+  "supersededBy": "tools/reference/find-potion-level-policy.json"
 }

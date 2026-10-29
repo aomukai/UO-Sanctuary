@@ -11,7 +11,7 @@ namespace Sanctuary;
 
 public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura,bool Soft=false);
 public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
-public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null);
+public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null);
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
@@ -31,7 +31,7 @@ public sealed class CorpseSkillProfiles : GenericPersistence
         _rows.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
         {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty))
             || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || !((Serial)life.OriginalMonsterSerial).IsMobile || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
-            || !_rows.TryAdd(row.Corpse,row)){throw new InvalidDataException("Invalid corpse skill metadata");}}
+            || row.MonsterLevel is <1 || !_rows.TryAdd(row.Corpse,row)){throw new InvalidDataException("Invalid corpse skill metadata");}}
     }
 }
 public static class CorpseSkillRules
@@ -72,8 +72,9 @@ public static class CorpseSkillRules
         // Capture once, including when there is deliberately no supported drop
         // context. Repeated death/access callbacks must not revive an attempt.
         if(old!=null){return;}
+        int level=CreatureProfiles.Level(creature);
         Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature),false,Treasure(creature),
-            known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null));
+            known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null));
     }
     private static CorpseTreasure Treasure(BaseCreature creature)
     {
@@ -87,6 +88,16 @@ public static class CorpseSkillRules
         // The approved ordinary world catalogue already resolved difficulty/TC
         // group upgrades for this configured level. No quest/elite TC is inferred.
         return new(source,policy.TreasureClass,level,difficulty);
+    }
+    internal static bool TryMonsterLevel(Corpse corpse,out int level)
+    {
+        level=0;var row=Profiles.Find(corpse);if(row==null){return false;}
+        if(row.MonsterLevel.HasValue){level=row.MonsterLevel.Value;return level>0;}
+        // Older saved corpses can already carry independently captured levels.
+        // Do not reconstruct from a live owner,body,source species or player.
+        int? life=row.BaseLife?.Level,treasure=row.Treasure?.Level;
+        if(life.HasValue&&treasure.HasValue&&life!=treasure){return false;}
+        level=life??treasure??0;return level>0;
     }
     internal static bool Soft(Corpse corpse)=>Profiles.Find(corpse)?.Source is{} source && _soft.Contains(source);
     public static bool NoSelect(Corpse corpse)=>Profiles.Find(corpse)?.NoSelect??false;
