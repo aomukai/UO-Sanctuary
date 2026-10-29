@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current GenericPet gather,descriptor and search-mask helpers",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "verified": {
+    "contexts": 23348,
+    "byKind": {
+      "composed": 4896,
+      "mask": 18452
+    },
+    "machineCodeBytes": 1013,
+    "fatalBoundaries": 1476
+  },
+  "constant": {
+    "rva": "0x1816860",
+    "bytes": 16,
+    "sha256": "c05dc0f5418599eaa2a50f7973fbeb093f7577748f89d0d5b6a17747a0f1676a",
+    "values": [
+      0,
+      0,
+      -2147483648,
+      -1
+    ],
+    "origin": "Pinned executable immutable data;not a live process read"
+  },
+  "inlineTable": {
+    "rva": "0x4b31d4",
+    "entries": 12,
+    "bytes": 48,
+    "executedAsData": true
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-gather-source-probe.json": "838aec9b2444ddccc977d87e836c7ba518691ea5b9d5d22fa1ac30abe1748c6c",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-targets-20261029-4b30f0-part0.bin": "5d43e42a52e951e5133e137d8fe87ed6b8a0067c2c453a0e605ba115a5e3e528",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-targets-20261029-4b30f0-part1.bin": "c81afe87ab5d53090990e6a7ce7c7c2c969663cf33c9fbbfcfd965caeb5b000c",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-targets-20261029-4b30f0-part2.bin": "db29ac8a98b04fb0301f783bbc5a7874a04876ebbfcee8ee2b94d6a7da4b11dd",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-targets-20261029-4b42f0-part0.bin": "7c1b0c02b3152fb86646c3c3b8ff1c440aa67041c5e63a775b478b69636a024b",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-targets-20261029.json": "92965bf3cf5ca6ed69ee7f64757294b40e52344d2351fd9a18d0cff63f2defae",
+    ".local/class-skills/warlock-runtime-reference/callees-live-skill-descriptor-20261029-4b4510-part0.bin": "c7f6422d2552728351a435db1411576f8ac259fdb2097bbbf14c9243a56e9208",
+    ".local/class-skills/warlock-runtime-reference/callees-live-skill-descriptor-20261029-4b4510-part1.bin": "6e8e6c91a3556c41a3504c0ec96e5ec767fbeab040eb87c1af329b76c0a94f11",
+    ".local/class-skills/warlock-runtime-reference/callees-live-skill-descriptor-20261029-4b4510-part2.bin": "0f852e8e41b8bef369670d98e40ddbd07ff49d2dba462605edf26b9da1bc64a7",
+    ".local/class-skills/warlock-runtime-reference/callees-live-skill-descriptor-20261029.json": "413c48bc9fa38991dab51b63d4c89e86133a2bfeea2356970011b410ce07ac44",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_gather.py": "4c1f219714dabd0412c45591484afb465f17b4f39de1c1781aca1775529e7565",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Monster and skill rows,skill-level and flag4 value are explicit declared services. Synthetic linked skills preserve signed IDs,entry16/68/76 and order. Append copies into a fixed preallocated32-entry vector;allocation is outside scope.",
+    "Source leaves descriptor bytes38/39 unwritten. Two explicit caller stack-tail inputs preserve them independently for base and skill descriptors. These bytes have no inferred gameplay meaning.",
+    "Three captured bodies execute together in composed cases. Every service argument,order,descriptor,state108 update and resulting search mask is retained. The search-mask helper is a category bitmask,not a distance radius. Byte445 is a raw unit field;no difficulty meaning is inferred."
+  ],
+  "remaining": [
+    "Native verification,real metadata providers,downstream search/preparation/rating/ordering and actor integration remain required. No learned demon enabled or full AI/lifecycle accepted."
+  ]
+}
