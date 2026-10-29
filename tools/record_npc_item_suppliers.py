@@ -55,14 +55,26 @@ def record(check=False, full_class=False):
         assert s['Level'] == 37 and gear['BaseCode'] == code and gear['Identified'] and gear['Roll']['ItemLevel'] == 99
     assert saved['Items'][0]['Attack'] == 610 and saved['Items'][2]['Life256'] % 256 == 64
     assert json.loads(saved['Items'][0]['Gear'])['Roll']['Affixes'][0]['Definition']['Id'] == 'MagicPrefix:526'
-    full = None
+    full = None; named_inputs = None
     if full_class:
         full = inventory.validate_inventory(STAGE / 'class-inputs.json')
         assert full['artifacts'] == inputs['artifacts'] and full['copiedData'] == inputs['copiedData']
         full_log = (STAGE / 'class-native-checks.log').read_text()
-        assert ': failed' not in full_log and ' ERR]' not in full_log and full_log.count(': passed') == 1184
+        assert ': failed' not in full_log and ' ERR]' not in full_log and full_log.count(': passed') == 1181
         assert full_log.count('Shutting down') == 3 and full_log.count('Writing world save snapshot done') == 35
         assert 'including two save/reload cycles.' in (STAGE / 'full-run.log').read_text()
+        named_inputs = json.loads((STAGE / 'named-inputs.json').read_text())
+        assert named_inputs['artifacts'] == full['artifacts'] and named_inputs['copiedData'] == full['copiedData']
+        named_log = (STAGE / 'named-native-checks.log').read_text()
+        assert ': failed' not in named_log and ' ERR]' not in named_log
+        assert named_log.count(': passed') == named_log.count('Shutting down') == named_log.count('Writing world save snapshot done') == 3
+        _, previous_full = frozen_receipt('16ce299', 'tools/reference/monster-ordered-release-native-evidence.json')
+        assert previous_full['verified']['fullClassMarkers'] == 1184
+        old_full = Counter(pattern.findall((ROOT / '.local/class-skills/monster-ordered-release/class-native-checks.log').read_text()))
+        current_full = Counter(pattern.findall(full_log)); named = Counter(pattern.findall(named_log))
+        assert named == Counter({'named-gear-check': 1, 'named-gear-reload-check': 2})
+        assert old_full - current_full == named and current_full + named == old_full
+
     audits = []
     for name in ['named-item-runtime-audit.json', 'first-loop-affix-audit.json']:
         p = STAGE / name; audit = json.loads(p.read_text())
@@ -89,19 +101,20 @@ def record(check=False, full_class=False):
         artifacts.append(p)
     artifacts += [STAGE / n for n in ['stats-inputs.json', 'stats-native-checks.log', 'run.log', 'python-tests.log']]
     if full_class:
-        artifacts += [STAGE / n for n in ['class-inputs.json', 'class-native-checks.log', 'full-run.log']]
+        artifacts += [STAGE / n for n in ['class-inputs.json', 'class-native-checks.log', 'full-run.log', 'named-inputs.json', 'named-native-checks.log', 'named-run.log']]
+        artifacts.append(ROOT / 'tests/check_named_candidate.py')
     artifacts += list((STAGE / 'focused-fixtures').glob('*fixtures.json'))
     artifacts += [p for p in (STAGE / 'diagnostics').rglob('*') if p.is_file()]
     artifacts += [ROOT / n for n in ['tools/record_npc_item_suppliers.py', 'tests/check_npc_item_suppliers.py', 'tools/build_skill_roadmap.py', 'tools/build_property_integration_backlog.py', 'tools/reference/item-property-integration-backlog.json', 'tools/reference/creeper-frame-installation-evidence.json']]
     result = dict(referenceVersion='3.3.93847', component='Recipient-level original equipment numeric suppliers', installed=False, handlerEnabled=False, currentExecutableParity=False, fullNpcStatGraphAccepted=False, sourceNpcLevelMappingAccepted=False, goalComplete=False, handlers=183, warlockHandlers=1, completedClasses=[],
-        verified=dict(passMarkers=207, retainedMarkers=204, worldBoots=3, actualWorldReloads=2, completeSourceOperationContexts=27648, compiledRoutineCount=2, registeredScaledProperties=27, ownedComparedFields=189, halfScaledToHitProperties=source['verified']['halfScaleProperties'], explicitRecipientLevel=37, independentOwnerLevel=47, independentItemLevel=99, ordinarySourceAffix='MagicPrefix:526', recipientFlatAttackRating=610, realPlayerFlatAttackRating=775, playerEquipUnequip=True, savedOriginalItems=3, originalGearRollsRetained=True, fractionalLife256Remainder=64, unknownRecipientLevelRefused=True, movedOriginalRefused=True, unresolvedOp5Refused=True, fullClassMarkers=1184 if full_class else None, fullClassBoots=3 if full_class else None, fullClassReloads=2 if full_class else None, fullClassSaveSnapshots=35 if full_class else None, pythonTests=70, unchangedNamedDefinitions=573, inputFingerprints=[727, 21], unchangedMainInstallationArtifacts=106),
-        inputInventory=inputs, fullInputInventory=full, artifacts={str(p.relative_to(ROOT)): sha(p) for p in sorted(set(artifacts))}, frozenPredecessor=dict(commit='16ea609', receipt='tools/reference/iron-golem-items-native-evidence.json'),
+        verified=dict(passMarkers=207, retainedMarkers=204, worldBoots=3, actualWorldReloads=2, completeSourceOperationContexts=27648, compiledRoutineCount=2, registeredScaledProperties=27, ownedComparedFields=189, halfScaledToHitProperties=source['verified']['halfScaleProperties'], explicitRecipientLevel=37, independentOwnerLevel=47, independentItemLevel=99, ordinarySourceAffix='MagicPrefix:526', recipientFlatAttackRating=610, realPlayerFlatAttackRating=775, playerEquipUnequip=True, savedOriginalItems=3, originalGearRollsRetained=True, fractionalLife256Remainder=64, unknownRecipientLevelRefused=True, movedOriginalRefused=True, unresolvedOp5Refused=True, fullClassMarkers=1181 if full_class else None, supplementalNamedMarkers=3 if full_class else None, supplementalNamedBoots=3 if full_class else None, supplementalNamedReloads=2 if full_class else None, combinedRegressionMarkers=1184 if full_class else None, fullClassBoots=3 if full_class else None, fullClassReloads=2 if full_class else None, fullClassSaveSnapshots=35 if full_class else None, pythonTests=70, unchangedNamedDefinitions=573, inputFingerprints=[727, 21], unchangedMainInstallationArtifacts=106),
+        inputInventory=inputs, fullInputInventory=full, supplementalNamedInputInventory=named_inputs, artifacts={str(p.relative_to(ROOT)): sha(p) for p in sorted(set(artifacts))}, frozenPredecessor=dict(commit='16ea609', receipt='tools/reference/iron-golem-items-native-evidence.json'),
         established=[
             'Explicit recipient-level overloads share existing ordinary/named numeric interpretation and local armor/weapon readers. The original bound-item reader refuses missing, moved, replaced or deleted originals and levels outside1..99. The supplied level37 is a declared fixture context, not proof of real Iron Golem level mapping. No NPC stat graph or combat consumer is fabricated.',
             'Owned properties/itemstatcost corroborate189fields for27scaled properties, including resource value shifts. The four to-hit suppliers use halves, not eighths. Complete unchanged recursive query/percentage bodies match27648op2/op4controls under declared base/full-stat lookups, including own-versus-recipient levels, wrong/missing recipients and FP256 coefficients. Other branches of the compiled query are not certified by that matrix.',
             'Actual ordinary Trump magic sword generation, identification and player equip/unequip put775flat AR into and out of the level47player pool. The same source coefficient yields610at declared NPC level37, versus16at implicit level1. Actual original sword and Duriel/Spirit Forge armors retain full saved gear and local suppliers across both reloads. Resource bonuses retain the quarter-life FP256remainder instead of rounding to whole life first.',
             'The existing dmg%/lvl general damage projection is a discovered unresolved maximum-only op5routing gap. The new NPC context rejects that property, leaving an actual admitted Messerschmidt Reaver intact. Existing named acquisition decisions are unchanged; no unavailable proc item or incomplete skill is newly enabled.',
-            ('All204predecessor markers remain exact. The identical package also passes1184full-class checks over three boots/two reloads/35save snapshots.' if full_class else 'All204predecessor markers remain exact;no new full-class acceptance is claimed in this focused receipt.') + '70Python checks,573unchanged named eligibility decisions and106unchanged main installation artifacts pass. This does not complete a class or install the candidate.'
+            ('All204predecessor markers remain exact. The identical package passes1181full-class checks over three boots/two reloads/35save snapshots. The optional named gate was omitted from that run;all3missing named checks pass separately over three boots/two reloads against identical artifacts/data. Their combined marker multiset retains all1184checks of16ce299exactly;the two worlds/scopes are reported separately.' if full_class else 'All204predecessor markers remain exact;no new full-class acceptance is claimed in this focused receipt.') + '70Python checks,573unchanged named eligibility decisions and106unchanged main installation artifacts pass. This does not complete a class or install the candidate.'
         ], remaining=[
             'Correct and verify max-only op5damage routing/order. Complete dynamic stat posting, damageRelated/primary-weapon arbitration, all other operation families and callbacks, actual NPC life/defense/damage/resistance/speed/proc consumers and source level mapping before claiming full equipment inheritance.',
             'Iron Golem still needs its real body/AI, paid cast/cap/placement, owner/facet/logout/death/respec handling and bound-item lifecycle. Item skill procs, charges, oskills and auras remain in the approved deferred return ledger. Skill effects/audio and talent/hotkey icons remain separate identified placeholders.'

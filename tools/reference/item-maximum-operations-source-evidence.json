@@ -1,0 +1,198 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Maximum-only level-scaled item damage operation assembly",
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/ItemsTbls.cpp": "d4f7fb34065ab2072529c378f9a7fa09e99ff23e830342501d3deff0b5aec343",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/ItemsTbls.h": "6f9b72363d068c0623193205e3f3a37c9231bdf6812e5bbb268a4c148f7bd4dc",
+    "tools/reference/npc-item-suppliers-source-evidence.json": "3fb7fe216e2258487a8401ae9af728f5839bd95fa398c79c3259f33790a49973",
+    ".local/class-skills/npc-item-suppliers-source/properties.txt": "382528362751c68646e98d4a296c357276ab9a1ee0b7053c29e5df6b6252a1ef",
+    ".local/class-skills/npc-item-suppliers-source/itemstatcost.txt": "99960b46e1963b20fa120bd4d1f77e4b28138330ccec65c7fab0bfd3db6fd8e8",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/probe_item_maximum_operations.py": "134d27e2c896d58576293b2c3c80d3aea4d674f365782119e6f56bea3716aef3"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "ComputeStatPercentage": "f9803075da80b9cf9c273f9e7906f394fc9f1ec569eb31611302ba4272cdf628",
+    "sub_6FDB5830": "e757710b6226906a6e4778786ceea851caa5eba6a9e20c1c1cfb1ff9e6e3ad0b",
+    "ITEMMODS_AddPropertyToItemStatList": "f93256c6d6c1e2b9f3ee50720f87de66762870b448720a2350b4c8d0fa688f48",
+    "ITEMMODS_PropertyFunc17": "1aecef55b306f75e1c328290ea90696b2aae36888320468d01873c01b66d91f0"
+  },
+  "compiledLoaderBlockHash": "c0d87e666d55727b3293107f2cca58f19cac42e0fadd2ab6820a6dae311986f4",
+  "verified": {
+    "ownedComparedFields": 3318,
+    "currentStatRows": 368,
+    "damagePlans": [
+      [
+        21,
+        [
+          [
+            13,
+            18,
+            65535,
+            0
+          ]
+        ]
+      ],
+      [
+        22,
+        [
+          [
+            13,
+            17,
+            65535,
+            0
+          ],
+          [
+            4,
+            218,
+            12,
+            3
+          ],
+          [
+            5,
+            219,
+            12,
+            3
+          ],
+          [
+            6,
+            272,
+            65535,
+            0
+          ],
+          [
+            7,
+            273,
+            65535,
+            0
+          ]
+        ]
+      ],
+      [
+        23,
+        [
+          [
+            13,
+            18,
+            65535,
+            0
+          ],
+          [
+            7,
+            273,
+            65535,
+            0
+          ]
+        ]
+      ],
+      [
+        24,
+        [
+          [
+            13,
+            17,
+            65535,
+            0
+          ],
+          [
+            4,
+            218,
+            12,
+            3
+          ],
+          [
+            5,
+            219,
+            12,
+            3
+          ],
+          [
+            6,
+            272,
+            65535,
+            0
+          ]
+        ]
+      ],
+      [
+        159,
+        [
+          [
+            13,
+            18,
+            65535,
+            0
+          ],
+          [
+            7,
+            273,
+            65535,
+            0
+          ]
+        ]
+      ],
+      [
+        160,
+        [
+          [
+            13,
+            17,
+            65535,
+            0
+          ],
+          [
+            4,
+            218,
+            12,
+            3
+          ],
+          [
+            5,
+            219,
+            12,
+            3
+          ],
+          [
+            6,
+            272,
+            65535,
+            0
+          ]
+        ]
+      ]
+    ],
+    "sourceQueryContexts": 35280,
+    "sourceWriterContexts": 48,
+    "combinedPercentageDifferences": 6480,
+    "integerBasePercentageDifferences": 720
+  },
+  "artifacts": {
+    ".local/class-skills/item-maximum-operations-source/source.cpp": "fa9b5a1c3def1aaeb74512ab59683cbac7afa5b672c93f77ad3d6041b158b508",
+    ".local/class-skills/item-maximum-operations-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-maximum-operations-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-maximum-operations-source-probe.json": "305653360786b4af66932b9a05b21c52e6b77c8296e110f0f02759393e3c7823",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/compiler.log": "f336574ef277b94b5a2744da247a74420228416be280a777bd35c31f158e9476",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/data.json": "305653360786b4af66932b9a05b21c52e6b77c8296e110f0f02759393e3c7823",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/probe": "97bc4953513c2d59deea99d9ac1b0684bc01a5dc2bb2956c10eb694a1b8fc5d4",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/producer.py": "4b69641612b01a0a264a541928816edbcc9082276f5d10d166af1230ce441fdb",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/run.log": "aae309dae7505ae813b939318d3f330e0285fa1a36526ec838cee96268ca1253",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/current-operation-plan/source.cpp": "fa9b5a1c3def1aaeb74512ab59683cbac7afa5b672c93f77ad3d6041b158b508",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/initial-property-stat/producer.py": "f3aa62e3505f434d2c7924215f8155e0cda0806c5b45357190ffcd5820eb3786",
+    ".local/class-skills/item-maximum-operations-source/diagnostics/initial-property-stat/run.log": "76159bd77d091741ef3a177786af08256007a817d96ae0729c49a10188382b83"
+  },
+  "established": [
+    "The unchanged dependency-assembly loop builds the current max channels in stat-ID order:op13item ED,op4level flat maximum,op5level maximum percent. Primary minimum has only op13;current by-time rows also appendop6to maxima andop7to primary maximum/secondary minimum/throw minimum exactly as owned data specifies. By-time branches are guarded off in this matrix. All3318selected current stat/property fields match owned tables. This is the full assembly loop,not the entire archive/table loader.",
+    "Complete recursive query/percentage and property17/add-property bodies run with declared base/full-stat lookup and stat-list allocation/write services. Property17honors a fixed parameter before fallback rolling and ignores the nested writer failure in its own return. Max-only percentages use a separate percentage application after flat level damage; combining percentages changes outcomes.",
+    "The source double percentage helper can differ from an integer base-ED implementation. Those differences are recorded explicitly;this does not prove the same rounding in the pinned modern executable."
+  ],
+  "remaining": [
+    "Native max-only routing and actual item equip/weapon/combat/save acceptance are still required. Full loader/property dispatcher/stat-list merge/callbacks,by-time operations6/7and their asymmetric current channel targets,base/ethereal initialization and unsupported writer branches remain separate. Property17flat-max special branch delegates to an unexecuted func06service. Do not silently change all established base-ED rounding from this bounded older-source result."
+  ]
+}
