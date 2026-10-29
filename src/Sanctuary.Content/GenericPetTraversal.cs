@@ -124,6 +124,16 @@ internal static class GenericPetTraversal
         ArgumentNullException.ThrowIfNull(original);ArgumentNullException.ThrowIfNull(services);
         return original with
         {
+            Unit=id=>
+            {
+                var snapshot=original.Unit(id);var live=services.Unit(id);
+                if(snapshot.Unit.Position.Kind!=live.Kind||snapshot.Unit.Mode!=live.Mode||snapshot.Unit.Flags124!=live.Flags124
+                    ||snapshot.Unit.Position.HasPath!=(live.Path!=null))
+                {throw new NotSupportedException("Search snapshots disagree with the bound traversal unit");}
+                // Refresh mutates this path store. An earlier wrapper snapshot
+                // must not resurrect the stale pointer it just cleared.
+                return new(snapshot.Unit,live.Path?.Target??0,live.Flags128);
+            },
             Refresh371b10=unit=>Refresh(game,unit,services),
             Traverse40d9f0=(unit,_,index,visit)=>{Visit(game,unit,index,target=>visit(target),services);}
         };
