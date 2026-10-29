@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Full current target-search callback and embedded preparation/cleanup composition",
+  "processMemoryRead": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "targetProcessCodeExecuted": false,
+  "handlerEnabled": false,
+  "fullAiVerified": false,
+  "verified": {
+    "contexts": 5824,
+    "unsupportedAiNullBoundaries": 540,
+    "callbackBytes": 3027,
+    "distanceBytes": 138,
+    "completeCallbackFragments": 5,
+    "inlinePreparationCleanupCompositions": 36,
+    "maxOwnedStateGroupSize": 7
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-callback-source-probe.json": "a0d46ae51816905ce747cd87989e9f0523794f5b846ff5ba0a2c1b4cd4bfea1b",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029-4b2810-part0.bin": "ceb8da5896bfe22def11ea0e9900042033aefc17ad69923a0230818b5417ff45",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029.json": "3c73690cc4b25a184c70976cf13d20da5289c4161be89994b68233de25547de0",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part0.bin": "bd20445d4ae290175c498fede2bfead5b73e8d4fe578550415d0a1b905f08924",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part1.bin": "dbc87dc66a3f17a0db9baea36e238f81a8b05e0c4c3ca1394ee85a9394bc6e6a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part2.bin": "3152d36e28cf97dd63b277b1fa6bfc1d1c28a64a124cea69ffe803931a5a7c06",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part3.bin": "c6bb7cc5fe415db37a2e2d63aa491bd542723558af09b60792f5e0eac5eceed8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part4.bin": "9720cfbbc7789311fbe7155cfb938b8f5dfd2653dbb4cec6dc83ab6bb4a489b5",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6cd0-part0.bin": "cf02ce6875ef3d27cf1018f0f5651eec93d26efc9faf37366cf5d6e1535a75fd",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6cd0-part1.bin": "41da354ae6e35490e926bbc6b0c438c09110bc185b35c2fbbc9bec7b25bff1d7",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6cd0-part2.bin": "27d2698923dcc12c4fa582d4027975f4d4f3d2970b7484949294df7a0ee43971",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029.json": "92c0e27ddf530c7ff8d7261650d2dfea0ccf8558368b59235eb108f02b4255a6",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-idle-20261030-4b3210-part0.bin": "ae4e4be9f072933b3616d94933bd55aa6dad625dfd31934727456eb29a747c26",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-idle-20261030-4b3210-part1.bin": "a45a77428e13a12b0bd59b6133c0400cf5419013e06ed4e3fce111fca395349a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-idle-20261030-4b3210-part2.bin": "631d33123fba3217f890bbd5d345203c5812d588aadf7215c9b87ee7f8909501",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-idle-20261030-4b3210-part3.bin": "9d1a6378ccb765ae4bfd0d6eabdccca29f03301dae96f4be059a6bb8300c8cc1",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-idle-20261030-4b3210-part4.bin": "b1ec9b3a4809ac84d6f74327655f887489c2e408b3f0b3a4162a405d4a6d1f4e",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-idle-20261030.json": "6e36ae669578f297c6680e20d65be99698675a71b10e71ec10e1703d82d4a1b5",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-preparation-20261029-4b2cb0-part0.bin": "ac17f9251148451cc718e3fb8d0bda08a222544922a8cdf6e5ba93ab96c5dc32",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-preparation-20261029.json": "a3fecba5470ca08b56975540e6b847de3acd9c553eab5eaa62812376fe9f2e8e",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030-40bfd0-part0.bin": "17781a9a31ead78193c33b6b05d9454edce4ff5820276392a15cfa19fa1b654f",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030.json": "9863f6e7ac832299d981fd8be7a7caa05499d381a5c338be15e276798febce89",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part0.bin": "b941622c5bedcd3836f9c6fd57ac96134d6c1da4374291fdff01457089527bfc",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part1.bin": "cbff4f5552ed562addd7d7101611e60c1e0b03b4d9d65b8d93670ade3d2273f8",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part2.bin": "3d0260cd2d4666d089ef098adf4aa6f89f8fc078565d9c0fe7f716ea0e88b0dc",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part3.bin": "672fbf2f7a89b319c7eeb264fded26911de3b2e35829e08d28701bee82ea6f93",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part4.bin": "a6a52e023d51e8ce01d1e0155d4bd315b239a05c2be870599e0b610eb9622119",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part5.bin": "9dd2aebe80c6c3505aa8c096aa61f9430016d50850491084fe2790ee715b6046",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part6.bin": "a0734264ed85a3b05b0930874e18d05b0c04612d340a109e055092fa7b0001ca",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029.json": "2c116423d5e65e6c651eea5fc3b7c083febcbaabf76f7714ae1406c391968b73",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-followup-20261029-part0.bin": "19ce7c106be4ed64f2b8a6befe62c68890c064e5673f8c68e6358207bc9fa9ba",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-followup-20261029.json": "523cfbee7f772312bad39987b59c403bd28d127305d213d2c74a93b34d380344",
+    "data/Sanctuary/Balance/generic-pet-skills.json": "8bcdf23f251dbf0322fc52a27926b1a61dcb0a199838e15eb4f1f3a4aa3f3f20",
+    "data/Sanctuary/Balance/generic-pet-states.json": "07a8256015a8a391075cd7f0d76b30cd8000c9b10be9d873ea80778153a09ed5",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_preparation.py": "553a04e25fd05835ae985f613c3f267ca88736e4258a48c6ed71fd7a35d76150",
+    "tools/probe_generic_pet_search_callback.py": "3ad7a5b641eaef67bd200e0ad67501d2b5aa28c86dc5185ad3147a8c912379b2",
+    "tools/probe_generic_pet_search_groups.py": "af4818badbf00b51b9bff3eb6fa64cc85963537e18c4cf716d9973e14e046693",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Current squared-distance138-byte leaf executes for every source distance call,with exact observed arguments/results. World validity,room/level/collision,special predicates,priority values/monster row bytes and state membership are supplied explicit services,not certified helper bodies.",
+    "Candidate positions preserve unsigned16dynamic versus signed static coordinates,raw float32Q16positions,source int32wrapping and CVTTSS2SIboundaries. Null monster-AI source dereference at4b3489is an explicit unsupported boundary;unknown memory faults fail the oracle. Unit snapshots are immutable during these supplied services;arbitrary mutation/reentrancy is not certified.",
+    "Captured846-byte group preparation,253-byte append and152-byte cleanup execute before callback in36owned-metadata compositions. These cases fit10inline groups/IDs;cleanup preserves every header/group byte. Heap-backed caller consumption remains unverified."
+  ],
+  "remaining": [
+    "Native callback/service-trace and source composition comparison remains required. Real world geometry/validity/membership,caller traversal and downstream ordering/actions/lifecycle remain separate;no learned demon enabled."
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "407005ec831322df16358a714a99506811ff33d6d6cc9204673d6b11cc667c31",
-  "ContentAssemblyPath": ".local/class-skills/generic-pet-metadata/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "ea9e664f9035ee8873809c5c23841f7cc2651b6e797483a7f1cff8fd69b049dc",
+  "ContentAssemblyPath": ".local/class-skills/generic-pet-search-callback/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
