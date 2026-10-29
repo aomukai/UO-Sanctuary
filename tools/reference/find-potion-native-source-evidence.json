@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "canonicalGeneratorCommit": "83e9e41",
+  "currentExecutableParityVerified": false,
+  "caseCounts": {
+    "eligibilityCases": 384,
+    "chanceCases": 80,
+    "outputCases": 4500,
+    "contextCases": 32,
+    "doGuardCases": 8
+  },
+  "wholeRoutineHashes": {
+    "UNITS_IsSoftMonster": "f2e755a8b1e1780fed74fbf46e96ea956a0ebbafe14fad2e22ec70f3bdf51f66",
+    "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+    "D2Common_11020": "0b3637d530aabef4ea2ef06adfd258ed8fbafe169b1490134221bde97e0a509b",
+    "D2COMMON_11018": "fe7fabbf55f8b2423e7e79fe3b4afa547a5ad707079c4242a7e71027dcd994aa",
+    "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+    "D2Common_11034": "7d2c2566300e7d81a3bf265b6025da535dd039f2b8b83860e5ff9e1274bdc905",
+    "SKILLS_SrvSt33_FindPotion_GrimWard": "bdb77c90931eaf273962b428b986ec57c1616158d6d5f5fb014eb7d4c403a6a7",
+    "SKILLS_SrvDo069_FindPotion": "ca7c057e6c4d87c7c7ef46dc52a1073aa66b4fc55c328a34c275bd98c812b279"
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/find-potion/find-potion-source": "deb4cfab6c983a8b3c0ca201da0e4c13eae81b37ca108636820ffd74e9d1d310",
+    ".local/class-skills/find-potion/find-potion-source.cpp": "0cd29d7db351d37ae62184decc717385dc5df01f61d93e3a80b44f6f24493e2b",
+    ".local/class-skills/find-potion/source-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/find-potion-native-source-probe.json": "b2ad08975fdf3cf3a8fb28f32f28723523de03aaacb81fc8bd4a418100d316d2",
+    ".local/class-skills/find-potion-source-probe.json": "b2ad08975fdf3cf3a8fb28f32f28723523de03aaacb81fc8bd4a418100d316d2",
+    "tools/probe_find_potion_native.py": "a41b7314b7b4811414db57d77138f5c73170c11d6ec7e69952e211617012922a",
+    "tools/probe_find_potion_reference.py": "289020efc3278b4c9ac3b84cd72ff90135fe40066cb581f4c0604aaa326f85f8",
+    "tools/reference/find-potion-engine-evidence.json": "9ccbaf0b86e1a04636d83dddbed7b52bef3b22c8f41f7bff0558652a2fe2b674"
+  },
+  "limits": [
+    "Whole legacy routines run with declared target/state/room/Act/formula/drop services; not modern executable parity.",
+    "Native policy consumes the existing SkillValues chance curve. Its modern integer rounding and shared owner RNG sequence remain separate uncertainties.",
+    "Generic item-code zero is represented by the oracle; the learned native route instead requires an explicit valid region Act before payment, as approved."
+  ]
+}

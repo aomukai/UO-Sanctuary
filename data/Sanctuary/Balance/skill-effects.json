@@ -1733,7 +1733,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Shared UO search sound0x1E5 and corpse flash0x375A hue0x481 are identified placeholders; final Find Potion cry/search/corpse/potion-discovery effects and audio pending; talent/right/quick icons tracked separately"
   },
   {
     "talentId": "barbarian.shout",

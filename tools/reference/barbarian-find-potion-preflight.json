@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "5004 bounded compiled source cases pass; native tier context question remains open and handler stays unavailable.",
+  "status": "Historical source preflight superseded by native Find Potion work; explicit no-default caster-region Act policy approved 2026-10-29. See find-potion-native-evidence.json for accepted verification scope.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
@@ -78,9 +78,9 @@
   ],
   "questions": [
     {
-      "blockingScope": "Native potion-tier context only; source chance/type/eligibility/consumption work can continue.",
+      "blockingScope": "Resolved design question; untagged areas deliberately refuse the learned cast.",
       "question": "How should Britannia map caster location to D2R Act and game difficulty?",
-      "status": "Asked asynchronously; no answer recorded yet.",
+      "status": "Resolved by user 2026-10-29: No default \u2014 require an explicit region tag. Difficulty follows configured facet.",
       "options": [
         "Use corpse source Act/difficulty as explicit Sanctuary deviation",
         "Define Britannia region Act/difficulty tiers"
@@ -89,13 +89,14 @@
     }
   ],
   "nextSteps": [
-    "Native corpse/state/item/start33 payment adapter and potion tier context remain to integrate; do not invent Britannia Act/difficulty.",
-    "Proceed to unaffected War Cry do68/ray/damage7/block/stun/snapshot proof; its source preflight is pinned."
+    "Verify prepared native casting, corpse reservation, all 15 tier rows and persistence in the scoped native suite.",
+    "Remaining exact modern chance rounding/shared owner RNG, h2h/auto-approach, current input/SC/FCR/client behavior stay explicit; no class completion claimed."
   ],
   "limits": [
-    "5004 bounded compiled source cases pass; separate evidence declares stubs and limits. No native handler or modern parity certificate.",
+    "5004 bounded compiled legacy source cases pass; separate source evidence declares stubs and limits. Native handler verification is recorded separately; no current-executable parity certificate.",
     "Source Udead-state masks/softness/corpse_select need full native dead-species mapping. The existing generic corpse consumer is not automatically the same behavior.",
     "Final effect and talent/hotkey icon remain separately tracked placeholders."
   ],
-  "evidence": "tools/reference/find-potion-engine-evidence.json"
+  "evidence": "tools/reference/find-potion-engine-evidence.json",
+  "areaPolicy": "tools/reference/find-potion-area-policy.json"
 }

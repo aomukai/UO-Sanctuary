@@ -48,6 +48,7 @@ public static class ClassCombat
         internal string RabiesFault;
         internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
+        internal Serial FindPotionTarget;
         internal BarbarianConcentrate.Mode Concentrate;
         internal BarbarianBerserk.Temporary BerserkMode;
         internal bool ZealPaid;
@@ -253,6 +254,7 @@ public static class ClassCombat
         For(from).Conversion = null;
         For(from).BarbarianAttack = null;
         For(from).FindItemTarget = Serial.Zero;
+        For(from).FindPotionTarget = Serial.Zero;
         For(from).PendingTeleport = null;
         For(from).Zeal = null;
         For(from).ZealPaid = false;
@@ -375,7 +377,7 @@ public static class ClassCombat
         }
     }
     internal static bool CorpseCast(CombatAbility ability)=>ClassAbilities.CorpseTarget(ability) && ability!=CombatAbility.RaiseSkeleton;
-    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.FindItem
+    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.FindPotion?BarbarianFindPotion.Begin(owner,selected,point,now):ability==CombatAbility.FindItem
         ?BarbarianFindItem.Begin(owner,selected,point,now):NecromancerCombat.CorpseTarget(ability) && NecromancerCombat.Begin(owner,ability,selected,point,now);
     public static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => Perform(from, ability, target, point, now, false);
@@ -520,6 +522,7 @@ public static class ClassCombat
             if(DruidFormCasting.Handles(ability)){session.Transform=null;}
             if(ability==CombatAbility.BladeShield){BladeShields.Cancel(from);}
             if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
+            if(ability==CombatAbility.FindPotion){session.FindPotionTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
             if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}

@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedDate": "2026-10-29",
+  "approval": "User selected: No default \u2014 require an explicit region tag. Difficulty follows the configured facet.",
+  "configuration": "data/Sanctuary/Balance/region-acts.json",
+  "fields": {
+    "map": "Native map ID",
+    "region": "Exact native region name, case sensitive",
+    "act": "D2 Act 1 through 5"
+  },
+  "resolution": "Search the caster current region then its parents; closest explicit tag wins. Never derive Act from the corpse or monster level.",
+  "untagged": "Decline before animation/payment/corpse reservation. No default is supplied. Revalidate at release; removing a tag cancels output without refunding an already paid cast.",
+  "difficulty": "SummonDifficulties.For(caster.Map), using existing facet-difficulties.json policy (undesignated physical facets are Normal).",
+  "initialDesignations": [],
+  "scope": "Find Potion only; other skills retain existing area policies.",
+  "sourceFallback": "Legacy generic item-code zero is documented but unsupported in the native potion factory. Required valid area context prevents reaching it.",
+  "assets": "Identified UO search cry/flash placeholders. Final effects/audio and talent/hotkey icons are separate asset work."
+}

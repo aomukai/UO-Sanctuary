@@ -9,7 +9,7 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura);
+public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura,bool Soft=false);
 public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
 public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null);
 public sealed class CorpseSkillProfiles : GenericPersistence
@@ -37,6 +37,7 @@ public sealed class CorpseSkillProfiles : GenericPersistence
 public static class CorpseSkillRules
 {
     private static readonly Dictionary<string,bool> _selectable=new(StringComparer.OrdinalIgnoreCase);
+    private static readonly HashSet<string> _soft=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<string> _noAura=new(StringComparer.OrdinalIgnoreCase);
     public static CorpseSkillProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
@@ -48,7 +49,7 @@ public static class CorpseSkillRules
         CorpseRecoveryHooks.Deleted=corpse=>{Profiles.Remove(corpse);previous?.Invoke(corpse);};
     }
     public static void Load()
-    { CorpseBaseSnapshots.Load();_selectable.Clear();_noAura.Clear();foreach(var row in BalanceCatalog.Read<CorpseSourceRule>("corpse-source-rules")){_selectable.Add(row.Source,row.Selectable);if(row.NoAura){_noAura.Add(row.Source);}} }
+    { CorpseBaseSnapshots.Load();_selectable.Clear();_noAura.Clear();_soft.Clear();foreach(var row in BalanceCatalog.Read<CorpseSourceRule>("corpse-source-rules")){_selectable.Add(row.Source,row.Selectable);if(row.NoAura){_noAura.Add(row.Source);}if(row.Soft){_soft.Add(row.Source);}} }
     public static bool AllowsAura(Mobile target)
     {
         string key=target switch
@@ -87,6 +88,7 @@ public static class CorpseSkillRules
         // group upgrades for this configured level. No quest/elite TC is inferred.
         return new(source,policy.TreasureClass,level,difficulty);
     }
+    internal static bool Soft(Corpse corpse)=>Profiles.Find(corpse)?.Source is{} source && _soft.Contains(source);
     public static bool NoSelect(Corpse corpse)=>Profiles.Find(corpse)?.NoSelect??false;
     public static bool TryBaseLife(Corpse corpse,out CorpseBaseSnapshot snapshot)
     {

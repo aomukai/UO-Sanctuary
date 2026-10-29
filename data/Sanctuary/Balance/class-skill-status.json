@@ -1351,10 +1351,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 131,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Source5004 bounded cases cover corpse eligibility, single attempt and all15 potion rows. Native output context awaits the recorded caster Act/game-difficulty to Britannia mapping question; no handler or arbitrary potion tier enabled. Reuse restoration potions and corpse access without hide/deletion."
+      "remaining": "Right/quick corpse SC search pays2mana at start. Explicit region Act1..5 is required with nearest tagged ancestor and configured facet difficulty; untagged areas decline before payment or attempt, per approved policy. Pinned species soft/selectable flags and saved noselect consume one attempt on success or failure while retaining loot and appearance. All15 source potion rows use existing healing/mana/rejuvenation items. Complete legacy5004case oracle and dedicated native checks are recorded in find-potion-native-evidence.json; handler presence is not exact modern parity. Shared8-tile corpse access/input auto-approach,modern DM rounding/shared owner RNG,SC/FCR/client and unsupported item/target paths remain open. Generic item-code0 fallback is unsupported and unreachable behind explicit area tags. Effects/audio and talent/right/quick icons remain identified placeholders."
     },
     {
       "talentId": "barbarian.shout",

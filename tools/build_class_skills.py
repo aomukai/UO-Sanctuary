@@ -336,6 +336,7 @@ def products():
         'amazon.evade':'Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey',
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
+        'barbarian.findpotion':'Shared UO search sound0x1E5 and corpse flash0x375A hue0x481 are identified placeholders; final Find Potion cry/search/corpse/potion-discovery effects and audio pending; talent/right/quick icons tracked separately',
         'barbarian.finditem':'Staged UO0x375A corpse search marker and0x1E5 cry sound; final find-object/find-heart cry, corpse search and success/failure cues pending',
         'barbarian.warcry':'Staged shared UO0x375A cast/wave/stun/block markers and0x1E5 cry; final WarcryShockwave, cast, stun and shield block presentation pending',
         'barbarian.taunt':'Staged UO0x375A target marker and0x1E5 cry sound; final taunt overlay/cry and source feedback pending',
@@ -368,7 +369,7 @@ def products():
     class_stats = [r for r in json.loads((ROOT/'data/Sanctuary/Balance/classes.json').read_text()) if r['name'] != 'Warlock'] + [warlock_stats()]
     hydra_animation = json.loads((ROOT/'tools/reference/hydra-engine-evidence.json').read_text())['animation']
     monstats2=json.loads((SOURCE/'json/monstats2.json').read_text())
-    corpse_rules=[dict(source=r['Id'],selectable=bool(monstats2.get(r.get('MonStatsEx'),{}).get('corpseSel')),noAura=bool(r.get('noAura'))) for r in monsters.values() if r.get('Id')]
+    corpse_rules=[dict(source=r['Id'],selectable=bool(monstats2.get(r.get('MonStatsEx'),{}).get('corpseSel')),noAura=bool(r.get('noAura')),soft=bool(monstats2.get(r.get('MonStatsEx'),{}).get('soft'))) for r in monsters.values() if r.get('Id')]
     conversion_rules=[dict(source=r['Id'],base=r.get('BaseId',r['Id']),evil=not bool(r.get('Align',0)),
         switchAi=bool(r.get('switchai')),walk=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mWL')),boss=bool(r.get('boss')),run=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mRN')),attack1=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mA1')),attackable=bool(monstats2.get(r.get('MonStatsEx'),{}).get('isAtt')),npc=bool(r.get('npc')),interact=bool(r.get('interact')),velocity=r.get('Velocity',0),runVelocity=r.get('Run',0),size=monstats2.get(r.get('MonStatsEx'),{}).get('SizeX',0),ai=r.get('AI',''))
         for r in monsters.values() if r.get('Id')]
