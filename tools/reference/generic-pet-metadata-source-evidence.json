@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned metadata composed with cached GenericPet buff/search preparation",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "handlerEnabled": false,
+  "worldSelectorBindingVerified": false,
+  "verified": {
+    "skillRows": 429,
+    "stateRows": 232,
+    "explicitSelectorViews": 3,
+    "buffCompositions": 1287,
+    "searchCompositions": 1287,
+    "totalCompositions": 2574,
+    "unsupportedBoundaries": 0
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-metadata-source-probe.json": "f29d1dc82a65fb6014d734a013bc01a99bad7f1abcf8b3002ee6e952573abe53",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029-4b2810-part0.bin": "ceb8da5896bfe22def11ea0e9900042033aefc17ad69923a0230818b5417ff45",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029.json": "3c73690cc4b25a184c70976cf13d20da5289c4161be89994b68233de25547de0",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part0.bin": "bd20445d4ae290175c498fede2bfead5b73e8d4fe578550415d0a1b905f08924",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part1.bin": "dbc87dc66a3f17a0db9baea36e238f81a8b05e0c4c3ca1394ee85a9394bc6e6a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part2.bin": "3152d36e28cf97dd63b277b1fa6bfc1d1c28a64a124cea69ffe803931a5a7c06",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part3.bin": "c6bb7cc5fe415db37a2e2d63aa491bd542723558af09b60792f5e0eac5eceed8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6c30-part4.bin": "9720cfbbc7789311fbe7155cfb938b8f5dfd2653dbb4cec6dc83ab6bb4a489b5",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6cd0-part0.bin": "cf02ce6875ef3d27cf1018f0f5651eec93d26efc9faf37366cf5d6e1535a75fd",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6cd0-part1.bin": "41da354ae6e35490e926bbc6b0c438c09110bc185b35c2fbbc9bec7b25bff1d7",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029-4b6cd0-part2.bin": "27d2698923dcc12c4fa582d4027975f4d4f3d2970b7484949294df7a0ee43971",
+    ".local/class-skills/warlock-runtime-reference/callees-live-preparation-services-20261029.json": "92c0e27ddf530c7ff8d7261650d2dfea0ccf8558368b59235eb108f02b4255a6",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-preparation-20261029-4b2cb0-part0.bin": "ac17f9251148451cc718e3fb8d0bda08a222544922a8cdf6e5ba93ab96c5dc32",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-preparation-20261029.json": "a3fecba5470ca08b56975540e6b847de3acd9c553eab5eaa62812376fe9f2e8e",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part0.bin": "b941622c5bedcd3836f9c6fd57ac96134d6c1da4374291fdff01457089527bfc",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part1.bin": "cbff4f5552ed562addd7d7101611e60c1e0b03b4d9d65b8d93670ade3d2273f8",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part2.bin": "3d0260cd2d4666d089ef098adf4aa6f89f8fc078565d9c0fe7f716ea0e88b0dc",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part3.bin": "672fbf2f7a89b319c7eeb264fded26911de3b2e35829e08d28701bee82ea6f93",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part4.bin": "a6a52e023d51e8ce01d1e0155d4bd315b239a05c2be870599e0b610eb9622119",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part5.bin": "9dd2aebe80c6c3505aa8c096aa61f9430016d50850491084fe2790ee715b6046",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029-part6.bin": "a0734264ed85a3b05b0930874e18d05b0c04612d340a109e055092fa7b0001ca",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-callback-20261029.json": "2c116423d5e65e6c651eea5fc3b7c083febcbaabf76f7714ae1406c391968b73",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-followup-20261029-part0.bin": "19ce7c106be4ed64f2b8a6befe62c68890c064e5673f8c68e6358207bc9fa9ba",
+    ".local/class-skills/warlock-runtime-reference/live-preparation-followup-20261029.json": "523cfbee7f772312bad39987b59c403bd28d127305d213d2c74a93b34d380344",
+    "tools/build_generic_pet_metadata.py": "68afc5d5d6b75d49d12a07a47a8e5459b1774d81b93682057e39ffc58d3c467c",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_metadata.py": "e08ce7bfd237211fb60f482d720ca5c85f8ebb32608e66dd6f8347ca66b96a4a",
+    "tools/probe_generic_pet_preparation.py": "553a04e25fd05835ae985f613c3f267ca88736e4258a48c6ed71fd7a35d76150",
+    "tools/probe_generic_pet_search_groups.py": "af4818badbf00b51b9bff3eb6fa64cc85963537e18c4cf716d9973e14e046693",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/reference/generic-pet-metadata-data-evidence.json": "9481bbaaf812e188fbba47ba197cffa2f2be1661607253ed0748fe419d86e728"
+  },
+  "services": [
+    "Each owned skill row is supplied once as a type1 buff candidate and once as a type2 search candidate for each explicitly bound selector view. Supplied categories isolate each preparation contract;they do not claim every actual actor gathers every skill in either category.",
+    "Actual compiled self/target state IDs,raw flags39 and all232signed state groups supply the captured routines. Buff state membership is explicitly false with owner0;search begins with a prior owned group. The429skill/232state table fields are not inferred from formula text.",
+    "Captured routines execute via the existing offline harnesses and declared metadata/memory services. The three explicit views bind the same controlled fixture table;this does not establish that real game selectors alias a single table or map to difficulty."
+  ],
+  "remaining": [
+    "Native catalog/view and composed preparation must match these controls. Actual world selector binding,skill ownership/levels,state membership and owner traversal remain separate.",
+    "Search acceptance stops at preparation return. Post-cleanup callback consumption and world target selection remain unverified. No learned summon or complete actor is enabled."
+  ]
+}

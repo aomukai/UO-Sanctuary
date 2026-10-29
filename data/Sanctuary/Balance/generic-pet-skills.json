@@ -1,0 +1,3863 @@
+[
+  {
+    "id": 0,
+    "name": "Attack",
+    "flags36": 8,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 1,
+    "name": "Kick",
+    "flags36": 0,
+    "flags39": 8,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 2,
+    "name": "Throw",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 3,
+    "name": "Unsummon",
+    "flags36": 0,
+    "flags39": 130,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 4,
+    "name": "Left Hand Throw",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 5,
+    "name": "Left Hand Swing",
+    "flags36": 8,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 6,
+    "name": "Magic Arrow",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 7,
+    "name": "Fire Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 8,
+    "name": "Inner Sight",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 17
+  },
+  {
+    "id": 9,
+    "name": "Critical Strike",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 10,
+    "name": "Jab",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 11,
+    "name": "Cold Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 12,
+    "name": "Multiple Shot",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 13,
+    "name": "Dodge",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 14,
+    "name": "Power Strike",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 15,
+    "name": "Poison Javelin",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 16,
+    "name": "Exploding Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 17,
+    "name": "Slow Missiles",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 87
+  },
+  {
+    "id": 18,
+    "name": "Avoid",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 19,
+    "name": "Impale",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 188
+  },
+  {
+    "id": 20,
+    "name": "Lightning Bolt",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 21,
+    "name": "Ice Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 22,
+    "name": "Guided Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 23,
+    "name": "Penetrate",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 24,
+    "name": "Charged Strike",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 25,
+    "name": "Plague Javelin",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 26,
+    "name": "Strafe",
+    "flags36": 0,
+    "flags39": 64,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 27,
+    "name": "Immolation Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 28,
+    "name": "Dopplezon",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 63,
+    "auraTargetState": -1
+  },
+  {
+    "id": 29,
+    "name": "Evade",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 30,
+    "name": "Fend",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 31,
+    "name": "Freezing Arrow",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 32,
+    "name": "Valkyrie",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 33,
+    "name": "Pierce",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 34,
+    "name": "Lightning Strike",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 35,
+    "name": "Lightning Fury",
+    "flags36": 1,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 36,
+    "name": "Fire Bolt",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 37,
+    "name": "Warmth",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 38,
+    "name": "Charged Bolt",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 39,
+    "name": "Ice Bolt",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 40,
+    "name": "Frozen Armor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 10,
+    "auraTargetState": -1
+  },
+  {
+    "id": 41,
+    "name": "Inferno",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 42,
+    "name": "Static Field",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 43,
+    "name": "Telekinesis",
+    "flags36": 0,
+    "flags39": 136,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 44,
+    "name": "Frost Nova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 45,
+    "name": "Ice Blast",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 46,
+    "name": "Blaze",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 13,
+    "auraTargetState": -1
+  },
+  {
+    "id": 47,
+    "name": "Fire Ball",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 11,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 48,
+    "name": "Nova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 49,
+    "name": "Lightning",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 50,
+    "name": "Shiver Armor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 88,
+    "auraTargetState": -1
+  },
+  {
+    "id": 51,
+    "name": "Fire Wall",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 52,
+    "name": "Enchant",
+    "flags36": 0,
+    "flags39": 134,
+    "aiType": 1,
+    "auraState": 16,
+    "auraTargetState": -1
+  },
+  {
+    "id": 53,
+    "name": "Chain Lightning",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 54,
+    "name": "Teleport",
+    "flags36": 0,
+    "flags39": 160,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 55,
+    "name": "Glacial Spike",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 56,
+    "name": "Meteor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 57,
+    "name": "Thunder Storm",
+    "flags36": 64,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 38,
+    "auraTargetState": -1
+  },
+  {
+    "id": 58,
+    "name": "Energy Shield",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 30,
+    "auraTargetState": -1
+  },
+  {
+    "id": 59,
+    "name": "Blizzard",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 60,
+    "name": "Chilling Armor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 20,
+    "auraTargetState": -1
+  },
+  {
+    "id": 61,
+    "name": "Fire Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 62,
+    "name": "Hydra",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 63,
+    "name": "Lightning Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 64,
+    "name": "Frozen Orb",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 65,
+    "name": "Cold Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 66,
+    "name": "Amplify Damage",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 9
+  },
+  {
+    "id": 67,
+    "name": "Teeth",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 68,
+    "name": "Bone Armor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 14,
+    "auraTargetState": -1
+  },
+  {
+    "id": 69,
+    "name": "Skeleton Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 70,
+    "name": "Raise Skeleton",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 71,
+    "name": "Dim Vision",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 23
+  },
+  {
+    "id": 72,
+    "name": "Weaken",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 19
+  },
+  {
+    "id": 73,
+    "name": "Poison Dagger",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 74,
+    "name": "Corpse Explosion",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 75,
+    "name": "Clay Golem",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 76,
+    "name": "Iron Maiden",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 55
+  },
+  {
+    "id": 77,
+    "name": "Terror",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 56
+  },
+  {
+    "id": 78,
+    "name": "Bone Wall",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 79,
+    "name": "Golem Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 80,
+    "name": "Raise Skeletal Mage",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 81,
+    "name": "Confuse",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 59
+  },
+  {
+    "id": 82,
+    "name": "Life Tap",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 58
+  },
+  {
+    "id": 83,
+    "name": "Poison Explosion",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 84,
+    "name": "Bone Spear",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 85,
+    "name": "BloodGolem",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 86,
+    "name": "Attract",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 57
+  },
+  {
+    "id": 87,
+    "name": "Decrepify",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 60
+  },
+  {
+    "id": 88,
+    "name": "Bone Prison",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 89,
+    "name": "Summon Resist",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 90,
+    "name": "IronGolem",
+    "flags36": 0,
+    "flags39": 136,
+    "aiType": 0,
+    "auraState": 36,
+    "auraTargetState": -1
+  },
+  {
+    "id": 91,
+    "name": "Lower Resist",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 61
+  },
+  {
+    "id": 92,
+    "name": "Poison Nova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 93,
+    "name": "Bone Spirit",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 94,
+    "name": "FireGolem",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 95,
+    "name": "Revive",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 96,
+    "name": "Sacrifice",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 97,
+    "name": "Smite",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 98,
+    "name": "Might",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 33,
+    "auraTargetState": 33
+  },
+  {
+    "id": 99,
+    "name": "Prayer",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 34,
+    "auraTargetState": 34
+  },
+  {
+    "id": 100,
+    "name": "Resist Fire",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 6,
+    "auraState": 3,
+    "auraTargetState": 3
+  },
+  {
+    "id": 101,
+    "name": "Holy Bolt",
+    "flags36": 0,
+    "flags39": 198,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 102,
+    "name": "Holy Fire",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 35,
+    "auraTargetState": -1
+  },
+  {
+    "id": 103,
+    "name": "Thorns",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 36,
+    "auraTargetState": 36
+  },
+  {
+    "id": 104,
+    "name": "Defiance",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 37,
+    "auraTargetState": 37
+  },
+  {
+    "id": 105,
+    "name": "Resist Cold",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 4,
+    "auraTargetState": 4
+  },
+  {
+    "id": 106,
+    "name": "Zeal",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 107,
+    "name": "Charge",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 108,
+    "name": "Blessed Aim",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 40,
+    "auraTargetState": 40
+  },
+  {
+    "id": 109,
+    "name": "Cleansing",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 45,
+    "auraTargetState": 45
+  },
+  {
+    "id": 110,
+    "name": "Resist Lightning",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 5,
+    "auraTargetState": 5
+  },
+  {
+    "id": 111,
+    "name": "Vengeance",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 112,
+    "name": "Blessed Hammer",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 113,
+    "name": "Concentration",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 42,
+    "auraTargetState": 42
+  },
+  {
+    "id": 114,
+    "name": "Holy Freeze",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 43,
+    "auraTargetState": 44
+  },
+  {
+    "id": 115,
+    "name": "Vigor",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 41,
+    "auraTargetState": 41
+  },
+  {
+    "id": 116,
+    "name": "Conversion",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 53
+  },
+  {
+    "id": 117,
+    "name": "Holy Shield",
+    "flags36": 0,
+    "flags39": 144,
+    "aiType": 0,
+    "auraState": 101,
+    "auraTargetState": -1
+  },
+  {
+    "id": 118,
+    "name": "Holy Shock",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 46,
+    "auraTargetState": -1
+  },
+  {
+    "id": 119,
+    "name": "Sanctuary",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 47,
+    "auraTargetState": -1
+  },
+  {
+    "id": 120,
+    "name": "Meditation",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 48,
+    "auraTargetState": 48
+  },
+  {
+    "id": 121,
+    "name": "Fist of the Heavens",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 122,
+    "name": "Fanaticism",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 49,
+    "auraTargetState": 49
+  },
+  {
+    "id": 123,
+    "name": "Conviction",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 6,
+    "auraState": 28,
+    "auraTargetState": 28
+  },
+  {
+    "id": 124,
+    "name": "Redemption",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 50,
+    "auraTargetState": -1
+  },
+  {
+    "id": 125,
+    "name": "Salvation",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 8,
+    "auraTargetState": 8
+  },
+  {
+    "id": 126,
+    "name": "Bash",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 127,
+    "name": "Blade Mastery",
+    "flags36": 48,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 128,
+    "name": "Axe Mastery",
+    "flags36": 48,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 129,
+    "name": "Mace Mastery",
+    "flags36": 48,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 130,
+    "name": "Howl",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 56
+  },
+  {
+    "id": 131,
+    "name": "Find Potion",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 132,
+    "name": "Leap",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 133,
+    "name": "Double Swing",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 134,
+    "name": "Pole Arm Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 135,
+    "name": "Throwing Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 136,
+    "name": "Spear Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 137,
+    "name": "Taunt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 2,
+    "auraState": -1,
+    "auraTargetState": 27
+  },
+  {
+    "id": 138,
+    "name": "Shout",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 26,
+    "auraTargetState": 26
+  },
+  {
+    "id": 139,
+    "name": "Stun",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 140,
+    "name": "Double Throw",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 141,
+    "name": "Increased Stamina",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 142,
+    "name": "Find Item",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 143,
+    "name": "Leap Attack",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 144,
+    "name": "Concentrate",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": 15,
+    "auraTargetState": -1
+  },
+  {
+    "id": 145,
+    "name": "Iron Skin",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 146,
+    "name": "Battle Cry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 89
+  },
+  {
+    "id": 147,
+    "name": "Frenzy",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 4,
+    "auraState": 94,
+    "auraTargetState": -1
+  },
+  {
+    "id": 148,
+    "name": "Increased Speed",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 149,
+    "name": "Battle Orders",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 32,
+    "auraTargetState": 32
+  },
+  {
+    "id": 150,
+    "name": "Grim Ward",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 56
+  },
+  {
+    "id": 151,
+    "name": "Whirlwind",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": 174,
+    "auraTargetState": -1
+  },
+  {
+    "id": 152,
+    "name": "Berserk",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 95,
+    "auraTargetState": -1
+  },
+  {
+    "id": 153,
+    "name": "Natural Resistance",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 154,
+    "name": "War Cry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 155,
+    "name": "Battle Command",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 51,
+    "auraTargetState": 51
+  },
+  {
+    "id": 156,
+    "name": "Fire Hit",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 157,
+    "name": "UnHolyBolt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 158,
+    "name": "SkeletonRaise",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 159,
+    "name": "MaggotEgg",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 160,
+    "name": "ShamanFire",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 161,
+    "name": "MagottUp",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 162,
+    "name": "MagottDown",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 163,
+    "name": "MagottLay",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 164,
+    "name": "AndrialSpray",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 165,
+    "name": "Jump",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 166,
+    "name": "Swarm Move",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 167,
+    "name": "Nest",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 168,
+    "name": "Quick Strike",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 169,
+    "name": "VampireFireball",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 170,
+    "name": "VampireFirewall",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 171,
+    "name": "VampireMeteor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 172,
+    "name": "GargoyleTrap",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 173,
+    "name": "SpiderLay",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 22,
+    "auraTargetState": 24
+  },
+  {
+    "id": 174,
+    "name": "VampireHeal",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 175,
+    "name": "VampireRaise",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 176,
+    "name": "Submerge",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 177,
+    "name": "FetishAura",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 178,
+    "name": "FetishInferno",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 179,
+    "name": "ZakarumHeal",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 180,
+    "name": "Emerge",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 181,
+    "name": "Resurrect",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 182,
+    "name": "Bestow",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 183,
+    "name": "MissileSkill1",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 184,
+    "name": "MonTeleport",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 185,
+    "name": "PrimeLightning",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 186,
+    "name": "PrimeBolt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 187,
+    "name": "PrimeBlaze",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 13,
+    "auraTargetState": -1
+  },
+  {
+    "id": 188,
+    "name": "PrimeFirewall",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 189,
+    "name": "PrimeSpike",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 190,
+    "name": "PrimeIceNova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 191,
+    "name": "PrimePoisonball",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 192,
+    "name": "PrimePoisonNova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 193,
+    "name": "DiabLight",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 194,
+    "name": "DiabCold",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 195,
+    "name": "DiabFire",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 196,
+    "name": "FingerMageSpider",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 84
+  },
+  {
+    "id": 197,
+    "name": "DiabWall",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 198,
+    "name": "DiabRun",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 199,
+    "name": "DiabPrison",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 200,
+    "name": "PoisonBallTrap",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 201,
+    "name": "AndyPoisonBolt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 202,
+    "name": "HireableMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 203,
+    "name": "DesertTurret",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 204,
+    "name": "ArcaneTower",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 205,
+    "name": "MonBlizzard",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 206,
+    "name": "Mosquito",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 207,
+    "name": "CursedBallTrapRight",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 208,
+    "name": "CursedBallTrapLeft",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 209,
+    "name": "MonFrozenArmor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 10,
+    "auraTargetState": -1
+  },
+  {
+    "id": 210,
+    "name": "MonBoneArmor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 14,
+    "auraTargetState": -1
+  },
+  {
+    "id": 211,
+    "name": "MonBoneSpirit",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 212,
+    "name": "MonCurseCast",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 213,
+    "name": "HellMeteor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 214,
+    "name": "RegurgitatorEat",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 215,
+    "name": "MonFrenzy",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 103,
+    "auraTargetState": -1
+  },
+  {
+    "id": 216,
+    "name": "QueenDeath",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 217,
+    "name": "Scroll of Identify",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 218,
+    "name": "Book of Identify",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 219,
+    "name": "Scroll of Townportal",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 220,
+    "name": "Book of Townportal",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 221,
+    "name": "Raven",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 222,
+    "name": "Plague Poppy",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 150,
+    "auraTargetState": -1
+  },
+  {
+    "id": 223,
+    "name": "Wearwolf",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": 139,
+    "auraTargetState": -1
+  },
+  {
+    "id": 224,
+    "name": "Shape Shifting",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 225,
+    "name": "Firestorm",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 226,
+    "name": "Oak Sage",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 227,
+    "name": "Summon Spirit Wolf",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 228,
+    "name": "Wearbear",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": 140,
+    "auraTargetState": -1
+  },
+  {
+    "id": 229,
+    "name": "Molten Boulder",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 230,
+    "name": "Arctic Blast",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 231,
+    "name": "Cycle of Life",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 150,
+    "auraTargetState": -1
+  },
+  {
+    "id": 232,
+    "name": "Feral Rage",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": 120,
+    "auraTargetState": -1
+  },
+  {
+    "id": 233,
+    "name": "Maul",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": 117,
+    "auraTargetState": -1
+  },
+  {
+    "id": 234,
+    "name": "Eruption",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 235,
+    "name": "Cyclone Armor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 151,
+    "auraTargetState": -1
+  },
+  {
+    "id": 236,
+    "name": "Heart of Wolverine",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 237,
+    "name": "Summon Fenris",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 238,
+    "name": "Rabies",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 112
+  },
+  {
+    "id": 239,
+    "name": "Fire Claws",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 240,
+    "name": "Twister",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 241,
+    "name": "Vines",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 150,
+    "auraTargetState": -1
+  },
+  {
+    "id": 242,
+    "name": "Hunger",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 243,
+    "name": "Shock Wave",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 244,
+    "name": "Volcano",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 245,
+    "name": "Tornado",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 246,
+    "name": "Spirit of Barbs",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 247,
+    "name": "Summon Grizzly",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 248,
+    "name": "Fury",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 249,
+    "name": "Armageddon",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 145,
+    "auraTargetState": -1
+  },
+  {
+    "id": 250,
+    "name": "Hurricane",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 144,
+    "auraTargetState": -1
+  },
+  {
+    "id": 251,
+    "name": "Fire Trauma",
+    "flags36": 2,
+    "flags39": 192,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 252,
+    "name": "Claw Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 10,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 253,
+    "name": "Psychic Hammer",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 254,
+    "name": "Tiger Strike",
+    "flags36": 4,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 122,
+    "auraTargetState": -1
+  },
+  {
+    "id": 255,
+    "name": "Dragon Talon",
+    "flags36": 8,
+    "flags39": 80,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 256,
+    "name": "Shock Field",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 11,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 257,
+    "name": "Blade Sentinel",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 258,
+    "name": "Quickness",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 157,
+    "auraTargetState": -1
+  },
+  {
+    "id": 259,
+    "name": "Fists of Fire",
+    "flags36": 132,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 125,
+    "auraTargetState": -1
+  },
+  {
+    "id": 260,
+    "name": "Dragon Claw",
+    "flags36": 8,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 261,
+    "name": "Charged Bolt Sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 262,
+    "name": "Wake of Fire Sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 263,
+    "name": "Weapon Block",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 10,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 264,
+    "name": "Cloak of Shadows",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 2,
+    "auraState": 153,
+    "auraTargetState": 156
+  },
+  {
+    "id": 265,
+    "name": "Cobra Strike",
+    "flags36": 4,
+    "flags39": 208,
+    "aiType": 12,
+    "auraState": 123,
+    "auraTargetState": -1
+  },
+  {
+    "id": 266,
+    "name": "Blade Fury",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 267,
+    "name": "Fade",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 159,
+    "auraTargetState": -1
+  },
+  {
+    "id": 268,
+    "name": "Shadow Warrior",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": 119,
+    "auraTargetState": -1
+  },
+  {
+    "id": 269,
+    "name": "Claws of Thunder",
+    "flags36": 132,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 127,
+    "auraTargetState": -1
+  },
+  {
+    "id": 270,
+    "name": "Dragon Tail",
+    "flags36": 8,
+    "flags39": 80,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 271,
+    "name": "Lightning Sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 272,
+    "name": "Inferno Sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 273,
+    "name": "Mind Blast",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 11,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 274,
+    "name": "Blades of Ice",
+    "flags36": 132,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 126,
+    "auraTargetState": -1
+  },
+  {
+    "id": 275,
+    "name": "Dragon Flight",
+    "flags36": 8,
+    "flags39": 80,
+    "aiType": 13,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 276,
+    "name": "Death Sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 277,
+    "name": "Blade Shield",
+    "flags36": 64,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 158,
+    "auraTargetState": -1
+  },
+  {
+    "id": 278,
+    "name": "Venom",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 1,
+    "auraState": 31,
+    "auraTargetState": -1
+  },
+  {
+    "id": 279,
+    "name": "Shadow Master",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 3,
+    "auraState": 119,
+    "auraTargetState": -1
+  },
+  {
+    "id": 280,
+    "name": "Royal Strike",
+    "flags36": 4,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 124,
+    "auraTargetState": -1
+  },
+  {
+    "id": 281,
+    "name": "Wake Of Destruction Sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 282,
+    "name": "Imp Inferno",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 283,
+    "name": "Imp Fireball",
+    "flags36": 2,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 284,
+    "name": "Baal Taunt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 285,
+    "name": "Baal Corpse Explode",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 286,
+    "name": "Baal Monster Spawn",
+    "flags36": 2,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 287,
+    "name": "Catapult Charged Ball",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 288,
+    "name": "Catapult Spike Ball",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 289,
+    "name": "Suck Blood",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 290,
+    "name": "Cry Help",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 291,
+    "name": "Healing Vortex",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 292,
+    "name": "Teleport 2",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 293,
+    "name": "Self-resurrect",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 294,
+    "name": "Vine Attack",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 24
+  },
+  {
+    "id": 295,
+    "name": "Overseer Whip",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 141
+  },
+  {
+    "id": 296,
+    "name": "Barbs Aura",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 163,
+    "auraTargetState": 147
+  },
+  {
+    "id": 297,
+    "name": "Wolverine Aura",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 162,
+    "auraTargetState": 148
+  },
+  {
+    "id": 298,
+    "name": "Oak Sage Aura",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 161,
+    "auraTargetState": 149
+  },
+  {
+    "id": 299,
+    "name": "Imp Fire Missile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 300,
+    "name": "Impregnate",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 301,
+    "name": "Siege Beast Stomp",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 302,
+    "name": "MinionSpawner",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 303,
+    "name": "CatapultBlizzard",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 304,
+    "name": "CatapultPlague",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 305,
+    "name": "CatapultMeteor",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 306,
+    "name": "BoltSentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 307,
+    "name": "CorpseCycler",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 308,
+    "name": "DeathMaul",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 309,
+    "name": "Defense Curse",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 113
+  },
+  {
+    "id": 310,
+    "name": "Blood Mana",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 114
+  },
+  {
+    "id": 311,
+    "name": "mon inferno sentry",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 312,
+    "name": "mon death sentry",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 313,
+    "name": "sentry lightning",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 314,
+    "name": "fenris rage",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": 138,
+    "auraTargetState": -1
+  },
+  {
+    "id": 315,
+    "name": "Baal Tentacle",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 316,
+    "name": "Baal Nova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 317,
+    "name": "Baal Inferno",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 318,
+    "name": "Baal Cold Missiles",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 319,
+    "name": "MegademonInferno",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 320,
+    "name": "EvilHutSpawner",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 321,
+    "name": "CountessFirewall",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 322,
+    "name": "ImpBolt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 323,
+    "name": "Horror Arctic Blast",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 324,
+    "name": "death sentry ltng",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 325,
+    "name": "VineCycler",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 326,
+    "name": "BearSmite",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 327,
+    "name": "Resurrect2",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 328,
+    "name": "BloodLordFrenzy",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 103,
+    "auraTargetState": -1
+  },
+  {
+    "id": 329,
+    "name": "Baal Teleport",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 330,
+    "name": "Imp Teleport",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 143,
+    "auraTargetState": -1
+  },
+  {
+    "id": 331,
+    "name": "Baal Clone Teleport",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 332,
+    "name": "ZakarumLightning",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 333,
+    "name": "VampireMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 334,
+    "name": "MephistoMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 335,
+    "name": "DoomKnightMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 336,
+    "name": "RogueMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 337,
+    "name": "HydraMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 338,
+    "name": "NecromageMissile",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 339,
+    "name": "MonBow",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 340,
+    "name": "MonFireArrow",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 341,
+    "name": "MonColdArrow",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 342,
+    "name": "MonExplodingArrow",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 343,
+    "name": "MonFreezingArrow",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 344,
+    "name": "MonPowerStrike",
+    "flags36": 0,
+    "flags39": 144,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 345,
+    "name": "SuccubusBolt",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 346,
+    "name": "MephFrostNova",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 347,
+    "name": "MonIceSpear",
+    "flags36": 0,
+    "flags39": 144,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 348,
+    "name": "ShamanIce",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 349,
+    "name": "Diablogeddon",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 145,
+    "auraTargetState": -1
+  },
+  {
+    "id": 350,
+    "name": "Delerium Change",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": 177,
+    "auraTargetState": -1
+  },
+  {
+    "id": 351,
+    "name": "NihlathakCorpseExplosion",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 352,
+    "name": "SerpentCharge",
+    "flags36": 0,
+    "flags39": 16,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 353,
+    "name": "Trap Nova",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 354,
+    "name": "UnHolyBoltEx",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 355,
+    "name": "ShamanFireEx",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 356,
+    "name": "Imp Fire Missile Ex",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 357,
+    "name": "Interact",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 358,
+    "name": "Loot",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 359,
+    "name": "TownPortal",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 360,
+    "name": "EmoteWheel",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 361,
+    "name": "SwapWeapons",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 362,
+    "name": "Map",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 363,
+    "name": "ShowItems",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 364,
+    "name": "RunToggle",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 365,
+    "name": "MonHolyFreeze",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 43,
+    "auraTargetState": 44
+  },
+  {
+    "id": 366,
+    "name": "MonLeap",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 367,
+    "name": "MonLeapAttack",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 368,
+    "name": "MonHolyFire",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 35,
+    "auraTargetState": -1
+  },
+  {
+    "id": 369,
+    "name": "MonHolyShock",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 46,
+    "auraTargetState": -1
+  },
+  {
+    "id": 370,
+    "name": "CubeLoot",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 371,
+    "name": "Mark of the Bear",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": 190,
+    "auraTargetState": -1
+  },
+  {
+    "id": 372,
+    "name": "Mark of the Wolf",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": 191,
+    "auraTargetState": -1
+  },
+  {
+    "id": 373,
+    "name": "Summon Goatman",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 214,
+    "auraTargetState": -1
+  },
+  {
+    "id": 374,
+    "name": "Demonic Mastery",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 375,
+    "name": "Death Mark",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 212
+  },
+  {
+    "id": 376,
+    "name": "Summon Tainted",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 214,
+    "auraTargetState": -1
+  },
+  {
+    "id": 377,
+    "name": "Summon Defiler",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 214,
+    "auraTargetState": -1
+  },
+  {
+    "id": 378,
+    "name": "Blood Oath",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 379,
+    "name": "Engorge",
+    "flags36": 0,
+    "flags39": 193,
+    "aiType": 0,
+    "auraState": 211,
+    "auraTargetState": -1
+  },
+  {
+    "id": 380,
+    "name": "Blood Boil",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 381,
+    "name": "Consume",
+    "flags36": 64,
+    "flags39": 130,
+    "aiType": 0,
+    "auraState": 208,
+    "auraTargetState": -1
+  },
+  {
+    "id": 382,
+    "name": "Bind Demon",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 207,
+    "auraTargetState": 227
+  },
+  {
+    "id": 383,
+    "name": "Levitate",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 384,
+    "name": "Eldritch Blast",
+    "flags36": 64,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": 221,
+    "auraTargetState": 199
+  },
+  {
+    "id": 385,
+    "name": "Hex Bane",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 198,
+    "auraTargetState": 199
+  },
+  {
+    "id": 386,
+    "name": "Hex Siphon",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 200,
+    "auraTargetState": 201
+  },
+  {
+    "id": 387,
+    "name": "Psychic Ward",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 206,
+    "auraTargetState": -1
+  },
+  {
+    "id": 388,
+    "name": "Echoing Strike",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 389,
+    "name": "Hex Purge",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 202,
+    "auraTargetState": 217
+  },
+  {
+    "id": 390,
+    "name": "Blade Warp",
+    "flags36": 2,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 391,
+    "name": "Cleave",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 392,
+    "name": "Mirrored Blades",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 393,
+    "name": "Sigil Lethargy",
+    "flags36": 4,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": 205,
+    "auraTargetState": 192
+  },
+  {
+    "id": 394,
+    "name": "Ring of Fire",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 395,
+    "name": "Miasma Bolt",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 396,
+    "name": "Sigil Rancor",
+    "flags36": 4,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": 205,
+    "auraTargetState": 193
+  },
+  {
+    "id": 397,
+    "name": "Enhanced Entropy",
+    "flags36": 16,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 398,
+    "name": "Flame Wave",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 399,
+    "name": "Miasma Chains",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 400,
+    "name": "Sigil Death",
+    "flags36": 4,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": 205,
+    "auraTargetState": 194
+  },
+  {
+    "id": 401,
+    "name": "Apocalypse",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": 229
+  },
+  {
+    "id": 402,
+    "name": "Abyss",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 403,
+    "name": "Sigil Death Explosion",
+    "flags36": 0,
+    "flags39": 129,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 404,
+    "name": "Hex Purge Explosion",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 405,
+    "name": "Health Link",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 2,
+    "auraState": 213,
+    "auraTargetState": 210
+  },
+  {
+    "id": 406,
+    "name": "Cold Fissure",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 407,
+    "name": "Korlic's Leap Attack",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 408,
+    "name": "Cold Enchant",
+    "flags36": 0,
+    "flags39": 6,
+    "aiType": 1,
+    "auraState": 223,
+    "auraTargetState": -1
+  },
+  {
+    "id": 409,
+    "name": "Lightning Enchant",
+    "flags36": 0,
+    "flags39": 6,
+    "aiType": 1,
+    "auraState": 222,
+    "auraTargetState": -1
+  },
+  {
+    "id": 410,
+    "name": "Talic's Whirlwind",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 0,
+    "auraState": 174,
+    "auraTargetState": -1
+  },
+  {
+    "id": 411,
+    "name": "Townportal O Skill",
+    "flags36": 0,
+    "flags39": 0,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 412,
+    "name": "Fire Twisters",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 413,
+    "name": "Colossal Volcano",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 414,
+    "name": "Colossal Thunder Storm",
+    "flags36": 64,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 38,
+    "auraTargetState": -1
+  },
+  {
+    "id": 415,
+    "name": "UberAncientsHeal",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 416,
+    "name": "Goatman Stun",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 417,
+    "name": "Goatman Frenzy",
+    "flags36": 0,
+    "flags39": 128,
+    "aiType": 4,
+    "auraState": 103,
+    "auraTargetState": -1
+  },
+  {
+    "id": 418,
+    "name": "Goatman Berserk",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": 95,
+    "auraTargetState": -1
+  },
+  {
+    "id": 419,
+    "name": "Goatman Cleave",
+    "flags36": 0,
+    "flags39": 80,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 420,
+    "name": "Tainted Resist Fire",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 6,
+    "auraState": 3,
+    "auraTargetState": 3
+  },
+  {
+    "id": 421,
+    "name": "Tainted Fire Bolt",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 5,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 422,
+    "name": "Tainted Fire Ball",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 11,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 423,
+    "name": "Talic's Fire Pierce",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 6,
+    "auraState": 224,
+    "auraTargetState": 224
+  },
+  {
+    "id": 424,
+    "name": "Madawc's Lightning Pierce",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 6,
+    "auraState": 225,
+    "auraTargetState": 225
+  },
+  {
+    "id": 425,
+    "name": "Korlic's Cold Pierce",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 6,
+    "auraState": 226,
+    "auraTargetState": 226
+  },
+  {
+    "id": 426,
+    "name": "Charged Bolt Disk",
+    "flags36": 0,
+    "flags39": 192,
+    "aiType": 0,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 427,
+    "name": "Korlic's Bash",
+    "flags36": 0,
+    "flags39": 208,
+    "aiType": 4,
+    "auraState": -1,
+    "auraTargetState": -1
+  },
+  {
+    "id": 428,
+    "name": "HeraldThorns",
+    "flags36": 32,
+    "flags39": 128,
+    "aiType": 0,
+    "auraState": 36,
+    "auraTargetState": 36
+  }
+]

@@ -1,0 +1,586 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned compiled skill/state metadata for explicit GenericPet table views",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "readerSha256": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+  "readerSourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+  "processMemoryRead": false,
+  "processInput": false,
+  "handlerEnabled": false,
+  "worldSelectorBindingVerified": false,
+  "verified": {
+    "skillRows": 429,
+    "stateRows": 232,
+    "skillStride": 748,
+    "stateStride": 68,
+    "skillsBinaryBytes": 320896,
+    "statesBinaryBytes": 15780,
+    "compiledFieldMatches": 1948,
+    "ownedTextFieldMatches": {
+      "skills": 16809,
+      "states": 995
+    }
+  },
+  "fields": {
+    "skillId": 0,
+    "flags36": 36,
+    "flags39": 39,
+    "auraState": 160,
+    "auraTargetState": 162,
+    "aiType": 728,
+    "stateGroup": 30
+  },
+  "textRepresentationDifferences": [
+    {
+      "table": "skills",
+      "id": 12,
+      "field": "calc1",
+      "pinned": "\"min(ln12,24)\"",
+      "owned": "min(ln12,24)"
+    },
+    {
+      "table": "skills",
+      "id": 26,
+      "field": "calc1",
+      "pinned": "\"min(par3 + lvl - 1, par4)\"",
+      "owned": "min(par3 + lvl - 1, par4)"
+    },
+    {
+      "table": "skills",
+      "id": 28,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(lvl*par7,85)\"",
+      "owned": "min(lvl*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 28,
+      "field": "aurastatcalc2",
+      "pinned": "\"min(lvl*par7,85)\"",
+      "owned": "min(lvl*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 28,
+      "field": "aurastatcalc3",
+      "pinned": "\"min(lvl*par7,85)\"",
+      "owned": "min(lvl*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 28,
+      "field": "aurastatcalc4",
+      "pinned": "\"min(lvl*par7,85)\"",
+      "owned": "min(lvl*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 32,
+      "field": "aurastatcalc3",
+      "pinned": "\"min((lvl+skill('Dopplezon'.blvl))*par7,85)\"",
+      "owned": "min((lvl+skill('Dopplezon'.blvl))*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 32,
+      "field": "aurastatcalc4",
+      "pinned": "\"min((lvl+skill('Dopplezon'.blvl))*par7,85)\"",
+      "owned": "min((lvl+skill('Dopplezon'.blvl))*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 32,
+      "field": "aurastatcalc5",
+      "pinned": "\"min((lvl+skill('Dopplezon'.blvl))*par7,85)\"",
+      "owned": "min((lvl+skill('Dopplezon'.blvl))*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 32,
+      "field": "aurastatcalc6",
+      "pinned": "\"min((lvl+skill('Dopplezon'.blvl))*par7,85)\"",
+      "owned": "min((lvl+skill('Dopplezon'.blvl))*par7,85)"
+    },
+    {
+      "table": "skills",
+      "id": 38,
+      "field": "calc1",
+      "pinned": "\"min(24,ln12)\"",
+      "owned": "min(24,ln12)"
+    },
+    {
+      "table": "skills",
+      "id": 58,
+      "field": "calc1",
+      "pinned": "\"min(edmn,95)\"",
+      "owned": "min(edmn,95)"
+    },
+    {
+      "table": "skills",
+      "id": 67,
+      "field": "calc1",
+      "pinned": "\"min(ln12,24)\"",
+      "owned": "min(ln12,24)"
+    },
+    {
+      "table": "skills",
+      "id": 80,
+      "field": "sumsk1calc",
+      "pinned": "\"max(skill('Skeleton Mastery'.lvl) + ((lvl < 4)?0:((lvl-2)/2)),1)\"",
+      "owned": "max(skill('Skeleton Mastery'.lvl) + ((lvl < 4)?0:((lvl-2)/2)),1)"
+    },
+    {
+      "table": "skills",
+      "id": 94,
+      "field": "sumsk1calc",
+      "pinned": "\"min(ln56,30)\"",
+      "owned": "min(ln56,30)"
+    },
+    {
+      "table": "skills",
+      "id": 96,
+      "field": "calc2",
+      "pinned": "\"max(par6, par5-lvl/par3)\"",
+      "owned": "max(par6, par5-lvl/par3)"
+    },
+    {
+      "table": "skills",
+      "id": 97,
+      "field": "calc2",
+      "pinned": "\"min(ln12,250)\"",
+      "owned": "min(ln12,250)"
+    },
+    {
+      "table": "skills",
+      "id": 106,
+      "field": "calc1",
+      "pinned": "\"min((par5 + lvl -1), par6)\"",
+      "owned": "min((par5 + lvl -1), par6)"
+    },
+    {
+      "table": "skills",
+      "id": 123,
+      "field": "aurastatcalc2",
+      "pinned": "\"-min(ln34,150)\"",
+      "owned": "-min(ln34,150)"
+    },
+    {
+      "table": "skills",
+      "id": 123,
+      "field": "aurastatcalc3",
+      "pinned": "\"-min(ln34,150)\"",
+      "owned": "-min(ln34,150)"
+    },
+    {
+      "table": "skills",
+      "id": 123,
+      "field": "aurastatcalc4",
+      "pinned": "\"-min(ln34,150)\"",
+      "owned": "-min(ln34,150)"
+    },
+    {
+      "table": "skills",
+      "id": 152,
+      "field": "auralencalc",
+      "pinned": "\"par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))\"",
+      "owned": "par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))"
+    },
+    {
+      "table": "skills",
+      "id": 152,
+      "field": "calc2",
+      "pinned": "\"par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))\"",
+      "owned": "par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))"
+    },
+    {
+      "table": "skills",
+      "id": 159,
+      "field": "calc1",
+      "pinned": "\"(lvl < 5) ? lvl : min(12,5+(lvl-5)/3)\"",
+      "owned": "(lvl < 5) ? lvl : min(12,5+(lvl-5)/3)"
+    },
+    {
+      "table": "skills",
+      "id": 191,
+      "field": "calc1",
+      "pinned": "\"min(ln12,24)\"",
+      "owned": "min(ln12,24)"
+    },
+    {
+      "table": "skills",
+      "id": 221,
+      "field": "petmax",
+      "pinned": "\"min(lvl,par2)\"",
+      "owned": "min(lvl,par2)"
+    },
+    {
+      "table": "skills",
+      "id": 227,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 227,
+      "field": "aurastatcalc2",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 227,
+      "field": "aurastatcalc3",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 227,
+      "field": "aurastatcalc4",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 227,
+      "field": "petmax",
+      "pinned": "\"min(lvl,par3)\"",
+      "owned": "min(lvl,par3)"
+    },
+    {
+      "table": "skills",
+      "id": 237,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 237,
+      "field": "aurastatcalc2",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 237,
+      "field": "aurastatcalc3",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 237,
+      "field": "aurastatcalc4",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 237,
+      "field": "petmax",
+      "pinned": "\"min(lvl,par3)\"",
+      "owned": "min(lvl,par3)"
+    },
+    {
+      "table": "skills",
+      "id": 247,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 247,
+      "field": "aurastatcalc2",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 247,
+      "field": "aurastatcalc3",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 247,
+      "field": "aurastatcalc4",
+      "pinned": "\"min(par8 * lvl,85)\"",
+      "owned": "min(par8 * lvl,85)"
+    },
+    {
+      "table": "skills",
+      "id": 248,
+      "field": "calc1",
+      "pinned": "\"min((par5 + lvl -1), par6)\"",
+      "owned": "min((par5 + lvl -1), par6)"
+    },
+    {
+      "table": "skills",
+      "id": 264,
+      "field": "aurastatcalc1",
+      "pinned": "\"-min(ln56,95)\"",
+      "owned": "-min(ln56,95)"
+    },
+    {
+      "table": "skills",
+      "id": 268,
+      "field": "passivecalc1",
+      "pinned": "\"min(lvl*4,75)\"",
+      "owned": "min(lvl*4,75)"
+    },
+    {
+      "table": "skills",
+      "id": 268,
+      "field": "passivecalc2",
+      "pinned": "\"min(lvl*4,75)\"",
+      "owned": "min(lvl*4,75)"
+    },
+    {
+      "table": "skills",
+      "id": 268,
+      "field": "passivecalc3",
+      "pinned": "\"min(lvl*4,75)\"",
+      "owned": "min(lvl*4,75)"
+    },
+    {
+      "table": "skills",
+      "id": 268,
+      "field": "passivecalc4",
+      "pinned": "\"min(lvl*4,75)\"",
+      "owned": "min(lvl*4,75)"
+    },
+    {
+      "table": "skills",
+      "id": 282,
+      "field": "calc1",
+      "pinned": "\"rand(par3,par4)\"",
+      "owned": "rand(par3,par4)"
+    },
+    {
+      "table": "skills",
+      "id": 294,
+      "field": "cltcalc1",
+      "pinned": "\"min(ln12,12)\"",
+      "owned": "min(ln12,12)"
+    },
+    {
+      "table": "skills",
+      "id": 294,
+      "field": "calc1",
+      "pinned": "\"min(ln12,24)\"",
+      "owned": "min(ln12,24)"
+    },
+    {
+      "table": "skills",
+      "id": 326,
+      "field": "calc2",
+      "pinned": "\"max(250,ln12)\"",
+      "owned": "max(250,ln12)"
+    },
+    {
+      "table": "skills",
+      "id": 351,
+      "field": "aurarangecalc",
+      "pinned": "\"min(30,16+lvl)\"",
+      "owned": "min(30,16+lvl)"
+    },
+    {
+      "table": "skills",
+      "id": 362,
+      "field": "skill",
+      "pinned": null,
+      "owned": "Map"
+    },
+    {
+      "table": "skills",
+      "id": 373,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(ln21, 25)+(min(skill('Demonic Mastery'.ln12),25))\"",
+      "owned": "min(ln21, 25)+(min(skill('Demonic Mastery'.ln12),25))"
+    },
+    {
+      "table": "skills",
+      "id": 376,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(ln21, 25)+(min(skill('Demonic Mastery'.ln12),25))\"",
+      "owned": "min(ln21, 25)+(min(skill('Demonic Mastery'.ln12),25))"
+    },
+    {
+      "table": "skills",
+      "id": 376,
+      "field": "sumsk1calc",
+      "pinned": "\"min(ln56,30)\"",
+      "owned": "min(ln56,30)"
+    },
+    {
+      "table": "skills",
+      "id": 377,
+      "field": "aurastatcalc1",
+      "pinned": "\"min((skill('Demonic Mastery'.ln12)), 25)\"",
+      "owned": "min((skill('Demonic Mastery'.ln12)), 25)"
+    },
+    {
+      "table": "skills",
+      "id": 379,
+      "field": "aurastatcalc4",
+      "pinned": "\"min(ln12, 35)\"",
+      "owned": "min(ln12, 35)"
+    },
+    {
+      "table": "skills",
+      "id": 380,
+      "field": "calc1",
+      "pinned": "\"max(ln12, 5)\"",
+      "owned": "max(ln12, 5)"
+    },
+    {
+      "table": "skills",
+      "id": 380,
+      "field": "calc2",
+      "pinned": "\"max((ln12/2), 5)\"",
+      "owned": "max((ln12/2), 5)"
+    },
+    {
+      "table": "skills",
+      "id": 380,
+      "field": "calc3",
+      "pinned": "\"max((ln12/3), 5)\"",
+      "owned": "max((ln12/3), 5)"
+    },
+    {
+      "table": "skills",
+      "id": 382,
+      "field": "aurastatcalc1",
+      "pinned": "\"min((skill('Demonic Mastery'.ln12)), 25)\"",
+      "owned": "min((skill('Demonic Mastery'.ln12)), 25)"
+    },
+    {
+      "table": "skills",
+      "id": 383,
+      "field": "passivecalc2",
+      "pinned": "\"-1*min(ln78,50)\"",
+      "owned": "-1*min(ln78,50)"
+    },
+    {
+      "table": "skills",
+      "id": 385,
+      "field": "aurastatcalc1",
+      "pinned": "\"min(ln56,50)*-1\"",
+      "owned": "min(ln56,50)*-1"
+    },
+    {
+      "table": "skills",
+      "id": 388,
+      "field": "range",
+      "pinned": "rng",
+      "owned": "rng "
+    },
+    {
+      "table": "skills",
+      "id": 389,
+      "field": "passivecalc1",
+      "pinned": "\"min(30, ln56)\"",
+      "owned": "min(30, ln56)"
+    },
+    {
+      "table": "skills",
+      "id": 389,
+      "field": "calc3",
+      "pinned": "\"min(1+(lvl/10),3)\"",
+      "owned": "min(1+(lvl/10),3)"
+    },
+    {
+      "table": "skills",
+      "id": 392,
+      "field": "calc5",
+      "pinned": "\"min((2 + (lvl / 5)), 5)\"",
+      "owned": "min((2 + (lvl / 5)), 5)"
+    },
+    {
+      "table": "skills",
+      "id": 401,
+      "field": "aurastatcalc1",
+      "pinned": "\"-min(ln12,40)\"",
+      "owned": "-min(ln12,40)"
+    },
+    {
+      "table": "skills",
+      "id": 405,
+      "field": "calc3",
+      "pinned": "\"min(5,(lvl+1))\"",
+      "owned": "min(5,(lvl+1))"
+    },
+    {
+      "table": "skills",
+      "id": 418,
+      "field": "auralencalc",
+      "pinned": "\"par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))\"",
+      "owned": "par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))"
+    },
+    {
+      "table": "skills",
+      "id": 418,
+      "field": "calc2",
+      "pinned": "\"par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))\"",
+      "owned": "par4-min(((110*lvl)/(lvl+6)*(par4-par3)/100),(par4-par3))"
+    },
+    {
+      "table": "skills",
+      "id": 422,
+      "field": "EDmgSymPerCalc",
+      "pinned": "skill('Blood Boil'.blvl)*par8",
+      "owned": "skill('Blood Boil'.blvl)*par8 "
+    },
+    {
+      "table": "skills",
+      "id": 423,
+      "field": "aurastatcalc1",
+      "pinned": "\"-min(ln34,100)\"",
+      "owned": "-min(ln34,100)"
+    },
+    {
+      "table": "skills",
+      "id": 424,
+      "field": "aurastatcalc1",
+      "pinned": "\"-min(ln34,100)\"",
+      "owned": "-min(ln34,100)"
+    },
+    {
+      "table": "skills",
+      "id": 425,
+      "field": "aurastatcalc1",
+      "pinned": "\"-min(ln34,100)\"",
+      "owned": "-min(ln34,100)"
+    }
+  ],
+  "publicUnnamedSkillRows": [
+    362
+  ],
+  "artifacts": {
+    ".local/class-skills/generic-pet-metadata/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    ".local/class-skills/generic-pet-metadata/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    ".local/class-skills/generic-pet-metadata/states.bin": "4e1397b008816c299479517292f6bce8c3da768600afb7b1de5c12102bf8eb7a",
+    ".local/class-skills/generic-pet-metadata/states.txt": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+    ".local/class-skills/warlock-foundation/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/warlock-foundation/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "data/Sanctuary/Balance/generic-pet-skills.json": "8bcdf23f251dbf0322fc52a27926b1a61dcb0a199838e15eb4f1f3a4aa3f3f20",
+    "data/Sanctuary/Balance/generic-pet-states.json": "07a8256015a8a391075cd7f0d76b30cd8000c9b10be9d873ea80778153a09ed5",
+    "tools/build_generic_pet_metadata.py": "68afc5d5d6b75d49d12a07a47a8e5459b1774d81b93682057e39ffc58d3c467c",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "established": [
+    "Strict read-only owned CASC extraction is guarded by pinned executable/build metadata and the existing strict reader hashes. Binary headers/counts/strides match429skills and232states;all skill IDs,self states,target states,AI types and signed state groups match pinned public fields and owned text.",
+    "Raw skill bytes36/39 are retained as consumed by captured GenericPet helpers;no new interpretation of unrelated bits is introduced. Missing aura states compile to signed-1;groups retain their source sign and exact IDs. Output ordering is numeric source ID,not JSON name ordering. Owned row362 is named Map although the public JSON omits its name;the actual slot/name is retained,with the annotation difference recorded alongside quote/whitespace representations."
+  ],
+  "remaining": [
+    "Native catalog loading,adapter comparison and composition with current search preparation still require acceptance. Actual world table-selector/byte445 binding is unverified;do not map facets or difficulty to selector values or silently alias all selectors.",
+    "Actual search callback consumption,world state membership/iterators,ordering and actor lifecycle remain separate. A compiled-table/text match proves data and layout for these fields,not full compiler/runtime dispatch or a functioning demon summon."
+  ]
+}

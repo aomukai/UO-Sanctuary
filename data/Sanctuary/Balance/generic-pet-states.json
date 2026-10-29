@@ -1,0 +1,1162 @@
+[
+  {
+    "id": 0,
+    "name": "none",
+    "group": 0
+  },
+  {
+    "id": 1,
+    "name": "freeze",
+    "group": 0
+  },
+  {
+    "id": 2,
+    "name": "poison",
+    "group": 0
+  },
+  {
+    "id": 3,
+    "name": "resistfire",
+    "group": 0
+  },
+  {
+    "id": 4,
+    "name": "resistcold",
+    "group": 0
+  },
+  {
+    "id": 5,
+    "name": "resistlight",
+    "group": 0
+  },
+  {
+    "id": 6,
+    "name": "resistmagic",
+    "group": 0
+  },
+  {
+    "id": 7,
+    "name": "playerbody",
+    "group": 0
+  },
+  {
+    "id": 8,
+    "name": "resistall",
+    "group": 0
+  },
+  {
+    "id": 9,
+    "name": "amplifydamage",
+    "group": 0
+  },
+  {
+    "id": 10,
+    "name": "frozenarmor",
+    "group": 1
+  },
+  {
+    "id": 11,
+    "name": "cold",
+    "group": 0
+  },
+  {
+    "id": 12,
+    "name": "inferno",
+    "group": 0
+  },
+  {
+    "id": 13,
+    "name": "blaze",
+    "group": 0
+  },
+  {
+    "id": 14,
+    "name": "bonearmor",
+    "group": 1
+  },
+  {
+    "id": 15,
+    "name": "concentrate",
+    "group": 0
+  },
+  {
+    "id": 16,
+    "name": "enchant",
+    "group": 0
+  },
+  {
+    "id": 17,
+    "name": "innersight",
+    "group": 0
+  },
+  {
+    "id": 18,
+    "name": "skill_move",
+    "group": 0
+  },
+  {
+    "id": 19,
+    "name": "weaken",
+    "group": 0
+  },
+  {
+    "id": 20,
+    "name": "chillingarmor",
+    "group": 1
+  },
+  {
+    "id": 21,
+    "name": "stunned",
+    "group": 0
+  },
+  {
+    "id": 22,
+    "name": "spiderlay",
+    "group": 0
+  },
+  {
+    "id": 23,
+    "name": "dimvision",
+    "group": 0
+  },
+  {
+    "id": 24,
+    "name": "slowed",
+    "group": 0
+  },
+  {
+    "id": 25,
+    "name": "fetishaura",
+    "group": 0
+  },
+  {
+    "id": 26,
+    "name": "shout",
+    "group": 0
+  },
+  {
+    "id": 27,
+    "name": "taunt",
+    "group": 0
+  },
+  {
+    "id": 28,
+    "name": "conviction",
+    "group": 0
+  },
+  {
+    "id": 29,
+    "name": "convicted",
+    "group": 0
+  },
+  {
+    "id": 30,
+    "name": "energyshield",
+    "group": 0
+  },
+  {
+    "id": 31,
+    "name": "venomclaws",
+    "group": 0
+  },
+  {
+    "id": 32,
+    "name": "battleorders",
+    "group": 0
+  },
+  {
+    "id": 33,
+    "name": "might",
+    "group": 0
+  },
+  {
+    "id": 34,
+    "name": "prayer",
+    "group": 0
+  },
+  {
+    "id": 35,
+    "name": "holyfire",
+    "group": 0
+  },
+  {
+    "id": 36,
+    "name": "thorns",
+    "group": 0
+  },
+  {
+    "id": 37,
+    "name": "defiance",
+    "group": 0
+  },
+  {
+    "id": 38,
+    "name": "thunderstorm",
+    "group": 0
+  },
+  {
+    "id": 39,
+    "name": "lightningbolt",
+    "group": 0
+  },
+  {
+    "id": 40,
+    "name": "blessedaim",
+    "group": 0
+  },
+  {
+    "id": 41,
+    "name": "stamina",
+    "group": 0
+  },
+  {
+    "id": 42,
+    "name": "concentration",
+    "group": 0
+  },
+  {
+    "id": 43,
+    "name": "holywind",
+    "group": 0
+  },
+  {
+    "id": 44,
+    "name": "holywindcold",
+    "group": 0
+  },
+  {
+    "id": 45,
+    "name": "cleansing",
+    "group": 0
+  },
+  {
+    "id": 46,
+    "name": "holyshock",
+    "group": 0
+  },
+  {
+    "id": 47,
+    "name": "sanctuary",
+    "group": 0
+  },
+  {
+    "id": 48,
+    "name": "meditation",
+    "group": 0
+  },
+  {
+    "id": 49,
+    "name": "fanaticism",
+    "group": 0
+  },
+  {
+    "id": 50,
+    "name": "redemption",
+    "group": 0
+  },
+  {
+    "id": 51,
+    "name": "battlecommand",
+    "group": 0
+  },
+  {
+    "id": 52,
+    "name": "preventheal",
+    "group": 0
+  },
+  {
+    "id": 53,
+    "name": "conversion",
+    "group": 0
+  },
+  {
+    "id": 54,
+    "name": "uninterruptable",
+    "group": 0
+  },
+  {
+    "id": 55,
+    "name": "ironmaiden",
+    "group": 0
+  },
+  {
+    "id": 56,
+    "name": "terror",
+    "group": 0
+  },
+  {
+    "id": 57,
+    "name": "attract",
+    "group": 0
+  },
+  {
+    "id": 58,
+    "name": "lifetap",
+    "group": 0
+  },
+  {
+    "id": 59,
+    "name": "confuse",
+    "group": 8
+  },
+  {
+    "id": 60,
+    "name": "decrepify",
+    "group": 0
+  },
+  {
+    "id": 61,
+    "name": "lowerresist",
+    "group": 0
+  },
+  {
+    "id": 62,
+    "name": "openwounds",
+    "group": 0
+  },
+  {
+    "id": 63,
+    "name": "dopplezon",
+    "group": 0
+  },
+  {
+    "id": 64,
+    "name": "criticalstrike",
+    "group": 0
+  },
+  {
+    "id": 65,
+    "name": "dodge",
+    "group": 0
+  },
+  {
+    "id": 66,
+    "name": "avoid",
+    "group": 0
+  },
+  {
+    "id": 67,
+    "name": "penetrate",
+    "group": 0
+  },
+  {
+    "id": 68,
+    "name": "evade",
+    "group": 0
+  },
+  {
+    "id": 69,
+    "name": "pierce",
+    "group": 0
+  },
+  {
+    "id": 70,
+    "name": "warmth",
+    "group": 0
+  },
+  {
+    "id": 71,
+    "name": "firemastery",
+    "group": 0
+  },
+  {
+    "id": 72,
+    "name": "lightningmastery",
+    "group": 0
+  },
+  {
+    "id": 73,
+    "name": "coldmastery",
+    "group": 0
+  },
+  {
+    "id": 74,
+    "name": "blademastery",
+    "group": 0
+  },
+  {
+    "id": 75,
+    "name": "axemastery",
+    "group": 0
+  },
+  {
+    "id": 76,
+    "name": "macemastery",
+    "group": 0
+  },
+  {
+    "id": 77,
+    "name": "polearmmastery",
+    "group": 0
+  },
+  {
+    "id": 78,
+    "name": "throwingmastery",
+    "group": 0
+  },
+  {
+    "id": 79,
+    "name": "spearmastery",
+    "group": 0
+  },
+  {
+    "id": 80,
+    "name": "increasedstamina",
+    "group": 0
+  },
+  {
+    "id": 81,
+    "name": "ironskin",
+    "group": 0
+  },
+  {
+    "id": 82,
+    "name": "increasedspeed",
+    "group": 0
+  },
+  {
+    "id": 83,
+    "name": "naturalresistance",
+    "group": 0
+  },
+  {
+    "id": 84,
+    "name": "fingermagecurse",
+    "group": 0
+  },
+  {
+    "id": 85,
+    "name": "nomanaregen",
+    "group": 0
+  },
+  {
+    "id": 86,
+    "name": "justhit",
+    "group": 1
+  },
+  {
+    "id": 87,
+    "name": "slowmissiles",
+    "group": 0
+  },
+  {
+    "id": 88,
+    "name": "shiverarmor",
+    "group": 1
+  },
+  {
+    "id": 89,
+    "name": "battlecry",
+    "group": 0
+  },
+  {
+    "id": 90,
+    "name": "blue",
+    "group": 0
+  },
+  {
+    "id": 91,
+    "name": "red",
+    "group": 0
+  },
+  {
+    "id": 92,
+    "name": "death_delay",
+    "group": 0
+  },
+  {
+    "id": 93,
+    "name": "valkyrie",
+    "group": 0
+  },
+  {
+    "id": 94,
+    "name": "frenzy",
+    "group": 0
+  },
+  {
+    "id": 95,
+    "name": "berserk",
+    "group": 0
+  },
+  {
+    "id": 96,
+    "name": "revive",
+    "group": 0
+  },
+  {
+    "id": 97,
+    "name": "skel_mastery",
+    "group": 0
+  },
+  {
+    "id": 98,
+    "name": "sourceunit",
+    "group": 0
+  },
+  {
+    "id": 99,
+    "name": "redeemed",
+    "group": 0
+  },
+  {
+    "id": 100,
+    "name": "healthpot",
+    "group": 0
+  },
+  {
+    "id": 101,
+    "name": "holyshield",
+    "group": 0
+  },
+  {
+    "id": 102,
+    "name": "just_portaled",
+    "group": 0
+  },
+  {
+    "id": 103,
+    "name": "monfrenzy",
+    "group": 0
+  },
+  {
+    "id": 104,
+    "name": "corpse_nodraw",
+    "group": 0
+  },
+  {
+    "id": 105,
+    "name": "alignment",
+    "group": 0
+  },
+  {
+    "id": 106,
+    "name": "manapot",
+    "group": 0
+  },
+  {
+    "id": 107,
+    "name": "shatter",
+    "group": 0
+  },
+  {
+    "id": 108,
+    "name": "sync_warped",
+    "group": 0
+  },
+  {
+    "id": 109,
+    "name": "conversion_save",
+    "group": 0
+  },
+  {
+    "id": 110,
+    "name": "pregnant",
+    "group": 0
+  },
+  {
+    "id": 111,
+    "name": "golem_mastery",
+    "group": 0
+  },
+  {
+    "id": 112,
+    "name": "rabies",
+    "group": 0
+  },
+  {
+    "id": 113,
+    "name": "defense_curse",
+    "group": 0
+  },
+  {
+    "id": 114,
+    "name": "blood_mana",
+    "group": 0
+  },
+  {
+    "id": 115,
+    "name": "burning",
+    "group": 0
+  },
+  {
+    "id": 116,
+    "name": "dragonflight",
+    "group": 0
+  },
+  {
+    "id": 117,
+    "name": "maul",
+    "group": 3
+  },
+  {
+    "id": 118,
+    "name": "corpse_noselect",
+    "group": 0
+  },
+  {
+    "id": 119,
+    "name": "shadowwarrior",
+    "group": 0
+  },
+  {
+    "id": 120,
+    "name": "feralrage",
+    "group": 3
+  },
+  {
+    "id": 121,
+    "name": "skilldelay",
+    "group": 0
+  },
+  {
+    "id": 122,
+    "name": "progressive_damage",
+    "group": 0
+  },
+  {
+    "id": 123,
+    "name": "progressive_steal",
+    "group": 0
+  },
+  {
+    "id": 124,
+    "name": "progressive_other",
+    "group": 0
+  },
+  {
+    "id": 125,
+    "name": "progressive_fire",
+    "group": 0
+  },
+  {
+    "id": 126,
+    "name": "progressive_cold",
+    "group": 0
+  },
+  {
+    "id": 127,
+    "name": "progressive_lightning",
+    "group": 0
+  },
+  {
+    "id": 128,
+    "name": "shrine_armor",
+    "group": 0
+  },
+  {
+    "id": 129,
+    "name": "shrine_combat",
+    "group": 0
+  },
+  {
+    "id": 130,
+    "name": "shrine_resist_lightning",
+    "group": 0
+  },
+  {
+    "id": 131,
+    "name": "shrine_resist_fire",
+    "group": 0
+  },
+  {
+    "id": 132,
+    "name": "shrine_resist_cold",
+    "group": 0
+  },
+  {
+    "id": 133,
+    "name": "shrine_resist_poison",
+    "group": 0
+  },
+  {
+    "id": 134,
+    "name": "shrine_skill",
+    "group": 0
+  },
+  {
+    "id": 135,
+    "name": "shrine_mana_regen",
+    "group": 0
+  },
+  {
+    "id": 136,
+    "name": "shrine_stamina",
+    "group": 0
+  },
+  {
+    "id": 137,
+    "name": "shrine_experience",
+    "group": 0
+  },
+  {
+    "id": 138,
+    "name": "fenris_rage",
+    "group": 0
+  },
+  {
+    "id": 139,
+    "name": "wolf",
+    "group": 3
+  },
+  {
+    "id": 140,
+    "name": "bear",
+    "group": 3
+  },
+  {
+    "id": 141,
+    "name": "bloodlust",
+    "group": 0
+  },
+  {
+    "id": 142,
+    "name": "changeclass",
+    "group": 0
+  },
+  {
+    "id": 143,
+    "name": "attached",
+    "group": 0
+  },
+  {
+    "id": 144,
+    "name": "hurricane",
+    "group": 0
+  },
+  {
+    "id": 145,
+    "name": "armageddon",
+    "group": 0
+  },
+  {
+    "id": 146,
+    "name": "invis",
+    "group": 0
+  },
+  {
+    "id": 147,
+    "name": "barbs",
+    "group": 0
+  },
+  {
+    "id": 148,
+    "name": "wolverine",
+    "group": 0
+  },
+  {
+    "id": 149,
+    "name": "oaksage",
+    "group": 0
+  },
+  {
+    "id": 150,
+    "name": "vine_beast",
+    "group": 0
+  },
+  {
+    "id": 151,
+    "name": "cyclonearmor",
+    "group": 0
+  },
+  {
+    "id": 152,
+    "name": "clawmastery",
+    "group": 0
+  },
+  {
+    "id": 153,
+    "name": "cloak_of_shadows",
+    "group": 0
+  },
+  {
+    "id": 154,
+    "name": "recycled",
+    "group": 0
+  },
+  {
+    "id": 155,
+    "name": "weaponblock",
+    "group": 0
+  },
+  {
+    "id": 156,
+    "name": "cloaked",
+    "group": 0
+  },
+  {
+    "id": 157,
+    "name": "quickness",
+    "group": 2
+  },
+  {
+    "id": 158,
+    "name": "bladeshield",
+    "group": 0
+  },
+  {
+    "id": 159,
+    "name": "fade",
+    "group": 2
+  },
+  {
+    "id": 160,
+    "name": "summonresist",
+    "group": 0
+  },
+  {
+    "id": 161,
+    "name": "oaksagecontrol",
+    "group": 0
+  },
+  {
+    "id": 162,
+    "name": "wolverinecontrol",
+    "group": 0
+  },
+  {
+    "id": 163,
+    "name": "barbscontrol",
+    "group": 0
+  },
+  {
+    "id": 164,
+    "name": "debugcontrol",
+    "group": 0
+  },
+  {
+    "id": 165,
+    "name": "itemset1",
+    "group": 0
+  },
+  {
+    "id": 166,
+    "name": "itemset2",
+    "group": 0
+  },
+  {
+    "id": 167,
+    "name": "itemset3",
+    "group": 0
+  },
+  {
+    "id": 168,
+    "name": "itemset4",
+    "group": 0
+  },
+  {
+    "id": 169,
+    "name": "itemset5",
+    "group": 0
+  },
+  {
+    "id": 170,
+    "name": "itemset6",
+    "group": 0
+  },
+  {
+    "id": 171,
+    "name": "runeword",
+    "group": 0
+  },
+  {
+    "id": 172,
+    "name": "restinpeace",
+    "group": 0
+  },
+  {
+    "id": 173,
+    "name": "corpseexp",
+    "group": 0
+  },
+  {
+    "id": 174,
+    "name": "whirlwind",
+    "group": 0
+  },
+  {
+    "id": 175,
+    "name": "fullsetgeneric",
+    "group": 0
+  },
+  {
+    "id": 176,
+    "name": "monsterset",
+    "group": 3
+  },
+  {
+    "id": 177,
+    "name": "delerium",
+    "group": 3
+  },
+  {
+    "id": 178,
+    "name": "antidote",
+    "group": 0
+  },
+  {
+    "id": 179,
+    "name": "thawing",
+    "group": 0
+  },
+  {
+    "id": 180,
+    "name": "staminapot",
+    "group": 0
+  },
+  {
+    "id": 181,
+    "name": "passive_resistfire",
+    "group": 0
+  },
+  {
+    "id": 182,
+    "name": "passive_resistcold",
+    "group": 0
+  },
+  {
+    "id": 183,
+    "name": "passive_resistltng",
+    "group": 0
+  },
+  {
+    "id": 184,
+    "name": "uberminion",
+    "group": 0
+  },
+  {
+    "id": 185,
+    "name": "cooldown",
+    "group": 0
+  },
+  {
+    "id": 186,
+    "name": "sharedstash",
+    "group": 0
+  },
+  {
+    "id": 187,
+    "name": "hidedead",
+    "group": 0
+  },
+  {
+    "id": 188,
+    "name": "impale",
+    "group": 0
+  },
+  {
+    "id": 189,
+    "name": "desecrated",
+    "group": 0
+  },
+  {
+    "id": 190,
+    "name": "markbear",
+    "group": 4
+  },
+  {
+    "id": 191,
+    "name": "markwolf",
+    "group": 5
+  },
+  {
+    "id": 192,
+    "name": "sigillethargy",
+    "group": 0
+  },
+  {
+    "id": 193,
+    "name": "sigilrancor",
+    "group": 8
+  },
+  {
+    "id": 194,
+    "name": "sigildeath",
+    "group": 0
+  },
+  {
+    "id": 195,
+    "name": "bloodoath",
+    "group": 0
+  },
+  {
+    "id": 196,
+    "name": "demonic_mastery",
+    "group": 0
+  },
+  {
+    "id": 197,
+    "name": "levitate_mastery",
+    "group": 0
+  },
+  {
+    "id": 198,
+    "name": "hexbane",
+    "group": 6
+  },
+  {
+    "id": 199,
+    "name": "hexbanedebuff",
+    "group": 7
+  },
+  {
+    "id": 200,
+    "name": "hexsiphon",
+    "group": 6
+  },
+  {
+    "id": 201,
+    "name": "hexsiphondebuff",
+    "group": 7
+  },
+  {
+    "id": 202,
+    "name": "hexpurge",
+    "group": 6
+  },
+  {
+    "id": 203,
+    "name": "mindbarrier",
+    "group": 1
+  },
+  {
+    "id": 204,
+    "name": "shadow_mastery",
+    "group": 0
+  },
+  {
+    "id": 205,
+    "name": "sigil",
+    "group": 0
+  },
+  {
+    "id": 206,
+    "name": "psychicward",
+    "group": 1
+  },
+  {
+    "id": 207,
+    "name": "bind_demon",
+    "group": 0
+  },
+  {
+    "id": 208,
+    "name": "consume",
+    "group": 9
+  },
+  {
+    "id": 209,
+    "name": "advancedstash",
+    "group": 0
+  },
+  {
+    "id": 210,
+    "name": "healthlink",
+    "group": 0
+  },
+  {
+    "id": 211,
+    "name": "engorge",
+    "group": 0
+  },
+  {
+    "id": 212,
+    "name": "death_mark",
+    "group": 0
+  },
+  {
+    "id": 213,
+    "name": "healthlinkcaster",
+    "group": 0
+  },
+  {
+    "id": 214,
+    "name": "warlockdemonground",
+    "group": 0
+  },
+  {
+    "id": 215,
+    "name": "warlockdemontorso",
+    "group": 0
+  },
+  {
+    "id": 216,
+    "name": "skill_channeling",
+    "group": 0
+  },
+  {
+    "id": 217,
+    "name": "hexpurgedebuff",
+    "group": 7
+  },
+  {
+    "id": 218,
+    "name": "chroniclebacklight",
+    "group": 0
+  },
+  {
+    "id": 219,
+    "name": "chroniclefootprints",
+    "group": 0
+  },
+  {
+    "id": 220,
+    "name": "chronicleportal",
+    "group": 0
+  },
+  {
+    "id": 221,
+    "name": "eldritchblastperiodic",
+    "group": 0
+  },
+  {
+    "id": 222,
+    "name": "lightningenchant",
+    "group": 0
+  },
+  {
+    "id": 223,
+    "name": "coldenchant",
+    "group": 0
+  },
+  {
+    "id": 224,
+    "name": "talicfirepierce",
+    "group": 0
+  },
+  {
+    "id": 225,
+    "name": "madawclightpierce",
+    "group": 0
+  },
+  {
+    "id": 226,
+    "name": "korliccoldpierce",
+    "group": 0
+  },
+  {
+    "id": 227,
+    "name": "bind_demon_underling",
+    "group": 0
+  },
+  {
+    "id": 228,
+    "name": "herald",
+    "group": 0
+  },
+  {
+    "id": 229,
+    "name": "apocalypse",
+    "group": 0
+  },
+  {
+    "id": 230,
+    "name": "missilelimit",
+    "group": 0
+  },
+  {
+    "id": 231,
+    "name": "primeevil_threat",
+    "group": 0
+  }
+]
