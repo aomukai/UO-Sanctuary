@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current path refresh,registry and complete traversal bodies",
+  "processMemoryRead": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "handlerEnabled": false,
+  "fullAiVerified": false,
+  "verified": {
+    "contexts": 3348,
+    "unsupportedBoundaries": 1776,
+    "capturedFunctionBytes": 2309,
+    "completeFunctions": 7,
+    "searchDescriptorIndex": 1,
+    "searchDescriptorKind": 0,
+    "searchDescriptorOverride": false
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-traversal-source-probe.json": "34945e10c02a9d298fb7bb41631debcb4f3e7dac625cab421e482dd15bf69c46",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-371b10-part0.bin": "d7858e92203c1a16f400ccc9f0c5a1e34f65f2151203d4c7761aa69dcd6b5cd3",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-371b10-part1.bin": "a78d434fa143a1d436a74ec6e90b2cdf96857b6e27a7992cd8f35390be391f83",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-371b10-part2.bin": "299ab13330b0d9c4cc459fb29ef867c6cd98078cd3f1ebd0d31bed5337e55414",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-371b10-part3.bin": "e09aa08f8bf6874eccd4d2a2058dcb520816b6496f3dcf5c701cf3895e8689dc",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part0.bin": "68f0f3e449aa4616492d532efbd06ffe48b276bc8e42aa6f782686d7fa0e4269",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part1.bin": "0dae0002f74773b72181d15ad27327c1d7b2c9e89fed34d030b2ea319d86ab08",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part2.bin": "7dc46ad182a74b228c9a3b5f6824a5d424cb653784bf83b46b7ec32737195df8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part3.bin": "6713a9c729aa545e1fadb84cd4870cfc88a9050a7bb266d1b2d7c51892768952",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part4.bin": "e08148a01d304fe125ede3f59eec886f4c3f6299de3d5dd5d69ffa6aab24e2fb",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part5.bin": "081a630c17a2d53a8a7620c11047b45bd31abb2cb2fa65df8d4bd1079bc2de31",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part6.bin": "7d4235c4b58fdca802734b063c507a13aa274cdbd339fd379ad821d106474fd8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030-40d9f0-part7.bin": "693538f164cfc8147095d91735ccd0b0c2468d46b7e666b024409580b63cd0a4",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-traversal-20261030.json": "1239cd96f4be871181c60bc79af7b07d75e5578607f2bc14d759d8550c2eedb1",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-333550-part0.bin": "a9f1616616b7b7d35e3b64b9607d34019041cf09c413c6b814f36bdba74f5509",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-333550-part1.bin": "9798674361b1e580640492d1498ed2935ea83d400f96afb645af31ad90035e26",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-333550-part2.bin": "fcfdad643d7e1b61fdb6fc8c430aa608a3ce6cbf1fb149f881eca24dbf4a30cc",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-333550-part3.bin": "debd1eed6a4968801a0ec1d38e4cd221edb191d914449c643c41c379afdc8b6d",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-370680-part0.bin": "c6a1c7ed4b48c60134b30566ed565d3162e572cec647e9ea8ded16856585aa38",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-40d660-part0.bin": "932faa630e7c493cdb76b2265ee3b8d8edd4a42a067bf701b521675b9e2df74e",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-40d7f0-part0.bin": "929dd8f649ca0957047c13094b37e2362c6b019941152048c98e235a80e0d7dc",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030-40d9b0-part0.bin": "ea202950eb2283962064149d7f18fdfe833cc0294e21f93e68893baa89f2a0b9",
+    ".local/class-skills/warlock-runtime-reference/traversal-services-20261030.json": "3f26d34d9f0d49cea5f4d2fe935120c195c69cbbf20d3afe044d9d67e66f4c53",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_traversal.py": "2fe5b754a7261e4ea64bc7711cbf70da5f32951f188bc6e87deb60bfc64b97c6",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Registry bucket lookup370610,room lookup278450,callbacks and type-erasure allocation/invocation/disposal are declared services. Actual104-byte registry,230-byte refresh,715-byte dispatcher,395/442-byte alternate room traversals,366-byte owner enumeration and57-byte closure execute.",
+    "Controlled descriptor rows exercise every dispatch body;actual search index1is pinned from immutable executable data to kind0/no override. This does not certify arbitrary descriptor index meanings.",
+    "Owner closure uses a declared virtual-call ABI forwarder to the actual57-byte callback. Managed GC/closure disposal is not certified native allocation parity. Linked room next pointers are read after callbacks;owner node next pointers before callbacks."
+  ],
+  "remaining": [
+    "Native values/traces and full search-wrapper binding remain required. Real game registry/room graph/ownership and callback helper bindings,lifecycle and all class acceptance remain unfinished."
+  ]
+}
