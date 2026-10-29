@@ -1,0 +1,3712 @@
+[
+  {
+    "id": 0,
+    "name": "arrow",
+    "size434": 1
+  },
+  {
+    "id": 1,
+    "name": "javelin",
+    "size434": 1
+  },
+  {
+    "id": 2,
+    "name": "bighead1",
+    "size434": 1
+  },
+  {
+    "id": 3,
+    "name": "bighead2",
+    "size434": 1
+  },
+  {
+    "id": 4,
+    "name": "bighead3",
+    "size434": 1
+  },
+  {
+    "id": 5,
+    "name": "bighead4",
+    "size434": 1
+  },
+  {
+    "id": 6,
+    "name": "bighead5",
+    "size434": 1
+  },
+  {
+    "id": 7,
+    "name": "spike1",
+    "size434": 1
+  },
+  {
+    "id": 8,
+    "name": "spike2",
+    "size434": 1
+  },
+  {
+    "id": 9,
+    "name": "spike3",
+    "size434": 1
+  },
+  {
+    "id": 10,
+    "name": "spike4",
+    "size434": 1
+  },
+  {
+    "id": 11,
+    "name": "spike5",
+    "size434": 1
+  },
+  {
+    "id": 12,
+    "name": "firearrow",
+    "size434": 1
+  },
+  {
+    "id": 13,
+    "name": "cr_arrow1",
+    "size434": 1
+  },
+  {
+    "id": 14,
+    "name": "cr_arrow2",
+    "size434": 1
+  },
+  {
+    "id": 15,
+    "name": "cr_arrow3",
+    "size434": 1
+  },
+  {
+    "id": 16,
+    "name": "cr_arrow4",
+    "size434": 1
+  },
+  {
+    "id": 17,
+    "name": "cr_arrow5",
+    "size434": 1
+  },
+  {
+    "id": 18,
+    "name": "blood1",
+    "size434": 1
+  },
+  {
+    "id": 19,
+    "name": "blood2",
+    "size434": 1
+  },
+  {
+    "id": 20,
+    "name": "bigblood1",
+    "size434": 1
+  },
+  {
+    "id": 21,
+    "name": "bigblood2",
+    "size434": 1
+  },
+  {
+    "id": 22,
+    "name": "shafire1",
+    "size434": 1
+  },
+  {
+    "id": 23,
+    "name": "shafire2",
+    "size434": 1
+  },
+  {
+    "id": 24,
+    "name": "shafire3",
+    "size434": 1
+  },
+  {
+    "id": 25,
+    "name": "shafire4",
+    "size434": 1
+  },
+  {
+    "id": 26,
+    "name": "shafire5",
+    "size434": 1
+  },
+  {
+    "id": 27,
+    "name": "magicarrow",
+    "size434": 1
+  },
+  {
+    "id": 28,
+    "name": "icearrow",
+    "size434": 1
+  },
+  {
+    "id": 29,
+    "name": "fireexplode",
+    "size434": 1
+  },
+  {
+    "id": 30,
+    "name": "iceexplode",
+    "size434": 1
+  },
+  {
+    "id": 31,
+    "name": "bolt",
+    "size434": 1
+  },
+  {
+    "id": 32,
+    "name": "andarielspray",
+    "size434": 1
+  },
+  {
+    "id": 33,
+    "name": "bigheadexp",
+    "size434": 1
+  },
+  {
+    "id": 34,
+    "name": "shamanexp",
+    "size434": 1
+  },
+  {
+    "id": 35,
+    "name": "throwaxe",
+    "size434": 1
+  },
+  {
+    "id": 36,
+    "name": "throwknife",
+    "size434": 1
+  },
+  {
+    "id": 37,
+    "name": "glaive",
+    "size434": 1
+  },
+  {
+    "id": 38,
+    "name": "poisonjav",
+    "size434": 1
+  },
+  {
+    "id": 39,
+    "name": "poisonjavcloud",
+    "size434": 2
+  },
+  {
+    "id": 40,
+    "name": "coldarrow",
+    "size434": 1
+  },
+  {
+    "id": 41,
+    "name": "explodingarrow",
+    "size434": 1
+  },
+  {
+    "id": 42,
+    "name": "explodingarrowexp",
+    "size434": 1
+  },
+  {
+    "id": 43,
+    "name": "plaguejavelin",
+    "size434": 1
+  },
+  {
+    "id": 44,
+    "name": "oilpotion",
+    "size434": 1
+  },
+  {
+    "id": 45,
+    "name": "explosivepotion",
+    "size434": 1
+  },
+  {
+    "id": 46,
+    "name": "fulminatingpotion",
+    "size434": 1
+  },
+  {
+    "id": 47,
+    "name": "rancidgasepotion",
+    "size434": 1
+  },
+  {
+    "id": 48,
+    "name": "chokinggaspoition",
+    "size434": 1
+  },
+  {
+    "id": 49,
+    "name": "stranglinggaspotion",
+    "size434": 1
+  },
+  {
+    "id": 50,
+    "name": "notused50",
+    "size434": 1
+  },
+  {
+    "id": 51,
+    "name": "explosivepotionexp",
+    "size434": 1
+  },
+  {
+    "id": 52,
+    "name": "explosivepotiondebris1",
+    "size434": 1
+  },
+  {
+    "id": 53,
+    "name": "explosivepotiondebris2",
+    "size434": 1
+  },
+  {
+    "id": 54,
+    "name": "explosivepotiondebris3",
+    "size434": 1
+  },
+  {
+    "id": 55,
+    "name": "holybolt",
+    "size434": 1
+  },
+  {
+    "id": 56,
+    "name": "chargedbolt",
+    "size434": 1
+  },
+  {
+    "id": 57,
+    "name": "sanctuarybolt",
+    "size434": 1
+  },
+  {
+    "id": 58,
+    "name": "firebolt",
+    "size434": 1
+  },
+  {
+    "id": 59,
+    "name": "icebolt",
+    "size434": 1
+  },
+  {
+    "id": 60,
+    "name": "infernoflame1",
+    "size434": 1
+  },
+  {
+    "id": 61,
+    "name": "infernoflame2",
+    "size434": 1
+  },
+  {
+    "id": 62,
+    "name": "fireball",
+    "size434": 1
+  },
+  {
+    "id": 63,
+    "name": "mummy1",
+    "size434": 2
+  },
+  {
+    "id": 64,
+    "name": "mummy2",
+    "size434": 2
+  },
+  {
+    "id": 65,
+    "name": "mummy3",
+    "size434": 2
+  },
+  {
+    "id": 66,
+    "name": "mummy4",
+    "size434": 2
+  },
+  {
+    "id": 67,
+    "name": "blaze",
+    "size434": 1
+  },
+  {
+    "id": 68,
+    "name": "firewallmaker",
+    "size434": 1
+  },
+  {
+    "id": 69,
+    "name": "firewall",
+    "size434": 1
+  },
+  {
+    "id": 70,
+    "name": "goospit1",
+    "size434": 1
+  },
+  {
+    "id": 71,
+    "name": "goospit2",
+    "size434": 1
+  },
+  {
+    "id": 72,
+    "name": "goospit3",
+    "size434": 1
+  },
+  {
+    "id": 73,
+    "name": "goospit4",
+    "size434": 1
+  },
+  {
+    "id": 74,
+    "name": "goospit5",
+    "size434": 1
+  },
+  {
+    "id": 75,
+    "name": "goosplat",
+    "size434": 1
+  },
+  {
+    "id": 76,
+    "name": "sand pile",
+    "size434": 1
+  },
+  {
+    "id": 77,
+    "name": "unholybolt1",
+    "size434": 1
+  },
+  {
+    "id": 78,
+    "name": "unholybolt2",
+    "size434": 1
+  },
+  {
+    "id": 79,
+    "name": "unholybolt3",
+    "size434": 1
+  },
+  {
+    "id": 80,
+    "name": "unholybolt4",
+    "size434": 1
+  },
+  {
+    "id": 81,
+    "name": "sanctuarycenter",
+    "size434": 1
+  },
+  {
+    "id": 82,
+    "name": "fireexplosion",
+    "size434": 1
+  },
+  {
+    "id": 83,
+    "name": "stuckarrow",
+    "size434": 1
+  },
+  {
+    "id": 84,
+    "name": "footprint",
+    "size434": 1
+  },
+  {
+    "id": 85,
+    "name": "immolationarrow",
+    "size434": 1
+  },
+  {
+    "id": 86,
+    "name": "guidedarrow",
+    "size434": 1
+  },
+  {
+    "id": 87,
+    "name": "freezingarrow",
+    "size434": 1
+  },
+  {
+    "id": 88,
+    "name": "freezingarrowexp1",
+    "size434": 1
+  },
+  {
+    "id": 89,
+    "name": "freezingarrowexp2",
+    "size434": 1
+  },
+  {
+    "id": 90,
+    "name": "nova",
+    "size434": 1
+  },
+  {
+    "id": 91,
+    "name": "iceblast",
+    "size434": 1
+  },
+  {
+    "id": 92,
+    "name": "blessedhammer",
+    "size434": 1
+  },
+  {
+    "id": 93,
+    "name": "chainlightning",
+    "size434": 2
+  },
+  {
+    "id": 94,
+    "name": "fistofares",
+    "size434": 1
+  },
+  {
+    "id": 95,
+    "name": "chillblood",
+    "size434": 1
+  },
+  {
+    "id": 96,
+    "name": "glacialspike",
+    "size434": 1
+  },
+  {
+    "id": 97,
+    "name": "teleport",
+    "size434": 1
+  },
+  {
+    "id": 98,
+    "name": "lightningbolt",
+    "size434": 2
+  },
+  {
+    "id": 99,
+    "name": "lightninghit",
+    "size434": 1
+  },
+  {
+    "id": 100,
+    "name": "meteor",
+    "size434": 0
+  },
+  {
+    "id": 101,
+    "name": "meteorcenter",
+    "size434": 1
+  },
+  {
+    "id": 102,
+    "name": "meteortail",
+    "size434": 0
+  },
+  {
+    "id": 103,
+    "name": "meteorexplode",
+    "size434": 1
+  },
+  {
+    "id": 104,
+    "name": "firesmall",
+    "size434": 1
+  },
+  {
+    "id": 105,
+    "name": "firemedium",
+    "size434": 1
+  },
+  {
+    "id": 106,
+    "name": "monblizcenter",
+    "size434": 1
+  },
+  {
+    "id": 107,
+    "name": "monbliz1",
+    "size434": 2
+  },
+  {
+    "id": 108,
+    "name": "monbliz2",
+    "size434": 2
+  },
+  {
+    "id": 109,
+    "name": "monbliz3",
+    "size434": 2
+  },
+  {
+    "id": 110,
+    "name": "monbliz4",
+    "size434": 2
+  },
+  {
+    "id": 111,
+    "name": "monblizexplode1",
+    "size434": 1
+  },
+  {
+    "id": 112,
+    "name": "monblizexplode2",
+    "size434": 1
+  },
+  {
+    "id": 113,
+    "name": "monblizexplode3",
+    "size434": 1
+  },
+  {
+    "id": 114,
+    "name": "teeth",
+    "size434": 1
+  },
+  {
+    "id": 115,
+    "name": "corpseexplosion",
+    "size434": 1
+  },
+  {
+    "id": 116,
+    "name": "poisoncorpseexplosion",
+    "size434": 1
+  },
+  {
+    "id": 117,
+    "name": "monstercorpseexplode",
+    "size434": 1
+  },
+  {
+    "id": 118,
+    "name": "poisonnova",
+    "size434": 1
+  },
+  {
+    "id": 119,
+    "name": "frostnova",
+    "size434": 1
+  },
+  {
+    "id": 120,
+    "name": "rogue1",
+    "size434": 1
+  },
+  {
+    "id": 121,
+    "name": "rogue2",
+    "size434": 1
+  },
+  {
+    "id": 122,
+    "name": "rogue3",
+    "size434": 1
+  },
+  {
+    "id": 123,
+    "name": "bat lightning bolt",
+    "size434": 2
+  },
+  {
+    "id": 124,
+    "name": "bat lightning trail",
+    "size434": 1
+  },
+  {
+    "id": 125,
+    "name": "skmage1",
+    "size434": 1
+  },
+  {
+    "id": 126,
+    "name": "skmage2",
+    "size434": 1
+  },
+  {
+    "id": 127,
+    "name": "skmage3",
+    "size434": 1
+  },
+  {
+    "id": 128,
+    "name": "skmage4",
+    "size434": 1
+  },
+  {
+    "id": 129,
+    "name": "vampirefireball",
+    "size434": 1
+  },
+  {
+    "id": 130,
+    "name": "vampirefirewallmaker",
+    "size434": 1
+  },
+  {
+    "id": 131,
+    "name": "vampirefirewall",
+    "size434": 1
+  },
+  {
+    "id": 132,
+    "name": "vampiremeteor",
+    "size434": 0
+  },
+  {
+    "id": 133,
+    "name": "vampiremeteorcenter",
+    "size434": 1
+  },
+  {
+    "id": 134,
+    "name": "vampiremeteorexp",
+    "size434": 1
+  },
+  {
+    "id": 135,
+    "name": "raven1",
+    "size434": 1
+  },
+  {
+    "id": 136,
+    "name": "raven2",
+    "size434": 1
+  },
+  {
+    "id": 137,
+    "name": "amphibiangoo1",
+    "size434": 1
+  },
+  {
+    "id": 138,
+    "name": "amphibiangoo2",
+    "size434": 1
+  },
+  {
+    "id": 139,
+    "name": "tentaclegoo",
+    "size434": 1
+  },
+  {
+    "id": 140,
+    "name": "amphibianexplode",
+    "size434": 1
+  },
+  {
+    "id": 141,
+    "name": "poisonpuff",
+    "size434": 1
+  },
+  {
+    "id": 142,
+    "name": "curseeffectred",
+    "size434": 1
+  },
+  {
+    "id": 143,
+    "name": "spidergoolay",
+    "size434": 1
+  },
+  {
+    "id": 144,
+    "name": "fetishinferno1",
+    "size434": 1
+  },
+  {
+    "id": 145,
+    "name": "fetishinferno2",
+    "size434": 1
+  },
+  {
+    "id": 146,
+    "name": "spidergoo",
+    "size434": 3
+  },
+  {
+    "id": 147,
+    "name": "cursecast",
+    "size434": 1
+  },
+  {
+    "id": 148,
+    "name": "howl",
+    "size434": 1
+  },
+  {
+    "id": 149,
+    "name": "shout",
+    "size434": 1
+  },
+  {
+    "id": 150,
+    "name": "dust",
+    "size434": 0
+  },
+  {
+    "id": 151,
+    "name": "redlightmissile",
+    "size434": 0
+  },
+  {
+    "id": 152,
+    "name": "greenlightmissile",
+    "size434": 0
+  },
+  {
+    "id": 153,
+    "name": "bluelightmissile",
+    "size434": 0
+  },
+  {
+    "id": 154,
+    "name": "whitelightmissile",
+    "size434": 0
+  },
+  {
+    "id": 155,
+    "name": "corpsepoisoncloud",
+    "size434": 1
+  },
+  {
+    "id": 156,
+    "name": "chillbloodcloud",
+    "size434": 1
+  },
+  {
+    "id": 157,
+    "name": "chillbloodpuff",
+    "size434": 1
+  },
+  {
+    "id": 158,
+    "name": "blizzardcenter",
+    "size434": 1
+  },
+  {
+    "id": 159,
+    "name": "blizzard1",
+    "size434": 2
+  },
+  {
+    "id": 160,
+    "name": "blizzard2",
+    "size434": 2
+  },
+  {
+    "id": 161,
+    "name": "blizzard3",
+    "size434": 2
+  },
+  {
+    "id": 162,
+    "name": "blizzard4",
+    "size434": 2
+  },
+  {
+    "id": 163,
+    "name": "blizzardexplode1",
+    "size434": 1
+  },
+  {
+    "id": 164,
+    "name": "blizzardexplode2",
+    "size434": 1
+  },
+  {
+    "id": 165,
+    "name": "blizzardexplode3",
+    "size434": 1
+  },
+  {
+    "id": 166,
+    "name": "thunderstorm1",
+    "size434": 3
+  },
+  {
+    "id": 167,
+    "name": "thunderstorm2",
+    "size434": 3
+  },
+  {
+    "id": 168,
+    "name": "thunderstorm3",
+    "size434": 3
+  },
+  {
+    "id": 169,
+    "name": "thunderstorm4",
+    "size434": 3
+  },
+  {
+    "id": 170,
+    "name": "monsterlight",
+    "size434": 2
+  },
+  {
+    "id": 171,
+    "name": "poisonball",
+    "size434": 1
+  },
+  {
+    "id": 172,
+    "name": "diablight",
+    "size434": 2
+  },
+  {
+    "id": 173,
+    "name": "redemption",
+    "size434": 1
+  },
+  {
+    "id": 174,
+    "name": "redemptionfail",
+    "size434": 1
+  },
+  {
+    "id": 175,
+    "name": "handofgod",
+    "size434": 1
+  },
+  {
+    "id": 176,
+    "name": "diabfire",
+    "size434": 2
+  },
+  {
+    "id": 177,
+    "name": "fingermagespider",
+    "size434": 1
+  },
+  {
+    "id": 178,
+    "name": "electric throwaxe",
+    "size434": 1
+  },
+  {
+    "id": 179,
+    "name": "diabwallmaker",
+    "size434": 1
+  },
+  {
+    "id": 180,
+    "name": "diabwall",
+    "size434": 2
+  },
+  {
+    "id": 181,
+    "name": "curseamplifydamage",
+    "size434": 1
+  },
+  {
+    "id": 182,
+    "name": "cursedimvision",
+    "size434": 1
+  },
+  {
+    "id": 183,
+    "name": "curseweaken",
+    "size434": 1
+  },
+  {
+    "id": 184,
+    "name": "curseironmaiden",
+    "size434": 1
+  },
+  {
+    "id": 185,
+    "name": "curseterror",
+    "size434": 1
+  },
+  {
+    "id": 186,
+    "name": "curseattract",
+    "size434": 1
+  },
+  {
+    "id": 187,
+    "name": "cursereversevampire",
+    "size434": 1
+  },
+  {
+    "id": 188,
+    "name": "curseconfuse",
+    "size434": 1
+  },
+  {
+    "id": 189,
+    "name": "cursedecrepify",
+    "size434": 1
+  },
+  {
+    "id": 190,
+    "name": "curselowerresist",
+    "size434": 1
+  },
+  {
+    "id": 191,
+    "name": "cursecenter",
+    "size434": 0
+  },
+  {
+    "id": 192,
+    "name": "bonespear",
+    "size434": 1
+  },
+  {
+    "id": 193,
+    "name": "bonespirit",
+    "size434": 1
+  },
+  {
+    "id": 194,
+    "name": "coldunique",
+    "size434": 1
+  },
+  {
+    "id": 195,
+    "name": "lightunique",
+    "size434": 1
+  },
+  {
+    "id": 196,
+    "name": "skbowarrow1",
+    "size434": 1
+  },
+  {
+    "id": 197,
+    "name": "skbowarrow2",
+    "size434": 1
+  },
+  {
+    "id": 198,
+    "name": "skbowarrow3",
+    "size434": 1
+  },
+  {
+    "id": 199,
+    "name": "skbowarrow4",
+    "size434": 1
+  },
+  {
+    "id": 200,
+    "name": "skbowarrow5",
+    "size434": 1
+  },
+  {
+    "id": 201,
+    "name": "nova1",
+    "size434": 1
+  },
+  {
+    "id": 202,
+    "name": "nova2",
+    "size434": 1
+  },
+  {
+    "id": 203,
+    "name": "andypoisonbolt",
+    "size434": 1
+  },
+  {
+    "id": 204,
+    "name": "teethexplode",
+    "size434": 0
+  },
+  {
+    "id": 205,
+    "name": "lightningjavelin",
+    "size434": 2
+  },
+  {
+    "id": 206,
+    "name": "lightningfury",
+    "size434": 2
+  },
+  {
+    "id": 207,
+    "name": "bonewallmaker",
+    "size434": 1
+  },
+  {
+    "id": 208,
+    "name": "necromage1",
+    "size434": 1
+  },
+  {
+    "id": 209,
+    "name": "necromage2",
+    "size434": 1
+  },
+  {
+    "id": 210,
+    "name": "necromage3",
+    "size434": 1
+  },
+  {
+    "id": 211,
+    "name": "necromage4",
+    "size434": 1
+  },
+  {
+    "id": 212,
+    "name": "sparkle",
+    "size434": 1
+  },
+  {
+    "id": 213,
+    "name": "multipleshotarrow",
+    "size434": 1
+  },
+  {
+    "id": 214,
+    "name": "multipleshotbolt",
+    "size434": 1
+  },
+  {
+    "id": 215,
+    "name": "chargedstrikebolt",
+    "size434": 1
+  },
+  {
+    "id": 216,
+    "name": "bonespearexplode",
+    "size434": 0
+  },
+  {
+    "id": 217,
+    "name": "poisonexplosioncloud",
+    "size434": 2
+  },
+  {
+    "id": 218,
+    "name": "bonecast",
+    "size434": 0
+  },
+  {
+    "id": 219,
+    "name": "battlecry",
+    "size434": 1
+  },
+  {
+    "id": 220,
+    "name": "primepoisoncloud",
+    "size434": 2
+  },
+  {
+    "id": 221,
+    "name": "plaguejavcloud",
+    "size434": 2
+  },
+  {
+    "id": 222,
+    "name": "rancidgascloud",
+    "size434": 2
+  },
+  {
+    "id": 223,
+    "name": "chokinggascloud",
+    "size434": 2
+  },
+  {
+    "id": 224,
+    "name": "stranglinggascloud",
+    "size434": 2
+  },
+  {
+    "id": 225,
+    "name": "buglightning",
+    "size434": 1
+  },
+  {
+    "id": 226,
+    "name": "pantherjav1",
+    "size434": 1
+  },
+  {
+    "id": 227,
+    "name": "pantherjav2",
+    "size434": 1
+  },
+  {
+    "id": 228,
+    "name": "pantherjav3",
+    "size434": 1
+  },
+  {
+    "id": 229,
+    "name": "pantherjav4",
+    "size434": 1
+  },
+  {
+    "id": 230,
+    "name": "immolationfire",
+    "size434": 1
+  },
+  {
+    "id": 231,
+    "name": "furylightning",
+    "size434": 2
+  },
+  {
+    "id": 232,
+    "name": "lightningstrike",
+    "size434": 2
+  },
+  {
+    "id": 233,
+    "name": "fistoftheheavensdelay",
+    "size434": 0
+  },
+  {
+    "id": 234,
+    "name": "fistoftheheavensbolt",
+    "size434": 1
+  },
+  {
+    "id": 235,
+    "name": "warcry",
+    "size434": 1
+  },
+  {
+    "id": 236,
+    "name": "battlecommand",
+    "size434": 1
+  },
+  {
+    "id": 237,
+    "name": "battleorders",
+    "size434": 1
+  },
+  {
+    "id": 238,
+    "name": "pantherpotorange",
+    "size434": 1
+  },
+  {
+    "id": 239,
+    "name": "pantherpotgreen",
+    "size434": 1
+  },
+  {
+    "id": 240,
+    "name": "meteorfire",
+    "size434": 2
+  },
+  {
+    "id": 241,
+    "name": "trap spike right",
+    "size434": 1
+  },
+  {
+    "id": 242,
+    "name": "trap spike left",
+    "size434": 1
+  },
+  {
+    "id": 243,
+    "name": "trap cursed skull right",
+    "size434": 1
+  },
+  {
+    "id": 244,
+    "name": "trap cursed skull left",
+    "size434": 1
+  },
+  {
+    "id": 245,
+    "name": "trap poison ball right",
+    "size434": 1
+  },
+  {
+    "id": 246,
+    "name": "trap poison ball left",
+    "size434": 1
+  },
+  {
+    "id": 247,
+    "name": "hydra",
+    "size434": 1
+  },
+  {
+    "id": 248,
+    "name": "bonespeartrail",
+    "size434": 0
+  },
+  {
+    "id": 249,
+    "name": "grimwardsmallstart",
+    "size434": 1
+  },
+  {
+    "id": 250,
+    "name": "grimwardsmall",
+    "size434": 1
+  },
+  {
+    "id": 251,
+    "name": "grimwardsmallstop",
+    "size434": 1
+  },
+  {
+    "id": 252,
+    "name": "grimwardmediumstart",
+    "size434": 1
+  },
+  {
+    "id": 253,
+    "name": "grimwardmedium",
+    "size434": 1
+  },
+  {
+    "id": 254,
+    "name": "grimwardmediumstop",
+    "size434": 1
+  },
+  {
+    "id": 255,
+    "name": "grimwardlargestart",
+    "size434": 1
+  },
+  {
+    "id": 256,
+    "name": "grimwardlarge",
+    "size434": 1
+  },
+  {
+    "id": 257,
+    "name": "grimwardlargestop",
+    "size434": 1
+  },
+  {
+    "id": 258,
+    "name": "zakarumlight",
+    "size434": 1
+  },
+  {
+    "id": 259,
+    "name": "grimwardscare",
+    "size434": 2
+  },
+  {
+    "id": 260,
+    "name": "frozenorb",
+    "size434": 1
+  },
+  {
+    "id": 261,
+    "name": "frozenorbbolt",
+    "size434": 1
+  },
+  {
+    "id": 262,
+    "name": "frozenorbnova",
+    "size434": 1
+  },
+  {
+    "id": 263,
+    "name": "frozenorbexplode",
+    "size434": 0
+  },
+  {
+    "id": 264,
+    "name": "chillingarmorbolt",
+    "size434": 1
+  },
+  {
+    "id": 265,
+    "name": "fireexplosion2",
+    "size434": 1
+  },
+  {
+    "id": 266,
+    "name": "blowgun",
+    "size434": 1
+  },
+  {
+    "id": 267,
+    "name": "chainlightning2",
+    "size434": 2
+  },
+  {
+    "id": 268,
+    "name": "revivesmall",
+    "size434": 0
+  },
+  {
+    "id": 269,
+    "name": "revivemedium",
+    "size434": 0
+  },
+  {
+    "id": 270,
+    "name": "revivelarge",
+    "size434": 0
+  },
+  {
+    "id": 271,
+    "name": "monglacialspike",
+    "size434": 1
+  },
+  {
+    "id": 272,
+    "name": "icebreaksmall",
+    "size434": 0
+  },
+  {
+    "id": 273,
+    "name": "icebreakmedium",
+    "size434": 0
+  },
+  {
+    "id": 274,
+    "name": "icebreaklarge",
+    "size434": 0
+  },
+  {
+    "id": 275,
+    "name": "icebreaksmoke",
+    "size434": 0
+  },
+  {
+    "id": 276,
+    "name": "mephisto",
+    "size434": 2
+  },
+  {
+    "id": 277,
+    "name": "firehead",
+    "size434": 1
+  },
+  {
+    "id": 278,
+    "name": "whilrwind",
+    "size434": 2
+  },
+  {
+    "id": 279,
+    "name": "arcanelightningbolt",
+    "size434": 2
+  },
+  {
+    "id": 280,
+    "name": "frogfire",
+    "size434": 1
+  },
+  {
+    "id": 281,
+    "name": "frogcold",
+    "size434": 1
+  },
+  {
+    "id": 282,
+    "name": "frogpois",
+    "size434": 1
+  },
+  {
+    "id": 283,
+    "name": "desertfireball",
+    "size434": 1
+  },
+  {
+    "id": 284,
+    "name": "brdeathcontrol",
+    "size434": 0
+  },
+  {
+    "id": 285,
+    "name": "brdeathlightningbolt",
+    "size434": 2
+  },
+  {
+    "id": 286,
+    "name": "brdeathlightninghit",
+    "size434": 1
+  },
+  {
+    "id": 287,
+    "name": "denofevillight",
+    "size434": 0
+  },
+  {
+    "id": 288,
+    "name": "cairnstones",
+    "size434": 0
+  },
+  {
+    "id": 289,
+    "name": "cairnstonessky",
+    "size434": 2
+  },
+  {
+    "id": 290,
+    "name": "cairnstonesground",
+    "size434": 0
+  },
+  {
+    "id": 291,
+    "name": "towermist",
+    "size434": 1
+  },
+  {
+    "id": 292,
+    "name": "towermisttrail",
+    "size434": 0
+  },
+  {
+    "id": 293,
+    "name": "brdeathsmokes1",
+    "size434": 0
+  },
+  {
+    "id": 294,
+    "name": "brdeathsmokenu",
+    "size434": 0
+  },
+  {
+    "id": 295,
+    "name": "brdeathsmokedt",
+    "size434": 0
+  },
+  {
+    "id": 296,
+    "name": "brdeathspirits1",
+    "size434": 0
+  },
+  {
+    "id": 297,
+    "name": "brdeathspiritnu",
+    "size434": 0
+  },
+  {
+    "id": 298,
+    "name": "brdeathspiritdt",
+    "size434": 0
+  },
+  {
+    "id": 299,
+    "name": "mephistodeathcontrol",
+    "size434": 0
+  },
+  {
+    "id": 300,
+    "name": "mephistofirewallmaker",
+    "size434": 1
+  },
+  {
+    "id": 301,
+    "name": "mephistofirewall",
+    "size434": 1
+  },
+  {
+    "id": 302,
+    "name": "mephistoflyingrocksbig",
+    "size434": 0
+  },
+  {
+    "id": 303,
+    "name": "mephistoexplosionbig",
+    "size434": 0
+  },
+  {
+    "id": 304,
+    "name": "mephistoflyingrockssmall",
+    "size434": 0
+  },
+  {
+    "id": 305,
+    "name": "mephistoexplosionsmall",
+    "size434": 0
+  },
+  {
+    "id": 306,
+    "name": "mephistodonotdraw",
+    "size434": 0
+  },
+  {
+    "id": 307,
+    "name": "andycontrol0",
+    "size434": 0
+  },
+  {
+    "id": 308,
+    "name": "andyfirewallmaker",
+    "size434": 1
+  },
+  {
+    "id": 309,
+    "name": "andyfirewall",
+    "size434": 1
+  },
+  {
+    "id": 310,
+    "name": "andycolumnfirebase",
+    "size434": 1
+  },
+  {
+    "id": 311,
+    "name": "andycolumnfire",
+    "size434": 0
+  },
+  {
+    "id": 312,
+    "name": "andyfallingdebris1",
+    "size434": 0
+  },
+  {
+    "id": 313,
+    "name": "andyfallingdebris2",
+    "size434": 0
+  },
+  {
+    "id": 314,
+    "name": "andyfallingdebris3",
+    "size434": 0
+  },
+  {
+    "id": 315,
+    "name": "andydebrisexplosion1",
+    "size434": 0
+  },
+  {
+    "id": 316,
+    "name": "andydebrisexplosion2",
+    "size434": 0
+  },
+  {
+    "id": 317,
+    "name": "andydebrisexplosion3",
+    "size434": 0
+  },
+  {
+    "id": 318,
+    "name": "andydebrisexplosion4",
+    "size434": 0
+  },
+  {
+    "id": 319,
+    "name": "andydebrisexplosion5",
+    "size434": 0
+  },
+  {
+    "id": 320,
+    "name": "willowisplightningbolt",
+    "size434": 2
+  },
+  {
+    "id": 321,
+    "name": "queenpoisoncloud",
+    "size434": 1
+  },
+  {
+    "id": 322,
+    "name": "dirt pile",
+    "size434": 1
+  },
+  {
+    "id": 323,
+    "name": "undeadmissile1",
+    "size434": 1
+  },
+  {
+    "id": 324,
+    "name": "undeadmissile2",
+    "size434": 1
+  },
+  {
+    "id": 325,
+    "name": "undeadmissile3",
+    "size434": 1
+  },
+  {
+    "id": 326,
+    "name": "undeadmissile4",
+    "size434": 1
+  },
+  {
+    "id": 327,
+    "name": "bonespiritexplode",
+    "size434": 0
+  },
+  {
+    "id": 328,
+    "name": "dopplezonexplode",
+    "size434": 0
+  },
+  {
+    "id": 329,
+    "name": "monbonespirit",
+    "size434": 1
+  },
+  {
+    "id": 330,
+    "name": "towermistfade",
+    "size434": 0
+  },
+  {
+    "id": 331,
+    "name": "countessfirewall",
+    "size434": 1
+  },
+  {
+    "id": 332,
+    "name": "towerchestspawner",
+    "size434": 0
+  },
+  {
+    "id": 333,
+    "name": "hellmeteorlaunch1",
+    "size434": 0
+  },
+  {
+    "id": 334,
+    "name": "hellmeteorlaunch2",
+    "size434": 0
+  },
+  {
+    "id": 335,
+    "name": "hellmeteorup",
+    "size434": 0
+  },
+  {
+    "id": 336,
+    "name": "hellmeteordown",
+    "size434": 0
+  },
+  {
+    "id": 337,
+    "name": "hellmeteorball",
+    "size434": 0
+  },
+  {
+    "id": 338,
+    "name": "horadricstaff",
+    "size434": 0
+  },
+  {
+    "id": 339,
+    "name": "horadriclightning",
+    "size434": 0
+  },
+  {
+    "id": 340,
+    "name": "horadriclight",
+    "size434": 0
+  },
+  {
+    "id": 341,
+    "name": "regurgitatorcorpse",
+    "size434": 1
+  },
+  {
+    "id": 342,
+    "name": "regurgitatorcorpseexpl",
+    "size434": 1
+  },
+  {
+    "id": 343,
+    "name": "highpriestlightning",
+    "size434": 1
+  },
+  {
+    "id": 344,
+    "name": "icebreaksmallmelt",
+    "size434": 0
+  },
+  {
+    "id": 345,
+    "name": "icebreaklargemelt",
+    "size434": 0
+  },
+  {
+    "id": 346,
+    "name": "leapknockback",
+    "size434": 2
+  },
+  {
+    "id": 347,
+    "name": "radamentdeath",
+    "size434": 0
+  },
+  {
+    "id": 348,
+    "name": "radamenthandofgod",
+    "size434": 0
+  },
+  {
+    "id": 349,
+    "name": "radamentholybolt",
+    "size434": 1
+  },
+  {
+    "id": 350,
+    "name": "taintedsuncontrol",
+    "size434": 0
+  },
+  {
+    "id": 351,
+    "name": "taintedsunflash",
+    "size434": 0
+  },
+  {
+    "id": 352,
+    "name": "taintedsunball",
+    "size434": 0
+  },
+  {
+    "id": 353,
+    "name": "queendeathcenter",
+    "size434": 0
+  },
+  {
+    "id": 354,
+    "name": "queendeathglob",
+    "size434": 0
+  },
+  {
+    "id": 355,
+    "name": "queendeathsplat1",
+    "size434": 0
+  },
+  {
+    "id": 356,
+    "name": "queendeathsplat2",
+    "size434": 0
+  },
+  {
+    "id": 357,
+    "name": "healingbolt",
+    "size434": 1
+  },
+  {
+    "id": 358,
+    "name": "mephistoholedelay",
+    "size434": 0
+  },
+  {
+    "id": 359,
+    "name": "mephistoholebirth",
+    "size434": 0
+  },
+  {
+    "id": 360,
+    "name": "mephistoholeneutral",
+    "size434": 0
+  },
+  {
+    "id": 361,
+    "name": "mephistoholedeath",
+    "size434": 0
+  },
+  {
+    "id": 362,
+    "name": "mephistoholedead",
+    "size434": 0
+  },
+  {
+    "id": 363,
+    "name": "durieldeathcontrol",
+    "size434": 0
+  },
+  {
+    "id": 364,
+    "name": "durieldeathrock",
+    "size434": 0
+  },
+  {
+    "id": 365,
+    "name": "durieldeathdebris",
+    "size434": 0
+  },
+  {
+    "id": 366,
+    "name": "durieldeathsmoke",
+    "size434": 0
+  },
+  {
+    "id": 367,
+    "name": "mephistoexplosion",
+    "size434": 0
+  },
+  {
+    "id": 368,
+    "name": "orbmist",
+    "size434": 1
+  },
+  {
+    "id": 369,
+    "name": "orbmisttrail",
+    "size434": 0
+  },
+  {
+    "id": 370,
+    "name": "orbmistfade",
+    "size434": 0
+  },
+  {
+    "id": 371,
+    "name": "pilum",
+    "size434": 1
+  },
+  {
+    "id": 372,
+    "name": "diablo appears",
+    "size434": 0
+  },
+  {
+    "id": 373,
+    "name": "hfcontrol",
+    "size434": 0
+  },
+  {
+    "id": 374,
+    "name": "hffragment1",
+    "size434": 0
+  },
+  {
+    "id": 375,
+    "name": "hffragment2",
+    "size434": 0
+  },
+  {
+    "id": 376,
+    "name": "hffragment3",
+    "size434": 0
+  },
+  {
+    "id": 377,
+    "name": "hfspirit1",
+    "size434": 0
+  },
+  {
+    "id": 378,
+    "name": "hfreserved3",
+    "size434": 0
+  },
+  {
+    "id": 379,
+    "name": "izual control",
+    "size434": 0
+  },
+  {
+    "id": 380,
+    "name": "izual mist loop",
+    "size434": 1
+  },
+  {
+    "id": 381,
+    "name": "izual mist fade",
+    "size434": 0
+  },
+  {
+    "id": 382,
+    "name": "izual lightning",
+    "size434": 1
+  },
+  {
+    "id": 383,
+    "name": "izual lightning trail",
+    "size434": 1
+  },
+  {
+    "id": 384,
+    "name": "cairn stones bolt",
+    "size434": 3
+  },
+  {
+    "id": 385,
+    "name": "bomb in air",
+    "size434": 1
+  },
+  {
+    "id": 386,
+    "name": "bomb on ground",
+    "size434": 1
+  },
+  {
+    "id": 387,
+    "name": "bomb explosion",
+    "size434": 1
+  },
+  {
+    "id": 388,
+    "name": "shock field in air",
+    "size434": 1
+  },
+  {
+    "id": 389,
+    "name": "shock field on ground",
+    "size434": 2
+  },
+  {
+    "id": 390,
+    "name": "throwingstar",
+    "size434": 1
+  },
+  {
+    "id": 391,
+    "name": "acidspray",
+    "size434": 1
+  },
+  {
+    "id": 392,
+    "name": "blade creeper",
+    "size434": 3
+  },
+  {
+    "id": 393,
+    "name": "distraction",
+    "size434": 1
+  },
+  {
+    "id": 394,
+    "name": "distraction fog",
+    "size434": 3
+  },
+  {
+    "id": 395,
+    "name": "distraction puff",
+    "size434": 1
+  },
+  {
+    "id": 396,
+    "name": "distraction start",
+    "size434": 3
+  },
+  {
+    "id": 397,
+    "name": "distraction end",
+    "size434": 3
+  },
+  {
+    "id": 398,
+    "name": "impinfernoflame1",
+    "size434": 1
+  },
+  {
+    "id": 399,
+    "name": "impinfernoflame2",
+    "size434": 1
+  },
+  {
+    "id": 400,
+    "name": "baallightningbolt",
+    "size434": 1
+  },
+  {
+    "id": 401,
+    "name": "baallightningtrail",
+    "size434": 1
+  },
+  {
+    "id": 402,
+    "name": "baallightningbolt2",
+    "size434": 1
+  },
+  {
+    "id": 403,
+    "name": "baallightningtrail2",
+    "size434": 1
+  },
+  {
+    "id": 404,
+    "name": "impfireball",
+    "size434": 1
+  },
+  {
+    "id": 405,
+    "name": "impfireballexplode",
+    "size434": 1
+  },
+  {
+    "id": 406,
+    "name": "catapultchargedball on",
+    "size434": 1
+  },
+  {
+    "id": 407,
+    "name": "catapultchargedball",
+    "size434": 1
+  },
+  {
+    "id": 408,
+    "name": "catapultchargedballbolt",
+    "size434": 1
+  },
+  {
+    "id": 409,
+    "name": "imp spawn monsters",
+    "size434": 1
+  },
+  {
+    "id": 410,
+    "name": "catapult spike ball on",
+    "size434": 1
+  },
+  {
+    "id": 411,
+    "name": "catapult spike ball",
+    "size434": 1
+  },
+  {
+    "id": 412,
+    "name": "catapult spike in air",
+    "size434": 1
+  },
+  {
+    "id": 413,
+    "name": "catapult spike on ground",
+    "size434": 1
+  },
+  {
+    "id": 414,
+    "name": "catapult spike explosion",
+    "size434": 1
+  },
+  {
+    "id": 415,
+    "name": "catapult cold ball on",
+    "size434": 1
+  },
+  {
+    "id": 416,
+    "name": "catapult cold ball",
+    "size434": 1
+  },
+  {
+    "id": 417,
+    "name": "catapult cold explosion",
+    "size434": 1
+  },
+  {
+    "id": 418,
+    "name": "catapult plague ball on",
+    "size434": 1
+  },
+  {
+    "id": 419,
+    "name": "catapult plague ball",
+    "size434": 1
+  },
+  {
+    "id": 420,
+    "name": "catapult plague cloud",
+    "size434": 2
+  },
+  {
+    "id": 421,
+    "name": "catapult meteor ball on",
+    "size434": 1
+  },
+  {
+    "id": 422,
+    "name": "catapult meteor ball",
+    "size434": 1
+  },
+  {
+    "id": 423,
+    "name": "catapult meteor fire",
+    "size434": 2
+  },
+  {
+    "id": 424,
+    "name": "tower death",
+    "size434": 0
+  },
+  {
+    "id": 425,
+    "name": "healing vortex",
+    "size434": 1
+  },
+  {
+    "id": 426,
+    "name": "suicidecorpseexplode",
+    "size434": 1
+  },
+  {
+    "id": 427,
+    "name": "suicidefireexplode",
+    "size434": 1
+  },
+  {
+    "id": 428,
+    "name": "suicideiceexplode",
+    "size434": 1
+  },
+  {
+    "id": 429,
+    "name": "explodingjavalin",
+    "size434": 1
+  },
+  {
+    "id": 430,
+    "name": "explodingjavalinexp",
+    "size434": 1
+  },
+  {
+    "id": 431,
+    "name": "lightingtrailingjavalin",
+    "size434": 1
+  },
+  {
+    "id": 432,
+    "name": "lightjavalintrail",
+    "size434": 1
+  },
+  {
+    "id": 433,
+    "name": "lightjavalinexplosion",
+    "size434": 1
+  },
+  {
+    "id": 434,
+    "name": "icejavalin",
+    "size434": 1
+  },
+  {
+    "id": 435,
+    "name": "icejavalinexplode",
+    "size434": 1
+  },
+  {
+    "id": 436,
+    "name": "plaguejavelin2",
+    "size434": 1
+  },
+  {
+    "id": 437,
+    "name": "plaguejavlinexplode",
+    "size434": 1
+  },
+  {
+    "id": 438,
+    "name": "advlighttrailingjav",
+    "size434": 1
+  },
+  {
+    "id": 439,
+    "name": "advlighttrailingjav2",
+    "size434": 1
+  },
+  {
+    "id": 440,
+    "name": "advlightjavexplode",
+    "size434": 1
+  },
+  {
+    "id": 441,
+    "name": "sucfireball",
+    "size434": 1
+  },
+  {
+    "id": 442,
+    "name": "sucfireballexplode",
+    "size434": 1
+  },
+  {
+    "id": 443,
+    "name": "sucfireballtrail",
+    "size434": 1
+  },
+  {
+    "id": 444,
+    "name": "sucshockfieldmissile",
+    "size434": 2
+  },
+  {
+    "id": 445,
+    "name": "sucshockfieldmissileexp",
+    "size434": 0
+  },
+  {
+    "id": 446,
+    "name": "sucshockfield",
+    "size434": 1
+  },
+  {
+    "id": 447,
+    "name": "hellfiremissile",
+    "size434": 0
+  },
+  {
+    "id": 448,
+    "name": "hellfireexa",
+    "size434": 0
+  },
+  {
+    "id": 449,
+    "name": "hellfireexb",
+    "size434": 0
+  },
+  {
+    "id": 450,
+    "name": "imp charged bolt",
+    "size434": 1
+  },
+  {
+    "id": 451,
+    "name": "imp teleport",
+    "size434": 1
+  },
+  {
+    "id": 452,
+    "name": "moltenboulder",
+    "size434": 2
+  },
+  {
+    "id": 453,
+    "name": "moltenboulderemerge",
+    "size434": 2
+  },
+  {
+    "id": 454,
+    "name": "moltenboulderexplode",
+    "size434": 2
+  },
+  {
+    "id": 455,
+    "name": "moltenboulderfirepath",
+    "size434": 2
+  },
+  {
+    "id": 456,
+    "name": "moltenboulder-flyingrocks",
+    "size434": 1
+  },
+  {
+    "id": 457,
+    "name": "firestorm",
+    "size434": 2
+  },
+  {
+    "id": 458,
+    "name": "firestormmaker",
+    "size434": 2
+  },
+  {
+    "id": 459,
+    "name": "arcticblast1",
+    "size434": 1
+  },
+  {
+    "id": 460,
+    "name": "arcticblast2",
+    "size434": 1
+  },
+  {
+    "id": 461,
+    "name": "erruption center",
+    "size434": 1
+  },
+  {
+    "id": 462,
+    "name": "erruption crack 1",
+    "size434": 3
+  },
+  {
+    "id": 463,
+    "name": "erruption crack 2",
+    "size434": 3
+  },
+  {
+    "id": 464,
+    "name": "erruption smoke 1",
+    "size434": 0
+  },
+  {
+    "id": 465,
+    "name": "erruption smoke 2",
+    "size434": 0
+  },
+  {
+    "id": 466,
+    "name": "vine beast walk 1",
+    "size434": 2
+  },
+  {
+    "id": 467,
+    "name": "vine beast walk 2",
+    "size434": 2
+  },
+  {
+    "id": 468,
+    "name": "vine beast neutral",
+    "size434": 2
+  },
+  {
+    "id": 469,
+    "name": "vine beast attack",
+    "size434": 2
+  },
+  {
+    "id": 470,
+    "name": "vine beast death",
+    "size434": 2
+  },
+  {
+    "id": 471,
+    "name": "vines",
+    "size434": 0
+  },
+  {
+    "id": 472,
+    "name": "vines trail",
+    "size434": 3
+  },
+  {
+    "id": 473,
+    "name": "vines wither",
+    "size434": 0
+  },
+  {
+    "id": 474,
+    "name": "plague vines",
+    "size434": 0
+  },
+  {
+    "id": 475,
+    "name": "plague vines trail",
+    "size434": 3
+  },
+  {
+    "id": 476,
+    "name": "plague vines wither",
+    "size434": 0
+  },
+  {
+    "id": 477,
+    "name": "twister",
+    "size434": 2
+  },
+  {
+    "id": 478,
+    "name": "tornado",
+    "size434": 3
+  },
+  {
+    "id": 479,
+    "name": "volcano",
+    "size434": 3
+  },
+  {
+    "id": 480,
+    "name": "volcano overlay fire",
+    "size434": 3
+  },
+  {
+    "id": 481,
+    "name": "volcano debris 2",
+    "size434": 0
+  },
+  {
+    "id": 482,
+    "name": "volcano explosion",
+    "size434": 0
+  },
+  {
+    "id": 483,
+    "name": "volcano small fire",
+    "size434": 2
+  },
+  {
+    "id": 484,
+    "name": "dragonbreath missile",
+    "size434": 1
+  },
+  {
+    "id": 485,
+    "name": "lureprojectile",
+    "size434": 1
+  },
+  {
+    "id": 486,
+    "name": "lurecenter",
+    "size434": 1
+  },
+  {
+    "id": 487,
+    "name": "lurecloud",
+    "size434": 1
+  },
+  {
+    "id": 488,
+    "name": "impmiss1",
+    "size434": 1
+  },
+  {
+    "id": 489,
+    "name": "impmiss2",
+    "size434": 1
+  },
+  {
+    "id": 490,
+    "name": "impmiss3",
+    "size434": 1
+  },
+  {
+    "id": 491,
+    "name": "impmiss4",
+    "size434": 1
+  },
+  {
+    "id": 492,
+    "name": "impmiss5",
+    "size434": 1
+  },
+  {
+    "id": 493,
+    "name": "frozenhorror arcticblast1",
+    "size434": 1
+  },
+  {
+    "id": 494,
+    "name": "frozenhorror arcticblast2",
+    "size434": 1
+  },
+  {
+    "id": 495,
+    "name": "sentrychargedbolt",
+    "size434": 1
+  },
+  {
+    "id": 496,
+    "name": "sentryspikeinair",
+    "size434": 1
+  },
+  {
+    "id": 497,
+    "name": "sentryspikeonground",
+    "size434": 1
+  },
+  {
+    "id": 498,
+    "name": "recycler delay",
+    "size434": 0
+  },
+  {
+    "id": 499,
+    "name": "recycler vine",
+    "size434": 0
+  },
+  {
+    "id": 500,
+    "name": "recycler fade",
+    "size434": 0
+  },
+  {
+    "id": 501,
+    "name": "recycler explosion",
+    "size434": 1
+  },
+  {
+    "id": 502,
+    "name": "death mauler",
+    "size434": 2
+  },
+  {
+    "id": 503,
+    "name": "death mauler trail",
+    "size434": 2
+  },
+  {
+    "id": 504,
+    "name": "death mauler trail fade",
+    "size434": 2
+  },
+  {
+    "id": 505,
+    "name": "bladefury1",
+    "size434": 2
+  },
+  {
+    "id": 506,
+    "name": "bladefragment1",
+    "size434": 1
+  },
+  {
+    "id": 507,
+    "name": "bladefury2",
+    "size434": 2
+  },
+  {
+    "id": 508,
+    "name": "bladefragment2",
+    "size434": 1
+  },
+  {
+    "id": 509,
+    "name": "bladefury3",
+    "size434": 2
+  },
+  {
+    "id": 510,
+    "name": "bladefragment3",
+    "size434": 1
+  },
+  {
+    "id": 511,
+    "name": "shockwave",
+    "size434": 1
+  },
+  {
+    "id": 512,
+    "name": "lightningtalons",
+    "size434": 2
+  },
+  {
+    "id": 513,
+    "name": "lightningtalonstrail",
+    "size434": 1
+  },
+  {
+    "id": 514,
+    "name": "phoenixtrail",
+    "size434": 1
+  },
+  {
+    "id": 515,
+    "name": "rabiesplague",
+    "size434": 3
+  },
+  {
+    "id": 516,
+    "name": "rabiescontagion",
+    "size434": 1
+  },
+  {
+    "id": 517,
+    "name": "wake of destruction maker",
+    "size434": 2
+  },
+  {
+    "id": 518,
+    "name": "wake of destruction",
+    "size434": 1
+  },
+  {
+    "id": 519,
+    "name": "deathsentryexplode",
+    "size434": 0
+  },
+  {
+    "id": 520,
+    "name": "tigerfury",
+    "size434": 1
+  },
+  {
+    "id": 521,
+    "name": "tigerfurytrail",
+    "size434": 1
+  },
+  {
+    "id": 522,
+    "name": "tigerfurytrail2",
+    "size434": 0
+  },
+  {
+    "id": 523,
+    "name": "inferno sentry 1",
+    "size434": 1
+  },
+  {
+    "id": 524,
+    "name": "inferno sentry 2",
+    "size434": 1
+  },
+  {
+    "id": 525,
+    "name": "ancient throwing axe",
+    "size434": 1
+  },
+  {
+    "id": 526,
+    "name": "sentrylightningbolt",
+    "size434": 2
+  },
+  {
+    "id": 527,
+    "name": "sentrylightninghit",
+    "size434": 1
+  },
+  {
+    "id": 528,
+    "name": "anya center",
+    "size434": 0
+  },
+  {
+    "id": 529,
+    "name": "anya icicle",
+    "size434": 0
+  },
+  {
+    "id": 530,
+    "name": "anya iceimpact",
+    "size434": 0
+  },
+  {
+    "id": 531,
+    "name": "anya icesteam",
+    "size434": 0
+  },
+  {
+    "id": 532,
+    "name": "anya icemagic",
+    "size434": 0
+  },
+  {
+    "id": 533,
+    "name": "dragontail missile",
+    "size434": 1
+  },
+  {
+    "id": 534,
+    "name": "dragonflight",
+    "size434": 1
+  },
+  {
+    "id": 535,
+    "name": "dragonflightmaker",
+    "size434": 1
+  },
+  {
+    "id": 536,
+    "name": "progressive radius damage",
+    "size434": 1
+  },
+  {
+    "id": 537,
+    "name": "vine beast walk 1 fade",
+    "size434": 1
+  },
+  {
+    "id": 538,
+    "name": "vine beast walk 2 fade",
+    "size434": 1
+  },
+  {
+    "id": 539,
+    "name": "vine beast neutral fade",
+    "size434": 1
+  },
+  {
+    "id": 540,
+    "name": "vine recycler delay",
+    "size434": 0
+  },
+  {
+    "id": 541,
+    "name": "ancient death center",
+    "size434": 1
+  },
+  {
+    "id": 542,
+    "name": "ancient death cloud",
+    "size434": 0
+  },
+  {
+    "id": 543,
+    "name": "lightning charge up nova",
+    "size434": 1
+  },
+  {
+    "id": 544,
+    "name": "chainlightningcharge up",
+    "size434": 2
+  },
+  {
+    "id": 545,
+    "name": "pain worm appear",
+    "size434": 0
+  },
+  {
+    "id": 546,
+    "name": "baal taunt control",
+    "size434": 1
+  },
+  {
+    "id": 547,
+    "name": "baal taunt lightning",
+    "size434": 2
+  },
+  {
+    "id": 548,
+    "name": "baal taunt lightning trail",
+    "size434": 2
+  },
+  {
+    "id": 549,
+    "name": "baal taunt poison",
+    "size434": 2
+  },
+  {
+    "id": 550,
+    "name": "baal spawn monsters",
+    "size434": 0
+  },
+  {
+    "id": 551,
+    "name": "mindblast hit",
+    "size434": 0
+  },
+  {
+    "id": 552,
+    "name": "blade shield missile",
+    "size434": 1
+  },
+  {
+    "id": 553,
+    "name": "blade shield attachment",
+    "size434": 0
+  },
+  {
+    "id": 554,
+    "name": "baal inferno",
+    "size434": 3
+  },
+  {
+    "id": 555,
+    "name": "baal nova",
+    "size434": 2
+  },
+  {
+    "id": 556,
+    "name": "fistsoffireexplode",
+    "size434": 1
+  },
+  {
+    "id": 557,
+    "name": "fistsoffirefirewall",
+    "size434": 2
+  },
+  {
+    "id": 558,
+    "name": "clawsofthunderbolt",
+    "size434": 1
+  },
+  {
+    "id": 559,
+    "name": "clawsofthundernova",
+    "size434": 1
+  },
+  {
+    "id": 560,
+    "name": "bladesoficeexplode",
+    "size434": 1
+  },
+  {
+    "id": 561,
+    "name": "bladesoficecubes",
+    "size434": 1
+  },
+  {
+    "id": 562,
+    "name": "bladesoficecubesmelt",
+    "size434": 0
+  },
+  {
+    "id": 563,
+    "name": "royalstrikemeteor",
+    "size434": 0
+  },
+  {
+    "id": 564,
+    "name": "royalstrikemeteorcenter",
+    "size434": 1
+  },
+  {
+    "id": 565,
+    "name": "royalstrikemeteortail",
+    "size434": 0
+  },
+  {
+    "id": 566,
+    "name": "royalstrikemeteorexplode",
+    "size434": 1
+  },
+  {
+    "id": 567,
+    "name": "royalstrikemeteorfire",
+    "size434": 2
+  },
+  {
+    "id": 568,
+    "name": "royalstrikechainlightning",
+    "size434": 2
+  },
+  {
+    "id": 569,
+    "name": "royalstrikechaosice",
+    "size434": 1
+  },
+  {
+    "id": 570,
+    "name": "world stone chip 1",
+    "size434": 1
+  },
+  {
+    "id": 571,
+    "name": "world stone chip 2",
+    "size434": 1
+  },
+  {
+    "id": 572,
+    "name": "world stone chip 3",
+    "size434": 1
+  },
+  {
+    "id": 573,
+    "name": "world stone chip 4",
+    "size434": 1
+  },
+  {
+    "id": 574,
+    "name": "highpriestlightning2",
+    "size434": 1
+  },
+  {
+    "id": 575,
+    "name": "infernoflame3",
+    "size434": 1
+  },
+  {
+    "id": 576,
+    "name": "mindblast center",
+    "size434": 0
+  },
+  {
+    "id": 577,
+    "name": "armageddoncontrol",
+    "size434": 0
+  },
+  {
+    "id": 578,
+    "name": "armageddonrock",
+    "size434": 0
+  },
+  {
+    "id": 579,
+    "name": "armageddontail",
+    "size434": 0
+  },
+  {
+    "id": 580,
+    "name": "armageddonexplosion",
+    "size434": 3
+  },
+  {
+    "id": 581,
+    "name": "hurricaneswoosh",
+    "size434": 0
+  },
+  {
+    "id": 582,
+    "name": "hurricanecart",
+    "size434": 0
+  },
+  {
+    "id": 583,
+    "name": "hurricanerock",
+    "size434": 0
+  },
+  {
+    "id": 584,
+    "name": "hurricanesack",
+    "size434": 0
+  },
+  {
+    "id": 585,
+    "name": "hurricanetree",
+    "size434": 0
+  },
+  {
+    "id": 586,
+    "name": "hurricanevase",
+    "size434": 0
+  },
+  {
+    "id": 587,
+    "name": "baalcorpseexplodedelay",
+    "size434": 1
+  },
+  {
+    "id": 588,
+    "name": "baalcorpseexplodeexpl",
+    "size434": 1
+  },
+  {
+    "id": 589,
+    "name": "baal cold maker",
+    "size434": 2
+  },
+  {
+    "id": 590,
+    "name": "baal cold trail",
+    "size434": 2
+  },
+  {
+    "id": 591,
+    "name": "baal spawn monsters exp",
+    "size434": 0
+  },
+  {
+    "id": 592,
+    "name": "impmiss21",
+    "size434": 1
+  },
+  {
+    "id": 593,
+    "name": "impmiss22",
+    "size434": 1
+  },
+  {
+    "id": 594,
+    "name": "impmiss23",
+    "size434": 1
+  },
+  {
+    "id": 595,
+    "name": "impmiss24",
+    "size434": 1
+  },
+  {
+    "id": 596,
+    "name": "impmiss25",
+    "size434": 1
+  },
+  {
+    "id": 597,
+    "name": "anyasteam1",
+    "size434": 0
+  },
+  {
+    "id": 598,
+    "name": "anyasteam2",
+    "size434": 0
+  },
+  {
+    "id": 599,
+    "name": "ancientsguide",
+    "size434": 0
+  },
+  {
+    "id": 600,
+    "name": "ancientsmarker",
+    "size434": 0
+  },
+  {
+    "id": 601,
+    "name": "ancientscontrol",
+    "size434": 0
+  },
+  {
+    "id": 602,
+    "name": "overseercontrol",
+    "size434": 0
+  },
+  {
+    "id": 603,
+    "name": "nihlithak1",
+    "size434": 0
+  },
+  {
+    "id": 604,
+    "name": "nihlithak2",
+    "size434": 0
+  },
+  {
+    "id": 605,
+    "name": "nihlithak3",
+    "size434": 0
+  },
+  {
+    "id": 606,
+    "name": "nihlathakcontrol",
+    "size434": 0
+  },
+  {
+    "id": 607,
+    "name": "nihlathakswoosh",
+    "size434": 0
+  },
+  {
+    "id": 608,
+    "name": "nihlathakdebris1",
+    "size434": 0
+  },
+  {
+    "id": 609,
+    "name": "nihlathakdebris2",
+    "size434": 0
+  },
+  {
+    "id": 610,
+    "name": "nihlathakdebris3",
+    "size434": 0
+  },
+  {
+    "id": 611,
+    "name": "nihlathakdebris4",
+    "size434": 0
+  },
+  {
+    "id": 612,
+    "name": "nihlathakglow",
+    "size434": 0
+  },
+  {
+    "id": 613,
+    "name": "baalteleport",
+    "size434": 0
+  },
+  {
+    "id": 614,
+    "name": "baalclonedeath",
+    "size434": 0
+  },
+  {
+    "id": 615,
+    "name": "anyasteamvent",
+    "size434": 0
+  },
+  {
+    "id": 616,
+    "name": "anyasteam",
+    "size434": 0
+  },
+  {
+    "id": 617,
+    "name": "nihlathakhole",
+    "size434": 0
+  },
+  {
+    "id": 618,
+    "name": "nihlathakholelight",
+    "size434": 0
+  },
+  {
+    "id": 619,
+    "name": "volcanofiretrail",
+    "size434": 0
+  },
+  {
+    "id": 620,
+    "name": "nihlathakglow2",
+    "size434": 0
+  },
+  {
+    "id": 621,
+    "name": "nihlathakbonechips",
+    "size434": 0
+  },
+  {
+    "id": 622,
+    "name": "baalcorpseexplodefade",
+    "size434": 0
+  },
+  {
+    "id": 623,
+    "name": "armageddonfire",
+    "size434": 2
+  },
+  {
+    "id": 624,
+    "name": "icesparkle",
+    "size434": 0
+  },
+  {
+    "id": 625,
+    "name": "baalfx control",
+    "size434": 0
+  },
+  {
+    "id": 626,
+    "name": "baalfx spirit 1",
+    "size434": 0
+  },
+  {
+    "id": 627,
+    "name": "baalfx spirit 2",
+    "size434": 0
+  },
+  {
+    "id": 628,
+    "name": "baalfx spirit 3",
+    "size434": 0
+  },
+  {
+    "id": 629,
+    "name": "baalfx spirit 4",
+    "size434": 0
+  },
+  {
+    "id": 630,
+    "name": "baalfx spirit 5",
+    "size434": 0
+  },
+  {
+    "id": 631,
+    "name": "baalfx baal head appear",
+    "size434": 0
+  },
+  {
+    "id": 632,
+    "name": "baalfx baal head 1",
+    "size434": 0
+  },
+  {
+    "id": 633,
+    "name": "baalfx baal head 2",
+    "size434": 0
+  },
+  {
+    "id": 634,
+    "name": "baalfx baal head 3",
+    "size434": 0
+  },
+  {
+    "id": 635,
+    "name": "baalfx tyreal debris 1",
+    "size434": 0
+  },
+  {
+    "id": 636,
+    "name": "baalfx tyreal debris 2",
+    "size434": 0
+  },
+  {
+    "id": 637,
+    "name": "baalfx tyreal debris 3",
+    "size434": 0
+  },
+  {
+    "id": 638,
+    "name": "baalfx tyreal debris break",
+    "size434": 0
+  },
+  {
+    "id": 639,
+    "name": "worldstone shake",
+    "size434": 0
+  },
+  {
+    "id": 640,
+    "name": "blessedhammerex",
+    "size434": 1
+  },
+  {
+    "id": 641,
+    "name": "sentrylightningbolt2",
+    "size434": 2
+  },
+  {
+    "id": 642,
+    "name": "sentrylightninghit2",
+    "size434": 1
+  },
+  {
+    "id": 643,
+    "name": "lightningtowernova",
+    "size434": 1
+  },
+  {
+    "id": 644,
+    "name": "skbowarrow6",
+    "size434": 1
+  },
+  {
+    "id": 645,
+    "name": "skbowarrow7",
+    "size434": 1
+  },
+  {
+    "id": 646,
+    "name": "skbowarrow8",
+    "size434": 1
+  },
+  {
+    "id": 647,
+    "name": "bighead6",
+    "size434": 1
+  },
+  {
+    "id": 648,
+    "name": "viper_poisjav",
+    "size434": 1
+  },
+  {
+    "id": 649,
+    "name": "viper_poisjavcloud",
+    "size434": 2
+  },
+  {
+    "id": 650,
+    "name": "viper_fire",
+    "size434": 1
+  },
+  {
+    "id": 651,
+    "name": "viper_firecloud",
+    "size434": 1
+  },
+  {
+    "id": 652,
+    "name": "viper_bonespear",
+    "size434": 1
+  },
+  {
+    "id": 653,
+    "name": "countessfirewallmaker",
+    "size434": 1
+  },
+  {
+    "id": 654,
+    "name": "baal taunt lightning control",
+    "size434": 0
+  },
+  {
+    "id": 655,
+    "name": "baal taunt poison control",
+    "size434": 0
+  },
+  {
+    "id": 656,
+    "name": "explodingarrowexp2",
+    "size434": 1
+  },
+  {
+    "id": 657,
+    "name": "freezingarrowexp3",
+    "size434": 1
+  },
+  {
+    "id": 658,
+    "name": "pantherjav5",
+    "size434": 1
+  },
+  {
+    "id": 659,
+    "name": "spike6",
+    "size434": 1
+  },
+  {
+    "id": 660,
+    "name": "cr_arrow6",
+    "size434": 1
+  },
+  {
+    "id": 661,
+    "name": "skmagepois",
+    "size434": 1
+  },
+  {
+    "id": 662,
+    "name": "skmagecold",
+    "size434": 1
+  },
+  {
+    "id": 663,
+    "name": "skmagefire",
+    "size434": 1
+  },
+  {
+    "id": 664,
+    "name": "skmageltng",
+    "size434": 1
+  },
+  {
+    "id": 665,
+    "name": "succubusmiss",
+    "size434": 1
+  },
+  {
+    "id": 666,
+    "name": "willowisplightningbolt2",
+    "size434": 2
+  },
+  {
+    "id": 667,
+    "name": "mummyex",
+    "size434": 2
+  },
+  {
+    "id": 668,
+    "name": "goospitex",
+    "size434": 1
+  },
+  {
+    "id": 669,
+    "name": "impmissex",
+    "size434": 1
+  },
+  {
+    "id": 670,
+    "name": "diablogeddoncontrol",
+    "size434": 0
+  },
+  {
+    "id": 671,
+    "name": "diablogeddonrock",
+    "size434": 0
+  },
+  {
+    "id": 672,
+    "name": "diablogeddontail",
+    "size434": 0
+  },
+  {
+    "id": 673,
+    "name": "diablogeddonexplosion",
+    "size434": 3
+  },
+  {
+    "id": 674,
+    "name": "diablogeddonfire",
+    "size434": 2
+  },
+  {
+    "id": 675,
+    "name": "megademoninferno",
+    "size434": 1
+  },
+  {
+    "id": 676,
+    "name": "trapfirebolt",
+    "size434": 1
+  },
+  {
+    "id": 677,
+    "name": "trappoisonjavcloud",
+    "size434": 2
+  },
+  {
+    "id": 678,
+    "name": "trapnova",
+    "size434": 1
+  },
+  {
+    "id": 679,
+    "name": "mephfrostnova",
+    "size434": 1
+  },
+  {
+    "id": 680,
+    "name": "mephlight",
+    "size434": 2
+  },
+  {
+    "id": 681,
+    "name": "vampiremeteorfire",
+    "size434": 2
+  },
+  {
+    "id": 682,
+    "name": "strafearrow",
+    "size434": 1
+  },
+  {
+    "id": 683,
+    "name": "strafebolt",
+    "size434": 1
+  },
+  {
+    "id": 684,
+    "name": "recklessattacksmissile",
+    "size434": 1
+  },
+  {
+    "id": 685,
+    "name": "leapattack",
+    "size434": 1
+  },
+  {
+    "id": 686,
+    "name": "sigillethargymedium",
+    "size434": 1
+  },
+  {
+    "id": 687,
+    "name": "sigilrancormedium",
+    "size434": 1
+  },
+  {
+    "id": 688,
+    "name": "sigildeathmedium",
+    "size434": 1
+  },
+  {
+    "id": 689,
+    "name": "ringoffire",
+    "size434": 2
+  },
+  {
+    "id": 690,
+    "name": "flamewave",
+    "size434": 1
+  },
+  {
+    "id": 691,
+    "name": "mindwallmaker",
+    "size434": 1
+  },
+  {
+    "id": 692,
+    "name": "bladewarpexplode",
+    "size434": 1
+  },
+  {
+    "id": 693,
+    "name": "miasmaboltdot",
+    "size434": 2
+  },
+  {
+    "id": 694,
+    "name": "abyssalshattershards",
+    "size434": 1
+  },
+  {
+    "id": 695,
+    "name": "flamewavefire",
+    "size434": 1
+  },
+  {
+    "id": 696,
+    "name": "miasmachainscloud",
+    "size434": 1
+  },
+  {
+    "id": 697,
+    "name": "miasmabolt",
+    "size434": 1
+  },
+  {
+    "id": 698,
+    "name": "miasmapuff",
+    "size434": 1
+  },
+  {
+    "id": 699,
+    "name": "sigillethargysmall",
+    "size434": 1
+  },
+  {
+    "id": 700,
+    "name": "sigilrancorsmall",
+    "size434": 1
+  },
+  {
+    "id": 701,
+    "name": "sigildeathsmall",
+    "size434": 1
+  },
+  {
+    "id": 702,
+    "name": "sigillethargylarge",
+    "size434": 1
+  },
+  {
+    "id": 703,
+    "name": "sigilrancorlarge",
+    "size434": 1
+  },
+  {
+    "id": 704,
+    "name": "sigildeathlarge",
+    "size434": 1
+  },
+  {
+    "id": 705,
+    "name": "miasmaboltcloud",
+    "size434": 1
+  },
+  {
+    "id": 706,
+    "name": "echoingstrike",
+    "size434": 1
+  },
+  {
+    "id": 707,
+    "name": "bladewarp",
+    "size434": 1
+  },
+  {
+    "id": 708,
+    "name": "flamewaveunveiling",
+    "size434": 1
+  },
+  {
+    "id": 709,
+    "name": "abysscenter",
+    "size434": 3
+  },
+  {
+    "id": 710,
+    "name": "engorge",
+    "size434": 1
+  },
+  {
+    "id": 711,
+    "name": "miasmachainsmaker",
+    "size434": 0
+  },
+  {
+    "id": 712,
+    "name": "miasmachains",
+    "size434": 2
+  },
+  {
+    "id": 713,
+    "name": "miasmachainscloudmaker",
+    "size434": 0
+  },
+  {
+    "id": 714,
+    "name": "abyss",
+    "size434": 0
+  },
+  {
+    "id": 715,
+    "name": "abyssexplode",
+    "size434": 0
+  },
+  {
+    "id": 716,
+    "name": "flamewavelingerfire",
+    "size434": 1
+  },
+  {
+    "id": 717,
+    "name": "hexpurgeexplode",
+    "size434": 1
+  },
+  {
+    "id": 718,
+    "name": "engorgecorpseeffect",
+    "size434": 1
+  },
+  {
+    "id": 719,
+    "name": "bloodboilexplode",
+    "size434": 1
+  },
+  {
+    "id": 720,
+    "name": "echoingstrike_detonate",
+    "size434": 1
+  },
+  {
+    "id": 721,
+    "name": "eldritchblastnova",
+    "size434": 1
+  },
+  {
+    "id": 722,
+    "name": "apocalypse",
+    "size434": 1
+  },
+  {
+    "id": 723,
+    "name": "binddemonchannelmaker",
+    "size434": 0
+  },
+  {
+    "id": 724,
+    "name": "binddemonchannel",
+    "size434": 1
+  },
+  {
+    "id": 725,
+    "name": "coldfissure center",
+    "size434": 1
+  },
+  {
+    "id": 726,
+    "name": "ice crack 1",
+    "size434": 3
+  },
+  {
+    "id": 727,
+    "name": "ice crack 2",
+    "size434": 3
+  },
+  {
+    "id": 728,
+    "name": "ice vapor 1",
+    "size434": 0
+  },
+  {
+    "id": 729,
+    "name": "ice vapor 2",
+    "size434": 0
+  },
+  {
+    "id": 730,
+    "name": "ringoffireexplode",
+    "size434": 2
+  },
+  {
+    "id": 731,
+    "name": "colossal throwing axe",
+    "size434": 1
+  },
+  {
+    "id": 732,
+    "name": "firetwister",
+    "size434": 2
+  },
+  {
+    "id": 733,
+    "name": "taintedfirebolt",
+    "size434": 1
+  },
+  {
+    "id": 734,
+    "name": "taintedfireball",
+    "size434": 1
+  },
+  {
+    "id": 735,
+    "name": "colossalchargedbolt",
+    "size434": 1
+  },
+  {
+    "id": 736,
+    "name": "miasmaboltcloudmaker",
+    "size434": 0
+  },
+  {
+    "id": 737,
+    "name": "heraldspawner",
+    "size434": 2
+  },
+  {
+    "id": 738,
+    "name": "heraldmist",
+    "size434": 0
+  },
+  {
+    "id": 739,
+    "name": "heraldbolt",
+    "size434": 3
+  },
+  {
+    "id": 740,
+    "name": "heraldorb",
+    "size434": 0
+  },
+  {
+    "id": 741,
+    "name": "colossal thunderstorm",
+    "size434": 3
+  }
+]

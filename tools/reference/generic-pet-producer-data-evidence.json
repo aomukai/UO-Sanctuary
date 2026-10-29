@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current stat semantics reuse and complete missile sizes",
+  "processMemoryRead": false,
+  "processInput": false,
+  "handlerEnabled": false,
+  "worldSelectorBindingVerified": false,
+  "verified": {
+    "statRows": 368,
+    "statStride": 324,
+    "missileRows": 742,
+    "missileStride": 460,
+    "compiledTextFieldMatches": 1846,
+    "existingStatSemanticMatches": 1104,
+    "compiledIdChecks": 1110,
+    "textIdDifferences": 1
+  },
+  "flags": {
+    "currentCompiledMinimumMask": 512,
+    "existingSemanticCatalogMinimumMask": 1024,
+    "meaning": "fMin;semantic mapping verified for all368rows,raw layouts are not equated"
+  },
+  "identityDifferences": [
+    {
+      "compiledId": 212,
+      "textId": 213,
+      "name": "passive_mastery_gethit_rate"
+    }
+  ],
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-producers/itemstatcost.bin": "f815bc3eea6b4db20ae9a1ab7c592195a7073b690b9e25e64eb64c450226df92",
+    ".local/class-skills/generic-pet-search-producers/itemstatcost.bin.extract.log": "74bf505e8f59492e68c91fe92a1c1bf416189f34739bb55224fe2c04e4a895cf",
+    ".local/class-skills/generic-pet-search-producers/itemstatcost.txt": "99960b46e1963b20fa120bd4d1f77e4b28138330ccec65c7fab0bfd3db6fd8e8",
+    ".local/class-skills/generic-pet-search-producers/itemstatcost.txt.extract.log": "0af0feeb188392eca2597546be44b4c7f78b4deaefe1631a94c57ab0f3d6c860",
+    ".local/class-skills/generic-pet-search-producers/missiles.bin": "1fb0bf5090d879a6ad03441977f221b46a6dd1050a9adf0d2a133d7a96aea6cc",
+    ".local/class-skills/generic-pet-search-producers/missiles.bin.extract.log": "42a4c4fd7b1ee9d4d4e1489161e50cd4ca507bc95343136350a4187043f400df",
+    ".local/class-skills/generic-pet-search-producers/missiles.txt": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+    ".local/class-skills/generic-pet-search-producers/missiles.txt.extract.log": "33baede5211fc4b181dd983f01ea36e3111b5bd13399eedfc6d1598d06c9342a",
+    ".local/class-skills/warlock-foundation/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/warlock-foundation/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "data/Sanctuary/Balance/generic-pet-missile-sizes.json": "abd15f0afd2f3a50bd884c3d79732c2d204482c7585cbeb4396291f2fbaaef6e",
+    "tools/build_generic_pet_producer_data.py": "f91c868ec50759365032429a48f2efe8fa97fb4c9af6311000a3cc2a4e2758c9",
+    "tools/build_generic_pet_search_tables.py": "4709a4d2bebdb9e587d87f7affc565a8370d159f10a9c64674d463c49816db4e",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "remaining": [
+    "Native current getters/stat reader/missile size composition required. Explicit table views do not certify real selector aliases. Actual mask410producer and world grids remain separate."
+  ]
+}

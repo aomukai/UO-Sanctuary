@@ -18,7 +18,7 @@ public static class AssassinTrapMovementChecks
     {try{Check();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static Point2D Cell(JsonElement row)=>new(row[0].GetInt32(),row[1].GetInt32());
-    private static void Paths()
+    internal static void Paths()
     {
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"wall-follow-source-probe.json")));
         var grids=doc.RootElement.GetProperty("grids").EnumerateArray().Select(grid=>grid.EnumerateArray().Select(Cell).ToHashSet()).ToArray();

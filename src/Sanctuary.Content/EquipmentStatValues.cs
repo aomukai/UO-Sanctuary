@@ -41,12 +41,23 @@ internal sealed class EquipmentStatValues:EquipmentStatServices
         if(i>=0){values[i]=new(packed,value);return;}
         values=values.Append(new(packed,value)).OrderBy(v=>v.Packed).ToArray();
     }
-    private static int Clamp(int value,EquipmentStatDefinition cost,EquipmentStatNode node)
+    internal static int SourceMinimum(int value,bool hasMinimum,int minimum,int shift,int flags,int? unitKind)
     {
-        // The source compares the unshifted minimum before applying ValShift.
-        if(cost!=null&&(cost.Flags&1024)!=0&&node is{IsExtended:true,Owner.Kind:0 or 1}&&value<cost.Minimum)
-        {return checked(cost.Minimum<<cost.Shift);}
-        return value;
+        // Compare the raw value with the unshifted minimum before ValShift.
+        return hasMinimum&&flags<0&&unitKind is 0 or 1&&value<minimum?unchecked(minimum<<shift):value;
+    }
+    private static int Clamp(int value,EquipmentStatDefinition cost,EquipmentStatNode node)=>cost==null?value:
+        SourceMinimum(value,(cost.Flags&1024)!=0,cost.Minimum,cost.Shift,node==null?0:unchecked((int)node.Flags),node?.Owner?.Kind);
+    internal static int SourceIndex(IReadOnlyList<EquipmentStatValue> values,uint packed)
+    {
+        int first=0,last=values.Count;
+        while(first<last){int mid=first+(last-first)/2;if(unchecked((int)values[mid].Packed)<unchecked((int)packed)){first=mid+1;}else{last=mid;}}
+        return first<values.Count&&values[first].Packed==packed?first:-1;
+    }
+    internal static int SourceRead(EquipmentStatNode node,uint packed,EquipmentStatDefinition cost)
+    {
+        if(node==null){throw new NotSupportedException("Current stat reader dereferences a missing node");}
+        var values=node.Values;int index=SourceIndex(values,packed);return index<0?0:Clamp(values[index].Value,cost,node);
     }
     internal static int Base(EquipmentStatNode node,uint packed,bool clamp=true)=>Find(node.BaseValues,packed)<0?0:Clamp(Raw(node.BaseValues,packed),clamp?Definition(EquipmentStatKey.Stat(packed)):null,node);
     internal static int Total(EquipmentStatNode node,uint packed,bool clamp=true)=>Find(node.Values,packed)<0?0:Clamp(Raw(node.Values,packed),clamp?Definition(EquipmentStatKey.Stat(packed)):null,node);

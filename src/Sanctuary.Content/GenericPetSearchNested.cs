@@ -39,7 +39,7 @@ internal sealed record GenericPetSearchRelationNode(int Guid,uint Flags4,int Nex
 internal sealed record GenericPetSearchStatNode(int State32,int Next104);
 internal sealed record GenericPetSearchNestedServices(GenericPetSearchWorldServices World,Func<int,GenericPetSearchNestedUnit> Unit,
     Func<int,GenericPetSearchRelationNode> Relation,Func<int,GenericPetSearchStatNode> StatNode,
-    Func<byte,int,bool> HasStatMetadata,Func<int,int,int> NodeStatValue,Func<byte,ulong> WideStateCount,
+    Func<byte,int,EquipmentStatDefinition> StatMetadata,Func<int,int,EquipmentStatDefinition,int> NodeStatValue,Func<byte,ulong> WideStateCount,
     Func<byte,uint[]> CorpseMask410,Func<byte,int,GenericPetMonster2Metadata> Secondary,Func<byte,int,byte?> MissileSize434,
     Func<int,int,int,int,int,int,int> Trace2a6c40);
 internal static class GenericPetSearchNested
@@ -51,7 +51,8 @@ internal static class GenericPetSearchNested
         var extra=s.Unit(subject);
         int Find(int node){while(node!=0){var r=s.StatNode(node);if(r.State32==105){return node;}node=r.Next104;}return 0;}
         int found=Find(extra.PrimaryStatNode);if(found==0){found=Find(extra.SecondaryStatNode);}
-        return found!=0&&s.HasStatMetadata(u.Selector445,172)?s.NodeStatValue(found,0x00ac0000):0;
+        if(found==0){return 0;}var metadata=s.StatMetadata(u.Selector445,172);
+        return metadata==null?0:s.NodeStatValue(found,0x00ac0000,metadata);
     }
     internal static int Allegiance(int subject,int target,GenericPetSearchNestedServices s)
     {

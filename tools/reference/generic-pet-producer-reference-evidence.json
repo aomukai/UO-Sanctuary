@@ -1,0 +1,106 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Producer code references;mechanical scope is recorded separately",
+  "processMemoryRead": true,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "handlerEnabled": false,
+  "verified": {
+    "completeFunctions": 5,
+    "completeFunctionBytes": 2025,
+    "boundedLeafBytes": 128,
+    "leafCodeAndNopBytes": 113,
+    "leafPaddingBytes": 15,
+    "successfulCaptureReadBytes": 7666,
+    "failedAttemptAnchorReadBytesInferred": 560,
+    "totalReadBytesIncludingFailedAnchors": 8226,
+    "maximumReadBytesPerCall": 3570
+  },
+  "records": [
+    {
+      "rva": "0xf6f10",
+      "bytes": 101,
+      "completeUnwind": true,
+      "boundedLeaf": false
+    },
+    {
+      "rva": "0x24acd0",
+      "bytes": 125,
+      "completeUnwind": true,
+      "boundedLeaf": false
+    },
+    {
+      "rva": "0xdad30",
+      "bytes": 101,
+      "completeUnwind": true,
+      "boundedLeaf": false
+    },
+    {
+      "rva": "0x2a6c40",
+      "bytes": 1505,
+      "completeUnwind": true,
+      "boundedLeaf": false
+    },
+    {
+      "rva": "0x2972c0",
+      "bytes": 193,
+      "completeUnwind": true,
+      "boundedLeaf": false
+    },
+    {
+      "rva": "0x24a9d0",
+      "bytes": 128,
+      "completeUnwind": false,
+      "boundedLeaf": true
+    }
+  ],
+  "failedAttempt": {
+    "reason": "No primary unwind entry for the referenced lookup leaf",
+    "codeBytesRead": 0,
+    "anchorBytesInferredFromPreservedToolControlFlow": 560,
+    "processIdentityPersisted": false,
+    "logsPreserved": true
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-nested/277db0-code.asm": "ebfd56d7b9620878e9fa464c2d7525d6e3c1164849b55527a1cbc809b817136d",
+    ".local/class-skills/generic-pet-search-nested/277db0-code.bin": "98304f01ef3013ebd097a702877c668df1cf8a3b940bd1c580ed9918af299ce9",
+    ".local/class-skills/generic-pet-search-producers/capture-statlookup.log": "2ea3d0a4e544727579ea3fe0f2b8f76b49842245d7fd719e92451b00bce0bf52",
+    ".local/class-skills/generic-pet-search-producers/diagnostics/capture-tool-before-leaf.py": "b55c5858812d0c0af26f7465cefdfb1011af5f8950a62950c3da718a9bd4bbaf",
+    ".local/class-skills/warlock-runtime-reference/callees-search-alignment-idle-20261030-24eb30-part0.asm": "64e3c2587f60e9125219426aff402aaab6374d85890ca166b0887e7d7aa3a172",
+    ".local/class-skills/warlock-runtime-reference/callees-search-alignment-idle-20261030-24eb30-part0.bin": "468ff27ec6b662f55dc56eee34f3e1e0ebb0fb7f6b8a0d9432682d5d622025fc",
+    ".local/class-skills/warlock-runtime-reference/callees-search-alignment-idle-20261030.json": "9291a700f233ff08c6a9c75c55117ec9a90be5775ed9193c2c7ce221b3e599cc",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c500-part0.asm": "f9b1383dbacbced28b8f1794e468a26117c9aeb7620d4e9f5e215c220dd0705c",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030-27c500-part0.bin": "660048ac08ff1a7f8937edddf8920f93f85842c81f3d0bbdb7d7a28ea0992236",
+    ".local/class-skills/warlock-runtime-reference/callees-search-geometry-idle-20261030.json": "a2fa94c313ad15d463cf0f0aeae2936f90f821d6c209422556b2510bd18d02f4",
+    ".local/class-skills/warlock-runtime-reference/callees-search-statmeta-idle-20261030-f6f10-part0.asm": "714b6f2d9b1b0e55888853fc3ffd720e4f6aec827ba6d37eff4c3eb4e05ab475",
+    ".local/class-skills/warlock-runtime-reference/callees-search-statmeta-idle-20261030-f6f10-part0.bin": "f6899438412985362dd606c938d3922e193e97502289bd8e6f7612fe92098374",
+    ".local/class-skills/warlock-runtime-reference/callees-search-statmeta-idle-20261030.json": "f83d2e1d907ad85dac592865e01467e51a4f20bbfa93b2e98501a75e9b9195a8",
+    ".local/class-skills/warlock-runtime-reference/services-search-missilemeta-idle-20261030-dad30-part0.asm": "dea8d0dff90abd2c78da092600c128c6150993a2360ad6a439e739dd989ab44c",
+    ".local/class-skills/warlock-runtime-reference/services-search-missilemeta-idle-20261030-dad30-part0.bin": "252e2a2d7c93c5010750bd99bc87e86fd61ec58e6e9fdf3b1941e51a27b49b1c",
+    ".local/class-skills/warlock-runtime-reference/services-search-missilemeta-idle-20261030.json": "4e1a1f1e3a4479a5be05777667a66501a31f80dfd88e9b84f7f51425af7c5216",
+    ".local/class-skills/warlock-runtime-reference/services-search-neighbor-room-idle-20261030-2972c0-part0.asm": "bd01ede68f46f3f73447ec0e9bfae6f03e61c88ba2a469fc73355bd6a7a9bed7",
+    ".local/class-skills/warlock-runtime-reference/services-search-neighbor-room-idle-20261030-2972c0-part0.bin": "a69288093d0af13edbf1d94372f04622d131fbfd840da51c59d7d41f5f3212a4",
+    ".local/class-skills/warlock-runtime-reference/services-search-neighbor-room-idle-20261030.json": "cad154318ac7d243bfb1367fe61c65616a2c18174826681d9738928b421c0f15",
+    ".local/class-skills/warlock-runtime-reference/services-search-nodevalue-idle-20261030-24acd0-part0.asm": "6c454e3a96e88d84aca5435ba7cbf7cbaca0434c5edb63f8752a9d1f7ff00fdc",
+    ".local/class-skills/warlock-runtime-reference/services-search-nodevalue-idle-20261030-24acd0-part0.bin": "edf2c4e05917e01fa737882fdeaacef4b04cf0bf46ebe5925e193f6367f0c37a",
+    ".local/class-skills/warlock-runtime-reference/services-search-nodevalue-idle-20261030.json": "d22aee4df42646c8fa1e9bd5cd7cc367440520ad70957fa29d6cee22983592f2",
+    ".local/class-skills/warlock-runtime-reference/services-search-roomtrace-idle-20261030-2a6c40-part0.asm": "6ed3d6ad51ee21c042146291f858f9526af10d58d1a81b617e039251dd430502",
+    ".local/class-skills/warlock-runtime-reference/services-search-roomtrace-idle-20261030-2a6c40-part0.bin": "5701fb7387d68dd020abdf9dce87e2f07763285bea00d8e67c15c43823ea18fa",
+    ".local/class-skills/warlock-runtime-reference/services-search-roomtrace-idle-20261030.json": "9accf2b4b2c7f2a5b6c02dfa163cfc17841b0a4fb78a266290d70d255fa361a2",
+    ".local/class-skills/warlock-runtime-reference/services-search-statlookup-leaf-idle-20261030-24a9d0-part0.asm": "c9fdc4c357d1072414330581ed545e92e9febd4372fe8109990c6cd3e76d6a46",
+    ".local/class-skills/warlock-runtime-reference/services-search-statlookup-leaf-idle-20261030-24a9d0-part0.bin": "24088c142abe34197b9a61b5931a2cb52c3f6c218a49e821ce65ab5557ef5adb",
+    ".local/class-skills/warlock-runtime-reference/services-search-statlookup-leaf-idle-20261030.json": "9f3348961c91f7ff3608f55097ceb11c206814da66c09135e58eab4338039aff",
+    "tools/capture_reference_callees.py": "addf38dc41603fd7a180f5ab2863f8eecccc810f23bde0f8b78ae96282ffeb99",
+    "tools/capture_reference_service_edges.py": "b55c5858812d0c0af26f7465cefdfb1011af5f8950a62950c3da718a9bd4bbaf",
+    "tools/capture_reference_service_leaf.py": "8a8d031002204991a46a83144c34e973b21012dbed83487488610ad633eac287",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/record_generic_pet_producer_references.py": "372008cc399e09c4546427a99d8b357b59f8258bef2c6080fc18f6981092328e",
+    "tools/reference/generic-pet-search-nested-source-evidence.json": "d853dd7ce210c6e089aacf43e970f3554df19c791fdae938d0bfc5d786456bf1"
+  },
+  "remaining": [
+    "The lookup has no own unwind entry;its bounded128bytes end at the next known unwind start. Do not call it a complete-unwind function. Mechanical comparison,real source selectors and world/mask producers require separate evidence."
+  ]
+}

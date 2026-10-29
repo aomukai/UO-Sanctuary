@@ -132,9 +132,8 @@ public static class SourceWallFollow
         if(count==0){return 0;}
         major=dy>dx?(sy<=0?0:2):(sx<=0?3:1);
         if(count>budget-1){return 0;}
-        // Same source Bresenham error-floor sequence, expressed by step index.
-        for(int i=1;i<=count;i++)
-        {points[i-1]=Cell(origin.X+sx*(dx>=dy?i:i*dx/dy),origin.Y+sy*(dy>dx?i:i*dy/dx));}
+        var cursor=new SourceLineCursor(origin.X,origin.Y,target.X,target.Y);int x=origin.X,y=origin.Y;
+        for(int i=1;i<=count;i++){cursor.Advance(ref x,ref y,out _,out _);points[i-1]=Cell(x,y);}
         points[count]=new(0,points[count].Y);return count;
     }
     internal static Point2D[] Find(Point2D origin,Point2D target,int maximumDistance,bool hasTargetUnit,Func<int,int,bool> blocked)

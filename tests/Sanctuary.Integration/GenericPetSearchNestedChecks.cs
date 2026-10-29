@@ -17,8 +17,9 @@ public static class GenericPetSearchNestedChecks
     private static void Register(string name)=>ConsoleInputHandler.RegisterCommand(name,"Current nested search helpers and source composition",_=>Core.LoopContext.Post(()=>
     {try{Check();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     public static void Configure(){Register("generic-pet-search-nested-check");Register("generic-pet-search-nested-reload-check");}
-    private static (GenericPetSearchServiceChecks.Scene Scene,GenericPetSearchNestedServices Nested) Create(JsonElement p)
+    internal static (GenericPetSearchServiceChecks.Scene Scene,GenericPetSearchNestedServices Nested) Create(JsonElement p)
     {
+        _links??=BalanceCatalog.Read<GenericPetMonsterSecondaryLink>("generic-pet-search-monster-links");_rows??=BalanceCatalog.Read<GenericPetMonster2Metadata>("generic-pet-search-monster2");
         var scene=GenericPetSearchServiceChecks.Create(p);void A(params object[] values)=>scene.Trace.Add(values);
         var units=p.GetProperty("nested").EnumerateObject().ToDictionary(x=>int.Parse(x.Name),x=>
         {var r=x.Value;var sizes=Ints(r.GetProperty("objectSizes"));int id=p.GetProperty("unitIds").GetProperty(x.Name).GetInt32();return new GenericPetSearchNestedUnit(id,r.GetProperty("hasObjectBase").GetBoolean(),sizes[0],sizes[1],r.GetProperty("relationHead").GetInt32(),r.GetProperty("primary").GetInt32(),r.GetProperty("secondary").GetInt32());});
@@ -31,8 +32,8 @@ public static class GenericPetSearchNestedChecks
             ?GenericPetSecondaryTables.Table:new GenericPetSecondaryTable(links,rows.Take(p.GetProperty("secondaryCount").GetInt32()).ToArray());
         var maskRaw=p.GetProperty("mask410");uint[] mask=maskRaw.ValueKind==JsonValueKind.Null?null:maskRaw.EnumerateArray().Select(x=>x.GetUInt32()).ToArray();
         var nested=new GenericPetSearchNestedServices(scene.World,id=>units[id],id=>relations[id],id=>nodes[id],
-            (selector,id)=>{bool value=p.GetProperty("statMetadata").GetBoolean();A(71,selector,id,value);return value;},
-            (node,key)=>{int value=p.GetProperty("nodes").GetProperty(node.ToString())[2].GetInt32();A(72,node,key,value);return value;},
+            (selector,id)=>{bool value=p.GetProperty("statMetadata").GetBoolean();A(71,selector,id,value);return value?EquipmentStatValues.Definition(id):null;},
+            (node,key,metadata)=>{int value=p.GetProperty("nodes").GetProperty(node.ToString())[2].GetInt32();A(72,node,key,value);return value;},
             selector=>{if(selector is <1 or >3){throw new NotSupportedException("Unbound wide state table");}ulong count=p.GetProperty("wideCount").GetUInt64();A(70,selector,count);return count;},
             _=>mask,(selector,cls)=>table.Bind(selector).Row(selector,cls),
             (selector,cls)=>{var raw=p.GetProperty("missileSize");byte? value=raw.ValueKind==JsonValueKind.Null?null:raw.GetByte();A(74,selector,cls,value);return value;},
