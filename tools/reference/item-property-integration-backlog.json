@@ -815,7 +815,7 @@
     "src/Sanctuary.Content/NamedGear.cs": "8788daf4c2920ba1443624f261e3f7f1202a1e87a694d59735568ed5843c8f58",
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
-    "tools/reference/named-item-runtime-audit.json": "5bebbf670e5b12bd46f04250d109f82bbe1325a55157c6c22f7e2f211523cd14"
+    "tools/reference/named-item-runtime-audit.json": "d37fc6ee2ffe5b09a9ad4777daaa076afb82b74efa815199fca6cd34df55c429"
   },
   "recipientNumericContext": {
     "status": "Prepared numeric suppliers; full NPC stat graph/combat remains unfinished",
@@ -863,6 +863,618 @@
     "packedKey": "high16stat/low16layer",
     "graphSerialized": false,
     "liveNpcStatEffects": false
+  },
+  "rawNpcPropertyWriters": {
+    "status": "191 numeric writer plans verified; full item birth, special writers and live NPC effects unfinished",
+    "receipt": "tools/reference/item-property-writers-native-evidence.json",
+    "sourceReceipt": "tools/reference/item-property-writers-source-evidence.json",
+    "plans": 284,
+    "numericPlans": 191,
+    "unsupported": [
+      {
+        "code": "dur%",
+        "functions": [
+          13
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ama",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "pal",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "nec",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "sor",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "bar",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "fireskill",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "reanimate",
+        "functions": [
+          24
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dru",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ass",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "skill",
+        "functions": [
+          22
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "skilltab",
+        "functions": [
+          10
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "aura",
+        "functions": [
+          22
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att-skill",
+        "functions": [
+          11
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "hit-skill",
+        "functions": [
+          11
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "gethit-skill",
+        "functions": [
+          11
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "gembonus",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "regen-dur",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "fire-fx",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ltng-fx",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "sock",
+        "functions": [
+          14
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "gems%/lvl",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "item%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-slash",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-slash%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-crush",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-crush%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-thrust",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-thrust%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-slash",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-crush",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-thrust",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-slash%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-crush%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-thrust%",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ac/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ac%/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "hp/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "mana/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg%/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "str/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dex/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "enr/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "vit/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att%/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-cold/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-fire/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-ltng/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-pois/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "res-cold/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "res-fire/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "res-ltng/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "res-pois/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-cold/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-fire/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-ltng/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "abs-pois/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "gold%/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "mag%/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "regen-stam/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "stam/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-dem/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-und/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att-dem/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att-und/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "crush/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "wounds/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "kick/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "deadly/time",
+        "functions": [
+          18
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "gems%/time",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-mon",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg%-mon",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att-mon",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att%-mon",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ac-mon",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ac%-mon",
+        "functions": [],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "indestruct",
+        "functions": [
+          20
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "charged",
+        "functions": [
+          19
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "att-mon%",
+        "functions": [
+          24
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "dmg-mon%",
+        "functions": [
+          24
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "kill-skill",
+        "functions": [
+          11
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "death-skill",
+        "functions": [
+          11
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "levelup-skill",
+        "functions": [
+          11
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "skill-rand",
+        "functions": [
+          12
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "ethereal",
+        "functions": [
+          23
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "oskill",
+        "functions": [
+          22
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "state",
+        "functions": [
+          24
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "randclassskill",
+        "functions": [
+          36
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "war",
+        "functions": [
+          21
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "affix-rand",
+        "functions": [
+          25
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      },
+      {
+        "code": "war-tab-rand",
+        "functions": [
+          10,
+          10,
+          10
+        ],
+        "status": "Raw NPC writer not integrated; existing player support is separate"
+      }
+    ]
   },
   "numericOperationGaps": [
     {

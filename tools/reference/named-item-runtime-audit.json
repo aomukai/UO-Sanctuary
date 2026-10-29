@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "48eab6aee847499d08f5509b3432c39b1f6d8a8d932bca22af670e43c52f869f",
+  "ContentAssemblySha256": "16220db2f681aa50da598b144a9c5c61d0a1e36a2ae25ac335acc3aca62e40fa",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -37,6 +37,7 @@
     "data/Sanctuary/Balance/encounter-treasure.json": "d5368c6efa2b20ee75f6e752945689722aeea246151ebca779cfddcbfed8808c",
     "data/Sanctuary/Balance/encounters.json": "39aa4d77d456a75fe695b6ea702c2d577961b8145a5d23ee72fc63ce87112619",
     "data/Sanctuary/Balance/equipment-crafting-scope.json": "ea2e4296533ef77b931f0f8dbe8871c88e243d2f632c787901568f99e5bb21dc",
+    "data/Sanctuary/Balance/equipment-property-plans.json": "4ea7c16da2f441f682bfcf1e8acad080178365af0fcd38935b5dd4ad88e215bc",
     "data/Sanctuary/Balance/equipment-recipes.json": "9fd7507d4282f4e8a88ba7fb1435efbe58ad5050b417d0253cdf7c3917f6d2fc",
     "data/Sanctuary/Balance/equipment-sets.json": "298093643a8712d21f6aa4eebc7aaf7b0e9f2d5d4fb9737c796b9d37b322cb3c",
     "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
@@ -469,6 +470,7 @@
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/EquipmentInsurance.cs": "cc6bb67b78b980b989ec60163034e5abb3453f484748dbb0da0085480fb68ba4",
+    "src/Sanctuary.Content/EquipmentPropertyWriter.cs": "bd75b46758ecca52ad55dd12634b6d633f08244070016549bd79ba1a21e2cfe5",
     "src/Sanctuary.Content/EquipmentRepairs.cs": "1054a65cb71c0a5b1f6eef8b47c99df722758d9bf911f746aebf1bc14305417b",
     "src/Sanctuary.Content/EquipmentSalvage.cs": "695be4ca9b945d8572a5f60399f175bb5bfae16e852fc4a0ee79c3d1b78bb354",
     "src/Sanctuary.Content/EquipmentStatGraph.cs": "94df8f8ec8ee54d0ec80590e8cb37d391ac30d2b82e8c9aa77cf03c19dad9bde",

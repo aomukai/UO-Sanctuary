@@ -1,0 +1,3735 @@
+[
+  {
+    "Code": "ac",
+    "Ordinal": 0,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 31,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ac-miss",
+    "Ordinal": 1,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 32,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ac-hth",
+    "Ordinal": 2,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 33,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "red-dmg",
+    "Ordinal": 3,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 34,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "red-dmg%",
+    "Ordinal": 4,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 36,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ac%",
+    "Ordinal": 5,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 2,
+        "Stat": 16,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "red-mag",
+    "Ordinal": 6,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 35,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "str",
+    "Ordinal": 7,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 0,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dex",
+    "Ordinal": 8,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 2,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "vit",
+    "Ordinal": 9,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 3,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "enr",
+    "Ordinal": 10,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mana",
+    "Ordinal": 11,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 9,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mana%",
+    "Ordinal": 12,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 77,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "hp",
+    "Ordinal": 13,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 7,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "hp%",
+    "Ordinal": 14,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 76,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att",
+    "Ordinal": 15,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 19,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "block",
+    "Ordinal": 16,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 20,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cold-min",
+    "Ordinal": 17,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 54,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cold-max",
+    "Ordinal": 18,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 55,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cold-len",
+    "Ordinal": 19,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 56,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "fire-min",
+    "Ordinal": 20,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 48,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "fire-max",
+    "Ordinal": 21,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 49,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ltng-min",
+    "Ordinal": 22,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 50,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ltng-max",
+    "Ordinal": 23,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 51,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pois-min",
+    "Ordinal": 24,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 57,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pois-max",
+    "Ordinal": 25,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 58,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pois-len",
+    "Ordinal": 26,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 59,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-min",
+    "Ordinal": 27,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 5,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-max",
+    "Ordinal": 28,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 6,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg%",
+    "Ordinal": 29,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 7,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-to-mana",
+    "Ordinal": 30,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 114,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-fire",
+    "Ordinal": 31,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 39,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-fire-max",
+    "Ordinal": 32,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 40,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-ltng",
+    "Ordinal": 33,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 41,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-ltng-max",
+    "Ordinal": 34,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 42,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-cold",
+    "Ordinal": 35,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 43,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-cold-max",
+    "Ordinal": 36,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 44,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-mag",
+    "Ordinal": 37,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 37,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-mag-max",
+    "Ordinal": 38,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 38,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-pois",
+    "Ordinal": 39,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 45,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-pois-max",
+    "Ordinal": 40,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 46,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-all",
+    "Ordinal": 41,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 39,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 41,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 43,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 45,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-all-max",
+    "Ordinal": 42,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 40,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 42,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 44,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 46,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-fire%",
+    "Ordinal": 43,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 142,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-fire",
+    "Ordinal": 44,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 143,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-ltng%",
+    "Ordinal": 45,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 144,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-ltng",
+    "Ordinal": 46,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 145,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-mag%",
+    "Ordinal": 47,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 146,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-mag",
+    "Ordinal": 48,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 147,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-cold%",
+    "Ordinal": 49,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 148,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-cold",
+    "Ordinal": 50,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 149,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dur",
+    "Ordinal": 51,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 73,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dur%",
+    "Ordinal": 52,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 13,
+        "Stat": 75,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "regen",
+    "Ordinal": 53,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 74,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "thorns",
+    "Ordinal": 54,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 78,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "swing1",
+    "Ordinal": 55,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 93,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "swing2",
+    "Ordinal": 56,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 93,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "swing3",
+    "Ordinal": 57,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 93,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gold%",
+    "Ordinal": 58,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 79,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mag%",
+    "Ordinal": 59,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 80,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "knock",
+    "Ordinal": 60,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 81,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "regen-stam",
+    "Ordinal": 61,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 28,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "regen-mana",
+    "Ordinal": 62,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 27,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "stam",
+    "Ordinal": 63,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 11,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "time",
+    "Ordinal": 64,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 82,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "manasteal",
+    "Ordinal": 65,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 62,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "lifesteal",
+    "Ordinal": 66,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 60,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ama",
+    "Ordinal": 67,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pal",
+    "Ordinal": 68,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 3
+      }
+    ]
+  },
+  {
+    "Code": "nec",
+    "Ordinal": 69,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 2
+      }
+    ]
+  },
+  {
+    "Code": "sor",
+    "Ordinal": 70,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 1
+      }
+    ]
+  },
+  {
+    "Code": "bar",
+    "Ordinal": 71,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 4
+      }
+    ]
+  },
+  {
+    "Code": "herb",
+    "Ordinal": 72,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 88,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "light",
+    "Ordinal": 73,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 89,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "color",
+    "Ordinal": 74,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 90,
+        "Set": true,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ease",
+    "Ordinal": 75,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 91,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "move1",
+    "Ordinal": 76,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 96,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "move2",
+    "Ordinal": 77,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 96,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "move3",
+    "Ordinal": 78,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 96,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "balance1",
+    "Ordinal": 79,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 99,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "balance2",
+    "Ordinal": 80,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 99,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "balance3",
+    "Ordinal": 81,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 99,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "block1",
+    "Ordinal": 82,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 102,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "block2",
+    "Ordinal": 83,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 102,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "block3",
+    "Ordinal": 84,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 102,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cast1",
+    "Ordinal": 85,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 105,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cast2",
+    "Ordinal": 86,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 105,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cast3",
+    "Ordinal": 87,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 8,
+        "Stat": 105,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-pois-len",
+    "Ordinal": 88,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 110,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg",
+    "Ordinal": 89,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 111,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "howl",
+    "Ordinal": 90,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 112,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "stupidity",
+    "Ordinal": 91,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 113,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ignore-ac",
+    "Ordinal": 92,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 115,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "reduce-ac",
+    "Ordinal": 93,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 116,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "noheal",
+    "Ordinal": 94,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 117,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "half-freeze",
+    "Ordinal": 95,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 118,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att%",
+    "Ordinal": 96,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 119,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-ac",
+    "Ordinal": 97,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 120,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-demon",
+    "Ordinal": 98,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 121,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-undead",
+    "Ordinal": 99,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 122,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-demon",
+    "Ordinal": 100,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 123,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-undead",
+    "Ordinal": 101,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 124,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "throw",
+    "Ordinal": 102,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 125,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "fireskill",
+    "Ordinal": 103,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 126,
+        "Set": false,
+        "Value": 1
+      }
+    ]
+  },
+  {
+    "Code": "allskills",
+    "Ordinal": 104,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 127,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "light-thorns",
+    "Ordinal": 105,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 128,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "freeze",
+    "Ordinal": 106,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 134,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "openwounds",
+    "Ordinal": 107,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 135,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "crush",
+    "Ordinal": 108,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 136,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "kick",
+    "Ordinal": 109,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 137,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mana-kill",
+    "Ordinal": 110,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 138,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "demon-heal",
+    "Ordinal": 111,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 139,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "bloody",
+    "Ordinal": 112,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 140,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "deadly",
+    "Ordinal": 113,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 141,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "slow",
+    "Ordinal": 114,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 150,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "nofreeze",
+    "Ordinal": 115,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 153,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "stamdrain",
+    "Ordinal": 116,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 154,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "reanimate",
+    "Ordinal": 117,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 24,
+        "Stat": 155,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce",
+    "Ordinal": 118,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 156,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "magicarrow",
+    "Ordinal": 119,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 157,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "explosivearrow",
+    "Ordinal": 120,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 158,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dru",
+    "Ordinal": 122,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 5
+      }
+    ]
+  },
+  {
+    "Code": "ass",
+    "Ordinal": 123,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 6
+      }
+    ]
+  },
+  {
+    "Code": "skill",
+    "Ordinal": 124,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 22,
+        "Stat": 107,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "skilltab",
+    "Ordinal": 125,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 10,
+        "Stat": 188,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "aura",
+    "Ordinal": 126,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 22,
+        "Stat": 151,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-skill",
+    "Ordinal": 127,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 11,
+        "Stat": 195,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "hit-skill",
+    "Ordinal": 128,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 11,
+        "Stat": 198,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gethit-skill",
+    "Ordinal": 129,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 11,
+        "Stat": 201,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gembonus",
+    "Ordinal": 130,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "regen-dur",
+    "Ordinal": 131,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "fire-fx",
+    "Ordinal": 132,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "ltng-fx",
+    "Ordinal": 133,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "sock",
+    "Ordinal": 134,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 14,
+        "Stat": 194,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-fire",
+    "Ordinal": 135,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 48,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 49,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-ltng",
+    "Ordinal": 136,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 50,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 51,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-mag",
+    "Ordinal": 137,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 52,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 53,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-cold",
+    "Ordinal": 138,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 54,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 55,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 17,
+        "Stat": 56,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-pois",
+    "Ordinal": 139,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 57,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 58,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 17,
+        "Stat": 59,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-throw",
+    "Ordinal": 140,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 159,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 160,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-norm",
+    "Ordinal": 141,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 21,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 22,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ac/lvl",
+    "Ordinal": 142,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 214,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ac%/lvl",
+    "Ordinal": 143,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 215,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "hp/lvl",
+    "Ordinal": 144,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 216,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mana/lvl",
+    "Ordinal": 145,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 217,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg/lvl",
+    "Ordinal": 146,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 218,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg%/lvl",
+    "Ordinal": 147,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 219,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "str/lvl",
+    "Ordinal": 148,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 220,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dex/lvl",
+    "Ordinal": 149,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 221,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "enr/lvl",
+    "Ordinal": 150,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 222,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "vit/lvl",
+    "Ordinal": 151,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 223,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att/lvl",
+    "Ordinal": 152,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 224,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att%/lvl",
+    "Ordinal": 153,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 225,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-cold/lvl",
+    "Ordinal": 154,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 226,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-fire/lvl",
+    "Ordinal": 155,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 227,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-ltng/lvl",
+    "Ordinal": 156,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 228,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-pois/lvl",
+    "Ordinal": 157,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 229,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-cold/lvl",
+    "Ordinal": 158,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 230,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-fire/lvl",
+    "Ordinal": 159,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 231,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-ltng/lvl",
+    "Ordinal": 160,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 232,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-pois/lvl",
+    "Ordinal": 161,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 233,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-cold/lvl",
+    "Ordinal": 162,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 234,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-fire/lvl",
+    "Ordinal": 163,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 235,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-ltng/lvl",
+    "Ordinal": 164,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 236,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-pois/lvl",
+    "Ordinal": 165,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 237,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "thorns/lvl",
+    "Ordinal": 166,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 238,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gold%/lvl",
+    "Ordinal": 167,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 239,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mag%/lvl",
+    "Ordinal": 168,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 240,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "regen-stam/lvl",
+    "Ordinal": 169,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 241,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "stam/lvl",
+    "Ordinal": 170,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 242,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-dem/lvl",
+    "Ordinal": 171,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 243,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-und/lvl",
+    "Ordinal": 172,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 244,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-dem/lvl",
+    "Ordinal": 173,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 245,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-und/lvl",
+    "Ordinal": 174,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 246,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "crush/lvl",
+    "Ordinal": 175,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 247,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "wounds/lvl",
+    "Ordinal": 176,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 248,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "kick/lvl",
+    "Ordinal": 177,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 249,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "deadly/lvl",
+    "Ordinal": 178,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 250,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gems%/lvl",
+    "Ordinal": 179,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "rep-dur",
+    "Ordinal": 180,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 252,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "rep-quant",
+    "Ordinal": 181,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 253,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "stack",
+    "Ordinal": 182,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 254,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "item%",
+    "Ordinal": 183,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg-slash",
+    "Ordinal": 184,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg-slash%",
+    "Ordinal": 185,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg-crush",
+    "Ordinal": 186,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg-crush%",
+    "Ordinal": 187,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg-thrust",
+    "Ordinal": 188,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg-thrust%",
+    "Ordinal": 189,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "abs-slash",
+    "Ordinal": 190,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "abs-crush",
+    "Ordinal": 191,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "abs-thrust",
+    "Ordinal": 192,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "abs-slash%",
+    "Ordinal": 193,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "abs-crush%",
+    "Ordinal": 194,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "abs-thrust%",
+    "Ordinal": 195,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "ac/time",
+    "Ordinal": 196,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 268,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ac%/time",
+    "Ordinal": 197,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 269,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "hp/time",
+    "Ordinal": 198,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 270,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mana/time",
+    "Ordinal": 199,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 271,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg/time",
+    "Ordinal": 200,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 272,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg%/time",
+    "Ordinal": 201,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 273,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "str/time",
+    "Ordinal": 202,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 274,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dex/time",
+    "Ordinal": 203,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 275,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "enr/time",
+    "Ordinal": 204,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 276,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "vit/time",
+    "Ordinal": 205,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 277,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att/time",
+    "Ordinal": 206,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 278,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att%/time",
+    "Ordinal": 207,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 279,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-cold/time",
+    "Ordinal": 208,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 280,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-fire/time",
+    "Ordinal": 209,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 281,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-ltng/time",
+    "Ordinal": 210,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 282,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-pois/time",
+    "Ordinal": 211,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 283,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-cold/time",
+    "Ordinal": 212,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 284,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-fire/time",
+    "Ordinal": 213,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 285,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-ltng/time",
+    "Ordinal": 214,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 286,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "res-pois/time",
+    "Ordinal": 215,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 287,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-cold/time",
+    "Ordinal": 216,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 288,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-fire/time",
+    "Ordinal": 217,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 289,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-ltng/time",
+    "Ordinal": 218,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 290,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "abs-pois/time",
+    "Ordinal": 219,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 291,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gold%/time",
+    "Ordinal": 220,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 292,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "mag%/time",
+    "Ordinal": 221,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 293,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "regen-stam/time",
+    "Ordinal": 222,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 294,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "stam/time",
+    "Ordinal": 223,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 295,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-dem/time",
+    "Ordinal": 224,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 296,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-und/time",
+    "Ordinal": 225,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 297,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-dem/time",
+    "Ordinal": 226,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 298,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-und/time",
+    "Ordinal": 227,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 299,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "crush/time",
+    "Ordinal": 228,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 300,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "wounds/time",
+    "Ordinal": 229,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 301,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "kick/time",
+    "Ordinal": 230,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 302,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "deadly/time",
+    "Ordinal": 231,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 18,
+        "Stat": 303,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "gems%/time",
+    "Ordinal": 232,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "pierce-fire",
+    "Ordinal": 233,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 333,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-ltng",
+    "Ordinal": 234,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 334,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-cold",
+    "Ordinal": 235,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 335,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-pois",
+    "Ordinal": 236,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 336,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-mon",
+    "Ordinal": 237,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "dmg%-mon",
+    "Ordinal": 238,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "att-mon",
+    "Ordinal": 239,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "att%-mon",
+    "Ordinal": 240,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "ac-mon",
+    "Ordinal": 241,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "ac%-mon",
+    "Ordinal": 242,
+    "Supported": false,
+    "Steps": []
+  },
+  {
+    "Code": "indestruct",
+    "Ordinal": 243,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 20,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "charged",
+    "Ordinal": 244,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 19,
+        "Stat": 204,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "extra-fire",
+    "Ordinal": 245,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 329,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "extra-ltng",
+    "Ordinal": 246,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 330,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "extra-cold",
+    "Ordinal": 247,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 331,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "extra-pois",
+    "Ordinal": 248,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 332,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-elem",
+    "Ordinal": 249,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 15,
+        "Stat": 48,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 49,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 15,
+        "Stat": 50,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 51,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 15,
+        "Stat": 54,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 16,
+        "Stat": 55,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 17,
+        "Stat": 56,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-elem-min",
+    "Ordinal": 250,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 48,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 50,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 54,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-elem-max",
+    "Ordinal": 251,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 49,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 51,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 55,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 17,
+        "Stat": 56,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "all-stats",
+    "Ordinal": 252,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 0,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 1,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 2,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 3,
+        "Stat": 3,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "addxp",
+    "Ordinal": 253,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 85,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "heal-kill",
+    "Ordinal": 254,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 86,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "cheap",
+    "Ordinal": 255,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 87,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "rip",
+    "Ordinal": 256,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 108,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "att-mon%",
+    "Ordinal": 257,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 24,
+        "Stat": 179,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "dmg-mon%",
+    "Ordinal": 258,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 24,
+        "Stat": 180,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "kill-skill",
+    "Ordinal": 259,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 11,
+        "Stat": 196,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "death-skill",
+    "Ordinal": 260,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 11,
+        "Stat": 197,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "levelup-skill",
+    "Ordinal": 261,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 11,
+        "Stat": 199,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "skill-rand",
+    "Ordinal": 262,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 12,
+        "Stat": 107,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "fade",
+    "Ordinal": 263,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 181,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "levelreq",
+    "Ordinal": 264,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 92,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "ethereal",
+    "Ordinal": 265,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 23,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "oskill",
+    "Ordinal": 266,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 22,
+        "Stat": 97,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "state",
+    "Ordinal": 267,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 24,
+        "Stat": 98,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "randclassskill",
+    "Ordinal": 268,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 36,
+        "Stat": 83,
+        "Set": false,
+        "Value": 3
+      }
+    ]
+  },
+  {
+    "Code": "noconsume",
+    "Ordinal": 269,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 205,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-immunity-cold",
+    "Ordinal": 270,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 187,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-immunity-fire",
+    "Ordinal": 271,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 189,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-immunity-light",
+    "Ordinal": 272,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 190,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-immunity-poison",
+    "Ordinal": 273,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 191,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-immunity-damage",
+    "Ordinal": 274,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 192,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-immunity-magic",
+    "Ordinal": 275,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 193,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "charge-noconsume",
+    "Ordinal": 276,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 200,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "war",
+    "Ordinal": 277,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 21,
+        "Stat": 83,
+        "Set": false,
+        "Value": 7
+      }
+    ]
+  },
+  {
+    "Code": "dmg-mag/lvl",
+    "Ordinal": 278,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 17,
+        "Stat": 365,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-mag",
+    "Ordinal": 279,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 358,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "pierce-dmg",
+    "Ordinal": 280,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 366,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "affix-rand",
+    "Ordinal": 281,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 25,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "extra-skill-dmg%-rand",
+    "Ordinal": 282,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 329,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 1,
+        "Stat": 330,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 1,
+        "Stat": 331,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 1,
+        "Stat": 332,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 1,
+        "Stat": 357,
+        "Set": false,
+        "Value": 0
+      },
+      {
+        "Function": 7,
+        "Stat": -1,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  },
+  {
+    "Code": "war-tab-rand",
+    "Ordinal": 283,
+    "Supported": false,
+    "Steps": [
+      {
+        "Function": 10,
+        "Stat": 188,
+        "Set": false,
+        "Value": 21
+      },
+      {
+        "Function": 10,
+        "Stat": 188,
+        "Set": false,
+        "Value": 22
+      },
+      {
+        "Function": 10,
+        "Stat": 188,
+        "Set": false,
+        "Value": 23
+      }
+    ]
+  },
+  {
+    "Code": "extra-mag",
+    "Ordinal": 284,
+    "Supported": true,
+    "Steps": [
+      {
+        "Function": 1,
+        "Stat": 357,
+        "Set": false,
+        "Value": 0
+      }
+    ]
+  }
+]

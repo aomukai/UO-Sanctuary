@@ -34,6 +34,13 @@ The prepared C# graph matches the source posting/removal/owner/damage-toggle pol
 The prepared numeric service now supplies recursive queries, dependency recalculation, propagation and base setters to the ownership graph. Source-assembled metadata covers 368 rows; 4,784 fields and every row ordinal match the owned build. Native results match 105,984 queries and 480 six-stage update cases from 23 complete source routines, including layered keys and value-change callbacks. Actual original armor/sword suppliers enter and leave transient numeric graphs before and after two reloads. The item projection is still explicitly supplied, with no live NPC stat setter or automatic graph replay. Player ModStats registration and world-time/class mapping remain outside the NPC adapter. By-time arithmetic is source-verified under declared clock angles; the world-time item consumer is still unfinished. See [numeric graph acceptance](../tools/reference/item-stat-values-native-evidence.json).
 
 
+## Raw NPC property writers
+
+Saved original numeric property rolls now use 191 source-derived writer plans. All 284 property plans are inventoried; 93 plans remain outside this raw NPC writer adapter, including special/skill/event/socket functions. This is separate from existing player support and named acquisition eligibility. The machine inventory lists every omitted code and function. Fifteen complete source routines match 45,840 native dispatch/base-reset/ethereal cases and exact write traces; all 7,952 func/stat/set/val fields and 32 selected base fields match owned data.
+
+Real original Spirit Forge armor and an ordinary sword exercise saved-roll projection, raw per-level coefficients, recipient-level calculations, removal and two actual reloads. The armor explicitly reports its socket writer omission. Original items are never rerolled; unrepresented zero-parameter or shared-zero fallback rolls are reported rather than invented. Crafted/material/socket contents, quality initialization and conditional named-piece stats remain explicit omissions. Base arrays/type metadata remain caller inputs, and full creation/ethereal order plus modern low-ED fallback/base-reset parity still need corroboration before live NPC integration. See [raw writer acceptance](../tools/reference/item-property-writers-native-evidence.json).
+
+
 ## Exact ordinary-affix gap in the current Valkyrie pool
 
 | Source property code | Affixes containing the gap | Existing named registration |

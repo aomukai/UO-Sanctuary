@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Numeric property dispatch/base reset/ethereality source composition",
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "tools/reference/npc-item-suppliers-source-evidence.json": "3fb7fe216e2258487a8401ae9af728f5839bd95fa398c79c3259f33790a49973",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    ".local/class-skills/npc-item-suppliers-source/properties.txt": "382528362751c68646e98d4a296c357276ab9a1ee0b7053c29e5df6b6252a1ef",
+    "tools/reference/item-stat-values-source-evidence.json": "76aeed1a76306a99791f2a00da3c2c00a665c1947b559b2133c14443fa18bcde",
+    ".local/class-skills/npc-item-suppliers-source/itemstatcost.txt": "99960b46e1963b20fa120bd4d1f77e4b28138330ccec65c7fab0bfd3db6fd8e8",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    ".local/class-skills/item-stat-values-source-probe.json": "9e93f286bd003d723f19f3a1b840b9d52a7655ca441abb1163f52f4c9580b6bb",
+    "tools/reference/iron-golem-local-items-evidence.json": "61662e17d313ec79aa6db514b5740e6691a580cd48a9945349c42a2b8b146204",
+    ".local/class-skills/iron-golem-items-source/owned/weapons.txt": "b0890901f87fd42fcb474ce835b6e1a9fe1e66dbab4e7c2f236a3d9c3224f923",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    ".local/class-skills/iron-golem-items-source/owned/armor.txt": "734872b6dde85073c6ebaf4199ec4bd2b30efcbf9f0e60e381af2e22662a1b4f",
+    "tools/reference/d2r-named-equipment/json/armor.json": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "tools/probe_item_property_writers.py": "10926cf1dace1ca58443d1993972e4871310dc7bfcea8b130ef4e1b08535e9c4"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "sub_6FD92CF0": "cdbf0db0f101cd1c69932be629995b2bf0223d93b82318b79e53ce410dc14032",
+    "ITEMMODS_ApplyEthereality": "54da0ac7524c5526e5e381bc798c06bc7d22fe629df6e42fa665cd4ec9765001",
+    "ITEMMODS_AddPropertyToItemStatList": "f93256c6d6c1e2b9f3ee50720f87de66762870b448720a2350b4c8d0fa688f48",
+    "ITEMMODS_PropertyFunc01": "1485f7206c6d4642b85feed5adfdce95ae0bd0c5e9106636131571ca9a097efe",
+    "ITEMMODS_PropertyFunc02": "185ba3499f82642392a3d4c1070c323511b31e1afe917c1cfc31eb0a17a641f9",
+    "ITEMMODS_PropertyFunc03": "d5a3825fd3779a46eba01057b415f7aab1ff658cd17de9233b526ce6ee2be22c",
+    "ITEMMODS_PropertyFunc04": "2134df274b6fa536234e02e3a26f0ac893dc8728af2eb2c5f3b23a0938826849",
+    "ITEMMODS_PropertyFunc05": "e284c67976ca1f10fe66edb66c71365333738f73a06efe0c4edf9d69cbcd99c5",
+    "ITEMMODS_PropertyFunc06": "edf4c5e55e67ff5be7907ce83d6479d5d604de0c54623cbcb429baeb2bb00484",
+    "ITEMMODS_PropertyFunc07": "571a37e7ec670cc795f88ec70fac962e4999ba09cb3b11ef7c98dd6d7c7eaab3",
+    "ITEMMODS_PropertyFunc08": "6688b2a7a2df967a797ea51c720d4f4ab158544b9ba0dffe36dd4b98c610f322",
+    "ITEMMODS_PropertyFunc15": "d6c91e0f6b3096db01985bb64b59ca6dc814a0dbb362b4a2109ef7974eb5cad6",
+    "ITEMMODS_PropertyFunc16": "9c77d1cba979b601e9b61a90bc38c01749c5bd6e4f3c18772278acc6f4d8390e",
+    "ITEMMODS_PropertyFunc17": "1aecef55b306f75e1c328290ea90696b2aae36888320468d01873c01b66d91f0",
+    "D2COMMON_11292_ItemAssignProperty": "0e17ebcaf0d7c2eedbaa64c8516f50847e29d2db29123e2f5eff5e55ce943238"
+  },
+  "verified": {
+    "propertyRows": 284,
+    "propertyFields": 7952,
+    "supportedNumericPlans": 191,
+    "sourceCases": 45840,
+    "completeRoutines": 15,
+    "ownedBases": 4,
+    "ownedBaseFields": 32
+  },
+  "artifacts": {
+    ".local/class-skills/item-property-writers-source/source.cpp": "ee685179fbef917182583935bfd52ed90d09b7232b0c43a396e1dca178f224cc",
+    ".local/class-skills/item-property-writers-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-property-writers-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-property-writers-source-probe.json": "83b784565ebd765ae02cd985af7f5e4df690b35f9d043bdfbb5c0d6188d231ff",
+    ".local/class-skills/item-property-writers-source/diagnostics/unresolved-stat-token/producer.py": "676f26ed8a3078f5b3109e5726d1a6350d4b6c04e499e8e605bcdb8f9bc20bbf",
+    ".local/class-skills/item-property-writers-source/diagnostics/unresolved-stat-token/run.log": "9e910a5138b222a31b85496bf83392864159f97140072b240f34361570752384"
+  },
+  "established": [
+    "Complete dispatcher preserves the first function result for all later property slots. Eleven complete numeric writers compose with full base-reset,stat-list write and ethereality routines. Metadata includes all seven func/stat/set/val slots for284owned properties,with the Expansion marker retained as an unused ordinal.",
+    "The owned extra-skill-dmg%-rand row names dmg%,which has no itemstatcost row;its func7ignores that stat except in the verified fallback. This declared unresolved-name link is represented as-1 and remains an explicit metadata caveat.",
+    "Cases execute ordinary/grade/unique modes,zero/small/high fixed rolls,allocation failure and optional post-property ethereality across owned one-hand,two-hand,throwing and armor bases. Base/stat-list writes and ordered service traces remain explicit;RNG/allocation are declared fixture services."
+  ],
+  "remaining": [
+    "Native writer/projection integration,original saved rolls/ranges and creation order,base initialization and current executable corroboration remain unfinished. Skill/event/special property functions are explicitly outside the numeric function set. These fixed-roll cases do not certify arbitrary roll ranges or every modifier combination. Armor type and throwability are declared fixture classifications,not a complete item-type resolver."
+  ]
+}
