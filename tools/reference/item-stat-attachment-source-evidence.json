@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Item stat attachment,detachment,ownership and damage inclusion policy",
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Inventory.h": "c753eab99eae7f4298448ea6ed2e3d68504464ff8cb25746595e4ee7ed3d61e6",
+    "tools/probe_item_stat_attachment.py": "798d4993b832a148897f0905f43a4125d0b0e7c8d746ce4b921c78e779c08d7e"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "D2Common_ExpireStatList_6FDB6E30": "beed0431e94762f8e5729d479654cc7327ceec69c6b1a3afef2f4bbebdf53b8a",
+    "D2COMMON_10475_PostStatToStatList": "60eafeff8d4380edbefa460a56cc6902a6e5a20471ce332a589727884a852727",
+    "STATLIST_MergeStatLists": "396ee00e0f092b0332f533757b9856da986463b3aaa9445ec4f8977d9fbdc958",
+    "STATLIST_GetOwner": "e8ba6e8182bf01e45936976055805cf7abe843ed3b5549df9fe13f5a09114104",
+    "D2Common_11274_11275_Impl": "fe7195e99fa47c214f9a130f1e7d1bf2639a8952b2761421e33fd2dd430e5688",
+    "D2Common_11274": "c7d46e1f325b100129a8f7b8298f6bc2d3565dd24ada50e92dfc5a69a4b3c38c",
+    "D2Common_11275": "7faf12e31c245601ee7a46bcf039fa473959d3c22c4915cee0e9e3a29d5a2f39"
+  },
+  "verified": {
+    "contexts": 12288,
+    "stagesPerContext": 5,
+    "completeRoutines": 7
+  },
+  "artifacts": {
+    ".local/class-skills/item-stat-attachment-source/source.cpp": "c8a185977a40af8ee53efdb5b7d3b72e3a84909b29bbf4bf0139d76b0a476bb4",
+    ".local/class-skills/item-stat-attachment-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-stat-attachment-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-stat-attachment-source-probe.json": "1dc1edeb7d3b06452e2f0a64c0823eb29a2b71aab4cac9d9e493b6b3b6bf4020",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/before-reset-flag-expansion/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/before-reset-flag-expansion/probe": "4dca4611ac1382580b9b3b21aecc6cf72e96bc829be2b4287da64a2fd6caedc2",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/before-reset-flag-expansion/producer.py": "9fd1880162d4463f5c06f4397fdff4c7db5189aaab1a66028cf4025c5f2bd09a",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/before-reset-flag-expansion/receipt.json": "a23167d94a87f478acfb09ef430069799d97990f809c6c95b019ecaced6bf441",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/before-reset-flag-expansion/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/before-reset-flag-expansion/source.cpp": "39421aaa46b4d233255e3dae3470fe21c02078b605649b5b1ac62bce71c6896a",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/initial-bit-helper/compiler.log": "7390cc30b7c2943efb7eb0bb6b543ce8d3cb1cf7282b5775a1dc5e486fc456e0",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/initial-bit-helper/producer.py": "17cc1da59b1772aeae94a024b6ba0bacf216340909b9f1e39ec6ee5e44355493",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/initial-bit-helper/run.log": "0e07b1ea8abb885e32ce60dec7ae8dfe0970877158e298dcee9e3b12f3dbf680",
+    ".local/class-skills/item-stat-attachment-source/diagnostics/initial-bit-helper/source.cpp": "1b0869f9480ba3caf8207115167c36dad228045e652d2b147a93813f7acd5def"
+  },
+  "established": [
+    "Seven complete unchanged routines execute both reset-flag post modes,repeat,damage inclusion/exclusion and final detach against real fixture pointer graphs. Extended/nonextended lists,flags,alternate body slots,old parents,missing units/statlists and unusable target roots retain exact source topology and ordered callback/delta requests. STATLIST_SET is an internal list flag,not named set-item quality.",
+    "Owner lookup follows an extended parent statlist;it is distinct from the stored pUnit recipient. In particular,merge writes the new recipient even if posting refuses a nonextended target. Repeat posting and dynamic-damage toggles remain separate paths. Detach clears parent,recipient and sibling pointers before removal callback."
+  ],
+  "remaining": [
+    "Fixture stat IDs0/1/2and their contrasting flags/values are abstract declared metadata,not the current player stat-ID catalogue. Delta propagation,operation recalculation and removal callbacks are declared trace services,not the complete stat graph or native HP/resistance/damage consumers. Applying-to-item recalculation is observed without inventing numeric output. Sibling insertion coverage is bounded to one item;cycles/multi-item ordering,full callback reentrancy and actual NPC/save lifecycle remain unfinished. No learned golem or current executable parity is claimed."
+  ]
+}
