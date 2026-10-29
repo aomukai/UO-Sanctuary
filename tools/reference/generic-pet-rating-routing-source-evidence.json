@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current GenericPet target-category rating routing",
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "fullPerTargetScoringVerified": false,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "verified": {
+    "contexts": 14088,
+    "capturedHelperBytes": 720,
+    "inlineTableBytes": 52,
+    "scoreCalls": 4255
+  },
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-rating-routing-source-probe.json": "0555a0cafbaf444df51d828af7e7d4aadcb1a6dc60b50b76345d307fd2d10d41",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b5200-part0.bin": "198c98be9a1bee65bd98d8e4a526ba652ada3ba3379e08c31eb69b58db93903a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b5200-part1.bin": "e3e2fc1556113d97ae54dc097d5eddc823dcba8f5fa4de921473621b79f3665a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b5200-part2.bin": "bd9db900329643e0b02fcbf83dd8c4b403533a29a73d807aa908f7a878f8d286",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029.json": "202d740541dad9026a96f3480baf1f1850e6c058357545648eeb72db1da57918",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_rating_routing.py": "7fa2e00eaed9bec7fff433c555a7ba7d891041e9a2c7c8bb141a356ad5fbd63a",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Skill flags and the mandatory per-target scoring callee are declared. Distinct payload mutations and supplied scores test exact prepass,copy/discard,retry and priority behavior;the fixture function is not a gameplay scoring formula.",
+    "The complete720-byte captured routing helper executes,including its52-byte inline13-entry jump table as data. Frame100 and selection word fields retain neutral raw names;no health/distance semantics are inferred."
+  ],
+  "remaining": [
+    "The3092-byte current per-target scoring helper still requires implementation and independent comparison. Target search,world metadata,real actors/actions and lifecycle remain unfinished. No learned demon is enabled."
+  ]
+}
