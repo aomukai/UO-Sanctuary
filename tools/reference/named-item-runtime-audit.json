@@ -1,13 +1,13 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a606aecc87d52150334ca880c5e44941bddcbc6de3051dbee3d064c4d273ed26",
+  "ContentAssemblySha256": "c7393555c0f4ab1b7feaf5f6f9630a9e73aa36d9c69d6339e2fe4d1eed30bc60",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/alchemy-restoratives.json": "15d82f3a3c74aa7c6df41aaa1a6fe288c99364fbd77d6e1bc913880559790319",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "29edab9a04421d879e822b197be75595e0da314d060af19adfa9089411b79265",
+    "data/Sanctuary/Balance/class-skill-status.json": "4e2918b482f6f6e4115ceaef79c5c007a9d3d34fffae95605af40caea1ad3b20",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -516,6 +516,7 @@
     "src/Sanctuary.Content/GraveyardHealer.cs": "aedd3e618359b4b7d6d89bd68fde2f1e750c9d62bc42d508ee0f8661d93f2f06",
     "src/Sanctuary.Content/GraveyardPopulation.cs": "e3ef472cc12c65080692af4c7234af24528009c0b98da23b5d1aab389b419973",
     "src/Sanctuary.Content/GraveyardUndead.cs": "436cd45790d6470172d7fbfcd108f1772d8a31ccf23d4f687d0d5e5637cedce1",
+    "src/Sanctuary.Content/GrimWardLifecycle.cs": "d3c196625ee488bb57550f2b6ff9b2a7b2ac5f53e63d28f390d1f9b79f08a6dc",
     "src/Sanctuary.Content/GroundMissileLaunch.cs": "ad679af4033fdf5c3a27dfcae6f9992a94cde66faa54ca6bb243ce8804546a18",
     "src/Sanctuary.Content/GroundMissileScatter.cs": "102701077f35d2214e2cd9fc96aeb458b7d33035aa8c12b95fc2303d65beb746",
     "src/Sanctuary.Content/GuidedArrows.cs": "a4a73efa4198cdcb79656eabf9e927f55221140a1ed0327bba7cef34230d1c1d",

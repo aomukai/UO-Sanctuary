@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Prepared Grim Ward placement,start-child and periodic lifecycle kernel",
+  "currentExecutableParityVerified": false,
+  "handlerEnabled": false,
+  "historicalCppAvailable": false,
+  "canonicalGeneratorCommit": "10e9c27",
+  "verified": {
+    "compiledWholeRoutines": 6,
+    "lifecycleCases": 3144,
+    "placementCases": 1024,
+    "childCases": 800,
+    "periodCases": 1320,
+    "pulseValues": 167,
+    "ownedStartFrames": [
+      5,
+      8,
+      8
+    ],
+    "ownedBodyFrames": 1000,
+    "ownedPeriodFrames": 6,
+    "ownedDispatch": 30
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/grim-ward-lifecycle/lifecycle-source-probe": "978aa935a4af6700dd25792f8a7d29955d8c6d858ddff4ad6611c77ffa139041",
+    ".local/class-skills/grim-ward-lifecycle/lifecycle-source-probe.cpp": "1700ddc22d8f7effd00056aba5e734eb9214e736f273f361e2d1cf48a3fccb97",
+    ".local/class-skills/grim-ward-lifecycle/source-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/grim-ward-lifecycle-source-probe.json": "493c78122767f5508eaf6f6dc7b3c655965f8ce650e44c5771e3503bcbecfab7",
+    ".local/class-skills/grim-ward-source-probe.json": "493c78122767f5508eaf6f6dc7b3c655965f8ce650e44c5771e3503bcbecfab7",
+    "tools/probe_grim_ward_lifecycle.py": "25a41942e2ffab6821e376a1d8a38b87da2802f56969613c5e7a7b75412809c8",
+    "tools/probe_grim_ward_reference.py": "75995211542df2115abdb2d2bcd23286fb5853a9f9f02e93f00b6ed2b00d47fb",
+    "tools/reference/barbarian-grim-ward-preflight.json": "1e332f8ee479f6b01f76c360d9a7877dac1748bab16f932d20602f7424df01ac",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/grim-ward-engine-evidence.json": "ef367e56535999937d872e56fdd61eaf7400ed92dca3cc338d7fe142356e1894"
+  },
+  "services": [
+    "Room/free coordinates,corpse/mode/row eligibility,missile allocation and curse/collision dispatch are declared services. Source performs no-draw/no-select/refresh even when placement allocation fails. This does not authorize hiding the retained native loot container.",
+    "Start child duration evaluates calc1against the original owner;periodic dispatch instead receives the body missile as its unit. Modern curse formula owner/synergy/AI context remains unresolved and is not replaced with the caster.",
+    "The elapsed-frame accessor and body do14precede the common collision decrement. The matrix retains167eligible elapsed values0,6,...,996. Exact child insertion/global clock and live scheduling remain outside scope."
+  ],
+  "remaining": [
+    "Native lifecycle comparison and world/casting/resource/size/corpse/terrain/clock adapters required. Modern periodic curse owner/hard-Find-Potion synergy and Terror target context block learned Grim Ward. Final effects/audio/icons remain separately tracked placeholders."
+  ]
+}
