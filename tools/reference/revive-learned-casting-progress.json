@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "candidate; isolated casting verified; broad acceptance pending",
+  "sourceCheckpoint": "7f50468",
+  "stage": ".local/class-skills/revive-learned-casting",
+  "preBuildSnapshot": ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json",
+  "nativeBaseline": "Accepted 70-patch native binaries from 49a5539; no native rebuild or new patch",
+  "verified": {
+    "isolatedCommands": 3,
+    "boots": 3,
+    "actualReloads": 2,
+    "saveSnapshots": 3,
+    "scope": [
+      "Automatic accepted-death capture and retention of the same native NPC",
+      "Right and quick bindings; public hotkey dispatch; shared windup/resolve",
+      "Exact captured native resources at activation and once-only source-table mana payment",
+      "Duplicate release and consumed-corpse refusal",
+      "Movement, competing corpse reservation and insufficient release mana cancel without charge",
+      "Explicit legacy eligibility, disabled-proposal and equipped-item-effect refusal",
+      "Retirement of consumed/legacy dead-unit projections preserves independent loot",
+      "Active and pending originals persist through actual native reload; native mana/stamina may regenerate within their maxima"
+    ]
+  },
+  "notVerified": [
+    "Retained broad regression is in progress; full-class/Python and fresh named/affix acceptance are pending",
+    "Source regeneration parity, facet/respec replanning and complete inherited item/proc effects",
+    "Summon Resist reference conflict and inherited sunder consumption",
+    "Complete D2R client parity; this is not class completion"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
+    "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
+    "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
+    "Assemblies/Sanctuary.Content.dll": "727d74f7d9f84cf00d73a7edfeb538a1b1b3de8061524d361323f5723dbc0b18",
+    "Assemblies/Sanctuary.Integration.dll": "d2ee44e7722cf6b4b1938160dfba2814b315e79a583aacf5e8cd96a432568cb7"
+  },
+  "evidenceFiles": {
+    ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json": "786f84bf1d9a42ac9b25aeb6060034b3cf72746e9f98902ef15de451f8e22cae",
+    ".local/class-skills/revive-learned-casting/cast-inputs.json": "6134f186b229c4c25123e7a47828c8f4590a7f62439cf3495f54ba424d27bb06",
+    ".local/class-skills/revive-learned-casting/cast-native-checks.log": "0ac965612d126aec0b8971f3e1457149a33df487b3e683f4840e8ec151fd6b50",
+    ".local/class-skills/revive-learned-casting/revive-cast-fixtures.json": "47d68945019458960b76f5dd7db9150af25ced05d6d5af90a1878ca3d01385e9",
+    ".local/class-skills/revive-learned-casting/content-build-attempt-8.log": "e63887d116453f53a7d1d60b6d289f2be578abfb2cf84d9a8dcc70d6ca85d9d1",
+    ".local/class-skills/revive-learned-casting/integration-build-attempt-8.log": "00d4dcaeb6d47a3c49034ae87fb79ed678c7f9298f553cda47b13cae4477d1ed"
+  },
+  "coverage": {
+    "handlers": 185,
+    "necromancerHandlers": 29,
+    "completedClasses": []
+  },
+  "installation": "Candidate uninstalled; working installed build and saves unchanged",
+  "assets": "Existing native summon particles/cast sound are identified placeholders; effects/audio and talent/hotkey icons remain separate registers"
+}
