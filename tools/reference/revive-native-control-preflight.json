@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Native UO source preflight; not a new D2R or native timed-execution acceptance certificate",
+  "nativeSource": ".local/class-skills/revive-predeath-state/native/Projects/UOContent/Mobiles/BaseCreature.cs",
+  "sha256": "e85132461b029126a745b81e1573d9f36bc1d9f4d7785b4a68cc3f439e1b6e52",
+  "nativePatchCount": 67,
+  "approvedPolicy": "tools/reference/revive-lifetime-deviation.json",
+  "findings": [
+    {
+      "symbol": "BaseCreature.LoyaltyTimer.OnTick",
+      "observed": "Hourly path subtracts 10 loyalty from world-present Controlled and Commandable creatures, queuing Release at zero. Its exemption checks mercenary KeepEquipment but not PersistentMinion.",
+      "risk": "An untimed active Revive can still be released by the native pet system."
+    },
+    {
+      "symbol": "BaseCreature.GetControlChance / CheckControlChance",
+      "observed": "Low MinTameSkill, summoned status or GM exempts control chance. Otherwise native taming/lore/loyalty arithmetic applies; PersistentMinion is not checked. Actual originals retain their concrete native type, are Controlled and not Summoned.",
+      "risk": "Revived high-taming native creatures can reject owner commands or lose loyalty."
+    },
+    {
+      "symbol": "BaseCreature.Commandable",
+      "observed": "Default getter returns true; Tamable=false is not a loyalty exemption.",
+      "risk": "Activation clearing Tamable does not resolve these paths."
+    }
+  ],
+  "next": "Bind existing class-minion identity to native loyalty/control exclusions, with real native path and ordinary-pet negative controls. Do not add a source lifetime timer or enable learned Revive before remaining source stats/AI/input composition.",
+  "runtimeVerified": false,
+  "existingClassPattern": {
+    "source": "src/Sanctuary.Content/SkeletonPets.cs",
+    "sha256": "d1b563f342856f947cfc17b3e309a627de0eae686b32984797b632c87a051aca",
+    "observed": "SkeletonGuardian overrides Commandable to false; NecromancerMinion inherits that behavior. Actual revived NPC types retain their original concrete type, so they need the equivalent native identity-based behavior rather than a replacement subclass."
+  }
+}

@@ -20,7 +20,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=(), extra_probe_files=(), extra_target_input_commands=(), extra_wait_results=None, between_boot_delay=0):
+def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=(), extra_probe_files=(), extra_target_input_commands=(), extra_wait_results=None, between_boot_delay=0, extra_reconnect_commands=()):
     assert 0 <= between_boot_delay <= 60
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
@@ -114,6 +114,25 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
                             session.expect(live + ': ready')
                             client.sendall(b'\x73\x00')
                             assert session.expect(live + r'-result: (passed|failed)', timeout=25 if live=='spirit-wolf-slow-live' else 15).group(1) == 'passed', logpath.read_text()[-5000:]
+                    for family in extra_reconnect_commands:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send(family + '-check')
+                            assert session.expect(family + r'-check: (passed|failed)').group(1) == 'passed'
+                            session.expect(family + ': disconnect-ready')
+                            client.shutdown(socket.SHUT_RDWR)
+                        session.expect(family + ': disconnected', timeout=15)
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send(family + '-reconnect-check')
+                            # A synchronous reconnect can finish before the console
+                            # wrapper acknowledges it; an async one does the reverse.
+                            received = set()
+                            for _ in range(2):
+                                marker = session.expect(family + r'-(reconnect-check|result): (passed|failed)', timeout=15)
+                                assert marker.group(2) == 'passed' and marker.group(1) not in received, logpath.read_text()[-5000:]
+                                received.add(marker.group(1))
+                            assert received == {'reconnect-check', 'result'}
                     for family in extra_input_commands:
                         with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
                             threading.Thread(target=drain, args=(client,), daemon=True).start()

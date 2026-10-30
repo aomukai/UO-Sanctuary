@@ -25,7 +25,7 @@ public static class ReviveNativeActivationChecks
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Prepared original NPC activation and shared persistent behavior",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         var owner=new PlayerMobile{Name="NativeReviveOwner",Body=0x190,Player=true};owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(owner,50);
         FixtureSpace.Place(owner,new(6100,1700,0),Map.Trammel);
@@ -37,7 +37,7 @@ public static class ReviveNativeActivationChecks
         }
         Train("necromancer.revive");Train("necromancer.revive");return owner;
     }
-    private static Corpse Body(PlayerMobile owner,bool dragon,out BaseCreature actor)
+    internal static Corpse Body(PlayerMobile owner,bool dragon,out BaseCreature actor)
     {
         actor=dragon?new Dragon():new Skeleton();var original=actor;actor.NoKillAwards=true;actor.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);actor.AIObject?.AITimer.Stop();
         Corpse corpse=null;var died=ClassLootHooks.CreatureDied;var before=ClassLootHooks.BeforeDeath;var retained=ClassLootHooks.RetainOriginal;
@@ -47,7 +47,7 @@ public static class ReviveNativeActivationChecks
         finally{ClassLootHooks.CreatureDied=died;ClassLootHooks.BeforeDeath=before;ClassLootHooks.RetainOriginal=retained;}
         Require(corpse is{Deleted:false}&&ReviveOriginals.Find(corpse)==actor,"Actual original unavailable for activation");corpse.BeginDecay(TimeSpan.FromHours(1));return corpse;
     }
-    private static BaseCreature Activate(PlayerMobile owner,Corpse corpse,BaseCreature expected,int maximum=211)
+    internal static BaseCreature Activate(PlayerMobile owner,Corpse corpse,BaseCreature expected,int maximum=211)
     {
         uint serial=expected.Serial.Value;var type=expected.GetType();var ai=expected.AI;
         var setup=new ReviveNativeSetup(SkillMechanics.Rank(owner,CombatAbility.Revive),maximum,maximum-17,4,10);
@@ -106,7 +106,7 @@ public static class ReviveNativeActivationChecks
         Require(corpse is{Deleted:false}&&CorpseSkillRules.Profiles.Find(corpse) is{UnitReactivated:true,NoSelect:true}
             &&corpse.Items.Select(i=>i.Serial.Value).Order().SequenceEqual(saved.Loot),"Consumed loot corpse marker/items changed on reload");Report();
     }
-    private static void Attach(NetState network,PlayerMobile owner)
+    internal static void Attach(NetState network,PlayerMobile owner)
     {
         network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;network.Mobile=owner;owner.NetState=network;
         var state=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);state.SetValue(network,Enum.Parse(state.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();
