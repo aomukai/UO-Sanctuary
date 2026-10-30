@@ -16,8 +16,14 @@
       "yeah there's no heal and cure spells in D2, only potions",
       "but i think we can attack annoying scripts like \"heals other monsters\" to mobs, but those are then special mobs, like our lich resurrecting dead mobs."
     ],
-    "interpretation": "Exclude generic UO Heal/Greater Heal/Cure from ordinary revived-caster design. Explicitly authored special monster roles may heal other monsters or resurrect corpses. Existing D2-specific healing remains intact. Automatic potion use and inheritance of special resurrection/healing by Revives are not authorized by this statement.",
+    "interpretation": "Remove generic UO Heal/Greater Heal/Cure through the game-wide monster spell conversion, affecting wild and revived monsters. Explicit special monster roles may heal allies or resurrect corpses. Existing D2-specific healing remains intact. Automatic potion use and Revive inheritance of special resurrection/healing remain unspecified.",
     "design": "docs/revive-behavior-replacements.md",
     "implementationStatus": "Design only; no runtime selector or ability changes."
+  },
+  "globalSpellConversion": {
+    "userStatement": "monster spells need to be changed for everything in UO. all monsters need their UO spells taken and be given D2 spells. that's a thing of its own.",
+    "scope": "Separate game-wide task: replace UO spell repertoires with D2 spells for all UO monsters, including wild monsters. Revive reuses the shared converted repertoire with its own ability-eligibility/lifecycle rules. Earlier permission to retain compatible behavior does not authorize retaining vanilla UO spells.",
+    "plan": "docs/monster-spell-conversion.md",
+    "status": "Recorded for implementation; no runtime conversion performed in this documentation checkpoint."
   }
 }

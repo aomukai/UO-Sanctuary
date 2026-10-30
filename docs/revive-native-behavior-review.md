@@ -4,6 +4,8 @@ The [approved policy](../tools/reference/revive-native-behavior-policy.json) per
 
 The [replacement design](revive-behavior-replacements.md) records concrete breath/caster conflicts and the user's distinction between generic UO healing and explicitly authored healer/resurrector monsters. It also records the unresolved Summon Resist reference conflict; inheritance must not be assumed from a tooltip or omitted call alone.
 
+**Global scope:** all UO monsters need their UO spells replaced with D2 spells as a [separate world-conversion task](monster-spell-conversion.md). Revive consumes the converted monster repertoire; the review must not narrow that work to revived casters or duplicate it there.
+
 | Behavior | Decision and evidence | Remaining work |
 | --- | --- | --- |
 | Original actor identity | Keep the original object, serial, type, appearance and compatible AI role. [Activation](../tools/reference/revive-native-activation-evidence.json) verifies in-place ownership and independent corpse loot. | Validate individual special AI/state paths; preserving identity does not require retaining every UO mechanic. |
