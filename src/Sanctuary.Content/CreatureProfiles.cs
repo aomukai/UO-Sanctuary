@@ -259,6 +259,7 @@ public static class CreatureProfiles
     public static int Level(BaseCreature mob, MonsterDifficulty? difficulty = null)
     {
         if(PaladinConversion.Life(mob) is{} conversion){return conversion.Level;}
+        if(ReviveCombat.Level(mob) is{} revived){return revived;}
         var row = Variant(mob, difficulty);
         return row is { Enabled: true, ApplyStats: true, Level: { } level } ? level
             : row.Rewards is { Enabled: true, Level: { } rewardLevel } ? rewardLevel : NativeLevel(mob);

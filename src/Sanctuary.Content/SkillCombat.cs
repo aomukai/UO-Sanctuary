@@ -121,7 +121,7 @@ public static class SkillCombat
     public static ClassSkillDamage? ResistedDamage(Mobile target, Mobile source, int damage, int physical, int fire, int cold, int poison, int lightning, bool spell, bool weapon)
     {
         bool classPlayer=target is PlayerMobile victim && ClassCombat.Enabled(victim) || source is PlayerMobile attacker && ClassCombat.Enabled(attacker);
-        if (!classPlayer && NecromancerEffects.Armor(target) == 0 && NecromancerEffects.Curse(source) == null
+        if (!classPlayer && !ReviveCombat.Active(source) && !ReviveCombat.Active(target) && NecromancerEffects.Armor(target) == 0 && NecromancerEffects.Curse(source) == null
             && NecromancerEffects.Curse(target) == null && target is not (NecromancerMinion or AmazonDecoy or ISourceLifeMaximum)
             && SorceressEffects.Shield(target) == null && SorceressEffects.Armor(target) == null
             && !PaladinResistance.Active(target) && !PaladinThorns.Active(target) && !PaladinConviction.Managed(target)

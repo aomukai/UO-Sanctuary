@@ -24,7 +24,7 @@ public static class PaladinVigor
     {
         if(actor is not BaseCreature){return seconds;}
         int existing=actor is NecromancerMinion minion?minion.VelocityPercent:0;
-        return seconds*(100+existing)/Math.Max(1,100+existing+VelocityPercent(actor));
+        return seconds*(100+existing)/Math.Max(1,100+existing+VelocityPercent(actor)+ReviveCombat.VelocityPercent(actor));
     }
     public static void Refresh(Mobile actor)
     {

@@ -11,7 +11,7 @@ namespace Sanctuary;
 
 // Optional source HP is distinct from the legacy integral native setup. It
 // does not substitute for complete source passive/stat/event/AI composition.
-public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null);
+public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -57,6 +57,7 @@ public static class ReviveNativeActivation
         {throw new InvalidDataException("Invalid prepared native Revive identity/setup");}
         if(row.Setup.LifePlan is{} plan){ReviveLife.Validate(plan);}
         else if(row.SavedLife256!=null){throw new InvalidDataException("Integral-only Revive cannot contain source life");}
+        ReviveCombat.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
     }
     internal static void Restore(ReviveNativeState[] rows)
@@ -98,6 +99,9 @@ public static class ReviveNativeActivation
                 ||plan.CasterLevel!=ClassStats.Level(owner)||plan.MasteryRank!=SkillMechanics.Rank(owner,CombatAbility.SkeletonMastery))
             {issue="Source life context changed before native activation.";return false;}
         }
+        ReviveCombat.Validate(setup);
+        if(setup.CombatPlan!=null&&ReviveCombat.Capture(owner,setup.LifePlan,setup.Rank)!=setup.CombatPlan)
+        {issue="Source combat context changed before native activation.";return false;}
         if(original==null||saved?.BeforeDeathJson==null||saved.BeforeDeathIssue!=null||original.Spawner!=null||original.Guild!=null||original.CurrentWayPoint!=null||original.Home!=Point3D.Zero)
         {issue="Original state or native spawn/guild/waypoint transfer is unsupported.";return false;}
         if(!SourceCorpseIdentity.For(corpse).AllowsRevivedAi(status)){issue="The source revived-AI gate refuses this corpse.";return false;}

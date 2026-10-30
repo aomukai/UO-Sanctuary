@@ -51,7 +51,8 @@ internal static class ReviveLife
         var unit=SourceCorpseIdentity.For(corpse);
         var plan=Calculate(unit.Snapshot.Source,unit.Snapshot.BaseLife,ClassStats.Level(owner),SkillMechanics.Rank(owner,CombatAbility.SkeletonMastery));
         int whole=(plan.Maximum256+255)/256;
-        return new(SkillMechanics.Rank(owner,CombatAbility.Revive),whole,whole,mana,stamina,plan);
+        int rank=SkillMechanics.Rank(owner,CombatAbility.Revive);
+        return new(rank,whole,whole,mana,stamina,plan,ReviveCombat.Capture(owner,plan,rank));
     }
     internal static int? Maximum256(BaseCreature actor)
     {

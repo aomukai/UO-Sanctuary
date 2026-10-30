@@ -37,6 +37,7 @@ public static class ReviveSourceLifeChecks
             var input=row[0];var expected=row[2];if(expected[0].GetInt32()!=1||input[23].GetInt32()==0){continue;}
             var result=ReviveLife.Roll(input[11].GetInt32(),input[12].GetInt32(),input[10].GetInt32(),input[9].GetInt32(),SourceRandom.InitLow(input[13].GetInt32()),input[24].GetInt32());
             Require(result.Maximum256==expected[1][1].GetInt32()&&result.Maximum256==expected[1][2].GetInt32()&&result.NextSeed==expected[3].GetUInt64(),"Source HP roll/scaling/tail increase differs from complete older release controls");count++;
+            Require(ReviveCombat.ReducedLevel(input[10].GetInt32(),input[9].GetInt32())==expected[1][3].GetInt32(),"Effective level differs from the complete source release");
         }
         Require(count==4756,"Incomplete successful source HP controls");
         var prior=BattleOrders.Snapshot();
@@ -49,6 +50,7 @@ public static class ReviveSourceLifeChecks
             Require(rejected,"Unrepresentable FP256 ledger was accepted");
         }
         finally{BattleOrders.Restore(prior);}
+        ReviveCombatChecks.Numeric();
         Log.Information("Revive source life:4756complete-source release HP/RNG comparisons pass;current plan reuses pinned corpse bounds and calc1");
     }
     private static void Snapshot()
@@ -65,6 +67,7 @@ public static class ReviveSourceLifeChecks
             Require(actor is{Alive:true,Deleted:false}&&actor.ControlMaster?.Serial.Value==saved.Owner&&actor.Map==Map.Internal
                 &&ReviveNativeActivation.State(actor)==saved.States[i]&&SkillHealth.Balance256(actor)==saved.Life[i]&&SkillHealth.Maximum256(actor)==saved.Maximum[i]
                 &&actor.HitsMax==(saved.Maximum[i]+255)/256,$"Reload source HP actor {i}:alive={actor?.Alive},owner={actor?.ControlMaster?.Serial.Value}/{saved.Owner},map={actor?.Map},plan={ReviveNativeActivation.State(actor)==saved.States[i]},life={SkillHealth.Balance256(actor)}/{saved.Life[i]},max={SkillHealth.Maximum256(actor)}/{saved.Maximum[i]},native={actor?.HitsMax}/{(saved.Maximum[i]+255)/256}");
+            ReviveCombatChecks.Saved(actor,saved.States[i]);
         }
         Require(saved.Maximum[1]>65000*256&&saved.Life[1]>65000*256,"Large source life did not exercise native loading ceiling");
     }
@@ -75,7 +78,7 @@ public static class ReviveSourceLifeChecks
         var account=new Account("revive-hp-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=owner;network.Account=account;ReviveNativeActivationChecks.Attach(network,owner);
         while(ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.skeletonmastery")<20)
         {Require(ClassCreation.Profiles.TryTrain(owner.Serial,"necromancer.skeletonmastery",out var reason),"HP mastery training:"+reason);}
-        var enemy=new Zombie{Frozen=true,CantWalk=true,NoKillAwards=true};enemy.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);enemy.AIObject.AITimer.Stop();
+        var enemy=new Zombie{Frozen=true,CantWalk=true,NoKillAwards=true};MonsterVariants.Assign(enemy,MonsterDifficulty.Hell);enemy.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);enemy.AIObject.AITimer.Stop();
         var actors=new BaseCreature[2];var corpses=new Corpse[2];
         for(int i=0;i<2;i++)
         {
@@ -95,6 +98,7 @@ public static class ReviveSourceLifeChecks
             try{ReviveNativeActivation.Restore([row with{Setup=row.Setup with{LifePlan=row.Setup.LifePlan with{NextSeed=row.Setup.LifePlan.NextSeed+1}}}]);}
             catch(InvalidDataException){rejected=true;}
             Require(rejected&&ReviveNativeActivation.Snapshot().SequenceEqual(snapshot),"Malformed source HP plan changed actor registry");
+            ReviveCombatChecks.Live(actor,enemy);
         }
         var supplier=new PlayerMobile{Name="SourceHPOrders",Player=true,Body=0x190};supplier.AddItem(new Backpack());ClassCreation.Profiles.Assign(supplier,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(supplier,99);
         BattleOrders.Apply(supplier,actors[1],255,TimedEffects.Now.AddDays(1));
@@ -112,6 +116,7 @@ public static class ReviveSourceLifeChecks
         FixtureClock.NextLoop("revive-source-life-live-result",()=>
         {
             Log.Information("Revive source HP:real Hell originals retain native identities,source roll/caster scaling/mastery calc1,FP256damage/heal and prepared rank255Orders above65000;full passive/stat/AI and learned casting remain unfinished");
+            Log.Information("Revive combat:4756complete-source level controls,144current formula contexts,864explicit sunder refusals;original native attacker/defender level,physical-only AOS damage,additive speed/Vigor and mastery/Might,legacy optional-plan saves and atomic invalid-plan checks pass");
             Log.Information("revive-source-life-live-result: passed");
             network.Mobile=null;owner.NetState=null;
             if(!keep){foreach(var actor in actors){actor.Delete();}foreach(var corpse in corpses){corpse.Delete();}owner.Delete();supplier.Delete();}

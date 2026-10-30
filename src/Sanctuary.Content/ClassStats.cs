@@ -163,7 +163,7 @@ public static class ClassStats
         if(!projectile && notifyMelee){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
-        if (!classAttack && !classDefense && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
+        if (!classAttack && !classDefense && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && !ReviveCombat.Active(attacker) && !ReviveCombat.Active(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
             && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null && HexBane.Debuff(attacker)==null && HexBane.Debuff(defender)==null)
         {
             return null;
