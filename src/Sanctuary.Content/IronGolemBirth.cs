@@ -8,7 +8,8 @@ internal sealed record IronGolemBirthStats(int Rank,int Level,int BaseDefenseAdd
     SummonStat[] Passives,SummonStat[] Auras,SummonStat[] Resistances);
 
 // do57 equips the original BEFORE the shared base/passive/resistance helpers.
-// Supplied stats must therefore be the post-equip getters. In particular, the
+// Supplied life must be read after equipping AND the base helper's level write
+// (which can recalculate per-level item life). In particular, the
 // MAXHP result below is a BASE WRITE, not the final accrued maximum. Armor/AR
 // additions and passive writes are likewise distinct from accrued getters:
 // attached item operations remain present when the real actor applies them.
@@ -34,11 +35,11 @@ internal static class IronGolemBirth
     internal static IronGolemBirthStats Prepare(SkillValues values,MonsterDifficulty difficulty,bool expansion,
         SummonSpawnStats equipped,Func<string,int> accrued,int summonResistance,Func<string,int> equippedStat)
     {
-        Route(values);ArgumentNullException.ThrowIfNull(accrued);ArgumentNullException.ThrowIfNull(equippedStat);
+        ArgumentNullException.ThrowIfNull(values);ArgumentNullException.ThrowIfNull(accrued);ArgumentNullException.ThrowIfNull(equippedStat);
         int ownerLevel=checked((int)values.Formula("ulvl"));
         // Shared base helper computes/caps the default pet level and adds the
         // correct monlvl columns; reuse its already verified implementation.
-        var basis=ValkyrieCreation.Base(ownerLevel,values.Rank,(int)difficulty,expansion,equipped);
+        var basis=Base(values,difficulty,expansion,equipped);
         var row=SkillMechanics.For(CombatAbility.IronGolem);
         var passives=new List<SummonStat>();var auras=new List<SummonStat>();var resistances=new List<SummonStat>();
         // All ten pinned slots are retained. The old five-slot executable
@@ -69,4 +70,6 @@ internal static class IronGolemBirth
             life,life,Math.Clamp(checked(3*values.Rank),1,ownerLevel),
             passives.ToArray(),auras.ToArray(),resistances.ToArray());
     }
+    internal static (int Level,int Defense,int Attack) Base(SkillValues values,MonsterDifficulty difficulty,bool expansion, SummonSpawnStats equipped)
+    {Route(values);return ValkyrieCreation.Base(checked((int)values.Formula("ulvl")),values.Rank,(int)difficulty,expansion,equipped);}
 }

@@ -758,9 +758,9 @@
       "tree": "Summoning Spells",
       "sourceId": 90,
       "implementation": "blocked",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Metal eligibility and persistent original-item storage are verified components. Prepared post-equip base/passive writes and absorb-aware Summon Resist have source/native comparisons. Final accrued item-graph birth writes/callbacks, retaliation and remaining item procs, modern sunder delivery, complete actor/AI, paid cast and lifecycle integration remain unfinished. See iron-golem-birth-checkpoint.md; prepared components do not enable the learned skill."
+      "remaining": "Metal eligibility, persistent originals and equipped numeric birth graph are verified components, including level-dependent item recalculation, base/current life writes, absorb-aware Summon Resist and numeric MAXHP callback traces. Live actor stat synchronization, retaliation/remaining item procs, modern sunder delivery, complete AI, paid cast and lifecycle remain unfinished. Spiritforge socket metadata remains an explicit projection omission. See iron-golem-birth-graph-checkpoint.md; prepared components do not enable the learned skill."
     },
     {
       "talentId": "necromancer.firegolem",

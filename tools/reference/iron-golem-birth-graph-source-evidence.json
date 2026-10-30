@@ -1,0 +1,77 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 2016,
+  "inputs": {
+    "tools/reference/npc-equipment-resources-source-evidence.json": "b3b270951989da9842d2bb62078fcc6d3fb6ad5b159235cff7f44037e9522528",
+    ".local/class-skills/npc-equipment-resources-source/source.cpp": "d6bf56ce8ab2b8438fe6c29d5ec312387eb99170a3903e08b3be08bc2486163f",
+    "tools/probe_iron_golem_birth_graph.py": "c505fb2516408b5571c4f2b80c859eb1b9059137b09b53b07520a075acddf55d",
+    "tools/reference/item-stat-values-source-evidence.json": "76aeed1a76306a99791f2a00da3c2c00a665c1947b559b2133c14443fa18bcde",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/reference/iron-golem-birth-source-evidence.json": "0baf05770078dcacd09ae12eefd3bf9a45680106af9a9ce04050e48caa9d5bb2",
+    "data/Sanctuary/Balance/generic-pet-states.json": "07a8256015a8a391075cd7f0d76b30cd8000c9b10be9d873ea80778153a09ed5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "compiledUnchangedRoutines": {
+    "STATLIST_SetStat": "9e91d0f073431c5aa28b45da49b8fa9304f75a9c677fe822c7c55cf9d4adad97",
+    "STATLIST_AddStat": "2f12295497028ef5cf2935c08ccdf099444633d0e664ba9517b7ef2b1a736264",
+    "STATLIST_SetStatIfListIsValid": "c8b628eb4fe25229843e586ffeeb6848d13e931c4bb07a0152fea770299fdb8f",
+    "STATLIST_SetUnitStat": "4607580a05551487e9d03d68129cb0176e1ac27dd438b507ce97513a0ec88c50",
+    "STATLIST_AddUnitStat": "616ec88197c6a1ddd8e5b614729324fcbb202653378edb5fcf2d3ef3dad618da",
+    "STATLIST_GetTotalStatValue_Layer0": "cbb5330b41e08ce600900ff6045fcefeea960c1287bdff9f5decdd946d79f29e",
+    "D2Common_11248": "85ddbb36a584ad37e2a4ef6d10642784f4e24c0695a447031b88f560b6edc3d4",
+    "STATLIST_GetMaxLifeFromUnit": "be5bd3a91b82c3feebef396d44d29fa0a75a8696de2f302638b7578195319974",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "reusedCompiledUnchangedGraphRoutines": {
+    "ITEMMODS_GetByTimeAdjustment": "521e5a5d2ff13fa1697bc1d57341701fd194cbed68dba2b97fcbeebe545ac4ba",
+    "STATLIST_NotifyUnitOfStatValueChange": "dcc7e2a6a8ae005402aa01371ff755e68912c61eac88bf043c02e5ea7421bdc1",
+    "STATLIST_SetUnitStatNewValue": "67e150bbfd4937179eefb4e535439bc6f863952e2e7b5c8cb6384adf377b97dc",
+    "ComputeStatPercentage": "f9803075da80b9cf9c273f9e7906f394fc9f1ec569eb31611302ba4272cdf628",
+    "sub_6FDB5830": "e757710b6226906a6e4778786ceea851caa5eba6a9e20c1c1cfb1ff9e6e3ad0b",
+    "STATLIST_FindStatIndex_6FDB6300": "137450bf9df1cf8ff347f040e668863025874f3fba8b139fb6de9c0168fa70e3",
+    "STATLIST_ApplyMinValue": "4c6fcb4e15e278d046dd31701a694673382ca4d0e481c89b7e8340648e308a30",
+    "STATLIST_GetBaseStat_6FDB6340": "c99dfdcf4b77b90803418aa4eead389d4991aaa7bf6b19be1d2d6d4b53eb9e50",
+    "STATLIST_GetTotalStat_6FDB63E0": "7cee3a26c4b5b1379f171529d51907663daa60e02fe7452484a446d721987364",
+    "sub_6FDB64A0": "c3f16db7decd9390bba4c92f68152ff635638f72d21105a58eb083e329d8bb2f",
+    "STATLIST_FindStat_6FDB6920": "90d95faf9d49fff749a45db2643bc0badafec6340097a1510253021073087999",
+    "STATLIST_InsertStatOrFail_6FDB6970": "4eb1cdf8ae8303806812ca713bad4de7b4f3d0d41365038496b503a8e9597d52",
+    "STATLIST_RemoveStat_6FDB6A30": "15a42951d805a0cbddf65e2ce8f5b99a4882d3903be5de0bf59f18fa8fa6c6a2",
+    "STATLIST_UpdateUnitStat_6FDB6AB0": "b6eb08b5aa3b3b875102850951f08867060653c110b60b653f7551952f988256",
+    "sub_6FDB6C10": "2d72d3aeab9d28b9a671f205b055332a40cc71edd9ac84cde6767216403ac3d8",
+    "STATLIST_SetBaseStat": "d010416da299c8d11b1333825b69dba25986b946caaa7f5abdf3b2c7887b0d93",
+    "D2Common_ExpireStatList_6FDB6E30": "beed0431e94762f8e5729d479654cc7327ceec69c6b1a3afef2f4bbebdf53b8a",
+    "D2COMMON_10475_PostStatToStatList": "60eafeff8d4380edbefa460a56cc6902a6e5a20471ce332a589727884a852727",
+    "STATLIST_MergeStatLists": "396ee00e0f092b0332f533757b9856da986463b3aaa9445ec4f8977d9fbdc958",
+    "STATLIST_GetOwner": "e8ba6e8182bf01e45936976055805cf7abe843ed3b5549df9fe13f5a09114104",
+    "D2Common_11274_11275_Impl": "fe7195e99fa47c214f9a130f1e7d1bf2639a8952b2761421e33fd2dd430e5688",
+    "D2Common_11274": "c7d46e1f325b100129a8f7b8298f6bc2d3565dd24ada50e92dfc5a69a4b3c38c",
+    "D2Common_11275": "7faf12e31c245601ee7a46bcf039fa473959d3c22c4915cee0e9e3a29d5a2f39"
+  },
+  "maxHpCallbackBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "artifacts": {
+    ".local/class-skills/iron-golem-birth-graph-source/source.cpp": "35a997c2f9dce316454811554e32ce05ea76d1999f98ffd3a273d0367742a32b",
+    ".local/class-skills/iron-golem-birth-graph-source/cases.json": "51483a01fa4eeaeb2502209393e316ff5a9cf69f05ebbb6b8c285f310735fcc3",
+    ".local/class-skills/iron-golem-birth-graph-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/iron-golem-birth-graph-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete item graph/attachment/getters and source summon base/passive/resistance routines compose with the complete MAXHP callback branch, retaining exact before/birth/detach arrays and callback traces.",
+    "Seven declared raw item profiles exercise flat/percentage/per-level life, armor/ED, AR and absorption; both initial levels and current-life conditions expose level-dependent recalculation before passive life reads."
+  ],
+  "services": [
+    "Stat array allocation/lookup and successful list allocation, asserted current formulas, event/state recording and equipment-level request. Raw spawn/item stat arrays are supplied, not inferred item birth.",
+    "NPC MAXHP callback executes the complete unchanged branch for positive maxima with declared monster DamageRegen3. Other outer event branches and live Mobile synchronization are not executed.",
+    "Older passive loop executes five slots, with zero inherited sunder. Current extra slots and modern sunder mechanics remain outside this proof."
+  ],
+  "currentExecutableParity": false,
+  "learnedHandlerEnabled": false
+}
