@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "necromancer.revive",
+  "question": "For native UO monsters without a direct D2 counterpart, should Revive preserve their existing AI and special attacks while applying our D2 summon rules, or should we design replacement behavior for them?",
+  "userStatement": "let's keep what makes sense and is easy to do and design replacement for things that doesn't work so well with the D2 combat system",
+  "approvedPolicy": "Reuse native AI and special attacks where they fit Sanctuary's D2 combat system and are straightforward to retain. Adapt or design replacements for behavior that does not fit. Decide per behavior; neither wholesale native preservation nor wholesale replacement is required.",
+  "decisionRecording": "Identify which behavior is retained, adapted, replaced, uncertain or unsupported, and explain its fit with the D2 combat rules. Pending cases do not prevent work on unaffected behaviors or skills.",
+  "existingRulesRemain": [
+    "Native creatures without direct D2 counterparts use explicit relative-strength classifications, preserving native identity rather than claiming a direct counterpart.",
+    "Revive has no expiration timer; it ends on its own death, Necromancer death or replacement.",
+    "Original equipment stays corpse loot; captured combat effects are preserved independently without duplicating or returning physical items."
+  ],
+  "scope": "Design policy for native Revive behavior. This does not certify existing AI, special attacks, stat/proc transfer, resource rules, ability clocks or learned casting as complete. Approved Sanctuary deviations take precedence over the pinned reference."
+}
