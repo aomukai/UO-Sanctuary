@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 1152,
+  "scope": "Reused verified unchanged full item stat graph,attachment and unit stat getter with declared base arrays. Both NPC and player control kinds exercise three resources,declared raw level coefficients,flat bonuses,life/mana item and skill percentages,stamina active/passive percentages and attributes. The stamina raw coefficient is declared in raw units,not certified item birth. Player class coefficients remain declared controls;not complete item birth,current executable or native live-resource acceptance.",
+  "inputs": {
+    "tools/reference/npc-equipment-defense-source-evidence.json": "bc8e6cb787e07d8d19f17f650fd545cc374d1a5f8ac8b1920aca84186bf51256",
+    ".local/class-skills/npc-equipment-defense-source/source.cpp": "a25b4969c74c81ec9a98bc829a102b9593ed3ab64837fc54429de5c7333cf0d6"
+  },
+  "reusedCompiledUnchangedRoutineHashes": {
+    "STATLIST_GetTotalStatValue": "22f77264e27d2e265e34f3740784f84691ecb2ace37773f833717391d209b418",
+    "STATLIST_UnitGetStatValue": "08bcaeb449082bbf9a38bd7ad4cd4007c73cf38283d90cc208a3188758ffa802",
+    "STATLIST_UnitGetItemStatOrSkillStatValue": "761327600913c128276511abcaf7b3f45b3aa71dba1d63fc8793ca636994c6f0",
+    "STATLIST_GetStatValue": "e5657dd60bb14a71a447f086c83ba4a6c0cd6c6d7b5ad3b16a87a4dae747cc9d",
+    "UNITS_GetDefense": "cb7c7d7ad0c4d4714181ddba115139b5103e7ecceb5c3eed7aa1f6bee2eb22dc"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-equipment-resources-source/source.cpp": "d6bf56ce8ab2b8438fe6c29d5ec312387eb99170a3903e08b3be08bc2486163f",
+    ".local/class-skills/npc-equipment-resources-source/cases.json": "55ff78e5e2628471e8989f3cab17d176745c445fd8f26087b15d718fc7393584",
+    ".local/class-skills/npc-equipment-resources-source/compiler.log": "41a4aee24e4430b784fe4dde11d293acb3f6898e5a7670d86daf69eb6dfaae20",
+    ".local/class-skills/npc-equipment-resources-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

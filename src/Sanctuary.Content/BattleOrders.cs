@@ -25,7 +25,7 @@ public sealed class OrdersProfiles:GenericPersistence
 public static class BattleOrders
 {
     internal readonly record struct Pools(int LifeMax,int ManaMax,int StaminaMax,int Life256,int Mana256,int Stamina256)
-    {internal int ExactLifeMaximum256{get;init;}}
+    {internal int ExactLifeMaximum256{get;init;}internal int ExactManaMaximum256{get;init;}internal int ExactStaminaMaximum256{get;init;}}
     private static readonly Dictionary<uint,BattleOrdersState> _states=new();
     private static readonly Dictionary<uint,OrdersResources> _resources=new();
     private static readonly List<uint> _keys=new();
@@ -41,6 +41,7 @@ public static class BattleOrders
         // not a replacement subclass. Resolve it before the loading fallback.
         if(resource==0&&ReviveLife.Maximum256(actor) is{} revived){return (revived+255)/256;}
         if(World.Loading){return 65000;}
+        if(NpcEquipmentResources.Maximum256(actor,resource) is{} equipped){return (equipped+255)/256;}
         if(resource==0 && PaladinConversion.Maximum256(actor) is{} converted){return (converted+255)/256;}
         if(resource==0 && SkillHealth.SourceMaximum256(actor) is{} exact){return (exact+255)/256;}
         int percent=resource==0?LifePercent(actor):Percent(actor);if(percent<=0){return null;}
@@ -56,13 +57,19 @@ public static class BattleOrders
     public static BattleOrdersState State(Mobile actor)=>Alive(actor)?_states.GetValueOrDefault(actor.Serial.Value):null;
     public static int Percent(Mobile actor)=>State(actor)?.Percent??0;
     internal static int LifePercent(Mobile actor)=>Percent(actor)+DruidOakAuras.Percent(actor);
-    internal static int Stamina256(Mobile actor)=>actor.Stam*256+(actor.Stam<actor.StamMax?_resources.GetValueOrDefault(actor.Serial.Value)?.StaminaFraction??0:0);
+    internal static int StaminaMaximum256(Mobile actor)=>NpcEquipmentResources.Maximum256(actor,1)??actor.StamMax*256;
+    internal static int Stamina256(Mobile actor)
+    {
+        int balance=actor.Stam*256+(actor.Stam<actor.StamMax?_resources.GetValueOrDefault(actor.Serial.Value)?.StaminaFraction??0:0);
+        return NpcEquipmentResources.Maximum256(actor,1) is{} exact?Math.Min(exact,balance):balance;
+    }
     internal static void SetStamina256(Mobile actor,int amount256)
     {
-        amount256=Math.Clamp(amount256,0,actor.StamMax*256);actor.Stam=amount256/256;
+        amount256=Math.Clamp(amount256,0,StaminaMaximum256(actor));actor.Stam=amount256/256;
         Remember(actor,amount256%256,_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256);
     }
-    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor)){ExactLifeMaximum256=SkillHealth.Maximum256(actor)};
+    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor))
+    {ExactLifeMaximum256=SkillHealth.Maximum256(actor),ExactManaMaximum256=NecromancerEffects.ManaMaximum256(actor),ExactStaminaMaximum256=StaminaMaximum256(actor)};
     internal static int Rescale256(int current,int previousMaximum,int nextMaximum)
     {
         if(current<=0 || previousMaximum<=0 || previousMaximum==nextMaximum){return current;}
@@ -92,10 +99,12 @@ public static class BattleOrders
                 :Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));
             if(nextLifeMaximum256!=priorLifeMaximum256){regen=Regen(actor,life,regen);}
         }
-        if(mana!=before.ManaMax){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,before.ManaMax*256,mana*256));}
+        int previousMana=before.ExactManaMaximum256>0?before.ExactManaMaximum256:before.ManaMax*256,nextMana=NecromancerEffects.ManaMaximum256(actor);
+        if(nextMana!=previousMana){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,previousMana,nextMana));}
         int stam256=before.Stamina256;
-        if(stamina!=before.StaminaMax)
-        {stam256=Rescale256(stam256,before.StaminaMax*256,stamina*256);actor.Stam=stam256/256;}
+        int previousStamina=before.ExactStaminaMaximum256>0?before.ExactStaminaMaximum256:before.StaminaMax*256,nextStamina=StaminaMaximum256(actor);
+        if(nextStamina!=previousStamina)
+        {stam256=Rescale256(stam256,previousStamina,nextStamina);actor.Stam=stam256/256;}
         Remember(actor,stam256%256,regen);
         actor.CheckStatTimers();actor.Delta(MobileDelta.Hits|MobileDelta.Mana|MobileDelta.Stam);
         if(actor is PlayerMobile player){ClassStats.Refresh(player);StatNetwork.Send(player);}

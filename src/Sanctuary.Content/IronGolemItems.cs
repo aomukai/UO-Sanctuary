@@ -92,23 +92,28 @@ public static class IronGolemItems
         {reason="This item cannot be transferred in this context yet.";return false;}
         var row=Metadata(ClassGear.State(item)?.BaseCode??ClassGear.Definition(item)?.BaseCode);
         var savedMap=item.Map;var savedPoint=item.Location;bool visible=item.Visible,movable=item.Movable;
+        BattleOrders.Pools? resources=pet is SkeletonGuardian?BattleOrders.Capture(pet):null;
         try
         {
             item.Visible=false;item.Movable=false;pet.AddItem(item);
             if(item.Deleted||item.Parent!=pet){throw new InvalidOperationException("Original item was not attached");}
             var state=new IronGolemItemBinding(pet.Serial.Value,owner.Serial.Value,item.Serial.Value,row.Code,row.Body1);
-            States.Add(state.Pet,state);ByItem.Add(state.Item,state.Pet);reason=null;return true;
+            States.Add(state.Pet,state);ByItem.Add(state.Item,state.Pet);
+            if(resources is{} before){NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before);}
+            reason=null;return true;
         }
         catch
         {
             States.Remove(pet.Serial.Value);ByItem.Remove(item.Serial.Value);
             if(!item.Deleted){item.MoveToWorld(savedPoint,savedMap);item.Visible=visible;item.Movable=movable;}
+            if(resources is{} before){NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before);}
             reason="The item could not be transferred.";return false;
         }
     }
     internal static void DestroyBoundItem(BaseCreature pet)
     {
         if(State(pet) is not{} state){return;}
+        BattleOrders.Pools? resources=pet is SkeletonGuardian?BattleOrders.Capture(pet):null;
         var item=World.FindItem((Serial)state.Item);
         if(item is{Deleted:false})
         {
@@ -117,6 +122,7 @@ public static class IronGolemItems
         }
         States.Remove(state.Pet);ByItem.Remove(state.Item);
         NpcEquipmentRandom.Forget(pet);
+        if(resources is{} before){NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before);}
     }
     // Worker snapshots only read/filter. Real actor callbacks own lifecycle
     // cleanup; a missing/moved item is not silently replaced or duplicated.

@@ -70,6 +70,7 @@ public sealed class GearProfiles : GenericPersistence
         NamedMaintenance.Track(item);
         NamedGear.UpdateName(item, state);
         item.InvalidateProperties();
+        NpcEquipmentResources.Clamp(item);
         if (state.NamedItemId != null && item.Parent is PlayerMobile wearer) { ClassGear.Changed(wearer); }
     }
     public void Copy(Item source, Item destination)

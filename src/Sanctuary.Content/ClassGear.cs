@@ -561,6 +561,7 @@ public static class ClassGear
         ClassGearHooks.DurabilityChanged = item =>
         {
             NamedMaintenance.Track(item);
+            NpcEquipmentResources.Clamp(item);
             if (item.Parent is PlayerMobile player && ClassCombat.Enabled(player))
             {
                 Refresh(player);

@@ -77,6 +77,17 @@ internal readonly struct ItemStatContext
     }
     internal int LifeBonus256 => ResourceBonus256("hp");
     internal int ManaBonus256 => ResourceBonus256("mana");
+    internal (int Flat256,int LevelCoefficientRaw) ResourceInput(string code,int perLevelStat)
+    {
+        int flat=checked(Bonus(code)*256),coefficient=0;
+        foreach(var p in Properties())
+        {
+            if(p.Property.Code!=code+"/lvl"){continue;}
+            flat=checked(flat-NamedPropertyRuntime.Bonus(p.Property,p.Roll,code,RecipientLevel)*256);
+            coefficient=checked(coefficient+p.Roll.Value*(1<<EquipmentStatValues.Definition(perLevelStat).Shift));
+        }
+        return(flat,coefficient);
+    }
     internal int Defense { get { RequireItem(); return ClassGear.Defense(Item, RecipientLevel); } }
     internal (int Min, int Max) WeaponDamage { get { RequireItem(); return ClassGear.Damage(Item, RecipientLevel); } }
 }

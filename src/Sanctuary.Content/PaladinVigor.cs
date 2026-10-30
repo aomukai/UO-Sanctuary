@@ -16,6 +16,7 @@ public static class PaladinVigor
         ClassGearHooks.StaminaMaximum=(actor,maximum)=>
         {
             if(World.Loading){return 65000;}
+            if(NpcEquipmentResources.Maximum256(actor,1) is{} equipped){return (equipped+255)/256;}
             int? prior=previous?.Invoke(actor,maximum);int bonus=StaminaPercent(actor)+BattleOrders.Percent(actor);
             return bonus==0 ? prior : (int)Math.Clamp((long)(prior ?? maximum)*(100+bonus)/100,0,65000);
         };
