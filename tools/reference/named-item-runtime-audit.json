@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "ea240de77af9b0263f6edd1daf50853c1f8af3ba75dce5dda3f01d4d45dd4b01",
-  "NativeAssemblySha256": "433f0edfe3a8c4bc5b81a8f45c4a71c0ae1f358e41a6b672cbf7d638cd162c90",
+  "ContentAssemblySha256": "450e042a9d1a5ee521c723fcfcaa6ab6b8d356ed91f282e35d040f6922d7ca4e",
+  "NativeAssemblySha256": "8fbb06a286f648612f0205a22a24cc1f614b3fea3263da8872363bb20e4c7494",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/alchemy-restoratives.json": "15d82f3a3c74aa7c6df41aaa1a6fe288c99364fbd77d6e1bc913880559790319",
@@ -225,6 +225,7 @@
     "patches/ModernUO/0066-retain-original-corpses.patch": "c37508477a264653fb172c3a26b2be83412f67b963c99e03fb45c688d83e90f9",
     "patches/ModernUO/0067-original-creature-before-death.patch": "8de472a1a4f1d04683c4608c05190aebbb85d2da0bbcf6c0c4c8c950467cad47",
     "patches/ModernUO/0068-class-minion-commandability.patch": "484ed9c13eff3b2f7dc9b62d9857c72b96285ec970e962570ec34550e5a0d943",
+    "patches/ModernUO/0069-class-minion-stabling.patch": "bde95e44f31c8dba638f3e45c94efa677750c7069d6b50b6bf827637a48738b0",
     "shared/BeltProtocol.cs": "75be8cbc428000197c23cbccd2ce64f385a2bebe6135ac15792bc0412483504b",
     "shared/ClassAbilities.cs": "863ec89acc57ab006fc18eced3d896de100667624b5ce8f7bc207ead3c6bbe1d",
     "shared/ClassGumpProtocol.cs": "dd287db99a8189b72ef129bf2f296d3c5022fbe203a6eadeb2ed1b6fd01fed71",
