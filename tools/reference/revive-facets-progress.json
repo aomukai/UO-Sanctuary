@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "component": "Revive facet-difficulty projection",
-  "status": "Implemented and focused native scope passed; retained/full acceptance pending",
+  "status": "Focused9, retained366, old-world upgrade3 and Python71 passed; full class regression running",
   "installed": false,
   "goalComplete": false,
   "completedClasses": [],
@@ -13,7 +13,16 @@
     "actualReloads": 2,
     "saves": 3,
     "nativeBinariesReused": true,
-    "nativePatchCount": 70
+    "nativePatchCount": 70,
+    "retainedMarkers": 366,
+    "upgradeMarkers": 3,
+    "upgradeBoots": 3,
+    "upgradeActualReloads": 2,
+    "pythonTests": 71,
+    "inputFingerprints": [
+      785,
+      21
+    ]
   },
   "artifacts": {
     "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
@@ -28,7 +37,14 @@
     ".local/class-skills/revive-facets/facet-native-checks.log": "767c9d43e2697585a6a5bd89c197028312f5a714e58a1af06e5c0d6f8ee608e5",
     ".local/class-skills/revive-facets/isolated-revive-facet-fixtures.json": "56e86bfa9d980e1391d64889ddfeca081e4a05e03e8572c1ab8e89d744dc0a5f",
     ".local/class-skills/revive-facets/content-build-attempt-3.log": "8a646d93e8853e233b57dc2242d80086c05890e8edbfa145c5fcf9950e294d9d",
-    ".local/class-skills/revive-facets/integration-build-attempt-3.log": "aabcc8855861586bccd9e8db2930cfad83360f6e3b8953c3b274a63138eaddc5"
+    ".local/class-skills/revive-facets/integration-build-attempt-3.log": "aabcc8855861586bccd9e8db2930cfad83360f6e3b8953c3b274a63138eaddc5",
+    ".local/class-skills/revive-facets/stats-inputs.json": "f32a31666a5d971f7db97c11f9a4e4c658b5b1a85deb37031639172bd67185fc",
+    ".local/class-skills/revive-facets/stats-native-checks.log": "740e42b62b19fa2934dd5fda012c862eab8d49ac610c4e504b1c0b9028fba4a8",
+    ".local/class-skills/revive-facets/upgrade-inputs.json": "f279ca02d1e9d95481c6f887ab39b825be599455ed7373bc7587085962ac1bcf",
+    ".local/class-skills/revive-facets/upgrade-native-checks.log": "649934e34748df2113ccc398720f7880f5209f64885a40a96fee93ee1b3df0ab",
+    ".local/class-skills/revive-facets/upgrade-revive-cast-fixtures.json": "06cc09c2a00b51b949fd3e020ae3f67afb9610772bd3e6cf9e64cec3a086d9f1",
+    ".local/class-skills/revive-facets/python-tests-attempt-3.log": "65a01f2932e3b9fb3100a20797e06fbe07f4696ad5a40e35cd7fb53d03380694",
+    ".local/class-skills/revive-facets/python-upstream-reference-inputs.json": "33c44aebcca69e4300842c1c96e0138d99ca416fcf4c28f277602066206b69d6"
   },
   "established": [
     "Actual Normal/Nightmare-born originals rescale from owner location/map hooks through Normal/Nightmare/Hell with relative FP256 life, immutable birth records, deterministic captured seed/context, native damage/resistance restoration and no repeated same-difficulty rounding.",
@@ -42,8 +58,8 @@
     "Disabled/unclassified target variants, missing supported target level/reference and encounter-specific profiles. These do not add an inherited-ability whitelist."
   ],
   "remaining": [
-    "Retained366-marker wrapper is running in session10034 after an archived ready-handshake harness mismatch; revalidate actual completion, source/data/artifact hashes and fresh audits.",
-    "Full class/Python and actual old-candidate-world upgrade acceptance remain pending.",
+    "Full class1184/35-save regression is running; revalidate the handle in the checkpoint before acting.",
+    "Final exact-artifact acceptance receipt remains pending. Actual old-world upgrade acceptance covers loading/preserving old originals, not cross-difficulty restoration when a legacy baseline is absent.",
     "Independent item/stat/proc/sunder consumers and Summon Resist reference conflict remain open. Final effects/audio and talent/hotkey icons stay separate."
   ]
 }
