@@ -56,7 +56,16 @@ public static class NamedPropertyRuntime
     public static NamedPropertyRoll Roll(string key, NamedProperty template, Random random)
     {
         if (!Supported(template) || !template.SourceEnabled) { throw new InvalidOperationException("An implemented named property is required."); }
-        if (_scaled.ContainsKey(template.Code)) { return new(key, Parameter(template), Parameter(template)); }
+        if (_scaled.ContainsKey(template.Code))
+        {
+            int parameter=Parameter(template);
+            if(parameter!=0){return new(key,parameter,parameter);}
+            // PropertyFunc17 falls back to min/max when its parameter is0.
+            int low=Math.Min(template.SourceMin??0,template.SourceMax??template.SourceMin??0);
+            int high=Math.Max(template.SourceMin??0,template.SourceMax??template.SourceMin??0);
+            int coefficient=low==high?low:random.Next(low,checked(high+1));
+            return new(key,coefficient,coefficient);
+        }
         if (template.Code is "rep-dur" or "rep-quant" || template.Code == "sock" && Parameter(template) > 0) { return new(key, Parameter(template), Parameter(template)); }
         int min = template.SourceMin ?? 0, max = template.SourceMax ?? min;
         if (_range.Contains(template.Code)) { return new(key, min, max); }
@@ -69,8 +78,11 @@ public static class NamedPropertyRuntime
     {
         if (!Supported(template) || !template.SourceEnabled) { throw new InvalidDataException("Unsupported saved named property."); }
         int min = template.SourceMin ?? 0, max = template.SourceMax ?? min;
-        bool fixedParameter = _scaled.ContainsKey(template.Code) || template.Code is "rep-dur" or "rep-quant" || template.Code == "sock" && Parameter(template) > 0;
+        bool scaledFallback=_scaled.ContainsKey(template.Code)&&Parameter(template)==0;
+        bool fixedParameter = _scaled.ContainsKey(template.Code)&&!scaledFallback || template.Code is "rep-dur" or "rep-quant" || template.Code == "sock" && Parameter(template) > 0;
         bool valid = fixedParameter ? roll.Value == Parameter(template) && roll.Maximum == roll.Value
+            : scaledFallback ? roll.Maximum==roll.Value&&(roll.Value>=Math.Min(min,max)&&roll.Value<=Math.Max(min,max)
+                || min==max&&roll.Value==0) // Load historical missing fixed coefficients without rewriting saves.
             : _range.Contains(template.Code) ? roll.Value == min && roll.Maximum == max
             : roll.Value >= min && roll.Value <= max && roll.Maximum == roll.Value;
         if (!valid) { throw new InvalidDataException("Named property escaped its definition."); }
@@ -94,7 +106,12 @@ public static class NamedPropertyRuntime
         // The four to-hit suppliers use op param1 (halves); the other
         // registered per-level suppliers use op param3 (eighths).
         int shift = template.Code is "att/lvl" or "att%/lvl" or "att-dem/lvl" or "att-und/lvl" ? 1 : 3;
-        return checked((int)((long)roll.Value * Math.Clamp(level, 1, 99) * (1 << valueShift) >> shift));
+        int coefficient=roll.Value;
+        // Old fixed min/max coefficients were saved as0. Their exact value is
+        // recoverable from the unchanged definition,without RNG or mutation.
+        if(coefficient==0&&Parameter(template)==0&&template.SourceMin is{} fixedValue
+            &&(template.SourceMax??fixedValue)==fixedValue){coefficient=fixedValue;}
+        return checked((int)((long)coefficient * Math.Clamp(level, 1, 99) * (1 << valueShift) >> shift));
     }
     internal static int Bonus256(NamedProperty template, NamedPropertyRoll roll, string code, int level)
     {

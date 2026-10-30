@@ -18,7 +18,8 @@ public static class NamedElements
             "extra-ltng"=>blade.Passive("passive_ltng_mastery"),"extra-pois"=>blade.Passive("passive_pois_mastery"),_=>0
         } : owner is AssassinSentryBody sentry ? code switch
         {"pierce-ltng"=>sentry.Passive("passive_ltng_pierce"),"extra-ltng"=>sentry.Passive("passive_ltng_mastery"),_=>0}
-        :owner is BaseCreature creature&&(code is "pierce-fire" or "pierce-cold" or "pierce-ltng" or "pierce-pois" or "pierce-mag")
+        :owner is BaseCreature creature&&(code is "pierce-fire" or "pierce-cold" or "pierce-ltng" or "pierce-pois" or "pierce-mag"
+            or "abs-fire" or "abs-fire%" or "abs-cold" or "abs-cold%" or "abs-ltng" or "abs-ltng%")
             ?NpcEquipmentCombat.Bonus(creature,code):0;
     public static int MagicResistance(Mobile target) => target is PlayerMobile
         ? Math.Clamp(Bonus(target, "res-mag"), -100, 75)
@@ -100,9 +101,16 @@ public static class NamedElements
         int scaledReduction=(int)Math.Clamp((long)reduction*256*(damageRate>0?damageRate:1024)/1024,0,int.MaxValue);
         if (element is "fire" or "cold" or "ltng")
         {
-            int absorb = target is NecromancerMinion minion && element == "fire" ? minion.FireAbsorb : Bonus(target, "abs-" + element + "%");
+            int innate=target is NecromancerMinion minion && element=="fire"?minion.FireAbsorb:0;
+            int absorb=Bonus(target,"abs-"+element+"%");
             int flat=(int)Math.Clamp((long)Bonus(target,"abs-"+element)*256,0,int.MaxValue);
-            return Reduce256(damage256,resist,scaledReduction,absorb,flat,target is NecromancerMinion?100:40);
+            // Keep the existing innate Fire Golem adapter isolated pending its
+            // source audit. Ordinary item absorption is capped40,including on
+            // non-fire Necromancer minions. Do not invent a mixed innate/item
+            // composition for a prepared Fire Golem holding equipment.
+            if(innate>0&&(absorb!=0||flat!=0))
+            {throw new NotSupportedException("Fire Golem innate/item absorption composition is not verified");}
+            return Reduce256(damage256,resist,scaledReduction,innate>0?innate:absorb,flat,innate>0?100:40);
         }
         return Reduce256(damage256,resist,scaledReduction,0,0);
     }

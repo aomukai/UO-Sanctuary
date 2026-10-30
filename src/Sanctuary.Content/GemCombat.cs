@@ -16,13 +16,15 @@ public static class GemCombat
     public static bool Undead(Mobile target) => target is BaseCreature creature
         && (CreatureProfiles.For(creature).Traits.Undead ?? (creature is GraveyardUndead or SkeletonGuardian || SlayerGroup.GetEntryByName(SlayerName.Silver)?.Slays(creature) == true));
     public static int Reduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
-        ? Math.Max(0, ClassGear.Bonus(p, "magic-reduction")) : 0;
+        ? Math.Max(0, ClassGear.Bonus(p, "magic-reduction"))
+        : target is BaseCreature creature ? Math.Max(0,NpcEquipmentCombat.Bonus(creature,"magic-reduction")) : 0;
     internal static double Component(Mobile target, double damage, int resistance, bool magical)
         => Math.Max(0, damage - (magical ? Reduction(target) : PhysicalReduction(target))) * Math.Clamp(100 - resistance, 0, 200) / 100.0;
     internal static double PoisonComponent(Mobile target, double damage)
         => Math.Max(0, damage) * Math.Clamp(100 - target.PoisonResistance, 0, 200) / 100.0;
     public static int PhysicalReduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
-        ? Math.Max(0, ClassGear.Bonus(p, "physical-reduction")) : 0;
+        ? Math.Max(0, ClassGear.Bonus(p, "physical-reduction"))
+        : target is BaseCreature creature ? Math.Max(0,NpcEquipmentCombat.Bonus(creature,"physical-reduction")) : 0;
     public static int? ResistedDamage(Mobile target, int damage, int physical, int fire, int cold, int poison, int lightning)
     {
         if (Reduction(target) == 0 && PhysicalReduction(target) == 0 && !NamedElements.Defense(target)) { return null; }

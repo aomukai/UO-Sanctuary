@@ -32,6 +32,8 @@ Original-equipment NPC criticals need final impact/audio presentation for Iron G
 
 Inherited item resistances need no new independent active effect. Iron Golem still uses existing UO summon/contact art as its identified placeholder; its final body, summon, thorns and other recorded item cues remain pending. Resistance arithmetic and immunity are not conditional on those assets.
 
+Inherited NPC item absorption now changes life mechanically. Final Iron Golem absorption/contact/audio presentation remains pending; existing UO contact art is an identified placeholder. No source-specific absorption overlay is certified by this adapter. Keep any eventual cue synchronized with the actual absorbed hit.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

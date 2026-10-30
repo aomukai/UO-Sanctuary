@@ -18,6 +18,8 @@ Inherited Deadly Strike and intrinsic monster criticals share Iron Golem's pendi
 
 Inherited item resistances share Iron Golem's pending talent-tree/hotkey artwork and add no separate bindable icon. Text labels remain the identified placeholder.
 
+Inherited flat reduction and absorption share Iron Golem's pending talent-tree/hotkey artwork and add no separately bindable icon. Effect/contact/audio work remains in the effects register.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |
