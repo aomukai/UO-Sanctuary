@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 3072,
+  "compiledUnchangedMaxHpBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/battle-orders-source-probe.cpp": "d18b93142b6ceadd779635411e1b9ac11bf6035c64c6057b55fcf2b2c8f787b2",
+    "tools/reference/battle-orders-engine-evidence.json": "7b9267e04cc3d94c254aad4354f2c5584ba81d04ab62dba6e1036c718614a07c"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-equipment-regen-basis-source/source.cpp": "5f1637f3c16ba8eda2084dda8b19dc19044ec4db8f1ea16a225a0aa4bbefb4cb",
+    ".local/class-skills/npc-equipment-regen-basis-source/cases.json": "11160025fd1b6ebc4b4b8d598e6421d4b0118a69ed6100873f1ec21377d2be51",
+    ".local/class-skills/npc-equipment-regen-basis-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-regen-basis-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete unchanged MAXHP case from the server statlist callback,not the complete outer function. Declared valid game/owner/stat metadata services. Player/monster and missing monster data/record,zero regen coefficient,zero current/previous life,unchanged/exact fractional max values. The branch also rescales current HP;this probe records that output but the existing native item-balance clamp bridge is not certified as source-equivalent."
+}

@@ -9,7 +9,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record BattleOrdersState(uint Recipient,uint Creator,uint Supplier,int Rank,int Percent,DateTime UntilUtc);
-public sealed record OrdersResources(uint Recipient,int LifeMaximum,int ManaMaximum,int StaminaMaximum,int StaminaFraction=0,int? Regeneration256=null);
+public sealed record OrdersResources(uint Recipient,int LifeMaximum,int ManaMaximum,int StaminaMaximum,int StaminaFraction=0,int? Regeneration256=null,int? RegenerationLifeMaximum256=null);
 public sealed record OrdersSave(BattleOrdersState[] States,OrdersResources[] Resources);
 public sealed class OrdersProfiles:GenericPersistence
 {
@@ -25,7 +25,7 @@ public sealed class OrdersProfiles:GenericPersistence
 public static class BattleOrders
 {
     internal readonly record struct Pools(int LifeMax,int ManaMax,int StaminaMax,int Life256,int Mana256,int Stamina256)
-    {internal int ExactLifeMaximum256{get;init;}internal int ExactManaMaximum256{get;init;}internal int ExactStaminaMaximum256{get;init;}}
+    {internal int ExactLifeMaximum256{get;init;}internal int ExactManaMaximum256{get;init;}internal int ExactStaminaMaximum256{get;init;}internal int RegenerationLifeMaximum256{get;init;}}
     private static readonly Dictionary<uint,BattleOrdersState> _states=new();
     private static readonly Dictionary<uint,OrdersResources> _resources=new();
     private static readonly List<uint> _keys=new();
@@ -69,23 +69,43 @@ public static class BattleOrders
         Remember(actor,amount256%256,_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256);
     }
     internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor))
-    {ExactLifeMaximum256=SkillHealth.Maximum256(actor),ExactManaMaximum256=NecromancerEffects.ManaMaximum256(actor),ExactStaminaMaximum256=StaminaMaximum256(actor)};
+    {ExactLifeMaximum256=SkillHealth.Maximum256(actor),ExactManaMaximum256=NecromancerEffects.ManaMaximum256(actor),ExactStaminaMaximum256=StaminaMaximum256(actor),RegenerationLifeMaximum256=actor is SkeletonGuardian g?NpcEquipmentResources.LifeForRegeneration(g):0};
     internal static int Rescale256(int current,int previousMaximum,int nextMaximum)
     {
         if(current<=0 || previousMaximum<=0 || previousMaximum==nextMaximum){return current;}
         if(nextMaximum<=0){return 0;} // Native zero-mana species never gain mana from this percentage buff.
         return (int)Math.Clamp((long)(current/(double)Math.Max(256,previousMaximum)*nextMaximum),1,nextMaximum);
     }
-    private static int? Regen(Mobile actor,int maximum,int? old)
+    internal static int RegenerationAfter(int previous,int next,int life,int rate,int old)
+        =>previous>0&&next!=previous&&life>0&&rate>0?checked((int)((long)rate*(next>>8)>>4)):old;
+    private static int? Regen(Mobile actor,int previous,int next,int? old)
     {
         if(actor is not SkeletonGuardian guardian){return old;}
-        string source=guardian.SourceMonsterId;
-        int rate=NecromancerSummons.Source(source,"DamageRegen",-1);
-        if(actor is ISourceLifeMaximum){maximum=SkillHealth.Maximum256(actor)>>8;}
-        return rate<0?old:(int)((long)rate*maximum>>4);
+        int rate=NecromancerSummons.Source(guardian.SourceMonsterId,"DamageRegen",-1);
+        return RegenerationAfter(previous,next,SkillHealth.Balance256(actor),rate,old??guardian.SourceRegeneration256);
     }
-    internal static int Regeneration256(SkeletonGuardian actor)=>_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256??actor.SourceRegeneration256;
-    private static void Remember(Mobile actor,int staminaFraction,int? regeneration)=>_resources[actor.Serial.Value]=new(actor.Serial.Value,actor.HitsMax,actor.ManaMax,actor.StamMax,staminaFraction,regeneration);
+    internal static int Regeneration256(SkeletonGuardian actor)
+    {
+        // Old ledgers omit the observation basis. Establish the current one
+        // without inventing a previous callback or replacing their saved rate.
+        if(!World.Loading&&_resources.TryGetValue(actor.Serial.Value,out var prior)&&prior.RegenerationLifeMaximum256==null)
+        {Remember(actor,prior.StaminaFraction,prior.Regeneration256);}
+        return _resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256??actor.SourceRegeneration256;
+    }
+    internal static void PrepareRegeneration(Item item)
+    {
+        if(!World.Loading&&item.Parent is SkeletonGuardian actor&&ItemDurationDefenses.HasEquipment(actor))
+        {RefreshRegeneration(actor,NpcEquipmentResources.LifeForRegeneration(actor));}
+    }
+    private static void Remember(Mobile actor,int staminaFraction,int? regeneration)=>_resources[actor.Serial.Value]=new(actor.Serial.Value,actor.HitsMax,actor.ManaMax,actor.StamMax,staminaFraction,regeneration,
+        actor is SkeletonGuardian g?NpcEquipmentResources.LifeForRegeneration(g):null);
+    internal static void RefreshRegeneration(SkeletonGuardian actor,int fallbackPrevious)
+    {
+        var prior=_resources.GetValueOrDefault(actor.Serial.Value);
+        int current=NpcEquipmentResources.LifeForRegeneration(actor);
+        int previous=prior?.RegenerationLifeMaximum256??(fallbackPrevious>0?fallbackPrevious:current);
+        Remember(actor,Stamina256(actor)%256,Regen(actor,previous,current,prior?.Regeneration256));
+    }
     internal static void Change(Mobile actor,Pools before,bool preserveSummonLifeRatio=false)
     {
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
@@ -97,7 +117,6 @@ public static class BattleOrders
             SkillHealth.SetBalance256(actor,preserveSummonLifeRatio
                 ?SummonDifficulties.Life256(before.Life256,priorLifeMaximum256,nextLifeMaximum256)
                 :Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));
-            if(nextLifeMaximum256!=priorLifeMaximum256){regen=Regen(actor,life,regen);}
         }
         int previousMana=before.ExactManaMaximum256>0?before.ExactManaMaximum256:before.ManaMax*256,nextMana=NecromancerEffects.ManaMaximum256(actor);
         if(nextMana!=previousMana){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,previousMana,nextMana));}
@@ -105,6 +124,8 @@ public static class BattleOrders
         int previousStamina=before.ExactStaminaMaximum256>0?before.ExactStaminaMaximum256:before.StaminaMax*256,nextStamina=StaminaMaximum256(actor);
         if(nextStamina!=previousStamina)
         {stam256=Rescale256(stam256,previousStamina,nextStamina);actor.Stam=stam256/256;}
+        if(actor is SkeletonGuardian guardian)
+        {int next=NpcEquipmentResources.LifeForRegeneration(guardian);regen=Regen(actor,before.RegenerationLifeMaximum256>0?before.RegenerationLifeMaximum256:next,next,regen);}
         Remember(actor,stam256%256,regen);
         actor.CheckStatTimers();actor.Delta(MobileDelta.Hits|MobileDelta.Mana|MobileDelta.Stam);
         if(actor is PlayerMobile player){ClassStats.Refresh(player);StatNetwork.Send(player);}
@@ -138,6 +159,7 @@ public static class BattleOrders
     }
     private static void Tick()
     {
+        if(World.Loading){return;}
         var now=TimedEffects.Now;_keys.Clear();_keys.AddRange(_states.Keys);
         foreach(uint key in _keys)
         {
@@ -152,7 +174,9 @@ public static class BattleOrders
         {
             var actor=World.FindMobile((Serial)key);
             if(!Alive(actor)){_resources.Remove(key);continue;}
-            var prior=_resources[key];int? regen=prior.LifeMaximum!=actor.HitsMax?Regen(actor,actor.HitsMax,prior.Regeneration256):prior.Regeneration256;
+            var prior=_resources[key];int? regen=prior.Regeneration256;
+            if(actor is SkeletonGuardian guardian)
+            {int next=NpcEquipmentResources.LifeForRegeneration(guardian);regen=Regen(actor,prior.RegenerationLifeMaximum256??next,next,regen);}
             Remember(actor,Stamina256(actor)%256,regen);
         }
     }
@@ -179,7 +203,7 @@ public static class BattleOrders
             // Source-life NPCs can exceed the native 65000 basis cap. Keep
             // their saved whole maximum within the supported FP256 domain.
             if(ledger.Recipient==0 || ledger.LifeMaximum is <0 or >int.MaxValue/256 || ledger.ManaMaximum is <0 or >65000 || ledger.StaminaMaximum is <0 or >65000
-                || ledger.StaminaFraction is <0 or >255 || ledger.Regeneration256<0 || !_resources.TryAdd(ledger.Recipient,ledger))
+                || ledger.StaminaFraction is <0 or >255 || ledger.Regeneration256<0 || ledger.RegenerationLifeMaximum256 is <=0 || !_resources.TryAdd(ledger.Recipient,ledger))
             {throw new InvalidDataException("Invalid Battle Orders resource ledger");}
         }
     }

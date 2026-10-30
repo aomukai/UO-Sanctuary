@@ -274,3 +274,5 @@ Inherited NPC resource bonuses share Iron Golem’s pending talent-tree/hotkey i
 NPC duration defenses share Iron Golem’s pending talent-tree and hotkey artwork. They add no separately bindable skill or icon; text labels remain identified placeholders.
 
 NPC Replenish Life shares Iron Golem’s pending talent-tree/hotkey artwork and text-label placeholders. It adds no independently bindable skill or icon; state/contact/audio work remains in the effects register.
+
+Exact NPC regeneration-basis callbacks share Iron Golem’s pending talent-tree/hotkey icons. They add no separately bindable skill; text-label placeholders and the separate effects register remain authoritative.

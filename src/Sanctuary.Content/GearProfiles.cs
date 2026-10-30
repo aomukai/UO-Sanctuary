@@ -66,6 +66,7 @@ public sealed class GearProfiles : GenericPersistence
     public void Store(Item item, GearState state)
     {
         Validate(item, state);
+        BattleOrders.PrepareRegeneration(item);
         _items[item.Serial] = state;
         NamedMaintenance.Track(item);
         NamedGear.UpdateName(item, state);
@@ -112,6 +113,7 @@ public sealed class GearProfiles : GenericPersistence
         roll = roll with { RequiredLevel = Math.Max(EquipmentCrafting.EquipFloor(before.Tier), roll.RequiredLevel) };
         var state = before with { Defense = defense, Roll = roll };
         Validate(item, state);
+        BattleOrders.PrepareRegeneration(item);
         _items[item.Serial] = state;
         NamedMaintenance.Track(item);
         item.InvalidateProperties();

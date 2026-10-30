@@ -1,0 +1,17 @@
+# NPC natural regeneration basis checkpoint
+
+Reference D2R 3.3.93847/Reign of the Warlock. Branch `codex/npc-equipment-regen-basis`, accepted predecessor `385fa98`. Previous goal turn made progress: replenishment/signed poison frames and old-phase compatibility were accepted and pushed. This increment is unaccepted/uninstalled; goal active,185handlers/Necromancer29,no class complete.
+
+Implemented: exact source maximum-life observation in the existing Battle Orders resource ledger. Bound originals trigger regeneration-basis recalculation when exact maximum life changes, even if native display is unchanged. Recalculation uses `DamageRegen*(nextMaximum256>>8)>>4`, preserving the prior rate for zero coefficient/unchanged max/nonpositive previous/current life. NPC comparison uses source life before/after the item, preventing the native integer-to-FP adapter boundary from inventing a callback for an item with no HP effect. Gear stores prime old observation before mutation; identification/durability/removal and BO/facet observation share the existing services.
+
+Optional `RegenerationLifeMaximum256` in OrdersResources persists the exact observation. Older omitted fields establish the current baseline without inventing callback history or replacing their saved rate. Their next real transition computes and saves the new source basis. Loading observes only after World.Loading ends. No new player recovery coefficients or changes to current-resource balance policy.
+
+Source proof executes the complete unchanged MAXHP callback branch, not the whole outer function, over3,072declared contexts underASan/UBSan. It includes player/monster/data-record gates,zero coefficient/current/previous life,unchanged/exact fractional maxima. Source branch also rescales HP;the native item-balance clamp bridge is still a separate implementation gap,not a user-approved D2 deviation.
+
+Fixtures: Umbral Disk+20HP gives exact51.5maximum/52display and12regen, not13; Shaftstop+60HP gives91.5/92display and22regen,not23. Blacktongue's disabled HP row keeps its original5basis. Tests cover identification/breakage/repair/repeated stores,BO,removal,a prepared1FP/same-display observer transition and original identity/full-roll/basis persistence. Old-content boot from385fa98 writes the omitted-field ledger;two new boots preserve old state/rate until real transitions,then persist the new basis.
+
+Current snapshot pre-build-attempt-1.json. Both builds are clean. Focused49028 and old-content upgrade25708 are terminal/successful:each3boots/2reloads/3saves. Audit79856 is terminal/successful;retained19013 is live toward401markers. No final acceptance yet. Never mutate runtime inputs while native tests run.
+
+Next: inspect retained19013;publish matching fresh audits,runPython71 and strict evidence binding,verify106installed artifacts unchanged,update roadmap/checkpoints and push. `.tools` stays unstaged.
+
+Remaining: complete current-life/mana callback ratio integration versus existing clamp compatibility behavior;other life-masks/native poison,material life-per-five,NPC mana/stamina/native stat-gain parity,item events/procs,frozen Revive equipment and learned Iron Golem. No modern-executable/global-scheduler/item-birth certificate. Revive inherits living abilities;global monster spell conversion remains separate. Numeric callback changes add no independent icon/effect;final summon/contact/state/audio and talent/hotkey assets remain separate placeholders.
