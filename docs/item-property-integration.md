@@ -41,6 +41,11 @@ Saved original numeric property rolls now use 191 source-derived writer plans. A
 Real original Spirit Forge armor and an ordinary sword exercise saved-roll projection, raw per-level coefficients, recipient-level calculations, removal and two actual reloads. The armor explicitly reports its socket writer omission. Original items are never rerolled; unrepresented zero-parameter or shared-zero fallback rolls are reported rather than invented. Crafted/material/socket contents, quality initialization and conditional named-piece stats remain explicit omissions. Base arrays/type metadata remain caller inputs, and full creation/ethereal order plus modern low-ED fallback/base-reset parity still need corroboration before live NPC integration. See [raw writer acceptance](../tools/reference/item-property-writers-native-evidence.json).
 
 
+## Revive equipment and loot separation
+
+Approved Revive behavior keeps original equipped gear lootable and stores its numeric effects independently, without cloning items or returning them to the NPC. Accepted-death snapshots retain gear rolls and recipient-level numeric views after the physical loot is moved or deleted. Prepared activation restores the original NPC and detaches its corpse lease before cleanup, preserving loot rights and preventing the old consumed corpse from shadowing the living unit identity. These paths do not yet apply a complete NPC equipment stat graph, conditional set effects or proc/event dispatch. Native ability-clock data are archived; restore/aging policy and custom timers remain unfinished. See [capture evidence](../tools/reference/revive-before-death-native-evidence.json), [activation evidence](../tools/reference/revive-native-activation-evidence.json) and [approved equipment decision](../tools/reference/revive-equipment-deviation.json).
+
+
 ## Exact ordinary-affix gap in the current Valkyrie pool
 
 | Source property code | Affixes containing the gap | Existing named registration |
