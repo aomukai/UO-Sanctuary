@@ -10,5 +10,14 @@
     "Revive has no expiration timer; it ends on its own death, Necromancer death or replacement.",
     "Original equipment stays corpse loot; captured combat effects are preserved independently without duplicating or returning physical items."
   ],
-  "scope": "Design policy for native Revive behavior. This does not certify existing AI, special attacks, stat/proc transfer, resource rules, ability clocks or learned casting as complete. Approved Sanctuary deviations take precedence over the pinned reference."
+  "scope": "Design policy for native Revive behavior. This does not certify existing AI, special attacks, stat/proc transfer, resource rules, ability clocks or learned casting as complete. Approved Sanctuary deviations take precedence over the pinned reference.",
+  "casterDesignFollowUp": {
+    "userStatements": [
+      "yeah there's no heal and cure spells in D2, only potions",
+      "but i think we can attack annoying scripts like \"heals other monsters\" to mobs, but those are then special mobs, like our lich resurrecting dead mobs."
+    ],
+    "interpretation": "Exclude generic UO Heal/Greater Heal/Cure from ordinary revived-caster design. Explicitly authored special monster roles may heal other monsters or resurrect corpses. Existing D2-specific healing remains intact. Automatic potion use and inheritance of special resurrection/healing by Revives are not authorized by this statement.",
+    "design": "docs/revive-behavior-replacements.md",
+    "implementationStatus": "Design only; no runtime selector or ability changes."
+  }
 }

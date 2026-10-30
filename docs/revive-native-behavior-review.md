@@ -2,6 +2,8 @@
 
 The [approved policy](../tools/reference/revive-native-behavior-policy.json) permits reuse where native behavior fits D2 combat and replacements where it does not. These are per-behavior implementation decisions under that policy, not a claim that every UO ability is a D2 counterpart. The reference stays D2R 3.3.93847; the existing relative-strength classification, loot separation and no-expiration decisions remain in force.
 
+The [replacement design](revive-behavior-replacements.md) records concrete breath/caster conflicts and the user's distinction between generic UO healing and explicitly authored healer/resurrector monsters. It also records the unresolved Summon Resist reference conflict; inheritance must not be assumed from a tooltip or omitted call alone.
+
 | Behavior | Decision and evidence | Remaining work |
 | --- | --- | --- |
 | Original actor identity | Keep the original object, serial, type, appearance and compatible AI role. [Activation](../tools/reference/revive-native-activation-evidence.json) verifies in-place ownership and independent corpse loot. | Validate individual special AI/state paths; preserving identity does not require retaining every UO mechanic. |
