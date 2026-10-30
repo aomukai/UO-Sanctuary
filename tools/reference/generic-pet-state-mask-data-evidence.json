@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Literal static mask410 profiles from current table slots",
+  "processMemoryRead": true,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "actorDataRead": false,
+  "inventoryDataRead": false,
+  "handlerEnabled": false,
+  "verified": {
+    "selectors": 3,
+    "stateCount": 232,
+    "maskWordsPerSelector": 8,
+    "readBytes": 4208,
+    "rowSamplesPerSelector": 8,
+    "compiledTextUdeadMatches": 232,
+    "selector1StateIds": [
+      1,
+      63,
+      96,
+      99,
+      104,
+      107,
+      118,
+      119,
+      143,
+      154,
+      172,
+      173,
+      184
+    ],
+    "selector2StateIds": [
+      1,
+      63,
+      96,
+      99,
+      104,
+      107,
+      118,
+      119,
+      143,
+      154,
+      172,
+      173,
+      184
+    ],
+    "selector3StateIds": [
+      1,
+      63,
+      96,
+      99,
+      104,
+      107,
+      118,
+      119,
+      143,
+      154,
+      172,
+      173,
+      184,
+      207,
+      227
+    ]
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-metadata/states.bin": "4e1397b008816c299479517292f6bce8c3da768600afb7b1de5c12102bf8eb7a",
+    ".local/class-skills/generic-pet-metadata/states.txt": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+    ".local/class-skills/generic-pet-state-mask/diagnostics/attempt0-capture.log": "5122f6a4fc567865c53377949835f377f336ac8b5f1fb60fa4138902626ce450",
+    ".local/class-skills/generic-pet-state-mask/diagnostics/attempt0-capture_static_state_mask.py": "d82b7c6a0877fd0b572532903d9cd152fa7b77a0bd7e49486d1b4b51a88c4577",
+    ".local/class-skills/generic-pet-state-mask/static-mask-capture.json": "fed9b6f0fbcfed439b04fdd8a08c8cd71c86e7295907e862fec82d09fad664a5",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029-4b2810-part0.asm": "442ef15c27e2cd4892c6e4905d8187603f4c032a0e71b042b176140acf5620d8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029.json": "3c73690cc4b25a184c70976cf13d20da5289c4161be89994b68233de25547de0",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030-27ddb0-part0.asm": "98d8ff9c0f98d7a2c337837c882295bf8b8daeecb6a8ec7a9af25c4209d3db72",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030.json": "9863f6e7ac832299d981fd8be7a7caa05499d381a5c338be15e276798febce89",
+    "data/Sanctuary/Balance/generic-pet-state-masks.json": "88e22f9edd3d883d80cdbff5a9376276d17b571ff7698177317a0263aba1112e",
+    "tools/build_generic_pet_state_masks.py": "828d9c59a4b9ab75dbc897a24e8b3ca8f87325726a7da70292d9980266b4ca33",
+    "tools/capture_static_state_mask.py": "c295befba6f2f3740146c6407f11e497104cbf0cae786e3263e7dee060dbf56d",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "established": [
+    "Every raw mask and table header was read twice with stable process identity,known executable anchors and readable bounded mappings. Eight whole owned compiled rows match per view before following the known mask pointer. Only fixed static metadata was read.",
+    "Selector3 exactly matches compiled byte20 bit2 and owned text udead across232rows. Selectors1/2 omit bind_demon207 and bind_demon_underling227. These are literal observed profiles;their generation rule and selector/game-mode mapping are not inferred.",
+    "The first attempt stopped before creating a reader because an unrelated function had an invalid disassembly marker. The corrected preflight requires all complete fragments of each exact referenced function to be valid and retains all parent artifact hash checks. Both attempts are preserved."
+  ],
+  "remaining": [
+    "The pointer aliases seen for selectors1/2 are snapshot observations only,not a universal alias guarantee. No selector is mapped to area difficulty. Real world state-list membership,registry,collision/event order and complete demon actor lifecycle remain separate."
+  ]
+}

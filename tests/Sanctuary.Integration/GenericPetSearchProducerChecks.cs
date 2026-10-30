@@ -18,10 +18,10 @@ public static class GenericPetSearchProducerChecks
         public ushort this[int index]{get{ushort value=values[index];read(room,index,value);return value;}}
         public IEnumerator<ushort> GetEnumerator()=>((IEnumerable<ushort>)values).GetEnumerator();IEnumerator IEnumerable.GetEnumerator()=>GetEnumerator();
     }
-    private sealed record Context(GenericPetSearchServiceChecks.Scene Scene,GenericPetSearchNestedServices Nested,GenericPetProducerServices Services,
+    internal sealed record Context(GenericPetSearchServiceChecks.Scene Scene,GenericPetSearchNestedServices Nested,GenericPetProducerServices Services,
         EquipmentStatValue[] Lookup,Func<int,EquipmentStatDefinition> DirectCost,SourceGridPoint From,SourceGridPoint To);
     private static EquipmentStatValue[] Values(JsonElement raw)=>raw.EnumerateArray().Select(r=>new EquipmentStatValue(unchecked((uint)r[0].GetInt64()),r[1].GetInt32())).ToArray();
-    private static Context Create(JsonElement p)
+    internal static Context Create(JsonElement p)
     {
         var(scene,nested)=GenericPetSearchNestedChecks.Create(p);void A(params object[] values)=>scene.Trace.Add(values);
         EquipmentStatDefinition Override(EquipmentStatDefinition d)
