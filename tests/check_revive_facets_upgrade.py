@@ -58,6 +58,7 @@ def check():
         for name in ['ModernUO.dll','Server.dll','Assemblies/UOContent.dll']:
             assert previous['artifacts'][name] == inputs['artifacts'][name]
         inputs['oldReceipt'] = dict(commit='4aee67e',sha256=hashlib.sha256(receipt).hexdigest())
+        inputs['boots'] = []
         (STAGE / 'upgrade-inputs.json').write_text(json.dumps(inputs, indent=2) + '\n')
         configpath = folder / 'Configuration/modernuo.json'
         config = json.loads(configpath.read_text())
@@ -77,6 +78,10 @@ def check():
                     name = 'Sanctuary.' + kind.title() + '.dll'
                     target = folder / 'Assemblies' / name
                     target.unlink(); target.symlink_to(package / kind / name)
+                loaded = {name:sha(folder/name) for name in inputs['artifacts']}
+                for name,value in loaded.items():
+                    expected = inputs['oldArtifacts'][name.removeprefix('Assemblies/')] if boot == 0 and name.startswith('Assemblies/Sanctuary.') else inputs['artifacts'][name]
+                    assert value == expected, (boot,name)
                 session = Session(folder, log)
                 try:
                     ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
@@ -90,6 +95,10 @@ def check():
                     for fixture in ['revive-cast-fixtures.json']:
                         shutil.copy2(folder / fixture, STAGE / ('upgrade-' + fixture))
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
+                    assert loaded == {name:sha(folder/name) for name in loaded}
+                    inputs['boots'].append(dict(index=boot,artifacts=loaded,
+                        savedFiles={str(p.relative_to(folder)):sha(p) for p in sorted((folder/'Saves').rglob('*')) if p.is_file()}))
+                    (STAGE/'upgrade-inputs.json').write_text(json.dumps(inputs,indent=2)+'\n')
                 finally:
                     session.close()
     log = logpath.read_text()
