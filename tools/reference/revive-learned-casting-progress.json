@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "candidate; isolated casting verified; broad acceptance pending",
+  "status": "candidate; isolated and retained casting regression passed; full-class run live",
   "sourceCheckpoint": "7f50468",
   "stage": ".local/class-skills/revive-learned-casting",
   "preBuildSnapshot": ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json",
@@ -19,10 +19,18 @@
       "Explicit legacy eligibility, disabled-proposal and equipped-item-effect refusal",
       "Retirement of consumed/legacy dead-unit projections preserves independent loot",
       "Active and pending originals persist through actual native reload; native mana/stamina may regenerate within their maxima"
-    ]
+    ],
+    "retainedCommands": 338,
+    "retainedBoots": 3,
+    "retainedActualReloads": 2,
+    "retainedSaveSnapshots": 3,
+    "pythonTests": 71,
+    "namedFingerprintInputs": 781,
+    "affixFingerprintInputs": 21,
+    "unchangedNamedDefinitions": 573
   },
   "notVerified": [
-    "Retained broad regression is in progress; full-class/Python and fresh named/affix acceptance are pending",
+    "Full-class regression is running (exec session61676); no fresh full-class acceptance is claimed yet.",
     "Source regeneration parity, facet/respec replanning and complete inherited item/proc effects",
     "Summon Resist reference conflict and inherited sunder consumption",
     "Complete D2R client parity; this is not class completion"
@@ -40,7 +48,12 @@
     ".local/class-skills/revive-learned-casting/cast-native-checks.log": "0ac965612d126aec0b8971f3e1457149a33df487b3e683f4840e8ec151fd6b50",
     ".local/class-skills/revive-learned-casting/revive-cast-fixtures.json": "47d68945019458960b76f5dd7db9150af25ced05d6d5af90a1878ca3d01385e9",
     ".local/class-skills/revive-learned-casting/content-build-attempt-8.log": "e63887d116453f53a7d1d60b6d289f2be578abfb2cf84d9a8dcc70d6ca85d9d1",
-    ".local/class-skills/revive-learned-casting/integration-build-attempt-8.log": "00d4dcaeb6d47a3c49034ae87fb79ed678c7f9298f553cda47b13cae4477d1ed"
+    ".local/class-skills/revive-learned-casting/integration-build-attempt-8.log": "00d4dcaeb6d47a3c49034ae87fb79ed678c7f9298f553cda47b13cae4477d1ed",
+    ".local/class-skills/revive-learned-casting/stats-inputs.json": "741ee47a8257b6a7c2ba801730d0ba9f8dc9f99ef308cf7352f60a157e927a94",
+    ".local/class-skills/revive-learned-casting/stats-native-checks.log": "d4d7e56bb0ad8845e3c9ccfedefed153a6c53fc801b0e27d365bfaebceed5634",
+    ".local/class-skills/revive-learned-casting/python-tests.log": "b99c7c55c21c0b1a805507df7a8c6720b71a02f892d7425bcb2712ae5500212c",
+    ".local/class-skills/revive-learned-casting/named-item-runtime-audit.json": "af79edd73a1fa553c92c03d9641136100ffcf2b0b5b8d4dd77d846df70ab51fb",
+    ".local/class-skills/revive-learned-casting/first-loop-affix-audit.json": "76fb8ee65be7208cbf400e3f1cccf84b867929b69dcc684975b9897e69214fb7"
   },
   "coverage": {
     "handlers": 185,
