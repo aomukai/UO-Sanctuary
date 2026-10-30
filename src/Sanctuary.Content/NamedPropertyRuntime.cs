@@ -113,6 +113,8 @@ public static class NamedPropertyRuntime
             &&(template.SourceMax??fixedValue)==fixedValue){coefficient=fixedValue;}
         return checked((int)((long)coefficient * Math.Clamp(level, 1, 99) * (1 << valueShift) >> shift));
     }
+    internal static int? ScaledDisplayValue(NamedProperty template,NamedPropertyRoll roll,int level)
+        =>_scaled.ContainsKey(template.Code)?ScaledBonus(template,roll,level,0):null;
     internal static int Bonus256(NamedProperty template, NamedPropertyRoll roll, string code, int level)
     {
         if (_scaled.TryGetValue(template.Code, out string scaled)) { return scaled == code ? ScaledBonus(template, roll, level, 8) : 0; }

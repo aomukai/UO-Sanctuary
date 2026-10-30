@@ -10,7 +10,7 @@ from snapshot_skill_build import check as check_build_snapshot
 
 if __name__=='__main__':
     retained.STAGE=retained.ROOT/'.local/class-skills/npc-equipment-mitigation'
-    check_build_snapshot(retained.STAGE/'pre-build-attempt-5.json')
+    check_build_snapshot(retained.STAGE/'pre-build-attempt-7.json')
     dependency=retained.ROOT/'tools/reference/damage-rounding-engine-evidence.json'
     dependency_hash=hashlib.sha256(dependency.read_bytes()).hexdigest()
     wrapper_hash=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
@@ -26,5 +26,5 @@ if __name__=='__main__':
     inputs['sourceInputs'][str(dependency.relative_to(retained.ROOT))]=dependency_hash
     inputs['sourceInputs'][str(Path(__file__).resolve().relative_to(retained.ROOT))]=wrapper_hash
     path.write_text(json.dumps(inputs,indent=2)+'\n')
-    check_build_snapshot(retained.STAGE/'pre-build-attempt-5.json',retained.STAGE/'stats-inputs.json')
+    check_build_snapshot(retained.STAGE/'pre-build-attempt-7.json',retained.STAGE/'stats-inputs.json')
     print('Retained original NPC and socket lifecycle pass3boots/2reloads against bound NPC equipment combat candidate;learned Revive casting is enabled with explicit unsupported contexts;remaining parity work is documented.')

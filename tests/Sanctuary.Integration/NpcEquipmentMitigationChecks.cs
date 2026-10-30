@@ -35,6 +35,8 @@ public static class NpcEquipmentMitigationChecks
         var legacy=new NamedPropertyRoll("p/2",0,0);NamedPropertyRuntime.Validate(property,born);NamedPropertyRuntime.Validate(property,legacy);
         foreach(int level in new[]{1,3,4,47,99})
         {Require(NamedPropertyRuntime.Bonus(property,born,"abs-cold",level)==2*level/8&&NamedPropertyRuntime.Bonus(property,legacy,"abs-cold",level)==2*level/8,"Legacy fixed coefficient was rerolled or differs from new birth");}
+        Require(NamedGear.PropertyText(property,legacy,47)==NamedGear.PropertyText(property,born,47)
+            &&NamedGear.PropertyText(property,legacy,47).Contains("11")&&NamedGear.PropertyText(property,legacy,99).Contains("24"),"Legacy description differs from recovered mechanical value");
         using var bear=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"bear-smite-source-probe.json")));int count=0;
         foreach(var row in bear.RootElement.GetProperty("reduction").EnumerateArray())
         {

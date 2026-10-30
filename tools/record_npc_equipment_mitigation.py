@@ -17,9 +17,9 @@ def historical(name):
  return json.loads(subprocess.check_output(['git','show',PREDECESSOR+':'+name],cwd=ROOT))
 
 def record(check=False):
- inventory.STAGE=STAGE;paths=[Path(__file__).resolve(),STAGE/'pre-build-attempt-5.json'];scopes=[]
+ inventory.STAGE=STAGE;paths=[Path(__file__).resolve(),STAGE/'pre-build-attempt-7.json'];scopes=[]
  for name in ['mitigation-inputs.json','stats-inputs.json','audit-inputs.json','upgrade-inputs.json']:
-  p=STAGE/name;scopes.append(inventory.validate_inventory(p));check_snapshot(STAGE/'pre-build-attempt-5.json',p);paths.append(p)
+  p=STAGE/name;scopes.append(inventory.validate_inventory(p));check_snapshot(STAGE/'pre-build-attempt-7.json',p);paths.append(p)
  focused,retained,audited,upgrade=scopes
  assert all(x['artifacts']==focused['artifacts'] and x['copiedData']==focused['copiedData'] for x in scopes)
  prior=historical('tools/reference/npc-equipment-resistances-evidence.json');old=prior['inputInventory'];assert old['copiedData']==focused['copiedData']
@@ -27,7 +27,7 @@ def record(check=False):
   assert old['artifacts'][name]==focused['artifacts'][name]==sha(STAGE/'native/Distribution'/name)
  old_cs={p:h for p,h in old['sourceInputs'].items() if p.endswith('.cs')};new_cs={p:h for p,h in focused['sourceInputs'].items() if p.endswith('.cs')}
  assert set(new_cs)-set(old_cs)=={'tests/Sanctuary.Integration/NpcEquipmentMitigationChecks.cs'}
- assert {p for p in old_cs if old_cs[p]!=new_cs[p]}=={'src/Sanctuary.Content/NamedElements.cs','src/Sanctuary.Content/GemCombat.cs','src/Sanctuary.Content/NamedPropertyRuntime.cs'}
+ assert {p for p in old_cs if old_cs[p]!=new_cs[p]}=={'src/Sanctuary.Content/NamedElements.cs','src/Sanctuary.Content/GemCombat.cs','src/Sanctuary.Content/NamedPropertyRuntime.cs','src/Sanctuary.Content/NamedGear.cs'}
  scope=checked_log(STAGE/'mitigation-native-checks.log',3)
  assert scope==Counter({'npc-equipment-mitigation-check':1,'npc-equipment-mitigation-reload-check':2})
  complete=checked_log(STAGE/'stats-native-checks.log',389)
@@ -76,9 +76,9 @@ def record(check=False):
  installed=historical('tools/reference/creeper-frame-installation-evidence.json');assert len(installed['installedArtifacts'])==106
  for n,h in installed['installedArtifacts'].items():assert sha(Path(installed['runtimeRoot'])/n)==h,n
  for kind in ['content','integration']:
-  p=STAGE/(kind+'-build-attempt-5.log');assert all(x in p.read_text() for x in ['Build succeeded.','0 Warning(s)','0 Error(s)'])
+  p=STAGE/(kind+'-build-attempt-7.log');assert all(x in p.read_text() for x in ['Build succeeded.','0 Warning(s)','0 Error(s)'])
   paths.extend([p,STAGE/kind/('Sanctuary.'+kind.title()+'.dll')])
- for name in ['mitigation-native-checks.log','stats-native-checks.log','audit-native-checks.log','upgrade-native-checks.log','isolated-npc-equipment-mitigation-fixtures.json','npc-equipment-mitigation-fixtures.json','upgrade-npc-equipment-mitigation-legacy-fixtures.json','run-attempt-5.log','retained-run-attempt-1.log','upgrade-run-attempt-1.log']:
+ for name in ['mitigation-native-checks.log','stats-native-checks.log','audit-native-checks.log','upgrade-native-checks.log','isolated-npc-equipment-mitigation-fixtures.json','npc-equipment-mitigation-fixtures.json','upgrade-npc-equipment-mitigation-legacy-fixtures.json','run-attempt-7.log','retained-run-attempt-1.log','upgrade-run-attempt-1.log']:
   paths.append(STAGE/name)
  for n in ['tests/check_npc_equipment_mitigation.py','tests/check_npc_equipment_mitigation_regression.py','tests/check_npc_equipment_mitigation_upgrade.py','docs/skill-effects.md','docs/skill-icons.md']:paths.append(ROOT/n)
  for name in ['isolated-npc-equipment-mitigation-fixtures.json','npc-equipment-mitigation-fixtures.json']:
@@ -94,7 +94,7 @@ def record(check=False):
   inputInventory=retained,focusedInputInventory=focused,upgradeInputInventory=upgrade,artifacts={str(p.relative_to(ROOT)):sha(p) for p in sorted(set(paths))},
   established=['Actual bound original physical/magic flat reductions and fire/cold/lightning absorption feed the shared reducer. Ordinary item percentage absorption uses40cap,not the preexisting blanket NecromancerMinion100cap. No fake player stat owner or second mitigation engine.',
    'Real Patriarch,Gerke,Steel Shade,Nightwing,Blackhorn and Griswold originals verify scalar/range/per-level values,native non-class AOS,poison reduction exclusion,magic,multichannel healing-before-damage at injured/full life,and prepared field-rate MDR scaling. Real owner Dwarf Star MDR/absorb does not leak into NPC stats. Broken/unidentified/removal and original identity/full rolls persist through two reloads.',
-   'PropertyFunc17 uses min/max when its parameter is0. Griswold Valor is the only current named scaled definition with a zero/missing parameter;its fixed source coefficient2 now reaches new birth without RNG. Existing zero rolls recover that exact fixed value without rewriting the saved item. An actual equipped player uses24cold absorb at99;an NPC uses11at47.',
+   'PropertyFunc17 uses min/max when its parameter is0. Griswold Valor is the only current named scaled definition with a zero/missing parameter;its fixed source coefficient2 now reaches new birth without RNG. Existing zero rolls recover that exact fixed value without rewriting the saved item. Scaled descriptions now use the same reader,including recovered legacy values and the existing half/eighth factors. An actual equipped player uses24cold absorb at99;an NPC uses11at47.',
    'A real old-content boot creates and saves Griswold coefficient0. Two new-content boots retain the same serials/parent/full saved rolls,still0,but deliver11cold absorb. All three boots use the compatible new integration assembly;old producer content is archived pre-fix candidate code whose NamedPropertyRuntime matches accepted861f110,not an accepted full older mitigation candidate.',
    '2508reused complete reducer contexts cover small/bypass and large-value source percentage behavior. The existing property-writer source evidence establishes function17 fallback. No new older-engine compilation or complete modern executable/item-birth certificate is claimed.'],
   remaining=['Nonzero item percentage absorption on a metal bound original is not verified:Lightsabre/Dragonscale/Flamebellow and other candidates remain gated by unresolved item skill events;available Dwarf Star/Raven Frost/Spirit Keeper are nonmetal. Pure reducer cases do not substitute for that live consumer check.',

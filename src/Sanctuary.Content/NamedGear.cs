@@ -409,14 +409,17 @@ public static class NamedGear
         label = label.Replace("[Skill]", skill.Skill, StringComparison.Ordinal).Replace("[Class]", skill.CharacterClass, StringComparison.Ordinal)
             .Replace("[Skill Tab]", skill.Skill, StringComparison.Ordinal).Replace("[SkillTab]", skill.Skill, StringComparison.Ordinal);
         int minimum = value.Value, maximum = value.Maximum;
-        if (property.Code.EndsWith("/lvl", StringComparison.Ordinal))
-        { minimum = maximum = (int)((long)value.Value * Math.Clamp(level, 1, 99) / 8); }
+        var scaledValue=NamedPropertyRuntime.ScaledDisplayValue(property,value,level);
+        if (scaledValue is{} scaled)
+        { minimum = maximum = scaled; }
         int marker = label.IndexOf('#');
         if (marker >= 0)
         {
             label = label[..marker] + minimum.ToString(System.Globalization.CultureInfo.InvariantCulture) + label[(marker + 1)..];
             label = label.Replace("#", maximum.ToString(System.Globalization.CultureInfo.InvariantCulture), StringComparison.Ordinal);
         }
+        else if(scaledValue.HasValue)
+        {label += ": " + minimum.ToString(System.Globalization.CultureInfo.InvariantCulture);}
         return label;
     }
 }
