@@ -41,7 +41,7 @@ internal static class NpcEquipmentDamage
         bool weapon=ClassGear.Slot(item.Item)==GearSlot.Weapon&&!ClassGear.Broken(item.Item);
         bool two=weapon&&(basis.TwoHanded||basis.OneOrTwoHanded);
         int normal=item.Bonus("normal-damage");
-        var local=weapon?ClassGear.Damage(item.Item,item.RecipientLevel,two)
+        var local=weapon?ClassGear.Damage(item.Item,item.RecipientLevel,two,true)
             :(item.Bonus("dmg-min"),item.Bonus("dmg-max"));
         int min=checked((two?0:raw.Min)+local.Item1-normal),max=checked((two?0:raw.Max)+local.Item2-normal);
         int percent=checked(raw.Percent+CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor)

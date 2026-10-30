@@ -45,8 +45,13 @@ public static class NpcEquipmentDamageChecks
         Require(IronGolemItems.TryAttach(owner,actor,item,out string why),"Original binding failed: "+why);
         var stats=NpcEquipmentDamage.Capture(actor).Value;var raw=actor.SourceWeaponBase;
         Require(stats.Strength==strength&&stats.Weapon==weapon,"Actual item attribute or weapon route differs: "+name);
-        var local=ClassGear.Damage(item,CreatureProfiles.Level(actor),two);
+        var local=ClassGear.Damage(item,CreatureProfiles.Level(actor),two,true);
         if(weapon){Require(stats.Minimum==(two?0:raw.Min)+local.Min&&stats.Maximum==(two?0:raw.Max)+local.Max,"Weapon local endpoints or hand basis applied twice: "+name);}
+        if(name=="The Scalper")
+        {
+            var thrown=ClassGear.Damage(item,CreatureProfiles.Level(actor),false,false);
+            Require(local!=thrown&&stats.Minimum==raw.Min+local.Min,"NPC swing used the throwing weapon's missile damage");
+        }
         int first=NpcEquipmentDamage.Roll256(stats,_=>0),last=NpcEquipmentDamage.Roll256(stats,n=>n-1);
         Require(first>0&&last>=first,"Invalid actual NPC physical range");
         var row=new Stored(actor.Serial.Value,item.Serial.Value,JsonSerializer.Serialize(ClassGear.State(item)),stats,first,last);
@@ -61,6 +66,19 @@ public static class NpcEquipmentDamageChecks
             int loss=before-SkillHealth.Balance256(target);Require(loss>=first&&loss<=last,"Actual summon Strike bypassed equipped physical damage");
         }
         finally{target.Delete();}
+        if(weapon&&ClassItemTypes.Is(ClassGear.Base(item).Type,"blun"))
+        {
+            var undead=new Skeleton{NoKillAwards=true};undead.SetHits(20000);undead.SetResistance(ResistanceType.Physical,0);
+            undead.MoveToWorld(new(actor.X+1,actor.Y,actor.Z),actor.Map);undead.AIObject.AITimer.Stop();
+            try
+            {
+                var againstUndead=NpcEquipmentDamage.Capture(actor,undead).Value;
+                Require(againstUndead.DamagePercent==stats.DamagePercent+100,"Bonesnap needs source blunt50 plus its separate item undead50 bonus");
+                int expected=NpcEquipmentDamage.Roll256(againstUndead,_=>0),before=SkillHealth.Balance256(undead);
+                Require(NpcEquipmentDamage.TryResolve(actor,undead,out _,_=>0)&&before-SkillHealth.Balance256(undead)==expected,"NPC undead damage bonus did not reach actual health loss");
+            }
+            finally{undead.Delete();}
+        }
         return row;
     }
     private static void Check()
@@ -68,7 +86,7 @@ public static class NpcEquipmentDamageChecks
         SourceCases();var owner=new PlayerMobile{Name="NpcEquipmentDamageOwner",Body=0x190,Player=true};owner.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(owner,47);
         Require(ClassCreation.Profiles.TryTrain(owner.Serial,"necromancer.raiseskeleton",out _),"Holder history prerequisite failed");FixtureSpace.Place(owner,new(6100,2300,0),Map.Trammel);
-        var rows=new[]{Bind(owner,"The Atlantian",false,true,16),Bind(owner,"The Diggler",false,true,0),Bind(owner,"Bonesob",true,true,0),Bind(owner,"Duriel's Shell",false,false,15)};
+        var rows=new[]{Bind(owner,"The Atlantian",false,true,16),Bind(owner,"The Diggler",false,true,0),Bind(owner,"Bonesob",true,true,0),Bind(owner,"Duriel's Shell",false,false,15),Bind(owner,"The Scalper",false,true,0)};
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,rows)));PersistentMinions.Suspend(owner);owner.Internalize();Report();
     }
     private static void Reload()
