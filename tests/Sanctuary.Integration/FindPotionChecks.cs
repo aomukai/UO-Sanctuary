@@ -198,7 +198,8 @@ public static class FindPotionChecks
             int calls=0;BarbarianFindPotion.Roll=()=>{calls++;return 0;};p.Mana=p.ManaMax;Start(p,body);NecromancerEffects.SetMana256(p,0);var action=ClassCombat.For(p);
             Timer.StartTimer(TimeSpan.FromMilliseconds(Math.Max(1,action.EffectAt-Core.TickCount+160)),()=>
             {
-                try{Require(action.PendingAbility==CombatAbility.None&&action.FindPotionTarget==Serial.Zero&&calls==2&&CorpseSkillRules.NoSelect(body)&&body.Items.OfType<RestorationPotion>().Single().Tier==4&&body.Items.OfType<Bag>().Count()==1&&NecromancerEffects.ManaBalance256(p)==0,"Natural40ms release/payment/level-based output");Log.Information("find-potion-live-result: passed");}
+                try{Require(action.PendingAbility==CombatAbility.None&&action.FindPotionTarget==Serial.Zero&&calls==2&&CorpseSkillRules.NoSelect(body)&&body.Items.OfType<RestorationPotion>().Single().Tier==4&&body.Items.OfType<Bag>().Count()==1&&NecromancerEffects.ManaBalance256(p)==0,
+                    $"Natural40ms release:pending={action.PendingAbility},target={action.FindPotionTarget},calls={calls},reserved={CorpseSkillRules.NoSelect(body)},tiers={string.Join(',',body.Items.OfType<RestorationPotion>().Select(x=>x.Tier))},bags={body.Items.OfType<Bag>().Count()},mana={NecromancerEffects.ManaBalance256(p)},network={network.Running},alive={p.Alive}");Log.Information("find-potion-live-result: passed");}
                 catch(Exception e){Log.Error(e,"find-potion-live-result: failed");}
                 finally{BarbarianFindPotion.Roll=roll;body.Delete();p.Delete();}
             });

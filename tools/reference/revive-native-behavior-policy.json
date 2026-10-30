@@ -31,6 +31,6 @@
     "effectivePolicy": "An eligible revived monster retains its existing abilities, including its native spell repertoire while global conversion is pending. Revive uses the same monster implementation, not a separate spell whitelist. Later global conversion updates living and revived versions together. Per-ability replacement design is not a prerequisite for learned Revive.",
     "supersedes": "Earlier proposals to gate inherited spells, healing or resurrection on a separate role decision. Historical D2 resurrection exclusions must not silently override this user instruction.",
     "remainingRequirements": "Ordinary corpse eligibility, ownership, hostility, lifecycle, resources and stat rules. Record actual technical failures individually; an unconverted repertoire alone is not a failure.",
-    "implementationObservation": "Existing prepared activation retains the same native actor/type/AI; learned casting remains unfinished. No new runtime behavior is claimed by this policy correction."
+    "implementationObservation": "Accepted learned Revive reactivates the same original actor/type/AI and preserves its existing ability implementation without a spell-conversion whitelist. This does not certify every native ability consumer; specific technical failures and remaining stat/event work stay documented."
   }
 }

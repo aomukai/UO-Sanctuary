@@ -103,10 +103,11 @@ public static class ReviveRegenerationChecks
     {
         var owner=ReviveNativeActivationChecks.Owner();FixtureSpace.Corridor(owner,6500,24,2900);owner.RawInt=200;
         var account=new Account("revive-recovery-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=owner;network.Account=account;ReviveNativeActivationChecks.Attach(network,owner);
-        var actor=Create(owner);actor.Name="ReviveRegenFast";
+        var actor=Create(owner,true);actor.Name="ReviveRegenFast";
         var control=new Skeleton{Name="ReviveRegenControl",NoKillAwards=true,Frozen=true,CantWalk=true};control.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);control.AIObject.AITimer.Stop();
         control.SetHits(100);control.Hits=90;
         int maximum=SkillHealth.Maximum256(actor);SkillHealth.SetBalance256(actor,maximum-512);int start=SkillHealth.Balance256(actor);
+        Require(ReviveRegeneration.PerFrame(maximum,2)>0,"Live recovery fixture has zero source regeneration after integer truncation");
         // Constructors can cache a native timer before the fixture name/rate
         // exists. Arm that actual timer explicitly, including on the Revive,
         // so a slow cached first delay cannot produce a false negative control.
@@ -125,23 +126,37 @@ public static class ReviveRegenerationChecks
         ArmNative(actor);ArmNative(control);
         Require(actor.Map==owner.Map&&!actor.Blessed&&ClassGearHooks.CanRegenerateHits(actor)==false,"Connected learned original did not activate");
         Require(control.CanRegenHits&&Mobile.GetHitsRegenRate(control)==TimeSpan.FromMilliseconds(1),"Ordinary native timer control is not eligible");
+        void Cleanup()
+        {
+            // Native Dispose is explicitly available for testing cleanup.
+            // Remove the socket immediately, rather than exposing an old
+            // Running/Mobile-null connection to the next fixture selector.
+#pragma warning disable CS0618
+            network.Dispose();
+#pragma warning restore CS0618
+            actor.Delete();control.Delete();owner.Delete();
+        }
         Log.Information("revive-regeneration-live: ready");
         Timer.StartTimer(TimeSpan.FromMilliseconds(240),()=>Core.LoopContext.Post(()=>
         {
             try
             {
                 int gained=SkillHealth.Balance256(actor)-start;
+                var table=typeof(ReviveRegeneration).GetField("Clocks",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
+                object[] clockArgs=[actor,null];table.GetType().GetMethod("TryGetValue").Invoke(table,clockArgs);
+                var clock=clockArgs[1];long last=clock==null?-1:(long)clock.GetType().GetField("Last",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(clock);
+                bool active=(bool)typeof(ReviveNativeActivation).GetMethod("CanAct",BindingFlags.Static|BindingFlags.NonPublic).Invoke(null,[actor]);
                 Require(network.Running&&gained>0&&gained<256&&control.Hits>90,
-                    $"Actual timer recovery/native double-heal control: sourceFP={gained},ordinary={control.Hits}");
+                    $"Actual timer recovery:sourceFP={gained},maximum={SkillHealth.Maximum256(actor)},perFrame={ReviveRegeneration.PerFrame(SkillHealth.Maximum256(actor),2)},ordinary={control.Hits},network={network.Running},map={actor.Map}/{owner.Map},blessed={actor.Blessed},alive={actor.Alive},handled={ReviveRegeneration.Handles(actor)},active={active},canHeal={TimedEffects.CanRegenerateHits(actor)},full={SkillHealth.Full(actor)},last={last},now={Core.TickCount}");
                 PersistentMinions.Suspend(owner);int parked=SkillHealth.Balance256(actor);
                 Timer.StartTimer(TimeSpan.FromMilliseconds(160),()=>Core.LoopContext.Post(()=>
                 {
                     try{Require(actor.Map==Map.Internal&&SkillHealth.Balance256(actor)==parked,"Parked original kept source healing");Log.Information("revive-regeneration-live-result: passed");}
                     catch(Exception e){Log.Error(e,"revive-regeneration-live-result: failed");}
-                    finally{actor.Delete();control.Delete();network.Mobile=null;owner.NetState=null;owner.Delete();}
+                    finally{Cleanup();}
                 }));
             }
-            catch(Exception e){Log.Error(e,"revive-regeneration-live-result: failed");actor.Delete();control.Delete();network.Mobile=null;owner.NetState=null;owner.Delete();}
+            catch(Exception e){Log.Error(e,"revive-regeneration-live-result: failed");Cleanup();}
         }));
     }
     private static void Report()=>Log.Information("Revive regeneration:source FP256 frame carry,prevention/inactive/full resets,exact cap,Graveyard/native exclusion,atomic invalid rates and omitted-field legacy setup pass;actual optional-rate/HP persistence checked separately from live timer recovery");
