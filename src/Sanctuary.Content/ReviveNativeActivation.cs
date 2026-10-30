@@ -11,7 +11,7 @@ namespace Sanctuary;
 
 // Optional source HP is distinct from the legacy integral native setup. It
 // does not substitute for complete source passive/stat/event/AI composition.
-public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null);
+public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null,int? RegenerationRate=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -58,6 +58,7 @@ public static class ReviveNativeActivation
         if(row.Setup.LifePlan is{} plan){ReviveLife.Validate(plan);}
         else if(row.SavedLife256!=null){throw new InvalidDataException("Integral-only Revive cannot contain source life");}
         ReviveCombat.Validate(row.Setup);
+        ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
     }
     internal static void Restore(ReviveNativeState[] rows)
@@ -163,6 +164,7 @@ public static class ReviveNativeActivation
             if(actor.ControlMaster?.Serial.Value!=row.Owner||World.FindMobile((Serial)row.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner)
             {actor.Delete();States.Remove(row.Actor);continue;}
             if(!CanAct(actor)&&actor.Map!=Map.Internal){PersistentMinions.Suspend(owner);}
+            ReviveRegeneration.Recover(actor,CanAct(actor),Core.TickCount);
         }
     }
 }

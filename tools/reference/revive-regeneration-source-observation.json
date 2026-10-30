@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Monster DamageRegen source rates for Revive",
+  "ownedPath": "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/warlock-runtime-reference/monstats.txt",
+  "ownedSha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+  "currentPath": "tools/reference/d2r-named-equipment/json/monstats.json",
+  "currentSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "runtimePath": "data/Sanctuary/Balance/revive-regeneration.json",
+  "runtimeSha256": "bc8227aac23339c38269d89b243082b367fef412efa50e7788ef0a3461fb4f40",
+  "verifiedComparedRows": 751,
+  "distinctRates": [
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    10,
+    12,
+    15
+  ],
+  "scope": "Data equality only. Source callback study and content-only build do not establish live regeneration acceptance.",
+  "olderSourceRules": [
+    "ItemMode.cpp D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910: a positive-life MaxHP change with nonzero DamageRegen recalculates HPREGEN as DamageRegen * (new MaxHP >> 8) >> 4.",
+    "SkillNec.cpp D2GAME_SetSummonPassiveStats_6FD0C530 changes MaxHP after Revive has set positive HP, then refills current HP.",
+    "MonsterMode.cpp D2GAME_MONSTER_ApplyStatRegen_6FC63440 advances regeneration per game frame, respecting life-mask suppression and prevent-heal state."
+  ],
+  "runtimeAcceptance": false
+}

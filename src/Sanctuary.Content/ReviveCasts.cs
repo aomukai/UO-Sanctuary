@@ -50,7 +50,7 @@ internal static class ReviveCasts
             {issue="There is no safe space to revive this monster at its corpse.";return false;}
             // D2's release does not reset mana/stamina. Native death clears
             // them, so restore the resources captured before that cleanup.
-            setup=ReviveLife.Setup(owner,corpse,captured.Mana,captured.Stamina);
+            setup=ReviveLife.Setup(owner,corpse,captured.Mana,captured.Stamina) with{RegenerationRate=ReviveRegeneration.Rate(unit.Snapshot.Source)};
             issue=null;return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)

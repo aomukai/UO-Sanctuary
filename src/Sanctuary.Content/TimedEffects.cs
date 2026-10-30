@@ -71,7 +71,7 @@ public static class TimedEffects
     public static void Configure()
     {
         Profiles = new TimedEffectProfiles();
-        ClassGearHooks.CanRegenerateHits = CanRegenerateHits;
+        ClassGearHooks.CanRegenerateHits = actor=>!ReviveRegeneration.Handles(actor)&&CanRegenerateHits(actor);
         EventSink.Connected += mobile => Settle(mobile, Now);
         EventSink.Disconnected += mobile => Settle(mobile, Now);
         EventSink.Logout += mobile => Settle(mobile, Now);

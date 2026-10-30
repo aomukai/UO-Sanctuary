@@ -1,0 +1,11 @@
+# Revive regeneration draft
+
+2026-10-30 JST. Separate worktree `/home/aomukai/.codex/worktrees/revive-regeneration/Sanctuary`, branch `codex/revive-regeneration`. The learned-casting predecessor is accepted at `ebae878` in the original worktree. Its frozen build9 artifacts remain unchanged.
+
+The draft adds an optional saved regeneration rate to new learned Revive setups. It uses a generated, pinned751-row DamageRegen catalogue, independently equal to all751owned game-file rows. Source MaxHP callback study supports `(DamageRegen * (maximum256 >> 8)) >> 4` per40ms after Revive's positive-HP life increase. Rates are not guessed from native Strength or species appearance.
+
+A40ms FP256 recovery driver queries current maximum life, respects poison/prevent-healing and active owner/map/class permissions, clears elapsed time while inactive/full/blocked, and follows the existing one-second elapsed clamp. Native automatic HP regeneration and GraveyardUndead's separate recovery are suppressed for opted-in actors to avoid double healing. Missing optional rate fields preserve the old behavior for existing saved actors and prepared scopes. This is a draft, not complete D2R regeneration acceptance.
+
+Generated catalogue validation and a clean content-only build pass with zero warnings/errors. Stage `.local/class-skills/revive-regeneration-candidate`, snapshot `pre-build-attempt-1.json`, log `content-build-attempt-1.log`; native references point read-only to the accepted70-patch distribution in the original worktree. No integration build, actual frame tests, prevention/BO/facet/legacy tests or native save/reload acceptance has run yet. Do not install or merge this runtime draft on build-only evidence.
+
+Next: add meaningful dedicated native recovery tests for fractional frames, full/max changes, blocked/inactive resets, native/manual double-heal exclusion and actual optional-field persistence; rebuild both assemblies under a fresh snapshot. Reuse original accepted runtime/source fixtures where applicable. Confirm source callback bounds and avoid asserting a complete negative-regeneration/death-event engine from positive healing alone. Preserve the full class roadmap and separate effects/audio versus talent/hotkey icon registers.

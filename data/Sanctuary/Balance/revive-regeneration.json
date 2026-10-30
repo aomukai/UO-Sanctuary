@@ -1,0 +1,3006 @@
+[
+  {
+    "source": "act2child",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2female",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2guard1",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2guard2",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2guard3",
+    "damageRegen": 0
+  },
+  {
+    "source": "act2guard4",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2guard5",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2hire",
+    "damageRegen": 4
+  },
+  {
+    "source": "act2male",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2vendor1",
+    "damageRegen": 2
+  },
+  {
+    "source": "act2vendor2",
+    "damageRegen": 2
+  },
+  {
+    "source": "act3female",
+    "damageRegen": 2
+  },
+  {
+    "source": "act3hire",
+    "damageRegen": 4
+  },
+  {
+    "source": "act3male",
+    "damageRegen": 2
+  },
+  {
+    "source": "act5barb1",
+    "damageRegen": 2
+  },
+  {
+    "source": "act5barb2",
+    "damageRegen": 2
+  },
+  {
+    "source": "act5barb3",
+    "damageRegen": 0
+  },
+  {
+    "source": "act5barb4",
+    "damageRegen": 0
+  },
+  {
+    "source": "act5hire1",
+    "damageRegen": 10
+  },
+  {
+    "source": "act5hire2",
+    "damageRegen": 10
+  },
+  {
+    "source": "act5pow",
+    "damageRegen": 3
+  },
+  {
+    "source": "akara",
+    "damageRegen": 2
+  },
+  {
+    "source": "alkor",
+    "damageRegen": 2
+  },
+  {
+    "source": "ancientbarb1",
+    "damageRegen": 0
+  },
+  {
+    "source": "ancientbarb2",
+    "damageRegen": 0
+  },
+  {
+    "source": "ancientbarb3",
+    "damageRegen": 0
+  },
+  {
+    "source": "ancientstatue1",
+    "damageRegen": 0
+  },
+  {
+    "source": "ancientstatue2",
+    "damageRegen": 0
+  },
+  {
+    "source": "ancientstatue3",
+    "damageRegen": 0
+  },
+  {
+    "source": "andariel",
+    "damageRegen": 0
+  },
+  {
+    "source": "arach1",
+    "damageRegen": 3
+  },
+  {
+    "source": "arach2",
+    "damageRegen": 3
+  },
+  {
+    "source": "arach3",
+    "damageRegen": 3
+  },
+  {
+    "source": "arach4",
+    "damageRegen": 3
+  },
+  {
+    "source": "arach5",
+    "damageRegen": 3
+  },
+  {
+    "source": "arach6",
+    "damageRegen": 6
+  },
+  {
+    "source": "arach7",
+    "damageRegen": 6
+  },
+  {
+    "source": "asheara",
+    "damageRegen": 2
+  },
+  {
+    "source": "atma",
+    "damageRegen": 2
+  },
+  {
+    "source": "baalclone",
+    "damageRegen": 0
+  },
+  {
+    "source": "baalcrab",
+    "damageRegen": 0
+  },
+  {
+    "source": "baalcrabstairs",
+    "damageRegen": 0
+  },
+  {
+    "source": "baalhighpriest",
+    "damageRegen": 0
+  },
+  {
+    "source": "baalminion1",
+    "damageRegen": 2
+  },
+  {
+    "source": "baalminion2",
+    "damageRegen": 2
+  },
+  {
+    "source": "baalminion3",
+    "damageRegen": 2
+  },
+  {
+    "source": "baaltaunt",
+    "damageRegen": 2
+  },
+  {
+    "source": "baaltentacle1",
+    "damageRegen": 2
+  },
+  {
+    "source": "baaltentacle2",
+    "damageRegen": 2
+  },
+  {
+    "source": "baaltentacle3",
+    "damageRegen": 2
+  },
+  {
+    "source": "baaltentacle4",
+    "damageRegen": 2
+  },
+  {
+    "source": "baaltentacle5",
+    "damageRegen": 2
+  },
+  {
+    "source": "baalthrone",
+    "damageRegen": 0
+  },
+  {
+    "source": "baboon1",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon2",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon3",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon4",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon5",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon6",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon7",
+    "damageRegen": 2
+  },
+  {
+    "source": "baboon8",
+    "damageRegen": 2
+  },
+  {
+    "source": "barricadedoor1",
+    "damageRegen": 0
+  },
+  {
+    "source": "barricadedoor2",
+    "damageRegen": 0
+  },
+  {
+    "source": "barricadetower",
+    "damageRegen": 0
+  },
+  {
+    "source": "barricadewall1",
+    "damageRegen": 0
+  },
+  {
+    "source": "barricadewall2",
+    "damageRegen": 0
+  },
+  {
+    "source": "bat",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon1",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon2",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon3",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon4",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon5",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon6",
+    "damageRegen": 2
+  },
+  {
+    "source": "batdemon7",
+    "damageRegen": 2
+  },
+  {
+    "source": "bear",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead1",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead10",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead2",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead3",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead4",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead5",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead6",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead7",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead8",
+    "damageRegen": 2
+  },
+  {
+    "source": "bighead9",
+    "damageRegen": 2
+  },
+  {
+    "source": "bird1",
+    "damageRegen": 2
+  },
+  {
+    "source": "bird2",
+    "damageRegen": 2
+  },
+  {
+    "source": "bladecreeper",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodgolem",
+    "damageRegen": 3
+  },
+  {
+    "source": "bloodlord1",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodlord2",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodlord3",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodlord4",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodlord5",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodlord6",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodlord7",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodmage1",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodmage2",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodmage3",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodmage4",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodmage5",
+    "damageRegen": 2
+  },
+  {
+    "source": "bloodraven",
+    "damageRegen": 0
+  },
+  {
+    "source": "blunderbore1",
+    "damageRegen": 4
+  },
+  {
+    "source": "blunderbore2",
+    "damageRegen": 4
+  },
+  {
+    "source": "blunderbore3",
+    "damageRegen": 4
+  },
+  {
+    "source": "blunderbore4",
+    "damageRegen": 4
+  },
+  {
+    "source": "blunderbore5",
+    "damageRegen": 3
+  },
+  {
+    "source": "blunderbore6",
+    "damageRegen": 3
+  },
+  {
+    "source": "bonefetish1",
+    "damageRegen": 2
+  },
+  {
+    "source": "bonefetish2",
+    "damageRegen": 2
+  },
+  {
+    "source": "bonefetish3",
+    "damageRegen": 2
+  },
+  {
+    "source": "bonefetish4",
+    "damageRegen": 2
+  },
+  {
+    "source": "bonefetish5",
+    "damageRegen": 2
+  },
+  {
+    "source": "bonefetish6",
+    "damageRegen": 2
+  },
+  {
+    "source": "bonefetish7",
+    "damageRegen": 2
+  },
+  {
+    "source": "boneprison1",
+    "damageRegen": 0
+  },
+  {
+    "source": "boneprison2",
+    "damageRegen": 0
+  },
+  {
+    "source": "boneprison3",
+    "damageRegen": 0
+  },
+  {
+    "source": "boneprison4",
+    "damageRegen": 0
+  },
+  {
+    "source": "bonewall",
+    "damageRegen": 2
+  },
+  {
+    "source": "brute1",
+    "damageRegen": 2
+  },
+  {
+    "source": "brute2",
+    "damageRegen": 2
+  },
+  {
+    "source": "brute3",
+    "damageRegen": 2
+  },
+  {
+    "source": "brute4",
+    "damageRegen": 2
+  },
+  {
+    "source": "brute5",
+    "damageRegen": 2
+  },
+  {
+    "source": "bug",
+    "damageRegen": 2
+  },
+  {
+    "source": "bunny",
+    "damageRegen": 2
+  },
+  {
+    "source": "cain1",
+    "damageRegen": 2
+  },
+  {
+    "source": "cain2",
+    "damageRegen": 2
+  },
+  {
+    "source": "cain3",
+    "damageRegen": 2
+  },
+  {
+    "source": "cain4",
+    "damageRegen": 2
+  },
+  {
+    "source": "cain5",
+    "damageRegen": 2
+  },
+  {
+    "source": "cain6",
+    "damageRegen": 2
+  },
+  {
+    "source": "camel",
+    "damageRegen": 2
+  },
+  {
+    "source": "cantor1",
+    "damageRegen": 2
+  },
+  {
+    "source": "cantor2",
+    "damageRegen": 2
+  },
+  {
+    "source": "cantor3",
+    "damageRegen": 2
+  },
+  {
+    "source": "cantor4",
+    "damageRegen": 2
+  },
+  {
+    "source": "cantor5",
+    "damageRegen": 2
+  },
+  {
+    "source": "cantor6",
+    "damageRegen": 2
+  },
+  {
+    "source": "catapult1",
+    "damageRegen": 0
+  },
+  {
+    "source": "catapult2",
+    "damageRegen": 0
+  },
+  {
+    "source": "catapult3",
+    "damageRegen": 0
+  },
+  {
+    "source": "catapult4",
+    "damageRegen": 0
+  },
+  {
+    "source": "catapultspotter1",
+    "damageRegen": 2
+  },
+  {
+    "source": "catapultspotter2",
+    "damageRegen": 2
+  },
+  {
+    "source": "catapultspotter3",
+    "damageRegen": 2
+  },
+  {
+    "source": "catapultspotter4",
+    "damageRegen": 2
+  },
+  {
+    "source": "chaoshorde1",
+    "damageRegen": 2
+  },
+  {
+    "source": "chaoshorde2",
+    "damageRegen": 2
+  },
+  {
+    "source": "chaoshorde3",
+    "damageRegen": 2
+  },
+  {
+    "source": "chaoshorde4",
+    "damageRegen": 2
+  },
+  {
+    "source": "chargeboltsentry",
+    "damageRegen": 2
+  },
+  {
+    "source": "charsi",
+    "damageRegen": 2
+  },
+  {
+    "source": "chicken",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper1",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper10",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper2",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper3",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper4",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper5",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper6",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper7",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper8",
+    "damageRegen": 2
+  },
+  {
+    "source": "clawviper9",
+    "damageRegen": 2
+  },
+  {
+    "source": "claygolem",
+    "damageRegen": 3
+  },
+  {
+    "source": "colbarbfrenzy",
+    "damageRegen": 2
+  },
+  {
+    "source": "colbarbthrow",
+    "damageRegen": 2
+  },
+  {
+    "source": "colbarbwhirl",
+    "damageRegen": 2
+  },
+  {
+    "source": "colossal1",
+    "damageRegen": 4
+  },
+  {
+    "source": "colossal2",
+    "damageRegen": 4
+  },
+  {
+    "source": "colossal3",
+    "damageRegen": 4
+  },
+  {
+    "source": "compellingorb",
+    "damageRegen": 2
+  },
+  {
+    "source": "corruptrogue1",
+    "damageRegen": 2
+  },
+  {
+    "source": "corruptrogue2",
+    "damageRegen": 2
+  },
+  {
+    "source": "corruptrogue3",
+    "damageRegen": 2
+  },
+  {
+    "source": "corruptrogue4",
+    "damageRegen": 2
+  },
+  {
+    "source": "corruptrogue5",
+    "damageRegen": 2
+  },
+  {
+    "source": "corruptrogue6",
+    "damageRegen": 2
+  },
+  {
+    "source": "councilmember1",
+    "damageRegen": 0
+  },
+  {
+    "source": "councilmember2",
+    "damageRegen": 0
+  },
+  {
+    "source": "councilmember3",
+    "damageRegen": 0
+  },
+  {
+    "source": "cow",
+    "damageRegen": 2
+  },
+  {
+    "source": "cowking",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer1",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer2",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer3",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer4",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer5",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer6",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer7",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_archer8",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer1",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer2",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer3",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer4",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer5",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer6",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer7",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer8",
+    "damageRegen": 2
+  },
+  {
+    "source": "cr_lancer9",
+    "damageRegen": 2
+  },
+  {
+    "source": "crownest1",
+    "damageRegen": 2
+  },
+  {
+    "source": "crownest2",
+    "damageRegen": 2
+  },
+  {
+    "source": "crownest3",
+    "damageRegen": 2
+  },
+  {
+    "source": "crownest4",
+    "damageRegen": 2
+  },
+  {
+    "source": "cycleoflife",
+    "damageRegen": 3
+  },
+  {
+    "source": "darkelder",
+    "damageRegen": 2
+  },
+  {
+    "source": "darkguard1",
+    "damageRegen": 2
+  },
+  {
+    "source": "darkguard2",
+    "damageRegen": 2
+  },
+  {
+    "source": "darkguard3",
+    "damageRegen": 2
+  },
+  {
+    "source": "darkguard4",
+    "damageRegen": 2
+  },
+  {
+    "source": "darkguard5",
+    "damageRegen": 2
+  },
+  {
+    "source": "darkwanderer",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathmauler1",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathmauler2",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathmauler3",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathmauler4",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathmauler5",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathmauler6",
+    "damageRegen": 2
+  },
+  {
+    "source": "deathsentry",
+    "damageRegen": 2
+  },
+  {
+    "source": "demonhole",
+    "damageRegen": 2
+  },
+  {
+    "source": "demonspawner",
+    "damageRegen": 0
+  },
+  {
+    "source": "diablo",
+    "damageRegen": 0
+  },
+  {
+    "source": "diabloclone",
+    "damageRegen": 2
+  },
+  {
+    "source": "dkfig1",
+    "damageRegen": 2
+  },
+  {
+    "source": "dkfig2",
+    "damageRegen": 2
+  },
+  {
+    "source": "dkmag1",
+    "damageRegen": 2
+  },
+  {
+    "source": "dkmag2",
+    "damageRegen": 2
+  },
+  {
+    "source": "dkmag3",
+    "damageRegen": 2
+  },
+  {
+    "source": "doomknight1",
+    "damageRegen": 2
+  },
+  {
+    "source": "doomknight2",
+    "damageRegen": 2
+  },
+  {
+    "source": "doomknight3",
+    "damageRegen": 2
+  },
+  {
+    "source": "dopplezon",
+    "damageRegen": 15
+  },
+  {
+    "source": "drehya",
+    "damageRegen": 2
+  },
+  {
+    "source": "drehyaiced",
+    "damageRegen": 2
+  },
+  {
+    "source": "drognan",
+    "damageRegen": 2
+  },
+  {
+    "source": "druidbear",
+    "damageRegen": 5
+  },
+  {
+    "source": "druidhawk",
+    "damageRegen": 2
+  },
+  {
+    "source": "duriel",
+    "damageRegen": 0
+  },
+  {
+    "source": "eagle",
+    "damageRegen": 2
+  },
+  {
+    "source": "elzix",
+    "damageRegen": 2
+  },
+  {
+    "source": "evilhole1",
+    "damageRegen": 2
+  },
+  {
+    "source": "evilhole2",
+    "damageRegen": 2
+  },
+  {
+    "source": "evilhole3",
+    "damageRegen": 2
+  },
+  {
+    "source": "evilhole4",
+    "damageRegen": 2
+  },
+  {
+    "source": "evilhole5",
+    "damageRegen": 2
+  },
+  {
+    "source": "evilhut",
+    "damageRegen": 0
+  },
+  {
+    "source": "fallen1",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen2",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen3",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen4",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen5",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen6",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen7",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallen8",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman1",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman2",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman3",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman4",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman5",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman6",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman7",
+    "damageRegen": 2
+  },
+  {
+    "source": "fallenshaman8",
+    "damageRegen": 2
+  },
+  {
+    "source": "familiar",
+    "damageRegen": 0
+  },
+  {
+    "source": "fara",
+    "damageRegen": 2
+  },
+  {
+    "source": "fenris",
+    "damageRegen": 4
+  },
+  {
+    "source": "fetish1",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish11",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish2",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish3",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish4",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish5",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish6",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish7",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetish8",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow1",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow2",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow3",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow4",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow5",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow6",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow7",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishblow8",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman1",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman2",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman3",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman4",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman5",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman6",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman7",
+    "damageRegen": 2
+  },
+  {
+    "source": "fetishshaman8",
+    "damageRegen": 2
+  },
+  {
+    "source": "fingermage1",
+    "damageRegen": 2
+  },
+  {
+    "source": "fingermage2",
+    "damageRegen": 2
+  },
+  {
+    "source": "fingermage3",
+    "damageRegen": 2
+  },
+  {
+    "source": "fingermage4",
+    "damageRegen": 2
+  },
+  {
+    "source": "fingermage5",
+    "damageRegen": 2
+  },
+  {
+    "source": "firebeast",
+    "damageRegen": 2
+  },
+  {
+    "source": "firegolem",
+    "damageRegen": 3
+  },
+  {
+    "source": "firetower",
+    "damageRegen": 0
+  },
+  {
+    "source": "fish",
+    "damageRegen": 2
+  },
+  {
+    "source": "flyingscimitar",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow1",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow2",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow3",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow4",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow5",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow6",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow7",
+    "damageRegen": 2
+  },
+  {
+    "source": "foulcrow8",
+    "damageRegen": 2
+  },
+  {
+    "source": "frogdemon1",
+    "damageRegen": 2
+  },
+  {
+    "source": "frogdemon2",
+    "damageRegen": 2
+  },
+  {
+    "source": "frogdemon3",
+    "damageRegen": 2
+  },
+  {
+    "source": "frozenhorror1",
+    "damageRegen": 2
+  },
+  {
+    "source": "frozenhorror2",
+    "damageRegen": 2
+  },
+  {
+    "source": "frozenhorror3",
+    "damageRegen": 2
+  },
+  {
+    "source": "frozenhorror4",
+    "damageRegen": 2
+  },
+  {
+    "source": "frozenhorror5",
+    "damageRegen": 2
+  },
+  {
+    "source": "gargoyletrap",
+    "damageRegen": 0
+  },
+  {
+    "source": "geglash",
+    "damageRegen": 2
+  },
+  {
+    "source": "gheed",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman1",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman10",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman2",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman3",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman4",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman5",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman6",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman7",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman8",
+    "damageRegen": 2
+  },
+  {
+    "source": "goatman9",
+    "damageRegen": 2
+  },
+  {
+    "source": "gorgon1",
+    "damageRegen": 2
+  },
+  {
+    "source": "gorgon2",
+    "damageRegen": 2
+  },
+  {
+    "source": "gorgon3",
+    "damageRegen": 2
+  },
+  {
+    "source": "gorgon4",
+    "damageRegen": 2
+  },
+  {
+    "source": "greiz",
+    "damageRegen": 2
+  },
+  {
+    "source": "griswold",
+    "damageRegen": 2
+  },
+  {
+    "source": "halbu",
+    "damageRegen": 2
+  },
+  {
+    "source": "heartofwolverine",
+    "damageRegen": 3
+  },
+  {
+    "source": "hellbovine",
+    "damageRegen": 2
+  },
+  {
+    "source": "hellmeteor",
+    "damageRegen": 2
+  },
+  {
+    "source": "hephasto",
+    "damageRegen": 0
+  },
+  {
+    "source": "horse",
+    "damageRegen": 2
+  },
+  {
+    "source": "hratli",
+    "damageRegen": 2
+  },
+  {
+    "source": "hydra1",
+    "damageRegen": 2
+  },
+  {
+    "source": "hydra2",
+    "damageRegen": 2
+  },
+  {
+    "source": "hydra3",
+    "damageRegen": 2
+  },
+  {
+    "source": "iceglobe",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp1",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp2",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp3",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp4",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp5",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp6",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp7",
+    "damageRegen": 2
+  },
+  {
+    "source": "imp8",
+    "damageRegen": 2
+  },
+  {
+    "source": "infernosentry",
+    "damageRegen": 2
+  },
+  {
+    "source": "injuredbarb1",
+    "damageRegen": 2
+  },
+  {
+    "source": "injuredbarb2",
+    "damageRegen": 2
+  },
+  {
+    "source": "injuredbarb3",
+    "damageRegen": 2
+  },
+  {
+    "source": "invisopet",
+    "damageRegen": 2
+  },
+  {
+    "source": "invisospawner",
+    "damageRegen": 2
+  },
+  {
+    "source": "irongolem",
+    "damageRegen": 3
+  },
+  {
+    "source": "izual",
+    "damageRegen": 0
+  },
+  {
+    "source": "izualghost",
+    "damageRegen": 2
+  },
+  {
+    "source": "jamella",
+    "damageRegen": 2
+  },
+  {
+    "source": "jerhyn",
+    "damageRegen": 2
+  },
+  {
+    "source": "kashya",
+    "damageRegen": 2
+  },
+  {
+    "source": "larva",
+    "damageRegen": 2
+  },
+  {
+    "source": "larzuk",
+    "damageRegen": 2
+  },
+  {
+    "source": "lightningbeast",
+    "damageRegen": 2
+  },
+  {
+    "source": "lightningsentry",
+    "damageRegen": 2
+  },
+  {
+    "source": "lightningspire",
+    "damageRegen": 0
+  },
+  {
+    "source": "lysander",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggot",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotbaby1",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotbaby2",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotbaby3",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotbaby4",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotbaby5",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotbaby6",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotegg1",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotegg2",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotegg3",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotegg4",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotegg5",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotegg6",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotqueen1",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotqueen2",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotqueen3",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotqueen4",
+    "damageRegen": 2
+  },
+  {
+    "source": "maggotqueen5",
+    "damageRegen": 2
+  },
+  {
+    "source": "malachai",
+    "damageRegen": 2
+  },
+  {
+    "source": "malah",
+    "damageRegen": 2
+  },
+  {
+    "source": "megademon1",
+    "damageRegen": 2
+  },
+  {
+    "source": "megademon2",
+    "damageRegen": 2
+  },
+  {
+    "source": "megademon3",
+    "damageRegen": 2
+  },
+  {
+    "source": "megademon4",
+    "damageRegen": 2
+  },
+  {
+    "source": "megademon5",
+    "damageRegen": 2
+  },
+  {
+    "source": "megademon6",
+    "damageRegen": 2
+  },
+  {
+    "source": "mephisto",
+    "damageRegen": 0
+  },
+  {
+    "source": "mephistospirit",
+    "damageRegen": 2
+  },
+  {
+    "source": "meshif1",
+    "damageRegen": 2
+  },
+  {
+    "source": "meshif2",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion1",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion10",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion11",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion2",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion3",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion4",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion5",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion6",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion7",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion8",
+    "damageRegen": 2
+  },
+  {
+    "source": "minion9",
+    "damageRegen": 2
+  },
+  {
+    "source": "minionspawner1",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner2",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner3",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner4",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner5",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner6",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner7",
+    "damageRegen": 0
+  },
+  {
+    "source": "minionspawner8",
+    "damageRegen": 0
+  },
+  {
+    "source": "minispider",
+    "damageRegen": 2
+  },
+  {
+    "source": "mosquito1",
+    "damageRegen": 2
+  },
+  {
+    "source": "mosquito2",
+    "damageRegen": 2
+  },
+  {
+    "source": "mosquito3",
+    "damageRegen": 2
+  },
+  {
+    "source": "mosquito4",
+    "damageRegen": 2
+  },
+  {
+    "source": "mummy1",
+    "damageRegen": 2
+  },
+  {
+    "source": "mummy2",
+    "damageRegen": 2
+  },
+  {
+    "source": "mummy3",
+    "damageRegen": 2
+  },
+  {
+    "source": "mummy4",
+    "damageRegen": 2
+  },
+  {
+    "source": "mummy5",
+    "damageRegen": 2
+  },
+  {
+    "source": "mummy6",
+    "damageRegen": 2
+  },
+  {
+    "source": "natalya",
+    "damageRegen": 2
+  },
+  {
+    "source": "navi",
+    "damageRegen": 0
+  },
+  {
+    "source": "necromage",
+    "damageRegen": 4
+  },
+  {
+    "source": "necroskeleton",
+    "damageRegen": 4
+  },
+  {
+    "source": "nihlathak",
+    "damageRegen": 2
+  },
+  {
+    "source": "nihlathakboss",
+    "damageRegen": 0
+  },
+  {
+    "source": "oaksage",
+    "damageRegen": 3
+  },
+  {
+    "source": "ormus",
+    "damageRegen": 2
+  },
+  {
+    "source": "overseer1",
+    "damageRegen": 3
+  },
+  {
+    "source": "overseer2",
+    "damageRegen": 3
+  },
+  {
+    "source": "overseer3",
+    "damageRegen": 3
+  },
+  {
+    "source": "overseer4",
+    "damageRegen": 3
+  },
+  {
+    "source": "overseer5",
+    "damageRegen": 2
+  },
+  {
+    "source": "overseer6",
+    "damageRegen": 2
+  },
+  {
+    "source": "painworm1",
+    "damageRegen": 2
+  },
+  {
+    "source": "painworm2",
+    "damageRegen": 2
+  },
+  {
+    "source": "painworm3",
+    "damageRegen": 2
+  },
+  {
+    "source": "painworm4",
+    "damageRegen": 2
+  },
+  {
+    "source": "painworm5",
+    "damageRegen": 2
+  },
+  {
+    "source": "pantherwoman1",
+    "damageRegen": 2
+  },
+  {
+    "source": "pantherwoman2",
+    "damageRegen": 2
+  },
+  {
+    "source": "pantherwoman3",
+    "damageRegen": 2
+  },
+  {
+    "source": "pantherwoman4",
+    "damageRegen": 2
+  },
+  {
+    "source": "pantherwoman5",
+    "damageRegen": 2
+  },
+  {
+    "source": "pantherwoman6",
+    "damageRegen": 2
+  },
+  {
+    "source": "parrot",
+    "damageRegen": 2
+  },
+  {
+    "source": "pig",
+    "damageRegen": 2
+  },
+  {
+    "source": "plaguepoppy",
+    "damageRegen": 3
+  },
+  {
+    "source": "poisonorb",
+    "damageRegen": 2
+  },
+  {
+    "source": "prisondoor",
+    "damageRegen": 0
+  },
+  {
+    "source": "putriddefiler1",
+    "damageRegen": 2
+  },
+  {
+    "source": "putriddefiler2",
+    "damageRegen": 2
+  },
+  {
+    "source": "putriddefiler3",
+    "damageRegen": 2
+  },
+  {
+    "source": "putriddefiler4",
+    "damageRegen": 2
+  },
+  {
+    "source": "putriddefiler5",
+    "damageRegen": 2
+  },
+  {
+    "source": "qual-kehk",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillbear1",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillbear2",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillbear3",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillbear4",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillbear5",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat1",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat2",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat3",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat4",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat5",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat6",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat7",
+    "damageRegen": 2
+  },
+  {
+    "source": "quillrat8",
+    "damageRegen": 2
+  },
+  {
+    "source": "radament",
+    "damageRegen": 0
+  },
+  {
+    "source": "rat",
+    "damageRegen": 2
+  },
+  {
+    "source": "reanimatedhorde1",
+    "damageRegen": 2
+  },
+  {
+    "source": "reanimatedhorde2",
+    "damageRegen": 2
+  },
+  {
+    "source": "reanimatedhorde3",
+    "damageRegen": 2
+  },
+  {
+    "source": "reanimatedhorde4",
+    "damageRegen": 2
+  },
+  {
+    "source": "reanimatedhorde5",
+    "damageRegen": 2
+  },
+  {
+    "source": "reanimatedhorde6",
+    "damageRegen": 2
+  },
+  {
+    "source": "regurgitator1",
+    "damageRegen": 2
+  },
+  {
+    "source": "regurgitator2",
+    "damageRegen": 2
+  },
+  {
+    "source": "regurgitator3",
+    "damageRegen": 2
+  },
+  {
+    "source": "regurgitator4",
+    "damageRegen": 2
+  },
+  {
+    "source": "rogue1",
+    "damageRegen": 2
+  },
+  {
+    "source": "rogue2",
+    "damageRegen": 0
+  },
+  {
+    "source": "rogue3",
+    "damageRegen": 2
+  },
+  {
+    "source": "roguehire",
+    "damageRegen": 4
+  },
+  {
+    "source": "sandleaper1",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandleaper2",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandleaper3",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandleaper4",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandleaper5",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandleaper6",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandleaper7",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot1",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot2",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot3",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot4",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot5",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot6",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandmaggot7",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider1",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider10",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider2",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider3",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider4",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider5",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider6",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider7",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider8",
+    "damageRegen": 2
+  },
+  {
+    "source": "sandraider9",
+    "damageRegen": 2
+  },
+  {
+    "source": "sarcophagus",
+    "damageRegen": 2
+  },
+  {
+    "source": "scarab1",
+    "damageRegen": 2
+  },
+  {
+    "source": "scarab2",
+    "damageRegen": 3
+  },
+  {
+    "source": "scarab3",
+    "damageRegen": 4
+  },
+  {
+    "source": "scarab4",
+    "damageRegen": 5
+  },
+  {
+    "source": "scarab5",
+    "damageRegen": 6
+  },
+  {
+    "source": "scarab6",
+    "damageRegen": 6
+  },
+  {
+    "source": "scarab7",
+    "damageRegen": 6
+  },
+  {
+    "source": "scarab8",
+    "damageRegen": 6
+  },
+  {
+    "source": "scorpion",
+    "damageRegen": 2
+  },
+  {
+    "source": "seagull",
+    "damageRegen": 2
+  },
+  {
+    "source": "seventombs",
+    "damageRegen": 2
+  },
+  {
+    "source": "shadowmaster",
+    "damageRegen": 2
+  },
+  {
+    "source": "shadowwarrior",
+    "damageRegen": 3
+  },
+  {
+    "source": "siegebeast1",
+    "damageRegen": 2
+  },
+  {
+    "source": "siegebeast2",
+    "damageRegen": 2
+  },
+  {
+    "source": "siegebeast3",
+    "damageRegen": 2
+  },
+  {
+    "source": "siegebeast4",
+    "damageRegen": 2
+  },
+  {
+    "source": "siegebeast5",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer1",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer10",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer11",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer2",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer3",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer4",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer5",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer6",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer7",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer8",
+    "damageRegen": 2
+  },
+  {
+    "source": "sk_archer9",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton1",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton2",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton3",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton4",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton5",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton6",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton7",
+    "damageRegen": 2
+  },
+  {
+    "source": "skeleton8",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_cold1",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_cold2",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_cold3",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_cold4",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_cold5",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_cold6",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire1",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire2",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire3",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire4",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire5",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire6",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_fire7",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng1",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng2",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng3",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng4",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng5",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng6",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_ltng7",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois1",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois2",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois3",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois4",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois5",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois6",
+    "damageRegen": 2
+  },
+  {
+    "source": "skmage_pois7",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger1",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger2",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger3",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger4",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger5",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger6",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger7",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger8",
+    "damageRegen": 2
+  },
+  {
+    "source": "slinger9",
+    "damageRegen": 2
+  },
+  {
+    "source": "smith",
+    "damageRegen": 0
+  },
+  {
+    "source": "snake",
+    "damageRegen": 2
+  },
+  {
+    "source": "snowyeti1",
+    "damageRegen": 2
+  },
+  {
+    "source": "snowyeti2",
+    "damageRegen": 2
+  },
+  {
+    "source": "snowyeti3",
+    "damageRegen": 2
+  },
+  {
+    "source": "snowyeti4",
+    "damageRegen": 2
+  },
+  {
+    "source": "spiritmummy",
+    "damageRegen": 2
+  },
+  {
+    "source": "spiritofbarbs",
+    "damageRegen": 3
+  },
+  {
+    "source": "spiritwolf",
+    "damageRegen": 4
+  },
+  {
+    "source": "succubus1",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus2",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus3",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus4",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus5",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus6",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus7",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubus8",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch1",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch2",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch3",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch4",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch5",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch6",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch7",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch8",
+    "damageRegen": 2
+  },
+  {
+    "source": "succubuswitch9",
+    "damageRegen": 2
+  },
+  {
+    "source": "suckernest1",
+    "damageRegen": 2
+  },
+  {
+    "source": "suckernest2",
+    "damageRegen": 2
+  },
+  {
+    "source": "suckernest3",
+    "damageRegen": 2
+  },
+  {
+    "source": "suckernest4",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion1",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion10",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion11",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion2",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion3",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion4",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion5",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion6",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion7",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion8",
+    "damageRegen": 2
+  },
+  {
+    "source": "suicideminion9",
+    "damageRegen": 2
+  },
+  {
+    "source": "summoner",
+    "damageRegen": 0
+  },
+  {
+    "source": "swarm1",
+    "damageRegen": 2
+  },
+  {
+    "source": "swarm2",
+    "damageRegen": 2
+  },
+  {
+    "source": "swarm3",
+    "damageRegen": 2
+  },
+  {
+    "source": "swarm4",
+    "damageRegen": 2
+  },
+  {
+    "source": "swarm5",
+    "damageRegen": 2
+  },
+  {
+    "source": "tentacle1",
+    "damageRegen": 2
+  },
+  {
+    "source": "tentacle2",
+    "damageRegen": 2
+  },
+  {
+    "source": "tentacle3",
+    "damageRegen": 2
+  },
+  {
+    "source": "tentaclehead1",
+    "damageRegen": 2
+  },
+  {
+    "source": "tentaclehead2",
+    "damageRegen": 2
+  },
+  {
+    "source": "tentaclehead3",
+    "damageRegen": 2
+  },
+  {
+    "source": "thornhulk1",
+    "damageRegen": 4
+  },
+  {
+    "source": "thornhulk2",
+    "damageRegen": 4
+  },
+  {
+    "source": "thornhulk3",
+    "damageRegen": 4
+  },
+  {
+    "source": "thornhulk4",
+    "damageRegen": 4
+  },
+  {
+    "source": "thornhulk5",
+    "damageRegen": 4
+  },
+  {
+    "source": "trap-firebolt",
+    "damageRegen": 2
+  },
+  {
+    "source": "trap-horzmissile",
+    "damageRegen": 2
+  },
+  {
+    "source": "trap-lightning",
+    "damageRegen": 2
+  },
+  {
+    "source": "trap-melee",
+    "damageRegen": 2
+  },
+  {
+    "source": "trap-nova",
+    "damageRegen": 2
+  },
+  {
+    "source": "trap-poisoncloud",
+    "damageRegen": 2
+  },
+  {
+    "source": "trap-vertmissile",
+    "damageRegen": 2
+  },
+  {
+    "source": "trappedsoul1",
+    "damageRegen": 2
+  },
+  {
+    "source": "trappedsoul2",
+    "damageRegen": 2
+  },
+  {
+    "source": "turret1",
+    "damageRegen": 0
+  },
+  {
+    "source": "turret2",
+    "damageRegen": 0
+  },
+  {
+    "source": "turret3",
+    "damageRegen": 0
+  },
+  {
+    "source": "tyrael1",
+    "damageRegen": 2
+  },
+  {
+    "source": "tyrael2",
+    "damageRegen": 2
+  },
+  {
+    "source": "tyrael3",
+    "damageRegen": 2
+  },
+  {
+    "source": "uberandariel",
+    "damageRegen": 4
+  },
+  {
+    "source": "uberbaal",
+    "damageRegen": 4
+  },
+  {
+    "source": "uberdiablo",
+    "damageRegen": 4
+  },
+  {
+    "source": "uberduriel",
+    "damageRegen": 4
+  },
+  {
+    "source": "uberizual",
+    "damageRegen": 4
+  },
+  {
+    "source": "ubermephisto",
+    "damageRegen": 4
+  },
+  {
+    "source": "unraveler1",
+    "damageRegen": 3
+  },
+  {
+    "source": "unraveler2",
+    "damageRegen": 3
+  },
+  {
+    "source": "unraveler3",
+    "damageRegen": 3
+  },
+  {
+    "source": "unraveler4",
+    "damageRegen": 3
+  },
+  {
+    "source": "unraveler5",
+    "damageRegen": 3
+  },
+  {
+    "source": "unraveler6",
+    "damageRegen": 2
+  },
+  {
+    "source": "unraveler7",
+    "damageRegen": 2
+  },
+  {
+    "source": "unraveler8",
+    "damageRegen": 2
+  },
+  {
+    "source": "unraveler9",
+    "damageRegen": 2
+  },
+  {
+    "source": "valkyrie",
+    "damageRegen": 12
+  },
+  {
+    "source": "vampire1",
+    "damageRegen": 3
+  },
+  {
+    "source": "vampire2",
+    "damageRegen": 3
+  },
+  {
+    "source": "vampire3",
+    "damageRegen": 3
+  },
+  {
+    "source": "vampire4",
+    "damageRegen": 3
+  },
+  {
+    "source": "vampire5",
+    "damageRegen": 3
+  },
+  {
+    "source": "vampire6",
+    "damageRegen": 5
+  },
+  {
+    "source": "vampire7",
+    "damageRegen": 5
+  },
+  {
+    "source": "vampire8",
+    "damageRegen": 5
+  },
+  {
+    "source": "vampire9",
+    "damageRegen": 5
+  },
+  {
+    "source": "venomlord",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilechild1",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilechild2",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilechild3",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilechild4",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilechild5",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilemother1",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilemother2",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilemother3",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilemother4",
+    "damageRegen": 2
+  },
+  {
+    "source": "vilemother5",
+    "damageRegen": 2
+  },
+  {
+    "source": "vinecreature",
+    "damageRegen": 3
+  },
+  {
+    "source": "vulture1",
+    "damageRegen": 2
+  },
+  {
+    "source": "vulture2",
+    "damageRegen": 2
+  },
+  {
+    "source": "vulture3",
+    "damageRegen": 2
+  },
+  {
+    "source": "vulture4",
+    "damageRegen": 2
+  },
+  {
+    "source": "vulture5",
+    "damageRegen": 2
+  },
+  {
+    "source": "wakeofdestruction",
+    "damageRegen": 2
+  },
+  {
+    "source": "warbighead",
+    "damageRegen": 3
+  },
+  {
+    "source": "wargoatman",
+    "damageRegen": 3
+  },
+  {
+    "source": "warputriddefiler",
+    "damageRegen": 3
+  },
+  {
+    "source": "warriv1",
+    "damageRegen": 2
+  },
+  {
+    "source": "warriv2",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp1",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp2",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp3",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp4",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp5",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp6",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp7",
+    "damageRegen": 2
+  },
+  {
+    "source": "willowisp8",
+    "damageRegen": 2
+  },
+  {
+    "source": "window1",
+    "damageRegen": 2
+  },
+  {
+    "source": "window2",
+    "damageRegen": 2
+  },
+  {
+    "source": "wolf",
+    "damageRegen": 2
+  },
+  {
+    "source": "wolfrider1",
+    "damageRegen": 2
+  },
+  {
+    "source": "wolfrider2",
+    "damageRegen": 2
+  },
+  {
+    "source": "wolfrider3",
+    "damageRegen": 2
+  },
+  {
+    "source": "worldstoneeffect",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith1",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith2",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith3",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith4",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith5",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith6",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith7",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith8",
+    "damageRegen": 2
+  },
+  {
+    "source": "wraith9",
+    "damageRegen": 2
+  },
+  {
+    "source": "zealot1",
+    "damageRegen": 2
+  },
+  {
+    "source": "zealot2",
+    "damageRegen": 2
+  },
+  {
+    "source": "zealot3",
+    "damageRegen": 2
+  },
+  {
+    "source": "zealot4",
+    "damageRegen": 2
+  },
+  {
+    "source": "zealot5",
+    "damageRegen": 2
+  },
+  {
+    "source": "zombie1",
+    "damageRegen": 2
+  },
+  {
+    "source": "zombie2",
+    "damageRegen": 2
+  },
+  {
+    "source": "zombie3",
+    "damageRegen": 2
+  },
+  {
+    "source": "zombie4",
+    "damageRegen": 2
+  },
+  {
+    "source": "zombie5",
+    "damageRegen": 2
+  }
+]

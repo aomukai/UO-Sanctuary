@@ -71,7 +71,7 @@ public static class CorpseSkillRules
         CorpseRecoveryHooks.Deleted=corpse=>{Profiles.Remove(corpse);previous?.Invoke(corpse);};
     }
     public static void Load()
-    { CorpseBaseSnapshots.Load();_selectable.Clear();_noAura.Clear();_soft.Clear();foreach(var row in BalanceCatalog.Read<CorpseSourceRule>("corpse-source-rules")){_selectable.Add(row.Source,row.Selectable);if(row.NoAura){_noAura.Add(row.Source);}if(row.Soft){_soft.Add(row.Source);}} }
+    { CorpseBaseSnapshots.Load();ReviveRegeneration.Load();_selectable.Clear();_noAura.Clear();_soft.Clear();foreach(var row in BalanceCatalog.Read<CorpseSourceRule>("corpse-source-rules")){_selectable.Add(row.Source,row.Selectable);if(row.NoAura){_noAura.Add(row.Source);}if(row.Soft){_soft.Add(row.Source);}} }
     public static bool AllowsAura(Mobile target)
     {
         string key=target switch

@@ -223,6 +223,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     internal void RecoverLife(long now)
     {
+        if(ReviveRegeneration.Handles(this)){return;}
         var normal = NormalStats;
         if (normal == null || _lastRecovery == 0 || Deleted || !Alive || Poisoned || !TimedEffects.CanRegenerateHits(this) || ReturningHome
             || Map == null || Map == Map.Internal || Hits >= HitsMax)
