@@ -7,6 +7,7 @@ using System.Text.Json;
 using Server;
 using Server.Items;
 using Server.Mobiles;
+using Server.Logging;
 namespace Sanctuary;
 
 public sealed record ReviveOriginalState(uint Corpse,uint Actor,string RuntimeType,bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string BeforeDeathJson=null,string BeforeDeathIssue=null);
@@ -27,6 +28,7 @@ public sealed class ReviveOriginalProfiles:GenericPersistence
 // from corpse loot. It does not attach stats/procs or activate revived AI.
 public static class ReviveOriginals
 {
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(ReviveOriginals));
     private sealed record Registry(Dictionary<uint,ReviveOriginalState> Corpses,Dictionary<uint,uint> Actors);
     private static Registry _registry=new(new(),new());
     public static ReviveOriginalProfiles Profiles{get;private set;}
@@ -102,6 +104,11 @@ public static class ReviveOriginals
             ||row.ReviveCreature?.RuntimeType!=actor.GetType().FullName||GenericPetSearchTables.SourceId(row.Source) is not{} cls
             ||ReviveSpecies.ForClass(cls)!=true||!SourceAiEligibility.CanSwitch(cls,SourceAiEligibility.CurrentMonster))
         {return false;}
+        if(ReviveWorldControllers.Issue(actor.Spawner) is{} controllerIssue)
+        {Log.Warning("{Issue}",controllerIssue);return false;}
+        // Match ordinary death's roster cleanup while retaining the actual
+        // actor. The spawner must not count, respawn/delete or own this corpse.
+        ReviveWorldControllers.DetachDeath(actor);
         var original=before==null?null:ReviveBeforeDeath.Decode(before);
         var saved=new ReviveOriginalState(corpse.Serial.Value,actor.Serial.Value,actor.GetType().FullName,original?.Frozen??actor.Frozen,original?.CantWalk??actor.CantWalk,original?.Hidden??actor.Hidden,original?.Blessed??actor.Blessed,before,pending.Issue);
         _registry.Corpses.Add(saved.Corpse,saved);_registry.Actors.Add(saved.Actor,saved.Corpse);

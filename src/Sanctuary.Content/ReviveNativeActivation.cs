@@ -102,8 +102,8 @@ public static class ReviveNativeActivation
         ReviveCombat.Validate(setup);
         if(setup.CombatPlan!=null&&ReviveCombat.Capture(owner,setup.LifePlan,setup.Rank)!=setup.CombatPlan)
         {issue="Source combat context changed before native activation.";return false;}
-        if(original==null||saved?.BeforeDeathJson==null||saved.BeforeDeathIssue!=null||original.Spawner!=null||original.Guild!=null||original.CurrentWayPoint!=null||original.Home!=Point3D.Zero)
-        {issue="Original state or native spawn/guild/waypoint transfer is unsupported.";return false;}
+        if(original==null||saved?.BeforeDeathJson==null||saved.BeforeDeathIssue!=null||original.Spawner!=null||original.Guild!=null)
+        {issue="Original state or native spawn/guild transfer is unsupported.";return false;}
         if(!SourceCorpseIdentity.For(corpse).AllowsRevivedAi(status)){issue="The source revived-AI gate refuses this corpse.";return false;}
         if(destination.X<0||destination.Y<0||destination.X>=owner.Map.Width||destination.Y>=owner.Map.Height
             ||!owner.Map.CanSpawnMobile(destination)||!owner.InLOS(destination)||Math.Abs(destination.Z-corpse.Z)>=16)
@@ -111,6 +111,7 @@ public static class ReviveNativeActivation
         if(setup.Mana>original.ManaMax||setup.Stamina>original.StamMax){issue="Explicit native resources exceed the original pools.";return false;}
         var row=new ReviveNativeState(original.Serial.Value,owner.Serial.Value,saved,setup,checked(NextOrder+1),SummonDifficulties.For(owner.Map));Validate(row);
         int slots=original.ControlSlots,maximum=original.HitsMaxSeed;bool noRewards=original.NoKillAwards,tamable=original.Tamable;bool detached=false;
+        var home=original.Home;var homeMap=original.HomeMap;var waypoint=original.CurrentWayPoint;
         try
         {
             // Bind while still inactive, then detach before any corpse cleanup.
@@ -127,6 +128,7 @@ public static class ReviveNativeActivation
         catch
         {
             States.Remove(row.Actor);original.AIObject?.AITimer.Stop();original.SetControlMaster(null);original.ControlSlots=slots;
+            original.Home=home;original.HomeMap=homeMap;original.CurrentWayPoint=waypoint;
             original.HitsMaxSeed=maximum;original.NoKillAwards=noRewards;original.Tamable=tamable;original.Hits=original.Mana=original.Stam=0;
             SkillHealth.Clear(original);
             if(detached){ReviveOriginals.ReattachAfterFailedActivation(corpse,original,saved);}
