@@ -16,6 +16,8 @@ Inherited weapon poison shares Iron Golem's pending talent-tree/hotkey icons. It
 
 Inherited Deadly Strike and intrinsic monster criticals share Iron Golem's pending talent-tree/hotkey icons. They add no separate bindable talent; critical impact/audio assets are tracked in the effects register.
 
+Inherited item resistances share Iron Golem's pending talent-tree/hotkey artwork and add no separate bindable icon. Text labels remain the identified placeholder.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |

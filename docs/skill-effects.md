@@ -30,6 +30,8 @@ Original-equipment NPC poison now uses the mechanical rate/frame clock. Final po
 
 Original-equipment NPC criticals need final impact/audio presentation for Iron Golem. The source hit-class bit and overlay 54 are mechanically described but not mapped to final client artwork; ordinary UO contact presentation remains the explicitly identified placeholder. Damage and poison clocks do not wait for this asset work.
 
+Inherited item resistances need no new independent active effect. Iron Golem still uses existing UO summon/contact art as its identified placeholder; its final body, summon, thorns and other recorded item cues remain pending. Resistance arithmetic and immunity are not conditional on those assets.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

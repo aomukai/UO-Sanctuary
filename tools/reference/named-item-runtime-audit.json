@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "66ff4401828fdfc79dbcf0fb08fcaa2d0156ef0911a196988ad0b4960077fce6",
+  "ContentAssemblySha256": "6451eed85788ec99f211cdf921345347b68377ea03288e458ec7475dacdb9f45",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -618,7 +618,7 @@
     "src/Sanctuary.Content/NamedAmmunition.cs": "f09c11acb35685ee0aa3019fc83e890ecbde0e92190425ed9fb30e001386dd2d",
     "src/Sanctuary.Content/NamedCombat.cs": "d421fd9b07d39b6ac906035de0d97dce944fa5c13c2123ab503f13847a146b2c",
     "src/Sanctuary.Content/NamedControl.cs": "c4e34303d1a447d54c344eaf3d1d83359ce7ce612c25c7a59025a1d43399f5b8",
-    "src/Sanctuary.Content/NamedElements.cs": "59f55015c62f07d2105a270630f1f7f36ce64faad606dfd06c3b0a9757cb3b30",
+    "src/Sanctuary.Content/NamedElements.cs": "62db7d9dcc556e847d7aaaa60b49beb8b6f13d8f5e3ae5ceaf55c0d9ec03c58b",
     "src/Sanctuary.Content/NamedEquipmentCatalog.cs": "d1846cbc0973279e8db4e978b714be18b33793d39b99848d7994e58af130a5dc",
     "src/Sanctuary.Content/NamedGear.cs": "8788daf4c2920ba1443624f261e3f7f1202a1e87a694d59735568ed5843c8f58",
     "src/Sanctuary.Content/NamedMaintenance.cs": "d3c6afab506c9507da88f188209c4bf7aa428cbcd37b27c87da39bb1d9ff7a0b",
@@ -636,6 +636,7 @@
     "src/Sanctuary.Content/NpcEquipmentElements.cs": "250a17be86982e5fd4b739a1cadf4b2209c71c2a29718ccf00afc4610a36c429",
     "src/Sanctuary.Content/NpcEquipmentPoison.cs": "00a36a3481971e96cdb05bed81dca77c67329b2209356c315821bcd559735910",
     "src/Sanctuary.Content/NpcEquipmentRandom.cs": "efc1a47eb171aa86bbe97c63498a4ec9d004081e1048ebc68a71f21f21b99e69",
+    "src/Sanctuary.Content/NpcEquipmentResistances.cs": "982d8ec740cb8b3195eab5989c2d8a05badded8324bc6a7f26d1bc9609b6bb25",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464",
     "src/Sanctuary.Content/PaladinAuras.cs": "7f0c47451f2d84808e283dcabb9e8eef458b46df34d125f75f37d670e0a8f6b6",
     "src/Sanctuary.Content/PaladinCharge.cs": "b4b2b77ee70c996153992bfd71d0890d04a3f85d6aac4a061a9ae50e264ea50d",
@@ -721,7 +722,7 @@
     "src/Sanctuary.Content/SkeletonPets.cs": "7c7a34947b6066b3ab3f1736167e39e9a294c65784f04eeb07ff7a46b6a9e719",
     "src/Sanctuary.Content/SkillBindingNetwork.cs": "169d523abfb8cc53c608edb44d2311c3da320056eb0b8db756670da5c5f8c215",
     "src/Sanctuary.Content/SkillBindings.cs": "6302384cba488fd1f01a32592348d5caeb040963fb548f234f14d9f6e3cbfe7b",
-    "src/Sanctuary.Content/SkillCombat.cs": "75f5981c13854a1c1174c2087991a1d1a0e33eb3621662c61669340a2801078f",
+    "src/Sanctuary.Content/SkillCombat.cs": "9c17ea1291397f065a9a4ced74a8bc059a8217072dfb6e3a9ed9b8fa38738af6",
     "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
     "src/Sanctuary.Content/SkillHealth.cs": "33f9934d1ae94878de518b1d1dabcf507d69dc959e03ac9fa3c8c2b809fd41c0",
     "src/Sanctuary.Content/SkillMechanics.cs": "805152c92f9b0e1470e2042c194b19385435348239a780494eb932c03758f22e",

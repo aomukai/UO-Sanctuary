@@ -22,7 +22,8 @@ public static class NamedElements
             ?NpcEquipmentCombat.Bonus(creature,code):0;
     public static int MagicResistance(Mobile target) => target is PlayerMobile
         ? Math.Clamp(Bonus(target, "res-mag"), -100, 75)
-        : target is NecromancerMinion summon ? summon.SummonMagicResistance : target is BaseCreature creature ? CreatureProfiles.For(creature).Resistances.Magic ?? 0 : 0;
+        : target is BaseCreature creature ? checked((creature is NecromancerMinion summon ? summon.SummonMagicResistance : CreatureProfiles.For(creature).Resistances.Magic ?? 0)
+            +NpcEquipmentCombat.Bonus(creature,"res-mag")) : 0;
     public static bool Attack(Mobile owner) => owner is PlayerMobile player
         && (SorceressCombat.Passive(player, CombatAbility.FireMastery) > 0 || SorceressCombat.Passive(player, CombatAbility.LightningMastery) > 0
             || SorceressCombat.Passive(player, CombatAbility.ColdMastery) > 0) || Bonus(owner, "extra-fire") != 0 || Bonus(owner, "extra-cold") != 0
