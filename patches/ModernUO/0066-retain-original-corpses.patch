@@ -1,0 +1,42 @@
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1383,6 +1383,8 @@
+         public static bool Summoning { get; set; }
+ 
++        public override bool Alive => ClassLootHooks.IsRetainedOriginal?.Invoke(this) != true && base.Alive;
++
+         // Source-controlled temporary actors own their frame-based lifetime.
+         public virtual bool UsesNativeSummonTimer => true;
+ 
+         public virtual bool IsDispellable => Summoned && !IsAnimatedDead;
+@@ -3713,7 +3715,18 @@
+             // The base death handler deletes NPCs and clears their ownership.
+             ClassLootHooks.CreatureDied?.Invoke(this, c);
+             var preserveCorpse = ClassLootHooks.PreserveCorpse?.Invoke(this, c) == true;
+-            base.OnDeath(c);
++            if (ClassLootHooks.RetainOriginal?.Invoke(this, c) == true)
++            {
++                var sound = GetDeathSound();
++                if (sound >= 0)
++                {
++                    Effects.PlaySound(c.Location, c.Map, sound);
++                }
++            }
++            else
++            {
++                base.OnDeath(c);
++            }
+ 
+             if (DeleteCorpseOnDeath && !preserveCorpse)
+             {
+--- a/Projects/UOContent/Mobiles/ClassLootHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+@@ -5,6 +5,8 @@
+ {
+     public static Func<BaseCreature, bool> SuppressDrops { get; set; }
+     public static Func<BaseCreature, Container, bool> PreserveCorpse { get; set; }
++    public static Func<BaseCreature, Container, bool> RetainOriginal { get; set; }
++    public static Func<BaseCreature, bool> IsRetainedOriginal { get; set; }
+     public static Action<BaseCreature, Container> CreatureDied { get; set; }
+     public static Action<Mobile, Corpse> Carved { get; set; }
+     public static Action<Corpse> ContentsChanged { get; set; }

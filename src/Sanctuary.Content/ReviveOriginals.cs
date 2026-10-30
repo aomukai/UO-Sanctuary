@@ -1,0 +1,116 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Server;
+using Server.Items;
+using Server.Mobiles;
+namespace Sanctuary;
+
+public sealed record ReviveOriginalState(uint Corpse,uint Actor,string RuntimeType,bool Frozen,bool CantWalk,bool Hidden,bool Blessed);
+public sealed class ReviveOriginalProfiles:GenericPersistence
+{
+    public ReviveOriginalProfiles():base("SanctuaryReviveOriginals",222){}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(ReviveOriginals.Snapshot()));}
+    public override void Deserialize(IGenericReader reader)
+    {
+        if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown retained original creature version");}
+        ReviveOriginals.Restore(JsonSerializer.Deserialize<ReviveOriginalState[]>(reader.ReadString())??throw new InvalidDataException("Missing retained original creatures"));
+    }
+    public override void PostDeserialize()=>ReviveOriginals.Prune();
+}
+// Retain the actual native actor, not a constructor or a replacement summon.
+// Automatic death retention stays gated with the unfinished learned spell.
+// This stores post-death native state; it does not claim full pre-death state,
+// original equipment reattachment, skill/passive transfer or revived AI.
+public static class ReviveOriginals
+{
+    private sealed record Registry(Dictionary<uint,ReviveOriginalState> Corpses,Dictionary<uint,uint> Actors);
+    private static Registry _registry=new(new(),new());
+    public static ReviveOriginalProfiles Profiles{get;private set;}
+    public static void Configure()
+    {
+        Profiles=new();
+        var retained=ClassLootHooks.IsRetainedOriginal;
+        ClassLootHooks.IsRetainedOriginal=actor=>IsRetained(actor)||retained?.Invoke(actor)==true;
+        var capture=ClassLootHooks.RetainOriginal;
+        ClassLootHooks.RetainOriginal=(actor,corpse)=>NecromancerCombat.Implemented(CombatAbility.Revive)&&Capture(actor,corpse)||capture?.Invoke(actor,corpse)==true;
+    }
+    public static void Initialize()
+    {
+        var deleted=CorpseRecoveryHooks.Deleted;
+        CorpseRecoveryHooks.Deleted=corpse=>{Remove(corpse.Serial.Value);deleted?.Invoke(corpse);};
+        Timer.StartTimer(TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(1),Prune);
+    }
+    internal static bool SupportedDeathPath(Type type)
+    {
+        var declaring=type.GetMethod(nameof(BaseCreature.OnDeath),[typeof(Container)])?.DeclaringType;
+        return declaring==typeof(BaseCreature)||declaring==typeof(GraveyardUndead);
+    }
+    internal static bool IsRetained(BaseCreature actor)=>actor!=null&&_registry.Actors.ContainsKey(actor.Serial.Value);
+    internal static ReviveOriginalState[] Snapshot()=>_registry.Corpses.Values.OrderBy(r=>r.Corpse).ToArray();
+    internal static void Restore(ReviveOriginalState[] rows)
+    {
+        ArgumentNullException.ThrowIfNull(rows);
+        var corpses=new Dictionary<uint,ReviveOriginalState>();var actors=new Dictionary<uint,uint>();
+        foreach(var row in rows)
+        {
+            if(row==null||!((Serial)row.Corpse).IsItem||!((Serial)row.Actor).IsMobile||row.Actor==0
+                ||string.IsNullOrWhiteSpace(row.RuntimeType)||!corpses.TryAdd(row.Corpse,row)||!actors.TryAdd(row.Actor,row.Corpse))
+            {throw new InvalidDataException("Invalid or duplicate retained original creature");}
+        }
+        _registry=new(corpses,actors);
+    }
+    internal static BaseCreature Find(Corpse corpse)
+    {
+        if(corpse is not{Deleted:false}||!_registry.Corpses.TryGetValue(corpse.Serial.Value,out var row)){return null;}
+        var actor=World.FindMobile((Serial)row.Actor) as BaseCreature;
+        if(actor is not{Deleted:false}||actor.GetType().FullName!=row.RuntimeType){return null;}
+        var history=CorpseSkillRules.Profiles.Find(corpse);
+        if(history?.BaseLife?.OriginalMonsterSerial!=row.Actor||history.ReviveCreature?.RuntimeType!=row.RuntimeType||corpse.Owner!=actor)
+        {throw new InvalidDataException("Retained native creature disagrees with its original corpse");}
+        return actor;
+    }
+    internal static bool Capture(BaseCreature actor,Container container)
+    {
+        if(actor is null||actor.Deleted||container is not Corpse{Deleted:false} corpse||actor.Controlled||actor.Summoned
+            ||actor is BaseVendor or GraveyardUndead{Raised:true}||!SupportedDeathPath(actor.GetType())||_registry.Corpses.ContainsKey(corpse.Serial.Value)||IsRetained(actor))
+        {return false;}
+        var row=CorpseSkillRules.Profiles.Find(corpse);
+        if(row is not{Owned:false,Shattered:false,NoSelect:false,Selectable:true}||row.BaseLife?.OriginalMonsterSerial!=actor.Serial.Value
+            ||row.ReviveCreature?.RuntimeType!=actor.GetType().FullName||GenericPetSearchTables.SourceId(row.Source) is not{} cls
+            ||ReviveSpecies.ForClass(cls)!=true||!SourceAiEligibility.CanSwitch(cls,SourceAiEligibility.CurrentMonster))
+        {return false;}
+        var saved=new ReviveOriginalState(corpse.Serial.Value,actor.Serial.Value,actor.GetType().FullName,actor.Frozen,actor.CantWalk,actor.Hidden,actor.Blessed);
+        _registry.Corpses.Add(saved.Corpse,saved);_registry.Actors.Add(saved.Actor,saved.Corpse);
+        Park(actor);return true;
+    }
+    private static void Park(BaseCreature actor)
+    {
+        if(actor is GraveyardUndead undead){undead.StopCombatActions();}
+        actor.Combatant=null;actor.Warmode=false;actor.Frozen=actor.CantWalk=actor.Hidden=actor.Blessed=true;
+        actor.AIObject?.AITimer.Stop();actor.Internalize();
+    }
+    private static void Remove(uint corpse)
+    {
+        if(!_registry.Corpses.Remove(corpse,out var row)){return;}
+        _registry.Actors.Remove(row.Actor);
+        if(World.FindMobile((Serial)row.Actor) is BaseCreature{Deleted:false} actor)
+        {
+            if(actor.GetType().FullName!=row.RuntimeType){throw new InvalidDataException("Retained creature identity collision during cleanup");}
+            actor.Delete();
+        }
+    }
+    internal static void Prune()
+    {
+        foreach(var row in Snapshot())
+        {
+            if(World.FindItem((Serial)row.Corpse) is not Corpse{Deleted:false} corpse){Remove(row.Corpse);continue;}
+            var actor=Find(corpse);
+            if(actor==null){_registry.Corpses.Remove(row.Corpse);_registry.Actors.Remove(row.Actor);continue;}
+            Park(actor);
+        }
+    }
+}

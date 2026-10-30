@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "c413e9269f7dab9d6cb16ad3d86e9c9ae6e6a67813ee8c729b9b3ee974963d9f",
-  "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+  "ContentAssemblySha256": "d7f18ab3e40d2bce626bbbc194a6ab990752ae9760d1846a897fe901a22235d6",
+  "NativeAssemblySha256": "63457687be03dd2c7c675a43454a7174f5b1eba332ef7891b30ebfccdbe71444",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/alchemy-restoratives.json": "15d82f3a3c74aa7c6df41aaa1a6fe288c99364fbd77d6e1bc913880559790319",
@@ -222,6 +222,7 @@
     "patches/ModernUO/0063-class-deferred-death.patch": "7c9310ac86b6ca93a2a52adb122fa3df7a8d7144e3bd3eab16ac0a1da75d1e8b",
     "patches/ModernUO/0064-mobile-collision-footprints.patch": "b0840f54e601486134413c83ce039679cf752b820ba51340d08e336aaf533637",
     "patches/ModernUO/0065-source-controlled-summon-lifetime.patch": "408297aa46d51a949473b5d5e1ff60c6310a7b5663c334a49dfa12a716442ef6",
+    "patches/ModernUO/0066-retain-original-corpses.patch": "c37508477a264653fb172c3a26b2be83412f67b963c99e03fb45c688d83e90f9",
     "shared/BeltProtocol.cs": "75be8cbc428000197c23cbccd2ce64f385a2bebe6135ac15792bc0412483504b",
     "shared/ClassAbilities.cs": "863ec89acc57ab006fc18eced3d896de100667624b5ce8f7bc207ead3c6bbe1d",
     "shared/ClassGumpProtocol.cs": "dd287db99a8189b72ef129bf2f296d3c5022fbe203a6eadeb2ed1b6fd01fed71",
@@ -681,6 +682,7 @@
     "src/Sanctuary.Content/RepairProfiles.cs": "c197ab1206475858e1677f695a12bf7f9fa0d2661392fb155f035edbe4727fa1",
     "src/Sanctuary.Content/RepairTools.cs": "061f2ca4ad8304ee4fec9ae896576d18a8c30eaefcb270396ef32cf8fd1da5b7",
     "src/Sanctuary.Content/ReviveCreatureSnapshots.cs": "7fcee0f39321dafc29c2c9645ff481f3710e77da4ccd7daff31964c5b714f889",
+    "src/Sanctuary.Content/ReviveOriginals.cs": "2ed6260ae27b42abec0a74d369457be7d1cff549c401b9b81ae1c48228900da9",
     "src/Sanctuary.Content/ReviveSourcePolicy.cs": "9a6abdb7cd9a28c8ad65e85d7834ed0793a31d2a2b72f8e96bcbd30b0d4a57fe",
     "src/Sanctuary.Content/ReviveSpecies.cs": "66ef9f5b14768fea7fe05c0fd5d83a98cb48c54e4903a07440b59e56e35ed21d",
     "src/Sanctuary.Content/RewardLife.cs": "65c1cc6e4cee438d10779dd0755e30261ad10f4d9cc1dba682d70619d95681cb",
