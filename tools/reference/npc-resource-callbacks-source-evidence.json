@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 1080,
+  "compiledUnchangedResourceBranchesSha256": "9f5bdc6d2a6d2f57f59627bd198381b0a0f901b144e76926084e4a425b4205da",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/battle-orders-source-probe.cpp": "d18b93142b6ceadd779635411e1b9ac11bf6035c64c6057b55fcf2b2c8f787b2",
+    "tools/reference/battle-orders-engine-evidence.json": "7b9267e04cc3d94c254aad4354f2c5584ba81d04ab62dba6e1036c718614a07c"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-resource-callbacks-source/source.cpp": "f4167be178e18fdef6f4a91d84aedf02f4af9b1b297548584b43514f945d7f20",
+    ".local/class-skills/npc-resource-callbacks-source/cases.json": "803844cebabd2a5e444bb24ecb1a6b4eaa252271e76056015dbe4d8af55b8be6",
+    ".local/class-skills/npc-resource-callbacks-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-resource-callbacks-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete unchanged MAXHP/MAXMANA/MAXSTAMINA branches,not the entire outer stat callback. Declared valid actor/game/stat services and positive next maximum. Includes unchanged/zero previous/current,sub-HP denominator and exact FP256 truncation. Zero-next bounds are excluded;the existing native zero-cap convention remains a separate modern-reference boundary."
+}

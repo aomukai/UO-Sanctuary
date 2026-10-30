@@ -47,18 +47,37 @@ internal static class NpcEquipmentResources
         if(Maximum256(actor,0) is{} exact){return exact;}
         return Math.Clamp(NpcResourceValues.Calculate(new(1,0,CreatureProfiles.Level(actor),checked((int)Basis256(actor,0,null)),0,0,0,BattleOrders.LifePercent(actor))),256,65000*256);
     }
-    internal static void RestoreBalances(SkeletonGuardian actor,BattleOrders.Pools before)
+    internal static BattleOrders.Pools BeforeAttach(SkeletonGuardian actor)
+    {
+        var before=BattleOrders.Capture(actor);
+        // The native zero-seed fallback invents one point from raw Int. A
+        // source zero-mana species has neither that maximum nor that balance.
+        return actor.ManaMaxSeed==0?before with{ExactManaMaximum256=0,Mana256=0}:before;
+    }
+    internal static void RestoreBalances(SkeletonGuardian actor,BattleOrders.Pools before,bool rescale=true)
     {
         if(World.Loading||actor is not{Alive:true,Deleted:false}){return;}
         BattleOrders.RefreshRegeneration(actor,before.RegenerationLifeMaximum256);
-        SkillHealth.SetBalance256(actor,before.Life256);
-        NecromancerEffects.SetMana256(actor,before.Mana256);
-        BattleOrders.SetStamina256(actor,before.Stamina256);
+        int Apply(int current,int previous,int next)=>rescale?BattleOrders.Rescale256(current,previous,next):current;
+        SkillHealth.SetBalance256(actor,Apply(before.Life256,before.ExactLifeMaximum256,SkillHealth.Maximum256(actor)));
+        NecromancerEffects.SetMana256(actor,Apply(before.Mana256,before.ExactManaMaximum256,NecromancerEffects.ManaMaximum256(actor)));
+        BattleOrders.SetStamina256(actor,Apply(before.Stamina256,before.ExactStaminaMaximum256,BattleOrders.StaminaMaximum256(actor)));
         actor.CheckStatTimers();actor.Delta(MobileDelta.Hits|MobileDelta.Mana|MobileDelta.Stam);
     }
-    internal static void Clamp(Item item)
+    internal static BattleOrders.Pools? BeforeChange(Item item)=>!World.Loading&&item.Parent is SkeletonGuardian actor&&ItemDurationDefenses.HasEquipment(actor)?BattleOrders.Capture(actor):null;
+    internal static void Clamp(Item item,BattleOrders.Pools? prepared=null)
     {
         if(!World.Loading&&item.Parent is SkeletonGuardian actor&&IronGolemItems.State(actor)?.Item==item.Serial.Value)
-        {RestoreBalances(actor,BattleOrders.Capture(actor));}
+        {
+            var before=prepared??BattleOrders.Capture(actor);
+            if(prepared==null&&BattleOrders.ObservedNpcMaximums(actor) is{} prior)
+            {
+                before=before with{ExactLifeMaximum256=prior.Life256,ExactManaMaximum256=prior.Mana256,ExactStaminaMaximum256=prior.Stamina256,
+                    Life256=SkillHealth.BalanceAtMaximum256(actor,prior.Life256),
+                    Mana256=Math.Min(prior.Mana256,NecromancerEffects.RawManaBalance256(actor)),
+                    Stamina256=Math.Min(prior.Stamina256,BattleOrders.RawStamina256(actor))};
+            }
+            RestoreBalances(actor,before);
+        }
     }
 }

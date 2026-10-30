@@ -92,7 +92,8 @@ public static class IronGolemItems
         {reason="This item cannot be transferred in this context yet.";return false;}
         var row=Metadata(ClassGear.State(item)?.BaseCode??ClassGear.Definition(item)?.BaseCode);
         var savedMap=item.Map;var savedPoint=item.Location;bool visible=item.Visible,movable=item.Movable;
-        BattleOrders.Pools? resources=pet is SkeletonGuardian?BattleOrders.Capture(pet):null;
+        BattleOrders.Pools? nativeResources=pet is SkeletonGuardian?BattleOrders.Capture(pet):null;
+        BattleOrders.Pools? resources=pet is SkeletonGuardian guardian?NpcEquipmentResources.BeforeAttach(guardian):null;
         try
         {
             item.Visible=false;item.Movable=false;pet.AddItem(item);
@@ -106,7 +107,7 @@ public static class IronGolemItems
         {
             States.Remove(pet.Serial.Value);ByItem.Remove(item.Serial.Value);
             if(!item.Deleted){item.MoveToWorld(savedPoint,savedMap);item.Visible=visible;item.Movable=movable;}
-            if(resources is{} before){((SkeletonGuardian)pet).ResetLifeRecovery();NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before);}
+            if(nativeResources is{} before){((SkeletonGuardian)pet).ResetLifeRecovery();NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before,false);}
             reason="The item could not be transferred.";return false;
         }
     }

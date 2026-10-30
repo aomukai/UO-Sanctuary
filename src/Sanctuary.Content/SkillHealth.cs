@@ -65,6 +65,12 @@ public static class SkillHealth
         int fraction=target.Hits>old.ObservedHits && target.Hits>=target.HitsMax?0:old.Fraction;
         return target.Hits*256-fraction;
     }
+    internal static int BalanceAtMaximum256(Mobile target,int previousMaximum256)
+    {
+        var old=Profiles.Remainders.GetValueOrDefault(target.Serial);
+        int fraction=target.Hits>old.ObservedHits&&(long)target.Hits*256>=previousMaximum256?0:old.Fraction;
+        return Math.Min(previousMaximum256,target.Hits*256-fraction);
+    }
     internal static void SetBalance256(Mobile target,int amount256)
     {
         amount256=Math.Clamp(amount256,0,Maximum256(target));int displayed=(amount256+255)/256;

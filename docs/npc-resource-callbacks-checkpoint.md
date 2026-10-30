@@ -1,0 +1,17 @@
+# NPC current-resource callback checkpoint
+
+Reference D2R3.3.93847/Reign of the Warlock;branch`codex/npc-equipment-resource-callbacks`,accepted predecessor`0351a75`. Previous turn made progress: exact natural regeneration basis was accepted/pushed. Candidate is unaccepted/uninstalled;goal active185handlers/Necromancer29,no class complete.
+
+Implemented: NPC item maximum changes now call the existing source ratio helper for life,mana and stamina instead of preserving/clamping the old absolute amount. Gear stores capture before mutation. An optional nested `NpcMaximums` observation in OrdersResources records exact pool maxima;native durability callbacks use those prior maxima plus raw current balances,preventing lower maxima from prematurely clipping the value used in the ratio. Existing source minimum1FP/zero-current/no-previous behavior remains in the helper. Positive-source-next maximum branches are verified;the existing zero-cap convention is separate from the older undefined clamp bounds.
+
+A zero-mana summon no longer scales UO's raw-Int one-point fallback into item-granted mana on attachment. Source seed0 captures0maximum/0current before binding. Failed transfer restores the original native snapshot without percentage scaling. Removal captures before clearing the binding/deletion callbacks. Mana/stamina fractions and exact HP balance are retained through the callbacks;natural regeneration and prior observation bookkeeping remain shared.
+
+Source proof executes complete unchanged MAXHP/MAXMANA/MAXSTAMINA branches,not the entire outer callback,over1,080declared cases underASan/UBSan. Covers both unit kinds,zero/sub-HP previous maxima,zero/current FP256,unchanged and positive next maxima. No complete modern executable or zero-next source parity claim.
+
+Fixtures: actual Crown of Thieves,Frostburn,Gore Rider,Kelpie Snare with a declared20mana source pool;native/source-zero mana is tested separately. Attachment/identification/breakage/repair/removal,full/partial/tiny/empty balances and original/max-observation persistence are covered. Existing resource assertions now expect source percentage changes;the basis legacy fixture records actual post-callback fractional life rather than assuming no quantization. Old-content upgrade boots0351a75 to verify omitted observations do not alter saved pools before subsequent verified transitions.
+
+Attempt1 built cleanly and focused3boots/2reloads passed. The test then added explicit BaseClothing durability handling for the boots appearance and refuses silent omission of a durability path. Current frozen inputs:pre-build-attempt-2.json;focused4111 is terminal/successful:3checks/3boots/2reloads/3saves. Upgrade/retained/audit processes are now running;revalidate their handles before edits. No final acceptance.
+
+Next: inspect the old-content upgrade/retained404/separate audit processes,then Python71 and strict matching evidence. Update reference/roadmap after actual verification;push checkpoints. Preserve106installed artifacts and working saves;`.tools`unstaged.
+
+Remaining: full outer stat callback/event registration and delayed/multi-item ordering,old missing histories/zero-next modern bounds,other life-masks/native poison,material life-per-five,NPC mana/stamina/stat-gain parity,frozen Revive equipment and learned Iron Golem prerequisites. Revive inherits living abilities;global monster spell conversion remains separate. No new independent active icon/effect;final summon/contact/state/audio and talent/hotkey assets remain separate placeholders.

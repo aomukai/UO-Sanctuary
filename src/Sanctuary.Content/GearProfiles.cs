@@ -66,12 +66,13 @@ public sealed class GearProfiles : GenericPersistence
     public void Store(Item item, GearState state)
     {
         Validate(item, state);
+        var resources=NpcEquipmentResources.BeforeChange(item);
         BattleOrders.PrepareRegeneration(item);
         _items[item.Serial] = state;
         NamedMaintenance.Track(item);
         NamedGear.UpdateName(item, state);
         item.InvalidateProperties();
-        NpcEquipmentResources.Clamp(item);
+        NpcEquipmentResources.Clamp(item,resources);
         if (state.NamedItemId != null && item.Parent is PlayerMobile wearer) { ClassGear.Changed(wearer); }
     }
     public void Copy(Item source, Item destination)
@@ -113,6 +114,7 @@ public sealed class GearProfiles : GenericPersistence
         roll = roll with { RequiredLevel = Math.Max(EquipmentCrafting.EquipFloor(before.Tier), roll.RequiredLevel) };
         var state = before with { Defense = defense, Roll = roll };
         Validate(item, state);
+        var resources=NpcEquipmentResources.BeforeChange(item);
         BattleOrders.PrepareRegeneration(item);
         _items[item.Serial] = state;
         NamedMaintenance.Track(item);

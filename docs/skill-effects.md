@@ -342,3 +342,5 @@ NPC poison-length/half-freeze/Cannot Be Frozen defenses add no independent activ
 NPC Replenish Life and signed poison recovery add no independent active effect. Existing generic UO poison markers remain identified placeholders; final Iron Golem state/contact/audio is still needed. Any eventual poison cue should reflect the active poison state even when replenishment offsets its damage.
 
 Exact NPC maximum-life regeneration callbacks add no independent visual effect or audio. Final Iron Golem summon/body/contact/state cues remain pending; existing generic UO presentation is an identified placeholder.
+
+NPC current-life/mana/stamina percentage callbacks add no independent active effect or audio. Final summon/body/contact/state presentation remains pending; numerical pool changes do not wait for assets.

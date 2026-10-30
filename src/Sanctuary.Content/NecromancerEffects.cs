@@ -237,9 +237,10 @@ public static class NecromancerEffects
         owner.FixedEffect(0x375A, 10, 15, 0x481, 0); // Placeholder shield marker.
     }
     internal static int ManaMaximum256(Mobile owner)=>NpcEquipmentResources.Maximum256(owner,2)??owner.ManaMax*256;
+    internal static int RawManaBalance256(Mobile owner)=>checked(owner.Mana*256+(Profiles.Find(owner)?.ManaFraction??0));
     public static int ManaBalance256(Mobile owner)
     {
-        int balance=owner.Mana*256+(Profiles.Find(owner)?.ManaFraction??0);
+        int balance=RawManaBalance256(owner);
         return NpcEquipmentResources.Maximum256(owner,2) is{} exact?Math.Min(exact,balance):balance;
     }
     internal static void SetMana256(Mobile owner,int amount256)

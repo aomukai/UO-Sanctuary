@@ -117,6 +117,6 @@ public static class NpcRegenBasisChecks
         var saved=JsonSerializer.Deserialize<Legacy>(File.ReadAllText(LegacyManifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var actor=(SkeletonGuardian)World.FindMobile((Serial)saved.Actor);var item=World.FindItem((Serial)saved.Item);
         Require(actor.ControlMaster==owner&&item.Parent==actor&&JsonSerializer.Serialize(ClassGear.State(item))==saved.Gear&&SkillHealth.Balance256(actor)==saved.Balance&&Rate(actor)==saved.Rate,"Old ledger upgrade changed original/balance or invented missing history");
         Updates(actor,item,true);Require(Rate(actor)==12,"First verified legacy max-life transition did not update basis");
-        PersistentMinions.Suspend(owner);owner.Internalize();File.WriteAllText(LegacyManifest,JsonSerializer.Serialize(saved with{Rate=Rate(actor),Generation=saved.Generation+1}));
+        PersistentMinions.Suspend(owner);owner.Internalize();File.WriteAllText(LegacyManifest,JsonSerializer.Serialize(saved with{Rate=Rate(actor),Balance=SkillHealth.Balance256(actor),Generation=saved.Generation+1}));
     }
 }

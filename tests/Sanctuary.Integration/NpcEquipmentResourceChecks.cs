@@ -92,9 +92,9 @@ public static class NpcEquipmentResourceChecks
     }
     private static Stored Bind(PlayerMobile owner,Item item)
     {
-        var actor=Pet(owner);int oldLife=SkillHealth.Balance256(actor);item.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
+        var actor=Pet(owner);var old=BattleOrders.Capture(actor);int oldLife=old.Life256;item.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
         Require(IronGolemItems.TryAttach(owner,actor,item,out string why),"Original resource bind failed: "+why);
-        Require(SkillHealth.Balance256(actor)==Math.Min(oldLife,Max(actor,0)),"Storage attachment invented a heal or lost more life than the new cap");
+        Require(SkillHealth.Balance256(actor)==BattleOrders.Rescale256(oldLife,old.ExactLifeMaximum256,Max(actor,0)),"Storage attachment failed source relative life callback");
         Disabled(actor,item);Orders(owner,actor);return Store(actor);
     }
     private static void Check()
@@ -121,7 +121,7 @@ public static class NpcEquipmentResourceChecks
         foreach(var row in rows){actor=(SkeletonGuardian)World.FindMobile((Serial)row.Actor);Fractions(actor);}
         rows=rows.Select(x=>Store((SkeletonGuardian)World.FindMobile((Serial)x.Actor))).ToArray();
         var retired=Pet(owner);var consumed=Named("unique/206");consumed.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);Require(IronGolemItems.TryAttach(owner,retired,consumed,out _),"Removal resource bind failed");
-        Fractions(retired);var removal=BattleOrders.Capture(retired);int nativeMana=retired.Int;IronGolemItems.DestroyBoundItem(retired);Require(NpcEquipmentResources.Maximum256(retired,0)==null&&retired.ManaMax==nativeMana&&NecromancerEffects.ManaBalance256(retired)==Math.Min(removal.Mana256,retired.ManaMax*256)&&SkillHealth.Balance256(retired)<=SkillHealth.Maximum256(retired),"Removed original retained resource state or invalid balances: "+JsonSerializer.Serialize(new{Bound=NpcEquipmentResources.Maximum256(retired,0),retired.ManaMax,Mana=NecromancerEffects.ManaBalance256(retired),BeforeMana=removal.Mana256,NativeFallback=nativeMana,Life=SkillHealth.Balance256(retired),MaxLife=SkillHealth.Maximum256(retired),retired.RawInt,retired.Int,retired.ManaMaxSeed}));retired.Delete();
+        Fractions(retired);var removal=BattleOrders.Capture(retired);int nativeMana=retired.Int;IronGolemItems.DestroyBoundItem(retired);Require(NpcEquipmentResources.Maximum256(retired,0)==null&&retired.ManaMax==nativeMana&&NecromancerEffects.ManaBalance256(retired)==BattleOrders.Rescale256(removal.Mana256,removal.ExactManaMaximum256,retired.ManaMax*256)&&SkillHealth.Balance256(retired)<=SkillHealth.Maximum256(retired),"Removed original retained resource state or invalid balances: "+JsonSerializer.Serialize(new{Bound=NpcEquipmentResources.Maximum256(retired,0),retired.ManaMax,Mana=NecromancerEffects.ManaBalance256(retired),BeforeMana=removal.Mana256,NativeFallback=nativeMana,Life=SkillHealth.Balance256(retired),MaxLife=SkillHealth.Maximum256(retired),retired.RawInt,retired.Int,retired.ManaMaxSeed}));retired.Delete();
         PersistentMinions.Suspend(owner);owner.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,rows,0)));Report();
     }
     private static void Reload()
