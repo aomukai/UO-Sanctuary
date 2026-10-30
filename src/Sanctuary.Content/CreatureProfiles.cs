@@ -172,6 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is IronGolemBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Iron Golem stat body","native","irongolem","Prepared saved numeric birth/body; source initializer,AI,attack/events and learned casting remain unfinished");}
         if(creature is DruidOakBody spirit){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned spirit entity","native",spirit.SourceMonsterId,"Saved vulnerable Totem body; individual aura/casting and exact-current acceptance scope is recorded separately");}
         if(creature is DruidCreeperBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned plaguepoppy entity","native","plaguepoppy","Prepared saved noRatio life/ownership only; world state, mats and learned casting pending");}
         if(creature is DruidRecyclerBody recycler){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned recycler vine entity","native",recycler.SourceMonsterId,"Prepared saved recycler life/ownership; corpse controller,exposure and learned acceptance remain separate");}

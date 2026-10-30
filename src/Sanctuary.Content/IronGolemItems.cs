@@ -125,6 +125,15 @@ public static class IronGolemItems
         NpcEquipmentRandom.Forget(pet);
         if(resources is{} before){((SkeletonGuardian)pet).ResetLifeRecovery();NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before);}
     }
+    // Roll back only an unsuccessful prepared-body transaction. This is not
+    // ordinary golem removal, which destroys the consumed original.
+    internal static void ReturnPreparedOriginal(IronGolemBody pet,Map map,Point3D point,bool visible,bool movable)
+    {
+        if(State(pet) is not{} state||World.FindItem((Serial)state.Item) is not{Deleted:false} item||item.Parent!=pet)
+        {throw new InvalidOperationException("Prepared Iron Golem rollback lost its original");}
+        States.Remove(state.Pet);ByItem.Remove(state.Item);NpcEquipmentRandom.Forget(pet);
+        item.MoveToWorld(point,map);item.Visible=visible;item.Movable=movable;
+    }
     // Worker snapshots only read/filter. Real actor callbacks own lifecycle
     // cleanup; a missing/moved item is not silently replaced or duplicated.
     public static IronGolemItemBinding[] Snapshot()=>States.Values.Where(s=>World.FindMobile((Serial)s.Pet) is BaseCreature{Deleted:false}).OrderBy(s=>s.Pet).ToArray();

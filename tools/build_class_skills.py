@@ -339,6 +339,7 @@ def products():
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'barbarian.findpotion':'Shared UO search sound0x1E5 and corpse flash0x375A hue0x481 are identified placeholders; final Find Potion cry/search/corpse/potion-discovery effects and audio pending; talent/right/quick icons tracked separately',
+        'necromancer.irongolem':'Prepared stat body only: silent UO body14/hue0x835 and explicit placeholder name; final body, summon, thorns, contact/state and audio remain pending',
         'barbarian.finditem':'Staged UO0x375A corpse search marker and0x1E5 cry sound; final find-object/find-heart cry, corpse search and success/failure cues pending',
         'barbarian.warcry':'Staged shared UO0x375A cast/wave/stun/block markers and0x1E5 cry; final WarcryShockwave, cast, stun and shield block presentation pending',
         'barbarian.taunt':'Staged UO0x375A target marker and0x1E5 cry sound; final taunt overlay/cry and source feedback pending',

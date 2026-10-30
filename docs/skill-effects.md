@@ -344,3 +344,5 @@ NPC Replenish Life and signed poison recovery add no independent active effect. 
 Exact NPC maximum-life regeneration callbacks add no independent visual effect or audio. Final Iron Golem summon/body/contact/state cues remain pending; existing generic UO presentation is an identified placeholder.
 
 NPC current-life/mana/stamina percentage callbacks add no independent active effect or audio. Final summon/body/contact/state presentation remains pending; numerical pool changes do not wait for assets.
+
+Prepared Iron Golem stat body: silent UO body14/hue0x835 and the explicit “Iron Golem [prepared placeholder]” name identify temporary presentation. No attack/movement controller is enabled by this stat body. Final model, summon, thorns, contact/state effects and audio remain pending. Its talent and hotkey icons remain separate; no extra icon is needed for the internal body backend.
