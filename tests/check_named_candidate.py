@@ -10,7 +10,7 @@ import tempfile
 from check_britain import ROOT, SERVER, Session
 
 
-def export(stage):
+def export(stage, first_loop=False):
     stage = stage.resolve(strict=True)
     native = Path(os.environ.get('SANCTUARY_NATIVE_ROOT', ROOT)) / 'upstream/ModernUO/Distribution'
     os.environ.update(SANCTUARY_PROJECT_ROOT=str(ROOT), SANCTUARY_FIRST_LOOP_ROOT=str(ROOT),
@@ -61,7 +61,10 @@ def export(stage):
                 ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
                 if ready.group(0).startswith('create'):
                     session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                for command in ['named-gear-check' if boot == 0 else 'named-gear-reload-check']:
+                commands = ['named-gear-check' if boot == 0 else 'named-gear-reload-check']
+                if first_loop and boot == 0:
+                    commands.append('first-loop-catalogue-check')
+                for command in commands:
                     session.send(command)
                     assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed'
                 session.send('save'); session.expect('Writing world save snapshot done')
@@ -70,11 +73,14 @@ def export(stage):
                 session.close()
         log = (stage / 'named-native-checks.log').read_text()
         assert ' ERR]' not in log and ': failed' not in log
-    assert log.count(': passed') == log.count('Shutting down') == log.count('Writing world save snapshot done') == 3
-    print('Named candidate:3markers/3boots/2actual reloads; identical explicit candidate, original world untouched.')
+    assert log.count(': passed') == 3 + int(first_loop)
+    assert log.count('Shutting down') == log.count('Writing world save snapshot done') == 3
+    print(f'Named candidate:{3 + int(first_loop)}markers/3boots/2actual reloads; identical explicit candidate, original world untouched.')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--stage', type=Path, required=True)
-    export(parser.parse_args().stage)
+    parser.add_argument('--first-loop', action='store_true', help='Also export the affix audit on the first boot')
+    args = parser.parse_args()
+    export(args.stage, args.first_loop)
