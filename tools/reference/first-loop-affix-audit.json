@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "9d7db87de2a45cdad87626393fe6e98f71e3f99a4e7ff815f5016aa4c9f7354b",
-  "ContentAssemblyPath": ".local/class-skills/revive-native-melee/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "3f2627f11491d187b84c937149f127bc67dd268553077bb1204b0d2c6800072d",
+  "ContentAssemblyPath": ".local/class-skills/revive-world-transfer/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

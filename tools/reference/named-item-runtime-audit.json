@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "9d7db87de2a45cdad87626393fe6e98f71e3f99a4e7ff815f5016aa4c9f7354b",
+  "ContentAssemblySha256": "3f2627f11491d187b84c937149f127bc67dd268553077bb1204b0d2c6800072d",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -690,10 +690,11 @@
     "src/Sanctuary.Content/ReviveCombat.cs": "242d174601e97d84c66069fd46e6d255031862e21a0df63513dedea1ce7cc964",
     "src/Sanctuary.Content/ReviveCreatureSnapshots.cs": "7fcee0f39321dafc29c2c9645ff481f3710e77da4ccd7daff31964c5b714f889",
     "src/Sanctuary.Content/ReviveLife.cs": "749a67633145faf03991672e3cdef0d9125e28672ae58f7e6116b28a6d4ce172",
-    "src/Sanctuary.Content/ReviveNativeActivation.cs": "866ac658e2d10ddc8d6a20872c1157d57215941cdc5ad49c0890622d655068c1",
-    "src/Sanctuary.Content/ReviveOriginals.cs": "d4bae026e8a0d6b27011f56a72c0a0826f6be7e95645201be1bcbfb5a85ebbb2",
+    "src/Sanctuary.Content/ReviveNativeActivation.cs": "caf74bb55213349e683632e905827a68330e5449caba5b45614523bb2ba31b72",
+    "src/Sanctuary.Content/ReviveOriginals.cs": "59ad1ac4e1446c89733fe5cd0a2e8754b4965683a468a3e81e6e4904a95f678c",
     "src/Sanctuary.Content/ReviveSourcePolicy.cs": "9a6abdb7cd9a28c8ad65e85d7834ed0793a31d2a2b72f8e96bcbd30b0d4a57fe",
     "src/Sanctuary.Content/ReviveSpecies.cs": "66ef9f5b14768fea7fe05c0fd5d83a98cb48c54e4903a07440b59e56e35ed21d",
+    "src/Sanctuary.Content/ReviveWorldControllers.cs": "86c2b3fbd4f7b5b0055157cd38009206abaf7820b6800a804121437f25f7200d",
     "src/Sanctuary.Content/RewardLife.cs": "f08e69507b0e3156cea0364e8bde89c81cd6d458e826ff20c598fe68328d7c49",
     "src/Sanctuary.Content/RuneCraftGump.cs": "362aa394acbfcc20c04a70cd27b9b70cc93957feb062f8f8839e5057e4427fb8",
     "src/Sanctuary.Content/RuneCrafting.cs": "8002f4f302fcb4c761cd2376cb278806d6f843ee6d14ab3f44757e1240cbd68e",
