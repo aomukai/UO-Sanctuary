@@ -58,8 +58,11 @@ internal static class NpcEquipmentDamage
         int physical=Roll256(stats,limited);
         var snapshot=NpcEquipmentElements.Capture(actor);
         var elements=NpcEquipmentElements.Roll(snapshot,limited);
+        var poison=NpcEquipmentPoison.Capture(actor);
+        var delivery=NpcEquipmentPoison.Prepare(actor,target,poison,NpcEquipmentPoison.Roll(poison,limited));
         result=SkillCombat.ResolveHitParts(actor,target,elements with{Physical=physical/256.0},true,true,
             enhanceBase:false,addWeaponElements:false,sourceColdFrames:snapshot.Stats.ColdFrames);
+        NpcEquipmentPoison.Commit(delivery,target,TimedEffects.Now);
         return true;
     }
     internal static bool TryStrike(SkeletonGuardian actor,Mobile target)=>TryResolve(actor,target,out _);

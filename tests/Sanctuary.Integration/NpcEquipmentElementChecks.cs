@@ -90,6 +90,9 @@ public static class NpcEquipmentElementChecks
                 state.ChillUntil=TimedEffects.Now.Add(FixtureSpace.Retention);coldUntil=state.ChillUntil;coldTarget=target.Serial.Value;
             }
             target.SetResistance(ResistanceType.Fire,50);target.SetResistance(ResistanceType.Energy,kind=="mastery"?100:0);
+            // Poison is a separate delivery lane now. Settle and remove an
+            // earlier application before measuring this instantaneous packet.
+            TimedEffects.CleansePoison(target,0,TimedEffects.Now);
             before=SkillHealth.Balance256(target);
             int fireLoss=checked((int)SourcePercentage.Damage(NamedElements.To256(first.Fire),50));
             expected=checked(physical+fireLoss+NamedElements.To256(first.Cold+first.Magic)+(kind=="mastery"?0:NamedElements.To256(first.Lightning)));

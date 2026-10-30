@@ -27,6 +27,8 @@ internal readonly struct ItemStatContext
         else { foreach (var p in OrdinaryAffixProperties.Properties(state)) { yield return p; } }
     }
     internal int Bonus(string code) { RequireItem(); return ClassGear.Bonus(Item, code, RecipientLevel); }
+    internal MissileSourceStats Poison()
+    {RequireItem();return ItemPoisonProjection.Read(Item,Properties());}
     internal MissileSourceStats Elements()
     {
         RequireItem();

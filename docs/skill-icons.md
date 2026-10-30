@@ -12,6 +12,8 @@ Maul needs talent-tree and left/right/quick-hotkey artwork; current text labels 
 
 Iron Golem still needs its talent-tree and hotkey icons; text labels remain placeholders. Its inherited item fire/lightning/cold/magic damage is part of the summon and needs no additional bindable talent icon. Elemental glows, impact cues and audio are recorded separately in the effects register.
 
+Inherited weapon poison shares Iron Golem's pending talent-tree/hotkey icons. It is an item effect, not a separately bindable skill; poison contact/state presentation is recorded only in the effects register.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |

@@ -26,6 +26,8 @@ Maul uses identified human Wrestle/contact sound0x238 and charge flash0x375A. Fi
 
 The prepared original-equipment NPC strike now delivers inherited fire, lightning, cold and magic mechanically. Final elemental weapon glows, impact cues and contact audio for Iron Golem remain needed; fire/lightning/magic currently have no dedicated final cue. Cold uses the existing generic UO 0x374A/hue 0x480 marker as an identified placeholder. Keep any future damaging presentation synchronized with the actual hit or timed effect. This adds no new active talent and does not certify learned Iron Golem.
 
+Original-equipment NPC poison now uses the mechanical rate/frame clock. Final poison weapon/contact cues and a victim poison-state cue remain needed for Iron Golem; no final dedicated poison effect is installed by this adapter. Any persistent cue must follow the victim's actual remaining poison state, including cure and expiry, even after the source summon is removed. The durable kill-credit adapter is not a visual effect.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |
