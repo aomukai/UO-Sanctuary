@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Injected disposable-server timing diagnostic; expected short-window fixture failure, not a passing acceptance scope.",
+  "injection": "SIGSTOP/SIGCONT for500ms immediately after recovery-live ready; installed server and saves untouched.",
+  "observation": "System.InvalidOperationException: Actual timer recovery:sourceFP=0,maximum=7680,perFrame=3,ordinary=100,network=True,map=Trammel/Trammel,blessed=False,alive=True,handled=True,active=True,canHeal=True,full=False,last=8863899,now=8863931",
+  "lastRecoveryClockAgeMilliseconds": 32,
+  "interpretation": "The same zero-source/positive-native-control symptom is reproducible with a timer-wheel backlog while actor activity and healing eligibility remain true. This supports a short-window/catch-up timing explanation; it does not prove the cause of earlier uninstrumented failures or certify recovery during every stall.",
+  "evidence": {
+    ".local/class-skills/revive-regeneration-candidate/pause-probe/interaction-inputs.json": "2039593d5b4d0c38733cc5e472749b9347e2c3316d5c300c9b93f8792414f9a7",
+    ".local/class-skills/revive-regeneration-candidate/pause-probe/interaction-native-checks.log": "7711833ca2c42e73e4d15127d7593c22f150b5321572238aee8dfe9615b92809",
+    ".local/class-skills/revive-regeneration-candidate/pause-probe/observation.json": "8af217c4d3f00ab8b4afe90fa73915511b8c142476c4a16e48d93b920da46c4e"
+  }
+}

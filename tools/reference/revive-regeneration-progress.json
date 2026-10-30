@@ -1,41 +1,49 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "isolated native regeneration checks passed; retained/full acceptance pending",
+  "status": "Current isolated, interaction, retained and Python scopes passed; full class acceptance pending",
   "stage": ".local/class-skills/revive-regeneration-candidate",
-  "preBuildSnapshot": ".local/class-skills/revive-regeneration-candidate/pre-build-attempt-3.json",
+  "preBuildSnapshot": ".local/class-skills/revive-regeneration-candidate/pre-build-attempt-7.json",
+  "supersedes": "Earlier attempt3 scoped progress; historical files are archived under attempt-3 and git history. Current paths below bind attempt7.",
   "verified": {
-    "markers": 12,
-    "boots": 3,
-    "actualReloads": 2,
-    "saveSnapshots": 3,
-    "sourceRateRows": 751
+    "isolatedMarkers": 12,
+    "interactionMarkers": 18,
+    "retainedMarkers": 347,
+    "bootsPerNativeScope": 3,
+    "actualReloadsPerNativeScope": 2,
+    "pythonTests": 71,
+    "sourceRateRows": 751,
+    "inputFingerprints": [
+      783,
+      21
+    ]
   },
   "artifacts": {
     "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
     "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
     "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
-    "Assemblies/Sanctuary.Content.dll": "5e6afe708e632b0e83a7565e32d9f74e231ea7f10bc53205aa14c96a7996d544",
-    "Assemblies/Sanctuary.Integration.dll": "0b932c553d3a93694b31ec5912c5f4d09e37dc27ce3e1e0a4dae3c9a2c075ace"
+    "Assemblies/Sanctuary.Content.dll": "617f858685eddd245c090d2dfaa71eabcc39ed4eafea24649a50d92b259d6ecb",
+    "Assemblies/Sanctuary.Integration.dll": "ee08d5e8eeec2d79fe288cdc05e69ca4122733be8818a8ab24fcac27ba277c8b"
   },
   "evidenceFiles": {
-    ".local/class-skills/revive-regeneration-candidate/pre-build-attempt-3.json": "2aee6c48ceb7ae6de328862c9748adf489bc0e11e5deefb596998e26caded2c5",
-    ".local/class-skills/revive-regeneration-candidate/recovery-inputs.json": "60e6a1a061af3b7c6f8936e76c840cd2afef72eeb3a4f8cb2e7753517925303b",
-    ".local/class-skills/revive-regeneration-candidate/recovery-native-checks.log": "8ee7f36cac164a63bf65997b1723645967d58ed4402ed546d754ed0578e547f7",
+    ".local/class-skills/revive-regeneration-candidate/pre-build-attempt-7.json": "d379957455c3f6ecee9572f99af6168f2e7e94b4aee20f5be5bad4394de53922",
+    ".local/class-skills/revive-regeneration-candidate/recovery-inputs.json": "8e8b9f0c269d2a04137db86b43d487481e5f8f2f2b2464cbe709428973240a5a",
+    ".local/class-skills/revive-regeneration-candidate/recovery-native-checks.log": "d562f95e842143f3fe7a324b6dc0ea9611548c59e05d1328d83397e240dd7ca8",
+    ".local/class-skills/revive-regeneration-candidate/interaction-inputs.json": "2039593d5b4d0c38733cc5e472749b9347e2c3316d5c300c9b93f8792414f9a7",
+    ".local/class-skills/revive-regeneration-candidate/interaction-native-checks.log": "211017d814cb2ceaeac1256d89f164acba1d3772167fd5488fae3e2e3831c269",
+    ".local/class-skills/revive-regeneration-candidate/stats-inputs.json": "3005190378477e698f66ab8e5f9b6558e70e87007a84e65637c022aba8fc82a1",
+    ".local/class-skills/revive-regeneration-candidate/stats-native-checks.log": "841cdb5780720744e9e1c8eeaf95d2aefcbbb7e7131fbfd268fb2367ba0c1a28",
     ".local/class-skills/revive-regeneration-candidate/isolated-revive-regeneration-fixtures.json": "fd3c2f4199fa803f21ac5d41fe10a365eb0618452da7e336414a6ea506fc4b1c",
-    ".local/class-skills/revive-regeneration-candidate/isolated-revive-cast-fixtures.json": "da7edc5ec7b837c922547c87e4d1ffe403e05b41230ec0af589dadb839c2838f",
-    ".local/class-skills/revive-regeneration-candidate/content-build-attempt-3.log": "c007d333ef2900c6eba0df0d4729d2c0dd55e798c8f51505f344202c19d054ac",
-    ".local/class-skills/revive-regeneration-candidate/integration-build-attempt-3.log": "466a6e17894cc421a6cec16b5b3af10667bf2bff81abd1272dca04265149e9a5"
+    ".local/class-skills/revive-regeneration-candidate/isolated-revive-cast-fixtures.json": "3ba8f060012e0fe53cfbafee4d35558f3cdf3ecd0b90a7cb6b091973902b484d",
+    ".local/class-skills/revive-regeneration-candidate/python-tests-attempt-7.log": "82fecd77a71ed5ec8812fa7491b6bf6adf0b1f77cb201ed6f5a7235c336da42b",
+    ".local/class-skills/revive-regeneration-candidate/python-upstream-reference-inputs.json": "d6f45497884c258d45769b6bdcb92fdc1750710c5962751e960b0b046cc0b8c4",
+    ".local/class-skills/revive-regeneration-candidate/content-build-attempt-7.log": "394cf3c4434b4b55050e4d2c709cc73761b75295bc91ebcb34cc62f5dcf9e437",
+    ".local/class-skills/revive-regeneration-candidate/integration-build-attempt-7.log": "ae51b8d2d675082cd62a53607b41c149010d1c89c23f937baaecd9bc10c7296c"
   },
-  "established": [
-    "Actual learned casts opt into pinned source rates; both native Skeleton and project GraveyardSkeleton retain original identities.",
-    "Synthetic active-caller frame tests verify39ms/40ms boundary,carry,prevention/inactive/full reset,exact cap and current maximum truncation.",
-    "Live connected-owner timer checks observe positive fractional source recovery under one life while an ordinary native timer control heals; explicitly armed fast native timers cannot double-heal the opted-in Revive.",
-    "Parked recovery stops; actual reloads retain optional rate and source HP. Malformed rates refuse atomically; omitted-field legacy setups retain their previous behavior."
-  ],
   "remaining": [
-    "Full callback/negative-regeneration/death-event equivalence is not established by these positive-healing checks.",
-    "Retained suite is live in exec session82784; full class/Python/fresh audit acceptance remains pending.",
-    "Facet scaling, actual respec acceptance, item/proc/sunder consumers and Summon Resist reference conflict remain unfinished."
+    "Full class regression is running in session88836; no terminal acceptance is claimed.",
+    "Earlier intermittent zero-recovery short-window samples are recorded, not explained by later passes.",
+    "Positive healing does not establish complete negative-regeneration/death-event equivalence.",
+    "Facet scaling, actual respec acceptance, independent item/proc/sunder consumers and Summon Resist reference conflict remain open."
   ],
   "installed": false,
   "completedClasses": []
