@@ -191,7 +191,7 @@ public static class ClassGear
         return defense * (100 + enhanced) / 100 + Bonus(item, "ac", recipientLevel);
     }
     public static (int Min, int Max) Damage(Item item) => Damage(item, RecipientLevel(item));
-    internal static (int Min, int Max) Damage(Item item, int recipientLevel)
+    internal static (int Min, int Max) Damage(Item item, int recipientLevel, bool? sourceTwoHanded = null)
     {
         if (recipientLevel is < 1 or > 99) { throw new ArgumentOutOfRangeException(nameof(recipientLevel)); }
         if (item == null || !Converted(item))
@@ -202,7 +202,7 @@ public static class ClassGear
         {
             return (0, 0);
         }
-        bool twoHanded = WeaponHands.TwoHanded(item);
+        bool twoHanded = sourceTwoHanded ?? WeaponHands.TwoHanded(item);
         int min = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
         int max = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
         if (!WeaponHands.Melee(item) && Definition(item).Category == "Throwing" && basis.MissileMax > 0)

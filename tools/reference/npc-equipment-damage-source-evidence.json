@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderEngineCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 3888,
+  "inputs": {
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/item-stat-values-source/source.cpp": "693640e78ef22dd0192be0e2bb6dbb228c1a0cdd469e7918aae05eb16ea942d8",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "STATLIST_GetTotalStatValue": "22f77264e27d2e265e34f3740784f84691ecb2ace37773f833717391d209b418",
+    "STATLIST_UnitGetStatValue": "08bcaeb449082bbf9a38bd7ad4cd4007c73cf38283d90cc208a3188758ffa802",
+    "STATLIST_UnitGetItemStatOrSkillStatValue": "761327600913c128276511abcaf7b3f45b3aa71dba1d63fc8793ca636994c6f0",
+    "STATLIST_GetStatValue": "e5657dd60bb14a71a447f086c83ba4a6c0cd6c6d7b5ad3b16a87a4dae747cc9d",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a"
+  },
+  "scope": "Complete older physical-damage and stat-list routines with declared item/recipient arrays, one-handed/two-handed/unarmed selection, supplied coefficients and controlled first/last random rolls. Not current executable or full actual-item birth/AI acceptance.",
+  "artifacts": {
+    ".local/class-skills/npc-equipment-damage-source/source.cpp": "eacb54253673fce67543bb23de1713c91c628eb70cef6a69e96e53d997831f97",
+    ".local/class-skills/npc-equipment-damage-source/compiler.log": "ddd10678bfbf0345f0f2994689065d527461730fb272b60eee1a4c651f6cd258",
+    ".local/class-skills/npc-equipment-damage-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-damage-source/cases.json": "ddf1e15ca42fafab08b54a64511feb0a6d23af929fbc2930404389746bc560cd"
+  }
+}

@@ -16,6 +16,13 @@ namespace Sanctuary;
 
 public static class SkeletonStats
 {
+    internal static (int Min,int Max,int Percent) WeaponBase(int rank,int mastery,MonsterDifficulty difficulty)
+    {
+        rank=Math.Clamp(rank,1,255);mastery=Math.Clamp(mastery,0,255);
+        int flat=SkillValues.Tier(0,rank,i=>new[]{0,1,2,3,4}[i-1])+2*mastery;
+        return (NecromancerSummons.Source("necroskeleton","A1MinD",difficulty)+flat,
+            NecromancerSummons.Source("necroskeleton","A1MaxD",difficulty)+flat,7*Math.Max(0,rank-3));
+    }
     // Expansion: pinned MonStats necroskeleton, MonLvl L-AC/L-TH,
     // and Skills Raise Skeleton/Skeleton Mastery. See docs/death-and-pets.md.
     public static MonsterProfile For(int level, int rank, int mastery, int auraDamagePercent = 0, MonsterDifficulty difficulty = MonsterDifficulty.Normal)
@@ -27,12 +34,12 @@ public static class SkeletonStats
         int life = (NecromancerSummons.Source("necroskeleton", "minHP", difficulty) + 8 * mastery) * (2 + extraRanks) / 2;
         int ratingBonus = 15 * (rank + mastery);
         int levelAttack = NecromancerSummons.Source("level-" + level, "L-TH", difficulty);
-        int flatDamage = SkillValues.Tier(0, rank, i => new[] { 0, 1, 2, 3, 4 }[i - 1]) + 2 * mastery;
-        int damagePercent = Math.Max(10,100 + 7 * extraRanks + auraDamagePercent);
+        var weapon=WeaponBase(rank,mastery,difficulty);
+        int damagePercent = Math.Max(10,100 + weapon.Percent + auraDamagePercent);
         return new MonsterProfile(level, life, NecromancerSummons.Source("necroskeleton", "A1TH", difficulty) + levelAttack + ratingBonus,
             NecromancerSummons.Source("necroskeleton", "AC", difficulty) + NecromancerSummons.Source("level-" + level, "L-AC", difficulty) + ratingBonus,
-            (NecromancerSummons.Source("necroskeleton", "A1MinD", difficulty) + flatDamage) * damagePercent / 100,
-            (NecromancerSummons.Source("necroskeleton", "A1MaxD", difficulty) + flatDamage) * damagePercent / 100,
+            weapon.Min * damagePercent / 100,
+            weapon.Max * damagePercent / 100,
             720, 240, 0, 0, 0, 0, 0);
     }
 }
@@ -172,6 +179,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     {
         get { var profile=SkeletonStats.For(Level,Rank,Mastery,CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this),SummonDifficulty); return (profile.MinDamage,profile.MaxDamage); }
     }
+    internal virtual (int Min,int Max,int Percent) SourceWeaponBase=>SkeletonStats.WeaponBase(Rank,Mastery,SummonDifficulty);
     private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery, difficulty: SummonDifficulty);
     // Summon creation writes this FP256 result into its base life before BO.
     public virtual long SourceLife256=>((long)NecromancerSummons.Source("necroskeleton","minHP",SummonDifficulty)+8*Math.Clamp(Mastery,0,255))*256*(2+Math.Max(0,Math.Clamp(Rank,1,255)-3))/2;
@@ -312,6 +320,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     protected virtual bool CheckAttackHit(Mobile target) => ClassStats.CheckHit(this, target) == true;
     protected virtual void Strike(Mobile target)
     {
+        if(NpcEquipmentDamage.TryStrike(this,target)){return;}
         SkillCombat.HitParts(this, target,
             new(Utility.RandomMinMax(SkillWeaponDamage.Min, SkillWeaponDamage.Max), 0, 0, 0, 0), true, true);
     }

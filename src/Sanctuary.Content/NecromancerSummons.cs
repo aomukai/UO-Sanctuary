@@ -94,6 +94,16 @@ public partial class NecromancerMinion : SkeletonGuardian
             return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty)*percent/100));
         }
     }
+    internal override (int Min,int Max,int Percent) SourceWeaponBase
+    {
+        get
+        {
+            if(Kind==CombatAbility.None){return base.SourceWeaponBase;}
+            if(IsMage){throw new NotSupportedException("Mage missiles do not use an equipment weapon packet");}
+            string key=SkillMechanics.For(Kind).Text("summon");
+            return (NecromancerSummons.Source(key,"A1MinD",SummonDifficulty),NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty),Passive("damagepercent"));
+        }
+    }
     public override MonsterProfile CombatProfile => _summonProfile ??= BuildProfile();
     public override long SourceLife256
     {
@@ -196,7 +206,8 @@ public partial class NecromancerMinion : SkeletonGuardian
             }
             return;
         }
-        var hit = SkillCombat.ResolveHitParts(this, target, new(Utility.RandomMinMax(SkillWeaponDamage.Min, SkillWeaponDamage.Max), 0, 0, 0, 0), true, true);
+        var hit = NpcEquipmentDamage.TryResolve(this,target,out var equippedHit)?equippedHit
+            :SkillCombat.ResolveHitParts(this, target, new(Utility.RandomMinMax(SkillWeaponDamage.Min, SkillWeaponDamage.Max), 0, 0, 0, 0), true, true);
         int loss = hit.LifeLost;
         var values = Values(Kind);
         if (Kind == CombatAbility.ClayGolem && loss > 0) { TimedEffects.Slow(target, values.Diminishing(3, 4), TimedEffects.Now); }

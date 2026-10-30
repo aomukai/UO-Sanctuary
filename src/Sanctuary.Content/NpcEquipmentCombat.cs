@@ -7,7 +7,7 @@ namespace Sanctuary;
 // This is not full item/resource/proc support or a learned Iron Golem handler.
 internal static class NpcEquipmentCombat
 {
-    private static ItemStatContext? Context(BaseCreature actor)=>actor is SkeletonGuardian&&IronGolemItems.State(actor) is{} binding
+    internal static ItemStatContext? Context(BaseCreature actor)=>actor is SkeletonGuardian&&IronGolemItems.State(actor) is{} binding
         &&actor.ControlMaster?.Serial.Value==binding.Owner
         ?IronGolemItems.Equipment(actor,CreatureProfiles.Level(actor)):null;
     internal static int Bonus(BaseCreature actor,string code)=>Context(actor)?.Bonus(code)??0;
