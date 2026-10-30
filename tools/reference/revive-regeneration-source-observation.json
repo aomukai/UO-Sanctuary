@@ -19,11 +19,13 @@
     12,
     15
   ],
-  "scope": "Data equality only. Source callback study and content-only build do not establish live regeneration acceptance.",
+  "scope": "All751 source rates equal the owned current-build table. Runtime acceptance below is a separate positive-healing scope; modern executable and complete regeneration-event equivalence are not claimed.",
   "olderSourceRules": [
     "ItemMode.cpp D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910: a positive-life MaxHP change with nonzero DamageRegen recalculates HPREGEN as DamageRegen * (new MaxHP >> 8) >> 4.",
     "SkillNec.cpp D2GAME_SetSummonPassiveStats_6FD0C530 changes MaxHP after Revive has set positive HP, then refills current HP.",
     "MonsterMode.cpp D2GAME_MONSTER_ApplyStatRegen_6FC63440 advances regeneration per game frame, respecting life-mask suppression and prevent-heal state."
   ],
-  "runtimeAcceptance": false
+  "runtimeAcceptance": true,
+  "runtimeAcceptanceScope": "Positive healing only: isolated12,interaction18,retained347,full class1184 and Python71 on frozen attempt7. Full negative-regeneration/death-event and modern executable parity remain unproven.",
+  "acceptanceReceipt": "tools/reference/revive-regeneration-evidence.json"
 }

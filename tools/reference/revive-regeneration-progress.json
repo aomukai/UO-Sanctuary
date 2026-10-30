@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Current isolated, interaction, retained and Python scopes passed; full class acceptance pending",
+  "status": "Positive healing scopes accepted; full class regression terminal/successful",
   "stage": ".local/class-skills/revive-regeneration-candidate",
   "preBuildSnapshot": ".local/class-skills/revive-regeneration-candidate/pre-build-attempt-7.json",
   "supersedes": "Earlier attempt3 scoped progress; historical files are archived under attempt-3 and git history. Current paths below bind attempt7.",
@@ -15,7 +15,9 @@
     "inputFingerprints": [
       783,
       21
-    ]
+    ],
+    "fullClassMarkers": 1184,
+    "fullClassSaves": 35
   },
   "artifacts": {
     "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
@@ -40,11 +42,12 @@
     ".local/class-skills/revive-regeneration-candidate/integration-build-attempt-7.log": "ae51b8d2d675082cd62a53607b41c149010d1c89c23f937baaecd9bc10c7296c"
   },
   "remaining": [
-    "Full class regression is running in session88836; no terminal acceptance is claimed.",
+    "No running acceptance jobs; follow-up public respec checks pass separately and await their receipt.",
     "Earlier intermittent zero-recovery short-window samples are recorded, not explained by later passes.",
     "Positive healing does not establish complete negative-regeneration/death-event equivalence.",
     "Facet scaling, actual respec acceptance, independent item/proc/sunder consumers and Summon Resist reference conflict remain open."
   ],
   "installed": false,
-  "completedClasses": []
+  "completedClasses": [],
+  "acceptanceReceipt": "tools/reference/revive-regeneration-evidence.json"
 }

@@ -104,7 +104,8 @@ def record(check=False):
         assert sha(Path(installed['runtimeRoot']) / name) == value
     status = json.loads((ROOT / 'data/Sanctuary/Balance/class-skill-status.json').read_text())
     assert sum(s['implementation'] == 'handler-present' for s in status['skills']) == 185 and status['completedClasses'] == []
-    artifacts += [python, installed_path, ROOT / 'tools/reference/revive-regeneration-source-observation.json']
+    artifacts += [python, installed_path, ROOT / 'tools/reference/revive-regeneration-source-observation.json',
+                  ROOT / 'tools/reference/revive-regeneration-timing-observation.json', STAGE / 'python-upstream-reference-inputs.json']
     artifacts += [STAGE / name for name in ['isolated-revive-regeneration-fixtures.json', 'isolated-revive-cast-fixtures.json',
                                            'revive-regeneration-fixtures.json', 'revive-cast-fixtures.json',
                                            'retained-run-attempt-7.log']]
@@ -125,7 +126,7 @@ def record(check=False):
                      'Connected timer recovery and parked suppression pass alongside a native timer control; Find Potion interaction and retained/full predecessor markers are preserved.'],
         remaining=['Positive-healing acceptance does not establish complete negative-regeneration/death-event or modern executable equivalence.',
                    'Facet scaling, actual Revive respec acceptance, independent item/proc/sunder consumers and Summon Resist reference conflict remain open.',
-                   'Earlier intermittent short-window recovery failures remain recorded; successful runs alone do not explain their cause.',
+                   'A controlled500ms pause reproduces the short-window failure with active/eligible actors and a clock age below40ms; this supports timer-wheel catch-up but does not prove the earlier uninstrumented failures had that cause.',
                    'No class completion or deployment. Final effects/audio and talent/hotkey icons remain separate placeholders.'])
     output = ROOT / 'tools/reference/revive-regeneration-evidence.json'
     encoded = json.dumps(result, indent=2) + '\n'
