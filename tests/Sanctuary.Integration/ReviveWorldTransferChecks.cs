@@ -13,6 +13,9 @@ namespace Sanctuary.Integration;
 public class ReviveTransferFaultSkeleton:Skeleton
 {
     [Constructible] public ReviveTransferFaultSkeleton(){}
+    public ReviveTransferFaultSkeleton(Serial serial):base(serial){}
+    public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+    public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown transfer fault fixture version");}}
     internal bool FailActivation;
     protected override void OnMapChange(Map oldMap)
     {
@@ -25,6 +28,9 @@ public class ReviveTransferFaultSkeleton:Skeleton
 public class ReviveCustomDefragSpawner:Spawner
 {
     [Constructible] public ReviveCustomDefragSpawner(){}
+    public ReviveCustomDefragSpawner(Serial serial):base(serial){}
+    public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+    public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown controller fixture version");}}
     public override bool OnDefragSpawn(ISpawnable spawned,bool remove)=>base.OnDefragSpawn(spawned,remove);
 }
 
