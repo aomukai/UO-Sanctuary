@@ -35,10 +35,17 @@ internal sealed class GenericPetWorldIdentity
             return id;
         }
         var mobile=World.FindMobile(serial);
+        if(kind==1)
+        {
+            if(World.FindItem(serial) is Corpse){throw new NotSupportedException("Source corpse GUID is the original monster serial,not its native item serial");}
+            if(SourceCorpseIdentity.Find(id)!=null){return id;}
+            if(mobile is BaseCreature{Alive:false,Deleted:false}){throw new NotSupportedException("Dead native actor needs its saved corpse identity");}
+        }
         return mobile is{Deleted:false}&&(kind==0?mobile is PlayerMobile:mobile is BaseCreature)?id:0;
     }
     private static int Id(int handle)
     {
+        if(SourceCorpseIdentity.Find(handle)!=null){return handle;}
         var entity=World.FindEntity((Serial)(uint)handle);
         if(entity is not{Deleted:false}){throw new NotSupportedException("World entity disappeared during identity lookup");}
         return checked((int)entity.Serial.Value);

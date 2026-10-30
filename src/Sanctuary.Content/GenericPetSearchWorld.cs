@@ -10,14 +10,16 @@ internal sealed class GenericPetSearchTable
 {
     private readonly GenericPetSearchMonster[] _monsters;
     private readonly GenericPetSearchLevel[] _levels;
+    private readonly Dictionary<string,GenericPetSearchMonster> _names=new(StringComparer.OrdinalIgnoreCase);
     internal GenericPetSearchTable(GenericPetSearchMonster[] monsters,GenericPetSearchLevel[] levels)
     {
         ArgumentNullException.ThrowIfNull(monsters);ArgumentNullException.ThrowIfNull(levels);
         _monsters=(GenericPetSearchMonster[])monsters.Clone();_levels=(GenericPetSearchLevel[])levels.Clone();
-        for(int i=0;i<_monsters.Length;i++){if(_monsters[i] is not{} r||r.Id!=i||string.IsNullOrWhiteSpace(r.Name)){throw new InvalidDataException("Invalid search monster row");}}
+        for(int i=0;i<_monsters.Length;i++){if(_monsters[i] is not{} r||r.Id!=i||string.IsNullOrWhiteSpace(r.Name)||!_names.TryAdd(r.Name,r)){throw new InvalidDataException("Invalid search monster row");}}
         for(int i=0;i<_levels.Length;i++){if(_levels[i] is not{} r||r.Id!=i||string.IsNullOrWhiteSpace(r.Name)){throw new InvalidDataException("Invalid search level row");}}
     }
     internal GenericPetSearchMonster Monster(int id)=>id>=0&&id<_monsters.Length?_monsters[id]:null;
+    internal GenericPetSearchMonster Monster(string name)=>name!=null?_names.GetValueOrDefault(name):null;
     internal GenericPetSearchLevel Level(int id)=>id>0&&id<_levels.Length?_levels[id]:null;
     internal GenericPetSearchTableView Bind(byte selector)=>new(this,selector);
 }
@@ -45,6 +47,7 @@ public static class GenericPetSearchTables
     }
     // Explicit view binding does not establish real selector aliases or an area mapping.
     internal static GenericPetSearchTableView Bind(byte selector)=>_table.Bind(selector);
+    internal static int? SourceId(string source)=>_table.Monster(source)?.Id;
 }
 internal sealed record GenericPetSearchStatList(int Flags28,IReadOnlyList<uint> Words);
 internal sealed class GenericPetSearchSizeCache(int kind,int cls,int sizeX,int sizeY)

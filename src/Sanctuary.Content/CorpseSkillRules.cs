@@ -15,10 +15,31 @@ public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
+    private readonly Dictionary<uint,HashSet<uint>> _originals=new();
     public CorpseSkillProfiles():base("SanctuaryCorpseSkillRules",122){}
     public CorpseSkillRecord Find(Corpse corpse)=>corpse!=null && _rows.TryGetValue(corpse.Serial.Value,out var row)?row:null;
-    public void Store(CorpseSkillRecord row)=>_rows[row.Corpse]=row;
-    public void Remove(Corpse corpse)=>_rows.Remove(corpse.Serial.Value);
+    private void Unindex(CorpseSkillRecord row)
+    {
+        if(row.BaseLife is{} life&&_originals.TryGetValue(life.OriginalMonsterSerial,out var ids))
+        {ids.Remove(row.Corpse);if(ids.Count==0){_originals.Remove(life.OriginalMonsterSerial);}}
+    }
+    public void Store(CorpseSkillRecord row)
+    {
+        if(_rows.TryGetValue(row.Corpse,out var old)){Unindex(old);}
+        _rows[row.Corpse]=row;
+        if(row.BaseLife is{OriginalMonsterSerial:not 0} life)
+        {
+            if(!_originals.TryGetValue(life.OriginalMonsterSerial,out var ids)){_originals.Add(life.OriginalMonsterSerial,ids=new());}
+            ids.Add(row.Corpse);
+        }
+    }
+    public void Remove(Corpse corpse)
+    {if(_rows.Remove(corpse.Serial.Value,out var row)){Unindex(row);}}
+    internal CorpseSkillRecord[] ForOriginal(uint original)
+    {
+        if(!_originals.TryGetValue(original,out var ids)){return [];}
+        var rows=new List<CorpseSkillRecord>(ids.Count);foreach(uint id in ids){rows.Add(_rows[id]);}return rows.ToArray();
+    }
     public override void Serialize(IGenericWriter writer)
     {
         var rows=new List<CorpseSkillRecord>();
@@ -28,10 +49,10 @@ public sealed class CorpseSkillProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown corpse skill metadata version");}
-        _rows.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
+        _rows.Clear();_originals.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
         {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty))
             || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || !((Serial)life.OriginalMonsterSerial).IsMobile || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
-            || row.MonsterLevel is <1 || !_rows.TryAdd(row.Corpse,row)){throw new InvalidDataException("Invalid corpse skill metadata");}}
+            || row.MonsterLevel is <1 || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}Store(row);}
     }
 }
 public static class CorpseSkillRules
