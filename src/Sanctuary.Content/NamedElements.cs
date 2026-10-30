@@ -17,7 +17,9 @@ public static class NamedElements
             "extra-fire"=>blade.Passive("passive_fire_mastery"),"extra-cold"=>blade.Passive("passive_cold_mastery"),
             "extra-ltng"=>blade.Passive("passive_ltng_mastery"),"extra-pois"=>blade.Passive("passive_pois_mastery"),_=>0
         } : owner is AssassinSentryBody sentry ? code switch
-        {"pierce-ltng"=>sentry.Passive("passive_ltng_pierce"),"extra-ltng"=>sentry.Passive("passive_ltng_mastery"),_=>0} : 0;
+        {"pierce-ltng"=>sentry.Passive("passive_ltng_pierce"),"extra-ltng"=>sentry.Passive("passive_ltng_mastery"),_=>0}
+        :owner is BaseCreature creature&&(code is "pierce-fire" or "pierce-cold" or "pierce-ltng" or "pierce-pois" or "pierce-mag")
+            ?NpcEquipmentCombat.Bonus(creature,code):0;
     public static int MagicResistance(Mobile target) => target is PlayerMobile
         ? Math.Clamp(Bonus(target, "res-mag"), -100, 75)
         : target is NecromancerMinion summon ? summon.SummonMagicResistance : target is BaseCreature creature ? CreatureProfiles.For(creature).Resistances.Magic ?? 0 : 0;

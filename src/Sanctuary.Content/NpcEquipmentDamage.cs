@@ -54,8 +54,12 @@ internal static class NpcEquipmentDamage
     internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null)
     {
         result=default;if(Capture(actor,target) is not{} stats){return false;}
-        int physical=Roll256(stats,limited??Utility.Random);
-        result=SkillCombat.ResolveHitParts(actor,target,new(physical/256.0,0,0,0,0),true,true);
+        limited??=Utility.Random;
+        int physical=Roll256(stats,limited);
+        var snapshot=NpcEquipmentElements.Capture(actor);
+        var elements=NpcEquipmentElements.Roll(snapshot,limited);
+        result=SkillCombat.ResolveHitParts(actor,target,elements with{Physical=physical/256.0},true,true,
+            enhanceBase:false,addWeaponElements:false,sourceColdFrames:snapshot.Stats.ColdFrames);
         return true;
     }
     internal static bool TryStrike(SkeletonGuardian actor,Mobile target)=>TryResolve(actor,target,out _);

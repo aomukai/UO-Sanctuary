@@ -195,16 +195,21 @@ public static class SkillCombat
     public static int HitParts(Mobile source, Mobile target, GearDamage damage, bool recover, bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true)
         => ResolveHitParts(source, target, damage, recover, weapon, ranged, spell,enhanceBase).LifeLost;
     public static SkillHitResult ResolveHitParts(Mobile source, Mobile target, GearDamage damage, bool recover,
-        bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true)
+        bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true,bool addWeaponElements=true,int sourceColdFrames=0)
     {
         if (source == null || target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return default; }
         if (ranged) { SorceressEffects.MissileHit(source, target, "arrow"); }
-        if (weapon) { damage = damage with { Physical = damage.Physical * PaladinAuras.NativeWeaponMultiplier(source,true), Fire = damage.Fire + SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),ranged), Cold=damage.Cold+PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),ranged), Lightning=damage.Lightning+PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),ranged), Magic=damage.Magic+HexBane.WeaponMagic(source) }; }
+        if (weapon)
+        {
+            damage=damage with{Physical=damage.Physical*PaladinAuras.NativeWeaponMultiplier(source,true)};
+            if(addWeaponElements){damage=damage with{Fire=damage.Fire+SorceressEffects.EnchantFire(source,Utility.RandomDouble())+PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),ranged),Cold=damage.Cold+PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),ranged),Lightning=damage.Lightning+PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),ranged),Magic=damage.Magic+HexBane.WeaponMagic(source)};}
+        }
         var parts = Mitigate(source, target, damage with { Poison = 0 }, spell,enhanceBase);
         double physical = parts.Physical, total = parts.Total;
         int before = target.Hits;
         source.DoHarmful(target, true);
         if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(physical),ranged);}
+        if(weapon&&damage.Cold>0&&sourceColdFrames>0){ColdStates.Apply(source,target,sourceColdFrames,Core.TickCount);}
         if (total > 0) { SkillHealth.Damage(source,target,NamedElements.To256(total)); }
         int loss = Math.Max(0, before - target.Hits);
         if (recover && target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }

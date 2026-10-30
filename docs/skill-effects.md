@@ -24,6 +24,8 @@ The staged form recovery/block adapter retains generic human animation20as an id
 
 Maul uses identified human Wrestle/contact sound0x238 and charge flash0x375A. Final maul-orb front/back overlays, charge-size display, bear A1/contact/audio remain pending independently of combat; its talent/right/quick icons are tracked separately.
 
+The prepared original-equipment NPC strike now delivers inherited fire, lightning, cold and magic mechanically. Final elemental weapon glows, impact cues and contact audio for Iron Golem remain needed; fire/lightning/magic currently have no dedicated final cue. Cold uses the existing generic UO 0x374A/hue 0x480 marker as an identified placeholder. Keep any future damaging presentation synchronized with the actual hit or timed effect. This adds no new active talent and does not certify learned Iron Golem.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

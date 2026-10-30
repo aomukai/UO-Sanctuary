@@ -10,6 +10,8 @@ Werewolf and Werebear each need a talent-tree icon plus right/quick-binding artw
 
 Maul needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
 
+Iron Golem still needs its talent-tree and hotkey icons; text labels remain placeholders. Its inherited item fire/lightning/cold/magic damage is part of the summon and needs no additional bindable talent icon. Elemental glows, impact cues and audio are recorded separately in the effects register.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |

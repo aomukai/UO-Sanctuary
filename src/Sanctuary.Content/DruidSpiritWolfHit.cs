@@ -21,12 +21,7 @@ internal static class DruidSpiritWolfHit
         if(coldMin<0 || coldMax<coldMin || coldFrames<0 || fireMin<0 || fireMax<fireMin || lightningMin<0
             || lightningMax<lightningMin || critical is <0 or >100)
         {throw new ArgumentException("Invalid Spirit Wolf typed packet");}
-        int Roll(int min,int max,int bonus=0)
-        {
-            if(max<=0){return 0;}
-            min=checked(min+SourcePercentage.Calculate(min,bonus,100));max=checked(max+SourcePercentage.Calculate(max,bonus,100));
-            return Math.Max(0,checked(min+(max>min?limited(max-min):0)));
-        }
+        int Roll(int min,int max,int bonus=0)=>SourceElementRoll.Roll256(min,max,bonus,bonus,0,limited);
         // SUNITDMG_FillDamageValues visits fire, lightning, then cold. Each
         // upper bound is exclusive; intrinsic monster critical doubles all
         // rolled damage channels without changing the cold length.

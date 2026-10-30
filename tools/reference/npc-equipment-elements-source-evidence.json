@@ -1,0 +1,20 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderEngineCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 864,
+  "inputs": {
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924"
+  },
+  "scope": "Complete older range and percentage routines with controlled first/last random services. Includes zero/equal/reversed endpoints,independent endpoint percentages,initial damage and large-value rounding. This does not compile complete FillDamageValues or prove modern executable parity or item birth.",
+  "artifacts": {
+    ".local/class-skills/npc-equipment-elements-source/source.cpp": "22716209e9524b681894e25f2b7632e51c3dc8cc750e45f3b128d3ade9fb39b5",
+    ".local/class-skills/npc-equipment-elements-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-elements-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-elements-source/cases.json": "6377de96b07385ac32f32afcbfce37d88279d9d5df8222e6f4dbc0f69851ea98"
+  }
+}
