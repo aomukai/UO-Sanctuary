@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Native UO source preflight, not runtime verification",
+  "nativePatchCount": 68,
+  "nativeSource": ".local/class-skills/revive-native-control/native/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs",
+  "sha256": "0ffa9fea10c6ead1f4eb50be5335024c8c7143e41bec23374126ded994abe8f7",
+  "runtimeVerified": false,
+  "entry": "AnimalTrainer.StableTarget.OnTarget -> EndStable",
+  "observed": "EndStable checks Controlled, ControlMaster, IsDeadPet and Summoned, but not Commandable or PersistentMinion. A paid transaction internalizes the NPC, clears ControlMaster and adds it to the ordinary stable roster.",
+  "risk": "An actual revived original is Controlled and not Summoned. Hiding pet menus and exempting native loyalty does not close vendor stabling; clearing its master conflicts with the class-minion lifetime/ownership contract.",
+  "next": "Reject class minions before charging gold or changing ownership, while preserving ordinary pet stabling. Verify the native target/transaction path and class identity with negative controls before learned Revive enablement."
+}

@@ -1,0 +1,12 @@
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -966,7 +966,7 @@
+         public virtual bool ReduceSpeedWithDamage => true;
+         public virtual bool IsSubdued => SubdueBeforeTame && Hits < HitsMax / 10;
+ 
+-        public virtual bool Commandable => true;
++        public virtual bool Commandable => ClassCombatHooks.PersistentMinion?.Invoke(this) != true;
+ 
+         public virtual Poison HitPoison => null;
+         public virtual double HitPoisonChance => 0.5;
