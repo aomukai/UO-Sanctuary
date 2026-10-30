@@ -760,7 +760,7 @@
       "implementation": "blocked",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Metal eligibility, persistent originals, numeric graph and a saved vulnerable stat body have scoped verification. Base/current life, single item contributions to live life/AR/armor/resistance, regeneration rate, facet ratios, saved recipes and creation rollback are covered. Native AI/attacks stay suppressed. Full current spawn/item initialization, automatic recovery/controller, retaliation/procs, modern sunder, unified golem cap and learned casting/lifecycle remain unfinished. Unsupported item projections refuse before transfer. See iron-golem-body-checkpoint.md; no learned handler is enabled."
+      "remaining": "Prepared saved body and NecroPet controller have scoped native verification: follow motion, G4 contact/end timing, shared actor/item RNG, original weapon IAS/base speed, armor weight/faster movement, fractional recovery and offline/interruption/reload behavior. Original identity/full rolls and prior stat/facet/rollback scopes remain covered. Native skeleton AI/attacks stay suppressed. Full current initializer, attack-packet/event/block/retaliation/proc/sunder parity, unified golem cap, learned casting and full owner/client acceptance remain unfinished. Unsupported item projections refuse before transfer. See iron-golem-world-checkpoint.md; no learned handler is enabled."
     },
     {
       "talentId": "necromancer.firegolem",

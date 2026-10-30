@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+Iron Golem now has a [prepared moving world controller](iron-golem-world-checkpoint.md), verified through the NecroPet policy, owned G4 animation metadata, original-item timing, fractional recovery and saved lifecycle adapters. Its learned cast remains disabled pending attack/event parity, retaliation, replacement and casting acceptance. Coverage remains 185 handlers / Necromancer29; no class is complete.
+
 The [prepared Necromancer pet AI67 policy](necromancer-pet-ai-checkpoint.md) now matches 1,598 complete unchanged older-source contexts in a disposable native boot, including query/action order, owner memory and random draws. This advances Iron Golem's controller prerequisites; its live AI/attacks/recovery and learned cast remain disabled. Coverage stays185handlers/Necromancer29; no class is complete. Current-executable parity and world-service integration remain explicit acceptance work.
 
 The class-skill pass uses **Diablo II: Resurrected 3.3.93847 — Reign of the Warlock**. This pin is intentional; future patches do not change the implementation baseline automatically. Sanctuary's approved decisions take precedence over the reference. The [machine-readable pin](../data/Sanctuary/skill-reference.json) records the exact edition, source commits, comparison hashes, Warlock identities and limitations.

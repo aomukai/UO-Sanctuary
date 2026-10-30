@@ -1720,6 +1720,24 @@
     }
   },
   {
+    "key": "irongolem-animation",
+    "fields": {
+      "WLFrames": 8,
+      "WLSpeed": 112,
+      "NUFrames": 4,
+      "NUSpeed": 40,
+      "A1Frames": 16,
+      "A1Speed": 256,
+      "A1Action": 10,
+      "S1Frames": 15,
+      "S1Speed": 104,
+      "DDFrames": 1,
+      "DDSpeed": 256,
+      "DTFrames": 20,
+      "DTSpeed": 256
+    }
+  },
+  {
     "key": "oaksage-animation",
     "fields": {
       "WLFrames": 7,

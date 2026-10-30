@@ -225,6 +225,16 @@ def products():
         if actions:bear_fields[mode+'Action']=actions[0]
     assert [bear_fields[k] for k in ['A1Frames','A1Speed','A1Action','A2Frames','A2Speed','A2Action','GHFrames','GHSpeed']] == [13,256,7,17,248,8,5,256]
     summons += [{'key':'druidbear-animation','fields':bear_fields}]
+    iron_preflight=json.loads((ROOT/'tools/reference/iron-golem-world-preflight.json').read_text())
+    iron_fields={}
+    for row in iron_preflight['animation']['records']:
+        mode=row['code'][2:4]
+        iron_fields[mode+'Frames']=row['frames'];iron_fields[mode+'Speed']=row['speed']
+        actions=[frame for frame,kind in row['events'] if kind==1]
+        assert len(actions)<=1
+        if actions:iron_fields[mode+'Action']=actions[0]
+    assert [iron_fields[k] for k in ['A1Frames','A1Speed','A1Action','WLSpeed','S1Frames','S1Speed']]==[16,256,10,112,15,104]
+    summons += [{'key':'irongolem-animation','fields':iron_fields}]
     oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
     assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
     summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]
@@ -339,7 +349,7 @@ def products():
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'barbarian.findpotion':'Shared UO search sound0x1E5 and corpse flash0x375A hue0x481 are identified placeholders; final Find Potion cry/search/corpse/potion-discovery effects and audio pending; talent/right/quick icons tracked separately',
-        'necromancer.irongolem':'Prepared stat body only: silent UO body14/hue0x835 and explicit placeholder name; final body, summon, thorns, contact/state and audio remain pending',
+        'necromancer.irongolem':'Prepared moving body: silent UO body14/hue0x835 and explicit placeholder name; final G4 emergence/walk/attack/death, summon, thorns, contact/state and audio remain pending',
         'barbarian.finditem':'Staged UO0x375A corpse search marker and0x1E5 cry sound; final find-object/find-heart cry, corpse search and success/failure cues pending',
         'barbarian.warcry':'Staged shared UO0x375A cast/wave/stun/block markers and0x1E5 cry; final WarcryShockwave, cast, stun and shield block presentation pending',
         'barbarian.taunt':'Staged UO0x375A target marker and0x1E5 cry sound; final taunt overlay/cry and source feedback pending',

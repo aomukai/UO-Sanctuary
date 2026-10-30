@@ -1,0 +1,219 @@
+{
+  "referenceVersion": "3.3.93847",
+  "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "localTables": {
+    "monstats": {
+      "cachedSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+      "localSha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+      "localFilename": "monstats-sentries-verified.txt"
+    },
+    "monstats2": {
+      "cachedSha256": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+      "localSha256": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+      "localFilename": "monstats2-sentries-verified.txt"
+    }
+  },
+  "corroboratedFields": 120,
+  "currentRows": {
+    "monstats": {
+      "Id": "irongolem",
+      "*hcIdx": 291,
+      "BaseId": "irongolem",
+      "TransLvl": 0,
+      "NameStr": "IronGolem",
+      "MonStatsEx": "irongolem",
+      "MonType": "golem",
+      "AI": "NecroPet",
+      "Code": "G4",
+      "enabled": 1,
+      "MinGrp": 1,
+      "MaxGrp": 1,
+      "Velocity": 9,
+      "Run": 9,
+      "Rarity": 0,
+      "MonSound": "irongolem",
+      "UMonSound": "irongolem",
+      "threat": 11,
+      "aidel": 15,
+      "aidel(N)": 15,
+      "aidel(H)": 15,
+      "aip1": 90,
+      "aip1(N)": 90,
+      "aip1(H)": 90,
+      "Align": 1,
+      "inventory": 1,
+      "inTown": 1,
+      "opendoors": 1,
+      "killable": 1,
+      "switchai": 1,
+      "neverCount": 1,
+      "CannotHerald": 1,
+      "coldeffect": -50,
+      "coldeffect(N)": -50,
+      "coldeffect(H)": -50,
+      "ResLi": 50,
+      "ResPo": 100,
+      "ResLi(N)": 50,
+      "ResPo(N)": 100,
+      "ResLi(H)": 50,
+      "ResPo(H)": 100,
+      "DamageRegen": 3,
+      "noRatio": 1,
+      "ToBlock": 41,
+      "ToBlock(N)": 41,
+      "ToBlock(H)": 41,
+      "Crit": 5,
+      "minHP": 306,
+      "maxHP": 306,
+      "AC": 140,
+      "A1MinD": 7,
+      "A1MaxD": 19,
+      "A1TH": 80,
+      "A2MinD": 15,
+      "A2MaxD": 29,
+      "A2TH": 80,
+      "MinHP(N)": 595,
+      "MaxHP(N)": 595,
+      "AC(N)": 140,
+      "A1MinD(N)": 11,
+      "A1MaxD(N)": 30,
+      "A1TH(N)": 138,
+      "A2MinD(N)": 23,
+      "A2MaxD(N)": 45,
+      "A2TH(N)": 138,
+      "MinHP(H)": 980,
+      "MaxHP(H)": 980,
+      "AC(H)": 140,
+      "A1MinD(H)": 12,
+      "A1MaxD(H)": 33,
+      "A1TH(H)": 197,
+      "A2MinD(H)": 25,
+      "A2MaxD(H)": 49,
+      "A2TH(H)": 197,
+      "lineNumber": 291
+    },
+    "monstats2": {
+      "Id": "irongolem",
+      "*hcIdx": 291,
+      "Height": 3,
+      "OverlayHeight": 2,
+      "pixHeight": 96,
+      "SizeX": 2,
+      "SizeY": 2,
+      "MeleeRng": 0,
+      "BaseW": "hth",
+      "HitClass": 3,
+      "TRv": "lit",
+      "TR": 1,
+      "TotalPieces": 1,
+      "mDT": 1,
+      "mNU": 1,
+      "mWL": 1,
+      "mA1": 1,
+      "mS1": 1,
+      "mDD": 1,
+      "mSQ": 1,
+      "dDT": 8,
+      "dNU": 8,
+      "dWL": 8,
+      "dGH": 8,
+      "dA1": 8,
+      "dA2": 8,
+      "dBL": 8,
+      "dSC": 8,
+      "dS1": 1,
+      "dS2": 8,
+      "dS3": 8,
+      "dS4": 8,
+      "dDD": 8,
+      "dKB": 8,
+      "dSQ": 8,
+      "dRN": 8,
+      "restore": 1,
+      "isSel": 1,
+      "isAtt": 1,
+      "Shadow": 1,
+      "Light": 5,
+      "light-r": 255,
+      "light-g": 255,
+      "light-b": 255,
+      "InfernoLen": 1,
+      "ResurrectMode": "NU",
+      "lineNumber": 291
+    }
+  },
+  "animation": {
+    "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "archivePath": "data:data/global/animdata.d2",
+    "extractionEvidence": "tools/reference/d2r-local-animation-evidence.json",
+    "records": [
+      {
+        "code": "G4WLHTH",
+        "frames": 8,
+        "speed": 112,
+        "events": []
+      },
+      {
+        "code": "G4NUHTH",
+        "frames": 4,
+        "speed": 40,
+        "events": []
+      },
+      {
+        "code": "G4A1HTH",
+        "frames": 16,
+        "speed": 256,
+        "events": [
+          [
+            10,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "G4S1HTH",
+        "frames": 15,
+        "speed": 104,
+        "events": []
+      },
+      {
+        "code": "G4DDHTH",
+        "frames": 1,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "G4DTHTH",
+        "frames": 20,
+        "speed": 256,
+        "events": []
+      }
+    ]
+  },
+  "reviewedSourceHashes": {
+    "source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a"
+  },
+  "reviewedRoutineHashes": {
+    "AIGENERAL_AllocAiControl": "e6b9fbd946b98480f3ba590aa757fbe79c15998f2ef08d55fce95bf250673567",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "SKILLS_SrvDo057_IronGolem": "074201fd38e24a24e63eb6a27287d2c579cd80ac191516266682cca7ab3edbb1",
+    "D2GAME_InitItemStats_6FC4E520": "793a9c3a5f4900b485dc20c6f7fdbbc184cca8be6bdbaa3c80dae5b04be53135",
+    "MONSTERS_GetSpawnMode_XY": "e437bc0fd75a15395368f718b0ab87e77cb359687278ea52aeba3c6a4c5944b5",
+    "sub_6FCD0410": "1541de248a8c5adbfa4a8b775a7fff4945d1ffa84918e80348054af3a973f08c"
+  },
+  "established": [
+    "G4 has WL8/speed112,NU4/40,A1 16/256 with action flag1 at index10,S1 15/104,DT20/256,DD1/256. No GH,BL,RN or A2 animation row was found; do not borrow skeleton or Fire Golem rows.",
+    "Current model size2x2,raw melee range0,base weapon classhth. The source summon allocator schedules first AI at25frames;skill summodeS1 and current metadata are distinct from animation/event execution.",
+    "Older AI allocation is zero-filled. Iron Golem release does not apply the skeleton-special parameter setter. Approach helper sets path type13 before its flagged walking tactic. These are static reviews,not execution of the complete spawn/AI initializer.",
+    "The complete item initializer assigns weapon attackrate=-base speed and armor velocitypercent=-base speed,independent of faster-attack/faster-movement item properties. Full initializer/stat transport and activation remain separate acceptance boundaries."
+  ],
+  "remaining": [
+    "Current executable equivalence,full initializer,mode/event ordering,source world geometry,first-think overlap,attack packet/event/item/proc timing and client presentation remain separate acceptance work."
+  ]
+}

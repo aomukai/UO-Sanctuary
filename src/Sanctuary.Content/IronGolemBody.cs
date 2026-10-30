@@ -10,16 +10,20 @@ using Server.Items;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record IronGolemBodyState(IronGolemBodyRecipe Recipe,MonsterDifficulty Difficulty,IronGolemBodyNumbers Numbers);
+internal sealed record IronGolemBodyState(IronGolemBodyRecipe Recipe,MonsterDifficulty Difficulty,IronGolemBodyNumbers Numbers,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] IronGolemWorldState Controller=null);
 
-// Vulnerable saved stat body only. No native skeleton attacks/AI or invented
-// golem scheduling are enabled. The learned cast remains independently gated.
+// Vulnerable saved body with an optional prepared world controller. Native
+// skeleton attacks/AI stay suppressed; the learned cast remains gated.
 [SerializationGenerator(0)]
 public partial class IronGolemBody:SkeletonGuardian
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private IronGolemBodyState _prepared;
+    internal bool ControllerLoaded;
     internal IronGolemBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<IronGolemBodyState>(_saved));
+    internal SkillValues BirthValues=>new(SkillMechanics.For(CombatAbility.IronGolem),name=>Prepared.Recipe.Effective.GetValueOrDefault(name),
+        name=>Prepared.Recipe.Hard.GetValueOrDefault(name),Prepared.Recipe.OwnerLevel);
     internal override string SourceMonsterId=>"irongolem";
     public override long SourceLife256=>Prepared?.Numbers.LifeBase256??306*256;
     internal override int SourceRegeneration256=>Prepared?.Numbers.Regeneration256??57;
@@ -27,7 +31,9 @@ public partial class IronGolemBody:SkeletonGuardian
         ?new(state.Numbers.Level,(state.Numbers.LifeBase256+255)/256,state.Numbers.AttackBase,state.Numbers.ArmorBase,0,0,1000,400,0,0,0,0,0)
         :new(1,306,0,140,0,0,1000,400,0,0,0,0,0);
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
-    internal override (int Min,int Max,int Percent) SourceWeaponBase=>throw new NotSupportedException("Iron Golem attack delivery is not integrated");
+    internal override (int Min,int Max,int Percent) SourceWeaponBase=>(NecromancerSummons.Source("irongolem","A1MinD",SummonDifficulty),
+        NecromancerSummons.Source("irongolem","A1MaxD",SummonDifficulty),
+        checked((int)BirthValues.Eval("passivecalc4")));
     public override bool UsesNativeSummonTimer=>false;
     public override bool IsDispellable=>false;
     public override bool CanRegenStam=>false;
@@ -44,8 +50,11 @@ public partial class IronGolemBody:SkeletonGuardian
         IronGolemBodyRecipes.Validate(state?.Recipe);
         if(state.Numbers!=IronGolemBodyRecipes.Build(state.Recipe,state.Difficulty))
         {throw new InvalidDataException("Iron Golem derived birth numbers do not match its recipe");}
+        if(state.Controller!=null){IronGolemWorld.Validate(state.Controller);}
         _saved=JsonSerializer.Serialize(state);_prepared=state;
     }
+    internal void RestoreController(IronGolemWorldState controller)
+    {IronGolemWorld.Validate(controller);var state=Prepared with{Controller=controller};string text=JsonSerializer.Serialize(state);_prepared=state;_saved=text;}
     private void SetBaseResistances()
     {
         var n=Prepared.Numbers;
@@ -87,7 +96,12 @@ public partial class IronGolemBody:SkeletonGuardian
         base.RefreshDifficulty();if(Prepared!=null){SetBaseResistances();}
     }
     [AfterDeserialization]private void AfterIronLoad()
-    {AIObject?.AITimer.Stop();var state=JsonSerializer.Deserialize<IronGolemBodyState>(_saved);Store(state);}
+    {AIObject?.AITimer.Stop();var state=JsonSerializer.Deserialize<IronGolemBodyState>(_saved);Store(state);if(state.Controller!=null){ControllerLoaded=true;IronGolems.Track(this);}}
+    public override void SuspendActions()
+    {base.SuspendActions();if(Prepared?.Controller is{} controller){RestoreController(IronGolemWorld.Park(controller));}}
+    internal override void InterruptForRecovery()
+    {base.InterruptForRecovery();if(Prepared?.Controller is{} controller){RestoreController(IronGolemWorld.Park(controller));}}
+    public override void OnAfterDelete(){IronGolems.Forget(this);base.OnAfterDelete();}
     public override bool OnBeforeDeath()
     {if(!base.OnBeforeDeath()){return false;}IronGolemItems.DestroyBoundItem(this);return true;}
     public override void OnDelete(){IronGolemItems.DestroyBoundItem(this);base.OnDelete();}

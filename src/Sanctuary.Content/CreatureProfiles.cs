@@ -191,7 +191,14 @@ public static class CreatureProfiles
             "native", null, "Unmapped custom type; native values retained");
     }
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is DruidOakBody oak ? _native with{Enabled=true,ApplyStats=false,
+        => creature is IronGolemBody iron ? _native with{Enabled=true,ApplyStats=false,
+            Resistances=new(Magic:NecromancerSummons.Source("irongolem","ResMa",difficulty??iron.SummonDifficulty)),
+            Traits=new("Golem",false,false,false,false,false,2,3,
+                NecromancerSummons.Source("irongolem","Drain",difficulty??iron.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source("irongolem","coldeffect",difficulty??iron.SummonDifficulty)),
+                NecromancerSummons.Source("irongolem","ToBlock",difficulty??iron.SummonDifficulty)),
+            HitRecovery=new(false)}
+            : creature is DruidOakBody oak ? _native with{Enabled=true,ApplyStats=false,
             Resistances=new(Magic:NecromancerSummons.Source(oak.SourceMonsterId,"ResMa",difficulty??oak.SummonDifficulty)),
             Traits=new("Spirit",false,false,false,false,false,2,3,
                 NecromancerSummons.Source(oak.SourceMonsterId,"Drain",difficulty??oak.SummonDifficulty),

@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import socket
 import tempfile
+import threading
 from check_britain import ROOT, SERVER, Session
 
 STAGE = ROOT / '.local/class-skills/iron-golem-birth'
@@ -15,7 +16,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=()):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=()):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -70,10 +71,20 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=()):
                     ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                    commands = ['iron-golem-birth-check'] + [name + ('-check' if boot == 0 else '-reload-check') for name in ['iron-golem-items', 'npc-resource-callbacks', *extra_families]]
+                    commands = ['iron-golem-birth-check', *extra_checks] + [name + ('-check' if boot == 0 else '-reload-check') for name in ['iron-golem-items', 'npc-resource-callbacks', *extra_families]]
                     for command in commands:
                         session.send(command)
                         assert session.expect(command + r': (passed|failed)').group(1) == 'passed'
+                    for command in extra_live_commands:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            def drain():
+                                try:
+                                    while client.recv(65536): pass
+                                except OSError: pass
+                            threading.Thread(target=drain, daemon=True).start()
+                            session.send(command); session.expect(command + ': ready')
+                            client.sendall(b'\x73\x00')
+                            assert session.expect(command + r'-result: (passed|failed)', timeout=30).group(1) == 'passed'
                     session.send('save'); session.expect('Writing world save snapshot done')
                     for name in ['iron-golem-items-fixtures.json', 'npc-resource-callbacks-fixtures.json', *[family + '-fixtures.json' for family in extra_families]]:
                         shutil.copy2(folder / name, stage / name)
@@ -81,7 +92,7 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=()):
                 finally:
                     session.close()
     text = (stage / 'birth-native-checks.log').read_text()
-    assert ': failed' not in text and ' ERR]' not in text and text.count(': passed') == 9 + 3 * len(extra_families)
+    assert ': failed' not in text and ' ERR]' not in text and text.count(': passed') == 9 + 3 * (len(extra_families)+len(extra_checks)+len(extra_live_commands))
     assert text.count('Shutting down') == text.count('Writing world save snapshot done') == 3
     print('Iron Golem prepared birth:source/native numeric checks and optional graph scopes pass across3boots/2reloads,with original-item/resource regression. Learned actor remains unfinished.')
 
