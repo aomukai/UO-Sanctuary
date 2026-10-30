@@ -1,0 +1,12 @@
+diff --git a/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs b/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
+--- a/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
++++ b/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
+@@ -224,7 +224,7 @@
+             {
+                 SayTo(from, 1049668); // Living pets only, please.
+             }
+-            else if (pet.Summoned)
++            else if (pet.Summoned || ClassCombatHooks.PersistentMinion?.Invoke(pet) == true)
+             {
+                 SayTo(from, 502673); // I can not stable summoned creatures.
+             }
