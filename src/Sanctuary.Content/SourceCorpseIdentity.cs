@@ -20,6 +20,7 @@ internal static class SourceCorpseIdentity
         if(corpse is not{Deleted:false,OwnerWasBaseCreature:true})
         {throw new NotSupportedException("No live native monster corpse identity");}
         var row=CorpseSkillRules.Profiles.Find(corpse);
+        if(row is{UnitReactivated:true}){throw new NotSupportedException("This loot container no longer represents the original dead unit");}
         if(row?.BaseLife is not{} life||!((Serial)life.OriginalMonsterSerial).IsMobile||life.OriginalMonsterSerial==0
             ||GenericPetSearchTables.SourceId(row.Source) is not{} cls)
         {throw new NotSupportedException("Historical monster identity/species is missing or unmapped");}

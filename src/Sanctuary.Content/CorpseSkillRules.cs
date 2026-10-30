@@ -11,7 +11,7 @@ namespace Sanctuary;
 
 public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura,bool Soft=false);
 public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
-public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null);
+public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null,bool UnitReactivated=false);
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
@@ -27,7 +27,7 @@ public sealed class CorpseSkillProfiles : GenericPersistence
     {
         if(_rows.TryGetValue(row.Corpse,out var old)){Unindex(old);}
         _rows[row.Corpse]=row;
-        if(row.BaseLife is{OriginalMonsterSerial:not 0} life)
+        if(!row.UnitReactivated&&row.BaseLife is{OriginalMonsterSerial:not 0} life)
         {
             if(!_originals.TryGetValue(life.OriginalMonsterSerial,out var ids)){_originals.Add(life.OriginalMonsterSerial,ids=new());}
             ids.Add(row.Corpse);
@@ -52,7 +52,7 @@ public sealed class CorpseSkillProfiles : GenericPersistence
         _rows.Clear();_originals.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
         {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty))
             || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || !((Serial)life.OriginalMonsterSerial).IsMobile || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
-            || row.MonsterLevel is <1 || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}
+            || row.MonsterLevel is <1 || row.UnitReactivated&&!row.NoSelect || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}
             if(row.ReviveCreature is{} revive){if(row.ReviveSnapshotIssue!=null){throw new InvalidDataException("Corpse has conflicting reconstruction data");}ReviveCreatureSnapshots.Validate(revive,row.Source);}Store(row);}
     }
 }

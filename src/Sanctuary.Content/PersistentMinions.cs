@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using Server;
 using Server.Collections;
 using Server.Mobiles;
@@ -13,32 +14,43 @@ public interface IPersistentMinion
     DateTime? ExpiresUtc => null;
     bool Permitted(PlayerMobile owner)=>true;
     void SuspendActions();
+    void ResumeActions(){}
 }
 
 public static class PersistentMinions
 {
+    private static readonly List<Func<BaseCreature,IPersistentMinion>> Behaviors=new();
+    internal static void RegisterBehavior(Func<BaseCreature,IPersistentMinion> provider)
+    {ArgumentNullException.ThrowIfNull(provider);if(!Behaviors.Contains(provider)){Behaviors.Add(provider);}}
+    internal static IPersistentMinion Behavior(BaseCreature pet)
+    {
+        if(pet==null){return null;}
+        if(pet is IPersistentMinion minion){return minion;}
+        foreach(var provider in Behaviors){if(provider(pet) is{} supplied){return supplied;}}
+        return null;
+    }
     public static MinionWardrobeProfiles Profiles { get; private set; }
     public static void Configure()
     {
         Profiles = new();
-        ClassCombatHooks.PersistentMinion = pet => pet is IPersistentMinion;
+        ClassCombatHooks.PersistentMinion = pet => Behavior(pet)!=null;
         ClassCombatHooks.SuspendMinions = Suspend;
         ClassCombatHooks.ResumeMinions = Resume;
         EventSink.Disconnected += OnDisconnected;
     }
 
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Profiles.Sweep(DateTime.UtcNow));
-    internal static bool Active(PlayerMobile owner, BaseCreature pet) => pet is IPersistentMinion minion
+    internal static bool Active(PlayerMobile owner, BaseCreature pet) => Behavior(pet) is{} minion
         && ClassCreation.Profiles.TryGet(owner.Serial, out var profile) && profile.Class == minion.SummonClass;
     internal static bool Permitted(PlayerMobile owner, BaseCreature pet, DiabloClass characterClass)
     {
-        return pet is IPersistentMinion minion && minion.SummonClass==characterClass && minion.Permitted(owner);
+        return Behavior(pet) is{} minion && minion.SummonClass==characterClass && minion.Permitted(owner);
     }
     internal static void ParkClass(PlayerMobile owner, DiabloClass characterClass)
     {
         foreach (var follower in owner.AllFollowers ?? [])
         {
-            if (follower is BaseCreature { Deleted: false } pet and IPersistentMinion minion && pet.ControlMaster == owner && minion.SummonClass == characterClass)
+            if (follower is BaseCreature { Deleted: false } pet && Behavior(pet) is{} minion && pet.ControlMaster == owner && minion.SummonClass == characterClass)
             { Park(pet); }
         }
     }
@@ -60,7 +72,7 @@ public static class PersistentMinions
         { if (h.Profile.Class == target && h.Ranks.TryGetValue("necromancer.raiseskeleton", out var rank)) { limit = SkeletonPets.Limit(rank); } }
         foreach (var follower in owner.AllFollowers ?? [])
         {
-            if (follower is not BaseCreature { Deleted: false, Alive: true } pet || pet is not IPersistentMinion minion || pet.ControlMaster != owner) { continue; }
+            if (follower is not BaseCreature { Deleted: false, Alive: true } pet || Behavior(pet) is not{} minion || pet.ControlMaster != owner) { continue; }
             var state = Profiles.Track(pet); if (state == null) { return false; }
             if (state.ExpiresUtc is { } expires && DateTime.UtcNow >= expires) { continue; }
             if (Active(owner, pet) && !state.Parked) { released += pet.ControlSlots; }
@@ -83,7 +95,7 @@ public static class PersistentMinions
     {
         foreach (var follower in owner.AllFollowers ?? [])
         {
-            if (follower is BaseCreature { Deleted: false } pet and IPersistentMinion && pet.ControlMaster == owner)
+            if (follower is BaseCreature { Deleted: false } pet && Behavior(pet)!=null && pet.ControlMaster == owner)
             {
                 Suspend(pet);
             }
@@ -92,7 +104,7 @@ public static class PersistentMinions
 
     private static void Suspend(BaseCreature pet)
     {
-        ((IPersistentMinion)pet).SuspendActions();
+        Behavior(pet).SuspendActions();
         pet.Combatant = null;
         pet.FocusMob = null;
         pet.ControlTarget = null;
@@ -114,7 +126,7 @@ public static class PersistentMinions
         }
         var state = Profiles.Track(pet);
         if (state == null || state.ExpiresUtc is { } expires && DateTime.UtcNow >= expires) { pet.Delete(); return false; }
-        if (!Active(owner, pet) || !Permitted(owner, pet, ((IPersistentMinion)pet).SummonClass)) { Park(pet); return false; }
+        if (!Active(owner, pet) || !Permitted(owner, pet, Behavior(pet).SummonClass)) { Park(pet); return false; }
         if (owner.NetState == null || owner.Map == null || owner.Map == Map.Internal)
         {
             Suspend(pet);
@@ -137,7 +149,7 @@ public static class PersistentMinions
         }
         var state = Profiles.Track(pet);
         if (state == null) { pet.Delete(); return; }
-        if (!Active(owner, pet) || !Permitted(owner, pet, ((IPersistentMinion)pet).SummonClass)) { Park(pet); return; }
+        if (!Active(owner, pet) || !Permitted(owner, pet, Behavior(pet).SummonClass)) { Park(pet); return; }
         Suspend(pet);
         if (owner.NetState != null)
         {
@@ -157,7 +169,7 @@ public static class PersistentMinions
         foreach (var follower in followers) { if (follower is BaseCreature pet) { snapshot.Add(pet); } }
         foreach (var follower in snapshot)
         {
-            if (follower is not BaseCreature { Deleted: false, Alive: true } pet || pet is not IPersistentMinion minion || pet.ControlMaster != owner) { continue; }
+            if (follower is not BaseCreature { Deleted: false, Alive: true } pet || Behavior(pet) is not{} minion || pet.ControlMaster != owner) { continue; }
             var state = Profiles.Track(pet); if (state == null) { continue; }
             if (state.ExpiresUtc is { } expires && DateTime.UtcNow >= expires) { pet.Delete(); continue; }
             if (!Active(owner, pet) || !Permitted(owner, pet, minion.SummonClass)) { Park(pet); continue; }
@@ -169,6 +181,7 @@ public static class PersistentMinions
             }
             if (pet.Map == Map.Internal && FindPosition(owner, out var point))
             { pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null); }
+            if(pet.Map==owner.Map&&pet.Map!=Map.Internal){minion.ResumeActions();}
         }
     }
 
@@ -211,7 +224,7 @@ public static class PersistentMinions
         using var pets = PooledRefList<BaseCreature>.Create();
         foreach (var follower in owner.AllFollowers ?? [])
         {
-            if (follower is BaseCreature pet and IPersistentMinion && pet.ControlMaster == owner && (!activeOnly || Active(owner, pet)))
+            if (follower is BaseCreature pet && Behavior(pet)!=null && pet.ControlMaster == owner && (!activeOnly || Active(owner, pet)))
             {
                 pets.Add(pet);
             }

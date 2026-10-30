@@ -77,6 +77,20 @@ public static class ReviveOriginals
         {throw new InvalidDataException("Retained native creature disagrees with its original corpse");}
         return actor;
     }
+    internal static ReviveOriginalState DetachForActivation(Corpse corpse,BaseCreature expected)
+    {
+        if(expected==null||Find(corpse)!=expected||expected.Map!=Map.Internal||expected.Alive)
+        {throw new InvalidOperationException("Original actor is not in inactive corpse storage");}
+        var row=_registry.Corpses[corpse.Serial.Value];
+        _registry.Corpses.Remove(row.Corpse);_registry.Actors.Remove(row.Actor);return row;
+    }
+    internal static void ReattachAfterFailedActivation(Corpse corpse,BaseCreature actor,ReviveOriginalState row)
+    {
+        if(corpse is not{Deleted:false}||actor is not{Deleted:false}||corpse.Serial.Value!=row.Corpse||actor.Serial.Value!=row.Actor
+            ||actor.GetType().FullName!=row.RuntimeType||_registry.Corpses.ContainsKey(row.Corpse)||_registry.Actors.ContainsKey(row.Actor))
+        {throw new InvalidDataException("Cannot restore the original inactive lease");}
+        _registry.Corpses.Add(row.Corpse,row);_registry.Actors.Add(row.Actor,row.Corpse);Park(actor);
+    }
     internal static bool Capture(BaseCreature actor,Container container)
     {
         var pending=ReviveBeforeDeath.Take(actor);string before=pending.Json;

@@ -34,7 +34,7 @@ public static class AlliedOverlap
         ClassCombatHooks.PassThrough = (first,second)=>first?.BlocksFit==false || second?.BlocksFit==false || LandingReservations.PassThrough(first,second)
             || first is not SkillLandingReservation && second is not SkillLandingReservation
                 && (BarbarianLeap.Airborne(first) || BarbarianLeap.Airborne(second) || BarbarianWhirlwind.Passing(first) || PassThrough(first,second));
-        ClassCombatHooks.OverlapMovement = pet => pet is IPersistentMinion && !PersistentMinions.CanThink(pet) || UpdatePet(pet, Core.TickCount);
+        ClassCombatHooks.OverlapMovement = pet => PersistentMinions.Behavior(pet)!=null && !PersistentMinions.CanThink(pet) || UpdatePet(pet, Core.TickCount);
         ClassCombatHooks.MovementGoal = Remember;
         ClassCombatHooks.FreeDestination = FreeDestination;
     }

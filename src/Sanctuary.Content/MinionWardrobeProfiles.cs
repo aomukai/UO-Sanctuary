@@ -15,7 +15,7 @@ public sealed class MinionWardrobeProfiles : GenericPersistence
     internal ClassMinionState Find(BaseCreature pet) => _pets.GetValueOrDefault(pet.Serial);
     internal ClassMinionState Track(BaseCreature pet)
     {
-        if (pet is not IPersistentMinion minion || pet.ControlMaster is not PlayerMobile owner) { return null; }
+        if (PersistentMinions.Behavior(pet) is not{} minion || pet.ControlMaster is not PlayerMobile owner) { return null; }
         if (!_pets.TryGetValue(pet.Serial, out var state))
         {
             state = new(owner.Serial.Value, minion.SummonClass, pet.ControlSlots, false, minion.ExpiresUtc);
@@ -68,7 +68,7 @@ public sealed class MinionWardrobeProfiles : GenericPersistence
         Sweep(DateTime.UtcNow);
         foreach (var (serial, state) in new Dictionary<Serial, ClassMinionState>(_pets))
         {
-            if (World.FindMobile(serial) is not BaseCreature pet || pet is not IPersistentMinion minion || minion.SummonClass != state.Class
+            if (World.FindMobile(serial) is not BaseCreature pet || PersistentMinions.Behavior(pet) is not{} minion || minion.SummonClass != state.Class
                 || state.Parked && pet.ControlSlots != 0) { throw new InvalidDataException("Invalid saved parked minion."); }
             PersistentMinions.Restore(pet);
         }
