@@ -183,7 +183,7 @@ public static class ClassGear
         {
             return 0;
         }
-        if (basis.MaxDefense <= 0) { return 0; }
+        if (basis.MaxDefense <= 0) { return Bonus(item, "ac", recipientLevel); }
         int enhanced = Enhanced(item, "ac%", recipientLevel);
         int defense = enhanced > 0 ? basis.MaxDefense + 1 : State(item)?.Defense
             ?? basis.MinDefense + (int)(item.Serial.Value % (uint)(basis.MaxDefense - basis.MinDefense + 1));

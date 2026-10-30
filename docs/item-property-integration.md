@@ -68,3 +68,7 @@ Approved Revive behavior keeps original equipped gear lootable and stores its nu
 Some affixes contribute to several rows. “Yes” means the named property resolver registers the code; it does not certify all parameters, ordinary items or NPCs.
 
 Rebuild with `python3 tools/build_property_integration_backlog.py`; use `--check` to validate. [Machine-readable inventory](../tools/reference/item-property-integration-backlog.json) records exact source hashes, affected affixes, and last verified named-item effect gates.
+
+## Non-armor flat defense supplier
+
+The NPC integration review found the shared defense reader dropping flat ac on bases without intrinsic armor. A correction uses the existing recipient-level supplier for that branch; focused real Ribcracker equip/repair/removal, original/frozen readers and two reloads pass, alongside648older-source player/monster graph contexts. Retained verification is in progress; see the [checkpoint](npc-equipment-defense-checkpoint.md). Armor/ED rounding and global modifiers are unchanged. This is not full NPC stat or proc acceptance.

@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete older source defense getter and previously compiled stat graph with declared basic item/recipient arrays; Holy Shield is absent, with assertion stubs for its unvisited services. Not modern executable or live NPC acceptance.",
+  "inputs": {
+    "tools/reference/item-stat-values-source-evidence.json": "76aeed1a76306a99791f2a00da3c2c00a665c1947b559b2133c14443fa18bcde",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/item-stat-values-source/source.cpp": "693640e78ef22dd0192be0e2bb6dbb228c1a0cdd469e7918aae05eb16ea942d8",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "STATLIST_GetTotalStatValue": "22f77264e27d2e265e34f3740784f84691ecb2ace37773f833717391d209b418",
+    "STATLIST_UnitGetStatValue": "08bcaeb449082bbf9a38bd7ad4cd4007c73cf38283d90cc208a3188758ffa802",
+    "STATLIST_UnitGetItemStatOrSkillStatValue": "761327600913c128276511abcaf7b3f45b3aa71dba1d63fc8793ca636994c6f0",
+    "STATLIST_GetStatValue": "e5657dd60bb14a71a447f086c83ba4a6c0cd6c6d7b5ad3b16a87a4dae747cc9d",
+    "UNITS_GetDefense": "cb7c7d7ad0c4d4714181ddba115139b5103e7ecceb5c3eed7aa1f6bee2eb22dc"
+  },
+  "cases": 648,
+  "artifacts": {
+    ".local/class-skills/npc-equipment-defense-source/source.cpp": "a25b4969c74c81ec9a98bc829a102b9593ed3ab64837fc54429de5c7333cf0d6",
+    ".local/class-skills/npc-equipment-defense-source/compiler.log": "0fbb5172e79521271566c8000c1aadd01b9294f03ef4bd38642d563c9e13573e",
+    ".local/class-skills/npc-equipment-defense-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-defense-source/cases.json": "822cb812de7d0b282000d38205ed3919a1e3ad62fcda8722ed3843f03d1a30a6"
+  }
+}

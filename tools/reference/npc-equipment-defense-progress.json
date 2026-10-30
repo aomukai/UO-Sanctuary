@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Non-armor flat defense supplier correction",
+  "status": "Source648 and focused native3 passed; retained369 running",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "verified": {
+    "sourceCases": 648,
+    "focusedMarkers": 3,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3
+  },
+  "stage": ".local/class-skills/npc-equipment-defense",
+  "snapshot": ".local/class-skills/npc-equipment-defense/pre-build-attempt-1.json",
+  "artifacts": {
+    "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
+    "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
+    "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
+    "Assemblies/Sanctuary.Content.dll": "9dda17f62ba3a431c34ed16b2fd44857b7d886628e506dfbcfa25dd203a8ff5c",
+    "Assemblies/Sanctuary.Integration.dll": "34e555ae5ff7531934a697140e60f26a2dfb57994cb83450667586bf0544913b"
+  },
+  "evidenceFiles": {
+    ".local/class-skills/npc-equipment-defense/pre-build-attempt-1.json": "ca3338114aafc644be0a6d62bb607eda9c73f804d28a5084e73ed8ad7d8af874",
+    ".local/class-skills/npc-equipment-defense/defense-inputs.json": "f6563e925a5b15ea98931ca25c89dfbd78f542c95720c339c42ce08de19422ed",
+    ".local/class-skills/npc-equipment-defense/defense-native-checks.log": "6d264cacbcb5a0174c6580fe2c01807b6e72f39ef39247216deb3106354342a5",
+    ".local/class-skills/npc-equipment-defense/isolated-npc-equipment-defense-fixtures.json": "b737f119f4ec28b7ef6e64606626834a92c1b4e163c513a365ec9c404075659c",
+    ".local/class-skills/npc-equipment-defense/content-build-attempt-1.log": "6cf4520be2cd4ed3d00d3226ba4024dba3030de87030decb3092a866a35b661b",
+    ".local/class-skills/npc-equipment-defense/integration-build-attempt-1.log": "7c885a7d9cf72a27c301c80489bfc6c88529786779ff094b824777331e1dd468"
+  },
+  "remaining": [
+    "Retained369-marker scope running in session98425; source/data/binaries must remain frozen until terminal.",
+    "Fresh audits/Python verification and exact-artifact acceptance receipt remain pending. No new full-class1184run is claimed for this one-line reader correction.",
+    "This corrects a shared supplier and actual player equipment use. Complete NPC stat application/procs and learned Iron Golem remain unfinished; Revive still explicitly refuses unsupported equipped effects."
+  ]
+}
