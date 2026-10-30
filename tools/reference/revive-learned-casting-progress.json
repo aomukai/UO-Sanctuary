@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "build8 isolated/retained acceptance frozen; full-class run terminal on obsolete Redemption fixture; corrected build9 awaiting verification",
-  "sourceCheckpoint": "7f50468",
+  "status": "build9 isolated/retained/Python passed; full class regression live in pipeline15778",
+  "sourceCheckpoint": "7f50468 production; 1654ba8 cross-skill fixtures and runner corrections",
   "stage": ".local/class-skills/revive-learned-casting",
-  "preBuildSnapshot": ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json",
+  "preBuildSnapshot": ".local/class-skills/revive-learned-casting/pre-build-attempt-9.json",
   "nativeBaseline": "Accepted 70-patch native binaries from 49a5539; no native rebuild or new patch",
   "verified": {
     "isolatedCommands": 3,
@@ -30,7 +30,7 @@
     "unchangedNamedDefinitions": 573
   },
   "notVerified": [
-    "Build8 full class run stopped at an obsolete deleted-corpse-owner assertion. Redemption/Fist fixtures are updated for retained originals; build9 verification is pending.",
+    "Fresh full class regression is live in pipeline15778; no full acceptance claimed.",
     "Source regeneration parity, facet/respec replanning and complete inherited item/proc effects",
     "Summon Resist reference conflict and inherited sunder consumption",
     "Complete D2R client parity; this is not class completion"
@@ -39,20 +39,22 @@
     "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
     "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
     "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
-    "Assemblies/Sanctuary.Content.dll": "727d74f7d9f84cf00d73a7edfeb538a1b1b3de8061524d361323f5723dbc0b18",
-    "Assemblies/Sanctuary.Integration.dll": "d2ee44e7722cf6b4b1938160dfba2814b315e79a583aacf5e8cd96a432568cb7"
+    "Assemblies/Sanctuary.Content.dll": "221d12a855cb2f865cf722cade5626bb199f5c1cd694aa33b81cfcb2f512c9ec",
+    "Assemblies/Sanctuary.Integration.dll": "11e1c865885ab27b97366ba38d6a5673d2c69167d562c626ec61139b6ae0061d"
   },
   "evidenceFiles": {
-    ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json": "786f84bf1d9a42ac9b25aeb6060034b3cf72746e9f98902ef15de451f8e22cae",
-    ".local/class-skills/revive-learned-casting/attempt-8/cast-inputs.json": "6134f186b229c4c25123e7a47828c8f4590a7f62439cf3495f54ba424d27bb06",
-    ".local/class-skills/revive-learned-casting/attempt-8/cast-native-checks.log": "0ac965612d126aec0b8971f3e1457149a33df487b3e683f4840e8ec151fd6b50",
-    ".local/class-skills/revive-learned-casting/content-build-attempt-8.log": "e63887d116453f53a7d1d60b6d289f2be578abfb2cf84d9a8dcc70d6ca85d9d1",
-    ".local/class-skills/revive-learned-casting/integration-build-attempt-8.log": "00d4dcaeb6d47a3c49034ae87fb79ed678c7f9298f553cda47b13cae4477d1ed",
-    ".local/class-skills/revive-learned-casting/attempt-8/stats-inputs.json": "741ee47a8257b6a7c2ba801730d0ba9f8dc9f99ef308cf7352f60a157e927a94",
-    ".local/class-skills/revive-learned-casting/attempt-8/stats-native-checks.log": "d4d7e56bb0ad8845e3c9ccfedefed153a6c53fc801b0e27d365bfaebceed5634",
-    ".local/class-skills/revive-learned-casting/attempt-8/python-tests.log": "b99c7c55c21c0b1a805507df7a8c6720b71a02f892d7425bcb2712ae5500212c",
-    ".local/class-skills/revive-learned-casting/attempt-8/named-item-runtime-audit.json": "af79edd73a1fa553c92c03d9641136100ffcf2b0b5b8d4dd77d846df70ab51fb",
-    ".local/class-skills/revive-learned-casting/attempt-8/first-loop-affix-audit.json": "76fb8ee65be7208cbf400e3f1cccf84b867929b69dcc684975b9897e69214fb7"
+    ".local/class-skills/revive-learned-casting/pre-build-attempt-9.json": "b703eae272d4fc85f248cabc217a7503e4dcfb426bffbed67d96f13ff3b7f7ca",
+    ".local/class-skills/revive-learned-casting/cast-inputs.json": "01ef4aa2f0cb6312cedb2c349ab233917a0099d056dfbc0343cd222ea462d595",
+    ".local/class-skills/revive-learned-casting/cast-native-checks.log": "68d610fe7e536767d0c2423d935c0050d7888d2d74ac2be99a4aaae1fa4c6b5f",
+    ".local/class-skills/revive-learned-casting/isolated-revive-cast-fixtures.json": "c9bf2acd670c73b11984238f9f601889ed5f2a08af2a2aabb989c239a9b8dbd3",
+    ".local/class-skills/revive-learned-casting/stats-inputs.json": "064cb2d1386d96118ca14d46cd1e1040af8ef9c4d9e41ff217b3712dd5f2e897",
+    ".local/class-skills/revive-learned-casting/stats-native-checks.log": "d394df9b8a057dc38d61726dd725faed94fe6b6e6c57d4b412db6474a11ccebd",
+    ".local/class-skills/revive-learned-casting/revive-cast-fixtures.json": "6ee9fb297423cd294cfd8ae8070969557fc4f648c3b82a4ed03988abdaa094ad",
+    ".local/class-skills/revive-learned-casting/content-build-attempt-9.log": "f3c75cf3fff505f7bf8adabfecccdeb7547a061876313fa20a29be9705f9daec",
+    ".local/class-skills/revive-learned-casting/integration-build-attempt-9.log": "3e210e4067aac8e67fdd27eb13d6a6583fc477e7928a6d6ef2baef59d592c5d4",
+    ".local/class-skills/revive-learned-casting/python-tests-attempt-9.log": "a81915de387430906ecae71d9f64b408a705ae2b79e00c1212fb9a0dc1e0fdc3",
+    ".local/class-skills/revive-learned-casting/named-item-runtime-audit.json": "940499eb1c0c0fe54a50c1997f31ae415e74d551e4269c2cb0e36dc9e7ccea82",
+    ".local/class-skills/revive-learned-casting/first-loop-affix-audit.json": "0c7c0fa2ac15520ac26408d5002da276a34a9a4755451ea3ceee51f69690ff00"
   },
   "coverage": {
     "handlers": 185,
@@ -61,14 +63,14 @@
   },
   "installation": "Candidate uninstalled; working installed build and saves unchanged",
   "assets": "Existing native summon particles/cast sound are identified placeholders; effects/audio and talent/hotkey icons remain separate registers",
-  "unavailableEvidence": [
+  "historicalBuild8EvidenceIssues": [
     {
       "path": ".local/class-skills/revive-learned-casting/revive-cast-fixtures.json",
       "expectedSha256": "47d68945019458960b76f5dd7db9150af25ced05d6d5af90a1878ca3d01385e9",
       "reason": "The combined retained runner overwrote the isolated manifest at the shared stage filename; isolated log/input evidence remains available. New isolated outputs use a separate filename."
     }
   ],
-  "retainedFixture": {
+  "archivedBuild8RetainedFixture": {
     "path": ".local/class-skills/revive-learned-casting/attempt-8/revive-cast-fixtures.json",
     "sha256": "0c2dfbfb3a71ad2a090f31bdc1072a02ec2f8f548308b24b2ac2352174ab0815"
   }
