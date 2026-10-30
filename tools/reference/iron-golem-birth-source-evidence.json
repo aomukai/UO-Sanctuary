@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "compiledUnchangedRoutines": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "inputs": {
+    "tools/probe_iron_golem_birth.py": "a0ae36c8fbc4685892e77982442b39bff5f3ab7a3b57265985ff06e2223edc03",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "artifacts": {
+    ".local/class-skills/iron-golem-birth-source/source.cpp": "770d5922e17ef42824ca238ac42e208aad3c9e30ea7cb8d489ee77a75e34cc71",
+    ".local/class-skills/iron-golem-birth-source/cases.json": "4087789d6077dcf1919259514a7e39c5f030fa748dc6d7c82f2ced42f7b48cae",
+    ".local/class-skills/iron-golem-birth-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/iron-golem-birth-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "birthCases": 36720,
+  "resistanceCases": 81,
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "services": [
+    "Supplied post-equip getter values, simple additive/base stat storage, successful statlist allocation, exact asserted row formulas, event/state recording and equipment-level request. The original formula VM and complete accrued stat dependency graph are not executed.",
+    "All ten current passive slots are retained as data by the native component; the unchanged older helper executes five. Its fifth cold-sunder service is zero. Modern nonzero-sunder delivery is not certified.",
+    "Thorns registers attacked-in-melee event function6 in the source controls. This preparation component does not register or deliver that event to a real actor."
+  ],
+  "established": [
+    "Every rank1\u2013255, owner levels1/24/99, three difficulties, two game contexts, four mastery/synergy contexts and two fractional post-equip life inputs exercise complete base/passive helpers.",
+    "The resulting maximum-life value is a base-stat WRITE after reading equipped accrued life. It is not a certificate for the final accrued maximum while attached items remain. Current life receives the same write.",
+    "Complete resistance helper accepts nonpositive item absorption, suppresses its elemental bonus for positive absorption, always adds poison for nonzero bonus, and does nothing for zero bonus."
+  ],
+  "remaining": [
+    "Actual item-equipped graph writes/callbacks and final accrued HP, full birth/spawn, retaliation/event consumers, modern sunder behavior, cast/payment/replacement/placement, actor AI and saved lifecycle. No learned handler, installation or full-class parity is claimed."
+  ]
+}

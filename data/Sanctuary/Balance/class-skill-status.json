@@ -760,7 +760,7 @@
       "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Requires authoritative metal-item eligibility, ownership/consumption, complete inherited item effects/procs, and persistent item identity."
+      "remaining": "Metal eligibility and persistent original-item storage are verified components. Prepared post-equip base/passive writes and absorb-aware Summon Resist have source/native comparisons. Final accrued item-graph birth writes/callbacks, retaliation and remaining item procs, modern sunder delivery, complete actor/AI, paid cast and lifecycle integration remain unfinished. See iron-golem-birth-checkpoint.md; prepared components do not enable the learned skill."
     },
     {
       "talentId": "necromancer.firegolem",
