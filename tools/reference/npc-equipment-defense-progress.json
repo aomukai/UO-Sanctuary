@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "component": "Non-armor flat defense supplier correction",
-  "status": "Source648 and focused native3 passed; retained369 running",
+  "status": "Scoped supplier correction accepted; all native/Python jobs terminal and successful",
   "installed": false,
   "goalComplete": false,
   "completedClasses": [],
@@ -10,7 +10,14 @@
     "focusedMarkers": 3,
     "boots": 3,
     "actualReloads": 2,
-    "saves": 3
+    "saves": 3,
+    "retainedMarkers": 369,
+    "pythonTests": 71,
+    "inputFingerprints": [
+      785,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106
   },
   "stage": ".local/class-skills/npc-equipment-defense",
   "snapshot": ".local/class-skills/npc-equipment-defense/pre-build-attempt-1.json",
@@ -30,8 +37,7 @@
     ".local/class-skills/npc-equipment-defense/integration-build-attempt-1.log": "7c885a7d9cf72a27c301c80489bfc6c88529786779ff094b824777331e1dd468"
   },
   "remaining": [
-    "Retained369-marker scope running in session98425; source/data/binaries must remain frozen until terminal.",
-    "Fresh audits/Python verification and exact-artifact acceptance receipt remain pending. No new full-class1184run is claimed for this one-line reader correction.",
     "This corrects a shared supplier and actual player equipment use. Complete NPC stat application/procs and learned Iron Golem remain unfinished; Revive still explicitly refuses unsupported equipped effects."
-  ]
+  ],
+  "acceptanceReceipt": "tools/reference/npc-equipment-defense-evidence.json"
 }

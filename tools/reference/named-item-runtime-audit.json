@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b03a2ae99ee213e6b251c96dff570d2259533d210d418bf5af56d5140f962e02",
+  "ContentAssemblySha256": "9dda17f62ba3a431c34ed16b2fd44857b7d886628e506dfbcfa25dd203a8ff5c",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -343,7 +343,7 @@
     "src/Sanctuary.Content/ClassCreation.cs": "429cc23645b184830ee8bfe1aeba57f12db5895c82f29a542e805ccf68b127ee",
     "src/Sanctuary.Content/ClassDeath.cs": "e3f5f283cde9df740ee8db9bba826c4b5b43808b2218e2b5b304b208a2587de2",
     "src/Sanctuary.Content/ClassEquipment.cs": "d872733e9fb4e9c1d1b7428ad4ef3a351e1e8414d00e7448ccf3ef3ef6e4a016",
-    "src/Sanctuary.Content/ClassGear.cs": "fcef3c3bf8caace4491a61b0a2ce961b2b4dbf41e8c174e176a6d55132b8b7a7",
+    "src/Sanctuary.Content/ClassGear.cs": "d49ec8b8b4e2e5e40e36293570c85e2c1489f73718957ce7a296cf6a9b2362d7",
     "src/Sanctuary.Content/ClassItemTypes.cs": "de5f163ec178a3e90d79bcd6b33320b410473a17e4d63c2e4b344e6b8beaf025",
     "src/Sanctuary.Content/ClassLoot.cs": "48815a22ac5734f32eaadbc4401a0f35016727e33de102ef8d5aa84e8c4395af",
     "src/Sanctuary.Content/ClassMovement.cs": "c16a4b956e75172708d53ffd6dd2214a7e46920a769596177a92bdd49a4e7775",
