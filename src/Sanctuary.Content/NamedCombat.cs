@@ -35,10 +35,12 @@ public static class NamedCombat
         return MeleeCritical(mastery,AmazonCombat.CriticalChance(player),chance,random)?2:1;
     }
     internal static bool MeleeCritical(int mastery,int generic,int deadly,Random random)
+        =>MeleeCritical(mastery,generic,deadly,()=>unchecked((uint)random.Next(100)));
+    internal static bool MeleeCritical(int mastery,int generic,int deadly,Func<uint> raw)
     {
-        if(mastery>0 && random.Next(100)<mastery){return true;}
-        if(generic>0 && random.Next(100)<generic){return true;}
-        return deadly>0 && random.Next(100)<deadly;
+        if(mastery>0 && raw()%100<mastery){return true;}
+        if(generic>0 && raw()%100<generic){return true;}
+        return deadly>0 && raw()%100<deadly;
     }
     // Missile creation always draws generic critical first, even at zero chance.
     internal static bool ProjectileCritical(PlayerMobile player,Random random)

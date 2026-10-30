@@ -28,6 +28,8 @@ The prepared original-equipment NPC strike now delivers inherited fire, lightnin
 
 Original-equipment NPC poison now uses the mechanical rate/frame clock. Final poison weapon/contact cues and a victim poison-state cue remain needed for Iron Golem; no final dedicated poison effect is installed by this adapter. Any persistent cue must follow the victim's actual remaining poison state, including cure and expiry, even after the source summon is removed. The durable kill-credit adapter is not a visual effect.
 
+Original-equipment NPC criticals need final impact/audio presentation for Iron Golem. The source hit-class bit and overlay 54 are mechanically described but not mapped to final client artwork; ordinary UO contact presentation remains the explicitly identified placeholder. Damage and poison clocks do not wait for this asset work.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

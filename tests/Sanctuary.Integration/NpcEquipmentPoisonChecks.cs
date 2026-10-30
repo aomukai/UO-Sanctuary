@@ -58,7 +58,7 @@ public static class NpcEquipmentPoisonChecks
         var target=Target(owner);
         try
         {
-            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0),"Actual equipped strike did not run");var state=State(target);DateTime at=state.UpdatedUtc;
+            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0,raw:()=>99),"Actual equipped strike did not run");var state=State(target);DateTime at=state.UpdatedUtc;
             Require(state.PoisonSource==owner.Serial.Value&&state.PoisonMs==first.Frames*40&&state.PoisonClock is{} clock&&clock.Rate256==first.Rate256,"Actual strike omitted NPC poison or inherited owner stats");
             int before=SkillHealth.Balance256(target),calls=target.DamageCalls;
             TimedEffects.Settle(target,at.AddMilliseconds(39));Require(SkillHealth.Balance256(target)==before,"Poison damaged before40ms");
@@ -73,7 +73,7 @@ public static class NpcEquipmentPoisonChecks
             target=Target(owner,resistance);
             try
             {
-                Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0),"Resistant strike rejected");
+                Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0,raw:()=>99),"Resistant strike rejected");
                 bool active=TimedEffects.TryActor(target,out var state)&&state.PoisonMs>0;
                 if(resistance==100){Require(!active,"Item pierce broke poison immunity");}
                 else{Require(active&&state.PoisonClock?.Rate256==SourcePercentage.Calculate(first.Rate256,50,100),"Poison resistance rate differs");}
@@ -106,12 +106,12 @@ public static class NpcEquipmentPoisonChecks
         try
         {
             Require(NpcEquipmentPoison.Capture(actor)==rows[0].Snapshot,"Owner weapon change leaked into NPC poison snapshot");
-            NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0);Require(State(target).PoisonClock?.Rate256==64,"Owner pierce leaked through NPC mitigation");
+            NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0,raw:()=>99);Require(State(target).PoisonClock?.Rate256==64,"Owner pierce leaked through NPC mitigation");
         }
         finally{target.Delete();}
         var removed=Pet(owner);var consumed=Named("unique/41");consumed.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
         Require(IronGolemItems.TryAttach(owner,removed,consumed,out _),"Removal fixture bind failed");target=Target(owner);
-        Require(NpcEquipmentDamage.TryResolve(removed,target,out _,_=>0),"Removal source strike failed");
+        Require(NpcEquipmentDamage.TryResolve(removed,target,out _,_=>0,raw:()=>99),"Removal source strike failed");
         uint removedId=removed.Serial.Value,consumedId=consumed.Serial.Value;IronGolemItems.DestroyBoundItem(removed);removed.Delete();
         var saved=Park(new(owner.Serial.Value,rows,removedId,consumedId,target.Serial.Value,0,null,0,0),target);
         PersistentMinions.Suspend(owner);owner.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));Report();

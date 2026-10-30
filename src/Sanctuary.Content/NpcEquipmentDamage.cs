@@ -51,16 +51,21 @@ internal static class NpcEquipmentDamage
         return new(min,max,normal,percent,item.Bonus("str"),item.Bonus("dex"),weapon,
             weapon?basis.StrengthBonus:0,weapon?basis.DexterityBonus:0);
     }
-    internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null)
+    internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
     {
         result=default;if(Capture(actor,target) is not{} stats){return false;}
-        limited??=Utility.Random;
+        limited??=bound=>NpcEquipmentRandom.Limited(actor,bound);
+        raw??=()=>NpcEquipmentRandom.Raw(actor);
+        var chances=NpcEquipmentCritical.Capture(actor);
         int physical=Roll256(stats,limited);
+        if(NpcEquipmentCritical.Physical(chances,raw)){physical=checked(physical*2);}
         var snapshot=NpcEquipmentElements.Capture(actor);
         var elements=NpcEquipmentElements.Roll(snapshot,limited);
         var poison=NpcEquipmentPoison.Capture(actor);
-        var delivery=NpcEquipmentPoison.Prepare(actor,target,poison,NpcEquipmentPoison.Roll(poison,limited));
-        result=SkillCombat.ResolveHitParts(actor,target,elements with{Physical=physical/256.0},true,true,
+        var rolledPoison=NpcEquipmentPoison.Roll(poison,limited);
+        var packet=NpcEquipmentCritical.ApplyIntrinsic(physical,elements,rolledPoison,NpcEquipmentCritical.Intrinsic(chances,raw),defender:target!=null);
+        var delivery=NpcEquipmentPoison.Prepare(actor,target,poison,packet.Poison);
+        result=SkillCombat.ResolveHitParts(actor,target,packet.Elements with{Physical=packet.Physical256/256.0},true,true,
             enhanceBase:false,addWeaponElements:false,sourceColdFrames:snapshot.Stats.ColdFrames);
         NpcEquipmentPoison.Commit(delivery,target,TimedEffects.Now);
         return true;

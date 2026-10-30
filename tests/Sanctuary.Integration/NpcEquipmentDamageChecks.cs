@@ -60,10 +60,10 @@ public static class NpcEquipmentDamageChecks
         try
         {
             int before=SkillHealth.Balance256(target);
-            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0)&&before-SkillHealth.Balance256(target)==first,"Bound equipment did not reach actual FP256 life loss");
+            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0,raw:()=>99)&&before-SkillHealth.Balance256(target)==first,"Bound equipment did not reach actual FP256 life loss");
             before=SkillHealth.Balance256(target);
             typeof(SkeletonGuardian).GetMethod("Strike",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(actor,[target]);
-            int loss=before-SkillHealth.Balance256(target);Require(loss>=first&&loss<=last,"Actual summon Strike bypassed equipped physical damage");
+            int loss=before-SkillHealth.Balance256(target);Require(loss>=first&&loss<=checked(last*4),"Actual summon Strike bypassed equipped physical damage");
         }
         finally{target.Delete();}
         if(weapon&&ClassItemTypes.Is(ClassGear.Base(item).Type,"blun"))
@@ -75,7 +75,7 @@ public static class NpcEquipmentDamageChecks
                 var againstUndead=NpcEquipmentDamage.Capture(actor,undead).Value;
                 Require(againstUndead.DamagePercent==stats.DamagePercent+100,"Bonesnap needs source blunt50 plus its separate item undead50 bonus");
                 int expected=NpcEquipmentDamage.Roll256(againstUndead,_=>0),before=SkillHealth.Balance256(undead);
-                Require(NpcEquipmentDamage.TryResolve(actor,undead,out _,_=>0)&&before-SkillHealth.Balance256(undead)==expected,"NPC undead damage bonus did not reach actual health loss");
+                Require(NpcEquipmentDamage.TryResolve(actor,undead,out _,_=>0,raw:()=>99)&&before-SkillHealth.Balance256(undead)==expected,"NPC undead damage bonus did not reach actual health loss");
             }
             finally{undead.Delete();}
         }

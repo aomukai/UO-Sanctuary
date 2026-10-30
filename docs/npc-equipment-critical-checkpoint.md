@@ -1,0 +1,13 @@
+# NPC equipment critical checkpoint
+
+D2R mechanical reference: **3.3.93847, Reign of the Warlock**. Current branch `codex/npc-equipment-critical`; accepted predecessor `f96dead`. No completed class or deployment is claimed.
+
+Revive retains the original monster’s living abilities. The user reconfirmed this after returning to COSMIC: the global replacement of UO monster spells with D2 spells is separate, not a Revive eligibility whitelist.
+
+Implemented; focused native and old-world upgrade checks passed, broader regression still running: original-item Deadly Strike follows mastery/generic physical critical order; separate MonStats intrinsic critical follows typed/poison collection and doubles physical, fire, lightning, cold, magic and poison rate without extending cold or poison duration. Current mapped skeleton/golem bodies have no mastery/generic suppliers; item-granted skills remain explicitly gated and owner passives are not inherited. New additive persistence records the source-algorithm damage stream against actor/owner/original identity. It does not claim historical world-seed identity or complete AI seed ownership.
+
+Source verification: 3,456 critical-stage and 150 seed comparisons from pinned older engine commit `0c0bbd1e6bef9181a3da1c046523af622a925416`, compiled under ASan/UBSan. This covers the complete physical-critical statement block, intrinsic/hit-class routines and seed init/roll/wrappers; it does not certify the complete modern dispatcher or mastery lookup. See `tools/reference/npc-equipment-critical-source-evidence.json`.
+
+Native checks passed for actual original Steelgoad with real Ruby/Sapphire/Emerald insertion, Hellplague, Ghostflame and Baranar, persisted exact rolls through two reloads, cleanup and invalid restoration, and an actual pre-profile world created by accepted old binaries. Build attempt 1 compiled production cleanly but integration used a nonexistent TimedActor timestamp; attempt 2 reads the existing saved-state timestamp. Failed logs/products are preserved. Focused runner 92366 and upgrade runner 80226 both terminated successfully: each three boots/two reloads/three saves. Fresh 793/21 audits pass; retained runner 79198 and Python runner 98102 are still live at this checkpoint. Source/data/binaries remain frozen at attempt 2. Final acceptance is not yet issued.
+
+Remaining: item events/procs, resource and defensive-resistance consumers, independent frozen Revive equipment, complete learned Iron Golem, modern parity uncertainties and final client verification. Critical hit-class/overlay descriptors have no final presentation mapping. Effects/audio and talent/hotkey icons stay in separate registers with identified placeholders. Working installation and saves remain untouched.

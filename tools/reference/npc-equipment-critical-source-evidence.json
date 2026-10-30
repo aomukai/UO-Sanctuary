@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderEngineCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": {
+    "critical": 3456,
+    "seed": 150
+  },
+  "inputs": {
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71"
+  },
+  "unchangedPhysicalCriticalBlockSha256": "7cd3ff19c62a11a03e4841c6245222da513923adb740544f877ace7235123a57",
+  "scope": "Unchanged complete physical-critical statement block with declared damage/stat/RNG services; complete intrinsic critical/hit-class routines. Separate complete source seed initialization/roll/wrapper routines. Not complete FillDamageValues,weapon-mastery lookup,current executable or AI seed-allocation parity.",
+  "artifacts": {
+    ".local/class-skills/npc-equipment-critical-source/seed-cases.json": "f9730b34b4b477296cd28123588ef5210d5a51465b7e6c83d1b94f60adbfec9d",
+    ".local/class-skills/npc-equipment-critical-source/critical-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-critical-source/critical-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-critical-source/seed-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-critical-source/seed-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-critical-source/critical.cpp": "f1459e1feb273ccc536e623f66d8c0a0276b017aaa6a3cefe5fe943d94f9bc67",
+    ".local/class-skills/npc-equipment-critical-source/critical-cases.json": "c7670137cdaaf43a61d85223f47790949c2a89431fb5d9f45e559495e260fc29",
+    ".local/class-skills/npc-equipment-critical-source/seed.cpp": "9c26e3773208ba0f746af419a0cfe229ef72c2c496f679fe02692327af74c9bf"
+  }
+}

@@ -116,6 +116,7 @@ public static class IronGolemItems
             item.Delete();
         }
         States.Remove(state.Pet);ByItem.Remove(state.Item);
+        NpcEquipmentRandom.Forget(pet);
     }
     // Worker snapshots only read/filter. Real actor callbacks own lifecycle
     // cleanup; a missing/moved item is not silently replaced or duplicated.

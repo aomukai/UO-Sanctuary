@@ -78,7 +78,7 @@ public static class NpcEquipmentElementChecks
             int expected=checked(physical+NamedElements.To256(first.Total));
             // Griffon pierce lowers zero resistance below0 on the first hit.
             if(kind=="mastery"){expected=checked(expected+SourcePercentage.Calculate(NamedElements.To256(first.Lightning),itemContext.Bonus("pierce-ltng"),100));}
-            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0)&&before-SkillHealth.Balance256(target)==expected,"Original item/buff elements did not reach actual life exactly once: "+kind);
+            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0,raw:()=>99)&&before-SkillHealth.Balance256(target)==expected,"Original item/buff elements did not reach actual life exactly once: "+kind);
             before=SkillHealth.Balance256(target);typeof(SkeletonGuardian).GetMethod("Strike",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(actor,[target]);
             Require(before>SkillHealth.Balance256(target),"Actual summon Strike bypassed element packet");
             if(raw.ColdFrames>0)
@@ -96,7 +96,7 @@ public static class NpcEquipmentElementChecks
             before=SkillHealth.Balance256(target);
             int fireLoss=checked((int)SourcePercentage.Damage(NamedElements.To256(first.Fire),50));
             expected=checked(physical+fireLoss+NamedElements.To256(first.Cold+first.Magic)+(kind=="mastery"?0:NamedElements.To256(first.Lightning)));
-            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0)&&before-SkillHealth.Balance256(target)==expected,"Element resistance/immunity or pierce immunity gate failed: "+kind);
+            Require(NpcEquipmentDamage.TryResolve(actor,target,out _,_=>0,raw:()=>99)&&before-SkillHealth.Balance256(target)==expected,"Element resistance/immunity or pierce immunity gate failed: "+kind);
         }
         finally{if(coldTarget==0){target.Delete();}else{target.Internalize();}}
         return new(actor.Serial.Value,item.Serial.Value,gear,snapshot,first,last,coldTarget,coldUntil);
