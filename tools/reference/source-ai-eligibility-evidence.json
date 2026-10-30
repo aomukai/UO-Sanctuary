@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete older skill/utility/think/species AI-switch predicates using existing current Conversion catalog",
+  "processMemoryRead": false,
+  "handlerEnabled": false,
+  "modernCodeEquivalenceClaimed": false,
+  "verified": {
+    "completeRoutines": 5,
+    "syntheticContexts": 61440,
+    "predicatesPerContext": 5,
+    "currentSpecies": 751,
+    "currentRevivedContexts": 96128,
+    "currentCatalogFieldsChecked": 3004,
+    "sanitizers": "ASan/UBSan exit0,empty stderr"
+  },
+  "routineHashes": {
+    "UNITS_CanSwitchAI": "81b296564be8339bcefd85dd4e730dc71bed9422a056aeab0edf1ea189c09f03",
+    "MONSTERUNIQUE_CheckMonTypeFlag": "becf31d23746b7c96ec9b17a2a376e6da6bdfe3d369a8cf033b08d132f111f4c",
+    "AITHINK_CanUnitSwitchAi": "6b66639925425e02fc21da6642bb1157e9e49dc9161792cabe25ce22a2e91a27",
+    "AIUTIL_CanUnitSwitchAi": "c831bffb167fcfcd2264ee0ee568a2b427047f637fb4b680e32dbfcac03a3e2d",
+    "sub_6FD15190": "be6bd826853e0c11ca227cb359bff1f0e8396cf7cb315fa87b977cba0468e1bb"
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/generic-pet-search-nested/monstats2.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/class-skills/generic-pet-search-services/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/revive-ai-eligibility/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/revive-ai-eligibility/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/revive-ai-eligibility/source-probe.cpp": "73d04349a9a839a67bcfc192a93b0f133e232a98b1fd3c21f98b862fa5d4a153",
+    ".local/class-skills/source-ai-eligibility-source-probe.json": "3c7657c12b0a5bfbc28369758b33fc229cd7cb2ba856e48738fcac28f9058f45",
+    "data/Sanctuary/Balance/conversion-source-rules.json": "7fd58898c9928d17fb07f43cd68c46ada1f4b5d636918b92b37c518e32c825ce",
+    "data/Sanctuary/Balance/generic-pet-search-monsters.json": "980afedac2ca0bc0deef9a96a1723e3b9de299a6f8ec737ec86f50b59a6b4170",
+    "tools/probe_source_ai_eligibility.py": "fba1ea9901c04464e7d3dddaac1138d4e66e8b7fb78b388e4a6b9b60f06cdaac"
+  },
+  "boundaries": [
+    "Dynamic source attackable/dead/uninterruptible/unique/superunique/attached fields are explicit inputs. Their native corpse producer is not established by these comparisons.",
+    "Source table access and nested state/unique/dead services are explicit fixture boundaries. The current Conversion table matches the owned current text walking/boss/switchAI/base-ID fields for751species; this does not prove modern executable AI equivalence.",
+    "No native actor restoration, original special abilities, GUID reservation, current passive/event transfer or full Revive lifecycle is enabled."
+  ]
+}

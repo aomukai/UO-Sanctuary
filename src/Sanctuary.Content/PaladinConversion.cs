@@ -81,7 +81,8 @@ public static class PaladinConversion
         // native consumer. Do not silently approximate either source branch.
         return rule.Base!="imp1" && ClassStats.Level(owner)>=ClassStats.Level(target);
     }
-    internal static ConversionSourceRule SourceRule(BaseCreature target)=>target==null?null:_rules.GetValueOrDefault(CreatureProfiles.Definition(target).Reference??"");
+    internal static ConversionSourceRule SourceRule(string source)=>_rules.GetValueOrDefault(source??"");
+    internal static ConversionSourceRule SourceRule(BaseCreature target)=>target==null?null:SourceRule(CreatureProfiles.Definition(target).Reference);
     // Keep the temporary stats until the removal transaction runs. Expiring a
     // maximum in a getter first would let native resource clamps discard life.
     internal static ConversionLife Life(Mobile target)=>target==null?null:_states.GetValueOrDefault(target.Serial.Value)?.Life;

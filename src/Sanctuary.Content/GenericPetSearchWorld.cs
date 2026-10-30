@@ -19,6 +19,7 @@ internal sealed class GenericPetSearchTable
         for(int i=0;i<_levels.Length;i++){if(_levels[i] is not{} r||r.Id!=i||string.IsNullOrWhiteSpace(r.Name)){throw new InvalidDataException("Invalid search level row");}}
     }
     internal GenericPetSearchMonster Monster(int id)=>id>=0&&id<_monsters.Length?_monsters[id]:null;
+    internal int MonsterCount=>_monsters.Length;
     internal GenericPetSearchMonster Monster(string name)=>name!=null?_names.GetValueOrDefault(name):null;
     internal GenericPetSearchLevel Level(int id)=>id>0&&id<_levels.Length?_levels[id]:null;
     internal GenericPetSearchTableView Bind(byte selector)=>new(this,selector);
@@ -48,6 +49,8 @@ public static class GenericPetSearchTables
     // Explicit view binding does not establish real selector aliases or an area mapping.
     internal static GenericPetSearchTableView Bind(byte selector)=>_table.Bind(selector);
     internal static int? SourceId(string source)=>_table.Monster(source)?.Id;
+    internal static string SourceName(int id)=>_table.Monster(id)?.Name;
+    internal static int MonsterCount=>_table.MonsterCount;
 }
 internal sealed record GenericPetSearchStatList(int Flags28,IReadOnlyList<uint> Words);
 internal sealed class GenericPetSearchSizeCache(int kind,int cls,int sizeX,int sizeY)

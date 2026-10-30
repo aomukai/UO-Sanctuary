@@ -1261,3 +1261,7 @@ Use relative strength to classify these creatures. Preserve their UO identity an
 ### Revive original creature descriptors — 2026-10-30
 
 New actual deaths retain optional concrete native type, AI identifiers, raw fields and active combat/profile descriptors in the existing v0 corpse metadata. These support future reconstruction and preserve old saves; they do not yet restore an actor or special-ability state. Nine deaths across five native types, three source species and three difficulties pass two reloads, independent decoded profiles, malformed-data refusal and old-v0 compatibility. [Acceptance](../tools/reference/revive-creature-snapshot-native-evidence.json), [checkpoint](class-skills-resume-checkpoint.md). The approved no-expiration lifetime remains authoritative.
+
+### Revive AI permission — 2026-10-30
+
+The prepared source AI gate reuses Conversion’s current base/walking/boss/switchAI data and the existing source species index. Five complete older routines execute under ASan/UBSan; native checks compare 61,440 varied contexts, 96,128 current-species contexts and 1,152 saved-corpse contexts per boot. Dynamic source state remains explicit input, including monster-data availability; native appearance and corpse age do not substitute for it. [Source controls](../tools/reference/source-ai-eligibility-evidence.json), [native acceptance](../tools/reference/source-ai-eligibility-native-evidence.json), [checkpoint](class-skills-resume-checkpoint.md). This prepares eligibility without enabling restoration or a learned Revive cast.
