@@ -272,3 +272,5 @@ Feral Rage needs talent-tree and left/right/quick-hotkey artwork; current text l
 Inherited NPC resource bonuses share Iron Golem’s pending talent-tree/hotkey icons and add no separately bindable skill. Existing text-label placeholders remain; effects and audio are tracked separately.
 
 NPC duration defenses share Iron Golem’s pending talent-tree and hotkey artwork. They add no separately bindable skill or icon; text labels remain identified placeholders.
+
+NPC Replenish Life shares Iron Golem’s pending talent-tree/hotkey artwork and text-label placeholders. It adds no independently bindable skill or icon; state/contact/audio work remains in the effects register.

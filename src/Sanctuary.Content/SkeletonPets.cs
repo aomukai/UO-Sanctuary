@@ -264,6 +264,8 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     internal void RecoverLife(long now)
     {
+        if(NpcEquipmentRegeneration.Handles(this)){NpcEquipmentRegeneration.Recover(this,now);return;}
+        NpcEquipmentRegeneration.Reset(this);
         if (_lastRecovery == 0 || !Alive || Deleted || Poisoned || !TimedEffects.CanRegenerateHits(this)
             || Map == null || Map == Map.Internal || Hits >= HitsMax)
         {
@@ -354,9 +356,13 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         _restoreTimer.Cancel();
         base.OnDelete();
     }
+    internal void ResetLifeRecovery()
+    {
+        _lastRecovery = _recoveryFraction = 0;NpcEquipmentRegeneration.Reset(this);
+    }
     public virtual void SuspendActions()
     {
-        _lastRecovery = _recoveryFraction = 0;
+        ResetLifeRecovery();
         _attackTimer.Cancel();
         _target = null;
         _originMap = null;

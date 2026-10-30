@@ -338,3 +338,5 @@ Hunger uses identified human Wrestle pose for its S3bite and contact sound0x238.
 Inherited NPC item resource maxima add no independent active effect. Iron Golem retains the identified UO summon/contact placeholders; its final summon, body and item-effect presentation remain in this register. Resource arithmetic and fractional balances do not wait for those assets.
 
 NPC poison-length/half-freeze/Cannot Be Frozen defenses add no independent active effect. Ordinary cold/freeze retain the identified UO 0x374A/hue 0x480 marker; poison retains its generic green marker. Final Iron Golem body/contact/state/audio remains pending, separately from these duration mechanics.
+
+NPC Replenish Life and signed poison recovery add no independent active effect. Existing generic UO poison markers remain identified placeholders; final Iron Golem state/contact/audio is still needed. Any eventual poison cue should reflect the active poison state even when replenishment offsets its damage.

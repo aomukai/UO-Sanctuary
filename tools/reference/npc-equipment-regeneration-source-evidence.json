@@ -1,0 +1,20 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 1920,
+  "compiledUnchangedRoutineHashes": {
+    "D2GAME_MONSTER_ApplyStatRegen_6FC63440": "050a575c68cad55f9a1dc5ed1d09d05d95f0dac64c3887b1f1391f459c2de0df"
+  },
+  "inputs": {
+    "tools/reference/poison-state-engine-evidence.json": "48a4de13e05cc04ea08c8939aab80a2cede3fcd18f28d48049e7448125714fb4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/poison-state-source-probe.cpp": "956ed61001316a9472572a569d42a0391d81d32bf6322944b126a9c2e8b204ab"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-equipment-regeneration-source/source.cpp": "7c96bdae57f0130aa40bc4c88b45fc3529c5e77514a031dd03d10d1d7e29f4d3",
+    ".local/class-skills/npc-equipment-regeneration-source/cases.json": "c68c4ea26d335e3d5896c19646e51202efb8eb810664ffb56fe65507ce0dac3b",
+    ".local/class-skills/npc-equipment-regeneration-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equipment-regeneration-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Full unchanged older monster event body with declared base HPRegen, item replenishment and poison stat lanes;life-mask/prevent-heal/town and near-zero thresholds. Maxlife1024, stats/events/death services are the declared reused harness. Not modern executable equivalence, stat birth/callback recalculation, complete scheduler or player mana/stamina recovery on NPCs."
+}

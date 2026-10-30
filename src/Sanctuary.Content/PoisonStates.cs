@@ -38,6 +38,10 @@ public static class PoisonStates
 
     internal static void Advance(Mobile target, TimedActor actor, int elapsed)
     {
+        if(elapsed>0&&(NpcEquipmentRegeneration.Handles(target)||actor.NpcPoisonElapsedMs!=null))
+        {
+            AdvanceEquipped(target,actor,elapsed);return;
+        }
         // Legacy rounding allowed a tiny negative HP remainder. It represents
         // numerical zero, rather than a credit against the next integer frame.
         actor.PoisonFraction = Math.Max(0, actor.PoisonFraction);
@@ -53,6 +57,28 @@ public static class PoisonStates
         long raw = (long)Math.Floor(actor.PoisonFraction * 256 + 1e-9);
         actor.PoisonFraction -= raw / 256.0;
         if (raw > 0) { Drain(World.FindMobile(actor.PoisonSource), target, raw); }
-        if (actor.PoisonMs == 0) { actor.PoisonClock = null; }
+        if (actor.PoisonMs == 0) { actor.PoisonClock = null;actor.NpcPoisonElapsedMs=null; }
     }
+    private static void AdvanceEquipped(Mobile target,TimedActor actor,int elapsed)
+    {
+        int total=(actor.PoisonClock?.ElapsedMs??actor.NpcPoisonElapsedMs??0)+elapsed,frames=total/40;
+        if(actor.PoisonClock is{} clock){actor.PoisonClock=clock with{ElapsedMs=total%40};}
+        else{actor.NpcPoisonElapsedMs=total%40;}
+        int item=NpcEquipmentRegeneration.ItemRate(target);
+        bool prevented=actor.HealBlockedUntil>(TimedEffects.DamageTime??TimedEffects.Now);
+        var source=World.FindMobile(actor.PoisonSource);
+        for(int i=0;i<frames&&target is{Alive:true,Deleted:false};i++)
+        {
+            double raw=actor.PoisonClock?.Rate256??actor.PoisonRate*40*256;
+            double accrued=Math.Max(0,actor.PoisonFraction)*256+raw;
+            int rate=checked((int)Math.Floor(accrued+1e-9));actor.PoisonFraction=(accrued-rate)/256.0;
+            // Poison's life-mask removes natural regeneration, not item
+            // replenishment. Commit their signed sum once: a lethal poison
+            // frame must not kill before its replenish offset is considered.
+            int delta=NpcEquipmentRegeneration.Delta(0,item,rate,true,prevented);
+            NpcEquipmentRegeneration.Apply(target,delta,source);
+        }
+        if(actor.PoisonMs==0){actor.PoisonClock=null;actor.NpcPoisonElapsedMs=null;}
+    }
+
 }

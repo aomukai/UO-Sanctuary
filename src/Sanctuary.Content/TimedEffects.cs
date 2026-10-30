@@ -17,7 +17,7 @@ public sealed record TimedEffectState(uint Owner, DateTime UpdatedUtc, DateTime 
     uint PoisonSource, int PoisonMs, double PoisonRate, double PoisonFraction,
     RestorationState Life, RestorationState Mana, TimedBuff[] Buffs,
     uint BleedSource = 0, int BleedMs = 0, double BleedRate = 0, double BleedFraction = 0, DateTime HealBlockedUntilUtc = default,
-    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null, SourcePoisonClock PoisonClock = null);
+    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null, SourcePoisonClock PoisonClock = null,int? NpcPoisonElapsedMs = null);
 
 internal sealed class RestorationLane
 {
@@ -42,6 +42,7 @@ internal sealed class TimedActor(DateTime now)
     internal Serial PoisonSource;
     internal double PoisonRate, PoisonFraction;
     internal SourcePoisonClock PoisonClock;
+    internal int? NpcPoisonElapsedMs;
     internal Serial BleedSource;
     internal int BleedMs;
     internal double BleedRate, BleedFraction;
@@ -107,7 +108,7 @@ public static class TimedEffects
     {
         if (owner != null && _actors.TryGetValue(owner.Serial, out var a))
         {
-            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0; a.PoisonClock = null;
+            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0; a.PoisonClock = null; a.NpcPoisonElapsedMs=null;
             a.BleedMs = 0; a.BleedRate = a.BleedFraction = 0; a.HealBlockedUntil = a.Updated;
             a.SlowUntil = a.Updated; a.SlowPercent = a.DefenseLoss = a.RunningRemainder = 0; a.Control = null;
             if (a.Buffs.Count == 0 && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }
@@ -167,7 +168,7 @@ public static class TimedEffects
         // lethal damage cannot be undone by a later restorative payment from the same offline interval.
         while (elapsed > 0 && owner.Alive && !owner.Deleted && (a.PoisonMs > 0 || a.BleedMs > 0 || a.Life.Duration > 0 || a.Mana.Duration > 0))
         {
-            int step = a.PoisonMs > 0 || a.BleedMs > 0 ? Math.Min(a.PoisonClock != null ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
+            int step = a.PoisonMs > 0 || a.BleedMs > 0 ? Math.Min(a.PoisonClock != null || a.NpcPoisonElapsedMs!=null || NpcEquipmentRegeneration.Handles(owner) ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
             a.Updated = cursor;
             if (a.PoisonMs > 0)
             {
@@ -276,17 +277,19 @@ public static class TimedEffects
         // Every valid monster application reschedules STATREGEN, even a weaker
         // poison. Player frame phase remains independent from reapplication.
         if (target is not PlayerMobile && a.PoisonClock is { } old) { a.PoisonClock = old with { ElapsedMs = 0 }; }
+        if(target is not PlayerMobile&&a.NpcPoisonElapsedMs!=null){a.NpcPoisonElapsedMs=0;}
         if (a.PoisonMs > 0 && rate + 1e-12 < a.PoisonRate) { return false; }
         if (clock != null && target is PlayerMobile && a.PoisonClock is { } prior) { clock = clock with { ElapsedMs = prior.ElapsedMs }; }
         if (a.PoisonMs == 0) { a.PoisonSource = source.Serial; }
-        a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonClock = clock; return true;
+        a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonClock = clock;
+        a.NpcPoisonElapsedMs=clock==null&&(NpcEquipmentRegeneration.Handles(target)||a.NpcPoisonElapsedMs!=null)?0:null;return true;
     }
     public static bool CleansePoison(Mobile target, int remainingPercent, DateTime now)
     {
         Settle(target,now);
         if (!_actors.TryGetValue(target.Serial,out var actor) || actor.PoisonMs<=0 || !target.Alive) { return false; }
         actor.PoisonMs=actor.PoisonMs/40*Math.Clamp(remainingPercent,0,100)/100*40;
-        if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; actor.PoisonClock=null; }
+        if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; actor.PoisonClock=null; actor.NpcPoisonElapsedMs=null; }
         return true;
     }
     public static bool Bleed(Mobile source, Mobile target, double total, DateTime now)
@@ -322,7 +325,7 @@ public static class TimedEffects
             rows.Add(new(serial.Value, a.Updated, a.ChillUntil, a.ChillPercent, a.PoisonSource.Value, a.PoisonMs,
                 a.PoisonRate, a.PoisonFraction, a.Life.Snapshot(), a.Mana.Snapshot(), buffs,
                 a.BleedSource.Value, a.BleedMs, a.BleedRate, a.BleedFraction, a.HealBlockedUntil,
-                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock));
+                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock,a.NpcPoisonElapsedMs));
         }
         return rows.ToArray();
     }
@@ -333,7 +336,7 @@ public static class TimedEffects
         {
             TimedEffectProfiles.Validate(r);
             var a = new TimedActor(r.UpdatedUtc) { ChillUntil = r.ChillUntilUtc, ChillPercent = r.ChillPercent,
-                PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction, PoisonClock = r.PoisonClock,
+                PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction, PoisonClock = r.PoisonClock,NpcPoisonElapsedMs=r.NpcPoisonElapsedMs,
                 BleedSource = (Serial)r.BleedSource, BleedMs = r.BleedMs, BleedRate = r.BleedRate,
                 BleedFraction = r.BleedFraction, HealBlockedUntil = r.HealBlockedUntilUtc,
                 SlowUntil = r.SlowUntilUtc, SlowPercent = r.SlowPercent, DefenseLoss = r.DefenseLoss, Control = r.Control, RunningRemainder = r.RunningRemainder, Cold = r.Cold };
@@ -381,6 +384,7 @@ public sealed class TimedEffectProfiles : GenericPersistence
             || r.ChillPercent is < -100 or > 50 || r.Cold!=null && r.ChillPercent==0 || r.PoisonMs < 0 || !double.IsFinite(r.PoisonRate)
             || r.PoisonRate is < 0 or > 1000000 || !double.IsFinite(r.PoisonFraction) || r.PoisonFraction is < -1e-8 or >= 1.00000001
             || r.PoisonClock is { } poison && (r.PoisonMs <= 0 || poison.Rate256 <= 0 || poison.ElapsedMs is < 0 or > 39 || r.PoisonRate != poison.Rate256 / 10240.0)
+            || r.NpcPoisonElapsedMs is <0 or >39 || r.NpcPoisonElapsedMs!=null&&(r.PoisonMs<=0||r.PoisonClock!=null)
             || r.BleedMs is < 0 or > 8000 || !double.IsFinite(r.BleedRate) || r.BleedRate is < 0 or > 1000000
             || !double.IsFinite(r.BleedFraction) || r.BleedFraction is < -1e-8 or >= 1.00000001
             || r.HealBlockedUntilUtc != default && r.HealBlockedUntilUtc.Kind != DateTimeKind.Utc
