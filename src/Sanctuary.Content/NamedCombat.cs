@@ -15,6 +15,8 @@ public static class NamedCombat
     {
         if (target is PlayerMobile defender)
         { defense += ClassGear.Bonus(defender, (ranged??Ranged(attacker)) ? "ac-miss" : "ac-hth"); }
+        else if(target is BaseCreature creature)
+        {defense=checked(defense+NpcEquipmentCombat.Bonus(creature,(ranged??Ranged(attacker))?"ac-miss":"ac-hth"));}
         if (attacker is not PlayerMobile owner) { return Math.Max(0, defense); }
         bool protectedTarget = target is PlayerMobile || Elite(target) || target is BaseCreature { Controlled: true };
         if (target is BaseCreature && !protectedTarget && ClassGear.Bonus(owner, "ignore-ac") > 0) { return 0; }

@@ -93,7 +93,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            int basis=CreatureProfiles.AttackRating(creature),percent=skillPercent+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature)+HexBane.TargetAttackPercent(creature);
+            int basis=checked(CreatureProfiles.AttackRating(creature)+NpcEquipmentCombat.AttackFlat(creature)),percent=skillPercent+NpcEquipmentCombat.AttackPercent(creature)+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature)+HexBane.TargetAttackPercent(creature);
             return basis+(int)((long)basis*percent/100);
         }
         if (mobile is not PlayerMobile player || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))
@@ -132,7 +132,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return AmazonInnerSight.Defense(creature,CreatureProfiles.Defense(creature),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature));
+            return AmazonInnerSight.Defense(creature,checked(CreatureProfiles.Defense(creature)+NpcEquipmentCombat.Defense(creature)),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {
