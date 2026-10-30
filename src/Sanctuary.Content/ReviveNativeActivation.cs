@@ -9,14 +9,14 @@ using Server.Items;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Explicit native mutation inputs. These integral native resources are not a
-// substitute for the source FP256 HP/passive/stat/AI planner still to compose.
-public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina);
-public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty);
+// Optional source HP is distinct from the legacy integral native setup. It
+// does not substitute for complete source passive/stat/event/AI composition.
+public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null);
+public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
     public ReviveNativeProfiles():base("SanctuaryReviveNativeActivation",223){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(ReviveNativeActivation.Snapshot()));}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(ReviveNativeActivation.SaveSnapshot()));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown prepared Revive activation version");}
@@ -44,13 +44,19 @@ public static class ReviveNativeActivation
     }
     internal static ReviveNativeState State(BaseCreature actor)=>actor==null?null:States.GetValueOrDefault(actor.Serial.Value);
     internal static ReviveNativeState[] Snapshot()=>States.Values.OrderBy(s=>s.Order).ToArray();
+    internal static ReviveNativeState[] SaveSnapshot()=>Snapshot().Select(row=>row.Setup.LifePlan!=null&&World.FindMobile((Serial)row.Actor) is BaseCreature{Alive:true,Deleted:false} actor
+        ?row with{SavedLife256=SkillHealth.Balance256(actor)}:row).ToArray();
+    private static bool ValidSetup(ReviveNativeSetup setup)
+        =>setup is{Rank:>0 and <=255,MaximumLife:>0,Life:>0,Mana:>=0,Stamina:>=0}&&setup.Life<=setup.MaximumLife
+            &&(setup.LifePlan!=null?setup.MaximumLife==(setup.LifePlan.Maximum256+255L)/256&&setup.Life==setup.MaximumLife:setup.MaximumLife<=65000);
     private static void Validate(ReviveNativeState row)
     {
         if(row is null||row.Actor==0||!((Serial)row.Actor).IsMobile||row.Owner==0||!((Serial)row.Owner).IsMobile
             ||row.Original==null||!((Serial)row.Original.Corpse).IsItem||row.Original.Actor!=row.Actor||row.Original.BeforeDeathJson==null||row.Original.BeforeDeathIssue!=null
-            ||row.Setup is not{Rank:>0 and <=255,MaximumLife:>0 and <=65000,Life:>0,Mana:>=0,Stamina:>=0}
-            ||row.Setup.Life>row.Setup.MaximumLife||row.Order<=0||!Enum.IsDefined(row.Difficulty))
+            ||!ValidSetup(row.Setup)||row.Order<=0||!Enum.IsDefined(row.Difficulty)||row.SavedLife256 is <=0)
         {throw new InvalidDataException("Invalid prepared native Revive identity/setup");}
+        if(row.Setup.LifePlan is{} plan){ReviveLife.Validate(plan);}
+        else if(row.SavedLife256!=null){throw new InvalidDataException("Integral-only Revive cannot contain source life");}
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
     }
     internal static void Restore(ReviveNativeState[] rows)
@@ -80,11 +86,18 @@ public static class ReviveNativeActivation
         actor=null;issue="The original corpse is not ready for native activation.";
         if(owner is not{Alive:true,Deleted:false,Map:not null}||owner.Map==Map.Internal||!Trained(owner)
             ||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Necromancer
-            ||setup is not{Rank:>0 and <=255,MaximumLife:>0 and <=65000,Life:>0,Mana:>=0,Stamina:>=0}||setup.Life>setup.MaximumLife
+            ||!ValidSetup(setup)
             ||setup.Rank!=SkillMechanics.Rank(owner,CombatAbility.Revive)||owner.Followers>owner.FollowersMax
             ||!CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)){return false;}
         var original=ReviveOriginals.Find(corpse);
         var saved=ReviveOriginals.Snapshot().SingleOrDefault(r=>r.Corpse==corpse.Serial.Value);
+        if(setup.LifePlan is{} plan)
+        {
+            ReviveLife.Validate(plan);var sourceHistory=CorpseSkillRules.Profiles.Find(corpse);
+            if(sourceHistory?.Source!=plan.Source||sourceHistory.BaseLife is not{} life||life.Level!=plan.OriginalLevel||life.Difficulty!=plan.Difficulty||life.Seed!=plan.Seed
+                ||plan.CasterLevel!=ClassStats.Level(owner)||plan.MasteryRank!=SkillMechanics.Rank(owner,CombatAbility.SkeletonMastery))
+            {issue="Source life context changed before native activation.";return false;}
+        }
         if(original==null||saved?.BeforeDeathJson==null||saved.BeforeDeathIssue!=null||original.Spawner!=null||original.Guild!=null||original.CurrentWayPoint!=null||original.Home!=Point3D.Zero)
         {issue="Original state or native spawn/guild/waypoint transfer is unsupported.";return false;}
         if(!SourceCorpseIdentity.For(corpse).AllowsRevivedAi(status)){issue="The source revived-AI gate refuses this corpse.";return false;}
@@ -103,6 +116,7 @@ public static class ReviveNativeActivation
             ReviveOriginals.DetachForActivation(corpse,original);detached=true;
             original.Blessed=original.Hidden=original.Frozen=original.CantWalk=false;
             original.Hits=setup.Life;original.Mana=setup.Mana;original.Stam=setup.Stamina;
+            if(setup.LifePlan!=null){SkillHealth.SetBalance256(original,SkillHealth.Maximum256(original));}
             original.Combatant=null;original.FocusMob=null;original.ControlTarget=null;original.MoveToWorld(destination,owner.Map);
             if(!CorpseSkillRules.Reserve(corpse)){throw new InvalidOperationException("Original corpse reservation changed during native activation");}
         }
@@ -110,6 +124,7 @@ public static class ReviveNativeActivation
         {
             States.Remove(row.Actor);original.AIObject?.AITimer.Stop();original.SetControlMaster(null);original.ControlSlots=slots;
             original.HitsMaxSeed=maximum;original.NoKillAwards=noRewards;original.Tamable=tamable;original.Hits=original.Mana=original.Stam=0;
+            SkillHealth.Clear(original);
             if(detached){ReviveOriginals.ReattachAfterFailedActivation(corpse,original,saved);}
             throw;
         }
@@ -128,6 +143,8 @@ public static class ReviveNativeActivation
         {
             if(World.FindMobile((Serial)row.Actor) is not BaseCreature actor||actor.GetType().FullName!=row.Original.RuntimeType||actor.ControlMaster?.Serial.Value!=row.Owner)
             {throw new InvalidDataException("Prepared Revive lost its original native actor/owner");}
+            if(row.SavedLife256 is{} life)
+            {SkillHealth.SetBalance256(actor,life);States[row.Actor]=row with{SavedLife256=null};}
             PersistentMinions.Restore(actor);
         }
     }

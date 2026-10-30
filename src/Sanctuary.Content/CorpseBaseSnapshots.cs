@@ -17,6 +17,19 @@ internal static class CorpseBaseSnapshots
     internal static void Load()=>_catalogue=new(
         BalanceCatalog.Read<CorpseBaseMonster>("corpse-base-monsters"),
         BalanceCatalog.Read<CorpseBaseLevel>("corpse-base-levels"));
+    internal static int Base256(string source,MonsterDifficulty difficulty,int level)
+    {
+        if(_catalogue==null||!_catalogue.TryCalculate(source,true,(int)difficulty,level,out var result))
+        {throw new NotSupportedException("No pinned corpse base-life bounds for this source/level");}
+        return result.Base256;
+    }
+    internal static CorpseBaseLifeResult Bounds(string source,CorpseBaseSnapshot snapshot)
+    {
+        if(snapshot==null||!Enum.IsDefined(snapshot.Difficulty)||snapshot.Level<1||_catalogue==null
+            ||!_catalogue.TryCalculate(source,true,(int)snapshot.Difficulty,snapshot.Level,out var result)||result.Base256!=snapshot.Base256)
+        {throw new NotSupportedException("Saved corpse base life does not match its pinned bounds");}
+        return result;
+    }
 
     internal static CorpseBaseSnapshot Capture(BaseCreature creature,string source)
     {

@@ -37,9 +37,12 @@ public static class BattleOrders
     }
     private static int? CreatureMaximum(BaseCreature actor,int resource,int basis)
     {
+        // Original NPCs acquire source life through their saved Revive plan,
+        // not a replacement subclass. Resolve it before the loading fallback.
+        if(resource==0&&ReviveLife.Maximum256(actor) is{} revived){return (revived+255)/256;}
         if(World.Loading){return 65000;}
         if(resource==0 && PaladinConversion.Maximum256(actor) is{} converted){return (converted+255)/256;}
-        if(resource==0 && actor is ISourceLifeMaximum exact){return (exact.MaximumLife256+255)/256;}
+        if(resource==0 && SkillHealth.SourceMaximum256(actor) is{} exact){return (exact+255)/256;}
         int percent=resource==0?LifePercent(actor):Percent(actor);if(percent<=0){return null;}
         long base256=(long)basis*256;
         if(resource==0 && actor is SkeletonGuardian summon && actor.HitsMaxSeed==summon.CombatProfile.Life)
@@ -164,7 +167,9 @@ public static class BattleOrders
         {if(state.Recipient==0 || state.Creator==0 || state.Supplier==0 || state.Rank<1 || state.Percent<=0 || !_states.TryAdd(state.Recipient,state)){throw new InvalidDataException("Invalid Battle Orders recipient");}}
         foreach(var ledger in saved.Resources)
         {
-            if(ledger.Recipient==0 || ledger.LifeMaximum is <0 or >65000 || ledger.ManaMaximum is <0 or >65000 || ledger.StaminaMaximum is <0 or >65000
+            // Source-life NPCs can exceed the native 65000 basis cap. Keep
+            // their saved whole maximum within the supported FP256 domain.
+            if(ledger.Recipient==0 || ledger.LifeMaximum is <0 or >int.MaxValue/256 || ledger.ManaMaximum is <0 or >65000 || ledger.StaminaMaximum is <0 or >65000
                 || ledger.StaminaFraction is <0 or >255 || ledger.Regeneration256<0 || !_resources.TryAdd(ledger.Recipient,ledger))
             {throw new InvalidDataException("Invalid Battle Orders resource ledger");}
         }

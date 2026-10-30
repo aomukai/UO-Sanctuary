@@ -37,9 +37,11 @@ public static class ReviveNativeActivationChecks
         }
         Train("necromancer.revive");Train("necromancer.revive");return owner;
     }
-    internal static Corpse Body(PlayerMobile owner,bool dragon,out BaseCreature actor)
+    internal static Corpse Body(PlayerMobile owner,bool dragon,out BaseCreature actor,MonsterDifficulty? difficulty=null)
     {
-        actor=dragon?new Dragon():new Skeleton();var original=actor;actor.NoKillAwards=true;actor.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);actor.AIObject?.AITimer.Stop();
+        actor=dragon?new Dragon():new Skeleton();var original=actor;actor.NoKillAwards=true;
+        if(difficulty is{} selected){MonsterVariants.Assign(actor,selected);}
+        actor.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);actor.AIObject?.AITimer.Stop();
         Corpse corpse=null;var died=ClassLootHooks.CreatureDied;var before=ClassLootHooks.BeforeDeath;var retained=ClassLootHooks.RetainOriginal;
         ClassLootHooks.BeforeDeath=ReviveBeforeDeath.Capture;ClassLootHooks.RetainOriginal=ReviveOriginals.Capture;
         ClassLootHooks.CreatureDied=(who,container)=>{died?.Invoke(who,container);if(who==original){corpse=container as Corpse;corpse?.DropItem(new Gold(1));}};
