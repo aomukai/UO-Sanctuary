@@ -268,3 +268,5 @@ Hunger needs talent-tree and left/right/quick-hotkey artwork; current text label
 Fire Claws needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
 
 Feral Rage needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
+
+Inherited NPC resource bonuses share Iron Golem’s pending talent-tree/hotkey icons and add no separately bindable skill. Existing text-label placeholders remain; effects and audio are tracked separately.

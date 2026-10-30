@@ -334,3 +334,5 @@ Fire Claws uses human Wrestle,weapon sound0x238 and fire contact0x374A/hue0x489 
 Feral Rage uses identified human Wrestle/contact sound0x238 and generic charge flash0x375A. Final feralrage orb front/back overlays,charge-size display,wolf A1/contact and cast/expiry audio remain pending independently of leech/speed mechanics. Its talent/left/right/quick icons remain in the separate register.
 
 Hunger uses identified human Wrestle pose for its S3bite and contact sound0x238. Shared life/mana recovery uses0x376A with life hue0x26 or mana hue0x489; current Hunger has no separate source impact overlay. Final wolf/bear S3body,bite/contact,leech and audio remain pending independently of mechanics.
+
+Inherited NPC item resource maxima add no independent active effect. Iron Golem retains the identified UO summon/contact placeholders; its final summon, body and item-effect presentation remain in this register. Resource arithmetic and fractional balances do not wait for those assets.

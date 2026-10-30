@@ -77,7 +77,7 @@ def check():
     log = logpath.read_text()
     assert ': failed' not in log and ' ERR]' not in log and log.count(': passed') == 3
     assert log.count('Shutting down') == log.count('Writing world save snapshot done') == 3
-    print('NPC equipment damage:3checks/3boots/2actual reloads;original resistance pools,native AOS/poison,immunity and ownership/roll persistence pass. Full NPC properties/procs remain unfinished.')
+    print('NPC equipment resources:3checks/3boots/2actual reloads;exact maxima, fractions, BO/Vigor, item activation and ownership/roll persistence pass. Full NPC properties/procs remain unfinished.')
 
 
 if __name__ == '__main__':

@@ -96,6 +96,7 @@ public static class NpcEquipmentResistanceChecks
     private static void Immunity(PlayerMobile owner,SkeletonGuardian actor,Item item)
     {
         var context=NpcEquipmentCombat.Context(actor).Value;int bonus=NpcEquipmentResistances.Bonus(context,ResistanceType.Fire);var previous=PaladinConviction.Snapshot();
+        var supplier=new PlayerMobile{Name="Prepared actual Paladin supplier",Body=0x190,Player=true};ClassCreation.Profiles.Assign(supplier,DiabloClass.Paladin);ClassCreation.Profiles.AdvanceLevel(supplier,99);
         try
         {
             foreach(int raw in new[]{99,100,150,-100})
@@ -105,12 +106,13 @@ public static class NpcEquipmentResistanceChecks
                 Require(NamedElements.Resistance(null,actor,"fire",actor.FireResistance,pierceOverride:50)==(raw>=100?raw:Math.Max(-100,raw-50)),"Item immunity/pierce ordering changed");
             }
             actor.SetResistance(ResistanceType.Fire,100-bonus);
-            var values=SkillMechanics.Values(owner,CombatAbility.Conviction,1);
-            Require(PaladinConviction.Apply(owner,actor,values,TimedEffects.Now.AddMinutes(1)),"Prepared Conviction rejected");
+            var values=SkillMechanics.Values(supplier,CombatAbility.Conviction,1);
+            Require(values.Rank==1&&values.Eval("aurastatcalc2")<0,"Prepared Conviction supplier produced no positive source rank");
+            Require(PaladinConviction.Apply(supplier,actor,values,TimedEffects.Now.AddMinutes(1)),"Prepared Conviction rejected");
             Require(PaladinConviction.Effect(actor).Fire==(int)values.Eval("aurastatcalc2")/5,"Conviction did not observe item-created immunity");
             Require(NamedElements.Resistance(null,actor,"fire",actor.FireResistance,pierceOverride:0)==100+(int)values.Eval("aurastatcalc2")/5,"Conviction immunity reduction applied twice");
         }
-        finally{PaladinConviction.Restore(previous);actor.SetResistance(ResistanceType.Fire,Bases[1]);}
+        finally{PaladinConviction.Restore(previous);actor.SetResistance(ResistanceType.Fire,Bases[1]);supplier.Delete();}
         Require(Resistance(actor).SequenceEqual(Types.Select((t,i)=>Bases[i]+NpcEquipmentResistances.Bonus(context,t))),"Immunity controls changed base pools");
     }
     private static Stored Bind(PlayerMobile owner,Item item)
