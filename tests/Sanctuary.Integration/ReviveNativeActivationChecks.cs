@@ -60,8 +60,7 @@ public static class ReviveNativeActivationChecks
         Require(actor.Alive&&actor.Blessed==(owner.NetState==null)&&!actor.Hidden&&!actor.Frozen&&!actor.CantWalk&&actor.Hits==maximum-17&&actor.HitsMax==maximum,"Explicit native setup not applied");
         Require(CorpseSkillRules.Profiles.Find(corpse) is{NoSelect:true,UnitReactivated:true}&&corpse.SanctuaryConsumed&&corpse.Animated,"Consumed loot corpse retained a dead source-unit projection");
         var registry=new GenericPetWorldIdentity(41);Require(registry.Resolve(41,1,(int)serial)==serial,"Live original registry is shadowed by consumed corpse identity");
-        Require(corpse.CanLoot(owner,null)&&!corpse.IsCriminalAction(owner)&&corpse.GetAmount(typeof(Gold))==1,"Original corpse loot rights/items changed on owner binding");
-        Require(!NecromancerCombat.Implemented(CombatAbility.Revive),"Prepared activation enabled unfinished learned spell");return actor;
+        Require(corpse.CanLoot(owner,null)&&!corpse.IsCriminalAction(owner)&&corpse.GetAmount(typeof(Gold))==1,"Original corpse loot rights/items changed on owner binding");return actor;
     }
     private static void Invalid(ReviveNativeState row)
     {

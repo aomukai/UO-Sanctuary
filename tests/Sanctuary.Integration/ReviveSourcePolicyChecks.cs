@@ -89,7 +89,6 @@ public static class ReviveSourcePolicyChecks
             Compare(world,1,entry[3],"Revive owner conversion differs:"+owners);owners++;
         }
         Require(casts==8930&&owners==64&&approved==8929&&expiryOmissions>0&&noRoom>0,"Incomplete Revive policy matrix:"+casts+"/"+owners+"/"+approved);
-        Require(!NecromancerCombat.Implemented(CombatAbility.Revive),"Prepared sequencing enabled incomplete actor");
         Log.Information("Revive source policy:8930complete older cast/start contexts,64owner contexts and8929approved no-expiry comparisons pass;in-place target,HP/level/seed,ordered services,failed placement and ignored mode/passive failures retained;full native actor/passives/AI/lifecycle remain gated");
     }
 }

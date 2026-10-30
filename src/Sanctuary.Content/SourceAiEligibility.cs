@@ -6,7 +6,7 @@ internal sealed record SourceAiMonster(int BaseId,bool Walk,bool Boss,bool Switc
 internal sealed record SourceAiUnit(int Kind,int ClassId,bool Attackable,bool Dead,bool Uninterruptible,bool Unique,bool SuperUnique,bool Attached,bool HasMonsterData);
 // Dynamic source state is mandatory input. Native body/hue, elite presentation
 // and corpse age do not establish these flags or source state lifetime.
-internal readonly record struct ReviveAiStatus(bool Attackable,bool Uninterruptible,bool Unique,bool SuperUnique,bool Attached,bool HasMonsterData);
+public readonly record struct ReviveAiStatus(bool Attackable,bool Uninterruptible,bool Unique,bool SuperUnique,bool Attached,bool HasMonsterData);
 internal static class SourceAiEligibility
 {
     internal const uint Revived=7,Invalid=19;

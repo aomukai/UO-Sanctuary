@@ -12,7 +12,8 @@ namespace Sanctuary;
 public sealed record NativeAbilityClock(string Path,string RuntimeType,int AbilityType,long RemainingMilliseconds);
 public sealed record ReviveBeforeDeathState(int Version,DateTime CapturedAtUtc,ReviveCreatureSnapshot Creature,int Hits,int MaximumHits,
     int Mana,int MaximumMana,int Stamina,int MaximumStamina,int Strength,int Dexterity,int Intelligence,
-    bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string EquipmentJson,string AbilityClocksJson);
+    bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string EquipmentJson,string AbilityClocksJson,
+    ReviveAiStatus? AiStatus=null,string EligibilityIssue=null);
 
 // Capture at accepted BaseCreature.OnBeforeDeath, before Mobile.Kill clears
 // resources/statuses and moves equipped items. Damage may already have
@@ -43,9 +44,10 @@ internal static class ReviveBeforeDeath
             visiting.Remove(ability);
         }
         var abilities=actor.GetMonsterAbilities()??[];for(int i=0;i<abilities.Length;i++){Visit(abilities[i],i.ToString(System.Globalization.CultureInfo.InvariantCulture));}
+        var status=ReviveCasts.NativeStatus(actor,out string eligibilityIssue);
         var state=new ReviveBeforeDeathState(0,DateTime.UtcNow,ReviveCreatureSnapshots.Capture(actor,source),actor.Hits,actor.HitsMax,
             actor.Mana,actor.ManaMax,actor.Stam,actor.StamMax,actor.Str,actor.Dex,actor.Int,actor.Frozen,actor.CantWalk,actor.Hidden,actor.Blessed,
-            JsonSerializer.Serialize(equipment),JsonSerializer.Serialize(clocks));
+            JsonSerializer.Serialize(equipment),JsonSerializer.Serialize(clocks),status,eligibilityIssue);
         string json=JsonSerializer.Serialize(state);Validate(json,actor.GetType().FullName);Pending[actor.Serial.Value]=(json,null);
     }
     internal static (string Json,string Issue) Take(BaseCreature actor)=>actor!=null&&Pending.Remove(actor.Serial.Value,out var pending)?pending:(null,null);

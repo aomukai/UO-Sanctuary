@@ -105,7 +105,6 @@ public static class ReviveCreatureSnapshotChecks
     }
     private static void Report()
     {
-        Require(!NecromancerCombat.Implemented(CombatAbility.Revive),"Saved descriptors enabled an incomplete Revive actor");
         Log.Information("Revive creature snapshots:9actual deaths across5native types/3source species/3difficulties retain concrete type,AI/combat descriptors,raw fields and loot;unmapped capture is explicit,independent decoded profiles,6invalid payloads per corpse and old-v0 compatibility pass;native ability state,in-place reconstruction and full actor lifecycle remain gated");
     }
 }

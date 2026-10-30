@@ -56,7 +56,6 @@ public static class SourceAiEligibilityChecks
         }
         foreach(int missing in new[]{-1,751,int.MaxValue}){Require(SourceAiEligibility.CurrentMonster(missing)==null,"Missing species supplied invented AI metadata");}
         Require(contexts==61440&&current==96128&&metadata==751&&corpses==1152,"Incomplete AI-permission coverage");
-        Require(!NecromancerCombat.Implemented(CombatAbility.Revive),"AI permission enabled unfinished actor restoration");
         Log.Information("Source AI eligibility:61440complete older contexts/five predicates,96128current Revive contexts,751reused species rows and1152saved-corpse contexts pass;dynamic source state remains explicit input;native producer,actor restoration and lifecycle remain unfinished");
     }
 }

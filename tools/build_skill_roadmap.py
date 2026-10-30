@@ -38,7 +38,7 @@ BLOCKERS = {
     'sorceress.inferno':'Shared player st11/do19 and resource helpers match19200legacy contexts,with19200explicit current-cost controls and actual rank1fractional debit. Threshold6,first-do suppression,20/6frame lease and unconditional player rewind are separate from Blade Fury/NPC behavior. Full SQ6event composition,modern input/payment frequency and launched-flame acceptance remain open; talent gated. See player-inferno-channel-native-evidence.json.',
     'druid.arcticblast':'Prepared shared player st11/do19 and supplied-intent SQ18/state/resource helpers are checked separately from modern input/cadence. Own cold packet and saved Size1/LastCollide stream now reuse the existing Q12 motion/source-cell/cold-state kernels. Hard Cyclone Armor15percent synergy, birth cold mastery, live owner pierce, lifetime35+2per rank divided by2 and DamageRate41 remain distinct from Inferno. Learned input/FCR/payment frequency, modern owner lifecycle and Slow Missiles damage/potion ordering remain open; no handler enabled. User rank1tooltip confirms cost4,minimum6mana,5.3yards,4seconds cold and12–24damage without determining fractional cadence. Final stream/audio/icons stay separate; see current checkpoint.',
     'necromancer.irongolem':'Requires authoritative metal-item eligibility, ownership/consumption, complete inherited item effects/procs, and persistent item identity.',
-    'necromancer.revive':'Requires source-preserving combat/special abilities,complete corpse/AI eligibility and native actor lifecycle. Approved Sanctuary lifetime has no expiration timer:revives remain until their death,the Necromancer dies or replacement. Historical GUID/species lookup is accepted;do not substitute a generic skeleton.'
+    'necromancer.revive':'Learned original-actor cast is being integrated. Requires active source combat classification, accepted-death eligibility/resources and no unsupported equipped-item effects. Global monster spell conversion does not gate inherited abilities. Facet/respec replanning, source regeneration and Summon Resist reference conflict remain acceptance work. No class completion claim.'
 }
 CAVEATS = {
     'druid.hunger':'Learned wolf/bear S3 route uses release-time contact and weapon capture,three-mana payment after the bite,post-critical signed physical reduction and additive life/mana drain. Current diminishing formulas,retained typed weapon damage,existing Feral/Maul charges,physical immunity,shield blocks,cancellation and six actual right/quick inputs pass isolated preparation. Shared ordinary form attacks now respect NPC shields,including low-mana fallbacks. Canonical retained verification is in progress; exact modern event/seed/geometry/reentry,lost-target/lost-mana/payment quirks and client remain uncertain. Lost-mana release and item-only/foreign-class/PvP/unmapped recipients are unsupported. Final S3bite/body/contact/leech/audio and talent/left/right/quick icons remain separate placeholders. No class complete.',
@@ -211,6 +211,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'necromancer.revive',
     'barbarian.findpotion',
     'warlock.summongoatman',
     'warlock.mirroredblades',

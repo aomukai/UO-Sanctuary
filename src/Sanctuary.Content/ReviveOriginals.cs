@@ -54,6 +54,7 @@ public static class ReviveOriginals
         return declaring==typeof(BaseCreature)||declaring==typeof(GraveyardUndead);
     }
     internal static bool IsRetained(BaseCreature actor)=>actor!=null&&_registry.Actors.ContainsKey(actor.Serial.Value);
+    internal static ReviveOriginalState State(Corpse corpse)=>corpse==null?null:_registry.Corpses.GetValueOrDefault(corpse.Serial.Value);
     internal static ReviveOriginalState[] Snapshot()=>_registry.Corpses.Values.OrderBy(r=>r.Corpse).ToArray();
     internal static void Restore(ReviveOriginalState[] rows)
     {

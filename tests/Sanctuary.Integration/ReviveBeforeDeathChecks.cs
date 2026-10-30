@@ -113,7 +113,6 @@ public static class ReviveBeforeDeathChecks
     {var saved=JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest));Require(saved.Length==3,"Missing accepted-death fixtures");foreach(var row in saved){AssertSaved(row);Validate(row);}Report();}
     private static void Report()
     {
-        Require(!NecromancerCombat.Implemented(CombatAbility.Revive),"Accepted-death capture enabled unfinished learned spell");
         Log.Information("Revive before death:3actual deaths/6equipped items retain pre-cleanup mana/stamina,independent gear rolls and native ability clock data;99recipient levels/45bonus codes match existing suppliers,loot stays lootable and deleted loot cannot alter frozen effects;10invalid payloads per corpse and old-v0 compatibility pass;activation,procs,custom timers and learned Revive remain unfinished");
     }
 }

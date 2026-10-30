@@ -779,10 +779,10 @@
       "characterClass": "Necromancer",
       "tree": "Summoning Spells",
       "sourceId": 95,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Requires source-preserving combat/special abilities,complete corpse/AI eligibility and native actor lifecycle. Approved Sanctuary lifetime has no expiration timer:revives remain until their death,the Necromancer dies or replacement. Historical GUID/species lookup is accepted;do not substitute a generic skeleton."
+      "remaining": "Learned original-actor cast is being integrated. Requires active source combat classification, accepted-death eligibility/resources and no unsupported equipped-item effects. Global monster spell conversion does not gate inherited abilities. Facet/respec replanning, source regeneration and Summon Resist reference conflict remain acceptance work. No class completion claim."
     },
     {
       "talentId": "necromancer.teeth",

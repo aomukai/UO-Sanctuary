@@ -16,7 +16,7 @@ public static class NecromancerCombat
         or CombatAbility.BoneSpear or CombatAbility.BoneSpirit or CombatAbility.PoisonExplosion or CombatAbility.PoisonNova
         or CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem
         or CombatAbility.BoneWall or CombatAbility.BonePrison
-        or CombatAbility.GolemMastery or CombatAbility.SummonResist or CombatAbility.RaiseSkeletalMage;
+        or CombatAbility.GolemMastery or CombatAbility.SummonResist or CombatAbility.RaiseSkeletalMage or CombatAbility.Revive;
     public static bool Handles(CombatAbility ability) => ClassAbilities.Find(ability)?.Class == DiabloClass.Necromancer
         && ability != CombatAbility.RaiseSkeleton && Implemented(ability);
     public static bool CorpseTarget(CombatAbility ability) => ability is CombatAbility.CorpseExplosion
@@ -33,6 +33,7 @@ public static class NecromancerCombat
         if (CorpseTarget(ability))
         {
             var corpse=World.FindItem(selected) as Corpse;
+            if(ability==CombatAbility.Revive){return ReviveCasts.Plan(owner,corpse,out _,out _,out _);}
             return ability==CombatAbility.CorpseExplosion
                 ?CorpseExplosionCasts.Supported(corpse) && CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
                 :SkeletonPets.Usable(owner,corpse);
@@ -51,6 +52,8 @@ public static class NecromancerCombat
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now)
     {
+        if(ability==CombatAbility.Revive&&!ReviveCasts.Plan(owner,World.FindItem(selected) as Corpse,out _,out _,out var issue))
+        {owner.SendMessage(0x22,issue);return false;}
         if (ability == CombatAbility.BoneArmor) { selected = Serial.Zero; point = owner.Location; }
         var session = ClassCombat.For(owner);
         if (!Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
@@ -72,6 +75,7 @@ public static class NecromancerCombat
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point)) { return false; }
         var values = SkillMechanics.Values(owner, ability);
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
+        if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
             if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }

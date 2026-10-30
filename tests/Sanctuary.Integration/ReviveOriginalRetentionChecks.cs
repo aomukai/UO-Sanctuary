@@ -61,7 +61,6 @@ public static class ReviveOriginalRetentionChecks
         bool version=false;try{ReviveOriginals.Profiles.Deserialize(new BufferReader(Payload(before,99)));}catch(InvalidDataException){version=true;}Require(version,"Unknown retained-original version accepted");
         var bytes=Task.Run(()=>{var w=new BufferWriter(new byte[1024*1024],true);ReviveOriginals.Profiles.Serialize(w);return w.Buffer[..(int)w.Position];}).GetAwaiter().GetResult();
         ReviveOriginals.Profiles.Deserialize(new BufferReader(bytes));Require(ReviveOriginals.Snapshot().SequenceEqual(before),"Native original metadata roundtrip changed rows");
-        Require(!NecromancerCombat.Implemented(CombatAbility.Revive),"Original storage enabled unfinished learned Revive");
     }
     private static void Check()
     {

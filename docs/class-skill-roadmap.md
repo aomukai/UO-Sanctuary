@@ -4,7 +4,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 
 | Order | Class | Handlers present | Individually blocked | Pending | Class completion |
 | --- | --- | ---: | ---: | ---: | --- |
-| 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
+| 1 | Necromancer | 29 / 30 | 1 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 26 / 30 | 1 | 3 | Open |
@@ -214,7 +214,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Summon Resist | 89 | handler-present | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Iron Golem | 90 | blocked | Requires authoritative metal-item eligibility, ownership/consumption, complete inherited item effects/procs, and persistent item identity. |
 | Fire Golem | 94 | handler-present | Native source passive selection and replacement death burst covered. Aura scaling, absorb order, combat death and difficulty bases still need dedicated fixtures. |
-| Revive | 95 | blocked | Requires source-preserving combat/special abilities,complete corpse/AI eligibility and native actor lifecycle. Approved Sanctuary lifetime has no expiration timer:revives remain until their death,the Necromancer dies or replacement. Historical GUID/species lookup is accepted;do not substitute a generic skeleton. |
+| Revive | 95 | handler-present | Learned original-actor cast is being integrated. Requires active source combat classification, accepted-death eligibility/resources and no unsupported equipped-item effects. Global monster spell conversion does not gate inherited abilities. Facet/respec replanning, source regeneration and Summon Resist reference conflict remain acceptance work. No class completion claim. |
 | Teeth | 67 | handler-present | Shared source do8 integer fan replaces the provisional fixed60-degree spread. Signed perpendicular reduction, cursor-distance spread, odd-count bias and self-target factory fallback use existing Q12 missile vectors. Compiled3540 source cases and native3468-case/27166-aim differential plus actual near/far-cursor collision checks pass. Exact modern range/activation/initial-step/footprint, next-hit delay, moving-target/owner/save/client behavior remain open. Final effects/icons remain identified placeholders. |
 | Bone Armor | 68 | handler-present | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Poison Dagger | 73 | handler-present | Dagger targeting and source poison present; equipment poison duration/rate combination and drain interactions need further verification. |
