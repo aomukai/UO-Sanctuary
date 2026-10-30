@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/AI/AiThink.cpp",
+  "sourceSha256": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+  "unchangedRoutineHashes": {
+    "sub_6FCE3740": "ebc4b6ef80eeacb8a590e2b05dd24bd2aa922dab50082d5c6a289a27e82cff04",
+    "AITHINK_Fn067_NecroPet": "1397f87c4624116201e9c65f8ab26613131602fd37ed8596bdf3982e596cd546"
+  },
+  "sentinelSetupReview": {
+    "sourceFile": "source/D2Game/src/SKILLS/SkillNec.cpp",
+    "sourceSha256": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "routine": "D2GAME_SetUnitComponent_6FD0C3A0",
+    "routineSha256": "561a3da67ee41660061f5839d13a03447f4438f5bd3266e30fe1af0cadbd0a3b",
+    "scope": "Static review establishes negative remembered-owner sentinel; component setup is not executed by this probe."
+  },
+  "monsterTableSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "generatedSourceSha256": "f155ac222c163a415f71a188a781c209e8cd26febc899bfbc9a21b138893b42a",
+  "fixture": {
+    "path": ".local/class-skills/necromancer-pet-ai-source-probe.json",
+    "sha256": "e059b2439a00d893f890f01fe3fb4f26fa17716a85c01cace39f422dd00c4443",
+    "cases": 1598
+  },
+  "sanitizers": "ASan+UBSan exit0 with empty runtime stderr",
+  "learnedHandlerEnabled": false,
+  "movingActorEnabled": false,
+  "established": [
+    "Both complete unchanged older AI67 routines execute with ordered event deletion,owner/remembered lookup,distances,target queries,visibility,common movement,town,percentage draws and tactics requests.",
+    "Ordinary melee:owner distance>50 requests mode3;>28 requests mode0 with min(100*run/velocity-100,100),or100 for velocity<=0. Primary range24 survives only at distance<=6;otherwise nonignored owner target requires distance<36 and a separate validity gate.",
+    "Ranged branch:primary distance<=15;fallback requires no missile barrier and distance<20. Both retain the primary lookup combat flag through target replacement and use15percent closer-follow selection. Town/no target wanders4. Melee combat requests80percent A1 or idle10;noncombat sets velocity(0,0,12)and approaches7. Ranged uses80percent skill,then25percent reposition3,else idle10.",
+    "Pinned current Iron Golem metadata selects NecroPet,codeG4,velocity9/run9. Source skill slots are supplied controls for the nonzero-parameter branch,not an invented Iron Golem spell."
+  ],
+  "remaining": [
+    "Target selection,full-size distance,visibility,owner lookup,common movement and tactics are supplied services. Synthetic combinations test branch semantics,not current-world reachability. PETIGNORE remains an unchanged direct field read.",
+    "Default AI parameter initialization,current executable parity,world movement/path/geometry/action clocks,saved shared seed/item IAS,attacks/recovery/lifecycle and learned casting still require integration and acceptance."
+  ]
+}

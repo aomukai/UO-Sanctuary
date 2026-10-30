@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+The [prepared Necromancer pet AI67 policy](necromancer-pet-ai-checkpoint.md) now matches 1,598 complete unchanged older-source contexts in a disposable native boot, including query/action order, owner memory and random draws. This advances Iron Golem's controller prerequisites; its live AI/attacks/recovery and learned cast remain disabled. Coverage stays185handlers/Necromancer29; no class is complete. Current-executable parity and world-service integration remain explicit acceptance work.
+
 Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and deviations](skill-mechanical-reference.md). The user authorized work past individually blocked skills. Missing final art does not block mechanics. **No class is marked complete at this checkpoint.** Handler counts are implementation coverage, not parity or full verification.
 
 | Order | Class | Handlers present | Individually blocked | Pending | Class completion |
