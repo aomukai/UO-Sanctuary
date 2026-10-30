@@ -18,7 +18,8 @@
       "Movement, competing corpse reservation and insufficient release mana cancel without charge",
       "Explicit legacy eligibility, disabled-proposal and equipped-item-effect refusal",
       "Retirement of consumed/legacy dead-unit projections preserves independent loot",
-      "Active and pending originals persist through actual native reload; native mana/stamina may regenerate within their maxima"
+      "Active and pending originals persist through actual native reload; native mana/stamina may regenerate within their maxima",
+      "Independent Redemption/Fist run verifies loot-preserving original retirement and both retained/deleted dead-primary bursts, including two actual reloads"
     ],
     "retainedCommands": 338,
     "retainedBoots": 3,
@@ -27,7 +28,10 @@
     "pythonTests": 71,
     "namedFingerprintInputs": 781,
     "affixFingerprintInputs": 21,
-    "unchangedNamedDefinitions": 573
+    "unchangedNamedDefinitions": 573,
+    "corpseConsumerCommands": 12,
+    "corpseConsumerBoots": 3,
+    "corpseConsumerActualReloads": 2
   },
   "notVerified": [
     "Fresh full class regression is live in pipeline15778; no full acceptance claimed.",
@@ -54,7 +58,11 @@
     ".local/class-skills/revive-learned-casting/integration-build-attempt-9.log": "3e210e4067aac8e67fdd27eb13d6a6583fc477e7928a6d6ef2baef59d592c5d4",
     ".local/class-skills/revive-learned-casting/python-tests-attempt-9.log": "a81915de387430906ecae71d9f64b408a705ae2b79e00c1212fb9a0dc1e0fdc3",
     ".local/class-skills/revive-learned-casting/named-item-runtime-audit.json": "940499eb1c0c0fe54a50c1997f31ae415e74d551e4269c2cb0e36dc9e7ccea82",
-    ".local/class-skills/revive-learned-casting/first-loop-affix-audit.json": "0c7c0fa2ac15520ac26408d5002da276a34a9a4755451ea3ceee51f69690ff00"
+    ".local/class-skills/revive-learned-casting/first-loop-affix-audit.json": "0c7c0fa2ac15520ac26408d5002da276a34a9a4755451ea3ceee51f69690ff00",
+    ".local/class-skills/revive-learned-casting/consumers-inputs.json": "fbe6ae41dfb58c6fdd4695b62f28855054f9f91f161317dd6951e817949f8e49",
+    ".local/class-skills/revive-learned-casting/consumers-native-checks.log": "2bc1a33a700ed15488ff1ed3f1f749901e947bb7ff9079958db7c8c704194f06",
+    ".local/class-skills/revive-learned-casting/consumers-paladin-travel-checks.json": "d49fa5e77b9c188fac30007a092b2bf747ecfa2d22cbdf531d3152e9ce2c6928",
+    ".local/class-skills/revive-learned-casting/consumers-heaven-fist-checks.json": "ab400beb607ead016d494736bd77762d5fe98bc57fcbf874b9814f5e6ffa62df"
   },
   "coverage": {
     "handlers": 185,
