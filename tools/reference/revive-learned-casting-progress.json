@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "build9 isolated/retained/Python passed; full class regression live in pipeline15778",
+  "status": "build9 learned-casting scope accepted; full goal and remaining mechanics incomplete",
   "sourceCheckpoint": "7f50468 production; 1654ba8 cross-skill fixtures and runner corrections",
   "stage": ".local/class-skills/revive-learned-casting",
   "preBuildSnapshot": ".local/class-skills/revive-learned-casting/pre-build-attempt-9.json",
@@ -31,10 +31,14 @@
     "unchangedNamedDefinitions": 573,
     "corpseConsumerCommands": 12,
     "corpseConsumerBoots": 3,
-    "corpseConsumerActualReloads": 2
+    "corpseConsumerActualReloads": 2,
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassActualReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "notVerified": [
-    "Fresh full class regression is live in pipeline15778; no full acceptance claimed.",
+    "The full goal is not complete. Source regeneration, facet scaling and remaining per-skill parity need further implementation/verification.",
     "Source regeneration parity, facet/respec replanning and complete inherited item/proc effects",
     "Summon Resist reference conflict and inherited sunder consumption",
     "Complete D2R client parity; this is not class completion"
@@ -81,5 +85,6 @@
   "archivedBuild8RetainedFixture": {
     "path": ".local/class-skills/revive-learned-casting/attempt-8/revive-cast-fixtures.json",
     "sha256": "0c2dfbfb3a71ad2a090f31bdc1072a02ec2f8f548308b24b2ac2352174ab0815"
-  }
+  },
+  "acceptanceReceipt": "tools/reference/revive-learned-casting-evidence.json"
 }
