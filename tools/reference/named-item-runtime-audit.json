@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "81fbb7307deab2feba3946c5e6e3464db2c316a2fa92ed0b46d20df01ede9785",
+  "ContentAssemblySha256": "3bcbb57c9eafca83c394d155f0065cfbc4abebceba33e12acc6e2d692b9676ee",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -680,6 +680,7 @@
     "src/Sanctuary.Content/RepairGump.cs": "488c53d33c42fce4d6cd743d0ca56f95295b84810ed41a761ee20d783d5d6b4a",
     "src/Sanctuary.Content/RepairProfiles.cs": "c197ab1206475858e1677f695a12bf7f9fa0d2661392fb155f035edbe4727fa1",
     "src/Sanctuary.Content/RepairTools.cs": "061f2ca4ad8304ee4fec9ae896576d18a8c30eaefcb270396ef32cf8fd1da5b7",
+    "src/Sanctuary.Content/ReviveSourcePolicy.cs": "9a6abdb7cd9a28c8ad65e85d7834ed0793a31d2a2b72f8e96bcbd30b0d4a57fe",
     "src/Sanctuary.Content/ReviveSpecies.cs": "66ef9f5b14768fea7fe05c0fd5d83a98cb48c54e4903a07440b59e56e35ed21d",
     "src/Sanctuary.Content/RewardLife.cs": "65c1cc6e4cee438d10779dd0755e30261ad10f4d9cc1dba682d70619d95681cb",
     "src/Sanctuary.Content/RuneCraftGump.cs": "362aa394acbfcc20c04a70cd27b9b70cc93957feb062f8f8839e5057e4427fb8",

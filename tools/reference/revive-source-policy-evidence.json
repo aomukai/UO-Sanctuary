@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete older Revive start/release/owner control flow",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "processMemoryRead": false,
+  "handlerEnabled": false,
+  "modernCodeEquivalenceClaimed": false,
+  "routineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvSt21_Revive": "a39a2645db07eab1c34104b7af44c8309231254cf9a812be5bda1f687bd8f5af",
+    "SKILLS_SrvDo058_Revive": "64437348a3a1cdfe626a6509cef2db77fef8b76c35fee9235132342eea13bf63",
+    "sub_6FD0DF40": "7e65578e9ed7d50319579b7f7a04dc3a7ed05817da89e3e77f2b69f8a3bd1eb2"
+  },
+  "verified": {
+    "castContexts": 8930,
+    "ownerContexts": 64,
+    "completeRoutines": 4,
+    "sanitizers": "ASan/UBSan exit0,empty stderr"
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/revive-source-policy/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/revive-source-policy/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/revive-source-policy/source-probe": "0fbc9fb39003a17ff6d5a2090e032d9e41069f0990621adae2a82d3a61772c86",
+    ".local/class-skills/revive-source-policy/source-probe.cpp": "941d31e3be471543b41958261a9e30159b616ab84269ce557a004cfbf2a308f0",
+    ".local/class-skills/revive-source-policy-source-probe.json": "d3256dc5e10cce381cb5589f20acb03079877de202871ad3b7e057952a3da371",
+    "tools/probe_revive_source_policy.py": "cb58a45762634ddecefa72b0acd8f552532cfa03972aa86d6cb6c1a41437c827",
+    "tools/reference/revive-species-data-evidence.json": "0ca24d800d4a99e8dec70a1dd50abed306cc6216c63a3602ade268e2ef8d003f"
+  },
+  "services": [
+    "Metadata,dead/consumable/AI eligibility,collision/mode entry,base HP lookup,existing shared RNG,passive writes,owner/event/AI/cap effects are explicit services. Enter-neutral wraps the complete initializer/mode-change boundary without inventing its opaque payload. A supplied passive service may fail;the caller still continues. No actor allocation occurs.",
+    "Valid cast contexts use nonnull caster,nonnegative bounded HP and safe signed arithmetic. Source-invalid null-caster release,corrupt pointers and overflow outside this domain remain unsupported. Owner-only contexts cover null owner/target and skill0."
+  ],
+  "remaining": [
+    "Native differential and approved no-expiration comparison are required. These older routines do not prove modern executable equivalence,in-place native actor reconstruction,complete passives/special abilities or learned casting."
+  ]
+}
