@@ -12,7 +12,7 @@ namespace Sanctuary;
 // Optional source HP is distinct from the legacy integral native setup. It
 // does not substitute for complete source passive/stat/event/AI composition.
 public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null,int? RegenerationRate=null);
-public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null);
+public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
     public ReviveNativeProfiles():base("SanctuaryReviveNativeActivation",223){}
@@ -43,6 +43,7 @@ public static class ReviveNativeActivation
         Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Tick);
     }
     internal static ReviveNativeState State(BaseCreature actor)=>actor==null?null:States.GetValueOrDefault(actor.Serial.Value);
+    internal static void Store(ReviveNativeState state)=>States[state.Actor]=state;
     internal static ReviveNativeState[] Snapshot()=>States.Values.OrderBy(s=>s.Order).ToArray();
     internal static ReviveNativeState[] SaveSnapshot()=>Snapshot().Select(row=>row.Setup.LifePlan!=null&&World.FindMobile((Serial)row.Actor) is BaseCreature{Alive:true,Deleted:false} actor
         ?row with{SavedLife256=SkillHealth.Balance256(actor)}:row).ToArray();
@@ -60,6 +61,7 @@ public static class ReviveNativeActivation
         ReviveCombat.Validate(row.Setup);
         ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
+        ReviveFacets.Validate(row);
     }
     internal static void Restore(ReviveNativeState[] rows)
     {
@@ -110,6 +112,7 @@ public static class ReviveNativeActivation
             ||!owner.Map.CanSpawnMobile(destination)||!owner.InLOS(destination)||Math.Abs(destination.Z-corpse.Z)>=16)
         {issue="Native destination is blocked; source placement/failure composition remains separate.";return false;}
         if(setup.Mana>original.ManaMax||setup.Stamina>original.StamMax){issue="Explicit native resources exceed the original pools.";return false;}
+        MonsterVariantBaselines.RememberNormal(original);
         var row=new ReviveNativeState(original.Serial.Value,owner.Serial.Value,saved,setup,checked(NextOrder+1),SummonDifficulties.For(owner.Map));Validate(row);
         int slots=original.ControlSlots,maximum=original.HitsMaxSeed;bool noRewards=original.NoKillAwards,tamable=original.Tamable;bool detached=false;
         var home=original.Home;var homeMap=original.HomeMap;var waypoint=original.CurrentWayPoint;
@@ -150,6 +153,7 @@ public static class ReviveNativeActivation
         {
             if(World.FindMobile((Serial)row.Actor) is not BaseCreature actor||actor.GetType().FullName!=row.Original.RuntimeType||actor.ControlMaster?.Serial.Value!=row.Owner)
             {throw new InvalidDataException("Prepared Revive lost its original native actor/owner");}
+            ReviveFacets.RestoreActor(actor,row);
             if(row.SavedLife256 is{} life)
             {SkillHealth.SetBalance256(actor,life);States[row.Actor]=row with{SavedLife256=null};}
             PersistentMinions.Restore(actor);

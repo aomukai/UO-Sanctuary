@@ -106,7 +106,7 @@ public static class PersistentMinions
         }
     }
 
-    private static void Suspend(BaseCreature pet)
+    internal static void Suspend(BaseCreature pet)
     {
         Behavior(pet).SuspendActions();
         pet.Combatant = null;

@@ -227,6 +227,8 @@ public static class CreatureProfiles
             : _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
     internal static bool ActiveVariant(Type type, MonsterDifficulty difficulty) =>
         _variants.TryGetValue((type.FullName, difficulty), out var row) && row is { Enabled: true, ApplyStats: true };
+    internal static bool TryVariant(string definition,MonsterDifficulty difficulty,out CreatureVariant profile)
+        =>_variants.TryGetValue((definition,difficulty),out profile);
     public static CreatureVariant For(BaseCreature creature)
     {
         var row = Variant(creature);

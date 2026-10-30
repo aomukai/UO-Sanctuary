@@ -56,7 +56,8 @@ internal static class ReviveLife
     }
     internal static int? Maximum256(BaseCreature actor)
     {
-        if(ReviveNativeActivation.State(actor)?.Setup.LifePlan is not{} plan){return null;}
+        var state=ReviveNativeActivation.State(actor);
+        if((state?.FacetPlan?.Life??state?.Setup.LifePlan) is not{} plan){return null;}
         long maximum=plan.Maximum256+ClassResources.Percentage(plan.Maximum256,BattleOrders.LifePercent(actor));
         if(maximum is <1 or >int.MaxValue-255){throw new NotSupportedException("Buffed Revive life exceeds positive source FP256 range");}
         return (int)maximum;

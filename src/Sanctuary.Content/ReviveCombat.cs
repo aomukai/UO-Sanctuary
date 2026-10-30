@@ -47,7 +47,11 @@ internal static class ReviveCombat
         if(setup.LifePlan==null||Calculate(setup.LifePlan,setup.Rank,_=>0)!=setup.CombatPlan)
         {throw new InvalidDataException("Revive combat plan does not match its captured source context");}
     }
-    private static ReviveCombatPlan Plan(Mobile actor)=>actor is BaseCreature creature?ReviveNativeActivation.State(creature)?.Setup.CombatPlan:null;
+    private static ReviveCombatPlan Plan(Mobile actor)
+    {
+        var state=actor is BaseCreature creature?ReviveNativeActivation.State(creature):null;
+        return state?.FacetPlan?.Combat??state?.Setup.CombatPlan;
+    }
     internal static bool Active(Mobile actor)=>Plan(actor)!=null;
     internal static int? Level(Mobile actor)=>Plan(actor)?.Level;
     internal static int DamagePercent(Mobile actor)=>Plan(actor)?.DamagePercent??0;

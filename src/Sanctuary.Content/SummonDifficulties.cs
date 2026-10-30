@@ -121,5 +121,6 @@ public static class SummonDifficulties
             if(World.FindMobile((Serial)entry.Actor) is AssassinSentryBody{Deleted:false,Alive:true} sentry)
             {sentry.RescaleDifficulty(difficulty);}
         }
+        ReviveFacets.Sync(owner);
     }
 }

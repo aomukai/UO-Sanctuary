@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Revive facet-difficulty projection",
+  "status": "Implemented and focused native scope passed; retained/full acceptance pending",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "stage": ".local/class-skills/revive-facets",
+  "snapshot": ".local/class-skills/revive-facets/pre-build-attempt-3.json",
+  "verified": {
+    "focusedMarkers": 9,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "nativeBinariesReused": true,
+    "nativePatchCount": 70
+  },
+  "artifacts": {
+    "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
+    "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
+    "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
+    "Assemblies/Sanctuary.Content.dll": "b03a2ae99ee213e6b251c96dff570d2259533d210d418bf5af56d5140f962e02",
+    "Assemblies/Sanctuary.Integration.dll": "89bdd59f3852b14d0f5749e4bb3c93e78b6c34332f23909912b3cde8f11e9232"
+  },
+  "evidenceFiles": {
+    ".local/class-skills/revive-facets/pre-build-attempt-3.json": "ba91793c886c8891ab4b7b51314057f688b5eb802def013dbe5d1d4a1bbbe2cf",
+    ".local/class-skills/revive-facets/facet-inputs.json": "9777b34378ffcb9c7a2fdcbee3b09ebeca4b9f69c38be1f9cb02474f63fd1f84",
+    ".local/class-skills/revive-facets/facet-native-checks.log": "767c9d43e2697585a6a5bd89c197028312f5a714e58a1af06e5c0d6f8ee608e5",
+    ".local/class-skills/revive-facets/isolated-revive-facet-fixtures.json": "56e86bfa9d980e1391d64889ddfeca081e4a05e03e8572c1ab8e89d744dc0a5f",
+    ".local/class-skills/revive-facets/content-build-attempt-3.log": "8a646d93e8853e233b57dc2242d80086c05890e8edbfa145c5fcf9950e294d9d",
+    ".local/class-skills/revive-facets/integration-build-attempt-3.log": "aabcc8855861586bccd9e8db2930cfad83360f6e3b8953c3b274a63138eaddc5"
+  },
+  "established": [
+    "Actual Normal/Nightmare-born originals rescale from owner location/map hooks through Normal/Nightmare/Hell with relative FP256 life, immutable birth records, deterministic captured seed/context, native damage/resistance restoration and no repeated same-difficulty rounding.",
+    "Connected original actors follow into scaled facets; actual native lightning damage respects projected Hell immunity. Original corpse loot remains separate.",
+    "A prepared rank255BattleOrders boundary verifies life above65000; this is not an attainable character build or natural duration claim.",
+    "Missing legacy native baseline explicitly parks without changing its saved source context/life; providing the required baseline permits retry. Malformed projections/baselines refuse atomically; two actual reloads retain new state."
+  ],
+  "unsupported": [
+    "Integral-only legacy Revives without source life/combat plans.",
+    "Older Nightmare/Hell variants without a saved native Normal combat baseline. New wild difficulty assignments retain that baseline before applying their variant.",
+    "Disabled/unclassified target variants, missing supported target level/reference and encounter-specific profiles. These do not add an inherited-ability whitelist."
+  ],
+  "remaining": [
+    "Retained366-marker wrapper is running in session10034 after an archived ready-handshake harness mismatch; revalidate actual completion, source/data/artifact hashes and fresh audits.",
+    "Full class/Python and actual old-candidate-world upgrade acceptance remain pending.",
+    "Independent item/stat/proc/sunder consumers and Summon Resist reference conflict remain open. Final effects/audio and talent/hotkey icons stay separate."
+  ]
+}

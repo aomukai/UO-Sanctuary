@@ -13,7 +13,8 @@ namespace Sanctuary;
 public static class MonsterVariants
 {
     internal static MonsterVariantProfiles Profiles { get; private set; }
-    public static MonsterDifficulty Difficulty(BaseCreature creature) => creature is SkeletonGuardian summon ? SummonDifficulties.For(summon)
+    public static MonsterDifficulty Difficulty(BaseCreature creature) => ReviveFacets.Difficulty(creature)??SpawnDifficulty(creature);
+    internal static MonsterDifficulty SpawnDifficulty(BaseCreature creature) => creature is SkeletonGuardian summon ? SummonDifficulties.For(summon)
         : creature is EncounterCreature encounter ? encounter.Difficulty : Profiles?.Find(creature.Serial) ?? MonsterDifficulty.Normal;
     internal static NormalMonsterStats Melee(GraveyardUndead creature, NormalMonsterStats normal)
     {
@@ -76,6 +77,7 @@ public static class MonsterVariants
             || difficulty != MonsterDifficulty.Normal && CreatureProfiles.Variant(creature, difficulty) is not { Enabled: true, ApplyStats: true })
         { throw new InvalidOperationException("Difficulty requires a fresh supported wild creature."); }
         if (difficulty == MonsterDifficulty.Normal) { return; }
+        MonsterVariantBaselines.RememberNormal(creature);
         Profiles.Store(creature, difficulty);
         CreatureProfiles.Session(creature).Initialized = false;
         CreatureProfiles.Initialize(creature);
