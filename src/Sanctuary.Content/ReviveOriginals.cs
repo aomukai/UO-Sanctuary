@@ -23,7 +23,7 @@ public sealed class ReviveOriginalProfiles:GenericPersistence
     public override void PostDeserialize()=>ReviveOriginals.Prune();
 }
 // Retain the actual native actor, not a constructor or a replacement summon.
-// Automatic death retention stays gated with the unfinished learned spell.
+// Automatic death retention is enabled with the learned Revive handler.
 // Optional accepted-death data retains resources and item effects separately
 // from corpse loot. It does not attach stats/procs or activate revived AI.
 public static class ReviveOriginals
@@ -137,7 +137,21 @@ public static class ReviveOriginals
         foreach(var row in Snapshot())
         {
             if(World.FindItem((Serial)row.Corpse) is not Corpse{Deleted:false} corpse){Remove(row.Corpse);continue;}
-            var actor=Find(corpse);
+            // A different corpse consumer, or a legacy metadata replacement,
+            // can retire the dead-unit projection while leaving loot intact.
+            if(CorpseSkillRules.NoSelect(corpse)||corpse.SanctuaryConsumed||corpse.Animated)
+            {Remove(row.Corpse);continue;}
+            BaseCreature actor;
+            try{actor=Find(corpse);}
+            catch(InvalidDataException e)
+            {
+                // Only retire our own inactive original. Never conceal an
+                // identity/type collision or delete a living/owned actor.
+                if(World.FindMobile((Serial)row.Actor) is not BaseCreature{Alive:false,Deleted:false,ControlMaster:null} inactive
+                    ||inactive.Map!=Map.Internal||inactive.GetType().FullName!=row.RuntimeType){throw;}
+                Log.Warning("Retiring inactive Revive original {Actor} for unusable corpse {Corpse}: {Reason}",row.Actor,row.Corpse,e.Message);
+                Remove(row.Corpse);continue;
+            }
             if(actor==null){_registry.Corpses.Remove(row.Corpse);_registry.Actors.Remove(row.Actor);continue;}
             Park(actor);
         }

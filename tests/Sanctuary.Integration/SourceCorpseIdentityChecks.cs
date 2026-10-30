@@ -97,6 +97,6 @@ public static class SourceCorpseIdentityChecks
     }
     private static void Report()
     {
-        Log.Information("Source corpse identity:751species/1502case-folded IDs,original monster GUID versus item serial,ownerless registry lookup,legacy/unmapped/ambiguous boundaries,reservation/state-independent identity,index replacement/deletion and unchanged-v0 rebuild pass;Revive combat/special abilities and full corpse state projection remain gated");
+        Log.Information("Source corpse identity:751species/1502case-folded IDs,original monster GUID versus item serial,ownerless registry lookup,legacy/unmapped/ambiguous boundaries,reservation/state-independent identity,index replacement/deletion and unchanged-v0 rebuild pass;complete combat and corpse state parity are outside this identity scope");
     }
 }

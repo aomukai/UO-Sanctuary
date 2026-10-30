@@ -74,7 +74,9 @@ public static class ReviveBeforeDeathChecks
     private static void Check()
     {
         var owner=new PlayerMobile{Name="BeforeDeathOwner",Player=true,Body=0x190};owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);FixtureSpace.Place(owner,new(6100,1690,0),Map.Trammel);
-        var ordinary=new Skeleton();var ordinaryGear=new Broadsword();ClassGear.Profiles.FromMonster(ordinaryGear,99,GearRarity.Normal,new Random(99));ordinary.AddItem(ordinaryGear);ordinary.NoKillAwards=true;ordinary.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);ordinary.AIObject?.AITimer.Stop();
+        // This negative control must have no source classification now that
+        // classified Skeletons participate in automatic gameplay capture.
+        var ordinary=new Cow();var ordinaryGear=new Broadsword();ClassGear.Profiles.FromMonster(ordinaryGear,99,GearRarity.Normal,new Random(99));ordinary.AddItem(ordinaryGear);ordinary.NoKillAwards=true;ordinary.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);ordinary.AIObject?.AITimer.Stop();
         var ordinaryCorpse=Kill(owner,ordinary);Require(ordinary.Deleted&&ordinaryGear.Deleted&&ReviveOriginals.Find(ordinaryCorpse)==null,"Default noncaptured native loot cleanup changed");ordinaryCorpse.Delete();
         var saved=new List<Saved>();var beforeHook=ClassLootHooks.BeforeDeath;var retainHook=ClassLootHooks.RetainOriginal;
         var observed=new Dictionary<uint,(int Hits,int Mana,int Stam)>();
@@ -113,6 +115,6 @@ public static class ReviveBeforeDeathChecks
     {var saved=JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest));Require(saved.Length==3,"Missing accepted-death fixtures");foreach(var row in saved){AssertSaved(row);Validate(row);}Report();}
     private static void Report()
     {
-        Log.Information("Revive before death:3actual deaths/6equipped items retain pre-cleanup mana/stamina,independent gear rolls and native ability clock data;99recipient levels/45bonus codes match existing suppliers,loot stays lootable and deleted loot cannot alter frozen effects;10invalid payloads per corpse and old-v0 compatibility pass;activation,procs,custom timers and learned Revive remain unfinished");
+        Log.Information("Revive before death:3actual deaths/6equipped items retain pre-cleanup mana/stamina,independent gear rolls and native ability clock data;99recipient levels/45bonus codes match existing suppliers,loot stays lootable and deleted loot cannot alter frozen effects;10invalid payloads per corpse and old-v0 compatibility pass;complete procs/custom-timer parity is outside this capture scope");
     }
 }

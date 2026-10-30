@@ -86,6 +86,15 @@ public static class ReviveCastChecks
         var equipped=new Skeleton();equipped.AddItem(new GoldRing());var gear=Die(owner,equipped);
         Require(!ReviveCasts.Plan(owner,gear,out _,out _,out var gearIssue)&&gearIssue.Contains("equipped combat effects")
             &&gear.Items.Any(i=>i is GoldRing),"Unsupported equipped effects omitted or gear loot lost");gear.Delete();
+        foreach(bool consumed in new[]{false,true})
+        {
+            var retired=Die(owner);var original=ReviveOriginals.Find(retired);var row=CorpseSkillRules.Profiles.Find(retired);
+            if(consumed){Require(CorpseSkillRules.Reserve(retired),"Retirement reservation");}
+            else{CorpseSkillRules.Profiles.Store(row with{BaseLife=null});}
+            ReviveOriginals.Prune();
+            Require(original.Deleted&&ReviveOriginals.Find(retired)==null&&!retired.Deleted&&retired.GetAmount(typeof(Gold))==1,
+                "Consumed/legacy projection did not retire its dead original independently of loot");retired.Delete();
+        }
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,active.Serial.Value,corpse.Serial.Value,pending.Serial.Value,
             ReviveOriginals.Find(pending).Serial.Value,[origin.X,origin.Y,origin.Z],SkillHealth.Balance256(active),active.Mana,active.Stam,(int)active.AI)));
         owner.Internalize();Report();
@@ -96,8 +105,10 @@ public static class ReviveCastChecks
         var active=(BaseCreature)World.FindMobile((Serial)saved.Active);var corpse=(Corpse)World.FindItem((Serial)saved.ActiveCorpse);
         var pending=(Corpse)World.FindItem((Serial)saved.Pending);
         Require(active is{Alive:true,Deleted:false}&&active.ControlMaster==owner&&active.Map==Map.Internal&&(int)active.AI==saved.Ai
-            &&SkillHealth.Balance256(active)==saved.Life256&&active.Mana==saved.Mana&&active.Stam==saved.Stamina
-            &&corpse.GetAmount(typeof(Gold))==1,"Actual reload lost active original, resources, source life or loot");
+            &&SkillHealth.Balance256(active)==saved.Life256&&active.Mana>=saved.Mana&&active.Mana<=active.ManaMax
+            &&active.Stam>=saved.Stamina&&active.Stam<=active.StamMax
+            &&corpse.GetAmount(typeof(Gold))==1,
+            $"Actual reload:alive={active.Alive},deleted={active.Deleted},owner={active.ControlMaster?.Serial.Value}/{saved.Owner},map={active.Map},ai={(int)active.AI}/{saved.Ai},life={SkillHealth.Balance256(active)}/{saved.Life256},mana={active.Mana}/{saved.Mana},stamina={active.Stam}/{saved.Stamina},loot={corpse.GetAmount(typeof(Gold))}");
         Require(ReviveOriginals.Find(pending)?.Serial.Value==saved.PendingActor&&!CorpseSkillRules.NoSelect(pending),"Actual reload lost pending original");
         owner.MoveToWorld(new(saved.Origin[0],saved.Origin[1],saved.Origin[2]),pending.Map);owner.Mana=owner.ManaMax;
         Require(ReviveCasts.Plan(owner,pending,out _,out _,out _),"Saved pending original cannot be cast");
@@ -105,5 +116,5 @@ public static class ReviveCastChecks
         // pending original for both actual reload checks.
         var fresh=Die(owner);var revived=Cast(owner,fresh);revived.Delete();fresh.Delete();owner.Internalize();Report();
     }
-    private static void Report()=>Log.Information("Learned Revive:automatic accepted-death retention,actual windup/release,original actor/resources,once-only mana,duplicate refusal,movement/reservation/lost-mana cancellation,explicit legacy/classification/item refusals and active/pending persistence pass;native repertoire retained,world spell conversion independent");
+    private static void Report()=>Log.Information("Learned Revive:automatic accepted-death retention,hotkey windup/release,original actor/exact activation resources,once-only mana,duplicate refusal,movement/reservation/lost-mana cancellation,explicit legacy/classification/item refusals,consumed/legacy original retirement with loot intact and active/pending persistence pass;native mana/stamina may regenerate while parked;native repertoire retained,world spell conversion independent");
 }

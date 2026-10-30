@@ -41,6 +41,6 @@ public static class ReviveSpeciesChecks
         var policy=ReviveSpecies.Lifetime;
         Require(policy is{MaximumAgeFrames:null,RemoveOnReviveDeath:true,RemoveOnNecromancerDeath:true,RemoveOnReplacement:true},"Approved no-expiration Revive policy lost");
         Require(rows==623&&allowed==391&&classes==751&&corpses==2,"Incomplete Revive species coverage");
-        Log.Information("Revive species:623compiled secondary flags,391species permissions,751primary links,6missing-row boundaries and2saved original corpses match;approved no-expiration metadata loaded;full eligibility,in-place actor and lifecycle remain gated");
+        Log.Information("Revive species:623compiled secondary flags,391species permissions,751primary links,6missing-row boundaries and2saved original corpses match;approved no-expiration metadata loaded;this metadata check alone does not certify learned casting");
     }
 }

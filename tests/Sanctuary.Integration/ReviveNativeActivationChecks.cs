@@ -141,5 +141,5 @@ public static class ReviveNativeActivationChecks
             catch(Exception e){Log.Error(e,"revive-native-activation-live-result: failed");network.Mobile=null;owner.NetState=null;actor.Delete();enemy.Delete();corpse.Delete();owner.Delete();}
         });
     }
-    private static void Report()=>Log.Information("Prepared native Revive activation:same original actors/types/serials,explicit integral setup,native owner/zero slots,skill-cap FIFO,corpse lease detachment,loot rights and permanent source-identity retirement pass;shared offline/save lifecycle and atomic invalid state checks retained;source stat/passive/FP256/AI/facet/input composition and learned spell remain gated");
+    private static void Report()=>Log.Information("Prepared native Revive activation:same original actors/types/serials,explicit integral setup,native owner/zero slots,skill-cap FIFO,corpse lease detachment,loot rights and permanent source-identity retirement pass;shared offline/save lifecycle and atomic invalid state checks retained;remaining full stat/facet/event parity is outside this prepared setup scope");
 }

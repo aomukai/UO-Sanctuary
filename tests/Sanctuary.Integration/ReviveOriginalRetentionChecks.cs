@@ -66,8 +66,10 @@ public static class ReviveOriginalRetentionChecks
     {
         var owner=new PlayerMobile{Name="OriginalRetentionOwner",Player=true,Body=0x190};owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);
         FixtureSpace.Place(owner,new(6100,1680,0),Map.Trammel);
-        // Default gameplay capture is still gated. Normal NPC death remains unchanged.
-        var control=new Skeleton();var oldCorpse=Kill(owner,control);Require(control.Deleted&&ReviveOriginals.Find(oldCorpse)==null,"Disabled learned route retained an ordinary death");oldCorpse.Delete();
+        // The learned route now enables ordinary accepted-death capture.
+        var control=new Skeleton();var oldCorpse=Kill(owner,control);
+        Require(!control.Deleted&&!control.Alive&&control.Map==Map.Internal&&ReviveOriginals.Find(oldCorpse)==control,"Enabled learned route lost its original monster");
+        oldCorpse.Delete();Require(control.Deleted,"Automatic retention leaked an original after corpse deletion");
         Require(!ReviveOriginals.SupportedDeathPath(typeof(OtherDeath)),"Unknown derived death side effects were silently accepted");
         var capture=ClassLootHooks.RetainOriginal;ClassLootHooks.RetainOriginal=ReviveOriginals.Capture;
         var rows=new System.Collections.Generic.List<Native>();var breathTarget=new PlayerMobile{Name="RetentionBreathTarget",Player=true,Body=0x190};breathTarget.RawStr=10000;breathTarget.Hits=breathTarget.HitsMax;breathTarget.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);
@@ -105,5 +107,5 @@ public static class ReviveOriginalRetentionChecks
         var rows=JsonSerializer.Deserialize<Native[]>(File.ReadAllText(Manifest));Require(rows.Length==9,"Retained original fixture lost rows");
         foreach(var row in rows){AssertNative(row);}Validate();Report();
     }
-    private static void Report()=>Log.Information("Retained originals:9actual deaths/5native types/3difficulties preserve original serials,native fields,ability definitions and corpse loot;dead hidden internal actors,queued breath refusal,corpse/actor deletion cleanup,7atomic invalid restores and actual reloads pass;pre-death state,equipment,full ability timers,activation and learned Revive remain unfinished");
+    private static void Report()=>Log.Information("Retained originals:9actual deaths/5native types/3difficulties preserve original serials,native fields,ability definitions and corpse loot;dead hidden internal actors,queued breath refusal,corpse/actor deletion cleanup,7atomic invalid restores and actual reloads pass;complete equipment/timer parity is outside this retained-identity scope");
 }

@@ -24,8 +24,8 @@ public sealed class ReviveNativeProfiles:GenericPersistence
     }
     public override void PostDeserialize()=>ReviveNativeActivation.AfterLoad();
 }
-// Prepared native adapter only. No learned skill route calls this until source
-// stat/passive/event/AI planning and exact input/payment semantics are bound.
+// Original-actor adapter shared by prepared integration checks and the learned
+// cast. Caller validation and optional source plans remain explicit.
 public static class ReviveNativeActivation
 {
     private static Dictionary<uint,ReviveNativeState> States=new();
