@@ -23,7 +23,12 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         {
             using var items = Server.Collections.PooledRefList<Item>.Create();
             foreach (var item in corpse.Items) { items.Add(item); }
-            foreach (var item in items) { if (!TreasureHunts.FishingReward(item)) { item.Delete(); } }
+            foreach (var item in items)
+            {
+                // Approved Revive adaptation: captured droppable equipment
+                // remains loot. Its separate effect payload never owns it.
+                if (!TreasureHunts.FishingReward(item) && !ReviveBeforeDeath.PreserveLoot(creature,corpse,item)) { item.Delete(); }
+            }
         }
         if (creature is BaseVendor || creature.Controlled || creature.Summoned || creature.IsAnimatedDead
             || creature.NoKillAwards || creature is GraveyardUndead { Raised: true }

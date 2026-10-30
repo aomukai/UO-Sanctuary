@@ -1,0 +1,55 @@
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3356,7 +3356,12 @@
+             speechType?.OnDeath(this);
+             ReceivedHonorContext?.OnTargetKilled();
+ 
+-            return base.OnBeforeDeath();
++            var allowed = base.OnBeforeDeath();
++            if (allowed)
++            {
++                ClassLootHooks.BeforeDeath?.Invoke(this);
++            }
++            return allowed;
+         }
+ 
+         public int ComputeBonusDamage(in ValueLinkList<DamageEntry> list, Mobile m)
+--- a/Projects/UOContent/Mobiles/ClassLootHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+@@ -7,6 +7,7 @@
+     public static Func<BaseCreature, Container, bool> PreserveCorpse { get; set; }
+     public static Func<BaseCreature, Container, bool> RetainOriginal { get; set; }
+     public static Func<BaseCreature, bool> IsRetainedOriginal { get; set; }
++    public static Action<BaseCreature> BeforeDeath { get; set; }
+     public static Action<BaseCreature, Container> CreatureDied { get; set; }
+     public static Action<Mobile, Corpse> Carved { get; set; }
+     public static Action<Corpse> ContentsChanged { get; set; }
+--- a/Projects/UOContent/Mobiles/Abilities/MonsterAbility.cs
++++ b/Projects/UOContent/Mobiles/Abilities/MonsterAbility.cs
+@@ -18,6 +18,10 @@
+     public virtual double ChanceToTrigger => 1.0;
+     public virtual TimeSpan MinTriggerCooldown => TimeSpan.Zero;
+     public virtual TimeSpan MaxTriggerCooldown => TimeSpan.Zero;
++
++    // Read-only death-state capture; never rerolls or mutates a cooldown.
++    public long RemainingTriggerCooldown(BaseCreature source) =>
++        _nextTriggerTicks?.TryGetValue(source, out var next) == true ? Math.Max(0L, next - Core.TickCount) : 0L;
+ 
+     /// <summary>
+     /// Returns true if ability is not on cooldown, and the chance to trigger succeeds.
+--- a/Projects/UOContent/Mobiles/Abilities/MonsterAbilityGroup.cs
++++ b/Projects/UOContent/Mobiles/Abilities/MonsterAbilityGroup.cs
+@@ -28,6 +28,13 @@
+ 
+     public override MonsterAbilityTrigger AbilityTrigger => _triggers;
+ 
++    public MonsterAbility[] MembersForSnapshot()
++    {
++        var result = new MonsterAbility[_weightedAbilities.Length];
++        for (var i = 0; i < result.Length; i++) { result[i] = _weightedAbilities[i].Value; }
++        return result;
++    }
++
+     public bool HasAbility(MonsterAbility ability)
+     {
+         for (var i = 0; i < _weightedAbilities.Length; i++)

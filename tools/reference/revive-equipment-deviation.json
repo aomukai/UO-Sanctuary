@@ -1,0 +1,10 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "user-approved",
+  "talentId": "necromancer.revive",
+  "question": "For Revive, how should an NPC\u2019s equipped gear work after death? UO moves it into the corpse, while D2 keeps monster combat stats separate from dropped loot. I recommend leaving that gear lootable and preserving its combat effects separately on the revived NPC.",
+  "userAnswer": "Keep loot; preserve combat effects separately",
+  "approvedPolicy": "Original equipment remains ordinary corpse loot. Revive preserves its captured combat effects independently; do not return or duplicate physical gear on the revived NPC.",
+  "scope": "This decision approves the loot/effect separation. It does not certify current item-proc/stat integration or resolve native ability-clock activation semantics.",
+  "implementationScope": "While the prepared accepted-death capture is selected, its original droppable equipped items are exempt from generic native-loot destruction. Existing fishing/protected-item rules remain separate. Capture is still gated with the unfinished learned Revive route."
+}

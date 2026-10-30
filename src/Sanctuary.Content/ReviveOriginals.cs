@@ -9,7 +9,7 @@ using Server.Items;
 using Server.Mobiles;
 namespace Sanctuary;
 
-public sealed record ReviveOriginalState(uint Corpse,uint Actor,string RuntimeType,bool Frozen,bool CantWalk,bool Hidden,bool Blessed);
+public sealed record ReviveOriginalState(uint Corpse,uint Actor,string RuntimeType,bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string BeforeDeathJson=null,string BeforeDeathIssue=null);
 public sealed class ReviveOriginalProfiles:GenericPersistence
 {
     public ReviveOriginalProfiles():base("SanctuaryReviveOriginals",222){}
@@ -23,8 +23,8 @@ public sealed class ReviveOriginalProfiles:GenericPersistence
 }
 // Retain the actual native actor, not a constructor or a replacement summon.
 // Automatic death retention stays gated with the unfinished learned spell.
-// This stores post-death native state; it does not claim full pre-death state,
-// original equipment reattachment, skill/passive transfer or revived AI.
+// Optional accepted-death data retains resources and item effects separately
+// from corpse loot. It does not attach stats/procs or activate revived AI.
 public static class ReviveOriginals
 {
     private sealed record Registry(Dictionary<uint,ReviveOriginalState> Corpses,Dictionary<uint,uint> Actors);
@@ -37,6 +37,8 @@ public static class ReviveOriginals
         ClassLootHooks.IsRetainedOriginal=actor=>IsRetained(actor)||retained?.Invoke(actor)==true;
         var capture=ClassLootHooks.RetainOriginal;
         ClassLootHooks.RetainOriginal=(actor,corpse)=>NecromancerCombat.Implemented(CombatAbility.Revive)&&Capture(actor,corpse)||capture?.Invoke(actor,corpse)==true;
+        var before=ClassLootHooks.BeforeDeath;
+        ClassLootHooks.BeforeDeath=actor=>{before?.Invoke(actor);if(NecromancerCombat.Implemented(CombatAbility.Revive)){ReviveBeforeDeath.Capture(actor);}};
     }
     public static void Initialize()
     {
@@ -60,6 +62,8 @@ public static class ReviveOriginals
             if(row==null||!((Serial)row.Corpse).IsItem||!((Serial)row.Actor).IsMobile||row.Actor==0
                 ||string.IsNullOrWhiteSpace(row.RuntimeType)||!corpses.TryAdd(row.Corpse,row)||!actors.TryAdd(row.Actor,row.Corpse))
             {throw new InvalidDataException("Invalid or duplicate retained original creature");}
+            if(row.BeforeDeathIssue!=null&&(string.IsNullOrWhiteSpace(row.BeforeDeathIssue)||row.BeforeDeathJson!=null)){throw new InvalidDataException("Conflicting or empty before-death capture issue");}
+            if(row.BeforeDeathJson!=null){ReviveBeforeDeath.Validate(row.BeforeDeathJson,row.RuntimeType);}
         }
         _registry=new(corpses,actors);
     }
@@ -75,6 +79,7 @@ public static class ReviveOriginals
     }
     internal static bool Capture(BaseCreature actor,Container container)
     {
+        var pending=ReviveBeforeDeath.Take(actor);string before=pending.Json;
         if(actor is null||actor.Deleted||container is not Corpse{Deleted:false} corpse||actor.Controlled||actor.Summoned
             ||actor is BaseVendor or GraveyardUndead{Raised:true}||!SupportedDeathPath(actor.GetType())||_registry.Corpses.ContainsKey(corpse.Serial.Value)||IsRetained(actor))
         {return false;}
@@ -83,7 +88,8 @@ public static class ReviveOriginals
             ||row.ReviveCreature?.RuntimeType!=actor.GetType().FullName||GenericPetSearchTables.SourceId(row.Source) is not{} cls
             ||ReviveSpecies.ForClass(cls)!=true||!SourceAiEligibility.CanSwitch(cls,SourceAiEligibility.CurrentMonster))
         {return false;}
-        var saved=new ReviveOriginalState(corpse.Serial.Value,actor.Serial.Value,actor.GetType().FullName,actor.Frozen,actor.CantWalk,actor.Hidden,actor.Blessed);
+        var original=before==null?null:ReviveBeforeDeath.Decode(before);
+        var saved=new ReviveOriginalState(corpse.Serial.Value,actor.Serial.Value,actor.GetType().FullName,original?.Frozen??actor.Frozen,original?.CantWalk??actor.CantWalk,original?.Hidden??actor.Hidden,original?.Blessed??actor.Blessed,before,pending.Issue);
         _registry.Corpses.Add(saved.Corpse,saved);_registry.Actors.Add(saved.Actor,saved.Corpse);
         Park(actor);return true;
     }
@@ -105,6 +111,7 @@ public static class ReviveOriginals
     }
     internal static void Prune()
     {
+        ReviveBeforeDeath.PrunePending();
         foreach(var row in Snapshot())
         {
             if(World.FindItem((Serial)row.Corpse) is not Corpse{Deleted:false} corpse){Remove(row.Corpse);continue;}

@@ -16,6 +16,9 @@ public static class ReviveOriginalRetentionChecks
     private sealed class OtherDeath:BaseCreature
     {
         public OtherDeath():base(AIType.AI_Melee,FightMode.Closest,10,1){}
+        public OtherDeath(Serial serial):base(serial){}
+        public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+        public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown unused fixture version");}}
         public override void OnDeath(Container c)=>base.OnDeath(c);
     }
     private static string Manifest=>Path.Join(Core.BaseDirectory,"revive-original-retention-fixtures.json");
@@ -49,7 +52,7 @@ public static class ReviveOriginalRetentionChecks
     {var w=new BufferWriter(new byte[1024*1024],true);w.Write(version);w.Write(JsonSerializer.Serialize(rows));return w.Buffer[..(int)w.Position];}
     private static void Validate()
     {
-        var before=ReviveOriginals.Snapshot();Require(before.Length==9,"Incomplete original storage fixture");var row=before[0];
+        var before=ReviveOriginals.Snapshot();Require(before.Length>=9,"Incomplete original storage fixture");var row=before[0];
         foreach(var bad in new[]{new[]{row with{Corpse=0}},new[]{row with{Actor=0}},new[]{row with{RuntimeType=""}},new[]{row,row},new[]{row,before[1] with{Actor=row.Actor}},new[]{row with{Actor=row.Corpse}}})
         {
             bool refused=false;try{ReviveOriginals.Profiles.Deserialize(new BufferReader(Payload(bad)));}catch(InvalidDataException){refused=true;}
