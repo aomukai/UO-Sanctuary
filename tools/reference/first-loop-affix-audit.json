@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "81b02a3662b5d134b11908be1b841aeec4657b6882b3f7ec66f6b67a317077b8",
-  "ContentAssemblyPath": ".local/class-skills/revive-source-life/full-regression/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "c60df4087d0e7fa03f2d1df5fff5103975adfad513e5bbac0a0f0c0690fcccb4",
+  "ContentAssemblyPath": ".local/class-skills/revive-native-stats/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -12,7 +12,7 @@
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "fcef3c3bf8caace4491a61b0a2ce961b2b4dbf41e8c174e176a6d55132b8b7a7",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
-    "src/Sanctuary.Content/ClassStats.cs": "92be74a87153222d79e39b0eb1e3afc6a571042160ce0ae924691ea5500af535",
+    "src/Sanctuary.Content/ClassStats.cs": "267829af2fdd8b605ed857c9284a8e20a7849aa8e046519256aed271ee77b11c",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
