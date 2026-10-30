@@ -115,12 +115,12 @@ public static class IronGolemItems
         if(State(pet) is not{} state){return;}
         BattleOrders.Pools? resources=pet is SkeletonGuardian?BattleOrders.Capture(pet):null;
         var item=World.FindItem((Serial)state.Item);
-        if(item is{Deleted:false})
-        {
-            if(item.Parent!=pet){throw new NotSupportedException("Iron Golem item no longer belongs to its bound actor");}
-            item.Delete();
-        }
+        if(item is{Deleted:false}&&item.Parent!=pet)
+        {throw new NotSupportedException("Iron Golem item no longer belongs to its bound actor");}
+        // Native OnRemoved callbacks query attack/chill/resource consumers.
+        // Publish removal before they run,not a binding to a deleted item.
         States.Remove(state.Pet);ByItem.Remove(state.Item);
+        if(item is{Deleted:false}){item.Delete();}
         NpcEquipmentRandom.Forget(pet);
         if(resources is{} before){NpcEquipmentResources.RestoreBalances((SkeletonGuardian)pet,before);}
     }

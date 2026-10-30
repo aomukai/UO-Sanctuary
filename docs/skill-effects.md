@@ -336,3 +336,5 @@ Feral Rage uses identified human Wrestle/contact sound0x238 and generic charge f
 Hunger uses identified human Wrestle pose for its S3bite and contact sound0x238. Shared life/mana recovery uses0x376A with life hue0x26 or mana hue0x489; current Hunger has no separate source impact overlay. Final wolf/bear S3body,bite/contact,leech and audio remain pending independently of mechanics.
 
 Inherited NPC item resource maxima add no independent active effect. Iron Golem retains the identified UO summon/contact placeholders; its final summon, body and item-effect presentation remain in this register. Resource arithmetic and fractional balances do not wait for those assets.
+
+NPC poison-length/half-freeze/Cannot Be Frozen defenses add no independent active effect. Ordinary cold/freeze retain the identified UO 0x374A/hue 0x480 marker; poison retains its generic green marker. Final Iron Golem body/contact/state/audio remains pending, separately from these duration mechanics.

@@ -135,7 +135,7 @@ public static class BladeSentinelMissiles
             {
                 int resistance=NamedElements.Resistance(body,target,"pois",target.PoisonResistance,pierceOverride:0);
                 int pierce=body.Passive("passive_pois_pierce");if(pierce<0 && resistance<100){resistance-=pierce;}
-                PoisonPackets.Mitigate(poisonRate,state.Damage.Elements.PoisonImpactFrames,false,resistance,0,Math.Max(0,pierce),0,0).Commit(body,target,state.NextUtc);
+                PoisonPackets.Mitigate(poisonRate,state.Damage.Elements.PoisonImpactFrames,false,resistance,ItemDurationDefenses.PoisonLength(target),Math.Max(0,pierce),0,0).Commit(body,target,state.NextUtc);
             }
             CombatDamage.Finish(target,body);
         }

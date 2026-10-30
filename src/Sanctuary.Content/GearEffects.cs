@@ -53,7 +53,7 @@ public static class GearEffects
     public static int ChillPercent(Mobile mobile) => ChillPercent(mobile, Core.TickCount);
     public static int ChillPercent(Mobile mobile, long now)
     {
-        int cold=mobile is PlayerMobile player && ClassGear.Bonus(player,"nofreeze")>0?0:TimedEffects.Chill(mobile,TimedEffects.TimeAt(now));
+        int cold=ItemDurationDefenses.CannotFreeze(mobile)?0:TimedEffects.Chill(mobile,TimedEffects.TimeAt(now));
         int elite=EliteAuras.Slow(mobile);return elite>0?Math.Max(cold,elite):cold;
     }
     public static int MovementSlow(Mobile mobile) => Math.Clamp(ChillPercent(mobile)
@@ -62,12 +62,11 @@ public static class GearEffects
         + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile), -100, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {
+        if(target is BaseCreature && ItemDurationDefenses.HasEquipment(target))
+        {return ColdStates.Apply(attacker,target,Math.Max(0,durationMs/40),now);}
         if (target.Deleted || !target.Alive || DruidSpiritWolfBody.ObservedChillImmune(target) || NamedElements.Resistance(attacker, target, "cold", target.ColdResistance) >= 100) { return false; }
-        if (target is PlayerMobile player)
-        {
-            if (ClassGear.Bonus(player, "nofreeze") > 0) { return false; }
-            if (ClassGear.Bonus(player, "half-freeze") > 0) { durationMs /= 2; }
-        }
+        if (ItemDurationDefenses.CannotFreeze(target)) { return false; }
+        if (ItemDurationDefenses.HalfFreeze(target)) { durationMs /= 2; }
         int effect = 50;
         if (target is BaseCreature creature)
         {
@@ -92,6 +91,13 @@ public static class GearEffects
             int reduction = Math.Clamp(ClassGear.Bonus(player, "res-pois-len"), 0, 75);
             durationMs = durationMs * (100 - reduction) / 100;
             total *= (100 - reduction) / 100.0;
+        }
+        else if (target is BaseCreature && ItemDurationDefenses.HasEquipment(target))
+        {
+            // Aggregate producers retain their existing rate projection. Apply
+            // the NPC duration lane through the same source helper as packets.
+            int length=PoisonPackets.Mitigate(256,Math.Max(0,durationMs/40),false,0,ItemDurationDefenses.PoisonLength(target),NamedElements.PoisonPierce(source),0,0).Frames*40;
+            total=durationMs>0?total*length/durationMs:0;durationMs=length;
         }
         if (total <= 0 || durationMs <= 0 || target.Deleted || !target.Alive || target.Blessed) { return false; }
         if (!TimedEffects.Poison(source, target, total, durationMs, TimedEffects.TimeAt(now))) { return false; }

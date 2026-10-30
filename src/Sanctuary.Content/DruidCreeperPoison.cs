@@ -52,7 +52,7 @@ internal static class DruidCreeperPoison
         // Read only recipient resistance/curse/aura pools. Original-player gear
         // must not leak into the NPC poison packet or its mitigation.
         int resistance=NamedElements.Resistance(null,target,"pois",target.PoisonResistance,pierceOverride:0);
-        var poison=PoisonPackets.Mitigate(rate,damage.Frames,false,resistance,0,0,0,0);
+        var poison=PoisonPackets.Mitigate(rate,damage.Frames,false,resistance,ItemDurationDefenses.PoisonLength(target),0,0,0);
         if(poison.Rate256>0&&poison.Frames>0)
         {
             owner.DoHarmful(target,true);

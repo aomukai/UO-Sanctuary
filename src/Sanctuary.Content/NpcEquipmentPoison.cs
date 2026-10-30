@@ -24,7 +24,7 @@ internal static class NpcEquipmentPoison
         // Read the recipient's resistance/curse/aura pools, then apply only
         // this NPC item's pierce once. Player-owner equipment is not inherited.
         int resistance=NamedElements.Resistance(actor,target,"pois",creature.PoisonResistance,pierceOverride:0);
-        var poison=PoisonPackets.Mitigate(rolled.Rate256,rolled.Frames,false,resistance,0,snapshot.Pierce,0,0);
+        var poison=PoisonPackets.Mitigate(rolled.Rate256,rolled.Frames,false,resistance,ItemDurationDefenses.PoisonLength(target),snapshot.Pierce,0,0);
         return poison.Rate256>0&&poison.Frames>0?new(snapshot.Actor,snapshot.CreditOwner,poison):null;
     }
     internal static bool Commit(NpcPoisonDelivery delivery,Mobile target,DateTime at)

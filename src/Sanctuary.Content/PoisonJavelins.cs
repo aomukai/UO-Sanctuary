@@ -22,11 +22,11 @@ public static class PoisonJavelins
     internal static void EquipmentChanged(PlayerMobile owner)=>AmazonJavelins.EquipmentChanged(owner);
     internal static bool Poison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at)
     {
-        // Native wild monsters have no equipment poison-length stat or poison
-        // shrine state. Their per-monster difficulty already prepared ResPo;
+        // Read the recipient's item poison-length pool, including bound NPC
+        // equipment. Per-monster difficulty already prepared ordinary ResPo;
         // the source player-only global penalty does not belong in this lane.
         int resistance=NamedElements.Resistance(owner,target,"pois",target.PoisonResistance,pierceOverride:0);
-        return PoisonPackets.Mitigate(rate256,frames,false,resistance,0,Math.Max(0,ClassGear.Bonus(owner,"pierce-pois")),0,0).Commit(owner,target,at);
+        return PoisonPackets.Mitigate(rate256,frames,false,resistance,ItemDurationDefenses.PoisonLength(target),Math.Max(0,ClassGear.Bonus(owner,"pierce-pois")),0,0).Commit(owner,target,at);
     }
     internal static PoisonCloud Trail(PlayerMobile owner,WeaponFlight parent)
     {

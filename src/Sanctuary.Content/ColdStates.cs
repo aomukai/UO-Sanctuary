@@ -50,7 +50,7 @@ public static class ColdStates
         if(target is not{Alive:true,Deleted:false} || target.IsDeadBondedPet){return false;}
         bool monster=target is BaseCreature;int effect=Effect(target);
         int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance,pierceOverride);
-        bool cannot=target is PlayerMobile p && ClassGear.Bonus(p,"nofreeze")>0,half=target is PlayerMobile q && ClassGear.Bonus(q,"half-freeze")>0;
+        bool cannot=ItemDurationDefenses.CannotFreeze(target),half=ItemDurationDefenses.HalfFreeze(target);
         frames=LengthFrames(frames,resistance,cannot,half);
         if(!Commit(source,target,frames,monster,effect,NecromancerEffects.DifficultyDivisor(target),tick)){return false;}
         target.FixedEffect(0x374A,10,15,0x480,0); // Identified native cold-state marker.
