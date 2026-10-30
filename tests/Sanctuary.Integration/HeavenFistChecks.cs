@@ -169,7 +169,12 @@ public static class HeavenFistChecks
         try{owner.DoHarmful(victim,true);victim.Damage(victim.Hits+1,owner);CombatDamage.Finish(victim,owner);}
         finally{ClassLootHooks.CreatureDied=previous;}
         var dead=HeavenFists.Snapshot().Single(x=>x.Target==victim.Serial.Value);
-        Require(victim.Deleted && corpse is{Deleted:false} && ClassLoot.HasContents(corpse) && dead.Corpse==corpse.Serial.Value,"Deleted target corpse identity/loot capture");
+        Require(!victim.Alive&&!victim.Deleted&&ReviveOriginals.Find(corpse)==victim
+            &&corpse is{Deleted:false}&&ClassLoot.HasContents(corpse)&&dead.Corpse==corpse.Serial.Value,"Retained target corpse identity/loot capture");
+        HeavenFists.Impact(owner,dead);
+        Require(HolyBolts.Snapshot().Any(x=>x.Owner==owner.Serial.Value)&&ClassLoot.HasContents(corpse),"Retained dead primary canceled burst or lost loot");
+        ClearBolts(owner);victim.Delete();
+        Require(victim.Deleted&&ClassLoot.HasContents(corpse),"Explicit removed-target control lost corpse loot");
         Replace(dead with{ImpactUtc=TimedEffects.Now.AddMilliseconds(40)});
         Later(120,"heaven-fist-result",()=>
         {

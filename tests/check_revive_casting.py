@@ -70,7 +70,7 @@ def check():
                     session.send(command)
                     assert session.expect(command + r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
-                    shutil.copy2(folder / 'revive-cast-fixtures.json', STAGE / 'revive-cast-fixtures.json')
+                    shutil.copy2(folder / 'revive-cast-fixtures.json', STAGE / 'isolated-revive-cast-fixtures.json')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
                     session.close()

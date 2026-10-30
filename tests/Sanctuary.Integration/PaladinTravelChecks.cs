@@ -87,12 +87,17 @@ public static class PaladinTravelChecks
             && SkillMechanics.Values(redeemer,CombatAbility.Redemption,20).Eval("calc1")==85
             && SkillMechanics.Values(redeemer,CombatAbility.Redemption,20).Eval("calc3")==120,"Redemption pinned chance/gain/cost");
         var body=Body(redeemer);var metadata=CorpseSkillRules.Profiles.Find(body);
-        Require(metadata is{Source:"skeleton1",Selectable:true,Owned:false} && (body.Owner==null || body.Owner.Deleted),"Death-time corpse species snapshot");
+        var original=ReviveOriginals.Find(body);
+        Require(metadata is{Source:"skeleton1",Selectable:true,Owned:false}
+            &&original is{Alive:false,Deleted:false}&&original.Map==Map.Internal&&body.Owner==original,"Death-time corpse species/original snapshot");
         redeemer.Hits=redeemer.HitsMax-100;redeemer.Mana=0;int hp=redeemer.Hits;
         Require(!PaladinRedemption.Redeem(redeemer,body,values,23) && !body.SanctuaryConsumed,"Chance boundary changed corpse");
         Require(PaladinRedemption.Redeem(redeemer,body,values,22) && redeemer.Hits==hp+25 && redeemer.Mana==25
             && body.SanctuaryConsumed && !body.Deleted && ClassLoot.HasContents(body)
             && !PaladinRedemption.Redeem(redeemer,body,values,0),"Owner recovery, single consumption or retained loot");
+        ReviveOriginals.Prune();
+        Require(original.Deleted&&ReviveOriginals.Find(body)==null&&!body.Deleted&&ClassLoot.HasContents(body),
+            "Redemption did not retire the inactive original independently of corpse loot");
         var unknown=Body(redeemer,4,true);Require(!PaladinRedemption.Redeem(redeemer,unknown,values,0) && CorpseSkillRules.Profiles.Find(unknown).Source==null,"Unmapped species was invented");unknown.Delete();body.Delete();
         var rip=Body(redeemer);rip.SanctuaryRestInPeace=true;Require(!PaladinRedemption.Redeem(redeemer,rip,values,0),"Rest in Peace corpse consumed");rip.Delete();
         var full=Body(redeemer);redeemer.Hits=redeemer.HitsMax;redeemer.Mana=redeemer.ManaMax;

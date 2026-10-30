@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "candidate; isolated and retained casting regression passed; full-class run live",
+  "status": "build8 isolated/retained acceptance frozen; full-class run terminal on obsolete Redemption fixture; corrected build9 awaiting verification",
   "sourceCheckpoint": "7f50468",
   "stage": ".local/class-skills/revive-learned-casting",
   "preBuildSnapshot": ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json",
@@ -30,7 +30,7 @@
     "unchangedNamedDefinitions": 573
   },
   "notVerified": [
-    "Full-class regression is running (exec session61676); no fresh full-class acceptance is claimed yet.",
+    "Build8 full class run stopped at an obsolete deleted-corpse-owner assertion. Redemption/Fist fixtures are updated for retained originals; build9 verification is pending.",
     "Source regeneration parity, facet/respec replanning and complete inherited item/proc effects",
     "Summon Resist reference conflict and inherited sunder consumption",
     "Complete D2R client parity; this is not class completion"
@@ -44,16 +44,15 @@
   },
   "evidenceFiles": {
     ".local/class-skills/revive-learned-casting/pre-build-attempt-8.json": "786f84bf1d9a42ac9b25aeb6060034b3cf72746e9f98902ef15de451f8e22cae",
-    ".local/class-skills/revive-learned-casting/cast-inputs.json": "6134f186b229c4c25123e7a47828c8f4590a7f62439cf3495f54ba424d27bb06",
-    ".local/class-skills/revive-learned-casting/cast-native-checks.log": "0ac965612d126aec0b8971f3e1457149a33df487b3e683f4840e8ec151fd6b50",
-    ".local/class-skills/revive-learned-casting/revive-cast-fixtures.json": "47d68945019458960b76f5dd7db9150af25ced05d6d5af90a1878ca3d01385e9",
+    ".local/class-skills/revive-learned-casting/attempt-8/cast-inputs.json": "6134f186b229c4c25123e7a47828c8f4590a7f62439cf3495f54ba424d27bb06",
+    ".local/class-skills/revive-learned-casting/attempt-8/cast-native-checks.log": "0ac965612d126aec0b8971f3e1457149a33df487b3e683f4840e8ec151fd6b50",
     ".local/class-skills/revive-learned-casting/content-build-attempt-8.log": "e63887d116453f53a7d1d60b6d289f2be578abfb2cf84d9a8dcc70d6ca85d9d1",
     ".local/class-skills/revive-learned-casting/integration-build-attempt-8.log": "00d4dcaeb6d47a3c49034ae87fb79ed678c7f9298f553cda47b13cae4477d1ed",
-    ".local/class-skills/revive-learned-casting/stats-inputs.json": "741ee47a8257b6a7c2ba801730d0ba9f8dc9f99ef308cf7352f60a157e927a94",
-    ".local/class-skills/revive-learned-casting/stats-native-checks.log": "d4d7e56bb0ad8845e3c9ccfedefed153a6c53fc801b0e27d365bfaebceed5634",
-    ".local/class-skills/revive-learned-casting/python-tests.log": "b99c7c55c21c0b1a805507df7a8c6720b71a02f892d7425bcb2712ae5500212c",
-    ".local/class-skills/revive-learned-casting/named-item-runtime-audit.json": "af79edd73a1fa553c92c03d9641136100ffcf2b0b5b8d4dd77d846df70ab51fb",
-    ".local/class-skills/revive-learned-casting/first-loop-affix-audit.json": "76fb8ee65be7208cbf400e3f1cccf84b867929b69dcc684975b9897e69214fb7"
+    ".local/class-skills/revive-learned-casting/attempt-8/stats-inputs.json": "741ee47a8257b6a7c2ba801730d0ba9f8dc9f99ef308cf7352f60a157e927a94",
+    ".local/class-skills/revive-learned-casting/attempt-8/stats-native-checks.log": "d4d7e56bb0ad8845e3c9ccfedefed153a6c53fc801b0e27d365bfaebceed5634",
+    ".local/class-skills/revive-learned-casting/attempt-8/python-tests.log": "b99c7c55c21c0b1a805507df7a8c6720b71a02f892d7425bcb2712ae5500212c",
+    ".local/class-skills/revive-learned-casting/attempt-8/named-item-runtime-audit.json": "af79edd73a1fa553c92c03d9641136100ffcf2b0b5b8d4dd77d846df70ab51fb",
+    ".local/class-skills/revive-learned-casting/attempt-8/first-loop-affix-audit.json": "76fb8ee65be7208cbf400e3f1cccf84b867929b69dcc684975b9897e69214fb7"
   },
   "coverage": {
     "handlers": 185,
@@ -61,5 +60,16 @@
     "completedClasses": []
   },
   "installation": "Candidate uninstalled; working installed build and saves unchanged",
-  "assets": "Existing native summon particles/cast sound are identified placeholders; effects/audio and talent/hotkey icons remain separate registers"
+  "assets": "Existing native summon particles/cast sound are identified placeholders; effects/audio and talent/hotkey icons remain separate registers",
+  "unavailableEvidence": [
+    {
+      "path": ".local/class-skills/revive-learned-casting/revive-cast-fixtures.json",
+      "expectedSha256": "47d68945019458960b76f5dd7db9150af25ced05d6d5af90a1878ca3d01385e9",
+      "reason": "The combined retained runner overwrote the isolated manifest at the shared stage filename; isolated log/input evidence remains available. New isolated outputs use a separate filename."
+    }
+  ],
+  "retainedFixture": {
+    "path": ".local/class-skills/revive-learned-casting/attempt-8/revive-cast-fixtures.json",
+    "sha256": "0c2dfbfb3a71ad2a090f31bdc1072a02ec2f8f548308b24b2ac2352174ab0815"
+  }
 }
