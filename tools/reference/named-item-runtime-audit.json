@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "3bcbb57c9eafca83c394d155f0065cfbc4abebceba33e12acc6e2d692b9676ee",
+  "ContentAssemblySha256": "eac135307c2da1fbf2709b66a9f27e9f305b9d462b8795bf65e54ac9980738aa",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -365,7 +365,7 @@
     "src/Sanctuary.Content/CorpseEscrowStorage.cs": "699023860264277e3d126648de2f480562d70aafcf6986790e1706f18613208e",
     "src/Sanctuary.Content/CorpseExplosionCasts.cs": "b0df2775118cdb88a0208c6e1f2a56b7f828a24281afc6ae3810414a0ac59bd5",
     "src/Sanctuary.Content/CorpseExplosionPackets.cs": "d8ba36248d3bfd3650144513c632f6be7e751f0efdfd1db12cc171388e9da041",
-    "src/Sanctuary.Content/CorpseSkillRules.cs": "6c84703485156cb7e1f86a9be34bedf003eaa897bbe38f706a28883dccf1c39a",
+    "src/Sanctuary.Content/CorpseSkillRules.cs": "d8bf8bef2eb4e8c83fe64336f826b442d18c89e4ba52eff5613913bba0d57084",
     "src/Sanctuary.Content/CraftFacilities.cs": "c43de948a02d98169940a6b9ea7c0f05de715236e030263d1f7bd28611f471b0",
     "src/Sanctuary.Content/CraftToolProfiles.cs": "2ef787ec93fed04cf25a939e6ee501e98d2fdb72029b0b5ee07a6332df795601",
     "src/Sanctuary.Content/CraftTransactions.cs": "7ec5534c0ef464e07a209bc77e89538c2798f8570ec45413bc5cb7006485a1fb",
@@ -680,6 +680,7 @@
     "src/Sanctuary.Content/RepairGump.cs": "488c53d33c42fce4d6cd743d0ca56f95295b84810ed41a761ee20d783d5d6b4a",
     "src/Sanctuary.Content/RepairProfiles.cs": "c197ab1206475858e1677f695a12bf7f9fa0d2661392fb155f035edbe4727fa1",
     "src/Sanctuary.Content/RepairTools.cs": "061f2ca4ad8304ee4fec9ae896576d18a8c30eaefcb270396ef32cf8fd1da5b7",
+    "src/Sanctuary.Content/ReviveCreatureSnapshots.cs": "7fcee0f39321dafc29c2c9645ff481f3710e77da4ccd7daff31964c5b714f889",
     "src/Sanctuary.Content/ReviveSourcePolicy.cs": "9a6abdb7cd9a28c8ad65e85d7834ed0793a31d2a2b72f8e96bcbd30b0d4a57fe",
     "src/Sanctuary.Content/ReviveSpecies.cs": "66ef9f5b14768fea7fe05c0fd5d83a98cb48c54e4903a07440b59e56e35ed21d",
     "src/Sanctuary.Content/RewardLife.cs": "65c1cc6e4cee438d10779dd0755e30261ad10f4d9cc1dba682d70619d95681cb",
@@ -711,7 +712,7 @@
     "src/Sanctuary.Content/SourceAnimationEvents.cs": "49bae803dae993451e4bf86b8fda58bc12ca7fff31dc787c6ad28cdcbe980a9f",
     "src/Sanctuary.Content/SourceAttackRate.cs": "d0c554857f117166714dd3a8110dbd1965ec1174ed0803e5e248d5e6960323c8",
     "src/Sanctuary.Content/SourceBlocking.cs": "9d2470e982e7cdaf0621f0623bd36fd0ae521105d6eb7a6cf129448d144173aa",
-    "src/Sanctuary.Content/SourceCorpseIdentity.cs": "10bcadb767632da43540c7e8b6fc16bcba85d709f063554fa6e7a8d57a30ae92",
+    "src/Sanctuary.Content/SourceCorpseIdentity.cs": "e236714b2e79bbb01f7d2f711cee8b2b150507572dd60eec216537e0ac5553f4",
     "src/Sanctuary.Content/SourceCurseDuration.cs": "fa75d68ab83b70b31292bb6825b4c81c73bc4df7ec4ad267ab2f9ab42503058d",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "ebe237f1af44ec94b3096bab81c35512710c10f3851d98a16dfbd7e23dd53c2d",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "6eb394260f853b58aa86fcf201655e8e290bceb128a9fdd6bac4d8f2cda98b92",

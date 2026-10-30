@@ -8,6 +8,7 @@ namespace Sanctuary;
 internal sealed record SourceCorpseUnit(int Id,int ClassId,Corpse Body,CorpseSkillRecord Snapshot)
 {
     internal bool SpeciesAllowsRevive=>ReviveSpecies.ForClass(ClassId)??throw new NotSupportedException("Corpse species has no verified Revive rule");
+    internal ReviveCreatureSnapshot OriginalCreature=>Snapshot.ReviveCreature??throw new NotSupportedException(Snapshot.ReviveSnapshotIssue??"Legacy corpse has no saved original creature descriptor");
 }
 // Identity is independent of corpse usability. Reservation,shattering and RIP
 // belong to the state/eligibility producer; none changes the original GUID.

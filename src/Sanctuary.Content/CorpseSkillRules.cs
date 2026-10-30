@@ -11,7 +11,7 @@ namespace Sanctuary;
 
 public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura,bool Soft=false);
 public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
-public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null);
+public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null);
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
@@ -52,7 +52,8 @@ public sealed class CorpseSkillProfiles : GenericPersistence
         _rows.Clear();_originals.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
         {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty))
             || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || !((Serial)life.OriginalMonsterSerial).IsMobile || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
-            || row.MonsterLevel is <1 || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}Store(row);}
+            || row.MonsterLevel is <1 || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}
+            if(row.ReviveCreature is{} revive){if(row.ReviveSnapshotIssue!=null){throw new InvalidDataException("Corpse has conflicting reconstruction data");}ReviveCreatureSnapshots.Validate(revive,row.Source);}Store(row);}
     }
 }
 public static class CorpseSkillRules
@@ -94,8 +95,10 @@ public static class CorpseSkillRules
         // context. Repeated death/access callbacks must not revive an attempt.
         if(old!=null){return;}
         int level=CreatureProfiles.Level(creature);
+        string issue=null;var revive=known&&_selectable[key]?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
         Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature),false,Treasure(creature),
-            known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null));
+            known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
+            revive,issue));
     }
     private static CorpseTreasure Treasure(BaseCreature creature)
     {

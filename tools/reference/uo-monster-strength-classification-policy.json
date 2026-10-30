@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Direct user decision in this task; Sanctuary deviations take precedence.",
+  "userReport": "native UO mobs that don't have a D2 equivalent, we'll have to categorise by relative strength i guess",
+  "approvedPolicy": "Classify native UO monsters without a direct D2 equivalent by relative strength for Sanctuary adaptation. Do not present a strength-tier assignment as a literal D2 species match.",
+  "implementationStatus": "Policy recorded; tier thresholds and individual assignments are not implemented or verified.",
+  "assignmentRequirements": [
+    "Retain the original UO creature identity and abilities; a strength category is not an instruction to replace the creature.",
+    "Keep provenance explicit: direct counterpart versus Sanctuary relative-strength classification.",
+    "Document uncertain assignments and continue unaffected skills.",
+    "Choose and verify tier criteria before enabling any currently unmapped creature in source-species-dependent mechanics."
+  ],
+  "scopeLimit": "This decision does not by itself assign Revive eligibility, D2 special flags, AI, immunity, rewards or summon statistics to an unmapped UO creature."
+}
