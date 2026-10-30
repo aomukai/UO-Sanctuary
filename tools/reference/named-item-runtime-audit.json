@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "960c9b77478994a73faf4e2677d598861fac2da5402f97dd856ccb9e851f6020",
+  "ContentAssemblySha256": "2d1d42c7f7f9d0676c4495f6ac0b1303582b881c0135f17c954fa473ca488aef",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -574,7 +574,8 @@
     "src/Sanctuary.Content/IronGolemItemCast.cs": "a19fdc85bdd601864d2656d973df7a25d890ef11b2d2a0a54f3a1f380c27dae3",
     "src/Sanctuary.Content/IronGolemItems.cs": "8e0fe763c4fb841d9947d6001bf4ddf6b2bc34b9717889974363d1b713adf978",
     "src/Sanctuary.Content/ItemDamageOperations.cs": "383ec1bd2a683e754d1b0531d10813e5183af2c2ed0b860cd35ac7788373adda",
-    "src/Sanctuary.Content/ItemStatContext.cs": "e41e2f3f53bf7c4801280394b6e8501956076223b670b25fe0ad82ba70c9e64b",
+    "src/Sanctuary.Content/ItemPoisonProjection.cs": "29ad4474e0aa86aca8a535ca7edaad0e7c236d757cda3ad1659558e1c060a7eb",
+    "src/Sanctuary.Content/ItemStatContext.cs": "726a00b07e42840d67ec85d4693d5ba272101b08ad781f10cc8b263b57aa3e69",
     "src/Sanctuary.Content/JewelleryCrafting.cs": "a4c86d8e4d739768ec0efec16f7bd4bdd24704bd0d94cb1ae521ade67c67935c",
     "src/Sanctuary.Content/LandingReservations.cs": "cd2f123547c5df86aad9aef498c8764ace5365c838277101c299105753fb482c",
     "src/Sanctuary.Content/LeapGeometry.cs": "29bde817512de3c6b20e09808eaec7219574a20e6a1c2b9676e9c62d93e21a47",
@@ -630,8 +631,9 @@
     "src/Sanctuary.Content/NecromancerEffects.cs": "1cfb32ed02dc34c96def1c826add363b6ee6ad89f1d6178ad5e29b0a46711c2d",
     "src/Sanctuary.Content/NecromancerSummons.cs": "c4330e1db2dc863d31de90f8615e6fcb76b641d2979cdbea5ba522373a8a4519",
     "src/Sanctuary.Content/NpcEquipmentCombat.cs": "b16c6f63e2e9ae806394184d8db024ade624dbaa32639a5ffe2c1454bf6b1506",
-    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "d8e9ed6b1df4766f9c610e1807b614d8a4ada7082c730c1a20c46e05a73ea0ae",
+    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "3edd52a7b6fd4bcc8f706a150eda32af4bc7c22f65eec54632a06f8b2c19b2c3",
     "src/Sanctuary.Content/NpcEquipmentElements.cs": "250a17be86982e5fd4b739a1cadf4b2209c71c2a29718ccf00afc4610a36c429",
+    "src/Sanctuary.Content/NpcEquipmentPoison.cs": "00a36a3481971e96cdb05bed81dca77c67329b2209356c315821bcd559735910",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464",
     "src/Sanctuary.Content/PaladinAuras.cs": "7f0c47451f2d84808e283dcabb9e8eef458b46df34d125f75f37d670e0a8f6b6",
     "src/Sanctuary.Content/PaladinCharge.cs": "b4b2b77ee70c996153992bfd71d0890d04a3f85d6aac4a061a9ae50e264ea50d",
