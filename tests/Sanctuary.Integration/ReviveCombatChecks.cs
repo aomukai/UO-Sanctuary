@@ -32,6 +32,7 @@ internal static class ReviveCombatChecks
     {
         var stats=row.Setup.CombatPlan;
         Require(stats!=null&&ClassStats.Level(actor)==stats.Level&&CreatureProfiles.Snapshot(actor).Level==stats.Level
+            &&ClassCombatHooks.SourceWeaponDamage(actor)
             &&PaladinAuras.NativeWeaponMultiplier(actor,true)==1+stats.DamagePercent/100.0
             &&PaladinAuras.NativeWeaponMultiplier(actor,false)==1
             &&Math.Abs(ClassGearHooks.MovementDelay(actor,1)-100.0/(100+stats.VelocityPercent))<1e-12,

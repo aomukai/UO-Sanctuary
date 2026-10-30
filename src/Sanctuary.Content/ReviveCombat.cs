@@ -10,6 +10,9 @@ namespace Sanctuary;
 public sealed record ReviveCombatPlan(int Level,int DamagePercent,int VelocityPercent);
 internal static class ReviveCombat
 {
+    public static void Configure()=>ClassCombatHooks.SourceWeaponDamage=actor=>Active(actor)
+        &&CreatureProfiles.For(actor) is{Enabled:true,ApplyStats:true}
+        &&actor.DamageMin>=0&&actor.DamageMax>=actor.DamageMin;
     internal static int ReducedLevel(int original,int caster)=>original!=0&&caster<original?caster:original;
     internal static ReviveCombatPlan Calculate(ReviveLifePlan life,int rank,Func<string,int> accrued)
     {

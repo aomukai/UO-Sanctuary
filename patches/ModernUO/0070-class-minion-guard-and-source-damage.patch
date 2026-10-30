@@ -1,0 +1,65 @@
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -40,6 +40,8 @@
+     public static Action<PlayerMobile, Corpse> PlayerCorpseCreated { get; set; }
+     public static Action<PlayerMobile, SkillName, double> SkillChanged { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
++    public static Func<BaseCreature, Mobile, bool?> GuardTarget { get; set; }
++    public static Func<BaseCreature, bool> SourceWeaponDamage { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
+     public static Func<BaseCreature, int, int, int?> CreatureResourceMaximum { get; set; }
+     public static Func<PlayerMobile, int, int> FinalDamage { get; set; }
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -2639,8 +2639,14 @@
+         return damage + damage * totalBonus;
+     }
+ 
+-    public virtual int ComputeDamageAOS(Mobile attacker, Mobile defender) =>
+-        (int)ScaleDamageAOS(attacker, GetBaseDamage(attacker), true);
++    public virtual int ComputeDamageAOS(Mobile attacker, Mobile defender)
++    {
++        var basis = GetBaseDamage(attacker);
++        // Mapped class NPCs already supply a D2 damage range. Their content
++        // adapter owns combat modifiers; ordinary native damage stays intact.
++        return attacker is BaseCreature creature && ClassCombatHooks.SourceWeaponDamage?.Invoke(creature) == true
++            ? (int)basis : (int)ScaleDamageAOS(attacker, basis, true);
++    }
+ 
+     public virtual double ScaleDamageOld(Mobile attacker, double damage, bool checkSkills)
+     {
+diff --git a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+@@ -796,14 +796,18 @@
+         var anchor = controlMaster ?? Mobile;
+ 
+         var current = Mobile.Combatant;
+-        var best = !IsGuardAlly(current) && IsValidCombatant(current) ? current : null;
++        var best = !IsGuardAlly(current) && IsValidCombatant(current)
++            && ClassCombatHooks.GuardTarget?.Invoke(Mobile, current) != false ? current : null;
+         var bestDist = best?.GetDistanceToSqrt(anchor) ?? double.MaxValue;
+ 
+         foreach (var aggr in Mobile.GetMobilesInRange(Mobile.RangePerception))
+         {
+-            if (aggr == best || IsGuardAlly(aggr) ||
++            // null retains ordinary pet behavior; true additionally permits
++            // proactive class-minion acquisition; false excludes all routes.
++            var permission = ClassCombatHooks.GuardTarget?.Invoke(Mobile, aggr);
++            if (aggr == best || IsGuardAlly(aggr) || permission == false ||
+                 aggr.IsDeadBondedPet || !aggr.Alive ||
+-                aggr.Combatant != Mobile && (controlMaster == null || aggr.Combatant != controlMaster))
++                permission != true && aggr.Combatant != Mobile && (controlMaster == null || aggr.Combatant != controlMaster))
+             {
+                 continue;
+             }
+@@ -826,6 +830,7 @@
+                 var aggressor = aggressors[i].Attacker;
+ 
+                 if (aggressor == best || aggressor?.Deleted != false || IsGuardAlly(aggressor) || !aggressor.Alive ||
++                    ClassCombatHooks.GuardTarget?.Invoke(Mobile, aggressor) == false ||
+                     aggressor.IsDeadBondedPet || !Mobile.InRange(aggressor, Mobile.RangePerception))
+                 {
+                     continue;

@@ -34,6 +34,10 @@ public static class PersistentMinions
     {
         Profiles = new();
         ClassCombatHooks.PersistentMinion = pet => Behavior(pet)!=null;
+        ClassCombatHooks.GuardTarget = (pet,target) => Behavior(pet)==null?null:
+            pet is{Alive:true,Deleted:false,Blessed:false}&&pet.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
+            &&owner.Map==pet.Map&&pet.Map!=Map.Internal&&Active(owner,pet)&&Permitted(owner,pet,Behavior(pet).SummonClass)
+            &&ClassCombat.IsHostile(owner,target)&&ClassCombatHooks.TargetAllowed?.Invoke(pet,target)!=false;
         ClassCombatHooks.SuspendMinions = Suspend;
         ClassCombatHooks.ResumeMinions = Resume;
         EventSink.Disconnected += OnDisconnected;
