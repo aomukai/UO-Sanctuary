@@ -6,6 +6,8 @@ The [replacement design](revive-behavior-replacements.md) records concrete breat
 
 **Global scope:** all UO monsters need their UO spells replaced with D2 spells as a [separate world-conversion task](monster-spell-conversion.md). Revive consumes the converted monster repertoire; the review must not narrow that work to revived casters or duplicate it there.
 
+**Latest default:** Revive retains whatever abilities the monster could use while alive, using its current implementation until the global conversion supplies D2 spells. This supersedes earlier per-ability inheritance gates (including healing/resurrection). The original actor already retains its native type/AI; no separate spell catalogue is required for Revive. Technical ownership/hostility/lifecycle safety and corpse eligibility remain necessary. Pending world conversion is not a blocker for learned Revive.
+
 | Behavior | Decision and evidence | Remaining work |
 | --- | --- | --- |
 | Original actor identity | Keep the original object, serial, type, appearance and compatible AI role. [Activation](../tools/reference/revive-native-activation-evidence.json) verifies in-place ownership and independent corpse loot. | Validate individual special AI/state paths; preserving identity does not require retaining every UO mechanic. |

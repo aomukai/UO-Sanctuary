@@ -16,14 +16,21 @@
       "yeah there's no heal and cure spells in D2, only potions",
       "but i think we can attack annoying scripts like \"heals other monsters\" to mobs, but those are then special mobs, like our lich resurrecting dead mobs."
     ],
-    "interpretation": "Remove generic UO Heal/Greater Heal/Cure through the game-wide monster spell conversion, affecting wild and revived monsters. Explicit special monster roles may heal allies or resurrect corpses. Existing D2-specific healing remains intact. Automatic potion use and Revive inheritance of special resurrection/healing remain unspecified.",
+    "interpretation": "Generic UO Heal/Greater Heal/Cure are removed in the later game-wide conversion, not only from Revives. Until then, Revive retains the monster's existing abilities, including special healing/resurrection. Existing D2-specific healing remains intact; automatic potion use is unspecified.",
     "design": "docs/revive-behavior-replacements.md",
     "implementationStatus": "Design only; no runtime selector or ability changes."
   },
   "globalSpellConversion": {
     "userStatement": "monster spells need to be changed for everything in UO. all monsters need their UO spells taken and be given D2 spells. that's a thing of its own.",
-    "scope": "Separate game-wide task: replace UO spell repertoires with D2 spells for all UO monsters, including wild monsters. Revive reuses the shared converted repertoire with its own ability-eligibility/lifecycle rules. Earlier permission to retain compatible behavior does not authorize retaining vanilla UO spells.",
+    "scope": "Separate later game-wide task: replace UO spell repertoires with D2 spells for all UO monsters, including wild monsters. Revive retains the current repertoire now and reuses the shared converted implementation later. It does not wait for conversion or maintain a separate spell whitelist.",
     "plan": "docs/monster-spell-conversion.md",
     "status": "Recorded for implementation; no runtime conversion performed in this documentation checkpoint."
+  },
+  "currentAbilityInheritance": {
+    "userStatement": "we're back :) so the revive code can just assume the monsters can use whatever they could while alive, and we'll later equip all caster mobs with D2 spells.",
+    "effectivePolicy": "An eligible revived monster retains its existing abilities, including its native spell repertoire while global conversion is pending. Revive uses the same monster implementation, not a separate spell whitelist. Later global conversion updates living and revived versions together. Per-ability replacement design is not a prerequisite for learned Revive.",
+    "supersedes": "Earlier proposals to gate inherited spells, healing or resurrection on a separate role decision. Historical D2 resurrection exclusions must not silently override this user instruction.",
+    "remainingRequirements": "Ordinary corpse eligibility, ownership, hostility, lifecycle, resources and stat rules. Record actual technical failures individually; an unconverted repertoire alone is not a failure.",
+    "implementationObservation": "Existing prepared activation retains the same native actor/type/AI; learned casting remains unfinished. No new runtime behavior is claimed by this policy correction."
   }
 }
