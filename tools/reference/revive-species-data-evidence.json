@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current species Revive flags and complete older eligibility/release/owner references",
+  "processMemoryRead": false,
+  "handlerEnabled": false,
+  "legacyBodiesExecuted": false,
+  "modernCodeEquivalenceClaimed": false,
+  "verified": {
+    "secondaryRows": 623,
+    "secondaryStride": 296,
+    "compiledTextReviveMatches": 623,
+    "allowedSecondaryRows": 391,
+    "reviveFlagByte": 5,
+    "reviveFlagMask": 1,
+    "completeLegacyRoutines": 3
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "routineHashes": {
+    "SKILLS_SrvSt21_Revive": "a39a2645db07eab1c34104b7af44c8309231254cf9a812be5bda1f687bd8f5af",
+    "SKILLS_SrvDo058_Revive": "64437348a3a1cdfe626a6509cef2db77fef8b76c35fee9235132342eea13bf63",
+    "sub_6FD0DF40": "7e65578e9ed7d50319579b7f7a04dc3a7ed05817da89e3e77f2b69f8a3bd1eb2"
+  },
+  "pinnedSkill": {
+    "skillId": 95,
+    "start": 21,
+    "release": 58,
+    "mana": 45,
+    "baseLifePercent": 200,
+    "durationFrames": 4500,
+    "velocityPercent": 50,
+    "cap": "effective rank"
+  },
+  "sanctuaryLifetimePolicy": {
+    "maximumAgeFrames": null,
+    "removeOnReviveDeath": true,
+    "removeOnNecromancerDeath": true,
+    "removeOnReplacement": true
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/generic-pet-metadata/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    ".local/class-skills/generic-pet-search-nested/monstats2.bin": "f13b15eafdf4b9ef2416a0dbc55202a5fb81e076ae47111551098e46a2ab1248",
+    ".local/class-skills/generic-pet-search-nested/monstats2.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/revive-species-rules-data-probe.json": "e3211ef0f14082911de5fb39d46ed3e365b8f93628a13433c32ea96de3235286",
+    "data/Sanctuary/Balance/generic-pet-search-monster-links.json": "7f9d7af007a87a27dc9cb76e3b8392249552a255c362a3d29da727d9c8e18823",
+    "data/Sanctuary/Balance/generic-pet-search-monster2.json": "8e5679f5137901963988b04914514c04685ae933aece82939cf048e09f359fc0",
+    "data/Sanctuary/Balance/revive-policy.json": "40c6a3fe8845ed9298f892311583d15fa77862e0249674e6a6fdbcfacece3b3e",
+    "data/Sanctuary/Balance/revive-species-rules.json": "a12f8b52b80ea818c9bfcda37860e1a6306c7711c9294cad3edbaf6c30480166",
+    "tools/build_revive_species_rules.py": "e7b55b24d67e0d0b8032eece3130c1550a11f883ceec98caba508fcd1fb87b6d",
+    "tools/reference/generic-pet-secondary-data-evidence.json": "5fa22214ef984bc72eaa716900798d94d39a822dd2802acbcb7b3585533e2747",
+    "tools/reference/revive-lifetime-deviation.json": "8825aa436e5a8f29e965f5bc607e930c3dd535493a069b6d433320b0d84a2069"
+  },
+  "established": [
+    "All623current compiled byte5/bit0 values match the owned text revive column.391secondary rows permit the species gate. Current primary-to-secondary links are reused;the documented text hcIdx/compiled ordinal differences are not treated as identities.",
+    "The complete older start21requires a monster,revivable secondary row,dead/consumable state and revived-AI permission. The complete older release58modifies the same target rather than allocating a generic replacement. It rolls inclusive source base HP using the target seed,downscales HP/level for a lower-level caster,and then applies summon passives,owner conversion,cap registration and AI updates. No-free-room does not return failure before those later steps.",
+    "The complete older owner helper records ownership,requests AI think at current frame+15,sets revive state and schedules unique-mod21expiry for positive duration. Current skill95pins4500frames/180seconds,45mana,200base life percent and50velocity percent. Passive/stat/proc and native world behavior are not established by reading these bodies.",
+    "The user-approved Sanctuary lifetime overrides the source expiry:maximum age is null and no expiration event is scheduled. Revives end on their own death,Necromancer death or replacement. Functional AI/combat/status timers remain independent. This policy does not enable an incomplete actor."
+  ],
+  "remaining": [
+    "This reference analysis does not execute the older routines or establish modern executable equivalence. Native species/identity integration,full start/release policy,revived AI permission,in-place native reconstruction,full stat/passive/special-ability transfer,GUID reservation and complete lifecycle remain required. Species permission is necessary,not sufficient,for a successful cast."
+  ]
+}

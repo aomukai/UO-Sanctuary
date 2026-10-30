@@ -1,0 +1,8 @@
+[
+  {
+    "maximumAgeFrames": null,
+    "removeOnReviveDeath": true,
+    "removeOnNecromancerDeath": true,
+    "removeOnReplacement": true
+  }
+]

@@ -782,7 +782,7 @@
       "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton."
+      "remaining": "Requires source-preserving combat/special abilities,complete corpse/AI eligibility and native actor lifecycle. Approved Sanctuary lifetime has no expiration timer:revives remain until their death,the Necromancer dies or replacement. Historical GUID/species lookup is accepted;do not substitute a generic skeleton."
     },
     {
       "talentId": "necromancer.teeth",

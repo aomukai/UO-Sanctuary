@@ -5,7 +5,10 @@ using Server.Items;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record SourceCorpseUnit(int Id,int ClassId,Corpse Body,CorpseSkillRecord Snapshot);
+internal sealed record SourceCorpseUnit(int Id,int ClassId,Corpse Body,CorpseSkillRecord Snapshot)
+{
+    internal bool SpeciesAllowsRevive=>ReviveSpecies.ForClass(ClassId)??throw new NotSupportedException("Corpse species has no verified Revive rule");
+}
 // Identity is independent of corpse usability. Reservation,shattering and RIP
 // belong to the state/eligibility producer; none changes the original GUID.
 internal static class SourceCorpseIdentity

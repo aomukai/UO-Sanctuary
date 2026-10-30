@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "decisionDate": "2026-10-30",
+  "status": "user-approved",
+  "talentId": "necromancer.revive",
+  "userStatement": "revives don't need an expiration timer btw, we won't make them spawn with a timer. they'll last until they die, the necro dies or they're replaced",
+  "sourceDurationFrames": 4500,
+  "sourceDurationSeconds": 180,
+  "sanctuaryMaximumAgeFrames": null,
+  "scheduleExpirationEvent": false,
+  "removeOn": [
+    "revive-death",
+    "necromancer-death",
+    "replacement"
+  ],
+  "runtimePolicy": "data/Sanctuary/Balance/revive-policy.json",
+  "scope": "Revive lifetime only. AI, combat, status-effect and other functional event timers remain independent. The pinned source tables retain their original duration as reference data; the approved Sanctuary rule takes precedence. This decision does not certify a complete learned Revive actor."
+}

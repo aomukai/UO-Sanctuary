@@ -1,0 +1,3117 @@
+[
+  {
+    "id": 0,
+    "name": "skeleton1",
+    "allowed": true
+  },
+  {
+    "id": 1,
+    "name": "skeleton2",
+    "allowed": true
+  },
+  {
+    "id": 2,
+    "name": "skeleton3",
+    "allowed": true
+  },
+  {
+    "id": 3,
+    "name": "skeleton4",
+    "allowed": true
+  },
+  {
+    "id": 4,
+    "name": "skeleton5",
+    "allowed": true
+  },
+  {
+    "id": 5,
+    "name": "zombie1",
+    "allowed": true
+  },
+  {
+    "id": 6,
+    "name": "zombie2",
+    "allowed": true
+  },
+  {
+    "id": 7,
+    "name": "zombie3",
+    "allowed": true
+  },
+  {
+    "id": 8,
+    "name": "zombie4",
+    "allowed": true
+  },
+  {
+    "id": 9,
+    "name": "zombie5",
+    "allowed": true
+  },
+  {
+    "id": 10,
+    "name": "bighead1",
+    "allowed": true
+  },
+  {
+    "id": 11,
+    "name": "bighead2",
+    "allowed": true
+  },
+  {
+    "id": 12,
+    "name": "bighead3",
+    "allowed": true
+  },
+  {
+    "id": 13,
+    "name": "bighead4",
+    "allowed": true
+  },
+  {
+    "id": 14,
+    "name": "bighead5",
+    "allowed": true
+  },
+  {
+    "id": 15,
+    "name": "foulcrow1",
+    "allowed": true
+  },
+  {
+    "id": 16,
+    "name": "foulcrow2",
+    "allowed": true
+  },
+  {
+    "id": 17,
+    "name": "foulcrow3",
+    "allowed": true
+  },
+  {
+    "id": 18,
+    "name": "foulcrow4",
+    "allowed": true
+  },
+  {
+    "id": 19,
+    "name": "fallen1",
+    "allowed": true
+  },
+  {
+    "id": 20,
+    "name": "fallen2",
+    "allowed": true
+  },
+  {
+    "id": 21,
+    "name": "fallen3",
+    "allowed": true
+  },
+  {
+    "id": 22,
+    "name": "fallen4",
+    "allowed": true
+  },
+  {
+    "id": 23,
+    "name": "fallen5",
+    "allowed": true
+  },
+  {
+    "id": 24,
+    "name": "brute2",
+    "allowed": true
+  },
+  {
+    "id": 25,
+    "name": "brute3",
+    "allowed": true
+  },
+  {
+    "id": 26,
+    "name": "brute4",
+    "allowed": true
+  },
+  {
+    "id": 27,
+    "name": "brute5",
+    "allowed": true
+  },
+  {
+    "id": 28,
+    "name": "brute1",
+    "allowed": true
+  },
+  {
+    "id": 29,
+    "name": "sandraider1",
+    "allowed": true
+  },
+  {
+    "id": 30,
+    "name": "sandraider2",
+    "allowed": true
+  },
+  {
+    "id": 31,
+    "name": "sandraider3",
+    "allowed": true
+  },
+  {
+    "id": 32,
+    "name": "sandraider4",
+    "allowed": true
+  },
+  {
+    "id": 33,
+    "name": "sandraider5",
+    "allowed": true
+  },
+  {
+    "id": 34,
+    "name": "gorgon1",
+    "allowed": false
+  },
+  {
+    "id": 35,
+    "name": "gorgon2",
+    "allowed": false
+  },
+  {
+    "id": 36,
+    "name": "gorgon3",
+    "allowed": false
+  },
+  {
+    "id": 37,
+    "name": "gorgon4",
+    "allowed": false
+  },
+  {
+    "id": 38,
+    "name": "wraith1",
+    "allowed": true
+  },
+  {
+    "id": 39,
+    "name": "wraith2",
+    "allowed": true
+  },
+  {
+    "id": 40,
+    "name": "wraith3",
+    "allowed": true
+  },
+  {
+    "id": 41,
+    "name": "wraith4",
+    "allowed": true
+  },
+  {
+    "id": 42,
+    "name": "wraith5",
+    "allowed": true
+  },
+  {
+    "id": 43,
+    "name": "corruptrogue1",
+    "allowed": true
+  },
+  {
+    "id": 44,
+    "name": "corruptrogue2",
+    "allowed": true
+  },
+  {
+    "id": 45,
+    "name": "corruptrogue3",
+    "allowed": true
+  },
+  {
+    "id": 46,
+    "name": "corruptrogue4",
+    "allowed": true
+  },
+  {
+    "id": 47,
+    "name": "corruptrogue5",
+    "allowed": true
+  },
+  {
+    "id": 48,
+    "name": "baboon1",
+    "allowed": true
+  },
+  {
+    "id": 49,
+    "name": "baboon2",
+    "allowed": true
+  },
+  {
+    "id": 50,
+    "name": "baboon3",
+    "allowed": true
+  },
+  {
+    "id": 51,
+    "name": "baboon4",
+    "allowed": true
+  },
+  {
+    "id": 52,
+    "name": "baboon5",
+    "allowed": true
+  },
+  {
+    "id": 53,
+    "name": "goatman1",
+    "allowed": true
+  },
+  {
+    "id": 54,
+    "name": "goatman2",
+    "allowed": true
+  },
+  {
+    "id": 55,
+    "name": "goatman3",
+    "allowed": true
+  },
+  {
+    "id": 56,
+    "name": "goatman4",
+    "allowed": true
+  },
+  {
+    "id": 57,
+    "name": "goatman5",
+    "allowed": true
+  },
+  {
+    "id": 58,
+    "name": "fallenshaman1",
+    "allowed": true
+  },
+  {
+    "id": 59,
+    "name": "fallenshaman2",
+    "allowed": true
+  },
+  {
+    "id": 60,
+    "name": "fallenshaman3",
+    "allowed": true
+  },
+  {
+    "id": 61,
+    "name": "fallenshaman4",
+    "allowed": true
+  },
+  {
+    "id": 62,
+    "name": "fallenshaman5",
+    "allowed": true
+  },
+  {
+    "id": 63,
+    "name": "quillrat1",
+    "allowed": true
+  },
+  {
+    "id": 64,
+    "name": "quillrat2",
+    "allowed": true
+  },
+  {
+    "id": 65,
+    "name": "quillrat3",
+    "allowed": true
+  },
+  {
+    "id": 66,
+    "name": "quillrat4",
+    "allowed": true
+  },
+  {
+    "id": 67,
+    "name": "quillrat5",
+    "allowed": true
+  },
+  {
+    "id": 68,
+    "name": "sandmaggot1",
+    "allowed": true
+  },
+  {
+    "id": 69,
+    "name": "sandmaggot2",
+    "allowed": true
+  },
+  {
+    "id": 70,
+    "name": "sandmaggot3",
+    "allowed": true
+  },
+  {
+    "id": 71,
+    "name": "sandmaggot4",
+    "allowed": true
+  },
+  {
+    "id": 72,
+    "name": "sandmaggot5",
+    "allowed": true
+  },
+  {
+    "id": 73,
+    "name": "clawviper1",
+    "allowed": true
+  },
+  {
+    "id": 74,
+    "name": "clawviper2",
+    "allowed": true
+  },
+  {
+    "id": 75,
+    "name": "clawviper3",
+    "allowed": true
+  },
+  {
+    "id": 76,
+    "name": "clawviper4",
+    "allowed": true
+  },
+  {
+    "id": 77,
+    "name": "clawviper5",
+    "allowed": true
+  },
+  {
+    "id": 78,
+    "name": "sandleaper1",
+    "allowed": false
+  },
+  {
+    "id": 79,
+    "name": "sandleaper2",
+    "allowed": false
+  },
+  {
+    "id": 80,
+    "name": "sandleaper3",
+    "allowed": false
+  },
+  {
+    "id": 81,
+    "name": "sandleaper4",
+    "allowed": false
+  },
+  {
+    "id": 82,
+    "name": "sandleaper5",
+    "allowed": false
+  },
+  {
+    "id": 83,
+    "name": "pantherwoman1",
+    "allowed": true
+  },
+  {
+    "id": 84,
+    "name": "pantherwoman2",
+    "allowed": true
+  },
+  {
+    "id": 85,
+    "name": "pantherwoman3",
+    "allowed": true
+  },
+  {
+    "id": 86,
+    "name": "pantherwoman4",
+    "allowed": true
+  },
+  {
+    "id": 87,
+    "name": "swarm1",
+    "allowed": true
+  },
+  {
+    "id": 88,
+    "name": "swarm2",
+    "allowed": true
+  },
+  {
+    "id": 89,
+    "name": "swarm3",
+    "allowed": true
+  },
+  {
+    "id": 90,
+    "name": "swarm4",
+    "allowed": true
+  },
+  {
+    "id": 91,
+    "name": "scarab1",
+    "allowed": true
+  },
+  {
+    "id": 92,
+    "name": "scarab2",
+    "allowed": true
+  },
+  {
+    "id": 93,
+    "name": "scarab3",
+    "allowed": true
+  },
+  {
+    "id": 94,
+    "name": "scarab4",
+    "allowed": true
+  },
+  {
+    "id": 95,
+    "name": "scarab5",
+    "allowed": true
+  },
+  {
+    "id": 96,
+    "name": "mummy1",
+    "allowed": true
+  },
+  {
+    "id": 97,
+    "name": "mummy2",
+    "allowed": true
+  },
+  {
+    "id": 98,
+    "name": "mummy3",
+    "allowed": true
+  },
+  {
+    "id": 99,
+    "name": "mummy4",
+    "allowed": true
+  },
+  {
+    "id": 100,
+    "name": "mummy5",
+    "allowed": true
+  },
+  {
+    "id": 101,
+    "name": "unraveler1",
+    "allowed": true
+  },
+  {
+    "id": 102,
+    "name": "unraveler2",
+    "allowed": true
+  },
+  {
+    "id": 103,
+    "name": "unraveler3",
+    "allowed": true
+  },
+  {
+    "id": 104,
+    "name": "unraveler4",
+    "allowed": true
+  },
+  {
+    "id": 105,
+    "name": "unraveler5",
+    "allowed": true
+  },
+  {
+    "id": 106,
+    "name": "chaoshorde1",
+    "allowed": false
+  },
+  {
+    "id": 107,
+    "name": "chaoshorde2",
+    "allowed": false
+  },
+  {
+    "id": 108,
+    "name": "chaoshorde3",
+    "allowed": false
+  },
+  {
+    "id": 109,
+    "name": "chaoshorde4",
+    "allowed": false
+  },
+  {
+    "id": 110,
+    "name": "vulture1",
+    "allowed": true
+  },
+  {
+    "id": 111,
+    "name": "vulture2",
+    "allowed": true
+  },
+  {
+    "id": 112,
+    "name": "vulture3",
+    "allowed": true
+  },
+  {
+    "id": 113,
+    "name": "vulture4",
+    "allowed": true
+  },
+  {
+    "id": 114,
+    "name": "mosquito1",
+    "allowed": true
+  },
+  {
+    "id": 115,
+    "name": "mosquito2",
+    "allowed": true
+  },
+  {
+    "id": 116,
+    "name": "mosquito3",
+    "allowed": true
+  },
+  {
+    "id": 117,
+    "name": "mosquito4",
+    "allowed": true
+  },
+  {
+    "id": 118,
+    "name": "willowisp1",
+    "allowed": true
+  },
+  {
+    "id": 119,
+    "name": "willowisp2",
+    "allowed": true
+  },
+  {
+    "id": 120,
+    "name": "willowisp3",
+    "allowed": true
+  },
+  {
+    "id": 121,
+    "name": "willowisp4",
+    "allowed": true
+  },
+  {
+    "id": 122,
+    "name": "arach1",
+    "allowed": true
+  },
+  {
+    "id": 123,
+    "name": "arach2",
+    "allowed": true
+  },
+  {
+    "id": 124,
+    "name": "arach3",
+    "allowed": true
+  },
+  {
+    "id": 125,
+    "name": "arach4",
+    "allowed": true
+  },
+  {
+    "id": 126,
+    "name": "arach5",
+    "allowed": true
+  },
+  {
+    "id": 127,
+    "name": "thornhulk1",
+    "allowed": true
+  },
+  {
+    "id": 128,
+    "name": "thornhulk2",
+    "allowed": true
+  },
+  {
+    "id": 129,
+    "name": "thornhulk3",
+    "allowed": true
+  },
+  {
+    "id": 130,
+    "name": "thornhulk4",
+    "allowed": true
+  },
+  {
+    "id": 131,
+    "name": "vampire1",
+    "allowed": true
+  },
+  {
+    "id": 132,
+    "name": "vampire2",
+    "allowed": true
+  },
+  {
+    "id": 133,
+    "name": "vampire3",
+    "allowed": true
+  },
+  {
+    "id": 134,
+    "name": "vampire4",
+    "allowed": true
+  },
+  {
+    "id": 135,
+    "name": "vampire5",
+    "allowed": true
+  },
+  {
+    "id": 136,
+    "name": "batdemon1",
+    "allowed": true
+  },
+  {
+    "id": 137,
+    "name": "batdemon2",
+    "allowed": true
+  },
+  {
+    "id": 138,
+    "name": "batdemon3",
+    "allowed": true
+  },
+  {
+    "id": 139,
+    "name": "batdemon4",
+    "allowed": true
+  },
+  {
+    "id": 140,
+    "name": "batdemon5",
+    "allowed": true
+  },
+  {
+    "id": 141,
+    "name": "fetish1",
+    "allowed": true
+  },
+  {
+    "id": 142,
+    "name": "fetish2",
+    "allowed": true
+  },
+  {
+    "id": 143,
+    "name": "fetish3",
+    "allowed": true
+  },
+  {
+    "id": 144,
+    "name": "fetish4",
+    "allowed": true
+  },
+  {
+    "id": 145,
+    "name": "fetish5",
+    "allowed": true
+  },
+  {
+    "id": 146,
+    "name": "cain1",
+    "allowed": false
+  },
+  {
+    "id": 147,
+    "name": "gheed",
+    "allowed": false
+  },
+  {
+    "id": 148,
+    "name": "akara",
+    "allowed": false
+  },
+  {
+    "id": 149,
+    "name": "chicken",
+    "allowed": false
+  },
+  {
+    "id": 150,
+    "name": "kashya",
+    "allowed": false
+  },
+  {
+    "id": 151,
+    "name": "rat",
+    "allowed": false
+  },
+  {
+    "id": 152,
+    "name": "rogue1",
+    "allowed": false
+  },
+  {
+    "id": 153,
+    "name": "hellmeteor",
+    "allowed": false
+  },
+  {
+    "id": 154,
+    "name": "charsi",
+    "allowed": false
+  },
+  {
+    "id": 155,
+    "name": "warriv1",
+    "allowed": false
+  },
+  {
+    "id": 156,
+    "name": "andariel",
+    "allowed": false
+  },
+  {
+    "id": 157,
+    "name": "bird1",
+    "allowed": false
+  },
+  {
+    "id": 158,
+    "name": "bird2",
+    "allowed": false
+  },
+  {
+    "id": 159,
+    "name": "bat",
+    "allowed": false
+  },
+  {
+    "id": 160,
+    "name": "cr_archer1",
+    "allowed": true
+  },
+  {
+    "id": 161,
+    "name": "cr_archer2",
+    "allowed": true
+  },
+  {
+    "id": 162,
+    "name": "cr_archer3",
+    "allowed": true
+  },
+  {
+    "id": 163,
+    "name": "cr_archer4",
+    "allowed": true
+  },
+  {
+    "id": 164,
+    "name": "cr_archer5",
+    "allowed": true
+  },
+  {
+    "id": 165,
+    "name": "cr_lancer1",
+    "allowed": true
+  },
+  {
+    "id": 166,
+    "name": "cr_lancer2",
+    "allowed": true
+  },
+  {
+    "id": 167,
+    "name": "cr_lancer3",
+    "allowed": true
+  },
+  {
+    "id": 168,
+    "name": "cr_lancer4",
+    "allowed": true
+  },
+  {
+    "id": 169,
+    "name": "cr_lancer5",
+    "allowed": true
+  },
+  {
+    "id": 170,
+    "name": "sk_archer1",
+    "allowed": true
+  },
+  {
+    "id": 171,
+    "name": "sk_archer2",
+    "allowed": true
+  },
+  {
+    "id": 172,
+    "name": "sk_archer3",
+    "allowed": true
+  },
+  {
+    "id": 173,
+    "name": "sk_archer4",
+    "allowed": true
+  },
+  {
+    "id": 174,
+    "name": "sk_archer5",
+    "allowed": true
+  },
+  {
+    "id": 175,
+    "name": "warriv2",
+    "allowed": false
+  },
+  {
+    "id": 176,
+    "name": "atma",
+    "allowed": false
+  },
+  {
+    "id": 177,
+    "name": "drognan",
+    "allowed": false
+  },
+  {
+    "id": 178,
+    "name": "fara",
+    "allowed": false
+  },
+  {
+    "id": 179,
+    "name": "cow",
+    "allowed": false
+  },
+  {
+    "id": 180,
+    "name": "maggotbaby1",
+    "allowed": true
+  },
+  {
+    "id": 181,
+    "name": "maggotbaby2",
+    "allowed": true
+  },
+  {
+    "id": 182,
+    "name": "maggotbaby3",
+    "allowed": true
+  },
+  {
+    "id": 183,
+    "name": "maggotbaby4",
+    "allowed": true
+  },
+  {
+    "id": 184,
+    "name": "maggotbaby5",
+    "allowed": true
+  },
+  {
+    "id": 185,
+    "name": "camel",
+    "allowed": false
+  },
+  {
+    "id": 186,
+    "name": "blunderbore1",
+    "allowed": true
+  },
+  {
+    "id": 187,
+    "name": "blunderbore2",
+    "allowed": true
+  },
+  {
+    "id": 188,
+    "name": "blunderbore3",
+    "allowed": true
+  },
+  {
+    "id": 189,
+    "name": "blunderbore4",
+    "allowed": true
+  },
+  {
+    "id": 190,
+    "name": "maggotegg1",
+    "allowed": false
+  },
+  {
+    "id": 191,
+    "name": "maggotegg2",
+    "allowed": false
+  },
+  {
+    "id": 192,
+    "name": "maggotegg3",
+    "allowed": false
+  },
+  {
+    "id": 193,
+    "name": "maggotegg4",
+    "allowed": false
+  },
+  {
+    "id": 194,
+    "name": "maggotegg5",
+    "allowed": false
+  },
+  {
+    "id": 195,
+    "name": "act2male",
+    "allowed": false
+  },
+  {
+    "id": 196,
+    "name": "act2female",
+    "allowed": false
+  },
+  {
+    "id": 197,
+    "name": "act2child",
+    "allowed": false
+  },
+  {
+    "id": 198,
+    "name": "greiz",
+    "allowed": false
+  },
+  {
+    "id": 199,
+    "name": "elzix",
+    "allowed": false
+  },
+  {
+    "id": 200,
+    "name": "geglash",
+    "allowed": false
+  },
+  {
+    "id": 201,
+    "name": "jerhyn",
+    "allowed": false
+  },
+  {
+    "id": 202,
+    "name": "lysander",
+    "allowed": false
+  },
+  {
+    "id": 203,
+    "name": "act2guard1",
+    "allowed": false
+  },
+  {
+    "id": 204,
+    "name": "act2vendor1",
+    "allowed": false
+  },
+  {
+    "id": 205,
+    "name": "act2vendor2",
+    "allowed": false
+  },
+  {
+    "id": 206,
+    "name": "crownest1",
+    "allowed": true
+  },
+  {
+    "id": 207,
+    "name": "crownest2",
+    "allowed": true
+  },
+  {
+    "id": 208,
+    "name": "crownest3",
+    "allowed": true
+  },
+  {
+    "id": 209,
+    "name": "crownest4",
+    "allowed": true
+  },
+  {
+    "id": 210,
+    "name": "meshif1",
+    "allowed": false
+  },
+  {
+    "id": 211,
+    "name": "duriel",
+    "allowed": false
+  },
+  {
+    "id": 212,
+    "name": "bonefetish1",
+    "allowed": true
+  },
+  {
+    "id": 213,
+    "name": "bonefetish2",
+    "allowed": true
+  },
+  {
+    "id": 214,
+    "name": "bonefetish3",
+    "allowed": true
+  },
+  {
+    "id": 215,
+    "name": "bonefetish4",
+    "allowed": true
+  },
+  {
+    "id": 216,
+    "name": "bonefetish5",
+    "allowed": true
+  },
+  {
+    "id": 217,
+    "name": "darkguard1",
+    "allowed": true
+  },
+  {
+    "id": 218,
+    "name": "darkguard2",
+    "allowed": true
+  },
+  {
+    "id": 219,
+    "name": "darkguard3",
+    "allowed": true
+  },
+  {
+    "id": 220,
+    "name": "darkguard4",
+    "allowed": true
+  },
+  {
+    "id": 221,
+    "name": "darkguard5",
+    "allowed": true
+  },
+  {
+    "id": 222,
+    "name": "bloodmage1",
+    "allowed": true
+  },
+  {
+    "id": 223,
+    "name": "bloodmage2",
+    "allowed": true
+  },
+  {
+    "id": 224,
+    "name": "bloodmage3",
+    "allowed": true
+  },
+  {
+    "id": 225,
+    "name": "bloodmage4",
+    "allowed": true
+  },
+  {
+    "id": 226,
+    "name": "bloodmage5",
+    "allowed": true
+  },
+  {
+    "id": 227,
+    "name": "maggot",
+    "allowed": false
+  },
+  {
+    "id": 228,
+    "name": "sarcophagus",
+    "allowed": false
+  },
+  {
+    "id": 229,
+    "name": "radament",
+    "allowed": false
+  },
+  {
+    "id": 230,
+    "name": "firebeast",
+    "allowed": true
+  },
+  {
+    "id": 231,
+    "name": "iceglobe",
+    "allowed": true
+  },
+  {
+    "id": 232,
+    "name": "lightningbeast",
+    "allowed": true
+  },
+  {
+    "id": 233,
+    "name": "poisonorb",
+    "allowed": true
+  },
+  {
+    "id": 234,
+    "name": "flyingscimitar",
+    "allowed": false
+  },
+  {
+    "id": 235,
+    "name": "zealot1",
+    "allowed": true
+  },
+  {
+    "id": 236,
+    "name": "zealot2",
+    "allowed": true
+  },
+  {
+    "id": 237,
+    "name": "zealot3",
+    "allowed": true
+  },
+  {
+    "id": 238,
+    "name": "cantor1",
+    "allowed": true
+  },
+  {
+    "id": 239,
+    "name": "cantor2",
+    "allowed": true
+  },
+  {
+    "id": 240,
+    "name": "cantor3",
+    "allowed": true
+  },
+  {
+    "id": 241,
+    "name": "cantor4",
+    "allowed": true
+  },
+  {
+    "id": 242,
+    "name": "mephisto",
+    "allowed": false
+  },
+  {
+    "id": 243,
+    "name": "diablo",
+    "allowed": false
+  },
+  {
+    "id": 244,
+    "name": "cain2",
+    "allowed": false
+  },
+  {
+    "id": 245,
+    "name": "cain3",
+    "allowed": false
+  },
+  {
+    "id": 246,
+    "name": "cain4",
+    "allowed": false
+  },
+  {
+    "id": 247,
+    "name": "frogdemon1",
+    "allowed": true
+  },
+  {
+    "id": 248,
+    "name": "frogdemon2",
+    "allowed": true
+  },
+  {
+    "id": 249,
+    "name": "frogdemon3",
+    "allowed": true
+  },
+  {
+    "id": 250,
+    "name": "summoner",
+    "allowed": false
+  },
+  {
+    "id": 251,
+    "name": "tyrael1",
+    "allowed": false
+  },
+  {
+    "id": 252,
+    "name": "asheara",
+    "allowed": false
+  },
+  {
+    "id": 253,
+    "name": "hratli",
+    "allowed": false
+  },
+  {
+    "id": 254,
+    "name": "alkor",
+    "allowed": false
+  },
+  {
+    "id": 255,
+    "name": "ormus",
+    "allowed": false
+  },
+  {
+    "id": 256,
+    "name": "izual",
+    "allowed": false
+  },
+  {
+    "id": 257,
+    "name": "halbu",
+    "allowed": false
+  },
+  {
+    "id": 258,
+    "name": "tentacle1",
+    "allowed": true
+  },
+  {
+    "id": 259,
+    "name": "tentacle2",
+    "allowed": true
+  },
+  {
+    "id": 260,
+    "name": "tentacle3",
+    "allowed": true
+  },
+  {
+    "id": 261,
+    "name": "tentaclehead1",
+    "allowed": true
+  },
+  {
+    "id": 262,
+    "name": "tentaclehead2",
+    "allowed": true
+  },
+  {
+    "id": 263,
+    "name": "tentaclehead3",
+    "allowed": true
+  },
+  {
+    "id": 264,
+    "name": "meshif2",
+    "allowed": false
+  },
+  {
+    "id": 265,
+    "name": "cain5",
+    "allowed": false
+  },
+  {
+    "id": 266,
+    "name": "navi",
+    "allowed": false
+  },
+  {
+    "id": 267,
+    "name": "bloodraven",
+    "allowed": false
+  },
+  {
+    "id": 268,
+    "name": "bug",
+    "allowed": false
+  },
+  {
+    "id": 269,
+    "name": "scorpion",
+    "allowed": false
+  },
+  {
+    "id": 270,
+    "name": "rogue2",
+    "allowed": false
+  },
+  {
+    "id": 271,
+    "name": "roguehire",
+    "allowed": false
+  },
+  {
+    "id": 272,
+    "name": "rogue3",
+    "allowed": false
+  },
+  {
+    "id": 273,
+    "name": "gargoyletrap",
+    "allowed": true
+  },
+  {
+    "id": 274,
+    "name": "skmage_pois1",
+    "allowed": true
+  },
+  {
+    "id": 275,
+    "name": "skmage_pois2",
+    "allowed": true
+  },
+  {
+    "id": 276,
+    "name": "skmage_pois3",
+    "allowed": true
+  },
+  {
+    "id": 277,
+    "name": "skmage_pois4",
+    "allowed": true
+  },
+  {
+    "id": 278,
+    "name": "fetishshaman1",
+    "allowed": true
+  },
+  {
+    "id": 279,
+    "name": "fetishshaman2",
+    "allowed": true
+  },
+  {
+    "id": 280,
+    "name": "fetishshaman3",
+    "allowed": true
+  },
+  {
+    "id": 281,
+    "name": "fetishshaman4",
+    "allowed": true
+  },
+  {
+    "id": 282,
+    "name": "fetishshaman5",
+    "allowed": true
+  },
+  {
+    "id": 283,
+    "name": "larva",
+    "allowed": false
+  },
+  {
+    "id": 284,
+    "name": "maggotqueen1",
+    "allowed": false
+  },
+  {
+    "id": 285,
+    "name": "maggotqueen2",
+    "allowed": false
+  },
+  {
+    "id": 286,
+    "name": "maggotqueen3",
+    "allowed": false
+  },
+  {
+    "id": 287,
+    "name": "maggotqueen4",
+    "allowed": false
+  },
+  {
+    "id": 288,
+    "name": "maggotqueen5",
+    "allowed": false
+  },
+  {
+    "id": 289,
+    "name": "claygolem",
+    "allowed": false
+  },
+  {
+    "id": 290,
+    "name": "bloodgolem",
+    "allowed": false
+  },
+  {
+    "id": 291,
+    "name": "irongolem",
+    "allowed": false
+  },
+  {
+    "id": 292,
+    "name": "firegolem",
+    "allowed": false
+  },
+  {
+    "id": 293,
+    "name": "familiar",
+    "allowed": false
+  },
+  {
+    "id": 294,
+    "name": "act3male",
+    "allowed": false
+  },
+  {
+    "id": 295,
+    "name": "baboon6",
+    "allowed": true
+  },
+  {
+    "id": 296,
+    "name": "act3female",
+    "allowed": false
+  },
+  {
+    "id": 297,
+    "name": "natalya",
+    "allowed": false
+  },
+  {
+    "id": 298,
+    "name": "vilemother1",
+    "allowed": true
+  },
+  {
+    "id": 299,
+    "name": "vilemother2",
+    "allowed": true
+  },
+  {
+    "id": 300,
+    "name": "vilemother3",
+    "allowed": true
+  },
+  {
+    "id": 301,
+    "name": "vilechild1",
+    "allowed": true
+  },
+  {
+    "id": 302,
+    "name": "vilechild2",
+    "allowed": true
+  },
+  {
+    "id": 303,
+    "name": "vilechild3",
+    "allowed": true
+  },
+  {
+    "id": 304,
+    "name": "fingermage1",
+    "allowed": true
+  },
+  {
+    "id": 305,
+    "name": "fingermage2",
+    "allowed": true
+  },
+  {
+    "id": 306,
+    "name": "fingermage3",
+    "allowed": true
+  },
+  {
+    "id": 307,
+    "name": "regurgitator1",
+    "allowed": true
+  },
+  {
+    "id": 308,
+    "name": "regurgitator2",
+    "allowed": true
+  },
+  {
+    "id": 309,
+    "name": "regurgitator3",
+    "allowed": true
+  },
+  {
+    "id": 310,
+    "name": "doomknight1",
+    "allowed": true
+  },
+  {
+    "id": 311,
+    "name": "doomknight2",
+    "allowed": true
+  },
+  {
+    "id": 312,
+    "name": "doomknight3",
+    "allowed": true
+  },
+  {
+    "id": 313,
+    "name": "quillbear1",
+    "allowed": true
+  },
+  {
+    "id": 314,
+    "name": "quillbear2",
+    "allowed": true
+  },
+  {
+    "id": 315,
+    "name": "quillbear3",
+    "allowed": true
+  },
+  {
+    "id": 316,
+    "name": "quillbear4",
+    "allowed": true
+  },
+  {
+    "id": 317,
+    "name": "quillbear5",
+    "allowed": true
+  },
+  {
+    "id": 318,
+    "name": "snake",
+    "allowed": false
+  },
+  {
+    "id": 319,
+    "name": "parrot",
+    "allowed": false
+  },
+  {
+    "id": 320,
+    "name": "fish",
+    "allowed": false
+  },
+  {
+    "id": 321,
+    "name": "evilhole1",
+    "allowed": false
+  },
+  {
+    "id": 322,
+    "name": "evilhole2",
+    "allowed": false
+  },
+  {
+    "id": 323,
+    "name": "evilhole3",
+    "allowed": false
+  },
+  {
+    "id": 324,
+    "name": "evilhole4",
+    "allowed": false
+  },
+  {
+    "id": 325,
+    "name": "evilhole5",
+    "allowed": false
+  },
+  {
+    "id": 326,
+    "name": "trap-firebolt",
+    "allowed": false
+  },
+  {
+    "id": 327,
+    "name": "trap-horzmissile",
+    "allowed": false
+  },
+  {
+    "id": 328,
+    "name": "trap-vertmissile",
+    "allowed": false
+  },
+  {
+    "id": 329,
+    "name": "trap-poisoncloud",
+    "allowed": false
+  },
+  {
+    "id": 330,
+    "name": "trap-lightning",
+    "allowed": false
+  },
+  {
+    "id": 331,
+    "name": "act2guard2",
+    "allowed": false
+  },
+  {
+    "id": 332,
+    "name": "invisospawner",
+    "allowed": false
+  },
+  {
+    "id": 333,
+    "name": "diabloclone",
+    "allowed": false
+  },
+  {
+    "id": 334,
+    "name": "suckernest1",
+    "allowed": true
+  },
+  {
+    "id": 335,
+    "name": "suckernest2",
+    "allowed": true
+  },
+  {
+    "id": 336,
+    "name": "suckernest3",
+    "allowed": true
+  },
+  {
+    "id": 337,
+    "name": "suckernest4",
+    "allowed": true
+  },
+  {
+    "id": 338,
+    "name": "act2hire",
+    "allowed": false
+  },
+  {
+    "id": 339,
+    "name": "minispider",
+    "allowed": false
+  },
+  {
+    "id": 340,
+    "name": "boneprison1",
+    "allowed": false
+  },
+  {
+    "id": 341,
+    "name": "boneprison2",
+    "allowed": false
+  },
+  {
+    "id": 342,
+    "name": "boneprison3",
+    "allowed": false
+  },
+  {
+    "id": 343,
+    "name": "boneprison4",
+    "allowed": false
+  },
+  {
+    "id": 344,
+    "name": "bonewall",
+    "allowed": false
+  },
+  {
+    "id": 345,
+    "name": "councilmember1",
+    "allowed": true
+  },
+  {
+    "id": 346,
+    "name": "councilmember2",
+    "allowed": true
+  },
+  {
+    "id": 347,
+    "name": "councilmember3",
+    "allowed": true
+  },
+  {
+    "id": 348,
+    "name": "turret1",
+    "allowed": true
+  },
+  {
+    "id": 349,
+    "name": "turret2",
+    "allowed": true
+  },
+  {
+    "id": 350,
+    "name": "turret3",
+    "allowed": true
+  },
+  {
+    "id": 351,
+    "name": "hydra1",
+    "allowed": false
+  },
+  {
+    "id": 352,
+    "name": "hydra2",
+    "allowed": false
+  },
+  {
+    "id": 353,
+    "name": "hydra3",
+    "allowed": false
+  },
+  {
+    "id": 354,
+    "name": "trap-melee",
+    "allowed": false
+  },
+  {
+    "id": 355,
+    "name": "seventombs",
+    "allowed": false
+  },
+  {
+    "id": 356,
+    "name": "dopplezon",
+    "allowed": false
+  },
+  {
+    "id": 357,
+    "name": "valkyrie",
+    "allowed": false
+  },
+  {
+    "id": 358,
+    "name": "act2guard3",
+    "allowed": false
+  },
+  {
+    "id": 359,
+    "name": "act3hire",
+    "allowed": false
+  },
+  {
+    "id": 360,
+    "name": "megademon1",
+    "allowed": true
+  },
+  {
+    "id": 361,
+    "name": "megademon2",
+    "allowed": true
+  },
+  {
+    "id": 362,
+    "name": "megademon3",
+    "allowed": true
+  },
+  {
+    "id": 363,
+    "name": "necroskeleton",
+    "allowed": false
+  },
+  {
+    "id": 364,
+    "name": "necromage",
+    "allowed": false
+  },
+  {
+    "id": 365,
+    "name": "griswold",
+    "allowed": false
+  },
+  {
+    "id": 366,
+    "name": "compellingorb",
+    "allowed": false
+  },
+  {
+    "id": 367,
+    "name": "tyrael2",
+    "allowed": false
+  },
+  {
+    "id": 368,
+    "name": "darkwanderer",
+    "allowed": false
+  },
+  {
+    "id": 369,
+    "name": "trap-nova",
+    "allowed": false
+  },
+  {
+    "id": 370,
+    "name": "spiritmummy",
+    "allowed": true
+  },
+  {
+    "id": 371,
+    "name": "lightningspire",
+    "allowed": false
+  },
+  {
+    "id": 372,
+    "name": "firetower",
+    "allowed": false
+  },
+  {
+    "id": 373,
+    "name": "slinger1",
+    "allowed": true
+  },
+  {
+    "id": 374,
+    "name": "slinger2",
+    "allowed": true
+  },
+  {
+    "id": 375,
+    "name": "slinger3",
+    "allowed": true
+  },
+  {
+    "id": 376,
+    "name": "slinger4",
+    "allowed": true
+  },
+  {
+    "id": 377,
+    "name": "act2guard4",
+    "allowed": false
+  },
+  {
+    "id": 378,
+    "name": "act2guard5",
+    "allowed": false
+  },
+  {
+    "id": 379,
+    "name": "skmage_cold1",
+    "allowed": true
+  },
+  {
+    "id": 380,
+    "name": "skmage_cold2",
+    "allowed": true
+  },
+  {
+    "id": 381,
+    "name": "skmage_cold3",
+    "allowed": true
+  },
+  {
+    "id": 382,
+    "name": "skmage_cold4",
+    "allowed": true
+  },
+  {
+    "id": 383,
+    "name": "skmage_fire1",
+    "allowed": true
+  },
+  {
+    "id": 384,
+    "name": "skmage_fire2",
+    "allowed": true
+  },
+  {
+    "id": 385,
+    "name": "skmage_fire3",
+    "allowed": true
+  },
+  {
+    "id": 386,
+    "name": "skmage_fire4",
+    "allowed": true
+  },
+  {
+    "id": 387,
+    "name": "skmage_ltng1",
+    "allowed": true
+  },
+  {
+    "id": 388,
+    "name": "skmage_ltng2",
+    "allowed": true
+  },
+  {
+    "id": 389,
+    "name": "skmage_ltng3",
+    "allowed": true
+  },
+  {
+    "id": 390,
+    "name": "skmage_ltng4",
+    "allowed": true
+  },
+  {
+    "id": 391,
+    "name": "hellbovine",
+    "allowed": true
+  },
+  {
+    "id": 392,
+    "name": "window1",
+    "allowed": false
+  },
+  {
+    "id": 393,
+    "name": "window2",
+    "allowed": false
+  },
+  {
+    "id": 394,
+    "name": "slinger5",
+    "allowed": true
+  },
+  {
+    "id": 395,
+    "name": "slinger6",
+    "allowed": true
+  },
+  {
+    "id": 396,
+    "name": "fetishblow1",
+    "allowed": true
+  },
+  {
+    "id": 397,
+    "name": "fetishblow2",
+    "allowed": true
+  },
+  {
+    "id": 398,
+    "name": "fetishblow3",
+    "allowed": true
+  },
+  {
+    "id": 399,
+    "name": "fetishblow4",
+    "allowed": true
+  },
+  {
+    "id": 400,
+    "name": "fetishblow5",
+    "allowed": true
+  },
+  {
+    "id": 401,
+    "name": "mephistospirit",
+    "allowed": false
+  },
+  {
+    "id": 402,
+    "name": "smith",
+    "allowed": false
+  },
+  {
+    "id": 403,
+    "name": "trappedsoul1",
+    "allowed": false
+  },
+  {
+    "id": 404,
+    "name": "trappedsoul2",
+    "allowed": false
+  },
+  {
+    "id": 405,
+    "name": "jamella",
+    "allowed": false
+  },
+  {
+    "id": 406,
+    "name": "izualghost",
+    "allowed": false
+  },
+  {
+    "id": 407,
+    "name": "fetish11",
+    "allowed": true
+  },
+  {
+    "id": 408,
+    "name": "malachai",
+    "allowed": false
+  },
+  {
+    "id": 409,
+    "name": "hephasto",
+    "allowed": false
+  },
+  {
+    "id": 410,
+    "name": "wakeofdestruction",
+    "allowed": false
+  },
+  {
+    "id": 411,
+    "name": "chargeboltsentry",
+    "allowed": false
+  },
+  {
+    "id": 412,
+    "name": "lightningsentry",
+    "allowed": false
+  },
+  {
+    "id": 413,
+    "name": "bladecreeper",
+    "allowed": false
+  },
+  {
+    "id": 414,
+    "name": "invisopet",
+    "allowed": false
+  },
+  {
+    "id": 415,
+    "name": "infernosentry",
+    "allowed": false
+  },
+  {
+    "id": 416,
+    "name": "deathsentry",
+    "allowed": false
+  },
+  {
+    "id": 417,
+    "name": "shadowwarrior",
+    "allowed": false
+  },
+  {
+    "id": 418,
+    "name": "shadowmaster",
+    "allowed": false
+  },
+  {
+    "id": 419,
+    "name": "druidhawk",
+    "allowed": false
+  },
+  {
+    "id": 420,
+    "name": "spiritwolf",
+    "allowed": false
+  },
+  {
+    "id": 421,
+    "name": "fenris",
+    "allowed": false
+  },
+  {
+    "id": 422,
+    "name": "spiritofbarbs",
+    "allowed": false
+  },
+  {
+    "id": 423,
+    "name": "heartofwolverine",
+    "allowed": false
+  },
+  {
+    "id": 424,
+    "name": "oaksage",
+    "allowed": false
+  },
+  {
+    "id": 425,
+    "name": "plaguepoppy",
+    "allowed": false
+  },
+  {
+    "id": 426,
+    "name": "cycleoflife",
+    "allowed": false
+  },
+  {
+    "id": 427,
+    "name": "vinecreature",
+    "allowed": false
+  },
+  {
+    "id": 428,
+    "name": "druidbear",
+    "allowed": false
+  },
+  {
+    "id": 429,
+    "name": "eagle",
+    "allowed": true
+  },
+  {
+    "id": 430,
+    "name": "wolf",
+    "allowed": true
+  },
+  {
+    "id": 431,
+    "name": "bear",
+    "allowed": true
+  },
+  {
+    "id": 432,
+    "name": "barricadedoor1",
+    "allowed": false
+  },
+  {
+    "id": 433,
+    "name": "barricadedoor2",
+    "allowed": false
+  },
+  {
+    "id": 434,
+    "name": "prisondoor",
+    "allowed": false
+  },
+  {
+    "id": 435,
+    "name": "barricadetower",
+    "allowed": false
+  },
+  {
+    "id": 436,
+    "name": "reanimatedhorde1",
+    "allowed": true
+  },
+  {
+    "id": 437,
+    "name": "reanimatedhorde2",
+    "allowed": true
+  },
+  {
+    "id": 438,
+    "name": "reanimatedhorde3",
+    "allowed": true
+  },
+  {
+    "id": 439,
+    "name": "reanimatedhorde4",
+    "allowed": true
+  },
+  {
+    "id": 440,
+    "name": "reanimatedhorde5",
+    "allowed": true
+  },
+  {
+    "id": 441,
+    "name": "siegebeast1",
+    "allowed": true
+  },
+  {
+    "id": 442,
+    "name": "siegebeast2",
+    "allowed": true
+  },
+  {
+    "id": 443,
+    "name": "siegebeast3",
+    "allowed": true
+  },
+  {
+    "id": 444,
+    "name": "siegebeast4",
+    "allowed": true
+  },
+  {
+    "id": 445,
+    "name": "siegebeast5",
+    "allowed": true
+  },
+  {
+    "id": 446,
+    "name": "snowyeti1",
+    "allowed": true
+  },
+  {
+    "id": 447,
+    "name": "snowyeti2",
+    "allowed": true
+  },
+  {
+    "id": 448,
+    "name": "snowyeti3",
+    "allowed": true
+  },
+  {
+    "id": 449,
+    "name": "snowyeti4",
+    "allowed": true
+  },
+  {
+    "id": 450,
+    "name": "wolfrider1",
+    "allowed": true
+  },
+  {
+    "id": 451,
+    "name": "wolfrider2",
+    "allowed": true
+  },
+  {
+    "id": 452,
+    "name": "wolfrider3",
+    "allowed": true
+  },
+  {
+    "id": 453,
+    "name": "minion1",
+    "allowed": true
+  },
+  {
+    "id": 454,
+    "name": "minion2",
+    "allowed": true
+  },
+  {
+    "id": 455,
+    "name": "minion3",
+    "allowed": true
+  },
+  {
+    "id": 456,
+    "name": "minion4",
+    "allowed": true
+  },
+  {
+    "id": 457,
+    "name": "minion5",
+    "allowed": true
+  },
+  {
+    "id": 458,
+    "name": "minion6",
+    "allowed": true
+  },
+  {
+    "id": 459,
+    "name": "minion7",
+    "allowed": true
+  },
+  {
+    "id": 460,
+    "name": "minion8",
+    "allowed": true
+  },
+  {
+    "id": 461,
+    "name": "suicideminion1",
+    "allowed": true
+  },
+  {
+    "id": 462,
+    "name": "suicideminion2",
+    "allowed": true
+  },
+  {
+    "id": 463,
+    "name": "suicideminion3",
+    "allowed": true
+  },
+  {
+    "id": 464,
+    "name": "suicideminion4",
+    "allowed": true
+  },
+  {
+    "id": 465,
+    "name": "suicideminion5",
+    "allowed": true
+  },
+  {
+    "id": 466,
+    "name": "suicideminion6",
+    "allowed": true
+  },
+  {
+    "id": 467,
+    "name": "suicideminion7",
+    "allowed": true
+  },
+  {
+    "id": 468,
+    "name": "suicideminion8",
+    "allowed": true
+  },
+  {
+    "id": 469,
+    "name": "succubus1",
+    "allowed": true
+  },
+  {
+    "id": 470,
+    "name": "succubus2",
+    "allowed": true
+  },
+  {
+    "id": 471,
+    "name": "succubus3",
+    "allowed": true
+  },
+  {
+    "id": 472,
+    "name": "succubus4",
+    "allowed": true
+  },
+  {
+    "id": 473,
+    "name": "succubus5",
+    "allowed": true
+  },
+  {
+    "id": 474,
+    "name": "succubuswitch1",
+    "allowed": true
+  },
+  {
+    "id": 475,
+    "name": "succubuswitch2",
+    "allowed": true
+  },
+  {
+    "id": 476,
+    "name": "succubuswitch3",
+    "allowed": true
+  },
+  {
+    "id": 477,
+    "name": "succubuswitch4",
+    "allowed": true
+  },
+  {
+    "id": 478,
+    "name": "succubuswitch5",
+    "allowed": true
+  },
+  {
+    "id": 479,
+    "name": "overseer1",
+    "allowed": true
+  },
+  {
+    "id": 480,
+    "name": "overseer2",
+    "allowed": true
+  },
+  {
+    "id": 481,
+    "name": "overseer3",
+    "allowed": true
+  },
+  {
+    "id": 482,
+    "name": "overseer4",
+    "allowed": true
+  },
+  {
+    "id": 483,
+    "name": "overseer5",
+    "allowed": true
+  },
+  {
+    "id": 484,
+    "name": "minionspawner1",
+    "allowed": true
+  },
+  {
+    "id": 485,
+    "name": "minionspawner2",
+    "allowed": true
+  },
+  {
+    "id": 486,
+    "name": "minionspawner3",
+    "allowed": true
+  },
+  {
+    "id": 487,
+    "name": "minionspawner4",
+    "allowed": true
+  },
+  {
+    "id": 488,
+    "name": "minionspawner5",
+    "allowed": true
+  },
+  {
+    "id": 489,
+    "name": "minionspawner6",
+    "allowed": true
+  },
+  {
+    "id": 490,
+    "name": "minionspawner7",
+    "allowed": true
+  },
+  {
+    "id": 491,
+    "name": "minionspawner8",
+    "allowed": true
+  },
+  {
+    "id": 492,
+    "name": "imp1",
+    "allowed": true
+  },
+  {
+    "id": 493,
+    "name": "imp2",
+    "allowed": true
+  },
+  {
+    "id": 494,
+    "name": "imp3",
+    "allowed": true
+  },
+  {
+    "id": 495,
+    "name": "imp4",
+    "allowed": true
+  },
+  {
+    "id": 496,
+    "name": "imp5",
+    "allowed": true
+  },
+  {
+    "id": 497,
+    "name": "catapult1",
+    "allowed": false
+  },
+  {
+    "id": 498,
+    "name": "catapult2",
+    "allowed": false
+  },
+  {
+    "id": 499,
+    "name": "catapult3",
+    "allowed": false
+  },
+  {
+    "id": 500,
+    "name": "catapult4",
+    "allowed": false
+  },
+  {
+    "id": 501,
+    "name": "frozenhorror1",
+    "allowed": true
+  },
+  {
+    "id": 502,
+    "name": "frozenhorror2",
+    "allowed": true
+  },
+  {
+    "id": 503,
+    "name": "frozenhorror3",
+    "allowed": true
+  },
+  {
+    "id": 504,
+    "name": "frozenhorror4",
+    "allowed": true
+  },
+  {
+    "id": 505,
+    "name": "frozenhorror5",
+    "allowed": true
+  },
+  {
+    "id": 506,
+    "name": "bloodlord1",
+    "allowed": true
+  },
+  {
+    "id": 507,
+    "name": "bloodlord2",
+    "allowed": true
+  },
+  {
+    "id": 508,
+    "name": "bloodlord3",
+    "allowed": true
+  },
+  {
+    "id": 509,
+    "name": "bloodlord4",
+    "allowed": true
+  },
+  {
+    "id": 510,
+    "name": "bloodlord5",
+    "allowed": true
+  },
+  {
+    "id": 511,
+    "name": "larzuk",
+    "allowed": false
+  },
+  {
+    "id": 512,
+    "name": "drehya",
+    "allowed": false
+  },
+  {
+    "id": 513,
+    "name": "malah",
+    "allowed": false
+  },
+  {
+    "id": 514,
+    "name": "nihlathak",
+    "allowed": false
+  },
+  {
+    "id": 515,
+    "name": "qual-kehk",
+    "allowed": false
+  },
+  {
+    "id": 516,
+    "name": "catapultspotter1",
+    "allowed": false
+  },
+  {
+    "id": 517,
+    "name": "catapultspotter2",
+    "allowed": false
+  },
+  {
+    "id": 518,
+    "name": "catapultspotter3",
+    "allowed": false
+  },
+  {
+    "id": 519,
+    "name": "catapultspotter4",
+    "allowed": false
+  },
+  {
+    "id": 520,
+    "name": "cain6",
+    "allowed": false
+  },
+  {
+    "id": 521,
+    "name": "tyrael3",
+    "allowed": false
+  },
+  {
+    "id": 522,
+    "name": "act5barb1",
+    "allowed": false
+  },
+  {
+    "id": 523,
+    "name": "act5barb2",
+    "allowed": false
+  },
+  {
+    "id": 524,
+    "name": "barricadewall1",
+    "allowed": false
+  },
+  {
+    "id": 525,
+    "name": "barricadewall2",
+    "allowed": false
+  },
+  {
+    "id": 526,
+    "name": "nihlathakboss",
+    "allowed": false
+  },
+  {
+    "id": 527,
+    "name": "drehyaiced",
+    "allowed": false
+  },
+  {
+    "id": 528,
+    "name": "evilhut",
+    "allowed": false
+  },
+  {
+    "id": 529,
+    "name": "deathmauler1",
+    "allowed": true
+  },
+  {
+    "id": 530,
+    "name": "deathmauler2",
+    "allowed": true
+  },
+  {
+    "id": 531,
+    "name": "deathmauler3",
+    "allowed": true
+  },
+  {
+    "id": 532,
+    "name": "deathmauler4",
+    "allowed": true
+  },
+  {
+    "id": 533,
+    "name": "deathmauler5",
+    "allowed": true
+  },
+  {
+    "id": 534,
+    "name": "act5pow",
+    "allowed": false
+  },
+  {
+    "id": 535,
+    "name": "act5barb3",
+    "allowed": false
+  },
+  {
+    "id": 536,
+    "name": "act5barb4",
+    "allowed": false
+  },
+  {
+    "id": 537,
+    "name": "ancientstatue1",
+    "allowed": false
+  },
+  {
+    "id": 538,
+    "name": "ancientstatue2",
+    "allowed": false
+  },
+  {
+    "id": 539,
+    "name": "ancientstatue3",
+    "allowed": false
+  },
+  {
+    "id": 540,
+    "name": "ancientbarb1",
+    "allowed": false
+  },
+  {
+    "id": 541,
+    "name": "ancientbarb2",
+    "allowed": false
+  },
+  {
+    "id": 542,
+    "name": "ancientbarb3",
+    "allowed": false
+  },
+  {
+    "id": 543,
+    "name": "baalthrone",
+    "allowed": false
+  },
+  {
+    "id": 544,
+    "name": "baalcrab",
+    "allowed": false
+  },
+  {
+    "id": 545,
+    "name": "baaltaunt",
+    "allowed": false
+  },
+  {
+    "id": 546,
+    "name": "putriddefiler1",
+    "allowed": true
+  },
+  {
+    "id": 547,
+    "name": "putriddefiler2",
+    "allowed": true
+  },
+  {
+    "id": 548,
+    "name": "putriddefiler3",
+    "allowed": true
+  },
+  {
+    "id": 549,
+    "name": "putriddefiler4",
+    "allowed": true
+  },
+  {
+    "id": 550,
+    "name": "putriddefiler5",
+    "allowed": true
+  },
+  {
+    "id": 551,
+    "name": "painworm1",
+    "allowed": true
+  },
+  {
+    "id": 552,
+    "name": "painworm2",
+    "allowed": true
+  },
+  {
+    "id": 553,
+    "name": "painworm3",
+    "allowed": true
+  },
+  {
+    "id": 554,
+    "name": "painworm4",
+    "allowed": true
+  },
+  {
+    "id": 555,
+    "name": "painworm5",
+    "allowed": true
+  },
+  {
+    "id": 556,
+    "name": "bunny",
+    "allowed": false
+  },
+  {
+    "id": 557,
+    "name": "baalhighpriest",
+    "allowed": true
+  },
+  {
+    "id": 558,
+    "name": "venomlord",
+    "allowed": true
+  },
+  {
+    "id": 559,
+    "name": "baalcrabstairs",
+    "allowed": false
+  },
+  {
+    "id": 560,
+    "name": "act5hire1",
+    "allowed": false
+  },
+  {
+    "id": 561,
+    "name": "act5hire2",
+    "allowed": false
+  },
+  {
+    "id": 562,
+    "name": "baaltentacle1",
+    "allowed": false
+  },
+  {
+    "id": 563,
+    "name": "baaltentacle2",
+    "allowed": false
+  },
+  {
+    "id": 564,
+    "name": "baaltentacle3",
+    "allowed": false
+  },
+  {
+    "id": 565,
+    "name": "baaltentacle4",
+    "allowed": false
+  },
+  {
+    "id": 566,
+    "name": "baaltentacle5",
+    "allowed": false
+  },
+  {
+    "id": 567,
+    "name": "injuredbarb1",
+    "allowed": false
+  },
+  {
+    "id": 568,
+    "name": "injuredbarb2",
+    "allowed": false
+  },
+  {
+    "id": 569,
+    "name": "injuredbarb3",
+    "allowed": false
+  },
+  {
+    "id": 570,
+    "name": "baalclone",
+    "allowed": false
+  },
+  {
+    "id": 571,
+    "name": "baalminion1",
+    "allowed": true
+  },
+  {
+    "id": 572,
+    "name": "baalminion2",
+    "allowed": true
+  },
+  {
+    "id": 573,
+    "name": "baalminion3",
+    "allowed": true
+  },
+  {
+    "id": 574,
+    "name": "worldstoneeffect",
+    "allowed": false
+  },
+  {
+    "id": 575,
+    "name": "sk_archer6",
+    "allowed": true
+  },
+  {
+    "id": 576,
+    "name": "sk_archer7",
+    "allowed": true
+  },
+  {
+    "id": 577,
+    "name": "sk_archer8",
+    "allowed": true
+  },
+  {
+    "id": 578,
+    "name": "sk_archer9",
+    "allowed": true
+  },
+  {
+    "id": 579,
+    "name": "sk_archer10",
+    "allowed": true
+  },
+  {
+    "id": 580,
+    "name": "bighead6",
+    "allowed": true
+  },
+  {
+    "id": 581,
+    "name": "bighead7",
+    "allowed": true
+  },
+  {
+    "id": 582,
+    "name": "bighead8",
+    "allowed": true
+  },
+  {
+    "id": 583,
+    "name": "bighead9",
+    "allowed": true
+  },
+  {
+    "id": 584,
+    "name": "bighead10",
+    "allowed": true
+  },
+  {
+    "id": 585,
+    "name": "goatman6",
+    "allowed": true
+  },
+  {
+    "id": 586,
+    "name": "goatman7",
+    "allowed": true
+  },
+  {
+    "id": 587,
+    "name": "goatman8",
+    "allowed": true
+  },
+  {
+    "id": 588,
+    "name": "goatman9",
+    "allowed": true
+  },
+  {
+    "id": 589,
+    "name": "goatman10",
+    "allowed": true
+  },
+  {
+    "id": 590,
+    "name": "foulcrow5",
+    "allowed": true
+  },
+  {
+    "id": 591,
+    "name": "foulcrow6",
+    "allowed": true
+  },
+  {
+    "id": 592,
+    "name": "foulcrow7",
+    "allowed": true
+  },
+  {
+    "id": 593,
+    "name": "foulcrow8",
+    "allowed": true
+  },
+  {
+    "id": 594,
+    "name": "clawviper6",
+    "allowed": true
+  },
+  {
+    "id": 595,
+    "name": "clawviper7",
+    "allowed": true
+  },
+  {
+    "id": 596,
+    "name": "clawviper8",
+    "allowed": true
+  },
+  {
+    "id": 597,
+    "name": "clawviper9",
+    "allowed": true
+  },
+  {
+    "id": 598,
+    "name": "clawviper10",
+    "allowed": true
+  },
+  {
+    "id": 599,
+    "name": "sandraider6",
+    "allowed": true
+  },
+  {
+    "id": 600,
+    "name": "sandraider7",
+    "allowed": true
+  },
+  {
+    "id": 601,
+    "name": "sandraider8",
+    "allowed": true
+  },
+  {
+    "id": 602,
+    "name": "sandraider9",
+    "allowed": true
+  },
+  {
+    "id": 603,
+    "name": "sandraider10",
+    "allowed": true
+  },
+  {
+    "id": 604,
+    "name": "ubermephisto",
+    "allowed": false
+  },
+  {
+    "id": 605,
+    "name": "uberandariel",
+    "allowed": false
+  },
+  {
+    "id": 606,
+    "name": "uberizual",
+    "allowed": false
+  },
+  {
+    "id": 607,
+    "name": "uberduriel",
+    "allowed": false
+  },
+  {
+    "id": 608,
+    "name": "uberbaal",
+    "allowed": false
+  },
+  {
+    "id": 609,
+    "name": "horse",
+    "allowed": false
+  },
+  {
+    "id": 610,
+    "name": "cowking",
+    "allowed": true
+  },
+  {
+    "id": 611,
+    "name": "darkelder",
+    "allowed": true
+  },
+  {
+    "id": 612,
+    "name": "pig",
+    "allowed": false
+  },
+  {
+    "id": 613,
+    "name": "seagull",
+    "allowed": false
+  },
+  {
+    "id": 614,
+    "name": "wargoatman",
+    "allowed": false
+  },
+  {
+    "id": 615,
+    "name": "warbighead",
+    "allowed": false
+  },
+  {
+    "id": 616,
+    "name": "warputriddefiler",
+    "allowed": false
+  },
+  {
+    "id": 617,
+    "name": "colossal2",
+    "allowed": false
+  },
+  {
+    "id": 618,
+    "name": "colossal1",
+    "allowed": false
+  },
+  {
+    "id": 619,
+    "name": "colossal3",
+    "allowed": false
+  },
+  {
+    "id": 620,
+    "name": "colbarbwhirl",
+    "allowed": false
+  },
+  {
+    "id": 621,
+    "name": "colbarbthrow",
+    "allowed": false
+  },
+  {
+    "id": 622,
+    "name": "colbarbfrenzy",
+    "allowed": false
+  }
+]
