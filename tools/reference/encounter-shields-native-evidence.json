@@ -1,0 +1,86 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Encounter damage shared incoming shields",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 2,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 33,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "actualBoneArmorInputCasts": 6,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      861,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/encounter-shields/birth-inputs.json",
+      "sha256": "50ccd1c725a75b6a84b2c84057794f4343bf84876ea4822fbc69d70dfe90ecda"
+    },
+    "audit": {
+      "path": ".local/class-skills/encounter-shields/audit-inputs.json",
+      "sha256": "79765c4334fe6f369a51fcd706084d6abac955b66d1693fa98bbfe241052f16c"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/DefensiveArmors.cs": "01175d0a245f3ee95a5ab08eaf073492f53a7bb5bca8c8de7791c8c51ac78ad1",
+    "src/Sanctuary.Content/EliteCombat.cs": "2136a214ef4ce0f906af0745dd130b92a4f394e7f05b498b4e8396625e2a1dc1",
+    "src/Sanctuary.Content/SkillCombat.cs": "1c45089ed0717732051310efb49ce9617c80704ed7c1cd4dc5cfcdd5d9bde7f6",
+    "tests/Sanctuary.Integration/EncounterShieldChecks.cs": "d86801caa1825d8ed5d2da5e434e583a307268716edf866bad80fbd834e4129f"
+  },
+  "artifacts": {
+    ".local/class-skills/encounter-shields/audit-inputs.json": "79765c4334fe6f369a51fcd706084d6abac955b66d1693fa98bbfe241052f16c",
+    ".local/class-skills/encounter-shields/audit-native-checks.log": "5ae3f27c38e6038c9a670aee1ce89862c79d77fefe9b3b57aebdbe91c7091f2c",
+    ".local/class-skills/encounter-shields/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/encounter-shields/birth-inputs.json": "50ccd1c725a75b6a84b2c84057794f4343bf84876ea4822fbc69d70dfe90ecda",
+    ".local/class-skills/encounter-shields/birth-native-checks.log": "df75e9b11dce117b182afe84e5353edab9997096b52b572fe0c938aead398b2c",
+    ".local/class-skills/encounter-shields/bone-armor-fixtures.json": "eab99555e12863d0f3c98a34b12a4e84d9f932502761db8b049e56d9e2c7eb4b",
+    ".local/class-skills/encounter-shields/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/encounter-shields/content-build-3.log": "5998459bc9579c82c8f030f23e4d78fc81ed6e4a63b30e00f35be999b46c00e3",
+    ".local/class-skills/encounter-shields/cyclone-armor-fixtures.json": "25d7944dc91d176fe00950d682ee05362851ef5198aba477863d71ec11ea5157",
+    ".local/class-skills/encounter-shields/failed-birth-inputs-1.json": "b5066dcbd526f1b451a094d98cd18a0a3fdf8da42f1141a74be7e8b01ba610d8",
+    ".local/class-skills/encounter-shields/failed-birth-run-1.log": "51e8c7ad0eba650622e19540879316b1e8bc5a4a5586528957f2c683af742b61",
+    ".local/class-skills/encounter-shields/integration-build-3.log": "ab5cb95c03e3ad78684538589d6800d3fff2e49f97423c561ea88d4ad6aba5ec",
+    ".local/class-skills/encounter-shields/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/encounter-shields/pre-build-3.json": "8e150edd14e5ad9765226487fd22ce43f7fa9d913327256797ef3171c6642f83",
+    ".local/class-skills/encounter-shields/psychic-ward-fixtures.json": "175783bf7a745b32790ba3458dd6999f8e7b28996192349312b0ba747d0b0932",
+    ".local/class-skills/encounter-shields/python-tests.log": "9eea1dcabae5e1a2f4a339cfd688e23b308ce6bb118b102912cb2383e24d9473",
+    ".local/class-skills/encounter-shields/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "docs/bone-armor-checkpoint.md": "9d220f8151532b004975b071837aa4bf90e7c566e385d2033043a130e5d3cbc1",
+    "docs/class-skill-roadmap.md": "44f9b5e1d7eb8cf3d4f533e9fe5fae5f4b4ef38ab64ec302f04a9fa2be1c8646",
+    "docs/class-skills-resume-checkpoint.md": "84dbc2235da5f098a1b17bd9540ed314c2e12d01662185deefbad7bf66bd8b4d",
+    "docs/encounter-shields-checkpoint.md": "edc3e66f7864293a8a75306726ba3cabe5aa79c7c71f5ccbb9f9c0f2a27e4b16",
+    "docs/necromancer-mechanical-audit.md": "5b480b9418a9a5ab0cdbcbb21e8bcd1b019ec5eeafb6ddc0202fc520a27f6ddf",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "src/Sanctuary.Content/DefensiveArmors.cs": "01175d0a245f3ee95a5ab08eaf073492f53a7bb5bca8c8de7791c8c51ac78ad1",
+    "src/Sanctuary.Content/EliteCombat.cs": "2136a214ef4ce0f906af0745dd130b92a4f394e7f05b498b4e8396625e2a1dc1",
+    "src/Sanctuary.Content/SkillCombat.cs": "1c45089ed0717732051310efb49ce9617c80704ed7c1cd4dc5cfcdd5d9bde7f6",
+    "tests/Sanctuary.Integration/EncounterShieldChecks.cs": "d86801caa1825d8ed5d2da5e434e583a307268716edf866bad80fbd834e4129f",
+    "tests/check_encounter_shields.py": "a702d0942af5cc283af45c8858a404fb028f99abc07bf3d6a6782952b2e372c1",
+    "tools/record_encounter_shields.py": "0bc31ec72f6fcf49048ee936efe037a8fb77a4da4a5588c2019ecd623c9567d7",
+    "tools/reference/summon-resist-native-evidence.json": "064de855b8840b339c3f97ff311509046a2b7e4d494478ea048aa837eb207344"
+  },
+  "established": [
+    "The existing class pre-resistance shield sequence is extracted once and reused by class and encounter damage. Encounter damage previously called Cyclone Armor alone and bypassed Bone Armor, prepared Ward and Energy Shield.",
+    "Every boot tests actual learned Bone Armor direct/weapon/mixed/fractional/Shaftstop/rejected-range/unshielded encounter controls; prepared Ward physical-only and exhaustion; existing Energy Shield physical/fire/magic mana and zero-mana clearing. Ward learned casting and automatic stun remain gated.",
+    "Existing three shield component/save fixtures, six connected Bone Armor right/quick casts and original-item/NPC resources pass. Exact pre-build/native/audit inventories match; data/kernel/installed artifacts remain unchanged. No deployment."
+  ],
+  "remaining": [
+    "Modern Bone Armor breaking-hit behavior, current mixed-shield event priority/registration and complete source/stat/producer/HP/death/PvP/client parity remain unverified. The fixed class sequence is retained, not recertified as a complete modern event registry.",
+    "Encounter damage retains its previous later reducers and whole-HP settlement. Fractional incoming shield consumption is tested; general fractional encounter life settlement remains unfinished.",
+    "The first run caught a Ward fixture that omitted prerequisite synergies. The corrected test preserves its actual captured maximum and explicitly inspects an injured pool. No complete skill/class, old-binary migration or final-asset claim."
+  ]
+}

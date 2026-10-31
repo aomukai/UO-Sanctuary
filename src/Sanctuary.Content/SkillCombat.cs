@@ -165,7 +165,7 @@ public static class SkillCombat
     }
     internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0)
     {
-        var raw = SorceressEffects.Absorb(target, damage);
+        var raw = DefensiveArmors.Absorb(target, damage);
         long healing256=0;
         double Channel(double value,string element)
         {
@@ -174,7 +174,7 @@ public static class SkillCombat
         }
         var parts=raw with
         {
-            Physical=Channel(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw.Physical)),"physical"),
+            Physical=Channel(raw.Physical,"physical"),
             Fire=Channel(raw.Fire,"fire"),Cold=Channel(raw.Cold,"cold"),Lightning=Channel(raw.Lightning,"ltng"),
             Poison=Channel(raw.Poison,"pois"),Magic=Channel(raw.Magic,"mag")
         };
