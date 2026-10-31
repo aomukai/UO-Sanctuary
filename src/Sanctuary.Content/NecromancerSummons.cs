@@ -255,6 +255,10 @@ public partial class NecromancerMinion : SkeletonGuardian
         if (Kind != CombatAbility.FireGolem || Deleted || !Alive || Map == Map.Internal || ControlMaster is not PlayerMobile owner
             || Core.TickCount - _nextAura < 0) { return; }
         _nextAura = Core.TickCount + 2000;
+        PulseFireAura(owner);
+    }
+    protected virtual void PulseFireAura(PlayerMobile owner)
+    {
         var fire = Values(Kind); int rank = Math.Min(30, fire.Linear(5, 6));
         var aura = new SkillValues(SkillMechanics.Source("Holy Fire"), key => key == "Holy Fire" ? rank : 0, _ => 0, Level);
         double radius = SkillGeometry.Tiles(aura.Linear(1, 2));

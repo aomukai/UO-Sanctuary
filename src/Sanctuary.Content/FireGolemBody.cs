@@ -18,8 +18,8 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
         checked(CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false)
         :throw new InvalidOperationException("Unprepared Fire Golem physical packet");
     // Captured aurastat3/4 are whole-point fire stats; the ordinary hit filler
-    // shifts the accrued range into FP256 once. The optional monstats element
-    // and intrinsic Holy Fire weapon state need their own mode/aura acceptance.
+    // shifts the accrued range into FP256 once. Holy Fire supplies a separate
+    // aura stat list; the optional monstats element remains uncertain.
     internal (int Min,int Max) InnateFire256=>(checked(Birth.FireMinimum*256),checked(Birth.FireMaximum*256));
     internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
         SourceAttackRate.Speed(NecromancerSummons.Source("firegolem-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"firegolem-animation");
@@ -67,6 +67,6 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
         NecromancerFireBirth.Require(owner);_fireBirth=null;base.Prepare(owner,ability);SkillHealth.SetBalance256(this,SkillHealth.Maximum256(this));
     }
     internal override void RefreshDifficulty(){_fireBirth=null;base.RefreshDifficulty();}
-    public override void OnAfterDelete(){NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
+    public override void OnAfterDelete(){PaladinAuras.Clear(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterFireLoad(){_fireBirth=null;ResetLifeRecovery();}
 }

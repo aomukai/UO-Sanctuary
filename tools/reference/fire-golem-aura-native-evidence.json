@@ -1,0 +1,126 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Fire Golem Holy Fire weapon state and pulse",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 378,
+    "retainedPredecessorMarkers": 366,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      844,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 384,
+    "baselineActionFrame": 10,
+    "baselineEndFrame": 17,
+    "baselineActionMs": 400,
+    "baselineCycleMs": 680,
+    "halfSpeedFrames": [
+      20,
+      34
+    ],
+    "cappedRateFrames": [
+      6,
+      10
+    ],
+    "connectedAuraChecks": 3,
+    "connectedRetainedFireAttacks": 3,
+    "auraRank": 10,
+    "pulseMin256": 2176,
+    "pulseExclusiveMax256": 3840,
+    "weaponRange": [
+      51,
+      90
+    ],
+    "accruedFireRange": [
+      88,
+      147
+    ],
+    "leaseFrames": 51,
+    "finalSavedSeed": 925613468630568505,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/fire-golem-aura/birth-inputs.json",
+      "sha256": "c930950678ea4520f6fd22a129a072b0459fe615671c36131545016bb9828c79"
+    },
+    "audit": {
+      "path": ".local/class-skills/fire-golem-aura/audit-inputs.json",
+      "sha256": "1d5280f790e89035b61f73ba1e05414132f3df2749995513a13ce4bc9b57f01b"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/FireGolemAura.cs": "2b9eee2fdfce9817081a1b693ed7d16ce7289d14c4f4d1428d9feeff894e0f94",
+    "src/Sanctuary.Content/FireGolemBody.cs": "11f6c92a521b6817b5eafde12665277d727a688d74593e7a7a046c308935a267",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "210d1d6af16ee2f80edc26af626c33958c315975eed3205305e82f3249e829f3",
+    "src/Sanctuary.Content/PaladinElements.cs": "a3ef81934663ab28a669159b289f0ce6583ede88c4cd08a5fec6302cb3fa33f8",
+    "src/Sanctuary.Content/SkillCombat.cs": "7c6c0ff033e5f42d3c823ae5a0088fe096be8234453803dbc971eeb48eccc005",
+    "tests/Sanctuary.Integration/FireGolemAuraChecks.cs": "a19c521187ad39ca858bba28c13e1a71675eb455e0d5b1e060df20419124a03f"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-aura/audit-inputs.json": "1d5280f790e89035b61f73ba1e05414132f3df2749995513a13ce4bc9b57f01b",
+    ".local/class-skills/fire-golem-aura/audit-native-checks.log": "d9719127fa5eb9dfd700ef2887dce9470ccdd901d053cdcdb9f5732fd18fcb55",
+    ".local/class-skills/fire-golem-aura/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/fire-golem-aura/birth-inputs.json": "c930950678ea4520f6fd22a129a072b0459fe615671c36131545016bb9828c79",
+    ".local/class-skills/fire-golem-aura/birth-native-checks.log": "94c97bd65ebb0353adf2d5b078d37cb482fb4662f8449395c64247f189c2be5a",
+    ".local/class-skills/fire-golem-aura/content-build-1.log": "772024b7a487efd248bea6400788bee322c35c0794fd67e8e2f98ed90deb4324",
+    ".local/class-skills/fire-golem-aura/fire-golem-absorption-fixtures.json": "f13bf2ad9600829fc415639c11247d48ec1eee4d0dc96ef8473464d5ddb8eb21",
+    ".local/class-skills/fire-golem-aura/fire-golem-aura-fixtures.json": "da813ea8db6bd8bc25a4ad2423635080b5f057b0c6b958d4e079311e00955cbe",
+    ".local/class-skills/fire-golem-aura/fire-golem-birth-fixtures.json": "c2a704c9c872018e51f4970927f8b993cd6486c17ffbecfcbde4374ffb24fd17",
+    ".local/class-skills/fire-golem-aura/fire-golem-combat-fixtures.json": "eaf0cb8b27b21555e7f8d524234ddf83535d786839fd02f5fa713f4596015770",
+    ".local/class-skills/fire-golem-aura/integration-build-1.log": "2a4eaf7670699936da3be1e5c5c1924cd6771d4a83cb8e7c5717031d20bcc85f",
+    ".local/class-skills/fire-golem-aura/paladin-element-checks.json": "ce7451f802ca5c8757f8eb2e1c17320b33c14b4548951781cddbbb3e0a341459",
+    ".local/class-skills/fire-golem-aura/pre-build-1.json": "5bba5b891a68a9106c3bcf7eb7099efd8ad2aed9e71c9117cef2155dca7bb642",
+    ".local/class-skills/fire-golem-aura/python-tests.log": "583bd3756fe7f9462f7c9db8ea53447bba749ab9bcd22a852c6d8e321a417854",
+    ".local/class-skills/fire-golem-aura/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ced123bc252f259d1e42b658dd938fc25000c4f986e920fc97e5115e5b6112f8",
+    "docs/class-skill-roadmap.md": "b269c93db07a060858e4b9d03dcabcb4e18939ca167e3d80fc42ff5d53ab930b",
+    "docs/class-skills-resume-checkpoint.md": "cbca3846b199951534e3d209b585a0c8ff547dfd11a818b61a67f390033c7f92",
+    "docs/fire-golem-aura-checkpoint.md": "e9a9a701bd1faf7f996693e778fdccc4b9db50fb5b0a9041c1003687c493a882",
+    "docs/necromancer-mechanical-audit.md": "a16be5302886f00b48400407267a5deef4e7701980acc8ddebcf455e38bbce05",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skill-effects.md": "acd138f5249dd9885598772922059a27c5c0f37358d15c801a87867c7075b5b9",
+    "docs/skill-icons.md": "ad48520c315bc6645ddd2ec640168a143d51e65ef0e8f2cdbf2e34346ec2b9f6",
+    "docs/skill-mechanical-reference.md": "b8c67d93e4e7c453bfc9211662cc726eb126ee8d18065d7653043bca714151c7",
+    "src/Sanctuary.Content/FireGolemAura.cs": "2b9eee2fdfce9817081a1b693ed7d16ce7289d14c4f4d1428d9feeff894e0f94",
+    "src/Sanctuary.Content/FireGolemBody.cs": "11f6c92a521b6817b5eafde12665277d727a688d74593e7a7a046c308935a267",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "210d1d6af16ee2f80edc26af626c33958c315975eed3205305e82f3249e829f3",
+    "src/Sanctuary.Content/PaladinElements.cs": "a3ef81934663ab28a669159b289f0ce6583ede88c4cd08a5fec6302cb3fa33f8",
+    "src/Sanctuary.Content/SkillCombat.cs": "7c6c0ff033e5f42d3c823ae5a0088fe096be8234453803dbc971eeb48eccc005",
+    "tests/Sanctuary.Integration/FireGolemAuraChecks.cs": "a19c521187ad39ca858bba28c13e1a71675eb455e0d5b1e060df20419124a03f",
+    "tests/check_fire_golem_aura.py": "7068a6f8b4e0917ccf53dbba113c7a3bd9e4585206494071360b9a3e05cb8e3b",
+    "tools/build_class_skills.py": "2564a194eebb907870e6e68d9829356a6087dea17b07c10ee49d4f2ccbbcc1ba",
+    "tools/probe_fire_golem_aura.py": "e779bf7b8f6e609e1313f667a3f280cbfbf3df6a1d6f9b03635bd16f9a853b1d",
+    "tools/record_fire_golem_aura.py": "5081e08b683f7a9c6119cec6632510b9cccb65f8fe4da7765683a0eb6c4ac3f0",
+    "tools/reference/fire-golem-aura-source-evidence.json": "69b4602e696aa66bee4a5043cbbb0fc4891de18e38ed954d98f1e28566a42a12",
+    "tools/reference/fire-golem-combat-native-evidence.json": "fadab7023b2f043b5c776de5d85cfbb2df5befb89cc0992af3da0855463f9773",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "c6ca35f49b61b9210ed3109a78ff53d11bca2248b24acb962286b1e59abca0e3",
+    "tools/reference/named-item-runtime-audit.json": "8eeccee343d0dd385ea38aec6dbba06329bb8e251cfbc668dee0376ca93b87c4",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/npc-equipment-elements-source-evidence.json": "53327732d51af4176a77a9f3594aaf19b81dcc2dd2dbe32dab8d254966a5162e"
+  },
+  "established": [
+    "Fire Golem now supplies its captured Holy Fire rank to the shared elemental aura path. Captured Fire4grants Holy Fire10with2176..3839FP pulse range and51..90whole-point weapon stat endpoints. The latter accrues with captured37..57innate fire to88..147before the ordinary NPC elemental roll and intrinsic critical. Owner gear and Paladin synergies are excluded.",
+    "Self weapon state is applied before town return and expires after51frames. A nonplayer emitter spends no owner/pet mana. One pre-enumeration pulse roll is shared by recipients with their individual resistance and existing proximity projection. Real connected controls verify equal-distance damage,immunity,range,mana0,town self-refresh without damage/RNG and deletion cleanup.",
+    "Two actual reloads retain the actor-owned shared lease and exact next NPC random draw without offline pulse replay. A deliberately extended fixture lease tests persistence;live controls verify the normal2040msduration. Complete unchanged Do66/recipient callbacks execute384bounded contexts with explicit formula/state/world services.",
+    "All366predecessor markers plus12new/retained-Paladin markers pass over3boots/2reloads/3saves. Three Fire aura controls,three retained connected Fire attacks,4audits/71Python and clean builds pass.573named decisions,runtime data,staged kernel and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "Existing Sanctuary proximity/filter projection is reused. Exact modern arithmetic,room/species/LOS/vertical filtering,enumeration and full source event/recipient-return/notification behavior remain uncertain. The inherited first-think/two-second cadence is retained;initial aura scheduling/global AI frames are not certified.",
+    "Full own-item aura/mastery interactions,current executable initializer/stat aggregation and client behavior remain open. The optional monstats-fire/noRatio discrepancy and full mode-entry selection RNG are separate. Delayed death/replacement explosion and historical migration remain unfinished.",
+    "No complete class,deployment or new broad1180-marker run. Effects/audio and tree/hotkey icons stay separate placeholders;additional pet abilities unlocked by hard points remain a later pass."
+  ]
+}

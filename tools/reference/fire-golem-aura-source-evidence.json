@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 384,
+  "ordinaryCases": 96,
+  "guardCases": 288,
+  "probeSha256": "e779bf7b8f6e609e1313f667a3f280cbfbf3df6a1d6f9b03635bd16f9a853b1d",
+  "sourcePath": "source/D2Game/src/SKILLS/SkillPal.cpp",
+  "sourceSha256": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+  "skillTableSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "unchangedRoutineHashes": {
+    "SKILLS_AuraCallback_HolyFire_HolyShock_Sanctuary_Conviction": "6ec8cef015c78905d9162d0742f6b42a0efd9aeae4a65c9bbf2e3af89167f3ba",
+    "SKILLS_SrvDo066_HolyFire_HolyShock_Sanctuary_Conviction": "9f9499ced8c3b2ddb3265aedcc7670d94228307f32dec39da73f136ae8b660a7"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-aura-source/probe.cpp": "7cd21fa4cea8571e330c61a160fcd2e99a2fe0b24f62b05f39df58af3841f5ce",
+    ".local/class-skills/fire-golem-aura-source/cases.json": "c0bb5d518b24a0def788be2fb3ecd15f5ac4505a4b3927caec2d8c421f779619",
+    ".local/class-skills/fire-golem-aura-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/fire-golem-aura-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged Do66 and recipient callback execute384contexts with declared skill/formula/periodic-rate/world/stat/event services. Nonplayer self weapon values bypass the player mana gate and are applied before town return;50frame periodic service yields51frame self lifetime.",
+    "Outside town one elemental packet is rolled before recipient enumeration. Each recipient receives a separate copy and event1then missile damage;controlled event mutation does not leak to the next recipient. Town performs self application without rolling or enumerating damage."
+  ],
+  "remaining": [
+    "Numeric elemental/weapon formulas,mastery and actual state-list replacement/expiry are declared services here,not executed source bodies. Verify their native composition separately. No current executable parity claim.",
+    "Modern proximity scaling,filter/room/geometry/order,initial aura scheduling,AI/global frame/seed and notifications/client remain separate. These old bodies do not implement the later2.4proximity rule."
+  ]
+}

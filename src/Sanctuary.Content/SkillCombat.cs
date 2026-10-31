@@ -31,7 +31,7 @@ public static class SkillCombat
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,source,loss);}
         return loss;
     }
-    public static int AuraElement(PlayerMobile source,Mobile target,int enhanced256,string element)
+    public static int AuraElement(Mobile source,Mobile target,int enhanced256,string element)
     {
         if(element is not ("fire" or "ltng" or "cold" or "mag")){throw new NotSupportedException("Unsupported elemental aura damage: "+element);}
         if(target is not {Alive:true,Deleted:false} || ClassCombat.Friendly(source,target)){return 0;}
