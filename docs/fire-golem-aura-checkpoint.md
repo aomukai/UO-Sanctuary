@@ -1,5 +1,7 @@
 # Fire Golem Holy Fire checkpoint
 
+Source follow-up,1November2026: the [world preflight](fire-golem-world-preflight.md) executes32,968complete clock/install/monster-callback contexts. The384case Do66 probe now uses the actual periodic-rate body; all prior case outputs are unchanged. Initial Fire aura activation/deadline, priority and modern parity remain open. This source-only follow-up does not enable a new actor or claim a new native run.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary deviations take precedence. Fire Golem and Necromancer remain unfinished.
 
 New learned Fire Golems now refresh their own Holy Fire weapon state and emit pulses through the existing elemental aura services. The pet supplies the aura rank captured at birth, without inheriting the owner's Paladin synergies, equipment or mana pool. Its weapon state joins the existing innate fire, Enchant and own-item ranges before the shared melee roll and intrinsic critical. Historical plain NecromancerMinion saves retain their prior aura adapter.
