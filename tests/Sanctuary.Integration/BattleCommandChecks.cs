@@ -109,7 +109,7 @@ public static class BattleCommandChecks
     {
         var victim=new GraveyardSkeleton{NoKillAwards=true};victim.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);Stop(victim);victim.Damage(10000,owner);if(victim.Alive){victim.Kill();}var corpse=(Corpse)victim.Corpse;
         Require(SkeletonPets.Usable(owner,corpse),"Command corpse fixture");Full(owner);bool result=mage?NecromancerSummons.Create(owner,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location):SkeletonPets.Raise(owner,corpse);Require(result,$"Command actual summon mage={mage}, rank={SkeletonPets.Rank(owner)}, mana={owner.Mana}, spawn={owner.Map.CanSpawnMobile(corpse.X,corpse.Y,corpse.Z)}, followers={owner.Followers}/{owner.FollowersMax}, pets={SkeletonPets.Count(owner)}, corpse={corpse.Location}");
-        var pet=owner.AllFollowers.OfType<SkeletonGuardian>().Where(x=>x.ControlMaster==owner && (mage?x is NecromancerMinion{IsMage:true}:x.GetType()==typeof(SkeletonGuardian))).OrderByDescending(BattleCommand.PetOrder).First();pet.Name="CommandFixturePet";Stop(pet);pet.MoveToWorld(new(owner.X-3,owner.Y+5,owner.Z),owner.Map);corpse.Delete();return pet;
+        var pet=owner.AllFollowers.OfType<SkeletonGuardian>().Where(x=>x.ControlMaster==owner && (mage?x is NecromancerMinion{IsMage:true}:NecromancerSkeletons.Kind(x)==CombatAbility.RaiseSkeleton)).OrderByDescending(BattleCommand.PetOrder).First();pet.Name="CommandFixturePet";Stop(pet);pet.MoveToWorld(new(owner.X-3,owner.Y+5,owner.Z),owner.Map);corpse.Delete();return pet;
     }
     private static void PetCaps(PlayerMobile owner)
     {

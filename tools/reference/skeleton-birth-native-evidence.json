@@ -1,0 +1,117 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned regular skeleton exact birth/resources",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 280,
+    "retainedPredecessorMarkers": 265,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      831,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContextsPerBoot": 11475,
+    "matchedPositiveContexts": 9933,
+    "explicitOverflowRefusals": 1542,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "life256": 8064,
+    "regeneration256": 7,
+    "petLevel": 78,
+    "armor": 533,
+    "attack": 902,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/skeleton-birth/birth-inputs.json",
+      "sha256": "b444bc3cffc3191cb4b57b0a76326c64be5680c03c871ec977c2015fd1158a2a"
+    },
+    "audit": {
+      "path": ".local/class-skills/skeleton-birth/audit-inputs.json",
+      "sha256": "eff8492df1f73bbbd5d88a32c9952ccd1bddccf3ebf5e390ad373af9ab04740d"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
+    "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "4233ecd3744368423e64a82cbb3fdaa33b6b36c05bce3c67d57112b2d2d06f39",
+    "src/Sanctuary.Content/NecromancerSkeletons.cs": "0293470a213dcd14a4a9d42e3c21fd126582d0929c78c44d25d5d606b57d7eb4",
+    "src/Sanctuary.Content/NpcEquipmentCritical.cs": "82db08762bdd631b69e633545fe5823d88c71269c8816c493e12fa7b33c13f7d",
+    "src/Sanctuary.Content/NpcEquipmentResources.cs": "3897b409d5a328844cfcfd1a3512e231281b62c9e81ccd8b7cc3990d836a784f",
+    "src/Sanctuary.Content/PersistentMinions.cs": "31cf067809bff144461a172f8e811eef33c638262e046320fd70ef816e598633",
+    "src/Sanctuary.Content/RaisedSkeleton.cs": "cfd5b00b1e997fee177bac9614c342516247131bf6d291312e71af2c964a55d6",
+    "src/Sanctuary.Content/SkeletonPets.cs": "54738fe6336583e208b4530a6952c60f10ce5ba34bfc47f5eb7c6ab31964a285",
+    "tests/Sanctuary.Integration/BattleCommandChecks.cs": "8eb189606b147e7d3bf1ee8f8744c9f2e627f0311b9caf3e36c7d31a4e842d4f",
+    "tests/Sanctuary.Integration/SkeletonBirthChecks.cs": "3f94c65aa01ac59f5422d08ec67bd9b357f79276eaa5e5e15db4b3faaf88d882"
+  },
+  "artifacts": {
+    ".local/class-skills/skeleton-birth/audit-inputs.json": "eff8492df1f73bbbd5d88a32c9952ccd1bddccf3ebf5e390ad373af9ab04740d",
+    ".local/class-skills/skeleton-birth/audit-native-checks.log": "ea9856859e2a9acda55fc5fc840deba7734b74e582718bd70e985ae6b531a5a1",
+    ".local/class-skills/skeleton-birth/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/skeleton-birth/birth-inputs.json": "b444bc3cffc3191cb4b57b0a76326c64be5680c03c871ec977c2015fd1158a2a",
+    ".local/class-skills/skeleton-birth/birth-native-checks.log": "6bf8390316b9f39ca2fa228bf33f194263016ed0a7ed5b06fc3de5838eab6235",
+    ".local/class-skills/skeleton-birth/content-build-2.log": "5e305468f9264814bca87473655dd92619b757acece85aa22d3ebc3d695fe252",
+    ".local/class-skills/skeleton-birth/integration-build-2.log": "c5378c7c857c72222f0cbde339cf718c5bc3e5bf4e1bf4f5efb215cf08d1acc3",
+    ".local/class-skills/skeleton-birth/iron-golem-cast-fixtures.json": "9ced805d33903832ff88f5f337455ce99593ed5ed7fc4ba38f05d2c59e5b61e3",
+    ".local/class-skills/skeleton-birth/pre-build-2.json": "2083eb49d792395d9253df48bfe49a59514d7cb2796a98abf582b01566294046",
+    ".local/class-skills/skeleton-birth/python-tests.log": "2f9bf9d87f7b7f97a9599c53be89a771f5fd2ed1e5cf78cef2fcab0c35dffb58",
+    ".local/class-skills/skeleton-birth/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/skeleton-birth/skeleton-birth-fixtures.json": "6ec8cbd722be73bb6de5f7640e282d3d9d7496a04432fa003b743b07e2fc7fcd",
+    "data/Sanctuary/Balance/necromancer-summons.json": "3913f2891dee718deb7029fb664145f6164b5e9c7aff03e614e2653337048751",
+    "docs/class-skill-roadmap.md": "4bed49cdddf2d94247fc7bb10ad7123db8e24b7715ee2a6c81d2c98f7e0de5fe",
+    "docs/class-skills-resume-checkpoint.md": "94f920e3fe02f68c239a7b9d71dfb77d7ce75e088bf4d2cededfc99fa53d8aca",
+    "docs/necromancer-mechanical-audit.md": "6de5055dfdb0afd1cde006e07434e30b1a9d180092f82c8e21958590c43a0385",
+    "docs/poison-nova-source-preparation.md": "d9dc810b51ecbb13d4401fcd30b708527fb14b397aa5dda48827489ecee5b5eb",
+    "docs/skeleton-birth-checkpoint.md": "b6baa862c778bbc84559ec3de7c6d1aa6e11df69de42648bcea33e0c578fe1a7",
+    "docs/skill-effects.md": "dd8711926f3b216ef2c195675053f0f25e5b7fcad666fe8059c548e83bcdfa8b",
+    "docs/skill-icons.md": "6d5d0e2b99a091483997893629e00d60cb833a63bb56b3aeccdba8b59fd19954",
+    "docs/skill-mechanical-reference.md": "f65881172d95e3c4a9f28e126d9754a7262edbb02afad65520a923996ebab85c",
+    "docs/t29-combat-potions.md": "b65b9f99883471f282af33663a2ac8f3e463f7c98fc80495cbb22546d55f6f4b",
+    "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
+    "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "4233ecd3744368423e64a82cbb3fdaa33b6b36c05bce3c67d57112b2d2d06f39",
+    "src/Sanctuary.Content/NecromancerSkeletons.cs": "0293470a213dcd14a4a9d42e3c21fd126582d0929c78c44d25d5d606b57d7eb4",
+    "src/Sanctuary.Content/NpcEquipmentCritical.cs": "82db08762bdd631b69e633545fe5823d88c71269c8816c493e12fa7b33c13f7d",
+    "src/Sanctuary.Content/NpcEquipmentResources.cs": "3897b409d5a328844cfcfd1a3512e231281b62c9e81ccd8b7cc3990d836a784f",
+    "src/Sanctuary.Content/PersistentMinions.cs": "31cf067809bff144461a172f8e811eef33c638262e046320fd70ef816e598633",
+    "src/Sanctuary.Content/RaisedSkeleton.cs": "cfd5b00b1e997fee177bac9614c342516247131bf6d291312e71af2c964a55d6",
+    "src/Sanctuary.Content/SkeletonPets.cs": "54738fe6336583e208b4530a6952c60f10ce5ba34bfc47f5eb7c6ab31964a285",
+    "tests/Sanctuary.Integration/BattleCommandChecks.cs": "8eb189606b147e7d3bf1ee8f8744c9f2e627f0311b9caf3e36c7d31a4e842d4f",
+    "tests/Sanctuary.Integration/SkeletonBirthChecks.cs": "3f94c65aa01ac59f5422d08ec67bd9b357f79276eaa5e5e15db4b3faaf88d882",
+    "tests/check_skeleton_birth.py": "60cbfd8d235de949d990cbfecb685c5f08488eea1deda7b1feef5f92d92caef5",
+    "tools/build_class_skills.py": "d2717d13f081dde97740e17fe7519f95814cbf544fac6012568e01757455fdb6",
+    "tools/probe_skeleton_birth.py": "d62ac8e174be59f3ccb2973474adf1a42f4bd481f6d8f346fe87d20e15b25b06",
+    "tools/record_skeleton_birth.py": "ac68d8793cba128d831ebb3738d0c7b16e660bf054b2271a7054bd693bc71767",
+    "tools/reference/first-loop-affix-audit.json": "456fd2c53126fc7ce63d94135fc713ddfebf11e2dba4bc071620222009f5a9a7",
+    "tools/reference/named-item-runtime-audit.json": "1ee339c060068e41027e89264a4d8a29622334625763f9b7f8b115a4eb94286f",
+    "tools/reference/poison-explosion-native-evidence.json": "6e983008b3a91b8cdee70d9eb515a0b0fa21801b6bec6985046601646c811051",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c"
+  },
+  "established": [
+    "New learned skeletons reuse the existing actor/AI but opt into a typed RaisedSkeleton with exact life and the existing NPC resource clock. Historical SkeletonGuardian actors and prepared NPC/item holders retain their existing path. The saved roster/count/cap/class-history predicates recognize both regular types.",
+    "Complete source base/passive/resistance/MAXHPcallback helpers compare11475contexts:9933positive source cases match and1542extreme signed-product domains explicitly refuse. The inspected complete do31caller supplies level argument0. Rank4/Mastery0/owner99 Normal is8064FP(31.5HP),rate7,pet level78,armor533,AR902;fixed noRatio spawn bases21/30/42 are retained.",
+    "Regular skeleton and Mage now share passive/MAXHP resource composition. Learned casting consumes the corpse and9mana once using the existing exact mana helper;fractional damage/healing/full cap,PMH,Battle Orders,facet life ratios,captured ranks,legacy isolation and6actual right/quick casts pass.",
+    "Two actual reloads preserve the new subtype,owner,parked state,captured ranks,exact injured life,maximum and regeneration;recovery resumes once without offline replay. All265predecessor markers,including Mage/FIFO/Battle Command and item/poison/field saves,remain."
+  ],
+  "remaining": [
+    "Full source do31initializer/component/shield/equipment choice,AI/animation/attack/critical,modern executable and incoming/event/terrain/global-frame/FCR/client parity remain unverified. The existing attack and movement timing adapters are retained.",
+    "Physical Sunder delivery and extreme signed-product birth inputs explicitly refuse rather than invent stats. Source right-only binding policy versus the existing legacy left allowance remains a known class-wide binding follow-up;this resource increment verifies right/quick inputs. Historical body migration and old-content binary upgrade are not claimed.",
+    "No complete class,deployment or new broad1180-marker run is claimed. Next:remaining Necromancer summon combat and curse acceptance. Final skeleton body/summon/combat effects/audio and talent/hotkey icons remain separately pending."
+  ]
+}

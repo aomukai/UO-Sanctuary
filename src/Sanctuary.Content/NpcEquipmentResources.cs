@@ -41,11 +41,13 @@ internal static class NpcEquipmentResources
     }
     // Source comparison basis before/after a held item,independent from the
     // native integer-only display used by an unbound prepared holder.
+    internal static int UnboundLifeMaximum256(SkeletonGuardian actor)=>Math.Clamp(NpcResourceValues.Calculate(new(1,0,CreatureProfiles.Level(actor),
+        checked((int)Basis256(actor,0,null)),0,0,0,BattleOrders.LifePercent(actor))),256,65000*256);
     internal static int LifeForRegeneration(SkeletonGuardian actor)
     {
         if(actor is ISourceLifeMaximum){return SkillHealth.Maximum256(actor);}
         if(Maximum256(actor,0) is{} exact){return exact;}
-        return Math.Clamp(NpcResourceValues.Calculate(new(1,0,CreatureProfiles.Level(actor),checked((int)Basis256(actor,0,null)),0,0,0,BattleOrders.LifePercent(actor))),256,65000*256);
+        return UnboundLifeMaximum256(actor);
     }
     internal static BattleOrders.Pools BeforeAttach(SkeletonGuardian actor)
     {

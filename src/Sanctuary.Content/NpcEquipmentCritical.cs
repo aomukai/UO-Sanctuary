@@ -9,7 +9,7 @@ internal static class NpcEquipmentCritical
 {
     internal static NpcCriticalChances Capture(SkeletonGuardian actor)
     {
-        if(actor.GetType()!=typeof(SkeletonGuardian)&&actor is not NecromancerMinion{IsMage:false}&&actor is not IronGolemBody)
+        if(actor.GetType()!=typeof(SkeletonGuardian)&&actor is not RaisedSkeleton&&actor is not NecromancerMinion{IsMage:false}&&actor is not IronGolemBody)
         {throw new NotSupportedException("NPC critical source body is not mapped");}
         if(NpcEquipmentCombat.Context(actor) is not{} item){throw new NotSupportedException("No original NPC critical equipment");}
         var fields=NecromancerSummons.Fields(actor.SourceMonsterId);

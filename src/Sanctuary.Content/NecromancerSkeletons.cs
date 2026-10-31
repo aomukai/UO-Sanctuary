@@ -10,7 +10,7 @@ namespace Sanctuary;
 // entries without an order sort first,then by serial (original FIFO unknown).
 internal static class NecromancerSkeletons
 {
-    internal static CombatAbility Kind(SkeletonGuardian pet)=>pet.GetType()==typeof(SkeletonGuardian)?CombatAbility.RaiseSkeleton
+    internal static CombatAbility Kind(SkeletonGuardian pet)=>pet is RaisedSkeleton||pet.GetType()==typeof(SkeletonGuardian)?CombatAbility.RaiseSkeleton
         :pet is NecromancerMinion{IsMage:true}?CombatAbility.RaiseSkeletalMage:CombatAbility.None;
     internal static SkeletonGuardian[] For(PlayerMobile owner,CombatAbility kind)=>(owner.AllFollowers??[]).OfType<SkeletonGuardian>()
         .Where(p=>p is{Alive:true,Deleted:false,IsDeadBondedPet:false}&&p.ControlMaster==owner&&Kind(p)==kind)

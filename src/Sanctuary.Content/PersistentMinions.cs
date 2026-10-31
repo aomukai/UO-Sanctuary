@@ -82,7 +82,7 @@ public static class PersistentMinions
             if (Active(owner, pet) && !state.Parked) { released += pet.ControlSlots; }
             if (minion.SummonClass != target) { continue; }
             if (!Permitted(owner, pet, target)) { return false; }
-            if (pet.GetType() == typeof(SkeletonGuardian)) { skeletons++; }
+            if (pet is SkeletonGuardian skeleton&&NecromancerSkeletons.Kind(skeleton)==CombatAbility.RaiseSkeleton) { skeletons++; }
             returning += state.Slots;
         }
         return skeletons <= limit && owner.Followers - released + returning <= owner.FollowersMax;

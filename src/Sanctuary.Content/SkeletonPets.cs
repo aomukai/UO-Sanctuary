@@ -81,7 +81,7 @@ public static class SkeletonPets
         int count = 0;
         foreach (var pet in owner.AllFollowers ?? [])
         {
-            if (pet is SkeletonGuardian { Deleted: false, Alive: true } guardian && guardian.ControlMaster == owner && guardian.GetType() == typeof(SkeletonGuardian))
+            if (pet is SkeletonGuardian { Deleted: false, Alive: true } guardian && guardian.ControlMaster == owner && NecromancerSkeletons.Kind(guardian)==CombatAbility.RaiseSkeleton)
             {
                 count++;
             }
@@ -97,8 +97,9 @@ public static class SkeletonPets
         {
             return false;
         }
-        var pet = new SkeletonGuardian();
-        pet.Initialize(owner, Rank(owner), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
+        try{NecromancerSkeletonBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
+        var pet = new RaisedSkeleton();
+        pet.InitializeExact(owner, Rank(owner), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         if (!pet.SetControlMaster(owner))
         {
             pet.Delete();
@@ -107,8 +108,8 @@ public static class SkeletonPets
         PersistentMinions.Profiles.Track(pet);
         pet.MoveToWorld(corpse.Location, corpse.Map);
         pet.IssueOrder(OrderType.Guard, null);
+        if(!NecromancerEffects.Pay(owner,Mana(owner)*256)){pet.Delete();return false;}
         NecromancerSkeletons.Commit(owner,pet);
-        owner.Mana -= Mana(owner);
         corpse.SanctuaryConsumed = true;
         corpse.Animated = true;
         ClassLoot.RemoveHarvestedIfEmpty(corpse);
@@ -248,7 +249,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     internal void RecoverLife(long now)
     {
-        if(this is NecromancerMinion{IsMage:true}||NpcEquipmentRegeneration.Handles(this)){NpcEquipmentRegeneration.Recover(this,now);return;}
+        if(this is RaisedSkeleton or NecromancerMinion{IsMage:true}||NpcEquipmentRegeneration.Handles(this)){NpcEquipmentRegeneration.Recover(this,now);return;}
         NpcEquipmentRegeneration.Reset(this);
         if (_lastRecovery == 0 || !Alive || Deleted || Poisoned || !TimedEffects.CanRegenerateHits(this)
             || Map == null || Map == Map.Internal || Hits >= HitsMax)

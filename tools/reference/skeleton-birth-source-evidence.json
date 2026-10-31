@@ -1,0 +1,38 @@
+{
+  "inspectedCallerSha256": "4b3ca1651ee326291169cce8fc98c461114fb61bfa67efafd7fdb0a29e1ee91b",
+  "inspectedCallerLevelArgument": 0,
+  "unsafePercentageCases": 1542,
+  "nonpositiveWrappedLifeCases": 795,
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 11475,
+  "functions": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "maxHpCallbackBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "inputs": {
+    ".local/class-skills/mage-birth-source/probe.cpp": "85bee2ffba964650422e9cfa35425f9cff786cdc1e841ac2b3db4a582a2f71b8",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+  },
+  "artifacts": {
+    ".local/class-skills/skeleton-birth-source/probe.cpp": "e6c77eccf4b2334a4139b0b512f83090bda187bd7d9237462c837f81a108547f",
+    ".local/class-skills/skeleton-birth-source/cases.json": "39ea53de2f2955bab59297afb48621df211af5dc6038a6f0f7d73ea13f691990",
+    ".local/class-skills/skeleton-birth-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/skeleton-birth-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete shared base/passive/resistance and MAXHPcallback bodies execute11475current skeleton contexts. Fixed noRatio life21/30/42,flat Mastery life and50percent-per-extra-rank life retain FP256. Normal rank4/Mastery0 is8064FP256(31.5HP),not31whole HP;MAXHPcallback regeneration is7FP256/frame,not the unchanged spawn5.",
+    "Default pet level is min(ownerLevel,rank+floor(3*ownerLevel/4)),not automatically owner level. Expansion monlvl armor/AR are evaluated at that pet level;current flat15*(rank+Mastery)auras then join the base pools.",
+    "Item normal damage receives effective Mastery*2 plus current tiered edmn. The7percent-per-extra-rank damage aura and requested equipment level are recorded separately. Elemental resistance receives the supplied Summon Resist through the complete shared helper."
+  ],
+  "limits": [
+    "World spawn/equipment/shield choice,AI/animation,ordinary attack/critical and full modern executable events are not executed. Formula/stat composition,spawn fixed bases and positive arithmetic are declared current-data services. Physical Sunder input is zero;nonzero delivery remains unsupported.",
+    "The source percentage helper can wrap its signed32-bit product at extreme rank/Mastery inputs. The probe uses explicit-fwrapv x86-style arithmetic;nonpositive life results are recorded and must be refused by native delivery rather than invented as positive life.",
+    "This proves birth/stat composition only. Native exact life/damage/healing/regen,buff/facet/save and learned cast acceptance still follow;no class completion or deployment is claimed."
+  ]
+}
