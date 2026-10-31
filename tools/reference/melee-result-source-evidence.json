@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+  "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+  "routine": "SUNITDMG_GetResultFlags",
+  "unchangedRoutineSha256": "402644f61dbe202b411a3e44c40c3f25654dc98181b2f4d79abf7512b2556186",
+  "generatedSourceSha256": "52f849c71ce7586e13e0dc746c642f330a7c3647a87971ef2ea270d5bec1d467",
+  "cases": 16384,
+  "fixture": {
+    "path": ".local/class-skills/melee-result-source-probe.json",
+    "sha256": "a8023798415a725ac45e41e7288315823a858241a70071ba2eeeb39b7292a24f"
+  },
+  "sanitizers": "ASan+UBSan exit0;empty runtime stderr",
+  "scope": "Complete older result-flag routine with declared hostility,range,hit/avoidance and state services;exact call order is exported. This does not execute hit arithmetic,block/dodge internals,damage allocation,contact or return and is not a current executable certificate.",
+  "established": [
+    "Only player/monster pairs reach hostility/range. NPC range bonus3/player1 is adjusted only for nonzero range offset. Running player success skips the hit roll but still checks range and avoidance.",
+    "Avoid,Dodge,WeaponBlock and Block copy distinct bits. Any nonzero action clears success,including Evade/unknown action flags without copied bits. Successful uninterrupted targets get result4;miss/block does not query that state."
+  ],
+  "remaining": [
+    "Native actor adapter and saved-world regression must corroborate its use. Source type/geometry/stat/RNG/component mapping is separate. HP-before-retaliation and deferred death/event ordering remain unfinished."
+  ]
+}

@@ -1,5 +1,7 @@
 # Skill effects
 
+Prepared Iron Golem recipient blocks reuse generic UO0x375A/hue0x481 and sound0x1A4 placeholders. Final shield/block presentation and audio must follow the recipient model and accepted block mode; no final art was created. See [mechanical scope](iron-golem-melee-result-checkpoint.md).
+
 Shared golem roster changes add no new visual assets. Prepared Iron body14/hue0x835 and generic summon/retaliation flashes remain identified placeholders; final golem bodies, summon/replacement/death effects and audio still require creation and client verification. See [mechanical checkpoint](golem-roster-checkpoint.md).
 
 This register is independent of mechanical completion. No final assets have been generated or installed in this pass. Keep the original prompt/source image, transparency, scale/directional frames, timing, client mapping and actual-client verification with each eventual asset.

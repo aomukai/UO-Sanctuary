@@ -61,6 +61,39 @@ internal static class IronGolemWorld
     private static int Full(IronGolemWorldState s,Mobile target)=>DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(target),1+Size(target)/2);
     internal static bool Melee(IronGolemBody body,IronGolemWorldState s,Mobile target,int bonus)=>target is BaseCreature
         &&SourceMeleeGeometry.Within(new(Cell(s),2,1,291,0),new(PetOwnerRoutes.Cell(target),Size(target),1,0),bonus,(_,_,_)=>!body.InLOS(target));
+    private sealed class MeleeResult(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target):SourceMeleeResultServices
+    {
+        internal bool BlockAnimation;
+        internal override int? AttackerKind=>1;
+        internal override int? DefenderKind=>1;
+        internal override bool Hostile()=>Eligible(body,owner,target);
+        internal override bool DefenderRunning()=>throw new InvalidOperationException("NPC result must not query player running mode");
+        internal override int MeleeReach()=>0;
+        internal override bool InRange(int bonus)=>Melee(body,state,target,bonus);
+        internal override bool HitSuccessful(int attackPercent,bool missile)
+        {
+            if(missile){throw new NotSupportedException("Iron Golem melee cannot use a missile hit check");}
+            return ClassStats.CheckHit(body,target,attackPercent,()=>NpcEquipmentRandom.Limited(body,100)/100.0,notifyMelee:false)
+                ??throw new NotSupportedException("Missing Iron Golem hit supplier");
+        }
+        internal override int BlockOrDodge(bool avoid,bool block)
+        {
+            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out BlockAnimation))
+            {throw new NotSupportedException("Iron Golem recipient block supplier is not mapped");}
+            return blocked?1:0;
+        }
+        internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
+    }
+    internal static int Result(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target)
+    {
+        // Preflight the existing recipient mapping before consuming the attack
+        // stream. Component-choice/block RNG remains the shared native adapter.
+        if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Iron Golem recipient block supplier is not mapped");}
+        var services=new MeleeResult(body,owner,state,target);
+        int flags=SourceMeleeResult.Resolve(services);
+        if((flags&SourceMeleeResult.Block)!=0){SourceBlocking.Present(target,services.BlockAnimation);}
+        return flags;
+    }
     private static Mobile Primary(IronGolemBody body,PlayerMobile owner,IronGolemWorldState s)
     {
         var prior=World.FindMobile((Serial)s.Target);
@@ -220,7 +253,9 @@ internal static class IronGolemWorld
                 if(Eligible(body,owner,target)&&Melee(body,s,target,3))
                 {
                     using var attempted=PaladinThorns.Attempt(body,target,false);
-                    if(ClassStats.CheckHit(body,target,0,()=>NpcEquipmentRandom.Limited(body,100)/100.0)==true)
+                    SorceressEffects.MeleeAttempt(body,target);
+                    int flags=Result(body,owner,s,(BaseCreature)target);
+                    if((flags&SourceMeleeResult.Successful)!=0)
                     {if(!NpcEquipmentDamage.TryResolve(body,target,out _)){throw new NotSupportedException("Iron Golem original-item damage binding was lost");}hit=true;}
                 }
                 if(body.Deleted){return;}

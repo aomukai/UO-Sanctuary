@@ -1,5 +1,7 @@
 # Skill icons
 
+Iron Golem recipient-block integration adds no bindable action or icon. The existing Iron Golem talent-tree/right/quick artwork remains pending independently of combat verification.
+
 Shared golem roster changes add no bindable skill or icon. Clay, Blood, Iron and Fire each still need their own talent-tree and hotkey artwork. Prepared Iron remains disabled and uses its existing identified text placeholder.
 
 This register is independent of mechanical completion. No final assets have been generated or installed in this pass. Keep the original prompt/source image, transparency, scale/directional frames, timing, client mapping and actual-client verification with each eventual asset.

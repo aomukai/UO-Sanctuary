@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "5ef1cb4922173fcb23edd06aa1c875c50e96b3209e0eb95faa9db35acaac0ea4",
+  "ContentAssemblySha256": "ece84e7c07c8c07dc06a24c8feb94c4be94e04ceacda19b7380f2e05c19ad50c",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -577,7 +577,7 @@
     "src/Sanctuary.Content/IronGolemBodyNumbers.cs": "21276860ad1e410847b449910b35049a173519475da043e7dc1d8d32ccacf95a",
     "src/Sanctuary.Content/IronGolemItemCast.cs": "a19fdc85bdd601864d2656d973df7a25d890ef11b2d2a0a54f3a1f380c27dae3",
     "src/Sanctuary.Content/IronGolemItems.cs": "dab50baf44ae44377ab7db4bfcbd0c9e8029b9cdc9dd0f3e6b628903d4bd0ede",
-    "src/Sanctuary.Content/IronGolemWorld.cs": "4bd08a5d06eb232d9933eb297e3ce20898fb88f7c7c7689a1ccc81c82c0b9b78",
+    "src/Sanctuary.Content/IronGolemWorld.cs": "e4e5aca489800fad3a8783894e7d1f5e86b2567ba1e984d83c27eb2838b7d620",
     "src/Sanctuary.Content/ItemDamageOperations.cs": "383ec1bd2a683e754d1b0531d10813e5183af2c2ed0b860cd35ac7788373adda",
     "src/Sanctuary.Content/ItemDurationDefenses.cs": "b4ecc9de773a68c2255e9b462821a67614a5f7d2f9ba5b5963b805a39f4accce",
     "src/Sanctuary.Content/ItemPoisonProjection.cs": "29ad4474e0aa86aca8a535ca7edaad0e7c236d757cda3ad1659558e1c060a7eb",
@@ -755,6 +755,7 @@
     "src/Sanctuary.Content/SourceElementRoll.cs": "55a242436edc0815979df1df35bcfebfb1a9c03f539fe58d06f849810c5f59f4",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "ebe237f1af44ec94b3096bab81c35512710c10f3851d98a16dfbd7e23dd53c2d",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "6eb394260f853b58aa86fcf201655e8e290bceb128a9fdd6bac4d8f2cda98b92",
+    "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",
     "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
     "src/Sanctuary.Content/SourcePercentage.cs": "e027688be3d2a51b11098bcdd1ec23288143bd82e2544201c205fa440ca86d2d",
     "src/Sanctuary.Content/SourcePetMovement.cs": "ec04d085af274d7ae8642beb89743efb526c6ac64def59957106d1d09f6d4297",
