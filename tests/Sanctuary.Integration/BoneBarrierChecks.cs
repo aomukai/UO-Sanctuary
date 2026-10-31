@@ -88,7 +88,8 @@ public static class BoneBarrierChecks
                     var parts = Segments(owner, center);
                     Require(owner.Hits == life && root.Hits is >= 8 and <= 13, "Travelling hostile firebolt bypassed intervening barrier");
                     caster.Delete();
-                    Require(parts.Length == 9, "Bone Wall did not grow both source arms");
+                    Require(root is BoneWallMakerBody maker&&maker.Growth.Left.Done&&maker.Growth.Right.Done
+                        &&parts.Length>1&&parts.Length<=9, "Bone Wall makers did not finish within their success/lifetime bounds");
                     Require(!Server.Movement.Movement.CheckMovement(owner, owner.Map, new Point3D(center.X + 1, center.Y, center.Z), Direction.West, out _),
                         "Owner walked through a bone wall");
                     var child = parts.Single(s => s.Y == center.Y + 1);

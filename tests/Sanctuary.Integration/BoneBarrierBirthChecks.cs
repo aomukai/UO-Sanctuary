@@ -95,7 +95,7 @@ public static class BoneBarrierBirthChecks
         }
         finally{SummonDifficulties.SetFacets(facets);Clean(p);}
     }
-    private static void StageSave()
+    internal static void StageSave()
     {
         int generation=File.Exists(Manifest)?JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest)).Generation+1:0;
         var p=Owner();var b=Spawn(p,generation%2==0?CombatAbility.BoneWall:CombatAbility.BonePrison);

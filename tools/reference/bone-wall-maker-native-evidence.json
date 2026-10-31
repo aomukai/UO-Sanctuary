@@ -1,0 +1,99 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bone Wall independent maker growth",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 3,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 49,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "sourceMakerContexts": 2592,
+    "sourceAiContexts": 96,
+    "sourceSequenceFrames": 6,
+    "nativeSourceMakerContexts": 2592,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      860,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "connectedBarrierCasts": 6,
+    "connectedWolfCasts": 3,
+    "naturalTwentyFourSecondExpiries": 6,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-wall-maker/birth-inputs.json",
+      "sha256": "d3160b86e8dc60ec249f71a4371b1296af697d2b686d072805233245e6f43c44"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-wall-maker/audit-inputs.json",
+      "sha256": "a7acccb5941607188ab6182d3d363fffdbc8b98df23e1a21a4bea93503cdf714"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BoneBarriers.cs": "6bea8a3f8b0f8e00c53419465551ed123214f0c64ce3041faaf9c8f78a8f0c56",
+    "src/Sanctuary.Content/BoneWallMakerBody.cs": "d2ed42bdf548d79dd802903871f199506bfb5938839104204cb971d4b65c9055",
+    "src/Sanctuary.Content/BoneWallMakerUpdate.cs": "b70fbc751bb30d3b889b06897dd98f0afa558d9ba7df06707c99fff442a8d806",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "374d906283686622867c2ae8b3352672a94230edfa09b3f0039b5d51be21aec6",
+    "tests/Sanctuary.Integration/BoneBarrierChecks.cs": "4a9dd589ca8a93c4d873189b24bbe4f49982afd67f0848dbf29223dc1fcae897",
+    "tests/Sanctuary.Integration/BoneWallMakerChecks.cs": "38924fa3417c0a9007c921437723def262d86d32cc1c2c534903c76d897e368e"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-wall-maker/audit-inputs.json": "a7acccb5941607188ab6182d3d363fffdbc8b98df23e1a21a4bea93503cdf714",
+    ".local/class-skills/bone-wall-maker/audit-native-checks.log": "01f1c7eb87c6f25ffaaa3861f8253468532d02afbc1ecc09c0669dee1d58afdf",
+    ".local/class-skills/bone-wall-maker/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-wall-maker/birth-inputs.json": "d3160b86e8dc60ec249f71a4371b1296af697d2b686d072805233245e6f43c44",
+    ".local/class-skills/bone-wall-maker/birth-native-checks.log": "7ba72a96720cc43771adb339d92fc4e4b9c6d69bd022b7d067860d844cf77542",
+    ".local/class-skills/bone-wall-maker/bone-barrier-birth-fixtures.json": "c046f09f88959651e59b792004a8c19796ac147f73f7748b44090758fcea499e",
+    ".local/class-skills/bone-wall-maker/bone-barrier-cast-fixtures.json": "9f0643d881277dc371903aa078044c1fa66a08a2aa2c1174261d898898a3844f",
+    ".local/class-skills/bone-wall-maker/bone-barrier-checks.json": "cdecc93ecc4dc41d54a08d70aee9bddca8ae545e60f428276842c496bdcddd9c",
+    ".local/class-skills/bone-wall-maker/bone-wall-maker-fixtures.json": "67fe5eb2d91872c5166f9cbb2f08670661f62df141cef1df47c47df3fd07a067",
+    ".local/class-skills/bone-wall-maker/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/bone-wall-maker/content-build-4.log": "2aa4105f0155c7d01b2a70931037b1f626c098d7621e5bfb996193536534f738",
+    ".local/class-skills/bone-wall-maker/integration-build-4.log": "b857ec41a85abcf68d63b71f6e3fed702ad2c94798704da86a6f0710342456d7",
+    ".local/class-skills/bone-wall-maker/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/bone-wall-maker/pre-build-4.json": "fe44fc1d69dbd99b4ed37dbd6c6f032cb7437c8e9b9e0f7cf77bc306a732b9e0",
+    ".local/class-skills/bone-wall-maker/python-tests.log": "0c637df1a29fdb069e4b2a7d9289429a86416db267cb35ca4e76d9eff64b3e83",
+    ".local/class-skills/bone-wall-maker/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/bone-wall-maker/spirit-wolf-casting-fixtures.json": "b77f71d741314790b451b4334edbf2c4a075b4572e34dc2cc5f3f06316544ab3",
+    "docs/bone-wall-maker-checkpoint.md": "6052748b614ee990cde7a655a058327108983b097f8e47bd0faced188f3f8511",
+    "docs/class-skill-roadmap.md": "f3cd4749f4a457ed63bfb61f2b09e2355dc276e987e5fb1ce5ec24d6573aa205",
+    "docs/class-skills-resume-checkpoint.md": "c75bf902a537d899ebe3086aa9e719c987766bf7d2d314a7c634903af9ec4118",
+    "docs/necromancer-mechanical-audit.md": "4ee1b5d55c75e98c1e9542df1385d13456c79d67ba71ecb8b03ef929f1bc61cc",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "4ddeff0cdc29835fbd58d2439e44850eb4feb144a36813099e1003722ff4e59a",
+    "src/Sanctuary.Content/BoneBarriers.cs": "6bea8a3f8b0f8e00c53419465551ed123214f0c64ce3041faaf9c8f78a8f0c56",
+    "src/Sanctuary.Content/BoneWallMakerBody.cs": "d2ed42bdf548d79dd802903871f199506bfb5938839104204cb971d4b65c9055",
+    "src/Sanctuary.Content/BoneWallMakerUpdate.cs": "b70fbc751bb30d3b889b06897dd98f0afa558d9ba7df06707c99fff442a8d806",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "374d906283686622867c2ae8b3352672a94230edfa09b3f0039b5d51be21aec6",
+    "tests/Sanctuary.Integration/BoneBarrierChecks.cs": "4a9dd589ca8a93c4d873189b24bbe4f49982afd67f0848dbf29223dc1fcae897",
+    "tests/Sanctuary.Integration/BoneWallMakerChecks.cs": "38924fa3417c0a9007c921437723def262d86d32cc1c2c534903c76d897e368e",
+    "tests/check_bone_wall_maker.py": "0481aa96b9f08e8bad06cf4741ab07a23d8a64381d1d8050319ba41fcd16ceef",
+    "tests/check_iron_golem_birth.py": "197c71e678703468db8f01e926e789c572106feb8601cfa2b757653e408d2e06",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/record_bone_wall_maker.py": "a42666953375ca316bfbf4bcfdd4a239e7d413b7db2e209cc5cbee3f187d3b7a",
+    "tools/reference/bone-barrier-cast-native-evidence.json": "cedd048a0662f225cd572f65e1e7c34644f829b81ffdbb2f6907b6e67158b860",
+    "tools/reference/bone-wall-maker-source-evidence.json": "69cea96e75906cd05fb8f94192f11fb1e3429ee1604f207f2a01929ce6beb1e4"
+  },
+  "established": [
+    "New Wall roots use a saved subtype with independent Q12-vector/slow/formula/step/update arms. Maker allocation precedes movement/lifetime/contact. Only actual child creation spends the success budget; failed exact creation continues. Full maker source gates/order match2592 native contexts.",
+    "Native blocked-then-successful allocation, duplicate rejection, birth-recipe inheritance, first-step ordering, natural maker lifetime and root deletion pass. Two live partial-growth reloads preserve actor/owner/vector/trace/budget/remaining frames/recipe/wounds/deadline/collision, then resume naturally. Persistence fixture holds only its growth clock until verified; normal24second barrier lifetime is never extended.",
+    "Retained casting/allocation/payment/birth/collision/firebolt/Wolf/item/resource scopes and six real barrier/three Wolf casts pass. Historical plain/prepared layouts and data/kernel/installed106 remain unchanged. No skill or class completion."
+  ],
+  "remaining": [
+    "Native fit/town/source-cell-to-tile and LOS/contact candidate services remain adapters. Exact2x2 footprint/room allocation, initial factory/path flags, mode8 mask/finder ordering, source missile hit events and current executable/client equivalence are unverified. No exact wall length or shared-world geometry certificate.",
+    "Root-shared native24second expiry remains; strict source AI deadline, per-child birth deadline, first-think/death/hidedead/minion scheduling, Prison raster geometry and actual old-build upgrade remain open. Held-clock reloads do not establish snapshot concurrency while natural growth adds a child. Historical types retain their prior growth rather than being silently migrated.",
+    "Existing spawn-search/payment/acquisition gaps remain explicit. Effects/audio and talent/hotkey icons remain separate placeholders; approved pet upgrades and safe-area parking queued."
+  ]
+}

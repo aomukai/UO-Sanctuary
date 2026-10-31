@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f62b5a4e1d655ae57e1efa5726f7938a3e08afbb5b1f06f5a67fdd681f3e05e3",
+  "ContentAssemblySha256": "e6d9588bbc74ce6882a84579d0cca2aad29e3c043d9e5ece30e7f1f1146d17db",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -342,8 +342,10 @@
     "src/Sanctuary.Content/BoneBarrierBirth.cs": "78dbda4708bc9122c50b74f243f169b5ab00be7841464d5a031fd223bb4accc3",
     "src/Sanctuary.Content/BoneBarrierBody.cs": "1837696f46c314e2deb54f88582a040bfcc7486c61a6a7d99cabc671e2446b1a",
     "src/Sanctuary.Content/BoneBarrierCasts.cs": "5c650c79cbf555a20c094d4c7648b40fe5d2e55b7f8a29118ebbc8255cfc0a13",
-    "src/Sanctuary.Content/BoneBarriers.cs": "cbb50dede8389fa18ba96bf14cc73feb620f6413222cbb16e558c77a7167dcab",
+    "src/Sanctuary.Content/BoneBarriers.cs": "6bea8a3f8b0f8e00c53419465551ed123214f0c64ce3041faaf9c8f78a8f0c56",
     "src/Sanctuary.Content/BoneSpiritGuidance.cs": "c18f5bd356813190df351b033bbd3ca26f45557edd056e86f19954faec761699",
+    "src/Sanctuary.Content/BoneWallMakerBody.cs": "d2ed42bdf548d79dd802903871f199506bfb5938839104204cb971d4b65c9055",
+    "src/Sanctuary.Content/BoneWallMakerUpdate.cs": "b70fbc751bb30d3b889b06897dd98f0afa558d9ba7df06707c99fff442a8d806",
     "src/Sanctuary.Content/BowAmmunition.cs": "51b3a7edfed99f9c802411dabc9c236ff245a0a0c8f669273b44133a2f923a42",
     "src/Sanctuary.Content/BowExplosions.cs": "1ffd0af3775b9455da2c49adb42e77339aec2bc3ca0227202c1cef0f585f125a",
     "src/Sanctuary.Content/BowLaunch.cs": "63b3a4a6764f093ebb3710713528a677aeb12b30559af7e1c4f1df8fdc7cc318",
