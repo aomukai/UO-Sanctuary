@@ -1,0 +1,110 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Confuse learned casting, neutral alignment and independent target override",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 8,
+  "run": 4,
+  "auditRun": 5,
+  "verified": {
+    "nativeMarkers": 63,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      853,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "connectedRightQuickCasts": 6,
+    "autonomousNpcCombatChecks": 6,
+    "naturalTenSecondExpiries": 6,
+    "mana256": 3328,
+    "reviewedSourceBodies": 10,
+    "compiledNewSourceBodies": 0,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/confuse-cast/birth-inputs.json",
+      "sha256": "910724d17ca6c6eb31f81853bc7dccd04ef001b66349f1de3884b8af4d560bc2"
+    },
+    "audit": {
+      "path": ".local/class-skills/confuse-cast/audit-inputs.json",
+      "sha256": "b07ed11d2a005fd65f794e91582faaa359b6a410589c84e8634567aefb1028b7"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/GraveyardUndead.cs": "223b0aa2366464b426c3f5e00b11110e4a9977436239a751c2c7650f5d6e5d53",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "739acc63d294110e6982487110ee2dd6d6bf515ea88f3724a483c3fb1906ac43",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "f6d4724142891a7206497ad1a56810c627c76510691d7f6c7a88a9646fb94a1c",
+    "src/Sanctuary.Content/PaladinConversion.cs": "252b7bdc4efd361dd6ed817a97354ad627df50fa928809b3b2203e6a8a78a06e",
+    "src/Sanctuary.Content/SourceMind.cs": "a5747ac3b10d8e9c8ce088401ec6da46118cd6c61b8793243575a1d0d521c124",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "11f13345a3cb62ce0b6e569f2599c00a9e0a744d2e6f7ed4ddb5c1342f43c87e",
+    "tests/Sanctuary.Integration/ConfuseCastChecks.cs": "ce0003e524f32f94d86397cacce91292c7976b473905e73bb49da49f241ff85e",
+    "tests/Sanctuary.Integration/DimVisionCastChecks.cs": "33172c5fae91ce945cfddbff0568b13c3b3682d818f7c47de0258e0e5c7102fc",
+    "tests/Sanctuary.Integration/TerrorCastChecks.cs": "0aa22d6d422abbeb2269417f984b37737e1f10c6908cd8eb93d9cdb1e4b5e1ad"
+  },
+  "artifacts": {
+    ".local/class-skills/confuse-cast/audit-inputs.json": "b07ed11d2a005fd65f794e91582faaa359b6a410589c84e8634567aefb1028b7",
+    ".local/class-skills/confuse-cast/audit-native-checks.log": "2ddbaf2072a090b5176c35a7fdbf7b7b759305e6050b504e9b6820516b90f950",
+    ".local/class-skills/confuse-cast/audit-run-5.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/confuse-cast/birth-inputs.json": "910724d17ca6c6eb31f81853bc7dccd04ef001b66349f1de3884b8af4d560bc2",
+    ".local/class-skills/confuse-cast/birth-native-checks.log": "a5b1e7146538f4aebe05ce1f168aab07af8d18bcd2652f70b506f87af2d10496",
+    ".local/class-skills/confuse-cast/blind-world-fixtures.json": "eeed2891b8a3582bf3f4b2339e6a76a14df6ab736939afed88a63f95cd2bd980",
+    ".local/class-skills/confuse-cast/confuse-cast-fixtures.json": "9989d55722f32f3a434e64aaeb3b9a8d006ce53d8718e996a63885752bf2d470",
+    ".local/class-skills/confuse-cast/content-build-8.log": "04c9da2cca781250f2ef4082ccdef083fa971a8b755ae40d3bde47af403ab50e",
+    ".local/class-skills/confuse-cast/dim-vision-cast-fixtures.json": "625766040fe1d4a8caf1108dfe652e438ea2315f1cc927b85f49a54e61d922c2",
+    ".local/class-skills/confuse-cast/howl.json": "b485cf8a88e84447e0f2c8c9b2ca5ffae4d71756f18e2fc5567853fab76204b1",
+    ".local/class-skills/confuse-cast/integration-build-8.log": "ffdcc1bd3a51e18b4b45c7810244080dfb23199ff29e65a8cc2914468a7431f8",
+    ".local/class-skills/confuse-cast/mind-blast-fixtures.json": "a601218f25e6f29e5a5cac8478139913dc6806af3e707f5c568d7376df5215b5",
+    ".local/class-skills/confuse-cast/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/confuse-cast/pre-build-8.json": "f8dc90bbb30af33cd5e06ed40275f2f38730b7d4f7700d438439e528adba5500",
+    ".local/class-skills/confuse-cast/python-tests.log": "dad4911c95dba3591c75272a80d9987eb6c01cc2bd02affa274f50391e4295d5",
+    ".local/class-skills/confuse-cast/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/confuse-cast/taunt.json": "ff01953870b166c5cc4fa573eea3092abbc3edd6b5a94b00ef2df8d6c637ca68",
+    ".local/class-skills/confuse-cast/terror-cast-fixtures.json": "5402542616bc75b58cfc26c8bd397e8e7a08f5eb19a4b1f9b5f4bbca37d448ec",
+    "docs/class-skill-roadmap.md": "d5057ee609bd56ee6e57f8d0499e0bc21325033fa1190894de83759874cb9374",
+    "docs/class-skills-resume-checkpoint.md": "0c848240036ff1a194e567f3dae3408a31734a3f349ea65da1b233b0e0056659",
+    "docs/confuse-cast-checkpoint.md": "8d75971dbade606a6947036e2a1062674a8b774fbfc49aaaad9cc0887e2ef658",
+    "docs/necromancer-mechanical-audit.md": "9ede598de5527528680b23a336e9d185ac0233cdd4424074c6fba65bcaf4441e",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "ecf65c0570c4d8e827ece5f43fdbb4da229f04065767aa77f76a9ef4f067de72",
+    "src/Sanctuary.Content/GraveyardUndead.cs": "223b0aa2366464b426c3f5e00b11110e4a9977436239a751c2c7650f5d6e5d53",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "739acc63d294110e6982487110ee2dd6d6bf515ea88f3724a483c3fb1906ac43",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "f6d4724142891a7206497ad1a56810c627c76510691d7f6c7a88a9646fb94a1c",
+    "src/Sanctuary.Content/PaladinConversion.cs": "252b7bdc4efd361dd6ed817a97354ad627df50fa928809b3b2203e6a8a78a06e",
+    "src/Sanctuary.Content/SourceMind.cs": "a5747ac3b10d8e9c8ce088401ec6da46118cd6c61b8793243575a1d0d521c124",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "11f13345a3cb62ce0b6e569f2599c00a9e0a744d2e6f7ed4ddb5c1342f43c87e",
+    "tests/Sanctuary.Integration/ConfuseCastChecks.cs": "ce0003e524f32f94d86397cacce91292c7976b473905e73bb49da49f241ff85e",
+    "tests/Sanctuary.Integration/DimVisionCastChecks.cs": "33172c5fae91ce945cfddbff0568b13c3b3682d818f7c47de0258e0e5c7102fc",
+    "tests/Sanctuary.Integration/TerrorCastChecks.cs": "0aa22d6d422abbeb2269417f984b37737e1f10c6908cd8eb93d9cdb1e4b5e1ad",
+    "tests/check_confuse_cast.py": "b03704b1523bce8e04cf8078a136b9d9cb2abb9e1095236de909f7090a3bc485",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/record_confuse_cast.py": "b9cdada645f1aaec9e2e81cfb371417cc13b678fc1ed080e420b79913b932c06",
+    "tools/reference/confuse-source-review.json": "7c1ed5e0e2cfcc363d3b0c10a024d04d2d20ae6f8102d399268e0ff27bea8cd6",
+    "tools/reference/first-loop-affix-audit.json": "4b332c86c1da8e17c4dfe2fd664cbe05689012d40f8091dc11b2fce1ec65f8ee",
+    "tools/reference/named-item-runtime-audit.json": "2989ffed13bea926b08cd16379ebfc0643b74eb8d30047230fbb11965ef5b4f4",
+    "tools/reference/terror-cast-native-evidence.json": "88206e4523135da79f654bd328bc65df0ea33a090fb66a83476a3579f3025624",
+    "tools/review_confuse_source.py": "1af3e5f8fbbbac40a1e3f7fa54229284dd61d47e1241b690495ef51c2b0d2ad2"
+  },
+  "established": [
+    "Confuse has13mana release,source radius6+(rank-1),base250+50*(rank-1)frames,ownerfacet divisor1/2/4beforecurse resistance. Acceptedcurse createsNeutralalignment andindependentmode3override deadline;ordinarycurse replacement restoresalignment butkeepsseparateoverride/RNG.",
+    "One source-algorithm lowbit selects temporaryopposingalignment usingnative acquisitionservices;alignmentrestoresafterscan andemptyresult clearsmode3. Bothplayer/monsterfactions,neutralattackability,noplayerownership,independentlease,activereapplication/AIcurse rejection andordinaryreplacement controls pass.",
+    "ExistingGraveyardUndead enemyoverride nowuses sharedallegiancehook insteadofbypassingitwithdirectConversion. MindBlastEvil\u2192GoodConversion guard nowrejectsNeutralConfuse;existingMindBlast/Howl/Taunt/Terror/DimVision/blind/classAI/item/resourcechecks pass. OlderDimVision/TerrorConfusereplacement expectations andspawn-difficulty assertion corrected tosourceNeutral/facetcontracts.",
+    "Sixrealright/quickcastsautonomouslydamageNPCs whileremainingattackable,thenexpirevisiblecurse/overrideafter10seconds. Theartificial50000lifevictimusesexistingPMHfixturecontroltopreventscaledcustomregenerationmaskinghits;gameplayregenerationunchanged. ExactMindseed/deadline/state andlegacyJSONshapesretainacross2reloads;the reloadfixture advancesRNGarithmetically whileinternal,not viaautonomouspost-loadAI.63markers/3boots/2reloads/3saves,4audits/71Python/573named,853/21fingerprints andcleanbuilds pass;data/kernel/installed106unchanged."
+  ],
+  "remaining": [
+    "The10completelegacybodies arestaticallyreviewed,notnewlycompiled/executed. Current3.3.93847executable,fullsourceVM/factory/node/alignment/target/eventbehaviorremainuncorroborated;no skill/classcompletionclaim.",
+    "Nativeacquisitiongate/scan/LOS/threat/ties/mode/path/cadence andper-componentRNGstream remainadapters. Unmappedcandidatealignment,legacyConfuseindependentdeadline migration,sourceTerror/Blind/convertedcoexistence,damage/XPcredit andautonomouspost-loadtargetselection remainunsupported/uncertain.",
+    "Attractstillusestheearliercontinuousradiusadapter;do59independentneighboroverrides/minionlinks/factory-sideeffectorderneedimplementationnext. No full521extendedcohortacceptance. Approvedpetupgrades/safeareaparkingremainqueued.",
+    "Confusecurseconfuse/cursecast effects/audio andtree/hotkeyicons remainseparateidentifiedplaceholders. Sharedmechanics-firstworkflowisnowdocumentedinroadmap."
+  ]
+}
