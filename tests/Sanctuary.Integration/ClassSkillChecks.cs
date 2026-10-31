@@ -192,11 +192,15 @@ public static class ClassSkillChecks
             Require(!NecromancerEffects.TargetAllowed(enemy, owner) && !NamedControl.SpecialAllowed(enemy), "Blinded monster used a distant/special attack");
             blocker.MoveToWorld(new Point3D(origin.X + 2, origin.Y, origin.Z), owner.Map);
             enemy.AIObject.NextMove = Core.TickCount;
+            var pendingBlind=NecromancerEffects.Profiles.Find(enemy);
+            if(pendingBlind.BlindAi is{} clock){NecromancerEffects.Profiles.Store(enemy,pendingBlind with{BlindAi=clock with{NextStepUtc=TimedEffects.Now}});}
             Require(NecromancerEffects.Think(enemy) && enemy.X == origin.X + 1 && enemy.Y == origin.Y
                 && NecromancerEffects.Curse(enemy).Motion == null && enemy.Combatant == null,
                 "Dim Vision chose a new route around an obstruction");
             blocker.Delete(); enemy.AIObject.AITimer.Stop();
-            Timer.StartTimer(TimeSpan.FromMilliseconds(350), () =>
+            // A completed/blocked Skeleton walk enters neutral with the pinned
+            // 15-frame delay before its next blinded decision, not an early scan.
+            Timer.StartTimer(TimeSpan.FromMilliseconds(650), () =>
             {
                 try
                 {

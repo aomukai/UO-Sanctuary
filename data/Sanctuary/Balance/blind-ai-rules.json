@@ -1,0 +1,301 @@
+[
+  {
+    "Source": "cowking",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "darkelder",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "hellbovine",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "megademon1",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "megademon2",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "megademon3",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "megademon4",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "megademon5",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "megademon6",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skeleton8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "venomlord",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zombie1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zombie2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zombie3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zombie4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zombie5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  }
+]

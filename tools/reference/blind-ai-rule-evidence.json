@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePath": "tools/reference/d2r-named-equipment/json/monstats.json",
+  "sourceSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "producerSha256": "0663bb8b905fd2579b392a3c56113abd5705c1e01049021c17f21fdbfab3c2ae",
+  "ruleCount": 23,
+  "families": [
+    "Skeleton",
+    "Zombie",
+    "Megademon"
+  ],
+  "runtimePath": "data/Sanctuary/Balance/blind-ai-rules.json",
+  "runtimeSha256": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
+  "interpretation": "Raw current monstats aidel/aidist values retained per difficulty. Reviewed legacy neutral entry uses15ifdelay<=0;target acquisition uses35ifrange0. These fields do not certify all source AI callbacks or modern executable scheduling."
+}

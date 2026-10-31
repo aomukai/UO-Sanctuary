@@ -105,7 +105,9 @@ internal static class NecromancerCurseCasts
                 target.ColdResistance-EliteAuras.ConvictionOffset(target,"cold"),target.PoisonResistance,target is not BaseHire):null);
         if(next==null){return false;}
         if(ability==CombatAbility.DimVision){next=next with{Motion=NecromancerEffects.CaptureMotion(creature)};}
-        NecromancerEffects.Profiles.Store(target,state with{Curse=next});NecromancerEffects.CurseApplied(owner,target);return true;
+        NecromancerEffects.Profiles.Store(target,state with{Curse=next});
+        if(ability==CombatAbility.DimVision){SourceBlind.Attach(creature,state.Curse?.Ability!=CombatAbility.DimVision||state.Curse.UntilUtc<=at);}
+        NecromancerEffects.CurseApplied(owner,target);return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values)
     {

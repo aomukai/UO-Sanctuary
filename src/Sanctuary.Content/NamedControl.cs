@@ -30,7 +30,7 @@ public static class NamedControl
         && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror)
         && SourceTerror.State(owner)?.Skill!=CombatAbility.Taunt;
     public static bool TargetAllowed(Mobile owner, Mobile target) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Fear(owner)
-        && (!Blind(owner) || target != null && owner.Map == target.Map && owner.InRange(target, 1));
+        && (!Blind(owner) || SourceBlind.AcquiringTarget(owner) || target != null && owner.Map == target.Map && owner.InRange(target, 1));
     private static int DifficultyDivisor(BaseCreature creature) => MonsterVariants.Difficulty(creature) switch
     { MonsterDifficulty.Nightmare => 2, MonsterDifficulty.Hell => 4, _ => 1 };
     private static bool AiTarget(Mobile target) => target is BaseCreature { Controlled: false, Summoned: false, Alive: true, Deleted: false }
