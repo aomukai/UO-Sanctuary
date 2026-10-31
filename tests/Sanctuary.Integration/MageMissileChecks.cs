@@ -134,15 +134,33 @@ public static class MageMissileChecks
         var seed=current.Seeds.Single(x=>x.Actor==m.Serial.Value);var point=p.Location;int map=p.Map.MapID;PersistentMinions.Suspend(p);p.Internalize();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,m.Serial.Value,t.Serial.Value,point,map,held,seed,SkillHealth.Balance256(t),0)));
     }
+    private static void Clocks()
+    {
+        var(p,m,t)=Scene(2);
+        try
+        {
+            Require(m.MageAttackClock==(10,20)&&m.CombatProfile.AttackMs==800,"Mage SKA1HTH skill event8/speed208/end16 clock");
+            TimedEffects.Slow(m,50,TimedEffects.Now);Require(m.MageAttackClock==(20,40),"Mage50percent slow clock");
+            TimedEffects.Clear(m);Require(m.MageAttackClock==(10,20),"Cleared mage slow clock");
+            PoisonDaggerChecks.Named(p,"Bloodfist");Require(m.MageAttackClock==(10,20),"Owner equipment IAS inherited by mage");
+            Require(DruidWolfGeometry.Clock("A1",SourceAttackRate.Speed(208,0,275),"necromage-animation")== (6,12),"Mage175percent final rate cap");
+            var flags=new int[144];flags[8]=2;
+            var plan=SourceAnimationEvents.Initial(new(0,208,4096,flags,[]),0);
+            Require(plan.Events.SequenceEqual(new[]{new SourceAnimationEvent(SourceAnimationEvents.ModeChange,10,2),new SourceAnimationEvent(SourceAnimationEvents.EndAnimation,20,0)}),"Mage projectile must retain skill action kind2");
+            var golem=new NecromancerMinion();try{golem.Prepare(p,CombatAbility.ClayGolem);Require(golem.CombatProfile.AttackMs==720,"Mage clock changed another golem");}finally{golem.Delete();}
+        }
+        finally{Clean(p,m,t);}
+    }
     private static void Check()
     {
-        Source();var seed=NecromancerMageMissiles.SeedLow;try{NecromancerMageMissiles.SeedLow=()=>1;Travel();Critical();Controls();Save();}finally{NecromancerMageMissiles.SeedLow=seed;}
+        Source();Clocks();var seed=NecromancerMageMissiles.SeedLow;try{NecromancerMageMissiles.SeedLow=()=>1;Travel();Critical();Controls();Save();}finally{NecromancerMageMissiles.SeedLow=seed;}
         Log.Information("Mage missiles:1524source getter/length/roll cases;4elements delayed collision,nonhoming,interception,6immunity/lifecycle/terrain/slow controls and saved midflight/critical stream pass");
     }
     private static void Reload()
     {
         Source();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var m=(NecromancerMinion)World.FindMobile((Serial)saved.Mage);var t=World.FindMobile((Serial)saved.Target);
         Require(State(saved.State.Id)==saved.State&&NecromancerMageMissiles.Snapshot().Seeds.Single(x=>x.Actor==saved.Mage)==saved.Seed&&SkillHealth.Balance256(t)==saved.Life,"Saved midflight packet/motion/seed changed");
+        Require(m.MageAttackClock==(10,20)&&m.CombatProfile.AttackMs==800,"Saved mage lost source A1 skill clock");
         p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);p.ClaimAutoStabledPets();m.MoveToWorld(p.Location,p.Map);m.AIObject.AITimer.Stop();
         var pool=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Id==saved.State.Id?x with{NextUtc=TimedEffects.Now.AddMilliseconds(40)}:x).ToArray()});
         Through(saved.State.Id,1);var held=State(saved.State.Id);Require(held is{Fault:null}&&held.Frame==saved.State.Frame+1&&SkillHealth.Balance256(t)==saved.Life,"Loaded projectile failed to resume once");
@@ -154,19 +172,28 @@ public static class MageMissileChecks
         var(p,m,t)=Scene(2);network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
         var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
         var account=new Account("mage-flight-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
-        int life=SkillHealth.Balance256(t);long deadline=Core.TickCount+5000;bool launched=false;long flight=0;MageMissileState last=null;
-        m.BeginMelee(t);
+        int life=SkillHealth.Balance256(t);long deadline=0,started=0;bool early=false,launched=false;long flight=0;MageMissileState last=null;
         void Inspect()
         {
             try
             {
                 Require(Core.TickCount<deadline,$"Natural mage projectile timeout:ownerAlive{p.Alive},ownerMap{p.Map},ownerNet{p.NetState!=null},permitted{m.Permitted(p)},active{PersistentMinions.Active(p,m)},town{SpellHelper.IsTown(p.Location,p)},last{JsonSerializer.Serialize(last)},launched{launched},alive{m.Alive},blocked{AlliedOverlap.Blocked(m)},frozen{m.Frozen},enemy{m.IsEnemy(t)},map{m.Map},position{m.Location},target{t.Location},network{network.Running},flights{NecromancerMageMissiles.Snapshot().Bolts.Count(x=>x.Actor==m.Serial.Value)}");var bolt=NecromancerMageMissiles.Snapshot().Bolts.FirstOrDefault(x=>x.Actor==m.Serial.Value);if(bolt!=null){last=bolt;}
-                if(!launched&&bolt!=null){Require(SkillHealth.Balance256(t)==life&&bolt.Fault==null,"Natural windup still hit immediately");launched=true;flight=bolt.Id;m.SuspendActions();}
+                if(!launched&&bolt!=null){Require(early&&Core.TickCount-started is >=400 and <800&&SkillHealth.Balance256(t)==life&&bolt.Fault==null,"Natural mage launch must follow400ms skill event before800ms cycle and precede damage");launched=true;flight=bolt.Id;m.SuspendActions();}
                 if(SkillHealth.Balance256(t)==life){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
                 Require(launched&&State(flight)==null,"Natural mage hit without traced collision/removal");Clean(p,m,t);account.Delete();Log.Information("mage-missile-live-result: passed");
             }
             catch(Exception e){Clean(p,m,t);account.Delete();Log.Error(e,"mage-missile-live-result: failed");}
         }
-        Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>{Log.Information("mage-missile-live: ready");Inspect();});
+        FixtureClock.NextLoop("mage-missile-live-result",()=>
+        {
+            started=Core.TickCount;deadline=started+5000;
+            Require(m.BeginMelee(t)==TimeSpan.FromMilliseconds(800),"Natural mage cycle must be800ms");
+            Timer.StartTimer(TimeSpan.FromMilliseconds(360),()=>
+            {
+                try{Require(!NecromancerMageMissiles.Snapshot().Bolts.Any(x=>x.Actor==m.Serial.Value)&&SkillHealth.Balance256(t)==life,"Mage projectile or HP before skill event10");early=true;}
+                catch(Exception e){Clean(p,m,t);account.Delete();Log.Error(e,"mage-missile-live-result: failed");}
+            });
+            Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>{Log.Information("mage-missile-live: ready");Inspect();});
+        });
     }
 }

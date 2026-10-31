@@ -247,6 +247,16 @@ def products():
         if actions:skeleton_fields[mode+'Action']=actions[0]
     assert [skeleton_fields[k] for k in ['A1Frames','A1Speed','A1Action','S1Frames','S1Speed']]==[16,224,10,12,128]
     summons += [{'key':'necroskeleton-animation','fields':skeleton_fields}]
+    mage_fields={}
+    for mode in ['S1','A1','A2','GH','BL','WL','NU','DT','DD']:
+        row=skeleton_animations['SK'+mode+'HTH']
+        mage_fields[mode+'Frames']=row['frames'];mage_fields[mode+'Speed']=row['speed']
+        actions=[(frame,kind) for frame,kind in row['events'] if kind in [1,2]]
+        assert len(actions)<=1
+        if actions:mage_fields[mode+'Action'],mage_fields[mode+'ActionKind']=actions[0]
+    assert [mage_fields[k] for k in ['A1Frames','A1Speed','A1Action','A1ActionKind']]==[16,208,8,2]
+    assert skeleton_preflight['currentRows']['monstats']['necromage']['Sk1mode']=='A1'
+    summons += [{'key':'necromage-animation','fields':mage_fields}]
     oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
     assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
     summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]

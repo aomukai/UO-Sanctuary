@@ -1,0 +1,116 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Skeletal Mage source A1 skill-event clock",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 300,
+    "retainedPredecessorMarkers": 300,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      832,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "actualMageCycles": 3,
+    "baselineActionMs": 400,
+    "baselineCycleMs": 800,
+    "halfRateActionMs": 800,
+    "halfRateCycleMs": 1600,
+    "skillEventKind": 2,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/mage-clock/birth-inputs.json",
+      "sha256": "2bcc42fe87756778b8087c5819ec49cd521d47464583b1bb917d470067b803f0"
+    },
+    "audit": {
+      "path": ".local/class-skills/mage-clock/audit-inputs.json",
+      "sha256": "a14fc2195e7efb7c23d150ac8a4fb2ad0244dfab3501a0a95c3f4445d78aa0b3"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    },
+    "mage-missile-source-evidence.json": {
+      "path": "tools/reference/mage-missile-source-evidence.json",
+      "sha256": "68769019b38b073efc92f7417cb00d8de05314e55c9bd557cd68bce54e09cdc1"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/DruidWolfGeometry.cs": "176815eb170a5f6122e2435e1e8e6b4c2d3250184081fb332e0e08534858a2ce",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "62ee9ce6ea911f07c5fb0f7558c85f5b47b5d521bcfeb117d37375924ede9df4",
+    "tests/Sanctuary.Integration/MageMissileChecks.cs": "bdb493b2f469b08468e41287b49e4714d6972f579dfc03d6811b7622a73116bb"
+  },
+  "artifacts": {
+    ".local/class-skills/mage-clock/audit-inputs.json": "a14fc2195e7efb7c23d150ac8a4fb2ad0244dfab3501a0a95c3f4445d78aa0b3",
+    ".local/class-skills/mage-clock/audit-native-checks.log": "1e27e89c54418b631fc7b81d9ab5f9f60a940a37efa22914e6820c20ee9acd45",
+    ".local/class-skills/mage-clock/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/mage-clock/birth-inputs.json": "2bcc42fe87756778b8087c5819ec49cd521d47464583b1bb917d470067b803f0",
+    ".local/class-skills/mage-clock/birth-native-checks.log": "5c6006a0358676e45e86a527dfd9508ba2d3ca9cee5910001316d1bb1b9aa5c5",
+    ".local/class-skills/mage-clock/content-build-1.log": "9e2e5e23d073130e1df8e4edcf466e62f3d119709042e3d3cb5b38c67b91fcb7",
+    ".local/class-skills/mage-clock/integration-build-1.log": "83c2f46ffa2892eafa9d03e8a90885f10aadd62d08c1030c65c42748bce82076",
+    ".local/class-skills/mage-clock/iron-golem-cast-fixtures.json": "548b79af2427b0069f773a0f66b45aeca8df6484d2b83bc3e380d41d4598188c",
+    ".local/class-skills/mage-clock/mage-missile-fixtures.json": "fdeac3e6d8b4f3849305d3e1412d4d3f7135069202b8b4c4c587327d7256b0c7",
+    ".local/class-skills/mage-clock/pre-build-1.json": "719ab425f39dd2e2255b5bcc4459acc3983fd91098789c3157678d9287620e94",
+    ".local/class-skills/mage-clock/python-tests.log": "42968a6d5af7b83b78e911082826dee240becb9b82dccbdbfcfcef55bf0f2287",
+    ".local/class-skills/mage-clock/reference-check.log": "33c0c243272e655985207a56d9b1776d5a2a888c812cc337a01eaf7df89eedd9",
+    ".local/class-skills/mage-clock/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/mage-clock/skeleton-contact-fixtures.json": "058bf407399e1b1c68472dc5359324355a92dc2a3e7f413d59c6dbf942b81cd9",
+    "data/Sanctuary/Balance/necromancer-summons.json": "c47fa6ea3ff7907be6a9b04cb72088349bd0bfcfe92c686207f1990f2d262c9e",
+    "docs/class-skill-roadmap.md": "162578e8b765c0268062c777a392af50750e1303ce90efb0152493d762265b53",
+    "docs/class-skills-resume-checkpoint.md": "907422d26d979fbb2bea80044f3ec26905f3c8970b839db1a508c39695f38f4e",
+    "docs/mage-clock-checkpoint.md": "dc0d70f20ea2e3e7d427596cd186d1b51adb68cd65dba9d8f5e57de63f16d4a2",
+    "docs/necromancer-mechanical-audit.md": "6cbd532e7c91ba5479e85e99c5c1a58edb3bbe2392f302ba677c8768aaee7aab",
+    "docs/skeletal-mage-upgrade-plan.md": "07cc415d73b1cde3175b92188437e7284c1a1cf0024bfd457e86e3867e59029f",
+    "docs/skeleton-components-source-review.md": "571e5890391ca7e3f0f3bef25731d55156b9e43ee66dce3932ee9609d5b44ed3",
+    "docs/skill-effects.md": "898a138849d129b37c85ac9bdb4a9103da975dca9de5d64a754031c7f8695263",
+    "docs/skill-icons.md": "eea0df97ded920ea82ef5fd7f57bf180458b0aa1969b66eaaea9faccd9d7e938",
+    "docs/skill-mechanical-reference.md": "615b916778f7f7fa27d136441b217d08a119465a8c8ddcc2eefb299164c17ff9",
+    "src/Sanctuary.Content/DruidWolfGeometry.cs": "176815eb170a5f6122e2435e1e8e6b4c2d3250184081fb332e0e08534858a2ce",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "62ee9ce6ea911f07c5fb0f7558c85f5b47b5d521bcfeb117d37375924ede9df4",
+    "tests/Sanctuary.Integration/MageMissileChecks.cs": "bdb493b2f469b08468e41287b49e4714d6972f579dfc03d6811b7622a73116bb",
+    "tests/check_mage_clock.py": "6667291dd97605df68290152c7bdf575a8eec651ab9a50b52762a7fb0658ffd3",
+    "tools/build_class_skills.py": "efd7d026aea79fa86b9d19a4a40e9ced2884691e1c8b62494b3a133a98d497f0",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/record_mage_clock.py": "3b48599f8fec13abecb3962c737d9955186fe4363c37a88952bbef62978c5e48",
+    "tools/reference/first-loop-affix-audit.json": "43702680b499b257ecfc6272d72996f8464dc37277e62a89960d2d450b9b54c1",
+    "tools/reference/named-item-runtime-audit.json": "a1cad1a8350f8123d1360b349bd1b4e823cb39ed85c100675aa0ddaf0c7b2ae1",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-contact-native-evidence.json": "d31a9d0c085c98f12aac2c1c6f1d68705c0cc547d91db2c283c0a97ef91880fc",
+    "tools/reference/skeleton-shield-observations.json": "e509ed29e26fe70abfe729218a7e912fb7fab32cdd38e0d4cd23c82fc2b34e52",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "Pinned SKA1HTH16frames/speed208/skill event2 at index8 now feeds the existing source animation planner: action10/end20 gives400ms launch/800ms cycle. A50percent slow gives20/40frames;the175percent final rate cap gives6/12. Owner equipment IAS is excluded and other golem clocks retain their existing branch.",
+    "The shared clock reads optional action-kind metadata,defaulting existing consumers to1. Mage uses kind2 without relabeling its projectile skill event as a melee event. Current local data corroborates302table fields and25SK animation rows;the only runtime change is the Mage animation row.",
+    "Three connected native attacks require no projectile/noHP at360ms,launch after400ms and before800ms,and delayed damage only through traced projectile collision. Two actual reloads preserve advanced projectile state/stream and restore the computed clock.",
+    "All300predecessor focused markers,Iron and regular skeleton timed controls,4audits/71Python,573named decisions and106installed artifacts remain."
+  ],
+  "remaining": [
+    "Initial S1/AI67 targeting/movement,final component/shield generation and initializer seed order,global-frame/current-executable/native geometry/client parity remain unverified. An attack captures its clock at start;live mid-animation rescheduling and pending-action persistence are not certified.",
+    "Existing projectile source lifetime/poison aggregation/full-event/special-recipient/PvP gaps remain. The user rank12all-visible-shields observation is recorded without inferring a distribution or block rate. Other golem and curse acceptance continue.",
+    "No complete class,deployment or new1180-marker broad run is claimed. Final mage emergence/attack/elemental projectile/hit/death effects/audio and talent/hotkey icons remain separate pending ledgers."
+  ]
+}

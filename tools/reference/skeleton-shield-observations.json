@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "User observation in the pinned playable D2R installation",
+  "observedSkill": "Raise Skeleton",
+  "effectiveRank": 12,
+  "visibleShieldObservation": "All currently summoned skeleton warriors visibly carry shields",
+  "sampleCount": null,
+  "established": [
+    "The observed effective-rank12 group visibly carries shields."
+  ],
+  "uncertain": [
+    "No exact sample count, component code, chance distribution or mechanical block rate was measured.",
+    "A single observed group does not establish all-rank shield generation or modern initializer RNG order."
+  ]
+}

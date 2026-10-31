@@ -183,7 +183,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         if (IsMage)
         {
             var birth=MageBirth;
-            return new(birth.Level,Math.Max(1,birth.Life256/256),birth.Attack,birth.Armor,Math.Max(1,min),Math.Max(min,max),1000,
+            return new(birth.Level,Math.Max(1,birth.Life256/256),birth.Attack,birth.Armor,Math.Max(1,min),Math.Max(min,max),DruidWolfGeometry.Clock("A1",source:"necromage-animation").End*40,
                 720*8/Math.Max(1,NecromancerSummons.Source(key,"Velocity",8)),0,0,0,0,0);
         }
         else
@@ -199,6 +199,14 @@ public partial class NecromancerMinion : SkeletonGuardian
         int movement = 720 * 8 / Math.Max(1, NecromancerSummons.Source(key, "Velocity", 8));
         movement = movement * 100 / (100 + Passive("velocitypercent"));
         return new(petLevel, Math.Max(1, life), attack, defense, Math.Max(1, min), Math.Max(min, max), IsMage ? 1000 : 720, movement, 0, 0, 0, 0, 0);
+    }
+    internal (int Action,int End) MageAttackClock=>IsMage?DruidWolfGeometry.Clock("A1",
+        SourceAttackRate.Speed(NecromancerSummons.Source("necromage-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"necromage-animation")
+        :throw new InvalidOperationException("Only skeletal mages use the SK hth skill clock");
+    protected override (int Cycle,int Action) MeleeClock()
+    {
+        if(!IsMage){return base.MeleeClock();}
+        var clock=MageAttackClock;return(checked(clock.End*40),checked(clock.Action*40));
     }
     protected override bool CheckAttackHit(Mobile target) => IsMage || base.CheckAttackHit(target);
     protected override void Strike(Mobile target)

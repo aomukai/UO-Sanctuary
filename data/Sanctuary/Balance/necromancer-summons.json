@@ -1763,6 +1763,33 @@
     }
   },
   {
+    "key": "necromage-animation",
+    "fields": {
+      "S1Frames": 12,
+      "S1Speed": 128,
+      "A1Frames": 16,
+      "A1Speed": 208,
+      "A1Action": 8,
+      "A1ActionKind": 2,
+      "A2Frames": 16,
+      "A2Speed": 128,
+      "A2Action": 9,
+      "A2ActionKind": 1,
+      "GHFrames": 4,
+      "GHSpeed": 184,
+      "BLFrames": 4,
+      "BLSpeed": 128,
+      "WLFrames": 8,
+      "WLSpeed": 128,
+      "NUFrames": 8,
+      "NUSpeed": 128,
+      "DTFrames": 19,
+      "DTSpeed": 208,
+      "DDFrames": 1,
+      "DDSpeed": 152
+    }
+  },
+  {
     "key": "oaksage-animation",
     "fields": {
       "WLFrames": 7,

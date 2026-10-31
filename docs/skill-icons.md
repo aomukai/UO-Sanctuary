@@ -1,5 +1,9 @@
 # Skill icons
 
+The approved [later Mage upgrade](skeletal-mage-upgrade-plan.md) has no selected spell list yet. Track any new tree/hotkey requirements separately after deciding which abilities are autonomous pet spells; extra pet actions do not automatically require player hotkeys.
+
+The [Skeletal Mage skill-clock correction](mage-clock-checkpoint.md) introduces no new binding or final art. Raise Skeletal Mage still needs its tree and right/quick-hotkey icon; Mastery retains its separate passive tree icon. Element variants and the400ms internal action event do not create additional player skills. Effects/audio remain separate.
+
 The [regular skeleton ordered-contact increment](skeleton-contact-checkpoint.md) adds no player-bindable ability or final art. Raise Skeleton still needs its talent-tree and right/quick-hotkey icon; Skeleton Mastery still needs its passive tree icon. Block/retaliation/packet diagnostics introduce no new skill icons. Effects/audio remain separately tracked.
 
 The [regular skeleton damage/A1 increment](skeleton-combat-checkpoint.md) creates no final art. Raise Skeleton’s talent-tree and right/quick-hotkey icon, and Skeleton Mastery’s passive talent-tree icon, remain pending. Random-stream state, critical rolls and individual pet attacks introduce no player-bindable skills or independent icons. Effects/audio remain in the separate ledger.

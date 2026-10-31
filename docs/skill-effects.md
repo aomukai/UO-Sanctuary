@@ -1,5 +1,9 @@
 # Skill effects
 
+The approved [later Mage upgrade](skeletal-mage-upgrade-plan.md) will need effects/audio for its extra spells once the spell list is selected. No specific spell or asset is invented yet; baseline Mage placeholders remain usable.
+
+The [Skeletal Mage skill-clock correction](mage-clock-checkpoint.md) keeps native body56/attack animation and the four colored projectile/hit presentations as identified placeholders. Final emergence/casting, elemental bolts, impact/chill/poison/critical feedback, death and audio remain needed. Their mechanical launch now uses the source400ms event; no final art is generated.
+
 The [regular skeleton ordered-contact increment](skeleton-contact-checkpoint.md) reuses native body50, attack/block/get-hit and shared return presentation as identified placeholders. Final warrior emergence, weapon/shield variants, hit/critical/block/retaliation/death effects and audio remain needed. Captured packets and ordered health/return do not wait for these assets.
 
 The [regular skeleton damage/A1 increment](skeleton-combat-checkpoint.md) keeps native body50, attack animation and shared hit presentation as identified placeholders. Final SK warrior emergence/attack, intrinsic-critical feedback, hit/death, weapon/shield variants and audio remain pending. Damage and its 480 ms release do not depend on that art.
