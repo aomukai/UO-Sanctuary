@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+  "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+  "unchangedRoutineHashes": {
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3"
+  },
+  "cases": 27000,
+  "separatePeriodicReference": {
+    "path": "tools/reference/poison-state-engine-evidence.json",
+    "sha256": "48a4de13e05cc04ea08c8939aab80a2cede3fcd18f28d48049e7448125714fb4",
+    "scope": "Reused independent complete application/regen source evidence,not executed by this allocation probe."
+  },
+  "parent": {
+    "path": ".local/class-skills/monster-weapon-phases-source-probe.cpp",
+    "sha256": "34e1f6b90190a7de93c05ec76c2ba401c034ff8f876fc93f9ae2728a040c56c0",
+    "receipt": "tools/reference/monster-weapon-phases-source-evidence.json",
+    "receiptSha256": "7213e1c3df3a5d706a171c0b5c98e6a14344ce737b48cc5c360868970c0aff09"
+  },
+  "fixture": {
+    "path": ".local/class-skills/npc-impact-allocation-source-probe.json",
+    "sha256": "503ef53106bb7f1ebc4f7007e51ea1431feac42104bc0c94428e1baf63ff4bf6"
+  },
+  "generatedSourceSha256": "ef52b7747e1f7b9a32b78990c5a26569a36fa08cd2428ca9d0fbb304c4f4f3f5",
+  "sanitizers": "ASan+UBSan exit0;empty runtime stderr",
+  "scope": "Complete older AllocCombat,CalculateTotalDamage and resistance/absorb bodies with already-filled declared NPC channels and explicit world/stat/event services. HitFlags2skips FillDamageValues. Does not execute offensive roll preparation,contact/state application/periodic regeneration or current executable.",
+  "established": [
+    "Mitigated poison rate contributes once to immediate total independently of length;zero length can suppress a later state without erasing that impact. Separate periodic application/regen source evidence still schedules its first update on the next frame.",
+    "Result32retains mitigation/allocation;miss and source NoFill controls do not calculate damage. WILLDIE prediction uses strict greater-than after masking low8bits of total and current HP."
+  ],
+  "remaining": [
+    "Native packet composition and actual original-item allocation need integration verification. Full actor/event/return/notification bindings and current-build applicability remain separate;do not infer complete periodic lifetime or legacy delivery migration from this proof."
+  ]
+}

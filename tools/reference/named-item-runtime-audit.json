@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "8ec7d6df522514d632a694466dae6029b6b0bb5b61a8e3d481a8083eb4c393a6",
+  "ContentAssemblySha256": "98c03a00e11ecbb5aa872cd4849e07f241074eb434d211984ad3641f16ac948e",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -642,7 +642,8 @@
     "src/Sanctuary.Content/NpcEquipmentCritical.cs": "ba1087508ba25057714faf86667e314175399ab06232405161a10628fc501350",
     "src/Sanctuary.Content/NpcEquipmentDamage.cs": "32e93e8636071114af04a3e34545f7ff6bcd3248718bd76773e0724d65472d50",
     "src/Sanctuary.Content/NpcEquipmentElements.cs": "250a17be86982e5fd4b739a1cadf4b2209c71c2a29718ccf00afc4610a36c429",
-    "src/Sanctuary.Content/NpcEquipmentPoison.cs": "39425b098c76df6fb210e5d6845c7a55de6a0d593559a9b212083e991f33c098",
+    "src/Sanctuary.Content/NpcEquipmentImpact.cs": "72e42a7b23e5ac7ac590d5f149b995a342119854eeb09d676caffc3e56b34122",
+    "src/Sanctuary.Content/NpcEquipmentPoison.cs": "48f57dfb38970230c8b879c08a4e1595b3e6c99f6805ee11133da6aa22970f8c",
     "src/Sanctuary.Content/NpcEquipmentRandom.cs": "efc1a47eb171aa86bbe97c63498a4ec9d004081e1048ebc68a71f21f21b99e69",
     "src/Sanctuary.Content/NpcEquipmentRegeneration.cs": "e4158762ea5a620e0616992b715ec9927e41b18d3c47ab3afac74e4108d937d0",
     "src/Sanctuary.Content/NpcEquipmentResistances.cs": "982d8ec740cb8b3195eab5989c2d8a05badded8324bc6a7f26d1bc9609b6bb25",

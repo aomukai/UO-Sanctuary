@@ -1,5 +1,7 @@
 # Skill effects
 
+Prepared NPC impact allocation adds no art/audio. Existing poison/cold/contact/retaliation placeholders remain. Final poison presentation must account for the captured initial impact and separate active periodic duration after mechanical/client acceptance;see [scope](npc-impact-allocation-checkpoint.md).
+
 NPC offensive snapshot and native credit changes add no visuals/audio. Existing attack,poison,Life Tap and retaliation placeholders still need final assets and client timing validation. The [initial-poison-total discrepancy](npc-weapon-preparation-checkpoint.md) is mechanical verification work,not an art blocker.
 
 The ordered monster phase consumer reuses Life Tap0x376A/hue0x26 and retaliation0x374A/hue0x481 placeholders. No final art/audio was added. Their final timing must follow the accepted recovery/HP/retaliation phases; actual-client validation remains pending. See [mechanical checkpoint](monster-weapon-phases-checkpoint.md).

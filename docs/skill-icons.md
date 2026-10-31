@@ -1,5 +1,7 @@
 # Skill icons
 
+Allocated NPC impact is an internal consumer and adds no bindable skill/icon. Existing Iron Golem and related talent/hotkey artwork remains independently pending.
+
 NPC offensive preparation and native damage credit add no bindable action or icon. Existing Iron Golem and related talent/hotkey artwork remains independently pending.
 
 Ordered monster recovery/retaliation adds no bindable skill and no new icon. Existing Life Tap,Thorns,Barbs and Iron Golem talent/hotkey artwork remains independently pending.

@@ -20,12 +20,16 @@ internal static class NpcEquipmentPoison
     internal static NpcPoisonDelivery Prepare(SkeletonGuardian actor,Mobile target,NpcPoisonSnapshot snapshot,WeaponPoisonRoll rolled)
     {
         if(rolled.Rate256<=0||rolled.Frames<=0||target is not BaseCreature creature){return null;}
+        var poison=Mitigate(actor,creature,snapshot,rolled);
+        return poison.Rate256>0&&poison.Frames>0?new(snapshot.Actor,snapshot.CreditOwner,poison):null;
+    }
+    internal static PreparedPoison Mitigate(SkeletonGuardian actor,BaseCreature target,NpcPoisonSnapshot snapshot,WeaponPoisonRoll rolled)
+    {
         if(actor.Serial.Value!=snapshot.Actor){throw new InvalidOperationException("NPC poison actor changed");}
         // Read the recipient's resistance/curse/aura pools, then apply only
         // this NPC item's pierce once. Player-owner equipment is not inherited.
-        int resistance=NamedElements.Resistance(actor,target,"pois",creature.PoisonResistance,pierceOverride:0);
-        var poison=PoisonPackets.Mitigate(rolled.Rate256,rolled.Frames,false,resistance,ItemDurationDefenses.PoisonLength(target),snapshot.Pierce,0,0);
-        return poison.Rate256>0&&poison.Frames>0?new(snapshot.Actor,snapshot.CreditOwner,poison):null;
+        int resistance=NamedElements.Resistance(actor,target,"pois",target.PoisonResistance,pierceOverride:0);
+        return PoisonPackets.Mitigate(rolled.Rate256,rolled.Frames,false,resistance,ItemDurationDefenses.PoisonLength(target),snapshot.Pierce,0,0);
     }
     internal static bool Commit(NpcPoisonDelivery delivery,Mobile target,DateTime at)
     {
