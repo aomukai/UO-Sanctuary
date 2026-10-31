@@ -26,6 +26,7 @@ internal static class NecromancerGolems
     }
     private static void Remove(SkeletonGuardian pet,bool replacement)
     {
+        if(replacement&&pet is FireGolemDeathBody fire){fire.Explode();return;}
         // Retain the existing Fire Golem replacement hook. Ordinary cap
         // refresh retains its prior delete-only behavior; event parity is separate.
         if(replacement&&pet is NecromancerMinion minion){minion.Explode();}

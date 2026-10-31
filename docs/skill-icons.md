@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Fire Golem delayed-death increment](fire-golem-death-checkpoint.md) adds no player binding or death-trigger icon. Fire Golem’s talent-tree/right/quick icons remain separately pending.
+
 The [Fire Golem death source review](fire-golem-death-source-review.md) adds no binding or separate death-trigger icon. Fire Golem's talent-tree/right/quick icons remain pending; its automatic explosion effects/audio stay in the other ledger.
 
 The [Fire Golem Holy Fire increment](fire-golem-aura-checkpoint.md) is automatic pet behavior and adds no player binding or separate Holy Fire icon. Fire Golem still needs its talent-tree and right/quick-hotkey icons; effects/audio stay in their separate ledger.

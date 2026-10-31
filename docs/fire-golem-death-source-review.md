@@ -1,5 +1,7 @@
 # Fire Golem death source review
 
+The later native implementation is tracked in the [delayed-death checkpoint](fire-golem-death-checkpoint.md). The source-only scope described below remains historical evidence, not its native acceptance certificate.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations taking precedence. This is source preparation; no runtime behavior, installed build or saves change in this increment.
 
 The [reproducible source receipt](../tools/reference/fire-golem-death-source-evidence.json) composes **5,184 complete retained-owner explosion contexts** under ASan/UBSan. It reuses the existing sentry owner/damage harness and verifies unchanged bodies against the pinned source tree. Registry, room enumeration, radial barriers, allocation, block results, random draws, stats and empty event subscribers are declared services. These contexts do not establish current executable or native corpse lifetime equivalence.

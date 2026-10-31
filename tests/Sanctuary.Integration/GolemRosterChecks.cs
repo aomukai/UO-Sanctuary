@@ -62,7 +62,7 @@ public static class GolemRosterChecks
             {
                 var old=Spawn(owner,from,1);var original=IronGolemItems.State(old) is{} binding?World.FindItem((Serial)binding.Item):null;
                 var next=Spawn(owner,to,2);var roster=NecromancerGolems.For(owner);
-                Require(old.Deleted&&roster.Length==1&&roster[0]==next&&next.ControlMaster==owner&&!next.Deleted,
+                Require((old.Deleted||old is FireGolemDeathBody{Retiring:true,Alive:false})&&roster.Length==1&&roster[0]==next&&next.ControlMaster==owner&&!next.Deleted,
                     "Cross-type replacement failed "+from+" -> "+to);
                 Require(original==null||original.Deleted,"Replaced Iron Golem returned or retained its consumed original");
                 Require(skeleton.Alive&&!skeleton.Deleted&&mage.Alive&&!mage.Deleted&&!NecromancerGolems.Member(skeleton)&&!NecromancerGolems.Member(mage),"Golem replacement consumed a skeleton/mage");

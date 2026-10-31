@@ -44,7 +44,7 @@ public static class NecromancerSummons
         if(ability==CombatAbility.FireGolem){try{NecromancerFireBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
-        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemBody(),CombatAbility.BloodGolem=>new BloodGolemBody(),CombatAbility.FireGolem=>new FireGolemBody(),_=>new NecromancerMinion()};
+        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemBody(),CombatAbility.BloodGolem=>new BloodGolemBody(),CombatAbility.FireGolem=>new FireGolemDeathBody(),_=>new NecromancerMinion()};
         bool committed=false;
         try
         {
@@ -268,7 +268,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             SkillCombat.Hit(this, target, (aura.Damage(false) + (aura.Damage(true) - aura.Damage(false)) * Utility.RandomDouble()) * scale, "fire");
         }
     }
-    public void Explode()
+    public virtual void Explode()
     {
         if (Kind == CombatAbility.FireGolem && Alive && !Deleted && ControlMaster is PlayerMobile owner && Map != Map.Internal)
         {
@@ -279,7 +279,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     public override bool OnBeforeDeath()
     {
-        Explode();
+        if(this is not FireGolemDeathBody){Explode();}
         return base.OnBeforeDeath();
     }
     [AfterDeserialization] private void AfterSummonLoad()

@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Fire Golem delayed-death increment](fire-golem-death-checkpoint.md) uses location effect `0x36BD` as an identified explosion placeholder. Final fire death/body/explosion/critical feedback and audio remain pending; no imagegen assets are created here.
+
 The [Fire Golem death source review](fire-golem-death-source-review.md) adds no art or runtime effect. Missile117/corpse explosion, intrinsic-critical feedback and final fire death/body/audio assets remain pending; existing immediate feedback remains an identified legacy placeholder.
 
 The [Fire Golem Holy Fire increment](fire-golem-aura-checkpoint.md) keeps native pulse/body/hue feedback as identified placeholders. Final fire ring, pulse, weapon-contact/critical and death/explosion effects and audio remain needed; the shared aura mechanics are independent of final art.

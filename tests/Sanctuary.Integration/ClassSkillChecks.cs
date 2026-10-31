@@ -289,8 +289,9 @@ public static class ClassSkillChecks
             owner.Mana = owner.ManaMax;
             var replacementPoint = CombatPractice.FindFloor(owner.Map, owner.X - 1, owner.Y);
             Require(NecromancerCombat.Release(owner, CombatAbility.ClayGolem, Serial.Zero, replacementPoint), "Replacement golem");
-            Require(fire.Deleted && drained.Hits == before - 200, "Replacing Fire Golem skipped source death explosion");
-            _log.Information("Necromancer summons: Blood Golem drain, healing split, both overflow directions, caps, Fire Golem source passives and replacement explosion passed");
+            Require(fire is FireGolemDeathBody{Retiring:true,Alive:false,Deleted:false}&&fire.ControlMaster==owner&&drained.Hits==before,
+                "Replacing Fire Golem must retain its dead source without immediate burst damage");
+            _log.Information("Necromancer summons: Blood drain/healing/overflow,caps,Fire source passives and deferred original-source replacement pass;timed burst has dedicated controls");
         }
         finally
         {
