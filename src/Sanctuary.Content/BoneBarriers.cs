@@ -129,11 +129,20 @@ public partial class BoneBarrierSegment : BaseCreature
     {
         var prepared=root is BoneBarrierBody parent?parent.Prepared:root==null?BoneBarrierBirth.Capture(values,SummonDifficulties.For(owner.Map)):null;
         int life = root?.Life ?? (prepared!=null?(prepared.Numbers.Life256+255)/256:Math.Max(1, (int)((long)NecromancerSummons.Source("bonewall", "minHP") * (100 + values.Eval("calc1")) / 100)));
-        BoneBarrierSegment segment=prepared==null?new BoneBarrierSegment():root==null&&ability==CombatAbility.BoneWall?new BoneWallMakerBody():new BoneBarrierBody();
+        bool thinking=prepared!=null&&(root==null||root is IBarrierThinkClock);
+        BoneBarrierSegment segment=prepared==null?new BoneBarrierSegment():!thinking?new BoneBarrierBody()
+            :root==null&&ability==CombatAbility.BoneWall?new BoneWallThinkingBody():new BoneBarrierThinkingBody();
         segment._ability=ability;segment._root=root;segment._child=root!=null;segment._life=life;
         segment._sourceLevel=root?.SourceLevel??prepared?.Numbers.Level??ClassStats.Level(owner);
         segment._sourceDefense=root?.SourceDefense??prepared?.Numbers.Defense??NecromancerSummons.Source("bonewall","AC");
         segment._expiresUtc=root?.ExpiresUtc??TimedEffects.Now.AddMilliseconds(values.Param(2)*40);
+        if(segment is IBarrierThinkClock clock)
+        {
+            var state=BoneBarrierThinkClock.Capture(TimedEffects.Now);clock.StoreClock(state);
+            // Each source pet has its own birth-relative nominal deadline.
+            // Root-owned cleanup is independent of the child's AI clock.
+            segment._expiresUtc=state.BornUtc.AddMilliseconds(state.Deadline*40);
+        }
         segment.SummonMaster=owner;
         if(segment is BoneBarrierBody body){body.Prepare(prepared);}
         segment.SummonEnd = segment._expiresUtc;
@@ -164,11 +173,12 @@ public partial class BoneBarrierSegment : BaseCreature
     private void Tick()
     {
         if (Deleted) { _timer.Cancel(); return; }
-        if (!Alive || TimedEffects.Now >= _expiresUtc || _child && _root is not { Alive: true, Deleted: false }
+        if (!Alive || LifetimeExpired(TimedEffects.Now) || _child && _root is not { Alive: true, Deleted: false }
             || SummonMaster is not PlayerMobile { Deleted: false } || Map == null || Map == Map.Internal) { Delete(); return; }
         RecoverLife(Core.TickCount);
         AdvanceGrowth();
     }
+    protected virtual bool LifetimeExpired(DateTime at)=>at>=_expiresUtc;
     protected virtual void AdvanceGrowth()
     {
         if (_child || _ability != CombatAbility.BoneWall || _left >= _armLimit && _right >= _armLimit) { return; }
@@ -216,8 +226,9 @@ public partial class BoneBarrierSegment : BaseCreature
     private void AfterLoad()
     {
         AIObject?.AITimer.Stop(); _lastRegen = Core.TickCount;
-        if (TimedEffects.Now >= _expiresUtc) { Timer.StartTimer(TimeSpan.Zero, Delete); }
-        else { Start(); }
+        // Let the zero-delay tick run after all derived saved fields restore.
+        // A derived AI clock may still be alive past its nominal deadline.
+        Start();
     }
 }
 

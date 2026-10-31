@@ -126,13 +126,22 @@ public static class BoneBarrierBirthChecks
                 Require(Core.TickCount<timeout,"Barrier input timeout");var session=ClassCombat.For(p);
                 if(session.PendingAbility==ability&&!began){Require(Bodies(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Input created/paid during windup");began=true;Log.Information("{Label}: windup",label);}
                 var parts=Bodies(p);if(parts.Length==0){Require(!began||session.PendingAbility==ability,"Cast ended without allocating a barrier");Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                var body=parts[0];if(selectedWall){Require(parts.All(b=>b.Location!=target.Location),"Occupied Wall aim was overlapped rather than retried");}var expected=BoneBarrierBirth.Capture(SkillMechanics.Values(p,ability),MonsterDifficulty.Normal);
+                var body=parts.Single(b=>b.Root==null);if(selectedWall){Require(parts.All(b=>b.Location!=target.Location),"Occupied Wall aim was overlapped rather than retried");}var expected=BoneBarrierBirth.Capture(SkillMechanics.Values(p,ability),MonsterDifficulty.Normal);
                 Require(began&&parts.All(b=>b.Prepared==expected&&SkillHealth.Balance256(b)==expected.Numbers.Life256)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Actual input recipe/resource/once payment");ClassCombat.Stop(p);
-                Require((body.ExpiresUtc-TimedEffects.Now).TotalMilliseconds is >23900 and <=24000,"Barrier source24second lifetime");var until=body.ExpiresUtc;
+                Require((body.ExpiresUtc-TimedEffects.Now).TotalMilliseconds is >23900 and <=24000,"Barrier nominal600frame deadline");var until=body.ExpiresUtc;
                 void Expired()
                 {
-                    if(finished){return;}if(TimedEffects.Now<until.AddMilliseconds(100)){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));return;}
-                    try{Require(Bodies(p).Length==0&&!Tiles(p.Map,at),"Barrier expiry left bodies or collision tiles");finished=true;End();Log.Information("{Label}-result: passed",label);}catch(Exception e){Fail(e);}
+                    if(finished){return;}
+                    try
+                    {
+                        Require(Core.TickCount<timeout,"Barrier AI expiry timeout");
+                        if(Bodies(p).Length!=0){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));return;}
+                        Require(!Tiles(p.Map,at)&&body is IBarrierThinkClock clock&&clock.Clock.DeathRequested&&clock.Clock.Last>600
+                            &&TimedEffects.Now>until,"Barrier did not retire through strict AI expiry or left collision");
+                        var state=((IBarrierThinkClock)body).Clock;Log.Information("{Label}: death request frame={Frame} thinks={Thinks}",label,state.Last,state.Thinks);
+                        finished=true;End();Log.Information("{Label}-result: passed",label);
+                    }
+                    catch(Exception e){Fail(e);}
                 }
                 Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));
             }

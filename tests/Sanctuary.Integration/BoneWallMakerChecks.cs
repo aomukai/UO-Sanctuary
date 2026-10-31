@@ -98,7 +98,7 @@ public static class BoneWallMakerChecks
         catch{root?.Delete();p.Delete();throw;}
         finally{BoneBarriers.Allocate=original;}
     }
-    private static void StageSave()
+    internal static void StageSave()
     {
         var p=Owner();var b=Create(p);b.InspectGrowth(TimedEffects.Now);b.InspectGrowth(TimedEffects.Now);
         // Hold only this fixture's growth clock through save/boot, not the

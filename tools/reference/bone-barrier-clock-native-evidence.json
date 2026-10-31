@@ -1,0 +1,128 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bone Wall/Prison AI first-think and expiry clocks",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 2,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 55,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "sourceClockContexts": 128,
+    "nativeSourceClockContexts": 128,
+    "retainedMakerSourceContexts": 2592,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      861,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "connectedBarrierCasts": 6,
+    "connectedWolfCasts": 3,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "naturalDeathRequests": [
+    {
+      "family": "bone-wall-target-right",
+      "frame": 610,
+      "thinks": 40
+    },
+    {
+      "family": "bone-prison-self-quick",
+      "frame": 610,
+      "thinks": 40
+    },
+    {
+      "family": "bone-wall-target-right",
+      "frame": 610,
+      "thinks": 40
+    },
+    {
+      "family": "bone-prison-self-quick",
+      "frame": 610,
+      "thinks": 40
+    },
+    {
+      "family": "bone-wall-target-right",
+      "frame": 610,
+      "thinks": 40
+    },
+    {
+      "family": "bone-prison-self-quick",
+      "frame": 610,
+      "thinks": 40
+    }
+  ],
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-barrier-clock/birth-inputs.json",
+      "sha256": "9e25518992f568d99bf7bb3b1b551f567c69c77d250d9e8fdcd1628ab5e3d1aa"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-barrier-clock/audit-inputs.json",
+      "sha256": "f1946d63b12f4fc6cc0d57e2a8f348e6d7ae29e5e34d9c8b9e0198bf11ec7ed6"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BoneBarrierThinkClock.cs": "75a65524036c9d9c951b95640542d522ac0cd402c9d9e0a760a762765196b3ce",
+    "src/Sanctuary.Content/BoneBarriers.cs": "7c3c469ae3118d8e1a07a56936b23a0bb0621da3636f3bfbdfa7f7b24bbce0ee",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "322d2255b80d61ba7c9dcf5338cc8828753df468df78a7d14d29f4c66fe48925",
+    "tests/Sanctuary.Integration/BoneBarrierClockChecks.cs": "f21a45abac6c9901ec92a2adf25fec8e9ea299eb911d630ac5771da3bb5ac288",
+    "tests/Sanctuary.Integration/BoneWallMakerChecks.cs": "88ae707c58b291cbea17cc2f7a0f0f50a64f218716d90c68cf5c35d65d14b9f2"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-clock/audit-inputs.json": "f1946d63b12f4fc6cc0d57e2a8f348e6d7ae29e5e34d9c8b9e0198bf11ec7ed6",
+    ".local/class-skills/bone-barrier-clock/audit-native-checks.log": "dc6ae25ded6af326965451065899244e10123ac715ffcc74f8825a9dc23ca51a",
+    ".local/class-skills/bone-barrier-clock/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-barrier-clock/birth-inputs.json": "9e25518992f568d99bf7bb3b1b551f567c69c77d250d9e8fdcd1628ab5e3d1aa",
+    ".local/class-skills/bone-barrier-clock/birth-native-checks.log": "e0a960022aa0d56e547ce74caadcb91585968b1e94382ddcb8e0484bd44767ec",
+    ".local/class-skills/bone-barrier-clock/bone-barrier-birth-fixtures.json": "f8efad6aa451147bc456924a035f6f193f421b8d801e7cd79a68a7a3aa026e77",
+    ".local/class-skills/bone-barrier-clock/bone-barrier-cast-fixtures.json": "86046029359f20df54798f444158cfb735518894850400949300e2b5c6f07c19",
+    ".local/class-skills/bone-barrier-clock/bone-barrier-checks.json": "1a71f86ea1ba1b7b2230a4a35247e89820090fe7ff83686d6d62cd98beed190e",
+    ".local/class-skills/bone-barrier-clock/bone-barrier-clock-fixtures.json": "4aef91bb42510fdd8ec5e83d4fca49a33bef34ea7cda3ad964d8c07e6b19cae1",
+    ".local/class-skills/bone-barrier-clock/bone-wall-maker-fixtures.json": "5b6de20285d920d6807cac26f23fe511c0d6877a6f2a26494fe60428cc619700",
+    ".local/class-skills/bone-barrier-clock/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/bone-barrier-clock/content-build-4.log": "1bb3e32489661600e693a4466d4d02f33f353a7fad8bc0dac27ae382387fdb71",
+    ".local/class-skills/bone-barrier-clock/integration-build-4.log": "0a773d8dfa26ba8f928fa60f6ea39ec609b0922e6e99a9db65d12b720d0e8866",
+    ".local/class-skills/bone-barrier-clock/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/bone-barrier-clock/pre-build-4.json": "d887fe03a51b384cdb68368c2df915fc6dfc004f0260dc2ae81b035a838828f1",
+    ".local/class-skills/bone-barrier-clock/python-tests.log": "adb86c15b306e5b24a1cac79b7bd76f9a2ddb9bb9f4f7a1a3460f51355913ea8",
+    ".local/class-skills/bone-barrier-clock/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/bone-barrier-clock/spirit-wolf-casting-fixtures.json": "06a7c05f126ca3fee5dfb6652036154b7f64a6f78290c1228f3b6d434955b7b5",
+    "docs/bone-barrier-clock-checkpoint.md": "3c5bce22287682f55fdf2b621ae00fe238f2fbf9b568ff3c24f0cedd392e97dc",
+    "docs/class-skill-roadmap.md": "c915b853d91644997692c483fe0d627a4836833223c7e6629ce17e63f176feeb",
+    "docs/class-skills-resume-checkpoint.md": "b405d00f1dcaa6fa4bcaac063512adbadbd348c3c521f66b02a74211df6ce192",
+    "docs/necromancer-mechanical-audit.md": "0ed3f69afd3010ec2168635c75ccc41a55f655b891c8e93b3a1c294b616bf6e0",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "3dd2d7b3393df10ae99e8df85082e028a8e80c4cb796909ebd6849a47ed5486d",
+    "src/Sanctuary.Content/BoneBarrierThinkClock.cs": "75a65524036c9d9c951b95640542d522ac0cd402c9d9e0a760a762765196b3ce",
+    "src/Sanctuary.Content/BoneBarriers.cs": "7c3c469ae3118d8e1a07a56936b23a0bb0621da3636f3bfbdfa7f7b24bbce0ee",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "322d2255b80d61ba7c9dcf5338cc8828753df468df78a7d14d29f4c66fe48925",
+    "tests/Sanctuary.Integration/BoneBarrierClockChecks.cs": "f21a45abac6c9901ec92a2adf25fec8e9ea299eb911d630ac5771da3bb5ac288",
+    "tests/Sanctuary.Integration/BoneWallMakerChecks.cs": "88ae707c58b291cbea17cc2f7a0f0f50a64f218716d90c68cf5c35d65d14b9f2",
+    "tests/check_bone_barrier_clock.py": "c51649223ea4243ef23d4c188daa61a0faa6cb1ee01a409a69090ac5be460bbe",
+    "tests/check_iron_golem_birth.py": "197c71e678703468db8f01e926e789c572106feb8601cfa2b757653e408d2e06",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/record_bone_barrier_clock.py": "2013103e8cbe02d35db71138ca9f4d9ae1552ec5d46a454b890661c235b7754f",
+    "tools/reference/bone-barrier-retirement-source-evidence.json": "ecfa1f8eb7e4aaab8832652d4f172c730fe1056b53192639524be1881f8a29ae",
+    "tools/reference/bone-wall-maker-native-evidence.json": "94214f5eb84e0a9f43126347ea8cd740332bf04f0e69fda1c10c9d5f6661682a"
+  },
+  "established": [
+    "New saved barrier subtypes observe first AI event25/deadline600/strict comparison/idle15. One actual observed frame preserves delayed phases; no synthetic catch-up.128 complete source schedules match native clock results, including equality600->615. New bodies reuse existing UsesNativeSummonTimer=false ownership hook.",
+    "Later-created children capture their own birth-relative deadline and preserve recipe/root links. Historical plain/prepared/maker types keep their layouts and expiry/timer ownership. Two reloads preserve three inspected partial AI clocks and two historical typed actors, exact wounds/owner/deadline/collision; observed next610 resumes native removal. This is not an actual old-build byte upgrade.",
+    "Six real barrier casts pay once and retire through DeathRequested frames>600; actual observations are listed. Retained maker/casting/birth/collision/firebolt/Wolf/item/resource scopes pass. Data/kernel/installed106 unchanged; no deployment or class completion."
+  ],
+  "remaining": [
+    "A death request still maps to the prior native deletion/root-cleanup adapter. Source DEATH mode entry/DT15/hidedead/minion graph/collision release and full current-executable/room/stun/leash/inactivity routing remain unverified. This acceptance covers the AI schedule, not the complete death phase.",
+    "Save fixtures inspect clock through595 without moving BornUtc/deadline, then inspect610 after reload; separate real-input checks use natural observations. No lifetime extension, unheld snapshot concurrency or full elapsed-time retirement-save proof. Exact footprint/Prison geometry/acquisition/payment/search and actual old-build upgrade remain open.",
+    "Effects/audio and talent/hotkey icons remain separate placeholders; approved pet upgrades and safe-area parking queued."
+  ]
+}
