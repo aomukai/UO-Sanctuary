@@ -13,7 +13,7 @@ internal static class NecromancerCurseCasts
     private static readonly HashSet<string> NoWalk=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<Type> Unmapped=new();
     private static readonly HashSet<string> UnmappedAi=new();
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden or CombatAbility.LifeTap or CombatAbility.DimVision;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden or CombatAbility.LifeTap or CombatAbility.DimVision or CombatAbility.Terror;
     public static void Configure()
     {
         foreach(string source in BalanceCatalog.Read<string>("source-curse-no-walk"))
@@ -31,7 +31,7 @@ internal static class NecromancerCurseCasts
         if(row==null || row.Base=="imp1")
         {
             string key=target.GetType().Name+":"+(row?.Base??"unmapped");
-            if(UnmappedAi.Add(key)){Log.Warning("Dim Vision AI eligibility is unsupported: {Target}",key);}
+            if(UnmappedAi.Add(key)){Log.Warning("AI curse eligibility is unsupported: {Target}",key);}
             return false;
         }
         return row.Evil&&row.SwitchAi&&row.Walk&&!row.Boss&&!row.Npc&&row.Attackable;
@@ -75,7 +75,13 @@ internal static class NecromancerCurseCasts
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
-        if(ability==CombatAbility.DimVision&&!AiEligible(creature)){return false;}
+        if(ability is CombatAbility.DimVision or CombatAbility.Terror && !AiEligible(creature)){return false;}
+        if(ability==CombatAbility.Terror&&!SourceTerror.Supported(creature))
+        {
+            string key="Terror:"+creature.GetType().Name+":"+CreatureProfiles.Definition(creature).Reference;
+            if(UnmappedAi.Add(key)){Log.Warning("Learned Terror AI transition is unsupported: {Target}",key);}
+            return false;
+        }
         // The earlier monster-cast Amplify store has no rank/creator payload.
         // Its compound replacement cannot yet be mapped without inventing one.
         if(EliteAuras.Curses.Active(target.Serial,TimedEffects.Now))
@@ -85,7 +91,7 @@ internal static class NecromancerCurseCasts
         int frames=(int)values.Eval("auralencalc");
         // Do30 uses game difficulty before the curse-resistance factory. In
         // Sanctuary that is the owner's configured facet, not the NPC's spawn.
-        if(ability==CombatAbility.DimVision){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
+        if(ability is CombatAbility.DimVision or CombatAbility.Terror){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
         if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();DateTime at=TimedEffects.Now;
         // For current native hostile actors, PhysicalResistance is the base
@@ -105,8 +111,13 @@ internal static class NecromancerCurseCasts
                 target.ColdResistance-EliteAuras.ConvictionOffset(target,"cold"),target.PoisonResistance,target is not BaseHire):null);
         if(next==null){return false;}
         if(ability==CombatAbility.DimVision){next=next with{Motion=NecromancerEffects.CaptureMotion(creature)};}
+        // The source dispatcher reinitializes AI11 on every accepted factory
+        // result, including an equal-rank refresh. Capture before Store/Reset
+        // can retire the old control state; never substitute the curse caster.
+        if(ability==CombatAbility.Terror){next=next with{Terror=SourceTerror.Learned(creature,rank,at)};}
         NecromancerEffects.Profiles.Store(target,state with{Curse=next});
         if(ability==CombatAbility.DimVision){SourceBlind.Attach(creature,state.Curse?.Ability!=CombatAbility.DimVision||state.Curse.UntilUtc<=at);}
+        if(ability==CombatAbility.Terror){SourceTerror.Reset(creature);}
         NecromancerEffects.CurseApplied(owner,target);return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values)

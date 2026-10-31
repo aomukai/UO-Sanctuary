@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Terror shared casting and native fear controller",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 2,
+  "verified": {
+    "nativeMarkers": 54,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      852,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceDo30ReceiverContexts": 12000,
+    "nativeTerrorScalarArbitrationComparisons": 3600,
+    "connectedRightQuickCasts": 6,
+    "autonomousEscapeChecks": 6,
+    "naturalEightSecondExpiries": 6,
+    "actualSavedEscapeResumes": 2,
+    "mana256": 1792,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/terror-cast/birth-inputs.json",
+      "sha256": "c4a70381fbbc33f5bf3ab969be59c2379fa872f015002ee157a88a628e39db15"
+    },
+    "audit": {
+      "path": ".local/class-skills/terror-cast/audit-inputs.json",
+      "sha256": "435948f067da25be47869b8beee5d2c232c457f0ced85797f655ae631a3e0833"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "693e60055733e10f66f838393bb330a4015280756c284fe08822e1161f1000dd",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "822fcc78503a65c1e9c38aa749765687e1d39f5839e2907fd4ba9c7af2f25af0",
+    "src/Sanctuary.Content/SourceTerror.cs": "344d7ad0ae1de19437fd1a237a0a33d24033f2cba365befc9156445fe30cd292",
+    "tests/Sanctuary.Integration/TerrorCastChecks.cs": "ffa70fdf4bb380c853e3b034295e535bfe59cd5be1dab98440840279af7430e5"
+  },
+  "artifacts": {
+    ".local/class-skills/terror-cast/audit-inputs.json": "435948f067da25be47869b8beee5d2c232c457f0ced85797f655ae631a3e0833",
+    ".local/class-skills/terror-cast/audit-native-checks.log": "5483867d50386a00c1f4bc44058aba27942eb0444de66c31fd220daf3525a4e4",
+    ".local/class-skills/terror-cast/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/terror-cast/birth-inputs.json": "c4a70381fbbc33f5bf3ab969be59c2379fa872f015002ee157a88a628e39db15",
+    ".local/class-skills/terror-cast/birth-native-checks.log": "e26992dfc51c6e06e5c3a58a2fc495cc1fa1168b6080fc9570c73c62a66971b7",
+    ".local/class-skills/terror-cast/blind-world-fixtures.json": "12470a5964c582fe342699d665a8857bb44984175d55d4bba5d4012d99a330e8",
+    ".local/class-skills/terror-cast/content-build-3.log": "0a10de44bded2a13d4163077c664693f3de3de94d05fe241a3712104185e7836",
+    ".local/class-skills/terror-cast/dim-vision-cast-fixtures.json": "85a011a02d90f407adbc712d57037c85849f42ff10a5a86757fb2e9008857e40",
+    ".local/class-skills/terror-cast/howl.json": "b1a1c36ad8465d5700f92dd98b9d1793a57a94da7beccbb3a138d703f8b48caf",
+    ".local/class-skills/terror-cast/integration-build-3.log": "70382c77d441d85a3a23bf8cee64c71dda10ba08a1b168242fac135540ce1e0b",
+    ".local/class-skills/terror-cast/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/terror-cast/pre-build-3.json": "fcbea9e7484c4b6295325be45ec89a55b889b6ecc3bb7ccc9310d7955a3d7a41",
+    ".local/class-skills/terror-cast/python-tests.log": "45aacaf95b487f2bcc4d21247107e0143a3595427182a4b6202b5ed9384486db",
+    ".local/class-skills/terror-cast/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/terror-cast/taunt.json": "8fe4087fc2e77c46f446c278f21f22193a3eb0fa95b7a5f3bd30d1631ee4d1c8",
+    ".local/class-skills/terror-cast/terror-cast-fixtures.json": "47edcad2ac7feeec40c2c18116fc1a0bcf40ec94a5a58aafed37106434373f66",
+    "docs/class-skill-roadmap.md": "190410d9ae943eb6b6c2c956ad5fa2d501041ae248e9c3ffb8fd5847e178816d",
+    "docs/class-skills-resume-checkpoint.md": "503f787c188550cad0f2d71c89eb9dfd1f899ee985aa9c95e86b65b65119833d",
+    "docs/necromancer-mechanical-audit.md": "cc4a51fbcde3f1dc4fff0fe0e847398b5622100e80187421df13e505948a879a",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "762bcdbe2c5af447ba15310a11157dc666b80392105137ca4abb4423791e1bb8",
+    "docs/terror-cast-checkpoint.md": "b5b6980da1e8c5d1ab3c60fec67d1254c786dfef4c839e8afdd0f643106801a0",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "693e60055733e10f66f838393bb330a4015280756c284fe08822e1161f1000dd",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "822fcc78503a65c1e9c38aa749765687e1d39f5839e2907fd4ba9c7af2f25af0",
+    "src/Sanctuary.Content/SourceTerror.cs": "344d7ad0ae1de19437fd1a237a0a33d24033f2cba365befc9156445fe30cd292",
+    "tests/Sanctuary.Integration/TerrorCastChecks.cs": "ffa70fdf4bb380c853e3b034295e535bfe59cd5be1dab98440840279af7430e5",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tests/check_terror_cast.py": "1abe6b0b69a6455409ed4cb1ad15da7b95ebaca650a95fea40abfe95fde58162",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/record_terror_cast.py": "778e5ea953eabede5b6510978f86905d16b21c9f276d513a246ef76c74692e69",
+    "tools/reference/blind-world-native-evidence.json": "db87943aa7bbb22618f7c85b309d635926c1d85ffb52654d37eca35ddcaed2fd",
+    "tools/reference/first-loop-affix-audit.json": "68708c83f99eb9305e5d2b2d720d6322ea9d1c5136b1961e4c411da09179b4bd",
+    "tools/reference/named-item-runtime-audit.json": "4f515269ea105de3c392216548e9009e7abbbf5a9992a1ff0e0bc21260a8f635",
+    "tools/reference/necromancer-ai-curse-source-evidence.json": "65961a3112971738c1c33b248e7cdcfa5fdd3b376fcd6f671abd79ee2e16d4e9"
+  },
+  "established": [
+    "Learned Terror now uses shared do30/no-stat casting/rank/creator arbitration. Sevenmana,fixed source radius4,base200+25*(rank-1)frames;configured ownerfacet divisor1/2/4precedes curse resistance. Weaker rejects,equal retainscreator/refreshesexpiry and reinitializesAI,higher replaces;Attract remains protected.",
+    "The learned initializer captures existing native Combatant before control reset;it never assigns the caster merely because they cast. Tests demonstrate escape away from a different held player and natural nearer-threat acquisition when no target was held. Howl retains its separate explicit caster override and rank1stored-curse contract.",
+    "Genuine learned Terror payloads validate and survive save/reload beside legacy bare,Howl and Taunt records. Two reloads resume actual native escape steps;real Wormskull effective21 and bindings survive. Six right/quick casts each pay7mana once,autonomously flee without damage and expire/retirecontrol naturally after8seconds.",
+    "54relevant markers cover learnedTerror plus shared DimVision,blind policy/world/natural clocks,Howl,Taunt,classAI and originalitem/resource persistence over3boots/2reloads/3saves. Four shared audits,71Python,573named,clean builds and852/21fingerprints pass;runtime data,stagedkernel and106installed artifacts unchanged."
+  ],
+  "remaining": [
+    "Full skill/class/current-executable parity remains unfinished. Old-source AI initializer/dispatcher bodies are reviewed,not executed;native Combatant stands in for dynamic-path target. Current-executable corroboration and source callback-bearing AI transitions remain unverified. Unsupported source/native AI mappings reject with warning.",
+    "Existing SourceTerror native target scan/LOS/ties,coordinate projection,path/blocked fallback,mode/cadence/initial event scheduling and RNG are explicit world adapters. This learned receiver does not certify those old Howl-controller boundaries or native movement-step cooldown restoration. No invented Howl one-frame idle is added to learned initialization.",
+    "Legacy bare Terror saves retain the earlier cast-origin fallback. Enemy-owned summons,bard/PvP/special alignment,uninterruptible state and unmapped native encounter AI remain unsupported or uncertain. No full extended521cohort acceptance is claimed.",
+    "No new handler or assets;186handlers/Necromancer30 and no complete class. Terror curseterror/cursecast effects/audio and talent/hotkey icons remain separate identified placeholders. Approved pet upgrades and safe-area parking remain queued."
+  ]
+}

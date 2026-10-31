@@ -70,6 +70,11 @@ public static class SourceTerror
         // These three source AIs have no previous-state exit callback. Other
         // species/callback mappings remain explicitly unsupported until traced.
         && row.Ai is "Skeleton" or "Zombie" or "Megademon";
+    internal static TerrorAi Learned(BaseCreature target,int rank,DateTime at)
+        // Native Combatant is the explicit adapter for SUNIT_GetTargetUnit.
+        // Do30 does not add Howl's one-frame Idle request. Native AI event
+        // scheduling remains an adapter; do not fabricate that extra delay.
+        =>new(CombatAbility.Terror,rank,target.Map.MapID,false,target.Combatant?.Serial.Value??0,0,at);
     internal static bool Apply(PlayerMobile source,BaseCreature target,int rank,int frames,DateTime at)
     {
         if(!Supported(target) || !NecromancerEffects.AiCurse(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Terror or CombatAbility.Attract || NamedControl.Fear(target)){return false;}

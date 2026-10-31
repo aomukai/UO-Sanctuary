@@ -54,7 +54,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
                 || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255
                     || curse.PhysicalDelta is{} delta&&!NecromancerEffects.ValidPhysicalDelta(curse.Ability,delta)
                     || curse.ElementDeltas is{} elements&&!NecromancerEffects.ValidElementDeltas(curse,elements)
-                    || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
+                    || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill is CombatAbility.Howl or CombatAbility.Terror || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
         _states = states;

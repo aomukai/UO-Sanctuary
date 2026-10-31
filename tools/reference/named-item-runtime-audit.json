@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "ee97e960755386d819cd50e31a75f7d6ec0d0668d3d9edc43671cc0d6ec6b6ad",
+  "ContentAssemblySha256": "4582ae55eb18b12856fbe07416b42482602dcaf7fd6d21f83561a0d4ad6bed4c",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -659,8 +659,8 @@
     "src/Sanctuary.Content/NecromancerBloodBirth.cs": "ceb4ae8a811db5cbebbb6cbc849ffa7f62cf5f55fde96c89fb9246ec1d8020c9",
     "src/Sanctuary.Content/NecromancerClayBirth.cs": "59f30a6cfcb884410a55e9057658e38467e052396bb4119e63a1c6b888647afb",
     "src/Sanctuary.Content/NecromancerCombat.cs": "4b33e14398f696208bb3956f089bc68c00d161c57dbde963b77ad0caa120ad69",
-    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "44252a1f4a91aa6f4f144f2e6f731b8d94e15257c645625cdcfd02cf588fae92",
-    "src/Sanctuary.Content/NecromancerEffects.cs": "f4643d2ce7fc6f380ae20a79c1ea3923497d1ae9248a78280ce2152e7b66a19c",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "693e60055733e10f66f838393bb330a4015280756c284fe08822e1161f1000dd",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "822fcc78503a65c1e9c38aa749765687e1d39f5839e2907fd4ba9c7af2f25af0",
     "src/Sanctuary.Content/NecromancerFireBirth.cs": "2c2906706b6ba4f35eca5ea0a1734802f44edc862808fdeb1433d9e48b421023",
     "src/Sanctuary.Content/NecromancerGolems.cs": "73faaeb150897e3707bda5209bbb44ca17df13fa4a80fe4895d7a4872bf000be",
     "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
@@ -804,7 +804,7 @@
     "src/Sanctuary.Content/SourcePetMovement.cs": "ec04d085af274d7ae8642beb89743efb526c6ac64def59957106d1d09f6d4297",
     "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
     "src/Sanctuary.Content/SourceRoomTrace.cs": "3e755b65acbb385730ee7c40783974455755eb2a52b238abe36674ecc7e9aa56",
-    "src/Sanctuary.Content/SourceTerror.cs": "05dc8172cd8a3d864799a592d5a12fcf2a65a1f9e93256ea3f53dc0182d659b4",
+    "src/Sanctuary.Content/SourceTerror.cs": "344d7ad0ae1de19437fd1a237a0a33d24033f2cba365befc9156445fe30cd292",
     "src/Sanctuary.Content/SourceTowardPath.cs": "ab03a60ee716fccc76eb09a5a2a0708a28c91824782a5887b3e5296c88454dfa",
     "src/Sanctuary.Content/SourceWallFollow.cs": "d4ac803cef36c274c76f1a4f3abbd70536780338ded5b295f9cb26b79c49e071",
     "src/Sanctuary.Content/SpellPoisonTicks.cs": "f2ec5addf8ae4fdacf5f1875eab08cce17399bbeb9691567ec0ddbe8790e1595",
