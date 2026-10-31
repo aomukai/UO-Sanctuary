@@ -1738,6 +1738,24 @@
     }
   },
   {
+    "key": "claygolem-animation",
+    "fields": {
+      "S1Frames": 16,
+      "S1Speed": 128,
+      "A1Frames": 16,
+      "A1Speed": 232,
+      "A1Action": 9,
+      "WLFrames": 8,
+      "WLSpeed": 128,
+      "NUFrames": 4,
+      "NUSpeed": 40,
+      "DTFrames": 16,
+      "DTSpeed": 168,
+      "DDFrames": 1,
+      "DDSpeed": 256
+    }
+  },
+  {
     "key": "necroskeleton-animation",
     "fields": {
       "S1Frames": 12,

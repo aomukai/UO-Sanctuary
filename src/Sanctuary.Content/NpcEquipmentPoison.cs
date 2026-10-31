@@ -12,7 +12,7 @@ internal static class NpcEquipmentPoison
     internal static NpcPoisonSnapshot Capture(SkeletonGuardian actor)
     {
         var item=NpcEquipmentCombat.Context(actor);
-        if(item==null&&actor is not RaisedSkeleton||actor.ControlMaster is not PlayerMobile owner)
+        if(item==null&&actor is not ISourceUnarmedNpc||actor.ControlMaster is not PlayerMobile owner)
         {throw new NotSupportedException("No owned original NPC poison equipment");}
         return new(actor.Serial.Value,owner.Serial.Value,item?.Poison()??new MissileSourceStats(),item?.Bonus("extra-pois")??0,Math.Max(0,item?.Bonus("pierce-pois")??0));
     }

@@ -8,7 +8,7 @@ namespace Sanctuary;
 // New learned skeletons opt into exact resources without rewriting historical
 // SkeletonGuardian saves or the existing prepared NPC/item fixture actors.
 [SerializationGenerator(0)]
-public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum
+public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum,ISourceUnarmedNpc
 {
     private SkeletonBirthStats _birth;
     private SkeletonBirthStats Birth=>_birth??=NecromancerSkeletonBirth.Prepare(Level,Rank,Mastery,SummonDifficulty);
@@ -22,6 +22,7 @@ public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum
         }
     }
     int ISourceLifeMaximum.MaximumLife256=>NpcEquipmentResources.Maximum256(this,0)??NpcEquipmentResources.UnboundLifeMaximum256(this);
+    NpcPhysicalStats ISourceUnarmedNpc.UnarmedPhysical=>UnarmedPhysical;
     internal NpcPhysicalStats UnarmedPhysical=>new(NecromancerSummons.Source("necroskeleton","A1MinD",SummonDifficulty),
         NecromancerSummons.Source("necroskeleton","A1MaxD",SummonDifficulty),Birth.FlatDamage,
         checked(Birth.DamagePercent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false);

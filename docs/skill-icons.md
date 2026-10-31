@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Clay unarmed-damage/G1 clock increment](clay-golem-combat-checkpoint.md) introduces no new binding or final icon. Clay Golem still needs its tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately pending. Unarmed rolls, intrinsic critical and source streams do not require additional player icons. Effects/audio stay separate.
+
 The [Clay incoming-melee slow correction](clay-golem-slow-checkpoint.md) is an automatic pet reaction and adds no player binding. Clay Golem's tree and right/quick-hotkey icons remain pending; split movement/attack status values require no independent skill icon. Effects/audio remain separately tracked.
 
 The [Clay Golem birth/resource correction](clay-golem-birth-checkpoint.md) adds no player ability or final art. Clay Golem still needs its tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately needed. Internal FP resources and a saved body subtype introduce no additional bindings. Effects/audio stay separate.

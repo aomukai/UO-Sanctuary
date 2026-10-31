@@ -10,7 +10,7 @@ internal static class NpcEquipmentElements
     internal static NpcElementSnapshot Capture(SkeletonGuardian actor)
     {
         var item=NpcEquipmentCombat.Context(actor);
-        if(item==null&&actor is not RaisedSkeleton){throw new NotSupportedException("No supported original NPC equipment");}
+        if(item==null&&actor is not ISourceUnarmedNpc){throw new NotSupportedException("No supported original NPC equipment");}
         var raw=item?.Elements()??new MissileSourceStats();var enchant=SorceressEffects.Enchantment(actor);
         (int Min,int Max) Aura(CombatAbility ability)
         {var aura=PaladinAuras.Effect(actor,ability);return aura==null?(0,0):(checked(aura.WeaponMin*256),checked(aura.WeaponMax*256));}

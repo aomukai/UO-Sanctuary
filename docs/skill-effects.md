@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Clay unarmed-damage/G1 clock increment](clay-golem-combat-checkpoint.md) retains native body14/hue0x96D, attack animation and hit presentation as identified placeholders. Final emergence, attack, intrinsic-critical/Enchant feedback, hit/slow/death effects and audio remain needed. The400ms mechanical release is independent of final art.
+
 The [Clay incoming-melee slow correction](clay-golem-slow-checkpoint.md) needs final reaction/status feedback and audio, alongside the existing Clay body/emergence/cast/hit/death work. The shared mechanical slow uses identified native presentation; final visual assets do not block its event, timing or saved values.
 
 The [Clay Golem birth/resource correction](clay-golem-birth-checkpoint.md) retains body14/hue0x96D and the native summon flash as identified placeholders. Final G1 emergence/body/casting, attacks, incoming/outgoing slow, hit/retaliation/death and audio remain needed. Exact life and regeneration do not wait for art.

@@ -3,6 +3,11 @@ using System;
 using Server;
 namespace Sanctuary;
 
+internal interface ISourceUnarmedNpc
+{
+    NpcPhysicalStats UnarmedPhysical{get;}
+}
+
 internal readonly record struct NpcPhysicalStats(int Minimum,int Maximum,int NormalDamage,int DamagePercent,
     int Strength,int Dexterity,bool Weapon,int StrengthCoefficient=0,int DexterityCoefficient=0,
     int MinimumPercent=0,int MaximumPercent=0);
@@ -41,7 +46,7 @@ internal static class NpcEquipmentDamage
     }
     internal static NpcPhysicalStats? Capture(SkeletonGuardian actor,Mobile target=null)
     {
-        if(NpcEquipmentCombat.Context(actor) is not{} item){return actor is RaisedSkeleton skeleton?skeleton.UnarmedPhysical:null;}
+        if(NpcEquipmentCombat.Context(actor) is not{} item){return actor is ISourceUnarmedNpc unarmed?unarmed.UnarmedPhysical:null;}
         var raw=actor.SourceWeaponBase;var basis=ClassGear.Base(item.Item);
         bool weapon=ClassGear.Slot(item.Item)==GearSlot.Weapon&&!ClassGear.Broken(item.Item);
         bool two=weapon&&(basis.TwoHanded||basis.OneOrTwoHanded);

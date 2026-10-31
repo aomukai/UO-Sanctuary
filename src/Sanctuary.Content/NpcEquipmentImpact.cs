@@ -37,7 +37,7 @@ internal static class NpcEquipmentImpact
         {throw new ArgumentException("NPC impact allocation requires existing living actors and source result flags");}
         if(!Fills(flags)){return new(actor.Serial.Value,target.Serial.Value,Packet(flags,0,null,default,0,default,0),default,0);}
         var item=NpcEquipmentCombat.Context(actor);
-        if(item==null&&actor is not RaisedSkeleton){throw new NotSupportedException("No original NPC impact equipment");}
+        if(item==null&&actor is not ISourceUnarmedNpc){throw new NotSupportedException("No original NPC impact equipment");}
         // Ordinary current item minima do not create a positive NPC drain
         // field. Positive maxima/skill-supplied fields remain separate work.
         item?.RequireOrdinaryNpcDrainInputs();

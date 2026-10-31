@@ -236,6 +236,17 @@ def products():
         if actions:iron_fields[mode+'Action']=actions[0]
     assert [iron_fields[k] for k in ['A1Frames','A1Speed','A1Action','WLSpeed','S1Frames','S1Speed']]==[16,256,10,112,15,104]
     summons += [{'key':'irongolem-animation','fields':iron_fields}]
+    clay_preflight=json.loads((ROOT/'tools/reference/clay-golem-world-preflight.json').read_text())
+    clay_animations={row['code']:row for row in clay_preflight['animation']['records']}
+    clay_fields={}
+    for mode in ['S1','A1','WL','NU','DT','DD']:
+        row=clay_animations['G1'+mode+'HTH']
+        clay_fields[mode+'Frames']=row['frames'];clay_fields[mode+'Speed']=row['speed']
+        actions=[frame for frame,kind in row['events'] if kind==1]
+        assert len(actions)<=1
+        if actions:clay_fields[mode+'Action']=actions[0]
+    assert [clay_fields[k] for k in ['A1Frames','A1Speed','A1Action']]==[16,232,9]
+    summons += [{'key':'claygolem-animation','fields':clay_fields}]
     skeleton_preflight=json.loads((ROOT/'tools/reference/skeleton-world-preflight.json').read_text())
     skeleton_animations={row['code']:row for row in skeleton_preflight['animation']['records']}
     skeleton_fields={}

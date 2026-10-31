@@ -32,9 +32,9 @@ internal static class NpcEquipmentRandom
     {
         if(NpcEquipmentCombat.Context(actor) is{} item)
         {return(actor.ControlMaster.Serial.Value,item.Item.Serial.Value,false);}
-        if(actor is RaisedSkeleton&&actor.ControlMaster is PlayerMobile{Deleted:false} owner)
+        if(actor is ISourceUnarmedNpc&&actor.ControlMaster is PlayerMobile{Deleted:false} owner)
         {return(owner.Serial.Value,0,true);}
-        throw new NotSupportedException("No original NPC or learned unarmed skeleton random binding");
+        throw new NotSupportedException("No original NPC or learned unarmed NPC random binding");
     }
     internal static void Set(SkeletonGuardian actor,ulong seed)
     {
@@ -50,7 +50,7 @@ internal static class NpcEquipmentRandom
     }
     internal static int Limited(SkeletonGuardian actor,int bound)=>bound<=0?0:(int)(Raw(actor)%(uint)bound);
     public static NpcEquipmentSeed[] Snapshot()=>Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is SkeletonGuardian{Deleted:false} actor
-        &&actor.ControlMaster?.Serial.Value==s.Owner&&(s.Unarmed?actor is RaisedSkeleton&&s.Item==0&&NpcEquipmentCombat.Context(actor)==null
+        &&actor.ControlMaster?.Serial.Value==s.Owner&&(s.Unarmed?actor is ISourceUnarmedNpc&&s.Item==0&&NpcEquipmentCombat.Context(actor)==null
             :IronGolemItems.State(actor) is{} binding&&binding.Owner==s.Owner&&binding.Item==s.Item
                 &&World.FindItem((Serial)s.Item) is{Deleted:false} item&&item.Parent==actor)).OrderBy(s=>s.Actor).ToArray();
     internal static void Restore(NpcEquipmentSeed[] saved)
