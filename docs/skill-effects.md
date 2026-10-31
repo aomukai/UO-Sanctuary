@@ -1,5 +1,7 @@
 # Skill effects
 
+The [ordered Poison Dagger contact](poison-dagger-contact-checkpoint.md) retains native weapon pose/sound, shield/contact/retaliation flashes and shared cold/poison markers as identified placeholders. Final poison impact/state, weapon/block/return/overlay effects and audio remain pending. Its 127 native markers verify mechanical behavior; no final art was created. Talent/hotkey icons remain separate.
+
 The [player-source damage bridge](prepared-player-native-damage-checkpoint.md) adds no assets. Its 124 native markers verify shared notification/credit support; actual Poison Dagger contact integration is next. Existing final effects/audio and talent/hotkey icons remain independently pending.
 
 The [prepared Poison Dagger path](poison-dagger-attack-checkpoint.md) uses the ordinary native weapon pose and sound plus the shared shield cue as identified placeholders. Final poison contact/state and block effects/audio remain pending. Its 121 native markers verify mechanics; the icon remains separately tracked.

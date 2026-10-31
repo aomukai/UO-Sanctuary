@@ -9,6 +9,9 @@ namespace Sanctuary;
 // Consumers share this death-time entitlement; XP success is never an eligibility test.
 public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobile Player, int Level, int GoldFind, int MagicFind, MonsterDifficulty Difficulty = MonsterDifficulty.Normal)
 {
+    internal static bool KillRecoveryEligible(BaseCreature creature,PlayerMobile player)=>creature is{Deleted:false}
+        &&creature is not BaseVendor&&!creature.Controlled&&!creature.Summoned&&!creature.IsAnimatedDead&&!creature.NoKillAwards
+        &&creature is not GraveyardUndead{Raised:true}&&player is{Deleted:false}&&ClassCombat.Enabled(player);
     public static bool Process(BaseCreature creature, Container container) => Process(creature, container, Random.Shared);
     internal static bool Process(BaseCreature creature, Container container, Random random)
     {
@@ -38,7 +41,7 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
             return false;
         }
         var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature));
-        if(CombatItemEvents.Allowed(player,creature)){NamedCombat.Killed(player, creature);}
+        if(CombatItemEvents.KillRecoveryAllowed(player,creature)){NamedCombat.Killed(player, creature);}
         corpse.SanctuaryRestInPeace = CombatItemEvents.Allowed(player,creature) && creature.LastKiller == player && ClassGear.Bonus(player, "rip") > 0;
         if (creature is not EncounterCreature && CreatureGold.Policy(creature.GetType(), life.Difficulty) is not { Eligible: true })
         { TreasureHunts.DiscardFishing(corpse); Fortification.Award(life, random); return false; }

@@ -4,7 +4,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// NPC-to-NPC only. Real range/collision,hostility,room/row and mode metadata
+// Player/NPC-to-NPC. Real range/collision,hostility,room/row and mode metadata
 // remain mandatory services; no tile radius or native death mode is guessed.
 internal abstract class MonsterContactServices
 {
@@ -30,7 +30,7 @@ internal sealed record MonsterContactResult(MonsterContactExit Exit,PreparedMons
     PreparedMonsterCommitResult Commit,bool DeathModeAttempted=false);
 internal static class PreparedMonsterContact
 {
-    internal static MonsterContactResult Release(BaseCreature attacker,BaseCreature defender,MonsterContactServices contact,
+    internal static MonsterContactResult Release(Mobile attacker,BaseCreature defender,MonsterContactServices contact,
         PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices damage,DateTime at)
     {
         ArgumentNullException.ThrowIfNull(contact);ArgumentNullException.ThrowIfNull(damage);
@@ -39,7 +39,7 @@ internal static class PreparedMonsterContact
         // DrainItemDurability copies the stored packet before range/events.
         // Release-time fields never rewrite the packet captured by start.
         var packet=captured with{};
-        if(!contact.InMeleeRange(3))
+        if(!contact.InMeleeRange(attacker is PlayerMobile?1:3))
         {damage.FreePacket();return new(MonsterContactExit.OutOfRangeFreed,packet,null);}
         PreparedMonsterCommitResult commit=null;
         bool hit=(packet.ResultFlags&1)!=0;

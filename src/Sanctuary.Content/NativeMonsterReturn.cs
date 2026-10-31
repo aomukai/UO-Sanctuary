@@ -54,16 +54,18 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
         {throw new NotSupportedException("Recipient source/current return metadata conflict: "+source);}
         return new(id,identity.Base,modes,identity.Velocity,identity.Killable,"reviewed source row "+source);
     }
-    private readonly IronGolemBody Source;private readonly PlayerMobile Owner;private readonly BaseCreature Target;
+    private readonly Mobile Source;private readonly PlayerMobile Owner;private readonly BaseCreature Target;
     private readonly MonsterReturnMetadata MetadataValue;private readonly State Current;private readonly Action Death;
-    internal NativeMonsterReturn(IronGolemBody source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Action death)
-    {Source=source;Owner=owner;Target=target;MetadataValue=metadata;Current=Session(target);Death=death;}
-    internal override int? AttackerKind=>1;
+    private readonly Action Recovery;
+    internal NativeMonsterReturn(Mobile source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Action death,Action recovery=null)
+    {Source=source;Owner=owner;Target=target;MetadataValue=metadata;Current=Session(target);Death=death;Recovery=recovery;}
+    internal override int? AttackerKind=>Source is PlayerMobile?0:1;
     internal override int TargetMode=>Target is{Alive:true,Deleted:false}?1:12; // Only death/dead are distinguished by this return branch.
     internal override int TargetClass=>MetadataValue.Class;
     internal override bool HasRoom()=>Target.Map is{} map&&map!=Map.Internal;
     internal override bool RoomInTown()=>SpellHelper.IsTown(Target.Location,Owner);
-    internal override bool? AttackerTownRule()=>Identity("irongolem").Town;
+    internal override bool? AttackerTownRule()=>Source is IronGolemBody?Identity("irongolem").Town
+        :throw new NotSupportedException("This native return source has no NPC town rule");
     internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(Target);
     internal override bool Frozen()=>Target.Frozen||NamedControl.FrozenRemaining(Target)>0;
     internal override bool Stunned()=>CombatStuns.Remaining(Target)>0;
@@ -101,9 +103,10 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     }
     internal override void RecoveryNotification()
     {
-        // Source unique event4 is empty for these validated ordinary recipients.
-        // Lightning Enchanted is refused by the actor preflight until its exact
-        // native/source callback mapping replaces the old generic OnStruck path.
-        IronGolemContact.RequireRecoveryEvents(Target);Current.RecoveryNotifications++;
+        // Actors supply their reviewed recovery callback. Iron refuses an
+        // unadapted Lightning Enchanted producer; player contacts retain the
+        // existing native OnStruck adapter, whose source RNG remains unverified.
+        if(Recovery!=null){Recovery();}else{IronGolemContact.RequireRecoveryEvents(Target);}
+        Current.RecoveryNotifications++;
     }
 }

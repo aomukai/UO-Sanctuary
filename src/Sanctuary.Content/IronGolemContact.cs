@@ -14,7 +14,7 @@ internal static class IronGolemContact
         if(target.IsParagon||target is EncounterCreature encounter&&encounter.Has(EliteModifier.LightningEnchanted))
         {throw new NotSupportedException("Recipient unique recovery events need an explicit live return consumer");}
     }
-    private static NpcCombatEvents Events(BaseCreature target)
+    internal static NpcCombatEvents Events(BaseCreature target)
     {
         if(NpcEquipmentCombat.Context(target) is{} item){return new(item);}
         if(target.Items.Any(i=>i.Layer is not(Layer.Invalid or Layer.Backpack or Layer.Hair or Layer.FacialHair or Layer.Mount)&&ClassGear.Converted(i)))

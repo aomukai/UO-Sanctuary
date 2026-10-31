@@ -1,0 +1,122 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Actual Poison Dagger ordered player contact",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 6,
+  "run": 4,
+  "verified": {
+    "nativeMarkers": 127,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "newContactRuns": 3,
+    "nativePlayerComparisonsPerBoot": 256,
+    "nativeNpcComparisonsPerBoot": 256,
+    "retainedRightCasts": 3,
+    "retainedQuickCasts": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      820,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/poison-dagger-contact/birth-inputs.json",
+      "sha256": "26151e5c37d81365acab159fa38bbb736e21d88623e6cbc9a08ef10ceee5aec8"
+    },
+    "audit": {
+      "path": ".local/class-skills/poison-dagger-contact/audit-inputs.json",
+      "sha256": "cfcd3cd9a5e62b45205f581a867c9000c61543b3305550568ebe37d2dd0de28e"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/CombatItemEvents.cs": "79b27d721372baa08ef515d93525a47ad9e37616a8633ab06b0fd11e57fb4b28",
+    "src/Sanctuary.Content/IronGolemContact.cs": "13a0fc1d1244b1fb15bb6375c758add6035eb587d281886ac3280e74d4f0410b",
+    "src/Sanctuary.Content/NativeMonsterReturn.cs": "9fe094950da02f460e8708ffdcf750085bd75b9a582bbb40312ea3578d1452fe",
+    "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5f7b3bea7e4f9d35977148ae4e9c24de6d129281742cceae5a21e147e4b26dc3",
+    "src/Sanctuary.Content/PoisonDaggerContact.cs": "f67f4f396928e8fb3750a6180dffbad77022b6f8c0865587e21e82bb2acf97ca",
+    "src/Sanctuary.Content/PreparedMonsterContact.cs": "910607bf780548f08e59f5c8c99fe2ef20cc649d905e4eb888a09eb250b562af",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "93293c03ba75f50af32426348412d5ddf55cd595ad18c9bd251e307b86a48067",
+    "src/Sanctuary.Content/RewardLife.cs": "071dd678489df315e88bd7a6646a2a1904a17d974e84970f54705a6dd521ad42",
+    "tests/Sanctuary.Integration/PoisonDaggerContactChecks.cs": "b2269e5044536779b1be7c9a81afa9db513edc97f87031396b99f017324f0bc6"
+  },
+  "knifeHitClass": {
+    "rows": {
+      "7bl": "1ht",
+      "7dg": "1ht",
+      "7di": "1ht",
+      "7kr": "1ht",
+      "9bl": "1ht",
+      "9dg": "1ht",
+      "9di": "1ht",
+      "9kr": "1ht",
+      "bld": "1ht",
+      "d33": "1ht",
+      "dgr": "1ht",
+      "dir": "1ht",
+      "g33": "1ht",
+      "kri": "1ht"
+    },
+    "sourceEnum": "HITCLASS_OneHandThrust",
+    "value": 6
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2DataTbls.h": "6a24aae3b33a3f5bf6e78745849d822432cad902b9307387ca713207471e9a9b",
+    ".local/class-skills/poison-dagger-contact/audit-inputs.json": "cfcd3cd9a5e62b45205f581a867c9000c61543b3305550568ebe37d2dd0de28e",
+    ".local/class-skills/poison-dagger-contact/audit-native-checks.log": "d72e0b1083a7bf045c29ed749203be9c79a85147c876f364e8c0339707a320de",
+    ".local/class-skills/poison-dagger-contact/audit-run-4.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/poison-dagger-contact/birth-inputs.json": "26151e5c37d81365acab159fa38bbb736e21d88623e6cbc9a08ef10ceee5aec8",
+    ".local/class-skills/poison-dagger-contact/birth-native-checks.log": "f1cb177183504f8b0c653ab879e7607f8ac527086c2a1b334eb91ad6ab3bf444",
+    ".local/class-skills/poison-dagger-contact/content-build-6.log": "ca23ff39cc702794a713f307705047052ee7bba6442543e82a676dd36b8ef8da",
+    ".local/class-skills/poison-dagger-contact/integration-build-6.log": "8e7b4542937f6f6c6bf9a754a9a920f180ff3f9cefc61f96670d83627260e2ea",
+    ".local/class-skills/poison-dagger-contact/poison-dagger-attack-fixtures.json": "f2a1292b32df253d686e491b80ad743c389d04bc9cc8777c2df75c4d09e82d06",
+    ".local/class-skills/poison-dagger-contact/poison-dagger-fixtures.json": "23a9caf75c2d700721d7168ad51d36c7bff3aaf1305161b25b4b934c6a4a577f",
+    ".local/class-skills/poison-dagger-contact/pre-build-6.json": "84c70edd7377e3c048a874d0c67b91ef9a101bb772b1f6219b45fcc2180f61ec",
+    ".local/class-skills/poison-dagger-contact/python-tests.log": "c5970e47ff048cec415f1e251d19361d36808a17b20d5fecdf20068bb6085fe0",
+    ".local/class-skills/poison-dagger-contact/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/prepared-player-native-damage/birth-native-checks.log": "fbc3969ea12e6c9c1d29f636694be4a8e3146574f9561991466819570cd8d5bb",
+    "docs/class-skill-roadmap.md": "648cf630a56ddee4faea0b77037563975da83c2c2c0e1b868fcd2e0732d60e36",
+    "docs/class-skills-resume-checkpoint.md": "41d3be3053b14a4b626292e8d2dffb64398b98517844b28cf0d30bb8ba3ba96a",
+    "docs/poison-dagger-contact-checkpoint.md": "7148e29b38b6aca791880d4657afdaf915fc392aef2577c530551aa48e4196f3",
+    "docs/skill-effects.md": "83faad4b2a63cc3d0674515c2da8584fc092bc655877282956ecc65292e7f8bd",
+    "docs/skill-icons.md": "063f9b8cd864ab065e793a0dbb462cb4ef3c161b98ed1f45c3c7c9704a7a34d9",
+    "docs/skill-mechanical-reference.md": "f378632b8aa8b5000611fa5ae3ab22a30f8cb30cff3b7360f9008a0be4c7d9ec",
+    "src/Sanctuary.Content/CombatItemEvents.cs": "79b27d721372baa08ef515d93525a47ad9e37616a8633ab06b0fd11e57fb4b28",
+    "src/Sanctuary.Content/IronGolemContact.cs": "13a0fc1d1244b1fb15bb6375c758add6035eb587d281886ac3280e74d4f0410b",
+    "src/Sanctuary.Content/NativeMonsterReturn.cs": "9fe094950da02f460e8708ffdcf750085bd75b9a582bbb40312ea3578d1452fe",
+    "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5f7b3bea7e4f9d35977148ae4e9c24de6d129281742cceae5a21e147e4b26dc3",
+    "src/Sanctuary.Content/PoisonDaggerContact.cs": "f67f4f396928e8fb3750a6180dffbad77022b6f8c0865587e21e82bb2acf97ca",
+    "src/Sanctuary.Content/PreparedMonsterContact.cs": "910607bf780548f08e59f5c8c99fe2ef20cc649d905e4eb888a09eb250b562af",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "93293c03ba75f50af32426348412d5ddf55cd595ad18c9bd251e307b86a48067",
+    "src/Sanctuary.Content/RewardLife.cs": "071dd678489df315e88bd7a6646a2a1904a17d974e84970f54705a6dd521ad42",
+    "tests/Sanctuary.Integration/PoisonDaggerContactChecks.cs": "b2269e5044536779b1be7c9a81afa9db513edc97f87031396b99f017324f0bc6",
+    "tests/check_poison_dagger_contact.py": "39267d0c1b3c2ff8afdec162ccb93375c9c585b5a3f232aceee9dd71b1ccce11",
+    "tests/check_poison_dagger_contact_audits.py": "041c3b3430fdb7c14fe1d61f61f5c53e85bbcebae8a9de5a46d6658e044296eb",
+    "tools/record_poison_dagger_contact.py": "5fa3fa6316bbe64a781573be298821fdce0b9b6d78686d086e456b4a5eb82c04",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "tools/reference/first-loop-affix-audit.json": "25fbabf1645d2c53a688f4825427ae9cdb52388bcaf608db382af68355bc4746",
+    "tools/reference/named-item-runtime-audit.json": "65826517de9d0992e84ef70aceac609b798650f6a75ed4c2d49ff62588ca617d",
+    "tools/reference/prepared-player-native-damage-evidence.json": "df970533bac29b739eba7f7d81754ac64fe7b34e0ac09ed97b264a7dd8f6aa6f"
+  },
+  "established": [
+    "The learned player actor now composes existing ordered contact/HP/retaliation/return services;NPC/Iron contact remains shared.",
+    "Actual pre-HP native notification,direct player credit,once-only health/free,knife hit class and real Sapphire captured cold pass.",
+    "Actual missed/blocked swings dispatch flat ATD;lethal retaliation precedes recipient death without losing player credit.",
+    "Real Head Hunter's Glory/Silkweave/Tyrael's Might verify fractional eligible life/mana-on-kill before retaliation,once-only recovery and RIP. The no-reward control dies without recovery.",
+    "Uninterruptible,Paragon and Evil Omen controls refuse before hit rolls or mana payment. All predecessor markers,573 named decisions,client/kernel and installed artifacts remain retained."
+  ],
+  "remaining": [
+    "Conditional item event registration/RNG order,whole-HP armor/Iron Maiden and broader outgoing proc consumers remain incomplete.",
+    "Native incoming modifier/override,Paragon,uninterruptible/death-delay and unfrozen sand-leaper actor adapters are refused. Region/reentrant notification mutation remains unsupported.",
+    "Lightning Enchanted retains the native producer without source-RNG parity. Current executable initial-poison applicability,geometry/component/RNG,charged-item/Blood Mana and final assets remain open.",
+    "No new full-class run,complete skill/class,installation or asset generation is claimed. Revive retains living abilities;global monster spell conversion is separate."
+  ]
+}

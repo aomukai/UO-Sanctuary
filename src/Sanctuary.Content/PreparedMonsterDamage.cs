@@ -28,6 +28,9 @@ internal abstract class PreparedMonsterDamageServices
     internal abstract PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket packet);
     internal abstract void PresentOverlay(int overlay);
     internal abstract int BaseHitClass();
+    // Players wear their weapon after stored damage/presentation and before
+    // attempt events. NPC actors have no corresponding inventory action.
+    internal virtual void AfterHitPresentation(PreparedMonsterDamagePacket packet){}
     internal abstract PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket packet);
     internal abstract PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket packet);
     internal abstract bool AttackerInActiveMode();
@@ -112,6 +115,7 @@ internal static class PreparedMonsterDamage
         {
             if(packet.Overlay>0){services.PresentOverlay(packet.Overlay);}
             if(!packet.HitClassActive&&(packet.HitClass&15)==0){packet=packet with{HitClass=packet.HitClass|services.BaseHitClass()};}
+            services.AfterHitPresentation(packet);
         }
         packet=Checked(services.MeleeAttack(packet));packet=Checked(services.AttackedInMelee(packet));
         PaladinThorns.PreparedFlatAttempt(attacker,target);

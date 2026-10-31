@@ -1,5 +1,7 @@
 # Skill icons
 
+The [ordered Poison Dagger contact](poison-dagger-contact-checkpoint.md) adds no icon or new skill binding. Poison Dagger's final talent-tree and hotkey icon remain pending; mechanical acceptance does not certify placeholder art. Effects/audio remain in their separate ledger.
+
 The [player-source damage bridge](prepared-player-native-damage-checkpoint.md) adds no assets. Its 124 native markers verify shared notification/credit support; actual Poison Dagger contact integration is next. Existing final effects/audio and talent/hotkey icons remain independently pending.
 
 The [prepared Poison Dagger path](poison-dagger-attack-checkpoint.md) adds no icon assets. Its talent and active-hotkey icon remain pending independently of the weapon/poison/block effects and audio.

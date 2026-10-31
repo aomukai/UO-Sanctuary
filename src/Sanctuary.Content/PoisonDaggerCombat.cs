@@ -8,7 +8,7 @@ namespace Sanctuary;
 internal static class PoisonDaggerCombat
 {
     internal sealed record Prepared(Serial Target,int Flags,bool BlockAnimation,PreparedWeaponImpact Impact,
-        PlayerWeaponDrain Drain,double ElementRoll,long EffectAt);
+        PlayerWeaponDrain Drain,double ElementRoll,long EffectAt,int ColdFrames=0);
     internal static Random Effects=Random.Shared;
     public static void Initialize()=>ClassMapHooks.LocationChanged+=LocationChanged;
     private static void LocationChanged(Mobile mobile)
@@ -68,10 +68,12 @@ internal static class PoisonDaggerCombat
         {owner.SendMessage(0x22,"This monster's shield rule is not available for Poison Dagger yet.");return false;}
         try{BowLaunch.RawPoison(owner,CombatTiming.Equipped(owner));}
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
+        try{PoisonDaggerContact.Require(owner,target);}
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         if(!SkillCombat.Begin(owner,ability,selected,target.Location,now,(p,_,id,_)=>ValidTarget(p,id))){return false;}
         var session=ClassCombat.For(owner);var services=new Result(owner,target);
         int flags=SourceMeleeResult.Resolve(services,(int)values.Formula("toht"));
-        double roll=0;PreparedWeaponImpact impact=default;
+        double roll=0;PreparedWeaponImpact impact=default;int coldFrames=0;
         if((flags&SourceMeleeResult.Successful)!=0)
         {
             var damage=PoisonDaggerPackets.Damage(owner,target,values,Utility.RandomDouble,out roll);
@@ -81,10 +83,16 @@ internal static class PoisonDaggerCombat
             // immediate damage, independently of the subsequent poison clock.
             // This is the pinned older-source bridge; modern parity is open.
             impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
+            if(damage.Cold>0)
+            {
+                if(damage.ColdMs%40!=0){throw new NotSupportedException("Weapon cold duration has no exact source-frame projection");}
+                coldFrames=ColdStates.LengthFrames(damage.ColdMs/40,NamedElements.Resistance(owner,target,"cold",target.ColdResistance),
+                    ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
+            }
         }
         var drain=WeaponLeech.Capture(owner);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
-        session.PoisonDaggerAttack=new(selected,flags,services.BlockAnimation,impact,drain,roll,session.EffectAt);
+        session.PoisonDaggerAttack=new(selected,flags,services.BlockAnimation,impact,drain,roll,session.EffectAt,coldFrames);
         return true;
     }
     internal static bool Release(PlayerMobile owner,Serial selected,long now)
@@ -95,13 +103,8 @@ internal static class PoisonDaggerCombat
         if(prepared.Target!=selected||!NecromancerCombat.Available(owner,CombatAbility.PoisonDagger)
             ||!ValidTarget(owner,selected)){return false;}
         var target=(BaseCreature)World.FindMobile(selected);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Native weapon placeholder.
-        using var attempt=PaladinThorns.Attempt(owner,target,false);
-        if((prepared.Flags&SourceMeleeResult.Block)!=0){SourceBlocking.Present(target,prepared.BlockAnimation);}
-        if((prepared.Flags&SourceMeleeResult.Successful)==0){return true;}
-        GearEffects.Strike(owner,target,prepared.ElementRoll,Effects,preparedImpact:prepared.Impact,sourceDrain:prepared.Drain,
-            softHit:(prepared.Flags&SourceMeleeResult.GetHit)==0
-                ||prepared.Impact.Parts.Total==0&&prepared.Impact.AllocatedPoison is{Rate256:>0});
-        return true;
+        try{return PoisonDaggerContact.Release(owner,target,prepared,TimedEffects.Now).Exit==MonsterContactExit.Finished;}
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
     }
     internal static void Cancel(PlayerMobile owner)
     {var session=ClassCombat.Existing(owner);if(session==null){return;}session.PoisonDaggerAttack=null;if(session.PendingAbility==CombatAbility.PoisonDagger){session.PendingAbility=CombatAbility.None;}}
