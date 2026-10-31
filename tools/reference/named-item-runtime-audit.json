@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "4bf581c714d2dbb3f1d8a2bcc9822944c38511e0c08e850ad7df311abee924fd",
+  "ContentAssemblySha256": "c125dde007ef155564994e244474d5a09e25b9bfdde795f77ff80c5fc5dc36b7",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -688,8 +688,9 @@
     "src/Sanctuary.Content/PotionTabards.cs": "6a183494f46ba3b8cf8a95d9dd26fff5b268ee646b563ce324aea1336bb7c163",
     "src/Sanctuary.Content/PowerScrollGump.cs": "0624900c7c98dab161c061c9c0fec7098289dee1ede1cf3eb969424694131dc3",
     "src/Sanctuary.Content/PreparedMonsterContact.cs": "5f819b7977699094371136a31d27fdd2c4b6fce3d80876a8502c2a17e3adb4f0",
-    "src/Sanctuary.Content/PreparedMonsterCredit.cs": "c99dfc7f43a9160de7fce21f951a6847b0fa590a7f580b046801becafc20852f",
-    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "64bc85fca5bcb63e0a0fc87e16388a8ea087858756c7311364cc9d3684fd7410",
+    "src/Sanctuary.Content/PreparedMonsterCredit.cs": "e634e263102e76350cd6f1cc2eee08a37e49824959adf61f3c4cf73f0172794f",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "090445107dfca7f7318554c78047feb8175f2514d53bdf3097ab8f4e69d1291c",
+    "src/Sanctuary.Content/PreparedMonsterNativeDamage.cs": "5dc4c1ada5eb9f182a7e9c2a70fb38a696604e62f1d4b3a1bd7425f0da9c7431",
     "src/Sanctuary.Content/PreparedMonsterReturn.cs": "5b4ad2d715f14ca3aea510b51d0cce31608a446ad4453c891ee80ca149f88735",
     "src/Sanctuary.Content/PreparedMonsterStun.cs": "bd67b1cb53c996119306c43fb69762b5f607d617ebcc1fcdfa238ab1aab5a612",
     "src/Sanctuary.Content/PreparedWeaponEvents.cs": "a8284917dee2fc5a263399e9548acf89ccb85b45c0ffc40014da979f46685cd6",

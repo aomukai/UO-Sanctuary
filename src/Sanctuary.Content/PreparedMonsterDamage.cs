@@ -18,6 +18,10 @@ internal abstract class PreparedMonsterDamageServices
     // Ordinary leech/actor recovery services run here after physical clipping.
     // Life Tap and packet absorb healing are owned by the shared pipeline.
     internal abstract void BeforeHealth(PreparedMonsterDamagePacket clipped);
+    // Actor adapters can dispatch native notifications around the real credit
+    // write here, without replaying Mobile.Damage or committing HP early.
+    internal virtual void BeforeHealthCommit(BaseCreature attacker,BaseCreature target,int after256)
+        =>PreparedMonsterCredit.Register(attacker,target,after256);
     internal abstract void ApplyCold(int frames);
     internal abstract void SurvivedDamage();
     internal abstract PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket packet);
@@ -83,7 +87,7 @@ internal static class PreparedMonsterDamage
         if(packet.Total256>0)
         {
             after-=packet.Total256;if(after<256){after=0;}
-            PreparedMonsterCredit.Register(attacker,target,after);
+            services.BeforeHealthCommit(attacker,target,after);
             // Write source HP exactly once. Native Damage would dispatch death
             // before Stun and replay unrelated native damage callbacks.
             SkillHealth.SetBalance256(target,after);
