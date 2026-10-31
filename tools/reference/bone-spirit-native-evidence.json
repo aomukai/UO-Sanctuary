@@ -1,0 +1,122 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Bone Spirit source-based saved flight",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 6,
+  "run": 4,
+  "verified": {
+    "nativeMarkers": 229,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "fullRegressionMarkers": 1180,
+    "fullRegressionSaves": 35,
+    "fullRegressionBoots": 3,
+    "fullRegressionReloads": 2,
+    "retainedPredecessorMarkers": 202,
+    "sourceDamageCasesPerBoot": 4080,
+    "sourceLaunchCases": 360,
+    "sourceSteerCases": 2016,
+    "sourceHitCases": 288,
+    "sourceSelectorCases": 40,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "savedModes": [
+      1,
+      5
+    ],
+    "savedGuidanceAndTargets": true,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      827,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-spirit/birth-inputs.json",
+      "sha256": "d15fbbb9149d17ba3b689cec5bbd440277544df309d9d9755964d4bf05f9bc08"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-spirit/audit-inputs.json",
+      "sha256": "8b3d9994d988b7d3602daa138a370209591ad1343f2585c446969866206b1ac0"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BoneSpiritGuidance.cs": "c18f5bd356813190df351b033bbd3ca26f45557edd056e86f19954faec761699",
+    "src/Sanctuary.Content/CombatPotions.cs": "a7f3862e7a08f09b5490b89853627938d9d4f0029510080a2668530432015538",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "071ae6d75c66ecdc0731b47c190c38b389c6f0bbaa2fa80e3def50121010bec9",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "2fe50a61d034f5f374151b4cefbad85c1ab4e3b4d5014958739cf6e27a474252",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "0b9fefa1b2044b656d84f953fff820984e1b028793fa04df572e3c44f85398be",
+    "tests/Sanctuary.Integration/BoneSpearChecks.cs": "60c440728d8a786a0056d2928a6455664ceccc9ec4739eb09cd19aa202e1a827",
+    "tests/Sanctuary.Integration/BoneSpiritChecks.cs": "2f21d6232606723c7f39050bd639cba236382c2582eada21cbd0fe61a47af708",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "8c113908b5a39796dcc266f28454b21425f95bbe4b948b8f6ef5ecb13cf89325",
+    "tests/Sanctuary.Integration/FanChecks.cs": "0884216c6ef1c7ffad6de39822db6b045f654245270d965eaf143bc32ecb8aa3"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-spirit/audit-inputs.json": "8b3d9994d988b7d3602daa138a370209591ad1343f2585c446969866206b1ac0",
+    ".local/class-skills/bone-spirit/audit-native-checks.log": "a0ab6eaf6e7d3c299051d13ded0007a8159e65416f26cd0c3306e7b6514935f2",
+    ".local/class-skills/bone-spirit/audit-run-4.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-spirit/birth-inputs.json": "d15fbbb9149d17ba3b689cec5bbd440277544df309d9d9755964d4bf05f9bc08",
+    ".local/class-skills/bone-spirit/birth-native-checks.log": "424bee09001264167847f1290aacd659e682bf975a3cedad034badddc2d5e2c6",
+    ".local/class-skills/bone-spirit/bone-spirit-fixtures.json": "d823ae686a25f99803a2abe1613e757b81112a0b8311b94fa96661b5ea52fb42",
+    ".local/class-skills/bone-spirit/class-inputs.json": "e744302845ffdb34c4fc571eccc99e2096ce25c9c9e36107d9c29129a4dab8a7",
+    ".local/class-skills/bone-spirit/class-native-checks.log": "a35b23d6367ddc92f6fe0acb41daa1a30eec2b65d4b5378e907fcd95a45073e8",
+    ".local/class-skills/bone-spirit/content-build-6.log": "9cdf847e9d9d431a1b9af3239b3526977d251b5090aee620b72b27062bfd9543",
+    ".local/class-skills/bone-spirit/full-run-4.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/bone-spirit/integration-build-6.log": "a7ba40142aed55416ecf46115cf7e97a3586d8eab522770819f223d3d9e4b3dd",
+    ".local/class-skills/bone-spirit/pre-build-6.json": "e5c74d72863d208a1b4cf7aaa0d20575b403c4b4d06db8be234e8f33d5435e08",
+    ".local/class-skills/bone-spirit/python-tests.log": "bed9b69ecb2938e4844b883bd47f0649fe1fbf9f4262e24859f9eb4b4c953f8b",
+    ".local/class-skills/bone-spirit/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/npc-high-level-resources/class-native-checks.log": "b6eb49dc3746679c78007eeaf4b9e12ff67c919b4ead65461b399a944f319830",
+    ".local/class-skills/teeth/birth-native-checks.log": "b4b5f73dafb316a3030f8a630c32ebac2d0c6af9fd5e3b368ebcb89a1f90d8a7",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ad908543a9d0e2a146e48260161c9508c2fd284fc3c8dff00ff6b832708d0ef4",
+    "docs/bone-spirit-checkpoint.md": "fb8d331e6f83592271c80bbc93fe52b10feae4400d19db41de15fd2f05219d13",
+    "docs/class-skill-roadmap.md": "185961e3ad683b1390fa42e641467af6befa5f8efde8847923907bf954b6d4e3",
+    "docs/class-skills-resume-checkpoint.md": "62a5d72b29131dd7076d04eb9d0747dca35676ee3993720d42ee49c75aa74b1d",
+    "docs/necromancer-mechanical-audit.md": "4730cd4baf020944f626b125745fd16872bc938352c1ddf38e9021cbfc0680cb",
+    "docs/poison-nova-source-preparation.md": "3d172170eb12ea4fa926fac459c53032435cb4a3dce251082967e23a6e4ea5ba",
+    "docs/skill-effects.md": "4dceda3180ac9f83d729ec800a0184c21a3a77b28702ec19d3971fb5f5114029",
+    "docs/skill-icons.md": "9bbad0106c8c6dbeec536951a430383e804ada92f2a82ee633730cc2913e84e6",
+    "docs/skill-mechanical-reference.md": "40773a25d570342ddac3b1d566265fe75d344feaad18def18f95b5136961e1d8",
+    "docs/t29-combat-potions.md": "45a45b462fd258394affe223e6102fd82046393dad2ebfd9bd6f87312ba7b2c3",
+    "src/Sanctuary.Content/BoneSpiritGuidance.cs": "c18f5bd356813190df351b033bbd3ca26f45557edd056e86f19954faec761699",
+    "src/Sanctuary.Content/CombatPotions.cs": "a7f3862e7a08f09b5490b89853627938d9d4f0029510080a2668530432015538",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "071ae6d75c66ecdc0731b47c190c38b389c6f0bbaa2fa80e3def50121010bec9",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "2fe50a61d034f5f374151b4cefbad85c1ab4e3b4d5014958739cf6e27a474252",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "0b9fefa1b2044b656d84f953fff820984e1b028793fa04df572e3c44f85398be",
+    "tests/Sanctuary.Integration/BoneSpearChecks.cs": "60c440728d8a786a0056d2928a6455664ceccc9ec4739eb09cd19aa202e1a827",
+    "tests/Sanctuary.Integration/BoneSpiritChecks.cs": "2f21d6232606723c7f39050bd639cba236382c2582eada21cbd0fe61a47af708",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "8c113908b5a39796dcc266f28454b21425f95bbe4b948b8f6ef5ecb13cf89325",
+    "tests/Sanctuary.Integration/FanChecks.cs": "0884216c6ef1c7ffad6de39822db6b045f654245270d965eaf143bc32ecb8aa3",
+    "tests/check_bone_spirit.py": "48450aafcab8d5cf5ce33eee45ee31a9e768ce1274d5f6d0cf193b3d6a2b96b3",
+    "tests/check_bone_spirit_audits.py": "e6e3aaf3291f40e16b63ad815c79075f0ba4464cb3d93d5691fbc9330f962fad",
+    "tools/build_class_skills.py": "6345d0f4ec00209f9e60a785d2a7b5365239ab72dc7ca4295a45adf589ac2b8e",
+    "tools/probe_bone_spirit.py": "26a41fc1aabed551dae1f650bf5e0e731bd1d768af5eb3fc9798115f3943bc7f",
+    "tools/record_bone_spirit.py": "816cd753e9637df1cc7a741882e86b786b9817e2a205ec4bdb4be1c72e8d7182",
+    "tools/reference/bone-spirit-source-evidence.json": "09713bb335e40f63f19d9d4c631f4b9a79f6d15872d3e2dd4742850b1719fd8b",
+    "tools/reference/first-loop-affix-audit.json": "4d3fbdaad1df0ee6ad07e340b55ffd1a5f1a8ea5e8ca6fe1437dabf98184d9ce",
+    "tools/reference/named-item-runtime-audit.json": "c15227a49da972686e16b4d6180961926f06934415748c0cab0050bb7a26bc30",
+    "tools/reference/npc-high-level-resources-native-evidence.json": "ed36442931db06ae9a5ccf5280d58a973af5ab2d85ee040e9dc1cc37be7543a3",
+    "tools/reference/poison-spell-potion-deviation.json": "ffb13832fb55d45fd712ffc55619556cd900d26ce5f2b14e96646aadc6edf623",
+    "tools/reference/teeth-native-evidence.json": "1a10941079cdb57711ebd3de0725359cc6d0be740abf93f524019d1823f88d76"
+  },
+  "established": [
+    "Learned Bone Spirit shares saved spell packets,source-cell flight,FP health and lifecycle with Spear/Teeth. Guidance reuses GuidedArrows turn/hit/initial-frame primitives,with separate source-zero spell damage and no weapon AR/Pierce/proc payload.",
+    "Complete older launch/factory/turn/hit/selector/distance bodies execute360launch,2016steer,288hit and40selection contexts using current Bone Spirit rows. Complete packet creator/getters/writer/roll execute4080contexts. Native launch capture compares144exact two-subtile projections;shared turn/hit predicates compare all2016/288contexts.",
+    "T29 potion eligibility now uses actual impact UTC,with active/removed/after-launch/expired controls and once-only four-channel additions. Disconnected Spear/fan fixtures explicitly supply active frames without bypassing the production offline gate. Actual learned unpaid windup/once-only payment,locked-target interception exclusion,remaining125turn cadence,moving-target impact,dead locked target without reacquisition,ground initial10frames/lowest-ID acquisition,mode6extension/final expiry,seven lifecycle/slow controls and atomic malformed guidance rejection pass.",
+    "Player usable mana and Pay cap latent fractional credit after native whole-mana regeneration reaches maximum,with17/255fraction controls and the retained Iron Golem bound. A broader1180marker/35save class regression covers the shared correction. Six connected right/quick casts use natural travel/payment. Two actual reloads preserve a turned locked mode1flight and an acquired mode5flight,including pose,vector,packet,target,seed,remaining/total age and deadlines. All202predecessor markers remain."
+  ],
+  "remaining": [
+    "Current modern path/target validation,full generic dispatcher/hit-event composition and graphical-client behavior remain unverified. Source guidance probe supplies world/path/collision/stat/packet services explicitly. Native geometry,room/candidate/terrain/footprints,global frame/FCR and complete incoming/death/reaction/PvP/special recipients remain adapters.",
+    "Native source-subtile projection,ground acquisition filter and vector recomputation reuse bounded services;self-ground zero-path,nonstandard target kinds,extreme slow/ground-frame domains,exact missing/dead/hostile-invalid path registry transitions and retired-owner credit still need acceptance. No invented blanket retargeting remains.",
+    "Full class completion,deployment,old-content binary upgrade and final effects/audio/talent/hotkey icons are not claimed. Next:Poison Nova/Explosion flight/field allocation,then the remaining summon/curse audit."
+  ]
+}
