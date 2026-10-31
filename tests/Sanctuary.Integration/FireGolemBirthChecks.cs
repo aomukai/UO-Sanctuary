@@ -104,6 +104,10 @@ public static class FireGolemBirthChecks
     private static void Check()
     {
         Source();var p=Owner();var b=Cast(p);
+        Require(b.SourceAttackClock==(10,17)&&b.CombatProfile.AttackMs==680,"Owned G3 A1 action10/end17 clock");
+        TimedEffects.Slow(b,50,TimedEffects.Now);Require(b.SourceAttackClock==(20,34),"G3 slow must use shared source rate and event planner");
+        TimedEffects.Clear(b);Require(b.SourceAttackClock==(10,17),"Cleared G3 slow retained stale rate");
+        Require(DruidWolfGeometry.Clock("A1",SourceAttackRate.Speed(256,0,275),"firegolem-animation")== (6,10),"G3 final175percent rate cap");
         NecromancerEffects.SetMana256(p,0);Require(!NecromancerCombat.Release(p,CombatAbility.FireGolem,Serial.Zero,new(p.X+2,p.Y,p.Z))
             &&!b.Deleted&&NecromancerGolems.For(p).Single()==b&&NecromancerEffects.ManaBalance256(p)==0,"Insufficient mana replaced the existing golem or charged");
         var mod=new ResistanceMod(ResistanceType.Fire,"FireBirthFixture",-17);b.AddResistanceMod(mod);
@@ -129,6 +133,7 @@ public static class FireGolemBirthChecks
     {
         Source();var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var b=(FireGolemBody)World.FindMobile((Serial)s.Actor);var old=World.FindMobile((Serial)s.Historical);
         Require(b.ControlMaster==p&&b.Map==Map.Internal&&SkillHealth.Balance256(b)==s.Life&&SkillHealth.Maximum256(b)==s.Maximum&&b.SourceRegeneration256==158,"Saved exact Fire resources/owner/parked type");
+        Require(b.SourceAttackClock==(10,17)&&b.CombatProfile.AttackMs==680,"G3 clock was not reconstructed after reload");
         Require(old?.GetType()==typeof(NecromancerMinion)&&((NecromancerMinion)old).Kind==CombatAbility.FireGolem&&((NecromancerMinion)old).ControlMaster?.Serial.Value==s.HistoricalOwner,"Historical Fire save type was migrated silently");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1}));
     }

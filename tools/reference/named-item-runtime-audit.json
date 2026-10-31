@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "1bbdc6d0425ad29e6353f526cd530a5732abc2a81532942af2b0426636171d23",
+  "ContentAssemblySha256": "5b5d2c7a71e943a426e675b31fe571c417e8d624025dae7690eb48974080a60e",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -85,7 +85,7 @@
     "data/Sanctuary/Balance/named-item-properties.json": "dc5f3b95c4eb24d5dc756381b8b08272db84134c5fc0ea6c8e77f11e4fa58762",
     "data/Sanctuary/Balance/named-skill-backlog.json": "2a9e4b686189b51e41910020dd27cc3f2a065d73edc5c3f530c3c10d84b2a3cb",
     "data/Sanctuary/Balance/named-skill-bindings.json": "b7859dfea4db641ec9c84ca3661d5ec7734098a0676fb7b0e45fa760490b4438",
-    "data/Sanctuary/Balance/necromancer-summons.json": "3b862e4d6b1698ef7ab189b55069219a89d5b9ea8dbcdbc9f78ee1efc4706dda",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ced123bc252f259d1e42b658dd938fc25000c4f986e920fc97e5115e5b6112f8",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
     "data/Sanctuary/Balance/npc-melee-geometry.json": "16d651e7047b363f8b15d072f043faea06a1bf0ae6cd6564953c5d5f7ded0c36",
@@ -509,7 +509,7 @@
     "src/Sanctuary.Content/ExperienceLevels.cs": "ea57918e5227d532435e87bdb802976de196c3145c9b45ab6cea46b15e4acea3",
     "src/Sanctuary.Content/FanGeometry.cs": "c36dde2882906e8cff3ce1168558bf38f76ebf60007bdf55a400585b9668fde4",
     "src/Sanctuary.Content/FireBlasts.cs": "859f4e2c292d48d60f97605b8d9a47d3c910847fc96ca8b52676bc894005a361",
-    "src/Sanctuary.Content/FireGolemBody.cs": "bedfbc8a41673ea6f4722a5e3b722ed63dc4b0cf31e813635ecc94d106244184",
+    "src/Sanctuary.Content/FireGolemBody.cs": "73e129c800663a96e4be66e5217f5cf3d77cc10f9e19e5c2747af698fca75900",
     "src/Sanctuary.Content/FireGround.cs": "a8465026f5e00821f47f2eab2021acdd84eaf5cbd8f7fff81cb17cf348ce80da",
     "src/Sanctuary.Content/FistsFireRelease.cs": "e72e4ddd6272dd1072180987fce826ffa1b3c36aec8764f8257fe604f23410ca",
     "src/Sanctuary.Content/FoodEffects.cs": "e6202c5dc5ea084885260da3c0d713e19d1223d5a00c359cb2508c829c702928",

@@ -1774,6 +1774,24 @@
     }
   },
   {
+    "key": "firegolem-animation",
+    "fields": {
+      "S1Frames": 16,
+      "S1Speed": 168,
+      "A1Frames": 17,
+      "A1Speed": 256,
+      "A1Action": 10,
+      "WLFrames": 8,
+      "WLSpeed": 192,
+      "NUFrames": 8,
+      "NUSpeed": 112,
+      "DTFrames": 19,
+      "DTSpeed": 200,
+      "DDFrames": 1,
+      "DDSpeed": 256
+    }
+  },
+  {
     "key": "necroskeleton-animation",
     "fields": {
       "S1Frames": 12,

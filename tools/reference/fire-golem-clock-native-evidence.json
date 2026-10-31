@@ -1,0 +1,96 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Fire Golem G3 A1 clock",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 360,
+    "retainedPredecessorMarkers": 360,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      842,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 2880,
+    "baselineActionFrame": 10,
+    "baselineEndFrame": 17,
+    "baselineActionMs": 400,
+    "baselineCycleMs": 680,
+    "halfSpeedFrames": [
+      20,
+      34
+    ],
+    "cappedRateFrames": [
+      6,
+      10
+    ],
+    "observedConnectedFireRelease": false,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/fire-golem-clock/birth-inputs.json",
+      "sha256": "0ce494aecb9027ee725481b76b5d018bbb3b987814ed039ac8391140bbdc8fef"
+    },
+    "audit": {
+      "path": ".local/class-skills/fire-golem-clock/audit-inputs.json",
+      "sha256": "1b55b528fe4094d13f04af5d0430010953049d2303219d70d534b319991a0ab6"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/FireGolemBody.cs": "73e129c800663a96e4be66e5217f5cf3d77cc10f9e19e5c2747af698fca75900",
+    "tests/Sanctuary.Integration/FireGolemBirthChecks.cs": "4d59ce61e235af0e3313428a13c3f2d65630c94ff714e3fa8f23b4c8a0eb634e"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-clock/audit-inputs.json": "1b55b528fe4094d13f04af5d0430010953049d2303219d70d534b319991a0ab6",
+    ".local/class-skills/fire-golem-clock/audit-native-checks.log": "7ed9ea9df10d61e7de022a7fc373605012e9c7d4fb3682cf1a6b09097675b6cb",
+    ".local/class-skills/fire-golem-clock/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/fire-golem-clock/birth-inputs.json": "0ce494aecb9027ee725481b76b5d018bbb3b987814ed039ac8391140bbdc8fef",
+    ".local/class-skills/fire-golem-clock/birth-native-checks.log": "7559c78105250f408d2dc1841d43d70f40f2af6ee35dbb3c8ea8916741f337c9",
+    ".local/class-skills/fire-golem-clock/content-build-1.log": "44897f8f936275cf9c1cbfc2f3957f2435682c12b05d6f7db980a4d0a665b76e",
+    ".local/class-skills/fire-golem-clock/fire-golem-absorption-fixtures.json": "89d23a214e15bead14a349417993151972aee1faba966379671a2536181296e3",
+    ".local/class-skills/fire-golem-clock/fire-golem-birth-fixtures.json": "b4ba951fd5f545101afbb351d5232fb382ee6f0c86057dc3fdd7fa372706a52b",
+    ".local/class-skills/fire-golem-clock/integration-build-1.log": "7bbef15ac1d69dabbaed86dded73842fce7f3e55ea1a27d50f3b209cfa558d64",
+    ".local/class-skills/fire-golem-clock/pre-build-1.json": "47639e236b2335a0ba3a65e56109ec4442cb1da9cbc03205b2e50d81495a4bcf",
+    ".local/class-skills/fire-golem-clock/python-tests.log": "8ce485dd64f972709104d76debda97d19c21a1e18c801eb38bcdbc4b61495f8a",
+    ".local/class-skills/fire-golem-clock/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ced123bc252f259d1e42b658dd938fc25000c4f986e920fc97e5115e5b6112f8",
+    "docs/class-skill-roadmap.md": "d1de004a3f76f40490472e5312f9b96845ed7f7838ecf35e2e1c01fa8e1cb237",
+    "docs/class-skills-resume-checkpoint.md": "29722fd202f30727afeee1ed7538837ff9dbed3e85a71a6780074348f8f4b1fe",
+    "docs/fire-golem-clock-checkpoint.md": "1f016b4f81527b38d0984ddbf95a334230f91913fb81ee73776ddd8a24f021f2",
+    "docs/necromancer-mechanical-audit.md": "ad8870e695e1912870e179d0960696eb0f7229e2bbcfff7abc97510ce98d4af7",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skill-mechanical-reference.md": "6aa70d864bd902d78f767aff9b2a65460d57615914b58133d6192c0d8d72da54",
+    "src/Sanctuary.Content/FireGolemBody.cs": "73e129c800663a96e4be66e5217f5cf3d77cc10f9e19e5c2747af698fca75900",
+    "tests/Sanctuary.Integration/FireGolemBirthChecks.cs": "4d59ce61e235af0e3313428a13c3f2d65630c94ff714e3fa8f23b4c8a0eb634e",
+    "tests/check_fire_golem_clock.py": "b85dc363c24fd75f9da3f02eec88e63a8b02d59d3424d6115f14382ff816e35e",
+    "tools/build_class_skills.py": "2564a194eebb907870e6e68d9829356a6087dea17b07c10ee49d4f2ccbbcc1ba",
+    "tools/probe_fire_golem_mode.py": "d7d00df972add18b35672144c5bfda7d428fedfaf86d28ddd74887f26e11ffe6",
+    "tools/record_fire_golem_clock.py": "80dcc82c2566d0dc8fc18c8e79d1e5225a433044340270093ffe7b94d01e195d",
+    "tools/reference/fire-golem-absorption-native-evidence.json": "03f6771638877e1e8b91f54028917e863b8150395b3ae98508d76dd25259fda5",
+    "tools/reference/fire-golem-mode-source-evidence.json": "aca8e94c971e04e1ec218188c60b442c05c1f70d34257944fe8a858f992131ef",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "3504ca3a237a46a30bb50be860d01cd69ae2755c798044d1b1d632c2b24a0726",
+    "tools/reference/named-item-runtime-audit.json": "123874784a55b3d7fcc6166e96b85f186d00c9ebea4506e3915f8eac73181af9"
+  },
+  "established": [
+    "New learned Fire subtype uses the shared G3 event/rate planner instead of a generic half-cycle. Native supplier checks cover400/680ms baseline,50percent slow,slow removal,175percent final rate cap and reconstruction across2reloads. Existing plain-minion saves retain their path.",
+    "Only the6-mode G3runtime row is added;all existing summon rows are unchanged.360retained native markers,6Fire right/quick casts,4audits/71Python and clean builds pass.573named decisions,staged kernel and106installed artifacts are unchanged.",
+    "Separate complete legacy Fire mode execution covers480ordinary/2400guard contexts. Owned current formula symbol indices support the older whole-point fire-stat chain;the optional noRatio element-field discrepancy is recorded without changing source or selecting guessed modern behavior."
+  ],
+  "remaining": [
+    "No observed connected Fire release or complete current-executable mode-entry certificate is claimed. Mid-animation rescheduling,initial S1/AI/movement and world/client parity remain open.",
+    "Fire outgoing optional-monster-element behavior,RNG order,unarmed/critical/contact,Holy Fire weapon/pulse and death/replacement explosion remain unfinished;absorption full recipient-return/initializer/event parity and historical migration remain separate.",
+    "No completed class,deployment or new broad1180-marker run. Effects/audio and tree/hotkey icons remain separate placeholders. Extra pet abilities unlocked by hard points remain scheduled after all baseline skills."
+  ]
+}

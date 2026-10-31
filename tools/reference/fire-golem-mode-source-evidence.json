@@ -1,0 +1,75 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "runtimeChanged": false,
+  "probeSha256": "d7d00df972add18b35672144c5bfda7d428fedfaf86d28ddd74887f26e11ffe6",
+  "ownedSymbols": {
+    "archivePath": "data:data/global/excel/skillcalc.txt",
+    "sha256": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "size": 5225,
+    "rows": {
+      "edmn": 17,
+      "edmx": 18,
+      "edns": 38,
+      "edxs": 39
+    },
+    "readerSourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "readerBinarySha256": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    "installationEvidence": "tools/reference/d2r-local-installation-evidence.json"
+  },
+  "localTables": {
+    "monstats": {
+      "filename": "monstats-sentries-verified.txt",
+      "localSha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+      "cachedSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+    },
+    "skills": {
+      "filename": "skills.txt",
+      "localSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "cachedSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    }
+  },
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21",
+    "sub_6FD14D20": "2a817ed567de52f3905f24e497e96c6c8d1352417c518ec9324de566bef490e2",
+    "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e"
+  },
+  "reviewedCallbackBlocks": {
+    "17": "45496e40c0490f22065fda20d722f4bb2dfbbf9ead5fc55595b68a46113893e2",
+    "18": "e897fa3c94df551b386ef20739c6412528e2979b07734d11b1e7fe27314c4645",
+    "38": "45513b85af6cb1da5a9a52d049fa23d2889cd8a429b6f1d4a0e47fb35d54cc81",
+    "39": "f1f2088399d29aaf33e38796bdd4f5c007cd92f765618fce41498e176d30691b"
+  },
+  "reviewedFillDamageValuesSha256": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+  "reusedFixtureSha256": "79674c039faf50e5f83a032deb162a9508bf39f729c3c4ae569ccfc2896e3780",
+  "cases": 2880,
+  "ordinaryCases": 480,
+  "guardCases": 2400,
+  "artifacts": {
+    ".local/class-skills/fire-golem-mode-source/probe.cpp": "12bb6e0ebab1895226a39546e9fabe74e83de259e2f11ee24574bd05d74837f9",
+    ".local/class-skills/fire-golem-mode-source/cases.json": "9ecd072fafb0cd974a1a50f275a06925f1a5643f974690a003e9411a12eb3e7f",
+    ".local/class-skills/fire-golem-mode-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/fire-golem-mode-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Owned current skillcalc rows17/18 map edmn/edmx;rows38/39 map edns/edxs. The reviewed legacy callbacks shift17/18right8;FillDamageValues shifts accrued fire stats left8. Existing Fire birth scalar endpoints are consistent with that legacy ordinary-hit unit chain.",
+    "The complete unchanged raw mode writer and monster noRatio helper execute480ordinary and2400guard contexts. Actual Fire monstats,all16raw modes,all3difficulties,classic/expansion controls and80percent random boundaries are supplied. A1consumes one raw RNG draw even when the optional fire range is zero;other modes consume none.",
+    "The complete legacy noRatio helper puts optional elemental endpoints into S1fields instead of the elemental fields subsequently read by the caller. All tested Fire optional fire outputs therefore remain zero,including successful Normal80percent selections. No repair is applied to manufacture a result."
+  ],
+  "remaining": [
+    "Current executable optional-monster-element behavior is uncertain. Do not infer either an extra5..10fire or zero extra fire for3.3.93847from the tables and old implementation alone.",
+    "Raw mode requests are direct controls,not proof every tested mode is reachable. Layout,stat lists,random draw values,game and skill lookup are declared services. This does not certify modern bytecode dispatch,stat aggregation,full mode entry or seed allocation.",
+    "No native actor or runtime data changes. Fire unarmed/critical/contact,G3clock,Holy Fire weapon/pulse and delayed death/replacement explosion still need implementation/acceptance. Baseline classes remain unfinished;pet upgrades remain a later hard-point pass."
+  ]
+}

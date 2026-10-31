@@ -12,6 +12,10 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum
     private FireBirthStats _fireBirth;
     private FireBirthStats Birth=>_fireBirth??=NecromancerFireBirth.Prepare(CapturedValues,Level,SummonDifficulty);
     internal override string SourceMonsterId=>Kind==CombatAbility.FireGolem?"firegolem":base.SourceMonsterId;
+    internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
+        SourceAttackRate.Speed(NecromancerSummons.Source("firegolem-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"firegolem-animation");
+    protected override (int Cycle,int Action) MeleeClock()
+    {var clock=SourceAttackClock;return(checked(clock.End*40),checked(clock.Action*40));}
     protected override void RefreshResistances()
     {
         base.RefreshResistances();
@@ -36,7 +40,8 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum
         {
             var profile=base.CombatProfile;
             if(Kind!=CombatAbility.FireGolem){return profile;}
-            var b=Birth;return profile with{Level=b.Level,Life=(Math.Clamp(b.Life256,256,65000*256)+255)/256,Defense=b.Armor,AttackRating=b.Attack};
+            var b=Birth;return profile with{Level=b.Level,Life=(Math.Clamp(b.Life256,256,65000*256)+255)/256,Defense=b.Armor,AttackRating=b.Attack,
+                AttackMs=DruidWolfGeometry.Clock("A1",source:"firegolem-animation").End*40};
         }
     }
     [Constructible]public FireGolemBody(){}

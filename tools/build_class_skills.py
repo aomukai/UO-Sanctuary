@@ -255,6 +255,14 @@ def products():
         if actions:blood_fields[mode+'Action']=actions[0]
     assert [blood_fields[k] for k in ['A1Frames','A1Speed','A1Action']]==[16,256,10]
     summons += [{'key':'bloodgolem-animation','fields':blood_fields}]
+    fire_preflight=json.loads((ROOT/'tools/reference/fire-golem-world-preflight.json').read_text())
+    fire_animations={row['code']:row for row in fire_preflight['animation']['records']};fire_fields={}
+    for mode in ['S1','A1','WL','NU','DT','DD']:
+        row=fire_animations['G3'+mode+'HTH'];fire_fields[mode+'Frames']=row['frames'];fire_fields[mode+'Speed']=row['speed']
+        actions=[frame for frame,kind in row['events'] if kind==1];assert len(actions)<=1
+        if actions:fire_fields[mode+'Action']=actions[0]
+    assert [fire_fields[k] for k in ['A1Frames','A1Speed','A1Action']]==[17,256,10]
+    summons += [{'key':'firegolem-animation','fields':fire_fields}]
     skeleton_preflight=json.loads((ROOT/'tools/reference/skeleton-world-preflight.json').read_text())
     skeleton_animations={row['code']:row for row in skeleton_preflight['animation']['records']}
     skeleton_fields={}
