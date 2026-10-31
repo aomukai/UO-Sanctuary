@@ -32,11 +32,11 @@ public static class EliteCombat
             + NamedElements.Damage(source, target, cold, "cold")
             + NamedElements.Damage(source, target, lightning, "ltng")
             + NamedElements.Damage(source, target, magic, "mag");
-        int amount = (int)Math.Floor(total), before = target.Hits;
+        int amount256=NamedElements.To256(total),amount=amount256/256,before=target.Hits;
         if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(preparedPhysical),ranged);}
-        if (amount > 0)
+        if (amount256 > 0)
         {
-            source.DoHarmful(target); target.Damage(amount, source); CombatDamage.Finish(target, source);
+            source.DoHarmful(target);SkillHealth.Damage(source,target,amount256);
             int loss = Math.Max(0, before - target.Hits);
             if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }
             if (target is PlayerMobile player)

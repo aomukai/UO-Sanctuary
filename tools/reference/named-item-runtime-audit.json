@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f3fcaeb8ec78438bfacdc4ee5b06e2f73bae86a32a8cc879bb6244f2c675e0e8",
+  "ContentAssemblySha256": "5c5055221676c4b0be0384bacd2c3d0ecd23956005b57d99062f684568879619",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -501,7 +501,7 @@
     "src/Sanctuary.Content/EconomyComparisonKit.cs": "e7120ea13d7816f4668444ef4e8b6b341bc833733542bf22258578b68128b222",
     "src/Sanctuary.Content/EliteAuras.cs": "6e63f0b0ac4f54fceb84151da86a11adc71a5b5a0cffaece7a07f261b66a63c9",
     "src/Sanctuary.Content/EliteBolts.cs": "f918f08609bb40e369ec8d1436aa170289337ccee896bfecf63117c850e6dd1b",
-    "src/Sanctuary.Content/EliteCombat.cs": "2136a214ef4ce0f906af0745dd130b92a4f394e7f05b498b4e8396625e2a1dc1",
+    "src/Sanctuary.Content/EliteCombat.cs": "6e5cb56974b9f3b10b8086aaeaeee88757928a02c32bead8bff02cfd1aa86bc6",
     "src/Sanctuary.Content/EncounterCreature.cs": "28539b59f4febbd6ede44679c7bf447db819f83a4a91dc0f413410db618fa274",
     "src/Sanctuary.Content/EncounterProfiles.cs": "4ff8ae5d82513c9527aae1b7271f6eee32d385ec783c246ff836bbdd7a447f36",
     "src/Sanctuary.Content/EncounterTreasure.cs": "432a4d13ca3fc24f6d8bb2c8fd6371158ecf44d7d6d3b6fd20674f946740dcc7",

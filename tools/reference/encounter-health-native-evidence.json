@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Encounter FP256 life settlement through existing health bridge",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 2,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 36,
+    "retainedShieldMarkers": 33,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "mixedFractionalPackets": 256,
+    "actualBoneArmorInputCasts": 6,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      861,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/encounter-health/birth-inputs.json",
+      "sha256": "67590139f6d284443719effee58db37768e1531d5923632e759d7c313811e04f"
+    },
+    "audit": {
+      "path": ".local/class-skills/encounter-health/audit-inputs.json",
+      "sha256": "904cc973a1a0046c58dfdaff5d898c9b7a85ec88f619b200231e70e3d73c8895"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/EliteCombat.cs": "6e5cb56974b9f3b10b8086aaeaeee88757928a02c32bead8bff02cfd1aa86bc6",
+    "tests/Sanctuary.Integration/EncounterHealthChecks.cs": "430e63159ddab0bb948ab801075109ad958ca52a59ab6aada332542465668e30",
+    "tests/Sanctuary.Integration/EncounterShieldChecks.cs": "d1da88998941ff37fd45400e3a770b1a4c131e71e4d08f6e26485ca67dbc55a8"
+  },
+  "artifacts": {
+    ".local/class-skills/encounter-health/audit-inputs.json": "904cc973a1a0046c58dfdaff5d898c9b7a85ec88f619b200231e70e3d73c8895",
+    ".local/class-skills/encounter-health/audit-native-checks.log": "69aed0070b716d61de8ebafe88eb5df742e569b10b13d831369f030d6ab66d91",
+    ".local/class-skills/encounter-health/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/encounter-health/birth-inputs.json": "67590139f6d284443719effee58db37768e1531d5923632e759d7c313811e04f",
+    ".local/class-skills/encounter-health/birth-native-checks.log": "a1ad2557bfefa04489ba30e646d820fcfed232229e15a36b1e155e60ac9aa257",
+    ".local/class-skills/encounter-health/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/encounter-health/content-build-2.log": "180f8f170debc2ddcf4efb01cda96ea804a2aa4ca24c0e42f4d2dbf02189a880",
+    ".local/class-skills/encounter-health/encounter-health-fixtures.json": "1ffbc20d1c59d64fa1ea02f7bcacd27f2d45942c76796760561461f780c2e778",
+    ".local/class-skills/encounter-health/failed-birth-inputs-1.json": "0a79e998311abf515bf3dacf65bd2c87e6adb985c1357a0d9ca696a8d9bbc617",
+    ".local/class-skills/encounter-health/failed-birth-run-1.log": "146e081630349b0bd905b4a950592103a7f3417f03856db9dbe6d529af98b831",
+    ".local/class-skills/encounter-health/integration-build-2.log": "4a46a77f39892387d9fcedf16c200d2e43230024a22ef9b140050c057bc005b3",
+    ".local/class-skills/encounter-health/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/encounter-health/pre-build-2.json": "94b211219bc9d0c95a3faa009e534f1493ff263a1aeefcb0616957e4dd1cc4f2",
+    ".local/class-skills/encounter-health/python-tests.log": "d11d0b0f4585923ee928d6ef5339c11e70af87554d6d590662da65760e772f57",
+    ".local/class-skills/encounter-health/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/encounter-shields/birth-native-checks.log": "df75e9b11dce117b182afe84e5353edab9997096b52b572fe0c938aead398b2c",
+    "docs/class-skill-roadmap.md": "d7740e55b35c299bb0474972193b19b85e81c35add818fe03bacb2f9626bf08c",
+    "docs/class-skills-resume-checkpoint.md": "5e4e4084e05b794269ee82328403720699b04ca781c97501e2d543279fd53aeb",
+    "docs/encounter-health-checkpoint.md": "e86d6ca31775d0f2c002c786c202b66257af7630f024b2a58735beba1e2a2702",
+    "docs/necromancer-mechanical-audit.md": "aee4af180c3882cb885c218df284b29cb4599750eb44687ef76933f06d3af3fd",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "src/Sanctuary.Content/EliteCombat.cs": "6e5cb56974b9f3b10b8086aaeaeee88757928a02c32bead8bff02cfd1aa86bc6",
+    "tests/Sanctuary.Integration/EncounterHealthChecks.cs": "430e63159ddab0bb948ab801075109ad958ca52a59ab6aada332542465668e30",
+    "tests/Sanctuary.Integration/EncounterShieldChecks.cs": "d1da88998941ff37fd45400e3a770b1a4c131e71e4d08f6e26485ca67dbc55a8",
+    "tests/check_encounter_health.py": "8aad4cd170fa7fef929f9cd5148bef16bdb6458641718fd86adba85a5a15260a",
+    "tools/record_encounter_health.py": "101bca5fb0ac8805cc2c58435d06823df08b40044a388e1c6e86cdf2aab15b47",
+    "tools/reference/encounter-shields-native-evidence.json": "30285f49e52bdf8bc9b61b624249e55eaef4ec7f47923524a16c1f2c66e4ef55"
+  },
+  "established": [
+    "Encounter final damage now reaches the existing unchanged SkillHealth.Damage in FP256 instead of being floored to whole HP. Its native damage/death bridge is called once; return values retain native whole-life-loss semantics.",
+    "Physical/magic quarter hits,256mixed five-channel FP256 packets,quarter-point Bone Armor overflow,real Shaftstop post-resistance fractions and the existing sub-one-life native death/owner bridge pass. This is native bridge acceptance,not new full current-executable HP/event proof.",
+    "A quarter-point injury survives both actual reloads and accumulates to one whole native hit point after four quarter hits. The actual saved player/enemy identities and exact life are checked; the transient fixture Frozen control is restored after load.",
+    "All33preceding shield markers,six real Bone Armor casts and original-item/NPC resources remain. Data/kernel/106installed artifacts are unchanged; no deployment or new asset is required."
+  ],
+  "remaining": [
+    "Full modern damage event/stat/reaction/HP/death/PvP/client parity,encounter physical reducer and return/proc/recovery/durability chronology remain separate. Existing native bridge lethal threshold is retained,not newly certified against the executable.",
+    "Modern Bone Armor breaking-hit behavior and mixed-shield priority remain unverified. Conventional overflow and fixed shield ordering stay explicitly bounded. No whole skill/class or old-binary migration claim.",
+    "The first reload fixture incorrectly required transient Frozen to persist. The corrected fixture preserves actor/life assertions and restores its test control before re-entering the scene. Failed log/inventory retained."
+  ]
+}

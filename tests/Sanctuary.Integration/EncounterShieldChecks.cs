@@ -13,7 +13,7 @@ public static class EncounterShieldChecks
     public static void Configure()=>ConsoleInputHandler.RegisterCommand("encounter-shields-check","Encounter damage uses existing pre-resistance shield consumers",_=>Core.LoopContext.Post(()=>
     {try{Check();Log.Information("encounter-shields-check: passed");}catch(Exception e){Log.Error(e,"encounter-shields-check: failed");}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Owner(DiabloClass kind)
+    internal static PlayerMobile Owner(DiabloClass kind)
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="PoisonDaggerFixtureEncounterShield"};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,kind);ClassCreation.Profiles.AdvanceLevel(p,99);
@@ -27,7 +27,7 @@ public static class EncounterShieldChecks
         Require(TalentCatalog.TryGet(profile.Class,id,out var talent),"Shield talent");foreach(string prior in talent.Prerequisites){Train(p,prior);}
         Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Shield train "+id);
     }
-    private static EncounterCreature Enemy(PlayerMobile p)
+    internal static EncounterCreature Enemy(PlayerMobile p)
     {
         var c=new EncounterCreature{Frozen=true,CantWalk=true,NoKillAwards=true};
         c.Assign(EncounterProfiles.Profile("crypt-sentinel-60"),60,MonsterDifficulty.Normal,EncounterGrade.Ordinary,ChampionKind.Champion,[],EliteAura.None,null,new Random(173));
