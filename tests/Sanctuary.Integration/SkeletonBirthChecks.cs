@@ -39,7 +39,8 @@ public static class SkeletonBirthChecks
         Require(ClassCombat.CastSummon(p,corpse.Serial,Core.TickCount),"Skeleton learned windup");var session=ClassCombat.For(p);
         Require(!ClassCombat.ResolveAction(p,session.EffectAt-1)&&NecromancerEffects.ManaBalance256(p)==mana&&!corpse.SanctuaryConsumed,"Skeleton early payment/body use");
         Require(ClassCombat.ResolveAction(p,session.EffectAt)&&!ClassCombat.ResolveAction(p,session.EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&corpse.SanctuaryConsumed,"Skeleton once-only9mana/corpse");
-        var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Last();Stop(pet);return pet;
+        var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Last();
+        Require(pet is SkeletonWorldBody,"Learned birth did not create the new world subtype");Stop(pet);return pet;
     }
     private static void Source()
     {

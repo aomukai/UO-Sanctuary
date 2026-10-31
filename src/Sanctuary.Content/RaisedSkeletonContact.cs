@@ -16,14 +16,14 @@ internal static class UnarmedSummonContact
         return SourceMeleeGeometry.Within(new(new(body.X*2,body.Y*2),2,1,NativeMonsterReturn.Identity(body.SourceMonsterId).Class,0),
             new(new(target.X*2,target.Y*2),size,1,metadata.Class),bonus,(_,_,_)=>!body.InLOS(target));
     }
-    private sealed class Result(SkeletonGuardian body,PlayerMobile owner,BaseCreature target):SourceMeleeResultServices
+    private sealed class Result(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,Func<int,bool> range):SourceMeleeResultServices
     {
         internal override int? AttackerKind=>1;
         internal override int? DefenderKind=>1;
         internal override bool Hostile()=>ClassCombat.IsHostile(owner,target);
         internal override bool DefenderRunning()=>throw new InvalidOperationException("NPC result must not query player running");
         internal override int MeleeReach()=>0;
-        internal override bool InRange(int bonus)=>Within(body,target,bonus);
+        internal override bool InRange(int bonus)=>range(bonus);
         internal override bool HitSuccessful(int percent,bool missile)
         {
             if(missile){throw new NotSupportedException("Unarmed summon A1 is not a missile");}
@@ -49,10 +49,10 @@ internal static class UnarmedSummonContact
         {throw new NotSupportedException("Recipient shield rule is not mapped");}
         return rules;
     }
-    internal static IronGolemContact.Prepared Prepare(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,IronGolemContact.Rules rules)
-        =>IronGolemContact.Prepare(body,target,rules,()=>SourceMeleeResult.Resolve(new Result(body,owner,target)));
-    internal static MonsterContactResult Release(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,IronGolemContact.Prepared prepared,DateTime at)
-        =>IronGolemContact.Release(body,owner,target,prepared,bonus=>Within(body,target,bonus),at);
+    internal static IronGolemContact.Prepared Prepare(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,IronGolemContact.Rules rules,Func<int,bool> range=null)
+        =>IronGolemContact.Prepare(body,target,rules,()=>SourceMeleeResult.Resolve(new Result(body,owner,target,range??(bonus=>Within(body,target,bonus)))));
+    internal static MonsterContactResult Release(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,IronGolemContact.Prepared prepared,DateTime at,Func<int,bool> range=null)
+        =>IronGolemContact.Release(body,owner,target,prepared,range??(bonus=>Within(body,target,bonus)),at);
 }
 
 public partial class RaisedSkeleton

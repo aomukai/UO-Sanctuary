@@ -37,7 +37,12 @@ public static class SkeletonCombatChecks
     {
         var enemy=new GraveyardZombie{NoKillAwards=true};enemy.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);enemy.Damage(100000,p);if(enemy.Alive){enemy.Kill();}
         var corpse=(Corpse)enemy.Corpse;Require(SkeletonPets.Raise(p,corpse),"Actual learned skeleton creation");corpse.Delete();
-        var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Single();pet.AIObject.AITimer.Stop();return pet;
+        var learned=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Single();
+        Require(learned is SkeletonWorldBody,"Learned skeleton did not opt into world controller");learned.Delete();
+        // Keep direct/native A1 and Strike checks on the historical type. The
+        // automatic learned subtype is exercised by SkeletonWorldChecks.Live.
+        var pet=new RaisedSkeleton();pet.InitializeExact(p,4,0);pet.SetControlMaster(p);pet.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
+        PersistentMinions.Profiles.Track(pet);pet.AIObject.AITimer.Stop();return pet;
     }
     private static void Clocks(RaisedSkeleton pet)
     {

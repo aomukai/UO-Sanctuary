@@ -16,11 +16,19 @@ internal sealed record IronGolemWorldState(int Map,ActorMotionState Motion,DateT
     public string Profile{get;init;}="prepared-necropet-ground-fit-equipment-clock-v1";
 }
 
-// Prepared world consumer. Ground fit/LOS, target ordering and neutral/busy
-// cadence are native adapters, not current-executable certificates. Learned
-// casting remains disabled pending complete attack/event/lifecycle acceptance.
+// Shared ground conductor with explicit Iron Golem and skeleton bindings.
+// Ground fit/LOS,target ordering and neutral/busy cadence remain native adapters,
+// not current-executable certificates. Historical Iron state/API stays intact.
 internal static class IronGolemWorld
 {
+    internal static IronGolemWorldState Controller(SkeletonGuardian body)=>body switch
+    {IronGolemBody iron=>iron.Prepared?.Controller,SkeletonWorldBody skeleton=>skeleton.WorldState?.Controller,_=>throw new NotSupportedException("Unbound Necromancer ground actor")};
+    private static uint Owner(SkeletonGuardian body)=>body switch
+    {IronGolemBody iron=>iron.Prepared.Recipe.Owner,SkeletonWorldBody skeleton=>skeleton.WorldState.Owner,_=>throw new NotSupportedException("Unbound Necromancer ground owner")};
+    private static void Store(SkeletonGuardian body,IronGolemWorldState state)
+    {if(body is IronGolemBody iron){iron.RestoreController(state);}else if(body is SkeletonWorldBody skeleton){skeleton.StoreWorld(state);}else{throw new NotSupportedException("Unbound Necromancer ground state");}}
+    private static bool TakeLoaded(SkeletonGuardian body)
+    {if(body is IronGolemBody iron){bool loaded=iron.ControllerLoaded;iron.ControllerLoaded=false;return loaded;}if(body is SkeletonWorldBody skeleton){bool loaded=skeleton.WorldLoaded;skeleton.WorldLoaded=false;return loaded;}throw new NotSupportedException("Unbound Necromancer ground load");}
     internal static Point2D Cell(IronGolemWorldState s)=>DruidRavenMotion.Cell(s.Motion);
     internal static void Validate(IronGolemWorldState s)
     {
@@ -53,14 +61,26 @@ internal static class IronGolemWorld
     private static IronGolemWorldState Neutral(IronGolemWorldState s,int delay=15)=>s with{Mode=1,NextThink=checked(s.Frame+Math.Max(1,delay)),
         ActionAt=0,EndAt=0,Motion=DruidWolfGeometry.Stop(s.Motion)};
     internal static IronGolemWorldState Park(IronGolemWorldState s)=>Neutral(s,1) with{PathOverride=0,VelocityBonus=0,PathBudget=0};
-    internal static bool Eligible(IronGolemBody body,PlayerMobile owner,Mobile target)=>target is BaseCreature creature
+    internal static bool Eligible(SkeletonGuardian body,PlayerMobile owner,Mobile target)=>target is BaseCreature creature
         &&target is{Alive:true,Deleted:false}&&target.Map==body.Map&&!target.Blessed&&target.CanBeDamaged()&&creature is not BaseVendor
-        &&CreatureProfiles.For(creature).Traits.Size is >=0 and <=3&&Math.Abs(target.Z-body.Z)<16&&ClassCombat.IsHostile(owner,target)
+        &&(body is SkeletonWorldBody||CreatureProfiles.For(creature).Traits.Size is >=0 and <=3)&&Math.Abs(target.Z-body.Z)<16&&ClassCombat.IsHostile(owner,target)
         &&!SpellHelper.IsTown(target.Location,owner)&&body.CanBeHarmful(target,false);
-    private static int Size(Mobile target)=>target is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??throw new NotSupportedException("Unmapped target footprint"):2;
-    private static int Full(IronGolemWorldState s,Mobile target)=>DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(target),1+Size(target)/2);
-    internal static bool Melee(IronGolemBody body,IronGolemWorldState s,Mobile target,int bonus)=>target is BaseCreature
-        &&SourceMeleeGeometry.Within(new(Cell(s),2,1,291,0),new(PetOwnerRoutes.Cell(target),Size(target),1,0),bonus,(_,_,_)=>!body.InLOS(target));
+    private static int Size(SkeletonGuardian body,Mobile target)
+    {
+        if(target is not BaseCreature creature){return 2;}
+        if(CreatureProfiles.For(creature).Traits.Size is >=0 and <=3 and var size){return size;}
+        // Preserve the historical skeleton's native recipient bridge. This
+        // default is an acquisition adapter, not a recovered D2 footprint.
+        return body is SkeletonWorldBody?2:throw new NotSupportedException("Unmapped target footprint");
+    }
+    private static int Full(SkeletonGuardian body,IronGolemWorldState s,Mobile target)=>DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(target),1+Size(body,target)/2);
+    internal static bool Melee(SkeletonGuardian body,IronGolemWorldState s,Mobile target,int bonus)
+    {
+        if(target is not BaseCreature creature){return false;}
+        if(body is SkeletonWorldBody&&CreatureProfiles.For(creature).Traits.Size is not(>=0 and <=3))
+        {return body.InRange(target,body.RangeFight)&&body.InLOS(target);}
+        return SourceMeleeGeometry.Within(new(Cell(s),2,1,NativeMonsterReturn.Identity(body.SourceMonsterId).Class,0),new(PetOwnerRoutes.Cell(target),Size(body,target),1,0),bonus,(_,_,_)=>!body.InLOS(target));
+    }
     private sealed class MeleeResult(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target):SourceMeleeResultServices
     {
         internal bool BlockAnimation;
@@ -95,15 +115,21 @@ internal static class IronGolemWorld
     }
     private static void Velocity(ref IronGolemWorldState s,int type,int speed,int budget)=>s=s with{
         PathOverride=type==0?s.PathOverride:type,VelocityBonus=speed==0?s.VelocityBonus:speed,PathBudget=budget==0?s.PathBudget:Math.Min(77,budget)};
-    private static (int Velocity,int Animation) MovementSpeed(IronGolemBody body,int bonus)
+    private static (int Velocity,int Animation) MovementSpeed(SkeletonGuardian body,int bonus)
     {
+        if(body is SkeletonWorldBody)
+        {
+            int walkPercent=checked(100+bonus+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body));
+            return SourceActorMotion.Speed(NecromancerSummons.Source("necroskeleton","Velocity"),NecromancerSummons.Source("necroskeleton-animation","WLSpeed"),walkPercent,0);
+        }
+        var iron=(IronGolemBody)body;
         var item=NpcEquipmentCombat.Context(body)??throw new NotSupportedException("Missing original-item movement context");
         int armorSpeed=ClassGear.Slot(item.Item)!=GearSlot.Weapon&&!ClassGear.Broken(item.Item)?ClassGear.Base(item.Item).Speed:0;
         int faster=checked(item.Bonus("move1")+item.Bonus("move2")+item.Bonus("move3"));
-        int percent=checked(100+bonus+(int)body.BirthValues.Eval("passivecalc1")+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body)-armorSpeed);
+        int percent=checked(100+bonus+(int)iron.BirthValues.Eval("passivecalc1")+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body)-armorSpeed);
         return SourceActorMotion.Speed(NecromancerSummons.Source("irongolem","Velocity"),NecromancerSummons.Source("irongolem-animation","WLSpeed"),percent,faster);
     }
-    private static bool Path(IronGolemBody body,ref IronGolemWorldState s,Point2D target,bool run,bool delete=false)
+    private static bool Path(SkeletonGuardian body,ref IronGolemWorldState s,Point2D target,bool run,bool delete=false)
     {
         if(run){throw new NotSupportedException("No owned Iron Golem run animation row");}
         if(target.X<=0||target.Y<=0||target.X>=body.Map.Width*2||target.Y>=body.Map.Height*2){if(delete){s=s with{NextThink=0};}return false;}
@@ -122,22 +148,22 @@ internal static class IronGolemWorld
         body.Direction=body.GetDirectionTo(new Point3D((target.X+1)/2,(target.Y+1)/2,body.Z));
         s=s with{Mode=2,NextThink=0,ActionAt=0,EndAt=0,Target=0,Motion=path.Motion,MovingBonus=bonus};return true;
     }
-    private static Point2D Wander(IronGolemBody body,Point2D target,int distance)
+    private static Point2D Wander(SkeletonGuardian body,Point2D target,int distance)
     {
         bool first=(NpcEquipmentRandom.Raw(body)&1)!=0;int small=NpcEquipmentRandom.Limited(body,distance);
         int x=first?distance:small,y=first?small:distance;
         if((NpcEquipmentRandom.Raw(body)&1)!=0){x=-x;}if((NpcEquipmentRandom.Raw(body)&1)!=0){y=-y;}
         return new(target.X+x,target.Y+y);
     }
-    private static IronGolemWorldState Relocate(IronGolemBody body,IronGolemWorldState s,Point3D point,Map map)
+    private static IronGolemWorldState Relocate(SkeletonGuardian body,IronGolemWorldState s,Point3D point,Map map)
     {body.MoveToWorld(point,map);body.AIObject?.AITimer.Stop();return s with{Map=map.MapID,Motion=DruidRavenMotion.Center(point.X*2,point.Y*2)};}
-    private static IronGolemWorldState Think(IronGolemBody body,PlayerMobile owner,IronGolemWorldState initial,DateTime at)
+    private static IronGolemWorldState Think(SkeletonGuardian body,PlayerMobile owner,IronGolemWorldState initial,DateTime at)
     {
         var s=initial with{NextThink=0};var ownerCell=PetOwnerRoutes.Cell(owner);var route=PetOwnerRoutes.For(owner,at);
         bool moving=ClassMovement.IsMoving(owner,Core.TickCount);int mode=moving?(ClassMovement.IsRunning(owner,Core.TickCount)?3:2):1;
         int heading=DruidWolfGeometry.NativeHeading(owner.Direction);var offset=DruidWolfGeometry.Offset(heading);
         var end=moving?new Point2D(ownerCell.X+offset.X*2,ownerCell.Y+offset.Y*2):ownerCell;
-        PetMoveContext Context()=>new(Cell(s),ownerCell,end,end,mode,Full(s,owner),
+        PetMoveContext Context()=>new(Cell(s),ownerCell,end,end,mode,Full(body,s,owner),
             (owner.AllFollowers??[]).OfType<BaseCreature>().Count(x=>x is{Alive:true,Deleted:false}&&PersistentMinions.Active(owner,x)),
             moving?heading:0,route.Cursor,route.Trail,route.LastTeleport);
         int Action(PetMoveRequest r)
@@ -179,32 +205,44 @@ internal static class IronGolemWorld
                     var chase=World.FindMobile((Serial)(uint)r.A);if(chase!=null){Velocity(ref s,13,0,0);Path(body,ref s,PetOwnerRoutes.Cell(chase),false);}break;
                 case NecromancerPetAiKind.Attack:
                     var target=World.FindMobile((Serial)(uint)r.B);if(target!=null){body.Direction=body.GetDirectionTo(target);}
-                    int ias=checked(NpcEquipmentCombat.Bonus(body,"swing1")+NpcEquipmentCombat.Bonus(body,"swing2")+NpcEquipmentCombat.Bonus(body,"swing3"));
-                    var held=NpcEquipmentCombat.Context(body)??throw new NotSupportedException("Missing original-item timing context");
-                    int weaponSpeed=ClassGear.Slot(held.Item)==GearSlot.Weapon&&!ClassGear.Broken(held.Item)?ClassGear.Base(held.Item).Speed:0;
-                    int speed=SourceAttackRate.Speed(NecromancerSummons.Source("irongolem-animation","A1Speed"),ias,checked(SourceAttackRate.WolfRate(body)-weaponSpeed));
-                    var clock=DruidWolfGeometry.Clock("A1",speed,"irongolem-animation");
+                    int speed; (int Action,int End) clock;
+                    if(body is SkeletonWorldBody skeleton)
+                    {
+                        speed=SourceAttackRate.Speed(NecromancerSummons.Source("necroskeleton-animation","A1Speed"),0,SourceAttackRate.WolfRate(body));
+                        clock=skeleton.SourceAttackClock;
+                        if(target is not BaseCreature creature){throw new NotSupportedException("Skeleton world melee needs a mapped NPC recipient");}
+                        skeleton.PrepareWorldContact(owner,s,creature);
+                        skeleton.Animate(4,5,1,true,false,0); // Existing native A1 placeholder; mechanical clock remains source-owned.
+                    }
+                    else
+                    {
+                        int ias=checked(NpcEquipmentCombat.Bonus(body,"swing1")+NpcEquipmentCombat.Bonus(body,"swing2")+NpcEquipmentCombat.Bonus(body,"swing3"));
+                        var held=NpcEquipmentCombat.Context(body)??throw new NotSupportedException("Missing original-item timing context");
+                        int weaponSpeed=ClassGear.Slot(held.Item)==GearSlot.Weapon&&!ClassGear.Broken(held.Item)?ClassGear.Base(held.Item).Speed:0;
+                        speed=SourceAttackRate.Speed(NecromancerSummons.Source("irongolem-animation","A1Speed"),ias,checked(SourceAttackRate.WolfRate(body)-weaponSpeed));
+                        clock=DruidWolfGeometry.Clock("A1",speed,"irongolem-animation");
+                    }
                     s=s with{Mode=4,Target=(uint)r.B,AttackSpeed=speed,ActionAt=s.Frame+clock.Action,EndAt=s.Frame+clock.End,NextThink=0,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 default:throw new NotSupportedException("Unmapped Iron Golem AI request");
             }
         }
-        var queries=NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(s,target),target=>Melee(body,s,target,0),
+        var queries=NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(body,s,target),target=>Melee(body,s,target,0),
             Request,()=>NpcEquipmentRandom.Limited(body,100),
             (target,combat,flag,leash)=>SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash),Move);
-        var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source("irongolem","Velocity"),NecromancerSummons.Source("irongolem","Run"),0,0),queries);
+        var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),0,0),queries);
         s=s with{Ai=memory};
         if(s.NextThink==0&&s.Mode is not(2 or 4 or 8)){s=s with{NextThink=s.Frame+15};}return s;
     }
-    internal static void Advance(IronGolemBody body,DateTime at,bool actions)
+    internal static void Advance(SkeletonGuardian body,DateTime at,bool actions)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Iron Golem world clock must be UTC");}
-        if(body.Deleted||body.Prepared?.Controller is not{} s||s.Fault!=null||s.NextUtc>at){return;}
-        if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=body.Prepared.Recipe.Owner){body.Delete();return;}
-        if(body.ControllerLoaded){body.ControllerLoaded=false;Skip(body,s,at);return;}
+        if(body.Deleted||Controller(body) is not{} s||s.Fault!=null||s.NextUtc>at){return;}
+        if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=Owner(body)){body.Delete();return;}
+        if(TakeLoaded(body)){Skip(body,s,at);return;}
         if(!PersistentMinions.Active(owner,body)||!body.Permitted(owner)||!actions||owner.Map==null||owner.Map==Map.Internal)
         {
             if(!PersistentMinions.Active(owner,body)||!body.Permitted(owner)){PersistentMinions.ParkClass(owner,DiabloClass.Necromancer);}else{PersistentMinions.Suspend(owner);}
-            Skip(body,body.Prepared.Controller,at);return;
+            Skip(body,Controller(body),at);return;
         }
         if(body.Map==Map.Internal){PersistentMinions.Resume(owner);if(body.Map==Map.Internal){return;}}
         if(body.Map!=owner.Map)
@@ -217,7 +255,7 @@ internal static class IronGolemWorld
             if(!body.Poisoned&&TimedEffects.CanRegenerateHits(body))
             {NpcEquipmentRegeneration.Apply(body,NpcEquipmentRegeneration.Delta(BattleOrders.Regeneration256(body),NpcEquipmentRegeneration.ItemRate(body),0,false,false));}
             if(body.Deleted){return;}
-            if(body.Frozen||body.Paralyzed||CreatureHitRecovery.Remaining(body)>0||SourceKnockbacks.Remaining(body)>0){s=Park(s);body.RestoreController(s);continue;}
+            if(body.Frozen||body.Paralyzed||CreatureHitRecovery.Remaining(body)>0||SourceKnockbacks.Remaining(body)>0){s=Park(s);Store(body,s);continue;}
             if(s.Mode==2)
             {
                 var speed=MovementSpeed(body,s.MovingBonus);
@@ -227,37 +265,45 @@ internal static class IronGolemWorld
             }
             if(s.ActionAt==s.Frame)
             {
-                var target=World.FindMobile((Serial)s.Target);bool hit=false;var prior=body.Prepared.Controller;
+                var target=World.FindMobile((Serial)s.Target);bool hit=false;var prior=Controller(body);
                 if(Eligible(body,owner,target)&&Melee(body,s,target,3))
                 {
-                    var contact=IronGolemContact.Release(body,owner,s,(BaseCreature)target,frameAt);
-                    hit=(contact.Packet.ResultFlags&SourceMeleeResult.Successful)!=0;
+                    if(body is SkeletonWorldBody skeleton){hit=skeleton.ReleaseWorldContact(owner,s,(BaseCreature)target,frameAt);}
+                    else
+                    {
+                        var contact=IronGolemContact.Release((IronGolemBody)body,owner,s,(BaseCreature)target,frameAt);
+                        hit=(contact.Packet.ResultFlags&SourceMeleeResult.Successful)!=0;
+                    }
                 }
                 if(body.Deleted){return;}
                 s=s with{ActionAt=0,Attempts=checked(s.Attempts+1),Hits=checked(s.Hits+(hit?1:0))};
-                if(!ReferenceEquals(body.Prepared.Controller,prior)){s=Park(s);}
+                if(!ReferenceEquals(Controller(body),prior)){s=Park(s);}
             }
-            if(s.Mode is 4 or 8&&s.EndAt==s.Frame){s=Neutral(s);}
+            if(s.Mode is 4 or 8&&s.EndAt==s.Frame)
+            {
+                int initial=s.Mode==8&&body is SkeletonWorldBody?s.NextThink:0;
+                s=Neutral(s);if(initial>s.Frame){s=s with{NextThink=initial};}
+            }
             if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}
-            body.RestoreController(s);body.AIObject?.AITimer.Stop();
+            Store(body,s);body.AIObject?.AITimer.Stop();
         }
     }
-    private static void Skip(IronGolemBody body,IronGolemWorldState s,DateTime at)
-    {long frames=(at-s.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;body.RestoreController(Park(s with{Frame=checked(s.Frame+(int)frames),NextUtc=s.NextUtc.AddMilliseconds(frames*40)}));}
-    internal static void Fault(IronGolemBody body,string reason)
-    {if(body.Prepared?.Controller is{} s){body.RestoreController(Park(s) with{Fault=reason});}}
+    private static void Skip(SkeletonGuardian body,IronGolemWorldState s,DateTime at)
+    {long frames=(at-s.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;Store(body,Park(s with{Frame=checked(s.Frame+(int)frames),NextUtc=s.NextUtc.AddMilliseconds(frames*40)}));}
+    internal static void Fault(SkeletonGuardian body,string reason)
+    {if(Controller(body) is{} s){Store(body,Park(s) with{Fault=reason});}}
 }
 
 internal static class IronGolems
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(IronGolems));
-    private static readonly HashSet<IronGolemBody> Bodies=new();
-    internal static void Track(IronGolemBody body)=>Bodies.Add(body);
-    internal static void Forget(IronGolemBody body)=>Bodies.Remove(body);
+    private static readonly HashSet<SkeletonGuardian> Bodies=new();
+    internal static void Track(SkeletonGuardian body)=>Bodies.Add(body);
+    internal static void Forget(SkeletonGuardian body)=>Bodies.Remove(body);
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static void Tick(DateTime at,bool? actions=null)
     {
-        var active=new List<IronGolemBody>();
+        var active=new List<SkeletonGuardian>();
         foreach(var body in Bodies.ToArray())
         {
             if(body.Deleted){Forget(body);continue;}
@@ -270,13 +316,13 @@ internal static class IronGolems
         }
         // Match other ground pets: consume due actor frames in order so one
         // pet cannot expire owner-route history before another's earlier frame.
-        var stalled=new HashSet<IronGolemBody>();
+        var stalled=new HashSet<SkeletonGuardian>();
         while(true)
         {
-            var due=active.Where(b=>!b.Deleted&&!stalled.Contains(b)&&b.Prepared?.Controller is{Fault:null} c&&c.NextUtc<=at)
-                .OrderBy(b=>b.Prepared.Controller.NextUtc).ThenBy(b=>b.Serial.Value).FirstOrDefault();
-            if(due==null){break;}var before=due.Prepared.Controller.NextUtc;
-            try{IronGolemWorld.Advance(due,before,true);if(!due.Deleted&&due.Prepared.Controller.NextUtc==before){stalled.Add(due);}}
+            var due=active.Where(b=>!b.Deleted&&!stalled.Contains(b)&&IronGolemWorld.Controller(b) is{Fault:null} c&&c.NextUtc<=at)
+                .OrderBy(b=>IronGolemWorld.Controller(b).NextUtc).ThenBy(b=>b.Serial.Value).FirstOrDefault();
+            if(due==null){break;}var before=IronGolemWorld.Controller(due).NextUtc;
+            try{IronGolemWorld.Advance(due,before,true);if(!due.Deleted&&IronGolemWorld.Controller(due).NextUtc==before){stalled.Add(due);}}
             catch(Exception e){IronGolemWorld.Fault(due,e.Message);Log.Error(e,"Prepared Iron Golem controller refused context for {Serial}",due.Serial);}
         }
     }

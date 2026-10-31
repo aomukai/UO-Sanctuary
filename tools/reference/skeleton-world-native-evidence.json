@@ -1,0 +1,112 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned regular skeleton shared AI67 world controller",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 7,
+  "run": 4,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 63,
+    "retainedPetTargetWorldMarkers": 27,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "learnedRightQuickCasts": 6,
+    "learnedNaturalSkeletonSessions": 3,
+    "retainedIronNaturalSessions": 3,
+    "historicalNativeSkeletonSessions": 3,
+    "sourcePolicyCasesPerBoot": 1598,
+    "birthSourceContexts": 11475,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      863,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/skeleton-world/birth-inputs.json",
+      "sha256": "f4a4081eb8dae9a2d2e2851bb3b2eba9f69e0f4ef1ebb7b6735eec34719202bf"
+    },
+    "audit": {
+      "path": ".local/class-skills/skeleton-world/audit-inputs.json",
+      "sha256": "e0c2f2882da594c940a3c5a08cd7c6407567e574d68a05470c514274883a70ce"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/IronGolemWorld.cs": "573d9b8aab1bb64f745d886a83d9d7937110ed75e4e7fc082b83252241d67ff5",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "4912123e4b5d3669c738652c34b3c84557eefdd263c5356b353b04b83813dd80",
+    "src/Sanctuary.Content/SkeletonPets.cs": "585e0bad54ff7bc7c97fcf1f5408e11e209a30fdf080dbd0ef713bc68fafb4e8",
+    "src/Sanctuary.Content/SkeletonWorldBody.cs": "d0f3f0c92d994d57809f81ad01dc96cbe1039c23a72b5534958055ccb81385fb",
+    "tests/Sanctuary.Integration/SkeletonBirthChecks.cs": "67d4ae69669c926f0766252ac1879891233625d0d25733ad1d94912137330431",
+    "tests/Sanctuary.Integration/SkeletonCombatChecks.cs": "e77a9e7cb4cc0913b9821615fd56585ae214a4878e190b1e280bd0a559221092",
+    "tests/Sanctuary.Integration/SkeletonContactChecks.cs": "bc46e23362d15dbc2a9130b5839d02478719ae1c4fa95a7fc462fea9ae8c2bdf",
+    "tests/Sanctuary.Integration/SkeletonWorldChecks.cs": "ef16b937649e029a86ffac376e4502cce4fc210b4cdf02edcca54a995d263243"
+  },
+  "artifacts": {
+    ".local/class-skills/necromancer-pet-targets/birth-native-checks.log": "52e8458dac9d6de5dcfaab83829d9a2b559af0859d5b6444a79f6b1600464af5",
+    ".local/class-skills/skeleton-world/audit-inputs.json": "e0c2f2882da594c940a3c5a08cd7c6407567e574d68a05470c514274883a70ce",
+    ".local/class-skills/skeleton-world/audit-native-checks.log": "5ce1e0f29076b59f8f48ec354a94be0bdbbebdd26dea068719bc4d44113c2562",
+    ".local/class-skills/skeleton-world/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/skeleton-world/birth-inputs.json": "f4a4081eb8dae9a2d2e2851bb3b2eba9f69e0f4ef1ebb7b6735eec34719202bf",
+    ".local/class-skills/skeleton-world/birth-native-checks.log": "0f1f6d6adcff4bafee698f45a8b947d1137c6dd09089978d7ae212e73bb24f75",
+    ".local/class-skills/skeleton-world/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/skeleton-world/content-build-1.log": "ebc96e8926de7a5c06991ce4b5ea138b90e2c9fa994fd9f00e4ea86455291043",
+    ".local/class-skills/skeleton-world/content-build-7.log": "758ce5f99284eafde0ce01f93c363e717370acada8321b04525a4094ae248aec",
+    ".local/class-skills/skeleton-world/integration-build-5.log": "b2d4226c353fd4b763aa5fb4e803f2113a42917a6799453ae5d58d2a692e6902",
+    ".local/class-skills/skeleton-world/integration-build-7.log": "c1e7f4231d446b1f2838a064f476116c9603f06f6ccd4df87aa13f81701b50d4",
+    ".local/class-skills/skeleton-world/learned-birth-inputs-3.json": "6c4b7fce1f5996ba24af2a4a1ed926c812d326daf644cff5ab4971e82874d785",
+    ".local/class-skills/skeleton-world/learned-birth-run-3.log": "dac5c7d041210593d0381d2c8321816cfa928870d503f33715e1ac98ae3b7ce0",
+    ".local/class-skills/skeleton-world/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/skeleton-world/pre-build-7.json": "3d289d3a0d10e98502cd9b7b2958698e3230c5faa2f0b08eab7001a5c6d551aa",
+    ".local/class-skills/skeleton-world/prepared-birth-inputs-1.json": "98d869573fbe220fa5fb60af9e8ae8e52c2f51f826f5968430a471e22a7e8ee8",
+    ".local/class-skills/skeleton-world/prepared-birth-run-1.log": "abd3b969f5f17e8e96d6c4f6f992d31c4cd3515d3b9b8a96837a19475aaa296b",
+    ".local/class-skills/skeleton-world/python-tests.log": "c3333021745ca1224917a8d3da49f8f2be0d937907cedb6e19f6b6086e22787b",
+    ".local/class-skills/skeleton-world/run-2.log": "088619cfafd3f08ebf6c42759a9ad9b480a4fc2e974e724d1cd7e1e891895277",
+    ".local/class-skills/skeleton-world/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/skeleton-world/skeleton-birth-fixtures.json": "477701ef3fca59ceed8a7406a3be840b55537cb258491ba5413fda8f25b905fe",
+    ".local/class-skills/skeleton-world/skeleton-combat-fixtures.json": "e02531e741d434a5057fc7f96df93bc661852f3cb47602c5889fc44cc176be5b",
+    ".local/class-skills/skeleton-world/skeleton-contact-fixtures.json": "18694cafd48918fff47c56e9514c24a5edccc7cd7a20e1a41adf63da7d3c96f2",
+    ".local/class-skills/skeleton-world/skeleton-roster-fixtures.json": "16b95ebb6dd4a1a7317b57b33d12e766df34556f75d9c3c7e0497d6f3f9c67b3",
+    ".local/class-skills/skeleton-world/skeleton-world-fixtures.json": "45d4518c2c6602072096e4e5e9ac9b2a1fe5225eeaf605a2ab6e6864f92d66f7",
+    ".local/class-skills/skeleton-world/summon-difficulty-fixtures.json": "368e1a557515bd60a5a1b5919ca6c91efc0a71463633f32fad677ef464fb7a7a",
+    "docs/class-skill-roadmap.md": "99f4c83868eb28cf20a36f6ef16826aefa5ae2ea00fa132abce62debb5b89759",
+    "docs/class-skills-resume-checkpoint.md": "158127d22ef1b5e7ddcb79829d8ba09220afd04dee93d7580a0eaac59c5d52cd",
+    "docs/necromancer-mechanical-audit.md": "3c349b240a0949177292d3c193a320645552e2c8670aac726ef36e76dbb20dcd",
+    "docs/necromancer-pet-targets-checkpoint.md": "9d979e48e216298aa40e96617e6ff5d82101f626a6c4f3f1ca2a300312a4b0f2",
+    "docs/skeleton-world-checkpoint.md": "17b82b347ce6aec3b7ffa09c1fdfc7c430b040d31d7a85ace47c0f166d7bba8c",
+    "docs/skill-effects.md": "7ac3e266fa2c2bc9f2201af45d50537a82ee0574771b28190b00407d44276973",
+    "docs/skill-icons.md": "7040de2de354059684bb136abf41ffe00db9ff0fe318bb3467707a313a925435",
+    "src/Sanctuary.Content/IronGolemWorld.cs": "573d9b8aab1bb64f745d886a83d9d7937110ed75e4e7fc082b83252241d67ff5",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "4912123e4b5d3669c738652c34b3c84557eefdd263c5356b353b04b83813dd80",
+    "src/Sanctuary.Content/SkeletonPets.cs": "585e0bad54ff7bc7c97fcf1f5408e11e209a30fdf080dbd0ef713bc68fafb4e8",
+    "src/Sanctuary.Content/SkeletonWorldBody.cs": "d0f3f0c92d994d57809f81ad01dc96cbe1039c23a72b5534958055ccb81385fb",
+    "tests/Sanctuary.Integration/SkeletonBirthChecks.cs": "67d4ae69669c926f0766252ac1879891233625d0d25733ad1d94912137330431",
+    "tests/Sanctuary.Integration/SkeletonCombatChecks.cs": "e77a9e7cb4cc0913b9821615fd56585ae214a4878e190b1e280bd0a559221092",
+    "tests/Sanctuary.Integration/SkeletonContactChecks.cs": "bc46e23362d15dbc2a9130b5839d02478719ae1c4fa95a7fc462fea9ae8c2bdf",
+    "tests/Sanctuary.Integration/SkeletonWorldChecks.cs": "ef16b937649e029a86ffac376e4502cce4fc210b4cdf02edcca54a995d263243",
+    "tests/check_skeleton_world.py": "3bf1a15e92a819bf7aca554c47dbc4f778d2d7f6165fa7eaca04ef9b1f3f5188",
+    "tools/record_skeleton_world.py": "289dd0ce2b1e657a605d89a8d49619dd8e742e23ef1ae4f07ae7f25042f951e3",
+    "tools/reference/necromancer-pet-targets-native-evidence.json": "82fbe240df3a02d0b52b0fa165c573043e736cb5d02c17824950f4c6b1e4a32d"
+  },
+  "established": [
+    "New learned Raise Skeleton casts opt into a separate SkeletonWorldBody with saved owner/controller JSON and explicit native-timer suppression. Historical RaisedSkeleton/SkeletonGuardian formats remain on their prior paths. Corpse/payment,FIFO,birth/resources,difficulty and six real right/quick inputs pass.",
+    "The existing Iron conductor is shared through explicit species bindings. Skeletons use current SKS1end24/firstthink25,Velocity13/Run15/WL128 and A1speed224/action12/end19. AI67entry25 captures a mapped unarmed packet;action37 releases it once;end44 does not replay. Live learned sessions use the natural40ms clock.",
+    "Source-cell melee delegates preserve contact precision;historical unarmed callers retain their default native-coordinate predicate. Captured mitigation/RNG,no early HP,recovery interruption,follow,exact regeneration,offline suspension and malformed-state refusal pass. Iron original-item clocks/world remain independently verified.",
+    "Unmapped native recipients keep the existing reported pre-packet native bridge. Skeleton-only fallback acquisition uses explicit size2/native RangeFight adapters;an actual Dog enters and completes that path without controller fault. No source packet allocation failure retries through fallback.",
+    "Both reloads retain new actor/owner/wounds/seed and a historical RaisedSkeleton. Transient in-flight contact is canceled by existing suspension/load policy rather than replayed. The inspected cohort next observation is held60seconds for snapshot staging;natural unheld timing is separately verified."
+  ],
+  "remaining": [
+    "Full current-executable room/seed/owner/AI/mode/event parity,native scan/ties/LOS/fit/cell projection,live mid-animation rate rescheduling,unheld concurrent snapshots,PvP/special-recipient adapters and final shield/component distribution remain open. Host/default actor seed transport is an explicit existing adapter,not a recovered D2 world-seed contract.",
+    "Pending damage packets remain intentionally transient on suspension/load;this does not certify saved in-flight action resumption. Native fallback mechanics and damaging-hit metrics do not claim source-equivalent blocking/geometry/packet chronology. All unsupported scopes stay explicit.",
+    "Prepared run1 and learned run3 passed before the native-recipient compatibility refinement. Build1 naming/shadow issues and build5 missing fixture import are archived. Run2 was mistakenly started after failed integration and stopped before boot for a missing DLL. Only final build7/run4/audit1is acceptance.",
+    "No deployment,actual old-binary migration,complete skill/class or final-art claim. New Name/body/native A1,emergence/step/hit/death/audio and tree/hotkey art remain identified placeholders in separate registers."
+  ]
+}

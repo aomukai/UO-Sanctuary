@@ -1,5 +1,7 @@
 # Skill effects
 
+The [learned skeleton world controller](skeleton-world-checkpoint.md) keeps body50, `Skeleton Warrior [placeholder]`, native A1 animation4 and existing emergence particles/sound as identified placeholders. Final SK emergence, walking/following, attack/critical/block/recovery, return, death and audio remain pending. Mechanical source clocks do not certify graphical-client animation. Reuse the existing Raise Skeleton asset entry; no new spell effect or final art is created.
+
 The [Dim Vision casting increment](dim-vision-cast-checkpoint.md) retains generic curse marker `0x375A`/hue `0x455` and cast sound `0x1E5` as identified placeholders. Final Dim Vision cast/affected-state feedback and audio remain pending independently of the accepted cast mechanics. No art or complete blind-AI acceptance is claimed.
 
 The [Life Tap casting increment](life-tap-cast-checkpoint.md) retains curse marker `0x375A`/hue `0x455`, sound `0x1E5` and healing flash `0x376A`/hue `0x26` as identified placeholders. Final cast/hit/`cursereversevampire` state and healing effects/audio remain pending. Casting and fractional healing do not wait for final art.

@@ -1,5 +1,7 @@
 # Skill icons
 
+The [learned skeleton world controller](skeleton-world-checkpoint.md) introduces no new player ability or pet-command hotkey. Raise Skeleton still needs its talent-tree and right/quick-hotkey icon; Skeleton Mastery needs its passive tree icon. Autonomous AI/contact/state diagnostics add no separate icon. Effects/audio stay in their own register.
+
 The [Dim Vision casting increment](dim-vision-cast-checkpoint.md) preserves its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; AI control introduces no new player binding.
 
 The [Life Tap casting increment](life-tap-cast-checkpoint.md) retains its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; the defender healing event creates no additional player binding.

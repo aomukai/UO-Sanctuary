@@ -98,15 +98,11 @@ public static class SkeletonPets
             return false;
         }
         try{NecromancerSkeletonBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
-        var pet = new RaisedSkeleton();
-        pet.InitializeExact(owner, Rank(owner), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
-        if (!pet.SetControlMaster(owner))
-        {
-            pet.Delete();
-            return false;
-        }
-        PersistentMinions.Profiles.Track(pet);
-        pet.MoveToWorld(corpse.Location, corpse.Map);
+        // Use the existing actor stream supplier at birth; original D2 world
+        // owner/pet seed transport remains a separately documented adapter.
+        var pet=SkeletonWorldBody.CreatePrepared(owner,Rank(owner),NamedSkills.Rank(owner,"necromancer.skeletonmastery"),
+            corpse.Location,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));
+        if(pet==null){return false;}
         pet.IssueOrder(OrderType.Guard, null);
         if(!NecromancerEffects.Pay(owner,Mana(owner)*256)){pet.Delete();return false;}
         NecromancerSkeletons.Commit(owner,pet);

@@ -30,7 +30,12 @@ public static class SkeletonContactChecks
     {
         var zombie=new GraveyardZombie{NoKillAwards=true};zombie.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);zombie.Damage(100000,p);if(zombie.Alive){zombie.Kill();}
         var corpse=(Corpse)zombie.Corpse;Require(SkeletonPets.Raise(p,corpse),"Learned corpse creation");corpse.Delete();
-        var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Single();pet.AIObject.AITimer.Stop();return pet;
+        var learned=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Single();
+        Require(learned is SkeletonWorldBody,"Learned skeleton did not opt into world controller");learned.Delete();
+        // Retain the historical direct/native attack hook fixture separately;
+        // the new learned subtype's automatic delivery is checked by SkeletonWorldChecks.
+        var pet=new RaisedSkeleton();pet.InitializeExact(p,4,20);pet.SetControlMaster(p);pet.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
+        PersistentMinions.Profiles.Track(pet);pet.AIObject.AITimer.Stop();return pet;
     }
     private static GraveyardSkeleton Target(PlayerMobile p)
     {
