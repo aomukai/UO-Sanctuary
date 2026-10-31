@@ -1,0 +1,112 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Decrepify four-stat application and secondary refresh",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 446,
+    "retainedPredecessorMarkers": 431,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      848,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "receiverSourceContexts": 8960,
+    "connectedRightQuickCasts": 6,
+    "naturalExpiryChecks": 6,
+    "naturalRank1Frames": 100,
+    "mana256": 2816,
+    "damagePercent": -50,
+    "velocityPercent": -50,
+    "attackRate": -50,
+    "ordinaryPhysicalDelta": -50,
+    "immuneMonsterPhysicalDelta": -10,
+    "equalRankSecondaryRewrite": true,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/decrepify/birth-inputs.json",
+      "sha256": "565045eb7ecf94f90217af8a6707f4fe314cbba8b8f1c33db0717804762d8b92"
+    },
+    "audit": {
+      "path": ".local/class-skills/decrepify/audit-inputs.json",
+      "sha256": "bb2218917cad8e48b4564b09eb30ad42c5afa73c214f43684808a8a86afe0b3f"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "34d1f73d538998a1560f0e081810b2f08e42ce25a4c4ee34da9cd7d0820d30a0",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "08adaecfe3bff88b358b59ea1edab0a85739c24c8c9060cd16cbb78663f15deb",
+    "tests/Sanctuary.Integration/DecrepifyChecks.cs": "805482618a547f54e1161d54a9113305255e1d65a0e8f192417d3b9220b83807"
+  },
+  "artifacts": {
+    ".local/class-skills/decrepify/amplify-damage-fixtures.json": "18da92e837361a79770674d6c61e6b808549c2507dfc577c43670961839bb2e1",
+    ".local/class-skills/decrepify/audit-inputs.json": "bb2218917cad8e48b4564b09eb30ad42c5afa73c214f43684808a8a86afe0b3f",
+    ".local/class-skills/decrepify/audit-native-checks.log": "e95c1e5cc52a3895b29a40c3c263f55e47096db714e26768e0d9a76a19af95c2",
+    ".local/class-skills/decrepify/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/decrepify/birth-inputs.json": "565045eb7ecf94f90217af8a6707f4fe314cbba8b8f1c33db0717804762d8b92",
+    ".local/class-skills/decrepify/birth-native-checks.log": "4a117e04693a4550936eb932966cd436fefe5d4523bb034406019c534703648c",
+    ".local/class-skills/decrepify/cloak-fixtures.json": "ddf696c358d9fb2baaa4aeb96ad5577891f874ccefc99bd4063e201a28bcabda",
+    ".local/class-skills/decrepify/content-build-1.log": "ccda37d5bde0d7a932e31b476b1623fccab1c3b78a2ca6ebd87f1b03bcceb490",
+    ".local/class-skills/decrepify/decrepify-fixtures.json": "754cd2b4137f66fffe89ffe5ce4dc6c3d8dd8137ba35398b29ffb837b3dbc7c3",
+    ".local/class-skills/decrepify/fire-golem-absorption-fixtures.json": "6b9c997eee30bc7c33e40bec6859ffe9531787ac7b91e42c8e67d4c63a0752ae",
+    ".local/class-skills/decrepify/fire-golem-aura-fixtures.json": "1fae1a4b12928a6fc841bdf922501de779f0964c546c5e4a6958b580a805410c",
+    ".local/class-skills/decrepify/fire-golem-birth-fixtures.json": "25837740f4b081fa0efa99593ed56bd9d6fde7b63ff9b746587eeba93ff88e2a",
+    ".local/class-skills/decrepify/fire-golem-combat-fixtures.json": "7d191217d8c89feee2f7ac480937dcecc3b3ca0781b813fa72947589fc4d85bd",
+    ".local/class-skills/decrepify/fire-golem-death-fixtures.json": "e6d67c285666d6a11541c0922eea6e1901d9c09a3241b8fe4c237dbc97935bae",
+    ".local/class-skills/decrepify/inner-sight-fixtures.json": "09504a2129b5ba6db7bbd043babb5e25bac1677dee66263164a5ba1cddb34b93",
+    ".local/class-skills/decrepify/integration-build-1.log": "31d07173be1af70a6bf0c0bb83fc3be0c7649e8fdab3661a35399be9e9d996df",
+    ".local/class-skills/decrepify/life-tap-fixtures.json": "68c1c2e3b05b99859ad2060b402d2d4e57d622a85ab8d46ab3a8f3313e459f36",
+    ".local/class-skills/decrepify/paladin-element-checks.json": "7f90c04bdaa52d21c069bbce3a01cd7168e0a4478f3cf4b6c520fb27c4fe2da6",
+    ".local/class-skills/decrepify/pre-build-1.json": "482e18dad6cb825541cc12d3b877f7036ac406972cc0c4e52dbaa5f555f1360c",
+    ".local/class-skills/decrepify/python-tests.log": "76d1cecf3de7c68d32d950c630c1a6a5b8b6fdffc9689e4d2fb388ad5792c9bc",
+    ".local/class-skills/decrepify/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/decrepify/weaken-fixtures.json": "89b7ebf1179d26e3bb768640a9a775cdced3c071969a6199a3aaed5245db1e0f",
+    "data/Sanctuary/Balance/source-curse-no-walk.json": "8c46fdf6f46fbaf34621ff23b614f6ba5d4ff86f1b9613e1f555019bbe63f573",
+    "docs/class-skill-roadmap.md": "13550ed56630d730330809d3d410158dd0826340e6671c8f450cdf5b7321b410",
+    "docs/class-skills-resume-checkpoint.md": "c5750041998db82ce2169967172042d2b6f1866dcd0414dd7cfd559f3d95eba7",
+    "docs/decrepify-checkpoint.md": "628a5256e537c217bd93444ec1b4dbeb31c449127b180168a2ab474678662a43",
+    "docs/necromancer-mechanical-audit.md": "f2c0f5cdffd165292aa2399b95876d8494e231e0945283171e7c45dbcbcb69e8",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skill-effects.md": "b63d7c4e05a69d5ed43868f2363b272462096c5a0df7455dcce368626b69e930",
+    "docs/skill-icons.md": "927f4fc198d57fdab3415f3fe1b36fb995827b82b7e2194621051fcf229cccd8",
+    "docs/skill-mechanical-reference.md": "877c27612cd685dff7db89935d1658b2438c0357cafc6e1f1fcfcb3d0e6e2935",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "34d1f73d538998a1560f0e081810b2f08e42ce25a4c4ee34da9cd7d0820d30a0",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "08adaecfe3bff88b358b59ea1edab0a85739c24c8c9060cd16cbb78663f15deb",
+    "tests/Sanctuary.Integration/DecrepifyChecks.cs": "805482618a547f54e1161d54a9113305255e1d65a0e8f192417d3b9220b83807",
+    "tests/check_decrepify.py": "273c0c20b6391919a7b910ed216f990aa062749ac221813088f82905443a7aef",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tools/build_class_skills.py": "2564a194eebb907870e6e68d9829356a6087dea17b07c10ee49d4f2ccbbcc1ba",
+    "tools/probe_decrepify.py": "f511938b094e3ac93c8a45bbaef00855129092f47f9a079f3851de5b8b650c69",
+    "tools/record_decrepify.py": "c390e85d670ae9328da04a8d84a088a2fd3ca6041b4cd16fce712f3f48cc420c",
+    "tools/reference/decrepify-source-evidence.json": "57953788d501ebab4673462fcc1c9684bcef284fa7752256e30dcbbd029a82fe",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "330645642f8e96cf927d9d16e6e2381dbe82b4d374a87d374f67d6e6d098a1b4",
+    "tools/reference/named-item-runtime-audit.json": "2b4c1b39b434085f9c87016c259d3de94cd1e1802e3db65c45aa190422ff7b86",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/npc-equipment-elements-source-evidence.json": "53327732d51af4176a77a9f3594aaf19b81dcc2dd2dbe32dab8d254966a5162e",
+    "tools/reference/weaken-native-evidence.json": "07cbd583bb25af2783f8c41932b92bc2d3f9c9023306ff5a9047ec30be5efe82"
+  },
+  "established": [
+    "Decrepify shares the learned do30 cast/recipient path,radius6,cost11mana and duration100+15*(rank-1)frames. Current stat slots are velocitypercent,damagepercent,damageresist,attackrate,all-50. Only immune nonplayer/nonhireling physical resistance receives-10.",
+    "Weaker same-skill ranks reject;equal rank retains creator and restarts expiry but rewrites secondary resistance from the current base pool. Higher/different curses replace;Attract/Possessed reject. Captured physical delta extends the existing optional JSON domain with-50/-10,without a new field or Mobile schema.",
+    "8960complete four-stat source receiver/factory contexts pass ASan/UBSan. Native differentials,immunity thresholds,outgoing native weapon damage,element/physical-spell exclusion,movement/attack-delay hooks,source rate and an actual ordinary NPC windup pass. Cold immunity does not suppress the curse.",
+    "Six real right/quick inputs verify unmodified4second expiry and once-only payment. Both reloads retain captured and legacy payloads,original deadlines,resources,gear/bindings and resumed mitigation. Only persistence inspection extends the fixture deadline1day. All431predecessor markers remain verified.",
+    "446native markers/3boots/2reloads/3saves,4audits,71Python,573named decisions and clean builds pass. Runtime data,staged kernel and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "Active legacy elite-monster Amplify lacks rank/creator metadata;compound replacement stays reported/skipped. Absent-field legacy Decrepify uses the old dynamic adapter until expiry or supported recast;equal refresh may capture its secondary stat through the actual callback rule.",
+    "Current executable arbitration/custom historical stats,dynamic base/accrued item/proc/slow/haste/cap combinations,live rate rescheduling,full source room/species/flags/allegiance/geometry,AI/events,special/PvP/global phase and client behavior remain open. State60sunderfull=1is a static lead,not proof of modern Sunder math.",
+    "Full do30/radial/formula VM/movement engine are not executed by the receiver probe. No complete class,deployment or broad1180-marker claim. Final effects/audio and tree/right/quick icons stay separate placeholders;hard-point pet upgrades follow baseline skills."
+  ]
+}

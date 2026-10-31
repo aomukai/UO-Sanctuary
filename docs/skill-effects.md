@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Decrepify increment](decrepify-checkpoint.md) retains the identified generic `0x375A`/hue `0x455` marker and `0x1E5` cast sound. Final `cursedecrepify`/`cursecast` cast, persistent affected-state art and audio remain pending independently of the mechanics.
+
 The [Weaken increment](weaken-checkpoint.md) retains generic marker `0x375A`/hue `0x455` and cast sound `0x1E5` as identified placeholders. Final `curseweaken`/`cursecast`, persistent affected-state art and audio remain pending; mechanical work proceeds independently.
 
 The [Amplify Damage increment](amplify-damage-checkpoint.md) retains the identified generic curse marker `0x375A`/hue `0x455` and cast sound `0x1E5`. Final `curseamplifydamage`/`cursecast` cast, affected-state and audio assets remain pending; the immediate mechanical curse does not wait for art.

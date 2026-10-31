@@ -45,7 +45,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
                     || pool.Rank.HasValue!=pool.Maximum256.HasValue || pool.Maximum256 is{} maximum && maximum<pool.Remaining256
                     || state.BoneArmor!=(pool.Remaining256+255L)/256)
                 || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255
-                    || curse.PhysicalDelta is{} delta&&(curse.Ability!=CombatAbility.AmplifyDamage||delta is not(-100 or -20))
+                    || curse.PhysicalDelta is{} delta&&!NecromancerEffects.ValidPhysicalDelta(curse.Ability,delta)
                     || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
@@ -76,6 +76,8 @@ public static class NecromancerEffects
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
         or CombatAbility.LifeTap or CombatAbility.Attract or CombatAbility.Decrepify or CombatAbility.LowerResist;
     internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.CloakOfShadows;
+    internal static bool ValidPhysicalDelta(CombatAbility ability,int delta)=>ability switch
+    {CombatAbility.AmplifyDamage=>delta is -100 or -20,CombatAbility.Decrepify=>delta is -50 or -10,_=>false};
     internal static bool Vision(NecromancerCurse curse)=>curse?.Ability==CombatAbility.DimVision || curse is{Ability:CombatAbility.CloakOfShadows,CloakBlind:true};
     public static NecromancerCurse Curse(Mobile actor) => Profiles?.Find(actor)?.Curse is { } curse && curse.UntilUtc > TimedEffects.Now ? curse : null;
     internal static SkillValues Values(NecromancerCurse curse) => new(SkillMechanics.For(curse.Ability),
@@ -133,12 +135,12 @@ public static class NecromancerEffects
         int delta = curse.Ability switch
         {
             CombatAbility.AmplifyDamage when element == "physical" => curse.PhysicalDelta??-(int)values.Param(5),
-            CombatAbility.Decrepify when element == "physical" => values.Param(5),
+            CombatAbility.Decrepify when element == "physical" => curse.PhysicalDelta??values.Param(5),
             CombatAbility.LowerResist when element is "fire" or "cold" or "ltng" or "pois" => -values.Diminishing(5, 6),
             _ => 0
         };
         // Immunity-breaking curses run at one fifth effectiveness against an immune monster.
-        bool captured=curse.Ability==CombatAbility.AmplifyDamage&&element=="physical"&&curse.PhysicalDelta.HasValue;
+        bool captured=curse.Ability is CombatAbility.AmplifyDamage or CombatAbility.Decrepify&&element=="physical"&&curse.PhysicalDelta.HasValue;
         if (!captured&&target is BaseCreature and not BaseHire && (immunityBaseline ?? baseline) >= 100) { delta /= 5; }
         // Player caps apply after pierce; retain overcapped resistance until that final step.
         return target is PlayerMobile || deferCap ? baseline+delta : Math.Clamp(baseline + delta, -100, 200);
@@ -148,14 +150,14 @@ public static class NecromancerEffects
     public static int DamageStatPercent(Mobile actor) => HexSiphon.DamagePercent(actor)+(Curse(actor) is { } curse ? curse.Ability switch
     {
         CombatAbility.Weaken => Values(curse).Linear(5, 6),
-        CombatAbility.Decrepify => -50,
+        CombatAbility.Decrepify => Values(curse).Param(5),
         CombatAbility.BattleCry or CombatAbility.Taunt => (int)Values(curse).Eval("aurastatcalc2"),
         _ => 0
     } : 0);
     public static int OutgoingPhysicalPercent(Mobile actor)=>100+DamageStatPercent(actor);
     internal static int DefenseStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.BattleCry or CombatAbility.CloakOfShadows} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
     internal static int AttackStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.Taunt} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
-    public static int Slow(Mobile actor) => Curse(actor)?.Ability == CombatAbility.Decrepify ? 50 : 0;
+    public static int Slow(Mobile actor) => Curse(actor) is{Ability:CombatAbility.Decrepify} curse ? Math.Max(0,-Values(curse).Param(5)) : 0;
     public static bool TargetAllowed(Mobile actor, Mobile target)
     {
         if (Curse(actor) is not { } curse) { return true; }

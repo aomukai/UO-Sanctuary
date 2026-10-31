@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "receiverContexts": 8960,
+  "reusedReference": {
+    "path": "tools/reference/amplify-damage-source-evidence.json",
+    "sha256": "6aee4077a34eea9d27d1cf88c1d348aeb1571a9aa87a9b63544a44a7097b0dcc"
+  },
+  "reusedReceiverCpp": {
+    "path": ".local/class-skills/amplify-damage-source/probe.cpp",
+    "sha256": "a7a0d9644305578e72d33aed5ac3ff99c115e87299aeddb0b068eff32bc09aeb"
+  },
+  "pinnedTables": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "pinnedState": {
+    "id": 60,
+    "sunderfull": 1
+  },
+  "artifacts": {
+    ".local/class-skills/decrepify-source/probe.cpp": "5ba78500acfcfe61b35ca732d71cbb0ae123fd1f6f0dc3efcd95db719acc3290",
+    ".local/class-skills/decrepify-source/cases.json": "bf614ea6600f8b49cfc230b3970d116553a8c81db19420fb7df309fcf1d6a1c4",
+    ".local/class-skills/decrepify-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/decrepify-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged callback/factory/eligibility/alignment/percentage routines execute all four current Decrepify stat slots together:velocitypercent,damagepercent,damageresist,attackrate,each-50.",
+    "Physical resistance alone becomes-10for an immune nonplayer/nonhireling. The other three stats stay-50. Weaker same-skill rank rejects;equal rank keeps creator/primary state and refreshes expiry but rewrites secondary physical resistance using the new supplied base resistance. Higher/different curse replaces.",
+    "Successful callbacks request animation/velocity update,including equal-rank refresh. Attract/curse-resistance and failed-allocation rank guards leave old state and skip those updates. Current radius6,duration100+15*(rank-1)frames,cost11 are pinned."
+  ],
+  "limits": [
+    "Reuse is hash-validated and does not modify accepted harness artifacts. Stat/state/owner/hostility,allocation,clock/events and the animation-update call are declared services. Full do30/formula VM/radial/current executable/movement engine are not executed.",
+    "Current state60also declares sunderfull=1. This static flag does not establish modern Sunder arithmetic;physical Sunder remains outside supported native contexts. Full dynamic stat/slow/haste/cap/AI/PvP/client behavior needs separate acceptance."
+  ]
+}

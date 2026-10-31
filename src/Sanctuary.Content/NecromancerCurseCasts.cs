@@ -12,7 +12,7 @@ internal static class NecromancerCurseCasts
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NecromancerCurseCasts));
     private static readonly HashSet<string> NoWalk=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<Type> Unmapped=new();
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify;
     public static void Configure()
     {
         foreach(string source in BalanceCatalog.Read<string>("source-curse-no-walk"))
@@ -37,9 +37,15 @@ internal static class NecromancerCurseCasts
     {
         if(old is{Ability:CombatAbility.Attract}&&old.UntilUtc>at){return null;}
         if(old!=null&&old.Ability==ability&&old.UntilUtc>at)
-        {if(rank<old.Rank){return null;}if(rank==old.Rank){return old with{UntilUtc=until};}}
+        {
+            if(rank<old.Rank){return null;}
+            // Decrepify's physical resistance is slot3: the callback rewrites
+            // secondary stats even when the factory retains the old creator.
+            if(rank==old.Rank){return old with{UntilUtc=until,PhysicalDelta=ability==CombatAbility.Decrepify?penalty:old.PhysicalDelta};}
+        }
         return new(ability,owner,rank,until,x,y,PhysicalDelta:penalty);
     }
+    internal static int PhysicalPenalty(int full,int baseResistance,bool monsterImmunity)=>monsterImmunity&&baseResistance>=100?full/5:full;
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
@@ -55,7 +61,12 @@ internal static class NecromancerCurseCasts
         // For current native hostile actors, PhysicalResistance is the base
         // pool: curse/skill mitigation does not mutate that property. Dynamic
         // source base/accrued item graphs remain a separately recorded gap.
-        int? penalty=ability==CombatAbility.AmplifyDamage?AmplifyDamageCasts.Penalty(target.PhysicalResistance,target is not BaseHire):null;
+        int? penalty=ability switch
+        {
+            CombatAbility.AmplifyDamage=>AmplifyDamageCasts.Penalty(target.PhysicalResistance,target is not BaseHire),
+            CombatAbility.Decrepify=>PhysicalPenalty((int)values.Eval("aurastatcalc3"),target.PhysicalResistance,target is not BaseHire),
+            _=>null
+        };
         var next=Replacement(state.Curse,ability,owner.Serial.Value,rank,penalty,
             at.AddMilliseconds(frames*40L),at,owner.X,owner.Y);
         if(next==null){return false;}

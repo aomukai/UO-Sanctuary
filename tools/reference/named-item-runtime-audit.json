@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "ed3302f78c2a383ab899bf0cc86cff5b6ad23ff674c3b0170ddb3982305ce63d",
+  "ContentAssemblySha256": "91dda06979db8771783da0d8375082f1a660101a02b46e7d5d249dd93e64a3fd",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -656,8 +656,8 @@
     "src/Sanctuary.Content/NecromancerBloodBirth.cs": "ceb4ae8a811db5cbebbb6cbc849ffa7f62cf5f55fde96c89fb9246ec1d8020c9",
     "src/Sanctuary.Content/NecromancerClayBirth.cs": "59f30a6cfcb884410a55e9057658e38467e052396bb4119e63a1c6b888647afb",
     "src/Sanctuary.Content/NecromancerCombat.cs": "4b33e14398f696208bb3956f089bc68c00d161c57dbde963b77ad0caa120ad69",
-    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "49f08d2492365ca5e1d2f171c11cbde5746fd8b39fc292bfc3bafb3126a37a7c",
-    "src/Sanctuary.Content/NecromancerEffects.cs": "4ba6fb02bf3f93c8a3dc4b5d9938e6bb8567517798c48f35deaba12a71cbce68",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "34d1f73d538998a1560f0e081810b2f08e42ce25a4c4ee34da9cd7d0820d30a0",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "08adaecfe3bff88b358b59ea1edab0a85739c24c8c9060cd16cbb78663f15deb",
     "src/Sanctuary.Content/NecromancerFireBirth.cs": "2c2906706b6ba4f35eca5ea0a1734802f44edc862808fdeb1433d9e48b421023",
     "src/Sanctuary.Content/NecromancerGolems.cs": "73faaeb150897e3707bda5209bbb44ca17df13fa4a80fe4895d7a4872bf000be",
     "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
