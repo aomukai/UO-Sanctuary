@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Fire Golem death source review](fire-golem-death-source-review.md) adds no art or runtime effect. Missile117/corpse explosion, intrinsic-critical feedback and final fire death/body/audio assets remain pending; existing immediate feedback remains an identified legacy placeholder.
+
 The [Fire Golem Holy Fire increment](fire-golem-aura-checkpoint.md) keeps native pulse/body/hue feedback as identified placeholders. Final fire ring, pulse, weapon-contact/critical and death/explosion effects and audio remain needed; the shared aura mechanics are independent of final art.
 
 The [Fire Golem combined-combat increment](fire-golem-combat-checkpoint.md) uses the existing body/hue and native attack/hit/critical feedback as identified placeholders. Final fire body, melee/critical/impact, Holy Fire pulse and death/explosion effects and audio remain needed. Capturing and releasing one combined packet does not wait for those assets.

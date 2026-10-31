@@ -1,0 +1,148 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "runtimeChanged": false,
+  "probeSha256": "9bd3f59c6a639ff9fd39a14938f2aa2dde3619b1445f7c10ce3af378dbc250fa",
+  "cases": 5184,
+  "modifier": 31,
+  "nativeApi": {
+    "scope": "Read-only PE metadata from the tested frozen kernel; no server assembly loaded or changed.",
+    "testedEvidence": {
+      "path": "tools/reference/fire-golem-aura-native-evidence.json",
+      "sha256": "1dbcc1392079daa16c06305cf637069bdea7f93ee23753ed3976bec861a45c17"
+    },
+    "assemblies": {
+      ".local/class-skills/fire-golem-aura/native/Distribution/ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
+      ".local/class-skills/fire-golem-aura/native/Distribution/Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5"
+    },
+    "methods": [
+      {
+        "assembly": "Server.dll",
+        "type": "Server.Mobile",
+        "name": "get_Alive",
+        "virtualMethod": true,
+        "finalMethod": false,
+        "publicMethod": true
+      },
+      {
+        "assembly": "Server.dll",
+        "type": "Server.Mobile",
+        "name": "Delete",
+        "virtualMethod": true,
+        "finalMethod": false,
+        "publicMethod": true
+      },
+      {
+        "assembly": "Server.dll",
+        "type": "Server.Mobile",
+        "name": "Kill",
+        "virtualMethod": true,
+        "finalMethod": false,
+        "publicMethod": true
+      },
+      {
+        "assembly": "Server.dll",
+        "type": "Server.Mobile",
+        "name": "OnBeforeDeath",
+        "virtualMethod": true,
+        "finalMethod": false,
+        "publicMethod": true
+      },
+      {
+        "assembly": "Server.dll",
+        "type": "Server.Mobile",
+        "name": "OnDeath",
+        "virtualMethod": true,
+        "finalMethod": false,
+        "publicMethod": true
+      }
+    ]
+  },
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    "source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d",
+    "source/D2Game/src/MONSTER/MonsterSpawn.cpp": "5990740b6f81323452484083bba5ec5aeefd8c5c589a0c12f8386b371bcd743f",
+    "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "unchangedRoutineHashes": {
+    "SUNIT_GetServerUnit": "53ecb549e0e4317024483d797b104523b4954633cbd37e7d1aff8fc7d9a9591a",
+    "SUNIT_GetOwner": "3640cd8797e7b59df0d1ffb1b1822adb1141e55d330bbae228413dc54f0e6555",
+    "SUNIT_IsDead": "3cd4ad43d5104a851266a3d80d07b73ac1f1c5a8ea9f25a37164068bd41e874d",
+    "sub_6FCBD900": "3d210ccd4d501a522c16e84db9c77a5f88e564ed1ef364dfb341dc98c18cd022",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "SUNITDMG_GetMonStatsTxtRecordFromUnit": "edaccc054119f98ec088b2e966c91834aab614cf0fac223ae65c83fa6d0e12b6",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "SUNITDMG_SetMissileDamageFlagsForNearbyUnits": "0f9b35703a58f8139d148c87de9cee96bbe3df3759c320fe93e49de03132a558",
+    "MONSTERUNIQUE_CastCorpseExplode2": "7f181f4c37b58ac9b6aa9e55b431dbec3f641b26337371cb36fdc9cf520738f3",
+    "MONSTERUNIQUE_ColdEnchantedModeChange": "bcda42ff99fb3d2cd45e727e0b597198bb9dc57f4b76a14baa291599bfb400a1"
+  },
+  "dispatchSha256": "eac87e22262c1b59576f2a6d27438b9014a90b9ba6375adfe2c74cc1ab05ca8b",
+  "reviewedReplacementSha256": "ad2a6722c7e63de2c4c313b91858b824722d7e5df2a260fe4bb5335f2b32a43e",
+  "reusedFixtureSha256": "96352eb01c2c70a9c57a89bf05d5922cf1cf26fee4acd43c3d36f48cbfe79d6a",
+  "pinnedTables": {
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "pinnedMissile": {
+    "Missile": "monstercorpseexplode",
+    "*ID": 117,
+    "pCltDoFunc": 11,
+    "pSrvDoFunc": 1,
+    "Range": 13,
+    "Light": 5,
+    "Red": 255,
+    "Green": 178,
+    "Blue": 64,
+    "InitSteps": 0,
+    "Activate": 0,
+    "LoopAnim": 0,
+    "CelFile": "CorpseExplodeGuts",
+    "animrate": 1024,
+    "AnimLen": 13,
+    "AnimSpeed": 16,
+    "LastCollide": 1,
+    "Size": 1,
+    "Explosion": 1,
+    "NoMultiShot": 1,
+    "ReturnFire": 1,
+    "HitShift": 8,
+    "NumDirections": 4,
+    "LocalBlood": 1,
+    "lineNumber": 117
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-death-source/probe.cpp": "7fcdf61fce4e10972dbb051068f63dfadaf5e8ee91f1f7ca9a2a0a60af157730",
+    ".local/class-skills/fire-golem-death-source/cases.json": "5b3089366c231753631e577c482baeb8475983dab6fb483a6c8682064ff616ea",
+    ".local/class-skills/fire-golem-death-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/fire-golem-death-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/fire-golem-death-source/api/Api.csproj": "a1b3e3f0e3c871a8a91bb1cdd2dd51e110989470b48156e31f8c3cb0855a104a",
+    ".local/class-skills/fire-golem-death-source/api/Program.cs": "490fab860287aad1dc10cedf0343602fcd459d4fff4343d059cd1cb34432ea69",
+    ".local/class-skills/fire-golem-death-source/native-api.json": "22631bdbac0ad98eec9a7ed5c26e4a09abca4186389e8039d03e950085f7c340",
+    ".local/class-skills/fire-golem-death-source/native-api-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Fire spawn assigns modifier31. Its dispatch row maps death mode to the complete four-frame scheduler and callback2to the complete fixed corpse-explosion routine. Dispatch/spawn/replacement links are source-inspected;the callbacks themselves execute.",
+    "Complete corpse callback,radial wrapper,typed owner/allegiance lookup,missile result flags,intrinsic critical,resistance/total/events/HP and missile death dispatcher compose5184retained-registry contexts. Packet100physical+100fire,radius6,flags0x583;source and summoner are excluded. Empty event subscribers and controlled room/find/barrier/allocation/block/RNG services remain explicit.",
+    "Missile117has no get-hit,soft-hit or knockback flag. Declared blocking suppresses damage;intrinsic5percent critical still consumes a draw and doubles both channels. Aligned targets,barrier failures,allocation failure and missing source registration suppress damage. Retained actor/master death modes alone do not suppress it."
+  ],
+  "remaining": [
+    "Runtime delayed death/replacement emission is not changed. UO deletes a dead NPC and clears ownership immediately;D2source damage requires a registered owner. The retained source registry/stat lifetime is a declared service,not established by this probe. Do not invent an immortal stand-in or substitute the player as damage source.",
+    "Replacement source chooses kill/death-mode entry for an undeleted pet;full modern death entry,modifier installation/dispatch scheduling,stat cleanup,corpse/GUID retention and final removal remain unverified.",
+    "Current executable parity,real room/filter/radial barrier geometry/enumeration,arbitrary reactions/absorption/leech and client/effects remain separate. The direct callback is also exercised in nondeath modes as a raw control;that does not make those mode requests reachable.",
+    "Tested kernel metadata confirms Alive/Delete/Kill/OnDeath/OnBeforeDeath are virtual and non-final. A bounded retirement of the original actor is implementable without replacing its identity;normal death bookkeeping,roster eligibility,save/reload and final deletion still need native implementation and verification."
+  ]
+}
