@@ -757,10 +757,10 @@
       "characterClass": "Necromancer",
       "tree": "Summoning Spells",
       "sourceId": 90,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared saved body and NecroPet controller have scoped native verification: follow motion, G4 contact/end timing, shared actor/item RNG, original weapon IAS/base speed, armor weight/faster movement, fractional recovery and offline/interruption/reload behavior. Original identity/full rolls and prior stat/facet/rollback scopes remain covered. Native skeleton AI/attacks stay suppressed. Full current initializer, attack-packet/event/block/retaliation/proc/sunder parity, unified golem cap, learned casting and full owner/client acceptance remain unfinished. Unsupported item projections refuse before transfer. See iron-golem-world-checkpoint.md; no learned handler is enabled."
+      "remaining": "Learned item-target route composes original transfer, prepared world controller, payment and shared golem replacement. Supported ordinary combat uses source-ordered allocation/contact/HP/retaliation/native return, with original-item stats and owner credit preserved. Current full item procs, Iron Maiden, Sunder, uninterruptible/unique-mode callbacks and unrepresented original stat storage remain individually refused; modern initial-poison/Thorns coexistence, native geometry/RNG/client and full class acceptance remain unverified. See iron-golem-casting-checkpoint.md; handler presence is not completion."
     },
     {
       "talentId": "necromancer.firegolem",

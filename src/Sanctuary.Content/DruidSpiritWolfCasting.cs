@@ -22,6 +22,12 @@ public static class DruidSpiritWolfCasting
     internal static bool Destination(PlayerMobile owner,Serial selected,Point3D cached,bool release,out Point3D point)
     {
         if(!DruidRavenCasting.Destination(owner,selected,cached,release,out var aim,out _)){point=default;return false;}
+        return Placement(owner,aim,out point);
+    }
+    // Shared native ground-pet search adapter; item-targeted summons retain
+    // their actual item aim separately from this available spawn position.
+    internal static bool Placement(PlayerMobile owner,Point3D aim,out Point3D point)
+    {
         bool Legal(Point3D p)=>p.X>0 && p.Y>0 && p.X<owner.Map.Width && p.Y<owner.Map.Height
             && Math.Abs(p.Z-owner.Z)<16 && owner.InRange(p,CombatProtocol.TeethRange) && owner.InLOS(p) && owner.Map.CanSpawnMobile(p);
         if(Legal(aim)){point=aim;return true;}

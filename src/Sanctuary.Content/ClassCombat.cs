@@ -746,6 +746,12 @@ public static class ClassCombat
                 var ability = (CombatAbility)reader.ReadByte();
                 var target = (Serial)reader.ReadUInt32();
                 var point = new Point3D(reader.ReadUInt16(), reader.ReadUInt16(), reader.ReadSByte());
+                if(ClassAbilities.ItemTarget(ability))
+                {
+                    if(action==CombatRequest.Cast||ability==(action==CombatRequest.HoldAttack?session.Left:session.Right))
+                    {NecromancerCombat.Begin(from,ability,target,point,Core.TickCount);}
+                    break;
+                }
                 if (CorpseCast(ability))
                 {
                     if (action == CombatRequest.Cast || ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right))

@@ -71,7 +71,7 @@ public static class IronGolemBirthChecks
             bool rejected=false;try{action();}catch(Exception e)when(e is ArgumentException or NotSupportedException){rejected=true;}
             Require(rejected,"Invalid prepared Iron Golem context accepted");
         }
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Prepared birth must not enable an incomplete learned cast");
+
         Log.Information("Iron Golem birth:36720 complete source base/passive numeric comparisons;81 complete resistance contexts;ten current passives retained as data. Item graph writes/events and actor remain pending.");
     }
 }

@@ -89,7 +89,7 @@ public static class MeleeResultChecks
             Require(result==row[1].GetInt32()&&services.Trace.SequenceEqual(row[2].EnumerateArray().Select(x=>x.GetInt32())),"Source result/trace differs at "+count);count++;
         }
         Require(count==16384,"Incomplete source melee grid");World();
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Result adapter enabled unfinished learned Iron");
+
         Log.Information("Melee results:16384complete-source flag/ordered-service comparisons and4actual Iron world miss/block/hit controls pass;shared defender component/RNG adapter and complete HP/death/event chronology remain separate");
     }
 }

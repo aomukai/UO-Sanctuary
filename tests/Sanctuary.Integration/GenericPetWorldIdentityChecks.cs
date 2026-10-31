@@ -89,7 +89,7 @@ public static class GenericPetWorldIdentityChecks
         Require(identity.Resolve(71,0,player)==player&&identity.Resolve(71,1,actor)==actor&&identity.Resolve(71,4,gear)==gear,"World lookup confused map membership with identity");
         // Keep this native persistence fixture parked between boots.
         pet.Internalize();Require(owner.Map==Map.Internal&&item.Parent==pet,"Identity query moved an entity or detached its item");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Identity adapter enabled incomplete actors");
+        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Identity adapter enabled incomplete actors");
         Log.Information("GenericPet world identity:36live role/context lookups,actual player/control/summon ownership,shared search/traversal binding,stale/deleted/equipped target refresh and explicit unsupported registries pass;native geometry,corpse identities,stat lists,ordering and complete actors remain gated");
     }
     private static void Check()

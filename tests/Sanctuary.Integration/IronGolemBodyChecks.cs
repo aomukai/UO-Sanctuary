@@ -80,7 +80,7 @@ public static class IronGolemBodyChecks
             &&body.PoisonResistance==n.Poison+NpcEquipmentResistances.Bonus(item,ResistanceType.Poison),"Raw source resistance pool lost or repeated an item contribution");
         Require(BattleOrders.Regeneration256(body)==n.Regeneration256,"Live birth regeneration differs from numeric source graph");
         Require(body.SkillWeaponDamage==(0,0)&&body.CantWalk&&body.Name.Contains("placeholder",StringComparison.Ordinal)
-            &&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Unfinished AI/attack/cast activated");
+            ,"Unfinished AI/attack/cast activated");
         Require(CreatureProfiles.Definition(body).Reference=="irongolem","Body inherited skeleton identity");
     }
     private static void Check()

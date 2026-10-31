@@ -1,0 +1,26 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -376,7 +376,8 @@
+         if (!Enabled || world.Player.IsDead || MovementOnly || Recovering || !UIManager.IsMouseOverWorld
+             || UIManager.IsDragging || world.TargetManager.IsTargeting || world.CustomHouseManager != null
+             || Client.Game.UO.GameCursor.ItemHold.Enabled
+-            || ClassAbilities.CorpseTarget(ability) && SelectedObject.Object is not Item { IsCorpse: true }) { return false; }
++            || ClassAbilities.CorpseTarget(ability) && SelectedObject.Object is not Item { IsCorpse: true }
++            || ClassAbilities.ItemTarget(ability) && SelectedObject.Object is not Item { IsCorpse: false }) { return false; }
+         if (!ClassBeltClient.TryAim(world, out var x, out var y, out var z)) { return false; }
+         uint target = SelectedObject.Object is Entity entity ? entity.Serial : 0;
+         Stop(world);
+@@ -675,6 +676,12 @@
+     }
+     private static void SendHeldAim(World world)
+     {
++        if (ClassAbilities.ItemTarget(_heldAbility))
++        {
++            if (SelectedObject.Object is Item { IsCorpse: false } item)
++            { Send(CombatRequest.HoldCast, item.Serial, _heldAbility, item.X, item.Y, item.Z); }
++            return;
++        }
+         if (ClassAbilities.SelfTarget(_heldAbility))
+         { Send(CombatRequest.HoldCast, 0, _heldAbility, world.Player.X, world.Player.Y, world.Player.Z); return; }
+         if (_heldAbility == CombatAbility.Teleport)

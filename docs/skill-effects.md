@@ -1,5 +1,7 @@
 # Skill effects
 
+Learned Iron Golem now creates the prepared actor through right/quick item targeting. Native summon0x376A, sound0x1E5and the labelled body/contact/return markers remain explicitly identified placeholders. Final original-item consumption/formation, body/directional frames, attack/get-hit/block/death/overlay and audio assets remain pending. See [casting checkpoint](iron-golem-casting-checkpoint.md).
+
 Ordered Iron Golem contact now retains source hit-class/overlay descriptors through actual HP/retaliation/return. Native prepared body, contact, block (0x375A), get-hit and critical overlay (0x37B9) remain explicitly identified presentation placeholders; final animation/effect/audio is pending. This mechanical increment introduces no new independent icon. See [checkpoint](iron-golem-ordered-contact-checkpoint.md).
 
 Ordinary NPC min-only item steal/stamina-consumption compatibility adds no healing visual/audio. Do not imply player percentage leech under the recorded older NPC rule;actual Life Tap remains a separate recovery effect. See [mechanical scope](npc-item-drain-checkpoint.md).

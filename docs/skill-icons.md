@@ -1,5 +1,7 @@
 # Skill icons
 
+Iron Golem now supports learned right-click and quick bindings. Its unique talent-tree/right-hotkey icon remains pending; left binding is intentionally unavailable. Text labels remain identified placeholders. No separate item/rollback icon is introduced. Effects/audio are tracked independently. See [casting checkpoint](iron-golem-casting-checkpoint.md).
+
 Ordered Iron Golem combat continues to use the existing Iron Golem talent-tree/hotkey icon requirements; those final assets remain pending. Item-event and damage-bookkeeping integration introduce no additional bindable skill or icon. Effects/audio remain separately recorded. See [checkpoint](iron-golem-ordered-contact-checkpoint.md).
 
 Ordinary NPC item-drain compatibility adds no bindable skill or icon. Existing Iron Golem and Life Tap talent/hotkey artwork remains separately pending.

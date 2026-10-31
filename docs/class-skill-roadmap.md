@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+[Learned Iron Golem casting](iron-golem-casting-checkpoint.md) now preserves actual item targets through client right/quick and server routes, checks supported originals before consumption, allocates the prepared actor, pays35mana once and commits shared golem replacement. Allocation/payment rollback preserves the exact original and old paid golem; moved items/casters/lost mana cancel.94markers/3boots/2reloads include6real right/quick inputs and saved active/unpaid-pending state. Paladin/audits and71Python pass;client build adds no warnings. Coverage186handlers/Necromancer30; no class complete. Refused mechanics and modern/native/client limits remain explicit. Installed build/saves unchanged; final effects/audio and icons separate.
+
 The [ordered Iron Golem contact checkpoint](iron-golem-ordered-contact-checkpoint.md) connects the actual prepared world action to captured allocation, native notification/owner credit, one HP write, captured cold/poison, retaliation and source-selected return/death. Six real originals and an actual lethal retaliation exchange preserve owner XP after golem removal. Explicit item/native capability guards precede RNG; missing Baranar duration and Hellplague writer refuse before original transfer.79markers/3boots/2reloads,retained45840writer cases,Paladin/audits and71Python pass. Learned casting and remaining refused mechanics are still pending;185handlers/Necromancer29,no class complete. Installed build/saves unchanged;assets separate.
 
 The [native notification checkpoint](prepared-native-damage-checkpoint.md) adds the pre-HP bridge for ordered NPC damage: native region/spell/credit/disruption/paralysis/display/OnDamage/mount callbacks without replaying incoming Damage or death.256paired comparisons and7explicit refusals per boot pass with73retained markers/3boots/2reloads,Paladin/audits and71Python. The bridge does not replay BaseCreature damage modifiers; real actor capability/event/contact/return integration and live Iron migration remain next.185handlers/Necromancer29,no class complete; installed build/saves unchanged,assets separate.
@@ -26,7 +28,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 
 | Order | Class | Handlers present | Individually blocked | Pending | Class completion |
 | --- | --- | ---: | ---: | ---: | --- |
-| 1 | Necromancer | 29 / 30 | 1 | 0 | Open |
+| 1 | Necromancer | 30 / 30 | 0 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 26 / 30 | 1 | 3 | Open |

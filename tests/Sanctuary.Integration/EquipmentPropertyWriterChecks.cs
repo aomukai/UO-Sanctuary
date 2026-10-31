@@ -52,7 +52,7 @@ public static class EquipmentPropertyWriterChecks
             var trace=row[4].EnumerateArray().Select(v=>v.EnumerateArray().Select(x=>x.GetInt32()).ToArray()).ToArray();
             Require(f.Trace.Count==trace.Length&&f.Trace.Zip(trace).All(p=>p.First.SequenceEqual(p.Second)),"Source writer service order differs at "+count);count++;
         }
-        Require(count==45840&&plans.Count==284&&plans.Values.Count(p=>p.Supported)==191&&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Numeric property scope missing or incomplete golem enabled");
+        Require(count==45840&&plans.Count==284&&plans.Values.Count(p=>p.Supported)==191,"Numeric property scope missing or incomplete golem enabled");
     }
     private static EquipmentPropertyBase Basis(Item item)
     {var b=ClassGear.Base(item);return new(b.MinDamage,b.MaxDamage,b.TwoHandMin,b.TwoHandMax,b.MissileMin,b.MissileMax,b.MinDefense,b.MaxDefense);}

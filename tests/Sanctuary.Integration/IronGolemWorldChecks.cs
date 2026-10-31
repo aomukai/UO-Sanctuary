@@ -155,7 +155,7 @@ public static class IronGolemWorldChecks
     }
     private static void Check()
     {
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Prepared controller enabled learned Iron Golem");
+
         Combat();MotionAndRecovery();MovementItems();Cancellation();Stage();
         Log.Information("Prepared Iron Golem world:G4 action/end clock,original Battlebranch IAS,shared AI/item RNG,ordinary item contact,follow motion,exact recovery,offline/interruption cancellation,atomic restore and saved original/controller/seed pass;complete current attack/events and learned cast remain unfinished");
     }

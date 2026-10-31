@@ -14,7 +14,7 @@ public static class NecromancerCombat
         || ability is CombatAbility.Teeth or CombatAbility.RaiseSkeleton or CombatAbility.SkeletonMastery
         or CombatAbility.BoneArmor or CombatAbility.PoisonDagger or CombatAbility.CorpseExplosion
         or CombatAbility.BoneSpear or CombatAbility.BoneSpirit or CombatAbility.PoisonExplosion or CombatAbility.PoisonNova
-        or CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem
+        or CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem or CombatAbility.FireGolem
         or CombatAbility.BoneWall or CombatAbility.BonePrison
         or CombatAbility.GolemMastery or CombatAbility.SummonResist or CombatAbility.RaiseSkeletalMage or CombatAbility.Revive;
     public static bool Handles(CombatAbility ability) => ClassAbilities.Find(ability)?.Class == DiabloClass.Necromancer
@@ -27,6 +27,7 @@ public static class NecromancerCombat
         && SkillMechanics.Rank(owner, ability) > 0;
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if(ability==CombatAbility.IronGolem){return IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out _);}
         if (owner.Map == null || owner.Map == Map.Internal || !owner.InRange(point, CombatProtocol.TeethRange)
             || point.X < 0 || point.Y < 0 || point.X >= owner.Map.Width || point.Y >= owner.Map.Height
             || !owner.InLOS(point)) { return false; }
@@ -52,6 +53,8 @@ public static class NecromancerCombat
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now)
     {
+        if(ability==CombatAbility.IronGolem)
+        {if(!IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out var itemIssue)){owner.SendMessage(0x22,itemIssue??"Select a supported metal item.");return false;}point=World.FindItem(selected).Location;}
         if(ability==CombatAbility.Revive&&!ReviveCasts.Plan(owner,World.FindItem(selected) as Corpse,out _,out _,out var issue))
         {owner.SendMessage(0x22,issue);return false;}
         if (ability == CombatAbility.BoneArmor) { selected = Serial.Zero; point = owner.Location; }
@@ -76,6 +79,7 @@ public static class NecromancerCombat
         var values = SkillMechanics.Values(owner, ability);
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
+        if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
             if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }

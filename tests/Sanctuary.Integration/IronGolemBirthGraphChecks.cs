@@ -96,7 +96,7 @@ public static class IronGolemBirthGraphChecks
             Require(graph.Trace.Count==expected.Length&&graph.Trace.Zip(expected).All(x=>x.First.SequenceEqual(x.Second)),"Source callback chronology differs at "+count);
             count++;
         }
-        Require(count==2016&&levelChanges>0&&accruedDiffers>0&&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Incomplete graph composition controls or incomplete learned actor enabled");
+        Require(count==2016&&levelChanges>0&&accruedDiffers>0,"Incomplete graph composition controls or incomplete learned actor enabled");
         Guards();
         Log.Information("Iron Golem birth graph:2016 complete source graph/base/passive/resistance contexts and exact callbacks;{LevelChanges} post-level life changes;{AccruedDiffers} accrued maxima differ from base writes",levelChanges,accruedDiffers);
     }

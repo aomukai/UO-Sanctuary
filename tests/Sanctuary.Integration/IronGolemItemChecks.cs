@@ -74,7 +74,7 @@ public static class IronGolemItemChecks
             var expected=JsonSerializer.Deserialize<IronGolemItemBase>(row.GetRawText());Require(IronGolemItems.Metadata(expected.Code)==expected,"Current item base metal/body metadata differs");bases++;if((expected.Flags&2)!=0){metal++;}
         }
         Require((count,metadata,bases,metal)==(6144,135,692,316),"Complete Iron Golem source scope missing");
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Incomplete full actor/property pipeline enabled");
+
     }
     private static BaseCreature Pet(PlayerMobile owner)
     {

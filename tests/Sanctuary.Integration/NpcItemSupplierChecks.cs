@@ -45,7 +45,7 @@ public static class NpcItemSupplierChecks
             }
             profiles++;
         }
-        Require(cases==27648&&profiles==27&&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Source scope missing or unfinished actor enabled");
+        Require(cases==27648&&profiles==27,"Source scope missing or unfinished actor enabled");
     }
     private sealed class ExactAffixRandom:Random
     {

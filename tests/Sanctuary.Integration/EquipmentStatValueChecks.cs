@@ -67,7 +67,7 @@ public static class EquipmentStatValueChecks
             var trace=row[3].EnumerateArray().Select(v=>v.EnumerateArray().Select(n=>n.GetInt32()).ToArray()).ToArray();
             Require(f.Trace.Count==trace.Length&&f.Trace.Zip(trace).All(p=>p.First.SequenceEqual(p.Second)),"Source value-change callback order differs at "+updateCount);updateCount++;
         }
-        Require(queryCount==144&&updateCount==480&&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Numeric source scope missing or incomplete actor enabled");
+        Require(queryCount==144&&updateCount==480,"Numeric source scope missing or incomplete actor enabled");
     }
     private static Saved Exercise(BaseCreature pet,Item item)
     {

@@ -153,7 +153,7 @@ public static class IronGolemRetaliationChecks
     }
     private static void Check()
     {
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Retaliation adapter enabled incomplete cast");Source();Combat();Stage();
+        Source();Combat();Stage();
         Log.Information("Iron Golem retaliation:255pinned tier controls,native item/birth/Barbs aggregate,actual zero-mana Paladin same-state replacement,miss/hit/zero/ranged/spell,physical immunity/nonrecursion and saved state pass;full HP/death/event chronology and current replacement behavior remain separate");
     }
     private static void Reload()

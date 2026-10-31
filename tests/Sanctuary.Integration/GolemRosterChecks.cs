@@ -118,7 +118,7 @@ public static class GolemRosterChecks
     }
     private static void Check()
     {
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Roster enabled unfinished learned Iron Golem");
+
         Matrix();Failures();Refresh();Stage();
         Log.Information("Golem roster:16four-type replacements,unrelated skeleton/mage/owner preservation,original consumption,failed candidate rollback,parked Command cap refresh,historical-order fallback and excluded storage bodies pass;learned Iron/payment/event parity remain separate");
     }

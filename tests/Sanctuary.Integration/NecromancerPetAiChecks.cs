@@ -66,7 +66,7 @@ public static class NecromancerPetAiChecks
         Refuses(()=>NecromancerPetAi.Think(controlled,services with{Primary=(_,_)=>new(10,-1,false)}));
         Refuses(()=>NecromancerPetAi.Think(controlled,services with{Owner=null}));
         Refuses(()=>NecromancerPetAi.Think(controlled,services with{Request=null}));
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Prepared AI must not enable incomplete learned Iron Golem");
+
         Log.Information("Necromancer pet AI67:1598 complete source ordered-service/state/draw comparisons and8 malformed-service guards pass; both parameter branches,owner recovery,target/visibility/validity gates,melee/ranged/follow/town/idle requests covered. Moving body,attack delivery,save and learned casting remain separate.");
     }
 }

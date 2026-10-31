@@ -158,7 +158,7 @@ public static class IronGolemOrderedContactChecks
     }
     private static void Check()
     {
-        Originals();Retaliation();Refusals();Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Live prepared combat enabled unfinished learned casting");
-        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;5pre-roll capability/2unrepresented birth refusals pass;learned casting remains disabled");
+        Originals();Retaliation();Refusals();
+        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;5pre-roll capability/2unrepresented birth refusals pass;learned casting checked separately");
     }
 }

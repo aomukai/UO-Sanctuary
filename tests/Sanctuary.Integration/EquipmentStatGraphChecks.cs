@@ -64,7 +64,7 @@ public static class EquipmentStatGraphChecks
             Require(f.Trace.Count==trace.Length&&f.Trace.Zip(trace).All(p=>p.First.SequenceEqual(p.Second)),"Source attachment service order differs at "+count);
             Require(f.Node.Parent==null&&f.Node.Recipient==null&&f.Node.Previous==null&&f.Node.Next==null,"Detached item retains graph links");count++;
         }
-        Require(count==12288&&!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Attachment source scope missing or incomplete golem enabled");
+        Require(count==12288,"Attachment source scope missing or incomplete golem enabled");
     }
     // Explicit adapter fixture, not a complete stat projection or live NPC setter.
     private sealed class NativeServices:EquipmentStatServices

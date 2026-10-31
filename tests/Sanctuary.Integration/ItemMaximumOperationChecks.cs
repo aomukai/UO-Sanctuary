@@ -44,7 +44,7 @@ public static class ItemMaximumOperationChecks
             Require(b.TwoHanded==(r.TwoHanded!=0)&&b.OneOrTwoHanded==(r.EitherHanded!=0)
                 &&(b.Strength,b.Dexterity,b.RequiredLevel)==(r.RequiredStrength,r.RequiredDexterity,r.RequiredLevel),"Owned weapon requirements/hand flags differ: "+r.Code);
         }
-        Require(!NecromancerCombat.Implemented(CombatAbility.IronGolem),"Incomplete full golem actor enabled");
+
     }
     private static Item Named(string key,int seed)=>NamedGear.Create(NamedGear.Catalog.Items.Single(r=>r.SourceKey==key).Id,99,new Random(seed),true);
     private static PlayerMobile Owner(int n)
