@@ -110,11 +110,11 @@ public static class BoneBarrierBirthChecks
         Require(b.Tiles.Count==1&&b.Tiles.All(t=>!t.Deleted&&t.Segment==b&&t.Map==b.Map),"Saved barrier collision link");
         b.InspectRecovery(Core.TickCount+1000);Require(SkillHealth.Balance256(b)==s.Life,"Reload granted healing despite retained PMH");
     }
-    private static void Input(NetState network,CombatAbility ability,bool quick)
+    internal static void Input(NetState network,CombatAbility ability,bool quick,string customLabel=null,bool selectedWall=false,bool selfPrison=false)
     {
         var p=Owner();Require(SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Barrier input bindings");Ready(p);
-        var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(p.X+8,p.Y,p.Z),p.Map);var at=ability==CombatAbility.BoneWall?new Point3D(p.X+6,p.Y,p.Z):target.Location;
-        string label=quick?"bone-prison-birth-quick":"bone-wall-birth-right";int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
+        var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(p.X+8,p.Y,p.Z),p.Map);Mobile aimed=selfPrison?p:target;var at=ability==CombatAbility.BoneWall&&!selectedWall?new Point3D(p.X+6,p.Y,p.Z):aimed.Location;
+        string label=customLabel??(quick?"bone-prison-birth-quick":"bone-wall-birth-right");int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
         var account=FixtureNetwork.Authenticate(network,p,"barrier-birth-");bool began=false,finished=false;long timeout=Core.TickCount+35000;
         void End(){target.Delete();Clean(p);account.Delete();}
         void Fail(Exception e){if(finished){return;}finished=true;End();Log.Error(e,"{Label}-result: failed",label);}
@@ -126,7 +126,7 @@ public static class BoneBarrierBirthChecks
                 Require(Core.TickCount<timeout,"Barrier input timeout");var session=ClassCombat.For(p);
                 if(session.PendingAbility==ability&&!began){Require(Bodies(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Input created/paid during windup");began=true;Log.Information("{Label}: windup",label);}
                 var parts=Bodies(p);if(parts.Length==0){Require(!began||session.PendingAbility==ability,"Cast ended without allocating a barrier");Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                var body=parts[0];var expected=BoneBarrierBirth.Capture(SkillMechanics.Values(p,ability),MonsterDifficulty.Normal);
+                var body=parts[0];if(selectedWall){Require(parts.All(b=>b.Location!=target.Location),"Occupied Wall aim was overlapped rather than retried");}var expected=BoneBarrierBirth.Capture(SkillMechanics.Values(p,ability),MonsterDifficulty.Normal);
                 Require(began&&parts.All(b=>b.Prepared==expected&&SkillHealth.Balance256(b)==expected.Numbers.Life256)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Actual input recipe/resource/once payment");ClassCombat.Stop(p);
                 Require((body.ExpiresUtc-TimedEffects.Now).TotalMilliseconds is >23900 and <=24000,"Barrier source24second lifetime");var until=body.ExpiresUtc;
                 void Expired()
@@ -138,6 +138,6 @@ public static class BoneBarrierBirthChecks
             }
             catch(Exception e){Fail(e);}
         }
-        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target={Target} x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Necromancer,ability==CombatAbility.BoneWall?0:target.Serial.Value,at.X,at.Y,at.Z);Inspect();});
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target={Target} x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Necromancer,ability==CombatAbility.BoneWall&&!selectedWall?0:aimed.Serial.Value,at.X,at.Y,at.Z);Inspect();});
     }
 }

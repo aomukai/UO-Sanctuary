@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 192,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterSpawn.cpp": "5990740b6f81323452484083bba5ec5aeefd8c5c589a0c12f8386b371bcd743f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/probe_bone_barrier_cast.py": "2f145f28cffaa62de5685549cf0306a54efe6a86dfb3402e481b6026d8ab4c89"
+  },
+  "executed": {
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "SKILLS_SrvSt19_BonePrison": "14d1c61ba5fea547bf558cba4f8897967feb01ae1c39a0dcbb55c7bd10f7764b",
+    "SKILLS_SrvDo060_BoneWall": "78c7945dd101e8ad9a4fae07b3a6c21aebffa8621705ce86ab959cb1abaea545",
+    "SKILLS_SrvDo062_BonePrison": "73cbd1b10078e5614770e1c3d940e874a744dedb0841ce50a9432497b7266e30"
+  },
+  "reviewedNotExecuted": {
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "sub_6FD12FD0": "652267d1698d99a0ec9b56fc69f14142e4e87b29d298c43b83dd90ae48b185d5",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "SUNIT_CanAllyBeTargetedBySkill": "812b32307ef6d4601cde3366e2c0f2a22cb68ca3742309e7d0bb29f7a7d7a3e4",
+    "D2GAME_SpawnMonster_6FC69F10": "20bcc78108f30a6f965e4502e37c9af0ea4854dd3328eceb9937b8cc8c3d893c",
+    "D2GAME_SpawnNormalMonster_6FC68E30": "6aa06b5103a850f430839845369095b6fe60254a176a075d7c7cae157d2f3e13"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-cast-source/probe.cpp": "cf02a567581f4807614c8fe061af2189e500083a784b4316f1546b20abeb6c3c",
+    ".local/class-skills/bone-barrier-cast-source/cases.json": "3f1b1e7388ce63b95eedd20e46ee3d233a2e2f7b754902b029fde2226be1a5c0",
+    ".local/class-skills/bone-barrier-cast-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-cast-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete do60/do62/start19 and shared summon callbacks execute192 bounded world-service contexts. Wall fails without a root; Prison returns1 even with zero allocations. Exact creation retries parameter4; first successful Prison actor owns later siblings in original source order.",
+    "Start19 requires a selected unit outside town, not hostile alignment. Global TARGETABLEONLY/TARGETALLY/target flags still require separate mapping. The global handler charges successful do skills without a start callback at effect; Prison start19 can charge earlier. Native shared release settlement and modern rank1 mana-table value remain separate from the legacy consume quirk."
+  ],
+  "remaining": [
+    "The pinned low-level SpawnNormalMonster is an executable null stub with commented decompile, not recovered search code. Native fallback reuses the existing Druid placement projection; exact D2 room/footprint/RNG/candidate ordering remains uncertain.",
+    "Declared allocation,room,target,pet registration,birth,missile and direction services are not the complete engine. Source start/handler/payment bodies are reviewed; only four listed callbacks execute. Current executable, charged/Blood Mana, invalid targetable/item/corpse mapping, empty-ground SearchEnemyNear and windup cancellation remain separate."
+  ]
+}

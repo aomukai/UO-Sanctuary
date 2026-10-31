@@ -27,6 +27,7 @@ public static class NecromancerCombat
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out _);}
+        if(BoneBarrierCasts.Handles(ability)){return BoneBarrierCasts.Valid(owner,ability,selected,point);}
         if (owner.Map == null || owner.Map == Map.Internal || !owner.InRange(point, CombatProtocol.TeethRange)
             || point.X < 0 || point.Y < 0 || point.X >= owner.Map.Width || point.Y >= owner.Map.Height
             || !owner.InLOS(point)) { return false; }
@@ -39,9 +40,6 @@ public static class NecromancerCombat
                 :SkeletonPets.Usable(owner,corpse);
         }
         if (ability == CombatAbility.Attract && selected == Serial.Zero) { return false; }
-        if (ability == CombatAbility.BoneWall) { return BoneBarriers.Space(owner, point); }
-        if (ability == CombatAbility.BonePrison)
-        { return selected != Serial.Zero && ClassCombat.IsHostile(owner, World.FindMobile(selected)) && Server.Spells.SpellHelper.CheckTown(point, owner); }
         if (ability == CombatAbility.PoisonDagger)
         {
             var weapon = CombatTiming.Equipped(owner);
@@ -60,6 +58,7 @@ public static class NecromancerCombat
         if(ability==CombatAbility.RaiseSkeletalMage)
         {try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if (ability is CombatAbility.BoneArmor or CombatAbility.PoisonNova) { selected = Serial.Zero; point = owner.Location; }
+        if(BoneBarrierCasts.Handles(ability)&&!BoneBarrierCasts.Point(owner,ability,selected,point,out point)){return false;}
         var session = ClassCombat.For(owner);
         if (!Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
             || owner.Spell != null || HitRecovery.Active(owner, now) || session.PendingAbility != CombatAbility.None
@@ -90,8 +89,7 @@ public static class NecromancerCombat
         if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit or CombatAbility.PoisonNova){return NecromancerSpellMissiles.Release(owner,point,values,ability==CombatAbility.BoneSpirit?World.FindMobile(selected):null);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
-            if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }
-            return NecromancerEffects.Pay(owner, values.Mana256);
+            return BoneBarrierCasts.Release(owner,ability,selected,point,values);
         }
         if (ability is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)
         {

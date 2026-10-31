@@ -18,13 +18,21 @@ public static class BoneBarriers
     public static bool Space(PlayerMobile owner, Point3D point) => owner.Map is { } map && map != Map.Internal
         && point.X >= 0 && point.Y >= 0 && point.X < map.Width && point.Y < map.Height
         && SpellHelper.CheckTown(point, owner) && Teleportation.Space(map, point);
+    internal static System.Func<PlayerMobile,CombatAbility,Point3D,SkillValues,BoneBarrierSegment,BoneBarrierSegment> Allocate=BoneBarrierSegment.Spawn;
+    private static BoneBarrierSegment Place(PlayerMobile owner,CombatAbility ability,Point3D aim,SkillValues values,BoneBarrierSegment root)
+    {
+        if(Space(owner,aim)&&Allocate(owner,ability,aim,values,root) is{} exact){return exact;}
+        // Failed exact creation retries with the shared parameter4 projection.
+        // Do not apply this retry to the wall-maker's flags13 child path.
+        if(!GroundSummonPlacement.Find(owner.Map,aim,p=>p!=aim&&Space(owner,p),out var retry)){return null;}
+        return Allocate(owner,ability,retry,values,root);
+    }
     public static bool Create(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values)
     {
         if (ability == CombatAbility.BoneWall)
         {
-            if (!Space(owner, point)) { return false; }
-            var root = BoneBarrierSegment.Spawn(owner, ability, point, values, null);
-            double dx = point.X - owner.X, dy = point.Y - owner.Y;
+            var root=Place(owner,ability,point,values,null);if(root==null){return false;}
+            double dx = root.X - owner.X, dy = root.Y - owner.Y;
             double length = Math.Sqrt(dx * dx + dy * dy);
             root.Grow(length == 0 ? 0 : -dy / length, length == 0 ? 1 : dx / length, (int)values.Eval("calc2") / 2);
             return true;
@@ -37,13 +45,18 @@ public static class BoneBarriers
         }
         BoneBarrierSegment first = null;
         var created = new List<BoneBarrierSegment>();
-        foreach (var anchor in anchors)
+        // Source allocation order differs from the cyclic raster perimeter at
+        // the bottom and left anchor pairs. Keep native connectors cyclic, but allocate
+        // and choose the first successful root in the source's original order.
+        int[] order=[0,1,2,3,4,5,7,6,8,10,9,11];
+        foreach(int index in order)
         {
-            if (!Space(owner, anchor)) { continue; }
-            var segment = BoneBarrierSegment.Spawn(owner, ability, anchor, values, first);
-            first ??= segment; created.Add(segment);
+            var segment=Place(owner,ability,anchors[index],values,first);
+            if(segment==null){continue;}first??=segment;created.Add(segment);
         }
-        if (first == null) { return false; }
+        // Do62 returns success even with no segments. Start19 already accepted
+        // the cast; zero or partial allocation does not make it free.
+        if (first == null) { return true; }
         for (int i = 0; i < anchors.Count; i++)
         {
             var a = anchors[i]; var b = anchors[(i + 1) % anchors.Count];

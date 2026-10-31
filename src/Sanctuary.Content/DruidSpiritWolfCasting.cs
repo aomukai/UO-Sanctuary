@@ -30,19 +30,7 @@ public static class DruidSpiritWolfCasting
     {
         bool Legal(Point3D p)=>p.X>0 && p.Y>0 && p.X<owner.Map.Width && p.Y<owner.Map.Height
             && Math.Abs(p.Z-owner.Z)<16 && owner.InRange(p,CombatProtocol.TeethRange) && owner.InLOS(p) && owner.Map.CanSpawnMobile(p);
-        if(Legal(aim)){point=aim;return true;}
-        for(int radius=1;radius<=2;radius++)
-        for(int x=-radius;x<=radius;x++)
-        for(int y=-radius;y<=radius;y++)
-        {
-            if(Math.Abs(x)!=radius && Math.Abs(y)!=radius){continue;}
-            var trial=new Point3D(aim.X+x,aim.Y+y,aim.Z);
-            if(trial.X<=0 || trial.Y<=0 || trial.X>=owner.Map.Width || trial.Y>=owner.Map.Height){continue;}
-            if(Legal(trial)){point=trial;return true;}
-            int z=owner.Map.GetAverageZ(trial.X,trial.Y);
-            if(Math.Abs(z-aim.Z)<16 && Legal(new(trial.X,trial.Y,z))){point=new(trial.X,trial.Y,z);return true;}
-        }
-        point=default;return false;
+        return GroundSummonPlacement.Find(owner.Map,aim,Legal,out point);
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
         =>Destination(owner,selected,point,false,out _)

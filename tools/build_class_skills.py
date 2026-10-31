@@ -119,7 +119,7 @@ public readonly record struct ClassAbility(CombatAbility Ability, string TalentI
     DiabloClass Class, bool Passive, bool Left, bool Right);
 public static class ClassAbilities
 {
-    public static bool AllyTarget(CombatAbility value) => value is CombatAbility.Enchant or CombatAbility.HolyBolt;
+    public static bool AllyTarget(CombatAbility value) => value is CombatAbility.Enchant or CombatAbility.HolyBolt or CombatAbility.BoneWall or CombatAbility.BonePrison;
     public static bool ItemTarget(CombatAbility value) => value==CombatAbility.IronGolem;
     public static bool CorpseTarget(CombatAbility value) => value is '''+ ' or '.join(corpse_targets)+''';
     public static bool SelfTarget(CombatAbility value) => value is CombatAbility.BoneArmor or CombatAbility.PoisonNova or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.StaticField

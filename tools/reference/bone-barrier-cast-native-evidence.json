@@ -1,0 +1,109 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bone Wall/Prison targets, allocation outcomes and shared native placement",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 2,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 43,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      858,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "connectedBarrierCasts": 6,
+    "connectedWolfCasts": 3,
+    "naturalTwentyFourSecondExpiries": 6,
+    "sourceContexts": 192,
+    "nativeSourceOutcomeContexts": 8,
+    "reviewedAdditionalBodies": 7,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-barrier-cast/birth-inputs.json",
+      "sha256": "a684636a534f3470529a624611fb80b9a0c977d30fef5a77fb2587e555e4cfd6"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-barrier-cast/audit-inputs.json",
+      "sha256": "716d29db22c596dfaf8f241e4f8d29f78d32e3a3c33414c9e34530a9b46723e4"
+    }
+  },
+  "changedSourceHashes": {
+    "shared/ClassAbilities.cs": "dbd5a969ad28b331825a73f893ea2dddaef02201c3e9b93adbef799d7826d84c",
+    "src/Sanctuary.Content/BoneBarrierCasts.cs": "5c650c79cbf555a20c094d4c7648b40fe5d2e55b7f8a29118ebbc8255cfc0a13",
+    "src/Sanctuary.Content/BoneBarriers.cs": "cbb50dede8389fa18ba96bf14cc73feb620f6413222cbb16e558c77a7167dcab",
+    "src/Sanctuary.Content/ClassCombat.cs": "dadf3f91ec6ad8944397d81f10068c79110fa77aedf0bb9ff48d5a9d5bd772a9",
+    "src/Sanctuary.Content/DruidSpiritWolfCasting.cs": "9f1ea5813096256e8e2a9fc7621baef53b762e79d613f18137d7334cf2c10adf",
+    "src/Sanctuary.Content/GroundSummonPlacement.cs": "b17b43e367443380ad402e9df057bd2a9d92a2777f3095257b15326a309a48dd",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "ed78d95e938e2d6e36111a2b356552cd956169e7db07a72df7a88f4b9331632c",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "e6cced5bc66c668c183a08379cf8fe6b5b41ecb2a1a703e71cb769e8c474505b",
+    "tests/Sanctuary.Integration/BoneBarrierCastChecks.cs": "2809c01743df7ca42884a274b43ddc045c6eb84ec2aa8cd7a3a4e3a5e9357399"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-cast/audit-inputs.json": "716d29db22c596dfaf8f241e4f8d29f78d32e3a3c33414c9e34530a9b46723e4",
+    ".local/class-skills/bone-barrier-cast/audit-native-checks.log": "2c2470ca18005072ae1453c1f4ed89117996a97b489b9f19a9d94a2026632fdb",
+    ".local/class-skills/bone-barrier-cast/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-barrier-cast/birth-inputs.json": "a684636a534f3470529a624611fb80b9a0c977d30fef5a77fb2587e555e4cfd6",
+    ".local/class-skills/bone-barrier-cast/birth-native-checks.log": "b76f939bddc92452f1c0ac0ba2e5f07bda395d799c060f1598f7eb8a07482321",
+    ".local/class-skills/bone-barrier-cast/bone-barrier-birth-fixtures.json": "8639db6a5b2be34768d6d1a88d701df4111507ef63669295980f10c30e981a38",
+    ".local/class-skills/bone-barrier-cast/bone-barrier-cast-fixtures.json": "ea4f00bca9d0a1124390de493662b8d379381f5b749c5cb4b0725062d20cd9ae",
+    ".local/class-skills/bone-barrier-cast/bone-barrier-checks.json": "ea7dea42a0bf13d7bcb148d8d35efba08583f3bcebe37da61958c245af256db7",
+    ".local/class-skills/bone-barrier-cast/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/bone-barrier-cast/content-build-4.log": "4fc60605276108b10131a03c6daceda645d4e3819e76288778c4842465313dc6",
+    ".local/class-skills/bone-barrier-cast/integration-build-4.log": "c5328e99369bb4e04b31dee8cce7244bfbbcc322b25426cf71c18ce3f8a70fb1",
+    ".local/class-skills/bone-barrier-cast/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/bone-barrier-cast/pre-build-4.json": "7fddf1ef64a489107c97622b6746e46dbd609ed7ef348c26faae157479a52298",
+    ".local/class-skills/bone-barrier-cast/python-tests.log": "ea235e9055a9604c30d1ff83359aca07f176c11d76b2c4f86e8106ddc0cfe6c7",
+    ".local/class-skills/bone-barrier-cast/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/bone-barrier-cast/spirit-wolf-casting-fixtures.json": "f00ebb4beb9720f302c94afed13739508e4829282494aff7a456f31f7b89e880",
+    "docs/bone-barrier-cast-checkpoint.md": "9e3219240492c4195ad1d85ce1fd61c5ed61c3d04dcfad0b2026dfb9ae81ef03",
+    "docs/class-skill-roadmap.md": "11ae85f5599fcaf7299b9b1759118ee6aed9342b379fe9e82757e37d38cf1fae",
+    "docs/class-skills-resume-checkpoint.md": "ffcf0d318f47704a8ac5b47c64417133d6c9f214bb3d228531bce4066a26b31f",
+    "docs/necromancer-mechanical-audit.md": "666bca6aaa788fe26e8e2ced31864a2fb6a22574198cf47a8e82ca430efd428c",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "f3d3730045e59d21cd3aeaf48d6dbfdf78dd9bef931fc074b409ec794899f73c",
+    "patches/ClassicUO/0035-allied-class-skill-targeting.patch": "cbfd541fac7475a79ad23e92d1941fe68cddd8cc60c6bf65a2de5abe36aab1ad",
+    "patches/ClassicUO/0036-ally-targeted-left-and-held-skills.patch": "4e6127e8f58c4fbb04e47755b04ce460b9df04141059acfeeed16c31c9a4c524",
+    "shared/ClassAbilities.cs": "dbd5a969ad28b331825a73f893ea2dddaef02201c3e9b93adbef799d7826d84c",
+    "src/Sanctuary.Content/BoneBarrierCasts.cs": "5c650c79cbf555a20c094d4c7648b40fe5d2e55b7f8a29118ebbc8255cfc0a13",
+    "src/Sanctuary.Content/BoneBarriers.cs": "cbb50dede8389fa18ba96bf14cc73feb620f6413222cbb16e558c77a7167dcab",
+    "src/Sanctuary.Content/ClassCombat.cs": "dadf3f91ec6ad8944397d81f10068c79110fa77aedf0bb9ff48d5a9d5bd772a9",
+    "src/Sanctuary.Content/DruidSpiritWolfCasting.cs": "9f1ea5813096256e8e2a9fc7621baef53b762e79d613f18137d7334cf2c10adf",
+    "src/Sanctuary.Content/GroundSummonPlacement.cs": "b17b43e367443380ad402e9df057bd2a9d92a2777f3095257b15326a309a48dd",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "ed78d95e938e2d6e36111a2b356552cd956169e7db07a72df7a88f4b9331632c",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "e6cced5bc66c668c183a08379cf8fe6b5b41ecb2a1a703e71cb769e8c474505b",
+    "tests/Sanctuary.Integration/BoneBarrierCastChecks.cs": "2809c01743df7ca42884a274b43ddc045c6eb84ec2aa8cd7a3a4e3a5e9357399",
+    "tests/check_bone_barrier_cast.py": "0e4b873b047252d8d8858522bad59bf49f9591cf19cb7417e7abd3055184747c",
+    "tests/check_iron_golem_birth.py": "197c71e678703468db8f01e926e789c572106feb8601cfa2b757653e408d2e06",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/build_class_skills.py": "310402a914af6897e24c7b39b8df8225d71091de38b423b1e36fab74ff0c12cd",
+    "tools/probe_bone_barrier_cast.py": "2f145f28cffaa62de5685549cf0306a54efe6a86dfb3402e481b6026d8ab4c89",
+    "tools/record_bone_barrier_cast.py": "5e17ad0c267190407875698a2514dab0d7b92ff6fd525f4df13f1e18ecc1507c",
+    "tools/reference/bone-barrier-birth-native-evidence.json": "3361b454acf7616d776ca33283c07c5417af7cc5776a232ff2978dcf86d96948",
+    "tools/reference/bone-barrier-cast-source-evidence.json": "0928ec0dd45206ed756474d353bcb2d9d94f7c6feacf99c299588335e7865deb",
+    "tools/reference/first-loop-affix-audit.json": "2204da4b9f8cc06d840cbe535181344a32bfbd4e5dab05199d5c18e54fa2fae5",
+    "tools/reference/named-item-runtime-audit.json": "b01524e424ac7321ee118caca5391c3b7882212e354e6c8e0192700a7d52610c"
+  },
+  "established": [
+    "Wall occupied-target and failed-exact allocation retry through the shared GroundSummonPlacement projection extracted from Wolf without changing its predicate/order. New roots grow from the successful actual position. Wall fails without a root; Prison reports accepted completion and pays once even with no segments.",
+    "Prison selected living-mobile admission includes self and friendly units, with native caster/target town and range/LOS gates. Held input uses the same admission. Allocation follows original source anchor order for bottom/left pairs, and first successful root deletion removes its children; raster connectors remain the existing adapter.",
+    "Eight native even-failure allocation/order/payment controls match the complete callback fixture. Six real occupied-Wall/right and self-Prison/quick casts pay once and retire at the native24second deadline. Existing barrier birth/live-save/collision/firebolt and Wolf casting/three real Wolf inputs pass.43markers/3boots/2reloads/3saves,4audits/71Python/573unchanged named decisions,858/21fingerprints and clean builds;data/kernel/installed106unchanged."
+  ],
+  "remaining": [
+    "Pinned SpawnNormalMonster is a null stub plus commented decompile. Native two-tile perimeter/height search remains an adapter for exact/parameter4 spawn calls; source room/footprint/RNG/candidate ordering and full current-executable world behavior are unverified.",
+    "Native payment remains the shared release-settlement framework. Legacy Prison start19 phase and rank1 consume quirk differ from current-table values; exact current cancellation/charged/Blood Mana is unresolved. Empty-ground SearchEnemyNear acquisition and item/corpse/targetable flag mapping remain unsupported/uncertain.",
+    "Wall-maker growth/collision, prison raster connectors, source AI/death/minion phase and actual old-build upgrade remain unfinished. No whole skill/class or extended cohort certificate. Effects/audio and talent/hotkey icons remain separate placeholders; approved pet upgrades/safe-area parking queued."
+  ]
+}
