@@ -30,8 +30,9 @@ public static class CombatPotions
         if (!TimedEffects.ApplyBuff(owner, TimedEffectCategory.Potion, _ids[tier - 1], row.Amount, at: at)) { return false; }
         StatNetwork.Send(owner); return true;
     }
-    public static int Bonus(PlayerMobile owner, string id) => owner != null && ClassCombat.Enabled(owner)
-        && TimedEffects.Buff(owner, TimedEffectCategory.Potion, TimedEffects.DamageTime) is { } buff && buff.Id == id ? buff.Magnitude : 0;
+    public static int Bonus(PlayerMobile owner, string id)=>BonusAt(owner,id,TimedEffects.DamageTime);
+    internal static int BonusAt(PlayerMobile owner,string id,DateTime? at)=>owner!=null&&ClassCombat.Enabled(owner)
+        &&TimedEffects.Buff(owner,TimedEffectCategory.Potion,at) is{} buff&&buff.Id==id?buff.Magnitude:0;
     public static int RunBonus(PlayerMobile owner) => ClassGear.RunBonus(owner) + Bonus(owner, "second-wind");
     private static double ElementAmount(Mobile source, double damage) => source is PlayerMobile p
         ? Math.Max(0, damage) * Bonus(p, "magical-penetration") / 100.0 : 0;

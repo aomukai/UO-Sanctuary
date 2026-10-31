@@ -128,11 +128,19 @@ public static class BoneSpearChecks
             var old=NecromancerSpellMissiles.Snapshot();bool refused=false;try{NecromancerSpellMissiles.Restore(old with{Flights=old.Flights.Append(fresh with{Frames=0}).ToArray()});}catch(InvalidDataException){refused=true;}
             Require(refused&&NecromancerSpellMissiles.State(id)==fresh,"Malformed restore partly replaced the live pool");
             NecromancerSpellMissiles.Cancel(p);foreach(var resistance in Enum.GetValues<ResistanceType>()){t.SetResistance(resistance,0);}
-            Require(CombatPotions.Apply(p,3),"Actual tier3 spell potion");id=Create(p);var boosted=NecromancerSpellMissiles.State(id);
-            Require(boosted.Modifiers.Potion==10,"Approved spell potion was not captured");TimedEffects.Clear(p);
-            ulong stream=boosted.Seed;int raw=WeaponMissileDamage.RollValue(boosted.Minimum256,boosted.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));
-            int before=SkillHealth.Balance256(t);Through(id,40);
-            Require(before-SkillHealth.Balance256(t)==raw+4*(raw/10),"Tier3 fire/cold/lightning/poison additions lost,rerolled or applied twice");
+            foreach(string mode in new[]{"removed","after-launch","expires","active"})
+            {
+                TimedEffects.Clear(p);
+                if(mode!="after-launch")
+                {Require(CombatPotions.Apply(p,3,mode=="expires"?TimedEffects.Now.AddMilliseconds(-29900):null),"Actual tier3 spell potion");}
+                id=Create(p);var flight=NecromancerSpellMissiles.State(id);
+                if(mode=="removed"){TimedEffects.Clear(p);}else if(mode=="after-launch"){Require(CombatPotions.Apply(p,3),"Drink after launch");}
+                ulong stream=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));
+                int before=SkillHealth.Balance256(t);Through(id,40);
+                int expected=raw+(mode is "active" or "after-launch"?4*(raw/10):0);
+                Require(before-SkillHealth.Balance256(t)==expected,"Tier3 impact-time eligibility/expiry or once-only additions: "+mode);
+            }
+
         }
         finally{Clean(p,t);}
     }

@@ -1,5 +1,7 @@
 # Bone Spear source-flight checkpoint
 
+**Superseding T29 correction in progress:** the approved potion rule checks the buff when damage lands. The historical captured-potion result below is superseded by the Bone Spirit candidate's impact-time lookup and active/removed/after-launch/expired controls. The original launch-snapshot receipt remains historical evidence, not the current approved behavior.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. The learned skill now uses a saved player-spell flight instead of the provisional private BoneMissile loop. This increment is not a full skill/class certificate.
 
 Current missile192 supplies velocity24, Range40, Size1, ordinary do1, LastCollide1 and no ToHit/NextHit/Pierce/CollideKill. The new path reuses factory FP8 speed (4,608 normally), Q12 direction, retained source-cell crossings, BasicMissileUpdate, max-exclusive FP256 damage rolls, spell avoidance, magic resistance and health/recovery. It survives ordinary hits and suppresses only its latest collider. The old generic world-distance cutoff and permanent per-flight hit-set are gone. Weapon attack rating, critical, elemental weapon additions, leech, durability and on-strike procs are not substituted for SrcDam0 magic damage.

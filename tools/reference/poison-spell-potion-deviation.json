@@ -1,0 +1,21 @@
+{
+  "kind": "Sanctuary user-approved deviation",
+  "recordedDate": "2026-10-31",
+  "referenceVersion": "3.3.93847",
+  "source": "Direct user answer in the active class-skills goal",
+  "question": "For pure poison spells such as Poison Nova and Poison Explosion, how should the Magical Penetration potion's four extra elemental components work?",
+  "answer": "Add the bonus alongside each poison tick, so poison builds receive the full benefit.",
+  "decision": "Pure poison spell damage receives the potion's elemental additions alongside each poison tick. The current buff is checked at that tick; this is an approved Sanctuary rule, not D2R reference behavior.",
+  "examples": ["Poison Nova", "Poison Explosion"],
+  "existingRules": [
+    "The four additions use the same original damage basis and do not compound.",
+    "Each component uses its own resistance and the existing reduction rules.",
+    "An added poison component is immediate damage and does not create another poison status."
+  ],
+  "implementationAccepted": false,
+  "remaining": [
+    "Connect the tick additions to the prepared poison clock and test buff activation and expiry during an existing poison.",
+    "Verify immunity, poison-duration defenses, cure/replacement, owner removal, credit and persistence without inventing hidden status stacks.",
+    "Retain existing weapon/proc and minion rules; this answer establishes the pure poison spell case."
+  ]
+}

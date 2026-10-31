@@ -355,16 +355,25 @@ public static class ClassSkillChecks
         Require(first.X == origin.X + 2 && first.Y == origin.Y && second.X == origin.X + 4 && second.Y == origin.Y, "Projectile fixture is not collinear");
         player.Mana = player.ManaMax;
         Require(NecromancerCombat.Release(player, CombatAbility.BoneSpear, first.Serial, first.Location), "Bone Spear release");
-        int a = first.Hits, b = second.Hits;
-        Timer.StartTimer(TimeSpan.FromSeconds(2), () =>
+        TimedEffects.PreventHealing(first,TimedEffects.Now);TimedEffects.PreventHealing(second,TimedEffects.Now);
+        int a=SkillHealth.Balance256(first),b=SkillHealth.Balance256(second);
+        FixtureClock.NextLoop("class-skills-projectiles-result",()=>
         {
             try
             {
-                Require(first.Hits < a && second.Hits < b, $"Travelling Bone Spear failed: {a}->{first.Hits}, {b}->{second.Hits}; {player.Location}->{first.Location}->{second.Location}; LOS={player.InLOS(first)}/{player.InLOS(second)}");
+                // This disconnected geometry fixture explicitly supplies active
+                // frames; natural connected right/quick casts are separate.
+                for(int frame=0;frame<40;frame++)
+                {
+                    var flights=NecromancerSpellMissiles.Snapshot().Flights.Where(x=>x.Owner==player.Serial.Value).ToArray();if(flights.Length==0){break;}
+                    NecromancerSpellMissiles.Tick(flights.Max(x=>x.NextUtc),true);
+                }
+                Require(SkillHealth.Balance256(first)<a&&SkillHealth.Balance256(second)<b,"Travelling Bone Spear failed two-target piercing");
+                Require(!NecromancerSpellMissiles.Snapshot().Flights.Any(x=>x.Owner==player.Serial.Value),"Spear fixture survived40frames");
                 _log.Information("class-skills-projectiles-result: passed");
             }
             catch (Exception e) { _log.Error(e, "class-skills-projectiles-result: failed"); }
-            finally { player.Delete(); first.Delete(); second.Delete(); }
+            finally { NecromancerSpellMissiles.Cancel(player);player.Delete();first.Delete();second.Delete(); }
         });
     }
 }

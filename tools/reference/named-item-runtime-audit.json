@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "4b0f5ac83751bc452271472b8d891d33a744c575b073967914c2052b01bef22c",
+  "ContentAssemblySha256": "e7d00b0d891e875519ed367c07e9a59b89acc6c4cac634806c513b2debe64590",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -365,7 +365,7 @@
     "src/Sanctuary.Content/CombatDisplacement.cs": "4a771a4aadb29d83d51b92397b321abb446560b1ba1276dc369127469c3fe540",
     "src/Sanctuary.Content/CombatHitboxes.cs": "962ac908a007b482542e75a9b22ce21bd60acd69561ebd515b192c6e4f35eaac",
     "src/Sanctuary.Content/CombatItemEvents.cs": "79b27d721372baa08ef515d93525a47ad9e37616a8633ab06b0fd11e57fb4b28",
-    "src/Sanctuary.Content/CombatPotions.cs": "05436c9243be26d540bad24ba9d5a5163687f3d1234cb828da4829ad414440b8",
+    "src/Sanctuary.Content/CombatPotions.cs": "a7f3862e7a08f09b5490b89853627938d9d4f0029510080a2668530432015538",
     "src/Sanctuary.Content/CombatPractice.cs": "2a3552999a9c6cdcf644917f551629f8a3c62c7eda31e90378415d935509765f",
     "src/Sanctuary.Content/CombatStuns.cs": "af64cdd6e32abc34ce39bd72def8bb36372d45fdb58e545e2e58249d232f6097",
     "src/Sanctuary.Content/CorpseBaseLife.cs": "cd955dd78f589c3db7dbb70602518955cdc3524b835d40ac87c8030b7e012e4e",
@@ -648,7 +648,7 @@
     "src/Sanctuary.Content/NecromancerMageMissiles.cs": "9fa6213f35b7418555b254088f0890e552a9a195fca007c3458b6fb9f02d2e2b",
     "src/Sanctuary.Content/NecromancerPetAi.cs": "d33b3dea85ff8a235eecc95342ddbf3d25a0eabc37764340c9c5ec935b7e2de6",
     "src/Sanctuary.Content/NecromancerSkeletons.cs": "c712a1df9643277b7eb2ac7f88a9cb37f8574010265c25403d15cc43a6e98ec0",
-    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "dc3055f69f7c07989126f3258da0d0addc5dd843770e76adba7d3acc17f5b164",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "0b9fefa1b2044b656d84f953fff820984e1b028793fa04df572e3c44f85398be",
     "src/Sanctuary.Content/NecromancerSummons.cs": "fce0d8683101f99231ad1648b09644706871906adfa7dccb0138327052e81660",
     "src/Sanctuary.Content/NpcCombatEvents.cs": "96f5c3d938720b9185790fbd21a5cd9d2bbf138cdf63de8de82d9bdfdedf1e01",
     "src/Sanctuary.Content/NpcEquipmentCombat.cs": "b16c6f63e2e9ae806394184d8db024ade624dbaa32639a5ffe2c1454bf6b1506",

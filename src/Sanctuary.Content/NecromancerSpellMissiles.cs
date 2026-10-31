@@ -168,11 +168,11 @@ internal static class NecromancerSpellMissiles
         if(removed||result.Result==2){Flights.Remove(s.Id);return;}Flights[s.Id]=next;
         if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),map,0x36E4,2);} // Identified Bone Spear placeholder.
     }
-    internal static GearDamage Packet(NecromancerSpellFlight s,int magic256)
+    internal static GearDamage Packet(NecromancerSpellFlight s,int magic256,int potion=0)
     {
-        // Retain the approved shared spell-potion additions; these are
+        // Potion eligibility is supplied at impact, as required by T29. These are
         // separate from the D2 SrcDam0 packet and introduce no weapon stats.
-        var m=s.Modifiers;double magic=magic256/256.0,added=magic*m.Potion/100;
+        var m=s.Modifiers;double magic=magic256/256.0,added=magic*potion/100;
         return new(0,added*Math.Max(0,100+m.FireMastery)/100,added*Math.Max(0,100+m.ColdMastery)/100,
             added*Math.Max(0,100+m.LightningMastery)/100,added*Math.Max(0,100+m.PoisonMastery)/100,Magic:magic);
     }
@@ -181,7 +181,7 @@ internal static class NecromancerSpellMissiles
         SorceressEffects.MissileHit(owner,target,Missile(s.Ability));ulong seed=s.Seed;
         int raw=WeaponMissileDamage.RollValue(s.Minimum256,s.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         if(ClassAvoidance.Missile(target,Missile(s.Ability))){return seed;}
-        owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s,raw));
+        owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s,raw,CombatPotions.BonusAt(owner,"magical-penetration",s.NextUtc)));
         int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);return seed;
     }
