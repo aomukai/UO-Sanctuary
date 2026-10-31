@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "localTables": {
+    "monstats-sentries-verified.txt": {
+      "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+      "corroboratedFields": 79
+    },
+    "skills.txt": {
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "corroboratedFields": 69
+    }
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 11475,
+  "unsafePercentageCases": 1620,
+  "nonpositiveWrappedLifeCases": 1299,
+  "functions": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "maxHpCallbackBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "reviewedOnly": {
+    "SKILLS_SrvDo056_Golem": "b6e5942e72ebaffadd5ac45daeeabd5115c65b02639036fd382e1f0ab1e0f36b"
+  },
+  "inputs": {
+    "tools/probe_blood_golem_birth.py": "7b585ac9ceb369f238a5e5961db4ccb226979c156d6eb0c04a3a694a654d9058",
+    ".local/class-skills/mage-birth-source/probe.cpp": "85bee2ffba964650422e9cfa35425f9cff786cdc1e841ac2b3db4a582a2f71b8",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitEvent.h": "64f385bef1e008d1d94ab59eb537bfc80fc0bb3fa6b41859d66063028bac614f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "artifacts": {
+    ".local/class-skills/blood-golem-birth-source/probe.cpp": "f8edc21a6984b8647f3f8af930221e298aff12aa11d1240f75171986d2c6c225",
+    ".local/class-skills/blood-golem-birth-source/cases.json": "c0851c21c4eb6653d40d2efc15d89ab40e3cce395f81f4cdc05954cc5f551bf0",
+    ".local/class-skills/blood-golem-birth-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/blood-golem-birth-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete shared base/passive/resistance/MAXHPcallback bodies execute11475current Blood Golem contexts with declared current formula/stat/spawn services. Fixed noRatio201/388/637HP bases preserveFP256 percentage life and changed maximum regeneration from DamageRegen3.",
+    "Effective Golem Mastery modifies life/AR/velocity;Clay/Iron/Fire synergies use hard ranks. Current source writes attack,armor,damagepercent and velocity separately;three event23/26registrations are captured without executing their callbacks.",
+    "The source percentage helper can wrap signed multiplication in an extreme rank domain. Explicit-fwrapv records those rows;native delivery must refuse unsupported arithmetic rather than invent positive life."
+  ],
+  "remaining": [
+    "Initializer/equipment generation,initial S1/AI/clock/movement,full events/current executable and native combat/owner/save delivery are not certified by scalar source services.",
+    "The three event23/26callbacks and their full modern health/damage-sharing behavior are not executed here. Native birth,regen,facet,buff,persistence and combat acceptance remain separate. Physical Sunder is supplied zero and remains unsupported."
+  ]
+}
