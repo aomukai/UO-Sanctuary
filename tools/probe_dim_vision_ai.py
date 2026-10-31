@@ -104,18 +104,58 @@ for(int axis:{0,1})for(int offset:{0,1,2})for(int xsign:{0,1})for(int ysign:{0,1
     assert len(data) == 12288
     cases = STAGE / 'cases.json'
     cases.write_text(json.dumps(data, separators=(',', ':')) + '\n')
+    wrapper_prefix = prefix.replace('int32_t AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,int32_t);',
+        'int walkDistance=0;int32_t AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,int32_t d){walkDistance=d;return 1;}')
+    wrapper_cpp = wrapper_prefix + r'''
+bool present=false,escapeCondition=false,collisionCondition=false;int distanceInput=0;D2UnitStrc candidate;
+D2UnitStrc* sub_6FCF2110(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int* distance,int* combat){*distance=distanceInput;*combat=0;return present?&candidate:nullptr;}
+int sub_6FCF2E70(D2UnitStrc*){return escapeCondition;}
+void* UNITS_GetRoom(D2UnitStrc*){return &game;}
+int PATH_GetUnitCollisionPattern(D2UnitStrc*){return 1;}
+constexpr int COLLIDE_MISSILE=1;
+int COLLISION_CheckAnyCollisionWithPattern(void*,int,int,int,int){return collisionCondition;}
+'''+review_bodies['sub_6FCCF9D0']+r'''
+int main(){D2UnitStrc unit;D2AiControlStrc control;bool first=true;printf("[");
+for(int target:{0,1})for(int escape:{0,1})for(int collision:{0,1})for(int row:{0,1})for(int walk:{0,1})for(int distance:{-1,0,24,25,34,35,2147483647}){
+ Reset();walkDistance=0;present=target;escapeCondition=escape;collisionCondition=collision;hasModes=row;modes.dwModeFlags=walk?gdwBitMasks[MONMODE_WALK]:0;distanceInput=distance;
+ int observedDistance=0,combat=0;auto* result=sub_6FCCF9D0(&game,&unit,&control,&observedDistance,&combat);
+ printf("%s[%d,%d,%d,%d,%d,%d,%d,%d,%d]",first?"":",",target,escape,collision,row,walk,distance,result!=nullptr,neutral,walkDistance);first=false;
+}printf("]\n");}
+'''
+    wrapper_source = STAGE / 'target-wrapper.cpp'
+    wrapper_source.write_text(wrapper_cpp)
+    compiled = subprocess.run(['g++', '-std=c++20', '-O1', '-g', '-fsanitize=address,undefined', '-fno-sanitize-recover=all', str(wrapper_source), '-o', str(STAGE / 'target-wrapper')], capture_output=True)
+    (STAGE / 'target-wrapper-compiler.log').write_bytes(compiled.stdout + compiled.stderr)
+    assert compiled.returncode == 0, compiled.stderr.decode()
+    run = subprocess.run([str(STAGE / 'target-wrapper')], capture_output=True)
+    (STAGE / 'target-wrapper-sanitizer.log').write_bytes(run.stderr)
+    assert run.returncode == 0 and not run.stderr, run.stderr.decode()
+    wrapper_rows = json.loads(run.stdout)
+    for target, escape, collision, row, walk, distance, result, neutral, moved in wrapper_rows:
+        displace = not target and (escape or collision) and row and walk
+        frames = 25 if distance >= 35 else distance - 10 if distance >= 25 else 10
+        assert (result, neutral, moved) == (target, frames if not target and not displace else 0, 5 if displace else 0)
+    assert len(wrapper_rows) == 224
+    wrapper_cases = STAGE / 'target-wrapper-cases.json'
+    wrapper_cases.write_text(json.dumps(wrapper_rows, separators=(',', ':')) + '\n')
+    combined = ROOT / '.local/class-skills/blind-policy-source-probe.json'
+    combined.write_text(json.dumps(dict(tick=data, targetWrapper=wrapper_rows), separators=(',', ':')) + '\n')
+    bodies['sub_6FCCF9D0'] = reviewed.pop('sub_6FCCF9D0')
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], contexts=len(data), runtimeChanged=False,
+        targetWrapperContexts=len(wrapper_rows),
         compiledUnchangedRoutines=bodies, reviewedUnexecutedRoutines=reviewed,
         sourceCallerContracts=dict(dimVisionTargetMode=1,sharedState17TargetMode=2,nullTargetIdleFrames=dict(near=10,middle='distance-10',far=25),nullTargetDisplacementDistance=5),
         inputs={**sources, str(scaffold.relative_to(ROOT)): sha(scaffold), str(Path(__file__).relative_to(ROOT)): sha(Path(__file__))},
-        artifacts={str(p.relative_to(ROOT)): sha(p) for p in [source, cases, STAGE / 'compiler.log', STAGE / 'sanitizer.log']},
+        artifacts={str(p.relative_to(ROOT)): sha(p) for p in [source, cases, STAGE / 'compiler.log', STAGE / 'sanitizer.log',
+            wrapper_source,wrapper_cases,STAGE/'target-wrapper-compiler.log',STAGE/'target-wrapper-sanitizer.log',combined]},
         established=[
             'Complete blind special-state10/17 tick attacks in combat only with nonnegative class,non-interacting species and A1 mode. This branch consumes no percentage or wandering RNG calls.',
             'Otherwise exactly one percentage call chooses20percent WalkClose(distance3) versus neutral idle10frames. WalkClose executes complete three-raw/one-limited draw chronology,axis/sign offsets,walk mode,step1 and flags0. Failed movement does not add an idle/fallback in this tick body.',
+            'The complete target-mode1 acquisition wrapper executes224contexts. Found targets return without its idle/displacement service;missing targets request displacement5only on the supported escape/collision+walk branch,otherwise idle10/distance-10/25frames. No percentage call is introduced by this wrapper.',
             'The probe safely extracts the prior Howl declared service scaffold as data without running its producer or modifying accepted Howl artifacts.'],
         remaining=[
             'AI percentage/raw/limited RNG,table lookup,combat target,mode/path entry and clock/event services remain declared. Current native/source actor seed ownership,acquisition,pending movement,mode callbacks and actual scheduling are not executed here.',
-            'Static-only complete caller review:Dim Vision special-state10 uses target mode1,which returns before this tick when its acquisition wrapper finds no target. That wrapper may displace5source units or idle10/distance-10/25frames. State17 shares the tick but uses target mode2. Do not apply the20percent tick unconditionally to no-target actors;these caller bodies are hash-recorded,not executed.',
+            'The complete mode1 acquisition wrapper now executes224contexts with declared target selection,collision and mode-entry/idle services. Its no-target branch displaces5source units or idles10/distance-10/25frames without calling the blind tick. Full dispatcher/table/idle/mode-entry review remains static-only;state17usesmode2.',
             'Source distance3 is in source coordinates. Native half-subtile rounding/path geometry,move completion/failure scheduling and saved state integration remain implementation work. The source tick does not itself check active blindness;dispatcher/removal chronology remains separate.',
             'No C# change,native acceptance,completed skill/class or deployment. Dim Vision learned casting has its own candidate/checkpoint;this source probe must not be used to certify its unfinished blind tick.'])
     destination = ROOT / 'tools/reference/dim-vision-ai-source-evidence.json'
@@ -124,7 +164,7 @@ for(int axis:{0,1})for(int offset:{0,1,2})for(int xsign:{0,1})for(int ysign:{0,1
         assert destination.read_text() == rendered
     else:
         destination.write_text(rendered)
-    print('Blind AI:12288 complete tick/walk-near contexts passed ASan/UBSan; world/RNG/scheduler services explicit.')
+    print('Blind AI:12288 complete tick/walk-near and224target-wrapper contexts passed ASan/UBSan; world/RNG/scheduler services explicit.')
 
 
 if __name__ == '__main__':

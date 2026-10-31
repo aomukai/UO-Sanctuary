@@ -3,14 +3,15 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "contexts": 12288,
   "runtimeChanged": false,
+  "targetWrapperContexts": 224,
   "compiledUnchangedRoutines": {
     "AITACTICS_WalkCloseToUnit": "0ddbffb39d07a44d33de644f50b740f8caecd4f7d08641007d56faa2555cafcb",
-    "D2GAME_AI_SpecialState10_17_6FCE7CF0": "1f3722e5e81da8f71ff78ef06c5021d296c7b3668c76c8bd36248c613a75fbba"
+    "D2GAME_AI_SpecialState10_17_6FCE7CF0": "1f3722e5e81da8f71ff78ef06c5021d296c7b3668c76c8bd36248c613a75fbba",
+    "sub_6FCCF9D0": "d37d35d682dd549ac32781562486c8eab44d6ac4deee4da401dd1734c7b76641"
   },
   "reviewedUnexecutedRoutines": {
     "AITHINK_GetAiTableRecord": "be5a3ced81e1d61906f25bed3313ca849aac500c4a1be080fe0f331df2de9cf3",
     "D2GAME_MONSTERS_AiFunction03_6FCF0A70": "4565d17c8488311d519ce1e44c03ee55eaa3e7bb7814970c460e7783eeab21ca",
-    "sub_6FCCF9D0": "d37d35d682dd549ac32781562486c8eab44d6ac4deee4da401dd1734c7b76641",
     "AITACTICS_Idle": "ebd28ee5845f789f73cbc6dad96e105345280197d855257ce48e396ef687d002",
     "AITACTICS_IdleInNeutralMode": "f33d3b068fb492a2fe39a87d61b567709f538faa7788d76327f85859bba5b894",
     "AITACTICS_MoveToTarget": "395367e2c5eec56ca7d0c914e698c52de6206e7906caf95aa77fedc8b00a8193"
@@ -29,22 +30,28 @@
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
     "tools/probe_howl_reference.py": "065a1181e22e99df98bac3de41ba5cd47569eb9aa0fce3dca04e38e65191994a",
-    "tools/probe_dim_vision_ai.py": "1f86211198bbadca496af1673a95d2775cf324f9fe4c3f410ae5fba8f2f77f26"
+    "tools/probe_dim_vision_ai.py": "7402e0717c6a980b6bf711c8494f8d862c71df64ec7256df586824fac6bc4f5d"
   },
   "artifacts": {
     ".local/class-skills/dim-vision-ai-source/probe.cpp": "43fceaaddda19cee09bfdf0806ace776bac35ccb16728bf05ed5262d258f4d61",
     ".local/class-skills/dim-vision-ai-source/cases.json": "f7d675d6c7bba0d5f63b96556ed52c10ac267e4ffdd068e1292539dd8a61b730",
     ".local/class-skills/dim-vision-ai-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/dim-vision-ai-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ".local/class-skills/dim-vision-ai-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dim-vision-ai-source/target-wrapper.cpp": "714babcd4719883a354ef2bc4e1a62a60b96ff8c8ffcbde29dd3adbe67908ccb",
+    ".local/class-skills/dim-vision-ai-source/target-wrapper-cases.json": "3cd62fe9b90c52af45e6f190c199d2053024b9b3225a198b7f6ea3158fd27360",
+    ".local/class-skills/dim-vision-ai-source/target-wrapper-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dim-vision-ai-source/target-wrapper-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/blind-policy-source-probe.json": "dd909ab5b1287ffb2d2bdca7249f902bd6234ea455918f836369d42da8dc8974"
   },
   "established": [
     "Complete blind special-state10/17 tick attacks in combat only with nonnegative class,non-interacting species and A1 mode. This branch consumes no percentage or wandering RNG calls.",
     "Otherwise exactly one percentage call chooses20percent WalkClose(distance3) versus neutral idle10frames. WalkClose executes complete three-raw/one-limited draw chronology,axis/sign offsets,walk mode,step1 and flags0. Failed movement does not add an idle/fallback in this tick body.",
+    "The complete target-mode1 acquisition wrapper executes224contexts. Found targets return without its idle/displacement service;missing targets request displacement5only on the supported escape/collision+walk branch,otherwise idle10/distance-10/25frames. No percentage call is introduced by this wrapper.",
     "The probe safely extracts the prior Howl declared service scaffold as data without running its producer or modifying accepted Howl artifacts."
   ],
   "remaining": [
     "AI percentage/raw/limited RNG,table lookup,combat target,mode/path entry and clock/event services remain declared. Current native/source actor seed ownership,acquisition,pending movement,mode callbacks and actual scheduling are not executed here.",
-    "Static-only complete caller review:Dim Vision special-state10 uses target mode1,which returns before this tick when its acquisition wrapper finds no target. That wrapper may displace5source units or idle10/distance-10/25frames. State17 shares the tick but uses target mode2. Do not apply the20percent tick unconditionally to no-target actors;these caller bodies are hash-recorded,not executed.",
+    "The complete mode1 acquisition wrapper now executes224contexts with declared target selection,collision and mode-entry/idle services. Its no-target branch displaces5source units or idles10/distance-10/25frames without calling the blind tick. Full dispatcher/table/idle/mode-entry review remains static-only;state17usesmode2.",
     "Source distance3 is in source coordinates. Native half-subtile rounding/path geometry,move completion/failure scheduling and saved state integration remain implementation work. The source tick does not itself check active blindness;dispatcher/removal chronology remains separate.",
     "No C# change,native acceptance,completed skill/class or deployment. Dim Vision learned casting has its own candidate/checkpoint;this source probe must not be used to certify its unfinished blind tick."
   ]

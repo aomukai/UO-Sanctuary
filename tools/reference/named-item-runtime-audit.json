@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7a9cd25921fd020875e3f8b41cd5d5ae2c52f0a7b648c5c455653251421d5bb6",
+  "ContentAssemblySha256": "48861dbe3885e111f063d0d6d386952907826d76cbe8cc46f57928f15a6ff7f8",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -332,6 +332,7 @@
     "src/Sanctuary.Content/BladeShieldDamage.cs": "ba098a5ad392e17dfc6620872bb545dadee470913034802fb95c0b54a876f2a5",
     "src/Sanctuary.Content/BladeShields.cs": "42aae00d4c2aae051bb5207686bed192c302eacf9459c645ba28132c072a2020",
     "src/Sanctuary.Content/BlessedHammers.cs": "767cd07caf3f3b598cc6edd92b7e245285301f723539a9cde68d7aea4f53d8b1",
+    "src/Sanctuary.Content/BlindAiPolicy.cs": "17afc24eac3d91ab463a2285f866cca43e6ffc675165a8ee460831303c1534fb",
     "src/Sanctuary.Content/Blizzards.cs": "e85b46cc6adf3f3aeca09c3ddb6472c2e853d4fdaf81c070c69e4d16c99060dd",
     "src/Sanctuary.Content/BloodGolemBody.cs": "f84d3f111c13fcb6fc7e07beb3639223771991006b3a7fb1df58899d1b9cfee9",
     "src/Sanctuary.Content/BloodGolemContact.cs": "3a5213d652ad6a54db6fef496133191d2d5da6cde72fe5a3968bf21970565688",

@@ -1,0 +1,68 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Blind target-mode1 decision/tactics foundation",
+  "installed": false,
+  "activeWorldBehaviorChanged": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "verified": {
+    "nativeTickTacticsComparisons": 12288,
+    "nativeNoTargetComparisons": 112,
+    "sourceTargetWrapperContexts": 224,
+    "focusedMarkers": 5,
+    "boots": 1,
+    "saves": 0,
+    "actualReloads": 0,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      850,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "audit": {
+      "path": ".local/class-skills/blind-policy/audit-inputs.json",
+      "sha256": "6160326c07af6243f1bf7e110814cbb7908b532e91c6bdfb84a3d934366a5915"
+    }
+  },
+  "addedSourceHashes": {
+    "src/Sanctuary.Content/BlindAiPolicy.cs": "17afc24eac3d91ab463a2285f866cca43e6ffc675165a8ee460831303c1534fb",
+    "tests/Sanctuary.Integration/BlindPolicyChecks.cs": "e24711b3cf48aff7f0e23a2ec2fb1c2c3d225341d57c900e55a48c1f134bbadd"
+  },
+  "artifacts": {
+    ".local/class-skills/blind-policy/audit-inputs.json": "6160326c07af6243f1bf7e110814cbb7908b532e91c6bdfb84a3d934366a5915",
+    ".local/class-skills/blind-policy/audit-native-checks.log": "c80810d6c4f6ad85a7b131d07081cd9b2242bf9dc602ef9236c593ca9a7f0548",
+    ".local/class-skills/blind-policy/content-build-1.log": "ab3ba9fb448dff179d3bf76f01d315ef8c8f6a0b53be557d5f9b640a9c71cdb2",
+    ".local/class-skills/blind-policy/integration-build-1.log": "2ee33bfa4ddc3f2f81b17da7cf3241b9920bc05150026c4e8630743961cf3ff6",
+    ".local/class-skills/blind-policy/pre-build-1.json": "90acc40ed6ca7187e62fea6188e5998a49db2a1bcb46754002c2e8e3dad6e81e",
+    ".local/class-skills/blind-policy/python-tests.log": "898ff716612b3de1ea6b30e6e9bb1e1b25f19d286d8dbdeb2b2406f9c537fd63",
+    ".local/class-skills/blind-policy/run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    "docs/blind-policy-checkpoint.md": "b0178c952c171421819b5da8554ab64c7e18252133f729639e61790238393fab",
+    "docs/class-skill-roadmap.md": "45591c262a48b7403f7fbb5a2c5cea6deb9736ff755a81e84970478e0fb9b6c7",
+    "docs/class-skills-resume-checkpoint.md": "802feb8e7cb80491ba1e3d1d6b2b2388e956c9ff73679fde263204203898b101",
+    "docs/necromancer-ai-curse-source-review.md": "6b11337d5c692e41185a6dfa0cf70c68972ce9ab11b6370fa066c618568a5e37",
+    "src/Sanctuary.Content/BlindAiPolicy.cs": "17afc24eac3d91ab463a2285f866cca43e6ffc675165a8ee460831303c1534fb",
+    "tests/Sanctuary.Integration/BlindPolicyChecks.cs": "e24711b3cf48aff7f0e23a2ec2fb1c2c3d225341d57c900e55a48c1f134bbadd",
+    "tests/check_blind_policy.py": "f8ce3ac2270963a90b1f1551749034893dd305c52d32cf85c363ea211b70cacf",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/probe_dim_vision_ai.py": "7402e0717c6a980b6bf711c8494f8d862c71df64ec7256df586824fac6bc4f5d",
+    "tools/record_blind_policy.py": "34eeacaea9a5b0f93ce7b074338bbc99b45954b5e107d82f7f6123be1429b6ca",
+    "tools/reference/dim-vision-ai-source-evidence.json": "f2f721747e33b7464858a7febd54284c734e9924a350fc6cd2b350d6f3e40517",
+    "tools/reference/dim-vision-cast-native-evidence.json": "7dab993322fdd482c7b08ab83d0cc33bd98d51bbc962655e1fd27e0ad64d9a67",
+    "tools/reference/first-loop-affix-audit.json": "ead2253333f788414e726ae17e651383c0028719331aecbbbf09308dfe641377",
+    "tools/reference/named-item-runtime-audit.json": "1f29e021e7a3991fb0629d9052d3f08651544b062c32bdc7df4197a32bc4ae06"
+  },
+  "established": [
+    "New unused C#BlindAiPolicy matches12288complete source tick/tactics outputs and draw chronology;all112no-target rows of the224source wrapper contexts match without invoking percentage. Source target-present wrapper rows are not counted as extra native verification.",
+    "One focused disposable boot passes5markers including shared Thorns/named/affix consumers.71Python/573named and clean builds pass;850/21fingerprints. All predecessor C#files,runtime data,staged kernel and106installed artifacts unchanged."
+  ],
+  "remaining": [
+    "This pure component is not connected to live skill behavior. It owns no actor RNG store,clock,target acquisition,mode/path service or saved controller;full Dim Vision AI/skill/class remains unfinished.",
+    "Movement requests are not completed moves. Source distance3offsets/draws are compared;distance5geometry,actual world/mode/collision,frame cadence/removal,shared actor RNG ownership and save/reload integration remain acceptance work. Table/dispatcher/idle/mode entry review stays static-only.",
+    "No full512world regression or save/reload claim for this unused-helper increment. Latest active learned-cast behavior remains the prior Dim Vision scope. No deployment,new Mobile,save field,handler or assets;effects/icons remain separately tracked."
+  ]
+}
