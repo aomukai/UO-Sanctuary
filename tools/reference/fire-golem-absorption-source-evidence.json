@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 2916,
+  "functions": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "tools/probe_fire_golem_absorption.py": "21862673a8dc61ae2ef37c6e9912e04e84786b70e4ae60b0579fa5884a511b81"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-absorption-source/probe.cpp": "7f50afe256f3539273d705ce461560444cec0f0dce981785df83be75cc840f7d",
+    ".local/class-skills/fire-golem-absorption-source/cases.json": "c358a98b64f056f3994ec931521aa86edbbc1f2dd044fd2ea0deedf3d874bfc4",
+    ".local/class-skills/fire-golem-absorption-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/fire-golem-absorption-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged reducer/percentage bodies execute2916declared monster contexts. Innate and own-item percentage values share one stat pool,capped40before flat absorption. Raw fire immunity prevents both damage and absorption;fractional and large-value division are retained.",
+    "Value/MDR controls exclude negative residuals,whose existing Sanctuary zero clamp is a separate existing adapter. World/stat/pierce/Sanctuary services remain declared;full current executable/event/initializer equivalence is not asserted."
+  ],
+  "remaining": [
+    "Native Fire Golem resolver/AOS/prepared/health/reload integration remains to be verified. Historical adapter migration and full outgoing elemental/aura/death behavior remain separate."
+  ]
+}

@@ -32,7 +32,7 @@ public static class NamedElements
         || Bonus(owner, "extra-ltng") != 0 || Bonus(owner, "extra-pois") != 0 || Bonus(owner, "extra-mag") != 0 || Bonus(owner, "pierce-mag") != 0
         || Bonus(owner, "pierce-fire") != 0 || Bonus(owner, "pierce-cold") != 0
         || Bonus(owner, "pierce-ltng") != 0 || Bonus(owner, "pierce-pois") != 0;
-    public static bool Defense(Mobile target) => Bonus(target, "abs-fire") != 0 || Bonus(target, "abs-fire%") != 0
+    public static bool Defense(Mobile target) => target is FireGolemBody{Kind:CombatAbility.FireGolem} fire && fire.FireAbsorb>0 || Bonus(target, "abs-fire") != 0 || Bonus(target, "abs-fire%") != 0
         || Bonus(target, "abs-cold") != 0 || Bonus(target, "abs-cold%") != 0
         || Bonus(target, "abs-ltng") != 0 || Bonus(target, "abs-ltng%") != 0;
     public static int Resistance(Mobile source, Mobile target, string element, int resistance, int? pierceOverride = null)
@@ -105,6 +105,11 @@ public static class NamedElements
             int innate=target is NecromancerMinion minion && element=="fire"?minion.FireAbsorb:0;
             int absorb=Bonus(target,"abs-"+element+"%");
             int flat=(int)Math.Clamp((long)Bonus(target,"abs-"+element)*256,0,int.MaxValue);
+            // New learned Fire Golems use the same accrued percentage pool
+            // and40percent cap as the complete source reducer. Flat absorption
+            // follows that percentage; no owner item stats are inherited.
+            if(element=="fire"&&target is FireGolemBody)
+            {return Reduce256(damage256,resist,scaledReduction,checked(innate+absorb),flat);}
             // Keep the existing innate Fire Golem adapter isolated pending its
             // source audit. Ordinary item absorption is capped40,including on
             // non-fire Necromancer minions. Do not invent a mixed innate/item

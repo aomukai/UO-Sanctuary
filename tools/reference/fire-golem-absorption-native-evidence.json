@@ -1,0 +1,120 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Fire Golem40percent absorption cap and FP health composition",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 360,
+    "retainedPredecessorMarkers": 354,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      842,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 2916,
+    "absorbCap": 40,
+    "finalSavedGeneration": 2,
+    "finalSavedLife": 73926,
+    "finalSavedMaximum": 84134,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/fire-golem-absorption/birth-inputs.json",
+      "sha256": "8dc55c3500f8909189acc420424c5640caf6063519bf199f715b321bfb909ab6"
+    },
+    "audit": {
+      "path": ".local/class-skills/fire-golem-absorption/audit-inputs.json",
+      "sha256": "478cd2ea669c4e0c4a738e6492d4c44b5caeb0a470f32124836b9e71a261219f"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    },
+    "mage-missile-source-evidence.json": {
+      "path": "tools/reference/mage-missile-source-evidence.json",
+      "sha256": "68769019b38b073efc92f7417cb00d8de05314e55c9bd557cd68bce54e09cdc1"
+    },
+    "fire-golem-birth-source-evidence.json": {
+      "path": "tools/reference/fire-golem-birth-source-evidence.json",
+      "sha256": "d00bafdd93935b27c1342db092717a799753aa4c55b155fb068232edf820d91b"
+    },
+    "fire-golem-absorption-source-evidence.json": {
+      "path": "tools/reference/fire-golem-absorption-source-evidence.json",
+      "sha256": "e6dc26573d4ad1d5a9a5d1c727a0b1853f6bfb680b51e73f5728ca81ed1d8a74"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NamedElements.cs": "0eef526f399ee56dc78895245e887bc5274741b7db4af7946b38c77b6d3f2bb5",
+    "tests/Sanctuary.Integration/FireGolemAbsorptionChecks.cs": "5cc9990f137f0b64a404ce95d3e970d46ba26c237694c02f5d8a8b72826823e9"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-absorption/audit-inputs.json": "478cd2ea669c4e0c4a738e6492d4c44b5caeb0a470f32124836b9e71a261219f",
+    ".local/class-skills/fire-golem-absorption/audit-native-checks.log": "07ac5ab8cd0edc70ac3d2f570baec0c812ab4b321f0fa055669fbbf8a5a1742d",
+    ".local/class-skills/fire-golem-absorption/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/fire-golem-absorption/birth-inputs.json": "8dc55c3500f8909189acc420424c5640caf6063519bf199f715b321bfb909ab6",
+    ".local/class-skills/fire-golem-absorption/birth-native-checks.log": "3cfbafea497506cc074508ab5b9664e124011819a9a40960df4caf1b94e070dc",
+    ".local/class-skills/fire-golem-absorption/content-build-1.log": "a48f841096049d5ec835386746ff5e0248897c7dc153ea4ca64e6c6eb7e23d38",
+    ".local/class-skills/fire-golem-absorption/damage-rounding-checks.json": "6f68735af505ad054ecf245d0c1a6db9df51c08bcf10b4ea89a4f62c937e7b9d",
+    ".local/class-skills/fire-golem-absorption/fire-golem-absorption-fixtures.json": "89d23a214e15bead14a349417993151972aee1faba966379671a2536181296e3",
+    ".local/class-skills/fire-golem-absorption/integration-build-1.log": "399ac27a818ee939a98b57093ac4713b75c7f6898887564e109955cb64c8396c",
+    ".local/class-skills/fire-golem-absorption/iron-golem-cast-fixtures.json": "2eb4616974424cfe2117229f223758cb9c9449acb8093534c6264cd413c9c740",
+    ".local/class-skills/fire-golem-absorption/mage-missile-fixtures.json": "16f1ecbb2a512f5faf877cf9c19749a77d8169ef1146e734c8afcad418f0248a",
+    ".local/class-skills/fire-golem-absorption/pre-build-1.json": "2c59904057141a492cf454b26053899998548af7e608a0869342b4fbf0865a95",
+    ".local/class-skills/fire-golem-absorption/python-tests.log": "bcb37c744db3a9ef3f8bae60dc8bccc63b28ff2478ef80191867a15f6ccf0f66",
+    ".local/class-skills/fire-golem-absorption/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/fire-golem-absorption/skeleton-contact-fixtures.json": "69878837968466fa3ba9e4222ee8d9c228a32341fc9cad5577077c4ba0fba66f",
+    "docs/class-skill-roadmap.md": "045b6ff5aeb7afd243e4b80662841392499d23bd46e11722d6d898d161f3ac2f",
+    "docs/class-skills-resume-checkpoint.md": "9648ca53e740c035ad509c5078964e465b93795ffd673b23c0425a2dff024105",
+    "docs/fire-golem-absorption-checkpoint.md": "867a218f6f7c53460e50ed35f58ba7f1c83f93be5f0020fbec71202f372b61a3",
+    "docs/necromancer-mechanical-audit.md": "5648325c0cfb42abfc4a5f0619c93faf5cac0e3c7fa62bace6f523e03bd163b6",
+    "docs/skill-effects.md": "0a3e5a71fed984a4bf81b504d9eb6983c85a63e4b3350adf6bfbb161924bf9f5",
+    "docs/skill-icons.md": "71bc0b0f153ceb603110561b3b2b404859751d961c190b9823024a2f359765e1",
+    "docs/skill-mechanical-reference.md": "4e666b7ab3a1e498f9e50e8cb1b0e455157bf15af85040b8e473307129f805fb",
+    "src/Sanctuary.Content/NamedElements.cs": "0eef526f399ee56dc78895245e887bc5274741b7db4af7946b38c77b6d3f2bb5",
+    "tests/Sanctuary.Integration/FireGolemAbsorptionChecks.cs": "5cc9990f137f0b64a404ce95d3e970d46ba26c237694c02f5d8a8b72826823e9",
+    "tests/check_fire_golem_absorption.py": "ba16f00f5dfca25f0400d61a64f3f56e94cb6719500b57d3ec6f87ba4e062f29",
+    "tools/build_class_skills.py": "4b3d8a5a80e3df45ddd3fd79051d1d8d36c53ece2d977185555bf3acddbdf40d",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/probe_fire_golem_absorption.py": "21862673a8dc61ae2ef37c6e9912e04e84786b70e4ae60b0579fa5884a511b81",
+    "tools/record_fire_golem_absorption.py": "248b49fa9f2cd35b02baaac7a5488e21be9944b938a7dbf26addec7a572aad96",
+    "tools/reference/damage-rounding-engine-evidence.json": "229f8803e7ceeb1a7c61c49e377f03cc58b448c51da4cfeed5d579ff89630637",
+    "tools/reference/fire-golem-birth-native-evidence.json": "e13516736e21bfbc6853ecccae4a4a305baf88c93483530ca587512b5cc92c3f",
+    "tools/reference/first-loop-affix-audit.json": "2806af5e67b9dceee14094396b2a66cd9ff5b98bb879ab541c4657be9b47cd14",
+    "tools/reference/named-item-runtime-audit.json": "70aabea00a4e75f79a3a8069c0a81a0f71a1ad6ad4899567664d8b34858c4dab",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "New learned Fire Golems now use the ordinary accrued percentage stat pool capped40before flat absorption. Innate and own-item values compose;owner item values are not inherited. The existing shared reducer/FP health services are reused;historical plain-minion adapters retain their previous100cap.",
+    "Complete unchanged resistance/absorb and percentage source bodies execute2916declared monster contexts,including raw immunity,fractional/large values,percentage pooling and flat order. Negative MDR residuals remain outside this probe under the existing zero-clamp policy.",
+    "Actual rank20Fire has112raw fire resistance/88raw absorption. Applied Conviction12reduces effective fire resistance to95. Native100fire spell/weapon hits heal2then deal3;full-health entry loses3without banking healing. Qualified prepared allocation defers its512FPheal until the real health phase,then subtracts768FP.",
+    "A real bound Steel Shade supplies flat fire absorption alongside rank1innate36percent;native full absorption heals once. Identify/removal controls eliminate stale item stats. This is an injected original-stat control,not a newly enabled Fire Golem equipment-casting feature.",
+    "Two parked reloads preserve exact resources;controlled vulnerable1point spell/weapon packets each lose52FP net. Existing general damage-rounding/native gear regressions and all354predecessor markers pass,with4audits/71Python,573named decisions,runtime data,staged kernel and106installed artifacts unchanged."
+  ],
+  "remaining": [
+    "Full current-executable/initializer/event/recipient-return and global absorption graph parity remain open. The prepared check exercises the qualified health phase,not a newly certified full contact adapter for Fire recipients.",
+    "Outgoing fire damage-stat units/elemental delivery,Holy Fire pulse/weapon,death/replacement explosion,unarmed/critical/contact and S1/AI/animation/movement/client remain separate. Historical adapters require explicit migration or recasting;no silent save conversion occurs.",
+    "No complete class,deployment or new broad1180-marker run is claimed. Final fire affinity/absorption/healing/pulse/hit/death effects/audio and tree/right/quick icons remain separate pending ledgers."
+  ]
+}
