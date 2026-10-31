@@ -105,7 +105,8 @@ public static class ClassSkillChecks
             "Bone Armor generated mana from absorbed damage instead of actual life loss");
         gear.Delete(); ClassGear.Refresh(p);
         Require(NecromancerEffects.Apply(p, target, CombatAbility.AmplifyDamage, 1), "Amplify cast");
-        Require(NecromancerEffects.Resistance(target, "physical", 0) == -100 && NecromancerEffects.Resistance(target, "physical", 100) == 80, "Amplify immunity breaking");
+        Require(NecromancerEffects.Resistance(target, "physical", 0) == -100 && NecromancerEffects.Resistance(target, "physical", 100) == 0,
+            "Amplify must retain its application-time resistance penalty");
         int before = target.Hits; SkillCombat.Hit(p, target, 10, "physical");
         Require(target.Hits == before - 20, "Amplify failed damage consumer");
         Require(NecromancerEffects.Apply(p, target, CombatAbility.Decrepify, 1) && NecromancerEffects.Slow(target) == 50

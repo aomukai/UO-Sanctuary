@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Amplify Damage increment](amplify-damage-checkpoint.md) retains the identified generic curse marker `0x375A`/hue `0x455` and cast sound `0x1E5`. Final `curseamplifydamage`/`cursecast` cast, affected-state and audio assets remain pending; the immediate mechanical curse does not wait for art.
+
 The [Fire Golem delayed-death increment](fire-golem-death-checkpoint.md) uses location effect `0x36BD` as an identified explosion placeholder. Final fire death/body/explosion/critical feedback and audio remain pending; no imagegen assets are created here.
 
 The [Fire Golem death source review](fire-golem-death-source-review.md) adds no art or runtime effect. Missile117/corpse explosion, intrinsic-critical feedback and final fire death/body/audio assets remain pending; existing immediate feedback remains an identified legacy placeholder.

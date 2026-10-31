@@ -1,0 +1,112 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Amplify Damage captured resistance, curse arbitration and learned casts",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 416,
+    "retainedPredecessorMarkers": 387,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      847,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "receiverSourceContexts": 8960,
+    "eligibilitySourceContexts": 1024,
+    "connectedRightQuickCasts": 6,
+    "naturalExpiryChecks": 6,
+    "naturalRank1Frames": 200,
+    "mana256": 1024,
+    "ordinaryPenalty": -100,
+    "immuneMonsterPenalty": -20,
+    "noWalkSpecies": 135,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/amplify-damage/birth-inputs.json",
+      "sha256": "d896195f5f20fa2e1eee8587312287c73764585f79071df9cbdd381a6fccf002"
+    },
+    "audit": {
+      "path": ".local/class-skills/amplify-damage/audit-inputs.json",
+      "sha256": "713f9733ce75afb560335697dfbe9505c7309e36c9b792811055c19826f3242c"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/AmplifyDamageCasts.cs": "2b6a5e10621a97d966109e42a3e032c08fd109377cf37f7e4fea3900563355a7",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "ef6d682a686aa48ec3b503dabee1c8d34d2c06b81706c854780a08e935f3f731",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "bc77fe9711bd10095533072b074f6952468e057844058dcb2d0408aff0a6509d",
+    "tests/Sanctuary.Integration/AmplifyDamageChecks.cs": "81d5f692bc4d9164cf91d7c767ad4b493f4b3fc49824bcfcf96fe61552abeb14",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "bbfca69e59cc40cb652d1251585d0167fad2be59f8118a9f0b895176450d72cf"
+  },
+  "artifacts": {
+    ".local/class-skills/amplify-damage/amplify-damage-fixtures.json": "27cb43995d08bd96f94e3b0ca80d29b5edb9022bf8890bec486bec7b925ccf31",
+    ".local/class-skills/amplify-damage/audit-inputs.json": "713f9733ce75afb560335697dfbe9505c7309e36c9b792811055c19826f3242c",
+    ".local/class-skills/amplify-damage/audit-native-checks.log": "e8c5b45f5b1d39486e6523ad2a80e1f74f7f8d4198c5dd41b0d44613ab6fdc80",
+    ".local/class-skills/amplify-damage/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/amplify-damage/birth-inputs.json": "d896195f5f20fa2e1eee8587312287c73764585f79071df9cbdd381a6fccf002",
+    ".local/class-skills/amplify-damage/birth-native-checks.log": "5e3a9674a3e72b849a4442e16d75fdfce77f8f3c5eb90e92f589ebe42c6282bf",
+    ".local/class-skills/amplify-damage/cloak-fixtures.json": "c69a0963f7c01ac701f825430a12b8b68cf23a8c3ef6196cb9d257b9c51928f7",
+    ".local/class-skills/amplify-damage/content-build-3.log": "0224c6578d2689618a59d4e90f1da27d910bc1212bed24c4a3b9d8b788bfd599",
+    ".local/class-skills/amplify-damage/fire-golem-absorption-fixtures.json": "8ba2974e017c9d2f728d4ba65c186ca5c3768e101034dbdea37bb909a0e1d739",
+    ".local/class-skills/amplify-damage/fire-golem-aura-fixtures.json": "0a0e3af52bddc5e14e37f06d903ccd1db0857c07e7c19b42644c6423ae65d763",
+    ".local/class-skills/amplify-damage/fire-golem-birth-fixtures.json": "a418c1805e7460ab5c025a503a5ffcbae61eb98d8c04fb14d1192399405a7f34",
+    ".local/class-skills/amplify-damage/fire-golem-combat-fixtures.json": "0df7a15267b4f8a806fefcf2c859ede78eb0fc07c8a35995c34287fef00fa0e4",
+    ".local/class-skills/amplify-damage/fire-golem-death-fixtures.json": "e020602b8174d4af097a9b42f181bf17ff4dede7e358c4a00baf449149e78f5f",
+    ".local/class-skills/amplify-damage/inner-sight-fixtures.json": "529b939173e90068c06c34f64e2e5e61ba2e35fb6770019e9fba7e3a0d096b9a",
+    ".local/class-skills/amplify-damage/integration-build-3.log": "a4596b4e4eda6ad510834fb5174ef5d7936d5e0b0b9b6f45b042d506b3bb81a2",
+    ".local/class-skills/amplify-damage/life-tap-fixtures.json": "695e582ab4acd2f795aca3a88f75a3ad2a8581344b19d80fb32502104665de87",
+    ".local/class-skills/amplify-damage/paladin-element-checks.json": "0d9225ff2dfcceebd7f3eb6ef8ea8ff76db02219659e24be081455f6afc0df23",
+    ".local/class-skills/amplify-damage/pre-build-3.json": "f2340f0385a8cb96bf5aca46fe4753be1bf3bef094720af7f5242fc88ba3de27",
+    ".local/class-skills/amplify-damage/python-tests.log": "646b9fc0b0ad5995f36d5165f090907be82a4cffcb1ecbabe75a3202b01a5771",
+    ".local/class-skills/amplify-damage/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/source-curse-no-walk.json": "8c46fdf6f46fbaf34621ff23b614f6ba5d4ff86f1b9613e1f555019bbe63f573",
+    "docs/amplify-damage-checkpoint.md": "d5dad3d07b291309110717fd1e8db3e31b296bb15596e47bab9ed4918aef3b8c",
+    "docs/class-skill-roadmap.md": "0c450de003f32bdbf02dc5c482b41a7f7a6a5c45a3206f15ca81da0a169719e7",
+    "docs/class-skills-resume-checkpoint.md": "dbd3532fe6c956848d08ff6c8970a719d55c7a3f35b26a2247b294600fa744fa",
+    "docs/necromancer-mechanical-audit.md": "d960e5c592c18b1b6fd304982789fc7636d23c54653606fbb104329dce409c1b",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skill-effects.md": "90a4c88abbfa150ec500d004f848b609bbbbd5cdff2852434c47238e02e4dd6e",
+    "docs/skill-icons.md": "83d47b304806628223938ba3f49da8159453a4b4a0ba032782e95336d03015c8",
+    "docs/skill-mechanical-reference.md": "929e5e8969cf38581ae273c71516850bfa6ac235db2ae11ff6071e6c1e29f279",
+    "src/Sanctuary.Content/AmplifyDamageCasts.cs": "2b6a5e10621a97d966109e42a3e032c08fd109377cf37f7e4fea3900563355a7",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "ef6d682a686aa48ec3b503dabee1c8d34d2c06b81706c854780a08e935f3f731",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "bc77fe9711bd10095533072b074f6952468e057844058dcb2d0408aff0a6509d",
+    "tests/Sanctuary.Integration/AmplifyDamageChecks.cs": "81d5f692bc4d9164cf91d7c767ad4b493f4b3fc49824bcfcf96fe61552abeb14",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "bbfca69e59cc40cb652d1251585d0167fad2be59f8118a9f0b895176450d72cf",
+    "tests/check_amplify_damage.py": "f4a77a54f036f9b7c3e55198bf1e181199566b1443f5b6e6651bad4ce8bf2881",
+    "tests/check_iron_golem_birth.py": "1bebc2d4aa7fe66bc09a37283428c04a3fb83090ed8a6695958140ccd19679b9",
+    "tools/build_class_skills.py": "2564a194eebb907870e6e68d9829356a6087dea17b07c10ee49d4f2ccbbcc1ba",
+    "tools/probe_amplify_damage.py": "73af9ad4da772069a143e6852477da297819dff787039d362fb9748ae274d2fa",
+    "tools/record_amplify_damage.py": "7f4fc7e570131eacc30335d54d73efa5acbe69937922535c82694b62d925881f",
+    "tools/reference/amplify-damage-source-evidence.json": "6aee4077a34eea9d27d1cf88c1d348aeb1571a9aa87a9b63544a44a7097b0dcc",
+    "tools/reference/fire-golem-death-native-evidence.json": "63485e95b8a1a9bf446dc772d711ee3284bec694c1fff61f8fc55277d867dd14",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "29ecfdd66178c8c7701aefb00af38d38e354a1de49c48287bdb625585ecd5848",
+    "tools/reference/named-item-runtime-audit.json": "e6a3ca8899108357d702af3a54670a6faf68b0e7eda69387156b52e27c64f27e",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/npc-equipment-elements-source-evidence.json": "53327732d51af4176a77a9f3594aaf19b81dcc2dd2dbe32dab8d254966a5162e"
+  },
+  "established": [
+    "Learned Amplify Damage uses the existing SC/FCR/target tracking/interruption path and pays4mana once at release,including empty/resisted areas. Radius3+rank-1 and duration200+75*(rank-1)frames use effective item ranks. Its filter3 area does not add an unrequested recipient LOS gate.",
+    "New applications capture physical resistance delta:-100normally,-20against immune nonplayer/nonhireling monsters. Weaker same-skill ranks reject,equal rank refreshes expiry retaining original caster/stat,and higher rank replaces. Attract and possessed champions reject.135pinned stationary species lack required walk-mode bit2.",
+    "8960complete source receiver/factory contexts and1024eligibility contexts pass under ASan/UBSan. Native source-policy comparisons,physical immunity thresholds,element exclusion,rank/owner/stat retention,caster deletion,Attract/Possessed,obstructed area ray,moving target,cancel,low mana,actual Wormskull rank21 and legacy payloads pass.",
+    "Six real right/quick casts verify unmodified8second expiry and once-only payment. Both reloads preserve new captured and absent-field legacy states,deadlines,mana,gear/bindings and resumed damage. Persistence inspection alone extends the fixture deadline1day. Inner Sight,Cloak,Life Tap and all387Fire death predecessor markers remain verified.",
+    "416native markers/3boots/2reloads/3saves,4audits,71Python,573named decisions and clean builds pass. Only one generated135species data list is added;prior runtime data,staged kernel and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "The older elite-monster Amplify store lacks skill rank/caster data. Replacing that active legacy curse is reported/skipped pending a shared adapter. Legacy ordinary curses without captured delta keep their old dynamic adapter until replacement/expiry;equal-rank refresh does not invent historical stats.",
+    "Current-executable multicaster arbitration,full source base/accrued item graphs,item/proc casts,room/species/flags/allegiance/geometry,AI reactions/events,PvP,FCR/global phase and graphical-client acceptance remain open. Native physical resistance and encounter traits are declared world projections.",
+    "Do30/radial traversal are hash-reviewed,not executed by the receiver probe. No complete class,deployment or broad1180-marker claim. Final effects/audio and tree/right/quick icons remain separate placeholders;hard-point pet upgrades follow all baseline skills."
+  ]
+}

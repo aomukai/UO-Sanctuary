@@ -11,7 +11,8 @@ namespace Sanctuary;
 
 public sealed record NecromancerMotion(uint Target, bool Flee, int OriginX, int OriginY);
 public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Rank, DateTime UntilUtc, int OriginX, int OriginY,
-    NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false);
+    NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PhysicalDelta = null);
 public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null);
@@ -43,7 +44,9 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
                 || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0
                     || pool.Rank.HasValue!=pool.Maximum256.HasValue || pool.Maximum256 is{} maximum && maximum<pool.Remaining256
                     || state.BoneArmor!=(pool.Remaining256+255L)/256)
-                || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255 || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
+                || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255
+                    || curse.PhysicalDelta is{} delta&&(curse.Ability!=CombatAbility.AmplifyDamage||delta is not(-100 or -20))
+                    || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
         _states = states;
@@ -83,6 +86,7 @@ public static class NecromancerEffects
     { MonsterDifficulty.Nightmare => 2, MonsterDifficulty.Hell => 4, _ => 1 } : 1;
     public static bool Apply(PlayerMobile owner, Mobile target, CombatAbility ability, int rank)
     {
+        if(ability==CombatAbility.AmplifyDamage){return AmplifyDamageCasts.Apply(owner,target,rank);}
         if (rank is <1 or >255 || !IsCurse(ability) || !ClassCombat.IsHostile(owner, target) || Curse(target)?.Ability == CombatAbility.Attract
             || ability == CombatAbility.DimVision && Curse(target)?.Ability == CombatAbility.Confuse) { return false; }
         bool ai = ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract;
@@ -96,12 +100,16 @@ public static class NecromancerEffects
         var motion = ability == CombatAbility.DimVision && target is BaseCreature blinded ? CaptureMotion(blinded) : null;
         Profiles.Store(target, state with { Curse = new(ability, owner.Serial.Value, rank,
             TimedEffects.Now.AddMilliseconds(frames * 40), owner.X, owner.Y, motion) });
+        CurseApplied(owner,target);return true;
+    }
+    internal static void CurseApplied(PlayerMobile owner,Mobile target)
+    {
         if (TimedEffects.TryActor(target, out var actor) && actor.Control is { } control)
         { actor.Control = control with { BlindUntil = default, FearUntil = default }; }
         if (target is BaseCreature creature)
         { creature.AIObject?.ResetApproachState(); creature.AIObject?.ClearMoveIntent(); creature.AIObject?.AITimer.Prod(); }
         target.FixedEffect(0x375A, 10, 15, 0x455, 0); // Placeholder curse marker.
-        owner.DoHarmful(target); return true;
+        owner.DoHarmful(target);
     }
     internal static NecromancerMotion CaptureMotion(BaseCreature creature)
     {
@@ -124,13 +132,14 @@ public static class NecromancerEffects
         var values = Values(curse);
         int delta = curse.Ability switch
         {
-            CombatAbility.AmplifyDamage when element == "physical" => -(int)values.Param(5),
+            CombatAbility.AmplifyDamage when element == "physical" => curse.PhysicalDelta??-(int)values.Param(5),
             CombatAbility.Decrepify when element == "physical" => values.Param(5),
             CombatAbility.LowerResist when element is "fire" or "cold" or "ltng" or "pois" => -values.Diminishing(5, 6),
             _ => 0
         };
         // Immunity-breaking curses run at one fifth effectiveness against an immune monster.
-        if (target is BaseCreature and not BaseHire && (immunityBaseline ?? baseline) >= 100) { delta /= 5; }
+        bool captured=curse.Ability==CombatAbility.AmplifyDamage&&element=="physical"&&curse.PhysicalDelta.HasValue;
+        if (!captured&&target is BaseCreature and not BaseHire && (immunityBaseline ?? baseline) >= 100) { delta /= 5; }
         // Player caps apply after pierce; retain overcapped resistance until that final step.
         return target is PlayerMobile || deferCap ? baseline+delta : Math.Clamp(baseline + delta, -100, 200);
     }

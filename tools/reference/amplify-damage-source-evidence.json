@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5"
+  },
+  "scaffold": {
+    "path": "tools/probe_battlecry_reference.py",
+    "sha256": "5402831e5f0102064997e57e396b9e68021375afed95f4ee79f0cb268fa8b54b"
+  },
+  "compiledRoutines": [
+    "MONSTERUNIQUE_CalculatePercentage",
+    "sub_6FCBD900",
+    "sub_6FD10EC0",
+    "sub_6FD0B2B0",
+    "sub_6FD0B450"
+  ],
+  "reviewedRoutines": [
+    "SKILLS_SrvDo030_Curse",
+    "sub_6FD10360"
+  ],
+  "routineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "sub_6FCBD900": "3d210ccd4d501a522c16e84db9c77a5f88e564ed1ef364dfb341dc98c18cd022",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "sub_6FD0B2B0": "b66f8ea13a21d87161427bfc4ea5cd4918f4fe7111469b03c9f1fc967085e52b",
+    "sub_6FD0B450": "4ffb9aa2706f4337bfefcbee6ad519c4592bf1b78b70c5477ecffaf50fe5ac7b",
+    "SKILLS_SrvDo030_Curse": "0b315aa0bf6695f57d1629c0a811c01011ab6e28106fd9766aa65a1b61d85fd5",
+    "sub_6FD10360": "c146b0f236ae7a9a9288557d24e45f1350f8e324cb16b847fb3111bccf9541f9"
+  },
+  "cases": {
+    "receiver": 8960,
+    "gates": 1024
+  },
+  "noWalkSpecies": 135,
+  "artifacts": {
+    ".local/class-skills/amplify-damage-source/probe.cpp": "a7a0d9644305578e72d33aed5ac3ff99c115e87299aeddb0b068eff32bc09aeb",
+    ".local/class-skills/amplify-damage-source/cases.json": "35f5900f9f6ee7d5db6d7eba7df2591a9b36b2e0663dd6edf7554c3970fe0492",
+    ".local/class-skills/amplify-damage-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/amplify-damage-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/Sanctuary/Balance/source-curse-no-walk.json": "8c46fdf6f46fbaf34621ff23b614f6ba5d4ff86f1b9613e1f555019bbe63f573"
+  },
+  "pinnedTables": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "established": [
+    "Complete curse callback/eligibility/shared factory and percentage helper execute together. Weaker same-skill rank rejects; equal rank refreshes only expiry, preserving creator and first resistance stat; higher rank or different curse replaces.",
+    "Physical resistance penalty is chosen from supplied base resistance at application: nonplayer/nonhireling immune recipients receive -20, otherwise -100. Subsequent aggregate changes do not rewrite this stored stat.",
+    "Curse resistance reduces duration before arbitration; resistance100 or Attract preserves the old state. Possessed flag0x20, missing walk mode bit2, NPC/unattackable species, missing rows, dead/ineligible flags and alignment reject.",
+    "Current skill66 pins radius3+rank-1, duration200+75*(rank-1) frames, cost4 and do30/filter3. Current monstats2 mWL is bit2;135 stationary-species exclusions are generated without changing Inner Sight data."
+  ],
+  "limits": [
+    "Declared services cover base/accrued stat storage, alignment/owner graph, state rows/masks, bounded allocation and event scheduling. No special AI is executed for Amplify Damage. The formula VM, do30/radial traversal and current executable are not executed by this probe.",
+    "Native base-resistance/species/geometry/client and full event lifecycle require independent verification. Native UO/encounter traits are explicit projections, not inferred D2 species certificates."
+  ]
+}
