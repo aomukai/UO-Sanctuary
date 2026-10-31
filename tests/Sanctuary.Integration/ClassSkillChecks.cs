@@ -80,7 +80,7 @@ public static class ClassSkillChecks
             && SkillMechanics.Values(p, CombatAbility.BoneSpear).Eval("EDmgSymPerCalc") == synergyBefore + 8,
             "Launched skill values changed when later ranks changed");
         Require(ClassCombat.Available(p, CombatAbility.AmplifyDamage) && ClassCombat.Available(p, CombatAbility.RaiseSkeletalMage)
-            && !ClassCombat.Available(p, CombatAbility.GolemMastery) && !ClassCombat.Available(p, CombatAbility.IronGolem), "Availability or blocked/passive gate");
+            && !ClassCombat.Available(p, CombatAbility.GolemMastery) && ClassCombat.Available(p, CombatAbility.IronGolem), "Learned skills or passive availability gate");
         Require(SkillBindings.Instance.AssignQuick(p, 11, CombatAbility.LowerResist)
             && SkillBindings.Instance.GetQuick(p.Serial, DiabloClass.Necromancer, 11) == CombatAbility.LowerResist, "High ability ID/F12 failed");
         int mana = p.Mana; Require(NecromancerEffects.Pay(p, 896) && p.Mana == mana - 4

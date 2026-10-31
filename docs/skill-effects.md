@@ -1,5 +1,7 @@
 # Skill effects
 
+The [NPC resource correction](npc-high-level-resources-checkpoint.md) adds no assets. Its 97 focused and 1,180 full regression markers pass. Final effects/audio and talent/hotkey icons remain separate pending assets. Coverage remains 186 handlers, including 30 Necromancer handlers; no class is complete and the candidate is uninstalled.
+
 Learned Iron Golem now creates the prepared actor through right/quick item targeting. Native summon0x376A, sound0x1E5and the labelled body/contact/return markers remain explicitly identified placeholders. Final original-item consumption/formation, body/directional frames, attack/get-hit/block/death/overlay and audio assets remain pending. See [casting checkpoint](iron-golem-casting-checkpoint.md).
 
 Ordered Iron Golem contact now retains source hit-class/overlay descriptors through actual HP/retaliation/return. Native prepared body, contact, block (0x375A), get-hit and critical overlay (0x37B9) remain explicitly identified presentation placeholders; final animation/effect/audio is pending. This mechanical increment introduces no new independent icon. See [checkpoint](iron-golem-ordered-contact-checkpoint.md).

@@ -1,5 +1,7 @@
 # Skill icons
 
+The [NPC resource correction](npc-high-level-resources-checkpoint.md) adds no assets. Its 97 focused and 1,180 full regression markers pass. Final effects/audio and talent/hotkey icons remain separate pending assets. Coverage remains 186 handlers, including 30 Necromancer handlers; no class is complete and the candidate is uninstalled.
+
 Iron Golem now supports learned right-click and quick bindings. Its unique talent-tree/right-hotkey icon remains pending; left binding is intentionally unavailable. Text labels remain identified placeholders. No separate item/rollback icon is introduced. Effects/audio are tracked independently. See [casting checkpoint](iron-golem-casting-checkpoint.md).
 
 Ordered Iron Golem combat continues to use the existing Iron Golem talent-tree/hotkey icon requirements; those final assets remain pending. Item-event and damage-bookkeeping integration introduce no additional bindable skill or icon. Effects/audio remain separately recorded. See [checkpoint](iron-golem-ordered-contact-checkpoint.md).

@@ -13,7 +13,9 @@ internal static class NpcResourceValues
 {
     internal static int Calculate(NpcResourceInput input)
     {
-        if(input.Kind is not(0 or 1)||input.Channel is <0 or >2||input.Level is <1 or >99)
+        // Player progression stops at99; source summon levels need not. Raven
+        // birth,for example,retains owner level plus effective skill ranks.
+        if(input.Kind is not(0 or 1)||input.Channel is <0 or >2||input.Level<1||input.Kind==0&&input.Level>99)
         {throw new ArgumentOutOfRangeException(nameof(input));}
         int resource=new[]{7,9,11}[input.Channel],perLevel=new[]{216,217,242}[input.Channel];
         int attribute=input.Channel==1?1:3,first=input.Channel==0?76:input.Channel==1?77:162,second=input.Channel==2?163:first;

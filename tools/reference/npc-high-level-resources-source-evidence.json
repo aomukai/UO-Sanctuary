@@ -1,0 +1,20 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 768,
+  "scope": "Existing complete unchanged item-stat graph/attachment/resource getter routines with NPC kind1 and positive levels100/104/255/352. Three channels and declared base/flat/level/percentage/attribute inputs. Source prefix is byte-identical;only main input domains change. This does not extend player progression or certify current executable/live pet metadata.",
+  "parent": {
+    "path": "tools/reference/npc-equipment-resources-source-evidence.json",
+    "sha256": "b3b270951989da9842d2bb62078fcc6d3fb6ad5b159235cff7f44037e9522528",
+    "source": ".local/class-skills/npc-equipment-resources-source/source.cpp",
+    "sourceSha256": "d6bf56ce8ab2b8438fe6c29d5ec312387eb99170a3903e08b3be08bc2486163f"
+  },
+  "unchangedSourcePrefixSha256": "a767d097d3853a3ebec79672bc329bb801c819a5ea463f3e85b71838c06ae094",
+  "artifacts": {
+    "tools/probe_npc_high_level_resources.py": "3fe259a91807a1ae4d48730ccfae5ef2eb36f9f0fdc496b5d51be199a6c90dad",
+    ".local/class-skills/npc-high-level-resources-source/source.cpp": "e192f19cd5b1c0144e4a75b74b17082fa33ad85617207a8fd34d4468011c7559",
+    ".local/class-skills/npc-high-level-resources-source/cases.json": "2ade9a1e9123900c9afd0b78a800bfbfe9126bc2f8dd2328360ea7c70ee816f5",
+    ".local/class-skills/npc-high-level-resources-source/compiler.log": "563376953523e8f37958fc92c621ce639416552f4e67b87babd56264a076bddb",
+    ".local/class-skills/npc-high-level-resources-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

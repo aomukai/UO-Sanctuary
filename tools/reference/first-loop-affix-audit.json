@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "90a46f8060f7e5f16ad4bd812ba89072f71373234f5a8711fd31dc68708a93d5",
-  "ContentAssemblyPath": ".local/class-skills/iron-golem-casting/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "6e11b68b64424160d1fd7eaa6b9c27d4c6dfa68973ef3748919418c7aa893b21",
+  "ContentAssemblyPath": ".local/class-skills/npc-high-level-resources/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
