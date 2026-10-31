@@ -93,18 +93,6 @@ internal static class IronGolemWorld
         int flags=SourceMeleeResult.Resolve(services);
         return flags;
     }
-    private static Mobile Primary(IronGolemBody body,PlayerMobile owner,IronGolemWorldState s)
-    {
-        var prior=World.FindMobile((Serial)s.Target);
-        if(Eligible(body,owner,prior)&&Full(s,prior)<=24){return prior;}
-        Mobile found=null;int nearest=25;
-        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,14))
-        {
-            if(!Eligible(body,owner,candidate)){continue;}int distance=Full(s,candidate);
-            if(distance<nearest||distance==nearest&&found!=null&&candidate.Serial.Value<found.Serial.Value){found=candidate;nearest=distance;}
-        }
-        return found;
-    }
     private static void Velocity(ref IronGolemWorldState s,int type,int speed,int budget)=>s=s with{
         PathOverride=type==0?s.PathOverride:type,VelocityBonus=speed==0?s.VelocityBonus:speed,PathBudget=budget==0?s.PathBudget:Math.Min(77,budget)};
     private static (int Velocity,int Animation) MovementSpeed(IronGolemBody body,int bonus)
@@ -200,18 +188,9 @@ internal static class IronGolemWorld
                 default:throw new NotSupportedException("Unmapped Iron Golem AI request");
             }
         }
-        Mobile Find(int id)=>World.FindMobile((Serial)(uint)id);
-        var queries=new NecromancerPetAiServices(Request,()=>(int)owner.Serial.Value,id=>Find(id) is PlayerMobile player?(int)player.Serial.Value:0,
-            id=>Find(id) is{} target?Full(s,target):throw new NotSupportedException("Missing Iron Golem distance target"),
-            _=>
-            {
-                Mobile target=owner.Combatant;if(!Eligible(body,owner,target)){target=World.FindMobile(ClassCombat.For(owner).Target);}
-                return new(Eligible(body,owner,target)?(int)target.Serial.Value:0,0,false);
-            },
-            (ranged,_)=>{if(ranged){throw new NotSupportedException("Iron Golem has no ranged skill binding");}var target=Primary(body,owner,s);return new(target==null?0:(int)target.Serial.Value,target==null?0:Full(s,target),target!=null&&Melee(body,s,target,0));},
-            id=>!Eligible(body,owner,Find(id)),id=>Find(id) is not{} target||!body.InLOS(target),id=>Eligible(body,owner,Find(id)),
-            ()=>NpcEquipmentRandom.Limited(body,100),(target,combat,flag,leash)=>SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash),
-            ()=>SpellHelper.IsTown(body.Location,owner),Move);
+        var queries=NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(s,target),target=>Melee(body,s,target,0),
+            Request,()=>NpcEquipmentRandom.Limited(body,100),
+            (target,combat,flag,leash)=>SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash),Move);
         var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source("irongolem","Velocity"),NecromancerSummons.Source("irongolem","Run"),0,0),queries);
         s=s with{Ai=memory};
         if(s.NextThink==0&&s.Mode is not(2 or 4 or 8)){s=s with{NextThink=s.Frame+15};}return s;

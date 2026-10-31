@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Shared melee AI67 target queries with prepared skeleton bindings",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 2,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 27,
+    "retainedWorldMarkers": 24,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "connectedIronGolemSessions": 3,
+    "sourcePolicyCasesPerBoot": 1598,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      862,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/necromancer-pet-targets/birth-inputs.json",
+      "sha256": "3b22a6ec47fa8aa376d66fafcd80090255e01653e37fab04e450b537a6c76186"
+    },
+    "audit": {
+      "path": ".local/class-skills/necromancer-pet-targets/audit-inputs.json",
+      "sha256": "c4a6ecdcfc9d8a29b352a454197f9e1e686486dbb750e48e2aaea7f452f49273"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/IronGolemWorld.cs": "b8d166efd2779b1765b029072520bda9f7f8356ccbec918258cf5626a52ecbec",
+    "src/Sanctuary.Content/NecromancerPetTargets.cs": "979b8ea60802a24a8cd4e92403fe41115ba69f89eda4aba674d07f500a803a6d",
+    "tests/Sanctuary.Integration/NecromancerPetTargetChecks.cs": "3903919fe9e1d2f8375213b51ea5755eaf0066edd85133955e9ae911e30d9181"
+  },
+  "artifacts": {
+    ".local/class-skills/iron-golem-world/birth-native-checks.log": "68d410f58fc60e80ce252075e9e22089e4e51c9223b6a29ea503fc080411e059",
+    ".local/class-skills/necromancer-pet-targets/audit-inputs.json": "c4a6ecdcfc9d8a29b352a454197f9e1e686486dbb750e48e2aaea7f452f49273",
+    ".local/class-skills/necromancer-pet-targets/audit-native-checks.log": "6233f1d8cbcaec8af2a7dbb664ad9cff8f349004dac087857baddc6d211f691f",
+    ".local/class-skills/necromancer-pet-targets/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/necromancer-pet-targets/birth-inputs.json": "3b22a6ec47fa8aa376d66fafcd80090255e01653e37fab04e450b537a6c76186",
+    ".local/class-skills/necromancer-pet-targets/birth-native-checks.log": "52e8458dac9d6de5dcfaab83829d9a2b559af0859d5b6444a79f6b1600464af5",
+    ".local/class-skills/necromancer-pet-targets/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/necromancer-pet-targets/content-build-2.log": "be2485a5d7767e0f24e482b5bd8ad8feaf7e2b8e8a40d4384b74d6290605b67f",
+    ".local/class-skills/necromancer-pet-targets/failed-birth-inputs-1.json": "7db45ad4b3d2781c18cd05839d47774891d6069d40bf044ae263b25ef5d2f649",
+    ".local/class-skills/necromancer-pet-targets/failed-birth-run-1.log": "3f801487371b734e43df14d5d4f9a353950f16910ac5bc6bf9ebe945ba079c51",
+    ".local/class-skills/necromancer-pet-targets/integration-build-2.log": "f28c93070611ee388966eba2cf5a185ef48c3e61ffa7c14d849862976cabaab5",
+    ".local/class-skills/necromancer-pet-targets/iron-golem-world-fixtures.json": "c3f895ca4d5d107683a95ed388121a789959ec0b6b5792c3f34de38e18ab0d38",
+    ".local/class-skills/necromancer-pet-targets/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/necromancer-pet-targets/pre-build-2.json": "2ad10650456e905bcdc8579280ddd085d1345a3d53e3b8db6f35118aa5ad394f",
+    ".local/class-skills/necromancer-pet-targets/python-tests.log": "f08af0236740bbe1ac7979e4e57f8dee5485b3a014a16c3cc73da5894ff06ba9",
+    ".local/class-skills/necromancer-pet-targets/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "docs/class-skill-roadmap.md": "f901c1fbe0c84c8ecd843dde3073ae9399edc9a25950ea166b231aec728ed000",
+    "docs/class-skills-resume-checkpoint.md": "27790ebb3db739ed10d9ad106b07b9893cf2501b606074f14917868b739e7dfc",
+    "docs/necromancer-mechanical-audit.md": "fa3fa0ea0f799bd91060431c84b6da1e4f7ec9a7ddd3bf29949e40e1869f6dd8",
+    "docs/necromancer-pet-targets-checkpoint.md": "64f7aef408ff830e36e53a154cb034604c7ec1fc6833f383cce5b1bda241240e",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "src/Sanctuary.Content/IronGolemWorld.cs": "b8d166efd2779b1765b029072520bda9f7f8356ccbec918258cf5626a52ecbec",
+    "src/Sanctuary.Content/NecromancerPetTargets.cs": "979b8ea60802a24a8cd4e92403fe41115ba69f89eda4aba674d07f500a803a6d",
+    "tests/Sanctuary.Integration/NecromancerPetTargetChecks.cs": "3903919fe9e1d2f8375213b51ea5755eaf0066edd85133955e9ae911e30d9181",
+    "tests/check_necromancer_pet_targets.py": "a9eb97f7ba065df352bab27f6142146a7f78416ee24a14b8af145fd511379ef9",
+    "tools/record_necromancer_pet_targets.py": "e4002931c0c5e3f55a679a054e67895bae47428e033b91e0700195075dc712cc",
+    "tools/reference/encounter-health-native-evidence.json": "a7404369c8b39635ccee73ff79c0978f82357dc90c7d4c44f35b19a2e3a4cfdb",
+    "tools/reference/iron-golem-world-native-evidence.json": "5e66049beb09c6dbfb7e8fa6c97875a8afb753a7991f78bd229098aec5f7a883"
+  },
+  "established": [
+    "Iron Golem existing melee AI67 owner/primary/selection/eligibility/LOS query wiring is extracted without importing its original-item movement or attack clocks into skeletons. Native14tile scan,previous-target24boundary and serial ties retain their existing adapters.",
+    "An actual prepared RaisedSkeleton binds these queries to supplied eligibility/distance/melee/actions. Tests cover current/nearest/ties/scan and distance boundaries,class-owner session selection,eligibility/LOS and exact AI67approach/attack requests. Ranged binding refuses; no automatic skeleton movement/contact or new seed model is implied.",
+    "All24retained Iron Golem world/birth/body/original-item/resource markers and1598policy comparisons per boot pass,including three connected natural sessions and two actual reloads. Data/kernel/installed106 remain unchanged; no deployment."
+  ],
+  "remaining": [
+    "Automatic regular skeleton AI67world motion,initial S1,captured contact/event timing,mid-action rescheduling and saved in-flight controller state remain integration work. This is a shared query foundation,not a completed skeleton controller or class.",
+    "Native scan/LOS/ties/geometry,full current-executable owner/state/seed/room/AI/event/client parity and final skeleton shield distribution remain unverified. Species eligibility/geometry/actions are supplied for the prepared skeleton tests.",
+    "Class-enabled PlayerMobile deliberately nulls native Combatant;the first fixture incorrectly expected it to retain one. The corrected native check uses actual ClassCombat session selection. Historical nonclass Combatant precedence is preserved in code but not newly certified by that fixture."
+  ]
+}
