@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Bone Spirit saved-guidance path](bone-spirit-checkpoint.md) retains cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final BoneSpirit eight-direction loop/travel, bonespiritexplode and cast/travel/impact/expiry audio remain pending independently of saved guidance and damage.
+
 The [Teeth saved-flight path](teeth-checkpoint.md) retains native cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final teethMissile directional travel, bonecast, teethexplode impact and cast/travel/hit/expiry audio remain pending independently of damage and persistence.
 
 The [Bone Spear flight path](bone-spear-checkpoint.md) uses native cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final BoneSpear directional sprite, bonespeartrail, bonespearexplode/teethexplode impact presentation and cast/travel/hit/expiry audio remain pending. Collision/damage and saved flight do not depend on that art.

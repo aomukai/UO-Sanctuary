@@ -84,7 +84,7 @@ public static class NecromancerCombat
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
-        if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth){return NecromancerSpellMissiles.Release(owner,point,values);}
+        if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit){return NecromancerSpellMissiles.Release(owner,point,values,ability==CombatAbility.BoneSpirit?World.FindMobile(selected):null);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
             if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }
@@ -120,14 +120,6 @@ public static class NecromancerCombat
             cloud.Start(); return true;
         }
         if (ability == CombatAbility.PoisonNova) { new Nova(owner, values).Start(); return true; }
-        if (ability == CombatAbility.BoneSpirit)
-        {
-            var lastHits = new Dictionary<Serial, long>();
-            double dx = point.X - owner.X, dy = point.Y - owner.Y;
-            double angle = Math.Atan2(dy, dx);
-            new BoneMissile(owner, ability, values, angle, World.FindMobile(selected), lastHits).Start();
-            return true;
-        }
         throw new InvalidOperationException("Necromancer skill advertised without a release handler.");
     }
     internal static void Consume(Corpse corpse)
@@ -159,48 +151,6 @@ public static class NecromancerCombat
             _radius += SkillGeometry.Velocity(12);
             foreach (var target in SkillCombat.Targets(Owner, _origin, _radius))
             { if (_hit.Add(target.Serial)) { Poison(Owner, target, values,missileDefense:true); target.FixedEffect(0x374A, 10, 10, 0x3F, 0); } }
-        }
-    }
-    private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits)
-        : SkillField(owner, ability == CombatAbility.BoneSpirit ? 128 : 50, DiabloClass.Necromancer)
-    {
-        private double _x = owner.X, _y = owner.Y, _angle = angle, _travel;
-        private readonly int _z = owner.Z;
-        private Mobile _target = target;
-        private readonly HashSet<Serial> _hits = new();
-        private int _frame;
-        protected override void Step()
-        {
-            if (ability == CombatAbility.BoneSpirit && _frame % 5 == 0)
-            {
-                if (!ClassCombat.IsHostile(Owner, _target) || !Owner.InLOS(_target))
-                {
-                    _target = null; double distance = double.MaxValue;
-                    foreach (var candidate in SkillCombat.Targets(Owner, new((int)_x, (int)_y, _z), SkillGeometry.Tiles(15)))
-                    { double next = Math.Pow(candidate.X - _x, 2) + Math.Pow(candidate.Y - _y, 2); if (next < distance) { distance = next; _target = candidate; } }
-                }
-                if (_target != null) { _angle = Math.Atan2(_target.Y - _y, _target.X - _x); }
-            }
-            _frame++;
-            double speed = SkillGeometry.Velocity(12);
-            var velocity=(Math.Cos(_angle)*speed,Math.Sin(_angle)*speed);
-            var start = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            _x += velocity.Item1; _y += velocity.Item2;
-            _travel += speed;
-            var end = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            if (_travel > CombatProtocol.TeethRange || !Map.LineOfSight(new Point3D(start.X, start.Y, start.Z + 12), new Point3D(end.X, end.Y, end.Z + 12))) { Stop(); return; }
-            var collisions = new List<(Mobile Target, double Entry)>();
-            foreach (var candidate in SkillCombat.Targets(Owner, end, 2))
-            { if (!_hits.Contains(candidate.Serial) && CombatHitboxes.Intersect(start, end, candidate.Location, out double entry)) { collisions.Add((candidate, entry)); } }
-            collisions.Sort((a, b) => a.Entry != b.Entry ? a.Entry.CompareTo(b.Entry) : a.Target.Serial.CompareTo(b.Target.Serial));
-            if (_frame % 3 == 0) { Effects.SendLocationEffect(end, Map, 0x36E4, 3); }
-            foreach (var collision in collisions)
-            {
-                _hits.Add(collision.Target.Serial);
-                lastHits[collision.Target.Serial] = Core.TickCount;
-                SkillCombat.Hit(Owner, collision.Target, values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble(), "mag",missileDefense:true);
-                Stop(); return;
-            }
         }
     }
 }

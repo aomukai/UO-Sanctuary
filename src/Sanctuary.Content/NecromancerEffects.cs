@@ -262,7 +262,11 @@ public static class NecromancerEffects
     public static int ManaBalance256(Mobile owner)
     {
         int balance=RawManaBalance256(owner);
-        return NpcEquipmentResources.Maximum256(owner,2) is{} exact?Math.Min(exact,balance):balance;
+        // Native whole-mana regeneration can reach the integer maximum while
+        // an earlier fractional payment remainder is still stored. It cannot
+        // grant usable mana above that maximum; preserve raw NPC observations.
+        return NpcEquipmentResources.Maximum256(owner,2) is{} exact?Math.Min(exact,balance)
+            :owner is PlayerMobile?Math.Min(owner.ManaMax*256,balance):balance;
     }
     internal static void SetMana256(Mobile owner,int amount256)
     {
@@ -281,7 +285,7 @@ public static class NecromancerEffects
     {
         if (!CanPay(owner, cost256)) { return false; }
         var state = Profiles.Find(owner) ?? new();
-        long balance = (long)owner.Mana * 256 + state.ManaFraction - cost256;
+        long balance = (long)ManaBalance256(owner) - cost256;
         owner.Mana = (int)(balance / 256); Profiles.Store(owner, state with { ManaFraction = (int)(balance % 256) }); return true;
     }
     internal static int LifeTapHealing256(int physical256,int percent)

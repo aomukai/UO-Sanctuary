@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerAccepted": false,
+  "currentExecutableParity": false,
+  "cases": 72,
+  "validAllocationAttempts": 768,
+  "createdMissiles": 384,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "completeRoutineHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "sub_6FD14170": "2d0a4b0f5e5cd52c04cf272c351e8f460b7b1a28346eff16532d3c68eb5f2349",
+    "SKILLS_SrvDo022_NovaAttack": "be31bbe6cf4fe5489d81e5a4828b9f3ed161cad9e806cbceb324ba3b04778fc0"
+  },
+  "inputs": {
+    ".local/class-skills/guided-arrow-source-probe.cpp": "e7dfb60ed8bb4ab8f2d19cd7f459bc120ee0cc7363f2adaf635b35bbcfcaf7a3",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-nova-emitter/emitter.cpp": "f369f4e20702a7abfc7c85ff53a689a56e4b9c69ad910b7da053ad0e55fa4609",
+    ".local/class-skills/poison-nova-emitter/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/poison-nova-emitter/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/poison-nova-emitter/cases.json": "4e1852f0de573ac642e138a9c42823230e87fbbf0665ae34c9703612271a958d"
+  },
+  "established": [
+    "Complete do22 calls the complete64-offset emitter and complete missile factory. Current Poison Nova has calc1zero,velocity12,range30 and no CanSlow. Both supplied slow states preserve2304FP8velocity;every valid cast attempts64allocations even when all allocations fail.",
+    "The emitter uses its exact64integer source offsets,including cardinal(+30,0)/(0,+30)/(-30,0)/(0,-30). The complete factory records absolute origin,relative aim,owner,skill92/rank and30current/total frames;no Pierce draws occur. It is not a single expanding area-damage pulse."
+  ],
+  "services": [
+    "Progressive missile selection and the table velocity lookup are explicit services constrained by pinned constant srvmissilea/Vel/VelLev. World/room/allocator/path/stat/damage services are inherited from the declared factory scaffold;creation does not execute the poison packet or contact.",
+    "Next:compose complete source-zero poison rate/length/initial delivery and generic next-hit/contact,then saved native64-child allocation,source vectors/steps,poison clocks,lifecycle/payment/input/reloads. Exact modern next-hit identity and current path/client equivalence remain unverified. No runtime/data/class completion or installation is claimed."
+  ]
+}

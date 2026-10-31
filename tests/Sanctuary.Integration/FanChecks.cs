@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Logging;
@@ -68,7 +69,7 @@ public static class FanChecks
         }
         if(!found){owner.Delete();throw new InvalidOperationException("No independent open fan terrain");}
         var enemy=new GraveyardSkeleton{NoKillAwards=true,Frozen=true,CantWalk=true};enemy.AIObject.AITimer.Stop();enemy.SetHits(50000);
-        enemy.MoveToWorld(new(owner.X+1,owner.Y+4,owner.Z),owner.Map);int before=enemy.Hits;
+        enemy.MoveToWorld(new(owner.X+1,owner.Y+4,owner.Z),owner.Map);TimedEffects.PreventHealing(enemy,TimedEffects.Now);int before=SkillHealth.Balance256(enemy);
         void Cast(int distance)
         {
             owner.Mana=owner.ManaMax;int mana=NecromancerEffects.ManaBalance256(owner);
@@ -76,20 +77,30 @@ public static class FanChecks
             Require(NecromancerCombat.Release(owner,CombatAbility.Teeth,Serial.Zero,new(owner.X+distance,owner.Y,owner.Z)),"Teeth release");
             Require(NecromancerEffects.ManaBalance256(owner)==mana-values.Mana256,"Fan paid more than once");
         }
-        try{Cast(10);}catch{owner.Delete();enemy.Delete();throw;}
-        Timer.StartTimer(TimeSpan.FromSeconds(2.2),()=>
+        void Flight()
+        {
+            // This geometry fixture has no network client. Explicit active
+            // source frames preserve the production offline/no-damage policy;
+            // connected natural-clock Teeth inputs have their own checks.
+            for(int frame=0;frame<50;frame++)
+            {
+                var flights=NecromancerSpellMissiles.Snapshot().Flights.Where(x=>x.Owner==owner.Serial.Value).ToArray();
+                if(flights.Length==0){break;}
+                NecromancerSpellMissiles.Tick(flights.Max(x=>x.NextUtc),true);
+            }
+            Require(!NecromancerSpellMissiles.Snapshot().Flights.Any(x=>x.Owner==owner.Serial.Value),"Fan survived50frames");
+        }
+        // Queue after fan-check so the harness can observe check then result.
+        FixtureClock.NextLoop("fan-result",()=>
         {
             try
             {
-                Require(enemy.Hits==before,"Far cursor fan incorrectly reached steep off-axis target");Cast(1);
-                Timer.StartTimer(TimeSpan.FromSeconds(2.2),()=>
-                {
-                    try{Require(enemy.Hits<before,"Near cursor Teeth fan failed actual off-axis collision/damage");Log.Information("fan-result: passed");}
-                    catch(Exception ex){Log.Error(ex,"fan-result: failed");}
-                    finally{owner.Delete();enemy.Delete();}
-                });
+                Cast(10);Flight();Require(SkillHealth.Balance256(enemy)==before,"Far cursor fan incorrectly reached steep off-axis target");
+                Cast(1);Flight();Require(SkillHealth.Balance256(enemy)<before,"Near cursor Teeth fan failed actual off-axis collision/damage");
+                Log.Information("fan-result: passed");
             }
-            catch(Exception ex){Log.Error(ex,"fan-result: failed");owner.Delete();enemy.Delete();}
+            finally{NecromancerSpellMissiles.Cancel(owner);owner.Delete();enemy.Delete();}
         });
+
     }
 }

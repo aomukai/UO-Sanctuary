@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerAccepted": false,
+  "currentExecutableParity": false,
+  "cases": {
+    "launch": 360,
+    "steer": 2016,
+    "hit": 288,
+    "select": 40,
+    "damage": 4080
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_AddDamagePercentBonus": "186a78a307cafdd8672b518c0cd51697045f68a349ddb7a696bd3227f2945118",
+    "SKILLS_SrvDo010_GuidedArrow_BoneSpirit": "a31be13a9900f4d6bf2ffd97ac8e1671c1d72ec4f44760fb37fea6f47c48db81",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit": "b2b81ccd67a83eaade3bead5faf81c8f2b191c819464c57573eed548d8d48888",
+    "MISSMODE_SrvHit10_GuidedArrow_BoneSpirit": "20aa8d5d9f038853191d305c1c55b85765aa6204d4027cd5c68a4291255b3694",
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "UNITS_GetDistanceToCoordinates": "98a852994c20a1ae3bab493c7f0c3f6f7b2635677a659d4661b0d1362df963f0",
+    "UNITS_GetDistanceToOtherUnit": "d7f535efb5a5beede9e5ecafc993ac08ed935fbae366b4cd756b107b45cec590",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "MISSMODE_RollDamageValue": "b7a3f2d3ca90820d1ef8f41fe5cbbc8fbd52011a472a3396efd55de5517e8951"
+  },
+  "inputs": {
+    ".local/class-skills/guided-arrow-source-probe.cpp": "e7dfb60ed8bb4ab8f2d19cd7f459bc120ee0cc7363f2adaf635b35bbcfcaf7a3",
+    ".local/class-skills/bone-spear-source/damage.cpp": "cdf3afd015c39c574463e9eb275d2136f292b0e078be1db50c37060857de87d3",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/guided-arrow-engine-evidence.json": "9126ed2711cb4945174947bcb512f948e6b6addb4d947ec0557b32d2a6704428"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-spirit-source/guidance.cpp": "f4bf8f4797d72d11ebe9829eb4c72b136ffe1a91b5868102ea7b63e857e50c5c",
+    ".local/class-skills/bone-spirit-source/guidance-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-spirit-source/guidance-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-spirit-source/guidance-cases.json": "a813a796f9e03904ffa1726e246009a12a677464a2fa74db9672e26c6bb54fba",
+    ".local/class-skills/bone-spirit-source/damage.cpp": "055cc906f317e1f23b79d3c15cc0392a8a70627add0655eede113ce19ced36fc",
+    ".local/class-skills/bone-spirit-source/damage-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-spirit-source/damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-spirit-source/damage-cases.json": "3557ea227dbccf0153607a6c6363f58cd09184c55dc802da8495826669da1d4e"
+  },
+  "established": [
+    "Complete do10/factory use current Bone Spirit skill93/missile193,calc1zero and velocity12. Selected launch has mode1/current128frames;ground launch has mode2/current distance-derived frames while total remains128. Normal/50percent slow give2304/1152FP8. Packed signed original aim is retained. No weapon damage-percent initializer or pierce draw occurs.",
+    "Complete do7 validates locked target and only repaths on remaining-frame cadence5 when size-adjusted distance is strictly3<d<25. Dead or hostile-invalid locked targets stop repathing;do7 does not search for replacements. A declared generic collision service still runs.",
+    "Complete hit10 ignores other units for modes1/5. Ground mode2 ignores early units,then at its first expiry searches within15source subtiles,chooses the lowest candidate ID with previous=-1 and resets range128. Acquired mode5 or straight-extension mode6 do not reacquire on later expiry. Barrier/retarget/path callbacks remain declared services.",
+    "Complete creator/getters/writer/roll use HitShift8 and8percent hard synergies across4080contexts. SrcDam0 excludes supplied weapon/item/origin/critical payloads;magic rolls are max-exclusive."
+  ],
+  "remaining": [
+    "Generic collision/actual hit-result routing,movement/path flags and source steering/vector recomputation are not executed together by this probe. Declared world/room/allocation/target/filter/packet/stat services retain their bounds;the full modern executable and graphical client are not certified.",
+    "Before replacing the provisional native loop,compose saved modes1/2/5/6,initial remaining versus total frames,ground extension,locked-target loss,turn cadence/distance,collision/terrain,actual spell defenses/resources/lifecycle/inputs and real reloads. Reuse GuidedArrows primitives where exact;do not copy its weapon packet or hard128remaining validation to slowed ground Spirit."
+  ]
+}

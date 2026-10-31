@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Bone Spirit saved-guidance path](bone-spirit-checkpoint.md) adds no final art. Bone Spirit still needs a talent-tree and left/right/quick-hotkey icon; its real input checks use the existing identified placeholder.
+
 The [Teeth saved-flight path](teeth-checkpoint.md) adds no final art. Teeth still needs its talent-tree and left/right/quick-hotkey icon; the saved fan and actual input checks use existing identified placeholders.
 
 Bone Spear still needs final talent-tree and left/right/quick-hotkey art after the [source-flight change](bone-spear-checkpoint.md). The same player skill/bindings remain; piercing and child presentation introduce no independent player icons. Effects/audio remain in their own register.
