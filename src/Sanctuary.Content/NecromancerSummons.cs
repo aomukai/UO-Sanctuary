@@ -39,9 +39,10 @@ public static class NecromancerSummons
         if(ability is not(CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)){return false;}
         bool mage = ability == CombatAbility.RaiseSkeletalMage;
         if(mage){try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
+        if(ability==CombatAbility.ClayGolem){try{NecromancerClayBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
-        var pet = new NecromancerMinion();
+        NecromancerMinion pet=ability==CombatAbility.ClayGolem?new ClayGolemBody():new NecromancerMinion();
         bool committed=false;
         try
         {
@@ -83,6 +84,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     internal int MageElement=>_element;
     internal int MageMissileRank=>IsMage?checked((int)Values(Kind).Eval("sumsk1calc")):0;
     private Dictionary<string, int> Snapshot => _snapshot ??= JsonSerializer.Deserialize<Dictionary<string, int>>(_ranks);
+    internal SkillValues CapturedValues=>Values(Kind);
     private SkillValues Values(CombatAbility ability) => new(SkillMechanics.For(ability),
         key => Snapshot.GetValueOrDefault(key), key => Snapshot.GetValueOrDefault("base:" + key), Level);
     private int Passive(string stat)
@@ -136,7 +138,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         }
         return false;
     }
-    public void Prepare(PlayerMobile owner, CombatAbility ability)
+    public virtual void Prepare(PlayerMobile owner, CombatAbility ability)
     {
         if(ability==CombatAbility.RaiseSkeletalMage){NecromancerMageBirth.Require(owner);}
         _kind = ability; _summonProfile = null; _mageBirth=null; _snapshot = new(StringComparer.OrdinalIgnoreCase);

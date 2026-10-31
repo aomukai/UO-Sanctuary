@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "5ccc7fe8c7c4b3843389cf8195e471c216d77eced1845d083b0b7cf0df2ec3db",
-  "ContentAssemblyPath": ".local/class-skills/mage-clock/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "101bc9b0a75e0062a16362827c074a79aa3b5f8d17e9913c57fd03a71bcef5ea",
+  "ContentAssemblyPath": ".local/class-skills/clay-golem-birth/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

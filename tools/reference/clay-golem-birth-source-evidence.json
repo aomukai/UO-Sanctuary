@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "localTables": {
+    "monstats-sentries-verified.txt": {
+      "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+      "corroboratedFields": 76
+    },
+    "skills.txt": {
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "corroboratedFields": 56
+    }
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 11475,
+  "unsafePercentageCases": 1098,
+  "nonpositiveWrappedLifeCases": 1041,
+  "functions": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "maxHpCallbackBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "reviewedOnly": {
+    "SKILLS_SrvDo056_Golem": "b6e5942e72ebaffadd5ac45daeeabd5115c65b02639036fd382e1f0ab1e0f36b",
+    "D2GAME_EventFunc27_6FD0F7A0": "2d6d3834ca1c70c512ca28bf851f013228bbf0a91ef38b54d7ff045339718eed"
+  },
+  "inputs": {
+    "tools/probe_clay_golem_birth.py": "bc48463ce7c1fc434bddf99f3903c5df00904100876fd2835d4ab00093cc577c",
+    ".local/class-skills/mage-birth-source/probe.cpp": "85bee2ffba964650422e9cfa35425f9cff786cdc1e841ac2b3db4a582a2f71b8",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitEvent.h": "64f385bef1e008d1d94ab59eb537bfc80fc0bb3fa6b41859d66063028bac614f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "artifacts": {
+    ".local/class-skills/clay-golem-birth-source/probe.cpp": "4d22d0f1852647fd8bf6deeb9826d4e99d54e65edf45ce90015412084b2d6a20",
+    ".local/class-skills/clay-golem-birth-source/cases.json": "63be8450b0e4b56f510415cd8be486a8496a6e6842335aed5c4d4268408391de",
+    ".local/class-skills/clay-golem-birth-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/clay-golem-birth-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete shared base/passive/resistance/MAXHPcallback bodies execute11475current Clay Golem contexts with declared current formula/stat/spawn services. Fixed noRatio100/175/275HP bases preserveFP256 percentage life and changed maximum regeneration from DamageRegen3.",
+    "Effective Golem Mastery modifies life/AR/velocity;Blood/Iron/Fire synergies use hard ranks. Current source writes attack,armor,damagepercent,velocity and item_slow separately;the damagedinmelee/27registration is captured without executing its callback.",
+    "The source percentage helper can wrap signed multiplication in an extreme rank domain. Explicit-fwrapv records those rows;native delivery must refuse unsupported arithmetic rather than invent positive life."
+  ],
+  "remaining": [
+    "Initializer/equipment generation,initial S1/AI/clock/movement,full events/current executable and native combat/owner/save delivery are not certified by scalar source services.",
+    "Clay incoming-melee slow callback27is statically reviewed only. Its native integration and complete slow/event order remain separate;the prior outgoing slow path is not a substitute. Physical Sunder is supplied zero and remains unsupported."
+  ]
+}

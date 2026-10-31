@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Clay Golem birth/resource correction](clay-golem-birth-checkpoint.md) retains body14/hue0x96D and the native summon flash as identified placeholders. Final G1 emergence/body/casting, attacks, incoming/outgoing slow, hit/retaliation/death and audio remain needed. Exact life and regeneration do not wait for art.
+
 The approved [later Mage upgrade](skeletal-mage-upgrade-plan.md) will need effects/audio for its extra spells once the spell list is selected. No specific spell or asset is invented yet; baseline Mage placeholders remain usable.
 
 The [Skeletal Mage skill-clock correction](mage-clock-checkpoint.md) keeps native body56/attack animation and the four colored projectile/hit presentations as identified placeholders. Final emergence/casting, elemental bolts, impact/chill/poison/critical feedback, death and audio remain needed. Their mechanical launch now uses the source400ms event; no final art is generated.

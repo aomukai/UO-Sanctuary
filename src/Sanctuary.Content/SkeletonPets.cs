@@ -249,7 +249,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     internal void RecoverLife(long now)
     {
-        if(this is RaisedSkeleton or NecromancerMinion{IsMage:true}||NpcEquipmentRegeneration.Handles(this)){NpcEquipmentRegeneration.Recover(this,now);return;}
+        if(this is RaisedSkeleton or ClayGolemBody or NecromancerMinion{IsMage:true}||NpcEquipmentRegeneration.Handles(this)){NpcEquipmentRegeneration.Recover(this,now);return;}
         NpcEquipmentRegeneration.Reset(this);
         if (_lastRecovery == 0 || !Alive || Deleted || Poisoned || !TimedEffects.CanRegenerateHits(this)
             || Map == null || Map == Map.Internal || Hits >= HitsMax)

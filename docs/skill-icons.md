@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Clay Golem birth/resource correction](clay-golem-birth-checkpoint.md) adds no player ability or final art. Clay Golem still needs its tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately needed. Internal FP resources and a saved body subtype introduce no additional bindings. Effects/audio stay separate.
+
 The approved [later Mage upgrade](skeletal-mage-upgrade-plan.md) has no selected spell list yet. Track any new tree/hotkey requirements separately after deciding which abilities are autonomous pet spells; extra pet actions do not automatically require player hotkeys.
 
 The [Skeletal Mage skill-clock correction](mage-clock-checkpoint.md) introduces no new binding or final art. Raise Skeletal Mage still needs its tree and right/quick-hotkey icon; Mastery retains its separate passive tree icon. Element variants and the400ms internal action event do not create additional player skills. Effects/audio remain separate.

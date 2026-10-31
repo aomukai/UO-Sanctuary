@@ -1,0 +1,127 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Clay Golem exact birth/resources",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 2,
+  "verified": {
+    "nativeMarkers": 303,
+    "retainedPredecessorMarkers": 300,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      834,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 11475,
+    "safeSourceMatches": 10377,
+    "unsafeSourceRefusals": 1098,
+    "normalRank4Life256": 52480,
+    "nightmareRank4Life256": 91840,
+    "nightmareRank4Regeneration256": 67,
+    "gearSynergyLife256": 165888,
+    "gearSynergyRegeneration256": 121,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/clay-golem-birth/birth-inputs.json",
+      "sha256": "f7582a77a16744a881cbedf48db43cb4450ea057a9f03184a75e88f5334a9376"
+    },
+    "audit": {
+      "path": ".local/class-skills/clay-golem-birth/audit-inputs.json",
+      "sha256": "8ef208ed719dcab444302b64b008b19ae307a39b07552b4485d4ca9e79a3c818"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    },
+    "mage-missile-source-evidence.json": {
+      "path": "tools/reference/mage-missile-source-evidence.json",
+      "sha256": "68769019b38b073efc92f7417cb00d8de05314e55c9bd557cd68bce54e09cdc1"
+    },
+    "clay-golem-birth-source-evidence.json": {
+      "path": "tools/reference/clay-golem-birth-source-evidence.json",
+      "sha256": "047b8416a9fa9a5a912630df802dad013434b10ad948055cc1e30a6fb9e308de"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/ClayGolemBody.cs": "0cb2598857312d2599990d3a6f2dbcdb5aefc108604e7f8911652749fd0a55b4",
+    "src/Sanctuary.Content/NecromancerClayBirth.cs": "59f30a6cfcb884410a55e9057658e38467e052396bb4119e63a1c6b888647afb",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "6c255844205919a28dc7662e51451d5573c53297f8763e34f85f59f17996ccd2",
+    "src/Sanctuary.Content/SkeletonPets.cs": "47c3d2ffd86f0103191cb6d2ba9bf4776b4432155ec05ae9afffc7310804fb44",
+    "tests/Sanctuary.Integration/ClayGolemBirthChecks.cs": "9e6e3c0ed5abcd976243c49ad02319913b4234c52d5604ceb9d123548e20e0be"
+  },
+  "artifacts": {
+    ".local/class-skills/clay-golem-birth/audit-inputs.json": "8ef208ed719dcab444302b64b008b19ae307a39b07552b4485d4ca9e79a3c818",
+    ".local/class-skills/clay-golem-birth/audit-native-checks.log": "43570ea280d86ea1c2ba3c4d6c19fda2887fb2320ebadf43e4833334f89f0baf",
+    ".local/class-skills/clay-golem-birth/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/clay-golem-birth/birth-inputs.json": "f7582a77a16744a881cbedf48db43cb4450ea057a9f03184a75e88f5334a9376",
+    ".local/class-skills/clay-golem-birth/birth-native-checks.log": "aaac4354b8c0cb3b6ab7e59a5013d7844a6a063cd1089979c94d8c1d248da0e2",
+    ".local/class-skills/clay-golem-birth/clay-golem-birth-fixtures.json": "78362470c4b39e75e201f8be78377ba3764b2031f75c941ab2dde22b32f1423d",
+    ".local/class-skills/clay-golem-birth/content-build-2.log": "4cdbfee14df896ee028d040435686932a2d441609501bcbb8437565fef8a6956",
+    ".local/class-skills/clay-golem-birth/integration-build-2.log": "055314dad3912fa66194a52144d574a27ef2e3f1f2fee40e0df5a1ff9c324d41",
+    ".local/class-skills/clay-golem-birth/iron-golem-cast-fixtures.json": "07037d498ffcb8e8f8664ee43ef8a5bb9ded8e4d65d59da303835d62ba80ba05",
+    ".local/class-skills/clay-golem-birth/mage-missile-fixtures.json": "a97db6cf942550e7853847ea8e16863708598ff94a0e6cf3e65b78a1258dc39e",
+    ".local/class-skills/clay-golem-birth/pre-build-2.json": "23b20f36d4ef6440a87688118d18b97a44b99dce32a0dd4f9a572459aa614f16",
+    ".local/class-skills/clay-golem-birth/python-tests.log": "4fa7648ff5d132706851eb5d7b8d57a2bb1edf5230276e44a4ff5fe40e61b65d",
+    ".local/class-skills/clay-golem-birth/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/clay-golem-birth/skeleton-contact-fixtures.json": "20e28c20ad310bd054ba9edf45c4ba5f5c4e14cc39fb5841372f92ac7937dacb",
+    "data/Sanctuary/Balance/necromancer-summons.json": "c47fa6ea3ff7907be6a9b04cb72088349bd0bfcfe92c686207f1990f2d262c9e",
+    "docs/class-skill-roadmap.md": "92b9a4da4f9a3c451ce2727b051de63f239336cc251c833cc0722d055271ed0c",
+    "docs/class-skills-resume-checkpoint.md": "4fa10c22cf90c89711b22de41edec20d05c129beda676613c6cfe185f54a5a04",
+    "docs/clay-golem-birth-checkpoint.md": "6722e27136858e7330501f7b067cf7709ad133e432aed68ba72c3cff3914e37c",
+    "docs/necromancer-mechanical-audit.md": "62c85e54008d5b6534e29bd8675ef6ee0495c28c600e0f590b2c469cbf23d38a",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skeleton-components-source-review.md": "571e5890391ca7e3f0f3bef25731d55156b9e43ee66dce3932ee9609d5b44ed3",
+    "docs/skill-effects.md": "2bf63010b0bfed646c06a3b3a0c51bc5b0c918e8f88e9ce091d82c463a6c58cb",
+    "docs/skill-icons.md": "b44a80032aeee2e58bfc8760586efc05f0bb1cb71eb66b1464c53ab21d3a4870",
+    "docs/skill-mechanical-reference.md": "871df1c980ebcea533e68862a684988d8d7f659226e243e548931bc051cf260f",
+    "src/Sanctuary.Content/ClayGolemBody.cs": "0cb2598857312d2599990d3a6f2dbcdb5aefc108604e7f8911652749fd0a55b4",
+    "src/Sanctuary.Content/NecromancerClayBirth.cs": "59f30a6cfcb884410a55e9057658e38467e052396bb4119e63a1c6b888647afb",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "6c255844205919a28dc7662e51451d5573c53297f8763e34f85f59f17996ccd2",
+    "src/Sanctuary.Content/SkeletonPets.cs": "47c3d2ffd86f0103191cb6d2ba9bf4776b4432155ec05ae9afffc7310804fb44",
+    "tests/Sanctuary.Integration/ClayGolemBirthChecks.cs": "9e6e3c0ed5abcd976243c49ad02319913b4234c52d5604ceb9d123548e20e0be",
+    "tests/check_clay_golem_birth.py": "4bc43208ada4ff18807f79fe76a0676275c127ba742e16dec45a2f98d192474e",
+    "tools/build_class_skills.py": "efd7d026aea79fa86b9d19a4a40e9ced2884691e1c8b62494b3a133a98d497f0",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/probe_clay_golem_birth.py": "bc48463ce7c1fc434bddf99f3903c5df00904100876fd2835d4ab00093cc577c",
+    "tools/record_clay_golem_birth.py": "4171ae842db6aa94f956ffdb059407283a4d447c246b11a6faf44225c3223717",
+    "tools/reference/first-loop-affix-audit.json": "3a0b89f1b39730451a148c64de79a19f69f5aa7f65acba060a0030263ed86101",
+    "tools/reference/mage-clock-native-evidence.json": "4855acc4a4e2f526b53277aa06e203433ccab9459f4775ed5fea030459203e09",
+    "tools/reference/named-item-runtime-audit.json": "982e617db22cd10c41324f40f7064e8d7201ee70ba21a64ef2af86e00137bf40",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-shield-observations.json": "e509ed29e26fe70abfe729218a7e912fb7fab32cdd38e0d4cd23c82fc2b34e52",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "New learned Clay Golems use an explicit subclass with exactFP256 life and shared source MAXHP regeneration. Rank4/Mastery0 Normal is205HP/38FP recovery;Nightmare is358.75HP/67FP. Native40ms/PMH,relative facet life,Battle Orders and two actual injured parked reloads pass.",
+    "Complete source base/passive/resistance/MAXHP callback composition covers11475contexts:10377safe matches and1098explicit arithmetic refusals. All three difficulties are preflighted before creation,including a Normal-safe/Hell-unsafe domain. Owner physical Sunder remains explicitly refused.",
+    "Real learned recasting pays once and replaces the prior golem. Actual Wormskull plus hard skill allocation yields Clay5/Mastery8,hardBlood2/Iron3/Fire4:648HP/121FP recovery,164damagepercent,24velocitypercent and54SummonResist. Later owner bonuses do not rewrite captured birth stats.",
+    "Historical plain NecromancerMinion Clay actors retain their saved type and prior resource branch under a separate owner. The staged kernel/runtime data and106installed artifacts remain unchanged;all300predecessor native markers,4audits/71Python and573named decisions pass."
+  ],
+  "remaining": [
+    "Clay incoming-melee slow callback27has source review and registration evidence but is not newly integrated here. Existing outgoing slow/integer weapon damage and generic720ms action/movement remain unfinished consumers;full source unarmed damage/critical/contact/return and AI67/S1 still need integration.",
+    "Full modern initializer/component/event/seed/geometry/global-frame/client and PvP/special-recipient parity remain unverified. Historical actor upgrade/binary migration is not claimed;new actors retain the existing65000native life ceiling. Other golem and curse acceptance continues.",
+    "No complete class,deployment or new1180-marker broad run is claimed. Final Clay emergence/body/hit/slow/death effects/audio and talent/hotkey icons remain separate pending ledgers. Approved later pet hard-point ability unlocks await the post-baseline upgrade pass."
+  ]
+}
