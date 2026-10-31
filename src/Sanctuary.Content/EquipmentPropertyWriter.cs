@@ -167,6 +167,8 @@ internal static class EquipmentRawProperties
             int parameter=NamedPropertyRuntime.Parameter(property);
             if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&property.Code.EndsWith("/lvl",StringComparison.Ordinal))
             {omissions.Add(new(property.Code,property.Slot,"The original zero-parameter fallback roll is not represented"));continue;}
+            if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&roll.Value!=roll.Maximum)
+            {omissions.Add(new(property.Code,property.Slot,"The original independent zero-parameter range fallback is not recorded"));continue;}
             EquipmentPropertyWriter.Apply(plan,new(roll.Value,roll.Maximum,parameter),mode,target);
         }
         if(state.Quality!=0){omissions.Add(new("quality","","Quality-base initialization is not integrated"));}

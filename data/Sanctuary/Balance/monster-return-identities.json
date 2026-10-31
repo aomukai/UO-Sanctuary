@@ -1,0 +1,7512 @@
+[
+  {
+    "Source": "skeleton1",
+    "Class": 0,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton2",
+    "Class": 1,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton3",
+    "Class": 2,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton4",
+    "Class": 3,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton5",
+    "Class": 4,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zombie1",
+    "Class": 5,
+    "Base": 5,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zombie2",
+    "Class": 6,
+    "Base": 5,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zombie3",
+    "Class": 7,
+    "Base": 5,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zombie4",
+    "Class": 8,
+    "Base": 5,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zombie5",
+    "Class": 9,
+    "Base": 5,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead1",
+    "Class": 10,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead2",
+    "Class": 11,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead3",
+    "Class": 12,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead4",
+    "Class": 13,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead5",
+    "Class": 14,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow1",
+    "Class": 15,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow2",
+    "Class": 16,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow3",
+    "Class": 17,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow4",
+    "Class": 18,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen1",
+    "Class": 19,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen2",
+    "Class": 20,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen3",
+    "Class": 21,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen4",
+    "Class": 22,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen5",
+    "Class": 23,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "brute2",
+    "Class": 24,
+    "Base": 24,
+    "HitClass": 1,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "brute3",
+    "Class": 25,
+    "Base": 24,
+    "HitClass": 1,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "brute4",
+    "Class": 26,
+    "Base": 24,
+    "HitClass": 1,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "brute5",
+    "Class": 27,
+    "Base": 24,
+    "HitClass": 1,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "brute1",
+    "Class": 28,
+    "Base": 24,
+    "HitClass": 1,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider1",
+    "Class": 29,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider2",
+    "Class": 30,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider3",
+    "Class": 31,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider4",
+    "Class": 32,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider5",
+    "Class": 33,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "gorgon1",
+    "Class": 34,
+    "Base": 34,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "gorgon2",
+    "Class": 35,
+    "Base": 34,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "gorgon3",
+    "Class": 36,
+    "Base": 34,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "gorgon4",
+    "Class": 37,
+    "Base": 34,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "wraith1",
+    "Class": 38,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith2",
+    "Class": 39,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith3",
+    "Class": 40,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith4",
+    "Class": 41,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith5",
+    "Class": 42,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "corruptrogue1",
+    "Class": 43,
+    "Base": 43,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "corruptrogue2",
+    "Class": 44,
+    "Base": 43,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "corruptrogue3",
+    "Class": 45,
+    "Base": 43,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "corruptrogue4",
+    "Class": 46,
+    "Base": 43,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "corruptrogue5",
+    "Class": 47,
+    "Base": 43,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon1",
+    "Class": 48,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon2",
+    "Class": 49,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon3",
+    "Class": 50,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon4",
+    "Class": 51,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon5",
+    "Class": 52,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman1",
+    "Class": 53,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman2",
+    "Class": 54,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman3",
+    "Class": 55,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman4",
+    "Class": 56,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman5",
+    "Class": 57,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman1",
+    "Class": 58,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman2",
+    "Class": 59,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman3",
+    "Class": 60,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman4",
+    "Class": 61,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman5",
+    "Class": 62,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat1",
+    "Class": 63,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat2",
+    "Class": 64,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat3",
+    "Class": 65,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat4",
+    "Class": 66,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat5",
+    "Class": 67,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot1",
+    "Class": 68,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot2",
+    "Class": 69,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot3",
+    "Class": 70,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot4",
+    "Class": 71,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot5",
+    "Class": 72,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper1",
+    "Class": 73,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper2",
+    "Class": 74,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper3",
+    "Class": 75,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper4",
+    "Class": 76,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper5",
+    "Class": 77,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper1",
+    "Class": 78,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper2",
+    "Class": 79,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper3",
+    "Class": 80,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper4",
+    "Class": 81,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper5",
+    "Class": 82,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pantherwoman1",
+    "Class": 83,
+    "Base": 83,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pantherwoman2",
+    "Class": 84,
+    "Base": 83,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pantherwoman3",
+    "Class": 85,
+    "Base": 83,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pantherwoman4",
+    "Class": 86,
+    "Base": 83,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "swarm1",
+    "Class": 87,
+    "Base": 87,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "swarm2",
+    "Class": 88,
+    "Base": 87,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "swarm3",
+    "Class": 89,
+    "Base": 87,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "swarm4",
+    "Class": 90,
+    "Base": 87,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab1",
+    "Class": 91,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab2",
+    "Class": 92,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab3",
+    "Class": 93,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab4",
+    "Class": 94,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab5",
+    "Class": 95,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mummy1",
+    "Class": 96,
+    "Base": 96,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mummy2",
+    "Class": 97,
+    "Base": 96,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mummy3",
+    "Class": 98,
+    "Base": 96,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mummy4",
+    "Class": 99,
+    "Base": 96,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mummy5",
+    "Class": 100,
+    "Base": 96,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler1",
+    "Class": 101,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler2",
+    "Class": 102,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler3",
+    "Class": 103,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler4",
+    "Class": 104,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler5",
+    "Class": 105,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "chaoshorde1",
+    "Class": 106,
+    "Base": 106,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "chaoshorde2",
+    "Class": 107,
+    "Base": 106,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "chaoshorde3",
+    "Class": 108,
+    "Base": 106,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "chaoshorde4",
+    "Class": 109,
+    "Base": 106,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "vulture1",
+    "Class": 110,
+    "Base": 110,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vulture2",
+    "Class": 111,
+    "Base": 110,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vulture3",
+    "Class": 112,
+    "Base": 110,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vulture4",
+    "Class": 113,
+    "Base": 110,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mosquito1",
+    "Class": 114,
+    "Base": 114,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mosquito2",
+    "Class": 115,
+    "Base": 114,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mosquito3",
+    "Class": 116,
+    "Base": 114,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mosquito4",
+    "Class": 117,
+    "Base": 114,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp1",
+    "Class": 118,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp2",
+    "Class": 119,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp3",
+    "Class": 120,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp4",
+    "Class": 121,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach1",
+    "Class": 122,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach2",
+    "Class": 123,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach3",
+    "Class": 124,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach4",
+    "Class": 125,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach5",
+    "Class": 126,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "thornhulk1",
+    "Class": 127,
+    "Base": 127,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "thornhulk2",
+    "Class": 128,
+    "Base": 127,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "thornhulk3",
+    "Class": 129,
+    "Base": 127,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "thornhulk4",
+    "Class": 130,
+    "Base": 127,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire1",
+    "Class": 131,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire2",
+    "Class": 132,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire3",
+    "Class": 133,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire4",
+    "Class": 134,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire5",
+    "Class": 135,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon1",
+    "Class": 136,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon2",
+    "Class": 137,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon3",
+    "Class": 138,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon4",
+    "Class": 139,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon5",
+    "Class": 140,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish1",
+    "Class": 141,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish2",
+    "Class": 142,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish3",
+    "Class": 143,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish4",
+    "Class": 144,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish5",
+    "Class": 145,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cain1",
+    "Class": 146,
+    "Base": 146,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "gheed",
+    "Class": 147,
+    "Base": 147,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "akara",
+    "Class": 148,
+    "Base": 148,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "chicken",
+    "Class": 149,
+    "Base": 149,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "kashya",
+    "Class": 150,
+    "Base": 150,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "rat",
+    "Class": 151,
+    "Base": 151,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "rogue1",
+    "Class": 152,
+    "Base": 152,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "hellmeteor",
+    "Class": 153,
+    "Base": 153,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "charsi",
+    "Class": 154,
+    "Base": 154,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "warriv1",
+    "Class": 155,
+    "Base": 155,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "andariel",
+    "Class": 156,
+    "Base": 156,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bird1",
+    "Class": 157,
+    "Base": 157,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "bird2",
+    "Class": 158,
+    "Base": 158,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "bat",
+    "Class": 159,
+    "Base": 159,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 7,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cr_archer1",
+    "Class": 160,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer2",
+    "Class": 161,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer3",
+    "Class": 162,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer4",
+    "Class": 163,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer5",
+    "Class": 164,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer1",
+    "Class": 165,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer2",
+    "Class": 166,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer3",
+    "Class": 167,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer4",
+    "Class": 168,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer5",
+    "Class": 169,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer1",
+    "Class": 170,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer2",
+    "Class": 171,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer3",
+    "Class": 172,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer4",
+    "Class": 173,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer5",
+    "Class": 174,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "warriv2",
+    "Class": 175,
+    "Base": 175,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "atma",
+    "Class": 176,
+    "Base": 176,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "drognan",
+    "Class": 177,
+    "Base": 177,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "fara",
+    "Class": 178,
+    "Base": 178,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cow",
+    "Class": 179,
+    "Base": 179,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "maggotbaby1",
+    "Class": 180,
+    "Base": 180,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotbaby2",
+    "Class": 181,
+    "Base": 180,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotbaby3",
+    "Class": 182,
+    "Base": 180,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotbaby4",
+    "Class": 183,
+    "Base": 180,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotbaby5",
+    "Class": 184,
+    "Base": 180,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "camel",
+    "Class": 185,
+    "Base": 185,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "blunderbore1",
+    "Class": 186,
+    "Base": 186,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "blunderbore2",
+    "Class": 187,
+    "Base": 186,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "blunderbore3",
+    "Class": 188,
+    "Base": 186,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "blunderbore4",
+    "Class": 189,
+    "Base": 186,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotegg1",
+    "Class": 190,
+    "Base": 190,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotegg2",
+    "Class": 191,
+    "Base": 190,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotegg3",
+    "Class": 192,
+    "Base": 190,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotegg4",
+    "Class": 193,
+    "Base": 190,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotegg5",
+    "Class": 194,
+    "Base": 190,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "act2male",
+    "Class": 195,
+    "Base": 195,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "act2female",
+    "Class": 196,
+    "Base": 196,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "act2child",
+    "Class": 197,
+    "Base": 197,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "greiz",
+    "Class": 198,
+    "Base": 198,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "elzix",
+    "Class": 199,
+    "Base": 199,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "geglash",
+    "Class": 200,
+    "Base": 200,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "jerhyn",
+    "Class": 201,
+    "Base": 201,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "lysander",
+    "Class": 202,
+    "Base": 202,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "act2guard1",
+    "Class": 203,
+    "Base": 203,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act2vendor1",
+    "Class": 204,
+    "Base": 204,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "act2vendor2",
+    "Class": 205,
+    "Base": 205,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "crownest1",
+    "Class": 206,
+    "Base": 206,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "crownest2",
+    "Class": 207,
+    "Base": 206,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "crownest3",
+    "Class": 208,
+    "Base": 206,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "crownest4",
+    "Class": 209,
+    "Base": 206,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "meshif1",
+    "Class": 210,
+    "Base": 210,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "duriel",
+    "Class": 211,
+    "Base": 211,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish1",
+    "Class": 212,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish2",
+    "Class": 213,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish3",
+    "Class": 214,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish4",
+    "Class": 215,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish5",
+    "Class": 216,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "darkguard1",
+    "Class": 217,
+    "Base": 217,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "darkguard2",
+    "Class": 218,
+    "Base": 217,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "darkguard3",
+    "Class": 219,
+    "Base": 217,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "darkguard4",
+    "Class": 220,
+    "Base": 217,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "darkguard5",
+    "Class": 221,
+    "Base": 217,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "bloodmage1",
+    "Class": 222,
+    "Base": 222,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "bloodmage2",
+    "Class": 223,
+    "Base": 222,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "bloodmage3",
+    "Class": 224,
+    "Base": 222,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "bloodmage4",
+    "Class": 225,
+    "Base": 222,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "bloodmage5",
+    "Class": 226,
+    "Base": 222,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "maggot",
+    "Class": 227,
+    "Base": 227,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sarcophagus",
+    "Class": 228,
+    "Base": 228,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "radament",
+    "Class": 229,
+    "Base": 229,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "firebeast",
+    "Class": 230,
+    "Base": 230,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "iceglobe",
+    "Class": 231,
+    "Base": 231,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "lightningbeast",
+    "Class": 232,
+    "Base": 232,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "poisonorb",
+    "Class": 233,
+    "Base": 233,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "flyingscimitar",
+    "Class": 234,
+    "Base": 234,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zealot1",
+    "Class": 235,
+    "Base": 235,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zealot2",
+    "Class": 236,
+    "Base": 235,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zealot3",
+    "Class": 237,
+    "Base": 235,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cantor1",
+    "Class": 238,
+    "Base": 238,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cantor2",
+    "Class": 239,
+    "Base": 238,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cantor3",
+    "Class": 240,
+    "Base": 238,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cantor4",
+    "Class": 241,
+    "Base": 238,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mephisto",
+    "Class": 242,
+    "Base": 242,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "diablo",
+    "Class": 243,
+    "Base": 243,
+    "HitClass": 12,
+    "ModeFlags": 64,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cain2",
+    "Class": 244,
+    "Base": 244,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cain3",
+    "Class": 245,
+    "Base": 245,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cain4",
+    "Class": 246,
+    "Base": 246,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "frogdemon1",
+    "Class": 247,
+    "Base": 247,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frogdemon2",
+    "Class": 248,
+    "Base": 247,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frogdemon3",
+    "Class": 249,
+    "Base": 247,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 11,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "summoner",
+    "Class": 250,
+    "Base": 250,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "tyrael1",
+    "Class": 251,
+    "Base": 251,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "asheara",
+    "Class": 252,
+    "Base": 252,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "hratli",
+    "Class": 253,
+    "Base": 253,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "alkor",
+    "Class": 254,
+    "Base": 254,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "ormus",
+    "Class": 255,
+    "Base": 255,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "izual",
+    "Class": 256,
+    "Base": 256,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "halbu",
+    "Class": 257,
+    "Base": 257,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "tentacle1",
+    "Class": 258,
+    "Base": 258,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "tentacle2",
+    "Class": 259,
+    "Base": 258,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "tentacle3",
+    "Class": 260,
+    "Base": 258,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "tentaclehead1",
+    "Class": 261,
+    "Base": 261,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "tentaclehead2",
+    "Class": 262,
+    "Base": 261,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "tentaclehead3",
+    "Class": 263,
+    "Base": 261,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "meshif2",
+    "Class": 264,
+    "Base": 264,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cain5",
+    "Class": 265,
+    "Base": 265,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "navi",
+    "Class": 266,
+    "Base": 266,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "bloodraven",
+    "Class": 267,
+    "Base": 267,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bug",
+    "Class": 268,
+    "Base": 268,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "scorpion",
+    "Class": 269,
+    "Base": 269,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "rogue2",
+    "Class": 270,
+    "Base": 270,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "roguehire",
+    "Class": 271,
+    "Base": 271,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "rogue3",
+    "Class": 272,
+    "Base": 272,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "gargoyletrap",
+    "Class": 273,
+    "Base": 273,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois1",
+    "Class": 274,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois2",
+    "Class": 275,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois3",
+    "Class": 276,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois4",
+    "Class": 277,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman1",
+    "Class": 278,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman2",
+    "Class": 279,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman3",
+    "Class": 280,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman4",
+    "Class": 281,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman5",
+    "Class": 282,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "larva",
+    "Class": 283,
+    "Base": 283,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotqueen1",
+    "Class": 284,
+    "Base": 284,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotqueen2",
+    "Class": 285,
+    "Base": 284,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotqueen3",
+    "Class": 286,
+    "Base": 284,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotqueen4",
+    "Class": 287,
+    "Base": 284,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotqueen5",
+    "Class": 288,
+    "Base": 284,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "claygolem",
+    "Class": 289,
+    "Base": 289,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "bloodgolem",
+    "Class": 290,
+    "Base": 290,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "irongolem",
+    "Class": 291,
+    "Base": 291,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "firegolem",
+    "Class": 292,
+    "Base": 292,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "familiar",
+    "Class": 293,
+    "Base": 293,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act3male",
+    "Class": 294,
+    "Base": 294,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "baboon6",
+    "Class": 295,
+    "Base": 295,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "act3female",
+    "Class": 296,
+    "Base": 296,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "natalya",
+    "Class": 297,
+    "Base": 297,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "vilemother1",
+    "Class": 298,
+    "Base": 298,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilemother2",
+    "Class": 299,
+    "Base": 298,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilemother3",
+    "Class": 300,
+    "Base": 298,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilechild1",
+    "Class": 301,
+    "Base": 301,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilechild2",
+    "Class": 302,
+    "Base": 301,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilechild3",
+    "Class": 303,
+    "Base": 301,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fingermage1",
+    "Class": 304,
+    "Base": 304,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fingermage2",
+    "Class": 305,
+    "Base": 304,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fingermage3",
+    "Class": 306,
+    "Base": 304,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "regurgitator1",
+    "Class": 307,
+    "Base": 307,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "regurgitator2",
+    "Class": 308,
+    "Base": 307,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "regurgitator3",
+    "Class": 309,
+    "Base": 307,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "doomknight1",
+    "Class": 310,
+    "Base": 310,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "doomknight2",
+    "Class": 311,
+    "Base": 311,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "doomknight3",
+    "Class": 312,
+    "Base": 312,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillbear1",
+    "Class": 313,
+    "Base": 313,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillbear2",
+    "Class": 314,
+    "Base": 313,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillbear3",
+    "Class": 315,
+    "Base": 313,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillbear4",
+    "Class": 316,
+    "Base": 313,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillbear5",
+    "Class": 317,
+    "Base": 313,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "snake",
+    "Class": 318,
+    "Base": 318,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "parrot",
+    "Class": 319,
+    "Base": 319,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "fish",
+    "Class": 320,
+    "Base": 320,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "evilhole1",
+    "Class": 321,
+    "Base": 321,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "evilhole2",
+    "Class": 322,
+    "Base": 321,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "evilhole3",
+    "Class": 323,
+    "Base": 321,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "evilhole4",
+    "Class": 324,
+    "Base": 321,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "evilhole5",
+    "Class": 325,
+    "Base": 321,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "trap-firebolt",
+    "Class": 326,
+    "Base": 326,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "trap-horzmissile",
+    "Class": 327,
+    "Base": 327,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "trap-vertmissile",
+    "Class": 328,
+    "Base": 328,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "trap-poisoncloud",
+    "Class": 329,
+    "Base": 329,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "trap-lightning",
+    "Class": 330,
+    "Base": 330,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "act2guard2",
+    "Class": 331,
+    "Base": 331,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "invisospawner",
+    "Class": 332,
+    "Base": 332,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "diabloclone",
+    "Class": 333,
+    "Base": 243,
+    "HitClass": 12,
+    "ModeFlags": 64,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suckernest1",
+    "Class": 334,
+    "Base": 334,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suckernest2",
+    "Class": 335,
+    "Base": 334,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suckernest3",
+    "Class": 336,
+    "Base": 334,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suckernest4",
+    "Class": 337,
+    "Base": 334,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "act2hire",
+    "Class": 338,
+    "Base": 338,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "minispider",
+    "Class": 339,
+    "Base": 339,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "boneprison1",
+    "Class": 340,
+    "Base": 340,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "boneprison2",
+    "Class": 341,
+    "Base": 341,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "boneprison3",
+    "Class": 342,
+    "Base": 342,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "boneprison4",
+    "Class": 343,
+    "Base": 343,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonewall",
+    "Class": 344,
+    "Base": 344,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "councilmember1",
+    "Class": 345,
+    "Base": 345,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "councilmember2",
+    "Class": 346,
+    "Base": 345,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "councilmember3",
+    "Class": 347,
+    "Base": 345,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "turret1",
+    "Class": 348,
+    "Base": 348,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "turret2",
+    "Class": 349,
+    "Base": 348,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "turret3",
+    "Class": 350,
+    "Base": 348,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "hydra1",
+    "Class": 351,
+    "Base": 351,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "hydra2",
+    "Class": 352,
+    "Base": 352,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "hydra3",
+    "Class": 353,
+    "Base": 353,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "trap-melee",
+    "Class": 354,
+    "Base": 354,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "seventombs",
+    "Class": 355,
+    "Base": 355,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "dopplezon",
+    "Class": 356,
+    "Base": 356,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "valkyrie",
+    "Class": 357,
+    "Base": 357,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 11,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act2guard3",
+    "Class": 358,
+    "Base": 358,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act3hire",
+    "Class": 359,
+    "Base": 359,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "megademon1",
+    "Class": 360,
+    "Base": 360,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "megademon2",
+    "Class": 361,
+    "Base": 360,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "megademon3",
+    "Class": 362,
+    "Base": 360,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "necroskeleton",
+    "Class": 363,
+    "Base": 363,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 13,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "necromage",
+    "Class": 364,
+    "Base": 364,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "griswold",
+    "Class": 365,
+    "Base": 365,
+    "HitClass": 1,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "compellingorb",
+    "Class": 366,
+    "Base": 366,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "tyrael2",
+    "Class": 367,
+    "Base": 367,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "darkwanderer",
+    "Class": 368,
+    "Base": 368,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "trap-nova",
+    "Class": 369,
+    "Base": 369,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "spiritmummy",
+    "Class": 370,
+    "Base": 370,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "lightningspire",
+    "Class": 371,
+    "Base": 371,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "firetower",
+    "Class": 372,
+    "Base": 372,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger1",
+    "Class": 373,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger2",
+    "Class": 374,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger3",
+    "Class": 375,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger4",
+    "Class": 376,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "act2guard4",
+    "Class": 377,
+    "Base": 377,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act2guard5",
+    "Class": 378,
+    "Base": 378,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "skmage_cold1",
+    "Class": 379,
+    "Base": 379,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_cold2",
+    "Class": 380,
+    "Base": 379,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_cold3",
+    "Class": 381,
+    "Base": 379,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_cold4",
+    "Class": 382,
+    "Base": 379,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire1",
+    "Class": 383,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire2",
+    "Class": 384,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire3",
+    "Class": 385,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire4",
+    "Class": 386,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng1",
+    "Class": 387,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng2",
+    "Class": 388,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng3",
+    "Class": 389,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng4",
+    "Class": 390,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "hellbovine",
+    "Class": 391,
+    "Base": 391,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "window1",
+    "Class": 392,
+    "Base": 392,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "window2",
+    "Class": 393,
+    "Base": 393,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger5",
+    "Class": 394,
+    "Base": 394,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger6",
+    "Class": 395,
+    "Base": 394,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow1",
+    "Class": 396,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow2",
+    "Class": 397,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow3",
+    "Class": 398,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow4",
+    "Class": 399,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow5",
+    "Class": 400,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mephistospirit",
+    "Class": 401,
+    "Base": 401,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "smith",
+    "Class": 402,
+    "Base": 402,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "trappedsoul1",
+    "Class": 403,
+    "Base": 403,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "trappedsoul2",
+    "Class": 404,
+    "Base": 404,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "jamella",
+    "Class": 405,
+    "Base": 405,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "izualghost",
+    "Class": 406,
+    "Base": 406,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "fetish11",
+    "Class": 407,
+    "Base": 407,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "malachai",
+    "Class": 408,
+    "Base": 408,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "hephasto",
+    "Class": 409,
+    "Base": 409,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wakeofdestruction",
+    "Class": 410,
+    "Base": 410,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "chargeboltsentry",
+    "Class": 411,
+    "Base": 411,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "lightningsentry",
+    "Class": 412,
+    "Base": 412,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bladecreeper",
+    "Class": 413,
+    "Base": 413,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "invisopet",
+    "Class": 414,
+    "Base": 414,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "infernosentry",
+    "Class": 415,
+    "Base": 415,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathsentry",
+    "Class": 416,
+    "Base": 416,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "shadowwarrior",
+    "Class": 417,
+    "Base": 417,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "shadowmaster",
+    "Class": 418,
+    "Base": 418,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "druidhawk",
+    "Class": 419,
+    "Base": 419,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "spiritwolf",
+    "Class": 420,
+    "Base": 420,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "fenris",
+    "Class": 421,
+    "Base": 420,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "spiritofbarbs",
+    "Class": 422,
+    "Base": 422,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "heartofwolverine",
+    "Class": 423,
+    "Base": 422,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "oaksage",
+    "Class": 424,
+    "Base": 422,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "plaguepoppy",
+    "Class": 425,
+    "Base": 425,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "cycleoflife",
+    "Class": 426,
+    "Base": 426,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "vinecreature",
+    "Class": 427,
+    "Base": 427,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "druidbear",
+    "Class": 428,
+    "Base": 428,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "eagle",
+    "Class": 429,
+    "Base": 429,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "wolf",
+    "Class": 430,
+    "Base": 430,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "bear",
+    "Class": 431,
+    "Base": 431,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "barricadedoor1",
+    "Class": 432,
+    "Base": 432,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "barricadedoor2",
+    "Class": 433,
+    "Base": 432,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "prisondoor",
+    "Class": 434,
+    "Base": 434,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "barricadetower",
+    "Class": 435,
+    "Base": 435,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "reanimatedhorde1",
+    "Class": 436,
+    "Base": 436,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "reanimatedhorde2",
+    "Class": 437,
+    "Base": 436,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "reanimatedhorde3",
+    "Class": 438,
+    "Base": 436,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "reanimatedhorde4",
+    "Class": 439,
+    "Base": 436,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 2,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "reanimatedhorde5",
+    "Class": 440,
+    "Base": 436,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "siegebeast1",
+    "Class": 441,
+    "Base": 441,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "siegebeast2",
+    "Class": 442,
+    "Base": 441,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "siegebeast3",
+    "Class": 443,
+    "Base": 441,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "siegebeast4",
+    "Class": 444,
+    "Base": 441,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "siegebeast5",
+    "Class": 445,
+    "Base": 441,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "snowyeti1",
+    "Class": 446,
+    "Base": 446,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "snowyeti2",
+    "Class": 447,
+    "Base": 446,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "snowyeti3",
+    "Class": 448,
+    "Base": 446,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "snowyeti4",
+    "Class": 449,
+    "Base": 446,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wolfrider1",
+    "Class": 450,
+    "Base": 450,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "wolfrider2",
+    "Class": 451,
+    "Base": 450,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "wolfrider3",
+    "Class": 452,
+    "Base": 450,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "minion1",
+    "Class": 453,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion2",
+    "Class": 454,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion3",
+    "Class": 455,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion4",
+    "Class": 456,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion5",
+    "Class": 457,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion6",
+    "Class": 458,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion7",
+    "Class": 459,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion8",
+    "Class": 460,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion1",
+    "Class": 461,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion2",
+    "Class": 462,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion3",
+    "Class": 463,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion4",
+    "Class": 464,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion5",
+    "Class": 465,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion6",
+    "Class": 466,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion7",
+    "Class": 467,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion8",
+    "Class": 468,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus1",
+    "Class": 469,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus2",
+    "Class": 470,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 11,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus3",
+    "Class": 471,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus4",
+    "Class": 472,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 13,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus5",
+    "Class": 473,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 14,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch1",
+    "Class": 474,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch2",
+    "Class": 475,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch3",
+    "Class": 476,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch4",
+    "Class": 477,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch5",
+    "Class": 478,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "overseer1",
+    "Class": 479,
+    "Base": 479,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "overseer2",
+    "Class": 480,
+    "Base": 479,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "overseer3",
+    "Class": 481,
+    "Base": 479,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "overseer4",
+    "Class": 482,
+    "Base": 479,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "overseer5",
+    "Class": 483,
+    "Base": 479,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner1",
+    "Class": 484,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner2",
+    "Class": 485,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner3",
+    "Class": 486,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner4",
+    "Class": 487,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner5",
+    "Class": 488,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner6",
+    "Class": 489,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner7",
+    "Class": 490,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minionspawner8",
+    "Class": 491,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp1",
+    "Class": 492,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp2",
+    "Class": 493,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp3",
+    "Class": 494,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp4",
+    "Class": 495,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp5",
+    "Class": 496,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "catapult1",
+    "Class": 497,
+    "Base": 497,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "catapult2",
+    "Class": 498,
+    "Base": 497,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "catapult3",
+    "Class": 499,
+    "Base": 497,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "catapult4",
+    "Class": 500,
+    "Base": 497,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frozenhorror1",
+    "Class": 501,
+    "Base": 501,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frozenhorror2",
+    "Class": 502,
+    "Base": 501,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frozenhorror3",
+    "Class": 503,
+    "Base": 501,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frozenhorror4",
+    "Class": 504,
+    "Base": 501,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "frozenhorror5",
+    "Class": 505,
+    "Base": 501,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord1",
+    "Class": 506,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord2",
+    "Class": 507,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord3",
+    "Class": 508,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord4",
+    "Class": 509,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord5",
+    "Class": 510,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "larzuk",
+    "Class": 511,
+    "Base": 511,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "drehya",
+    "Class": 512,
+    "Base": 512,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "malah",
+    "Class": 513,
+    "Base": 513,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "nihlathak",
+    "Class": 514,
+    "Base": 514,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "qual-kehk",
+    "Class": 515,
+    "Base": 515,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 3,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "catapultspotter1",
+    "Class": 516,
+    "Base": 516,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "catapultspotter2",
+    "Class": 517,
+    "Base": 516,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "catapultspotter3",
+    "Class": 518,
+    "Base": 516,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "catapultspotter4",
+    "Class": 519,
+    "Base": 516,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cain6",
+    "Class": 520,
+    "Base": 520,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "tyrael3",
+    "Class": 521,
+    "Base": 521,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "act5barb1",
+    "Class": 522,
+    "Base": 522,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act5barb2",
+    "Class": 523,
+    "Base": 523,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "barricadewall1",
+    "Class": 524,
+    "Base": 524,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "barricadewall2",
+    "Class": 525,
+    "Base": 524,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "nihlathakboss",
+    "Class": 526,
+    "Base": 526,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "drehyaiced",
+    "Class": 527,
+    "Base": 527,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "evilhut",
+    "Class": 528,
+    "Base": 528,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathmauler1",
+    "Class": 529,
+    "Base": 529,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathmauler2",
+    "Class": 530,
+    "Base": 529,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathmauler3",
+    "Class": 531,
+    "Base": 529,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathmauler4",
+    "Class": 532,
+    "Base": 529,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathmauler5",
+    "Class": 533,
+    "Base": 529,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "act5pow",
+    "Class": 534,
+    "Base": 534,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act5barb3",
+    "Class": 535,
+    "Base": 535,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act5barb4",
+    "Class": 536,
+    "Base": 535,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "ancientstatue1",
+    "Class": 537,
+    "Base": 537,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "ancientstatue2",
+    "Class": 538,
+    "Base": 537,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "ancientstatue3",
+    "Class": 539,
+    "Base": 537,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 5,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "ancientbarb1",
+    "Class": 540,
+    "Base": 540,
+    "HitClass": 3,
+    "ModeFlags": 72,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "ancientbarb2",
+    "Class": 541,
+    "Base": 540,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "ancientbarb3",
+    "Class": 542,
+    "Base": 540,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baalthrone",
+    "Class": 543,
+    "Base": 543,
+    "HitClass": 12,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "baalcrab",
+    "Class": 544,
+    "Base": 544,
+    "HitClass": 12,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baaltaunt",
+    "Class": 545,
+    "Base": 545,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 12,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "putriddefiler1",
+    "Class": 546,
+    "Base": 546,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "putriddefiler2",
+    "Class": 547,
+    "Base": 546,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "putriddefiler3",
+    "Class": 548,
+    "Base": 546,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "putriddefiler4",
+    "Class": 549,
+    "Base": 546,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "putriddefiler5",
+    "Class": 550,
+    "Base": 546,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "painworm1",
+    "Class": 551,
+    "Base": 551,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "painworm2",
+    "Class": 552,
+    "Base": 551,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "painworm3",
+    "Class": 553,
+    "Base": 551,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "painworm4",
+    "Class": 554,
+    "Base": 551,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "painworm5",
+    "Class": 555,
+    "Base": 551,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bunny",
+    "Class": 556,
+    "Base": 556,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "baalhighpriest",
+    "Class": 557,
+    "Base": 557,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "venomlord",
+    "Class": 558,
+    "Base": 558,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baalcrabstairs",
+    "Class": 559,
+    "Base": 559,
+    "HitClass": 12,
+    "ModeFlags": 8,
+    "Velocity": 6,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "act5hire1",
+    "Class": 560,
+    "Base": 560,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "act5hire2",
+    "Class": 561,
+    "Base": 560,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "baaltentacle1",
+    "Class": 562,
+    "Base": 562,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baaltentacle2",
+    "Class": 563,
+    "Base": 562,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baaltentacle3",
+    "Class": 564,
+    "Base": 562,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baaltentacle4",
+    "Class": 565,
+    "Base": 562,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baaltentacle5",
+    "Class": 566,
+    "Base": 562,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "injuredbarb1",
+    "Class": 567,
+    "Base": 567,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "injuredbarb2",
+    "Class": 568,
+    "Base": 568,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "injuredbarb3",
+    "Class": 569,
+    "Base": 569,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "baalclone",
+    "Class": 570,
+    "Base": 570,
+    "HitClass": 12,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baalminion1",
+    "Class": 571,
+    "Base": 571,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baalminion2",
+    "Class": 572,
+    "Base": 571,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baalminion3",
+    "Class": 573,
+    "Base": 571,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "worldstoneeffect",
+    "Class": 574,
+    "Base": 574,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 12,
+    "Killable": false,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer6",
+    "Class": 575,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer7",
+    "Class": 576,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer8",
+    "Class": 577,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer9",
+    "Class": 578,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer10",
+    "Class": 579,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead6",
+    "Class": 580,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead7",
+    "Class": 581,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead8",
+    "Class": 582,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead9",
+    "Class": 583,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 11,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bighead10",
+    "Class": 584,
+    "Base": 10,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman6",
+    "Class": 585,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman7",
+    "Class": 586,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman8",
+    "Class": 587,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman9",
+    "Class": 588,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 11,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "goatman10",
+    "Class": 589,
+    "Base": 53,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow5",
+    "Class": 590,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow6",
+    "Class": 591,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow7",
+    "Class": 592,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "foulcrow8",
+    "Class": 593,
+    "Base": 15,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper6",
+    "Class": 594,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper7",
+    "Class": 595,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper8",
+    "Class": 596,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper9",
+    "Class": 597,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "clawviper10",
+    "Class": 598,
+    "Base": 73,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider6",
+    "Class": 599,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider7",
+    "Class": 600,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider8",
+    "Class": 601,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider9",
+    "Class": 602,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandraider10",
+    "Class": 603,
+    "Base": 29,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "deathmauler6",
+    "Class": 604,
+    "Base": 529,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat6",
+    "Class": 605,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat7",
+    "Class": 606,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "quillrat8",
+    "Class": 607,
+    "Base": 63,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vulture5",
+    "Class": 608,
+    "Base": 110,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "thornhulk5",
+    "Class": 609,
+    "Base": 127,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger7",
+    "Class": 610,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger8",
+    "Class": 611,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "slinger9",
+    "Class": 612,
+    "Base": 373,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer6",
+    "Class": 613,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer7",
+    "Class": 614,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer6",
+    "Class": 615,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer7",
+    "Class": 616,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer8",
+    "Class": 617,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "blunderbore5",
+    "Class": 618,
+    "Base": 186,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "blunderbore6",
+    "Class": 619,
+    "Base": 186,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire5",
+    "Class": 620,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire6",
+    "Class": 621,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng5",
+    "Class": 622,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng6",
+    "Class": 623,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_cold5",
+    "Class": 624,
+    "Base": 379,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois5",
+    "Class": 625,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois6",
+    "Class": 626,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pantherwoman5",
+    "Class": 627,
+    "Base": 83,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pantherwoman6",
+    "Class": 628,
+    "Base": 83,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper6",
+    "Class": 629,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandleaper7",
+    "Class": 630,
+    "Base": 78,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith6",
+    "Class": 631,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith7",
+    "Class": 632,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith8",
+    "Class": 633,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus6",
+    "Class": 634,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 14,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus7",
+    "Class": 635,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 14,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch6",
+    "Class": 636,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch7",
+    "Class": 637,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch8",
+    "Class": 638,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp5",
+    "Class": 639,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp6",
+    "Class": 640,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp7",
+    "Class": 641,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen6",
+    "Class": 642,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen7",
+    "Class": 643,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallen8",
+    "Class": 644,
+    "Base": 19,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman6",
+    "Class": 645,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman7",
+    "Class": 646,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fallenshaman8",
+    "Class": 647,
+    "Base": 58,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton6",
+    "Class": 648,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton7",
+    "Class": 649,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon6",
+    "Class": 650,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "batdemon7",
+    "Class": 651,
+    "Base": 136,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord6",
+    "Class": 652,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bloodlord7",
+    "Class": 653,
+    "Base": 506,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 9,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab6",
+    "Class": 654,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab7",
+    "Class": 655,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish6",
+    "Class": 656,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish7",
+    "Class": 657,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetish8",
+    "Class": 658,
+    "Base": 141,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow6",
+    "Class": 659,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow7",
+    "Class": 660,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishblow8",
+    "Class": 661,
+    "Base": 396,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman6",
+    "Class": 662,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman7",
+    "Class": 663,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fetishshaman8",
+    "Class": 664,
+    "Base": 278,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon7",
+    "Class": 665,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "baboon8",
+    "Class": 666,
+    "Base": 48,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler6",
+    "Class": 667,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler7",
+    "Class": 668,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler8",
+    "Class": 669,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "unraveler9",
+    "Class": 670,
+    "Base": 101,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zealot4",
+    "Class": 671,
+    "Base": 235,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "zealot5",
+    "Class": 672,
+    "Base": 235,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cantor5",
+    "Class": 673,
+    "Base": 238,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cantor6",
+    "Class": 674,
+    "Base": 238,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilemother4",
+    "Class": 675,
+    "Base": 298,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilemother5",
+    "Class": 676,
+    "Base": 298,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilechild4",
+    "Class": 677,
+    "Base": 301,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vilechild5",
+    "Class": 678,
+    "Base": 301,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot6",
+    "Class": 679,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotbaby6",
+    "Class": 680,
+    "Base": 180,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "maggotegg6",
+    "Class": 681,
+    "Base": 190,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion9",
+    "Class": 682,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion10",
+    "Class": 683,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "minion11",
+    "Class": 684,
+    "Base": 453,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach6",
+    "Class": 685,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "megademon4",
+    "Class": 686,
+    "Base": 360,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "megademon5",
+    "Class": 687,
+    "Base": 360,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp6",
+    "Class": 688,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp7",
+    "Class": 689,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish6",
+    "Class": 690,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "bonefetish7",
+    "Class": 691,
+    "Base": 212,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fingermage4",
+    "Class": 692,
+    "Base": 304,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "fingermage5",
+    "Class": 693,
+    "Base": 304,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "regurgitator4",
+    "Class": 694,
+    "Base": 307,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire6",
+    "Class": 695,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire7",
+    "Class": 696,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire8",
+    "Class": 697,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "reanimatedhorde6",
+    "Class": 698,
+    "Base": 436,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "dkfig1",
+    "Class": 699,
+    "Base": 310,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "dkfig2",
+    "Class": 700,
+    "Base": 310,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "dkmag1",
+    "Class": 701,
+    "Base": 312,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "dkmag2",
+    "Class": 702,
+    "Base": 312,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "mummy6",
+    "Class": 703,
+    "Base": 96,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 3,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "ubermephisto",
+    "Class": 704,
+    "Base": 242,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "uberdiablo",
+    "Class": 705,
+    "Base": 243,
+    "HitClass": 12,
+    "ModeFlags": 64,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "uberizual",
+    "Class": 706,
+    "Base": 256,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "uberandariel",
+    "Class": 707,
+    "Base": 156,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "uberduriel",
+    "Class": 708,
+    "Base": 211,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "uberbaal",
+    "Class": 709,
+    "Base": 544,
+    "HitClass": 12,
+    "ModeFlags": 0,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "demonspawner",
+    "Class": 710,
+    "Base": 484,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "demonhole",
+    "Class": 711,
+    "Base": 321,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 0,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "megademon6",
+    "Class": 712,
+    "Base": 360,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "dkmag3",
+    "Class": 713,
+    "Base": 312,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "imp8",
+    "Class": 714,
+    "Base": 492,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "swarm5",
+    "Class": 715,
+    "Base": 87,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sandmaggot7",
+    "Class": 716,
+    "Base": 68,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 4,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "arach7",
+    "Class": 717,
+    "Base": 122,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "scarab8",
+    "Class": 718,
+    "Base": 91,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubus8",
+    "Class": 719,
+    "Base": 469,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 14,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "succubuswitch9",
+    "Class": 720,
+    "Base": 474,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 12,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "corruptrogue6",
+    "Class": 721,
+    "Base": 43,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_archer8",
+    "Class": 722,
+    "Base": 160,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "cr_lancer9",
+    "Class": 723,
+    "Base": 165,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "overseer6",
+    "Class": 724,
+    "Base": 479,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skeleton8",
+    "Class": 725,
+    "Base": 0,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "sk_archer11",
+    "Class": 726,
+    "Base": 170,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_fire7",
+    "Class": 727,
+    "Base": 383,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_ltng7",
+    "Class": 728,
+    "Base": 387,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_cold6",
+    "Class": 729,
+    "Base": 379,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "skmage_pois7",
+    "Class": 730,
+    "Base": 274,
+    "HitClass": 3,
+    "ModeFlags": 8264,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "vampire9",
+    "Class": 731,
+    "Base": 131,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wraith9",
+    "Class": 732,
+    "Base": 38,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "willowisp8",
+    "Class": 733,
+    "Base": 118,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "horse",
+    "Class": 734,
+    "Base": 734,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "cowking",
+    "Class": 735,
+    "Base": 391,
+    "HitClass": 3,
+    "ModeFlags": 8200,
+    "Velocity": 5,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "darkelder",
+    "Class": 736,
+    "Base": 736,
+    "HitClass": 12,
+    "ModeFlags": 8200,
+    "Velocity": 1,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "pig",
+    "Class": 737,
+    "Base": 737,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 2,
+    "Killable": false,
+    "Town": true
+  },
+  {
+    "Source": "seagull",
+    "Class": 738,
+    "Base": 738,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 7,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "suicideminion9",
+    "Class": 739,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion10",
+    "Class": 740,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "suicideminion11",
+    "Class": 741,
+    "Base": 461,
+    "HitClass": 3,
+    "ModeFlags": 0,
+    "Velocity": 10,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "wargoatman",
+    "Class": 742,
+    "Base": 742,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 8,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "warbighead",
+    "Class": 743,
+    "Base": 743,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "warputriddefiler",
+    "Class": 744,
+    "Base": 744,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 6,
+    "Killable": true,
+    "Town": true
+  },
+  {
+    "Source": "colossal1",
+    "Class": 745,
+    "Base": 745,
+    "HitClass": 3,
+    "ModeFlags": 72,
+    "Velocity": 20,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "colossal2",
+    "Class": 746,
+    "Base": 745,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 30,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "colossal3",
+    "Class": 747,
+    "Base": 745,
+    "HitClass": 3,
+    "ModeFlags": 8,
+    "Velocity": 25,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "colbarbwhirl",
+    "Class": 748,
+    "Base": 522,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "colbarbthrow",
+    "Class": 749,
+    "Base": 522,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 20,
+    "Killable": true,
+    "Town": false
+  },
+  {
+    "Source": "colbarbfrenzy",
+    "Class": 750,
+    "Base": 523,
+    "HitClass": 3,
+    "ModeFlags": 8192,
+    "Velocity": 15,
+    "Killable": true,
+    "Town": false
+  }
+]

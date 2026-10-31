@@ -1,5 +1,7 @@
 # Skill effects
 
+Ordered Iron Golem contact now retains source hit-class/overlay descriptors through actual HP/retaliation/return. Native prepared body, contact, block (0x375A), get-hit and critical overlay (0x37B9) remain explicitly identified presentation placeholders; final animation/effect/audio is pending. This mechanical increment introduces no new independent icon. See [checkpoint](iron-golem-ordered-contact-checkpoint.md).
+
 Ordinary NPC min-only item steal/stamina-consumption compatibility adds no healing visual/audio. Do not imply player percentage leech under the recorded older NPC rule;actual Life Tap remains a separate recovery effect. See [mechanical scope](npc-item-drain-checkpoint.md).
 
 Prepared NPC impact allocation adds no art/audio. Existing poison/cold/contact/retaliation placeholders remain. Final poison presentation must account for the captured initial impact and separate active periodic duration after mechanical/client acceptance;see [scope](npc-impact-allocation-checkpoint.md).

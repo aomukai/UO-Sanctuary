@@ -1,5 +1,7 @@
 # Skill icons
 
+Ordered Iron Golem combat continues to use the existing Iron Golem talent-tree/hotkey icon requirements; those final assets remain pending. Item-event and damage-bookkeeping integration introduce no additional bindable skill or icon. Effects/audio remain separately recorded. See [checkpoint](iron-golem-ordered-contact-checkpoint.md).
+
 Ordinary NPC item-drain compatibility adds no bindable skill or icon. Existing Iron Golem and Life Tap talent/hotkey artwork remains separately pending.
 
 Allocated NPC impact is an internal consumer and adds no bindable skill/icon. Existing Iron Golem and related talent/hotkey artwork remains independently pending.

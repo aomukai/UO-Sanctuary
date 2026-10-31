@@ -12,11 +12,13 @@ public static class MonsterReturnChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MonsterReturnChecks));
     private static string Manifest=>Path.Join(Core.BaseDirectory,"monster-return-fixtures.json");
-    private sealed record Saved(uint Body,int Life256,PreparedMonsterDamagePacket Packet);
+    private sealed record Saved(uint Body,int Life256,PreparedMonsterDamagePacket Packet,int ExpectedHitClass=0x23);
+    private static int StartupSharedCount;
     private static void Require(bool b,string why){if(!b){throw new InvalidOperationException(why);}}
     private static int[] N(JsonElement e)=>e.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
     public static void Configure()
     {
+        StartupSharedCount=PreparedMonsterReturn.SharedHitClasses.Count;
         Register("monster-return-check",Start);Register("monster-return-reload-check",Reload);
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Exact prepared NPC return/recovery policy",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -116,18 +118,20 @@ public static class MonsterReturnChecks
     }
     private static void Start()
     {
-        SourceCases();Require(PreparedMonsterReturn.SharedHitClasses.Count==0,"Explicit source fixtures leaked into live shared hit-class history");
+        int shared=PreparedMonsterReturn.SharedHitClasses.Count;
+        SourceCases();Require(PreparedMonsterReturn.SharedHitClasses.Count==shared,"Explicit source fixtures leaked into live shared hit-class history");
         var actor=Body();var target=Body();var now=TimedEffects.Now;var metadata=new PreparedMonsterRecipient(false,()=>false,()=>5,()=>false);
         SkillHealth.SetBalance256(target,100001);var world=new WorldServices(target);
         Require(CreatureHitRecovery.BeginPreparedGetHit(target,12000)&&CreatureProfiles.Session(target).RecoveryUntil-Core.TickCount>11000,"Accepted mode clock was capped or rejected");
         var zero=PreparedMonsterDamage.Release(actor,target,new(0,0,30,0,5),metadata,_=>0,new Release(world),now);
         Require(world.Requested==3&&world.Draws==0&&CreatureHitRecovery.Remaining(target)>0&&CreatureProfiles.Session(target).RecoveryUntil-Core.TickCount<1000&&SkillHealth.Balance256(target)==100001,"Native zero-damage Stun failed to replace the old GH clock without RNG/health changes");
         CombatStuns.Clear(target);Require(CreatureHitRecovery.Remaining(target)>200,"Accepted GH entry did not create its native recovery clock");
-        // The first helper used the fallback class. A second consumer shares the
-        // process-local cursor and selects fire before lightning/cold.
+        // Live Iron consumers can precede this fixture. Continue their shared
+        // cursor rather than resetting production history for the test.
+        int expectedClass=((shared+1)%4) switch{1=>0x23,2=>0x43,_=>0x33};
         world=new WorldServices(target);var typed=PreparedMonsterDamage.Release(actor,target,new(7,17,0,0,1,0,false,0,1,2,3,4),metadata,_=>0,new Release(world),now);
-        Require(typed.Packet.HitClass==0x23&&world.Last==0x23&&typed.Packet.Magic256==1&&typed.Packet.Fire256==2&&typed.Packet.Lightning256==3&&typed.Packet.Cold256==4&&SkillHealth.Balance256(target)==99984,"Typed channels/history or returned by-reference packet were lost");
-        Require(PreparedMonsterReturn.SharedHitClasses.Count==2,"Return consumers did not share hit-class history");
+        Require(typed.Packet.HitClass==expectedClass&&world.Last==expectedClass&&typed.Packet.Magic256==1&&typed.Packet.Fire256==2&&typed.Packet.Lightning256==3&&typed.Packet.Cold256==4&&SkillHealth.Balance256(target)==99984,"Typed channels/history or returned by-reference packet were lost");
+        Require(PreparedMonsterReturn.SharedHitClasses.Count==shared+2,"Return consumers did not share hit-class history");
         var dying=Body();SkillHealth.SetBalance256(dying,256);world=new WorldServices(dying);
         var killed=PreparedMonsterDamage.Release(actor,dying,new(256,256,30,0,5),metadata,_=>0,new Release(world),now);
         Require(killed.DeathModeAttempted&&world.KillCount==1&&dying.Deleted,"Real return policy did not consume native lethal result once");
@@ -142,7 +146,7 @@ public static class MonsterReturnChecks
             try
             {
                 Require(CreatureHitRecovery.Remaining(target)==0&&SkillHealth.Balance256(target)==99984,"Natural prepared GH clock did not expire or changed health");
-                target.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(target.Serial.Value,99984,typed.Packet)));
+                target.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(target.Serial.Value,99984,typed.Packet,expectedClass)));
                 Log.Information("monster-return-result: passed");
             }
             catch(Exception e){Log.Error(e,"monster-return-result: failed");}
@@ -153,8 +157,8 @@ public static class MonsterReturnChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var body=World.FindMobile((Serial)saved.Body) as EncounterCreature;
         Require(body is{Alive:true,Deleted:false}&&SkillHealth.Balance256(body)==saved.Life256&&SkillHealth.Remainder256(body)==112,"Returned health field did not persist without replay");
-        Require(saved.Packet is{HitClass:0x23,Magic256:1,Fire256:2,Lightning256:3,Cold256:4},"Typed return payload fixture changed");
-        Require(PreparedMonsterReturn.SharedHitClasses.Count==0&&CreatureHitRecovery.Remaining(body)==0,"Process-local class history or an unsaved in-flight GH clock was replayed");
+        Require(saved.Packet is{Magic256:1,Fire256:2,Lightning256:3,Cold256:4}&&saved.Packet.HitClass==saved.ExpectedHitClass,"Typed return payload fixture changed");
+        Require(StartupSharedCount==0&&CreatureHitRecovery.Remaining(body)==0,"Process-local class history or an unsaved in-flight GH clock was replayed");
         Log.Information("NPC return:saved FP life/typed fixture retain result;process-local hit-class cursor and accepted in-flight GH clock reset without replay");
     }
 }

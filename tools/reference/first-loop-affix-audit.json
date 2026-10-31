@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "c125dde007ef155564994e244474d5a09e25b9bfdde795f77ff80c5fc5dc36b7",
-  "ContentAssemblyPath": ".local/class-skills/prepared-native-damage/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "9fdf7e37e62a0cdd17eb4e8028fdcd086f56308889cff30e4bf665a2bf7d46f1",
+  "ContentAssemblyPath": ".local/class-skills/iron-golem-ordered-contact/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

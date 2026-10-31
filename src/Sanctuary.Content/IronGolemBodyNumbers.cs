@@ -39,7 +39,7 @@ internal static class IronGolemBodyRecipes
         original.Stats.BaseValues=Fields((21,basis.Minimum),(22,basis.Maximum),(23,basis.SecondaryMinimum),(24,basis.SecondaryMaximum),
             (159,basis.ThrowMinimum),(160,basis.ThrowMaximum),(31,weapon?0:ClassGear.State(item).Defense));
         var omissions=EquipmentRawProperties.Project(item,original,values,basis,weapon,!weapon,false);
-        if(omissions.Length!=0){throw new NotSupportedException("Unrepresented Iron Golem item properties: "+string.Join(",",omissions.Select(x=>x.Code)));}
+        if(omissions.Length!=0){throw new NotSupportedException("Unrepresented Iron Golem item properties: "+string.Join(",",omissions.Select(x=>x.Code+": "+x.Reason)));}
         var properties=original.Stats.Last;
         if(properties is{IsExtended:true}||properties?.Previous!=null||properties?.Last!=null)
         {throw new NotSupportedException("Iron Golem needs a single numeric item property list");}

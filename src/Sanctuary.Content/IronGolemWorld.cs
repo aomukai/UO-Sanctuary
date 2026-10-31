@@ -91,7 +91,6 @@ internal static class IronGolemWorld
         if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Iron Golem recipient block supplier is not mapped");}
         var services=new MeleeResult(body,owner,state,target);
         int flags=SourceMeleeResult.Resolve(services);
-        if((flags&SourceMeleeResult.Block)!=0){SourceBlocking.Present(target,services.BlockAnimation);}
         return flags;
     }
     private static Mobile Primary(IronGolemBody body,PlayerMobile owner,IronGolemWorldState s)
@@ -252,11 +251,8 @@ internal static class IronGolemWorld
                 var target=World.FindMobile((Serial)s.Target);bool hit=false;var prior=body.Prepared.Controller;
                 if(Eligible(body,owner,target)&&Melee(body,s,target,3))
                 {
-                    using var attempted=PaladinThorns.Attempt(body,target,false);
-                    SorceressEffects.MeleeAttempt(body,target);
-                    int flags=Result(body,owner,s,(BaseCreature)target);
-                    if((flags&SourceMeleeResult.Successful)!=0)
-                    {if(!NpcEquipmentDamage.TryResolve(body,target,out _)){throw new NotSupportedException("Iron Golem original-item damage binding was lost");}hit=true;}
+                    var contact=IronGolemContact.Release(body,owner,s,(BaseCreature)target,frameAt);
+                    hit=(contact.Packet.ResultFlags&SourceMeleeResult.Successful)!=0;
                 }
                 if(body.Deleted){return;}
                 s=s with{ActionAt=0,Attempts=checked(s.Attempts+1),Hits=checked(s.Hits+(hit?1:0))};

@@ -99,7 +99,8 @@ public static class ClassLoot
     }
     public static PlayerMobile Killer(BaseCreature creature) => creature.LastKiller as PlayerMobile
         ?? (creature.LastKiller is BaseCreature converted?PaladinConversion.DamageMaster(converted,creature) as PlayerMobile:null)
-        ?? (creature.LastKiller as BaseCreature)?.GetMaster() as PlayerMobile;
+        ?? (creature.LastKiller as BaseCreature)?.GetMaster() as PlayerMobile
+        ?? PreparedMonsterCredit.Owner(creature,creature.LastKiller);
     private static void Receive(NetState state, SpanReader reader)
     {
         if (state.Mobile is not PlayerMobile from || !ClassCombat.Enabled(from) || reader.Remaining != 6

@@ -1,0 +1,256 @@
+[
+  {
+    "Stat": 78,
+    "Name": "item_attackertakesdamage",
+    "Events": [
+      {
+        "Event": "attackedinmelee",
+        "Function": 6
+      }
+    ]
+  },
+  {
+    "Stat": 81,
+    "Name": "item_knockback",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 7
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 7
+      }
+    ]
+  },
+  {
+    "Stat": 86,
+    "Name": "item_healafterkill",
+    "Events": [
+      {
+        "Event": "kill",
+        "Function": 28
+      }
+    ]
+  },
+  {
+    "Stat": 108,
+    "Name": "item_restinpeace",
+    "Events": [
+      {
+        "Event": "kill",
+        "Function": 29
+      }
+    ]
+  },
+  {
+    "Stat": 112,
+    "Name": "item_howl",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 8
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 8
+      }
+    ]
+  },
+  {
+    "Stat": 113,
+    "Name": "item_stupidity",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 9
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 9
+      }
+    ]
+  },
+  {
+    "Stat": 114,
+    "Name": "item_damagetomana",
+    "Events": [
+      {
+        "Event": "damagedinmelee",
+        "Function": 13
+      },
+      {
+        "Event": "damagedbymissile",
+        "Function": 13
+      }
+    ]
+  },
+  {
+    "Stat": 128,
+    "Name": "item_attackertakeslightdamage",
+    "Events": [
+      {
+        "Event": "damagedinmelee",
+        "Function": 10
+      }
+    ]
+  },
+  {
+    "Stat": 134,
+    "Name": "item_freeze",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 14
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 14
+      }
+    ]
+  },
+  {
+    "Stat": 135,
+    "Name": "item_openwounds",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 15
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 15
+      }
+    ]
+  },
+  {
+    "Stat": 136,
+    "Name": "item_crushingblow",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 16
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 16
+      }
+    ]
+  },
+  {
+    "Stat": 138,
+    "Name": "item_manaafterkill",
+    "Events": [
+      {
+        "Event": "kill",
+        "Function": 17
+      }
+    ]
+  },
+  {
+    "Stat": 139,
+    "Name": "item_healafterdemonkill",
+    "Events": [
+      {
+        "Event": "kill",
+        "Function": 18
+      }
+    ]
+  },
+  {
+    "Stat": 150,
+    "Name": "item_slow",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 19
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 19
+      }
+    ]
+  },
+  {
+    "Stat": 155,
+    "Name": "item_reanimate",
+    "Events": [
+      {
+        "Event": "kill",
+        "Function": 31
+      }
+    ]
+  },
+  {
+    "Stat": 195,
+    "Name": "item_skillonattack",
+    "Events": [
+      {
+        "Event": "domeleeattack",
+        "Function": 20
+      },
+      {
+        "Event": "domissileattack",
+        "Function": 20
+      }
+    ]
+  },
+  {
+    "Stat": 196,
+    "Name": "item_skillonkill",
+    "Events": [
+      {
+        "Event": "kill",
+        "Function": 20
+      }
+    ]
+  },
+  {
+    "Stat": 197,
+    "Name": "item_skillondeath",
+    "Events": [
+      {
+        "Event": "killed",
+        "Function": 30
+      }
+    ]
+  },
+  {
+    "Stat": 198,
+    "Name": "item_skillonhit",
+    "Events": [
+      {
+        "Event": "domeleedamage",
+        "Function": 20
+      },
+      {
+        "Event": "domissiledamage",
+        "Function": 20
+      }
+    ]
+  },
+  {
+    "Stat": 199,
+    "Name": "item_skillonlevelup",
+    "Events": [
+      {
+        "Event": "levelup",
+        "Function": 30
+      }
+    ]
+  },
+  {
+    "Stat": 201,
+    "Name": "item_skillongethit",
+    "Events": [
+      {
+        "Event": "damagedinmelee",
+        "Function": 21
+      },
+      {
+        "Event": "damagedbymissile",
+        "Function": 21
+      }
+    ]
+  }
+]

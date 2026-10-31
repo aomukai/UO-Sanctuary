@@ -27,6 +27,18 @@ internal readonly struct ItemStatContext
         else { foreach (var p in OrdinaryAffixProperties.Properties(state)) { yield return p; } }
     }
     internal int Bonus(string code) { RequireItem(); return ClassGear.Bonus(Item, code, RecipientLevel); }
+    internal EquipmentStatValue[] ActiveNumericProperties()
+    {
+        RequireItem();
+        if(ClassGear.State(Item) is not{Identified:true}||ClassGear.Broken(Item)){return [];}
+        var item=Item;var basis=ClassGear.Base(item);bool weapon=ClassGear.Slot(item)==GearSlot.Weapon;
+        var unit=new EquipmentStatUnit(item,4);unit.Stats=new(){Flags=EquipmentStatNode.Extended,OwnerKind=4,Owner=unit};
+        var values=new EquipmentStatValues(_=>IronGolemItems.Metadata(basis.Code).Body1,_=>null,_=>null,(_,_,_,_,_)=>{});
+        var omissions=EquipmentRawProperties.Project(item,unit,values,
+            new(basis.MinDamage,basis.MaxDamage,basis.TwoHandMin,basis.TwoHandMax,basis.MissileMin,basis.MissileMax,basis.MinDefense,basis.MaxDefense),weapon,!weapon,false);
+        if(omissions.Length!=0){throw new NotSupportedException("NPC event projection has unsupported original properties: "+string.Join(',',Array.ConvertAll(omissions,o=>o.Code)));}
+        return unit.Stats.Last?.BaseValues??[];
+    }
     internal void RequireOrdinaryNpcDrainInputs()
     {
         RequireItem();
