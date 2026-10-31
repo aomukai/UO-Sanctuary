@@ -1,0 +1,106 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "source-retirement-schedule",
+  "runtimeChanged": false,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterSpawn.cpp": "5990740b6f81323452484083bba5ec5aeefd8c5c589a0c12f8386b371bcd743f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    ".local/class-skills/bone-barrier-cast-source/probe.cpp": "cf02a567581f4807614c8fe061af2189e500083a784b4316f1546b20abeb6c3c",
+    "tools/reference/bone-barrier-cast-source-evidence.json": "0928ec0dd45206ed756474d353bcb2d9d94f7c6feacf99c299588335e7865deb",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637"
+  },
+  "executed": {
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "AITHINK_ExecuteAiFn": "9ad9d0d1f720ebba6055aa3fc2afc9cd0b701d47edd289effac538886bec67d3",
+    "D2GAME_AI_Unk084_6FCDEC70": "81d4fb604862fc9de1b8ad3554cd4256887c3ba0845e89b38d46e4ae7e41a29c",
+    "AITHINK_Fn084_BoneWall": "ef3c19852db026a031eeb47f496ac728f86fc4ddfad299ed8fd65ff30c475398",
+    "AITACTICS_Idle": "ebd28ee5845f789f73cbc6dad96e105345280197d855257ce48e396ef687d002",
+    "AITACTICS_IdleInNeutralMode": "f33d3b068fb492a2fe39a87d61b567709f538faa7788d76327f85859bba5b894",
+    "AITACTICS_ChangeModeAndTargetCoordinates": "fe4cd8cd8477205fdce240db75880c23ac27048e80649cc7470d90dee0681db0"
+  },
+  "staticallyReviewed": {
+    "D2GAME_ModeChange_6FC65220": "ece25d8680b1c04d9b9cc6141be396f7e7f30def1ee51e120d634760cdacc9a5",
+    "sub_6FC63B30": "1ba629928acb640a9921885e00ae9ca02b429780aa42bdde0d457d658e0ff656",
+    "sub_6FC63E80": "c0e232a3f4d4e313f0f85e991f3163082c242b63753cf147991fbf65d7a63331",
+    "sub_6FC641D0": "8b2fbb742497a99f4b9eedcc47b9cbef42bf092fe0ddf97d6d4e263beb9ef3ad",
+    "sub_6FC64280": "ebd9299fee240c158553c5791762370a6376818aa88f030fa4803a4fdec6cc7c",
+    "AIGENERAL_UpdateMinionList": "0b6907f9d6927c34aa7f8f4ca18e78df16f9d4a693bbb7f90d3ce1f000c1425f",
+    "AIGENERAL_ExecuteCallbackOnMinions": "a0376be35464de9af84b065e1abefd08ecb6d21ad7439b94d396422b6d3af964",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "AIGENERAL_FreeMinionList": "4e9eeeac38c37fdeb2b6c68b61a54f0917312daec67883ec5eda6773bbdd0d5b",
+    "MONSTERUNIQUE_KillMinions": "cbc10f5fd6e73f8d58baddb26240f7a4324f7e1fbf786234ede56588d974f249",
+    "MONSTERUNIQUE_MinionCallback_KillMinion": "1e48291d3c2121d1a2c4b4b99a0c236ba261d9efdc51db3ea03a7e3117b67179",
+    "sub_6FC6E780": "eac87e22262c1b59576f2a6d27438b9014a90b9ba6375adfe2c74cc1ab05ca8b",
+    "D2GAME_SpawnNormalMonster_6FC68E30": "6aa06b5103a850f430839845369095b6fe60254a176a075d7c7cae157d2f3e13"
+  },
+  "cases": 128,
+  "animation": {
+    "source": "Pinned local CASC raw reused read-only",
+    "path": ".local/class-skills/bone-barrier-retirement-source/AnimData.d2",
+    "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "parsedRecords": 3661,
+    "records": [
+      {
+        "code": "BWS1HTH",
+        "frames": 24,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "BWDDHTH",
+        "frames": 1,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "BWGHHTH",
+        "frames": 5,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "BWDTHTH",
+        "frames": 15,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "BWNUHTH",
+        "frames": 1,
+        "speed": 256,
+        "events": []
+      }
+    ]
+  },
+  "established": [
+    "Seven complete unchanged bodies compose pet allocation/AI initialization/initial event25/BoneWall deadline600/strict expiry/neutral mode request/idle15. Normal active uninterrupted callback service enters DEATH at birth+610frames, not600. Wall S1 and Prison NU share the species skill0 initializer; absolute birth frame does not change the610offset.",
+    "Declared late first observations cover all0..15frame phases: lag1 yields611,lag5 reaches deadline600 and idles until615,lag7 yields602,lag15 yields610. Equality at the deadline still idles; do not replace the think cadence with a fixed24second expiry or assume that every delayed world resumes at610.",
+    "The pinned local animation archive contains five BW records: S1=24,DT=15,GH=5,NU=1,DD=1,all speed256 with no frame markers. DT length alone does not execute mode/death/minion/removal events."
+  ],
+  "services": [
+    "Reuses accepted complete common-pet ABI. Room/allocation/registration, skill/stat rows, AI-table selection, command clearing, event storage and mode transition are declared services. Full ExecuteAiFn initialization runs; subsequent active undisturbed callbacks are explicitly dispatched from the stored function pointer, not through the full room/stun/leash/event engine.",
+    "Mode service records requested neutral/death state only. No minion graph, collision removal, corpse/invisibility/deletion, current executable or native retirement is executed. Reviewed cleanup/dispatcher/minion functions are not included in executed count."
+  ],
+  "remaining": [
+    "Source low-level spawn is a null stub with commented decompile. Initial minion owner/flag graph and modifier15 interaction need a complete controlled graph/current-build check before changing child/root death behavior. The graph helpers mutate owner/list relationships during death; an isolated KillMinions call is insufficient.",
+    "Mode-entry/event routing, per-child deadlines, exact collision release,15frame DT completion/hidedead/removal, save/reload during retirement, world inactivity/stun/leash and current executable remain unverified. Native root-shared24second deletion remains explicitly prior behavior until this composition is integrated.",
+    "Reuse SourceAnimationEvents and existing original-actor retirement patterns where their contracts match. Do not borrow Fire Golem160ms timing or infer full mode scheduling from animation metadata. No class completion/deployment or asset creation."
+  ],
+  "artifacts": {
+    "tools/probe_bone_barrier_retirement.py": "58cab8f62b9dc81bb68333ae2897448a0d36460784374b5320b8565d19a36f20",
+    ".local/class-skills/bone-barrier-retirement-source/probe.cpp": "68080f91d69641023920b54509d0afb589be241500565df2630bc24d5e7d1adf",
+    ".local/class-skills/bone-barrier-retirement-source/cases.json": "c9b9c54f722130c8a801e550c877bf3faa4becdbcad756d433ae5e1384ec68e1",
+    ".local/class-skills/bone-barrier-retirement-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-retirement-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-retirement-source/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5"
+  }
+}
