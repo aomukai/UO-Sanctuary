@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Bone Armor correction](bone-armor-checkpoint.md) retains the native0x375A shield marker and shared cast sound as identified placeholders. Final orbiting-bone, absorption/break/state effects and audio remain pending; exact shield arithmetic does not depend on those assets.
+
 The [skeleton/Mage roster correction](skeleton-roster-checkpoint.md) adds no new visual or audio producer. Native summon particles/body/attack/death cues remain identified placeholders; source destruction/event presentation is not certified by FIFO tests. Final summon and elemental effects/audio remain pending.
 
 The [Skeletal Mage birth/resource correction](mage-birth-checkpoint.md) adds no visual/audio producer. Native summon particles, body/attack poses and typed projectile markers remain identified placeholders. Final summon formation, directional/attack/recovery/death frames, elemental travel/impact/state effects and audio remain pending independently of mechanics.

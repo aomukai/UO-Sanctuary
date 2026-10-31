@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceSha256": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+  "routineSha256": "9810ac6c3fba54d4a9fe803dcc5bd10a49acf2fff2a3df8dd14ced29a7d5548e",
+  "skill": {
+    "skill": "Bone Armor",
+    "*Id": 68,
+    "srvdofunc": 18,
+    "aurastate": "bonearmor",
+    "aurastat1": "bonearmor",
+    "aurastatcalc1": "(ln12 + (skill('Bone Wall'.blvl) + skill('Bone Prison'.blvl)) * par8)*256",
+    "aurastat2": "bonearmormax",
+    "aurastatcalc2": "(ln12 + (skill('Bone Wall'.blvl) + skill('Bone Prison'.blvl)) * par8)*256",
+    "auraevent1": "absorbdamage",
+    "auraeventfunc1": 22,
+    "Param1": 20,
+    "Param2": 15,
+    "Param8": 15
+  },
+  "cases": 262,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/cyclone-armor-source-probe.cpp": "be076618e3b78bab697cb96920221695932e6c65dc2794ae7e06449642dbe34f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-armor-source/probe.cpp": "165c2e6b1afaabd0bc7dc5a60b3acf5aec6a95f4db4aa12706dda597a0a3fb9c",
+    ".local/class-skills/bone-armor-source/cases.json": "030dfd6a17a9415756e41b5c3c3ad19ec9d87d0ec7db305835210d44fbe1ed56",
+    ".local/class-skills/bone-armor-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-armor-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged event22 and percentage helper execute252numeric contexts and10missing/invalid service guards with clean ASan/UBSan. Within-pool hits subtract exact FP256 physical damage;nonphysical channels are untouched.",
+    "Positive maximum with exhausted pool unlinks/frees the state. Its percentage marker updates on an absolute change of at least5;this is separate from final presentation.",
+    "At damage>=remaining the older source zeroes nValue0 before subtracting it,so the full hit passes through. This is a demonstrated discrepancy from Sanctuary current min(pool,damage) overflow,not a modern behavioral certificate."
+  ],
+  "remaining": [
+    "The native correction retains existing conventional overflow while fixing fractional consumption;modern overflow behavior remains unverified. No silent legacy-bug port is authorized by this receipt.",
+    "Stat lists,row/layout,unlink/gfx and actor services are supplied;full modern do18/event registration,incoming event ordering,client and old-content migration require separate evidence."
+  ]
+}

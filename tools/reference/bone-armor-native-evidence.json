@@ -1,0 +1,100 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bone Armor exact shield and learned input",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 172,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "sourceEventContexts": 262,
+    "matchedWithinPoolContexts": 45,
+    "capacityContexts": 2295,
+    "retainedPredecessorMarkers": 151,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "legacySavedRankMaximum": "unknown",
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      825,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-armor/birth-inputs.json",
+      "sha256": "d050c08203a078c60852e1be2e9b45b2da26eb88c636ce0a9d4d3754a639e52b"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-armor/audit-inputs.json",
+      "sha256": "59e6129e07bb06b36d65fb52e7a8f4f8422edd1a480a53608f4154a94737d402"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/DefensiveArmors.cs": "02d20ed45b542ef01cfe4972f3e3061cb8e93df48d42165521317218995a875a",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "fefa9f913abcad9e489e817fc5597b6abda89dbec5e009b8891f545fd89d57a5",
+    "src/Sanctuary.Content/SkillBindings.cs": "68aff6b9b100772376c2979b3c6053e36b53fdac82cc1b059d735b40f65459e4",
+    "src/Sanctuary.Content/WardrobeTransaction.cs": "01c62a689ed420c05dcb96a49fcf28d3e704e3abe35756c107f64e39a3d375b5",
+    "tests/Sanctuary.Integration/BoneArmorChecks.cs": "fd24a2482f8515c538389128cacb7527c4a41aa38ca1827b457da9e93c2d436b"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-armor/audit-inputs.json": "59e6129e07bb06b36d65fb52e7a8f4f8422edd1a480a53608f4154a94737d402",
+    ".local/class-skills/bone-armor/audit-native-checks.log": "8b2e3021eac75a68d83cd866c6caf7add8c7782864ea478b4339a27d2d8d1c39",
+    ".local/class-skills/bone-armor/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-armor/birth-inputs.json": "d050c08203a078c60852e1be2e9b45b2da26eb88c636ce0a9d4d3754a639e52b",
+    ".local/class-skills/bone-armor/birth-native-checks.log": "90b0d8809501d6445c23f9755474b97639997fc74b9135956960c20959710bea",
+    ".local/class-skills/bone-armor/bone-armor-fixtures.json": "f7856842c8d32c6aac6f52645693923e7e7611bfe7c72e52f5134f276acb41d4",
+    ".local/class-skills/bone-armor/content-build-3.log": "27aa0c9096d3a9940c11d3e6a63656b7e13f5c204009c578a79a95659c20a141",
+    ".local/class-skills/bone-armor/failed-birth-inputs-1.json": "68f8b4df8b550fcdfc94513199eb9da32fa5e71c839039caba2bf060b1160309",
+    ".local/class-skills/bone-armor/failed-birth-inputs-2.json": "d869b4f01a21f238e8e70446c19c12a0541a09719bbdadf8be35537adbb843a0",
+    ".local/class-skills/bone-armor/failed-birth-run-1.log": "b0d27c1d2a5ba36d8178921fb6500bde12e64ba115e4917e067e80635cc08fa8",
+    ".local/class-skills/bone-armor/failed-birth-run-2.log": "d9a4ece9ed98876dec22f2b356706ed2bd7f684e6e5308838bfea7c0d3bdc3a1",
+    ".local/class-skills/bone-armor/integration-build-3.log": "a69632bd071f0aa5ca243b06ec2a575d2320b3252c7ea27bc8d9557effb3a0e2",
+    ".local/class-skills/bone-armor/pre-build-3.json": "c93c017cff526a63c8ec5b558ada785a2adb6fe52575d1b79ffff22c722652ad",
+    ".local/class-skills/bone-armor/python-tests.log": "fb177590a29652acb3968fdfc93b0340627088df89dbbc63470550fd4579f494",
+    ".local/class-skills/bone-armor/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/skeleton-roster/birth-native-checks.log": "d26319a3e2c3f8bf5d02e5413302a2a425567411c8dbd9073837009e80fd5d1d",
+    "docs/bone-armor-checkpoint.md": "522e5b553297e664eac49cebb36dab85e09a031c77851e82d7fd89a7252574d7",
+    "docs/class-skill-roadmap.md": "f328d16aaeb83b4e574a1c9f5079490871b411b53c97e012d838e98914b1ce5a",
+    "docs/class-skills-resume-checkpoint.md": "8ac441068cafd2137ea31d11c3f6390a38b60cdb8ce3ec8b535e0b27b1b3b841",
+    "docs/necromancer-mechanical-audit.md": "b516132d186ed7f6d8f2b835cdac7437e8d8a3f8b245bda3afe2444b49f42f9a",
+    "docs/skill-effects.md": "9a03a74ca90347cdef60a61d8207a09dd6c273b243d799a8147b869c390fa6f8",
+    "docs/skill-icons.md": "9f59ef63b520bfaba677b7175202a6aaa74c66e7d5c30d27543c698574d11455",
+    "docs/skill-mechanical-reference.md": "356fdf478802b25f8ab8048491648a642c3003552905d972bb72287c2a6568cc",
+    "src/Sanctuary.Content/DefensiveArmors.cs": "02d20ed45b542ef01cfe4972f3e3061cb8e93df48d42165521317218995a875a",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "fefa9f913abcad9e489e817fc5597b6abda89dbec5e009b8891f545fd89d57a5",
+    "src/Sanctuary.Content/SkillBindings.cs": "68aff6b9b100772376c2979b3c6053e36b53fdac82cc1b059d735b40f65459e4",
+    "src/Sanctuary.Content/WardrobeTransaction.cs": "01c62a689ed420c05dcb96a49fcf28d3e704e3abe35756c107f64e39a3d375b5",
+    "tests/Sanctuary.Integration/BoneArmorChecks.cs": "fd24a2482f8515c538389128cacb7527c4a41aa38ca1827b457da9e93c2d436b",
+    "tests/check_bone_armor.py": "b3f47c6767759981b348ed2c9578e6026d40b300d038697eec426de5aa27a20c",
+    "tests/check_bone_armor_audits.py": "4730c3d27cc23778a799ec8851093a48a4cb32cd75c821bac2812fd34a2fc279",
+    "tools/probe_bone_armor.py": "a8428c302e2a3f3acd7bb7d9eb2f125a3e3f52213e02aa851f9b0c872edbe79c",
+    "tools/record_bone_armor.py": "a6858d84845d42415f6be7cbe184e6972444616a7d311ca6033e33587af78df9",
+    "tools/reference/bone-armor-source-evidence.json": "aa585febb1b280eefaeaa783d7a7fc4194e4c1ef14595c18aa15d20fd8bc41f1",
+    "tools/reference/first-loop-affix-audit.json": "4384586d9d8563b195b0a1ed4f83b8f17bd1ade8f8f5db0b08119d54a9bef17a",
+    "tools/reference/named-item-runtime-audit.json": "d04b32074f80abe61214f161d9dc71173a4b4d2a7c24871671e13db6c1511f02",
+    "tools/reference/skeleton-roster-native-evidence.json": "42eb8dbba41f9dc5ea46d05c91c6ac9c91908bb9fdf60946c32bbd4c461bba5b"
+  },
+  "established": [
+    "Physical shield consumption now retains FP256 through the existing SourceAbsorptionPool rather than rounding every hit up to a whole point. Optional saved pool captures rank and original capacity for new casts;legacy whole-HP payloads remain readable with unknown original rank/maximum.",
+    "All2295current rank/hard-synergy formula contexts pass. The complete older event22 probe has262numeric/guard contexts;45within-pool native comparisons match. Its exhaustion discrepancy is explicitly excluded from modern equivalence.",
+    "Learned right/quick casts use ordinary unpaid windup and once-only release payment. The pinned right-only flag now has an actual binding gate. Six connected native input casts pass,with retained previous input checks.",
+    "Actual fractional physical and native AOS hits consume the shield;nonphysical damage does not. Real Shaftstop checks pre-physical-reduction absorption. Recast refills,gear/talent changes preserve active capture,unpaid/interrupted casts retain old armor,and armor-group/death/respec/wardrobe transaction cleanup clears both representations.",
+    "Two real reloads retain wounded new and legacy shields,mana fraction and unknown legacy metadata;both resume exact1/256absorption. All151predecessor markers,Psychic Ward group/reload and three older general class checks pass."
+  ],
+  "remaining": [
+    "Older event22 zeroes the pool before subtracting a breaking hit and therefore passes that full hit through. Sanctuary retains its existing min(pool,damage) overflow while modern behavior remains uncertain;this is not a claim that the two branches match.",
+    "Full modern do18/stat-list/event registration,Energy Shield/other incoming priority,source gfx parameter,all special incoming producers and graphical-client acceptance remain open. Wardrobe cleanup tests its actual transaction,not the public ceremony/combat-wait dispatcher.",
+    "The first run caught the genuine missing right-only gate. The second test used a restricted history helper during cast recovery;the corrected fixture exercises the actual wardrobe transaction. Failed logs remain recorded.",
+    "No old-content binary migration,deployment,new full-class run,complete skill/class or final assets are claimed. The30-skill audit identifies provisional bone/poison flight/field paths as the next implementation priority."
+  ]
+}

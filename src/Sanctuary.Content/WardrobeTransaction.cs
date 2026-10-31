@@ -124,7 +124,7 @@ public static class WardrobeTransaction
         }
         // No fallible gear or capacity work follows this point. Ordinary followers stay put.
         if (NecromancerEffects.Profiles.Find(player) is { } skillState)
-        { NecromancerEffects.Profiles.Store(player, skillState with { BoneArmor = 0 }); }
+        { NecromancerEffects.ClearBoneArmor(player); }
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
         AmazonJavelins.Cancel(player);

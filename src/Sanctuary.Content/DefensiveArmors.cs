@@ -8,7 +8,7 @@ internal static class DefensiveArmors
     internal static void ClearGroup(PlayerMobile owner)
     {
         if(NecromancerEffects.Profiles?.Find(owner) is{BoneArmor:>0} bone)
-        {NecromancerEffects.Profiles.Store(owner,bone with{BoneArmor=0});}
+        {NecromancerEffects.ClearBoneArmor(owner);}
         if(SorceressEffects.Profiles?.Find(owner) is{Armor:not null} cold)
         {SorceressEffects.Profiles.Store(owner,cold with{Armor=null});}
         PsychicWard.Clear(owner);

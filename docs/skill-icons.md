@@ -1,5 +1,7 @@
 # Skill icons
 
+Bone Armor still needs final talent-tree and right/quick-hotkey art after the [exact shield correction](bone-armor-checkpoint.md). Its left binding is now correctly refused; no separate absorption icon or new skill was introduced. Final effects/audio stay in their own ledger.
+
 The [skeleton/Mage roster correction](skeleton-roster-checkpoint.md) introduces no player binding or separate icon. Raise Skeleton and Raise Skeletal Mage still need final talent-tree and hotkey art; effects/audio remain separately tracked.
 
 The [Skeletal Mage birth/resource correction](mage-birth-checkpoint.md) adds no binding or independent skill icon. Raise Skeletal Mage still needs final talent-tree and hotkey art; four elemental minion attacks do not need separate player bindings. Effects/audio remain in the separate ledger.

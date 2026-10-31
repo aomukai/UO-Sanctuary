@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 
@@ -11,7 +12,9 @@ namespace Sanctuary;
 public sealed record NecromancerMotion(uint Target, bool Flee, int OriginX, int OriginY);
 public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Rank, DateTime UntilUtc, int OriginX, int OriginY,
     NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false);
-public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0);
+public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
+public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
 {
@@ -37,6 +40,9 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         {
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<NecromancerState>(reader.ReadString());
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
+                || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0
+                    || pool.Rank.HasValue!=pool.Maximum256.HasValue || pool.Maximum256 is{} maximum && maximum<pool.Remaining256
+                    || state.BoneArmor!=(pool.Remaining256+255L)/256)
                 || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255 || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
@@ -222,18 +228,33 @@ public static class NecromancerEffects
         creature.Combatant = nearest; return ai.DoActionCombat();
     }
     public static int Armor(Mobile actor) => Profiles?.Find(actor)?.BoneArmor ?? 0;
+    internal static int Armor256(Mobile actor)=>Profiles?.Find(actor) is{} state
+        ?state.BoneArmorPool?.Remaining256??(int)Math.Min(int.MaxValue,(long)state.BoneArmor*256):0;
+    internal static int? ArmorMaximum256(Mobile actor)=>Profiles?.Find(actor)?.BoneArmorPool?.Maximum256;
+    internal static void ClearBoneArmor(Mobile actor)
+    {if(Profiles?.Find(actor) is{} state){Profiles.Store(actor,state with{BoneArmor=0,BoneArmorPool=null});}}
     public static double AbsorbPhysical(Mobile target, double damage)
     {
         if (damage <= 0 || Profiles?.Find(target) is not { BoneArmor: > 0 } state) { return damage; }
-        int absorb = Math.Min(state.BoneArmor, (int)Math.Ceiling(damage));
-        Profiles.Store(target, state with { BoneArmor = state.BoneArmor - absorb });
-        return Math.Max(0, damage - absorb);
+        // Keep the existing min(pool,damage) overflow policy while the older
+        // event22 exhaustion branch remains discrepant. Do not round each
+        // incoming fractional hit up to a whole point of shield consumption.
+        var step=SourceAbsorptionPool.Take(Armor256(target),NamedElements.To256(damage));
+        var pool=step.Remaining256==0?null:state.BoneArmorPool is{} saved?saved with{Remaining256=step.Remaining256}
+            :new BoneArmorState(null,step.Remaining256,null); // Legacy rank/max were not saved;do not invent them.
+        Profiles.Store(target,state with{BoneArmor=(int)((step.Remaining256+255L)/256),BoneArmorPool=pool});
+        return step.Damage256/256.0;
     }
     public static void BoneArmor(PlayerMobile owner, SkillValues values)
     {
+        var row=SkillMechanics.For(CombatAbility.BoneArmor);
+        int amount=checked((int)values.Eval("aurastatcalc1"));
+        if(values.Ability!=CombatAbility.BoneArmor||values.Rank is <1 or >255||row.SourceId!=68||row.Number("srvdofunc")!=18
+            ||row.Text("aurastat1")!="bonearmor"||row.Text("aurastat2")!="bonearmormax"||row.Number("auraeventfunc1")!=22
+            ||amount<=0||amount!=values.Eval("aurastatcalc2"))
+        {throw new NotSupportedException("Unmapped Bone Armor pool");}
         DefensiveArmors.ClearGroup(owner);
-        int amount = (int)Math.Clamp(values.Eval("aurastatcalc1") / 256, 0, int.MaxValue);
-        Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { BoneArmor = amount });
+        Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { BoneArmor=(int)((amount+255L)/256),BoneArmorPool=new(values.Rank,amount,amount) });
         owner.FixedEffect(0x375A, 10, 15, 0x481, 0); // Placeholder shield marker.
     }
     internal static int ManaMaximum256(Mobile owner)=>NpcEquipmentResources.Maximum256(owner,2)??owner.ManaMax*256;
