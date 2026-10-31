@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/SkillMonst.cpp": "2f5e399e347540b916b5390a308b2ffe40218f4b771267a6059fbfd394097d4d",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "functions": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_GetElementalLength": "a902ea2870ea544ae872b408f532d6af74f9008fd94b125d0af45a30b630cc8d",
+    "MISSMODE_RollDamageValue": "b7a3f2d3ca90820d1ef8f41fe5cbbc8fbd52011a472a3396efd55de5517e8951"
+  },
+  "launchFunctionSha256": "8d8b03be39b46031caf44818ad938a4eeee69f81b8cce35260f6a5448addfa5a",
+  "criticalFunctionSha256": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+  "cases": 1524,
+  "currentMissileTable": {
+    "path": "tools/reference/d2r-named-equipment/json/missiles.json",
+    "sha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "established": [
+    "Four component offsets select contiguous missile IDs208..211 from NecromageMissile149;target presence is required. Component selection/AI/animation clocks are separately reviewed adapters.",
+    "Complete unchanged elemental getters,length getter,level-tier helper and impact roll execute for all four elements and derived levels1..381 using current tables. Poison absent HitShift means0;other elements use8.",
+    "Physical min0 disables the poison row's unusual physical max1280 without a random draw. Positive elemental endpoints roll max-exclusive,including a draw service at equal endpoints.",
+    "The complete intrinsic monster callback doubles elemental damage and poison rate,not duration. Its current necromage Crit5 is consumed through the shared critical predicate with a separately saved actor stream."
+  ],
+  "limits": [
+    "The numerical functions execute with supplied table/stat/RNG services;the launch and critical bodies are hashed/static-reviewed,not complete live engine execution.",
+    "Modern executable,source allocation/AI seed chronology,retired source lifetime and native geometry/room/candidate order remain unverified. Existing 1000ms mage attack cycle/half-cycle action timing is not source AI acceptance.",
+    "Shared native incoming/death callbacks,initial poison-rate bridge/current applicability and PvP/global difficulty projections retain their earlier scope."
+  ],
+  "artifacts": {
+    ".local/class-skills/mage-missiles-source/probe.cpp": "ee14e6ff2b1c492b1726a7092d3d013abac09acece7a9f5e5617e67c6e1e8eda",
+    ".local/class-skills/mage-missiles-source/cases.json": "0b276b48d0f39a5d15b99f31b50474a5d89a30e6b5954c486427c36fa10dc0f5",
+    ".local/class-skills/mage-missiles-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/mage-missiles-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

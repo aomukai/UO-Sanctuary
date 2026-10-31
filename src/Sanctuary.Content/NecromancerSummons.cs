@@ -13,6 +13,7 @@ namespace Sanctuary;
 public sealed record SummonSource(string Key, Dictionary<string, System.Text.Json.JsonElement> Fields);
 public static class NecromancerSummons
 {
+    internal static Func<int> ElementRoll=()=>Utility.Random(4);
     private static readonly Dictionary<string, Dictionary<string, System.Text.Json.JsonElement>> _sources = new(StringComparer.OrdinalIgnoreCase);
     public static void Load()
     {
@@ -79,6 +80,8 @@ public partial class NecromancerMinion : SkeletonGuardian
     public int FireAbsorb => Kind == CombatAbility.FireGolem ? Values(Kind).Diminishing(1, 2) : 0;
     public int VelocityPercent => Kind==CombatAbility.None?0:Passive("velocitypercent");
     public bool IsMage => Kind == CombatAbility.RaiseSkeletalMage;
+    internal int MageElement=>_element;
+    internal int MageMissileRank=>IsMage?checked((int)Values(Kind).Eval("sumsk1calc")):0;
     private Dictionary<string, int> Snapshot => _snapshot ??= JsonSerializer.Deserialize<Dictionary<string, int>>(_ranks);
     private SkillValues Values(CombatAbility ability) => new(SkillMechanics.For(ability),
         key => Snapshot.GetValueOrDefault(key), key => Snapshot.GetValueOrDefault("base:" + key), Level);
@@ -141,7 +144,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             _snapshot[row.SourceKey] = NamedSkills.Rank(owner, row.TalentId);
             _snapshot["base:" + row.SourceKey] = ClassCreation.Profiles.GetRank(owner.Serial, row.TalentId);
         }
-        _ranks = JsonSerializer.Serialize(_snapshot); _element = Utility.Random(4); _resistance = NecromancerSummons.Resistance(owner);
+        _ranks = JsonSerializer.Serialize(_snapshot); _element = NecromancerSummons.ElementRoll(); _resistance = NecromancerSummons.Resistance(owner);
         Initialize(owner, SkillMechanics.Rank(owner, ability), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         Appearance(); _summonProfile = null; SetHits(CombatProfile.Life); SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
         RefreshResistances();
@@ -198,20 +201,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     {
         if (IsMage)
         {
-            int level = Math.Max(1, Mastery + (Rank < 4 ? 0 : (Rank - 2) / 2));
-            string missile = "necromage" + (_element + 1);
-            int min = SkillValues.Tier(NecromancerSummons.Source(missile, "EMin"), level, i => NecromancerSummons.Source(missile, "MinELev" + i));
-            int max = SkillValues.Tier(NecromancerSummons.Source(missile, "EMax"), level, i => NecromancerSummons.Source(missile, "MaxELev" + i));
-            double damage = Utility.RandomMinMax(min, max);
-            MovingEffect(target, 0x36E4, 5, 0, false, false);
-            if(ClassAvoidance.Missile(target)){return;}
-            if (_element == 0)
-            { int frames = NecromancerSummons.Source(missile, "ELen"); GearEffects.ApplyPoison(this, target, damage * frames / 256, Core.TickCount, frames * 40); }
-            else
-            {
-                SkillCombat.Hit(this, target, damage, _element switch { 1 => "cold", 2 => "fire", _ => "ltng" });
-                if (_element == 1) { GearEffects.ApplyChill(target, Core.TickCount, (25 * level) * 40, this); }
-            }
+            NecromancerMageMissiles.Launch(this,target,TimedEffects.Now);
             return;
         }
         var hit = NpcEquipmentDamage.TryResolve(this,target,out var equippedHit)?equippedHit

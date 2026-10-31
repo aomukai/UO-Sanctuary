@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Skeletal Mage flight path](mage-missiles-checkpoint.md) uses native body/attack pose and typed position markers as identified placeholders. Raise Skeletal Mage needs final poison/cold/fire/lightning travel and impact effects (`necromage1..4`, fire's `shamanexp` presentation), cold/poison state effects, directional/attack frames and audio. Mechanical collision is now independent of the placeholder visuals. Its talent/hotkey icon remains in the separate icon ledger.
+
 The [weapon-start correction](weapon-start-checkpoint.md) adds no new visual or audio producer. Prevent Monster Heal and flat armor loss use existing state services; final Poison Dagger effects/audio remain pending alongside the identified native placeholders. The separate talent/hotkey icon ledger is unchanged.
 
 The [ordered Poison Dagger contact](poison-dagger-contact-checkpoint.md) retains native weapon pose/sound, shield/contact/retaliation flashes and shared cold/poison markers as identified placeholders. Final poison impact/state, weapon/block/return/overlay effects and audio remain pending. Its 127 native markers verify mechanical behavior; no final art was created. Talent/hotkey icons remain separate.

@@ -24,10 +24,16 @@ internal sealed class MissileValues(string key,SkillValues skill)
         throw new NotSupportedException("Unsupported missile formula supplier "+name);
     }
     internal long Eval(string field)=>SkillFormula.Evaluate(Text(field),Resolve);
-    internal int ElementDamage256(bool maximum)
+    internal int ElementFrames()
     {
-        if(skill.Rank is <1 or >255){throw new NotSupportedException("Unsupported missile damage rank");}
-        int shift=Number("HitShift",8);if(shift is <0 or >8){throw new NotSupportedException("Unsupported missile HitShift");}
+        int rank=skill.Rank;if(rank<1){return Number("ELen");}
+        return checked(Number("ELen")+Math.Min(7,rank-1)*Number("ELevLen1")
+            +Math.Min(8,Math.Max(0,rank-8))*Number("ELevLen2")+Math.Max(0,rank-16)*Number("ELevLen3"));
+    }
+    internal int ElementDamage256(bool maximum,int defaultHitShift=8,int maximumRank=255)
+    {
+        if(skill.Rank<1 || skill.Rank>maximumRank){throw new NotSupportedException("Unsupported missile damage rank");}
+        int shift=Number("HitShift",defaultHitShift);if(shift is <0 or >8){throw new NotSupportedException("Unsupported missile HitShift");}
         string stem=maximum?"Max":"Min";
         long raw=SkillValues.Tier(Number(maximum?"EMax":"EMin"),skill.Rank,i=>Number(stem+"ELev"+i));
         raw=checked(raw+raw*Eval("EDmgSymPerCalc")/100);

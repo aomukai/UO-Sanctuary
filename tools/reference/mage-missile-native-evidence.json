@@ -1,0 +1,93 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Skeletal Mage traveling elemental projectiles",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 8,
+  "run": 4,
+  "verified": {
+    "nativeMarkers": 136,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "sourcePacketCasesPerBoot": 1524,
+    "elementalTravelCases": 4,
+    "intrinsicCriticalCases": 2,
+    "controlCases": 6,
+    "naturalConnectedMageCasts": 3,
+    "finalSavedFrame": 6,
+    "finalSavedGeneration": 2,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      823,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/mage-missiles/birth-inputs.json",
+      "sha256": "6857ecce4c02f409cba505cd0c38c016542b4a9425878da9f4abb8f76a64950e"
+    },
+    "audit": {
+      "path": ".local/class-skills/mage-missiles/audit-inputs.json",
+      "sha256": "0cd7f286128675c15ad9a03a9fba8826cfd3ff35779ba736124b28a410a531c0"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/MissileValues.cs": "e195c691632a8b39ee5e8470dd43b7bffaa4fd6d85d2a1cca22c87a887e2f2db",
+    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "9fa6213f35b7418555b254088f0890e552a9a195fca007c3458b6fb9f02d2e2b",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "9a0d19367027c39015c2fadb060d4b01427a190adae7cdcf2ef696d6a43ce867",
+    "tests/Sanctuary.Integration/MageMissileChecks.cs": "502096c6279461bae2d94e7231d4d82bed675231de1410b6084adf26d65bb7a4"
+  },
+  "artifacts": {
+    ".local/class-skills/mage-missiles/audit-inputs.json": "0cd7f286128675c15ad9a03a9fba8826cfd3ff35779ba736124b28a410a531c0",
+    ".local/class-skills/mage-missiles/audit-native-checks.log": "a4bda56e6719ed6772c87cfa82c86d3d181abd638cfc13112629d116d7dee94b",
+    ".local/class-skills/mage-missiles/audit-run-4.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/mage-missiles/birth-inputs.json": "6857ecce4c02f409cba505cd0c38c016542b4a9425878da9f4abb8f76a64950e",
+    ".local/class-skills/mage-missiles/birth-native-checks.log": "1e396042ce48153a5b360cb21ab8f7bd10c8c9891a0f8c6275dafe5d3e85f2bb",
+    ".local/class-skills/mage-missiles/content-build-8.log": "db537a3d8176df5363e54a8866a9797ec159942069bc3dfbc0517d654eb69e03",
+    ".local/class-skills/mage-missiles/integration-build-8.log": "b8632aac98179a9f71429ebbadade22248a95cd690d77e2a17b6b94e1fe9790f",
+    ".local/class-skills/mage-missiles/mage-missile-fixtures.json": "5db7fd32b930f5870344bb6bd2cbe7e143dc4b5549bd786bb16d85c0ddf52c7e",
+    ".local/class-skills/mage-missiles/pre-build-8.json": "aed1d28ad2dc5a943435bcb4603b9d70bd7aa31f1249a30a22bad53f78346570",
+    ".local/class-skills/mage-missiles/python-tests.log": "f7799219e034a3f15246c661064dedcb1e7dbacc28e256c6e6655fc8e36fb058",
+    ".local/class-skills/mage-missiles/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/weapon-start-effects/birth-native-checks.log": "1ea8cd5988a1f9554514adc9cbe491a5d452f775331de07400fda148716ddaf6",
+    "docs/class-skill-roadmap.md": "9e1dcd2dc4e1735ae98008b20c781a74ceb6c2dfb54d6d9f29170a466082b232",
+    "docs/class-skills-resume-checkpoint.md": "96391225b6c454c2dc08257a9a9813db5224184682da6901f9a0bb4354314afd",
+    "docs/mage-missiles-checkpoint.md": "6f7cdf79ccf9454abfe10e380aeeec63a06936a7bf848e71986d27d2f0b365f5",
+    "docs/skill-effects.md": "38da5cabd939135d72978d7cb11a046599f23cdf96693f48cd83f8206b9aa6bf",
+    "docs/skill-icons.md": "fb09422504d4727f21cc58a3dcdb1ae387cfdac0f14422e598d60d6e403a5608",
+    "docs/skill-mechanical-reference.md": "2a704f3efa98801fb2ea901e0c849ad2999d6aafe8ca7a1b5d2872f03aac50e2",
+    "src/Sanctuary.Content/MissileValues.cs": "e195c691632a8b39ee5e8470dd43b7bffaa4fd6d85d2a1cca22c87a887e2f2db",
+    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "9fa6213f35b7418555b254088f0890e552a9a195fca007c3458b6fb9f02d2e2b",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "9a0d19367027c39015c2fadb060d4b01427a190adae7cdcf2ef696d6a43ce867",
+    "tests/Sanctuary.Integration/MageMissileChecks.cs": "502096c6279461bae2d94e7231d4d82bed675231de1410b6084adf26d65bb7a4",
+    "tests/check_mage_missiles.py": "16bebb82ccc9a5014b622e95ac5bb7dd4f0b2de91fae4c7856624b86d0fac4a5",
+    "tests/check_mage_missiles_audits.py": "934eb66eec7021694601c01b71fefc444029a25bb7695181e767d70ebdf40854",
+    "tools/probe_mage_missiles.py": "dcd162b73410c0cf660ee51be2f0498517eabc166c74d41652760918e5c2a943",
+    "tools/record_mage_missiles.py": "616ff6e5708e241169e6e48ccb9dfaa389ea819d2e77281b1747249bde56c110",
+    "tools/reference/first-loop-affix-audit.json": "0c05dec498a254053a258d0221603a7796ccf3b56ad933a6fe13b9860adcf86e",
+    "tools/reference/mage-missile-source-evidence.json": "68769019b38b073efc92f7417cb00d8de05314e55c9bd557cd68bce54e09cdc1",
+    "tools/reference/named-item-runtime-audit.json": "46a38df61d0ea4024f70c6353361d9933195539bf550ad2fea33d3f9169e0c0c",
+    "tools/reference/weapon-start-native-evidence.json": "fecbc454d5b62e88c012c44304f8a48633130233ad8c7f846720ad579d147f85"
+  },
+  "established": [
+    "The existing mage attack windup now emits a real straight projectile instead of immediate damage plus a moving visual. Four element packets use current rows and the summon missile-level formula.",
+    "The shared velocity/Q12/cell/do1 services drive delayed collision,nonhoming motion,interception,wall collision and expiry. Shared mitigation/cold/poison and intrinsic critical services deliver captured damage.",
+    "Complete older getter/length/tier/impact-roll bodies match all1524element/derived-rank contexts. Poison has HitShift0 and a disabled physical min0/max1280 lane;the other elements have HitShift8.",
+    "Actual critical/noncritical hits exclude physical shields and advance a separate saved actor stream. Six controls cover immunity,offline,facet change,source deletion,terrain and slow capture.",
+    "A connected native session exercises natural windup and the automatic40ms clock once per boot. Exact packet/vector/cells/age/deadline and an already-advanced critical stream survive two real reloads. All130predecessor markers remain retained."
+  ],
+  "remaining": [
+    "Native1000ms/half-cycle actor timing,full source AI/animation/component behavior,initial-step/global phase chronology and native geometry/room/candidate order remain unverified.",
+    "Offline/facet/removed-source flights age without fighting. Original-engine retired-source lifetime/ownership/credit remains open;an optional user observation is pending. NPC/world seed chronology is not certified.",
+    "Shared incoming/death/reaction ordering,modern initial poison-rate applicability,PvP/global difficulty projections and other recorded class gaps remain. Birth/life/passive/resistance/roster needs its own class audit.",
+    "No new full-class run,complete skill/class,deployment or final assets are claimed. Continue the Necromancer summon/birth audit while nonblocking uncertainties remain documented."
+  ]
+}
