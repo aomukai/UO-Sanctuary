@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Teeth source-based saved flight",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 202,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "retainedPredecessorMarkers": 187,
+    "sourceDamageCasesPerBoot": 4080,
+    "sourceRouterCases": 192,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "finalSavedFrame": 9,
+    "savedActiveDelay": true,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      826,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/teeth/birth-inputs.json",
+      "sha256": "02fbc33622b0e1ade84f17552c36cb97ed55307a27d4f5c2f44baae6fedf2269"
+    },
+    "audit": {
+      "path": ".local/class-skills/teeth/audit-inputs.json",
+      "sha256": "bd2d278fd267ed5ed46f1686ef8f20540cb2224d2931c28713cf40453f38323c"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerCombat.cs": "1c071cf9e174d4d9d1398af165b8796f381ffe231fadb45fb5d6f134a467398f",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "55e846354e1caef00d2c7806a16efa984d40959593d5264da826be0079c61579",
+    "tests/Sanctuary.Integration/TeethChecks.cs": "472c3e97b96d805028ed2fdd3d697563a547336122bb94f0618f338c23d6ca5d"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-spear/birth-native-checks.log": "d98d3fc7dac7a6961b274178fb5531f5126cd6aa14974aeb324385636bc20e26",
+    ".local/class-skills/teeth/audit-inputs.json": "bd2d278fd267ed5ed46f1686ef8f20540cb2224d2931c28713cf40453f38323c",
+    ".local/class-skills/teeth/audit-native-checks.log": "56a8a7a914b388379d3ca18d4d2db633b8bb9e4bfd10338d5cdbcd9be67447b2",
+    ".local/class-skills/teeth/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/teeth/birth-inputs.json": "02fbc33622b0e1ade84f17552c36cb97ed55307a27d4f5c2f44baae6fedf2269",
+    ".local/class-skills/teeth/birth-native-checks.log": "b4b5f73dafb316a3030f8a630c32ebac2d0c6af9fd5e3b368ebcb89a1f90d8a7",
+    ".local/class-skills/teeth/content-build-3.log": "27d285c3ef43a1c1bdb65b4c3501c27fdb6b864ecf6a8cd2dceb1a6d4e248ec3",
+    ".local/class-skills/teeth/integration-build-3.log": "bd001f83079399dc085e8b7b36794fb3a9c7e3a9b9936214c550421f4f3f18b8",
+    ".local/class-skills/teeth/pre-build-3.json": "3501d1115afac80a82d10ec98d4f13395ff8c5ba6bb82abc56b4610b0c119c8f",
+    ".local/class-skills/teeth/python-tests.log": "591de5629aae39f6be3983ef806cbf5ced65c86c94d8c4c5981c172798f962ca",
+    ".local/class-skills/teeth/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/teeth/teeth-fixtures.json": "e4c0a79fcf0ed609ca37394903c173b0d833b4c1825d372ecf8deffc850cbcbb",
+    "data/Sanctuary/Balance/necromancer-summons.json": "0e6a76b56aaca1966e620dd07475d74a98abd8e1d8bb16d47ef6d0d28434c88f",
+    "docs/class-skill-roadmap.md": "cfe1ead496747e33489a280bcadeb48bfa0e7999bd57313c5cbe7ba6eec810af",
+    "docs/class-skills-resume-checkpoint.md": "f1ac4489a49b8a07290e52375c5f6f5a5a56da495435f82ad3bf6dcc34e2c37a",
+    "docs/necromancer-mechanical-audit.md": "7753208e35575efd9fa63bcc93297629425cc02973f7d960307ec5aef9349d2a",
+    "docs/skill-effects.md": "b875bd1d84c2dba60e30f537fbe928f46028ba50d681a31e925052336df04815",
+    "docs/skill-icons.md": "cf0de68adaa053a00d1c6a30acf09cfe78f294e0cbc00db027802393e5586859",
+    "docs/skill-mechanical-reference.md": "0b8288ed1abe51c08a89e94fa609a5a2ff6346c5a2c1f39aa7bdca04fb830fe4",
+    "docs/teeth-checkpoint.md": "f990a9aad8fe2591766130cebc46e65ce810bfde6665a657bf1919325b146195",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "1c071cf9e174d4d9d1398af165b8796f381ffe231fadb45fb5d6f134a467398f",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "55e846354e1caef00d2c7806a16efa984d40959593d5264da826be0079c61579",
+    "tests/Sanctuary.Integration/TeethChecks.cs": "472c3e97b96d805028ed2fdd3d697563a547336122bb94f0618f338c23d6ca5d",
+    "tests/check_teeth.py": "b480bf1488cef67d8b444c9c223c97400851da06996f9d8b9901ee55ab6ecfd9",
+    "tests/check_teeth_audits.py": "dbf2d9d5a64fb3386ad24d96493cdd1fc1678422249a5100e4adeafcdae987b1",
+    "tools/build_class_skills.py": "d0410f46b0ef319c26bac3cc8de97254987bf9f5b47a0b954b76903721e7791d",
+    "tools/probe_teeth.py": "c1a24c0a9aa3ea4775a1c908c7dc439d5c13e38f80c9eb535eb1640965f52fc5",
+    "tools/record_teeth.py": "be78c717e6e35c3751929100688974e1e23aa739d8cef88cff01fd54eef012aa",
+    "tools/reference/bone-spear-native-evidence.json": "19d022b935754491ced1e7cc3d6a1ce9eee5b644ca8a15fd2e3133c86d54700c",
+    "tools/reference/first-loop-affix-audit.json": "f394eb5ab79d81367915d13239ffef9fb9e2060aacf1dbc065d4f848ed19c923",
+    "tools/reference/named-item-runtime-audit.json": "279b95fdd442c6ffebc36605cfaa0c2ffb7b559ac08e10e37ae0e1a90350f4a6",
+    "tools/reference/teeth-source-evidence.json": "754d9461ad5d7764a767c5d1eb566b820185de43f6c2c97cb6588a08d671e97d"
+  },
+  "established": [
+    "Learned Teeth now shares the saved player spell-flight controller with Bone Spear. The existing integer fan feeds captured Q12 vectors at3072FP8 velocity,50frames,Size1,activation0 and source magic endpoints. Accepted contact removes a tooth;delayed candidates are filtered before selection.",
+    "Complete older creator/getters/writer/roll execute4080current Teeth contexts,excluding weapon stats and critical. Complete finder/router execute192contexts with historical JUSTHIT as a supplied service,four-frame allocation and accepted-impact removal.",
+    "Actual paid learned windup/release,18tile target,coincident-candidate delay filtering,exact fourth-frame expiry,separate cast identities,eight geometry/lifecycle controls,Slow Missiles,insufficient mana and atomic invalid-lease restore pass. Old Spear JSON loads omitted additive fields.",
+    "Six connected right/quick casts exercise natural flight and once-only payment. Two actual reloads preserve an injured target,remaining tooth,cast identity and active hit-delay lease without replay. All187predecessor markers remain."
+  ],
+  "remaining": [
+    "The retained per-cast160ms delay adapter is explicitly unverified against current exact caster/cast/skill boundaries. Official2.7 establishes same-skill isolation only;older global JUSTHIT must not be claimed as current behavior.",
+    "Native room/terrain/candidate order,provisional NPC footprints,first/global frame phase,full modern dispatcher/FCR,event/PvP/special-recipient and retired-owner/client equivalence remain open. Same-build reload and predecessor JSON compatibility do not certify an old-content binary upgrade.",
+    "Full class completion,new full-class run,deployment and final effects/audio/talent/hotkey icons are not claimed. Next:Bone Spirit steering,then poison field/nova mechanics."
+  ]
+}

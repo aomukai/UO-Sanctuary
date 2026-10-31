@@ -84,7 +84,7 @@ public static class NecromancerCombat
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
-        if(ability==CombatAbility.BoneSpear){return NecromancerSpellMissiles.Release(owner,point,values);}
+        if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth){return NecromancerSpellMissiles.Release(owner,point,values);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
             if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }
@@ -120,17 +120,9 @@ public static class NecromancerCombat
             cloud.Start(); return true;
         }
         if (ability == CombatAbility.PoisonNova) { new Nova(owner, values).Start(); return true; }
-        if (ability is CombatAbility.Teeth or CombatAbility.BoneSpirit)
+        if (ability == CombatAbility.BoneSpirit)
         {
             var lastHits = new Dictionary<Serial, long>();
-            if(ability==CombatAbility.Teeth)
-            {
-                // The same do8 lattice feeds Multiple Shot; damage/collision stay skill-specific.
-                int sourceDx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),sourceDy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
-                foreach(var ray in FanGeometry.Create(sourceDx,sourceDy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2")))
-                {new BoneMissile(owner,ability,values,0,null,lastHits,ray).Start();}
-                return true;
-            }
             double dx = point.X - owner.X, dy = point.Y - owner.Y;
             double angle = Math.Atan2(dy, dx);
             new BoneMissile(owner, ability, values, angle, World.FindMobile(selected), lastHits).Start();
@@ -169,7 +161,7 @@ public static class NecromancerCombat
             { if (_hit.Add(target.Serial)) { Poison(Owner, target, values,missileDefense:true); target.FixedEffect(0x374A, 10, 10, 0x3F, 0); } }
         }
     }
-    private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits,FanRay? fan=null)
+    private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits)
         : SkillField(owner, ability == CombatAbility.BoneSpirit ? 128 : 50, DiabloClass.Necromancer)
     {
         private double _x = owner.X, _y = owner.Y, _angle = angle, _travel;
@@ -190,11 +182,11 @@ public static class NecromancerCombat
                 if (_target != null) { _angle = Math.Atan2(_target.Y - _y, _target.X - _x); }
             }
             _frame++;
-            double speed = SkillGeometry.Velocity(ability == CombatAbility.Teeth ? 16 : 12);
-            var velocity=fan is{} ray?FanGeometry.Velocity(ray,16):(Math.Cos(_angle)*speed,Math.Sin(_angle)*speed);
+            double speed = SkillGeometry.Velocity(12);
+            var velocity=(Math.Cos(_angle)*speed,Math.Sin(_angle)*speed);
             var start = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
             _x += velocity.Item1; _y += velocity.Item2;
-            _travel += fan.HasValue?Math.Sqrt(velocity.Item1*velocity.Item1+velocity.Item2*velocity.Item2):speed;
+            _travel += speed;
             var end = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
             if (_travel > CombatProtocol.TeethRange || !Map.LineOfSight(new Point3D(start.X, start.Y, start.Z + 12), new Point3D(end.X, end.Y, end.Z + 12))) { Stop(); return; }
             var collisions = new List<(Mobile Target, double Entry)>();
@@ -205,8 +197,6 @@ public static class NecromancerCombat
             foreach (var collision in collisions)
             {
                 _hits.Add(collision.Target.Serial);
-                if (ability == CombatAbility.Teeth && lastHits.TryGetValue(collision.Target.Serial, out long previous) && Core.TickCount - previous < 160)
-                { Stop(); return; }
                 lastHits[collision.Target.Serial] = Core.TickCount;
                 SkillCombat.Hit(Owner, collision.Target, values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble(), "mag",missileDefense:true);
                 Stop(); return;

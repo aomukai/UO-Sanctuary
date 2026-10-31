@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "damageCases": 4080,
+  "routeCases": 192,
+  "completeRoutines": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "MISSMODE_RollDamageValue": "b7a3f2d3ca90820d1ef8f41fe5cbbc8fbd52011a472a3396efd55de5517e8951",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/bone-spear-source/damage.cpp": "cdf3afd015c39c574463e9eb275d2136f292b0e078be1db50c37060857de87d3",
+    ".local/class-skills/bone-spear-source/route.cpp": "411058dca8453aa77bf71e8d21b1770878f8fc695c8d16a7d5086424cc64b96f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "artifacts": {
+    ".local/class-skills/teeth-source/damage.cpp": "948a54df4a0098dde26e789974738b13f87db91efc78a8747f3dd03e59ff40f4",
+    ".local/class-skills/teeth-source/damage-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/teeth-source/damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/teeth-source/damage-cases.json": "83af0ec6551523ef123cd7042e130c0b354912752f6b62a27963d402b1f3677e",
+    ".local/class-skills/teeth-source/route.cpp": "d4c9ee44d2d1568c3ec6c4ef88fd16955be469e94f3ed146c3c1be38179401cd",
+    ".local/class-skills/teeth-source/route-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/teeth-source/route-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/teeth-source/route-cases.json": "8fff88554efabe3198d570ea74fa2854dc5e32e30debe15df5143e90db6e3f0e"
+  },
+  "established": [
+    "Complete creator/getters/writer/roll use current skill67/missile114,15percent hard synergies and HitShift7. All255ranks/four synergy totals exclude supplied weapon/item/origin/critical payloads.",
+    "Complete finder rejects historical JUSTHIT and LastCollide before selection. Complete router starts four-frame historical delay before damage and removes accepted impact missiles. Suppressed targets do not consume missiles. Failed state allocation still delivers this hit."
+  ],
+  "remaining": [
+    "JUSTHIT supplied here is historical global state,not modern delay identity. Retain and identify the existing per-cast160ms adapter until current caster/cast/skill boundaries are established. Official2.7 only establishes same-skill isolation: https://news.blizzard.com/en-gb/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+    "Shared fan/factory/vector/do1/steps have separate bounded evidence. Native geometry,candidate ordering,global frame phase,FCR,events,retired-owner/client equivalence need native acceptance; no full modern executable proof is claimed."
+  ]
+}
