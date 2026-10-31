@@ -1,0 +1,111 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Fire Golem unarmed elemental packet and prepared contact",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 366,
+    "retainedPredecessorMarkers": 360,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      843,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 2880,
+    "baselineActionFrame": 10,
+    "baselineEndFrame": 17,
+    "baselineActionMs": 400,
+    "baselineCycleMs": 680,
+    "halfSpeedFrames": [
+      20,
+      34
+    ],
+    "cappedRateFrames": [
+      6,
+      10
+    ],
+    "observedConnectedFireRelease": true,
+    "connectedFireAttacks": 3,
+    "finalSavedSeed": 925613468630568505,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/fire-golem-combat/birth-inputs.json",
+      "sha256": "c4f54986643c0bbb3c8efa46c3ec3ba7aa52ce8ebb4828f5968e2b9f5bfbafeb"
+    },
+    "audit": {
+      "path": ".local/class-skills/fire-golem-combat/audit-inputs.json",
+      "sha256": "7e5fc3974ef6c14963e05da5bd259585a1b2d54b930bc70ca6b43657c738640e"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/FireGolemBody.cs": "64f0c2b9cc9a7ace4800e9021d7a7ae03335ca210a13647e301120b5dad2d365",
+    "src/Sanctuary.Content/FireGolemContact.cs": "c346cf615b25cd1ed7d883a4253e265492543871856ace43cfb2b64bc05e8098",
+    "src/Sanctuary.Content/NpcEquipmentElements.cs": "80159000acf58182cd8aaa2e80365792f5f7f51841a9cbdc5783fb410a6bba37",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "38fe196639c628754bf4a307302bb8f7f536d33832cca5f24e1fd387b461ddd6",
+    "tests/Sanctuary.Integration/FireGolemCombatChecks.cs": "5bb2c9d3390ad8419e082457cb8f6f42b6ecc449be8b7a23f85db1ee0e6c78b7"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-combat/audit-inputs.json": "7e5fc3974ef6c14963e05da5bd259585a1b2d54b930bc70ca6b43657c738640e",
+    ".local/class-skills/fire-golem-combat/audit-native-checks.log": "4e3dc9a66416b4bee13cc494f67cf77b201356d9e0298880f571fb0f56986984",
+    ".local/class-skills/fire-golem-combat/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/fire-golem-combat/birth-inputs.json": "c4f54986643c0bbb3c8efa46c3ec3ba7aa52ce8ebb4828f5968e2b9f5bfbafeb",
+    ".local/class-skills/fire-golem-combat/birth-native-checks.log": "0d84855e03d0ba51d6e873ef900c9b4f756944ea3c645d2a6857fc26e80dcce7",
+    ".local/class-skills/fire-golem-combat/content-build-3.log": "9fb91fabdf127bd22890f12870fe297560839003ddcb61a1d0c72cd3c49c5ca2",
+    ".local/class-skills/fire-golem-combat/fire-golem-absorption-fixtures.json": "5f5bc914af2e9b2d3f1254264e3c25240d87a1b2570d46de0525363afffd7627",
+    ".local/class-skills/fire-golem-combat/fire-golem-birth-fixtures.json": "b609a79c234bbe80b4d722e4a8d25a6df5a738d5d137109fdd3b967b04d43fd8",
+    ".local/class-skills/fire-golem-combat/fire-golem-combat-fixtures.json": "08b4854b2e02cc81631d850d1a391f443e77203517c117e83ef644e944edc4e8",
+    ".local/class-skills/fire-golem-combat/integration-build-3.log": "6b08fceaf3c6d9512725fb1e383c466a4c399c66d9f609a7ca341da6a3e9b2c9",
+    ".local/class-skills/fire-golem-combat/pre-build-3.json": "63e60b9a42521178b31f728a6d45f69c8f97e109171d63d0e0a38abf417bf61c",
+    ".local/class-skills/fire-golem-combat/python-tests.log": "262866d1a455b36c09546939a7d4deaa8025fc775f89bc0d1d7e5aac64480893",
+    ".local/class-skills/fire-golem-combat/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ced123bc252f259d1e42b658dd938fc25000c4f986e920fc97e5115e5b6112f8",
+    "docs/class-skill-roadmap.md": "b02a87aaccffaf62cf693ba9b7f1570b74202ad073b78874ac63a061b7918c86",
+    "docs/class-skills-resume-checkpoint.md": "85ca226fa9ee8b491072cd525331e483b9c0619800380c1fdbae0acaadc6e4e7",
+    "docs/fire-golem-combat-checkpoint.md": "8dc292611466d3d2ed254dfb86b9a518a01a6b73457b091c3dc2756c65495710",
+    "docs/necromancer-mechanical-audit.md": "dbbc7da10906907bd116ed6b13200620b49c7ca81daf8ca7611ce1c066757a63",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skill-effects.md": "5756cdb614405bb9943b550815fe1e13b4e0b0bf2dd18a4af2b4a448a49f6952",
+    "docs/skill-icons.md": "c4f055756c0f314f271ce70125b0341bb677df60c011b97b3bb732500f105789",
+    "docs/skill-mechanical-reference.md": "41fee8734dce0d7659b30595d8ad885ad72fdb17a0c5dd776c4c2d9a97d8dad2",
+    "src/Sanctuary.Content/FireGolemBody.cs": "64f0c2b9cc9a7ace4800e9021d7a7ae03335ca210a13647e301120b5dad2d365",
+    "src/Sanctuary.Content/FireGolemContact.cs": "c346cf615b25cd1ed7d883a4253e265492543871856ace43cfb2b64bc05e8098",
+    "src/Sanctuary.Content/NpcEquipmentElements.cs": "80159000acf58182cd8aaa2e80365792f5f7f51841a9cbdc5783fb410a6bba37",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "38fe196639c628754bf4a307302bb8f7f536d33832cca5f24e1fd387b461ddd6",
+    "tests/Sanctuary.Integration/FireGolemCombatChecks.cs": "5bb2c9d3390ad8419e082457cb8f6f42b6ecc449be8b7a23f85db1ee0e6c78b7",
+    "tests/check_fire_golem_combat.py": "d8b9d88b167252e3fc300a3338dc393f3d90d804a7ab5f7f230b82322e34bbf0",
+    "tools/build_class_skills.py": "2564a194eebb907870e6e68d9829356a6087dea17b07c10ee49d4f2ccbbcc1ba",
+    "tools/probe_fire_golem_mode.py": "d7d00df972add18b35672144c5bfda7d428fedfaf86d28ddd74887f26e11ffe6",
+    "tools/record_fire_golem_combat.py": "3057de4883c855cde5e42ee87ad4cfd17729c0c7f51a1511cfe765962d86d261",
+    "tools/reference/fire-golem-clock-native-evidence.json": "765a02baefd9f10a21fffec55ea427ee5df802626775e5602e12a03f81bf644b",
+    "tools/reference/fire-golem-mode-source-evidence.json": "aca8e94c971e04e1ec218188c60b442c05c1f70d34257944fe8a858f992131ef",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "8de7f0cab53561e31cb8b9791263ebb4f32a7b7c7851325fbe5db1f935c320d3",
+    "tools/reference/named-item-runtime-audit.json": "f3507a23d96570f161a15b1a4656029cdc8dacfa44f8eb4ef728aa4313d65c7b",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/npc-equipment-elements-source-evidence.json": "53327732d51af4176a77a9f3594aaf19b81dcc2dd2dbe32dab8d254966a5162e"
+  },
+  "established": [
+    "New learned Fire bodies share the existing unarmed NPC damage, elemental, critical and saved actor-stream services. Captured rank4/Normal physical range is2560..6911FP and innate fire range9472..14591FP, with exclusive upper bounds6912and14592. Intrinsic5percent critical doubles both channels once; actual pet Enchant accrues into the same fire range. Owner gear,poison,critical and later ranks are excluded.",
+    "The new body bypasses the historical separate follow-up fire hit. Native combined allocation and actual Strike match one packet. Prepared contact captures hit/block and mitigated physical/fire damage at A1start, then commits through shared health/return services without rerolling. Shield,changed mitigation,range,cancel,duplicate and physical-only Life Tap/Thorns ordering controls pass.",
+    "Three connected attacks prepare the exact packet and actor seed at start,have no damage at380ms,and commit once by520ms in the680ms G3cycle. Two actual reloads preserve the unarmed binding,captured endpoints and exact next source draw; deletion clears the stream.",
+    "All360predecessor markers plus6new markers pass across3boots/2reloads/3saves. Four audits/71Python and clean builds pass.573named decisions,runtime data,staged kernel and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "The optional monstats fire component remains uncertain because the unchanged older noRatio helper writes fields its caller does not read. This increment adds captured skill fire only; no optional component is guessed. Full mode-entry RNG,including the80percent selection draw,is not integrated or certified.",
+    "Intrinsic Holy Fire weapon-state/pulse behavior and delayed death/replacement explosion remain unfinished. Full current-executable initializer/stat aggregation,initial S1/AI/movement/live-rate/global-frame/client parity and historical migration remain separate.",
+    "Unsupported recipient capabilities explicitly use the reported native bridge before allocation. Allocation faults never replay through it. Full Fire-recipient prepared return and special/PvP reactions remain separate; common services and retained controls do not certify those contexts.",
+    "No complete class,deployment or new broad1180-marker run. Effects/audio and tree/hotkey icons remain separate placeholders; additional pet spells unlocked by hard points remain a later upgrade pass."
+  ]
+}

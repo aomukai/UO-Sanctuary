@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Fire Golem combined-combat increment](fire-golem-combat-checkpoint.md) uses the existing body/hue and native attack/hit/critical feedback as identified placeholders. Final fire body, melee/critical/impact, Holy Fire pulse and death/explosion effects and audio remain needed. Capturing and releasing one combined packet does not wait for those assets.
+
 The [Fire Golem absorption increment](fire-golem-absorption-checkpoint.md) adds no final art. Existing native hit/health feedback remains an identified placeholder; final fire immunity, absorption/healing, aura/pulse/hit/death effects and audio remain needed. The effective40%cap and fractional health order are mechanical behavior, independent of these assets.
 
 The [Fire Golem birth/resource increment](fire-golem-birth-checkpoint.md) retains native body14/hue0x489, summon flash and inherited fire-hit/pulse/explosion presentation as identified placeholders. Final emergence/body/attack/critical, affinity/absorption feedback, Holy Fire aura/pulse/contact, hit/death/explosion effects and audio remain needed. Resource/stat mechanics do not wait for art; full aura/damage/death semantics still need acceptance.

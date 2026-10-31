@@ -15,9 +15,10 @@ internal static class NpcEquipmentElements
         (int Min,int Max) Aura(CombatAbility ability)
         {var aura=PaladinAuras.Effect(actor,ability);return aura==null?(0,0):(checked(aura.WeaponMin*256),checked(aura.WeaponMax*256));}
         var fire=Aura(CombatAbility.HolyFire);var cold=Aura(CombatAbility.HolyFreeze);var lightning=Aura(CombatAbility.HolyShock);
+        var innateFire=actor is FireGolemBody golem?golem.InnateFire256:(Min:0,Max:0);
         raw=raw with
         {
-            FireMin=checked(raw.FireMin+(enchant?.Min256??0)+fire.Min),FireMax=checked(raw.FireMax+(enchant?.Max256??0)+fire.Max),
+            FireMin=checked(raw.FireMin+innateFire.Min+(enchant?.Min256??0)+fire.Min),FireMax=checked(raw.FireMax+innateFire.Max+(enchant?.Max256??0)+fire.Max),
             ColdMin=checked(raw.ColdMin+cold.Min),ColdMax=checked(raw.ColdMax+cold.Max),
             LightningMin=checked(raw.LightningMin+lightning.Min),LightningMax=checked(raw.LightningMax+lightning.Max)
         };

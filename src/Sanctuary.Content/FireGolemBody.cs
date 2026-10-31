@@ -7,15 +7,31 @@ namespace Sanctuary;
 // New learned Fire Golems opt into exact resources; historical Minion saves
 // keep their existing type until an explicit migration is designed.
 [SerializationGenerator(0)]
-public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum
+public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceUnarmedNpc
 {
     private FireBirthStats _fireBirth;
     private FireBirthStats Birth=>_fireBirth??=NecromancerFireBirth.Prepare(CapturedValues,Level,SummonDifficulty);
     internal override string SourceMonsterId=>Kind==CombatAbility.FireGolem?"firegolem":base.SourceMonsterId;
+    NpcPhysicalStats ISourceUnarmedNpc.UnarmedPhysical=>UnarmedPhysical;
+    internal NpcPhysicalStats UnarmedPhysical=>Kind==CombatAbility.FireGolem?new(
+        NecromancerSummons.Source("firegolem","A1MinD",SummonDifficulty),NecromancerSummons.Source("firegolem","A1MaxD",SummonDifficulty),0,
+        checked(CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false)
+        :throw new InvalidOperationException("Unprepared Fire Golem physical packet");
+    // Captured aurastat3/4 are whole-point fire stats; the ordinary hit filler
+    // shifts the accrued range into FP256 once. The optional monstats element
+    // and intrinsic Holy Fire weapon state need their own mode/aura acceptance.
+    internal (int Min,int Max) InnateFire256=>(checked(Birth.FireMinimum*256),checked(Birth.FireMaximum*256));
     internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
         SourceAttackRate.Speed(NecromancerSummons.Source("firegolem-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"firegolem-animation");
     protected override (int Cycle,int Action) MeleeClock()
     {var clock=SourceAttackClock;return(checked(clock.End*40),checked(clock.Action*40));}
+    protected override bool CheckAttackHit(Server.Mobile target)=>ClassStats.CheckHit(this,target,0,()=>NpcEquipmentRandom.Limited(this,100)/100.0)==true;
+    protected override void Strike(Server.Mobile target)
+    {
+        // Bypass the historical Minion's separate follow-up fire hit: physical
+        // and accrued fire damage now share one packet and intrinsic critical.
+        if(!NpcEquipmentDamage.TryResolve(this,target,out _)){throw new NotSupportedException("Missing Fire Golem unarmed packet");}
+    }
     protected override void RefreshResistances()
     {
         base.RefreshResistances();
@@ -51,5 +67,6 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum
         NecromancerFireBirth.Require(owner);_fireBirth=null;base.Prepare(owner,ability);SkillHealth.SetBalance256(this,SkillHealth.Maximum256(this));
     }
     internal override void RefreshDifficulty(){_fireBirth=null;base.RefreshDifficulty();}
+    public override void OnAfterDelete(){NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterFireLoad(){_fireBirth=null;ResetLifeRecovery();}
 }

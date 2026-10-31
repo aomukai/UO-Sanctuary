@@ -40,7 +40,7 @@ internal static class UnarmedSummonContact
     }
     internal static IronGolemContact.Rules Require(SkeletonGuardian body,PlayerMobile owner,BaseCreature target)
     {
-        if(body is not(RaisedSkeleton or ClayGolemBody or BloodGolemBody)){throw new NotSupportedException("Unreviewed unarmed summon geometry");}
+        if(body is not(RaisedSkeleton or ClayGolemBody or BloodGolemBody or FireGolemBody)){throw new NotSupportedException("Unreviewed unarmed summon geometry");}
         if(body is BloodGolemBody){BloodGolemHealing.RequireCurrent();if(GemCombat.Drain(target)!=0){BloodGolemHealing.Alignment(target);}}
         var rules=IronGolemContact.Require(body,owner,target,nativeRecovery:true);
         if(CreatureProfiles.For(target).Traits.Size is not(>=0 and <=3))
