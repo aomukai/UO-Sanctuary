@@ -1,0 +1,100 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "receiverContexts": 12288,
+  "bases": [
+    [
+      0,
+      99,
+      100,
+      110
+    ],
+    [
+      100,
+      110,
+      0,
+      99
+    ],
+    [
+      99,
+      100,
+      110,
+      0
+    ],
+    [
+      110,
+      0,
+      99,
+      100
+    ],
+    [
+      -100,
+      200,
+      120,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      100,
+      100,
+      100,
+      100
+    ],
+    [
+      200,
+      200,
+      200,
+      200
+    ]
+  ],
+  "reusedReference": {
+    "path": "tools/reference/amplify-damage-source-evidence.json",
+    "sha256": "6aee4077a34eea9d27d1cf88c1d348aeb1571a9aa87a9b63544a44a7097b0dcc"
+  },
+  "reusedReceiverCpp": {
+    "path": ".local/class-skills/amplify-damage-source/probe.cpp",
+    "sha256": "a7a0d9644305578e72d33aed5ac3ff99c115e87299aeddb0b068eff32bc09aeb"
+  },
+  "diminishingReference": {
+    "path": "tools/reference/diminishing-reference-conflict.json",
+    "sha256": "5ca2798fa5c8682db80e4e60d0fc2c9ca019e1b93cb01578fe772498434096be"
+  },
+  "pinnedTables": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "pinnedState": {
+    "state": "lowerresist",
+    "*ID": 61,
+    "curable": 1,
+    "curse": 1,
+    "rfred": 1,
+    "rlred": 1,
+    "rcred": 1,
+    "rpred": 1,
+    "overlay1": "curselowerresist",
+    "castoverlay": "curse_hit",
+    "stat": "lightresist",
+    "lineNumber": 61
+  },
+  "artifacts": {
+    ".local/class-skills/lower-resist-source/probe.cpp": "fae941f2194995a31a231c1c399a1a89316b550b5198e838e350d3da877cf70a",
+    ".local/class-skills/lower-resist-source/cases.json": "3141c4fbb0fbb888293ab4270376b59ed8cfb345e8d09b79e826cb5b53ee0f80",
+    ".local/class-skills/lower-resist-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/lower-resist-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged callback/factory/eligibility/alignment/percentage routines execute four Lower Resist slots together: fire first, then lightning, cold and poison. Independently supplied base resistances determine each immune nonplayer/nonhireling reduction.",
+    "Weaker same-skill ranks reject. Equal rank retains creator and primary fire value while restarting expiry and rewriting the three secondary channels. Higher/different curse replaces. Attract and full curse resistance reject without writes.",
+    "Current pinned radius7+(rank-1),duration500+50*(rank-1)frames,cost22mana,parameters25/70 and state61 are checked."
+  ],
+  "limits": [
+    "Retained two-stage diminishing values are declared formula inputs, not executed VM evidence. Legacy multiplication-first helper differs at some ranks (rank1 32 versus retained31;rank8 53 versus52). Current Lower Resist rounding remains uninstrumented. Historical Blizzard guide agrees with retained31/52 but is not current-build certification.",
+    "Accepted scaffold is hash validated; only independent base-stat service storage is extended. Stat/state/owner/hostility,allocation,clock/events remain declared services. Full do30/radial/formula VM,current executable,Sunder,items/PvP/AI/client behavior are not executed."
+  ]
+}

@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Lower Resist increment](lower-resist-checkpoint.md) retains marker `0x375A`/hue `0x455` and sound `0x1E5` as identified placeholders. Final cast/hit and `curselowerresist` affected-state effects and audio remain needed; resistance mechanics do not wait for final art.
+
 The [Decrepify increment](decrepify-checkpoint.md) retains the identified generic `0x375A`/hue `0x455` marker and `0x1E5` cast sound. Final `cursedecrepify`/`cursecast` cast, persistent affected-state art and audio remain pending independently of the mechanics.
 
 The [Weaken increment](weaken-checkpoint.md) retains generic marker `0x375A`/hue `0x455` and cast sound `0x1E5` as identified placeholders. Final `curseweaken`/`cursecast`, persistent affected-state art and audio remain pending; mechanical work proceeds independently.

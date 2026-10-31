@@ -10,9 +10,11 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record NecromancerMotion(uint Target, bool Flee, int OriginX, int OriginY);
+public sealed record LowerResistDeltas(int? Fire,int Lightning,int Cold,int Poison);
 public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Rank, DateTime UntilUtc, int OriginX, int OriginY,
     NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PhysicalDelta = null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PhysicalDelta = null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] LowerResistDeltas ElementDeltas = null);
 public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null);
@@ -46,6 +48,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
                     || state.BoneArmor!=(pool.Remaining256+255L)/256)
                 || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255
                     || curse.PhysicalDelta is{} delta&&!NecromancerEffects.ValidPhysicalDelta(curse.Ability,delta)
+                    || curse.ElementDeltas is{} elements&&!NecromancerEffects.ValidElementDeltas(curse,elements)
                     || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
@@ -78,6 +81,15 @@ public static class NecromancerEffects
     internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.CloakOfShadows;
     internal static bool ValidPhysicalDelta(CombatAbility ability,int delta)=>ability switch
     {CombatAbility.AmplifyDamage=>delta is -100 or -20,CombatAbility.Decrepify=>delta is -50 or -10,_=>false};
+    internal static bool ValidElementDeltas(NecromancerCurse curse,LowerResistDeltas elements)
+    {
+        if(curse.Ability!=CombatAbility.LowerResist){return false;}
+        int full=-Values(curse).Diminishing(5,6);
+        bool Valid(int value)=>value==full||value==full/5;
+        return (!elements.Fire.HasValue||Valid(elements.Fire.Value))&&Valid(elements.Lightning)&&Valid(elements.Cold)&&Valid(elements.Poison);
+    }
+    internal static int? ElementDelta(NecromancerCurse curse,string element)=>curse.Ability==CombatAbility.LowerResist&&curse.ElementDeltas is{} deltas
+        ?element switch{"fire"=>deltas.Fire,"ltng"=>deltas.Lightning,"cold"=>deltas.Cold,"pois"=>deltas.Poison,_=>null}:null;
     internal static bool Vision(NecromancerCurse curse)=>curse?.Ability==CombatAbility.DimVision || curse is{Ability:CombatAbility.CloakOfShadows,CloakBlind:true};
     public static NecromancerCurse Curse(Mobile actor) => Profiles?.Find(actor)?.Curse is { } curse && curse.UntilUtc > TimedEffects.Now ? curse : null;
     internal static SkillValues Values(NecromancerCurse curse) => new(SkillMechanics.For(curse.Ability),
@@ -136,11 +148,12 @@ public static class NecromancerEffects
         {
             CombatAbility.AmplifyDamage when element == "physical" => curse.PhysicalDelta??-(int)values.Param(5),
             CombatAbility.Decrepify when element == "physical" => curse.PhysicalDelta??values.Param(5),
-            CombatAbility.LowerResist when element is "fire" or "cold" or "ltng" or "pois" => -values.Diminishing(5, 6),
+            CombatAbility.LowerResist when element is "fire" or "cold" or "ltng" or "pois" => ElementDelta(curse,element)??-values.Diminishing(5, 6),
             _ => 0
         };
         // Immunity-breaking curses run at one fifth effectiveness against an immune monster.
-        bool captured=curse.Ability is CombatAbility.AmplifyDamage or CombatAbility.Decrepify&&element=="physical"&&curse.PhysicalDelta.HasValue;
+        bool captured=(curse.Ability is CombatAbility.AmplifyDamage or CombatAbility.Decrepify&&element=="physical"&&curse.PhysicalDelta.HasValue)
+            ||ElementDelta(curse,element).HasValue;
         if (!captured&&target is BaseCreature and not BaseHire && (immunityBaseline ?? baseline) >= 100) { delta /= 5; }
         // Player caps apply after pierce; retain overcapped resistance until that final step.
         return target is PlayerMobile || deferCap ? baseline+delta : Math.Clamp(baseline + delta, -100, 200);

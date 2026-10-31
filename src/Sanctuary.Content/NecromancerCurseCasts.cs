@@ -12,7 +12,7 @@ internal static class NecromancerCurseCasts
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NecromancerCurseCasts));
     private static readonly HashSet<string> NoWalk=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<Type> Unmapped=new();
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist;
     public static void Configure()
     {
         foreach(string source in BalanceCatalog.Read<string>("source-curse-no-walk"))
@@ -33,7 +33,7 @@ internal static class NecromancerCurseCasts
         // receiver instead requires walk-mode bit2, attackability and no NPC.
         return !rule.Npc&&rule.Attackable&&WalkMode(source);
     }
-    internal static NecromancerCurse Replacement(NecromancerCurse old,CombatAbility ability,uint owner,int rank,int? penalty,DateTime until,DateTime at,int x,int y)
+    internal static NecromancerCurse Replacement(NecromancerCurse old,CombatAbility ability,uint owner,int rank,int? penalty,DateTime until,DateTime at,int x,int y,LowerResistDeltas elements=null)
     {
         if(old is{Ability:CombatAbility.Attract}&&old.UntilUtc>at){return null;}
         if(old!=null&&old.Ability==ability&&old.UntilUtc>at)
@@ -41,11 +41,17 @@ internal static class NecromancerCurseCasts
             if(rank<old.Rank){return null;}
             // Decrepify's physical resistance is slot3: the callback rewrites
             // secondary stats even when the factory retains the old creator.
-            if(rank==old.Rank){return old with{UntilUtc=until,PhysicalDelta=ability==CombatAbility.Decrepify?penalty:old.PhysicalDelta};}
+            if(rank==old.Rank){return old with{UntilUtc=until,PhysicalDelta=ability==CombatAbility.Decrepify?penalty:old.PhysicalDelta,
+                // Fire is the primary stat. An old absent value remains unknown;
+                // only the three secondary slots are written by the callback.
+                ElementDeltas=ability==CombatAbility.LowerResist?elements with{Fire=old.ElementDeltas?.Fire}:old.ElementDeltas};}
         }
-        return new(ability,owner,rank,until,x,y,PhysicalDelta:penalty);
+        return new(ability,owner,rank,until,x,y,PhysicalDelta:penalty,ElementDeltas:elements);
     }
     internal static int PhysicalPenalty(int full,int baseResistance,bool monsterImmunity)=>monsterImmunity&&baseResistance>=100?full/5:full;
+    internal static LowerResistDeltas ElementPenalties(int full,int fire,int lightning,int cold,int poison,bool monsterImmunity)
+        =>new(PhysicalPenalty(full,fire,monsterImmunity),PhysicalPenalty(full,lightning,monsterImmunity),
+            PhysicalPenalty(full,cold,monsterImmunity),PhysicalPenalty(full,poison,monsterImmunity));
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
@@ -68,7 +74,11 @@ internal static class NecromancerCurseCasts
             _=>null
         };
         var next=Replacement(state.Curse,ability,owner.Serial.Value,rank,penalty,
-            at.AddMilliseconds(frames*40L),at,owner.X,owner.Y);
+            at.AddMilliseconds(frames*40L),at,owner.X,owner.Y,
+            ability==CombatAbility.LowerResist?ElementPenalties(-values.Diminishing(5,6),
+                target.FireResistance-EliteAuras.ConvictionOffset(target,"fire"),
+                target.EnergyResistance-EliteAuras.ConvictionOffset(target,"ltng"),
+                target.ColdResistance-EliteAuras.ConvictionOffset(target,"cold"),target.PoisonResistance,target is not BaseHire):null);
         if(next==null){return false;}
         NecromancerEffects.Profiles.Store(target,state with{Curse=next});NecromancerEffects.CurseApplied(owner,target);return true;
     }

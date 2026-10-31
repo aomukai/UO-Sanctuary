@@ -111,8 +111,11 @@ public static class ClassSkillChecks
         Require(target.Hits == before - 20, "Amplify failed damage consumer");
         Require(NecromancerEffects.Apply(p, target, CombatAbility.Decrepify, 1) && NecromancerEffects.Slow(target) == 50
             && NecromancerEffects.OutgoingPhysicalPercent(target) == 50 && NecromancerEffects.Resistance(target, "physical", 0) == -50, "Decrepify replacement or consumers");
+        target.SetResistance(ResistanceType.Fire,100);
         Require(NecromancerEffects.Apply(p, target, CombatAbility.LowerResist, 1)
-            && NecromancerEffects.Resistance(target, "fire", 100) == 94 && NecromancerEffects.Resistance(target, "mag", 0) == 0, "Lower Resist immunity penalty or magic channel");
+            && NecromancerEffects.Resistance(target, "fire", 100) == 94 && NecromancerEffects.Resistance(target, "mag", 0) == 0, "Lower Resist captured immunity penalty or magic channel");
+        target.SetResistance(ResistanceType.Fire,0);
+        Require(NecromancerEffects.Resistance(target,"fire",0)==-6,"Lower Resist recalculated its captured first stat during damage");
         Require(NecromancerEffects.Apply(p, target, CombatAbility.LifeTap, 1), "Life Tap cast"); p.Hits = p.HitsMax - 20;
         NecromancerEffects.WeaponHit(p, target, 20, false); Require(p.Hits == p.HitsMax - 10, "Life Tap physical healing");
         Require(NecromancerEffects.Apply(p, target, CombatAbility.IronMaiden, 1), "Iron Maiden fixture");
