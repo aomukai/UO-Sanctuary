@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Necromancer pet adjustment design](pet-adjustment-review.md) adds no approved player hotkey or separate talent. Existing summon talent/right/quick icons remain pending. Autonomous Mage spells and pet-affix unlocks need no new player-binding icon by default; any later progression/status display icons must be decided separately from spell effects.
+
 The [Lower Resist increment](lower-resist-checkpoint.md) retains its existing ability ID and right/quick bindings. Talent-tree and right/quick icons remain separately pending; the shared receiver adds no player binding.
 
 The [Decrepify increment](decrepify-checkpoint.md) keeps its existing ability ID and right/quick bindings. Talent-tree and right/quick icons remain separately pending; the shared receiver adds no new binding.

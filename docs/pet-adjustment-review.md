@@ -8,12 +8,12 @@ Selected pets may gain extra abilities unlocked by **hard points** invested in t
 
 | Necromancer pet | Review state |
 | --- | --- |
-| Skeleton Warriors (Raise Skeleton) | Approved: remain straightforward melee fighters. At 10 hard points gain “attacker takes damage”; at 20 hard points gain “Extra Fast.” Confirmed: **flat physical return like the item property**, and Extra Fast increases **both movement and attack speed**. Exact return amount/scaling and speed magnitudes remain open. Reuse existing return and speed consumers. No enhancement implemented yet. |
-| Skeletal Mages | Approved: keep each elemental identity and add matching spells; hard points in Raise Skeletal Mage unlock them. Exact spells and thresholds remain open; see [Mage plan](skeletal-mage-upgrade-plan.md). |
-| Clay Golem | Pending role/ability review. |
-| Blood Golem | Pending role/ability review. |
-| Iron Golem | Pending role/ability review; preserve item-derived identity and existing original-item safety rules. |
-| Fire Golem | Pending role/ability review. |
+| Skeleton Warriors (Raise Skeleton) | Straight melee. At 10 hard points gain the existing item-style flat physical ATD property, with **34 as a provisional starting amount**. At 20 gain the existing monster Extra Fast affix. Earlier movement+attack intent versus the currently movement-only implementation needs reconciliation. |
+| Skeletal Mages | Three final types: fire, lightning and ice; poison is removed. Confirmed rank 1/5/10/20 spell progression and chances are specified below and in the [Mage plan](skeletal-mage-upgrade-plan.md). |
+| Clay Golem | Same damage and damage scaling as one summoned Skeleton Warrior. At 10 hard points gain Stone Skin; at 20 gain Magic Resistant. |
+| Blood Golem | 150% of Clay Golem damage. At 10 hard points gain Open Wounds; at 20 gain a 5% chance to proc level-5 Life Tap. Open Wounds percentage remains open. |
+| Iron Golem | Same damage as Clay Golem. At 10 hard points gain Extra Strong; at 20 gain Spectral Hit. Preserve original-item identity/effects and item safety rules; exact composition with the new baseline remains to be specified. |
+| Fire Golem | 200% of Clay Golem damage (twice Clay, not +200%). Holy Fire uses Paladin scaling. At 10 hard points gain Cannot Be Frozen; at 20 gain cold immunity. Exact aura-rank mapping and base/innate-fire composition remain open. |
 | Revived monsters | Pending additional review. Existing approved rules remain: no expiration timer; last until death, Necromancer death or replacement; retain original living abilities; corpse loot stays lootable while combat effects are preserved separately. Global monster spell conversion remains separate work. |
 
 | Druid pet | Review state |
@@ -33,6 +33,32 @@ Implementation should reuse existing player/NPC spells, projectiles, statuses, m
 
 Track every extra cast/projectile/impact/status/body/audio requirement in [skill effects](skill-effects.md), and tree/hotkey icon requirements separately in [skill icons](skill-icons.md). Autonomous pet abilities do not imply a new player binding. Final assets must not block mechanics; label placeholders clearly. Preserve installed builds and saved actors; migration of any future enhancement needs its own verified rule.
 
-Mage proposal awaiting feedback: two extra spells unlocked at 10/20 hard points (alternative 5/15); Fire Ball→Meteor, Glacial Spike→Blizzard, Lightning→Chain Lightning, and splashing poison bolt→lingering poison cloud. Poison delivery variants would reuse existing poison mechanics without consuming corpses. These exact spells, timing and variants are proposals only.
+## Confirmed Skeletal Mage progression — 2026-11-01 JST
+
+All breakpoints below refer to hard points in Raise Skeletal Mage, following the established unlock rule. Basic spell rank/scaling beyond the entry rank and the role of soft ranks still need an explicit mapping. This is a **three-type roster**, consolidating ice/cold and removing poison; existing saved poison Mage migration/type selection must be designed rather than silently rerolled.
+
+| Type | Rank 1 | Rank 5 | Rank 10 | Rank 20 |
+| --- | --- | --- | --- | --- |
+| Fire | Fire Bolt, scaling like Sorceress Fire Bolt. | Multishot for its basic bolt only. | 5% chance to cast level-10 Meteor. | Cast level-20 Enchant on allies. |
+| Lightning | Charged Bolt, scaling like Sorceress Charged Bolt. | Multishot for its basic bolts only. | 5% chance to cast level-10 Chain Lightning. | 5% chance to cast level-5 Static Field. |
+| Ice | Ice Bolt. | Multishot for its basic bolt only. | 5% chance to cast level-10 Glacial Spike. | Gain level-20 Frozen Armor. |
+
+Fire Mages have **no Fire Mastery**. At combat start they scan allied units in range, prioritize units lacking Enchant, and continue enchanting until all allies in range are enchanted. Preserve this requested priority instead of replacing it with a random Enchant proc. Refresh/expiry behavior during an ongoing fight, ally range, overlapping supplier strength and cadence remain unspecified.
+
+The user explicitly accepts corpse shattering: Necromancers can choose a corpse-explosion build or an army build. Reuse existing cold/freeze/death/corpse consumers; do not manufacture a blanket shatter rule for every cold hit.
+
+The earlier suggested Fire Ball/Blizzard/poison-cloud package is **superseded** by this explicit user design. Only the three basic bolt attacks gain multishot; Meteor, Enchant, Chain Lightning, Static Field, Glacial Spike and Frozen Armor do not gain extra copies from that unlock.
+
+## Open details to resolve without blocking baseline work
+
+- Reconcile Extra Fast: the user previously selected movement **and** attack speed, and now requests the existing monster affix. The current encounter implementation adds movement speed only. Do not silently choose between those instructions or change the shared affix without resolving the intended behavior.
+- Treat ATD34 as provisional (the user compared it to rank-10 Spirit of Barbs), not as an independently verified current reference value or final balance number. Reuse the existing item property/event semantics. Growth beyond the unlock remains open.
+- Basic spell levels versus summon hard/effective rank; inherited mastery/synergy/gear context; multishot count/spread and how it applies to already multi-projectile Charged Bolt.
+- Proc roll opportunity/cadence and competing 5% rolls, spell priority, resources/cooldowns, ranges, and timing. Record each stated 5% as exact requested chance, without silently inventing “per second” or independent simultaneous casts.
+- Frozen Armor activation/refresh behavior; Enchant combat maintenance and eligible allies/range; saved actor upgrades and unlock changes after training/respec.
+- Which Skeleton damage formula/rank/mastery context feeds Clay; distinguish damage endpoints from DPS/attack-rate changes. Blood uses1.5×, Iron1× and Fire2× that approved Clay baseline; rounding, innate elemental additions, weapon/item enhancement and Holy Fire rank mapping remain explicit design work.
+- Affix grade/difficulty context for Stone Skin, Magic Resistant, Extra Strong and Spectral Hit; Open Wounds chance; cold-immunity resistance/curse interaction. Prefer existing shared consumers and avoid pet-specific duplicate formulas.
+
+These are approved Sanctuary deviations beyond D2R3.3.93847. **No pet upgrade is implemented by this document.** Preserve baseline abilities unless a specified adjustment replaces them, and verify composition explicitly when implementation begins. Pure pet build viability remains the balance aim; exact benchmark criteria remain open.
 
 Discussion preference: the user asked to stop the question popups because their draft text was disappearing. **Do not send further asynchronous question forms.** Leave space for free-form chat answers and keep unapproved proposals open.

@@ -1,5 +1,7 @@
 # Skill effects
 
+The approved [Necromancer pet adjustments](pet-adjustment-review.md) need a later asset pass: basic fire/charged/ice Mage bolts and multishot, pet Meteor/Enchant/Chain Lightning/Static Field/Glacial Spike/Frozen Armor casting and impacts, cold corpse shattering, Skeleton ATD/Extra Fast feedback and golem affix/Open Wounds/Life Tap/cold-protection feedback. Reuse existing spell assets where suitable. These are **planned missing or reusable assets**, with no new art or enhancement implemented yet; identified placeholders must keep mechanics moving. Exact additional effects depend on the remaining design choices.
+
 The [Lower Resist increment](lower-resist-checkpoint.md) retains marker `0x375A`/hue `0x455` and sound `0x1E5` as identified placeholders. Final cast/hit and `curselowerresist` affected-state effects and audio remain needed; resistance mechanics do not wait for final art.
 
 The [Decrepify increment](decrepify-checkpoint.md) retains the identified generic `0x375A`/hue `0x455` marker and `0x1E5` cast sound. Final `cursedecrepify`/`cursecast` cast, persistent affected-state art and audio remain pending independently of the mechanics.
