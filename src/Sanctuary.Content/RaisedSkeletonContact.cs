@@ -5,7 +5,7 @@ using Server.Logging;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Shared source geometry/result supplier for the two reviewed unarmed summons.
+// Shared source geometry/result supplier for the reviewed unarmed summons.
 internal static class UnarmedSummonContact
 {
     internal static bool Within(SkeletonGuardian body,BaseCreature target,int bonus)
@@ -40,7 +40,8 @@ internal static class UnarmedSummonContact
     }
     internal static IronGolemContact.Rules Require(SkeletonGuardian body,PlayerMobile owner,BaseCreature target)
     {
-        if(body is not(RaisedSkeleton or ClayGolemBody)){throw new NotSupportedException("Unreviewed unarmed summon geometry");}
+        if(body is not(RaisedSkeleton or ClayGolemBody or BloodGolemBody)){throw new NotSupportedException("Unreviewed unarmed summon geometry");}
+        if(body is BloodGolemBody){BloodGolemHealing.RequireCurrent();if(GemCombat.Drain(target)!=0){BloodGolemHealing.Alignment(target);}}
         var rules=IronGolemContact.Require(body,owner,target,nativeRecovery:true);
         if(CreatureProfiles.For(target).Traits.Size is not(>=0 and <=3))
         {throw new NotSupportedException("Recipient source footprint is not mapped");}

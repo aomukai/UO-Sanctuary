@@ -8,6 +8,7 @@ internal static class NecromancerBloodBirth
 {
     internal static void Require(PlayerMobile owner)
     {
+        BloodGolemHealing.RequireCurrent();
         if(ClassGear.Bonus(owner,"pierce-immunity-damage")!=0)
         {throw new NotSupportedException("Blood Golem inherited physical Sunder delivery is not verified");}
         Preflight(SkillMechanics.Values(owner,CombatAbility.BloodGolem),ClassStats.Level(owner));

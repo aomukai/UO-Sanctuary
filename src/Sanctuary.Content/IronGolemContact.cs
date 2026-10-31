@@ -53,7 +53,8 @@ internal static class IronGolemContact
     {
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
-        internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleedamage",p);
+        internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
+        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}return scope.SourceEvents.Dispatch("domeleedamage",p);}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Positive drains were refused before rolling.

@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": {
+    "healing": 15559,
+    "incoming": 3456
+  },
+  "currentParameters": {
+    "low": 75,
+    "high": 150,
+    "ownerShare": 30,
+    "incomingShare": 0,
+    "monsterSkill": "BloodGolem"
+  },
+  "functions": {
+    "sub_6FD0F590": "d8124284a848cd826da8064a0473c6fd113b1ee7d5fbaf42031dc8081cd5bac8",
+    "D2GAME_EventFunc23_6FD0F1F0": "aed4a8a30adf772d0cbf9e225c1fb95e78aa77112d17bbbfc49f64e2def4827e",
+    "D2GAME_EventFunc26_6FD0F5E0": "49db97b136bd389b01f444bea9e93e513e1d5f0cf46bad2faef88f1aed6f7f6d",
+    "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+    "D2Common_11034": "7d2c2566300e7d81a3bf265b6025da535dd039f2b8b83860e5ff9e1274bdc905",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "tools/probe_blood_golem_healing.py": "6599f9464faa3a61caf41af8d5141748f8924bf28e396cf24bfc88544c97a628",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/blood-golem-birth-source-evidence.json": "ec18aef0e803dab03df72c5342db902e1fb0002b69ae245aa958505d6a61576e"
+  },
+  "artifacts": {
+    ".local/class-skills/blood-golem-healing-source/probe.cpp": "b20c1f00a83f9a31503e69d2dd17e14aa649b4ccd8da89f6a23505b8ea50fead",
+    ".local/class-skills/blood-golem-healing-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/blood-golem-healing-source/healing-cases.json": "fb37dae0238235859f8163656802d85462745e4cc5181a9ffc436c60105337c4",
+    ".local/class-skills/blood-golem-healing-source/incoming-cases.json": "eee4551d9bdef9577abca55d1354e3f14916716f08c2149df8e7b9dba6498697",
+    ".local/class-skills/blood-golem-healing-source/healing-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/blood-golem-healing-source/incoming-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete callbacks23/26,heal helper,11033/11034and percentage bodies execute with declared unit/stat/ownership/alignment/row services. FP256,drain-before-HP-cap,owner-first/pet/overflow ordering,missing/dead/neutral targets and large-value division are observed.",
+    "Current incoming Param5=0 yields no owner life or incoming damage transfer in eligible rows. Synthetic nonzero controls exercise the otherwise active branch without enabling it for the current actor."
+  ],
+  "remaining": [
+    "Native event dispatch,alignment/ownership/notification adapters and current-executable verification remain separate. Legacy11034multiply-before-division rounding can differ from the current table calc2dm expression;do not claim current-engine rounding parity."
+  ]
+}

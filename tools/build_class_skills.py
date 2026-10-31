@@ -247,6 +247,14 @@ def products():
         if actions:clay_fields[mode+'Action']=actions[0]
     assert [clay_fields[k] for k in ['A1Frames','A1Speed','A1Action']]==[16,232,9]
     summons += [{'key':'claygolem-animation','fields':clay_fields}]
+    blood_preflight=json.loads((ROOT/'tools/reference/blood-golem-world-preflight.json').read_text())
+    blood_animations={row['code']:row for row in blood_preflight['animation']['records']};blood_fields={}
+    for mode in ['S1','A1','WL','NU','DT','DD']:
+        row=blood_animations['G2'+mode+'HTH'];blood_fields[mode+'Frames']=row['frames'];blood_fields[mode+'Speed']=row['speed']
+        actions=[frame for frame,kind in row['events'] if kind==1];assert len(actions)<=1
+        if actions:blood_fields[mode+'Action']=actions[0]
+    assert [blood_fields[k] for k in ['A1Frames','A1Speed','A1Action']]==[16,256,10]
+    summons += [{'key':'bloodgolem-animation','fields':blood_fields}]
     skeleton_preflight=json.loads((ROOT/'tools/reference/skeleton-world-preflight.json').read_text())
     skeleton_animations={row['code']:row for row in skeleton_preflight['animation']['records']}
     skeleton_fields={}

@@ -1756,6 +1756,24 @@
     }
   },
   {
+    "key": "bloodgolem-animation",
+    "fields": {
+      "S1Frames": 16,
+      "S1Speed": 160,
+      "A1Frames": 16,
+      "A1Speed": 256,
+      "A1Action": 10,
+      "WLFrames": 8,
+      "WLSpeed": 184,
+      "NUFrames": 4,
+      "NUSpeed": 56,
+      "DTFrames": 16,
+      "DTSpeed": 256,
+      "DDFrames": 1,
+      "DDSpeed": 256
+    }
+  },
+  {
     "key": "necroskeleton-animation",
     "fields": {
       "S1Frames": 12,

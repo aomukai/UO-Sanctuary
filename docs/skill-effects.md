@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Blood Golem combat/healing increment](blood-golem-combat-checkpoint.md) retains native body/attack, ordered-hit/return and healing flashes as identified placeholders; source healing overlay151is represented by the existing native effect. Final emergence/body/attack/critical/Enchant, owner/pet healing/overflow, hit/return/death and audio remain needed. Correct mechanical action/healing timing does not wait for final effects.
+
 The [Blood Golem exact birth/resource increment](blood-golem-birth-checkpoint.md) retains native body14/hue0x21 and the existing summon flash as identified placeholders. Final emergence/body, attack/critical, healing/owner-share feedback, hit/death effects and audio remain needed. Resource mechanics do not wait for this asset pass; full healing-event semantics remain separate work.
 
 The [Clay prepared-contact increment](clay-golem-contact-checkpoint.md) retains the native body/attack and ordered-hit/retaliation presentation as identified placeholders. Final G1 emergence, attacks, critical/Enchant, block/hit/slow/death and audio still need assets; no new player action is introduced. Mechanical preparation and release do not wait for final effects.
