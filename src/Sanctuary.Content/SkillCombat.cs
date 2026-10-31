@@ -214,7 +214,7 @@ public static class SkillCombat
         if (total > 0) { SkillHealth.Damage(source,target,NamedElements.To256(total)); }
         int loss = Math.Max(0, before - target.Hits);
         if (recover && target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }
-        if (weapon) { NecromancerEffects.WeaponHit(source, target, Math.Min(loss, (int)physical), ranged,lifeTap:false); }
+        if (weapon) { NecromancerEffects.WeaponHit(source, target, Math.Min(loss, (int)physical), ranged,lifeTap:false,ironMaiden:false); }
         return new(loss, (int)Math.Clamp(physical, 0, int.MaxValue), before);
     }
 }

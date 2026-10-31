@@ -62,7 +62,7 @@ public static class PaladinSmite
         if(parts.Total>0){SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));}
         int loss=Math.Max(0,before-target.Hits);
         CreatureHitRecovery.Apply(target,owner,loss,true);
-        NecromancerEffects.WeaponHit(owner,target,Math.Min(loss,physical/256),false,lifeTap:false);
+        NecromancerEffects.WeaponHit(owner,target,Math.Min(loss,physical/256),false,lifeTap:false,ironMaiden:false);
         NamedCombat.AfterStrike(owner,target,false,Effects,smite:true);
         GemCombat.WeaponHit(owner,target,loss,false);
         if(target is{Alive:true,Deleted:false})

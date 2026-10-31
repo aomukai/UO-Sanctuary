@@ -12,7 +12,7 @@ internal static class NecromancerCurseCasts
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NecromancerCurseCasts));
     private static readonly HashSet<string> NoWalk=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<Type> Unmapped=new();
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden;
     public static void Configure()
     {
         foreach(string source in BalanceCatalog.Read<string>("source-curse-no-walk"))

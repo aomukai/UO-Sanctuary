@@ -68,13 +68,14 @@ public static class PaladinThorns
         var stats=defender.Alive?Values(defender):scope?.Stats??Values(defender);
         Retaliate(defender,attacker,(long)clippedPhysical256*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100);
     }
-    private static void Retaliate(Mobile defender,Mobile attacker,long physical256)
+    internal static void Retaliate(Mobile defender,Mobile attacker,long physical256)
     {
         if(physical256<=0 || !Eligible(attacker,defender)){return;}
         // Return damage is a separate physical packet, not an enhanced weapon strike or another melee attempt.
-        var absorbed=SorceressEffects.Absorb(attacker,new(Math.Min(physical256,int.MaxValue)/256.0,0,0,0,0));
-        double raw=NecromancerEffects.AbsorbPhysical(attacker,absorbed.Physical);
-        double value=NamedElements.Damage(defender,attacker,raw,"physical",enhance:false);
+        // Share the physical absorption/resistance pipeline, including the
+        // prepared Psychic Ward pool, without weapon/mastery/potion additions.
+        double value=SkillCombat.MitigatePrepared(defender,attacker,
+            new(Math.Min(physical256,int.MaxValue)/256.0,0,0,0,0)).Physical;
         defender.DoHarmful(attacker,true);
         SkillHealth.Damage(defender,attacker,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue));
         attacker.FixedEffect(0x374A,5,5,0x481,0); // Placeholder retaliation flash; independent effect register.

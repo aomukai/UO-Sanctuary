@@ -234,7 +234,7 @@ public static class GearEffects
         if (loss > 0 && impactMap != null && impactMap != Map.Internal && ClassGear.Bonus(player, "bloody") > 0)
         { new Blood().MoveToWorld(impact, impactMap); }
         if(sourceDrain==null && target is not BaseCreature){GemCombat.Leech(player,target,Math.Min(Math.Max(0,normalBefore-target.Hits),(int)Math.Floor(physical)));}
-        NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged,lifeTap:false);
+        NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged,lifeTap:false,ironMaiden:false);
         NamedCombat.AfterStrike(player, target, ranged, effects,skipKnockback:skillKnockback);
         GemCombat.WeaponHit(player, target, loss, ranged);
         if (wearWeapon && weapon != null && NamedAmmunition.Maximum(weapon) == 0) { weapon.WearOnHit(player, target); }

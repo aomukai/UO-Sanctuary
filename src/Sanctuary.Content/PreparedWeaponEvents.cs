@@ -11,6 +11,7 @@ internal static class PreparedWeaponEvents
     internal static void BeforeReturn(Mobile attacker,Mobile defender,int physical256,bool ranged,
         int absorbedLife256=0,Action<int> leech=null)
     {
+        IronMaiden.MeleeDamage(attacker,defender,physical256,ranged);
         ClayGolemSlow.Incoming(attacker,defender,ranged,TimedEffects.Now);
         NecromancerEffects.LifeTap(attacker,defender,physical256);
         int eligible=(int)Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));

@@ -73,7 +73,7 @@ public static class NecromancerEffects
         ClassCombatHooks.SkillResistedDamage = SkillCombat.ResistedDamage;
         // Native AOS supplies the fractional physical event before committing life.
         // Its later ordinary hit callback must not repeat Life Tap.
-        ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false);
+        ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false,ironMaiden:false);
     }
     public static bool IsCurse(CombatAbility a) => a is CombatAbility.AmplifyDamage or CombatAbility.DimVision
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
@@ -327,17 +327,13 @@ public static class NecromancerEffects
     }
     internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)
     {PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged);}
-    public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true)
+    public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true,bool ironMaiden=true)
     {
         SorceressEffects.MeleeHit(attacker, target, physicalLoss, ranged);
         if (physicalLoss <= 0) { return; }
         // Compatibility entry point for explicit whole-HP events. Native and
-        // prepared weapon paths already dispatched their fractional Life Tap event.
+        // prepared weapon paths already dispatched fractional Life Tap/Iron Maiden.
+        if(ironMaiden){IronMaiden.MeleeDamage(attacker,target,(int)Math.Min((long)physicalLoss*256,int.MaxValue),ranged);}
         if(lifeTap){LifeTap(attacker,target,(int)Math.Min((long)physicalLoss*256,int.MaxValue));}
-        if (!ranged && Curse(attacker) is { Ability: CombatAbility.IronMaiden } maiden && attacker.Alive && !attacker.Deleted)
-        {
-            int reflect = physicalLoss * Values(maiden).Linear(5, 6) / 100;
-            SkillCombat.Hit(target, attacker, reflect, "physical", false);
-        }
     }
 }

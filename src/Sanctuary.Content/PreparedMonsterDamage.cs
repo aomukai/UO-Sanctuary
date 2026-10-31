@@ -73,11 +73,14 @@ internal static class PreparedMonsterDamage
         if(attacker is not(PlayerMobile or BaseCreature)||attacker is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
             ||SkillHealth.Balance256(target)<=0||(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Monster release requires qualified living source/recipient and a successful cached packet");}
+        using var credit=PreparedMonsterCredit.CaptureOwner(attacker,target);
         services.StoreLastAttacker();
         MonsterUninterruptibles.RecordLastAttacker(target,attacker);
         if((packet.ResultFlags&32)==0)
         {
-            packet=Checked(services.DealtDamage(packet));packet=Checked(services.TookDamage(packet));
+            packet=Checked(services.DealtDamage(packet));
+            IronMaiden.MeleeDamage(attacker,target,packet.Physical256,false);
+            packet=Checked(services.TookDamage(packet));
             ClayGolemSlow.Incoming(attacker,target,false,at);
             NecromancerEffects.LifeTap(attacker,target,packet.Physical256);
         }

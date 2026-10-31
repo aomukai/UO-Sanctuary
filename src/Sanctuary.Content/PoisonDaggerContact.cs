@@ -90,9 +90,9 @@ internal static class PoisonDaggerContact
         }
         internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)
         {
-            // Existing armor/Iron Maiden consumers are retained at the attempt
-            // boundary. Their whole-HP/finer registration limits remain explicit.
-            NecromancerEffects.WeaponHit(source,target,Math.Min(scope.Loss,p.Physical256>>8),false,lifeTap:false);
+            // Armor reactions retain their compatibility attempt hook. Life
+            // Tap/Iron Maiden already ran in the fractional damage-event phase.
+            NecromancerEffects.WeaponHit(source,target,Math.Min(scope.Loss,p.Physical256>>8),false,lifeTap:false,ironMaiden:false);
             return p;
         }
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>events.Dispatch("attackedinmelee",p);
