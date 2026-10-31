@@ -15,6 +15,7 @@ public readonly record struct GearDamage(double Physical, double Fire, double Co
 public readonly record struct PreparedWeaponImpact(GearDamage Damage,GearDamage Parts,int Absorbed256,int? LifeDamage256=null)
 {
     public int SourceStunFrames{get;init;}
+    internal PreparedPoison? AllocatedPoison{get;init;}
 }
 
 public static class GearEffects
@@ -227,7 +228,7 @@ public static class GearEffects
         if (target.Alive && !target.Deleted)
         {
             if (damage.Cold > 0 && sourceColdFrames==null) { ApplyChill(target, Core.TickCount, damage.ColdMs, player); }
-            if(damage.Poison>0){if(damage.SourcePoison is{} poison){poison.Commit(player,target,TimedEffects.Now);}else{ApplyPoison(player,target,damage.Poison,Core.TickCount,damage.PoisonMs);}}
+            if(damage.Poison>0){if(packet.AllocatedPoison is{} allocated){allocated.Commit(player,target,TimedEffects.Now);}else if(damage.SourcePoison is{} poison){poison.Commit(player,target,TimedEffects.Now);}else{ApplyPoison(player,target,damage.Poison,Core.TickCount,damage.PoisonMs);}}
         }
         int loss = Math.Max(0, before - target.Hits);
         if (loss > 0 && impactMap != null && impactMap != Map.Internal && ClassGear.Bonus(player, "bloody") > 0)

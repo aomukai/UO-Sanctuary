@@ -40,6 +40,7 @@ public static class ClassCombat
         internal AmazonMelee.Prepared AmazonAttack;
         internal TigerStrikes.Pending TigerAttack;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
+        internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
         internal DruidFireClaws.Pending FireClawAttack;
         internal DruidHunger.Pending HungerAttack;
         internal DruidRabies.Pending RabiesAttack;
@@ -116,6 +117,7 @@ public static class ClassCombat
                 BladeFuryModes.EquipmentChanged(from);DruidArcticModes.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
+                PoisonDaggerCombat.EquipmentChanged(from);
                 DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);DruidFury.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
@@ -240,6 +242,7 @@ public static class ClassCombat
         AmazonMelee.Cancel(from);
         TigerStrikes.Cancel(from);
         DruidChargedAttacks.Cancel(from);
+        PoisonDaggerCombat.Cancel(from);
         DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);DruidRabies.Cancel(from);DruidShockWave.Cancel(from);DruidFury.Cancel(from);
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
@@ -528,6 +531,7 @@ public static class ClassCombat
             if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}
             if(TigerStrikes.Handles(ability)){session.TigerAttack=null;}
             if(DruidChargedAttacks.Handles(ability)){session.DruidChargeAttack=null;}
+            if(ability==CombatAbility.PoisonDagger){session.PoisonDaggerAttack=null;}
             if(ability==CombatAbility.FireClaws){session.FireClawAttack=null;}
             if(ability==CombatAbility.Hunger){session.HungerAttack=null;}
             if(ability==CombatAbility.Rabies){session.RabiesAttack=null;}
@@ -562,6 +566,7 @@ public static class ClassCombat
         }
         if (NecromancerCombat.Handles(ability))
         {
+            if(ability==CombatAbility.PoisonDagger){return PoisonDaggerCombat.Release(from,session.PendingTarget,now);}
             var aimed = World.FindEntity(session.PendingTarget);
             return NecromancerCombat.Release(from, ability, session.PendingTarget, aimed?.Location ?? session.PendingPoint);
         }

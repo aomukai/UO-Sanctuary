@@ -1,0 +1,108 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Prepared Poison Dagger start, result and allocated poison",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 4,
+  "verified": {
+    "retainedPoisonSourceCasesPerBoot": 6912,
+    "retainedResultCasesPerBoot": 16384,
+    "nativeMarkers": 121,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "rightCasts": 3,
+    "quickCasts": 3,
+    "retainedVenomSourceCasesPerBoot": 10240,
+    "missHitShieldCases": 4,
+    "interruptionCases": 5,
+    "legacyInitialPoisonRateBridge": true,
+    "initialPoisonModernVerified": false,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      819,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/poison-dagger-attack/birth-inputs.json",
+      "sha256": "1dec629cd2bda084c58a0d3f612abb4b23a313a8f05d80d4c5bd25e81ad310a1"
+    },
+    "audit": {
+      "path": ".local/class-skills/poison-dagger-attack/audit-inputs.json",
+      "sha256": "5ae5a0a3dc527e2fd1cdc125a1d3fb1d63c01961921c74b77fc65176302f6719"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/CharacterProfiles.cs": "0405624d62fd1949a39f84601d37841e9011d8746f105736cc17da0fc10e36c5",
+    "src/Sanctuary.Content/ClassCombat.cs": "1919454a01ac710b7a00e98c75d5387b420fb2760183d4d6c8652d03417bdedd",
+    "src/Sanctuary.Content/ClassMovement.cs": "d3c8580a6b57c2067ffbe581a3204585b1975c4dab6fa02da07d1ce53d030047",
+    "src/Sanctuary.Content/GearEffects.cs": "d4be632afc619ba4d3b4caba5c8ac609ece788290c4b4dfacd9c63aaa2162a7c",
+    "src/Sanctuary.Content/HitRecovery.cs": "1c383255ad3be6ed5be97564465e15cd48e065f0d0eb0bc8905fbd1db749b1d8",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "23b33fdf1ac0f9a74e5d64b6ae600ab6c2c7a5230cab472f22429c5299991d37",
+    "src/Sanctuary.Content/PoisonDaggerCombat.cs": "0435b451c66a8947eaa57a9b538c49d18f031e4be49e9eb66988b1406c0d1b11",
+    "src/Sanctuary.Content/PoisonJavelins.cs": "595b046d63f68cd9b7a192c873638c0ca7531c8763e9fa1f2fbc3d6e875a5047",
+    "tests/Sanctuary.Integration/PoisonDaggerAttackChecks.cs": "ebcf6e60ee8255670b681ca6b22515f6529a17893dedc25d1390d394770ef054",
+    "tests/Sanctuary.Integration/PoisonDaggerChecks.cs": "61d6c6dc525d2a46c228ddfa87e42829472321e87d0bbe5ccee1c43f4d6e15bf"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-dagger/birth-native-checks.log": "fc07f22136cf720fe2796ceab46be9c1cbbf6678e40ffc89dd16248506bf3854",
+    ".local/class-skills/poison-dagger-attack/audit-inputs.json": "5ae5a0a3dc527e2fd1cdc125a1d3fb1d63c01961921c74b77fc65176302f6719",
+    ".local/class-skills/poison-dagger-attack/audit-native-checks.log": "efdd7e9c67b89bc09df12de6a82baf05e1f948f917f6ac0f1f3624182b458719",
+    ".local/class-skills/poison-dagger-attack/audit-run-4.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/poison-dagger-attack/birth-inputs.json": "1dec629cd2bda084c58a0d3f612abb4b23a313a8f05d80d4c5bd25e81ad310a1",
+    ".local/class-skills/poison-dagger-attack/birth-native-checks.log": "fe64b0ac634c20fa343f74d5a9d3b4da2b00944cf124d40a21834f069752c918",
+    ".local/class-skills/poison-dagger-attack/content-build-4.log": "494684c024bdd9d36954e62bb0f55c0e9feff6218e764d67bb4b9a77cce4beff",
+    ".local/class-skills/poison-dagger-attack/integration-build-4.log": "bac2f7cca009d6f0751359e402317a073d82920ae5b7c22c387a271fa0d26df7",
+    ".local/class-skills/poison-dagger-attack/poison-dagger-attack-fixtures.json": "842fc898db20bd270aec8217926e96558150ddee12baf40c3df173136e79db83",
+    ".local/class-skills/poison-dagger-attack/poison-dagger-fixtures.json": "96e1984b7718435a02c282804ae847e9efd00925addf0740c4029a5d8a68c768",
+    ".local/class-skills/poison-dagger-attack/pre-build-4.json": "b05cf5cf741cc33df736a3a1e4181782b82a36b3aa2a461890fb651dcf1c073a",
+    ".local/class-skills/poison-dagger-attack/python-tests.log": "defcd3c180f27caeaef86f6625fc8b232aa4e7c29302d918f3409a771a913109",
+    ".local/class-skills/poison-dagger-attack/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "docs/class-skill-roadmap.md": "741b207de9416cf78da9294da26942f3ea8ef445c94fe8a738dbc68779023072",
+    "docs/class-skills-resume-checkpoint.md": "adaea0ffe408d76e265dee9a66efdb2839d27e299c7537122ffd0b4ec5fc1e12",
+    "docs/poison-dagger-attack-checkpoint.md": "ba2fcb5918007d4785b54fefd6cf3c09845d71c34e0f5eb36ec7fad900277957",
+    "docs/skill-effects.md": "cf32715e28131442e8d43d4eceb4c667adb387558fc79320164da87e8ff7b4f0",
+    "docs/skill-icons.md": "f28fc4b1d0b9998b2848a261738069ffe85d3e614236de3c6942ba057e54f548",
+    "docs/skill-mechanical-reference.md": "5af97b61f955fd77cd1e6ceb380db2e8b8e6d6c9e115a51ef8cc3fa4cf16757d",
+    "src/Sanctuary.Content/CharacterProfiles.cs": "0405624d62fd1949a39f84601d37841e9011d8746f105736cc17da0fc10e36c5",
+    "src/Sanctuary.Content/ClassCombat.cs": "1919454a01ac710b7a00e98c75d5387b420fb2760183d4d6c8652d03417bdedd",
+    "src/Sanctuary.Content/ClassMovement.cs": "d3c8580a6b57c2067ffbe581a3204585b1975c4dab6fa02da07d1ce53d030047",
+    "src/Sanctuary.Content/GearEffects.cs": "d4be632afc619ba4d3b4caba5c8ac609ece788290c4b4dfacd9c63aaa2162a7c",
+    "src/Sanctuary.Content/HitRecovery.cs": "1c383255ad3be6ed5be97564465e15cd48e065f0d0eb0bc8905fbd1db749b1d8",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "23b33fdf1ac0f9a74e5d64b6ae600ab6c2c7a5230cab472f22429c5299991d37",
+    "src/Sanctuary.Content/PoisonDaggerCombat.cs": "0435b451c66a8947eaa57a9b538c49d18f031e4be49e9eb66988b1406c0d1b11",
+    "src/Sanctuary.Content/PoisonJavelins.cs": "595b046d63f68cd9b7a192c873638c0ca7531c8763e9fa1f2fbc3d6e875a5047",
+    "tests/Sanctuary.Integration/PoisonDaggerAttackChecks.cs": "ebcf6e60ee8255670b681ca6b22515f6529a17893dedc25d1390d394770ef054",
+    "tests/Sanctuary.Integration/PoisonDaggerChecks.cs": "61d6c6dc525d2a46c228ddfa87e42829472321e87d0bbe5ccee1c43f4d6e15bf",
+    "tests/check_poison_dagger_attack.py": "1b813d46117669ba2422d02dc62655aa8680eed9dc2330d0113ddf4108ddd52c",
+    "tests/check_poison_dagger_attack_audits.py": "25d5bb8e1b904f0b6a89851697064cf59b8fec9f939a541633beca43398477e2",
+    "tools/record_poison_dagger_attack.py": "10bf8b8086456e837f7ebb91fe077475f1ad05fba5d43804a22f9ed96ba2ef25",
+    "tools/reference/first-loop-affix-audit.json": "f0002f85da88c56ce3de75e5045730523f2edbe79e9e35dd21ede6be9e77fda8",
+    "tools/reference/named-item-runtime-audit.json": "4632f069ee4838f68d1f7626eb053068b0313ace830d8dffe4bae746c4518e1c",
+    "tools/reference/poison-dagger-attack-source-review.json": "7639acaf5f28b2405986b0886977e091a8aba933bba14ed2fab2d764e4e61036",
+    "tools/reference/poison-dagger-native-evidence.json": "3526c5843b8ea1a4468ed0bf0e70dfb14f3b991986881607599af7e4be92d6c0",
+    "tools/reference/poison-dagger-source-evidence.json": "95958c3b7915d50d8b62810250108973d6b1d3374e1d40786ec0262a01e450f6",
+    "tools/review_poison_dagger_attack.py": "163b2009abef3261c37f061b24d7d746f658d5747381334b5d02ff931f30912d"
+  },
+  "established": [
+    "The prepared start uses the shared complete result decision order with additive player skill AR and mapped NPC shields. Miss/block does not consume damage rolls. Hit,shield,weapon damage,poison mitigation and drain context are captured before payment.",
+    "The actual start pays fractional mana once. Release neither rerolls nor requires mana. The reviewed older-source bridge includes mitigated poison rate once in initial HP damage,separate from the later clock. Real Mahim-Oak Curio supplies the item AR control;changed Wormskull/resistance cannot change an allocated half-resistance poison packet.",
+    "Four actual miss/hit/shield cases and five interruption cases pass. The location hook closes away-and-return relocation. Insufficient mana starts a basic attack. Saved paid pending state does not replay or refund through two reloads.",
+    "121markers retain the predecessor composition,Venom,Iron and NPC scopes,including six real right/quick inputs. All573named decisions and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "Complete shared player contact/event/return composition,including miss/block attempt events,exact drain/Thorns/proc/death order, remains open. Do not mark the class complete from this prepared path.",
+    "The source review hashes complete routines but is not a newly compiled start/do wrapper execution probe. Current executable,geometry,component/RNG and presentation adapters remain separately limited. The initial poison-rate amount is specifically unobserved in the modern executable.",
+    "The existing general mana consumer does not establish charged-item or Blood Mana behavior. Blackbog's Sharp remains unavailable because its item skill property is unsupported.",
+    "No new full-class run or installation is claimed. Final effects/audio and talent/hotkey icons remain separate placeholders."
+  ]
+}

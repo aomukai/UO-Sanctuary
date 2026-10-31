@@ -1,5 +1,7 @@
 # Skill effects
 
+The [prepared Poison Dagger path](poison-dagger-attack-checkpoint.md) uses the ordinary native weapon pose and sound plus the shared shield cue as identified placeholders. Final poison contact/state and block effects/audio remain pending. Its 121 native markers verify mechanics; the icon remains separately tracked.
+
 The [Poison Dagger composition fix](poison-dagger-checkpoint.md) uses one combined poison packet. Final poison contact/state effects and audio still need creation and mapping; native weapon presentation and generic cast sound remain identified placeholders. Its 118 native markers are mechanical evidence, not final asset verification.
 
 The [NPC resource correction](npc-high-level-resources-checkpoint.md) adds no assets. Its 97 focused and 1,180 full regression markers pass. Final effects/audio and talent/hotkey icons remain separate pending assets. Coverage remains 186 handlers, including 30 Necromancer handlers; no class is complete and the candidate is uninstalled.

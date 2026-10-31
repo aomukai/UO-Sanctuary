@@ -20,14 +20,16 @@ public static class PoisonJavelins
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>AmazonJavelins.Begin(owner,CombatAbility.PoisonJavelin,selected,point,now);
     public static bool Release(PlayerMobile owner)=>AmazonJavelins.Release(owner,CombatAbility.PoisonJavelin);
     internal static void EquipmentChanged(PlayerMobile owner)=>AmazonJavelins.EquipmentChanged(owner);
-    internal static bool Poison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at)
+    internal static PreparedPoison PreparePoison(PlayerMobile owner,BaseCreature target,int rate256,int frames)
     {
         // Read the recipient's item poison-length pool, including bound NPC
         // equipment. Per-monster difficulty already prepared ordinary ResPo;
         // the source player-only global penalty does not belong in this lane.
         int resistance=NamedElements.Resistance(owner,target,"pois",target.PoisonResistance,pierceOverride:0);
-        return PoisonPackets.Mitigate(rate256,frames,false,resistance,ItemDurationDefenses.PoisonLength(target),Math.Max(0,ClassGear.Bonus(owner,"pierce-pois")),0,0).Commit(owner,target,at);
+        return PoisonPackets.Mitigate(rate256,frames,false,resistance,ItemDurationDefenses.PoisonLength(target),Math.Max(0,ClassGear.Bonus(owner,"pierce-pois")),0,0);
     }
+    internal static bool Poison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at)
+        =>PreparePoison(owner,target,rate256,frames).Commit(owner,target,at);
     internal static PoisonCloud Trail(PlayerMobile owner,WeaponFlight parent)
     {
         if(parent.Ability!=CombatAbility.PoisonJavelin || !parent.PathChanged){return null;}

@@ -49,7 +49,7 @@ public static class PoisonDaggerChecks
         Require(count==6912,"Missing Poison Dagger reference cases");
         Log.Information("Poison Dagger:6912 complete elemental-roll/shared-poison-lane comparisons;soft synergy ranks do not enter hard bonuses");
     }
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         PlayerMobile p;Creating=true;try{p=new PlayerMobile{Name="PoisonDaggerFixture",Player=true,Body=0x190};}finally{Creating=false;}
         p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(p,99);
@@ -59,25 +59,25 @@ public static class PoisonDaggerChecks
         FixtureSpace.Corridor(p,6200,24,2300);p.Hits=p.HitsMax;p.Mana=p.ManaMax;
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.PoisonDagger)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.PoisonDagger),"Poison Dagger bindings");return p;
     }
-    private static Item Named(PlayerMobile p,string source)
+    internal static Item Named(PlayerMobile p,string source)
     {var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey==source).Id,99,new Random(173),true);p.AddToBackpack(item);Require(p.EquipItem(item),"Equip "+source);ClassGear.Refresh(p);return item;}
-    private static BaseWeapon Dagger(PlayerMobile p)
+    internal static BaseWeapon Dagger(PlayerMobile p)
     {var item=new Dagger();ClassGear.Profiles.Convert(item,99,GearRarity.Normal,new Random(173));p.AddToBackpack(item);Require(p.EquipItem(item),"Equip normal dagger");return item;}
-    private static GraveyardSkeleton Target(PlayerMobile p,int resistance=0)
+    internal static GraveyardSkeleton Target(PlayerMobile p,int resistance=0)
     {
         GraveyardSkeleton target;Creating=true;try{target=new GraveyardSkeleton{Name="PoisonDaggerFixtureTarget",NoKillAwards=true,Frozen=true,CantWalk=true};}finally{Creating=false;}
         target.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);target.AIObject.AITimer.Stop();target.SetHits(50000);target.Hits=target.HitsMax;target.SetResistance(ResistanceType.Poison,resistance);return target;
     }
-    private static TimedEffectState Poison(Mobile target)=>TimedEffects.Snapshot().Single(x=>x.Owner==target.Serial.Value);
-    private static void Freeze(Mobile target){var s=Poison(target);TimedEffects.Load(TimedEffects.Snapshot().Where(x=>x.Owner!=target.Serial.Value).Append(s with{UpdatedUtc=TimedEffects.Now.AddHours(1)}).ToArray());}
-    private static void Ready(PlayerMobile p){ClassCombat.Stop(p);ClassCombat.For(p).NextAction=0;}
+    internal static TimedEffectState Poison(Mobile target)=>TimedEffects.Snapshot().Single(x=>x.Owner==target.Serial.Value);
+    internal static void Freeze(Mobile target){var s=Poison(target);TimedEffects.Load(TimedEffects.Snapshot().Where(x=>x.Owner!=target.Serial.Value).Append(s with{UpdatedUtc=TimedEffects.Now.AddHours(1)}).ToArray());}
+    internal static void Ready(PlayerMobile p){ClassCombat.Stop(p);ClassCombat.For(p).NextAction=0;}
     private static bool Cast(PlayerMobile p,Mobile target)
     {Ready(p);if(!ClassCombat.Perform(p,CombatAbility.PoisonDagger,target,target.Location,Core.TickCount)){return false;}return ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt);}
     private static GearDamage Packet(PlayerMobile p,Mobile target)=>PoisonDaggerPackets.Damage(p,target,SkillMechanics.Values(p,CombatAbility.PoisonDagger),()=>0,out _);
-    private static void Drop(PlayerMobile p,Mobile target){target.Delete();p.Delete();}
+    internal static void Drop(PlayerMobile p,Mobile target){target.Delete();p.Delete();}
     private static void Check()
     {
-        Source();var hit=PoisonDaggerPackets.HitRoll;var roll=PoisonDaggerPackets.PoisonRoll;
+        Source();var hit=PoisonDaggerPackets.HitRoll;var roll=PoisonDaggerPackets.PoisonRoll;var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         PoisonDaggerPackets.HitRoll=()=>0;PoisonDaggerPackets.PoisonRoll=_=>0;
         try
         {
@@ -95,11 +95,11 @@ public static class PoisonDaggerChecks
             var captured=Packet(p,t);p.AddToBackpack(helm);ClassGear.Refresh(p);Require(captured.SourcePoison==new WeaponPoisonRoll(304,217)&&Packet(p,t).SourcePoison!=captured.SourcePoison,"Captured packet changed with live gear");Require(p.EquipItem(helm),"Restore helmet");ClassGear.Refresh(p);
             var immune=Target(p,100);Require(Cast(p,immune)&&!TimedEffects.Snapshot().Any(x=>x.Owner==immune.Serial.Value&&x.PoisonMs>0),"Poison immunity ignored");immune.Delete();
             var miss=Target(p);PoisonDaggerPackets.HitRoll=()=>1;int balance=SkillHealth.Balance256(miss);mana=NecromancerEffects.ManaBalance256(p);Require(Cast(p,miss)&&SkillHealth.Balance256(miss)==balance&&!TimedEffects.Snapshot().Any(x=>x.Owner==miss.Serial.Value&&x.PoisonMs>0)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Miss applied poison or skipped payment");miss.Delete();PoisonDaggerPackets.HitRoll=()=>0;
-            var cancel=Target(p);Ready(p);mana=NecromancerEffects.ManaBalance256(p);Require(ClassCombat.Perform(p,CombatAbility.PoisonDagger,cancel,cancel.Location,Core.TickCount),"Cancellation windup");p.AddToBackpack(blade);Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana,"Changed weapon released/paid");cancel.Delete();Require(p.EquipItem(blade),"Restore weapon");
+            var cancel=Target(p);Ready(p);mana=NecromancerEffects.ManaBalance256(p);Require(ClassCombat.Perform(p,CombatAbility.PoisonDagger,cancel,cancel.Location,Core.TickCount),"Cancellation windup");p.AddToBackpack(blade);Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Changed weapon replayed or refunded a paid start");cancel.Delete();Require(p.EquipItem(blade),"Restore weapon");
             TimedEffects.ClearGear(t);Require(Cast(p,t),"Saved poison attack");Freeze(t);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,blade.Serial.Value,helm.Serial.Value,SkillHealth.Balance256(t),Poison(t),0)));
         }
-        finally{PoisonDaggerPackets.HitRoll=hit;PoisonDaggerPackets.PoisonRoll=roll;}
+        finally{PoisonDaggerPackets.HitRoll=hit;PoisonDaggerPackets.PoisonRoll=roll;SourceBlocking.BlockRoll=block;}
     }
     private static void Reload()
     {
@@ -115,17 +115,17 @@ public static class PoisonDaggerChecks
     {
         var p=Owner();Dagger(p);Named(p,"Wormskull");var target=Target(p);Ready(p);
         string label=quick?"poison-dagger-quick":"poison-dagger-right";int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.PoisonDagger).Mana256;
-        var hit=PoisonDaggerPackets.HitRoll;var roll=PoisonDaggerPackets.PoisonRoll;PoisonDaggerPackets.HitRoll=()=>0;PoisonDaggerPackets.PoisonRoll=_=>0;
+        var hit=PoisonDaggerPackets.HitRoll;var roll=PoisonDaggerPackets.PoisonRoll;var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;PoisonDaggerPackets.HitRoll=()=>0;PoisonDaggerPackets.PoisonRoll=_=>0;
         network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;network.Mobile=p;p.NetState=network;
         var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();network.SendMobileUpdate(p);
         bool began=false;long deadline=Core.TickCount+6000;
-        void Restore(){PoisonDaggerPackets.HitRoll=hit;PoisonDaggerPackets.PoisonRoll=roll;Drop(p,target);}
+        void Restore(){PoisonDaggerPackets.HitRoll=hit;PoisonDaggerPackets.PoisonRoll=roll;SourceBlocking.BlockRoll=block;Drop(p,target);}
         void Inspect()
         {
             try
             {
                 Require(Core.TickCount<deadline,"Poison Dagger input timeout");var session=ClassCombat.For(p);
-                if(session.PendingAbility==CombatAbility.PoisonDagger&&!began){Require(NecromancerEffects.ManaBalance256(p)==mana,"Input prepaid unexpectedly");began=true;Log.Information("{Label}: windup",label);}
+                if(session.PendingAbility==CombatAbility.PoisonDagger&&!began){Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&session.PoisonDaggerAttack!=null,"Input did not prepare/pay at start");began=true;Log.Information("{Label}: windup",label);}
                 var state=TimedEffects.Snapshot().SingleOrDefault(x=>x.Owner==target.Serial.Value&&x.PoisonMs>0);
                 if(state==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
                 Require(began&&state.PoisonClock?.Rate256==158&&state.PoisonSource==p.Serial.Value&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Real learned input combined packet/payment");Restore();Log.Information("{Label}-result: passed",label);

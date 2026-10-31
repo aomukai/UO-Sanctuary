@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "necromancer.poisondagger",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "evidenceKind": "Complete-routine source review; not a new compiled execution probe",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_SrvSt16_PoisonDagger": "fd748a32296cfd5df9f80484c285780661cb8cf62542926a373c155efdde3b91",
+    "SKILLS_SrvDo032_PoisonDagger": "f39ad5bd5a9a453d38c065aea8e06fa32509b7bcaa02906938dc293ccaf17c4a",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "SUNITDMG_GetResultFlags": "402644f61dbe202b411a3e44c40c3f25654dc98181b2f4d79abf7512b2556186",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7"
+  },
+  "pinnedSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "currentRow": {
+    "start": 16,
+    "release": 32,
+    "sourceDamage": 128,
+    "attackNoMana": true,
+    "useManaOnDo": false,
+    "attackPercentBase": 30,
+    "attackPercentPerRank": 20
+  },
+  "conclusions": [
+    "Start16 resolves the hit before allocating combat. Successful hits roll skill poison before ordinary weapon allocation. Allocation fills weapon damage,calculates total damage and stores a copy before the action event.",
+    "The generic start wrapper consumes mana after a successful start unless UseManaOnDo or its explicit bypass applies. The pinned row has a real start callback and no UseManaOnDo flag. AttackNoMana is explicitly set.",
+    "Do32 sets the server-do flag,fetches the target again and drains the stored combat record. DrainItemDurability checks current reach,delivers successful stored damage and updates player weapon durability; melee-attempt events also occur on stored misses/blocks.",
+    "The complete total calculator includes mitigated poison rate once in immediate damage,even for player attackers. ExecuteEvents subtracts the stored total independently of later poison state ticks. Modern applicability remains unobserved.",
+    "The existing shared GetResultFlags implementation and its16384compiled controls supply decision order. The player adapter supplies additive skill AR and the existing recipient shield rule."
+  ],
+  "limits": [
+    "This review hashes complete pinned source routines and checks specific source-order anchors. It does not execute the start/do wrappers or prove all their branches via a new compiler probe.",
+    "Native weapon geometry,hostility,component-choice RNG,presentation and current executable behavior remain adapters. The broader player damage/event/return pipeline is not certified by this review.",
+    "The full reviewed DrainItemDurability route includes attempt events,Thorns and later missile/free ordering. Their complete native player composition remains separate work; do not mark the class complete."
+  ]
+}

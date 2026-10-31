@@ -53,6 +53,7 @@ public static class NecromancerCombat
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now)
     {
+        if(ability==CombatAbility.PoisonDagger){return PoisonDaggerCombat.Begin(owner,selected,point,now);}
         if(ability==CombatAbility.IronGolem)
         {if(!IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out var itemIssue)){owner.SendMessage(0x22,itemIssue??"Select a supported metal item.");return false;}point=World.FindItem(selected).Location;}
         if(ability==CombatAbility.Revive&&!ReviveCasts.Plan(owner,World.FindItem(selected) as Corpse,out _,out _,out var issue))
@@ -75,6 +76,7 @@ public static class NecromancerCombat
     }
     public static bool Release(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if(ability==CombatAbility.PoisonDagger){return PoisonDaggerCombat.Release(owner,selected,Core.TickCount);}
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point)) { return false; }
         var values = SkillMechanics.Values(owner, ability);
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
@@ -113,20 +115,6 @@ public static class NecromancerCombat
             MissileFootprints.RegisterTransient(new("poisonexplosioncloud", owner.Map.MapID, point.X * 2, point.Y * 2, point.Z,
                 TimedEffects.Now.AddMilliseconds(NecromancerSummons.Source("poisonexplosioncloud", "Range") * 40L)), () => cloud.Active);
             cloud.Start(); return true;
-        }
-        if (ability == CombatAbility.PoisonDagger)
-        {
-            var target = World.FindMobile(selected);
-            var definition = SkillMechanics.For(ability);
-            int rating = definition.Number("ToHit") + (values.Rank - 1) * definition.Number("LevToHit");
-            using var attemptedMelee=PaladinThorns.Attempt(owner,target,false);
-            if (PoisonDaggerPackets.HitRoll() < ClassStats.HitChance(ClassStats.AttackRating(owner) * (100 + rating) / 100,
-                ClassStats.Defense(target), ClassStats.Level(owner), ClassStats.Level(target)))
-            {
-                var damage=PoisonDaggerPackets.Damage(owner,target,values,Utility.RandomDouble,out double roll);
-                GearEffects.Strike(owner,target,roll,preparedDamage:damage);
-            }
-            return true;
         }
         if (ability == CombatAbility.PoisonNova) { new Nova(owner, values).Start(); return true; }
         if (ability is CombatAbility.Teeth or CombatAbility.BoneSpear or CombatAbility.BoneSpirit)
