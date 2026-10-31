@@ -42,13 +42,31 @@ public static class PaladinThorns
         if(stats==default){return;}
         // ExecuteEvents caps the copied physical component before the attacked-in-melee events and Thorns call.
         long eligiblePhysical=clippedPhysical256 is{} clipped?Math.Clamp(clipped,0,Math.Max(0,physical256)):Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));
-        if(scope==null || !scope.FlatApplied)
-        {
-            if(scope!=null){scope.FlatApplied=true;}
-            Retaliate(defender,attacker,(long)stats.Flat*256);
-        }
+        Flat(attacker,defender,stats,scope);
         if(eligiblePhysical>0 && attacker is{Alive:true,Deleted:false})
         {Retaliate(defender,attacker,eligiblePhysical*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100);}
+    }
+    private static void Flat(Mobile attacker,Mobile defender,ReturnStats stats,AttemptScope scope)
+    {
+        if(scope!=null&&scope.FlatApplied){return;}
+        if(scope!=null){scope.FlatApplied=true;}
+        Retaliate(defender,attacker,(long)stats.Flat*256);
+    }
+    // Ordered NPC consumers dispatch the attacked-in-melee event (including
+    // misses) separately from the later successful-hit percentage return.
+    internal static void PreparedFlatAttempt(Mobile attacker,Mobile defender)
+    {
+        if(!Eligible(attacker,defender)){return;}
+        var scope=_current!=null&&_current.Attacker==attacker&&_current.Defender==defender?_current:null;
+        var stats=defender.Alive?Values(defender):scope?.Stats??Values(defender);
+        Flat(attacker,defender,stats,scope);
+    }
+    internal static void PreparedPercentage(Mobile attacker,Mobile defender,int clippedPhysical256)
+    {
+        if(clippedPhysical256<=0||!Eligible(attacker,defender)){return;}
+        var scope=_current!=null&&_current.Attacker==attacker&&_current.Defender==defender?_current:null;
+        var stats=defender.Alive?Values(defender):scope?.Stats??Values(defender);
+        Retaliate(defender,attacker,(long)clippedPhysical256*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100);
     }
     private static void Retaliate(Mobile defender,Mobile attacker,long physical256)
     {

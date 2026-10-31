@@ -109,7 +109,7 @@ public static class MonsterReturnChecks
         internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>p;
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>p;
         internal override bool AttackerInActiveMode()=>true;
-        internal override void Thorns(PreparedMonsterDamagePacket p){}
+        internal override void BeforeThorns(PreparedMonsterDamagePacket p){}
         internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
         {World.Death=death;PreparedMonsterReturn.Dispatch(ref p,World,true);}
         internal override void FreePacket(){}

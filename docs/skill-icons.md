@@ -1,5 +1,7 @@
 # Skill icons
 
+Ordered monster recovery/retaliation adds no bindable skill and no new icon. Existing Life Tap,Thorns,Barbs and Iron Golem talent/hotkey artwork remains independently pending.
+
 Iron Golem recipient-block integration adds no bindable action or icon. The existing Iron Golem talent-tree/right/quick artwork remains pending independently of combat verification.
 
 Shared golem roster changes add no bindable skill or icon. Clay, Blood, Iron and Fire each still need their own talent-tree and hotkey artwork. Prepared Iron remains disabled and uses its existing identified text placeholder.

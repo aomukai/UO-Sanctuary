@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 5184,
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0"
+  },
+  "unchangedRoutineHashes": {
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "D2GAME_EventFunc05_6FD0EDE0": "20ab006d9c4f2dd15faf55b056e4228b3eee40734ea0be0976d5e9e864066552",
+    "SKILLITEM_EventFunc06_AttackerTakesDamage": "36ac7f6677137cf300e8790aaeb14e871a6b741c4201e56cf1f7588ad3b0ae10",
+    "SKILLS_ApplyThornsDamage": "4e7a974656bda7998bf6fca5419d873a47a6c59dcb594be6e9d1b6621779b733"
+  },
+  "parentFixture": {
+    "path": "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/goatman-npc-release/source.cpp",
+    "sha256": "862f3a5553a4578fde5ce53ff2611427283ef1af398e18a6ef8d20d364d20d41",
+    "receipt": "tools/reference/goatman-npc-release-source-evidence.json",
+    "receiptSha256": "b52c060de6339cacf6855aad0f876626ff4a18e8a5dac521b0d179184cc76f7f"
+  },
+  "fixture": {
+    "path": ".local/class-skills/monster-weapon-phases-source-probe.json",
+    "sha256": "59a33c45b8f517eb75cb20db9810d20a9f5e48f277b3857963fe1a359526e151"
+  },
+  "generatedSourceSha256": "34e1f6b90190a7de93c05ec76c2ba401c034ff8f876fc93f9ae2728a040c56c0",
+  "sanitizers": "ASan+UBSan exit0;empty runtime stderr",
+  "scope": "Complete unchanged incoming ExecuteEvents/contact,Life Tap,flat ATD and percentage Thorns compose with declared stats,world eligibility/event registration and reaction/death-mode services. Incoming packet is supplied already mitigated. Return mode service marks death on cached flag;this is not full ExecuteMissileDamage/current executable or actual source event-registry execution.",
+  "remaining": [
+    "Native actual actors/state consumers must verify the corresponding phases without replaying HP or immediate incoming native death. Actual event registry priority/duplication,complete leech/poison/burn/allocation/return adapters and client acceptance remain separate."
+  ]
+}

@@ -5,7 +5,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record PreparedMonsterDamagePacket(int Physical256,int Total256,int StunFrames,int ColdFrames,int ResultFlags,
-    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0);
+    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0,int AbsorbedLife256=0);
 internal sealed record PreparedMonsterRecipient(bool Unique,Func<bool> Boss,Func<int> Velocity,Func<bool> Hireling);
 // These services are mandatory. Supplying the actual callbacks, metadata and
 // return/mode policy remains the actor consumer's job; no missing event is
@@ -15,6 +15,8 @@ internal abstract class PreparedMonsterDamageServices
     internal abstract void StoreLastAttacker();
     internal abstract PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket packet);
     internal abstract PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket packet);
+    // Ordinary leech/actor recovery services run here after physical clipping.
+    // Life Tap and packet absorb healing are owned by the shared pipeline.
     internal abstract void BeforeHealth(PreparedMonsterDamagePacket clipped);
     internal abstract void ApplyCold(int frames);
     internal abstract void SurvivedDamage();
@@ -25,7 +27,9 @@ internal abstract class PreparedMonsterDamageServices
     internal abstract PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket packet);
     internal abstract PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket packet);
     internal abstract bool AttackerInActiveMode();
-    internal abstract void Thorns(PreparedMonsterDamagePacket packet);
+    // Diagnostic/service boundary before shared percentage return. Consumers
+    // must not replay the shared flat or percentage damage in this callback.
+    internal abstract void BeforeThorns(PreparedMonsterDamagePacket packet);
     internal abstract void Return(ref PreparedMonsterDamagePacket packet,Action enterDeathMode);
     internal abstract void FreePacket();
 }
@@ -38,7 +42,7 @@ internal static class PreparedMonsterDamage
 {
     private static PreparedMonsterDamagePacket Checked(PreparedMonsterDamagePacket p)
     {
-        if(p==null||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||(p.ResultFlags&~0xffff)!=0)
+        if(p==null||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||(p.ResultFlags&~0xffff)!=0)
         {throw new NotSupportedException("Unsupported prepared monster damage packet");}
         return p;
     }
@@ -65,10 +69,14 @@ internal static class PreparedMonsterDamage
         services.StoreLastAttacker();
         MonsterUninterruptibles.RecordLastAttacker(target,attacker);
         if((packet.ResultFlags&32)==0)
-        {packet=Checked(services.DealtDamage(packet));packet=Checked(services.TookDamage(packet));}
+        {
+            packet=Checked(services.DealtDamage(packet));packet=Checked(services.TookDamage(packet));
+            NecromancerEffects.LifeTap(attacker,target,packet.Physical256);
+        }
         int before=SkillHealth.Balance256(target);
         packet=packet with{Physical256=Math.Min(packet.Physical256,before)};
         services.BeforeHealth(packet);
+        if(packet.AbsorbedLife256>0&&!MonsterUninterruptibles.Delayed(target)){SkillHealth.Heal(target,packet.AbsorbedLife256);}
         if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<0)
         {throw new NotSupportedException("Reentrant native deletion/death before prepared health commitment is unsupported");}
         int after=SkillHealth.Balance256(target);
@@ -101,7 +109,9 @@ internal static class PreparedMonsterDamage
             if(!packet.HitClassActive&&(packet.HitClass&15)==0){packet=packet with{HitClass=packet.HitClass|services.BaseHitClass()};}
         }
         packet=Checked(services.MeleeAttack(packet));packet=Checked(services.AttackedInMelee(packet));
-        if((packet.ResultFlags&1)!=0&&services.AttackerInActiveMode()){services.Thorns(packet);}
+        PaladinThorns.PreparedFlatAttempt(attacker,target);
+        if((packet.ResultFlags&1)!=0&&services.AttackerInActiveMode())
+        {services.BeforeThorns(packet);PaladinThorns.PreparedPercentage(attacker,target,packet.Physical256);}
         bool death=false,inReturn=true;
         void EnterDeathMode()
         {
