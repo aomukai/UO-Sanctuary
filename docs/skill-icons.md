@@ -1,5 +1,7 @@
 # Skill icons
 
+Bone Spear still needs final talent-tree and left/right/quick-hotkey art after the [source-flight change](bone-spear-checkpoint.md). The same player skill/bindings remain; piercing and child presentation introduce no independent player icons. Effects/audio remain in their own register.
+
 Bone Armor still needs final talent-tree and right/quick-hotkey art after the [exact shield correction](bone-armor-checkpoint.md). Its left binding is now correctly refused; no separate absorption icon or new skill was introduced. Final effects/audio stay in their own ledger.
 
 The [skeleton/Mage roster correction](skeleton-roster-checkpoint.md) introduces no player binding or separate icon. Raise Skeleton and Raise Skeletal Mage still need final talent-tree and hotkey art; effects/audio remain separately tracked.

@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Bone Spear flight path](bone-spear-checkpoint.md) uses native cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final BoneSpear directional sprite, bonespeartrail, bonespearexplode/teethexplode impact presentation and cast/travel/hit/expiry audio remain pending. Collision/damage and saved flight do not depend on that art.
+
 The [Bone Armor correction](bone-armor-checkpoint.md) retains the native0x375A shield marker and shared cast sound as identified placeholders. Final orbiting-bone, absorption/break/state effects and audio remain pending; exact shield arithmetic does not depend on those assets.
 
 The [skeleton/Mage roster correction](skeleton-roster-checkpoint.md) adds no new visual or audio producer. Native summon particles/body/attack/death cues remain identified placeholders; source destruction/event presentation is not certified by FIFO tests. Final summon and elemental effects/audio remain pending.

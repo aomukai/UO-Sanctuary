@@ -26,6 +26,7 @@ public static class ClassDeath
         }
         TimedEffects.Clear(player);
         NecromancerEffects.Profiles.Clear(player);
+        NecromancerSpellMissiles.Cancel(player);
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
         AmazonJavelins.Cancel(player);

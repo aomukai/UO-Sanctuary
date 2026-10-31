@@ -84,6 +84,7 @@ public static class NecromancerCombat
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
+        if(ability==CombatAbility.BoneSpear){return NecromancerSpellMissiles.Release(owner,point,values);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
             if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }
@@ -119,7 +120,7 @@ public static class NecromancerCombat
             cloud.Start(); return true;
         }
         if (ability == CombatAbility.PoisonNova) { new Nova(owner, values).Start(); return true; }
-        if (ability is CombatAbility.Teeth or CombatAbility.BoneSpear or CombatAbility.BoneSpirit)
+        if (ability is CombatAbility.Teeth or CombatAbility.BoneSpirit)
         {
             var lastHits = new Dictionary<Serial, long>();
             if(ability==CombatAbility.Teeth)
@@ -169,7 +170,7 @@ public static class NecromancerCombat
         }
     }
     private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits,FanRay? fan=null)
-        : SkillField(owner, ability == CombatAbility.BoneSpirit ? 128 : ability == CombatAbility.BoneSpear ? 40 : 50, DiabloClass.Necromancer)
+        : SkillField(owner, ability == CombatAbility.BoneSpirit ? 128 : 50, DiabloClass.Necromancer)
     {
         private double _x = owner.X, _y = owner.Y, _angle = angle, _travel;
         private readonly int _z = owner.Z;
@@ -189,7 +190,7 @@ public static class NecromancerCombat
                 if (_target != null) { _angle = Math.Atan2(_target.Y - _y, _target.X - _x); }
             }
             _frame++;
-            double speed = SkillGeometry.Velocity(ability == CombatAbility.BoneSpear ? 24 : ability == CombatAbility.Teeth ? 16 : 12);
+            double speed = SkillGeometry.Velocity(ability == CombatAbility.Teeth ? 16 : 12);
             var velocity=fan is{} ray?FanGeometry.Velocity(ray,16):(Math.Cos(_angle)*speed,Math.Sin(_angle)*speed);
             var start = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
             _x += velocity.Item1; _y += velocity.Item2;
@@ -208,7 +209,7 @@ public static class NecromancerCombat
                 { Stop(); return; }
                 lastHits[collision.Target.Serial] = Core.TickCount;
                 SkillCombat.Hit(Owner, collision.Target, values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble(), "mag",missileDefense:true);
-                if (ability != CombatAbility.BoneSpear) { Stop(); return; }
+                Stop(); return;
             }
         }
     }

@@ -1,0 +1,100 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Bone Spear source-based saved flight",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 2,
+  "verified": {
+    "nativeMarkers": 187,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "retainedPredecessorMarkers": 172,
+    "sourceDamageCasesPerBoot": 4080,
+    "sourceRouterCases": 96,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "finalSavedFrame": 9,
+    "advancedSeedAndCollider": true,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      826,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-spear/birth-inputs.json",
+      "sha256": "ba0a2171c448f6c6d85dd145a526214a29ef255dbf7dc4828f28f9a98a3b414a"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-spear/audit-inputs.json",
+      "sha256": "251f81e40a10235e4daf70a802b554ddb3e47fe86d052f3a0aed25e61c083e42"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/CharacterProfiles.cs": "385aa66c11ecd76cf9fefff5786b6733028688d843ded948ecd880696585ee50",
+    "src/Sanctuary.Content/ClassDeath.cs": "6cb470f93526f804524170fd33f777bd3ca6d51ac2a26fa2c29b556900f8dd08",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "c2debccabbbbf6ed43ae992fad0b7e41e1aeeb8e066a5182695ace3abf46031e",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "2ebc4c5d5fea0768aa780d9876facc8dd0e11beda5a980eb76f726748ec32e51",
+    "src/Sanctuary.Content/WardrobeTransaction.cs": "70a103d600bf645a2b58f69502ba099c676633c009c097c82282d310afcd54da",
+    "tests/Sanctuary.Integration/BoneSpearChecks.cs": "7db50e09276b3cb0cb192df70a3432e3b91abc2a69ce4ebb83f4b35bba49e2ba"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-armor/birth-native-checks.log": "90b0d8809501d6445c23f9755474b97639997fc74b9135956960c20959710bea",
+    ".local/class-skills/bone-spear/audit-inputs.json": "251f81e40a10235e4daf70a802b554ddb3e47fe86d052f3a0aed25e61c083e42",
+    ".local/class-skills/bone-spear/audit-native-checks.log": "2e46d2584475f27ac3b4389b1cdb93241d6760e6e362694d49120bdaf328cef2",
+    ".local/class-skills/bone-spear/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-spear/birth-inputs.json": "ba0a2171c448f6c6d85dd145a526214a29ef255dbf7dc4828f28f9a98a3b414a",
+    ".local/class-skills/bone-spear/birth-native-checks.log": "d98d3fc7dac7a6961b274178fb5531f5126cd6aa14974aeb324385636bc20e26",
+    ".local/class-skills/bone-spear/bone-spear-fixtures.json": "46087e2a63a93130b1dea7c9caee40bc8d5552ac3b0ef727e0fbeb88aa9f0a3a",
+    ".local/class-skills/bone-spear/content-build-4.log": "39bbf94f1787b6da3db5e29d2c235d3827944e08cdedbc75c03e964db832e5e8",
+    ".local/class-skills/bone-spear/integration-build-4.log": "d21660e929dd067f9fca926d46bf94cfb6e106a3b969853d101f5510d0828804",
+    ".local/class-skills/bone-spear/pre-build-4.json": "487b624ce424ef66045c2b423eb4a3ee742a562fd700d2903d5915751d680d98",
+    ".local/class-skills/bone-spear/python-tests.log": "ec1d13ebce9c3d71bce877caa9ae88486d89439fec92d60eca4d4a610384e488",
+    ".local/class-skills/bone-spear/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "79806ee6846a2584bf9d2c21d2a91e7a9c2a4568c5ed81f1f1d1436b8484d07e",
+    "docs/bone-spear-checkpoint.md": "ec6fbf8ef41958d495bb6acf656324190ea01f0bcf4cf2a9644438a7c62efd7b",
+    "docs/class-skill-roadmap.md": "a5e16278d58c8d5424e90b708f79fb24b3f3ebc29ba87419bac4f21409794f15",
+    "docs/class-skills-resume-checkpoint.md": "dfa1ee262cc828035699bd4b201abfb4aa85aa85a259098445f1fc04cdb0c319",
+    "docs/necromancer-mechanical-audit.md": "0b612b8dfdfd0f0f1eed23e273acafc6eb1cf28c0f3b8d91efe14e673a089b4c",
+    "docs/skill-effects.md": "84b0d7475644852aff411bb3307872a2195f703041c09ba03220e2de9e76f961",
+    "docs/skill-icons.md": "7458a2c799a92d9f96993fe119b2e08ddb032d271afab17fa18336c8b876a1ab",
+    "docs/skill-mechanical-reference.md": "9ae368830c765db727583f200ca9ab38abe06f73cf1ee1701301d6d95d61714b",
+    "src/Sanctuary.Content/CharacterProfiles.cs": "385aa66c11ecd76cf9fefff5786b6733028688d843ded948ecd880696585ee50",
+    "src/Sanctuary.Content/ClassDeath.cs": "6cb470f93526f804524170fd33f777bd3ca6d51ac2a26fa2c29b556900f8dd08",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "c2debccabbbbf6ed43ae992fad0b7e41e1aeeb8e066a5182695ace3abf46031e",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "2ebc4c5d5fea0768aa780d9876facc8dd0e11beda5a980eb76f726748ec32e51",
+    "src/Sanctuary.Content/WardrobeTransaction.cs": "70a103d600bf645a2b58f69502ba099c676633c009c097c82282d310afcd54da",
+    "tests/Sanctuary.Integration/BoneSpearChecks.cs": "7db50e09276b3cb0cb192df70a3432e3b91abc2a69ce4ebb83f4b35bba49e2ba",
+    "tests/check_bone_spear.py": "48f0737e26c3b70d349a25e281af39a63335319d07ea1abc35c86c71e11e41b7",
+    "tests/check_bone_spear_audits.py": "387d561cff57a99badebafc7f843c39f3719f1ae81eb7a60bdbb3f413ba95203",
+    "tools/build_class_skills.py": "4890bd7cdb5a77dfb1d3de42e6e6737952ee8d843d68a2e3e99b96166210e71f",
+    "tools/probe_bone_spear.py": "d49e3fbba00c31300f1e6d66186f88665428c54b9a8937df7c6bf0e3f23fb6dd",
+    "tools/record_bone_spear.py": "8fd2b980509204ff833d9efcdfb025f8e46a9929d14e2e6a7e67f04ad1a1baca",
+    "tools/reference/bone-armor-native-evidence.json": "e819b1d9c0bdb0d8aedf1cfbcd0e66d708f0b422b56100d14a1234bdc915ab05",
+    "tools/reference/bone-spear-source-evidence.json": "645105c80e4e81185ee5151cd9c0bbf8c9c0abd3e768526b5387c12d4a46bdb8",
+    "tools/reference/first-loop-affix-audit.json": "cf37c14650e7d402fa6b30117a06c058ac3afccf7fd3cc74ebce4dc491854571",
+    "tools/reference/named-item-runtime-audit.json": "8670927a079b191b2f1db2ab4b71e945c23aed96291f10f7850a302fa78cd280"
+  },
+  "established": [
+    "Bone Spear uses the current192row through shared factory velocity,Q12 vectors,retained source cells,do1 updates,FP magic rolls,spell defenses and health. It has40frames,unlimited ordinary piercing and only the latest collider identity;the provisional world-distance cap and permanent hit-set are removed.",
+    "Complete older damage creator/getters/stat writer/roll execute4080current contexts without collecting supplied weapon/item/origin stats or critical. Complete generic hit routing executes96contexts with explicit event/packet/defense services.",
+    "Actual learned casting pays once at release. Tests cover travel beyond16tiles,three intervening targets,rehitting a moved prior collider,wall/moving-target misses,offline/facet/death/respec/wardrobe behavior,captured Slow Missiles and actual Hell Lich Lord magic immunity without stopping penetration.",
+    "Real dagger/Raven Frost weapon-element exclusions,Wormskull/hard-synergy recapture and atomic malformed restore pass. The actual tier3spell potion adds four captured10percent channels exactly once,even after its live buff is cleared.",
+    "Six connected right/quick casts exercise automatic travel/collision and payment. Two actual reloads retain midflight pose,packet,source steps,last collider and an advanced RNG stream;the save serializer snapshots on the main thread before the writer runs. All172predecessor markers remain."
+  ],
+  "remaining": [
+    "Native room/terrain/candidate ordering,provisional NPC footprints,exact first/global frame phase,full modern factory/dispatcher/FCR and graphical-client equivalence remain unverified. Existing live-target/release-range rules and default self-aim fallback are retained adapters.",
+    "Generic source hit events,full incoming/death/reaction ordering and PvP/special recipient coverage remain scoped shared adapters. Current custom magic mastery/pierce and approved potion rules are preserved separately from the SrcDam0 source proof;no weapon on-strike or drain behavior is invented.",
+    "Offline flights age without fighting;death/respec/wardrobe cancel and facet change removes. Complete current retired-owner lifetime/credit equivalence remains open. Same-build reloads are verified;old-content binary migration,new full-class run,deployment,complete skill/class and final assets are not claimed.",
+    "Next:reuse the player spell-flight foundation for Teeth while resolving its distinct next-hit window,then Bone Spirit steering and poison field/nova allocation."
+  ]
+}

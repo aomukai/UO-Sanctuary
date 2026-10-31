@@ -159,6 +159,7 @@ public sealed class CharacterProfiles : GenericPersistence
         // Keep real gear in the pack even if the reset lowers capacity or equipment requirements fail.
         foreach (var item in equipment) { player.Backpack.DropItem(item); }
         NecromancerEffects.Profiles.Clear(player);
+        NecromancerSpellMissiles.Cancel(player);
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
         AmazonJavelins.Cancel(player);
