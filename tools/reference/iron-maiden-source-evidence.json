@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": {
+    "event": 8640,
+    "legacyBloodGolemTail": 15552
+  },
+  "routines": {
+    "D2GAME_EventFunc04_6FD0E840": "aaa7c6f739d301b3b3ce98767421054b73e6fbbaf51a61777072d9697b8f8379",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "tools/probe_iron_maiden.py": "68edc2a0bcce1a0a47c03e47784a8063f0b98564df3ccf0935e5f9c476a0d013",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/weapon-event-order-review.json": "83a7754c5bcd972733c2e63b6f92b544bc9342d78249ee0d6146a3d714be8af1",
+    "tools/review_weapon_event_order.py": "bd2fe064c894b1e1c42cc5a31e31b9ea1f4bd2ba74f307d0cad2524f21962daa"
+  },
+  "hostStaticReview": {
+    "function": "SUNITDMG_ExecuteEvents",
+    "bodySha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "orderedAnchors": [
+      "SUNITEVENT_Trigger(pGame, UNITEVENT_DOMELEEDMG",
+      "SUNITEVENT_Trigger(pGame, UNITEVENT_DAMAGEDINMELEE",
+      "pDamage->dwPhysDamage = std::min(pDamage->dwPhysDamage, nHp);"
+    ],
+    "executed": false
+  },
+  "current": {
+    "skillId": 76,
+    "stateId": 55,
+    "event": "domeleedamage",
+    "callback": 4,
+    "sourceRadius": 7,
+    "mana": 5,
+    "duration": "300+60*(rank-1)",
+    "fullPercent": "200+25*(rank-1)",
+    "playerOrHirelingPercent": "fullPercent/4",
+    "resultFlags": 16385,
+    "emittedResultFlags": 16417,
+    "hitClass": 141
+  },
+  "artifacts": {
+    ".local/class-skills/iron-maiden-source/probe.cpp": "0d07146ea5e795c93492a2263252248966701e0c6539428274e805d5f9534238",
+    ".local/class-skills/iron-maiden-source/cases.json": "1d732c719a2b4d203f88068b3bb7988a56e31d12968df02df859fa222f2cf2f1",
+    ".local/class-skills/iron-maiden-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/iron-maiden-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged event4 and percentage bodies execute fractional physical values with source guards,statlist/creator resolution,negative-rank normalization,full versus quarter formula selection,explicit flags/hit class and event1-before-missile service order.",
+    "Complete hash-reviewed host dispatches attacker domeleedamage before defender damagedinmelee/Life Tap and before the physical life clip. Iron Maiden therefore consumes the pre-clip fractional component,not actual final life loss. The host itself is not executed by this probe. The callback is driven by the pinned domeleedamage event;it has no independent ranged test. Source formula and downstream events/mitigation are declared services,including a synthetic half-damage mutation control. Supplied source percentages retain the complete helper large-value early-division behavior.",
+    "Complete legacy enemy-BloodGolem tail is retained and executed:missing monster data,row,drain,evil alignment or live minion owner gates,20percent recovery,owner-first half share,pet/overflow caps and overlays match bounded independent expectations. This does not enable a new current native healing rule."
+  ],
+  "remaining": [
+    "No Sanctuary C# change,learned casting,native event dispatch,save/client acceptance or class completion is claimed. Existing whole-HP after-hit Iron Maiden compatibility path still needs fractional ordered-event integration.",
+    "Formula evaluation,stat/unit/state lookup,ownership,downstream damage and HP writes are declared services. This is not the complete engine,formula VM or current3.3.93847 executable. Legacy enemy-BloodGolem healing needs current-build corroboration or an explicit unsupported adapter.",
+    "Event host filtering,actual native pre-clip physical ordering,melee/missile exceptions,caster removal,PvP/hireling behavior and complete current damage/HP/death/event chronology remain separate work."
+  ]
+}
