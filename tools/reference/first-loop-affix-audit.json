@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "aa7f46ff0aa887d838276576d92498ed9c9d936f52eabfafd2840ebbbd27fe29",
-  "ContentAssemblyPath": ".local/class-skills/poison-dagger-contact/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "e3dfee5749df177e6d2f47a8a4cbad396b4e395dec68308e768788fe4e74b8b9",
+  "ContentAssemblyPath": ".local/class-skills/weapon-start-effects/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -12,7 +12,7 @@
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "914bc8d9cf960009b7999bd5ec2b4a2d1899a1f6498a31ffb2c6d653e37332b0",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
-    "src/Sanctuary.Content/ClassStats.cs": "d4c586d1da40525970acbf6013968d618c8b2b3e390b9800cfa06fbc7f0e85c9",
+    "src/Sanctuary.Content/ClassStats.cs": "a42cb780cb5002776cb29f9ea3471d8453c154937af759241f60115f13ffb24a",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",

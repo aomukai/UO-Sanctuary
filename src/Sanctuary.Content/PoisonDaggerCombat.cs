@@ -45,8 +45,9 @@ internal static class PoisonDaggerCombat
         internal override bool HitSuccessful(int percent,bool missile)
         {
             if(missile){throw new NotSupportedException("Poison Dagger is not a missile attack");}
-            return ClassStats.CheckHit(owner,target,percent,PoisonDaggerPackets.HitRoll,projectile:false)
+            bool hit=ClassStats.CheckHit(owner,target,percent,PoisonDaggerPackets.HitRoll,projectile:false)
                 ??throw new NotSupportedException("Missing player attack supplier");
+            if(hit){WeaponStartEffects.SuccessfulHitRoll(owner,target);}return hit;
         }
         internal override int BlockOrDodge(bool avoid,bool block)
         {
@@ -76,6 +77,7 @@ internal static class PoisonDaggerCombat
         double roll=0;PreparedWeaponImpact impact=default;int coldFrames=0;
         if((flags&SourceMeleeResult.Successful)!=0)
         {
+            WeaponStartEffects.PrepareDamage(owner,target);
             var damage=PoisonDaggerPackets.Damage(owner,target,values,Utility.RandomDouble,out roll);
             impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,damage);
             var poison=PoisonJavelins.PreparePoison(owner,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);

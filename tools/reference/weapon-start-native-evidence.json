@@ -1,0 +1,98 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Poison Dagger direct setup effects and NPC base armor loss",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 130,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "currentMonsterRules": 751,
+    "preventHealImmuneRules": 9,
+    "realSpineripperResultCases": 4,
+    "realWoestaveArmor": true,
+    "realShaftstopNpcArmorCap": true,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      822,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/weapon-start-effects/birth-inputs.json",
+      "sha256": "e5e958162f8499d3b3b16e626dafee715bee61c9bb49f73784db0900152e30ce"
+    },
+    "audit": {
+      "path": ".local/class-skills/weapon-start-effects/audit-inputs.json",
+      "sha256": "73b934bb928855f5dc095bcf99e0e992a1b23ef3f040abef514e4fc9b94c982b"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/ClassStats.cs": "a42cb780cb5002776cb29f9ea3471d8453c154937af759241f60115f13ffb24a",
+    "src/Sanctuary.Content/NamedCombat.cs": "7eee23a6f8239eb74b73138c80b8d3bb8f6b24b6800d692393925bb4ac507650",
+    "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5138ab46ea33d0f529b72e18664b9677c4cbbde8562d3a8ef9b662e599d891c7",
+    "src/Sanctuary.Content/PoisonDaggerContact.cs": "ecac7ec240d653addb7ddc48285f344c262acc6792634723d5826fe4c610228b",
+    "src/Sanctuary.Content/TimedEffects.cs": "ead8e6069d11859ebfdc9d2e35e2b41d2cf3b747124ffbb82b3e745e6734cd19",
+    "src/Sanctuary.Content/WeaponStartEffects.cs": "480a59961f1de39597eca4fbc4b4bf30675308d73127b73ae9a283af8342d5d4",
+    "tests/Sanctuary.Integration/WeaponStartChecks.cs": "bbe7a511f871b08a062d8e7261375298c950c3e628159db1fddfe8f087d3ad2f"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-dagger-contact/birth-native-checks.log": "f1cb177183504f8b0c653ab879e7607f8ac527086c2a1b334eb91ad6ab3bf444",
+    ".local/class-skills/weapon-start-effects/audit-inputs.json": "73b934bb928855f5dc095bcf99e0e992a1b23ef3f040abef514e4fc9b94c982b",
+    ".local/class-skills/weapon-start-effects/audit-native-checks.log": "de407927d2bc98f1718156aa385279a152f6fb561f02d8b0d169de59d4e0c4bf",
+    ".local/class-skills/weapon-start-effects/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/weapon-start-effects/birth-inputs.json": "e5e958162f8499d3b3b16e626dafee715bee61c9bb49f73784db0900152e30ce",
+    ".local/class-skills/weapon-start-effects/birth-native-checks.log": "1ea8cd5988a1f9554514adc9cbe491a5d452f775331de07400fda148716ddaf6",
+    ".local/class-skills/weapon-start-effects/content-build-4.log": "b80ea3b6217ee439a9f2bc12c9d71d33a00de20e97ae4e3f762d62b6b5e499b6",
+    ".local/class-skills/weapon-start-effects/integration-build-4.log": "effd10e8bbe272f5793fcba27bbb0812d206450a22edfa889e0ffbfffcc54af7",
+    ".local/class-skills/weapon-start-effects/pre-build-4.json": "27c9169f6ff8c47d2a9ef38e2a16432017459224e9aa18edc26980ef517c74aa",
+    ".local/class-skills/weapon-start-effects/python-tests.log": "b03910eb217a42c1b6be5f939464c3e0416b3dc63716e6019a7cc4e671708663",
+    ".local/class-skills/weapon-start-effects/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/weapon-start-effects/weapon-start-fixtures.json": "80e209f489d48dd8a0281a5d9a089219ee6e3eeeeae1c30723cd7b4330ee95fa",
+    "data/Sanctuary/Balance/prevent-heal-immune-monsters.json": "e1ecbed1c42a26c729be6a8f62daf7147b38b735bbcfc3e734b1bcf1b0eff6bc",
+    "docs/class-skill-roadmap.md": "c1259a878ce20a2ff83b8688e773fc7507ca991f0cba290ff2c87e284f371ff2",
+    "docs/class-skills-resume-checkpoint.md": "5b569b676d22ba1e5e3f1e451509d36c92f4adb4b1013ef8a73d920eec15d4ca",
+    "docs/skill-effects.md": "56b202a3fe8b1363ae97cbbdfd74267a1b9d8bf871cc8f0e5fcfa2125e1eede7",
+    "docs/skill-icons.md": "cc865533ea56d4ea26cc6c1d1e558129e2c60d01ccb574ebedf892cc0ca5749d",
+    "docs/skill-mechanical-reference.md": "a2547ffae4aaa4d563252f73141c907379507eae9e13547daae17c122d433c8c",
+    "docs/weapon-start-checkpoint.md": "d5199aca3f6c71d72e7bd982ac85b5a9c4c2b157ca4bf644b7e233cccebd21da",
+    "src/Sanctuary.Content/ClassStats.cs": "a42cb780cb5002776cb29f9ea3471d8453c154937af759241f60115f13ffb24a",
+    "src/Sanctuary.Content/NamedCombat.cs": "7eee23a6f8239eb74b73138c80b8d3bb8f6b24b6800d692393925bb4ac507650",
+    "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5138ab46ea33d0f529b72e18664b9677c4cbbde8562d3a8ef9b662e599d891c7",
+    "src/Sanctuary.Content/PoisonDaggerContact.cs": "ecac7ec240d653addb7ddc48285f344c262acc6792634723d5826fe4c610228b",
+    "src/Sanctuary.Content/TimedEffects.cs": "ead8e6069d11859ebfdc9d2e35e2b41d2cf3b747124ffbb82b3e745e6734cd19",
+    "src/Sanctuary.Content/WeaponStartEffects.cs": "480a59961f1de39597eca4fbc4b4bf30675308d73127b73ae9a283af8342d5d4",
+    "tests/Sanctuary.Integration/WeaponStartChecks.cs": "bbe7a511f871b08a062d8e7261375298c950c3e628159db1fddfe8f087d3ad2f",
+    "tests/check_weapon_start.py": "054ccb5f43383db2c21ac3b7e28999df1a9aad52c94cf27be19b2a1c98a821ec",
+    "tests/check_weapon_start_audits.py": "bde2f0b723050444f44d91b6df20606063bf5edd24b40f1ce6cf2921c3b191b7",
+    "tools/build_weapon_start_rules.py": "ae73750052678db3dca32ff5418f006128b15ab72339827466275c1f3ca7383e",
+    "tools/record_weapon_start.py": "d9455cf2529ad717a3a3fdb4c8de13fb1eb63ffb1409f13549b0874233762fdd",
+    "tools/reference/first-loop-affix-audit.json": "056d09f9e9c7bdc7ec9cfd398df88740397c432c36545dcc69ad5a5baf49ad36",
+    "tools/reference/named-item-runtime-audit.json": "281d5812cecfd334615ac40db414d0665867145abd0582bba1d6e90f920b2a85",
+    "tools/reference/poison-dagger-contact-native-evidence.json": "1fa3f171b9843e2e11f130dff4946d622962290dd00864eddc7950948f77a428",
+    "tools/reference/weapon-start-source-review.json": "1cae396128a06ec42c2aab13a1bffef554e1a031a0a032198638437f90db5a02",
+    "tools/review_weapon_start.py": "580a35f13d0373b38334fd3beded9cd848ea7ee0967c0ab1cb145457dddbcc5d"
+  },
+  "established": [
+    "Poison Dagger applies no-heal after a successful start hit roll and before shield blocking;misses exclude it,Stop does not undo it,and release does not duplicate its deadline.",
+    "Current owned monster flags exclude nine species,including three Colossal rows,instead of guessing exclusions from the older hard-coded Uber range.",
+    "Flat target armor loss runs during damage preparation. Its existing persistent NPC lane now precedes defense percentages/Inner Sight and includes attached item armor in the zero cap.",
+    "Real Spineripper,Woestave and an attached Shaftstop original verify live consumers. Exact healing deadlines/armor loss persist over two native reloads;all127predecessor markers remain covered."
+  ],
+  "remaining": [
+    "Registered item callback/RNG order and other weapon producers' legacy setup timing remain open. Positive target-armor changes are explicitly unsupported.",
+    "Native creature base armor remains the existing Sanctuary projection;full modern stat graph/source RNG/current executable observation is not established by the static review.",
+    "Previous incoming modifier/special-recipient,armor/Iron Maiden,initial-poison modern applicability,geometry/component/RNG and charged-item/Blood Mana gaps remain. No full-class run,skill/class completion,deployment or final assets are claimed.",
+    "Continue the Necromancer summon/projectile audit while these nonblocking item-event gaps remain documented."
+  ]
+}

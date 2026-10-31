@@ -1,0 +1,17 @@
+# Weapon start effects and armor loss
+
+Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations taking precedence. Candidate follows `a648895`, staged under `.local/class-skills/weapon-start-effects`; installed build/saves are unchanged.
+
+Poison Dagger now applies Prevent Monster Heal when its hit roll succeeds, before trying the defender's shield. A miss leaves healing unchanged; a subsequent block or cancellation does not undo the completed hit-roll effect. Release no longer repeats or refreshes this start effect. The existing 120,000-frame/80-minute state and persistence service are reused.
+
+Current owned `monstats` flags provide nine immune species: the six Uber rows and `colossal1`, `colossal2`, `colossal3`. The runtime list is generated and checked by `tools/build_weapon_start_rules.py`; all 751 rows are compared with the C# predicate. This supersedes the older source's hard-coded Uber-only range. Unclassified native monsters retain their existing eligibility policy. Revive repertoire inheritance remains separate.
+
+Flat target-armor loss now runs during Poison Dagger's damage preparation, after hit/block selection and before packet allocation. The reusable helper is checked with real Woestave equipment; no synthetic flat-armor dagger is introduced. The permanent loss lane now participates before Defiance and other defense percentages, alongside Inner Sight. Its cap includes attached NPC item defense. A real Shaftstop original attached to an existing summon holder verifies that the full armor pool can reach zero. Positive target-armor mutation remains explicitly unsupported and refuses before a new Poison Dagger payment.
+
+The complete older hit/result/fill/defense functions are reviewed and hashed in `tools/reference/weapon-start-source-review.json`. This establishes source phase relationships, not execution of the modern binary or complete event registration parity. Native creature base defense remains Sanctuary's existing projection rather than a reconstruction of every D2 stat-list node.
+
+Live verification covers four real Spineripper hit/miss/shield starts, pre-shield no-heal state, cancellation persistence and absence of a duplicate release refresh. Woestave verifies repeated base loss before Defiance/Inner Sight; Shaftstop covers the attached-item cap. Exact saved healing deadlines and armor loss are checked through two actual native reloads. The initial fixture used native VirtualArmor as a defense assumption; the corrected fixture sets an explicit Dexterity basis. Final acceptance and retained regression evidence are in `tools/reference/weapon-start-native-evidence.json`.
+
+Other weapon producers retain their documented legacy setup timing. Poison Dagger's remaining registered effects still use their existing callback/RNG order; armor/Iron Maiden, incoming native modifiers, special recipient adapters, initial-poison modern applicability, geometry/component/RNG and charged-item/Blood Mana gaps remain open. No skill/class completion or new full-class run is claimed. Next: audit Necromancer summon/projectile delivery, retaining these nonblocking item-event gaps on the roadmap.
+
+This increment needs no new independent art. Existing native presentation remains identified placeholder art/audio. Final skill effects/audio and talent/hotkey icons remain separately tracked; no image generation or deployment was performed. `.tools` stays unstaged.

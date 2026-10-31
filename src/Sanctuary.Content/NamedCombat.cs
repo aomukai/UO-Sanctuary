@@ -100,11 +100,11 @@ public static class NamedCombat
         else if (Elite(target)) { rate /= 2; }
         return rate * 200.0 / 256;
     }
-    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false)
+    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false,bool setupApplied=false)
     {
         if (!target.Alive || target.Deleted) { return; }
         TimedEffects.Slow(target, ClassGear.Bonus(player, "slow"), TimedEffects.Now);
-        if (target is BaseCreature defender)
+        if (!setupApplied && target is BaseCreature defender)
         { TimedEffects.ReduceDefense(defender, Math.Max(0, -ClassGear.Bonus(player, "dmg-ac")), TimedEffects.Now); }
         if(!smite){NamedControl.Freeze(player, target, ClassGear.Bonus(player, "freeze"), ranged, random);}
         NamedControl.ApplyBlind(player, target, ClassGear.Bonus(player, "stupidity"), ranged, random);
@@ -112,7 +112,7 @@ public static class NamedCombat
         int wounds = Math.Clamp(ClassGear.Bonus(player, "openwounds"), 0, 100);
         if (wounds > 0 && random.Next(100) < wounds)
         { TimedEffects.Bleed(player, target, OpenWoundsDamage(ClassStats.Level(player), target, ranged), TimedEffects.Now); }
-        if (target is BaseCreature && ClassGear.Bonus(player, "noheal") > 0)
+        if (!setupApplied && target is BaseCreature && ClassGear.Bonus(player, "noheal") > 0)
         { TimedEffects.PreventHealing(target, TimedEffects.Now); }
         if (!smite && !skipKnockback && ClassGear.Bonus(player, "knock") > 0 && !Elite(target) && target.Map == player.Map)
         {

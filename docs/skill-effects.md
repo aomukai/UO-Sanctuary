@@ -1,5 +1,7 @@
 # Skill effects
 
+The [weapon-start correction](weapon-start-checkpoint.md) adds no new visual or audio producer. Prevent Monster Heal and flat armor loss use existing state services; final Poison Dagger effects/audio remain pending alongside the identified native placeholders. The separate talent/hotkey icon ledger is unchanged.
+
 The [ordered Poison Dagger contact](poison-dagger-contact-checkpoint.md) retains native weapon pose/sound, shield/contact/retaliation flashes and shared cold/poison markers as identified placeholders. Final poison impact/state, weapon/block/return/overlay effects and audio remain pending. Its 127 native markers verify mechanical behavior; no final art was created. Talent/hotkey icons remain separate.
 
 The [player-source damage bridge](prepared-player-native-damage-checkpoint.md) adds no assets. Its 124 native markers verify shared notification/credit support; actual Poison Dagger contact integration is next. Existing final effects/audio and talent/hotkey icons remain independently pending.

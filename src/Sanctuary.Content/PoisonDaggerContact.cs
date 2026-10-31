@@ -13,6 +13,7 @@ internal static class PoisonDaggerContact
 {
     internal static void Require(PlayerMobile source,BaseCreature target)
     {
+        WeaponStartEffects.Require(source);
         var metadata=NativeMonsterReturn.Metadata(target);IronGolemContact.Events(target);
         if(metadata.Base==78&&!target.Frozen&&NamedControl.FrozenRemaining(target)==0)
         {throw new NotSupportedException("Sand-leaper return movement needs its Poison Dagger actor adapter.");}
@@ -67,7 +68,7 @@ internal static class PoisonDaggerContact
         {
             // Preserve existing supported conditional item consumers. Their
             // internal registration/RNG order still needs individual acceptance.
-            NamedCombat.AfterStrike(source,target,false,PoisonDaggerCombat.Effects);
+            NamedCombat.AfterStrike(source,target,false,PoisonDaggerCombat.Effects,setupApplied:true);
         }
         internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>events.Dispatch("killed",p);
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)

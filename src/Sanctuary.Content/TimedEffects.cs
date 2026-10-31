@@ -262,7 +262,7 @@ public static class TimedEffects
         Settle(owner, now);
         if (!owner.Alive || owner.Deleted || owner.IsDeadBondedPet) { return; }
         var a = Actor(owner, now);
-        a.DefenseLoss = (int)Math.Min(CreatureProfiles.Defense(owner), (long)a.DefenseLoss + reduction);
+        a.DefenseLoss = (int)Math.Min(checked(CreatureProfiles.Defense(owner)+NpcEquipmentCombat.Defense(owner)), (long)a.DefenseLoss + reduction);
     }
     internal static bool Poison(Mobile source, Mobile target, double total, int duration, DateTime now)
         => ApplyPoison(source, target, total / duration, duration, null, now);
