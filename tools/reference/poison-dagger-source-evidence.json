@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "necromancer.poisondagger",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 6912,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledUnchangedRoutines": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11"
+  },
+  "unchangedPoisonLaneSha256": "e1c1a5c20d66c51a7bc599b533d899ef292fc8613fd6bbdbe6f8635e2665bbe1",
+  "pinnedSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "established": [
+    "Complete elemental getters and roll/element assignment execute before the unchanged shared melee poison lane. Skill and owner-item rates join one packet. Source128 retains that sum; lengths add before item-count averaging.",
+    "Poison mastery applies within the complete skill endpoint getter and separately to item endpoints. A positive override adds its length to the existing skill length and suppresses item-count division.",
+    "All damage tier boundaries, effective rank255, declared hard synergy totals0/1/40, mastery0/25, item endpoints/count/length/override and separate exclusive roll endpoints are exercised."
+  ],
+  "limits": [
+    "Formula, prepared stats, tables and deterministic RNG endpoints are declared services. Synthetic item count/length combinations test arithmetic and do not claim valid equipment projections.",
+    "Only the complete poison lane of FillDamageValues executes, not its physical, drain, event or allocation paths. The skill start/contact/weapon eligibility/mode and modern executable remain separate acceptance requirements.",
+    "No native runtime or learned skill behavior changes in this source-probe increment."
+  ],
+  "artifacts": {
+    "tools/probe_poison_dagger_reference.py": "58409bf5882c2cba81ae4344483252c77edb069e0f6e1780f6893fd836c4592f",
+    ".local/class-skills/poison-dagger-source/source.cpp": "0761ab81c84b30d5f24ff328ff2007515fc9bd0de94ff2a3e1279a57b70fdd31",
+    ".local/class-skills/poison-dagger-source/cases.json": "b7147596d9a0bc822c84e9dbf799069a59946d4388ce511164aa2d2c4a25b15f",
+    ".local/class-skills/poison-dagger-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/poison-dagger-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
