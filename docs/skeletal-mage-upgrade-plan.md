@@ -1,24 +1,28 @@
-# Skeletal Mage upgrade plan
+# Approved Skeletal Mage upgrade plan
 
-Approved Sanctuary design beyond **D2R Reign of the Warlock 3.3.93847**, updated2026-11-01JST. The user requested designing pet adjustments now while baseline class skills are being implemented. Implementation was previously scheduled after baseline skills; the design below does not claim a completed upgrade.
+Approved Sanctuary design beyond **D2R Reign of the Warlock 3.3.93847**, settled 2026-11-01 JST. This plan is not an implementation certificate. Design was requested now while baseline class skills are being finished.
 
-Use **three Mage types: fire, lightning and ice**, with poison removed and the existing cold type consolidated into ice. Each keeps its element. Unlock extra abilities from **hard points in Raise Skeletal Mage**. The player has no points in Mages and cannot supply current-build observations; continue from existing references without asking for Mage tests.
+Use **fire, lightning and ice Mages**. Remove poison from new summons; saved poison Mages convert to ice while preserving ownership and life percentage. Keep existing verified summon/clock/projectile foundations and baseline capture/persistence rules outside the explicit changes.
 
-| Summon hard points | Fire Mage | Lightning Mage | Ice Mage |
+| Raise Skeletal Mage hard points | Fire | Lightning | Ice |
 | --- | --- | --- | --- |
-| 1 | Fire Bolt, scaling like Sorceress Fire Bolt. | Charged Bolt, scaling like Sorceress Charged Bolt. | Ice Bolt. |
-| 5 | Multishot for basic Fire Bolts only. | Multishot for basic Charged Bolts only. | Multishot for basic Ice Bolts only. |
-| 10 | 5% chance to cast level-10 Meteor. | 5% chance to cast level-10 Chain Lightning. | 5% chance to cast level-10 Glacial Spike. |
-| 20 | Cast level-20 Enchant on allies. | 5% chance to cast level-5 Static Field. | Gain level-20 Frozen Armor. |
+| 1 | Fire Bolt. | Charged Bolt. | Ice Bolt. |
+| 5 | Triple basic Fire Bolts. | Triple the normal Charged Bolt volley. | Triple basic Ice Bolts. |
+| 10 | 5% level-10 Meteor. | 5% level-10 Chain Lightning. | 5% level-10 Glacial Spike. |
+| 20 | Automatic level-20 Enchant on allies at combat start. | 5% level-5 Static Field. | Intrinsic, always-on level-20 Frozen Armor. |
 
-**Fire Mage combat opening:** scan nearby allied units when combat starts. Enchant units that lack the buff, continuing until all allies in range are enchanted, then perform offensive casting. Fire Mages have **no Fire Mastery**. Do not replace this priority with a guessed random Enchant proc. Ally range, ongoing maintenance/expiry, strength arbitration, resources and cast cadence remain open.
+**Scaling:** basic spell level equals effective Raise Skeletal Mage, including items, and uses the corresponding Sorceress spell curve. Keep Skeleton Mastery’s normal Mage benefit. There are no Sorceress masteries or synergies. The secondary spell levels listed above are fixed; item bonuses do not raise them.
 
-**Corpse shattering is approved.** The user accepts choosing between corpse-explosion and army builds. Reuse existing cold/freeze/death/corpse consumers according to the chosen spells; do not invent a blanket cold-damage shatter rule.
+**Multishot:** only basic Fire Bolt, Ice Bolt and Charged Bolt gain triples. Charged Bolt produces three normal volleys; no secondary spell gains extra copies.
 
-The stated secondary spell levels are fixed requested levels (Meteor10, Enchant20, Chain Lightning10, Static Field5, Glacial Spike10, Frozen Armor20), not assumed to rise with soft summon ranks. Basic spell level mapping, soft-rank scaling and any later changes to secondary levels remain undecided. “5%” is the requested chance; its roll opportunity, time cadence and arbitration are still open. Multishot applies only to basic bolts; count/spread and interaction with Charged Bolt’s existing projectile count need design.
+**Proc timing/resources:** one roll per eligible offensive cast; at most one secondary. Each Lightning secondary has 5% chance. Respect existing spell cooldowns and Mage timing; NPC casts require no mana. No repeated same-tick rerolls or simultaneous double-secondary cast.
 
-Keep the existing verified bolt/clock/summon machinery as the baseline foundation. Reuse existing Sorceress spell/formula, shared projectile fan, status, AI, health and summon-persistence services rather than duplicating them. Old poison-Mage saves require an explicit migration choice; no silent conversion, random reroll or deletion. Unlock changes after training/respec and existing-actor updates also need a defined rule.
+**Automatic buffs:** Enchant applies at combat start to eligible owner/party/allied summons within normal targeting range/LOS. There is **no casting action**, sequential buff-casting phase or requested continuous scanning. Reuse existing Enchant duration and stacking/strength rules. Fire Mages have no Fire Mastery. Frozen Armor is an **always-on effect while the 20-hard-point unlock is active**, rather than a timed self-cast that needs refreshing. These choices supersede the earlier active buff-casting proposals.
 
-The earlier proposed Fire Ball/Blizzard/poison-cloud package is superseded. The [full pet review](pet-adjustment-review.md) records the confirmed Skeleton Warrior/golem changes and remaining design details. Warlock, Assassin and Amazon pets remain outside this adjustment pass.
+**Lifecycle:** existing pets gain/lose hard-point unlocks on training/respec. Preserve old actors and their life percentage/ownership when converting poison to ice; no deletion or random reroll. Preserve established baseline birth/stat-capture behavior beyond these explicit changes.
 
-Final assets stay independent of mechanical implementation. Track missing cast/projectile/impact/status/body/shatter/audio requirements in [skill effects](skill-effects.md), using identified placeholders. Track talent-tree/hotkey icons separately in [skill icons](skill-icons.md); autonomous pet abilities do not automatically create player hotkeys. No new spell, final asset or icon is implemented by this plan.
+**Corpse shattering is accepted:** the player chooses between a corpse-explosion build and an army build. Reuse existing cold/freeze/death/corpse mechanics, not a blanket shatter flag for every cold hit.
+
+Reuse existing spells/formulas, NPC damage/status services and the shared projectile fan. The earlier Fire Ball/Blizzard/poison-cloud package is superseded. The player has no Mage points and cannot provide current-build Mage observations; do not request a respec/test. See the [full pet design](pet-adjustment-review.md) for other approved pets and remaining Druid questions.
+
+Effects/audio and tree/hotkey icons remain separate in [skill effects](skill-effects.md) and [skill icons](skill-icons.md). Use identified placeholders and existing assets as appropriate. Autonomous abilities add no approved player binding. No spell upgrade, final art or icon is implemented by this plan.

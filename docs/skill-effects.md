@@ -1,5 +1,7 @@
 # Skill effects
 
+The [approved pet design](pet-adjustment-review.md) now specifies **always-on Frozen Armor** for ice Mages and **automatic combat-start Enchant application**, so these require status/application feedback rather than new buff-casting sequences. Druid wolf Open Wounds/affixes and Grizzly Stun/Crushing Blow should reuse existing feedback where suitable; any pet-specific variants remain pending. Poison Creeper’s damage scaling adds no separate spell or required new effect beyond its already tracked vine/poison presentation. No new art or upgrade implementation is claimed.
+
 The [Iron Maiden increment](iron-maiden-checkpoint.md) retains curse marker `0x375A`/hue `0x455`, cast sound `0x1E5` and shared retaliation flash `0x374A`/hue `0x481` as identified placeholders. Final cast/hit/`curseironmaiden` state and retaliation effects/audio remain pending. Fractional event and damage timing do not wait for art.
 
 The approved [Necromancer pet adjustments](pet-adjustment-review.md) need a later asset pass: basic fire/charged/ice Mage bolts and multishot, pet Meteor/Enchant/Chain Lightning/Static Field/Glacial Spike/Frozen Armor casting and impacts, cold corpse shattering, Skeleton ATD/Extra Fast feedback and golem affix/Open Wounds/Life Tap/cold-protection feedback. Reuse existing spell assets where suitable. These are **planned missing or reusable assets**, with no new art or enhancement implemented yet; identified placeholders must keep mechanics moving. Exact additional effects depend on the remaining design choices.

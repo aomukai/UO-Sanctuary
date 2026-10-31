@@ -1,81 +1,69 @@
-# Necromancer and Druid pet adjustment review
+# Approved Necromancer and Druid pet adjustments
 
-Reference baseline: **D2R Reign of the Warlock 3.3.93847**. This document records Sanctuary design decisions separately from baseline mechanical verification. User requested the design discussion now, while remaining class skills are being implemented. No new adjustment is implemented by this document.
+Reference baseline: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary deviations take precedence. This is the approved design, updated 2026-11-01 JST; **the upgrades are not implemented yet**. The user requested settling the design while baseline class skills are being finished. The balance aim is viable pure pet builds.
 
-Approved scope: review **all Necromancer and Druid pets**. Warlock, Assassin and Amazon pets are satisfactory and remain outside this adjustment pass. Reviewing a pet does not imply it needs a change. The user’s balance aim is **viable pure pet builds**.
+Only Necromancer and Druid pets receive the balance changes below. Warlock, Assassin and Amazon pets retain their intended baseline behavior. Reuse existing affixes, item properties, spells, projectile fans, statuses, AI, damage and persistence services.
 
-Selected pets may gain extra abilities unlocked by **hard points** invested in their summon skill. Exact pets, unlock thresholds, ability ranks/scaling, cooldowns/resources and AI priorities remain undecided unless recorded below.
+## Shared rules
 
-| Necromancer pet | Review state |
-| --- | --- |
-| Skeleton Warriors (Raise Skeleton) | Straight melee. At 10 hard points gain the existing item-style flat physical ATD property, with **34 as a provisional starting amount**. At 20 gain the existing monster Extra Fast affix. Earlier movement+attack intent versus the currently movement-only implementation needs reconciliation. |
-| Skeletal Mages | Three final types: fire, lightning and ice; poison is removed. Confirmed rank 1/5/10/20 spell progression and chances are specified below and in the [Mage plan](skeletal-mage-upgrade-plan.md). |
-| Clay Golem | Same damage and damage scaling as one summoned Skeleton Warrior. At 10 hard points gain Stone Skin; at 20 gain Magic Resistant. |
-| Blood Golem | 150% of Clay Golem damage. At 10 hard points gain Open Wounds; at 20 gain a 5% chance to proc level-5 Life Tap. Open Wounds percentage remains open. |
-| Iron Golem | Same damage as Clay Golem. At 10 hard points gain Extra Strong; at 20 gain Spectral Hit. Preserve original-item identity/effects and item safety rules; exact composition with the new baseline remains to be specified. |
-| Fire Golem | 200% of Clay Golem damage (twice Clay, not +200%). Holy Fire uses Paladin scaling. At 10 hard points gain Cannot Be Frozen; at 20 gain cold immunity. Exact aura-rank mapping and base/innate-fire composition remain open. |
-| Revived monsters | Pending additional review. Existing approved rules remain: no expiration timer; last until death, Necromancer death or replacement; retain original living abilities; corpse loot stays lootable while combat effects are preserved separately. Global monster spell conversion remains separate work. |
+- Ability/affix unlocks use **hard points in the relevant summon skill**. Existing pets gain/lose unlocks on training/respec.
+- Use named monster affixes **exactly as currently implemented**. In particular, Extra Fast is movement-only; this explicitly supersedes the earlier movement-and-attack answer. Do not change the global affix or add unrelated elite health/loot bonuses.
+- Open Wounds is **100% on successful hits**, using the existing item-property consumer. This common decision also applies to the Druid wolf unlock; preserve Spirit Wolves’ cold-only attacks rather than adding a guessed physical component.
+- Cold immunity is ordinary resistance-based immunity and remains breakable under the existing immunity rules.
+- Keep baseline abilities and lifecycle rules except where the approved replacement formula or ability below changes them. Preserve existing birth/stat-capture behavior outside explicitly live hard-point unlocks; no new blanket gear-refresh rule is introduced.
+- Preserve the working build and saves. Old poison Mages convert to ice, retaining ownership and current life percentage. Do not delete or reroll them.
 
-| Druid pet | Review state |
-| --- | --- |
-| Ravens | Pending role/ability review. |
-| Spirit Wolves | At 10 hard points gain Open Wounds; at 20 gain cold immunity. Preserve baseline cold attacks/unchillability. Open Wounds chance and immunity representation remain open. |
-| Dire Wolves | At 10 hard points gain Extra Fast; at 20 gain Extra Strong. Reuse the shared affix decisions made for Necromancer pets. |
-| Grizzly | At 10 hard points gain Stun; at 20 gain **10% Crushing Blow**. Stun chance/duration/delivery remain open. This is an approved addition beyond the baseline knockback/no-stun observation. |
-| Poison Creeper | Improve damage scaling, targeting **about 2,000 total poison damage over four seconds at rank 20**, not 2,000 per second. Exact curve, range and synergy context remain open. |
-| Carrion Vine | User says it is fine; retain its baseline behavior. |
-| Solar Creeper | User says it is fine; retain its baseline behavior. |
-| Oak Sage | User says spirits are fine; retain baseline behavior. |
-| Heart of Wolverine | User says spirits are fine; retain baseline behavior. |
-| Spirit of Barbs | User says spirits are fine; retain baseline behavior. |
+## Necromancer
 
-Implementation should reuse existing player/NPC spells, projectiles, statuses, movement, combat and summon persistence services. Proposed automatic casting, soft-rank spell scaling, skill selection, targeting and control rules have not yet been approved. Record confirmed choices here; leave unanswered questions nonblocking for unaffected baseline work.
+| Pet | Damage/baseline | 10 hard points | 20 hard points |
+| --- | --- | --- | --- |
+| Skeleton Warriors | Straight melee. | **34 flat physical attacker-takes-damage**, fixed after unlock and aggregated through existing item-property rules. | Existing **Extra Fast** affix. |
+| Clay Golem | Skeleton Warrior damage curve at the golem’s effective rank, with **Golem Mastery replacing Skeleton Mastery** for damage mastery scaling. | Stone Skin. | Magic Resistant. |
+| Blood Golem | **150% of Clay’s damage**. | Open Wounds. | **5% chance to proc level-5 Life Tap**. |
+| Iron Golem | Clay’s base damage; original-item bonuses/effects still apply through existing rules. | Extra Strong. | Spectral Hit. |
+| Fire Golem | **200% of Clay’s physical base**, plus Holy Fire separately. Holy Fire level equals effective Fire Golem level and uses Paladin damage/radius progression, with no Paladin synergies. | Cannot Be Frozen. | Cold immunity. |
 
-Track every extra cast/projectile/impact/status/body/audio requirement in [skill effects](skill-effects.md), and tree/hotkey icon requirements separately in [skill icons](skill-icons.md). Autonomous pet abilities do not imply a new player binding. Final assets must not block mechanics; label placeholders clearly. Preserve installed builds and saved actors; migration of any future enhancement needs its own verified rule.
+Golem damage ratios describe the approved replacement baseline rather than an additional multiplier on the old unrelated base damage. Compose existing item/enchantment/aura contributions through the shared consumers without adding the old innate Fire Golem skill-fire packet again. Other baseline golem abilities remain unless this formula replaces their damage component.
 
-## Confirmed Skeletal Mage progression — 2026-11-01 JST
+Revives keep the previously approved no-expiration rule: they last until their death, Necromancer death or replacement, and retain the original monster’s living abilities. Loot stays lootable while combat effects are preserved separately. No additional Revive adjustment was selected in this pass; global monster spell conversion remains separate work.
 
-All breakpoints below refer to hard points in Raise Skeletal Mage, following the established unlock rule. Basic spell rank/scaling beyond the entry rank and the role of soft ranks still need an explicit mapping. This is a **three-type roster**, consolidating ice/cold and removing poison; existing saved poison Mage migration/type selection must be designed rather than silently rerolled.
+### Skeletal Mages
 
-| Type | Rank 1 | Rank 5 | Rank 10 | Rank 20 |
+Use **three types: fire, lightning and ice**. Remove poison from new summons and convert saved poison Mages to ice under the preservation rule above. Keep each type’s elemental identity.
+
+| Type | Basic attack from rank 1 | 5 hard points | 10 hard points | 20 hard points |
 | --- | --- | --- | --- | --- |
-| Fire | Fire Bolt, scaling like Sorceress Fire Bolt. | Multishot for its basic bolt only. | 5% chance to cast level-10 Meteor. | Cast level-20 Enchant on allies. |
-| Lightning | Charged Bolt, scaling like Sorceress Charged Bolt. | Multishot for its basic bolts only. | 5% chance to cast level-10 Chain Lightning. | 5% chance to cast level-5 Static Field. |
-| Ice | Ice Bolt. | Multishot for its basic bolt only. | 5% chance to cast level-10 Glacial Spike. | Gain level-20 Frozen Armor. |
+| Fire | Fire Bolt, using Sorceress scaling. | Triple basic Fire Bolts. | **5% level-10 Meteor**. | Automatically apply **level-20 Enchant** to allies in range when combat starts. |
+| Lightning | Charged Bolt, using Sorceress scaling. | Triple the normal Charged Bolt volley. | **5% level-10 Chain Lightning**. | **5% level-5 Static Field**. |
+| Ice | Ice Bolt. | Triple basic Ice Bolts. | **5% level-10 Glacial Spike**. | **Always-on level-20 Frozen Armor**. |
 
-Fire Mages have **no Fire Mastery**. At combat start they scan allied units in range, prioritize units lacking Enchant, and continue enchanting until all allies in range are enchanted. Preserve this requested priority instead of replacing it with a random Enchant proc. Refresh/expiry behavior during an ongoing fight, ally range, overlapping supplier strength and cadence remain unspecified.
+Basic spell level follows effective Raise Skeletal Mage, including items. Keep Skeleton Mastery’s normal Mage benefit. Mages have **no Sorceress masteries or synergies**; in particular Fire Mages do not have Fire Mastery. The specified secondary spell levels are fixed and do not rise with soft summon ranks.
 
-The user explicitly accepts corpse shattering: Necromancers can choose a corpse-explosion build or an army build. Reuse existing cold/freeze/death/corpse consumers; do not manufacture a blanket shatter rule for every cold hit.
+Multishot affects **only** Fire Bolt, Ice Bolt and Charged Bolt. It never triples Meteor, Enchant, Chain Lightning, Static Field, Glacial Spike or Frozen Armor.
 
-The earlier suggested Fire Ball/Blizzard/poison-cloud package is **superseded** by this explicit user design. Only the three basic bolt attacks gain multishot; Meteor, Enchant, Chain Lightning, Static Field, Glacial Spike and Frozen Armor do not gain extra copies from that unlock.
+Roll once per eligible offensive cast. At most one secondary is chosen; the two Lightning choices each retain 5% chance. Use existing spell cooldowns and Mage timing. NPC casts have no mana requirement. Eligibility and failed/unavailable secondary choices use existing target/cooldown rules rather than permitting repeated same-tick rerolls.
 
-## Open details to resolve without blocking baseline work
+**Buff simplification explicitly approved:** Frozen Armor is an intrinsic always-on level-20 effect while unlocked, with no cast/refresh cycle. Enchant applies automatically at combat start to eligible owner/party/allied summons within normal targeting range/LOS, with **no casting action**. This replaces the earlier scan-and-sequential-cast/continuous-priority proposal. Reuse existing Enchant duration and stacking/strength rules; no new continuous scan is requested.
 
-- Reconcile Extra Fast: the user previously selected movement **and** attack speed, and now requests the existing monster affix. The current encounter implementation adds movement speed only. Do not silently choose between those instructions or change the shared affix without resolving the intended behavior.
-- Treat ATD34 as provisional (the user compared it to rank-10 Spirit of Barbs), not as an independently verified current reference value or final balance number. Reuse the existing item property/event semantics. Growth beyond the unlock remains open.
-- Basic spell levels versus summon hard/effective rank; inherited mastery/synergy/gear context; multishot count/spread and how it applies to already multi-projectile Charged Bolt.
-- Proc roll opportunity/cadence and competing 5% rolls, spell priority, resources/cooldowns, ranges, and timing. Record each stated 5% as exact requested chance, without silently inventing “per second” or independent simultaneous casts.
-- Frozen Armor activation/refresh behavior; Enchant combat maintenance and eligible allies/range; saved actor upgrades and unlock changes after training/respec.
-- Which Skeleton damage formula/rank/mastery context feeds Clay; distinguish damage endpoints from DPS/attack-rate changes. Blood uses1.5×, Iron1× and Fire2× that approved Clay baseline; rounding, innate elemental additions, weapon/item enhancement and Holy Fire rank mapping remain explicit design work.
-- Affix grade/difficulty context for Stone Skin, Magic Resistant, Extra Strong and Spectral Hit; Open Wounds chance; cold-immunity resistance/curse interaction. Prefer existing shared consumers and avoid pet-specific duplicate formulas.
+Corpse shattering is accepted. Necromancers can choose a corpse-explosion build or an army build. Use existing cold/freeze/death/corpse consumers; this does not invent a blanket shatter rule for every cold hit.
 
-These are approved Sanctuary deviations beyond D2R3.3.93847. **No pet upgrade is implemented by this document.** Preserve baseline abilities unless a specified adjustment replaces them, and verify composition explicitly when implementation begins. Pure pet build viability remains the balance aim; exact benchmark criteria remain open.
+## Druid
 
-Discussion preference: the user asked to stop the question popups because their draft text was disappearing. **Do not send further asynchronous question forms.** Leave space for free-form chat answers and keep unapproved proposals open.
+| Pet | 10 hard points | 20 hard points / balance change |
+| --- | --- | --- |
+| Spirit Wolves | Open Wounds. | Cold immunity. Preserve cold-only attacks and baseline unchillability. |
+| Dire Wolves | Existing Extra Fast affix. | Existing Extra Strong affix. |
+| Grizzly | Stun. | **10% Crushing Blow**. |
+| Poison Creeper | — | Improve scaling toward **about 2,000 total poison damage over four seconds at rank 20**. This is total damage, not damage per second. |
+| Carrion Vine / Solar Creeper | — | No balance changes. |
+| Oak Sage / Heart of Wolverine / Spirit of Barbs | — | No balance changes. |
 
-Druid update, 2026-11-01 JST: the user explicitly leaves the spirits and Carrion/Solar vines unchanged. Ravens were not mentioned in this update and remain under review. Poison Creeper’s requested target is a damage-over-time total; do not reinterpret it as per-second damage or silently choose an effective/hard-rank or pre/post-synergy reference. Wolf cold-only damage must remain compatible with the chosen Open Wounds consumer rather than adding a guessed physical component.
+The Grizzly stun is an approved addition beyond the baseline knockback/no-stun observation. Its chance, duration and eligible attacks still need a decision. Poison Creeper’s exact damage curve and rank/synergy reference around the rank-20 target remain open. Ravens were not specified in this pass and remain unreviewed.
 
-## Necromancer defaults proposed in chat — awaiting user decisions
+## Assets and implementation acceptance
 
-The user requested resolving the remaining details. The following numbered defaults were presented as **proposals**, not approvals. Do not implement them merely because they appear here.
+Track missing cast/projectile/impact/status/body/shatter/audio requirements in [skill effects](skill-effects.md), reusing existing assets where appropriate and identifying placeholders. Track talent-tree/hotkey icons separately in [skill icons](skill-icons.md). Autonomous pet abilities add no approved player hotkeys.
 
-1. Extra Fast: use the existing movement-only affix exactly; adding attack speed would require changing the shared affix. Reconcile with the earlier movement-and-attack answer.
-2. Skeleton ATD: start at34flat physical at10hard points, with no further rank scaling; aggregate through existing item-property rules.
-3. Mage scaling: basic spell level follows effective Raise Skeletal Mage; retain Skeleton Mastery benefit but no Sorceress masteries/synergies. Fixed secondary levels stay as explicitly specified.
-4. Multishot: three shots per basic attack; triple Charged Bolt’s normal volley; never multiply secondary spells.
-5. Procs/resources: one roll per eligible offensive cast, each Lightning secondary at5%with at most one chosen; retain spell cooldowns and Mage timing; no NPC mana requirement.
-6. Buffs: Enchant owner/party/allied summons in normal targeting range/LOS, prioritizing missing buffs during combat; self-cast Frozen Armor on summon and refresh after expiry.
-7. Golem baseline: Skeleton damage curve at effective golem rank, substituting Golem Mastery for Skeleton Mastery; Iron item bonuses still apply; Fire gets2×physical Clay base plus Holy Fire. Existing innate-fire composition still needs an explicit resolution if this choice is accepted.
-8. Holy Fire level: equal effective Fire Golem level, with Paladin damage/radius progression and no invented Paladin synergies.
-9. Open Wounds/affixes:100%Open Wounds on successful hits; full named monster-affix effects without unrelated elite health/loot upgrades; cold immunity remains ordinary breakable resistance-based immunity.
-10. Existing actors: gain/lose unlocks on training/respec; convert saved poison Mages to ice preserving life percentage and ownership.
+No upgrade is mechanically complete merely because its design is approved. Verify formulas, shared affix composition, AI/proc timing, targets, damage/events, live unlock changes, saved poison-Mage conversion, original-item preservation and real save/reloads when implementation begins. Keep unsupported details explicit and continue unaffected baseline work.
+
+Discussion preference: the user requested **no asynchronous question popups** because draft text disappeared. Use free-form chat for any remaining design questions. The ten numbered Necromancer defaults were approved in chat, with the explicit buff changes incorporated above; they are no longer open proposals.
