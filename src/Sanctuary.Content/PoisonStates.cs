@@ -36,11 +36,11 @@ public static class PoisonStates
         return Math.Max(0, before - after);
     }
 
-    internal static void Advance(Mobile target, TimedActor actor, int elapsed)
+    internal static void Advance(Mobile target, TimedActor actor, int elapsed,int bonus256=0)
     {
         if(elapsed>0&&(NpcEquipmentRegeneration.Handles(target)||actor.NpcPoisonElapsedMs!=null))
         {
-            AdvanceEquipped(target,actor,elapsed);return;
+            AdvanceEquipped(target,actor,elapsed,bonus256);return;
         }
         // Legacy rounding allowed a tiny negative HP remainder. It represents
         // numerical zero, rather than a credit against the next integer frame.
@@ -56,10 +56,10 @@ public static class PoisonStates
         // enter the shared FP256 balance exactly once at the next settlement.
         long raw = (long)Math.Floor(actor.PoisonFraction * 256 + 1e-9);
         actor.PoisonFraction -= raw / 256.0;
-        if (raw > 0) { Drain(World.FindMobile(actor.PoisonSource), target, raw); }
+        if (raw+bonus256 > 0) { Drain(World.FindMobile(actor.PoisonSource), target, raw+bonus256); }
         if (actor.PoisonMs == 0) { actor.PoisonClock = null;actor.NpcPoisonElapsedMs=null; }
     }
-    private static void AdvanceEquipped(Mobile target,TimedActor actor,int elapsed)
+    private static void AdvanceEquipped(Mobile target,TimedActor actor,int elapsed,int bonus256)
     {
         int total=(actor.PoisonClock?.ElapsedMs??actor.NpcPoisonElapsedMs??0)+elapsed,frames=total/40;
         if(actor.PoisonClock is{} clock){actor.PoisonClock=clock with{ElapsedMs=total%40};}
@@ -75,7 +75,7 @@ public static class PoisonStates
             // Poison's life-mask removes natural regeneration, not item
             // replenishment. Commit their signed sum once: a lethal poison
             // frame must not kill before its replenish offset is considered.
-            int delta=NpcEquipmentRegeneration.Delta(0,item,rate,true,prevented);
+            int delta=NpcEquipmentRegeneration.Delta(0,item,checked(rate+(i==frames-1?bonus256:0)),true,prevented);
             NpcEquipmentRegeneration.Apply(target,delta,source);
         }
         if(actor.PoisonMs==0){actor.PoisonClock=null;actor.NpcPoisonElapsedMs=null;}

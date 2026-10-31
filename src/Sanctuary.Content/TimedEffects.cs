@@ -17,7 +17,7 @@ public sealed record TimedEffectState(uint Owner, DateTime UpdatedUtc, DateTime 
     uint PoisonSource, int PoisonMs, double PoisonRate, double PoisonFraction,
     RestorationState Life, RestorationState Mana, TimedBuff[] Buffs,
     uint BleedSource = 0, int BleedMs = 0, double BleedRate = 0, double BleedFraction = 0, DateTime HealBlockedUntilUtc = default,
-    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null, SourcePoisonClock PoisonClock = null,int? NpcPoisonElapsedMs = null);
+    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null, SourcePoisonClock PoisonClock = null,int? NpcPoisonElapsedMs = null, SpellPoisonExposure SpellPoison = null);
 
 internal sealed class RestorationLane
 {
@@ -43,6 +43,7 @@ internal sealed class TimedActor(DateTime now)
     internal double PoisonRate, PoisonFraction;
     internal SourcePoisonClock PoisonClock;
     internal int? NpcPoisonElapsedMs;
+    internal SpellPoisonExposure SpellPoison;
     internal Serial BleedSource;
     internal int BleedMs;
     internal double BleedRate, BleedFraction;
@@ -108,7 +109,7 @@ public static class TimedEffects
     {
         if (owner != null && _actors.TryGetValue(owner.Serial, out var a))
         {
-            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0; a.PoisonClock = null; a.NpcPoisonElapsedMs=null;
+            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0; a.PoisonClock = null; a.NpcPoisonElapsedMs=null; a.SpellPoison=null;
             a.BleedMs = 0; a.BleedRate = a.BleedFraction = 0; a.HealBlockedUntil = a.Updated;
             a.SlowUntil = a.Updated; a.SlowPercent = a.DefenseLoss = a.RunningRemainder = 0; a.Control = null;
             if (a.Buffs.Count == 0 && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }
@@ -166,15 +167,24 @@ public static class TimedEffects
         DateTime cursor = a.Updated;
         // Catch-up follows the same short periodic steps as live play. Poison settles before healing in a step;
         // lethal damage cannot be undone by a later restorative payment from the same offline interval.
-        while (elapsed > 0 && owner.Alive && !owner.Deleted && (a.PoisonMs > 0 || a.BleedMs > 0 || a.Life.Duration > 0 || a.Mana.Duration > 0))
+        while (elapsed > 0 && owner.Alive && !owner.Deleted && (a.PoisonMs > 0 || a.SpellPoison!=null || a.BleedMs > 0 || a.Life.Duration > 0 || a.Mana.Duration > 0))
         {
-            int step = a.PoisonMs > 0 || a.BleedMs > 0 ? Math.Min(a.PoisonClock != null || a.NpcPoisonElapsedMs!=null || NpcEquipmentRegeneration.Handles(owner) ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
+            int step = a.PoisonMs > 0 || a.SpellPoison!=null || a.BleedMs > 0 ? Math.Min(a.SpellPoison!=null || a.PoisonClock != null || a.NpcPoisonElapsedMs!=null || NpcEquipmentRegeneration.Handles(owner) ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
             a.Updated = cursor;
-            if (a.PoisonMs > 0)
+            if (a.PoisonMs > 0 || a.SpellPoison!=null)
             {
-                int poisonStep = Math.Min(step, a.PoisonMs); a.PoisonMs -= poisonStep;
                 var previous = DamageTime; DamageTime = cursor;
-                try { PoisonStates.Advance(owner, a, poisonStep); }
+                try
+                {
+                    var spellSource=a.SpellPoison?.Source;
+                    int bonus=SpellPoisonTicks.Advance(owner,a,step);
+                    if(a.PoisonMs>0)
+                    {
+                        int poisonStep=Math.Min(step,a.PoisonMs);a.PoisonMs-=poisonStep;
+                        PoisonStates.Advance(owner,a,poisonStep,bonus);
+                    }
+                    else if(bonus>0){PoisonStates.Drain(spellSource is{} id?World.FindMobile((Serial)id):null,owner,bonus);}
+                }
                 finally { DamageTime = previous; }
             }
             if (!owner.Alive || owner.Deleted || owner.IsDeadBondedPet) { Clear(owner); return; }
@@ -207,7 +217,7 @@ public static class TimedEffects
         if (a.Control is { } control && control.FreezeUntil <= now && control.BlindUntil <= now && control.FearUntil <= now
             && (control.Freeze==null || control.Freeze.AiUntilUtc<=now))
         { a.Control = null; }
-        if (a.Buffs.Count == 0 && a.ChillPercent == 0 && a.SlowPercent == 0 && a.DefenseLoss == 0 && a.Control == null && a.RunningRemainder == 0 && a.PoisonMs == 0 && a.PoisonFraction < 1e-12
+        if (a.Buffs.Count == 0 && a.ChillPercent == 0 && a.SlowPercent == 0 && a.DefenseLoss == 0 && a.Control == null && a.RunningRemainder == 0 && a.PoisonMs == 0 && a.SpellPoison==null && a.PoisonFraction < 1e-12
             && a.BleedMs == 0 && a.HealBlockedUntil <= now && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }
     }
     private static void Restore(Mobile player, RestorationLane lane, bool life, int step)
@@ -278,17 +288,20 @@ public static class TimedEffects
         // poison. Player frame phase remains independent from reapplication.
         if (target is not PlayerMobile && a.PoisonClock is { } old) { a.PoisonClock = old with { ElapsedMs = 0 }; }
         if(target is not PlayerMobile&&a.NpcPoisonElapsedMs!=null){a.NpcPoisonElapsedMs=0;}
+        if(target is not PlayerMobile&&a.SpellPoison is{} spell){a.SpellPoison=spell with{ElapsedMs=0};}
         if (a.PoisonMs > 0 && rate + 1e-12 < a.PoisonRate) { return false; }
         if (clock != null && target is PlayerMobile && a.PoisonClock is { } prior) { clock = clock with { ElapsedMs = prior.ElapsedMs }; }
         if (a.PoisonMs == 0) { a.PoisonSource = source.Serial; }
-        a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonClock = clock;
+        a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonClock = clock; a.SpellPoison=null;
         a.NpcPoisonElapsedMs=clock==null&&(NpcEquipmentRegeneration.Handles(target)||a.NpcPoisonElapsedMs!=null)?0:null;return true;
     }
     public static bool CleansePoison(Mobile target, int remainingPercent, DateTime now)
     {
         Settle(target,now);
-        if (!_actors.TryGetValue(target.Serial,out var actor) || actor.PoisonMs<=0 || !target.Alive) { return false; }
+        if (!_actors.TryGetValue(target.Serial,out var actor) || actor.PoisonMs<=0 && actor.SpellPoison==null || !target.Alive) { return false; }
         actor.PoisonMs=actor.PoisonMs/40*Math.Clamp(remainingPercent,0,100)/100*40;
+        if(actor.SpellPoison is{} exposure)
+        {int left=exposure.RemainingMs/40*Math.Clamp(remainingPercent,0,100)/100*40;actor.SpellPoison=left>0?exposure with{RemainingMs=left}:null;}
         if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; actor.PoisonClock=null; actor.NpcPoisonElapsedMs=null; }
         return true;
     }
@@ -325,7 +338,7 @@ public static class TimedEffects
             rows.Add(new(serial.Value, a.Updated, a.ChillUntil, a.ChillPercent, a.PoisonSource.Value, a.PoisonMs,
                 a.PoisonRate, a.PoisonFraction, a.Life.Snapshot(), a.Mana.Snapshot(), buffs,
                 a.BleedSource.Value, a.BleedMs, a.BleedRate, a.BleedFraction, a.HealBlockedUntil,
-                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock,a.NpcPoisonElapsedMs));
+                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock,a.NpcPoisonElapsedMs,a.SpellPoison));
         }
         return rows.ToArray();
     }
@@ -336,7 +349,7 @@ public static class TimedEffects
         {
             TimedEffectProfiles.Validate(r);
             var a = new TimedActor(r.UpdatedUtc) { ChillUntil = r.ChillUntilUtc, ChillPercent = r.ChillPercent,
-                PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction, PoisonClock = r.PoisonClock,NpcPoisonElapsedMs=r.NpcPoisonElapsedMs,
+                PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction, PoisonClock = r.PoisonClock,NpcPoisonElapsedMs=r.NpcPoisonElapsedMs,SpellPoison=r.SpellPoison,
                 BleedSource = (Serial)r.BleedSource, BleedMs = r.BleedMs, BleedRate = r.BleedRate,
                 BleedFraction = r.BleedFraction, HealBlockedUntil = r.HealBlockedUntilUtc,
                 SlowUntil = r.SlowUntilUtc, SlowPercent = r.SlowPercent, DefenseLoss = r.DefenseLoss, Control = r.Control, RunningRemainder = r.RunningRemainder, Cold = r.Cold };
@@ -359,12 +372,12 @@ public sealed class TimedEffectProfiles : GenericPersistence
     internal void Capture() => _snapshot = TimedEffects.Snapshot();
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(3); writer.Write(_snapshot.Length);
+        writer.Write(4); writer.Write(_snapshot.Length);
         foreach (var row in _snapshot) { writer.Write(JsonSerializer.Serialize(row)); }
     }
     public override void Deserialize(IGenericReader reader)
     {
-        if (reader.ReadInt() is < 0 or > 3) { throw new InvalidDataException("Unsupported timed-effect version."); }
+        if (reader.ReadInt() is < 0 or > 4) { throw new InvalidDataException("Unsupported timed-effect version."); }
         int count = reader.ReadInt(); if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid timed-effect count."); }
         var rows = new TimedEffectState[count];
         for (int i = 0; i < count; i++)
@@ -395,6 +408,7 @@ public sealed class TimedEffectProfiles : GenericPersistence
                 || c.FearX is < 0 or > 100000 || c.FearY is < 0 or > 100000
                 || c.Freeze is{} f && f.AiUntilUtc.Kind!=DateTimeKind.Utc)
             || !Lane(r.Life) || !Lane(r.Mana) || r.Buffs is not { Length: <= 3 }) { throw new InvalidDataException("Invalid timed effect."); }
+        SpellPoisonTicks.Validate(r.SpellPoison,r);
         var categories = new HashSet<TimedEffectCategory>();
         foreach (var b in r.Buffs)
         {

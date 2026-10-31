@@ -17,19 +17,25 @@
   ],
   "implementationAccepted": false,
   "remaining": [
-    "Connect the tick additions to the shared effect scheduler and test activation/expiry during an existing spell exposure.",
-    "Cure must remove the remaining bonus ticks, including the separately tracked exposure needed when the poison component is immune.",
-    "Verify independent elemental defenses, duration/replacement, owner removal, attribution and persistence without inventing a positive poison rate or additional poison-status stack.",
+    "Connect the verified shared tick scheduler to learned Poison Nova/Explosion missile packets and verify actual casting, payment and inputs.",
+    "Cure and zero-rate immune exposure pass in the shared foundation; verify every learned-skill/cure producer when integrating.",
+    "Foundation controls cover independent defenses, strongest replacement, deleted source, credit and reload; cross-owner/retired IDs and full modern recipient/event parity remain open.",
     "Retain existing weapon/proc and minion rules; this answer establishes the pure poison spell case."
   ],
   "followupDecisions": [
     {
       "question": "If poison is cured before its duration ends, should its Magical Penetration bonus ticks stop too?",
-      "answer": "Yes—curing the poison stops all remaining bonus ticks."
+      "answer": "Yes\u2014curing the poison stops all remaining bonus ticks."
     },
     {
       "question": "Against a poison-immune monster, should the potion fire/cold/lightning additions still deal damage according to their own resistances?",
-      "answer": "Yes—the added elements can still hurt a poison-immune monster."
+      "answer": "Yes\u2014the added elements can still hurt a poison-immune monster."
+    },
+    {
+      "question": "For overlapping pure-poison spells, should potion bonus ticks follow the strongest poison only?",
+      "answer": "Follow the strongest poison only"
     }
-  ]
+  ],
+  "schedulerFoundationAccepted": true,
+  "foundationEvidence": "spell-poison-ticks-native-evidence.json"
 }

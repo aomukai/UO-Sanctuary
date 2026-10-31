@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Shared pure-poison spell tick foundation",
+  "installed": false,
+  "learnedPoisonNovaAccepted": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 6,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 232,
+    "retainedPredecessorMarkers": 229,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      828,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "savedExposureKinds": [
+      "poison immune",
+      "ordinary poison"
+    ],
+    "savedPhaseMs": 17,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/spell-poison-ticks/birth-inputs.json",
+      "sha256": "db60f0da9c78eb796189718710da12afec026800017b13ff13c0f4ba662ebd0f"
+    },
+    "audit": {
+      "path": ".local/class-skills/spell-poison-ticks/audit-inputs.json",
+      "sha256": "a0a147914f77772e537e2d69baa9dfcf83b52507d893f17062274051ad567fd2"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/PoisonStates.cs": "df1bd0c0c5a6a3d178c93e45bc89d7a75f4f4e1d5831da00d3ab2bccf3d0c40a",
+    "src/Sanctuary.Content/SpellPoisonTicks.cs": "a4daae0c562124de6b16658e89f202acdeae4f5b3f8cce4b08856edf189b2dc9",
+    "src/Sanctuary.Content/TimedEffects.cs": "a0332b7c1599bcd8d90ebd03e9442dd50347b4f1380cf62e58e38b14d9dd1a58",
+    "tests/Sanctuary.Integration/SpellPoisonTickChecks.cs": "758f2c0170b2708c11d7663714bdd6020a5ee10520019585a886d8bfe520029a"
+  },
+  "artifacts": {
+    ".local/class-skills/spell-poison-ticks/audit-inputs.json": "a0a147914f77772e537e2d69baa9dfcf83b52507d893f17062274051ad567fd2",
+    ".local/class-skills/spell-poison-ticks/audit-native-checks.log": "e836c6fbcf1640934bd88dcc18f085aa9b9f5b2bdca74372d313d3d573d973b1",
+    ".local/class-skills/spell-poison-ticks/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/spell-poison-ticks/birth-inputs.json": "db60f0da9c78eb796189718710da12afec026800017b13ff13c0f4ba662ebd0f",
+    ".local/class-skills/spell-poison-ticks/birth-native-checks.log": "877b826420276bc56d9f9cc713b8a77726d68c25e89693f321c7c9ee130d92ea",
+    ".local/class-skills/spell-poison-ticks/content-build-6.log": "1cf8814167adb4a2408d66cebd4d2fc2ef7a50b24975a090fff824427e67e861",
+    ".local/class-skills/spell-poison-ticks/integration-build-6.log": "69087f546a5c58e99a90c443b27851f62653b73c28ac8dc6f414236290a0a370",
+    ".local/class-skills/spell-poison-ticks/pre-build-6.json": "a0f51355668d43d3061dc5c4246291278fedeffd261252f909256eff0068da59",
+    ".local/class-skills/spell-poison-ticks/python-tests.log": "faaadc6ea145f4d791e59757ae5f8b10ec86b0afdc049ef3c0a96be84f5044c7",
+    ".local/class-skills/spell-poison-ticks/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/spell-poison-ticks/spell-poison-ticks-fixtures.json": "811b7579a804f31a984b682e2357649e1193405024004d73995cfd00e5315111",
+    "docs/class-skill-roadmap.md": "572ba954969e2ed5ce300240c47665d29bd406678db4b2f8e8416c3441a5a870",
+    "docs/class-skills-resume-checkpoint.md": "e7b6f3f6edf79708a1fe984f362ae00a65ecf488fd5072d344274f7feab2dbc6",
+    "docs/necromancer-mechanical-audit.md": "c1a2d5155b9b3b5dd3439363290323fd6c2fb12077aa6d16daa7fb07a3551170",
+    "docs/poison-nova-source-preparation.md": "549b7897254b7f45d55bffcdb40151f58a2f68dff0ee5b93fdbea8117287c055",
+    "docs/spell-poison-ticks-checkpoint.md": "a2b6e72e6f99211d5f2c6c8bae7200a760a1df35fae84c10579eced47c7b50d2",
+    "docs/t29-combat-potions.md": "364360e0232b9c074af0ad56850c1b5c7ec03ad4208fdd753461d46bfe033343",
+    "src/Sanctuary.Content/PoisonStates.cs": "df1bd0c0c5a6a3d178c93e45bc89d7a75f4f4e1d5831da00d3ab2bccf3d0c40a",
+    "src/Sanctuary.Content/SpellPoisonTicks.cs": "a4daae0c562124de6b16658e89f202acdeae4f5b3f8cce4b08856edf189b2dc9",
+    "src/Sanctuary.Content/TimedEffects.cs": "a0332b7c1599bcd8d90ebd03e9442dd50347b4f1380cf62e58e38b14d9dd1a58",
+    "tests/Sanctuary.Integration/SpellPoisonTickChecks.cs": "758f2c0170b2708c11d7663714bdd6020a5ee10520019585a886d8bfe520029a",
+    "tests/check_spell_poison_ticks.py": "aa7eeabdf9bf62188255b6c1467469ada0be4f3294c28ad90d5d1187e2eb580f",
+    "tools/record_spell_poison_ticks.py": "7ccd9ef180527da196935b5cf1eda9feae6efdd2c45c644d91537c294b645621",
+    "tools/reference/bone-spirit-native-evidence.json": "679a3f42feca1cbd1deb56191f88240546d81c84ada77178c6ca2da83b429ef9",
+    "tools/reference/first-loop-affix-audit.json": "0cbbcb9bbf8249d5451bffa7bced9745850f7f048f7abd39efb1ca4ee378349e",
+    "tools/reference/named-item-runtime-audit.json": "3f4cf5660803eb5ec907134a0eeb7bd083023405843693fd356b977aceb947b6",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c"
+  },
+  "established": [
+    "The existing40ms effect scheduler carries separately saved spell exposure without a positive poison rate on immune targets. Such an exposure leaves poison status and natural regeneration unmasked.",
+    "Tick-time potion eligibility,late drinking/removal/expiry,independent elemental resistance/masteries,combined original+added poison rounding,cure/cleansing,strongest poison replacement,nonspell replacement and deleted-source bonus cessation pass.",
+    "Base poison and elemental additions share one health payment. Native kernel controls verify Protection once for8base+6bonus and NPC item replenishment before a lethal aggregate. Combined tick death/loot credit bypasses ordinary damage callbacks.",
+    "Actual two-reload saves preserve both ordinary and zero-rate exposures,including17ms phase,original rate,remaining duration,source and exact health. Missing legacy JSON fields default to no exposure;malformed state restores atomically."
+  ],
+  "remaining": [
+    "This helper is not yet connected to learned Poison Nova or Poison Explosion. Their provisional handlers are unchanged;mechanical completion and deployment are not claimed.",
+    "Next:connect Nova64saved source rays,poison packets and this tick lane;verify actual learned right/quick inputs,payment,collision/NHD,initial health delivery and lifecycle. Explosion cloud allocation follows.",
+    "Full PvP/player poison-floor versus lethal elemental bonus composition,extreme combined-rate domains,dynamic poison defenses,already-removed buff history,serial retirement and every cure producer remain unverified. Existing friendly-player policy is retained. Immune exposure keeps normal regeneration ordering;no new simultaneous-regeneration rule is invented.",
+    "No new broad1180-marker run is claimed for this foundation. The prior full-class regression belongs to the Bone Spirit checkpoint. All229focused predecessor markers are retained. Final effects/audio and talent/hotkey icons remain separate pending assets."
+  ]
+}

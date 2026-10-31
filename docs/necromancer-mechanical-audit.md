@@ -4,6 +4,8 @@ Reference: **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary deviations
 
 The Bone Armor increment adds dedicated casting/resource/lifecycle checks; the [checkpoint](bone-armor-checkpoint.md) identifies its accepted build and remaining overflow discrepancy. Recent summon work is bound separately by [Mage birth](mage-birth-checkpoint.md), [Mage missiles](mage-missiles-checkpoint.md), [skeleton FIFO](skeleton-roster-checkpoint.md) and [learned Iron Golem](iron-golem-casting-checkpoint.md).
 
+The [pure poison spell tick foundation](spell-poison-ticks-checkpoint.md) now prepares saved immunity/cure/potion scheduling for Nova and Explosion. Their learned handlers remain provisional until their actual missile allocations and inputs are connected and verified.
+
 | Skill | Implemented behavior | Existing evidence to consult | Remaining work |
 | --- | --- | --- | --- |
 | Raise Skeleton | Learned corpse creation and shared saved FIFO/cap. | SkeletonRosterChecks; SummonDifficultyChecks. | Regular skeleton base/passive/regeneration accuracy; source AI/action timing and complete incoming events. |
