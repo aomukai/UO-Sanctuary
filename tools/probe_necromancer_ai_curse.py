@@ -113,6 +113,12 @@ for(int skill:{71,77})for(int rank:{1,3,20,21,255})for(int divisor:{-1,0,1,2,4})
  printf("%s[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",first?"":",",skill,rank,divisor,allowed,alignment,attract,resistance,oldKind,result,p?p->rank:0,p?p->creator:0,p?p->expire:0,permissionCalls,permissionState,aiCalls,aiState,filterArg,rangeArg,p?int(p->stats.size()):0);first=false;
 }printf("]\n");}
 '''
+    reviewed = {}
+    for name in ['AITHINK_ExecuteAiFn', 'D2GAME_AI_SpecialState11_6FCE7E20']:
+        body = routine('source/D2Game/src/AI/AiThink.cpp', name)
+        reviewed[name] = bodies.pop(name)
+        if name == 'D2GAME_AI_SpecialState11_6FCE7E20':
+            assert 'SUNIT_GetTargetUnit(pGame, pUnit)' in body and 'sub_6FC61E30' in body
     STAGE.mkdir(parents=True, exist_ok=True)
     source = STAGE / 'probe.cpp'
     source.write_text(cpp)
@@ -141,7 +147,7 @@ for(int skill:{71,77})for(int rank:{1,3,20,21,255})for(int divisor:{-1,0,1,2,4})
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], contexts=len(data), installed=False,
         reusedReference=dict(path=str(prior.relative_to(ROOT)), sha256=sha(prior)),
         reusedReceiverCpp=dict(path=str(ancestor.relative_to(ROOT)), sha256=sha(ancestor)),
-        routines=bodies, difficultyTables=difficulty_tables, difficultyDivisors=divisors,
+        routines=bodies, reviewedUnexecutedRoutines=reviewed, difficultyTables=difficulty_tables, difficultyDivisors=divisors,
         inputs={**sources, **{str(p.relative_to(ROOT)): sha(p) for p in [Path(__file__), table, states, STAGE / 'difficulty-levels.json', STAGE / 'difficulty-levels.tsv']}},
         artifacts={str(p.relative_to(ROOT)): sha(p) for p in [source, cases, STAGE / 'compiler.log', STAGE / 'sanitizer.log']},
         established=[
@@ -150,6 +156,7 @@ for(int skill:{71,77})for(int rank:{1,3,20,21,255})for(int divisor:{-1,0,1,2,4})
             'Pinned source aura-state mapping selects Dim Vision AI10 and Terror AI11; current range/filter/cost/length rows are pinned.',
             'Independent immutable d2data and D2R-Excel3.3.93847difficulty extractions agree on AiCurseDivisor Normal1/Nightmare2/Hell4;both file hashes and source URLs are pinned.'],
         remaining=[
+            'Static-only complete AI initializer review records the target already held by the monster;the do30 receiver does not explicitly retarget it to the caster. Howl explicitly sets its caster target before its dispatch. Native learned Terror must not inherit that Howl application assumption without separate evidence.',
             'AI eligibility permission, dispatch/init/tick, formula VM, radial traversal, stat storage, alignment and clock/event services remain declared. Existing Howl evidence separately executes common Terror AI; this receipt does not equate its apply behavior with learned Terror.',
             'Missing/zero difficulty records are synthetic service controls. Values1/2/4are independently table-corroborated,not observed current executable AI behavior;facet selection and runtime integration remain unverified.',
             'No C# changes, native acceptance, deployment or completed class. Source room/species/flags/geometry, actual AI coexistence/removal, native natural motion and save/reload/current graphical-client parity remain open.'])

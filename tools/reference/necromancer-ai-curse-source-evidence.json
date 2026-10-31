@@ -15,6 +15,10 @@
     "AiSpecialStateFromAuraState": "287638605f993be6dcb94225ee131636624911cc1b9f0e1160294b6eb826ce6e",
     "SKILLS_SrvDo030_Curse": "0b315aa0bf6695f57d1629c0a811c01011ab6e28106fd9766aa65a1b61d85fd5"
   },
+  "reviewedUnexecutedRoutines": {
+    "AITHINK_ExecuteAiFn": "9ad9d0d1f720ebba6055aa3fc2afc9cd0b701d47edd289effac538886bec67d3",
+    "D2GAME_AI_SpecialState11_6FCE7E20": "66843ea0152cc7f96b60d5e30be1f95bed7173c007e2b947e0a969ef8aec05a1"
+  },
   "difficultyTables": [
     {
       "path": ".local/class-skills/necromancer-ai-curse-source/difficulty-levels.json",
@@ -34,7 +38,8 @@
   },
   "inputs": {
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
-    "tools/probe_necromancer_ai_curse.py": "95d14f5449e959c0e9fc5bb1527dd02ea666712ac5cd17eb4db544d8e7c8886f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/probe_necromancer_ai_curse.py": "d579f2793adc6f440b53f91dcd6f22663dadd717f06ace624d79207c1e885009",
     "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
     ".local/class-skills/necromancer-ai-curse-source/difficulty-levels.json": "28ff37334e2ea3bfd6fa62116e11f7cdf25d1be34c8f16a94cc7ee75b8a84764",
@@ -53,6 +58,7 @@
     "Independent immutable d2data and D2R-Excel3.3.93847difficulty extractions agree on AiCurseDivisor Normal1/Nightmare2/Hell4;both file hashes and source URLs are pinned."
   ],
   "remaining": [
+    "Static-only complete AI initializer review records the target already held by the monster;the do30 receiver does not explicitly retarget it to the caster. Howl explicitly sets its caster target before its dispatch. Native learned Terror must not inherit that Howl application assumption without separate evidence.",
     "AI eligibility permission, dispatch/init/tick, formula VM, radial traversal, stat storage, alignment and clock/event services remain declared. Existing Howl evidence separately executes common Terror AI; this receipt does not equate its apply behavior with learned Terror.",
     "Missing/zero difficulty records are synthetic service controls. Values1/2/4are independently table-corroborated,not observed current executable AI behavior;facet selection and runtime integration remain unverified.",
     "No C# changes, native acceptance, deployment or completed class. Source room/species/flags/geometry, actual AI coexistence/removal, native natural motion and save/reload/current graphical-client parity remain open."
