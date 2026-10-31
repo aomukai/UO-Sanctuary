@@ -120,11 +120,11 @@ public static class NecromancerCombat
             var definition = SkillMechanics.For(ability);
             int rating = definition.Number("ToHit") + (values.Rank - 1) * definition.Number("LevToHit");
             using var attemptedMelee=PaladinThorns.Attempt(owner,target,false);
-            if (Utility.RandomDouble() < ClassStats.HitChance(ClassStats.AttackRating(owner) * (100 + rating) / 100,
+            if (PoisonDaggerPackets.HitRoll() < ClassStats.HitChance(ClassStats.AttackRating(owner) * (100 + rating) / 100,
                 ClassStats.Defense(target), ClassStats.Level(owner), ClassStats.Level(target)))
             {
-                GearEffects.Strike(owner, target, Utility.RandomDouble());
-                Poison(owner, target, values);
+                var damage=PoisonDaggerPackets.Damage(owner,target,values,Utility.RandomDouble,out double roll);
+                GearEffects.Strike(owner,target,roll,preparedDamage:damage);
             }
             return true;
         }

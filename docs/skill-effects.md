@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Poison Dagger composition fix](poison-dagger-checkpoint.md) uses one combined poison packet. Final poison contact/state effects and audio still need creation and mapping; native weapon presentation and generic cast sound remain identified placeholders. Its 118 native markers are mechanical evidence, not final asset verification.
+
 The [NPC resource correction](npc-high-level-resources-checkpoint.md) adds no assets. Its 97 focused and 1,180 full regression markers pass. Final effects/audio and talent/hotkey icons remain separate pending assets. Coverage remains 186 handlers, including 30 Necromancer handlers; no class is complete and the candidate is uninstalled.
 
 Learned Iron Golem now creates the prepared actor through right/quick item targeting. Native summon0x376A, sound0x1E5and the labelled body/contact/return markers remain explicitly identified placeholders. Final original-item consumption/formation, body/directional frames, attack/get-hit/block/death/overlay and audio assets remain pending. See [casting checkpoint](iron-golem-casting-checkpoint.md).

@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Poison Dagger combined weapon and skill poison",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 3,
+  "verified": {
+    "sourceCases": 6912,
+    "nativeMarkers": 118,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "rightCasts": 3,
+    "quickCasts": 3,
+    "retainedVenomSourceCasesPerBoot": 10240,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      818,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/poison-dagger/birth-inputs.json",
+      "sha256": "3a7ce9f3617dbc081b2f0b55c59648d5e7529d024a4f1b0d32be23e966b70b6e"
+    },
+    "audit": {
+      "path": ".local/class-skills/poison-dagger/audit-inputs.json",
+      "sha256": "78554036ee68da6320e7b585aeb7d67e116d7ce646f446ece0bceb3967caf363"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/GearEffects.cs": "7e4d5caa7aad4113889bf80c1cacca9494c6b8a35eb7b54e917480fb4bb471cf",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "e178b14ebe05e6e7c42c9a3165eac6bca477b099171bc8c656ec76934a8a73c8",
+    "src/Sanctuary.Content/PoisonDaggerPackets.cs": "e73bcfdb5441906657d2ce46ce9f5073f8bb02708fe32a5b5bbb4217b15087c9",
+    "tests/Sanctuary.Integration/PoisonDaggerChecks.cs": "ee63ea9e234debc0bc2cd078776aec5dc0d0a90250008f5f28a21aedb5783537"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-high-level-resources/birth-native-checks.log": "14118ff891471333b8c8d52ad5f8696fc885b08eb17d496e13bcb7ded2f2b0bb",
+    ".local/class-skills/poison-dagger/audit-inputs.json": "78554036ee68da6320e7b585aeb7d67e116d7ce646f446ece0bceb3967caf363",
+    ".local/class-skills/poison-dagger/audit-native-checks.log": "8ec64a4598b235ae90250bca3522f52d5ee7eb803943e16719c2b5b255e4567c",
+    ".local/class-skills/poison-dagger/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/poison-dagger/birth-inputs.json": "3a7ce9f3617dbc081b2f0b55c59648d5e7529d024a4f1b0d32be23e966b70b6e",
+    ".local/class-skills/poison-dagger/birth-native-checks.log": "fc07f22136cf720fe2796ceab46be9c1cbbf6678e40ffc89dd16248506bf3854",
+    ".local/class-skills/poison-dagger/content-build-4.log": "851f7caf89ea7ff697f98166aeb0bc2d39f72a16b6a3ee5c94fdfbc239142ad2",
+    ".local/class-skills/poison-dagger/integration-build-4.log": "29823d37b4cbd502409584376297dc091a4d0ea881aa3b7f88bc0235b8cb74df",
+    ".local/class-skills/poison-dagger/poison-dagger-fixtures.json": "dced4d8816ad5d4c6d144286523be8b0bc0133d2aa4881eeef30ae85bc03e70c",
+    ".local/class-skills/poison-dagger/pre-build-4.json": "0d122a93b239ef31f1fb70e34d812907aada66b672730c61ce7a7bad4ae14829",
+    ".local/class-skills/poison-dagger/python-tests.log": "f67a0ab355dff73ab87b89f06dc65be1e5995018e5b0448c6ddcb301cd06dd3d",
+    ".local/class-skills/poison-dagger/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "docs/class-skill-roadmap.md": "ca1fef6011600bdde94ff4c01fc2323036cdfc28eb22b1395ece928677399ef8",
+    "docs/class-skills-resume-checkpoint.md": "153ebe985a8edfb76765945130e6bf85f1673705f961b55c2aed3f8a4cf7e46d",
+    "docs/poison-dagger-checkpoint.md": "49959d27877dfde55129758d46d6cd5aafbd2f3d40a5cd2dd31bd89dca326a91",
+    "docs/skill-effects.md": "5061e54703b7a4cd10e3f5274ed2946eaa5d339c5e6518a42d38c147682ae24c",
+    "docs/skill-icons.md": "c99edaa155a1d0d6272adedc9c7ad99605b401106f8bf7d12f1e42d1ff23f09b",
+    "docs/skill-mechanical-reference.md": "4c60229ef21fd564422f0ce23a6d17cd49fcbb6c83b20f4ebee9b81e73ddd772",
+    "src/Sanctuary.Content/GearEffects.cs": "7e4d5caa7aad4113889bf80c1cacca9494c6b8a35eb7b54e917480fb4bb471cf",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "e178b14ebe05e6e7c42c9a3165eac6bca477b099171bc8c656ec76934a8a73c8",
+    "src/Sanctuary.Content/PoisonDaggerPackets.cs": "e73bcfdb5441906657d2ce46ce9f5073f8bb02708fe32a5b5bbb4217b15087c9",
+    "tests/Sanctuary.Integration/PoisonDaggerChecks.cs": "ee63ea9e234debc0bc2cd078776aec5dc0d0a90250008f5f28a21aedb5783537",
+    "tests/check_poison_dagger.py": "3532b8ca81e62399d72ed3cacc746028d62a658384dadd8c8f084691d3df438c",
+    "tests/check_poison_dagger_audits.py": "73896a53b8dd167d222417d49d3894c1619cd582cf457f50df61db8252c874c6",
+    "tools/record_poison_dagger.py": "7f157126d308faea2e46b5b8461d7833958a21f299334b6f6025465cdb9a127b",
+    "tools/reference/first-loop-affix-audit.json": "d584843c816a874a7098cce0b3909749ee5de7ef86685e8eb1cb2a4bbfed3320",
+    "tools/reference/named-item-runtime-audit.json": "566a1ec7eba48defb8d706b4cf271f6f2eb3514b1334dd226752215918429c77",
+    "tools/reference/npc-high-level-resources-native-evidence.json": "ed36442931db06ae9a5ccf5280d58a973af5ab2d85ee040e9dc1cc37be7543a3",
+    "tools/reference/poison-dagger-source-evidence.json": "95958c3b7915d50d8b62810250108973d6b1d3374e1d40786ec0262a01e450f6"
+  },
+  "established": [
+    "The complete skill roll supplies initial poison rate and length to the existing item-poison lane. Skill poison precedes ordinary weapon preparation; item poison then joins one packet. A prepared poison factory skips the independent Venom/item collector, avoiding a second poison application.",
+    "Real Wormskull plus a socketed Emerald dagger produce304FP256 poison per frame for217frames at effective rank2. Learned strikes,misses,immunity,once-only mana,weapon-change cancellation,live equipment and captured packets pass. Periodic fractional damage,original equipped items,bindings and source credit survive two reloads.",
+    "Six actual right/quick network casts verify natural windup and payment. Existing Venom,Iron Golem,NPC resource/damage and Paladin checks are retained."
+  ],
+  "remaining": [
+    "This increment fixes poison composition and delivery. The existing Poison Dagger start/release allocation timing, attack-rating composition,NPC shield-result handling and drain/event order still need complete skill acceptance.",
+    "Blackbog's Sharp remains unavailable because its skill property is unsupported. Its attempted fixture refused normally; no item availability or property was fabricated to obtain a passing test.",
+    "Older-source composition is not current executable proof. Native geometry,material/gem projection and broader player packet/RNG/return adapters keep their separate documented boundaries.",
+    "No new full-class run is claimed;the predecessor build passed1180markers/35saves. Final poison effects/audio and talent/hotkey icons remain separate placeholders. Installed build/saves are unchanged."
+  ]
+}

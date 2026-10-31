@@ -106,9 +106,14 @@ public static class GearEffects
     }
     public static void Tick(long now) => TimedEffects.Tick(TimedEffects.TimeAt(now));
     public static void Clear(Mobile mobile) => TimedEffects.ClearGear(mobile);
-    public static GearDamage Damage(PlayerMobile player,double roll,Mobile target=null,int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,int> poisonRoll=null)
+    public static GearDamage Damage(PlayerMobile player,double roll,Mobile target=null,int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,int> poisonRoll=null,Func<WeaponPoisonRoll> poisonFactory=null)
     {
         var result=OrdinaryDamage(player,roll,target,skillPhysicalPercent,physicalRoll);
+        if(poisonFactory!=null)
+        {
+            var prepared=poisonFactory()??throw new InvalidOperationException("Missing prepared weapon poison");
+            return result with{Poison=prepared.Total,PoisonMs=prepared.Frames*40,SourcePoison=prepared};
+        }
         if(Venoms.State(player) is not{} venom){return result;}
         int EndPoint(int span)=>Math.Clamp((int)(Math.Clamp(roll,0,1)*Math.Max(0,span-1)),0,Math.Max(0,span-1));
         var poison=WeaponPoisonPackets.Capture(player,CombatTiming.Equipped(player),venom,poisonRoll??EndPoint);

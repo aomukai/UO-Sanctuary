@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "6e11b68b64424160d1fd7eaa6b9c27d4c6dfa68973ef3748919418c7aa893b21",
+  "ContentAssemblySha256": "dfb2e8e6bd7b651fa5a36d1c34921470acbad27151f7470cb0043723b38e86bd",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -515,7 +515,7 @@
     "src/Sanctuary.Content/GamblingGump.cs": "981fd914f31393de5b58ce920e0c7540ffc6b61fbd133de0c3921f3d7d29d61f",
     "src/Sanctuary.Content/GearDetails.cs": "b299a31211d8f99e923f8ce279b829bc0a41617968d5cff01f5070c27658b308",
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
-    "src/Sanctuary.Content/GearEffects.cs": "075c9e56b5be38bf35f4afd56d16422ec3d24b0997a9125657009499739dda2b",
+    "src/Sanctuary.Content/GearEffects.cs": "7e4d5caa7aad4113889bf80c1cacca9494c6b8a35eb7b54e917480fb4bb471cf",
     "src/Sanctuary.Content/GearProfiles.cs": "7e537249fb467c31b752eb89cfb790f66bc49cb27237473fcbe27b86341d1e17",
     "src/Sanctuary.Content/GemCombat.cs": "7f6a59baaf0090069eaf0ab4bfab41b343a2d5e0e8f3141ac67b49cf9a10199f",
     "src/Sanctuary.Content/GemInsertionGump.cs": "938c5ab7087dfbeaa118d82d1b12c6baea37f44b1d2f41631eabd58d4b1d7fa0",
@@ -639,7 +639,7 @@
     "src/Sanctuary.Content/NamedSkills.cs": "2a86ad26fb5a288f34179da98e18a9e74a829f0036753b574abc4ac11b71f5a2",
     "src/Sanctuary.Content/NamedThrowingKnife.cs": "5ab55832dd4dfcf62d3176a6bce22c67033906a4da762d0897d0218dd9388753",
     "src/Sanctuary.Content/NativeMonsterReturn.cs": "870c4bc4415a2f6541d7393a7f2a516b9c4926eeee8ad14c9a7991d350bca987",
-    "src/Sanctuary.Content/NecromancerCombat.cs": "11d3e2defcda02af0fbe0722619833792426aafde7541aa56f98487dc8fd1ff4",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "e178b14ebe05e6e7c42c9a3165eac6bca477b099171bc8c656ec76934a8a73c8",
     "src/Sanctuary.Content/NecromancerEffects.cs": "c3b9ef25328f79b0f61aca18c3feeea88db139ab4aaa90869f37ffea2bd8a776",
     "src/Sanctuary.Content/NecromancerGolems.cs": "8b9ff438cc3c232a84f838a96a2ed9e8f106a9003378bbadeb3fc48274920d46",
     "src/Sanctuary.Content/NecromancerPetAi.cs": "d33b3dea85ff8a235eecc95342ddbf3d25a0eabc37764340c9c5ec935b7e2de6",
@@ -684,6 +684,7 @@
     "src/Sanctuary.Content/PlayerInfernoChannel.cs": "f7ca917b1af6cf8c7b2116001079b7b904a2619e0b7c9c3027abcd9d764b52da",
     "src/Sanctuary.Content/PlayerInfernoSequence.cs": "c066bc4813b79ba752003408242721b2dae0274f3f9aafb3a83571feaa5f2e52",
     "src/Sanctuary.Content/PlayerWeaponSequences.cs": "ac947801a127462aef849361f658642d3f70b3fbc57b2cf3da226a0e5778c2bb",
+    "src/Sanctuary.Content/PoisonDaggerPackets.cs": "e73bcfdb5441906657d2ce46ce9f5073f8bb02708fe32a5b5bbb4217b15087c9",
     "src/Sanctuary.Content/PoisonJavelinPackets.cs": "d12831c58c075b1e33c82e2362f07616a70fb86e870b7d0ad49024a3e99e2a45",
     "src/Sanctuary.Content/PoisonJavelins.cs": "3a87e3239f8e8bfbb42f562ec863e8b3a64877473fe41d981ba3db3275ce9221",
     "src/Sanctuary.Content/PoisonPackets.cs": "180d8c6392cb32af87974ab92a60f0bdfd9f14262697988fa806b06c23f54a9c",

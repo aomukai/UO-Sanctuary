@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Poison Dagger composition fix](poison-dagger-checkpoint.md) adds no icons. Its talent-tree and active-hotkey icon remain pending in this separate ledger; effects/audio are tracked independently.
+
 The [NPC resource correction](npc-high-level-resources-checkpoint.md) adds no assets. Its 97 focused and 1,180 full regression markers pass. Final effects/audio and talent/hotkey icons remain separate pending assets. Coverage remains 186 handlers, including 30 Necromancer handlers; no class is complete and the candidate is uninstalled.
 
 Iron Golem now supports learned right-click and quick bindings. Its unique talent-tree/right-hotkey icon remains pending; left binding is intentionally unavailable. Text labels remain identified placeholders. No separate item/rollback icon is introduced. Effects/audio are tracked independently. See [casting checkpoint](iron-golem-casting-checkpoint.md).
