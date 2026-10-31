@@ -54,11 +54,7 @@ public static class NecromancerSummons
             if(!mage){NecromancerGolems.Commit(owner,pet);}
             else
             {
-                var replaced=(owner.AllFollowers??[]).OfType<NecromancerMinion>()
-                    .Where(old=>old is{Alive:true,Deleted:false}&&old!=pet&&old.ControlMaster==owner&&old.IsMage).OrderBy(old=>old.Serial.Value).ToArray();
-                int remove=Math.Max(0,replaced.Length+1-SkeletonPets.Limit(pet.Rank));
-                foreach(var old in replaced.Take(remove)){old.Explode();old.Delete();}
-                BattleCommand.Track(pet);
+                NecromancerSkeletons.Commit(owner,pet);
                 NecromancerCombat.Consume(corpse);
             }
             committed=true;return true;

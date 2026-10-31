@@ -132,6 +132,13 @@ public static class BattleCommandChecks
     private static void Check()
     {
         Goldens();var owner=Fresh();Synchronous(owner);OtherClasses(owner);PetCaps(owner);Lifecycle(owner);
+        // The synchronous resource/equipment fixtures may span a timer slice.
+        // Start the natural wave on a fresh loop so movement and inspection
+        // deadlines cannot both fire during catch-up from the setup work.
+        FixtureClock.NextLoop("battle-command-result",()=>Natural(owner));
+    }
+    private static void Natural(PlayerMobile owner)
+    {
         var ally=Fresh(owner,DiabloClass.Sorceress);Train(ally,CombatAbility.FireBolt,1);ally.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);
         var necro=Fresh(owner,DiabloClass.Necromancer);Train(necro,CombatAbility.RaiseSkeleton,2);necro.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);
         var far=Fresh(owner,DiabloClass.Paladin);far.MoveToWorld(new(owner.X+5,owner.Y,owner.Z),owner.Map);var moving=Fresh(owner,DiabloClass.Sorceress);moving.MoveToWorld(new(owner.X+12,owner.Y,owner.Z),owner.Map);
@@ -141,7 +148,8 @@ public static class BattleCommandChecks
         Later(120,()=>{far.MoveToWorld(new(owner.X+12,owner.Y,owner.Z),owner.Map);moving.MoveToWorld(new(owner.X+5,owner.Y,owner.Z),owner.Map);});
         Later(700,()=>
         {
-            Require(BattleCommand.State(ally)?.Rank==1 && BattleCommand.State(necro)?.Rank==1 && BattleCommand.State(moving)?.Rank==1 && BattleCommand.State(far)==null && BattleCommand.State(enemy)==null && enemy.Hits==hp && SkillMechanics.Rank(ally,CombatAbility.FireBolt)==2,"Natural Command wave friendly/moving/hostile/range");
+            Require(BattleCommand.State(ally)?.Rank==1 && BattleCommand.State(necro)?.Rank==1 && BattleCommand.State(moving)?.Rank==1 && BattleCommand.State(far)==null && BattleCommand.State(enemy)==null && enemy.Hits==hp && SkillMechanics.Rank(ally,CombatAbility.FireBolt)==2,
+                $"Natural Command wave friendly/moving/hostile/range:ally={BattleCommand.State(ally)?.Rank},necro={BattleCommand.State(necro)?.Rank},moving={BattleCommand.State(moving)?.Rank},far={BattleCommand.State(far)?.Rank},enemy={BattleCommand.State(enemy)?.Rank},hp={enemy.Hits}/{hp},firebolt={SkillMechanics.Rank(ally,CombatAbility.FireBolt)},rays={BarbarianShout.Snapshot().Rays.Count(x=>x.Owner==owner.Serial.Value)}");
             Require((BattleCommand.State(ally).UntilUtc-TimedEffects.Now).TotalSeconds is >44 and <46,"Command stored rank/live hard duration");BattleCommand.Clear(moving);moving.Delete();enemy.Delete();
             Summon(necro,false);Summon(necro,false);var newest=Summon(necro,false);Replace(BattleCommand.State(necro) with{UntilUtc=TimedEffects.Now.AddMilliseconds(80)});
             Later(180,()=>{Require(BattleCommand.State(necro)==null && SkeletonPets.Count(necro)==2 && !newest.Deleted,"Natural Command expiry pet cap");Seed(owner,ally,necro,far);Log.Information("battle-command-result: passed");});

@@ -97,19 +97,6 @@ public static class SkeletonPets
         {
             return false;
         }
-        SkeletonGuardian oldest = null;
-        int count = 0;
-        foreach (var follower in owner.AllFollowers ?? [])
-        {
-            if (follower is SkeletonGuardian { Deleted: false, Alive: true } existing && existing.ControlMaster == owner && existing.GetType() == typeof(SkeletonGuardian))
-            {
-                count++;
-                if (oldest == null || existing.Serial.Value < oldest.Serial.Value)
-                {
-                    oldest = existing;
-                }
-            }
-        }
         var pet = new SkeletonGuardian();
         pet.Initialize(owner, Rank(owner), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         if (!pet.SetControlMaster(owner))
@@ -117,13 +104,10 @@ public static class SkeletonPets
             pet.Delete();
             return false;
         }
-        BattleCommand.Track(pet); PersistentMinions.Profiles.Track(pet);
+        PersistentMinions.Profiles.Track(pet);
         pet.MoveToWorld(corpse.Location, corpse.Map);
-        if (count >= Limit(Rank(owner)))
-        {
-            oldest?.Delete();
-        }
         pet.IssueOrder(OrderType.Guard, null);
+        NecromancerSkeletons.Commit(owner,pet);
         owner.Mana -= Mana(owner);
         corpse.SanctuaryConsumed = true;
         corpse.Animated = true;

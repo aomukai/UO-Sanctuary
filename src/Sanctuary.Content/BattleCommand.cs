@@ -76,25 +76,8 @@ public static class BattleCommand
     private static void EnforcePets(PlayerMobile owner)
     {
         if(!ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Necromancer){return;}
-        var groups=new Dictionary<CombatAbility,List<SkeletonGuardian>>();
-        foreach(var follower in owner.AllFollowers??[])
-        {
-            if(follower is not SkeletonGuardian{Alive:true,Deleted:false} pet || pet.ControlMaster!=owner){continue;}
-            CombatAbility ability=pet.GetType()==typeof(SkeletonGuardian)?CombatAbility.RaiseSkeleton:pet is NecromancerMinion minion?minion.Kind:CombatAbility.None;
-            if(ability is not (CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage)){continue;}
-            if(!groups.TryGetValue(ability,out var pets)){groups.Add(ability,pets=new());}pets.Add(pet);
-        }
         NecromancerGolems.Enforce(owner);
-        foreach(var pair in groups)
-        {
-            foreach(var pet in pair.Value.OrderBy(x=>x.Serial.Value)){if(!_pets.ContainsKey(pet.Serial.Value)){Track(pet);}}
-            int rank=SkillMechanics.Rank(owner,pair.Key);
-            // Source pet counter clamps formula to at least1 for a skill present
-            // in the skill list. Ownership/history permission remains independent.
-            int maximum=Math.Max(1,(int)SkillMechanics.Values(owner,pair.Key,rank).Eval("petmax"));
-            var ordered=pair.Value.OrderBy(PetOrder).ThenBy(x=>x.Serial.Value).ToArray();
-            for(int i=0;i<ordered.Length-maximum;i++){ordered[i].Delete();}
-        }
+        NecromancerSkeletons.Enforce(owner);
     }
     private static void Tick()
     {

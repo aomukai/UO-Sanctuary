@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/PLAYER/PlayerPets.cpp",
+  "sourceSha256": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+  "completeRoutines": {
+    "sub_6FC7D150": "edddc0f0c6bddac1bdb24d5d68a3c945645251d5258429d56778495a6b1c9ae0",
+    "sub_6FC7DA40": "0184fe25e51ced7e307ef7552c6980c7371af9156ee9b3807e448106f7e57b95"
+  },
+  "currentSkills": [
+    {
+      "*Id": 70,
+      "skill": "Raise Skeleton",
+      "pettype": "skeleton",
+      "petmax": "(lvl < 4) ?lvl:(2+lvl/3)"
+    },
+    {
+      "*Id": 80,
+      "skill": "Raise Skeletal Mage",
+      "pettype": "skeletonmage",
+      "petmax": "(lvl < 4) ?lvl:(2+lvl/3)"
+    }
+  ],
+  "inputs": {
+    ".local/class-skills/golem-roster-source-probe.cpp": "62c8543d8a6b907133164d4c9ae5e4924b12b7e30983fe2b8d8c56897053649f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91"
+  },
+  "cases": 1530,
+  "artifacts": {
+    ".local/class-skills/skeleton-roster-source/probe.cpp": "8b23e7930d38a40cf014679f066fe7363ebc718a23eb6cb5b2607f97d2d4da41",
+    ".local/class-skills/skeleton-roster-source/cases.json": "5fb888db70df49bbf6b4535e0998a367c7a05e0fcf2e6796785edd7acae41ec3",
+    ".local/class-skills/skeleton-roster-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/skeleton-roster-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete unchanged cap-setter and FIFO append;allocation/removal/player lookup are explicit services. All255current ranks and six count contexts use reversed GUID order.",
+  "established": [
+    "Cap changes remove head entries until within maximum;append at capacity removes the next head and appends the new candidate at the tail. List order,not GUID,selects replacements.",
+    "Current Raise Skeleton and Raise Skeletal Mage have separate ungrouped pet types and identical rank caps1..87. Their source registration sets the cap before appending."
+  ],
+  "remaining": [
+    "Actor death/network/allocation failure,current executable equivalence and original historical birth order are outside these supplied services. Native integration and persistence require separate evidence."
+  ]
+}
