@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "unchangedExecutedRoutineHashes": {
+    "SKILLITEM_EventFunc06_AttackerTakesDamage": "36ac7f6677137cf300e8790aaeb14e871a6b741c4201e56cf1f7588ad3b0ae10",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "D2Common_GetStateFromStatListEx_6FDB8190": "fc27d4a8baa8735cdf4f2355ee8eb4d9c1fec5f1d1153105b5f0c075d71b810b",
+    "STATLIST_GetStatListFromUnitAndState": "8435bec7805ba63b7a065d4aee91a4393caf95832baa07483a65898dee939b36"
+  },
+  "staticReviewedRoutineHashes": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "SKILLS_AuraCallback_BasicAura": "1b2f8fffb7299370685a6b0dba9851f919ff9a4fd13fafd5772dae3df175b6a6",
+    "sub_6FD10E50": "591dd51e13d8500f8513f4538b6f8423752d71a35be3b8d36b6d503feeb3273f",
+    "SKILLS_RefreshPassiveSkills": "d3d4bf1cfc989a9e94bca1629e135488fe0eee719c8d32dab7fd188b59926d70"
+  },
+  "currentTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "generatedSourceSha256": "a6b8b3535832480c28e172bad247d7bd2d14264302ff585b5730ec0322eb4ab1",
+  "fixture": {
+    "path": ".local/class-skills/iron-golem-retaliation-source-probe.json",
+    "sha256": "75592a1baf777bb9c6a52a8c9fe93a85c0cab0919cdad13188cda73386594a69",
+    "eventCases": 80,
+    "replacementCases": 12,
+    "formulaControls": 255
+  },
+  "sanitizers": "ASan+UBSan exit0 with empty runtime stderr",
+  "established": [
+    "Complete event6 tests nullable units,target CANBEATTACKED,signed total stat78,and uint16layer narrowing. Positive totals request ExecuteEvents(mode1)before ExecuteMissileDamage with physical FP256,flags0x4021/hitclass0x8D. Dispatch bodies/mitigation are supplied services.",
+    "Complete same-state getter/replacement helper replaces an untagged state36list when skill103arrives,regardless of rank. Same skill20rejects lower level,refreshes equal level,and replaces higher level. Birth helper statically creates the untagged aura list;BasicAura callback statically writes its selected values/skill metadata.",
+    "Current Iron row supplies flat15at rank1/225at20/7215at255,not percentage reflection. Formula controls evaluate pinned tier inputs outside the compiled source helper;they are not compiled damage-formula proof. Item stat78and distinct Barbs state147remain separate inputs."
+  ],
+  "remaining": [
+    "No complete stat getter,allocation/event engine,mitigation,damage/death/return ordering or actual modern executable is executed. Current-build same-state Iron/Paladin coexistence remains a reference question;the native candidate follows the recorded older replacement rule.",
+    "Expiry/removal and passive refresh are static reviews,not executed here. The ordinary callback refreshes passive-state skills;current Iron Golem has no passive-state entry or supplied innate skill on its pet. Native saved replacement history,lifetime/resource invariance,actual melee/ranged/spell events and source packet/HP/death chronology require separate acceptance."
+  ]
+}

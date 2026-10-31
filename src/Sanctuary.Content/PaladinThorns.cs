@@ -20,6 +20,7 @@ public static class PaladinThorns
         if(actor==null){return default;}var thorns=PaladinAuras.Effect(actor,CombatAbility.Thorns);
         long flat=(thorns?.Percent??0)+(long)DruidWolverineAuras.FlatDamage(actor);
         if(actor is PlayerMobile p && ClassCombat.Enabled(p)){flat+=ClassGear.Bonus(p,"thorns");}
+        else{flat+=NpcEquipmentRetaliation.Flat(actor);}
         return new((int)Math.Clamp(flat,0,int.MaxValue),Math.Max(0,thorns?.DamagePercent??0));
     }
     internal static int FlatDamage(Mobile actor)=>Values(actor).Flat;

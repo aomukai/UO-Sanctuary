@@ -75,6 +75,7 @@ public static class PaladinAuras
     {
         var key=(target.Serial.Value,ability);
         if (_leases.TryGetValue(key,out var old) && old.UntilUtc>now && old.Rank>rank) { return false; }
+        if(ability==CombatAbility.Thorns&&target is IronGolemBody iron){iron.ReplaceIntrinsicThorns();}
         uint source=old is { } && old.UntilUtc>now && old.Rank==rank ? old.Source : owner.Serial.Value;
         _leases[key]=new(target.Serial.Value,source,ability,rank,value,until,maximumResistance,staminaPercent,velocityPercent,damagePercent,attackPercent,uninterruptChance);
         if(ability==CombatAbility.Vigor && old?.StaminaPercent!=staminaPercent){PaladinVigor.Refresh(target);}
@@ -143,7 +144,11 @@ public static class PaladinAuras
         if (wasSuppressed!=suppress) { owner.CheckStatTimers(); }
         owner.FixedEffect(0x375A,10,10,0x481,0); // Placeholder aura; final rings/overlays tracked separately.
     }
-    internal static void ElementalWeapon(PaladinAuraLease lease)=>_leases[(lease.Target,lease.Ability)]=lease;
+    internal static void ElementalWeapon(PaladinAuraLease lease)
+    {
+        if(lease.Ability==CombatAbility.Thorns&&World.FindMobile((Serial)lease.Target) is IronGolemBody iron){iron.ReplaceIntrinsicThorns();}
+        _leases[(lease.Target,lease.Ability)]=lease;
+    }
     public static void Clear(Mobile actor)
     {
         bool suppressed=ManaSuppressed(actor);_emitters.Remove(actor.Serial.Value); _expired.Clear();

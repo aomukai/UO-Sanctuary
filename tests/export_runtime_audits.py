@@ -10,7 +10,7 @@ import tempfile
 from check_britain import ROOT, SERVER, Session
 
 
-def export(stage, extra_commands=(), extra_probes=()):
+def export(stage, extra_commands=(), extra_probes=(), extra_wait_results=None):
     stage = stage.resolve(strict=True)
     native = Path(os.environ.get('SANCTUARY_NATIVE_ROOT', ROOT)) / 'upstream/ModernUO/Distribution'
     os.environ.update(SANCTUARY_PROJECT_ROOT=str(ROOT), SANCTUARY_FIRST_LOOP_ROOT=str(ROOT),
@@ -66,6 +66,9 @@ def export(stage, extra_commands=(), extra_probes=()):
                 for command in [*extra_commands, 'named-gear-check', 'first-loop-catalogue-check']:
                     session.send(command)
                     assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed'
+                    if command in (extra_wait_results or {}):
+                        result=extra_wait_results[command]
+                        assert session.expect(result + r': (passed|failed)', timeout=30).group(1) == 'passed'
                 session.send('shutdown'); assert session.process.wait(timeout=20) == 0
             finally:
                 session.close()
