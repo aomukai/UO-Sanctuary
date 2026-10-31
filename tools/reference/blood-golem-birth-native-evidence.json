@@ -1,0 +1,137 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Blood Golem exact birth/resources",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 2,
+  "verified": {
+    "nativeMarkers": 330,
+    "retainedPredecessorMarkers": 315,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      838,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 16065,
+    "independentSynergyCases": 4590,
+    "safeSourceMatches": 14433,
+    "unsafeSourceRefusals": 1632,
+    "nonpositiveWrappedLifeCases": 1311,
+    "normalRank4Life256": 82329,
+    "nightmareRank4Life256": 158924,
+    "nightmareRank4Regeneration256": 116,
+    "gearSynergyLife256": 240814,
+    "gearSynergyRegeneration256": 176,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/blood-golem-birth/birth-inputs.json",
+      "sha256": "4c2b07dbdb5924336dace1854b4136a20e4cc5670b02e4b56f0a828549c98662"
+    },
+    "audit": {
+      "path": ".local/class-skills/blood-golem-birth/audit-inputs.json",
+      "sha256": "3556cef688fbb96c6006de417cc34decfaed70a54d747e4324416509fbf06fa6"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    },
+    "mage-missile-source-evidence.json": {
+      "path": "tools/reference/mage-missile-source-evidence.json",
+      "sha256": "68769019b38b073efc92f7417cb00d8de05314e55c9bd557cd68bce54e09cdc1"
+    },
+    "blood-golem-birth-source-evidence.json": {
+      "path": "tools/reference/blood-golem-birth-source-evidence.json",
+      "sha256": "ec18aef0e803dab03df72c5342db902e1fb0002b69ae245aa958505d6a61576e"
+    },
+    "blood-golem-birth-independent-source-evidence.json": {
+      "path": "tools/reference/blood-golem-birth-independent-source-evidence.json",
+      "sha256": "1e1bc41cbe3c46c77e1b65a1f7eddfbd09852d73dd5b81089b01b0381f610bfb"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BloodGolemBody.cs": "24eb14ab348e4202d1f5338ba2b115cad409b1b0312fa9a1b9a06a047c03f71b",
+    "src/Sanctuary.Content/NecromancerBloodBirth.cs": "12a52443c94faed552e2329370f76372528c61d98712bfad8a2cb99898bf428f",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "7f3548835118fd5ed0d1a4e66eed1e4f16975a8466b8743c4cdd271460c5819a",
+    "src/Sanctuary.Content/SkeletonPets.cs": "9357ee5004083360579ae39cb55223c444a40e32e0d42caac91410f2b4a3407d",
+    "tests/Sanctuary.Integration/BloodGolemBirthChecks.cs": "0f900210c7c2590ec94c132eeece3b5871c8fd5857cab640c8d2d03e37076a11"
+  },
+  "artifacts": {
+    ".local/class-skills/blood-golem-birth/audit-inputs.json": "3556cef688fbb96c6006de417cc34decfaed70a54d747e4324416509fbf06fa6",
+    ".local/class-skills/blood-golem-birth/audit-native-checks.log": "9e6c51bdb5451cd9d683d14a8b5f7862d3356cd92f32ef76828cf39b5f1a86a1",
+    ".local/class-skills/blood-golem-birth/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/blood-golem-birth/birth-inputs.json": "4c2b07dbdb5924336dace1854b4136a20e4cc5670b02e4b56f0a828549c98662",
+    ".local/class-skills/blood-golem-birth/birth-native-checks.log": "fe279296815a87a025e0999a391dd227130e195740d5447d68d84c2a8b0fe936",
+    ".local/class-skills/blood-golem-birth/blood-golem-birth-fixtures.json": "4b89a6f1005777f41c481a9115c9c1a3e9af77f1b133bf70f18292be9a08bba4",
+    ".local/class-skills/blood-golem-birth/content-build-2.log": "829c4478c9835c10d9ebb9ee0534939bd7ef2a37afe5a25dffcf056d798565e1",
+    ".local/class-skills/blood-golem-birth/integration-build-2.log": "6b2eaa7f1ffe68064c2bee6358fdcb1c32275158d131b496d199dc7ebe9af9cf",
+    ".local/class-skills/blood-golem-birth/iron-golem-cast-fixtures.json": "bd76d6381cf7d154835e959084c7c3062dbdc0b7b46e9b0af8bc555e5775f3f9",
+    ".local/class-skills/blood-golem-birth/mage-missile-fixtures.json": "20aef233f9b552ccad02e53c8886466d5e860ec0bf9e7cb1a0f407e0debb293e",
+    ".local/class-skills/blood-golem-birth/pre-build-2.json": "9dc75fbc8331f68c209bc04dbb4fb25cc783d2817dece49594f8a58e0498ad42",
+    ".local/class-skills/blood-golem-birth/python-tests.log": "554f4a19f6899713312867c64b1f4e2ce8d9418ccc14f6f69b3eb389ac82d28d",
+    ".local/class-skills/blood-golem-birth/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/blood-golem-birth/skeleton-contact-fixtures.json": "65346fbf8e4b76bae0082908c1eed47ceaf14c060b58484e47ba4483d7cb628b",
+    "data/Sanctuary/Balance/necromancer-summons.json": "0c39af3007c13a9d62f0d8e3ee3e4dfc32c5d6552717fea26f1575b6fbb28d1a",
+    "docs/blood-golem-birth-checkpoint.md": "bb1f31f34c92085d114af0bff6dc72ce7fb5bee1bd86ff905f533839f8ff3875",
+    "docs/blood-golem-birth-source-preparation.md": "2274c1325f9e63aa36e4c9a76fb653e2a711946913159ba20b71aaac30ade3c1",
+    "docs/class-skill-roadmap.md": "e599e0981801738f04c8405df949820ab1f789feb3b5fd4cc634357a5a30c39f",
+    "docs/class-skills-resume-checkpoint.md": "42632177bf2da0858aa4a2c87537afdc997f0aaee8ccfacdbb69c23ca972a84b",
+    "docs/necromancer-mechanical-audit.md": "e41b71eb0cd77dc170ef1112b601af9593fa88816d918e0cdd8e582d3d7b218e",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skeleton-components-source-review.md": "571e5890391ca7e3f0f3bef25731d55156b9e43ee66dce3932ee9609d5b44ed3",
+    "docs/skill-effects.md": "5ff215ba5e50d7382c4e1d190ce73f545371d6529006fa704e60e0be3548e106",
+    "docs/skill-icons.md": "cb034615e6c21aa62bc4a96c1580b4142718260af43ee55c9ae4ea3bc9436a00",
+    "docs/skill-mechanical-reference.md": "5b056c63391c7f67bc46a963e4faee69449152ea5803102c40774329df625b39",
+    "src/Sanctuary.Content/BloodGolemBody.cs": "24eb14ab348e4202d1f5338ba2b115cad409b1b0312fa9a1b9a06a047c03f71b",
+    "src/Sanctuary.Content/NecromancerBloodBirth.cs": "12a52443c94faed552e2329370f76372528c61d98712bfad8a2cb99898bf428f",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "7f3548835118fd5ed0d1a4e66eed1e4f16975a8466b8743c4cdd271460c5819a",
+    "src/Sanctuary.Content/SkeletonPets.cs": "9357ee5004083360579ae39cb55223c444a40e32e0d42caac91410f2b4a3407d",
+    "tests/Sanctuary.Integration/BloodGolemBirthChecks.cs": "0f900210c7c2590ec94c132eeece3b5871c8fd5857cab640c8d2d03e37076a11",
+    "tests/check_blood_golem_birth.py": "90bc5120409ae176e07b678bace3c227133f48bdc62de69b6b6ebf3fc48917a7",
+    "tools/build_class_skills.py": "74ad548a893bb80219b20246dc1e9b39fc3e6e8a5f4b886fa3ed8ca62e3ef3e0",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/probe_blood_golem_birth.py": "7b585ac9ceb369f238a5e5961db4ccb226979c156d6eb0c04a3a694a654d9058",
+    "tools/probe_blood_golem_birth_independent.py": "fe9cf7420b8eae38061e4a359d33258acec05cd4d729d3ab4b940b5f644714c3",
+    "tools/record_blood_golem_birth.py": "4f64961304e6bda02193495134133bcf4d43f1549a1cfa24934d74b57c94c1c0",
+    "tools/reference/clay-golem-contact-native-evidence.json": "565cb2c6045d9e18ed0f8da3a30d6c98985f6d5fe93d173c9eef20802f1360dd",
+    "tools/reference/first-loop-affix-audit.json": "457aac359edd9f0da97af2f8052168d02fb594b2c6347a9aad192f22ab901c69",
+    "tools/reference/named-item-runtime-audit.json": "413ca69ce00bfbd50082a2e18673437d9adfc7a26e30c0176fad57364cde4229",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-shield-observations.json": "e509ed29e26fe70abfe729218a7e912fb7fab32cdd38e0d4cd23c82fc2b34e52",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "New learned Blood Golems use a saved exact-resource subtype with the shared noRatio summon base/passive/MAXHP and native resource/facet/buff services. All3difficulties are preflighted before creating or replacing a golem;physical Sunder explicitly refuses.",
+    "Complete unchanged source helper bodies execute16065contexts,retaining11475previous rows and4590independent hard-synergy controls. Native matches14433safe rows and refuses1632signed-percentage hazards,including1311nonpositive wrapped results.148current fields remain corroborated against the owned3.3.93847tables.",
+    "Rank4/Mastery0 Normal life82329FP256 and60FP regeneration,Nightmare158924FP256 and116FP regeneration survive the actual learned factory. Real Wormskull/effective Mastery8/hard Clay4/Iron3/Fire4 gives240814FP256 life,176FP regeneration,armor699,attack1188,damagepercent244 and velocity24. Later owner ranks do not rewrite existing captures.",
+    "Native checks cover once-only payment,replacement,insufficient mana retaining the old pet,40ms recovery/PMH,facet-relative fractional life,Battle Orders and historical plain-minion type persistence. Six actual right/quick casts create the exact-resource subtype with no creation/payment during windup. Two reloads preserve injured parked resources and captured owner/type.",
+    "All315predecessor markers,4audits/71Python,573named decisions,runtime data,staged kernel and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "Full event23/26health/damage-sharing behavior is not certified;the inherited existing native damage/healing bridge remains explicit. Fractional healing/event semantics,unarmed damage/critical/prepared contact,initial S1/AI/animation/movement and initializer/seed/current-executable/client parity need separate acceptance.",
+    "Historical plain minions retain their existing saved type/path. The native65000HPceiling remains an identified adapter. Complete other Necromancer summon/curse acceptance before marking the class complete.",
+    "No complete class,deployment or new1180-marker broad run is claimed. Blood summon/body/attack/healing/share/hit/death effects/audio and tree/right/quick icons remain separate pending ledgers."
+  ]
+}

@@ -40,9 +40,10 @@ public static class NecromancerSummons
         bool mage = ability == CombatAbility.RaiseSkeletalMage;
         if(mage){try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.ClayGolem){try{NecromancerClayBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
+        if(ability==CombatAbility.BloodGolem){try{NecromancerBloodBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
-        NecromancerMinion pet=ability==CombatAbility.ClayGolem?new ClayGolemBody():new NecromancerMinion();
+        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemBody(),CombatAbility.BloodGolem=>new BloodGolemBody(),_=>new NecromancerMinion()};
         bool committed=false;
         try
         {

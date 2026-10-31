@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "cases": 16065,
+  "retainedOriginalCases": 11475,
+  "independentSynergyCases": 4590,
+  "unsafePercentageCases": 1632,
+  "nonpositiveWrappedLifeCases": 1311,
+  "columns": [
+    "ownerLevel",
+    "effectiveRank",
+    "difficulty",
+    "effectiveMastery",
+    "hardIron",
+    "hardClay",
+    "hardFire",
+    "summonResistance",
+    "unsafe",
+    "level",
+    "maxLife256",
+    "life256",
+    "armor",
+    "attack",
+    "regeneration256",
+    "velocityPercent",
+    "damagePercent",
+    "unusedSlow",
+    "equipmentLevel",
+    "events",
+    "fireResistance",
+    "lightningResistance",
+    "coldResistance",
+    "poisonResistance"
+  ],
+  "functions": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "localTables": {
+    "monstats-sentries-verified.txt": {
+      "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+      "corroboratedFields": 79
+    },
+    "skills.txt": {
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "corroboratedFields": 69
+    }
+  },
+  "inputs": {
+    "tools/probe_blood_golem_birth_independent.py": "fe9cf7420b8eae38061e4a359d33258acec05cd4d729d3ab4b940b5f644714c3",
+    "tools/reference/blood-golem-birth-source-evidence.json": "ec18aef0e803dab03df72c5342db902e1fb0002b69ae245aa958505d6a61576e",
+    ".local/class-skills/blood-golem-birth-source/probe.cpp": "f8edc21a6984b8647f3f8af930221e298aff12aa11d1240f75171986d2c6c225"
+  },
+  "artifacts": {
+    ".local/class-skills/blood-golem-birth-independent-source/probe.cpp": "0d9528583ec6730b2bf7a4e94aea8d9a3e93203b6b488098db4625b78fc0d908",
+    ".local/class-skills/blood-golem-birth-independent-source/cases.json": "f878479ac42cb406e629acf2546d05ffc98e7743caa72feca6606e5eb8e5029c",
+    ".local/class-skills/blood-golem-birth-independent-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/blood-golem-birth-independent-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Retains all11475original contexts and executes4590additional contexts separating hard Clay/Iron/Fire ranks. Complete shared helper bodies are unchanged;formula/stat services remain explicit adapters.",
+    "The independent rows distinguish Clay attack-rating,Iron armor and Fire damage synergies. Current owned-table corroboration remains148fields. Event23/26registrations are counted,not executed."
+  ],
+  "remaining": [
+    "Native casting/resources/facets/buffs/save acceptance and full event/initializer/equipment/AI/current-executable/client parity remain separate."
+  ]
+}

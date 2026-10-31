@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Blood Golem exact birth/resource increment](blood-golem-birth-checkpoint.md) adds no ability binding or final art. Blood Golem still needs its talent-tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately pending. Internal exact-life/regeneration services require no additional player icons. Effects/audio stay in their own ledger.
+
 The [Clay prepared-contact increment](clay-golem-contact-checkpoint.md) adds no new ability binding. Clay Golem still needs its talent-tree and right/quick-hotkey icon; Golem Mastery's passive tree icon stays separately pending. Automatic hit/block/contact reactions use no additional skill icon. Effects/audio remain in their own ledger.
 
 The [Clay unarmed-damage/G1 clock increment](clay-golem-combat-checkpoint.md) introduces no new binding or final icon. Clay Golem still needs its tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately pending. Unarmed rolls, intrinsic critical and source streams do not require additional player icons. Effects/audio stay separate.
