@@ -1,5 +1,10 @@
 # Class skill roadmap
 
+**Poison Nova saved ring (2026-10-31 JST).** Learned Nova now creates64saved source-directed rays through the shared spell-flight engine and delivers source-zero poison through the verified tick scheduler. The growing filled-area placeholder is removed. Right-only/quick bindings,once-only20mana,captured ranks/item-poison exclusion,collision,immune/cure/potion ticks and owner/save lifecycle have dedicated checks. See the [checkpoint](poison-nova-checkpoint.md). Exact modern hit-delay identity,initial-poison applicability and shared geometry/event/client/PvP gaps remain explicit. No class complete or deployment. Next:Poison Explosion's eight moving cloud children,then remaining summons/curses. Final effects/audio and icons stay separate placeholders.
+
+Build4/run5 passes247focused markers/3boots/2reloads/3saves, retaining232predecessor markers, with six real right/quick casts, four separate audits and71Python tests. All573named decisions and106installed artifacts are unchanged. Both clean builds have zero warnings/errors; fingerprints828/21. All native jobs are terminal. See the [receipt](../tools/reference/poison-nova-native-evidence.json). No new broad class regression,complete class or deployment is claimed.
+
+
 **Poison spell tick foundation (2026-10-31 JST).** The shared effect scheduler now has saved zero-rate spell exposure for poison-immune enemies, tick-time potion lookup, cure/Cleansing cleanup and strongest-poison replacement. Original and added poison combine before resistance; base and bonus share one Protection/item-replenishment health boundary. See the [checkpoint](spell-poison-ticks-checkpoint.md). Learned Poison Nova/Explosion remain provisional and are not connected yet. Next: the64saved Nova rays, packet/impact composition and real learned inputs, then moving Explosion clouds. No class complete or deployment; effects/audio and icons remain separate.
 
 

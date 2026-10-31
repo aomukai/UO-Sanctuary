@@ -60,7 +60,7 @@ public static class NecromancerCombat
         {owner.SendMessage(0x22,issue);return false;}
         if(ability==CombatAbility.RaiseSkeletalMage)
         {try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
-        if (ability == CombatAbility.BoneArmor) { selected = Serial.Zero; point = owner.Location; }
+        if (ability is CombatAbility.BoneArmor or CombatAbility.PoisonNova) { selected = Serial.Zero; point = owner.Location; }
         var session = ClassCombat.For(owner);
         if (!Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
             || owner.Spell != null || HitRecovery.Active(owner, now) || session.PendingAbility != CombatAbility.None
@@ -79,12 +79,13 @@ public static class NecromancerCombat
     public static bool Release(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
         if(ability==CombatAbility.PoisonDagger){return PoisonDaggerCombat.Release(owner,selected,Core.TickCount);}
+        if(ability==CombatAbility.PoisonNova){selected=Serial.Zero;point=owner.Location;}
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point)) { return false; }
         var values = SkillMechanics.Values(owner, ability);
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
-        if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit){return NecromancerSpellMissiles.Release(owner,point,values,ability==CombatAbility.BoneSpirit?World.FindMobile(selected):null);}
+        if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit or CombatAbility.PoisonNova){return NecromancerSpellMissiles.Release(owner,point,values,ability==CombatAbility.BoneSpirit?World.FindMobile(selected):null);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
             if (!BoneBarriers.Create(owner, ability, point, values)) { return false; }
@@ -119,7 +120,6 @@ public static class NecromancerCombat
                 TimedEffects.Now.AddMilliseconds(NecromancerSummons.Source("poisonexplosioncloud", "Range") * 40L)), () => cloud.Active);
             cloud.Start(); return true;
         }
-        if (ability == CombatAbility.PoisonNova) { new Nova(owner, values).Start(); return true; }
         throw new InvalidOperationException("Necromancer skill advertised without a release handler.");
     }
     internal static void Consume(Corpse corpse)
@@ -139,18 +139,6 @@ public static class NecromancerCombat
             if (_frame++ % Math.Max(1, NecromancerSummons.Source("poisonexplosioncloud", "Param1")) != 0) { return; }
             foreach (var target in SkillCombat.Targets(Owner, point, 2)) { Poison(Owner, target, values,missileDefense:true); }
             Effects.SendLocationEffect(point, Map, 0x374A, 10, 10, 0x3F, 0);
-        }
-    }
-    private sealed class Nova(PlayerMobile owner, SkillValues values) : SkillField(owner, 31, DiabloClass.Necromancer)
-    {
-        private readonly Point3D _origin = owner.Location;
-        private readonly HashSet<Serial> _hit = new();
-        private double _radius;
-        protected override void Step()
-        {
-            _radius += SkillGeometry.Velocity(12);
-            foreach (var target in SkillCombat.Targets(Owner, _origin, _radius))
-            { if (_hit.Add(target.Serial)) { Poison(Owner, target, values,missileDefense:true); target.FixedEffect(0x374A, 10, 10, 0x3F, 0); } }
         }
     }
 }

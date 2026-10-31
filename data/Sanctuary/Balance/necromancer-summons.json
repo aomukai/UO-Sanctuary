@@ -10059,5 +10059,39 @@
       "L-XP(N)": 46814,
       "L-XP(H)": 70221
     }
+  },
+  {
+    "key": "poisonnova",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 1,
+      "Vel": 12,
+      "MaxVel": 12,
+      "Range": 30,
+      "Red": 0,
+      "Green": 0,
+      "Blue": 0,
+      "InitSteps": 0,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "CelFile": "poisonNova",
+      "animrate": 1024,
+      "AnimLen": 30,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "CollideKill": 1,
+      "LastCollide": 1,
+      "ClientCol": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "Size": 1,
+      "ReturnFire": 1,
+      "Trans": 1,
+      "Skill": "Poison Nova",
+      "HitShift": 8,
+      "HitClass": 80,
+      "NumDirections": 32,
+      "TravelSound": "necromancer_poisonnova"
+    }
   }
 ]

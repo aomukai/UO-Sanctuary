@@ -13,6 +13,11 @@ public sealed record SpellPoisonExposure(uint Source,int RawRate256,int Rate256,
 
 internal static class SpellPoisonTicks
 {
+    internal static PreparedPoison Prepare(PlayerMobile source,Mobile target,int rawRate256,int frames)
+    {
+        int resistance=NamedElements.Resistance(source,target,"pois",target.PoisonResistance);
+        return PoisonPackets.Mitigate(rawRate256,frames,false,resistance,ItemDurationDefenses.PoisonLength(target),0,0,0);
+    }
     internal static bool Apply(PlayerMobile source,Mobile target,int rawRate256,int frames,FirestormModifiers mods,DateTime at)
     {
         if(source is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false,Blessed:false,IsDeadBondedPet:false}
@@ -21,7 +26,7 @@ internal static class SpellPoisonTicks
         // separately verified composition. Do not silently choose one here.
         if(target is PlayerMobile){throw new NotSupportedException("Pure poison spell bonus ticks against players are not verified");}
         int resistance=NamedElements.Resistance(source,target,"pois",target.PoisonResistance);
-        var prepared=PoisonPackets.Mitigate(rawRate256,frames,false,resistance,ItemDurationDefenses.PoisonLength(target),0,0,0);
+        var prepared=Prepare(source,target,rawRate256,frames);
         if(prepared.Frames<=0){return false;}
         TimedEffects.Settle(target,at);if(!target.Alive||target.Deleted){return false;}
         if(prepared.Rate256>0)

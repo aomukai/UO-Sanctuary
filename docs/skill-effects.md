@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Poison Nova saved-ring path](poison-nova-checkpoint.md) uses cast sound0x1E5 and travel marker0x374A as identified placeholders. Final poisonNova directional travel/contact/state effects and cast/travel/impact/expiry audio remain pending independently of the64rays and poison ticks.
+
 The [Bone Spirit saved-guidance path](bone-spirit-checkpoint.md) retains cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final BoneSpirit eight-direction loop/travel, bonespiritexplode and cast/travel/impact/expiry audio remain pending independently of saved guidance and damage.
 
 The [Teeth saved-flight path](teeth-checkpoint.md) retains native cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final teethMissile directional travel, bonecast, teethexplode impact and cast/travel/hit/expiry audio remain pending independently of damage and persistence.

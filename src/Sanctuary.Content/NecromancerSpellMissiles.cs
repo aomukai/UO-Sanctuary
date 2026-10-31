@@ -12,7 +12,7 @@ namespace Sanctuary;
 
 internal sealed record NecromancerSpellFlight(long Id,uint Owner,int Map,int Z,CombatAbility Ability,int Rank,
     double X,double Y,double Vx,double Vy,int VelocityFp8,int Frame,int Frames,int Minimum256,int Maximum256,
-    FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,uint LastCollider=0,string Fault=null,long Cast=0,uint Flags=33,int Activation=0,GuidedFlight Guided=null);
+    FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,uint LastCollider=0,string Fault=null,long Cast=0,uint Flags=33,int Activation=0,GuidedFlight Guided=null,int ElementFrames=0,int RadialIndex=-1);
 internal sealed record NecromancerSpellLease(long Cast,uint Target,DateTime UntilUtc);
 internal sealed record NecromancerSpellSave(NecromancerSpellFlight[] Flights,long NextId,NecromancerSpellLease[] Leases=null);
 public sealed class NecromancerSpellProfiles:GenericPersistence
@@ -34,9 +34,10 @@ internal static class NecromancerSpellMissiles
     private static Dictionary<long,NecromancerSpellFlight> Flights=new();
     private static long _nextId;
     private static Dictionary<(long,uint),NecromancerSpellLease> Leases=new();
+    private static bool Nova(CombatAbility ability)=>ability==CombatAbility.PoisonNova;
     private static bool Teeth(CombatAbility ability)=>ability==CombatAbility.Teeth;
     private static bool Spirit(CombatAbility ability)=>ability==CombatAbility.BoneSpirit;
-    private static string Missile(CombatAbility ability)=>Spirit(ability)?"bonespirit":Teeth(ability)?"teeth":"bonespear";
+    private static string Missile(CombatAbility ability)=>Nova(ability)?"poisonnova":Spirit(ability)?"bonespirit":Teeth(ability)?"teeth":"bonespear";
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static void Configure()=>_ = new NecromancerSpellProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
@@ -44,7 +45,18 @@ internal static class NecromancerSpellMissiles
     {
         bool teeth=Teeth(values.Ability),spirit=Spirit(values.Ability);string missile=Missile(values.Ability);
         var row=SkillMechanics.For(values.Ability);int M(string field)=>NecromancerSummons.Source(missile,field);
-        if(values.Ability is not(CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit)||values.Rank is <1 or >255||row.SourceId!=(spirit?93:teeth?67:84)
+        if(Nova(values.Ability))
+        {
+            if(values.Rank is <1 or >255||row.SourceId!=92||row.Number("srvdofunc")!=22||row.Text("srvmissilea")!=missile
+                ||row.Text("EType")!="pois"||row.Number("SrcDam")!=0||values.Eval("calc1")!=0||values.DurationFrames!=50
+                ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=0||M("pSrvDmgFunc")!=0||M("Vel")!=12||M("MaxVel")!=12||M("Accel")!=0||M("Range")!=30
+                ||M("Size")!=1||M("CollideType")!=3||M("CollideKill")!=1||M("LastCollide")!=1||M("NextHit")!=1||M("NextDelay")!=4
+                ||M("ToHit")!=0||M("Pierce")!=0||M("SrcDamage")!=0||M("CanSlow")!=0||M("InitSteps")!=0||M("Activate")!=0
+                ||M("ReturnFire")!=1||M("GetHit")!=0||M("ResultFlags")!=0||M("HitClass")!=80)
+            {throw new NotSupportedException("Unmapped Poison Nova missile route");}
+            return;
+        }
+        if(values.Ability is not(CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit or CombatAbility.PoisonNova)||values.Rank is <1 or >255||row.SourceId!=(spirit?93:teeth?67:84)
             ||row.Text(teeth||spirit?"srvmissilea":"srvmissile")!=missile||row.Text("EType")!="mag"||row.Number("SrcDam")!=0
             ||M("pSrvDoFunc")!=(spirit?7:1)||M("pSrvHitFunc")!=(spirit?10:0)||M("pSrvDmgFunc")!=0
             ||M("Vel")!=(spirit?12:teeth?16:24)||M("MaxVel")!=(spirit?12:teeth?16:24)||M("Accel")!=0||M("Range")!=(spirit?128:teeth?50:40)||M("Size")!=1||M("CollideType")!=3
@@ -61,21 +73,21 @@ internal static class NecromancerSpellMissiles
     {Route(values);return DruidFirestorm.Endpoints(values,mastery,slow);}
     private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Necromancer?p:null;
-    private static NecromancerSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,FanRay? ray=null,long? id=null,long cast=0,Mobile target=null)
+    private static NecromancerSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,FanRay? ray=null,long? id=null,long cast=0,Mobile target=null,int radialIndex=-1)
     {
         Route(values);
         if(Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal||at.Kind!=DateTimeKind.Utc
             ||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height)
         {throw new NotSupportedException("Unsupported spell flight owner/aim");}
-        var slow=AmazonSlowMissiles.Capture(owner,true);var ends=Endpoints(values,NamedElements.MasteryPercent(owner,"mag"),slow);
+        bool nova=Nova(values.Ability);var slow=AmazonSlowMissiles.Capture(owner,!nova);var ends=Endpoints(values,NamedElements.MasteryPercent(owner,nova?"pois":"mag"),slow);
         bool teeth=Teeth(values.Ability),spirit=Spirit(values.Ability);int flags=spirit?(target!=null?0x20:0x420):(int)(ray?.Flags??33);
-        int velocity=SlowMissilePayload.VelocityFp8(spirit?12:teeth?16:24,0,values.Rank,flags,0,true,slow.VelocityPercent);
+        int velocity=SlowMissilePayload.VelocityFp8(nova||spirit?12:teeth?16:24,0,values.Rank,flags,nova?12:0,!nova,slow.VelocityPercent);
         int dx=ray?.X??point.X-owner.X,dy=ray?.Y??point.Y-owner.Y;if(dx==0&&dy==0){dx=dy=1;}
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         var guided=spirit?BoneSpiritGuidance.Capture(owner,target,point,velocity):null;
         var s=new NecromancerSpellFlight(id??checked(_nextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,values.Ability,values.Rank,
-            owner.X,owner.Y,vector.X,vector.Y,velocity,0,guided?.Remaining??(teeth?50:40),ends.Min,ends.Max,DruidFirestorm.Modifiers(owner),slow,
-            SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40),teeth?owner.Serial.Value:0,Cast:cast,Flags:(uint)flags,Activation:ray?.ActivationFrame??0,Guided:guided);Validate(s);return s;
+            owner.X,owner.Y,vector.X,vector.Y,velocity,0,guided?.Remaining??(nova?30:teeth?50:40),ends.Min,ends.Max,DruidFirestorm.Modifiers(owner),slow,
+            SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40),teeth||nova?owner.Serial.Value:0,Cast:cast,Flags:(uint)flags,Activation:ray?.ActivationFrame??0,Guided:guided,ElementFrames:nova?values.DurationFrames:0,RadialIndex:radialIndex);Validate(s);return s;
     }
     private static long Commit(NecromancerSpellFlight s){Flights.Add(s.Id,s);_nextId=s.Id;return s.Id;}
     internal static long Create(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,Mobile target=null)=>Commit(Prepare(owner,point,values,at,target:target));
@@ -88,10 +100,22 @@ internal static class NecromancerSpellMissiles
     }
     internal static long[] CreateFan(PlayerMobile owner,Point3D point,SkillValues values,DateTime at)
     {var fan=PrepareFan(owner,point,values,at);return fan.Select(Commit).ToArray();}
+    private static NecromancerSpellFlight[] PrepareRing(PlayerMobile owner,SkillValues values,DateTime at)
+    {
+        Route(values);if(!Nova(values.Ability)){throw new NotSupportedException("Expected Poison Nova ring");}
+        if(SpellHelper.IsTown(owner.Location,owner)){throw new NotSupportedException("Poison Nova cannot be cast in town");}
+        long cast=checked(_nextId+1);
+        return Enumerable.Range(0,64).Select(i=>
+        {
+            var direction=FrozenOrbs.Direction(i);
+            return Prepare(owner,owner.Location,values,at,new FanRay(direction.X,direction.Y,7,0),checked(cast+i),cast,radialIndex:i);
+        }).ToArray();
+    }
+    internal static long[] CreateRing(PlayerMobile owner,SkillValues values,DateTime at)=>PrepareRing(owner,values,at).Select(Commit).ToArray();
     internal static bool Release(PlayerMobile owner,Point3D point,SkillValues values,Mobile target=null)
     {
         NecromancerSpellFlight[] prepared;
-        try{prepared=Teeth(values.Ability)?PrepareFan(owner,point,values,TimedEffects.Now):[Prepare(owner,point,values,TimedEffects.Now,target:target)];}
+        try{prepared=Nova(values.Ability)?PrepareRing(owner,values,TimedEffects.Now):Teeth(values.Ability)?PrepareFan(owner,point,values,TimedEffects.Now):[Prepare(owner,point,values,TimedEffects.Now,target:target)];}
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}foreach(var s in prepared){Commit(s);}owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
     }
@@ -158,15 +182,15 @@ internal static class NecromancerSpellMissiles
             // Bone Spear's null hit callback leaves hit result2: direct
             // damage with no removal. LastCollide is only the latest identity.
             next=next with{LastCollider=serial};
-            if(Teeth(s.Ability)){Leases[(s.Cast,serial)]=new(s.Cast,serial,s.NextUtc.AddMilliseconds(160));}
+            if(Teeth(s.Ability)||Nova(s.Ability)){Leases[(s.Cast,serial)]=new(s.Cast,serial,s.NextUtc.AddMilliseconds(160));}
             if(World.FindMobile((Serial)serial) is{} target){next=next with{Seed=Impact(owner,target,s)};}
-            if(Teeth(s.Ability)){removed=true;return 2;}return 1;
+            if(Teeth(s.Ability)||Nova(s.Ability)){removed=true;return 2;}return 1;
         }
         var result=BasicMissileUpdate.Run(new(true,true,s.VelocityFp8,s.Frames-s.Frame,2,s.Frames-s.Activation,true),
             new(Move,_=>{},()=>true,()=>true,()=>2,()=>next.Steps.Cells,
                 cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,Hit));
         if(removed||result.Result==2){Flights.Remove(s.Id);return;}Flights[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),map,0x36E4,2);} // Identified Bone Spear placeholder.
+        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),map,Nova(s.Ability)?0x374A:0x36E4,2);} // Identified spell-flight placeholders.
     }
     internal static GearDamage Packet(NecromancerSpellFlight s,int magic256,int potion=0)
     {
@@ -181,18 +205,28 @@ internal static class NecromancerSpellMissiles
         SorceressEffects.MissileHit(owner,target,Missile(s.Ability));ulong seed=s.Seed;
         int raw=WeaponMissileDamage.RollValue(s.Minimum256,s.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         if(ClassAvoidance.Missile(target,Missile(s.Ability))){return seed;}
-        owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s,raw,CombatPotions.BonusAt(owner,"magical-penetration",s.NextUtc)));
+        owner.DoHarmful(target,true);
+        if(Nova(s.Ability))
+        {
+            var prepared=SpellPoisonTicks.Prepare(owner,target,raw,s.ElementFrames);
+            SpellPoisonTicks.Apply(owner,target,raw,s.ElementFrames,s.Modifiers,s.NextUtc);
+            // Retain the shared older-source initial-rate bridge explicitly.
+            // Modern initial health delivery remains a documented source gap.
+            PoisonStates.Drain(owner,target,prepared.Rate256);return seed;
+        }
+        var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s,raw,CombatPotions.BonusAt(owner,"magical-penetration",s.NextUtc)));
         int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);return seed;
     }
     private static void Validate(NecromancerSpellFlight s)
     {
-        bool teeth=s!=null&&Teeth(s.Ability),spirit=s!=null&&Spirit(s.Ability);int frames=teeth?50:40;
+        bool teeth=s!=null&&Teeth(s.Ability),spirit=s!=null&&Spirit(s.Ability),nova=s!=null&&Nova(s.Ability);int frames=nova?30:teeth?50:40;
         if(s==null||s.Id<=0||!((Serial)s.Owner).IsMobile||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal
-            ||s.Z is <-128 or >127||s.Ability is not(CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit)||s.Rank is <1 or >255||s.Frame<0
+            ||s.Z is <-128 or >127||s.Ability is not(CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit or CombatAbility.PoisonNova)||s.Rank is <1 or >255||s.Frame<0
             ||(spirit?!BoneSpiritGuidance.Valid(s):s.Frame>=frames||s.Frames!=frames||s.Guided!=null)
-            ||s.Cast<0||teeth&&(s.Cast<=0||s.Cast>s.Id||s.Flags!=2080||s.Activation!=0)||!teeth&&!spirit&&(s.Cast!=0||s.Flags!=33||s.Activation!=0)
-            ||s.Minimum256<0||s.Maximum256<s.Minimum256||s.VelocityFp8<0||s.VelocityFp8>(spirit?2304:teeth?3072:4608)||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100
+            ||s.Cast<0||teeth&&(s.Cast<=0||s.Cast>s.Id||s.Flags!=2080||s.Activation!=0)||nova&&(s.Cast<=0||s.Cast>s.Id||s.Flags!=7||s.Activation!=0||s.RadialIndex is <0 or >63||s.ElementFrames!=50||s.VelocityFp8!=2304||s.Slow.VelocityPercent!=100)
+            ||!nova&&(s.ElementFrames!=0||s.RadialIndex!=-1)||!teeth&&!spirit&&!nova&&(s.Cast!=0||s.Flags!=33||s.Activation!=0)
+            ||s.Minimum256<0||s.Maximum256<s.Minimum256||s.VelocityFp8<0||s.VelocityFp8>(nova||spirit?2304:teeth?3072:4608)||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100
             ||s.Modifiers==null||s.Modifiers.Potion<0||s.NextUtc.Kind!=DateTimeKind.Utc||s.NextUtc>DateTime.MaxValue.AddMilliseconds(-2000)
             ||!double.IsFinite(s.X)||!double.IsFinite(s.Y)||!double.IsFinite(s.Vx)||!double.IsFinite(s.Vy)||Math.Abs(s.Vx)>.5625||Math.Abs(s.Vy)>.5625
             ||s.X<0||s.Y<0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height||s.LastCollider!=0&&!((Serial)s.LastCollider).IsMobile

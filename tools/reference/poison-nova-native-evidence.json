@@ -1,0 +1,110 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Poison Nova saved source ring and poison ticks",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 5,
+  "verified": {
+    "nativeMarkers": 247,
+    "retainedPredecessorMarkers": 232,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      828,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourcePacketContextsPerBoot": 12240,
+    "sourceEmitterContexts": 72,
+    "sourceDirectionsComparedPerBoot": 384,
+    "radialRays": 64,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/poison-nova/birth-inputs.json",
+      "sha256": "204419022ebc14e9756e26dcbf50b58ed7a29aacd8e9e65d114d8a3522e14260"
+    },
+    "audit": {
+      "path": ".local/class-skills/poison-nova/audit-inputs.json",
+      "sha256": "da2cb442582de4db04aa5bfd2bd34f6b3328d98b0fed99d799e971becbfef6c3"
+    }
+  },
+  "sourceProofs": {
+    "poison-nova-emitter-source-evidence.json": {
+      "path": "tools/reference/poison-nova-emitter-source-evidence.json",
+      "sha256": "d24609f40a7f7734801661f41d2d5c2cc6f29ef4c804c80161e17cf5af086e08"
+    },
+    "poison-nova-damage-source-evidence.json": {
+      "path": "tools/reference/poison-nova-damage-source-evidence.json",
+      "sha256": "b927ea83643af53332ae60ef9f455ba17d7c961f96601dc11fc9c3a50c7bd400"
+    },
+    "poison-nova-routing-review.json": {
+      "path": "tools/reference/poison-nova-routing-review.json",
+      "sha256": "5dc5a263659987a4776a5894eccc62e37104e939525c4f344f5430d05f28733f"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerCombat.cs": "d4f1ecedae992d90a069381c3e7696bc5bb2bd1ed113aa3f9cff47d583200a51",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "951ad63a176a99b15a40385372a262b95f23dabfd1f18798988856cd20105132",
+    "src/Sanctuary.Content/SkillBindings.cs": "7220ddbbcc052950a86fa14c04d05674f554ccbb6941fe751aee587bf0971f75",
+    "src/Sanctuary.Content/SpellPoisonTicks.cs": "f2ec5addf8ae4fdacf5f1875eab08cce17399bbeb9691567ec0ddbe8790e1595",
+    "tests/Sanctuary.Integration/PoisonNovaChecks.cs": "bf00f000e9c2c7c05b0df5ae10fe8973ab68c11e853af1a4a35a21ae86a65a00"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-nova/audit-inputs.json": "da2cb442582de4db04aa5bfd2bd34f6b3328d98b0fed99d799e971becbfef6c3",
+    ".local/class-skills/poison-nova/audit-native-checks.log": "76221f3cca3af97f7f4d035eda5623270937b2e247d6885c676c6bbff7e60714",
+    ".local/class-skills/poison-nova/audit-run-5.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/poison-nova/birth-inputs.json": "204419022ebc14e9756e26dcbf50b58ed7a29aacd8e9e65d114d8a3522e14260",
+    ".local/class-skills/poison-nova/birth-native-checks.log": "f4182a592e2206c6a8b0827f9e69032fcc8d9659cf801b526d0cf5db6d52ee44",
+    ".local/class-skills/poison-nova/content-build-4.log": "47cef0d3e07cc7d8701c772a2012381af1c4ec751090bffee7e2f34c8c7c4474",
+    ".local/class-skills/poison-nova/integration-build-4.log": "fdaade734c1adc4f39e9e2d323a41793d09afd056a7fc94752182d420de97a68",
+    ".local/class-skills/poison-nova/poison-nova-fixtures.json": "994b2d5f61a16bd73a5a5f5270357fe88062d2aa851114a3ac6379c796c89f0c",
+    ".local/class-skills/poison-nova/pre-build-4.json": "f1a280ac67f813714539f55f683a362270e9c00afb7951aafbd435032608a73b",
+    ".local/class-skills/poison-nova/python-tests.log": "db3ff68920c9d6163789d781f1ef64524dc0ca1c994e922c0cd4995a36898e0f",
+    ".local/class-skills/poison-nova/run-5.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "3913f2891dee718deb7029fb664145f6164b5e9c7aff03e614e2653337048751",
+    "docs/class-skill-roadmap.md": "bcab3dd6443988bb13cd052620b6b9007976187837d95d77e25ff0c8e6bda648",
+    "docs/class-skills-resume-checkpoint.md": "393c5b9dabe57933f27a57d1b91096e316a9909d4ca45af9bc6670d7da6a4656",
+    "docs/necromancer-mechanical-audit.md": "007acbf806f03085026e1ab810e1497f4d806765a07c7de89b0cb2ede6e985a8",
+    "docs/poison-nova-checkpoint.md": "86b1962cdbbe36965ee23c87be2cf5f84ae9c9406a209f8ee3f1e70df4c1fd3f",
+    "docs/poison-nova-source-preparation.md": "fbaa6ec09856005bc0b982f40130554de94b5ebdc2ccd780284ee7739d3ac1cf",
+    "docs/skill-effects.md": "b534de35dbec0545781f621d3b63d23caedf1ab4989c1085c75fabf7ad83d840",
+    "docs/skill-icons.md": "fa88ad8b4babe0d62eefcb645134ebff51712720261cf8610e609a1df4c72a4f",
+    "docs/skill-mechanical-reference.md": "77ee57afd11ff18b8fdba286620c82c73e6e5b87466930e70039f0dacd6ce17d",
+    "docs/t29-combat-potions.md": "be99e48bce3ad47d7d9b8493ce83537ee3e96297dd5fba22b891756375d6841d",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "d4f1ecedae992d90a069381c3e7696bc5bb2bd1ed113aa3f9cff47d583200a51",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "951ad63a176a99b15a40385372a262b95f23dabfd1f18798988856cd20105132",
+    "src/Sanctuary.Content/SkillBindings.cs": "7220ddbbcc052950a86fa14c04d05674f554ccbb6941fe751aee587bf0971f75",
+    "src/Sanctuary.Content/SpellPoisonTicks.cs": "f2ec5addf8ae4fdacf5f1875eab08cce17399bbeb9691567ec0ddbe8790e1595",
+    "tests/Sanctuary.Integration/PoisonNovaChecks.cs": "bf00f000e9c2c7c05b0df5ae10fe8973ab68c11e853af1a4a35a21ae86a65a00",
+    "tests/check_poison_nova.py": "e3a2bf078987b8fa2667806aebc1c4307ae31b2efa7722d910e8f087915cde28",
+    "tools/build_class_skills.py": "d2717d13f081dde97740e17fe7519f95814cbf544fac6012568e01757455fdb6",
+    "tools/record_poison_nova.py": "bc7d6e5f7a9f95cdeb3a65d6ea368ffec7008252c012309e374cbfb4c7708b39",
+    "tools/reference/first-loop-affix-audit.json": "7e25cb6c03d3f22aefccdb39f66b50292edefd2135e9672a7790f136a08b0646",
+    "tools/reference/named-item-runtime-audit.json": "275b5585f803586014f930afbadedd117312195968cf83f0977c94cbefc065d0",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/spell-poison-ticks-native-evidence.json": "24c3da350fb33d4091060b6139e5f6c9bd96bb4505c8463cd5f21f44f0abcd68"
+  },
+  "established": [
+    "Poison Nova now creates64saved source-directed child missiles,using FrozenOrbs exact integer offsets and the shared factory/Q12/source-cell/do1 controller. It no longer damages a growing filled area. Each ray has30frames,2304FP8velocity,Size1,contact removal and explicit cast-local160ms NextHit adapter.",
+    "Complete pinned source fixtures compare12240poison-rate/length/mastery packets and384direction/factory projections per boot. Source-zero excludes weapon/item poison and critical;50frames of poison are separate from the30-frame flight. Independent captured damage slow is retained while CanSlow0 preserves movement velocity.",
+    "Learned self-origin windup pays20mana once at release. Right-only and quick bindings,unpaid/town release,real Wormskull soft rank/item-poison exclusion,captured gear,interception and offline/facet/death/respec/wardrobe/wall controls pass. Six actual connected right/quick casts reach enemies through natural flight.",
+    "Actual contact applies the verified shared poison/exposure scheduler. Ordinary and immune recipients pass initial-rate bridge,no GetHit recovery,late-potion ticks and cure cleanup. The existing older-source initial health bridge is retained explicitly;modern equivalence remains open.",
+    "Two actual reloads preserve all64midflight rays with shared cast identity,ordinal,vector,frame,packet,seed,source,deadline and poison length. All232predecessor markers,including positive/immune poison tick saves and legacy profiles,remain."
+  ],
+  "remaining": [
+    "Exact modern NextHit cast/caster identity remains unverified;the explicit cast-local adapter is not claimed as the modern global registry. Complete current path/dispatcher/events,room/terrain/candidate/footprint/global frame/FCR/graphical-client parity and special recipients remain open.",
+    "Modern initial poison-rate health delivery still needs confirmation. Full PvP/player poison-floor versus lethal elemental additions,cross-owner/retired-source credit,dynamic poison defenses,removed buff history,extreme domains and every cure producer remain shared gaps. Town release refusal is verified;full native animation/selection parity is not claimed.",
+    "No class completion,deployment,old-content binary upgrade or new broad1180-marker run is claimed. Next:Poison Explosion eight moving cloud children,then remaining summon/curse acceptance. Final poisonNova effects/audio and talent/hotkey icons remain separately pending."
+  ]
+}
