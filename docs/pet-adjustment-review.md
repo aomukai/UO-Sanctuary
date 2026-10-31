@@ -62,6 +62,20 @@ The Grizzly stun is an approved addition beyond the baseline knockback/no-stun o
 
 ## Assets and implementation acceptance
 
+### Safe-area parking — approved lifecycle change, not implemented
+
+Long-lived summoned armies park automatically when their owner enters an **actual safe area** and return when the owner leaves it. Use explicit region/safety classification, never an indoor/roof/building test. A dungeon building is not a safe area merely because it is indoors. Houses qualify only where their area is actually classified as safe.
+
+Parking retains the same roster and summon identities, ownership, equipment/combat snapshots and wounds. It grants **no recovery or reset**: no healing, curing, resource refill, cooldown reset or refreshed buff duration on entry or return. Temporary effects retain their original deadlines and normal expiry behavior while parked. Do not implement this by deleting and freshly summoning the army or freezing its effect timers. Normal owner-death, replacement and expiry rules still apply; parked summons are not protected from those lifecycle rules.
+
+Town healers may heal the owner's parked living roster through their service menu. This is an explicit healer action, not an automatic benefit of entering town. Reuse existing healer access/service rules; do not invent a new price or resurrection entitlement. A service must find the owned parked roster without briefly spawning it in town.
+
+The owner's **named mercenary remains beside them** in safe areas. Identify this companion through the existing mercenary ownership/profile service, not merely a custom name. Town dialogue is a possible later use of the existing conversation hook; no dialogue content is approved or implemented here.
+
+Keep the earlier short-lived trap rules separate: traps remain in the old facet until expiry, stop fighting while the owner is offline, and retain running lifetimes. This parking proposal does not make traps travel with the army.
+
+Implementation leads: `PersistentMinions` already internalizes persistent actors without deleting their native ownership, and `MinionWardrobeProfiles` persists roster/slot/expiry state. Existing class-switch parking and logout suspension alone do **not** establish the new safe-area behavior. `MercenaryCare.HealFollowers` currently requires the pet to be near the healer, so it does not yet reach internalized rosters. Verify region entry/exit/login/teleport/reload, stationary parked-state expiry and no regeneration, owner death, replacement, safe-area summoning, one-time follower slot accounting, failed return placement and healer eligibility before marking this lifecycle change complete. Reuse existing safe-region policy only after checking that its actual classifications match this rule.
+
 Track missing cast/projectile/impact/status/body/shatter/audio requirements in [skill effects](skill-effects.md), reusing existing assets where appropriate and identifying placeholders. Track talent-tree/hotkey icons separately in [skill icons](skill-icons.md). Autonomous pet abilities add no approved player hotkeys.
 
 No upgrade is mechanically complete merely because its design is approved. Verify formulas, shared affix composition, AI/proc timing, targets, damage/events, live unlock changes, saved poison-Mage conversion, original-item preservation and real save/reloads when implementation begins. Keep unsupported details explicit and continue unaffected baseline work.
