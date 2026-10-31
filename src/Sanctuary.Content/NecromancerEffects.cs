@@ -108,7 +108,7 @@ public static class NecromancerEffects
     public static bool Apply(PlayerMobile owner, Mobile target, CombatAbility ability, int rank)
     {
         if(NecromancerCurseCasts.Handles(ability)){return NecromancerCurseCasts.Apply(owner,target,ability,rank);}
-        if(ability==CombatAbility.Attract&&SourceMind.Neutral(target)){return false;}
+        if(ability==CombatAbility.Attract){return AttractCasts.Apply(owner,target,rank);}
         if (rank is <1 or >255 || !IsCurse(ability) || !ClassCombat.IsHostile(owner, target) || Curse(target)?.Ability == CombatAbility.Attract
             || ability == CombatAbility.DimVision && Curse(target)?.Ability == CombatAbility.Confuse) { return false; }
         bool ai = ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract;
@@ -238,20 +238,7 @@ public static class NecromancerEffects
             }
             return true;
         }
-        if (curse?.Ability is not (CombatAbility.Confuse or CombatAbility.Attract))
-        {
-            // An Attract target draws nearby ordinary monsters even while they carry another curse.
-            if (!AiCurse(creature)) { return false; }
-            foreach (var mobile in creature.Map.GetMobilesInRange<BaseCreature>(creature.Location, 5))
-            {
-                if (mobile != creature && Curse(mobile) is { Ability: CombatAbility.Attract } attraction
-                    && creature.GetDistanceToSqrt(mobile) <= SkillGeometry.Tiles(Values(attraction).Eval("aurarangecalc")) && creature.InLOS(mobile))
-                { creature.Combatant = mobile; return ai.DoActionCombat(); }
-            }
-            return false;
-        }
-        if (curse.Ability == CombatAbility.Attract) { return false; }
-        return false; // Confuse's generic target override feeds ordinary species AI.
+        return false; // Generic mind overrides feed ordinary species AI.
     }
     public static int Armor(Mobile actor) => Profiles?.Find(actor)?.BoneArmor ?? 0;
     internal static int Armor256(Mobile actor)=>Profiles?.Find(actor) is{} state

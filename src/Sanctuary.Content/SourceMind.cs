@@ -39,7 +39,7 @@ public static class SourceMind
         if(PaladinConversion.Active(actor)||PaladinConversion.Active(target)){return null;}
         if(Selecting.TryGetValue(actor.Serial,out int alignment)){return Candidate(actor,target)&&SourceTerror.Distance(actor,target)<=35&&!Aligned(alignment,Alignment(target));}
         var mind=NecromancerEffects.Profiles.Find(actor)?.Mind;
-        if(mind is{Mode:3}&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value){return Candidate(actor,target);}
+        if(mind is{Mode:2 or 3}&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value){return Candidate(actor,target);}
         return Neutral(actor)||Neutral(target)?Candidate(actor,target):null;
     }
     private static bool? Friend(BaseCreature actor,Mobile target)
@@ -48,21 +48,24 @@ public static class SourceMind
         if(actor==target){return true;}
         if(Selecting.TryGetValue(actor.Serial,out int alignment)&&Candidate(actor,target)){return Aligned(alignment,Alignment(target));}
         if(Neutral(actor)||Neutral(target)){return false;}
-        return NecromancerEffects.Profiles.Find(actor)?.Mind is{Mode:3} mind&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value?false:null;
+        return NecromancerEffects.Profiles.Find(actor)?.Mind is{Mode:2 or 3} mind&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value?false:null;
     }
     internal static MindAiState Confuse(BaseCreature actor,NecromancerState state,int frames,DateTime at)
         =>new(state.Mind?.Seed??SourceRandom.InitLow(unchecked((int)Random.Shared.NextInt64(1L<<32))),actor.Map.MapID,at.AddMilliseconds(frames*40L));
+    internal static MindAiState Attract(BaseCreature actor,NecromancerState state,Mobile target,int frames,DateTime at)
+        =>new(state.Mind?.Seed??SourceRandom.InitLow(unchecked((int)Random.Shared.NextInt64(1L<<32))),actor.Map.MapID,
+            at.AddMilliseconds(frames*40L),2,target.Serial.Value,state.Mind?.Draws??0);
     internal static NecromancerState Superseded(NecromancerState state)=>state.Mind is{} mind
         ?state with{Mind=mind with{Mode=0,Focus=0}}:state;
     internal static void Validate(MindAiState state)
     {
-        if(state.Mode is not(0 or 3)||state.Map<0||state.Map>=Map.Maps.Length||Map.Maps[state.Map]==null||Map.Maps[state.Map]==Map.Internal
-            ||state.UntilUtc.Kind!=DateTimeKind.Utc||state.Draws<0||state.Focus!=0&&!((Serial)state.Focus).IsMobile)
+        if(state.Mode is not(0 or 2 or 3)||state.Map<0||state.Map>=Map.Maps.Length||Map.Maps[state.Map]==null||Map.Maps[state.Map]==Map.Internal
+            ||state.UntilUtc.Kind!=DateTimeKind.Utc||state.Draws<0||state.Mode==2&&state.Focus==0||state.Focus!=0&&!((Serial)state.Focus).IsMobile)
         {throw new InvalidDataException("Invalid generic mind target override");}
     }
     internal static void Changed(Mobile actor,NecromancerState state)
     {
-        if(state?.Mind is{Mode:3}||state?.Curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract){Tracked.Add(actor.Serial);}
+        if(state?.Mind is{Mode:2 or 3}||state?.Curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract){Tracked.Add(actor.Serial);}
         else{Tracked.Remove(actor.Serial);}
     }
     internal static void AfterLoad(IEnumerable<KeyValuePair<Serial,NecromancerState>> states)
@@ -76,18 +79,33 @@ public static class SourceMind
             bool changed=false;
             if(state.Curse is{Ability:CombatAbility.Confuse or CombatAbility.Attract} curse&&curse.UntilUtc<=TimedEffects.Now)
             {state=state with{Curse=null};changed=true;}
-            if(state.Mind is{Mode:3} mind&&mind.UntilUtc<=TimedEffects.Now){state=Superseded(state);changed=true;}
+            if(state.Mind is{Mode:2 or 3} mind&&mind.UntilUtc<=TimedEffects.Now){state=Superseded(state);changed=true;}
             if(changed){NecromancerEffects.Profiles.Store(actor,state);if(actor is BaseCreature creature){creature.ForceReacquire();}}
         }
+    }
+    internal static void ClearOverride(BaseCreature actor)
+    {if(NecromancerEffects.Profiles.Find(actor) is{} state){NecromancerEffects.Profiles.Store(actor,Superseded(state));}}
+    internal static Mobile AttractedTarget(BaseCreature actor)
+    {
+        if(NecromancerEffects.Profiles.Find(actor)?.Mind is not{Mode:2} mind){return null;}
+        if(mind.UntilUtc>TimedEffects.Now&&mind.Map==actor.Map?.MapID
+            &&World.FindMobile((Serial)mind.Focus) is BaseCreature{Alive:true,Deleted:false} target&&target.Map==actor.Map){return target;}
+        ClearOverride(actor);return null;
     }
     internal static void Think(BaseCreature actor)
     {
         var state=NecromancerEffects.Profiles.Find(actor);var mind=state?.Mind;
-        if(mind is not{Mode:3}||mind.UntilUtc<=TimedEffects.Now||actor.AIObject is not{} ai||actor.Map==null||actor.Map==Map.Internal
+        if(mind is not{Mode:2 or 3}||mind.UntilUtc<=TimedEffects.Now||actor.AIObject is not{} ai||actor.Map==null||actor.Map==Map.Internal
             ||actor.Frozen||actor.Paralyzed||NamedControl.FrozenRemaining(actor)>0||FreezeStates.Waiting(actor)
             ||state.Curse?.Terror!=null||NecromancerEffects.Vision(state.Curse)){return;}
         if(actor.Map.MapID!=mind.Map||actor.Controlled||actor.Summoned||PaladinConversion.Active(actor))
         {Log.Warning("Generic mind override world transition unsupported: {Target}",actor.Serial.Value);NecromancerEffects.Profiles.Store(actor,Superseded(state));return;}
+        if(mind.Mode==2)
+        {
+            if(AttractedTarget(actor) is{} attracted)
+            {actor.Combatant=attracted;actor.FocusMob=null;ai.Action=ActionType.Combat;}
+            return; // Explicit target override does not roll or use the scan clock.
+        }
         // Use the existing native acquisition clock and scan/LOS/food/ordering
         // services. They remain world adapters, not source-node parity claims.
         if(actor.NextReacquireTime>Core.TickCount){return;}

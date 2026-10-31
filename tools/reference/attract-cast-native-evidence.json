@@ -1,0 +1,121 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Attract learned casting, protected neutral target and independent neighbor overrides",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 8,
+  "run": 4,
+  "auditRun": 3,
+  "verified": {
+    "nativeMarkers": 77,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      854,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "connectedAttractCasts": 6,
+    "connectedConfuseRegressionCasts": 3,
+    "autonomousAttractCombatChecks": 8,
+    "naturalTwelveSecondExpiries": 6,
+    "mana256": 4352,
+    "reusedReviewedSourceBodies": 10,
+    "additionalReviewedSourceBodies": 2,
+    "compiledNewSourceBodies": 0,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/attract-cast/birth-inputs.json",
+      "sha256": "a00eeca7b9f7b0270bf8d2b45e59e8ad60779c9fce23df0b29fc44e752a02fc0"
+    },
+    "audit": {
+      "path": ".local/class-skills/attract-cast/audit-inputs.json",
+      "sha256": "7be74a3e9ada48a082c34b2a6ad85de4334af927cf338af8816be4dd4bdac1fe"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/AttractCasts.cs": "c811b77454b9208353e4f5b544ebb796aea6b4117354ff0835fb8ba011f0f394",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "730d1614370e9daa30e77bd6770bfc71e4fd334441d2ae635324188537b66ee2",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "9f9f2d39b2fd740ca36c5a0b65eb31aec874f4b818767caa2d30cccbfa188ff5",
+    "src/Sanctuary.Content/SourceBlind.cs": "255b7e581323dec4c3d5ff7ad6dfd4d52802ef74baeaee0a03bfb0dca9e51cb5",
+    "src/Sanctuary.Content/SourceMind.cs": "a339bc34117a7166b0e8a90f62ea5294eec9c11260fae04f0ee9a27183b94c3a",
+    "src/Sanctuary.Content/SourceTerror.cs": "de280b092928bb1371904f451561da7ab8f947f11a253c14616f67b7ae030f94",
+    "tests/Sanctuary.Integration/AttractCastChecks.cs": "1a1afeb9dfa8c8810b7f40b961742bcd8caf9a237ab999e335fa77b89255e4a9",
+    "tests/Sanctuary.Integration/ConfuseCastChecks.cs": "56e752b43f3eec2759acbb88ecd5c9876546d7c23cbf8de1ca27bcdc49d89009",
+    "tests/Sanctuary.Integration/FixtureSpace.cs": "d76a647073b7a602729f8985990cd9b41cf7e961d6d1dc72547c874b4db52f52"
+  },
+  "additionalSourceReview": {
+    "path": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp",
+    "sha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "reviewedNotExecuted": {
+      "SKILLS_SrvSt18_Attract": "ad13ec2d82b5b46532c4b7c5723effe821d0a6af1207db138687ea03c9232fca",
+      "sub_6FD10360": "c146b0f236ae7a9a9288557d24e45f1350f8e324cb16b847fb3111bccf9541f9"
+    }
+  },
+  "artifacts": {
+    ".local/class-skills/attract-cast/attract-cast-fixtures.json": "8050d438ce461cfaa310902d3d2b040248b6d1b1ac290dbebae7c08492ca9a1f",
+    ".local/class-skills/attract-cast/audit-inputs.json": "7be74a3e9ada48a082c34b2a6ad85de4334af927cf338af8816be4dd4bdac1fe",
+    ".local/class-skills/attract-cast/audit-native-checks.log": "34ceabc9c481ef5f41d707ee3bf2465d4d4aca7461f9faf665fcf88f805c398b",
+    ".local/class-skills/attract-cast/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/attract-cast/birth-inputs.json": "a00eeca7b9f7b0270bf8d2b45e59e8ad60779c9fce23df0b29fc44e752a02fc0",
+    ".local/class-skills/attract-cast/birth-native-checks.log": "6b6c4dae1ab9e529299f23e3f547cc69404c3c41b05ccec2706d3bd9d4fd51bb",
+    ".local/class-skills/attract-cast/blind-world-fixtures.json": "15a24291eb45b33537467d87c5c390eaa12e5a96d39dfb3a0f1292a713b5fe83",
+    ".local/class-skills/attract-cast/confuse-cast-fixtures.json": "852754649ffd3f87ca2584daae0c886151f924d59bc1e370292db2bedccfe60e",
+    ".local/class-skills/attract-cast/content-build-8.log": "aac8f660f2589743da78c37e6e791b88d41bed4815eeda4ec2cc127cb19c37a8",
+    ".local/class-skills/attract-cast/dim-vision-cast-fixtures.json": "9d7347f378f447266e20268b961511f6b314f8adfd68f4bbbe2d636437643dca",
+    ".local/class-skills/attract-cast/howl.json": "67256c4f71f3d0ee25a1afcdd1d13d53a7d7ff8dd07674e41d9259ec5c64dc8f",
+    ".local/class-skills/attract-cast/integration-build-8.log": "837f5bbc110518918130391f0a02e3ef561f3c1b12d634908c9ac7ab26350253",
+    ".local/class-skills/attract-cast/mind-blast-fixtures.json": "0b5d3f5d24e4e6e29b82c29584d878893eef56502b6034e9c7b3d2b3a1771600",
+    ".local/class-skills/attract-cast/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/attract-cast/pre-build-8.json": "5bffa79c67d4ede0d38a68b411eaf46189d496d7e7612172e4f3abc539393182",
+    ".local/class-skills/attract-cast/python-tests.log": "886960348fa7087c257564783817aec3511930dba3231899562ba8e2ef0f68df",
+    ".local/class-skills/attract-cast/run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/attract-cast/taunt.json": "2a1824a6afdbd4f4a8737efeb64478f39e99ae51d4301439e4e3833c5d92e933",
+    ".local/class-skills/attract-cast/terror-cast-fixtures.json": "cd7f995f8b8255b39cb53f22603e0d9cd06c2dfe73333624543f7c9cee329e01",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "docs/attract-cast-checkpoint.md": "a167e92b1b10e5aa644a2c7121e9720683bda4e8b275f33583918b26b5fe87a3",
+    "docs/class-skill-roadmap.md": "ed8ab01777e100346fb58415eed397cfcea2fe18a67be2d00db738239fc5c8e5",
+    "docs/class-skills-resume-checkpoint.md": "4df61dbf513fe0c6f1f86a60ece9b911dd2e53ed9583b5ae6799233245f9bb42",
+    "docs/necromancer-mechanical-audit.md": "af1cd43ecb7ebe65a2e61f4eb68f914bbff1bff54b5d540ea44dad055114a40a",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "d7d9413afc25e9aacd285accc5aee8ad178046fccaebc761abd5f5d53e0ab660",
+    "src/Sanctuary.Content/AttractCasts.cs": "c811b77454b9208353e4f5b544ebb796aea6b4117354ff0835fb8ba011f0f394",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "730d1614370e9daa30e77bd6770bfc71e4fd334441d2ae635324188537b66ee2",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "9f9f2d39b2fd740ca36c5a0b65eb31aec874f4b818767caa2d30cccbfa188ff5",
+    "src/Sanctuary.Content/SourceBlind.cs": "255b7e581323dec4c3d5ff7ad6dfd4d52802ef74baeaee0a03bfb0dca9e51cb5",
+    "src/Sanctuary.Content/SourceMind.cs": "a339bc34117a7166b0e8a90f62ea5294eec9c11260fae04f0ee9a27183b94c3a",
+    "src/Sanctuary.Content/SourceTerror.cs": "de280b092928bb1371904f451561da7ab8f947f11a253c14616f67b7ae030f94",
+    "tests/Sanctuary.Integration/AttractCastChecks.cs": "1a1afeb9dfa8c8810b7f40b961742bcd8caf9a237ab999e335fa77b89255e4a9",
+    "tests/Sanctuary.Integration/ConfuseCastChecks.cs": "56e752b43f3eec2759acbb88ecd5c9876546d7c23cbf8de1ca27bcdc49d89009",
+    "tests/Sanctuary.Integration/FixtureSpace.cs": "d76a647073b7a602729f8985990cd9b41cf7e961d6d1dc72547c874b4db52f52",
+    "tests/check_attract_cast.py": "76174de81c22821a50b2220391df88cf6039087204bb95a7580260595cb9e9ef",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/record_attract_cast.py": "3675e7230c2510b7f1f2d7f33dcf59d7405347d69edbaa7c58509600b27764c5",
+    "tools/reference/confuse-cast-native-evidence.json": "ab3d077d39121245c06beb291099958b8e0edb3938ad3adc3eae46529fd1a139",
+    "tools/reference/confuse-source-review.json": "7c1ed5e0e2cfcc363d3b0c10a024d04d2d20ae6f8102d399268e0ff27bea8cd6",
+    "tools/reference/first-loop-affix-audit.json": "fe1f9d3ca25dd8f2b87b4b4c58c5f35942436179242d89eb5fc00e0de123c6be",
+    "tools/reference/named-item-runtime-audit.json": "54fab8ce784aa3de3e89c24c0ebd0ece5c736e9dce4aed3ffec6346c2ea10eec",
+    "tools/review_confuse_source.py": "1af3e5f8fbbbac40a1e3f7fa54229284dd61d47e1241b690495ef51c2b0d2ad2"
+  },
+  "established": [
+    "Learned Attract costs 17 mana at release, radius 9 source units and 300+90*(rank-1) frames, using owner-facet 1/2/4 division before selected-target curse resistance. The protected selected target becomes Neutral and remains attackable without ownership.",
+    "One cast-centered scan gives eligible Evil neighbors explicit mode-2 target GUIDs and independent AIRESET deadlines while retaining their curses. Later arrivals get no override. Explicit targeting consumes no RNG or acquisition scan clock; latest casts overwrite the slot while retaining the actor stream. Target death clears it; selected curse removal does not.",
+    "Existing SourceMind persistence and allegiance, curse/radius/duration services and blind/fear target resolvers are reused. First fear escape clears the generic override. Connected input authentication is shared with the retained Confuse fixture. Six real right/quick casts damage the selected NPC autonomously and expire after 12 seconds; both reloads resume actual explicit-target NPC damage with unchanged saved seed, draws and deadline.",
+    "77 relevant native markers, four audits, 71 Python tests, 573 unchanged named decisions, 854/21 fingerprints and clean builds pass. Runtime data, staged kernel and 106 installed artifacts are unchanged. Existing source review and two additional complete caller bodies are statically checked; no new source-body execution or complete class claim."
+  ],
+  "remaining": [
+    "Legacy late factory failure may orphan Neutral alignment after neighbor mutation. This unsupported branch is explicitly logged/rejected before mutation; current failure-path payment timing is uncertain. Monster-owned minion detach and source target-node/event linkage lack native adapters.",
+    "Native room/region/geometry/ordering, complete source-world/current-executable AI, conversion coexistence, damage/experience credit and global historical RNG remain unsupported or uncertain. Legacy bare saves cannot reconstruct missing historical neighbor overrides. No full extended cohort or full class completion is claimed.",
+    "Attract curseattract/cursecast effects/audio and talent/hotkey icons remain separate identified placeholders. Pet upgrades and actual-safe-area parking remain queued."
+  ]
+}

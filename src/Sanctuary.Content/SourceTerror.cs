@@ -93,6 +93,7 @@ public static class SourceTerror
     {int x=branch!=0?6:offset,y=branch!=0?offset:6;return((flipX?-x:x)/2,(flipY?-y:y)/2);}
     private static Mobile Target(BaseCreature creature,TerrorAi state)
     {
+        if(SourceMind.AttractedTarget(creature) is{} attracted){return attracted;}
         if(state.Override!=0 && World.FindMobile((Serial)state.Override) is{Alive:true,Deleted:false} source && source.Map==creature.Map){return source;}
         var ai=creature.AIObject;
         // Reuse native visibility/hostility acquisition after the initial source
@@ -134,6 +135,7 @@ public static class SourceTerror
             // spell/ability AI from this special source state.
             return true;
         }
+        if(!state.Started){SourceMind.ClearOverride(creature);} // Source first escape clears the generic override.
         int percent=Velocity(rule?.Velocity??0,rule?.RunVelocity??0);
         var goal=new Point3D(creature.X+15*Math.Sign(creature.X-target.X),creature.Y+15*Math.Sign(creature.Y-target.Y),creature.Z);
         if(state.Focus!=target.Serial.Value || state.Combat || state.Goal==null)

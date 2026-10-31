@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using Server;
+using Server.Accounting;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -59,6 +61,15 @@ internal static class FixtureSpace
 internal static class FixtureNetwork
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(FixtureNetwork));
+    internal static Account Authenticate(NetState network,PlayerMobile player,string prefix)
+    {
+        network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
+        var protocol=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);
+        protocol.SetValue(network,Enum.Parse(protocol.FieldType,"GameServer_LoggedIn"));
+        var account=new Account(prefix+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));
+        account[0]=player;network.Account=account;network.Mobile=player;player.NetState=network;
+        network.ResetMovementState();network.SendMobileUpdate(player);return account;
+    }
     internal static void Connected(string result,Action<NetState> setup)
     {
         long deadline=Core.TickCount+5000;

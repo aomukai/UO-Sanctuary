@@ -83,6 +83,7 @@ public static class NecromancerCombat
         var values = SkillMechanics.Values(owner, ability);
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(NecromancerCurseCasts.Handles(ability)){return NecromancerCurseCasts.Release(owner,ability,point,values);}
+        if(ability==CombatAbility.Attract){return AttractCasts.Release(owner,World.FindMobile(selected),values);}
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
         if(ability==CombatAbility.PoisonExplosion){return NecromancerSpellMissiles.ReleaseClouds(owner,World.FindItem(selected) as Corpse,values);}
@@ -102,8 +103,6 @@ public static class NecromancerCombat
         if (NecromancerEffects.IsCurse(ability))
         {
             double radius = Math.Max(0.5, SkillGeometry.Tiles(values.Eval("aurarangecalc")));
-            if (ability == CombatAbility.Attract)
-            { return NecromancerEffects.Apply(owner, World.FindMobile(selected), ability, values.Rank); }
             foreach (var target in SkillCombat.Targets(owner, point, radius)) { NecromancerEffects.Apply(owner, target, ability, values.Rank); }
             return true;
         }

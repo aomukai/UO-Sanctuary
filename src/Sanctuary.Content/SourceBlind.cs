@@ -119,6 +119,7 @@ public static class SourceBlind
     }
     private static Mobile Target(BaseCreature actor,BlindAiState state)
     {
+        if(SourceMind.AttractedTarget(actor) is{} attracted){return attracted;}
         int range=Range(actor),tiles=(range+1)/2;
         Acquiring.Add(actor.Serial);
         try

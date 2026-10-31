@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.Json;
 using Server;
 using Server.Accounting;
@@ -166,9 +165,7 @@ public static class ConfuseCastChecks
         // The inspection target has50000life, which also scales its custom
         // regeneration. Reuse the existing PMH fixture control to observe hits.
         TimedEffects.PreventHealing(victim,TimedEffects.Now);
-        network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
-        var protocol=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);protocol.SetValue(network,Enum.Parse(protocol.FieldType,"GameServer_LoggedIn"));
-        var account=new Account("confuse-cast-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();network.SendMobileUpdate(p);
+        var account=FixtureNetwork.Authenticate(network,p,"confuse-cast-");
         bool began=false,finished=false;long deadline=Core.TickCount+25000;
         void Fail(Exception e){if(finished){return;}finished=true;t.Delete();victim.Delete();p.Delete();account.Delete();Log.Error(e,"{Label}-result: failed",label);}
         void Inspect()
