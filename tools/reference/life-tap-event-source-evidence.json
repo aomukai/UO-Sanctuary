@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "eventContexts": 22464,
+  "acceptedContexts": 1536,
+  "routines": {
+    "event": "20ab006d9c4f2dd15faf55b056e4228b3eee40734ea0be0976d5e9e864066552",
+    "percentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "tools/probe_life_tap_event.py": "38e8de042e40ec608eaa2ea9e419a45fc3e51fa9b32b269680367663669d1b81",
+    "tools/probe_life_tap_reference.py": "e49f1575bfab3f0f5935f2cdce4448ea4459022980d864e0c2c71c6e768eb7e4",
+    "tools/reference/life-tap-engine-evidence.json": "dbbeb8670480b1f390fb53391f720cf62810f768482b9af302e763509c4bed42",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/review_weapon_event_order.py": "bd2fe064c894b1e1c42cc5a31e31b9ea1f4bd2ba74f307d0cad2524f21962daa"
+  },
+  "artifacts": {
+    ".local/class-skills/life-tap-event-source/probe.cpp": "181e55f1f438e8ef864b206da17dc9b0fbb48406d9357f30f39d87b97d580a37",
+    ".local/class-skills/life-tap-event-source/cases.json": "1598ed82d3d13e51943facec03f799b5a50f1913f6793c437c1a2fd316767683",
+    ".local/class-skills/life-tap-event-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/life-tap-event-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete unchanged Life Tap event and actual shared percentage routine execute fractional healing,HP/max caps,source actor/state/statlist/caster guards,rank normalization and overlays.",
+    "Large non-divisible physical values distinguish early division from the old supplementary probe percentage stub:1048577at50percent heals524250FP,not524288FP. Current skill remains50percent at every rank."
+  ],
+  "remaining": [
+    "Prior accepted scaffold uses declared unit/stat/owner/formula/overlay services;these are retained and recorded,not the full engine. The old scaffold and artifacts are not overwritten.",
+    "Full event host/current executable,NPC/item registration,mitigation/resource/HP/death/PvP/world/client chronology remain separate work. Synthetic percent0/1/100controls do not change the current50percent skill."
+  ]
+}

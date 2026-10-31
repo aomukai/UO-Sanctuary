@@ -313,7 +313,12 @@ public static class NecromancerEffects
         owner.Mana = (int)(balance / 256); Profiles.Store(owner, state with { ManaFraction = (int)(balance % 256) }); return true;
     }
     internal static int LifeTapHealing256(int physical256,int percent)
-        =>(int)Math.Clamp((long)Math.Max(0,physical256)*Math.Max(0,percent)/100,0,int.MaxValue);
+    {
+        if(percent is <0 or >100){throw new NotSupportedException("Life Tap percent is outside the pinned healing domain");}
+        // The actual source helper divides large FP256 values first. Its
+        // intermediate is safe for this skill's50% and supplied0..100 controls.
+        return SourcePercentage.Calculate(Math.Max(0,physical256),percent,100);
+    }
     internal static int LifeTap(Mobile attacker,Mobile target,int physical256)
     {
         if(physical256<=0 || attacker is not(PlayerMobile or BaseCreature) || attacker is not{Alive:true,Deleted:false}

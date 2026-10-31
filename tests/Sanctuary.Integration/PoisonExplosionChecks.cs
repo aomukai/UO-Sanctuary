@@ -156,13 +156,18 @@ public static class PoisonExplosionChecks
     private static void Check()
     {
         Source();Emission();Contact();Controls();var p=Owner();var corpse=Corpse(p,out var gold);Cast(p,corpse);Through(p,17);Hold(p);
+        // Only this saved inspection fixture outlives the native seven-minute
+        // monster-corpse deadline. Gameplay corpses retain normal decay.
+        corpse.BeginDecay(FixtureSpace.Retention);
         var saved=new Saved(p.Serial.Value,corpse.Serial.Value,gold.Serial.Value,p.Location,p.Map.MapID,Clouds(p),0);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
         Log.Information("Poison Explosion:12240source rate/length packets,432emitter/factory contexts/144allocation projections;8moving60frame clouds,8mana/corpse/retained loot,collision/latest identity,immune/cure/potion ticks,8lifecycle/slow controls and atomic saves pass");
     }
     private static void Reload()
     {
         Source();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var corpse=(Corpse)World.FindItem((Serial)saved.Corpse);var gold=World.FindItem((Serial)saved.Gold);
-        Require(Clouds(p).SequenceEqual(saved.Clouds)&&corpse is{SanctuaryConsumed:true,Animated:true}&&CorpseSkillRules.NoSelect(corpse)&&gold is Gold{Amount:273}&&gold.Parent==corpse,"Saved moving clouds/corpse reservation/loot");
+        Require(Clouds(p).SequenceEqual(saved.Clouds),$"Saved moving clouds differ: actual {Clouds(p).Length}, expected {saved.Clouds.Length}");
+        Require(corpse is{Deleted:false,SanctuaryConsumed:true,Animated:true}&&CorpseSkillRules.NoSelect(corpse),$"Saved corpse reservation lost: exists {corpse!=null}, deleted {corpse?.Deleted}, consumed {corpse?.SanctuaryConsumed}, animated {corpse?.Animated}");
+        Require(gold is Gold{Deleted:false,Amount:273}&&gold.Parent==corpse,$"Saved corpse loot differs: exists {gold!=null}, deleted {gold?.Deleted}, parent {gold?.Parent}");
         Require(SkillBindings.Instance.Get(p).Right==CombatAbility.PoisonExplosion&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Necromancer,7)==CombatAbility.PoisonExplosion,"Saved Explosion bindings");
         p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);Through(p,1);Require(Clouds(p).Zip(saved.Clouds).All(x=>x.First.Frame==x.Second.Frame+1&&x.First.X==x.Second.X+x.Second.Vx&&x.First.Y==x.Second.Y+x.Second.Vy),"Loaded cloud motion did not resume once");
         Hold(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Clouds=Clouds(p),Generation=saved.Generation+1}));

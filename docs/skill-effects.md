@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Life Tap casting increment](life-tap-cast-checkpoint.md) retains curse marker `0x375A`/hue `0x455`, sound `0x1E5` and healing flash `0x376A`/hue `0x26` as identified placeholders. Final cast/hit/`cursereversevampire` state and healing effects/audio remain pending. Casting and fractional healing do not wait for final art.
+
 The [approved pet design](pet-adjustment-review.md) now specifies **always-on Frozen Armor** for ice Mages and **automatic combat-start Enchant application**, so these require status/application feedback rather than new buff-casting sequences. Druid wolf Open Wounds/affixes and Grizzly Stun/Crushing Blow should reuse existing feedback where suitable; any pet-specific variants remain pending. Poison Creeper’s damage scaling adds no separate spell or required new effect beyond its already tracked vine/poison presentation. No new art or upgrade implementation is claimed.
 
 The [Iron Maiden increment](iron-maiden-checkpoint.md) retains curse marker `0x375A`/hue `0x455`, cast sound `0x1E5` and shared retaliation flash `0x374A`/hue `0x481` as identified placeholders. Final cast/hit/`curseironmaiden` state and retaliation effects/audio remain pending. Fractional event and damage timing do not wait for art.

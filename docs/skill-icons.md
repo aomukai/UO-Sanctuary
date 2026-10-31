@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Life Tap casting increment](life-tap-cast-checkpoint.md) retains its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; the defender healing event creates no additional player binding.
+
 The [Iron Maiden increment](iron-maiden-checkpoint.md) preserves its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; automatic reflection adds no new player hotkey.
 
 The [Necromancer pet adjustment design](pet-adjustment-review.md) adds no approved player hotkey or separate talent. Existing summon talent/right/quick icons remain pending. Autonomous Mage spells and pet-affix unlocks need no new player-binding icon by default; any later progression/status display icons must be decided separately from spell effects.
