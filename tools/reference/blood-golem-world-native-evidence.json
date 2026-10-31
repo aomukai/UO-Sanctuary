@@ -1,0 +1,102 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Blood Golem shared world and pre-HP healing",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 129,
+    "retainedClaySkeletonIronMarkers": 99,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "learnedBloodRightQuickCasts": 6,
+    "learnedBloodNaturalSessions": 3,
+    "retainedHistoricalBloodSessions": 3,
+    "healingSourceContexts": 15559,
+    "incomingSourceContexts": 3456,
+    "birthSourceContexts": 16065,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      866,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/blood-golem-world/birth-inputs.json",
+      "sha256": "410a751afa4181ebb500dce25c4b75522919759e5c33a1b57387c818d0c1080c"
+    },
+    "audit": {
+      "path": ".local/class-skills/blood-golem-world/audit-inputs.json",
+      "sha256": "7f9a9b9b325be72c1ae3f7775206f4f71fb75f70b2d9a4fd7e78509fffa98a61"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BloodGolemWorldBody.cs": "ba775988b8b6118a9e32bdad3b6fd6cf2132e5d12bd7e21204f3390d833047c3",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "11d52197e2cd6ff70a6c7fe3b92ec1d49254cda164570b252090c33023107d48",
+    "tests/Sanctuary.Integration/BloodGolemBirthChecks.cs": "f4b8051a4c5ee5a13f16ef8be5767be31b4414da89f6c17263ba4686ae31752a",
+    "tests/Sanctuary.Integration/BloodGolemCombatChecks.cs": "72c76349cc7fb078d7aae82f891c1f0fae7d8af3ab2a4851a5cc7bc294cabe9d",
+    "tests/Sanctuary.Integration/BloodGolemContactChecks.cs": "3c00fda61e2e4adf8be0ee29f7a7412a64eb2fdac98a00df177cd6551518eab5",
+    "tests/Sanctuary.Integration/BloodGolemWorldChecks.cs": "e49a248560206e91d4a89ca502728fc1e1c5f430e06459b0996bcdb1a5c0f142"
+  },
+  "artifacts": {
+    ".local/class-skills/blood-golem-world/audit-inputs.json": "7f9a9b9b325be72c1ae3f7775206f4f71fb75f70b2d9a4fd7e78509fffa98a61",
+    ".local/class-skills/blood-golem-world/audit-native-checks.log": "28315f5afa272c44ecc3b3fd58193c135ad0a4682c32df986a0108463e1eb0dc",
+    ".local/class-skills/blood-golem-world/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/blood-golem-world/birth-inputs.json": "410a751afa4181ebb500dce25c4b75522919759e5c33a1b57387c818d0c1080c",
+    ".local/class-skills/blood-golem-world/birth-native-checks.log": "bbeb0ca77304fef31398620349d5f60219132044770a8251c2e93f0d5b028f5d",
+    ".local/class-skills/blood-golem-world/blood-golem-birth-fixtures.json": "09d085df45ed4ebe3183ba668076d4ef5d4043552b75a41e3d33689fc52eeb80",
+    ".local/class-skills/blood-golem-world/blood-golem-combat-fixtures.json": "86784e2f7d74ad905289150fcf9fa5f2a7c8ff5a2dd6eb216e140f5e82bc0603",
+    ".local/class-skills/blood-golem-world/blood-golem-contact-fixtures.json": "3b3f416fda5c5583f3f52144bf1c6c463955420b756042b0daf5be22e50b790e",
+    ".local/class-skills/blood-golem-world/blood-golem-world-fixtures.json": "6baa5f37ef78e554a4740184fa2e68f3a725753dedb2346558a410e10a2e38db",
+    ".local/class-skills/blood-golem-world/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/blood-golem-world/clay-golem-world-fixtures.json": "fc8897e8e3e9339bf4280ab15285916f39469eeee6d6e472ac4399cce2b28666",
+    ".local/class-skills/blood-golem-world/content-build-1.log": "7679e2639a05cf7c4f477f73ede0e3f21f732deecfc224e9144f3a578a987d98",
+    ".local/class-skills/blood-golem-world/first-loop-affix-audit.json": "98bd74d48c63a56cd1edc742c89316c7595c92acdf2cbed474b2e93d9c546ac0",
+    ".local/class-skills/blood-golem-world/integration-build-1.log": "3e3d7c5c508a16405a1d9a1eb0adcec03467162de2ca42779b51b4cf9f6547b2",
+    ".local/class-skills/blood-golem-world/named-item-runtime-audit.json": "6afcc89fa624df2ca04558530ef73c0461e1ab001c367cec8bb0cf48c192d70c",
+    ".local/class-skills/blood-golem-world/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/blood-golem-world/pre-build-1.json": "b4072f4371f82baf376b86bbae28d85c752a7b1eca6511045417106331152f67",
+    ".local/class-skills/blood-golem-world/python-tests.log": "711bf5dc15e37b118b083e6688ec5f32b92347766806c5cdc484bed17b8e0778",
+    ".local/class-skills/blood-golem-world/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/blood-golem-world/skeleton-world-fixtures.json": "50b47654eaf72eaca3bef8a6ab291aeb1ac809235e7f1c50223146175c30301d",
+    ".local/class-skills/clay-golem-world/birth-native-checks.log": "d231e8fa4edb11b5c60c69c92b87e746d21d91a0336ae8dd474a50ec5673dbcf",
+    "docs/blood-golem-world-checkpoint.md": "7621ecc10efbc2b0b1b453e5a92f5120a522783584a02e2fba90f2ef79434e18",
+    "docs/class-skill-roadmap.md": "51f0e90339a5bc5a5d14ca90e7fc508ff7655ce7da14e2d4833abd333ef0397e",
+    "docs/class-skills-resume-checkpoint.md": "1e2acf816fdf79e480dfcfc487d97edecced5bc2ae0c50b19df3afcf8fd9ec2b",
+    "docs/necromancer-mechanical-audit.md": "605c8ebcc481db3b5f50e811efeed1285ed16cb7b314f808cf1c7df251f43ace",
+    "docs/skill-effects.md": "1be429656d5a3ff14305a7ff1a36fd3233e58d8b8654001536713951907530f1",
+    "docs/skill-icons.md": "3da9e88042532fdd1558f9041806456e5d690feecd4d6a6918afef36bb1e408f",
+    "src/Sanctuary.Content/BloodGolemWorldBody.cs": "ba775988b8b6118a9e32bdad3b6fd6cf2132e5d12bd7e21204f3390d833047c3",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "11d52197e2cd6ff70a6c7fe3b92ec1d49254cda164570b252090c33023107d48",
+    "tests/Sanctuary.Integration/BloodGolemBirthChecks.cs": "f4b8051a4c5ee5a13f16ef8be5767be31b4414da89f6c17263ba4686ae31752a",
+    "tests/Sanctuary.Integration/BloodGolemCombatChecks.cs": "72c76349cc7fb078d7aae82f891c1f0fae7d8af3ab2a4851a5cc7bc294cabe9d",
+    "tests/Sanctuary.Integration/BloodGolemContactChecks.cs": "3c00fda61e2e4adf8be0ee29f7a7412a64eb2fdac98a00df177cd6551518eab5",
+    "tests/Sanctuary.Integration/BloodGolemWorldChecks.cs": "e49a248560206e91d4a89ca502728fc1e1c5f430e06459b0996bcdb1a5c0f142",
+    "tests/check_blood_golem_world.py": "70d4b66f9e141e4f94bd2002aac603ce33e2a8157960102c14e2eeafedfa7554",
+    "tools/record_blood_golem_world.py": "b5747785bd288c9c1e2b38e0cde9e8b7afaf4afff3b6044490fd7a660f7f4161",
+    "tools/reference/clay-golem-world-native-evidence.json": "d6383635b3608a09231736c2b8e692aa821cce741bc8cecf98120ab79ec76baf"
+  },
+  "established": [
+    "New learned Blood casts select a saved BloodGolemWorldBody. Existing birth preflight, once-only mana, candidate-before-shared-cap replacement and native/difficulty resources are retained. Six real right/quick casts assert the new type.",
+    "The unchanged UnarmedPetWorld/Iron conductor supplies owner/state/contact/motion/load behavior. Blood supplies G2A1speed256/action10/end16, velocity9/WL184 and captured Mastery movement. All99 predecessor Clay/skeleton/Iron markers are retained.",
+    "Existing BloodGolemHealing.Dealt runs in shared contact before target HP; no new after-contact heal exists. Actual learned world attacks verify exact fractional owner/pet shares, overkill limited to257FP remaining target life, captured mitigation/no early healing/no reroll/no double healing and owner kill credit. Natural learned sessions verify the same path on the unheld clock.",
+    "Interruption/offline/load cancel transient packets without damage/heal/RNG replay. Both reloads retain wounded owner/pet, target life, seed and an actual historical BloodGolemBody. Snapshot staging alone holds the inspected cohort next observation120seconds; unheld natural sessions are separate.",
+    "Source birth/healing/incoming comparisons, historical direct native contacts, typed saves, Mastery movement/follow/regeneration, malformed-state refusal and actual Dog reported pre-packet fallback pass. Runtime audit payloads, copied data, native kernel and installed106 remain unchanged."
+  ],
+  "remaining": [
+    "Current executable callback11034/11033 versus table dm rounding remains unresolved; existing complete older-callback policy is retained, not certified as modern parity. Param5zero incoming sharing remains distinct; changed nonzero parameters are refused.",
+    "Startup S1end26/first-think25 eligibility/mode/event order remains unverified. Exact owner/seed/world/room/scan/ties/LOS/fit, live mid-action rate changes, full HP-death/proc/Sunder/PvP/special-recipient and native integer-fallback equivalence remain unsupported or uncertain.",
+    "Transient contact cancellation is not saved in-flight resumption. Unheld concurrent snapshots, actual old-binary upgrade and graphical client acceptance remain untested. No deployment, complete class, approved pet-enhancement or safe-area parking claim.",
+    "Body14/hue0x21, Blood Golem placeholder name/native A1/emergence/healing overlay151/audio and existing talent/right/quick icon requirements remain separately pending final assets."
+  ]
+}

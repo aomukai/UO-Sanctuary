@@ -62,7 +62,7 @@ public static class BloodGolemBirthChecks
     {
         p.Mana=p.ManaMax;int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.BloodGolem).Mana256;
         Require(NecromancerCombat.Release(p,CombatAbility.BloodGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Learned Blood release");
-        var b=NecromancerGolems.For(p).OfType<BloodGolemBody>().Single();b.AIObject.AITimer.Stop();b.SuspendActions();
+        var b=NecromancerGolems.For(p).OfType<BloodGolemBody>().Single();Require(b is BloodGolemWorldBody,"Learned Blood birth subtype");b.AIObject.AITimer.Stop();b.SuspendActions();
         Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&SkillHealth.Balance256(b)==82329&&SkillHealth.Maximum256(b)==82329&&b.SourceRegeneration256==60,"Blood paid once/birth321.59765625HP/source60FP recovery");
         Require(b.PhysicalResistance==0&&b.ColdResistance==0&&b.EnergyResistance==0&&b.PoisonResistance==20,"Current Blood innate resistances");return b;
     }
@@ -148,7 +148,7 @@ public static class BloodGolemBirthChecks
                 if(session.PendingAbility==CombatAbility.BloodGolem&&!began){Require(NecromancerEffects.ManaBalance256(p)==mana&&NecromancerGolems.For(p).Length==0,"Blood input created/paid during windup");began=true;Log.Information("{Label}: windup",label);}
                 var pet=NecromancerGolems.For(p).OfType<BloodGolemBody>().SingleOrDefault();
                 if(pet==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                Require(began&&pet.SourceLife256==82329&&SkillHealth.Balance256(pet)==82329&&pet.SourceRegeneration256==60
+                Require(began&&pet is BloodGolemWorldBody&&pet.SourceLife256==82329&&SkillHealth.Balance256(pet)==82329&&pet.SourceRegeneration256==60
                     &&NecromancerEffects.ManaBalance256(p)==mana-cost,"Actual Blood input/resource/payment");Clean();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean();Log.Error(e,"{Label}-result: failed",label);}

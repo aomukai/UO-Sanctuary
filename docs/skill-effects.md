@@ -1,5 +1,7 @@
 # Skill effects
 
+The [learned Blood world controller](blood-golem-world-checkpoint.md) keeps `Blood Golem [placeholder]`, body14/hue`0x21`, native A1animation4, existing summon particles/audio and healing overlay151's native `0x376A`/hue`0x21` as identified placeholders. Final G2 emergence/body/walk/attack/contact/critical/recovery/return/death and healing/audio remain pending. Reuse the existing Blood effects entry; no art is generated.
+
 The [learned Clay world controller](clay-golem-world-checkpoint.md) uses `Clay Golem [placeholder]`, body14/hue`0x96D`, native A1animation4 and existing summon particles/sound as identified placeholders. Final G1 emergence/body/walk/attack/contact/slow/recovery/death and audio remain pending. Reuse the existing Clay asset entry; no final art is created.
 
 The [learned skeleton world controller](skeleton-world-checkpoint.md) keeps body50, `Skeleton Warrior [placeholder]`, native A1 animation4 and existing emergence particles/sound as identified placeholders. Final SK emergence, walking/following, attack/critical/block/recovery, return, death and audio remain pending. Mechanical source clocks do not certify graphical-client animation. Reuse the existing Raise Skeleton asset entry; no new spell effect or final art is created.

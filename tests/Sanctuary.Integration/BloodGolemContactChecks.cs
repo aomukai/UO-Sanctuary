@@ -29,7 +29,12 @@ public static class BloodGolemContactChecks
     private static BloodGolemBody Pet(PlayerMobile p)
     {
         Require(NecromancerSummons.Create(p,CombatAbility.BloodGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Learned Blood creation");
-        var pet=NecromancerGolems.For(p).OfType<BloodGolemBody>().Single();pet.AIObject.AITimer.Stop();return pet;
+        var learned=NecromancerGolems.For(p).OfType<BloodGolemBody>().Single();
+        Require(learned is BloodGolemWorldBody,"Learned Blood did not select the new world controller");learned.Delete();
+        // Preserve historical native-hook coverage. Learned automatic combat
+        // and healing are independently checked by BloodGolemWorldChecks.
+        var pet=new BloodGolemBody();pet.Prepare(p,CombatAbility.BloodGolem);Require(pet.SetControlMaster(p),"Historical Blood owner");
+        pet.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);pet.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(pet);return pet;
     }
     private static GraveyardSkeleton Target(PlayerMobile p)
     {
