@@ -18,7 +18,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -117,7 +117,7 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                                 client.sendall(struct.pack('>BHHBBIBBBIHHb',0xBF,23,0xF7,2,4,1,character,7,ability,target,x,y,z))
                             session.expect(family+': windup')
                             if family.endswith('right'):client.sendall(struct.pack('>BHHBBI',0xBF,11,0xF2,7,5,2))
-                            assert session.expect(family+r'-result: (passed|failed)',timeout=10).group(1)=='passed'
+                            assert session.expect(family+r'-result: (passed|failed)',timeout=(extra_input_timeouts or {}).get(family,10)).group(1)=='passed'
                     session.send(save_command)
                     if save_result:
                         assert session.expect(save_result + r': (passed|failed)').group(1) == 'passed'

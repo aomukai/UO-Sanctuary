@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Weaken increment](weaken-checkpoint.md) keeps its existing ability ID and right/quick bindings. Its talent-tree and right/quick icons remain separately pending; the shared receiver adds no new player binding.
+
 The [Amplify Damage increment](amplify-damage-checkpoint.md) keeps its existing ability ID and right/quick bindings. Its talent-tree and right/quick icons remain separately pending; no new player binding is introduced.
 
 The [Fire Golem delayed-death increment](fire-golem-death-checkpoint.md) adds no player binding or death-trigger icon. Fire Golem’s talent-tree/right/quick icons remain separately pending.

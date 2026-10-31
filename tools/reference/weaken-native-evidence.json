@@ -1,0 +1,112 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Weaken shared curse casting and outgoing weapon damage",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 2,
+  "verified": {
+    "nativeMarkers": 431,
+    "retainedPredecessorMarkers": 416,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      848,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "receiverSourceContexts": 8960,
+    "npcDamageSourceContexts": 240,
+    "connectedRightQuickCasts": 6,
+    "naturalExpiryChecks": 6,
+    "naturalRank1Frames": 350,
+    "mana256": 1024,
+    "rank1DamagePercent": -33,
+    "effectiveRank21DamagePercent": -53,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/weaken/birth-inputs.json",
+      "sha256": "b158f05648def047e4a03f4b1cb585e4ade412070198551fb012a73c13ae2403"
+    },
+    "audit": {
+      "path": ".local/class-skills/weaken/audit-inputs.json",
+      "sha256": "3f06e6c82c9f07987f559cc6d6d6a4c479dfb5e213cf1578c5d0a1c3e9273b75"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/AmplifyDamageCasts.cs": "537eb5124cd52515c02792cdf4b7e3bacb3defb5ce0e5a1327de2126e33d35ff",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "4b33e14398f696208bb3956f089bc68c00d161c57dbde963b77ad0caa120ad69",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "49f08d2492365ca5e1d2f171c11cbde5746fd8b39fc292bfc3bafb3126a37a7c",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "4ba6fb02bf3f93c8a3dc4b5d9938e6bb8567517798c48f35deaba12a71cbce68",
+    "tests/Sanctuary.Integration/WeakenChecks.cs": "aa2298a932401152449f626e704642adf4bae7fac3bdf9b8481b91c3178bce5a"
+  },
+  "artifacts": {
+    ".local/class-skills/weaken/amplify-damage-fixtures.json": "bd760030b0e236cb262c731250fadd36ac704fc3692b66674de0f0f6c7577fd7",
+    ".local/class-skills/weaken/audit-inputs.json": "3f06e6c82c9f07987f559cc6d6d6a4c479dfb5e213cf1578c5d0a1c3e9273b75",
+    ".local/class-skills/weaken/audit-native-checks.log": "f8fde8b37a78f0610edcd0235c4533638676af1086e110c004d8b62b540444fa",
+    ".local/class-skills/weaken/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/weaken/birth-inputs.json": "b158f05648def047e4a03f4b1cb585e4ade412070198551fb012a73c13ae2403",
+    ".local/class-skills/weaken/birth-native-checks.log": "2d0ec9f91c0184acc67cde2db817d6652fc282f01c1a576c43ba5c36c1e69891",
+    ".local/class-skills/weaken/cloak-fixtures.json": "da9fd0cb527b1e83a225f23342cadbcce7f1826254db878f92c1d93655773d4f",
+    ".local/class-skills/weaken/content-build-2.log": "b9e9f352d4a1df06007467dbdb74824be8dfb5bfa695a6e3bc082ddffbbf36f1",
+    ".local/class-skills/weaken/fire-golem-absorption-fixtures.json": "40c85e2dc5bb52726c249aa31b3d506044ff6737b7f4ca343515dde06fd4e58d",
+    ".local/class-skills/weaken/fire-golem-aura-fixtures.json": "ec963372793b755e13b3321215d1663b4cbb43a63b727881e5b008e9087db1f1",
+    ".local/class-skills/weaken/fire-golem-birth-fixtures.json": "be27d62e6c54818de8230a202ebf71b41ac62128131a983e8b29c5323a76793f",
+    ".local/class-skills/weaken/fire-golem-combat-fixtures.json": "521ec127108a06bc350178f3d781336e30e744742e347ffbc9817aba21eacb5d",
+    ".local/class-skills/weaken/fire-golem-death-fixtures.json": "0b77f9c7c5f55b566c827619679556733571a2cba34fba0575d68f5462be65a1",
+    ".local/class-skills/weaken/inner-sight-fixtures.json": "4e3d59ca379423e6cd84c8d8d96b1d22185c502653fbfd66795fcaff2e92332e",
+    ".local/class-skills/weaken/integration-build-2.log": "891670a6da8f498d115117d91a5c0e3fe0c86ff709191e2eff8702061855e31d",
+    ".local/class-skills/weaken/life-tap-fixtures.json": "b1836f6ac49cd16fd02cda1a56f0b4d7e0e15f5718eb2ce1e9077452cf066f21",
+    ".local/class-skills/weaken/paladin-element-checks.json": "33df175453b9bf51919e944d0e63d7dac716037528500456be5a1b70a786dbbb",
+    ".local/class-skills/weaken/pre-build-2.json": "bc203c94127a5efa7a601ece9707bb4257ba95e3975e8530d6194f473c1f3b5d",
+    ".local/class-skills/weaken/python-tests.log": "2e7cb0a9bb14de6dc1f0476eeafd00585080e4f890f6a9b33ee62e34bc74559b",
+    ".local/class-skills/weaken/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/weaken/weaken-fixtures.json": "a5510cc423fa3d88d3c99fa0210f02965e702b39a47696a71509600a3df9ebfc",
+    "data/Sanctuary/Balance/source-curse-no-walk.json": "8c46fdf6f46fbaf34621ff23b614f6ba5d4ff86f1b9613e1f555019bbe63f573",
+    "docs/class-skill-roadmap.md": "a03cb776488b8ef25df89394ed0d38a68d58c2ebf656cf36462e1253b0703287",
+    "docs/class-skills-resume-checkpoint.md": "a506ed2979329863f11ff5277a0ca91fd38621fdb81504d697aa140f369a5c66",
+    "docs/necromancer-mechanical-audit.md": "7a90bb3523955a840b1da4d973e6cf8e793de7e8b1c610617daf5091e31e8fe6",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skill-effects.md": "09ee4b6ecb8598239702c92e74dcce0c8171284382978a40aded006e2715c4c2",
+    "docs/skill-icons.md": "4ca85584762f6782cb6aef4f53be01bc7c5e018a517d301cf50287ba72e5d582",
+    "docs/skill-mechanical-reference.md": "703a2aff35eebd8e6c155282b972415502a3efcd0e8dc1511398102f81fef880",
+    "docs/weaken-checkpoint.md": "bddcb257201206ff25ce833e57be8b903078eeca4f1ae5fffe5d5af713160b6d",
+    "src/Sanctuary.Content/AmplifyDamageCasts.cs": "537eb5124cd52515c02792cdf4b7e3bacb3defb5ce0e5a1327de2126e33d35ff",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "4b33e14398f696208bb3956f089bc68c00d161c57dbde963b77ad0caa120ad69",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "49f08d2492365ca5e1d2f171c11cbde5746fd8b39fc292bfc3bafb3126a37a7c",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "4ba6fb02bf3f93c8a3dc4b5d9938e6bb8567517798c48f35deaba12a71cbce68",
+    "tests/Sanctuary.Integration/WeakenChecks.cs": "aa2298a932401152449f626e704642adf4bae7fac3bdf9b8481b91c3178bce5a",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tests/check_weaken.py": "f9d9a2142b3e401eec3c85949845f8f540b36649a887953c67e85a3b15232bd4",
+    "tools/build_class_skills.py": "2564a194eebb907870e6e68d9829356a6087dea17b07c10ee49d4f2ccbbcc1ba",
+    "tools/probe_weaken.py": "e442c87ea6f887bb59223219a5cf1bc32a48041f9400b6ab2d1897f681634986",
+    "tools/record_weaken.py": "88992ac19afd41dfdd3a47989f10b9e7257c914c2f3dd210c57baed4ed84bed4",
+    "tools/reference/amplify-damage-native-evidence.json": "ee20edb5631a4d594a500c081a60e87451d8bdc6c0b92eaac33ba3c7c205c78d",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "c2fd9dc1f9455777bbfdb31b91a52fc60b4ec27fc10aa4f1becc037d6fe0d294",
+    "tools/reference/named-item-runtime-audit.json": "4006c0179a277ddaf31e63098c6a90c49d2faa8780dcc81bb3a34709702bd76e",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/npc-equipment-elements-source-evidence.json": "53327732d51af4176a77a9f3594aaf19b81dcc2dd2dbe32dab8d254966a5162e",
+    "tools/reference/weaken-source-evidence.json": "3f1a0d892554ad66dfc89645b38b67434ed2644a02bffca0c93e45e5de64d4aa"
+  },
+  "established": [
+    "Weaken and Amplify Damage now share the do30 native receiver/area/rank/creator/curse-resistance path. Weaken costs4mana at release,including empty/resisted areas,with radius9+rank-1 and duration350+60*(rank-1)frames using effective ranks. It reuses existing SC/FCR,cancellation and selected-target tracking.",
+    "Weaken contributes -33-(rank-1) to the weapon damagepercent pool,joining positive aura/Strength before the -90floor. Native AOS and encounter weapon consumers,physical spell/element exclusions,immunity,slowness exclusion and actual Wormskull effective21 pass. Replacing Amplify clears its captured physical delta.",
+    "8960complete source receiver/factory and240complete stat-list/NPC weapon damage contexts pass ASan/UBSan. Native differentials cover rank/owner/deadline replacement,positive bonus/Strength/floor,armed/unarmed endpoints,exclusive maxima and sourceDamage64/128. Prior eligibility proof is reused without recounting.",
+    "Six real right/quick inputs verify unmodified14second expiry and once-only payment. Both reloads retain state,original deadlines,resources,gear/bindings and weapon penalty. Only persistence inspection extends the fixture deadline1day. No new saved field,Mobile schema or runtime data change.",
+    "431native markers/3boots/2reloads/3saves retain all416predecessor markers,including real Amplify casts,Inner Sight,Cloak,Life Tap and Fire death. Four audits,71Python,573named decisions and clean builds pass;staged kernel and106installed artifacts remain unchanged."
+  ],
+  "remaining": [
+    "Active legacy elite-monster Amplify lacks rank/creator metadata;compound replacement remains reported/skipped pending its shared adapter. Current executable multicaster behavior and custom historical stat values remain unverified.",
+    "Full dynamic item/proc/Strength/aura graphs,source room/species/flags/allegiance/geometry,AI reactions/events,native special/PvP/global-phase and client behavior remain open. Existing NPC and encounter delivery bridges retain their broader scope limits.",
+    "Do30/radial traversal/formula VM are not executed by this probe. No complete class,deployment or broad1180-marker claim. Final effects/audio and tree/right/quick icons stay separate placeholders;hard-point pet upgrades follow baseline skills."
+  ]
+}

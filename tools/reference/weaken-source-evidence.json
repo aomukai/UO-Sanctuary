@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "receiverContexts": 8960,
+  "damageContexts": 240,
+  "reusedReferences": {
+    "tools/reference/amplify-damage-source-evidence.json": "6aee4077a34eea9d27d1cf88c1d348aeb1571a9aa87a9b63544a44a7097b0dcc",
+    "tools/reference/npc-equipment-damage-source-evidence.json": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+  },
+  "reusedReceiverCpp": {
+    "path": ".local/class-skills/amplify-damage-source/probe.cpp",
+    "sha256": "a7a0d9644305578e72d33aed5ac3ff99c115e87299aeddb0b068eff32bc09aeb"
+  },
+  "reusedDamageCpp": {
+    "path": ".local/class-skills/npc-equipment-damage-source/source.cpp",
+    "sha256": "eacb54253673fce67543bb23de1713c91c628eb70cef6a69e96e53d997831f97"
+  },
+  "pinnedTables": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "artifacts": {
+    ".local/class-skills/weaken-source/cases.json": "4ec9b3155d4c8ffd0daa695b83041becfde22d6fcfaa2e95389dd14c1a96d090",
+    ".local/class-skills/weaken-source/damage-compiler.log": "07eb9a3c9e663036a289f789acac89f7158428d60527315a790eb81b5258ebc6",
+    ".local/class-skills/weaken-source/damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/weaken-source/damage.cpp": "11ad456385403e5338b7b83e15459d864c9934de086dc5a51472fe88ea88d99e",
+    ".local/class-skills/weaken-source/receiver-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/weaken-source/receiver-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/weaken-source/receiver.cpp": "9f7fa9ab6a6156173472701dab6410084750757d3bb39acea6090a5dbe7c94eb"
+  },
+  "established": [
+    "Complete unchanged shared curse callback/eligibility/factory/alignment/percentage routines execute with current Weaken stat16,state19,skill72 inputs. Same-skill lower-rank rejection,equal-rank creator/stat retention and expiry refresh,higher/different replacement,curse resistance and Attract match.",
+    "Physical immunity/hireling/player distinctions do not divide damagepercent. Current Weaken is -33 minus1per additional rank,radius9plus1per rank,duration350plus60frames per rank,cost4.",
+    "Complete ordinary NPC stat-list/damage routines compose Weaken with a supplied positive aura and Strength before the -90floor. Armed/unarmed endpoints,exclusive random maximum and sourceDamage64/128 are tested."
+  ],
+  "limits": [
+    "Reuses hash-validated accepted source harnesses without changing their artifacts. Stat/state allocation,alignment/owner and event services remain declared;no current executable,formula VM,do30/radial or full mode/event scheduler is executed.",
+    "The weapon consumer probe supplies raw aggregate endpoints/Strength/aura and controlled endpoint draws. Full native actor/AI/item/global-frame/geometry/PvP and client behavior require separate acceptance. Native eligibility reuses the prior1024context receiver proof;it is not recounted here."
+  ]
+}

@@ -86,7 +86,7 @@ public static class NecromancerEffects
     { MonsterDifficulty.Nightmare => 2, MonsterDifficulty.Hell => 4, _ => 1 } : 1;
     public static bool Apply(PlayerMobile owner, Mobile target, CombatAbility ability, int rank)
     {
-        if(ability==CombatAbility.AmplifyDamage){return AmplifyDamageCasts.Apply(owner,target,rank);}
+        if(NecromancerCurseCasts.Handles(ability)){return NecromancerCurseCasts.Apply(owner,target,ability,rank);}
         if (rank is <1 or >255 || !IsCurse(ability) || !ClassCombat.IsHostile(owner, target) || Curse(target)?.Ability == CombatAbility.Attract
             || ability == CombatAbility.DimVision && Curse(target)?.Ability == CombatAbility.Confuse) { return false; }
         bool ai = ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract;
