@@ -2,6 +2,14 @@
 
 Reference: D2R **3.3.93847, Reign of the Warlock**, with Sanctuary's approved deviations taking precedence. These notes identify reuse candidates; they do not certify unimplemented skills.
 
+## Before starting each mechanic
+
+Check existing skills with matching behavior, their shared helpers, tests and evidence before adding an implementation. Record the closest match and any contract differences in the skill's checkpoint. Reuse the matching component and its relevant regression coverage; add a new component only for behavior the existing one cannot represent correctly.
+
+Shared appearance alone is insufficient: compare targeting, damage snapshots versus live values, payment, hit-delay scope, timing, ownership, save/reload and removal rules. Keep uncertain differences explicit rather than copying another skill's policy by accident.
+
+For example, Teeth already uses Multiple Shot's integer projectile fan and Bone Spear's saved flight controller. Bone Armor uses the shared FP256 absorption-pool arithmetic, while its unresolved breaking-hit/event behavior remains a separate reference question. These existing components are the starting points for related work.
+
 ## Blade Sentinel and Miasma Chain
 
 The user highlighted Miasma Chain as a future beneficiary of the Blade Sentinel work. Preserve that connection when the roadmap reaches Warlock/Witch.

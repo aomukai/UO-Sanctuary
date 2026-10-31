@@ -1,0 +1,69 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "process": {
+    "pid": 228202,
+    "startTicks": 6810089,
+    "name": "Main"
+  },
+  "processMemoryRead": true,
+  "bytesRead": 1216,
+  "reads": [
+    {
+      "kind": "header",
+      "rva": "0x0",
+      "size": 64,
+      "permissions": "r--s",
+      "stable": true,
+      "sha256": "2a5e9c47394ab899e43b9ddaee9cf5c4acf91a3a4956131d4ec4cf9fed3acfa1"
+    },
+    {
+      "kind": "sequence-table",
+      "rva": "0x162ba30",
+      "size": 216,
+      "permissions": "r--s",
+      "stable": true,
+      "sha256": "a80e871d75161836d567ddffb3b21e44dc6e5987df49ca17511306d80e782138"
+    },
+    {
+      "kind": "immutable-event-candidate-table",
+      "rva": "0x163a750",
+      "size": 328,
+      "permissions": "r--s",
+      "stable": true,
+      "sha256": "39793258788194da859abb7dc52f33c3213f474ecd765119dafe19c060c8e649"
+    }
+  ],
+  "immutableCandidateTableRva": "0x163a750",
+  "immutableCandidateTableMatches": true,
+  "candidateSlot": 22,
+  "candidateRva": "0x459e50",
+  "fragments": [
+    {
+      "rva": "0x459e50",
+      "endRva": "0x45a174",
+      "unwindRva": "0x18224e4",
+      "permissions": "---s",
+      "captured": false,
+      "reason": "Not readable executable within the bounded capture; no forced read"
+    }
+  ],
+  "allUnwindFragmentsCaptured": false,
+  "semanticCallbackIdentityVerified": false,
+  "modernOverflowVerified": false,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "artifacts": {
+    "tools/probe_bone_armor_runtime.py": "e3c7a2bca7b566452f5b5b2e4f2c8bdc5652486520050c0a2696ee070cbd240d",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/probe_warlock_event_reference.py": "a5bf0e827cb848c109778737033f3055d905dda446e3f744349bc4d487f1617c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "remaining": [
+    "Slot22 is a candidate, not a dispatch/semantic identity proof. Even a complete readable body requires identity and control-flow review.",
+    "Unavailable code leaves modern breaking-hit behavior unresolved. Retain the explicit source discrepancy and continue unaffected mechanics."
+  ]
+}

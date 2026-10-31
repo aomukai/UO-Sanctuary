@@ -1,0 +1,55 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitEvent.h": "64f385bef1e008d1d94ab59eb537bfc80fc0bb3fa6b41859d66063028bac614f",
+    "tools/probe_assassin_buff_reference.py": "a42e7b88e19a9476436711bb1323700f06b6c206e374f08b01ced51716c8f6ae",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "routines": {
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126",
+    "SKILLS_CurseStateCallback_DefensiveBuff": "f652788863509aad517a2ec9efeb407d03e3e4cd37ecc585c1156d8797d03704",
+    "SKILLS_SrvDo018_DefensiveBuff": "14356a01a90b9150a1333683ab2e7538f77168c54dc13e71de891ebee9fc1fbc"
+  },
+  "castCases": 3072,
+  "removalCases": 4,
+  "currentGroup1": [
+    10,
+    14,
+    20,
+    86,
+    88,
+    203,
+    206
+  ],
+  "artifacts": {
+    ".local/class-skills/bone-armor-cast-source/probe.cpp": "be8196754f7c29c392740e075dab259ddcb6985dacd9565867ac981e9851765f",
+    ".local/class-skills/bone-armor-cast-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-armor-cast-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-armor-cast-source/cases.json": "11cb421a467e7288845e0618a980c6e0eccec0a32cd52c9d2cf9eb4d848462bf",
+    "tools/probe_bone_armor_cast.py": "79081c100040ebc7b8651340b82389a4c96b4dbdae14bc77f4da3aaee8aca161"
+  },
+  "established": [
+    "Six complete unchanged source bodies compose do18, group clearing, the actual shared state factory, both stat writers and the defensive removal callback. All128 group masks, old ranks1/20, new ranks1/20/255 and missing-row/invalid-state guards execute with clean ASan/UBSan.",
+    "Valid group1 casts clear all old group members including Bone Armor before the factory. Lower-rank recasts therefore allocate a fresh zero-duration list rather than hitting the factory lower-rank rejection. Independent Venom/Fade remain.",
+    "The new list receives both supplied pool values, original creator/type, skill/rank and defensive removal callback. One absorbed-damage descriptor captures skill68/rank/callback22/type1/state14. Observed order is allocate, post, unregister, register, gfx. No timed removal is scheduled.",
+    "Removal unregisters before the live/dead state rule; ordinary removal clears state and refreshes animation/passives. The synthetic stay-death exception is separate."
+  ],
+  "services": [
+    "The Assassin scaffold supplies host stat storage and allocation, state/event sinks, room refresh and animation refresh. Current group membership/stat IDs are pinned; curse/exp masks and state flag word are supplied noncurse/false/zero for this Bone Armor context.",
+    "Capacity formula outputs are explicit opaque inputs, not a compiled evaluator or synergy proof. Successful host allocation is supplied. No real memory-allocation failure or complete event registry/scheduler is certified.",
+    "Native learned cast/pool/reload acceptance remains the separately pinned Bone Armor build3/run3; this source increment changes no production behavior."
+  ],
+  "remaining": [
+    "Modern event22 overflow and dispatch identity remain unverified; see bone-armor-current-reference.json. The older breaking-hit discrepancy is not changed by cast composition.",
+    "Full modern stat/event graph, incoming Energy Shield priority, special producers, state gfx/client and old-binary migration remain open. No class completion or new native acceptance is claimed."
+  ]
+}
