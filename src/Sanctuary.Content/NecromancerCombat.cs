@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
-using System.Collections.Generic;
 using Server;
 using Server.Collections;
 using Server.Items;
@@ -85,6 +84,7 @@ public static class NecromancerCombat
         if (!NecromancerEffects.CanPay(owner, values.Mana256)) { return false; }
         if(ability==CombatAbility.Revive){return ReviveCasts.Release(owner,World.FindItem(selected) as Corpse);}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Release(owner,World.FindItem(selected),TimedEffects.Now,out _);}
+        if(ability==CombatAbility.PoisonExplosion){return NecromancerSpellMissiles.ReleaseClouds(owner,World.FindItem(selected) as Corpse,values);}
         if(ability is CombatAbility.BoneSpear or CombatAbility.Teeth or CombatAbility.BoneSpirit or CombatAbility.PoisonNova){return NecromancerSpellMissiles.Release(owner,point,values,ability==CombatAbility.BoneSpirit?World.FindMobile(selected):null);}
         if (ability is CombatAbility.BoneWall or CombatAbility.BonePrison)
         {
@@ -111,34 +111,8 @@ public static class NecromancerCombat
         {
             return CorpseExplosionCasts.Release(owner,(Corpse)World.FindItem(selected),values);
         }
-        if (ability == CombatAbility.PoisonExplosion)
-        {
-            Consume((Corpse)World.FindItem(selected));
-            // A persistent local cloud re-applies poison to enemies entering its footprint.
-            var cloud = new PoisonCloud(owner, point, values);
-            MissileFootprints.RegisterTransient(new("poisonexplosioncloud", owner.Map.MapID, point.X * 2, point.Y * 2, point.Z,
-                TimedEffects.Now.AddMilliseconds(NecromancerSummons.Source("poisonexplosioncloud", "Range") * 40L)), () => cloud.Active);
-            cloud.Start(); return true;
-        }
         throw new InvalidOperationException("Necromancer skill advertised without a release handler.");
     }
     internal static void Consume(Corpse corpse)
     { corpse.SanctuaryConsumed = true; corpse.Animated = true; ClassLoot.RemoveHarvestedIfEmpty(corpse); }
-    internal static void Poison(Mobile owner, Mobile target, SkillValues values,bool missileDefense=false)
-    {
-        if(target is not{Alive:true,Deleted:false} || ClassCombat.Friendly(owner,target)){return;}
-        double rate = values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble();
-        if(missileDefense && ClassAvoidance.Missile(target)){return;}
-        GearEffects.ApplyPoison(owner, target, rate * values.DurationFrames, Core.TickCount, values.DurationFrames * 40);
-    }
-    private sealed class PoisonCloud(PlayerMobile owner, Point3D point, SkillValues values) : SkillField(owner, NecromancerSummons.Source("poisonexplosioncloud", "Range"), DiabloClass.Necromancer)
-    {
-        private int _frame;
-        protected override void Step()
-        {
-            if (_frame++ % Math.Max(1, NecromancerSummons.Source("poisonexplosioncloud", "Param1")) != 0) { return; }
-            foreach (var target in SkillCombat.Targets(Owner, point, 2)) { Poison(Owner, target, values,missileDefense:true); }
-            Effects.SendLocationEffect(point, Map, 0x374A, 10, 10, 0x3F, 0);
-        }
-    }
 }

@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerAccepted": false,
+  "currentExecutableParity": false,
+  "emissionCases": 432,
+  "do3Cases": 6,
+  "allocationAttempts": 144,
+  "createdClouds": 72,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "completeRoutineHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "MISSMODE_CreatePoisonCloudHitSubmissiles": "43ff83085265c1e40292812b98878053104f9ec2352fe5aab42e4870261fb762",
+    "SKILLS_SrvDo063_PoisonExplosion": "21976135557e3a3e093f931c0118cbea37c6939cf5a11ff55d5295f91c54f284",
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod": "306501ecd3ab733337b122d79b17f2fce2062730dbe8c4a4dd930cd1ae0ae415"
+  },
+  "inputs": {
+    ".local/class-skills/guided-arrow-source-probe.cpp": "e7dfb60ed8bb4ab8f2d19cd7f459bc120ee0cc7363f2adaf635b35bbcfcaf7a3",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-explosion-emitter/emitter.cpp": "9e52adc5a7455b84282a858db11c4937b373245b16009f1c1f765f1c438980b8",
+    ".local/class-skills/poison-explosion-emitter/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/poison-explosion-emitter/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/poison-explosion-emitter/cases.json": "8df5f024bc24206793abc4145c37276c4643e5540d03c75fe762e7a0a3cdf17b"
+  },
+  "established": [
+    "Complete do63checks the selected corpse,toggles CORPSE_NOSELECT and refreshes it,then calls the complete cloud emitter with substep0/mainstep2/loops0. Eight main directions use flags0x17,Param1<<7=256raw velocity,and60frames;no outer ring or animation-loop extension is added.",
+    "Complete factory produces192FP8velocity or96under supplied50percent Slow Missiles. All-failed and alternating-failure allocation cases continue all eight attempts. Origin,owner,skill83/rank and corpse coordinates are retained.",
+    "Complete do3writes collision mask0x40only when no dynamic path or velocity is zero,then delegates the existing collision service. Generic dispatcher/collision/recipient order remains a separately declared service."
+  ],
+  "remaining": [
+    "The older do63has a skill-id versus null-record guard typo;missing skill records are outside the compiled domain. Current pinned data is required by the native route rather than reproducing a null dereference.",
+    "World room/path/stat/allocator,corpse validity predicate,packet creation and generic collision are supplied services. Native saved clouds,rate/length delivery,initial health,loot/payment/inputs/lifecycle/reloads and current executable/client equivalence still require acceptance."
+  ]
+}

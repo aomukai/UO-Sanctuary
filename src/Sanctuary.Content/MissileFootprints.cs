@@ -82,6 +82,8 @@ internal static class MissileFootprints
         { result.Add(new("moltenboulderfirepath", p.Map, p.CellX, p.CellY, p.Z, p.NextUtc.AddMilliseconds((p.Remaining - 1) * 40L))); }
         foreach (var p in PlagueJavelins.Snapshot())
         { result.Add(new("plaguejavcloud", p.Map, Cell(p.X), Cell(p.Y), p.Z, p.NextUtc.AddMilliseconds((p.Frames - p.Frame - 1) * 40L))); }
+        foreach(var p in NecromancerSpellMissiles.Snapshot().Flights.Where(x=>x.Ability==CombatAbility.PoisonExplosion))
+        {result.Add(new("poisonexplosioncloud",p.Map,Cell(p.X),Cell(p.Y),p.Z,p.NextUtc.AddMilliseconds((p.Frames-p.Frame-1)*40L)));}
         foreach (var p in ShockWebs.Snapshot().Shards.Where(x => x.Ground))
         { result.Add(new("shock field on ground", p.Map, Cell(p.X), Cell(p.Y), p.Z, p.NextUtc.AddMilliseconds((p.Remaining - 1) * 40L))); }
         foreach (var p in Hydras.Snapshot().Bolts)

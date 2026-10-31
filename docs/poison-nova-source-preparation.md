@@ -25,3 +25,5 @@ Existing geometry to reuse: `FrozenOrbs.Direction(index)` already exposes the ex
 The [shared spell tick foundation](spell-poison-ticks-checkpoint.md) now supplies saved zero-rate immune exposure, tick-time potion additions and cure/Cleansing cleanup. The user confirms strongest-poison-only bonus replacement. This does not connect or accept the provisional Nova handler; the64saved rays and actual casting/impact still follow.
 
 The [learned Nova checkpoint](poison-nova-checkpoint.md) now composes these fixtures with64saved source rays and the shared poison/exposure scheduler. This supersedes earlier statements that the current runtime is a growing area. The preparation receipts retain their original source-only scope; full current executable and class completion remain unproven.
+
+The [Poison Explosion checkpoint](poison-explosion-checkpoint.md) now has its own complete do63/eight-cloud factory and rank-scaled packet fixtures plus saved native cloud/corpse/input acceptance. It reuses the Plague Javelin direction table and the same poison scheduler; the earlier static-review-only note is historical.

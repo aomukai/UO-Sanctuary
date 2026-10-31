@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Poison Explosion moving-cloud path](poison-explosion-checkpoint.md) still needs final talent-tree and right/quick-hotkey icons. Source right-only selection is enforced. Cloud children have no independent player binding or icon; effects/audio remain in their separate ledger.
+
 The [Poison Nova saved-ring path](poison-nova-checkpoint.md) still needs final talent-tree and right/quick-hotkey icons. The pinned right-only mouse binding is now enforced; the existing art remains an identified placeholder. Effects/audio stay in their separate ledger.
 
 The [Bone Spirit saved-guidance path](bone-spirit-checkpoint.md) adds no final art. Bone Spirit still needs a talent-tree and left/right/quick-hotkey icon; its real input checks use the existing identified placeholder.

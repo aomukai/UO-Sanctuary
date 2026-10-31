@@ -16,13 +16,8 @@ public static class PlagueJavelins
 {
     private static readonly Dictionary<long,PlagueCloud> _clouds=new();
     private static long _next;
-    internal static FanRay[] Pattern()
-    {
-        int[] xs=[0,1,2,2,2,2,2,1,0,-1,-2,-2,-2,-2,-2,-1],ys=[2,2,2,1,0,-1,-2,-2,-2,-2,-2,-1,0,1,2,2];
-        var rays=new List<FanRay>();int main=Math.Max(1,NecromancerSummons.Source("plaguejavelin","sHitPar2")),sub=NecromancerSummons.Source("plaguejavelin","sHitPar1");
-        for(int i=0;i<16;i+=main){rays.Add(new(xs[i],ys[i],0x1F,0));}
-        if(sub>0){for(int i=0;i<15;i+=sub){rays.Add(new(xs[i+1],ys[i+1],0x1F,0));}}return rays.ToArray();
-    }
+    internal static FanRay[] Pattern()=>PoisonCloudGeometry.Pattern(NecromancerSummons.Source("plaguejavelin","sHitPar2"),
+        NecromancerSummons.Source("plaguejavelin","sHitPar1"),NecromancerSummons.Source("plaguejavelin","sHitPar3"));
     internal static void Burst(PlayerMobile owner,WeaponFlight parent,Mobile target,DateTime at)
     {
         if(parent.Ability!=CombatAbility.PlagueJavelin){return;}

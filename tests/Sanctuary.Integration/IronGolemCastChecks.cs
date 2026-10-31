@@ -14,7 +14,7 @@ namespace Sanctuary.Integration;
 public static class IronGolemCastChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(IronGolemCastChecks));
-    private sealed record Saved(uint Owner,uint Body,uint Original,uint PendingOwner,uint PendingItem,int Mana,int PendingMana,string Gear,int Life,ulong Seed);
+    private sealed record Saved(uint Owner,uint Body,uint Original,uint PendingOwner,uint PendingItem,int Mana,int PendingMana,string Gear,int Life,ulong Seed,int? RawMana=null,int? RawPendingMana=null);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"iron-golem-cast-fixtures.json");
     private static Saved LoadedMana;
     public static void Configure()
@@ -124,16 +124,17 @@ public static class IronGolemCastChecks
         var pending=World.FindMobile((Serial)s.PendingOwner) as PlayerMobile;
         if(p is not{Deleted:false}||pending is not{Deleted:false}){return;}
         // Native mana regenerates even while parked. Observe the actual save
-        // boundary, preserving its fractional remainder instead of freezing it
-        // or comparing against the much earlier fixture-construction time.
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Mana=NecromancerEffects.ManaBalance256(p),PendingMana=NecromancerEffects.ManaBalance256(pending)}));
+        // boundary, preserving both raw serialized lanes and capped usable balances.
+        // WorldLoad still has the temporary65000ceiling;compare raw-to-raw
+        // there,then enforce the final usable bound in Reload.
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Mana=NecromancerEffects.ManaBalance256(p),PendingMana=NecromancerEffects.ManaBalance256(pending),RawMana=NecromancerEffects.RawManaBalance256(p),RawPendingMana=NecromancerEffects.RawManaBalance256(pending)}));
     }
     private static void ObserveLoad()
     {
         if(!File.Exists(Manifest)){return;}
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=World.FindMobile((Serial)s.Owner) as PlayerMobile;
         var pending=World.FindMobile((Serial)s.PendingOwner) as PlayerMobile;
-        if(p!=null&&pending!=null){LoadedMana=s with{Mana=NecromancerEffects.ManaBalance256(p),PendingMana=NecromancerEffects.ManaBalance256(pending)};}
+        if(p!=null&&pending!=null){LoadedMana=s with{RawMana=NecromancerEffects.RawManaBalance256(p),RawPendingMana=NecromancerEffects.RawManaBalance256(pending)};}
     }
     private static void Reload()
     {
@@ -141,12 +142,15 @@ public static class IronGolemCastChecks
         var original=World.FindItem((Serial)s.Original);var pending=(PlayerMobile)World.FindMobile((Serial)s.PendingOwner);var item=World.FindItem((Serial)s.PendingItem);
         Require(body is{Alive:true,Deleted:false}&&body.ControlMaster==p&&body.Map==Map.Internal&&body.Prepared.RosterMember&&original.Parent==body
             &&JsonSerializer.Serialize(ClassGear.State(original))==s.Gear&&SkillHealth.Balance256(body)==s.Life&&NpcEquipmentRandom.State(body).Seed==s.Seed
-            &&LoadedMana?.Mana==s.Mana&&NecromancerEffects.ManaBalance256(p)>=s.Mana&&NecromancerEffects.ManaBalance256(p)<=p.ManaMax*256,
+            &&s.RawMana.HasValue&&LoadedMana?.RawMana==s.RawMana&&NecromancerEffects.ManaBalance256(p)>=s.Mana&&NecromancerEffects.ManaBalance256(p)<=p.ManaMax*256,
             "Learned reload:body="+body?.Serial+", parked="+(body?.Map==Map.Internal)
             +", life="+SkillHealth.Balance256(body)+"/"+s.Life+", mana="+NecromancerEffects.ManaBalance256(p)+"/"+s.Mana
-            +", seed="+NpcEquipmentRandom.State(body)?.Seed+"/"+s.Seed);
+            +", seed="+NpcEquipmentRandom.State(body)?.Seed+"/"+s.Seed
+            +", loadedRawMana="+LoadedMana?.RawMana+"/"+s.RawMana+", maximum="+p.ManaMax*256
+            +", owned="+(body?.ControlMaster==p)+", roster="+body?.Prepared.RosterMember+", originalParent="+(original?.Parent==body)
+            +", gearEqual="+(JsonSerializer.Serialize(ClassGear.State(original))==s.Gear));
         Require(ClassCombat.For(pending).PendingAbility==CombatAbility.None&&NecromancerGolems.For(pending).Length==0&&item.Parent==null
-            &&item.Visible&&item.Movable&&LoadedMana?.PendingMana==s.PendingMana&&NecromancerEffects.ManaBalance256(pending)>=s.PendingMana,
+            &&item.Visible&&item.Movable&&s.RawPendingMana.HasValue&&LoadedMana?.RawPendingMana==s.RawPendingMana&&NecromancerEffects.ManaBalance256(pending)>=s.PendingMana,
             "Unpaid pending cast replayed on reload");
         Require(SkillBindings.Instance.Get(p).Right==CombatAbility.IronGolem&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Necromancer,7)==CombatAbility.IronGolem,"Learned bindings did not persist");
     }

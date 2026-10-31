@@ -43,7 +43,7 @@ public sealed class SkillBindings : GenericPersistence
     }
     public bool Assign(PlayerMobile player, bool left, CombatAbility ability)
     {
-        if (player == null || !player.Alive || !ClassCombat.Enabled(player) || left&&ClassAbilities.ItemTarget(ability) || left && ability is CombatAbility.Fissure or CombatAbility.Volcano or CombatAbility.BoneArmor or CombatAbility.PoisonNova
+        if (player == null || !player.Alive || !ClassCombat.Enabled(player) || left&&ClassAbilities.ItemTarget(ability) || left && ability is CombatAbility.Fissure or CombatAbility.Volcano or CombatAbility.BoneArmor or CombatAbility.PoisonNova or CombatAbility.PoisonExplosion
             || left && (PaladinCombat.IsAura(ability) || ability is CombatAbility.Werewolf or CombatAbility.Werebear or CombatAbility.BladeShield or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.Venom or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.MindBlast or CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.WarCry or CombatAbility.FindItem or CombatAbility.FindPotion or CombatAbility.InnerSight or CombatAbility.Decoy or CombatAbility.CycloneArmor or CombatAbility.Hurricane or CombatAbility.Armageddon or CombatAbility.Raven or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs)
             || ability != CombatAbility.None && !ClassCombat.Available(player, ability))
         {

@@ -1,0 +1,119 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Poison Explosion saved moving clouds",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 4,
+  "run": 5,
+  "verified": {
+    "nativeMarkers": 265,
+    "retainedPredecessorMarkers": 247,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      829,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourcePacketContextsPerBoot": 12240,
+    "sourceEmitterContexts": 432,
+    "sourceDo3Contexts": 6,
+    "sourceAllocationProjectionsPerBoot": 144,
+    "clouds": 8,
+    "plagueJavelinChecks": 3,
+    "retainedIronGolemRawManaSaveLoad": true,
+    "actualRightQuickCasts": 6,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/poison-explosion/birth-inputs.json",
+      "sha256": "e09df7d134d9e9cc1a22c6a3739c0cc2c6c024ad866a5377d78d6b0e26099a9b"
+    },
+    "audit": {
+      "path": ".local/class-skills/poison-explosion/audit-inputs.json",
+      "sha256": "86876a1e17c4b8693dc2931c6515096d231bb69f6c423cb785a2e2898392be75"
+    }
+  },
+  "sourceProofs": {
+    "poison-explosion-emitter-source-evidence.json": {
+      "path": "tools/reference/poison-explosion-emitter-source-evidence.json",
+      "sha256": "a431310b50c09606cc08934c51d487c6a3f3ef33be2b4a1eba2b8f2ebfdaf9b5"
+    },
+    "poison-explosion-damage-source-evidence.json": {
+      "path": "tools/reference/poison-explosion-damage-source-evidence.json",
+      "sha256": "79e98e7e50feb646807172ea5810da85d6f8a4517078cbd0f7e59e6cde566a45"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/MissileFootprints.cs": "aaf8b5c605a79b2ab5f925fa53e77485d158df62e0b3d216b24fb2777263f8b4",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "6d877c45bb104f0fe6685191828313ee038cd72f1dc9570d695937c2a56eb217",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "48fcf8ef3e3122ef2ea0e354e62b49048902c357b807c8778922c5429c116f27",
+    "src/Sanctuary.Content/PlagueJavelins.cs": "959bf7a31adf93c735276c66d932c4781fb3a32b7127f4756eb1de76a5db9c8d",
+    "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
+    "src/Sanctuary.Content/SkillBindings.cs": "2c7f34346c4fba2180366d3a11e3e778131134545242aa123fe96108fb449a89",
+    "tests/Sanctuary.Integration/IronGolemCastChecks.cs": "04186e6d78590f69442464f91250b3f455559101f56cd00ab55900dd88595fbf",
+    "tests/Sanctuary.Integration/PoisonExplosionChecks.cs": "1919630c37ed85f4e2d27d3370db095e0035c97030a167ea800671430567de1e"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-explosion/audit-inputs.json": "86876a1e17c4b8693dc2931c6515096d231bb69f6c423cb785a2e2898392be75",
+    ".local/class-skills/poison-explosion/audit-native-checks.log": "fa727923fb29cf267751f2fb0e3152603f48abd7118dbe7d652e39561ca583f3",
+    ".local/class-skills/poison-explosion/audit-run-5.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/poison-explosion/birth-inputs.json": "e09df7d134d9e9cc1a22c6a3739c0cc2c6c024ad866a5377d78d6b0e26099a9b",
+    ".local/class-skills/poison-explosion/birth-native-checks.log": "2e09477632d3a97035f9cc3ba5f62f44d1307fe308dd61c1be34333018a135db",
+    ".local/class-skills/poison-explosion/content-build-4.log": "6c8f13812d2e0de91927cd96189cd3de055db366e2bda76e1837bdbc5f8f9a1d",
+    ".local/class-skills/poison-explosion/integration-build-4.log": "7152f0cfa4253ed2d0d29f57980243213ce0e5b35f434acdb94120dfef69644f",
+    ".local/class-skills/poison-explosion/iron-golem-cast-fixtures.json": "6f5be842a370c9283284b1594480f0d1fe4ed50e39de7d069124a1544885a39b",
+    ".local/class-skills/poison-explosion/poison-explosion-fixtures.json": "0ee447dd932661511d4d7e0f920b8cd0e8ca6ae266685b7e269eec38aee18401",
+    ".local/class-skills/poison-explosion/pre-build-4.json": "5b4814181fc0bd567c4c274d84478a41c97ca3467f67bebe6db49cf00ec30629",
+    ".local/class-skills/poison-explosion/python-tests.log": "711bf5dc15e37b118b083e6688ec5f32b92347766806c5cdc484bed17b8e0778",
+    ".local/class-skills/poison-explosion/run-5.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "3913f2891dee718deb7029fb664145f6164b5e9c7aff03e614e2653337048751",
+    "docs/class-skill-roadmap.md": "4e62f4a2d528c3f2f197b2633aa491e35459585593984275fea3910bb600df93",
+    "docs/class-skills-resume-checkpoint.md": "f4b0296dd6e4220593aa0cd42f44672e1ede2fbbc0c6d172b5492c2044226fd8",
+    "docs/necromancer-mechanical-audit.md": "364f68d75f427a79897794bb274bf298a6c64b005f688130551322c0fe48fb54",
+    "docs/poison-explosion-checkpoint.md": "e71a6a8a0f45a894003605fff7f7c19fa8958f4a9480379880be5b85c4911a00",
+    "docs/poison-nova-source-preparation.md": "d9dc810b51ecbb13d4401fcd30b708527fb14b397aa5dda48827489ecee5b5eb",
+    "docs/skill-effects.md": "0c796338aafbbef80f57ee5be9525b94ae65239f9db71febde665cfc3fc5f1e5",
+    "docs/skill-icons.md": "9bb693814c59ebd14eadccc8d8d922506a9f9765826c614166140f0ee0499026",
+    "docs/skill-mechanical-reference.md": "7299979639d8276573cc4bc2c468a6cabf018b48d00541fb4d6bf5a4e31dc15a",
+    "docs/t29-combat-potions.md": "b65b9f99883471f282af33663a2ac8f3e463f7c98fc80495cbb22546d55f6f4b",
+    "src/Sanctuary.Content/MissileFootprints.cs": "aaf8b5c605a79b2ab5f925fa53e77485d158df62e0b3d216b24fb2777263f8b4",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "6d877c45bb104f0fe6685191828313ee038cd72f1dc9570d695937c2a56eb217",
+    "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "48fcf8ef3e3122ef2ea0e354e62b49048902c357b807c8778922c5429c116f27",
+    "src/Sanctuary.Content/PlagueJavelins.cs": "959bf7a31adf93c735276c66d932c4781fb3a32b7127f4756eb1de76a5db9c8d",
+    "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
+    "src/Sanctuary.Content/SkillBindings.cs": "2c7f34346c4fba2180366d3a11e3e778131134545242aa123fe96108fb449a89",
+    "tests/Sanctuary.Integration/IronGolemCastChecks.cs": "04186e6d78590f69442464f91250b3f455559101f56cd00ab55900dd88595fbf",
+    "tests/Sanctuary.Integration/PoisonExplosionChecks.cs": "1919630c37ed85f4e2d27d3370db095e0035c97030a167ea800671430567de1e",
+    "tests/check_poison_explosion.py": "e94a4c3d210cab3723add019f1d550ff1e64e2c27b2a94f1ecff13d24d53f7e7",
+    "tools/build_class_skills.py": "d2717d13f081dde97740e17fe7519f95814cbf544fac6012568e01757455fdb6",
+    "tools/probe_poison_explosion_damage.py": "66a75eb20a4e2a155e856d779f532e4961d75c64f55c01aaa257f1cf10bb2d10",
+    "tools/probe_poison_explosion_emitter.py": "bb8ba16f536a5e5c59fdbfbb1ae19a4c027b9bc4d413d1d4e9dbb5b4401570e1",
+    "tools/record_poison_explosion.py": "28f451bb7b5db1d0b1b2759b618069a074335b662fe861a23da5282760136dac",
+    "tools/reference/first-loop-affix-audit.json": "6dbfea725c309238fed0ecebbb1ffbc3b69485c3480a9e554bd5bd6e426d2230",
+    "tools/reference/named-item-runtime-audit.json": "c203a698ba640ae43231f2e1040b0bef14d41f896d4242ee09ca8814a3c58764",
+    "tools/reference/poison-nova-native-evidence.json": "07797bf928c169363a36f133dfc5a6c5efb95b0b85d76ced97d0bc85f0e66f96",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c"
+  },
+  "established": [
+    "Learned Poison Explosion creates8saved corpse-origin clouds,using the same16-offset emission geometry as Plague Javelin with mainStep2/subStep0/loops0. It replaces the stationary radius2field. Flags0x17 supply Param1<<7=256raw velocity,resulting192FP8 or96under50percent Slow Missiles. Clouds live60frames independently of rank-scaled poison duration.",
+    "Complete source do63/emitter/factory execute432contexts,144allocation attempts and72created clouds,including all-failed/alternating allocation and corpse consumption guards. Six complete do3wrapper controls establish its conditional0x40mask and collision delegation. Complete source poison packet fixtures compare12240contexts per native boot,including50+10*(rank-1)duration,15percent hard synergies,mastery and item/critical exclusion.",
+    "Shared saved flights supply Size2contact,non-killing collision,no NextHit and only the latest collider identity. Actual travel precedes distant contact;A/B/Arecipient changes are permitted. Cloud Collision1footprints project from saved moving actors. Very slow cloud movement reuses Plague tile-fit plus existing LOS instead of passing a blocking endpoint tile.",
+    "Actual learned casting pays8mana once,consumes/reserves the corpse once and leaves273gold lootable. Right-only/quick inputs,unpaid/RIP refusal,soft-rank/duration capture,8lifecycle/terrain/slow controls,immune/late-potion/cure ticks and atomic malformed saves pass. Existing older-source initial-rate bridge is retained explicitly.",
+    "The retained Iron Golem fixture now compares raw serialized mana at WorldLoad,where the temporary65000resource ceiling intentionally precedes final caps,then keeps the usable post-load bounds. Ownership/gear/life/seed/pending/binding guards remain;production resource math is unchanged.",
+    "Two actual reloads preserve8clouds advanced17to18to19frames,their vectors,source,rate,poison length,seed,latest collision,deadlines,corpse NoSelect/Consumed/Animated flags,loot and bindings. Six connected right/quick casts use actual corpse packets. All247predecessor markers and3fresh Plague Javelin source/emission/resource suites pass."
+  ],
+  "remaining": [
+    "Complete current path/dispatcher/events,terrain/candidate/footprint/global-frame/FCR/graphical-client parity and corpse eligibility/destruction/animation remain declared shared services. Legacy do63missing-skill-record typo is outside the compiled domain;the native route requires pinned data.",
+    "Modern initial poison-rate health delivery,full PvP/player floor versus lethal elemental bonus,cross-owner/retired-source credit,dynamic poison defenses,removed buff history,extreme domains and every cure producer remain shared gaps. Source wrapper collision delegation is not a new complete generic dispatcher proof.",
+    "No complete class,deployment,old-content binary upgrade or new broad1180-marker run is claimed. Next:remaining Necromancer summon/curse acceptance. Final poison corpse/cloud/puff/state effects/audio and talent/right/quick icons remain separately pending."
+  ]
+}
