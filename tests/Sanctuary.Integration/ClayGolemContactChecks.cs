@@ -29,7 +29,12 @@ public static class ClayGolemContactChecks
     private static ClayGolemBody Pet(PlayerMobile p)
     {
         Require(NecromancerSummons.Create(p,CombatAbility.ClayGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Learned Clay creation");
-        var pet=NecromancerGolems.For(p).OfType<ClayGolemBody>().Single();pet.AIObject.AITimer.Stop();return pet;
+        var learned=NecromancerGolems.For(p).OfType<ClayGolemBody>().Single();
+        Require(learned is ClayGolemWorldBody,"Learned Clay did not select the new world controller");learned.Delete();
+        // Retain direct native-hook coverage on the historical actor. Actual
+        // learned automatic combat is checked by ClayGolemWorldChecks.
+        var pet=new ClayGolemBody();pet.Prepare(p,CombatAbility.ClayGolem);Require(pet.SetControlMaster(p),"Historical Clay owner");
+        pet.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);pet.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(pet);return pet;
     }
     private static GraveyardSkeleton Target(PlayerMobile p)
     {

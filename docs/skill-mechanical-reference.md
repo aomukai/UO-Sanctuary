@@ -561,6 +561,8 @@ The native whole maximum/65000 projection, exact SC/FCR/frame/geometry/neutral e
 
 Before implementing each skill, inspect existing handlers and the pinned dispatch/formula/missile data for reusable mechanics. The user explicitly requests this review. Reuse a verified geometry, timing, resource or collision consumer when the source contract agrees; keep skill-specific damage, targeting, hit-delay, piercing and proc behavior explicit. Avoid assuming visual similarity establishes identical mechanics.
 
+Record the related implementations inspected and the reuse decision in the skill checkpoint before introducing new machinery. When a shared service changes, verify its existing consumers as well as the new skill. This review applies to every new skill, including extensions of existing summon controllers.
+
 The pinned Teeth and Multiple Shot rows both dispatch server do8 and share the projectile-count formula `min(ln12,24)`. Their missile selections, start handler and calc3 differ. Current Teeth still uses a provisional fixed60-degree fan in `NecromancerCombat`; extract/verify the source do8 fan before reusing it for Amazon, and verify Teeth against that common implementation too. This is a recorded acceptance gap, not a claim that the existing spread is exact. Shout, Battle Orders and Battle Command already share the travelling-ray controller while retaining their own state, resource and missile-flag rules.
 
 

@@ -54,7 +54,7 @@ public static class ClayGolemBirthChecks
     {
         p.Mana=p.ManaMax;int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.ClayGolem).Mana256;
         Require(NecromancerCombat.Release(p,CombatAbility.ClayGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Learned Clay release");
-        var b=NecromancerGolems.For(p).OfType<ClayGolemBody>().Single();b.AIObject.AITimer.Stop();b.SuspendActions();
+        var b=NecromancerGolems.For(p).OfType<ClayGolemBody>().Single();Require(b is ClayGolemWorldBody,"Learned Clay birth subtype");b.AIObject.AITimer.Stop();b.SuspendActions();
         Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&SkillHealth.Balance256(b)==52480&&SkillHealth.Maximum256(b)==52480&&b.SourceRegeneration256==38,"Clay paid once/birth205HP/source38FP recovery");
         Require(b.PhysicalResistance==25&&b.ColdResistance==50&&b.EnergyResistance==20,"Current Clay innate resistances");return b;
     }

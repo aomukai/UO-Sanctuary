@@ -45,12 +45,16 @@ public partial class ClayGolemBody
         try
         {
             var result=UnarmedSummonContact.Release(this,owner,creature,prepared,TimedEffects.Now);
-            // Preserve the existing positive-life-loss slow adapter. The older
-            // item-event19 guard is contradictory; this is not source parity.
-            if(result.Commit is{} hit&&(hit.Before256+255)/256>(hit.AfterHealth256+255)/256)
-            {TimedEffects.Slow(creature,ReactiveSlowPercent,TimedEffects.Now);}
+            ApplyOutgoingSlow(creature,result);
         }
         catch(NotSupportedException e){_faultTarget=target.Serial.Value;ReportContact(e.Message,false);}
     }
     protected override void DiscardMeleeContact(){_preparedContact?.Cancel();_preparedContact=null;}
+    internal void ApplyOutgoingSlow(BaseCreature target,MonsterContactResult result)
+    {
+        // Shared by historical native hooks and the world controller. The old
+        // item-event19 guard is contradictory; retain the established adapter.
+        if(result.Commit is{} hit&&(hit.Before256+255)/256>(hit.AfterHealth256+255)/256)
+        {TimedEffects.Slow(target,ReactiveSlowPercent,TimedEffects.Now);}
+    }
 }
