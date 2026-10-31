@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "bc83acf712c18dc165ef7862f83f2181d2f7733c48794de4cab0b850a3afb243",
-  "ContentAssemblyPath": ".local/class-skills/necromancer-binding/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "89fb622b0534d740e464593bbad2be14ec2996e46a8a78b200822344dd527747",
+  "ContentAssemblyPath": ".local/class-skills/skeleton-combat/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

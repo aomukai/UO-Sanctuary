@@ -10,7 +10,12 @@ internal static class NecromancerSkeletonBirth
     {
         if(ClassGear.Bonus(owner,"pierce-immunity-damage")!=0)
         {throw new NotSupportedException("Raise Skeleton inherited physical Sunder delivery is not verified");}
-        Prepare(ClassStats.Level(owner),SkeletonPets.Rank(owner),NamedSkills.Rank(owner,"necromancer.skeletonmastery"),SummonDifficulties.For(owner.Map));
+        Preflight(ClassStats.Level(owner),SkeletonPets.Rank(owner),NamedSkills.Rank(owner,"necromancer.skeletonmastery"));
+    }
+    internal static void Preflight(int ownerLevel,int rank,int mastery)
+    {
+        foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
+        {Prepare(ownerLevel,rank,mastery,difficulty);}
     }
     internal static SkeletonBirthStats Prepare(int ownerLevel,int rank,int mastery,MonsterDifficulty difficulty)
     {

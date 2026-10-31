@@ -22,13 +22,21 @@ public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum
         }
     }
     int ISourceLifeMaximum.MaximumLife256=>NpcEquipmentResources.Maximum256(this,0)??NpcEquipmentResources.UnboundLifeMaximum256(this);
+    internal NpcPhysicalStats UnarmedPhysical=>new(NecromancerSummons.Source("necroskeleton","A1MinD",SummonDifficulty),
+        NecromancerSummons.Source("necroskeleton","A1MaxD",SummonDifficulty),Birth.FlatDamage,
+        checked(Birth.DamagePercent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false);
+    internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
+        SourceAttackRate.Speed(NecromancerSummons.Source("necroskeleton-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"necroskeleton-animation");
+    protected override (int Cycle,int Action) MeleeClock()
+    {var clock=SourceAttackClock;return(checked(clock.End*40),checked(clock.Action*40));}
+    protected override bool CheckAttackHit(Mobile target)=>ClassStats.CheckHit(this,target,0,()=>NpcEquipmentRandom.Limited(this,100)/100.0)==true;
     public override MonsterProfile CombatProfile
     {
         get
         {
             var b=Birth;var weapon=SourceWeaponBase;int percent=Math.Max(10,100+b.DamagePercent);
             return new(b.Level,(Math.Clamp(b.Life256,256,65000*256)+255)/256,b.Attack,b.Armor,
-                weapon.Min*percent/100,weapon.Max*percent/100,720,240,0,0,0,0,0);
+                weapon.Min*percent/100,weapon.Max*percent/100,DruidWolfGeometry.Clock("A1",source:"necroskeleton-animation").End*40,240,0,0,0,0,0);
         }
     }
     public override (int Min,int Max) SkillWeaponDamage
@@ -47,5 +55,6 @@ public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum
         _birth=null;Initialize(owner,rank,mastery);SkillHealth.SetBalance256(this,SkillHealth.Maximum256(this));
     }
     internal override void RefreshDifficulty(){_birth=null;base.RefreshDifficulty();}
+    public override void OnAfterDelete(){NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterRaisedLoad(){_birth=null;ResetLifeRecovery();}
 }

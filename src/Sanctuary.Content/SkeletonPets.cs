@@ -275,9 +275,11 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     protected virtual bool CanHit(Mobile target) => Alive && !Deleted && AlliedOverlap.Allowed(this) && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
         && IsEnemy(target) && target.Map == Map && InRange(target, RangeFight) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
+    protected virtual (int Cycle,int Action) MeleeClock()
+    {int cycle=PaladinOffense.CreatureCycle(this,CombatProfile.AttackMs);return(cycle,cycle/2);}
     public virtual TimeSpan BeginMelee(Mobile target)
     {
-        int milliseconds=PaladinOffense.CreatureCycle(this,CombatProfile.AttackMs);
+        var clock=MeleeClock();int milliseconds=clock.Cycle;
         var cycle = TimeSpan.FromMilliseconds(milliseconds);
         if (!CanHit(target) || _attackTimer.Running || Core.TickCount - _nextAttack < 0)
         {
@@ -290,7 +292,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         Direction = GetDirectionTo(target);
         Animate(4, 5, 1, true, false, 0);
         DoHarmful(target);
-        Timer.StartTimer(TimeSpan.FromMilliseconds(milliseconds / 2), ResolveMelee, out _attackTimer);
+        Timer.StartTimer(TimeSpan.FromMilliseconds(clock.Action), ResolveMelee, out _attackTimer);
         return cycle;
     }
     private void ResolveMelee()

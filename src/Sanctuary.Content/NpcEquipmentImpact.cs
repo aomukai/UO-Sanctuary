@@ -36,10 +36,11 @@ internal static class NpcEquipmentImpact
         if(actor is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||(flags&~0xffff)!=0)
         {throw new ArgumentException("NPC impact allocation requires existing living actors and source result flags");}
         if(!Fills(flags)){return new(actor.Serial.Value,target.Serial.Value,Packet(flags,0,null,default,0,default,0),default,0);}
-        var item=NpcEquipmentCombat.Context(actor)??throw new NotSupportedException("No original NPC impact equipment");
+        var item=NpcEquipmentCombat.Context(actor);
+        if(item==null&&actor is not RaisedSkeleton){throw new NotSupportedException("No original NPC impact equipment");}
         // Ordinary current item minima do not create a positive NPC drain
         // field. Positive maxima/skill-supplied fields remain separate work.
-        item.RequireOrdinaryNpcDrainInputs();
+        item?.RequireOrdinaryNpcDrainInputs();
         var rolled=NpcEquipmentDamage.Roll(actor,target,limited,raw)??throw new NotSupportedException("NPC offensive roll binding was lost");
         var damage=rolled.Damage;
         var parts=SkillCombat.MitigatePrepared(actor,target,damage.Elements with{Physical=damage.Physical256/256.0*PaladinAuras.NativeWeaponMultiplier(actor,true)},out int absorbed);

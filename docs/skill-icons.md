@@ -1,5 +1,7 @@
 # Skill icons
 
+The [regular skeleton damage/A1 increment](skeleton-combat-checkpoint.md) creates no final art. Raise Skeleton’s talent-tree and right/quick-hotkey icon, and Skeleton Mastery’s passive talent-tree icon, remain pending. Random-stream state, critical rolls and individual pet attacks introduce no player-bindable skills or independent icons. Effects/audio remain in the separate ledger.
+
 The [Necromancer mouse-selection correction](necromancer-binding-checkpoint.md) creates no final icons. All 30 talent-tree icons remain in the asset ledger; active-skill hotkey art remains pending. Left-slot art applies to Teeth, Poison Dagger, Bone Spear and Bone Spirit; the other active Necromancer skills use right/quick selection. Passive skills have no active binding. Existing art remains an identified placeholder, separate from effects/audio.
 
 The [regular skeleton birth/resource correction](skeleton-birth-checkpoint.md) adds no final art. Raise Skeleton and Skeleton Mastery still need final talent-tree icons; Raise Skeleton also needs its right/quick-hotkey icon. Existing art is an identified placeholder. The later [Necromancer binding pass](necromancer-binding-checkpoint.md) corrected its legacy left allowance. Effects/audio stay in their separate ledger.

@@ -236,6 +236,17 @@ def products():
         if actions:iron_fields[mode+'Action']=actions[0]
     assert [iron_fields[k] for k in ['A1Frames','A1Speed','A1Action','WLSpeed','S1Frames','S1Speed']]==[16,256,10,112,15,104]
     summons += [{'key':'irongolem-animation','fields':iron_fields}]
+    skeleton_preflight=json.loads((ROOT/'tools/reference/skeleton-world-preflight.json').read_text())
+    skeleton_animations={row['code']:row for row in skeleton_preflight['animation']['records']}
+    skeleton_fields={}
+    for mode in ['S1','A1','A2','GH','BL','WL','NU','DT','DD']:
+        row=skeleton_animations['SK'+mode+'1HS']
+        skeleton_fields[mode+'Frames']=row['frames'];skeleton_fields[mode+'Speed']=row['speed']
+        actions=[frame for frame,kind in row['events'] if kind==1]
+        assert len(actions)<=1
+        if actions:skeleton_fields[mode+'Action']=actions[0]
+    assert [skeleton_fields[k] for k in ['A1Frames','A1Speed','A1Action','S1Frames','S1Speed']]==[16,224,10,12,128]
+    summons += [{'key':'necroskeleton-animation','fields':skeleton_fields}]
     oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
     assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
     summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]

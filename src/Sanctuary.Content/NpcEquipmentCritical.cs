@@ -11,14 +11,15 @@ internal static class NpcEquipmentCritical
     {
         if(actor.GetType()!=typeof(SkeletonGuardian)&&actor is not RaisedSkeleton&&actor is not NecromancerMinion{IsMage:false}&&actor is not IronGolemBody)
         {throw new NotSupportedException("NPC critical source body is not mapped");}
-        if(NpcEquipmentCombat.Context(actor) is not{} item){throw new NotSupportedException("No original NPC critical equipment");}
+        var item=NpcEquipmentCombat.Context(actor);
+        if(item==null&&actor is not RaisedSkeleton){throw new NotSupportedException("No original NPC critical equipment");}
         var fields=NecromancerSummons.Fields(actor.SourceMonsterId);
         if(!fields.TryGetValue("Crit",out var value)||!value.TryGetInt32(out int chance)||chance is <0 or >255)
         {throw new NotSupportedException("NPC intrinsic critical source value is not mapped");}
         // Current mapped skeleton/golem skills supply no weapon-mastery or
         // generic-critical stats. Item-granted skill integration remains gated;
         // the controlling player's skills/passives are not inherited.
-        return new(0,0,item.Bonus("deadly"),chance);
+        return new(0,0,item?.Bonus("deadly")??0,chance);
     }
     internal static bool Physical(NpcCriticalChances chances,Func<uint> raw,bool ranged=false,bool skipPhysical=false)
         =>!skipPhysical&&NamedCombat.MeleeCritical(ranged?0:chances.Mastery,chances.Generic,chances.Deadly,raw);

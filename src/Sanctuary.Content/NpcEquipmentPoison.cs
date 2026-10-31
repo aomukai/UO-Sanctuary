@@ -11,9 +11,10 @@ internal static class NpcEquipmentPoison
 {
     internal static NpcPoisonSnapshot Capture(SkeletonGuardian actor)
     {
-        if(NpcEquipmentCombat.Context(actor) is not{} item||actor.ControlMaster is not PlayerMobile owner)
+        var item=NpcEquipmentCombat.Context(actor);
+        if(item==null&&actor is not RaisedSkeleton||actor.ControlMaster is not PlayerMobile owner)
         {throw new NotSupportedException("No owned original NPC poison equipment");}
-        return new(actor.Serial.Value,owner.Serial.Value,item.Poison(),item.Bonus("extra-pois"),Math.Max(0,item.Bonus("pierce-pois")));
+        return new(actor.Serial.Value,owner.Serial.Value,item?.Poison()??new MissileSourceStats(),item?.Bonus("extra-pois")??0,Math.Max(0,item?.Bonus("pierce-pois")??0));
     }
     internal static WeaponPoisonRoll Roll(NpcPoisonSnapshot snapshot,Func<int,int> limited)
         =>WeaponPoisonPackets.Melee(snapshot.Stats,snapshot.Mastery,128,limited);

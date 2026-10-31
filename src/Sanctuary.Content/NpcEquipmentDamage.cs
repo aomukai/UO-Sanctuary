@@ -41,7 +41,7 @@ internal static class NpcEquipmentDamage
     }
     internal static NpcPhysicalStats? Capture(SkeletonGuardian actor,Mobile target=null)
     {
-        if(NpcEquipmentCombat.Context(actor) is not{} item){return null;}
+        if(NpcEquipmentCombat.Context(actor) is not{} item){return actor is RaisedSkeleton skeleton?skeleton.UnarmedPhysical:null;}
         var raw=actor.SourceWeaponBase;var basis=ClassGear.Base(item.Item);
         bool weapon=ClassGear.Slot(item.Item)==GearSlot.Weapon&&!ClassGear.Broken(item.Item);
         bool two=weapon&&(basis.TwoHanded||basis.OneOrTwoHanded);

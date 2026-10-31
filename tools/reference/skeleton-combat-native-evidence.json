@@ -1,0 +1,122 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned skeleton unarmed damage,critical and A1 action clock",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 297,
+    "retainedPredecessorMarkers": 291,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      831,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "actualMeleeCycles": 3,
+    "baselineActionMs": 480,
+    "baselineCycleMs": 760,
+    "intrinsicCriticalPercent": 5,
+    "normalRank4Minimum256": 273,
+    "normalRank4ExclusiveMaximum256": 547,
+    "finalSavedGeneration": 2,
+    "finalSavedSeed": 925613468630568505,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/skeleton-combat/birth-inputs.json",
+      "sha256": "5a26ddfdd02736b8918692e2ca5c29bcba77faa0ba865b4f605c69ec7260bbdd"
+    },
+    "audit": {
+      "path": ".local/class-skills/skeleton-combat/audit-inputs.json",
+      "sha256": "0ea7125dea151ae22757598d3a6d253ec35d2de004576d554446bfe6c0b66ec4"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "bb8b3f6ba5722744dd7cb907b50ff409b31dc1ec77befa8b5d2e5c407257b940",
+    "src/Sanctuary.Content/NpcEquipmentCritical.cs": "e53a778a0c6461e151b0443acf8d8074e8390989ac24b62725c0cac0f21bf75e",
+    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "7911c8defdc86e3ce3146fde66f240b7dc38243606146fc629b4a7ac18b7fa38",
+    "src/Sanctuary.Content/NpcEquipmentElements.cs": "dd7a909d9d78cc3b2ed203608691481a9a16741889d6512501c1d5fdc18f8d91",
+    "src/Sanctuary.Content/NpcEquipmentImpact.cs": "7bb8fa5de6e774018ce7164b65e144657173dfc1fb11e770a17ba3d625ed5fd4",
+    "src/Sanctuary.Content/NpcEquipmentPoison.cs": "ffc94d803eae6e36e1461e9f48b429a34fb7fd9b440c3ba63db99dbab1406b1b",
+    "src/Sanctuary.Content/NpcEquipmentRandom.cs": "6a7824f791b06ac9be0288d1d7b9842b4911351d75d735b6a9d5bee5f6954b69",
+    "src/Sanctuary.Content/RaisedSkeleton.cs": "ab8dd947f9d0e0c5ef917784e35667dfae5dbbdc66355f68069fa77ed29395c8",
+    "src/Sanctuary.Content/SkeletonPets.cs": "ef8f72840c0f4e9a85418937dd80da71599ed6723d1748d27fea488e88a74aff",
+    "tests/Sanctuary.Integration/SkeletonCombatChecks.cs": "8828b4e3a270ed6c49665cefc8175c19f72a5e39788e466f0ac258461de79954"
+  },
+  "artifacts": {
+    ".local/class-skills/skeleton-combat/audit-inputs.json": "0ea7125dea151ae22757598d3a6d253ec35d2de004576d554446bfe6c0b66ec4",
+    ".local/class-skills/skeleton-combat/audit-native-checks.log": "38bad7da6ce60d1aa5256caa5fcefb1101575c2c6384f413b199691d6ad49b2a",
+    ".local/class-skills/skeleton-combat/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/skeleton-combat/birth-inputs.json": "5a26ddfdd02736b8918692e2ca5c29bcba77faa0ba865b4f605c69ec7260bbdd",
+    ".local/class-skills/skeleton-combat/birth-native-checks.log": "7620b45a988245d6e145c6b8725bcd9eb5d1e2f3b53e09ef42ba7a69f3e860b6",
+    ".local/class-skills/skeleton-combat/content-build-3.log": "53f1c9bbdba23494033a1485492a0b8012c5e61b96933ddb29fd77408ffb44b8",
+    ".local/class-skills/skeleton-combat/integration-build-3.log": "9cb5fd491816bbbeb409f8cf1aa131144804714bebbb1c2bded536efc82d97ce",
+    ".local/class-skills/skeleton-combat/iron-golem-cast-fixtures.json": "aa1f249a6fdf82c1e33db25f2bed334dadd3fe6847b3e2aacad6e7b0cd0234f3",
+    ".local/class-skills/skeleton-combat/pre-build-3.json": "698324bc9310667ae65512b85c9602e72f1a390abd24f34a9d8e1cdf51f1ff43",
+    ".local/class-skills/skeleton-combat/python-tests.log": "53326936511b427acb81de369b87b69818d53a03d4b60ddda5af57dac66e85ce",
+    ".local/class-skills/skeleton-combat/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/skeleton-combat/skeleton-combat-fixtures.json": "6ea5d07a39ba55f6a892fae681b4a782c607c695d394a453c983814791eaeb8c",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ce221e90fc59f51f4a9b52745f3d616b2d252696fc4ea29709f136dce9ecf52e",
+    "docs/class-skill-roadmap.md": "66836848279993e371a3dbeaee0f4566e116bb38fc2777340ec590a3f29bc3ec",
+    "docs/class-skills-resume-checkpoint.md": "e6ff9c0e495744b48b8a45253350ec32953c12f6f41059120ddaf7091e13256d",
+    "docs/necromancer-mechanical-audit.md": "817b4eeb548d6b118c000ecebc153a4be69341b21b5cd75d0b21e7e0573733e5",
+    "docs/skeleton-combat-checkpoint.md": "a8576343752f696505c757dc430248b145942624736dcee5c84c0641abb19ad5",
+    "docs/skill-effects.md": "9803812a22782eb12c9aef35f6400245884510d368ac020e8dad6a94bcbf6fef",
+    "docs/skill-icons.md": "e055e1cc3f9fced709e555fb8fce3bd9c270f5724caa4cde525cb76e628a17b6",
+    "docs/skill-mechanical-reference.md": "8a81dbead25ed71124d4b9242bb2c881bd1b5f58424f11aad70f5f1cf7224d35",
+    "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "bb8b3f6ba5722744dd7cb907b50ff409b31dc1ec77befa8b5d2e5c407257b940",
+    "src/Sanctuary.Content/NpcEquipmentCritical.cs": "e53a778a0c6461e151b0443acf8d8074e8390989ac24b62725c0cac0f21bf75e",
+    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "7911c8defdc86e3ce3146fde66f240b7dc38243606146fc629b4a7ac18b7fa38",
+    "src/Sanctuary.Content/NpcEquipmentElements.cs": "dd7a909d9d78cc3b2ed203608691481a9a16741889d6512501c1d5fdc18f8d91",
+    "src/Sanctuary.Content/NpcEquipmentImpact.cs": "7bb8fa5de6e774018ce7164b65e144657173dfc1fb11e770a17ba3d625ed5fd4",
+    "src/Sanctuary.Content/NpcEquipmentPoison.cs": "ffc94d803eae6e36e1461e9f48b429a34fb7fd9b440c3ba63db99dbab1406b1b",
+    "src/Sanctuary.Content/NpcEquipmentRandom.cs": "6a7824f791b06ac9be0288d1d7b9842b4911351d75d735b6a9d5bee5f6954b69",
+    "src/Sanctuary.Content/RaisedSkeleton.cs": "ab8dd947f9d0e0c5ef917784e35667dfae5dbbdc66355f68069fa77ed29395c8",
+    "src/Sanctuary.Content/SkeletonPets.cs": "ef8f72840c0f4e9a85418937dd80da71599ed6723d1748d27fea488e88a74aff",
+    "tests/Sanctuary.Integration/SkeletonCombatChecks.cs": "8828b4e3a270ed6c49665cefc8175c19f72a5e39788e466f0ac258461de79954",
+    "tests/check_skeleton_combat.py": "79ea6a79bb8590783ddfa17798ea5c678ebc87ca370587e5393bc8912478b73c",
+    "tools/build_class_skills.py": "3b944bbd484c353f22ae22c3c88c3aa21de7049d0990e1dbfca9bd247013f8bb",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/record_skeleton_combat.py": "18e63297074b8005fac49c953ede893a0226c5fdec229e2f70e872e0f1e2c14d",
+    "tools/reference/first-loop-affix-audit.json": "d314eeb9cdae8e9b3eedacaa3072f38effab07db4e8e0dfbabb3abb85db6e963",
+    "tools/reference/named-item-runtime-audit.json": "9f15af7a47af65aee3b90a85297cb97c2fcb510fe496611ca0a85a9d141698c6",
+    "tools/reference/necromancer-binding-native-evidence.json": "7713d426bb044495e11b6dbca1dfd2d55c62c454a75bf0527d1340aedf0035e8",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "New learned RaisedSkeleton attacks use shared source FP256 unarmed rolls with captured flat/percentage skill stats and the current monster intrinsic5percent critical. Equipped NPC consumers retain their original branch;owner weapon/poison/IAS bonuses are not inherited and later owner gear does not rewrite captured skill ranks. Real Enchant fire remains available to an unequipped pet and intrinsic critical doubles its damage.",
+    "A tagged unarmed stream reuses the existing source random algorithm/store without fabricating an original item. Old equipped rows omit the new default flag and retain their saved format. Exact draws,two reloads,offline non-replay and atomic malformed restore pass;deletion cleanup is implemented.",
+    "Pinned SKA11HS16frames/speed224/action10 feeds the shared source event planner. Baseline action12/end19 gives480/760ms;slow50percent gives23/37frames. Three connected native A1 cycles require no damage at400ms,then the exact fractional hit and expected source stream. Historical actors and Mage/golem timing remain on their existing paths.",
+    "New learned creation preflights all three difficulties,refusing the Normal-safe/rank84/Mastery255 domain that would overflow after entering Hell. All291predecessor focused markers,4audits/71Python,573named decisions and106installed artifacts remain."
+  ],
+  "remaining": [
+    "This is an ordinary damage/clock increment through the existing native health/event bridge. Complete source prepared start/contact/result/block/HP/return/event composition,initial S1/AI67movement and global-frame/seed/current-executable/client parity remain unverified;the bridge is not a complete source event certificate.",
+    "Final shield/component/equipment distribution and owner/pet initialization seed order remain unresolved. Exact live mid-animation rate changes,pending action persistence,and historical body/binary migration remain unverified. No class completion,deployment or new1180-marker broad run is claimed.",
+    "Regular Mage,other golem and curse acceptance continues. Final effects/audio and talent/hotkey icons remain separate pending ledgers."
+  ]
+}

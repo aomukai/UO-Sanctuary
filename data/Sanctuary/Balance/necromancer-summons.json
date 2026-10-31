@@ -1738,6 +1738,31 @@
     }
   },
   {
+    "key": "necroskeleton-animation",
+    "fields": {
+      "S1Frames": 12,
+      "S1Speed": 128,
+      "A1Frames": 16,
+      "A1Speed": 224,
+      "A1Action": 10,
+      "A2Frames": 16,
+      "A2Speed": 224,
+      "A2Action": 9,
+      "GHFrames": 4,
+      "GHSpeed": 256,
+      "BLFrames": 4,
+      "BLSpeed": 224,
+      "WLFrames": 8,
+      "WLSpeed": 128,
+      "NUFrames": 8,
+      "NUSpeed": 128,
+      "DTFrames": 19,
+      "DTSpeed": 208,
+      "DDFrames": 1,
+      "DDSpeed": 152
+    }
+  },
+  {
     "key": "oaksage-animation",
     "fields": {
       "WLFrames": 7,

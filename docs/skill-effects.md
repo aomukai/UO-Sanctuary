@@ -1,5 +1,7 @@
 # Skill effects
 
+The [regular skeleton damage/A1 increment](skeleton-combat-checkpoint.md) keeps native body50, attack animation and shared hit presentation as identified placeholders. Final SK warrior emergence/attack, intrinsic-critical feedback, hit/death, weapon/shield variants and audio remain pending. Damage and its 480 ms release do not depend on that art.
+
 The [Necromancer mouse-selection correction](necromancer-binding-checkpoint.md) creates no final effects or audio. Skeleton warrior/Mage body, attack and shield presentation remain identified native placeholders. The separate [SK preflight](../tools/reference/skeleton-world-preflight.json) records current animation speeds and release events for later mechanical integration; those records do not supply final art.
 
 The [regular skeleton birth/resource correction](skeleton-birth-checkpoint.md) retains the existing native skeleton body, shared corpse animation and cast sound as identified presentation placeholders. Final summon emergence, body/weapon/shield variants, attack/hit/death effects and audio remain pending; this increment creates no imagegen assets and does not depend on them.
