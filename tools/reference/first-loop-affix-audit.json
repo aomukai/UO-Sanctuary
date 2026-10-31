@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "83d5f54e080c5f08208a043736d961d2a8cca1c5b556fe2710b08b76dfde9b52",
-  "ContentAssemblyPath": ".local/class-skills/bone-barrier-clock/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "9683b415110f56b8424e543867a8b253efe7295621ac9e65159dec7a456bade3",
+  "ContentAssemblyPath": ".local/class-skills/summon-resist/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 13824,
+  "acceptedAllocationContexts": 6912,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/iron-golem-birth-source/source.cpp": "770d5922e17ef42824ca238ac42e208aad3c9e30ea7cb8d489ee77a75e34cc71",
+    "tools/reference/iron-golem-birth-source-evidence.json": "0baf05770078dcacd09ae12eefd3bf9a45680106af9a9ce04050e48caa9d5bb2",
+    "tools/reference/diminishing-reference-conflict.json": "5ca2798fa5c8682db80e4e60d0fc2c9ca019e1b93cb01578fe772498434096be"
+  },
+  "executed": {
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3",
+    "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+    "D2Common_11034": "7d2c2566300e7d81a3bf265b6025da535dd039f2b8b83860e5ff9e1274bdc905"
+  },
+  "staticallyReviewed": {
+    "SKILLS_SrvDo031_RaiseSkeleton_Mage": "4b3ca1651ee326291169cce8fc98c461114fb61bfa67efafd7fdb0a29e1ee91b",
+    "SKILLS_SrvDo056_Golem": "b6e5942e72ebaffadd5ac45daeeabd5115c65b02639036fd382e1f0ab1e0f36b",
+    "SKILLS_SrvDo057_IronGolem": "074201fd38e24a24e63eb6a27287d2c579cd80ac191516266682cca7ab3edbb1",
+    "SKILLS_SrvDo058_Revive": "64437348a3a1cdfe626a6509cef2db77fef8b76c35fee9235132342eea13bf63",
+    "SKILLS_SrvDo060_BoneWall": "78c7945dd101e8ad9a4fae07b3a6c21aebffa8621705ce86ab959cb1abaea545",
+    "SKILLS_SrvDo062_BonePrison": "73cbd1b10078e5614770e1c3d940e874a744dedb0841ce50a9432497b7266e30"
+  },
+  "currentObservations": [
+    [
+      7,
+      52,
+      52
+    ],
+    [
+      13,
+      61,
+      61
+    ],
+    [
+      19,
+      65,
+      65
+    ]
+  ],
+  "established": [
+    "Complete resistance helper executes all256retained-rank values with27signed absorb combinations and accepted/refused allocation. Nonzero bonus allocates once; only accepted nodes attach/write. Positive elemental absorption suppresses that elemental bonus, nonpositive admits it; poison is unconditional. No physical/magic resistance writes.",
+    "Three complete birth callbacks invoke the helper for warrior/Mage,Clay/Blood/Fire andIron. Reviewed Revive/Wall/Prison callbacks do not invoke it; that absence is not a complete modern passive/event proof.",
+    "Full unchanged legacy11033/11034 also execute. Retained and legacy curve outputs are kept separate in every row; neither helper is rewritten to disguise rounding conflicts."
+  ],
+  "remaining": [
+    "User7/13/19readings corroborate52/61/65 but agree with both curves. Current Dodge3/Avoid3 calibrate retained shared two-stage rounding; applying that same dm12 callback to Summon Resist is still a cross-skill inference, not a direct current-executable proof at distinguishing ranks3/21.",
+    "Formula/stat-list services and retained bonus supplier are declared; full passive stat registration/allocator/current executable/events/Sunder/item/rank grants and recipient runtime require separate evidence. No new gameplay implementation or class completion from this source-only probe."
+  ],
+  "artifacts": {
+    "tools/probe_summon_resist.py": "c032bcb4bf030ac0534337eb61654ac514b542c37d919c037d43753c461b648d",
+    ".local/class-skills/summon-resist-source/probe.cpp": "5af8f183a3acc2244e0ff302d5de1833a6c3a11f2f3bbeacb41eb3a8f99c99f4",
+    ".local/class-skills/summon-resist-source/cases.json": "4575f0ed521800300f13e370f1b0667817d16f0b8658c9fc26575460565fe24c",
+    ".local/class-skills/summon-resist-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/summon-resist-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

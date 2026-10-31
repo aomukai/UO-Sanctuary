@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Existing Summon Resist passive and captured recipient bonuses",
+  "installed": false,
+  "gameplayChanged": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 12,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "sourceReceiverContexts": 13824,
+    "nativeAcceptedReceiverContexts": 6912,
+    "curveRanks": 256,
+    "liveRecipients": 19,
+    "liveKinds": 6,
+    "currentTooltipRanks": [
+      7,
+      13,
+      19
+    ],
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      861,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/summon-resist/birth-inputs.json",
+      "sha256": "859f074e0bd9c72db3af6f1196118c9536d88516920a4d7fe4bc6a9a21761a57"
+    },
+    "audit": {
+      "path": ".local/class-skills/summon-resist/audit-inputs.json",
+      "sha256": "ec4e1ae6b12c647d8603dfecd4385bc05cfee23d96d8bfde4f5d20a1bfd0118f"
+    }
+  },
+  "artifacts": {
+    ".local/class-skills/summon-resist/audit-inputs.json": "ec4e1ae6b12c647d8603dfecd4385bc05cfee23d96d8bfde4f5d20a1bfd0118f",
+    ".local/class-skills/summon-resist/audit-native-checks.log": "8f78fef8ca52d2890a91608fc6c2188e9a7840fb4da8aeec8a8a9f5b271b4a10",
+    ".local/class-skills/summon-resist/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/summon-resist/birth-inputs.json": "859f074e0bd9c72db3af6f1196118c9536d88516920a4d7fe4bc6a9a21761a57",
+    ".local/class-skills/summon-resist/birth-native-checks.log": "d496b040cf83efabaa0657e5b879df04aff1a13519e31e244c9a0c878f518e8a",
+    ".local/class-skills/summon-resist/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/summon-resist/content-build-1.log": "bc97974d7a3801666cdccaafcfcbd2b6b6189172633863bfe3d0e15ed13ba51c",
+    ".local/class-skills/summon-resist/integration-build-1.log": "9aeaffe4224bb6eb3086fbc2b5e343d8d30dfd005e8f3d98c9731f6864c5f27d",
+    ".local/class-skills/summon-resist/iron-golem-items-fixtures.json": "9ac5e624156058f211d5d1f0e03d4135802292617a8f205c771ef530ac21178b",
+    ".local/class-skills/summon-resist/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/summon-resist/npc-resource-callbacks-fixtures.json": "7e08297a7d83998038293631e08cc199c865cf4ffd3f21e827407622a7c3d855",
+    ".local/class-skills/summon-resist/pre-build-1.json": "f49daadf0433218c7a47daab205adc1069e851066c9b7d043d8fca7e02e583d8",
+    ".local/class-skills/summon-resist/python-tests.log": "d221780804b7f270060d286f8611c3c304faf65556eaefbb5c7f76de54b38ac3",
+    ".local/class-skills/summon-resist/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/summon-resist/summon-resist-fixtures.json": "23704ac998160c469883bb27f31efd8891fb50470e69647c713ae9371aa9b7a5",
+    "docs/class-skill-roadmap.md": "f6e1f4a68319f5343f17d80e17668ef2cf93a4f7731380618cea2add37fe21f3",
+    "docs/class-skills-resume-checkpoint.md": "049dacbaf9b68cd1d7b93cf1015e8c935b83d4dbace8ff77418db986b1cfda3c",
+    "docs/necromancer-mechanical-audit.md": "f4318b3d448d5198eb16e3d370e156950dd63658233240f91533e1dd81fa3431",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "0e7eedcd21d89a466fc02e05442bb67415c633dcdece3cdad41bd3a1e4cdfd46",
+    "docs/summon-resist-checkpoint.md": "a8e352d314c05959f9e8eb4e48ec5fdb7b6c4cbc4c1f688dec5a6e65d97ee053",
+    "tests/Sanctuary.Integration/SummonResistChecks.cs": "ac5f8ee5385f37cd525845f8ab29f13ade80c01691d6a2e64f85b3648dbfee81",
+    "tests/check_iron_golem_birth.py": "197c71e678703468db8f01e926e789c572106feb8601cfa2b757653e408d2e06",
+    "tests/check_summon_resist.py": "91a8484e2a3af1a9eeb15334ded4e6655e794f0380e5fa79cfc6e2f07e9f7027",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/probe_summon_resist.py": "c032bcb4bf030ac0534337eb61654ac514b542c37d919c037d43753c461b648d",
+    "tools/record_summon_resist.py": "0bfedbdeb619d67508c6166efaea637cbef9b17248891cb7d66accc48dde299e",
+    "tools/reference/bone-barrier-clock-native-evidence.json": "c8b4cd0ff7f1344fd0db48cb949ffa8659370c5da9034a35d36dbb95bb0bd44c",
+    "tools/reference/summon-resist-source-evidence.json": "496ffb49946974298a0b207c04f5391ea942d8381ade68ae50866a8904e92592"
+  },
+  "established": [
+    "Existing SkillValues/NecromancerSummons/IronGolemBirth and prepared recipient factories are reused unchanged. All256 retained curve ranks and6912 complete accepted-allocation source channel outcomes match. Source failure allocation contexts remain source-only; native planner does not claim to simulate allocator failure.",
+    "Actual warrior/Mage/Clay/Blood/Fire/Iron recipients at effective7/13/19 inherit52/61/65. Fire absorption excludes fire SR; Iron original Crown contributes33fire plus intrinsic species channels. Physical/magic unchanged. Actual equipped Wormskull gives20/66 to a fresh skeleton; existing pets retain captured bonuses through training and equip/removal. Passive rejects active/right/quick binding without mana change.",
+    "Both reloads retain all19 actual actors,types/owners/raw resistances/exact wounds/maxima and effective owner rank. Direct component creation does not re-certify learned corpse/mana/golem-cap transactions. Existing item/resource checks pass; no production code/data/kernel change or deployment."
+  ],
+  "remaining": [
+    "Specific Summon Resist current-executable rounding at distinguishing ranks3/21 remains unverified. Supplied7/13/19tooltips agree with both models. Cross-skill Dodge3/Avoid3 calibrate shared retained dm12 but are not a direct SR-specific proof; legacy and retained outputs stay separate.",
+    "Full modern passive refresh/item/oskill/Sunder/event/allocator/dynamic recipient/AI/current-client parity and Revive/boundary exceptions remain explicit. Reviewed missing direct helper calls are not a full current-engine proof. Effects/audio and tree/hotkey icons separately pending; approved pet upgrades/safe-area parking queued. No complete skill/class certificate."
+  ]
+}
