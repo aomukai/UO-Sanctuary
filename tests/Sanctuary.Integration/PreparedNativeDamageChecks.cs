@@ -10,8 +10,12 @@ namespace Sanctuary.Integration;
 public static class PreparedNativeDamageChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(PreparedNativeDamageChecks));
-    public static void Configure()=>ConsoleInputHandler.RegisterCommand("prepared-native-damage-check","Native notification order without HP/death replay",_=>Core.LoopContext.Post(()=>
-    {try{Check();Log.Information("prepared-native-damage-check: passed");}catch(Exception e){Log.Error(e,"prepared-native-damage-check: failed");}}));
+    public static void Configure()
+    {
+        Register("prepared-native-damage-check",false);Register("prepared-player-native-damage-check",true);
+    }
+    private static void Register(string name,bool player)=>ConsoleInputHandler.RegisterCommand(name,"Native notification order without HP/death replay",_=>Core.LoopContext.Post(()=>
+    {try{Check(player);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     public sealed class Recipient:BaseCreature
     {
@@ -62,27 +66,31 @@ public static class PreparedNativeDamageChecks
             if(Rule==1){return false;}if(Rule==2){damage++;}return true;
         }
     }
-    private sealed class Services(BaseCreature target):MonsterReturnChecks.Release(new MonsterReturnChecks.WorldServices(target))
+    private sealed class Services:MonsterReturnChecks.Release
     {
         private readonly MonsterHitClassCycle _cycle=new();
-        internal override void BeforeHealthCommit(BaseCreature source,BaseCreature recipient,int after256)
+        internal Services(Mobile source,BaseCreature target):base(new MonsterReturnChecks.WorldServices(target)){World.P[1]=source is PlayerMobile?0:1;}
+        internal override void BeforeHealthCommit(Mobile source,BaseCreature recipient,int after256)
             =>PreparedMonsterNativeDamage.Notify(source,recipient,after256);
         internal override void Return(ref PreparedMonsterDamagePacket packet,Action death)
         {World.Death=death;PreparedMonsterReturn.Dispatch(ref packet,_cycle,World,true);}
     }
-    private static Recipient Target(BaseCreature source,int life,bool mounted,out Mount mount)
+    private static Recipient Target(Mobile source,int life,bool mounted,out Mount mount)
     {
         var target=new Recipient();target.MoveToWorld(source.Location,source.Map);target.AIObject.AITimer.Stop();SkillHealth.SetBalance256(target,life);
         mount=mounted?new Mount{Observed=target}:null;if(mount!=null){mount.Rider=target;Require(target.Mount==mount,"Fixture mount binding");}
         target.Source=source;target.Spell=new Spell(target);target.Paralyzed=true;target.Meditating=true;target.Armed=true;return target;
     }
-    private static PreparedMonsterDamageResult Release(BaseCreature source,BaseCreature target,int damage)
-        =>PreparedMonsterDamage.Release(source,target,new(damage,damage,0,0,1),new(false,()=>false,()=>5,()=>false),_=>0,new Services(target),TimedEffects.Now);
+    private static PreparedMonsterDamageResult Release(Mobile source,BaseCreature target,int damage)
+        =>PreparedMonsterDamage.Release(source,target,new(damage,damage,0,0,1),new(false,()=>false,()=>5,()=>false),_=>0,new Services(source,target),TimedEffects.Now);
     private static void Clean(Recipient target,Mount mount)
     {target.Armed=false;target.Spell=null;target.Corpse?.Delete();target.Delete();mount?.Delete();}
-    private static void Check()
+    private static void Check(bool player)
     {
-        var source=new NpcPoisonRecipient();source.MoveToWorld(new(6200,2100,0),Map.Trammel);source.AIObject.AITimer.Stop();
+        Mobile source;
+        if(player){var p=new PlayerMobile{Name="Prepared player notification source [fixture]",Player=true,Body=0x190};ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);p.Hits=p.HitsMax;source=p;}
+        else{var npc=new NpcPoisonRecipient();npc.AIObject.AITimer.Stop();source=npc;}
+        source.MoveToWorld(new(6200,2100,0),Map.Trammel);
         var region=new DamageRegion(source.Map,new(source.X-2,source.Y-2,5,5));region.Register();
         var visible=Mobile.VisibleDamageType;int cases=0;
         try
@@ -130,7 +138,7 @@ public static class PreparedNativeDamageChecks
                 finally{Clean(target,mount);}
             }
             Require(cases==256&&refused==7,"Incomplete native notification controls");
-            Log.Information("Native notifications:256native/ordered fractional-overkill spell-credit-disruption-paralysis-OnDamage/mount comparisons across4visibility modes;3region/4reentrant refusals pass;no incoming Damage replay,live Iron migration remains pending");
+            Log.Information((player?"Native player notifications:256native/ordered":"Native notifications:256native/ordered")+" fractional-overkill spell-credit-disruption-paralysis-OnDamage/mount comparisons across4visibility modes;3region/4reentrant refusals pass;no incoming Damage replay,live Iron migration remains pending");
         }
         finally{Mobile.VisibleDamageType=visible;region.Unregister();source.Delete();}
     }

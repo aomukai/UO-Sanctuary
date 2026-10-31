@@ -23,7 +23,7 @@ internal static class PreparedMonsterCredit
         if(after256>SkillHealth.Balance256(target)){throw new ArgumentOutOfRangeException(nameof(after256));}
         return Math.Max(0,target.Hits-(int)(((long)after256+255)/256));
     }
-    internal static void Register(BaseCreature attacker,BaseCreature target,int after256)
+    internal static void Register(Mobile attacker,BaseCreature target,int after256)
     {
         if(attacker==null||target is not{Alive:true,Deleted:false}||after256<0)
         {throw new ArgumentException("Prepared damage credit requires an existing source and living recipient");}
@@ -31,7 +31,7 @@ internal static class PreparedMonsterCredit
         int whole=Amount(target,after256);
         if(whole>0)
         {
-            var owner=attacker.GetMaster() as PlayerMobile;
+            var owner=(attacker as BaseCreature)?.GetMaster() as PlayerMobile;
             target.RegisterDamage(whole,attacker);
             Owners.Remove(target);
             // Keep the exact current packet's responsible owner through its

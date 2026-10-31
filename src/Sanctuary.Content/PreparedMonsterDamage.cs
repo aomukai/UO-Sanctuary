@@ -20,7 +20,7 @@ internal abstract class PreparedMonsterDamageServices
     internal abstract void BeforeHealth(PreparedMonsterDamagePacket clipped);
     // Actor adapters can dispatch native notifications around the real credit
     // write here, without replaying Mobile.Damage or committing HP early.
-    internal virtual void BeforeHealthCommit(BaseCreature attacker,BaseCreature target,int after256)
+    internal virtual void BeforeHealthCommit(Mobile attacker,BaseCreature target,int after256)
         =>PreparedMonsterCredit.Register(attacker,target,after256);
     internal abstract void ApplyCold(int frames);
     internal abstract void SurvivedDamage();
@@ -50,10 +50,10 @@ internal static class PreparedMonsterDamage
         {throw new NotSupportedException("Unsupported prepared monster damage packet");}
         return p;
     }
-    // Qualified ordinary monster-to-monster melee only: the caller has already
+    // Qualified ordinary player/NPC-to-NPC melee: the caller has already
     // checked target/room/town/hostility/killable/death/contact and captured the
     // packet. Leech/absorb/regen/proc services are explicit, not approximated.
-    internal static PreparedMonsterDamageResult Release(BaseCreature attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
+    internal static PreparedMonsterDamageResult Release(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
         PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
     {
         var commit=CommitQualified(attacker,target,packet,recipient,limited,services,at);
@@ -63,11 +63,11 @@ internal static class PreparedMonsterDamage
     // The contact wrapper can reject health/event eligibility while still
     // continuing attack-attempt callbacks and return. Keep that boundary
     // separate from the already-qualified health/Stun/death event phase.
-    internal static PreparedMonsterCommitResult CommitQualified(BaseCreature attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
+    internal static PreparedMonsterCommitResult CommitQualified(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
         PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
     {
         Checked(packet);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(services);
-        if(attacker is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
+        if(attacker is not(PlayerMobile or BaseCreature)||attacker is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
             ||SkillHealth.Balance256(target)<=0||(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Monster release requires qualified living source/recipient and a successful cached packet");}
         services.StoreLastAttacker();
@@ -104,7 +104,7 @@ internal static class PreparedMonsterDamage
         else if((packet.ResultFlags&2)==0&&packet.Total256!=0){services.SurvivedDamage();}
         return new(packet,before,after,stun);
     }
-    internal static PreparedMonsterFinishResult Finish(BaseCreature attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
+    internal static PreparedMonsterFinishResult Finish(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
         PreparedMonsterDamageServices services,bool hitPresentation=true)
     {
         Checked(packet);ArgumentNullException.ThrowIfNull(services);

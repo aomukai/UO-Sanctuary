@@ -1,0 +1,100 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Player sources in the shared ordered native damage bridge",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "verified": {
+    "retainedPoisonSourceCasesPerBoot": 6912,
+    "retainedResultCasesPerBoot": 16384,
+    "nativeMarkers": 124,
+    "playerNativeComparisonsPerBoot": 256,
+    "npcNativeComparisonsPerBoot": 256,
+    "refusalsPerSourcePerBoot": 7,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "rightCasts": 3,
+    "quickCasts": 3,
+    "retainedVenomSourceCasesPerBoot": 10240,
+    "missHitShieldCases": 4,
+    "interruptionCases": 5,
+    "legacyInitialPoisonRateBridge": true,
+    "initialPoisonModernVerified": false,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      819,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/prepared-player-native-damage/birth-inputs.json",
+      "sha256": "08950dfb8692b828f9936f0c79cd9293832893cd810b9ae424f72ecbf3890fbc"
+    },
+    "audit": {
+      "path": ".local/class-skills/prepared-player-native-damage/audit-inputs.json",
+      "sha256": "c8eb3d767fd9b980485d529622ffaf572bba3ceef15d8df51faa4c68ac3aaac7"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/IronGolemContact.cs": "72e9322b7d304ad8586bd76adfebfad6587a3244757e813c7dd3d0f2ddb29e5a",
+    "src/Sanctuary.Content/PreparedMonsterCredit.cs": "9f40781d2c97f2f812d046b6255a42ef75617c6ae57706cd247fdc62bb7aa271",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "5bc6c1df612fb98e791a50ff6f37a8f5f218b210679ec29dde539d7453757cf0",
+    "src/Sanctuary.Content/PreparedMonsterNativeDamage.cs": "5f8027752c2be1e6bb4eb448db4e6538788df92ecd8ee0016d9a58a7b658d1d4",
+    "tests/Sanctuary.Integration/PreparedNativeDamageChecks.cs": "3e72b0155fce853b8ff9074db0828c9ccabe40f056846b50a86db23239dc6a54"
+  },
+  "artifacts": {
+    ".local/class-skills/poison-dagger-attack/birth-native-checks.log": "fe64b0ac634c20fa343f74d5a9d3b4da2b00944cf124d40a21834f069752c918",
+    ".local/class-skills/prepared-player-native-damage/audit-inputs.json": "c8eb3d767fd9b980485d529622ffaf572bba3ceef15d8df51faa4c68ac3aaac7",
+    ".local/class-skills/prepared-player-native-damage/audit-native-checks.log": "bc2300b3a7bd6ef19e918d46dd9c34782797682e9ce7f5761c0004f9e586c46f",
+    ".local/class-skills/prepared-player-native-damage/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/prepared-player-native-damage/birth-inputs.json": "08950dfb8692b828f9936f0c79cd9293832893cd810b9ae424f72ecbf3890fbc",
+    ".local/class-skills/prepared-player-native-damage/birth-native-checks.log": "fbc3969ea12e6c9c1d29f636694be4a8e3146574f9561991466819570cd8d5bb",
+    ".local/class-skills/prepared-player-native-damage/content-build-1.log": "c834f77273f19dd9b2684a63a7e284379b46a882cc2762a8220743ba18c05627",
+    ".local/class-skills/prepared-player-native-damage/integration-build-1.log": "1a544ec90b238acfa3fa1eb7fa5db5c4c1a0a75588ba0406cf2026f70718a59d",
+    ".local/class-skills/prepared-player-native-damage/poison-dagger-attack-fixtures.json": "0e6fdd4d9db3914f972a1907d96148869c4509223f00400bd82f8c44ae9e5e53",
+    ".local/class-skills/prepared-player-native-damage/poison-dagger-fixtures.json": "42c6e5815cbfd8e6becb4da87ae88a22dadca746b7305b1a2f39b5bf822d031b",
+    ".local/class-skills/prepared-player-native-damage/pre-build-1.json": "197a0ad66aa95d2ed32c9eaf43a5fc5f9b3a9b4b15fc13e0392d4bc37acbf4bb",
+    ".local/class-skills/prepared-player-native-damage/python-tests.log": "505fd4d63e7d79af48ced7e55cb894c4074ce1188b6ae606e481f1e178ce479e",
+    ".local/class-skills/prepared-player-native-damage/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "docs/class-skill-roadmap.md": "8de68d1caa22ae3f95d0afdfa5bde4d9e72f5ded0f66194790bc510aa9c0711e",
+    "docs/class-skills-resume-checkpoint.md": "5c13819442df622fef23047db2d96d429d1fb4201faa20475e2733b5a9193dbb",
+    "docs/prepared-player-native-damage-checkpoint.md": "a4c1e565124454509dd4530fa4882d0479b8621d9beeb6d7ec01f5f68c54ad49",
+    "docs/skill-effects.md": "4886c9aee882379cf17c344619c592a0c0a62170db580a76f0625c2e1a83108d",
+    "docs/skill-icons.md": "d1b1d052283fce0a667dfe2f85cdde60d681198e56ebf54fb9c1e98bbbb7a930",
+    "docs/skill-mechanical-reference.md": "55f7b1065eda28bf5db6ce4f6a6d9059b27f6b7225235c16d0f8d4939c7c380c",
+    "src/Sanctuary.Content/IronGolemContact.cs": "72e9322b7d304ad8586bd76adfebfad6587a3244757e813c7dd3d0f2ddb29e5a",
+    "src/Sanctuary.Content/PreparedMonsterCredit.cs": "9f40781d2c97f2f812d046b6255a42ef75617c6ae57706cd247fdc62bb7aa271",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "5bc6c1df612fb98e791a50ff6f37a8f5f218b210679ec29dde539d7453757cf0",
+    "src/Sanctuary.Content/PreparedMonsterNativeDamage.cs": "5f8027752c2be1e6bb4eb448db4e6538788df92ecd8ee0016d9a58a7b658d1d4",
+    "tests/Sanctuary.Integration/PreparedNativeDamageChecks.cs": "3e72b0155fce853b8ff9074db0828c9ccabe40f056846b50a86db23239dc6a54",
+    "tests/check_prepared_player_native_damage.py": "80f4e269240852519e3b297a9233e555a54776cc85aec49d43d3065c496b3f53",
+    "tests/check_prepared_player_native_damage_audits.py": "d1444f0899d8f9282e1217ee2f2c2065bd94357f214f9e0de9d5ea0e02bcfffd",
+    "tools/record_prepared_player_native_damage.py": "f4ac070064e04e18cbe1a7751a048bb9699f9b1aad5acbd3a7016e701ef7b530",
+    "tools/reference/first-loop-affix-audit.json": "ba60336aa66f0f88fd70067dcb1b28180e4fc99edbfda11fec48a91c45da1ecb",
+    "tools/reference/named-item-runtime-audit.json": "28de277894b2e3f46527ad266108bd4b9800ba9662def8acfdbeba52d1305c4c",
+    "tools/reference/poison-dagger-attack-native-evidence.json": "4da5bb168429eb0aa65cbf44fb516d57442a6946e2c1468a8a110b17ed44ce59",
+    "tools/reference/poison-dagger-attack-source-review.json": "7639acaf5f28b2405986b0886977e091a8aba933bba14ed2fab2d764e4e61036",
+    "tools/reference/poison-dagger-source-evidence.json": "95958c3b7915d50d8b62810250108973d6b1d3374e1d40786ec0262a01e450f6",
+    "tools/review_poison_dagger_attack.py": "163b2009abef3261c37f061b24d7d746f658d5747381334b5d02ff931f30912d"
+  },
+  "established": [
+    "The shared ordered core accepts qualified PlayerMobile or BaseCreature sources with an NPC recipient. Notification and credit helpers use the actual Mobile source;direct player RegisterDamage credit remains native. The temporary pet-owner fallback is retained only for NPC attackers.",
+    "256paired native/ordered comparisons per source kind cover fractional and lethal damage,all four visibility modes, spell callbacks,paralysis,meditation,credit and mounted recipients. Each source also exercises seven explicit region/reentry refusals.",
+    "The player return fixture explicitly supplies source kind0. Source HP commitment and once-only deferred death match the ordinary native path without replaying incoming Damage. Full actor/world return services are still separate.",
+    "124markers retain the predecessor121markers,including the prepared Poison Dagger,composition,Venom,Iron and NPC checks. The complete unchanged named decisions,client/kernel and installed artifacts remain verified."
+  ],
+  "remaining": [
+    "The actual Poison Dagger actor still needs integration with shared ordered contact and return. Its current live GearEffects path is not replaced by this foundation increment.",
+    "Actual player item/kill events and their source order,native incoming modifiers,region policies and arbitrary NPC damage overrides need explicit actor adapters. No missing callback is certified by this bridge check.",
+    "Current executable,geometry,component/RNG,presentation,charged-item/Blood Mana and initial-poison applicability retain their earlier limits. No new full-class run,class completion,installation or assets are claimed."
+  ]
+}

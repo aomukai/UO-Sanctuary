@@ -46,7 +46,7 @@ internal static class IronGolemContact
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Positive drains were refused before rolling.
-        internal override void BeforeHealthCommit(BaseCreature attacker,BaseCreature recipient,int after256)
+        internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
             =>PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);
         internal override void ApplyCold(int frames)
         {

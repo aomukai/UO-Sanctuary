@@ -10,7 +10,7 @@ namespace Sanctuary;
 // Source HP and death remain owned by the ordered commitment/return phases.
 internal static class PreparedMonsterNativeDamage
 {
-    internal static void Notify(BaseCreature attacker,BaseCreature target,int after256)
+    internal static void Notify(Mobile attacker,BaseCreature target,int after256)
     {
         ArgumentNullException.ThrowIfNull(attacker);
         int amount=PreparedMonsterCredit.Amount(target,after256);
