@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "source-review",
+  "runtimeChanged": false,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "tools/probe_poison_collision_reference.py": "e5c37a2c990baeb2e1a189dffaf3f3082cdfc341e0eee19bb3eb04202422f7c9"
+  },
+  "compiledRoutines": {
+    "MISSMODE_SrvDo13_BoneWallMaker": "db95ac52801c03f54f22d3ffed6c61414bd8bb8484a27af245af14b9888eee3a",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "D2Common_10234": "3337909227ece0cfd865281b9fd9a720aeefd75dd721b5a1c55e28dc497b8d18",
+    "D2GAME_AI_Unk084_6FCDEC70": "81d4fb604862fc9de1b8ad3554cd4256887c3ba0845e89b38d46e4ae7e41a29c",
+    "AITHINK_Fn084_BoneWall": "ef3c19852db026a031eeb47f496ac728f86fc4ddfad299ed8fd65ff30c475398"
+  },
+  "staticallyReviewed": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89",
+    "sub_6FDAD5E0": "26428a6e46bd8c0ad0dff659c73ae08f59169ef9efc625089c6251f5e73f0c4f",
+    "SKILLS_SrvDo060_BoneWall": "78c7945dd101e8ad9a4fae07b3a6c21aebffa8621705ce86ab959cb1abaea545"
+  },
+  "cases": {
+    "maker": 2592,
+    "blockedThenSuccessfulSequence": 6,
+    "ai": 96
+  },
+  "reuse": {
+    "collisionAbi": "tools/probe_poison_collision_reference.py",
+    "update": "src/Sanctuary.Content/BasicMissileUpdate.cs",
+    "vectors": "src/Sanctuary.Content/MissileVectors.cs",
+    "steps": "src/Sanctuary.Content/SourceMissileSteps.cs",
+    "frames": "src/Sanctuary.Content/MissileValues.cs",
+    "birth": "src/Sanctuary.Content/BoneBarrierBirth.cs"
+  },
+  "established": [
+    "Complete unchanged maker13, path-change flag getter and common collision bodies execute together. Owner/budget reject before collision. No changed path skips allocation but still advances the common update. Missing skill returns2; invalid summon ID returns0.",
+    "A found root permits one exact flags13 allocation at the current missile integer position. Only successful creation links root/minion, modifier15, summon passives, original caster and node9, then decrements budget. Failed allocation and missing root keep the budget and still update movement/lifetime/collision. No arm-stop instruction occurs on failed allocation.",
+    "Maker observes the previous path-change flag and position before common movement and remaining-frame decrement. Thus an allocation can precede a terminal movement/expiry callback; final frame is not a generic spawn-then-stop-at-fixed-length loop.",
+    "Mode8 dispatches the existing player-or-monster finder with monster/player/missile-barrier/wall mask. Its full eligibility body is statically reviewed, not executed by these declared-finder cases. Root/species footprint is2x2 source subtiles; one source subtile must not be treated as a whole native tile.",
+    "Both complete AI bodies execute with declared skill/time services. Birth stores current frame plus skill0 Param2=600. At think, equality idles15; only deadline<current frame requests DEATH mode. These bodies do not establish first-think scheduling or DEATH duration/deletion."
+  ],
+  "services": [
+    "Reused poison collision ABI declares path movement, room, one saved step, collision mask, candidate finder and ending hit result7. Maker adds declared owner/root/skill/allocation/link/passive/registration services. Ordered service traces and exact summon arguments are checked; this does not execute their internals.",
+    "Current tables constrain velocity12, max12, CanSlow1, mode8, size1 and Range=7+2*lvl. Factory75percent/slow ordering and path-cell flag setters are statically reviewed only. No source world/path/event or current-executable run is implied."
+  ],
+  "remaining": [
+    "Native BoneBarriers still uses a normalized whole-tile counter and exhausts an arm after one failed placement. It lacks independent maker lifetime, prior-cell/path flag and mode8 contact state. Fix through shared missile services; do not certify the old geometry or change its footprint based on scale alone.",
+    "Exact2x2 collision/room search, source factory/path/slow integration, per-segment birth deadlines, root/minion death/event phase, Prison raster connectors, current executable/client and actual old-save upgrade remain open. Existing native direct24second deletion is an adapter, not the strict AI deadline/death sequence.",
+    "No runtime C#/data/serialization changes, native builds/tests, class completion, deployment or asset creation in this source-only increment. Prior native acceptance remains separately bounded."
+  ],
+  "artifacts": {
+    "tools/probe_bone_wall_maker.py": "ac37205fc4a2c0c86383b40e1a25ec1e1022df91c4010327796b99b4668efabf",
+    ".local/class-skills/bone-wall-maker-source/probe.cpp": "8269a92ab1e8e72b29195266e67f351546198644147d0ab9ccf2651f0d7f4510",
+    ".local/class-skills/bone-wall-maker-source/cases.json": "1f452a70763af1bcc8ce35a5a757cf6a3fca39869d43269c234e4a0220f43915",
+    ".local/class-skills/bone-wall-maker-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-wall-maker-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
