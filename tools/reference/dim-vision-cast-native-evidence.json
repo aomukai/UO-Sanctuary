@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Dim Vision learned casting, facet duration and no-stat receiver",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 2,
+  "verified": {
+    "nativeMarkers": 512,
+    "retainedPredecessorMarkers": 491,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      849,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceDo30ReceiverContexts": 12000,
+    "nativeDimVisionScalarArbitrationComparisons": 3600,
+    "connectedRightQuickCasts": 6,
+    "naturalExpiryChecks": 6,
+    "naturalRank1Frames": 175,
+    "mana256": 2304,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/dim-vision-cast/birth-inputs.json",
+      "sha256": "72cf68ab4181cad032d4fc640534795e0a9a0ad1f35a254e108bf6c2f25da343"
+    },
+    "audit": {
+      "path": ".local/class-skills/dim-vision-cast/audit-inputs.json",
+      "sha256": "70e356c4130aefaed354cfbb7ae262bb49b1f0e66735c914c8ed18b60fae5e50"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "043031827c323f1c0625629c5c1645a73547e026756001105299bbfa2ce2eb76",
+    "tests/Sanctuary.Integration/DimVisionCastChecks.cs": "4dff293e93ec9340e62f915bf5a299fcd3dad57934a0babe077a3f93e37c3ddf"
+  },
+  "artifacts": {
+    ".local/class-skills/dim-vision-cast/amplify-damage-fixtures.json": "1f7d71102ed7f2d2d0ecee55d56e261a556ed3f0b9b2ca3f297e1a3ac0228e84",
+    ".local/class-skills/dim-vision-cast/audit-inputs.json": "70e356c4130aefaed354cfbb7ae262bb49b1f0e66735c914c8ed18b60fae5e50",
+    ".local/class-skills/dim-vision-cast/audit-native-checks.log": "8e3a5179fdd168c427f83bcfd862e2993fb0689c3bbbd1470b9674c9d6831170",
+    ".local/class-skills/dim-vision-cast/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/dim-vision-cast/birth-inputs.json": "72cf68ab4181cad032d4fc640534795e0a9a0ad1f35a254e108bf6c2f25da343",
+    ".local/class-skills/dim-vision-cast/birth-native-checks.log": "56952a179dda281efcdb72a50a49bdc65c65ed2cdc7c84a7b0dfc78f1e1f9447",
+    ".local/class-skills/dim-vision-cast/cloak-fixtures.json": "f1241d294f4f37b22becd7bc56f38967e9d63422b30de39401e177bde7f8fd5a",
+    ".local/class-skills/dim-vision-cast/content-build-2.log": "f1f4377e5e1d68ebf542ff52bafee271c695e042a3ff1def72de8e28635f29f0",
+    ".local/class-skills/dim-vision-cast/decrepify-fixtures.json": "f0efb32bf91a2b01183da07d0e3f6642e84fab4b39fc03abf1af84d80eda839c",
+    ".local/class-skills/dim-vision-cast/dim-vision-cast-fixtures.json": "acb143c8c313c51177c618f49c450acd970d21022e7f6a0d2b55e1d47ae72001",
+    ".local/class-skills/dim-vision-cast/integration-build-2.log": "386f5850cca4a0833e88ab07946fe8df5e212d2b38e6eca7cb02e28a9e75d9ea",
+    ".local/class-skills/dim-vision-cast/iron-maiden-fixtures.json": "3e78c01825d277eb9b4177ad9c3dce3926b3b4f8e75a4987bf966a76773e8058",
+    ".local/class-skills/dim-vision-cast/life-tap-cast-fixtures.json": "51963cb0a842fdd3ced92259932695b11c2bafe1bf631f9bc6e6ebd776b6102f",
+    ".local/class-skills/dim-vision-cast/lower-resist-fixtures.json": "3236da67a88b522176ace42f95d5532a5acb6a3c83fed72a5ba96f6016e27a07",
+    ".local/class-skills/dim-vision-cast/pre-build-2.json": "26a72261082e1847550974fcaacabea67bb4b7434d41c06fee061ce11f88e6f6",
+    ".local/class-skills/dim-vision-cast/python-tests.log": "4b65396e0e4d9f36ecd91146988b6ccc686e63242371e844611ec6e6a148d4dc",
+    ".local/class-skills/dim-vision-cast/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/dim-vision-cast/weaken-fixtures.json": "0c2ec99bed4cb329817d31ce2e538564fac8dbcefa7dcfed55738c1aafb8b5ab",
+    "docs/class-skill-roadmap.md": "120a9e9e4307fc78fb961cc272a9573dd9d5d812af784989077d8bccbfa98907",
+    "docs/class-skills-resume-checkpoint.md": "8b7f49deba46e9f07dc7e2db45a4797a82d361a621ed528cf4fde397410a7160",
+    "docs/dim-vision-cast-checkpoint.md": "4a2fbc0aa5b7b6646a73f82a2e3a2f3247f24707431b22238507c7585128c6db",
+    "docs/necromancer-ai-curse-source-review.md": "09283a56dddf2085b89bdbf129b51c36a18b5588358a6ffb574d59cfd950f0e1",
+    "docs/necromancer-mechanical-audit.md": "73919910297a635233d16db6a8c824cc609ca6797462891eeb2d39c99c4e8db4",
+    "docs/pet-adjustment-review.md": "8fd914baef795d94630c802862c353412d0cc39940aeb51d21c2589f2b534289",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "d58b0d384dcc414c33aef61908ee869f38fae5fcb333ed5332ce72dc24a9d30c",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "043031827c323f1c0625629c5c1645a73547e026756001105299bbfa2ce2eb76",
+    "tests/Sanctuary.Integration/DimVisionCastChecks.cs": "4dff293e93ec9340e62f915bf5a299fcd3dad57934a0babe077a3f93e37c3ddf",
+    "tests/check_dim_vision_cast.py": "da3b215809ab0dade0e80785d8a7215723aea4a27b5d47300dc37cc346852bfb",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tools/probe_necromancer_ai_curse.py": "d579f2793adc6f440b53f91dcd6f22663dadd717f06ace624d79207c1e885009",
+    "tools/record_dim_vision_cast.py": "c63b69bb7163e9bf010d319bc89df751308d87e016ad6bc9fd9c0cd1d72cc86d",
+    "tools/reference/first-loop-affix-audit.json": "a67b27a2b7619c5be8267bc3008f8d8c971cc156e6ed8b746e2b80e9be112bc4",
+    "tools/reference/life-tap-cast-native-evidence.json": "014fc530d99d3baba6f1c93467c3586a9522d865af8a5a7bf8c901314080df19",
+    "tools/reference/named-item-runtime-audit.json": "8be2f4b9b76b98226178a5d8d626d9526dff8e5163b4f2dc69debf105fa3086a",
+    "tools/reference/necromancer-ai-curse-source-evidence.json": "65961a3112971738c1c33b248e7cdcfa5fdd3b376fcd6f671abd79ee2e16d4e9"
+  },
+  "established": [
+    "Learned Dim Vision uses shared do30/filter2 no-stat casting/eligibility/rank/creator arbitration. Cost9mana,radius4+(rank-1),base175+50*(rank-1)frames;configured ownerfacet divisor1/2/4precedes curse resistance and integer frame truncation. Mismatched NPCspawn difficulty no longer controls this learned spell.",
+    "Weaker same-skill ranks reject;equal retains creator/motion and refreshes expiry;higher replaces. Learned blind can replace Confuse without inheriting item-blind refusal. Attract remains protected. Existing pending chase/flee adapter and source metadata persist without a new save field.",
+    "Native encounter grade adapters,rank/caster deletion,facet-vs-spawn,geometry/LOS,payment/cancel/insufficient mana,real Wormskull rank21,legacy shapes and two actual pending-chase reload resumes pass. Six real right/quick inputs retain normal7second expiry. Retained real chase/obstruction/adjacent acquisition/special suppression/expiry/flee checks run on every boot.",
+    "512native markers retain491predecessor markers across3boots/2reloads/3saves. Four audits,71Python,573unchanged named decisions and clean builds pass. Runtime data,staged kernel and106installed artifacts are unchanged."
+  ],
+  "remaining": [
+    "The3600native differential covers supported difficulty/scalar/receiver arbitration with source AI-permission/alignment/Attract gates as declared inputs;it does not independently execute every native AI eligibility path. The12000complete source pipeline also declares AI dispatch,formula VM,stat storage and radial traversal.",
+    "The blind special-state20percent wander/10frame idle tick,cadence,seed/path/event integration and special-state exit callbacks remain unfinished. Existing pending-motion behavior remains an explicit native adapter;this receipt does not finish the AI state or skill/class.",
+    "Source uninterruptible/exact alignment/room/species/flags/geometry and full source host/current executable/PvP/client parity remain open. Unmapped species and the Imp attachment branch are logged/refused;enemy-controlled/summoned/hireling and bard coexistence lack a verified adapter. Native encounters are not certified D2species identities.",
+    "No new Mobile/save field/runtime data/handler/class completion/deployment. Final effects/audio and tree/right/quick icons remain separate placeholders;approved pet upgrades and safe-area parking are design-only."
+  ]
+}

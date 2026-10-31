@@ -1,6 +1,6 @@
 # Skill icons
 
-The [Dim Vision casting candidate](dim-vision-cast-checkpoint.md) preserves its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; AI control introduces no new player binding.
+The [Dim Vision casting increment](dim-vision-cast-checkpoint.md) preserves its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; AI control introduces no new player binding.
 
 The [Life Tap casting increment](life-tap-cast-checkpoint.md) retains its existing ability ID and right/quick bindings. Talent-tree/right/quick icons remain separately pending; the defender healing event creates no additional player binding.
 

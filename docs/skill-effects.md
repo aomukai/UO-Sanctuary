@@ -1,6 +1,6 @@
 # Skill effects
 
-The [Dim Vision casting candidate](dim-vision-cast-checkpoint.md) retains generic curse marker `0x375A`/hue `0x455` and cast sound `0x1E5` as identified placeholders. Final Dim Vision cast/affected-state feedback and audio remain pending independently of the cast mechanics. No art or complete blind-AI acceptance is claimed.
+The [Dim Vision casting increment](dim-vision-cast-checkpoint.md) retains generic curse marker `0x375A`/hue `0x455` and cast sound `0x1E5` as identified placeholders. Final Dim Vision cast/affected-state feedback and audio remain pending independently of the accepted cast mechanics. No art or complete blind-AI acceptance is claimed.
 
 The [Life Tap casting increment](life-tap-cast-checkpoint.md) retains curse marker `0x375A`/hue `0x455`, sound `0x1E5` and healing flash `0x376A`/hue `0x26` as identified placeholders. Final cast/hit/`cursereversevampire` state and healing effects/audio remain pending. Casting and fractional healing do not wait for final art.
 
