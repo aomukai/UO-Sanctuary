@@ -1,0 +1,117 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Clay Golem prepared result,contact,block,HP and return",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 315,
+    "retainedPredecessorMarkers": 312,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      836,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "actualClayMeleeCycles": 3,
+    "baselineActionMs": 400,
+    "baselineCycleMs": 720,
+    "intrinsicCriticalPercent": 5,
+    "normalRank4Minimum256": 1049,
+    "normalRank4ExclusiveMaximum256": 2624,
+    "finalSavedGeneration": 2,
+    "finalSavedSeed": 2860448219309,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/clay-golem-contact/birth-inputs.json",
+      "sha256": "5bcb7cdada6cfe7e23662a86f731f43680274afc1e12a95960a2d76b28fb4a7c"
+    },
+    "audit": {
+      "path": ".local/class-skills/clay-golem-contact/audit-inputs.json",
+      "sha256": "2b586ab5bbb5658859f9258b157dc1b24af5c784f1c239fc53431325eb7fec78"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/ClayGolemContact.cs": "b1b510bf5a878e7ff4bb2e6748f8aa46e9c85fe919455c6268b977d53598e5a8",
+    "src/Sanctuary.Content/IronGolemContact.cs": "f6d089e0a32fa5c8c89a057f31b4a60e55e730b5b740f21acdc42363faf56a03",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "853d817de2112a854100915a04c3ff5a7690ab53a6624504dd38cc55690f60b5",
+    "tests/Sanctuary.Integration/ClayGolemCombatChecks.cs": "dbb080b6ee17bac584ba43e422b289d9c091f2920830236cc33e653a60c3fe0f",
+    "tests/Sanctuary.Integration/ClayGolemContactChecks.cs": "9a5a6692c33dab8dee08ffbd72620b0aba9e2ddd641b14e181d3323da4c4d533",
+    "tests/Sanctuary.Integration/SkeletonContactChecks.cs": "485964e5d9e1042f953232a46cf466e00282937a1c4f31069c9aa5e6ec75f377"
+  },
+  "artifacts": {
+    ".local/class-skills/clay-golem-contact/audit-inputs.json": "2b586ab5bbb5658859f9258b157dc1b24af5c784f1c239fc53431325eb7fec78",
+    ".local/class-skills/clay-golem-contact/audit-native-checks.log": "c416b5b5c95999be6defd2ae9ee6bd98b35a601c9ec485eba8605a0d0e147002",
+    ".local/class-skills/clay-golem-contact/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/clay-golem-contact/birth-inputs.json": "5bcb7cdada6cfe7e23662a86f731f43680274afc1e12a95960a2d76b28fb4a7c",
+    ".local/class-skills/clay-golem-contact/birth-native-checks.log": "2e3cb6792e642beca60ab5e662c167f2061cd0d5d07e52e7113a59636f1ca810",
+    ".local/class-skills/clay-golem-contact/clay-golem-combat-fixtures.json": "7f5b6806a18d3f4a362bc3f94cd9fb7d19378f4dee3eec8f5e585d2cb4d15184",
+    ".local/class-skills/clay-golem-contact/clay-golem-contact-fixtures.json": "2367d81d69ae5d0e5fcc95259f2c971f8497f411b4080add85832961be22eb63",
+    ".local/class-skills/clay-golem-contact/content-build-3.log": "a26ceb65374427f35d345da0e343162b2ec2b5cab5bfccd20a1042c2223316bb",
+    ".local/class-skills/clay-golem-contact/integration-build-3.log": "e48c4d75330ed936b5fef840f409d714c5586e36729bca428c9895050cc04b80",
+    ".local/class-skills/clay-golem-contact/iron-golem-cast-fixtures.json": "d91a6c5f800e37057f55b2dee896e4d4d7c35d8f75eb7daef87226d9592efe1e",
+    ".local/class-skills/clay-golem-contact/pre-build-3.json": "353ab7cc5345ba22d838cca369bf0863ce4872d7a120bc0e149b3ffa303a0047",
+    ".local/class-skills/clay-golem-contact/python-tests.log": "f70b3c92f5200d2baa1dae37bd41ca370d47eb2870e9d45b636633a60cb8673e",
+    ".local/class-skills/clay-golem-contact/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/necromancer-summons.json": "0c39af3007c13a9d62f0d8e3ee3e4dfc32c5d6552717fea26f1575b6fbb28d1a",
+    "docs/class-skill-roadmap.md": "20ba0661d16ccc756b2615152a917c05d4a511ffddfa73acc137196d1ae5e2d8",
+    "docs/class-skills-resume-checkpoint.md": "08d73a2c852888656b43d29b2a05c55e65027b4a12dbc714bbc2ef85069baa7d",
+    "docs/clay-golem-contact-checkpoint.md": "b7bfe40ab9f607df6f859c3503c6c14f09fabf8586b85e9c15d72b387d5a3a5a",
+    "docs/necromancer-mechanical-audit.md": "d528841464b8069b9d4e05540a274c8f3d9d548d60179755d6df6d39df054eda",
+    "docs/skill-effects.md": "063c3d941aa781182cefbf83402db5335d4211397aca770e8eb4a2b683b9906c",
+    "docs/skill-icons.md": "441ba434c4015dc4bcc280ae56a1d02a48774fc082f256d5ec46d91e1e582a15",
+    "docs/skill-mechanical-reference.md": "120d0bc5ffd96bbe183b70da5128f511a251a6cc8090088775fb3bbb2e760b6c",
+    "src/Sanctuary.Content/ClayGolemContact.cs": "b1b510bf5a878e7ff4bb2e6748f8aa46e9c85fe919455c6268b977d53598e5a8",
+    "src/Sanctuary.Content/IronGolemContact.cs": "f6d089e0a32fa5c8c89a057f31b4a60e55e730b5b740f21acdc42363faf56a03",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "853d817de2112a854100915a04c3ff5a7690ab53a6624504dd38cc55690f60b5",
+    "tests/Sanctuary.Integration/ClayGolemCombatChecks.cs": "dbb080b6ee17bac584ba43e422b289d9c091f2920830236cc33e653a60c3fe0f",
+    "tests/Sanctuary.Integration/ClayGolemContactChecks.cs": "9a5a6692c33dab8dee08ffbd72620b0aba9e2ddd641b14e181d3323da4c4d533",
+    "tests/Sanctuary.Integration/SkeletonContactChecks.cs": "485964e5d9e1042f953232a46cf466e00282937a1c4f31069c9aa5e6ec75f377",
+    "tests/check_clay_golem_contact.py": "9d61ec93705afc54481272e1631c11e9ff2c5bcb978f93421d41d3b8c7116d18",
+    "tools/build_class_skills.py": "74ad548a893bb80219b20246dc1e9b39fc3e6e8a5f4b886fa3ed8ca62e3ef3e0",
+    "tools/prepare_clay_golem_world_reference.py": "74e5d0fa76f8c0d51330152349f07699c3eb83521bad88aff05b9ab6bf20e41a",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/record_clay_golem_contact.py": "ec7fdd9ef80b38726b1010c1f1029ac210685b25f207f0b59411fb16fe0858b1",
+    "tools/reference/clay-golem-combat-native-evidence.json": "81f7782845b2090ba0880759c913e17c23cecd05f17af0520313d111c7312739",
+    "tools/reference/clay-golem-world-preflight.json": "b1e2f0f93bff657207700fcdf400c9c119033c8aec342e57e7461ec6decd7809",
+    "tools/reference/first-loop-affix-audit.json": "800418de517e003924946b949565a1765c6a9ddaa6eaa49de1401350409f611f",
+    "tools/reference/named-item-runtime-audit.json": "91f3425c85aaf3cc499c9459fb09876a2c7f6102c78b99d2be92dd8e0b932ec0",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "Learned Clay attacks now share the reviewed unarmed summon geometry/result supplier with RaisedSkeleton and the existing Iron ordered contact/HP/return services. Geometry uses the pinned source class289,size2,reach0 and existing explicit native coordinate/LOS adapters.",
+    "Actual A1 captures the source hit/block result and immutable FP256 impact at start. Three connected400/720ms cycles require the exact prepared packet/stream at start,no damage at380ms and exact release by520ms without reroll.",
+    "Native controls verify shields,immutable start-time mitigation,range free,double-release refusal,Life Tap before lethal return,exact-zero death/owner credit,recovery/suspension cancellation,and a reported legacy fallback for unmapped native recipients before allocation. Later allocation/release failures never replay through legacy damage.",
+    "Two actual reloads retain a parked Clay body/owner,unchanged source stream and no pending packet. All312predecessor markers,4audits/71Python,573named decisions,runtime data and106installed artifacts remain. The existing positive-visible-life-loss outgoing slow is explicitly retained as an adapter,not certified item19parity."
+  ],
+  "remaining": [
+    "Full modern event graph/current-executable behavior and outgoing slow/item19 remain uncertain;unsupported recipient traits explicitly report legacy use or pause only the faulted target after allocation.",
+    "Initial S1/AI67/movement,initializer/seed/global-frame/client geometry,live rate rescheduling and alternate animation modes remain unverified. Historical plain minions keep their prior type/path. Other golem/curse acceptance continues.",
+    "No complete class,deployment or new broad1180-marker run is claimed. Final Clay emergence/body/attack/critical/hit/slow/death effects/audio and tree/right/quick icons remain separate pending ledgers."
+  ]
+}

@@ -5,17 +5,18 @@ using Server.Logging;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal static class RaisedSkeletonContact
+// Shared source geometry/result supplier for the two reviewed unarmed summons.
+internal static class UnarmedSummonContact
 {
-    internal static bool Within(RaisedSkeleton body,BaseCreature target,int bonus)
+    internal static bool Within(SkeletonGuardian body,BaseCreature target,int bonus)
     {
         if(target==null||body.Map==null||body.Map==Map.Internal||target.Map!=body.Map){return false;}
         int size=CreatureProfiles.For(target).Traits.Size??throw new NotSupportedException("Recipient footprint is not mapped");
         var metadata=NativeMonsterReturn.Metadata(target);
-        return SourceMeleeGeometry.Within(new(new(body.X*2,body.Y*2),2,1,363,0),
+        return SourceMeleeGeometry.Within(new(new(body.X*2,body.Y*2),2,1,NativeMonsterReturn.Identity(body.SourceMonsterId).Class,0),
             new(new(target.X*2,target.Y*2),size,1,metadata.Class),bonus,(_,_,_)=>!body.InLOS(target));
     }
-    private sealed class Result(RaisedSkeleton body,PlayerMobile owner,BaseCreature target):SourceMeleeResultServices
+    private sealed class Result(SkeletonGuardian body,PlayerMobile owner,BaseCreature target):SourceMeleeResultServices
     {
         internal override int? AttackerKind=>1;
         internal override int? DefenderKind=>1;
@@ -25,9 +26,9 @@ internal static class RaisedSkeletonContact
         internal override bool InRange(int bonus)=>Within(body,target,bonus);
         internal override bool HitSuccessful(int percent,bool missile)
         {
-            if(missile){throw new NotSupportedException("Skeleton A1 is not a missile");}
+            if(missile){throw new NotSupportedException("Unarmed summon A1 is not a missile");}
             return ClassStats.CheckHit(body,target,percent,()=>NpcEquipmentRandom.Limited(body,100)/100.0,notifyMelee:false)
-                ??throw new NotSupportedException("Missing skeleton attack supplier");
+                ??throw new NotSupportedException("Missing unarmed summon attack supplier");
         }
         internal override int BlockOrDodge(bool avoid,bool block)
         {
@@ -37,8 +38,9 @@ internal static class RaisedSkeletonContact
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }
-    internal static IronGolemContact.Rules Require(RaisedSkeleton body,PlayerMobile owner,BaseCreature target)
+    internal static IronGolemContact.Rules Require(SkeletonGuardian body,PlayerMobile owner,BaseCreature target)
     {
+        if(body is not(RaisedSkeleton or ClayGolemBody)){throw new NotSupportedException("Unreviewed unarmed summon geometry");}
         var rules=IronGolemContact.Require(body,owner,target,nativeRecovery:true);
         if(CreatureProfiles.For(target).Traits.Size is not(>=0 and <=3))
         {throw new NotSupportedException("Recipient source footprint is not mapped");}
@@ -46,9 +48,9 @@ internal static class RaisedSkeletonContact
         {throw new NotSupportedException("Recipient shield rule is not mapped");}
         return rules;
     }
-    internal static IronGolemContact.Prepared Prepare(RaisedSkeleton body,PlayerMobile owner,BaseCreature target,IronGolemContact.Rules rules)
+    internal static IronGolemContact.Prepared Prepare(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,IronGolemContact.Rules rules)
         =>IronGolemContact.Prepare(body,target,rules,()=>SourceMeleeResult.Resolve(new Result(body,owner,target)));
-    internal static MonsterContactResult Release(RaisedSkeleton body,PlayerMobile owner,BaseCreature target,IronGolemContact.Prepared prepared,DateTime at)
+    internal static MonsterContactResult Release(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,IronGolemContact.Prepared prepared,DateTime at)
         =>IronGolemContact.Release(body,owner,target,prepared,bonus=>Within(body,target,bonus),at);
 }
 
@@ -74,11 +76,11 @@ public partial class RaisedSkeleton
         if(ControlMaster is not PlayerMobile owner||target is not BaseCreature creature)
         {ReportContact("Owned NPC recipient mapping is required",true);return true;}
         IronGolemContact.Rules rules;
-        try{rules=RaisedSkeletonContact.Require(this,owner,creature);}
+        try{rules=UnarmedSummonContact.Require(this,owner,creature);}
         catch(NotSupportedException e){ReportContact(e.Message,true);return true;}
         // A later allocation failure must never retry through the native bridge:
         // the source random stream/defensive pools may already have advanced.
-        try{_preparedContact=RaisedSkeletonContact.Prepare(this,owner,creature,rules);_lastLegacyContact=null;return true;}
+        try{_preparedContact=UnarmedSummonContact.Prepare(this,owner,creature,rules);_lastLegacyContact=null;return true;}
         catch(NotSupportedException e){_faultTarget=target.Serial.Value;ReportContact(e.Message,false);return false;}
     }
     protected override bool CanReleaseMeleeContact(Mobile target)=>_preparedContact==null?base.CanReleaseMeleeContact(target)
@@ -89,7 +91,7 @@ public partial class RaisedSkeleton
         var prepared=_preparedContact;_preparedContact=null;
         if(prepared==null){base.ResolveMeleeContact(target);return;}
         if(ControlMaster is not PlayerMobile owner||target is not BaseCreature creature){prepared.Cancel();return;}
-        try{RaisedSkeletonContact.Release(this,owner,creature,prepared,TimedEffects.Now);}
+        try{UnarmedSummonContact.Release(this,owner,creature,prepared,TimedEffects.Now);}
         catch(NotSupportedException e){_faultTarget=target.Serial.Value;ReportContact(e.Message,false);}
     }
     protected override void DiscardMeleeContact(){_preparedContact?.Cancel();_preparedContact=null;}

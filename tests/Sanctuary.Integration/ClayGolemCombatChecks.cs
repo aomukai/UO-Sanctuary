@@ -86,7 +86,7 @@ public static class ClayGolemCombatChecks
         NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(173));NpcEquipmentRandom.Raw(pet);var state=NpcEquipmentRandom.State(pet);
         Require(state.Unarmed&&state.Item==0&&NpcEquipmentRandom.Snapshot().Contains(state),"Unarmed stream did not enter persistence");
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,pet.Serial.Value,state.Seed,0)));
-        Log.Information("Clay combat: FP1049..2623,5percent intrinsic,actual Strike/Enchant and owner exclusion,source400/720ms clock/slows,atomic stream persistence pass;ordered contact/AI remains separate");
+        Log.Information("Clay combat: FP1049..2623,5percent intrinsic,actual Strike/Enchant and owner exclusion,source400/720ms clock/slows,atomic stream persistence pass;contact controls are separate;AI remains open");
     }
     private static void Reload()
     {
@@ -111,7 +111,8 @@ public static class ClayGolemCombatChecks
         {
             try
             {
-                Require(pet.BeginMelee(target)==TimeSpan.FromMilliseconds(720),"Actual A1 cycle was not720ms");Log.Information("clay-golem-combat-live: ready");
+                Require(pet.BeginMelee(target)==TimeSpan.FromMilliseconds(720),"Actual A1 cycle was not720ms");
+                Require(pet.PendingContact!=null&&pet.PendingContact.Impact.Packet.Total256==expected&&NpcEquipmentRandom.State(pet).Seed==expectedSeed,"A1 did not prepare the exact packet/stream at start");Log.Information("clay-golem-combat-live: ready");
                 Timer.StartTimer(TimeSpan.FromMilliseconds(380),()=>
                 {try{Require(SkillHealth.Balance256(target)==before,"A1 hit before the source action frame10");early=true;}catch(Exception e){Clean();Log.Error(e,"clay-golem-combat-live-result: failed");}});
                 // Observe after action400ms and before the next cycle720ms, whose

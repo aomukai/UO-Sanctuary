@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "ad8eced673585ca31b95c39346c270bd9bbba4e73d59db29af646dd0fd7a5746",
-  "ContentAssemblyPath": ".local/class-skills/clay-golem-combat/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "ce1c414d64ee336780a434e0a60a536c53335634f66614b5f60ae4b51afa8113",
+  "ContentAssemblyPath": ".local/class-skills/clay-golem-contact/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

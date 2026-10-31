@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Clay prepared-contact increment](clay-golem-contact-checkpoint.md) retains the native body/attack and ordered-hit/retaliation presentation as identified placeholders. Final G1 emergence, attacks, critical/Enchant, block/hit/slow/death and audio still need assets; no new player action is introduced. Mechanical preparation and release do not wait for final effects.
+
 The [Clay unarmed-damage/G1 clock increment](clay-golem-combat-checkpoint.md) retains native body14/hue0x96D, attack animation and hit presentation as identified placeholders. Final emergence, attack, intrinsic-critical/Enchant feedback, hit/slow/death effects and audio remain needed. The400ms mechanical release is independent of final art.
 
 The [Clay incoming-melee slow correction](clay-golem-slow-checkpoint.md) needs final reaction/status feedback and audio, alongside the existing Clay body/emergence/cast/hit/death work. The shared mechanical slow uses identified native presentation; final visual assets do not block its event, timing or saved values.

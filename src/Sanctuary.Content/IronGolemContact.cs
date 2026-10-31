@@ -22,7 +22,7 @@ internal static class IronGolemContact
         return NpcCombatEvents.Empty;
     }
     // Shared ordered ordinary-NPC consumer. Iron keeps its existing release-
-    // time allocation; learned skeletons can capture the same packet at start.
+    // time allocation; reviewed unarmed summons capture the same packet at start.
     internal sealed record Rules(MonsterReturnMetadata Metadata,NpcCombatEvents SourceEvents,NpcCombatEvents TargetEvents,bool NativeRecovery);
     internal sealed class Prepared(Rules rules,NpcWeaponImpact impact)
     {
@@ -93,7 +93,7 @@ internal static class IronGolemContact
         }
         var metadata=NativeMonsterReturn.Metadata(target);NativeMonsterReturn.Session(target);
         var item=NpcEquipmentCombat.Context(body);
-        if(item==null&&body is not RaisedSkeleton){throw new NotSupportedException("Missing ordinary NPC offensive context");}
+        if(item==null&&body is not ISourceUnarmedNpc){throw new NotSupportedException("Missing ordinary NPC offensive context");}
         var sourceEvents=item is{} equipped?new NpcCombatEvents(equipped):NpcCombatEvents.Empty;
         var targetEvents=Events(target);
         if(nativeRecovery)

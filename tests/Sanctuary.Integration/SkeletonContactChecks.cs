@@ -38,7 +38,7 @@ public static class SkeletonContactChecks
     }
     private static IronGolemContact.Prepared Prepare(PlayerMobile p,RaisedSkeleton pet,BaseCreature target)
     {
-        NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(0));return RaisedSkeletonContact.Prepare(pet,p,target,RaisedSkeletonContact.Require(pet,p,target));
+        NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(0));return UnarmedSummonContact.Prepare(pet,p,target,UnarmedSummonContact.Require(pet,p,target));
     }
     private static void Check()
     {
@@ -49,9 +49,9 @@ public static class SkeletonContactChecks
             int before=SkillHealth.Balance256(target);var prepared=Prepare(p,pet,target);var packet=prepared.Impact.Packet;ulong seed=NpcEquipmentRandom.State(pet).Seed;
             Require((packet.ResultFlags&1)!=0&&packet.Physical256>40*256&&SkillHealth.Balance256(target)==before,"Prepared Mastery20 result rolled incorrectly or committed HP early");
             target.SetResistance(ResistanceType.Physical,100);
-            var result=RaisedSkeletonContact.Release(pet,p,target,prepared,TimedEffects.Now);
+            var result=UnarmedSummonContact.Release(pet,p,target,prepared,TimedEffects.Now);
             Require(result.Exit==MonsterContactExit.Finished&&before-SkillHealth.Balance256(target)==packet.Total256&&NpcEquipmentRandom.State(pet).Seed==seed&&prepared.Consumed,"Captured mitigation was recomputed or source RNG replayed on release");
-            bool twice=false;try{RaisedSkeletonContact.Release(pet,p,target,prepared,TimedEffects.Now);}catch(InvalidOperationException){twice=true;}
+            bool twice=false;try{UnarmedSummonContact.Release(pet,p,target,prepared,TimedEffects.Now);}catch(InvalidOperationException){twice=true;}
             Require(twice,"Prepared NPC packet released twice");
             target.SetResistance(ResistanceType.Physical,0);SkillHealth.SetBalance256(target,target.HitsMax*256);
             prepared=Prepare(p,pet,target);before=SkillHealth.Balance256(target);seed=NpcEquipmentRandom.State(pet).Seed;
@@ -64,7 +64,7 @@ public static class SkeletonContactChecks
                 SourceBlocking.Restore(shields.Where(x=>x.Actor!=target.Serial.Value).Append(new(target.Serial.Value,source,1)).ToArray());
                 SourceBlocking.BlockRoll=_=>0;Require(SourceBlocking.TryRate(target,out int rate,out _)&&rate>0,"Actual recipient shield missing");
                 prepared=Prepare(p,pet,target);Require((prepared.Impact.Packet.ResultFlags&16)!=0&&(prepared.Impact.Packet.ResultFlags&1)==0&&prepared.Impact.Packet.Total256==0,"NPC shield did not block before damage fill");
-                before=SkillHealth.Balance256(target);RaisedSkeletonContact.Release(pet,p,target,prepared,TimedEffects.Now);
+                before=SkillHealth.Balance256(target);UnarmedSummonContact.Release(pet,p,target,prepared,TimedEffects.Now);
                 Require(SkillHealth.Balance256(target)==before,"Blocked skeleton attack changed recipient HP");
             }
             finally{SourceBlocking.Restore(shields);SourceBlocking.BlockRoll=_=>99;}
@@ -76,7 +76,7 @@ public static class SkeletonContactChecks
             Require(PaladinThorns.FlatDamage(target)==4,"Pinned flat Thorns component");
             Require(start>256&&start<returned&&start+healing<SkillHealth.Maximum256(pet),"Ordered heal/return fixture bounds");
             SkillHealth.SetBalance256(pet,start);before=SkillHealth.Balance256(target);
-            RaisedSkeletonContact.Release(pet,p,target,prepared,TimedEffects.Now);
+            UnarmedSummonContact.Release(pet,p,target,prepared,TimedEffects.Now);
             Require(pet.Alive&&SkillHealth.Balance256(pet)==start+healing-returned&&before-SkillHealth.Balance256(target)==prepared.Impact.Packet.Total256,"Life Tap/HP/percentage-return order or fractional amount differs");
             PaladinAuras.Clear(target);NecromancerEffects.ClearOrdinaryCurse(target);
             // Real actor hook: capture, then interrupt before the source action.
@@ -96,7 +96,7 @@ public static class SkeletonContactChecks
             finally{native.Delete();}
             // Exact-zero health enters death only through the shared return.
             SkillHealth.SetBalance256(target,target.HitsMax*256);prepared=Prepare(p,pet,target);int exact=prepared.Impact.Packet.Total256;
-            SkillHealth.SetBalance256(target,exact);RaisedSkeletonContact.Release(pet,p,target,prepared,TimedEffects.Now);
+            SkillHealth.SetBalance256(target,exact);UnarmedSummonContact.Release(pet,p,target,prepared,TimedEffects.Now);
             Require(!target.Alive&&target.LastKiller==pet&&ClassLoot.Killer(target)==p,"Ordered exact-life kill lost native death or owner credit");
             NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(173));var saved=new Saved(p.Serial.Value,pet.Serial.Value,NpcEquipmentRandom.State(pet).Seed,0);
             PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
