@@ -19,15 +19,15 @@ Selected pets may gain extra abilities unlocked by **hard points** invested in t
 | Druid pet | Review state |
 | --- | --- |
 | Ravens | Pending role/ability review. |
-| Spirit Wolves | Pending role/ability review. |
-| Dire Wolves | Pending role/ability review. |
-| Grizzly | Pending role/ability review. |
-| Poison Creeper | Pending role/ability review. |
-| Carrion Vine | Pending role/ability review. |
-| Solar Creeper | Pending role/ability review. |
-| Oak Sage | Pending role/ability review. |
-| Heart of Wolverine | Pending role/ability review. |
-| Spirit of Barbs | Pending role/ability review. |
+| Spirit Wolves | At 10 hard points gain Open Wounds; at 20 gain cold immunity. Preserve baseline cold attacks/unchillability. Open Wounds chance and immunity representation remain open. |
+| Dire Wolves | At 10 hard points gain Extra Fast; at 20 gain Extra Strong. Reuse the shared affix decisions made for Necromancer pets. |
+| Grizzly | At 10 hard points gain Stun; at 20 gain **10% Crushing Blow**. Stun chance/duration/delivery remain open. This is an approved addition beyond the baseline knockback/no-stun observation. |
+| Poison Creeper | Improve damage scaling, targeting **about 2,000 total poison damage over four seconds at rank 20**, not 2,000 per second. Exact curve, range and synergy context remain open. |
+| Carrion Vine | User says it is fine; retain its baseline behavior. |
+| Solar Creeper | User says it is fine; retain its baseline behavior. |
+| Oak Sage | User says spirits are fine; retain baseline behavior. |
+| Heart of Wolverine | User says spirits are fine; retain baseline behavior. |
+| Spirit of Barbs | User says spirits are fine; retain baseline behavior. |
 
 Implementation should reuse existing player/NPC spells, projectiles, statuses, movement, combat and summon persistence services. Proposed automatic casting, soft-rank spell scaling, skill selection, targeting and control rules have not yet been approved. Record confirmed choices here; leave unanswered questions nonblocking for unaffected baseline work.
 
@@ -62,3 +62,20 @@ The earlier suggested Fire Ball/Blizzard/poison-cloud package is **superseded** 
 These are approved Sanctuary deviations beyond D2R3.3.93847. **No pet upgrade is implemented by this document.** Preserve baseline abilities unless a specified adjustment replaces them, and verify composition explicitly when implementation begins. Pure pet build viability remains the balance aim; exact benchmark criteria remain open.
 
 Discussion preference: the user asked to stop the question popups because their draft text was disappearing. **Do not send further asynchronous question forms.** Leave space for free-form chat answers and keep unapproved proposals open.
+
+Druid update, 2026-11-01 JST: the user explicitly leaves the spirits and Carrion/Solar vines unchanged. Ravens were not mentioned in this update and remain under review. Poison Creeper’s requested target is a damage-over-time total; do not reinterpret it as per-second damage or silently choose an effective/hard-rank or pre/post-synergy reference. Wolf cold-only damage must remain compatible with the chosen Open Wounds consumer rather than adding a guessed physical component.
+
+## Necromancer defaults proposed in chat — awaiting user decisions
+
+The user requested resolving the remaining details. The following numbered defaults were presented as **proposals**, not approvals. Do not implement them merely because they appear here.
+
+1. Extra Fast: use the existing movement-only affix exactly; adding attack speed would require changing the shared affix. Reconcile with the earlier movement-and-attack answer.
+2. Skeleton ATD: start at34flat physical at10hard points, with no further rank scaling; aggregate through existing item-property rules.
+3. Mage scaling: basic spell level follows effective Raise Skeletal Mage; retain Skeleton Mastery benefit but no Sorceress masteries/synergies. Fixed secondary levels stay as explicitly specified.
+4. Multishot: three shots per basic attack; triple Charged Bolt’s normal volley; never multiply secondary spells.
+5. Procs/resources: one roll per eligible offensive cast, each Lightning secondary at5%with at most one chosen; retain spell cooldowns and Mage timing; no NPC mana requirement.
+6. Buffs: Enchant owner/party/allied summons in normal targeting range/LOS, prioritizing missing buffs during combat; self-cast Frozen Armor on summon and refresh after expiry.
+7. Golem baseline: Skeleton damage curve at effective golem rank, substituting Golem Mastery for Skeleton Mastery; Iron item bonuses still apply; Fire gets2×physical Clay base plus Holy Fire. Existing innate-fire composition still needs an explicit resolution if this choice is accepted.
+8. Holy Fire level: equal effective Fire Golem level, with Paladin damage/radius progression and no invented Paladin synergies.
+9. Open Wounds/affixes:100%Open Wounds on successful hits; full named monster-affix effects without unrelated elite health/loot upgrades; cold immunity remains ordinary breakable resistance-based immunity.
+10. Existing actors: gain/lose unlocks on training/respec; convert saved poison Mages to ice preserving life percentage and ownership.
