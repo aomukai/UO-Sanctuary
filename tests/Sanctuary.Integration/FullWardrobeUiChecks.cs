@@ -33,7 +33,7 @@ public static class FullWardrobeUiChecks
             Require(_owner.EquipItem(dagger) && _owner.EquipItem(robe), "UI equipment setup failed"); _gear = [dagger, robe];
             Require(ClassCreation.Profiles.TryTrain(_owner.Serial, "necromancer.raiseskeleton", out _)
                 && ClassCreation.Profiles.TryTrain(_owner.Serial, "necromancer.teeth", out _), "UI training failed");
-            SkillBindings.Instance.Assign(_owner, true, CombatAbility.RaiseSkeleton);
+            SkillBindings.Instance.Assign(_owner, false, CombatAbility.RaiseSkeleton);
             SkillBindings.Instance.AssignQuick(_owner, 11, CombatAbility.Teeth);
             _pet = new SkeletonGuardian(); _pet.Initialize(_owner, 1, 0); _pet.SetControlMaster(_owner);
             _pet.Hits = _life = _pet.HitsMax / 2; PersistentMinions.Profiles.Track(_pet);
@@ -64,7 +64,7 @@ public static class FullWardrobeUiChecks
                 && ClassProfessions.Profiles.Find(_owner).Craft == SkillName.Alchemy
                 && _retrieved.Parent == _owner.Backpack && _gear.Single(i => i != _retrieved).Parent == _owner
                 && _pet.ControlMaster == _owner && _pet.Hits >= _life && !PersistentMinions.Profiles.Find(_pet).Parked
-                && SkillBindings.Instance.Get(_owner).Left == CombatAbility.RaiseSkeleton
+                && SkillBindings.Instance.Get(_owner).Right == CombatAbility.RaiseSkeleton
                 && SkillBindings.Instance.GetQuick(_owner.Serial, DiabloClass.Necromancer, 11) == CombatAbility.Teeth,
                 "Actual UI did not restore the remaining set, class bindings and summon");
         });

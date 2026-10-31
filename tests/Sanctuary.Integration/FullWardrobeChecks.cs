@@ -56,7 +56,7 @@ public static class FullWardrobeChecks
         var robe = new Robe(); Require(p.EquipItem(dagger) && p.EquipItem(robe), "Initial set equip failed");
         string gear = JsonSerializer.Serialize(ClassGear.State(dagger)); var bank = p.BankBox; var pack = p.Backpack;
         p.Backpack.DropItem(new Gold(1234)); p.Skills.Tinkering.Base = 73.4;
-        SkillBindings.Instance.Assign(p, true, CombatAbility.RaiseSkeleton);
+        SkillBindings.Instance.Assign(p, false, CombatAbility.RaiseSkeleton);
         SkillBindings.Instance.AssignQuick(p, 11, CombatAbility.RaiseSkeleton);
         var pet = new SkeletonGuardian(); pet.Initialize(p, 1, 0); pet.SetControlMaster(p);
         pet.Hits = pet.HitsMax / 2; PersistentMinions.Profiles.Track(pet);
@@ -77,7 +77,7 @@ public static class FullWardrobeChecks
         RatioSwap(p, DiabloClass.Necromancer);
         Require(dagger.Parent == p && robe.Parent == p && extra.Parent == WardrobeEquipment.Instance.Find(p.Serial, DiabloClass.Sorceress)
             && pet.Hits == beforeLife && !PersistentMinions.Profiles.Find(pet).Parked
-            && SkillBindings.Instance.Get(p).Left == CombatAbility.RaiseSkeleton
+            && SkillBindings.Instance.Get(p).Right == CombatAbility.RaiseSkeleton
             && SkillBindings.Instance.GetQuick(p.Serial, DiabloClass.Necromancer, 11) == CombatAbility.RaiseSkeleton
             && JsonSerializer.Serialize(ClassGear.State(dagger)) == gear, "Class restoration cloned, rerolled, healed or lost saved state");
         Require(Swap(p, DiabloClass.Necromancer) && Swap(p, DiabloClass.Necromancer, SkillName.Alchemy), "Unchanged or craft-only selection failed");

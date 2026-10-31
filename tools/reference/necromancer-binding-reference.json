@@ -1,0 +1,187 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "tools/reference/d2r-named-equipment/json/skills.json",
+  "sourceSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "skills": [
+    {
+      "sourceId": 66,
+      "name": "Amplify Damage",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 67,
+      "name": "Teeth",
+      "left": true,
+      "right": true
+    },
+    {
+      "sourceId": 68,
+      "name": "Bone Armor",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 69,
+      "name": "Skeleton Mastery",
+      "left": false,
+      "right": false
+    },
+    {
+      "sourceId": 70,
+      "name": "Raise Skeleton",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 71,
+      "name": "Dim Vision",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 72,
+      "name": "Weaken",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 73,
+      "name": "Poison Dagger",
+      "left": true,
+      "right": true
+    },
+    {
+      "sourceId": 74,
+      "name": "Corpse Explosion",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 75,
+      "name": "Clay Golem",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 76,
+      "name": "Iron Maiden",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 77,
+      "name": "Terror",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 78,
+      "name": "Bone Wall",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 79,
+      "name": "Golem Mastery",
+      "left": false,
+      "right": false
+    },
+    {
+      "sourceId": 80,
+      "name": "Raise Skeletal Mage",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 81,
+      "name": "Confuse",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 82,
+      "name": "Life Tap",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 83,
+      "name": "Poison Explosion",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 84,
+      "name": "Bone Spear",
+      "left": true,
+      "right": true
+    },
+    {
+      "sourceId": 85,
+      "name": "BloodGolem",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 86,
+      "name": "Attract",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 87,
+      "name": "Decrepify",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 88,
+      "name": "Bone Prison",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 89,
+      "name": "Summon Resist",
+      "left": false,
+      "right": false
+    },
+    {
+      "sourceId": 90,
+      "name": "IronGolem",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 91,
+      "name": "Lower Resist",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 92,
+      "name": "Poison Nova",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 93,
+      "name": "Bone Spirit",
+      "left": true,
+      "right": true
+    },
+    {
+      "sourceId": 94,
+      "name": "FireGolem",
+      "left": false,
+      "right": true
+    },
+    {
+      "sourceId": 95,
+      "name": "Revive",
+      "left": false,
+      "right": true
+    }
+  ]
+}

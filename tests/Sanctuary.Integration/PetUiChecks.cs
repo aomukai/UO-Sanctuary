@@ -92,16 +92,16 @@ public static class PetUiChecks
         });
         Register("nearest", () => Require(_near.Deleted && SkeletonPets.Count(_player) == 1,
             "Hotkey did not raise the nearest corpse when no corpse was hovered"));
-        Register("left-setup", () =>
+        Register("right-recast-setup", () =>
         {
             SkeletonPets.Dismiss(_player);
             _near = MakeCorpse(1);
             _player.Mana = _player.ManaMax;
-            SkillBindings.Instance.Assign(_player, true, CombatAbility.RaiseSkeleton);
-            SkillBindings.Instance.Assign(_player, false, CombatAbility.Teeth);
+            Require(!SkillBindings.Instance.Assign(_player, true, CombatAbility.RaiseSkeleton)
+                && SkillBindings.Instance.Assign(_player, false, CombatAbility.RaiseSkeleton), "Invalid left summon accepted or valid right refused");
         });
-        Register("left", () => Require(_near.Deleted && SkeletonPets.Count(_player) == 1
-            && _player.Location == _origin, "Left mouse summoning moved the caster or failed"));
+        Register("right-recast", () => Require(_near.Deleted && SkeletonPets.Count(_player) == 1
+            && _player.Location == _origin, "Right mouse recasting moved the caster or failed"));
         Register("relog-prepare", () =>
         {
             foreach (var follower in _player.AllFollowers)

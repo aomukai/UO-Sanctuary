@@ -1,4 +1,4 @@
-"""Learn Raise Skeleton, bind both mouse buttons, summon, inspect stats and cast by hotkey."""
+"""Learn Raise Skeleton, bind source-valid mouse buttons, summon, inspect stats and cast by hotkey."""
 import json
 import os
 from pathlib import Path
@@ -67,10 +67,10 @@ def exercise(window, click, capture):
     time.sleep(1.2)
     capture("pets-hotkey-nearest-corpse.png")
     command("nearest")
-    state = command("left-setup")
+    state = command("right-recast-setup")
     time.sleep(0.6)
-    mouse(point(state, "near"), 1)
-    capture("pets-left-mouse-summon.png")
-    command("left")
+    mouse(point(state, "near"), 3)
+    capture("pets-right-mouse-recast.png")
+    command("right-recast")
     command("relog-prepare")
-    print("Actual client: earned skill learning, both mouse bindings, hovered/nearest corpse raising, hotkey macro, left/right casting and pet stats passed.", flush=True)
+    print("Actual client: earned skill learning, source-valid mouse bindings, hovered/nearest corpse raising, hotkey macro, right recasting and pet stats passed.", flush=True)

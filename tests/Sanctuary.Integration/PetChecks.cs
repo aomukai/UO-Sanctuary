@@ -1,10 +1,13 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Items;
+using Server.Accounting;
 using Server.Logging;
 using Server.Mobiles;
+using Server.Network;
 
 namespace Sanctuary.Integration;
 
@@ -16,6 +19,10 @@ public static class PetChecks
     {
         Register("pet-check", Check);
         Register("pet-reload-check", Reload);
+        Register("pet-connected-reload-check",Reload);
+        ConsoleInputHandler.RegisterCommand("pet-connected-check","Real connection for online guard and offline persistence checks",_=>Core.LoopContext.Post(()=>
+            FixtureNetwork.Connected("pet-connected-check",network=>
+            {try{Check(network);_logger.Information("pet-connected-check: passed");}catch(Exception e){network.Mobile=null;_logger.Error(e,"pet-connected-check: failed");}})));
     }
     private static void Register(string command, Action action) => ConsoleInputHandler.RegisterCommand(command,
         "Summoning and earned progression checks", _ => Core.LoopContext.Post(() =>
@@ -59,35 +66,59 @@ public static class PetChecks
         var player = new PlayerMobile { Player = true, Body = 0x190, Name = "ExactKill" };
         player.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
-        player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 1440, 1695), Map.Trammel);
+        FixtureSpace.Corridor(player,6200,24,2300);
         var dagger = new Dagger();
         ClassGear.Profiles.MarkStarter(dagger);
         player.EquipItem(dagger);
         var enemy = new GraveyardSkeleton { Frozen = true, Hits = 6 };
         enemy.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, player.X + 2, player.Y), Map.Trammel);
+        var seedLow=NecromancerSpellMissiles.SeedLow;
         try
         {
+            NecromancerSpellMissiles.SeedLow=()=>0;
             Require(ClassCombat.Perform(player, CombatAbility.Teeth, enemy, enemy.Location, Core.TickCount),
                 "Could not start the exact-life player attack");
-            Require(ClassCombat.ResolveAction(player, ClassCombat.For(player).EffectAt) && !enemy.Alive
-                && enemy.LastKiller == player && Profile(player).Experience == 34,
-                "Exact-life Teeth kill lost death or reward credit");
+            Require(ClassCombat.ResolveAction(player, ClassCombat.For(player).EffectAt)&&enemy.Alive,
+                "Teeth did not release travelling missiles before contact");
+            var flights=NecromancerSpellMissiles.Snapshot().Flights.Where(x=>x.Owner==player.Serial.Value).ToArray();
+            Require(flights.Length>0&&flights.All(x=>x.Seed==flights[0].Seed),"Exact-life fixture needs the same controlled missile seed");
+            ulong seed=flights[0].Seed;
+            int exact=WeaponMissileDamage.RollValue(flights[0].Minimum256,flights[0].Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
+            SkillHealth.SetBalance256(enemy,exact);TimedEffects.PreventHealing(enemy,TimedEffects.Now);
+            Require(SkillHealth.Balance256(enemy)==exact&&enemy.Alive,"Exact fractional life setup");
+            for(int i=0;i<50&&enemy.Alive;i++)
+            {
+                flights=NecromancerSpellMissiles.Snapshot().Flights.Where(x=>x.Owner==player.Serial.Value).ToArray();
+                if(flights.Length==0){break;}NecromancerSpellMissiles.Tick(flights.Min(x=>x.NextUtc),actions:true);
+            }
+            Require(!enemy.Alive&&enemy.LastKiller==player&&Profile(player).Experience==34,
+                "Exact-life travelling Teeth kill lost death or reward credit");
         }
         finally
         {
+            NecromancerSpellMissiles.SeedLow=seedLow;NecromancerSpellMissiles.Cancel(player);
             enemy.Corpse?.Delete();
             enemy.Delete();
             player.Delete();
             ClassCreation.Profiles.PruneDeleted();
         }
     }
-    private static void Check()
+    private static void Check()=>Check(null);
+    private static void Check(NetState network)
     {
         ExactPlayerKill();
         var p = new PlayerMobile { Player = true, Body = 0x190, Name = "PetCheck" };
         p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p, DiabloClass.Necromancer);
         p.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 1440, 1695), Map.Trammel);
+        if(network!=null)
+        {
+            network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
+            var state=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+            state.SetValue(network,Enum.Parse(state.FieldType,"GameServer_LoggedIn"));
+            var account=new Account("pet-online-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;
+            network.Mobile=p;p.NetState=network;network.ResetMovementState();
+        }
         CheckSkeletonStats(p);
         Require(!ClassCombat.Available(p, CombatAbility.RaiseSkeleton), "Unlearned summoning was available");
         for (int i = 0; i < 15; i++)
@@ -102,8 +133,8 @@ public static class PetChecks
         Require(!ClassCreation.Profiles.TryTrain(p.Serial, "necromancer.teeth", out _), "Skill point was spent twice");
         Require(ClassCreation.Profiles.TrySpendStat(p, CharacterStat.Vitality)
             && ClassCreation.Profiles.AvailableStatPoints(p.Serial) == 4, "Earned stat point could not be spent");
-        Require(SkillBindings.Instance.Assign(p, true, CombatAbility.RaiseSkeleton)
-            && SkillBindings.Instance.Assign(p, false, CombatAbility.BasicAttack), "Both mouse bindings could not be assigned");
+        Require(SkillBindings.Instance.Assign(p, true, CombatAbility.BasicAttack)
+            && SkillBindings.Instance.Assign(p, false, CombatAbility.RaiseSkeleton), "Both mouse bindings could not be assigned");
         var near = Kill(p, 1);
         var far = Kill(p, 3);
         far.DropItem(new Dagger());
@@ -167,6 +198,7 @@ public static class PetChecks
         near.Delete();
         far.Delete();
         pet.Hits = 13;
+        if(network!=null){Require(network.Running,"Online guardian fixture lost its real connection");network.Mobile=null;p.NetState=null;}
         // Exercise the real auto-stable/login hooks, including repeated logout notifications.
         p.AutoStablePets();
         p.AutoStablePets();
@@ -177,14 +209,19 @@ public static class PetChecks
         p.ClaimAutoStabledPets();
         Require(pet.Map == p.Map && pet.InRange(p, 4) && p.InLOS(pet) && pet.ControlOrder == OrderType.Guard
             && pet.Hits == 13 && SkeletonPets.Count(p) == 1, "Login did not resume the guardian without healing or duplication");
+        // This historical body is a distinct fixture owner, so it does not
+        // violate the main rank-one owner's now-enforced one-skeleton cap.
+        var legacyOwner=new PlayerMobile{Player=true,Body=0x190,Name="PetLegacyOwner"};legacyOwner.AddItem(new Backpack());
+        ClassCreation.Profiles.Assign(legacyOwner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(legacyOwner,2);
+        Require(ClassCreation.Profiles.TryTrain(legacyOwner.Serial,"necromancer.raiseskeleton",out _),"Legacy fixture owner training");
         var mastered = new SkeletonGuardian();
-        mastered.Initialize(p, 20, 20);
-        mastered.SetControlMaster(p);
+        mastered.Initialize(legacyOwner, 20, 20);
+        mastered.SetControlMaster(legacyOwner);
         // Emulate a guardian saved with the old, understated derived values.
         mastered.SetHits(359);
         mastered.SetDamage(77, 79);
         mastered.Hits = 300;
-        File.WriteAllText(Manifest, JsonSerializer.Serialize(new[] { p.Serial.Value, pet.Serial.Value, mastered.Serial.Value }));
+        File.WriteAllText(Manifest, JsonSerializer.Serialize(new[] { p.Serial.Value, pet.Serial.Value, mastered.Serial.Value,legacyOwner.Serial.Value }));
     }
     private static void CheckSkeletonStats(PlayerMobile owner)
     {
@@ -244,14 +281,15 @@ public static class PetChecks
         Require(mastered is { Hits: 300, HitsMax: 1719, Rank: 20, Mastery: 20 }
             && mastered.CombatProfile.MinDamage == 124 && mastered.CombatProfile.MaxDamage == 127
             && mastered.DamageMin == 124 && mastered.DamageMax == 127,
-            "Saved skeleton stats were not corrected while preserving current life on restart");
+            $"Saved skeleton stats were not corrected while preserving current life on restart: exists={mastered!=null},life={mastered?.Hits}/{mastered?.HitsMax},rank={mastered?.Rank}/{mastered?.Mastery},damage={mastered?.DamageMin}/{mastered?.DamageMax},profile={mastered?.CombatProfile}");
         mastered.Delete();
+        if(ids.Length>3){World.FindMobile((Serial)ids[3])?.Delete();}
         Require(p != null && pet is { Deleted: false, Controlled: true, Summoned: true, Hits: 13 }
             && pet.ControlMaster == p && pet.Map == Map.Internal && SkeletonPets.Count(p) == 1
             && pet.Level == 2 && pet.Rank == 1 && pet.Mastery == 0 && pet.CombatProfile.Life == 21,
             "Saved guardian identity, ownership, health or stats were lost on restart");
         var bindings = SkillBindings.Instance.Get(p);
-        Require(bindings.Left == CombatAbility.RaiseSkeleton && bindings.Right == CombatAbility.BasicAttack,
+        Require(bindings.Left == CombatAbility.BasicAttack && bindings.Right == CombatAbility.RaiseSkeleton,
             "Mouse bindings did not survive save/reload");
         Require(Profile(p).Level == 2 && Profile(p).Experience == 612
             && ClassCreation.Profiles.GetRank(p.Serial, "necromancer.raiseskeleton") == 1

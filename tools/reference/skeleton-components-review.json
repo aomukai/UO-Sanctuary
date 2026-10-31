@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderEngineCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Static review of complete bodies, not compiled execution or a current-executable observation.",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "routines": {
+    "SKILLS_SrvDo031_RaiseSkeleton_Mage": {
+      "path": ".local/class-skills/skeleton-components-review/SKILLS_SrvDo031_RaiseSkeleton_Mage.cpp",
+      "sha256": "ff7debedf4bd600cf44dccdfc03417cec37d728e09ad4ec1ab4487c40aed37ce"
+    },
+    "D2GAME_SetUnitComponent_6FD0C3A0": {
+      "path": ".local/class-skills/skeleton-components-review/D2GAME_SetUnitComponent_6FD0C3A0.cpp",
+      "sha256": "09fafd10ed0cfc261a7d940caf5bfa2b6d3113e94624cfbf4dac6b0bc2a1a5d6"
+    },
+    "MONSTER_SetComponents": {
+      "path": ".local/class-skills/skeleton-components-review/MONSTER_SetComponents.cpp",
+      "sha256": "6b8d206189b5c1e280f346417464b886ad9361b7981cecaf1659538e3303c8da"
+    },
+    "UNITS_GetBlockRate": {
+      "path": ".local/class-skills/skeleton-components-review/UNITS_GetBlockRate.cpp",
+      "sha256": "fb30cab10778846d6cfc5f9ed0b3768424871dd06f1d153b86072a42a10e690c"
+    }
+  },
+  "current": {
+    "skill": 70,
+    "shieldParameter": 5,
+    "shieldCodes": "\"nil,buc,lrg,kit,sml\"",
+    "block": [
+      3,
+      3,
+      3
+    ],
+    "critical": 5
+  },
+  "findings": [
+    "The do31 caller rolls the owner stream only above effective rank2,comparing modulo100 with Param1=5. It passes the result to bHasShield;the parameter label alone does not establish final shield distribution.",
+    "Complete MONSTER_SetComponents first copies a regional appearance pool or independently randomizes12components using the pet seed. D2GAME_SetUnitComponent later writes component7 only for a true bHasShield flag;false retains the earlier choice.",
+    "The helper defaults cosmetic level to1;its level1 component row has shield0(nil),so this branch can remove an existing randomized shield. A full-set modifier can supply a different cosmetic level. This contradicts treating Param1 as a simple final shield-spawn probability.",
+    "UNITS_GetBlockRate uses the final shield component/item classification unless an innate or special exception applies. Current necroskeleton has3base block in each difficulty,no innate flag and fiveSHchoices(nil,buc,lrg,kit,sml)."
+  ],
+  "remaining": [
+    "Resolve current initializer and regional appearance pool provenance,full-set cosmetic level and owner/pet RNG order before applying a learned shield distribution. Existing native generic skeleton presentation and shield supplier are not certified by this review.",
+    "Source AI67 policy already has1598complete source/native cases for Iron Golem. Sharing its world controller with regular skeletons still needs source SK clocks,normal damage/critical,unarmed contact composition,lifecycle and exact seed acceptance."
+  ]
+}

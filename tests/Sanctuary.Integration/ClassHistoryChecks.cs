@@ -74,7 +74,7 @@ public static class ClassHistoryChecks
                 var oldBindings = new BufferWriter(new byte[1024], true); oldBindings.Write(0); oldBindings.Write(1);
                 oldBindings.Write(players[2].Serial.Value); oldBindings.Write((byte)CombatAbility.RaiseSkeleton); oldBindings.Write((byte)CombatAbility.BasicAttack);
                 SkillBindings.Instance.Deserialize(new BufferReader(oldBindings.Buffer[..(int)oldBindings.Position])); SkillBindings.Instance.PostDeserialize();
-                Require(SkillBindings.Instance.Get(players[2]) == (CombatAbility.RaiseSkeleton, CombatAbility.BasicAttack), "Legacy binding attached to wrong class");
+                Require(SkillBindings.Instance.Get(players[2]) == (CombatAbility.BasicAttack, CombatAbility.BasicAttack), "Legacy invalid left binding was not normalized on its original class");
                 byte[] bound = Encode(SkillBindings.Instance); SkillBindings.Instance.Deserialize(new BufferReader(bound));
                 Require(bound.SequenceEqual(Encode(SkillBindings.Instance)), "Binding migration is unstable");
             }
@@ -163,7 +163,7 @@ public static class ClassHistoryChecks
         Legacy(); Corruption(); QuickGuards(); var p = Player();
         Require(Profiles.AwardExperience(p, 1500) && Profile(p).Level > 1 && Profiles.TrySpendStat(p, CharacterStat.Vitality)
             && Profiles.TryTrain(p.Serial, "necromancer.raiseskeleton", out _), "Initial class did not progress");
-        Require(SkillBindings.Instance.Assign(p, true, CombatAbility.RaiseSkeleton) && SkillBindings.Instance.Assign(p, false, CombatAbility.BasicAttack), "Initial bindings failed");
+        Require(SkillBindings.Instance.Assign(p, true, CombatAbility.BasicAttack) && SkillBindings.Instance.Assign(p, false, CombatAbility.RaiseSkeleton), "Initial bindings failed");
         Require(Profiles.TryTrain(p.Serial, "necromancer.teeth", out _), "Quick Teeth training failed");
         for (int slot = 0; slot < SkillBindingProtocol.Slots; slot++)
         { Require(SkillBindings.Instance.AssignQuick(p, slot, slot % 2 == 0 ? CombatAbility.Teeth : CombatAbility.RaiseSkeleton), "Quick binding failed"); }
@@ -197,7 +197,7 @@ public static class ClassHistoryChecks
         Require(p.Backpack.Items.Count == count, "Class activation minted starter gear");
         p.Hits = p.HitsMax; p.Mana = p.ManaMax; p.Stam = p.StamMax; Select(p, DiabloClass.Necromancer);
         Require(Profile(p) == necro.Profile && Profiles.Stats(p.Serial) == necro.Allocation && Profiles.GetRank(p.Serial, "necromancer.raiseskeleton") == 1
-            && SkillBindings.Instance.Get(p) == (CombatAbility.RaiseSkeleton, CombatAbility.BasicAttack), "Returning class lost its history/bindings");
+            && SkillBindings.Instance.Get(p) == (CombatAbility.BasicAttack, CombatAbility.RaiseSkeleton), "Returning class lost its history/bindings");
         Require(SkillBindings.Instance.GetQuick(p.Serial, DiabloClass.Necromancer, 0) == CombatAbility.Teeth
             && SkillBindings.Instance.GetQuick(p.Serial, DiabloClass.Necromancer, 11) == CombatAbility.RaiseSkeleton
             && SkillBindings.Instance.GetQuick(p.Serial, DiabloClass.Sorceress, 11) == CombatAbility.BasicAttack, "Quick bars leaked across classes");

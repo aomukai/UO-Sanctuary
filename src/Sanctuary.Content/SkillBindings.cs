@@ -27,9 +27,21 @@ public sealed class SkillBindings : GenericPersistence
     public (CombatAbility Left, CombatAbility Right) Get(PlayerMobile player) =>
         ClassCreation.Profiles.TryGet(player.Serial, out var profile) ? Get(player.Serial, profile.Class)
             : (CombatAbility.BasicAttack, CombatAbility.None);
+    // Necromancer mouse slots follow the pinned skill table. Quick casting is
+    // a separate selection path; passive availability remains its own gate.
+    internal static bool MouseAllowed(DiabloClass characterClass,bool left,CombatAbility ability)
+    {
+        if(!ClassAbilities.Valid(ability)){return false;}
+        if(characterClass!=DiabloClass.Necromancer||ability is CombatAbility.None or CombatAbility.BasicAttack){return true;}
+        var row=SkillMechanics.For(ability);
+        return row.CharacterClass==characterClass&&(left?row.Left:row.Right);
+    }
+    private static (CombatAbility Left,CombatAbility Right) Normalize(DiabloClass characterClass,(CombatAbility Left,CombatAbility Right) bindings)
+        =>(MouseAllowed(characterClass,true,bindings.Left)?bindings.Left:CombatAbility.BasicAttack,
+            MouseAllowed(characterClass,false,bindings.Right)?bindings.Right:CombatAbility.None);
     public (CombatAbility Left, CombatAbility Right) Get(Serial owner, DiabloClass characterClass) =>
-        _bindings.TryGetValue((owner, characterClass), out var bindings) ? bindings
-            : (CombatAbility.BasicAttack, characterClass == DiabloClass.Necromancer ? CombatAbility.Teeth : CombatAbility.None);
+        Normalize(characterClass,_bindings.TryGetValue((owner, characterClass), out var bindings) ? bindings
+            : (CombatAbility.BasicAttack, characterClass == DiabloClass.Necromancer ? CombatAbility.Teeth : CombatAbility.None));
     public CombatAbility GetQuick(Serial owner, DiabloClass characterClass, int slot) => slot is >= 0 and < SkillBindingProtocol.Slots
         && _quick.TryGetValue((owner, characterClass), out var quick) ? quick[slot] : CombatAbility.None;
     public bool AssignQuick(PlayerMobile player, int slot, CombatAbility ability)
@@ -43,7 +55,8 @@ public sealed class SkillBindings : GenericPersistence
     }
     public bool Assign(PlayerMobile player, bool left, CombatAbility ability)
     {
-        if (player == null || !player.Alive || !ClassCombat.Enabled(player) || left&&ClassAbilities.ItemTarget(ability) || left && ability is CombatAbility.Fissure or CombatAbility.Volcano or CombatAbility.BoneArmor or CombatAbility.PoisonNova or CombatAbility.PoisonExplosion
+        if (player == null || !player.Alive || !ClassCombat.Enabled(player) || !ClassAbilities.Valid(ability)
+            || !MouseAllowed(ProfileClass(player),left,ability) || left&&ClassAbilities.ItemTarget(ability) || left && ability is CombatAbility.Fissure or CombatAbility.Volcano or CombatAbility.BoneArmor or CombatAbility.PoisonNova or CombatAbility.PoisonExplosion
             || left && (PaladinCombat.IsAura(ability) || ability is CombatAbility.Werewolf or CombatAbility.Werebear or CombatAbility.BladeShield or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.Venom or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.MindBlast or CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.WarCry or CombatAbility.FindItem or CombatAbility.FindPotion or CombatAbility.InnerSight or CombatAbility.Decoy or CombatAbility.CycloneArmor or CombatAbility.Hurricane or CombatAbility.Armageddon or CombatAbility.Raven or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs)
             || ability != CombatAbility.None && !ClassCombat.Available(player, ability))
         {
@@ -125,6 +138,8 @@ public sealed class SkillBindings : GenericPersistence
             if (ClassCreation.Profiles.TryGet(serial, out var profile)) { _bindings.Add((serial, profile.Class), bindings); }
         }
         _legacy.Clear();
+        foreach(var key in new List<(Serial Owner,DiabloClass Class)>(_bindings.Keys))
+        {_bindings[key]=Normalize(key.Class,_bindings[key]);}
         PruneDeleted();
     }
 }
@@ -159,8 +174,11 @@ public sealed class BindingGump : DynamicGump
         {
             var ability = _choices[_page * PageSize + row]; int y = 80 + row * 35;
             builder.AddLabel(20, y, 0x47E, CombatProtocol.Label(ability));
-            builder.AddButton(300, y, 4005, 4007, 100 + row); builder.AddLabel(335, y, 0x481, "Left");
-            builder.AddButton(390, y, 4005, 4007, 200 + row); builder.AddLabel(425, y, 0x481, "Right");
+            ClassCreation.Profiles.TryGet(_owner.Serial,out var profile);
+            if(SkillBindings.MouseAllowed(profile.Class,true,ability))
+            {builder.AddButton(300, y, 4005, 4007, 100 + row); builder.AddLabel(335, y, 0x481, "Left");}
+            if(SkillBindings.MouseAllowed(profile.Class,false,ability))
+            {builder.AddButton(390, y, 4005, 4007, 200 + row); builder.AddLabel(425, y, 0x481, "Right");}
         }
         if (_page > 0) { builder.AddButton(20, 370, 4014, 4016, 1); }
         if ((_page + 1) * PageSize < _choices.Length) { builder.AddButton(440, 370, 4005, 4007, 2); }

@@ -1,6 +1,8 @@
 # Skill icons
 
-The [regular skeleton birth/resource correction](skeleton-birth-checkpoint.md) adds no final art. Raise Skeleton and Skeleton Mastery still need final talent-tree icons; Raise Skeleton also needs its right/quick-hotkey icon. Existing art is an identified placeholder. The legacy left allowance remains a mechanical binding follow-up, not an approved deviation. Effects/audio stay in their separate ledger.
+The [Necromancer mouse-selection correction](necromancer-binding-checkpoint.md) creates no final icons. All 30 talent-tree icons remain in the asset ledger; active-skill hotkey art remains pending. Left-slot art applies to Teeth, Poison Dagger, Bone Spear and Bone Spirit; the other active Necromancer skills use right/quick selection. Passive skills have no active binding. Existing art remains an identified placeholder, separate from effects/audio.
+
+The [regular skeleton birth/resource correction](skeleton-birth-checkpoint.md) adds no final art. Raise Skeleton and Skeleton Mastery still need final talent-tree icons; Raise Skeleton also needs its right/quick-hotkey icon. Existing art is an identified placeholder. The later [Necromancer binding pass](necromancer-binding-checkpoint.md) corrected its legacy left allowance. Effects/audio stay in their separate ledger.
 
 The [Poison Explosion moving-cloud path](poison-explosion-checkpoint.md) still needs final talent-tree and right/quick-hotkey icons. Source right-only selection is enforced. Cloud children have no independent player binding or icon; effects/audio remain in their separate ledger.
 
