@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Clay incoming-melee slow correction](clay-golem-slow-checkpoint.md) needs final reaction/status feedback and audio, alongside the existing Clay body/emergence/cast/hit/death work. The shared mechanical slow uses identified native presentation; final visual assets do not block its event, timing or saved values.
+
 The [Clay Golem birth/resource correction](clay-golem-birth-checkpoint.md) retains body14/hue0x96D and the native summon flash as identified placeholders. Final G1 emergence/body/casting, attacks, incoming/outgoing slow, hit/retaliation/death and audio remain needed. Exact life and regeneration do not wait for art.
 
 The approved [later Mage upgrade](skeletal-mage-upgrade-plan.md) will need effects/audio for its extra spells once the spell list is selected. No specific spell or asset is invented yet; baseline Mage placeholders remain usable.

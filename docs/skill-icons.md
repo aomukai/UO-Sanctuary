@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Clay incoming-melee slow correction](clay-golem-slow-checkpoint.md) is an automatic pet reaction and adds no player binding. Clay Golem's tree and right/quick-hotkey icons remain pending; split movement/attack status values require no independent skill icon. Effects/audio remain separately tracked.
+
 The [Clay Golem birth/resource correction](clay-golem-birth-checkpoint.md) adds no player ability or final art. Clay Golem still needs its tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately needed. Internal FP resources and a saved body subtype introduce no additional bindings. Effects/audio stay separate.
 
 The approved [later Mage upgrade](skeletal-mage-upgrade-plan.md) has no selected spell list yet. Track any new tree/hotkey requirements separately after deciding which abilities are autonomous pet spells; extra pet actions do not automatically require player hotkeys.

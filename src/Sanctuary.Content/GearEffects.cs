@@ -60,7 +60,7 @@ public static class GearEffects
     public static int MovementSlow(Mobile mobile) => Math.Clamp(ChillPercent(mobile)
         + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.VelocitySlow(mobile) + ImpaleSlow.Velocity(mobile), -100, 75);
     public static int AttackSlow(Mobile mobile) => Math.Clamp(ChillPercent(mobile)
-        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile), -100, 85);
+        + TimedEffects.SlowAttack(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile), -100, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {
         if(target is BaseCreature && ItemDurationDefenses.HasEquipment(target))

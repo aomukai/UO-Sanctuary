@@ -78,6 +78,7 @@ internal static class PreparedMonsterDamage
         if((packet.ResultFlags&32)==0)
         {
             packet=Checked(services.DealtDamage(packet));packet=Checked(services.TookDamage(packet));
+            ClayGolemSlow.Incoming(attacker,target,false,at);
             NecromancerEffects.LifeTap(attacker,target,packet.Physical256);
         }
         int before=SkillHealth.Balance256(target);

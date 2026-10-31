@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 1280,
+  "callbackSha256": "2d6d3834ca1c70c512ca28bf851f013228bbf0a91ef38b54d7ff045339718eed",
+  "stateGatewayReviewedOnlySha256": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+  "outgoingItemCallbackReviewedOnlySha256": "dd9f4c78558d22d53a960ce55c25b48dcca9f6c5434a7d4087e21f8186d00175",
+  "dispatchReviewedOnlySha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+  "animationDispatchReviewedOnlySha256": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220",
+  "monsterFlagReviewedOnlyHashes": {
+    "MONSTERUNIQUE_CheckMonTypeFlag": "becf31d23746b7c96ec9b17a2a376e6da6bdfe3d369a8cf033b08d132f111f4c",
+    "sub_6FC6E940": "478d21df9e457eb2a2e82bc69cf37622e865de8c3e0fbd4fb30f6a68d522279c",
+    "D2GAME_SpawnMonster_6FC6F220": "e660c935ac1954b96f3ea03d898bb7165d0ffc28f50bb862dac918c422cd5b37",
+    "D2GAME_SpawnSuperUnique_6FC6F690": "9134e91b52795ac3f3ee388928c43b69017aba91d23fd130c588f41b85812fc5"
+  },
+  "inputs": {
+    "tools/probe_clay_golem_slow.py": "c724524b27e8062ff15794154f1c9ca9288aa0aa2f40540b58e3a69e09a8e96a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c"
+  },
+  "artifacts": {
+    ".local/class-skills/clay-golem-slow-source/probe.cpp": "ee1bdd7bfed428d8ac2f476e94bb14161b5c2e6fd886fa2b18a0525f648ff2ab",
+    ".local/class-skills/clay-golem-slow-source/cases.json": "4e4316781e1eac08e8f1a5723a6d87d880e7a426f5bf394b38b8e70a1e21a7be",
+    ".local/class-skills/clay-golem-slow-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/clay-golem-slow-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete incoming callback27executes1280presence/type/slow/monster-flag/allocation contexts. Zero slow and nonplayer/nonmonster targets refuse;players and flag12monsters cap50,other monsters90. A successful750frame slowed state writes attackrate/other_animrate and updates animation/velocity.",
+    "The callback does not inspect damage magnitude. ExecuteEvents dispatches successful melee damage events before health/leech,including fully mitigated contacts;miss/block/ranged events are distinct.",
+    "Reviewed state gateway refreshes skill0/rank1same-state expiry without rewriting its primary velocity stat;callback27then rewrites attackrate/other_animrate. Slow state is noncurse;Cleansing/curse resistance do not apply."
+  ],
+  "remaining": [
+    "State allocator,monster flags,stat graph and modern executable/native event/classification are declared services. Full gateway execution/current frame/room/death/event ordering still needs acceptance.",
+    "The old outgoing item19body has an inverted nonzero-value guard. Modern applicability is unresolved;do not silently replace the existing outgoing slow path with that apparent no-op."
+  ]
+}

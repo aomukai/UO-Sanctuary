@@ -11,6 +11,7 @@ public partial class ClayGolemBody:NecromancerMinion,ISourceLifeMaximum
 {
     private ClayBirthStats _clayBirth;
     private ClayBirthStats Birth=>_clayBirth??=NecromancerClayBirth.Prepare(CapturedValues,Level,SummonDifficulty);
+    internal int ReactiveSlowPercent=>Kind==CombatAbility.ClayGolem?Birth.SlowPercent:0;
     public override long SourceLife256=>Kind==CombatAbility.ClayGolem?Birth.Life256:base.SourceLife256;
     int ISourceLifeMaximum.MaximumLife256=>NpcEquipmentResources.Maximum256(this,0)??NpcEquipmentResources.UnboundLifeMaximum256(this);
     internal override int SourceRegeneration256
