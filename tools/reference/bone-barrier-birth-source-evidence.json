@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 21420,
+  "inputs": {
+    ".local/class-skills/mage-birth-source/probe.cpp": "85bee2ffba964650422e9cfa35425f9cff786cdc1e841ac2b3db4a582a2f71b8",
+    "tools/probe_bone_barrier_birth.py": "193cc9117007c88f59a0a3fcf0e51929394cfffcfffde56e377314c60f96e44f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+  },
+  "executed": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "maxHpCallbackBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "reviewedNotExecuted": {
+    "SKILLS_SrvDo060_BoneWall": "78c7945dd101e8ad9a4fae07b3a6c21aebffa8621705ce86ab959cb1abaea545",
+    "SKILLS_SrvDo062_BonePrison": "73cbd1b10078e5614770e1c3d940e874a744dedb0841ce50a9432497b7266e30",
+    "SKILLS_SrvSt19_BonePrison": "14d1c61ba5fea547bf558cba4f8897967feb01ae1c39a0dcbb55c7bd10f7764b",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519",
+    "MISSMODE_SrvDo13_BoneWallMaker": "db95ac52801c03f54f22d3ffed6c61414bd8bb8484a27af245af14b9888eee3a",
+    "D2GAME_AI_Unk084_6FCDEC70": "81d4fb604862fc9de1b8ad3554cd4256887c3ba0845e89b38d46e4ae7e41a29c",
+    "AITHINK_Fn084_BoneWall": "ef3c19852db026a031eeb47f496ac728f86fc4ddfad299ed8fd65ff30c475398"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-birth-source/probe.cpp": "7caa0291f575d62fd58c9ff3156ef3961e9b7c84670dda7efe5db16443b6cbd7",
+    ".local/class-skills/bone-barrier-birth-source/cases.json": "81c00b36e4501423461a0c282f02400d7dece4b3fbba385b0ec65d4bf8de3007",
+    ".local/class-skills/bone-barrier-birth-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-birth-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "21420 complete passive/percentage/MAXHP callback contexts retain fractional life and callback-adjusted recovery. No base-stat helper or Summon Resist helper is called by either barrier or the wall maker.",
+    "Pinned noRatio spawn inputs are fixed 19/147/431 life,35/174/334 defense and7/40/73 level. Initializer branch preserves species level for noRatio; full initializer is reviewed, not executed. HP-percent uses effective cast rank and hard Armor/other-barrier ranks; owner level changes only the recorded equipment request in this scope."
+  ],
+  "remaining": [
+    "Spawn/room/player-count/RNG/equipment/minion/event/AI/missile geometry and current executable remain outside this execution scope. Supplied one-player fixed noRatio spawn inputs are declared services, not full initializer execution.",
+    "Native learned casting, FP health/recovery/facet/save and wall growth/prison geometry still require separate acceptance. Full class completion is not claimed."
+  ]
+}

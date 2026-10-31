@@ -113,20 +113,28 @@ public partial class BoneBarrierSegment : BaseCreature
     }
     internal static BoneBarrierSegment Spawn(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values, BoneBarrierSegment root)
     {
-        int life = root?.Life ?? Math.Max(1, (int)((long)NecromancerSummons.Source("bonewall", "minHP") * (100 + values.Eval("calc1")) / 100));
-        var segment = new BoneBarrierSegment
-        {
-            _ability = ability, _root = root, _child = root != null, _life = life,
-            _sourceLevel = root?.SourceLevel ?? ClassStats.Level(owner),
-            _sourceDefense = root?.SourceDefense ?? NecromancerSummons.Source("bonewall", "AC"),
-            _expiresUtc = root?.ExpiresUtc ?? TimedEffects.Now.AddMilliseconds(values.Param(2) * 40), SummonMaster = owner
-        };
+        var prepared=root is BoneBarrierBody parent?parent.Prepared:root==null?BoneBarrierBirth.Capture(values,SummonDifficulties.For(owner.Map)):null;
+        int life = root?.Life ?? (prepared!=null?(prepared.Numbers.Life256+255)/256:Math.Max(1, (int)((long)NecromancerSummons.Source("bonewall", "minHP") * (100 + values.Eval("calc1")) / 100)));
+        BoneBarrierSegment segment=prepared==null?new BoneBarrierSegment():new BoneBarrierBody();
+        segment._ability=ability;segment._root=root;segment._child=root!=null;segment._life=life;
+        segment._sourceLevel=root?.SourceLevel??prepared?.Numbers.Level??ClassStats.Level(owner);
+        segment._sourceDefense=root?.SourceDefense??prepared?.Numbers.Defense??NecromancerSummons.Source("bonewall","AC");
+        segment._expiresUtc=root?.ExpiresUtc??TimedEffects.Now.AddMilliseconds(values.Param(2)*40);
+        segment.SummonMaster=owner;
+        if(segment is BoneBarrierBody body){body.Prepare(prepared);}
         segment.SummonEnd = segment._expiresUtc;
         segment.SetHits(life); segment.Hits = life;
         segment.SetResistance(ResistanceType.Physical, NecromancerSummons.Source("bonewall", "ResDm"));
         segment.SetResistance(ResistanceType.Cold, NecromancerSummons.Source("bonewall", "ResCo"));
         segment.SetResistance(ResistanceType.Poison, NecromancerSummons.Source("bonewall", "ResPo"));
+        if(prepared!=null){segment.ApplyBirth(prepared.Numbers);SkillHealth.SetBalance256(segment,prepared.Numbers.Life256);}
         segment.MoveToWorld(point, owner.Map); segment.AddTile(point); segment.Start(); return segment;
+    }
+    internal void ApplyBirth(BarrierBirthStats stats)
+    {
+        _life=(stats.Life256+255)/256;_sourceLevel=stats.Level;_sourceDefense=stats.Defense;SetHits(_life);
+        SetResistance(ResistanceType.Physical,stats.Physical);SetResistance(ResistanceType.Fire,stats.Fire);
+        SetResistance(ResistanceType.Cold,stats.Cold);SetResistance(ResistanceType.Poison,stats.Poison);SetResistance(ResistanceType.Energy,stats.Lightning);
     }
     internal void AddTile(Point3D point)
     {
@@ -135,7 +143,7 @@ public partial class BoneBarrierSegment : BaseCreature
     internal void Grow(double x, double y, int count) { _growX = x; _growY = y; _armLimit = count; }
     private void Start()
     {
-        _timer.Cancel(); _lastRegen = Core.TickCount;
+        _timer.Cancel(); ResetRecovery();
         Timer.StartTimer(TimeSpan.Zero, TimeSpan.FromMilliseconds(40), Tick, out _timer);
     }
     private void Tick()
@@ -143,7 +151,17 @@ public partial class BoneBarrierSegment : BaseCreature
         if (Deleted) { _timer.Cancel(); return; }
         if (!Alive || TimedEffects.Now >= _expiresUtc || _child && _root is not { Alive: true, Deleted: false }
             || SummonMaster is not PlayerMobile { Deleted: false } || Map == null || Map == Map.Internal) { Delete(); return; }
-        long elapsed = Math.Max(0, Core.TickCount - _lastRegen); _lastRegen = Core.TickCount;
+        RecoverLife(Core.TickCount);
+        if (_child || _ability != CombatAbility.BoneWall || _left >= _armLimit && _right >= _armLimit) { return; }
+        _growthFrame++;
+        double distance = _growthFrame * SkillGeometry.Velocity(NecromancerSummons.Source("bonewallmaker", "Vel"));
+        if (_left < _armLimit && distance >= _left + 1) { Extend(-1, ref _left); }
+        if (_right < _armLimit && distance >= _right + 1) { Extend(1, ref _right); }
+    }
+    protected virtual void ResetRecovery(){_lastRegen=Core.TickCount;_regenFraction=0;}
+    protected virtual void RecoverLife(long now)
+    {
+        long elapsed = Math.Max(0, now - _lastRegen); _lastRegen = now;
         if (Hits < HitsMax && TimedEffects.CanRegenerateHits(this))
         {
             int regen = (NecromancerSummons.Source("bonewall", "minHP") * 256 * NecromancerSummons.Source("bonewall", "DamageRegen")) >> 12;
@@ -151,11 +169,6 @@ public partial class BoneBarrierSegment : BaseCreature
             int healing = (int)Math.Min(HitsMax - Hits, _regenFraction / 256000); _regenFraction %= 256000; Hits += healing;
         }
         else { _regenFraction = 0; }
-        if (_child || _ability != CombatAbility.BoneWall || _left >= _armLimit && _right >= _armLimit) { return; }
-        _growthFrame++;
-        double distance = _growthFrame * SkillGeometry.Velocity(NecromancerSummons.Source("bonewallmaker", "Vel"));
-        if (_left < _armLimit && distance >= _left + 1) { Extend(-1, ref _left); }
-        if (_right < _armLimit && distance >= _right + 1) { Extend(1, ref _right); }
     }
     private void Extend(int sign, ref int count)
     {

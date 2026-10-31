@@ -1,0 +1,99 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bone Wall/Prison birth, FP health/recovery and owner facet resources",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 7,
+  "run": 2,
+  "auditRun": 2,
+  "verified": {
+    "nativeMarkers": 34,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      856,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "connectedCasts": 6,
+    "naturalTwentyFourSecondExpiries": 6,
+    "sourceContexts": 21420,
+    "reviewedAdditionalBodies": 8,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/bone-barrier-birth/birth-inputs.json",
+      "sha256": "140971a69c81662d902d3ae7f085761714d61eabe436a63ee723c4bdedb551a9"
+    },
+    "audit": {
+      "path": ".local/class-skills/bone-barrier-birth/audit-inputs.json",
+      "sha256": "d2793fa9e4d00b92f7149ac89b25a7c3e36fc9786dbeac3b9a95bf00052fafb5"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BoneBarrierBirth.cs": "78dbda4708bc9122c50b74f243f169b5ab00be7841464d5a031fd223bb4accc3",
+    "src/Sanctuary.Content/BoneBarrierBody.cs": "1837696f46c314e2deb54f88582a040bfcc7486c61a6a7d99cabc671e2446b1a",
+    "src/Sanctuary.Content/BoneBarriers.cs": "ebaf4afaa1898a6301b1a8891cb2bbd241e1f9788f7ce5cacaf49cc3e78023e0",
+    "src/Sanctuary.Content/NpcEquipmentRegeneration.cs": "06c64abfd2b3f8fe19f7548b219456cc018a58755ca6d937c422bfe95e44163e",
+    "src/Sanctuary.Content/SummonDifficulties.cs": "e352b4712b5edeaadffe0ee0a4c36c802418ef618f4600eb89e02d8cee5e08e2",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "388b46530d28acf3f91b7aeda14b45013f41dd0a3211d90064bb13999475688e",
+    "tests/Sanctuary.Integration/BoneBarrierChecks.cs": "0c23c6ff2ecaffe1d762fc07736bb00c5839948f7a780d51e44d5ab617fb698e"
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-birth/audit-inputs.json": "d2793fa9e4d00b92f7149ac89b25a7c3e36fc9786dbeac3b9a95bf00052fafb5",
+    ".local/class-skills/bone-barrier-birth/audit-native-checks.log": "12001f195a34c61b6bd4d9542bfe02bbdc74a9507cf10c563671d7aff8982a10",
+    ".local/class-skills/bone-barrier-birth/audit-run-2.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/bone-barrier-birth/birth-inputs.json": "140971a69c81662d902d3ae7f085761714d61eabe436a63ee723c4bdedb551a9",
+    ".local/class-skills/bone-barrier-birth/birth-native-checks.log": "347689c4cc8ea83c834d2c9e09ec9d7c5f4a3a7abfec153a5163c47711e5c19b",
+    ".local/class-skills/bone-barrier-birth/bone-barrier-birth-fixtures.json": "51526691d69c7d0bdf4323bd09b7e67093ceb7b955e14c4407fc1e24ee025856",
+    ".local/class-skills/bone-barrier-birth/bone-barrier-checks.json": "8b687799749e654e57f56b92c07628703123376cc51b144548ca741dbfa5bf5e",
+    ".local/class-skills/bone-barrier-birth/content-build-7.log": "3d43bbd430c7fcc2a8048c9b40564f495d93cd9b9a4b2b166ce676b05c8150f5",
+    ".local/class-skills/bone-barrier-birth/integration-build-7.log": "a7ec99f08fb5624bc4ea2b05f289fa9175b329b3d5d0397bae7e0c7cc8595f47",
+    ".local/class-skills/bone-barrier-birth/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/bone-barrier-birth/npc-equipment-regeneration-fixtures.json": "ac285890706ea0792726b0ff78c06df1c9c01bb43dad269acd815bca01edd3d6",
+    ".local/class-skills/bone-barrier-birth/pre-build-7.json": "e05974df27d0a2596abecaecaad2b06e1f79a6c08331ac9a5661e82a61ebdd11",
+    ".local/class-skills/bone-barrier-birth/python-tests.log": "e3caea1ad87f8a5985c7958d84d5b833fed13447db182ba458f63252f67db810",
+    ".local/class-skills/bone-barrier-birth/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "docs/bone-barrier-birth-checkpoint.md": "28ee406e9b1e7e3682fb9d8306235b64a81d603d01bb14077fe09398d1b576ce",
+    "docs/class-skill-roadmap.md": "3c2ec3fd0ef1ab873730894e3844d8189f7ac726495b8f306d2314344a0d4e0b",
+    "docs/class-skills-resume-checkpoint.md": "9933d1c063cf243057cfb6f3b5a74e7f0b5c29bc29b9e5229534913902f39452",
+    "docs/necromancer-mechanical-audit.md": "17f15f8181d68d021f5bc4ff55a7d1408bb16a11222d8e20c461f312fcb8edb0",
+    "docs/skill-effects.md": "040e4da8ab465f15c1fe811c45d4a4cc3fe59c0cdb7c6e4be5ba8f540688922b",
+    "docs/skill-icons.md": "4bf64baea5e72831b235c7c1eb61d38fa58e1c0b52a4b89b309394c4316230e4",
+    "docs/skill-mechanical-reference.md": "ccd9f9aee99e2a4d71e5a63fce5b9996c65ab9df7804d3bba795f2c0fe97b583",
+    "src/Sanctuary.Content/BoneBarrierBirth.cs": "78dbda4708bc9122c50b74f243f169b5ab00be7841464d5a031fd223bb4accc3",
+    "src/Sanctuary.Content/BoneBarrierBody.cs": "1837696f46c314e2deb54f88582a040bfcc7486c61a6a7d99cabc671e2446b1a",
+    "src/Sanctuary.Content/BoneBarriers.cs": "ebaf4afaa1898a6301b1a8891cb2bbd241e1f9788f7ce5cacaf49cc3e78023e0",
+    "src/Sanctuary.Content/NpcEquipmentRegeneration.cs": "06c64abfd2b3f8fe19f7548b219456cc018a58755ca6d937c422bfe95e44163e",
+    "src/Sanctuary.Content/SummonDifficulties.cs": "e352b4712b5edeaadffe0ee0a4c36c802418ef618f4600eb89e02d8cee5e08e2",
+    "tests/Sanctuary.Integration/BoneBarrierBirthChecks.cs": "388b46530d28acf3f91b7aeda14b45013f41dd0a3211d90064bb13999475688e",
+    "tests/Sanctuary.Integration/BoneBarrierChecks.cs": "0c23c6ff2ecaffe1d762fc07736bb00c5839948f7a780d51e44d5ab617fb698e",
+    "tests/check_bone_barrier_birth.py": "75029872a218312a54b0e532ea3da58e8b0652a8cf89dfe54d275407cbc28138",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/probe_bone_barrier_birth.py": "193cc9117007c88f59a0a3fcf0e51929394cfffcfffde56e377314c60f96e44f",
+    "tools/record_bone_barrier_birth.py": "b4b7db8a4367300f4776e27280bbaf43d6401e9fae55ee5ba2c7d6dce203fbdc",
+    "tools/reference/attract-cast-native-evidence.json": "7a6c14b14b57068f08c109e5a19d9277af3f303f74c4fc3cfe31d5bd7e9f220a",
+    "tools/reference/bone-barrier-birth-source-evidence.json": "cca1e03c6c5d1433b2470cffcccdcbb69d803de2fe2adbdc245a10dad6f2c5e8",
+    "tools/reference/first-loop-affix-audit.json": "66808025760b17f3c3236345196d343ae3ab63ecfdefb0f042b8ec8312445976",
+    "tools/reference/named-item-runtime-audit.json": "8f90a8b143dd4a9ec2994899b53bb91406a16eedfb10cebd6641ac9e1d8412be"
+  },
+  "established": [
+    "New learned barriers capture fixed noRatio difficulty stats and exact passive/MAXHP callback results through the shared NecromancerMageBirth.Resources helper. FP256 life, native ceiling and callback recovery are delivered through SkillHealth and the existing NPC recovery clock. Barriers do not receive the skeleton base/level adjustment or Summon Resist.",
+    "Effective cast rank and hard Armor/other-barrier ranks are captured independently. Owner difficulty transitions rescale existing wounds with the common life-percentage helper while bodies remain in the old map and keep their expiry. Native defense/resistance/level delivery and recovery/PMH/cancellation controls pass.",
+    "New bodies have an immutable saved recipe in a new subtype. Each save stages a fresh normal-lifetime cohort; both reloads verify their actual prior actor, wounds, owner, recipe, deadline and collision link. No lifetime extension or same-actor-through-entire-suite claim. Historical plain type/layout/resource code is retained; actual old-build upgrade remains unverified.",
+    "Six real rightWall/quickPrison casts pay once and retire bodies/collision after 24 seconds. Existing barrier collision/firebolt/destruction and NPC equipment recovery regressions pass. 34 native markers, four audits,71Python,573unchanged named decisions,856/21fingerprints and clean builds pass; runtime data/kernel/installed106 unchanged."
+  ],
+  "remaining": [
+    "Full spawn/player-count/room/RNG/equipment/event/AI/current-executable parity is outside the supplied fixed one-player noRatio services. Eight complete bodies are statically reviewed rather than executed. Source passive/percentage/MAXHP comparisons do not certify the complete engine.",
+    "Occupied-target spawn fallback, Prison non-hostile eligibility and allocation-failure payment, growth placement/cadence, prison raster/order, terrain/projectile exceptions, root/death animation/minion timing, owner-death behavior and actual old-build migration remain unfinished. No whole skill/class or extended cohort completion claim.",
+    "Bodies/effects/audio and talent/hotkey icons remain separate identified placeholders. Approved pet upgrades and safe-area parking remain queued."
+  ]
+}

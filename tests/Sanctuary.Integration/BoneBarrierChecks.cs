@@ -65,7 +65,7 @@ public static class BoneBarrierChecks
                 "Untargeted Bone Prison spent resources");
             Require(NecromancerCombat.Release(owner, CombatAbility.BoneWall, Serial.Zero, center), "Bone Wall release");
             wall = Segments(owner, center).Single();
-            Require(owner.Mana == mana - 17 && wall.Life == 22 && wall.HitsMax == 22 && wall.SourceDefense == 35
+            Require(owner.Mana == mana - 17 && wall.Life == 23 && wall.HitsMax == 23 && wall.SourceDefense == 35
                 && wall.ColdResistance == 70 && wall.PoisonResistance == 70, "Barrier source stats, hard synergies or mana");
             Require(ClassCombat.Friendly(owner, wall) && !AlliedOverlap.PassThrough(owner, wall)
                 && enemy.IsEnemy(wall) && enemy.CanBeHarmful(wall, false), "Barrier allegiance, collision or hostile targeting");
@@ -74,9 +74,9 @@ public static class BoneBarrierChecks
                 "Hostile AI did not acquire the closer barrier");
             int life = owner.Hits;
             AOS.Damage(owner, enemy, 5, false, 100, 0, 0, 0, 0, archer: true, weaponDamage: true);
-            Require(owner.Hits == life && wall.Hits == 17, "Native arrow did not hit intervening destructible barrier");
+            Require(owner.Hits == life && wall.Hits == 18, "Native arrow did not hit intervening destructible barrier");
             AOS.Damage(wall, owner, 100, false, 100, 0, 0, 0, 0, weaponDamage: true);
-            Require(wall.Hits == 17, "Friendly barrier took allied damage");
+            Require(wall.Hits == 18, "Friendly barrier took allied damage");
             Require(owner.Map.LineOfSight(new Point3D(owner.X, owner.Y, owner.Z + 12), new Point3D(enemy.X, enemy.Y, enemy.Z + 12)),
                 "Barrier collision blocked allied spell LOS");
             Require(caster.BeginFirebolt(owner), "Hostile projectile fixture did not launch"); caster.AIObject.AITimer.Stop();
@@ -86,7 +86,7 @@ public static class BoneBarrierChecks
                 try
                 {
                     var parts = Segments(owner, center);
-                    Require(owner.Hits == life && root.Hits is >= 7 and <= 11, "Travelling hostile firebolt bypassed intervening barrier");
+                    Require(owner.Hits == life && root.Hits is >= 8 and <= 13, "Travelling hostile firebolt bypassed intervening barrier");
                     caster.Delete();
                     Require(parts.Length == 9, "Bone Wall did not grow both source arms");
                     Require(!Server.Movement.Movement.CheckMovement(owner, owner.Map, new Point3D(center.X + 1, center.Y, center.Z), Direction.West, out _),

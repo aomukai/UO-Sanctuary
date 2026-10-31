@@ -122,5 +122,6 @@ public static class SummonDifficulties
             {sentry.RescaleDifficulty(difficulty);}
         }
         ReviveFacets.Sync(owner);
+        BoneBarrierBody.RescaleFor(owner,difficulty);
     }
 }
