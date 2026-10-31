@@ -109,7 +109,8 @@ public static class SkeletonCombatChecks
         NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(0));ulong expectedSeed=SourceRandom.InitLow(0);SourceRandom.Limited(ref expectedSeed,100);
         int expected=NpcEquipmentDamage.Roll256(pet.UnarmedPhysical,n=>(int)SourceRandom.Limited(ref expectedSeed,n));if(SourceRandom.Roll(ref expectedSeed)%100<5){expected*=2;}
         int before=SkillHealth.Balance256(target);bool early=false;
-        void Clean(){pet.Delete();target.Corpse?.Delete();target.Delete();p.Delete();}
+        var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        void Clean(){SourceBlocking.BlockRoll=block;pet.Delete();target.Corpse?.Delete();target.Delete();p.Delete();}
         FixtureClock.NextLoop("skeleton-combat-live-result",()=>
         {
             try
@@ -117,11 +118,13 @@ public static class SkeletonCombatChecks
                 Require(pet.BeginMelee(target)==TimeSpan.FromMilliseconds(760),"Actual A1 cycle was not760ms");Log.Information("skeleton-combat-live: ready");
                 Timer.StartTimer(TimeSpan.FromMilliseconds(400),()=>
                 {try{Require(SkillHealth.Balance256(target)==before,"A1 hit before the source action frame12");early=true;}catch(Exception e){Clean();Log.Error(e,"skeleton-combat-live-result: failed");}});
-                Timer.StartTimer(TimeSpan.FromMilliseconds(1000),()=>
+                // Observe after action480ms and before the next cycle760ms, whose
+                // start now legitimately allocates the next packet and advances RNG.
+                Timer.StartTimer(TimeSpan.FromMilliseconds(600),()=>
                 {
                     try
                     {
-                        Require(early&&before-SkillHealth.Balance256(target)==expected&&NpcEquipmentRandom.State(pet).Seed==expectedSeed&&network.Running,"Actual480ms release/FP packet/source draw order");
+                        Require(early&&before-SkillHealth.Balance256(target)==expected&&NpcEquipmentRandom.State(pet).Seed==expectedSeed&&network.Running, $"Actual480ms release/FP packet/source draw order: early={early}, loss={before-SkillHealth.Balance256(target)}/{expected}, seed={NpcEquipmentRandom.State(pet).Seed}/{expectedSeed}, network={network.Running}, fallback={pet.LegacyContactReason}");
                         Clean();Log.Information("skeleton-combat-live-result: passed");
                     }
                     catch(Exception e){Clean();Log.Error(e,"skeleton-combat-live-result: failed");}

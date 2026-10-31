@@ -64,7 +64,7 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     internal override int TargetClass=>MetadataValue.Class;
     internal override bool HasRoom()=>Target.Map is{} map&&map!=Map.Internal;
     internal override bool RoomInTown()=>SpellHelper.IsTown(Target.Location,Owner);
-    internal override bool? AttackerTownRule()=>Source is IronGolemBody?Identity("irongolem").Town
+    internal override bool? AttackerTownRule()=>Source is SkeletonGuardian actor?Identity(actor.SourceMonsterId).Town
         :throw new NotSupportedException("This native return source has no NPC town rule");
     internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(Target);
     internal override bool Frozen()=>Target.Frozen||NamedControl.FrozenRemaining(Target)>0;

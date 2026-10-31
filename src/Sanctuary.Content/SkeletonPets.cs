@@ -277,6 +277,14 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         && IsEnemy(target) && target.Map == Map && InRange(target, RangeFight) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
     protected virtual (int Cycle,int Action) MeleeClock()
     {int cycle=PaladinOffense.CreatureCycle(this,CombatProfile.AttackMs);return(cycle,cycle/2);}
+    protected virtual bool PrepareMeleeContact(Mobile target)=>true;
+    protected virtual bool CanReleaseMeleeContact(Mobile target)=>CanHit(target);
+    protected virtual void DiscardMeleeContact(){}
+    protected virtual void ResolveMeleeContact(Mobile target)
+    {
+        using var attemptedMelee=PaladinThorns.Attempt(this,target,this is NecromancerMinion{IsMage:true});
+        if(CheckAttackHit(target)){Strike(target);}
+    }
     public virtual TimeSpan BeginMelee(Mobile target)
     {
         var clock=MeleeClock();int milliseconds=clock.Cycle;
@@ -285,6 +293,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         {
             return cycle;
         }
+        if(!PrepareMeleeContact(target)){return cycle;}
         _target = target;
         _origin = Location;
         _originMap = Map;
@@ -299,12 +308,10 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     {
         var target = _target;
         _target = null;
-        if (Map == _originMap && Location == _origin && CanHit(target))
-        {
-            using var attemptedMelee=PaladinThorns.Attempt(this,target,this is NecromancerMinion{IsMage:true});
-            if(CheckAttackHit(target)){Strike(target);}
-        }
+        if (Map == _originMap && Location == _origin && CanReleaseMeleeContact(target)){ResolveMeleeContact(target);}
+        else{DiscardMeleeContact();}
         _originMap = null;
+        DiscardMeleeContact();
     }
     protected virtual bool CheckAttackHit(Mobile target) => ClassStats.CheckHit(this, target) == true;
     protected virtual void Strike(Mobile target)
@@ -315,6 +322,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     internal virtual void InterruptForRecovery()
     {
+        DiscardMeleeContact();
         _attackTimer.Cancel();
         _target = null;
         _originMap = null;
@@ -349,6 +357,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     public virtual void SuspendActions()
     {
+        DiscardMeleeContact();
         ResetLifeRecovery();
         _attackTimer.Cancel();
         _target = null;

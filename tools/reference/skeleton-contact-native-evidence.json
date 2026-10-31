@@ -1,0 +1,115 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Regular skeleton prepared start/result/block/contact/health/return",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 5,
+  "run": 5,
+  "verified": {
+    "nativeMarkers": 300,
+    "retainedPredecessorMarkers": 297,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      832,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "actualMeleeCycles": 3,
+    "finalSavedGeneration": 2,
+    "finalSavedSeed": 2860448219309,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/skeleton-contact/birth-inputs.json",
+      "sha256": "240d342fc09cffa13997d3b6c3d38e3305afda0f883646e92a6f1fcf2d2508b3"
+    },
+    "audit": {
+      "path": ".local/class-skills/skeleton-contact/audit-inputs.json",
+      "sha256": "ad78ffdd0a788a369104273b48bb91b7c4ea8fdc2bf2d3db491c0df272971d28"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/IronGolemContact.cs": "2ae93f388a23c2acd3239650cb91bfa2b0ef552abd08b8655259eb23d917299d",
+    "src/Sanctuary.Content/NativeMonsterReturn.cs": "1916746898b5bc69d21f6263b38b5f45b0ad2dc6d9cc57f52b7239152a54ec66",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "229bb18c95bf0bcf8382d34691afea4664a2df6b8ecb91f782c7e7db50132ebb",
+    "src/Sanctuary.Content/SkeletonPets.cs": "eece72f0d2056fce96ed6bc90e87e9120faff2ca717e233c87fe42afcb842838",
+    "tests/Sanctuary.Integration/SkeletonCombatChecks.cs": "ac1e12d6ea1d91c0b792ea383fd5037925f9859ea5eac3a2ad8132ebcc82b2a4",
+    "tests/Sanctuary.Integration/SkeletonContactChecks.cs": "d7e19e58d58b55ce28c0178e01ca644993ff169cfff6499b2cf55e03966e6497"
+  },
+  "artifacts": {
+    ".local/class-skills/skeleton-contact/audit-inputs.json": "ad78ffdd0a788a369104273b48bb91b7c4ea8fdc2bf2d3db491c0df272971d28",
+    ".local/class-skills/skeleton-contact/audit-native-checks.log": "0e8f10cef407bf34402451d2811e89300b0a68168e6e044a69015d1dfce19ccf",
+    ".local/class-skills/skeleton-contact/audit-run-5.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/skeleton-contact/birth-inputs.json": "240d342fc09cffa13997d3b6c3d38e3305afda0f883646e92a6f1fcf2d2508b3",
+    ".local/class-skills/skeleton-contact/birth-native-checks.log": "c668d3496386a6432905e2706b46750cbf6fd5066c6df1b2cde4ccd36da5daa0",
+    ".local/class-skills/skeleton-contact/content-build-5.log": "3e9494bdfa9e3e07063fec1f886fcc7102fdf183e1cef41d13f353699b4591c7",
+    ".local/class-skills/skeleton-contact/diagnostic-live-4-birth-inputs.json": "79982b6991a7c3be877b5614ad079b9ecd89b05daeb70d6c6366f23b1cb75a8d",
+    ".local/class-skills/skeleton-contact/diagnostic-live-4-birth-native-checks.log": "cf3c5d953ef2fcd7f537b84c5652f0d3e3708329a75fa6a14916f022c63411d2",
+    ".local/class-skills/skeleton-contact/failed-run-3-birth-inputs.json": "ed9c0cc41119d7b20146b12087285a283462f9b19f1f04a9811819ddba9bd3ae",
+    ".local/class-skills/skeleton-contact/failed-run-3-birth-native-checks.log": "e9071742cd0acae9e495aafd5b22ae98c2c3c15b4486286b020af9eb47daed4b",
+    ".local/class-skills/skeleton-contact/integration-build-5.log": "467d9d5ba23dbcce2ebde0fb19433ef42c122ca116164e64edb7f573ea114e9e",
+    ".local/class-skills/skeleton-contact/iron-golem-cast-fixtures.json": "bf59343cddd7a5787e705efb06753cfbe87224bdf34f8395be4a75cc7378b713",
+    ".local/class-skills/skeleton-contact/live-4.log": "2a31f9f3e6510e24d3f0ee42a009f4d76b309fb7e9551bf96d7c2f44b29375a0",
+    ".local/class-skills/skeleton-contact/pre-build-5.json": "54562e65b63c4f419e74cb8f1feedbc532ad181a5ee0fa975807c53be67d19ac",
+    ".local/class-skills/skeleton-contact/python-tests.log": "bbbfee611b3a70f9d4f493daf94cc7e1c51059b74ca269d0ccf4d1660c3fe118",
+    ".local/class-skills/skeleton-contact/run-3.log": "1e69841a5ce06bbb6360caab408c7084d4e50ebee25e3dea31109eb7d7038bcd",
+    ".local/class-skills/skeleton-contact/run-5.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/skeleton-contact/skeleton-contact-fixtures.json": "058bf407399e1b1c68472dc5359324355a92dc2a3e7f413d59c6dbf942b81cd9",
+    "data/Sanctuary/Balance/necromancer-summons.json": "ce221e90fc59f51f4a9b52745f3d616b2d252696fc4ea29709f136dce9ecf52e",
+    "docs/class-skill-roadmap.md": "d1c255a7cadd4b19bce125c0721bc4795a02fe29dc1100a6a13b1dcdf385bd22",
+    "docs/class-skills-resume-checkpoint.md": "9d0ff68382eec44eea45a9a97d01b7117cf6090858439f971b42e2103ae7f73f",
+    "docs/necromancer-mechanical-audit.md": "9fff631ac6eb49fe24327659df2f91393f4fb9fd5b18df81e63438624ac4f595",
+    "docs/skeleton-contact-checkpoint.md": "3c0d7a36fe991291679fdf6a966dea94e2e019134d4076b28d67894467629821",
+    "docs/skill-effects.md": "6ba9d34c8400553f222400a72a97c117991aef8429f822ae7a101da3c29b983f",
+    "docs/skill-icons.md": "70c40dc6ec33e12e6be47d2ee8126fc08bf5dd31004ea2b2a22b34ae55da2814",
+    "docs/skill-mechanical-reference.md": "7f6989627527ab9f384936ae84ccd60a620989e5ae12fc45ce6d2fce510419ae",
+    "src/Sanctuary.Content/IronGolemContact.cs": "2ae93f388a23c2acd3239650cb91bfa2b0ef552abd08b8655259eb23d917299d",
+    "src/Sanctuary.Content/NativeMonsterReturn.cs": "1916746898b5bc69d21f6263b38b5f45b0ad2dc6d9cc57f52b7239152a54ec66",
+    "src/Sanctuary.Content/RaisedSkeletonContact.cs": "229bb18c95bf0bcf8382d34691afea4664a2df6b8ecb91f782c7e7db50132ebb",
+    "src/Sanctuary.Content/SkeletonPets.cs": "eece72f0d2056fce96ed6bc90e87e9120faff2ca717e233c87fe42afcb842838",
+    "tests/Sanctuary.Integration/SkeletonCombatChecks.cs": "ac1e12d6ea1d91c0b792ea383fd5037925f9859ea5eac3a2ad8132ebcc82b2a4",
+    "tests/Sanctuary.Integration/SkeletonContactChecks.cs": "d7e19e58d58b55ce28c0178e01ca644993ff169cfff6499b2cf55e03966e6497",
+    "tests/check_skeleton_contact.py": "aaefabb09f923daa5e74f447cc40ca42b1d6fcda61ff1f1f6a9f22ce61f87da4",
+    "tools/build_class_skills.py": "3b944bbd484c353f22ae22c3c88c3aa21de7049d0990e1dbfca9bd247013f8bb",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/record_skeleton_contact.py": "7f571593634bfda64451a1d6e294b74d5783f0ac3c55d9167190d539968db631",
+    "tools/reference/first-loop-affix-audit.json": "3e39e4edc883c743c6fe6df40fd4753580541d41f8f40cb1a8b505a775e74ea2",
+    "tools/reference/named-item-runtime-audit.json": "bce4a84d8e9cf476cb6d925386b1b9a56534d6faa926486e3d3a60ff598f9366",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-combat-native-evidence.json": "4344747a0b2e6255125c4cdf2492e2ef6bef50fa6ba344c7d7829abc539e21c7",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "New learned skeletons capture mapped NPC hit/block/result and the shared immutable FP256 impact at A1 start; the existing timed action releases it through the common ordered consumer. Source hit/damage RNG is not repeated at release. Out-of-range and canceled actions consume/discard their packet without HP or replay.",
+    "Native controls cover actual recipient shield blocking before damage fill, captured resistance despite a later change, Life Tap before otherwise lethal flat/percentage retaliation, exact-zero native death and owner kill credit. Three connected timed A1 attacks and all predecessor Iron/original-item/contact/resource controls remain.",
+    "Shared consumer extraction preserves the Iron Golem entry point. Regular skeletons use an explicit native elite recovery callback. Unsupported recipient metadata, equipment-event and damage overrides report the existing native fallback before allocation; failures after allocation never retry a potentially mutated attack.",
+    "Two actual reloads preserve parked subtype/owner/source seed without retaining or replaying canceled pending contacts. Four audits/71Python preserve573named decisions and106installed artifacts;runtime data and staged kernel are unchanged."
+  ],
+  "remaining": [
+    "Initial S1/AI67 targeting/movement, final shield/component distribution, native geometry/global-frame/seed/current executable/client parity and live mid-animation rate changes remain unverified. Pending contacts are intentionally transient,not resumed across a save.",
+    "Unmapped native UO recipients, unsupported original-equipment events, uninterruptible/death delay, Paragon and native damage overrides retain an explicitly reported legacy bridge. Complete source event composition, dynamic post-capture capability changes and all special recipient/PvP adapters are not certified.",
+    "Regular Mage, other golem and curse acceptance continues. No complete class,deployment or new1180-marker broad run is claimed. Final effects/audio and talent/hotkey icons remain separate pending ledgers."
+  ]
+}
