@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Skeletal Mage birth/resource correction](mage-birth-checkpoint.md) adds no visual/audio producer. Native summon particles, body/attack poses and typed projectile markers remain identified placeholders. Final summon formation, directional/attack/recovery/death frames, elemental travel/impact/state effects and audio remain pending independently of mechanics.
+
 The [Skeletal Mage flight path](mage-missiles-checkpoint.md) uses native body/attack pose and typed position markers as identified placeholders. Raise Skeletal Mage needs final poison/cold/fire/lightning travel and impact effects (`necromage1..4`, fire's `shamanexp` presentation), cold/poison state effects, directional/attack frames and audio. Mechanical collision is now independent of the placeholder visuals. Its talent/hotkey icon remains in the separate icon ledger.
 
 The [weapon-start correction](weapon-start-checkpoint.md) adds no new visual or audio producer. Prevent Monster Heal and flat armor loss use existing state services; final Poison Dagger effects/audio remain pending alongside the identified native placeholders. The separate talent/hotkey icon ledger is unchanged.

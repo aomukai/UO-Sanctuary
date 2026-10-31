@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete base/passive/resistance bodies and complete MAXHP callback branch with explicit current mage/table/formula/stat services;not the full spawn initializer or modern executable.",
+  "cases": 11475,
+  "functions": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SetSummonResistance_6FD0C2E0": "120c65ea8317bc6ddf00560388a8a3185ceadfc7d340bc00cb08a04a29b422f3"
+  },
+  "maxHpCallbackBranchSha256": "026ea9f0adb05aafa3a36e9c4ae51445e2834f4865723737b2be68c2264dfe6b",
+  "inputs": {
+    ".local/class-skills/iron-golem-birth-source/source.cpp": "770d5922e17ef42824ca238ac42e208aad3c9e30ea7cb8d489ee77a75e34cc71",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+  },
+  "artifacts": {
+    ".local/class-skills/mage-birth-source/probe.cpp": "85bee2ffba964650422e9cfa35425f9cff786cdc1e841ac2b3db4a582a2f71b8",
+    ".local/class-skills/mage-birth-source/cases.json": "c44d320a5c0b04e5f9a439afcb127c1757bde631351330c941714bef8ade9746",
+    ".local/class-skills/mage-birth-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/mage-birth-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Current fixed noRatio mage life bases61/88/123 enter as FP256. Mastery flat maxhp is added before rank life growth;the full FP result is retained.",
+    "The shared default pet level and expansion monlvl armor/AR compose with the armor aura. The missile skill rank follows current sumsk1calc;requested equipment level is recorded without inventing generated equipment.",
+    "The complete MAXHP callback derives changed regeneration from floor(maxHP/256)*DamageRegen>>4. Rank1/mastery0 keeps spawn regeneration15/22/30;rank4/mastery0 Normal writes67.09765625 life and regeneration16.",
+    "Elemental Summon Resist is applied in the same complete helper,with raw absorb pools0 and supplied bonus0/20/52/65/75. Modern sunder slots are present butzero;nonzero live inputs stay explicitly unsupported."
+  ],
+  "remaining": [
+    "The initializer/component/AI clocks and modern NPC stat graph are not executed by these supplied scalar services. Source Summon Resist display rounding retains its earlier independent reference conflict.",
+    "Full death/reaction,immunity-pierce and legacy-content migration remain separate. Native ceilings and facet rescaling are Sanctuary adapters,verified through actor tests."
+  ]
+}

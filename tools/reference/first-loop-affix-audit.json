@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "40d862f16eb0849e3d84c0d481dcd502aa7d52d502ee71c610f87ce359a04647",
-  "ContentAssemblyPath": ".local/class-skills/mage-missiles/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "fdd6c3874802ebc1ae733edd03c328653b1d3f55e3dc8f37a8c55c8562ec6149",
+  "ContentAssemblyPath": ".local/class-skills/mage-birth/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

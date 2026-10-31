@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Skeletal Mage birth/resource correction](mage-birth-checkpoint.md) adds no binding or independent skill icon. Raise Skeletal Mage still needs final talent-tree and hotkey art; four elemental minion attacks do not need separate player bindings. Effects/audio remain in the separate ledger.
+
 Raise Skeletal Mage's talent-tree and hotkey icons remain pending after the [traveling projectile change](mage-missiles-checkpoint.md). The four elemental minion attacks introduce no new player skill bindings or independent talent icons. Final body/projectile/effect/audio assets remain in their separate register.
 
 The [weapon-start correction](weapon-start-checkpoint.md) adds no skill binding or independent icon. Final Poison Dagger talent/hotkey art remains pending; mechanical checks do not certify placeholder art. Effects/audio remain separately tracked.

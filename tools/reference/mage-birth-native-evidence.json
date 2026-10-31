@@ -1,0 +1,96 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Skeletal Mage birth and exact resources",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 1,
+  "verified": {
+    "nativeMarkers": 142,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "sourceBirthCasesPerBoot": 11475,
+    "retainedPredecessorMarkers": 136,
+    "finalSavedGeneration": 2,
+    "finalSavedLife256": 9045,
+    "exactMageMaximum256": 17177,
+    "regeneration256": 16,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      824,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/mage-birth/birth-inputs.json",
+      "sha256": "5f24a4a8527e9fc38a6987da272fb274921a91c6b4a6a4fef300984c83176afe"
+    },
+    "audit": {
+      "path": ".local/class-skills/mage-birth/audit-inputs.json",
+      "sha256": "dd8e33ac6ed02cab2fede1bc166ccc0544232b48461965b1e996a380091ab54d"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerCombat.cs": "ef49ed2178f1025edecad3d2919816dd325a7af84d1658539c7af4a9efddf8f2",
+    "src/Sanctuary.Content/NecromancerMageBirth.cs": "43d81876ea008705747b91f1010ac11b86c4716120c90f68a9e072833a330e2e",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "bfe64d53bd5e35b31b88dcedb9474a52fcd7cc43baec9b16292563da0df9abbf",
+    "src/Sanctuary.Content/SkeletonPets.cs": "05504e295c93be764fc9780dc21ca0448a423b205e5bc7e60b0a428a193c873f",
+    "src/Sanctuary.Content/SkillHealth.cs": "677ae5b4beb21842bb6cc6dc87e33604507d478fc3377471670a500970b091e8",
+    "tests/Sanctuary.Integration/MageBirthChecks.cs": "fd4f4b3f2958d19f42389071f93cdb0db970a6157d4bd7dd501befc2d8687c9e"
+  },
+  "artifacts": {
+    ".local/class-skills/mage-birth/audit-inputs.json": "dd8e33ac6ed02cab2fede1bc166ccc0544232b48461965b1e996a380091ab54d",
+    ".local/class-skills/mage-birth/audit-native-checks.log": "2b63cdcd2a343782fe8274b6c090f8d094fb501945597713882a895278275ef0",
+    ".local/class-skills/mage-birth/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/mage-birth/birth-inputs.json": "5f24a4a8527e9fc38a6987da272fb274921a91c6b4a6a4fef300984c83176afe",
+    ".local/class-skills/mage-birth/birth-native-checks.log": "8e9d1923cbe3f72ad01901277b6a5298e5b21f43bfc45719d9fcf4070ed6c8dc",
+    ".local/class-skills/mage-birth/content-build-2.log": "432da6e3f7480bfc4146aa052f6c39ae6640fe1e44ebd007e327ce6c4251de18",
+    ".local/class-skills/mage-birth/integration-build-2.log": "83d61b15b1630283fbb13c60570d7d3053b2adfdb772128414d57b4d7f026acd",
+    ".local/class-skills/mage-birth/mage-birth-fixtures.json": "144db185cd8476c7bcac5f14d5890afb7d182b88ec3c114ffecd771e8343b248",
+    ".local/class-skills/mage-birth/pre-build-2.json": "dc9884a0bdcdd43cebc021aa3d0a83eebfecc13321ee35514a31a5ce1655cee5",
+    ".local/class-skills/mage-birth/python-tests.log": "4453eb797bceca0331ce326304a05410006cf9fa57df308cef8b646fd8dc83ee",
+    ".local/class-skills/mage-birth/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/mage-missiles/birth-native-checks.log": "1e396042ce48153a5b360cb21ab8f7bd10c8c9891a0f8c6275dafe5d3e85f2bb",
+    "docs/class-skill-roadmap.md": "8d49db934d182c901bb4719fdc2bfc004fd7cc8cdc33918300b99f0ae1900d54",
+    "docs/class-skills-resume-checkpoint.md": "e57b11960abf61067981f117d3c3e7a5e071a7600133b439d49840bf18cd8218",
+    "docs/mage-birth-checkpoint.md": "aff360ee0e489faf71c696af4f3134642083e7bbcb8bd1d7f6a3e92730315f42",
+    "docs/skill-effects.md": "28ab863d75c477a77b6c6653a718720b9848386b5783f2c422cca6318e980d20",
+    "docs/skill-icons.md": "cdf69749069fdd3ee017bcbc3427551f1ae79a23336b43ba67b8620cec7c19b4",
+    "docs/skill-mechanical-reference.md": "cdbd4673773e15b60a7394e46695506fee8d8ce866d6386f3aa7bcc17ef57c80",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "ef49ed2178f1025edecad3d2919816dd325a7af84d1658539c7af4a9efddf8f2",
+    "src/Sanctuary.Content/NecromancerMageBirth.cs": "43d81876ea008705747b91f1010ac11b86c4716120c90f68a9e072833a330e2e",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "bfe64d53bd5e35b31b88dcedb9474a52fcd7cc43baec9b16292563da0df9abbf",
+    "src/Sanctuary.Content/SkeletonPets.cs": "05504e295c93be764fc9780dc21ca0448a423b205e5bc7e60b0a428a193c873f",
+    "src/Sanctuary.Content/SkillHealth.cs": "677ae5b4beb21842bb6cc6dc87e33604507d478fc3377471670a500970b091e8",
+    "tests/Sanctuary.Integration/MageBirthChecks.cs": "fd4f4b3f2958d19f42389071f93cdb0db970a6157d4bd7dd501befc2d8687c9e",
+    "tests/check_mage_birth.py": "607d3ee5f3a06bdd0ad38fac7ed2a4251eae9d0dd208aaf6476d5986fc128a28",
+    "tests/check_mage_birth_audits.py": "c10cb155a7d26b7b6e59a14c0363e801648bebe4ff5d12ca6a61d3d66fc49be3",
+    "tools/probe_mage_birth.py": "7bf88b5165ace9bfc48468bd3d2543384738b33ac52e8efb3f06ca28dd131d5c",
+    "tools/record_mage_birth.py": "e9965510707d24f577cb08c5e51189ad75eeef070f1aaceb5dfacd726138242b",
+    "tools/reference/first-loop-affix-audit.json": "93c56b289cd825bdf9a14d20a5102db4852449678f6e6cc22f4ac547f80f1ea0",
+    "tools/reference/mage-birth-source-evidence.json": "a4003d5111a1e0698b16c0f1953ae1ef924968ae150a259a25a743656ea4dbb3",
+    "tools/reference/mage-missile-native-evidence.json": "9b19d98d2ab64b25718b7f96370a5a01ce1168afe647d02b64edbbd430c60746",
+    "tools/reference/named-item-runtime-audit.json": "8815af342b7b003874bcbf69a74f332546362d259492e7dd55bc908c517978fa"
+  },
+  "established": [
+    "Complete older base/passive/resistance bodies and MAXHP callback branch with explicit current data/formula/stat services match11475owner/rank/difficulty/Mastery contexts. This is not a full modern initializer probe.",
+    "Current fixed noRatio bases61/88/123,flat Mastery then rank percentage,level/armor/attack additions and derived missile rank retain exact FP256 values. Changed maxHP callbacks derive source regeneration;unchanged pools retain the spawn rate.",
+    "A real learned rank4/mastery0 corpse cast pays once and consumes the corpse once. Exact life17177FP displays68HP;recovery16FP/40ms caps at that fractional maximum and respects PMH/parking.",
+    "Actual facet notifications preserve exact injured ratios without recasting. Battle Orders changes maximum/current life and regeneration through shared callbacks. Owner gear/talent changes leave the existing captured ranks and resistance unchanged.",
+    "Two real reloads preserve injured fractional life,maximum,rate,element,owner and captured ranks;recovery resumes without offline replay. Five-family difficulty checks and all136predecessor markers are retained."
+  ],
+  "remaining": [
+    "Modern immunity-pierce consumers are unsupported;nonzero live Sunder inputs refuse before casting/payment. This increment tests the zero-input route,not an actual Sunder-item rejection.",
+    "The source probe supplies zero absorption pools and resistance bonuses0/20/52/65/75. Live rank7 supplies52;other Summon Resist display rounding conflicts remain explicitly unresolved.",
+    "Native1000ms/half-cycle mage timing,full source AI/animation/component/initializer,equipment generation,roster history,current-executable callbacks,poison-rate aggregation and retained-source missile lifetime/credit remain separate.",
+    "Native HP ceiling65000 and facet ratio changes are Sanctuary adapters. Same-build reloads are verified;old-content binary migration,new full-class acceptance,deployment and final assets are not claimed. Revive retains living abilities;global monster spell conversion remains separate."
+  ]
+}

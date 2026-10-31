@@ -58,6 +58,8 @@ public static class NecromancerCombat
         {if(!IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out var itemIssue)){owner.SendMessage(0x22,itemIssue??"Select a supported metal item.");return false;}point=World.FindItem(selected).Location;}
         if(ability==CombatAbility.Revive&&!ReviveCasts.Plan(owner,World.FindItem(selected) as Corpse,out _,out _,out var issue))
         {owner.SendMessage(0x22,issue);return false;}
+        if(ability==CombatAbility.RaiseSkeletalMage)
+        {try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if (ability == CombatAbility.BoneArmor) { selected = Serial.Zero; point = owner.Location; }
         var session = ClassCombat.For(owner);
         if (!Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed

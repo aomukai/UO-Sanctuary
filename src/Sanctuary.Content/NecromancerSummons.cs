@@ -38,6 +38,7 @@ public static class NecromancerSummons
     {
         if(ability is not(CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)){return false;}
         bool mage = ability == CombatAbility.RaiseSkeletalMage;
+        if(mage){try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
         var pet = new NecromancerMinion();
@@ -74,6 +75,9 @@ public partial class NecromancerMinion : SkeletonGuardian
     [SerializableField(2, setter: "private")] private int _element;
     [SerializableField(3, setter: "private")] private int _resistance;
     private MonsterProfile _summonProfile;
+    private MageBirthStats _mageBirth;
+    private MageBirthStats MageBirth=>_mageBirth??=NecromancerMageBirth.Prepare(Values(Kind),Level,SummonDifficulty);
+    internal override int SourceRegeneration256=>IsMage?MageBirth.Regeneration256:base.SourceRegeneration256;
     private Dictionary<string, int> _snapshot;
     private long _nextAura = Core.TickCount;
     public int SummonMagicResistance => Kind == CombatAbility.None ? 0 : NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"), "ResMa", SummonDifficulty);
@@ -121,6 +125,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         get
         {
             if(Kind==CombatAbility.None){return base.SourceLife256;}
+            if(IsMage){return MageBirth.Life256;}
             long basis=(long)(NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"),"minHP",SummonDifficulty)+(IsMage?Mastery*8:0))*256;
             return basis+basis*(long)Values(Kind).Eval("calc1")/100;
         }
@@ -137,7 +142,8 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     public void Prepare(PlayerMobile owner, CombatAbility ability)
     {
-        _kind = ability; _summonProfile = null; _snapshot = new(StringComparer.OrdinalIgnoreCase);
+        if(ability==CombatAbility.RaiseSkeletalMage){NecromancerMageBirth.Require(owner);}
+        _kind = ability; _summonProfile = null; _mageBirth=null; _snapshot = new(StringComparer.OrdinalIgnoreCase);
         foreach (var row in SkillMechanics.All)
         {
             if (row.CharacterClass != DiabloClass.Necromancer) { continue; }
@@ -148,6 +154,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         Initialize(owner, SkillMechanics.Rank(owner, ability), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         Appearance(); _summonProfile = null; SetHits(CombatProfile.Life); SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
         RefreshResistances();
+        if(IsMage){SkillHealth.SetBalance256(this,SkillHealth.Maximum256(this));}
     }
     private void RefreshResistances()
     {
@@ -161,7 +168,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     internal override void RefreshDifficulty()
     {
-        _summonProfile = null; base.RefreshDifficulty(); RefreshResistances();
+        _summonProfile = null; _mageBirth=null; base.RefreshDifficulty(); RefreshResistances();
     }
     private void Appearance()
     {
@@ -179,8 +186,9 @@ public partial class NecromancerMinion : SkeletonGuardian
         int defense = NecromancerSummons.Source(key, "AC", SummonDifficulty), attack = NecromancerSummons.Source(key, "A1TH", SummonDifficulty);
         if (IsMage)
         {
-            life = (life + Mastery * 8) * (100 + (int)values.Eval("calc1")) / 100;
-            defense += (Rank + Mastery) * values.Param(5);
+            var birth=MageBirth;
+            return new(birth.Level,Math.Max(1,birth.Life256/256),birth.Attack,birth.Armor,Math.Max(1,min),Math.Max(min,max),1000,
+                720*8/Math.Max(1,NecromancerSummons.Source(key,"Velocity",8)),0,0,0,0,0);
         }
         else
         {
@@ -264,7 +272,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     [AfterDeserialization] private void AfterSummonLoad()
     {
-        _snapshot = null; _summonProfile = null; _nextAura = Core.TickCount + 2000; Appearance();
+        _snapshot = null; _summonProfile = null; _mageBirth=null; _nextAura = Core.TickCount + 2000; Appearance();
         int life = Hits; SetHits(CombatProfile.Life); Hits = Math.Min(life, HitsMax);
         SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
     }
