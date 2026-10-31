@@ -81,15 +81,10 @@ public static class BattleCommand
         {
             if(follower is not SkeletonGuardian{Alive:true,Deleted:false} pet || pet.ControlMaster!=owner){continue;}
             CombatAbility ability=pet.GetType()==typeof(SkeletonGuardian)?CombatAbility.RaiseSkeleton:pet is NecromancerMinion minion?minion.Kind:CombatAbility.None;
-            if(ability is not (CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage or CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem)){continue;}
+            if(ability is not (CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage)){continue;}
             if(!groups.TryGetValue(ability,out var pets)){groups.Add(ability,pets=new());}pets.Add(pet);
         }
-        // Source golems share one pet type. Higher-level unsupported summons stay
-        // individually gated; inactive wardrobe histories keep the approved policy.
-        var golems=new List<SkeletonGuardian>();
-        foreach(var pair in groups.Where(x=>x.Key is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem).ToArray())
-        {golems.AddRange(pair.Value);groups.Remove(pair.Key);}
-        if(golems.Count>0){groups[CombatAbility.ClayGolem]=golems;}
+        NecromancerGolems.Enforce(owner);
         foreach(var pair in groups)
         {
             foreach(var pet in pair.Value.OrderBy(x=>x.Serial.Value)){if(!_pets.ContainsKey(pet.Serial.Value)){Track(pet);}}

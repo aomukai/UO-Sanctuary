@@ -35,25 +35,33 @@ public static class NecromancerSummons
         ? SkillMechanics.Values(owner, CombatAbility.SummonResist).Diminishing(1, 2) : 0;
     public static bool Create(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if(ability is not(CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)){return false;}
         bool mage = ability == CombatAbility.RaiseSkeletalMage;
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
         var pet = new NecromancerMinion();
-        pet.Prepare(owner, ability);
-        if (!pet.SetControlMaster(owner)) { pet.Delete(); return false; }
-        var replaced = new List<NecromancerMinion>();
-        foreach (var follower in owner.AllFollowers ?? [])
+        bool committed=false;
+        try
         {
-            if (follower is NecromancerMinion { Alive: true, Deleted: false } old && old != pet && old.ControlMaster == owner
-                && (mage ? old.IsMage : !old.IsMage)) { replaced.Add(old); }
+            pet.Prepare(owner, ability);
+            if (!pet.SetControlMaster(owner)) { pet.Delete(); return false; }
+            pet.MoveToWorld(point, owner.Map);pet.IssueOrder(OrderType.Guard,null);
+            PersistentMinions.Profiles.Track(pet);
+            // Complete candidate setup before replacing a paid existing pet.
+            pet.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);
+            if(!mage){NecromancerGolems.Commit(owner,pet);}
+            else
+            {
+                var replaced=(owner.AllFollowers??[]).OfType<NecromancerMinion>()
+                    .Where(old=>old is{Alive:true,Deleted:false}&&old!=pet&&old.ControlMaster==owner&&old.IsMage).OrderBy(old=>old.Serial.Value).ToArray();
+                int remove=Math.Max(0,replaced.Length+1-SkeletonPets.Limit(pet.Rank));
+                foreach(var old in replaced.Take(remove)){old.Explode();old.Delete();}
+                BattleCommand.Track(pet);
+                NecromancerCombat.Consume(corpse);
+            }
+            committed=true;return true;
         }
-        replaced.Sort((a, b) => a.Serial.CompareTo(b.Serial));
-        int limit = mage ? SkeletonPets.Limit(pet.Rank) : 1;
-        int remove = Math.Max(0, replaced.Count + 1 - limit);
-        for (int i = 0; i < remove; i++) { replaced[i].Explode(); replaced[i].Delete(); }
-        BattleCommand.Track(pet); PersistentMinions.Profiles.Track(pet); pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null);
-        if (corpse != null) { NecromancerCombat.Consume(corpse); }
-        pet.FixedParticles(0x376A, 9, 20, 5024, EffectLayer.Waist); return true;
+        finally{if(!committed&&!pet.Deleted){pet.Delete();}}
     }
 }
 

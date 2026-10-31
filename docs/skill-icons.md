@@ -1,5 +1,7 @@
 # Skill icons
 
+Shared golem roster changes add no bindable skill or icon. Clay, Blood, Iron and Fire each still need their own talent-tree and hotkey artwork. Prepared Iron remains disabled and uses its existing identified text placeholder.
+
 This register is independent of mechanical completion. No final assets have been generated or installed in this pass. Keep the original prompt/source image, transparency, scale/directional frames, timing, client mapping and actual-client verification with each eventual asset.
 
 Text labels are explicitly marked placeholders in the talent/skill panels and hotkey tooltips. Each talent needs a unique icon; passives do not need hotkey icons.

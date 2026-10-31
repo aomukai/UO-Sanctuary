@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+The [shared golem roster checkpoint](golem-roster-checkpoint.md) verifies cap1 across Clay/Blood/Iron/Fire, all16replacement pairs, parked Battle Command refresh and two reloads. Joined Iron replacements consume their originals; skeletons, mages, other owners and storage-only bodies remain separate. Historical missing creation order uses a disclosed order0/serial fallback. Learned Iron remains disabled pending complete combat/event and paid casting acceptance. Coverage stays185handlers/Necromancer29; no class complete. Revive retains living abilities; global UO-to-D2 monster spell conversion remains separate.
+
 The [prepared Iron Golem retaliation checkpoint](iron-golem-retaliation-checkpoint.md) adds captured-rank flat ATD and original-item aggregation to the existing bridge. Native tests cover Barbs, real Paladin same-state replacement, natural expiry and saved history. The replacement rule comes from older source; current-build coexistence remains explicitly uncertain. Incoming HP/death/event ordering is still unfinished, so learned Iron Golem remains disabled.
 
 Iron Golem now has a [prepared moving world controller](iron-golem-world-checkpoint.md), verified through the NecroPet policy, owned G4 animation metadata, original-item timing, fractional recovery and saved lifecycle adapters. Its learned cast remains disabled pending attack/event parity, retaliation, replacement and casting acceptance. Coverage remains 185 handlers / Necromancer29; no class is complete.

@@ -12,7 +12,8 @@ namespace Sanctuary;
 
 internal sealed record IronGolemBodyState(IronGolemBodyRecipe Recipe,MonsterDifficulty Difficulty,IronGolemBodyNumbers Numbers,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] IronGolemWorldState Controller=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool IntrinsicThornsReplaced=false);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool IntrinsicThornsReplaced=false,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool RosterMember=false);
 
 // Vulnerable saved body with an optional prepared world controller. Native
 // skeleton attacks/AI stay suppressed; the learned cast remains gated.
@@ -60,6 +61,8 @@ public partial class IronGolemBody:SkeletonGuardian
     // original untagged birth list; expiry does not recreate that birth list.
     internal void ReplaceIntrinsicThorns()
     {if(Prepared is{IntrinsicThornsReplaced:false} state){Store(state with{IntrinsicThornsReplaced=true});}}
+    internal void JoinGolemRoster()
+    {if(Prepared is{RosterMember:false} state){Store(state with{RosterMember=true});}}
     private void SetBaseResistances()
     {
         var n=Prepared.Numbers;

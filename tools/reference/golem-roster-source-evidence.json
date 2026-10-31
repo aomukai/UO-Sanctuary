@@ -1,0 +1,79 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/PLAYER/PlayerPets.cpp",
+  "sourceSha256": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+  "executedRoutineSha256": "0184fe25e51ced7e307ef7552c6980c7371af9156ee9b3807e448106f7e57b95",
+  "staticReviewedRoutineHashes": {
+    "sub_6FC7D150": "edddc0f0c6bddac1bdb24d5d68a3c945645251d5258429d56778495a6b1c9ae0",
+    "sub_6FC7D7A0": "0c9dbe575f7f98974dfad63f3e1fc728e77fb39e3d02b7e08637ba7b157a57e3"
+  },
+  "currentTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "pettype": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91"
+  },
+  "currentSkills": [
+    {
+      "skill": "Clay Golem",
+      "*Id": 75,
+      "pettype": "golem",
+      "petmax": 1,
+      "summon": "ClayGolem"
+    },
+    {
+      "skill": "BloodGolem",
+      "*Id": 85,
+      "pettype": "golem",
+      "petmax": 1,
+      "summon": "BloodGolem"
+    },
+    {
+      "skill": "IronGolem",
+      "*Id": 90,
+      "pettype": "golem",
+      "petmax": 1,
+      "summon": "IronGolem"
+    },
+    {
+      "skill": "FireGolem",
+      "*Id": 94,
+      "pettype": "golem",
+      "petmax": 1,
+      "summon": "FireGolem"
+    }
+  ],
+  "currentPetType": {
+    "pet type": "golem",
+    "basemax": 0,
+    "warp": 1,
+    "partysend": 1,
+    "unsummon": 1,
+    "automap": 1,
+    "name": "StrUI0",
+    "drawhp": 1,
+    "icontype": 1,
+    "baseicon": "earthgolumicon",
+    "mclass1": 290,
+    "micon1": "bloodgolumicon",
+    "mclass2": 291,
+    "micon2": "metalgolumicon",
+    "mclass3": 292,
+    "micon3": "firegolumicon",
+    "lineNumber": 3
+  },
+  "generatedSourceSha256": "62c8543d8a6b907133164d4c9ae5e4924b12b7e30983fe2b8d8c56897053649f",
+  "fixture": {
+    "path": ".local/class-skills/golem-roster-source-probe.json",
+    "sha256": "9a893d9dd0f5d29424b71e2d54b0ab6a44142b1061ad76fe4a2353a66b34ceb4",
+    "cases": 48
+  },
+  "sanitizers": "ASan+UBSan exit0 with empty runtime stderr",
+  "established": [
+    "All four current golems share pettype=golem and petmax1. Complete older append helper removes the head at capacity,appends new entries at the tail and copies pet info. Empty maximum refresh/rejection and null-pet controls are included;only positive owned candidates apply to the native golem consumer.",
+    "The statically reviewed registration routine sets the cap before adding;the cap setter removes old head entries while over maximum. Pet destruction/group/client/allocation operations are supplied services rather than full actor execution."
+  ],
+  "remaining": [
+    "Native actor cleanup,original-item consumption,payment/placement failure,parked/lifecycle/save/birth-order handling and category coexistence need actual integration tests. Historical untracked native FIFO cannot be reconstructed;any deterministic fallback must be identified.",
+    "No learned Iron Golem or class completion is enabled by this source proof. Complete current executable,death/explosion events,casting and combat parity remain separate."
+  ]
+}

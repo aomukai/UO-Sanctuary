@@ -1,5 +1,7 @@
 # Skill effects
 
+Shared golem roster changes add no new visual assets. Prepared Iron body14/hue0x835 and generic summon/retaliation flashes remain identified placeholders; final golem bodies, summon/replacement/death effects and audio still require creation and client verification. See [mechanical checkpoint](golem-roster-checkpoint.md).
+
 This register is independent of mechanical completion. No final assets have been generated or installed in this pass. Keep the original prompt/source image, transparency, scale/directional frames, timing, client mapping and actual-client verification with each eventual asset.
 
 Sanctuary presentation preference: visible damaging effects should match their active damaging lifetime. This is user taste, not D2R reference evidence; final assets must communicate the supported mechanics. See [reference precedence and recorded preference](skill-mechanical-reference.md#sanctuary-decisions-retained).
