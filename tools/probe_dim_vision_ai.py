@@ -67,6 +67,21 @@ for(int axis:{0,1})for(int offset:{0,1,2})for(int xsign:{0,1})for(int ysign:{0,1
  printf("%s[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",first?"":",",combat,cls,mon,mode,interact,attackMode,roll,axis,offset,xsign,ysign,success,attack,neutral,chanceCalls,moved,endX,endY,moveMode,moveStep,moveFlags,rawIndex,limitedCalls,limitArg);first=false;
 }printf("]\n");}
 '''
+    reviewed = {}
+    review_bodies = {}
+    for relative, names in [
+        ('source/D2Game/src/AI/AiThink.cpp', ['AITHINK_GetAiTableRecord', 'D2GAME_MONSTERS_AiFunction03_6FCF0A70']),
+        ('source/D2Game/src/AI/AiTactics.cpp', ['sub_6FCCF9D0', 'AITACTICS_Idle', 'AITACTICS_IdleInNeutralMode', 'AITACTICS_MoveToTarget'])]:
+        for name in names:
+            review_bodies[name] = routine(relative, name)
+            reviewed[name] = bodies.pop(name)
+    special = review_bodies['AITHINK_GetAiTableRecord'].split('gpSpecialAiStateTable_6FD40290[] =', 1)[1].split('};', 1)[0]
+    modes = re.findall(r'\{\s*(\d+),', special)
+    assert len(modes) == 18 and modes[10] == '1' and modes[17] == '2'
+    mode1 = review_bodies['D2GAME_MONSTERS_AiFunction03_6FCF0A70'].split('case 1:', 1)[1].split('case 2:', 1)[0]
+    assert 'sub_6FCCF9D0' in mode1 and 'if (!aiTickParam.pTarget)' in mode1 and 'return;' in mode1
+    wrapper = review_bodies['sub_6FCCF9D0']
+    assert all(text in wrapper for text in ['sub_6FCF2110', 'nDistance >= 35', 'nDistance >= 25', 'nFrames = nDistance - 10', 'AITACTICS_WalkCloseToUnit(pGame, pUnit, 5u)'])
     STAGE.mkdir(parents=True, exist_ok=True)
     source = STAGE / 'probe.cpp'
     source.write_text(cpp)
@@ -90,7 +105,9 @@ for(int axis:{0,1})for(int offset:{0,1,2})for(int xsign:{0,1})for(int ysign:{0,1
     cases = STAGE / 'cases.json'
     cases.write_text(json.dumps(data, separators=(',', ':')) + '\n')
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], contexts=len(data), runtimeChanged=False,
-        compiledUnchangedRoutines=bodies, inputs={**sources, str(scaffold.relative_to(ROOT)): sha(scaffold), str(Path(__file__).relative_to(ROOT)): sha(Path(__file__))},
+        compiledUnchangedRoutines=bodies, reviewedUnexecutedRoutines=reviewed,
+        sourceCallerContracts=dict(dimVisionTargetMode=1,sharedState17TargetMode=2,nullTargetIdleFrames=dict(near=10,middle='distance-10',far=25),nullTargetDisplacementDistance=5),
+        inputs={**sources, str(scaffold.relative_to(ROOT)): sha(scaffold), str(Path(__file__).relative_to(ROOT)): sha(Path(__file__))},
         artifacts={str(p.relative_to(ROOT)): sha(p) for p in [source, cases, STAGE / 'compiler.log', STAGE / 'sanitizer.log']},
         established=[
             'Complete blind special-state10/17 tick attacks in combat only with nonnegative class,non-interacting species and A1 mode. This branch consumes no percentage or wandering RNG calls.',
@@ -98,6 +115,7 @@ for(int axis:{0,1})for(int offset:{0,1,2})for(int xsign:{0,1})for(int ysign:{0,1
             'The probe safely extracts the prior Howl declared service scaffold as data without running its producer or modifying accepted Howl artifacts.'],
         remaining=[
             'AI percentage/raw/limited RNG,table lookup,combat target,mode/path entry and clock/event services remain declared. Current native/source actor seed ownership,acquisition,pending movement,mode callbacks and actual scheduling are not executed here.',
+            'Static-only complete caller review:Dim Vision special-state10 uses target mode1,which returns before this tick when its acquisition wrapper finds no target. That wrapper may displace5source units or idle10/distance-10/25frames. State17 shares the tick but uses target mode2. Do not apply the20percent tick unconditionally to no-target actors;these caller bodies are hash-recorded,not executed.',
             'Source distance3 is in source coordinates. Native half-subtile rounding/path geometry,move completion/failure scheduling and saved state integration remain implementation work. The source tick does not itself check active blindness;dispatcher/removal chronology remains separate.',
             'No C# change,native acceptance,completed skill/class or deployment. Dim Vision learned casting has its own candidate/checkpoint;this source probe must not be used to certify its unfinished blind tick.'])
     destination = ROOT / 'tools/reference/dim-vision-ai-source-evidence.json'
