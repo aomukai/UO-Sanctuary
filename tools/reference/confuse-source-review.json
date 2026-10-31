@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete static body review;none of these routines are executed by this producer.",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/review_confuse_source.py": "1af3e5f8fbbbac40a1e3f7fa54229284dd61d47e1241b690495ef51c2b0d2ad2"
+  },
+  "reviewedNotExecuted": {
+    "SKILLS_SrvDo061_Confuse": "f828bc890e1899441ee9e8dac1a79f011a0c103395e7b2ae4cd97993128a23ca",
+    "sub_6FD0C060": "45a5c002ad9fb8e7786950a7b9ac766a5eafecb86ccd85dd9449bf20c35e4ff7",
+    "sub_6FD0C2B0": "c72238ce488066e20b8860a8279bf416346137ef2eed289283657006cb00f048",
+    "SKILLS_SrvDo059_Attract": "2c605a0d9c61025c6928969a97d2f3397d146eb0489a63c9e0f0d43d11cb874b",
+    "sub_6FD0BDA0": "ad2c7b65b06b0deab45a99ba05ca0b6d024ddadfa457a1deb6bc1de80122f0f8",
+    "sub_6FCF2920": "803ecd51107de7ebefd09c0276674bc01f63575587717c1ff431235b67ae9c6d",
+    "SKILLS_AuraCallback_MindBlast": "8b8b56352ba89b280af492a466ae90fe38cf1bed06d7ec6b8b0cd3d9dc4899a1",
+    "SKILLS_StatRemoveCallback_MindBlast": "e4af5e21ab2de39582d783d1c3735da76516b8e9cea391e02242dd7a79af4bec",
+    "STATLIST_AreUnitsAligned": "f4edb7b68fb2c217e8f7c907cd7f617dcb878d87fd462416660f30a39dcaa92e",
+    "sub_6FD0B450": "4ffb9aa2706f4337bfefcbee6ad519c4592bf1b78b70c5477ecffaf50fe5ac7b"
+  },
+  "established": [
+    "Confuse callback checksEvil alignment;onlyaccepted factory result setsNeutral,node9,override3 and independentAIRESET usingpre-resistance duration. Removingvisiblecurse restoresalignment/node but doesnotclearoverride.",
+    "Neutral alignswithnobodyexceptself. Override3temporarily selectsopposing alignment withonerawlowbit,scans,restoresalignment andclearsoverride onemptyresult. Nativeworldscan/cadence/RNGownershipremainadapters.",
+    "Do30AI castsrejectNeutral. Earliernativefixtures permittingDimVision/Terror toreplaceactiveConfuse lackeditsruntimeNeutralstate;this correction is notanapprovedSanctuarydeviation.",
+    "Mind Blast usesSTATE_CONVERSION andGoodalignment2 afteranEvil-alignment gate;Confuse usesNeutralalignment1. Sharedeligibilitymustnotconvert anactiveNeutralConfuse recipient.",
+    "Attract mutatesselectedNeutral/node/minionlinks,setsneighbor targetoverrides withindependentreset,thenattemptscursefactory;this reviewdoesnotimplementAttract orcertifyitscurrentexecutablebehavior."
+  ],
+  "remaining": [
+    "Currentexecutablecorroboration,fullcallback/VM/factory/node/room/threat/target/event/AIexecution and nativealignment/credit/persistenceintegration mustbeverifiedseparately. No sourceexecution or completeclassclaim."
+  ]
+}

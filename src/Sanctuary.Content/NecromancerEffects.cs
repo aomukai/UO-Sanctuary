@@ -18,7 +18,8 @@ public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Ra
 public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BlindAiState BlindAi=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BlindAiState BlindAi=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState Mind=null);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
 {
@@ -28,9 +29,9 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
     public NecromancerState Find(Mobile actor) => actor is { Alive: true, Deleted: false }
         ? _states.GetValueOrDefault(actor.Serial) : null;
     public void Store(Mobile actor, NecromancerState state)
-    {var before=_states.GetValueOrDefault(actor.Serial);_states[actor.Serial]=state;SourceTerror.Changed(actor,before?.Curse,state.Curse);CloakShadows.Changed(actor,before?.Curse,state.Curse);SourceBlind.Changed(actor,before?.Curse,state.Curse);}
+    {if(state.Curse?.Terror is{Override:not 0}){state=SourceMind.Superseded(state);}var before=_states.GetValueOrDefault(actor.Serial);_states[actor.Serial]=state;SourceTerror.Changed(actor,before?.Curse,state.Curse);CloakShadows.Changed(actor,before?.Curse,state.Curse);SourceBlind.Changed(actor,before?.Curse,state.Curse);SourceMind.Changed(actor,state);}
     public void Clear(Mobile actor)
-    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);}}
+    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);}}
     public override void Serialize()
     {SourceBlind.CaptureMovement();Prune();_snapshot=new(_states);base.Serialize();}
     public override void Serialize(IGenericWriter writer)
@@ -47,6 +48,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         {
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<NecromancerState>(reader.ReadString());
             if(state?.BlindAi is{} blind){SourceBlind.Validate(blind);}
+            if(state?.Mind is{} mind){SourceMind.Validate(mind);}
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
                 || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0
                     || pool.Rank.HasValue!=pool.Maximum256.HasValue || pool.Maximum256 is{} maximum && maximum<pool.Remaining256
@@ -66,7 +68,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         { if (World.FindMobile(serial) is not { Alive: true, Deleted: false }) { removed.Add(serial); } }
         foreach (var serial in removed) { _states.Remove(serial); }
     }
-    public override void PostDeserialize(){Prune();SourceTerror.AfterLoad(_states);CloakShadows.AfterLoad(_states);SourceBlind.AfterLoad(_states);}
+    public override void PostDeserialize(){Prune();SourceTerror.AfterLoad(_states);CloakShadows.AfterLoad(_states);SourceBlind.AfterLoad(_states);SourceMind.AfterLoad(_states);}
 }
 
 public static class NecromancerEffects
@@ -106,6 +108,7 @@ public static class NecromancerEffects
     public static bool Apply(PlayerMobile owner, Mobile target, CombatAbility ability, int rank)
     {
         if(NecromancerCurseCasts.Handles(ability)){return NecromancerCurseCasts.Apply(owner,target,ability,rank);}
+        if(ability==CombatAbility.Attract&&SourceMind.Neutral(target)){return false;}
         if (rank is <1 or >255 || !IsCurse(ability) || !ClassCombat.IsHostile(owner, target) || Curse(target)?.Ability == CombatAbility.Attract
             || ability == CombatAbility.DimVision && Curse(target)?.Ability == CombatAbility.Confuse) { return false; }
         bool ai = ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract;
@@ -202,6 +205,7 @@ public static class NecromancerEffects
             }
         }
         var curse = Curse(creature);
+        SourceMind.Think(creature);
         if(curse?.Ability==CombatAbility.DimVision&&SourceBlind.Think(creature,curse)){return true;}
         if(curse?.Ability==CombatAbility.Taunt && curse.Terror!=null){return SourceTerror.Think(creature,curse);}
         if (curse?.Ability == CombatAbility.Terror)
@@ -247,15 +251,7 @@ public static class NecromancerEffects
             return false;
         }
         if (curse.Ability == CombatAbility.Attract) { return false; }
-        Mobile nearest = null; double distance = double.MaxValue;
-        foreach (var candidate in creature.Map.GetMobilesInRange<BaseCreature>(creature.Location, 12))
-        {
-            if (candidate == creature || !AiCurse(candidate) || !creature.CanSee(candidate) || !creature.InLOS(candidate)) { continue; }
-            double next = creature.GetDistanceToSqrt(candidate);
-            if (next < distance) { nearest = candidate; distance = next; }
-        }
-        if (nearest == null) { return false; }
-        creature.Combatant = nearest; return ai.DoActionCombat();
+        return false; // Confuse's generic target override feeds ordinary species AI.
     }
     public static int Armor(Mobile actor) => Profiles?.Find(actor)?.BoneArmor ?? 0;
     internal static int Armor256(Mobile actor)=>Profiles?.Find(actor) is{} state

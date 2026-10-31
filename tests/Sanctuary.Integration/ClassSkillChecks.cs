@@ -223,8 +223,9 @@ public static class ClassSkillChecks
                             var start = TimedEffects.Now;
                             Require(NecromancerEffects.Apply(owner, variant, CombatAbility.Confuse, 1), "Confuse difficulty fixture");
                             double milliseconds = (NecromancerEffects.Curse(variant).UntilUtc - start).TotalMilliseconds;
-                            Require(Math.Abs(milliseconds - 10000 / (difficulty == MonsterDifficulty.Hell ? 4 : difficulty == MonsterDifficulty.Nightmare ? 2 : 1)) < 100,
-                                "AI curse source difficulty duration");
+                            int divisor=SummonDifficulties.For(owner.Map) switch{MonsterDifficulty.Hell=>4,MonsterDifficulty.Nightmare=>2,_=>1};
+                            Require(Math.Abs(milliseconds - 10000 / divisor) < 100,
+                                "AI curse followed spawn difficulty instead of configured facet");
                         }
                         finally { variant.Delete(); }
                     }

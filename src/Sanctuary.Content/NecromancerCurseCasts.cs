@@ -13,7 +13,7 @@ internal static class NecromancerCurseCasts
     private static readonly HashSet<string> NoWalk=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<Type> Unmapped=new();
     private static readonly HashSet<string> UnmappedAi=new();
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden or CombatAbility.LifeTap or CombatAbility.DimVision or CombatAbility.Terror;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden or CombatAbility.LifeTap or CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse;
     public static void Configure()
     {
         foreach(string source in BalanceCatalog.Read<string>("source-curse-no-walk"))
@@ -24,7 +24,7 @@ internal static class NecromancerCurseCasts
     {
         // Enemy-owned summons/PvP and native bard AI coexistence have no
         // verified source-state adapter. Keep those cases explicitly bounded.
-        if(target is{Controlled:true} or{Summoned:true} || target is BaseHire || target.BardProvoked){return false;}
+        if(target is{Controlled:true} or{Summoned:true} || target is BaseHire || target.BardProvoked || SourceMind.Neutral(target)){return false;}
         if(target is EncounterCreature encounter)
         {return encounter.Grade is not(EncounterGrade.Unique or EncounterGrade.SuperUnique);}
         var row=PaladinConversion.SourceRule(target);
@@ -75,7 +75,7 @@ internal static class NecromancerCurseCasts
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
-        if(ability is CombatAbility.DimVision or CombatAbility.Terror && !AiEligible(creature)){return false;}
+        if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse && !AiEligible(creature)){return false;}
         if(ability==CombatAbility.Terror&&!SourceTerror.Supported(creature))
         {
             string key="Terror:"+creature.GetType().Name+":"+CreatureProfiles.Definition(creature).Reference;
@@ -91,7 +91,8 @@ internal static class NecromancerCurseCasts
         int frames=(int)values.Eval("auralencalc");
         // Do30 uses game difficulty before the curse-resistance factory. In
         // Sanctuary that is the owner's configured facet, not the NPC's spawn.
-        if(ability is CombatAbility.DimVision or CombatAbility.Terror){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
+        if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
+        int aiFrames=frames; // AIRESET uses this duration before curse resistance.
         if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();DateTime at=TimedEffects.Now;
         // For current native hostile actors, PhysicalResistance is the base
@@ -115,6 +116,7 @@ internal static class NecromancerCurseCasts
         // result, including an equal-rank refresh. Capture before Store/Reset
         // can retire the old control state; never substitute the curse caster.
         if(ability==CombatAbility.Terror){next=next with{Terror=SourceTerror.Learned(creature,rank,at)};}
+        if(ability==CombatAbility.Confuse){state=state with{Mind=SourceMind.Confuse(creature,state,aiFrames,at)};}
         NecromancerEffects.Profiles.Store(target,state with{Curse=next});
         if(ability==CombatAbility.DimVision){SourceBlind.Attach(creature,state.Curse?.Ability!=CombatAbility.DimVision||state.Curse.UntilUtc<=at);}
         if(ability==CombatAbility.Terror){SourceTerror.Reset(creature);}

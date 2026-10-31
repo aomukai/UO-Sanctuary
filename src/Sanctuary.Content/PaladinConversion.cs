@@ -96,7 +96,7 @@ public static class PaladinConversion
     {
         // AIUTIL rejects uniques/superuniques, not champions. Attached Imps
         // have no native attachment-state adapter and remain an explicit gap.
-        return owner is{Alive:true,Deleted:false} && WildEnemy(target) && ClassCombat.IsHostile(owner,target)
+        return owner is{Alive:true,Deleted:false} && WildEnemy(target) && !SourceMind.Neutral(target) && ClassCombat.IsHostile(owner,target)
             && target is not BaseHire && !target.BardProvoked
             && target is not EncounterCreature{Grade:EncounterGrade.Unique or EncounterGrade.SuperUnique}
             && SourceRule(target) is{Evil:true,SwitchAi:true,Walk:true,Boss:false,Attackable:true,Base:not "imp1"};

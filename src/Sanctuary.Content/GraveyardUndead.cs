@@ -90,7 +90,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     public override bool BleedImmune => true;
     public override Poison PoisonImmune => Poison.Lethal;
     public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
-    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (PaladinConversion.Enemy(this,mobile) ?? ((mobile is PlayerMobile
+    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (ClassCombatHooks.CreatureEnemy?.Invoke(this,mobile) ?? ((mobile is PlayerMobile
         || mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true }) && base.IsEnemy(mobile)));
     public override void GetSpeeds(out double activeSpeed, out double passiveSpeed)
     {

@@ -77,7 +77,8 @@ public static class DimVisionCastChecks
             Require(NecromancerEffects.Apply(other,t,CombatAbility.DimVision,3)&&NecromancerEffects.Curse(t).Source==p.Serial.Value&&NecromancerEffects.Curse(t).Motion==first.Motion&&NecromancerEffects.Curse(t).UntilUtc<first.UntilUtc,"Equal blind refresh lost creator/motion/expiry");
             Require(NecromancerEffects.Apply(other,t,CombatAbility.DimVision,4)&&NecromancerEffects.Curse(t).Source==other.Serial.Value,"Higher blind rank did not replace creator");
             other.Delete();Require(NamedControl.Blind(t),"Deleting caster removed target-bound blind");
-            Require(NecromancerEffects.Apply(p,t,CombatAbility.Confuse,1)&&NecromancerEffects.Apply(p,t,CombatAbility.DimVision,1),"Learned blind incorrectly inherited item-blind Confuse refusal");
+            Require(NecromancerEffects.Apply(p,t,CombatAbility.Confuse,1)&&!NecromancerEffects.Apply(p,t,CombatAbility.DimVision,1),"Learned blind ignored Confuse neutral alignment");
+            Require(NecromancerEffects.Apply(p,t,CombatAbility.Weaken,1)&&!SourceMind.Neutral(t),"Ordinary curse did not restore Confuse alignment");
             Require(NecromancerEffects.Apply(p,t,CombatAbility.Attract,1)&&!NecromancerEffects.Apply(p,t,CombatAbility.DimVision,20),"Blind overwrote Attract");
         }
         finally{other.Delete();NecromancerEffects.Profiles.Clear(t);}

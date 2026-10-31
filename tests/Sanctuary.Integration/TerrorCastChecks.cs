@@ -80,7 +80,8 @@ public static class TerrorCastChecks
             Require(equal.Source==p.Serial.Value&&equal.UntilUtc<first.UntilUtc&&equal.Terror is{Started:false,Combat:false,Goal:null}&&equal.Terror.Override==p.Serial.Value,"Equal refresh lost creator/expiry or failed to reinitialize AI");
             Require(NecromancerEffects.Apply(other,t,CombatAbility.Terror,4)&&NecromancerEffects.Curse(t).Source==other.Serial.Value,"Higher Terror rank did not replace creator");
             other.Delete();Require(NecromancerEffects.Curse(t)?.Ability==CombatAbility.Terror,"Deleting caster removed target-bound Terror");
-            Require(NecromancerEffects.Apply(p,t,CombatAbility.Confuse,1)&&NecromancerEffects.Apply(p,t,CombatAbility.Terror,1),"Learned Terror could not replace Confuse");
+            Require(NecromancerEffects.Apply(p,t,CombatAbility.Confuse,1)&&!NecromancerEffects.Apply(p,t,CombatAbility.Terror,1),"Learned Terror ignored Confuse neutral alignment");
+            Require(NecromancerEffects.Apply(p,t,CombatAbility.Weaken,1)&&!SourceMind.Neutral(t),"Ordinary curse did not restore Confuse alignment");
             Require(NecromancerEffects.Apply(p,t,CombatAbility.Attract,1)&&!NecromancerEffects.Apply(p,t,CombatAbility.Terror,20),"Terror overwrote Attract");
         }
         finally{other.Delete();NecromancerEffects.Profiles.Clear(t);}
