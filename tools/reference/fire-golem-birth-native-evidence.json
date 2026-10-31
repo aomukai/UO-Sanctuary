@@ -1,0 +1,134 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Learned Fire Golem exact birth/resources",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 3,
+  "verified": {
+    "nativeMarkers": 354,
+    "retainedPredecessorMarkers": 339,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      842,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "sourceContexts": 16065,
+    "independentSynergyCases": 4590,
+    "safeSourceMatches": 16065,
+    "unsafeSourceRefusals": 0,
+    "normalRank4PrerequisiteLife256": 84134,
+    "nightmareRank4PrerequisiteLife256": 164774,
+    "nightmareRank4PrerequisiteRegeneration256": 120,
+    "gearSynergyLife256": 216345,
+    "gearSynergyRegeneration256": 158,
+    "actualRightQuickCasts": 6,
+    "baselineFireResistance": 142,
+    "baselineFireAbsorb": 58,
+    "finalSavedGeneration": 2,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/fire-golem-birth/birth-inputs.json",
+      "sha256": "494e935b85812bbbf958cdf08f129ded1dd337b23189c2d1b38ab0de1fcd4839"
+    },
+    "audit": {
+      "path": ".local/class-skills/fire-golem-birth/audit-inputs.json",
+      "sha256": "b8d1b8eb0560b762e3f83ac53d2000e5adccb6b7f82ebed8ae776fff93a72f88"
+    }
+  },
+  "sourceProofs": {
+    "skeleton-birth-source-evidence.json": {
+      "path": "tools/reference/skeleton-birth-source-evidence.json",
+      "sha256": "e2792a8b988edafaa832ff1cb3578bb68346a71fe77cd6203a7adf3617a86e25"
+    },
+    "npc-equipment-damage-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-damage-source-evidence.json",
+      "sha256": "82aa5f9fa44a19f21c54f7fa205425695eea1d5c808c97524109aee5cf63ca47"
+    },
+    "npc-equipment-critical-source-evidence.json": {
+      "path": "tools/reference/npc-equipment-critical-source-evidence.json",
+      "sha256": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b"
+    },
+    "mage-missile-source-evidence.json": {
+      "path": "tools/reference/mage-missile-source-evidence.json",
+      "sha256": "68769019b38b073efc92f7417cb00d8de05314e55c9bd557cd68bce54e09cdc1"
+    },
+    "fire-golem-birth-source-evidence.json": {
+      "path": "tools/reference/fire-golem-birth-source-evidence.json",
+      "sha256": "d00bafdd93935b27c1342db092717a799753aa4c55b155fb068232edf820d91b"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/FireGolemBody.cs": "bedfbc8a41673ea6f4722a5e3b722ed63dc4b0cf31e813635ecc94d106244184",
+    "src/Sanctuary.Content/NecromancerFireBirth.cs": "2c2906706b6ba4f35eca5ea0a1734802f44edc862808fdeb1433d9e48b421023",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "db9c90e187b0c49fd490cf4e95eff0ee75ac73817906988ae2db430f4caba98e",
+    "src/Sanctuary.Content/SkeletonPets.cs": "560103cd443463dc0932f22794fc0d89fd37827e84e665e4528390c2af3c9b3c",
+    "tests/Sanctuary.Integration/FireGolemBirthChecks.cs": "f1bb72ca326bdea2b7dcf21c94a4047629455ef5ad0d28e5988c605c0a085e4a"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-birth/audit-inputs.json": "b8d1b8eb0560b762e3f83ac53d2000e5adccb6b7f82ebed8ae776fff93a72f88",
+    ".local/class-skills/fire-golem-birth/audit-native-checks.log": "451e3f1155c77abe52fb68a7107904ff8eb2e5f39cf0b462eae2c9676a53f201",
+    ".local/class-skills/fire-golem-birth/audit-run-3.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/fire-golem-birth/birth-inputs.json": "494e935b85812bbbf958cdf08f129ded1dd337b23189c2d1b38ab0de1fcd4839",
+    ".local/class-skills/fire-golem-birth/birth-native-checks.log": "f028c7c8dad4c670932298123d8b31960f49421b4d537014522314c7e4d18631",
+    ".local/class-skills/fire-golem-birth/content-build-3.log": "efe4195374df6ba994dd991a18017fd850a6ca8d1263fe75cc2756ed1793725c",
+    ".local/class-skills/fire-golem-birth/fire-golem-birth-fixtures.json": "78501509d5d33fe45f20a606c22c0cc9bea76ccdf749629a63df9d235c596339",
+    ".local/class-skills/fire-golem-birth/integration-build-3.log": "b09f09fcdd50d22932beb7d1e973871c80386e193948e98518fcf4905a759b41",
+    ".local/class-skills/fire-golem-birth/iron-golem-cast-fixtures.json": "86d4697e7d3c96d1c2cc74234f78f7626a3d0c7d04777f29d4206be7b410b8b0",
+    ".local/class-skills/fire-golem-birth/mage-missile-fixtures.json": "49894d784d16be507aa10f5054d88f7c94bc202f5d588b771d32057f3e760441",
+    ".local/class-skills/fire-golem-birth/pre-build-3.json": "08dc7f05ab8f3af44ca629f81aabe0c8fb6db00cb171c0b08db4ac4a430a7260",
+    ".local/class-skills/fire-golem-birth/python-tests.log": "4470d79f5608c815f7c83dc0515ecad1a5f9ed0aa8a662a433ef003aa8276edb",
+    ".local/class-skills/fire-golem-birth/run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/fire-golem-birth/skeleton-contact-fixtures.json": "91c3ae02c7eb7ff0102193fb683b97a50c8352f21231e5e2f3720bd1d5a0e61e",
+    "data/Sanctuary/Balance/necromancer-summons.json": "3b862e4d6b1698ef7ab189b55069219a89d5b9ea8dbcdbc9f78ee1efc4706dda",
+    "docs/class-skill-roadmap.md": "406e98aeb7241b89f185bf5b7189e5f724e6c7defcf6f4f41ccb1f79c659da1b",
+    "docs/class-skills-resume-checkpoint.md": "913a4c348fbe3aaff9b243fd8d325e962c28e99e5a9985a005768b8226fbbe29",
+    "docs/fire-golem-birth-checkpoint.md": "a811758045b3d5d5d8b9736100067ccf52e4ba8e79e4294a1bc1b9ec0108eff0",
+    "docs/necromancer-mechanical-audit.md": "aa5556bc1a5eea724576514324ac67e1cca094330b815ba91de60e22f9359986",
+    "docs/skeletal-mage-upgrade-plan.md": "9d91a6f36ef5cef0b857ab4c628ba5aea0c0542dda328e05a135acdd9dc03f80",
+    "docs/skeleton-components-source-review.md": "571e5890391ca7e3f0f3bef25731d55156b9e43ee66dce3932ee9609d5b44ed3",
+    "docs/skill-effects.md": "917c4305cbf57fc759dbb6e933a12884af4c0b6e85ec05177a4ffa6edf9f2d53",
+    "docs/skill-icons.md": "0bd28e7815e4dbdbaa924b0666918ae6bf261811cc9eed41611f9dc4aec45bb9",
+    "docs/skill-mechanical-reference.md": "800f6e45b301f36747af3f2010e84afd297a5d657fb120ea96c78cbb6ccedf21",
+    "src/Sanctuary.Content/FireGolemBody.cs": "bedfbc8a41673ea6f4722a5e3b722ed63dc4b0cf31e813635ecc94d106244184",
+    "src/Sanctuary.Content/NecromancerFireBirth.cs": "2c2906706b6ba4f35eca5ea0a1734802f44edc862808fdeb1433d9e48b421023",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "db9c90e187b0c49fd490cf4e95eff0ee75ac73817906988ae2db430f4caba98e",
+    "src/Sanctuary.Content/SkeletonPets.cs": "560103cd443463dc0932f22794fc0d89fd37827e84e665e4528390c2af3c9b3c",
+    "tests/Sanctuary.Integration/FireGolemBirthChecks.cs": "f1bb72ca326bdea2b7dcf21c94a4047629455ef5ad0d28e5988c605c0a085e4a",
+    "tests/check_fire_golem_birth.py": "4f8dfd3649a718157045f96bc5128554490b8c041bfaa8615d3988dcdd55eb84",
+    "tools/build_class_skills.py": "4b3d8a5a80e3df45ddd3fd79051d1d8d36c53ece2d977185555bf3acddbdf40d",
+    "tools/prepare_fire_golem_world_reference.py": "907decc75282fcc1865305021ffb3e9f2b33e1e324aa2e46ae267f395abe88e4",
+    "tools/prepare_skeleton_world_reference.py": "5035623871e51fc8ca1bdf643fb36d41aab392d1f48aa6c49a14d278cadcf4fd",
+    "tools/probe_fire_golem_birth.py": "7a6ae6bc3f7ab98d403c7278645be6d64e5c3d3f3babe8c615e8b3ef2626b866",
+    "tools/record_fire_golem_birth.py": "903fb4e4c527a7833e4e126cbf9675edffea9a335f2cf529d3ab18a8ce82a298",
+    "tools/reference/blood-golem-combat-native-evidence.json": "fa093e73d3d9d763315b810291190eb348da330ac95bae2af0befe4639c86168",
+    "tools/reference/fire-golem-world-preflight.json": "8dd458e87b2478555623dfb32aca4e208b1a83ddeaa8d473a99b3b880ed62893",
+    "tools/reference/first-loop-affix-audit.json": "c201965a323f1890e7e884ef3029a2fcedabfea5d4a618c062383c5d68246bbc",
+    "tools/reference/named-item-runtime-audit.json": "bdb44606e62b3e34985c67349052435ed5cf190757d3b3104e879062a7a5eced",
+    "tools/reference/poison-spell-potion-deviation.json": "2b4306dc7cd48127a079bfc32fe67564d4d286fbe68bc9db1c33aa6ca33d010c",
+    "tools/reference/skeleton-shield-observations.json": "e509ed29e26fe70abfe729218a7e912fb7fab32cdd38e0d4cd23c82fc2b34e52",
+    "tools/reference/skeleton-world-preflight.json": "03d5e502d5877e07cff739538f12d7cc8b536cbf8a9c51d1bbd9144fedf7a651"
+  },
+  "established": [
+    "New learned Fire Golems use a saved exact-resource subtype with shared noRatio summon base/passive/MAXHP,regeneration,facet,buff and persistence services. All difficulties are preflighted before allocation/replacement;inherited fire Sunder explicitly refuses.",
+    "Complete unchanged shared helper bodies execute16065safe contexts,including4590independent hard-synergy rows.163current fields are corroborated against owned3.3.93847tables. Effective Mastery and hard Blood life,Clay attack rating and Iron armor remain separate. Four fire-stat calculations and Holy Fire rank/selection are captured through declared current scalar/stat services.",
+    "Actual learned rank4includes prerequisite Blood1:Normal84134FP256life/61FPregen,Nightmare164774FP256/120FPregen. Real Wormskull/effective Mastery8/hard Blood2/Clay4/Iron3 recast gives216345FP256life/158FPregen,armor779,attack1248,velocity24,fire resistance138/absorb62 and Holy Fire rank11. Later owner ranks do not rewrite captures.",
+    "The fire resistance seed follows the declared source base100plus aura delta,with no Summon Resist fire addition while absorption is positive. Native resistance modifiers are preserved. Real fire delivery verifies the resulting immunity without certifying absorption caps/ordering.",
+    "Once-only payment,replacement,insufficient mana retaining the old pet,40ms recovery/PMH,facet-relative life,Battle Orders,6actual right/quick casts and2injured parked reloads pass. Historical plain minions retain their type/path. All339predecessor markers,4audits/71Python,573named decisions,runtime data,staged kernel and106installed artifacts remain."
+  ],
+  "remaining": [
+    "Fire damage-stat units and full elemental delivery,absorption cap/order/mixed equipment,Holy Fire pulse/weapon behavior,death/replacement explosion,unarmed critical/prepared contact,initial S1/AI/animation/movement and full initializer/current-executable/client parity remain separate. Existing inherited combat/aura/death behavior is not certified by birth captures.",
+    "Fire resistance uses declared noRatio initialization and additive stat-list services;complete monster initializer/stat aggregation execution remains unverified. Native65000HPceiling remains an explicit adapter. Continue other Necromancer acceptance before marking a class complete.",
+    "No complete class,deployment or new1180-marker broad run is claimed. Fire emergence/body/attack/aura/absorb/hit/death effects/audio and tree/right/quick icons remain separately pending."
+  ]
+}

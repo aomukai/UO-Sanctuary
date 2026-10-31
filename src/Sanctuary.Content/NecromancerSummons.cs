@@ -41,9 +41,10 @@ public static class NecromancerSummons
         if(mage){try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.ClayGolem){try{NecromancerClayBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.BloodGolem){try{NecromancerBloodBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
+        if(ability==CombatAbility.FireGolem){try{NecromancerFireBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
-        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemBody(),CombatAbility.BloodGolem=>new BloodGolemBody(),_=>new NecromancerMinion()};
+        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemBody(),CombatAbility.BloodGolem=>new BloodGolemBody(),CombatAbility.FireGolem=>new FireGolemBody(),_=>new NecromancerMinion()};
         bool committed=false;
         try
         {
@@ -155,7 +156,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         RefreshResistances();
         if(IsMage){SkillHealth.SetBalance256(this,SkillHealth.Maximum256(this));}
     }
-    private void RefreshResistances()
+    protected virtual void RefreshResistances()
     {
         if (Kind == CombatAbility.None) { return; }
         string key = SkillMechanics.For(Kind).Text("summon");

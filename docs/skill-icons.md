@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Fire Golem birth/resource increment](fire-golem-birth-checkpoint.md) adds no player binding or final art. Fire Golem still needs its tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately pending. Automatic NPC Holy Fire, absorption and resource behavior require no additional player skill icon. Effects/audio remain separately tracked.
+
 The [Blood Golem combat/healing increment](blood-golem-combat-checkpoint.md) adds no new player ability or binding. Blood Golem still needs its tree and right/quick-hotkey icon; automatic critical/contact/healing/overflow reactions need no separate skill icon. Golem Mastery's passive icon stays separately pending. Effects/audio remain in their own ledger.
 
 The [Blood Golem exact birth/resource increment](blood-golem-birth-checkpoint.md) adds no ability binding or final art. Blood Golem still needs its talent-tree and right/quick-hotkey icon; Golem Mastery's passive tree icon remains separately pending. Internal exact-life/regeneration services require no additional player icons. Effects/audio stay in their own ledger.
