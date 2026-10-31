@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using Server;
+using Server.Accounting;
 using Server.Logging;
 using Server.Mobiles;
 using Server.Network;
@@ -110,48 +111,51 @@ public static class BlindWorldChecks
     private static void Live(NetState network)
     {
         var p=Owner();var t=Enemy(p,6);
-        network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;network.Mobile=p;p.NetState=network;
-        var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();network.SendMobileUpdate(p);
+        network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
+        var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
+        var account=new Account("blind-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;network.Mobile=p;p.NetState=network;
+        network.ResetMovementState();network.SendMobileUpdate(p);
         Require(t.Map.GetSector(t.Location).Active,"Connected player did not activate the blind actor's sector");
-        Apply(p,t);State(t,State(t) with{Seed=Seed(false),NextUtc=TimedEffects.Now});t.NextReacquireTime=Core.TickCount;
+        Apply(p,t);State(t,State(t) with{Seed=Seed(false),NextUtc=TimedEffects.Now.AddHours(1)});
         bool finished=false;
         void Finish(Exception e=null)
-        {if(finished){return;}finished=true;t.Delete();p.Delete();if(e==null){Log.Information("blind-world-live-result: passed");}else{Log.Error(e,"blind-world-live-result: failed");}}
-        Log.Information("blind-world-live: ready");
-        Timer.StartTimer(TimeSpan.FromMilliseconds(100),()=>
+        {if(finished){return;}finished=true;t.Delete();p.Delete();account.Delete();if(e==null){Log.Information("blind-world-live-result: passed");}else{Log.Error(e,"blind-world-live-result: failed");}}
+        // Native wheel callbacks can run during catch-up while Core.TickCount
+        // is ahead. Observe the controller's real clock on the loop queue;
+        // polling never advances the actor's decision or step deadlines.
+        void Observe(DateTime at,Action observation)
         {
-            try
+            void Poll()
+            {
+                if(finished){return;}
+                if(TimedEffects.Now<at){Timer.StartTimer(TimeSpan.FromMilliseconds(10),()=>Core.LoopContext.Post(Poll));return;}
+                try{observation();}catch(Exception e){Finish(e);}
+            }
+            Timer.StartTimer(TimeSpan.Zero,()=>Core.LoopContext.Post(Poll));
+        }
+        FixtureClock.NextLoop("blind-world-live-result",()=>
+        {
+            State(t,State(t) with{NextUtc=TimedEffects.Now});t.NextReacquireTime=Core.TickCount;
+            Log.Information("blind-world-live: ready");
+            Observe(TimedEffects.Now.AddMilliseconds(100),()=>
             {
                 var first=State(t);Require(first is{Thinks:1,Draws:1,Goal:null,Fault:null},"Natural first idle decision");
                 // Beyond the18-tile acquisition adapter while still inside
                 // the connected player's two-sector native activation range.
                 p.MoveToWorld(new(t.X+20,t.Y,t.Z),p.Map);
                 Require(t.Map.GetSector(t.Location).Active,"No-target inspection culled the actor's sector");
-                Timer.StartTimer(first.NextUtc-TimedEffects.Now-TimeSpan.FromMilliseconds(50),()=>
-                {if(finished){return;}try{Require(State(t)==first,"Natural controller acted before its source idle deadline");}catch(Exception e){Finish(e);}});
-                Timer.StartTimer(first.NextUtc-TimedEffects.Now+TimeSpan.FromMilliseconds(100),()=>
+                Observe(first.NextUtc.AddMilliseconds(-50),()=>Require(State(t)==first,"Natural controller acted before its source idle deadline"));
+                Observe(first.NextUtc.AddMilliseconds(100),()=>
                 {
-                    if(finished){return;}
-                    try
+                    var second=State(t);Require(second is{Thinks:2,Draws:1,Focus:0,Goal:null,Fault:null}&&network.Running,$"Natural no-target decision/connection: state={JsonSerializer.Serialize(second)}, running={network.Running}");
+                    p.MoveToWorld(new(t.X-1,t.Y,t.Z),p.Map);
+                    Observe(second.NextUtc.AddMilliseconds(-50),()=>Require(State(t)==second,"Returning enemy bypassed the no-target idle deadline"));
+                    Observe(second.NextUtc.AddMilliseconds(100),()=>
                     {
-                        var second=State(t);Require(second is{Thinks:2,Draws:1,Focus:0,Goal:null,Fault:null}&&network.Running,"Natural no-target decision/connection");
-                        p.MoveToWorld(new(t.X-1,t.Y,t.Z),p.Map);
-                        Timer.StartTimer(second.NextUtc-TimedEffects.Now-TimeSpan.FromMilliseconds(50),()=>
-                        {if(finished){return;}try{Require(State(t)==second,"Returning enemy bypassed the no-target idle deadline");}catch(Exception e){Finish(e);}});
-                        Timer.StartTimer(second.NextUtc-TimedEffects.Now+TimeSpan.FromMilliseconds(100),()=>
-                        {
-                            if(finished){return;}
-                            try
-                            {
-                                var attack=State(t);Require(attack is{Combat:true,Draws:1,Fault:null}&&attack.Thinks>=3&&attack.Focus==p.Serial.Value&&t.Combatant==p&&network.Running,"Natural no-target-to-adjacent reacquisition/admission");Finish();
-                            }
-                            catch(Exception e){Finish(e);}
-                        });
-                    }
-                    catch(Exception e){Finish(e);}
+                        var attack=State(t);Require(attack is{Combat:true,Draws:1,Fault:null}&&attack.Thinks>=3&&attack.Focus==p.Serial.Value&&t.Combatant==p&&network.Running,"Natural no-target-to-adjacent reacquisition/admission");Finish();
+                    });
                 });
-            }
-            catch(Exception e){Finish(e);}
+            });
         });
     }
 }

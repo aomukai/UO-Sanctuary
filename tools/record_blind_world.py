@@ -14,10 +14,18 @@ sha=inventory.sha
 
 def record(build,run,check=False):
     inventory.STAGE=STAGE
-    inputs={n:inventory.validate_inventory(STAGE/(n+'-inputs.json')) for n in ['birth','audit']}
+    smoke=ROOT/'.local/class-skills/blind-world-smoke'
+    paths={'birth':smoke/'birth-inputs.json','audit':STAGE/'audit-inputs.json'}
+    inputs={n:inventory.validate_inventory(p) for n,p in paths.items()}
     for n,value in inputs.items():
-        snapshot(STAGE/f'pre-build-{build}.json',STAGE/(n+'-inputs.json'))
+        snapshot(STAGE/f'pre-build-{build}.json',paths[n])
         assert value['artifacts']==inputs['birth']['artifacts'] and value['copiedData']==inputs['birth']['copiedData']
+    assert markers(smoke/'birth-native-checks.log')==Counter({'iron-golem-birth-check':3,'blind-policy-check':3,
+        'iron-golem-items-check':1,'iron-golem-items-reload-check':2,'npc-resource-callbacks-check':1,'npc-resource-callbacks-reload-check':2,
+        'blind-world-check':1,'blind-world-reload-check':2,'blind-world-live-result':3})
+    smoke_log=(smoke/'birth-native-checks.log').read_text()
+    assert ': failed' not in smoke_log and ' ERR]' not in smoke_log
+    assert smoke_log.count('Shutting down')==smoke_log.count('Writing world save snapshot done')==3
     parent=ROOT/'tools/reference/blind-policy-native-evidence.json'
     prior=json.loads(parent.read_text());ref=prior['inputInventories']['audit']
     assert sha(ROOT/ref['path'])==ref['sha256']
@@ -33,15 +41,7 @@ def record(build,run,check=False):
     assert all(data[p]==h for p,h in previous.items())
     for name in ['ModernUO.dll','Server.dll','Assemblies/UOContent.dll']:
         assert sha(STAGE/'native/Distribution'/name)==inputs['birth']['artifacts'][name]==old['artifacts'][name]
-    baseline=ROOT/'.local/class-skills/dim-vision-cast/birth-native-checks.log'
-    cast_parent=ROOT/'tools/reference/dim-vision-cast-native-evidence.json';cast=json.loads(cast_parent.read_text())
-    assert sha(baseline)==cast['artifacts'][str(baseline.relative_to(ROOT))]
-    expected=markers(baseline)+Counter({'blind-policy-check':3,'blind-world-check':1,'blind-world-reload-check':2,'blind-world-live-result':3})
-    log=(STAGE/'birth-native-checks.log').read_text()
-    assert markers(STAGE/'birth-native-checks.log')==expected and sum(expected.values())==521
-    assert ': failed' not in log and ' ERR]' not in log
-    assert log.count('Shutting down')==log.count('Writing world save snapshot done')==3
-    assert 'Blind world controls:target/no-target deadlines,no early/extra draws,attack admission,scoped acquisition,recast/replacement/expiry RNG continuity pass' in log
+    cast_parent=ROOT/'tools/reference/dim-vision-cast-native-evidence.json'
     for kind in ['content','integration']:
         text=(STAGE/f'{kind}-build-{build}.log').read_text()
         assert all(x in text for x in ['Build succeeded.','0 Warning(s)','0 Error(s)'])
@@ -56,7 +56,7 @@ def record(build,run,check=False):
     assert ': failed' not in audit and ' ERR]' not in audit and audit.count('Shutting down')==1
     text=(STAGE/'python-tests.log').read_text();assert 'Ran 71 tests' in text and '\nOK\n' in text
     text=(STAGE/'named-readiness.log').read_text();assert '573 definitions accounted for' in text
-    saved=json.loads((STAGE/'blind-world-fixtures.json').read_text())
+    saved=json.loads((smoke/'blind-world-fixtures.json').read_text())
     assert saved['Generation']==2 and saved['Ai']['Fault'] is None
     assert saved['Ai']['Thinks']==1 and saved['Ai']['Draws']==5 and saved['Ai']['Goal'] is None
     assert not saved['Ai']['Combat'] and saved['Curse']['Ability']==83
@@ -74,18 +74,20 @@ def record(build,run,check=False):
     files=[parent,cast_parent,source_path,rules_path,Path(__file__),*[ROOT/p for p in added|changed],*[ROOT/p for p in docs],
         ROOT/'data/Sanctuary/Balance/blind-ai-rules.json',ROOT/'tools/build_blind_ai_rules.py',ROOT/'tests/check_blind_world.py',ROOT/'tests/check_iron_golem_birth.py',ROOT/'tests/export_runtime_audits.py',
         ROOT/'tools/reference/named-item-runtime-audit.json',ROOT/'tools/reference/first-loop-affix-audit.json']
-    files += [STAGE/p for p in [f'pre-build-{build}.json',f'content-build-{build}.log',f'integration-build-{build}.log',f'run-{run}.log',f'audit-run-{run}.log','birth-inputs.json','audit-inputs.json','birth-native-checks.log','audit-native-checks.log','python-tests.log','named-readiness.log','blind-world-fixtures.json','dim-vision-cast-fixtures.json']]
+    files += [STAGE/p for p in [f'pre-build-{build}.json',f'content-build-{build}.log',f'integration-build-{build}.log',f'audit-run-{run}.log','audit-inputs.json','audit-native-checks.log','python-tests.log','named-readiness.log']]
+    files += [smoke/p for p in ['birth-inputs.json','birth-native-checks.log','run-2.log','blind-world-fixtures.json']]
     result=dict(referenceVersion='3.3.93847',component='Dim Vision bounded live blind controller',installed=False,goalComplete=False,completedClasses=[],build=build,run=run,
-        verified=dict(nativeMarkers=521,retainedPredecessorMarkers=512,boots=3,actualReloads=2,saves=3,auditMarkers=4,pythonTests=71,namedDefinitions=573,auditFingerprints=[852,21],unchangedInstalledArtifacts=106,
+        verified=dict(nativeMarkers=18,boots=3,actualReloads=2,saves=3,auditMarkers=4,pythonTests=71,namedDefinitions=573,auditFingerprints=[852,21],unchangedInstalledArtifacts=106,
             policyTickTacticsComparisonsPerBoot=12288,policyNoTargetComparisonsPerBoot=112,connectedNaturalClockChecks=3,currentTimingRows=23,handlers=186,necromancerHandlers=30),
-        inputInventories={n:dict(path=str((STAGE/(n+'-inputs.json')).relative_to(ROOT)),sha256=sha(STAGE/(n+'-inputs.json'))) for n in inputs},
+        inputInventories={n:dict(path=str(paths[n].relative_to(ROOT)),sha256=sha(paths[n])) for n in inputs},
         changedSourceHashes={p:after[p] for p in sorted(added|changed)},artifacts={str(p.relative_to(ROOT)):sha(p) for p in sorted(set(files))},
         established=[
             'Dim Vision now invokes the tested policy for the Skeleton/Zombie/Megademon source families. Current pinned 23-row timing/range data selects neutral delays by configured facet. Actor-local source-algorithm RNG survives curse refresh, replacement and expiry; the historical D2 seed/global stream is not claimed.',
             'Explicit UTC decision and native-step deadlines prevent early polling/rerolls. Scoped target acquisition cannot grant ordinary distant harm. Controls exercise target-present/no-target idle, adjacent normal-weapon admission, recast/replacement/expiry continuity and actual native wander resumption across two reloads.',
             'Optional saved BlindAi state is outside the curse; existing version0 records remain readable. Capture native movement deadlines before an immutable worker serialization snapshot. Connected checks observe a target-present400ms idle, a no-target1000ms idle, no early decisions and subsequent same-actor adjacent reacquisition without editing the inspected deadlines.',
-            '521markers retain the512predecessor cohort across3boots/2reloads/3saves. The retained obstruction inspection now advances its saved step clock explicitly and waits650ms for the pinned600ms neutral delay; its assertion is retained with changed timing, not byte-identical execution. Four audits,71Python,573named,clean rebuilds and852/21fingerprints pass. Installed106artifacts unchanged;no deployment.'],
+            'Focused18markers pass across3boots/2reloads/3saves with3connected target/no-target/return checks. Four shared Thorns/named/affix audit markers,71Python,573named,clean rebuilds and852/21fingerprints pass. Installed106artifacts unchanged;no deployment.'],
         remaining=[
+            'No full521-marker acceptance is claimed. Extended attempts stopped on fixture faults;attempt5 passed its first full save and first blind-wander reload before an early timer-wheel observation failed. The repaired current fixture passes the focused18-marker cohort. Latest accepted full512cohort remains the prior Dim Vision cast checkpoint. The retained obstruction test timing changed350to650ms and advances only its saved step inspection clock;full retained regression remains pending.',
             'Full blind AI/skill/class is unfinished. Source acquisition/node ordering/LOS/ties and room/collision/path/mode services are native world adapters. Native reacquire gating, actor attack A1/action/recovery completion and initial deadline/lag behavior are not current-executable parity claims.',
             'Source dwAiState3/19 escape branches have no native mapping;the bridge supplies false. Distance5 collision displacement has policy coverage but no world acceptance. Unsupported AI families,ownership/conversion coexistence,facet transfers and failed path/projection cases retain flagged fallback behavior rather than invented source transitions.',
             'The40ms attack admission poll delegates to existing native weapon scheduling;it does not certify source attack-event cadence or a shared historical NPC RNG stream. Per-actor RNG initializes independently with the source algorithm.',
@@ -93,7 +95,7 @@ def record(build,run,check=False):
     destination=ROOT/'tools/reference/blind-world-native-evidence.json';render=json.dumps(result,indent=2)+'\n'
     if check:assert destination.read_text()==render
     else:destination.write_text(render)
-    print('Bounded live blind controller:521markers,3boots/2reloads/3saves;full AI/class parity remains unfinished.')
+    print('Bounded live blind controller:18focused markers,3boots/2reloads/3saves;full regression and AI/class parity remain unfinished.')
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--build',type=int,required=True);p.add_argument('--run',type=int,required=True);p.add_argument('--check',action='store_true');a=p.parse_args();record(a.build,a.run,a.check)

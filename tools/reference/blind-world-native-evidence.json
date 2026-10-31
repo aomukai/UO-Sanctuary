@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Dim Vision bounded live blind controller",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 10,
+  "run": 6,
+  "verified": {
+    "nativeMarkers": 18,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      852,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "policyTickTacticsComparisonsPerBoot": 12288,
+    "policyNoTargetComparisonsPerBoot": 112,
+    "connectedNaturalClockChecks": 3,
+    "currentTimingRows": 23,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/blind-world-smoke/birth-inputs.json",
+      "sha256": "eb94a510bda27515fc1ba0a02d608fa24130bd559bed4c91d3495d15fd04c28e"
+    },
+    "audit": {
+      "path": ".local/class-skills/blind-world/audit-inputs.json",
+      "sha256": "1be5f2959a8f48daad592e15027eeb11ca36a9392688d49586b95794612877d2"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NamedControl.cs": "1b8094220da6593967474a0dd944a7a4256e0ec9b66a83953b2c472e7c18c06f",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "44252a1f4a91aa6f4f144f2e6f731b8d94e15257c645625cdcfd02cf588fae92",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "f4643d2ce7fc6f380ae20a79c1ea3923497d1ae9248a78280ce2152e7b66a19c",
+    "src/Sanctuary.Content/SourceBlind.cs": "4f5a5689e7c251df66b575a72fd9036a5143ff0b6dc7de24c3856fd0859c7d19",
+    "tests/Sanctuary.Integration/BlindWorldChecks.cs": "0f550d2ad8e808f22aacf3cbcaeb7c7200dbd223324a6533f880079c5e5a135c",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "744cd1c27a726a3c5b57bd9b115a9d30c51cd9ccf532379b193675a1a8de75d1"
+  },
+  "artifacts": {
+    ".local/class-skills/blind-world/audit-inputs.json": "1be5f2959a8f48daad592e15027eeb11ca36a9392688d49586b95794612877d2",
+    ".local/class-skills/blind-world/audit-native-checks.log": "1b4adc2fa12e106dcbad4bd3a3b487a66e6b2e526047b2821d968c571d1f8fc5",
+    ".local/class-skills/blind-world/audit-run-6.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/blind-world/content-build-10.log": "4f3381608f8390f88f6d1f32b2b9af8e2224e84b9e40a9a2bacfb5bc0bb2b8fc",
+    ".local/class-skills/blind-world/integration-build-10.log": "3fc33f15521e10358aaff4add9b5f3a5be2f8352c060e3c5caa19e323f96078f",
+    ".local/class-skills/blind-world/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/blind-world/pre-build-10.json": "5f0cc1f88a0391361d5bc7e6aaed7025212a7de8b31549c2863bfd2d1ec7c235",
+    ".local/class-skills/blind-world/python-tests.log": "3b8a665eb1b486f47cdaa5aa517658e47fd9b811727d831cf4cc51483ad525cb",
+    ".local/class-skills/blind-world-smoke/birth-inputs.json": "eb94a510bda27515fc1ba0a02d608fa24130bd559bed4c91d3495d15fd04c28e",
+    ".local/class-skills/blind-world-smoke/birth-native-checks.log": "8056df4f9871b74ea268cb50b8fdd2c98eb3211527f70219f2860710ee22c76e",
+    ".local/class-skills/blind-world-smoke/blind-world-fixtures.json": "6d0ebf83ee3e3de579db257966f5640202dfbd1fd7071c9cacb9b0fa21ce1169",
+    ".local/class-skills/blind-world-smoke/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
+    "docs/blind-world-checkpoint.md": "838c6d5b2a4537df43ea4545e73419b0c6f2f3fcd9c6b1482f6826333aabe944",
+    "docs/class-skill-roadmap.md": "2ce463eb525617d28181fad0b7b4a7aeb139b3903ad46fcf7b6813380668f64e",
+    "docs/class-skills-resume-checkpoint.md": "82c538e1416269faf72a88c26ca922578789017cc4b1eb23463b9a1bdd1b3966",
+    "docs/necromancer-mechanical-audit.md": "17069a22bf44ac3d1051ad048ef8be7a354836f2fb563eface1615eca9dab6cd",
+    "docs/pet-adjustment-review.md": "8fd914baef795d94630c802862c353412d0cc39940aeb51d21c2589f2b534289",
+    "src/Sanctuary.Content/NamedControl.cs": "1b8094220da6593967474a0dd944a7a4256e0ec9b66a83953b2c472e7c18c06f",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "44252a1f4a91aa6f4f144f2e6f731b8d94e15257c645625cdcfd02cf588fae92",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "f4643d2ce7fc6f380ae20a79c1ea3923497d1ae9248a78280ce2152e7b66a19c",
+    "src/Sanctuary.Content/SourceBlind.cs": "4f5a5689e7c251df66b575a72fd9036a5143ff0b6dc7de24c3856fd0859c7d19",
+    "tests/Sanctuary.Integration/BlindWorldChecks.cs": "0f550d2ad8e808f22aacf3cbcaeb7c7200dbd223324a6533f880079c5e5a135c",
+    "tests/Sanctuary.Integration/ClassSkillChecks.cs": "744cd1c27a726a3c5b57bd9b115a9d30c51cd9ccf532379b193675a1a8de75d1",
+    "tests/check_blind_world.py": "23ca76ed27566db3d0a9b0d375db127f7cd53c8b2847ec6577fa68f55565aeab",
+    "tests/check_iron_golem_birth.py": "84a325750f105bdac5d60608d952d3bbf75c75bfba03e35b93d830cecca774ba",
+    "tests/export_runtime_audits.py": "f1fb2b4e4876868f5543f7b2a93fcbdbdf56cbf85d1fa8147a3d4cdba75da146",
+    "tools/build_blind_ai_rules.py": "0663bb8b905fd2579b392a3c56113abd5705c1e01049021c17f21fdbfab3c2ae",
+    "tools/record_blind_world.py": "045840d48b5b48ec0f399f18b09d47c92d1c581f8b02a318d56e3e55a06296c3",
+    "tools/reference/blind-ai-rule-evidence.json": "e0faf0063a96a27abebd48f0b4fdb0850adf662c0a744d51dec97ef8f73037f0",
+    "tools/reference/blind-policy-native-evidence.json": "2d2f3ec45357dcbbfbb8585d522b6883fdae1aef7a852995bbc7978e088dbd0e",
+    "tools/reference/dim-vision-ai-source-evidence.json": "f2f721747e33b7464858a7febd54284c734e9924a350fc6cd2b350d6f3e40517",
+    "tools/reference/dim-vision-cast-native-evidence.json": "7dab993322fdd482c7b08ab83d0cc33bd98d51bbc962655e1fd27e0ad64d9a67",
+    "tools/reference/first-loop-affix-audit.json": "33392dbaa41448b5cb1c49759eb2b95420e17d107baa2e68b813c77bf6c62e95",
+    "tools/reference/named-item-runtime-audit.json": "447a238718019d5f3cefbad417f2bd8a1143134290d7353aa4f1bf253fea11e5"
+  },
+  "established": [
+    "Dim Vision now invokes the tested policy for the Skeleton/Zombie/Megademon source families. Current pinned 23-row timing/range data selects neutral delays by configured facet. Actor-local source-algorithm RNG survives curse refresh, replacement and expiry; the historical D2 seed/global stream is not claimed.",
+    "Explicit UTC decision and native-step deadlines prevent early polling/rerolls. Scoped target acquisition cannot grant ordinary distant harm. Controls exercise target-present/no-target idle, adjacent normal-weapon admission, recast/replacement/expiry continuity and actual native wander resumption across two reloads.",
+    "Optional saved BlindAi state is outside the curse; existing version0 records remain readable. Capture native movement deadlines before an immutable worker serialization snapshot. Connected checks observe a target-present400ms idle, a no-target1000ms idle, no early decisions and subsequent same-actor adjacent reacquisition without editing the inspected deadlines.",
+    "Focused18markers pass across3boots/2reloads/3saves with3connected target/no-target/return checks. Four shared Thorns/named/affix audit markers,71Python,573named,clean rebuilds and852/21fingerprints pass. Installed106artifacts unchanged;no deployment."
+  ],
+  "remaining": [
+    "No full521-marker acceptance is claimed. Extended attempts stopped on fixture faults;attempt5 passed its first full save and first blind-wander reload before an early timer-wheel observation failed. The repaired current fixture passes the focused18-marker cohort. Latest accepted full512cohort remains the prior Dim Vision cast checkpoint. The retained obstruction test timing changed350to650ms and advances only its saved step inspection clock;full retained regression remains pending.",
+    "Full blind AI/skill/class is unfinished. Source acquisition/node ordering/LOS/ties and room/collision/path/mode services are native world adapters. Native reacquire gating, actor attack A1/action/recovery completion and initial deadline/lag behavior are not current-executable parity claims.",
+    "Source dwAiState3/19 escape branches have no native mapping;the bridge supplies false. Distance5 collision displacement has policy coverage but no world acceptance. Unsupported AI families,ownership/conversion coexistence,facet transfers and failed path/projection cases retain flagged fallback behavior rather than invented source transitions.",
+    "The40ms attack admission poll delegates to existing native weapon scheduling;it does not certify source attack-event cadence or a shared historical NPC RNG stream. Per-actor RNG initializes independently with the source algorithm.",
+    "Pet upgrades and actual-safe-area parking remain documented design only. Existing wounds,normal effect expiry,explicit healer service and named mercenary exemption are approved parking constraints. Effects/audio and talent/hotkey icons remain separate placeholder ledgers."
+  ]
+}

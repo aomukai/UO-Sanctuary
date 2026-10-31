@@ -18,7 +18,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_settings=None):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -65,7 +65,6 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
         # This native kernel's shutdown requires an initialized PingServer.
         config['settings'].update({'autosave.enabled': 'False', 'pingServer.enabled': 'True', 'pingServer.port': str(ping),
             'sanctuary.graveyard.enabled': 'False', 'world.savePath': 'Saves', 'crashGuard.restartServer': 'False', 'sanctuary.professions.enabled': 'True'})
-        config['settings'].update(extra_settings or {})
         configpath.write_text(json.dumps(config))
         waited_results = 0
         with (stage / 'birth-native-checks.log').open('w') as log:

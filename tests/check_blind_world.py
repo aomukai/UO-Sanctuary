@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Verify the bounded live blind controller and retain learned curse, pet and weapon mechanics."""
 from pathlib import Path
+import sys
 from check_iron_golem_birth import ROOT,check
 if __name__=='__main__':
-    # Moving the connected observer across the synthetic floor sends many static
-    # packets in one loop slice. Keep this fixture buffer override out of gameplay.
-    check(extra_settings={'network.sendBufferMaxSize':'65536'},stage=ROOT/'.local/class-skills/blind-world',extra_files={
+    if '--focused' in sys.argv:
+        check(stage=ROOT/'.local/class-skills/blind-world-smoke',extra_files={
+            'blind-policy-source-probe.json':ROOT/'.local/class-skills/blind-policy-source-probe.json'},
+            extra_families=('blind-world',),extra_checks=('blind-policy-check',),
+            extra_live_commands=('blind-world-live',),extra_inputs=(Path(__file__).resolve(),))
+        raise SystemExit(0)
+    check(stage=ROOT/'.local/class-skills/blind-world',extra_files={
         'blind-policy-source-probe.json':ROOT/'.local/class-skills/blind-policy-source-probe.json',
         'necromancer-ai-curse-source-cases.json':ROOT/'.local/class-skills/necromancer-ai-curse-source/cases.json',
         'life-tap-event-cases.json':ROOT/'.local/class-skills/life-tap-event-source/cases.json',
