@@ -27,6 +27,32 @@ internal readonly struct ItemStatContext
         else { foreach (var p in OrdinaryAffixProperties.Properties(state)) { yield return p; } }
     }
     internal int Bonus(string code) { RequireItem(); return ClassGear.Bonus(Item, code, RecipientLevel); }
+    internal void RequireOrdinaryNpcDrainInputs()
+    {
+        RequireItem();
+        // Current property writers set minima60/62;stamdrain is unrelated
+        // stamina-consumption stat154. None writes NPC attack maxima61/63/65.
+        foreach(var rule in new[]{("life-steal%","lifesteal",60),("mana-steal%","manasteal",62),("stamdrain","stamdrain",154)})
+        {
+            if(Bonus(rule.Item1)==0){continue;}
+            var plan=EquipmentPropertyWriter.Plan(rule.Item2);
+            if(plan is not{Supported:true,Steps.Length:1}||plan.Steps[0] is not{Function:1}||plan.Steps[0].Stat!=rule.Item3)
+            {throw new NotSupportedException("NPC item drain writer changed: "+rule.Item2);}
+        }
+        void Check(string code)
+        {
+            var plan=EquipmentPropertyWriter.Plan(code);
+            if(plan!=null&&Array.Exists(plan.Steps,step=>step.Stat is 61 or 63 or 65))
+            {throw new NotSupportedException("NPC positive attack-drain maxima need their resource/event consumer: "+code);}
+        }
+        foreach(var pair in Properties()){if(pair.Roll.Value!=0||pair.Roll.Maximum!=0){Check(pair.Property.Code);}}
+        if(ClassGear.State(Item) is{Identified:true} state&&!ClassGear.Broken(Item))
+        {
+            foreach(var rune in state.Runes){if(rune.Percentage!=0){Check(rune.Pattern.EffectCode);}}
+            foreach(var gem in state.Gems)foreach(var effect in GemSockets.Effects(Item,gem))
+            {if(effect.Minimum!=0||effect.Maximum!=0){Check(effect.Code);}}
+        }
+    }
     internal MissileSourceStats Poison()
     {RequireItem();return ItemPoisonProjection.Read(Item,Properties());}
     internal MissileSourceStats Elements()

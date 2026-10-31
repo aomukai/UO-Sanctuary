@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+  "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+  "unchangedRoutineHashes": {
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e"
+  },
+  "currentTableHashes": {
+    "properties": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "currentWriterRules": {
+    "lifesteal": {
+      "function": 1,
+      "stat": "lifedrainmindam",
+      "id": 60
+    },
+    "manasteal": {
+      "function": 1,
+      "stat": "manadrainmindam",
+      "id": 62
+    },
+    "stamdrain": {
+      "function": 1,
+      "stat": "item_staminadrainpct",
+      "id": 154
+    }
+  },
+  "currentPropertiesWritingDrainMaxima": [],
+  "cases": 144,
+  "fixture": {
+    "path": ".local/class-skills/npc-item-drain-source-probe.json",
+    "sha256": "99a6f788fa054b022daf857075047107785f07ba9736c99f995995b9094197cd"
+  },
+  "generatedSourceSha256": "42e6ee75500ab76c22c1d284e079b8d55a3623298ff0774e12bf6bc9aecef4c1",
+  "sanitizers": "ASan+UBSan exit0;empty runtime stderr",
+  "parent": {
+    "path": ".local/class-skills/monster-weapon-phases-source-probe.cpp",
+    "sha256": "34e1f6b90190a7de93c05ec76c2ba401c034ff8f876fc93f9ae2728a040c56c0",
+    "receipt": "tools/reference/monster-weapon-phases-source-evidence.json",
+    "receiptSha256": "7213e1c3df3a5d706a171c0b5c98e6a14344ce737b48cc5c360868970c0aff09"
+  },
+  "established": [
+    "Current item life/mana steal writers set only stats60/62;current stamdrain sets stamina-consumption stat154. No current property row writes attack-drain maxima61/63/65. Complete older non-hireling NPC fill leaves ordinary zero-initial drain fields0with these minimum-only/item154inputs.",
+    "Artificial nonzero maxima and skill-supplied initial fields exercise different positive source lanes,including its additive source-damage scaling. They must not be treated as item percentage leech or silently discarded. Only the ordinary zero-initial,current min-only item contexts justify removing the overbroad allocation refusal."
+  ],
+  "scope": "Complete unchanged older FillDamageValues/range/total with declared raw item-stat pools,non-hireling NPC/classification,random,world and event services. Current property mapping is pinned table evidence,not execution of the property writer in this probe. No current executable certificate,actual recovery/resource-event path or generic innate/skill-supplied drain support is claimed.",
+  "remaining": [
+    "Native current writer-plan guards and actual equipped allocation need verification. Modern Iron Golem item-leech behavior remains unobserved. Full positive-max/skill-supplied drain and later resource/recovery events remain unsupported."
+  ]
+}

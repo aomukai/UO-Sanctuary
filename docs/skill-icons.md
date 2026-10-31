@@ -1,5 +1,7 @@
 # Skill icons
 
+Ordinary NPC item-drain compatibility adds no bindable skill or icon. Existing Iron Golem and Life Tap talent/hotkey artwork remains separately pending.
+
 Allocated NPC impact is an internal consumer and adds no bindable skill/icon. Existing Iron Golem and related talent/hotkey artwork remains independently pending.
 
 NPC offensive preparation and native damage credit add no bindable action or icon. Existing Iron Golem and related talent/hotkey artwork remains independently pending.

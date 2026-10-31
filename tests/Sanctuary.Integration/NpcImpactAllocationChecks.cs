@@ -85,16 +85,28 @@ public static class NpcImpactAllocationChecks
             finally{target.Delete();actor.Delete();}
         }
         Require(count==21,"Incomplete actual original allocation/delivery controls");
-        var refused=Actor(owner,"unique/31",out _);var recipient=Target(owner);
-        try
+        foreach(string id in new[]{"unique/31","unique/51","unique/174"})
         {
-            NpcEquipmentRandom.Set(refused,77123);ulong before=NpcEquipmentRandom.State(refused).Seed;bool blocked=false;
-            try{NpcEquipmentImpact.Prepare(refused,recipient,1);}catch(NotSupportedException e){blocked=e.Message.Contains("drain lane");}
-            Require(blocked&&NpcEquipmentRandom.State(refused).Seed==before&&!recipient.Poisoned&&recipient.DamageCalls==0,"Unsupported NPC drain silently omitted or partially rolled");
-            foreach(int flags in new[]{0,16,129})
-            {var miss=NpcEquipmentImpact.Prepare(refused,recipient,flags);Require(miss.Packet.Total256==0&&miss.Packet.ResultFlags==flags&&NpcEquipmentRandom.State(refused).Seed==before,"Miss/NoFill consumed an offensive roll or defensive pool");}
+            var ordinary=Actor(owner,id,out var original);var recipient=Target(owner);
+            try
+            {
+                Require(NpcEquipmentCombat.Bonus(ordinary,"life-steal%")>0,"Actual minimum-only life-steal control");
+                if(id=="unique/174"){Require(NpcEquipmentCombat.Bonus(ordinary,"stamdrain")>0,"Actual stamina-consumption control");}
+                SkillHealth.SetBalance256(ordinary,SkillHealth.Maximum256(ordinary)-20*256);int sourceLife=SkillHealth.Balance256(ordinary);
+                recipient.SetMana(50);recipient.SetStam(50);int mana=NecromancerEffects.ManaBalance256(recipient),stam=BattleOrders.Stamina256(recipient);
+                NpcEquipmentRandom.Set(ordinary,77123);var impact=NpcEquipmentImpact.Prepare(ordinary,recipient,1);var packet=impact.Packet;
+                Require(packet.Total256==checked(packet.Physical256+packet.Fire256+packet.Cold256+packet.Lightning256+packet.Magic256+packet.Poison256),"Item minimum-only steal added a fabricated NPC attack drain");
+                var at=TimedEffects.Now;PreparedMonsterDamage.Release(ordinary,recipient,packet,new(false,()=>false,()=>5,()=>false),_=>0,new Delivery(recipient,ordinary,impact,at),at);
+                Require(SkillHealth.Balance256(ordinary)==sourceLife&&NecromancerEffects.ManaBalance256(recipient)==mana&&BattleOrders.Stamina256(recipient)==stam,"Minimum-only/stamina-consumption item produced player leech or an NPC resource drain");
+                if(id=="unique/31")
+                {
+                    ulong before=NpcEquipmentRandom.State(ordinary).Seed;
+                    foreach(int flags in new[]{0,16,129})
+                    {var miss=NpcEquipmentImpact.Prepare(ordinary,recipient,flags);Require(miss.Packet.Total256==0&&miss.Packet.ResultFlags==flags&&NpcEquipmentRandom.State(ordinary).Seed==before,"Miss/NoFill consumed an offensive roll or defensive pool");}
+                }
+            }
+            finally{recipient.Delete();ordinary.Delete();}
         }
-        finally{recipient.Delete();refused.Delete();}
     }
     private static void Check()
     {
@@ -105,7 +117,7 @@ public static class NpcImpactAllocationChecks
             var impact=NpcEquipmentImpact.Prepare(actor,target,1);Require(impact.Packet.Poison256==impact.Poison.Rate256&&impact.Poison.Rate256>0,"Saved poison impact packet");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,actor.Serial.Value,target.Serial.Value,original.Serial.Value,SkillHealth.Balance256(target),JsonSerializer.Serialize(ClassGear.State(original)),impact)));
             target.Internalize();PersistentMinions.Suspend(owner);owner.Internalize();saved=true;
-            Log.Information("NPC allocation:27000complete-source mitigation/total/prediction comparisons,21actual original/captured defense/initial poison/next-frame deliveries,unsupported drain preflight and3miss-NoFill controls pass;live actor/event registry/current applicability remain separate");
+            Log.Information("NPC allocation:27000complete-source mitigation/total/prediction comparisons,21actual original/captured defense/initial poison/next-frame deliveries,3minimum-only item deliveries and3miss-NoFill controls pass;positive-max/skill drains,live actor/event registry/current applicability remain separate");
         }
         finally{if(!saved){foreach(var pet in(owner.AllFollowers??[]).OfType<BaseCreature>().ToArray()){pet.Delete();}owner.Delete();}}
     }

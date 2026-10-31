@@ -1,5 +1,7 @@
 # Skill effects
 
+Ordinary NPC min-only item steal/stamina-consumption compatibility adds no healing visual/audio. Do not imply player percentage leech under the recorded older NPC rule;actual Life Tap remains a separate recovery effect. See [mechanical scope](npc-item-drain-checkpoint.md).
+
 Prepared NPC impact allocation adds no art/audio. Existing poison/cold/contact/retaliation placeholders remain. Final poison presentation must account for the captured initial impact and separate active periodic duration after mechanical/client acceptance;see [scope](npc-impact-allocation-checkpoint.md).
 
 NPC offensive snapshot and native credit changes add no visuals/audio. Existing attack,poison,Life Tap and retaliation placeholders still need final assets and client timing validation. The [initial-poison-total discrepancy](npc-weapon-preparation-checkpoint.md) is mechanical verification work,not an art blocker.

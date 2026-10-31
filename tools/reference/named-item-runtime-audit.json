@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "98c03a00e11ecbb5aa872cd4849e07f241074eb434d211984ad3641f16ac948e",
+  "ContentAssemblySha256": "4bf581c714d2dbb3f1d8a2bcc9822944c38511e0c08e850ad7df311abee924fd",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -581,7 +581,7 @@
     "src/Sanctuary.Content/ItemDamageOperations.cs": "383ec1bd2a683e754d1b0531d10813e5183af2c2ed0b860cd35ac7788373adda",
     "src/Sanctuary.Content/ItemDurationDefenses.cs": "b4ecc9de773a68c2255e9b462821a67614a5f7d2f9ba5b5963b805a39f4accce",
     "src/Sanctuary.Content/ItemPoisonProjection.cs": "29ad4474e0aa86aca8a535ca7edaad0e7c236d757cda3ad1659558e1c060a7eb",
-    "src/Sanctuary.Content/ItemStatContext.cs": "cbd61474d397015357d2e786f9eca87196255962e721beb4ef863c55a838e2da",
+    "src/Sanctuary.Content/ItemStatContext.cs": "80f96d93f5bb994706e7c26fecde73fca5d70bc24b1c076177a4400bdc721966",
     "src/Sanctuary.Content/JewelleryCrafting.cs": "a4c86d8e4d739768ec0efec16f7bd4bdd24704bd0d94cb1ae521ade67c67935c",
     "src/Sanctuary.Content/LandingReservations.cs": "cd2f123547c5df86aad9aef498c8764ace5365c838277101c299105753fb482c",
     "src/Sanctuary.Content/LeapGeometry.cs": "29bde817512de3c6b20e09808eaec7219574a20e6a1c2b9676e9c62d93e21a47",
@@ -642,7 +642,7 @@
     "src/Sanctuary.Content/NpcEquipmentCritical.cs": "ba1087508ba25057714faf86667e314175399ab06232405161a10628fc501350",
     "src/Sanctuary.Content/NpcEquipmentDamage.cs": "32e93e8636071114af04a3e34545f7ff6bcd3248718bd76773e0724d65472d50",
     "src/Sanctuary.Content/NpcEquipmentElements.cs": "250a17be86982e5fd4b739a1cadf4b2209c71c2a29718ccf00afc4610a36c429",
-    "src/Sanctuary.Content/NpcEquipmentImpact.cs": "72e42a7b23e5ac7ac590d5f149b995a342119854eeb09d676caffc3e56b34122",
+    "src/Sanctuary.Content/NpcEquipmentImpact.cs": "dd8132c30cb8ef777f02b42188ca6b736667c2490331f3a0eea1a0d190a50a35",
     "src/Sanctuary.Content/NpcEquipmentPoison.cs": "48f57dfb38970230c8b879c08a4e1595b3e6c99f6805ee11133da6aa22970f8c",
     "src/Sanctuary.Content/NpcEquipmentRandom.cs": "efc1a47eb171aa86bbe97c63498a4ec9d004081e1048ebc68a71f21f21b99e69",
     "src/Sanctuary.Content/NpcEquipmentRegeneration.cs": "e4158762ea5a620e0616992b715ec9927e41b18d3c47ab3afac74e4108d937d0",

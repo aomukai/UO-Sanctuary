@@ -37,10 +37,9 @@ internal static class NpcEquipmentImpact
         {throw new ArgumentException("NPC impact allocation requires existing living actors and source result flags");}
         if(!Fills(flags)){return new(actor.Serial.Value,target.Serial.Value,Packet(flags,0,null,default,0,default,0),default,0);}
         var item=NpcEquipmentCombat.Context(actor)??throw new NotSupportedException("No original NPC impact equipment");
-        // Source NPC drain fields have different units/health/event semantics
-        // from player percentages. Refuse rather than silently dropping them.
-        foreach(string code in new[]{"life-steal%","mana-steal%","stamdrain"})
-        {if(item.Bonus(code)!=0){throw new NotSupportedException("NPC allocated drain lane remains unverified: "+code);}}
+        // Ordinary current item minima do not create a positive NPC drain
+        // field. Positive maxima/skill-supplied fields remain separate work.
+        item.RequireOrdinaryNpcDrainInputs();
         var rolled=NpcEquipmentDamage.Roll(actor,target,limited,raw)??throw new NotSupportedException("NPC offensive roll binding was lost");
         var damage=rolled.Damage;
         var parts=SkillCombat.MitigatePrepared(actor,target,damage.Elements with{Physical=damage.Physical256/256.0*PaladinAuras.NativeWeaponMultiplier(actor,true)},out int absorbed);
