@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "bd20517b26e20835a8b49293f58e11a3f98ede881ab519fc650d98d36c130f8c",
-  "ContentAssemblyPath": ".local/class-skills/life-tap-cast/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "7a9cd25921fd020875e3f8b41cd5d5ae2c52f0a7b648c5c455653251421d5bb6",
+  "ContentAssemblyPath": ".local/class-skills/dim-vision-cast/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

@@ -12,13 +12,33 @@ internal static class NecromancerCurseCasts
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NecromancerCurseCasts));
     private static readonly HashSet<string> NoWalk=new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<Type> Unmapped=new();
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden or CombatAbility.LifeTap;
+    private static readonly HashSet<string> UnmappedAi=new();
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.AmplifyDamage or CombatAbility.Weaken or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.IronMaiden or CombatAbility.LifeTap or CombatAbility.DimVision;
     public static void Configure()
     {
         foreach(string source in BalanceCatalog.Read<string>("source-curse-no-walk"))
         {if(string.IsNullOrWhiteSpace(source)||!NoWalk.Add(source)){throw new InvalidOperationException("Invalid curse walk-mode exclusions");}}
     }
     internal static bool WalkMode(string source)=>source!=null&&!NoWalk.Contains(source);
+    internal static bool AiEligible(BaseCreature target)
+    {
+        // Enemy-owned summons/PvP and native bard AI coexistence have no
+        // verified source-state adapter. Keep those cases explicitly bounded.
+        if(target is{Controlled:true} or{Summoned:true} || target is BaseHire || target.BardProvoked){return false;}
+        if(target is EncounterCreature encounter)
+        {return encounter.Grade is not(EncounterGrade.Unique or EncounterGrade.SuperUnique);}
+        var row=PaladinConversion.SourceRule(target);
+        if(row==null || row.Base=="imp1")
+        {
+            string key=target.GetType().Name+":"+(row?.Base??"unmapped");
+            if(UnmappedAi.Add(key)){Log.Warning("Dim Vision AI eligibility is unsupported: {Target}",key);}
+            return false;
+        }
+        return row.Evil&&row.SwitchAi&&row.Walk&&!row.Boss&&!row.Npc&&row.Attackable;
+    }
+    internal static int AiFrames(int frames,MonsterDifficulty difficulty)=>difficulty switch
+    {MonsterDifficulty.Normal=>frames,MonsterDifficulty.Nightmare=>frames/2,MonsterDifficulty.Hell=>frames/4,
+        _=>throw new NotSupportedException("Unknown AI curse facet difficulty")};
     internal static bool Eligible(BaseCreature target)
     {
         if(target is not{Alive:true,Deleted:false}||target is BaseVendor){return false;}
@@ -55,6 +75,7 @@ internal static class NecromancerCurseCasts
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
+        if(ability==CombatAbility.DimVision&&!AiEligible(creature)){return false;}
         // The earlier monster-cast Amplify store has no rank/creator payload.
         // Its compound replacement cannot yet be mapped without inventing one.
         if(EliteAuras.Curses.Active(target.Serial,TimedEffects.Now))
@@ -62,6 +83,9 @@ internal static class NecromancerCurseCasts
         EliteAuras.Refresh(target); // Remove an expired native resistance mod before reading its base pool.
         var values=SkillMechanics.Values(owner,ability,rank);
         int frames=(int)values.Eval("auralencalc");
+        // Do30 uses game difficulty before the curse-resistance factory. In
+        // Sanctuary that is the owner's configured facet, not the NPC's spawn.
+        if(ability==CombatAbility.DimVision){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
         if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();DateTime at=TimedEffects.Now;
         // For current native hostile actors, PhysicalResistance is the base
@@ -80,6 +104,7 @@ internal static class NecromancerCurseCasts
                 target.EnergyResistance-EliteAuras.ConvictionOffset(target,"ltng"),
                 target.ColdResistance-EliteAuras.ConvictionOffset(target,"cold"),target.PoisonResistance,target is not BaseHire):null);
         if(next==null){return false;}
+        if(ability==CombatAbility.DimVision){next=next with{Motion=NecromancerEffects.CaptureMotion(creature)};}
         NecromancerEffects.Profiles.Store(target,state with{Curse=next});NecromancerEffects.CurseApplied(owner,target);return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values)

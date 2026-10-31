@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 12288,
+  "runtimeChanged": false,
+  "compiledUnchangedRoutines": {
+    "AITACTICS_WalkCloseToUnit": "0ddbffb39d07a44d33de644f50b740f8caecd4f7d08641007d56faa2555cafcb",
+    "D2GAME_AI_SpecialState10_17_6FCE7CF0": "1f3722e5e81da8f71ff78ef06c5021d296c7b3668c76c8bd36248c613a75fbba"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/probe_howl_reference.py": "065a1181e22e99df98bac3de41ba5cd47569eb9aa0fce3dca04e38e65191994a",
+    "tools/probe_dim_vision_ai.py": "ed667808bd9a76b891cdd517c8a28cf764a90c0345203d888c9a4bcaa4b2e0f8"
+  },
+  "artifacts": {
+    ".local/class-skills/dim-vision-ai-source/probe.cpp": "43fceaaddda19cee09bfdf0806ace776bac35ccb16728bf05ed5262d258f4d61",
+    ".local/class-skills/dim-vision-ai-source/cases.json": "f7d675d6c7bba0d5f63b96556ed52c10ac267e4ffdd068e1292539dd8a61b730",
+    ".local/class-skills/dim-vision-ai-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dim-vision-ai-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete blind special-state10/17 tick attacks in combat only with nonnegative class,non-interacting species and A1 mode. This branch consumes no percentage or wandering RNG calls.",
+    "Otherwise exactly one percentage call chooses20percent WalkClose(distance3) versus neutral idle10frames. WalkClose executes complete three-raw/one-limited draw chronology,axis/sign offsets,walk mode,step1 and flags0. Failed movement does not add an idle/fallback in this tick body.",
+    "The probe safely extracts the prior Howl declared service scaffold as data without running its producer or modifying accepted Howl artifacts."
+  ],
+  "remaining": [
+    "AI percentage/raw/limited RNG,table lookup,combat target,mode/path entry and clock/event services remain declared. Current native/source actor seed ownership,acquisition,pending movement,mode callbacks and actual scheduling are not executed here.",
+    "Source distance3 is in source coordinates. Native half-subtile rounding/path geometry,move completion/failure scheduling and saved state integration remain implementation work. The source tick does not itself check active blindness;dispatcher/removal chronology remains separate.",
+    "No C# change,native acceptance,completed skill/class or deployment. Dim Vision learned casting has its own candidate/checkpoint;this source probe must not be used to certify its unfinished blind tick."
+  ]
+}
