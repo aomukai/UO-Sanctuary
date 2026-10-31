@@ -7,6 +7,11 @@ internal readonly record struct NpcPhysicalStats(int Minimum,int Maximum,int Nor
     int Strength,int Dexterity,bool Weapon,int StrengthCoefficient=0,int DexterityCoefficient=0,
     int MinimumPercent=0,int MaximumPercent=0);
 
+// Offensive rolls only. Recipient mitigation, poison delivery and HP/events
+// are later phases; this is not an already allocated source combat packet.
+internal sealed record NpcWeaponRoll(uint Actor,uint Target,NpcCriticalPacket Damage,int ColdFrames,
+    NpcPoisonSnapshot Poison,bool PhysicalCritical);
+
 // Ordinary nonplayer SUNITDMG_ApplyDamageBonuses. Item-local ED has already
 // reached the supplied endpoints; it must not become general actor ED too.
 internal static class NpcEquipmentDamage
@@ -51,22 +56,29 @@ internal static class NpcEquipmentDamage
         return new(min,max,normal,percent,item.Bonus("str"),item.Bonus("dex"),weapon,
             weapon?basis.StrengthBonus:0,weapon?basis.DexterityBonus:0);
     }
-    internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
+    internal static NpcWeaponRoll Roll(SkeletonGuardian actor,Mobile target,Func<int,int> limited=null,Func<uint> raw=null)
     {
-        result=default;if(Capture(actor,target) is not{} stats){return false;}
+        if(Capture(actor,target) is not{} stats){return null;}
         limited??=bound=>NpcEquipmentRandom.Limited(actor,bound);
         raw??=()=>NpcEquipmentRandom.Raw(actor);
         var chances=NpcEquipmentCritical.Capture(actor);
         int physical=Roll256(stats,limited);
-        if(NpcEquipmentCritical.Physical(chances,raw)){physical=checked(physical*2);}
+        bool physicalCritical=NpcEquipmentCritical.Physical(chances,raw);
+        if(physicalCritical){physical=checked(physical*2);}
         var snapshot=NpcEquipmentElements.Capture(actor);
         var elements=NpcEquipmentElements.Roll(snapshot,limited);
         var poison=NpcEquipmentPoison.Capture(actor);
         var rolledPoison=NpcEquipmentPoison.Roll(poison,limited);
         var packet=NpcEquipmentCritical.ApplyIntrinsic(physical,elements,rolledPoison,NpcEquipmentCritical.Intrinsic(chances,raw),defender:target!=null);
-        var delivery=NpcEquipmentPoison.Prepare(actor,target,poison,packet.Poison);
+        return new(actor.Serial.Value,target?.Serial.Value??0,packet,snapshot.Stats.ColdFrames,poison,physicalCritical);
+    }
+    internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
+    {
+        result=default;if(Roll(actor,target,limited,raw) is not{} rolled){return false;}
+        var packet=rolled.Damage;
+        var delivery=NpcEquipmentPoison.Prepare(actor,target,rolled.Poison,packet.Poison);
         result=SkillCombat.ResolveHitParts(actor,target,packet.Elements with{Physical=packet.Physical256/256.0},true,true,
-            enhanceBase:false,addWeaponElements:false,sourceColdFrames:snapshot.Stats.ColdFrames);
+            enhanceBase:false,addWeaponElements:false,sourceColdFrames:rolled.ColdFrames);
         NpcEquipmentPoison.Commit(delivery,target,TimedEffects.Now);
         return true;
     }

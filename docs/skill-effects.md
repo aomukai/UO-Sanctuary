@@ -1,5 +1,7 @@
 # Skill effects
 
+NPC offensive snapshot and native credit changes add no visuals/audio. Existing attack,poison,Life Tap and retaliation placeholders still need final assets and client timing validation. The [initial-poison-total discrepancy](npc-weapon-preparation-checkpoint.md) is mechanical verification work,not an art blocker.
+
 The ordered monster phase consumer reuses Life Tap0x376A/hue0x26 and retaliation0x374A/hue0x481 placeholders. No final art/audio was added. Their final timing must follow the accepted recovery/HP/retaliation phases; actual-client validation remains pending. See [mechanical checkpoint](monster-weapon-phases-checkpoint.md).
 
 Prepared Iron Golem recipient blocks reuse generic UO0x375A/hue0x481 and sound0x1A4 placeholders. Final shield/block presentation and audio must follow the recipient model and accepted block mode; no final art was created. See [mechanical scope](iron-golem-melee-result-checkpoint.md).

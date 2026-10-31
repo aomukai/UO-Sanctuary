@@ -1,5 +1,7 @@
 # Skill icons
 
+NPC offensive preparation and native damage credit add no bindable action or icon. Existing Iron Golem and related talent/hotkey artwork remains independently pending.
+
 Ordered monster recovery/retaliation adds no bindable skill and no new icon. Existing Life Tap,Thorns,Barbs and Iron Golem talent/hotkey artwork remains independently pending.
 
 Iron Golem recipient-block integration adds no bindable action or icon. The existing Iron Golem talent-tree/right/quick artwork remains pending independently of combat verification.

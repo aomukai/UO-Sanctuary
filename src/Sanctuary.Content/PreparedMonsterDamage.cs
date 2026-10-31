@@ -83,6 +83,7 @@ internal static class PreparedMonsterDamage
         if(packet.Total256>0)
         {
             after-=packet.Total256;if(after<256){after=0;}
+            PreparedMonsterCredit.Register(attacker,target,after);
             // Write source HP exactly once. Native Damage would dispatch death
             // before Stun and replay unrelated native damage callbacks.
             SkillHealth.SetBalance256(target,after);
