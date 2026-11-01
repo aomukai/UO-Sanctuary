@@ -1,5 +1,7 @@
 # Enchant acceptance preflight
 
+Follow-up: the [casting checkpoint](sorceress-enchant-cast-checkpoint.md) records the implemented source-list corrections and ordinary player/native verification. This preflight remains the original plan; its modern NPC/item/event/client gaps still apply.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This read-only follow-up does not claim new Enchant acceptance or class completion.
 
 Reuse `SorceressEffects.CastEnchant`, `ApplyEnchant`, the independent `EnchantState`, `EnchantFire`, current learned/gear rank suppliers and the existing native/class/minion weapon consumers. `EnchantChecks` already covers ally/pet targeting, snapshots, AR, weaker/equal/stronger replacement, native/class/ranged delivery, wielder mastery, expiry and saved state. Retain that coverage rather than copying the Mage's approved automatic hard-point unlock into the player's cast path. The latter is a distinct actor policy.

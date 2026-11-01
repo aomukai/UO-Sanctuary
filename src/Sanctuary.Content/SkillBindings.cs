@@ -32,6 +32,11 @@ public sealed class SkillBindings : GenericPersistence
     internal static bool MouseAllowed(DiabloClass characterClass,bool left,CombatAbility ability)
     {
         if(!ClassAbilities.Valid(ability)){return false;}
+        // Enchant's player contract is right-only. Migrate its admission and
+        // saved-binding normalization together; other Sorceress skills retain
+        // their existing policies until their individual acceptance work.
+        if(characterClass==DiabloClass.Sorceress&&ability==CombatAbility.Enchant)
+        {var enchant=SkillMechanics.For(ability);return left?enchant.Left:enchant.Right;}
         if(characterClass!=DiabloClass.Necromancer||ability is CombatAbility.None or CombatAbility.BasicAttack){return true;}
         var row=SkillMechanics.For(ability);
         return row.CharacterClass==characterClass&&(left?row.Left:row.Right);

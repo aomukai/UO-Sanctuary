@@ -639,7 +639,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Dedicated fixtures cover ally/pet and held targeting, attack rating, cast snapshots, weaker/equal/stronger replacement, class/native/summon weapon fire, ranged wielder mastery, expiry/death and reload. Actual-client targeting/glow, special weapon paths and charged/oskill delivery remain open; no weapon item is modified."
+      "remaining": "Ordinary right/quick self/ally/hostile-fallback casting, release-only FP mana, cancellation/recovery, invalid/insufficient casters,765rank/hard goldens and60older-source state comparisons have dedicated native coverage. Equal-rank refresh retains original caster metadata. Original caster/recipient snapshots,real gear,wounds,mana and unextended deadlines survive two reloads; retained class/native/minion/ranged weapon consumers pass. Current NPC/isatt alignment,item targeting,modern source/weapon event RNG and special/PvP/charged/oskill/graphical acceptance remain open. Effects/audio and talent/hotkey icons remain separate placeholders; no weapon item is modified."
     },
     {
       "talentId": "sorceress.meteor",

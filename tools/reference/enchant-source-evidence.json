@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "routineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLS_SrvDo025_Enchant": "a76eee60714eae538acd93506fec1689fcaae134905b3c2f135da34b02b4d6bb"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "currentRow": {
+    "*Id": 52,
+    "srvdofunc": 25,
+    "aurastate": "enchant",
+    "auralencalc": "ln12",
+    "mana": 25,
+    "lvlmana": 1,
+    "manashift": 8,
+    "aurastat1": "firemindam",
+    "aurastatcalc1": "enma",
+    "aurastat2": "firemaxdam",
+    "aurastatcalc2": "exma",
+    "aurastat3": "item_tohit_percent",
+    "aurastatcalc3": "toht",
+    "Param1": 3600,
+    "Param2": 600,
+    "ToHit": 20,
+    "LevToHit": 9,
+    "HitShift": 7,
+    "EDmgSymPerCalc": "(skill('Warmth'.blvl))*par8",
+    "Param8": 9
+  },
+  "cases": 4320,
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete do25 and shared state-list helper compose for missing/invalid rows, fallback-to-self, aligned players/monsters, NPC/nonattackable monster exclusions, weaker/equal/stronger/different-skill state lists, duration and nonzero valid stat writes.",
+    "Equal-rank reuse refreshes expiration and nonzero values, retaining original list owner. Weaker same-skill rank refuses without extending; stronger or different skill replaces owner and list."
+  ],
+  "declaredServices": [
+    "This is the pinned older engine, not execution of D2R 3.3.93847. Noncurse Enchant state is supplied from the current table; curse-only branches are compiled but not exercised.",
+    "Alignment, monster metadata, state-list allocation/events/stat writes and evaluated formula values are explicit test services. Allocation succeeds; allocator failure behavior is not inferred. Mastery, mana, weapon delivery and exact modern events/RNG remain separate."
+  ],
+  "artifacts": {
+    "tools/probe_enchant.py": "a34cd9d3a445fc4251b2892df7c4155eb00a3a2b848ef6e8ac8ede167796c46f",
+    ".local/class-skills/enchant-source/probe.cpp": "126289d786a03f352ca600fb215f169798dd3b96bdde87498e3da92ae6f65185",
+    ".local/class-skills/enchant-source/probe": "80f4fbdd4e5109ebacc3d4df110b214d19af0996b6bf5f7ea8656ba85ff57eb2",
+    ".local/class-skills/enchant-source/probe-san": "383ae0fa5558fa8a05642fdb8566128ffb5f681911bb2d661f620bfb17d5021b",
+    ".local/class-skills/enchant-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/enchant-source/cases.json": "2dd08f838acef6a6e1899d974f25b2af6494cf9d8d4b3a239d0efe7402facddf"
+  }
+}

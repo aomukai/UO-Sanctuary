@@ -81,11 +81,15 @@ public static class SorceressEffects
     }
     private static void ApplyEnchant(Mobile caster,Mobile target,SkillValues values,Func<int,int> scale)
     {
-        if (Enchantment(target) is { } existing && existing.Rank > values.Rank) { return; }
+        var existing = Enchantment(target);
+        if (existing != null && existing.Rank > values.Rank) { return; }
         var row = SkillMechanics.For(CombatAbility.Enchant);
         var enchant = new EnchantState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), values.Rank,
             scale(values.Damage256(false)),scale(values.Damage256(true)),
-            row.Number("ToHit") + (values.Rank - 1) * row.Number("LevToHit"), caster.Serial.Value);
+            row.Number("ToHit") + (values.Rank - 1) * row.Number("LevToHit"),
+            // The shared source state helper reuses an equal-rank list. Its
+            // values/deadline refresh, but the list's original owner survives.
+            existing?.Rank == values.Rank ? existing.Caster : caster.Serial.Value);
         Profiles.Store(target, (Profiles.Find(target) ?? new()) with { Enchantment = enchant });
         target.FixedEffect(0x375A, 10, 15, 0x489, 0); // Placeholder Enchant weapon glow.
     }

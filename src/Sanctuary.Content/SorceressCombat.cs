@@ -33,6 +33,7 @@ public static class SorceressCombat
         if(ability is CombatAbility.StaticField or CombatAbility.ThunderStorm&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
         if (ability == CombatAbility.Enchant)
         {
+            if (owner is not { Alive: true, Deleted: false } || owner.Map == null || owner.Map == Map.Internal) { return false; }
             if (selected == Serial.Zero) { return owner.Map != null && owner.Map != Map.Internal; }
             var actor = World.FindMobile(selected);
             return actor is { Alive: true, Deleted: false } && actor.Map == owner.Map && owner.InRange(actor, CombatProtocol.TeethRange)
