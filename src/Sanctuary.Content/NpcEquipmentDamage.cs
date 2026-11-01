@@ -15,7 +15,8 @@ internal readonly record struct NpcPhysicalStats(int Minimum,int Maximum,int Nor
 // Offensive rolls only. Recipient mitigation, poison delivery and HP/events
 // are later phases; this is not an already allocated source combat packet.
 internal sealed record NpcWeaponRoll(uint Actor,uint Target,NpcCriticalPacket Damage,int ColdFrames,
-    NpcPoisonSnapshot Poison,bool PhysicalCritical);
+    NpcPoisonSnapshot Poison,bool PhysicalCritical,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] NpcSpectralPayload Spectral=null);
 
 // Ordinary nonplayer SUNITDMG_ApplyDamageBonuses. Item-local ED has already
 // reached the supplied endpoints; it must not become general actor ED too.
@@ -77,7 +78,9 @@ internal static class NpcEquipmentDamage
         var poison=NpcEquipmentPoison.Capture(actor);
         var rolledPoison=NpcEquipmentPoison.Roll(poison,limited);
         var packet=NpcEquipmentCritical.ApplyIntrinsic(physical,elements,rolledPoison,NpcEquipmentCritical.Intrinsic(chances,raw),defender:target!=null);
-        return new(actor.Serial.Value,target?.Serial.Value??0,packet,snapshot.Stats.ColdFrames,poison,physicalCritical);
+        var spectral=NpcSpectralHit.Capture(actor,limited);
+        packet=packet with{Elements=SpectralHit.Direct(packet.Elements,spectral?.Roll)}; // Affix is after intrinsic critical.
+        return new(actor.Serial.Value,target?.Serial.Value??0,packet,snapshot.Stats.ColdFrames,poison,physicalCritical,spectral);
     }
     internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
     {
@@ -85,8 +88,9 @@ internal static class NpcEquipmentDamage
         var packet=rolled.Damage;
         var delivery=NpcEquipmentPoison.Prepare(actor,target,rolled.Poison,packet.Poison);
         result=SkillCombat.ResolveHitParts(actor,target,packet.Elements with{Physical=packet.Physical256/256.0},true,true,
-            enhanceBase:false,addWeaponElements:false,sourceColdFrames:rolled.ColdFrames);
+            enhanceBase:false,addWeaponElements:false,sourceColdFrames:NpcSpectralHit.OrdinaryColdFrames(rolled));
         NpcEquipmentPoison.Commit(delivery,target,TimedEffects.Now);
+        NpcSpectralHit.After(actor,target,rolled.Spectral,TimedEffects.Now);
         return true;
     }
     internal static bool TryStrike(SkeletonGuardian actor,Mobile target)=>TryResolve(actor,target,out _);

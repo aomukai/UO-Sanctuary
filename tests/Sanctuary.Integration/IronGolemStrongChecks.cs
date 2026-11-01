@@ -61,7 +61,9 @@ public static class IronGolemStrongChecks
         Train(p,10);Match(b,basis,ratingBase,itemPercent);
         var raw=legacy.SourceWeaponBase;Require(legacy.SkillWeaponDamage==(raw.Min*(100+raw.Percent+135)/100,raw.Max*(100+raw.Percent+135)/100),"Historical Iron fallback omitted direct damage affix");
         Require(Res(b).SequenceEqual(res)&&SkillHealth.Balance256(b)==hp&&SkillHealth.Maximum256(b)==max&&BattleCommand.PetOrder(b)==order&&NpcEquipmentRandom.State(b).Seed==seed&&JsonSerializer.Serialize(b.Prepared)==prepared,"Hard10 healed/recaptured/reordered/rerolled or changed resistances/controller");
-        Train(p,20);Match(b,basis,ratingBase,itemPercent);Require(Res(b).SequenceEqual(res),"Unfinished Spectral resistance activated");
+        Train(p,20);Match(b,basis,ratingBase,itemPercent);
+        var spectral=EncounterProfiles.Resistances(new(res[0],NamedElements.MagicResistance(b),res[1],res[3],res[2],res[4]),null,[EliteModifier.SpectralHit]);
+        Require(Res(b).SequenceEqual(new[]{spectral[0],spectral[2],spectral[4],spectral[3],spectral[5]}),"Hard20 Spectral resistance composition changed Extra Strong");
         ClassCreation.Profiles.TryGet(p.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(p,profile);
         Require(!b.Deleted&&!legacy.Deleted&&NpcEquipmentDamage.Capture(b)==basis&&ClassStats.AttackRating(b)==ratingBase+(int)((long)ratingBase*itemPercent/100)&&legacy.SkillWeaponDamage==(raw.Min*(100+raw.Percent)/100,raw.Max*(100+raw.Percent)/100),"Respec retained Extra Strong or recaptured curve");Train(p,10);
         var facets=SummonDifficulties.Facets();PersistentMinions.Suspend(p);
@@ -78,7 +80,7 @@ public static class IronGolemStrongChecks
         }
         finally{SummonDifficulties.SetFacets(facets);}
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,legacy.Serial.Value,JsonSerializer.Serialize(b.Prepared),SkillHealth.Balance256(b),SkillHealth.Balance256(legacy),SkillHealth.Maximum256(b),ClassStats.AttackRating(b),ClassStats.AttackRating(legacy),NpcEquipmentDamage.Capture(b).Value,order,seed,0)));
-        Log.Information("Iron Extra Strong:12wild direct/inherited pairs,hard9+soft1refusal/live10/respec/relearn,actual original flat/Dexterity/percent AR and local ED,legacy fallback,three facets/no health/controller/recipe/seed change pass;Spectral Hit remains pending");
+        Log.Information("Iron Extra Strong:12wild direct/inherited pairs,hard9+soft1refusal/live10/respec/relearn,actual original flat/Dexterity/percent AR and local ED,legacy fallback,three facets/no health/controller/recipe/seed change pass;Spectral Hit is verified in its separate scope");
     }
     private static void Reload()
     {

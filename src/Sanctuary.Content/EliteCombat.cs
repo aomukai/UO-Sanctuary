@@ -72,15 +72,10 @@ public static class EliteCombat
             ? 4000 + CreatureProfiles.Level(source) * 200 : 0;
         if (source.Has(EliteModifier.SpectralHit))
         {
-            int amount = ElementRoll(source, false, random);
-            switch (random.Next(5))
-            {
-                case 0: magic += amount; break;
-                case 1: fire += amount; break;
-                case 2: lightning += amount; break;
-                case 3: cold += amount; coldMs = Math.Max(coldMs, 1600); break;
-                case 4: poison = amount; break;
-            }
+            var roll=SpectralHit.Roll(source.Basis.MinDamage,source.Basis.MaxDamage,(low,high)=>Roll(low,high,random),random.Next);
+            var added=SpectralHit.Direct(new(0,fire,cold,lightning,0,Magic:magic),roll);
+            fire=added.Fire;cold=added.Cold;lightning=added.Lightning;magic=added.Magic;poison=roll.PoisonTotal;
+            coldMs=Math.Max(coldMs,roll.ColdMs);
         }
         foreach (var aura in new[] { EliteAura.HolyFire, EliteAura.HolyFreeze, EliteAura.HolyShock })
         {

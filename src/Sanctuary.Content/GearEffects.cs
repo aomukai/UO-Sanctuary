@@ -85,8 +85,10 @@ public static class GearEffects
         return true;
     }
     public static bool ApplyPoison(Mobile source, Mobile target, double total, long now, int durationMs = 3000,bool enhance=true)
+        =>ApplyCreditedPoison(source,source,target,total,now,durationMs,null,enhance);
+    internal static bool ApplyCreditedPoison(Mobile source,Mobile credit,Mobile target,double total,long now,int durationMs,int? pierceOverride,bool enhance)
     {
-        total = NamedElements.Damage(source, target, total, "pois",enhance:enhance);
+        total = NamedElements.Damage(source, target, total, "pois",enhance:enhance,pierceOverride:pierceOverride);
         if (target is PlayerMobile player)
         {
             int reduction = Math.Clamp(ClassGear.Bonus(player, "res-pois-len"), 0, 75);
@@ -97,11 +99,11 @@ public static class GearEffects
         {
             // Aggregate producers retain their existing rate projection. Apply
             // the NPC duration lane through the same source helper as packets.
-            int length=PoisonPackets.Mitigate(256,Math.Max(0,durationMs/40),false,0,ItemDurationDefenses.PoisonLength(target),NamedElements.PoisonPierce(source),0,0).Frames*40;
+            int length=PoisonPackets.Mitigate(256,Math.Max(0,durationMs/40),false,0,ItemDurationDefenses.PoisonLength(target),pierceOverride??NamedElements.PoisonPierce(source),0,0).Frames*40;
             total=durationMs>0?total*length/durationMs:0;durationMs=length;
         }
         if (total <= 0 || durationMs <= 0 || target.Deleted || !target.Alive || target.Blessed) { return false; }
-        if (!TimedEffects.Poison(source, target, total, durationMs, TimedEffects.TimeAt(now))) { return false; }
+        if (!TimedEffects.Poison(credit, target, total, durationMs, TimedEffects.TimeAt(now))) { return false; }
         target.FixedEffect(0x374A, 10, 15, 0x3F, 0);
         return true;
     }

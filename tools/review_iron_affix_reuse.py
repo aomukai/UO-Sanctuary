@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pin existing Iron-affix reuse contracts without enabling incomplete affixes."""
+"""Pin existing Iron-affix reuse contracts; native acceptance is recorded separately."""
 import argparse
 import hashlib
 import json
@@ -22,7 +22,7 @@ def record(check=False):
     bodies={n:function(raw.decode(),n) for n in names}
     paths=[Path(__file__),source,*[ROOT/'src/Sanctuary.Content'/(n+'.cs') for n in (
         'GolemPetDamage','IronGolemBody','IronGolemUpgrades','EncounterCreature','EncounterProfiles','EliteCombat','ClassStats',
-        'NpcEquipmentDamage','NpcEquipmentElements','NpcEquipmentImpact','GearEffects')]]
+        'NpcEquipmentDamage','NpcEquipmentElements','NpcEquipmentImpact','GearEffects','SpectralHit','NpcSpectralHit','IronGolemContact')]]
     encounter=(ROOT/'src/Sanctuary.Content/EncounterCreature.cs').read_text()
     assert 'EncounterProfiles.ExtraStrong(_difficulty,_grade==EncounterGrade.Minion)' in encounter
     strength=(ROOT/'src/Sanctuary.Content/EncounterProfiles.cs').read_text()
@@ -30,11 +30,15 @@ def record(check=False):
         assert value in strength
     assert 'SummonDifficulty,false)' in (ROOT/'src/Sanctuary.Content/IronGolemUpgrades.cs').read_text()
     elite=(ROOT/'src/Sanctuary.Content/EliteCombat.cs').read_text()
-    assert 'int amount = ElementRoll(source, false, random);' in elite and 'switch (random.Next(5))' in elite
+    assert 'SpectralHit.Roll(source.Basis.MinDamage,source.Basis.MaxDamage' in elite and 'SpectralHit.Direct' in elite
+    shared=(ROOT/'src/Sanctuary.Content/SpectralHit.cs').read_text()
+    assert 'minimum*66' in shared and 'channel=choose(5)' in shared and 'Channel==4?Amount:0' in shared
+    damage=(ROOT/'src/Sanctuary.Content/NpcEquipmentDamage.cs').read_text()
+    assert damage.index('var packet=NpcEquipmentCritical.ApplyIntrinsic') < damage.index('var spectral=NpcSpectralHit.Capture')
     assert elite.index('Damage(source, target, physical, fire, cold, lightning, magic, true, ranged);') < elite.index('if (poison > 0) { GearEffects.ApplyPoison')
     result=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],installed=False,
         scope='Static complete-function/current-consumer review; no source function execution or native acceptance is supplied by this receipt.',
-        ironBaselineImplemented=True,extraStrongEnabled=True,spectralHitEnabled=False,
+        ironBaselineImplemented=True,extraStrongEnabled=True,spectralHitEnabled=True,
         functions={n:hashlib.sha256(b.encode()).hexdigest() for n,b in bodies.items()},
         inputs={str(p.relative_to(ROOT)):sha(p) for p in paths},
         established=[
@@ -43,13 +47,13 @@ def record(check=False):
             'Ordinary NPC item poison adds its rate to the initial prepared HP total,and NPC intrinsic critical can double typed channels. Existing wild Spectral addition after the incoming physical roll/post-direct poison cannot be copied into that item path without defining critical/HP/timer ordering.',
             'Complete older Strong routine adds stats sourced from MonUMod rows and difficulty champion-damage factor. Complete older Spectral routine instead uses level-table damage,fire/lightning/magic/cold/poison order,and writes the selected stat range/adds40frames to an existing cold/poison length. These differ from the approved current native affix. Do not replace the existing affix globally with this older route.'],
         remaining=[
-            'Direct Extra Strong extraction/activation has separate native acceptance. Next extract/reuse Spectral producers and verify all5typed outcomes,cold/poison/critical/order,live hard20,save and natural contact without changing the existing wild rule.',
+            'Direct Extra Strong extraction/activation has separate native acceptance. Spectral now shares the extracted existing producer and resistance consumer at live hard20. Affix typed additions follow intrinsic critical;its survivor-only post-direct aggregate poison stays separate from item-poison rate. Native outcomes/save/contact acceptance is recorded separately.',
             'Current MonUMod/difficulty constant tables are not established by this static review. Full older/current executable/room/event/RNG/seed/stat-list/client equivalence is not certified;the baseline curve receipt is separate.'])
     output=ROOT/'tools/reference/iron-affix-reuse-review.json'
     rendered=json.dumps(result,indent=2)+'\n'
     if check:assert output.read_text()==rendered
     else:output.write_text(rendered)
-    print('Iron affix reuse:direct Extra Strong enabled;Spectral typed/poison contracts pinned and still pending.')
+    print('Iron affix reuse:direct Extra Strong enabled;Spectral producer/resistance/post-hit contracts shared;native acceptance is separate.')
 
 
 if __name__=='__main__':

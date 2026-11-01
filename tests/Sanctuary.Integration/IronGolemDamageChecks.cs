@@ -106,8 +106,14 @@ public static class IronGolemDamageChecks
                     // Iron allocates at release, unlike the unarmed bodies.
                     // Predict this unchanged-target/no-absorption packet from
                     // its current stream, cancel it, then restore that stream.
-                    ulong seed=NpcEquipmentRandom.State(b).Seed;var packet=IronGolemContact.Prepare(b,t,IronGolemContact.Require(b,p,t),()=>IronGolemWorld.Result(b,p,state,t));damage=packet.Impact.Packet.Physical256;packet.Cancel();NpcEquipmentRandom.Set(b,seed);captured=true;
-                    Require(damage>40*256&&packet.Impact.Packet.Total256==damage&&SkillHealth.Balance256(t)==life,"Natural Iron curve prediction or early HP");
+                    IronGolemContact.Prepared packet=null;ulong seed=0;
+                    for(ulong n=1;n<1000;n++)
+                    {
+                        NpcEquipmentRandom.Set(b,n);var candidate=IronGolemContact.Prepare(b,t,IronGolemContact.Require(b,p,t),()=>IronGolemWorld.Result(b,p,state,t));
+                        if((candidate.Impact.Packet.ResultFlags&1)!=0&&candidate.Impact.Spectral?.Roll.Channel!=4){packet=candidate;seed=n;break;}candidate.Cancel();
+                    }
+                    Require(packet!=null,"Natural non-poison contact seed");damage=packet.Impact.Packet.Total256;packet.Cancel();NpcEquipmentRandom.Set(b,seed);captured=true;
+                    Require(packet.Impact.Packet.Physical256>40*256&&damage>=packet.Impact.Packet.Physical256&&SkillHealth.Balance256(t)==life,"Natural Iron curve/typed prediction or early HP");
                 }
                 if(SkillHealth.Balance256(t)==life){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}
                 Require(captured&&life-SkillHealth.Balance256(t)==damage&&b.Prepared.Controller.Attempts==1,"Natural learned Iron curve contact");End();Log.Information("iron-golem-damage-live-result: passed");

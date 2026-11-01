@@ -3,7 +3,8 @@ using System;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record NpcWeaponImpact(uint Actor,uint Target,PreparedMonsterDamagePacket Packet,PreparedPoison Poison,uint CreditOwner);
+internal sealed record NpcWeaponImpact(uint Actor,uint Target,PreparedMonsterDamagePacket Packet,PreparedPoison Poison,uint CreditOwner,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] NpcSpectralPayload Spectral=null);
 
 // Ordinary equipped NPC-to-NPC allocation. Preparation can consume defensive
 // absorb pools through existing mitigation, but does not heal/subtract HP,
@@ -47,6 +48,6 @@ internal static class NpcEquipmentImpact
         var poison=damage.Poison is{Rate256:0,Frames:0}?default:NpcEquipmentPoison.Mitigate(actor,target,rolled.Poison,damage.Poison);
         int coldFrames=rolled.ColdFrames<=0?0:ColdStates.LengthFrames(rolled.ColdFrames,NamedElements.Resistance(actor,target,"cold",target.ColdResistance),
             ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
-        return new(actor.Serial.Value,target.Serial.Value,Packet(flags,SkillHealth.Balance256(target),damage,parts,coldFrames,poison,absorbed,rolled.PhysicalCritical),poison,rolled.Poison.CreditOwner);
+        return new(actor.Serial.Value,target.Serial.Value,Packet(flags,SkillHealth.Balance256(target),damage,parts,coldFrames,poison,absorbed,rolled.PhysicalCritical),poison,rolled.Poison.CreditOwner,rolled.Spectral);
     }
 }

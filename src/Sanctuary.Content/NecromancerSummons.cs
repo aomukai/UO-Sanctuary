@@ -149,7 +149,8 @@ public partial class NecromancerMinion : SkeletonGuardian
         get{var profile=_summonProfile??=BuildProfile();return Kind==CombatAbility.ClayGolem?profile with{Defense=ClayGolemUpgrades.Defense(this,profile.Defense)}:profile;}
     }
     public override int GetResistance(ResistanceType type)=>Kind==CombatAbility.ClayGolem
-        ?ClayGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):base.GetResistance(type);
+        ?ClayGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):Kind==CombatAbility.IronGolem
+            ?IronGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):base.GetResistance(type);
     public override long SourceLife256
     {
         get
@@ -251,8 +252,15 @@ public partial class NecromancerMinion : SkeletonGuardian
             NecromancerMageMissiles.Launch(this,target,TimedEffects.Now);
             return;
         }
-        var hit = NpcEquipmentDamage.TryResolve(this,target,out var equippedHit)?equippedHit
-            :SkillCombat.ResolveHitParts(this, target, new(Utility.RandomMinMax(SkillWeaponDamage.Min, SkillWeaponDamage.Max), 0, 0, 0, 0), true, true);
+        SkillHitResult hit;
+        if(NpcEquipmentDamage.TryResolve(this,target,out var equippedHit)){hit=equippedHit;}
+        else
+        {
+            int physical=Utility.RandomMinMax(SkillWeaponDamage.Min,SkillWeaponDamage.Max);
+            var spectral=NpcSpectralHit.Capture(this,bound=>Utility.Random(bound));
+            hit=SkillCombat.ResolveHitParts(this,target,SpectralHit.Direct(new(physical,0,0,0,0),spectral?.Roll),true,true);
+            NpcSpectralHit.After(this,target,spectral,TimedEffects.Now);
+        }
         int loss = hit.LifeLost;
         var values = Values(Kind);
         if (Kind == CombatAbility.ClayGolem && loss > 0) { TimedEffects.Slow(target, values.Diminishing(3, 4), TimedEffects.Now); }

@@ -129,8 +129,10 @@ internal static class IronGolemContact
         var recipient=new PreparedMonsterRecipient(target is EncounterCreature encounter&&encounter.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique,
             ()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(body,target,false);
-        return PreparedMonsterContact.Release(body,target,new Contact(body,owner,range,target,metadata,scope),recipient,
+        var result=PreparedMonsterContact.Release(body,target,new Contact(body,owner,range,target,metadata,scope),recipient,
             n=>NpcEquipmentRandom.Limited(body,n),new Damage(body,owner,target,metadata,scope,at),at);
+        if(result.Commit is{AfterHealth256:>0}){NpcSpectralHit.After(body,target,prepared.Impact.Spectral,at);}
+        return result;
     }
     internal static MonsterContactResult Release(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target,DateTime at)
     {

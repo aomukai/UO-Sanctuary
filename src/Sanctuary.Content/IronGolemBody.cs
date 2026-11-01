@@ -34,6 +34,7 @@ public partial class IronGolemBody:SkeletonGuardian
         :new(1,306,0,140,0,0,1000,400,0,0,0,0,0);
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
     internal override (int Min,int Max,int Percent) SourceWeaponBase=>GolemPetDamage.Weapon(BirthValues,SummonDifficulty);
+    public override int GetResistance(ResistanceType type)=>IronGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t));
     public override bool UsesNativeSummonTimer=>false;
     public override bool IsDispellable=>false;
     public override bool CanRegenStam=>false;

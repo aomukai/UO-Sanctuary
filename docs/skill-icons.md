@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Iron hard-20 Spectral Hit unlock](iron-golem-spectral-checkpoint.md) is automatic and adds no separate player action or hotkey icon. Iron Golem’s talent-tree/right/quick artwork remains pending, with existing text labels explicitly identified as placeholders. Five-channel impact/status/audio work remains in the effects register.
+
 The [Iron hard-10 Extra Strong unlock](iron-golem-strong-checkpoint.md) is automatic and adds no player action or hotkey icon. Iron Golem’s talent-tree/right/quick artwork remains pending with identified text-label placeholders; status/contact/audio assets remain in the effects register.
 
 The [Iron damage foundation](iron-golem-damage-checkpoint.md) adds no player action or separate hotkey icon. Iron Golem’s talent-tree/right/quick artwork remains pending with identified text-label placeholders. Automatic damage/affix feedback belongs in the effects register.
