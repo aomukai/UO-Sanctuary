@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Mage Meteor secondary](mage-meteor-checkpoint.md) is automatic and adds no new player binding or separate hotkey icon. Raise Skeletal Mage still needs its pending tree/right/quick artwork; effects/audio remain in their own register.
+
 The [Mage Glacial secondary](mage-glacial-checkpoint.md) is automatic and adds no player binding or separate hotkey icon. Raise Skeletal Mage still needs its existing tree/right/quick artwork; effects/audio are tracked separately.
 
 The [Mage Chain secondary](mage-chain-checkpoint.md) is automatic and adds no player hotkey or separate icon. Raise Skeletal Mage still needs its pending tree/right/quick artwork; final effects/audio remain separately tracked.

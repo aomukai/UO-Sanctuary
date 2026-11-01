@@ -18,5 +18,5 @@ internal static class MartialPhoenixPackets
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
         var row=SkillMechanics.For(CombatAbility.PhoenixStrike);return checked(row.Parameter(3)+(rank-1)*row.Parameter(4));
     }
-    internal static Point2D[] MeteorOffsets()=>[new(2,-2),new(-2,-2),new(0,2),new(0,5),new(-3,3),new(0,3),new(3,3),new(-1,2),new(1,1),new(-1,-1),new(2,-1),new(-4,-2),new(-3,-2),new(-1,-3),new(0,-4),new(1,-3),new(3,-3),new(4,-2)];
+    internal static Point2D[] MeteorOffsets()=>FireGround.MeteorOffsets();
 }

@@ -91,9 +91,10 @@ internal static class NecromancerMageMissiles
             0,frames,velocity,packet,slow,SourceRandom.InitLow(SeedLow()),new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40));
         Validate(state);Bolts.Add(id,state);return id;
     }
-    private static bool Fighting(MageMissileState s,NecromancerMinion actor,PlayerMobile owner)=>actor is{Alive:true,Deleted:false,IsMage:true}
-        &&actor.ControlMaster==owner&&actor.Map?.MapID==s.Map&&owner is{Alive:true,Deleted:false,NetState:not null}
-        &&owner.Map==actor.Map&&PersistentMinions.Active(owner,actor)&&actor.Permitted(owner)&&!SpellHelper.IsTown(owner.Location,owner);
+    private static bool Fighting(MageMissileState s,NecromancerMinion actor,PlayerMobile owner)=>Fighting(actor,owner,s.Map);
+    internal static bool Fighting(NecromancerMinion actor,PlayerMobile owner,int map,bool? allowActions=null)=>actor is{Alive:true,Deleted:false,IsMage:true}
+        &&actor.ControlMaster==owner&&actor.Map?.MapID==map&&owner is{Alive:true,Deleted:false}&&owner.Map==actor.Map
+        &&(allowActions??(owner.NetState!=null&&PersistentMinions.Active(owner,actor)&&actor.Permitted(owner)&&!SpellHelper.IsTown(owner.Location,owner)));
     internal static void Tick(DateTime at,bool? allowActions=null,long? onlyId=null)
     {
         foreach(uint actor in Seeds.Keys.Where(id=>World.FindMobile((Serial)id) is not NecromancerMinion{Deleted:false,IsMage:true}).ToArray()){Seeds.Remove(actor);}
@@ -155,7 +156,7 @@ internal static class NecromancerMageMissiles
     }
     internal static int Impact(NecromancerMinion actor,Mobile target,MageMissileState s)
         =>ImpactSpell(actor,target,s.Packet,s.Owner,s.Seed,s.NextUtc);
-    internal static int ImpactSpell(NecromancerMinion actor,Mobile target,MageMissilePacket packet,uint owner,ulong stream,DateTime at)
+    internal static int ImpactSpell(NecromancerMinion actor,Mobile target,MageMissilePacket packet,uint owner,ulong stream,DateTime at,bool recover=true,int damageRate=0)
     {
         SorceressEffects.MissileHit(actor,target,packet.Missile);
         int raw=WeaponMissileDamage.RollValue(packet.Minimum256,packet.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));
@@ -174,10 +175,10 @@ internal static class NecromancerMageMissiles
         else
         {
             var parts=packet.Element switch{"fire"=>new GearDamage(0,raw/256.0,0,0,0),"cold"=>new(0,0,raw/256.0,0,0),"ltng"=>new(0,0,0,raw/256.0,0),_=>throw new NotSupportedException("Unsupported mage element")};
-            var damage=SkillCombat.MitigatePrepared(actor,target,parts);
+            var damage=SkillCombat.MitigatePrepared(actor,target,parts,damageRate);
             if(packet.Spell==CombatAbility.GlacialSpike){FreezeStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
             else if(packet.Element=="cold"){ColdStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
-            int loss=SkillHealth.Damage(actor,target,NamedElements.To256(damage.Total));if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,actor,loss);}CombatDamage.Finish(target,actor);
+            int loss=SkillHealth.Damage(actor,target,NamedElements.To256(damage.Total));if(recover&&target is BaseCreature creature){CreatureHitRecovery.Apply(creature,actor,loss);}CombatDamage.Finish(target,actor);
         }
         return Math.Max(0,before-SkillHealth.Balance256(target));
     }

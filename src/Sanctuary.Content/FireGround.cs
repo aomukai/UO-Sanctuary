@@ -12,12 +12,18 @@ public sealed record FirePatch(long Id, uint Owner, CombatAbility Ability, int M
     int Min256, int Max256, int DamageRate, DateTime UntilUtc, DateTime NextUtc, int Size = 1)
 {
     public int SkillRank{get;init;}
+    public uint NpcCaster{get;init;}
+    public ulong Seed{get;init;}
 }
 public sealed record FireMaker(long Id, uint Owner, int Rank, int Map, double X, double Y, int Z, double Dx, double Dy,
     int Min256, int Max256, int CellX, int CellY, DateTime UntilUtc, DateTime NextUtc);
 public sealed record FireCooldown(uint Owner, CombatAbility Ability, DateTime UntilUtc);
 public sealed record MeteorDrop(long Id, uint Owner, int Rank, int Map, int X, int Y, int Z,
-    int Min256, int Max256, double Radius, DateTime ImpactUtc);
+    int Min256, int Max256, double Radius, DateTime ImpactUtc)
+{
+    public uint NpcCaster{get;init;}
+    public ulong Seed{get;init;}
+}
 public sealed record FireGroundSave(FirePatch[] Patches, FireMaker[] Makers, FireCooldown[] Cooldowns, MeteorDrop[] Meteors = null);
 
 public sealed class FireGroundProfiles : GenericPersistence
@@ -31,7 +37,7 @@ public sealed class FireGroundProfiles : GenericPersistence
     }
 }
 
-public static class FireGround
+public static partial class FireGround
 {
     private static readonly Dictionary<long, FirePatch> _patches = new();
     private static readonly Dictionary<long, FireMaker> _makers = new();
@@ -42,7 +48,8 @@ public static class FireGround
     public static FireGroundProfiles Profiles { get; private set; }
     public static void Configure() => Profiles = new();
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), Tick);
-    public static bool Ready(PlayerMobile owner, CombatAbility ability) => !_cooldowns.TryGetValue((owner.Serial.Value, ability), out var until) || until <= TimedEffects.Now;
+    public static bool Ready(PlayerMobile owner, CombatAbility ability)=>Ready(owner,ability,TimedEffects.Now);
+    internal static bool Ready(Mobile caster,CombatAbility ability,DateTime at)=>!_cooldowns.TryGetValue((caster.Serial.Value,ability),out var until)||until<=at;
     internal static void DelayForms(PlayerMobile owner)
     {
         int frames=SkillMechanics.For(CombatAbility.Werewolf).Number("globaldelay");
@@ -52,10 +59,11 @@ public static class FireGround
         _cooldowns[(owner.Serial.Value,CombatAbility.Werewolf)]=until;
         _cooldowns[(owner.Serial.Value,CombatAbility.Werebear)]=until;
     }
-    public static void Delay(PlayerMobile owner, CombatAbility ability)
+    public static void Delay(PlayerMobile owner, CombatAbility ability)=>Delay(owner,ability,TimedEffects.Now);
+    internal static void Delay(Mobile owner,CombatAbility ability,DateTime at)
     {
         int frames = SkillMechanics.For(ability).Number("localdelay");
-        if (frames > 0) { _cooldowns[(owner.Serial.Value, ability)] = TimedEffects.Now.AddMilliseconds(frames * 40); }
+        if (frames > 0) { _cooldowns[(owner.Serial.Value, ability)] = at.AddMilliseconds(frames * 40); }
     }
     public static BlazeState Blaze(Mobile owner) => SorceressEffects.Profiles.Find(owner)?.Blaze is { } state
         && state.UntilUtc > TimedEffects.Now ? state : null;
@@ -139,12 +147,11 @@ public static class FireGround
         var fire = Enhance(owner, MeteorFireDamage256(values, false), MeteorFireDamage256(values, true));
         var definition = SkillMechanics.For(CombatAbility.Meteor);
         int frames = definition.Parameter(3) + (values.Rank - 1) * definition.Parameter(4);
-        int[] xs = [2, -2, 0, 0, -3, 0, 3, -1, 1, -1, 2, -4, -3, -1, 0, 1, 3, 4];
-        int[] ys = [-2, -2, 2, 5, 3, 3, 3, 2, 1, -1, -1, -2, -2, -3, -4, -3, -3, -2];
         int step = Math.Max(1, NecromancerSummons.Source("meteorcenter", "sHitPar2"));
-        for (int i = 0; i < xs.Length; i += step)
-        { Add(owner, CombatAbility.Meteor, meteor.X + SkillGeometry.Tiles(xs[i]), meteor.Y + SkillGeometry.Tiles(ys[i]), meteor.Z,
-            fire.Min, fire.Max, frames > 0 ? frames : NecromancerSummons.Source("meteorfire", "Range"), now); }
+        var offsets=MeteorOffsets();
+        for(int i=0;i<offsets.Length;i+=step)
+        {Add(owner,CombatAbility.Meteor,meteor.X+SkillGeometry.Tiles(offsets[i].X),meteor.Y+SkillGeometry.Tiles(offsets[i].Y),meteor.Z,
+            fire.Min,fire.Max,frames>0?frames:NecromancerSummons.Source("meteorfire","Range"),now);}
         Effects.SendLocationEffect(center, owner.Map, 0x36BD, 20, 10, 0x489, 0); // Placeholder impact.
     }
     public static void CastWall(PlayerMobile owner, Point3D target, SkillValues values)
@@ -174,20 +181,27 @@ public static class FireGround
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
-        foreach (var (id, patch) in _patches) { if (patch.Owner == owner.Serial.Value) { ids.Add(id); } }
+        foreach (var (id, patch) in _patches) { if (patch.Owner == owner.Serial.Value || patch.NpcCaster == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _patches.Remove(id); } ids.Clear();
         foreach (var (id, maker) in _makers) { if (maker.Owner == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _makers.Remove(id); }
-        ids.Clear(); foreach (var (id, meteor) in _meteors) { if (meteor.Owner == owner.Serial.Value) { ids.Add(id); } }
+        ids.Clear(); foreach (var (id, meteor) in _meteors) { if (meteor.Owner == owner.Serial.Value || meteor.NpcCaster == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _meteors.Remove(id); }
     }
     private static void Tick()=>Tick(TimedEffects.Now);
     internal static void Tick(DateTime now)=>Tick(now,null);
-    internal static void Tick(DateTime now,bool? allowActions)
-    { _keys.Clear(); _keys.AddRange(_meteors.Keys);
+    internal static void Tick(DateTime now,bool? allowActions,uint? onlyNpcCaster=null)
+    { _keys.Clear();foreach(var meteor in _meteors.Values){if(!onlyNpcCaster.HasValue||meteor.NpcCaster==onlyNpcCaster.Value){_keys.Add(meteor.Id);}}
         foreach (long id in _keys)
         {
-            var meteor = _meteors[id]; var owner = Owner(meteor.Owner);
+            var meteor = _meteors[id];
+            if(meteor.NpcCaster!=0)
+            {
+                if(now<meteor.ImpactUtc){continue;}_meteors.Remove(id);
+                if(NpcSource(meteor.NpcCaster,meteor.Owner,meteor.Map,allowActions) is{} actor){NpcMeteorImpact(actor,meteor,meteor.ImpactUtc);}
+                continue;
+            }
+            var owner = Owner(meteor.Owner);
             if (owner == null || owner.Map != Map.Internal && (owner.Map.MapID != meteor.Map || SpellHelper.IsTown(owner.Location, owner)))
             { _meteors.Remove(id); continue; }
             if (now < meteor.ImpactUtc) { continue; }
@@ -197,7 +211,7 @@ public static class FireGround
         _keys.Clear(); _keys.AddRange(_makers.Keys);
         foreach (long id in _keys)
         {
-            if (!_makers.TryGetValue(id, out var maker)) { continue; }
+            if (onlyNpcCaster.HasValue || !_makers.TryGetValue(id, out var maker)) { continue; }
             var owner = Owner(maker.Owner);
             if (owner == null || maker.UntilUtc <= now || owner.Map != Map.Internal && (owner.Map.MapID != maker.Map || SpellHelper.IsTown(owner.Location, owner)))
             { _makers.Remove(id); continue; }
@@ -215,7 +229,7 @@ public static class FireGround
         _keys.Clear(); _keys.AddRange(_patches.Keys);
         foreach (long id in _keys)
         {
-            if (!_patches.TryGetValue(id, out var patch) || SourceField(patch.Ability)) { continue; }
+            if (!_patches.TryGetValue(id, out var patch) || SourceField(patch.Ability) || patch.NpcCaster!=0 || onlyNpcCaster.HasValue) { continue; }
             var owner = Owner(patch.Owner);
             if (owner == null || patch.UntilUtc <= now || owner.Map != Map.Internal && (owner.Map.MapID != patch.Map || SpellHelper.IsTown(owner.Location, owner)))
             { _patches.Remove(id); continue; }
@@ -232,16 +246,25 @@ public static class FireGround
             if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
             { Effects.SendLocationEffect(point, owner.Map, 0x398C, 5, 10, 0x489, 0); } // Placeholder ground flame.
         }
-        TickSourceFields(now,allowActions);
+        TickSourceFields(now,allowActions,onlyNpcCaster);
     }
-    private static void TickSourceFields(DateTime at,bool? allowActions)
+    private static void TickSourceFields(DateTime at,bool? allowActions,uint? onlyNpcCaster)
     {
         var queue=new PriorityQueue<FirePatch,(DateTime,long)>();
         foreach(var value in _patches.Values)
-        {if(SourceField(value.Ability) && value.NextUtc<=at){queue.Enqueue(value,(value.NextUtc,value.Id));}}
+        {if((SourceField(value.Ability)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||value.NpcCaster==onlyNpcCaster.Value)){queue.Enqueue(value,(value.NextUtc,value.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!_patches.TryGetValue(due.Id,out var patch) || patch.NextUtc!=due.NextUtc){continue;}
+            if(patch.NpcCaster!=0)
+            {
+                if(patch.NextUtc>=patch.UntilUtc){_patches.Remove(patch.Id);continue;}
+                var actor=NpcSource(patch.NpcCaster,patch.Owner,patch.Map,allowActions);
+                if(actor==null){if(patch.UntilUtc<=at){_patches.Remove(patch.Id);}else{_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};}continue;}
+                NpcMeteorField(actor,patch);
+                if(_patches.TryGetValue(patch.Id,out var npcNext)&&npcNext.NextUtc<=at){queue.Enqueue(npcNext,(npcNext.NextUtc,npcNext.Id));}
+                continue;
+            }
             var owner=Owner(patch.Owner,patch.Ability==CombatAbility.ImmolationArrow?DiabloClass.Amazon:DiabloClass.Assassin);
             if(owner==null || patch.NextUtc>=patch.UntilUtc || owner.Map!=Map.Internal && (owner.Map.MapID!=patch.Map || SpellHelper.IsTown(owner.Location,owner)))
             {_patches.Remove(patch.Id);continue;}
@@ -275,30 +298,34 @@ public static class FireGround
     public static void Restore(FireGroundSave saved)
     {
         if (saved?.Patches == null || saved.Makers == null || saved.Cooldowns == null) { throw new InvalidDataException("Missing fire-ground state"); }
-        _patches.Clear(); _makers.Clear(); _meteors.Clear(); _cooldowns.Clear(); _nextId = 0;
+        var patches=new Dictionary<long,FirePatch>();var makers=new Dictionary<long,FireMaker>();var meteors=new Dictionary<long,MeteorDrop>();var cooldowns=new Dictionary<(uint Owner,CombatAbility Ability),DateTime>();long nextId=0;
         foreach (var patch in saved.Patches)
         {
             if (patch.Id <= 0 || patch.Min256 < 0 || patch.Max256 < patch.Min256 || patch.Size is < 1 or > 8
                 || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || (patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike) && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
-                || !double.IsFinite(patch.X + patch.Y) || !_patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
-            _nextId = Math.Max(_nextId, patch.Id);
+                || !double.IsFinite(patch.X + patch.Y) || !ValidNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
+            nextId = Math.Max(nextId, patch.Id);
         }
         foreach (var maker in saved.Makers)
         {
             if (maker.Id <= 0 || maker.Rank <= 0 || !double.IsFinite(maker.X + maker.Y + maker.Dx + maker.Dy)
-                || _patches.ContainsKey(maker.Id) || !_makers.TryAdd(maker.Id, maker)) { throw new InvalidDataException("Invalid wall maker"); }
-            _nextId = Math.Max(_nextId, maker.Id);
+                || patches.ContainsKey(maker.Id) || !makers.TryAdd(maker.Id, maker)) { throw new InvalidDataException("Invalid wall maker"); }
+            nextId = Math.Max(nextId, maker.Id);
         }
         foreach (var cooldown in saved.Cooldowns)
-        { if (!_cooldowns.TryAdd((cooldown.Owner, cooldown.Ability), cooldown.UntilUtc)) { throw new InvalidDataException("Duplicate skill cooldown"); } }
+        { if (!cooldowns.TryAdd((cooldown.Owner, cooldown.Ability), cooldown.UntilUtc)) { throw new InvalidDataException("Duplicate skill cooldown"); } }
         foreach (var meteor in saved.Meteors ?? Array.Empty<MeteorDrop>())
         {
             if (meteor.Id <= 0 || meteor.Rank <= 0 || meteor.Min256 < 0 || meteor.Max256 < meteor.Min256 || !double.IsFinite(meteor.Radius)
-                || meteor.Radius <= 0 || _patches.ContainsKey(meteor.Id) || _makers.ContainsKey(meteor.Id) || !_meteors.TryAdd(meteor.Id, meteor))
+                || meteor.Radius <= 0 || !ValidNpc(meteor) || patches.ContainsKey(meteor.Id) || makers.ContainsKey(meteor.Id) || !meteors.TryAdd(meteor.Id, meteor))
             { throw new InvalidDataException("Invalid pending meteor"); }
-            _nextId = Math.Max(_nextId, meteor.Id);
+            nextId = Math.Max(nextId, meteor.Id);
         }
+        _patches.Clear();foreach(var pair in patches){_patches.Add(pair.Key,pair.Value);}
+        _makers.Clear();foreach(var pair in makers){_makers.Add(pair.Key,pair.Value);}
+        _meteors.Clear();foreach(var pair in meteors){_meteors.Add(pair.Key,pair.Value);}
+        _cooldowns.Clear();foreach(var pair in cooldowns){_cooldowns.Add(pair.Key,pair.Value);}_nextId=nextId;
     }
 }

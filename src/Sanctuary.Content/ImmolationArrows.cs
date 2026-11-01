@@ -15,12 +15,13 @@ public static class ImmolationArrows
         =>CombatHitboxes.SourceTouches(1,size,dx,dy);
     internal static int FieldDamage256(SkillValues values,bool maximum)
         =>FireGround.MissileDamage256("immolationfire",values.Rank,NecromancerSummons.Formula("immolationfire","EDmgSymPerCalc",values),maximum);
-    internal static Mobile Recipient(PlayerMobile owner,FirePatch patch)
+    internal static Mobile Recipient(PlayerMobile owner,FirePatch patch)=>Recipient(owner,owner,patch);
+    internal static Mobile Recipient(Mobile caster,PlayerMobile owner,FirePatch patch)
     {
         var point=new Point3D((int)Math.Round(patch.X),(int)Math.Round(patch.Y),patch.Z);
         // Source returns the first eligible collider. Native sector enumeration
         // projects source room-list order; do not turn this into per-cell AoE.
-        foreach(var target in owner.Map.GetMobilesInRange<Mobile>(point,2))
+        foreach(var target in caster.Map.GetMobilesInRange<Mobile>(point,2))
         {
             int size=target is BaseCreature c?CreatureProfiles.For(c).Traits.Size??2:2;
             int dx=(int)(patch.X*2)-target.X*2,dy=(int)(patch.Y*2)-target.Y*2;

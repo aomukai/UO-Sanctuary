@@ -22,10 +22,11 @@ internal static class MageOffensiveSkills
     internal static bool Release(MageWorldBody actor,PlayerMobile owner,Mobile target,DateTime at)
     {
         if(!IronGolemWorld.Eligible(actor,owner,target)){return false;}
-        // Other approved secondaries still need their actual NPC projectile/
-        // field bindings. Do not select them and silently substitute a spell.
-        var choice=Select(actor.MageElement,MagePetBuffs.HardRank(actor),ability=>ability is CombatAbility.StaticField or CombatAbility.ChainLightning or CombatAbility.GlacialSpike,
+        // Cooldown-unavailable slots remain basic attacks without rerolling
+        // or reallocating another secondary's probability interval.
+        var choice=Select(actor.MageElement,MagePetBuffs.HardRank(actor),ability=>ability is CombatAbility.StaticField or CombatAbility.ChainLightning or CombatAbility.GlacialSpike || ability==CombatAbility.Meteor&&FireGround.Ready(actor,ability,at),
             ()=>NecromancerMageMissiles.ActorLimited(actor,100));
+        if(choice==CombatAbility.Meteor){return FireGround.CastNpcMeteor(actor,target,at)>0;}
         if(choice==CombatAbility.GlacialSpike){return NecromancerMageMissiles.LaunchGlacial(actor,target,at)>0;}
         if(choice==CombatAbility.ChainLightning)
         {return ChainLightning.CastNpc(actor,target.Location,MagePetBuffs.Values(CombatAbility.ChainLightning,10,actor.Level),at)>0;}

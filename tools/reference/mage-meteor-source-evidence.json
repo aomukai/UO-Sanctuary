@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "reusedComposition": "tools/reference/phoenix-meteor-source-evidence.json",
+  "sourceHash": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+  "compiledRoutines": {
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
+    "MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor": "f54c079ceb702c12d0c809113f0f5117058648e8f2a253d794c29bb39de93ab5",
+    "MISSMODE_CreateMeteor_MoltenBoulderSubmissiles": "b60345be1230f9d5f9bc44e9f84ab6dd8321d2d31a93634073043271ce25dfb6"
+  },
+  "fixture": {
+    "path": ".local/class-skills/mage-meteor-source-probe.json",
+    "sha256": "a21aafc0bb1b2f79618a0d3090c615030f23a012eea274210d48a6fcfd85a9b7",
+    "cppSha256": "b71a16020c2f02679e53e1247ea347499e4902f44d56a4faa03342cb574d3af7",
+    "cases": 320,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Normal Meteor center101 uses complete do1/expiry/router/hit14/area/field-producer composition directly,without Phoenix hit4 child creation. Range60 expires after60updates;the boundary compares remaining1/2/59/60.",
+    "Pinned range0override resolves skill radius6/filter0x8583/checkAura0;18fields240 inherit56/rank/owner and30+15*(rank-1)override. Missing owner/skill suppresses impact/fields;individual allocation failure does not suppress later fields.",
+    "Player/NPC owner kinds share this bounded supplied composition. Numeric packet preparation/field03/do5 animation,world geometry,actual factory allocation/global seed/event order and current executable remain separate."
+  ]
+}

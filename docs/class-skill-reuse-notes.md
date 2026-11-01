@@ -62,3 +62,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Mage Glacial Spike and freeze-before-death
 
 [Mage Glacial](mage-glacial-checkpoint.md) reuses the saved Mage ordinary flight and `BasicMissileUpdate`, shared vectors/source cells, Slow Missiles, area enumeration and per-recipient Mage spell/critical consumer. The ordinary Sorceress hit area shares the single raw roll and pre-HP freeze entry. Keep its older private flight's wall/expiry/save gaps explicit; sharing the impact consumer does not certify those paths. Native wall-center area LOS is an adapter, not a reason to invent through-wall damage. Manual fixture clock steps must select their own flight instead of advancing unrelated held save cohorts.
+
+## Mage Meteor, Phoenix and fire fields
+
+[Mage Meteor](mage-meteor-checkpoint.md) extends the existing `FireGround` warning/patch/cooldown stores with optional NPC identity/seed context. The same18-offset producer now serves normal player Meteor, Phoenix and NPC Meteor. Keep normal center's direct hit14 distinct from Phoenix center's hit4 child creation. Reuse the first-collider helper and NPC spell receiver with field damage-rate/no-recovery options, retaining the separate actor intrinsic-critical stream; fixed NPC spell contexts must not inherit real-owner Sorceress mastery, synergy, potion or mana policy. Per-caster cooldowns and copied fixture clock steps must preserve unrelated saved player/pet state. Do5 animation/collision-mask RNG and03SOFTHIT subscribers remain separate from field HP transport.
