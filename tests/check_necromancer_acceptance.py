@@ -5,6 +5,7 @@ This runs existing acceptance scopes together. A passing cohort alone does not
 close explicitly uncertain source/host adapters or certify the entire class.
 """
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -29,15 +30,18 @@ def combined():
                 assert name not in merged or merged[name] == value, (key, name)
                 merged[name] = value
         result[key] = merged
-    result['extra_families'] += ('corpse-cast', 'revive-cast')
+    result['extra_families'] += ('class-skills', 'corpse-cast', 'revive-cast')
+    # The older runner recreated this saved fixture on every boot. Use its
+    # actual reload command so the stored armor, minion and bindings are read.
+    result['extra_checks'] = tuple(name for name in result['extra_checks'] if name != 'class-skills-check')
     result['extra_files'].update({
         'necro-corpse-explosion-source-probe.json': ROOT / '.local/class-skills/necro-corpse-explosion-source-probe.json',
         'revive-source-policy-source-probe.json': ROOT / '.local/class-skills/revive-source-policy-source-probe.json',
     })
-    result['extra_manifest_names'].update({'corpse-cast': 'corpse-explosion-cast-fixtures.json'})
+    result['extra_manifest_names'].update({'class-skills': 'class-skills-checks.json', 'corpse-cast': 'corpse-explosion-cast-fixtures.json'})
     result['extra_inputs'] += (Path(__file__).resolve(), *(ROOT / 'tests' / name for name in scripts))
     result['save_command'] = result['save_result'] = 'necromancer-acceptance-save'
-    result['extra_early_reload_families'] = ('bone-barrier-clock', 'bone-wall-maker', 'bone-barrier-birth', 'bone-barriers')
+    result['extra_early_reload_families'] = ('bone-barrier-clock', 'bone-wall-maker', 'bone-barrier-birth', 'bone-barriers', 'class-skills')
     for path in result['extra_files'].values():
         assert path.is_file(), path
     return result
@@ -48,13 +52,17 @@ if __name__ == '__main__':
     if '--save-smoke' in sys.argv:
         config.update(stage=ROOT / '.local/class-skills/necromancer-acceptance-targeted',
             extra_families=('bone-barrier-clock', 'bone-wall-maker', 'bone-barrier-cast', 'bone-barrier-birth',
-                            'bone-barriers', 'fire-golem-death', 'summon-resist', 'revive-cast', 'corpse-cast'),
+                            'bone-barriers', 'class-skills', 'fire-golem-death', 'summon-resist', 'revive-cast', 'corpse-cast'),
             extra_checks=(), extra_live_commands=('fire-golem-death-live',), extra_connected_checks=(),
             extra_one_reload_families=(), extra_target_input_commands=(), extra_ground_input_commands=())
+    if '--mechanics-smoke' in sys.argv:
+        config.update(stage=ROOT / '.local/class-skills/necromancer-acceptance-mechanics',
+            extra_live_commands=(), extra_target_input_commands=(), extra_ground_input_commands=())
     if '--plan' in sys.argv:
         print(json.dumps({key: len(config[key]) for key in (
             'extra_families', 'extra_checks', 'extra_live_commands', 'extra_target_input_commands',
             'extra_files', 'extra_connected_checks')}, indent=2))
         print('No conflicting probe/wait/manifest/timeout mappings;all source probes exist;one combined special-state save.')
     else:
+        os.environ.update(SANCTUARY_PROJECT_ROOT=str(ROOT), SANCTUARY_FIRST_LOOP_ROOT=str(ROOT))
         check(**config)

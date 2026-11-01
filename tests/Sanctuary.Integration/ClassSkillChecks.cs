@@ -142,7 +142,11 @@ public static class ClassSkillChecks
         var summonPoint = CombatPractice.FindFloor(p.Map, p.X - 2, p.Y);
         Require(NecromancerCombat.Release(p, CombatAbility.ClayGolem, Serial.Zero, summonPoint), "Clay Golem release");
         var golem = p.AllFollowers.OfType<NecromancerMinion>().Single(x => !x.IsMage);
-        Require(golem.CombatProfile.Life == 125 && golem.CombatProfile.MinDamage == 2, "Clay Golem mastery/synergy base calculation");
+        // Approved rank1 Skeleton baseline1..2 plus captured Golem Mastery1
+        // adds2 to both endpoints; the former Clay/Fire-synergy curve is gone.
+        Require(golem.CombatProfile.Life == 125 && golem.CombatProfile.MinDamage == 3 && golem.CombatProfile.MaxDamage == 4
+            && golem is ClayGolemBody exactClay && exactClay.UnarmedPhysical == new NpcPhysicalStats(3,4,0,0,0,0,false),
+            "Clay life/captured Mastery and approved skeleton damage baseline");
         int oldMana = p.Mana;
         Require(!NecromancerCombat.Begin(p, CombatAbility.CorpseExplosion, Serial.Zero, p.Location, Core.TickCount)
             && p.Mana == oldMana, "Invalid corpse spent resources");

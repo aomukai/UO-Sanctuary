@@ -110,7 +110,8 @@ public static class PetChecks
         var p = new PlayerMobile { Player = true, Body = 0x190, Name = "PetCheck" };
         p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p, DiabloClass.Necromancer);
-        p.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 1440, 1695), Map.Trammel);
+        FixtureSpace.Corridor(p,6450,35,2800);
+        Require(!MinionSafeAreas.Contains(p),"Guardian combat fixture must be outside actual safety regions");
         if(network!=null)
         {
             network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
@@ -294,12 +295,17 @@ public static class PetChecks
         Require(Profile(p).Level == 2 && Profile(p).Experience == 612
             && ClassCreation.Profiles.GetRank(p.Serial, "necromancer.raiseskeleton") == 1
             && ClassCreation.Profiles.Stats(p.Serial).Vitality == 1, "Earned progression was not preserved");
-        p.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 1440, 1695), Map.Trammel);
+        int floor=FixtureSpace.Corridor(p,6450,35,2800);
+        Require(!MinionSafeAreas.Contains(p),"Guardian login fixture must be outside actual safety regions");
         p.ClaimAutoStabledPets();
         Require(pet.Map == p.Map && pet.InRange(p, 4) && pet.ControlOrder == OrderType.Guard && pet.Hits == 13,
             "Saved guardian did not return with the login hook");
         p.AutoStablePets();
-        p.MoveToWorld(CombatPractice.FindFloor(Map.Felucca, 1382, 1495), Map.Felucca);
+        var field=p.Location;
+        for(int dx=-4;dx<=4;dx++)for(int dy=-4;dy<=4;dy++)
+        {new Static(floor).MoveToWorld(new(field.X+dx,field.Y+dy,field.Z),Map.Felucca);}
+        FixtureSpace.Place(p,field,Map.Felucca);
+        Require(!MinionSafeAreas.Contains(p),"Guardian facet fixture must be outside actual safety regions");
         p.ClaimAutoStabledPets();
         Require(pet.Map == p.Map && pet.InRange(p, 4) && pet.Hits == 13 && SkeletonPets.Count(p) == 1,
             "Guardian did not return to its owner's current map");
