@@ -26,7 +26,7 @@ public static class ConfuseCastChecks
     }
     private static void Register(string name,Action run)=>ConsoleInputHandler.RegisterCommand(name,"Confuse reference, learned casting and saved state",_=>Core.LoopContext.Post(()=>
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static PlayerMobile Owner(int rank=1)
+    internal static PlayerMobile Owner(int rank=1)
     {
         var p=PoisonDaggerChecks.Owner();p.Name="PoisonDaggerFixtureConfuse";
         void Train(string id,int wanted)
@@ -39,7 +39,7 @@ public static class ConfuseCastChecks
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Confuse)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Confuse),"Terror right/quick bindings");
         FixtureSpace.Corridor(p,7050,24,3500);return p;
     }
-    private static GraveyardSkeleton Enemy(PlayerMobile p,int x=1,int y=0)
+    internal static GraveyardSkeleton Enemy(PlayerMobile p,int x=1,int y=0)
     {var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(new(p.X+x,p.Y+y,p.Z),p.Map);foreach(var type in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy,ResistanceType.Poison}){t.SetResistance(type,0);}return t;}
     private static void Ready(PlayerMobile p){PoisonDaggerChecks.Ready(p);ClassCombat.For(p).RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
     private static void Differential()

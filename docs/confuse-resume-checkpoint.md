@@ -1,0 +1,13 @@
+# Confuse autonomous reload checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This increment verifies the existing controller rather than changing gameplay behavior. No deployment or class completion is claimed.
+
+The earlier Confuse save fixture preserves exact curse/override/seed fields but advances its stream arithmetically while internalized. It remains useful serialization coverage. The new `ConfuseResumeChecks` adds actual post-load target selection and ordinary species combat, using the existing Confuse actor setup and authenticated network helper. Production `SourceMind`, damage, allegiance and AI timing are unchanged.
+
+Before each connected reload, the fixture requires exact saved curse, target override, seed, draw count, deadline, fractional life, owner mana, skill rank and binding. It then activates the actual sector, releases the monster's inspection freeze and waits for ordinary AI to select and damage either the player or nearby monster. No target is assigned, no controller is invoked manually and no seed/draw/deadline is rewritten on load. Every naturally observed draw is checked independently from the prior saved seed. Neutral attackability, lack of pet ownership and unchanged owner mana are required before the next save.
+
+**Focused verification passes:** 14 native markers, three boots, two actual reloads, three saves and two connected post-load fights. Content and integration rebuilds have zero warnings/errors. The retained 406-marker cohort, four selected-build audits and final receipt are pending in this work-in-progress checkpoint; see the resume checkpoint for the last accepted full build.
+
+The long regression holds only this inspection fixture's expiry before its first save. It does not replace the existing real ten-second Confuse expiry and right/quick-input checks. Native scan/tie/LOS/acquisition clocks and ordinary species actions remain explicit world adapters; the new proof does not establish the modern executable's entire target-node/global RNG/event engine. Existing unmapped alignment/minion/credit/PvP/Sunder/legacy reconstruction gaps remain.
+
+Reproduce the focused scope with `python3 tests/check_confuse_resume.py --focused`; omit the option for the retained cohort. Both use disposable worlds and the same isolated `confuse-resume` content/integration/native DLLs. Working installed build and saves remain untouched. Effects/audio and talent/hotkey icons remain separately tracked in [effects](skill-effects.md) and [icons](skill-icons.md); this verification adds no asset or binding.
