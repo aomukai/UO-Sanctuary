@@ -155,7 +155,14 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     private long _lastRecovery, _recoveryFraction;
     private MonsterProfile _profile;
     // Explicit owner-facet difficulty; action/movement periods are project balance values.
-    public virtual MonsterProfile CombatProfile => _profile ??= CreateProfile();
+    public virtual MonsterProfile CombatProfile
+    {
+        get
+        {
+            var basis=_profile??=CreateProfile();int bonus=SkeletonPetUpgrades.MovementPercent(this);
+            return bonus==0?basis:basis with{MoveMs=EncounterProfiles.MovementInterval(basis.MoveMs,bonus)};
+        }
+    }
     public virtual (int Min,int Max) SkillWeaponDamage
     {
         get { var profile=SkeletonStats.For(Level,Rank,Mastery,CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this),SummonDifficulty); return (profile.MinDamage,profile.MaxDamage); }

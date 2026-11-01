@@ -95,8 +95,9 @@ public static class FireGolemWorldChecks
     {
         Combat(false);Combat(true);Movement();NativeRecipient();var p=Owner();var b=Learned(p);var t=Target(p,b);var roll=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try{NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,25);Require(b.WorldContact!=null,"Saved Fire windup missing");}finally{SourceBlocking.BlockRoll=roll;}
-        // Snapshot-only hold; unheld natural contact/pulses are checked in Live.
-        b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMinutes(2)});SkillHealth.SetBalance256(b,SkillHealth.Maximum256(b)-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
+        // Snapshot-only hold survives the complete retained multi-boot suite;
+        // unheld natural contact/pulses are checked separately in Live.
+        b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});SkillHealth.SetBalance256(b,SkillHealth.Maximum256(b)-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,t.Serial.Value,SkillHealth.Balance256(b),SkillHealth.Balance256(t),NpcEquipmentRandom.State(b).Seed,b.NextAuraFrame,0)));
         Log.Information("Fire world:tied S1end25/think25,G3action10/end17,mixed captured contact/no reroll,recovery/offline cancel,periodic phase skip,retirement during Thorns stops catchup/regen,preserved source,Mastery movement and native fallback pass;initial aura/event priority remain adapters");
     }

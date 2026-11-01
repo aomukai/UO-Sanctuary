@@ -19,7 +19,7 @@ public partial class SkeletonWorldBody:RaisedSkeleton,IUnarmedGroundPet
         target=>base.PrepareMeleeContact(target),target=>base.CanReleaseMeleeContact(target),target=>base.ResolveMeleeContact(target),()=>base.DiscardMeleeContact());
     UnarmedPetWorld IUnarmedGroundPet.Ground=>Ground;
     (int Action,int End) IUnarmedGroundPet.GroundAttackClock=>SourceAttackClock;
-    int IUnarmedGroundPet.GroundVelocityPercent=>0;
+    int IUnarmedGroundPet.GroundVelocityPercent=>SkeletonPetUpgrades.MovementPercent(this);
     internal bool WorldLoaded{get=>Ground.Loaded;set=>Ground.Loaded=value;}
     internal SkeletonWorldState WorldState=>Ground.State;
     internal IronGolemContact.Prepared WorldContact=>Ground.Contact;

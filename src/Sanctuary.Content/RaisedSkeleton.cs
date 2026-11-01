@@ -37,7 +37,7 @@ public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum,ISourceU
         {
             var b=Birth;var weapon=SourceWeaponBase;int percent=Math.Max(10,100+b.DamagePercent);
             return new(b.Level,(Math.Clamp(b.Life256,256,65000*256)+255)/256,b.Attack,b.Armor,
-                weapon.Min*percent/100,weapon.Max*percent/100,DruidWolfGeometry.Clock("A1",source:"necroskeleton-animation").End*40,240,0,0,0,0,0);
+                weapon.Min*percent/100,weapon.Max*percent/100,DruidWolfGeometry.Clock("A1",source:"necroskeleton-animation").End*40,EncounterProfiles.MovementInterval(240,SkeletonPetUpgrades.MovementPercent(this)),0,0,0,0,0);
         }
     }
     public override (int Min,int Max) SkillWeaponDamage

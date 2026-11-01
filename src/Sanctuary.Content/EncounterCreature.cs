@@ -110,14 +110,14 @@ public partial class EncounterCreature : GraveyardUndead
             damageBonus += (_grade == EncounterGrade.Minion ? new[] { 67, 56, 49 } : new[] { 135, 112, 99 })[index];
             ratingBonus += (_grade == EncounterGrade.Minion ? new[] { 45, 37, 33 } : new[] { 90, 75, 66 })[index];
         }
-        if (Inherits(EliteModifier.ExtraFast)) { moveBonus += 100; }
+        if (Inherits(EliteModifier.ExtraFast)) { moveBonus += EncounterProfiles.ModifierMovementPercent(EliteModifier.ExtraFast); }
         if (Has(EliteModifier.StoneSkin)) { defense *= 2; }
         int[] res = EncounterProfiles.Resistances(dungeon.Resistances, _grade == EncounterGrade.Champion ? _champion : null,
             _grade == EncounterGrade.Minion ? [] : Modifiers);
         res = AdjustResistances(res);
         int min = basis.MinDamage * (100 + damageBonus) / 100, max = basis.MaxDamage * (100 + damageBonus) / 100;
         rating = rating * (100 + ratingBonus) / 100;
-        int move = Math.Max(40, basis.MoveMs * 100 / (100 + moveBonus));
+        int move = EncounterProfiles.MovementInterval(basis.MoveMs,moveBonus);
         int xp = checked(basis.Experience * (_grade == EncounterGrade.Ordinary ? 1 : _grade == EncounterGrade.Champion
             ? _champion == ChampionKind.Berserker ? 5 : 3 : 5));
         var attack = new CreatureAttack(min, max, rating, Caster ? 10 : 1, basis.AttackMs + basis.RecoveryMs,

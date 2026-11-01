@@ -105,7 +105,7 @@ public static class ClayGolemWorldChecks
         Combat();Movement();NativeRecipient();var p=Owner();var b=Learned(p);var t=Target(p,b);var roll=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try{NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,25);Require(b.WorldContact!=null,"Saved Clay windup missing");}finally{SourceBlocking.BlockRoll=roll;}
         // Snapshot-only observation hold; Live checks the unheld natural clock.
-        b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMinutes(2)});
+        b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});
         SkillHealth.SetBalance256(b,SkillHealth.Maximum256(b)-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
         var old=new ClayGolemBody{Frozen=true,CantWalk=true};old.Prepare(p,CombatAbility.ClayGolem);old.SetControlMaster(p);old.MoveToWorld(p.Location,p.Map);old.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(old);old.Internalize();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,t.Serial.Value,old.Serial.Value,SkillHealth.Balance256(b),SkillHealth.Balance256(t),NpcEquipmentRandom.State(b).Seed,p.Location,p.Map.MapID,0)));

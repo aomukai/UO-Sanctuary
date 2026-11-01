@@ -20,6 +20,6 @@ internal static class NpcEquipmentRetaliation
     {
         if(target is not SkeletonGuardian actor){return 0;}
         int inherent=actor is IronGolemBody{Prepared:{IntrinsicThornsReplaced:false}} iron?IronAmount(iron.BirthValues):0;
-        return checked(inherent+NpcEquipmentCombat.Bonus(actor,"thorns"));
+        return checked(inherent+NpcEquipmentCombat.Bonus(actor,"thorns")+SkeletonPetUpgrades.FlatDamage(actor));
     }
 }

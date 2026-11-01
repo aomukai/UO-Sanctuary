@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Skeleton Warrior unlocks](skeleton-upgrades-checkpoint.md) reuse retaliation flash `0x374A`/hue`0x481` and the existing skeleton body/movement cues as identified placeholders. Final return-hit/contact, faster movement, death and audio feedback remain pending; reuse shared item-retaliation assets where appropriate. Unlocking requires no new summon/reset animation.
+
 The [historical Mage rollout](mage-historical-checkpoint.md) shares the existing body/cast/projectile/field placeholders and future Mage/Sorceress assets. Adoption needs no new summon/reset visual. Final movement, cast/contact, death, cold/shatter and audio work remains pending.
 
 The [three-element Mage roster](mage-elements-checkpoint.md) reuses existing body and cold/fire/lightning cue placeholders. Final element-distinct summon/body/cast/contact/death and cold/freeze/shatter feedback/audio remain pending. In-place poison-to-ice conversion adds no required migration animation; old poison missile/DOT visuals must follow their actual remaining states.

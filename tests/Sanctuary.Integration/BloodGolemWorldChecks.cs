@@ -114,7 +114,7 @@ public static class BloodGolemWorldChecks
         Combat(false);Combat(true);Movement();NativeRecipient();var p=Owner();var b=Learned(p);var t=Target(p,b);Wound(p,b);var roll=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try{NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,25);Require(b.WorldContact!=null,"Saved Blood windup missing");}finally{SourceBlocking.BlockRoll=roll;}
         // Snapshot-only observation hold, distinct from unheld Live combat.
-        b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMinutes(2)});
+        b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});
         var old=new BloodGolemBody{Frozen=true,CantWalk=true};old.Prepare(p,CombatAbility.BloodGolem);old.SetControlMaster(p);old.MoveToWorld(p.Location,p.Map);old.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(old);old.Internalize();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,t.Serial.Value,old.Serial.Value,SkillHealth.Balance256(p),SkillHealth.Balance256(b),SkillHealth.Balance256(t),NpcEquipmentRandom.State(b).Seed,0)));
         Require(b.WorldContact!=null,"Blood snapshot lost active packet");Log.Information("Blood world:shared AI67,G2action10/end16,exact owner/pet pre-HP healing including lethal257FP clamp,no double healing,capture/no replay,cancel,mastery movement,regeneration,native fallback and malformed-state controls pass;modern startup parity remains open");
