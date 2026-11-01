@@ -384,9 +384,9 @@
       "tree": "Cold Spells",
       "sourceId": 45,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Saved shared player flight validates pinned dmg4 and applies captured cold length as freeze without duplicate chill or splash. Rank/hard-only damage/Glacial length, Nightwing capture, resistance/immunity/potion, difficulty/elite fallback, thaw/AI, lethal shattered-corpse eligibility and class-loot pickup, mana/lifecycle, actual right/quick and two-reload scopes are recorded in sorceress-ice-blast-checkpoint.md. Native world/candidate/footprint, exact modern dispatch/seed/late-pierce/events, unmapped recipients/PvP, old-DLL upgrade and final graphical/assets acceptance remain open; no class certificate."
     },
     {
       "talentId": "sorceress.shiverarmor",

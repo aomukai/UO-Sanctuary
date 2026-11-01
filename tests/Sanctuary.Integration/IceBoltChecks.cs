@@ -27,7 +27,7 @@ public static class IceBoltChecks
     private static PlayerMobile Owner(){var p=FireBoltChecks.Owner(CombatAbility.IceBolt,7060);p.Name="IceBoltFixture";return p;}
     private static long Create(PlayerMobile p)=>SorceressSpellMissiles.Commit(SorceressSpellMissiles.Prepare(p,new(p.X+10,p.Y,p.Z),SkillMechanics.Values(p,CombatAbility.IceBolt),TimedEffects.Now));
     private static SorceressSpellFlight State(long id)=>FireBoltChecks.State(id);
-    private static DateTime Finish(long id)
+    internal static DateTime Finish(long id)
     {
         DateTime at=TimedEffects.Now;
         for(int i=0;i<50&&State(id) is{} s;i++){at=s.NextUtc;SorceressSpellMissiles.Tick(at,true);}

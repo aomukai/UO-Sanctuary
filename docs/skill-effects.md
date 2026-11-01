@@ -1,5 +1,7 @@
 # Skill effects
 
+The [player Ice Blast increment](sorceress-ice-blast-checkpoint.md) uses travel `0x36E4`/hue `0x480`, freeze marker `0x374A`/hue `0x480`, and sound `0x1E5` as identified placeholders. Final cast/travel/contact/freeze/thaw/shatter and audio remain pending; share the existing cold/Mage assets where presentation matches. Its client impact effect must not imply a server splash. Icons remain separate.
+
 The [player Ice Bolt increment](sorceress-ice-bolt-checkpoint.md) uses travel `0x36E4`/hue `0x480`, the shared cold-state marker `0x374A`/hue `0x480`, and cast sound `0x1E5` as identified placeholders. Final cast/travel/contact/chill/expiry feedback and audio remain pending; share Mage Ice Bolt assets. Visual collision must not imply a server explosion. Icons remain in their separate register.
 
 The [player Fire Bolt increment](sorceress-fire-bolt-checkpoint.md) uses travel `0x36D4`, hue `0x489`, and cast sound `0x1E5` as identified placeholders. Final cast/travel/contact/impact/expiry feedback and audio remain pending; share the Mage Fire Bolt assets. Visual impact must not imply an unimplemented server splash. Missing artwork does not block the mechanical path; icons stay separate.
