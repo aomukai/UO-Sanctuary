@@ -397,7 +397,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared prepared do18 casts,right-only admission,release mana,rank/hard duration/defense goldens,group replacement and original saved rank/gear/resources have dedicated native coverage. Existing attempted-melee retaliation includes misses and chill. Its floating damage/generic hit callback still needs retained-rank live-synergy source event03 typed damage/return and full event order acceptance. Modern special/PvP/charged/oskill/client/old-DLL/unheld saves remain open;effects/audio/icons separate."
+      "remaining": "Shared prepared do18 casts,right-only admission,release mana,rank/hard duration/defense goldens,group replacement and original saved rank/gear/resources have dedicated native coverage. Existing attempted-melee retaliation includes misses and chill. Its floating damage/generic hit callback still needs retained-rank live-synergy source event03 typed damage/return. The early CheckHit bridge is not full attack-event chronology:older FillDamageValues and DrainItemDurability have distinct notification sites. Exact placement/order remains open. Modern special/PvP/charged/oskill/client/old-DLL/unheld saves remain open;effects/audio/icons separate."
     },
     {
       "talentId": "sorceress.glacialspike",
@@ -430,7 +430,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared prepared do18 casts,right-only admission,release mana,rank/hard duration/defense goldens,group replacement and original saved rank/gear/resources have dedicated native coverage. Existing native-arrow ReturnFire filtering and travelling retaliation remain. The private unsaved return-bolt timer must migrate to the checked saved missile kernel with event01 factory/damage/owner rules;exact modern missile/event/collision/PvP/charged/oskill/client/old-DLL/unheld saves remain open. Effects/audio/icons separate."
+      "remaining": "Shared do18 casting and saved rank/gear/resources are retained. Event01 now emits missile264 through the saved do1 spell controller,with25frames/velocity18/InitSteps0/ReturnFire0,no extra mana,retained armor rank and live hard/gear capture at emission. Legacy rankless armor keeps captured endpoints/length and saved rank0. Complete older callback/factory2880cases,765rank/hard goldens,36native factory comparisons,typed immunity/potion/cold and the same original bolt across two reloads have coverage. Exact modern damage/event/global seed/Size/cell/owner/PvP/Sunder/charged/oskill/client and old-DLL/unheld saves remain open;effects/audio/icons separate."
     },
     {
       "talentId": "sorceress.frozenorb",

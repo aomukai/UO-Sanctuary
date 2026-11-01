@@ -106,9 +106,11 @@ public static class DruidFirestorm
     internal static FirestormModifiers Modifiers(PlayerMobile owner)=>new(CombatPotions.Bonus(owner,"magical-penetration"),
         NamedElements.MasteryPercent(owner,"fire"),NamedElements.MasteryPercent(owner,"cold"),NamedElements.MasteryPercent(owner,"ltng"),NamedElements.MasteryPercent(owner,"pois"));
     internal static (int Min,int Max) Endpoints(SkillValues values,int mastery,SlowMissilePayload slow)
+        =>Endpoints(values.Damage256(false),values.Damage256(true),mastery,slow);
+    internal static (int Min,int Max) Endpoints(int minimum,int maximum,int mastery,SlowMissilePayload slow)
     {
         int Enhance(int raw)=>slow.Damage256((int)Math.Clamp((long)raw+(long)raw*mastery/100,0,int.MaxValue));
-        return(Enhance(values.Damage256(false)),Enhance(values.Damage256(true)));
+        return(Enhance(minimum),Enhance(maximum));
     }
     internal static GearDamage Packet(FirestormModifiers mods,int raw256)
     {

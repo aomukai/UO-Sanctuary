@@ -167,7 +167,7 @@ public static class SorceressEffects
     {
         if (!Hostile(attacker, defender, out var owner) || Armor(owner) is not { Ability: CombatAbility.ChillingArmor } armor
             || NecromancerSummons.Source(missile, "ReturnFire") == 0) { return; }
-        new ReturnBolt(owner, attacker.Location, armor).Start();
+        SorceressSpellMissiles.ReactiveArmor(owner, attacker.Location, armor);
     }
     private static void Retaliate(PlayerMobile owner, Mobile target, ColdArmorState armor)
     {
@@ -175,28 +175,5 @@ public static class SorceressEffects
         SkillCombat.Hit(owner, target, damage, "cold");
         if (target is { Alive: true, Deleted: false })
         { GearEffects.ApplyChill(target, Core.TickCount, armor.ColdFrames * 40 / NecromancerEffects.DifficultyDivisor(target), owner); }
-    }
-    private sealed class ReturnBolt(PlayerMobile owner, Point3D target, ColdArmorState armor)
-        : SkillField(owner, NecromancerSummons.Source("chillingarmorbolt", "Range"), DiabloClass.Sorceress)
-    {
-        private double _x = owner.X, _y = owner.Y;
-        private readonly int _z = owner.Z;
-        private readonly double _angle = Math.Atan2(target.Y - owner.Y, target.X - owner.X);
-        protected override void Step()
-        {
-            var before = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            double speed = SkillGeometry.Velocity(NecromancerSummons.Source("chillingarmorbolt", "Vel"));
-            _x += Math.Cos(_angle) * speed; _y += Math.Sin(_angle) * speed;
-            var after = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            if (!Map.LineOfSight(new Point3D(before.X, before.Y, _z + 12), new Point3D(after.X, after.Y, _z + 12))) { Stop(); return; }
-            Mobile first = null; double nearest = double.MaxValue;
-            foreach (var candidate in SkillCombat.Targets(Owner, after, 2))
-            {
-                if (CombatHitboxes.Intersect(before, after, candidate.Location, out double entry) && entry < nearest)
-                { first = candidate; nearest = entry; }
-            }
-            Effects.SendLocationEffect(after, Map, 0x36E4, 3); // Placeholder armor bolt.
-            if (first != null) { if(!ClassAvoidance.Missile(first)){Retaliate(Owner, first, armor);} Stop(); }
-        }
     }
 }

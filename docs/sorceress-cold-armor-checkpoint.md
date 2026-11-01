@@ -1,5 +1,7 @@
 # Cold armor casts and Frozen Armor reaction
 
+Follow-up: [Chilling Armor's saved return bolt](sorceress-chilling-bolt-checkpoint.md) supersedes this increment's unsaved-timer gap. The Shiver packet and attack-notification chronology remain open. The results below describe the earlier shared-cast/Frozen increment.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This increment reuses the armor/status/group helpers and the existing fractional incoming-weapon hook. It does not certify the three armor talents or the Sorceress class.
 
 The [source proof](../tools/reference/cold-armor-source-evidence.json) composes complete older do18, group clearing and state-list bodies in450cases, the complete freeze-only event02 in2,560cases, and its removal callback in four cases. ASan/UBSan pass. Group clearing includes the same member before allocation, so weaker recasts replace their prior stronger instance. Event02 checks positive physical damage when a packet exists and emits a freeze-only event; it does not insert damage or a new attack. Removal unregisters the state event before the death-retention branch. Current rows and noncurse group1states10/88/20are pinned separately. Allocation, formula, stat/registration/overlay/owner services remain explicit seams; this is not modern executable or global event-registry proof.

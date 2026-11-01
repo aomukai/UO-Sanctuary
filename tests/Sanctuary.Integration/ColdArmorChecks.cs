@@ -45,7 +45,7 @@ public static class ColdArmorChecks
         string id = SkillMechanics.For(ability).TalentId;
         while (ClassCreation.Profiles.GetRank(p.Serial, id) < rank) { Require(ClassCreation.Profiles.TryTrain(p.Serial, id, out _), "Train " + id); }
     }
-    private static PlayerMobile Owner(CombatAbility ability = CombatAbility.FrozenArmor)
+    internal static PlayerMobile Owner(CombatAbility ability = CombatAbility.FrozenArmor)
     {
         var p = FireBoltChecks.Owner(CombatAbility.FireBolt, 5800); p.Name = "ColdArmorFixture";
         foreach (var a in new[] { CombatAbility.IceBolt, CombatAbility.IceBlast, CombatAbility.FrozenArmor, CombatAbility.ShiverArmor, CombatAbility.GlacialSpike, CombatAbility.ChillingArmor }) { Train(p, a, 1); }

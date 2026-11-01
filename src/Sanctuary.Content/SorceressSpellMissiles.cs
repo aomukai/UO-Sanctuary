@@ -73,29 +73,33 @@ internal static class SorceressSpellMissiles
         CombatAbility.Fireball=>new("fireball","fire",47,20,0,50,1,5,2),
         CombatAbility.Nova=>new("nova","ltng",48,24,0,13),
         CombatAbility.FrostNova=>new("frostnova","cold",44,24,0,14),
+        CombatAbility.ChillingArmor=>new("chillingarmorbolt","cold",60,18,0,25,InitSteps:0),
         _=>throw new NotSupportedException("Unmapped player straight spell")
     };
     internal static void Route(SkillValues values)
     {
-        bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt;var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
+        bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt,armor=values.Ability==CombatAbility.ChillingArmor;var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
         if(values.Rank is <1 or >255||row.SourceId!=profile.Source
-            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=(ring?22:charged?17:0)||row.Text(ring||charged?"srvmissilea":"srvmissile")!=profile.Key
+            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=(armor?18:ring?22:charged?17:0)||row.Text(ring||charged||armor?"srvmissilea":"srvmissile")!=profile.Key
             ||row.Text("EType")!=profile.Element||row.Number("SrcDam")!=0
             ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=profile.HitFunction||M("pSrvDmgFunc")!=profile.DamageFunction||M("Vel")!=profile.Velocity||M("MaxVel")!=profile.Velocity
             ||M("VelLev")!=0||M("Accel")!=(ring?-1000:0)||M("Range")!=(charged?98:profile.Frames)||M("Size")!=profile.Size||M("CollideType")!=3
             ||M("CollideKill")!=(ring?0:profile.CollideKill)||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=(ring?1:0)||M("NextDelay")!=(ring?4:0)||M("Pierce")!=0
             ||M("SrcDamage")!=0||M("CanSlow")!=(ring?0:1)||M("InitSteps")!=(ring?0:profile.InitSteps)||M("Activate")!=0
             ||ring&&(values.Eval("calc1")!=0||M("HitClass")!=(values.Ability==CombatAbility.Nova?64:48))
-            ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=0
+            ||M("ReturnFire")!=(armor?0:1)||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=0
             ||profile.HitFunction==13&&(M("sHitPar1")!=0||M("sHitPar2")!=0||new MissileValues(profile.Key,values).Text("EType")!="frze")
             ||profile.HitFunction==1&&(M("sHitPar1")!=0||new MissileValues(profile.Key,values).Text("EType")!="fire"))
         {throw new NotSupportedException("Unmapped player straight spell route");}
     }
     private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Sorceress?p:null;
-    internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,int radialIndex=-1,long id=0,long cast=0,int ordinal=-1)
+    internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,int radialIndex=-1,long id=0,long cast=0,int ordinal=-1,ColdArmorState reaction=null)
     {
         Route(values);bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt;
+        bool armor=values.Ability==CombatAbility.ChillingArmor;
+        if(armor!=(reaction!=null)||reaction!=null&&(reaction.Ability!=CombatAbility.ChillingArmor||reaction.Rank is <0 or >255
+            ||reaction.Rank>0&&values.Rank!=reaction.Rank)) {throw new NotSupportedException("Chilling bolt requires its armor reaction context");}
         if(ring&&(radialIndex is <0 or >63||id<=0||cast<=0||ordinal!=-1)||charged&&(radialIndex!=-1||id<=0||cast!=0||ordinal<0||ordinal>=values.Eval("calc1"))||!ring&&!charged&&(radialIndex!=-1||id!=0||cast!=0||ordinal!=-1)){throw new NotSupportedException("Unmapped Sorceress radial launch");}
         if(owner==null||Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal
             ||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height||at.Kind!=DateTimeKind.Utc
@@ -103,17 +107,32 @@ internal static class SorceressSpellMissiles
         {throw new NotSupportedException("Unsupported player straight spell owner/aim");}
         var profile=Profile(values.Ability);
         var slow=AmazonSlowMissiles.Capture(owner,!ring);var mods=DruidFirestorm.Modifiers(owner);
-        var ends=DruidFirestorm.Endpoints(values,profile.Element=="cold"?mods.ColdMastery:profile.Element=="ltng"?mods.LightningMastery:mods.FireMastery,slow);
-        // Straight casts supply33; do22 supplies7 and the table velocity. No weapon AR/damage/ammo.
-        int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
+        var ends=reaction is{Rank:0}?DruidFirestorm.Endpoints(reaction.Min256,reaction.Max256,mods.ColdMastery,slow)
+            :DruidFirestorm.Endpoints(values,profile.Element=="cold"?mods.ColdMastery:profile.Element=="ltng"?mods.LightningMastery:mods.FireMastery,slow);
+        // Straight casts supply33; do22 supplies7; armor event01 supplies32.
+        // These are spell packets, without weapon AR/damage/ammo.
+        int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,armor?32:ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
         int dx=point.X-owner.X,dy=point.Y-owner.Y;if(ring){var direction=FrozenOrbs.Direction(radialIndex);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         var flight=new SorceressSpellFlight(ring||charged?id:checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
-            values.Ability,values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
+            values.Ability,reaction?.Rank??values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
             SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
-            {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0,
+            {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?reaction is{Rank:0}?reaction.ColdFrames:values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0,
              Charged=charged?new(owner.X,owner.Y,ChargedBolts.Path(ChargedBolts.Seed(point,ordinal),ChargedBolts.Heading(point.X-owner.X,point.Y-owner.Y),ChargedBolts.Frames),1,ordinal):null};
         Validate(flight);return flight;
+    }
+    internal static bool ReactiveArmor(PlayerMobile owner,Point3D point,ColdArmorState armor)
+    {
+        if(owner is not{Alive:true,Deleted:false}||Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal
+            ||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height
+            ||SpellHelper.IsTown(owner.Location,owner)||SpellHelper.IsTown(point,owner)){return false;}
+        // Rankless V0 armor has only captured base endpoints/length. The fixed
+        // route has VelLev0 and constant lifetime; use rank1 only to validate
+        // that route, retaining rank0 in the saved packet without guessing it.
+        var values=armor.Rank>0?SkillMechanics.Values(owner,CombatAbility.ChillingArmor,armor.Rank)
+            :new SkillValues(SkillMechanics.For(CombatAbility.ChillingArmor),_=>1,_=>0,ClassStats.Level(owner));
+        var prepared=Prepare(owner,point,values,TimedEffects.Now,reaction:armor);
+        Commit(prepared);return true; // Reactive emission has no additional mana.
     }
     internal static long Commit(SorceressSpellFlight flight)
     {
@@ -296,9 +315,9 @@ internal static class SorceressSpellMissiles
     }
     private static void Validate(SorceressSpellFlight s)
     {
-        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.Lightning or CombatAbility.ChargedBolt))
+        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.Lightning or CombatAbility.ChargedBolt or CombatAbility.ChillingArmor))
         {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
-        var profile=Profile(s.Ability);bool ring=Ring(s.Ability),capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FrostNova;
+        var profile=Profile(s.Ability);bool ring=Ring(s.Ability),capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FrostNova or CombatAbility.ChillingArmor;
         if(s.Ability==CombatAbility.ChargedBolt)
         {
             if(s.Charged is not{} c||c.OriginX<=0||c.OriginY<=0||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||c.OriginX>=Map.Maps[s.Map].Width||c.OriginY>=Map.Maps[s.Map].Height
@@ -307,11 +326,11 @@ internal static class SorceressSpellMissiles
             for(int i=1;i<c.Path.Length;i++){long dx=Math.Abs((long)c.Path[i].X-c.Path[i-1].X),dy=Math.Abs((long)c.Path[i].Y-c.Path[i-1].Y);if(dx>1||dy>1||dx+dy==0){throw new InvalidDataException("Invalid player charged waypoint");}}
         }
         else if(s.Charged!=null){throw new InvalidDataException("Unexpected player charged path");}
-        if(s.Id<=0||!((Serial)s.Owner).IsMobile||s.Rank is <1 or >255
+        if(s.Id<=0||!((Serial)s.Owner).IsMobile||s.Rank<(s.Ability==CombatAbility.ChillingArmor?0:1)||s.Rank>255
             ||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal||s.Z is <-128 or >127
             ||!double.IsFinite(s.X+s.Y+s.Vx+s.Vy)||s.X<=0||s.Y<=0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
             ||Math.Abs(s.Vx)>(s.Ability==CombatAbility.Lightning?0.703125:ring?0.5625:0.5)||Math.Abs(s.Vy)>(s.Ability==CombatAbility.Lightning?0.703125:ring?0.5625:0.5)||s.VelocityFp8<0||s.VelocityFp8>profile.Velocity*192||s.Frame<0||s.Frames!=profile.Frames||s.Frame>=s.Frames
-            ||(capturedCold?s.ColdFrames<1||s.ColdFrames>(s.Ability==CombatAbility.IceBlast?4035:s.Ability==CombatAbility.FrostNova?6550:9040):s.ColdFrames!=0)
+            ||(capturedCold?s.ColdFrames<(s.Ability==CombatAbility.ChillingArmor&&s.Rank==0?0:1)||s.ColdFrames>(s.Ability==CombatAbility.ChillingArmor?12250:s.Ability==CombatAbility.IceBlast?4035:s.Ability==CombatAbility.FrostNova?6550:9040):s.ColdFrames!=0)
             ||ring&&(s.Cast<=0||s.Cast>s.Id||s.Id!=s.Cast+s.RadialIndex||s.RadialIndex is <0 or >63||s.AccelerationCounter is <0 or >4||s.Slow.VelocityPercent!=100)
             ||!ring&&(s.Cast!=0||s.RadialIndex!=-1||s.AccelerationCounter!=0||profile.CollideKill!=0&&s.LastCollision!=0)
             ||s.LastCollision!=0&&!((Serial)s.LastCollision).IsMobile

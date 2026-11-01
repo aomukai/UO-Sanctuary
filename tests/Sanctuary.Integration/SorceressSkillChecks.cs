@@ -70,6 +70,11 @@ public static class SorceressSkillChecks
             Require(enemy.Hits == unchanged && SorceressEffects.Armor(owner).Defense == 60, "Chilling Armor melee/return-fire filter or defense");
             AOS.Damage(owner, enemy, 5, false, 100, 0, 0, 0, 0, archer: true, weaponDamage: true);
             Require(enemy.Hits == unchanged, "Chilling Armor applied instant counter damage");
+            // This legacy model fixture has no client. Advance the saved
+            // controller explicitly, as the other prepared missile controls
+            // do; connected natural travel belongs to ChillingBoltChecks.
+            var counter = SorceressSpellMissiles.Snapshot().Flights.Single(s => s.Owner == owner.Serial.Value && s.Ability == CombatAbility.ChillingArmor);
+            FireBoltChecks.Through(counter.Id, 25);
             Timer.StartTimer(TimeSpan.FromMilliseconds(1200), () =>
             {
                 try

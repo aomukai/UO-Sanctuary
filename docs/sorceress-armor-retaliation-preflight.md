@@ -1,5 +1,7 @@
 # Shiver and Chilling Armor retaliation preflight
 
+Follow-up: [Chilling saved return checkpoint](sorceress-chilling-bolt-checkpoint.md) records the implemented controller and bounded native acceptance. Shiver packet and notification chronology remain open. The original plan below remains historical context.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Continue the same Sorceress class after [shared casts and Frozen Armor](sorceress-cold-armor-checkpoint.md). No additional native acceptance is claimed by this planning note.
 
 Reuse the new `ColdArmorState.Rank` rather than reconstructing ranks from defense. New source event registrations retain cast rank but callback formulas read current owner hard synergies/stats. Historical rank0states keep their explicitly bounded captured behavior. Reuse `SorceressSpellMissiles.Roll`, typed mitigation, source cold/freeze and prepared damage/return helpers where their contracts match; do not copy a generic weapon attack into a spell reaction.
@@ -13,3 +15,5 @@ Complete older `SKILLS_EventFunc01_ChillingArmor` resolves the incoming missile'
 The current `chillingarmorbolt` row is missile264, do1, velocity18, lifetime25frames, InitSteps0, Size1, CollideType3, CollideKill1, LastCollide1, CanSlow1, ReturnFire0, GetHit1and result flags4. Reuse the existing saved do1 travel/collision and Slow Missiles services with those actual parameters; ReturnFire0must prevent armor-to-armor return loops.
 
 Add independent row/formula/roll controls, actual attempted/hit/miss/eligible-and-ineligible projectile notifications, source kill/recovery/immunity and no-recursion cases, real gear/retained-rank/live-hard changes, and two resumes of original emitted bolts with no wound/resource/position resets. Distinguish armor expiry from an already-emitted bolt's lifetime and preserve the established host offline/facet policy explicitly. Modern factory/initial step/Size2/cell/global seed/event/special/PvP/Sunder/charged/oskill/client and old-DLL/unheld-save acceptance need evidence before certification. Final effects/audio and talent/hotkey icons remain separately pending.
+
+The later source review also found `UNITEVENT_ATTACKEDINMELEE` inside `SUNITDMG_FillDamageValues` for player/hireling attackers without flag32, and again in `SUNITDMG_DrainItemDurability` after its ordinary damage/event phase. The current early `ClassStats.CheckHit` bridge is not proof of those complete paths or of modern duplicate/subscription policy. Compile/trace the actual outer contact paths before moving that hook or declaring chronology resolved.
