@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Server;
 using Server.Logging;
 using Server.Mobiles;
@@ -42,7 +43,7 @@ public static class SorceressLightningChecks
             "Lightning source rank20 damage or fractional mana");
         var owner = ClassSkillChecks.Player(DiabloClass.Sorceress);
         owner.MoveToWorld(ClassSkillChecks.Corridor(owner, 5640, 1290), owner.Map);
-        var first = Enemy(owner, 1); var second = Enemy(owner, 4); var side = Enemy(owner, 3, 3); var outside = Enemy(owner, 14);
+        var first = Enemy(owner, 1); var second = Enemy(owner, 4); var side = Enemy(owner, 3, 3); var outside = Enemy(owner, 20);
         var ally = ClassSkillChecks.Player(); ally.MoveToWorld(new Point3D(owner.X + 2, owner.Y, owner.Z), owner.Map);
         int a = first.Hits, b = second.Hits, c = side.Hits, d = outside.Hits, friendly = ally.Hits, mana = owner.Mana;
         Require(SorceressCombat.Begin(owner, CombatAbility.Lightning, first.Serial, first.Location, Core.TickCount), "Lightning begin failed");
@@ -53,6 +54,10 @@ public static class SorceressLightningChecks
             "Lightning released before sequence point 7");
         Require(ClassCombat.ResolveAction(owner, session.EffectAt) && owner.Mana == mana - 8 && first.Hits == a,
             "Lightning failed its sequence release or applied instant damage");
+        // This fixture is intentionally offline. Drive the saved flight with the
+        // explicit action service; dedicated connected checks cover natural ticks.
+        var flight=SorceressSpellMissiles.Snapshot().Flights.Single(x=>x.Owner==owner.Serial.Value);
+        FireBoltChecks.Through(flight.Id,25);
         Timer.StartTimer(TimeSpan.FromMilliseconds(1500), () =>
         {
             try

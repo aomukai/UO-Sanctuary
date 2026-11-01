@@ -406,6 +406,17 @@ for _talent in ('sorceress.warmth','sorceress.firemastery','sorceress.lightningm
         'unmapped modifiers,hire/PvP,current executable/events/rounding,old-DLL/client '
         'and final feedback/tree-icon acceptance remain open;no class certificate.')
 
+CAVEATS['sorceress.lightning'] = (
+    'Saved player source49/missile98 now reuses shared do1/Size2 source footprint, '
+    'ordered steps and non-killing LastCollision flight with captured ranks/positive '
+    'mastery/item/Slow Missiles and contact-time potion/resistance. Dedicated passing/ '
+    'overlap/side-hit,mana/town/windup/lifecycle,real right/quick and two-reload scopes '
+    'are recorded in sorceress-lightning-flight-checkpoint.md;retained Lightning/Chain '
+    'SQ timing checks remain. Complete modern factory/initial dispatch/RNG/events, '
+    'native rooms/geometry/candidate ordering,PvP/Sunder,old-DLL/client and final '
+    'effects/audio/icons remain open. Shared12tile aim admission remains an adapter; '
+    'no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',

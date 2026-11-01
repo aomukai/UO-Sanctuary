@@ -39,7 +39,7 @@ public static class SorceressCombat
         }
         if (ClassAbilities.SelfTarget(ability))
         { return ability is not (CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.StaticField or CombatAbility.Nova or CombatAbility.FrostNova) || Server.Spells.SpellHelper.CheckTown(owner.Location, owner); }
-        if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.FrozenOrb or CombatAbility.Hydra or CombatAbility.ChainLightning && (!Server.Spells.SpellHelper.CheckTown(owner.Location, owner)
+        if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.FrozenOrb or CombatAbility.Hydra or CombatAbility.ChainLightning or CombatAbility.Lightning && (!Server.Spells.SpellHelper.CheckTown(owner.Location, owner)
             || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
         if (ability == CombatAbility.Telekinesis && (selected == Serial.Zero || !ClassCombat.IsHostile(owner, World.FindMobile(selected))
             || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
@@ -53,7 +53,7 @@ public static class SorceressCombat
     {
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point) || !FireGround.Ready(owner, ability)) { return false; }
         var values = SkillMechanics.Values(owner, ability);
-        if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike) { return SorceressSpellMissiles.Cast(owner, point, values); }
+        if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Lightning) { return SorceressSpellMissiles.Cast(owner, point, values); }
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
         if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
@@ -85,9 +85,7 @@ public static class SorceressCombat
             return true;
         }
         if (ability == CombatAbility.StaticField) { return StaticFields.Cast(owner,owner,values); }
-        double angle = Math.Atan2(point.Y - owner.Y, point.X - owner.X);
         if (ability == CombatAbility.ChargedBolt) { ChargedBolts.Cast(owner, point, values); return true; }
-        if (ability == CombatAbility.Lightning) { new LightningMissile(owner, values, angle).Start(); return true; }
         throw new NotSupportedException("Unmapped Sorceress release: "+ability);
     }
     internal static void Impact(PlayerMobile owner, Mobile target, CombatAbility ability, SkillValues values)
@@ -103,32 +101,5 @@ public static class SorceressCombat
         if (ability is CombatAbility.IceBlast or CombatAbility.GlacialSpike)
         { NamedControl.FreezeSkill(owner, target, frames * 40); }
         else { GearEffects.ApplyChill(target, Core.TickCount, frames * 40 / NecromancerEffects.DifficultyDivisor(target), owner); }
-    }
-    private sealed class LightningMissile(PlayerMobile owner, SkillValues values, double angle)
-        : SkillField(owner, NecromancerSummons.Source("lightningbolt", "Range"), DiabloClass.Sorceress)
-    {
-        private double _x = owner.X, _y = owner.Y;
-        private readonly int _z = owner.Z;
-        private Serial _lastCollision;
-        protected override void Step()
-        {
-            var start = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            double speed = SkillGeometry.Velocity(NecromancerSummons.Source("lightningbolt", "Vel"));
-            _x += Math.Cos(angle) * speed; _y += Math.Sin(angle) * speed;
-            var end = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            if (end.X < 0 || end.Y < 0 || end.X >= Map.Width || end.Y >= Map.Height
-                || !Map.LineOfSight(new Point3D(start.X, start.Y, _z + 12), new Point3D(end.X, end.Y, _z + 12))) { Stop(); return; }
-            Mobile first = null; double nearest = double.MaxValue;
-            foreach (var candidate in SkillCombat.Targets(Owner, end, 2))
-            {
-                if (candidate.Serial != _lastCollision && CombatHitboxes.Intersect(start, end, candidate.Location, out double entry)
-                    && entry < nearest) { first = candidate; nearest = entry; }
-            }
-            Effects.SendLocationEffect(end, Map, 0x3818, 3, 10, 0x482, 0); // Placeholder lightning trail.
-            if (first == null) { return; }
-            _lastCollision = first.Serial;
-            SorceressEffects.MissileHit(Owner, first, "lightningbolt");
-            Impact(Owner, first, CombatAbility.Lightning, values);
-        }
     }
 }

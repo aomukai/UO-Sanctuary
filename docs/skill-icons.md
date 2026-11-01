@@ -1,5 +1,7 @@
 # Skill icons
 
+Player Lightning retains its existing ability identity and right/quick bindings. Final talent-tree and hotkey icons remain pending; current labels/icons are placeholders. See [mechanical checkpoint](sorceress-lightning-flight-checkpoint.md); effects/audio stay separate.
+
 The [four-passive increment](sorceress-passives-checkpoint.md) retains Warmth/Fire Mastery/Lightning Mastery/Cold Mastery at stable abilities55/62/53/44. Final talent-tree icons remain pending with current labels/icons as placeholders. These passive suppliers add no independent active cast or hotkey icon requirement; effects/status feedback stays separate.
 
 The [player Static Field increment](sorceress-static-field-checkpoint.md) retains stable ability47 and existing talent/right/quick bindings. Final tree and hotkey artwork remains pending with current labels/icons as placeholders. Autonomous Mage Static creates no separate player action or hotkey. Effects/audio remain in their separate register.
