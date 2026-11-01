@@ -50,3 +50,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Mage Enchant and intrinsic Frozen Armor
 
 [Approved rank20 buffs](mage-pet-buffs-checkpoint.md) reuse Sorceress effect construction/storage and shared defense/freeze. Keep the NPC fixed-rank/no-synergy/no-mastery context explicit; a player casting wrapper would add incorrect class/payment/enhancement behavior. Intrinsic armor has no refresh timer, while Enchant remains an independent timed snapshot on its recipient. Combat-start scanning does not become continuous maintenance.
+
+## Mage Static Field and player area damage
+
+[Static integration](mage-static-checkpoint.md) shares one player/NPC receiver and explicit caster/allegiance targeting; a Mage area is centered at its own position. Keep player mana/class wrappers outside NPC delivery. Facet difficulty supplies the shared floor. Whole-HP source preparation and FP256 receiver life are distinct stages; legacy negative-resistance precompensation/current typed receiver order remain unresolved. A five-percent policy slot is not an implemented secondary: only routes with actual delivery/cooldown bindings may be available.

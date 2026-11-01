@@ -1,0 +1,125 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "reviewedNotExecuted": {
+    "SKILLS_SrvDo020_StaticField": "0e60d9cc2c1b96eeb5fa5c65a780edbecba9d93a8f42ea647acb9bc84cd46581",
+    "SKILLS_AuraCallback_StaticField": "eb6ed89c5fec2a5127e72b39450346172e6a5586e295bebccadc88104496d25d"
+  },
+  "referencePages": [
+    "https://classic.battle.net/diablo2exp/skills/sorceress-lightning.shtml",
+    "https://diabloforfans.com/skill/static-field?lang=enUS"
+  ],
+  "component": "Approved Mage fixed5 Static Field proc and shared player/NPC area receiver",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 2,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 226,
+    "retainedMageBuffPlayerPetSentryMarkers": 220,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "mageProcPolicyContexts": 44800,
+    "naturalMageStaticSessions": 3,
+    "learnedMageInputCasts": 6,
+    "connectedMageWorldSessions": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      873,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/mage-static/birth-inputs.json",
+      "sha256": "1ec333a8c469585169100a8c2bbf7f4982c5f90ddfd12eff70e3cc80d28ed582"
+    },
+    "audit": {
+      "path": ".local/class-skills/mage-static/audit-inputs.json",
+      "sha256": "983b023d1aeb744765787d0881a8937d0a33b9ecfac1b19313b66c31f78cbe7a"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/MageOffensiveSkills.cs": "22d9ae1d8c3d29dc42c35f8f192b801b06799038bfbd9cf74ca30ed9bb3aa946",
+    "src/Sanctuary.Content/MageWorldBody.cs": "f8be3ec6a97eb57182533bfc25ea1643dd3cbe1fe0447aa859523136ba56ea68",
+    "src/Sanctuary.Content/SkillCombat.cs": "f0005b522169cfbfb8c250f06ed31e8c40d5aee97563460050c327c55e8b9fb7",
+    "src/Sanctuary.Content/SorceressCombat.cs": "658ed654b10620c9a27819a8b96ece45116e6557b105d3e10ebfdae3467c6525",
+    "src/Sanctuary.Content/StaticFields.cs": "cf504fef34239a42e93cf5b1f1d0469efd8db836a802bfd2079b332ee4497589",
+    "tests/Sanctuary.Integration/MagePetBuffChecks.cs": "fe67c46b62e2d4422152786c202d85621ce594eb7f352b069dd57b29cde2f738",
+    "tests/Sanctuary.Integration/MageStaticFieldChecks.cs": "ae25c801a6bd51465ba91ad57380f3ca36428f82baabbf4e75739c362607f66b",
+    "tests/Sanctuary.Integration/MageWorldChecks.cs": "e1593fbe73d6f2e9dc887109768eb0a4f76cc4036ccc78292b4581bae4cdeced"
+  },
+  "artifacts": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/mage-pet-buffs/birth-native-checks.log": "aa7b85772ff177d71323fa7f7217349578566ca62eb51de37e7940443d1fe697",
+    ".local/class-skills/mage-static/audit-inputs.json": "983b023d1aeb744765787d0881a8937d0a33b9ecfac1b19313b66c31f78cbe7a",
+    ".local/class-skills/mage-static/audit-native-checks.log": "295f978c45becd595153e2afb2ee05618c4b8e427167b85a4adbb5567f898557",
+    ".local/class-skills/mage-static/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/mage-static/birth-inputs.json": "1ec333a8c469585169100a8c2bbf7f4982c5f90ddfd12eff70e3cc80d28ed582",
+    ".local/class-skills/mage-static/birth-native-checks.log": "50543acbf151f07a3170ddbebc18a3fa6b65d6c92c9cdeb90b25e463f26f9165",
+    ".local/class-skills/mage-static/blood-golem-world-fixtures.json": "116488646352c8910f8dfcfacf0bc9ee3c61f8c39fea79280ae1e397611036bd",
+    ".local/class-skills/mage-static/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/mage-static/clay-golem-world-fixtures.json": "ffb484ee5a7cfd5fc56c2bbfb5edf27c6d88d984cf1298999fd271ea23d623bb",
+    ".local/class-skills/mage-static/content-build-2.log": "56f36479203e0af185f959772ff9cb2e2e191f38d0c020fdc852f0871c4b42bc",
+    ".local/class-skills/mage-static/enchant-checks.json": "ac96b39c6a245c4d88f6b31887551d04f38c652cda4be6e039383bc6bf0a2296",
+    ".local/class-skills/mage-static/fire-golem-death-fixtures.json": "64e412d2b4a9e8e2264f112d8dbc6b144f313fe4453f633234eae118f5444d73",
+    ".local/class-skills/mage-static/fire-golem-world-fixtures.json": "efd082f17655b1d22645b6766ed4cfaebc05a51dfc384fce1ee23334764b5655",
+    ".local/class-skills/mage-static/first-loop-affix-audit.json": "9ad72c11f03f68878553bcec9060819e8614a31b3df5358cf62bb01e489a41e7",
+    ".local/class-skills/mage-static/integration-build-2.log": "315e3e26c0c2d40f858bf1ea24815a2b04a945740e8d16b75ef738312b0113df",
+    ".local/class-skills/mage-static/mage-birth-fixtures.json": "54ee2d32c8a565f471c8b2eb1f0abd238ebd4874e15eaf36331edc9c52927c8d",
+    ".local/class-skills/mage-static/mage-missile-fixtures.json": "a23c96f3ad87e83e86a1b12dcca49ae7087eff111b287a9ec6262c2486fad08b",
+    ".local/class-skills/mage-static/mage-pet-buff-fixtures.json": "1c5cdfb4d51a9e8b033622af46ee8d4210c0c1f49f102ca5fb8c92bb284c12e1",
+    ".local/class-skills/mage-static/mage-static-fixtures.json": "37c6d1f4f42f829119b456e58187299c92689fd64de48b4c4f5810724e7883e7",
+    ".local/class-skills/mage-static/mage-world-fixtures.json": "3a1318fa89a1351896099f0c94ecf43f409ec79ad34baa23d3eacb149ad27f83",
+    ".local/class-skills/mage-static/named-item-runtime-audit.json": "fcd979054ce178a68986550887fb598bb3b15541864f2eb1bcba85cc5f148f08",
+    ".local/class-skills/mage-static/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/mage-static/pre-build-2.json": "3f1d4e2b2e568390e4842c8bfe32b7795947f08366e1723fb2e28f7476eb1d41",
+    ".local/class-skills/mage-static/python-tests.log": "e2acd089b87a44de2e1fa0416ba5770996314a471a53c46429666d0480650c25",
+    ".local/class-skills/mage-static/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/mage-static/sentry-unit-path-fixture.json": "6180f4a32ec782d6b18ff1f27ca814a9d8ca5bfd0fd9721ff4bd3bcbb6e99967",
+    ".local/class-skills/mage-static/skeleton-world-fixtures.json": "2972f056d33fe5d5ec53d2feea6823105e4a406a6faac3548b84685fbfbfa737",
+    ".local/class-skills/mage-static/sorceress-skills-checks.json": "90b336d445bc29fb5f202aad12ff639bd74efdf4ab2b46ec6f1c4dc6628bbe6c",
+    "docs/class-skill-reuse-notes.md": "dc6af73c73511f58b8d0e0b3868085cd496164112fc8b0c5f5489b6ec4332369",
+    "docs/class-skill-roadmap.md": "08ee7f56baa846da9d596759f44ab2c67df31dcd65ab2489c26e6b89d6e8aa4a",
+    "docs/class-skills-resume-checkpoint.md": "548d861aee89bc5f919dae1e047890c7018db79492221c0ad83a061705dd1934",
+    "docs/mage-static-checkpoint.md": "7721cd90478ed1bb18e37170bbe51de1e028b59f7902fb5de60b20742fa6f046",
+    "docs/necromancer-mechanical-audit.md": "d06e8a4035da72406f1dc1277828255ed945dba3e76848980dee07c2da92a6c3",
+    "docs/pet-adjustment-review.md": "297b7eb0c55a15d5f5f75a6cccecebeeeccc32fcc8be50f04753658dc9c785c2",
+    "docs/skeletal-mage-upgrade-plan.md": "01da8a64e9dce0b8db52b1e18d645a2bb9de1f55a552b4dd2ebacac206abe175",
+    "docs/skill-effects.md": "459063ddb74f018d6fad5c79b0c550a7925480b508410e086f07335cadbbc0fe",
+    "docs/skill-icons.md": "0135473b7d67fd17cd15c878bcd98663a29bec6c21cbd639d8b46572035efdb2",
+    "src/Sanctuary.Content/MageOffensiveSkills.cs": "22d9ae1d8c3d29dc42c35f8f192b801b06799038bfbd9cf74ca30ed9bb3aa946",
+    "src/Sanctuary.Content/MageWorldBody.cs": "f8be3ec6a97eb57182533bfc25ea1643dd3cbe1fe0447aa859523136ba56ea68",
+    "src/Sanctuary.Content/SkillCombat.cs": "f0005b522169cfbfb8c250f06ed31e8c40d5aee97563460050c327c55e8b9fb7",
+    "src/Sanctuary.Content/SorceressCombat.cs": "658ed654b10620c9a27819a8b96ece45116e6557b105d3e10ebfdae3467c6525",
+    "src/Sanctuary.Content/StaticFields.cs": "cf504fef34239a42e93cf5b1f1d0469efd8db836a802bfd2079b332ee4497589",
+    "tests/Sanctuary.Integration/MagePetBuffChecks.cs": "fe67c46b62e2d4422152786c202d85621ce594eb7f352b069dd57b29cde2f738",
+    "tests/Sanctuary.Integration/MageStaticFieldChecks.cs": "ae25c801a6bd51465ba91ad57380f3ca36428f82baabbf4e75739c362607f66b",
+    "tests/Sanctuary.Integration/MageWorldChecks.cs": "e1593fbe73d6f2e9dc887109768eb0a4f76cc4036ccc78292b4581bae4cdeced",
+    "tests/check_mage_static.py": "9d93b348cf9f726f4184e6c437c3cff79d8c013dc2f24ab0f30cca2c9786e9e3",
+    "tools/record_mage_static.py": "bbe59448d56f0dc98d95947ab499138e341d8cf250ac5ea64507f4f05618d81c",
+    "tools/reference/mage-pet-buffs-native-evidence.json": "8067713c15a757669fe90e58790994023545df2d7776b8350be8e038277c5c33",
+    "tools/reference/sentry-target-source-evidence.json": "323e879a3b5d4cd596142479bc6ac343935dbc1437852b162a0d79139e477d0f"
+  },
+  "established": [
+    "StaticFields shares caster-centered allegiance/LOS/typed mitigation and exact-life receiver between player Sorceress and approved NPC Static. Difficulty follows designated caster facet; player mana validation/payment remains in the player wrapper. Whole-HP source preparation is retained while fractional receiver life and resistance damage remain FP256.",
+    "MageOffensiveSkills reserves distinct five-percent intervals and consumes at most one actor draw only when an eligible route is available.44800 controlled policy contexts pass. Only Static is presently connected; unavailable Meteor/Chain/Glacial slots do not reroll or steal another probability.",
+    "An existing learned lightning Mage refuses the hard20 proc at19hard+real soft1 and gains it on actual training. Fixed5 caster radius, immune/far targets, invalid-target no-draw, no player/NPC mana, one actor draw, no basic missile on proc, Normal nonlethality and facet33/50floors pass. A real player release retains once-only cost and excludes mastery.",
+    "Three connected natural AI sessions emit Static exactly at the existing action35 as one replacement cast. Pending action34 snapshots preserve wounds/seed/target HP and cancel without a proc or missile across2reloads. All220 predecessor markers,player buffs,pet/sentry/source controls and fresh unchanged audit decisions remain."
+  ],
+  "remaining": [
+    "This is bounded native receiver/proc acceptance, not full modern Static parity. Legacy callback negative-resistance precompensation differs from the current common typed receiver; full current executable pierce/absorb/MDR/event/floor ordering remains explicitly unresolved. Do not treat inspected old callback as a complete modern damage-engine proof.",
+    "Normal casts stop nonlethally when integer preparation rounds their damage to zero. Exact current floor/rounding edge cases,source aura enumeration/geometry,special/PvP/Sunder recipients and client animation remain separate.",
+    "Meteor10/ChainLightning10/GlacialSpike10 are represented only in the probability policy and are not selected by production until their actual NPC projectile/field/cooldown bindings exist. Historical plain Mage AI rollout,three-element migration,basic Sorceress spells/hard5triples and the recorded Skeleton Mastery mapping question remain required.",
+    "Fixed Static has no current local delay; this increment introduces no generalized NPC cooldown persistence. A future delayed secondary must retain its own existing cooldown contract. Existing Mage actor/missile lifetime/seed/event limitations remain.",
+    "Inspected held save cohorts prove cancellation and transport,not natural unheld concurrent saves or an old installed-build upgrade. No final art,new player binding,deployment or class completion. Other approved pets,safe-area parking and barrier gaps remain queued."
+  ]
+}

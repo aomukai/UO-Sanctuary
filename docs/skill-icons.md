@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Mage Static secondary](mage-static-checkpoint.md) adds no player binding or separate hotkey icon. Raise Skeletal Mage still needs its existing tree/right/quick artwork. Static effects/audio remain tracked separately.
+
 The [Mage hard20 buffs](mage-pet-buffs-checkpoint.md) add no player action. Raise Skeletal Mage keeps its pending talent-tree/right/quick artwork; automatic Enchant and intrinsic Frozen Armor need no extra hotkey icons. Effects/audio remain separately tracked.
 
 The [learned Mage world controller](mage-world-checkpoint.md) adds no bindable action. Raise Skeletal Mage still needs its talent-tree and right/quick-hotkey artwork; automatic target/AI/missile/lifecycle helpers need no separate icon. Final effects/audio remain separately tracked.

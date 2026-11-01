@@ -35,7 +35,7 @@ public static class SorceressCombat
                 && owner.InLOS(actor) && (actor == owner || ClassCombat.Friendly(owner, actor) || ClassCombat.IsHostile(owner, actor));
         }
         if (ClassAbilities.SelfTarget(ability))
-        { return ability is not (CombatAbility.ThunderStorm or CombatAbility.Blaze) || Server.Spells.SpellHelper.CheckTown(owner.Location, owner); }
+        { return ability is not (CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.StaticField) || Server.Spells.SpellHelper.CheckTown(owner.Location, owner); }
         if (ability is CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.FrozenOrb or CombatAbility.Hydra or CombatAbility.ChainLightning && (!Server.Spells.SpellHelper.CheckTown(owner.Location, owner)
             || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
         if (ability == CombatAbility.Telekinesis && (selected == Serial.Zero || !ClassCombat.IsHostile(owner, World.FindMobile(selected))
@@ -79,21 +79,7 @@ public static class SorceressCombat
             { CombatDisplacement.TryStep(target, (Direction)(((int)target.GetDirectionTo(owner) + 4) & 7)); }
             return true;
         }
-        if (ability == CombatAbility.StaticField)
-        {
-            foreach (var target in SkillCombat.Targets(owner, owner.Location, SkillGeometry.Tiles(values.Eval("aurarangecalc"))))
-            {
-                int percent = target is BaseCreature creature ? MonsterVariants.Difficulty(creature) switch
-                { MonsterDifficulty.Nightmare => 33, MonsterDifficulty.Hell => 50, _ => 0 } : 0;
-                int floor = Math.Max(1, target.HitsMax * percent / 100);
-                // Static uses current life and lightning resistance; it cannot finish a monster.
-                int resist = NamedElements.Resistance(owner, target, "ltng", target.EnergyResistance);
-                double damage = target.Hits * values.Param(4) / 100.0 * Math.Clamp(100 - resist, 0, 200) / 100.0;
-                int loss = Math.Min(Math.Max(0, target.Hits - floor), (int)damage);
-                if (loss > 0) { owner.DoHarmful(target); target.Damage(loss, owner); }
-            }
-            return true;
-        }
+        if (ability == CombatAbility.StaticField) { return StaticFields.Cast(owner,owner,values); }
         if (ability is CombatAbility.Nova or CombatAbility.FrostNova)
         { new Nova(owner, ability, values).Start(); return true; }
         double angle = Math.Atan2(point.Y - owner.Y, point.X - owner.X);

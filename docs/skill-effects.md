@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Mage Static secondary](mage-static-checkpoint.md) uses caster effect `0x3818`/hue`0x482` as an identified placeholder. Final Static area/cast/recipient feedback and audio remain pending; share the eventual Sorceress Static Field assets rather than creating a separate duplicate.
+
 The [Mage hard20 buffs](mage-pet-buffs-checkpoint.md) reuse Enchant glow `0x375A`/hue`0x489` and freeze marker `0x374A`/hue`0x480` as identified placeholders. Final Mage automatic-buff, intrinsic armor and retaliation feedback/audio remain pending; reuse the existing Enchant/Frozen Armor asset work.
 
 The [learned Mage world controller](mage-world-checkpoint.md) retains `Skeletal Mage [placeholder]`, the existing native skeleton body, casting animation4 and summon/elemental missile/contact particles/audio. Final emergence, movement/casting/recovery/death and elemental/upgraded spell feedback/audio remain pending. Reuse the existing Mage effects entry; no final art is generated.

@@ -61,8 +61,7 @@ public partial class MageWorldBody:NecromancerMinion,INecromancerGroundActor
         return AssassinSentryUnitPath.Points(state.Motion.X,state.Motion.Y,PetOwnerRoutes.Cell(target),14,
             new(0,0,Map.Width*2,Map.Height*2),(x,y)=>BladeWorldSpace.Mask(Map,Z,x,y,this)).Length!=0;
     }
-    internal bool Launch(PlayerMobile owner,Mobile target,DateTime at)=>IronGolemWorld.Eligible(this,owner,target)
-        &&NecromancerMageMissiles.Launch(this,target,at)>0;
+    internal bool Launch(PlayerMobile owner,Mobile target,DateTime at)=>MageOffensiveSkills.Release(this,owner,target,at);
     public override void SuspendActions(){base.SuspendActions();Ground.Suspend();_inCombat=false;}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();Ground.Suspend();}
     public override void OnAfterDelete(){IronGolems.Forget(this);NecromancerMageMissiles.ForgetActor(this);base.OnAfterDelete();}

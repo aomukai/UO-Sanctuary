@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using Server;
+using Server.Mobiles;
+namespace Sanctuary;
+
+internal static class MageOffensiveSkills
+{
+    // One ordered percentage draw. Unavailable slots remain basic attacks,
+    // without rerolls or reallocating another skill's five-percent interval.
+    internal static CombatAbility Select(int element,int hard,Func<CombatAbility,bool> ready,Func<int> percentage)
+    {
+        if(element is <0 or >3||hard is <0 or >20){throw new ArgumentOutOfRangeException();}
+        CombatAbility first=hard<10?CombatAbility.None:element switch
+        {1=>CombatAbility.GlacialSpike,2=>CombatAbility.Meteor,3=>CombatAbility.ChainLightning,_=>CombatAbility.None};
+        CombatAbility second=element==3&&hard>=20?CombatAbility.StaticField:CombatAbility.None;
+        bool a=first!=CombatAbility.None&&ready(first),b=second!=CombatAbility.None&&ready(second);
+        if(!a&&!b){return CombatAbility.None;}
+        int roll=percentage();if(roll is <0 or >=100){throw new NotSupportedException("Mage proc percentage must be0..99");}
+        return roll<5&&a?first:roll is >=5 and <10&&b?second:CombatAbility.None;
+    }
+    internal static bool Release(MageWorldBody actor,PlayerMobile owner,Mobile target,DateTime at)
+    {
+        if(!IronGolemWorld.Eligible(actor,owner,target)){return false;}
+        // Other approved secondaries still need their actual NPC projectile/
+        // field bindings. Do not select them and silently substitute a spell.
+        var choice=Select(actor.MageElement,MagePetBuffs.HardRank(actor),ability=>ability==CombatAbility.StaticField,
+            ()=>NecromancerMageMissiles.ActorLimited(actor,100));
+        if(choice==CombatAbility.StaticField)
+        {return StaticFields.Cast(actor,owner,MagePetBuffs.Values(CombatAbility.StaticField,5,actor.Level));}
+        return NecromancerMageMissiles.Launch(actor,target,at)>0;
+    }
+}

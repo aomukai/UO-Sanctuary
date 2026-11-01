@@ -107,14 +107,15 @@ public static class SkillCombat
         owner.RevealingAction(); ClassCombat.SendAnimation(owner, session.Animation, session.Timing.DurationMs);
         owner.Animate(session.Animation, 5, 1, true, false, 0); ClassCombat.SendState(owner, session); return true;
     }
-    internal static List<Mobile> Targets(PlayerMobile owner, Point3D center, double radius)
+    internal static List<Mobile> Targets(PlayerMobile owner, Point3D center, double radius)=>Targets(owner,owner,center,radius);
+    internal static List<Mobile> Targets(Mobile caster,PlayerMobile owner,Point3D center,double radius)
     {
         var targets = new List<Mobile>();
-        foreach (var target in owner.Map.GetMobilesInRange<Mobile>(center, (int)Math.Ceiling(radius)))
+        foreach (var target in caster.Map.GetMobilesInRange<Mobile>(center, (int)Math.Ceiling(radius)))
         {
             double dx = target.X - center.X, dy = target.Y - center.Y;
             if (dx * dx + dy * dy <= radius * radius && Math.Abs(target.Z - center.Z) < 16
-                && ClassCombat.IsHostile(owner, target) && owner.Map.LineOfSight(new Point3D(center.X, center.Y, center.Z + 12), new Point3D(target.X, target.Y, target.Z + 12))) { targets.Add(target); }
+                && ClassCombat.IsHostile(owner, target) && caster.Map.LineOfSight(new Point3D(center.X, center.Y, center.Z + 12), new Point3D(target.X, target.Y, target.Z + 12))) { targets.Add(target); }
         }
         targets.Sort((a, b) => a.Serial.CompareTo(b.Serial)); return targets;
     }

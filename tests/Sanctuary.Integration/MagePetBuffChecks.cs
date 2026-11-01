@@ -18,20 +18,20 @@ public static class MagePetBuffChecks
     private static void Register(string name,Action run)=>ConsoleInputHandler.RegisterCommand(name,"Approved Mage hard20 automatic Enchant and intrinsic Frozen Armor",_=>Core.LoopContext.Post(()=>
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
-    private static void Train(PlayerMobile p,string id,int rank)
+    internal static void Train(PlayerMobile p,string id,int rank)
     {
         TalentCatalog.TryGet(DiabloClass.Necromancer,id,out var row);foreach(string pre in row.Prerequisites){if(ClassCreation.Profiles.GetRank(p.Serial,pre)==0){Train(p,pre,1);}}
         while(ClassCreation.Profiles.GetRank(p.Serial,id)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train Mage buff "+id);}
     }
-    private static PlayerMobile Owner(int rank=19)
-    {var p=PoisonDaggerChecks.Owner();p.Name="PoisonDaggerFixtureMageBuff";FixtureSpace.Corridor(p,6900,40,3600);Train(p,"necromancer.skeletalmage",rank);return p;}
-    private static MageWorldBody Pet(PlayerMobile p,int element,int dx=3,int dy=0)
+    internal static PlayerMobile Owner(int rank=19,int column=6900,int firstRow=3600)
+    {var p=PoisonDaggerChecks.Owner();p.Name="PoisonDaggerFixtureMageBuff";FixtureSpace.Corridor(p,column,40,firstRow);Train(p,"necromancer.skeletalmage",rank);return p;}
+    internal static MageWorldBody Pet(PlayerMobile p,int element,int dx=3,int dy=0,bool future=true)
     {
         var dead=new GraveyardZombie{NoKillAwards=true};dead.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);dead.Damage(100000,p);if(dead.Alive){dead.Kill();}
         var corpse=dead.Corpse as Corpse;Require(SkeletonPets.Usable(p,corpse),"Mage buff corpse");var old=NecromancerSummons.ElementRoll;
         try{NecromancerSummons.ElementRoll=()=>element;NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location),"Mage buff learned summon");}
         finally{NecromancerSummons.ElementRoll=old;corpse.Delete();dead.Delete();}
-        var b=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).OfType<MageWorldBody>().Last();b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});return b;
+        var b=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).OfType<MageWorldBody>().Last();if(future){b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});}return b;
     }
     private static void Through(MageWorldBody b,int frame)
     {var s=b.WorldState.Controller;IronGolemWorld.Advance(b,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),true);Require(b.WorldState.Controller.Fault==null,"Mage buff controller fault");}

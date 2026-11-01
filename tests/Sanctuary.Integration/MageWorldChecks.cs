@@ -46,7 +46,7 @@ public static class MageWorldChecks
     private static MageMissileState Bolt(MageWorldBody b)=>NecromancerMageMissiles.Snapshot().Bolts.FirstOrDefault(x=>x.Actor==b.Serial.Value);
     private static void Clear(MageWorldBody b)
     {var saved=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(saved with{Bolts=saved.Bolts.Where(x=>x.Actor!=b.Serial.Value).ToArray(),Seeds=saved.Seeds.Where(x=>x.Actor!=b.Serial.Value).ToArray()});}
-    private static void Through(MageWorldBody b,int frame,bool actions=true)
+    internal static void Through(MageWorldBody b,int frame,bool actions=true)
     {var s=b.WorldState.Controller;Require(frame>s.Frame,"Reverse Mage world clock");IronGolemWorld.Advance(b,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);Require(!b.Deleted&&b.WorldState.Controller.Fault==null,"Mage world fault/deletion");}
     private static ulong Seed()
     {for(ulong n=1;n<10000;n++){ulong s=n;if(SourceRandom.Roll(ref s)%100>=15&&SourceRandom.Roll(ref s)%100<80){return n;}}throw new InvalidOperationException("No Mage ranged skill seed");}
