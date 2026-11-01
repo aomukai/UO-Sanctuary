@@ -5,8 +5,8 @@ using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
-// Shared melee AI67 target queries. Native14-tile scanning, ties and LOS are
-// retained adapters; callers supply species geometry, eligibility and actions.
+// Shared AI67 owner/target services. Melee retains its native scan adapter;
+// ranged callers explicitly supply their distinct primary query.
 internal static class NecromancerPetTargets
 {
     private static Mobile Find(int id)=>World.FindMobile((Serial)(uint)id);
@@ -27,6 +27,27 @@ internal static class NecromancerPetTargets
         Action<NecromancerPetAiRequest> request,Func<int> percentage,
         Func<int,bool,int,int,bool> commonMove,Func<int,bool,int,int,bool> move)
     {
+        return Queries(body,owner,eligible,distance,(ranged,_)=>
+        {
+            if(ranged){throw new NotSupportedException("Melee Necromancer pet has no ranged skill binding");}
+            var target=Primary(body,previous(),eligible,distance);
+            return new(target==null?0:(int)target.Serial.Value,target==null?0:distance(target),target!=null&&melee(target));
+        },request,percentage,commonMove,move);
+    }
+    internal static NecromancerPetAiServices BindRanged(BaseCreature body,PlayerMobile owner,
+        Func<Mobile,bool> eligible,Func<Mobile,int> distance,Func<int,NecromancerPetAiTarget> primary,
+        Action<NecromancerPetAiRequest> request,Func<int> percentage,
+        Func<int,bool,int,int,bool> commonMove,Func<int,bool,int,int,bool> move)
+    {
+        ArgumentNullException.ThrowIfNull(primary);
+        return Queries(body,owner,eligible,distance,(ranged,search)=>ranged?primary(search)
+            :throw new NotSupportedException("Ranged Necromancer pet has no melee primary binding"),request,percentage,commonMove,move);
+    }
+    private static NecromancerPetAiServices Queries(BaseCreature body,PlayerMobile owner,
+        Func<Mobile,bool> eligible,Func<Mobile,int> distance,Func<bool,int,NecromancerPetAiTarget> primary,
+        Action<NecromancerPetAiRequest> request,Func<int> percentage,
+        Func<int,bool,int,int,bool> commonMove,Func<int,bool,int,int,bool> move)
+    {
         return new(request,()=>(int)owner.Serial.Value,id=>Find(id) is PlayerMobile player?(int)player.Serial.Value:0,
             id=>Find(id) is{} target?distance(target):throw new NotSupportedException("Missing Necromancer pet distance target"),
             _=>
@@ -34,12 +55,7 @@ internal static class NecromancerPetTargets
                 Mobile target=owner.Combatant;if(!eligible(target)){target=World.FindMobile(ClassCombat.For(owner).Target);}
                 return new(eligible(target)?(int)target.Serial.Value:0,0,false);
             },
-            (ranged,_)=>
-            {
-                if(ranged){throw new NotSupportedException("Melee Necromancer pet has no ranged skill binding");}
-                var target=Primary(body,previous(),eligible,distance);
-                return new(target==null?0:(int)target.Serial.Value,target==null?0:distance(target),target!=null&&melee(target));
-            },
+            primary,
             id=>!eligible(Find(id)),id=>Find(id) is not{} target||!body.InLOS(target),id=>eligible(Find(id)),
             percentage,commonMove,()=>SpellHelper.IsTown(body.Location,owner),move);
     }

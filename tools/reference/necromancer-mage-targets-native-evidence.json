@@ -1,0 +1,89 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Explicit ranged Mage query binding around shared AI67 services",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 177,
+    "retainedFireBloodClaySkeletonIronMarkers": 174,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "independentLearnedMageQueryCohorts": 3,
+    "policyCasesPerBoot": 1598,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      867,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/necromancer-mage-targets/birth-inputs.json",
+      "sha256": "fb67f424c929471cf7d4789e52510f47e5eba797104cee24de6181f60419598f"
+    },
+    "audit": {
+      "path": ".local/class-skills/necromancer-mage-targets/audit-inputs.json",
+      "sha256": "f47338dfe5850d1ebb44ffc9b5d6fd6f43f9ac0e82e7e80e5ff661d5bce7fd2d"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerPetTargets.cs": "3e35f93ca197b822c06050891ec2f759390128b6252133bd351ea8cd7c0e40b0",
+    "tests/Sanctuary.Integration/NecromancerMageTargetChecks.cs": "70109200fe46e635a7afd79b32f1db930b4e198a7bef539f1189af0c9b84489c"
+  },
+  "artifacts": {
+    ".local/class-skills/fire-golem-world/birth-native-checks.log": "62964549279636fb7fcfb04f21ffa2044ae823aa06e00de70237ceb1f3ed9ba2",
+    ".local/class-skills/necromancer-mage-targets/audit-inputs.json": "f47338dfe5850d1ebb44ffc9b5d6fd6f43f9ac0e82e7e80e5ff661d5bce7fd2d",
+    ".local/class-skills/necromancer-mage-targets/audit-native-checks.log": "a8d4f35c6d397137fb4df994e8bcb3de81684728067a17acf2332edb968d16b4",
+    ".local/class-skills/necromancer-mage-targets/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/necromancer-mage-targets/birth-inputs.json": "fb67f424c929471cf7d4789e52510f47e5eba797104cee24de6181f60419598f",
+    ".local/class-skills/necromancer-mage-targets/birth-native-checks.log": "d79e6abb6527efd078b2fbbf53a773a97b46c8799d9afce8295a4e687ebccf70",
+    ".local/class-skills/necromancer-mage-targets/blood-golem-world-fixtures.json": "de2defa98c60d017d02d72d85a8d092c630fa454dff7fceeb4fb1c60a941a312",
+    ".local/class-skills/necromancer-mage-targets/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/necromancer-mage-targets/clay-golem-world-fixtures.json": "419ac7dff56b57b73d0d2bb68ac8d12eadaeb2b320124b67db6b5279890c1936",
+    ".local/class-skills/necromancer-mage-targets/content-build-1.log": "c1092e9c60fe2686bf299ec4391e94123833ca29f1a5e3ad6260f03e787fab3a",
+    ".local/class-skills/necromancer-mage-targets/fire-golem-death-fixtures.json": "ae372d389db35f8bbdf2cc0d5781fcd8169f6ce39b458e244e23e2637561c301",
+    ".local/class-skills/necromancer-mage-targets/fire-golem-world-fixtures.json": "ac7539b49459204603789d31674edf3ca7d615b446ae4537e320b2151eef8cdd",
+    ".local/class-skills/necromancer-mage-targets/first-loop-affix-audit.json": "ecc8c5ea391cd5d4c016ca32581f632c51bc34e3460911d35d880b5b17f86d45",
+    ".local/class-skills/necromancer-mage-targets/integration-build-1.log": "f3d61a0cbd6379b23215316625c2d16aac137a2d059f337973ed6c3c0dc4aa91",
+    ".local/class-skills/necromancer-mage-targets/named-item-runtime-audit.json": "92bb945d3e60c0ec8c0ba28c9c20556377581788be06d9671c305d57aebdc144",
+    ".local/class-skills/necromancer-mage-targets/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/necromancer-mage-targets/pre-build-1.json": "c8b25ed5067ac20d482a6a56e738e3c38b9088a028b1322a1c8b42cc0c1b683f",
+    ".local/class-skills/necromancer-mage-targets/python-tests.log": "e9f58b5592f7755f153cf6ec44a7bd9f3af45f5b9ad68a8190cc99974e8ea5b5",
+    ".local/class-skills/necromancer-mage-targets/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/necromancer-mage-targets/skeleton-world-fixtures.json": "d8ed629607946b1802648233a00d12662c6e1d9049eb19c00e1343a1fcd53683",
+    "docs/class-skill-roadmap.md": "e79ff3364dc8f7d0be1641ca276919ff25944955091fc06313caaede1bda2024",
+    "docs/class-skills-resume-checkpoint.md": "2ea4b45f3d39e2c6ac8779ec2753b7268a2380c21940ed86a5967402a07bfba2",
+    "docs/necromancer-mage-targets-checkpoint.md": "364aa5efa9197c785dbad3cfcd04596902fa1ec62dda103b879438b56ca761a1",
+    "docs/necromancer-mechanical-audit.md": "1fe36beb58eedd7116553ee4ebd42368b2c57641d0702e0466be701fa24504e6",
+    "docs/skill-effects.md": "411561da92e40256d04e57246598f7de7dd2a82b8b403e9aecd48a62e7256752",
+    "docs/skill-icons.md": "a6c6335009b4b4bfb111118ad10edf52dac658b107d317d62c47884aab7ce2ba",
+    "src/Sanctuary.Content/NecromancerPetTargets.cs": "3e35f93ca197b822c06050891ec2f759390128b6252133bd351ea8cd7c0e40b0",
+    "tests/Sanctuary.Integration/NecromancerMageTargetChecks.cs": "70109200fe46e635a7afd79b32f1db930b4e198a7bef539f1189af0c9b84489c",
+    "tests/check_necromancer_mage_targets.py": "f84c2d52d887b7a6438f2dfa8f5aeb758b5ee0107235b90f4a88c0b30c63f362",
+    "tools/record_necromancer_mage_targets.py": "202c1cf881ac2caa7f32db621cb0a3d180b84d44d01a16eb2315de276d10a393",
+    "tools/reference/fire-golem-world-native-evidence.json": "ed4987dc4a03e779704ea6f91b912d8f59c3f077dbbf145c2647e68abceb2374",
+    "tools/reference/sentry-target-source-evidence.json": "323e879a3b5d4cd596142479bc6ac343935dbc1437852b162a0d79139e477d0f"
+  },
+  "established": [
+    "Shared owner/player lookup, owner selection fallback, eligibility, LOS, percentage and movement services are extracted without changing the existing melee entry or native scan. Melee still refuses ranged queries; the new ranged entry requires an explicit primary supplier and refuses melee requests.",
+    "Each native boot creates an actual learned Mage through a real consumed corpse and once-only mana, then stops native AI to test the prepared query boundary. Supplied primary15/16 and owner19/20 distances, real0x80 missile barrier, exact Skill338/A1 requests, reposition/idle/common-move/wander and ordered draws pass without executing a world action or emitting a projectile.",
+    "All174 predecessor Fire/Blood/Clay/skeleton/Iron markers, saved controller/seed/resource states, actual connected combat and Fire periodic/retirement regressions remain. Fresh audit payloads, runtime data, native kernel and installed106 are unchanged."
+  ],
+  "remaining": [
+    "This is query preparation, not automatic Mage world integration or a complete primary-search implementation. Primary/distance/combat suppliers are explicit fixture inputs; world geometry, remembered-target lookup, movement and skill release remain separate.",
+    "The same source primary selector sub_6FCF2CC0 already exists in AssassinSentryTargets with4096source controls. Reuse that threat/barrier/path selection for Mage; do not silently substitute the melee nearest-target scan. Its stationary sentry world adapter still needs an appropriate moving Mage binding.",
+    "Shared ground lifecycle must support ranged AI parameter0=1 and the existing kind2A1/Skill149 missile launch. Mage AI/critical seed transport must use an appropriate actor binding, not pretend the spellcaster is an unarmed physical NPC.",
+    "Existing projectile-after-caster-removal, poison aggregation, initial S1/seed/initializer/equipment, modern world/event/rate/client/PvP/special and unsupported recipient gaps remain explicit. Approved three-element Mage upgrades and other pet/safe-area changes remain queued.",
+    "No new save schema/actor rollout, deployment, complete skill/class or asset claim. Existing Mage emergence/cast/elemental projectile/contact/death/audio and talent/right/quick icons remain separately pending."
+  ]
+}
