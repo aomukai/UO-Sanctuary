@@ -474,7 +474,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Hostile-monster damage and source 35% terrain-checked knockback present. Remote item/object/portal/waypoint interactions and forced hit-recovery semantics are not implemented; no generic interaction is substituted."
+      "remaining": "Complete older start12/do21 branches have bounded compiled source coverage. Native item/mobile right and quick routing preserves selected serials; ground gold/potion/scroll/ammunition/key pickups, door use and ground containers reuse explicit native permissions without generic use or extra spell payment. Squared25-subtile range, town-item versus hostile-town rules, failure/payment timing and saved inventory/resources/wounds are scoped separately. Combat still uses the older generic damage/one-tile displacement adapter: shared result5/hit2/class109 recipient return, events/RNG and exact knockback remain unfinished. Gates/portals/waypoints/shrines and other native objects have no implicit mapping and remain unsupported. Modern executable, graphical input and broader world parity/assets remain open; no class certificate."
     },
     {
       "talentId": "sorceress.staticfield",

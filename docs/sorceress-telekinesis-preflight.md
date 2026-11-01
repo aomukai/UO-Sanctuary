@@ -2,6 +2,8 @@
 
 Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. No new Telekinesis acceptance is claimed by this read-only review.
 
+**Follow-up:** the [world-operation checkpoint](sorceress-telekinesis-world-checkpoint.md) supersedes the item/object-routing findings below. Complete older start12/do21 now have bounded compiled coverage; native ground pickups, doors/containers and serial-preserving server/client routes are implemented with scoped verification. The combat receiver and travel-object work remain open. Preserve the historical preflight below rather than reading it as the current implementation inventory.
+
 Current `SorceressCombat` only admits a hostile mobile and applies lightning damage plus35% terrain-checked displacement. The roadmap already flags remote items/objects/portals/waypoints and forced hit-recovery semantics as missing. Close these mechanics using existing services rather than treating enemy damage as completion.
 
 Pinned older `SKILLS_SrvSt12_Telekinesis_DragonFlight` resolves the selected unit and checks the skill's squared range. Player/monster targets additionally require the hostile predicate and non-town caster/target rooms; the item/object branch does not inherit that hostile-mobile admission. `SKILLS_SrvDo021_Telekinesis` requires a non-busy player and target, then separates combat, item and object handling. Combat rolls physical/elemental packets, copies row result/hit flags/class, adds flags9on the35% roll and executes missile events/damage. Verify those flags through existing packet/recovery/knockback consumers before assigning forced GH semantics.

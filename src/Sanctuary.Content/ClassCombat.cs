@@ -752,6 +752,15 @@ public static class ClassCombat
                 var ability = (CombatAbility)reader.ReadByte();
                 var target = (Serial)reader.ReadUInt32();
                 var point = new Point3D(reader.ReadUInt16(), reader.ReadUInt16(), reader.ReadSByte());
+                if(ability==CombatAbility.Telekinesis)
+                {
+                    if(action==CombatRequest.Cast||ability==(action==CombatRequest.HoldAttack?session.Left:session.Right))
+                    {
+                        if(action==CombatRequest.Cast){Stop(from);}
+                        SorceressCombat.Begin(from,ability,target,World.FindEntity(target)?.Location??point,Core.TickCount);
+                    }
+                    break;
+                }
                 if(ClassAbilities.ItemTarget(ability))
                 {
                     if(action==CombatRequest.Cast||ability==(action==CombatRequest.HoldAttack?session.Left:session.Right))

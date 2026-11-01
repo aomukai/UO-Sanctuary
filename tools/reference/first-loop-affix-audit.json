@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "e4d824978cb6d41d10510e91bda930ae68e2bb809b0de77469a9b6bc414663ec",
-  "ContentAssemblyPath": ".local/class-skills/sorceress-storm-pulse/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "f03a6807d905fa7e52de8cb4263d64295bfee386a90149d0083e537b2cd5dbb1",
+  "ContentAssemblyPath": ".local/class-skills/sorceress-telekinesis-world/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

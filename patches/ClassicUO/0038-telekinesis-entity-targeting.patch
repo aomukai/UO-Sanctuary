@@ -1,0 +1,16 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -676,6 +676,12 @@
+     }
+     private static void SendHeldAim(World world)
+     {
++        if (_heldAbility == CombatAbility.Telekinesis)
++        {
++            if (SelectedObject.Object is Entity entity)
++            { Send(CombatRequest.HoldCast, entity.Serial, _heldAbility, entity.X, entity.Y, entity.Z); }
++            return;
++        }
+         if (ClassAbilities.ItemTarget(_heldAbility))
+         {
+             if (SelectedObject.Object is Item { IsCorpse: false } item)

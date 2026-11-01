@@ -27,6 +27,7 @@ public static class SorceressCombat
     }
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if(ability==CombatAbility.Telekinesis){return TelekinesisWorld.Valid(owner,selected);}
         // Static's receiver needs a living world caster. Refuse before the
         // player's release payment, including direct server/API callers.
         if(ability is CombatAbility.StaticField or CombatAbility.ThunderStorm&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
@@ -40,8 +41,6 @@ public static class SorceressCombat
         if (ClassAbilities.SelfTarget(ability))
         { return ability is not (CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.StaticField or CombatAbility.Nova or CombatAbility.FrostNova) || Server.Spells.SpellHelper.CheckTown(owner.Location, owner); }
         if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.FrozenOrb or CombatAbility.Hydra or CombatAbility.ChainLightning or CombatAbility.Lightning or CombatAbility.ChargedBolt && (!Server.Spells.SpellHelper.CheckTown(owner.Location, owner)
-            || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
-        if (ability == CombatAbility.Telekinesis && (selected == Serial.Zero || !ClassCombat.IsHostile(owner, World.FindMobile(selected))
             || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
         return owner.Map != null && owner.Map != Map.Internal && owner.InRange(point, CombatProtocol.TeethRange) && owner.InLOS(point)
             && point.X >= 0 && point.Y >= 0 && point.X < owner.Map.Width && point.Y < owner.Map.Height
@@ -78,6 +77,7 @@ public static class SorceressCombat
         }
         if (ability == CombatAbility.Telekinesis)
         {
+            if(World.FindItem(selected) is{} item){TelekinesisWorld.Operate(owner,item);return true;}
             var target = World.FindMobile(selected);
             double damage = values.Damage(false) + Utility.RandomDouble() * (values.Damage(true) - values.Damage(false));
             SkillCombat.HitParts(owner, target, new(0, 0, 0, damage, 0), recover: !NamedCombat.Elite(target), spell: true);
