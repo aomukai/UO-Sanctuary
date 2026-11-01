@@ -17,6 +17,6 @@ internal static class ItemDurationDefenses
     private static int Bonus(Mobile target,string code)=>target is PlayerMobile player?ClassGear.Bonus(player,code)
         :Equipment(target)?.Bonus(code)??0;
     internal static int PoisonLength(Mobile target)=>Bonus(target,"res-pois-len");
-    internal static bool CannotFreeze(Mobile target)=>Bonus(target,"nofreeze")>0;
+    internal static bool CannotFreeze(Mobile target)=>FireGolemUpgrades.CannotFreeze(target)||Bonus(target,"nofreeze")>0;
     internal static bool HalfFreeze(Mobile target)=>Bonus(target,"half-freeze")>0;
 }

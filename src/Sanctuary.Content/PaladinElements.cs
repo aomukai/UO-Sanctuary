@@ -21,7 +21,7 @@ public static class PaladinElements
     }
     private static int Enhanced(Mobile owner,int damage256,string element)
     {
-        if(owner is FireGolemBody golem)
+        if(owner is NecromancerMinion{Kind:CombatAbility.FireGolem} golem)
         {
             int mastery=NpcEquipmentCombat.Context(golem)?.Bonus("extra-"+element)??0;
             return checked(damage256+SourcePercentage.Calculate(damage256,mastery,100));
@@ -47,7 +47,7 @@ public static class PaladinElements
         =>Pulse(owner,owner,ability,values,now,Roll);
     internal static void Pulse(Mobile owner,PlayerMobile allegiance,CombatAbility ability,SkillValues values,DateTime now,Func<int,int> roll)
     {
-        if(owner is not(PlayerMobile or FireGolemBody)||owner is FireGolemBody&&(ability!=CombatAbility.HolyFire||owner.Map==null||owner.Map==Map.Internal||owner.Map!=allegiance.Map))
+        if(owner is not PlayerMobile&&owner is not NecromancerMinion{Kind:CombatAbility.FireGolem}||owner is NecromancerMinion&&(ability!=CombatAbility.HolyFire||owner.Map==null||owner.Map==Map.Internal||owner.Map!=allegiance.Map))
         {throw new NotSupportedException("Unmapped elemental aura emitter");}
         int frames=Math.Max(5,(int)values.Eval("perdelay"));var range=WeaponRange(owner,ability,values);
         PaladinAuras.ElementalWeapon(new(owner.Serial.Value,owner.Serial.Value,ability,values.Rank,0,now.AddMilliseconds((frames+1)*40),WeaponMin:range.Min,WeaponMax:range.Max));

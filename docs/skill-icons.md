@@ -1,5 +1,7 @@
 # Skill icons
 
+The [approved Fire damage/cold upgrades](fire-upgrades-checkpoint.md) add automatic passives and no separate player action/hotkey icon. Fire Golem’s talent-tree/right/quick artwork remains pending with identified text-label placeholders. Aura/cold-defense/status/audio assets remain in the separate effects register.
+
 The [Iron hard-20 Spectral Hit unlock](iron-golem-spectral-checkpoint.md) is automatic and adds no separate player action or hotkey icon. Iron Golem’s talent-tree/right/quick artwork remains pending, with existing text labels explicitly identified as placeholders. Five-channel impact/status/audio work remains in the effects register.
 
 The [Iron hard-10 Extra Strong unlock](iron-golem-strong-checkpoint.md) is automatic and adds no player action or hotkey icon. Iron Golem’s talent-tree/right/quick artwork remains pending with identified text-label placeholders; status/contact/audio assets remain in the effects register.

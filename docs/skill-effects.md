@@ -1,5 +1,7 @@
 # Skill effects
 
+The [approved Fire damage/cold upgrades](fire-upgrades-checkpoint.md) retain body `14`/hue `0x489`, native contact/attack cues, aura `0x375A` and explosion `0x36BD` as identified placeholders. Final doubled-physical/fire impact, pulse/weapon aura, Cannot Be Frozen/cold-immunity status, immunity-break/expiry feedback and audio remain pending. Reuse the Paladin Holy Fire and shared cold-state assets where presentation matches. Art does not gate mechanics; icons stay separate.
+
 The [Iron hard-20 Spectral Hit unlock](iron-golem-spectral-checkpoint.md) reuses existing contact/chill cues and poison particles `0x374A`/hue `0x3F` as identified placeholders, alongside body `14`/hue `0x835` and summon `0x376A`. Final magic/fire/lightning/cold/poison impact, active-status/expiry and audio feedback remain pending and should share encounter-affix assets. Art does not gate the mechanical effect; talent/hotkey artwork is tracked separately.
 
 The [Iron hard-10 Extra Strong unlock](iron-golem-strong-checkpoint.md) retains body `14`/hue `0x835`, summon `0x376A`, contact `0x37B9`/hue `0x481` and sound `0x1E5` as identified placeholders. Final stronger-hit/status feedback and audio remain pending and should share encounter-affix assets. Spectral Hit’s final five-channel effects remain separate pending work.

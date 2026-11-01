@@ -37,7 +37,11 @@ public static class FireGolemCombatChecks
         // Retain historical direct/native-hook coverage; actual learned world
         // attacks and periodic pulses are checked by FireGolemWorldChecks.
         var b=new FireGolemBody();b.Prepare(p,CombatAbility.FireGolem);Require(b.SetControlMaster(p),"Historical Fire owner");
-        b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(b);return b;
+        b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(b);
+        // Explicit active-aura setup retains mixed-contact tests. The actual
+        // first50-frame activation adapter is checked by FireGolemWorldChecks.
+        var range=PaladinElements.WeaponRange(b,CombatAbility.HolyFire,b.HolyFireValues);
+        PaladinAuras.ElementalWeapon(new(b.Serial.Value,b.Serial.Value,CombatAbility.HolyFire,4,0,TimedEffects.Now.AddHours(1),WeaponMin:range.Min,WeaponMax:range.Max));return b;
     }
     private static GraveyardSkeleton Target(PlayerMobile p)
     {
@@ -48,7 +52,7 @@ public static class FireGolemCombatChecks
     {
         if(hit){SourceRandom.Limited(ref seed,100);}
         ulong next=seed;int physical=NpcEquipmentDamage.Roll256(b.UnarmedPhysical,n=>(int)SourceRandom.Limited(ref next,n));
-        var fire=b.InnateFire256;int elemental=fire.Min+(int)SourceRandom.Limited(ref next,fire.Max-fire.Min);
+        var fire=NpcEquipmentElements.Capture(b).Stats;int elemental=fire.FireMin+(int)SourceRandom.Limited(ref next,fire.FireMax-fire.FireMin);
         bool critical=SourceRandom.Roll(ref next)%100<5;seed=next;return checked((physical+elemental)*(critical?2:1));
     }
     private static void Damage(PlayerMobile p,FireGolemBody b)
@@ -56,23 +60,23 @@ public static class FireGolemCombatChecks
         var target=Target(p);
         try
         {
-            Require(NpcEquipmentCombat.Context(b)==null&&NpcEquipmentDamage.Capture(b)==new NpcPhysicalStats(10,27,0,0,0,0,false)&&b.InnateFire256==(9472,14592),"Captured Fire physical/whole-point innate units");
+            Require(NpcEquipmentCombat.Context(b)==null&&NpcEquipmentDamage.Capture(b)==new NpcPhysicalStats(2,4,0,7,0,0,false)&&b.InnateFire256==(0,0),"Captured Fire physical/whole-point innate units");
             var chances=NpcEquipmentCritical.Capture(b);Require(chances==new NpcCriticalChances(0,0,0,5),"Fire intrinsic or inherited owner critical");
             var low=NpcEquipmentDamage.Roll(b,target,_=>0,()=>99);var high=NpcEquipmentDamage.Roll(b,target,n=>n-1,()=>99);
-            Require(low.Damage.Physical256==2560&&high.Damage.Physical256==6911&&low.Damage.Elements.Fire==37&&high.Damage.Elements.Fire==14591/256.0,"Exclusive combined FP ranges");
+            Require(low.Damage.Physical256==547&&high.Damage.Physical256==1094&&low.Damage.Elements.Fire==15&&high.Damage.Elements.Fire==9215/256.0,"Exclusive combined FP ranges");
             var critical=NpcEquipmentDamage.Roll(b,target,_=>0,()=>0);
-            Require(critical.Damage.Physical256==5120&&critical.Damage.Elements.Fire==74&&critical.Damage.Intrinsic&&!critical.PhysicalCritical,"Intrinsic critical must double both channels once");
-            int life=SkillHealth.Balance256(target);Require(NpcEquipmentDamage.TryResolve(b,target,out _,_=>0,()=>99)&&life-SkillHealth.Balance256(target)==12032,"Native combined fractional damage");
-            var impact=NpcEquipmentImpact.Prepare(b,target,5,_=>0,()=>0);Require(impact.Packet.Total256==24064&&impact.Packet.Physical256==5120&&impact.Packet.Fire256==18944,"Prepared combined allocation");
+            Require(critical.Damage.Physical256==1094&&critical.Damage.Elements.Fire==30&&critical.Damage.Intrinsic&&!critical.PhysicalCritical,"Intrinsic critical must double both channels once");
+            int life=SkillHealth.Balance256(target);Require(NpcEquipmentDamage.TryResolve(b,target,out _,_=>0,()=>99)&&life-SkillHealth.Balance256(target)==4387,"Native approved physical plus Holy Fire damage");
+            var impact=NpcEquipmentImpact.Prepare(b,target,5,_=>0,()=>0);Require(impact.Packet.Total256==8774&&impact.Packet.Physical256==1094&&impact.Packet.Fire256==7680,"Prepared combined allocation");
             PoisonDaggerChecks.Named(p,"Bloodfist");PoisonDaggerChecks.Named(p,"Wormskull");
-            Require(b.Rank==4&&NpcEquipmentDamage.Capture(b)==new NpcPhysicalStats(10,27,0,0,0,0,false)&&b.InnateFire256==(9472,14592)
+            Require(b.Rank==4&&NpcEquipmentDamage.Capture(b)==new NpcPhysicalStats(2,4,0,7,0,0,false)&&b.InnateFire256==(0,0)
                 &&NpcEquipmentPoison.Capture(b).Stats==new MissileSourceStats()&&NpcEquipmentCritical.Capture(b)==chances,"Owner gear/ranks/poison/critical leaked into existing Fire");
             var caster=new PlayerMobile{Player=true,Body=0x190};ClassCreation.Profiles.Assign(caster,DiabloClass.Sorceress);
             try
             {
                 SorceressEffects.CastEnchant(caster,b,SkillMechanics.Values(caster,CombatAbility.Enchant,1));var enchant=SorceressEffects.Enchantment(b);
                 var enchanted=NpcEquipmentDamage.Roll(b,target,_=>0,()=>99);var doubled=NpcEquipmentDamage.Roll(b,target,_=>0,()=>0);
-                Require(enchant!=null&&enchanted.Damage.Elements.Fire==(9472+enchant.Min256)/256.0&&doubled.Damage.Elements.Fire==(9472+enchant.Min256)/128.0,"Enchant must accrue before one fire roll and intrinsic critical");
+                Require(enchant!=null&&enchanted.Damage.Elements.Fire==(3840+enchant.Min256)/256.0&&doubled.Damage.Elements.Fire==(3840+enchant.Min256)/128.0,"Enchant must accrue before one fire roll and intrinsic critical");
             }
             finally{SorceressEffects.Profiles.Clear(b);caster.Delete();}
             NpcEquipmentRandom.Set(b,SourceRandom.InitLow(0));ulong seed=SourceRandom.InitLow(0);int expected=Expected(b,ref seed,false);life=SkillHealth.Balance256(target);
@@ -116,10 +120,10 @@ public static class FireGolemCombatChecks
             Require(NecromancerEffects.Apply(p,target,CombatAbility.LifeTap,1),"Actual Life Tap curse");
             PaladinAuras.ElementalWeapon(new(target.Serial.Value,p.Serial.Value,CombatAbility.Thorns,1,4,TimedEffects.Now.AddHours(1),DamagePercent:250));
             NpcEquipmentRandom.Set(b,SourceRandom.InitLow(0));var returned=UnarmedSummonContact.Prepare(b,p,target,rules);
-            int physical=returned.Impact.Packet.Physical256,healing=NecromancerEffects.LifeTapHealing256(physical,50),thorns=physical*250/100+4*256,start=thorns-healing/2;
-            Require(b.PhysicalResistance==0&&start>256&&start+healing<SkillHealth.Maximum256(b),"Fire Life Tap/Thorns bounds");
+            int physical=returned.Impact.Packet.Physical256,healing=NecromancerEffects.LifeTapHealing256(physical,50),thorns=physical*250/100+4*256,start=thorns-healing+256;
+            Require(b.PhysicalResistance==0&&healing>256&&start>256&&start<thorns&&start+healing<SkillHealth.Maximum256(b),"Fire Life Tap/Thorns bounds");
             SkillHealth.SetBalance256(b,start);life=SkillHealth.Balance256(target);UnarmedSummonContact.Release(b,p,target,returned,TimedEffects.Now);
-            Require(b.Alive&&SkillHealth.Balance256(b)==start+healing-thorns&&life-SkillHealth.Balance256(target)==returned.Impact.Packet.Total256,"Life Tap/Thorns must use physical only and heal before return");
+            Require(b.Alive&&SkillHealth.Balance256(b)==start+healing-thorns&&life-SkillHealth.Balance256(target)==returned.Impact.Packet.Total256,$"Life Tap/Thorns physical/order:alive={b.Alive},start={start},healing={healing},thorns={thorns},after={SkillHealth.Balance256(b)},expected={start+healing-thorns},targetLoss={life-SkillHealth.Balance256(target)},packet={returned.Impact.Packet.Total256}");
             PaladinAuras.Clear(target);NecromancerEffects.ClearOrdinaryCurse(target);
         }
         finally{PaladinAuras.Clear(target);NecromancerEffects.ClearOrdinaryCurse(target);SourceBlocking.BlockRoll=block;target.Corpse?.Delete();target.Delete();}
@@ -134,7 +138,7 @@ public static class FireGolemCombatChecks
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var b=(FireGolemBody)World.FindMobile((Serial)saved.Actor);var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
-        Require(b.ControlMaster==p&&b.Map==Map.Internal&&NpcEquipmentRandom.State(b) is{Unarmed:true,Item:0} state&&state.Seed==saved.Seed&&b.InnateFire256==(9472,14592),"Saved Fire binding/stats/offline stream");
+        Require(b.ControlMaster==p&&b.Map==Map.Internal&&NpcEquipmentRandom.State(b) is{Unarmed:true,Item:0} state&&state.Seed==saved.Seed&&b.InnateFire256==(0,0),"Saved Fire binding/stats/offline stream");
         ulong seed=saved.Seed;uint next=SourceRandom.Roll(ref seed);Require(NpcEquipmentRandom.Raw(b)==next&&NpcEquipmentRandom.State(b).Seed==seed,"Fire stream failed to resume exactly once");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Seed=seed,Generation=saved.Generation+1}));
     }

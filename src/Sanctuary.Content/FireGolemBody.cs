@@ -13,14 +13,11 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
     private FireBirthStats Birth=>_fireBirth??=NecromancerFireBirth.Prepare(CapturedValues,Level,SummonDifficulty);
     internal override string SourceMonsterId=>Kind==CombatAbility.FireGolem?"firegolem":base.SourceMonsterId;
     NpcPhysicalStats ISourceUnarmedNpc.UnarmedPhysical=>UnarmedPhysical;
-    internal NpcPhysicalStats UnarmedPhysical=>Kind==CombatAbility.FireGolem?new(
-        NecromancerSummons.Source("firegolem","A1MinD",SummonDifficulty),NecromancerSummons.Source("firegolem","A1MaxD",SummonDifficulty),0,
-        checked(CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false)
+    internal NpcPhysicalStats UnarmedPhysical=>Kind==CombatAbility.FireGolem?GolemPetDamage.Physical(this)
         :throw new InvalidOperationException("Unprepared Fire Golem physical packet");
-    // Captured aurastat3/4 are whole-point fire stats; the ordinary hit filler
-    // shifts the accrued range into FP256 once. Holy Fire supplies a separate
-    // aura stat list; the optional monstats element remains uncertain.
-    internal (int Min,int Max) InnateFire256=>(checked(Birth.FireMinimum*256),checked(Birth.FireMaximum*256));
+    // Approved replacement: Holy Fire is the fire contribution. Keep original
+    // birth fields as reference/resource inputs,not an extra skill-fire hit.
+    internal (int Min,int Max) InnateFire256=>(0,0);
     internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
         SourceAttackRate.Speed(NecromancerSummons.Source("firegolem-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"firegolem-animation");
     protected override (int Cycle,int Action) MeleeClock()

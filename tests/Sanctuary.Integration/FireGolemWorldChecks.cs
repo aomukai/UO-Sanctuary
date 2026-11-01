@@ -42,7 +42,7 @@ public static class FireGolemWorldChecks
         var s=b.WorldState.Controller;Require(frame>s.Frame,"Reverse Fire world clock");IronGolemWorld.Advance(b,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);
         Require(!b.Deleted&&b.WorldState.Controller.Fault==null,"Fire world fault/deletion");
     }
-    private static ulong Seed(FireGolemWorldBody b,BaseCreature t)
+    internal static ulong Seed(FireGolemWorldBody b,BaseCreature t)
     {
         double chance=ClassStats.HitChance(ClassStats.AttackRating(b),ClassStats.Defense(t),ClassStats.Level(b),ClassStats.Level(t));
         for(ulong n=1;n<10000;n++){ulong s=n;SourceRandom.Roll(ref s);if(SourceRandom.Roll(ref s)%100<80&&SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
@@ -55,7 +55,7 @@ public static class FireGolemWorldChecks
         {
             NpcEquipmentRandom.Set(b,Seed(b,t));int hp=SkillHealth.Balance256(t);Through(b,24);Require(b.WorldState.Controller.Mode==8&&b.WorldContact==null,"Fire premature startup action");
             Through(b,25);var packet=b.WorldContact;
-            Require(b.WorldState.Controller is{Mode:4,ActionAt:35,EndAt:42,AttackSpeed:256}&&packet!=null&&(packet.Impact.Packet.ResultFlags&1)!=0&&packet.Impact.Packet.Physical256>0&&packet.Impact.Packet.Fire256>0&&SkillHealth.Balance256(t)==hp,"Tied S1end25/think25 lost Fire A1 or mixed packet");
+            Require(b.WorldState.Controller is{Mode:4,ActionAt:35,EndAt:42,AttackSpeed:256}&&packet!=null&&(packet.Impact.Packet.ResultFlags&1)!=0&&packet.Impact.Packet.Physical256>0&&packet.Impact.Packet.Fire256==0&&SkillHealth.Balance256(t)==hp,"Tied S1end25/think25 lost Fire A1 or added old innate fire before first aura pulse");
             int damage=packet.Impact.Packet.Total256;ulong seed=NpcEquipmentRandom.State(b).Seed;t.SetResistance(ResistanceType.Fire,100);Through(b,34);Require(SkillHealth.Balance256(t)==hp,"Early Fire contact");
             if(retire)
             {
@@ -99,7 +99,7 @@ public static class FireGolemWorldChecks
         // unheld natural contact/pulses are checked separately in Live.
         b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});SkillHealth.SetBalance256(b,SkillHealth.Maximum256(b)-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,t.Serial.Value,SkillHealth.Balance256(b),SkillHealth.Balance256(t),NpcEquipmentRandom.State(b).Seed,b.NextAuraFrame,0)));
-        Log.Information("Fire world:tied S1end25/think25,G3action10/end17,mixed captured contact/no reroll,recovery/offline cancel,periodic phase skip,retirement during Thorns stops catchup/regen,preserved source,Mastery movement and native fallback pass;initial aura/event priority remain adapters");
+        Log.Information("Fire world:tied S1end25/think25,G3action10/end17,captured contact before first aura pulse/no reroll,recovery/offline cancel,periodic phase skip,retirement during Thorns stops catchup/regen,preserved source,Mastery movement and native fallback pass;initial aura/event priority remain adapters");
     }
     private static void Reload()
     {
@@ -118,7 +118,7 @@ public static class FireGolemWorldChecks
             {
                 Require(Core.TickCount<deadline&&b.WorldState.Controller.Fault==null,"Natural Fire periodic timeout/fault");
                 if(b.WorldState.Controller.Frame<50){Require(SkillHealth.Balance256(t)==hp&&b.NextAuraFrame==50,"Frozen Fire emitted before periodic deadline");Timer.StartTimer(TimeSpan.FromMilliseconds(20),PulseWait);return;}
-                Require(b.Frozen&&b.WorldState.Controller.Attempts==0&&b.NextAuraFrame==100&&hp-SkillHealth.Balance256(t)==damage&&PaladinAuras.Effect(b,CombatAbility.HolyFire) is{Rank:10,WeaponMin:51,WeaponMax:90}&&NecromancerEffects.ManaBalance256(p)==0,"Frozen Fire lost automatic no-mana pulse/self weapon lease");
+                Require(b.Frozen&&b.WorldState.Controller.Attempts==0&&b.NextAuraFrame==100&&hp-SkillHealth.Balance256(t)==damage&&PaladinAuras.Effect(b,CombatAbility.HolyFire) is{Rank:4,WeaponMin:15,WeaponMax:36}&&NecromancerEffects.ManaBalance256(p)==0,"Frozen Fire lost automatic no-mana pulse/self weapon lease");
                 ulong seed=NpcEquipmentRandom.State(b).Seed;int after=SkillHealth.Balance256(t);IronGolemWorld.Advance(b,b.WorldState.Controller.NextUtc.AddMilliseconds(80*40L),false);
                 Require(b.Map==Map.Internal&&b.NextAuraFrame==150&&SkillHealth.Balance256(t)==after&&NpcEquipmentRandom.State(b).Seed==seed,"Offline Fire periodic skip attacked/rerolled");End();Log.Information("fire-golem-world-live-result: passed");
             }
@@ -129,7 +129,7 @@ public static class FireGolemWorldChecks
             try
             {
                 Require(Core.TickCount<deadline&&b.WorldState.Controller.Fault==null,"Natural Fire melee timeout/fault");
-                if(!captured&&b.WorldContact is{} packet){captured=true;damage=packet.Impact.Packet.Total256;Require(packet.Impact.Packet.Physical256>0&&packet.Impact.Packet.Fire256>0&&SkillHealth.Balance256(t)==hp,"Natural Fire mixed capture/early HP");t.SetResistance(ResistanceType.Fire,100);}
+                if(!captured&&b.WorldContact is{} packet){captured=true;damage=packet.Impact.Packet.Total256;Require(packet.Impact.Packet.Physical256>0&&packet.Impact.Packet.Fire256==0&&SkillHealth.Balance256(t)==hp,"Natural Fire pre-aura capture/early HP");t.SetResistance(ResistanceType.Fire,100);}
                 if(SkillHealth.Balance256(t)==hp){Timer.StartTimer(TimeSpan.FromMilliseconds(20),MeleeWait);return;}
                 Require(captured&&damage>0&&hp-SkillHealth.Balance256(t)==damage&&b.WorldState.Controller.Attempts==1,"Natural Fire immutable release failed");t.Delete();b.Delete();
                 b=Learned(p,future:false);b.Frozen=true;t=Target(p,b,1);NecromancerEffects.SetMana256(p,0);NpcEquipmentRandom.Set(b,17);ulong seed=17;

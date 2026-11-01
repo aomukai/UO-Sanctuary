@@ -14,7 +14,7 @@
   "inputs": {
     "tools/review_iron_affix_reuse.py": "3dade11a9405f45c15a2313252c13625ea46b4b2a838ab70d56e05455a0ac5eb",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
-    "src/Sanctuary.Content/GolemPetDamage.cs": "b821b79cbfbbd3ce404a5c9ab2c70cdd782693a82b133bbc6a14a8d5d542f2ba",
+    "src/Sanctuary.Content/GolemPetDamage.cs": "123006cf4e366b5435f7d44f6b6b9e6016b1c0db7ac1c54baf356fb4ada5b6fd",
     "src/Sanctuary.Content/IronGolemBody.cs": "7162a3f84a05a0b9e1d1f04195e4de110ea2c0fcc9ae29148e99343a1e4cd42c",
     "src/Sanctuary.Content/IronGolemUpgrades.cs": "2a675c78ed0d0feaf98feb308855129344e1b8472b25a585ac30ac92bdf77994",
     "src/Sanctuary.Content/EncounterCreature.cs": "102581db1d524a794bd56feae2d3487559f2c1f1e790b0cdeafcc4bf66f7c94a",

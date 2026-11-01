@@ -44,16 +44,16 @@ public static class FireGolemAuraChecks
             var v=new SkillValues(SkillMechanics.Source("Holy Fire"),name=>name=="Holy Fire"?rank:0,_=>0,99);
             Require(PaladinElements.WeaponRange(b,CombatAbility.HolyFire,v)==(min,max),"Holy Fire whole-point weapon formula "+rank);
         }
-        Require(b.HolyFireValues.Rank==10&&b.HolyFireValues.Damage256(false)==2176&&b.HolyFireValues.Damage256(true)==3840,"Captured Fire rank4 must grant Holy Fire10 without owner synergies");
-        PoisonDaggerChecks.Named(p,"Wormskull");Require(b.HolyFireValues.Rank==10,"Later owner gear changed the pet aura rank");
+        Require(b.HolyFireValues.Rank==4&&b.HolyFireValues.Damage256(false)==640&&b.HolyFireValues.Damage256(true)==1536,"Captured Fire rank4 must grant Holy Fire4 without owner synergies");
+        PoisonDaggerChecks.Named(p,"Wormskull");Require(b.HolyFireValues.Rank==4,"Later owner gear changed the pet aura rank");
         var now=TimedEffects.Now;var range=PaladinElements.WeaponRange(b,CombatAbility.HolyFire,b.HolyFireValues);
         // A deliberately long fixture lease tests shared persistence across
         // boots. Live controls below verify the actual 51-frame lifetime.
-        PaladinAuras.ElementalWeapon(new(b.Serial.Value,b.Serial.Value,CombatAbility.HolyFire,10,0,now.AddDays(1),WeaponMin:range.Min,WeaponMax:range.Max));
-        var raw=NpcEquipmentElements.Capture(b).Stats;Require(raw.FireMin==22528&&raw.FireMax==37632,"Innate37..57 and aura51..90 must accrue into one88..147fire range");
-        var rolled=NpcEquipmentDamage.Roll(b,null,_=>0,()=>0);Require(rolled.Damage.Elements.Fire==176,"Intrinsic critical must double innate plus aura once");
+        PaladinAuras.ElementalWeapon(new(b.Serial.Value,b.Serial.Value,CombatAbility.HolyFire,4,0,now.AddDays(1),WeaponMin:range.Min,WeaponMax:range.Max));
+        var raw=NpcEquipmentElements.Capture(b).Stats;Require(raw.FireMin==3840&&raw.FireMax==9216&&b.InnateFire256==(0,0),"Only Holy Fire15..36 may accrue;old innate37..57 must be removed");
+        var rolled=NpcEquipmentDamage.Roll(b,null,_=>0,()=>0);Require(rolled.Damage.Elements.Fire==30,"Intrinsic critical must double Holy Fire once");
         var lease=PaladinAuras.Effect(b,CombatAbility.HolyFire);
-        PaladinAuras.ElementalWeapon(lease with{UntilUtc=now.AddMilliseconds(-1)});Require(PaladinAuras.Effect(b,CombatAbility.HolyFire)==null&&NpcEquipmentElements.Capture(b).Stats.FireMin==9472,"Expired aura leaked weapon stats");
+        PaladinAuras.ElementalWeapon(lease with{UntilUtc=now.AddMilliseconds(-1)});Require(PaladinAuras.Effect(b,CombatAbility.HolyFire)==null&&NpcEquipmentElements.Capture(b).Stats.FireMin==0,"Expired aura leaked weapon stats");
         PaladinAuras.ElementalWeapon(lease);
         NpcEquipmentRandom.Set(b,SourceRandom.InitLow(173));NpcEquipmentRandom.Raw(b);var state=NpcEquipmentRandom.State(b);
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,state.Seed,0)));
@@ -62,7 +62,7 @@ public static class FireGolemAuraChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var b=(FireGolemBody)World.FindMobile((Serial)saved.Actor);
         var lease=PaladinAuras.Effect(b,CombatAbility.HolyFire);
-        Require(b.ControlMaster==p&&b.Map==Map.Internal&&lease is{Rank:10,WeaponMin:51,WeaponMax:90}&&lease.Source==b.Serial.Value&&NpcEquipmentElements.Capture(b).Stats.FireMin==22528,"Saved actor-owned aura lease/stat composition");
+        Require(b.ControlMaster==p&&b.Map==Map.Internal&&lease is{Rank:4,WeaponMin:15,WeaponMax:36}&&lease.Source==b.Serial.Value&&NpcEquipmentElements.Capture(b).Stats.FireMin==3840,"Saved actor-owned aura lease/stat composition");
         Require(NpcEquipmentRandom.State(b).Seed==saved.Seed,"Offline aura replay advanced RNG");b.PulseHolyFire(p,TimedEffects.Now);
         Require(NpcEquipmentRandom.State(b).Seed==saved.Seed,"Parked/offline pulse advanced RNG");
         ulong seed=saved.Seed;uint next=SourceRandom.Roll(ref seed);Require(NpcEquipmentRandom.Raw(b)==next&&NpcEquipmentRandom.State(b).Seed==seed,"Saved Fire aura stream failed to resume once");
@@ -87,12 +87,12 @@ public static class FireGolemAuraChecks
             {
                 Log.Information("fire-golem-aura-live: ready");Require(!SpellHelper.IsTown(b.Location,b),"Field fixture is in town");
                 p.Mana=b.Mana=0;var now=TimedEffects.Now;NpcEquipmentRandom.Set(b,SourceRandom.InitLow(0));ulong seed=SourceRandom.InitLow(0);
-                int pulse=2176+(int)SourceRandom.Limited(ref seed,3840-2176);int expected=(int)Math.Floor(pulse*PaladinElements.Proximity(Math.Sqrt(2),SkillGeometry.Tiles(b.HolyFireValues.Eval("aurarangecalc"))));
+                int pulse=640+(int)SourceRandom.Limited(ref seed,1536-640);int expected=(int)Math.Floor(pulse*PaladinElements.Proximity(Math.Sqrt(2),SkillGeometry.Tiles(b.HolyFireValues.Eval("aurarangecalc"))));
                 int first=SkillHealth.Balance256(a),second=SkillHealth.Balance256(c),immuneLife=SkillHealth.Balance256(immune),farLife=SkillHealth.Balance256(far);
                 b.PulseHolyFire(p,now);var lease=PaladinAuras.Effect(b,CombatAbility.HolyFire);
                 Require(first-SkillHealth.Balance256(a)==expected&&second-SkillHealth.Balance256(c)==expected&&SkillHealth.Balance256(immune)==immuneLife&&SkillHealth.Balance256(far)==farLife,"Pulse must share one roll, respect immunity/range, and use actual NPC source");
-                Require(NpcEquipmentRandom.State(b).Seed==seed&&lease is{Rank:10,WeaponMin:51,WeaponMax:90}&&lease.Source==b.Serial.Value&&lease.UntilUtc==now.AddMilliseconds(2040)&&p.Mana==0&&b.Mana==0,"NPC weapon lease/source/duration or mana bypass");
-                Require(NpcEquipmentDamage.Roll(b,a,_=>0,()=>99).Damage.Elements.Fire==88,"Live aura did not join the ordinary melee packet");
+                Require(NpcEquipmentRandom.State(b).Seed==seed&&lease is{Rank:4,WeaponMin:15,WeaponMax:36}&&lease.Source==b.Serial.Value&&lease.UntilUtc==now.AddMilliseconds(2040)&&p.Mana==0&&b.Mana==0,"NPC weapon lease/source/duration or mana bypass");
+                Require(NpcEquipmentDamage.Roll(b,a,_=>0,()=>99).Damage.Elements.Fire==15,"Live aura did not join the ordinary melee packet");
                 p.MoveToWorld(new(1496,1628,10),p.Map);b.MoveToWorld(new(1497,1628,10),p.Map);a.MoveToWorld(new(1498,1628,10),p.Map);
                 Require(SpellHelper.IsTown(b.Location,b),"Town fixture is not guarded");first=SkillHealth.Balance256(a);seed=NpcEquipmentRandom.State(b).Seed;b.PulseHolyFire(p,now.AddMilliseconds(1));
                 Require(SkillHealth.Balance256(a)==first&&NpcEquipmentRandom.State(b).Seed==seed&&PaladinAuras.Effect(b,CombatAbility.HolyFire).UntilUtc==now.AddMilliseconds(2041),"Town must refresh own weapon state without pulse damage or random draw");

@@ -88,7 +88,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     public override TimeSpan BeginMelee(Mobile target)=>IsMage?TimeSpan.FromMilliseconds(MageAttackClock.End*40):base.BeginMelee(target);
     public override void SuspendActions(){base.SuspendActions();if(IsMage&&!Deleted&&MageWorld.For(this) is{} mage){mage.World.Suspend();mage.ObserveCombatTarget(false);}}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();if(IsMage&&!Deleted){MageWorld.For(this)?.World.Suspend();}}
-    public override void OnAfterDelete(){if(IsMage){IronGolems.Forget(this);NecromancerMageMissiles.ForgetActor(this);}base.OnAfterDelete();}
+    public override void OnAfterDelete(){if(IsMage){IronGolems.Forget(this);NecromancerMageMissiles.ForgetActor(this);}if(Kind==CombatAbility.FireGolem){PaladinAuras.Clear(this);}base.OnAfterDelete();}
     private MonsterProfile _summonProfile;
     private MageBirthStats _mageBirth;
     private MageBirthStats MageBirth=>_mageBirth??=NecromancerMageBirth.Prepare(Values(Kind),Level,SummonDifficulty);
@@ -127,7 +127,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if (Kind==CombatAbility.None) { return base.SkillWeaponDamage; }
             if (IsMage) { return (CombatProfile.MinDamage,CombatProfile.MaxDamage); }
-            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem){return GolemPetDamage.Damage(this);}
+            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem or CombatAbility.FireGolem){return GolemPetDamage.Damage(this);}
             string key=SkillMechanics.For(Kind).Text("summon"); int percent=Math.Max(10,100+Passive("damagepercent")+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
             int min=Math.Max(1,NecromancerSummons.Source(key,"A1MinD",SummonDifficulty)*percent/100);
             return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty)*percent/100));
@@ -139,7 +139,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if(Kind==CombatAbility.None){return base.SourceWeaponBase;}
             if(IsMage){throw new NotSupportedException("Mage missiles do not use an equipment weapon packet");}
-            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem){return GolemPetDamage.Weapon(this);}
+            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem or CombatAbility.FireGolem){return GolemPetDamage.Weapon(this);}
             string key=SkillMechanics.For(Kind).Text("summon");
             return (NecromancerSummons.Source(key,"A1MinD",SummonDifficulty),NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty),Passive("damagepercent"));
         }
@@ -150,7 +150,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     public override int GetResistance(ResistanceType type)=>Kind==CombatAbility.ClayGolem
         ?ClayGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):Kind==CombatAbility.IronGolem
-            ?IronGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):base.GetResistance(type);
+            ?IronGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):FireGolemUpgrades.Resistance(this,type,base.GetResistance(type));
     public override long SourceLife256
     {
         get
@@ -227,7 +227,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             attack += Passive("tohit"); defense += Passive("armorclass");
             int damageBonus = Passive("damagepercent");
             min = min * (100 + damageBonus) / 100; max = max * (100 + damageBonus) / 100;
-            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem){(min,max)=GolemPetDamage.Damage(this,false);}
+            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem or CombatAbility.FireGolem){(min,max)=GolemPetDamage.Damage(this,false);}
         }
         int petLevel = Math.Clamp(Rank + 3 * Level / 4, 1, Level);
         attack += NecromancerSummons.Source("level-" + petLevel, "L-TH", SummonDifficulty);
@@ -265,8 +265,6 @@ public partial class NecromancerMinion : SkeletonGuardian
         var values = Values(Kind);
         if (Kind == CombatAbility.ClayGolem && loss > 0) { TimedEffects.Slow(target, values.Diminishing(3, 4), TimedEffects.Now); }
         if (Kind == CombatAbility.BloodGolem) { HealFromBloodHit(target, hit.Physical, hit.LifeBefore); }
-        if (Kind == CombatAbility.FireGolem)
-        { SkillCombat.Hit(this, target, values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble(), "fire"); }
     }
     public static int BloodHealingBudget(int physical, int lifeBefore, int drain, int conversion)
         => (int)Math.Clamp(Math.Min((long)Math.Max(0, physical) * Math.Clamp(drain, 0, 100) / 100,
@@ -298,16 +296,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         PulseFireAura(owner);
     }
     protected virtual void PulseFireAura(PlayerMobile owner)
-    {
-        var fire = Values(Kind); int rank = Math.Min(30, fire.Linear(5, 6));
-        var aura = new SkillValues(SkillMechanics.Source("Holy Fire"), key => key == "Holy Fire" ? rank : 0, _ => 0, Level);
-        double radius = SkillGeometry.Tiles(aura.Linear(1, 2));
-        foreach (var target in SkillCombat.Targets(owner, Location, radius))
-        {
-            double scale = 1 + Math.Max(0, 1 - this.GetDistanceToSqrt(target) / Math.Max(.5, radius));
-            SkillCombat.Hit(this, target, (aura.Damage(false) + (aura.Damage(true) - aura.Damage(false)) * Utility.RandomDouble()) * scale, "fire");
-        }
-    }
+        =>FireGolemUpgrades.Pulse(this,owner,TimedEffects.Now,n=>Utility.Random(n));
     public virtual void Explode()
     {
         if (Kind == CombatAbility.FireGolem && Alive && !Deleted && ControlMaster is PlayerMobile owner && Map != Map.Internal)
