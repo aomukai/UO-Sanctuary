@@ -681,9 +681,9 @@
       "tree": "Summoning Spells",
       "sourceId": 70,
       "implementation": "handler-present",
-      "verification": "legacy-checks; rerun-needed",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Corpse/FIFO, exact birth/resources, shared Skeleton damage/A1 clocks, mapped ordered NPC contact, guard/progression/facet/save and approved hard-point affixes have scoped native acceptance. Initial S1/AI/movement, final shield distribution, unsupported recipients and full modern events/client parity remain explicit; see skeleton-contact-checkpoint.md and necromancer-acceptance-checkpoint.md."
     },
     {
       "talentId": "necromancer.skeletonmastery",
@@ -692,9 +692,9 @@
       "tree": "Summoning Spells",
       "sourceId": 69,
       "implementation": "handler-present",
-      "verification": "legacy-checks; rerun-needed",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Captured Skeleton/Mage/Revive life and damage suppliers have dedicated native and saved-state coverage. Approved Mage basics receive the flat Mastery increase on each bolt; live hard-point unlocks remain separate from captured effective ranks. Unmapped/native fallback recipients, full current-engine events/item/seed and client parity remain explicit; no complete skill/class certificate."
     },
     {
       "talentId": "necromancer.claygolem",
@@ -705,7 +705,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated exact birth/resources, effective/hard ranks, real gear/mana/replacement/PMH/BO/facets and2reloads pass; see clay-golem-birth-checkpoint.md. Incoming callback27/split rates now have scoped acceptance in clay-golem-slow-checkpoint.md. Fractional unarmed/critical and400/720ms clock now pass clay-golem-combat-checkpoint.md; outgoing slow uncertainty, NPC blocking/prepared contact/AI/initializer/client remain."
     },
     {
       "talentId": "necromancer.golemmastery",
@@ -727,7 +727,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Summoning, independent count and persistence covered; all four projectile elements, poison caps and moving-target travel remain to verify."
+      "remaining": "Approved three-element Sorceress basics at captured summon rank,flat captured Skeleton Mastery damage on each bolt,live hard5triple volleys and shared saved charged paths. Fixed Glacial/Meteor/Chain/Static,combat-start Enchant,intrinsic Frozen Armor,element migration and historical AI adoption remain. [Basic checkpoint](mage-basics-checkpoint.md) records scope/verification. Current motion/room/global seed/event/PvP/Sunder/client,display and unheld/old-DLL acceptance remain bounded;effects/audio and icons separate."
     },
     {
       "talentId": "necromancer.bloodgolem",
@@ -747,9 +747,9 @@
       "tree": "Summoning Spells",
       "sourceId": 89,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Reuses the shared diminishing curve, passive supplier, Iron birth receiver and prepared factories. Live warriors, Mages and all four golems match reported ranks7/13/19=52/61/65, including Fire absorption and Iron item/species channels; training/equipment preserve captured pets and a fresh summon receives the new effective rank. Native256rank/6912accepted-allocation controls pass. SR-specific ranks3/21rounding, modern refresh/item/oskill/Sunder/event/allocator/dynamic recipient/client cases remain explicit; see summon-resist-checkpoint.md."
     },
     {
       "talentId": "necromancer.irongolem",
@@ -760,7 +760,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned item-target route composes original transfer, prepared world controller, payment and shared golem replacement. Supported ordinary combat uses source-ordered allocation/contact/HP/retaliation/native return, with original-item stats and owner credit preserved. Current full item procs, Iron Maiden, Sunder, uninterruptible/unique-mode callbacks and unrepresented original stat storage remain individually refused; modern initial-poison/Thorns coexistence, native geometry/RNG/client and full class acceptance remain unverified. See iron-golem-casting-checkpoint.md; handler presence is not completion."
+      "remaining": "Learned original-item right/quick casting shares source-ordered birth/contact/HP/return, item conservation, owner credit, replacement and saves. Approved damage uses the shared Clay/Golem Mastery curve; live hard10Extra Strong and hard20Spectral Hit reuse existing affix consumers. Supported item/event paths have dedicated native coverage; unsupported item/proc/Sunder projections refuse before consumption. Full initializer/current-engine/event/client parity remains explicit; see the Iron casting/damage/strong/spectral checkpoints."
     },
     {
       "talentId": "necromancer.firegolem",
@@ -771,7 +771,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native source passive selection and replacement death burst covered. Aura scaling, absorb order, combat death and difficulty bases still need dedicated fixtures."
+      "remaining": "Approved captured200%Clay/Golem Mastery physical base,own-rank Paladin Holy Fire,live hard10CBF/hard20breakable cold immunity. Existing learned ground/prepared contact,critical/Enchant,40%absorb pool and160msretirement remain. [Upgrade checkpoint](fire-upgrades-checkpoint.md):382markers/3boots/2reloads,four saved actor types and three natural pulse/mixed-melee sessions. Initial aura/event/geometry/native/special/PvP/client/old-DLL/unheld-save acceptance remains bounded;effects/audio and icons separate."
     },
     {
       "talentId": "necromancer.revive",
@@ -782,7 +782,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned original-actor cast is being integrated. Requires active source combat classification, accepted-death eligibility/resources and no unsupported equipped-item effects. Global monster spell conversion does not gate inherited abilities. Facet/respec replanning, source regeneration and Summon Resist reference conflict remain acceptance work. No class completion claim."
+      "remaining": "Learned original-NPC casting leaves corpse gear lootable while preserving supported captured combat effects separately. Revives have no expiration timer and inherit their living abilities; global caster-spell conversion is a separate task. Original resources/slots/ownership, owner death/replacement, respec/facet difficulty, parked life percentage and recovery have bounded native coverage. Unmapped classifications, unsupported item/special-ability projections, full source events/credit/room/client parity remain explicit; see revive-creature-snapshot-native-evidence.json and parking-boundaries-checkpoint.md."
     },
     {
       "talentId": "necromancer.teeth",
@@ -804,7 +804,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Exact FP256 physical pool, right/quick input, hard synergies, snapshot/recast/group/lifecycle and new/legacy reloads verified in bone-armor-checkpoint.md. Modern breaking-hit overflow, full state/event/priority and graphical-client equivalence remain explicitly unverified."
     },
     {
       "talentId": "necromancer.poisondagger",
@@ -813,9 +813,9 @@
       "tree": "Poison and Bone Spells",
       "sourceId": 73,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Dagger targeting and source poison present; equipment poison duration/rate combination and drain interactions need further verification."
+      "remaining": "Learned prepared hit/payment, combined weapon/skill poison, real right/quick input and ordered HP/credit/retaliation are scoped in the attack/contact/weapon-start checkpoints. Conditional item RNG/events, whole-HP returns, charged/Blood Mana and modern initial poison-rate applicability remain open."
     },
     {
       "talentId": "necromancer.corpseexplosion",
@@ -824,7 +824,7 @@
       "tree": "Poison and Bone Spells",
       "sourceId": 74,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Player74 uses shared do55 fractional corpse-seeded packets, captured base life/level/difficulty and separate physical edge clipping. Dedicated3boots/2reloads pass including orphaned original monsters, exact saved RNG/mana, retained loot, missing metadata rejection, recorded ownership/shatter/noselect gates, mixed immunities and once-only payment. Actual Tarnhelm soft rank and separate real Sorceress/Eschuta mastery/default-spell/potion controls pass. Preserve approved spell-potion and defense consumers; base corpse fire receives no mastery multiplier. Current full-regression/deployment status is recorded in necro-corpse-explosion-native-evidence.json and the resume checkpoint. Source/native geometry, exact current event/client acceptance and a class certificate remain open."
     },
@@ -846,9 +846,9 @@
       "tree": "Poison and Bone Spells",
       "sourceId": 83,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Source cloud lifetime retained; exact child-cloud footprint/hit cadence and overlapping clouds require D2R behavior comparison."
+      "remaining": "Learned corpse casts create eight saved moving clouds through the shared poison emitter/flight path, replacing the stationary filled-area adapter. Corpse/loot conservation, fractional payment, retained rank/hard synergies, contact history, overlapping clouds, immunity/cure/potion ticks, real right/quick input and two reloads have scoped acceptance. Full current-engine hit-delay grouping, room/terrain/geometry/seed/event/owner/item/PvP/client parity remain explicit; see poison-explosion-checkpoint.md."
     },
     {
       "talentId": "necromancer.bonespear",
@@ -859,7 +859,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native travelling/piercing and damage tiers covered; moving-target/obstacle/friendly edge cases remain."
+      "remaining": "Learned saved source-flight path uses40frames, Size1, LastCollide, unlimited ordinary piercing, captured FP magic/slow/modifiers and SrcDam0 weapon exclusions. Actual18tile travel, prior-collider rehit, Hell magic immunity, real item/rank/potion controls,6right/quick inputs and2reloads with advanced seed/collider pass. Full modern frame/FCR/dispatcher, native geometry/event/PvP/special recipient/retired-owner equivalence remains open; see bone-spear-checkpoint.md."
     },
     {
       "talentId": "necromancer.boneprison",
@@ -879,9 +879,9 @@
       "tree": "Poison and Bone Spells",
       "sourceId": 92,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned casts emit64saved ring missiles through the shared Necromancer spell-flight controller. Hard synergies, fixed two-second poison, strongest-poison replacement, cure/immunity/potion ticks, actual right/quick input and saved flight continuation have scoped native coverage. Source/native geometry/terrain/room/global seed/events/PvP/Sunder/item/client and unsupported recipients remain explicit; see poison-nova-checkpoint.md. Final effects/audio/icons are separate."
     },
     {
       "talentId": "necromancer.bonespirit",
@@ -890,9 +890,9 @@
       "tree": "Poison and Bone Spells",
       "sourceId": 93,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Homing/retarget code present; retarget cadence, lost targets and all collision cases need dedicated native checks."
+      "remaining": "Uses the shared saved spell-flight engine and source-guided initial/turn/hit primitives rather than the old16tile/perfect-turn/nearest-replacement adapter. Captured FP256magic and hard synergies remain separate from weapon AR/critical/Pierce/drain/item-hit events. Target guidance, collision, mana/input and saved continuation have dedicated coverage. Full current-engine motion/room/geometry/seed/event/owner/client and flagged recipient limits remain explicit; see bone-spirit-checkpoint.md."
     },
     {
       "talentId": "necromancer.amplifydamage",
@@ -923,9 +923,9 @@
       "tree": "Curses",
       "sourceId": 72,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shares pinned curse eligibility, rank/creator retention, resistance, area enumeration and once-only four-mana release payment. Its damagepercent=-33-(rank-1) joins the ordinary weapon damage-percent pool before the existing floor; it is not a blanket spell multiplier. Dedicated native effect/input/expiry/gear/save controls exist. Broader modern events/geometry/unmapped species/PvP/client parity remains explicit; see weaken-checkpoint.md."
     },
     {
       "talentId": "necromancer.ironmaiden",
@@ -945,9 +945,9 @@
       "tree": "Curses",
       "sourceId": 77,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Unsupported level gate removed. Source cast origin and flee-to-blind motion retained; ordinary-curse/flee coexistence and boss/species exceptions need D2R comparison."
+      "remaining": "Learned do30/no-stat casts use seven-mana release payment, fixed radius4 and configured owner-facet duration divisors rather than monster spawn difficulty. The initializer captures the existing native Combatant; casting/priority/cancellation, actual right/quick input, flee-to-combat/blind motion and saves have dedicated coverage. Full current-engine boss/species exceptions, motion/room/seed/events/AIRESET/client parity remains explicit; see terror-cast-checkpoint.md."
     },
     {
       "talentId": "necromancer.confuse",

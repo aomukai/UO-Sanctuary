@@ -210,6 +210,118 @@ CAVEATS = {
     'sorceress.teleport':'Pre-existing working Sanctuary Teleport; its approved range/scroll/tome and timing rules remain authoritative.'
 }
 
+# Current authored Necromancer scopes; handlers remain incompletely verified.
+CAVEATS.update({'necromancer.bonearmor': 'Exact FP256 physical pool, right/quick input, hard synergies, '
+                          'snapshot/recast/group/lifecycle and new/legacy reloads verified in '
+                          'bone-armor-checkpoint.md. Modern breaking-hit overflow, full state/event/priority '
+                          'and graphical-client equivalence remain explicitly unverified.',
+ 'necromancer.bonespear': 'Learned saved source-flight path uses40frames, Size1, LastCollide, unlimited '
+                          'ordinary piercing, captured FP magic/slow/modifiers and SrcDam0 weapon '
+                          'exclusions. Actual18tile travel, prior-collider rehit, Hell magic immunity, real '
+                          'item/rank/potion controls,6right/quick inputs and2reloads with advanced '
+                          'seed/collider pass. Full modern frame/FCR/dispatcher, native '
+                          'geometry/event/PvP/special recipient/retired-owner equivalence remains open; see '
+                          'bone-spear-checkpoint.md.',
+ 'necromancer.bonespirit': 'Uses the shared saved spell-flight engine and source-guided initial/turn/hit '
+                           'primitives rather than the old16tile/perfect-turn/nearest-replacement adapter. '
+                           'Captured FP256magic and hard synergies remain separate from weapon '
+                           'AR/critical/Pierce/drain/item-hit events. Target guidance, collision, mana/input '
+                           'and saved continuation have dedicated coverage. Full current-engine '
+                           'motion/room/geometry/seed/event/owner/client and flagged recipient limits remain '
+                           'explicit; see bone-spirit-checkpoint.md.',
+ 'necromancer.claygolem': 'Dedicated exact birth/resources, effective/hard ranks, real '
+                          'gear/mana/replacement/PMH/BO/facets and2reloads pass; see '
+                          'clay-golem-birth-checkpoint.md. Incoming callback27/split rates now have scoped '
+                          'acceptance in clay-golem-slow-checkpoint.md. Fractional unarmed/critical '
+                          'and400/720ms clock now pass clay-golem-combat-checkpoint.md; outgoing slow '
+                          'uncertainty, NPC blocking/prepared contact/AI/initializer/client remain.',
+ 'necromancer.firegolem': 'Approved captured200%Clay/Golem Mastery physical base,own-rank Paladin Holy '
+                          'Fire,live hard10CBF/hard20breakable cold immunity. Existing learned '
+                          'ground/prepared contact,critical/Enchant,40%absorb pool and160msretirement '
+                          'remain. [Upgrade '
+                          'checkpoint](fire-upgrades-checkpoint.md):382markers/3boots/2reloads,four saved '
+                          'actor types and three natural pulse/mixed-melee sessions. Initial '
+                          'aura/event/geometry/native/special/PvP/client/old-DLL/unheld-save acceptance '
+                          'remains bounded;effects/audio and icons separate.',
+ 'necromancer.irongolem': 'Learned original-item right/quick casting shares source-ordered '
+                          'birth/contact/HP/return, item conservation, owner credit, replacement and saves. '
+                          'Approved damage uses the shared Clay/Golem Mastery curve; live hard10Extra Strong '
+                          'and hard20Spectral Hit reuse existing affix consumers. Supported item/event paths '
+                          'have dedicated native coverage; unsupported item/proc/Sunder projections refuse '
+                          'before consumption. Full initializer/current-engine/event/client parity remains '
+                          'explicit; see the Iron casting/damage/strong/spectral checkpoints.',
+ 'necromancer.poisondagger': 'Learned prepared hit/payment, combined weapon/skill poison, real right/quick '
+                             'input and ordered HP/credit/retaliation are scoped in the '
+                             'attack/contact/weapon-start checkpoints. Conditional item RNG/events, whole-HP '
+                             'returns, charged/Blood Mana and modern initial poison-rate applicability '
+                             'remain open.',
+ 'necromancer.poisonexplosion': 'Learned corpse casts create eight saved moving clouds through the shared '
+                                'poison emitter/flight path, replacing the stationary filled-area adapter. '
+                                'Corpse/loot conservation, fractional payment, retained rank/hard synergies, '
+                                'contact history, overlapping clouds, immunity/cure/potion ticks, real '
+                                'right/quick input and two reloads have scoped acceptance. Full '
+                                'current-engine hit-delay grouping, '
+                                'room/terrain/geometry/seed/event/owner/item/PvP/client parity remain '
+                                'explicit; see poison-explosion-checkpoint.md.',
+ 'necromancer.poisonnova': 'Learned casts emit64saved ring missiles through the shared Necromancer '
+                           'spell-flight controller. Hard synergies, fixed two-second poison, '
+                           'strongest-poison replacement, cure/immunity/potion ticks, actual right/quick '
+                           'input and saved flight continuation have scoped native coverage. Source/native '
+                           'geometry/terrain/room/global seed/events/PvP/Sunder/item/client and unsupported '
+                           'recipients remain explicit; see poison-nova-checkpoint.md. Final '
+                           'effects/audio/icons are separate.',
+ 'necromancer.raiseskeleton': 'Corpse/FIFO, exact birth/resources, shared Skeleton damage/A1 clocks, mapped '
+                              'ordered NPC contact, guard/progression/facet/save and approved hard-point '
+                              'affixes have scoped native acceptance. Initial S1/AI/movement, final shield '
+                              'distribution, unsupported recipients and full modern events/client parity '
+                              'remain explicit; see skeleton-contact-checkpoint.md and '
+                              'necromancer-acceptance-checkpoint.md.',
+ 'necromancer.revive': 'Learned original-NPC casting leaves corpse gear lootable while preserving supported '
+                       'captured combat effects separately. Revives have no expiration timer and inherit '
+                       'their living abilities; global caster-spell conversion is a separate task. Original '
+                       'resources/slots/ownership, owner death/replacement, respec/facet difficulty, parked '
+                       'life percentage and recovery have bounded native coverage. Unmapped classifications, '
+                       'unsupported item/special-ability projections, full source events/credit/room/client '
+                       'parity remain explicit; see revive-creature-snapshot-native-evidence.json and '
+                       'parking-boundaries-checkpoint.md.',
+ 'necromancer.skeletalmage': 'Approved three-element Sorceress basics at captured summon rank,flat captured '
+                             'Skeleton Mastery damage on each bolt,live hard5triple volleys and shared saved '
+                             'charged paths. Fixed Glacial/Meteor/Chain/Static,combat-start '
+                             'Enchant,intrinsic Frozen Armor,element migration and historical AI adoption '
+                             'remain. [Basic checkpoint](mage-basics-checkpoint.md) records '
+                             'scope/verification. Current motion/room/global '
+                             'seed/event/PvP/Sunder/client,display and unheld/old-DLL acceptance remain '
+                             'bounded;effects/audio and icons separate.',
+ 'necromancer.skeletonmastery': 'Captured Skeleton/Mage/Revive life and damage suppliers have dedicated '
+                                'native and saved-state coverage. Approved Mage basics receive the flat '
+                                'Mastery increase on each bolt; live hard-point unlocks remain separate from '
+                                'captured effective ranks. Unmapped/native fallback recipients, full '
+                                'current-engine events/item/seed and client parity remain explicit; no '
+                                'complete skill/class certificate.',
+ 'necromancer.summonresist': 'Reuses the shared diminishing curve, passive supplier, Iron birth receiver and '
+                             'prepared factories. Live warriors, Mages and all four golems match reported '
+                             'ranks7/13/19=52/61/65, including Fire absorption and Iron item/species '
+                             'channels; training/equipment preserve captured pets and a fresh summon '
+                             'receives the new effective rank. Native256rank/6912accepted-allocation '
+                             'controls pass. SR-specific ranks3/21rounding, modern '
+                             'refresh/item/oskill/Sunder/event/allocator/dynamic recipient/client cases '
+                             'remain explicit; see summon-resist-checkpoint.md.',
+ 'necromancer.terror': 'Learned do30/no-stat casts use seven-mana release payment, fixed radius4 and '
+                       'configured owner-facet duration divisors rather than monster spawn difficulty. The '
+                       'initializer captures the existing native Combatant; casting/priority/cancellation, '
+                       'actual right/quick input, flee-to-combat/blind motion and saves have dedicated '
+                       'coverage. Full current-engine boss/species exceptions, '
+                       'motion/room/seed/events/AIRESET/client parity remains explicit; see '
+                       'terror-cast-checkpoint.md.',
+ 'necromancer.weaken': 'Shares pinned curse eligibility, rank/creator retention, resistance, area '
+                       'enumeration and once-only four-mana release payment. Its damagepercent=-33-(rank-1) '
+                       'joins the ordinary weapon damage-percent pool before the existing floor; it is not a '
+                       'blanket spell multiplier. Dedicated native effect/input/expiry/gear/save controls '
+                       'exist. Broader modern events/geometry/unmapped species/PvP/client parity remains '
+                       'explicit; see weaken-checkpoint.md.'})
+for _talent in ("necromancer.irongolem","necromancer.revive"):
+    BLOCKERS.pop(_talent,None)
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
@@ -327,7 +439,8 @@ NATIVE_PARTIAL = {
     'sorceress.frozenarmor','sorceress.shiverarmor','sorceress.chillingarmor','sorceress.energyshield','sorceress.telekinesis',
     'sorceress.lightning','sorceress.chainlightning','sorceress.thunderstorm','sorceress.enchant','sorceress.chargedbolt','sorceress.blaze','sorceress.firewall','sorceress.meteor','sorceress.blizzard','sorceress.frozenorb','sorceress.hydra'
 }
-LEGACY = {'necromancer.raiseskeleton','necromancer.skeletonmastery','sorceress.teleport'}
+NATIVE_PARTIAL.update(['necromancer.bonespirit', 'necromancer.corpseexplosion', 'necromancer.poisondagger', 'necromancer.poisonexplosion', 'necromancer.poisonnova', 'necromancer.raiseskeleton', 'necromancer.skeletonmastery', 'necromancer.summonresist', 'necromancer.terror', 'necromancer.weaken'])
+LEGACY = {'sorceress.teleport'}
 PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',
     'sorceress.inferno':'Pinned synergy expression is balanced and verified. Still needs its distinct SQ channelling sequence, starting/interval mana and flame collision/damage.',
@@ -544,10 +657,45 @@ def assets(kind):
     return '\n'.join(lines)+'\n'
 
 
+
+def generated_tables(path, rendered, keys):
+    """Replace marked generated tables while retaining all authored prose.
+
+    Existing unmarked documents are bootstrapped only when headers and row
+    identities match. Unknown/manual tables are never silently discarded.
+    """
+    pattern=r'(?m)^\|[^\n]*\|\n(?:\|[^\n]*\|(?:\n|$))+'
+    fresh=list(re.finditer(pattern,rendered))
+    assert len(fresh)==len(keys),('Unexpected generated table count',path)
+    existing=path.read_text() if path.exists() else rendered
+    begin=lambda key:'<!-- BEGIN GENERATED: '+key+' -->'
+    end=lambda key:'<!-- END GENERATED: '+key+' -->'
+    marked=any(begin(key) in existing or end(key) in existing for key in keys)
+    if marked:
+        for key,new in zip(keys,fresh):
+            a,b=begin(key),end(key)
+            assert existing.count(a)==existing.count(b)==1,('Incomplete/duplicate generated region',path,key)
+            start=existing.index(a)+len(a);stop=existing.index(b)
+            assert start<stop,('Reversed generated region',path,key)
+            existing=existing[:start]+'\n'+new.group().rstrip('\n')+'\n'+existing[stop:]
+        return existing
+    old=list(re.finditer(pattern,existing))
+    assert len(old)==len(fresh),('Bootstrap needs explicit generated regions',path)
+    def identity(block):
+        lines=block.group().splitlines()
+        return lines[0],[line.split('|',2)[1].strip() for line in lines[2:]]
+    for a,b in zip(old,fresh):
+        assert identity(a)==identity(b),('Table identity mismatch; preserve authored document',path)
+    for key,a,b in reversed(list(zip(keys,old,fresh))):
+        replacement=begin(key)+'\n'+b.group().rstrip('\n')+'\n'+end(key)+'\n'
+        existing=existing[:a.start()]+replacement+existing[a.end():]
+    return existing
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');args=p.parse_args();data=build()
-    products={BALANCE/'class-skill-status.json':json.dumps(data,indent=2)+'\n',ROOT/'docs/class-skill-roadmap.md':render(data),
-              ROOT/'docs/skill-icons.md':assets('icons'),ROOT/'docs/skill-effects.md':assets('effects')}
+    products={BALANCE/'class-skill-status.json':json.dumps(data,indent=2)+'\n',ROOT/'docs/class-skill-roadmap.md':generated_tables(ROOT/'docs/class-skill-roadmap.md',render(data),('class-overview',*('class-'+name.lower() for name in ORDER))),
+              ROOT/'docs/skill-icons.md':generated_tables(ROOT/'docs/skill-icons.md',assets('icons'),('skill-icons',)),ROOT/'docs/skill-effects.md':generated_tables(ROOT/'docs/skill-effects.md',assets('effects'),('skill-effects',))}
     for path,text in products.items():
         if args.check:
             if path.read_text()!=text:raise SystemExit('Stale skill roadmap: '+str(path))

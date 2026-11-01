@@ -166,6 +166,7 @@ Inherited item resistances share Iron Golem's pending talent-tree/hotkey artwork
 
 Inherited flat reduction and absorption share Iron Golem's pending talent-tree/hotkey artwork and add no separately bindable icon. Effect/contact/audio work remains in the effects register.
 
+<!-- BEGIN GENERATED: skill-icons -->
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |
@@ -408,6 +409,7 @@ Inherited flat reduction and absorption share Iron Golem's pending talent-tree/h
 | Warlock | Enhanced Entropy | needed | not-applicable |
 | Warlock | Apocalypse | needed | needed |
 | Warlock | Abyss | needed | needed |
+<!-- END GENERATED: skill-icons -->
 
 Hunger needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
 

@@ -182,6 +182,7 @@ Inherited item resistances need no new independent active effect. Iron Golem sti
 
 Inherited NPC item absorption now changes life mechanically. Final Iron Golem absorption/contact/audio presentation remains pending; existing UO contact art is an identified placeholder. No source-specific absorption overlay is certified by this adapter. Keep any eventual cue synchronized with the actual absorbed hit.
 
+<!-- BEGIN GENERATED: skill-effects -->
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |
@@ -424,6 +425,7 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Enhanced Entropy | not-applicable | shadow_mastery |
 | Warlock | Apocalypse | needed | apocalypse, apocalypse, warlock_fire_cast_1, apocalypse |
 | Warlock | Abyss | needed | abysscenter, warlock_shadow_cast_1, abysscenter, fire_cast_2 |
+<!-- END GENERATED: skill-effects -->
 
 Smite currently uses ordinary UO weapon animation/sound and native get-hit animation20 as identified placeholders; final shield impact, stun and knockback presentation are pending. Zeal currently uses ordinary UO weapon animation/sound for its timed series and approved low-mana ordinary attacks; final series accents and impacts are pending. Both still need talent-tree and hotkey icons in the independent icon register. Leap currently uses native cast pose16/sound0x238 and mapped get-hit/knockback motion as identified placeholders; its final jump arc/landing effects and talent/hotkey icons remain separate pending assets. Double Throw uses native0xF42 projectile/0x238 sound placeholders pending per-weapon flight/impact effects and its separate talent/hotkey icon. Whirlwind uses native animation11/sound0x238 placeholders; final spinning body/trail/weapon impacts and its separate talent/hotkey icon remain pending.
 

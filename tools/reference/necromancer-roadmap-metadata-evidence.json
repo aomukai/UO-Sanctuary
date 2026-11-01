@@ -1,0 +1,136 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Necromancer roadmap annotation reconciliation",
+  "proposalApplied": true,
+  "gameplayChanged": false,
+  "installed": false,
+  "completedClasses": [],
+  "frozenFullCommit": "6dc7e60",
+  "frozenFullReceiptSha256": "56621042a813ad946127c93180889673ef6b43a526794fd709f169c0a7ac9880",
+  "verified": {
+    "retainedNativeMarkers": 845,
+    "changedMetadataFiles": 1,
+    "changedRows": 17,
+    "correctedVerificationLabels": 10,
+    "necromancerPartialLabels": 30,
+    "handlers": 186,
+    "skills": 240,
+    "preservedAuthoredDocuments": 3,
+    "generatedRegions": 11,
+    "freshAuditMarkers": 4,
+    "auditFingerprints": [
+      887,
+      21
+    ],
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "unchangedInstalledArtifacts": 106
+  },
+  "reviewedFieldChanges": {
+    "necromancer.raiseskeleton": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.skeletonmastery": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.claygolem": [
+      "remaining"
+    ],
+    "necromancer.skeletalmage": [
+      "remaining"
+    ],
+    "necromancer.summonresist": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.irongolem": [
+      "remaining"
+    ],
+    "necromancer.firegolem": [
+      "remaining"
+    ],
+    "necromancer.revive": [
+      "remaining"
+    ],
+    "necromancer.bonearmor": [
+      "remaining"
+    ],
+    "necromancer.poisondagger": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.corpseexplosion": [
+      "verification"
+    ],
+    "necromancer.poisonexplosion": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.bonespear": [
+      "remaining"
+    ],
+    "necromancer.poisonnova": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.bonespirit": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.weaken": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.terror": [
+      "remaining",
+      "verification"
+    ]
+  },
+  "artifacts": {
+    ".local/class-skills/necromancer-roadmap-metadata/audit-inputs.json": "4e0d8440535a61b540d22c85644d9e3d0a3d06c4634e7f8b2f47c70da391c573",
+    ".local/class-skills/necromancer-roadmap-metadata/audit-native-checks.log": "f877c4bedacf4eaf63ea084fb6b9a5d6d91478b95c16a04c22ac70fb450bba31",
+    ".local/class-skills/necromancer-roadmap-metadata/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/necromancer-roadmap-metadata/baseline.json": "c18a598ce7d5cb1ebb713ae634bf952cee334e88ed1965d544144dabecb6f514",
+    ".local/class-skills/necromancer-roadmap-metadata/before/data/Sanctuary/Balance/class-skill-status.json": "0c7e8025dd5b261b2fad8f36bb68dc5d9d1d5eb45736f08abdb5e454a74f275d",
+    ".local/class-skills/necromancer-roadmap-metadata/before/docs/class-skill-roadmap.md": "0ecc2ba44bf580da0851a05a7f6c5edf550756b21e6043c1a1226cfd2f5bd414",
+    ".local/class-skills/necromancer-roadmap-metadata/before/docs/skill-effects.md": "071fa49ab4050da8fa008c3a6ea0727a521dfb808f78aac7f379aea7598b0802",
+    ".local/class-skills/necromancer-roadmap-metadata/before/docs/skill-icons.md": "50906a58c58a44a5dace6ef269315809292addefbe1daaa645a09c2d86b51ef3",
+    ".local/class-skills/necromancer-roadmap-metadata/before/tools/build_skill_roadmap.py": "b4acd5d380fa8b97262db84ebcadf384f5367c8cbb06f39eb13e9f79c4bf69c0",
+    ".local/class-skills/necromancer-roadmap-metadata/before/tools/reference/first-loop-affix-audit.json": "df9cb1fed03fe8958868e878b06b928e2f013eb43de8e7ad1b6163104d9bca11",
+    ".local/class-skills/necromancer-roadmap-metadata/before/tools/reference/named-item-runtime-audit.json": "531378c579c2850a2f3f944bbdacc8091d547530a556ab45dc1de8fea961e86e",
+    ".local/class-skills/necromancer-roadmap-metadata/before/tools/reference/necromancer-acceptance-native-evidence.json": "56621042a813ad946127c93180889673ef6b43a526794fd709f169c0a7ac9880",
+    ".local/class-skills/necromancer-roadmap-metadata/before/tools/reference/necromancer-mechanics-native-evidence.json": "16225a05a17195ef74f76e9b2371fdf7fd152bd7ffb26a29aadc9baddecaaf97",
+    ".local/class-skills/necromancer-roadmap-metadata/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/necromancer-roadmap-metadata/first-loop-affix-audit.json": "3ee04ad05fe7dc102f6f6f78eb7e04a6255413ad08f2a74de2cbb7bcbb4fdc33",
+    ".local/class-skills/necromancer-roadmap-metadata/named-item-runtime-audit.json": "ec702e8d064d656c81ee01110371cd696431e865c57d7025a6a280de08c6e326",
+    ".local/class-skills/necromancer-roadmap-metadata/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/necromancer-roadmap-metadata/python-before-audit-copy.log": "c54085a26ad5db1606e08e3b096c4b720099a144af314abaf1b18ce801091455",
+    ".local/class-skills/necromancer-roadmap-metadata/python-tests.log": "4b65396e0e4d9f36ecd91146988b6ccc686e63242371e844611ec6e6a148d4dc",
+    ".local/class-skills/necromancer-roadmap-metadata/roadmap-check.log": "0101dd4227762a4a8a65e9adc791ef49d1e2d694180f217b876d167c6d5b758f",
+    "data/Sanctuary/Balance/class-skill-status.json": "527f3a7b5b12e226edf76bada901afc8fc7897f912a70a4190f4242d922fefa7",
+    "docs/class-skill-roadmap.md": "f4048a3bc0f81b2aa83aea87d65987d937c3fcbc73870b99e88689fa1e4cc353",
+    "docs/class-skills-resume-checkpoint.md": "a38ef1582a24134f760d22863d3122d47f7f245f9756e06ed177f8f80283d20e",
+    "docs/necromancer-roadmap-metadata-checkpoint.md": "f01310cdd2d90c7ca39b3eb3ac6bdc714e6439d47b252fca74f32d1da01f7a4a",
+    "docs/skill-effects.md": "b2af2935e984532184f60e2e7b4c0f18839798451236c045c48881bbb8718f82",
+    "docs/skill-icons.md": "e25440059467d698f34736e36d22507bae26efe5233fb6534bd1fa88d56c48f1",
+    "tools/build_skill_roadmap.py": "6de264e87cbc255cc7124a870a2a23686bd478e123eaff2ebdb9651b99ae824a",
+    "tools/record_necromancer_roadmap_metadata.py": "cd37189d679d256cfcba55f4b0b4e550d5d579ebb5b7b6f69e08d03cb87d1eb9",
+    "tools/reference/first-loop-affix-audit.json": "3ee04ad05fe7dc102f6f6f78eb7e04a6255413ad08f2a74de2cbb7bcbb4fdc33",
+    "tools/reference/named-item-runtime-audit.json": "ec702e8d064d656c81ee01110371cd696431e865c57d7025a6a280de08c6e326",
+    "tools/reference/necromancer-acceptance-native-evidence.json": "56621042a813ad946127c93180889673ef6b43a526794fd709f169c0a7ac9880",
+    "tools/reference/necromancer-mechanics-native-evidence.json": "16225a05a17195ef74f76e9b2371fdf7fd152bd7ffb26a29aadc9baddecaaf97",
+    "tools/reference/necromancer-roadmap-metadata-plan.json": "9234213590caad382c47d025a740d164d3b8c8da5acc75c3df230d7197de88e4",
+    "tools/reference/necromancer-roadmap-metadata.patch": "aeb1f13510f8e75376133c1dcbfe9bb38d5a6a57830ff711fc661766c623c41b"
+  },
+  "established": [
+    "All C#/project inputs and all five tested assemblies are identical to the frozen full845-marker run. The only copied-data change is the annotation-only class-skill-status file;all implementation/source IDs and other classes are preserved.",
+    "Ten stale labels become partial-native-coverage;remaining notes reflect existing receipts. All completion flags remain false. Marked table generation retains existing authored prose,with one explicitly recorded new roadmap checkpoint paragraph.",
+    "Fresh selected-build audits preserve decisions with current metadata fingerprints. The strict frozen full recorder remains tied to its original annotation bytes;this receipt verifies the current annotation-only bridge rather than weakening that recorder."
+  ],
+  "remaining": [
+    "No new talent is enabled or certified complete. Individual barrier/current-engine/native/control/credit/PvP/Sunder/client and asset gaps remain.",
+    "Continue the Sorceress baseline using existing shared components;keep Inferno modern input/payment cadence individually deferred."
+  ]
+}
