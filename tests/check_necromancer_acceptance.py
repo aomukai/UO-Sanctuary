@@ -64,6 +64,19 @@ if __name__ == '__main__':
             extra_live_commands=('mage-missile-live', 'mage-missile-delayed-live'),
             extra_connected_checks=(), extra_one_reload_families=(), extra_target_input_commands=(),
             extra_ground_input_commands=(), extra_early_reload_families=(), save_command='save', save_result=None)
+    if '--confuse-input-smoke' in sys.argv:
+        config.update(stage=ROOT / '.local/class-skills/necromancer-acceptance-confuse-input',
+            extra_families=('confuse-cast',), extra_checks=(), extra_live_commands=(),
+            extra_connected_checks=(), extra_one_reload_families=(),
+            extra_target_input_commands=('confuse-cast-right', 'confuse-cast-quick'),
+            extra_input_timeouts={'confuse-cast-right':18, 'confuse-cast-quick':18},
+            extra_ground_input_commands=(), extra_early_reload_families=(), save_command='save', save_result=None)
+    if '--confuse-resume-smoke' in sys.argv:
+        config.update(stage=ROOT / '.local/class-skills/necromancer-acceptance-confuse-resume',
+            extra_families=('confuse-resume',), extra_checks=(), extra_live_commands=(),
+            extra_connected_checks=('confuse-resume-reload-check',), extra_one_reload_families=(),
+            extra_target_input_commands=(), extra_ground_input_commands=(), extra_early_reload_families=(),
+            save_command='save', save_result=None)
     if '--plan' in sys.argv:
         print(json.dumps({key: len(config[key]) for key in (
             'extra_families', 'extra_checks', 'extra_live_commands', 'extra_target_input_commands',

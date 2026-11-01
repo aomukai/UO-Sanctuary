@@ -1,0 +1,85 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "candidate": {
+    "tableCandidateRva": "0x163aeb0",
+    "slot": 11,
+    "skillId": 41,
+    "candidateRva": "0x43bf70",
+    "fragments": [
+      {
+        "rva": "0x43bf70",
+        "endRva": "0x43c01c",
+        "unwindRva": "0x18668c4"
+      },
+      {
+        "rva": "0x43c01c",
+        "endRva": "0x43c06a",
+        "unwindRva": "0x18668dc"
+      },
+      {
+        "rva": "0x43c06a",
+        "endRva": "0x43c0fe",
+        "unwindRva": "0x18668f0"
+      }
+    ]
+  },
+  "process": {
+    "pid": 508754,
+    "startTicks": 14646718,
+    "name": "Main"
+  },
+  "observedPermissions": [
+    {
+      "rva": "0x43bf70",
+      "mappingCoverageComplete": true,
+      "readableExecutable": false,
+      "permissions": [
+        "r-xs",
+        "---s"
+      ]
+    },
+    {
+      "rva": "0x43c01c",
+      "mappingCoverageComplete": true,
+      "readableExecutable": false,
+      "permissions": [
+        "---s"
+      ]
+    },
+    {
+      "rva": "0x43c06a",
+      "mappingCoverageComplete": true,
+      "readableExecutable": false,
+      "permissions": [
+        "---s"
+      ]
+    }
+  ],
+  "completeCandidateReadable": false,
+  "processMemoryRead": false,
+  "bytesRead": 0,
+  "processImageVerified": false,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "dispatcherLinkVerified": false,
+  "callbackSemanticsVerified": false,
+  "handlerEnabled": false,
+  "artifacts": {
+    "tools/probe_inferno_current_reference.py": "786f7739374f675cef8a7813b4eada9524df28e4d4e425e6d322fa97e290bae1",
+    "tools/reference/barbarian-current-callback-evidence.json": "46f7ec71e22e947ac3e44a8f4618a9e09a996e5219ea8e3fcae98b1c62c0f452",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/probe_barbarian_callback_tables.py": "34e98ed00e7eae432c61084e0d8c817311b7172367fe569015f527506d8de566",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6"
+  },
+  "remaining": [
+    "Slot11 is from the corroborated candidate table; current dispatcher/index linkage and callback identity remain unverified.",
+    "The process is selected by owned D2R.exe command identity. No in-memory PE identity or code bytes are verified;addresses come from the separately hashed pinned executable file.",
+    "This observation records map permissions only. No protected code is read or forced. Readability can change with the process context.",
+    "Modern accepted start/reentry/payment frequency and release composition remain unresolved. Existing checked channel/sequence and stream components do not establish that cadence."
+  ]
+}

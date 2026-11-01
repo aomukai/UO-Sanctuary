@@ -70,19 +70,28 @@ public static class ConfuseResumeChecks
         var account=FixtureNetwork.Authenticate(network,p,"confuse-resume-");
         p.MoveToWorld(s.Point,Map.Maps[s.Map]);actor.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);victim.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);
         Require(actor.Map.GetSector(actor.Location).Active,"Reload did not activate the actual NPC sector");
-        actor.Frozen=actor.CantWalk=false;actor.AIObject.AITimer.Prod();var deadline=TimedEffects.Now.AddSeconds(12);
+        actor.Frozen=actor.CantWalk=false;actor.AIObject.AITimer.Prod();var deadline=TimedEffects.Now.AddSeconds(12);bool awaitingAcquisition=false;
         void Observe()
         {
-            if(SkillHealth.Balance256(p)>=s.OwnerLife&&SkillHealth.Balance256(victim)>=s.VictimLife&&TimedEffects.Now<deadline)
-            {Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Observe));return;}
+            var current=NecromancerEffects.Profiles.Find(actor);var mind=current?.Mind;
+            bool damaged=SkillHealth.Balance256(p)<s.OwnerLife||SkillHealth.Balance256(victim)<s.VictimLife;
+            bool acquired=mind!=null&&mind.Draws>s.Mind.Draws;
+            // A retained valid combatant can be hit before the independent
+            // native10s acquisition gate opens. Require both observations
+            // within the original12s window; never force a scan or reset RNG.
+            if((!damaged||!acquired)&&TimedEffects.Now<deadline)
+            {
+                if(damaged&&!acquired&&!awaitingAcquisition)
+                {awaitingAcquisition=true;Log.Information("Confuse resume: damage before next acquisition; generation={Generation},current={Current},saved={Saved},nextAcquireMs={NextAcquireMs},curseUnchanged={CurseUnchanged}",s.Generation,JsonSerializer.Serialize(mind),JsonSerializer.Serialize(s.Mind),actor.NextReacquireTime-Core.TickCount,current?.Curse==s.Curse);}
+                Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Observe));return;
+            }
             try
             {
-                var current=NecromancerEffects.Profiles.Find(actor);var mind=current.Mind;
                 Require(p.Alive&&actor.Alive&&victim.Alive
                     &&(SkillHealth.Balance256(p)<s.OwnerLife||SkillHealth.Balance256(victim)<s.VictimLife),
                     $"Reload did not resume actual Confuse combat: actor={actor.Serial}/{actor.Location}, target={actor.Combatant?.Serial}, mind={JsonSerializer.Serialize(mind)}, life={SkillHealth.Balance256(p)}/{s.OwnerLife};{SkillHealth.Balance256(victim)}/{s.VictimLife}, timer={actor.AIObject.AITimer.Running}, frozen={actor.Frozen}/{actor.CantWalk}, sector={actor.Map.GetSector(actor.Location).Active}, hitChance={ClassStats.HitChance(ClassStats.AttackRating(actor),ClassStats.Defense(p),ClassStats.Level(actor),ClassStats.Level(p))}, nextSwing={actor.NextCombatTime-Core.TickCount}, nextDecision={((GraveyardUndead)actor).NextMeleeDecision-Core.TickCount}, harmful={actor.CanBeHarmful(p,false)}, enemy={actor.IsEnemy(p)}");
                 Require(current.Curse==s.Curse&&mind is{Mode:3}&&mind.Map==s.Mind.Map&&mind.UntilUtc==s.Mind.UntilUtc
-                    &&mind.Draws>s.Mind.Draws&&mind.Draws-s.Mind.Draws<100,"Reload reset the curse/override or failed real acquisition draws");
+                    &&mind.Draws>s.Mind.Draws&&mind.Draws-s.Mind.Draws<100,$"Reload reset the curse/override or failed real acquisition draws: current={JsonSerializer.Serialize(current)},saved={JsonSerializer.Serialize(s)},nextAcquireMs={actor.NextReacquireTime-Core.TickCount}");
                 ulong expected=s.Mind.Seed;for(long i=s.Mind.Draws;i<mind.Draws;i++){SourceRandom.Roll(ref expected);}
                 Require(mind.Seed==expected&&(mind.Focus==p.Serial.Value||mind.Focus==victim.Serial.Value),"Natural acquisition did not continue the saved source-algorithm stream");
                 Require(SourceMind.Neutral(actor)&&actor.GetMaster()==null&&!actor.Controlled&&!actor.Summoned

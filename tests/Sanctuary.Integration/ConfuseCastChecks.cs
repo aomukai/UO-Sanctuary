@@ -178,22 +178,28 @@ public static class ConfuseCastChecks
                 if(NecromancerEffects.Curse(t) is not{} curse){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
                 Require(began&&curse.Rank==1&&NecromancerEffects.ManaBalance256(p)==mana-3328,"Real input capture/payment");ClassCombat.Stop(p);
                 Require((curse.UntilUtc-TimedEffects.Now).TotalMilliseconds is >9900 and <=10000,"Rank1Confuse duration is not250frames");
-                int victimHp=victim.Hits;DateTime movementAt=TimedEffects.Now.AddMilliseconds(4000);bool escaped=false;
+                int victimHp=victim.Hits;DateTime combatStarted=TimedEffects.Now;bool fought=false;
                 var controlled=NecromancerEffects.Profiles.Find(t);NecromancerEffects.Profiles.Store(t,controlled with{Mind=controlled.Mind with{Seed=Seed(true)}});
                 t.Frozen=t.CantWalk=false;t.AIObject.AITimer.Prod();
-                void Escaping()
+                void ObserveCombat()
                 {
                     if(finished){return;}
-                    if(TimedEffects.Now<movementAt){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Escaping));return;}
+                    // Target selection is deterministic here; native melee
+                    // decision/hit rolls are not. Observe real damage during
+                    // the actual curse lease instead of assuming a hit by4s.
+                    // Leave the original10s effect and all hit rolls intact.
+                    if(victim.Hits>=victimHp&&TimedEffects.Now<curse.UntilUtc.AddMilliseconds(-100))
+                    {Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(ObserveCombat));return;}
                     try{Require(victim.Hits<victimHp&&SourceMind.Neutral(t)&&p.CanBeHarmful(t,false)&&t.GetMaster()==null,
-                        $"Real Confuse cast failed autonomous NPC combat/neutral attackability: hp={victim.Hits}/{victimHp}, mind={JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(t)?.Mind)}, combatant={t.Combatant?.Serial}, victim={victim.Serial}, positions={t.Location}/{victim.Location}, action={t.AIObject.Action}, running={t.AIObject.AITimer.Running}, sector={t.Map.GetSector(t.Location).Active}, returning={t.ReturningHome}, enemy={t.IsEnemy(victim)}, harmful={t.CanBeHarmful(victim,false)}, attackChance={t.NormalStats.AttackChance}, frozen={t.Frozen}/{t.CantWalk}");escaped=true;}catch(Exception e){Fail(e);}
+                        $"Real Confuse cast failed autonomous NPC combat/neutral attackability: hp={victim.Hits}/{victimHp}, mind={JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(t)?.Mind)}, combatant={t.Combatant?.Serial}, victim={victim.Serial}, positions={t.Location}/{victim.Location}, action={t.AIObject.Action}, running={t.AIObject.AITimer.Running}, sector={t.Map.GetSector(t.Location).Active}, returning={t.ReturningHome}, enemy={t.IsEnemy(victim)}, harmful={t.CanBeHarmful(victim,false)}, attackChance={t.NormalStats.AttackChance}, hitChance={ClassStats.HitChance(ClassStats.AttackRating(t),ClassStats.Defense(victim),ClassStats.Level(t),ClassStats.Level(victim))}, nextSwing={t.NextCombatTime-Core.TickCount}, nextDecision={t.NextMeleeDecision-Core.TickCount}, frozen={t.Frozen}/{t.CantWalk}");
+                        fought=true;Log.Information("Confuse input combat: {Label},first damage after{ElapsedMs}ms,hit chance={HitChance}",label,(TimedEffects.Now-combatStarted).TotalMilliseconds,ClassStats.HitChance(ClassStats.AttackRating(t),ClassStats.Defense(victim),ClassStats.Level(t),ClassStats.Level(victim)));}catch(Exception e){Fail(e);}
                 }
-                Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Escaping));
+                Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(ObserveCombat));
                 void Expired()
                 {
                     if(finished){return;}
                     if(TimedEffects.Now<curse.UntilUtc.AddMilliseconds(100)){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));return;}
-                    try{Require(escaped&&NecromancerEffects.Curse(t)==null&&!SourceMind.Neutral(t)&&NecromancerEffects.Profiles.Find(t).Mind.Mode==0&&NecromancerEffects.Profiles.Find(t).Curse==null,"Natural rank1 Confuse did not retire its actual control state");finished=true;t.Delete();victim.Delete();p.Delete();account.Delete();Log.Information("{Label}-result: passed",label);}catch(Exception e){Fail(e);}
+                    try{Require(fought&&NecromancerEffects.Curse(t)==null&&!SourceMind.Neutral(t)&&NecromancerEffects.Profiles.Find(t).Mind.Mode==0&&NecromancerEffects.Profiles.Find(t).Curse==null,"Natural rank1 Confuse did not retire its actual control state");finished=true;t.Delete();victim.Delete();p.Delete();account.Delete();Log.Information("{Label}-result: passed",label);}catch(Exception e){Fail(e);}
                 }
                 Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));
             }
