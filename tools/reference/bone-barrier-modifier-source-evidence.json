@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "runtimeChanged": false,
+  "currentExecutableParity": false,
+  "lastNativeEvidence": "tools/reference/parking-boundaries-native-evidence.json",
+  "unchangedInstalledArtifacts": 106,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/reference/sentry-death-entry-source-evidence.json": "ef1610e26044cca18633a4a48f159adbe86d52497776b155729f823ba4758639",
+    ".local/class-skills/sentry-death-entry-source-probe.cpp": "6bd6cc7f4bb6d899261aa589014b9a8348ed20e1c6b883d531d740ec07a64475",
+    ".local/class-skills/parking-boundaries/birth-inputs.json": "d0ee82ea65449b90af60e3e3b6229c746baa944dbbc7ea6287bd453027a95599",
+    "tools/reference/parking-boundaries-native-evidence.json": "cf6c83a32ed0389a8317abae3e24c63ff2c554d08e421641033087f3fbe97523",
+    "tools/probe_bone_barrier_modifier.py": "c5e39cccc701502bd5627c3ba1a14a3c072b7f91c5bf289b71fe497044f9d940"
+  },
+  "compiledRoutineHashes": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "STATLIST_IsExtended": "1239d1122a0ec4f6c3a40f761df496bc237397fc66a233c1f463e36f9d1bcaad",
+    "STATLIST_AddUnitStat": "616ec88197c6a1ddd8e5b614729324fcbb202653378edb5fcf2d3ef3dad618da",
+    "D2Common_10469": "03e931e822deff014d44ad5780f3aff015319a378596abfa52e96741f173e3f6",
+    "SUNIT_GetUnitList": "04a1df050a9563226f253099751db9e5ce2bebae629e7c719fc951597eba6bd7",
+    "SUNIT_GetServerUnit": "53ecb549e0e4317024483d797b104523b4954633cbd37e7d1aff8fc7d9a9591a",
+    "SUNIT_GetOwner": "3640cd8797e7b59df0d1ffb1b1822adb1141e55d330bbae228413dc54f0e6555",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "AIUTIL_CheckAiControlFlag": "5ff07904d58308952298180f38c6357422a500424869894142445b378679d587",
+    "AIUTIL_ToggleAiControlFlag": "66af26ffbf7292e5844c4efa351492ef4084f87e6d36709d6bfa8d70e4346c73",
+    "AIGENERAL_AllocAiControl": "e6b9fbd946b98480f3ba590aa757fbe79c15998f2ef08d55fce95bf250673567",
+    "AIGENERAL_SetOwnerData": "abde36e777fe92553212921cc09e08306d5b71ef470dfbbbd1526dd13d2bff95",
+    "AIGENERAL_UpdateMinionList": "0b6907f9d6927c34aa7f8f4ca18e78df16f9d4a693bbb7f90d3ce1f000c1425f",
+    "STATES_UpdateStayDeathFlags": "497975854515a2be2374edf89a7b2cd2142d6a3ae65049ec522f868cf41b0a5f",
+    "sub_6FC68240": "73ec9e72f79eb18d1ab56e8f10016e54a19be27cde5808811eaf63c58d00a1d3",
+    "DUNGEON_SaveKilledUnitGUID": "210b6bcfcac5d1c3b199cd38f5e1e9f2713ce14f94bce9f860d873582b49be3b",
+    "D2GAME_MONSTERMODE_Unk_6FC63040": "531a8dab609a43ff1bf48a704e0524c422554e071b52734581e8d4775fb244f4",
+    "sub_6FC63E80": "c0e232a3f4d4e313f0f85e991f3163082c242b63753cf147991fbf65d7a63331",
+    "sub_6FC63B30": "1ba629928acb640a9921885e00ae9ca02b429780aa42bdde0d457d658e0ff656",
+    "sub_6FC641D0": "8b2fbb742497a99f4b9eedcc47b9cbef42bf092fe0ddf97d6d4e263beb9ef3ad",
+    "AIGENERAL_FreeMinionList": "4e9eeeac38c37fdeb2b6c68b61a54f0917312daec67883ec5eda6773bbdd0d5b",
+    "AIGENERAL_ExecuteCallbackOnMinions": "a0376be35464de9af84b065e1abefd08ecb6d21ad7439b94d396422b6d3af964",
+    "MONSTERUNIQUE_GetUMods": "69033d526ac07dd4f07d2c2aec4dbfef3992bbecce214a60a1ece3183deb6504",
+    "MONSTERUNIQUE_MinionCallback_KillMinion": "1e48291d3c2121d1a2c4b4b99a0c236ba261d9efdc51db3ea03a7e3117b67179",
+    "MONSTERUNIQUE_KillMinions": "cbc10f5fd6e73f8d58baddb26240f7a4324f7e1fbf786234ede56588d974f249",
+    "sub_6FC6E780": "eac87e22262c1b59576f2a6d27438b9014a90b9ba6375adfe2c74cc1ab05ca8b",
+    "sub_6FC6E860": "141875c1c1faf8edb64faab7c137e265faf2603ccbe7d26f9f9a09fb4bfc817d",
+    "AIGENERAL_AllocMinionList": "022d2ce9babf527f4212a9243b66e5ab8accb2937592c6c1a6aa03d1534180bb"
+  },
+  "reviewedRoutineHashes": {
+    "D2GAME_ModeChange_6FC65220": "ece25d8680b1c04d9b9cc6141be396f7e7f30def1ee51e120d634760cdacc9a5",
+    "SKILLS_SrvDo060_BoneWall": "78c7945dd101e8ad9a4fae07b3a6c21aebffa8621705ce86ab959cb1abaea545",
+    "SKILLS_SrvDo062_BonePrison": "73cbd1b10078e5614770e1c3d940e874a744dedb0841ce50a9432497b7266e30",
+    "MISSMODE_SrvDo13_BoneWallMaker": "db95ac52801c03f54f22d3ffed6c61414bd8bb8484a27af245af14b9888eee3a",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1"
+  },
+  "verified": {
+    "controlledGraphContexts": 192,
+    "negativeSanitizerControls": 2,
+    "fullModifierTableRows": 43,
+    "modifierSlots": 9
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-modifier-source/probe.cpp": "21c5dcee297d077440574ce08f37ef3aadb1a56e9bea8872de68d8b3947dbb63",
+    ".local/class-skills/bone-barrier-modifier-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-modifier-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-modifier-source/cases.json": "ceeb93c7f64cfaf6c557f7451991e776e54caff11be9782e93e8cbaf5be2df90",
+    ".local/class-skills/bone-barrier-modifier-source/null-owner-sanitizer.log": "13dcf7fb618748adbe38cd3120b15b882d237ea409d7249c9fa81636fce83092",
+    ".local/class-skills/bone-barrier-modifier-source/immediate-free-sanitizer.log": "e4799b5c0eb28ae644395de546d741eb43d49f9ec871e979df5a6b24aacd2d4a"
+  },
+  "established": [
+    "Complete regular death entry/cleanup and AI owner graph bodies are reused unchanged. Complete 43-row/four-argument UMod dispatcher, getter, index-1 wrapper, KillMinions, callback, list removal and traversal execute unchanged.",
+    "192 controlled Wall/Prison contexts enter every registered segment into death exactly once, with dead collision requested once each, then retain every GUID and supplied fractional HP in mode12. Positive pool frees quarantine nodes until each case ends; this does not prove actual D2 pool lifetime semantics.",
+    "Complete reviewed skill/common-summon/maker bodies set root AI owner to caster and child AI owner to root, with UMod15 on every segment. ModeChange dispatches index1 after regular death entry/graph updates. Low-level initial flags are still explicit inputs.",
+    "Two negative sanitizer controls reproduce unchanged legacy null-owner-AI traversal on flag2 root death and iterator heap-use-after-free with immediate physical list-node free. Neither defect is imported into Sanctuary."
+  ],
+  "remaining": [
+    "Full ModeChange/stat/path/animation/event scheduling and modifier assignment are declared boundaries; the entry/dispatch adapter is not their implementation. Initial low-level spawn flags and modern executable parity remain uncertain.",
+    "Actual allocator guarantees or corrected modern traversal/root-owner resolution are needed before treating the legacy graph as a safe current-engine specification. Missing/stale child GUIDs, owner disappearance, overlapping casts and collision geometry need native integration.",
+    "Native immediate barrier deletion/root cleanup remains provisional; death phases, 15-frame metadata scheduling and final GUID removal remain separate acceptance work. No class completion, handler increase, runtime or installed-save change is claimed."
+  ]
+}

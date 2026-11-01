@@ -164,3 +164,7 @@ Reused `SpellHelper.IsTown`, existing map-change subscriptions, class-switch par
 ## Legacy parking / facet and wardrobe acceptance — 2026-11-01
 
 Reused original Necromancer actor types, actual learned original Revive creation and existing facet life/stat assertions. Same-difficulty safety entry must retain birth state rather than invent a projection. Actual difficulty changes preserve injured FP256 percentage and captures. The existing public wardrobe suite retains its full transactional assertions; safe-area class restoration remains parked, and the shared flat-corridor fixture verifies real field/slot returns. Additional test helper visibility is internal only. Production C#, runtime data and kernel behavior are unchanged; see [coverage and limits](parking-boundaries-checkpoint.md).
+
+## Barrier UMod15 and minion traversal — 2026-11-01
+
+The [modifier review](bone-barrier-modifier-source-review.md) extends the existing sentry/barrier harness with complete unchanged dispatcher and graph callbacks. Keep AI graph ownership distinct from combat ownership. Its 192 positive controls require an explicitly quarantined pool; negative controls reproduce null-owner traversal and immediate-free iterator hazards in the older source. Do not copy these defects, assume low-level initial flags, or treat mode12 as actor deletion. Full ModeChange scheduling/current executable behavior remain separate. Continue unaffected Necromancer acceptance using existing SourceMind/Conversion/curse services.

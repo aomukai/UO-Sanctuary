@@ -1,0 +1,22 @@
+# Bone barrier modifier and linked death review
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This checkpoint adds source evidence; it changes no playable mechanics, assemblies, runtime data or saves. The last full native acceptance remains [parking boundaries](parking-boundaries-checkpoint.md): **406 markers**, 186 handlers / Necromancer 30, no completed class.
+
+The [probe](../tools/probe_bone_barrier_modifier.py) reuses the complete sentry regular death-entry, cleanup, graph update and death-end bodies. It adds the complete unchanged minion removal/traversal, UMod getter, 43-row dispatcher, index-1 wrapper, KillMinions and callback bodies. Hashes are checked against the pinned D2MOO commit and reused harness. The complete ModeChange caller is reviewed separately: modifier index 1 follows the regular death-entry callback. Its path/stat/animation/scheduler services are **not executed** by the probe's declared entry/dispatch adapter.
+
+**192 controlled graph cases pass ASan/UBSan.** Both skill labels, root flags 2/3, child flags 0–3, one through four children, and individual child/root deaths are covered. Flag-2 root deaths are excluded from positive cases and tested as an explicit negative control. Each safe composition requests death and dead collision once for every registered segment. Ordinary completion preserves every GUID and supplied fractional HP in mode 12; it does not establish final entity removal.
+
+Positive cases use a deliberately declared pool model: unlink immediately, quarantine the allocation until the case ends. This allows the unchanged iterator to be observed without claiming that the real D2 pool provides the same lifetime. Two separate negative controls preserve the original bodies:
+
+- A flag-2 root whose AI owner is the player reaches a null owner-AI dereference in minion traversal under the declared lookup service.
+- Physically deleting a minion-list node immediately reproduces a heap-use-after-free when traversal resumes after its callback removed that node.
+
+These are limitations of this older source composition, **not claims that the pinned modern executable crashes**, and neither is copied into Sanctuary. The complete reviewed common-summon/Wall/Prison/maker callers give the root the caster as AI owner and children the root as AI owner. Every segment receives modifier 15. Separate stored combat ownership must not be substituted for these links. The unknown low-level initial flag-1 state still prevents selecting a live graph distribution from this matrix.
+
+The probe reproduces with `python3 tools/probe_bone_barrier_modifier.py --check`; its [receipt](../tools/reference/bone-barrier-modifier-source-evidence.json) separates compiled bodies, reviewed callers, service boundaries and normalized negative sanitizer reports. Current C#/project/data inputs still match the accepted native birth inventory. All **106 installed artifact hashes** remain unchanged. The 71 Python tests, eight-class/240-skill catalogue and 573-definition readiness checks pass. No fresh broad native run is claimed for source-only changes. The roadmap generator’s exact-output check is already stale at parent `b722d88`; existing manually maintained checkpoint history is preserved rather than overwritten by regeneration. The separate catalogue and named-readiness checks pass.
+
+Barrier cleanup remains individually provisional. Resolving it requires modern root/child behavior, collision release and final removal evidence; the DT15 animation row alone is insufficient. Continue unaffected Necromancer acceptance rather than importing either defect or spending another implementation pass guessing initial flags. Before adding any new AI/state machinery, inspect the existing `SourceMind`, `PaladinConversion`, Confuse, Attract and Mind Blast integration and their retained tests.
+
+Nonblocking observation for later: when a monster destroys an end or middle segment of Bone Wall or Bone Prison, does the rest collapse as well, or does only that gap open? Collision timing relative to the collapse is a separate question. No respec or answer is required to continue other skills.
+
+Effects/audio and talent/hotkey icons remain in their separate [effects](skill-effects.md) and [icons](skill-icons.md) ledgers. Existing barrier placeholders remain identified; this review creates no new asset requirement or completion claim.
