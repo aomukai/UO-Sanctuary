@@ -24,8 +24,9 @@ internal static class MageOffensiveSkills
         if(!IronGolemWorld.Eligible(actor,owner,target)){return false;}
         // Other approved secondaries still need their actual NPC projectile/
         // field bindings. Do not select them and silently substitute a spell.
-        var choice=Select(actor.MageElement,MagePetBuffs.HardRank(actor),ability=>ability is CombatAbility.StaticField or CombatAbility.ChainLightning,
+        var choice=Select(actor.MageElement,MagePetBuffs.HardRank(actor),ability=>ability is CombatAbility.StaticField or CombatAbility.ChainLightning or CombatAbility.GlacialSpike,
             ()=>NecromancerMageMissiles.ActorLimited(actor,100));
+        if(choice==CombatAbility.GlacialSpike){return NecromancerMageMissiles.LaunchGlacial(actor,target,at)>0;}
         if(choice==CombatAbility.ChainLightning)
         {return ChainLightning.CastNpc(actor,target.Location,MagePetBuffs.Values(CombatAbility.ChainLightning,10,actor.Level),at)>0;}
         if(choice==CombatAbility.StaticField)

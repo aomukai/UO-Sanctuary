@@ -10,7 +10,10 @@ using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
-internal sealed record MageMissilePacket(string Missile,string Element,int Rank,int Minimum256,int Maximum256,int ElementFrames);
+internal sealed record MageMissilePacket(string Missile,string Element,int Rank,int Minimum256,int Maximum256,int ElementFrames)
+{
+    public CombatAbility Spell{get;init;}
+}
 internal sealed record MageMissileState(long Id,uint Actor,uint Owner,int Map,int Z,double X,double Y,double Vx,double Vy,
     int Frame,int Frames,int VelocityFp8,MageMissilePacket Packet,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null);
 internal sealed record MageCriticalSeed(uint Actor,uint Owner,ulong Seed);
@@ -68,30 +71,35 @@ internal static class NecromancerMageMissiles
         return new(key,missile.Text("EType"),rank,missile.ElementDamage256(false,0,381),missile.ElementDamage256(true,0,381),missile.ElementFrames());
     }
     internal static long Launch(NecromancerMinion actor,Mobile target,DateTime at)
+        =>actor is{Alive:true,Deleted:false,IsMage:true}?LaunchPacket(actor,target,at,Packet(actor.MageElement,actor.MageMissileRank)):0;
+    internal static long LaunchGlacial(NecromancerMinion actor,Mobile target,DateTime at)
+        =>actor is{Alive:true,Deleted:false,IsMage:true}?LaunchPacket(actor,target,at,GlacialSpikes.Packet(actor)):0;
+    private static long LaunchPacket(NecromancerMinion actor,Mobile target,DateTime at,MageMissilePacket packet)
     {
         if(actor is not{Alive:true,Deleted:false,IsMage:true,ControlMaster:PlayerMobile owner}||target is not{Alive:true,Deleted:false}
             ||actor.Map==null||actor.Map==Map.Internal||target.Map!=actor.Map||!ClassCombat.IsHostile(owner,target)) {return 0;}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Mage missile needs UTC launch time");}
-        var packet=Packet(actor.MageElement,actor.MageMissileRank);var slow=AmazonSlowMissiles.Capture(actor,true);
+        var slow=AmazonSlowMissiles.Capture(actor,true);
         packet=packet with{Minimum256=slow.Damage256(packet.Minimum256),Maximum256=slow.Damage256(packet.Maximum256)};
-        int velocity=SlowMissilePayload.VelocityFp8(14,0,packet.Rank,0x21,0,true,slow.VelocityPercent);
+        bool glacial=packet.Spell==CombatAbility.GlacialSpike;int frames=glacial?40:30;
+        int velocity=SlowMissilePayload.VelocityFp8(glacial?16:14,0,packet.Rank,0x21,0,true,slow.VelocityPercent);
         int dx=target.X-actor.X,dy=target.Y-actor.Y;if(dx==0&&dy==0){dx=dy=1;}
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=checked(++_nextId);
         if(!Seeds.TryGetValue(actor.Serial.Value,out var seed)||seed.Owner!=owner.Serial.Value)
         {Seeds[actor.Serial.Value]=new(actor.Serial.Value,owner.Serial.Value,SourceRandom.InitLow(SeedLow()));}
         var state=new MageMissileState(id,actor.Serial.Value,owner.Serial.Value,actor.Map.MapID,actor.Z,actor.X,actor.Y,vector.X,vector.Y,
-            0,30,velocity,packet,slow,SourceRandom.InitLow(SeedLow()),new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40));
+            0,frames,velocity,packet,slow,SourceRandom.InitLow(SeedLow()),new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40));
         Validate(state);Bolts.Add(id,state);return id;
     }
     private static bool Fighting(MageMissileState s,NecromancerMinion actor,PlayerMobile owner)=>actor is{Alive:true,Deleted:false,IsMage:true}
         &&actor.ControlMaster==owner&&actor.Map?.MapID==s.Map&&owner is{Alive:true,Deleted:false,NetState:not null}
         &&owner.Map==actor.Map&&PersistentMinions.Active(owner,actor)&&actor.Permitted(owner)&&!SpellHelper.IsTown(owner.Location,owner);
-    internal static void Tick(DateTime at,bool? allowActions=null)
+    internal static void Tick(DateTime at,bool? allowActions=null,long? onlyId=null)
     {
         foreach(uint actor in Seeds.Keys.Where(id=>World.FindMobile((Serial)id) is not NecromancerMinion{Deleted:false,IsMage:true}).ToArray()){Seeds.Remove(actor);}
         while(true)
         {
-            var s=Bolts.Values.Where(x=>x.NextUtc<=at).OrderBy(x=>x.NextUtc).ThenByDescending(x=>x.Id).FirstOrDefault();if(s==null){break;}
+            var s=Bolts.Values.Where(x=>x.NextUtc<=at&&(!onlyId.HasValue||x.Id==onlyId.Value)).OrderBy(x=>x.NextUtc).ThenByDescending(x=>x.Id).FirstOrDefault();if(s==null){break;}
             try{Advance(s,allowActions);}
             catch(Exception e)
             {
@@ -130,7 +138,12 @@ internal static class NecromancerMageMissiles
         bool Wall(SourceMissileCell cell)=>!map.LineOfSight(new Point3D((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z+12),new((cell.X+1)/2,(cell.Y+1)/2,s.Z+12));
         int Hit(uint serial,bool terminal)
         {
-            if(!terminal&&World.FindMobile((Serial)serial) is Mobile target){Impact(actor,target,s);}
+            if(s.Packet.Spell==CombatAbility.GlacialSpike)
+            {
+                var point=next.X>=0&&next.Y>=0&&next.X<map.Width&&next.Y<map.Height?new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z):new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z);
+                GlacialSpikes.NpcExplosion(actor,owner,s,point);
+            }
+            else if(!terminal&&World.FindMobile((Serial)serial) is Mobile target){Impact(actor,target,s);}
             removed=true;return 2;
         }
         BasicMissileUpdate.Run(new(true,true,s.VelocityFp8,s.Frames-s.Frame,2,s.Frames,true),
@@ -162,28 +175,33 @@ internal static class NecromancerMageMissiles
         {
             var parts=packet.Element switch{"fire"=>new GearDamage(0,raw/256.0,0,0,0),"cold"=>new(0,0,raw/256.0,0,0),"ltng"=>new(0,0,0,raw/256.0,0),_=>throw new NotSupportedException("Unsupported mage element")};
             var damage=SkillCombat.MitigatePrepared(actor,target,parts);
-            if(packet.Element=="cold"){ColdStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
+            if(packet.Spell==CombatAbility.GlacialSpike){FreezeStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
+            else if(packet.Element=="cold"){ColdStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
             int loss=SkillHealth.Damage(actor,target,NamedElements.To256(damage.Total));if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,actor,loss);}CombatDamage.Finish(target,actor);
         }
         return Math.Max(0,before-SkillHealth.Balance256(target));
     }
     private static void Validate(MageMissileState s)
     {
-        if(s==null||s.Id<=0||!((Serial)s.Actor).IsMobile||!((Serial)s.Owner).IsMobile||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal
-            ||s.Z is <-128 or >127||s.Frames!=30||s.Frame is <0 or >=30||s.VelocityFp8 is <0 or >2688||s.NextUtc.Kind!=DateTimeKind.Utc||s.NextUtc>DateTime.MaxValue.AddMilliseconds(-1200)
+        bool glacial=s?.Packet?.Spell==CombatAbility.GlacialSpike;int frames=glacial?40:30;
+        bool packet=glacial?s.Packet is{Missile:"glacialspike",Element:"cold",Rank:10,ElementFrames:77}
+            :s?.Packet?.Spell==CombatAbility.None&&s.Packet.Missile is("necromage1" or "necromage2" or "necromage3" or "necromage4")
+                &&s.Packet.Element==new[]{"pois","cold","fire","ltng"}[s.Packet.Missile[^1]-'1'];
+        if(s==null||!packet||s.Id<=0||!((Serial)s.Actor).IsMobile||!((Serial)s.Owner).IsMobile||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal
+            ||s.Z is <-128 or >127||s.Frames!=frames||s.Frame<0||s.Frame>=frames||s.VelocityFp8<0||s.VelocityFp8>(glacial?3072:2688)||s.NextUtc.Kind!=DateTimeKind.Utc||s.NextUtc>DateTime.MaxValue.AddMilliseconds(-frames*40)
             ||!double.IsFinite(s.X)||!double.IsFinite(s.Y)||!double.IsFinite(s.Vx)||!double.IsFinite(s.Vy)||s.X<0||s.Y<0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
             ||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100||s.Packet is not{Rank:>=1 and <=381,Minimum256:>=0,Maximum256:>=0,ElementFrames:>=0}
-            ||s.Packet.Maximum256<s.Packet.Minimum256||s.Packet.Missile is not("necromage1" or "necromage2" or "necromage3" or "necromage4")
-            ||s.Packet.Element!=new[]{"pois","cold","fire","ltng"}[s.Packet.Missile[^1]-'1']||s.Steps?.Cells is not{Length:>=1 and <=10})
+            ||s.Packet.Maximum256<s.Packet.Minimum256||s.Steps?.Cells is not{Length:>=1 and <=10})
         {throw new InvalidDataException("Invalid saved skeletal mage missile");}
     }
     internal static MageMissileSave Snapshot()=>new(Bolts.Values.OrderBy(s=>s.Id).ToArray(),Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is NecromancerMinion{Deleted:false,IsMage:true} a&&a.ControlMaster?.Serial.Value==s.Owner).OrderBy(s=>s.Actor).ToArray(),_nextId);
     internal static void Restore(MageMissileSave saved)
     {
         if(saved?.Bolts==null||saved.Seeds==null||saved.NextId<0){throw new InvalidDataException("Missing mage projectile save");}
-        Bolts.Clear();Seeds.Clear();_nextId=saved.NextId;
-        foreach(var s in saved.Bolts){Validate(s);if(s.Id>_nextId||!Bolts.TryAdd(s.Id,s)){throw new InvalidDataException("Duplicate mage projectile");}}
-        foreach(var s in saved.Seeds)
-        {if(!((Serial)s.Actor).IsMobile||!((Serial)s.Owner).IsMobile||!Seeds.TryAdd(s.Actor,s)){throw new InvalidDataException("Invalid mage critical seed");}}
+        var bolts=new Dictionary<long,MageMissileState>();var seeds=new Dictionary<uint,MageCriticalSeed>();
+        foreach(var state in saved.Bolts){Validate(state);if(state.Id>saved.NextId||!bolts.TryAdd(state.Id,state)){throw new InvalidDataException("Duplicate mage projectile");}}
+        foreach(var state in saved.Seeds)
+        {if(!((Serial)state.Actor).IsMobile||!((Serial)state.Owner).IsMobile||!seeds.TryAdd(state.Actor,state)){throw new InvalidDataException("Invalid mage critical seed");}}
+        Bolts.Clear();foreach(var pair in bolts){Bolts.Add(pair.Key,pair.Value);}Seeds.Clear();foreach(var pair in seeds){Seeds.Add(pair.Key,pair.Value);}_nextId=saved.NextId;
     }
 }

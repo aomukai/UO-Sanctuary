@@ -42,7 +42,7 @@ public static class MageMissileChecks
     private static void Clean(PlayerMobile p,NecromancerMinion mage,Mobile target)
     {Clear(mage);mage.Delete();target.Corpse?.Delete();target.Delete();p.Corpse?.Delete();p.Delete();}
     private static void Through(long id,int frames,bool fight=true)
-    {for(int i=0;i<frames&&State(id) is{} state;i++){NecromancerMageMissiles.Tick(state.NextUtc,fight);}}
+    {for(int i=0;i<frames&&State(id) is{} state;i++){NecromancerMageMissiles.Tick(state.NextUtc,fight,id);}}
     private static void Source()
     {
         using var json=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"mage-missile-source-cases.json")));int count=0;

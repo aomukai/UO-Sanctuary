@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Mage Glacial secondary](mage-glacial-checkpoint.md) reuses cold travel `0x36E4` and explosion `0x36E4`/hue`0x480` as identified placeholders. Final cast/travel/explosion/freeze/thaw/shatter feedback and audio remain pending; share eventual Sorceress Glacial Spike assets.
+
 The [Mage Chain secondary](mage-chain-checkpoint.md) shares segment `0x3818`/hue`0x482` as an identified placeholder. Final Mage cast/travel/hop/contact/critical feedback and audio remain pending; reuse the eventual Sorceress Chain Lightning assets.
 
 The [Mage Static secondary](mage-static-checkpoint.md) uses caster effect `0x3818`/hue`0x482` as an identified placeholder. Final Static area/cast/recipient feedback and audio remain pending; share the eventual Sorceress Static Field assets rather than creating a separate duplicate.

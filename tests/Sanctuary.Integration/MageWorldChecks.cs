@@ -59,7 +59,7 @@ public static class MageWorldChecks
             Through(b,25);Require(b.WorldState.Controller is{Mode:4,ActionAt:35,EndAt:45,AttackSpeed:208}&&b.WorldState.Controller.Target==t.Serial.Value&&Bolt(b)==null&&SkillHealth.Balance256(t)==hp,"Mage ranged AI/A1kind2 entry/action35/end45");
             ulong seed=NecromancerMageMissiles.ActorSeed(b).Seed;Through(b,34);Require(Bolt(b)==null&&SkillHealth.Balance256(t)==hp,"Mage projectile before skill event");
             Through(b,35);var bolt=Bolt(b);Require(bolt!=null&&bolt.Packet.Element=="fire"&&bolt.Packet.Rank==b.MageMissileRank&&SkillHealth.Balance256(t)==hp&&NecromancerMageMissiles.ActorSeed(b).Seed==seed&&b.WorldState.Controller is{Attempts:1,Hits:1},"Mage launch was direct damage or lost rank/stream");
-            for(int i=0;i<12&&Bolt(b) is{} flight;i++){NecromancerMageMissiles.Tick(flight.NextUtc,true);}
+            for(int i=0;i<12&&Bolt(b) is{} flight;i++){NecromancerMageMissiles.Tick(flight.NextUtc,true,flight.Id);}
             Require(SkillHealth.Balance256(t)<hp&&Bolt(b)==null,"World Mage never hit through traced missile collision");
             ulong expected=seed;SourceRandom.Roll(ref expected);Require(NecromancerMageMissiles.ActorSeed(b).Seed==expected,"AI and intrinsic critical did not share the same existing actor stream");
             hp=SkillHealth.Balance256(t);Through(b,45);Require(b.WorldState.Controller.Mode==1&&Bolt(b)==null,"Mage end replayed launch");

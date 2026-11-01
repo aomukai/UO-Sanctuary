@@ -197,7 +197,7 @@ public static class SkillCombat
     public static int HitParts(Mobile source, Mobile target, GearDamage damage, bool recover, bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true)
         => ResolveHitParts(source, target, damage, recover, weapon, ranged, spell,enhanceBase).LifeLost;
     public static SkillHitResult ResolveHitParts(Mobile source, Mobile target, GearDamage damage, bool recover,
-        bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true,bool addWeaponElements=true,int sourceColdFrames=0)
+        bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true,bool addWeaponElements=true,int sourceColdFrames=0,int sourceFreezeFrames=0)
     {
         if (source == null || target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return default; }
         if (ranged) { SorceressEffects.MissileHit(source, target, "arrow"); }
@@ -212,6 +212,7 @@ public static class SkillCombat
         source.DoHarmful(target, true);
         if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(physical),ranged);}
         if(weapon&&damage.Cold>0&&sourceColdFrames>0){ColdStates.Apply(source,target,sourceColdFrames,Core.TickCount);}
+        if(sourceFreezeFrames>0){FreezeStates.Apply(source,target,sourceFreezeFrames,Core.TickCount);}
         if (total > 0) { SkillHealth.Damage(source,target,NamedElements.To256(total)); }
         int loss = Math.Max(0, before - target.Hits);
         if (recover && target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }

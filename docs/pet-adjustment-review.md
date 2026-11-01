@@ -1,6 +1,6 @@
 # Approved Necromancer and Druid pet adjustments
 
-Reference baseline: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary deviations take precedence. This is the approved design, updated 2026-11-01 JST; **the upgrade package is partially implemented** (see [Mage hard20 buffs](mage-pet-buffs-checkpoint.md)); all other entries remain pending unless their own checkpoint says otherwise. The user requested settling the design while baseline class skills are being finished. The balance aim is viable pure pet builds.
+Reference baseline: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary deviations take precedence. This is the approved design, updated 2026-11-01 JST; **the upgrade package is partially implemented** (see [Mage hard20 buffs](mage-pet-buffs-checkpoint.md), [Static](mage-static-checkpoint.md), [Chain](mage-chain-checkpoint.md) and [Glacial](mage-glacial-checkpoint.md)); all other entries remain pending unless their own checkpoint says otherwise. The user requested settling the design while baseline class skills are being finished. The balance aim is viable pure pet builds.
 
 Only Necromancer and Druid pets receive the balance changes below. Warlock, Assassin and Amazon pets retain their intended baseline behavior. Reuse existing affixes, item properties, spells, projectile fans, statuses, AI, damage and persistence services.
 

@@ -131,7 +131,8 @@ public static class SorceressCombat
             }
             Effects.SendLocationEffect(end, Map, 0x36E4, 3); // Placeholder missile.
             if (first == null) { return; }
-            if (ability is CombatAbility.Fireball or CombatAbility.GlacialSpike)
+            if(ability==CombatAbility.GlacialSpike){GlacialSpikes.PlayerExplosion(Owner,end,values);}
+            else if (ability == CombatAbility.Fireball)
             {
                 double radius = ability == CombatAbility.Fireball ? SkillGeometry.Tiles(values.Param(1)) : SkillGeometry.Tiles(values.Eval("aurarangecalc"));
                 foreach (var target in SkillCombat.Targets(Owner, first.Location, radius)) { Impact(Owner, target, ability, values); }

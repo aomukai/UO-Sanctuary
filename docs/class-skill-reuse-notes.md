@@ -58,3 +58,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Mage Chain Lightning and saved player flights
 
 [Mage Chain](mage-chain-checkpoint.md) extends the existing saved flight/hop/cast-delay implementation with optional NPC source/seed/slow fields. Keep player live child synergies/mastery separate from fixed NPC values; NPC caster identity controls origin/LOS and damage attribution while the real owner supplies allegiance. The extracted Mage impact consumer preserves intrinsic-critical transport. Atomic restore protects unrelated flights; inspected copied resumption is not unheld save acceptance.
+
+## Mage Glacial Spike and freeze-before-death
+
+[Mage Glacial](mage-glacial-checkpoint.md) reuses the saved Mage ordinary flight and `BasicMissileUpdate`, shared vectors/source cells, Slow Missiles, area enumeration and per-recipient Mage spell/critical consumer. The ordinary Sorceress hit area shares the single raw roll and pre-HP freeze entry. Keep its older private flight's wall/expiry/save gaps explicit; sharing the impact consumer does not certify those paths. Native wall-center area LOS is an adapter, not a reason to invent through-wall damage. Manual fixture clock steps must select their own flight instead of advancing unrelated held save cohorts.

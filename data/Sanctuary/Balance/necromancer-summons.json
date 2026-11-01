@@ -10199,5 +10199,48 @@
       "NumDirections": 32,
       "TravelSound": "necromancer_poisonnova"
     }
+  },
+  {
+    "key": "glacialspike",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pCltHitFunc": 14,
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 13,
+      "sHitPar1": 0,
+      "sHitPar2": 0,
+      "Vel": 16,
+      "MaxVel": 16,
+      "Range": 40,
+      "Light": 5,
+      "Red": 81,
+      "Green": 81,
+      "Blue": 255,
+      "InitSteps": 1,
+      "Activate": 0,
+      "LoopAnim": 1,
+      "CelFile": "GlacialSpike",
+      "animrate": 1024,
+      "AnimLen": 6,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "CollideKill": 1,
+      "LastCollide": 1,
+      "ClientCol": 1,
+      "Size": 1,
+      "CanSlow": 1,
+      "ReturnFire": 1,
+      "GetHit": 1,
+      "Trans": 1,
+      "Skill": "Glacial Spike",
+      "ResultFlags": 5,
+      "HitFlags": 2,
+      "EType": "frze",
+      "NumDirections": 16,
+      "TravelSound": "sorceress_glacialspike_1",
+      "HitSound": "sorceress_iceblast_impact_1",
+      "CltHitSubMissile1": "freezingarrowexp1",
+      "CltHitSubMissile2": "freezingarrowexp2"
+    }
   }
 ]
