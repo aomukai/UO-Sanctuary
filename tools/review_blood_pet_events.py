@@ -32,6 +32,13 @@ def record(check=False):
     assert proc.index('pDamage && !(pDamage->dwHitFlags & 0x20)') < proc.index('ITEMS_RollRandomNumber')
     assert 'SKILLITEM_CastSkillOnTarget(pAttacker, v10, v9, pUnit, 1)' in proc
     assert 'STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE)' in bodies[names[3]]
+    event_relative = 'source/D2Game/src/UNIT/SUnitEvent.cpp'
+    event_source = STAGE / 'd2moo-pinned-source' / event_relative
+    event_raw = event_source.read_bytes()
+    assert hashlib.sha1(b'blob ' + str(len(event_raw)).encode() + b'\0' + event_raw).hexdigest() == next(r['sha'] for r in tree['tree'] if r['path'] == event_relative)
+    event_bodies = {n: function(event_raw.decode(), n) for n in ('SUNITEVENT_Register', 'SUNITEVENT_Trigger')}
+    assert 'pUnitEvent->pNext = pUnit->pSrvUnitEventsList;' in event_bodies['SUNITEVENT_Register']
+    assert 'pUnitEvent = pNext;' in event_bodies['SUNITEVENT_Trigger']
     registry = ROOT / 'data/Sanctuary/Balance/npc-item-combat-events.json'
     rows = json.loads(registry.read_text())
     wounds_row = next(r for r in rows if r['Stat'] == 135)
@@ -43,32 +50,33 @@ def record(check=False):
     tap = {k.lower(): v for k, v in json.loads(skills_path.read_text())['82'].items()}
     assert tap['skill'] == 'Life Tap' and tap['srvdofunc'] == 30 and tap['itemeffect'] == 1 and not tap.get('itemtgtdo')
     assert tap['auraeventfunc1'] == 5 and tap['auraevent1'] == 'damagedinmelee'
-    paths = [Path(__file__), source, registry, stats_path, skills_path,
-             ROOT / 'src/Sanctuary.Content/NpcCombatEvents.cs', ROOT / 'src/Sanctuary.Content/NpcOpenWounds.cs', ROOT / 'src/Sanctuary.Content/NamedCombat.cs',
+    paths = [Path(__file__), source, event_source, registry, stats_path, skills_path,
+             ROOT / 'src/Sanctuary.Content/NpcCombatEvents.cs', ROOT / 'src/Sanctuary.Content/NpcOpenWounds.cs', ROOT / 'src/Sanctuary.Content/NpcHitSkills.cs', ROOT / 'src/Sanctuary.Content/NamedCombat.cs',
              ROOT / 'src/Sanctuary.Content/TimedEffects.cs', ROOT / 'src/Sanctuary.Content/NecromancerCurseCasts.cs',
              ROOT / 'tools/reference/weapon-event-order-review.json', ROOT / 'tools/reference/life-tap-event-source-evidence.json']
     result = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], sourceFile=relative,
         sourceSha256=sha(source), gitBlob=blob, installed=False, runtimeEventsEnabled=True,
         scope='Static complete-function/registration review; callback execution and native acceptance are recorded separately,not modern-engine proof.',
-        npcOpenWoundsEnabled=True, npcLifeTapEnabled=False,
+        npcOpenWoundsEnabled=True, npcLifeTapEnabled=True, arbitraryItemSkillProcsEnabled=False,
         functions={n: hashlib.sha256(b.encode()).hexdigest() for n, b in bodies.items()},
+        eventFunctions={n: hashlib.sha256(b.encode()).hexdigest() for n, b in event_bodies.items()},
         inputs={str(p.relative_to(ROOT)): sha(p) for p in paths},
         established=[
-            'Current itemstat rows register Open Wounds135/function15 and on-hit skill/function20 on melee/missile damage events. NPC registry now consumes OpenWounds135/function15through its real source event context;skill-on-hit/function20remains unsupported. Shared wound arithmetic/state and exact NPC regeneration are reused;separate source/native receipts establish their verification.',
+            'Current itemstat rows register Open Wounds135/function15 and on-hit skill/function20 on melee/missile damage events. NPC registry now consumes OpenWounds135/function15through its real source event context;the approved inherent Blood slot now consumes skill-on-hit/function20. Original item writer11/arbitrary skill-proc layers remain unsupported. Shared wound arithmetic/state and exact NPC regeneration are reused;separate source/native receipts establish their verification.',
             'Complete older Open Wounds callback draws once even at100percent,reads attacker level,applies target-type reductions and submits200frame negative HP regeneration to its state factory. It is not a post-hit life-loss percentage or a zero-RNG guaranteed hit.',
             'Complete older proc20checks source/presence/chance and packet hitflag0x20before drawing,decodes skill/rank and routes Life Tap through real attacker target casting. Current Life Tap row is ItemEffect1/non-ItemTgtDo/Do30with registered damagedinmelee healing5. Target-cast helper includes uninterruptible and item-effect routing.',
             'Existing damage ordering review places source domeleedamage and target damagedinmelee before life clipping/HP commitment;the retained Life Tap callback proof covers its fractional healing separately.'],
         remaining=[
-            'Open Wounds callback/factory and regeneration have separate executed/native evidence. Next execute/compose complete proc target/item-effect routes for LifeTap5,with real pet source/owner allegiance,no player mana/gear context and area curse semantics.',
-            'Subscription order/draws,miss/block/zero/full-absorb/lethal/state-replacement,first proccing swing healing,source death and save/removal behavior still need verified composition. Do not approximate these as an after-HP OnHit hook.',
-            'Older source and static registry review do not establish modern executable equivalence. Blood hard10OpenWounds is now registered for the reviewed NPC path;hard20five-percent LifeTap remains pending. Full modern/fallback/PvP/world acceptance is not inferred from this static review.'])
+            'Open Wounds callback/factory and regeneration have separate executed/native evidence. The complete proc target/item-effect routes now have separate executed evidence;the Blood slot composes real pet source/owner allegiance,fixed rank5,no player mana/gear context and the shared area curse. Native acceptance is recorded separately.',
+            'The inherent adapter has explicit wound-then-LifeTap slots. Full historical dynamic-registration priority/global seeds remain unverified:older SUNITEVENT_Register inserts at the list head and Trigger walks it. Native receipts distinguish tested slot order/first-swing healing from broader engine equivalence.',
+            'Older source and static registry review do not establish modern executable equivalence. Blood hard10OpenWounds is now registered for the reviewed NPC path;hard20five-percent LifeTap is now composed through the shared curse path. Arbitrary original item proc properties remain gated. Full modern/fallback/PvP/world acceptance is not inferred from this static review.'])
     target = ROOT / 'tools/reference/blood-pet-event-reuse-review.json'
     rendered = json.dumps(result, indent=2) + '\n'
     if check:
         assert target.read_text() == rendered
     else:
         target.write_text(rendered)
-    print('Blood event reuse:complete older callbacks/current registrations pinned;NPC OpenWounds enabled,LifeTap still pending.')
+    print('Blood event reuse:complete older callbacks/current registrations pinned;NPC OpenWounds and inherent LifeTap enabled;arbitrary item procs remain gated.')
 
 
 if __name__ == '__main__':

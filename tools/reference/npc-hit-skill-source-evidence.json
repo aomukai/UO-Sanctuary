@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 9360,
+  "notifiedContexts": 1088,
+  "functions": {
+    "SKILLITEM_HandleItemEffectSkill": "ce7339b8f3591dc33f87a33be58037b0aee51e6f6ee0c67acdf0d3aa4be45c5e",
+    "SKILLITEM_CastSkillOnTarget": "e5c236ee80a3c7451d613e66634efe1d6aea50e4f0ec896af39d4a9b33012a79",
+    "SKILLITEM_CastSkillOnPosition": "0557b765f6972c67173217e72ff17d7af8ea70904227a07eb78dc6637df0ecbc",
+    "SKILLITEM_EventFunc20_SkillOnAttackHitKill": "16597b958261a8451464ec506325f5207d9eeca6b94ad80b9bb61b98c3c53cea"
+  },
+  "inputs": {
+    "tools/probe_npc_hit_skill.py": "89a55bc653194d8a15e563a4a9459ee4baf5c87fda902cf52994b0ce72c32a59",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-hit-skill-source/probe.cpp": "306b6c00740f24f47a7768bc6fe4225df28753b8e3af2510f70fb63019f57514",
+    ".local/class-skills/npc-hit-skill-source/cases.json": "1bd4d2599de043ead5aa99a712ef35ef78a01be5fe2ce51ed287fb17cdc3d3c1",
+    ".local/class-skills/npc-hit-skill-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-hit-skill-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete unchanged proc20, target/position wrappers and item-effect router; handler/start/target/path/stat/RNG/notification services declared. Does not execute do30, curse factory or healing inside this probe.",
+  "established": [
+    "Missing source,nonpositive chance or a present packet without hitflag0x20reject before RNG. Eligible packets draw once even at100percent. Skill/rank decode uses the retained six-bit rank split;Life Tap targets the real attacker with skill82/rank5/flag1.",
+    "Uninterruptible/missing-game/item-effect/start/handler failures happen after chance RNG. Proc return1does not prove an effect or notification. Current Life Tap uses default target routing without a start check or player casting/payment wrapper.",
+    "Item helper restores the server-do flag and old unit target when present. With no original unit target it restores coordinates only,leaving the temporary target identity;native integration must keep this distinction explicit."
+  ],
+  "remaining": [
+    "Do30 radial traversal/receiver and defender healing are covered by separate existing evidence;their actual new NPC composition,subscriber ordering and first-swing healing require native acceptance.",
+    "Configured table split6and explicit world/path/start/handler services are bounded older-engine evidence,not modern executable equivalence. Item property writer11and unsupported item proc layers are separate work."
+  ]
+}

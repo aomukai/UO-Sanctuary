@@ -24,11 +24,11 @@ public static class NpcOpenWoundsChecks
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
     private static void Train(PlayerMobile p,int rank)=>MagePetBuffChecks.Train(p,"necromancer.bloodgolem",rank);
-    private static PlayerMobile Owner(int rank=10,int row=3080)
+    internal static PlayerMobile Owner(int rank=10,int row=3080)
     {var p=PoisonDaggerChecks.Owner();FixtureSpace.Corridor(p,6100,40,row);Train(p,rank);MagePetBuffChecks.Train(p,"necromancer.golemmastery",20);return p;}
-    private static BloodGolemWorldBody Body(PlayerMobile p)
+    internal static BloodGolemWorldBody Body(PlayerMobile p)
     {NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(NecromancerCombat.Release(p,CombatAbility.BloodGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Learned wound Blood");var b=NecromancerGolems.For(p).OfType<BloodGolemWorldBody>().Single();b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});return b;}
-    private static GraveyardSkeleton Target(PlayerMobile p,BloodGolemBody b)
+    internal static GraveyardSkeleton Target(PlayerMobile p,BloodGolemBody b)
     {var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(b.Location,p.Map);t.SetResistance(ResistanceType.Physical,0);return t;}
     private static TimedActor State(Mobile t){Require(TimedEffects.TryActor(t,out var a),"Missing wound actor");return a;}
     private static bool Wounded(Mobile t)=>TimedEffects.TryActor(t,out var a)&&a.BleedMs>0;

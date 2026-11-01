@@ -8,7 +8,8 @@
   "runtimeEventsEnabled": true,
   "scope": "Static complete-function/registration review; callback execution and native acceptance are recorded separately,not modern-engine proof.",
   "npcOpenWoundsEnabled": true,
-  "npcLifeTapEnabled": false,
+  "npcLifeTapEnabled": true,
+  "arbitraryItemSkillProcsEnabled": false,
   "functions": {
     "SKILLITEM_CalculateOpenWoundsHpRegen": "af5e9915c7a48b16041bf1b69cc2353e11745ef7fa6b9edc2114f29bf131bd20",
     "SKILLITEM_EventFunc15_OpenWounds": "0d45d3370b47600878fc1cf3345189a85de24b64689aad7a951baa0ae1cdb53c",
@@ -17,29 +18,35 @@
     "SKILLITEM_CastSkillOnPosition": "0557b765f6972c67173217e72ff17d7af8ea70904227a07eb78dc6637df0ecbc",
     "SKILLITEM_HandleItemEffectSkill": "ce7339b8f3591dc33f87a33be58037b0aee51e6f6ee0c67acdf0d3aa4be45c5e"
   },
+  "eventFunctions": {
+    "SUNITEVENT_Register": "b111f56046f078df87eb60a4aaaf44e73179716210677d5af218f4e173d851ba",
+    "SUNITEVENT_Trigger": "a9ca26b2192f0a4bf49946d86d9903b6b52783a4d8018dc16f91a8f6439f656b"
+  },
   "inputs": {
-    "tools/review_blood_pet_events.py": "16df5b9e42c6300817b389ae992cc9cdbfc2deb36e0a9ff2eaafe8ca2d25f6e0",
+    "tools/review_blood_pet_events.py": "5febec37f8fe8d6cf72af5354ca4090ea9d225d61a4553decbc820ce92e963b2",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitEvent.cpp": "1c02d9437eb0f9dacb9d7ee04d0065e3c67e5a759bb9f77ef732479a8caa2ac9",
     "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
     "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
     "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
-    "src/Sanctuary.Content/NpcCombatEvents.cs": "1e79924e6afc0857379067aa65867cf414ebdd58d3e450836d1dc95e47efa4c3",
+    "src/Sanctuary.Content/NpcCombatEvents.cs": "63fb757fada167f9f74f59c9bb5856f7fd4984ca48b6ffbc1d7d72ec5a5b80de",
     "src/Sanctuary.Content/NpcOpenWounds.cs": "0d7776af1f0f4e23629bef9237694ac777c35304b5f3431f32ba2ccfaedb464e",
+    "src/Sanctuary.Content/NpcHitSkills.cs": "f062ed8ace64154c7094a88d69fd3899685633bff5eb4fa496d23c52c5666824",
     "src/Sanctuary.Content/NamedCombat.cs": "646b4ce07570cf97bb97081153bb8e424250c186a973febd8d0f8c5141cfabe5",
     "src/Sanctuary.Content/TimedEffects.cs": "9ada832f6ab83b5b516821bcfa39e1a93c6de129f16c74c5863b23df40153135",
-    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "739acc63d294110e6982487110ee2dd6d6bf515ea88f3724a483c3fb1906ac43",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "70b0a22156e30fc03f56632253f49088c4675d6438c194fee6453849cbef95eb",
     "tools/reference/weapon-event-order-review.json": "83a7754c5bcd972733c2e63b6f92b544bc9342d78249ee0d6146a3d714be8af1",
     "tools/reference/life-tap-event-source-evidence.json": "72071cfa13d48a75056d73f540aba041441e668bca906e007844839cae527feb"
   },
   "established": [
-    "Current itemstat rows register Open Wounds135/function15 and on-hit skill/function20 on melee/missile damage events. NPC registry now consumes OpenWounds135/function15through its real source event context;skill-on-hit/function20remains unsupported. Shared wound arithmetic/state and exact NPC regeneration are reused;separate source/native receipts establish their verification.",
+    "Current itemstat rows register Open Wounds135/function15 and on-hit skill/function20 on melee/missile damage events. NPC registry now consumes OpenWounds135/function15through its real source event context;the approved inherent Blood slot now consumes skill-on-hit/function20. Original item writer11/arbitrary skill-proc layers remain unsupported. Shared wound arithmetic/state and exact NPC regeneration are reused;separate source/native receipts establish their verification.",
     "Complete older Open Wounds callback draws once even at100percent,reads attacker level,applies target-type reductions and submits200frame negative HP regeneration to its state factory. It is not a post-hit life-loss percentage or a zero-RNG guaranteed hit.",
     "Complete older proc20checks source/presence/chance and packet hitflag0x20before drawing,decodes skill/rank and routes Life Tap through real attacker target casting. Current Life Tap row is ItemEffect1/non-ItemTgtDo/Do30with registered damagedinmelee healing5. Target-cast helper includes uninterruptible and item-effect routing.",
     "Existing damage ordering review places source domeleedamage and target damagedinmelee before life clipping/HP commitment;the retained Life Tap callback proof covers its fractional healing separately."
   ],
   "remaining": [
-    "Open Wounds callback/factory and regeneration have separate executed/native evidence. Next execute/compose complete proc target/item-effect routes for LifeTap5,with real pet source/owner allegiance,no player mana/gear context and area curse semantics.",
-    "Subscription order/draws,miss/block/zero/full-absorb/lethal/state-replacement,first proccing swing healing,source death and save/removal behavior still need verified composition. Do not approximate these as an after-HP OnHit hook.",
-    "Older source and static registry review do not establish modern executable equivalence. Blood hard10OpenWounds is now registered for the reviewed NPC path;hard20five-percent LifeTap remains pending. Full modern/fallback/PvP/world acceptance is not inferred from this static review."
+    "Open Wounds callback/factory and regeneration have separate executed/native evidence. The complete proc target/item-effect routes now have separate executed evidence;the Blood slot composes real pet source/owner allegiance,fixed rank5,no player mana/gear context and the shared area curse. Native acceptance is recorded separately.",
+    "The inherent adapter has explicit wound-then-LifeTap slots. Full historical dynamic-registration priority/global seeds remain unverified:older SUNITEVENT_Register inserts at the list head and Trigger walks it. Native receipts distinguish tested slot order/first-swing healing from broader engine equivalence.",
+    "Older source and static registry review do not establish modern executable equivalence. Blood hard10OpenWounds is now registered for the reviewed NPC path;hard20five-percent LifeTap is now composed through the shared curse path. Arbitrary original item proc properties remain gated. Full modern/fallback/PvP/world acceptance is not inferred from this static review."
   ]
 }

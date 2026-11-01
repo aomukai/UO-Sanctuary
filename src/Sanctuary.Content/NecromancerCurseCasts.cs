@@ -73,6 +73,8 @@ internal static class NecromancerCurseCasts
         =>new(PhysicalPenalty(full,fire,monsterImmunity),PhysicalPenalty(full,lightning,monsterImmunity),
             PhysicalPenalty(full,cold,monsterImmunity),PhysicalPenalty(full,poison,monsterImmunity));
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
+        =>Handles(ability)&&rank is>=1 and<=255&&Apply(owner,owner,target,ability,rank,SkillMechanics.Values(owner,ability,rank),TimedEffects.Now);
+    private static bool Apply(Mobile caster,PlayerMobile owner,Mobile target,CombatAbility ability,int rank,SkillValues values,DateTime at)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
         if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse && !AiEligible(creature)){return false;}
@@ -87,14 +89,13 @@ internal static class NecromancerCurseCasts
         if(EliteAuras.Curses.Active(target.Serial,TimedEffects.Now))
         {Log.Warning("{Ability} legacy elite-curse replacement is not mapped: {Target}",ability,target.Serial.Value);return false;}
         EliteAuras.Refresh(target); // Remove an expired native resistance mod before reading its base pool.
-        var values=SkillMechanics.Values(owner,ability,rank);
         int frames=(int)values.Eval("auralencalc");
         // Do30 uses game difficulty before the curse-resistance factory. In
         // Sanctuary that is the owner's configured facet, not the NPC's spawn.
         if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
         int aiFrames=frames; // AIRESET uses this duration before curse resistance.
         if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}
-        var state=NecromancerEffects.Profiles.Find(target)??new();DateTime at=TimedEffects.Now;
+        var state=NecromancerEffects.Profiles.Find(target)??new();
         // For current native hostile actors, PhysicalResistance is the base
         // pool: curse/skill mitigation does not mutate that property. Dynamic
         // source base/accrued item graphs remain a separately recorded gap.
@@ -104,8 +105,8 @@ internal static class NecromancerCurseCasts
             CombatAbility.Decrepify=>PhysicalPenalty((int)values.Eval("aurastatcalc3"),target.PhysicalResistance,target is not BaseHire),
             _=>null
         };
-        var next=Replacement(state.Curse,ability,owner.Serial.Value,rank,penalty,
-            at.AddMilliseconds(frames*40L),at,owner.X,owner.Y,
+        var next=Replacement(state.Curse,ability,caster.Serial.Value,rank,penalty,
+            at.AddMilliseconds(frames*40L),at,caster.X,caster.Y,
             ability==CombatAbility.LowerResist?ElementPenalties(-values.Diminishing(5,6),
                 target.FireResistance-EliteAuras.ConvictionOffset(target,"fire"),
                 target.EnergyResistance-EliteAuras.ConvictionOffset(target,"ltng"),
@@ -120,20 +121,35 @@ internal static class NecromancerCurseCasts
         NecromancerEffects.Profiles.Store(target,state with{Curse=next});
         if(ability==CombatAbility.DimVision){SourceBlind.Attach(creature,state.Curse?.Ability!=CombatAbility.DimVision||state.Curse.UntilUtc<=at);}
         if(ability==CombatAbility.Terror){SourceTerror.Reset(creature);}
-        NecromancerEffects.CurseApplied(owner,target);return true;
+        NecromancerEffects.CurseApplied(caster,target);return true;
+    }
+    private static void Area(Mobile caster,PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values,DateTime at)
+    {
+        int radius=(int)values.Eval("aurarangecalc");var targets=new List<BaseCreature>();
+        foreach(var target in caster.Map.GetMobilesInRange<BaseCreature>(center,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
+        {
+            // Source filter3 has no optional recipient LOS gate. The real
+            // caster supplies origin/identity; its owner supplies allegiance.
+            if(AmazonInnerSight.InRadius(target.X-center.X,target.Y-center.Y,radius)&&Math.Abs(target.Z-center.Z)<16
+                &&ClassCombat.IsHostile(owner,target)){targets.Add(target);}
+        }
+        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(caster,owner,target,ability,values.Rank,values,at);}
+    }
+    internal static bool NpcLifeTap(SkeletonGuardian caster,BaseCreature target,int rank,DateTime at)
+    {
+        if(caster is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}
+            ||target is not{Alive:true,Deleted:false}||caster.Map==null||caster.Map==Map.Internal||caster.Map!=target.Map||owner.Map!=caster.Map
+            ||rank is<1 or>63||MonsterUninterruptibles.Active(caster)){return false;}
+        var row=SkillMechanics.For(CombatAbility.LifeTap);
+        var values=new SkillValues(row,key=>string.Equals(key,row.SourceKey,StringComparison.OrdinalIgnoreCase)?rank:0,_=>0,ClassStats.Level(caster));
+        Area(caster,owner,CombatAbility.LifeTap,target.Location,values,at);
+        caster.PlaySound(0x1E5); // Shared identified curse/item-cast placeholder; no player cast action/payment.
+        return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values)
     {
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        int radius=(int)values.Eval("aurarangecalc");var targets=new List<BaseCreature>();
-        foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(center,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
-        {
-            // Reuse the existing half-subtile squared-distance mapping. The
-            // source filter3 has no optional LOS flag between area recipients.
-            if(AmazonInnerSight.InRadius(target.X-center.X,target.Y-center.Y,radius)&&Math.Abs(target.Z-center.Z)<16
-                &&ClassCombat.IsHostile(owner,target)){targets.Add(target);}
-        }
-        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(owner,target,ability,values.Rank);}
+        Area(owner,owner,ability,center,values,TimedEffects.Now);
         owner.PlaySound(0x1E5); // Identified generic cast-audio placeholder.
         return true; // A valid empty or resisted area still spends mana once.
     }

@@ -10,7 +10,8 @@ internal sealed record NpcItemEvent(string Event,int Function);
 internal sealed record NpcItemEventStat(int Stat,string Name,NpcItemEvent[] Events);
 
 // A validated registry, not a list of silently skipped callbacks. For this
-// ordinary path supports flat return78 and Open Wounds135/function15.
+// ordinary path supports flat return78, Open Wounds135/function15 and
+// the approved inherent Blood skill-on-hit198/function20 slot.
 // Other active registrations fail preflight before result/damage RNG or HP.
 internal sealed class NpcCombatEvents
 {
@@ -47,6 +48,13 @@ internal sealed class NpcCombatEvents
         // A Blood actor keeps the potential subscription so a live hard-point
         // unlock/respec during windup is observed at the actual damage event.
         if(blood&&active.All(r=>r.Stat!=135)){active.Add(Rules.Value[135]);}
+        if(blood)
+        {
+            var tap=Rules.Value[198];
+            if(tap.Events.Length!=2||tap.Events[0] is not{Event:"domeleedamage",Function:20}||tap.Events[1] is not{Event:"domissiledamage",Function:20})
+            {throw new InvalidDataException("Blood proc requires pinned skill-on-hit registration");}
+            active.Add(tap); // Fixed approved slot; original item writer11 remains unsupported.
+        }
         Active=active.ToArray();
     }
     internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian source=null,BaseCreature target=null,DateTime? at=null)
@@ -59,6 +67,11 @@ internal sealed class NpcCombatEvents
             {
                 if(source==null||target==null||at==null){throw new InvalidOperationException("NPC wound callback lacks its real damage-event context");}
                 NpcOpenWounds.Apply(source,target,at.Value,phase=="domissiledamage");continue;
+            }
+            if(rule.Stat==198&&registration.Function==20)
+            {
+                if(source==null||target==null||at==null){throw new InvalidOperationException("NPC skill proc lacks its real damage-event context");}
+                NpcHitSkills.BloodLifeTap(source,target,packet,at.Value);continue;
             }
             throw new NotSupportedException("Unconsumed NPC registered event: "+rule.Name+"/"+phase);
         }

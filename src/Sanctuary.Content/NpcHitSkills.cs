@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using Server.Mobiles;
+namespace Sanctuary;
+
+// Approved Blood hard20 slot uses item function20's pre-health timing and
+// positive chance/hitflag/RNG gates. Arbitrary item proc writer11 is separate.
+internal static class NpcHitSkills
+{
+    internal static int BloodChance(SkeletonGuardian actor)=>NpcOpenWounds.Potential(actor)
+        &&actor.ControlMaster is PlayerMobile{Deleted:false} owner
+        &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=20?5:0;
+    internal static bool Chance(int chance,uint hitFlags,bool hasPacket,uint roll)
+        =>chance>0&&(!hasPacket||(hitFlags&32)!=0)&&roll%100<(uint)chance;
+    internal static bool BloodLifeTap(SkeletonGuardian actor,BaseCreature target,PreparedMonsterDamagePacket packet,DateTime at)
+    {
+        int chance=BloodChance(actor);
+        if(chance<=0||packet!=null&&(packet.HitFlags&32)==0){return false;}
+        // Cast failure (including uninterruptible) is after this draw. No
+        // player class, learned Life Tap, soft rank or mana supplier is read.
+        uint roll=NpcEquipmentRandom.Raw(actor);
+        if(!Chance(chance,packet?.HitFlags??0,packet!=null,roll)){return false;}
+        return NecromancerCurseCasts.NpcLifeTap(actor,target,5,at);
+    }
+}
