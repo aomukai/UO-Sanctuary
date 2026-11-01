@@ -1,5 +1,7 @@
 # Skill effects
 
+The [shared Open Wounds fixes](open-wounds-state-checkpoint.md) retain the existing item/bleed damage feedback as placeholders. Final bleeding/status/expiry and source feedback/audio remain pending and should be shared by future NPC wound abilities. Blood’s NPC Open Wounds and Life Tap are still inactive; this checkpoint creates no new automatic effect.
+
 The [Blood damage foundation](blood-golem-damage-checkpoint.md) reuses Blood body`14`/hue`0x21`, summon particles`0x376A` and existing contact/healing cues as identified placeholders. Final body/contact/healing feedback and audio remain pending. Open Wounds/Life Tap are not active yet; their eventual feedback should share the existing bleed/curse/recovery asset work.
 
 The [Clay Golem upgrades](clay-upgrades-checkpoint.md) reuse Clay body`14`/hue`0x96D`, summon particles`0x376A`, and existing contact/reactive-slow cues as identified placeholders. Final Stone Skin/Magic Resistant status cues and feedback/audio remain pending; share eventual monster-affix assets where appropriate. Live unlock/respec needs no new summon or healing animation.

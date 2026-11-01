@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "callbackContexts": 50400,
+  "factoryGateContexts": 20,
+  "equalRankRefreshContexts": 6840,
+  "differentSkillReplacementContexts": 6840,
+  "functions": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLITEM_CalculateOpenWoundsHpRegen": "af5e9915c7a48b16041bf1b69cc2353e11745ef7fa6b9edc2114f29bf131bd20",
+    "SKILLITEM_EventFunc15_OpenWounds": "0d45d3370b47600878fc1cf3345189a85de24b64689aad7a951baa0ae1cdb53c"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/probe_open_wounds.py": "2653065b5ee6d7dc03f526b2ff9e19b125eeb2bcf0b622ac15a185448113cbcf",
+    "tools/probe_battlecry_reference.py": "5402831e5f0102064997e57e396b9e68021375afed95f4ee79f0cb268fa8b54b",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/blood-pet-event-reuse-review.json": "e1c04c41c0372f55a61c12cc8cbe278c8e527cddcfa8c97c67af09eade7e684b"
+  },
+  "artifacts": {
+    ".local/class-skills/open-wounds-source/probe.cpp": "8f04ace68d0435db3db04b24d0150487cc24813de1fb6c6bac8435f312455c33",
+    ".local/class-skills/open-wounds-source/cases.json": "e1d81f931540bc262ebbc31b95ea80ee242312392be637ab4ee94aec35d21f0f",
+    ".local/class-skills/open-wounds-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/open-wounds-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete unchanged older callback/math/factory under explicit retained unit/stat/row/RNG/event/storage services; not the full game or modern executable.",
+  "established": [
+    "Chance<=0draws0;positive chance draws once before state eligibility,including100percent. The callback ignores damage/skill-level inputs and reports chance success even when its state factory rejects.",
+    "Level clamps only to1,not99;ordinary rate uses9/18/27/36/45tiers plus40. Player quarter/ranged half and monster flag0xC half reductions use integer ordering. Payload is200frames negative HP regeneration/state62/skill0/rank1.",
+    "Same state/skill/rank refreshes only expiry,event retention and original creator/rate;stronger old rank rejects;different skill replaces. Missing row,NPC,nonattackable receiver gates occur after RNG. Attract and curse resistance do not suppress the noncurse OpenWounds state."
+  ],
+  "remaining": [
+    "The prior host property reset creator/rate/fraction and capped level99. Native host comparisons must establish corrected shared state/arithmetic separately from this older source proof;modern differences remain explicit.",
+    "Negative-regeneration versus existing whole-HP bleed scheduling,overdue settlement during pre-health events,expiry/cure/reload/source-credit and lethal cases require host composition. Callback/factory proof is not end-to-end damage/event/regen proof.",
+    "Modern callback equivalence,real subscriber order/global seeds/PvP/client and Blood hard20LifeTap target-cast integration remain separate. No runtime callback or Blood hard10unlock is enabled by this probe."
+  ]
+}

@@ -1,5 +1,7 @@
 # Skill icons
 
+The [shared Open Wounds fixes](open-wounds-state-checkpoint.md) add no talent or player binding. No separate item-wound hotkey icon is needed. Blood Golem’s existing pending tree/right/quick artwork and automatic-effect work remain separate.
+
 The [Blood damage foundation](blood-golem-damage-checkpoint.md) adds no player action or separate hotkey icon. Blood Golem still needs its pending talent-tree/right/quick artwork. Open Wounds/Life Tap remain pending automatic abilities; their effects are tracked separately.
 
 The [Clay Golem upgrades](clay-upgrades-checkpoint.md) add no player action or separate hotkey icon. Clay Golem still needs its pending talent-tree/right/quick artwork; automatic defensive-affix feedback is tracked separately as effects.

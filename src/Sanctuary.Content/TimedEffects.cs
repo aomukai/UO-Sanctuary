@@ -324,7 +324,12 @@ public static class TimedEffects
         if (target is not { Alive: true, Deleted: false } || !double.IsFinite(total) || total <= 0) { return false; }
         Settle(target, now);
         if (!target.Alive || target.Deleted) { return false; }
-        var a = Actor(target, now); a.BleedSource = source?.Serial ?? Serial.Zero;
+        var a = Actor(target, now);
+        // The item callback always submits skill0/rank1: the shared source
+        // factory refreshes an active state without replacing its first rate,
+        // creator or accrued fractional damage.
+        if(a.BleedMs>0){a.BleedMs=8000;return true;}
+        a.BleedSource = source?.Serial ?? Serial.Zero;
         a.BleedMs = 8000; a.BleedRate = total / 8000; a.BleedFraction = 0;
         return true;
     }

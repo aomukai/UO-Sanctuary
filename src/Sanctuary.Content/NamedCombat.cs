@@ -88,16 +88,17 @@ public static class NamedCombat
             target.FixedEffect(0x376A,10,5,0x21,0); // Crushing overlay147 placeholder.
         }
     }
-    public static double OpenWoundsDamage(int level, Mobile target, bool ranged)
+    public static double OpenWoundsDamage(int level, Mobile target, bool ranged)=>OpenWoundsDamage(level,target is PlayerMobile,ranged,Elite(target));
+    internal static double OpenWoundsDamage(int level,bool player,bool ranged,bool elite)
     {
-        int n = Math.Clamp(level, 1, 99) - 1;
+        int n = Math.Max(level, 1) - 1;
         int rate = 40 + 9 * Math.Min(14, n); n = Math.Max(0, n - 14);
         rate += 18 * Math.Min(15, n); n = Math.Max(0, n - 15);
         rate += 27 * Math.Min(15, n); n = Math.Max(0, n - 15);
         rate += 36 * Math.Min(15, n); n = Math.Max(0, n - 15);
-        rate += 45 * n;
-        if (target is PlayerMobile) { rate /= 4; if (ranged) { rate /= 2; } }
-        else if (Elite(target)) { rate /= 2; }
+        rate = checked(rate + 45 * n);
+        if (player) { rate /= 4; if (ranged) { rate /= 2; } }
+        else if (elite) { rate /= 2; }
         return rate * 200.0 / 256;
     }
     public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false,bool setupApplied=false)
