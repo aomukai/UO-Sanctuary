@@ -185,7 +185,7 @@ public static class PersistentMinions
             }
             if (pet.Map == Map.Internal && FindPosition(owner, out var point))
             { pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null); }
-            if(pet.Map==owner.Map&&pet.Map!=Map.Internal){minion.ResumeActions();}
+            if(pet.Map==owner.Map&&pet.Map!=Map.Internal){if(pet is NecromancerMinion mage){MageWorld.TryAdopt(mage,DateTime.UtcNow);}minion.ResumeActions();}
         }
     }
 

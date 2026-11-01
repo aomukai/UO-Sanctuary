@@ -27,16 +27,17 @@ internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profil
         var next=old with{Controller=state};string saved=JsonSerializer.Serialize(next);_state=next;write(saved);
         if(state.Mode!=4||state.ActionAt==0){cancel();}
     }
-    internal void Initialize(PlayerMobile owner,DateTime at,Action initializeRandom)
+    internal void Initialize(PlayerMobile owner,DateTime at,Action initializeRandom,bool adopt=false)
     {
         if(at.Kind!=DateTimeKind.Utc||body.ControlMaster!=owner||body.Map!=owner.Map||body.Map==Map.Internal)
         {throw new ArgumentException("Ground actor needs owner,world placement and UTC time");}
         initializeRandom();
         var controller=new IronGolemWorldState(body.Map.MapID,DruidRavenMotion.Center(body.X*2,body.Y*2),at.AddMilliseconds(40),
-            EndAt:DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End,Ai:new(ranged?1:0,0,0)){Profile=profile};
+            Mode:adopt?1:8,NextThink:adopt?1:25,EndAt:adopt?0:DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End,Ai:new(ranged?1:0,0,0)){Profile=profile};
         _state=new(owner.Serial.Value,controller);Store(controller);PetOwnerRoutes.For(owner,at);
-        BattleCommand.Track(body);PersistentMinions.Profiles.Track(body);IronGolems.Track(body);
+        if(!adopt){BattleCommand.Track(body);}PersistentMinions.Profiles.Track(body);IronGolems.Track(body);
     }
+    internal void Invalidate()=>_state=null;
     internal void Suspend(){cancel();if(State is{} state){Store(IronGolemWorld.Park(state.Controller));}}
     internal void Load(){body.AIObject?.AITimer.Stop();if(State is not{} state){return;}Store(state.Controller);Loaded=true;IronGolems.Track(body);}
 }

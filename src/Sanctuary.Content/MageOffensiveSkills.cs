@@ -19,7 +19,7 @@ internal static class MageOffensiveSkills
         int roll=percentage();if(roll is <0 or >=100){throw new NotSupportedException("Mage proc percentage must be0..99");}
         return roll<5&&a?first:roll is >=5 and <10&&b?second:CombatAbility.None;
     }
-    internal static bool Release(MageWorldBody actor,PlayerMobile owner,Mobile target,DateTime at)
+    internal static bool Release(NecromancerMinion actor,PlayerMobile owner,Mobile target,DateTime at)
     {
         if(!IronGolemWorld.Eligible(actor,owner,target)){return false;}
         // Cooldown-unavailable slots remain basic attacks without rerolling

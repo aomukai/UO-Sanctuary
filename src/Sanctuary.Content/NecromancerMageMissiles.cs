@@ -17,11 +17,16 @@ internal sealed record MageMissilePacket(string Missile,string Element,int Rank,
 internal sealed record MageMissileState(long Id,uint Actor,uint Owner,int Map,int Z,double X,double Y,double Vx,double Vy,
     int Frame,int Frames,int VelocityFp8,MageMissilePacket Packet,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null);
 internal sealed record MageCriticalSeed(uint Actor,uint Owner,ulong Seed);
-internal sealed record MageMissileSave(MageMissileState[] Bolts,MageCriticalSeed[] Seeds,long NextId);
+internal sealed record MageHistoricalGround(uint Actor,uint Owner,string State);
+internal sealed record MageMissileSave(MageMissileState[] Bolts,MageCriticalSeed[] Seeds,long NextId)
+{
+    public MageHistoricalGround[] LegacyWorlds{get;init;}=[];
+}
 public sealed class MageMissileProfiles:GenericPersistence
 {
     private MageMissileSave _snapshot;
     public MageMissileProfiles():base("SanctuaryMageMissiles",224){}
+    public override void PostDeserialize()=>NecromancerMageMissiles.LoadHistoricalWorlds();
     public override void Serialize(){_snapshot=NecromancerMageMissiles.Snapshot();base.Serialize();}
     public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
@@ -36,6 +41,7 @@ internal static class NecromancerMageMissiles
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NecromancerMageMissiles));
     private static readonly Dictionary<long,MageMissileState> Bolts=new();
     private static readonly Dictionary<uint,MageCriticalSeed> Seeds=new();
+    private static readonly Dictionary<uint,MageHistoricalGround> LegacyGrounds=new();
     private static long _nextId;
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static void Configure()=>_ = new MageMissileProfiles();
@@ -54,7 +60,29 @@ internal static class NecromancerMageMissiles
         ulong seed=state.Seed;uint value=SourceRandom.Roll(ref seed);Seeds[actor.Serial.Value]=state with{Seed=seed};return value;
     }
     internal static int ActorLimited(NecromancerMinion actor,int bound)=>bound<=0?0:(int)(ActorRaw(actor)%(uint)bound);
-    internal static void ForgetActor(NecromancerMinion actor)=>Seeds.Remove(actor.Serial.Value);
+    internal static void ForgetActor(NecromancerMinion actor){Seeds.Remove(actor.Serial.Value);LegacyGrounds.Remove(actor.Serial.Value);}
+    internal static string LegacyWorld(NecromancerMinion actor)=>LegacyGrounds.GetValueOrDefault(actor.Serial.Value)?.State??"{}";
+    internal static void StoreLegacyWorld(NecromancerMinion actor,string state)
+    {
+        if(actor is MageWorldBody||actor is not{IsMage:true,Deleted:false,ControlMaster:PlayerMobile owner}){throw new InvalidDataException("Invalid historical Mage ground actor");}
+        var saved=new MageHistoricalGround(actor.Serial.Value,owner.Serial.Value,state);ValidateLegacyWorld(saved);LegacyGrounds[actor.Serial.Value]=saved;
+    }
+    private static void ValidateLegacyWorld(MageHistoricalGround entry)
+    {
+        if(entry==null||!((Serial)entry.Actor).IsMobile||!((Serial)entry.Owner).IsMobile||string.IsNullOrEmpty(entry.State)){throw new InvalidDataException("Invalid historical Mage identity");}
+        var state=JsonSerializer.Deserialize<SkeletonWorldState>(entry.State);
+        if(state?.Controller==null||state.Owner!=entry.Owner||state.Controller.Profile!=MageWorldBody.ProfileId){throw new InvalidDataException("Invalid historical Mage ground context");}
+        IronGolemWorld.Validate(state.Controller with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"},true);
+    }
+    internal static void LoadHistoricalWorlds()
+    {
+        foreach(var entry in LegacyGrounds.Values.ToArray())
+        {
+            if(World.FindMobile((Serial)entry.Actor) is not NecromancerMinion{Alive:true,Deleted:false} actor){LegacyGrounds.Remove(entry.Actor);continue;}
+            if(!actor.IsMage||actor is MageWorldBody||actor.ControlMaster?.Serial.Value!=entry.Owner){throw new InvalidDataException("Historical Mage saved owner/type mismatch");}
+            actor.RetireNativeMageActions();actor.LegacyMageWorld.World.Suspend();actor.LegacyMageWorld.World.Load();
+        }
+    }
     internal static MageMissilePacket Packet(int element,int rank)
     {
         if(element is <0 or >3 || rank is <1 or >381){throw new NotSupportedException("Unsupported skeletal mage element/derived missile rank");}
@@ -195,14 +223,19 @@ internal static class NecromancerMageMissiles
             ||s.Packet.Maximum256<s.Packet.Minimum256||s.Steps?.Cells is not{Length:>=1 and <=10})
         {throw new InvalidDataException("Invalid saved skeletal mage missile");}
     }
-    internal static MageMissileSave Snapshot()=>new(Bolts.Values.OrderBy(s=>s.Id).ToArray(),Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is NecromancerMinion{Deleted:false,IsMage:true} a&&a.ControlMaster?.Serial.Value==s.Owner).OrderBy(s=>s.Actor).ToArray(),_nextId);
+    internal static MageMissileSave Snapshot()=>new(Bolts.Values.OrderBy(s=>s.Id).ToArray(),Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is NecromancerMinion{Deleted:false,IsMage:true} a&&a.ControlMaster?.Serial.Value==s.Owner).OrderBy(s=>s.Actor).ToArray(),_nextId)
+        {LegacyWorlds=LegacyGrounds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is NecromancerMinion{Alive:true,Deleted:false,IsMage:true} a&&a is not MageWorldBody&&a.ControlMaster?.Serial.Value==s.Owner).OrderBy(s=>s.Actor).ToArray()};
     internal static void Restore(MageMissileSave saved)
     {
-        if(saved?.Bolts==null||saved.Seeds==null||saved.NextId<0){throw new InvalidDataException("Missing mage projectile save");}
-        var bolts=new Dictionary<long,MageMissileState>();var seeds=new Dictionary<uint,MageCriticalSeed>();
+        if(saved?.Bolts==null||saved.Seeds==null||saved.LegacyWorlds==null||saved.NextId<0){throw new InvalidDataException("Missing mage projectile save");}
+        var bolts=new Dictionary<long,MageMissileState>();var seeds=new Dictionary<uint,MageCriticalSeed>();var grounds=new Dictionary<uint,MageHistoricalGround>();
         foreach(var state in saved.Bolts){Validate(state);if(state.Id>saved.NextId||!bolts.TryAdd(state.Id,state)){throw new InvalidDataException("Duplicate mage projectile");}}
         foreach(var state in saved.Seeds)
         {if(!((Serial)state.Actor).IsMobile||!((Serial)state.Owner).IsMobile||!seeds.TryAdd(state.Actor,state)){throw new InvalidDataException("Invalid mage critical seed");}}
+        foreach(var entry in saved.LegacyWorlds){ValidateLegacyWorld(entry);if(!grounds.TryAdd(entry.Actor,entry)){throw new InvalidDataException("Duplicate historical Mage ground state");}}
+        var affected=LegacyGrounds.Keys.Concat(grounds.Keys).Distinct().ToArray();
         Bolts.Clear();foreach(var pair in bolts){Bolts.Add(pair.Key,pair.Value);}Seeds.Clear();foreach(var pair in seeds){Seeds.Add(pair.Key,pair.Value);}_nextId=saved.NextId;
+        LegacyGrounds.Clear();foreach(var pair in grounds){LegacyGrounds.Add(pair.Key,pair.Value);}
+        foreach(uint id in affected){if(World.FindMobile((Serial)id) is NecromancerMinion actor){actor.InvalidateLegacyMageWorld();}}
     }
 }

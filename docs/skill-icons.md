@@ -1,5 +1,7 @@
 # Skill icons
 
+The [historical Mage rollout](mage-historical-checkpoint.md) adds no talent, player binding or separate hotkey icon. Raise Skeletal Mage tree/right/quick artwork remains pending; shared behavior and effects do not create another icon set.
+
 The [three-element Mage roster](mage-elements-checkpoint.md) adds no separate talent or player hotkey. Existing Raise Skeletal Mage tree/right/quick artwork remains pending; element-distinct body/spell feedback is tracked in the effects register.
 
 The [Mage Meteor secondary](mage-meteor-checkpoint.md) is automatic and adds no new player binding or separate hotkey icon. Raise Skeletal Mage still needs its pending tree/right/quick artwork; effects/audio remain in their own register.

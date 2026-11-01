@@ -21,7 +21,7 @@ internal static class MagePetBuffs
     }
     internal static ColdArmorState Armor(Mobile actor)=>actor is NecromancerMinion{Alive:true,IsMage:true,MageElement:1} mage&&HardRank(mage)>=20
         ?_armor??=SorceressEffects.PrepareColdArmor(CombatAbility.FrozenArmor,Values(CombatAbility.FrozenArmor,20,1),DateTime.MaxValue):null;
-    internal static void CombatStart(MageWorldBody actor,PlayerMobile owner)
+    internal static void CombatStart(NecromancerMinion actor,PlayerMobile owner)
     {
         if(actor.MageElement!=2||HardRank(actor)<20||!actor.Alive||actor.Map!=owner.Map||SpellHelper.IsTown(actor.Location,owner)){return;}
         var values=Values(CombatAbility.Enchant,20,actor.Level);

@@ -70,3 +70,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Mage element migration and retained spell packets
 
 [Three-element Mages](mage-elements-checkpoint.md) reuse the existing serialized element field and base load hook. Element changes require no rank/resource recapture, actor/controller replacement, roster commit, RNG or HP write. Keep already-fired packet element and ongoing poison state independent from the caster's current element. Plain historical types keep their own identity and AI until an explicit controller migration exists; changing a field does not silently grant the world subtype. Reuse existing cold/freeze consumers after conversion, and keep basic-damage/Mastery policy separate.
+
+## Historical Mage controller adoption
+
+[Original Mage actors](mage-historical-checkpoint.md) share `MageWorld` behavior and the existing ground conductor. Current typed actors keep their own serialized string; original types store optional ground records in existing Mage persistence. Reuse minion resume/sweep, seed, timer-suppression and spell services. Adoption is not a new birth: preserve FIFO order and resources, cancel unsaved native actions once, and keep the missing old clock/seed policy explicit. New births retain their original emergence sequence. Already-created packets remain independent from controller replacement.

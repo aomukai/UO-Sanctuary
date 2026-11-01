@@ -79,6 +79,16 @@ public partial class NecromancerMinion : SkeletonGuardian
     [SerializableField(1, setter: "private")] private string _ranks = "{}";
     [SerializableField(2, setter: "private")] private int _element;
     [SerializableField(3, setter: "private")] private int _resistance;
+    private MageWorld _legacyMageWorld;
+    internal MageWorld LegacyMageWorld=>_legacyMageWorld??=new(this,()=>NecromancerMageMissiles.LegacyWorld(this),s=>NecromancerMageMissiles.StoreLegacyWorld(this,s));
+    internal void InvalidateLegacyMageWorld()=>_legacyMageWorld?.World.Invalidate();
+    public override bool UsesNativeSummonTimer=>!IsMage&&base.UsesNativeSummonTimer;
+    internal void RetireNativeMageActions()
+    {base.SuspendActions();AIObject?.AITimer.Stop();CantWalk=true;Combatant=null;FocusMob=null;Warmode=false;}
+    public override TimeSpan BeginMelee(Mobile target)=>IsMage?TimeSpan.FromMilliseconds(MageAttackClock.End*40):base.BeginMelee(target);
+    public override void SuspendActions(){base.SuspendActions();if(IsMage&&!Deleted&&MageWorld.For(this) is{} mage){mage.World.Suspend();mage.ObserveCombatTarget(false);}}
+    internal override void InterruptForRecovery(){base.InterruptForRecovery();if(IsMage&&!Deleted){MageWorld.For(this)?.World.Suspend();}}
+    public override void OnAfterDelete(){if(IsMage){IronGolems.Forget(this);NecromancerMageMissiles.ForgetActor(this);}base.OnAfterDelete();}
     private MonsterProfile _summonProfile;
     private MageBirthStats _mageBirth;
     private MageBirthStats MageBirth=>_mageBirth??=NecromancerMageBirth.Prepare(Values(Kind),Level,SummonDifficulty);
@@ -264,6 +274,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     public override void OnThink()
     {
+        if(IsMage){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;MageWorld.TryAdopt(this,TimedEffects.Now);return;}
         base.OnThink();
         if (Kind != CombatAbility.FireGolem || Deleted || !Alive || Map == Map.Internal || ControlMaster is not PlayerMobile owner
             || Core.TickCount - _nextAura < 0) { return; }
@@ -299,6 +310,6 @@ public partial class NecromancerMinion : SkeletonGuardian
     {
         _snapshot = null; _summonProfile = null; _mageBirth=null; _nextAura = Core.TickCount + 2000; MigrateMageElement(); Appearance();
         int life = Hits; SetHits(CombatProfile.Life); Hits = Math.Min(life, HitsMax);
-        SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
+        SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);if(IsMage){RetireNativeMageActions();}
     }
 }
