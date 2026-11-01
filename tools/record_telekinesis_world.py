@@ -56,6 +56,7 @@ def record(check=False):
         assert 'Build succeeded.' in text and '0 Warning(s)' in text and '0 Error(s)' in text
     source=ROOT/'tools/reference/telekinesis-source-evidence.json';reference=json.loads(source.read_text())
     assert reference['referenceVersion']=='3.3.93847' and reference['startCases']==2880 and reference['releaseCases']==28224 and reference['sanitizers']=='ASan/UBSan clean'
+    assert {k:reference['currentRow'][k] for k in ('*Id','srvstfunc','srvdofunc','ResultFlags','HitFlags','HitClass','Param1','Param2')}=={'*Id':43,'srvstfunc':12,'srvdofunc':21,'ResultFlags':5,'HitFlags':2,'HitClass':109,'Param1':25,'Param2':35}
     client=ROOT/'tools/reference/telekinesis-client-evidence.json';client_reference=json.loads(client.read_text())
     assert client_reference['patches']==38 and client_reference['affectedPaths']==41 and client_reference['buildErrors']==0 and not client_reference['graphicalInputVerified']
     for evidence in (reference,client_reference):

@@ -28,11 +28,11 @@ def probe(check=False):
     manifest = json.loads((skills.parent.parent / 'sources.json').read_text())
     assert sha(skills) == manifest['files']['json/skills.json']['sha256']
     current = next(r for r in json.loads(skills.read_text()).values() if r.get('skill') == 'Telekinesis')
-    expected = {'*Id':43, 'srvstfunc':12, 'srvdofunc':21, 'ResultFlags':5,
+    table_fields = {'*Id':43, 'srvstfunc':12, 'srvdofunc':21, 'ResultFlags':5,
                 'HitFlags':2, 'HitClass':109, 'Param1':25, 'Param2':35,
                 'aurarangecalc':'par1', 'mana':7, 'manashift':8, 'InTown':1,
                 'TargetItem':1, 'EType':'ltng', 'EMin':1, 'EMax':2, 'HitShift':8}
-    assert {k:current.get(k) for k in expected} == expected
+    assert {k:current.get(k) for k in table_fields} == table_fields
     cpp = r'''
 #include <cstdint>
 #include <cstdio>
@@ -122,7 +122,7 @@ printf("]}\n");}
     fixture.write_text(json.dumps(data, separators=(',', ':')) + '\n')
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], sourceHashes={rel: sha(source)},
                     routineHashes={n: hashlib.sha256(b.encode()).hexdigest() for n, b in blocks.items()},
-                    currentTable={str(skills.relative_to(ROOT)):sha(skills)}, currentRow=expected,
+                    currentTable={str(skills.relative_to(ROOT)):sha(skills)}, currentRow=table_fields,
                     startCases=len(data['start']), releaseCases=len(data['do']), sanitizers='ASan/UBSan clean',
                     established=[
                         'Complete start12 uses inclusive squared range, then hostility and both town gates only for player/monster targets.',
