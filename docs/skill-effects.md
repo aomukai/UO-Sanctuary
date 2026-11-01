@@ -1,5 +1,7 @@
 # Skill effects
 
+The [combined Necromancer acceptance](necromancer-acceptance-checkpoint.md) verifies mechanics and adds no final artwork. Existing summon, cast, curse, projectile, cloud, impact, barrier, parking and audio requirements remain pending with identified UO placeholders. Reuse shared Sorceress/encounter assets where the presentation matches; missing art does not block mechanics. Talent and hotkey icons stay in the separate icon register.
+
 The [Mage basic-spell/triple increment](mage-basics-checkpoint.md) uses fire `0x36D4`, ice `0x36E4` and lightning `0x3818` travel markers as identified placeholders. Final Fire Bolt/Ice Bolt/Charged Bolt travel, collision/impact/chill, triple-fan/charged-volley presentation and audio remain pending and should share Sorceress assets. Existing Mage body/windup/recovery/death and secondary assets remain listed separately; art does not gate the mechanics.
 
 The [approved Fire damage/cold upgrades](fire-upgrades-checkpoint.md) retain body `14`/hue `0x489`, native contact/attack cues, aura `0x375A` and explosion `0x36BD` as identified placeholders. Final doubled-physical/fire impact, pulse/weapon aura, Cannot Be Frozen/cold-immunity status, immunity-break/expiry feedback and audio remain pending. Reuse the Paladin Holy Fire and shared cold-state assets where presentation matches. Art does not gate mechanics; icons stay separate.

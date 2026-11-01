@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "110aa2252ee54b9c5271c01000b15e85af6166f9b513d95b319c291c82bb54da",
+  "ContentAssemblySha256": "64119f265940f093bd0ae026b148ca9409cf55b034142b71ab55c05c0aa5b63b",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",

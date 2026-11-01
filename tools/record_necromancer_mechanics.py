@@ -138,12 +138,12 @@ def record(check=False):
             'Confuse resume now waits for both actual damage and a new acquisition draw within its original12second window before applying all existing exact saved-state/RNG assertions. It does not force a scan or rewrite a saved seed,target or deadline;the two independently scheduled observations need not occur in the same phase.',
             'Only fixture coordination,helper visibility,runner environment/order,inspection retention and stale expectations change. Production C#,runtime data,kernel and installed106are unchanged.'],
         remaining=[
-            'This diagnostic omits the full configuration34live actions and46right/quick input actions per boot. It does not replace those checks or establish the full combined pass. The last accepted retained run remains Confuse resume411markers;full run6 and fresh selected-build audits are pending.',
+            'This diagnostic omits the full configuration34live actions and46right/quick input actions per boot. It does not replace those checks or establish the full combined pass. Full845marker acceptance and fresh selected-build audits must be verified separately through necromancer-acceptance-native-evidence.json.',
             'Existing source/current-executable,barrier group/death/collision,unmapped species,legacy/control/credit/PvP/Sunder/client and asset limits remain. No class completion or deployment is claimed. Effects/audio and talent/hotkey icons remain separate.'])
     path=ROOT/'tools/reference/necromancer-mechanics-native-evidence.json';encoded=json.dumps(result,indent=2)+'\n'
     if check:assert path.read_text()==encoded
     else:path.write_text(encoded)
-    print('Necromancer mechanics:467markers/3boots/2reloads/3saves;full live/input acceptance remains pending.')
+    print('Necromancer mechanics:467markers/3boots/2reloads/3saves;full live/input acceptance has a separate receipt.')
 
 
 if __name__=='__main__':

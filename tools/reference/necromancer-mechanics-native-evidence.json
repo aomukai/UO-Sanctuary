@@ -492,7 +492,7 @@
     "tests/Sanctuary.Integration/PetChecks.cs": "9d29c74c1b2fba5f739fa030da692807b972af8dec1740f38b7afc3e4e14c0ca",
     "tests/check_iron_golem_birth.py": "06f5174b9228f6ece2b7c96f58909a1d3b7359b83279e71c9cbd2b6502e50883",
     "tests/check_necromancer_acceptance.py": "c95a9507b81df8e6a9a4e92c2fdee5bc230a16037c3eae52ec9f13c1afa0f5c0",
-    "tools/record_necromancer_mechanics.py": "b086be2e84705631a5330430bacdf1fb6ce643dd6a65fce8f1e6d2534ac47df1",
+    "tools/record_necromancer_mechanics.py": "92d1b95b5dbaa2c9752b3a68ff3ec000a54a708a1fed6199663280af5864d041",
     "tools/reference/confuse-resume-native-evidence.json": "a44b4c7b75d4f6ca307f275a5292edb9b53bf4ee8922f34192af421bc82248d5"
   },
   "established": [
@@ -505,7 +505,7 @@
     "Only fixture coordination,helper visibility,runner environment/order,inspection retention and stale expectations change. Production C#,runtime data,kernel and installed106are unchanged."
   ],
   "remaining": [
-    "This diagnostic omits the full configuration34live actions and46right/quick input actions per boot. It does not replace those checks or establish the full combined pass. The last accepted retained run remains Confuse resume411markers;full run6 and fresh selected-build audits are pending.",
+    "This diagnostic omits the full configuration34live actions and46right/quick input actions per boot. It does not replace those checks or establish the full combined pass. Full845marker acceptance and fresh selected-build audits must be verified separately through necromancer-acceptance-native-evidence.json.",
     "Existing source/current-executable,barrier group/death/collision,unmapped species,legacy/control/credit/PvP/Sunder/client and asset limits remain. No class completion or deployment is claimed. Effects/audio and talent/hotkey icons remain separate."
   ]
 }
