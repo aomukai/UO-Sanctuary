@@ -42,7 +42,7 @@ internal static class NpcOpenWounds
         var clock=actor.OpenWounds??throw new InvalidOperationException("Missing source wound clock");
         int phase=actor.PoisonClock?.ElapsedMs??actor.NpcPoisonElapsedMs??clock.ElapsedMs;
         int poisonFrames=(phase+poisonMs)/40,woundFrames=(phase+woundMs)/40,frames=Math.Max(poisonFrames,woundFrames);
-        int item=NpcEquipmentRegeneration.ItemRate(target);bool blocked=actor.HealBlockedUntil>(TimedEffects.DamageTime??TimedEffects.Now);
+        int item=MinionSafeAreas.RecoveryRate(target,NpcEquipmentRegeneration.ItemRate(target));bool blocked=actor.HealBlockedUntil>(TimedEffects.DamageTime??TimedEffects.Now);
         var woundSource=World.FindMobile((Serial)clock.CreditOwner)??World.FindMobile(actor.BleedSource);
         for(int i=0;i<frames&&target is{Alive:true,Deleted:false};i++)
         {

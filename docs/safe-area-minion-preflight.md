@@ -1,6 +1,6 @@
 # Safe-area army parking preflight
 
-Approved policy is in [the pet review](pet-adjustment-review.md#safe-area-parking--approved-lifecycle-change-not-implemented). This is a code-path review, not an implementation certificate. No parking behavior changed during the Mage inspection checkpoint.
+Approved policy is in [the pet review](pet-adjustment-review.md#safe-area-parking). This is a code-path review, not an implementation certificate. No parking behavior changed during the Mage inspection checkpoint.
 
 ## Existing services to reuse
 
@@ -20,4 +20,4 @@ The existing parked flag is shared with class-switch parking; admission must sti
 
 Verify wounded identity/gear/snapshot preservation, live effect expiry without recovery, no new attacks or replayed windup, movement/teleport/facet/login/reload transitions, disabled/ordinary indoor regions, safe-area casting and stationary cleanup. Include actual failed return placement, class switching, respec/replacement, owner death, native Revives, explicit healer service, automatic vendor refusal and named-mercenary/trap exclusions. Existing Mage/ground/save scopes must remain in regression.
 
-No user decision blocks implementation. This approved lifecycle change remains queued after the accepted Mage inspection checkpoint; implement it next.
+No user decision blocks implementation. The later [parking checkpoint](safe-area-minions-checkpoint.md) records the implementation and verification following this review; remaining species/region/lifecycle acceptance stays explicit.

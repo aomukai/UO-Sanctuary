@@ -84,7 +84,7 @@ public static class ReviveNativeActivation
     }
     private static IPersistentMinion Behavior(BaseCreature actor)=>State(actor)!=null?new NativeBehavior(actor):null;
     private static bool CanAct(BaseCreature actor)=>actor is{Alive:true,Deleted:false}&&actor.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
-        &&owner.Map==actor.Map&&actor.Map!=Map.Internal&&PersistentMinions.Active(owner,actor)&&Behavior(actor).Permitted(owner);
+        &&owner.Map==actor.Map&&actor.Map!=Map.Internal&&!MinionSafeAreas.ShouldPark(owner,actor)&&PersistentMinions.Active(owner,actor)&&Behavior(actor).Permitted(owner);
     internal static bool CommitPrepared(PlayerMobile owner,Corpse corpse,Point3D destination,ReviveAiStatus status,ReviveNativeSetup setup,out BaseCreature actor,out string issue)
     {
         actor=null;issue="The original corpse is not ready for native activation.";
@@ -145,7 +145,7 @@ public static class ReviveNativeActivation
         foreach(var old in owned.Take(Math.Max(0,owned.Length-setup.Rank)))
         {if(World.FindMobile((Serial)old.Actor) is BaseCreature oldActor){oldActor.Delete();}States.Remove(old.Actor);}
         if(owner.NetState==null){PersistentMinions.Suspend(owner);}else{Behavior(original).ResumeActions();}
-        actor=original;issue=null;return true;
+        MinionSafeAreas.Enforce(original);actor=original;issue=null;return true;
     }
     internal static void AfterLoad()
     {

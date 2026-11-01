@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "d0b08afff65aa61008e920ffd153b36878e855c1ac98fa3e04cef1f0f0e6a79d",
-  "ContentAssemblyPath": ".local/class-skills/mage-inspection/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "95aa4835be0fa0522fc4563a507222c955cf8293398fd4ec2d7d476976d4e0b7",
+  "ContentAssemblyPath": ".local/class-skills/safe-area-minions/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

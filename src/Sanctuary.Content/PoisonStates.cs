@@ -64,7 +64,7 @@ public static class PoisonStates
         int total=(actor.PoisonClock?.ElapsedMs??actor.NpcPoisonElapsedMs??0)+elapsed,frames=total/40;
         if(actor.PoisonClock is{} clock){actor.PoisonClock=clock with{ElapsedMs=total%40};}
         else{actor.NpcPoisonElapsedMs=total%40;}
-        int item=NpcEquipmentRegeneration.ItemRate(target);
+        int item=MinionSafeAreas.RecoveryRate(target,NpcEquipmentRegeneration.ItemRate(target));
         bool prevented=actor.HealBlockedUntil>(TimedEffects.DamageTime??TimedEffects.Now);
         var source=World.FindMobile(actor.PoisonSource);
         for(int i=0;i<frames&&target is{Alive:true,Deleted:false};i++)

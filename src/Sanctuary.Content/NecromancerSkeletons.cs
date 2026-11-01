@@ -36,6 +36,7 @@ internal static class NecromancerSkeletons
             ||created.Map==null||created.Map==Map.Internal||created.Map!=owner.Map||kind==CombatAbility.None)
         {throw new ArgumentException("Skeleton roster commit requires a completed owned world candidate");}
         int maximum=Limit(owner,kind,created.Rank);BattleCommand.Track(created);Prune(owner,kind,maximum);
+        MinionSafeAreas.Enforce(created);
     }
     internal static void Enforce(PlayerMobile owner)
     {

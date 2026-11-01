@@ -37,6 +37,7 @@ public sealed class MinionWardrobeProfiles : GenericPersistence
                 || pet.ControlMaster != owner || !ClassCreation.Profiles.HasHistory(owner.Serial, state.Class)
                 || state.ExpiresUtc is { } expires && now >= expires)
             { pet.Delete(); removed.Add(serial); }
+            else if(MinionSafeAreas.Enforce(pet)){ }
             else if(owner.NetState!=null&&pet.Map==owner.Map&&PersistentMinions.Active(owner,pet)&&pet is NecromancerMinion mage){MageWorld.TryAdopt(mage,now);}
         }
         foreach (var serial in removed) { _pets.Remove(serial); }

@@ -253,6 +253,7 @@ internal static class IronGolemWorld
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Iron Golem world clock must be UTC");}
         if(body.Deleted||!body.Alive||Controller(body) is not{} s||s.Fault!=null||s.NextUtc>at){return;}
         if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=Owner(body)){body.Delete();return;}
+        if(MinionSafeAreas.Enforce(body)){Skip(body,Controller(body),at);return;}
         if(TakeLoaded(body)){Skip(body,s,at);return;}
         if(!PersistentMinions.Active(owner,body)||!body.Permitted(owner)||!actions||owner.Map==null||owner.Map==Map.Internal)
         {

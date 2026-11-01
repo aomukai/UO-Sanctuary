@@ -240,7 +240,8 @@ public static class TimedEffects
     private static void Restore(Mobile player, RestorationLane lane, bool life, int step)
     {
         if (life ? SkillHealth.Full(player) : player.Mana >= player.ManaMax) { lane.Clear(); return; }
-        int points = lane.Advance(step);
+        long priorRemainder=lane.Remainder;int points = lane.Advance(step);
+        if(MinionSafeAreas.NoRecovery(player)){lane.Remainder=priorRemainder;return;}
         if (life) { SkillHealth.Heal(player, (int)Math.Min((long)points * 256, int.MaxValue)); }
         else { player.Mana = Math.Min(player.ManaMax, player.Mana + points); }
         if (life ? SkillHealth.Full(player) : player.Mana >= player.ManaMax) { lane.Clear(); }

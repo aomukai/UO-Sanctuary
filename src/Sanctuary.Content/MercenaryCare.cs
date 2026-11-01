@@ -75,6 +75,7 @@ public static class MercenaryCare
         return owner is { Deleted: false } && mercenary is { Deleted: false, Controlled: true, IsBonded: true }
             && mercenary.ControlMaster == owner && States.TryGetValue(mercenary.Serial, out state) && state.Owner == owner.Serial && !state.Retired;
     }
+    internal static bool IsCompanion(PlayerMobile owner,BaseCreature pet)=>Owned(owner,pet,out _);
     private static bool Near(Mobile first, Mobile second, int range = 3) => first.Map != Map.Internal && first.Map == second.Map
         && first.InRange(second, range) && Math.Abs(first.Z - second.Z) < 16 && first.InLOS(second);
     public static bool Deposit(PlayerMobile owner, BaseCreature mercenary, RestorationPotion potion)
@@ -129,16 +130,18 @@ public static class MercenaryCare
         && (item.Parent == mercenary || mercenary.Backpack != null && item.IsChildOf(mercenary.Backpack))
         && item.Layer is not (Layer.Hair or Layer.FacialHair) && owner.Backpack.TryDropItem(owner, item, false);
     public static bool Provider(BaseCreature healer) => healer is BaseHealer or HealerGuildmaster;
-    public static int HealFollowers(PlayerMobile owner, BaseCreature npc)
+    public static int HealFollowers(PlayerMobile owner, BaseCreature npc, bool includeParked = false)
     {
         if (!ClassProfessions.Affected(owner) || !ClassProfessions.Ready(owner) || npc is not { Deleted: false, Alive: true }
             || !(Provider(npc) || npc is BaseVendor { IsActiveVendor: true }) || !Near(owner, npc) || !Peaceful(owner) || !Peaceful(npc)
             || npc is BaseVendor vendor && !vendor.CheckVendorAccess(owner) || npc is BaseHealer healer && !healer.CheckResurrect(owner)) { return 0; }
-        int healed = 0;
-        foreach (var follower in owner.AllFollowers ?? [])
+        int healed = 0;using var pets=PooledRefList<BaseCreature>.Create();
+        foreach(var follower in owner.AllFollowers??[]){if(follower is BaseCreature pet){pets.Add(pet);}}
+        foreach (var pet in pets)
         {
-            if (follower is not BaseCreature { Deleted: false, Alive: true, IsDeadPet: false, Controlled: true } pet
-                || pet.ControlMaster != owner || !Near(pet, npc, 12) || !Peaceful(pet)) { continue; }
+            if (pet is not { Deleted: false, Alive: true, IsDeadPet: false, Controlled: true }
+                || pet.ControlMaster != owner || (!Near(pet, npc, 12)
+                    && !(includeParked && Provider(npc) && MinionSafeAreas.Contains(owner) && MinionSafeAreas.Parked(pet))) || !Peaceful(pet)) { continue; }
             TimedEffects.Settle(pet, TimedEffects.Now);
             if (pet.Deleted || !pet.Alive || pet.IsDeadPet || pet.Hits >= pet.HitsMax) { continue; }
             pet.Hits = pet.HitsMax; TimedEffects.ClearRestoration(pet); healed++;
@@ -192,7 +195,7 @@ public static class MercenaryCare
     private sealed class HealEntry(BaseCreature healer) : ContextMenuEntry(1044060 + (int)SkillName.Healing, 3)
     {
         public override void OnClick(Mobile from, IEntity target)
-        { if (from is PlayerMobile owner) { HealFollowers(owner, healer); } }
+        { if (from is PlayerMobile owner) { HealFollowers(owner, healer, includeParked:true); } }
     }
     private sealed class CareEntry(BaseCreature healer, BaseCreature mercenary) : ContextMenuEntry(6195, 3)
     {

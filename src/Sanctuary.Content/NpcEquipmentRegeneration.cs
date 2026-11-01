@@ -24,7 +24,7 @@ internal static class NpcEquipmentRegeneration
     }
     internal static void Apply(Mobile actor,int delta,Mobile poisonSource=null)
     {
-        if(delta>0){SkillHealth.Heal(actor,delta);}
+        if(delta>0&&!MinionSafeAreas.NoRecovery(actor)){SkillHealth.Heal(actor,delta);}
         else if(delta<0){PoisonStates.Drain(poisonSource,actor,-(long)delta);}
     }
     internal static void Recover(Mobile actor,long now,int? sourceRate=null)

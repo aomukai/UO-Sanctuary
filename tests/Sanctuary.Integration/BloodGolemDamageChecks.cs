@@ -101,7 +101,7 @@ public static class BloodGolemDamageChecks
     {
         var p=Owner(20,20,3600);FixtureNetwork.Authenticate(network,p,"blood-damage");var b=Learned(p);var t=PoisonDaggerChecks.Target(p);t.SetHits(20000);t.MoveToWorld(b.Location,p.Map);t.SetResistance(ResistanceType.Physical,0);TimedEffects.PreventHealing(t,TimedEffects.Now);
         var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;NpcEquipmentRandom.Set(b,BloodGolemWorldChecks.Seed(b,t));b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});
-        int hp=SkillHealth.Balance256(t),damage=0;bool captured=false;long deadline=Core.TickCount+10000;
+        int hp=SkillHealth.Balance256(t),damage=0;bool captured=false,observedHit=false;long deadline=Core.TickCount+10000;
         void End(){SourceBlocking.BlockRoll=block;t.Delete();b.Delete();p.Delete();}
         void Wait()
         {
@@ -110,7 +110,13 @@ public static class BloodGolemDamageChecks
                 Require(Core.TickCount<deadline&&b.WorldState.Controller.Fault==null,"Natural Blood replacement timeout/fault");
                 if(!captured&&b.WorldContact is{} packet){captured=true;damage=packet.Impact.Packet.Physical256;Require(damage>40*256&&packet.Impact.Packet.Total256==damage&&SkillHealth.Balance256(t)==hp,"Natural Blood fractional capture/early HP");}
                 if(SkillHealth.Balance256(t)==hp){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}
-                Require(network.Running&&captured&&hp-SkillHealth.Balance256(t)==damage&&b.WorldState.Controller.Attempts==1&&b.SourceAttackClock==(10,16),"Natural Blood replacement actual contact/clock");End();Log.Information("blood-damage-live-result: passed");
+                // Hard20 also has Open Wounds. Observe beyond its first
+                // frames deliberately; host polling is not a no-bleed window.
+                if(!observedHit){observedHit=true;Timer.StartTimer(TimeSpan.FromMilliseconds(80),Wait);return;}
+                int ticks=0,rate=0;if(TimedEffects.TryActor(t,out var state)&&state.OpenWounds is{} wound){ticks=(8000-state.BleedMs)/40;rate=wound.Rate256;}
+                int loss=hp-SkillHealth.Balance256(t);
+                Require(network.Running&&captured&&ticks>=2&&loss==damage+ticks*rate&&b.WorldState.Controller.Attempts==1&&b.SourceAttackClock==(10,16),
+                    $"Natural Blood replacement actual contact/clock:captured={captured},loss={loss},direct={damage},woundTicks={ticks},rate={rate},attempts={b.WorldState.Controller.Attempts},clock={b.SourceAttackClock}");End();Log.Information("blood-damage-live-result: passed");
             }
             catch(Exception e){End();Log.Error(e,"blood-damage-live-result: failed");}
         }

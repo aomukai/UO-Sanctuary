@@ -43,6 +43,7 @@ internal static class NecromancerGolems
         BattleCommand.Track(created);
         foreach(var old in For(owner).Where(p=>p!=created).OrderBy(BattleCommand.PetOrder).ThenBy(p=>p.Serial.Value).ToArray())
         {Remove(old,true);}
+        MinionSafeAreas.Enforce(created);
     }
     internal static void Enforce(PlayerMobile owner)
     {
