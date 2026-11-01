@@ -44,11 +44,14 @@ internal static class SorceressSpellMissiles
     public static void Configure()=>_ = new SorceressSpellProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
 
-    private static (string Key,string Element,int Source,int Velocity,int DamageFunction) Profile(CombatAbility ability)=>ability switch
+    private sealed record SpellRoute(string Key,string Element,int Source,int Velocity,int DamageFunction,
+        int Frames=50,int HitFunction=0,int ResultFlags=4,int HitFlags=0);
+    private static SpellRoute Profile(CombatAbility ability)=>ability switch
     {
-        CombatAbility.FireBolt=>("firebolt","fire",36,20,0),
-        CombatAbility.IceBolt=>("icebolt","cold",39,12,0),
-        CombatAbility.IceBlast=>("iceblast","cold",45,12,4),
+        CombatAbility.FireBolt=>new("firebolt","fire",36,20,0),
+        CombatAbility.IceBolt=>new("icebolt","cold",39,12,0),
+        CombatAbility.IceBlast=>new("iceblast","cold",45,12,4),
+        CombatAbility.GlacialSpike=>new("glacialspike","cold",55,16,0,40,13,5,2),
         _=>throw new NotSupportedException("Unmapped player straight spell")
     };
     internal static void Route(SkillValues values)
@@ -57,11 +60,12 @@ internal static class SorceressSpellMissiles
         if(values.Rank is <1 or >255||row.SourceId!=profile.Source
             ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=0||row.Text("srvmissile")!=profile.Key
             ||row.Text("EType")!=profile.Element||row.Number("SrcDam")!=0
-            ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=0||M("pSrvDmgFunc")!=profile.DamageFunction||M("Vel")!=profile.Velocity||M("MaxVel")!=profile.Velocity
-            ||M("VelLev")!=0||M("Accel")!=0||M("Range")!=50||M("Size")!=1||M("CollideType")!=3
+            ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=profile.HitFunction||M("pSrvDmgFunc")!=profile.DamageFunction||M("Vel")!=profile.Velocity||M("MaxVel")!=profile.Velocity
+            ||M("VelLev")!=0||M("Accel")!=0||M("Range")!=profile.Frames||M("Size")!=1||M("CollideType")!=3
             ||M("CollideKill")!=1||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=0||M("Pierce")!=0
             ||M("SrcDamage")!=0||M("CanSlow")!=1||M("InitSteps")!=1||M("Activate")!=0
-            ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=4||M("DamageRate")!=0)
+            ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=0
+            ||profile.HitFunction==13&&(M("sHitPar1")!=0||M("sHitPar2")!=0||new MissileValues(profile.Key,values).Text("EType")!="frze"))
         {throw new NotSupportedException("Unmapped player straight spell route");}
     }
     private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
@@ -81,9 +85,9 @@ internal static class SorceressSpellMissiles
         int dx=point.X-owner.X,dy=point.Y-owner.Y;if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         var flight=new SorceressSpellFlight(checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
-            values.Ability,values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,50,ends.Min,ends.Max,mods,slow,
+            values.Ability,values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
             SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
-            {ColdFrames=profile.Element=="cold"?values.DurationFrames:0};
+            {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?values.DurationFrames:0};
         Validate(flight);return flight;
     }
     internal static long Commit(SorceressSpellFlight flight)
@@ -107,7 +111,7 @@ internal static class SorceressSpellMissiles
 
     internal static int Impact(PlayerMobile owner,Mobile target,SorceressSpellFlight flight,out ulong seed)
     {
-        ulong stream=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));seed=stream;
+        int raw=Roll(flight,out seed);
         var profile=Profile(flight.Ability);
         SorceressEffects.MissileHit(owner,target,profile.Key);
         if(ClassAvoidance.Missile(target,profile.Key)){return 0;}
@@ -125,6 +129,8 @@ internal static class SorceressSpellMissiles
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}
         CombatDamage.Finish(target,owner);return loss;
     }
+    internal static int Roll(SorceressSpellFlight flight,out ulong seed)
+    {ulong stream=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));seed=stream;return raw;}
     private static void Advance(SorceressSpellFlight flight,DateTime at,bool? actions)
     {
         var owner=Owner(flight.Owner);if(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map){Remove(flight.Id);return;}
@@ -157,7 +163,14 @@ internal static class SorceressSpellMissiles
         {bool blocked=DruidFirestorm.CellBlocked(map,flight.Z,flight.X,flight.Y,cell.X,cell.Y);if(blocked){barrier=true;}return blocked;}
         int Hit(uint serial,bool terminal)
         {
-            if(!terminal&&World.FindMobile((Serial)serial) is{} target)
+            if(flight.Ability==CombatAbility.GlacialSpike)
+            {
+                if(!terminal&&World.FindMobile((Serial)serial) is{} primary){SorceressEffects.MissileHit(owner,primary,"glacialspike");}
+                var center=next.X>=0&&next.Y>=0&&next.X<map.Width&&next.Y<map.Height
+                    ?new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z):new((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z);
+                GlacialSpikes.PlayerExplosion(owner,center,flight,out var seed);next=next with{Seed=seed};
+            }
+            else if(!terminal&&World.FindMobile((Serial)serial) is{} target)
             {Impact(owner,target,flight,out var seed);next=next with{Seed=seed};}
             removed=true;return 2; // CollideKill1; no lifetime hit-set or piercing.
         }
@@ -186,11 +199,14 @@ internal static class SorceressSpellMissiles
     }
     private static void Validate(SorceressSpellFlight s)
     {
-        if(s==null||s.Id<=0||!((Serial)s.Owner).IsMobile||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast)||s.Rank is <1 or >255
+        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike))
+        {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
+        var profile=Profile(s.Ability);bool capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast;
+        if(s.Id<=0||!((Serial)s.Owner).IsMobile||s.Rank is <1 or >255
             ||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal||s.Z is <-128 or >127
             ||!double.IsFinite(s.X+s.Y+s.Vx+s.Vy)||s.X<=0||s.Y<=0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
-            ||Math.Abs(s.Vx)>0.5||Math.Abs(s.Vy)>0.5||s.VelocityFp8<0||s.VelocityFp8>(s.Ability==CombatAbility.FireBolt?3840:2304)||s.Frame<0||s.Frames!=50||s.Frame>=s.Frames
-            ||(s.Ability==CombatAbility.FireBolt?s.ColdFrames!=0:s.ColdFrames<1||s.ColdFrames>(s.Ability==CombatAbility.IceBlast?4035:9040))
+            ||Math.Abs(s.Vx)>0.5||Math.Abs(s.Vy)>0.5||s.VelocityFp8<0||s.VelocityFp8>profile.Velocity*192||s.Frame<0||s.Frames!=profile.Frames||s.Frame>=s.Frames
+            ||(capturedCold?s.ColdFrames<1||s.ColdFrames>(s.Ability==CombatAbility.IceBlast?4035:9040):s.ColdFrames!=0)
             ||s.Minimum256<0||s.Maximum256<s.Minimum256||s.Modifiers==null||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100
             ||s.NextUtc.Kind!=DateTimeKind.Utc||s.Steps?.Cells is not{Length:>=1 and <=10}
             ||s.Steps.Cells.Any(c=>c.X<0||c.Y<0||c.X>=Map.Maps[s.Map].Width*2||c.Y>=Map.Maps[s.Map].Height*2))

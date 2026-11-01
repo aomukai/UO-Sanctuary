@@ -36,7 +36,7 @@ public static class SorceressCombat
         }
         if (ClassAbilities.SelfTarget(ability))
         { return ability is not (CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.StaticField) || Server.Spells.SpellHelper.CheckTown(owner.Location, owner); }
-        if (ability is CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.FrozenOrb or CombatAbility.Hydra or CombatAbility.ChainLightning && (!Server.Spells.SpellHelper.CheckTown(owner.Location, owner)
+        if (ability is CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.FrozenOrb or CombatAbility.Hydra or CombatAbility.ChainLightning && (!Server.Spells.SpellHelper.CheckTown(owner.Location, owner)
             || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
         if (ability == CombatAbility.Telekinesis && (selected == Serial.Zero || !ClassCombat.IsHostile(owner, World.FindMobile(selected))
             || !Server.Spells.SpellHelper.CheckTown(point, owner))) { return false; }
@@ -50,7 +50,7 @@ public static class SorceressCombat
     {
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point) || !FireGround.Ready(owner, ability)) { return false; }
         var values = SkillMechanics.Values(owner, ability);
-        if (ability is CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast) { return SorceressSpellMissiles.Cast(owner, point, values); }
+        if (ability is CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike) { return SorceressSpellMissiles.Cast(owner, point, values); }
         if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         FireGround.Delay(owner, ability);

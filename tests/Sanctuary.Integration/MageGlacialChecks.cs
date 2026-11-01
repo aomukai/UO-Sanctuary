@@ -24,7 +24,7 @@ public static class MageGlacialChecks
     private static void Register(string name,Action run)=>ConsoleInputHandler.RegisterCommand(name,"Approved Mage Glacial shared flight/area/freeze/save checks",_=>Core.LoopContext.Post(()=>
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Owner(int rank=10)=>MagePetBuffChecks.Owner(rank,7100,3000);
+    private static PlayerMobile Owner(int rank=10)=>MagePetBuffChecks.Owner(rank,6890,3000);
     private static GraveyardZombie Enemy(PlayerMobile p,Mobile caster,int dx,int dy=0)
     {var t=new GraveyardZombie{Name="PoisonDaggerFixtureGlacialTarget",NoKillAwards=true,Frozen=true,CantWalk=true};t.MoveToWorld(new(caster.X+dx,caster.Y+dy,caster.Z),p.Map);t.AIObject.AITimer.Stop();t.SetHits(20000);t.Hits=t.HitsMax;t.SetResistance(ResistanceType.Cold,0);TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
     private static MageMissileState Flight(long id)=>NecromancerMageMissiles.Snapshot().Bolts.SingleOrDefault(x=>x.Id==id);

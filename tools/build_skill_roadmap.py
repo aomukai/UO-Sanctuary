@@ -347,6 +347,16 @@ CAVEATS['sorceress.iceblast'] = (
     'unmapped recipients/PvP, old-DLL upgrade and final graphical/assets acceptance '
     'remain open; no class certificate.')
 
+CAVEATS['sorceress.glacialspike'] = (
+    'Saved shared player flight validates source55/missile96/hit13,40frames/velocity16, '
+    'contact/active-expiry/wall explosions and one copied raw area packet. Damage/gear '
+    'capture stays separate from hit13 live owner hard-Blizzard length at retained rank. '
+    'Dedicated rank/gear/mana,terminal/LOS,typed immunity/potion,freeze/corpse/lifecycle, '
+    'actual right/quick and two-reload scopes retain player/Mage regressions; see '
+    'sorceress-glacial-spike-checkpoint.md. Native room/filter/geometry/order, exact '
+    'modern hit13/router/seed/events/pierce/owner timing,special/PvP recipients,old-DLL '
+    'upgrade and final graphical/assets acceptance remain open; no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
@@ -468,6 +478,7 @@ NATIVE_PARTIAL.update(['necromancer.bonespirit', 'necromancer.corpseexplosion', 
 NATIVE_PARTIAL.add('sorceress.firebolt')
 NATIVE_PARTIAL.add('sorceress.icebolt')
 NATIVE_PARTIAL.add('sorceress.iceblast')
+NATIVE_PARTIAL.add('sorceress.glacialspike')
 LEGACY = {'sorceress.teleport'}
 PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',

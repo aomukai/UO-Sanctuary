@@ -406,9 +406,9 @@
       "tree": "Cold Spells",
       "sourceId": 55,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Saved shared player flight validates source55/missile96/hit13,40frames/velocity16, contact/active-expiry/wall explosions and one copied raw area packet. Damage/gear capture stays separate from hit13 live owner hard-Blizzard length at retained rank. Dedicated rank/gear/mana,terminal/LOS,typed immunity/potion,freeze/corpse/lifecycle, actual right/quick and two-reload scopes retain player/Mage regressions; see sorceress-glacial-spike-checkpoint.md. Native room/filter/geometry/order, exact modern hit13/router/seed/events/pierce/owner timing,special/PvP recipients,old-DLL upgrade and final graphical/assets acceptance remain open; no class certificate."
     },
     {
       "talentId": "sorceress.blizzard",
