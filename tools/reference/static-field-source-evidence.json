@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "modernExecutableVerified": false,
+  "cases": 16200,
+  "delivered": 2565,
+  "negativeResistanceCases": 1026,
+  "completeFunctionHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvDo020_StaticField": "0e60d9cc2c1b96eeb5fa5c65a780edbecba9d93a8f42ea647acb9bc84cd46581",
+    "SKILLS_AuraCallback_StaticField": "eb6ed89c5fec2a5127e72b39450346172e6a5586e295bebccadc88104496d25d"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/D2Combat.h": "a71edc6ccae97fa388d0a0689edbf89e59bbb47ab42e5dcbafcb802084c9b5ec",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "artifacts": {
+    ".local/class-skills/static-field-source/probe.cpp": "aaebfe490f03ff3afd804c5af2b7dbbae4f028f5b02d522a5acf1326179aa78a",
+    ".local/class-skills/static-field-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/static-field-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/static-field-source/cases.json": "d16ede015cecec2e508fb31b960feed3d1ce1d00041eb5b3835b880a851575c7"
+  },
+  "established": [
+    "Complete old do20 validates skill/difficulty,prepares fixed percentage/minimum/range/element and expansion-only difficulty floor,then enumerates its aura callback.",
+    "Complete callback gates on whole HP/floor before delivery,prepares whole-HP damage and source minimum,precompensates negative defender resistance,and calls typed preparation twice before events then missile damage with flags0x4001/hitclass13.",
+    "Complete source percentage helper preserves large-value early-division behavior. Source floor gating and negative compensation are separate from Sanctuary final-floor clamping/common typed mitigation."
+  ],
+  "services": [
+    "Aura enumeration selects one declared target;formula/skill/difficulty/stat/typed-preparation/event/final-mitigation services are explicit. The final resistance service uses the complete source percentage helper,not the full engine damage receiver.",
+    "No modern executable equivalence,current aura geometry,PvP/Sunder/item-pierce/absorption/MDR/event/floor-order equivalence or class completion is claimed."
+  ]
+}

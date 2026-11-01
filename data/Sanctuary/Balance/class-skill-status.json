@@ -485,7 +485,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native current-life fraction and mastery exclusion covered; Nightmare/Hell floors and mixed mitigation need dedicated fixtures."
+      "remaining": "Shared player/Mage instant receiver now has dedicated player self-origin/rank/radius, once-only9mana,fractional HP,resistance/immunity,friendly/LOS,facet floors,actual gear/mastery/potion,invalid-world/dead/town admission,windup/input and two-reload controls;see sorceress-static-field-checkpoint.md. Invalid casters refuse before payment. Complete16200old wrapper/callback/percentage cases expose rather than resolve negative-resistance precompensation and pre-gate/final-clamp differences. Modern protected callback/dispatch identity,pierce/Sunder/absorb/MDR/events/floors, aura filter/geometry/order,PvP,old-DLL/client acceptance remain open. T09native regeneration is unchanged;exact saved mana uses fixture-only eligibility control. Effects/audio/icons remain separate;no class certificate."
     },
     {
       "talentId": "sorceress.lightning",

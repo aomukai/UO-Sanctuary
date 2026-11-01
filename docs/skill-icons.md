@@ -1,5 +1,7 @@
 # Skill icons
 
+The [player Static Field increment](sorceress-static-field-checkpoint.md) retains stable ability47 and existing talent/right/quick bindings. Final tree and hotkey artwork remains pending with current labels/icons as placeholders. Autonomous Mage Static creates no separate player action or hotkey. Effects/audio remain in their separate register.
+
 The [saved Nova/Frost Nova increment](sorceress-nova-checkpoint.md) keeps stable abilities49/37 and existing tree/right/quick bindings. Final talent and hotkey artwork remains pending with current labels/icons as placeholders. The64-ray controller adds no separate player action or icon. Effects/audio remain in their separate register.
 
 The [saved player Fire Ball increment](sorceress-fire-ball-checkpoint.md) retains stable ability58 and existing talent/left/right/quick bindings. Final tree and hotkey artwork remains pending with current labels/icons as placeholders. The shared projectile/area controller adds no player action or separate icon. Effects/audio stay in their separate register.

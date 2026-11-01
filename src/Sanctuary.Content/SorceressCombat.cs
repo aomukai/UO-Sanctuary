@@ -27,6 +27,9 @@ public static class SorceressCombat
     }
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        // Static's receiver needs a living world caster. Refuse before the
+        // player's release payment, including direct server/API callers.
+        if(ability==CombatAbility.StaticField&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
         if (ability == CombatAbility.Enchant)
         {
             if (selected == Serial.Zero) { return owner.Map != null && owner.Map != Map.Internal; }

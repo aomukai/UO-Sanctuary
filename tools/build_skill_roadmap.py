@@ -380,6 +380,18 @@ for _talent in ('sorceress.nova','sorceress.frostnova'):
         'critical/events,world/path/footprint/filter/order,PvP,ordinary chill shatter, '
         'old-DLL upgrade and graphical/assets acceptance remain open;no class certificate.')
 
+CAVEATS['sorceress.staticfield'] = (
+    'Shared player/Mage instant receiver now has dedicated player self-origin/rank/radius, '
+    'once-only9mana,fractional HP,resistance/immunity,friendly/LOS,facet floors,actual '
+    'gear/mastery/potion,invalid-world/dead/town admission,windup/input and two-reload '
+    'controls;see sorceress-static-field-checkpoint.md. Invalid casters refuse before '
+    'payment. Complete16200old wrapper/callback/percentage cases expose rather than '
+    'resolve negative-resistance precompensation and pre-gate/final-clamp differences. '
+    'Modern protected callback/dispatch identity,pierce/Sunder/absorb/MDR/events/floors, '
+    'aura filter/geometry/order,PvP,old-DLL/client acceptance remain open. T09native '
+    'regeneration is unchanged;exact saved mana uses fixture-only eligibility control. '
+    'Effects/audio/icons remain separate;no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
