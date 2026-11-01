@@ -66,7 +66,7 @@ The Grizzly stun is an approved addition beyond the baseline knockback/no-stun o
 
 ### Safe-area parking
 
-Approved lifecycle policy; the [implementation checkpoint](safe-area-minions-checkpoint.md) records the wired scope and remaining acceptance. Broader species/custom-region/class-switch/client coverage is not implied by the initial Necromancer controls.
+Approved lifecycle policy; the [implementation checkpoint](safe-area-minions-checkpoint.md) records the wired scope and remaining acceptance. The later [legacy/facet and wardrobe checkpoint](parking-boundaries-checkpoint.md) expands Necromancer boundary coverage. Broader species/custom-region/controller/client coverage remains explicit.
 
 Long-lived summoned armies park automatically when their owner enters an **actual safe area** and return when the owner leaves it. Use explicit region/safety classification, never an indoor/roof/building test. A dungeon building is not a safe area merely because it is indoors. Houses qualify only where their area is actually classified as safe.
 

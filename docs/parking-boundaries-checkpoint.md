@@ -1,6 +1,6 @@
 # Necromancer parking boundaries and wardrobe compatibility
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary parking and owner-facet scaling first. Follows `d51dca2`. Verification is in progress; no class completion or deployment is claimed.
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary parking and owner-facet scaling first. Follows `d51dca2`. Scoped verification is complete as recorded below; no class completion or deployment is claimed.
 
 This increment adds acceptance for the existing parking implementation. It does not change production C#, runtime balance data, native kernel or mobile/save layouts. Existing summon/effect/expiry services remain authoritative.
 
@@ -12,7 +12,7 @@ The existing full wardrobe suite now expects a restored active class to remain p
 
 ## Verification
 
-Candidate build 4 has clean content/integration rebuilds with zero warnings/errors. The focused run passes 21 native markers across three boots/two reloads, including three connected safe-facet sessions and the complete existing wardrobe and original Revive facet scopes. Four fresh runtime audits, 71 Python tests, 573 named definitions and eight-class/240-skill checks pass with 887/21 fingerprints and unchanged audit decisions. The complete retained run 4 is still in progress; accepted full totals and the receipt will be recorded after it finishes. Candidate builds use isolated output and disposable worlds; installed saves remain preserved. Final effects/audio and talent/hotkey icons remain separate registers; this acceptance work adds no approved art or player binding.
+Candidate build 4 has clean content/integration rebuilds with zero warnings/errors. The focused run passes 21 native markers across three boots/two reloads, including three connected safe-facet sessions and the complete existing wardrobe and original Revive facet scopes. Four fresh runtime audits, 71 Python tests, 573 named definitions and eight-class/240-skill checks pass with 887/21 fingerprints and unchanged audit decisions. The complete retained **run 4 passes 406 native markers**, all 394 predecessor scopes, across three boots, two real reloads and three saves. Build 4/run 4/audit 4, frozen source/data/DLL inventories, focused/failed logs and all 106 unchanged installed artifact hashes are bound in [the receipt](../tools/reference/parking-boundaries-native-evidence.json). Candidate builds use isolated output and disposable worlds; installed saves remain preserved. Final effects/audio and talent/hotkey icons remain separate registers; this acceptance work adds no approved art or player binding.
 
 ## Remaining work
 
