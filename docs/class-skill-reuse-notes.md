@@ -150,3 +150,9 @@ Retain explicit startup versus active-aura coverage: the existing first pulse is
 Charged Bolt reuses the shared heading, aim-X/ordinal seed, waypoint producer and mover already used by Sorceress, sentry and Charged Strike routes. Use the normal count/cap per volley, three volleys at live hard5, and concatenated ordinals to keep added deterministic paths distinct. Keep the inherited77frame native motion adapter and generic Mage wall priority explicit rather than claiming current executable equivalence. Store each path/index in the existing optional flight payload and validate before replacing any saved pool.
 
 Legacy packet tests remain explicit through `LaunchLegacy`; new world/adoption routes use new basics. Existing poison flights are not rewritten by caster element changes. A real respec moves gear into the pack: re-equip the same bonus item before asserting the next hard/soft boundary. Natural tests should observe the actor’s actual pending action time, since AI may choose a later cast than the first possible startup slot.
+
+## Mage inspection and safe-area lifecycle preflight — 2026-11-01
+
+The actual pet inspector now reads `MageBasicSkills.Packet` instead of unused monster A1 melee damage, with per-bolt damage and separate live volley size. Its compiled-gump verification reuses the existing class-name compressed string decoder; spell formulas, Mastery mapping and combat delivery are not duplicated. See the [inspection checkpoint](mage-inspection-checkpoint.md).
+
+Before army parking, reviewed persistent class-switch/logout/load services, the shared ground return path, native safe-region/location hooks, stationary expiry, fractional regeneration/restoration and healer menu versus automatic trade callers. [Preflight](safe-area-minion-preflight.md) records the required contract changes. No parking behavior is claimed from that review alone.

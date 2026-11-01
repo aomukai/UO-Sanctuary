@@ -119,6 +119,10 @@ public static class ClassNameChecks
     {
         var gump = (TalentGump)Activator.CreateInstance(typeof(TalentGump), BindingFlags.Instance | BindingFlags.NonPublic,
             null, [player, profile, 0, 0], null);
+        return GumpStrings(gump);
+    }
+    internal static string[] GumpStrings(BaseGump gump)
+    {
         var writer = new SpanWriter(new byte[65536]);
         gump.Compile(ref writer);
         byte[] packet = writer.Span.ToArray();

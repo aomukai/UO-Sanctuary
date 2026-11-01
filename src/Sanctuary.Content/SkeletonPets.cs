@@ -396,6 +396,15 @@ public sealed class PetStatsGump : DynamicGump
             player.SendGump(new PetStatsGump(player));
         }
     }
+    internal static string DamageText(SkeletonGuardian pet)
+    {
+        if(pet is not NecromancerMinion{IsMage:true} mage)
+        {var profile=pet.CombatProfile;return $"Damage {profile.MinDamage}–{profile.MaxDamage}";}
+        var packet=MageBasicSkills.Packet(mage);
+        string spell=packet.Spell switch{CombatAbility.FireBolt=>"Fire Bolt",CombatAbility.IceBolt=>"Ice Bolt",CombatAbility.ChargedBolt=>"Charged Bolt",_=>throw new NotSupportedException("Unknown Mage basic spell")};
+        string element=packet.Element switch{"fire"=>"Fire","cold"=>"Cold","ltng"=>"Lightning",_=>throw new NotSupportedException("Unknown Mage basic element")};
+        return FormattableString.Invariant($"{spell} rank {packet.Rank}: {element} damage {packet.Minimum256/256.0:0.##}–{packet.Maximum256/256.0:0.##} per bolt<BR>Bolts per volley {MageBasicSkills.Count(mage)*MageBasicSkills.Copies(mage)} (before critical hits and target resistances)");
+    }
     protected override void BuildLayout(ref DynamicGumpBuilder builder)
     {
         builder.AddBackground(0, 0, 510, 410, 5054);
@@ -409,8 +418,8 @@ public sealed class PetStatsGump : DynamicGump
                 continue;
             }
             var p = pet.CombatProfile;
-            text.Append($"<BASEFONT COLOR=#FFD37A>Skeleton — Level {p.Level}, Raise rank {pet.Rank}</BASEFONT><BR>");
-            text.Append($"Life {pet.Hits}/{pet.HitsMax} | Damage {p.MinDamage}–{p.MaxDamage}<BR>");
+            text.Append($"<BASEFONT COLOR=#FFD37A>{(pet is NecromancerMinion{IsMage:true}?"Skeletal Mage":"Skeleton")} — Level {p.Level}, Raise rank {pet.Rank}</BASEFONT><BR>");
+            text.Append($"Life {pet.Hits}/{pet.HitsMax} | {DamageText(pet)}<BR>");
             text.Append($"Attack rating {p.AttackRating} | Defense {p.Defense}<BR>");
             text.Append($"Resists: Physical {pet.PhysicalResistance}, Fire {pet.FireResistance}, Cold {pet.ColdResistance}, Poison {pet.PoisonResistance}, Lightning {pet.EnergyResistance}<BR>");
             text.Append($"Attack {p.AttackMs} ms | Movement {p.MoveMs} ms/tile<BR><BR>");

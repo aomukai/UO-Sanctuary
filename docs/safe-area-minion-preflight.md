@@ -1,0 +1,23 @@
+# Safe-area army parking preflight
+
+Approved policy is in [the pet review](pet-adjustment-review.md#safe-area-parking--approved-lifecycle-change-not-implemented). This is a code-path review, not an implementation certificate. No parking behavior changed during the Mage inspection checkpoint.
+
+## Existing services to reuse
+
+- `PersistentMinions.Park` already retains native ownership and actor identity, records original follower slots once, releases them once and internalizes the actor through its existing action cancellation. `MinionWardrobeProfiles` persists that slot/parked/expiry state. Reuse this rather than deleting and recasting a summon or adding another mobile inheritance chain.
+- `ClassMapHooks.LocationChanged` runs on both player movement and map change. `SummonDifficulties.Initialize` demonstrates subscribing after Configure assignments; `MapSurveys.Configure` assigns the hook. Entry/exit synchronization must therefore subscribe during Initialize and preserve those consumers.
+- Native `SpellHelper.IsTown(owner.Location, owner)` uses actual SafeZone/active GuardedRegion membership. Roofs and ordinary house interiors are not sufficient. A new parking classifier should reuse this existing safe-area policy and verify disabled guarded regions, nested safe regions, cross-map moves and ordinary dungeon buildings.
+- `Profiles.Sweep` supplies stationary expiry/owner-death cleanup. `Restore` and `Resume` cover load/login/class changes. They need a safe-area check as well as a location event: a stationary login, newly created summon or world controller must not immediately respawn an army in town.
+- The shared ground controller (`IronGolemWorld.Advance`) calls `PersistentMinions.Resume` when an actor is internalized. A location hook alone is insufficient; safe-area refusal must hold on this return path too. Existing `CanThink`, guardian guard hooks and Revive's native activation also need consistent admission.
+- `NpcEquipmentRegeneration.Recover` already rejects internal actors and bounds catch-up. The shared ground controller directly applies regeneration only while advancing active world frames. Parked actors must never resume those frames in a safe area.
+- `TimedEffects.Settle` continues original deadlines and poison/wound clocks for internal actors, but `Restore` currently pays queued life/mana restoration there. The no-recovery rule requires advancing restoration time without paying its recovery while parked. `NpcOpenWounds.Advance` composes signed item regeneration with poison/wound damage before applying the net delta (its source-life mask supplies a zero base). Suppress the positive recovery component before this combination while parked, rather than merely refusing a net positive heal: otherwise positive regeneration could still cancel some harmful damage. Preserve negative item regeneration and ordinary harmful effect timing; inspect the corresponding poison settlement too. Do not clear statuses or restart deadlines as a shortcut.
+- `MercenaryCare.HealFollowers` requires the pet to be within 12 tiles of its provider. Its existing automatic trade/conversation callers must not gain parked-army healing. Explicit healer-menu action can additionally find the living owned parked roster without moving it into town. Preserve existing access, proximity, peace and provider rules; no price or resurrection entitlement is added.
+- Identify the exempt named companion through `MercenaryCare`'s ownership/profile records. Short-lived Assassin sentries and Blade Sentinel use their existing separate rosters and are not persistent-army parking candidates.
+
+## Implementation concerns and verification
+
+The existing parked flag is shared with class-switch parking; admission must still check active class, learned permission, expiry and ownership. Do not restore slots before a valid return position is found: `Resume` currently does so, which can leave an internal actor consuming slots after failed placement. Entry, repeated notifications and return need exact slot-count checks.
+
+Verify wounded identity/gear/snapshot preservation, live effect expiry without recovery, no new attacks or replayed windup, movement/teleport/facet/login/reload transitions, disabled/ordinary indoor regions, safe-area casting and stationary cleanup. Include actual failed return placement, class switching, respec/replacement, owner death, native Revives, explicit healer service, automatic vendor refusal and named-mercenary/trap exclusions. Existing Mage/ground/save scopes must remain in regression.
+
+No user decision blocks implementation. This approved lifecycle change remains queued after the accepted Mage inspection checkpoint; implement it next.

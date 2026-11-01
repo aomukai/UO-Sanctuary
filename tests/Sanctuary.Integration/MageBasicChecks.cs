@@ -2,8 +2,10 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using Server;
+using Server.Gumps;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -40,6 +42,15 @@ public static class MageBasicChecks
     {var f=NecromancerMageMissiles.Snapshot().Bolts.SingleOrDefault(x=>x.Id==id);if(f!=null){NecromancerMageMissiles.Tick(f.NextUtc,fight,id);}}
     private static GraveyardSkeleton Target(PlayerMobile p,Mobile m,int dx=6)
     {var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(new(m.X+dx,m.Y,m.Z),p.Map);foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
+    private static void Inspect(PlayerMobile owner,NecromancerMinion mage,int minimum,int maximum,int count)
+    {
+        var gump=(PetStatsGump)Activator.CreateInstance(typeof(PetStatsGump),BindingFlags.Instance|BindingFlags.NonPublic,null,[owner],null);
+        string html=string.Join("\n",ClassNameChecks.GumpStrings(gump));
+        string spell=mage.MageElement switch{1=>"Ice Bolt",2=>"Fire Bolt",3=>"Charged Bolt",_=>throw new InvalidOperationException("Unsupported fixture element")};
+        string element=mage.MageElement switch{1=>"Cold",2=>"Fire",3=>"Lightning",_=>""};
+        string expected=FormattableString.Invariant($"{spell} rank {mage.Rank}: {element} damage {minimum/256.0:0.##}–{maximum/256.0:0.##} per bolt<BR>Bolts per volley {count} (before critical hits and target resistances)");
+        Require(html.Contains("Skeletal Mage — Level ")&&html.Contains(expected),"Compiled inspector has wrong basic/Mastery/per-bolt/volley text");
+    }
     private static void Formula()
     {
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"mage-missile-source-cases.json")));
@@ -58,6 +69,7 @@ public static class MageBasicChecks
                         Require(packet.Spell==ability&&packet.Rank==rank&&packet.Minimum256==values.Damage256(false)+b.Min-a.Min&&packet.Maximum256==values.Damage256(true)+b.Max-a.Max,"Approved basic/Mastery differs from independent source matrix");
                         Require(packet.ElementFrames==(element==1?values.DurationFrames:0)&&NecromancerMageMissiles.ActorSeed(m)==before&&SkillHealth.Balance256(m)==life&&SkillHealth.Maximum256(m)==maximum&&BattleCommand.PetOrder(m)==order,"Basic query changed duration/resources/order/stream");
                         if(rank==1&&mastery==0){Require((packet.Minimum256,packet.Maximum256)==(element==1?(768,1280):element==2?(768,1536):(512,1024)),"Independent rank1Sorceress golden");}
+                        Inspect(p,m,values.Damage256(false)+b.Min-a.Min,values.Damage256(true)+b.Max-a.Max,MageBasicSkills.Count(m)*MageBasicSkills.Copies(m));
                         cases++;
                     }finally{m.Delete();}
                 }
@@ -77,8 +89,8 @@ public static class MageBasicChecks
                 try
                 {
                     int rank=m.Rank;Require(rank==5,"Real effective rank boundary");var packet=MageBasicSkills.Packet(m);ulong seed=NecromancerMageMissiles.ActorSeed(m).Seed;
-                    Require(MageBasicSkills.Copies(m)==1,"Soft rank unlocked triples");int count=MageBasicSkills.Count(m);long first=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);Require(first>0&&Flights(m).Length==count,"Normal volley count");Clear(m);Train(p,"skeletalmage",5);
-                    first=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);var flights=Flights(m);Require(flights.Length==count*3&&flights.All(x=>x.Packet==packet)&&NecromancerMageMissiles.ActorSeed(m).Seed==seed,"Live triple changed basic rank/Mastery or spent actor RNG");
+                    Require(MageBasicSkills.Copies(m)==1,"Soft rank unlocked triples");int count=MageBasicSkills.Count(m);long first=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);Require(first>0&&Flights(m).Length==count,"Normal volley count");Inspect(p,m,packet.Minimum256,packet.Maximum256,count);Clear(m);Train(p,"skeletalmage",5);
+                    first=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);var flights=Flights(m);Require(flights.Length==count*3&&flights.All(x=>x.Packet==packet)&&NecromancerMageMissiles.ActorSeed(m).Seed==seed,"Live triple changed basic rank/Mastery or spent actor RNG");Inspect(p,m,packet.Minimum256,packet.Maximum256,count*3);
                     Require(flights.All(x=>x.Frames==(element==3?77:50)&&x.VelocityFp8==(element==2?3840:2304)&&x.Frame==0),"Wrong Sorceress flight velocity/lifetime");
                     // Exercise the new packet through the actual shared HP
                     // receiver,including the per-bolt Mastery addition.
@@ -121,7 +133,7 @@ public static class MageBasicChecks
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,m.Serial.Value,point,map,SkillHealth.Balance256(m),SkillHealth.Maximum256(m),BattleCommand.PetOrder(m),NecromancerMageMissiles.ActorSeed(m),Flights(m),0)));
         }
         finally{t.Delete();}
-        Log.Information("Mage basics:48independent source-delta contexts,rank1Sorceress goldens,live hard4+soft1/5triples,normal/triple charged counts and distinct paths,shared motion,all-child Slow,offline expiry,no actor RNG or fixed-secondary bonus,atomic invalid path and saved three-spell cohort pass");
+        Log.Information("Mage basics:48independent source-delta contexts,rank1Sorceress goldens,live hard4+soft1/5triples,normal/triple charged counts and distinct paths,shared motion,all-child Slow,offline expiry,no actor RNG or fixed-secondary bonus,atomic invalid path,saved three-spell cohort and compiled per-bolt/volley inspector pass");
     }
     private static void Reload()
     {
@@ -146,7 +158,7 @@ public static class MageBasicChecks
             try
             {
                 Require(network.Running&&Core.TickCount<deadline&&m.WorldState.Controller.Fault==null,"Natural basic volley timeout/fault phase"+phase);
-                if(!trained&&m.WorldState.Controller is{Mode:4} windup&&windup.ActionAt>windup.Frame){Require(MageBasicSkills.Copies(m)==1,"Soft point unlocked live triple");Train(p,"skeletalmage",5);Require(MageBasicSkills.Copies(m)==3,"Live hard5missing");trained=true;}
+                if(!trained&&m.WorldState.Controller is{Mode:4} windup&&windup.ActionAt>windup.Frame){Require(MageBasicSkills.Copies(m)==1,"Soft point unlocked live triple");Train(p,"skeletalmage",5);Require(MageBasicSkills.Copies(m)==3,"Live hard5missing");var shown=MageBasicSkills.Packet(m);Inspect(p,m,shown.Minimum256,shown.Maximum256,MageBasicSkills.Count(m)*3);PetStatsGump.DisplayTo(p);Require(p.FindGump<PetStatsGump>()!=null,"Connected inspector did not open");p.CloseGump<PetStatsGump>();trained=true;}
                 if(!launched&&Flights(m) is{Length:>0} flights){Require(trained&&flights.Length==3*MageBasicSkills.Count(m)&&flights.All(x=>x.Packet.Spell==MageBasicSkills.Ability(phase)&&x.Packet.Rank==5)&&SkillHealth.Balance256(t)==hp,$"Natural basic volley phase={phase},trained={trained},count={flights.Length},expected={3*MageBasicSkills.Count(m)},rank={m.Rank},hard={MagePetBuffs.HardRank(m)},hpLoss={hp-SkillHealth.Balance256(t)},frame={m.WorldState.Controller.Frame},packets={string.Join(",",flights.Select(x=>x.Packet.Spell+"/"+x.Packet.Rank))}");launched=true;m.SuspendActions();m.Ground.Store(m.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});}
                 if(SkillHealth.Balance256(t)==hp){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}
                 Require(trained&&launched&&NecromancerEffects.ManaBalance256(p)==mana&&m.WorldState.Controller.Attempts==1,"Natural basic collision/mana/controller");Clear(m);m.Delete();t.Delete();if(++phase<=3){Start();Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}p.Delete();Log.Information("mage-basics-live-result: passed");

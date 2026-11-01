@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "12a35020bbef4af2aad656ed4db0d09ed22070b77791574ec4a916ad165b22ad",
+  "ContentAssemblySha256": "d0b08afff65aa61008e920ffd153b36878e855c1ac98fa3e04cef1f0f0e6a79d",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -802,7 +802,7 @@
     "src/Sanctuary.Content/ShapeRestrictions.cs": "50e6ba4fa214a7768a291013e57bbcb3347a00c951639e5610bea814330f00fb",
     "src/Sanctuary.Content/ShockWebs.cs": "ee0005a8f62950c7f3ef1f04373ff30db1be2a6ee9bdc4ca4f1b0dbbf9fdf27b",
     "src/Sanctuary.Content/SkeletonPetUpgrades.cs": "cdcd78ef0495c8c5ae4e3761865350f6650e26ec4f8f8236593deb91d4e2ac4e",
-    "src/Sanctuary.Content/SkeletonPets.cs": "8bdc4291f7f146dc78f0d9d90588a152f79760c16917e191afa751ac61e577b8",
+    "src/Sanctuary.Content/SkeletonPets.cs": "e4aa147e4a7bdab2159d794fbe04c094008339d2a4f9a0915bd1c704b7c1c022",
     "src/Sanctuary.Content/SkeletonWorldBody.cs": "b9932f8ade023991b1a4ee0f5de1a9cf8481be74df0b357a2dd5f3278feac214",
     "src/Sanctuary.Content/SkillBindingNetwork.cs": "9e78c70b339b5b7aaab93084c074656aae4a3da2d0375b632fb4538035a19255",
     "src/Sanctuary.Content/SkillBindings.cs": "acae295dd31b65e0991e33432d1a3a3f7d0908d45e2bbe850b14fc80068a3c55",

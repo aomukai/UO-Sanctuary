@@ -175,13 +175,25 @@ public static class MageMissileChecks
         var(p,m,t)=Scene(2);network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
         var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
         var account=new Account("mage-flight-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
-        int life=SkillHealth.Balance256(t);long deadline=0,started=0;bool early=false,launched=false;long flight=0;MageMissileState last=null;
+        int life=SkillHealth.Balance256(t);long deadline=0;bool early=false,launched=false;int action=0,end=0;DateTime release=default;long flight=0;MageMissileState last=null;
         void Inspect()
         {
             try
             {
                 Require(Core.TickCount<deadline,$"Natural mage projectile timeout:ownerAlive{p.Alive},ownerMap{p.Map},ownerNet{p.NetState!=null},permitted{m.Permitted(p)},active{PersistentMinions.Active(p,m)},town{SpellHelper.IsTown(p.Location,p)},last{JsonSerializer.Serialize(last)},launched{launched},alive{m.Alive},blocked{AlliedOverlap.Blocked(m)},frozen{m.Frozen},enemy{m.IsEnemy(t)},map{m.Map},position{m.Location},target{t.Location},network{network.Running},flights{NecromancerMageMissiles.Snapshot().Bolts.Count(x=>x.Actor==m.Serial.Value)}");var bolt=NecromancerMageMissiles.Snapshot().Bolts.FirstOrDefault(x=>x.Actor==m.Serial.Value);if(bolt!=null){last=bolt;}
-                if(!launched&&bolt!=null){Require(early&&Core.TickCount-started is >=400 and <800&&SkillHealth.Balance256(t)==life&&bolt.Fault==null,"Adopted Mage launch must follow400ms skill event before800ms cycle and precede damage");launched=true;flight=bolt.Id;m.SuspendActions();m.LegacyMageWorld.World.Store(m.LegacyMageWorld.World.State.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});}
+                var clock=m.LegacyMageWorld.World.State.Controller;
+                if(!launched&&bolt==null&&clock is{Mode:4}&&clock.ActionAt>clock.Frame)
+                {
+                    Require(SkillHealth.Balance256(t)==life&&clock.EndAt-clock.ActionAt==10,"Mage damage or wrong cycle before source skill event");
+                    early=true;action=clock.ActionAt;end=clock.EndAt;release=clock.NextUtc.AddMilliseconds((action-clock.Frame-1)*40L);
+                }
+                if(!launched&&bolt!=null)
+                {
+                    var emitted=bolt.NextUtc.AddMilliseconds(-(bolt.Frame+1)*40L);
+                    Require(early&&clock.Frame>=action&&clock.Frame<end&&emitted==release&&SkillHealth.Balance256(t)==life&&bolt.Fault==null,
+                        $"Adopted Mage launch source timing:observed={early},frame={clock.Frame},action={action},end={end},emitted={emitted:O},expected={release:O},HP={SkillHealth.Balance256(t)}/{life},fault={bolt.Fault}");
+                    launched=true;flight=bolt.Id;m.SuspendActions();m.LegacyMageWorld.World.Store(clock with{NextUtc=TimedEffects.Now.AddHours(1)});
+                }
                 if(SkillHealth.Balance256(t)==life){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
                 Require(launched&&State(flight)==null,"Natural mage hit without traced collision/removal");Clean(p,m,t);account.Delete();Log.Information("mage-missile-live-result: passed");
             }
@@ -189,14 +201,9 @@ public static class MageMissileChecks
         }
         FixtureClock.NextLoop("mage-missile-live-result",()=>
         {
-            started=Core.TickCount;deadline=started+5000;
+            deadline=Core.TickCount+5000;
             NecromancerMageMissiles.SetActorSeed(m,MageStaticFieldChecks.Seed(20,99));
             Require(MageWorld.TryAdopt(m,TimedEffects.Now)&&m.BeginMelee(t)==TimeSpan.FromMilliseconds(800),"Historical Mage shared adoption/cycle");
-            Timer.StartTimer(TimeSpan.FromMilliseconds(360),()=>
-            {
-                try{Require(!NecromancerMageMissiles.Snapshot().Bolts.Any(x=>x.Actor==m.Serial.Value)&&SkillHealth.Balance256(t)==life,"Mage projectile or HP before skill event10");early=true;}
-                catch(Exception e){Clean(p,m,t);account.Delete();Log.Error(e,"mage-missile-live-result: failed");}
-            });
             Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>{Log.Information("mage-missile-live: ready");Inspect();});
         });
     }

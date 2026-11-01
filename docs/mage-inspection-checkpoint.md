@@ -1,0 +1,21 @@
+# Skeletal Mage inspection
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with the approved Sanctuary Mage replacements and Mastery mapping. This follows `62cf243`. No class completion or deployment is claimed.
+
+Pet inspection previously showed the monster's unused A1 melee damage for a Mage. It now reads the same `MageBasicSkills.Packet` as combat and shows the spell name, captured rank, elemental damage per bolt and number of bolts per volley. Damage includes the approved captured Skeleton Mastery increase. It is explicitly before critical hits and target resistances; it is not a total for the whole volley. The live hard-5 unlock changes the displayed count without recapturing spell rank or Mastery. Two decimal places retain fractional damage rather than rounding it to an integer. Other pets keep their existing damage display.
+
+This is a presentation change. Combat profiles, maximum/current life, damage production, saved mobile/flight records and runtime data are unchanged. Final projectile/impact/audio and talent/hotkey assets remain in the separate [effects](skill-effects.md) and [icons](skill-icons.md) registers.
+
+## Verification
+
+Accepted **build 3 / run 3 / audit 3** passes clean content/integration builds with zero warnings/errors, all **388 retained native passed markers**, three boots, two reloads and three saves. A focused Mage missile run additionally passes 15 markers across three boots, three live sessions and two reloads. Four fresh audit markers, 71 Python tests, 573 named definitions and the eight-class/240-skill catalogue pass. Audit fingerprints remain 886/21 with unchanged decision payloads, runtime data, kernel artifacts and 106 installed artifacts. [The receipt](../tools/reference/mage-inspection-native-evidence.json) binds the accepted source/data/DLL inventories, complete logs and failed attempts. The existing Mage test now compiles the actual `PetStatsGump` and decodes its compressed string table using the existing class-name UI decoder. Forty-eight independent rank/Mastery/element cases compare the displayed damage against the retained old-source Mastery delta and Sorceress spell values. Normal and triple counts are checked on the same actor across real hard-point training with a real bonus-skill helm. Each of the three connected sessions checks and opens the inspector for every element during a natural windup.
+
+The first integration build caught a missing test namespace for the existing gump extension methods; the corrected build was clean. An initial Python/readiness run correctly rejected stale audit fingerprints. Fresh runtime audits were exported, their decision payloads compared with `62cf243`, and copied before repeating those checks. Earlier failed output is retained.
+
+The first full run reached the third boot before the retained Mage missile live check failed its wall-clock predicate (`400 <= elapsed < 800` plus a separate 360 ms callback). That check now observes the actual pending source action/end frames and verifies the missile's reconstructed emission deadline against the scheduled action deadline. It still requires an observed undamaged pre-action interval, release before cycle end and subsequent traced collision/removal. Its independent 10/20-frame source clocks remain unchanged. No production combat timing was changed. This separates engine frame timing from the host timer observer; it does not assume which part of the old combined predicate failed.
+
+## Remaining work
+
+This closes the basic Mage inspection mismatch, not every summon UI or mechanical acceptance gap. Broader roster headings, non-Mage typed damage, secondary spell/buff descriptions, live Slow Missiles display and final client rendering remain separate work. Existing charged movement, geometry, global RNG/event/PvP/Sunder/client and source-removal limitations still apply. Held reload observations do not certify installed old-DLL/concurrent/unheld saves.
+
+Next: safe-area army parking through the existing persistent-minion lifecycle, then barriers and remaining Necromancer acceptance. Parking must use actual safe regions, preserve wounds and effect deadlines, exempt the named mercenary and retain the existing short-lived trap rules. No new design question blocks that work. Coverage remains 186 handlers / Necromancer 30, with no completed class.
