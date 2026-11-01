@@ -96,12 +96,13 @@ public static class BoneBarrierBirthChecks
         finally{SummonDifficulties.SetFacets(facets);Clean(p);}
     }
     internal static void StageSave()
+    {PrepareSave();World.Save();}
+    internal static void PrepareSave()
     {
         int generation=File.Exists(Manifest)?JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest)).Generation+1:0;
         var p=Owner();var b=Spawn(p,generation%2==0?CombatAbility.BoneWall:CombatAbility.BonePrison);
         SkillHealth.SetBalance256(b,SkillHealth.Maximum256(b)-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,b.Prepared,SkillHealth.Balance256(b),b.ExpiresUtc,generation)));
-        World.Save();
     }
     private static void Reload()
     {

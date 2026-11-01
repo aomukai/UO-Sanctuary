@@ -1,0 +1,15 @@
+# Combined Necromancer acceptance checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This is work in progress. The latest accepted retained cohort remains [Confuse resume](confuse-resume-checkpoint.md), build 2/run 2/audit 1 with 411 markers. No completed class or deployment is claimed.
+
+`tests/check_necromancer_acceptance.py` combines the current summon/parking/curse cohort, the earlier extended blind/spell suite, Attract, barriers, Summon Resist, learned original Revive and Corpse Explosion. Configuration review finds no conflicting probe, result, manifest or timeout mappings; all 72 source-probe files exist. The full configuration contains 112 fixture families, 22 additional shared checks, 34 connected world actions and 46 real right/quick inputs per boot. These are planned execution scopes, not a passing-test count.
+
+The two existing save commands could not simply overwrite each other in that merge. `NecromancerAcceptanceChecks` now prepares the existing barrier clocks, maker links, barrier birth/resources and pending Fire Golem retirement before one actual world save. The existing commands retain their original prepare-then-save behavior. Their body construction and assertions are unchanged. Short-lived barrier reload inspections run before slower unrelated checks; no deadline or expiry is extended to accommodate the combined run.
+
+**Build 1 focused verification passes 49 native markers**, three boots, two actual reloads and three saves. It verifies the combined save preparation alongside original-item/resource controls, barrier clock/maker/cast/birth/collision fixtures, Fire retirement/natural burst, Summon Resist, learned original Revive and Corpse Explosion. Content and integration rebuilds have zero warnings/errors. The full combined run and selected-build audits remain pending.
+
+Production C#, runtime data, kernel, installed build and saves are unchanged. Only fixture coordination, helper visibility and runner ordering change. All jobs use disposable worlds and isolated candidate DLLs. Existing source/current-engine, barrier group/death/collision, legacy, control/credit/PvP/Sunder, client and asset limits remain; combining tests does not resolve them or create a class certificate.
+
+Reproduce configuration review with `python3 tests/check_necromancer_acceptance.py --plan`, focused save acceptance with `--save-smoke`, and the full combined cohort without an option. The isolated stage is `.local/class-skills/necromancer-acceptance`; focused logs and inventories are in the sibling `necromancer-acceptance-targeted` stage.
+
+Effects/audio and talent/hotkey icons remain separate in [effects](skill-effects.md) and [icons](skill-icons.md). This test integration adds no player skill, asset or binding. Continue the full combined run, investigate any failures against current approved mechanics, then refresh the class audit and roadmap before proceeding through classes. Individually uncertain mechanics remain explicit and nonblocking for unaffected work.

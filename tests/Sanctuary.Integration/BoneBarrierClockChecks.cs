@@ -82,7 +82,7 @@ public static class BoneBarrierClockChecks
         }
         catch{foreach(var b in originals){b.Delete();}p.Delete();throw;}
     }
-    private static void StageSave()
+    internal static void StageSave()
     {
         var p=Owner();var root=Spawn(p,CombatAbility.BoneWall,new(p.X+6,p.Y,p.Z));
         var child=Spawn(p,CombatAbility.BoneWall,new(p.X+7,p.Y,p.Z),root);

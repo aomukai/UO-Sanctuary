@@ -52,6 +52,8 @@ public static class FireGolemDeathChecks
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,0,0,0,historicalOwner.Serial.Value,old.Serial.Value,0)));
     }
     private static void Save()
+    {PrepareSave();World.Save();}
+    internal static void PrepareSave()
     {
         var previous=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=Owner();var b=Pet(p);var target=Enemy(p,b.X+1,b.Y);
         int life=SkillHealth.Balance256(target);b.Kill();
@@ -63,7 +65,6 @@ public static class FireGolemDeathChecks
         var clock=typeof(FireGolemDeathBody).GetField("_retireTick",BindingFlags.NonPublic|BindingFlags.Instance);
         Require(clock?.FieldType==typeof(long),"Fixture retirement clock unavailable");clock.SetValue(b,Core.TickCount+60000);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(previous with{Owner=p.Serial.Value,Actor=b.Serial.Value,Target=target.Serial.Value,Life=life}));
-        World.Save();
     }
     private static void Reload()
     {
