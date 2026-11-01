@@ -351,9 +351,9 @@
       "tree": "Cold Spells",
       "sourceId": 39,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Saved shared player flight captures cold damage/rank/gear/length and Slow Missiles; impact reuses typed potion, resistance and source-owned cold states. Dedicated rank/hard-synergy, Nightwing removal, resistance/immunity/difficulty, mana/lifecycle, legacy JSON, actual right/quick and two-reload controls are recorded in sorceress-ice-bolt-checkpoint.md. Native world/candidate/footprint adapters, current executable/initial dispatch/creator RNG, ordinary-chill shatter, PvP defenses, old-DLL world upgrade and final graphical/assets acceptance remain open; no class certificate."
     },
     {
       "talentId": "sorceress.frozenarmor",

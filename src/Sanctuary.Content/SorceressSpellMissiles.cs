@@ -14,7 +14,11 @@ namespace Sanctuary;
 
 internal sealed record SorceressSpellFlight(long Id,uint Owner,int Map,int Z,CombatAbility Ability,int Rank,
     double X,double Y,double Vx,double Vy,int VelocityFp8,int Frame,int Frames,int Minimum256,int Maximum256,
-    FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null);
+    FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null)
+{
+    // Optional V0 extension: historical Fire Bolt records retain zero length.
+    public int ColdFrames{get;init;}
+}
 internal sealed record SorceressSpellSave(SorceressSpellFlight[] Flights,long NextId);
 
 public sealed class SorceressSpellProfiles:GenericPersistence
@@ -40,18 +44,24 @@ internal static class SorceressSpellMissiles
     public static void Configure()=>_ = new SorceressSpellProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
 
+    private static (string Key,string Element,int Source,int Velocity) Profile(CombatAbility ability)=>ability switch
+    {
+        CombatAbility.FireBolt=>("firebolt","fire",36,20),
+        CombatAbility.IceBolt=>("icebolt","cold",39,12),
+        _=>throw new NotSupportedException("Unmapped player straight spell")
+    };
     internal static void Route(SkillValues values)
     {
-        var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source("firebolt",key);
-        if(values.Ability!=CombatAbility.FireBolt||values.Rank is <1 or >255||row.SourceId!=36
-            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=0||row.Text("srvmissile")!="firebolt"
-            ||row.Text("EType")!="fire"||row.Number("SrcDam")!=0
-            ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=0||M("pSrvDmgFunc")!=0||M("Vel")!=20||M("MaxVel")!=20
+        var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
+        if(values.Rank is <1 or >255||row.SourceId!=profile.Source
+            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=0||row.Text("srvmissile")!=profile.Key
+            ||row.Text("EType")!=profile.Element||row.Number("SrcDam")!=0
+            ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=0||M("pSrvDmgFunc")!=0||M("Vel")!=profile.Velocity||M("MaxVel")!=profile.Velocity
             ||M("VelLev")!=0||M("Accel")!=0||M("Range")!=50||M("Size")!=1||M("CollideType")!=3
             ||M("CollideKill")!=1||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=0||M("Pierce")!=0
             ||M("SrcDamage")!=0||M("CanSlow")!=1||M("InitSteps")!=1||M("Activate")!=0
             ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=4||M("DamageRate")!=0)
-        {throw new NotSupportedException("Unmapped player Fire Bolt route");}
+        {throw new NotSupportedException("Unmapped player straight spell route");}
     }
     private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Sorceress?p:null;
@@ -61,16 +71,18 @@ internal static class SorceressSpellMissiles
         if(owner==null||Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal
             ||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height||at.Kind!=DateTimeKind.Utc
             ||SpellHelper.IsTown(owner.Location,owner)||SpellHelper.IsTown(point,owner))
-        {throw new NotSupportedException("Unsupported player Fire Bolt owner/aim");}
+        {throw new NotSupportedException("Unsupported player straight spell owner/aim");}
+        var profile=Profile(values.Ability);
         var slow=AmazonSlowMissiles.Capture(owner,true);var mods=DruidFirestorm.Modifiers(owner);
-        var ends=DruidFirestorm.Endpoints(values,mods.FireMastery,slow);
+        var ends=DruidFirestorm.Endpoints(values,profile.Element=="cold"?mods.ColdMastery:mods.FireMastery,slow);
         // Default non-lob skill launch supplies33. No weapon AR/damage/ammo.
-        int velocity=SlowMissilePayload.VelocityFp8(20,0,values.Rank,33,0,true,slow.VelocityPercent);
+        int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,33,0,true,slow.VelocityPercent);
         int dx=point.X-owner.X,dy=point.Y-owner.Y;if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         var flight=new SorceressSpellFlight(checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
             values.Ability,values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,50,ends.Min,ends.Max,mods,slow,
-            SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40));
+            SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
+            {ColdFrames=profile.Element=="cold"?values.DurationFrames:0};
         Validate(flight);return flight;
     }
     internal static long Commit(SorceressSpellFlight flight)
@@ -95,13 +107,16 @@ internal static class SorceressSpellMissiles
     internal static int Impact(PlayerMobile owner,Mobile target,SorceressSpellFlight flight,out ulong seed)
     {
         ulong stream=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));seed=stream;
-        SorceressEffects.MissileHit(owner,target,"firebolt");
-        if(ClassAvoidance.Missile(target,"firebolt")){return 0;}
+        var profile=Profile(flight.Ability);
+        SorceressEffects.MissileHit(owner,target,profile.Key);
+        if(ClassAvoidance.Missile(target,profile.Key)){return 0;}
         owner.DoHarmful(target,true);
         // T29 checks potion eligibility at contact. Reuse the same captured
-        // fire endpoints/four-element modifier consumer as Firestorm.
+        // endpoints and the existing element-independent Boulder potion helper.
         var modifiers=flight.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
-        var parts=SkillCombat.MitigatePrepared(owner,target,DruidFirestorm.Packet(modifiers,raw));
+        var packet=profile.Element=="cold"?new GearDamage(0,0,raw/256.0,0,0):new(0,raw/256.0,0,0,0);
+        var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(modifiers,packet));
+        if(profile.Element=="cold"){ColdStates.Apply(owner,target,flight.ColdFrames,TimedEffects.TickAt(flight.NextUtc));}
         int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}
         CombatDamage.Finish(target,owner);return loss;
@@ -148,7 +163,7 @@ internal static class SorceressSpellMissiles
         if(removed||barrier||result.Result==2){Remove(flight.Id);return;}
         // A reactive consumer may have cleared the owner's flights.
         if(_pool.Flights.ContainsKey(flight.Id)){_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,next)};}
-        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,0x36D4,2,10,0x489,0);} // Identified shared Fire Bolt placeholder.
+        if(frame%2==0){bool cold=flight.Ability==CombatAbility.IceBolt;Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,cold?0x36E4:0x36D4,2,10,cold?0x480:0x489,0);} // Identified shared bolt placeholders.
     }
     internal static void Tick(DateTime at,bool? actions=null)
     {
@@ -167,10 +182,11 @@ internal static class SorceressSpellMissiles
     }
     private static void Validate(SorceressSpellFlight s)
     {
-        if(s==null||s.Id<=0||!((Serial)s.Owner).IsMobile||s.Ability!=CombatAbility.FireBolt||s.Rank is <1 or >255
+        if(s==null||s.Id<=0||!((Serial)s.Owner).IsMobile||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt)||s.Rank is <1 or >255
             ||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal||s.Z is <-128 or >127
             ||!double.IsFinite(s.X+s.Y+s.Vx+s.Vy)||s.X<=0||s.Y<=0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
-            ||Math.Abs(s.Vx)>0.5||Math.Abs(s.Vy)>0.5||s.VelocityFp8 is <0 or >3840||s.Frame<0||s.Frames!=50||s.Frame>=s.Frames
+            ||Math.Abs(s.Vx)>0.5||Math.Abs(s.Vy)>0.5||s.VelocityFp8<0||s.VelocityFp8>(s.Ability==CombatAbility.IceBolt?2304:3840)||s.Frame<0||s.Frames!=50||s.Frame>=s.Frames
+            ||(s.Ability==CombatAbility.FireBolt?s.ColdFrames!=0:s.ColdFrames is <1 or >9040)
             ||s.Minimum256<0||s.Maximum256<s.Minimum256||s.Modifiers==null||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100
             ||s.NextUtc.Kind!=DateTimeKind.Utc||s.Steps?.Cells is not{Length:>=1 and <=10}
             ||s.Steps.Cells.Any(c=>c.X<0||c.Y<0||c.X>=Map.Maps[s.Map].Width*2||c.Y>=Map.Maps[s.Map].Height*2))

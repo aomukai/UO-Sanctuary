@@ -1,5 +1,7 @@
 # Skill icons
 
+The [player Ice Bolt increment](sorceress-ice-bolt-checkpoint.md) retains the existing stable Ice Bolt talent and left/right/quick bindings. Final tree and hotkey artwork remains pending with current labels/icons as placeholders; no duplicate action/icon is needed for the shared controller. Mage Ice Bolt stays autonomous. Effects/audio remain separate.
+
 The [player Fire Bolt increment](sorceress-fire-bolt-checkpoint.md) keeps the existing Fire Bolt ability and left/right/quick bindings. Final talent-tree and hotkey artwork is still required; current labels/icons remain placeholders. Reuse one Fire Bolt identity across these surfaces. Autonomous Mage bolts need no separate player hotkey. Effects/audio stay in their separate register.
 
 The [combined Necromancer acceptance](necromancer-acceptance-checkpoint.md) adds no new player action or finished icon. Existing Necromancer talent-tree and left/right/quick artwork remains pending with identified labels/placeholders. Summon passives and autonomous Mage spells do not create separate player hotkeys. Effects/audio requirements stay in the separate effects register.

@@ -328,6 +328,14 @@ CAVEATS['sorceress.firebolt'] = (
     'sorceress-fire-bolt-checkpoint.md. Native world/candidate/footprint adapters, modern '
     'executable/initial dispatch/creator RNG, PvP defenses and final graphical/assets '
     'acceptance remain open; no class certificate.')
+CAVEATS['sorceress.icebolt'] = (
+    'Saved shared player flight captures cold damage/rank/gear/length and Slow Missiles; '
+    'impact reuses typed potion, resistance and source-owned cold states. Dedicated '
+    'rank/hard-synergy, Nightwing removal, resistance/immunity/difficulty, mana/lifecycle, '
+    'legacy JSON, actual right/quick and two-reload controls are recorded in '
+    'sorceress-ice-bolt-checkpoint.md. Native world/candidate/footprint adapters, current '
+    'executable/initial dispatch/creator RNG, ordinary-chill shatter, PvP defenses, '
+    'old-DLL world upgrade and final graphical/assets acceptance remain open; no class certificate.')
 
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
@@ -448,6 +456,7 @@ NATIVE_PARTIAL = {
 }
 NATIVE_PARTIAL.update(['necromancer.bonespirit', 'necromancer.corpseexplosion', 'necromancer.poisondagger', 'necromancer.poisonexplosion', 'necromancer.poisonnova', 'necromancer.raiseskeleton', 'necromancer.skeletonmastery', 'necromancer.summonresist', 'necromancer.terror', 'necromancer.weaken'])
 NATIVE_PARTIAL.add('sorceress.firebolt')
+NATIVE_PARTIAL.add('sorceress.icebolt')
 LEGACY = {'sorceress.teleport'}
 PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',

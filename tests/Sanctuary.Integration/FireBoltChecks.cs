@@ -24,27 +24,27 @@ public static class FireBoltChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Player Fire Bolt capture,source flight,input and saves",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner(CombatAbility ability=CombatAbility.FireBolt,int column=7100)
     {
         var p=new PlayerMobile{Name="FireBoltFixture",Player=true,Body=0x190};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Sorceress);ClassCreation.Profiles.AdvanceLevel(p,99);
         while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Fire Bolt Strength");}
-        Require(ClassCreation.Profiles.TryTrain(p.Serial,"sorceress.firebolt",out _),"Learn Fire Bolt");
-        FixtureSpace.Corridor(p,7100,32,3000);p.Hits=p.HitsMax;NecromancerEffects.SetMana256(p,p.ManaMax*256);
-        Require(SkillBindings.Instance.Assign(p,true,CombatAbility.FireBolt)&&SkillBindings.Instance.Assign(p,false,CombatAbility.FireBolt)
-            &&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.FireBolt),"Fire Bolt bindings");return p;
+        Require(ClassCreation.Profiles.TryTrain(p.Serial,SkillMechanics.For(ability).TalentId,out _),"Learn "+ability);
+        FixtureSpace.Corridor(p,column,32,3000);p.Hits=p.HitsMax;NecromancerEffects.SetMana256(p,p.ManaMax*256);
+        Require(SkillBindings.Instance.Assign(p,true,ability)&&SkillBindings.Instance.Assign(p,false,ability)
+            &&SkillBindings.Instance.AssignQuick(p,7,ability),"Bolt bindings");return p;
     }
-    private static GraveyardSkeleton Target(PlayerMobile p,int dx)
+    internal static GraveyardSkeleton Target(PlayerMobile p,int dx)
     {
         var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);
         foreach(var type in Enum.GetValues<ResistanceType>()){t.SetResistance(type,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);return t;
     }
-    private static SorceressSpellFlight State(long id)=>SorceressSpellMissiles.Snapshot().Flights.FirstOrDefault(s=>s.Id==id);
+    internal static SorceressSpellFlight State(long id)=>SorceressSpellMissiles.Snapshot().Flights.FirstOrDefault(s=>s.Id==id);
     private static long Create(PlayerMobile p)
     {var flight=SorceressSpellMissiles.Prepare(p,new(p.X+10,p.Y,p.Z),SkillMechanics.Values(p,CombatAbility.FireBolt),TimedEffects.Now);return SorceressSpellMissiles.Commit(flight);}
-    private static void Through(long id,int frames,bool actions=true)
+    internal static void Through(long id,int frames,bool actions=true)
     {for(int i=0;i<frames&&State(id) is{} s;i++){SorceressSpellMissiles.Tick(s.NextUtc,actions);}}
-    private static void Clean(PlayerMobile p,params Mobile[] targets)
+    internal static void Clean(PlayerMobile p,params Mobile[] targets)
     {SorceressSpellMissiles.Cancel(p);AmazonSlowMissiles.Clear(p);foreach(var t in targets){t.Corpse?.Delete();t.Delete();}p.Corpse?.Delete();p.Delete();}
     private static void Check()
     {
