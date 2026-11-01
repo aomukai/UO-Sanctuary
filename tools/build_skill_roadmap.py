@@ -430,6 +430,20 @@ CAVEATS['sorceress.chargedbolt'] = (
     'events,PvP/Sunder,old-DLL/client/unheld saves and final assets remain open. '
     'Shared12tile aim admission remains an adapter;no class certificate.')
 
+CAVEATS['sorceress.chainlightning'] = (
+    'New player segments use shared prepared typed impact/potion,source do1/Size2/ '
+    'ordered steps,captured root modifiers/Slow Missiles and fresh child damage/slow '
+    'at retained cast rank. Existing cyclic targeting,finite count and cast-local '
+    'four-frame delays remain. Native root/child/gear/immunity/potion,deep-copy/atomic '
+    'restore,lifecycle/actual disconnect/input/two-reload and retained Mage Chain '
+    'scopes are in sorceress-player-chain-checkpoint.md. Optional V0 player packet '
+    'keeps already-fired historical player DTO behavior explicit;old fixture scopes '
+    'are now historical,not current player input proof. NPC fixed10 behavior stays '
+    'separate. Complete modern initial dispatch/global RNG/factory/events,NHD/filter/ '
+    'room/candidate order,PvP/Sunder,old-DLL/unheld saves and graphical/assets '
+    'acceptance remain open. Shared12tile aim and owner-removal adapters remain; '
+    'no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',

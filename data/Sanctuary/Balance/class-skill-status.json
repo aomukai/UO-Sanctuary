@@ -518,7 +518,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Travelling segments, finite source hit counts, cyclic identity targeting, fresh child damage at the original cast rank, per-cast four-frame next-hit delay, resources and persistence implemented. Cast scope follows official 2.7 notes and firsthand original testing; compare the pinned modern build. Exact Size2/FP16 paths, target flags, gear timing, owner transitions and actual-client acceptance remain open."
+      "remaining": "New player segments use shared prepared typed impact/potion,source do1/Size2/ ordered steps,captured root modifiers/Slow Missiles and fresh child damage/slow at retained cast rank. Existing cyclic targeting,finite count and cast-local four-frame delays remain. Native root/child/gear/immunity/potion,deep-copy/atomic restore,lifecycle/actual disconnect/input/two-reload and retained Mage Chain scopes are in sorceress-player-chain-checkpoint.md. Optional V0 player packet keeps already-fired historical player DTO behavior explicit;old fixture scopes are now historical,not current player input proof. NPC fixed10 behavior stays separate. Complete modern initial dispatch/global RNG/factory/events,NHD/filter/ room/candidate order,PvP/Sunder,old-DLL/unheld saves and graphical/assets acceptance remain open. Shared12tile aim and owner-removal adapters remain; no class certificate."
     },
     {
       "talentId": "sorceress.teleport",

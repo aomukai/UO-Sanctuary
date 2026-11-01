@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Server.Mobiles;
 using Server.Spells;
 
 namespace Sanctuary;
+
+internal sealed record ChainPlayerPacket(FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,int VelocityFp8);
 
 public sealed record ChainDelay(uint Target, DateTime UntilUtc);
 public sealed record ChainFlight(long Cast, uint Owner, int Map, int Rank, int Remaining, uint AimTarget,
@@ -14,6 +17,9 @@ public sealed record ChainFlight(long Cast, uint Owner, int Map, int Rank, int R
     ChainDelay[] Delays, DateTime UntilUtc, DateTime NextUtc)
 {
     // Optional fields keep historical player-flight JSON and persistence v0.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    [System.Text.Json.Serialization.JsonInclude]
+    internal ChainPlayerPacket PlayerPacket{get;init;}
     public uint NpcCaster{get;init;}
     public ulong NpcSeed{get;init;}
     public SlowMissilePayload NpcSlow{get;init;}=SlowMissilePayload.Normal;
@@ -35,6 +41,8 @@ public static class ChainLightning
     private static readonly Dictionary<long, ChainFlight> _flights = new();
     private static readonly List<long> _keys = new();
     private static long _nextCast;
+    private static readonly HashSet<long> Loaded=new();
+    internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static ChainLightningProfiles Profiles { get; private set; }
     public static int Frames => NecromancerSummons.Source("chainlightning", "Range");
     public static int DelayFrames => NecromancerSummons.Source("chainlightning", "NextDelay");
@@ -46,8 +54,39 @@ public static class ChainLightning
         int Scale(int damage) => (int)Math.Clamp(NamedElements.Enhance(owner, damage * (100 + potion) / 100.0, "ltng"), 0, int.MaxValue);
         return (Scale(values.Damage256(false)), Scale(values.Damage256(true)));
     }
-    public static void Cast(PlayerMobile owner, Point3D aim, SkillValues values)
-        =>Launch(owner,owner,aim,values,Damage(owner,values),SlowMissilePayload.Normal,TimedEffects.Now,false);
+    internal static ChainFlight PreparePlayer(PlayerMobile owner,Point3D aim,SkillValues values,DateTime at)
+    {
+        var row=SkillMechanics.For(CombatAbility.ChainLightning);int M(string key)=>NecromancerSummons.Source("chainlightning",key);
+        if(values.Ability!=CombatAbility.ChainLightning||values.Rank is <1 or >255||row.SourceId!=53||row.Number("srvdofunc")!=26||row.Text("srvmissilea")!="chainlightning"
+            ||row.Number("SrcDam")!=0||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=12||M("pSrvDmgFunc")!=0||M("Vel")!=30||M("MaxVel")!=30||M("Range")!=25
+            ||M("Size")!=2||M("CollideType")!=3||M("CollideKill")!=1||M("LastCollide")!=1||M("NextHit")!=1||M("NextDelay")!=4||M("InitSteps")!=0||M("Activate")!=0
+            ||M("CanSlow")!=1||M("SrcDamage")!=0||M("ToHit")!=0||M("Pierce")!=0||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=4||M("HitFlags")!=0
+            ||owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal||at.Kind!=DateTimeKind.Utc
+            ||aim.X<=0||aim.Y<=0||aim.X>=owner.Map.Width||aim.Y>=owner.Map.Height||SpellHelper.IsTown(owner.Location,owner)||SpellHelper.IsTown(aim,owner))
+        {throw new NotSupportedException("Unmapped player Chain Lightning route/owner/aim");}
+        var (damage,packet)=PlayerDamage(owner,values,new([new(owner.X*2,owner.Y*2)]));
+        int dx=aim.X-owner.X,dy=aim.Y-owner.Y;if(dx==0&&dy==0){dx=dy=1;}
+        var vector=MissileVectors.VelocityFp8(dx,dy,packet.VelocityFp8);
+        return new(_nextCast+1,owner.Serial.Value,owner.Map.MapID,values.Rank,Math.Max(1,(int)values.Eval("calc1")),0,owner.X,owner.Y,owner.Z,vector.X,vector.Y,0,
+            damage.Min,damage.Max,[],at.AddMilliseconds(Frames*40),at.AddMilliseconds(40)){PlayerPacket=packet};
+    }
+    private static ((int Min,int Max) Damage,ChainPlayerPacket Packet) PlayerDamage(PlayerMobile owner,SkillValues values,SourceStepTrace steps)
+    {
+        var slow=AmazonSlowMissiles.Capture(owner,true);var mods=DruidFirestorm.Modifiers(owner);var ends=DruidFirestorm.Endpoints(values,mods.LightningMastery,slow);
+        int velocity=SlowMissilePayload.VelocityFp8(30,0,values.Rank,33,0,true,slow.VelocityPercent);
+        return(ends,new(mods,slow,SourceRandom.InitLow(SeedLow()),steps,velocity));
+    }
+    internal static long CommitPlayer(ChainFlight flight)
+    {
+        ValidatePlayer(flight);if(flight.Cast!=_nextCast+1){throw new InvalidOperationException("Stale prepared chain");}
+        _flights.Add(flight.Cast,Copy(flight));_nextCast=flight.Cast;return flight.Cast;
+    }
+    public static void Cast(PlayerMobile owner,Point3D aim,SkillValues values)=>CommitPlayer(PreparePlayer(owner,aim,values,TimedEffects.Now));
+    internal static bool Release(PlayerMobile owner,Point3D aim,SkillValues values)
+    {
+        var flight=PreparePlayer(owner,aim,values,TimedEffects.Now);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        CommitPlayer(flight);owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+    }
     internal static long CastNpc(NecromancerMinion actor,Point3D aim,SkillValues values,DateTime at)
     {
         if(actor is not{Alive:true,Deleted:false,IsMage:true,ControlMaster:PlayerMobile owner}||actor.Map==null||actor.Map==Map.Internal||owner.Map!=actor.Map
@@ -100,10 +139,11 @@ public static class ChainLightning
         }
         return greater ?? smallest;
     }
+    private static void Remove(long id){_flights.Remove(id);Loaded.Remove(id);}
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>(); foreach (var flight in _flights.Values) { if (flight.Owner == owner.Serial.Value||flight.NpcCaster==owner.Serial.Value) { ids.Add(flight.Cast); } }
-        foreach (long id in ids) { _flights.Remove(id); }
+        foreach (long id in ids) { Remove(id); }
     }
     private static void Tick()=>Tick(TimedEffects.Now);
     internal static void Tick(DateTime now,bool? npcActions=null,long? onlyCast=null)
@@ -115,29 +155,65 @@ public static class ChainLightning
             if(onlyCast.HasValue&&id!=onlyCast.Value){continue;}
             if (!_flights.TryGetValue(id, out var flight)) { continue; }
             var owner = Owner(flight);
-            if(flight.UntilUtc<=now){_flights.Remove(id);continue;}
+            if(flight.UntilUtc<=now){Remove(id);continue;}
             var npc=flight.NpcCaster==0?null:World.FindMobile((Serial)flight.NpcCaster) as NecromancerMinion;
             Mobile caster=flight.NpcCaster==0?owner:npc;
             if(flight.NpcCaster!=0&&!ActiveNpc(flight,npc,owner,npcActions))
             {
                 // Offline/parked/invalid NPC sources do not fight or replay
                 // skipped travel, while their original lifetime still expires.
-                if(flight.NextUtc<=now){if(flight.Frame+1>=Frames){_flights.Remove(id);}else{_flights[id]=flight with{Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};}}continue;
+                if(flight.NextUtc<=now){if(flight.Frame+1>=Frames){Remove(id);}else{_flights[id]=flight with{Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};}}continue;
             }
-            if(owner==null){_flights.Remove(id);continue;}
+            if(owner==null){Remove(id);continue;}
+            if(flight.PlayerPacket!=null)
+            {
+                if(flight.NextUtc>now){continue;}
+                bool loaded=Loaded.Remove(id);
+                if(loaded||owner.Map==Map.Internal||!(npcActions??owner.NetState is{Running:true}))
+                {
+                    int elapsed=loaded?(int)Math.Min(Frames-flight.Frame,(now-flight.NextUtc).Ticks/TimeSpan.TicksPerMillisecond/40+1):1;
+                    if(flight.Frame+elapsed>=Frames){Remove(id);}else{_flights[id]=flight with{Frame=flight.Frame+elapsed,NextUtc=flight.NextUtc.AddMilliseconds(40L*elapsed)};}continue;
+                }
+            }
             if(owner.Map==Map.Internal||flight.NextUtc>now){continue;}
-            double x = flight.X + flight.Vx, y = flight.Y + flight.Vy;
+            double x=flight.X,y=flight.Y;Mobile first=null;
+            if(flight.PlayerPacket is{} prepared)
+            {
+                var steps=prepared.Steps;
+                int Move(){x+=flight.Vx;y+=flight.Vy;steps=SourceMissileSteps.Advance(flight.X,flight.Y,flight.Vx,flight.Vy,prepared.Steps);return x<0||y<0||x>=caster.Map.Width||y>=caster.Map.Height?2:1;}
+                bool Wall(SourceMissileCell cell)=>DruidFirestorm.CellBlocked(caster.Map,flight.Z,flight.X,flight.Y,cell.X,cell.Y);
+                Mobile Find(SourceMissileCell cell)
+                {
+                    foreach(var t in caster.Map.GetMobilesInRange<Mobile>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,flight.Z),3))
+                    {
+                        if(t is not{Alive:true,Deleted:false,Blessed:false}||Math.Abs(t.Z-flight.Z)>=16||Delayed(flight,t.Serial.Value,flight.NextUtc)
+                            ||!ClassCombat.IsHostile(owner,t)||!owner.CanBeHarmful(t,false)||SpellHelper.IsTown(t.Location,owner)){continue;}
+                        int size=t is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
+                        if(CombatHitboxes.SourceTouches(2,size,cell.X-t.X*2,cell.Y-t.Y*2)){return t;}
+                    }return null;
+                }
+                var update=BasicMissileUpdate.Run(new(true,true,prepared.VelocityFp8,Frames-flight.Frame,2,Frames,true),
+                    new(Move,_=>{},()=>true,()=>true,()=>2,()=>steps.Cells,cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,
+                        (serial,terminal)=>{if(!terminal){first=World.FindMobile((Serial)serial);}return 2;}));
+                flight=flight with{PlayerPacket=prepared with{Steps=steps}};
+                if(update.Result==2&&first==null){Remove(id);continue;}
+            }
+            else
+            {
+                x=flight.X+flight.Vx;y=flight.Y+flight.Vy;
             var from = new Point3D((int)Math.Round(flight.X), (int)Math.Round(flight.Y), flight.Z + 12);
-            var to = new Point3D((int)Math.Round(x), (int)Math.Round(y), flight.Z + 12);
-            if (x < 0 || y < 0 || x >= caster.Map.Width || y >= caster.Map.Height || !caster.Map.LineOfSight(from, to) || flight.Frame + 1 >= Frames)
-            { _flights.Remove(id); continue; }
-            Mobile first = null; double nearest = double.MaxValue;
-            foreach (var target in SkillCombat.Targets(caster,owner, new(to.X, to.Y, flight.Z), 2))
+            var legacyTo = new Point3D((int)Math.Round(x), (int)Math.Round(y), flight.Z + 12);
+            if (x < 0 || y < 0 || x >= caster.Map.Width || y >= caster.Map.Height || !caster.Map.LineOfSight(from, legacyTo) || flight.Frame + 1 >= Frames)
+            { Remove(id); continue; }
+                double nearest=double.MaxValue;
+            foreach (var target in SkillCombat.Targets(caster,owner, new(legacyTo.X, legacyTo.Y, flight.Z), 2))
             {
                 if (!Delayed(flight, target.Serial.Value, flight.NextUtc)
                     && CombatHitboxes.Intersect(flight.X, flight.Y, x, y, flight.Z, target.Location, out double entry) && entry < nearest)
                 { first = target; nearest = entry; }
             }
+            }
+            var to = new Point3D((int)Math.Round(x),(int)Math.Round(y),flight.Z+12);
             Effects.SendLocationEffect(new(to.X, to.Y, flight.Z), caster.Map, 0x3818, 3, 10, 0x482, 0); // Placeholder chain segment.
             if (first == null)
             { _flights[id] = flight with { X = x, Y = y, Frame = flight.Frame + 1, NextUtc = flight.NextUtc.AddMilliseconds(40) }; continue; }
@@ -146,24 +222,33 @@ public static class ChainLightning
             delays.Add(new(first.Serial.Value, flight.NextUtc.AddMilliseconds(DelayFrames * 40)));
             flight = flight with { Delays = delays.ToArray() };
             var next = flight.Remaining > 1 ? NextTarget(caster,owner, flight, first, x, y, flight.NextUtc) : null;
-            if (next == null) { _flights.Remove(id); }
+            if (next == null) { Remove(id); }
             else
             {
                 int dx = (int)Math.Round((next.X - x) * 2), dy = (int)Math.Round((next.Y - y) * 2);
                 if (dx == 0 && dy == 0) { dx = dy = 1; }
                 var slow=npc==null?SlowMissilePayload.Normal:AmazonSlowMissiles.Capture(npc,true);
-                var velocity=npc==null?MissileVectors.Velocity(dx,dy,NecromancerSummons.Source("chainlightning","Vel")):NpcVelocity(dx,dy,flight.Rank,slow);
-                // Player children retain live player synergies/mastery. NPC
-                // children retain fixed rank and their own current slow state.
                 var values=npc==null?SkillMechanics.Values(owner,CombatAbility.ChainLightning,flight.Rank):MagePetBuffs.Values(CombatAbility.ChainLightning,flight.Rank,npc.Level);
-                var damage=npc==null?Damage(owner,values):(Min:slow.Damage256(values.Damage256(false)),Max:slow.Damage256(values.Damage256(true)));
-                _flights[id] = flight with { Remaining = flight.Remaining - 1, AimTarget = next.Serial.Value, X = x, Y = y,
-                    Vx = velocity.X, Vy = velocity.Y, Frame = 0, Min256 = damage.Min, Max256 = damage.Max,
-                    UntilUtc = flight.NextUtc.AddMilliseconds(Frames * 40), NextUtc = flight.NextUtc.AddMilliseconds(40),NpcSlow=slow,
-                    NpcSeed=npc==null?0:SourceRandom.InitLow(NecromancerMageMissiles.SeedLow()) };
+                var packet=flight.PlayerPacket;(int Min,int Max) damage;
+                (double X,double Y) velocity;
+                if(packet!=null)
+                {
+                    (damage,packet)=PlayerDamage(owner,values,new([new((int)Math.Round(x*2),(int)Math.Round(y*2))]));
+                    velocity=MissileVectors.VelocityFp8(dx,dy,packet.VelocityFp8);
+                }
+                else{damage=npc==null?Damage(owner,values):(slow.Damage256(values.Damage256(false)),slow.Damage256(values.Damage256(true)));velocity=npc==null?MissileVectors.Velocity(dx,dy,NecromancerSummons.Source("chainlightning","Vel")):NpcVelocity(dx,dy,flight.Rank,slow);}
+                _flights[id]=flight with{Remaining=flight.Remaining-1,AimTarget=next.Serial.Value,X=x,Y=y,Vx=velocity.X,Vy=velocity.Y,Frame=0,Min256=damage.Min,Max256=damage.Max,
+                    UntilUtc=flight.NextUtc.AddMilliseconds(Frames*40),NextUtc=flight.NextUtc.AddMilliseconds(40),NpcSlow=slow,
+                    NpcSeed=npc==null?0:SourceRandom.InitLow(NecromancerMageMissiles.SeedLow()),PlayerPacket=packet};
+
             }
             if(npc!=null)
             {NecromancerMageMissiles.ImpactSpell(npc,first,new("chainlightning","ltng",flight.Rank,flight.Min256,flight.Max256,0),flight.Owner,flight.NpcSeed,flight.NextUtc);}
+            else if(flight.PlayerPacket is{} playerPacket)
+            {
+                int raw=SorceressSpellMissiles.Roll(flight.Min256,flight.Max256,playerPacket.Seed,out _);
+                SorceressSpellMissiles.ImpactPrepared(owner,first,"chainlightning","ltng",raw,playerPacket.Modifiers,flight.NextUtc);
+            }
             else
             {
                 SorceressEffects.MissileHit(owner,first,"chainlightning");
@@ -172,7 +257,19 @@ public static class ChainLightning
             }
         }
     }
-    public static ChainFlight[] Snapshot() => new List<ChainFlight>(_flights.Values).ToArray();
+    private static ChainFlight Copy(ChainFlight f)=>f with{Delays=f.Delays.ToArray(),PlayerPacket=f.PlayerPacket is{} p?p with{Steps=new(p.Steps.Cells.ToArray())}:null};
+    public static ChainFlight[] Snapshot()=>_flights.Values.OrderBy(x=>x.Cast).Select(Copy).ToArray();
+    private static void ValidatePlayer(ChainFlight f)
+    {
+        if(f.Cast<=0||f.Frame<0||f.Frame>=Frames||f.Min256<0||f.Max256<f.Min256||!double.IsFinite(f.X+f.Y+f.Vx+f.Vy)||f.PlayerPacket is not{} p||f.NpcCaster!=0||!((Serial)f.Owner).IsMobile||f.Rank is <1 or >255||f.Remaining<1||f.Remaining>(f.Rank+25)/5
+            ||f.Map<0||f.Map>=Map.Maps.Length||Map.Maps[f.Map]==null||Map.Maps[f.Map]==Map.Internal||f.Z is <-128 or >127
+            ||f.X<=0||f.Y<=0||f.X>=Map.Maps[f.Map].Width||f.Y>=Map.Maps[f.Map].Height||Math.Abs(f.Vx)>.703125||Math.Abs(f.Vy)>.703125
+            ||f.NextUtc.Kind!=DateTimeKind.Utc||f.UntilUtc.Kind!=DateTimeKind.Utc||p.Modifiers==null||p.VelocityFp8 is <0 or >5760
+            ||p.Slow.VelocityPercent is <0 or >100||p.Slow.DamagePercent is <0 or >100||p.Steps?.Cells is not{Length:>=1 and <=10}
+            ||p.Steps.Cells.Any(c=>c.X<0||c.Y<0||c.X>=Map.Maps[f.Map].Width*2||c.Y>=Map.Maps[f.Map].Height*2)
+            ||f.Delays.Any(d=>!((Serial)d.Target).IsMobile||d.UntilUtc.Kind!=DateTimeKind.Utc))
+        {throw new InvalidDataException("Invalid prepared player chain");}
+    }
     public static void Restore(ChainFlight[] saved)
     {
         if (saved == null) { throw new InvalidDataException("Missing Chain Lightning flights"); }
@@ -187,11 +284,12 @@ public static class ChainLightning
                     ||flight.NextUtc.Kind!=DateTimeKind.Utc||flight.UntilUtc.Kind!=DateTimeKind.Utc||flight.Map<0||flight.Map>=Map.Maps.Length||Map.Maps[flight.Map] is not{} map||map==Map.Internal)
                 ||flight.NpcCaster==0&&flight.NpcSeed!=0||!restored.TryAdd(flight.Cast,flight))
             { throw new InvalidDataException("Invalid Chain Lightning flight"); }
+            if(flight.PlayerPacket!=null){ValidatePlayer(flight);}
             var targets = new HashSet<uint>();
             foreach (var delay in flight.Delays)
             { if (delay.Target == 0 || !targets.Add(delay.Target)) { throw new InvalidDataException("Invalid Chain Lightning delay"); } }
             nextCast=Math.Max(nextCast,flight.Cast);
         }
-        _flights.Clear();foreach(var pair in restored){_flights.Add(pair.Key,pair.Value);}_nextCast=nextCast;
+        _flights.Clear();foreach(var pair in restored){_flights.Add(pair.Key,Copy(pair.Value));}_nextCast=nextCast;Loaded.Clear();foreach(var f in restored.Values.Where(f=>f.PlayerPacket!=null)){Loaded.Add(f.Cast);}
     }
 }

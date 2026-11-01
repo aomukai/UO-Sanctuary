@@ -38,10 +38,14 @@ public static class ChainLightningChecks
     }
     private static ChainFlight Flight(PlayerMobile owner) => ChainLightning.Snapshot().Single(x => x.Owner == owner.Serial.Value);
     private static void Replace(ChainFlight flight) => ChainLightning.Restore(ChainLightning.Snapshot().Where(x => x.Cast != flight.Cast).Append(flight).ToArray());
+    // Historical V0 packet fixture: current player input/collision/typed potion
+    // is covered separately. Preserve the old DTO/first-tick semantics here.
+    private static ChainFlight Legacy(ChainFlight f)=>f with{PlayerPacket=null,NextUtc=f.NextUtc.AddMilliseconds(-40),UntilUtc=f.UntilUtc.AddMilliseconds(-40)};
     private static void Cast(PlayerMobile owner)
     {
         owner.Mana = owner.ManaMax;
         Require(SorceressCombat.Release(owner, CombatAbility.ChainLightning, Serial.Zero, new(owner.X+4,owner.Y,owner.Z)), "Chain Lightning release failed");
+        Replace(Legacy(Flight(owner)));
     }
     private static void Check()
     {
@@ -91,7 +95,7 @@ public static class ChainLightningChecks
         Require(SorceressCombat.Release(owner,CombatAbility.ChainLightning,Serial.Zero,new(owner.X+4,owner.Y,owner.Z)) && owner.Mana==mana-10,
             "Independent second cast did not pay its own rank2 cost");
         var b=ChainLightning.Snapshot().Single(x=>x.Owner==owner.Serial.Value && x.Cast!=a.Cast);
-        Replace(b with { Remaining=1,Min256=2560,Max256=2560 });
+        Replace(Legacy(b) with { Remaining=1,Min256=2560,Max256=2560 });
         Later(220,"chain-lightning-result",()=>
         {
             Require(target.Hits==life-20, "Same-caster casts incorrectly share next-hit delay");

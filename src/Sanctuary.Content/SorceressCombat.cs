@@ -55,6 +55,7 @@ public static class SorceressCombat
         var values = SkillMechanics.Values(owner, ability);
         if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Lightning) { return SorceressSpellMissiles.Cast(owner, point, values); }
         if (ability==CombatAbility.ChargedBolt){return SorceressSpellMissiles.CastCharged(owner,point,values);}
+        if (ability==CombatAbility.ChainLightning){return ChainLightning.Release(owner,point,values);}
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
         if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
@@ -69,7 +70,6 @@ public static class SorceressCombat
         if (ability == CombatAbility.Blizzard) { Blizzards.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.FrozenOrb) { FrozenOrbs.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.Hydra) { Hydras.Cast(owner, point, values); return true; }
-        if (ability == CombatAbility.ChainLightning) { ChainLightning.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.Enchant)
         {
             var target = World.FindMobile(selected);

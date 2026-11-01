@@ -164,24 +164,25 @@ internal static class SorceressSpellMissiles
     {
         int raw=Roll(flight,out seed);
         var profile=Profile(flight.Ability);
-        SorceressEffects.MissileHit(owner,target,profile.Key);
-        if(ClassAvoidance.Missile(target,profile.Key)){return 0;}
+        return ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4);
+    }
+    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false)
+    {
+        SorceressEffects.MissileHit(owner,target,key);
+        if(ClassAvoidance.Missile(target,key)){return 0;}
         owner.DoHarmful(target,true);
-        // T29 checks potion eligibility at contact. Reuse the same captured
-        // endpoints and the existing element-independent Boulder potion helper.
-        var modifiers=flight.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
-        var packet=profile.Element=="cold"?new GearDamage(0,0,raw/256.0,0,0):profile.Element=="ltng"?new(0,0,0,raw/256.0,0):new(0,raw/256.0,0,0,0);
+        var modifiers=captured with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};
+        var packet=element=="cold"?new GearDamage(0,0,raw/256.0,0,0):element=="ltng"?new(0,0,0,raw/256.0,0):new(0,raw/256.0,0,0,0);
         var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(modifiers,packet));
-        // Complete source dmg4 copies cold length to freeze and clears cold
-        // length. FreezeStates owns the eligible boss/player cold fallback.
-        if(profile.DamageFunction==4){FreezeStates.Apply(owner,target,flight.ColdFrames,TimedEffects.TickAt(flight.NextUtc));}
-        else if(profile.Element=="cold"){ColdStates.Apply(owner,target,flight.ColdFrames,TimedEffects.TickAt(flight.NextUtc));}
+        if(freeze){FreezeStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
+        else if(element=="cold"){ColdStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
         int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}
         CombatDamage.Finish(target,owner);return loss;
     }
-    internal static int Roll(SorceressSpellFlight flight,out ulong seed)
-    {ulong stream=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));seed=stream;return raw;}
+    internal static int Roll(SorceressSpellFlight flight,out ulong seed)=>Roll(flight.Minimum256,flight.Maximum256,flight.Seed,out seed);
+    internal static int Roll(int minimum,int maximum,ulong initial,out ulong seed)
+    {ulong stream=initial;int raw=WeaponMissileDamage.RollValue(minimum,maximum,0,n=>(int)SourceRandom.Limited(ref stream,n));seed=stream;return raw;}
     internal static double ExplosionRadius(SkillValues values)=>values.Ability switch
     {
         CombatAbility.Fireball=>SkillGeometry.Tiles(Math.Max(1,values.Eval("calc1"))),

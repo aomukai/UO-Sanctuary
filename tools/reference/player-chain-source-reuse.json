@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "kind": "Read-only source identity and retained historical evidence; no new compiled emitter/hit/current-executable proof.",
+  "mappings": [
+    {
+      "historicalAlias": ".local/class-skills/SkillSor.cpp.reference",
+      "canonical": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp",
+      "sha256": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+    },
+    {
+      "historicalAlias": ".local/research/d2moo-Skills.cpp",
+      "canonical": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+    },
+    {
+      "historicalAlias": ".local/research/d2moo-blizzard-MissMode.cpp",
+      "canonical": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+    },
+    {
+      "historicalAlias": ".local/research/d2moo-blizzard-Missiles.cpp",
+      "canonical": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/Missiles.cpp",
+      "sha256": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+    },
+    {
+      "historicalAlias": ".local/research/d2moo-Path.cpp",
+      "canonical": ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Path/Path.cpp",
+      "sha256": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+    }
+  ],
+  "reviewedBodies": {
+    "SKILLS_SrvDo026_ChainLightning": "28f272e19b707c930853fce3fdab971cd312857085c81f11e2a5982b405f345a",
+    "MISSMODE_SrvHit12_ChainLightning_LightningStrike": "9d6aeaf71d3ac7b7d3746b9c3c1e3add0b9ff01988946fc4a0b853653153c249"
+  },
+  "inputHashes": {
+    "tools/review_player_chain_source.py": "eb1df3285f8e3e1d7ba495678d11ce3263d8ff8c55cfdbf5b683a2de8f4e0a10",
+    "tools/reference/chain-lightning-engine-evidence.json": "9253fe9459af29d7f9b2c1c32ba352425a4fe8a196a262d060a062ee09bb5946",
+    "tools/reference/mage-chain-native-evidence.json": "1a2d96895f7fa307a99adb0dcc10c08b7a8913fd86bf931cc2512884d40ff539"
+  },
+  "established": [
+    "All five historical source aliases map to byte-identical files in the canonical pinned source tree; both do26/hit12 bodies match the retained Mage review.",
+    "The older engine record retains bounded compiled count/cyclic-selection/child outputs and supplementary modern NHD discussion. This check verifies source identity, not re-execution of that historical probe."
+  ],
+  "remaining": [
+    "Historical scratch aliases and original compiled probe are not recreated. Complete modern code, exact room/filter/target ordering and NHD implementation remain unproved; native acceptance is separate."
+  ]
+}
