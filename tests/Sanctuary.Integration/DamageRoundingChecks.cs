@@ -23,7 +23,8 @@ public static class DamageRoundingChecks
     private static void Freeze(Mobile actor)
     {
         TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
-        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.AddMinutes(5)}:x).ToArray());
+        // Inspection-only retention must span the full combined input cohort.
+        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now+FixtureSpace.Retention}:x).ToArray());
     }
     private static Ogre Enemy(PlayerMobile owner,int offset=1)
     {

@@ -17,7 +17,7 @@ sha=inventory.sha
 def record(check=False):
     inventory.STAGE=STAGE
     tested=inventory.validate_inventory(MECHANICS/'birth-inputs.json')
-    snapshot(STAGE/'pre-build-3.json',MECHANICS/'birth-inputs.json')
+    snapshot(STAGE/'pre-build-4.json',MECHANICS/'birth-inputs.json')
     parent_path=ROOT/'tools/reference/confuse-resume-native-evidence.json'
     parent=json.loads(parent_path.read_text());ref=parent['inputInventories']['birth']
     assert sha(ROOT/ref['path'])==ref['sha256']
@@ -25,7 +25,7 @@ def record(check=False):
     before={p:h for p,h in prior['sourceInputs'].items() if p.endswith('.cs')}
     after={p:h for p,h in tested['sourceInputs'].items() if p.endswith('.cs')}
     added={'tests/Sanctuary.Integration/NecromancerAcceptanceChecks.cs'}
-    changed={'tests/Sanctuary.Integration/'+name for name in ('BoneBarrierBirthChecks.cs','BoneBarrierClockChecks.cs','FireGolemDeathChecks.cs','ClassSkillChecks.cs','PetChecks.cs')}
+    changed={'tests/Sanctuary.Integration/'+name for name in ('BoneBarrierBirthChecks.cs','BoneBarrierClockChecks.cs','FireGolemDeathChecks.cs','ClassSkillChecks.cs','PetChecks.cs','DamageRoundingChecks.cs')}
     assert before.keys()<=after.keys() and after.keys()-before.keys()==added
     assert {p for p in before if before[p]!=after[p]}==changed
     assert {p:h for p,h in before.items() if p.startswith('src/')}=={p:h for p,h in after.items() if p.startswith('src/')}
@@ -38,12 +38,12 @@ def record(check=False):
     assert text.count('Shutting down')==text.count('Writing world save snapshot done')==3
     assert counts['class-skills-check']==1 and counts['class-skills-reload-check']==2
     assert counts['pet-connected-check']==counts['pet-connected-reload-check']==1
-    for name in ('bone-barrier-clock','bone-wall-maker','bone-barrier-birth','fire-golem-death','summon-resist','corpse-cast','revive-cast','confuse-resume','attract-cast'):
+    for name in ('bone-barrier-clock','bone-wall-maker','bone-barrier-birth','fire-golem-death','summon-resist','damage-rounding','corpse-cast','revive-cast','confuse-resume','attract-cast'):
         assert counts[name+'-reload-check']==2
     assert counts['necromancer-acceptance-save']==3
-    assert 'pass across3boots/2reloads' in (STAGE/'mechanics-run-4.log').read_text()
+    assert 'pass across3boots/2reloads' in (STAGE/'mechanics-run-5.log').read_text()
     for kind in ('content','integration'):
-        text=(STAGE/(kind+'-build-3.log')).read_text()
+        text=(STAGE/(kind+'-build-4.log')).read_text()
         assert all(word in text for word in ('Build succeeded.','0 Warning(s)','0 Error(s)'))
     installed=json.loads((ROOT/'tools/reference/creeper-frame-installation-evidence.json').read_text())
     assert len(installed['installedArtifacts'])==106
@@ -51,18 +51,18 @@ def record(check=False):
         assert sha(Path(installed['runtimeRoot'])/name)==digest
     files=[parent_path,Path(__file__).resolve(),ROOT/'tests/check_necromancer_acceptance.py',ROOT/'tests/check_iron_golem_birth.py',*[ROOT/name for name in added|changed]]
     files += [p for p in MECHANICS.iterdir() if p.is_file()]
-    files += [STAGE/name for name in ('pre-build-3.json','content-build-3.log','integration-build-3.log','mechanics-run-4.log')]
+    files += [STAGE/name for name in ('pre-build-4.json','content-build-4.log','integration-build-4.log','mechanics-run-5.log')]
     result=dict(referenceVersion='3.3.93847',component='Combined Necromancer mechanics/save diagnostic',productionChanged=False,
-        installed=False,goalComplete=False,completedClasses=[],build=3,mechanicsRun=4,
+        installed=False,goalComplete=False,completedClasses=[],build=4,mechanicsRun=5,
         verified=dict(nativeMarkers=467,boots=3,actualReloads=2,saves=3,fixtureFamilies=113,sharedChecks=21,unchangedInstalledArtifacts=106),
         inputInventory=dict(path=str((MECHANICS/'birth-inputs.json').relative_to(ROOT)),sha256=sha(MECHANICS/'birth-inputs.json')),
         markers=dict(sorted(counts.items())),artifacts={str(p.relative_to(ROOT)):sha(p) for p in sorted(set(files))},
         established=[
             'Combined preparation captures barrier clocks/maker/birth resources and pending Fire retirement before one save. Actual two reloads include original Revive,Corpse Explosion,Summon Resist,earlier blind/spell/curse and current pet/parking states.',
             'General class fixture reads saved armor,blindness motion,minion and binding state rather than recreating it on every boot. Legacy connected pet retains stat/progression/XP/friendly/guard/offline/facet/death assertions in explicit nonsafe fields. Clay requires the approved3–4rank1/Mastery1fractional baseline rather than olddamage2.',
-            'Only fixture coordination,helper visibility,runner environment/order and stale expectations change. Production C#,runtime data,kernel and installed106are unchanged.'],
+            'Only fixture coordination,helper visibility,runner environment/order,inspection retention and stale expectations change. Production C#,runtime data,kernel and installed106are unchanged.'],
         remaining=[
-            'This diagnostic omits the full configuration34live actions and46right/quick input actions per boot. It does not replace those checks or establish the full combined pass. The last accepted retained run remains Confuse resume411markers;full run2 and fresh selected-build audits are pending.',
+            'This diagnostic omits the full configuration34live actions and46right/quick input actions per boot. It does not replace those checks or establish the full combined pass. The last accepted retained run remains Confuse resume411markers;full run3 and fresh selected-build audits are pending.',
             'Existing source/current-executable,barrier group/death/collision,unmapped species,legacy/control/credit/PvP/Sunder/client and asset limits remain. No class completion or deployment is claimed. Effects/audio and talent/hotkey icons remain separate.'])
     path=ROOT/'tools/reference/necromancer-mechanics-native-evidence.json';encoded=json.dumps(result,indent=2)+'\n'
     if check:assert path.read_text()==encoded
