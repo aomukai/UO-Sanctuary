@@ -1,0 +1,107 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Approved Clay Skeleton curve/Golem Mastery and live Stone Skin/Magic Resistant",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 295,
+    "retainedWarriorMagePlayerPetSentryMarkers": 289,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "naturalUpgradedClayContacts": 3,
+    "originalSavedClayTypes": 2,
+    "unchangedWildStoneSkinPairs": 6,
+    "actualFacetTransitions": 3,
+    "normalRank4NoMasteryMinimum256": 273,
+    "normalRank4NoMasteryExclusiveMaximum256": 547,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      878,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/clay-upgrades/birth-inputs.json",
+      "sha256": "88c92b5bf4954456651bc5d97d152f523c7057dc2a455f9a0dc36ebd8d37c0a4"
+    },
+    "audit": {
+      "path": ".local/class-skills/clay-upgrades/audit-inputs.json",
+      "sha256": "4a734b158ff3b7ca73bea6c811bed916bc3e5bf4dc213451d4905c29d09b7dd7"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/ClayGolemBody.cs": "77e755daf1caca0eb0d1726da1111d5ceaccbc39387911651b916df232a87259",
+    "src/Sanctuary.Content/ClayGolemUpgrades.cs": "e722d5dc819b1756e9f26460f571d1535aee3e7ff88ec556ea8da902e5c63ccb",
+    "src/Sanctuary.Content/EncounterCreature.cs": "5f07583fd6a22f84f255403da774537400c870c074c2814ba5ee64aa9e7752c7",
+    "src/Sanctuary.Content/EncounterProfiles.cs": "c977b78f70e8d79b3bb8838dbe6a5643d8776d93f21f3ab2c76b2044bc533655",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "e9ae1d56f6516638f8d838ce74aa0f31adcef11c187ff75c754374241ca1630c",
+    "tests/Sanctuary.Integration/ClayGolemCombatChecks.cs": "4992208411abdf7316c0aa1b89c43bd7ab73ee86114b28e67c0fb5b7a02fe4f9",
+    "tests/Sanctuary.Integration/ClayGolemUpgradeChecks.cs": "c60a2d7a8b0d85b60083560f9f78522db4fe87dd70fa2e3d856364097d8d29ab",
+    "tests/Sanctuary.Integration/ClayGolemWorldChecks.cs": "50052d5865e8e17873acdfd21ec22d17ae5a8f524d3f0c478b353d8d5c72710d"
+  },
+  "artifacts": {
+    ".local/class-skills/clay-upgrades/audit-inputs.json": "4a734b158ff3b7ca73bea6c811bed916bc3e5bf4dc213451d4905c29d09b7dd7",
+    ".local/class-skills/clay-upgrades/audit-native-checks.log": "b845c79c02f0c22576d7d44bda871b3e4547fbec6ff4fb6fa7d35bb22ca92dee",
+    ".local/class-skills/clay-upgrades/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/clay-upgrades/birth-inputs.json": "88c92b5bf4954456651bc5d97d152f523c7057dc2a455f9a0dc36ebd8d37c0a4",
+    ".local/class-skills/clay-upgrades/birth-native-checks.log": "6dbf9afdb55fc40c2b129fa8e6706292a9a0cbc8c127d4be2c053761f2ec0603",
+    ".local/class-skills/clay-upgrades/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/clay-upgrades/clay-upgrades-fixtures.json": "fb61879826905f754d060e5a76924945ef9af425ab88bbc665838e234ec41145",
+    ".local/class-skills/clay-upgrades/content-build-1.log": "11cdc639d52affd18b690bfd989071fc5fc0f4a2b55e8a459515e9d343fb0cdd",
+    ".local/class-skills/clay-upgrades/content-build-2.log": "f5b9c9605c47a64f8e2b7fa616c055c43227c7c12adc334a8e499feb96e5ca69",
+    ".local/class-skills/clay-upgrades/content-build-3.log": "6fca4f845366af42137b5a38a4aa154022ff15cb8afa7d5962fda502800ab1f6",
+    ".local/class-skills/clay-upgrades/first-loop-affix-audit.json": "3b232fd0fc36acf3ef114b21119c8a03b168f04aa19518693d4e774e901a0169",
+    ".local/class-skills/clay-upgrades/integration-build-3.log": "72ce4c1c44159e98ce0ade1b8d80bfca452d86911cf80c08af4895ea70c9f98a",
+    ".local/class-skills/clay-upgrades/named-item-runtime-audit.json": "ab6a6766f60d13c9ff833a38275165653ddd8a8d8f610050096d7e5cbe0edd7f",
+    ".local/class-skills/clay-upgrades/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/clay-upgrades/pre-build-1.json": "3bbe6dda8ab124304fae8f818cbc57db444aff4e297c1e6e8428ed36c2f91f92",
+    ".local/class-skills/clay-upgrades/pre-build-2.json": "facd4b57503aa8b2498df04e494102517fa46d5e7cc46375d6ba791b4716a213",
+    ".local/class-skills/clay-upgrades/pre-build-3.json": "75e45fb33882728ee2706c11ecfac0fc3b9092a3afb8834325cfe16acd8f26d6",
+    ".local/class-skills/clay-upgrades/python-tests.log": "c60aaa81791179ec4123ff5edbe741805e12a7bb8a01bce33218cb2e28ed5e05",
+    ".local/class-skills/clay-upgrades/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/skeleton-upgrades/birth-native-checks.log": "bfb9735722b9b5241e5cc16652e106071331016635c9231f82532e1d450b2f23",
+    "docs/class-skill-reuse-notes.md": "62604e07074d91b8b9205f4b545841fa890d5afb8e813afb6c895633e167677d",
+    "docs/class-skill-roadmap.md": "de30b1862ce175a51697d217004a22ee467bfd89084e72089c94784fec0b83fc",
+    "docs/class-skills-resume-checkpoint.md": "c8b4f2dc6d9caf579e088d74e0b5e7c384ca5e5a0926403d2e810e460bc52b16",
+    "docs/clay-upgrades-checkpoint.md": "1f875251ca819c02dd4fa930b0318b9201fee0336e14c51d90655649caa2bc11",
+    "docs/necromancer-mechanical-audit.md": "7dbfb94158d09254d9c1ee1b3dc16ceda99abc8922e872d8a003c3aefa83398c",
+    "docs/pet-adjustment-review.md": "ca7ad1014911abd1ba1aacf07aa0f15ebc9c592ee5d71fd5dacd4e8eb95dd27c",
+    "docs/skill-effects.md": "f9ebcf2156ee533301e977f6b245b4ac607f21e0d8e44449c19bf513d35d6aa2",
+    "docs/skill-icons.md": "72c59c2cb75dfc35662b5d0a324744f48d6cc9beda8eab5ee6cff3391a71e671",
+    "src/Sanctuary.Content/ClayGolemBody.cs": "77e755daf1caca0eb0d1726da1111d5ceaccbc39387911651b916df232a87259",
+    "src/Sanctuary.Content/ClayGolemUpgrades.cs": "e722d5dc819b1756e9f26460f571d1535aee3e7ff88ec556ea8da902e5c63ccb",
+    "src/Sanctuary.Content/EncounterCreature.cs": "5f07583fd6a22f84f255403da774537400c870c074c2814ba5ee64aa9e7752c7",
+    "src/Sanctuary.Content/EncounterProfiles.cs": "c977b78f70e8d79b3bb8838dbe6a5643d8776d93f21f3ab2c76b2044bc533655",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "e9ae1d56f6516638f8d838ce74aa0f31adcef11c187ff75c754374241ca1630c",
+    "tests/Sanctuary.Integration/ClayGolemCombatChecks.cs": "4992208411abdf7316c0aa1b89c43bd7ab73ee86114b28e67c0fb5b7a02fe4f9",
+    "tests/Sanctuary.Integration/ClayGolemUpgradeChecks.cs": "c60a2d7a8b0d85b60083560f9f78522db4fe87dd70fa2e3d856364097d8d29ab",
+    "tests/Sanctuary.Integration/ClayGolemWorldChecks.cs": "50052d5865e8e17873acdfd21ec22d17ae5a8f524d3f0c478b353d8d5c72710d",
+    "tests/check_clay_upgrades.py": "ed14140b06bf15dad81129426829142c22633379b1ed431f541e2e969643137d",
+    "tools/record_clay_upgrades.py": "dd5d18185211f028449d6c2a9bdc0286c62a87061ac675a98460d6198e1af06c",
+    "tools/reference/skeleton-upgrades-native-evidence.json": "7b6089e4895a5d1f7579ffb5d01b546141aae4e4658ad995941791bccd9140a6"
+  },
+  "established": [
+    "Clay raw damage and whole-number native display/fallback share SkeletonStats.WeaponBase with captured Clay rank and Golem Mastery. Skeleton Mastery and old innate Clay/passive Fire synergy damage do not enter that replacement. Exact bodies retain the shared fractional NPC damage,critical,prepared contact,item,aura,Enchant and debuff consumers.",
+    "Hard10StoneSkin and hard20MagicResistant read live owner Clay hard points. Defense uses the extracted unchanged encounter double;native physical/fire/lightning/cold/poison seeds plus existing equipment contributions enter the same ordered resistance helper,including already-immune and two-immunity restrictions. Magic resistance is a context input,not a new bonus channel.",
+    "Real soft-point boundaries,training/respec/relearn,actual incoming physical/fire packets,unchanged captured damage/resources/order/seed/attack clock and three owner-facet transitions pass. Six wild Unique/Minion difficulty pairs retain their defense inheritance and other stats.",
+    "Modern exact and original plain Clay actors retain their original types,ownership and wounds through two reloads. Exact actor packet/maximum/defense/resistances/ranks/order/stream/10action18end clock survive. Three natural learned contacts release the approved captured physical packet. All289 predecessor marker scopes remain;the retained rank4combat numeric expectation is intentionally updated from1049..2623to273..546FP for this approved formula.",
+    "Both clean builds,71Python,4audits,573named and eight-class240checks pass. Decision payloads,data,kernel and106installed hashes remain unchanged;878/21fingerprints are fresh. No saved actor field/version or new player binding is added."
+  ],
+  "remaining": [
+    "The original plain Minion keeps its older native melee/life/controller path;updating its curve/affixes and preserving its type is not a full source-frame/FP packet migration. Exact existing Clay subtypes use the reviewed packet/controller path. Actual installed old-DLL upgrades and concurrent/unheld save acceptance remain separate.",
+    "Shared hit/result/health/death/event order,modern world/geometry/global RNG/PvP/Sunder/client boundaries retain their prior evidence limits. Affix resistance order uses current host native seeds/equipment followed by the unchanged approved encounter policy;this is an explicit Sanctuary composition,not new D2R source proof.",
+    "Blood/Iron/Fire replacement damage and hard-point upgrades remain queued. Mage replacement Sorceress curves/triples and Skeleton Mastery mapping,safe-area parking,barrier phases,Druid upgrades and remaining class skills stay unfinished.",
+    "No deployment or class completion. Clay body/cast/contact/slow/defensive cues remain placeholders;final effects/audio and Clay Golem talent/right/quick icons stay in separate registers."
+  ]
+}

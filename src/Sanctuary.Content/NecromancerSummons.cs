@@ -127,6 +127,11 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if (Kind==CombatAbility.None) { return base.SkillWeaponDamage; }
             if (IsMage) { return (CombatProfile.MinDamage,CombatProfile.MaxDamage); }
+            if(Kind==CombatAbility.ClayGolem)
+            {
+                var weapon=SourceWeaponBase;int bonus=Math.Max(10,100+weapon.Percent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
+                return(weapon.Min*bonus/100,weapon.Max*bonus/100);
+            }
             string key=SkillMechanics.For(Kind).Text("summon"); int percent=Math.Max(10,100+Passive("damagepercent")+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
             int min=Math.Max(1,NecromancerSummons.Source(key,"A1MinD",SummonDifficulty)*percent/100);
             return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty)*percent/100));
@@ -138,11 +143,17 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if(Kind==CombatAbility.None){return base.SourceWeaponBase;}
             if(IsMage){throw new NotSupportedException("Mage missiles do not use an equipment weapon packet");}
+            if(Kind==CombatAbility.ClayGolem){return ClayGolemUpgrades.Weapon(this);}
             string key=SkillMechanics.For(Kind).Text("summon");
             return (NecromancerSummons.Source(key,"A1MinD",SummonDifficulty),NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty),Passive("damagepercent"));
         }
     }
-    public override MonsterProfile CombatProfile => _summonProfile ??= BuildProfile();
+    public override MonsterProfile CombatProfile
+    {
+        get{var profile=_summonProfile??=BuildProfile();return Kind==CombatAbility.ClayGolem?profile with{Defense=ClayGolemUpgrades.Defense(this,profile.Defense)}:profile;}
+    }
+    public override int GetResistance(ResistanceType type)=>Kind==CombatAbility.ClayGolem
+        ?ClayGolemUpgrades.Resistance(this,type,t=>base.GetResistance(t)):base.GetResistance(type);
     public override long SourceLife256
     {
         get
@@ -219,6 +230,11 @@ public partial class NecromancerMinion : SkeletonGuardian
             attack += Passive("tohit"); defense += Passive("armorclass");
             int damageBonus = Passive("damagepercent");
             min = min * (100 + damageBonus) / 100; max = max * (100 + damageBonus) / 100;
+            if(Kind==CombatAbility.ClayGolem)
+            {
+                var weapon=SourceWeaponBase;int percent=Math.Max(10,100+weapon.Percent);
+                min=weapon.Min*percent/100;max=weapon.Max*percent/100;
+            }
         }
         int petLevel = Math.Clamp(Rank + 3 * Level / 4, 1, Level);
         attack += NecromancerSummons.Source("level-" + petLevel, "L-TH", SummonDifficulty);

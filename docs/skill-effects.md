@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Clay Golem upgrades](clay-upgrades-checkpoint.md) reuse Clay body`14`/hue`0x96D`, summon particles`0x376A`, and existing contact/reactive-slow cues as identified placeholders. Final Stone Skin/Magic Resistant status cues and feedback/audio remain pending; share eventual monster-affix assets where appropriate. Live unlock/respec needs no new summon or healing animation.
+
 The [Skeleton Warrior unlocks](skeleton-upgrades-checkpoint.md) reuse retaliation flash `0x374A`/hue`0x481` and the existing skeleton body/movement cues as identified placeholders. Final return-hit/contact, faster movement, death and audio feedback remain pending; reuse shared item-retaliation assets where appropriate. Unlocking requires no new summon/reset animation.
 
 The [historical Mage rollout](mage-historical-checkpoint.md) shares the existing body/cast/projectile/field placeholders and future Mage/Sorceress assets. Adoption needs no new summon/reset visual. Final movement, cast/contact, death, cold/shatter and audio work remains pending.

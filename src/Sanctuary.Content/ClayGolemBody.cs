@@ -13,10 +13,15 @@ public partial class ClayGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
     private ClayBirthStats Birth=>_clayBirth??=NecromancerClayBirth.Prepare(CapturedValues,Level,SummonDifficulty);
     internal override string SourceMonsterId=>Kind==CombatAbility.ClayGolem?"claygolem":base.SourceMonsterId;
     NpcPhysicalStats ISourceUnarmedNpc.UnarmedPhysical=>UnarmedPhysical;
-    internal NpcPhysicalStats UnarmedPhysical=>Kind==CombatAbility.ClayGolem?new(
-        NecromancerSummons.Source("claygolem","A1MinD",SummonDifficulty),NecromancerSummons.Source("claygolem","A1MaxD",SummonDifficulty),0,
-        checked(Birth.DamagePercent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false)
-        :throw new InvalidOperationException("Unprepared Clay Golem unarmed packet");
+    internal NpcPhysicalStats UnarmedPhysical
+    {
+        get
+        {
+            if(Kind!=CombatAbility.ClayGolem){throw new InvalidOperationException("Unprepared Clay Golem unarmed packet");}
+            var weapon=SourceWeaponBase;return new(weapon.Min,weapon.Max,0,
+                checked(weapon.Percent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false);
+        }
+    }
     internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
         SourceAttackRate.Speed(NecromancerSummons.Source("claygolem-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"claygolem-animation");
     protected override (int Cycle,int Action) MeleeClock()
@@ -40,7 +45,7 @@ public partial class ClayGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
         {
             var profile=base.CombatProfile;
             if(Kind!=CombatAbility.ClayGolem){return profile;}
-            var b=Birth;return profile with{Level=b.Level,Life=(Math.Clamp(b.Life256,256,65000*256)+255)/256,Defense=b.Armor,AttackRating=b.Attack,AttackMs=DruidWolfGeometry.Clock("A1",source:"claygolem-animation").End*40};
+            var b=Birth;return profile with{Level=b.Level,Life=(Math.Clamp(b.Life256,256,65000*256)+255)/256,Defense=ClayGolemUpgrades.Defense(this,b.Armor),AttackRating=b.Attack,AttackMs=DruidWolfGeometry.Clock("A1",source:"claygolem-animation").End*40};
         }
     }
     [Constructible]public ClayGolemBody(){}

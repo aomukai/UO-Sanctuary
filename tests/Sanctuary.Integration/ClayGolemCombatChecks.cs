@@ -55,16 +55,16 @@ public static class ClayGolemCombatChecks
         var target=PoisonDaggerChecks.Target(p);target.SetResistance(ResistanceType.Physical,0);TimedEffects.PreventHealing(target,TimedEffects.Now);
         try
         {
-            Require(NpcEquipmentCombat.Context(pet)==null&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(2,5,0,105,0,0,false),"Unequipped Clay source stats");
+            Require(NpcEquipmentCombat.Context(pet)==null&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(1,2,0,7,0,0,false),"Unequipped Clay source stats");
             var chances=NpcEquipmentCritical.Capture(pet);Require(chances==new NpcCriticalChances(0,0,0,5),"Source intrinsic5percent or inherited owner critical");
             var low=NpcEquipmentDamage.Roll(pet,target,_=>0,()=>99);var high=NpcEquipmentDamage.Roll(pet,target,n=>n-1,()=>99);
-            Require(low.Damage.Physical256==1049&&high.Damage.Physical256==2623&&!low.PhysicalCritical&&!low.Damage.Intrinsic,"Exclusive FP range1049..2623");
+            Require(low.Damage.Physical256==273&&high.Damage.Physical256==546&&!low.PhysicalCritical&&!low.Damage.Intrinsic,"Exclusive FP range273..546");
             var crit=NpcEquipmentDamage.Roll(pet,target,_=>0,()=>0);
-            Require(crit.Damage.Physical256==2098&&crit.Damage.Intrinsic&&!crit.PhysicalCritical,"Intrinsic critical doubles NPC damage only once");
-            int before=SkillHealth.Balance256(target);Require(NpcEquipmentDamage.TryResolve(pet,target,out _,_=>0,()=>99)&&before-SkillHealth.Balance256(target)==1049,"Actual fractional unarmed damage");
-            var impact=NpcEquipmentImpact.Prepare(pet,target,5,_=>0,()=>0);Require(impact.Packet.Physical256==2098&&impact.Packet.Total256==2098,"Unarmed ordinary allocation route");
+            Require(crit.Damage.Physical256==546&&crit.Damage.Intrinsic&&!crit.PhysicalCritical,"Intrinsic critical doubles NPC damage only once");
+            int before=SkillHealth.Balance256(target);Require(NpcEquipmentDamage.TryResolve(pet,target,out _,_=>0,()=>99)&&before-SkillHealth.Balance256(target)==273,"Actual fractional unarmed damage");
+            var impact=NpcEquipmentImpact.Prepare(pet,target,5,_=>0,()=>0);Require(impact.Packet.Physical256==546&&impact.Packet.Total256==546,"Unarmed ordinary allocation route");
             PoisonDaggerChecks.Named(p,"Bloodfist");PoisonDaggerChecks.Named(p,"Wormskull");
-            Require(pet.Rank==4&&pet.Mastery==0&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(2,5,0,105,0,0,false)
+            Require(pet.Rank==4&&pet.Mastery==0&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(1,2,0,7,0,0,false)
                 &&NpcEquipmentCritical.Capture(pet)==chances&&NpcEquipmentPoison.Capture(pet).Stats==new MissileSourceStats()&&pet.SourceAttackClock==(10,18),"Owner gear/ranks/poison/IAS leaked to an existing pet");
             var caster=new PlayerMobile{Player=true,Body=0x190};ClassCreation.Profiles.Assign(caster,DiabloClass.Sorceress);
             try
@@ -91,7 +91,7 @@ public static class ClayGolemCombatChecks
         NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(173));NpcEquipmentRandom.Raw(pet);var state=NpcEquipmentRandom.State(pet);
         Require(state.Unarmed&&state.Item==0&&NpcEquipmentRandom.Snapshot().Contains(state),"Unarmed stream did not enter persistence");
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,pet.Serial.Value,state.Seed,0)));
-        Log.Information("Clay combat: FP1049..2623,5percent intrinsic,actual Strike/Enchant and owner exclusion,source400/720ms clock/slows,atomic stream persistence pass;contact controls are separate;AI remains open");
+        Log.Information("Clay combat: FP273..546,5percent intrinsic,actual Strike/Enchant and owner exclusion,source400/720ms clock/slows,atomic stream persistence pass;contact controls are separate;AI remains open");
     }
     private static void Reload()
     {

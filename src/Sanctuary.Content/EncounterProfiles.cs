@@ -26,6 +26,7 @@ public static class EncounterProfiles
 {
     internal static int ModifierMovementPercent(EliteModifier modifier)=>modifier==EliteModifier.ExtraFast?100:0;
     internal static int MovementInterval(int basis,int bonus)=>Math.Max(40,checked(basis*100)/checked(100+bonus));
+    internal static int ModifierDefense(int basis,EliteModifier modifier)=>modifier==EliteModifier.StoneSkin?checked(basis*2):basis;
     private static readonly Dictionary<string, DungeonProfile> _profiles = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, NamedEncounter> _named = new(StringComparer.Ordinal);
     public static EncounterSettings Settings { get; private set; }

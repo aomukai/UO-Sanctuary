@@ -111,7 +111,7 @@ public partial class EncounterCreature : GraveyardUndead
             ratingBonus += (_grade == EncounterGrade.Minion ? new[] { 45, 37, 33 } : new[] { 90, 75, 66 })[index];
         }
         if (Inherits(EliteModifier.ExtraFast)) { moveBonus += EncounterProfiles.ModifierMovementPercent(EliteModifier.ExtraFast); }
-        if (Has(EliteModifier.StoneSkin)) { defense *= 2; }
+        if (Has(EliteModifier.StoneSkin)) { defense = EncounterProfiles.ModifierDefense(defense,EliteModifier.StoneSkin); }
         int[] res = EncounterProfiles.Resistances(dungeon.Resistances, _grade == EncounterGrade.Champion ? _champion : null,
             _grade == EncounterGrade.Minion ? [] : Modifiers);
         res = AdjustResistances(res);

@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Clay Golem upgrades](clay-upgrades-checkpoint.md) add no player action or separate hotkey icon. Clay Golem still needs its pending talent-tree/right/quick artwork; automatic defensive-affix feedback is tracked separately as effects.
+
 The [Skeleton Warrior unlocks](skeleton-upgrades-checkpoint.md) add no player action or separate hotkey icon. Raise Skeleton still needs its pending talent-tree/right/quick artwork; automatic retaliation/movement feedback remains in the effects register.
 
 The [historical Mage rollout](mage-historical-checkpoint.md) adds no talent, player binding or separate hotkey icon. Raise Skeletal Mage tree/right/quick artwork remains pending; shared behavior and effects do not create another icon set.
