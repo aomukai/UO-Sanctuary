@@ -1,5 +1,7 @@
 # Skill icons
 
+[Shiver retaliation](sorceress-shiver-armor-checkpoint.md) retains ability39 and existing right/quick bindings. Final talent-tree/hotkey art remains pending with current labels/icons as placeholders; automatic retaliation adds no separate player action or icon. Effects/audio stay separate.
+
 [Saved Chilling Armor return bolts](sorceress-chilling-bolt-checkpoint.md) retain ability42 and existing right/quick bindings. Final talent-tree/hotkey art remains pending with current labels/icons as placeholders; reactive bolts add no separate player action or icon. Effects/audio stay separate.
 
 [Cold armor casts](sorceress-cold-armor-checkpoint.md) retain stable Frozen/Shiver/Chilling abilities36/39/42 and right/quick bindings. Final talent-tree and hotkey artwork remain pending with current labels/icons as placeholders. Reactive freezes/return bolts add no separate player action or icon; effects/audio stay separate.

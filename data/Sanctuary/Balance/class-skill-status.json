@@ -397,7 +397,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared prepared do18 casts,right-only admission,release mana,rank/hard duration/defense goldens,group replacement and original saved rank/gear/resources have dedicated native coverage. Existing attempted-melee retaliation includes misses and chill. Its floating damage/generic hit callback still needs retained-rank live-synergy source event03 typed damage/return. The early CheckHit bridge is not full attack-event chronology:older FillDamageValues and DrainItemDurability have distinct notification sites. Exact placement/order remains open. Modern special/PvP/charged/oskill/client/old-DLL/unheld saves remain open;effects/audio/icons separate."
+      "remaining": "Prepared do18 casting and retained rank now feed live hard/gear event03 typed FP retaliation with flags16417/class61,post-HP cold,SOFTHIT refresh/notification without get-hit or defender RNG,and pair-specific bit32 item-event suppression. Ordinary NPC native hit/miss scopes react after the attempt;early accuracy damage is removed. Complete older7680source compositions,765rank/hard goldens,160native HP-return-cold controls,actual hit/miss and kill-recovery controls plus two original saved reactions are recorded in sorceress-shiver-armor-checkpoint.md. Lethal native player damage clears armor before late retaliation and needs a deferred player HP/death bridge;PvP/hireling early/duplicate paths and exact sibling Thorns/event order remain unfinished. Full modern event/seed/stat/special/regen/charged/oskill/client/old-DLL/unheld saves remain open;effects/audio/icons separate."
     },
     {
       "talentId": "sorceress.glacialspike",

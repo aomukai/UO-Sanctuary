@@ -71,43 +71,8 @@ internal static class TelekinesisCombat
             ||packet.Poison256!=0||packet.Magic256!=0||packet.Overlay!=0||packet.AbsorbedLife256!=0||packet.HitClassActive)
         {throw new NotSupportedException(reason??"Unmapped Telekinesis delivery packet");}
         var metadata=NativeMonsterReturn.Metadata(target);NativeMonsterReturn.Session(target);
-        var services=new Damage(owner,target,metadata,modifiers,at);
+        var services=new InstantSpellNpcDamage(owner,target,metadata,modifiers,at,"Telekinesis",()=>DefenderRoll(),SourceKnockbacks.BeginPrepared);
         var recipient=new PreparedMonsterRecipient(NamedCombat.Elite(target),()=>false,()=>metadata.Velocity,()=>false);
         return PreparedMonsterDamage.ReleaseMissile(owner,target,packet,recipient,_=>throw new InvalidOperationException("Telekinesis has no timed Stun roll"),services,at);
-    }
-    private sealed class Damage(PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,FirestormModifiers modifiers,DateTime at):PreparedMonsterDamageServices
-    {
-        private int Loss,EntryHits;private bool Freed;
-        internal override void StoreLastAttacker(){owner.DoHarmful(target,true);EntryHits=target.Hits;}
-        internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)
-        {
-            var current=modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};
-            var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(current,new(0,0,0,p.Lightning256/256.0,0)),out int absorb);
-            return p with{Total256=NamedElements.To256(parts.Total),Fire256=NamedElements.To256(parts.Fire),Cold256=NamedElements.To256(parts.Cold),
-                Lightning256=NamedElements.To256(parts.Lightning),Poison256=NamedElements.To256(parts.Poison),Magic256=NamedElements.To256(parts.Magic),AbsorbedLife256=absorb};
-        }
-        internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)=>throw new InvalidOperationException("Telekinesis hit2 has no missile damage event");
-        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>throw new InvalidOperationException("Telekinesis hit2 has no incoming missile damage event");
-        internal override void BeforeHealth(PreparedMonsterDamagePacket p){}
-        internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
-        {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);Loss=Math.Max(0,EntryHits-(after256+255)/256);}
-        internal override void ApplyCold(int frames){if(frames!=0){throw new InvalidOperationException("Telekinesis has no cold duration");}}
-        // Keep the existing native regeneration clock. Source one-frame
-        // regen rescheduling still needs that clock's separate actor adapter.
-        internal override void SurvivedDamage(){}
-        // Native death/loot/credit callbacks remain the existing host adapter;
-        // this does not certify arbitrary source item kill-event subscribers.
-        internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>p;
-        internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>p;
-        internal override void PresentOverlay(int overlay)=>throw new InvalidOperationException("Unexpected Telekinesis overlay");
-        internal override int BaseHitClass()=>throw new InvalidOperationException("Telekinesis supplies its own hit class");
-        internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>throw new InvalidOperationException("Telekinesis is not a melee attempt");
-        internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>throw new InvalidOperationException("Telekinesis is not an incoming melee attempt");
-        internal override bool AttackerInActiveMode()=>throw new InvalidOperationException("Telekinesis has no melee active-mode check");
-        internal override void BeforeThorns(PreparedMonsterDamagePacket p)=>throw new InvalidOperationException("Telekinesis must not run Thorns");
-        internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
-            =>PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(owner,owner,target,metadata,death,()=>EliteCombat.OnStruck(target,owner,Loss),SourceKnockbacks.BeginPrepared,DefenderRoll),true);
-        internal override void FreePacket()
-        {if(Freed){throw new InvalidOperationException("Telekinesis packet freed twice");}Freed=true;NativeMonsterReturn.Session(target).Packets++;}
     }
 }

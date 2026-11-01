@@ -29,7 +29,8 @@ public static class PaladinThorns
     public static IDisposable Attempt(Mobile attacker,Mobile defender,bool ranged)
     {
         if(ranged || !Eligible(attacker,defender)){return null;}var stats=Values(defender);
-        if(stats==default){return null;}return _current=new(attacker,defender,stats,_current);
+        IDisposable thorns=stats==default?null:_current=new(attacker,defender,stats,_current);
+        return ShiverArmor.Attempt(attacker,defender,ranged,thorns);
     }
     private static bool Eligible(Mobile attacker,Mobile defender)=>attacker is{Alive:true,Deleted:false,Blessed:false}
         && defender is{Deleted:false} && attacker!=defender && attacker.Map==defender.Map && attacker.Map is not null

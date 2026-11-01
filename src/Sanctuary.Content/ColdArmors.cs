@@ -6,8 +6,8 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 // do18 shares state-group replacement; event02 is a distinct freeze-only
-// incoming melee reaction. Shiver/event03 and Chilling/event01 keep their
-// existing producers until their packet/flight contracts are migrated.
+// incoming melee reaction. Shiver/event03 uses the ordered direct packet;
+// Chilling/event01 emits through the shared saved spell flight controller.
 internal static class ColdArmors
 {
     internal static ColdArmorState Prepare(SkillValues values, DateTime at)

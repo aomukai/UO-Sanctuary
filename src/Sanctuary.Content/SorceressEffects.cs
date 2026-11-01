@@ -150,9 +150,12 @@ public static class SorceressEffects
     }
     public static void MeleeAttempt(Mobile attacker, Mobile defender)
     {
+        // Ordinary NPC attacks already have a real native/custom hit-or-miss
+        // scope. Their reaction belongs after that attempt's damage, not AR.
+        if(attacker is BaseCreature&&defender is PlayerMobile){return;}
         if (!Hostile(attacker, defender, out var owner) || NamedCombat.Ranged(attacker) || !attacker.InRange(owner, 1)
             || Armor(owner) is not { Ability: CombatAbility.ShiverArmor } armor) { return; }
-        Retaliate(owner, attacker, armor);
+        ShiverArmor.React(owner,attacker,armor);
     }
     public static void MeleeHit(Mobile attacker, Mobile defender, int physical, bool ranged, bool frozenArmor = true)
     {
@@ -168,12 +171,5 @@ public static class SorceressEffects
         if (!Hostile(attacker, defender, out var owner) || Armor(owner) is not { Ability: CombatAbility.ChillingArmor } armor
             || NecromancerSummons.Source(missile, "ReturnFire") == 0) { return; }
         SorceressSpellMissiles.ReactiveArmor(owner, attacker.Location, armor);
-    }
-    private static void Retaliate(PlayerMobile owner, Mobile target, ColdArmorState armor)
-    {
-        double damage = (armor.Min256 + Utility.RandomDouble() * (armor.Max256 - armor.Min256)) / 256;
-        SkillCombat.Hit(owner, target, damage, "cold");
-        if (target is { Alive: true, Deleted: false })
-        { GearEffects.ApplyChill(target, Core.TickCount, armor.ColdFrames * 40 / NecromancerEffects.DifficultyDivisor(target), owner); }
     }
 }

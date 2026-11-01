@@ -53,7 +53,8 @@ public static class SorceressSkillChecks
             bool sawMiss = false;
             for (int i = 0; i < 32 && !sawMiss; i++)
             {
-                int before = enemy.Hits; bool? hit = ClassStats.CheckHit(enemy, owner);
+                int before = enemy.Hits; bool? hit;
+                using (PaladinThorns.Attempt(enemy, owner, false)) { hit = ClassStats.CheckHit(enemy, owner); }
                 Require(enemy.Hits < before, "Shiver Armor did not retaliate on an attempted melee attack");
                 sawMiss = hit == false;
             }
