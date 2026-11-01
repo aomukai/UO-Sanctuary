@@ -1,0 +1,69 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "runtimeChanged": false,
+  "currentExecutableParity": false,
+  "unchangedInstalledArtifacts": 106,
+  "lastNativeEvidence": "tools/reference/mage-world-native-evidence.json",
+  "reusedEvidence": "tools/reference/sentry-death-entry-source-evidence.json",
+  "inputs": {
+    "tools/reference/sentry-death-entry-source-evidence.json": "ef1610e26044cca18633a4a48f159adbe86d52497776b155729f823ba4758639",
+    ".local/class-skills/sentry-death-entry-source-probe.cpp": "6bd6cc7f4bb6d899261aa589014b9a8348ed20e1c6b883d531d740ec07a64475",
+    ".local/class-skills/sentry-death-entry-source-probe.json": "9e66e7266ae2d42ade6ec7ee80a7af0ebc48c3acd54a2d839c6e6f2ce702781f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "tools/reference/mage-world-native-evidence.json": "92550fcd204594d5a2d19745d677ba7698f22af607bf4b57892e5df7c775d5e2",
+    "tools/probe_bone_barrier_death.py": "a86b5cb30a5bfa8be51b3013e7f29e7158da51abaca14b88169022890391b26c"
+  },
+  "compiledRoutineHashes": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "STATLIST_IsExtended": "1239d1122a0ec4f6c3a40f761df496bc237397fc66a233c1f463e36f9d1bcaad",
+    "STATLIST_AddUnitStat": "616ec88197c6a1ddd8e5b614729324fcbb202653378edb5fcf2d3ef3dad618da",
+    "D2Common_10469": "03e931e822deff014d44ad5780f3aff015319a378596abfa52e96741f173e3f6",
+    "SUNIT_GetUnitList": "04a1df050a9563226f253099751db9e5ce2bebae629e7c719fc951597eba6bd7",
+    "SUNIT_GetServerUnit": "53ecb549e0e4317024483d797b104523b4954633cbd37e7d1aff8fc7d9a9591a",
+    "SUNIT_GetOwner": "3640cd8797e7b59df0d1ffb1b1822adb1141e55d330bbae228413dc54f0e6555",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "AIUTIL_CheckAiControlFlag": "5ff07904d58308952298180f38c6357422a500424869894142445b378679d587",
+    "AIUTIL_ToggleAiControlFlag": "66af26ffbf7292e5844c4efa351492ef4084f87e6d36709d6bfa8d70e4346c73",
+    "AIGENERAL_AllocAiControl": "e6b9fbd946b98480f3ba590aa757fbe79c15998f2ef08d55fce95bf250673567",
+    "AIGENERAL_SetOwnerData": "abde36e777fe92553212921cc09e08306d5b71ef470dfbbbd1526dd13d2bff95",
+    "AIGENERAL_UpdateMinionList": "0b6907f9d6927c34aa7f8f4ca18e78df16f9d4a693bbb7f90d3ce1f000c1425f",
+    "STATES_UpdateStayDeathFlags": "497975854515a2be2374edf89a7b2cd2142d6a3ae65049ec522f868cf41b0a5f",
+    "sub_6FC68240": "73ec9e72f79eb18d1ab56e8f10016e54a19be27cde5808811eaf63c58d00a1d3",
+    "DUNGEON_SaveKilledUnitGUID": "210b6bcfcac5d1c3b199cd38f5e1e9f2713ce14f94bce9f860d873582b49be3b",
+    "D2GAME_MONSTERMODE_Unk_6FC63040": "531a8dab609a43ff1bf48a704e0524c422554e071b52734581e8d4775fb244f4",
+    "sub_6FC63E80": "c0e232a3f4d4e313f0f85e991f3163082c242b63753cf147991fbf65d7a63331",
+    "sub_6FC63B30": "1ba629928acb640a9921885e00ae9ca02b429780aa42bdde0d457d658e0ff656",
+    "sub_6FC641D0": "8b2fbb742497a99f4b9eedcc47b9cbef42bf092fe0ddf97d6d4e263beb9ef3ad",
+    "AIGENERAL_AllocMinionList": "022d2ce9babf527f4212a9243b66e5ab8accb2937592c6c1a6aa03d1534180bb"
+  },
+  "verified": {
+    "contexts": 196,
+    "unsupportedMissingChildFlag1Contexts": 44,
+    "negativeSanitizerControls": 1,
+    "successorTransfers": 44,
+    "detachedGraphContexts": 12,
+    "sourceBodySpecies": 344,
+    "entryMode": 0,
+    "completedMode": 12
+  },
+  "artifacts": {
+    ".local/class-skills/bone-barrier-death-source/probe.cpp": "9f5fd0ae9b2861e2fe27b467171b7574262e58b0b7483bd0b6de97fd4bc522c8",
+    ".local/class-skills/bone-barrier-death-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-death-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/bone-barrier-death-source/missing-child-sanitizer.log": "3dd512960305dd813480dfdf5d615893e56411b720889498333e8c814e671c62",
+    ".local/class-skills/bone-barrier-death-source/cases.json": "6daed6c54e13a98b4527e185a7bbeb9c805e233b87c530ab4fef4cc689cfc1c9"
+  },
+  "established": [
+    "Complete regular death-entry/cleanup/death-end and AI owner/update bodies are reused from the accepted sentry proof; complete minion allocation replaces its unused stub. 196 safe controlled Wall/Prison graph contexts pass with ASan/UBSan.44 flag1 contexts with missing child registry entries are excluded because the complete legacy function dereferences null; an explicit negative sanitizer control reproduces that unsupported source path without editing its body.",
+    "With flag1+flag2 and any registered child, UpdateMinionList promotes the first registered list node, transfers the dying root and surviving siblings to it, and preserves ordered list links before dead collision is requested. Flag1 alone detaches registered children. Flags0/2 leave this graph unchanged. The flag3 successor search skips missing children; the flag1 detach branch does not and has a reproduced source null-dereference path.",
+    "Pinned bonewall has deadCol0,deathDmg0,SplEndDeath0. Entry requests dead collision and mode0; completion changes to12 without deleting the registered actor or changing its supplied fractional HP. Empty death subscribers do not imply an empty real barrier modifier path."
+  ],
+  "remaining": [
+    "Initial low-level spawn flags remain uncertain: source summon/skill calls OR bits and do not clear an existing flag1. The null spawn stub cannot prove whether actual barrier roots start at2 or3. The graph matrix deliberately varies flags rather than inventing their live distribution.",
+    "KillMinions modifier dispatch/subscribers, full death scheduler/DT15 timing, hidedead/GUID removal, natural world events, exact collision masks and modern executable parity remain separate. Existing native immediate deletion/root cleanup remains unchanged until the phase and graph contract can be connected honestly.",
+    "SearchEnemyNear client flag alone does not establish Prison empty-ground radius/facing/tie policy. Reviewed FoH and Psychic Hammer implementations have different observed contracts; neither is copied into Prison without supporting evidence."
+  ]
+}

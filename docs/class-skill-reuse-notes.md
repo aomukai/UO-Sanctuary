@@ -42,3 +42,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Skeletal Mage and sentry primary search
 
 [Mage world integration](mage-world-checkpoint.md) reuses `AssassinSentryTargets.Select`: both call the same legacy source primary selector. `NpcRangedTargets` now holds their shared native enumeration/height/LOS/threat adapter. Stopped Mage think also reuses the existing stationary zero-lead unit-path probe; it is not a moving actor path initializer. Melee contacts remain in `UnarmedPetWorld`, while common owner/frame/load transport is in `NecromancerGroundWorld`. Mage AI/intrinsic criticals reuse the persisted Mage actor stream instead of a fake physical-equipment binding. Keep source-room/cache/event/seed and caster-removal gaps explicit; successful missile creation is not a guaranteed hit.
+
+## Barrier death and sentry death entry
+
+[Barrier death source review](bone-barrier-death-source-review.md) reuses the complete sentry cleanup/owner/death-end composition and adds nonempty minion allocation. Owner-graph changes precede dead collision; ordinary mode12 completion retains registry identity. Initial flags and barrier modifier subscribers are separate from the shared entry contract. A reproduced legacy missing-child null dereference stays unsupported. Do not infer actor deletion from death animation metadata or copy Fire Golem's160ms burst timer into barriers.
