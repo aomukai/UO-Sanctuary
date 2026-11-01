@@ -55,16 +55,16 @@ public static class BloodGolemCombatChecks
         var target=PoisonDaggerChecks.Target(p);target.SetResistance(ResistanceType.Physical,0);TimedEffects.PreventHealing(target,TimedEffects.Now);
         try
         {
-            Require(NpcEquipmentCombat.Context(pet)==null&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(7,20,0,165,0,0,false),"Unequipped Blood source stats");
+            Require(NpcEquipmentCombat.Context(pet)==null&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(1,3,0,7,0,0,false,MinimumFraction256:128),"Unequipped Blood source stats");
             var chances=NpcEquipmentCritical.Capture(pet);Require(chances==new NpcCriticalChances(0,0,0,5),"Source intrinsic5percent or inherited owner critical");
             var low=NpcEquipmentDamage.Roll(pet,target,_=>0,()=>99);var high=NpcEquipmentDamage.Roll(pet,target,n=>n-1,()=>99);
-            Require(low.Damage.Physical256==4748&&high.Damage.Physical256==13567&&!low.PhysicalCritical&&!low.Damage.Intrinsic,"Exclusive FP range4748..13567");
+            Require(low.Damage.Physical256==410&&high.Damage.Physical256==820&&!low.PhysicalCritical&&!low.Damage.Intrinsic,"Exclusive FP range410..820");
             var crit=NpcEquipmentDamage.Roll(pet,target,_=>0,()=>0);
-            Require(crit.Damage.Physical256==9496&&crit.Damage.Intrinsic&&!crit.PhysicalCritical,"Intrinsic critical doubles NPC damage only once");
-            int before=SkillHealth.Balance256(target);Require(NpcEquipmentDamage.TryResolve(pet,target,out _,_=>0,()=>99)&&before-SkillHealth.Balance256(target)==4748,"Actual fractional unarmed damage");
-            var impact=NpcEquipmentImpact.Prepare(pet,target,5,_=>0,()=>0);Require(impact.Packet.Physical256==9496&&impact.Packet.Total256==9496,"Unarmed ordinary allocation route");
+            Require(crit.Damage.Physical256==820&&crit.Damage.Intrinsic&&!crit.PhysicalCritical,"Intrinsic critical doubles NPC damage only once");
+            int before=SkillHealth.Balance256(target);Require(NpcEquipmentDamage.TryResolve(pet,target,out _,_=>0,()=>99)&&before-SkillHealth.Balance256(target)==410,"Actual fractional unarmed damage");
+            var impact=NpcEquipmentImpact.Prepare(pet,target,5,_=>0,()=>0);Require(impact.Packet.Physical256==820&&impact.Packet.Total256==820,"Unarmed ordinary allocation route");
             PoisonDaggerChecks.Named(p,"Bloodfist");PoisonDaggerChecks.Named(p,"Wormskull");
-            Require(pet.Rank==4&&pet.Mastery==0&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(7,20,0,165,0,0,false)
+            Require(pet.Rank==4&&pet.Mastery==0&&NpcEquipmentDamage.Capture(pet)==new NpcPhysicalStats(1,3,0,7,0,0,false,MinimumFraction256:128)
                 &&NpcEquipmentCritical.Capture(pet)==chances&&NpcEquipmentPoison.Capture(pet).Stats==new MissileSourceStats()&&pet.SourceAttackClock==(10,16),"Owner gear/ranks/poison/IAS leaked to an existing pet");
             var caster=new PlayerMobile{Player=true,Body=0x190};ClassCreation.Profiles.Assign(caster,DiabloClass.Sorceress);
             try
@@ -91,7 +91,7 @@ public static class BloodGolemCombatChecks
         NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(173));NpcEquipmentRandom.Raw(pet);var state=NpcEquipmentRandom.State(pet);
         Require(state.Unarmed&&state.Item==0&&NpcEquipmentRandom.Snapshot().Contains(state),"Unarmed stream did not enter persistence");
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,pet.Serial.Value,state.Seed,0)));
-        Log.Information("Blood combat: FP4748..13567,5percent intrinsic,actual Strike/Enchant and owner exclusion,source400/640ms clock/slows,atomic stream persistence pass;contact controls are separate;AI remains open");
+        Log.Information("Blood combat: FP410..820,5percent intrinsic,actual Strike/Enchant and owner exclusion,source400/640ms clock/slows,atomic stream persistence pass;contact controls are separate;AI remains open");
     }
     private static void Reload()
     {

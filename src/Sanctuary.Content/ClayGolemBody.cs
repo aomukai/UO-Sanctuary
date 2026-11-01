@@ -18,8 +18,7 @@ public partial class ClayGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
         get
         {
             if(Kind!=CombatAbility.ClayGolem){throw new InvalidOperationException("Unprepared Clay Golem unarmed packet");}
-            var weapon=SourceWeaponBase;return new(weapon.Min,weapon.Max,0,
-                checked(weapon.Percent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false);
+            return GolemPetDamage.Physical(this);
         }
     }
     internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",

@@ -10,8 +10,7 @@ internal static class ClayGolemUpgrades
 {
     internal static int HardRank(Mobile actor)=>actor is NecromancerMinion{Kind:CombatAbility.ClayGolem,ControlMaster:PlayerMobile{Deleted:false} owner}
         ?ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.claygolem"):0;
-    internal static (int Min,int Max,int Percent) Weapon(NecromancerMinion actor)=>SkeletonStats.WeaponBase(actor.Rank,
-        checked((int)actor.CapturedValues.Formula("skill('Golem Mastery'.lvl)")),actor.SummonDifficulty);
+    internal static (int Min,int Max,int Percent) Weapon(NecromancerMinion actor)=>GolemPetDamage.Weapon(actor);
     internal static int Defense(NecromancerMinion actor,int basis)=>HardRank(actor)>=10
         ?EncounterProfiles.ModifierDefense(basis,EliteModifier.StoneSkin):basis;
     internal static int Resistance(NecromancerMinion actor,ResistanceType type,Func<ResistanceType,int> original)

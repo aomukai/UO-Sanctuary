@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/SKILLS/SkillItem.cpp",
+  "sourceSha256": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+  "gitBlob": "43c3ee3e29472e0916d35dc2a9b47822d8b7d7f7",
+  "installed": false,
+  "runtimeEventsEnabled": false,
+  "scope": "Static complete-function/registration review; not execution of callbacks or proof of the modern engine.",
+  "functions": {
+    "SKILLITEM_CalculateOpenWoundsHpRegen": "af5e9915c7a48b16041bf1b69cc2353e11745ef7fa6b9edc2114f29bf131bd20",
+    "SKILLITEM_EventFunc15_OpenWounds": "0d45d3370b47600878fc1cf3345189a85de24b64689aad7a951baa0ae1cdb53c",
+    "SKILLITEM_EventFunc20_SkillOnAttackHitKill": "16597b958261a8451464ec506325f5207d9eeca6b94ad80b9bb61b98c3c53cea",
+    "SKILLITEM_CastSkillOnTarget": "e5c236ee80a3c7451d613e66634efe1d6aea50e4f0ec896af39d4a9b33012a79",
+    "SKILLITEM_CastSkillOnPosition": "0557b765f6972c67173217e72ff17d7af8ea70904227a07eb78dc6637df0ecbc",
+    "SKILLITEM_HandleItemEffectSkill": "ce7339b8f3591dc33f87a33be58037b0aee51e6f6ee0c67acdf0d3aa4be45c5e"
+  },
+  "inputs": {
+    "tools/review_blood_pet_events.py": "91f083e9452875a3a88066ed95d583d429d0423295103c0c0934291e3fc91955",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "src/Sanctuary.Content/NpcCombatEvents.cs": "96f5c3d938720b9185790fbd21a5cd9d2bbf138cdf63de8de82d9bdfdedf1e01",
+    "src/Sanctuary.Content/NamedCombat.cs": "7eee23a6f8239eb74b73138c80b8d3bb8f6b24b6800d692393925bb4ac507650",
+    "src/Sanctuary.Content/TimedEffects.cs": "bb6aed0c1a05ba79421bcc46de35476392989fb9e53880a4a6e8420f50f8b710",
+    "src/Sanctuary.Content/NecromancerCurseCasts.cs": "739acc63d294110e6982487110ee2dd6d6bf515ea88f3724a483c3fb1906ac43",
+    "tools/reference/weapon-event-order-review.json": "83a7754c5bcd972733c2e63b6f92b544bc9342d78249ee0d6146a3d714be8af1",
+    "tools/reference/life-tap-event-source-evidence.json": "72071cfa13d48a75056d73f540aba041441e668bca906e007844839cae527feb"
+  },
+  "established": [
+    "Current itemstat rows register Open Wounds135/function15 and on-hit skill/function20 on melee/missile damage events. Existing NPC registry explicitly refuses both unsupported registrations;player OpenWounds already supplies level/elite/ranged arithmetic and the shared8second bleed store.",
+    "Complete older Open Wounds callback draws once even at100percent,reads attacker level,applies target-type reductions and submits200frame negative HP regeneration to its state factory. It is not a post-hit life-loss percentage or a zero-RNG guaranteed hit.",
+    "Complete older proc20checks source/presence/chance and packet hitflag0x20before drawing,decodes skill/rank and routes Life Tap through real attacker target casting. Current Life Tap row is ItemEffect1/non-ItemTgtDo/Do30with registered damagedinmelee healing5. Target-cast helper includes uninterruptible and item-effect routing.",
+    "Existing damage ordering review places source domeleedamage and target damagedinmelee before life clipping/HP commitment;the retained Life Tap callback proof covers its fractional healing separately."
+  ],
+  "remaining": [
+    "Execute complete callback/factory and proc target/item-effect routes with bounded services before adding NPC subscribers. Preserve real pet source/owner allegiance,fixed5rank,no player mana/gear context and area curse semantics.",
+    "Subscription order/draws,miss/block/zero/full-absorb/lethal/state-replacement,first proccing swing healing,source death and save/removal behavior still need verified composition. Do not approximate these as an after-HP OnHit hook.",
+    "Older source and static registry review do not establish modern executable equivalence. Blood hard10OpenWounds and hard20five-percent LifeTap remain pending;damage foundation is independently implementable."
+  ]
+}

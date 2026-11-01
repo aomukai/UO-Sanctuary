@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Blood damage foundation](blood-golem-damage-checkpoint.md) reuses Blood body`14`/hue`0x21`, summon particles`0x376A` and existing contact/healing cues as identified placeholders. Final body/contact/healing feedback and audio remain pending. Open Wounds/Life Tap are not active yet; their eventual feedback should share the existing bleed/curse/recovery asset work.
+
 The [Clay Golem upgrades](clay-upgrades-checkpoint.md) reuse Clay body`14`/hue`0x96D`, summon particles`0x376A`, and existing contact/reactive-slow cues as identified placeholders. Final Stone Skin/Magic Resistant status cues and feedback/audio remain pending; share eventual monster-affix assets where appropriate. Live unlock/respec needs no new summon or healing animation.
 
 The [Skeleton Warrior unlocks](skeleton-upgrades-checkpoint.md) reuse retaliation flash `0x374A`/hue`0x481` and the existing skeleton body/movement cues as identified placeholders. Final return-hit/contact, faster movement, death and audio feedback remain pending; reuse shared item-retaliation assets where appropriate. Unlocking requires no new summon/reset animation.

@@ -1,0 +1,108 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Blood150percent captured Clay/Skeleton curve with fractional intrinsic endpoints",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "bloodUpgradePackageComplete": false,
+  "build": 1,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 301,
+    "retainedClayWarriorMagePlayerPetSentryMarkers": 295,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "naturalBloodContacts": 3,
+    "originalSavedBloodTypes": 2,
+    "actualFacetTransitions": 3,
+    "actualOriginalItemCaptureControls": 2,
+    "normalRank4NoMasteryMinimum256": 410,
+    "normalRank4NoMasteryExclusiveMaximum256": 821,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      879,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/blood-damage/birth-inputs.json",
+      "sha256": "d700c4e63977834ba735d1ba1737fe67e55f859bec1a918cb1023c0f6dfb268d"
+    },
+    "audit": {
+      "path": ".local/class-skills/blood-damage/audit-inputs.json",
+      "sha256": "2c34dd76df765977dbb62f80f2c0f1bb7fddb15c5f81ad5e05a054b9310b14c3"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/BloodGolemBody.cs": "b0603052bbcc611a69aff5a1b210dcbd4207fd12a52c12246b05afd93d2b750f",
+    "src/Sanctuary.Content/ClayGolemBody.cs": "3c1d64c91e68eadebf3248da919020baf02de0ebd7b2ba69052c62e11a9d48f6",
+    "src/Sanctuary.Content/ClayGolemUpgrades.cs": "2764f1a5a63d8c1f899d2009d51e61cd2a14172169d2a54aa4ba32025525404e",
+    "src/Sanctuary.Content/GolemPetDamage.cs": "e27f64aa9453a6a8997f48783f446b00a861b2e26e6d5668a6e891ced7fe0d01",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "245adeb73ebb0bbb3cd452640327cf1a30be71817845666d2ff39ea8cf573764",
+    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "1e8e21b1175cc65d6733ad9fd880934b034d0054fe354edd50388df6d9c29021",
+    "tests/Sanctuary.Integration/BloodGolemCombatChecks.cs": "fb0c70bc65ffabcfc90fac4ec8c8e31090b90db4079a0d4298d44bbd76d0648c",
+    "tests/Sanctuary.Integration/BloodGolemDamageChecks.cs": "1fa712f827b122a44871410feb8b945881791693597de47a0cbe576574060d89",
+    "tests/Sanctuary.Integration/BloodGolemWorldChecks.cs": "3332f95e153fb0eb73938aa9453e212089d705d5f1f6cb1e10bf90aa5faf7ae3"
+  },
+  "artifacts": {
+    ".local/class-skills/blood-damage/audit-inputs.json": "2c34dd76df765977dbb62f80f2c0f1bb7fddb15c5f81ad5e05a054b9310b14c3",
+    ".local/class-skills/blood-damage/audit-native-checks.log": "415c2435c994d3348e8b74bfe94fc705a60c02f3e40552989aff158424f516b3",
+    ".local/class-skills/blood-damage/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/blood-damage/birth-inputs.json": "d700c4e63977834ba735d1ba1737fe67e55f859bec1a918cb1023c0f6dfb268d",
+    ".local/class-skills/blood-damage/birth-native-checks.log": "4a2bb830b73480a3c2fa623653b4c500501f2b12a766715373fa6269be6aa903",
+    ".local/class-skills/blood-damage/blood-damage-fixtures.json": "2e24ded809dd85c09e7aa69f966c25150baf658f2626c475feff7b4f452e12ed",
+    ".local/class-skills/blood-damage/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/blood-damage/content-build-1.log": "3612b371ef227f0e0ca9304c9378d7b0be2875206c7e258cf5034ab95cf6f11c",
+    ".local/class-skills/blood-damage/first-loop-affix-audit.json": "4a3cdbf9bfe82cb780eb71921f2fe038a98ed87012e30030e28b84e444643d97",
+    ".local/class-skills/blood-damage/integration-build-1.log": "02d53e0390e419af9ed96885ea478c5088fe2d6e7f6334522030996def19783e",
+    ".local/class-skills/blood-damage/named-item-runtime-audit.json": "809ad072e56c7f22366924171167651d7a1496ebcd1683309a5c633cfb6d94ac",
+    ".local/class-skills/blood-damage/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/blood-damage/pre-build-1.json": "4b025ba9c7e868c544417bb7d2d42780c2703f69b15bd51e6ef46f1213e9a15a",
+    ".local/class-skills/blood-damage/python-tests.log": "8907493f62fc2ac12e1210cc1d4813a4f0d3f2eea8ead5d04adf78d3a63750aa",
+    ".local/class-skills/blood-damage/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/clay-upgrades/birth-native-checks.log": "6dbf9afdb55fc40c2b129fa8e6706292a9a0cbc8c127d4be2c053761f2ec0603",
+    "docs/blood-golem-damage-checkpoint.md": "bf59d4cdd2b33344029e33572dfffb1f9491bef98f66724bdc21896e3ff02fe1",
+    "docs/class-skill-reuse-notes.md": "16b8d3c6e7dbf0cd71a40dc400d3511fb347817d7a9f10a6a72b26a29a2ab594",
+    "docs/class-skill-roadmap.md": "cce92c02ff16f9b8da7dfae3369232c4e03ed2844c0a3130d5d88326c09ecc97",
+    "docs/class-skills-resume-checkpoint.md": "e4bc54295c0a4e76dbbcedeb83414ae7f1aaf0dec8d85ca49ce6527635870512",
+    "docs/necromancer-mechanical-audit.md": "ba7db95cff7a22b1455e16b0eb17af5fe5763596c703f37b3471eca2fe1b6aca",
+    "docs/pet-adjustment-review.md": "8d1f07f9faad896f977c04ba06326efa9027b943f3aa0f1b65a49c9ee722022e",
+    "docs/skill-effects.md": "7c2a35d32f6a3647c45898785a4f32c565930f6aa962ab48c85ef044f0fa0abb",
+    "docs/skill-icons.md": "ba136ac38a35b222611032ef5b20a7c103048e3d528edd637883ab9b2bb31f66",
+    "src/Sanctuary.Content/BloodGolemBody.cs": "b0603052bbcc611a69aff5a1b210dcbd4207fd12a52c12246b05afd93d2b750f",
+    "src/Sanctuary.Content/ClayGolemBody.cs": "3c1d64c91e68eadebf3248da919020baf02de0ebd7b2ba69052c62e11a9d48f6",
+    "src/Sanctuary.Content/ClayGolemUpgrades.cs": "2764f1a5a63d8c1f899d2009d51e61cd2a14172169d2a54aa4ba32025525404e",
+    "src/Sanctuary.Content/GolemPetDamage.cs": "e27f64aa9453a6a8997f48783f446b00a861b2e26e6d5668a6e891ced7fe0d01",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "245adeb73ebb0bbb3cd452640327cf1a30be71817845666d2ff39ea8cf573764",
+    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "1e8e21b1175cc65d6733ad9fd880934b034d0054fe354edd50388df6d9c29021",
+    "tests/Sanctuary.Integration/BloodGolemCombatChecks.cs": "fb0c70bc65ffabcfc90fac4ec8c8e31090b90db4079a0d4298d44bbd76d0648c",
+    "tests/Sanctuary.Integration/BloodGolemDamageChecks.cs": "1fa712f827b122a44871410feb8b945881791693597de47a0cbe576574060d89",
+    "tests/Sanctuary.Integration/BloodGolemWorldChecks.cs": "3332f95e153fb0eb73938aa9453e212089d705d5f1f6cb1e10bf90aa5faf7ae3",
+    "tests/check_blood_damage.py": "ea1e6533eddfa548ae1e27e17d3d80aa7375c3735038d13275639265aeb88398",
+    "tools/record_blood_damage.py": "3ec8e2a3d849b093c54046fbafacbec2c648a64ff4bff38c35242de85fb15962",
+    "tools/reference/blood-pet-event-reuse-review.json": "733a7ec64c685aab2fee14e907cc44291f377b9a48fe4e6ec6c50070c47d6ae9",
+    "tools/reference/clay-upgrades-native-evidence.json": "18860d6f99cb855e9d36f2c834ff4a56aa94d61f2dc248b8e94adacd22fcad72",
+    "tools/review_blood_pet_events.py": "91f083e9452875a3a88066ed95d583d429d0423295103c0c0934291e3fc91955"
+  },
+  "established": [
+    "Clay and Blood share GolemPetDamage on the captured Skeleton curve with Golem Mastery. Blood intrinsic endpoints are150percent before ordinary percentages;optional0..255FP endpoint fractions retain odd half damage. Clay remains100percent with zero fractions. Old innate Blood/passive Fire synergy damage is replaced.",
+    "NpcPhysicalStats default-zero endpoint fractions extend the existing NPC roll before ordinary percentages/SrcDam without changing zero-fraction arithmetic or draw count. Invalid fractions refuse before RNG. Real original shield preserves intrinsic fractions;two-hand weapon displacement clears them. These controls cover packet capture,not unsupported NPC item proc events.",
+    "Actual soft/captured ranks,distinct Skeleton Mastery,owner training/respec/relearn,no rank/resource recapture,wounds/order/stream/10action16end clock and three owner-facet transitions pass. Older physical JSON defaults to zero fractions. Retained Clay remains273..546FP at rank4;approved Blood is410..820FP rather than4748..13567.",
+    "Modern exact and original plain Blood actors retain types,owners and wounds across two reloads. Exact packet fractions/maximum/captured ranks/order/stream persist. Three natural learned contacts release the approved captured physical packet. Retained Blood healing/contact/source/world controls exercise the new damage with their existing pre-health healing. All295 predecessor marker scopes remain.",
+    "Both clean builds,71Python,4audits,573named and eight-class240checks pass. Decision payloads,data,kernel and106installed hashes remain unchanged;879/21fingerprints are fresh. Actor saved fields/versions are unchanged. Complete older event/proc functions/current item registrations are separately pinned by a static reuse review,not certified as executed."
+  ],
+  "remaining": [
+    "Blood hard10OpenWounds and hard20five-percent LifeTap5 remain unimplemented. NpcCombatEvents explicitly refuses their item registrations. Next execute/compose complete callback/factory/target-cast routes and real pet-source fixed-rank area curse context,including draw/subscriber order and same-hit healing;do not invent an after-HP hook.",
+    "Intrinsic150percent scaling before ordinary percentages is an explicit Sanctuary composition with FP quantization. Original plain Minions keep their older native controller/whole-number fallback;their complete FP/source-frame migration,actual installed old-DLL upgrade and concurrent/unheld-save acceptance remain separate.",
+    "Shared hit/result/health/death/event order,modern world/geometry/global RNG/PvP/Sunder/client boundaries retain prior evidence limits. Capturing shield/two-hand fractions does not enable unsupported NPC item effects/events or prove the entire item system.",
+    "Iron/Fire replacement damage/upgrades,Mage basic spells/triples and Skeleton Mastery mapping,barriers,safe-area parking,Druid upgrades and other class mechanics remain unfinished. No class completion/deployment/player binding. Blood body/cast/contact/healing and pending wound/curse feedback remain placeholders;effects/audio and talent/right/quick icons stay separate."
+  ]
+}

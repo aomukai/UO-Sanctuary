@@ -10,7 +10,7 @@ internal interface ISourceUnarmedNpc
 
 internal readonly record struct NpcPhysicalStats(int Minimum,int Maximum,int NormalDamage,int DamagePercent,
     int Strength,int Dexterity,bool Weapon,int StrengthCoefficient=0,int DexterityCoefficient=0,
-    int MinimumPercent=0,int MaximumPercent=0);
+    int MinimumPercent=0,int MaximumPercent=0,int MinimumFraction256=0,int MaximumFraction256=0);
 
 // Offensive rolls only. Recipient mitigation, poison delivery and HP/events
 // are later phases; this is not an already allocated source combat packet.
@@ -25,8 +25,9 @@ internal static class NpcEquipmentDamage
     {
         ArgumentNullException.ThrowIfNull(limited);
         if(sourceDamage is <0 or >255){throw new ArgumentOutOfRangeException(nameof(sourceDamage));}
-        int low=checked((stats.Weapon?stats.Minimum:Math.Max(1,stats.Minimum))*256);
-        int high=checked((stats.Weapon?stats.Maximum:Math.Max(2,stats.Maximum))*256);
+        if(stats.MinimumFraction256 is <0 or >255||stats.MaximumFraction256 is <0 or >255){throw new ArgumentOutOfRangeException(nameof(stats));}
+        int low=stats.Weapon||stats.Minimum>=1?checked(stats.Minimum*256+stats.MinimumFraction256):256;
+        int high=stats.Weapon||stats.Maximum>=2?checked(stats.Maximum*256+stats.MaximumFraction256):512;
         low=checked(low+stats.NormalDamage*256);high=checked(high+stats.NormalDamage*256);
         if(low<1){low=256;}if(high<=low){high=checked(low+256);}
         int percent=checked(stats.DamagePercent+(stats.Weapon
@@ -58,8 +59,9 @@ internal static class NpcEquipmentDamage
             +(weapon?0:item.Bonus("dmg%")));
         if(GemCombat.Undead(target)){percent=checked(percent+item.Bonus("dmg-undead%")+(weapon&&ClassItemTypes.Is(basis.Type,"blun")?50:0));}
         else if(NamedCombat.Demon(target)){percent=checked(percent+item.Bonus("dmg-demon%"));}
+        var intrinsic=actor is ISourceUnarmedNpc fractional?fractional.UnarmedPhysical:default;
         return new(min,max,normal,percent,item.Bonus("str"),item.Bonus("dex"),weapon,
-            weapon?basis.StrengthBonus:0,weapon?basis.DexterityBonus:0);
+            weapon?basis.StrengthBonus:0,weapon?basis.DexterityBonus:0,MinimumFraction256:two?0:intrinsic.MinimumFraction256,MaximumFraction256:two?0:intrinsic.MaximumFraction256);
     }
     internal static NpcWeaponRoll Roll(SkeletonGuardian actor,Mobile target,Func<int,int> limited=null,Func<uint> raw=null)
     {

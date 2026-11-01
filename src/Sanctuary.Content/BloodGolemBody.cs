@@ -13,8 +13,7 @@ public partial class BloodGolemBody:NecromancerMinion,ISourceLifeMaximum,ISource
     private BloodBirthStats Birth=>_bloodBirth??=NecromancerBloodBirth.Prepare(CapturedValues,Level,SummonDifficulty);
     internal override string SourceMonsterId=>Kind==CombatAbility.BloodGolem?"bloodgolem":base.SourceMonsterId;
     NpcPhysicalStats ISourceUnarmedNpc.UnarmedPhysical=>UnarmedPhysical;
-    internal NpcPhysicalStats UnarmedPhysical=>Kind==CombatAbility.BloodGolem?new(NecromancerSummons.Source("bloodgolem","A1MinD",SummonDifficulty),NecromancerSummons.Source("bloodgolem","A1MaxD",SummonDifficulty),0,
-        checked(Birth.DamagePercent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)),0,0,false):throw new InvalidOperationException("Unprepared Blood Golem packet");
+    internal NpcPhysicalStats UnarmedPhysical=>Kind==CombatAbility.BloodGolem?GolemPetDamage.Physical(this):throw new InvalidOperationException("Unprepared Blood Golem packet");
     internal (int Action,int End) SourceAttackClock=>DruidWolfGeometry.Clock("A1",
         SourceAttackRate.Speed(NecromancerSummons.Source("bloodgolem-animation","A1Speed"),0,SourceAttackRate.WolfRate(this)),"bloodgolem-animation");
     protected override (int Cycle,int Action) MeleeClock(){var clock=SourceAttackClock;return(checked(clock.End*40),checked(clock.Action*40));}

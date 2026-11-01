@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Blood damage foundation](blood-golem-damage-checkpoint.md) adds no player action or separate hotkey icon. Blood Golem still needs its pending talent-tree/right/quick artwork. Open Wounds/Life Tap remain pending automatic abilities; their effects are tracked separately.
+
 The [Clay Golem upgrades](clay-upgrades-checkpoint.md) add no player action or separate hotkey icon. Clay Golem still needs its pending talent-tree/right/quick artwork; automatic defensive-affix feedback is tracked separately as effects.
 
 The [Skeleton Warrior unlocks](skeleton-upgrades-checkpoint.md) add no player action or separate hotkey icon. Raise Skeleton still needs its pending talent-tree/right/quick artwork; automatic retaliation/movement feedback remains in the effects register.
