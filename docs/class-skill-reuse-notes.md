@@ -172,3 +172,9 @@ The [modifier review](bone-barrier-modifier-source-review.md) extends the existi
 ## Confuse actual post-load combat — 2026-11-01
 
 The [reload checkpoint](confuse-resume-checkpoint.md) reuses Confuse owner/enemy setup and the authenticated Attract reload connection pattern. An actual sector and normal NPC AI must produce HP loss; arithmetic-only seed advancement remains separate serialization coverage. Do not rewrite target, seed, draws or deadline on load. A real Hell variant and normal Vitality allocation avoid a level-one-versus-level99 5% hit-floor fixture while preserving both target factions and ordinary hit rolls. Production AI/combat/allegiance remain unchanged.
+
+## Causal Mage collision observation and Inferno preparation — 2026-11-01
+
+The combined [checkpoint](necromancer-acceptance-checkpoint.md) reuses the existing target `OnDamage` fixture pattern to capture a real own-Mage firebolt while it is still registered. Keep release timestamp,source identity,actual damage and subsequent removal assertions;polling need not catch the flight between launch and impact. A preserved negative control demonstrates that gap,while all three delayed positive controls explicitly miss it. Freeze a fresh fixture Mage until its timed baseline so authentication does not activate an unmeasured cast. No production observer hook or combat/timing change is added.
+
+The next Sorceress [Inferno preflight](sorceress-inferno-preflight.md) identifies shared channel,sequence and rate work already completed after the old blocker text. Reuse those components and compare the newer Arctic source-cell stream against the old fire primitive;modern input/payment frequency and player fire binding remain distinct gaps. This is preparation while Necromancer remains active.

@@ -13,6 +13,17 @@ using Server.Network;
 using Server.Spells;
 namespace Sanctuary.Integration;
 
+public sealed class MageMissileWitness:GraveyardSkeleton
+{
+    internal Action<int,Mobile> BeforeDamage;
+    public MageMissileWitness(){}
+    public MageMissileWitness(Serial serial):base(serial){}
+    public override void OnDamage(int amount,Mobile from,bool willKill)
+    {BeforeDamage?.Invoke(amount,from);base.OnDamage(amount,from,willKill);}
+    public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+    public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Invalid Mage missile witness");}}
+}
+
 public static class MageMissileChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MageMissileChecks));
@@ -22,13 +33,14 @@ public static class MageMissileChecks
     {
         Register("mage-missile-check",Check);Register("mage-missile-reload-check",Reload);
         ConsoleInputHandler.RegisterCommand("mage-missile-live","Natural mage windup and delayed collision",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected("mage-missile-live-result",Live)));
+        ConsoleInputHandler.RegisterCommand("mage-missile-delayed-live","Natural mage collision with delayed inspection",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected("mage-missile-delayed-live-result",n=>Live(n,true))));
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Skeletal Mage source packet and live projectile cases",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
     private static void Train(PlayerMobile p,string id)
     {if(ClassCreation.Profiles.GetRank(p.Serial,id)>0){return;}TalentCatalog.TryGet(DiabloClass.Necromancer,id,out var row);foreach(string prior in row.Prerequisites){Train(p,prior);}Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
-    private static (PlayerMobile Owner,NecromancerMinion Mage,GraveyardSkeleton Target) Scene(int element,int dx=5)
+    private static (PlayerMobile Owner,NecromancerMinion Mage,GraveyardSkeleton Target) Scene(int element,int dx=5,bool witness=false)
     {
         var p=PoisonDaggerChecks.Owner();Train(p,SkillMechanics.For(CombatAbility.RaiseSkeletalMage).TalentId);var roll=NecromancerSummons.ElementRoll;
         var mage=new NecromancerMinion();try{NecromancerSummons.ElementRoll=()=>element==0?1:element;mage.Prepare(p,CombatAbility.RaiseSkeletalMage);}finally{NecromancerSummons.ElementRoll=roll;}
@@ -36,7 +48,9 @@ public static class MageMissileChecks
         // option, but already-created poison packets still need their controls.
         if(element==0){typeof(NecromancerMinion).GetField("_element",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(mage,0);}
         Require(mage.SetControlMaster(p),"Mage ownership");mage.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);mage.AIObject.AITimer.Stop();
-        PersistentMinions.Profiles.Track(mage);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);
+        PersistentMinions.Profiles.Track(mage);GraveyardSkeleton target=witness
+            ?new MageMissileWitness{Name="PoisonDaggerFixtureTarget",NoKillAwards=true,Frozen=true,CantWalk=true}:PoisonDaggerChecks.Target(p);
+        target.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);target.AIObject.AITimer.Stop();if(witness){target.SetHits(50000);target.Hits=target.HitsMax;}
         foreach(var resistance in Enum.GetValues<ResistanceType>()){target.SetResistance(resistance,0);}TimedEffects.PreventHealing(target,TimedEffects.Now);return(p,mage,target);
     }
     private static MageMissileState State(long id)=>NecromancerMageMissiles.Snapshot().Bolts.SingleOrDefault(x=>x.Id==id);
@@ -170,12 +184,19 @@ public static class MageMissileChecks
         held=held with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};pool=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Id==held.Id?held:x).ToArray()});
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=held,Generation=saved.Generation+1}));
     }
-    private static void Live(NetState network)
+    private static void Live(NetState network)=>Live(network,false);
+    private static void Live(NetState network,bool delayed)
     {
-        var(p,m,t)=Scene(2);network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
+        string label=delayed?"mage-missile-delayed-live":"mage-missile-live";
+        var(p,m,t)=Scene(2,witness:true);m.Frozen=true;network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
         var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
         var account=new Account("mage-flight-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
-        int life=SkillHealth.Balance256(t);long deadline=0;bool early=false,launched=false;int action=0,end=0;DateTime release=default;long flight=0;MageMissileState last=null;
+        int life=SkillHealth.Balance256(t);long deadline=0;bool early=false,launched=false,paused=false;int action=0,end=0;DateTime release=default;long flight=0;MageMissileState last=null,impact=null;uint damageSource=0;int damage=0;
+        ((MageMissileWitness)t).BeforeDamage=(amount,from)=>
+        {
+            if(impact!=null){return;}damageSource=from?.Serial.Value??0;damage=amount;
+            if(from==m){impact=NecromancerMageMissiles.Snapshot().Bolts.Where(x=>x.Actor==m.Serial.Value).OrderBy(x=>x.NextUtc).ThenByDescending(x=>x.Id).FirstOrDefault();}
+        };
         void Inspect()
         {
             try
@@ -186,8 +207,9 @@ public static class MageMissileChecks
                 {
                     Require(SkillHealth.Balance256(t)==life&&clock.EndAt-clock.ActionAt==10,"Mage damage or wrong cycle before source skill event");
                     early=true;action=clock.ActionAt;end=clock.EndAt;release=clock.NextUtc.AddMilliseconds((action-clock.Frame-1)*40L);
+                    if(delayed&&!paused){paused=true;Timer.StartTimer(TimeSpan.FromMilliseconds(1000),Inspect);return;}
                 }
-                if(!launched&&bolt!=null)
+                if(!launched&&bolt!=null&&impact==null)
                 {
                     var emitted=bolt.NextUtc.AddMilliseconds(-(bolt.Frame+1)*40L);
                     Require(early&&clock.Frame>=action&&clock.Frame<end&&emitted==release&&SkillHealth.Balance256(t)==life&&bolt.Fault==null,
@@ -195,16 +217,24 @@ public static class MageMissileChecks
                     launched=true;flight=bolt.Id;m.SuspendActions();m.LegacyMageWorld.World.Store(clock with{NextUtc=TimedEffects.Now.AddHours(1)});
                 }
                 if(SkillHealth.Balance256(t)==life){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                Require(launched&&State(flight)==null,"Natural mage hit without traced collision/removal");Clean(p,m,t);account.Delete();Log.Information("mage-missile-live-result: passed");
+                bool sampled=launched;
+                Require(early&&impact is{Fault:null}&&impact.Packet.Spell==CombatAbility.FireBolt&&impact.Actor==m.Serial.Value
+                    &&damageSource==m.Serial.Value&&damage>0&&impact.NextUtc.AddMilliseconds(-(impact.Frame+1)*40L)==release
+                    &&(!launched||flight==impact.Id),$"Mage damage lacks its own source-timed collision witness:sampled={sampled},flight={flight},impact={JsonSerializer.Serialize(impact)},source={damageSource}/{m.Serial.Value},damage={damage},early={early},release={release:O}");
+                flight=impact.Id;
+                Require(State(flight)==null,$"Colliding Mage flight remained registered: {JsonSerializer.Serialize(State(flight))}");
+                if(delayed){Require(paused&&!sampled,"Delayed Mage control did not actually miss the in-flight polling window");}
+                Clean(p,m,t);account.Delete();Log.Information("{Label}-result: passed;sampled-flight={Sampled}",label,sampled);
             }
-            catch(Exception e){Clean(p,m,t);account.Delete();Log.Error(e,"mage-missile-live-result: failed");}
+            catch(Exception e){Clean(p,m,t);account.Delete();Log.Error(e,"{Label}-result: failed",label);}
         }
-        FixtureClock.NextLoop("mage-missile-live-result",()=>
+        FixtureClock.NextLoop(label+"-result",()=>
         {
             deadline=Core.TickCount+5000;
             NecromancerMageMissiles.SetActorSeed(m,MageStaticFieldChecks.Seed(20,99));
             Require(MageWorld.TryAdopt(m,TimedEffects.Now)&&m.BeginMelee(t)==TimeSpan.FromMilliseconds(800),"Historical Mage shared adoption/cycle");
-            Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>{Log.Information("mage-missile-live: ready");Inspect();});
+            IronGolemWorld.Advance(m,TimedEffects.Now,true);m.Frozen=false;
+            Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>{Log.Information("{Label}: ready",label);Inspect();});
         });
     }
 }

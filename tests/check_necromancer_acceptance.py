@@ -58,6 +58,12 @@ if __name__ == '__main__':
     if '--mechanics-smoke' in sys.argv:
         config.update(stage=ROOT / '.local/class-skills/necromancer-acceptance-mechanics',
             extra_live_commands=(), extra_target_input_commands=(), extra_ground_input_commands=())
+    if '--mage-observer-smoke' in sys.argv:
+        config.update(stage=ROOT / '.local/class-skills/necromancer-acceptance-mage-observer',
+            extra_families=('mage-missile',), extra_checks=(),
+            extra_live_commands=('mage-missile-live', 'mage-missile-delayed-live'),
+            extra_connected_checks=(), extra_one_reload_families=(), extra_target_input_commands=(),
+            extra_ground_input_commands=(), extra_early_reload_families=(), save_command='save', save_result=None)
     if '--plan' in sys.argv:
         print(json.dumps({key: len(config[key]) for key in (
             'extra_families', 'extra_checks', 'extra_live_commands', 'extra_target_input_commands',

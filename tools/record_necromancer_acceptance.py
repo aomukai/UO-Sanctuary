@@ -22,14 +22,14 @@ def record(check=False):
     inventory.STAGE=STAGE
     inputs={name:inventory.validate_inventory(STAGE/(name+'-inputs.json')) for name in ('birth','audit')}
     for name,row in inputs.items():
-        snapshot(STAGE/'pre-build-4.json',STAGE/(name+'-inputs.json'))
+        snapshot(STAGE/'pre-build-7.json',STAGE/(name+'-inputs.json'))
         assert row['artifacts']==inputs['birth']['artifacts'] and row['copiedData']==inputs['birth']['copiedData']
     diagnostic=inventory.validate_inventory(MECHANICS/'birth-inputs.json')
     assert diagnostic['artifacts']==inputs['birth']['artifacts'] and diagnostic['copiedData']==inputs['birth']['copiedData']
     log=(STAGE/'birth-native-checks.log').read_text();counts=markers(STAGE/'birth-native-checks.log')
     assert sum(counts.values())==845 and ' ERR]' not in log and ': failed' not in log
     assert log.count('Shutting down')==log.count('Writing world save snapshot done')==3
-    assert 'pass across3boots/2reloads' in (STAGE/'run-3.log').read_text()
+    assert 'pass across3boots/2reloads' in (STAGE/'run-4.log').read_text()
     # The diagnostic already binds the same compiled fixture bodies. Full run
     # must retain every diagnostic check and add actual live/input results.
     expected=markers(MECHANICS/'birth-native-checks.log')
@@ -69,8 +69,8 @@ def record(check=False):
     files=[prior_path,old_log,ROOT/'tools/reference/necromancer-mechanics-native-evidence.json',Path(__file__).resolve(),ROOT/'tests/check_necromancer_acceptance.py',ROOT/'tests/check_iron_golem_birth.py',*[ROOT/'docs'/(name+'.md') for name in docs]]
     files += [p for p in STAGE.iterdir() if p.is_file()]
     result=dict(referenceVersion='3.3.93847',component='Combined Necromancer spells,summons,AI and actual saved input acceptance',
-        installed=False,productionChanged=False,goalComplete=False,completedClasses=[],build=4,run=3,auditRun=1,
-        verified=dict(nativeMarkers=845,retainedMarkers=411,mechanicsMarkers=467,boots=3,actualReloads=2,saves=3,
+        installed=False,productionChanged=False,goalComplete=False,completedClasses=[],build=7,run=4,auditRun=1,
+        verified=dict(nativeMarkers=845,retainedMarkers=411,mechanicsMarkers=467,observerMarkers=18,boots=3,actualReloads=2,saves=3,
             fixtureFamilies=113,sharedChecks=21,connectedLiveActions=102,realInputActions=138,pythonTests=71,
             namedDefinitions=573,auditMarkers=4,auditFingerprints=[887,21],unchangedInstalledArtifacts=106,handlers=186,necromancerHandlers=30),
         inputInventories={name:dict(path=str((STAGE/(name+'-inputs.json')).relative_to(ROOT)),sha256=sha(STAGE/(name+'-inputs.json'))) for name in inputs},
