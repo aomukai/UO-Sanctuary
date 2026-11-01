@@ -18,8 +18,13 @@ internal sealed record SorceressSpellFlight(long Id,uint Owner,int Map,int Z,Com
 {
     // Optional V0 extension: historical Fire Bolt records retain zero length.
     public int ColdFrames{get;init;}
+    // Optional V0 ring extension. Historical straight flights use defaults.
+    public long Cast{get;init;}
+    public int RadialIndex{get;init;}=-1;
+    public int AccelerationCounter{get;init;}
+    public uint LastCollision{get;init;}
 }
-internal sealed record SorceressSpellSave(SorceressSpellFlight[] Flights,long NextId);
+internal sealed record SorceressSpellSave(SorceressSpellFlight[] Flights,long NextId,WeaponFlightLease[] Leases=null);
 
 public sealed class SorceressSpellProfiles:GenericPersistence
 {
@@ -39,6 +44,8 @@ internal static class SorceressSpellMissiles
     private sealed record Pool(ImmutableDictionary<long,SorceressSpellFlight> Flights,long NextId);
     private static Pool _pool=new(ImmutableDictionary<long,SorceressSpellFlight>.Empty,0);
     private static readonly HashSet<long> Loaded=new();
+    private static Dictionary<(long,uint),WeaponFlightLease> Leases=new();
+    internal static bool Ring(CombatAbility ability)=>ability is CombatAbility.Nova or CombatAbility.FrostNova;
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(SorceressSpellMissiles));
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static void Configure()=>_ = new SorceressSpellProfiles();
@@ -53,18 +60,21 @@ internal static class SorceressSpellMissiles
         CombatAbility.IceBlast=>new("iceblast","cold",45,12,4),
         CombatAbility.GlacialSpike=>new("glacialspike","cold",55,16,0,40,13,5,2),
         CombatAbility.Fireball=>new("fireball","fire",47,20,0,50,1,5,2),
+        CombatAbility.Nova=>new("nova","ltng",48,24,0,13),
+        CombatAbility.FrostNova=>new("frostnova","cold",44,24,0,14),
         _=>throw new NotSupportedException("Unmapped player straight spell")
     };
     internal static void Route(SkillValues values)
     {
-        var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
+        bool ring=Ring(values.Ability);var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
         if(values.Rank is <1 or >255||row.SourceId!=profile.Source
-            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=0||row.Text("srvmissile")!=profile.Key
+            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=(ring?22:0)||row.Text(ring?"srvmissilea":"srvmissile")!=profile.Key
             ||row.Text("EType")!=profile.Element||row.Number("SrcDam")!=0
             ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=profile.HitFunction||M("pSrvDmgFunc")!=profile.DamageFunction||M("Vel")!=profile.Velocity||M("MaxVel")!=profile.Velocity
-            ||M("VelLev")!=0||M("Accel")!=0||M("Range")!=profile.Frames||M("Size")!=1||M("CollideType")!=3
-            ||M("CollideKill")!=1||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=0||M("Pierce")!=0
-            ||M("SrcDamage")!=0||M("CanSlow")!=1||M("InitSteps")!=1||M("Activate")!=0
+            ||M("VelLev")!=0||M("Accel")!=(ring?-1000:0)||M("Range")!=profile.Frames||M("Size")!=1||M("CollideType")!=3
+            ||M("CollideKill")!=(ring?0:1)||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=(ring?1:0)||M("NextDelay")!=(ring?4:0)||M("Pierce")!=0
+            ||M("SrcDamage")!=0||M("CanSlow")!=(ring?0:1)||M("InitSteps")!=(ring?0:1)||M("Activate")!=0
+            ||ring&&(values.Eval("calc1")!=0||M("HitClass")!=(values.Ability==CombatAbility.Nova?64:48))
             ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=0
             ||profile.HitFunction==13&&(M("sHitPar1")!=0||M("sHitPar2")!=0||new MissileValues(profile.Key,values).Text("EType")!="frze")
             ||profile.HitFunction==1&&(M("sHitPar1")!=0||new MissileValues(profile.Key,values).Text("EType")!="fire"))
@@ -72,30 +82,43 @@ internal static class SorceressSpellMissiles
     }
     private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Sorceress?p:null;
-    internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at)
+    internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,int radialIndex=-1,long id=0,long cast=0)
     {
-        Route(values);
+        Route(values);bool ring=Ring(values.Ability);
+        if(ring&&(radialIndex is <0 or >63||id<=0||cast<=0)||!ring&&(radialIndex!=-1||id!=0||cast!=0)){throw new NotSupportedException("Unmapped Sorceress radial launch");}
         if(owner==null||Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal
             ||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height||at.Kind!=DateTimeKind.Utc
             ||SpellHelper.IsTown(owner.Location,owner)||SpellHelper.IsTown(point,owner))
         {throw new NotSupportedException("Unsupported player straight spell owner/aim");}
         var profile=Profile(values.Ability);
-        var slow=AmazonSlowMissiles.Capture(owner,true);var mods=DruidFirestorm.Modifiers(owner);
-        var ends=DruidFirestorm.Endpoints(values,profile.Element=="cold"?mods.ColdMastery:mods.FireMastery,slow);
-        // Default non-lob skill launch supplies33. No weapon AR/damage/ammo.
-        int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,33,0,true,slow.VelocityPercent);
-        int dx=point.X-owner.X,dy=point.Y-owner.Y;if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
+        var slow=AmazonSlowMissiles.Capture(owner,!ring);var mods=DruidFirestorm.Modifiers(owner);
+        var ends=DruidFirestorm.Endpoints(values,profile.Element=="cold"?mods.ColdMastery:profile.Element=="ltng"?mods.LightningMastery:mods.FireMastery,slow);
+        // Straight casts supply33; do22 supplies7 and the table velocity. No weapon AR/damage/ammo.
+        int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
+        int dx=point.X-owner.X,dy=point.Y-owner.Y;if(ring){var direction=FrozenOrbs.Direction(radialIndex);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
-        var flight=new SorceressSpellFlight(checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
+        var flight=new SorceressSpellFlight(ring?id:checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
             values.Ability,values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
             SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
-            {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?values.DurationFrames:0};
+            {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0};
         Validate(flight);return flight;
     }
     internal static long Commit(SorceressSpellFlight flight)
     {
         Validate(flight);if(flight.Id!=_pool.NextId+1){throw new InvalidOperationException("Stale prepared Sorceress flight");}
         _pool=new(_pool.Flights.Add(flight.Id,Copy(flight)),flight.Id);return flight.Id;
+    }
+    internal static SorceressSpellFlight[] PrepareRing(PlayerMobile owner,SkillValues values,DateTime at)
+    {
+        if(!Ring(values.Ability)){throw new NotSupportedException("Expected Sorceress Nova ring");}
+        long first=checked(_pool.NextId+1);
+        return Enumerable.Range(0,64).Select(i=>Prepare(owner,owner.Location,values,at,i,checked(first+i),first)).ToArray();
+    }
+    internal static bool CastRing(PlayerMobile owner,SkillValues values)
+    {
+        var prepared=PrepareRing(owner,values,TimedEffects.Now);
+        if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        foreach(var flight in prepared){Commit(flight);}owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
     }
     internal static bool Cast(PlayerMobile owner,Point3D point,SkillValues values)
     {
@@ -106,11 +129,12 @@ internal static class SorceressSpellMissiles
     }
     private static SorceressSpellFlight Copy(SorceressSpellFlight s)=>s with{Steps=new(s.Steps.Cells.ToArray())};
     internal static SorceressSpellSave Snapshot()
-    {var pool=_pool;return new(pool.Flights.Values.OrderBy(s=>s.Id).Select(Copy).ToArray(),pool.NextId);}
+    {var pool=_pool;return new(pool.Flights.Values.OrderBy(s=>s.Id).Select(Copy).ToArray(),pool.NextId,Leases.Values.OrderBy(x=>x.Cast).ThenBy(x=>x.Target).ToArray());}
     private static void Remove(long id){_pool=_pool with{Flights=_pool.Flights.Remove(id)};Loaded.Remove(id);}
     internal static void Cancel(Mobile owner)
     {if(owner!=null){foreach(long id in _pool.Flights.Values.Where(s=>s.Owner==owner.Serial.Value).Select(s=>s.Id).ToArray()){Remove(id);}}}
 
+    internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var lease)||lease.UntilUtc<=at;
     internal static int Impact(PlayerMobile owner,Mobile target,SorceressSpellFlight flight,out ulong seed)
     {
         int raw=Roll(flight,out seed);
@@ -121,7 +145,7 @@ internal static class SorceressSpellMissiles
         // T29 checks potion eligibility at contact. Reuse the same captured
         // endpoints and the existing element-independent Boulder potion helper.
         var modifiers=flight.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
-        var packet=profile.Element=="cold"?new GearDamage(0,0,raw/256.0,0,0):new(0,raw/256.0,0,0,0);
+        var packet=profile.Element=="cold"?new GearDamage(0,0,raw/256.0,0,0):profile.Element=="ltng"?new(0,0,0,raw/256.0,0):new(0,raw/256.0,0,0,0);
         var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(modifiers,packet));
         // Complete source dmg4 copies cold length to freeze and clears cold
         // length. FreezeStates owns the eligible boss/player cold fallback.
@@ -163,7 +187,7 @@ internal static class SorceressSpellMissiles
         var owner=Owner(flight.Owner);if(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map){Remove(flight.Id);return;}
         bool loaded=Loaded.Remove(flight.Id);
         int elapsed=loaded?(int)Math.Min(flight.Frames-flight.Frame,(at-flight.NextUtc).Ticks/TimeSpan.TicksPerMillisecond/40+1):1;
-        int frame=flight.Frame+elapsed;var next=flight with{Frame=frame,NextUtc=flight.NextUtc.AddMilliseconds(40L*elapsed)};
+        bool ring=Ring(flight.Ability);int frame=flight.Frame+elapsed;var next=flight with{Frame=frame,NextUtc=flight.NextUtc.AddMilliseconds(40L*elapsed)};
         // Existing persistent-spell host policy:offline/restart age harmlessly,
         // never replay past damage. This is not a modern owner-removal proof.
         if(loaded||flight.Fault!=null||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
@@ -172,7 +196,13 @@ internal static class SorceressSpellMissiles
         if(SpellHelper.IsTown(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z),owner)){Remove(flight.Id);return;}
         int Move()
         {
-            next=next with{X=flight.X+flight.Vx,Y=flight.Y+flight.Vy,Steps=SourceMissileSteps.Advance(flight.X,flight.Y,flight.Vx,flight.Vy,flight.Steps)};
+            if(ring)
+            {
+                var d=FrozenOrbs.Direction(flight.RadialIndex);var direction=MissileVectors.Direction(d.X,d.Y);
+                var motion=MissileVectors.Accelerate(flight.VelocityFp8,-1000,flight.AccelerationCounter,6144,0,direction.X,direction.Y);
+                next=next with{VelocityFp8=motion.Velocity,AccelerationCounter=motion.Counter,Vx=motion.X/131072.0,Vy=motion.Y/131072.0};
+            }
+            next=next with{X=flight.X+next.Vx,Y=flight.Y+next.Vy,Steps=SourceMissileSteps.Advance(flight.X,flight.Y,next.Vx,next.Vy,flight.Steps)};
             barrier=next.X<0||next.Y<0||next.X>=map.Width||next.Y>=map.Height;return barrier?2:1;
         }
         Mobile Find(SourceMissileCell cell)
@@ -180,6 +210,7 @@ internal static class SorceressSpellMissiles
             foreach(var candidate in map.GetMobilesInRange<Mobile>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,flight.Z),3))
             {
                 if(candidate is not{Alive:true,Deleted:false,Blessed:false}||Math.Abs(candidate.Z-flight.Z)>=16
+                    ||ring&&(candidate.Serial.Value==flight.LastCollision||!Ready(flight.Cast,candidate.Serial.Value,flight.NextUtc))
                     ||!ClassCombat.IsHostile(owner,candidate)||!owner.CanBeHarmful(candidate,false)||SpellHelper.IsTown(candidate.Location,owner)){continue;}
                 int size=candidate is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
                 if(CombatHitboxes.SourceTouches(1,size,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){return candidate;}
@@ -198,7 +229,11 @@ internal static class SorceressSpellMissiles
                 Explosion(owner,center,flight,out var seed);next=next with{Seed=seed};
             }
             else if(!terminal&&World.FindMobile((Serial)serial) is{} target)
-            {Impact(owner,target,flight,out var seed);next=next with{Seed=seed};}
+            {
+                if(ring){Leases[(flight.Cast,serial)]=new(flight.Cast,serial,flight.NextUtc.AddMilliseconds(160));}
+                Impact(owner,target,flight,out var seed);next=next with{Seed=seed,LastCollision=ring?serial:0};
+                if(ring){return 1;}
+            }
             removed=true;return 2; // CollideKill1; no lifetime hit-set or piercing.
         }
         var result=BasicMissileUpdate.Run(new(true,true,flight.VelocityFp8,flight.Frames-flight.Frame,2,flight.Frames,true),
@@ -207,14 +242,14 @@ internal static class SorceressSpellMissiles
         if(removed||barrier||result.Result==2){Remove(flight.Id);return;}
         // A reactive consumer may have cleared the owner's flights.
         if(_pool.Flights.ContainsKey(flight.Id)){_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,next)};}
-        if(frame%2==0){bool cold=flight.Ability is not(CombatAbility.FireBolt or CombatAbility.Fireball);Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,cold?0x36E4:0x36D4,2,10,cold?0x480:0x489,0);} // Identified shared bolt placeholders.
+        if(frame%2==0&&(!ring||flight.RadialIndex%8==0)){bool cold=Profile(flight.Ability).Element=="cold",lightning=flight.Ability==CombatAbility.Nova;Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,lightning?0x3818:cold?0x36E4:0x36D4,2,10,lightning?0x482:cold?0x480:0x489,0);} // Identified shared bolt placeholders.
     }
     internal static void Tick(DateTime at,bool? actions=null)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Sorceress flight clock must be UTC");}
         while(true)
         {
-            var flight=_pool.Flights.Values.Where(s=>s.NextUtc<=at).OrderBy(s=>s.NextUtc).ThenByDescending(s=>s.Id).FirstOrDefault();if(flight==null){return;}
+            var flight=_pool.Flights.Values.Where(s=>s.NextUtc<=at).OrderBy(s=>s.NextUtc).ThenByDescending(s=>s.Id).FirstOrDefault();if(flight==null){break;}
             try{Advance(flight,at,actions);}
             catch(NotSupportedException e)
             {
@@ -223,17 +258,21 @@ internal static class SorceressSpellMissiles
                 {if(flight.Frame+1>=flight.Frames){Remove(flight.Id);}else{_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,flight with{Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40),Fault=e.Message})};}}
             }
         }
+        var active=_pool.Flights.Values.Where(x=>Ring(x.Ability)).Select(x=>x.Cast).ToHashSet();
+        foreach(var key in Leases.Where(x=>x.Value.UntilUtc<=at||!active.Contains(x.Key.Item1)).Select(x=>x.Key).ToArray()){Leases.Remove(key);}
     }
     private static void Validate(SorceressSpellFlight s)
     {
-        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball))
+        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova))
         {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
-        var profile=Profile(s.Ability);bool capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast;
+        var profile=Profile(s.Ability);bool ring=Ring(s.Ability),capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FrostNova;
         if(s.Id<=0||!((Serial)s.Owner).IsMobile||s.Rank is <1 or >255
             ||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal||s.Z is <-128 or >127
             ||!double.IsFinite(s.X+s.Y+s.Vx+s.Vy)||s.X<=0||s.Y<=0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
-            ||Math.Abs(s.Vx)>0.5||Math.Abs(s.Vy)>0.5||s.VelocityFp8<0||s.VelocityFp8>profile.Velocity*192||s.Frame<0||s.Frames!=profile.Frames||s.Frame>=s.Frames
-            ||(capturedCold?s.ColdFrames<1||s.ColdFrames>(s.Ability==CombatAbility.IceBlast?4035:9040):s.ColdFrames!=0)
+            ||Math.Abs(s.Vx)>(ring?0.5625:0.5)||Math.Abs(s.Vy)>(ring?0.5625:0.5)||s.VelocityFp8<0||s.VelocityFp8>profile.Velocity*192||s.Frame<0||s.Frames!=profile.Frames||s.Frame>=s.Frames
+            ||(capturedCold?s.ColdFrames<1||s.ColdFrames>(s.Ability==CombatAbility.IceBlast?4035:s.Ability==CombatAbility.FrostNova?6550:9040):s.ColdFrames!=0)
+            ||ring&&(s.Cast<=0||s.Cast>s.Id||s.Id!=s.Cast+s.RadialIndex||s.RadialIndex is <0 or >63||s.AccelerationCounter is <0 or >4||s.Slow.VelocityPercent!=100)
+            ||!ring&&(s.Cast!=0||s.RadialIndex!=-1||s.AccelerationCounter!=0||s.LastCollision!=0)
             ||s.Minimum256<0||s.Maximum256<s.Minimum256||s.Modifiers==null||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100
             ||s.NextUtc.Kind!=DateTimeKind.Utc||s.Steps?.Cells is not{Length:>=1 and <=10}
             ||s.Steps.Cells.Any(c=>c.X<0||c.Y<0||c.X>=Map.Maps[s.Map].Width*2||c.Y>=Map.Maps[s.Map].Height*2))
@@ -244,6 +283,13 @@ internal static class SorceressSpellMissiles
         if(saved?.Flights==null||saved.NextId<0){throw new InvalidDataException("Invalid Sorceress flight save");}
         var flights=ImmutableDictionary<long,SorceressSpellFlight>.Empty;
         foreach(var flight in saved.Flights){Validate(flight);if(flight.Id>saved.NextId||flights.ContainsKey(flight.Id)){throw new InvalidDataException("Duplicate Sorceress flight");}flights=flights.Add(flight.Id,Copy(flight));}
-        _pool=new(flights,saved.NextId);Loaded.Clear();foreach(var id in flights.Keys){Loaded.Add(id);}
+        if(saved.Leases==null&&flights.Values.Any(x=>Ring(x.Ability))){throw new InvalidDataException("Missing Sorceress ring leases");}
+        var leases=new Dictionary<(long,uint),WeaponFlightLease>();
+        foreach(var lease in saved.Leases??[])
+        {
+            if(lease.Cast<=0||lease.Cast>saved.NextId||!((Serial)lease.Target).IsMobile||lease.UntilUtc.Kind!=DateTimeKind.Utc||!leases.TryAdd((lease.Cast,lease.Target),lease))
+            {throw new InvalidDataException("Invalid Sorceress ring lease");}
+        }
+        Leases=leases;_pool=new(flights,saved.NextId);Loaded.Clear();foreach(var id in flights.Keys){Loaded.Add(id);}
     }
 }

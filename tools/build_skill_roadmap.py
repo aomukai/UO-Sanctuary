@@ -368,6 +368,18 @@ CAVEATS['sorceress.fireball'] = (
     'native room/radius/filter/order,modern hit1/router/seed/events/pierce/owner/PvP, '
     'old-DLL upgrade and final graphical/assets acceptance remain open;no class certificate.')
 
+for _talent in ('sorceress.nova','sorceress.frostnova'):
+    CAVEATS[_talent] = (
+        'Saved do22 ring replaces the expanding-radius timer with64source-directed rays, '
+        '4608FP8launch velocity,-1000deceleration every fifth active update and13/14frames. '
+        'Shared factory/vector/step/acceleration/element/cold services retain Poison Nova '
+        'and earlier Sorceress regressions. Rank/hard synergies,actual gear,mana/town, '
+        'non-killing collision/LastCollision/cast-local160ms delays,typed potion/cold, '
+        'windup/lifecycle/atomic restore,actual right/quick and two-reload scopes are in '
+        'sorceress-nova-checkpoint.md. Exact modern NextHit identity,first dispatch/seed/ '
+        'critical/events,world/path/footprint/filter/order,PvP,ordinary chill shatter, '
+        'old-DLL upgrade and graphical/assets acceptance remain open;no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
@@ -491,6 +503,7 @@ NATIVE_PARTIAL.add('sorceress.icebolt')
 NATIVE_PARTIAL.add('sorceress.iceblast')
 NATIVE_PARTIAL.add('sorceress.glacialspike')
 NATIVE_PARTIAL.add('sorceress.fireball')
+NATIVE_PARTIAL.update(('sorceress.nova','sorceress.frostnova'))
 LEGACY = {'sorceress.teleport'}
 PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',

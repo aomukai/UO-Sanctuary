@@ -24,6 +24,20 @@ public static class MissileVectors
         new(2709, 3072), new(2722, 3060), new(2736, 3048), new(2749, 3036), new(2762, 3024), new(2775, 3012), new(2788, 3000), new(2800, 2988),
         new(2813, 2977), new(2825, 2965), new(2837, 2953), new(2849, 2942), new(2861, 2930), new(2873, 2919), new(2884, 2907), new(2896, 2896),
     ];
+    // Complete sub_6FD5CEB0 kernel, shared with martial Nova rays.
+    internal static (int Velocity,int Acceleration,int Counter,int X,int Y) Accelerate(int velocity,int acceleration,int counter,int maximum,int basis,int dx,int dy)
+    {
+        if(basis<=0){basis=1024;}
+        if(acceleration!=0 && ++counter>=5)
+        {
+            velocity=unchecked(velocity+acceleration);
+            if(velocity>maximum){velocity=maximum;acceleration=0;}
+            else if(velocity<0){velocity=0;}
+            counter=0;
+        }
+        int magnitude=unchecked(basis*velocity)>>6;
+        return(velocity,acceleration,counter,unchecked(magnitude*dx)>>12,unchecked(magnitude*dy)>>12);
+    }
     public static Point2D Direction(int dx, int dy)
     {
         long x = Math.Abs((long)dx), y = Math.Abs((long)dy);

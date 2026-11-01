@@ -162,18 +162,7 @@ public static class MartialLightning
         foreach(var key in Leases.Where(x=>x.Value.UntilUtc<=at || !active.Contains(x.Key.Item1)).Select(x=>x.Key).ToArray()){Leases.Remove(key);}
     }
     internal static (int Velocity,int Acceleration,int Counter,int X,int Y) VelocityStep(int velocity,int acceleration,int counter,int maximum,int basis,int dx,int dy)
-    {
-        if(basis<=0){basis=1024;}
-        if(acceleration!=0 && ++counter>=5)
-        {
-            velocity=unchecked(velocity+acceleration);
-            if(velocity>maximum){velocity=maximum;acceleration=0;}
-            else if(velocity<0){velocity=0;}
-            counter=0;
-        }
-        int magnitude=unchecked(basis*velocity)>>6;
-        return(velocity,acceleration,counter,unchecked(magnitude*dx)>>12,unchecked(magnitude*dy)>>12);
-    }
+        =>MissileVectors.Accelerate(velocity,acceleration,counter,maximum,basis,dx,dy);
     private static void Advance(ThunderFlight s,bool? allowActions)
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};

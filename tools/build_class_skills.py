@@ -333,6 +333,9 @@ def products():
     # Player Fire Ball uses the same complete hit1 callback as fire arrow areas.
     ball = missiles['fireball']
     summons += [{'key':'fireball','fields':{k:v for k,v in ball.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}}]
+    # Sorceress radial do22 skills share the checked64-offset emitter.
+    for key in ('nova','frostnova'):
+        summons += [{'key':key,'fields':{k:v for k,v in missiles[key].items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}}]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
         'warlock.summongoatman':'Prepared birth suppliers create no summon actor or visual. Final Khazra/Goatman body, equipment appearance and summon/idle/move/hit/death animations, warlock_shadow_cast_2 and Warlock_Skill_Cast_Khazra_03, Stun impact, Berserk/Frenzy state and Cleave sweep/contact audio remain pending. Learned summon remains gated; talent/right/quick icons are separately tracked.',
