@@ -1,0 +1,27 @@
+# Three-element Mage creation and in-place poison migration
+
+Reference baseline: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This increment follows `6d431f1`. The three-element roster and conversion of poison Mages to ice are approved Sanctuary changes, not baseline D2R behavior. The Mage upgrade package and Necromancer remain unfinished.
+
+Before implementation, reviewed `NecromancerSummons` creation/captured birth stats and serialized element field, both plain `NecromancerMinion` and learned `MageWorldBody` layouts, existing load/suspend/roster/difficulty/resource services, intrinsic armor and saved missile/poison consumers. Element is independent of those captured resources and controllers. Reuse the existing field and load hook; no actor clone, new profile/controller or serialization version is needed.
+
+New Raise Skeletal Mage samples three equal host slots, mapped to existing1ice/2fire/3lightning identities. The previous zero identity canonicalizes to ice, including an old supplier returning zero; other out-of-range saved values are explicitly unsupported. Non-Mages retain their existing unused four-slot draw and do not enter migration.
+
+Load conversion changes only the existing Mage element0to1. It does not recapture owner gear/ranks/resources, heal, reroll, consume RNG, commit/prune the roster, replace identity or reset clocks. Supported elements remain unchanged. Existing hard20 poison Mages consequently gain the already-implemented Ice Frozen Armor20 consumer. Historical plain Mage types remain their original type and AI path; this does not claim their queued world-controller rollout.
+
+Already-created missile packets and poison effects retain their original element, damage, source, seeds and lifetime rules. A Mage changing to ice does not rewrite its fired poison missile or cancel another unit's poison. Newly launched baseline missiles use the new cold element. Their replacement Sorceress curves and hard5triples remain pending the recorded Skeleton Mastery mapping; the current baseline is still the bounded NecromageMissile curve.
+
+**Build3/run1/audit1 passes268 native markers across three boots, two reloads and three saves**, retaining all262 predecessor markers. The three-slot mapping,4,096 default samples, actual learned three-element births/zero alias, live idempotence/unknown refusal, non-Mage preservation and existing poison packet/DOT controls pass. Three connected natural sessions convert during the source windup, preserve state/seed/wounds and deliver a cold basic missile at action35 without extra mana.
+
+Four historical plain Minions and four learned world Mages retain their original type/serial/owner, captured ranks/Mastery/resources/base profile/resistances, FIFO order, critical seeds and parked controller state. Both saved poison actors become ice. Full life, a one-FP wound, fractional life and257-FP wounds remain exact over both reloads. A held old poison flight is unchanged; a copied flight still poisons after conversion, while a newly launched packet is cold. The copied resumption leaves the inspected original untouched.
+
+Both clean builds, four audits,71 Python tests,573 named definitions and eight-class/240-skill checks pass. Audit decisions and875/21fingerprint counts are unchanged with fresh source/DLL hashes. Pre-build/native/audit C#, runtime data and five tested DLLs match. Kernel and106 installed artifact hashes remain unchanged. No deployment/save reset;186 handlers/Necromancer30 and no completed class. See the [receipt](../tools/reference/mage-elements-native-evidence.json) and [validator](../tools/record_mage_elements.py).
+
+The older four-element missile fixture now explicitly seeds a legacy poison actor context by restoring its old element field; it no longer models new poison creation. All original packet/critical/poison source controls remain required. Initial fixture review corrected a profile member name before integration; its first integration compile also caught an assertion expecting a rank field that `ColdArmorState` does not store. The corrected assertion compares the full existing prepared level20 armor state.
+
+Saved cohorts use legacy-shaped candidate version0 payloads, not actual installed old-DLL bytes. Parked clock transport and copied resumption are bounded checks, not proof of unheld concurrent saves or every active load/event phase. Broader source-after-removal, current-engine path/filter/room/seed/event/PvP/Sunder/client and final visual behavior remain open.
+
+Next: basic Fire Bolt/Ice Bolt/Charged Bolt and hard5triples, the recorded Skeleton Mastery mapping, historical plain Mage AI rollout and remaining Necromancer gaps. Other approved pets, safe-area parking and barrier phases remain queued. No completed class, deployment or new player binding.
+
+Existing UO Mage bodies and cold/fire/lightning spell cues remain identified placeholders. Final three-element summon/body/idle/movement/cast/contact/death feedback, cold/freeze/shatter and audio remain pending. No dedicated migration flash is required by this mechanical conversion. Tree/right/quick icons stay separately tracked; the element pool adds no separate talent or hotkey.
+
+Reproduce with isolated builds, `tests/check_mage_elements.py`, same-binary audit/payload comparison, Python/named/catalogue checks and `python3 tools/record_mage_elements.py --build 3 --run 1 --audit-run 1 --check`.

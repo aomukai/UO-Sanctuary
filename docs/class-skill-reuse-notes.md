@@ -66,3 +66,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Mage Meteor, Phoenix and fire fields
 
 [Mage Meteor](mage-meteor-checkpoint.md) extends the existing `FireGround` warning/patch/cooldown stores with optional NPC identity/seed context. The same18-offset producer now serves normal player Meteor, Phoenix and NPC Meteor. Keep normal center's direct hit14 distinct from Phoenix center's hit4 child creation. Reuse the first-collider helper and NPC spell receiver with field damage-rate/no-recovery options, retaining the separate actor intrinsic-critical stream; fixed NPC spell contexts must not inherit real-owner Sorceress mastery, synergy, potion or mana policy. Per-caster cooldowns and copied fixture clock steps must preserve unrelated saved player/pet state. Do5 animation/collision-mask RNG and03SOFTHIT subscribers remain separate from field HP transport.
+
+## Mage element migration and retained spell packets
+
+[Three-element Mages](mage-elements-checkpoint.md) reuse the existing serialized element field and base load hook. Element changes require no rank/resource recapture, actor/controller replacement, roster commit, RNG or HP write. Keep already-fired packet element and ongoing poison state independent from the caster's current element. Plain historical types keep their own identity and AI until an explicit controller migration exists; changing a field does not silently grant the world subtype. Reuse existing cold/freeze consumers after conversion, and keep basic-damage/Mastery policy separate.

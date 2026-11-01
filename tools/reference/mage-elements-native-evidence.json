@@ -1,0 +1,101 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Approved three-element Mage creation and in-place poison-to-ice load migration",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 3,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 268,
+    "retainedMageMeteorGlacialChainStaticBuffPlayerPetSentryMarkers": 262,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "defaultSamplerCases": 4096,
+    "savedOriginalMageActors": 8,
+    "savedPoisonConversions": 2,
+    "naturalMidWindupMigrationSessions": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      875,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/mage-elements/birth-inputs.json",
+      "sha256": "42e02d1cc15e348bd6cf1ed8bd42d414e41d003bcb0308289cec8ee4a5ce9797"
+    },
+    "audit": {
+      "path": ".local/class-skills/mage-elements/audit-inputs.json",
+      "sha256": "ee1b92b53ea4412a28c69b3b1acabadea3d4cb4a2563bd19c333cb7c3b6f2b81"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/NecromancerSummons.cs": "f43fd2c7fd13715f3f798fccbb803c4f2594f689a01fcfb669f44ae409119913",
+    "tests/Sanctuary.Integration/MageElementChecks.cs": "340262f7b7bd13aa885060660202a3484b3fd9aa8fcc863fa242e7a9d86370f3",
+    "tests/Sanctuary.Integration/MageMissileChecks.cs": "907212d4cbdacbd65c3a6cb69c4e40948d5416abccde7dd6f06803a23119fda5"
+  },
+  "artifacts": {
+    ".local/class-skills/mage-elements/audit-inputs.json": "ee1b92b53ea4412a28c69b3b1acabadea3d4cb4a2563bd19c333cb7c3b6f2b81",
+    ".local/class-skills/mage-elements/audit-native-checks.log": "4251a3759716d784c5f163978bd970276f6ed1be49ea4c2b5cb4da119d5df75f",
+    ".local/class-skills/mage-elements/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/mage-elements/birth-inputs.json": "42e02d1cc15e348bd6cf1ed8bd42d414e41d003bcb0308289cec8ee4a5ce9797",
+    ".local/class-skills/mage-elements/birth-native-checks.log": "12352ad1bf6f6d078ba04b73e343970bab32ffd96a5ae6151a79f85794f2942e",
+    ".local/class-skills/mage-elements/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/mage-elements/content-build-1.log": "3a7c47a3eb7b9ce4774e76f66c2166a1252a4bd052befa88b919f0403ee2839b",
+    ".local/class-skills/mage-elements/content-build-2.log": "98609e6decba8ba0eab87162e1f2f53d34bf079ecce307615f81718727bf6ab0",
+    ".local/class-skills/mage-elements/content-build-3.log": "0ef5ea84241765d4e4da6d3e5a3a4abb7ed69f9f5271716f961b04d36787cb48",
+    ".local/class-skills/mage-elements/first-loop-affix-audit.json": "fe71dc4a46b68198cf20e065eca1f031e9c37b656fb85fdc36f65c1d0b18f0d2",
+    ".local/class-skills/mage-elements/integration-build-2.log": "b54e16a022679cb08b13897468df67421119cd42c7842b6793db1c668e46406f",
+    ".local/class-skills/mage-elements/integration-build-3.log": "70c95cdfd65e0dcfcf486ddcbe479e3abbad798f86793952a4203fb6c1299d6a",
+    ".local/class-skills/mage-elements/mage-elements-fixtures.json": "fa5686fd06efd88ae743c2b3aef71f33bc0f4dfdd5a7a418219effbe9059370d",
+    ".local/class-skills/mage-elements/named-item-runtime-audit.json": "97b7ddb5bb0741510c2f764cf5c3d7574e589d645904c9c192a76a5b65bc33c7",
+    ".local/class-skills/mage-elements/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/mage-elements/pre-build-1.json": "c22bf5889803c5193403dc481696fa35c8f519310b97985d4502d2a49cca83f2",
+    ".local/class-skills/mage-elements/pre-build-2.json": "6f1f6fe11834492c34ec483fe0f999bba702c194e10272720c5f84af5840d4bf",
+    ".local/class-skills/mage-elements/pre-build-3.json": "f178c92f5a26c3a8b25706aa670842394fce1c612877c4c8ea000b0ffc032440",
+    ".local/class-skills/mage-elements/python-tests.log": "fd307323dd64c8ea5543c806ef190f8f77bb3fc2587d184e9007b7a510deb38a",
+    ".local/class-skills/mage-elements/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/mage-meteor/birth-native-checks.log": "c9a33c8f7cdfaedc148492812a27b963d5edd479de820958069999a28de198ee",
+    "data/Sanctuary/Balance/necromancer-summons.json": "5dc16d6bfdc26fccd349dac82ac970ce24a3a5e519ce6153f045022a83276f8a",
+    "docs/class-skill-reuse-notes.md": "bdcbda422718a06538bb3d9d0484c09014b5252105c67bb23ffb46f335767b1b",
+    "docs/class-skill-roadmap.md": "760b26811bd3280482d2d53b0e0dfacb3ae611eb1921e67d3b5e763c397fd624",
+    "docs/class-skills-resume-checkpoint.md": "c2fdc27378d16bcd3648d3a6aebb693929f685d1eff1a57a6b3d19ef9c93fe0c",
+    "docs/mage-elements-checkpoint.md": "cf751143432905a3d8c9a3a24e34dd6eae0574f6714894d4eac54667df9019b1",
+    "docs/necromancer-mechanical-audit.md": "22555458184ca681dde52fd41f7358d58aba5d243696b6027b55884d60ad0b73",
+    "docs/pet-adjustment-review.md": "baec464b220a37cf462f608cb5d8f634559cab2cf9feb9cdbebc2bef0f02b136",
+    "docs/skeletal-mage-upgrade-plan.md": "782116e1c223c99867d9975f17fdbc2806345a53d3be05c32c2216b99f081df6",
+    "docs/skill-effects.md": "f1699c5266644be19f64fce7fa6d15899b5f74effbf03f425a8fbc7200df359b",
+    "docs/skill-icons.md": "663592dc64298efd1a63fe9a8d8743dbc3a759803a7f6ea204980361ed62fd42",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "f43fd2c7fd13715f3f798fccbb803c4f2594f689a01fcfb669f44ae409119913",
+    "tests/Sanctuary.Integration/MageElementChecks.cs": "340262f7b7bd13aa885060660202a3484b3fd9aa8fcc863fa242e7a9d86370f3",
+    "tests/Sanctuary.Integration/MageMissileChecks.cs": "907212d4cbdacbd65c3a6cb69c4e40948d5416abccde7dd6f06803a23119fda5",
+    "tests/check_mage_elements.py": "c2239da9abb8d120b05a45764dd6843de09ef2de993c31bf0ba948209266274e",
+    "tools/build_class_skills.py": "a0073f9378792e5ab2e340c60fa28886adcdfbbc1efcbf7f27f425318144ba09",
+    "tools/record_mage_elements.py": "d78fc6e339466e7d9cf7454bda552227d09ab2b620bc8a05d62769cc2194c835",
+    "tools/reference/mage-meteor-native-evidence.json": "0a6772bd7156a0d067e85a0a418f5b44745c4e4639a27ba0f4d7e4f6a56ded12",
+    "tools/reference/sentry-target-source-evidence.json": "323e879a3b5d4cd596142479bc6ac343935dbc1437852b162a0d79139e477d0f",
+    "tools/reference/tornado-pulse-source-evidence.json": "826731c8f639db014683e208a418f6d2d760cbae48f482ec823f28048dbee822"
+  },
+  "established": [
+    "New Raise Skeletal Mage draws uniformly from three host slots mapped to existing element identities1ice/2fire/3lightning. The legacy zero alias canonicalizes to ice;other unknown values are explicitly unsupported. Non-Mages retain their prior unused four-slot draw and do not migrate.",
+    "Existing serialized element field/version0/type/serial is reused. Load migration only changes Mage0to1,without new actor,controller,profile,rank/resource recapture,RNG,healing,roster commit or projectile/DOT rewrite. Existing supported elements remain identical. Converted hard20 Mages acquire the existing intrinsic Frozen Armor20 consumer.",
+    "Three slot mappings,4096default samples,actual learned births/zero alias,live idempotence/unknown refusal,non-Mage and existing poison packet/DOT controls pass. Four historical plain Minions and four world Mages preserve owner/type/serial,ranks,Mastery,derived profile/resources,resistances,FIFO order,critical seed and parked clocks across2reloads. Full,one-FP and fractional current life are covered.",
+    "A held old poison missile remains byte-equal across conversion/reloads;a copied flight still applies poison after its caster becomes ice. A new missile from that actor uses the existing cold baseline. Three connected natural sessions migrate in place during source windup,retain state/seed/wounds and launch/damage with the cold packet at action35 without extra mana.",
+    "All262 predecessor markers,71Python,4audits and named/catalogue checks pass. Older four-element missile controls explicitly seed a legacy poison context rather than represent new poison creation. Runtime data,audit decisions,kernel and106installed hashes remain unchanged."
+  ],
+  "remaining": [
+    "Replacement basic Sorceress spells,hard5triples and the recorded Skeleton Mastery mapping remain required;current basic packets still use the bounded NecromageMissile curves. All fixed-rank secondaries/buffs are already bound for the new world subtype. Historical plain Mage AI rollout remains queued;in-place element conversion does not grant a new controller.",
+    "Saved cohorts are candidate version0 legacy-shaped field payloads with original identities,not a real installed old-DLL byte upgrade. Parked controller transport and copied resumption do not certify unheld concurrent saves,all active load/event ordering or exact modern engine/world/client/seed geometry.",
+    "Existing poison packet/DOT lifetime rules remain intact;full source-after-removal/PvP/Sunder/event and native glyph/appearance behavior remain broader reference gaps. The three-element pool and poison-to-ice conversion are approved Sanctuary deviations,not D2R baseline claims.",
+    "Other approved pets,safe-area parking,barrier phases and remaining class/skill mechanics stay queued. No completed class,deployment,new player binding or final effects/audio/icons;shared placeholder bodies and elemental spell cues remain explicit."
+  ]
+}

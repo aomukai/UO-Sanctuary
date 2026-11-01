@@ -13,7 +13,9 @@ namespace Sanctuary;
 public sealed record SummonSource(string Key, Dictionary<string, System.Text.Json.JsonElement> Fields);
 public static class NecromancerSummons
 {
-    internal static Func<int> ElementRoll=()=>Utility.Random(4);
+    internal static Func<int> ElementRoll=()=>MageElementFromSlot(Utility.Random(3));
+    internal static int MageElementFromSlot(int slot)=>slot is >=0 and <3?slot+1:throw new ArgumentOutOfRangeException(nameof(slot));
+    internal static int CanonicalMageElement(int element)=>element==0?1:element is >=1 and <=3?element:throw new NotSupportedException("Unsupported saved Mage element: "+element);
     private static readonly Dictionary<string, Dictionary<string, System.Text.Json.JsonElement>> _sources = new(StringComparer.OrdinalIgnoreCase);
     public static void Load()
     {
@@ -88,6 +90,13 @@ public partial class NecromancerMinion : SkeletonGuardian
     public int VelocityPercent => Kind==CombatAbility.None?0:Passive("velocitypercent");
     public bool IsMage => Kind == CombatAbility.RaiseSkeletalMage;
     internal int MageElement=>_element;
+    // Element is independent of captured birth resources, ranks, ownership,
+    // actor clocks and already-created spell packets. Preserve those in place.
+    internal bool MigrateMageElement()
+    {
+        if(!IsMage){return false;}int next=NecromancerSummons.CanonicalMageElement(_element);
+        if(next==_element){return false;}_element=next;return true;
+    }
     internal int MageMissileRank=>IsMage?checked((int)Values(Kind).Eval("sumsk1calc")):0;
     private Dictionary<string, int> Snapshot => _snapshot ??= JsonSerializer.Deserialize<Dictionary<string, int>>(_ranks);
     internal SkillValues CapturedValues=>Values(Kind);
@@ -154,7 +163,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             _snapshot[row.SourceKey] = NamedSkills.Rank(owner, row.TalentId);
             _snapshot["base:" + row.SourceKey] = ClassCreation.Profiles.GetRank(owner.Serial, row.TalentId);
         }
-        _ranks = JsonSerializer.Serialize(_snapshot); _element = NecromancerSummons.ElementRoll(); _resistance = NecromancerSummons.Resistance(owner);
+        _ranks = JsonSerializer.Serialize(_snapshot); _element = IsMage?NecromancerSummons.CanonicalMageElement(NecromancerSummons.ElementRoll()):Utility.Random(4); _resistance = NecromancerSummons.Resistance(owner);
         Initialize(owner, SkillMechanics.Rank(owner, ability), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         Appearance(); _summonProfile = null; SetHits(CombatProfile.Life); SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
         RefreshResistances();
@@ -288,7 +297,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     [AfterDeserialization] private void AfterSummonLoad()
     {
-        _snapshot = null; _summonProfile = null; _mageBirth=null; _nextAura = Core.TickCount + 2000; Appearance();
+        _snapshot = null; _summonProfile = null; _mageBirth=null; _nextAura = Core.TickCount + 2000; MigrateMageElement(); Appearance();
         int life = Hits; SetHits(CombatProfile.Life); Hits = Math.Min(life, HitsMax);
         SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
     }

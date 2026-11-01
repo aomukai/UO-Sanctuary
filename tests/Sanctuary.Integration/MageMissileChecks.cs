@@ -31,7 +31,10 @@ public static class MageMissileChecks
     private static (PlayerMobile Owner,NecromancerMinion Mage,GraveyardSkeleton Target) Scene(int element,int dx=5)
     {
         var p=PoisonDaggerChecks.Owner();Train(p,SkillMechanics.For(CombatAbility.RaiseSkeletalMage).TalentId);var roll=NecromancerSummons.ElementRoll;
-        var mage=new NecromancerMinion();try{NecromancerSummons.ElementRoll=()=>element;mage.Prepare(p,CombatAbility.RaiseSkeletalMage);}finally{NecromancerSummons.ElementRoll=roll;}
+        var mage=new NecromancerMinion();try{NecromancerSummons.ElementRoll=()=>element==0?1:element;mage.Prepare(p,CombatAbility.RaiseSkeletalMage);}finally{NecromancerSummons.ElementRoll=roll;}
+        // Explicit legacy source fixture: poison is no longer a new-summon
+        // option, but already-created poison packets still need their controls.
+        if(element==0){typeof(NecromancerMinion).GetField("_element",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(mage,0);}
         Require(mage.SetControlMaster(p),"Mage ownership");mage.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);mage.AIObject.AITimer.Stop();
         PersistentMinions.Profiles.Track(mage);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);
         foreach(var resistance in Enum.GetValues<ResistanceType>()){target.SetResistance(resistance,0);}TimedEffects.PreventHealing(target,TimedEffects.Now);return(p,mage,target);

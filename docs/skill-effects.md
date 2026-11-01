@@ -1,5 +1,7 @@
 # Skill effects
 
+The [three-element Mage roster](mage-elements-checkpoint.md) reuses existing body and cold/fire/lightning cue placeholders. Final element-distinct summon/body/cast/contact/death and cold/freeze/shatter feedback/audio remain pending. In-place poison-to-ice conversion adds no required migration animation; old poison missile/DOT visuals must follow their actual remaining states.
+
 The [Mage Meteor secondary](mage-meteor-checkpoint.md) shares warning `0x3709`, impact `0x36BD` and ground `0x398C`/hue`0x489` as identified placeholders. Final warning/fall/explosion/ground lifetime/contact feedback and audio remain pending; reuse eventual Sorceress Meteor assets.
 
 The [Mage Glacial secondary](mage-glacial-checkpoint.md) reuses cold travel `0x36E4` and explosion `0x36E4`/hue`0x480` as identified placeholders. Final cast/travel/explosion/freeze/thaw/shatter feedback and audio remain pending; share eventual Sorceress Glacial Spike assets.
