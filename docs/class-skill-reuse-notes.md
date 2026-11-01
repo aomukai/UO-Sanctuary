@@ -54,3 +54,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Mage Static Field and player area damage
 
 [Static integration](mage-static-checkpoint.md) shares one player/NPC receiver and explicit caster/allegiance targeting; a Mage area is centered at its own position. Keep player mana/class wrappers outside NPC delivery. Facet difficulty supplies the shared floor. Whole-HP source preparation and FP256 receiver life are distinct stages; legacy negative-resistance precompensation/current typed receiver order remain unresolved. A five-percent policy slot is not an implemented secondary: only routes with actual delivery/cooldown bindings may be available.
+
+## Mage Chain Lightning and saved player flights
+
+[Mage Chain](mage-chain-checkpoint.md) extends the existing saved flight/hop/cast-delay implementation with optional NPC source/seed/slow fields. Keep player live child synergies/mastery separate from fixed NPC values; NPC caster identity controls origin/LOS and damage attribution while the real owner supplies allegiance. The extracted Mage impact consumer preserves intrinsic-critical transport. Atomic restore protects unrelated flights; inspected copied resumption is not unheld save acceptance.

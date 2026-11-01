@@ -141,26 +141,28 @@ internal static class NecromancerMageMissiles
             s.Packet.Element=="cold"?0x36E4:s.Packet.Element=="fire"?0x36D4:s.Packet.Element=="pois"?0x36BD:0x3818,2,10,0,0);} // Identified placeholders.
     }
     internal static int Impact(NecromancerMinion actor,Mobile target,MageMissileState s)
+        =>ImpactSpell(actor,target,s.Packet,s.Owner,s.Seed,s.NextUtc);
+    internal static int ImpactSpell(NecromancerMinion actor,Mobile target,MageMissilePacket packet,uint owner,ulong stream,DateTime at)
     {
-        SorceressEffects.MissileHit(actor,target,s.Packet.Missile);
-        ulong stream=s.Seed;int raw=WeaponMissileDamage.RollValue(s.Packet.Minimum256,s.Packet.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));
-        bool blocked=ClassAvoidance.Missile(target,s.Packet.Missile);
-        if(!Seeds.TryGetValue(s.Actor,out var state)||state.Owner!=s.Owner){throw new NotSupportedException("Missing mage intrinsic critical stream");}
+        SorceressEffects.MissileHit(actor,target,packet.Missile);
+        int raw=WeaponMissileDamage.RollValue(packet.Minimum256,packet.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));
+        bool blocked=ClassAvoidance.Missile(target,packet.Missile);
+        if(!Seeds.TryGetValue(actor.Serial.Value,out var state)||state.Owner!=owner){throw new NotSupportedException("Missing mage intrinsic critical stream");}
         ulong criticalSeed=state.Seed;int crit=NecromancerSummons.Source("necromage","Crit");
         bool critical=NpcEquipmentCritical.Intrinsic(new(0,0,0,crit),()=>SourceRandom.Roll(ref criticalSeed));
-        Seeds[s.Actor]=state with{Seed=criticalSeed};if(blocked){return 0;}if(critical){raw=checked(raw*2);}
+        Seeds[actor.Serial.Value]=state with{Seed=criticalSeed};if(blocked){return 0;}if(critical){raw=checked(raw*2);}
         actor.DoHarmful(target,true);int before=SkillHealth.Balance256(target);
-        if(s.Packet.Element=="pois")
+        if(packet.Element=="pois")
         {
             int resist=NamedElements.Resistance(actor,target,"pois",target.PoisonResistance);
-            var poison=PoisonPackets.Mitigate(raw,s.Packet.ElementFrames,target is PlayerMobile,resist,ItemDurationDefenses.PoisonLength(target),0,target is PlayerMobile p?Math.Max(0,ClassGear.Bonus(p,"res-pois-max")):0,0);
-            poison.Commit(actor,target,s.NextUtc);SkillHealth.Damage(actor,target,poison.Rate256); // Existing older-source initial-rate bridge.
+            var poison=PoisonPackets.Mitigate(raw,packet.ElementFrames,target is PlayerMobile,resist,ItemDurationDefenses.PoisonLength(target),0,target is PlayerMobile p?Math.Max(0,ClassGear.Bonus(p,"res-pois-max")):0,0);
+            poison.Commit(actor,target,at);SkillHealth.Damage(actor,target,poison.Rate256); // Existing older-source initial-rate bridge.
         }
         else
         {
-            var parts=s.Packet.Element switch{"fire"=>new GearDamage(0,raw/256.0,0,0,0),"cold"=>new(0,0,raw/256.0,0,0),"ltng"=>new(0,0,0,raw/256.0,0),_=>throw new NotSupportedException("Unsupported mage element")};
+            var parts=packet.Element switch{"fire"=>new GearDamage(0,raw/256.0,0,0,0),"cold"=>new(0,0,raw/256.0,0,0),"ltng"=>new(0,0,0,raw/256.0,0),_=>throw new NotSupportedException("Unsupported mage element")};
             var damage=SkillCombat.MitigatePrepared(actor,target,parts);
-            if(s.Packet.Element=="cold"){ColdStates.Apply(actor,target,s.Packet.ElementFrames,TimedEffects.TickAt(s.NextUtc));}
+            if(packet.Element=="cold"){ColdStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
             int loss=SkillHealth.Damage(actor,target,NamedElements.To256(damage.Total));if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,actor,loss);}CombatDamage.Finish(target,actor);
         }
         return Math.Max(0,before-SkillHealth.Balance256(target));

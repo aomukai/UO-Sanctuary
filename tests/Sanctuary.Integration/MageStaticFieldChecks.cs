@@ -26,7 +26,7 @@ public static class MageStaticFieldChecks
     private static PlayerMobile Owner(int rank=20)=>MagePetBuffChecks.Owner(rank,7000,3300);
     private static GraveyardSkeleton Target(PlayerMobile p,MageWorldBody b,int dx=4,int resistance=0)
     {var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(new(b.X+dx,b.Y,b.Z),p.Map);t.SetHits(1000);t.Hits=t.HitsMax;t.SetResistance(ResistanceType.Energy,resistance);TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
-    private static ulong Seed(int minimum,int maximum,bool ai=true)
+    internal static ulong Seed(int minimum,int maximum,bool ai=true)
     {
         for(ulong n=1;n<100000;n++){ulong s=n;if(ai&&(SourceRandom.Roll(ref s)%100<15||SourceRandom.Roll(ref s)%100>=80)){continue;}int p=(int)(SourceRandom.Roll(ref s)%100);if(p>=minimum&&p<=maximum){return n;}}
         throw new InvalidOperationException("No Static proc seed");
@@ -60,7 +60,10 @@ public static class MageStaticFieldChecks
         {
             var helm=PoisonDaggerChecks.Named(p,"Wormskull");Require(SkillMechanics.Rank(p,CombatAbility.RaiseSkeletalMage)==20&&MagePetBuffs.HardRank(mage)==19,"Static soft fixture");
             ulong seed=Seed(5,9,false);NecromancerMageMissiles.SetActorSeed(mage,seed);int hp=SkillHealth.Balance256(t);
-            Require(mage.Launch(p,t,TimedEffects.Now)&&Bolt(mage)&&NecromancerMageMissiles.ActorSeed(mage).Seed==seed&&SkillHealth.Balance256(t)==hp,"Soft19+1 unlocked proc or consumed an actor draw");
+            ulong below=seed;SourceRandom.Roll(ref below);
+            // Chain is now eligible at hard10, so this cast legitimately draws
+            // once even though the reserved Static slot is still locked.
+            Require(mage.Launch(p,t,TimedEffects.Now)&&Bolt(mage)&&NecromancerMageMissiles.ActorSeed(mage).Seed==below&&SkillHealth.Balance256(t)==hp,"Soft19+1 unlocked Static or lost the existing Chain proc draw");
             var bolts=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(bolts with{Bolts=bolts.Bolts.Where(x=>x.Actor!=mage.Serial.Value).ToArray()});
             p.Backpack.DropItem(helm);ClassGear.Refresh(p);MagePetBuffChecks.Train(p,"necromancer.skeletalmage",20);int mana=NecromancerEffects.ManaBalance256(p),npcMana=mage.Mana;
             NecromancerMageMissiles.SetActorSeed(mage,seed);ulong expected=seed;SourceRandom.Roll(ref expected);

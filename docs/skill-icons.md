@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Mage Chain secondary](mage-chain-checkpoint.md) is automatic and adds no player hotkey or separate icon. Raise Skeletal Mage still needs its pending tree/right/quick artwork; final effects/audio remain separately tracked.
+
 The [Mage Static secondary](mage-static-checkpoint.md) adds no player binding or separate hotkey icon. Raise Skeletal Mage still needs its existing tree/right/quick artwork. Static effects/audio remain tracked separately.
 
 The [Mage hard20 buffs](mage-pet-buffs-checkpoint.md) add no player action. Raise Skeletal Mage keeps its pending talent-tree/right/quick artwork; automatic Enchant and intrinsic Frozen Armor need no extra hotkey icons. Effects/audio remain separately tracked.
