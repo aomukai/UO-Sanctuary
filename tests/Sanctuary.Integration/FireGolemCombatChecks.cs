@@ -33,7 +33,11 @@ public static class FireGolemCombatChecks
     private static FireGolemBody Pet(PlayerMobile p)
     {
         Require(NecromancerSummons.Create(p,CombatAbility.FireGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Actual learned Fire creation");
-        var b=NecromancerGolems.For(p).OfType<FireGolemBody>().Single();b.AIObject.AITimer.Stop();return b;
+        var learned=NecromancerGolems.For(p).OfType<FireGolemBody>().Single();Require(learned is FireGolemWorldBody,"Learned Fire world subtype");learned.Delete();
+        // Retain historical direct/native-hook coverage; actual learned world
+        // attacks and periodic pulses are checked by FireGolemWorldChecks.
+        var b=new FireGolemBody();b.Prepare(p,CombatAbility.FireGolem);Require(b.SetControlMaster(p),"Historical Fire owner");
+        b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(b);return b;
     }
     private static GraveyardSkeleton Target(PlayerMobile p)
     {

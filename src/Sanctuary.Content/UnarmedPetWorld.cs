@@ -13,6 +13,14 @@ internal interface IUnarmedGroundPet
     int GroundVelocityPercent{get;}
 }
 
+// Periodic skills have their own cadence, including while ordinary AI is
+// frozen. Skipped offline frames advance phase without releasing catch-up hits.
+internal interface INecromancerGroundPeriodic
+{
+    void GroundFrame(int frame,DateTime at);
+    void GroundSkipped(int frame);
+}
+
 // Shared owner/state/contact lifecycle. Actor classes retain their original
 // serialized field/layout and supply historical native fallback hooks.
 internal sealed class UnarmedPetWorld(SkeletonGuardian body,string profile,Func<string> read,Action<string> write,

@@ -1,5 +1,7 @@
 # Skill icons
 
+The [learned Fire world controller](fire-golem-world-checkpoint.md) adds no bindable action. Existing Fire Golem talent-tree and right/quick-hotkey artwork remains pending; autonomous aura/retirement helpers need no additional icon. Effects/audio stay separately tracked.
+
 The [learned Blood world controller](blood-golem-world-checkpoint.md) adds no player-bindable action. Blood Golem still needs the existing talent-tree and right/quick-hotkey icons. Automatic healing/movement/lifecycle require no additional icon; final effects/audio remain separately tracked.
 
 The [learned Clay world controller](clay-golem-world-checkpoint.md) adds no bindable skill. Clay Golem still needs its existing talent-tree and right/quick-hotkey artwork; autonomous AI/contact/lifecycle helpers need no separate icon. Final effects/audio remain in their own register.

@@ -58,7 +58,7 @@ public static class FireGolemBirthChecks
     {
         p.Mana=p.ManaMax;int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.FireGolem).Mana256;
         Require(NecromancerCombat.Release(p,CombatAbility.FireGolem,Serial.Zero,new(p.X+1,p.Y,p.Z)),"Learned Fire release");
-        var b=NecromancerGolems.For(p).OfType<FireGolemBody>().Single();b.AIObject.AITimer.Stop();b.SuspendActions();
+        var b=NecromancerGolems.For(p).OfType<FireGolemBody>().Single();Require(b is FireGolemWorldBody,"Learned Fire birth world subtype");b.AIObject.AITimer.Stop();b.SuspendActions();
         Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&SkillHealth.Balance256(b)==84134&&SkillHealth.Maximum256(b)==84134&&b.SourceRegeneration256==61,"Fire paid once/birth328.6484375HP/source61FP recovery");
         Require(b.PhysicalResistance==0&&b.ColdResistance==0&&b.EnergyResistance==0&&b.PoisonResistance==0&&b.FireResistance==142&&b.FireAbsorb==58,"Current Fire innate resistances");return b;
     }
@@ -154,7 +154,7 @@ public static class FireGolemBirthChecks
                 if(session.PendingAbility==CombatAbility.FireGolem&&!began){Require(NecromancerEffects.ManaBalance256(p)==mana&&NecromancerGolems.For(p).Length==0,"Fire input created/paid during windup");began=true;Log.Information("{Label}: windup",label);}
                 var pet=NecromancerGolems.For(p).OfType<FireGolemBody>().SingleOrDefault();
                 if(pet==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                Require(began&&pet.SourceLife256==84134&&SkillHealth.Balance256(pet)==84134&&pet.SourceRegeneration256==61&&pet.FireResistance==142
+                Require(began&&pet is FireGolemWorldBody&&pet.SourceLife256==84134&&SkillHealth.Balance256(pet)==84134&&pet.SourceRegeneration256==61&&pet.FireResistance==142
                     &&NecromancerEffects.ManaBalance256(p)==mana-cost,"Actual Fire input/resource/payment");Clean();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean();Log.Error(e,"{Label}-result: failed",label);}

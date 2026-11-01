@@ -44,7 +44,7 @@ public static class NecromancerSummons
         if(ability==CombatAbility.FireGolem){try{NecromancerFireBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
         if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
-        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemWorldBody(),CombatAbility.BloodGolem=>new BloodGolemWorldBody(),CombatAbility.FireGolem=>new FireGolemDeathBody(),_=>new NecromancerMinion()};
+        NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemWorldBody(),CombatAbility.BloodGolem=>new BloodGolemWorldBody(),CombatAbility.FireGolem=>new FireGolemWorldBody(),_=>new NecromancerMinion()};
         bool committed=false;
         try
         {
@@ -53,6 +53,7 @@ public static class NecromancerSummons
             pet.MoveToWorld(point, owner.Map);pet.IssueOrder(OrderType.Guard,null);
             if(pet is ClayGolemWorldBody clay){clay.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));}
             if(pet is BloodGolemWorldBody blood){blood.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));}
+            if(pet is FireGolemWorldBody fire){fire.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));}
             PersistentMinions.Profiles.Track(pet);
             // Complete candidate setup before replacing a paid existing pet.
             pet.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);

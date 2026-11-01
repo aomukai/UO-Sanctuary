@@ -236,7 +236,7 @@ internal static class IronGolemWorld
     internal static void Advance(SkeletonGuardian body,DateTime at,bool actions)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Iron Golem world clock must be UTC");}
-        if(body.Deleted||Controller(body) is not{} s||s.Fault!=null||s.NextUtc>at){return;}
+        if(body.Deleted||!body.Alive||Controller(body) is not{} s||s.Fault!=null||s.NextUtc>at){return;}
         if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=Owner(body)){body.Delete();return;}
         if(TakeLoaded(body)){Skip(body,s,at);return;}
         if(!PersistentMinions.Active(owner,body)||!body.Permitted(owner)||!actions||owner.Map==null||owner.Map==Map.Internal)
@@ -249,12 +249,14 @@ internal static class IronGolemWorld
         {if(!Teleportation.Space(owner.Map,owner.Location,body,true)){return;}s=Neutral(Relocate(body,s,owner.Location,owner.Map),1);}
         if(s.Map!=body.Map.MapID||body.X!=(Cell(s).X+1)/2||body.Y!=(Cell(s).Y+1)/2)
         {s=Neutral(s with{Map=body.Map.MapID,Motion=DruidRavenMotion.Center(body.X*2,body.Y*2)},1);}
-        while(!body.Deleted&&s.NextUtc<=at)
+        while(!body.Deleted&&body.Alive&&s.NextUtc<=at)
         {
             var frameAt=s.NextUtc;s=s with{Frame=checked(s.Frame+1),NextUtc=s.NextUtc.AddMilliseconds(40)};
             if(!body.Poisoned&&TimedEffects.CanRegenerateHits(body))
             {NpcEquipmentRegeneration.Apply(body,NpcEquipmentRegeneration.Delta(BattleOrders.Regeneration256(body),NpcEquipmentRegeneration.ItemRate(body),0,false,false));}
-            if(body.Deleted){return;}
+            if(body.Deleted||!body.Alive){return;}
+            if(body is INecromancerGroundPeriodic periodic){periodic.GroundFrame(s.Frame,frameAt);}
+            if(body.Deleted||!body.Alive){return;}
             if(body.Frozen||body.Paralyzed||CreatureHitRecovery.Remaining(body)>0||SourceKnockbacks.Remaining(body)>0){s=Park(s);Store(body,s);continue;}
             if(s.Mode==2)
             {
@@ -275,21 +277,25 @@ internal static class IronGolemWorld
                         hit=(contact.Packet.ResultFlags&SourceMeleeResult.Successful)!=0;
                     }
                 }
-                if(body.Deleted){return;}
+                if(body.Deleted||!body.Alive){return;}
                 s=s with{ActionAt=0,Attempts=checked(s.Attempts+1),Hits=checked(s.Hits+(hit?1:0))};
                 if(!ReferenceEquals(Controller(body),prior)){s=Park(s);}
             }
             if(s.Mode is 4 or 8&&s.EndAt==s.Frame)
             {
                 int initial=s.Mode==8&&body is IUnarmedGroundPet?s.NextThink:0;
-                s=Neutral(s);if(initial>s.Frame){s=s with{NextThink=initial};}
+                s=Neutral(s);if(initial>=s.Frame){s=s with{NextThink=initial};}
             }
             if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}
             Store(body,s);body.AIObject?.AITimer.Stop();
         }
     }
     private static void Skip(SkeletonGuardian body,IronGolemWorldState s,DateTime at)
-    {long frames=(at-s.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;Store(body,Park(s with{Frame=checked(s.Frame+(int)frames),NextUtc=s.NextUtc.AddMilliseconds(frames*40)}));}
+    {
+        long frames=(at-s.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;
+        var next=Park(s with{Frame=checked(s.Frame+(int)frames),NextUtc=s.NextUtc.AddMilliseconds(frames*40)});
+        if(body is INecromancerGroundPeriodic periodic){periodic.GroundSkipped(next.Frame);}Store(body,next);
+    }
     internal static void Fault(SkeletonGuardian body,string reason)
     {if(Controller(body) is{} s){Store(body,Park(s) with{Fault=reason});}}
 }

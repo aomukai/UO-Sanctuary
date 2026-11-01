@@ -1,5 +1,7 @@
 # Fire Golem world-controller preflight
 
+Rollout follow-up: the [world checkpoint](fire-golem-world-checkpoint.md) now records the implemented learned actor, tie correction, independent aura and retirement detachment, with174native markers/two reloads. The text below is the historical preflight; its no-rollout statement describes commit4de2502, not the current source. Initial aura/priority and modern parity gaps remain open.
+
 1 November 2026, following accepted Blood world commit `00a2907`. Reference remains **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. **Fire still uses its existing learned native actor/controller. No new Fire world actor or factory rollout is enabled by this preflight.** The goal and Necromancer audit remain open.
 
 Reviewed `UnarmedPetWorld`, `IronGolemWorld`, `FireGolemBody`, `FireGolemAura`, `FireGolemDeathBody`, `NecromancerMinion.OnThink`, shared Paladin aura services and existing Fire birth/combat/absorption/aura/death checks before designing the binding. Movement/contact and ordinary owner/load lifecycle can reuse the current ground controller; Fire's independent pulse and delayed death require explicit integration.
