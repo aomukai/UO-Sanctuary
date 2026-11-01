@@ -417,6 +417,19 @@ CAVEATS['sorceress.lightning'] = (
     'effects/audio/icons remain open. Shared12tile aim admission remains an adapter; '
     'no class certificate.')
 
+CAVEATS['sorceress.chargedbolt'] = (
+    'Saved player source38/do17/missile56 volleys now reuse checked charged '
+    'heading/seed/path/Advance and shared do1/collision/elemental services. '
+    'The exact reused initializer caps Range98 to77frames;count is3+rank-1 capped24. '
+    'Captured ranks/positive mastery/gear/Slow Missiles,independent packet/path '
+    'identity,once-only mana,live potion/resistance,765goldens/32emission contexts, '
+    'atomic deep-copy/restore,lifecycle/actual right/quick/two-reload controls are in '
+    'sorceress-charged-flight-checkpoint.md. Complete800older emitter contexts reuse '
+    'initializer45/path2160 proofs without claiming a modern executable. Native '
+    'room/path rebuild/projection/candidate order,factory/global RNG/initial dispatch/ '
+    'events,PvP/Sunder,old-DLL/client/unheld saves and final assets remain open. '
+    'Shared12tile aim admission remains an adapter;no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',

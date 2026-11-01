@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Server;
 using Server.Logging;
 using Server.Mobiles;
@@ -40,14 +41,19 @@ public static class ChargedBoltChecks
         first.MoveToWorld(owner.Location, owner.Map); first.AIObject.AITimer.Stop(); first.SetHits(5000); first.Hits = first.HitsMax; first.SetResistance(ResistanceType.Energy, 0);
         var behind = new GraveyardSkeleton { Frozen = true, CantWalk = true, NoKillAwards = true };
         behind.MoveToWorld(new Point3D(owner.X + 3, owner.Y, owner.Z), owner.Map); behind.AIObject.AITimer.Stop(); behind.SetHits(5000); behind.Hits = behind.HitsMax;
-        int life = first.Hits, untouched = behind.Hits, mana = owner.Mana;
+        int life = first.Hits, untouched = behind.Hits, mana = owner.Mana;int exact=SkillHealth.Balance256(first);
         Require(SorceressCombat.Release(owner, CombatAbility.ChargedBolt, Serial.Zero, behind.Location)
             && owner.Mana == mana - 3 && first.Hits == life, "Charged Bolt paid per bolt or hit instantly");
+        var shots=SorceressSpellMissiles.Snapshot().Flights.Where(x=>x.Owner==owner.Serial.Value).ToArray();
+        Require(shots.Length==3,"Charged emitter count");
+        // Explicit action service for this offline fixture; connected fixtures
+        // separately exercise natural ticks/input and restart transport.
+        foreach(var shot in shots){FireBoltChecks.Through(shot.Id,77);}
         Timer.StartTimer(TimeSpan.FromMilliseconds(1250), () =>
         {
             try
             {
-                Require(life - first.Hits is >= 9 and <= 18, "Independent bolts did not each collide and damage the first target");
+                Require(exact-SkillHealth.Balance256(first)>=shots.Sum(x=>x.Minimum256)&&exact-SkillHealth.Balance256(first)<shots.Sum(x=>x.Maximum256), "Independent bolts did not each collide and damage the first target");
                 Require(behind.Hits == untouched, "Charged bolts pierced after collision");
                 _log.Information("charged-bolt-result: passed");
             }

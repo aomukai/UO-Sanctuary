@@ -1,5 +1,7 @@
 # Skill icons
 
+[Player Charged Bolt](sorceress-charged-flight-checkpoint.md) retains its existing talent identity and right/quick bindings. Final tree and hotkey icons remain pending with current labels/icons as placeholders; the saved volley adds no separate sub-bolt action or icon. Effects/audio stay separate.
+
 Player Lightning retains its existing ability identity and right/quick bindings. Final talent-tree and hotkey icons remain pending; current labels/icons are placeholders. See [mechanical checkpoint](sorceress-lightning-flight-checkpoint.md); effects/audio stay separate.
 
 The [four-passive increment](sorceress-passives-checkpoint.md) retains Warmth/Fire Mastery/Lightning Mastery/Cold Mastery at stable abilities55/62/53/44. Final talent-tree icons remain pending with current labels/icons as placeholders. These passive suppliers add no independent active cast or hotkey icon requirement; effects/status feedback stays separate.

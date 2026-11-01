@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "compiledRoutine": "SKILLS_SrvDo017_ChargedBolt_BoltSentry",
+  "sourceBodySha256": "9365a809a5698835c5f1603d25a61bb1c0b30b6ab114be1ecce328887afa546a",
+  "cases": 800,
+  "sanitizers": "ASan/UBSan clean",
+  "declaredServices": [
+    "Current pinned count formula min(24,rank+2); row/missile bounds and owner coordinates are explicit services.",
+    "Target service supplies failed/zero/valid/alternating coordinates independently for each ordinal. Factory records attempts and returns success/null. Null-owner coordinate/target behavior is a service declaration, not complete game-engine behavior.",
+    "Initializer is identity-only here; the unchanged real initializer45 cases and complete charged path2160 cases are reused via the prior review."
+  ],
+  "established": [
+    "Complete emitter body executes missing-row/missile bounds, owner flags, ranks1/20/22/255, failed/zero/alternating target reads, ordinal/owner/origin/skill/rank/flags33 packets and continuation after creation failure.",
+    "Count/cap is supplied from the pinned current table; no mana, client input, saved flight, factory RNG/initial update or modern executable acceptance is inferred."
+  ],
+  "remaining": [
+    "Native player emission/capture, actual payment/input, charged movement/collision and save/reload remain separate work. Global RNG/factory/room/path/coordinate ordering and current executable parity remain open."
+  ],
+  "artifacts": {
+    "tools/probe_player_charged_bolt_source.py": "ee3caa720e1b64efd33c73ded9976d5ef2b8c4167382fc1438bd7f3f804c92cb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "tools/reference/player-charged-bolt-reuse-review.json": "e8b07771da70b07b9f3df0d7e32e0e606c51d6531ca418eed380ae689ccd3fab",
+    ".local/class-skills/player-charged-bolt-emitter-source/probe.cpp": "8f3d845300970a9da1d9ae230a44eddd78a8988324bf7e62bfeb26ad0f99db89",
+    ".local/class-skills/player-charged-bolt-emitter-source/cases.json": "4970c942d2d3db167c23c0b254352dc612aedb4a675b474126f3d5d97e1299a6",
+    ".local/class-skills/player-charged-bolt-emitter-source/probe": "1ab59d636477f77b6df5414a23e5061a82eee762a345143c5819de72ce1c4161",
+    ".local/class-skills/player-charged-bolt-emitter-source/probe-san": "09aff1c0d3a2976d7b3bec014d7120b05a851049d59c268618d2b6010515e450",
+    ".local/class-skills/player-charged-bolt-emitter-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
