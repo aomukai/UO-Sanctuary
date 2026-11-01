@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Iron damage foundation](iron-golem-damage-checkpoint.md) adds no player action or separate hotkey icon. Iron Golem’s talent-tree/right/quick artwork remains pending with identified text-label placeholders. Automatic damage/affix feedback belongs in the effects register.
+
 The [Blood hard-20 Life Tap proc](blood-life-tap-checkpoint.md) adds no player action or separate hotkey icon. Blood Golem and player Life Tap keep their pending talent-tree/right/quick artwork and identified text-label placeholders. Automatic proc/curse/healing feedback belongs in the effects register.
 
 The [NPC Open Wounds/Blood hard-10 increment](npc-open-wounds-checkpoint.md) is automatic and adds no player action or separate hotkey icon. Blood Golem’s talent-tree/right/quick artwork remains pending with the existing text-label placeholders. Wound feedback/audio remains in the effects register.

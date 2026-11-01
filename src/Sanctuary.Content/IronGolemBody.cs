@@ -33,9 +33,7 @@ public partial class IronGolemBody:SkeletonGuardian
         ?new(state.Numbers.Level,(state.Numbers.LifeBase256+255)/256,state.Numbers.AttackBase,state.Numbers.ArmorBase,0,0,1000,400,0,0,0,0,0)
         :new(1,306,0,140,0,0,1000,400,0,0,0,0,0);
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
-    internal override (int Min,int Max,int Percent) SourceWeaponBase=>(NecromancerSummons.Source("irongolem","A1MinD",SummonDifficulty),
-        NecromancerSummons.Source("irongolem","A1MaxD",SummonDifficulty),
-        checked((int)BirthValues.Eval("passivecalc4")));
+    internal override (int Min,int Max,int Percent) SourceWeaponBase=>GolemPetDamage.Weapon(BirthValues,SummonDifficulty);
     public override bool UsesNativeSummonTimer=>false;
     public override bool IsDispellable=>false;
     public override bool CanRegenStam=>false;

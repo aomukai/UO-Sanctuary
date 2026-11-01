@@ -127,7 +127,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if (Kind==CombatAbility.None) { return base.SkillWeaponDamage; }
             if (IsMage) { return (CombatProfile.MinDamage,CombatProfile.MaxDamage); }
-            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem){return GolemPetDamage.Damage(this);}
+            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem){return GolemPetDamage.Damage(this);}
             string key=SkillMechanics.For(Kind).Text("summon"); int percent=Math.Max(10,100+Passive("damagepercent")+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
             int min=Math.Max(1,NecromancerSummons.Source(key,"A1MinD",SummonDifficulty)*percent/100);
             return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty)*percent/100));
@@ -139,7 +139,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if(Kind==CombatAbility.None){return base.SourceWeaponBase;}
             if(IsMage){throw new NotSupportedException("Mage missiles do not use an equipment weapon packet");}
-            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem){return GolemPetDamage.Weapon(this);}
+            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem){return GolemPetDamage.Weapon(this);}
             string key=SkillMechanics.For(Kind).Text("summon");
             return (NecromancerSummons.Source(key,"A1MinD",SummonDifficulty),NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty),Passive("damagepercent"));
         }
@@ -226,7 +226,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             attack += Passive("tohit"); defense += Passive("armorclass");
             int damageBonus = Passive("damagepercent");
             min = min * (100 + damageBonus) / 100; max = max * (100 + damageBonus) / 100;
-            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem){(min,max)=GolemPetDamage.Damage(this,false);}
+            if(Kind is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem){(min,max)=GolemPetDamage.Damage(this,false);}
         }
         int petLevel = Math.Clamp(Rank + 3 * Level / 4, 1, Level);
         attack += NecromancerSummons.Source("level-" + petLevel, "L-TH", SummonDifficulty);

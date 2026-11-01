@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Iron damage foundation](iron-golem-damage-checkpoint.md) retains body `14`/hue `0x835`, summon particles `0x376A`, contact overlay `0x37B9`/hue `0x481` and sound `0x1E5` as identified placeholders. Final summon/contact/audio and the pending Extra Strong/five-channel Spectral Hit feedback remain separate asset work. No affix is enabled by this damage-only increment.
+
 The [Blood hard-20 Life Tap proc](blood-life-tap-checkpoint.md) uses curse marker `0x375A`/hue `0x455`, recovery marker `0x376A`/hue `0x26`, and cast sound `0x1E5` as identified placeholders. Final automatic proc/area application, affected-enemy status, recovery, expiry and audio feedback remain pending and should share player Life Tap assets. Blood body `14`/hue `0x21` and summon `0x376A` remain placeholders. Talent/hotkey icons stay in their separate register.
 
 The [NPC Open Wounds/Blood hard-10 increment](npc-open-wounds-checkpoint.md) enables automatic wounds using existing contact/bleed cues as identified placeholders. Final wound application, pulse, expiry and source/owner feedback/audio remain pending and should share the item-wound assets. Blood body `14`/hue `0x21` and summon particles `0x376A` remain placeholders. That checkpoint preceded the now-enabled Life Tap proc; its final curse feedback remains pending. Icons are tracked separately.

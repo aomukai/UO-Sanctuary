@@ -56,7 +56,7 @@ public static class IronGolemWorldChecks
         IronGolemWorld.Advance(body,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);
         Require(!body.Deleted&&body.Prepared.Controller.Fault==null,"Iron Golem deleted or faulted");
     }
-    private static ulong AttackSeed(IronGolemBody body,BaseCreature target)
+    internal static ulong AttackSeed(IronGolemBody body,BaseCreature target)
     {
         double chance=ClassStats.HitChance(ClassStats.AttackRating(body),ClassStats.Defense(target),ClassStats.Level(body),ClassStats.Level(target));
         for(ulong initial=1;initial<10000;initial++)
