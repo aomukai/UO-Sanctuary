@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 2160,
+  "compiledUnchangedRoutine": {
+    "D2GAME_MONSTER_ApplyStatRegen_6FC63440": "050a575c68cad55f9a1dc5ed1d09d05d95f0dac64c3887b1f1391f459c2de0df"
+  },
+  "inputs": {
+    "tools/probe_open_wounds_regeneration.py": "59586771595a635474460741a3dba7cf41c3e603eaff80c869472e7d75f6e4f1",
+    "tools/reference/poison-state-engine-evidence.json": "48a4de13e05cc04ea08c8939aab80a2cede3fcd18f28d48049e7448125714fb4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/poison-state-source-probe.cpp": "956ed61001316a9472572a569d42a0391d81d32bf6322944b126a9c2e8b204ab"
+  },
+  "artifacts": {
+    ".local/class-skills/open-wounds-regen-source/probe.cpp": "2334dcef635a919ab1517d8bb11d237183b96be1c15841b77a4b448c61ffb7a7",
+    ".local/class-skills/open-wounds-regen-source/cases.json": "8f42c3eeaebfdc34386e6deeb158f111e49821ef9b302c8c7b3ad43250c408b9",
+    ".local/class-skills/open-wounds-regen-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/open-wounds-regen-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "One signed frame removes natural regeneration under either life-mask,then sums item replenishment minus poison minus wounds. Prevent-heal suppresses nonnegative recovery,not negative rates. Town fractional-life guard and maxlife1024match the retained services.",
+    "Complete routine chooses poison state owner before Open Wounds owner at zero HP,including when the wound contribution is larger. Uninterruptible zero life defers death instead of immediately killing."
+  ],
+  "remaining": [
+    "Retained unit/stat/event/room/lookup/death services are explicit;maxlife1024and supplied flags do not certify full modern state lists/geometry/event/world behavior.",
+    "Runtime keeps prior poison receiver/death-delay/PvP limits. Native combined HP,clock,source ownership and persistence need independent verification;source timing/whole engine equivalence is not inferred."
+  ]
+}

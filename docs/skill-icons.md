@@ -1,8 +1,10 @@
 # Skill icons
 
+The [NPC Open Wounds/Blood hard-10 increment](npc-open-wounds-checkpoint.md) is automatic and adds no player action or separate hotkey icon. Blood Golem’s talent-tree/right/quick artwork remains pending with the existing text-label placeholders. Wound feedback/audio remains in the effects register.
+
 The [shared Open Wounds fixes](open-wounds-state-checkpoint.md) add no talent or player binding. No separate item-wound hotkey icon is needed. Blood Golem’s existing pending tree/right/quick artwork and automatic-effect work remain separate.
 
-The [Blood damage foundation](blood-golem-damage-checkpoint.md) adds no player action or separate hotkey icon. Blood Golem still needs its pending talent-tree/right/quick artwork. Open Wounds/Life Tap remain pending automatic abilities; their effects are tracked separately.
+The [Blood damage foundation](blood-golem-damage-checkpoint.md) adds no player action or separate hotkey icon. Blood Golem still needs its pending talent-tree/right/quick artwork. This foundation preceded the now-enabled hard-10 Open Wounds; hard-20 Life Tap remains pending. Their effects are tracked separately.
 
 The [Clay Golem upgrades](clay-upgrades-checkpoint.md) add no player action or separate hotkey icon. Clay Golem still needs its pending talent-tree/right/quick artwork; automatic defensive-affix feedback is tracked separately as effects.
 

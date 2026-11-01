@@ -18,7 +18,8 @@ public sealed record TimedEffectState(uint Owner, DateTime UpdatedUtc, DateTime 
     RestorationState Life, RestorationState Mana, TimedBuff[] Buffs,
     uint BleedSource = 0, int BleedMs = 0, double BleedRate = 0, double BleedFraction = 0, DateTime HealBlockedUntilUtc = default,
     DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null, SourcePoisonClock PoisonClock = null,int? NpcPoisonElapsedMs = null, SpellPoisonExposure SpellPoison = null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? SlowAttackPercent=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? SlowAttackPercent=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] SourceOpenWoundsClock OpenWounds=null);
 
 internal sealed class RestorationLane
 {
@@ -48,6 +49,7 @@ internal sealed class TimedActor(DateTime now)
     internal Serial BleedSource;
     internal int BleedMs;
     internal double BleedRate, BleedFraction;
+    internal SourceOpenWoundsClock OpenWounds;
     internal DateTime HealBlockedUntil, SlowUntil;
     internal int SlowPercent, DefenseLoss, RunningRemainder;
     internal int? SlowAttackPercent;
@@ -171,8 +173,9 @@ public static class TimedEffects
         // lethal damage cannot be undone by a later restorative payment from the same offline interval.
         while (elapsed > 0 && owner.Alive && !owner.Deleted && (a.PoisonMs > 0 || a.SpellPoison!=null || a.BleedMs > 0 || a.Life.Duration > 0 || a.Mana.Duration > 0))
         {
-            int step = a.PoisonMs > 0 || a.SpellPoison!=null || a.BleedMs > 0 ? Math.Min(a.SpellPoison!=null || a.PoisonClock != null || a.NpcPoisonElapsedMs!=null || NpcEquipmentRegeneration.Handles(owner) ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
+            int step = a.PoisonMs > 0 || a.SpellPoison!=null || a.BleedMs > 0 ? Math.Min(a.OpenWounds!=null||a.SpellPoison!=null || a.PoisonClock != null || a.NpcPoisonElapsedMs!=null || NpcEquipmentRegeneration.Handles(owner) ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
             a.Updated = cursor;
+            bool sourceWound=a.OpenWounds!=null;int woundPoisonStep=0,woundBonus=0;Mobile woundBonusSource=null;
             if (a.PoisonMs > 0 || a.SpellPoison!=null)
             {
                 var previous = DamageTime; DamageTime = cursor;
@@ -180,7 +183,12 @@ public static class TimedEffects
                 {
                     var spellSource=a.SpellPoison?.Source;
                     int bonus=SpellPoisonTicks.Advance(owner,a,step);
-                    if(a.PoisonMs>0)
+                    if(sourceWound)
+                    {
+                        woundPoisonStep=Math.Min(step,a.PoisonMs);a.PoisonMs-=woundPoisonStep;woundBonus=bonus;
+                        woundBonusSource=spellSource is{} id?World.FindMobile((Serial)id):null;
+                    }
+                    else if(a.PoisonMs>0)
                     {
                         int poisonStep=Math.Min(step,a.PoisonMs);a.PoisonMs-=poisonStep;
                         PoisonStates.Advance(owner,a,poisonStep,bonus);
@@ -190,7 +198,14 @@ public static class TimedEffects
                 finally { DamageTime = previous; }
             }
             if (!owner.Alive || owner.Deleted || owner.IsDeadBondedPet) { Clear(owner); return; }
-            if (a.BleedMs > 0)
+            if(sourceWound)
+            {
+                int woundStep=Math.Min(step,a.BleedMs);a.BleedMs-=woundStep;
+                var previous=DamageTime;DamageTime=cursor;
+                try{NpcOpenWounds.Advance(owner,a,woundPoisonStep,woundStep,woundBonus,woundBonusSource);}
+                finally{DamageTime=previous;}
+            }
+            else if (a.BleedMs > 0)
             {
                 int bleedStep = Math.Min(step, a.BleedMs); a.BleedMs -= bleedStep;
                 a.BleedFraction += bleedStep * a.BleedRate;
@@ -333,6 +348,15 @@ public static class TimedEffects
         a.BleedMs = 8000; a.BleedRate = total / 8000; a.BleedFraction = 0;
         return true;
     }
+    internal static bool PreparedOpenWounds(Mobile source,BaseCreature target,int rate256,uint creditOwner,DateTime at)
+    {
+        if(source==null||target is not{Alive:true,Deleted:false}||rate256<=0||!((Serial)creditOwner).IsMobile||at.Kind!=DateTimeKind.Utc){return false;}
+        var a=Actor(target,at);
+        if(a.Updated<at){throw new InvalidOperationException("NPC wound receiver was not settled before entering prepared hit events");}
+        if(a.BleedMs>0){a.BleedMs=8000;return true;}
+        int phase=a.PoisonClock?.ElapsedMs??a.NpcPoisonElapsedMs??a.SpellPoison?.ElapsedMs??0;
+        a.BleedSource=source.Serial;a.BleedMs=8000;a.BleedRate=rate256/10240.0;a.BleedFraction=0;a.OpenWounds=new(rate256,phase,creditOwner);return true;
+    }
     public static void PreventHealing(Mobile target, DateTime now)
     {
         if (target is not { Alive: true, Deleted: false }) { return; }
@@ -357,7 +381,7 @@ public static class TimedEffects
             rows.Add(new(serial.Value, a.Updated, a.ChillUntil, a.ChillPercent, a.PoisonSource.Value, a.PoisonMs,
                 a.PoisonRate, a.PoisonFraction, a.Life.Snapshot(), a.Mana.Snapshot(), buffs,
                 a.BleedSource.Value, a.BleedMs, a.BleedRate, a.BleedFraction, a.HealBlockedUntil,
-                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock,a.NpcPoisonElapsedMs,a.SpellPoison,a.SlowAttackPercent));
+                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock,a.NpcPoisonElapsedMs,a.SpellPoison,a.SlowAttackPercent,a.OpenWounds));
         }
         return rows.ToArray();
     }
@@ -370,7 +394,7 @@ public static class TimedEffects
             var a = new TimedActor(r.UpdatedUtc) { ChillUntil = r.ChillUntilUtc, ChillPercent = r.ChillPercent,
                 PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction, PoisonClock = r.PoisonClock,NpcPoisonElapsedMs=r.NpcPoisonElapsedMs,SpellPoison=r.SpellPoison,
                 BleedSource = (Serial)r.BleedSource, BleedMs = r.BleedMs, BleedRate = r.BleedRate,
-                BleedFraction = r.BleedFraction, HealBlockedUntil = r.HealBlockedUntilUtc,
+                BleedFraction = r.BleedFraction, OpenWounds=r.OpenWounds, HealBlockedUntil = r.HealBlockedUntilUtc,
                 SlowUntil = r.SlowUntilUtc, SlowPercent = r.SlowPercent, SlowAttackPercent=r.SlowAttackPercent, DefenseLoss = r.DefenseLoss, Control = r.Control, RunningRemainder = r.RunningRemainder, Cold = r.Cold };
             a.Life.Restore(r.Life); a.Mana.Restore(r.Mana);
             foreach (var b in r.Buffs) { a.Buffs.Add(b.Category, b); }
@@ -419,6 +443,7 @@ public sealed class TimedEffectProfiles : GenericPersistence
             || r.NpcPoisonElapsedMs is <0 or >39 || r.NpcPoisonElapsedMs!=null&&(r.PoisonMs<=0||r.PoisonClock!=null)
             || r.BleedMs is < 0 or > 8000 || !double.IsFinite(r.BleedRate) || r.BleedRate is < 0 or > 1000000
             || !double.IsFinite(r.BleedFraction) || r.BleedFraction is < -1e-8 or >= 1.00000001
+            || r.OpenWounds is{} wound&&(r.BleedMs<=0||wound.Rate256<=0||wound.ElapsedMs is<0 or>39||!((Serial)wound.CreditOwner).IsMobile||r.BleedRate!=wound.Rate256/10240.0||r.BleedFraction!=0)
             || r.HealBlockedUntilUtc != default && r.HealBlockedUntilUtc.Kind != DateTimeKind.Utc
             || r.SlowUntilUtc != default && r.SlowUntilUtc.Kind != DateTimeKind.Utc
             || r.SlowPercent is < 0 or > 90 || r.SlowAttackPercent is <1 or >90 || r.SlowAttackPercent!=null&&(r.SlowPercent<=0||r.SlowUntilUtc==default) || r.DefenseLoss < 0 || r.RunningRemainder is < 0 or > 255

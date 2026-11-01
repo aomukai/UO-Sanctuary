@@ -36,13 +36,13 @@ public static class NpcEquipmentRegenerationChecks
         }
         Require(n==1920,"Missing full source regeneration cases");
     }
-    private static Item Named(string id){Require(NamedGear.Available(id),"Unavailable regeneration original "+id);return NamedGear.Create(id,99,new Random(317),true);}
+    internal static Item Named(string id){Require(NamedGear.Available(id),"Unavailable regeneration original "+id);return NamedGear.Create(id,99,new Random(317),true);}
     private static PlayerMobile Owner()
     {
         var owner=new PlayerMobile{Name="NpcRegenOwner",Body=0x190,Player=true};owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(owner,99);
         Require(ClassCreation.Profiles.TryTrain(owner.Serial,"necromancer.raiseskeleton",out _),"Regen holder prerequisite failed");FixtureSpace.Place(owner,new(6100,2300,0),Map.Trammel);return owner;
     }
-    private static SkeletonGuardian Pet(PlayerMobile owner,Item item)
+    internal static SkeletonGuardian Pet(PlayerMobile owner,Item item)
     {
         var actor=new SkeletonGuardian{Name="NPC regeneration holder [prepared]"};actor.Initialize(owner,7,2);actor.ControlSlots=0;actor.NoKillAwards=true;
         Require(actor.SetControlMaster(owner),"Regen holder ownership failed");actor.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);PersistentMinions.Profiles.Track(actor);actor.AIObject.AITimer.Stop();

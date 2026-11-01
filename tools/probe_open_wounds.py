@@ -132,14 +132,14 @@ for(int guard=0;guard<10;guard++)for(int oldKind:{0,1}){
         remaining=[
             'The prior host property reset creator/rate/fraction and capped level99. Native host comparisons must establish corrected shared state/arithmetic separately from this older source proof;modern differences remain explicit.',
             'Negative-regeneration versus existing whole-HP bleed scheduling,overdue settlement during pre-health events,expiry/cure/reload/source-credit and lethal cases require host composition. Callback/factory proof is not end-to-end damage/event/regen proof.',
-            'Modern callback equivalence,real subscriber order/global seeds/PvP/client and Blood hard20LifeTap target-cast integration remain separate. No runtime callback or Blood hard10unlock is enabled by this probe.'])
+            'Modern callback equivalence,real subscriber order/global seeds/PvP/client and Blood hard20LifeTap target-cast integration remain separate. This standalone probe enables no callback;runtime Blood hard10acceptance is recorded separately.'])
     output = ROOT / 'tools/reference/open-wounds-source-evidence.json'
     rendered = json.dumps(result, indent=2) + '\n'
     if check:
         assert output.read_text() == rendered
     else:
         output.write_text(rendered)
-    print(f'Open Wounds:{len(data["cases"])}complete callback/factory contexts,{len(data["gates"])}gates;ASan/UBSan passed. Runtime integration remains pending.')
+    print(f'Open Wounds:{len(data["cases"])}complete callback/factory contexts,{len(data["gates"])}gates;ASan/UBSan passed. Runtime acceptance is recorded separately.')
 
 
 if __name__ == '__main__':

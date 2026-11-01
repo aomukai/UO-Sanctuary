@@ -1,8 +1,10 @@
 # Skill effects
 
-The [shared Open Wounds fixes](open-wounds-state-checkpoint.md) retain the existing item/bleed damage feedback as placeholders. Final bleeding/status/expiry and source feedback/audio remain pending and should be shared by future NPC wound abilities. Blood’s NPC Open Wounds and Life Tap are still inactive; this checkpoint creates no new automatic effect.
+The [NPC Open Wounds/Blood hard-10 increment](npc-open-wounds-checkpoint.md) enables automatic wounds using existing contact/bleed cues as identified placeholders. Final wound application, pulse, expiry and source/owner feedback/audio remain pending and should share the item-wound assets. Blood body `14`/hue `0x21` and summon particles `0x376A` remain placeholders. Life Tap proc mechanics and their eventual curse feedback remain pending. Icons are tracked separately.
 
-The [Blood damage foundation](blood-golem-damage-checkpoint.md) reuses Blood body`14`/hue`0x21`, summon particles`0x376A` and existing contact/healing cues as identified placeholders. Final body/contact/healing feedback and audio remain pending. Open Wounds/Life Tap are not active yet; their eventual feedback should share the existing bleed/curse/recovery asset work.
+The [shared Open Wounds fixes](open-wounds-state-checkpoint.md) retain the existing item/bleed damage feedback as placeholders. Final bleeding/status/expiry and source feedback/audio remain pending and should be shared by future NPC wound abilities. At that checkpoint, Blood’s NPC Open Wounds and Life Tap were still inactive; the subsequent NPC wound checkpoint above supersedes the wound status.
+
+The [Blood damage foundation](blood-golem-damage-checkpoint.md) reuses Blood body`14`/hue`0x21`, summon particles`0x376A` and existing contact/healing cues as identified placeholders. Final body/contact/healing feedback and audio remain pending. At that checkpoint Open Wounds/Life Tap were not active; wound mechanics are now enabled as described above. Their final feedback should share the existing bleed/curse/recovery asset work.
 
 The [Clay Golem upgrades](clay-upgrades-checkpoint.md) reuse Clay body`14`/hue`0x96D`, summon particles`0x376A`, and existing contact/reactive-slow cues as identified placeholders. Final Stone Skin/Magic Resistant status cues and feedback/audio remain pending; share eventual monster-affix assets where appropriate. Live unlock/respec needs no new summon or healing animation.
 

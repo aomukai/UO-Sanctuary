@@ -15,10 +15,10 @@
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
-    "tools/probe_open_wounds.py": "2653065b5ee6d7dc03f526b2ff9e19b125eeb2bcf0b622ac15a185448113cbcf",
+    "tools/probe_open_wounds.py": "24701be338fe4a87dc60bdf8b437b112e51c8134b93a7a186828a7d836ac7014",
     "tools/probe_battlecry_reference.py": "5402831e5f0102064997e57e396b9e68021375afed95f4ee79f0cb268fa8b54b",
     "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
-    "tools/reference/blood-pet-event-reuse-review.json": "e1c04c41c0372f55a61c12cc8cbe278c8e527cddcfa8c97c67af09eade7e684b"
+    "tools/reference/blood-pet-event-reuse-review.json": "eaadb9c90e32168736b750fd01594f57694d536d57a65bc6605a9e0927da7e03"
   },
   "artifacts": {
     ".local/class-skills/open-wounds-source/probe.cpp": "8f04ace68d0435db3db04b24d0150487cc24813de1fb6c6bac8435f312455c33",
@@ -35,6 +35,6 @@
   "remaining": [
     "The prior host property reset creator/rate/fraction and capped level99. Native host comparisons must establish corrected shared state/arithmetic separately from this older source proof;modern differences remain explicit.",
     "Negative-regeneration versus existing whole-HP bleed scheduling,overdue settlement during pre-health events,expiry/cure/reload/source-credit and lethal cases require host composition. Callback/factory proof is not end-to-end damage/event/regen proof.",
-    "Modern callback equivalence,real subscriber order/global seeds/PvP/client and Blood hard20LifeTap target-cast integration remain separate. No runtime callback or Blood hard10unlock is enabled by this probe."
+    "Modern callback equivalence,real subscriber order/global seeds/PvP/client and Blood hard20LifeTap target-cast integration remain separate. This standalone probe enables no callback;runtime Blood hard10acceptance is recorded separately."
   ]
 }

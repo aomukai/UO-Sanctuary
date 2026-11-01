@@ -69,9 +69,7 @@ public static class PoisonStates
         var source=World.FindMobile(actor.PoisonSource);
         for(int i=0;i<frames&&target is{Alive:true,Deleted:false};i++)
         {
-            double raw=actor.PoisonClock?.Rate256??actor.PoisonRate*40*256;
-            double accrued=Math.Max(0,actor.PoisonFraction)*256+raw;
-            int rate=checked((int)Math.Floor(accrued+1e-9));actor.PoisonFraction=(accrued-rate)/256.0;
+            int rate=AccrueFrame(actor);
             // Poison's life-mask removes natural regeneration, not item
             // replenishment. Commit their signed sum once: a lethal poison
             // frame must not kill before its replenish offset is considered.
@@ -79,6 +77,12 @@ public static class PoisonStates
             NpcEquipmentRegeneration.Apply(target,delta,source);
         }
         if(actor.PoisonMs==0){actor.PoisonClock=null;actor.NpcPoisonElapsedMs=null;}
+    }
+    internal static int AccrueFrame(TimedActor actor)
+    {
+        double raw=actor.PoisonClock?.Rate256??actor.PoisonRate*40*256;
+        double accrued=Math.Max(0,actor.PoisonFraction)*256+raw;
+        int rate=checked((int)Math.Floor(accrued+1e-9));actor.PoisonFraction=(accrued-rate)/256.0;return rate;
     }
 
 }

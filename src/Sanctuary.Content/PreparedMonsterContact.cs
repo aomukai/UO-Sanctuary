@@ -25,7 +25,7 @@ internal abstract class GeometricMonsterContactServices:MonsterContactServices
     internal abstract bool CollisionRay(Point2D first,Point2D second,int mask);
     internal override bool InMeleeRange(int bonus)=>SourceMeleeGeometry.Within(AttackerGeometry(),DefenderGeometry(),bonus,CollisionRay);
 }
-internal enum MonsterContactExit{MissingPacket,OutOfRangeFreed,DeathModeRetained,Finished}
+internal enum MonsterContactExit{MissingPacket,OutOfRangeFreed,DeathModeRetained,Finished,SettledRecipientFreed}
 internal sealed record MonsterContactResult(MonsterContactExit Exit,PreparedMonsterDamagePacket Packet,
     PreparedMonsterCommitResult Commit,bool DeathModeAttempted=false);
 internal static class PreparedMonsterContact

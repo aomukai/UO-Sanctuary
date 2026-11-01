@@ -54,7 +54,7 @@ internal static class IronGolemContact
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}return scope.SourceEvents.Dispatch("domeleedamage",p);}
+        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at);}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Positive drains were refused before rolling.
@@ -95,7 +95,7 @@ internal static class IronGolemContact
         var metadata=NativeMonsterReturn.Metadata(target);NativeMonsterReturn.Session(target);
         var item=NpcEquipmentCombat.Context(body);
         if(item==null&&body is not ISourceUnarmedNpc){throw new NotSupportedException("Missing ordinary NPC offensive context");}
-        var sourceEvents=item is{} equipped?new NpcCombatEvents(equipped):NpcCombatEvents.Empty;
+        var sourceEvents=NpcCombatEvents.ForSource(body);
         var targetEvents=Events(target);
         if(nativeRecovery)
         {if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter");}}
@@ -115,6 +115,15 @@ internal static class IronGolemContact
     {
         if(prepared==null||prepared.Consumed||prepared.Impact.Actor!=body.Serial.Value||prepared.Impact.Target!=target.Serial.Value)
         {throw new InvalidOperationException("Ordinary NPC contact is missing,changed or already consumed");}
+        if(NpcOpenWounds.Chance(body)>0)
+        {
+            // Settle before entering the qualified hit: a callback must never
+            // dispatch overdue damage while its incoming HP is being committed.
+            TimedEffects.Settle(target,at);
+            if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0)
+            {prepared.Cancel();return new(MonsterContactExit.SettledRecipientFreed,prepared.Impact.Packet with{ResultFlags=prepared.Impact.Packet.ResultFlags&~3},null);}
+            _=NpcEquipmentRegeneration.ItemRate(target); // Existing unsupported material rates refuse before event RNG.
+        }
         prepared.Consumed=true;
         var scope=new Scope(prepared,target.Hits);var metadata=prepared.Rules.Metadata;
         var recipient=new PreparedMonsterRecipient(target is EncounterCreature encounter&&encounter.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique,
