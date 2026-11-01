@@ -321,6 +321,13 @@ CAVEATS.update({'necromancer.bonearmor': 'Exact FP256 physical pool, right/quick
                        'explicit; see weaken-checkpoint.md.'})
 for _talent in ("necromancer.irongolem","necromancer.revive"):
     BLOCKERS.pop(_talent,None)
+CAVEATS['sorceress.firebolt'] = (
+    'Saved shared player missile path, captured rank/gear/Slow Missiles, impact-time potion, '
+    'resistance/immunity, first collision, mana/lifecycle and six real right/quick casts pass '
+    'in the combined 105-marker Sorceress run with two actual reloads. See '
+    'sorceress-fire-bolt-checkpoint.md. Native world/candidate/footprint adapters, modern '
+    'executable/initial dispatch/creator RNG, PvP defenses and final graphical/assets '
+    'acceptance remain open; no class certificate.')
 
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
@@ -440,6 +447,7 @@ NATIVE_PARTIAL = {
     'sorceress.lightning','sorceress.chainlightning','sorceress.thunderstorm','sorceress.enchant','sorceress.chargedbolt','sorceress.blaze','sorceress.firewall','sorceress.meteor','sorceress.blizzard','sorceress.frozenorb','sorceress.hydra'
 }
 NATIVE_PARTIAL.update(['necromancer.bonespirit', 'necromancer.corpseexplosion', 'necromancer.poisondagger', 'necromancer.poisonexplosion', 'necromancer.poisonnova', 'necromancer.raiseskeleton', 'necromancer.skeletonmastery', 'necromancer.summonresist', 'necromancer.terror', 'necromancer.weaken'])
+NATIVE_PARTIAL.add('sorceress.firebolt')
 LEGACY = {'sorceress.teleport'}
 PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',

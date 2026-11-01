@@ -1,0 +1,26 @@
+# Sorceress Fire Bolt checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Fire Bolt now has a saved player projectile path using existing shared missile services. Sorceress still has 29 registered handlers; Inferno remains individually deferred. No class is certified complete.
+
+The former private timer also stopped Fire Bolt at the unrelated Teeth range of 12 tiles. The new path uses the pinned `firebolt` row: source skill 36, ordinary missile do1, velocity 20, 50 frames, size 1 and first-contact removal. A cast aimed at valid ground 10 tiles away can now hit a monster 16 tiles away during its remaining travel. It has no weapon damage, attack-rating roll, piercing or server explosion damage.
+
+The controller reuses `MissileVectors`, `SlowMissilePayload`, `SourceMissileSteps`, `BasicMissileUpdate`, `CombatHitboxes`, source FP256 damage rolls and prepared mitigation. Firestorm's existing endpoint/modifier/packet helpers supply captured mastery and separate potion components. Effective and hard skill ranks were already captured by `SkillMechanics.Values`; that code is unchanged. Rank and gear enhancement are fixed at release, while the approved Magical Penetration potion remains eligible at contact. Source named avoidance and ReturnFire hooks retain their existing consumers. NPC Mage ownership/AI and the Necromancer spell controller remain separate.
+
+The retained complete older generic skill handler and `sub_6FD11420` in D2MOO commit `0c0bbd1e6bef9181a3da1c046523af622a925416` statically establish the default non-lob flags-33 launch. The [existing source receipt](../tools/reference/bone-spear-source-evidence.json) pins that exact source file and shared damage/router probes. This is a static caller review plus previously tested shared services, rather than a newly measured modern executable trace.
+
+Clean content/integration build 6 has zero warnings or errors. The combined run passes **105 native markers across three boots, two actual reloads and three saves**, retaining all eleven Sorceress baseline families and five shared checks. It includes:
+
+- Three real right-click and three quick-slot casts, with windup before payment, one 640-FP mana debit and actual damage beyond the former 12-tile cutoff.
+- First collision, wall/miss, insufficient mana, rank-1 768–1536-FP damage endpoints, actual Eschuta removal/new-cast capture, Slow Missiles and malformed-save rejection.
+- Fire resistance/immunity and separate potion lanes, including applying the potion after launch and removing it before contact.
+- Death, respec, class/facet change and harmless offline aging. Two actual reloads retain the exact held original payload, deadline, mana and binding, then verify independent copies using real timer-driven travel and damage.
+
+The original held save record is an inspection fixture, not proof of a one-hour gameplay projectile. Normal 50-frame travel/expiry is tested separately. Version-0 persistence uses the new identity 226 and does not reinterpret any previous persistence identity. The former private timer had no saved flight representation to migrate. Source/data snapshots and exact candidate artifacts are bound by the [receipt](../tools/reference/fire-bolt-native-evidence.json).
+
+After the native run, only Fire Bolt's verification/remaining annotations advance from build-only to partial native coverage. The generator owns that annotation so regeneration retains it. The receipt explicitly compares the original tested metadata and current row; all gameplay data, C#/project inputs and five assemblies are unchanged by this documentation transition. Fresh selected-build audits pass four markers with 888/21 fingerprints and unchanged decisions. All 71 Python tests, 573 named readiness decisions and the eight-class/240 catalogue/generator checks pass. The installed 106-artifact inventory is unchanged.
+
+The native map/terrain and ordered candidate scan, unmapped creature footprints, first factory dispatch, zero-vector aim, creator RNG allocation, modern owner-removal behavior and graphical acceptance remain explicit limitations. Current hostile targeting is PvE; these casts do not prove player-versus-player armor/avoidance interactions. Offline/restart flights age harmlessly without replaying old damage, following the existing Sanctuary persistent-spell policy. Death, respec and class/facet changes cancel them. No complete modern-engine parity claim follows from these adapters.
+
+Effects/audio remain identified placeholders: travel `0x36D4`, hue `0x489`, and cast sound `0x1E5`. Final travel/contact/impact/expiry and audio should share Mage Fire Bolt assets. Talent-tree and left/right/quick icons remain in the separate icon ledger; no new player ability or binding is added.
+
+Next: review the remaining basic Sorceress projectiles against these shared services, beginning with Ice Bolt's chilled contact and save behavior. Do not copy Fire Bolt's no-status impact into a cold spell. Nova/Frost Nova/Static Field and passive-consumer input coverage remain in the [class plan](sorceress-acceptance-preflight.md). Inferno's modern held-input/payment/release gap remains separate and nonblocking. The accepted Necromancer and Sorceress baseline stages are preserved; the installed working build and saves are untouched.

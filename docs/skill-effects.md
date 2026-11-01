@@ -1,5 +1,7 @@
 # Skill effects
 
+The [player Fire Bolt increment](sorceress-fire-bolt-checkpoint.md) uses travel `0x36D4`, hue `0x489`, and cast sound `0x1E5` as identified placeholders. Final cast/travel/contact/impact/expiry feedback and audio remain pending; share the Mage Fire Bolt assets. Visual impact must not imply an unimplemented server splash. Missing artwork does not block the mechanical path; icons stay separate.
+
 The [combined Necromancer acceptance](necromancer-acceptance-checkpoint.md) verifies mechanics and adds no final artwork. Existing summon, cast, curse, projectile, cloud, impact, barrier, parking and audio requirements remain pending with identified UO placeholders. Reuse shared Sorceress/encounter assets where the presentation matches; missing art does not block mechanics. Talent and hotkey icons stay in the separate icon register.
 
 The [Mage basic-spell/triple increment](mage-basics-checkpoint.md) uses fire `0x36D4`, ice `0x36E4` and lightning `0x3818` travel markers as identified placeholders. Final Fire Bolt/Ice Bolt/Charged Bolt travel, collision/impact/chill, triple-fan/charged-volley presentation and audio remain pending and should share Sorceress assets. Existing Mage body/windup/recovery/death and secondary assets remain listed separately; art does not gate the mechanics.

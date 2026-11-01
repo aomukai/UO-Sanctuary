@@ -1,5 +1,7 @@
 # Skill icons
 
+The [player Fire Bolt increment](sorceress-fire-bolt-checkpoint.md) keeps the existing Fire Bolt ability and left/right/quick bindings. Final talent-tree and hotkey artwork is still required; current labels/icons remain placeholders. Reuse one Fire Bolt identity across these surfaces. Autonomous Mage bolts need no separate player hotkey. Effects/audio stay in their separate register.
+
 The [combined Necromancer acceptance](necromancer-acceptance-checkpoint.md) adds no new player action or finished icon. Existing Necromancer talent-tree and left/right/quick artwork remains pending with identified labels/placeholders. Summon passives and autonomous Mage spells do not create separate player hotkeys. Effects/audio requirements stay in the separate effects register.
 
 The [Mage basic-spell/triple increment](mage-basics-checkpoint.md) adds autonomous attacks and no new player binding or separate hotkey icon. Raise Skeletal Mage’s talent-tree/right/quick artwork remains pending with identified text-label placeholders. Basic/secondary projectile and status/audio work remains in the effects register.
