@@ -185,6 +185,15 @@ public static class SorceressSkillChecks
             Require(SorceressCombat.Release(owner, CombatAbility.Telekinesis, enemy.Serial, enemy.Location) && enemy.Hits < life,
                 "Telekinesis did not damage its hostile target");
             displaced = enemy.Location != point;
+            // Source knockback is a saved multi-frame trajectory, not the
+            // old immediate generic one-tile displacement.
+            for(int frame=0;frame<12&&!displaced;frame++)
+            {
+                var motion=SourceKnockbacks.Snapshot().FirstOrDefault(s=>s.Target==enemy.Serial.Value);
+                if(motion==null||motion.Recovering){break;}
+                SourceKnockbacks.Tick(motion.NextUtc);displaced=enemy.Location!=point;
+            }
+            SourceKnockbacks.Clear(enemy);
         }
         Require(displaced, "Source Telekinesis knockback never displaced an ordinary monster");
     }

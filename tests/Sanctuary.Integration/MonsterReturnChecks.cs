@@ -59,7 +59,8 @@ public static class MonsterReturnChecks
         foreach(string variant in new[]{"classic","ubers"})
         {
             var cycle=new MonsterHitClassCycle();int n=0,zero=0,one=0,two=0;
-            using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(root,".local/class-skills/monster-return",variant+".json")));
+            string copied=Path.Join(Core.BaseDirectory,"monster-return-"+variant+".json");
+            using var doc=JsonDocument.Parse(File.ReadAllText(File.Exists(copied)?copied:Path.Join(root,".local/class-skills/monster-return",variant+".json")));
             foreach(var row in doc.RootElement.EnumerateArray())
             {
                 var p=N(row[0]);var expected=row[1].EnumerateArray().Select(x=>x.GetInt64()).ToArray();var s=new Services(p);int before=cycle.Count;

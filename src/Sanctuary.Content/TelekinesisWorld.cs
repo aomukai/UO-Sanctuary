@@ -25,7 +25,7 @@ internal static class TelekinesisWorld
         // projects two source subtiles to one native tile; no Chebyshev square.
         if(4*(dx*dx+dy*dy)>625||!owner.CanSee(target)||!owner.InLOS(target)){return false;}
         if(target is Mobile mobile){return ClassCombat.IsHostile(owner,mobile)
-            &&!SpellHelper.IsTown(owner.Location,owner)&&!SpellHelper.IsTown(mobile.Location,owner);}
+            &&!SpellHelper.IsTown(owner.Location,owner)&&!SpellHelper.IsTown(mobile.Location,owner)&&TelekinesisCombat.Supported(owner,mobile,out _);}
         // Nested inventory, corpses, gates and waypoints have no implicit
         // ground-item/object mapping. The latter need their travel adapter.
         return target is Item{Parent:null} item&&item is not(Corpse or BankBox or TownPortalEnd)

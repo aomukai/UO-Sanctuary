@@ -57,6 +57,7 @@ public static class SorceressCombat
         if (ability==CombatAbility.ChainLightning){return ChainLightning.Release(owner,point,values);}
         if (ability==CombatAbility.ThunderStorm){return ThunderStorm.Release(owner,values);}
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
+        if(ability==CombatAbility.Telekinesis&&World.FindMobile(selected)!=null){return TelekinesisCombat.Release(owner,selected,values);}
         if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         FireGround.Delay(owner, ability);
@@ -78,12 +79,7 @@ public static class SorceressCombat
         if (ability == CombatAbility.Telekinesis)
         {
             if(World.FindItem(selected) is{} item){TelekinesisWorld.Operate(owner,item);return true;}
-            var target = World.FindMobile(selected);
-            double damage = values.Damage(false) + Utility.RandomDouble() * (values.Damage(true) - values.Damage(false));
-            SkillCombat.HitParts(owner, target, new(0, 0, 0, damage, 0), recover: !NamedCombat.Elite(target), spell: true);
-            if (target is { Alive: true, Deleted: false } && !NamedCombat.Elite(target) && Utility.Random(100) < values.Param(2))
-            { CombatDisplacement.TryStep(target, (Direction)(((int)target.GetDirectionTo(owner) + 4) & 7)); }
-            return true;
+            throw new InvalidOperationException("Telekinesis target changed during synchronous release");
         }
         if (ability == CombatAbility.StaticField) { return StaticFields.Cast(owner,owner,values); }
         throw new NotSupportedException("Unmapped Sorceress release: "+ability);

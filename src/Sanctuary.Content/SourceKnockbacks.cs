@@ -13,7 +13,12 @@ namespace Sanctuary;
 
 public sealed record KnockbackSourceRule(string Source,bool Knockback,bool GetHit,int Distance,
     bool? Small=null,bool? Large=null);
-public sealed record SourceKnockbackState(uint Target,int Map,Point3D Position,Point3D End,long Length16,long Travel16,long Budget16,DateTime NextUtc,bool Recovering,DateTime UntilUtc);
+public sealed record SourceKnockbackState(uint Target,int Map,Point3D Position,Point3D End,long Length16,long Travel16,long Budget16,DateTime NextUtc,bool Recovering,DateTime UntilUtc)
+{
+    // Optional V0 extension. Historical trajectories retain their behavior.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool PauseFrozen{get;init;}
+}
 public sealed class SourceKnockbackProfiles:GenericPersistence
 {
     public SourceKnockbackProfiles():base("SanctuarySourceKnockbacks",139){}
@@ -49,12 +54,15 @@ public static class SourceKnockbacks
         return(x/2,y/2,(long)Math.Sqrt((long)x*x*32768*32768+(long)y*y*32768*32768));
     }
     public static bool Begin(Mobile source,BaseCreature target)
+        =>Begin(source,target,false);
+    internal static bool BeginPrepared(Mobile source,BaseCreature target)=>Begin(source,target,true);
+    private static bool Begin(Mobile source,BaseCreature target,bool prepared)
     {
-        if(target is not{Alive:true,Deleted:false,Frozen:false,Paralyzed:false} || source is not{Deleted:false}
+        if(target is not{Alive:true,Deleted:false} || !prepared&&(target.Frozen||target.Paralyzed) || source is not{Deleted:false}
             || source.Map!=target.Map || target.Map==null || target.Map==Map.Internal || Rule(target) is not{Knockback:true,GetHit:true,Distance:5} rule){return false;}
         var offset=Offset(target.X-source.X,target.Y-source.Y,rule.Distance);if(offset.Length16==0){return false;}
         var now=TimedEffects.Now;
-        _states[target.Serial.Value]=new(target.Serial.Value,target.Map.MapID,target.Location,new(target.X+offset.X,target.Y+offset.Y,target.Z),offset.Length16,0,0,now.AddMilliseconds(40),false,default);
+        _states[target.Serial.Value]=new(target.Serial.Value,target.Map.MapID,target.Location,new(target.X+offset.X,target.Y+offset.Y,target.Z),offset.Length16,0,0,now.AddMilliseconds(40),false,default){PauseFrozen=prepared};
         if(target is GraveyardUndead undead){undead.InterruptForRecovery();}
         else if(target is SkeletonGuardian guardian){guardian.InterruptForRecovery();}
         if(target.Spell is Spell spell){spell.Disturb(DisturbType.Hurt);}
@@ -75,11 +83,17 @@ public static class SourceKnockbacks
         // existing mapped GH/FHR clock; complete modern mode/sand-leaper AI mapping is open.
         int frames=CreatureHitRecovery.Frames(CreatureProfiles.For(target).HitRecovery);
         _states[target.Serial.Value]=state with{Position=target.Location,Recovering=true,UntilUtc=now.AddMilliseconds(frames*40)};
-        ClassCombat.SendAnimation(target,20,frames*40); // Identified native get-hit animation placeholder.
+        if(state.PauseFrozen)
+        {
+            var returned=NativeMonsterReturn.Session(target);returned.LastHitClass=160;returned.LastMode=PreparedMonsterReturn.GetHit;
+            CreatureHitRecovery.BeginPreparedGetHit(target,frames*40);
+        }
+        else{ClassCombat.SendAnimation(target,20,frames*40);} // Historical identified get-hit placeholder.
     }
-    private static void Tick()
+    private static void Tick()=>Tick(TimedEffects.Now);
+    internal static void Tick(DateTime now)
     {
-        var now=TimedEffects.Now;
+        if(now.Kind!=DateTimeKind.Utc){throw new ArgumentException("Knockback clock must be UTC");}
         foreach(uint serial in _states.Keys.ToArray())
         {
             if(!_states.TryGetValue(serial,out var state)){continue;}
@@ -87,6 +101,8 @@ public static class SourceKnockbacks
             {_states.Remove(serial);continue;}
             if(state.Recovering){if(state.UntilUtc<=now){_states.Remove(serial);}continue;}
             if(state.NextUtc>now){continue;}
+            if(state.PauseFrozen&&(target.Frozen||target.Paralyzed))
+            {_states[serial]=state with{NextUtc=now.AddMilliseconds(40)};continue;}
             // PATH velocity4096, base1024, >>6 gives one FP16 subtile/frame;
             // two source subtiles per native tile. Process at most one overdue frame.
             state=state with{Travel16=state.Travel16+32768,Budget16=state.Budget16+32768,NextUtc=now.AddMilliseconds(40)};

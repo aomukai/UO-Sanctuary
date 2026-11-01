@@ -2,6 +2,7 @@
 using System;
 using Server;
 using Server.Mobiles;
+using Server.Spells.Necromancy;
 namespace Sanctuary;
 
 // Notification/bookkeeping portion of native Mobile.Damage, in native order.
@@ -10,6 +11,13 @@ namespace Sanctuary;
 // Source HP and death remain owned by the ordered commitment/return phases.
 internal static class PreparedMonsterNativeDamage
 {
+    internal static void RequireIncoming(PlayerMobile source,BaseCreature target)
+    {
+        if(target.GetSkillMod("EvilOmen")!=null||BloodOathSpell.GetBloodOath(source)==target||target.Controlled&&!target.Summoned
+            ||target.SubdueBeforeTame||target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType!=typeof(BaseCreature))
+        {throw new NotSupportedException("This recipient's native incoming damage modifier needs an ordered adapter.");}
+        if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter.");}
+    }
     internal static void Notify(Mobile attacker,BaseCreature target,int after256)
     {
         ArgumentNullException.ThrowIfNull(attacker);

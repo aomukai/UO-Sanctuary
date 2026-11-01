@@ -57,8 +57,11 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     private readonly Mobile Source;private readonly PlayerMobile Owner;private readonly BaseCreature Target;
     private readonly MonsterReturnMetadata MetadataValue;private readonly State Current;private readonly Action Death;
     private readonly Action Recovery;
-    internal NativeMonsterReturn(Mobile source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Action death,Action recovery=null)
-    {Source=source;Owner=owner;Target=target;MetadataValue=metadata;Current=Session(target);Death=death;Recovery=recovery;}
+    private readonly Func<Mobile,BaseCreature,bool> KnockbackAction;
+    private readonly Func<uint> DefenderRandom;
+    internal NativeMonsterReturn(Mobile source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Action death,Action recovery=null,
+        Func<Mobile,BaseCreature,bool> knockback=null,Func<uint> defenderRandom=null)
+    {Source=source;Owner=owner;Target=target;MetadataValue=metadata;Current=Session(target);Death=death;Recovery=recovery;KnockbackAction=knockback;DefenderRandom=defenderRandom;}
     internal override int? AttackerKind=>Source is PlayerMobile?0:1;
     internal override int TargetMode=>Target is{Alive:true,Deleted:false}?1:12; // Only death/dead are distinguished by this return branch.
     internal override int TargetClass=>MetadataValue.Class;
@@ -76,7 +79,7 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     internal override int LastSentLifePercent=>Current.LastLifePercent;
     // The native actor has no recovered D2 seed. Preserve the existing native
     // random service explicitly; source RNG chronology remains unverified.
-    internal override uint RollDefender()=>unchecked((uint)Random.Shared.NextInt64(1L<<32));
+    internal override uint RollDefender()=>DefenderRandom?.Invoke()??unchecked((uint)Random.Shared.NextInt64(1L<<32));
     internal override void LastHitClass(int value)=>Current.LastHitClass=value;
     internal override void DeathDelay()=>throw new NotSupportedException("Live recipient mode completion/death delay needs its actor adapter");
     internal override void Kill()=>Death();
@@ -90,7 +93,7 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
                 {throw new NotSupportedException("Native recipient rejected source get-hit mode");}break;
             case PreparedMonsterReturn.Block:SourceBlocking.Present(Target,true);break;
             case PreparedMonsterReturn.Knockback:
-                if(!targetAttacker||!SourceKnockbacks.Begin(Source,Target)){throw new NotSupportedException("Native recipient rejected source knockback mode");}break;
+                if(!targetAttacker||!(KnockbackAction?.Invoke(Source,Target)??SourceKnockbacks.Begin(Source,Target))){throw new NotSupportedException("Native recipient rejected source knockback mode");}break;
             default:throw new NotSupportedException("Unsupported native return mode");
         }
     }

@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "modeCases": 192,
+  "eventCases": 68,
+  "sanitizers": "ASan/UBSan clean",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d"
+  },
+  "routineHashes": {
+    "sub_6FC64B60": "600a30197bf93eb8894ccc31d88e428809df882ac55375a72f9db69acf8891ed",
+    "sub_6FC64CD0": "d837bfe5a1c7a70bc14a28b3fc8a2aea1809025bbabd6e463ba32c6f8077851d",
+    "MONSTERMODE_EventHandler": "82d2dfef13d74d0233a5a03e1060cb531aba8d9db23ab6a05c68ef15aef7d215",
+    "SUNIT_IsDead": "3cd4ad43d5104a851266a3d80d07b73ac1f1c5a8ea9f25a37164068bd41e874d"
+  },
+  "established": [
+    "Complete entry requires GH+KB modes and sets server-knockback path/distance5 (10 for mapped Sand Leaper) without a local freeze gate. Full outer mode-change/path services remain declared.",
+    "Complete ordinary completion resets path, clears used skill, sets last hit class160 and requests GH. Sand Leaper instead schedules AI at15/45frames; no-GH schedules1frame. This special completion must not be replaced with generic recovery.",
+    "Complete event dispatcher suppresses ordinary live-frozen events but continues statregen/trap/reset/periodic-skill/remove-state and permits dead-unit events. This supports separate motion/status clocks; complete dynamic-path freeze timing is not executed."
+  ],
+  "declaredServices": [
+    "Mode/path/room/animation/AI callback and stat/state storage are explicit services, not a full dynamic-path or native-world simulation. Ordinary post-KB GH uses existing native FHR/AI adapters; Sand Leaper remains unsupported in Telekinesis until its AI completion is adapted.",
+    "Native prepared trajectories pause while the host reports frozen/paralyzed; exact modern initial dispatch, sub-tile rounding and frozen path/animation cadence remain open. Historical trajectories keep their original policy."
+  ],
+  "artifacts": {
+    "tools/probe_telekinesis_motion.py": "ce84a331ca59f90d044c40893304321417df5d649f714451bec85e61ab0654fd",
+    ".local/class-skills/telekinesis-motion-source/probe.cpp": "57f1288ea74b063e45072f2363b9ff7b033b26b49c7c02c0478f5b4433453dc0",
+    ".local/class-skills/telekinesis-motion-source/probe": "bf8f4fb63dc730cc5da7aaa493bf8ed9712d99eda48b1f5cf45e1258accff555",
+    ".local/class-skills/telekinesis-motion-source/probe-san": "36691490615c3430656f304b2ddb4fe983ffdc1acd4c12974cf627c0c5276bcc",
+    ".local/class-skills/telekinesis-motion-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/telekinesis-motion-source/cases.json": "ad19c763ec43c90f5919a39cba3e3edd7a27e3da10f78a6705b3a587a9db44a7"
+  }
+}

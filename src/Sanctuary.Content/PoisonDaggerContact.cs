@@ -19,10 +19,7 @@ internal static class PoisonDaggerContact
         {throw new NotSupportedException("Sand-leaper return movement needs its Poison Dagger actor adapter.");}
         if(MonsterUninterruptibles.Active(target)||MonsterUninterruptibles.Delayed(target))
         {throw new NotSupportedException("Recipient uninterruptible/death-delay completion is not adapted for Poison Dagger.");}
-        if(target.GetSkillMod("EvilOmen")!=null||BloodOathSpell.GetBloodOath(source)==target||target.Controlled&&!target.Summoned
-            ||target.SubdueBeforeTame||target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType!=typeof(BaseCreature))
-        {throw new NotSupportedException("This recipient's native incoming damage modifier needs an ordered adapter.");}
-        if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter.");}
+        PreparedMonsterNativeDamage.RequireIncoming(source,target);
     }
     private sealed class Scope(PoisonDaggerCombat.Prepared prepared,PreparedMonsterDamagePacket packet)
     {

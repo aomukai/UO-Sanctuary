@@ -15,6 +15,8 @@ internal abstract class PreparedMonsterDamageServices
     internal abstract void StoreLastAttacker();
     internal abstract PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket packet);
     internal abstract PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket packet);
+    internal virtual PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket packet)
+        =>throw new NotSupportedException("Missile delivery requires its explicit mitigation service");
     // Ordinary leech/actor recovery services run here after physical clipping.
     // Life Tap and packet absorb healing are owned by the shared pipeline.
     internal abstract void BeforeHealth(PreparedMonsterDamagePacket clipped);
@@ -63,11 +65,21 @@ internal static class PreparedMonsterDamage
         var finish=Finish(attacker,target,commit.Packet,services);
         return new(finish.Packet,commit.Before256,commit.AfterHealth256,commit.StunFrames,finish.DeathModeAttempted);
     }
+    // Instant spells use the same source HP/Stun/kill/return phase, without
+    // melee attempt/presentation/Thorns events. Hit flags select the source's
+    // optional missile-damage events independently of this delivery kind.
+    internal static PreparedMonsterDamageResult ReleaseMissile(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
+        PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
+    {
+        var commit=CommitQualified(attacker,target,packet,recipient,limited,services,at,missile:true);
+        var finish=Finish(attacker,target,commit.Packet,services,hitPresentation:false,missile:true);
+        return new(finish.Packet,commit.Before256,commit.AfterHealth256,commit.StunFrames,finish.DeathModeAttempted);
+    }
     // The contact wrapper can reject health/event eligibility while still
     // continuing attack-attempt callbacks and return. Keep that boundary
     // separate from the already-qualified health/Stun/death event phase.
     internal static PreparedMonsterCommitResult CommitQualified(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
-        PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at)
+        PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at,bool missile=false)
     {
         Checked(packet);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(services);
         if(attacker is not(PlayerMobile or BaseCreature)||attacker is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
@@ -76,13 +88,25 @@ internal static class PreparedMonsterDamage
         using var credit=PreparedMonsterCredit.CaptureOwner(attacker,target);
         services.StoreLastAttacker();
         MonsterUninterruptibles.RecordLastAttacker(target,attacker);
+        if(missile){packet=Checked(services.MitigateMissile(packet));}
         if((packet.ResultFlags&32)==0)
         {
-            packet=Checked(services.DealtDamage(packet));
-            IronMaiden.MeleeDamage(attacker,target,packet.Physical256,false);
-            packet=Checked(services.TookDamage(packet));
-            ClayGolemSlow.Incoming(attacker,target,false,at);
-            NecromancerEffects.LifeTap(attacker,target,packet.Physical256);
+            if(missile)
+            {
+                if((packet.HitFlags&32)!=0)
+                {
+                    if((packet.HitFlags&128)==0){packet=Checked(services.DealtDamage(packet));}
+                    packet=Checked(services.TookDamage(packet));
+                }
+            }
+            else
+            {
+                packet=Checked(services.DealtDamage(packet));
+                IronMaiden.MeleeDamage(attacker,target,packet.Physical256,false);
+                packet=Checked(services.TookDamage(packet));
+                ClayGolemSlow.Incoming(attacker,target,false,at);
+                NecromancerEffects.LifeTap(attacker,target,packet.Physical256);
+            }
         }
         int before=SkillHealth.Balance256(target);
         packet=packet with{Physical256=Math.Min(packet.Physical256,before)};
@@ -112,7 +136,7 @@ internal static class PreparedMonsterDamage
         return new(packet,before,after,stun);
     }
     internal static PreparedMonsterFinishResult Finish(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
-        PreparedMonsterDamageServices services,bool hitPresentation=true)
+        PreparedMonsterDamageServices services,bool hitPresentation=true,bool missile=false)
     {
         Checked(packet);ArgumentNullException.ThrowIfNull(services);
         if(hitPresentation)
@@ -121,10 +145,13 @@ internal static class PreparedMonsterDamage
             if(!packet.HitClassActive&&(packet.HitClass&15)==0){packet=packet with{HitClass=packet.HitClass|services.BaseHitClass()};}
             services.AfterHitPresentation(packet);
         }
-        packet=Checked(services.MeleeAttack(packet));packet=Checked(services.AttackedInMelee(packet));
-        PaladinThorns.PreparedFlatAttempt(attacker,target);
-        if((packet.ResultFlags&1)!=0&&services.AttackerInActiveMode())
-        {services.BeforeThorns(packet);PaladinThorns.PreparedPercentage(attacker,target,packet.Physical256);}
+        if(!missile)
+        {
+            packet=Checked(services.MeleeAttack(packet));packet=Checked(services.AttackedInMelee(packet));
+            PaladinThorns.PreparedFlatAttempt(attacker,target);
+            if((packet.ResultFlags&1)!=0&&services.AttackerInActiveMode())
+            {services.BeforeThorns(packet);PaladinThorns.PreparedPercentage(attacker,target,packet.Physical256);}
+        }
         bool death=false,inReturn=true;
         void EnterDeathMode()
         {

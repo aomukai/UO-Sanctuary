@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 7680,
+  "sanitizers": "ASan/UBSan clean",
+  "modes": {
+    "-1": 4670,
+    "13": 848,
+    "3": 2162
+  },
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Common/include/D2Combat.h": "a71edc6ccae97fa388d0a0689edbf89e59bbb47ab42e5dcbafcb802084c9b5ec"
+  },
+  "routineHashes": {
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "sub_6FCC1870": "79e9050fe70da0c3bca898c1b97a23077a2e0146a4a743e9a5cbe1702426c17b",
+    "SUNITDMG_GetHitClass": "03dfc6f6668f817e635d0e2abe7c27980783b453a121ca23b321f8fc41895470",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "D2GAME_RollPhysicalDamage_6FD14EC0": "2bb96a9a36a4ff8a9d3ad5f3a1c090803b6d6e3f71ea281edc1d04da60e766aa",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "SKILLS_SrvDo021_Telekinesis": "6f103ac77c993a4a6ad052565a7425886b76beacf1d512a16ce82400e7dcf805"
+  },
+  "reusedSource": "tools/reference/monster-return-source-evidence.json",
+  "reusedSourceHash": "ec1da87854b2828c3f7573f5e295f93e091eb96aa5b2bae7028a98149816b39b",
+  "reusedCppHash": "d03518ad77e3be9aee0047cdbe8faf07af5d293fbe42f5f074b3ae210ec634a5",
+  "established": [
+    "Complete do21 plus physical/elemental roll wrappers and typed mapping compose with complete mitigation, event health commitment and NPC return. Physical0/0 consumes no RNG; elemental FP roll then chance%100 share one owner seed.",
+    "Flags5/hit2/class109 remain through source events. Lightning immunity does not suppress a successful knockback request. No stun duration is added. Low-damage recovery uses shared recipient thresholds/defender RNG, existing stun and freeze/mode policy.",
+    "Event2-style hit flags do not enable missile-damage callbacks; only absorb-damage and optional killed/kill callbacks occur. No melee attempt, Life Tap, Iron Maiden or Thorns callback is inserted."
+  ],
+  "declaredServices": [
+    "Endpoints are supplied rank..rank+1 FP values; the complete formula/mastery interpreter is not executed. Non-town hostile player-to-ordinary-monster, zero physical/leech/other elements, empty event subscribers and stat storage are declared.",
+    "Mode/kill/room/state/registration services are adapters. Source NPC return requests are executed, not the full animation/path/death engine. Native world/recipient/item/PvP/Sunder/current executable and global actor-seed allocation require separate acceptance."
+  ],
+  "artifacts": {
+    "tools/probe_telekinesis_combat.py": "6937848bfe9e02eeb1c6d77f6efe69aecc107dfe65a60eea1c8ec8d467d83c8d",
+    ".local/class-skills/telekinesis-combat-source/reused-monster-return.cpp": "d03518ad77e3be9aee0047cdbe8faf07af5d293fbe42f5f074b3ae210ec634a5",
+    ".local/class-skills/telekinesis-combat-source/probe.cpp": "8d2dce18ad559167ca7ad5a8fdd5d7bbdb646fc9218e4fe7c26407ff2c6f0a12",
+    ".local/class-skills/telekinesis-combat-source/probe": "af7791200de228332d177305b877ed747f02b1fc6b7ca0b9c5e21e073468770f",
+    ".local/class-skills/telekinesis-combat-source/probe-san": "97502ad6534eae8dd5fa19e4fd03864bf3ab12441daa21c3f57821d83c88630a",
+    ".local/class-skills/telekinesis-combat-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/telekinesis-combat-source/cases.json": "efc0190d77630c037f76334079b99da09aad99269d05e453358c0053d203b784"
+  }
+}
