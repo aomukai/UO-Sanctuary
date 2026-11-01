@@ -1,5 +1,7 @@
 # Skill effects
 
+The [four-passive increment](sorceress-passives-checkpoint.md) creates no active cast or projectile. Existing fire/lightning/cold/recovery cues remain identified placeholders for status feedback. Final passive/affected-target feedback and audio, where useful, stay pending and should share elemental/recovery assets. Missing art does not block passive suppliers. Talent icons remain in their separate register.
+
 The [player Static Field increment](sorceress-static-field-checkpoint.md) retains caster `0x3818`/hue `0x482` and sound `0x1E5` as identified placeholders. Final cast/area/recipient feedback and audio remain pending and should share the approved Mage Static assets. This instant area pulse adds no projectile art. Talent/hotkey artwork stays in the separate register.
 
 The [saved Nova/Frost Nova increment](sorceress-nova-checkpoint.md) uses lightning `0x3818`/hue `0x482`, cold `0x36E4`/hue `0x480`, shared cold markers and sound `0x1E5` as identified placeholders. Eight sampled markers represent64 mechanical rays. Final cast/ring/travel/contact/chill/expiry and audio remain pending; share matching martial Nova, Poison Nova and cold assets where presentation fits. Missing art does not block mechanical rays. Tree and hotkey artwork stays in the separate register.

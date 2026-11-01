@@ -1,0 +1,11 @@
+# Player lightning-flight preflight
+
+Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. No runtime or handler acceptance is claimed by this note.
+
+Remaining player Lightning is the private unsaved `SorceressCombat.LightningMissile`; player Charged Bolt uses the private unsaved `ChargedBolts.Bolt`. Both retain earlier native timing/path/damage checks, but call the generic impact-time enhancement path. Their motion, damage-capture and restart contracts need the same dedicated treatment as the saved player Fire/Ice/Nova routes.
+
+Pinned `lightningbolt` missile98 has do1, velocity30, range25, Size2, no CollideKill, LastCollide1, CanSlow1, ReturnFire/GetHit1 and ResultFlags4. Reuse saved player flight, complete generic do1, Q12 vectors/source steps, source hitboxes and elemental packet services. Preserve Size2 and non-killing LastCollision semantics rather than copying the Size1/collision-kill basic-bolt profile unchanged. Retain the existing Lightning/Chain Lightning sequence timing checks.
+
+Pinned `chargedbolt` missile56 has do1, velocity12, range98, Size1, CollideKill1, LastCollide1, CanSlow1, ReturnFire/GetHit1 and ResultFlags4. The current initializer/path adapter retains a77-frame clamp, aim-based seed plus ordinal, and saved-compatible `ChargedBolts.Path`/`Advance` helpers. Reuse the existing Mage charged flights, martial child/factory/path evidence and shared damage/capture kernels. Check complete skill emission and initializer controls before changing count, seeds, flags or that lifetime; a table range alone does not override the initializer.
+
+Next acceptance should cover release-time effective/hard ranks and positive mastery/item/Slow Missiles capture, contact-time potion and resistance, correct collision/recipient order, source event ownership, mana/windup/town/lifecycle, real right/quick input and actual resumed flights. Preserve retained Mage/basic/Nova and sequence checks. Native charged waypoint/room/geometry and initial factory/global RNG/event/PvP/current-executable limits remain explicit; final lightning/charged visuals/audio and tree/hotkey art stay separate. Inferno's held-input/payment/release gap remains individually deferred.

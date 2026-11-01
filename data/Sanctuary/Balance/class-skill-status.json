@@ -452,7 +452,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated1020rank-value,real absent/learned/hard/soft gear,positive mastery capture/live Cold Mastery,180curse/Conviction immunity,item-pierce separation, T09Warmth/gear/Meditation/material stacking,respec/class and two-reload profile/original-gear/wound/resource scopes are in sorceress-passives-checkpoint.md. Published modern broken-immunity rule now divides only skill Cold Mastery by five for supported ordinary monsters;known legacy Conviction offset is excluded from the pre-break pool. T09baseline is retained. Controlled postload damage restores only a synthetic creature base input,not wounds/resources; arbitrary NPC override persistence is not proved. Sunder,staffmod/oskill, unmapped modifiers,hire/PvP,current executable/events/rounding,old-DLL/client and final feedback/tree-icon acceptance remain open;no class certificate."
     },
     {
       "talentId": "sorceress.chargedbolt",
@@ -562,7 +562,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated1020rank-value,real absent/learned/hard/soft gear,positive mastery capture/live Cold Mastery,180curse/Conviction immunity,item-pierce separation, T09Warmth/gear/Meditation/material stacking,respec/class and two-reload profile/original-gear/wound/resource scopes are in sorceress-passives-checkpoint.md. Published modern broken-immunity rule now divides only skill Cold Mastery by five for supported ordinary monsters;known legacy Conviction offset is excluded from the pre-break pool. T09baseline is retained. Controlled postload damage restores only a synthetic creature base input,not wounds/resources; arbitrary NPC override persistence is not proved. Sunder,staffmod/oskill, unmapped modifiers,hire/PvP,current executable/events/rounding,old-DLL/client and final feedback/tree-icon acceptance remain open;no class certificate."
     },
     {
       "talentId": "sorceress.firebolt",
@@ -584,7 +584,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated1020rank-value,real absent/learned/hard/soft gear,positive mastery capture/live Cold Mastery,180curse/Conviction immunity,item-pierce separation, T09Warmth/gear/Meditation/material stacking,respec/class and two-reload profile/original-gear/wound/resource scopes are in sorceress-passives-checkpoint.md. Published modern broken-immunity rule now divides only skill Cold Mastery by five for supported ordinary monsters;known legacy Conviction offset is excluded from the pre-break pool. T09baseline is retained. Controlled postload damage restores only a synthetic creature base input,not wounds/resources; arbitrary NPC override persistence is not proved. Sunder,staffmod/oskill, unmapped modifiers,hire/PvP,current executable/events/rounding,old-DLL/client and final feedback/tree-icon acceptance remain open;no class certificate."
     },
     {
       "talentId": "sorceress.inferno",
@@ -661,7 +661,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated1020rank-value,real absent/learned/hard/soft gear,positive mastery capture/live Cold Mastery,180curse/Conviction immunity,item-pierce separation, T09Warmth/gear/Meditation/material stacking,respec/class and two-reload profile/original-gear/wound/resource scopes are in sorceress-passives-checkpoint.md. Published modern broken-immunity rule now divides only skill Cold Mastery by five for supported ordinary monsters;known legacy Conviction offset is excluded from the pre-break pool. T09baseline is retained. Controlled postload damage restores only a synthetic creature base input,not wounds/resources; arbitrary NPC override persistence is not proved. Sunder,staffmod/oskill, unmapped modifiers,hire/PvP,current executable/events/rounding,old-DLL/client and final feedback/tree-icon acceptance remain open;no class certificate."
     },
     {
       "talentId": "sorceress.hydra",

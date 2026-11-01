@@ -48,10 +48,19 @@ public static class NamedElements
         int immunityBase=PaladinConviction.UnderlyingResistance(target,element,resistance);
         resistance=immunityBase;
         if(!playerResistance && element!="mag"){resistance+=PaladinResistance.Bonus(target,type);}
+        // Retain the pool before skill reductions. Legacy elite Conviction
+        // may already be a native resistance mod; exclude its known offset.
+        int beforeBreaking=resistance-(PaladinConviction.Managed(target)?0:EliteAuras.ConvictionOffset(target,element));
         resistance = NecromancerEffects.Resistance(target, element, resistance,PaladinConviction.Managed(target)?immunityBase:null,PaladinConviction.Managed(target));
         resistance+=PaladinConviction.ResistanceDelta(target,element,immunityBase);
         if (element == "cold" && source is PlayerMobile caster && (target is not BaseCreature || resistance < 100))
-        { resistance -= SorceressCombat.Passive(caster, CombatAbility.ColdMastery); }
+        {
+            int mastery=SorceressCombat.Passive(caster,CombatAbility.ColdMastery);
+            // D2R2.6/current reference: skill Cold Mastery is one fifth after
+            // a monster immunity is broken. Item pierce below stays separate.
+            if(target is BaseCreature and not BaseHire&&beforeBreaking>=100){mastery/=5;}
+            resistance-=mastery;
+        }
         // Ordinary item pierce cannot break a monster's immunity.
         if (target is not BaseCreature || resistance < 100)
         { int pierce=pierceOverride??Bonus(source,"pierce-"+element);resistance-=source is BladeSentinelBody or AssassinSentryBody?pierce:Math.Max(0,pierce); }

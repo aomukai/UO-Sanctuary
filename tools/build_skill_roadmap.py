@@ -392,6 +392,20 @@ CAVEATS['sorceress.staticfield'] = (
     'regeneration is unchanged;exact saved mana uses fixture-only eligibility control. '
     'Effects/audio/icons remain separate;no class certificate.')
 
+for _talent in ('sorceress.warmth','sorceress.firemastery','sorceress.lightningmastery','sorceress.coldmastery'):
+    CAVEATS[_talent] = (
+        'Dedicated1020rank-value,real absent/learned/hard/soft gear,positive mastery '
+        'capture/live Cold Mastery,180curse/Conviction immunity,item-pierce separation, '
+        'T09Warmth/gear/Meditation/material stacking,respec/class and two-reload '
+        'profile/original-gear/wound/resource scopes are in sorceress-passives-checkpoint.md. '
+        'Published modern broken-immunity rule now divides only skill Cold Mastery '
+        'by five for supported ordinary monsters;known legacy Conviction offset is '
+        'excluded from the pre-break pool. T09baseline is retained. Controlled postload '
+        'damage restores only a synthetic creature base input,not wounds/resources; '
+        'arbitrary NPC override persistence is not proved. Sunder,staffmod/oskill, '
+        'unmapped modifiers,hire/PvP,current executable/events/rounding,old-DLL/client '
+        'and final feedback/tree-icon acceptance remain open;no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
