@@ -119,6 +119,16 @@ public static class SkillCombat
         }
         targets.Sort((a, b) => a.Serial.CompareTo(b.Serial)); return targets;
     }
+    internal static void CopiedArea(PlayerMobile owner,Point3D center,double radius,Action<Mobile> impact)
+    {
+        foreach(var target in Targets(owner,center,radius))
+        {
+            // Shared copied-area defense context1/0: no direct-missile
+            // return-fire callback or inherited block-reaction request.
+            if(target is not{Alive:true,Deleted:false}||ClassAvoidance.Missile(target)){continue;}
+            impact(target);
+        }
+    }
     public static ClassSkillDamage? ResistedDamage(Mobile target, Mobile source, int damage, int physical, int fire, int cold, int poison, int lightning, bool spell, bool weapon)
     {
         bool classPlayer=target is PlayerMobile victim && ClassCombat.Enabled(victim) || source is PlayerMobile attacker && ClassCombat.Enabled(attacker);

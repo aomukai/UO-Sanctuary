@@ -357,6 +357,17 @@ CAVEATS['sorceress.glacialspike'] = (
     'modern hit13/router/seed/events/pierce/owner timing,special/PvP recipients,old-DLL '
     'upgrade and final graphical/assets acceptance remain open; no class certificate.')
 
+CAVEATS['sorceress.fireball'] = (
+    'Saved shared player flight validates source47/missile62/hit1,50frames/velocity20, '
+    'one captured raw packet copied across recipients and impact-time potion. Dedicated '
+    'rank/gear/mana,typed immunity,active expiry,lifecycle,ordinary corpses,actual '
+    'right/quick and two-reload scopes retain player/Mage area regressions;see '
+    'sorceress-fire-ball-checkpoint.md. KNOWN native wall-center gap:half-cell LOS '
+    'collision plus rounded next-position can explode on the far side of a wall; '
+    'the fixture characterizes this adapter,not D2 wall parity. Common aim admission, '
+    'native room/radius/filter/order,modern hit1/router/seed/events/pierce/owner/PvP, '
+    'old-DLL upgrade and final graphical/assets acceptance remain open;no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
@@ -479,6 +490,7 @@ NATIVE_PARTIAL.add('sorceress.firebolt')
 NATIVE_PARTIAL.add('sorceress.icebolt')
 NATIVE_PARTIAL.add('sorceress.iceblast')
 NATIVE_PARTIAL.add('sorceress.glacialspike')
+NATIVE_PARTIAL.add('sorceress.fireball')
 LEGACY = {'sorceress.teleport'}
 PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',

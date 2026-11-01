@@ -52,6 +52,7 @@ internal static class SorceressSpellMissiles
         CombatAbility.IceBolt=>new("icebolt","cold",39,12,0),
         CombatAbility.IceBlast=>new("iceblast","cold",45,12,4),
         CombatAbility.GlacialSpike=>new("glacialspike","cold",55,16,0,40,13,5,2),
+        CombatAbility.Fireball=>new("fireball","fire",47,20,0,50,1,5,2),
         _=>throw new NotSupportedException("Unmapped player straight spell")
     };
     internal static void Route(SkillValues values)
@@ -65,7 +66,8 @@ internal static class SorceressSpellMissiles
             ||M("CollideKill")!=1||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=0||M("Pierce")!=0
             ||M("SrcDamage")!=0||M("CanSlow")!=1||M("InitSteps")!=1||M("Activate")!=0
             ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=0
-            ||profile.HitFunction==13&&(M("sHitPar1")!=0||M("sHitPar2")!=0||new MissileValues(profile.Key,values).Text("EType")!="frze"))
+            ||profile.HitFunction==13&&(M("sHitPar1")!=0||M("sHitPar2")!=0||new MissileValues(profile.Key,values).Text("EType")!="frze")
+            ||profile.HitFunction==1&&(M("sHitPar1")!=0||new MissileValues(profile.Key,values).Text("EType")!="fire"))
         {throw new NotSupportedException("Unmapped player straight spell route");}
     }
     private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
@@ -131,6 +133,31 @@ internal static class SorceressSpellMissiles
     }
     internal static int Roll(SorceressSpellFlight flight,out ulong seed)
     {ulong stream=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref stream,n));seed=stream;return raw;}
+    internal static double ExplosionRadius(SkillValues values)=>values.Ability switch
+    {
+        CombatAbility.Fireball=>SkillGeometry.Tiles(Math.Max(1,values.Eval("calc1"))),
+        CombatAbility.GlacialSpike=>GlacialSpikes.Radius(values),
+        _=>throw new NotSupportedException("Unmapped player explosion radius")
+    };
+    internal static void Explosion(PlayerMobile owner,Point3D center,SorceressSpellFlight flight,out ulong seed)
+    {
+        var profile=Profile(flight.Ability);if(profile.HitFunction is not(1 or 13)){throw new NotSupportedException("Unmapped player area callback");}
+        // Both callbacks evaluate radius on the current owner at retained
+        // rank; only hit13 evaluates freeze length. Damage stays captured.
+        var values=SkillMechanics.Values(owner,flight.Ability,flight.Rank);double radius=ExplosionRadius(values);
+        int frames=profile.HitFunction==13?GlacialSpikes.FreezeFrames(values):0;
+        int raw=Roll(flight,out seed);var mods=flight.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
+        var basis=profile.Element=="fire"?new GearDamage(0,raw/256.0,0,0,0):new(0,0,raw/256.0,0,0);
+        var packet=DruidMoltenBoulder.Potion(mods,basis);
+        SkillCombat.CopiedArea(owner,center,radius,target=>
+        {
+            owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,packet);
+            if(frames>0){FreezeStates.Apply(owner,target,frames,TimedEffects.TickAt(flight.NextUtc));}
+            int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+            if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);
+        });
+        Effects.SendLocationEffect(center,owner.Map,profile.Element=="fire"?0x36BD:0x36E4,8,10,profile.Element=="fire"?0x489:0x480,0); // Identified shared explosion placeholders.
+    }
     private static void Advance(SorceressSpellFlight flight,DateTime at,bool? actions)
     {
         var owner=Owner(flight.Owner);if(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map){Remove(flight.Id);return;}
@@ -163,12 +190,12 @@ internal static class SorceressSpellMissiles
         {bool blocked=DruidFirestorm.CellBlocked(map,flight.Z,flight.X,flight.Y,cell.X,cell.Y);if(blocked){barrier=true;}return blocked;}
         int Hit(uint serial,bool terminal)
         {
-            if(flight.Ability==CombatAbility.GlacialSpike)
+            if(flight.Ability is CombatAbility.GlacialSpike or CombatAbility.Fireball)
             {
-                if(!terminal&&World.FindMobile((Serial)serial) is{} primary){SorceressEffects.MissileHit(owner,primary,"glacialspike");}
+                if(!terminal&&World.FindMobile((Serial)serial) is{} primary){SorceressEffects.MissileHit(owner,primary,Profile(flight.Ability).Key);}
                 var center=next.X>=0&&next.Y>=0&&next.X<map.Width&&next.Y<map.Height
                     ?new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z):new((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z);
-                GlacialSpikes.PlayerExplosion(owner,center,flight,out var seed);next=next with{Seed=seed};
+                Explosion(owner,center,flight,out var seed);next=next with{Seed=seed};
             }
             else if(!terminal&&World.FindMobile((Serial)serial) is{} target)
             {Impact(owner,target,flight,out var seed);next=next with{Seed=seed};}
@@ -180,7 +207,7 @@ internal static class SorceressSpellMissiles
         if(removed||barrier||result.Result==2){Remove(flight.Id);return;}
         // A reactive consumer may have cleared the owner's flights.
         if(_pool.Flights.ContainsKey(flight.Id)){_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,next)};}
-        if(frame%2==0){bool cold=flight.Ability!=CombatAbility.FireBolt;Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,cold?0x36E4:0x36D4,2,10,cold?0x480:0x489,0);} // Identified shared bolt placeholders.
+        if(frame%2==0){bool cold=flight.Ability is not(CombatAbility.FireBolt or CombatAbility.Fireball);Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,cold?0x36E4:0x36D4,2,10,cold?0x480:0x489,0);} // Identified shared bolt placeholders.
     }
     internal static void Tick(DateTime at,bool? actions=null)
     {
@@ -199,7 +226,7 @@ internal static class SorceressSpellMissiles
     }
     private static void Validate(SorceressSpellFlight s)
     {
-        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike))
+        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball))
         {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
         var profile=Profile(s.Ability);bool capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast;
         if(s.Id<=0||!((Serial)s.Owner).IsMobile||s.Rank is <1 or >255

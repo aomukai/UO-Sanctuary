@@ -41,28 +41,10 @@ internal static class GlacialSpikes
             SkillCombat.ResolveHitParts(owner,target,new(0,0,raw/256.0,0,0),true,spell:true,sourceFreezeFrames:FreezeFrames(values)));
     }
     internal static void PlayerExplosion(PlayerMobile owner,Point3D center,SorceressSpellFlight flight,out ulong seed)
-    {
-        int raw=SorceressSpellMissiles.Roll(flight,out seed);
-        // Hit13 reads the retained skill/rank but evaluates aura range/length
-        // on the current owner. Damage remains the missile's captured packet.
-        var values=SkillMechanics.Values(owner,CombatAbility.GlacialSpike,flight.Rank);
-        int frames=FreezeFrames(values);var mods=flight.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
-        var packet=DruidMoltenBoulder.Potion(mods,new(0,0,raw/256.0,0,0));
-        PlayerRecipients(owner,center,Radius(values),target=>
-        {
-            owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,packet);
-            FreezeStates.Apply(owner,target,frames,TimedEffects.TickAt(flight.NextUtc));
-            int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
-            if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);
-        });
-    }
+        =>SorceressSpellMissiles.Explosion(owner,center,flight,out seed);
     private static void PlayerRecipients(PlayerMobile owner,Point3D center,double radius,Action<Mobile> impact)
     {
-        foreach(var target in SkillCombat.Targets(owner,center,radius))
-        {
-            if(target is not{Alive:true,Deleted:false}||ClassAvoidance.Missile(target)){continue;}
-            impact(target);
-        }
+        SkillCombat.CopiedArea(owner,center,radius,impact);
         Effects.SendLocationEffect(center,owner.Map,0x36E4,8,10,0x480,0); // Identified explosion placeholder.
     }
 }

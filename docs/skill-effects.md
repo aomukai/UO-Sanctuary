@@ -1,5 +1,7 @@
 # Skill effects
 
+The [saved player Fire Ball increment](sorceress-fire-ball-checkpoint.md) uses travel `0x36D4`/hue `0x489`, explosion `0x36BD`/hue `0x489` and sound `0x1E5` as identified placeholders. Final cast/travel/contact/explosion/expiry presentation and audio remain pending. Share matching Mage and fire-area assets; visual wall placement must follow the eventual shared geometry correction. Tree and hotkey artwork stays in the separate icon register.
+
 The [saved player Glacial Spike increment](sorceress-glacial-spike-checkpoint.md) retains cold travel/explosion `0x36E4`/hue `0x480`, freeze marker `0x374A`/hue `0x480` and sound `0x1E5` as identified placeholders. Final cast/travel/terminal or contact explosion/freeze/thaw/shatter and audio remain pending; share the existing Mage Glacial/cold assets. Offline expiry creates no replay effect. Talent/hotkey icons remain separate.
 
 The [player Ice Blast increment](sorceress-ice-blast-checkpoint.md) uses travel `0x36E4`/hue `0x480`, freeze marker `0x374A`/hue `0x480`, and sound `0x1E5` as identified placeholders. Final cast/travel/contact/freeze/thaw/shatter and audio remain pending; share the existing cold/Mage assets where presentation matches. Its client impact effect must not imply a server splash. Icons remain separate.

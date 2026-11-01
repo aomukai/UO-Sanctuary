@@ -1,5 +1,7 @@
 # Skill icons
 
+The [saved player Fire Ball increment](sorceress-fire-ball-checkpoint.md) retains stable ability58 and existing talent/left/right/quick bindings. Final tree and hotkey artwork remains pending with current labels/icons as placeholders. The shared projectile/area controller adds no player action or separate icon. Effects/audio stay in their separate register.
+
 The [saved player Glacial Spike increment](sorceress-glacial-spike-checkpoint.md) retains stable ability 40 and existing talent/left/right/quick bindings. Final tree/hotkey art remains pending with current labels/icons as placeholders. One player icon identity covers the shared controller; autonomous Mage Glacial adds no separate hotkey. Effects/audio remain in the separate register.
 
 The [player Ice Blast increment](sorceress-ice-blast-checkpoint.md) keeps stable ability 38 and existing talent/left/right/quick bindings. Final tree and hotkey artwork remains pending with current labels/icons as placeholders. The shared controller creates no additional player action or icon. Effects/audio remain in their separate register.
