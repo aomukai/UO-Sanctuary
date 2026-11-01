@@ -1,5 +1,7 @@
 # Skill effects
 
+[Cold armor casts and Frozen Armor reaction](sorceress-cold-armor-checkpoint.md) reuse armor `0x375A`/hue `0x480`, freeze `0x374A`/hue `0x480`, legacy return travel `0x36E4` and sound `0x1E5` as identified placeholders. Final Frozen/Shiver/Chilling cast, persistent body armor, reaction/travel/contact/expiry overlays and audio remain pending. Share cold/Mage effects where suitable; tree/hotkey icons stay separate.
+
 [Enchant casting](sorceress-enchant-cast-checkpoint.md) retains buff/weapon glow `0x375A`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final player/Mage Enchant cast, recipient/weapon glow, hit/expiry feedback and audio remain pending; share the spell presentation where suitable. Talent/hotkey icons stay separate.
 
 [Thunder Storm pulses](sorceress-storm-pulse-checkpoint.md) retain aura `0x375A`/hue `0x482`, lightning `BoltEffect(0x482)` and cast sound `0x1E5` as identified placeholders. Final thunderstorm aura/strike/cast overlays and sorceress thunder cast/bolt audio remain pending, sharing elemental feedback with existing lightning skills. Talent/hotkey icons stay separate.

@@ -1,5 +1,7 @@
 # Cold armor acceptance preflight
 
+Follow-up: [shared cast/Frozen Armor checkpoint](sorceress-cold-armor-checkpoint.md) records the implemented casting and freeze changes. [Shiver/Chilling retaliation](sorceress-armor-retaliation-preflight.md) remains the next mechanical work; this original plan is not a class certificate.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Continue the current Sorceress class with Frozen Armor, Shiver Armor and Chilling Armor. This is read-only preparation, not new acceptance or class completion.
 
 Reuse `SorceressEffects.ColdArmorState`, `CastArmor`, `PrepareColdArmor`, `Armor` and the existing `DefensiveArmors.ClearGroup`. `SorceressSkillChecks` already checks defense, replacement, Frozen Armor's positive physical melee trigger, Shiver Armor on attempted/missed melee, Chilling Armor's return-fire filter and travelling retaliation, coexistence with Energy Shield, expiry/lifecycle and saved armor. Retain those tests and their explicitly held inspection deadlines. Mage intrinsic Frozen Armor is an approved separate pet policy and should reuse the appropriate shared freeze mechanics without adding a player cast.

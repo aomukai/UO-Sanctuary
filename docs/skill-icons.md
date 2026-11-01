@@ -1,5 +1,7 @@
 # Skill icons
 
+[Cold armor casts](sorceress-cold-armor-checkpoint.md) retain stable Frozen/Shiver/Chilling abilities36/39/42 and right/quick bindings. Final talent-tree and hotkey artwork remain pending with current labels/icons as placeholders. Reactive freezes/return bolts add no separate player action or icon; effects/audio stay separate.
+
 [Enchant casting](sorceress-enchant-cast-checkpoint.md) retains stable ability60 and its right/quick bindings. Final talent-tree and hotkey artwork remain pending with current labels/icons as placeholders. Automatic Mage Enchant adds no separate player action or icon; effects/audio stay separate.
 
 [Thunder Storm](sorceress-storm-pulse-checkpoint.md) retains stable ability51 and its existing right/quick bindings. Final talent-tree and hotkey icons remain pending with current labels/icons as placeholders. Automatic pulses add no separate input/icon; effects/audio stay separate.

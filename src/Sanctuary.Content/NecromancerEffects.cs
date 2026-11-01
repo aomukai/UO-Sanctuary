@@ -80,7 +80,7 @@ public static class NecromancerEffects
         ClassCombatHooks.SkillResistedDamage = SkillCombat.ResistedDamage;
         // Native AOS supplies the fractional physical event before committing life.
         // Its later ordinary hit callback must not repeat Life Tap.
-        ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false,ironMaiden:false);
+        ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false,ironMaiden:false,frozenArmor:false);
     }
     public static bool IsCurse(CombatAbility a) => a is CombatAbility.AmplifyDamage or CombatAbility.DimVision
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
@@ -321,9 +321,9 @@ public static class NecromancerEffects
     }
     internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)
     {PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged);}
-    public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true,bool ironMaiden=true)
+    public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true,bool ironMaiden=true,bool frozenArmor=true)
     {
-        SorceressEffects.MeleeHit(attacker, target, physicalLoss, ranged);
+        SorceressEffects.MeleeHit(attacker, target, physicalLoss, ranged, frozenArmor);
         if (physicalLoss <= 0) { return; }
         // Compatibility entry point for explicit whole-HP events. Native and
         // prepared weapon paths already dispatched fractional Life Tap/Iron Maiden.

@@ -364,7 +364,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native exclusive armor, source defense/duration/synergy, physical-melee freeze and reload covered; full cold immunity/species and client comparisons remain."
+      "remaining": "Shared do18/group/list/removal and freeze-only event02 have complete older-source controls. Prepared right/quick casts,rank/hard goldens and unextended saved armor/gear/resources pass. New records retain cast rank and reevaluate current hard freeze synergies;positive fractional and lethal physical melee react before HP through the existing incoming weapon hook. Legacy rankless saves retain captured values. Exact sibling event registration/order,modern immunity/uninterruptible/species/PvP/charged/oskill/client and old-DLL/unheld saves remain open;effects/audio/icons separate."
     },
     {
       "talentId": "sorceress.frostnova",
@@ -397,7 +397,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native attempted-melee retaliation including misses, chill instead of freeze, replacement and reload covered; all special attack/event cases remain to compare."
+      "remaining": "Shared prepared do18 casts,right-only admission,release mana,rank/hard duration/defense goldens,group replacement and original saved rank/gear/resources have dedicated native coverage. Existing attempted-melee retaliation includes misses and chill. Its floating damage/generic hit callback still needs retained-rank live-synergy source event03 typed damage/return and full event order acceptance. Modern special/PvP/charged/oskill/client/old-DLL/unheld saves remain open;effects/audio/icons separate."
     },
     {
       "talentId": "sorceress.glacialspike",
@@ -430,7 +430,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Source ReturnFire filtering and a travelling counter-bolt from a native arrow covered. Other missile/collision exceptions, cast/impact modifier timing and live-client comparison remain."
+      "remaining": "Shared prepared do18 casts,right-only admission,release mana,rank/hard duration/defense goldens,group replacement and original saved rank/gear/resources have dedicated native coverage. Existing native-arrow ReturnFire filtering and travelling retaliation remain. The private unsaved return-bolt timer must migrate to the checked saved missile kernel with event01 factory/damage/owner rules;exact modern missile/event/collision/PvP/charged/oskill/client/old-DLL/unheld saves remain open. Effects/audio/icons separate."
     },
     {
       "talentId": "sorceress.frozenorb",

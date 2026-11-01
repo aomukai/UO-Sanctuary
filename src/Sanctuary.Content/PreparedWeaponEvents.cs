@@ -13,6 +13,10 @@ internal static class PreparedWeaponEvents
     {
         IronMaiden.MeleeDamage(attacker,defender,physical256,ranged);
         ClayGolemSlow.Incoming(attacker,defender,ranged,TimedEffects.Now);
+        // Frozen Armor's incoming physical event belongs before HP/death, and
+        // accepts positive fractional damage. Keep the existing other-event
+        // order; exact source sibling-registration order remains separate.
+        ColdArmors.PhysicalMelee(attacker,defender,physical256,ranged);
         NecromancerEffects.LifeTap(attacker,defender,physical256);
         int eligible=(int)Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));
         leech?.Invoke(eligible);

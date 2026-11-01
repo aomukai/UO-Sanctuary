@@ -8,7 +8,12 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record ColdArmorState(CombatAbility Ability, DateTime UntilUtc, int Defense, int FreezeFrames,
-    int Min256, int Max256, int ColdFrames);
+    int Min256, int Max256, int ColdFrames)
+{
+    // Optional V0 extension. Older saves retain their captured reaction values;
+    // do not infer a rank from rounded damage/defense or current equipment.
+    public int Rank { get; init; }
+}
 public sealed record EnergyShieldState(DateTime UntilUtc, int AbsorbPercent);
 public sealed record EnchantState(DateTime UntilUtc, int Rank, int Min256, int Max256, int AttackPercent, uint Caster);
 public sealed record SorceressState(ColdArmorState Armor = null, EnergyShieldState Shield = null, ThunderStormState Storm = null, EnchantState Enchantment = null, BlazeState Blaze = null);
@@ -35,7 +40,7 @@ public sealed class SorceressEffectProfiles : GenericPersistence
         {
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<SorceressState>(reader.ReadString());
             if (!serial.IsMobile || state == null || state.Armor is { } armor && (!SorceressEffects.IsArmor(armor.Ability)
-                || armor.Defense < 0 || armor.FreezeFrames < 0 || armor.Min256 < 0 || armor.Max256 < armor.Min256 || armor.ColdFrames < 0)
+                || armor.Defense < 0 || armor.FreezeFrames < 0 || armor.Min256 < 0 || armor.Max256 < armor.Min256 || armor.ColdFrames < 0 || armor.Rank is < 0 or > 255)
                 || state.Shield is { AbsorbPercent: < 0 or > 95 }
                 || state.Enchantment is { } enchant && (enchant.Rank <= 0 || enchant.Min256 < 0 || enchant.Max256 < enchant.Min256 || enchant.AttackPercent < 0)
                 || state.Blaze is { } blaze && (blaze.Rank <= 0 || blaze.Speed < 0)
@@ -98,14 +103,18 @@ public static class SorceressEffects
     public static int Defense(Mobile actor) => Armor(actor)?.Defense ?? 0;
     public static void CastArmor(PlayerMobile owner, CombatAbility ability, SkillValues values)
     {
-        DefensiveArmors.ClearGroup(owner);
         var armor = PrepareColdArmor(ability,values,TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40));
+        ApplyArmor(owner, armor);
+    }
+    internal static void ApplyArmor(PlayerMobile owner, ColdArmorState armor)
+    {
+        DefensiveArmors.ClearGroup(owner);
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { Armor = armor });
         owner.FixedEffect(0x375A, 10, 15, 0x480, 0); // Placeholder cold armor.
     }
     internal static ColdArmorState PrepareColdArmor(CombatAbility ability,SkillValues values,DateTime until)
         =>new(ability,until,(int)values.Eval("aurastatcalc1"),ability==CombatAbility.FrozenArmor?(int)values.Eval("calc1"):0,
-            values.Damage256(false),values.Damage256(true),values.DurationFrames);
+            values.Damage256(false),values.Damage256(true),values.DurationFrames) { Rank = values.Rank };
     public static void CastShield(PlayerMobile owner, SkillValues values)
     {
         var shield = new EnergyShieldState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), (int)values.Eval("calc1"));
@@ -145,11 +154,11 @@ public static class SorceressEffects
             || Armor(owner) is not { Ability: CombatAbility.ShiverArmor } armor) { return; }
         Retaliate(owner, attacker, armor);
     }
-    public static void MeleeHit(Mobile attacker, Mobile defender, int physical, bool ranged)
+    public static void MeleeHit(Mobile attacker, Mobile defender, int physical, bool ranged, bool frozenArmor = true)
     {
         if(physical<=0||ranged){return;}
-        if(Hostile(attacker,defender,out var owner)&&Armor(owner) is{Ability:CombatAbility.FrozenArmor} armor)
-        {NamedControl.FreezeSkill(owner,attacker,armor.FreezeFrames*40);return;}
+        if(frozenArmor&&Hostile(attacker,defender,out var owner)&&Armor(owner) is{Ability:CombatAbility.FrozenArmor})
+        {ColdArmors.PhysicalMelee(attacker,defender,(int)Math.Min((long)physical*256,int.MaxValue),ranged);return;}
         if(defender is NecromancerMinion{ControlMaster:PlayerMobile master} mage&&MagePetBuffs.Armor(mage) is{} innate
             &&attacker is{Alive:true,Deleted:false}&&attacker.Map==mage.Map&&ClassCombat.IsHostile(master,attacker))
         {FreezeStates.Apply(mage,attacker,innate.FreezeFrames,Core.TickCount);}
