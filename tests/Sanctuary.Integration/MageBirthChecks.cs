@@ -55,7 +55,7 @@ public static class MageBirthChecks
         Require(SkillMechanics.Rank(p,CombatAbility.SkeletonMastery)==0,"Unexpected Mastery prerequisite");
         p.Mana=p.ManaMax;var corpse=Corpse(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.RaiseSkeletalMage).Mana256;
         Require(NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location),"Learned mage release refused");
-        var mage=p.AllFollowers.OfType<NecromancerMinion>().Single(x=>x.IsMage);mage.AIObject.AITimer.Stop();mage.SuspendActions();
+        var mage=p.AllFollowers.OfType<NecromancerMinion>().Single(x=>x.IsMage);Require(mage is MageWorldBody,"Learned Mage birth world subtype");mage.AIObject.AITimer.Stop();mage.SuspendActions();
         Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&(corpse.Deleted||corpse.SanctuaryConsumed),"Mage did not consume corpse/pay once");
         Require(!NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,mage.Location)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Consumed corpse recast or paid again");
         Require(mage.Rank==4&&mage.Mastery==0&&mage.SourceLife256==17177&&SkillHealth.Maximum256(mage)==17177&&SkillHealth.Balance256(mage)==17177&&mage.HitsMax==68

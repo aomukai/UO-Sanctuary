@@ -22,22 +22,22 @@ internal sealed record IronGolemWorldState(int Map,ActorMotionState Motion,DateT
 internal static class IronGolemWorld
 {
     internal static IronGolemWorldState Controller(SkeletonGuardian body)=>body switch
-    {IronGolemBody iron=>iron.Prepared?.Controller,IUnarmedGroundPet unarmed=>unarmed.Ground.State?.Controller,_=>throw new NotSupportedException("Unbound Necromancer ground actor")};
+    {IronGolemBody iron=>iron.Prepared?.Controller,INecromancerGroundActor actor=>actor.WorldGround.State?.Controller,_=>throw new NotSupportedException("Unbound Necromancer ground actor")};
     private static uint Owner(SkeletonGuardian body)=>body switch
-    {IronGolemBody iron=>iron.Prepared.Recipe.Owner,IUnarmedGroundPet unarmed=>unarmed.Ground.State.Owner,_=>throw new NotSupportedException("Unbound Necromancer ground owner")};
+    {IronGolemBody iron=>iron.Prepared.Recipe.Owner,INecromancerGroundActor actor=>actor.WorldGround.State.Owner,_=>throw new NotSupportedException("Unbound Necromancer ground owner")};
     private static void Store(SkeletonGuardian body,IronGolemWorldState state)
-    {if(body is IronGolemBody iron){iron.RestoreController(state);}else if(body is IUnarmedGroundPet unarmed){unarmed.Ground.Store(state);}else{throw new NotSupportedException("Unbound Necromancer ground state");}}
+    {if(body is IronGolemBody iron){iron.RestoreController(state);}else if(body is INecromancerGroundActor actor){actor.WorldGround.Store(state);}else{throw new NotSupportedException("Unbound Necromancer ground state");}}
     private static bool TakeLoaded(SkeletonGuardian body)
-    {if(body is IronGolemBody iron){bool loaded=iron.ControllerLoaded;iron.ControllerLoaded=false;return loaded;}if(body is IUnarmedGroundPet unarmed){bool loaded=unarmed.Ground.Loaded;unarmed.Ground.Loaded=false;return loaded;}throw new NotSupportedException("Unbound Necromancer ground load");}
+    {if(body is IronGolemBody iron){bool loaded=iron.ControllerLoaded;iron.ControllerLoaded=false;return loaded;}if(body is INecromancerGroundActor actor){bool loaded=actor.WorldGround.Loaded;actor.WorldGround.Loaded=false;return loaded;}throw new NotSupportedException("Unbound Necromancer ground load");}
     internal static Point2D Cell(IronGolemWorldState s)=>DruidRavenMotion.Cell(s.Motion);
-    internal static void Validate(IronGolemWorldState s)
+    internal static void Validate(IronGolemWorldState s,bool ranged=false)
     {
         if(s?.Motion?.Points==null||s.Motion.SavedSteps==null||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal
             ||s.NextUtc.Kind!=DateTimeKind.Utc||s.Frame<0||s.Frame>int.MaxValue-100||s.Mode is not(1 or 2 or 4 or 8)
             ||s.NextThink<0||s.NextThink!=0&&s.NextThink<=s.Frame||s.ActionAt<0||s.ActionAt!=0&&s.ActionAt<=s.Frame
             ||s.EndAt<0||s.EndAt!=0&&s.EndAt<=s.Frame||s.PathOverride is not(0 or 1 or 7 or 13 or 15)
             ||s.VelocityBonus is <-126 or >126||s.MovingBonus is <-126 or >126||s.PathBudget is <0 or >77
-            ||s.Attempts<0||s.Hits<0||s.Hits>s.Attempts||s.AttackSpeed is <0 or >32767||s.Ai.Parameter0!=0
+            ||s.Attempts<0||s.Hits<0||s.Hits>s.Attempts||s.AttackSpeed is <0 or >32767||s.Ai.Parameter0!=(ranged?1:0)
             ||s.Profile!="prepared-necropet-ground-fit-equipment-clock-v1"
             ||s.Mode==1&&(s.ActionAt!=0||s.EndAt!=0)||s.Mode==2&&((s.Motion.Flags&0x20)==0||s.ActionAt!=0||s.EndAt!=0)
             ||s.Mode==4&&(s.Target==0||s.EndAt==0)||s.Mode==8&&(s.ActionAt!=0||s.EndAt==0))
@@ -63,7 +63,7 @@ internal static class IronGolemWorld
     internal static IronGolemWorldState Park(IronGolemWorldState s)=>Neutral(s,1) with{PathOverride=0,VelocityBonus=0,PathBudget=0};
     internal static bool Eligible(SkeletonGuardian body,PlayerMobile owner,Mobile target)=>target is BaseCreature creature
         &&target is{Alive:true,Deleted:false}&&target.Map==body.Map&&!target.Blessed&&target.CanBeDamaged()&&creature is not BaseVendor
-        &&(body is IUnarmedGroundPet||CreatureProfiles.For(creature).Traits.Size is >=0 and <=3)&&Math.Abs(target.Z-body.Z)<16&&ClassCombat.IsHostile(owner,target)
+        &&(body is INecromancerGroundActor||CreatureProfiles.For(creature).Traits.Size is >=0 and <=3)&&Math.Abs(target.Z-body.Z)<16&&ClassCombat.IsHostile(owner,target)
         &&!SpellHelper.IsTown(target.Location,owner)&&body.CanBeHarmful(target,false);
     private static int Size(SkeletonGuardian body,Mobile target)
     {
@@ -71,13 +71,13 @@ internal static class IronGolemWorld
         if(CreatureProfiles.For(creature).Traits.Size is >=0 and <=3 and var size){return size;}
         // Preserve the historical unarmed pets' native recipient bridge. This
         // default is an acquisition adapter, not a recovered D2 footprint.
-        return body is IUnarmedGroundPet?2:throw new NotSupportedException("Unmapped target footprint");
+        return body is INecromancerGroundActor?2:throw new NotSupportedException("Unmapped target footprint");
     }
     private static int Full(SkeletonGuardian body,IronGolemWorldState s,Mobile target)=>DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(target),1+Size(body,target)/2);
     internal static bool Melee(SkeletonGuardian body,IronGolemWorldState s,Mobile target,int bonus)
     {
         if(target is not BaseCreature creature){return false;}
-        if(body is IUnarmedGroundPet&&CreatureProfiles.For(creature).Traits.Size is not(>=0 and <=3))
+        if(body is INecromancerGroundActor&&CreatureProfiles.For(creature).Traits.Size is not(>=0 and <=3))
         {return body.InRange(target,body.RangeFight)&&body.InLOS(target);}
         return SourceMeleeGeometry.Within(new(Cell(s),2,1,NativeMonsterReturn.Identity(body.SourceMonsterId).Class,0),new(PetOwnerRoutes.Cell(target),Size(body,target),1,0),bonus,(_,_,_)=>!body.InLOS(target));
     }
@@ -93,7 +93,7 @@ internal static class IronGolemWorld
         internal override bool HitSuccessful(int attackPercent,bool missile)
         {
             if(missile){throw new NotSupportedException("Iron Golem melee cannot use a missile hit check");}
-            return ClassStats.CheckHit(body,target,attackPercent,()=>NpcEquipmentRandom.Limited(body,100)/100.0,notifyMelee:false)
+            return ClassStats.CheckHit(body,target,attackPercent,()=>Limited(body,100)/100.0,notifyMelee:false)
                 ??throw new NotSupportedException("Missing Iron Golem hit supplier");
         }
         internal override int BlockOrDodge(bool avoid,bool block)
@@ -117,9 +117,9 @@ internal static class IronGolemWorld
         PathOverride=type==0?s.PathOverride:type,VelocityBonus=speed==0?s.VelocityBonus:speed,PathBudget=budget==0?s.PathBudget:Math.Min(77,budget)};
     private static (int Velocity,int Animation) MovementSpeed(SkeletonGuardian body,int bonus)
     {
-        if(body is IUnarmedGroundPet unarmed)
+        if(body is INecromancerGroundActor actor)
         {
-            int walkPercent=checked(100+bonus+unarmed.GroundVelocityPercent+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body));
+            int walkPercent=checked(100+bonus+actor.MovementPercent+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body));
             return SourceActorMotion.Speed(NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId+"-animation","WLSpeed"),walkPercent,0);
         }
         var iron=(IronGolemBody)body;
@@ -148,11 +148,13 @@ internal static class IronGolemWorld
         body.Direction=body.GetDirectionTo(new Point3D((target.X+1)/2,(target.Y+1)/2,body.Z));
         s=s with{Mode=2,NextThink=0,ActionAt=0,EndAt=0,Target=0,Motion=path.Motion,MovingBonus=bonus};return true;
     }
+    private static uint Raw(SkeletonGuardian body)=>body is MageWorldBody mage?NecromancerMageMissiles.ActorRaw(mage):NpcEquipmentRandom.Raw(body);
+    private static int Limited(SkeletonGuardian body,int bound)=>body is MageWorldBody mage?NecromancerMageMissiles.ActorLimited(mage,bound):NpcEquipmentRandom.Limited(body,bound);
     private static Point2D Wander(SkeletonGuardian body,Point2D target,int distance)
     {
-        bool first=(NpcEquipmentRandom.Raw(body)&1)!=0;int small=NpcEquipmentRandom.Limited(body,distance);
+        bool first=(Raw(body)&1)!=0;int small=Limited(body,distance);
         int x=first?distance:small,y=first?small:distance;
-        if((NpcEquipmentRandom.Raw(body)&1)!=0){x=-x;}if((NpcEquipmentRandom.Raw(body)&1)!=0){y=-y;}
+        if((Raw(body)&1)!=0){x=-x;}if((Raw(body)&1)!=0){y=-y;}
         return new(target.X+x,target.Y+y);
     }
     private static IronGolemWorldState Relocate(SkeletonGuardian body,IronGolemWorldState s,Point3D point,Map map)
@@ -191,7 +193,7 @@ internal static class IronGolemWorld
             }
         }
         var movement=new PetMoveServices(Action,p=>PetGroundWorld.Room(body,p),p=>DruidWolfGeometry.NoSize(Cell(s),p),DruidWolfGeometry.Offset,
-            ()=>NpcEquipmentRandom.Raw(body),()=>NpcEquipmentRandom.Limited(body,100),()=>PetGroundWorld.Point(body,ownerCell,out _)?ownerCell:null,p=>PetGroundWorld.Room(body,p)!=0);
+            ()=>Raw(body),()=>Limited(body,100),()=>PetGroundWorld.Point(body,ownerCell,out _)?ownerCell:null,p=>PetGroundWorld.Room(body,p)!=0);
         bool Move(int kind,bool run,int speed,int leash)=>SourcePetMovement.Move(Context(),movement,kind,run,speed,leash);
         void Request(NecromancerPetAiRequest r)
         {
@@ -203,6 +205,15 @@ internal static class IronGolemWorld
                 case NecromancerPetAiKind.Velocity:Velocity(ref s,r.A,r.B,r.C);break;
                 case NecromancerPetAiKind.Approach:
                     var chase=World.FindMobile((Serial)(uint)r.A);if(chase!=null){Velocity(ref s,13,0,0);Path(body,ref s,PetOwnerRoutes.Cell(chase),false);}break;
+                case NecromancerPetAiKind.Skill:
+                    if(body is not MageWorldBody mage||r.A!=4||r.B!=338){throw new NotSupportedException("Unbound ranged pet skill request");}
+                    var aim=World.FindMobile((Serial)(uint)r.C);if(aim!=null){body.Direction=body.GetDirectionTo(aim);}
+                    var cast=mage.MageAttackClock;
+                    s=s with{Mode=4,Target=(uint)r.C,AttackSpeed=SourceAttackRate.Speed(208,0,SourceAttackRate.WolfRate(body)),ActionAt=s.Frame+cast.Action,EndAt=s.Frame+cast.End,NextThink=0,Motion=DruidWolfGeometry.Stop(s.Motion)};
+                    body.Animate(4,5,1,true,false,0);break; // Existing Mage casting placeholder.
+                case NecromancerPetAiKind.Reposition:
+                    if(body is not MageWorldBody){throw new NotSupportedException("Unbound ranged reposition request");}
+                    var around=World.FindMobile((Serial)(uint)r.A);if(around!=null){Path(body,ref s,Wander(body,PetOwnerRoutes.Cell(around),r.B),false);}break;
                 case NecromancerPetAiKind.Attack:
                     var target=World.FindMobile((Serial)(uint)r.B);if(target!=null){body.Direction=body.GetDirectionTo(target);}
                     int speed; (int Action,int End) clock;
@@ -226,10 +237,11 @@ internal static class IronGolemWorld
                 default:throw new NotSupportedException("Unmapped Iron Golem AI request");
             }
         }
-        var queries=NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(body,s,target),target=>Melee(body,s,target,0),
-            Request,()=>NpcEquipmentRandom.Limited(body,100),
-            (target,combat,flag,leash)=>SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash),Move);
-        var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),0,0),queries);
+        bool Common(int target,bool combat,int flag,int leash)=>SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
+        var queries=body is MageWorldBody caster
+            ?NecromancerPetTargets.BindRanged(body,owner,target=>Eligible(body,owner,target),target=>Full(body,s,target),_=>caster.Primary(owner,s),Request,()=>Limited(body,100),Common,Move)
+            :NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(body,s,target),target=>Melee(body,s,target,0),Request,()=>Limited(body,100),Common,Move);
+        var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),body is MageWorldBody?4:0,body is MageWorldBody?338:0),queries);
         s=s with{Ai=memory};
         if(s.NextThink==0&&s.Mode is not(2 or 4 or 8)){s=s with{NextThink=s.Frame+15};}return s;
     }
@@ -268,9 +280,10 @@ internal static class IronGolemWorld
             if(s.ActionAt==s.Frame)
             {
                 var target=World.FindMobile((Serial)s.Target);bool hit=false;var prior=Controller(body);
-                if(Eligible(body,owner,target)&&Melee(body,s,target,3))
+                if(Eligible(body,owner,target)&&(body is MageWorldBody||Melee(body,s,target,3)))
                 {
-                    if(body is IUnarmedGroundPet unarmed){hit=unarmed.Ground.Release(owner,s,(BaseCreature)target,frameAt);}
+                    if(body is MageWorldBody caster){hit=caster.Launch(owner,target,frameAt);}
+                    else if(body is IUnarmedGroundPet unarmed){hit=unarmed.Ground.Release(owner,s,(BaseCreature)target,frameAt);}
                     else
                     {
                         var contact=IronGolemContact.Release((IronGolemBody)body,owner,s,(BaseCreature)target,frameAt);
@@ -283,7 +296,7 @@ internal static class IronGolemWorld
             }
             if(s.Mode is 4 or 8&&s.EndAt==s.Frame)
             {
-                int initial=s.Mode==8&&body is IUnarmedGroundPet?s.NextThink:0;
+                int initial=s.Mode==8&&body is INecromancerGroundActor?s.NextThink:0;
                 s=Neutral(s);if(initial>=s.Frame){s=s with{NextThink=initial};}
             }
             if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}

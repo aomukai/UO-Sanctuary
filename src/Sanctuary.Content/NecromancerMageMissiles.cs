@@ -37,6 +37,21 @@ internal static class NecromancerMageMissiles
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static void Configure()=>_ = new MageMissileProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
+    internal static MageCriticalSeed ActorSeed(NecromancerMinion actor)=>actor?.ControlMaster is PlayerMobile owner
+        &&Seeds.TryGetValue(actor.Serial.Value,out var state)&&state.Owner==owner.Serial.Value?state:null;
+    internal static void SetActorSeed(NecromancerMinion actor,ulong seed)
+    {
+        if(actor is not{Deleted:false,IsMage:true,ControlMaster:PlayerMobile{Deleted:false} owner})
+        {throw new NotSupportedException("Mage actor random stream requires its current owner");}
+        Seeds[actor.Serial.Value]=new(actor.Serial.Value,owner.Serial.Value,seed);
+    }
+    internal static uint ActorRaw(NecromancerMinion actor)
+    {
+        var state=ActorSeed(actor);if(state==null){SetActorSeed(actor,SourceRandom.InitLow(SeedLow()));state=ActorSeed(actor);}
+        ulong seed=state.Seed;uint value=SourceRandom.Roll(ref seed);Seeds[actor.Serial.Value]=state with{Seed=seed};return value;
+    }
+    internal static int ActorLimited(NecromancerMinion actor,int bound)=>bound<=0?0:(int)(ActorRaw(actor)%(uint)bound);
+    internal static void ForgetActor(NecromancerMinion actor)=>Seeds.Remove(actor.Serial.Value);
     internal static MageMissilePacket Packet(int element,int rank)
     {
         if(element is <0 or >3 || rank is <1 or >381){throw new NotSupportedException("Unsupported skeletal mage element/derived missile rank");}

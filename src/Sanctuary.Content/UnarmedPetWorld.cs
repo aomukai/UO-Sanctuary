@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
-using System.IO;
-using System.Text.Json;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal interface IUnarmedGroundPet
+internal interface IUnarmedGroundPet:INecromancerGroundActor
 {
     UnarmedPetWorld Ground{get;}
     (int Action,int End) GroundAttackClock{get;}
     int GroundVelocityPercent{get;}
+    NecromancerGroundWorld INecromancerGroundActor.WorldGround=>Ground.World;
+    int INecromancerGroundActor.MovementPercent=>GroundVelocityPercent;
 }
 
 // Periodic skills have their own cadence, including while ordinary AI is
@@ -27,30 +27,15 @@ internal sealed class UnarmedPetWorld(SkeletonGuardian body,string profile,Func<
     Func<Mobile,bool> prepareLegacy,Func<Mobile,bool> releaseAllowed,Action<Mobile> releaseLegacy,Action discardLegacy,
     Action<BaseCreature,MonsterContactResult,DateTime> afterContact=null)
 {
-    private SkeletonWorldState _state;
+    private NecromancerGroundWorld _world;
     private IronGolemContact.Prepared _contact;
     private uint _legacyTarget;
-    internal bool Loaded;
-    internal SkeletonWorldState State=>_state??(read()=="{}"?null:_state=JsonSerializer.Deserialize<SkeletonWorldState>(read()));
+    internal NecromancerGroundWorld World=>_world??=new(body,profile,read,write,Cancel);
+    internal bool Loaded{get=>World.Loaded;set=>World.Loaded=value;}
+    internal SkeletonWorldState State=>World.State;
     internal IronGolemContact.Prepared Contact=>_contact;
-    internal void Store(IronGolemWorldState state)
-    {
-        if(state?.Profile!=profile){throw new InvalidDataException("Invalid unarmed world profile");}
-        IronGolemWorld.Validate(state with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"});
-        if(State is not{} old||!((Serial)old.Owner).IsMobile){throw new InvalidDataException("Missing unarmed world owner");}
-        var next=old with{Controller=state};string saved=JsonSerializer.Serialize(next);_state=next;write(saved);
-        if(state.Mode!=4||state.ActionAt==0){Cancel();}
-    }
-    internal void Initialize(PlayerMobile owner,DateTime at,ulong seed)
-    {
-        if(at.Kind!=DateTimeKind.Utc||body.ControlMaster!=owner||body.Map!=owner.Map||body.Map==Map.Internal)
-        {throw new ArgumentException("Unarmed world needs an owned actor,world placement and UTC time");}
-        NpcEquipmentRandom.Set(body,seed);
-        var controller=new IronGolemWorldState(body.Map.MapID,DruidRavenMotion.Center(body.X*2,body.Y*2),at.AddMilliseconds(40),
-            EndAt:DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End){Profile=profile};
-        _state=new(owner.Serial.Value,controller);Store(controller);PetOwnerRoutes.For(owner,at);
-        BattleCommand.Track(body);PersistentMinions.Profiles.Track(body);IronGolems.Track(body);
-    }
+    internal void Store(IronGolemWorldState state)=>World.Store(state);
+    internal void Initialize(PlayerMobile owner,DateTime at,ulong seed)=>World.Initialize(owner,at,()=>NpcEquipmentRandom.Set(body,seed));
     internal void Prepare(PlayerMobile owner,IronGolemWorldState state,BaseCreature target)
     {
         Cancel();IronGolemContact.Rules rules;
@@ -76,6 +61,6 @@ internal sealed class UnarmedPetWorld(SkeletonGuardian body,string profile,Func<
         afterContact?.Invoke(target,result,at);return(result.Packet.ResultFlags&SourceMeleeResult.Successful)!=0;
     }
     internal void Cancel(){_contact?.Cancel();_contact=null;_legacyTarget=0;discardLegacy();}
-    internal void Suspend(){Cancel();if(State is{} state){Store(IronGolemWorld.Park(state.Controller));}}
-    internal void Load(){body.AIObject?.AITimer.Stop();if(State is not{} state){return;}Store(state.Controller);Loaded=true;IronGolems.Track(body);}
+    internal void Suspend()=>World.Suspend();
+    internal void Load()=>World.Load();
 }
