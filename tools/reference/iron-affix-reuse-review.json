@@ -2,9 +2,9 @@
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "installed": false,
-  "scope": "Static complete-function/current-consumer review; no source function execution or affix enablement in this receipt.",
+  "scope": "Static complete-function/current-consumer review; no source function execution or native acceptance is supplied by this receipt.",
   "ironBaselineImplemented": true,
-  "extraStrongEnabled": false,
+  "extraStrongEnabled": true,
   "spectralHitEnabled": false,
   "functions": {
     "MONSTERUNIQUE_UMod5_Strong": "92db33f16542af561faf972ce316d41ef6aa769a70d25a0b0b5c7455fa9d25d6",
@@ -12,27 +12,28 @@
     "sub_6FC6D440": "48f8891d790311af8eabda98eb7b4eb0957d89145f39a834520ceecdb9d2f249"
   },
   "inputs": {
-    "tools/review_iron_affix_reuse.py": "70367c18bc203d9723659d948e78ffb7f1de5eac8b64c805aa42d4052436bf21",
+    "tools/review_iron_affix_reuse.py": "d6d9e48b6b16a6bd482caa507930f39c49f14e42a9fcc93507ff8545505b5583",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
-    "src/Sanctuary.Content/GolemPetDamage.cs": "8db45752c18cf4fe5001d28188c0a146e0470de8ed3fb51052651c5c91248bc3",
+    "src/Sanctuary.Content/GolemPetDamage.cs": "b821b79cbfbbd3ce404a5c9ab2c70cdd782693a82b133bbc6a14a8d5d542f2ba",
     "src/Sanctuary.Content/IronGolemBody.cs": "f08037ea2acae672f941b15ed89a8074e04c8858ec3fe6246fcfae089deddfe1",
-    "src/Sanctuary.Content/EncounterCreature.cs": "5f07583fd6a22f84f255403da774537400c870c074c2814ba5ee64aa9e7752c7",
-    "src/Sanctuary.Content/EncounterProfiles.cs": "c977b78f70e8d79b3bb8838dbe6a5643d8776d93f21f3ab2c76b2044bc533655",
+    "src/Sanctuary.Content/IronGolemUpgrades.cs": "ca62a053e423110c6e0043215830af3739dae628a7a630920406e4b84d25b300",
+    "src/Sanctuary.Content/EncounterCreature.cs": "102581db1d524a794bd56feae2d3487559f2c1f1e790b0cdeafcc4bf66f7c94a",
+    "src/Sanctuary.Content/EncounterProfiles.cs": "2b4454a7255099acc7c3de77b6f12ef5b902679cfc1006c6c66baa697d76c6dd",
     "src/Sanctuary.Content/EliteCombat.cs": "6e5cb56974b9f3b10b8086aaeaeee88757928a02c32bead8bff02cfd1aa86bc6",
-    "src/Sanctuary.Content/ClassStats.cs": "61d1aa799d085956c020782f694ea0fbea92d868d8712bef77bbe03d95043ab8",
-    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "1e8e21b1175cc65d6733ad9fd880934b034d0054fe354edd50388df6d9c29021",
+    "src/Sanctuary.Content/ClassStats.cs": "04d470cae3770b8fa3beb3f12453d2ac5fd6608822e26e54f5e30bb731f459fc",
+    "src/Sanctuary.Content/NpcEquipmentDamage.cs": "6daebbf97b69936cf53dcbe0f4172b9af268d807ae5214905c8a26f5573a97c9",
     "src/Sanctuary.Content/NpcEquipmentElements.cs": "80159000acf58182cd8aaa2e80365792f5f7f51841a9cbdc5783fb410a6bba37",
     "src/Sanctuary.Content/NpcEquipmentImpact.cs": "04bbe70bd072d1c64fe6fd23607a33869df50d8bfc201cfcbc43394055d86b18",
     "src/Sanctuary.Content/GearEffects.cs": "d8e2d4a1f37cc4f9b0fb789f5cd1fdd112bc92220e0e081d1ad793771d8f98ed"
   },
   "established": [
-    "Approved use-existing-affixes rule takes precedence. Current direct Extra Strong ED/AR is135/90,112/75,99/66by difficulty;inherited boss-minion branch is67/45,56/37,49/33. A player summon is not automatically the inherited EncounterGrade.Minion branch. Original-item flat/percentage AR composition requires an explicit adapter.",
-    "Current wild Spectral Hit rolls inclusive66percent raw basis minimum to100percent maximum,then one of5channels in magic/fire/lightning/cold/poison order. It uses shared resistance bonuses and1600msminimum cold/post-direct poison on surviving recipients. Merely adding resistances is incomplete.",
+    "Approved use-existing-affixes rule takes precedence. Current direct Extra Strong ED/AR is135/90,112/75,99/66by difficulty;inherited boss-minion branch is67/45,56/37,49/33. Iron now uses the direct branch at live hard10. Its Extra Strong AR joins the ordinary item percentage pool over the complete flat/Dexterity basis;its ED joins the shared NPC percent pool. Wild grade composition remains unchanged;native acceptance is recorded separately.",
+    "Current wild Spectral Hit rolls inclusive66percent raw basis minimum to100percent maximum,then one of5channels in magic/fire/lightning/cold/poison order. It uses shared resistance bonuses and1600msminimum cold;both chill and poison apply after the direct hit only to surviving recipients. Merely adding resistances is incomplete.",
     "Ordinary NPC item poison adds its rate to the initial prepared HP total,and NPC intrinsic critical can double typed channels. Existing wild Spectral addition after the incoming physical roll/post-direct poison cannot be copied into that item path without defining critical/HP/timer ordering.",
     "Complete older Strong routine adds stats sourced from MonUMod rows and difficulty champion-damage factor. Complete older Spectral routine instead uses level-table damage,fire/lightning/magic/cold/poison order,and writes the selected stat range/adds40frames to an existing cold/poison length. These differ from the approved current native affix. Do not replace the existing affix globally with this older route."
   ],
   "remaining": [
-    "Extract/reuse existing native producers and choose/document direct pet affix context. Verify live hard-point unlocks,training/respec,actual item/AR/ED composition,wild controls,all5typed outcomes,cold/poison/critical/order,save and natural contact.",
+    "Direct Extra Strong extraction/activation has separate native acceptance. Next extract/reuse Spectral producers and verify all5typed outcomes,cold/poison/critical/order,live hard20,save and natural contact without changing the existing wild rule.",
     "Current MonUMod/difficulty constant tables are not established by this static review. Full older/current executable/room/event/RNG/seed/stat-list/client equivalence is not certified;the baseline curve receipt is separate."
   ]
 }

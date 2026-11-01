@@ -55,7 +55,7 @@ internal static class NpcEquipmentDamage
         var local=weapon?ClassGear.Damage(item.Item,item.RecipientLevel,two,true)
             :(item.Bonus("dmg-min"),item.Bonus("dmg-max"));
         int min=checked((two?0:raw.Min)+local.Item1-normal),max=checked((two?0:raw.Max)+local.Item2-normal);
-        int percent=checked(raw.Percent+CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor)
+        int percent=checked(raw.Percent+IronGolemUpgrades.DamagePercent(actor)+CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor)
             +(weapon?0:item.Bonus("dmg%")));
         if(GemCombat.Undead(target)){percent=checked(percent+item.Bonus("dmg-undead%")+(weapon&&ClassItemTypes.Is(basis.Type,"blun")?50:0));}
         else if(NamedCombat.Demon(target)){percent=checked(percent+item.Bonus("dmg-demon%"));}

@@ -21,32 +21,35 @@ def record(check=False):
     names=('MONSTERUNIQUE_UMod5_Strong','MONSTERUNIQUE_ApplyElementalDamage','sub_6FC6D440')
     bodies={n:function(raw.decode(),n) for n in names}
     paths=[Path(__file__),source,*[ROOT/'src/Sanctuary.Content'/(n+'.cs') for n in (
-        'GolemPetDamage','IronGolemBody','EncounterCreature','EncounterProfiles','EliteCombat','ClassStats',
+        'GolemPetDamage','IronGolemBody','IronGolemUpgrades','EncounterCreature','EncounterProfiles','EliteCombat','ClassStats',
         'NpcEquipmentDamage','NpcEquipmentElements','NpcEquipmentImpact','GearEffects')]]
     encounter=(ROOT/'src/Sanctuary.Content/EncounterCreature.cs').read_text()
-    assert 'new[] { 67, 56, 49 } : new[] { 135, 112, 99 }' in encounter
-    assert 'new[] { 45, 37, 33 } : new[] { 90, 75, 66 }' in encounter
+    assert 'EncounterProfiles.ExtraStrong(_difficulty,_grade==EncounterGrade.Minion)' in encounter
+    strength=(ROOT/'src/Sanctuary.Content/EncounterProfiles.cs').read_text()
+    for value in ('Normal=>inherited?(67,45):(135,90)', 'Nightmare=>inherited?(56,37):(112,75)', 'Hell=>inherited?(49,33):(99,66)'):
+        assert value in strength
+    assert 'SummonDifficulty,false)' in (ROOT/'src/Sanctuary.Content/IronGolemUpgrades.cs').read_text()
     elite=(ROOT/'src/Sanctuary.Content/EliteCombat.cs').read_text()
     assert 'int amount = ElementRoll(source, false, random);' in elite and 'switch (random.Next(5))' in elite
     assert elite.index('Damage(source, target, physical, fire, cold, lightning, magic, true, ranged);') < elite.index('if (poison > 0) { GearEffects.ApplyPoison')
     result=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],installed=False,
-        scope='Static complete-function/current-consumer review; no source function execution or affix enablement in this receipt.',
-        ironBaselineImplemented=True,extraStrongEnabled=False,spectralHitEnabled=False,
+        scope='Static complete-function/current-consumer review; no source function execution or native acceptance is supplied by this receipt.',
+        ironBaselineImplemented=True,extraStrongEnabled=True,spectralHitEnabled=False,
         functions={n:hashlib.sha256(b.encode()).hexdigest() for n,b in bodies.items()},
         inputs={str(p.relative_to(ROOT)):sha(p) for p in paths},
         established=[
-            'Approved use-existing-affixes rule takes precedence. Current direct Extra Strong ED/AR is135/90,112/75,99/66by difficulty;inherited boss-minion branch is67/45,56/37,49/33. A player summon is not automatically the inherited EncounterGrade.Minion branch. Original-item flat/percentage AR composition requires an explicit adapter.',
-            'Current wild Spectral Hit rolls inclusive66percent raw basis minimum to100percent maximum,then one of5channels in magic/fire/lightning/cold/poison order. It uses shared resistance bonuses and1600msminimum cold/post-direct poison on surviving recipients. Merely adding resistances is incomplete.',
+            'Approved use-existing-affixes rule takes precedence. Current direct Extra Strong ED/AR is135/90,112/75,99/66by difficulty;inherited boss-minion branch is67/45,56/37,49/33. Iron now uses the direct branch at live hard10. Its Extra Strong AR joins the ordinary item percentage pool over the complete flat/Dexterity basis;its ED joins the shared NPC percent pool. Wild grade composition remains unchanged;native acceptance is recorded separately.',
+            'Current wild Spectral Hit rolls inclusive66percent raw basis minimum to100percent maximum,then one of5channels in magic/fire/lightning/cold/poison order. It uses shared resistance bonuses and1600msminimum cold;both chill and poison apply after the direct hit only to surviving recipients. Merely adding resistances is incomplete.',
             'Ordinary NPC item poison adds its rate to the initial prepared HP total,and NPC intrinsic critical can double typed channels. Existing wild Spectral addition after the incoming physical roll/post-direct poison cannot be copied into that item path without defining critical/HP/timer ordering.',
             'Complete older Strong routine adds stats sourced from MonUMod rows and difficulty champion-damage factor. Complete older Spectral routine instead uses level-table damage,fire/lightning/magic/cold/poison order,and writes the selected stat range/adds40frames to an existing cold/poison length. These differ from the approved current native affix. Do not replace the existing affix globally with this older route.'],
         remaining=[
-            'Extract/reuse existing native producers and choose/document direct pet affix context. Verify live hard-point unlocks,training/respec,actual item/AR/ED composition,wild controls,all5typed outcomes,cold/poison/critical/order,save and natural contact.',
+            'Direct Extra Strong extraction/activation has separate native acceptance. Next extract/reuse Spectral producers and verify all5typed outcomes,cold/poison/critical/order,live hard20,save and natural contact without changing the existing wild rule.',
             'Current MonUMod/difficulty constant tables are not established by this static review. Full older/current executable/room/event/RNG/seed/stat-list/client equivalence is not certified;the baseline curve receipt is separate.'])
     output=ROOT/'tools/reference/iron-affix-reuse-review.json'
     rendered=json.dumps(result,indent=2)+'\n'
     if check:assert output.read_text()==rendered
     else:output.write_text(rendered)
-    print('Iron affix reuse:existing direct/inherited/typed/poison contracts pinned;affixes remain disabled.')
+    print('Iron affix reuse:direct Extra Strong enabled;Spectral typed/poison contracts pinned and still pending.')
 
 
 if __name__=='__main__':

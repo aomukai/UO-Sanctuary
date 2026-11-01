@@ -26,7 +26,7 @@ internal static class GolemPetDamage
     }
     internal static (int Min,int Max) Damage(NecromancerMinion actor,bool modifiers=true)
     {
-        var basis=Base(actor);int percent=Math.Max(-90,checked(basis.Percent+(modifiers?CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor):0)));
+        var basis=Base(actor);int percent=Math.Max(-90,checked(basis.Percent+(modifiers?IronGolemUpgrades.DamagePercent(actor)+CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor):0)));
         return(checked(basis.Min256+SourcePercentage.Calculate(basis.Min256,percent,100))/256,
             checked(basis.Max256+SourcePercentage.Calculate(basis.Max256,percent,100))/256);
     }

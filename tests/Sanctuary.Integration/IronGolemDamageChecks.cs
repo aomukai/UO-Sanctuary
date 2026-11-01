@@ -24,15 +24,22 @@ public static class IronGolemDamageChecks
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
     private static void Train(PlayerMobile p,string name,int rank)=>MagePetBuffChecks.Train(p,"necromancer."+name,rank);
-    private static PlayerMobile Owner(int rank=9,int mastery=3,int row=3220)
+    internal static PlayerMobile Owner(int rank=9,int mastery=3,int row=3220)
     {var p=PoisonDaggerChecks.Owner();FixtureSpace.Corridor(p,6100,40,row);Train(p,"irongolem",rank);if(mastery>0){Train(p,"golemmastery",mastery);}return p;}
-    private static Item Original(PlayerMobile p,string name=null)
+    internal static Item Original(PlayerMobile p,string name=null)
     {Item item=name==null?new Broadsword():NpcEquipmentRegenerationChecks.Named(NamedGear.Catalog.Items.Single(x=>x.SourceKey==name||x.SourceKey=="The "+name).Id);if(name==null){ClassGear.Profiles.Ensure(item);}item.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);return item;}
-    private static IronGolemBody Learned(PlayerMobile p,Item item)
+    internal static IronGolemBody Learned(PlayerMobile p,Item item)
     {
+        Require(IronGolemCasting.Plan(p,item,out _,out string issue),"Learned Iron original preflight: "+issue);
         NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p);
-        Require(IronGolemCasting.Release(p,item,TimedEffects.Now,out var b)&&NecromancerEffects.ManaBalance256(p)==mana-35*256&&item.Parent==b,"Learned Iron payment/original identity");
-        b.RestoreController(b.Prepared.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});return b;
+        var spawn=IronGolemCasting.Spawn;Exception allocation=null;
+        IronGolemCasting.Spawn=(owner,original,point,at,seed)=>{try{return spawn(owner,original,point,at,seed);}catch(Exception e){allocation=e;throw;}};
+        try
+        {
+            Require(IronGolemCasting.Release(p,item,TimedEffects.Now,out var b)&&NecromancerEffects.ManaBalance256(p)==mana-35*256&&item.Parent==b,"Learned Iron payment/original identity: "+allocation?.Message);
+            b.RestoreController(b.Prepared.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});return b;
+        }
+        finally{IronGolemCasting.Spawn=spawn;}
     }
     private static void Match(IronGolemBody b,int mastery)
     {Require(b.SourceWeaponBase==SkeletonStats.WeaponBase(b.Rank,mastery,b.SummonDifficulty),"Prepared Iron captured Clay curve");}
@@ -63,7 +70,7 @@ public static class IronGolemDamageChecks
     {
         Goldens();ItemControls();var p=Owner();Train(p,"skeletonmastery",20);Train(p,"firegolem",4);PoisonDaggerChecks.Named(p,"Wormskull");var item=Original(p);var b=Learned(p,item);
         Match(b,4);Require(b.Rank==10,"Real effective Iron rank");var packet=NpcEquipmentDamage.Capture(b).Value;int max=SkillHealth.Maximum256(b);SkillHealth.SetBalance256(b,max-257);TimedEffects.PreventHealing(b,TimedEffects.Now);int life=SkillHealth.Balance256(b);long order=BattleCommand.PetOrder(b);ulong seed=NpcEquipmentRandom.State(b).Seed;string recipe=JsonSerializer.Serialize(b.Prepared.Recipe);
-        Train(p,"irongolem",20);Train(p,"golemmastery",20);Train(p,"firegolem",20);Match(b,4);Require(NpcEquipmentDamage.Capture(b)==packet&&SkillHealth.Balance256(b)==life&&SkillHealth.Maximum256(b)==max&&BattleCommand.PetOrder(b)==order&&NpcEquipmentRandom.State(b).Seed==seed&&JsonSerializer.Serialize(b.Prepared.Recipe)==recipe,"Training recaptured Iron damage/resources/item/stream");
+        Train(p,"irongolem",20);Train(p,"golemmastery",20);Train(p,"firegolem",20);Match(b,4);Require(NpcEquipmentDamage.Capture(b)==(packet with{DamagePercent=packet.DamagePercent+IronGolemUpgrades.DamagePercent(b)})&&SkillHealth.Balance256(b)==life&&SkillHealth.Maximum256(b)==max&&BattleCommand.PetOrder(b)==order&&NpcEquipmentRandom.State(b).Seed==seed&&JsonSerializer.Serialize(b.Prepared.Recipe)==recipe,"Training recaptured Iron damage/resources/item/stream");
         var facets=SummonDifficulties.Facets();PersistentMinions.Suspend(p);
         try
         {
@@ -76,7 +83,7 @@ public static class IronGolemDamageChecks
         Require(legacy.SourceWeaponBase==SkeletonStats.WeaponBase(legacy.Rank,21,legacy.SummonDifficulty),"Historical Iron curve did not use its captured Golem Mastery");
         SkillHealth.SetBalance256(legacy,SkillHealth.Maximum256(legacy)-257);TimedEffects.PreventHealing(legacy,TimedEffects.Now);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,legacy.Serial.Value,item.Serial.Value,recipe,SkillHealth.Balance256(b),SkillHealth.Balance256(legacy),b.Rank,4,NpcEquipmentDamage.Capture(b).Value,order,seed,0)));
-        Log.Information("Iron damage:three independent curve goldens;real learned sword/two-hand/armor originals,captured Golem Mastery/no Skeleton Mastery or Fire synergy,no live recapture,three actual facet transitions and historical curve pass;Extra Strong/Spectral Hit remain pending");
+        Log.Information("Iron damage:three independent curve goldens;real learned sword/two-hand/armor originals,captured Golem Mastery/no Skeleton Mastery or Fire synergy,no live recapture,three actual facet transitions and historical curve pass;Extra Strong live percentage is separate from captured curve;Spectral Hit remains pending");
     }
     private static void Reload()
     {

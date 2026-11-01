@@ -107,8 +107,8 @@ public partial class EncounterCreature : GraveyardUndead
         }
         if (Inherits(EliteModifier.ExtraStrong))
         {
-            damageBonus += (_grade == EncounterGrade.Minion ? new[] { 67, 56, 49 } : new[] { 135, 112, 99 })[index];
-            ratingBonus += (_grade == EncounterGrade.Minion ? new[] { 45, 37, 33 } : new[] { 90, 75, 66 })[index];
+            var strong=EncounterProfiles.ExtraStrong(_difficulty,_grade==EncounterGrade.Minion);
+            damageBonus += strong.DamagePercent;ratingBonus += strong.AttackPercent;
         }
         if (Inherits(EliteModifier.ExtraFast)) { moveBonus += EncounterProfiles.ModifierMovementPercent(EliteModifier.ExtraFast); }
         if (Has(EliteModifier.StoneSkin)) { defense = EncounterProfiles.ModifierDefense(defense,EliteModifier.StoneSkin); }
