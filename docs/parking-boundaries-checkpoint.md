@@ -1,0 +1,19 @@
+# Necromancer parking boundaries and wardrobe compatibility
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary parking and owner-facet scaling first. Follows `d51dca2`. Verification is in progress; no class completion or deployment is claimed.
+
+This increment adds acceptance for the existing parking implementation. It does not change production C#, runtime balance data, native kernel or mobile/save layouts. Existing summon/effect/expiry services remain authoritative.
+
+The boundary cohort contains the original plain SkeletonGuardian and original NecromancerMinion Mage/Clay/Blood/Fire types, plus two actual learned original skeleton Revives born in different difficulties. The legacy cohort is constructed for independent component coverage, not as permission to bypass the shared golem cap during gameplay. Native Revive creation and proportional life/stat assertions reuse the existing Revive facet test helpers. Initial same-difficulty entry must preserve the original birth state, without demanding a new facet projection; the original helper is reserved for actual difficulty changes. Revives are created before other actors occupy the corpse position; the first attempt correctly refused an obstructed resurrection spot.
+
+Actual guarded regions exist on Normal/Nightmare/Hell designated facets. Native player map/location callbacks must retain the same internalized actors, original slot costs, captured ranks/mastery/order, injured FP256 percentage and owner resource/action deadlines. Repeated difficulty sync must not round or heal again. Connected tests hold the army in a safe Hell facet, then leave safety across facets through the real return hook. The saved cohort verifies all seven actors across two real reloads and safe-area login/resume.
+
+The existing full wardrobe suite now expects a restored active class to remain parked wherever native safety classification requires it, and explicitly returns to an existing flat-corridor fixture to check the same wounds and released slots. The first arbitrary wilderness anchor had no valid terrain and was replaced with that shared physical fixture. Nonzero slot costs are assigned while the actor is active, rather than mutating an already parked actor's zero-cost representation. Existing gear storage, rollback, foreign-item refusal, all class histories, resource/deadline carry, follower-cap refusal, ordinary pets, owner death, inactive-class respec and absolute expiry assertions are retained. Existing wardrobe capacity admission is not loosened by parking. The separate actual Revive facet suite is retained as well.
+
+## Verification
+
+Candidate build 4 has clean content/integration rebuilds with zero warnings/errors. The focused run passes 21 native markers across three boots/two reloads, including three connected safe-facet sessions and the complete existing wardrobe and original Revive facet scopes. Four fresh runtime audits, 71 Python tests, 573 named definitions and eight-class/240-skill checks pass with 887/21 fingerprints and unchanged audit decisions. The complete retained run 4 is still in progress; accepted full totals and the receipt will be recorded after it finishes. Candidate builds use isolated output and disposable worlds; installed saves remain preserved. Final effects/audio and talent/hotkey icons remain separate registers; this acceptance work adds no approved art or player binding.
+
+## Remaining work
+
+All Druid species, custom safe-house/region authoring, additional legacy/current controller combinations, every respec/expiry edge, final client rendering and installed old-DLL/concurrent/unheld saves still need their own scope. Earlier summon/source/event/PvP/Sunder and barrier limitations remain. Continue remaining Necromancer mechanics and the class roadmap; no class is complete.

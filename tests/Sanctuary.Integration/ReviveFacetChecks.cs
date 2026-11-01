@@ -24,7 +24,7 @@ public static class ReviveFacetChecks
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Actual owner facet rescaling of original Revives",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception error){Log.Error(error,"{Name}: failed",name);}}));
-    private static (BaseCreature Actor,Corpse Corpse) Create(PlayerMobile owner,bool nightmare=false)
+    internal static (BaseCreature Actor,Corpse Corpse) Create(PlayerMobile owner,bool nightmare=false)
     {
         var actor=new Skeleton{NoKillAwards=true};if(nightmare){MonsterVariants.Assign(actor,MonsterDifficulty.Nightmare);}
         actor.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);actor.AIObject.AITimer.Stop();
@@ -39,7 +39,7 @@ public static class ReviveFacetChecks
     }
     private static void Facets(MonsterDifficulty trammel,MonsterDifficulty felucca)
         =>SummonDifficulties.SetFacets([new(Map.Trammel.MapID,trammel),new(Map.Felucca.MapID,felucca)]);
-    private static void Expect(BaseCreature actor,ReviveNativeState birth,int before,int oldMaximum,MonsterDifficulty difficulty)
+    internal static void Expect(BaseCreature actor,ReviveNativeState birth,int before,int oldMaximum,MonsterDifficulty difficulty)
     {
         int level=difficulty switch{MonsterDifficulty.Normal=>2,MonsterDifficulty.Nightmare=>37,_=>68};
         var original=birth.Setup.LifePlan;

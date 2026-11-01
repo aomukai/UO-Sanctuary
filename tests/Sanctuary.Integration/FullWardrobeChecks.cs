@@ -47,6 +47,11 @@ public static class FullWardrobeChecks
             && p.Stam == (long)stam * p.StamMax / maxStam
             && deadlines == (s.NextAction, s.RecoveryUntil, p.NextSkillTime, p.NextSpellTime), "Gear swap refilled resources or reset action deadlines");
     }
+    private static void Field(PlayerMobile p,SkeletonGuardian pet)
+    {
+        int life=pet.Hits;FixtureSpace.Corridor(p,6620,24,3300);Require(!MinionSafeAreas.Contains(p),"Wardrobe field fixture is safe");PersistentMinions.Resume(p);
+        Require(pet.Map==p.Map&&!PersistentMinions.Profiles.Find(pet).Parked&&pet.Hits==life,"Leaving town did not restore same wounded class pet");
+    }
     private static void Check()
     {
         Guards(); StatDependencies();
@@ -76,7 +81,7 @@ public static class FullWardrobeChecks
         var extra = new SkullCap(); Require(p.EquipItem(extra), "Second class cosmetic equip failed");
         RatioSwap(p, DiabloClass.Necromancer);
         Require(dagger.Parent == p && robe.Parent == p && extra.Parent == WardrobeEquipment.Instance.Find(p.Serial, DiabloClass.Sorceress)
-            && pet.Hits == beforeLife && !PersistentMinions.Profiles.Find(pet).Parked
+            && pet.Hits == beforeLife && PersistentMinions.Profiles.Find(pet).Parked==MinionSafeAreas.Contains(p)
             && SkillBindings.Instance.Get(p).Right == CombatAbility.RaiseSkeleton
             && SkillBindings.Instance.GetQuick(p.Serial, DiabloClass.Necromancer, 11) == CombatAbility.RaiseSkeleton
             && JsonSerializer.Serialize(ClassGear.State(dagger)) == gear, "Class restoration cloned, rerolled, healed or lost saved state");
@@ -124,12 +129,13 @@ public static class FullWardrobeChecks
         }
         p.Hits = p.HitsMax; RatioSwap(p, DiabloClass.Necromancer);
         // Nonzero follower costs are released and restored; ordinary pets consume their normal slots.
-        pet.ControlSlots = 2; p.Followers += 2; PersistentMinions.Profiles.Track(pet);
+        Field(p,pet);pet.ControlSlots = 2; p.Followers += 2; PersistentMinions.Profiles.Track(pet);
         p.Hits = p.HitsMax; RatioSwap(p, DiabloClass.Sorceress);
         Require(p.Followers == ordinary.ControlSlots && pet.ControlSlots == 0, "Inactive class still consumed follower slots");
         int limit = p.FollowersMax; p.FollowersMax = p.Followers;
         Require(!Swap(p, DiabloClass.Necromancer) && pet.Map == Map.Internal && Profile(p).Class == DiabloClass.Sorceress, "Follower limit accepted partial summon return");
         p.FollowersMax = limit; p.Hits = p.HitsMax; RatioSwap(p, DiabloClass.Necromancer);
+        Require(!MinionSafeAreas.Contains(p)||PersistentMinions.Profiles.Find(pet) is{Parked:true,Slots:2}&&pet.ControlSlots==0,"Class swap prematurely restored a safe-area army");Field(p,pet);
         Require(pet.ControlSlots == 2 && p.Followers == ordinary.ControlSlots + 2, "Returning follower budget was not restored");
         // Absolute expiry applies even while class is parked.
         p.Hits = p.HitsMax; RatioSwap(p, DiabloClass.Sorceress);
@@ -203,7 +209,7 @@ public static class FullWardrobeChecks
             $"Restart lost state: class={Profile(p).Class}, histories={ClassCreation.Profiles.Histories(p.Serial).Length}, dagger={dagger?.Parent}, robe={robe?.Parent}, set={set}, pet={pet?.Deleted}/{pet?.ControlSlots}/{pet?.Map}/{pet?.Hits}/{saved.PetLife}/{pet?.ControlMaster}, ledger={PersistentMinions.Profiles.Find(pet)}, ordinary={ordinary?.ControlMaster}, gear={JsonSerializer.Serialize(ClassGear.State(dagger)) == saved.Gear}");
         PersistentMinions.Resume(p); Require(pet.Map == Map.Internal, "Inactive summons returned on movement/login");
         p.Hits = p.HitsMax; RatioSwap(p, DiabloClass.Necromancer);
-        Require(dagger.Parent == p && robe.Parent == p && pet.ControlSlots == 2 && pet.Hits == saved.PetLife, "Reloaded class could not restore its real set");
+        Require(dagger.Parent == p && robe.Parent == p && pet.Hits == saved.PetLife&&(!MinionSafeAreas.Contains(p)||pet.ControlSlots==0&&PersistentMinions.Profiles.Find(pet) is{Parked:true,Slots:2}), "Reloaded class could not restore set/keep safe army parked");Field(p,pet);Require(pet.ControlSlots==2,"Loaded field return lost stored slot cost");
         p.Hits = p.HitsMax; RatioSwap(p, DiabloClass.Sorceress);
     }
 }
