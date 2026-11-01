@@ -69,17 +69,23 @@ public static class SorceressEffects
         ClassCombatHooks.CreatureEffectsEnded = actor => { Profiles.Clear(actor); PaladinAuras.Clear(actor);HolyShields.Clear(actor); SkillHealth.Clear(actor); };
     }
     public static bool IsArmor(CombatAbility ability) => ability is CombatAbility.FrozenArmor or CombatAbility.ShiverArmor or CombatAbility.ChillingArmor;
-    public static ColdArmorState Armor(Mobile actor) => Profiles?.Find(actor)?.Armor is { } armor && armor.UntilUtc > TimedEffects.Now ? armor : null;
+    public static ColdArmorState Armor(Mobile actor) => MagePetBuffs.Armor(actor) ?? (Profiles?.Find(actor)?.Armor is { } armor && armor.UntilUtc > TimedEffects.Now ? armor : null);
     public static EnergyShieldState Shield(Mobile actor) => Profiles?.Find(actor)?.Shield is { } shield && shield.UntilUtc > TimedEffects.Now ? shield : null;
     public static EnchantState Enchantment(Mobile actor) => Profiles?.Find(actor)?.Enchantment is { } enchant && enchant.UntilUtc > TimedEffects.Now ? enchant : null;
     public static void CastEnchant(PlayerMobile owner, Mobile target, SkillValues values)
+        =>ApplyEnchant(owner,target,values,value=>(int)Math.Clamp(NamedElements.Enhance(owner,value,"fire"),0,int.MaxValue));
+    internal static void CastNpcEnchant(Mobile caster,Mobile target,SkillValues values)
+    {
+        if(caster is PlayerMobile||values.Ability!=CombatAbility.Enchant){throw new ArgumentException("NPC Enchant needs its own caster and spell values");}
+        ApplyEnchant(caster,target,values,value=>value);
+    }
+    private static void ApplyEnchant(Mobile caster,Mobile target,SkillValues values,Func<int,int> scale)
     {
         if (Enchantment(target) is { } existing && existing.Rank > values.Rank) { return; }
         var row = SkillMechanics.For(CombatAbility.Enchant);
         var enchant = new EnchantState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), values.Rank,
-            (int)Math.Clamp(NamedElements.Enhance(owner, values.Damage256(false), "fire"), 0, int.MaxValue),
-            (int)Math.Clamp(NamedElements.Enhance(owner, values.Damage256(true), "fire"), 0, int.MaxValue),
-            row.Number("ToHit") + (values.Rank - 1) * row.Number("LevToHit"), owner.Serial.Value);
+            scale(values.Damage256(false)),scale(values.Damage256(true)),
+            row.Number("ToHit") + (values.Rank - 1) * row.Number("LevToHit"), caster.Serial.Value);
         Profiles.Store(target, (Profiles.Find(target) ?? new()) with { Enchantment = enchant });
         target.FixedEffect(0x375A, 10, 15, 0x489, 0); // Placeholder Enchant weapon glow.
     }
@@ -89,12 +95,13 @@ public static class SorceressEffects
     public static void CastArmor(PlayerMobile owner, CombatAbility ability, SkillValues values)
     {
         DefensiveArmors.ClearGroup(owner);
-        var armor = new ColdArmorState(ability, TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40),
-            (int)values.Eval("aurastatcalc1"), ability == CombatAbility.FrozenArmor ? (int)values.Eval("calc1") : 0,
-            values.Damage256(false), values.Damage256(true), values.DurationFrames);
+        var armor = PrepareColdArmor(ability,values,TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40));
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { Armor = armor });
         owner.FixedEffect(0x375A, 10, 15, 0x480, 0); // Placeholder cold armor.
     }
+    internal static ColdArmorState PrepareColdArmor(CombatAbility ability,SkillValues values,DateTime until)
+        =>new(ability,until,(int)values.Eval("aurastatcalc1"),ability==CombatAbility.FrozenArmor?(int)values.Eval("calc1"):0,
+            values.Damage256(false),values.Damage256(true),values.DurationFrames);
     public static void CastShield(PlayerMobile owner, SkillValues values)
     {
         var shield = new EnergyShieldState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), (int)values.Eval("calc1"));
@@ -136,9 +143,12 @@ public static class SorceressEffects
     }
     public static void MeleeHit(Mobile attacker, Mobile defender, int physical, bool ranged)
     {
-        if (physical <= 0 || ranged || !Hostile(attacker, defender, out var owner)
-            || Armor(owner) is not { Ability: CombatAbility.FrozenArmor } armor) { return; }
-        NamedControl.FreezeSkill(owner, attacker, armor.FreezeFrames * 40);
+        if(physical<=0||ranged){return;}
+        if(Hostile(attacker,defender,out var owner)&&Armor(owner) is{Ability:CombatAbility.FrozenArmor} armor)
+        {NamedControl.FreezeSkill(owner,attacker,armor.FreezeFrames*40);return;}
+        if(defender is NecromancerMinion{ControlMaster:PlayerMobile master} mage&&MagePetBuffs.Armor(mage) is{} innate
+            &&attacker is{Alive:true,Deleted:false}&&attacker.Map==mage.Map&&ClassCombat.IsHostile(master,attacker))
+        {FreezeStates.Apply(mage,attacker,innate.FreezeFrames,Core.TickCount);}
     }
     public static void MissileHit(Mobile attacker, Mobile defender, string missile)
     {

@@ -46,3 +46,7 @@ Raven's clockwise/counterclockwise flight uses the existing toward-path kernel w
 ## Barrier death and sentry death entry
 
 [Barrier death source review](bone-barrier-death-source-review.md) reuses the complete sentry cleanup/owner/death-end composition and adds nonempty minion allocation. Owner-graph changes precede dead collision; ordinary mode12 completion retains registry identity. Initial flags and barrier modifier subscribers are separate from the shared entry contract. A reproduced legacy missing-child null dereference stays unsupported. Do not infer actor deletion from death animation metadata or copy Fire Golem's160ms burst timer into barriers.
+
+## Mage Enchant and intrinsic Frozen Armor
+
+[Approved rank20 buffs](mage-pet-buffs-checkpoint.md) reuse Sorceress effect construction/storage and shared defense/freeze. Keep the NPC fixed-rank/no-synergy/no-mastery context explicit; a player casting wrapper would add incorrect class/payment/enhancement behavior. Intrinsic armor has no refresh timer, while Enchant remains an independent timed snapshot on its recipient. Combat-start scanning does not become continuous maintenance.

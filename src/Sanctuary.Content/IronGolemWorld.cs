@@ -208,7 +208,7 @@ internal static class IronGolemWorld
                 case NecromancerPetAiKind.Skill:
                     if(body is not MageWorldBody mage||r.A!=4||r.B!=338){throw new NotSupportedException("Unbound ranged pet skill request");}
                     var aim=World.FindMobile((Serial)(uint)r.C);if(aim!=null){body.Direction=body.GetDirectionTo(aim);}
-                    var cast=mage.MageAttackClock;
+                    mage.CombatStart(owner);var cast=mage.MageAttackClock;
                     s=s with{Mode=4,Target=(uint)r.C,AttackSpeed=SourceAttackRate.Speed(208,0,SourceAttackRate.WolfRate(body)),ActionAt=s.Frame+cast.Action,EndAt=s.Frame+cast.End,NextThink=0,Motion=DruidWolfGeometry.Stop(s.Motion)};
                     body.Animate(4,5,1,true,false,0);break; // Existing Mage casting placeholder.
                 case NecromancerPetAiKind.Reposition:
@@ -237,7 +237,11 @@ internal static class IronGolemWorld
                 default:throw new NotSupportedException("Unmapped Iron Golem AI request");
             }
         }
-        bool Common(int target,bool combat,int flag,int leash)=>SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
+        bool Common(int target,bool combat,int flag,int leash)
+        {
+            if(body is MageWorldBody mage){mage.ObserveCombatTarget(target!=0);}
+            return SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
+        }
         var queries=body is MageWorldBody caster
             ?NecromancerPetTargets.BindRanged(body,owner,target=>Eligible(body,owner,target),target=>Full(body,s,target),_=>caster.Primary(owner,s),Request,()=>Limited(body,100),Common,Move)
             :NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(body,s,target),target=>Melee(body,s,target,0),Request,()=>Limited(body,100),Common,Move);

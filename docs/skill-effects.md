@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Mage hard20 buffs](mage-pet-buffs-checkpoint.md) reuse Enchant glow `0x375A`/hue`0x489` and freeze marker `0x374A`/hue`0x480` as identified placeholders. Final Mage automatic-buff, intrinsic armor and retaliation feedback/audio remain pending; reuse the existing Enchant/Frozen Armor asset work.
+
 The [learned Mage world controller](mage-world-checkpoint.md) retains `Skeletal Mage [placeholder]`, the existing native skeleton body, casting animation4 and summon/elemental missile/contact particles/audio. Final emergence, movement/casting/recovery/death and elemental/upgraded spell feedback/audio remain pending. Reuse the existing Mage effects entry; no final art is generated.
 
 The [learned Fire world controller](fire-golem-world-checkpoint.md) retains `Fire Golem [placeholder]`, body14/hue`0x489`, native A1animation4, summon particles/audio, Holy Fire pulse`0x375A` and retirement explosion`0x36BD` as identified placeholders. Final G3 emergence/body/walk/attack/critical/contact/recovery/death, self/weapon/pulse/retirement feedback and audio remain pending. Reuse the existing Fire effects entry; no final art is generated.

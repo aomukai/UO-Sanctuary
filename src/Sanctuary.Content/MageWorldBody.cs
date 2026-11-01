@@ -14,6 +14,9 @@ public partial class MageWorldBody:NecromancerMinion,INecromancerGroundActor
     [SerializableField(0,setter:"private")] private string _worldSaved="{}";
     private NecromancerGroundWorld _ground;
     private string _lastNativeSize;
+    private bool _inCombat;
+    internal void ObserveCombatTarget(bool present){if(!present){_inCombat=false;}}
+    internal void CombatStart(PlayerMobile owner){if(_inCombat){return;}_inCombat=true;MagePetBuffs.CombatStart(this,owner);}
     internal NecromancerGroundWorld Ground=>_ground??=new(this,ProfileId,()=>_worldSaved,s=>_worldSaved=s,()=>{},true);
     NecromancerGroundWorld INecromancerGroundActor.WorldGround=>Ground;
     int INecromancerGroundActor.MovementPercent=>0;
@@ -60,7 +63,7 @@ public partial class MageWorldBody:NecromancerMinion,INecromancerGroundActor
     }
     internal bool Launch(PlayerMobile owner,Mobile target,DateTime at)=>IronGolemWorld.Eligible(this,owner,target)
         &&NecromancerMageMissiles.Launch(this,target,at)>0;
-    public override void SuspendActions(){base.SuspendActions();Ground.Suspend();}
+    public override void SuspendActions(){base.SuspendActions();Ground.Suspend();_inCombat=false;}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();Ground.Suspend();}
     public override void OnAfterDelete(){IronGolems.Forget(this);NecromancerMageMissiles.ForgetActor(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterMageWorldLoad(){Name="Skeletal Mage [placeholder]";Ground.Load();}

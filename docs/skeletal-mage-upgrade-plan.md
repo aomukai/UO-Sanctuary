@@ -1,6 +1,6 @@
 # Approved Skeletal Mage upgrade plan
 
-Approved Sanctuary design beyond **D2R Reign of the Warlock 3.3.93847**, settled 2026-11-01 JST. This plan is not an implementation certificate. Design was requested now while baseline class skills are being finished.
+Approved Sanctuary design beyond **D2R Reign of the Warlock 3.3.93847**, settled 2026-11-01 JST. This plan is not a complete implementation certificate. [Rank20 Enchant/Frozen Armor](mage-pet-buffs-checkpoint.md) are implemented and verified within their stated scope; the remaining package below is still required. Design was requested now while baseline class skills are being finished.
 
 Use **fire, lightning and ice Mages**. Remove poison from new summons; saved poison Mages convert to ice while preserving ownership and life percentage. Keep existing verified summon/clock/projectile foundations and baseline capture/persistence rules outside the explicit changes.
 
@@ -25,4 +25,6 @@ Use **fire, lightning and ice Mages**. Remove poison from new summons; saved poi
 
 Reuse existing spells/formulas, NPC damage/status services and the shared projectile fan. The earlier Fire Ball/Blizzard/poison-cloud package is superseded. The player has no Mage points and cannot provide current-build Mage observations; do not request a respec/test. See the [full pet design](pet-adjustment-review.md) for other approved pets and remaining Druid questions.
 
-Effects/audio and tree/hotkey icons remain separate in [skill effects](skill-effects.md) and [skill icons](skill-icons.md). Use identified placeholders and existing assets as appropriate. Autonomous abilities add no approved player binding. No spell upgrade, final art or icon is implemented by this plan.
+Effects/audio and tree/hotkey icons remain separate in [skill effects](skill-effects.md) and [skill icons](skill-icons.md). Use identified placeholders and existing assets as appropriate. Autonomous abilities add no approved player binding. This design document adds no final art or icon. The linked buff checkpoint records the implemented portion; other spell upgrades remain pending.
+
+Nonblocking implementation question: effective Raise Skeletal Mage determines the replacement basic spell rank, while normal Skeleton Mastery currently adds to a different derived NecromageMissile rank. Its contribution to replacement Sorceress damage needs a defined mapping. Do not invent a percentage, increase the stated spell rank silently or drop the benefit. Fixed-rank secondary spells/buffs and lifecycle work can proceed independently.

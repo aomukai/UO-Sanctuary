@@ -1,0 +1,108 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Approved Mage hard20 automatic Enchant and intrinsic Frozen Armor",
+  "installed": false,
+  "goalComplete": false,
+  "completedClasses": [],
+  "build": 1,
+  "run": 1,
+  "auditRun": 1,
+  "verified": {
+    "nativeMarkers": 220,
+    "retainedMagePetSentryMarkers": 210,
+    "boots": 3,
+    "actualReloads": 2,
+    "saves": 3,
+    "learnedMageInputCasts": 6,
+    "connectedMageWorldSessions": 3,
+    "auditMarkers": 4,
+    "pythonTests": 71,
+    "namedDefinitions": 573,
+    "auditFingerprints": [
+      871,
+      21
+    ],
+    "unchangedInstalledArtifacts": 106,
+    "handlers": 186,
+    "necromancerHandlers": 30
+  },
+  "inputInventories": {
+    "birth": {
+      "path": ".local/class-skills/mage-pet-buffs/birth-inputs.json",
+      "sha256": "8b7cfdbbc793e203a879347ffe29a0b329f60b4c615b42b4a1eff87aeedae4ba"
+    },
+    "audit": {
+      "path": ".local/class-skills/mage-pet-buffs/audit-inputs.json",
+      "sha256": "ff28d6d3a23f249419fc765a2b9cdedc95872ad710e0fbc446b319f35df80ac4"
+    }
+  },
+  "changedSourceHashes": {
+    "src/Sanctuary.Content/ClassStats.cs": "61d1aa799d085956c020782f694ea0fbea92d868d8712bef77bbe03d95043ab8",
+    "src/Sanctuary.Content/IronGolemWorld.cs": "29f0941a3c5e9fa72d81e4c4b71b12a22e9a060b1a13403a18ca762a30fd6f71",
+    "src/Sanctuary.Content/MagePetBuffs.cs": "2838df8928d8fdfd1e3103d8a31a68dcac6981dbd32c0c9c459201df3b4ddd5f",
+    "src/Sanctuary.Content/MageWorldBody.cs": "bb90eeea6ecad297203c31e085664127d8479017230f430f00e3f49b5bd11de5",
+    "src/Sanctuary.Content/SorceressEffects.cs": "00217ccd06294f4c81d2709092c6115c0856459a355fdfc96e4ba5ceb33b607d",
+    "tests/Sanctuary.Integration/MagePetBuffChecks.cs": "62fb2d2d72f613752855382cc58c82f38eac96bd7199b78ec5a196315198eefe"
+  },
+  "artifacts": {
+    ".local/class-skills/mage-pet-buffs/audit-inputs.json": "ff28d6d3a23f249419fc765a2b9cdedc95872ad710e0fbc446b319f35df80ac4",
+    ".local/class-skills/mage-pet-buffs/audit-native-checks.log": "3b729ec44c251abbfce6c9e07eb8b0427bd086b28b8c160de0525f6e709c6a86",
+    ".local/class-skills/mage-pet-buffs/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/mage-pet-buffs/birth-inputs.json": "8b7cfdbbc793e203a879347ffe29a0b329f60b4c615b42b4a1eff87aeedae4ba",
+    ".local/class-skills/mage-pet-buffs/birth-native-checks.log": "aa7b85772ff177d71323fa7f7217349578566ca62eb51de37e7940443d1fe697",
+    ".local/class-skills/mage-pet-buffs/blood-golem-world-fixtures.json": "53f47b6166647b0da4d0c9aa6b442648cdd9d17eb4b63c84ad7cd0bd86f7f143",
+    ".local/class-skills/mage-pet-buffs/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/mage-pet-buffs/clay-golem-world-fixtures.json": "f0327200df9404da4e4abaf11bb612814991130c76d97144878992101a2fa9fb",
+    ".local/class-skills/mage-pet-buffs/content-build-1.log": "c5b01e5c22225a1cea7bcd819c9c2a97004891775942a70fa87dc31f0a6bb3c5",
+    ".local/class-skills/mage-pet-buffs/enchant-checks.json": "79baa28710b8d11b15dc0cb1eb6c7ce9283b58e86ecc427320bba294e47e2c03",
+    ".local/class-skills/mage-pet-buffs/fire-golem-death-fixtures.json": "a69a09ea46b71c314a7e54b7b4430f27e1c46707bdebc0456279724c2bf93055",
+    ".local/class-skills/mage-pet-buffs/fire-golem-world-fixtures.json": "5b22dad4a5ec011406a35141d476200d611035734fb9c57d3a982db2ebf38622",
+    ".local/class-skills/mage-pet-buffs/first-loop-affix-audit.json": "b1ac1dbd2cd3ca8e8813030af45032d0bd91757ad74ea9b3779812058a11260b",
+    ".local/class-skills/mage-pet-buffs/integration-build-1.log": "98b047854fb410f21ec87b791e52b32d151d644384eb23f74201784d7987bd10",
+    ".local/class-skills/mage-pet-buffs/mage-birth-fixtures.json": "718fc7e140590f7c4d47a2924144e6e6c05e4ed469ae56dadbb4ea069b318cd6",
+    ".local/class-skills/mage-pet-buffs/mage-missile-fixtures.json": "2cf67c7a0380bd4a180f5766d4de1167b6d0cee7714916e75c9d3a280954b2d3",
+    ".local/class-skills/mage-pet-buffs/mage-pet-buff-fixtures.json": "b48cf87d37d654ab2d863ae1f04cf80844de63e27af5114e608a396f9edfc9d5",
+    ".local/class-skills/mage-pet-buffs/mage-world-fixtures.json": "0fe0a37f0cb6ad976adc765071c91f6c0b3a973723c4bc1653d3c24d9ed1ce9e",
+    ".local/class-skills/mage-pet-buffs/named-item-runtime-audit.json": "21366f7daacc23d77f6e6a1b13ed684974514d22dda271eb7b39798470778225",
+    ".local/class-skills/mage-pet-buffs/named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/mage-pet-buffs/pre-build-1.json": "142c133e43cc08f25e112c3196e5f81a54c74d2bd949becaf445b42a6570f695",
+    ".local/class-skills/mage-pet-buffs/python-tests.log": "eaadbff52ca33d3e6d6e0389924260e121909fcb1a55b5061cbf7588ec3859b4",
+    ".local/class-skills/mage-pet-buffs/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/mage-pet-buffs/sentry-unit-path-fixture.json": "15fde35dbb5ecbe21f1bc6b0bc331d75687b4a7e83f660e84e803e4ad8daa6a6",
+    ".local/class-skills/mage-pet-buffs/skeleton-world-fixtures.json": "a32522b8d02330a4f9a04ec046bb56d411e7e902aff4f689a4163c8773106795",
+    ".local/class-skills/mage-pet-buffs/sorceress-skills-checks.json": "11da481e18926e15eb825ee0c178be395f3b9d57362f8c81e1892b65ff1b3e07",
+    ".local/class-skills/mage-world/birth-native-checks.log": "2923a7e56d52c4a884414512f67203618995141c4cad7c420fd64f32c9508a76",
+    "docs/class-skill-reuse-notes.md": "7ce576e98a3e138fe0ff53a235e6ddc8324d446606c0c5b3f10f2336b8a146f9",
+    "docs/class-skill-roadmap.md": "27a0b99b0ebe20271a37da7d048dd60d614d66c40739667f262492792839404f",
+    "docs/class-skills-resume-checkpoint.md": "8dc6049c9eee7e3fb8e0583ab13c15c6d98f2e5a124fc5ead81003520cf39d75",
+    "docs/mage-pet-buffs-checkpoint.md": "b3cfe9d5a9e5bedc1e43b7de93f363b62e11f497053673bc03cfb249deac137c",
+    "docs/necromancer-mechanical-audit.md": "f7b5066fa04a91d5c9872a10907045ce28b90dc4ad2e42d41bb7e65af2a5bc43",
+    "docs/pet-adjustment-review.md": "297b7eb0c55a15d5f5f75a6cccecebeeeccc32fcc8be50f04753658dc9c785c2",
+    "docs/skeletal-mage-upgrade-plan.md": "2722a811cd7eb92b8c685a237d9e3ce8c9409efa115e7ffe5e899f503261849e",
+    "docs/skill-effects.md": "19260647f7febd9e2be2a96bba822ddbbe546f49b23efe420a729fdef7da39d3",
+    "docs/skill-icons.md": "82c0b19f58e5a78b4b1980b5a67592703bd7696ee310146f10cbc204b2bba869",
+    "src/Sanctuary.Content/ClassStats.cs": "61d1aa799d085956c020782f694ea0fbea92d868d8712bef77bbe03d95043ab8",
+    "src/Sanctuary.Content/IronGolemWorld.cs": "29f0941a3c5e9fa72d81e4c4b71b12a22e9a060b1a13403a18ca762a30fd6f71",
+    "src/Sanctuary.Content/MagePetBuffs.cs": "2838df8928d8fdfd1e3103d8a31a68dcac6981dbd32c0c9c459201df3b4ddd5f",
+    "src/Sanctuary.Content/MageWorldBody.cs": "bb90eeea6ecad297203c31e085664127d8479017230f430f00e3f49b5bd11de5",
+    "src/Sanctuary.Content/SorceressEffects.cs": "00217ccd06294f4c81d2709092c6115c0856459a355fdfc96e4ba5ceb33b607d",
+    "tests/Sanctuary.Integration/MagePetBuffChecks.cs": "62fb2d2d72f613752855382cc58c82f38eac96bd7199b78ec5a196315198eefe",
+    "tests/check_mage_pet_buffs.py": "2aac6c028fb1841a80f8c049a8ccc5907759e85f6da87bea5972adef6c080cfe",
+    "tools/record_mage_pet_buffs.py": "e369da9b8fb29a34d79adb4d64a14fbdcfb99e56b6f5b8a3d094897e91b325af",
+    "tools/reference/mage-world-native-evidence.json": "92550fcd204594d5a2d19745d677ba7698f22af607bf4b57892e5df7c775d5e2",
+    "tools/reference/sentry-target-source-evidence.json": "323e879a3b5d4cd596142479bc6ac343935dbc1437852b162a0d79139e477d0f"
+  },
+  "established": [
+    "Approved Fire hard20 combat-start Enchant20 runs from the actual Mage AI skill request, without an extra action or mana cost. A combat latch prevents continuous scans; existing enchantments retain their original snapshot/timer and fresh allies are reconsidered at a new fight.",
+    "Approved Ice hard20 FrozenArmor20 is intrinsic, follows live hard ranks on existing bodies and has no refresh timer. Existing Sorceress cold armor construction, NPC defense consumer and source FreezeStates are shared. Real soft gear does not unlock hard20; training, respec, relearn, source ownership and exact wounds pass.",
+    "Fixed NPC skill values use the Sorceress row with only the requested effective rank and no learned synergy context. NPC Enchant bypasses player mastery/potion enhancement. The shared player Enchant construction and timed armor route retain their own enhancement/duration behavior.",
+    "Three boots/two reloads preserve intrinsic unlocks, captured birth rank, wounded actor and absolute ally Enchant snapshot/duration. Existing player armor/shield/Enchant and all210 predecessor world/pet/sentry markers pass. Audit decisions,data,kernel and installed106 remain unchanged."
+  ],
+  "remaining": [
+    "This implements two approved Mage hard20 buffs, not the whole approved package or class. Fire combat-start integration currently belongs to learned MageWorldBody; historical plain actors keep their prior AI route. Full old-save spell rollout,three-element creation/poison-to-ice migration,Sorceress basic missiles,hard5triples and offensive secondaries/cooldowns remain required.",
+    "Approved basic rank equals effective Raise Skeletal Mage, while normal Skeleton Mastery currently contributes to a different derived missile-rank curve. The exact mapping of that benefit onto replacement Sorceress endpoints is not specified. Keep it a nonblocking design question; do not invent a mastery percentage or silently drop it.",
+    "The freeze fixture exercises the existing central weapon-hit consumer, not a complete new native attack/event-order or modern executable proof. Existing cold immunity/duration/shatter rules remain; no blanket corpse shattering.",
+    "Future-held controller save cohorts inspect state/absolute buff duration, not naturally elapsed unheld concurrent snapshots or an actual old installed-build upgrade. Modern acquisition/seed/event/rate, PvP/special/Sunder and unsupported recipients remain separate.",
+    "No final art, new player binding, deployment or completed class. Barrier death/search gaps, other approved pets and safe-area parking remain queued."
+  ]
+}
