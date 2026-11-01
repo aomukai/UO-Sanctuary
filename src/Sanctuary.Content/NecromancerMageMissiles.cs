@@ -14,8 +14,13 @@ internal sealed record MageMissilePacket(string Missile,string Element,int Rank,
 {
     public CombatAbility Spell{get;init;}
 }
+internal sealed record MageChargedMotion(int OriginX,int OriginY,Point2D[] Path,int Next);
 internal sealed record MageMissileState(long Id,uint Actor,uint Owner,int Map,int Z,double X,double Y,double Vx,double Vy,
-    int Frame,int Frames,int VelocityFp8,MageMissilePacket Packet,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null);
+    int Frame,int Frames,int VelocityFp8,MageMissilePacket Packet,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public MageChargedMotion Charged{get;init;}
+}
 internal sealed record MageCriticalSeed(uint Actor,uint Owner,ulong Seed);
 internal sealed record MageHistoricalGround(uint Actor,uint Owner,string State);
 internal sealed record MageMissileSave(MageMissileState[] Bolts,MageCriticalSeed[] Seeds,long NextId)
@@ -98,25 +103,28 @@ internal static class NecromancerMageMissiles
         // unusual physical max1280 lane a no-roll zero in RollDamageValue.
         return new(key,missile.Text("EType"),rank,missile.ElementDamage256(false,0,381),missile.ElementDamage256(true,0,381),missile.ElementFrames());
     }
-    internal static long Launch(NecromancerMinion actor,Mobile target,DateTime at)
+    internal static long Launch(NecromancerMinion actor,Mobile target,DateTime at)=>MageBasicSkills.Launch(actor,target,at);
+    // Explicit historical-flight fixture/migration producer. New combat uses
+    // the approved basic spells; already-fired legacy packets remain valid.
+    internal static long LaunchLegacy(NecromancerMinion actor,Mobile target,DateTime at)
         =>actor is{Alive:true,Deleted:false,IsMage:true}?LaunchPacket(actor,target,at,Packet(actor.MageElement,actor.MageMissileRank)):0;
     internal static long LaunchGlacial(NecromancerMinion actor,Mobile target,DateTime at)
         =>actor is{Alive:true,Deleted:false,IsMage:true}?LaunchPacket(actor,target,at,GlacialSpikes.Packet(actor)):0;
-    private static long LaunchPacket(NecromancerMinion actor,Mobile target,DateTime at,MageMissilePacket packet)
+    internal static long LaunchPacket(NecromancerMinion actor,Mobile target,DateTime at,MageMissilePacket packet,FanRay? ray=null,MageChargedMotion charged=null)
     {
         if(actor is not{Alive:true,Deleted:false,IsMage:true,ControlMaster:PlayerMobile owner}||target is not{Alive:true,Deleted:false}
             ||actor.Map==null||actor.Map==Map.Internal||target.Map!=actor.Map||!ClassCombat.IsHostile(owner,target)) {return 0;}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Mage missile needs UTC launch time");}
         var slow=AmazonSlowMissiles.Capture(actor,true);
         packet=packet with{Minimum256=slow.Damage256(packet.Minimum256),Maximum256=slow.Damage256(packet.Maximum256)};
-        bool glacial=packet.Spell==CombatAbility.GlacialSpike;int frames=glacial?40:30;
-        int velocity=SlowMissilePayload.VelocityFp8(glacial?16:14,0,packet.Rank,0x21,0,true,slow.VelocityPercent);
-        int dx=target.X-actor.X,dy=target.Y-actor.Y;if(dx==0&&dy==0){dx=dy=1;}
+        int frames=MageBasicSkills.Frames(packet);
+        int velocity=SlowMissilePayload.VelocityFp8(MageBasicSkills.Velocity(packet),0,packet.Rank,0x21,0,true,slow.VelocityPercent);
+        int dx=ray?.X??target.X-actor.X,dy=ray?.Y??target.Y-actor.Y;if(dx==0&&dy==0){dx=dy=1;}
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=checked(++_nextId);
         if(!Seeds.TryGetValue(actor.Serial.Value,out var seed)||seed.Owner!=owner.Serial.Value)
         {Seeds[actor.Serial.Value]=new(actor.Serial.Value,owner.Serial.Value,SourceRandom.InitLow(SeedLow()));}
         var state=new MageMissileState(id,actor.Serial.Value,owner.Serial.Value,actor.Map.MapID,actor.Z,actor.X,actor.Y,vector.X,vector.Y,
-            0,frames,velocity,packet,slow,SourceRandom.InitLow(SeedLow()),new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40));
+            0,frames,velocity,packet,slow,SourceRandom.InitLow(SeedLow()),new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40)){Charged=charged};
         Validate(state);Bolts.Add(id,state);return id;
     }
     private static bool Fighting(MageMissileState s,NecromancerMinion actor,PlayerMobile owner)=>Fighting(actor,owner,s.Map);
@@ -149,7 +157,13 @@ internal static class NecromancerMageMissiles
         var map=actor.Map;bool removed=false;
         int Move()
         {
-            next=next with{X=s.X+s.Vx,Y=s.Y+s.Vy,Steps=SourceMissileSteps.Advance(s.X,s.Y,s.Vx,s.Vy,s.Steps)};
+            if(s.Charged is{} charged)
+            {
+                var moved=ChargedBolts.Advance(charged.Path,charged.OriginX,charged.OriginY,s.X,s.Y,charged.Next,SkillGeometry.Tiles(s.VelocityFp8/4096.0));
+                next=next with{X=moved.X,Y=moved.Y,Charged=charged with{Next=moved.Next},Steps=SourceMissileSteps.Advance(s.X,s.Y,moved.X-s.X,moved.Y-s.Y,s.Steps)};
+                if(moved.Next>=charged.Path.Length){return 2;}
+            }
+            else{next=next with{X=s.X+s.Vx,Y=s.Y+s.Vy,Steps=SourceMissileSteps.Advance(s.X,s.Y,s.Vx,s.Vy,s.Steps)};}
             return next.X<0||next.Y<0||next.X>=map.Width||next.Y>=map.Height?2:1;
         }
         Mobile Find(SourceMissileCell cell)
@@ -212,16 +226,27 @@ internal static class NecromancerMageMissiles
     }
     private static void Validate(MageMissileState s)
     {
-        bool glacial=s?.Packet?.Spell==CombatAbility.GlacialSpike;int frames=glacial?40:30;
-        bool packet=glacial?s.Packet is{Missile:"glacialspike",Element:"cold",Rank:10,ElementFrames:77}
+        bool glacial=s?.Packet?.Spell==CombatAbility.GlacialSpike,basic=s?.Packet!=null&&MageBasicSkills.Basic(s.Packet.Spell);
+        int frames=s?.Packet==null?30:MageBasicSkills.Frames(s.Packet),velocity=s?.Packet==null?14:MageBasicSkills.Velocity(s.Packet);
+        bool packet=glacial?s.Packet is{Missile:"glacialspike",Element:"cold",Rank:10,ElementFrames:77}:basic
+            ?s.Packet.Rank<=255&&(s.Packet.Spell,s.Packet.Missile,s.Packet.Element) is (CombatAbility.FireBolt,"firebolt","fire") or(CombatAbility.IceBolt,"icebolt","cold") or(CombatAbility.ChargedBolt,"chargedbolt","ltng")
             :s?.Packet?.Spell==CombatAbility.None&&s.Packet.Missile is("necromage1" or "necromage2" or "necromage3" or "necromage4")
                 &&s.Packet.Element==new[]{"pois","cold","fire","ltng"}[s.Packet.Missile[^1]-'1'];
+        if(s?.Packet?.Spell==CombatAbility.ChargedBolt)
+        {
+            if(s.Charged is not{} c||c.OriginX<=0||c.OriginY<=0||c.Path?.Length!=(frames>>1)+1||c.Next<1||c.Next>c.Path.Length||c.Path[0]!=new Point2D(0,0))
+            {throw new InvalidDataException("Invalid saved Mage charged path");}
+            for(int i=1;i<c.Path.Length;i++){int dx=Math.Abs(c.Path[i].X-c.Path[i-1].X),dy=Math.Abs(c.Path[i].Y-c.Path[i-1].Y);if(dx>1||dy>1||dx+dy==0){throw new InvalidDataException("Invalid Mage charged waypoint");}}
+        }
+        else if(s?.Charged!=null){throw new InvalidDataException("Unexpected Mage charged path");}
         if(s==null||!packet||s.Id<=0||!((Serial)s.Actor).IsMobile||!((Serial)s.Owner).IsMobile||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal
-            ||s.Z is <-128 or >127||s.Frames!=frames||s.Frame<0||s.Frame>=frames||s.VelocityFp8<0||s.VelocityFp8>(glacial?3072:2688)||s.NextUtc.Kind!=DateTimeKind.Utc||s.NextUtc>DateTime.MaxValue.AddMilliseconds(-frames*40)
+            ||s.Z is <-128 or >127||s.Frames!=frames||s.Frame<0||s.Frame>=frames||s.VelocityFp8<0||s.VelocityFp8>velocity*192||s.NextUtc.Kind!=DateTimeKind.Utc||s.NextUtc>DateTime.MaxValue.AddMilliseconds(-frames*40)
             ||!double.IsFinite(s.X)||!double.IsFinite(s.Y)||!double.IsFinite(s.Vx)||!double.IsFinite(s.Vy)||s.X<0||s.Y<0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
             ||s.Slow.VelocityPercent is <0 or >100||s.Slow.DamagePercent is <0 or >100||s.Packet is not{Rank:>=1 and <=381,Minimum256:>=0,Maximum256:>=0,ElementFrames:>=0}
             ||s.Packet.Maximum256<s.Packet.Minimum256||s.Steps?.Cells is not{Length:>=1 and <=10})
         {throw new InvalidDataException("Invalid saved skeletal mage missile");}
+        if(s.Charged is{} motion&&(motion.OriginX>=Map.Maps[s.Map].Width||motion.OriginY>=Map.Maps[s.Map].Height))
+        {throw new InvalidDataException("Saved Mage charged origin outside map");}
     }
     internal static MageMissileSave Snapshot()=>new(Bolts.Values.OrderBy(s=>s.Id).ToArray(),Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is NecromancerMinion{Deleted:false,IsMage:true} a&&a.ControlMaster?.Serial.Value==s.Owner).OrderBy(s=>s.Actor).ToArray(),_nextId)
         {LegacyWorlds=LegacyGrounds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is NecromancerMinion{Alive:true,Deleted:false,IsMage:true} a&&a is not MageWorldBody&&a.ControlMaster?.Serial.Value==s.Owner).OrderBy(s=>s.Actor).ToArray()};

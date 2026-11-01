@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Mage basic-spell/triple increment](mage-basics-checkpoint.md) uses fire `0x36D4`, ice `0x36E4` and lightning `0x3818` travel markers as identified placeholders. Final Fire Bolt/Ice Bolt/Charged Bolt travel, collision/impact/chill, triple-fan/charged-volley presentation and audio remain pending and should share Sorceress assets. Existing Mage body/windup/recovery/death and secondary assets remain listed separately; art does not gate the mechanics.
+
 The [approved Fire damage/cold upgrades](fire-upgrades-checkpoint.md) retain body `14`/hue `0x489`, native contact/attack cues, aura `0x375A` and explosion `0x36BD` as identified placeholders. Final doubled-physical/fire impact, pulse/weapon aura, Cannot Be Frozen/cold-immunity status, immunity-break/expiry feedback and audio remain pending. Reuse the Paladin Holy Fire and shared cold-state assets where presentation matches. Art does not gate mechanics; icons stay separate.
 
 The [Iron hard-20 Spectral Hit unlock](iron-golem-spectral-checkpoint.md) reuses existing contact/chill cues and poison particles `0x374A`/hue `0x3F` as identified placeholders, alongside body `14`/hue `0x835` and summon `0x376A`. Final magic/fire/lightning/cold/poison impact, active-status/expiry and audio feedback remain pending and should share encounter-affix assets. Art does not gate the mechanical effect; talent/hotkey artwork is tracked separately.

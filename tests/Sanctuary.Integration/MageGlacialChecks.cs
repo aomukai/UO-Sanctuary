@@ -28,7 +28,7 @@ public static class MageGlacialChecks
     private static GraveyardZombie Enemy(PlayerMobile p,Mobile caster,int dx,int dy=0)
     {var t=new GraveyardZombie{Name="PoisonDaggerFixtureGlacialTarget",NoKillAwards=true,Frozen=true,CantWalk=true};t.MoveToWorld(new(caster.X+dx,caster.Y+dy,caster.Z),p.Map);t.AIObject.AITimer.Stop();t.SetHits(20000);t.Hits=t.HitsMax;t.SetResistance(ResistanceType.Cold,0);TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
     private static MageMissileState Flight(long id)=>NecromancerMageMissiles.Snapshot().Bolts.SingleOrDefault(x=>x.Id==id);
-    private static MageMissileState For(MageWorldBody b)=>NecromancerMageMissiles.Snapshot().Bolts.SingleOrDefault(x=>x.Actor==b.Serial.Value);
+    private static MageMissileState For(MageWorldBody b)=>NecromancerMageMissiles.Snapshot().Bolts.FirstOrDefault(x=>x.Actor==b.Serial.Value);
     private static void Clear(MageWorldBody b)
     {var s=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(s with{Bolts=s.Bolts.Where(x=>x.Actor!=b.Serial.Value).ToArray()});}
     private static void Replace(MageMissileState f)
@@ -43,7 +43,7 @@ public static class MageGlacialChecks
         {
             var helm=PoisonDaggerChecks.Named(p,"Wormskull");ulong seed=MageStaticFieldChecks.Seed(0,4,false);NecromancerMageMissiles.SetActorSeed(mage,seed);
             Require(SkillMechanics.Rank(p,CombatAbility.RaiseSkeletalMage)==10&&MagePetBuffs.HardRank(mage)==9&&mage.Launch(p,first,TimedEffects.Now)
-                &&For(mage).Packet.Spell==CombatAbility.None&&NecromancerMageMissiles.ActorSeed(mage).Seed==seed,"Glacial soft9+1 unlocked or drew");Clear(mage);p.Backpack.DropItem(helm);ClassGear.Refresh(p);MagePetBuffChecks.Train(p,"necromancer.skeletalmage",10);
+                &&For(mage).Packet.Spell==CombatAbility.IceBolt&&NecromancerMageMissiles.Snapshot().Bolts.Count(x=>x.Actor==mage.Serial.Value)==3&&NecromancerMageMissiles.ActorSeed(mage).Seed==seed,"Glacial soft9+1 unlocked or drew");Clear(mage);p.Backpack.DropItem(helm);ClassGear.Refresh(p);MagePetBuffChecks.Train(p,"necromancer.skeletalmage",10);
             NecromancerMageMissiles.SetActorSeed(mage,seed);ulong after=seed;SourceRandom.Roll(ref after);int mana=NecromancerEffects.ManaBalance256(p),npcMana=mage.Mana,hp=SkillHealth.Balance256(first);
             Require(mage.Launch(p,first,TimedEffects.Now)&&NecromancerEffects.ManaBalance256(p)==mana&&mage.Mana==npcMana&&NecromancerMageMissiles.ActorSeed(mage).Seed==after,"Glacial proc draw or mana");
             var f=For(mage);var values=MagePetBuffs.Values(CombatAbility.GlacialSpike,10,mage.Level);

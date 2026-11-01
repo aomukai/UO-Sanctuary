@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "d5d47f879f12759bd713dc6a86a0e8c7f52cf4ab55f816e624020120caab75ca",
+  "ContentAssemblySha256": "12a35020bbef4af2aad656ed4db0d09ed22070b77791574ec4a916ad165b22ad",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -86,7 +86,7 @@
     "data/Sanctuary/Balance/named-item-properties.json": "dc5f3b95c4eb24d5dc756381b8b08272db84134c5fc0ea6c8e77f11e4fa58762",
     "data/Sanctuary/Balance/named-skill-backlog.json": "2a9e4b686189b51e41910020dd27cc3f2a065d73edc5c3f530c3c10d84b2a3cb",
     "data/Sanctuary/Balance/named-skill-bindings.json": "b7859dfea4db641ec9c84ca3661d5ec7734098a0676fb7b0e45fa760490b4438",
-    "data/Sanctuary/Balance/necromancer-summons.json": "5dc16d6bfdc26fccd349dac82ac970ce24a3a5e519ce6153f045022a83276f8a",
+    "data/Sanctuary/Balance/necromancer-summons.json": "c1a8188ebda033601b263688e9feb135ba9acb794d127a5cb0f6e6541398766e",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
     "data/Sanctuary/Balance/npc-melee-geometry.json": "16d651e7047b363f8b15d072f043faea06a1bf0ae6cd6564953c5d5f7ded0c36",
@@ -626,6 +626,7 @@
     "src/Sanctuary.Content/LeapTerrain.cs": "f051bff7c43246794978ec7b07e49cfe0a46cac82f5ec1b0c8e00425ba26e1f7",
     "src/Sanctuary.Content/LeashedMeleeAI.cs": "ae0e5ba39594802006a5587e2304772f425aa09c6ad37d7890b76ad929c2e064",
     "src/Sanctuary.Content/LobProjectiles.cs": "995634ec622c25ee57e627747c50241d9c72f045fa088c458d6a535a681718f8",
+    "src/Sanctuary.Content/MageBasicSkills.cs": "ec71f91b6b4f93f5a13ba981f55e9667e254739ed241cade796a222cd294e3ef",
     "src/Sanctuary.Content/MageMeteors.cs": "c8436e7a173643fc725d8eb8de8fef4324a053bcb57a8c4c56643e704c062b0e",
     "src/Sanctuary.Content/MageOffensiveSkills.cs": "d487800d5b0cbe4f9e6701948388c1881e228187dc8c7e4cd28c79e774654146",
     "src/Sanctuary.Content/MagePetBuffs.cs": "33c1695b29c36af66a9f4ecf2c788fa277c9acd8480f07dc3b11c9399ecddbc9",
@@ -686,7 +687,7 @@
     "src/Sanctuary.Content/NecromancerGolems.cs": "73faaeb150897e3707bda5209bbb44ca17df13fa4a80fe4895d7a4872bf000be",
     "src/Sanctuary.Content/NecromancerGroundWorld.cs": "7171b85ec926e1e337025c1b69a269541308fc587f77c8559cf70921adf43722",
     "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
-    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "d68b89a3bdae098ffae4c2957f55df3df3b989093b1b33eedf81e9feb0811014",
+    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "5a8106ae7b9c19d274e1d79b93a44aca091b91c94757d0903d74b78c6326c27a",
     "src/Sanctuary.Content/NecromancerPetAi.cs": "d33b3dea85ff8a235eecc95342ddbf3d25a0eabc37764340c9c5ec935b7e2de6",
     "src/Sanctuary.Content/NecromancerPetTargets.cs": "3e35f93ca197b822c06050891ec2f759390128b6252133bd351ea8cd7c0e40b0",
     "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "bb8b3f6ba5722744dd7cb907b50ff409b31dc1ec77befa8b5d2e5c407257b940",

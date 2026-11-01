@@ -63,7 +63,7 @@ public static class MageMissileChecks
         {
             var(p,m,t)=Scene(element);try
             {
-                int before=SkillHealth.Balance256(t);long id=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);var first=State(id);
+                int before=SkillHealth.Balance256(t);long id=NecromancerMageMissiles.LaunchLegacy(m,t,TimedEffects.Now);var first=State(id);
                 Require(first is{Frame:0,VelocityFp8:2688}&&first.Packet.Missile=="necromage"+(element+1)&&SkillHealth.Balance256(t)==before,"Launch dealt immediate damage or wrong missile");
                 Through(id,5);Require(State(id) is{Frame:5,Fault:null}&&SkillHealth.Balance256(t)==before,"Distant target hit before travel");
                 Through(id,30);Require(State(id)==null&&SkillHealth.Balance256(t)<before,"Traced elemental collision missing");
@@ -74,12 +74,12 @@ public static class MageMissileChecks
         }
         var(miss,body,enemy)=Scene(2);try
         {
-            int before=SkillHealth.Balance256(enemy);long id=NecromancerMageMissiles.Launch(body,enemy,TimedEffects.Now);
+            int before=SkillHealth.Balance256(enemy);long id=NecromancerMageMissiles.LaunchLegacy(body,enemy,TimedEffects.Now);
             enemy.MoveToWorld(new(enemy.X,enemy.Y+4,enemy.Z),enemy.Map);Through(id,35);
             Require(State(id)==null&&SkillHealth.Balance256(enemy)==before,"Missile homed onto moving target");
             enemy.MoveToWorld(new(miss.X+5,miss.Y,miss.Z),miss.Map);var blocker=PoisonDaggerChecks.Target(miss);blocker.MoveToWorld(new(miss.X+2,miss.Y,miss.Z),miss.Map);blocker.SetResistance(ResistanceType.Fire,0);
             try
-            {int other=SkillHealth.Balance256(blocker);id=NecromancerMageMissiles.Launch(body,enemy,TimedEffects.Now);Through(id,35);
+            {int other=SkillHealth.Balance256(blocker);id=NecromancerMageMissiles.LaunchLegacy(body,enemy,TimedEffects.Now);Through(id,35);
                 Require(SkillHealth.Balance256(blocker)<other&&SkillHealth.Balance256(enemy)==before,"First intervening enemy was not the sole collider");}
             finally{blocker.Delete();}
         }
@@ -92,7 +92,7 @@ public static class MageMissileChecks
             var(p,m,t)=Scene(2);var block=SourceBlocking.BlockRoll;
             try
             {
-                long id=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);var bolt=State(id);ulong chosen=0,after=0;
+                long id=NecromancerMageMissiles.LaunchLegacy(m,t,TimedEffects.Now);var bolt=State(id);ulong chosen=0,after=0;
                 for(int low=0;low<10000;low++){ulong candidate=SourceRandom.InitLow(low),next=candidate;bool hit=SourceRandom.Roll(ref next)%100<5;if(hit==critical){chosen=candidate;after=next;break;}}
                 var pool=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(pool with{Seeds=pool.Seeds.Select(x=>x.Actor==m.Serial.Value?x with{Seed=chosen}:x).ToArray()});
                 SourceBlocking.BlockRoll=_=>throw new InvalidOperationException("Pure elemental mage projectile rolled a physical shield");
@@ -116,7 +116,7 @@ public static class MageMissileChecks
                 {AmazonSlowMissiles.Restore(AmazonSlowMissiles.Snapshot().Append(new(t.Serial.Value,p.Serial.Value,1,50,50,TimedEffects.Now.AddHours(1))).ToArray());
                     // Apply the same captured state to the actual emitting NPC.
                     var rows=AmazonSlowMissiles.Snapshot();AmazonSlowMissiles.Restore(rows.Append(rows[^1] with{Target=m.Serial.Value}).ToArray());}
-                long id=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);var first=State(id);
+                long id=NecromancerMageMissiles.LaunchLegacy(m,t,TimedEffects.Now);var first=State(id);
                 if(control=="slow"){Require(first.VelocityFp8==1344&&first.Packet.Minimum256==256&&first.Packet.Maximum256==768,"Slow Missiles capture did not scale factory speed/endpoints");}
                 if(control=="facet"){p.MoveToWorld(p.Location,p.Map==Map.Trammel?Map.Felucca:Map.Trammel);}
                 if(control=="deleted"){m.Delete();}
@@ -129,9 +129,9 @@ public static class MageMissileChecks
     }
     private static void Save()
     {
-        var(p,m,t)=Scene(3,8);long first=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);NecromancerMageMissiles.Impact(m,t,State(first));
+        var(p,m,t)=Scene(3,8);long first=NecromancerMageMissiles.LaunchLegacy(m,t,TimedEffects.Now);NecromancerMageMissiles.Impact(m,t,State(first));
         var initial=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(initial with{Bolts=initial.Bolts.Where(x=>x.Id!=first).ToArray()});
-        long id=NecromancerMageMissiles.Launch(m,t,TimedEffects.Now);Through(id,4);var current=NecromancerMageMissiles.Snapshot();
+        long id=NecromancerMageMissiles.LaunchLegacy(m,t,TimedEffects.Now);Through(id,4);var current=NecromancerMageMissiles.Snapshot();
         var held=State(id) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
         NecromancerMageMissiles.Restore(current with{Bolts=current.Bolts.Select(x=>x.Id==id?held:x).ToArray()});
         var seed=current.Seeds.Single(x=>x.Actor==m.Serial.Value);var point=p.Location;int map=p.Map.MapID;PersistentMinions.Suspend(p);p.Internalize();
