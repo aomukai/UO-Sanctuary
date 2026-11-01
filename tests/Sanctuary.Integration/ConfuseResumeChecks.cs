@@ -36,7 +36,15 @@ public static class ConfuseResumeChecks
     }
     private static void Check()
     {
-        var p=ConfuseCastChecks.Owner(20);var actor=ConfuseCastChecks.Enemy(p,2);var victim=ConfuseCastChecks.Enemy(p,3);
+        var p=ConfuseCastChecks.Owner(20);
+        while(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Vitality)){}
+        p.Hits=p.HitsMax;
+        // A level-one Normal skeleton has the 5% hit floor against this
+        // level99 caster. Use an actual fresh Hell variant, not forced hits.
+        var actor=new GraveyardSkeleton{Name="PoisonDaggerFixtureConfuseResume",NoKillAwards=true,Frozen=true,CantWalk=true};
+        MonsterVariants.Assign(actor,MonsterDifficulty.Hell);actor.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);actor.AIObject.AITimer.Stop();
+        var victim=ConfuseCastChecks.Enemy(p,3);
+        Require(ClassStats.HitChance(ClassStats.AttackRating(actor),ClassStats.Defense(p),ClassStats.Level(actor),ClassStats.Level(p))>0.5,"Resume fixture hit chance is not representative");
         int mana=NecromancerEffects.ManaBalance256(p);
         Require(NecromancerCombat.Release(p,CombatAbility.Confuse,actor.Serial,actor.Location)
             &&NecromancerEffects.ManaBalance256(p)==mana-3328,"Birth Confuse cast/payment");
@@ -72,7 +80,7 @@ public static class ConfuseResumeChecks
                 var current=NecromancerEffects.Profiles.Find(actor);var mind=current.Mind;
                 Require(p.Alive&&actor.Alive&&victim.Alive
                     &&(SkillHealth.Balance256(p)<s.OwnerLife||SkillHealth.Balance256(victim)<s.VictimLife),
-                    $"Reload did not resume actual Confuse combat: actor={actor.Serial}/{actor.Location}, target={actor.Combatant?.Serial}, mind={JsonSerializer.Serialize(mind)}, life={SkillHealth.Balance256(p)}/{s.OwnerLife};{SkillHealth.Balance256(victim)}/{s.VictimLife}, timer={actor.AIObject.AITimer.Running}, frozen={actor.Frozen}/{actor.CantWalk}, sector={actor.Map.GetSector(actor.Location).Active}");
+                    $"Reload did not resume actual Confuse combat: actor={actor.Serial}/{actor.Location}, target={actor.Combatant?.Serial}, mind={JsonSerializer.Serialize(mind)}, life={SkillHealth.Balance256(p)}/{s.OwnerLife};{SkillHealth.Balance256(victim)}/{s.VictimLife}, timer={actor.AIObject.AITimer.Running}, frozen={actor.Frozen}/{actor.CantWalk}, sector={actor.Map.GetSector(actor.Location).Active}, hitChance={ClassStats.HitChance(ClassStats.AttackRating(actor),ClassStats.Defense(p),ClassStats.Level(actor),ClassStats.Level(p))}, nextSwing={actor.NextCombatTime-Core.TickCount}, nextDecision={((GraveyardUndead)actor).NextMeleeDecision-Core.TickCount}, harmful={actor.CanBeHarmful(p,false)}, enemy={actor.IsEnemy(p)}");
                 Require(current.Curse==s.Curse&&mind is{Mode:3}&&mind.Map==s.Mind.Map&&mind.UntilUtc==s.Mind.UntilUtc
                     &&mind.Draws>s.Mind.Draws&&mind.Draws-s.Mind.Draws<100,"Reload reset the curse/override or failed real acquisition draws");
                 ulong expected=s.Mind.Seed;for(long i=s.Mind.Draws;i<mind.Draws;i++){SourceRandom.Roll(ref expected);}

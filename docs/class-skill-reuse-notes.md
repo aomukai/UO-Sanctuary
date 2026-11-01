@@ -168,3 +168,7 @@ Reused original Necromancer actor types, actual learned original Revive creation
 ## Barrier UMod15 and minion traversal — 2026-11-01
 
 The [modifier review](bone-barrier-modifier-source-review.md) extends the existing sentry/barrier harness with complete unchanged dispatcher and graph callbacks. Keep AI graph ownership distinct from combat ownership. Its 192 positive controls require an explicitly quarantined pool; negative controls reproduce null-owner traversal and immediate-free iterator hazards in the older source. Do not copy these defects, assume low-level initial flags, or treat mode12 as actor deletion. Full ModeChange scheduling/current executable behavior remain separate. Continue unaffected Necromancer acceptance using existing SourceMind/Conversion/curse services.
+
+## Confuse actual post-load combat — 2026-11-01
+
+The [reload checkpoint](confuse-resume-checkpoint.md) reuses Confuse owner/enemy setup and the authenticated Attract reload connection pattern. An actual sector and normal NPC AI must produce HP loss; arithmetic-only seed advancement remains separate serialization coverage. Do not rewrite target, seed, draws or deadline on load. A real Hell variant and normal Vitality allocation avoid a level-one-versus-level99 5% hit-floor fixture while preserving both target factions and ordinary hit rolls. Production AI/combat/allegiance remain unchanged.

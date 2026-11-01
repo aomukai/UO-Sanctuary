@@ -1,5 +1,7 @@
 # Confuse learned casting and target override checkpoint
 
+Later [autonomous reload acceptance](confuse-resume-checkpoint.md) verifies actual post-load acquisition and damage with untouched saved stream/deadline state; it closes that mapped Skeleton gap from this historical casting checkpoint. Existing scan/LOS/global-RNG/credit and legacy limits remain.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary deviations take precedence. Build 8/run 4 passes the bounded verification below. Full skill/class and current-executable parity remain unproven; nothing is deployed.
 
 Confuse now uses a learned casting path with 13-mana release, source radius `6 + (rank − 1)` and duration `250 + 50 × (rank − 1)` frames. Configured owner-facet difficulty divides the duration by 1/2/4 before curse resistance. The visible curse makes the recipient neutral, rather than a friendly converted minion. Players and monsters can still attack it; it gains no player ownership or friendly immunity.

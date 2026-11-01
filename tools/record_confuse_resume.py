@@ -19,7 +19,7 @@ def record(check=False):
     inventory.STAGE = STAGE
     inputs = {name: inventory.validate_inventory(STAGE / (name + '-inputs.json')) for name in ('birth', 'audit')}
     for name, row in inputs.items():
-        snapshot(STAGE / 'pre-build-1.json', STAGE / (name + '-inputs.json'))
+        snapshot(STAGE / 'pre-build-2.json', STAGE / (name + '-inputs.json'))
         assert row['artifacts'] == inputs['birth']['artifacts']
         assert row['copiedData'] == inputs['birth']['copiedData']
     parent_path = ROOT / 'tools/reference/parking-boundaries-native-evidence.json'
@@ -47,6 +47,10 @@ def record(check=False):
     expected.update({'confuse-resume-check': 1, 'confuse-resume-reload-check': 2, 'confuse-resume-reload-result': 2})
     assert sum(expected.values()) == 411 and markers(STAGE / 'birth-native-checks.log') == expected
     focused = ROOT / '.local/class-skills/confuse-resume-targeted'
+    focused_inputs = inventory.validate_inventory(focused / 'birth-inputs.json')
+    snapshot(STAGE / 'pre-build-2.json', focused / 'birth-inputs.json')
+    assert focused_inputs['artifacts'] == inputs['birth']['artifacts']
+    assert focused_inputs['copiedData'] == inputs['birth']['copiedData']
     focused_counts = markers(focused / 'birth-native-checks.log')
     assert sum(focused_counts.values()) == 14 and focused_counts['confuse-resume-reload-result'] == 2
     for stage in (STAGE, focused):
@@ -59,12 +63,12 @@ def record(check=False):
         assert saved['Generation'] == 2 and saved['Mind']['Mode'] == 3 and saved['Mind']['Draws'] >= 2
         assert saved['Curse']['UntilUtc'] == saved['Mind']['UntilUtc']
         assert len({saved['Owner'], saved['Actor'], saved['Victim']}) == 3
-    for name in ('run-1.log', 'targeted-run-1.log'):
+    for name in ('run-2.log', 'targeted-run-2.log'):
         assert 'pass across3boots/2reloads' in (STAGE / name).read_text()
     for kind in ('content', 'integration'):
-        text = (STAGE / (kind + '-build-1.log')).read_text()
+        text = (STAGE / (kind + '-build-2.log')).read_text()
         assert all(word in text for word in ('Build succeeded.', '0 Warning(s)', '0 Error(s)'))
-    for name, count in (('named-item-runtime-audit.json', 888), ('first-loop-affix-audit.json', 21)):
+    for name, count in (('named-item-runtime-audit.json', 887), ('first-loop-affix-audit.json', 21)):
         audit = json.loads((STAGE / name).read_text())
         assert audit == json.loads((ROOT / 'tools/reference' / name).read_text())
         assert len(audit['InputHashes']) == count and audit['ContentAssemblySha256'] == sha(STAGE / 'content/Sanctuary.Content.dll')
@@ -90,11 +94,12 @@ def record(check=False):
     files = [parent_path, baseline, Path(__file__).resolve(), ROOT / 'tests/check_confuse_resume.py',
              *[ROOT / p for p in added | changed], *[ROOT / 'docs' / (name + '.md') for name in docs]]
     files += [p for p in STAGE.iterdir() if p.is_file()]
+    files += [p for name in ('content-snapshot-1', 'integration-snapshot-1') for p in (STAGE / name).rglob('*') if p.is_file()]
     files += [focused / name for name in ('birth-native-checks.log', 'birth-inputs.json', 'confuse-resume-fixtures.json')]
     result = dict(referenceVersion='3.3.93847', component='Actual autonomous Confuse acquisition and combat after two native reloads',
-        productionChanged=False, installed=False, goalComplete=False, completedClasses=[], build=1, run=1, auditRun=1,
+        productionChanged=False, installed=False, goalComplete=False, completedClasses=[], build=2, run=2, auditRun=1,
         verified=dict(nativeMarkers=411, retainedMarkers=406, focusedNativeMarkers=14, actualReloads=2, boots=3, saves=3,
-                      connectedPostLoadFights=4, pythonTests=71, namedDefinitions=573, auditMarkers=4, auditFingerprints=[888, 21],
+                      connectedPostLoadFights=4, pythonTests=71, namedDefinitions=573, auditMarkers=4, auditFingerprints=[887, 21],
                       unchangedInstalledArtifacts=106, handlers=186, necromancerHandlers=30),
         inputInventories={name: dict(path=str((STAGE / (name + '-inputs.json')).relative_to(ROOT)), sha256=sha(STAGE / (name + '-inputs.json'))) for name in inputs},
         changedSourceHashes={p: after[p] for p in sorted(added | changed)},
@@ -102,7 +107,7 @@ def record(check=False):
         established=[
             'Connected actors resume normal source-algorithm faction selection and ordinary species combat after both actual reloads in focused and full cohorts. The fixture does not assign a combat target, manually invoke Think, rewrite the seed or advance draws on load. Saved RNG advances independently checked against every observed natural draw.',
             'Exact saved curse, override, deadlines, fractional resources, rank and binding survive. Real player or monster HP loss is required before saving the next generation. Neutral attackability remains; no pet ownership, friendly immunity, owner mana debit or held-expiry reset is granted.',
-            '411 native markers retain all406 accepted parking/pet/curse scopes across3boots/2reloads/3saves. Focused14markers and four shared audits pass.71Python/573named/eight-class240 and clean builds pass.888/21fingerprints preserve decisions. Production C#,data,kernel and installed106are unchanged.'],
+            '411 native markers retain all406 accepted parking/pet/curse scopes across3boots/2reloads/3saves. Focused14markers and four shared audits pass.71Python/573named/eight-class240 and clean builds pass.887/21fingerprints preserve decisions. Production C#,data,kernel and installed106are unchanged.'],
         remaining=[
             'The long retained regression explicitly holds this inspection fixture expiry before its first save; this does not replace existing real ten-second Confuse expiry/input tests. The fixture still uses native scan/LOS/tie/acquisition-clock and species-action adapters, not full current-executable/source-node/global-RNG parity.',
             'Unmapped alignments, arbitrary minion/conversion/room/credit/PvP/Sunder and legacy bare-override reconstruction remain explicit. Barrier death/collision/group behavior is independently provisional. No class completion, deployment or new art/binding is claimed;effects/audio and talent/hotkey icons remain separate.'])
