@@ -17,3 +17,22 @@ Next mechanical steps are the fire-stream binding and actual player mode/input i
 The remaining reference gap is **modern accepted start/reentry/payment frequency and release composition**. A skill-table cost, a rounded tooltip, or arbitrary client heartbeat does not settle mana per second. The six-mana threshold is not the periodic debit. Seek current-build code or observations; record nonblocking questions and continue unaffected work rather than silently inventing a repeat interval. These limits are already recorded in the [channel](../tools/reference/player-inferno-channel-native-evidence.json), [sequence](../tools/reference/player-inferno-sequence-native-evidence.json) and [Arctic modes](../tools/reference/arctic-modes-native-evidence.json) receipts.
 
 The existing UO flame effect `0x36D4` remains an identified placeholder. Final cast/stream/contact/expiry/audio and talent/left/right/quick icons stay in the separate [effects](skill-effects.md) and [icons](skill-icons.md) ledgers. This preparation adds no new asset requirement or class-completion claim. Reconcile the stale Inferno blocker text when the class roadmap is next regenerated; do not rewrite runtime status during the active Necromancer candidate run.
+
+## Stream reuse boundaries
+
+The existing implementations differ at these concrete boundaries. Preserve them explicitly before sharing the controller:
+
+| Boundary | Prepared Arctic stream | Historical Inferno flames | Next fire binding |
+| --- | --- | --- | --- |
+| Saved identity | `SanctuaryArcticStream` / 181, immutable pool and saved next ID | `SanctuaryInfernoFlames` / 119, version-zero flame array | Preserve both existing identities and layouts; do not reinterpret historical trajectories. |
+| Motion and contact | Shared Q12 vectors, source-cell history, source sizes, last recipient | Floating segment/native hitbox and LOS, last recipient | Reuse the checked kernels after comparing the pinned Inferno missile row; name remaining terrain/order adapters. |
+| Damage capture | Effective rank/hard synergy, birth cold mastery | Captured fire endpoints, mastery and potion enhancement | Compare FP256 rounding, Fire Mastery/Warmth and potion order; cold duration/receiver must stay out of fire delivery. |
+| Contact consumers | Source RNG, avoidance, live pierce/resistance, cold state, FP256 damage | Native random draw and existing `FireImpact` | Reuse compatible fire consumers; retain their separate event and ownership limits. |
+| Restart and owner changes | Loaded flights age without replaying damage; unsupported owner contexts age harmlessly | Existing owner/town removal and offline handling | Verify emitted-packet behavior separately from channel cancellation; do not adopt a trap policy by analogy. |
+| Payment | No stream debit; supplied-intent sequence caller pays | No stream debit; no learned caller | Keep payment in the shared channel wrapper. Unresolved modern invocation frequency still gates learned input. |
+
+The retained local `necromancer-summons.json` rows already establish two important differences: `infernoflame1` has `CanSlow=1` and `DamageRate=82`, whereas `arcticblast1` omits `CanSlow` (the existing getter reads zero) and has `DamageRate=41`. Both rows have velocity/max velocity12, Size1 and LastCollide1. Their skill lifetime expression is `ln12/2`, but Inferno uses Param1/2=35/3 and Arctic Blast35/2. Inferno's Warmth synergy parameter is16; Arctic Blast's Cyclone Armor parameter is15. These are pinned input differences, not evidence for identical event or client cadence. The new fire binding must test Slow Missiles and its own lifetime/damage scaling instead of copying Arctic's cold-only guards.
+
+## Supplied reference site
+
+Checked the user-supplied [skill tree](https://diabloforfans.com/skills?cls=sor) and [Inferno page](https://diabloforfans.com/skill/inferno) on 2026-11-01 JST. The site identifies version 3.3.93847 and extraction date 2026-09-01. Its Inferno sequence note is consistent with the bounded ordinary-rate evidence above, but it supplies no accepted-start/payment/release chronology that closes the remaining gap. Treat generated descriptions as leads, not current-executable proof; the site's Necromancer tree explicitly discloses AI-generated descriptions and possible errors. Local pinned tables and complete checked source remain the evidence for implementation decisions.

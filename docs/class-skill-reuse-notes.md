@@ -8,6 +8,8 @@ Check existing skills with matching behavior, their shared helpers, tests and ev
 
 Shared appearance alone is insufficient: compare targeting, damage snapshots versus live values, payment, hit-delay scope, timing, ownership, save/reload and removal rules. Keep uncertain differences explicit rather than copying another skill's policy by accident.
 
+Combined save tests must preserve absolute temporary-effect deadlines and test their consumers at the actual reload time. The longer Necromancer cohort outlasted Mage Enchant's real ten-minute duration: compare the raw saved caster/strength/deadline exactly, then require active or expired behavior as appropriate. Never refresh the buff or extend its lifetime to satisfy a shorter fixture's expectation. See the [acceptance checkpoint](necromancer-acceptance-checkpoint.md).
+
 For example, Teeth already uses Multiple Shot's integer projectile fan and Bone Spear's saved flight controller. Bone Armor uses the shared FP256 absorption-pool arithmetic, while its unresolved breaking-hit/event behavior remains a separate reference question. These existing components are the starting points for related work.
 
 ## Blade Sentinel and Miasma Chain

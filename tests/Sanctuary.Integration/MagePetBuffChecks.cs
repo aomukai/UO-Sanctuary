@@ -86,7 +86,16 @@ public static class MagePetBuffChecks
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var ice=(MageWorldBody)World.FindMobile((Serial)s.Ice);var fire=(MageWorldBody)World.FindMobile((Serial)s.Fire);var ally=(MageWorldBody)World.FindMobile((Serial)s.Ally);
         Require(ice.ControlMaster==p&&fire.ControlMaster==p&&ally.ControlMaster==p&&ice.Rank==19&&MagePetBuffs.HardRank(ice)==20&&SkillHealth.Balance256(ice)==s.Life
-            &&SorceressEffects.Armor(ice)?.UntilUtc==DateTime.MaxValue&&SorceressEffects.Enchantment(ally)==s.Enchant,"Mage buff reload changed ownership/captured rank/hard unlock/wounds/enchant timer");
+            &&SorceressEffects.Armor(ice)?.UntilUtc==DateTime.MaxValue,"Mage buff reload changed ownership/captured rank/hard unlock/wounds/intrinsic armor");
+        // The combined input cohort can outlast Enchant's real ten-minute
+        // duration. Preserve the exact saved payload/deadline, then require
+        // its ordinary consumer to stop applying it after that deadline.
+        // Do not extend or refresh a temporary buff to suit the fixture.
+        Require(s.Enchant!=null&&SorceressEffects.Profiles.Find(ally)?.Enchantment==s.Enchant,
+            "Mage buff reload changed saved Enchant caster/rank/damage/AR/absolute deadline");
+        bool expired=s.Enchant.UntilUtc<=TimedEffects.Now;
+        Require(SorceressEffects.Enchantment(ally)==(expired?null:s.Enchant),"Mage buff reload ignored absolute Enchant expiry");
+        Log.Information("Mage buff reload retains original Enchant payload/deadline;expired={Expired}",expired);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1}));
     }
 }
