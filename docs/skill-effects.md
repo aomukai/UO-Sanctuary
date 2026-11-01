@@ -1,5 +1,7 @@
 # Skill effects
 
+[Thunder Storm pulses](sorceress-storm-pulse-checkpoint.md) retain aura `0x375A`/hue `0x482`, lightning `BoltEffect(0x482)` and cast sound `0x1E5` as identified placeholders. Final thunderstorm aura/strike/cast overlays and sorceress thunder cast/bolt audio remain pending, sharing elemental feedback with existing lightning skills. Talent/hotkey icons stay separate.
+
 [Prepared player Chain Lightning](sorceress-player-chain-checkpoint.md) retains travelling `0x3818`/hue `0x482` and cast sound `0x1E5` as identified placeholders. Final root/child lightning travel/contact, typed potion feedback, return-fire cues and cast/travel/impact audio remain pending. Existing Mage assets should share these elemental effects; tree/hotkey icons stay separate.
 
 [Player Charged Bolt](sorceress-charged-flight-checkpoint.md) now uses saved independent paths. Travelling `0x3818`/hue `0x482` and cast sound `0x1E5` remain identified placeholders; final ChargedBolt travel/contact, return-fire feedback and sorceress cast/travel/impact audio remain pending. Talent and hotkey icons stay in the separate register.

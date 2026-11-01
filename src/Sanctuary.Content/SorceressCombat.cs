@@ -29,7 +29,7 @@ public static class SorceressCombat
     {
         // Static's receiver needs a living world caster. Refuse before the
         // player's release payment, including direct server/API callers.
-        if(ability==CombatAbility.StaticField&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
+        if(ability is CombatAbility.StaticField or CombatAbility.ThunderStorm&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
         if (ability == CombatAbility.Enchant)
         {
             if (selected == Serial.Zero) { return owner.Map != null && owner.Map != Map.Internal; }
@@ -56,6 +56,7 @@ public static class SorceressCombat
         if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Lightning) { return SorceressSpellMissiles.Cast(owner, point, values); }
         if (ability==CombatAbility.ChargedBolt){return SorceressSpellMissiles.CastCharged(owner,point,values);}
         if (ability==CombatAbility.ChainLightning){return ChainLightning.Release(owner,point,values);}
+        if (ability==CombatAbility.ThunderStorm){return ThunderStorm.Release(owner,values);}
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
         if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
@@ -63,7 +64,6 @@ public static class SorceressCombat
         owner.PlaySound(0x1E5); // Placeholder cast sound.
         if (SorceressEffects.IsArmor(ability)) { SorceressEffects.CastArmor(owner, ability, values); return true; }
         if (ability == CombatAbility.EnergyShield) { SorceressEffects.CastShield(owner, values); return true; }
-        if (ability == CombatAbility.ThunderStorm) { ThunderStorm.Cast(owner, values); return true; }
         if (ability == CombatAbility.Blaze) { FireGround.CastBlaze(owner, values); return true; }
         if (ability == CombatAbility.FireWall) { FireGround.CastWall(owner, point, values); return true; }
         if (ability == CombatAbility.Meteor) { FireGround.CastMeteor(owner, point, values); return true; }

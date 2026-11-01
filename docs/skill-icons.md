@@ -1,5 +1,7 @@
 # Skill icons
 
+[Thunder Storm](sorceress-storm-pulse-checkpoint.md) retains stable ability51 and its existing right/quick bindings. Final talent-tree and hotkey icons remain pending with current labels/icons as placeholders. Automatic pulses add no separate input/icon; effects/audio stay separate.
+
 [Prepared player Chain Lightning](sorceress-player-chain-checkpoint.md) retains stable ability50 and existing right/quick bindings. Final talent-tree and hotkey icons remain pending with current labels/icons as placeholders. Child segments add no independent action/icon; effects/audio stay separate.
 
 [Player Charged Bolt](sorceress-charged-flight-checkpoint.md) retains its existing talent identity and right/quick bindings. Final tree and hotkey icons remain pending with current labels/icons as placeholders; the saved volley adds no separate sub-bolt action or icon. Effects/audio stay separate.

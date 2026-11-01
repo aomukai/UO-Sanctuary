@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "routineHashes": {
+    "D2GAME_CreateMissile_6FD115E0": "0bfc42e76f340ab44d81e9d1d21763d5cabb4e9af9bca3259a6821050dd9038a",
+    "SKILLS_SrvSt13_ThunderStorm": "55fc33eab39adb2c7107819da045beaf07b6860763ca6d084ad293d08ad50df6",
+    "SKILLS_SrvDo029_ThunderStorm": "3a725d9cdf65326e2f3d0d9e1cce3b87160d73d1a7de5f59b3c41b0a25769d8c"
+  },
+  "startCases": 4,
+  "periodicCases": 5376,
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete start13 resets prior target=-1 and initialization flag=1; missing row/skill refuse without mutation.",
+    "Complete do29 separates buff/recast and periodic strike branches,retains supplied skill/rank in the buff,queries target with radius17/filter3/prior ID,checks caster/target town before fresh flags1 target-position missile creation,then hits/removes/calls its event only on successful creation. Target memory updates even if town/factory gates suppress damage; no target resets it.",
+    "Complete shared wrapper forwards retained skill/rank and target position on each strike. Fresh creation supports strike-time suppliers; this harness does not execute the full damage/stat factory or interpreter."
+  ],
+  "declaredServices": [
+    "Current table duration formula3600+600*(rank-1); target/room/state/list/skill/table/factory/hit/event services are explicit. Null-owner helpers are safe service declarations,not whole game-engine guarantees.",
+    "Exact target selection/filter and periodic scheduling/damage/Slow Missiles/mana are outside these functions and require separate evidence. No modern executable trace is claimed."
+  ],
+  "artifacts": {
+    "tools/probe_thunder_storm_source.py": "da07c94128a375f58abe8fb1e71fc981f89c48eb58d86012f12b035b89a41389",
+    ".local/class-skills/thunder-storm-source/probe.cpp": "d8f9b3b2b1bb7de2acf2e6189952cbf3860a41b4376bf50de26515885a4cbd92",
+    ".local/class-skills/thunder-storm-source/probe": "a354a1ae76f635ce7352602ca2b2549f4e02c5d1533630e25ca7bdbc2286e890",
+    ".local/class-skills/thunder-storm-source/probe-san": "a01df5cedcec746e4f5b5a760720d464a5d0044b4d37e7b25d0b05a5b20a1ae8",
+    ".local/class-skills/thunder-storm-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/thunder-storm-source/cases.json": "5a14c04ddc4ed297d78524b79ff28e356c16d5ec405cabc3711691504b64005b"
+  }
+}

@@ -444,6 +444,21 @@ CAVEATS['sorceress.chainlightning'] = (
     'acceptance remain open. Shared12tile aim and owner-removal adapters remain; '
     'no class certificate.')
 
+CAVEATS['sorceress.thunderstorm'] = (
+    'Dedicated765rank/hard goldens,live retained-rank mastery/Static synergy/real '
+    'gear/Slow Missiles/typed potion,radius/cyclic targets,once19mana,recast/admission/ '
+    'lifecycle,actual right/quick/disconnect and two-reload original-gear/mana/wound '
+    'controls are in sorceress-storm-pulse-checkpoint.md. Complete older start13/ '
+    'do29/shared wrapper4+5376cases support fresh per-strike factory requests;full '
+    'damage/interpreter/current executable are not compiled. New due callbacks '
+    'suppress disconnected/internal casters while preserving memory/expiry and '
+    'advancing deadlines without replay. Existing natural timing fixtures now use '
+    'connected casters with unrelated combat/healing excluded. T09gameplay recovery '
+    'is unchanged;only a named saved fixture uses the existing eligibility hook. '
+    'Exact modern Slow consumer order,target/filter/geometry/events/global RNG, '
+    'PvP/Sunder,staffmod/oskill,old-DLL/client/unheld-save and final assets remain '
+    'open;no class certificate.')
+
 NATIVE_PARTIAL = {
     'necromancer.irongolem',
     'necromancer.revive',
