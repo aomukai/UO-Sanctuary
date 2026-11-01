@@ -1,0 +1,91 @@
+{
+  "referenceVersion": "3.3.93847",
+  "applied": false,
+  "mechanicsChanged": false,
+  "completionFlagsChanged": false,
+  "acceptedFullCommit": "6dc7e60",
+  "expectedGeneratorSha256": "b4acd5d380fa8b97262db84ebcadf384f5367c8cbb06f39eb13e9f79c4bf69c0",
+  "patchSha256": "aeb1f13510f8e75376133c1dcbfe9bb38d5a6a57830ff711fc661766c623c41b",
+  "proposedStatusSha256": "527f3a7b5b12e226edf76bada901afc8fc7897f912a70a4190f4242d922fefa7",
+  "reviewedFieldChanges": {
+    "necromancer.raiseskeleton": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.skeletonmastery": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.claygolem": [
+      "remaining"
+    ],
+    "necromancer.skeletalmage": [
+      "remaining"
+    ],
+    "necromancer.summonresist": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.irongolem": [
+      "remaining"
+    ],
+    "necromancer.firegolem": [
+      "remaining"
+    ],
+    "necromancer.revive": [
+      "remaining"
+    ],
+    "necromancer.bonearmor": [
+      "remaining"
+    ],
+    "necromancer.poisondagger": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.corpseexplosion": [
+      "verification"
+    ],
+    "necromancer.poisonexplosion": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.bonespear": [
+      "remaining"
+    ],
+    "necromancer.poisonnova": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.bonespirit": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.weaken": [
+      "remaining",
+      "verification"
+    ],
+    "necromancer.terror": [
+      "remaining",
+      "verification"
+    ]
+  },
+  "proposedNecromancerPartialLabels": 30,
+  "handlers": 186,
+  "skills": 240,
+  "completedClasses": [],
+  "verification": [
+    "Prepared output changes only Necromancer verification/remaining fields;all implementation/source IDs and other classes stay identical.",
+    "Authored prose outside generated tables is preserved in all three documents;first bootstrap marks explicit regions and subsequent generation is idempotent.",
+    "Isolated check/write/check succeeded with copied proposed status/docs and read-only source links;authoritative runtime data was not written."
+  ],
+  "remaining": [
+    "Apply only after preserving the full accepted source/data receipt. Refresh metadata audit/provenance separately;the frozen full receipt remains historical after annotation inputs change.",
+    "This proposal does not complete a class or resolve explicitly unsupported mechanics. Continue the Sorceress roadmap after reconciliation."
+  ],
+  "expectedStatusSha256": "0c7e8025dd5b261b2fad8f36bb68dc5d9d1d5eb45736f08abdb5e454a74f275d",
+  "instructions": [
+    "Check expected generator/status hashes and git apply --check tools/reference/necromancer-roadmap-metadata.patch before applying.",
+    "Apply the generator patch,then run python3 tools/build_skill_roadmap.py and python3 tools/build_skill_roadmap.py --check. Merge against the latest authored files;do not copy old proposed document snapshots.",
+    "Validate exact field diffs,authored prose preservation and unchanged C#/mechanical inputs. Preserve annotation-only provenance and refresh metadata audit fingerprints separately from the frozen build10full receipt."
+  ]
+}
