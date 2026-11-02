@@ -24,13 +24,16 @@ public static class ConversionChecks
             if(!File.Exists(Manifest)){return;}
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
             foreach(uint serial in new[]{saved.Converted,saved.Enemy})
-            {if(World.FindMobile((Serial)serial) is BaseCreature creature){Stop(creature);}}
+            {if(World.FindMobile((Serial)serial) is BaseCreature creature){Hold(creature);}}
         };
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Conversion supported attack/allegiance paths and explicit target gates",
         _=>Core.LoopContext.Post(()=>{try{action();_log.Information("{Name}: passed",name);}catch(Exception e){_log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static void Stop(BaseCreature creature){creature.Combatant=null;creature.AIObject?.AITimer.Stop();}
+    // Retain the inspected actors after actual allegiance/AI controls. A later
+    // connected fixture can reactivate their sector and restart native combat.
+    private static void Hold(BaseCreature creature){Stop(creature);creature.Frozen=creature.CantWalk=true;}
     private static Point3D Place(PlayerMobile owner)
     {
         for(int x=2200;x<=2600;x+=50)for(int y=1000;y<=1300;y+=50)
@@ -106,10 +109,11 @@ public static class ConversionChecks
     {
         var oldHit=PaladinConversion.HitRoll;var oldChance=PaladinConversion.ChanceRoll;
         var oldPhysical=PaladinConversion.PhysicalRoll;var oldElement=PaladinConversion.ElementRoll;
+        var oldBlock=SourceBlocking.BlockRoll;
         var origin=owner.Location;
         try
         {
-            PaladinConversion.PhysicalRoll=_=>0;PaladinConversion.ElementRoll=()=>0;
+            PaladinConversion.PhysicalRoll=_=>0;PaladinConversion.ElementRoll=()=>0;SourceBlocking.BlockRoll=n=>n-1;
             Require(SkillBindings.Instance.Assign(owner,true,CombatAbility.Conversion) && SkillBindings.Instance.Assign(owner,false,CombatAbility.Conversion)
                 && SkillBindings.Instance.AssignQuick(owner,0,CombatAbility.Conversion),"Conversion L/R/quick bindings unavailable");
             foreach(int scenario in new[]{0,1,2,3})
@@ -147,6 +151,7 @@ public static class ConversionChecks
         finally
         {
             PaladinConversion.HitRoll=oldHit;PaladinConversion.ChanceRoll=oldChance;PaladinConversion.PhysicalRoll=oldPhysical;PaladinConversion.ElementRoll=oldElement;
+            SourceBlocking.BlockRoll=oldBlock;
             ClassCombat.Stop(owner);owner.Mana=owner.ManaMax;NecromancerEffects.Profiles.Store(owner,new());
         }
     }
@@ -175,6 +180,7 @@ public static class ConversionChecks
         PaladinConversion.Restore(PaladinConversion.Snapshot().Select(x=>x.Target==converted.Serial.Value?x with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x).ToArray());
         lease=PaladinConversion.Snapshot().Single(x=>x.Target==converted.Serial.Value);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,converted.Serial.Value,enemy.Serial.Value,p,owner.Map.MapID,life,maximum,lease)));
+        Hold(converted);Hold(enemy);
         var elapsed=new Zombie{NoKillAwards=true};elapsed.MoveToWorld(new(p.X+5,p.Y,p.Z),owner.Map);Stop(elapsed);
         Require(PaladinConversion.ApplyAllegiance(owner,elapsed,5),"Natural-expiry fixture start failed");
         Timer.StartTimer(TimeSpan.FromMilliseconds(400),()=>
@@ -192,8 +198,9 @@ public static class ConversionChecks
         Require(owner!=null && converted!=null && enemy!=null,"Conversion reload lost species actors");
         owner.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);
         Require(PaladinConversion.Snapshot().Single(x=>x.Target==saved.Converted)==saved.State && converted.Hits==saved.Life && converted.HitsMax==saved.Maximum
-            && !converted.Controlled && !converted.Summoned && converted.GetMaster()==null,"Reload changed allegiance deadline/identity/ownership/stats");
-        Protection(owner,converted,enemy);
+            && !converted.Controlled && !converted.Summoned && converted.GetMaster()==null,$"Reload changed allegiance: state={PaladinConversion.Snapshot().Single(x=>x.Target==saved.Converted)==saved.State}, life={converted.Hits}/{saved.Life}, max={converted.HitsMax}/{saved.Maximum}, controlled={converted.Controlled}, summoned={converted.Summoned}, master={converted.GetMaster()}, remainder={SkillHealth.Remainder256(converted)}");
+        converted.Frozen=converted.CantWalk=enemy.Frozen=enemy.CantWalk=false;
+        try{Protection(owner,converted,enemy);}finally{Hold(converted);Hold(enemy);}
         Require(ClassCombat.Available(owner,CombatAbility.Conversion) && ClassCombat.For(owner).Conversion==null,"Reload lost supported Conversion or replayed prepared attack");
     }
 }

@@ -1,5 +1,7 @@
 # Skill icons
 
+Conversion contact review (2026-11-02): existing talent, left/right and quick-slot bindings retain their placeholders. Final talent/hotkey artwork is pending; failed attacks and successful allegiance use the same talent and add no new icon.
+
 Zeal per-event contact review (2026-11-02): existing talent,left/right and quick-slot entries remain; final talent/hotkey artwork is pending. The approved low-mana ordinary-attack fallback keeps the Zeal binding and creates no new talent or icon.
 
 [Vengeance allocation/contact](paladin-vengeance-contact-checkpoint.md) retains the existing Vengeance talent and left/right/quick hotkey artwork requirements. The three feedback layers and shared contact phases add no player action or independent icon; effects/audio remain separately pending.

@@ -155,6 +155,10 @@ public static class DualEquip
             }
             finally{_transactions.Remove(_owner.Serial);}
             if(_success){Changed(_owner);}Refresh(_owner);
+            // Item-added hooks were suppressed inside the transaction. Notify
+            // combat only after a successful commit and final gear refresh,
+            // so an equip/unequip round trip cannot preserve a pending swing.
+            if(_success){ClassCombatHooks.EquipmentChanged?.Invoke(_owner);}
         }
     }
 }

@@ -28,11 +28,13 @@ public sealed class ConversionProfiles:GenericPersistence
 // individual target gate; the ordinary attack and supported conversion paths remain available.
 public static class PaladinConversion
 {
-    internal sealed record Prepared(Serial Target,bool Hit,GearDamage Damage,double ElementRoll,long EffectAt);
+    internal sealed record Prepared(Serial Target,PlayerWeaponContactPrepared Contact,long EffectAt);
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
     internal static Func<int,int> ChanceRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
+    internal static Random Effects=Random.Shared;
     private static readonly Dictionary<string,ConversionSourceRule> _rules=new(StringComparer.OrdinalIgnoreCase);
     private static readonly Dictionary<uint,ConversionAllegiance> _states=new();
     private static readonly List<uint> _expired=new();
@@ -49,7 +51,25 @@ public static class PaladinConversion
         ClassCombatHooks.CreatureFriend=Friend;
         ClassCombatHooks.CreatureDamageMaster=DamageMaster;
     }
-    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Prune);
+    public static void Initialize()
+    {
+        Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Prune);
+        ClassMapHooks.LocationChanged+=mobile=>
+        {
+            if(mobile is PlayerMobile owner&&ClassCombat.Existing(owner) is{} action&&action.Conversion!=null
+                &&(owner.Map!=action.ActionMap||owner.Location!=action.ActionOrigin)){Cancel(owner);}
+        };
+    }
+    internal static void Cancel(PlayerMobile owner)
+    {
+        if(ClassCombat.Existing(owner) is not{} action){return;}action.Conversion=null;
+        if(action.PendingAbility==CombatAbility.Conversion){action.PendingAbility=CombatAbility.None;}
+    }
+    internal static void EquipmentChanged(PlayerMobile owner)
+    {
+        if(ClassCombat.Existing(owner) is{} action&&action.Conversion!=null
+            &&(CombatTiming.Equipped(owner)?.Serial??Serial.Zero)!=action.PendingWeapon){Cancel(owner);}
+    }
     private static ConversionAllegiance Lease(Mobile actor)=>actor!=null && _states.TryGetValue(actor.Serial.Value,out var state)
         && state.UntilUtc>TimedEffects.Now?state:null;
     public static bool Active(Mobile actor)=>actor is BaseCreature{Alive:true,Deleted:false} && Lease(actor)!=null;
@@ -143,6 +163,7 @@ public static class PaladinConversion
         && World.FindMobile(selected) is BaseCreature target && Supported(owner,target);
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
+        if(!PaladinCombat.Available(owner,CombatAbility.Conversion)){return false;}
         Prune();
         var session=ClassCombat.For(owner);
         if(now-session.NextAction>=0 && PaladinVengeance.ValidTarget(owner,selected)
@@ -151,12 +172,20 @@ public static class PaladinConversion
             owner.SendMessage("Conversion is not supported for this creature or level case yet.");
             session.NextAction=now+1000;return false;
         }
-        if(!SkillCombat.Begin(owner,CombatAbility.Conversion,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
-        var target=World.FindMobile(selected);var values=SkillMechanics.Values(owner,CombatAbility.Conversion);
-        bool hit=ClassStats.CheckHit(owner,target,0,HitRoll)==true;double roll=ElementRoll();
-        var damage=hit?GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll):default;
-        if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
-        session.Conversion=new(selected,hit,damage,roll,session.EffectAt);return true;
+        if(!ValidTarget(owner,selected)||World.FindMobile(selected) is not BaseCreature target){return false;}
+        try
+        {
+            PlayerWeaponContact.RequireOrdinary(owner,target);
+            if(!SkillCombat.Begin(owner,CombatAbility.Conversion,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
+            var values=SkillMechanics.Values(owner,CombatAbility.Conversion);
+            // Start32 fills ordinary damage, including its calc1 percentage.
+            // Conversion's calc2 flat post-allocation addition is zero.
+            var contact=PlayerWeaponContact.PrepareOrdinary(owner,target,(int)values.Formula("toht"),(int)values.Eval("calc1"),
+                ()=>ValidTarget(owner,selected),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects);
+            if(!NecromancerEffects.Pay(owner,values.Mana256)){Cancel(owner);return false;}
+            session.Conversion=new(selected,contact,session.EffectAt);return true;
+        }
+        catch(NotSupportedException e){Cancel(owner);owner.SendMessage(0x22,e.Message);return false;}
     }
     public static bool Release(PlayerMobile owner,Serial selected,long now)
     {
@@ -165,13 +194,16 @@ public static class PaladinConversion
         session.Conversion=null;
         if(prepared.Target!=selected || !PaladinCombat.Available(owner,CombatAbility.Conversion) || !ValidTarget(owner,selected)){return false;}
         var target=(BaseCreature)World.FindMobile(selected);var values=SkillMechanics.Values(owner,CombatAbility.Conversion);
-        // Do79 tests prepared combat-record presence, not the successful-hit bit.
-        // Successful conversion bypasses durability/damage commitment entirely.
-        if(Eligible(owner,target) && ChanceRoll(100)<values.Eval("calc1") && ApplyAllegiance(owner,target,(int)values.Eval("auralencalc"))){return true;}
-        owner.DoHarmful(target,true);owner.PlaySound(0x238); // Ordinary weapon sound placeholder.
-        using var attempt=PaladinThorns.Attempt(owner,target,false);
-        if(prepared.Hit){GearEffects.Strike(owner,target,prepared.ElementRoll,preparedDamage:prepared.Damage);}
-        return true;
+        try
+        {
+            PlayerWeaponContact.RequireOrdinary(owner,target);
+            // Do79 tests combat-record presence, not its successful-hit bit.
+            // Success bypasses damage,leech,attempt/return and weapon wear.
+            if(Eligible(owner,target)&&ChanceRoll(100)<values.Eval("calc1")&&ApplyAllegiance(owner,target,(int)values.Eval("auralencalc"))){return true;}
+            owner.DoHarmful(target,true);owner.PlaySound(0x238); // Ordinary weapon sound placeholder.
+            return PlayerWeaponContact.Release(owner,target,prepared.Contact,TimedEffects.Now).Exit==MonsterContactExit.Finished;
+        }
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
     }
     internal static bool ApplyAllegiance(PlayerMobile owner,BaseCreature target,int frames)
     {
@@ -182,6 +214,9 @@ public static class PaladinConversion
         // The converting attack relinquishes its old enemy; committed projectiles
         // still run through the ordinary friendly-damage gates at delivery time.
         ClassCombat.Stop(owner);
+        // Do79 removes aura stat lists after alignment/AI and caster target
+        // changes. Ordinary non-aura effects (including Enchant) survive.
+        ClearAuras(target);
         return true;
     }
     private static void ResetTargeting(BaseCreature creature)

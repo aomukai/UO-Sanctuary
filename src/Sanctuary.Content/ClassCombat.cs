@@ -122,6 +122,7 @@ public static class ClassCombat
                 PoisonDaggerCombat.EquipmentChanged(from);
                 PaladinSacrifice.EquipmentChanged(from);
                 PaladinVengeance.EquipmentChanged(from);
+                PaladinConversion.EquipmentChanged(from);
                 DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);DruidFury.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
@@ -305,7 +306,7 @@ public static class ClassCombat
         {
             // Ground FoH/Psychic Hammer already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(ability!=CombatAbility.Zeal && ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.Conversion && ability!=CombatAbility.Zeal && ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);

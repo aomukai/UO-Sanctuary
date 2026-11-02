@@ -1,5 +1,7 @@
 # Skill effects
 
+Conversion contact review (2026-11-02): ordinary failed-attempt sound 0x238 and shared impact/block/retaliation/cold/poison/leech effects remain identified placeholders. Final allegiance onset, friendly-state marker and expiry presentation require assets. Successful conversion bypasses weapon damage and its associated contact effects.
+
 Zeal per-event contact review (2026-11-02): existing weapon sound0x238 and shared block/hit/return,cold/poison/leech effects are identified placeholders. Final rapid melee animation/rollback feedback,weapon-specific impacts,miss/block/retaliation and audio still require assets; the approved low-mana ordinary attack uses its ordinary presentation.
 
 [Vengeance allocation/contact](paladin-vengeance-contact-checkpoint.md) retains weapon sound `0x238` and contact marker `0x374A` as identified placeholders. Final combined elemental contact and cycling fire/cold/lightning feedback, cold/poison/leech overlays and audio remain pending. These feedback layers do not alternate the actual damage elements; each successful hit still carries all three.
