@@ -21,6 +21,8 @@ public static class PaladinZeal
     internal static Func<int,int> Roll=Utility.Random;
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
+    internal static Random Effects=Random.Shared;
     internal static string AnimationCode(PlayerMobile owner)
     {
         var weapon=CombatTiming.Equipped(owner);
@@ -90,7 +92,11 @@ public static class PaladinZeal
             fallback.Zeal=null;fallback.ZealPaid=false;fallback.ZealHits=0;
             return true;
         }
-        if(!SkillCombat.Begin(owner,CombatAbility.Zeal,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
+        // Start37 remembers the acquired target, not later held-cursor input.
+        if(Target(owner,selected) is not BaseCreature first){return false;}
+        try{PlayerWeaponContact.RequireOrdinary(owner,first,true);}
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
+        if(!SkillCombat.Begin(owner,CombatAbility.Zeal,first.Serial,first.Location,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
         // Original successful srv-start consumes mana; rollback do-events do not pay again.
         var session=ClassCombat.For(owner);
         session.Zeal=null;
@@ -107,13 +113,18 @@ public static class PaladinZeal
     }
     private static bool Strike(PlayerMobile owner,Mobile target)
     {
-        if(!PaladinVengeance.ValidTarget(owner,target?.Serial??Serial.Zero)){return false;}
-        owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound placeholder.
-        using var attempted=PaladinThorns.Attempt(owner,target,false);
-        var values=SkillMechanics.Values(owner,CombatAbility.Zeal);
-        if(ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll)==true)
-        {GearEffects.Strike(owner,target,ElementRoll(),skillPhysicalPercent:(int)values.Eval("calc2"),physicalRoll:Roll);}
-        return true; // A miss/block still consumes one attack from the series.
+        if(target is not BaseCreature recipient||!PaladinVengeance.ValidTarget(owner,target.Serial)){return false;}
+        try
+        {
+            // Do13 selects, rolls and delivers each contact independently.
+            // Only the series count and one start payment are captured at start.
+            var values=SkillMechanics.Values(owner,CombatAbility.Zeal);
+            var prepared=PlayerWeaponContact.PrepareOrdinary(owner,recipient,(int)values.Formula("toht"),(int)values.Eval("calc2"),
+                ()=>PaladinVengeance.ValidTarget(owner,target.Serial),HitRoll,ElementRoll,Roll,PoisonRoll,Effects,true);
+            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound placeholder.
+            return PlayerWeaponContact.Release(owner,recipient,prepared,TimedEffects.Now,true).Exit==MonsterContactExit.Finished;
+        }
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
     }
     public static bool Release(PlayerMobile owner,Serial selected,long now)
     {

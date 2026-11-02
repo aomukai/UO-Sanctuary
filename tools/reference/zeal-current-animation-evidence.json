@@ -1,0 +1,84 @@
+{
+  "referenceVersion": "3.3.93847",
+  "ownedSource": ".local/research/d2r-3.3.93847/AnimData.d2",
+  "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "records": [
+    {
+      "code": "PAA11HS",
+      "frames": 15,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "PAA11HT",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "PAA12HS",
+      "frames": 18,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "PAA12HT",
+      "frames": 20,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "PAA1HTH",
+      "frames": 14,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "PAA1STF",
+      "frames": 18,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    }
+  ],
+  "skillRoute": {
+    "sourceId": 106,
+    "start": 37,
+    "do": 13,
+    "sourceDamage": 128,
+    "rollback": 100
+  },
+  "limits": [
+    "The owned current animation records corroborate frame lengths,speeds and attack marker positions. They do not certify the exact current outer dispatch,IAS integration,rollback code,world geometry,RNG,hit events or graphical client.",
+    "The separately preserved legacy source probe retains explicit services and original animation acquisition limits; this companion does not rewrite that evidence."
+  ]
+}

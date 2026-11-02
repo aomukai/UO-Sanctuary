@@ -26,6 +26,61 @@ internal static class PlayerWeaponContact
         {throw new NotSupportedException("Recipient uninterruptible/death-delay completion is not adapted for player weapon contact.");}
         PreparedMonsterNativeDamage.RequireIncoming(source,target);
     }
+    internal static void RequireOrdinary(PlayerMobile source,BaseCreature target,bool allowNative=false)
+    {
+        Require(source,target,allowNative);CreatureHitRecovery.PlayerHitClass(source);BowLaunch.RawPoison(source,CombatTiming.Equipped(source));
+        if(Metadata(target,allowNative)!=null&&!SourceBlocking.TryRate(target,out _,out _))
+        {throw new NotSupportedException("Recipient shield rule is unavailable for player weapon contact.");}
+    }
+    private sealed class OrdinaryResult(PlayerMobile source,BaseCreature target,Func<bool> inRange,Func<double> hitRoll,bool native):SourceMeleeResultServices
+    {
+        internal override int? AttackerKind=>0;
+        internal override int? DefenderKind=>1;
+        internal override bool Hostile()=>ClassCombat.IsHostile(source,target);
+        internal override bool DefenderRunning()=>throw new InvalidOperationException("NPC is not a running player");
+        internal override int MeleeReach()=>throw new NotSupportedException("Ordinary player contact uses zero range offset");
+        internal override bool InRange(int bonus)=>bonus==1&&inRange();
+        internal override bool HitSuccessful(int percent,bool missile)
+        {
+            if(missile){throw new InvalidOperationException("Ordinary player contact is melee");}
+            bool hit=ClassStats.CheckHit(source,target,percent,hitRoll,notifyMelee:false)==true;
+            if(hit){WeaponStartEffects.SuccessfulHitRoll(source,target);}return hit;
+        }
+        internal override int BlockOrDodge(bool avoid,bool block)
+        {
+            if(native){return 0;} // No invented D2 shield for an unclassified UO actor.
+            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out _))
+            {throw new NotSupportedException("Recipient shield rule is unavailable for player weapon contact.");}
+            return blocked?1:0;
+        }
+        internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
+    }
+    // For skills which let AllocCombat fill ordinary weapon lanes. A consumer
+    // chooses its allocation phase; Zeal allocates anew at every do13 event.
+    internal static PlayerWeaponContactPrepared PrepareOrdinary(PlayerMobile source,BaseCreature target,int attackPercent,int skillPhysicalPercent,
+        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false)
+    {
+        RequireOrdinary(source,target,allowNative);
+        int flags=SourceMeleeResult.Resolve(new OrdinaryResult(source,target,inRange,hitRoll,Metadata(target,allowNative)==null),attackPercent);
+        PreparedWeaponImpact impact=default;int frames=0;
+        if((flags&SourceMeleeResult.Successful)!=0)
+        {
+            WeaponStartEffects.PrepareDamage(source,target);double roll=elementRoll();
+            var damage=GearEffects.Damage(source,roll,target,skillPhysicalPercent,physicalRoll,poisonRoll,
+                ()=>WeaponPoisonPackets.Melee(WeaponPoisonPackets.AddVenom(BowLaunch.RawPoison(source,CombatTiming.Equipped(source)),Venoms.State(source)),
+                    NamedElements.MasteryPercent(source,"pois"),128,poisonRoll,overrideFrames:Venoms.State(source)?.Frames??0));
+            impact=GearEffects.PrepareWeaponImpact(source,target,roll,effects,damage);
+            var poison=PoisonJavelins.PreparePoison(source,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
+            impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
+            if(damage.Cold>0)
+            {
+                if(damage.ColdMs%40!=0){throw new NotSupportedException("Weapon cold duration has no exact source-frame projection");}
+                frames=ColdStates.LengthFrames(damage.ColdMs/40,NamedElements.Resistance(source,target,"cold",target.ColdResistance),
+                    ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
+            }
+        }
+        return new(flags,impact,WeaponLeech.Capture(source),frames,CreatureHitRecovery.PlayerHitClass(source),effects);
+    }
     private sealed class Scope(PlayerWeaponContactPrepared prepared,PreparedMonsterDamagePacket packet)
     {
         internal readonly PlayerWeaponContactPrepared Prepared=prepared;

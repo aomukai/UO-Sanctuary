@@ -45,7 +45,7 @@ public static class ZealChecks
         TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
         TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.AddMinutes(5)}:x).ToArray());
     }
-    private static Point3D Origin(PlayerMobile owner)
+    internal static Point3D Origin(PlayerMobile owner)
     {
         // Other suites retain actors for reload checks. Keep Zeal's cyclic target pool independent.
         for(int x=2200;x<=2500;x+=50)for(int y=1000;y<=1300;y+=50)
@@ -70,9 +70,11 @@ public static class ZealChecks
     private static void Mana(PlayerMobile owner){owner.Mana=owner.ManaMax;NecromancerEffects.Profiles.Store(owner,new());}
     private static void Controlled(Action action)
     {
-        var roll=PaladinZeal.Roll;var hit=PaladinZeal.HitRoll;var element=PaladinZeal.ElementRoll;
-        try{PaladinZeal.Roll=_=>0;PaladinZeal.HitRoll=()=>0;PaladinZeal.ElementRoll=()=>0;action();}
-        finally{PaladinZeal.Roll=roll;PaladinZeal.HitRoll=hit;PaladinZeal.ElementRoll=element;}
+        var roll=PaladinZeal.Roll;var hit=PaladinZeal.HitRoll;var element=PaladinZeal.ElementRoll;var block=SourceBlocking.BlockRoll;
+        // These pre-existing series controls require an unblocked attack.
+        // Shield/miss attempt behavior is exercised by ZealContactChecks.
+        try{PaladinZeal.Roll=_=>0;PaladinZeal.HitRoll=()=>0;PaladinZeal.ElementRoll=()=>0;SourceBlocking.BlockRoll=n=>n-1;action();}
+        finally{PaladinZeal.Roll=roll;PaladinZeal.HitRoll=hit;PaladinZeal.ElementRoll=element;SourceBlocking.BlockRoll=block;}
     }
     private static void Probe()
     {
