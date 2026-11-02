@@ -71,6 +71,7 @@ public static class FireGroundChecks
                 FireGround.Cancel(owner);
                 var center = new Point3D(owner.X + 3, owner.Y, owner.Z); var wallEnemy = Enemy(owner, 3); int before = wallEnemy.Hits;
                 Cast(owner, CombatAbility.FireWall, center); int paid = owner.Mana;
+                FireGround.AdvanceWall(owner,TimedEffects.Now.AddMilliseconds(320),true); // Disconnected model; natural input is covered separately.
                 Require(!SorceressCombat.Release(owner, CombatAbility.FireWall, Serial.Zero, center) && owner.Mana == paid
                     && !FireGround.Ready(owner, CombatAbility.FireWall), "Fire Wall local delay did not reject a free repeat");
                 Cast(owner, CombatAbility.FrozenArmor);

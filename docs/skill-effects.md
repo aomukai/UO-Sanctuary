@@ -1,5 +1,7 @@
 # Skill effects
 
+[Fire Wall](sorceress-fire-wall-native-checkpoint.md) reuses ground fire `0x398C`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final cast, growing wall, sustained field/contact, expiry and audio remain pending. Makers are mechanical emitters and do not gain invented contact damage for presentation. Tree/hotkey icons stay separate.
+
 [Blaze](sorceress-blaze-checkpoint.md) uses aura `0x375A`, ground fire `0x398C`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final cast, movement trail, sustained ground/contact, expiry and audio remain pending; reuse fire assets where suitable. Mechanical field duration and damage do not wait for image generation. Talent/hotkey icons stay separate.
 
 [Enchant failed-release payment](sorceress-buff-payment-checkpoint.md) reuses the existing Enchant presentation. No new effect is introduced; final cast/recipient/weapon/contact/expiry feedback and audio remain pending, with current glows and sound as identified placeholders. Tree/hotkey icons stay separate.

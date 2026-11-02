@@ -8,14 +8,14 @@ namespace Sanctuary;
 // Shared ordered native notification/typed HP/return services for direct spells.
 // Callers pin flags/element/eligibility and own any suppressed event scope.
 internal sealed class InstantSpellNpcDamage(PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,FirestormModifiers modifiers,DateTime at,
-string kind,Func<uint> defenderRoll,Func<Mobile,BaseCreature,bool> knockback=null,bool cold=false):PreparedMonsterDamageServices
+string kind,Func<uint> defenderRoll,Func<Mobile,BaseCreature,bool> knockback=null,bool cold=false,int damageRate=0):PreparedMonsterDamageServices
 {
     private int Loss,EntryHits;private bool Freed;
     internal override void StoreLastAttacker(){owner.DoHarmful(target,true);EntryHits=target.Hits;}
     internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)
     {
         var current=modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};
-        var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(current,new(0,p.Fire256/256.0,p.Cold256/256.0,p.Lightning256/256.0,p.Poison256/256.0,Magic:p.Magic256/256.0)),out int absorb);
+        var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(current,new(0,p.Fire256/256.0,p.Cold256/256.0,p.Lightning256/256.0,p.Poison256/256.0,Magic:p.Magic256/256.0)),out int absorb,damageRate);
         int frames=p.ColdFrames;
         if(cold&&frames>0){frames=ColdStates.LengthFrames(frames,NamedElements.Resistance(owner,target,"cold",target.ColdResistance),ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));}
         return p with{ColdFrames=frames,Total256=NamedElements.To256(parts.Total),Fire256=NamedElements.To256(parts.Fire),Cold256=NamedElements.To256(parts.Cold),

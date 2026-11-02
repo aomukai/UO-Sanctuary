@@ -1,6 +1,6 @@
 # Fire Wall creation source checkpoint
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. The [Blaze native checkpoint](sorceress-blaze-checkpoint.md) remains the latest accepted gameplay build, commit `3949cd7`. This checkpoint prepares Fire Wall's replacement; it changes no C#, runtime data, installed server or saves and does not certify Fire Wall or a class.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. At this source-preparation checkpoint the accepted gameplay build was [Blaze](sorceress-blaze-checkpoint.md), commit `3949cd7`. The later [Fire Wall runtime checkpoint](sorceress-fire-wall-native-checkpoint.md) records implementation separately. This preparation changed no C#, runtime data, installed server or saves and does not certify Fire Wall or a class.
 
 The [source composition](../tools/reference/fire-wall-creation-source-evidence.json) executes **6,600 cases**: 5,760 cast/admission/factory combinations and 840 maker/factory combinations. Five complete older routines remain unchanged: do24, its target-collision admission helper, the missile factory, shared maker do6 and the previous-movement flag accessor. Source bodies are checked against the pinned older source tree; current skill/missile rows are checked against the retained 3.3.93847 manifest. Independent request/factory expectations and ASan/UBSan pass.
 

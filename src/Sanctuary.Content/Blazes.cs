@@ -1,18 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
-using System.Collections.Generic;
 using Server;
-using Server.Logging;
 using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
 internal static class Blazes
 {
-    private static readonly ILogger Log=LogFactory.GetLogger(typeof(Blazes));
-    private static readonly HashSet<string> Warned=new();
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
-    private static void Gap(string reason){if(Warned.Add(reason)){Log.Warning("Blaze unsupported context: {Reason}",reason);}}
     internal static BlazeState Prepare(PlayerMobile owner,SkillValues values,DateTime at)
     {
         var row=SkillMechanics.For(CombatAbility.Blaze);
@@ -61,46 +56,11 @@ internal static class Blazes
     internal static bool Valid(FirePatch p)=>p.BlazeModifiers==null||p.Ability==CombatAbility.Blaze&&p.NpcCaster==0&&p.SkillRank is >=1 and <=255
         &&p.Size==1&&p.DamageRate==0&&p.BlazeModifiers.Potion>=0&&p.Min256>=0&&p.Max256>=p.Min256
         &&p.X*2==Math.Floor(p.X*2)&&p.Y*2==Math.Floor(p.Y*2)&&p.NextUtc.Kind==DateTimeKind.Utc&&p.UntilUtc.Kind==DateTimeKind.Utc;
-    internal static PreparedMonsterDamagePacket Roll(int minimum,int maximum,ref ulong seed)
-    {
-        int raw=SorceressSpellMissiles.Roll(minimum,maximum,seed,out seed);
-        int soft=(SourceRandom.Roll(ref seed)&127)<19?16384:0;
-        return new(0,raw,0,0,1|soft,32,true,Fire256:raw);
-    }
-    internal static bool Supported(PlayerMobile owner,Mobile actor,out string reason)
-    {
-        reason=null;
-        if(actor is not BaseCreature{Alive:true,Deleted:false} target){reason="Player/PvP return needs its own prepared adapter";return false;}
-        if(target.Map!=owner.Map||!target.CanBeDamaged()){reason="Field recipient is not in the caster combat world";return false;}
-        try
-        {
-            PreparedMonsterNativeDamage.RequireIncoming(owner,target);
-            if(MonsterUninterruptibles.Active(target)||MonsterUninterruptibles.Delayed(target))
-            {reason="Uninterruptible/death-delay field completion needs its actor adapter";return false;}
-            return true;
-        }
-        catch(NotSupportedException e){reason=e.Message;return false;}
-    }
+    internal static PreparedMonsterDamagePacket Roll(int minimum,int maximum,ref ulong seed)=>SourceFireFields.Roll(minimum,maximum,ref seed);
+    internal static bool Supported(PlayerMobile owner,Mobile target,out string reason)=>SourceFireFields.Supported(owner,target,out reason);
     internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,PreparedMonsterDamagePacket packet,FirestormModifiers mods,DateTime at)
-    {
-        if(!Supported(owner,target,out string reason)||packet.Physical256!=0||packet.StunFrames!=0||packet.ColdFrames!=0
-            ||packet.HitClass!=32||!packet.HitClassActive||packet.HitFlags!=0||packet.ResultFlags is not(1 or 16385)
-            ||packet.Total256!=packet.Fire256||packet.Magic256!=0||packet.Lightning256!=0||packet.Cold256!=0||packet.Poison256!=0)
-        {throw new NotSupportedException(reason??"Unmapped Blaze field packet");}
-        // No block/KB/GETHIT requests: identity/mode/velocity fields are unused,
-        // as in Shiver's SOFTHIT path. Do not invent a D2 species for UO actors.
-        NativeMonsterReturn.Session(target); // Capture pre-hit life presentation state.
-        var services=new InstantSpellNpcDamage(owner,target,new(-1,-1,0,0,false,"Blaze unused return identity"),mods,at,"Blaze",
-            ()=>throw new InvalidOperationException("Blaze must not draw defender get-hit RNG"));
-        return PreparedMonsterDamage.ReleaseMissile(owner,target,packet,new(NamedCombat.Elite(target),()=>false,()=>0,()=>false),
-            _=>throw new InvalidOperationException("Blaze has no timed stun"),services,at);
-    }
-    internal static void Burn(PlayerMobile owner,FirePatch patch,DateTime at,ref ulong seed)
-    {
-        if(ImmolationArrows.Recipient(owner,patch) is not{} target){return;}
-        if(!Supported(owner,target,out string reason)){Gap(reason);return;}
-        var packet=Roll(patch.Min256,patch.Max256,ref seed);Deliver(owner,(BaseCreature)target,packet,patch.BlazeModifiers,at);
-    }
+        =>SourceFireFields.Deliver(owner,target,packet,mods,at);
+
 }
 
 public static partial class FireGround
@@ -134,7 +94,7 @@ public static partial class FireGround
     {
         var owner=Owner(patch.Owner);
         if(owner==null||patch.NextUtc>=patch.UntilUtc||owner.Map!=Map.Internal&&owner.Map?.MapID!=patch.Map){_patches.Remove(patch.Id);return;}
-        if(owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
+        if(patch.FireWallModifiers!=null&&_loadedWallFields.Remove(patch.Id)||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
         {if(patch.UntilUtc<=at){_patches.Remove(patch.Id);}else{_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};}return;}
         var point=new Point3D((int)Math.Round(patch.X),(int)Math.Round(patch.Y),patch.Z);
         // Field location decides town/terrain collision. Entering town alone
@@ -142,7 +102,7 @@ public static partial class FireGround
         if(SpellHelper.IsTown(point,owner)||!owner.Map.CanFit(point,1,false,false,false)){_patches.Remove(patch.Id);return;}
         ulong seed=patch.Seed;
         _patches[patch.Id]=patch with{NextUtc=patch.NextUtc.AddMilliseconds(40)};
-        Blazes.Burn(owner,patch,patch.NextUtc,ref seed);
+        SourceFireFields.Burn(owner,patch,patch.NextUtc,ref seed);
         if(_patches.TryGetValue(patch.Id,out var current)){_patches[patch.Id]=current with{Seed=seed};}
         if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0){Effects.SendLocationEffect(point,owner.Map,0x398C,5,10,0x489,0);} // Identified ground-fire placeholder.
     }

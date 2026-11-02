@@ -1,5 +1,7 @@
 # Skill icons
 
+[Fire Wall](sorceress-fire-wall-native-checkpoint.md) retains ability59 and right/quick bindings, with pinned right-only saved-binding normalization. Final tree and hotkey artwork remain pending under the existing labels/icons. Automatic makers and fields add no separate player action or icon; effects/audio stay separate.
+
 [Blaze](sorceress-blaze-checkpoint.md) retains ability57 and right/quick bindings, with left-slot normalization following the pinned right-only contract. Final talent-tree and hotkey art remains pending with existing labels/icons as placeholders. Its automatic movement trail introduces no separate player action or icon; effects/audio stay separate.
 
 [Enchant failed-release payment](sorceress-buff-payment-checkpoint.md) keeps ability60 and right/quick bindings. No new action or icon is introduced; final tree/hotkey artwork remains pending under the existing Enchant entry. Effects/audio stay separate.
