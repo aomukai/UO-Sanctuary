@@ -21,8 +21,10 @@ public sealed record SourceKnockbackState(uint Target,int Map,Point3D Position,P
 }
 public sealed class SourceKnockbackProfiles:GenericPersistence
 {
+    private SourceKnockbackState[] _snapshot;
     public SourceKnockbackProfiles():base("SanctuarySourceKnockbacks",139){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(SourceKnockbacks.Snapshot()));}
+    public override void Serialize(){_snapshot=SourceKnockbacks.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown source knockback version");}
@@ -122,10 +124,12 @@ public static class SourceKnockbacks
     public static SourceKnockbackState[] Snapshot()=>_states.Values.OrderBy(x=>x.Target).ToArray();
     public static void Restore(SourceKnockbackState[] states)
     {
-        _states.Clear();foreach(var state in states ?? throw new InvalidDataException("Missing source knockbacks"))
+        if(states==null){throw new InvalidDataException("Missing source knockbacks");}
+        var candidate=new Dictionary<uint,SourceKnockbackState>();foreach(var state in states)
         {
-            if(state.Map is <0 or >255 || state.Length16<=0 || state.Travel16<0 || state.Budget16<0 || state.NextUtc.Kind!=DateTimeKind.Utc
-                || state.Recovering && state.UntilUtc.Kind!=DateTimeKind.Utc || !_states.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid source knockback state");}
+            if(state==null || state.Map is <0 or >255 || state.Length16<=0 || state.Travel16<0 || state.Budget16<0 || state.NextUtc.Kind!=DateTimeKind.Utc
+                || state.Recovering && state.UntilUtc.Kind!=DateTimeKind.Utc || !candidate.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid source knockback state");}
         }
+        _states.Clear();foreach(var row in candidate){_states.Add(row.Key,row.Value);}
     }
 }

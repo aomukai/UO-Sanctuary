@@ -12,8 +12,10 @@ namespace Sanctuary;
 public sealed record ConvictionLease(uint Target,uint Source,int Rank,int DefensePercent,int Fire,int Cold,int Lightning,DateTime UntilUtc);
 public sealed class PaladinConvictionProfiles:GenericPersistence
 {
+    private ConvictionLease[] _snapshot;
     public PaladinConvictionProfiles():base("SanctuaryPaladinConviction",126){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(PaladinConviction.Snapshot()));}
+    public override void Serialize(){_snapshot=PaladinConviction.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Conviction version");}
@@ -96,12 +98,13 @@ public static class PaladinConviction
     public static void Restore(ConvictionLease[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing Conviction leases");}
-        _leases.Clear();
+        var candidate=new Dictionary<uint,ConvictionLease>();
         foreach(var lease in saved)
         {
-            if(lease.Target==0 || lease.Source==0 || lease.Rank<1 || lease.DefensePercent is <0 or >100
-                || lease.Fire is < -150 or >0 || lease.Cold is < -150 or >0 || lease.Lightning is < -150 or >0 || !_leases.TryAdd(lease.Target,lease))
+            if(lease==null || lease.Target==0 || lease.Source==0 || lease.Rank<1 || lease.DefensePercent is <0 or >100
+                || lease.Fire is < -150 or >0 || lease.Cold is < -150 or >0 || lease.Lightning is < -150 or >0 || !candidate.TryAdd(lease.Target,lease))
             {throw new InvalidDataException("Invalid Conviction lease");}
         }
+        _leases.Clear();foreach(var row in candidate){_leases.Add(row.Key,row.Value);}
     }
 }

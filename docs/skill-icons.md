@@ -1,5 +1,7 @@
 # Skill icons
 
+**Remaining Paladin aura save verification (2026-11-03 JST).** The twelve auras in the [review](paladin-remaining-auras-preflight.md) still need final talent/right/quick artwork. Save-safety acceptance does not complete their icons;keep identified placeholders.
+
 **Offensive aura verification (2026-11-03 JST).** Concentration/Fanaticism talent-tree and right/quick artwork remain pending in the [checkpoint](paladin-offensive-aura-checkpoint.md). Use identified placeholders;no final icons were created.
 
 **Resource aura verification (2026-11-03 JST).** Prayer,Cleansing and Meditation talent/right/quick artwork remains pending despite the [mechanics checkpoint](paladin-resource-aura-checkpoint.md). Use identified placeholders;no final icons were created.

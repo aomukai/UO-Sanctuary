@@ -12,8 +12,10 @@ public sealed record HolyFreezeSourceRule(string Source,bool PrimeEvil,int Norma
 public sealed record HolyFreezeLease(uint Target,uint Source,int Rank,int Velocity,int Attack,int Other,bool Shatter,DateTime UntilUtc);
 public sealed class HolyFreezeProfiles : GenericPersistence
 {
+    private HolyFreezeLease[] _snapshot;
     public HolyFreezeProfiles():base("SanctuaryHolyFreeze",138){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(PaladinHolyFreeze.Snapshot()));}
+    public override void Serialize(){_snapshot=PaladinHolyFreeze.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Holy Freeze version");}
@@ -76,10 +78,12 @@ public static class PaladinHolyFreeze
     public static HolyFreezeLease[] Snapshot()=>new List<HolyFreezeLease>(_leases.Values).ToArray();
     public static void Restore(HolyFreezeLease[] leases)
     {
-        _leases.Clear();foreach(var lease in leases ?? throw new InvalidDataException("Missing Holy Freeze state"))
+        if(leases==null){throw new InvalidDataException("Missing Holy Freeze state");}
+        var candidate=new Dictionary<uint,HolyFreezeLease>();foreach(var lease in leases)
         {
-            if(lease.Rank<1 || lease.Velocity is <0 or >100 || lease.Attack is <0 or >100 || lease.Other is <0 or >100
-                || lease.UntilUtc.Kind!=DateTimeKind.Utc || !_leases.TryAdd(lease.Target,lease)){throw new InvalidDataException("Invalid Holy Freeze state");}
+            if(lease==null || lease.Rank<1 || lease.Velocity is <0 or >100 || lease.Attack is <0 or >100 || lease.Other is <0 or >100
+                || lease.UntilUtc.Kind!=DateTimeKind.Utc || !candidate.TryAdd(lease.Target,lease)){throw new InvalidDataException("Invalid Holy Freeze state");}
         }
+        _leases.Clear();foreach(var row in candidate){_leases.Add(row.Key,row.Value);}
     }
 }
