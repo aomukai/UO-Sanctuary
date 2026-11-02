@@ -1244,7 +1244,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Pinned69 shield bases, stored-rank Holy Shield damage, additive shield Strength/off-weapon/skill percentages, physical-only hit without ordinary crit/leech/elements, distinct S1 timing and2-mana event payment staged. Mapped-species stun plus separate shared timed source knockback replace the old instant one-step displacement; native movement/attack gates, natural motion/recovery/expiry and two stun reloads covered. Active item_normaldamage now augments shield endpoints before percentages, with real Stone Crusher rolls and two-reload coverage. Unknown native control metadata, modern modes/timing, gated Astreon/Redeemer, absent Grief runeword acquisition and full proc/LifeTap/durability/geometry/client acceptance remain open; no item gates cleared."
+      "remaining": "Pinned shield/HS/item_normaldamage arithmetic,S1 timing and2-mana release payment retained. Do150 forces success after ordinary hit/block selection and sends physical-only hitclass0x65 through shared ordered player contact;ordinary weapon critical,leech,elements/poison/freeze stay excluded. Source stun and prepared timed knockback precede deferred death/return,with explicit native reactions for unclassified UO recipients. See paladin-smite-contact-checkpoint.md for current checks. Exact modern source modes/RNG/geometry,full item-event/durability/kill procs,gated Astreon/Redeemer,absent Grief acquisition,special/PvP/charged/oskill/pending-save/client acceptance remain open;no item gates cleared."
     },
     {
       "talentId": "paladin.holybolt",

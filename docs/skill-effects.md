@@ -1,5 +1,7 @@
 # Skill effects
 
+[Smite ordered shield contact](paladin-smite-contact-checkpoint.md) keeps the existing shield-bash/S1 pose, sound `0x238`, stun/block marker `0x375A`, contact, knockback/get-hit and leech placeholders. Final timing/pose/overlay/audio artwork remains pending; the shared ordered phases add no independent effect.
+
 [Sacrifice ordered contact](paladin-sacrifice-contact-checkpoint.md) shares existing weapon/blood/contact, shield, leech, cold/poison and native reaction placeholders. The shared adapter adds no new independent effect; final blood emission, block/get-hit/return feedback and audio remain pending.
 
 [Sacrifice start allocation](paladin-sacrifice-allocation-checkpoint.md) reuses the existing weapon contact, sound `0x238` and blood effect `0x37B9` as identified placeholders. Windup capture and cancellation introduce no new asset; final blood emission/contact/audio remain pending.

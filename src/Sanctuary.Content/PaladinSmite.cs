@@ -14,6 +14,7 @@ public static class PaladinSmite
     private static readonly Dictionary<string,SmiteShield> _shields=new(StringComparer.Ordinal);
     internal static Func<int,int> Roll=Utility.Random;
     internal static Random Effects=Random.Shared;
+    internal static Func<double> HitRoll=Utility.RandomDouble;
     public static void Configure()
     {
         foreach(var row in BalanceCatalog.Read<SmiteShield>("smite-shields"))
@@ -28,6 +29,43 @@ public static class PaladinSmite
         return owner.Map!=null && owner.Map!=Map.Internal && Shield(owner)!=null && ClassCombat.IsHostile(owner,target)
             && owner.InRange(target,Range(owner)) && owner.InLOS(target) && Math.Abs(owner.Z-target.Z)<16
             && SpellHelper.CheckTown(owner.Location,owner) && SpellHelper.CheckTown(target.Location,owner);
+    }
+    internal static bool Ready(PlayerMobile owner,BaseCreature target)
+    {
+        try
+        {
+            PlayerWeaponContact.Require(owner,target,true,false);
+            if(PlayerWeaponContact.Metadata(target,true)!=null&&!SourceBlocking.TryRate(target,out _,out _))
+            {throw new NotSupportedException("Smite recipient shield rule is unavailable");}
+            return true;
+        }
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
+    }
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+        =>PaladinCombat.Available(owner,CombatAbility.Smite)&&ValidTarget(owner,selected)&&World.FindMobile(selected) is BaseCreature target&&Ready(owner,target)
+            &&SkillCombat.Begin(owner,CombatAbility.Smite,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id));
+    private sealed class Result(PlayerMobile owner,BaseCreature target,bool native):SourceMeleeResultServices
+    {
+        internal override int? AttackerKind=>0;
+        internal override int? DefenderKind=>1;
+        internal override bool Hostile()=>ClassCombat.IsHostile(owner,target);
+        internal override bool DefenderRunning()=>throw new InvalidOperationException("NPC is not a running player");
+        internal override int MeleeReach()=>throw new NotSupportedException("Smite uses zero range offset");
+        internal override bool InRange(int bonus)=>bonus==1&&ValidTarget(owner,target.Serial);
+        internal override bool HitSuccessful(int percent,bool missile)
+        {
+            if(missile||percent!=0){throw new InvalidOperationException("Smite requests ordinary melee AR with no skill bonus");}
+            bool hit=ClassStats.CheckHit(owner,target,0,HitRoll,notifyMelee:false)==true;
+            if(hit){WeaponStartEffects.SuccessfulHitRoll(owner,target);}return hit;
+        }
+        internal override int BlockOrDodge(bool avoid,bool block)
+        {
+            if(native){return 0;} // Retained native UO actor policy;no source shield component is invented.
+            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out _))
+            {throw new NotSupportedException("Smite recipient shield rule is unavailable");}
+            return blocked?1:0;
+        }
+        internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }
     internal static (int Min,int Max) Endpoints256(int min256,int max256,int bonus,int normalDamage=0)
     {
@@ -51,25 +89,16 @@ public static class PaladinSmite
     }
     public static bool Strike(PlayerMobile owner,BaseCreature target,SkillValues values)
     {
+        if(!Ready(owner,target)){return false;}
         owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing sound/weapon animation placeholders; S1 deadlines are distinct.
-        using var attempted=PaladinThorns.Attempt(owner,target,false);
         var range=DamageRange256(owner,values);int span=Math.Max(1,range.Max-range.Min);
         int raw=range.Min+Math.Clamp(Roll(span),0,span-1);
+        // Do150 rolls the ordinary result after its shield damage,then forces
+        // success while retaining block/miss result bits. HitFlags2 skips
+        // ordinary weapon filling;neither weapon critical nor leech is added.
+        int flags=SourceMeleeResult.Resolve(new Result(owner,target,PlayerWeaponContact.Metadata(target,true)==null))|1|SkillMechanics.For(CombatAbility.Smite).Number("ResultFlags");
         var parts=SkillCombat.MitigatePrepared(owner,target,new(NamedElements.Enhance(owner,raw/256.0,"physical"),0,0,0,0),out int absorbed);
-        int physical=NamedElements.To256(parts.Physical),before=target.Hits;
-        NamedCombat.Crushing(owner,target,false,Effects);
-        PreparedWeaponEvents.BeforeReturn(owner,target,physical,false,absorbed);
-        if(parts.Total>0){SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));}
-        int loss=Math.Max(0,before-target.Hits);
-        CreatureHitRecovery.Apply(target,owner,loss,true);
-        NecromancerEffects.WeaponHit(owner,target,Math.Min(loss,physical/256),false,lifeTap:false,ironMaiden:false,frozenArmor:false);
-        NamedCombat.AfterStrike(owner,target,false,Effects,smite:true);
-        GemCombat.WeaponHit(owner,target,loss,false);
-        if(target is{Alive:true,Deleted:false})
-        {
-            CombatStuns.Apply(target,(int)values.Eval("calc2"));
-            SourceKnockbacks.Begin(owner,target);
-        }
-        return true;
+        var impact=new PreparedWeaponImpact(new(raw/256.0,0,0,0,0),parts,absorbed){SourceStunFrames=(int)values.Eval("calc2")};
+        return PlayerWeaponContact.Release(owner,target,new(flags,impact,default,0,0,Effects,0x65,Smite:true,StunRoll:CombatStuns.Roll,MeleeRange:Range(owner)),TimedEffects.Now,true).Exit==MonsterContactExit.Finished;
     }
 }

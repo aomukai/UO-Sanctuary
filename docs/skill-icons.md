@@ -1,5 +1,7 @@
 # Skill icons
 
+[Smite ordered shield contact](paladin-smite-contact-checkpoint.md) retains the existing Smite talent and left/right/quick hotkey artwork requirements. Forced result, stun/knockback and shared damage/death phases introduce no additional player action or icon; final assets remain pending separately.
+
 [Sacrifice ordered contact](paladin-sacrifice-contact-checkpoint.md) retains the existing Sacrifice and Poison Dagger talent and hotkey icon requirements. Shared damage/credit/death phases introduce no new player action or icon; final artwork remains separately pending.
 
 [Sacrifice start allocation](paladin-sacrifice-allocation-checkpoint.md) retains its existing talent and left/right/quick hotkey icon requirements. Prepared packets and cancellation introduce no additional player action or icon; final artwork remains pending separately from effects.
