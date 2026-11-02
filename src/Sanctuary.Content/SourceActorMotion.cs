@@ -5,11 +5,11 @@ using Server;
 
 namespace Sanctuary;
 
-internal sealed record ActorMotionState(uint X,uint Y,Point2D[] Points,Point2D FinalTarget,int Index,int Velocity,int MaximumVelocity,
+public sealed record ActorMotionState(uint X,uint Y,Point2D[] Points,Point2D FinalTarget,int Index,int Velocity,int MaximumVelocity,
     int Acceleration,int AccelerationCounter,Point2D Direction,Point2D Vector,int Distance,int Flags,int StepsCount,Point2D[] SavedSteps,int CollidedMask,int PathType=15);
 internal sealed record ActorMotionResult(ActorMotionState State,bool Moving,bool RepathRequired);
 
-// Server monster / point target / path2,5,6,13,15 component. The caller supplies source
+// Point-target actor paths and missile Hammer path14 share the original step/update kernel. The caller supplies source
 // collision-mask cells. No live actor, facing animation, AI clock or path-repair
 // policy is selected here; a failed declared repath is reported explicitly.
 internal static class SourceActorMotion
@@ -29,7 +29,8 @@ internal static class SourceActorMotion
     {
         if(s?.Points==null || s.SavedSteps==null || s.Points.Length>77 || s.Index<0 || s.Index>s.Points.Length
             || s.Distance is <0 or >77 || s.StepsCount is <0 or >10 || s.SavedSteps.Length>10
-            || s.PathType is not(2 or 5 or 6 or 7 or 13 or 15) || (s.Flags&~0x20928)!=0
+            || s.PathType is not(2 or 5 or 6 or 7 or 13 or 14 or 15) || (s.Flags&~0x60928)!=0
+            || (s.Flags&0x40000)!=(s.PathType==14?0x40000:0)
             || (s.Flags&0x900)!=(s.PathType==15?0x800:s.PathType==13?0x100:0)
             || s.AccelerationCounter is <0 or >4 || s.Velocity<0 || s.MaximumVelocity<0)
         {throw new ArgumentException("Unsupported source actor path state");}
@@ -52,11 +53,11 @@ internal static class SourceActorMotion
     internal static ActorMotionResult Advance(ActorMotionState state,Func<int,int,int> collision)
     {
         Validate(state);ArgumentNullException.ThrowIfNull(collision);
-        var s=state with{Flags=state.Flags&~8};bool repath=false;
+        bool missile=state.PathType==14;var s=state with{Flags=state.Flags&~8,CollidedMask=missile?0:state.CollidedMask};bool repath=false;
         if((s.Flags&0x20)==0 || s.Points.Length==0 || s.Velocity==0){return new(Reset(s),false,false);}
         if(s.Index>=s.Points.Length)
         {
-            repath=s.PathType is not(5 or 6) && Cell(s)!=s.FinalTarget;
+            repath=!missile && s.PathType is not(5 or 6) && Cell(s)!=s.FinalTarget;
             // The declared source repath service fails. An actor controller
             // must consume this request and supply the complete repair path.
             return new(Reset(s),false,repath);
@@ -86,15 +87,16 @@ internal static class SourceActorMotion
         if((s.X>>16)!=(endX>>16) || (s.Y>>16)!=(endY>>16))
         {
             // Same ordered, downshifted integer-cell crossings already used by
-            // missile movement. Actor impacts differ: any tested mask blocks,
+            // missile movement. Actor impacts block any tested mask; missile
+            // paths pass unit masks and stop only on wall/barrier bits1/4,
             // recentering on the previous cell, with no path-change flag set.
             var crossed=SourceMissileSteps.Crossings(s.X,s.Y,dx,dy).Cells;
             int steps=0;bool save=(s.Flags&0x20000)!=0;var saved=new List<Point2D>();var previous=Cell(s);
             s=s with{Distance=s.Distance>0?s.Distance-1:0,StepsCount=0};
             foreach(var cell in crossed)
             {
-                collided|=collision(cell.X,cell.Y)&0x3c01;
-                if(collided!=0)
+                collided|=collision(cell.X,cell.Y)&(missile?0xffff:0x3c01);
+                if((collided&(missile?5:0xffff))!=0)
                 {
                     s=s with{X=Center(previous.X),Y=Center(previous.Y),Index=s.Points.Length,StepsCount=steps,
                         SavedSteps=save?saved.ToArray():s.SavedSteps,CollidedMask=collided};

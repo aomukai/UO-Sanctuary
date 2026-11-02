@@ -35,7 +35,8 @@ public static class BlessedHammerChecks
     private static HammerFlight Launch(PlayerMobile owner)
     {
         BlessedHammers.Cast(owner,SkillMechanics.Values(owner,CombatAbility.BlessedHammer));
-        return BlessedHammers.Snapshot().Where(x=>x.Owner==owner.Serial.Value).MaxBy(x=>x.Id);
+        // Retain the historical vector/global-RNG cohort explicitly.
+        var f=BlessedHammers.Snapshot().Where(x=>x.Owner==owner.Serial.Value).MaxBy(x=>x.Id) with{Motion=null};Replace(f);return f;
     }
     private static void Source(PlayerMobile owner)
     {
@@ -100,7 +101,7 @@ public static class BlessedHammerChecks
     {
         var owner=ClassSkillChecks.Player(DiabloClass.Paladin);owner.AddItem(new Backpack());owner.MoveToWorld(ClassSkillChecks.Corridor(owner,2240,1000),owner.Map);FreezeRecovery(owner);
         Source(owner);Species(owner);Pipeline(owner);
-        var flight=BlessedHammers.Snapshot().Single(x=>x.Owner==owner.Serial.Value);
+        var flight=BlessedHammers.Snapshot().Single(x=>x.Owner==owner.Serial.Value) with{Motion=null};Replace(flight);
         Require(flight.Rank==1 && flight.Min256==5111 && flight.Max256==6814 && flight.OriginX==owner.X && flight.OriginY==owner.Y,"Concentration +hard synergies/launch snapshot");
         var first=Place(owner,new GraveyardSkeleton(),0,1);var second=Place(owner,new Ogre(),-1,0);int firstHp=first.Hits,secondHp=second.Hits;
         Require(ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.blessedhammer",out _) && ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.vigor",out _)

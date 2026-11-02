@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Mobiles;
@@ -14,6 +15,8 @@ public sealed record HammerFlight(long Id,uint Owner,int Map,int OriginX,int Ori
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public HammerCapture Captured{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public HammerMotion Motion{get;init;}
 }
 public sealed class BlessedHammerProfiles:GenericPersistence
 {
@@ -52,19 +55,23 @@ public static class BlessedHammers
         }
         return points;
     }
+    internal static Point2D SourcePoint(int index)=>_path[index];
+    internal static Point2D[] SourcePoints(int x,int y)=>_path.Select(q=>new Point2D(x*2+q.X,y*2+q.Y)).ToArray();
     public static (int Min,int Max) Damage(PlayerMobile owner,SkillValues values)
     {
         var prepared=BlessedHammerDamage.Prepare(owner,values);return(prepared.Min256,prepared.Max256);
     }
     public static void Cast(PlayerMobile owner,SkillValues values)
-        =>Commit(owner,values,BlessedHammerDamage.Prepare(owner,values));
-    internal static void Commit(PlayerMobile owner,SkillValues values,PreparedHammerDamage damage)
+        =>Commit(Prepare(owner,values,BlessedHammerDamage.Prepare(owner,values)));
+    internal static HammerFlight Prepare(PlayerMobile owner,SkillValues values,PreparedHammerDamage damage)
     {
-        long id=++_next;var now=TimedEffects.Now;
-        _flights.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,owner.X,owner.Y,owner.Z,values.Rank,0,0,0,0,
-            (NecromancerSummons.Source("blessedhammer","Vel")<<8)*75/100,NecromancerSummons.Source("blessedhammer","Accel"),0,
-            damage.Min256,damage.Max256,0,now.AddMilliseconds(Frames*40),now){Captured=damage.Capture});
+        long id=checked(_next+1);var now=TimedEffects.Now;var motion=BlessedHammerFlights.Prepare(owner);
+        var f=new HammerFlight(id,owner.Serial.Value,owner.Map.MapID,owner.X,owner.Y,owner.Z,values.Rank,0,0,0,0,
+            3456,250,0,damage.Min256,damage.Max256,0,now.AddMilliseconds(Frames*40),now.AddMilliseconds(40))
+            {Captured=damage.Capture,Motion=motion};BlessedHammerFlights.Validate(f);return f;
     }
+    internal static void Commit(HammerFlight flight)
+    {if(flight.Id!=checked(_next+1)){throw new InvalidOperationException("Hammer prepared ID changed");}_flights.Add(flight.Id,Copy(flight));_next=flight.Id;}
     public static HammerFlight Move(HammerFlight flight)
     {
         if(flight.Point>=_path.Length){return flight;}
@@ -108,7 +115,7 @@ public static class BlessedHammers
         var now=TimedEffects.Now;_keys.Clear();_keys.AddRange(_flights.Keys);
         foreach(long id in _keys)
         {
-            if(!_flights.TryGetValue(id,out var flight)){continue;}
+            if(!_flights.TryGetValue(id,out var flight)||flight.Motion!=null){continue;}
             var owner=World.FindMobile((Serial)flight.Owner) as PlayerMobile;
             if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Paladin
                 || owner.Map!=Map.Internal && (owner.Map.MapID!=flight.Map || SpellHelper.IsTown(owner.Location,owner)))
@@ -140,7 +147,12 @@ public static class BlessedHammers
         Effects.SendLocationEffect(new(to.X,to.Y,flight.Z),owner.Map,0x36E4,3,10,0x481,0); // Placeholder hammer/trail.
         if(first!=null){Impact(owner,first,flight);}
     }
-    public static HammerFlight[] Snapshot()=>new List<HammerFlight>(_flights.Values).ToArray();
+    private static HammerFlight Copy(HammerFlight f)=>f.Motion is{} m?f with{Motion=m with{Path=m.Path with{Points=m.Path.Points.ToArray(),SavedSteps=m.Path.SavedSteps.ToArray()}}}:f;
+    internal static HammerFlight State(long id)=>_flights.TryGetValue(id,out var f)?Copy(f):null;
+    internal static HammerFlight Due(DateTime at)=>_flights.Values.Where(f=>f.Motion!=null&&f.NextUtc<=at).OrderBy(f=>f.NextUtc).ThenByDescending(f=>f.Id).Select(Copy).FirstOrDefault();
+    internal static void Remove(long id){_flights.Remove(id);BlessedHammerFlights.Forget(id);}
+    internal static void Update(HammerFlight f){if(_flights.ContainsKey(f.Id)){BlessedHammerFlights.Validate(f);_flights[f.Id]=Copy(f);}}
+    public static HammerFlight[] Snapshot()=>_flights.Values.Select(Copy).ToArray();
     public static void Restore(HammerFlight[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing Blessed Hammers");}
@@ -152,10 +164,11 @@ public static class BlessedHammers
                 || flight.Min256<0 || flight.Max256<flight.Min256
                 ||flight.Captured is{} c&&(flight.Rank>255||c.Modifiers==null||c.Modifiers.Potion!=0||c.Concentration<0||c.Slow.VelocityPercent!=100||c.Slow.DamagePercent is <0 or >100
                     ||flight.NextUtc.Kind!=DateTimeKind.Utc||flight.UntilUtc.Kind!=DateTimeKind.Utc)
-                || !next.TryAdd(flight.Id,flight))
+                || !next.TryAdd(flight.Id,CopyChecked(flight)))
             {throw new InvalidDataException("Invalid Blessed Hammer");}
             nextId=Math.Max(nextId,flight.Id);
         }
-        _flights.Clear();foreach(var pair in next){_flights.Add(pair.Key,pair.Value);}_next=nextId;
+        _flights.Clear();foreach(var pair in next){_flights.Add(pair.Key,pair.Value);}_next=nextId;BlessedHammerFlights.Loaded(next.Values.Where(f=>f.Motion!=null).Select(f=>f.Id));
     }
+    private static HammerFlight CopyChecked(HammerFlight f){if(f.Motion!=null){BlessedHammerFlights.Validate(f);}return Copy(f);}
 }

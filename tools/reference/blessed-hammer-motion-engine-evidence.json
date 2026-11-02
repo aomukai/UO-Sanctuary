@@ -1,0 +1,61 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "movementProfile": "unmodified1.10branch",
+  "guarded113Profile": "108contexts/allmovementrefused",
+  "legacyPathType": 14,
+  "contexts": 108,
+  "movementFrames": 12960,
+  "sourceHashes": {
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5"
+  },
+  "compiledRoutineHashes": {
+    "COLLISION_CheckCollisionMask": "9499ac00928c8290ab8b09cca5a4c467c4038c19c4ba6d6e1e1766fa7a939dc5",
+    "COLLISION_CheckMaskWithPattern": "207708fb2b457597e08abc8d790570716f9df2c7c12df23969579526e90b8383",
+    "COLLISION_SetMaskWithPattern": "08139b9168f05cc3d88eac9b6b98a0b18c2a703edd7a10ac5abeaf98f342fbec",
+    "COLLISION_ResetMaskWithPattern": "e9801cc87a31e5b70dc376f0bdb12468ea71cf280c7da587bcee3cae2cb4cfa6",
+    "COLLISION_TryTeleportUnitCollisionMask": "b26ca136f729a43792e4efe78a35f11facdd21ba8fd6bb86eab1a8af292c66d8",
+    "PATH_SetVelocity": "90e1d47ed19c106dc1b79989a01e3998c64674c2f9e7c8a4b24a76f80247bcd1",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_GetAnimStatBasePercentage": "10423c95fc725502dd335dae7a1d18a56db30c784d9ad7b3f48fb3ce53502162",
+    "UNITS_GetBaseAnimSpeed": "a889c63e03e882cf43fad46314a9cbb5670a5ec065a0ec581dfacb9d3cac5484",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "PATH_GetDirectionVector": "5c2696a69365ea71a13684941cd8ec6cc727082a819b313d68005cb8c1fc8c34",
+    "PATH_ComputeVelocityAndDirectionVectorsToNextPoint": "80a72d98efa8f800bf6c5fa7ec6c3e0e7cb7275f86772d782c3d727e27eb8273",
+    "sub_6FD5CEB0": "becafa1650d520f6b2827c03f242e1ca950e7673a9e22ec36571a23927673176",
+    "sub_6FD5DB70": "4e9f923d7095955b45df7cc826c6707b283d1b67d31489e9922609b912ee5f95",
+    "sub_6FDAB810": "a1ace3679ab94dc699642651ee239acdea17857b8ff9540dcd0cb6e9dfa887c2",
+    "sub_6FDACEC0": "1ad83b1b113da8c3da3acbee61df332a72872ee52bcbf14b278a13ecbe75ab2a",
+    "PATH_RecacheRoomAtCoordIfNeeded": "81bd1010c7545828bdebe77d1075090e1dc64e59c9e3ee97ce22ea694aeef65f",
+    "PATH_ResetMovement": "bfaed12f8b87080b508ac11f4095acb938e2f1a773e5c727ac8b42a19eb75c8c",
+    "D2Common_10226": "e13a09c4ac8732bda661afe6da7fab20dce71c0b97628f6dcaab2574d1e18675",
+    "PATH_ComputePathBlessedHammer_6FDAB3C0": "639ec6d8a7f0babe1d52788da7ad4da590833ec4f4c78fd0600c47c97686e2f2"
+  },
+  "established": [
+    "Complete unchanged Hammer77-point initializer,integer tangent direction/waypoint selection,acceleration,full collision step,room recache/reset and outer10226movement execute together across3fractional origins,3starting velocities,3accelerations and4declared collision services for120calls each.",
+    "Every frame records FP16relative position,point count/index,velocity/acceleration/counter,direction and velocity vectors,saved cell count/mask and ordered cells/collision queries. Independent velocity/counter goldens verify all moving clear-path prefixes.",
+    "Pinned enum identifies BlessedHammer path14;16is the separate missile-stream path. The earlier damage-only harness used an opaque path sentinel16with a call counter,not actual path execution.",
+    "The optional D2_VERSION_113C guard refuses all108missile contexts before the movement loop. The primary cases execute the unchanged1.10branch. This reconstruction conflict does not establish modern outer dispatch and is not used to disable moving Hammers."
+  ],
+  "declaredServices": [
+    "Fog sin/cos remain reconstructed single-precision trig,not imported binary LUT/current executable evidence.",
+    "The actor-motion scaffold is reused;missile TryMove collision is a declared clear/wall/barrier callback. Room lookup is valid only in the synthetic80..127grid. Actual world/footprint allocation/client facing/target/stat services are not exercised.",
+    "The path is prepared at a supplied fractional origin/velocity/counter with save-steps enabled;modern factory/initial dispatch,source InitSteps6and lifetime/collision finder/damage/seed are separate. Additional actor/stat routines compile from the reused scaffold but their unrelated branches are not claimed as covered."
+  ],
+  "artifacts": {
+    "tools/probe_blessed_hammer_motion.py": "ee6273f0a4ca6520d3ea36696ea1f44a860aa9cd6874d99a2c450256a2c6f055",
+    ".local/class-skills/blessed-hammer-flight/motion-source/hammer-motion.cpp": "7445721c3109026f20fc325550c3cb1f70732b174680f4807f2082528330bb49",
+    ".local/class-skills/blessed-hammer-flight/motion-source/hammer-motion": "a5dcc714df929767ff8eafd3f168e1c73921b7ca37474158870173816de9a274",
+    ".local/class-skills/blessed-hammer-flight/motion-source/cases.json": "6c8bfe4f91deadc27caef3b6f19fb5a2ef9596187f32e2c3c72a21fa7a99e756",
+    ".local/class-skills/blessed-hammer-flight/motion-source/hammer-motion-113": "c261a35aa4123a834f50f6e4f4db8c204fef757d74fb5adc980197411eb3efc7",
+    ".local/class-skills/blessed-hammer-flight/motion-source/guarded-113-cases.json": "5c96f724846e0fcd33ac821e12ea58c2f6c1beeacf21d8dc0cf1d0a986de4e6b",
+    ".local/class-skills/blessed-hammer-flight/motion-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

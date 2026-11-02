@@ -1,5 +1,7 @@
 # Skill icons
 
+Hammer curved source-flight review (2026-11-03): existing talent-tree and left/right/quick artwork remains pending. Saved path/RNG and collider/lifecycle cleanup add no skill or icon. FoH startup preparation adds no player action; its existing talent/hotkey icon requirements remain unchanged.
+
 Blessed Hammer damage/capture review (2026-11-03): existing talent-tree and left/right/quick bindings retain their placeholders. Final talent/hotkey artwork remains pending; captured Concentration, typed damage and potion additions introduce no new skill or icon.
 
 Holy Bolt source-flight review (2026-11-02): existing talent-tree and left/right/quick artwork remains pending. Saved motion,ally-aware piercing,RNG and reference cleanup introduce no additional skill or icon.

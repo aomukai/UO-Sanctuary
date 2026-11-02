@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "completeFunctions": [
+    "SKILLS_SrvDo080_FistOfTheHeavens",
+    "MISSMODE_FistOfTheHeavensDelay_AuraCallback"
+  ],
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "counts": {
+    "start": 20,
+    "callback": 72
+  },
+  "established": [
+    "Do80creates flags1at target coordinates,stores target type/id on success,and applies only an in-range overlay. Missing skill/progressive missile/target/factory refuses;failed factory does not write identity/overlay.",
+    "The complete child callback uses flags32with original owner/origin,stored skill/rank and candidate coordinates. Positive cap refuses when counter reaches cap;nonpositive cap does not limit this callback. A failed child factory still returns1."
+  ],
+  "declaredServices": [
+    "Table/target/coordinate/factory/overlay callbacks are controlled services. This does not execute missile allocation,world candidate search,counter advancement,hit22damage,mastery,potion,RNG,movement,lifecycle or current executable.",
+    "Skill121/rank7and progressive7/child998are opaque harness inputs;current table mapping and runtime skill ranks remain separately pinned. No older/current ID equivalence is inferred from these sentinels."
+  ],
+  "artifacts": {
+    "tools/probe_heaven_fist_start.py": "00f61a2fafd459df88ee027ce841ba790556e49393b32e883dc1b23f854b3d7d",
+    "tools/probe_blessed_hammer_damage.py": "0dd100352d52b2431eda66cc0c18fbfca00b752bcd4fd6dd28c2eb4dfc6029ce",
+    ".local/class-skills/heaven-fist-contact/start-source/heaven-fist-start.cpp": "260cd32716a01be682ea5009a06c1e268c24b21201b071ae0ac9fcdea815c043",
+    ".local/class-skills/heaven-fist-contact/start-source/heaven-fist-start": "01f156c5c18b46137a76dd873b2b5f8320ff750b537eb29cb342b1f90eb30c7b",
+    ".local/class-skills/heaven-fist-contact/start-source/cases.json": "169830997cce8b4943f1f23653a9f94b399ba9507bb9ce63d0be3eb55c25f4af",
+    ".local/class-skills/heaven-fist-contact/start-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

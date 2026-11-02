@@ -1,5 +1,7 @@
 # Skill effects
 
+Hammer curved source-flight review (2026-11-03): persisted curve/RNG/collider/lifecycle state adds no new asset. Hammer/trail `0x36E4`, hue `0x481` and cast sound `0x1E5` remain **identified placeholders**. Final source-timed travel/contact/wall/expiry/audio remains pending independently. FoH startup preparation introduces no effect; its warning/sky-strike/burst/secondary presentation remains separately pending.
+
 Blessed Hammer damage/capture review (2026-11-03): hammer/trail `0x36E4`, hue `0x481` and cast sound `0x1E5` remain **identified placeholders**. Final hammer travel/trail, contact, wall/expiry and audio are pending. Typed damage and impact potion additions introduce no poison/chill status effect. See [checkpoint](paladin-blessed-hammer-damage-checkpoint.md).
 
 Holy Bolt source-flight review (2026-11-02): saved path/RNG and reference cleanup add no new visual asset. Holy travel/trail `0x36E4`,healing `0x376A` and existing cast/impact sounds remain **identified placeholders**. Final source-timed travel,healing/hit,wall/expiry and audio remain pending independently.

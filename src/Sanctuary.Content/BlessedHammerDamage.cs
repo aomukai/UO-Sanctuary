@@ -32,8 +32,8 @@ internal static class BlessedHammerDamage
     }
     internal static bool Release(PlayerMobile owner,SkillValues values)
     {
-        var prepared=Prepare(owner,values);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        BlessedHammers.Commit(owner,values,prepared);owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        var flight=BlessedHammers.Prepare(owner,values,Prepare(owner,values));if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        BlessedHammers.Commit(flight);owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
     }
     internal static int Roll(int minimum,int maximum,bool undead,bool demon,Func<int,int> limited)
     {

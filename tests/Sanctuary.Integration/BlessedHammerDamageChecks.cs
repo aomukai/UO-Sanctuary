@@ -25,13 +25,15 @@ public static class BlessedHammerDamageChecks
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Blessed Hammer typed receiver,capture and original flight saves",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         var p=SacrificeContactChecks.Owner();
         // An internalized caster can still own a held original source flight.
         // Keep this retained target out of that flight's remaining corridor.
         p.MoveToWorld(ZealChecks.Origin(p,point=>HolyBolts.Snapshot().Any(f=>f.Map==p.Map.MapID
-            &&Math.Abs(f.X-point.X)<30&&Math.Abs(f.Y-point.Y)<30)),p.Map);
+            &&Math.Abs(f.X-point.X)<30&&Math.Abs(f.Y-point.Y)<30)
+            ||BlessedHammers.Snapshot().Any(f=>f.Motion!=null&&f.Map==p.Map.MapID
+                &&Math.Abs(f.OriginX+f.XFp16/131072.0-point.X)<30&&Math.Abs(f.OriginY+f.YFp16/131072.0-point.Y)<30)),p.Map);
         Require(SkillBindings.Instance.Assign(p,true,CombatAbility.BlessedHammer)&&SkillBindings.Instance.Assign(p,false,CombatAbility.BlessedHammer)
             &&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.BlessedHammer),"Blessed Hammer damage bindings");return p;
     }
@@ -41,7 +43,8 @@ public static class BlessedHammerDamageChecks
         foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);return t;
     }
     private static HammerFlight Create(PlayerMobile p)
-    {BlessedHammers.Cast(p,SkillMechanics.Values(p,CombatAbility.BlessedHammer));return BlessedHammers.Snapshot().Where(x=>x.Owner==p.Serial.Value).MaxBy(x=>x.Id);}
+    {BlessedHammers.Cast(p,SkillMechanics.Values(p,CombatAbility.BlessedHammer));var f=BlessedHammers.Snapshot().Where(x=>x.Owner==p.Serial.Value).MaxBy(x=>x.Id) with{Motion=null};
+        BlessedHammers.Restore(BlessedHammers.Snapshot().Select(x=>x.Id==f.Id?f:x).ToArray());return f;}
     private static void Clean(PlayerMobile p,params Mobile[] targets)
     {BlessedHammers.Restore(BlessedHammers.Snapshot().Where(x=>x.Owner!=p.Serial.Value).ToArray());AmazonSlowMissiles.Clear(p);foreach(var t in targets){t.Corpse?.Delete();t.Delete();}p.Corpse?.Delete();p.Delete();}
     private static void LaunchPotionRegression()
@@ -220,8 +223,8 @@ public static class BlessedHammerDamageChecks
         var p=Owner();var t=Target(p,new ConversionContactChecks.Recipient());t.MoveToWorld(new(p.X,p.Y+1,p.Z),p.Map);bool aura=!label.EndsWith("right",StringComparison.Ordinal);
         if(aura){Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Concentration)&&PaladinOffense.HammerBonus(p)==30,"Wire Hammer Concentration");}
         var account=FixtureNetwork.Authenticate(network,p,"blessed-hammer-damage-");
-        var roll=BlessedHammers.Roll;BlessedHammers.Roll=_=>0;NecromancerEffects.SetMana256(p,1297);int life=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+6000;
-        void Cleanup(){BlessedHammers.Roll=roll;Clean(p,t);account.Delete();}
+        var roll=BlessedHammers.Roll;var seed=BlessedHammerFlights.SeedLow;BlessedHammerFlights.SeedLow=()=>0;BlessedHammers.Roll=_=>throw new InvalidOperationException("Natural Hammer used global RNG");NecromancerEffects.SetMana256(p,1297);int life=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+6000;
+        void Cleanup(){BlessedHammers.Roll=roll;BlessedHammerFlights.SeedLow=seed;Clean(p,t);account.Delete();}
         void Observe()
         {
             try
@@ -230,7 +233,7 @@ public static class BlessedHammerDamageChecks
                 if(ClassCombat.For(p).PendingAbility==CombatAbility.BlessedHammer&&!began)
                 {Require(NecromancerEffects.ManaBalance256(p)==1297&&SkillHealth.Balance256(t)==life,"Blessed Hammer paid before action event");began=true;Log.Information("{Label}: windup",label);}
                 if(NativeMonsterReturn.Session(t).Packets==0){Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(began&&life-SkillHealth.Balance256(t)==(aura?7666:5898)&&t.Notifications==1&&t.LifeAtNotification==life&&NativeMonsterReturn.Session(t).Packets==1
+                Require(began&&life-SkillHealth.Balance256(t)==(aura?9349:6795)&&t.Notifications==1&&t.LifeAtNotification==life&&NativeMonsterReturn.Session(t).Packets==1
                     &&NecromancerEffects.ManaBalance256(p)==17,"Actual Blessed Hammer ordered impact/once mana failed");Cleanup();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Cleanup();Log.Error(e,"{Label}-result: failed",label);}
