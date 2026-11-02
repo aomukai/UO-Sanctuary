@@ -168,14 +168,18 @@ public static class HolyBoltDamageChecks
     }
     private static void Input(NetState network,string label)
     {
-        var p=Owner();var t=Target(p,new ConversionContactChecks.Recipient());var account=FixtureNetwork.Authenticate(network,p,"holy-bolt-damage-");
+        // Origin verifies the original six-cell corridor, then offsets the owner
+        // by two cells. Keep the recipient inside that verified corridor.
+        var p=Owner();var t=Target(p,new ConversionContactChecks.Recipient(),3);
+        Require(PaladinCombat.ValidTarget(p,CombatAbility.HolyBolt,t.Serial,t.Location),"Holy Bolt input fixture must provide an eligible visible target");
+        var account=FixtureNetwork.Authenticate(network,p,"holy-bolt-damage-");
         var roll=HolyBolts.Roll;var seed=HolyBoltFlights.SeedLow;HolyBolts.Roll=_=>0;HolyBoltFlights.SeedLow=()=>0;NecromancerEffects.SetMana256(p,529);int life=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+6000;
         void Cleanup(){HolyBolts.Roll=roll;HolyBoltFlights.SeedLow=seed;Clean(p,t);account.Delete();}
         void Observe()
         {
             try
             {
-                Require(Core.TickCount<deadline,"Actual Holy Bolt damage input timeout");
+                Require(Core.TickCount<deadline,$"Actual Holy Bolt damage input timeout:sequence={ClassCombat.For(p).Sequence},pending={ClassCombat.For(p).PendingAbility},held={ClassCombat.For(p).HeldAbility},running={network.Running},alive={p.Alive},frozen={p.Frozen},mana={NecromancerEffects.ManaBalance256(p)},valid={PaladinCombat.ValidTarget(p,CombatAbility.HolyBolt,t.Serial,t.Location)},overlap={AlliedOverlap.Allowed(p)},next={ClassCombat.For(p).NextAction-Core.TickCount},map={p.Map?.MapID},targetMap={t.Map?.MapID},position={p.Location},target={t.Location}");
                 if(ClassCombat.For(p).PendingAbility==CombatAbility.HolyBolt&&!began)
                 {Require(NecromancerEffects.ManaBalance256(p)==529&&SkillHealth.Balance256(t)==life,"Holy Bolt paid before action event");began=true;Log.Information("{Label}: windup",label);}
                 if(NativeMonsterReturn.Session(t).Packets==0){Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}

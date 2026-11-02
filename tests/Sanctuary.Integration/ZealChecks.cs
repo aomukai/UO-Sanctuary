@@ -45,7 +45,7 @@ public static class ZealChecks
         TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
         TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.AddMinutes(5)}:x).ToArray());
     }
-    internal static Point3D Origin(PlayerMobile owner)
+    internal static Point3D Origin(PlayerMobile owner,Func<Point3D,bool> reserved=null)
     {
         // Other suites retain actors for reload checks. Keep Zeal's cyclic target pool independent.
         for(int x=2200;x<=2500;x+=50)for(int y=1000;y<=1300;y+=50)
@@ -55,7 +55,7 @@ public static class ZealChecks
             var point=new Point3D(start.X+2,start.Y,start.Z);bool clear=true;
             foreach(var actor in owner.Map.GetMobilesInRange<Mobile>(point,20))
             {if(actor!=owner && !actor.Deleted){clear=false;break;}}
-            if(clear && Server.Spells.SpellHelper.CheckTown(point,owner)
+            if(clear && reserved?.Invoke(point)!=true && Server.Spells.SpellHelper.CheckTown(point,owner)
                 && Server.Spells.SpellHelper.CheckTown(new Point3D(point.X+1,point.Y+1,point.Z),owner)
                 && owner.Map.CanSpawnMobile(point.X+1,point.Y+1,point.Z)
                 && owner.Map.LineOfSight(new Point3D(point.X,point.Y,point.Z+12),new Point3D(point.X+1,point.Y+1,point.Z+12))){return point;}

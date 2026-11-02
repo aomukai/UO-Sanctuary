@@ -10,11 +10,17 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record HammerFlight(long Id,uint Owner,int Map,int OriginX,int OriginY,int Z,int Rank,int Frame,int Point,
-    int XFp16,int YFp16,int VelocityQ8,int AccelerationQ8,int AccelerationCounter,int Min256,int Max256,uint LastCollision,DateTime UntilUtc,DateTime NextUtc);
+    int XFp16,int YFp16,int VelocityQ8,int AccelerationQ8,int AccelerationCounter,int Min256,int Max256,uint LastCollision,DateTime UntilUtc,DateTime NextUtc)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public HammerCapture Captured{get;init;}
+}
 public sealed class BlessedHammerProfiles:GenericPersistence
 {
+    private HammerFlight[] _snapshot;
     public BlessedHammerProfiles():base("SanctuaryBlessedHammers",125){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(BlessedHammers.Snapshot()));}
+    public override void Serialize(){_snapshot=BlessedHammers.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Blessed Hammer version");}
@@ -48,20 +54,16 @@ public static class BlessedHammers
     }
     public static (int Min,int Max) Damage(PlayerMobile owner,SkillValues values)
     {
-        int concentration=PaladinOffense.HammerBonus(owner);
-        int Scale(int value)
-        {
-            long enhanced=(long)Math.Clamp(NamedElements.Enhance(owner,value*(100+CombatPotions.Bonus(owner,"magical-penetration"))/100.0,"mag"),0,int.MaxValue);
-            return (int)Math.Clamp(enhanced*(100+concentration)/100,0,int.MaxValue);
-        }
-        return(Scale(values.Damage256(false)),Scale(values.Damage256(true)));
+        var prepared=BlessedHammerDamage.Prepare(owner,values);return(prepared.Min256,prepared.Max256);
     }
     public static void Cast(PlayerMobile owner,SkillValues values)
+        =>Commit(owner,values,BlessedHammerDamage.Prepare(owner,values));
+    internal static void Commit(PlayerMobile owner,SkillValues values,PreparedHammerDamage damage)
     {
-        var damage=Damage(owner,values);long id=++_next;var now=TimedEffects.Now;
+        long id=++_next;var now=TimedEffects.Now;
         _flights.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,owner.X,owner.Y,owner.Z,values.Rank,0,0,0,0,
             (NecromancerSummons.Source("blessedhammer","Vel")<<8)*75/100,NecromancerSummons.Source("blessedhammer","Accel"),0,
-            damage.Min,damage.Max,0,now.AddMilliseconds(Frames*40),now));
+            damage.Min256,damage.Max256,0,now.AddMilliseconds(Frames*40),now){Captured=damage.Capture});
     }
     public static HammerFlight Move(HammerFlight flight)
     {
@@ -83,6 +85,13 @@ public static class BlessedHammers
     internal static int Impact(PlayerMobile owner,Mobile target,HammerFlight flight)
     {
         if(!ClassCombat.IsHostile(owner,target)){return 0;}
+        if(flight.Captured is{} captured)
+        {
+            if(!BlessedHammerDamage.Supported(owner,target,out string reason)){owner.SendMessage(0x22,reason);return 0;}
+            SorceressEffects.MissileHit(owner,target,"blessedhammer");if(ClassAvoidance.Missile(target,"blessedhammer")){return 0;}
+            int raw=BlessedHammerDamage.Roll(flight.Min256,flight.Max256,GemCombat.Undead(target),NamedCombat.Demon(target),Roll),before=target.Hits;
+            BlessedHammerDamage.Deliver(owner,(BaseCreature)target,raw,captured,TimedEffects.Now);return Math.Max(0,before-target.Hits);
+        }
         int range=flight.Max256-flight.Min256;
         // SrvDmg05 rerolls the magic value populated by FillDamageParams; retain both exclusive-upper draws.
         if(range>0){Roll(range);}
@@ -135,14 +144,18 @@ public static class BlessedHammers
     public static void Restore(HammerFlight[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing Blessed Hammers");}
-        _flights.Clear();_next=0;
+        var next=new Dictionary<long,HammerFlight>();long nextId=0;
         foreach(var flight in saved)
         {
-            if(flight.Id<=0 || flight.Owner==0 || flight.Rank<1 || flight.Frame<0 || flight.Frame>=Frames || flight.Point<0 || flight.Point>77
+            if(flight==null||flight.Id<=0 || flight.Owner==0 || flight.Rank<1 || flight.Frame<0 || flight.Frame>=Frames || flight.Point<0 || flight.Point>77
                 || flight.VelocityQ8<0 || flight.VelocityQ8>7680 || flight.AccelerationQ8<0 || flight.AccelerationCounter is <0 or >4
-                || flight.Min256<0 || flight.Max256<flight.Min256 || !_flights.TryAdd(flight.Id,flight))
+                || flight.Min256<0 || flight.Max256<flight.Min256
+                ||flight.Captured is{} c&&(flight.Rank>255||c.Modifiers==null||c.Modifiers.Potion!=0||c.Concentration<0||c.Slow.VelocityPercent!=100||c.Slow.DamagePercent is <0 or >100
+                    ||flight.NextUtc.Kind!=DateTimeKind.Utc||flight.UntilUtc.Kind!=DateTimeKind.Utc)
+                || !next.TryAdd(flight.Id,flight))
             {throw new InvalidDataException("Invalid Blessed Hammer");}
-            _next=Math.Max(_next,flight.Id);
+            nextId=Math.Max(nextId,flight.Id);
         }
+        _flights.Clear();foreach(var pair in next){_flights.Add(pair.Key,pair.Value);}_next=nextId;
     }
 }

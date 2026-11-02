@@ -12,6 +12,18 @@ string kind,Func<uint> defenderRoll,Func<Mobile,BaseCreature,bool> knockback=nul
 BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> npcMitigation=null,
 Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=null):PreparedMonsterDamageServices
 {
+    internal static bool Supported(PlayerMobile owner,Mobile actor,string kind,out string reason)
+    {
+        if(!SourceFireFields.Supported(owner,actor,out reason)){return false;}
+        try
+        {
+            var metadata=PlayerWeaponContact.Metadata((BaseCreature)actor,true);
+            if(metadata is{Killable:false}){reason=kind+" recipient is not source-killable";return false;}
+            if(metadata?.Base==78){reason=kind+" sand-leaper return needs its actor adapter";return false;}
+            return true;
+        }
+        catch(NotSupportedException e){reason=e.Message;return false;}
+    }
     private int Loss,EntryHits;private bool Freed;
     private Mobile Attacker=>emitter??(Mobile)owner;
     internal override void StoreLastAttacker(){Attacker.DoHarmful(target,true);EntryHits=target.Hits;}

@@ -20,17 +20,7 @@ internal static class HolyBoltDamage
         {throw new NotSupportedException("Unsupported pinned Holy Bolt route");}
     }
     internal static bool Supported(PlayerMobile owner,Mobile actor,out string reason)
-    {
-        if(!SourceFireFields.Supported(owner,actor,out reason)){return false;}
-        try
-        {
-            var metadata=PlayerWeaponContact.Metadata((BaseCreature)actor,true);
-            if(metadata is{Killable:false}){reason="Holy Bolt recipient is not source-killable";return false;}
-            if(metadata?.Base==78){reason="Holy Bolt sand-leaper return needs its actor adapter";return false;}
-            return true;
-        }
-        catch(NotSupportedException e){reason=e.Message;return false;}
-    }
+        =>InstantSpellNpcDamage.Supported(owner,actor,"Holy Bolt",out reason);
     internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,int magic256,HolyBoltCapture captured,DateTime at)
     {
         if(!Supported(owner,target,out string reason)||!HolyBolts.FullDamage(target)||ClassCombat.Friendly(owner,target)

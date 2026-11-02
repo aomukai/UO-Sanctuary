@@ -173,7 +173,7 @@ public static class HolyBoltFlightChecks
             {
                 if(HolyBolts.State(original.Id) is{} seen){last=seen;}
                 if(NativeMonsterReturn.Session(t).Packets==0){Require(Core.TickCount<deadline,$"Natural Holy Bolt resume timeout:exists={HolyBolts.State(original.Id)!=null},lastFrame={last?.Frame},lastXY={last?.X}/{last?.Y},target={t.X}/{t.Y},maps={p.Map?.MapID}/{t.Map?.MapID},connected={p.NetState?.Running},candidate={HolyBolts.Candidate(p,t)},fault={last?.Motion?.Fault},lastSeed={last?.Motion?.Seed},lastCollider={last?.LastCollision},targetSerial={t.Serial.Value},sourceSize={CreatureProfiles.For(t).Traits.Size}");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(life-SkillHealth.Balance256(t)==(s.Generation==0?3738:4226)&&t.Notifications==1&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Natural original source Holy Bolt resume changed seed/damage/resources");
+                Require(life-SkillHealth.Balance256(t)==(s.Generation==0?3738:4226)&&t.Notifications==1&&NecromancerEffects.ManaBalance256(p)==s.Mana,$"Natural original source Holy Bolt resume changed seed/damage/resources:generation={s.Generation},loss={life-SkillHealth.Balance256(t)},notifications={t.Notifications},mana={NecromancerEffects.ManaBalance256(p)}/{s.Mana},seed={HolyBolts.State(original.Id)?.Motion?.Seed},frame={HolyBolts.State(original.Id)?.Frame},lastCollider={HolyBolts.State(original.Id)?.LastCollision},targetSerial={t.Serial.Value},life={life}/{SkillHealth.Balance256(t)}");
                 var active=HolyBolts.State(original.Id);Require(active is{Frame:>2}&&active.Motion.Seed==(s.Generation==0?666UL:1193071124610UL)&&active.LastCollision==t.Serial.Value,"Natural resumed source payload missing");
                 // Keep the same moving original for the next real reload;no
                 // HP,mana,seed or path reset. Only its inspection clock holds.
@@ -187,7 +187,10 @@ public static class HolyBoltFlightChecks
     }
     private static void Input(NetState network,string label)
     {
-        var p=Owner();var t=Target(p,new ConversionContactChecks.Recipient());var account=FixtureNetwork.Authenticate(network,p,"holy-bolt-source-input-");
+        // Origin offsets the owner two cells into a six-cell checked corridor.
+        var p=Owner();var t=Target(p,new ConversionContactChecks.Recipient(),3);
+        Require(PaladinCombat.ValidTarget(p,CombatAbility.HolyBolt,t.Serial,t.Location),"Source Holy Bolt input fixture must provide an eligible visible target");
+        var account=FixtureNetwork.Authenticate(network,p,"holy-bolt-source-input-");
         var seed=HolyBoltFlights.SeedLow;var roll=HolyBolts.Roll;HolyBoltFlights.SeedLow=()=>0;HolyBolts.Roll=_=>throw new InvalidOperationException("Natural source used global RNG");NecromancerEffects.SetMana256(p,529);
         int life=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+6000;
         void Cleanup(){HolyBoltFlights.SeedLow=seed;HolyBolts.Roll=roll;Clean(p,t);account.Delete();}

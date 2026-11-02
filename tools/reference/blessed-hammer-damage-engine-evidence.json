@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "completeFunctions": [
+    "MONSTERUNIQUE_CalculatePercentage",
+    "MISSMODE_RollDamageValue",
+    "MISSMODE_FillDamageParams",
+    "MISSMODE_GetDamageValue",
+    "MISSMODE_AddDamageValue",
+    "MISSMODE_SrvDmg05_BlessedHammer",
+    "SKILLS_GetConcentrationDamageBonus",
+    "SKILLS_SrvDo073_BlessedHammer"
+  ],
+  "sourceHashes": {
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "counts": {
+    "damage": 336,
+    "concentration": 28,
+    "start": 20
+  },
+  "declaredServices": [
+    "Table/state/species/stat services are controlled callbacks;only magic endpoints/mastery are populated. Other element/physical branches compile unchanged but are not claimed as covered.",
+    "Limited RNG supplies alternating lower/exclusive-upper endpoints;callback calls and positive-bound draws are recorded separately. No current engine seed stream is claimed.",
+    "The complete percentage routine executes,including its large-value early division. Extreme signed32overflow remains outside these bounded cases.",
+    "Factory/path functions record flags32,creation/failed guards and path calls;they do not execute world allocation or Fog/path geometry."
+  ],
+  "established": [
+    "Fill then damage5consume two positive-bound magic draws,with the second replacing the first. Equal bounds invoke limited helper twice without positive-bound draws;nonpositive endpoints return zero without RNG.",
+    "Undead/demon bonuses each derive from the rerolled base and add independently. Concentration uses aura damagepercent*Param1/8,and do73applies it to factory base magic endpoints after missile creation."
+  ],
+  "remaining": [
+    "Modern executable/event/critical/special-mode behavior,complete nested stat/RNG/factory/world/path services and full native acceptance remain separate."
+  ],
+  "artifacts": {
+    "tools/probe_blessed_hammer_damage.py": "0dd100352d52b2431eda66cc0c18fbfca00b752bcd4fd6dd28c2eb4dfc6029ce",
+    ".local/class-skills/blessed-hammer-contact/damage-source/hammer-damage.cpp": "21fa3331c5ef02cf28593b4d8947d23b0e68eae47f4282deff1d696c64a5e836",
+    ".local/class-skills/blessed-hammer-contact/damage-source/hammer-damage": "b5b15b75c37bb9bff79a5fe953195613ddcd82ff7006a38b1eedf4602218bc4e",
+    ".local/class-skills/blessed-hammer-contact/damage-source/cases.json": "bf36032f27f2e29c3e7627e9ae3bb713fda43bf6349afa08eb0d7a758373e06d"
+  }
+}
