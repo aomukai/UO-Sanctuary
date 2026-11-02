@@ -1,5 +1,7 @@
 # Skill icons
 
+[Sacrifice ordered contact](paladin-sacrifice-contact-checkpoint.md) retains the existing Sacrifice and Poison Dagger talent and hotkey icon requirements. Shared damage/credit/death phases introduce no new player action or icon; final artwork remains separately pending.
+
 [Sacrifice start allocation](paladin-sacrifice-allocation-checkpoint.md) retains its existing talent and left/right/quick hotkey icon requirements. Prepared packets and cancellation introduce no additional player action or icon; final artwork remains pending separately from effects.
 
 The [Paladin baseline/binding checkpoint](paladin-baseline-checkpoint.md) keeps the existing30talent icons and active right/quick artwork. Left-slot controls follow the pinned table, including right-only auras and Holy Shield. Legacy normalization introduces no new player action or icon; effects/audio remain separate.

@@ -1233,7 +1233,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Start29 captures hit/miss and prepared typed weapon damage through shared allocation; Do64 consumes once with current fractional target-life cap and rank-dependent self cost before contact recheck. Held cursor preserves original target; movement/weapon/Stop cancel. Existing zero mana, immunity, miss/block, Energy Shield, absorb/soft-rank gear, self-death and original-save checks remain. See paladin-sacrifice-allocation-checkpoint.md for current verification. Ordered target HP/death/return migration, modern executable equivalence, converted throwing and full curse/item/leech/LifeTap/event/mode/owner/client acceptance remain open; no item gates cleared."
+      "remaining": "Start29 captures source hit/block/miss,typed physical/poison/cold and drains; Do64 pays current-life-capped self cost first. Player-to-NPC contact now shares Poison Dagger ordered notifications,credit,HP,kill recovery,attempt/retaliation and deferred death/return. Unclassified UO recipients keep an explicit native reaction adapter without invented D2 identities. Existing input/zero-mana/cancellation/absorb/save scopes remain. See paladin-sacrifice-contact-checkpoint.md for current verification. Modern executable,unclassified species conversion,source geometry/RNG/full item-event order,converted throwing,PvP/special/charged/oskill/pending-save/client acceptance remain open; no item gates cleared."
     },
     {
       "talentId": "paladin.smite",

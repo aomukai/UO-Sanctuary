@@ -1,5 +1,7 @@
 # Skill effects
 
+[Sacrifice ordered contact](paladin-sacrifice-contact-checkpoint.md) shares existing weapon/blood/contact, shield, leech, cold/poison and native reaction placeholders. The shared adapter adds no new independent effect; final blood emission, block/get-hit/return feedback and audio remain pending.
+
 [Sacrifice start allocation](paladin-sacrifice-allocation-checkpoint.md) reuses the existing weapon contact, sound `0x238` and blood effect `0x37B9` as identified placeholders. Windup capture and cancellation introduce no new asset; final blood emission/contact/audio remain pending.
 
 The [Paladin baseline/binding checkpoint](paladin-baseline-checkpoint.md) retains the existing aura, weapon, projectile, shield and contact placeholders. Slot validation and corrected approved-pet/species fixtures add no effect or audio requirement; final per-skill effects remain pending independently.

@@ -11,6 +11,7 @@ namespace Sanctuary;
 public static class CreatureHitRecovery
 {
     private static readonly Dictionary<string, int> _divisors = new(StringComparer.Ordinal);
+    private static readonly Dictionary<string,string> _classes=new(StringComparer.Ordinal);
     private sealed record WeaponHitClass(string Code, string HitClass, int Divisor);
     public static void Configure()
     {
@@ -21,6 +22,7 @@ public static class CreatureHitRecovery
                 throw new InvalidOperationException("Invalid D2 weapon hit class divisor.");
             }
             _divisors.Add(row.Code, row.Divisor);
+            _classes.Add(row.Code,row.HitClass);
         }
         ClassCombatHooks.CreatureRecoveryRemaining = Remaining;
         ClassCombatHooks.CreatureDamaged = Apply;
@@ -50,6 +52,17 @@ public static class CreatureHitRecovery
     }
     public static int Divisor(Mobile attacker) => attacker?.Weapon is BaseWeapon weapon
         && ClassGear.Base(weapon) is { } basis && _divisors.TryGetValue(basis.Code, out int divisor) ? divisor : 16;
+    // Pinned UNITS_GetHitClass/ITEMS_GetHitClassFromItem and D2C_HitClasses.
+    // Native art/animation families do not establish a source hit class.
+    internal static int PlayerHitClass(PlayerMobile player)
+    {
+        var weapon=CombatTiming.Equipped(player);if(weapon==null){return 1;}
+        if(ClassGear.Base(weapon) is not{} basis||!_classes.TryGetValue(basis.Code,out string value))
+        {throw new NotSupportedException("Player weapon has no pinned hit class");}
+        return value switch
+        {"hth"=>1,"1hss"=>2,"1hsl"=>3,"2hss"=>4,"2hsl"=>5,"1ht"=>6,"2ht"=>7,"club"=>8,"staf"=>9,"bow"=>10,"xbow"=>11,
+            _=>throw new NotSupportedException("Unsupported player weapon hit class: "+value)};
+    }
     // Called after final damage is applied; pure poison and periodic damage are excluded by callers.
     public static void Apply(BaseCreature creature, Mobile attacker, int damage, bool weaponDamage = false)
     {
