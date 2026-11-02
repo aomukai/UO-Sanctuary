@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "completeFunctions": [
+    "MISSMODE_FistOfTheHeavensDelay_AuraCallback",
+    "MISSMODE_SrvHit22_FistOfTheHeavensDelay"
+  ],
+  "sourceHashes": {
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "cases": 1512,
+  "established": [
+    "Complete hit22guards preserve target-missing return0versus other refusal return1. Positive row radius/cap override formulas;otherwise each formula clamps to at least1. Zero aura filter selects0xA683.",
+    "Fill then flags/damage service precedes optional nonhireling monster armor change,then original delay-origin search and capped child callbacks. Positive/negative armor changes clamp at0. Search origin stays100/200while the resolved target is130/240."
+  ],
+  "declaredServices": [
+    "Fill/SetDamageFlags are declared trace services,not executed damage/HP pipelines. The search service supplies six ordered candidates and increments counter for callback return1. This does not prove native search order or current engine behavior.",
+    "Skill121/rank7,formula IDs and child998are controlled inputs. Nested table/stat/target/factory services and owner/room/element/potion/seed/event/lifecycle contracts remain separately reviewed."
+  ],
+  "artifacts": {
+    "tools/probe_heaven_fist_delay.py": "c03c322a4f7beb164f4424af38e2b2808c2886ef449251dd5af0c3c09372489d",
+    "tools/probe_blessed_hammer_damage.py": "0dd100352d52b2431eda66cc0c18fbfca00b752bcd4fd6dd28c2eb4dfc6029ce",
+    ".local/class-skills/heaven-fist-contact/delay-source/heaven-fist-delay.cpp": "f5e6bae70e17d920cde3ad5b015a91c10a35633c62a713477c4442ce50fd893c",
+    ".local/class-skills/heaven-fist-contact/delay-source/heaven-fist-delay": "b014de4f8c2bcb4f387ff32afd10454eef449585466e80ac140fc15b871e1d45",
+    ".local/class-skills/heaven-fist-contact/delay-source/cases.json": "ebc4a821047589753a96ae6e76fd492a1fb1544a362899b202de906893ca1551",
+    ".local/class-skills/heaven-fist-contact/delay-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

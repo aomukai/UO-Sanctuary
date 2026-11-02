@@ -53,6 +53,8 @@ public static class PaladinCombat
         if(!Available(owner,ability) || !ValidTarget(owner,ability,selected,point) || !FireGround.Ready(owner,ability)){return false;}
         if(ability==CombatAbility.Smite&&World.FindMobile(selected) is BaseCreature smiteTarget&&!PaladinSmite.Ready(owner,smiteTarget)){return false;}
         var values=SkillMechanics.Values(owner,ability);
+        if(ability==CombatAbility.FistOfTheHeavens)
+        {try{return HeavenFistDamage.Release(owner,World.FindMobile(selected),values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.BlessedHammer)
         {try{return BlessedHammerDamage.Release(owner,values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.HolyBolt)
@@ -61,7 +63,6 @@ public static class PaladinCombat
         if(ability==CombatAbility.Smite)
         {try{return PaladinSmite.Strike(owner,World.FindMobile(selected) as BaseCreature,values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.HolyShield){HolyShields.Cast(owner,values);}
-        else if(ability==CombatAbility.FistOfTheHeavens){HeavenFists.Cast(owner,World.FindMobile(selected),values);FireGround.Delay(owner,ability);}
         else{HolyBolts.Cast(owner,point,values);}
         owner.PlaySound(0x1E5);return true; // Placeholder cast sound.
     }

@@ -1,5 +1,7 @@
 # Skill icons
 
+FoH primary receiver review (2026-11-03): final talent-tree and left/right/quick artwork remain pending under existing placeholders. Captured primary damage, impact potion additions and save/identity handling add no new player action or icon. See [checkpoint](paladin-heaven-fist-damage-checkpoint.md).
+
 Hammer curved source-flight review (2026-11-03): existing talent-tree and left/right/quick artwork remains pending. Saved path/RNG and collider/lifecycle cleanup add no skill or icon. FoH startup preparation adds no player action; its existing talent/hotkey icon requirements remain unchanged.
 
 Blessed Hammer damage/capture review (2026-11-03): existing talent-tree and left/right/quick bindings retain their placeholders. Final talent/hotkey artwork remains pending; captured Concentration, typed damage and potion additions introduce no new skill or icon.

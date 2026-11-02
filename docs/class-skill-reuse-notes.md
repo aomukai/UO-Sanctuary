@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+FoH delayed primary review (2026-11-03): reuse `InstantSpellNpcDamage`, captured modifiers/slow payloads, `PreparedMonsterDamage.ReleaseMissile` and impact-time T29 rather than retaining a separate scalar lightning receiver. Capture before payment, validate restores atomically and freeze persistence on the main thread. A saved dead or missing primary needs its own identity bridge before serial reuse. Inspection-only native test connections must authenticate and detach too: an unseeded socket triggers the five-second silent-connect auto-denylist. Preserve that diagnostic and security settings; correct the fixture. See [checkpoint](paladin-heaven-fist-damage-checkpoint.md).
+
 Hammer source motion (2026-11-03): reuse the complete `SourceActorMotion` kernel for path14rather than creating another curved stepper. Actors retain their tested mask blocking;missiles pass unit masks and stop on wall/barrier bits1/4. The unchanged actor3240context/64800frame regression accompanies Hammer108context/12960frame comparisons. Preserve the optional reconstructed1.13guard conflict:it refuses missile units,while the unchanged1.10branch moves them. Compiler-profile differences and reconstructed Fog trig are explicit source limits,not repairs to extracted bodies or reasons to disable valid moving skills. See [checkpoint](paladin-blessed-hammer-flight-checkpoint.md).
 
 

@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Server.Logging;
 using System.Text.Json;
 using Server;
 using Server.Collections;
@@ -11,11 +13,17 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-public sealed record HeavenStrike(long Id,uint Owner,uint Target,int Map,int Rank,int X,int Y,int Z,int Min256,int Max256,DateTime ImpactUtc,uint Corpse=0);
+public sealed record HeavenStrike(long Id,uint Owner,uint Target,int Map,int Rank,int X,int Y,int Z,int Min256,int Max256,DateTime ImpactUtc,uint Corpse=0)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public HeavenCapture Captured{get;init;}
+}
 public sealed class HeavenFistProfiles:GenericPersistence
 {
+    private HeavenStrike[] _snapshot;
+    public override void Serialize(){_snapshot=HeavenFists.Snapshot();base.Serialize();}
     public HeavenFistProfiles():base("SanctuaryHeavenFists",124){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(HeavenFists.Snapshot()));}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Fist of the Heavens version");}
@@ -25,11 +33,12 @@ public sealed class HeavenFistProfiles:GenericPersistence
 public static class HeavenFists
 {
     private static readonly Dictionary<long,HeavenStrike> _strikes=new();
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(HeavenFists));
     private static readonly List<long> _keys=new();
     private static long _next;
     internal static Func<int,int> Roll=static range=>Utility.Random(range);
     public static HeavenFistProfiles Profiles{get;private set;}
-    public static void Configure()=>Profiles=new();
+    public static void Configure(){Profiles=new();EventSink.WorldLoad+=RestoreReferences;}
     public static void Initialize()=>Timer.StartTimer(TimeSpan.Zero,TimeSpan.FromMilliseconds(40),Tick);
     public static Mobile Acquire(PlayerMobile owner,Point3D cursor)
     {
@@ -59,20 +68,35 @@ public static class HeavenFists
             if(Acquire(owner,point) is not{} target){return false;}
             selected=target.Serial;
         }
+        if(!HeavenFistDamage.Supported(owner,World.FindMobile(selected),out string reason)){owner.SendMessage(0x22,reason);return false;}
         if(!SkillCombat.Begin(owner,CombatAbility.FistOfTheHeavens,selected,point,now,PaladinCombat.ValidTarget)){return false;}
         var session=ClassCombat.For(owner);
         session.PendingLeft=session.HeldAbility==CombatAbility.FistOfTheHeavens && session.HeldAttack;
         return true;
     }
     public static void Cast(PlayerMobile owner,Mobile target,SkillValues values)
+        =>Commit(Prepare(owner,target,values,HeavenFistDamage.Prepare(owner,target,values)));
+    internal static HeavenStrike Prepare(PlayerMobile owner,Mobile target,SkillValues values,PreparedHeavenDamage damage)
     {
-        int Scale(int value)=>(int)Math.Clamp(NamedElements.Enhance(owner,value*(100+CombatPotions.Bonus(owner,"magical-penetration"))/100.0,"ltng"),0,int.MaxValue);
-        long id=++_next;
-        _strikes.Add(id,new(id,owner.Serial.Value,target.Serial.Value,owner.Map.MapID,values.Rank,target.X,target.Y,target.Z,
-            Scale(values.Damage256(false)),Scale(values.Damage256(true)),TimedEffects.Now.AddMilliseconds(NecromancerSummons.Source("fistoftheheavensdelay","Range")*40)));
-        target.FixedEffect(0x3709,10,10,0x481,0); // Placeholder sky-strike warning overlay.
+        var f=new HeavenStrike(checked(_next+1),owner.Serial.Value,target.Serial.Value,owner.Map.MapID,values.Rank,target.X,target.Y,target.Z,
+            damage.Minimum256,damage.Maximum256,TimedEffects.Now.AddMilliseconds(400)){Captured=damage.Capture};Validate(f);return f;
     }
-    private static void Tick()
+    internal static void Commit(HeavenStrike f)
+    {if(f.Id!=checked(_next+1)){throw new InvalidOperationException("Prepared FoH identity changed");}_strikes.Add(f.Id,f);_next=f.Id;
+        World.FindMobile((Serial)f.Target)?.FixedEffect(0x3709,10,10,0x481,0);} // Identified sky warning placeholder.
+    internal static void Cancel(Mobile owner)
+    {if(owner!=null){foreach(var f in Snapshot().Where(f=>f.Owner==owner.Serial.Value&&f.Captured!=null)){_strikes.Remove(f.Id);}}}
+    internal static void RestoreReferences()
+    {
+        var now=TimedEffects.Now;
+        foreach(var f in Snapshot().Where(f=>f.Captured!=null))
+        {
+            if(f.ImpactUtc<=now){_strikes.Remove(f.Id);continue;} // Loaded overdue damage ages harmlessly.
+            if(!f.Captured.TargetDead&&f.Corpse==0&&World.FindMobile((Serial)f.Target)==null)
+            {_strikes[f.Id]=f with{Captured=f.Captured with{TargetLost=true}};Log.Warning("FoH lost saved primary identity:{Strike}/{Target}",f.Id,f.Target);}
+        }
+    }
+    internal static void Tick()
     {
         var now=TimedEffects.Now;_keys.Clear();_keys.AddRange(_strikes.Keys);
         foreach(long id in _keys)
@@ -83,19 +107,32 @@ public static class HeavenFists
                 || owner.Map!=Map.Internal && (owner.Map.MapID!=strike.Map || SpellHelper.IsTown(owner.Location,owner)))
             {_strikes.Remove(id);continue;}
             if(strike.ImpactUtc>now){continue;}
-            _strikes.Remove(id);if(owner.Map==Map.Internal){continue;}
-            Impact(owner,strike);
+            _strikes.Remove(id);if(owner.Map==Map.Internal||strike.Captured!=null&&owner.NetState is not{Running:true}){continue;}
+            try{Impact(owner,strike);}catch(NotSupportedException e){Log.Warning("FoH strike unsupported:{Strike};{Reason}",strike.Id,e.Message);}
         }
     }
     internal static void Impact(PlayerMobile owner,HeavenStrike strike)
     {
-        var primary=World.FindMobile((Serial)strike.Target);
+        if(strike.Captured is{TargetLost:true}){throw new NotSupportedException("FoH primary identity was absent at world load");}
+        var primary=strike.Captured is{TargetDead:true}?null:World.FindMobile((Serial)strike.Target);
         // D2 keeps a dead unit identity; native creatures delete on death. A captured corpse bridges that interval.
-        if(primary==null && (strike.Corpse==0 || World.FindItem((Serial)strike.Corpse) is not Corpse{Deleted:false})){return;}
+        if(primary==null && (strike.Corpse==0 || World.FindItem((Serial)strike.Corpse) is not Corpse{Deleted:false}))
+        {if(strike.Captured!=null){throw new NotSupportedException("FoH missing/no-corpse dead-unit bridge needs its actor adapter");}return;}
+        int prepared=0;
+        if(primary!=null&&strike.Captured is{} captured)
+        {
+            if(ClassCombat.IsHostile(owner,primary)&&!HeavenFistDamage.Supported(owner,primary,out string reason)){throw new NotSupportedException(reason);}
+            ulong seed=captured.Seed;prepared=HeavenFistDamage.Roll(strike.Min256,strike.Max256,ref seed); // Fill precedes block/dodge and alignment refusal.
+        }
         if(primary!=null && ClassCombat.IsHostile(owner,primary) && !SpellHelper.IsTown(primary.Location,primary))
         {
-            int damage=strike.Min256+(strike.Max256>strike.Min256?Roll(strike.Max256-strike.Min256):0);
-            SkillCombat.LightningImpact(owner,primary,damage);
+            if(strike.Captured is{} c)
+            {
+                if(!HeavenFistDamage.Supported(owner,primary,out string reason)){throw new NotSupportedException(reason);}
+                SorceressEffects.MissileHit(owner,primary,"fistoftheheavensdelay");
+                if(!ClassAvoidance.Missile(primary,"fistoftheheavensdelay")){HeavenFistDamage.Deliver(owner,(BaseCreature)primary,prepared,c,strike.ImpactUtc);}
+            }
+            else{int damage=strike.Min256+(strike.Max256>strike.Min256?Roll(strike.Max256-strike.Min256):0);SkillCombat.LightningImpact(owner,primary,damage);}
         }
         // A surviving converted/friendly primary or a dead target still permits the original-position burst.
         var values=SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,strike.Rank);
@@ -115,18 +152,22 @@ public static class HeavenFists
     {
         using var rows=PooledRefList<HeavenStrike>.Create();
         foreach(var strike in _strikes.Values){if(strike.Target==target.Serial.Value){rows.Add(strike);}}
-        foreach(var strike in rows){_strikes[strike.Id]=strike with{Corpse=corpse.Serial.Value};}
+        foreach(var strike in rows){_strikes[strike.Id]=strike with{Corpse=corpse.Serial.Value,Captured=strike.Captured is{} c?c with{TargetDead=true}:null};}
     }
     public static HeavenStrike[] Snapshot()=>new List<HeavenStrike>(_strikes.Values).ToArray();
+    private static void Validate(HeavenStrike f)
+    {
+        if(f==null||f.Id<=0||f.Owner==0||f.Target==0||f.Rank<1||f.Min256<0||f.Max256<f.Min256
+            ||f.Captured is{} c&&(f.Rank>255||!((Serial)f.Owner).IsMobile||!((Serial)f.Target).IsMobile||f.Corpse!=0&&!((Serial)f.Corpse).IsItem
+                ||f.Map<0||f.Map>=Map.Maps.Length||Map.Maps[f.Map]==null||Map.Maps[f.Map]==Map.Internal||f.X<=0||f.Y<=0||f.X>=Map.Maps[f.Map].Width||f.Y>=Map.Maps[f.Map].Height
+                ||f.Z is <-128 or >127||f.ImpactUtc.Kind!=DateTimeKind.Utc||c.Modifiers==null||c.Modifiers.Potion!=0||c.Slow.VelocityPercent!=100||c.Slow.DamagePercent is <0 or >100))
+        {throw new InvalidDataException("Invalid Fist of the Heavens strike");}
+    }
     public static void Restore(HeavenStrike[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing Fist of the Heavens strikes");}
-        _strikes.Clear();_next=0;
-        foreach(var strike in saved)
-        {
-            if(strike.Id<=0 || strike.Owner==0 || strike.Target==0 || strike.Rank<1 || strike.Min256<0 || strike.Max256<strike.Min256 || !_strikes.TryAdd(strike.Id,strike))
-            {throw new InvalidDataException("Invalid Fist of the Heavens strike");}
-            _next=Math.Max(_next,strike.Id);
-        }
+        var next=new Dictionary<long,HeavenStrike>();long nextId=0;
+        foreach(var f in saved){Validate(f);if(!next.TryAdd(f.Id,f)){throw new InvalidDataException("Duplicate Fist of the Heavens strike");}nextId=Math.Max(nextId,f.Id);}
+        _strikes.Clear();foreach(var pair in next){_strikes.Add(pair.Key,pair.Value);}_next=nextId;
     }
 }

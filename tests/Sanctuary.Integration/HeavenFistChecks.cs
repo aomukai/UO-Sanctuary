@@ -18,6 +18,7 @@ public static class HeavenFistChecks
     public static void Configure(){Register("heaven-fist-check",Check);Register("heaven-fist-reload-check",Reload);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Fist of the Heavens primary, secondary and persistence checks",
         _=>Core.LoopContext.Post(()=>{try{action();_log.Information("{Name}: passed",name);}catch(Exception e){_log.Error(e,"{Name}: failed",name);}}));
+    private static void Legacy(PlayerMobile owner)=>HeavenFists.Restore(HeavenFists.Snapshot().Select(f=>f.Owner==owner.Serial.Value?f with{Captured=null}:f).ToArray());
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static void Later(int ms,string result,Action action)=>Timer.StartTimer(TimeSpan.FromMilliseconds(ms),()=>
     {try{action();}catch(Exception e){_log.Error(e,"{Name}: failed",result);}});
@@ -120,7 +121,7 @@ public static class HeavenFistChecks
         Require(ClassCombat.ResolveAction(owner,action.EffectAt) && NecromancerEffects.ManaBalance256(owner)==mana-6400,"Primary release/cost");
         Require(!FireGround.Ready(owner,CombatAbility.FistOfTheHeavens) && FireGround.Ready(owner,CombatAbility.HolyBolt)
             && FireGround.Snapshot().Cooldowns.Single(x=>x.Owner==owner.Serial.Value && x.Ability==CombatAbility.FistOfTheHeavens).UntilUtc<TimedEffects.Now.AddMilliseconds(450),"Independent ten-frame local cooldown");
-        var strike=HeavenFists.Snapshot().Single(x=>x.Owner==owner.Serial.Value);
+        Legacy(owner);var strike=HeavenFists.Snapshot().Single(x=>x.Owner==owner.Serial.Value);
         Require(strike.X==owner.X+6 && strike.Min256==41088 && strike.Max256==54784 && strike.ImpactUtc>TimedEffects.Now.AddMilliseconds(300),"Held primary rank/damage/origin/delay");
         primary.MoveToWorld(new(owner.X+5,owner.Y,owner.Z),owner.Map);
         Require(ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.holyshock",out _) && ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.holybolt",out _)
@@ -152,7 +153,7 @@ public static class HeavenFistChecks
     }
     private static void Lifecycle(PlayerMobile owner,BaseCreature primary,PlayerMobile ally,Action<HeavenStrike> finish)
     {
-        HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));
+        HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));Legacy(owner);
         var converted=HeavenFists.Snapshot().Single(x=>x.Owner==owner.Serial.Value);
         HeavenFists.Restore(HeavenFists.Snapshot().Where(x=>x.Id!=converted.Id).ToArray());
         int hp=primary.Hits;Require(primary.SetControlMaster(ally),"Converted primary fixture");
@@ -163,7 +164,7 @@ public static class HeavenFistChecks
         }
         finally{primary.SetControlMaster(null);ClearBolts(owner);}
         var victim=Place(owner,new GraveyardSkeleton(),6,3);Corpse corpse=null;
-        HeavenFists.Cast(owner,victim,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));
+        HeavenFists.Cast(owner,victim,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));Legacy(owner);
         var previous=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(actor,body)=>{previous?.Invoke(actor,body);if(actor==victim){corpse=body as Corpse;corpse?.DropItem(new Gold(7));}};
         try{owner.DoHarmful(victim,true);victim.Damage(victim.Hits+1,owner);CombatDamage.Finish(victim,owner);}
@@ -196,7 +197,7 @@ public static class HeavenFistChecks
     private static void Seed(PlayerMobile owner,BaseCreature primary,BaseCreature undead,BaseCreature demon,PlayerMobile ally,BaseCreature pet,HeavenStrike dead)
     {
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
-        var at=TimedEffects.Now.Add(FixtureSpace.Retention);HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));
+        var at=TimedEffects.Now.Add(FixtureSpace.Retention);HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));Legacy(owner);
         var strike=HeavenFists.Snapshot().Single(x=>x.Owner==owner.Serial.Value) with{ImpactUtc=at,Min256=2560,Max256=2560};Replace(strike);
         dead=dead with{ImpactUtc=at.AddSeconds(1)};Replace(dead);
         // Keep the real corpse for serialization inspection beyond the full
