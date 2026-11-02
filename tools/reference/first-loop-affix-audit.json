@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "3889190fc88ec6ef541000f3dcc804b2e7d6f131955baf167dc69c12f816cfed",
-  "ContentAssemblyPath": ".local/class-skills/heaven-fist-contact/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "b5f67a9922cb5dc74f1cac058ef6de2c5395a69e15fe633822389723bb8226a1",
+  "ContentAssemblyPath": ".local/class-skills/heaven-bolt/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

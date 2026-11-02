@@ -204,7 +204,7 @@ public static class HeavenFistChecks
         // three-boot suite; production NPC corpse decay remains seven minutes.
         Require(World.FindItem((Serial)dead.Corpse) is Corpse{Deleted:false},"Missing corpse before inspection hold");
         ((Corpse)World.FindItem((Serial)dead.Corpse)).BeginDecay(TimeSpan.FromHours(1));
-        HolyBolts.CastSecondary(owner,new(owner.X+11,owner.Y,owner.Z),demon.Location,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1),at);
+        HolyBolts.CastSecondaryLegacy(owner,new(owner.X+11,owner.Y,owner.Z),demon.Location,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1),at);
         var bolt=HolyBolts.Snapshot().Single(x=>x.Owner==owner.Serial.Value) with{Frame=2,Min256=2560,Max256=2560,LastCollision=undead.Serial.Value};Replace(bolt);
         var state=FireGround.Snapshot();FireGround.Restore(state with{Cooldowns=state.Cooldowns.Where(x=>x.Owner!=owner.Serial.Value || x.Ability!=CombatAbility.FistOfTheHeavens).Append(new(owner.Serial.Value,CombatAbility.FistOfTheHeavens,at)).ToArray()});
         var legacy=JsonSerializer.SerializeToNode(bolt with{Ability=CombatAbility.HolyBolt}).AsObject();legacy.Remove("Ability");

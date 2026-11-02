@@ -59,17 +59,29 @@ public static class HolyBolts
             long value=(long)SkillValues.Tier(NecromancerSummons.Source(missile,maximum?"EMax":"EMin"),values.Rank,
                 tier=>NecromancerSummons.Source(missile,prefix+"ELev"+tier))<<NecromancerSummons.Source(missile,"HitShift",8);
             value=value*(100+NecromancerSummons.Formula(missile,"EDmgSymPerCalc",values))/100;
-            // Missile has its own magic values and ApplyMastery=0; preserve the approved potion bonus separately.
-            value=value*(100+CombatPotions.Bonus(owner,"magical-penetration"))/100;
+            // ApplyMastery=0: factory-time hard synergy, no item mastery or
+            // launch potion scalar. Approved T29 additions occur at impact.
             return (int)Math.Clamp(value,0,int.MaxValue);
         }
         return(Damage(false),Damage(true));
     }
     public static void CastSecondary(PlayerMobile owner,Point3D origin,Point3D aim,SkillValues values,DateTime at)
     {
+        HolyBoltDamage.Route(values);int dx=aim.X-origin.X,dy=aim.Y-origin.Y;if(dx==0&&dy==0){dx=dy=1;}
+        var slow=AmazonSlowMissiles.Capture(owner,true);var mods=DruidFirestorm.Modifiers(owner) with{Potion=0};
+        var damage=SecondaryDamage(owner,values);int speed=SlowMissilePayload.VelocityFp8(12,0,values.Rank,33,0,true,slow.VelocityPercent);
+        var velocity=MissileVectors.VelocityFp8(dx,dy,speed);long id=checked(_next+1);
+        var f=new HolyBoltFlight(id,owner.Serial.Value,owner.Map.MapID,values.Rank,origin.X,origin.Y,origin.Z,velocity.X,velocity.Y,
+            0,slow.Damage256(damage.Min),slow.Damage256(damage.Max),0,at.AddMilliseconds(Frames*40),at.AddMilliseconds(40),CombatAbility.FistOfTheHeavens)
+            {Captured=new(mods,slow),Motion=new(speed,SourceRandom.InitLow(HolyBoltFlights.SeedLow()),new([new(origin.X*2,origin.Y*2)]))};
+        HolyBoltFlights.Validate(f);_flights.Add(id,f);_next=id;
+    }
+    internal static void CastSecondaryLegacy(PlayerMobile owner,Point3D origin,Point3D aim,SkillValues values,DateTime at)
+    {
         int dx=aim.X-origin.X,dy=aim.Y-origin.Y;if(dx==0 && dy==0){dx=dy=1;}
         var velocity=MissileVectors.Velocity(dx,dy,NecromancerSummons.Source("fistoftheheavensbolt","Vel"));
-        var damage=SecondaryDamage(owner,values);long id=++_next;
+        var raw=SecondaryDamage(owner,values);int bonus=CombatPotions.Bonus(owner,"magical-penetration");
+        var damage=(Min:(int)Math.Clamp((long)raw.Min*(100+bonus)/100,0,int.MaxValue),Max:(int)Math.Clamp((long)raw.Max*(100+bonus)/100,0,int.MaxValue));long id=++_next;
         _flights.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,origin.X,origin.Y,origin.Z,velocity.X,velocity.Y,
             0,damage.Min,damage.Max,0,at.AddMilliseconds(NecromancerSummons.Source("fistoftheheavensbolt","Range")*40),at,CombatAbility.FistOfTheHeavens));
     }
@@ -104,9 +116,9 @@ public static class HolyBolts
         {
             if(!HolyBoltDamage.Supported(owner,target,out string reason))
             {owner.SendMessage(0x22,reason);return;}
-            SorceressEffects.MissileHit(owner,target,"holybolt");
-            if(ClassAvoidance.Missile(target,"holybolt")){return;}
-            HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),captured,TimedEffects.Now);return;
+            string capturedMissile=Missile(flight.Ability);SorceressEffects.MissileHit(owner,target,capturedMissile);
+            if(ClassAvoidance.Missile(target,capturedMissile)){return;}
+            HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),captured,TimedEffects.Now,flight.Ability);return;
         }
         string missile=Missile(flight.Ability);SorceressEffects.MissileHit(owner,target,missile);
         int holy=NecromancerSummons.Source(missile,"Holy");
@@ -168,7 +180,7 @@ public static class HolyBolts
             if(flight==null||flight.Ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)
                 || flight.Id<=0 || flight.Owner==0 || flight.Rank<1 || flight.Frame<0 || flight.Frame>=NecromancerSummons.Source(Missile(flight.Ability),"Range") || flight.Min256<0 || flight.Max256<flight.Min256
                 || !double.IsFinite(flight.X+flight.Y+flight.Vx+flight.Vy) || flight.Motion==null&&flight.Vx==0&&flight.Vy==0
-                || flight.Captured is{} captured&&(flight.Ability!=CombatAbility.HolyBolt||flight.Rank>255||captured.Modifiers==null||captured.Modifiers.Potion!=0
+                || flight.Captured is{} captured&&(flight.Rank>255||captured.Modifiers==null||captured.Modifiers.Potion!=0
                     ||captured.Slow.VelocityPercent is <0 or >100||captured.Slow.DamagePercent is <0 or >100)
                 || !next.TryAdd(flight.Id,CopyChecked(flight)))
             {throw new InvalidDataException("Invalid holy bolt");}

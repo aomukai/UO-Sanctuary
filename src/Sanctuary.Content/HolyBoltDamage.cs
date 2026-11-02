@@ -6,27 +6,34 @@ namespace Sanctuary;
 
 public sealed record HolyBoltCapture(FirestormModifiers Modifiers,SlowMissilePayload Slow);
 
-// Ordinary Holy Bolt's typed recipient service. FoH secondary/old saved
-// flights retain their existing receiver until separately migrated.
+// Shared typed holy receiver; the original magic bypass and ally policy
+// are selected by the parent skill. Old uncaptured rays retain compatibility.
 internal static class HolyBoltDamage
 {
     internal static void Route(SkillValues values)
     {
-        int M(string field)=>NecromancerSummons.Source("holybolt",field);
-        var row=SkillMechanics.For(CombatAbility.HolyBolt);
-        if(values.Ability!=CombatAbility.HolyBolt||values.Rank is <1 or >255||row.SourceId!=101||row.Text("srvmissile")!="holybolt"||row.Text("EType")!="mag"
+        bool secondary=values.Ability==CombatAbility.FistOfTheHeavens;
+        string missile=HolyBolts.Missile(values.Ability);int M(string field)=>NecromancerSummons.Source(missile,field);
+        var row=SkillMechanics.For(values.Ability);int speed=secondary?12:20;
+        if(values.Ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)||values.Rank is <1 or >255
+            ||(secondary?row.SourceId!=121||row.Text("srvmissilea")!="fistoftheheavensdelay"||row.Text("EType")!="ltng"||M("ApplyMastery")!=0||row.Number("TargetAlly")!=0||row.Number("TargetPet")!=0
+                :row.SourceId!=101||row.Text("srvmissile")!="holybolt"||row.Text("EType")!="mag")
             ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=7||M("pSrvDmgFunc")!=15||M("sHitPar1")!=1||M("sHitPar2")!=3||M("sHitPar3")!=0||M("dParam1")!=0
-            ||M("Holy")!=1||M("Vel")!=20||M("MaxVel")!=20||M("Range")!=50||M("CanSlow")!=1||M("GetHit")!=1||M("ResultFlags")!=4||M("HitFlags")!=0||M("HitClass")!=0)
+            ||M("Holy")!=(secondary?3:1)||M("Vel")!=speed||M("MaxVel")!=speed||M("Range")!=50||M("Activate")!=(secondary?2:0)||M("InitSteps")!=1
+            ||M("CanSlow")!=1||M("GetHit")!=1||M("ResultFlags")!=4||M("HitFlags")!=0||M("HitClass")!=0)
         {throw new NotSupportedException("Unsupported pinned Holy Bolt route");}
+        if(NecromancerSummons.Fields(missile)["EType"].GetString()!="mag"
+            ||secondary&&NecromancerSummons.Fields("fistoftheheavensdelay")["HitSubMissile1"].GetString()!=missile)
+        {throw new NotSupportedException("Unsupported pinned holy child factory");}
     }
     internal static bool Supported(PlayerMobile owner,Mobile actor,out string reason)
         =>InstantSpellNpcDamage.Supported(owner,actor,"Holy Bolt",out reason);
-    internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,int magic256,HolyBoltCapture captured,DateTime at)
+    internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,int magic256,HolyBoltCapture captured,DateTime at,CombatAbility ability=CombatAbility.HolyBolt)
     {
         if(!Supported(owner,target,out string reason)||!HolyBolts.FullDamage(target)||ClassCombat.Friendly(owner,target)
-            ||magic256<0||captured?.Modifiers==null||at.Kind!=DateTimeKind.Utc)
+            ||ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)||magic256<0||captured?.Modifiers==null||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException(reason??"Unsupported Holy Bolt damage recipient/capture");}
-        bool bypass=GemCombat.Undead(target); // Pinned Holy1,not a demon bypass.
+        bool bypass=GemCombat.Undead(target)||ability==CombatAbility.FistOfTheHeavens&&NamedCombat.Demon(target); // Holy1 versus Holy3.
         PreparedMonsterDamagePacket Mitigate(PreparedMonsterDamagePacket packet)
         {
             var mods=captured.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};

@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0"
+  },
+  "routineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "SKILLS_CurseStateCallback_DefensiveBuff": "f652788863509aad517a2ec9efeb407d03e3e4cd37ecc585c1156d8797d03704",
+    "SKILLS_SrvDo018_DefensiveBuff": "14356a01a90b9150a1333683ab2e7538f77168c54dc13e71de891ebee9fc1fbc",
+    "SKILLS_SrvSt36_HolyShield": "7aa26b4adeb2da0fde874e583b3c5243db945ce6d2f062123710d7cbb304a1b6"
+  },
+  "currentTables": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "cases": 480,
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete start wrapper plus actual shield gate admits valid inventory/shield after mana readiness;ordinary success calls mana consumption at start. The bypass flag skips readiness/payment as explicitly controlled,not as granted-skill permission proof.",
+    "Complete generic do wrapper with nonnull start36and UseManaOnDo0does not consume again. Complete do18/shared list with ungrouped state101refuses a weaker same-skill list,refreshes equal rank and replaces higher rank. A weaker effect can fail after a successful already-paid start.",
+    "Losing the shield between start and do does not itself stop this do18body;shield-dependent defense/block/Smite consumers remain separate. Group1cold state is not cleared by ungrouped Holy Shield."
+  ],
+  "declaredServices": [
+    "Pinned older engine plus current table route,not modern executable or outer animation/mode/input proof. Real mana arithmetic is a call-count service;list/store,formula,room,flags and inventory access are controlled. Numeric formula750is an input and does not execute current rank-duration arithmetic.",
+    "No LOS branch,periodic skill,event subscription/priority,allocation failure,charges,item-only permission,delay or graphical client is exercised. Unused collision/mode constants are opaque service scaffolding,not a current geometry mapping."
+  ],
+  "artifacts": {
+    "tools/probe_holy_shield_cast.py": "d72f52be93715dc371b8ee8c15c1c2743d6a4646ceb64cd363c50aec69a8dc70",
+    "tools/review_weapon_event_order.py": "bd2fe064c894b1e1c42cc5a31e31b9ea1f4bd2ba74f307d0cad2524f21962daa",
+    "tools/reference/cold-armor-source-evidence.json": "b303dbae1fb82c182a1ad61da5b163b724c661ef73ae376d360a1985b5de1c85",
+    "tools/reference/buff-payment-source-evidence.json": "51b360bdd3615d1044d915f2b9a527ce8ed3e309a2cddf80c3cc31b1c3688aab",
+    ".local/class-skills/cold-armor-source/probe.cpp": "c98f77481eaa4267e2dac719d4717a633816eab99a0abcfbd0bc1ff7884fd9dc",
+    ".local/class-skills/buff-payment-source/probe.cpp": "04c7de0ffb523fd010fc034b8829680280902e1217237507aad03444c5e05756",
+    ".local/class-skills/holy-shield-cast-source/probe.cpp": "80d00b7b93edce6544826544410df29671c74d634d3d2023f7a3428a95aafa50",
+    ".local/class-skills/holy-shield-cast-source/probe": "c07044a65234291353c72f665965f2ab4a9b1dd76dfaf4549a0db7d76768a361",
+    ".local/class-skills/holy-shield-cast-source/cases.json": "be3f9739c157987bc5cf06fb720b720ff7322ae686dd813976c4a5f0de574a76",
+    ".local/class-skills/holy-shield-cast-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

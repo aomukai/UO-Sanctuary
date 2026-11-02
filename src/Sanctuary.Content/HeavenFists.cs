@@ -145,7 +145,9 @@ public static class HeavenFists
             if(ClassCombat.IsHostile(owner,target) && Math.Abs(target.Z-origin.Z)<16 && dx*dx+dy*dy<=radius*radius
                 && !SpellHelper.IsTown(target.Location,target)){targets.Add(target);if(targets.Count>=count){break;}}
         }
-        foreach(var target in targets){HolyBolts.CastSecondary(owner,origin,target.Location,values,strike.ImpactUtc);}
+        foreach(var target in targets)
+        {if(strike.Captured==null){HolyBolts.CastSecondaryLegacy(owner,origin,target.Location,values,strike.ImpactUtc);}
+            else{HolyBolts.CastSecondary(owner,origin,target.Location,values,strike.ImpactUtc);}}
         Effects.SendLocationEffect(origin,owner.Map,0x3709,10,10,0x481,0); // Placeholder strike/burst. Native query order is provisional.
     }
     public static void CaptureDeath(BaseCreature target,Corpse corpse)

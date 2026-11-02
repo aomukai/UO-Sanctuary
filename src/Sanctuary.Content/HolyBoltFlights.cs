@@ -11,7 +11,7 @@ namespace Sanctuary;
 
 public sealed record HolyBoltMotion(int VelocityFp8,ulong Seed,SourceStepTrace Steps,string Fault=null);
 
-// Ordinary Holy Bolt's saved do1 consumer. Hit7's ally/species/piercing
+// Holy Bolt/FoH's saved do1 consumer. Hit7's ally/species/piercing
 // contract is distinct from enemy-only Sorceress/Necromancer consumers.
 internal static class HolyBoltFlights
 {
@@ -33,13 +33,14 @@ internal static class HolyBoltFlights
     }
     internal static void Validate(HolyBoltFlight f)
     {
-        if(f?.Motion is not{} m||f.Ability!=CombatAbility.HolyBolt||f.Captured is not{Modifiers:not null} c||f.Id<=0||!((Serial)f.Owner).IsMobile||f.Rank is <1 or >255
+        int basis=f?.Ability==CombatAbility.FistOfTheHeavens?12:20;double maximum=basis*.0234375;
+        if(f?.Motion is not{} m||f.Ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)||f.Captured is not{Modifiers:not null} c||f.Id<=0||!((Serial)f.Owner).IsMobile||f.Rank is <1 or >255
             ||f.Map<0||f.Map>=Map.Maps.Length||Map.Maps[f.Map]==null||Map.Maps[f.Map]==Map.Internal||f.Z is <-128 or >127
             ||!double.IsFinite(f.X+f.Y+f.Vx+f.Vy)||f.X<=0||f.Y<=0||f.X>=Map.Maps[f.Map].Width||f.Y>=Map.Maps[f.Map].Height
-            ||Math.Abs(f.Vx)>.46875||Math.Abs(f.Vy)>.46875||f.Frame is <0 or >=50||f.Min256<0||f.Max256<f.Min256
+            ||Math.Abs(f.Vx)>maximum||Math.Abs(f.Vy)>maximum||f.Frame is <0 or >=50||f.Min256<0||f.Max256<f.Min256
             ||f.LastCollision!=0&&!((Serial)f.LastCollision).IsMobile||f.NextUtc.Kind!=DateTimeKind.Utc||f.UntilUtc.Kind!=DateTimeKind.Utc
             ||f.NextUtc>DateTime.MaxValue.AddMilliseconds(-2000)||c.Modifiers.Potion!=0||c.Slow.VelocityPercent is <0 or >100||c.Slow.DamagePercent is <0 or >100
-            ||m.VelocityFp8!=SlowMissilePayload.VelocityFp8(20,0,f.Rank,33,0,true,c.Slow.VelocityPercent)
+            ||m.VelocityFp8!=SlowMissilePayload.VelocityFp8(basis,0,f.Rank,33,0,true,c.Slow.VelocityPercent)
             ||m.Steps?.Cells is not{Length:>=1 and <=10}||m.Steps.Cells.Any(p=>p.X<0||p.Y<0||p.X>=Map.Maps[f.Map].Width*2||p.Y>=Map.Maps[f.Map].Height*2))
         {throw new InvalidDataException("Invalid saved Holy Bolt source flight");}
     }
@@ -49,15 +50,16 @@ internal static class HolyBoltFlights
         int Sample(int min,int max)=>min+(max>min?(int)SourceRandom.Limited(ref seed,max-min):0);
         if(ClassCombat.Friendly(owner,target))
         {
-            var row=SkillMechanics.For(CombatAbility.HolyBolt);
+            var row=SkillMechanics.For(flight.Ability);
             if(target is PlayerMobile?row.Number("TargetAlly")==0:row.Number("TargetPet")==0){return seed;}
             var heal=HolyBolts.Healing(owner,flight.Rank);SkillHealth.Heal(target,Sample(heal.Min,heal.Max));
             target.FixedEffect(0x376A,10,10,0x481,0);return seed; // Identified healing placeholder.
         }
         if(!HolyBolts.FullDamage(target)){return seed;}
         if(!HolyBoltDamage.Supported(owner,target,out string reason)){throw new NotSupportedException(reason);}
-        SorceressEffects.MissileHit(owner,target,"holybolt");if(ClassAvoidance.Missile(target,"holybolt")){return seed;}
-        HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),flight.Captured,at);return seed;
+        string missile=HolyBolts.Missile(flight.Ability);
+        SorceressEffects.MissileHit(owner,target,missile);if(ClassAvoidance.Missile(target,missile)){return seed;}
+        HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),flight.Captured,at,flight.Ability);return seed;
     }
     private static void Advance(HolyBoltFlight f,DateTime at,bool? actions)
     {
@@ -100,7 +102,7 @@ internal static class HolyBoltFlights
             {ulong seed=Impact(owner,target,f,f.NextUtc);next=next with{LastCollision=serial,Motion=next.Motion with{Seed=seed}};}
             return 1; // Modern sHitPar3=0:unit collisions never consume the flight.
         }
-        var result=BasicMissileUpdate.Run(new(true,true,f.Motion.VelocityFp8,50-f.Frame,2,50,true),
+        var result=BasicMissileUpdate.Run(new(true,true,f.Motion.VelocityFp8,50-f.Frame,2,50-NecromancerSummons.Source(HolyBolts.Missile(f.Ability),"Activate"),true),
             new(Move,_=>{},()=>true,()=>true,()=>2,()=>next.Motion.Steps.Cells,
                 cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,Hit));
         if(removed||barrier||result.Result==2){HolyBolts.Remove(f.Id);return;}
