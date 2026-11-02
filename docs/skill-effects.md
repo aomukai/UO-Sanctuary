@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Sentry retirement (2026-11-03 JST).** Logic can retain an invisible original dead actor for released missiles. UO bolt effect0x3818/hue0x482 remains an identified placeholder; final emergence, firing, impact and collapse effects/audio remain pending. No corpse-retention art or imagegen completion is implied. See [checkpoint](sentry-corpse-pool-checkpoint.md).
+
 **Learned Blade Sentinel (2026-11-03 JST).** S2 native throw animation, sound0x23B and actor body0x9C hue0x481 are identified placeholders. Final summon/emergence/blade motion/contact/expiry effects and audio remain pending; no final imagegen work. The generated entry is updated independently of icons. See [checkpoint](assassin-blade-cast-checkpoint.md).
 
 **Slow Missiles prepared release (2026-11-03 JST).** Identified caster placeholder: UO0x375A hue0x481. Final cast_slowmissiles, innersight target overlay and amazon_handofathena audio remain pending alongside the existing logical projectile markers. The generated effect entry is updated; icons remain separate. See [checkpoint](amazon-slow-missiles-cast-checkpoint.md).

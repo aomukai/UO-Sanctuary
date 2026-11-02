@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "reader": {
+    "library": "https://github.com/ladislav-zezula/CascLib",
+    "commit": "38a34665624b8775bb875274b36191b21c38d97b",
+    "build": "Release static, Linux compatibility compiler define LPDWORD=PDWORD; no source body patch",
+    "sourcePath": ".local/class-skills/casc-reference-reader.cpp",
+    "sourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "open": "CascOpenStorage local/offline default flags0; CascOpenFile by name with CASC_STRICT_DATA_CHECK, no encrypted-zero override or downloads",
+    "binarySha256": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063"
+  },
+  "files": {
+    "data/files/monstats2.js": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/data/files/monstats2.js",
+      "archivePath": "data:data/global/dataguide/data/files/monstats2.js",
+      "bytes": 37366,
+      "sha256": "75eeaac7ea14c9217c78712b1e0103411deb1f2afb487b00ad58975fe460654d"
+    },
+    "data/files/skills.js": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/data/files/skills.js",
+      "archivePath": "data:data/global/dataguide/data/files/skills.js",
+      "bytes": 316858,
+      "sha256": "c134187597a74a776f35fb84e6430d10e37563237a4def5f89a4bce692c2febb"
+    },
+    "data/files/monai.js": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/data/files/monai.js",
+      "archivePath": "data:data/global/dataguide/data/files/monai.js",
+      "bytes": 852,
+      "sha256": "b051035fb0ae1ee169b345e70b066286ede7b86ae81bde9291220e81b1ee88b1"
+    },
+    "docs/damage.html": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/docs/damage.html",
+      "archivePath": "data:data/global/dataguide/docs/damage.html",
+      "bytes": 2302,
+      "sha256": "667847a7b1e3bef6e44813c7a261c35f7fe4c248d29e75bab72f7f0545be644d"
+    },
+    "docs/genericpetai.html": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/docs/genericpetai.html",
+      "archivePath": "data:data/global/dataguide/docs/genericpetai.html",
+      "bytes": 40272,
+      "sha256": "b67666bffe2201a8626f84fb92d8aa8d05c70490205494f993dce27838dfba12"
+    },
+    "about.html": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/about.html",
+      "archivePath": "data:data/global/dataguide/about.html",
+      "bytes": 53589,
+      "sha256": "2048329bad9346cb4d942812e09145a35b6c0f59518fe35d90575ad21602ddad"
+    },
+    "changelog.html": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/changelog.html",
+      "archivePath": "data:data/global/dataguide/changelog.html",
+      "bytes": 23204,
+      "sha256": "4c656827df98b90ce53f9fd2bceec7ad4d52f9ab4cec1105748bf4c4766abaf1"
+    },
+    "data/dataguidefieldexport.json": {
+      "path": ".local/research/d2r-3.3.93847/dataguide/data/dataguidefieldexport.json",
+      "archivePath": "data:data/global/dataguide/data/dataguidefieldexport.json",
+      "bytes": 721005,
+      "sha256": "1cc87a4d4af2aee9e4747b7cffcb93e7a94a3c05c2684a4589c26a91edce1aae"
+    }
+  },
+  "documentedCorpsePool": {
+    "capacity": 50,
+    "sharedAcrossFlaggedSpecies": true,
+    "eviction": "oldest first",
+    "timerSpecified": false,
+    "flaggedSpecies": [
+      "bladecreeper",
+      "bloodgolem",
+      "chargeboltsentry",
+      "claygolem",
+      "cycleoflife",
+      "deathsentry",
+      "firegolem",
+      "infernosentry",
+      "lightningsentry",
+      "plaguepoppy",
+      "vinecreature",
+      "wakeofdestruction",
+      "warbighead",
+      "wargoatman",
+      "warputriddefiler"
+    ],
+    "monstats2Sha256": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "documentedStartNames": {
+    "67": "BarStartFrenzy",
+    "68": "BarStartDoubleSwing"
+  },
+  "established": [
+    "The pinned installation includes its guide under data/global/dataguide, rather than the older excel/_diabloiidatafileguide filename. Strict read-only CASC extraction matches executable and build manifest before and after reading.",
+    "The owned current guide documents a common oldest-first corpse pool with capacity50 for the limitCorpses flag. Exactly15current model rows set it,including all five stationary sentries,Blade Sentinel,golems,vines and three Warlock demons;Mages and ordinary skeletons must not be silently added.",
+    "Current guide names starts67/68 and describes frame/attack bookkeeping reset and an attack-rate calculation. This supplements the null older dispatcher slots;it does not establish exact current operation/payment/hand order."
+  ],
+  "limits": [
+    "Documentation contracts are primary shipped reference material,not a captured execution or full code proof. Pool insertion phase,level-unload/GUID removal and all cross-family death adapters still require integration and verification.",
+    "The guide calls the maximum50,but exact append-versus-evict callback ordering needs its own current-code or observable check. No elapsed corpse timer is inferred.",
+    "No complete skill,class certificate,game process launch,debugger,game modification or asset completion follows from this extraction. Raw licensed files remain local and ignored."
+  ]
+}

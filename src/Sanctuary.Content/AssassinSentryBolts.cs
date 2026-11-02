@@ -39,6 +39,7 @@ public static class AssassinSentryBolts
     internal static SentryBoltState State(long id)=>Bolts.GetValueOrDefault(id);
     internal static void Dispatch(AssassinSentryBody body,uint targetSerial)
     {
+        if(body is not{Alive:true,Deleted:false}){throw new InvalidOperationException("A retired sentry cannot launch new bolts");}
         int Field(string name)=>NecromancerSummons.Source("sentrychargedbolt",name);
         if(Field("Size")!=1 || Field("CollideType")!=3 || Field("CollideKill")!=1 || Field("LastCollide")!=1
             || Field("NextHit")!=0 || Field("ToHit")!=0 || Field("pSrvHitFunc")!=0 || Field("pSrvDmgFunc")!=0
@@ -60,6 +61,7 @@ public static class AssassinSentryBolts
     }
     internal static long Create(AssassinSentryBody body,SentryBoltSpawn spawn)
     {
+        if(body is not{Alive:true,Deleted:false}){throw new InvalidOperationException("A retired sentry cannot create new bolts");}
         var c=body.Prepared;
         if(body is not{Alive:true,Deleted:false} || c.ControllerFault!=null || spawn.Frames is <1 or >77 || spawn.Distance!=spawn.Frames)
         {throw new InvalidOperationException("Invalid live sentry bolt supplier");}
@@ -101,8 +103,8 @@ public static class AssassinSentryBolts
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var body=World.FindMobile((Serial)s.Actor) as AssassinSentryBody;
-        bool live=body is{Alive:true,Deleted:false} && body.Prepared.Owner==s.Owner && body.Map?.MapID==s.Map;
-        bool fighting=live && body.Prepared.ControllerFault==null && (allowActions??AssassinTrapRoster.Fighting(s.Owner));
+        bool ownerValid=body is{Deleted:false} && (body.Alive||body.RetainedCorpse) && body.Prepared.Owner==s.Owner && body.Map?.MapID==s.Map;
+        bool fighting=ownerValid && body.Prepared.ControllerFault==null && (allowActions??AssassinTrapRoster.Fighting(s.Owner));
         if(!fighting || s.Fault!=null)
         {if(frame>=s.Frames){Bolts.Remove(s.Id);}else{Bolts[s.Id]=next;}return;}
         var moved=ChargedBolts.Advance(s.Path,s.OriginX,s.OriginY,s.X,s.Y,s.Next,SkillGeometry.Tiles(s.VelocityFp8/4096.0));
@@ -119,7 +121,7 @@ public static class AssassinSentryBolts
             BaseCreature target=null;
             foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z),2))
             {
-                if(Math.Abs(candidate.Z-s.Z)>=16 || !body.TrapTarget(owner,candidate) || SpellHelper.IsTown(candidate.Location,candidate)){continue;}
+                if(Math.Abs(candidate.Z-s.Z)>=16 || !(body.RetainedCorpse?body.CorpseProjectileTarget(owner,candidate):body.TrapTarget(owner,candidate)) || SpellHelper.IsTown(candidate.Location,candidate)){continue;}
                 int? size=CreatureProfiles.For(candidate).Traits.Size;
                 if(size is not(>=1 and <=3)){throw new NotSupportedException("Sentry collider has no mapped source size");}
                 if(CombatHitboxes.SourceTouches(1,size.Value,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){target=candidate;break;}
@@ -154,7 +156,8 @@ public static class AssassinSentryBolts
     internal static void Restore(SentryBoltSave saved)
     {
         if(saved?.Bolts==null || saved.NextId<0){throw new InvalidDataException("Missing sentry bolts");}
-        Bolts.Clear();_nextId=saved.NextId;
-        foreach(var row in saved.Bolts){Validate(row);if(row.Id>_nextId || !Bolts.TryAdd(row.Id,row)){throw new InvalidDataException("Duplicate sentry bolt");}}
+        var candidate=new Dictionary<long,SentryBoltState>();
+        foreach(var row in saved.Bolts){Validate(row);if(row.Id>saved.NextId || !candidate.TryAdd(row.Id,row)){throw new InvalidDataException("Duplicate sentry bolt");}}
+        Bolts.Clear();foreach(var pair in candidate){Bolts.Add(pair.Key,pair.Value);}_nextId=saved.NextId;
     }
 }

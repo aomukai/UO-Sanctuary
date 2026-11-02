@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "capacity": 50,
+  "sources": [
+    "bladecreeper",
+    "bloodgolem",
+    "chargeboltsentry",
+    "claygolem",
+    "cycleoflife",
+    "deathsentry",
+    "firegolem",
+    "infernosentry",
+    "lightningsentry",
+    "plaguepoppy",
+    "vinecreature",
+    "wakeofdestruction",
+    "warbighead",
+    "wargoatman",
+    "warputriddefiler"
+  ]
+}
