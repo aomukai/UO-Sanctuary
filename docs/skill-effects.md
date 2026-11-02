@@ -1,5 +1,7 @@
 # Skill effects
 
+**Barbarian binding follow-up (2026-11-03 JST).** Mouse/save policy adds no visual or audio effects. Existing 240-entry effect register and identified placeholders remain unchanged. See [checkpoint](barbarian-binding-checkpoint.md).
+
 **Remaining Paladin aura save verification (2026-11-03 JST).** [Save-safety acceptance](paladin-aura-persistence-checkpoint.md) creates no final assets. Resistance/travel/elemental/return/undead/debuff aura overlays,pulse and impact art,and audio remain separate pending work. Existing effects remain identified placeholders.
 
 **Offensive aura verification (2026-11-03 JST).** [Concentration/Fanaticism checkpoint](paladin-offensive-aura-checkpoint.md) creates no final assets. Separate aura rings/overlays and selection/refresh/expiry audio remain missing;shared `0x375A` stays an identified placeholder.

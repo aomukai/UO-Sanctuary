@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "00f15e079a5bfc2588400b12c8366cb38e3d657d556f847afc3aec24dbf6e186",
+  "ContentAssemblySha256": "652c8a4b4441abb2bfd3541d7c724b01c8f4ca5a7b728687829f657919698973",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -826,7 +826,7 @@
     "src/Sanctuary.Content/SkeletonPets.cs": "e4aa147e4a7bdab2159d794fbe04c094008339d2a4f9a0915bd1c704b7c1c022",
     "src/Sanctuary.Content/SkeletonWorldBody.cs": "b9932f8ade023991b1a4ee0f5de1a9cf8481be74df0b357a2dd5f3278feac214",
     "src/Sanctuary.Content/SkillBindingNetwork.cs": "5ca869814f1287a6a0f007a2616a7a3bb88a14cdf5b0e892df047daa819494e6",
-    "src/Sanctuary.Content/SkillBindings.cs": "2bd2fdcf6530983792c103b181fd61691236e3ac57b9fb28aa813b7a1b982b8a",
+    "src/Sanctuary.Content/SkillBindings.cs": "76feb937c403086846b862fc8fc45853113f4cc57e6fa1a49ce9072e82051f88",
     "src/Sanctuary.Content/SkillCombat.cs": "578ed8e42a062fb4115e7398c4fc419f1f0f3ca909e94a0bebc94ea43b8b32f7",
     "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
     "src/Sanctuary.Content/SkillHealth.cs": "677ae5b4beb21842bb6cc6dc87e33604507d478fc3377471670a500970b091e8",

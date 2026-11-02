@@ -1,0 +1,277 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "tools/reference/d2r-named-equipment/json/skills.json",
+  "sourceSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "skills": [
+    {
+      "talentId": "barbarian.howl",
+      "sourceId": 130,
+      "name": "Howl",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.findpotion",
+      "sourceId": 131,
+      "name": "Find Potion",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.shout",
+      "sourceId": 138,
+      "name": "Shout",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.taunt",
+      "sourceId": 137,
+      "name": "Taunt",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.battlecry",
+      "sourceId": 146,
+      "name": "Battle Cry",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.finditem",
+      "sourceId": 142,
+      "name": "Find Item",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.battleorders",
+      "sourceId": 149,
+      "name": "Battle Orders",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.grimward",
+      "sourceId": 150,
+      "name": "Grim Ward",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.warcry",
+      "sourceId": 154,
+      "name": "War Cry",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.battlecommand",
+      "sourceId": 155,
+      "name": "Battle Command",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.swordmastery",
+      "sourceId": 127,
+      "name": "Blade Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.axemastery",
+      "sourceId": 128,
+      "name": "Axe Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.macemastery",
+      "sourceId": 129,
+      "name": "Mace Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.polearmmastery",
+      "sourceId": 134,
+      "name": "Polearm Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.throwingmastery",
+      "sourceId": 135,
+      "name": "Throwing Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.spearmastery",
+      "sourceId": 136,
+      "name": "Spear Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.increasedstamina",
+      "sourceId": 141,
+      "name": "Increased Stamina",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.ironskin",
+      "sourceId": 145,
+      "name": "Iron Skin",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.increasedspeed",
+      "sourceId": 148,
+      "name": "Increased Speed",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.naturalresistance",
+      "sourceId": 153,
+      "name": "Natural Resistance",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "barbarian.bash",
+      "sourceId": 126,
+      "name": "Bash",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.doubleswing",
+      "sourceId": 133,
+      "name": "Double Swing",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.leap",
+      "sourceId": 132,
+      "name": "Leap",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.doublethrow",
+      "sourceId": 140,
+      "name": "Double Throw",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.stun",
+      "sourceId": 139,
+      "name": "Stun",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.leapattack",
+      "sourceId": 143,
+      "name": "Leap Attack",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.concentrate",
+      "sourceId": 144,
+      "name": "Concentrate",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.frenzy",
+      "sourceId": 147,
+      "name": "Frenzy",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.whirlwind",
+      "sourceId": 151,
+      "name": "Whirlwind",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "barbarian.berserk",
+      "sourceId": 152,
+      "name": "Berserk",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    }
+  ]
+}

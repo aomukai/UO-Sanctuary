@@ -1,5 +1,7 @@
 # Barbarian class roadmap checkpoint
 
+Shared input/save-policy follow-up: [Barbarian bindings](barbarian-binding-checkpoint.md) now uses the pinned class mouse flags, preserves valid and independent quick/history selections, and leaves all four deferred actions unavailable. Four-class regression passes three boots/two reloads. No class certification.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This follows the bounded Paladin review and its [save-safety acceptance](paladin-aura-persistence-checkpoint.md). No class is certified complete. Barbarian currently has 26 handlers and four individually deferred talents; continue source-backed work without asking the user for a Barbarian they do not have.
 
 | Talent | Current state | Missing contract |

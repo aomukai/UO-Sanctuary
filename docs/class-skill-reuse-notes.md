@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Barbarian binding reuse (2026-11-03 JST).** Extended the existing pinned mouse policy and version-0/version-1 normalization; no second binding system or format. Reused all three accepted class-binding fixtures alongside 30 Barbarian source rows,132 migration contexts and independent history checks. See [checkpoint](barbarian-binding-checkpoint.md).
+
 **Remaining-aura save reuse (2026-11-03 JST).** Holy Freeze,Conviction and shared knockback now reuse snapshot-before-worker and candidate-before-commit patterns,retaining version0,shatter and PauseFrozen. One generic fixture tests all three controllers on actual mapped states;dedicated HolyFreezeChecks joins existing resistance/travel/elemental/Thorns/Sanctuary/Conviction/Charge coverage.577focused/1232full markers pass on identical binaries,with parent regression and runner-only manifest diagnostic preserved. See [checkpoint](paladin-aura-persistence-checkpoint.md).
 
 **Offensive aura reuse (2026-11-03 JST).** Complete authenticated Might callback/list/modifier bodies now exercise120multi-stat Concentration/Fanaticism cases,including cold lookup and other_animrate. Real Tarnhelm packet/Hammer rounding and four right/quick modes extend existing damage/IAS/recovery/original aura reloads.568focused markers pass. Archived66-to67test/source-payload correction leaves production unchanged;modern zero-mana self damage remains uncertain. See [checkpoint](paladin-offensive-aura-checkpoint.md).
