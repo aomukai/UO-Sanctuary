@@ -1,0 +1,15 @@
+# Concentration and Fanaticism reuse review
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Preparation only; finish resource-aura acceptance before editing compiled inputs.
+
+Both pinned skills use immediate do65/filter73731, fifty-frame periods and zero mana. Concentration113 stores `damagepercent=ln34` and `skill_concentration=par5`; its ordinary physical bonus and recovery-prevention chance are separate from Blessed Hammer's explicitly reduced aura bonus. Fanaticism122 stores skill attack rate `dm34`, AR `toht`, allied physical damage `ln56/2` and self passive physical damage `ln56`. Keep skill IAS distinct from item IAS and FCR, and avoid applying an aura multiplier again after the shared percentage pool.
+
+Reuse `PaladinAuras` and the accepted snapshot/atomic restore work, generic non-direct callback/list proof, shared immediate input fixture and existing offensive aura cohort. The basic callback's attackrate branch also consults cold-effect and writes other_animrate; Might's non-direct damage-stat proof traps those services. Do not relabel Might's matrix as complete Fanaticism attack-rate proof. Extend authenticated services if that branch needs new execution evidence; retain explicit mode/animation limits.
+
+`PaladinOffenseChecks` already covers source rank20 goldens, actual material physical-only damage, player/native-pet AR, skill IAS versus item IAS/FCR/caps, native pet delay/damage, source-frame skeleton cadence, Concentration nineteen/twenty-percent recovery controls during a real pending attack, no retiming of committed actions, stronger/equal/weaker aura state and expiry, death/respec, original saved caster/recipient states and resumed refresh through two reloads. Blessed Hammer's damage/flight cohorts separately cover its Concentration interaction. Reuse these rather than recreating their fixtures.
+
+**Fanaticism zero-mana self damage remains a modern-reference uncertainty.** The older complete do65 gates its self passive override on `nMana > nManaCost`, despite zero skill cost. Existing native behavior and controls therefore keep allied half damage on the caster at zero mana, and full self damage with positive mana. The user's ordinary-aura cost observation confirms no mana spending; it does not resolve this self-damage distinction. Preserve the explicit gap and continue unaffected mechanics; do not silently turn it into a new approval or claim modern equivalence.
+
+Dedicated follow-up should add real right/quick input coverage through the shared fixture, verify any missing real skill-gear/current-rank packet transitions, and reuse the existing source/player/pet timing and pending-action controls. Review self versus ally ownership when equal-rank sources refresh and recipient leases linger. Keep native player mode, full source rate/cold composition, modern item-granted/owner/filter/client and world projections explicit.
+
+Final separate aura rings/overlays, selection/refresh/expiry audio and talent/right/quick icons remain missing with identified placeholders (`0x375A`). No class completion, deployment or save reset.

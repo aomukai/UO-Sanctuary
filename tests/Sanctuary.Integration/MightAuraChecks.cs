@@ -141,19 +141,46 @@ public static class MightAuraChecks
         }
         Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);
     }
-    internal static void Input(NetState network,string label,CombatAbility ability=CombatAbility.Might)
+    internal static void Input(NetState network,string label,CombatAbility ability=CombatAbility.Might,bool delayed=false)
     {
-        var p=Owner();Require(SkillBindings.Instance.AssignQuick(p,7,ability)&&!SkillBindings.Instance.Assign(p,true,ability),"Aura right/quick binding");int value=(int)SkillMechanics.Values(p,ability).Eval("aurastatcalc1");var a=Ally(p);var account=FixtureNetwork.Authenticate(network,p,"might-input-");NecromancerEffects.SetMana256(p,0);
-        bool right=label.EndsWith("right",StringComparison.Ordinal);if(right){Select(p,ability);}var lease=PaladinAuras.Effect(a,ability);var action=ClassCombat.For(p);action.NextAction=Core.TickCount+10000;long next=action.NextAction;long deadline=Core.TickCount+4000;
+        var p=Owner();Require(SkillBindings.Instance.AssignQuick(p,7,ability)&&!SkillBindings.Instance.Assign(p,true,ability),"Aura right/quick binding");
+        int value=(int)SkillMechanics.Values(p,ability).Eval("aurastatcalc1");var a=Ally(p);var account=FixtureNetwork.Authenticate(network,p,"aura-input-");
+        int mana=delayed&&ability==CombatAbility.Prayer?SkillMechanics.Values(p,ability).Mana256:0;NecromancerEffects.SetMana256(p,mana);
+        if(delayed)
+        {
+            Require(ability is CombatAbility.Prayer or CombatAbility.Cleansing or CombatAbility.Meditation,"Unsupported delayed aura fixture");
+            SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-5*256-17);SkillHealth.SetBalance256(a,SkillHealth.Maximum256(a)-5*256-17);
+        }
+        int life=SkillHealth.Balance256(p),allyLife=SkillHealth.Balance256(a);bool acknowledged=false;
+        bool right=label.EndsWith("right",StringComparison.Ordinal);if(right){Select(p,ability);}var lease=PaladinAuras.Effect(a,ability);
+        var selected=PaladinAuras.Snapshot().Emitters.SingleOrDefault(e=>e.Owner==p.Serial.Value);var action=ClassCombat.For(p);action.NextAction=Core.TickCount+10000;long next=action.NextAction;long deadline=Core.TickCount+5000;
         void Observe()
         {
             try
             {
-                bool received=right?action.Sequence==1:SkillBindings.Instance.Get(p).Right==ability;
-                if(!received){Require(Core.TickCount<deadline,"Instant Might input timeout");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(PaladinAuras.Selected(p)==ability&&PaladinAuras.Effect(a,ability) is{Rank:1} actual&&actual.Percent==value&&NecromancerEffects.ManaBalance256(p)==0&&action.PendingAbility==CombatAbility.None&&action.NextAction==next,"Instant Might input created a cast cycle or paid mana");
-                if(right){Require(PaladinAuras.Effect(a,ability)==lease,"Holding selected Might refreshed its lease");}
-                Log.Information("{Label}: acknowledged",label);Clean(p,a);account.Delete();Log.Information("{Label}-result: passed",label);
+                bool received=acknowledged||(right?action.Sequence==1:SkillBindings.Instance.Get(p).Right==ability);
+                if(!received){Require(Core.TickCount<deadline,"Aura input timeout");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
+                Require(PaladinAuras.Selected(p)==ability&&action.PendingAbility==CombatAbility.None&&action.NextAction==next,"Aura input created a cast cycle");
+                var actual=PaladinAuras.Effect(a,ability);
+                if(delayed)
+                {
+                    if(!acknowledged)
+                    {
+                        Require(actual==null&&NecromancerEffects.ManaBalance256(p)==mana&&SkillHealth.Balance256(p)==life&&SkillHealth.Balance256(a)==allyLife,"Delayed aura paid or healed on selection");
+                        if(right){Require(PaladinAuras.Snapshot().Emitters.Single(e=>e.Owner==p.Serial.Value)==selected,"Holding delayed aura restarted first pulse");}
+                        acknowledged=true;Log.Information("{Label}: acknowledged",label);
+                    }
+                    if(actual==null){Require(Core.TickCount<deadline,"Delayed aura first pulse timeout");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
+                    Require(actual.Rank==1&&actual.Percent==value&&SkillHealth.Balance256(p)==life+512&&SkillHealth.Balance256(a)==allyLife+512
+                        &&NecromancerEffects.ManaBalance256(p)==0&&PaladinAuras.ManaSuppressed(p)==(ability==CombatAbility.Prayer),"Delayed aura first natural heal/payment/suppression");
+                }
+                else
+                {
+                    Require(actual is{Rank:1}&&actual.Percent==value&&NecromancerEffects.ManaBalance256(p)==0,"Instant aura value or mana");
+                    if(right){Require(actual==lease,"Holding selected aura refreshed its lease");}
+                    Log.Information("{Label}: acknowledged",label);
+                }
+                Clean(p,a);account.Delete();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean(p,a);account.Delete();Log.Error(e,"{Label}-result: failed",label);}
         }

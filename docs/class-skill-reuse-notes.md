@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Resource aura reuse (2026-11-03 JST).** Authenticated complete Might callback/list/modifier bodies and enums now execute1920new direct HP/Cleansing/Meditation cases using declared services. Shared input fixture gains delayed natural first-pulse observation;existing resource saved states/status/filter/recovery controls are retained.541focused markers pass after an archived fixture-only release-sequence correction. Production sources/data unchanged. See [checkpoint](paladin-resource-aura-checkpoint.md).
+
 **Blessed Aim reuse (2026-11-03 JST).** Dedicated active/passive/Tarnhelm/native hit checks reuse the shared instant-input fixture and original Paladin aura reloads. Existing AmazonPenetrateChecks adds actual Enchant/Fanaticism/Blessed Aim coexistence and saved gear/rank/AR; no duplicate stat engine or coexistence fixture. Production sources/data unchanged;499focused markers pass. See [checkpoint](paladin-blessed-aim-checkpoint.md).
 
 **Defiance reuse (2026-11-03 JST).** Production sources/data are unchanged from Might. Shared instant-input fixture is parameterized for Might/Defiance; existing original Defiance save/reload and armor/AR aura cohorts are retained. Dedicated481-marker scope verifies armor percentage composition, real soft-rank versus hard-synergy behavior, stronger recipient linger and running/Berserk. Existing Might callback, Inner Sight defense and Holy Shield evidence are reused with their limits; no duplicate source matrix/save controller. See [checkpoint](paladin-defiance-aura-checkpoint.md).

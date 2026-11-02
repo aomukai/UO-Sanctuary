@@ -1,5 +1,7 @@
 # Skill effects
 
+**Resource aura verification (2026-11-03 JST).** [Prayer/Cleansing/Meditation checkpoint](paladin-resource-aura-checkpoint.md) creates no final assets. Individual aura rings/overlays and selection/heal/cleanse/refresh/expiry audio remain missing;shared `0x375A` remains an identified placeholder.
+
 **Blessed Aim verification (2026-11-03 JST).** [Mechanics checkpoint](paladin-blessed-aim-checkpoint.md) adds no final assets. Front/back aura overlays and selection/refresh/expiry audio remain missing; shared `0x375A` stays an identified placeholder.
 
 **Defiance verification (2026-11-03 JST).** Shared mechanics reuse is accepted within the [checkpoint](paladin-defiance-aura-checkpoint.md); final front/back aura rings and selection/refresh/expiry audio remain missing. Shared `0x375A` is an identified placeholder. No final effect/audio assets were created.
