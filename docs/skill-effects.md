@@ -1,5 +1,7 @@
 # Skill effects
 
+Holy Bolt typed receiver/capture review (2026-11-02): projectile/trail `0x36E4`,healing `0x376A` and cast sound `0x1E5` remain **identified placeholders**. Shared typed return adds no new effect;final holy impact/healing/expiry/audio assets remain pending. Potion additions cause damage without poison/chill status effects.
+
 Charge contact review (2026-11-02): source hit class `0x70` combines with the ordinary weapon class; overlay147 currently uses native `0x374A` as an **identified placeholder**. Existing weapon sound `0x238`, travel/impact, knockback/get-hit, cold/poison/leech and audio need final assets. Failed weapon rolls still request the mapped knockback reaction. Adjacent basic-attack fallback retains ordinary presentation.
 
 Conversion contact review (2026-11-02): ordinary failed-attempt sound 0x238 and shared impact/block/retaliation/cold/poison/leech effects remain identified placeholders. Final allegiance onset, friendly-state marker and expiry presentation require assets. Successful conversion bypasses weapon damage and its associated contact effects.

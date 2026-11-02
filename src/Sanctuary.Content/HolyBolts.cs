@@ -10,7 +10,11 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record HolyBoltFlight(long Id,uint Owner,int Map,int Rank,double X,double Y,int Z,double Vx,double Vy,
-    int Frame,int Min256,int Max256,uint LastCollision,DateTime UntilUtc,DateTime NextUtc,CombatAbility Ability=CombatAbility.HolyBolt);
+    int Frame,int Min256,int Max256,uint LastCollision,DateTime UntilUtc,DateTime NextUtc,CombatAbility Ability=CombatAbility.HolyBolt)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public HolyBoltCapture Captured{get;init;}
+}
 public sealed class HolyBoltProfiles:GenericPersistence
 {
     public HolyBoltProfiles():base("SanctuaryHolyBolts",123){}
@@ -67,12 +71,16 @@ public static class HolyBolts
     private static int Sample(int min,int max)=>min+(max>min?Roll(max-min):0);
     public static void Cast(PlayerMobile owner,Point3D aim,SkillValues values)
     {
+        HolyBoltDamage.Route(values);
         int dx=aim.X-owner.X,dy=aim.Y-owner.Y;if(dx==0 && dy==0){dx=dy=1;}
-        var velocity=MissileVectors.Velocity(dx,dy,NecromancerSummons.Source("holybolt","Vel"));
-        int Scale(int value)=>(int)Math.Clamp(NamedElements.Enhance(owner,value*(100+CombatPotions.Bonus(owner,"magical-penetration"))/100.0,"mag"),0,int.MaxValue);
+        var slow=AmazonSlowMissiles.Capture(owner,true);
+        var modifiers=DruidFirestorm.Modifiers(owner) with{Potion=0};
+        var ends=DruidFirestorm.Endpoints(values,NamedElements.MasteryPercent(owner,"mag"),slow);
+        int speed=SlowMissilePayload.VelocityFp8(NecromancerSummons.Source("holybolt","Vel"),0,values.Rank,33,0,true,slow.VelocityPercent);
+        var velocity=MissileVectors.VelocityFp8(dx,dy,speed);
         var now=TimedEffects.Now;long id=++_next;
         _flights.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,owner.X,owner.Y,owner.Z,velocity.X,velocity.Y,
-            0,Scale(values.Damage256(false)),Scale(values.Damage256(true)),0,now.AddMilliseconds(Frames*40),now));
+            0,ends.Min,ends.Max,0,now.AddMilliseconds(Frames*40),now){Captured=new(modifiers,slow)});
     }
     internal static void Impact(PlayerMobile owner,Mobile target,HolyBoltFlight flight)
     {
@@ -85,6 +93,14 @@ public static class HolyBolts
             target.FixedEffect(0x376A,10,10,0x481,0);return; // Placeholder healing overlay; no damage or harmful event.
         }
         if(!FullDamage(target)){return;} // Pinned sHitPar2=3, dParam1=0: normal beasts take zero damage and do not stop the bolt.
+        if(flight.Captured is{} captured)
+        {
+            if(!HolyBoltDamage.Supported(owner,target,out string reason))
+            {owner.SendMessage(0x22,reason);return;}
+            SorceressEffects.MissileHit(owner,target,"holybolt");
+            if(ClassAvoidance.Missile(target,"holybolt")){return;}
+            HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),captured,TimedEffects.Now);return;
+        }
         string missile=Missile(flight.Ability);SorceressEffects.MissileHit(owner,target,missile);
         int holy=NecromancerSummons.Source(missile,"Holy");
         SkillCombat.HolyImpact(owner,target,Sample(flight.Min256,flight.Max256),(holy&1)!=0 && GemCombat.Undead(target) || (holy&2)!=0 && NamedCombat.Demon(target));
@@ -132,14 +148,18 @@ public static class HolyBolts
     public static void Restore(HolyBoltFlight[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing holy bolts");}
-        _flights.Clear();_next=0;
+        var next=new Dictionary<long,HolyBoltFlight>();long nextId=0;
         foreach(var flight in saved)
         {
-            if(flight.Ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)
+            if(flight==null||flight.Ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)
                 || flight.Id<=0 || flight.Owner==0 || flight.Rank<1 || flight.Frame<0 || flight.Frame>=NecromancerSummons.Source(Missile(flight.Ability),"Range") || flight.Min256<0 || flight.Max256<flight.Min256
-                || !double.IsFinite(flight.X+flight.Y+flight.Vx+flight.Vy) || flight.Vx==0 && flight.Vy==0 || !_flights.TryAdd(flight.Id,flight))
+                || !double.IsFinite(flight.X+flight.Y+flight.Vx+flight.Vy) || flight.Vx==0 && flight.Vy==0
+                || flight.Captured is{} captured&&(flight.Ability!=CombatAbility.HolyBolt||flight.Rank>255||captured.Modifiers==null||captured.Modifiers.Potion!=0
+                    ||captured.Slow.VelocityPercent is <0 or >100||captured.Slow.DamagePercent is <0 or >100)
+                || !next.TryAdd(flight.Id,flight))
             {throw new InvalidDataException("Invalid holy bolt");}
-            _next=Math.Max(_next,flight.Id);
+            nextId=Math.Max(nextId,flight.Id);
         }
+        _flights.Clear();foreach(var pair in next){_flights.Add(pair.Key,pair.Value);}_next=nextId;
     }
 }

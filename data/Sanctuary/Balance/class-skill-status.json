@@ -1255,7 +1255,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Timed ally/hostile cast, source fixed-point mana/damage/healing, piercing persisted flight, current Prayer/original missile rank healing, undead positive-resistance/MDR/absorb bypass and demon damage staged. Native pipeline, immune undead and poisoned ally/pet checks pass. Exact modern SC event/collision/unit-size/filter/owner/gear/client behavior remains acceptance work."
+      "remaining": "Ordinary Holy Bolt captures non-potion magic endpoints,item elemental masteries and Slow Missiles;impact T29adds four separately defended immediate elements. Shared ordered notification/fractional HP/credit/death/return preserves Holy1undead-only bypass and native unclassified reactions,without weapon leech/Thorns. Optional v0capture,atomic malformed/duplicate restore,legacy/FoH compatibility,current Prayer healing and actual left/right/quick/save controls have scoped native evidence in paladin-holy-bolt-damage-checkpoint.md. Saved source steps/per-flight RNG,owner/facet/death/offline transport,range/terrain/body/room/collision,current damage15/full events/PvP/charged/oskill/client and naturally resumed source trajectory remain open;current vector/catch-up transport is not certified. Effects/audio and talent/hotkey art remain separate."
     },
     {
       "talentId": "paladin.zeal",

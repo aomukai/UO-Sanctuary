@@ -9,7 +9,8 @@ namespace Sanctuary;
 // Callers pin flags/element/eligibility and own any suppressed event scope.
 internal sealed class InstantSpellNpcDamage(PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,FirestormModifiers modifiers,DateTime at,
 string kind,Func<uint> defenderRoll,Func<Mobile,BaseCreature,bool> knockback=null,bool cold=false,int damageRate=0,
-BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> npcMitigation=null):PreparedMonsterDamageServices
+BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> npcMitigation=null,
+Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=null):PreparedMonsterDamageServices
 {
     private int Loss,EntryHits;private bool Freed;
     private Mobile Attacker=>emitter??(Mobile)owner;
@@ -17,6 +18,7 @@ BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamage
     internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)
     {
         if(emitter!=null){return (npcMitigation??throw new NotSupportedException("NPC spell mitigation requires its captured actor context"))(p);}
+        if(playerMitigation!=null){return playerMitigation(p);}
         var current=modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};
         var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(current,new(0,p.Fire256/256.0,p.Cold256/256.0,p.Lightning256/256.0,p.Poison256/256.0,Magic:p.Magic256/256.0)),out int absorb,damageRate);
         int frames=p.ColdFrames;
@@ -49,7 +51,13 @@ BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamage
     internal override bool AttackerInActiveMode()=>throw new InvalidOperationException(kind+" has no melee active-mode check");
     internal override void BeforeThorns(PreparedMonsterDamagePacket p)=>throw new InvalidOperationException(kind+" must not run Thorns");
     internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
-        =>PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(Attacker,owner,target,metadata,death,()=>EliteCombat.OnStruck(target,Attacker,Loss),knockback,defenderRoll),true);
+    {
+        if(metadata!=null)
+        {PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(Attacker,owner,target,metadata,death,()=>EliteCombat.OnStruck(target,Attacker,Loss),knockback,defenderRoll),true);return;}
+        // Explicit native fallback; no invented source species/mode identity.
+        if((p.ResultFlags&2)!=0){death();}
+        else if((p.ResultFlags&1)!=0&&p.Total256>0){CreatureHitRecovery.Apply(target,Attacker,Loss);}
+    }
     internal override void FreePacket()
     {if(Freed){throw new InvalidOperationException(kind+" packet freed twice");}Freed=true;NativeMonsterReturn.Session(target).Packets++;}
 }

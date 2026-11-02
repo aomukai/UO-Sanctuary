@@ -53,6 +53,8 @@ public static class PaladinCombat
         if(!Available(owner,ability) || !ValidTarget(owner,ability,selected,point) || !FireGround.Ready(owner,ability)){return false;}
         if(ability==CombatAbility.Smite&&World.FindMobile(selected) is BaseCreature smiteTarget&&!PaladinSmite.Ready(owner,smiteTarget)){return false;}
         var values=SkillMechanics.Values(owner,ability);
+        if(ability==CombatAbility.HolyBolt)
+        {try{HolyBoltDamage.Route(values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         if(ability==CombatAbility.Smite)
         {try{return PaladinSmite.Strike(owner,World.FindMobile(selected) as BaseCreature,values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}

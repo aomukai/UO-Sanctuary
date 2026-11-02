@@ -1,5 +1,7 @@
 # Holy Bolt spell and projectile reuse review
 
+Update (2026-11-02):the [typed receiver/capture checkpoint](paladin-holy-bolt-damage-checkpoint.md) now reuses the existing `InstantSpellNpcDamage` service used by Meteor/Blizzard/Telekinesis. The [next source-flight review](paladin-holy-bolt-flight-preflight.md) separates that accepted foundation from remaining transport/RNG/owner work. Earlier preparation below describes the predecessor implementation.
+
 Reference: **D2R Reign of the Warlock 3.3.93847** with approved Sanctuary deviations first. This prepares the next Paladin component and changes no runtime behavior. Keep the final Charge DLL/data cohort frozen until its native/audit readers finish.
 
 `HolyBolts` already owns saved straight flights, ability identity distinguishing ordinary and Fist of the Heavens secondary bolts, per-hit exclusive sampling, original missile rank/damage, current Prayer healing synergy, first-collider/LastCollide tracking and ally eligibility. Ordinary Holy Bolt heals allowed players/pets; FoH's parent table has neither TargetAlly nor TargetPet and must not inherit healing merely from a missile flag. Enemy damage is restricted to undead/demons. The pinned Holy1 bit permits positive-resistance bypass for undead; do not invent the same bypass for demons. The historical [evidence](../tools/reference/holy-bolt-evidence.json) retains its existing formula/input/save controls and current-engine limits.
