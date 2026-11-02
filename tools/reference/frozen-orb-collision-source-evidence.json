@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 9246,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "routineHashes": {
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19",
+    "MISSMODE_SrvDo15_FrozenOrb": "8508a8a228540bc0d602a1ac948954672918f1e7b4b595a35610b3ca8cf10799",
+    "MISSMODE_SrvDo16_FrozenOrbNova": "0f270421a840be2b9e5c2ecb97fc62b030c832b7f88d82ef35d32beea901c88e",
+    "MISSMODE_SrvHit29_FrozenOrb": "695151441aa6c22a20f3ad6f10a51f02dfceaba6479b31f1cdff4b9448a05d4a",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "sub_6FCBC7E0": "aaff389cb11a4d0d0ea412779a28e3406f85bc26c00b198c428fc15b3a23fd0c",
+    "sub_6FCBC930": "332f5438fe2398bc6a0c4afc0413168d2143501ce9a74f5e3a535edeae39dfad"
+  },
+  "reusedRoutineHashes": {
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod": "306501ecd3ab733337b122d79b17f2fce2062730dbe8c4a4dd930cd1ae0ae415"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete do15/do16/do1,elapsed getter,source movement/target-reconciliation wrappers and the retained generic collision/finder/router/LastCollide bodies compose. Trail emission precedes attempted movement even on early path failure;ordinary movement precedes decrement/contact. Zero remaining alone permits hit29terminal requests;positive or negative remaining ending paths do not.",
+    "The30-call root lifecycle attempts30trail requests from its previous positions and16terminal requests from the final moved position. Native next-step/recovery must not move before trail emission or burst from the preceding cell. Complete mode3 finder rejects most-recent/invalid targets before selection;root contacts retain it with zero-packet fill/flag services,while child CollideKill contacts remove the child. Barrier removal occurs only after no eligible recipient is found.",
+    "Do16turns saved vectors/recalculates its target before movement;ordinary do1does not emit. Failed movement avoids decrement;invalid-room reconciliation still runs. Empty/blocked/path/room/expired/contact/history cases and the exact terminal coordinate are controlled separately."
+  ],
+  "declaredServices": [
+    "Older engine,not modern executable proof. Existing Blizzard ABI and six retained canonical bodies are unchanged. The complete source movement wrapper calls declared path advancement,target lookup and room-rebind services. Path movement is a supplied one-X-step,not a D2 vector/cell normalization proof. Actual factory and per-child stored vectors are established by the separate full factory/emission composition;this composition records child requests.",
+    "Candidate enumeration/footprints/collision masks/room/path flags and damage-fill/flag/commit services remain explicit. Full current global/animation RNG,InitSteps/activation,zero-damage root event subscribers,cold/HP/return/block/PvP/native input/save/client and assets remain separate. No C#/runtime data/install/save mutation."
+  ],
+  "artifacts": {
+    "tools/probe_frozen_orb_collision.py": "9a2e695a2a9292fad639653045bfe08b02f1452615008c56b49a877ca7372cb0",
+    "tools/reference/blizzard-collision-source-evidence.json": "cb3738ed8273d4d925480193dd00fc1c3ccaa7f1bfdc76f80e10aac84ccf7561",
+    ".local/class-skills/frozen-orb-collision-source/reused-blizzard.cpp": "7c38d9c3ac88a0d9a1ec079017fdf3a5a0eb8da3eb50ccdff0102fbcb574abb6",
+    ".local/class-skills/frozen-orb-collision-source/probe.cpp": "3920be767fe5d669e0eef599396283feb1962782c83410bfb2704c653bfaaddd",
+    ".local/class-skills/frozen-orb-collision-source/probe": "7c8ae9b23175e6db4042b51d722d41a7fdca1e0f06cf3dca006cd24dfaaee6da",
+    ".local/class-skills/frozen-orb-collision-source/probe-san": "768b8fa3a2d2321aec95710a287c0fde2e7481c27178247228c6191fa852a399",
+    ".local/class-skills/frozen-orb-collision-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/frozen-orb-collision-source/cases.json": "aabca0c332fbf6d3f054c5fe5ea55a1aea07a1eeafe3cb840860573e5b9f93e8"
+  }
+}
