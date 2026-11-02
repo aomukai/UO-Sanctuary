@@ -5,13 +5,19 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-// Unregistered do45 adapter. Free-cell placement uses the existing native
+// Learned do45 adapter. Free-cell placement uses the existing native
 // Decoy contract; the reconstructed general spawn-search routine is a stub.
-// Radius-1/4 fallback, learned input and current executable acceptance remain
+// Radius-1/4 fallback and full current executable acceptance remain
 // separate. In particular, failed placement never substitutes the caster cell.
 internal static class AssassinSentryCasts
 {
     internal static ActionTiming Timing(PlayerMobile owner)=>LobProjectiles.Timing(owner);
+    internal static bool Supported(PlayerMobile owner)
+    {
+        if(owner is not{Alive:true,Deleted:false} || !AssassinCombat.Available(owner,CombatAbility.ChargedBoltSentry)){return false;}
+        try{_=AssassinSentryCreation.Capture(owner);return true;}
+        catch(NotSupportedException){return false;}
+    }
     internal static bool Destination(PlayerMobile owner,Serial selected,Point3D cached,out Point3D point)
     {
         point=cached;
@@ -29,7 +35,7 @@ internal static class AssassinSentryCasts
     }
     internal static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
-        if(!Destination(owner,selected,point,out point)){return false;}
+        if(!Destination(owner,selected,point,out point)||!Supported(owner)){return false;}
         return SkillCombat.Begin(owner,CombatAbility.ChargedBoltSentry,selected,point,now,
             (p,ability,id,where)=>Destination(p,id,where,out _),timing:Timing(owner));
     }
@@ -38,7 +44,7 @@ internal static class AssassinSentryCasts
         if(owner is not{Alive:true,Deleted:false} || !ClassCombat.Enabled(owner)
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin
             || SkillMechanics.Rank(owner,CombatAbility.ChargedBoltSentry) is <1 or >255
-            || !Destination(owner,selected,ClassCombat.For(owner).PendingPoint,out var point))
+            || !Supported(owner) || !Destination(owner,selected,ClassCombat.For(owner).PendingPoint,out var point))
         {return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.ChargedBoltSentry);
         // Reuse the existing no-start native resource policy (also Decoy).

@@ -88,7 +88,7 @@ public static class SentryEmergenceChecks
         }
         finally{p.MoveToWorld(point,map);SummonDifficulties.SetFacets(facets);SummonDifficulties.Sync(p);Cleanup(b);}
         Require(NecromancerEffects.ManaBalance256(p)==mana,"Actor preparation charged player input mana");Persist(p,target);
-        Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"S1 phase enabled unfinished player casting");
+
     }
     private static void Reload()
     {

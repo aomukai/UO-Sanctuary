@@ -95,7 +95,7 @@ public static class SentryUnitPathChecks
             Require(JsonSerializer.Serialize(b.Prepared)==JsonSerializer.Serialize(s.State)&&SkillHealth.Balance256(b)==s.Life256
                 &&NecromancerEffects.ManaBalance256(p)==s.Mana256,"Reachability inspection mutated saved aim/controller/RNG/clock/pose/resources");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(s));s=null;
-            Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Unit path enabled unfinished player input");
+
         }
         finally{if(s!=null){Clean(s);p.Delete();}}
     }

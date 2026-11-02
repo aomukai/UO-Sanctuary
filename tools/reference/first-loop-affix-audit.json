@@ -1,14 +1,14 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "27224a84180e2c664e4afd20f7b10e1fabed5ae9d19d95782003c6a572dbf558",
-  "ContentAssemblyPath": ".local/class-skills/sentry-retirement/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "92b6cb11475cb97f68d2e3722fb5ff83330ab38fb0c2ef18a2d4ff3132b588f5",
+  "ContentAssemblyPath": ".local/class-skills/sentry-learned/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
-    "src/Sanctuary.Content/ActionTiming.cs": "b89ccd314d604ad1f7fd3cef4411bd2d990c1b73397da9e6c7a4595f13e85562",
+    "src/Sanctuary.Content/ActionTiming.cs": "f496c5cda075a00506813caf6546abdce0539307fd29e9a253cf174146754689",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "914bc8d9cf960009b7999bd5ec2b4a2d1899a1f6498a31ffb2c6d653e37332b0",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",

@@ -83,7 +83,7 @@ public static class SentryBoltChecks
         var held=AssassinSentryBolts.Create(b,Spawn(b));Frames([held],1,true);var saved=AssassinSentryBolts.State(held);
         Require(saved is{Frame:1,Fault:null}&&saved.X!=saved.OriginX&&saved.MotionAdapter=="native-shared-chargedbolt-v1","Prepared native movement did not advance");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,t.Serial.Value,p.Map.MapID,p.Location,saved,SkillHealth.Balance256(t))));
-        Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Bolt backend enabled unfinished learned casting");
+
         Log.Information("Sentry real bolts: actual source controller volley, travelling lightning, signed captured pierce, immunity, no weapon leech, NPC/player kill credit, slow capture, offline lifetime and saved path/seed pass; movement remains native adapter");
     }
     private static void Reload()
@@ -94,7 +94,7 @@ public static class SentryBoltChecks
         p.MoveToWorld(saved.Position,Map.Maps[saved.Map]);Frames([state.Id],1,true);var next=AssassinSentryBolts.State(state.Id);
         Require(next!=null&&next.Fault==null&&next.Frame==state.Frame+1&&next.X!=state.X&&next.Minimum256==state.Minimum256&&next.Pierce==state.Pierce,"Saved bolt did not resume once with retained packet");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Bolt=next}));
-        Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Reload enabled unfinished learned casting");
+
     }
     private static void Live()
     {

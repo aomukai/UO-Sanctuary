@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Charged Bolt Sentry (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders. The pinned skill is right-slot only; no left-slot icon or availability is implied. Effects/audio are tracked separately. See [checkpoint](assassin-sentry-learned-checkpoint.md).
+
 **Charged Bolt Sentry retirement (2026-11-03 JST).** No final talent or right/quick-slot artwork is added. Icons remain identified placeholders; casting availability remains gated in this batch. Effects/audio are tracked separately. See [checkpoint](sentry-retirement-checkpoint.md).
 
 **Prepared Sentry retirement (2026-11-03 JST).** No artwork changes. Charged Bolt Sentry talent/right/quick icons remain pending placeholders and normal casting remains gated. Effects/audio are tracked separately. See [checkpoint](sentry-corpse-pool-checkpoint.md).

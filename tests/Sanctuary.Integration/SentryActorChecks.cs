@@ -103,7 +103,7 @@ public static class SentryActorChecks
             Require(!AssassinTrapRoster.Fighting(p.Serial.Value),"Socket-null owner can fight through world adapter");
             // Preserve an independent copy for each process inspection; timers
             // cannot reach the deliberately held future frame in this suite.
-            Save(p);Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Prepared body enabled unfinished learned skill");
+            Save(p);
             Log.Information("Sentry actor:42240 source/native frames, mixed cap5/oldest Blade replacement, saved stationary owner/stats, source phase dispatch via explicit services, offline no replay and owner-facet/old-facet fractional life pass");
         }
         finally{SummonDifficulties.SetFacets(facets);}
@@ -158,7 +158,7 @@ public static class SentryActorChecks
         var oldest=saved.Roster[0];var fresh=Create(p,DateTime.UtcNow.AddDays(1));var roster=AssassinTrapRoster.For(p);
         Require(World.FindMobile((Serial)oldest.Actor) is AssassinSentryBody{Alive:false,Deleted:false,Prepared.Retirement.Cause:"replacement"}&&roster.Length==5&&roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
             &&roster[^1].Actor==fresh.Serial.Value&&roster[^1].Order>saved.Roster[^1].Order,"Reload cap5 replaced the wrong trap or lost FIFO order");
-        Save(p);Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Reload enabled unfinished learned skill");
+        Save(p);
         Log.Information("Sentry actor reload: actual world entities retain shot/phase/target/RNG/deadline/facet/stats/injury and FIFO; exactly one continued dispatch via declared fixture service");
     }
 }

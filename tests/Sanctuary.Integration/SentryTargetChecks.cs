@@ -77,7 +77,7 @@ public static class SentryTargetChecks
             body.AdvanceController(body.Prepared.NextFrameUtc.AddMilliseconds(24*40),true);
             Require(body.Prepared.Control is{Thinks:1,Attempts:0,Ai.RemainingShots:5},"Distance25 selected target caused a firing attempt");
             near.Delete();Require(AssassinSentryWorldTargets.Select(body)==null,"Dead/deleted target remained eligible");
-            Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Target adapter enabled unfinished learned input");
+
             Log.Information("Sentry target:4096 complete selector and2160 complete shared charged-bolt heading/seed/path source comparisons pass; actual mapped enemy movement, visibility, remote owner and distance25 target/AI boundary pass");
         }
         finally{near?.Delete();far?.Delete();body?.Delete();p.Delete();}

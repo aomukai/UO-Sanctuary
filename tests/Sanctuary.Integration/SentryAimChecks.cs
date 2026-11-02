@@ -82,7 +82,7 @@ public static class SentryAimChecks
         target=Target(p);b=Pending(p,target);captured=Cell(target);target.MoveToWorld(new(target.X+2,target.Y+2,target.Z),target.Map);target.Delete();Finish(b,captured);Cleanup(b);
         var empty=AssassinSentryBody.CreatePrepared(p,new(p.X+2,p.Y,p.Z),DateTime.UtcNow.AddDays(1),SourceRandom.InitLow(1));
         AssassinSentryBolts.Dispatch(empty,0);Require(!AssassinSentryBolts.Snapshot().Bolts.Any(x=>x.Actor==empty.Serial.Value),"Zero fallback launched invented origin missiles");Cleanup(empty);
-        Persist(p);Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Aim backend enabled unfinished input");
+        Persist(p);
     }
     private static void Reload()
     {
@@ -90,6 +90,6 @@ public static class SentryAimChecks
         var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var b=(AssassinSentryBody)World.FindMobile((Serial)saved.Actor);
         Require(JsonSerializer.Serialize(b.Prepared)==JsonSerializer.Serialize(saved.State)&&World.FindMobile((Serial)saved.FormerTarget)==null,"Pending actor aim/target identity changed across actual reload");
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);Finish(b,saved.State.CachedAim.Value);Cleanup(b);Persist(p);
-        Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Restored aim enabled unfinished input");
+
     }
 }

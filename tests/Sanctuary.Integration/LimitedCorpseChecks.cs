@@ -106,7 +106,7 @@ public static class LimitedCorpseChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var body=(AssassinSentryBody)World.FindMobile((Serial)saved.Actor);var target=(BladeMissileTarget)World.FindMobile((Serial)saved.Target);
         Require(saved.Generation<2&&body is{Alive:false,Deleted:false}&&body.RetainedCorpse&&JsonSerializer.Serialize(body.Prepared)==JsonSerializer.Serialize(saved.Body)
             &&JsonSerializer.Serialize(LimitedSummonCorpses.Snapshot())==JsonSerializer.Serialize(saved.Pool)&&JsonSerializer.Serialize(AssassinSentryBolts.State(saved.Bolt.Id))==JsonSerializer.Serialize(saved.Bolt),"Original dead NPC/pool/held flight changed on reload");
-        Require(!AssassinSentryActors.Actors().Contains(body)&&SkillHealth.Balance256(target)==saved.Health&&!ClassCombat.Available(p,CombatAbility.ChargedBoltSentry),"Reload restarted AI/damage or enabled unfinished skill");
+        Require(!AssassinSentryActors.Actors().Contains(body)&&SkillHealth.Balance256(target)==saved.Health,"Reload restarted dead AI or changed target wounds");
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);FixtureNetwork.Authenticate(network,p,"corpse-resume-");HoldBolt(saved.Bolt.Id,TimedEffects.Now.AddMilliseconds(40));long end=Core.TickCount+3000;
         void Observe()
         {

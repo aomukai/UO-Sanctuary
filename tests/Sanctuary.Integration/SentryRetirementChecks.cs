@@ -93,8 +93,7 @@ public static class SentryRetirementChecks
             &&JsonSerializer.Serialize(natural.Prepared)==JsonSerializer.Serialize(Completed(saved.NaturalState))
             &&JsonSerializer.Serialize(replacement.Prepared)==JsonSerializer.Serialize(Completed(saved.ReplacementState)),"Offline pending death did not complete at original deadline/identity");
         Require(JsonSerializer.Serialize(AssassinSentryBolts.State(saved.Bolt.Id))==JsonSerializer.Serialize(saved.Bolt)
-            &&SkillHealth.Balance256(target)==saved.Health&&!AssassinSentryActors.Actors().Contains(replacement)
-            &&!ClassCombat.Available(p,CombatAbility.ChargedBoltSentry),"Reload lost held flight/wounds or enabled unfinished input");
+            &&SkillHealth.Balance256(target)==saved.Health&&!AssassinSentryActors.Actors().Contains(replacement),"Reload lost held flight/wounds or restarted dead AI");
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);FixtureNetwork.Authenticate(network,p,"sentry-retire-resume-");Hold(saved.Bolt.Id,TimedEffects.Now.AddMilliseconds(40));long end=Core.TickCount+3000;
         void Observe()
         {

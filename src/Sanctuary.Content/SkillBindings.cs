@@ -27,7 +27,7 @@ public sealed class SkillBindings : GenericPersistence
     public (CombatAbility Left, CombatAbility Right) Get(PlayerMobile player) =>
         ClassCreation.Profiles.TryGet(player.Serial, out var profile) ? Get(player.Serial, profile.Class)
             : (CombatAbility.BasicAttack, CombatAbility.None);
-    // Accepted Necromancer/Sorceress/Paladin/Barbarian mouse slots follow the pinned table.
+    // Reviewed class mouse slots follow the pinned table.
     // Quick casting is separate; passive/handler availability remains gated.
     internal static bool MouseAllowed(DiabloClass characterClass,bool left,CombatAbility ability)
     {
@@ -36,7 +36,7 @@ public sealed class SkillBindings : GenericPersistence
         // T33 explicitly approves Teleport on left/right controls despite
         // the D2R row's left flag. Preserve that exception during migration.
         if(characterClass==DiabloClass.Sorceress&&ability==CombatAbility.Teleport){return true;}
-        if(characterClass is not(DiabloClass.Necromancer or DiabloClass.Sorceress or DiabloClass.Paladin or DiabloClass.Barbarian)){return true;}
+        if(characterClass is not(DiabloClass.Necromancer or DiabloClass.Sorceress or DiabloClass.Paladin or DiabloClass.Barbarian or DiabloClass.Assassin)){return true;}
         var row=SkillMechanics.For(ability);
         return row.CharacterClass==characterClass&&(left?row.Left:row.Right);
     }

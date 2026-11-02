@@ -44,9 +44,6 @@ public static class SentryCastChecks
                 &&row.Number("usemanaondo")==0&&row.Number("localdelay")==0&&row.Number("delay")==0
                 &&AssassinSentryCasts.Timing(p)==LobProjectiles.Timing(p),"Pinned do45/resource/no-delay/shared S2 contract");
             var session=ClassCombat.For(p);var aim=new Point3D(p.X+6,p.Y,p.Z);session.PendingPoint=aim;
-            int mana=NecromancerEffects.ManaBalance256(p);
-            Require(!AssassinSentryCasts.Begin(p,Serial.Zero,aim,Core.TickCount)&&NecromancerEffects.ManaBalance256(p)==mana
-                &&session.PendingAbility==CombatAbility.None&&!ClassCombat.Available(p,CombatAbility.ChargedBoltSentry),"Unregistered casting exposed/paid a learned windup");
             NecromancerEffects.SetMana256(p,3327);
             Require(!Cast(p)&&NecromancerEffects.ManaBalance256(p)==3327&&AssassinTrapRoster.For(p).Length==0,"Unaffordable release created/paid a trap");
             NecromancerEffects.SetMana256(p,3328+127);
@@ -101,7 +98,7 @@ public static class SentryCastChecks
         for(int i=0;i<7;i++){b.AdvanceController(b.Prepared.NextFrameUtc,false);}
         SkillHealth.SetBalance256(b,12850);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,b.Serial.Value,p.Location,p.Map.MapID,b.Prepared,SkillHealth.Balance256(b),NecromancerEffects.ManaBalance256(p))));
-        Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Prepared release enabled unfinished learned input");
+
     }
     private static void Reload()
     {

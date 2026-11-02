@@ -64,7 +64,7 @@ public static class SentryComponentChecks
             }
             Require(count==1728,"Damage case inventory");
         }
-        Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Component enabled unfinished learned handler");
+
         using(var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"sentry-launch-source-probe.json"))))
         {
             int count=0;
