@@ -68,7 +68,7 @@ public static class Teleportation
         if (!Ready(p, now)) { return false; }
         var s = ClassCombat.For(p);
         if (now - s.NextAction < 0 || s.PendingAbility != CombatAbility.None || !Landing(p, point)
-            || (scroll == null ? Rank(p) < 1 || p.Mana < ManaCost(Rank(p)) : !ScrollReady(p, scroll, cell)))
+            || (scroll == null ? Rank(p) < 1 || !NecromancerEffects.CanPay(p,ManaCost(Rank(p))*256) : !ScrollReady(p, scroll, cell)))
         { return false; }
         if (scroll != null) { ClassCombat.ReleaseCast(p); }
         s.Target = Serial.Zero;
@@ -89,7 +89,7 @@ public static class Teleportation
     private static bool Valid(PlayerMobile p, TeleportCast q, long now) => q != null && Ready(p, now)
         && p.Location == q.Origin && p.Map == q.Map && ReferenceEquals(p.NetState, q.Connection)
         && (CombatTiming.Equipped(p)?.Serial ?? Serial.Zero) == q.Weapon
-        && (q.Scroll == Serial.Zero ? Rank(p) == q.Rank && q.Rank > 0 && p.Mana >= ManaCost(q.Rank)
+        && (q.Scroll == Serial.Zero ? Rank(p) == q.Rank && q.Rank > 0 && NecromancerEffects.CanPay(p,ManaCost(q.Rank)*256)
             : World.FindItem(q.Scroll) is TeleportScroll scroll && ScrollReady(p, scroll, q.Cell)
                 && ReferenceEquals(scroll.Parent, q.Parent) && scroll.Origin == q.ItemOrigin && scroll.Amount == q.Amount);
     public static bool Resolve(PlayerMobile p, long now)
@@ -100,7 +100,9 @@ public static class Teleportation
         s.PendingAbility = CombatAbility.None; s.PendingTeleport = null;
         if (!Landing(p, q.Destination)) { return false; }
         // Claim the effect before moving: location hooks cannot replay this action.
-        if (q.Scroll == Serial.Zero) { p.Mana -= ManaCost(q.Rank); }
+        // Use the shared clamped FP balance. Whole-mana subtraction would
+        // revive an old fractional remainder after native regeneration capped.
+        if (q.Scroll == Serial.Zero) { if(!NecromancerEffects.Pay(p,ManaCost(q.Rank)*256)){return false;} }
         else { World.FindItem(q.Scroll).Consume(); if (q.Cell >= 0) { PotionBelts.Compact(p, q.Cell % 4); } }
         p.Location = q.Destination; p.ProcessDelta();
         PetOwnerRoutes.Teleported(p,TimedEffects.Now);

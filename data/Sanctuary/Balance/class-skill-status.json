@@ -527,9 +527,9 @@
       "tree": "Lightning Spells",
       "sourceId": 54,
       "implementation": "handler-present",
-      "verification": "legacy-checks; rerun-needed",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Pre-existing working Sanctuary Teleport; its approved range/scroll/tome and timing rules remain authoritative."
+      "remaining": "Existing approved18tile,noLOS,exact-elevation/fit/travel/multi/house/arrival-field and class timing/scroll rules remain authoritative. Learned mana uses shared clamped FP payment,retaining usable fractions without reviving a remainder above native maximum. Dedicated255rank table suppliers,actual gear/FCR,release cancellation/rank/weapon/connection/late obstruction/scroll ownership and left/right/quick world-cursor controls have native acceptance. Original native player/gear/wounds/FP resources/backpack and belt scrolls/bindings survive two process reloads;unpaid learned/scroll casts staged immediately before save do not resume,and fresh casts then finish through natural callbacks. Exact modern global collision/reposition/terrain/event/client,charged/oskill and full old-DLL/unheld-save parity remain unproved. No separate Teleport tome is introduced;T34 tomes only supply its existing bonus-scroll acquisition. Final cast/departure/arrival/audio and talent/hotkey icons remain separate placeholders;no class certificate."
     },
     {
       "talentId": "sorceress.thunderstorm",

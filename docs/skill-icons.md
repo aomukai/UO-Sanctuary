@@ -1,5 +1,7 @@
 # Skill icons
 
+[Teleport input and resource acceptance](sorceress-player-teleport-checkpoint.md) retains ability `4` and Sanctuary’s approved left/right/quick controls. Final talent-tree and hotkey art remains pending with existing labels/icons as placeholders. Scroll use keeps its existing physical item and belt identity; the payment fix introduces no new player action. Effects/audio stay separate.
+
 The [Hydra native head/bolt checkpoint](hydra-world-checkpoint.md) retains ability63 and its right/quick player action. Final talent-tree and hotkey artwork remain pending under the existing Hydra label/icon placeholders. Heads, AI decisions and automatic bolts introduce no separate player action or icon; effects/audio remain separate.
 
 Player Frozen Orb retains ability43 and left/right/quick bindings. Final talent-tree and hotkey artwork remain pending under the existing Frozen Orb label/icon placeholders. Automatic trail and terminal shards introduce no separate player action or icon; effects/audio stay separate.

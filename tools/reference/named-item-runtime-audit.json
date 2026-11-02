@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a16ab8b18a83aff584f71a14863840425d7d8a668b442565d0cf03175174ddcf",
+  "ContentAssemblySha256": "3282c527b4145e33826413661dc5847fdacc5b3702ded4ec77b06b5f46ef88c2",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "9402250d276bc4cba24cd2d0039613105e41f49b017860d2afb90e34e308c3c3",
+    "data/Sanctuary/Balance/class-skill-status.json": "20d76a88711ea696cbcbc5b37894f717aed05d54fda37faf3d600300412254d3",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -865,7 +865,7 @@
     "src/Sanctuary.Content/TalentGump.cs": "71b946b767432cca5a5f4d16a55d742260095a3e08bf6180c6b99b26855e95cf",
     "src/Sanctuary.Content/TelekinesisCombat.cs": "e9af3f0338516e5f3d974017438617b1b99c238b8b02d828721b603909034089",
     "src/Sanctuary.Content/TelekinesisWorld.cs": "a9e556db0b7d9eeb0b0ba725c72b34a29b5744b4be744b876a81c10daa409703",
-    "src/Sanctuary.Content/Teleportation.cs": "6bc14d663de9b439f48fe306ae0aee9f892e3290c7fc69bb47f2cece5a47be6c",
+    "src/Sanctuary.Content/Teleportation.cs": "4dc6fa11b7cf15d62d8515c48d1b92d70682320a580082eabff0d0aa7699bc8b",
     "src/Sanctuary.Content/ThunderStorm.cs": "ea2265a340b77310ec8ad84937e74e78977a828714b73febb9fe54dbaea5fb26",
     "src/Sanctuary.Content/TieredImbuing.cs": "95ba6d99f6430e445c1eb8e2ae9631777aab20ab56e283be48888362c1dd0eb9",
     "src/Sanctuary.Content/TigerStrikes.cs": "cf1143352e999181d4fbcceb8176710f09406defe7e0eb82c8ec648b1780ad4d",
