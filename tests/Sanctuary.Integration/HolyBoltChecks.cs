@@ -74,6 +74,10 @@ public static class HolyBoltChecks
         owner.Hits-=10;int oh=owner.Hits,ah=ally.Hits,ph=pet.Hits,uh=undead.Hits,dh=demon.Hits,bh=beast.Hits,last=behind.Hits;
         var roll=HolyBolts.Roll;HolyBolts.Roll=_=>0;Pipeline(owner,ally);
         var flight=HolyBolts.Snapshot().Single(x=>x.Owner==owner.Serial.Value);
+        Require(flight.Motion!=null,"Learned Holy Bolt did not launch source motion");
+        // Retain the historical vector-flight compatibility cohort separately
+        // from the new source-motion natural-input/save acceptance.
+        flight=flight with{Motion=null};Replace(flight);
         Require(flight.Rank==1 && flight.Min256==3072 && flight.Max256==6144 && flight.Vx==.46875 && flight.Vy==0 && HolyBolts.Frames==50,"Cast damage/rank/vector/lifetime snapshot");
         for(int i=0;i<4;i++){Require(ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.prayer",out _),"Prayer fixture training");}
         Require(ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.holybolt",out _) && ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.fistoftheheavens",out _),"Later source ranks");
@@ -96,7 +100,7 @@ public static class HolyBoltChecks
         {
             HolyBolts.Cast(owner,new(owner.X+14,owner.Y,owner.Z),SkillMechanics.Values(owner,CombatAbility.HolyBolt,1));
             var flight=HolyBolts.Snapshot().Where(x=>x.Owner==owner.Serial.Value).MaxBy(x=>x.Id);
-            Replace(flight with{Frame=frame,X=owner.X+5,Y=owner.Y,Min256=3072,Max256=3072,NextUtc=TimedEffects.Now.AddMilliseconds(-120),UntilUtc=TimedEffects.Now.AddSeconds(1)});
+            Replace(flight with{Motion=null,Frame=frame,X=owner.X+5,Y=owner.Y,Min256=3072,Max256=3072,NextUtc=TimedEffects.Now.AddMilliseconds(-120),UntilUtc=TimedEffects.Now.AddSeconds(1)});
         }
         Later(160,"holy-bolt-result",()=>
         {
@@ -109,7 +113,7 @@ public static class HolyBoltChecks
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
         HolyBolts.Cast(owner,new(owner.X+14,owner.Y,owner.Z),SkillMechanics.Values(owner,CombatAbility.HolyBolt,1));
         var flight=HolyBolts.Snapshot().Single(x=>x.Owner==owner.Serial.Value);var at=TimedEffects.Now.Add(FixtureSpace.Retention);
-        flight=flight with{NextUtc=at,UntilUtc=at.AddSeconds(2),X=owner.X+1,Y=owner.Y,Frame=2,LastCollision=ally.Serial.Value,Min256=3072,Max256=6144};
+        flight=flight with{Motion=null,NextUtc=at,UntilUtc=at.AddSeconds(2),X=owner.X+1,Y=owner.Y,Frame=2,LastCollision=ally.Serial.Value,Min256=3072,Max256=6144};
         Replace(flight);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,ally.Serial.Value,pet.Serial.Value,undead.Serial.Value,flight)));
     }
     private static void Reload()

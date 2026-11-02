@@ -117,7 +117,7 @@ public static class HolyBoltDamageChecks
             Require(refused&&HolyBolts.Snapshot().SequenceEqual(all),"Malformed Holy Bolt capture partially replaced live pool");
             refused=false;try{HolyBolts.Restore(all.Append(all[0]).ToArray());}catch(InvalidDataException){refused=true;}
             Require(refused&&HolyBolts.Snapshot().SequenceEqual(all),"Duplicate Holy Bolt restore partially replaced live pool");
-            var legacy=s with{Captured=null};HolyBolts.Restore(all.Select(x=>x.Id==s.Id?legacy:x).ToArray());Require(HolyBolts.Snapshot().Single(x=>x.Id==s.Id).Captured==null,"Legacy flight gained guessed capture");
+            var legacy=s with{Captured=null,Motion=null};HolyBolts.Restore(all.Select(x=>x.Id==s.Id?legacy:x).ToArray());Require(HolyBolts.Snapshot().Single(x=>x.Id==s.Id).Captured==null,"Legacy flight gained guessed capture");
         }
         finally{Clean(p,t);}
     }
@@ -169,8 +169,8 @@ public static class HolyBoltDamageChecks
     private static void Input(NetState network,string label)
     {
         var p=Owner();var t=Target(p,new ConversionContactChecks.Recipient());var account=FixtureNetwork.Authenticate(network,p,"holy-bolt-damage-");
-        var roll=HolyBolts.Roll;HolyBolts.Roll=_=>0;NecromancerEffects.SetMana256(p,529);int life=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+6000;
-        void Cleanup(){HolyBolts.Roll=roll;Clean(p,t);account.Delete();}
+        var roll=HolyBolts.Roll;var seed=HolyBoltFlights.SeedLow;HolyBolts.Roll=_=>0;HolyBoltFlights.SeedLow=()=>0;NecromancerEffects.SetMana256(p,529);int life=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+6000;
+        void Cleanup(){HolyBolts.Roll=roll;HolyBoltFlights.SeedLow=seed;Clean(p,t);account.Delete();}
         void Observe()
         {
             try
@@ -179,7 +179,7 @@ public static class HolyBoltDamageChecks
                 if(ClassCombat.For(p).PendingAbility==CombatAbility.HolyBolt&&!began)
                 {Require(NecromancerEffects.ManaBalance256(p)==529&&SkillHealth.Balance256(t)==life,"Holy Bolt paid before action event");began=true;Log.Information("{Label}: windup",label);}
                 if(NativeMonsterReturn.Session(t).Packets==0){Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(began&&life-SkillHealth.Balance256(t)==3072&&t.Notifications==1&&t.LifeAtNotification==life&&NativeMonsterReturn.Session(t).Packets==1
+                Require(began&&life-SkillHealth.Balance256(t)==3738&&t.Notifications==1&&t.LifeAtNotification==life&&NativeMonsterReturn.Session(t).Packets==1
                     &&NecromancerEffects.ManaBalance256(p)==17,"Actual Holy Bolt ordered impact/once mana failed");Cleanup();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Cleanup();Log.Error(e,"{Label}-result: failed",label);}

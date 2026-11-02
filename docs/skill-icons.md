@@ -1,5 +1,7 @@
 # Skill icons
 
+Holy Bolt source-flight review (2026-11-02): existing talent-tree and left/right/quick artwork remains pending. Saved motion,ally-aware piercing,RNG and reference cleanup introduce no additional skill or icon.
+
 Holy Bolt typed receiver/capture review (2026-11-02): talent-tree and left/right/quick artwork remains pending under existing placeholders. Captured slow/masteries,typed damage,ally healing and atomic loading introduce no additional skill or icon.
 
 Charge contact review (2026-11-02): existing talent-tree and left/right/quick bindings retain their placeholders. Final talent/hotkey artwork remains pending; shared contact, forced knockback and the adjacent basic fallback introduce no new skill or icon.

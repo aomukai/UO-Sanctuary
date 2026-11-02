@@ -1,5 +1,7 @@
 # Holy Bolt saved source-flight migration plan
 
+Update (2026-11-03):the [source-flight checkpoint](paladin-holy-bolt-flight-checkpoint.md) is accepted with995combined/254focused markers and two natural original-flight reloads. The original plan below is retained as design/evidence context;current-engine/world/client limits remain explicit. Next:[Blessed Hammer](paladin-blessed-hammer-contact-preflight.md).
+
 Reference:**D2R Reign of the Warlock3.3.93847**,approved Sanctuary deviations first. The [receiver checkpoint](paladin-holy-bolt-damage-checkpoint.md) supplies captured item masteries/slow and impact potion/typed damage. Complete its frozen native/audit/Git acceptance before editing runtime inputs for this next component.
 
 Reuse `BasicMissileUpdate.Run`, `SourceMissileSteps.Advance`, integer `MissileVectors.VelocityFp8`, `SlowMissilePayload.VelocityFp8`, `SourceRandom`, `DruidFirestorm.CellBlocked` and `CombatHitboxes.SourceTouches`. Existing Sorceress/Necromancer flights demonstrate saved steps,frame budgets,seed/last-collider state and harmless loaded/offline aging. They are references for shared services,not drop-in Holy Bolt profiles:their class restrictions,cold/fire/lightning/poison packets,enemy-only selection,NextDelay/charged/ring and collision-kill policies differ.

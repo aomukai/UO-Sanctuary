@@ -1,5 +1,7 @@
 # Skill effects
 
+Holy Bolt source-flight review (2026-11-02): saved path/RNG and reference cleanup add no new visual asset. Holy travel/trail `0x36E4`,healing `0x376A` and existing cast/impact sounds remain **identified placeholders**. Final source-timed travel,healing/hit,wall/expiry and audio remain pending independently.
+
 Holy Bolt typed receiver/capture review (2026-11-02): projectile/trail `0x36E4`,healing `0x376A` and cast sound `0x1E5` remain **identified placeholders**. Shared typed return adds no new effect;final holy impact/healing/expiry/audio assets remain pending. Potion additions cause damage without poison/chill status effects.
 
 Charge contact review (2026-11-02): source hit class `0x70` combines with the ordinary weapon class; overlay147 currently uses native `0x374A` as an **identified placeholder**. Existing weapon sound `0x238`, travel/impact, knockback/get-hit, cold/poison/leech and audio need final assets. Failed weapon rolls still request the mapped knockback reaction. Adjacent basic-attack fallback retains ordinary presentation.

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+Holy Bolt source-flight review (2026-11-02):native serials can be reused after reboot when a previous collider was deleted before save. Clear an absent saved last-collider reference at WorldLoad,after actors load and before new spawns;retain a live reference and all seed/path/resource state. Diagnostic3proves the alias with lastCollider=targetSerial and unchanged seed;[candidate checkpoint](paladin-holy-bolt-flight-checkpoint.md) records verification status. Related saved `SorceressSpellMissiles.LastCollision`, `NecromancerSpellMissiles.LastCollider` and legacy/FoH references need their own reviewed rollout/tests;the current fix does not silently certify or alter those compatibility paths.
+
 Reference: D2R **3.3.93847, Reign of the Warlock**, with Sanctuary's approved deviations taking precedence. These notes identify reuse candidates; they do not certify unimplemented skills.
 
 ## Before starting each mechanic

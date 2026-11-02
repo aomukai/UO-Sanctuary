@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Mobiles;
@@ -14,11 +15,15 @@ public sealed record HolyBoltFlight(long Id,uint Owner,int Map,int Rank,double X
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public HolyBoltCapture Captured{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public HolyBoltMotion Motion{get;init;}
 }
 public sealed class HolyBoltProfiles:GenericPersistence
 {
+    private HolyBoltFlight[] _snapshot;
     public HolyBoltProfiles():base("SanctuaryHolyBolts",123){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(HolyBolts.Snapshot()));}
+    public override void Serialize(){_snapshot=HolyBolts.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown holy bolt version");}
@@ -79,8 +84,10 @@ public static class HolyBolts
         int speed=SlowMissilePayload.VelocityFp8(NecromancerSummons.Source("holybolt","Vel"),0,values.Rank,33,0,true,slow.VelocityPercent);
         var velocity=MissileVectors.VelocityFp8(dx,dy,speed);
         var now=TimedEffects.Now;long id=++_next;
-        _flights.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,owner.X,owner.Y,owner.Z,velocity.X,velocity.Y,
-            0,ends.Min,ends.Max,0,now.AddMilliseconds(Frames*40),now){Captured=new(modifiers,slow)});
+        var flight=new HolyBoltFlight(id,owner.Serial.Value,owner.Map.MapID,values.Rank,owner.X,owner.Y,owner.Z,velocity.X,velocity.Y,
+            0,ends.Min,ends.Max,0,now.AddMilliseconds(Frames*40),now.AddMilliseconds(40)){Captured=new(modifiers,slow),
+            Motion=new(speed,SourceRandom.InitLow(HolyBoltFlights.SeedLow()),new([new(owner.X*2,owner.Y*2)]))};
+        HolyBoltFlights.Validate(flight);_flights.Add(id,flight);
     }
     internal static void Impact(PlayerMobile owner,Mobile target,HolyBoltFlight flight)
     {
@@ -114,6 +121,7 @@ public static class HolyBolts
         foreach(long id in _keys)
         {
             if(!_flights.TryGetValue(id,out var flight)){continue;}
+            if(flight.Motion!=null){continue;}
             var owner=Owner(flight);
             if(owner==null || owner.Map==Map.Internal && flight.UntilUtc<=now){_flights.Remove(id);continue;}
             if(owner.Map==Map.Internal){continue;}
@@ -144,7 +152,13 @@ public static class HolyBolts
         Effects.SendLocationEffect(new(to.X,to.Y,flight.Z),owner.Map,0x36E4,3,10,0x481,0); // Placeholder holy bolt; no impact consumes this piercing missile.
         if(first!=null){Impact(owner,first,flight);}
     }
-    public static HolyBoltFlight[] Snapshot()=>new List<HolyBoltFlight>(_flights.Values).ToArray();
+    private static HolyBoltFlight Copy(HolyBoltFlight f)=>f.Motion is{} m?f with{Motion=m with{Steps=new(m.Steps.Cells.ToArray())}}:f;
+    internal static HolyBoltFlight State(long id)=>_flights.TryGetValue(id,out var f)?Copy(f):null;
+    internal static HolyBoltFlight Due(DateTime at)=>_flights.Values.Where(f=>f.Motion!=null&&f.NextUtc<=at).OrderBy(f=>f.NextUtc).ThenByDescending(f=>f.Id).FirstOrDefault();
+    internal static void Remove(long id){_flights.Remove(id);HolyBoltFlights.Forget(id);}
+    internal static void Update(HolyBoltFlight flight)
+    {HolyBoltFlights.Validate(flight);if(_flights.ContainsKey(flight.Id)){_flights[flight.Id]=Copy(flight);}}
+    public static HolyBoltFlight[] Snapshot()=>_flights.Values.Select(Copy).ToArray();
     public static void Restore(HolyBoltFlight[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing holy bolts");}
@@ -153,13 +167,15 @@ public static class HolyBolts
         {
             if(flight==null||flight.Ability is not (CombatAbility.HolyBolt or CombatAbility.FistOfTheHeavens)
                 || flight.Id<=0 || flight.Owner==0 || flight.Rank<1 || flight.Frame<0 || flight.Frame>=NecromancerSummons.Source(Missile(flight.Ability),"Range") || flight.Min256<0 || flight.Max256<flight.Min256
-                || !double.IsFinite(flight.X+flight.Y+flight.Vx+flight.Vy) || flight.Vx==0 && flight.Vy==0
+                || !double.IsFinite(flight.X+flight.Y+flight.Vx+flight.Vy) || flight.Motion==null&&flight.Vx==0&&flight.Vy==0
                 || flight.Captured is{} captured&&(flight.Ability!=CombatAbility.HolyBolt||flight.Rank>255||captured.Modifiers==null||captured.Modifiers.Potion!=0
                     ||captured.Slow.VelocityPercent is <0 or >100||captured.Slow.DamagePercent is <0 or >100)
-                || !next.TryAdd(flight.Id,flight))
+                || !next.TryAdd(flight.Id,CopyChecked(flight)))
             {throw new InvalidDataException("Invalid holy bolt");}
             nextId=Math.Max(nextId,flight.Id);
         }
         _flights.Clear();foreach(var pair in next){_flights.Add(pair.Key,pair.Value);}_next=nextId;
+        HolyBoltFlights.Loaded(next.Values.Where(f=>f.Motion!=null).Select(f=>f.Id));
     }
+    private static HolyBoltFlight CopyChecked(HolyBoltFlight f){if(f.Motion!=null){HolyBoltFlights.Validate(f);}return Copy(f);}
 }
