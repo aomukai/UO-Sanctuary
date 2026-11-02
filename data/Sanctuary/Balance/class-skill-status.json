@@ -1143,7 +1143,7 @@
       "tree": "Offensive Auras",
       "sourceId": 103,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Source free delayed recipient aura, attack-attempt flat physical damage and prepared-physical percentage return staged. Native misses, typed/fractional/zero/ranged/spell cases, life-capped before-incoming-hit ordering, immunity, rank20 and two reloads covered. Legacy player/hireling percent reduction and NativeBaseHire projection are explicit; full gear/attempt ordering/owner/modes/PvP/client acceptance remains open."
     },
@@ -1220,7 +1220,7 @@
       "tree": "Offensive Auras",
       "sourceId": 123,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Hostile source-ranked leases, supplier protection, base-immunity snapshot deltas, independent Lower Resist combination, defense-percent addition and class/legacy elite priority staged. Native damage, signed source defense, radius, equal/weaker rank behavior and two reloads covered. Original native base-stat mapping, shared self/enemy state edge cases, modern sunder/PvP/hireling/filter/owner/gear/client acceptance remain open."
     },
@@ -1297,7 +1297,7 @@
       "tree": "Combat Skills",
       "sourceId": 112,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Cast-time hard synergies/Concentration,77 source waypoints, Q12/FP16 stepping, five-update acceleration, piercing most-recent-collider history, ordinary magic immunity and separate species bonuses staged. Native source goldens, resources and two reloads covered. Fog float LUT is reconstructed explicitly; exact modern path/cell/body/terrain/order/RNG/SC, full gear/owner and actual-client behavior remain acceptance work."
     },

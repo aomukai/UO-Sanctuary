@@ -107,7 +107,9 @@ public static class PaladinConvictionChecks
         while(ClassCreation.Profiles.GetRank(owner.Serial,"paladin.conviction")<20){Require(ClassCreation.Profiles.TryTrain(owner.Serial,"paladin.conviction",out _),"Conviction training");}
         var ally=ClassSkillChecks.Player(DiabloClass.Sorceress);ally.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);FreezeRecovery(ally);
         var pet=Place(owner,new GraveyardSkeleton(),2);Require(pet.SetControlMaster(owner),"Conviction ally pet");
-        var enemy=Place(owner,new Ogre(),4);var boundary=Place(owner,new Ogre(),10);var outside=Place(owner,new Ogre(),11);
+        // Lower Resist's combined-immunity case needs a reviewed D2 species;
+        // unclassified native Ogres intentionally have no curse fallback.
+        var enemy=Place(owner,new GraveyardSkeleton(),4);var boundary=Place(owner,new Ogre(),10);var outside=Place(owner,new Ogre(),11);
         var one=SkillMechanics.Values(owner,CombatAbility.Conviction,1);var twenty=SkillMechanics.Values(owner,CombatAbility.Conviction,20);
         Require(one.Eval("aurastatcalc1")==-49 && one.Eval("aurastatcalc2")==-30 && one.Eval("aurarangecalc")==20 && one.Mana256==0
             && twenty.Eval("aurastatcalc1")==-90 && twenty.Eval("aurastatcalc2")==-125

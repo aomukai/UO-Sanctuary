@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Paladin baseline/binding checkpoint](paladin-baseline-checkpoint.md) keeps the existing30talent icons and active right/quick artwork. Left-slot controls follow the pinned table, including right-only auras and Holy Shield. Legacy normalization introduces no new player action or icon; effects/audio remain separate.
+
 The [Sorceress coverage/binding review](sorceress-coverage-review.md) keeps the existing talent/right/quick icon requirements for Frost Nova, Nova, Static Field, Telekinesis, Thunder Storm and Hydra; their left slots are unavailable under the pinned policy. Teleport retains its approved left/right/quick requirement. No new icon or player action is introduced.
 
 [Teleport input and resource acceptance](sorceress-player-teleport-checkpoint.md) retains ability `4` and Sanctuary’s approved left/right/quick controls. Final talent-tree and hotkey art remains pending with existing labels/icons as placeholders. Scroll use keeps its existing physical item and belt identity; the payment fix introduces no new player action. Effects/audio stay separate.

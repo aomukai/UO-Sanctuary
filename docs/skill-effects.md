@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Paladin baseline/binding checkpoint](paladin-baseline-checkpoint.md) retains the existing aura, weapon, projectile, shield and contact placeholders. Slot validation and corrected approved-pet/species fixtures add no effect or audio requirement; final per-skill effects remain pending independently.
+
 The [Sorceress coverage/binding review](sorceress-coverage-review.md) changes mouse-slot admission and saved normalization only. It introduces no new particle, body animation or audio asset. Existing per-skill placeholders and missing-effects entries remain authoritative.
 
 [Teleport input and resource acceptance](sorceress-player-teleport-checkpoint.md) retains departure/arrival effect `0x3728`, particle variants `2023`/`5023`, pose `16` and sound `0x1FE` as identified placeholders. Final cast, departure, arrival, body feedback and audio remain pending. The shared mana-payment correction adds no effect requirement; talent and hotkey icons stay separate.

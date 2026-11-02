@@ -1,0 +1,277 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "tools/reference/d2r-named-equipment/json/skills.json",
+  "sourceSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "skills": [
+    {
+      "talentId": "paladin.prayer",
+      "sourceId": 99,
+      "name": "Prayer",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.resistfire",
+      "sourceId": 100,
+      "name": "Resist Fire",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.resistcold",
+      "sourceId": 105,
+      "name": "Resist Cold",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.resistlightning",
+      "sourceId": 110,
+      "name": "Resist Lightning",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.defiance",
+      "sourceId": 104,
+      "name": "Defiance",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.cleansing",
+      "sourceId": 109,
+      "name": "Cleansing",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.vigor",
+      "sourceId": 115,
+      "name": "Vigor",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.meditation",
+      "sourceId": 120,
+      "name": "Meditation",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.redemption",
+      "sourceId": 124,
+      "name": "Redemption",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.salvation",
+      "sourceId": 125,
+      "name": "Salvation",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.might",
+      "sourceId": 98,
+      "name": "Might",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.holyfire",
+      "sourceId": 102,
+      "name": "Holy Fire",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.thorns",
+      "sourceId": 103,
+      "name": "Thorns",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.blessedaim",
+      "sourceId": 108,
+      "name": "Blessed Aim",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.concentration",
+      "sourceId": 113,
+      "name": "Concentration",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.holyfreeze",
+      "sourceId": 114,
+      "name": "Holy Freeze",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.holyshock",
+      "sourceId": 118,
+      "name": "Holy Shock",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.sanctuary",
+      "sourceId": 119,
+      "name": "Sanctuary",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.fanaticism",
+      "sourceId": 122,
+      "name": "Fanaticism",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.conviction",
+      "sourceId": 123,
+      "name": "Conviction",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.sacrifice",
+      "sourceId": 96,
+      "name": "Sacrifice",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.smite",
+      "sourceId": 97,
+      "name": "Smite",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.holybolt",
+      "sourceId": 101,
+      "name": "Holy Bolt",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.zeal",
+      "sourceId": 106,
+      "name": "Zeal",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.charge",
+      "sourceId": 107,
+      "name": "Charge",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.vengeance",
+      "sourceId": 111,
+      "name": "Vengeance",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.blessedhammer",
+      "sourceId": 112,
+      "name": "Blessed Hammer",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.conversion",
+      "sourceId": 116,
+      "name": "Conversion",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "paladin.holyshield",
+      "sourceId": 117,
+      "name": "Holy Shield",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "paladin.fistoftheheavens",
+      "sourceId": 121,
+      "name": "Fist of the Heavens",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    }
+  ]
+}

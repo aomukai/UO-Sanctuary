@@ -49,6 +49,7 @@ public static class PaladinAuraChecks
         var necro=ClassSkillChecks.Player();necro.MoveToWorld(new(owner.X+5,owner.Y,owner.Z),owner.Map);
         var skeleton=new SkeletonGuardian();skeleton.Initialize(necro,20,5);Require(skeleton.SetControlMaster(necro),"Aura skeleton ownership");skeleton.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);skeleton.Frozen=true;skeleton.AIObject.AITimer.Stop();
         var golem=new NecromancerMinion();golem.Prepare(necro,CombatAbility.ClayGolem);Require(golem.SetControlMaster(necro),"Aura golem ownership");golem.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);golem.Frozen=true;golem.AIObject.AITimer.Stop();
+        Require(golem.Rank==1&&golem.CapturedValues.Formula("skill('Golem Mastery'.lvl)")==1&&golem.SkillWeaponDamage==(3,4),"Approved Clay Skeleton-curve baseline before aura");
         var barrier=BoneBarrierSegment.Spawn(necro,CombatAbility.BoneWall,new(owner.X+6,owner.Y,owner.Z),SkillMechanics.Values(necro,CombatAbility.BoneWall),null);
         var pet=Enemy(owner,4);pet.ControlMaster=necro;pet.Controlled=true;var enemy=Enemy(owner,5);
         int petDefense=ClassStats.Defense(pet),petRating=ClassStats.AttackRating(pet);
@@ -72,8 +73,9 @@ public static class PaladinAuraChecks
         Require(ClassStats.DamageBonus(ally,sword)==bonus+40 && after.Physical>before.Physical && after.Fire==before.Fire
             && after.Cold==before.Cold && after.Lightning==before.Lightning && after.Poison==before.Poison,"Might amplified an elemental/material packet");
         Require(skeleton.CombatProfile.MinDamage==59 && skeleton.SkillWeaponDamage==(69,72),"Might did not add to skeleton enhanced damage");
-        int percent=(int)SkillMechanics.Values(necro,CombatAbility.ClayGolem).Eval("passivecalc3");
-        Require(golem.SkillWeaponDamage.Min==Math.Max(1,NecromancerSummons.Source("ClayGolem","A1MinD")*(140+percent)/100),"Golem additive aura damage");
+        // Approved Clay uses the captured Skeleton curve with Golem Mastery,
+        // replacing its old innate weapon and Fire-synergy percentage.
+        Require(golem.SourceWeaponBase==(3,4,0)&&golem.SkillWeaponDamage==(4,5),"Approved Clay endpoints plus Might40percent");
         int life=enemy.Hits;AOS.Damage(enemy,pet,100,false,100,0,0,0,0,weaponDamage:true);
         Require(enemy.Hits==life-140,"Native controlled weapon attack lost Might");
         life=enemy.Hits;SkillCombat.HitParts(skeleton,enemy,new(skeleton.SkillWeaponDamage.Min,0,0,0,0),false,weapon:true);
