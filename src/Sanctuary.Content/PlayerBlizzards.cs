@@ -36,13 +36,13 @@ internal static class PlayerBlizzards
     }
     internal static PreparedMonsterDamagePacket Roll(BlizzardShard shard,ref ulong seed)
     {int raw=SorceressSpellMissiles.Roll(shard.Min256,shard.Max256,seed,out seed);return new(0,raw,0,shard.ColdFrames,5,Cold256:raw);}
-    internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,PreparedMonsterDamagePacket packet,FirestormModifiers mods,DateTime at)
+    internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,PreparedMonsterDamagePacket packet,FirestormModifiers mods,DateTime at,string kind="Blizzard")
     {
         if(!Meteors.Supported(owner,target,out string reason)||packet.Physical256!=0||packet.Total256!=packet.Cold256||packet.ResultFlags!=5||packet.HitFlags!=0
             ||packet.StunFrames!=0||packet.HitClass!=0||packet.HitClassActive||packet.Fire256!=0||packet.Lightning256!=0||packet.Poison256!=0||packet.Magic256!=0)
         {throw new NotSupportedException(reason??"Unsupported Blizzard cold packet");}
         var metadata=NativeMonsterReturn.Metadata(target);NativeMonsterReturn.Session(target);
-        var services=new InstantSpellNpcDamage(owner,target,metadata,mods,at,"Blizzard",()=>TelekinesisCombat.DefenderRoll(),cold:true);
+        var services=new InstantSpellNpcDamage(owner,target,metadata,mods,at,kind,()=>TelekinesisCombat.DefenderRoll(),cold:true);
         return PreparedMonsterDamage.ReleaseMissile(owner,target,packet,new(NamedCombat.Elite(target),()=>false,()=>metadata.Velocity,()=>false),
             _=>throw new InvalidOperationException("Blizzard has no timed stun"),services,at);
     }

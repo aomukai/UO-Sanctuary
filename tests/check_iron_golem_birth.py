@@ -119,12 +119,12 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                             else:
                                 ready=session.expect(family+r': ready ability=(\d+) class=(\d+) target=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
                                 ability,character,target,x,y,z=map(int,ready.groups())
-                            if family.endswith('right'):
-                                client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,4,1,ability,target,x,y,z))
+                            if family.endswith(('left','right')):
+                                client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,7 if family.endswith('left') else 4,1,ability,target,x,y,z))
                             else:
                                 client.sendall(struct.pack('>BHHBBIBBBIHHb',0xBF,23,0xF7,2,4,1,character,7,ability,target,x,y,z))
                             session.expect(family+': windup')
-                            if family.endswith('right'):client.sendall(struct.pack('>BHHBBI',0xBF,11,0xF2,7,5,2))
+                            if family.endswith(('left','right')):client.sendall(struct.pack('>BHHBBI',0xBF,11,0xF2,7,8 if family.endswith('left') else 5,2))
                             assert session.expect(family+r'-result: (passed|failed)',timeout=(extra_input_timeouts or {}).get(family,10)).group(1)=='passed'
                     session.send(save_command)
                     if save_result:

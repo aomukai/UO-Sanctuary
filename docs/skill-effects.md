@@ -1,5 +1,7 @@
 # Skill effects
 
+Player Frozen Orb reuses orb `0x375A`, ice `0x36E4`, hue `0x480` and fire cast sound `0x1E5` as **identified placeholders**. Final orb/trail/terminal/contact/expiry feedback and cold cast/travel/hit audio remain pending; mechanical implementation does not wait for art. See [checkpoint](sorceress-player-frozen-orb-checkpoint.md).
+
 Player Blizzard reuses falling ice `0x376A`, cold-state `0x374A` and the current fire-cast audio as **identified placeholders**. Final fall/landing/contact/size/expiry feedback and cold cast/loop/hit audio remain pending; the source controller does not wait for art.
 
 Player Meteor reuses the Mage/Phoenix warning, falling meteor, impact and burning-ground placeholders (`0x3709`, `0x36BD`, `0x398C`, hue `0x489`), plus fire cast audio. Final timing/contact presentation and audio are pending; mechanical work uses the shared controller.

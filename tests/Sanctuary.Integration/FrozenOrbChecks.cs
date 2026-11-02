@@ -5,6 +5,7 @@ using System.Text.Json;
 using Server;
 using Server.Logging;
 using Server.Mobiles;
+using Server.Network;
 
 namespace Sanctuary.Integration;
 
@@ -13,7 +14,7 @@ public static class FrozenOrbChecks
     private static readonly ILogger _log = LogFactory.GetLogger(typeof(FrozenOrbChecks));
     private sealed record Saved(uint Owner, FrozenMissile Orb, FrozenMissile Curve);
     private static string Manifest => Path.Join(Core.BaseDirectory, "frozen-orb-checks.json");
-    public static void Configure() { Register("frozen-orb-check", Check); Register("frozen-orb-reload-check", Reload); }
+    public static void Configure() { Register("frozen-orb-check", ()=>FixtureNetwork.Connected("frozen-orb-result",Check)); Register("frozen-orb-reload-check", Reload); }
     private static void Register(string name, Action action) => ConsoleInputHandler.RegisterCommand(name, "Frozen Orb paths, collision and persistence",
         _ => Core.LoopContext.Post(() => { try { action(); _log.Information("{Name}: passed", name); } catch (Exception e) { _log.Error(e, "{Name}: failed", name); } }));
     private static void Require(bool value, string why) { if (!value) { throw new InvalidOperationException(why); } }
@@ -25,7 +26,7 @@ public static class FrozenOrbChecks
         enemy.MoveToWorld(new(owner.X + x, owner.Y, owner.Z), owner.Map); enemy.AIObject.AITimer.Stop();
         enemy.SetHits(20000); enemy.Hits = enemy.HitsMax; enemy.SetResistance(ResistanceType.Cold, 0); return enemy;
     }
-    private static void Check()
+    private static void Check(NetState network)
     {
         Require(MissileVectors.Direction(30, 0) == new Point2D(4096, 0) && MissileVectors.Direction(15, 15) == new Point2D(2896, 2896)
             && MissileVectors.Velocity(30, 0, 10).X == .234375 && SkillGeometry.Velocity(10) == .234375
@@ -35,6 +36,8 @@ public static class FrozenOrbChecks
             && FrozenOrbs.Turn(0, 15) == new Point2D(-7, 7), "Source orb direction stride or signed nova turns");
         var owner = ClassSkillChecks.Player(DiabloClass.Sorceress);
         owner.MoveToWorld(ClassSkillChecks.Corridor(owner, 5880, 1670), owner.Map);
+        var account=FixtureNetwork.Authenticate(network,owner,"legacy-orb-check-");
+        void Finish(){owner.Internalize();network.Mobile=null;owner.NetState=null;account[0]=null;network.Account=null;account.Delete();}
         var body = Enemy(owner, 1); var nearest = Enemy(owner, 5); var behind = Enemy(owner, 6); var repeated = Enemy(owner, 9);
         var immune = Enemy(owner, 13); immune.SetResistance(ResistanceType.Cold, 100); int life = body.Hits;
         var saved = FrozenOrbs.Snapshot(); long id = saved.Select(x => x.Id).DefaultIfEmpty().Max(); var now = TimedEffects.Now;
@@ -62,10 +65,10 @@ public static class FrozenOrbChecks
             var current = FrozenOrbs.Snapshot().Single(x => x.Id == curve.Id);
             Require(current.Frame >= 6 && current.VectorX == -7 && current.VectorY == 7 && current.Vx < 0 && current.Vy > 0,
                 "Terminal shard did not execute its three source turns");
-            FrozenOrbs.Cancel(owner); CastCheck(owner);
+            FrozenOrbs.Cancel(owner); CastCheck(owner,Finish);
         });
     }
-    private static void CastCheck(PlayerMobile owner)
+    private static void CastCheck(PlayerMobile owner,Action finish)
     {
         var point = new Point3D(owner.X + 12, owner.Y, owner.Z); var values = SkillMechanics.Values(owner, CombatAbility.FrozenOrb);
         Require(values.Mana256 == 25 * 256 && values.Damage256(false) == 10444 && values.Damage256(true) == 11750 && values.DurationFrames == 200,
@@ -100,7 +103,8 @@ public static class FrozenOrbChecks
             Require(!FrozenOrbs.Snapshot().Any(x => x.Owner == owner.Serial.Value), "Orb/shards did not expire naturally");
             var at=TimedEffects.Now;var state=FrozenOrbs.Snapshot();
             long lateId=state.Select(x=>x.Id).DefaultIfEmpty().Max()+100;
-            var late=orb with{Id=lateId,X=owner.X+28*.234375,Frame=28,DirectionIndex=(28*19)&63,
+            // This retained synthetic payload exercises the legacy overdue path.
+            var late=orb with{Source=null,Id=lateId,X=owner.X+28*.234375,Frame=28,DirectionIndex=(28*19)&63,
                 NextUtc=at.AddMilliseconds(-80),UntilUtc=at.AddMilliseconds(10)};
             FrozenOrbs.Restore(state.Append(late).ToArray());
             Later(100,"frozen-orb-result",()=>
@@ -114,12 +118,13 @@ public static class FrozenOrbChecks
             var missiles = FrozenOrbs.Snapshot(); var parent = missiles.Single(x => x.Owner == owner.Serial.Value);
             var next = TimedEffects.Now.Add(FixtureSpace.Retention);
             // Hold test-only final-frame/curve payloads across two process reloads.
-            parent = parent with { X = owner.X + 14, Frame = 29, DirectionIndex = 39, NextUtc = next, UntilUtc = next.AddMilliseconds(40) };
+            // Preserve synthetic V0 payloads separately from the new original-source fixture.
+            parent = parent with { Source=null,X = owner.X + 14, Frame = 29, DirectionIndex = 39, NextUtc = next, UntilUtc = next.AddMilliseconds(40) };
             var curve = parent with { Id = parent.Id + 1, Kind = FrozenKind.Nova, X = owner.X + 4, Frame = 4, VectorX = 0, VectorY = 15,
                 Vx = 0, Vy = .5625, Min256 = 2560, Max256 = 2560, ColdFrames = 200, UntilUtc = next.AddMilliseconds(840) };
             FrozenOrbs.Restore(missiles.Select(x => x.Id == parent.Id ? parent : x).Append(curve).ToArray());
             File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, parent, curve)));
-            _log.Information("frozen-orb-result: passed");
+            finish();_log.Information("frozen-orb-result: passed");
             });
         });
     }

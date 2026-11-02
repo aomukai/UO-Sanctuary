@@ -92,7 +92,19 @@ public static class PlayerMeteorChecks
             FireGround.CommitMeteor(p,m);FireGround.AdvanceMeteor(p,Warnings(p).Single().ImpactUtc,true);
             Require(SkillHealth.Balance256(t)==200*256&&NativeMonsterReturn.Session(t).LastMode==PreparedMonsterReturn.GetHit&&CreatureHitRecovery.Remaining(t)>0,"Meteor impact failed ordinary ordered get-hit");
             var field=Fields(p).First(f=>ImmolationArrows.Recipient(p,f)==t);
-            int notifications=NativeMonsterReturn.Session(t).RecoveryNotifications;FireGround.AdvanceMeteor(p,field.NextUtc,true);Require(NativeMonsterReturn.Session(t).RecoveryNotifications==notifications,"Meteor field incorrectly requested ordinary get-hit");
+            // SOFTHIT requests a recovery notification without entering get-hit
+            // mode. Exercise both packet branches instead of depending on the
+            // random field seed to omit SOFTHIT.
+            foreach(bool soft in new[]{false,true})
+            {
+                ulong seed=0;PreparedMonsterDamagePacket packet;
+                do{ulong roll=++seed;packet=SourceFireFields.Roll(field.Min256,field.Max256,ref roll);}while(((packet.ResultFlags&16384)!=0)!=soft);
+                field=field with{Seed=seed};Replace(p,[],[field]);
+                var state=NativeMonsterReturn.Session(t);int notifications=state.RecoveryNotifications,mode=state.LastMode;
+                FireGround.AdvanceMeteor(p,field.NextUtc,true);
+                Require(state.RecoveryNotifications==notifications+(soft?1:0)&&state.LastMode==mode,"Meteor field SOFTHIT notification/mode differs from source return");
+                field=Fields(p).Single();
+            }
             FireGround.Cancel(p);SkillHealth.SetBalance256(t,100*256);FireGround.CommitMeteor(p,m);FireGround.AdvanceMeteor(p,Warnings(p).Single().ImpactUtc,true);Require(!t.Alive,"Meteor lethal impact did not enter native death");
         }
         finally{Clean(p,t);}

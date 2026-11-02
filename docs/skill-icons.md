@@ -1,5 +1,7 @@
 # Skill icons
 
+Player Frozen Orb retains ability43 and left/right/quick bindings. Final talent-tree and hotkey artwork remain pending under the existing Frozen Orb label/icon placeholders. Automatic trail and terminal shards introduce no separate player action or icon; effects/audio stay separate.
+
 Player Blizzard follows pinned right/quick admission; its talent-tree and right/quick icons remain required. Current mappings are placeholders; effects/audio are tracked separately.
 
 Player Meteor is right/quick only under the pinned reference. Its talent-tree and right/quick icons remain required; current bindings use identified placeholders. Effects/audio remain in their separate register.

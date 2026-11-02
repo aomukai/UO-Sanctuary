@@ -38,12 +38,12 @@
     "Candidate enumeration/footprints/collision masks/room/path flags and damage-fill/flag/commit services remain explicit. Full current global/animation RNG,InitSteps/activation,zero-damage root event subscribers,cold/HP/return/block/PvP/native input/save/client and assets remain separate. No C#/runtime data/install/save mutation."
   ],
   "artifacts": {
-    "tools/probe_frozen_orb_collision.py": "9a2e695a2a9292fad639653045bfe08b02f1452615008c56b49a877ca7372cb0",
+    "tools/probe_frozen_orb_collision.py": "e6e9abe593ae53c234fca3df28a5ea963f9c2df23d33563548aa622cb417d364",
     "tools/reference/blizzard-collision-source-evidence.json": "cb3738ed8273d4d925480193dd00fc1c3ccaa7f1bfdc76f80e10aac84ccf7561",
     ".local/class-skills/frozen-orb-collision-source/reused-blizzard.cpp": "7c38d9c3ac88a0d9a1ec079017fdf3a5a0eb8da3eb50ccdff0102fbcb574abb6",
-    ".local/class-skills/frozen-orb-collision-source/probe.cpp": "3920be767fe5d669e0eef599396283feb1962782c83410bfb2704c653bfaaddd",
-    ".local/class-skills/frozen-orb-collision-source/probe": "7c8ae9b23175e6db4042b51d722d41a7fdca1e0f06cf3dca006cd24dfaaee6da",
-    ".local/class-skills/frozen-orb-collision-source/probe-san": "768b8fa3a2d2321aec95710a287c0fde2e7481c27178247228c6191fa852a399",
+    ".local/class-skills/frozen-orb-collision-source/probe.cpp": "d11e9757eff7912cd089638f2db8e54a1a24764cc0f74c8a207e0ec41320b1c9",
+    ".local/class-skills/frozen-orb-collision-source/probe": "8b6b7e21fde70438fd87391efa44b3ef7ff737e9e8933000049a0efe94df8976",
+    ".local/class-skills/frozen-orb-collision-source/probe-san": "dadfd7bae197f9156f11d0af11f6f6b80fd69c10cce8857dbadcf10a55feafd6",
     ".local/class-skills/frozen-orb-collision-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/frozen-orb-collision-source/cases.json": "aabca0c332fbf6d3f054c5fe5ea55a1aea07a1eeafe3cb840860573e5b9f93e8"
   }

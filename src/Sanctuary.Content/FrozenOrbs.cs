@@ -10,7 +10,11 @@ namespace Sanctuary;
 public enum FrozenKind { Orb, Bolt, Nova }
 public sealed record FrozenMissile(long Id, uint Owner, int Rank, int Map, FrozenKind Kind, double X, double Y, int Z,
     double Vx, double Vy, int Frame, int DirectionIndex, int VectorX, int VectorY, int Min256, int Max256, int ColdFrames,
-    uint LastCollision, DateTime UntilUtc, DateTime NextUtc);
+    uint LastCollision, DateTime UntilUtc, DateTime NextUtc)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FrozenSource Source{get;init;}
+}
 
 public sealed class FrozenOrbProfiles : GenericPersistence
 {
@@ -19,11 +23,11 @@ public sealed class FrozenOrbProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         if (reader.ReadInt() != 0) { throw new InvalidDataException("Unknown Frozen Orb version"); }
-        FrozenOrbs.Restore(JsonSerializer.Deserialize<FrozenMissile[]>(reader.ReadString()));
+        FrozenOrbs.Restore(JsonSerializer.Deserialize<FrozenMissile[]>(reader.ReadString()),true);
     }
 }
 
-public static class FrozenOrbs
+public static partial class FrozenOrbs
 {
     private static readonly int[] _xs = [30,29,29,28,27,26,24,23,21,19,16,14,11,8,5,2,0,-2,-5,-8,-11,-14,-16,-19,-21,-23,-24,-26,-27,-28,-29,-29,-30,-29,-29,-28,-27,-26,-24,-23,-21,-19,-16,-14,-11,-8,-5,-2,0,2,5,8,11,14,16,19,21,23,24,26,27,28,29,29];
     private static readonly int[] _ys = [0,2,5,8,11,14,16,19,21,23,24,26,27,28,29,29,30,29,29,28,27,26,24,23,21,19,16,14,11,8,5,2,0,-2,-5,-8,-11,-14,-16,-19,-21,-23,-24,-26,-27,-28,-29,-29,-30,-29,-29,-28,-27,-26,-24,-23,-21,-19,-16,-14,-11,-8,-5,-2];
@@ -38,12 +42,7 @@ public static class FrozenOrbs
     private static string Key(FrozenKind kind) => kind switch { FrozenKind.Orb => "frozenorb", FrozenKind.Bolt => "frozenorbbolt", _ => "frozenorbnova" };
     public static void Cast(PlayerMobile owner, Point3D aim, SkillValues values)
     {
-        int dx = aim.X - owner.X, dy = aim.Y - owner.Y;
-        if (dx == 0 && dy == 0) { dx = dy = 1; }
-        var velocity = MissileVectors.Velocity(dx, dy, NecromancerSummons.Source("frozenorb", "Vel")); var now = TimedEffects.Now;
-        long id = ++_nextId;
-        _missiles.Add(id, new(id, owner.Serial.Value, values.Rank, owner.Map.MapID, FrozenKind.Orb, owner.X, owner.Y, owner.Z,
-            velocity.X, velocity.Y, 0, 0, 0, 0, 0, 0, 0, 0, now.AddMilliseconds(NecromancerSummons.Source("frozenorb", "Range") * 40), now));
+        Commit(PlayerFrozenOrbs.Prepare(owner,aim,values,TimedEffects.Now));
     }
     private static void Child(PlayerMobile owner, FrozenMissile orb, FrozenKind kind, int index, DateTime now)
     {
@@ -67,14 +66,14 @@ public static class FrozenOrbs
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>(); foreach (var (id, missile) in _missiles) { if (missile.Owner == owner.Serial.Value) { ids.Add(id); } }
-        foreach (long id in ids) { _missiles.Remove(id); }
+        foreach (long id in ids) { _missiles.Remove(id);_loaded.Remove(id); }
     }
     private static void Tick()
     {
         var now=TimedEffects.Now;_keys.Clear();_keys.AddRange(_missiles.Keys);
         foreach(long id in _keys)
         {
-            if(!_missiles.TryGetValue(id,out var missile)){continue;}
+            if(!_missiles.TryGetValue(id,out var missile)||missile.Source!=null){continue;}
             var owner=Owner(missile);
             if(owner==null){_missiles.Remove(id);continue;}
             if(owner.Map==Map.Internal)
@@ -89,6 +88,7 @@ public static class FrozenOrbs
                 if(missile.Kind==FrozenKind.Orb){Burst(owner,missile,missile.UntilUtc);}
             }
         }
+        TickSource(now,null);
     }
     private static void Step(long id,FrozenMissile missile,PlayerMobile owner,DateTime now)
     {
@@ -143,18 +143,18 @@ public static class FrozenOrbs
             Effects.SendLocationEffect(point, owner.Map, missile.Kind == FrozenKind.Orb ? 0x375A : 0x36E4, 3, 10, 0x480, 0); // Placeholder orb/ice shard.
     }
     public static FrozenMissile[] Snapshot() => new List<FrozenMissile>(_missiles.Values).ToArray();
-    public static void Restore(FrozenMissile[] saved)
+    public static void Restore(FrozenMissile[] saved,bool loaded=false)
     {
-        if (saved == null) { throw new InvalidDataException("Missing Frozen Orb state"); }
-        _missiles.Clear(); _nextId = 0;
-        foreach (var missile in saved)
+        if(saved==null){throw new InvalidDataException("Missing Frozen Orb state");}
+        var missiles=new Dictionary<long,FrozenMissile>();long next=0;
+        foreach(var m in saved)
         {
-            if (missile.Id <= 0 || missile.Rank <= 0 || missile.Kind is < FrozenKind.Orb or > FrozenKind.Nova
-                || missile.Frame < 0 || missile.Frame >= NecromancerSummons.Source(Key(missile.Kind), "Range") || missile.DirectionIndex is < 0 or > 63
-                || missile.Min256 < 0 || missile.Max256 < missile.Min256 || missile.ColdFrames < 0
-                || !double.IsFinite(missile.X + missile.Y + missile.Vx + missile.Vy) || !_missiles.TryAdd(missile.Id, missile))
-            { throw new InvalidDataException("Invalid Frozen Orb missile"); }
-            _nextId = Math.Max(_nextId, missile.Id);
+            if(m.Id<=0||m.Rank<=0||m.Kind is <FrozenKind.Orb or >FrozenKind.Nova||m.Frame<0||m.Frame>=NecromancerSummons.Source(Key(m.Kind),"Range")
+                ||m.DirectionIndex is <0 or >63||m.Min256<0||m.Max256<m.Min256||m.ColdFrames<0||!double.IsFinite(m.X+m.Y+m.Vx+m.Vy)||!PlayerFrozenOrbs.Valid(m)||!missiles.TryAdd(m.Id,m))
+            {throw new InvalidDataException("Invalid Frozen Orb missile");}next=Math.Max(next,m.Id);
         }
+        _loaded.RemoveWhere(id=>!missiles.ContainsKey(id));
+        if(loaded){_loaded.Clear();foreach(var m in missiles.Values){if(m.Source!=null&&m.NextUtc<=TimedEffects.Now){_loaded.Add(m.Id);}}}
+        _missiles.Clear();foreach(var pair in missiles){_missiles.Add(pair.Key,pair.Value);}_nextId=next;
     }
 }
