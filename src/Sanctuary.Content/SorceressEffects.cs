@@ -14,7 +14,11 @@ public sealed record ColdArmorState(CombatAbility Ability, DateTime UntilUtc, in
     // do not infer a rank from rounded damage/defense or current equipment.
     public int Rank { get; init; }
 }
-public sealed record EnergyShieldState(DateTime UntilUtc, int AbsorbPercent);
+public sealed record EnergyShieldState(DateTime UntilUtc, int AbsorbPercent)
+{
+    // Optional V0 extension; old states retain their captured absorption.
+    public int Rank {get;init;}
+}
 public sealed record EnchantState(DateTime UntilUtc, int Rank, int Min256, int Max256, int AttackPercent, uint Caster);
 public sealed record SorceressState(ColdArmorState Armor = null, EnergyShieldState Shield = null, ThunderStormState Storm = null, EnchantState Enchantment = null, BlazeState Blaze = null);
 
@@ -41,7 +45,7 @@ public sealed class SorceressEffectProfiles : GenericPersistence
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<SorceressState>(reader.ReadString());
             if (!serial.IsMobile || state == null || state.Armor is { } armor && (!SorceressEffects.IsArmor(armor.Ability)
                 || armor.Defense < 0 || armor.FreezeFrames < 0 || armor.Min256 < 0 || armor.Max256 < armor.Min256 || armor.ColdFrames < 0 || armor.Rank is < 0 or > 255)
-                || state.Shield is { AbsorbPercent: < 0 or > 95 }
+                || state.Shield is { AbsorbPercent: < 0 or > 95 } or {Rank:<0 or >255}
                 || state.Enchantment is { } enchant && (enchant.Rank <= 0 || enchant.Min256 < 0 || enchant.Max256 < enchant.Min256 || enchant.AttackPercent < 0)
                 || state.Blaze is { } blaze && (blaze.Rank <= 0 || blaze.Speed < 0)
                 || state.Storm is { } storm && !ThunderStorm.Valid(storm) || !states.TryAdd(serial, state))
@@ -116,32 +120,12 @@ public static class SorceressEffects
         =>new(ability,until,(int)values.Eval("aurastatcalc1"),ability==CombatAbility.FrozenArmor?(int)values.Eval("calc1"):0,
             values.Damage256(false),values.Damage256(true),values.DurationFrames) { Rank = values.Rank };
     public static void CastShield(PlayerMobile owner, SkillValues values)
-    {
-        var shield = new EnergyShieldState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), (int)values.Eval("calc1"));
-        Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { Shield = shield });
-        owner.FixedEffect(0x375A, 10, 15, 0x482, 0); // Placeholder mana shield.
-    }
+        =>EnergyShields.Apply(owner,EnergyShields.Prepare(values,TimedEffects.Now));
     public static GearDamage Absorb(Mobile target, GearDamage damage)
     {
         damage=DruidCycloneArmor.Absorb(target,damage);
         if (target is not PlayerMobile owner || Shield(owner) is not { } shield) { return damage; }
-        int divisor = Math.Max(1, SkillMechanics.For(CombatAbility.EnergyShield).Parameter(5)
-            - ClassCreation.Profiles.GetRank(owner.Serial, "sorceress.telekinesis"));
-        // The source event spends a shared mana balance in physical, fire, lightning, cold, magic order.
-        double physical = Part(damage.Physical), fire = Part(damage.Fire), lightning = Part(damage.Lightning),
-            cold = Part(damage.Cold), magic = Part(damage.Magic);
-        if (NecromancerEffects.ManaBalance256(owner) == 0)
-        { Profiles.Store(owner, Profiles.Find(owner) with { Shield = null }); }
-        return damage with { Physical = physical, Fire = fire, Lightning = lightning, Cold = cold, Magic = magic };
-        double Part(double incoming)
-        {
-            if (incoming <= 0) { return 0; }
-            long raw = (long)Math.Clamp(incoming * 256, 0, int.MaxValue);
-            long absorbed = Math.Min(raw * shield.AbsorbPercent / 100, (long)NecromancerEffects.ManaBalance256(owner) * 16 / divisor);
-            int cost = (int)(absorbed * divisor / 16);
-            NecromancerEffects.Pay(owner, cost);
-            return (raw - absorbed) / 256.0;
-        }
+        return EnergyShields.Absorb(owner,damage,shield);
     }
     private static bool Hostile(Mobile attacker, Mobile defender, out PlayerMobile owner)
     {

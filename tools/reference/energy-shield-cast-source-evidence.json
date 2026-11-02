@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "routineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay": "6568ca91b2cb1e42051248d5bbc0eca4b854430c7be3fe9975c37f637411cf54",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "cases": 1620,
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete do23/shared state-list/passive helper composition preserves equal-rank owner/list with refreshed deadline,refuses weaker same-skill rank,and replaces stronger/different lists. Stored skill/rank modifiers and event registration counts are retained. Current Energy Shield has no passive-stat entries."
+  ],
+  "declaredServices": [
+    "Older engine,not modern executable proof. Supplied noncurse self state/formula/allocator/events/stat/animation services;ordinary player domain only. Generic payment wrapper,allocator failure,arbitrary subscribers,modern mixed-shield event order and client remain separate."
+  ],
+  "artifacts": {
+    "tools/probe_energy_shield_cast.py": "8164fafb52a6068bc4a5849626d72d8118b5855333e69e35819af85c393f052f",
+    "tools/reference/enchant-source-evidence.json": "b80f5913db3d2ba2ca9651d47aca30c9df0e83b459b003a26159ace34a7e654d",
+    ".local/class-skills/energy-shield-cast-source/reused-enchant.cpp": "126289d786a03f352ca600fb215f169798dd3b96bdde87498e3da92ae6f65185",
+    ".local/class-skills/energy-shield-cast-source/probe.cpp": "3f10b0bcbf792568648e9a3212a7f8aa4e19308b2fd27ccd9817db0533381536",
+    ".local/class-skills/energy-shield-cast-source/probe": "c6fad42d457217ab3211280ac731e23bf2e39d31bec24b6df44516ed0ea401a8",
+    ".local/class-skills/energy-shield-cast-source/probe-san": "d28a5e5aad0d2900a8a55e62f43c357c944a1a8ab2e8c56e49314815eeb532d3",
+    ".local/class-skills/energy-shield-cast-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/energy-shield-cast-source/cases.json": "909959c4a2521dd74cf76da3c89b1656cac41c08f4511486be00fee67df76870"
+  }
+}

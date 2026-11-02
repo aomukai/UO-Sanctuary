@@ -1,5 +1,7 @@
 # Skill effects
 
+[Energy Shield](sorceress-energy-shield-checkpoint.md) retains shield `0x375A`/hue `0x482` and cast sound `0x1E5` as identified placeholders. Final cast, persistent shield, directional absorption/contact, depletion/expiry and audio remain pending. Reuse shared lightning/shield assets where suitable; talent/hotkey icons stay separate.
+
 [Shiver retaliation](sorceress-shiver-armor-checkpoint.md) uses post-return contact `0x37B9`, cold status `0x374A`, armor `0x375A`, hue `0x480` and sound `0x1E5` as identified placeholders. Final cast, persistent armor, reaction/contact, expiry and audio remain pending; reuse cold assets where suitable. Talent/hotkey icons stay separate.
 
 [Saved Chilling Armor return bolts](sorceress-chilling-bolt-checkpoint.md) reuse cold travel `0x36E4`/hue `0x480`, cold status `0x374A`/hue `0x480`, armor `0x375A` and sound `0x1E5` as identified placeholders. Final armor, return emission/travel/contact/expiry overlays and audio remain pending; share existing cold assets where suitable. Talent/hotkey icons stay separate.

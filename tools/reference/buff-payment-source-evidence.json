@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "routineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay": "6568ca91b2cb1e42051248d5bbc0eca4b854430c7be3fe9975c37f637411cf54",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "SKILLS_SrvDo025_Enchant": "a76eee60714eae538acd93506fec1689fcaae134905b3c2f135da34b02b4d6bb"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "cases": 60,
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete generic handler composes with complete do23/do25/shared list/passive routines. A weaker same-skill state refuses and returns before the mana-consume service;equal/stronger/absent states succeed and invoke it exactly once when the outer payment flag is supplied."
+  ],
+  "declaredServices": [
+    "Older engine,not modern executable proof. Ordinary learned player/self casts with no missile/start callback,charges,quantity or delay. Used skill,room/current in-town flags,formula/list/event/animation and mana-consume call counting are explicit services. This proves branch/call qualification,not the complete mana helper or outer player-mode dispatch."
+  ],
+  "artifacts": {
+    "tools/probe_buff_payment.py": "6ff1135e7f12db1b59b9114c696ca9a84dfaa18e6d9b27610c433dc4c7ecd944",
+    "tools/reference/energy-shield-cast-source-evidence.json": "fde8de548dbfed6b323bf1db441223b3338ec8d0fc7ae6e11b3cca0dbfe3e8db",
+    ".local/class-skills/buff-payment-source/reused-energy-cast.cpp": "3f10b0bcbf792568648e9a3212a7f8aa4e19308b2fd27ccd9817db0533381536",
+    ".local/class-skills/buff-payment-source/probe.cpp": "04c7de0ffb523fd010fc034b8829680280902e1217237507aad03444c5e05756",
+    ".local/class-skills/buff-payment-source/probe": "1beb2ee2f370251f9c708d097385f118d635be544f53bc7be30672b540fda160",
+    ".local/class-skills/buff-payment-source/probe-san": "37c796842f2e9f7f343cd47daa8c8792cff2581dbbcb6ae1e0a8c06a63ca4886",
+    ".local/class-skills/buff-payment-source/cases.json": "a25effc56c6d95f3e14fb4bfd07e975fdfc9e55039e3c7d9d0100e317e00bf2c",
+    ".local/class-skills/buff-payment-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

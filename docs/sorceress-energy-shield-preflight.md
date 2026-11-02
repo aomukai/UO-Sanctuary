@@ -1,5 +1,7 @@
 # Energy Shield acceptance preflight
 
+Follow-up: [Energy Shield implementation checkpoint](sorceress-energy-shield-checkpoint.md) records the prepared cast, shared integer absorption and dedicated native/input/save candidate. The planning notes below remain source context.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Continue Sorceress after the [Shiver checkpoint](sorceress-shiver-armor-checkpoint.md); finish its running verification and commit before changing runtime inputs. This note adds no native acceptance.
 
 Reuse the existing shield state, FP256 mana ledger, pre-resistance `DefensiveArmors.Absorb`, Telekinesis hard-rank provider, native notification pipeline, cold/Bone/Psychic Ward group controls and saved actor/input fixtures. `SorceressSkillChecks` already exercises absorption cap, hard-Telekinesis efficiency, fractional mana, physical/fire/lightning/cold/magic order, poison exclusion, depletion, resistance order and actual-life-loss damage-to-mana. `EncounterShieldChecks` supplies additional mixed shield controls. These are bounded baselines, not complete casting/event proof.

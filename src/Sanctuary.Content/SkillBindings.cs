@@ -35,7 +35,7 @@ public sealed class SkillBindings : GenericPersistence
         // Enchant's player contract is right-only. Migrate its admission and
         // saved-binding normalization together; other Sorceress skills retain
         // their existing policies until their individual acceptance work.
-        if(characterClass==DiabloClass.Sorceress&&(ability==CombatAbility.Enchant||SorceressEffects.IsArmor(ability)))
+        if(characterClass==DiabloClass.Sorceress&&(ability is CombatAbility.Enchant or CombatAbility.EnergyShield||SorceressEffects.IsArmor(ability)))
         {var enchant=SkillMechanics.For(ability);return left?enchant.Left:enchant.Right;}
         if(characterClass!=DiabloClass.Necromancer||ability is CombatAbility.None or CombatAbility.BasicAttack){return true;}
         var row=SkillMechanics.For(ability);
