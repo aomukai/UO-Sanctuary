@@ -81,6 +81,8 @@ public static class SorceressEffects
     public static ColdArmorState Armor(Mobile actor) => MagePetBuffs.Armor(actor) ?? (Profiles?.Find(actor)?.Armor is { } armor && armor.UntilUtc > TimedEffects.Now ? armor : null);
     public static EnergyShieldState Shield(Mobile actor) => Profiles?.Find(actor)?.Shield is { } shield && shield.UntilUtc > TimedEffects.Now ? shield : null;
     public static EnchantState Enchantment(Mobile actor) => Profiles?.Find(actor)?.Enchantment is { } enchant && enchant.UntilUtc > TimedEffects.Now ? enchant : null;
+    internal static bool CanEnchant(Mobile target,SkillValues values)
+        =>Enchantment(target) is not{} existing||existing.Rank<=values.Rank;
     public static void CastEnchant(PlayerMobile owner, Mobile target, SkillValues values)
         =>ApplyEnchant(owner,target,values,value=>(int)Math.Clamp(NamedElements.Enhance(owner,value,"fire"),0,int.MaxValue));
     internal static void CastNpcEnchant(Mobile caster,Mobile target,SkillValues values)
@@ -91,7 +93,7 @@ public static class SorceressEffects
     private static void ApplyEnchant(Mobile caster,Mobile target,SkillValues values,Func<int,int> scale)
     {
         var existing = Enchantment(target);
-        if (existing != null && existing.Rank > values.Rank) { return; }
+        if (!CanEnchant(target,values)) { return; }
         var row = SkillMechanics.For(CombatAbility.Enchant);
         var enchant = new EnchantState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), values.Rank,
             scale(values.Damage256(false)),scale(values.Damage256(true)),

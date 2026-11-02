@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "95fafbf13d4dcb729aab5e619324b5be54e1cfafbce861a29e177ddbdce5e6f2",
+  "ContentAssemblySha256": "91e66142b65368106e70c0b7c729df05e9d52245c535c28fe6fe4c7c0004e5c9",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "f1e180f734d72b596f28bd79904d3d9eeae309a61f72b7d21eb484709e0c27ad",
+    "data/Sanctuary/Balance/class-skill-status.json": "7df8c885e86a81272078ba30e0114d4994f256f2a67777b1e9b474d9e3a3dec4",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -819,8 +819,8 @@
     "src/Sanctuary.Content/SocketGem.cs": "6b93781434837c64c7be27c79fab825e1fd638e3d67584bc5b49ec8a5d3ce7f7",
     "src/Sanctuary.Content/SocketGems.cs": "df308e9f6e77946617a506fb68402d8b2970ff0b2fb4681d18e046017477e95c",
     "src/Sanctuary.Content/SocketGump.cs": "bceea7cd674d1ed0f6764aa489d7bca84e5948290c80535be0f93dbcfd35f691",
-    "src/Sanctuary.Content/SorceressCombat.cs": "e98886dffd40dbd2aa6391363c55c612ca2528264ae88543923ba4d56f69163e",
-    "src/Sanctuary.Content/SorceressEffects.cs": "e114b19c545e5ee391c4d4830d23cac1e644e62190db30759a8346f7e7071932",
+    "src/Sanctuary.Content/SorceressCombat.cs": "876389382157776e3c4347cf4c573e7aea94a9c499d29675ac87c0f11e7e7835",
+    "src/Sanctuary.Content/SorceressEffects.cs": "c5b573fb944fd673bd49a2c2732c7523fd3220937cf81008330166ddc800d031",
     "src/Sanctuary.Content/SorceressSpellMissiles.cs": "52170941c27ed85cea160391a0f25164881c82b7bd0209a61b3d9ca40b25f237",
     "src/Sanctuary.Content/SourceAbsorptionPool.cs": "489df8924adbed07e6b3e03399035abb465d84b3514a51e92da62f2a3f623e79",
     "src/Sanctuary.Content/SourceActorMotion.cs": "673bc8822841f5a3458a5dfaf8d20f421dc6b657c19ce24364283feb29c53536",

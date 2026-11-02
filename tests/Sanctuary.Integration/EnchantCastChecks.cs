@@ -39,13 +39,13 @@ public static class EnchantCastChecks
         "Enchant ordinary player input, source replacement and independent saved buffs", _ => Core.LoopContext.Post(() =>
         { try { action(); Log.Information("{Name}: passed", name); } catch (Exception e) { Log.Error(e, "{Name}: failed", name); } }));
     private static void Require(bool ok, string why) { if (!ok) { throw new InvalidOperationException(why); } }
-    private static void Train(PlayerMobile p, CombatAbility ability, int rank)
+    internal static void Train(PlayerMobile p, CombatAbility ability, int rank)
     {
         string id = SkillMechanics.For(ability).TalentId;
         while (ClassCreation.Profiles.GetRank(p.Serial, id) < rank)
         { Require(ClassCreation.Profiles.TryTrain(p.Serial, id, out _), "Enchant fixture train " + id); }
     }
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         var p = FireBoltChecks.Owner(CombatAbility.FireBolt, 5830);
         p.Name = "EnchantCastFixture";
@@ -55,12 +55,12 @@ public static class EnchantCastChecks
             && !SkillBindings.Instance.Assign(p, true, CombatAbility.Enchant), "Enchant right/quick only");
         return p;
     }
-    private static PlayerMobile Ally(PlayerMobile p)
+    internal static PlayerMobile Ally(PlayerMobile p)
     {
         var ally = ClassSkillChecks.Player(); ally.Name = "EnchantCastAlly";
         ally.MoveToWorld(new(p.X + 2, p.Y, p.Z), p.Map); return ally;
     }
-    private static SkillValues Values(int rank, int hard = 0) => new(SkillMechanics.For(CombatAbility.Enchant),
+    internal static SkillValues Values(int rank, int hard = 0) => new(SkillMechanics.For(CombatAbility.Enchant),
         k => k == "Enchant" ? rank : 255, k => k == "Warmth" ? hard : 0, 99);
     private static void Clean(PlayerMobile p, params Mobile[] targets) => FireBoltChecks.Clean(p, targets);
     private static void Check()

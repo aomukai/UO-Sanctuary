@@ -59,6 +59,16 @@ public static class SorceressCombat
         if (ability==CombatAbility.ThunderStorm){return ThunderStorm.Release(owner,values);}
         if (SorceressEffects.IsArmor(ability)) { return ColdArmors.Release(owner, values); }
         if(ability==CombatAbility.EnergyShield){return EnergyShields.Release(owner,values);}
+        if(ability==CombatAbility.Enchant)
+        {
+            var selectedActor=World.FindMobile(selected);
+            var recipient=selectedActor==owner||ClassCombat.Friendly(owner,selectedActor)?selectedActor:owner;
+            // The shared source list helper refuses a weaker rank before the
+            // outer handler reaches payment. Resolve fallback exactly once.
+            if(!SorceressEffects.CanEnchant(recipient,values)||!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+            SorceressEffects.CastEnchant(owner,recipient,values);
+            owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        }
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
         if(ability==CombatAbility.Telekinesis&&World.FindMobile(selected)!=null){return TelekinesisCombat.Release(owner,selected,values);}
         if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
@@ -71,12 +81,6 @@ public static class SorceressCombat
         if (ability == CombatAbility.Blizzard) { Blizzards.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.FrozenOrb) { FrozenOrbs.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.Hydra) { Hydras.Cast(owner, point, values); return true; }
-        if (ability == CombatAbility.Enchant)
-        {
-            var target = World.FindMobile(selected);
-            SorceressEffects.CastEnchant(owner, target == owner || ClassCombat.Friendly(owner, target) ? target : owner, values);
-            return true;
-        }
         if (ability == CombatAbility.Telekinesis)
         {
             if(World.FindItem(selected) is{} item){TelekinesisWorld.Operate(owner,item);return true;}

@@ -1,5 +1,7 @@
 # Failed buff release payment follow-up
 
+Follow-up: [Enchant failed-release payment checkpoint](sorceress-buff-payment-checkpoint.md) records the implemented preflight and dedicated release/input/save controls. The original plan below remains historical context.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Finish, verify and push the [Energy Shield candidate](sorceress-energy-shield-checkpoint.md) before changing runtime inputs. This note adds no native acceptance.
 
 The [complete older wrapper composition](../tools/reference/buff-payment-source-evidence.json) pairs60Energy Shield/Enchant casts with the actual do23/do25/list/passive bodies. With ordinary learned-player/self/no-missile/no-start-callback services, failed weaker same-skill callbacks return before the mana-consume service. Equal, stronger and absent states invoke payment once when the outer payment flag is set. The entire mana helper and modern player-mode dispatch remain separate; this is older branch/call evidence.

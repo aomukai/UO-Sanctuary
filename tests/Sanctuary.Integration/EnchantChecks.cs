@@ -92,7 +92,10 @@ public static class EnchantChecks
         Require(stronger.Rank == 2 && stronger.AttackPercent == 29, "Stronger Enchant did not replace");
         var weaker = ClassSkillChecks.Player(DiabloClass.Sorceress);
         weaker.MoveToWorld(new Point3D(owner.X + 2, owner.Y, owner.Z), owner.Map);
-        Cast(weaker, ally); Require(SorceressEffects.Enchantment(ally) == stronger, "Weaker Enchant overwrote/extended a stronger state"); weaker.Delete();
+        int weakerMana=NecromancerEffects.ManaBalance256(weaker);
+        Require(!SorceressCombat.Release(weaker,CombatAbility.Enchant,ally.Serial,ally.Location)
+            &&NecromancerEffects.ManaBalance256(weaker)==weakerMana&&SorceressEffects.Enchantment(ally)==stronger,
+            "Weaker Enchant reported success,paid,or overwrote/extended the stronger state");weaker.Delete();
         Require(ClassCreation.Profiles.TryTrain(owner.Serial, "sorceress.firemastery", out _), "Fire Mastery fixture");
         Require(SorceressEffects.Enchantment(ally) == stronger, "Cast snapshot changed after caster training");
         Cast(owner, ally); var refreshed = SorceressEffects.Enchantment(ally);
