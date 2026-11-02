@@ -32,6 +32,7 @@ public static class ClassCombat
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
         internal PaladinSacrifice.Prepared SacrificeAttack;
+        internal PaladinVengeance.Prepared VengeanceAttack;
         internal BarbarianMelee.Prepared BarbarianAttack;
         internal BarbarianDoubleThrow.Series DoubleThrow;
         internal AmazonJab.Series Jab;
@@ -120,6 +121,7 @@ public static class ClassCombat
                 DruidChargedAttacks.EquipmentChanged(from);
                 PoisonDaggerCombat.EquipmentChanged(from);
                 PaladinSacrifice.EquipmentChanged(from);
+                PaladinVengeance.EquipmentChanged(from);
                 DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);DruidFury.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
@@ -246,6 +248,7 @@ public static class ClassCombat
         DruidChargedAttacks.Cancel(from);
         PoisonDaggerCombat.Cancel(from);
         PaladinSacrifice.Cancel(from);
+        PaladinVengeance.Cancel(from);
         DruidFireClaws.Cancel(from);DruidHunger.Cancel(from);DruidRabies.Cancel(from);DruidShockWave.Cancel(from);DruidFury.Cancel(from);
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
@@ -302,7 +305,7 @@ public static class ClassCombat
         {
             // Ground FoH/Psychic Hammer already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -532,6 +535,7 @@ public static class ClassCombat
             if(ability==CombatAbility.FindPotion){session.FindPotionTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(ability==CombatAbility.Sacrifice){session.SacrificeAttack=null;}
+            if(ability==CombatAbility.Vengeance){session.VengeanceAttack=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
             if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}
             if(TigerStrikes.Handles(ability)){session.TigerAttack=null;}

@@ -1,5 +1,7 @@
 # Skill effects
 
+[Vengeance allocation/contact](paladin-vengeance-contact-checkpoint.md) retains weapon sound `0x238` and contact marker `0x374A` as identified placeholders. Final combined elemental contact and cycling fire/cold/lightning feedback, cold/poison/leech overlays and audio remain pending. These feedback layers do not alternate the actual damage elements; each successful hit still carries all three.
+
 [Smite ordered shield contact](paladin-smite-contact-checkpoint.md) keeps the existing shield-bash/S1 pose, sound `0x238`, stun/block marker `0x375A`, contact, knockback/get-hit and leech placeholders. Final timing/pose/overlay/audio artwork remains pending; the shared ordered phases add no independent effect.
 
 [Sacrifice ordered contact](paladin-sacrifice-contact-checkpoint.md) shares existing weapon/blood/contact, shield, leech, cold/poison and native reaction placeholders. The shared adapter adds no new independent effect; final blood emission, block/get-hit/return feedback and audio remain pending.

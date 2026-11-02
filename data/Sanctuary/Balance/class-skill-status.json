@@ -1288,7 +1288,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Melee weapon timing/range, source additive skill attack rating, separate shared fixed-point weapon-base elemental roll, mastery percentage rounding, one event payment and typed defense/absorption delivery staged. Native damage/miss/block, actual soft/mastery gear, two-handed base/reach and two reloads covered. Distinct active item_normaldamage is excluded from the elemental roll only; real Stone Crusher10/30 differential/upper-endpoint/native physical-and-elemental/reload checks pass. Converted throwing weapons need a melee base adapter; exact modern start/do snapshots, mode/event/owner/gear/client acceptance remain open. No charged/oskill/item gates cleared."
+      "remaining": "Start35 now captures hit/block/miss,independent physical/element/item rolls,typed damage/poison/cold/drains and32/48/64successful-allocation hit-class cycle. Do2 retains current release mana pricing and consumes the original target packet through shared ordered player contact/death;movement/weapon/Stop cancel. Existing source hard synergies,mastery,normal-damage exclusion,two-handed reach,fractional mana and original-save scopes remain. See paladin-vengeance-contact-checkpoint.md for current checks. Exact modern skill-instance/counter/payment resets,critical result bits/full event order,converted throwing,special/PvP/charged/oskill/pending-save/geometry/client acceptance remain open;no item gates cleared."
     },
     {
       "talentId": "paladin.blessedhammer",

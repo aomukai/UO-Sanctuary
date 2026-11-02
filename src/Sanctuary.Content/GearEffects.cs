@@ -122,12 +122,16 @@ public static class GearEffects
         var poison=WeaponPoisonPackets.Capture(player,CombatTiming.Equipped(player),venom,poisonRoll??EndPoint);
         return result with{Poison=poison.Total,PoisonMs=poison.Frames*40,SourcePoison=poison};
     }
+    private static int SpeciesDamageBonus(PlayerMobile player,Mobile target)
+        =>GemCombat.Undead(target)?ClassGear.Bonus(player,"dmg-undead%")+PaladinSanctuary.DamagePercent(player,target)
+            :NamedCombat.Demon(target)?ClassGear.Bonus(player,"dmg-demon%"):0;
+    internal static (int Min,int Max) PhysicalRange256(PlayerMobile player,Mobile target,int skillPercent)
+        =>ClassStats.SkillPhysicalRange256(player,skillPercent,SpeciesDamageBonus(player,target));
     private static GearDamage OrdinaryDamage(PlayerMobile player, double roll, Mobile target = null,int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null)
     {
         roll = Math.Clamp(roll, 0, 1);
         var weapon = CombatTiming.Equipped(player);
-        int targetBonus=GemCombat.Undead(target)?ClassGear.Bonus(player,"dmg-undead%")+PaladinSanctuary.DamagePercent(player,target)
-            :NamedCombat.Demon(target)?ClassGear.Bonus(player,"dmg-demon%"):0;
+        int targetBonus=SpeciesDamageBonus(player,target);
         var physical = ClassStats.PhysicalDamageRange(player,targetBonus);
         double value = physical.Min + (physical.Max - physical.Min) * roll;
         if(skillPhysicalPercent is{} skillPercent)
