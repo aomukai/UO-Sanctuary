@@ -1,17 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server.Mobiles;
 using Server.Spells;
 
 namespace Sanctuary;
 
 public sealed record HydraHead(long Id, long Group, int Index, uint Owner, int Rank, int Map, double X, double Y, int Z,
-    int Min256, int Max256, int Pierce, ulong Seed, DateTime UntilUtc, DateTime DecisionUtc, DateTime ShotUtc, uint Target);
+    int Min256, int Max256, int Pierce, ulong Seed, DateTime UntilUtc, DateTime DecisionUtc, DateTime ShotUtc, uint Target)
+{[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] public HydraHeadSource Source{get;init;}}
 public sealed record HydraBolt(long Id, long Head, uint Owner, int Map, double X, double Y, int Z, double Vx, double Vy,
-    int Frame, int Min256, int Max256, int Pierce, DateTime UntilUtc, DateTime NextUtc);
-public sealed record HydraSave(HydraHead[] Heads, HydraBolt[] Bolts);
+    int Frame, int Min256, int Max256, int Pierce, DateTime UntilUtc, DateTime NextUtc)
+{[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] public HydraBoltSource Source{get;init;}}
+public sealed record HydraSave(HydraHead[] Heads, HydraBolt[] Bolts)
+{[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] public HydraHead[] Retired{get;init;}}
 public sealed record HydraAnimation(int SpawnFrames, int AttackFrames, int ActionFrame);
 public enum HydraDecision { Die, Shoot, Idle }
 
@@ -22,11 +27,12 @@ public sealed class HydraProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         if (reader.ReadInt() != 0) { throw new InvalidDataException("Unknown Hydra version"); }
-        Hydras.Restore(JsonSerializer.Deserialize<HydraSave>(reader.ReadString()));
+        Hydras.Restore(JsonSerializer.Deserialize<HydraSave>(reader.ReadString()),true);
     }
+    public override void PostDeserialize()=>Hydras.ValidateWorld();
 }
 
-public static class Hydras
+public static partial class Hydras
 {
     private static readonly Dictionary<long, HydraHead> _heads = new();
     private static readonly Dictionary<long, HydraBolt> _bolts = new();
@@ -53,31 +59,14 @@ public static class Hydras
     public static bool CanPlace(PlayerMobile owner, Point3D point) => Places(owner, point).Count > 0;
     public static void Cast(PlayerMobile owner, Point3D point, SkillValues values)
     {
-        int cap = Math.Max(1, (int)values.Eval("petmax"));
-        var now = TimedEffects.Now; long group = ++_nextId;
-        int potion = CombatPotions.Bonus(owner, "magical-penetration");
-        int Scale(int damage) => (int)Math.Clamp(NamedElements.Enhance(owner, damage * (100 + potion) / 100.0, "fire"), 0, int.MaxValue);
-        int min = Scale(values.Damage256(false)), max = Scale(values.Damage256(true));
-        int pierce = Math.Max(0, ClassGear.Bonus(owner, "pierce-fire"));
-        foreach (var place in Places(owner, point))
-        {
-            // The source registers each successful head independently. A
-            // partial cast must not discard an entire old three-head group.
-            int count=0;long oldest=long.MaxValue;
-            foreach(var old in _heads.Values)
-            {if(old.Owner==owner.Serial.Value){count++;oldest=Math.Min(oldest,old.Id);}}
-            if(count>=cap){_heads.Remove(oldest);}
-            long id = ++_nextId;
-            _heads.Add(id, new(id, group, place.Index, owner.Serial.Value, values.Rank, owner.Map.MapID, place.X, place.Y, point.Z,
-                min, max, pierce, ((ulong)666 << 32) | (uint)Utility.RandomMinMax(1, int.MaxValue),
-                now.AddMilliseconds(values.Eval("calc1") * 40), now.AddMilliseconds(25 * 40), default, 0));
-        }
+        Commit(owner,point,HydraCreation.Prepare(values,ClassStats.Level(owner),name=>HydraCreation.Accrued(owner,name)),TimedEffects.Now);
     }
     private static PlayerMobile Owner(uint serial, int map) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == DiabloClass.Sorceress
         && (player.Map == Map.Internal || player.Map.MapID == map && !SpellHelper.IsTown(player.Location, player)) ? player : null;
     public static void Cancel(Mobile owner)
     {
+        foreach(var head in _heads.Values.Concat(_retired.Values).Where(x=>x.Owner==owner.Serial.Value&&x.Source!=null).ToArray()){RemoveSource(head);}
         var ids = new List<long>(); foreach (var head in _heads.Values) { if (head.Owner == owner.Serial.Value) { ids.Add(head.Id); } }
         foreach (long id in ids) { _heads.Remove(id); } ids.Clear();
         foreach (var bolt in _bolts.Values) { if (bolt.Owner == owner.Serial.Value) { ids.Add(bolt.Id); } }
@@ -105,10 +94,11 @@ public static class Hydras
     }
     private static void Tick()
     {
-        var now = TimedEffects.Now; _keys.Clear(); _keys.AddRange(_heads.Keys);
+        var now = TimedEffects.Now; TickSource(now,null); _keys.Clear(); _keys.AddRange(_heads.Keys);
         foreach (long id in _keys)
         {
             if (!_heads.TryGetValue(id, out var head)) { continue; }
+            if(head.Source!=null){continue;}
             var owner = Owner(head.Owner, head.Map);
             if (owner == null || owner.Map == Map.Internal && now > head.UntilUtc) { _heads.Remove(id); continue; }
             if (owner.Map == Map.Internal) { continue; }
@@ -139,6 +129,7 @@ public static class Hydras
         foreach (long id in _keys)
         {
             if (!_bolts.TryGetValue(id, out var bolt)) { continue; }
+            if(bolt.Source!=null){continue;}
             var owner = Owner(bolt.Owner, bolt.Map);
             if (owner == null || bolt.UntilUtc <= now) { _bolts.Remove(id); continue; }
             if (owner.Map == Map.Internal || bolt.NextUtc > now) { continue; }
@@ -162,23 +153,38 @@ public static class Hydras
             Effects.SendLocationEffect(new(to.X, to.Y, bolt.Z), owner.Map, 0x36D4, 3, 10, 0x489, 0); // Placeholder Hydra bolt.
         }
     }
-    public static HydraSave Snapshot() => new(new List<HydraHead>(_heads.Values).ToArray(), new List<HydraBolt>(_bolts.Values).ToArray());
-    public static void Restore(HydraSave save)
+    public static HydraSave Snapshot() => new(_heads.Values.OrderBy(x=>x.Id).ToArray(), _bolts.Values.OrderBy(x=>x.Id).ToArray())
+        {Retired=_retired.Count==0?null:_retired.Values.OrderBy(x=>x.Id).ToArray()};
+    public static void Restore(HydraSave save,bool loaded=false)
     {
         if (save?.Heads == null || save.Bolts == null) { throw new InvalidDataException("Missing Hydra state"); }
-        _heads.Clear(); _bolts.Clear(); _nextId = 0;
-        foreach (var head in save.Heads)
+        var heads=new Dictionary<long,HydraHead>();var retired=new Dictionary<long,HydraHead>();var bolts=new Dictionary<long,HydraBolt>();long nextId=0;
+        foreach (var head in save.Heads.Concat(save.Retired??[]))
         {
             if (head.Id <= 0 || head.Group <= 0 || head.Index is < 0 or > 2 || head.Rank <= 0 || head.Min256 < 0 || head.Max256 < head.Min256
-                || head.Pierce < 0 || !double.IsFinite(head.X + head.Y) || !_heads.TryAdd(head.Id, head)) { throw new InvalidDataException("Invalid Hydra head"); }
-            _nextId = Math.Max(_nextId, Math.Max(head.Id, head.Group));
+                || head.Source==null&&head.Pierce < 0 || !double.IsFinite(head.X + head.Y) || !heads.TryAdd(head.Id, head)) { throw new InvalidDataException("Invalid Hydra head"); }
+            ValidateSource(head);nextId = Math.Max(nextId, Math.Max(head.Id, head.Group));
         }
+        foreach(var head in save.Retired??[])
+        {if(head.Source?.RetireUtc==null){throw new InvalidDataException("Missing retired Hydra lifetime");}heads.Remove(head.Id);retired.Add(head.Id,head);}
+        if(heads.Values.Any(x=>x.Source?.RetireUtc!=null)||heads.Values.Where(x=>x.Source!=null).GroupBy(x=>x.Owner).Any(x=>x.Count()>18)
+            ||heads.Values.Concat(retired.Values).Where(x=>x.Source!=null).GroupBy(x=>x.Source.Actor).Any(x=>x.Count()>1))
+        {throw new InvalidDataException("Invalid Hydra source roster");}
         foreach (var bolt in save.Bolts)
         {
-            if (bolt.Id <= 0 || bolt.Min256 < 0 || bolt.Max256 < bolt.Min256 || bolt.Pierce < 0 || bolt.Frame is < 0 or >= 30
-                || !double.IsFinite(bolt.X + bolt.Y + bolt.Vx + bolt.Vy) || _heads.ContainsKey(bolt.Id) || !_bolts.TryAdd(bolt.Id, bolt))
+            if (bolt.Id <= 0 || bolt.Min256 < 0 || bolt.Max256 < bolt.Min256 || bolt.Source==null&&bolt.Pierce < 0 || bolt.Frame is < 0 or >= 30
+                || !double.IsFinite(bolt.X + bolt.Y + bolt.Vx + bolt.Vy) || heads.ContainsKey(bolt.Id)||retired.ContainsKey(bolt.Id) || !bolts.TryAdd(bolt.Id, bolt))
             { throw new InvalidDataException("Invalid Hydra bolt"); }
-            _nextId = Math.Max(_nextId, bolt.Id);
+            ValidateSource(bolt,heads.GetValueOrDefault(bolt.Head)??retired.GetValueOrDefault(bolt.Head));nextId=Math.Max(nextId,bolt.Id);
         }
+        // Validate the whole graph before deleting any omitted actors or
+        // replacing live state. Historical virtual records remain historical.
+        var keep=heads.Values.Concat(retired.Values).Where(x=>x.Source!=null).Select(x=>x.Source.Actor).ToHashSet();
+        var omitted=_heads.Values.Concat(_retired.Values).Where(x=>x.Source!=null&&!keep.Contains(x.Source.Actor)).Select(x=>x.Source.Actor).ToArray();
+        _heads.Clear();foreach(var x in heads){_heads.Add(x.Key,x.Value);}_retired.Clear();foreach(var x in retired){_retired.Add(x.Key,x.Value);}
+        _bolts.Clear();foreach(var x in bolts){_bolts.Add(x.Key,x.Value);}_nextId=nextId;
+        _loadedHeads.RemoveWhere(x=>!heads.ContainsKey(x));_loadedBolts.RemoveWhere(x=>!bolts.ContainsKey(x));
+        if(loaded){foreach(var x in heads.Values){if(x.Source!=null&&x.Source.NextUtc<=TimedEffects.Now){_loadedHeads.Add(x.Id);}}foreach(var x in bolts.Values){if(x.Source!=null&&x.NextUtc<=TimedEffects.Now){_loadedBolts.Add(x.Id);}}}
+        foreach(uint id in omitted){World.FindMobile((Serial)id)?.Delete();}
     }
 }

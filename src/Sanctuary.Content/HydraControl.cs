@@ -4,7 +4,7 @@ using System.Linq;
 namespace Sanctuary;
 
 internal sealed record HydraThink(HydraDecision Decision,ulong Seed,int IdleFrames=0);
-internal sealed record HydraControlState(int Frame,int Mode,int ExpiryFrame,int NextThink,int ActionAt,int EndAt,
+public sealed record HydraControlState(int Frame,int Mode,int ExpiryFrame,int NextThink,int ActionAt,int EndAt,
     uint Target,ulong Seed,int Thinks=0,int Attempts=0,int Dispatches=0);
 
 // Source-compared AI/ordinary animation component. The caller supplies target

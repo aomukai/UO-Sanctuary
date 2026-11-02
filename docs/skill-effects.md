@@ -1,6 +1,6 @@
 # Skill effects
 
-The [Hydra component checkpoint](hydra-prepared-checkpoint.md) retains the existing head `0x398C` and bolt `0x36D4` as identified placeholders. Final three-head emergence, targeting/attack, fire travel/contact, death/expiry and audio remain pending; animation metadata is mechanical reference, not completed client art. See [preflight](sorceress-hydra-preflight.md).
+The [Hydra native head/bolt checkpoint](hydra-world-checkpoint.md) uses native body `0x9C`/hue `0x489`, bolt `0x36D4` and cast sound `0x1E5` as **identified placeholders**. Final three-head emergence, targeting/attack, fire travel/contact, retirement/death and audio remain pending. Current animation metadata supplies mechanical timing; final art does not block implementation. Talent/hotkey icons remain separate.
 
 Player Frozen Orb reuses orb `0x375A`, ice `0x36E4`, hue `0x480` and fire cast sound `0x1E5` as **identified placeholders**. Final orb/trail/terminal/contact/expiry feedback and cold cast/travel/hit audio remain pending; mechanical implementation does not wait for art. See [checkpoint](sorceress-player-frozen-orb-checkpoint.md).
 

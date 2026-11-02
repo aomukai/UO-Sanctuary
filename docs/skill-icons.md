@@ -1,6 +1,6 @@
 # Skill icons
 
-The [Hydra component checkpoint](hydra-prepared-checkpoint.md) retains ability63 and its right/quick player action. Final talent-tree and hotkey artwork remain pending under the existing Hydra label/icon placeholders. Heads, AI decisions and automatic bolts introduce no separate player action or icon; effects/audio remain separate.
+The [Hydra native head/bolt checkpoint](hydra-world-checkpoint.md) retains ability63 and its right/quick player action. Final talent-tree and hotkey artwork remain pending under the existing Hydra label/icon placeholders. Heads, AI decisions and automatic bolts introduce no separate player action or icon; effects/audio remain separate.
 
 Player Frozen Orb retains ability43 and left/right/quick bindings. Final talent-tree and hotkey artwork remain pending under the existing Frozen Orb label/icon placeholders. Automatic trail and terminal shards introduce no separate player action or icon; effects/audio stay separate.
 

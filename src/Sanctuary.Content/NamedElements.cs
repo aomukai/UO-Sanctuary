@@ -18,6 +18,7 @@ public static class NamedElements
             "extra-ltng"=>blade.Passive("passive_ltng_mastery"),"extra-pois"=>blade.Passive("passive_pois_mastery"),_=>0
         } : owner is AssassinSentryBody sentry ? code switch
         {"pierce-ltng"=>sentry.Passive("passive_ltng_pierce"),"extra-ltng"=>sentry.Passive("passive_ltng_mastery"),_=>0}
+        :owner is HydraBody hydra?code switch{"pierce-fire"=>hydra.Passive("passive_fire_pierce"),"extra-fire"=>hydra.Passive("passive_fire_mastery"),_=>0}
         :owner is BaseCreature creature&&(code is "pierce-fire" or "pierce-cold" or "pierce-ltng" or "pierce-pois" or "pierce-mag"
             or "abs-fire" or "abs-fire%" or "abs-cold" or "abs-cold%" or "abs-ltng" or "abs-ltng%")
             ?NpcEquipmentCombat.Bonus(creature,code):0;
@@ -63,7 +64,7 @@ public static class NamedElements
         }
         // Ordinary item pierce cannot break a monster's immunity.
         if (target is not BaseCreature || resistance < 100)
-        { int pierce=pierceOverride??Bonus(source,"pierce-"+element);resistance-=source is BladeSentinelBody or AssassinSentryBody?pierce:Math.Max(0,pierce); }
+        { int pierce=pierceOverride??Bonus(source,"pierce-"+element);resistance-=source is BladeSentinelBody or AssassinSentryBody or HydraBody?pierce:Math.Max(0,pierce); }
         if(element=="physical"){resistance=PaladinSanctuary.PhysicalResistance(source,target,resistance);}
         return Math.Clamp(resistance, -100, playerResistance?NamedCombat.ResistanceCap((PlayerMobile)target,type):200);
     }

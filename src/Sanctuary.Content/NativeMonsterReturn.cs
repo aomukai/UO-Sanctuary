@@ -66,8 +66,11 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     internal override int TargetMode=>Target is{Alive:true,Deleted:false}?1:12; // Only death/dead are distinguished by this return branch.
     internal override int TargetClass=>MetadataValue.Class;
     internal override bool HasRoom()=>Target.Map is{} map&&map!=Map.Internal;
-    internal override bool RoomInTown()=>SpellHelper.IsTown(Target.Location,Owner);
+    // Short-lived Hydra heads stay in their original facet when the owner
+    // travels. Query their combat room, not the owner's new map.
+    internal override bool RoomInTown()=>SpellHelper.IsTown(Target.Location,Source is HydraBody?Source:Owner);
     internal override bool? AttackerTownRule()=>Source is SkeletonGuardian actor?Identity(actor.SourceMonsterId).Town
+        :Source is HydraBody hydra?Identity(hydra.SourceMonsterId).Town
         :throw new NotSupportedException("This native return source has no NPC town rule");
     internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(Target);
     internal override bool Frozen()=>Target.Frozen||NamedControl.FrozenRemaining(Target)>0;

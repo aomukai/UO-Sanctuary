@@ -29,6 +29,7 @@ public static class SorceressCombat
     {
         if(ability==CombatAbility.Telekinesis){return TelekinesisWorld.Valid(owner,selected);}
         if(ability==CombatAbility.FrozenOrb){return PlayerFrozenOrbs.ValidAim(owner,selected,point,out _);}
+        if(ability==CombatAbility.Hydra){return PlayerHydras.ValidAim(owner,selected,point,out _);}
         if(ability==CombatAbility.Blizzard){return PlayerBlizzards.ValidAim(owner,selected,point,out _);}
         if(ability==CombatAbility.Meteor){return Meteors.ValidAim(owner,selected,point,out _);}
         if(ability==CombatAbility.FireWall){return FireWalls.ValidAim(owner,selected,point,out _);}
@@ -65,6 +66,7 @@ public static class SorceressCombat
         if(ability==CombatAbility.EnergyShield){return EnergyShields.Release(owner,values);}
         if(ability==CombatAbility.Blaze){return Blazes.Release(owner,values);}
         if(ability==CombatAbility.FrozenOrb){return PlayerFrozenOrbs.Release(owner,selected,point,values);}
+        if(ability==CombatAbility.Hydra){return PlayerHydras.Release(owner,selected,point,values);}
         if(ability==CombatAbility.Blizzard){return PlayerBlizzards.Release(owner,selected,point,values);}
         if(ability==CombatAbility.Meteor){return Meteors.Release(owner,selected,point,values);}
         if(ability==CombatAbility.FireWall){return FireWalls.Release(owner,selected,point,values);}
@@ -80,11 +82,9 @@ public static class SorceressCombat
         }
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
         if(ability==CombatAbility.Telekinesis&&World.FindMobile(selected)!=null){return TelekinesisCombat.Release(owner,selected,values);}
-        if (ability == CombatAbility.Hydra && !Hydras.CanPlace(owner, point)) { return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         FireGround.Delay(owner, ability);
         owner.PlaySound(0x1E5); // Placeholder cast sound.
-        if (ability == CombatAbility.Hydra) { Hydras.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.Telekinesis)
         {
             if(World.FindItem(selected) is{} item){TelekinesisWorld.Operate(owner,item);return true;}

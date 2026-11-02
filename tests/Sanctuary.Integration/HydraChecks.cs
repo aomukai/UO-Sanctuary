@@ -71,9 +71,11 @@ public static class HydraChecks
             "Failed Hydra target spent mana or replaced a group");
         Require(ClassCreation.Profiles.TryTrain(owner.Serial, "sorceress.firemastery", out _)
             && ClassCreation.Profiles.TryTrain(owner.Serial, "sorceress.hydra", out _), "Hydra cast snapshot fixture");
-        // Deterministic decision seeds only for this fixture; the game stores independently generated head seeds.
+        // Historical virtual-controller regression. New native head/bolt
+        // behavior is exercised separately by HydraWorldChecks. Converting
+        // these synthetic records also deletes their omitted native actors.
         var current = Hydras.Snapshot();
-        Hydras.Restore(current with { Heads = current.Heads.Select(x => x.Owner == owner.Serial.Value ? x with { Seed = ((ulong)666 << 32) | 1 } : x).ToArray() });
+        Hydras.Restore(current with { Heads = current.Heads.Select(x => x.Owner == owner.Serial.Value ? x with { Source=null,Seed = ((ulong)666 << 32) | 1 } : x).ToArray(),Retired=null });
         var enemy = Enemy(owner, 9); int life = enemy.Hits;
         Later(1150, "hydra-result", () =>
         {
@@ -96,7 +98,7 @@ public static class HydraChecks
         var target = Enemy(owner, 9); var pierce = Enemy(owner, 12); pierce.SetResistance(ResistanceType.Fire, 50);
         var snapshot = Hydras.Snapshot(); var next = TimedEffects.Now.Add(FixtureSpace.Retention);
         // Hold cast/AI/windup/bolt payloads across process reloads; normal timings are checked separately.
-        var heads = Heads(owner).Select(x => x with { UntilUtc = next.AddSeconds(10), DecisionUtc = next.AddMilliseconds(1080),
+        var heads = Heads(owner).Select(x => x with { Source=null,UntilUtc = next.AddSeconds(10), DecisionUtc = next.AddMilliseconds(1080),
             ShotUtc = next.AddMilliseconds(320), Target = target.Serial.Value }).ToArray();
         long id = snapshot.Heads.Select(x => x.Id).Concat(snapshot.Bolts.Select(x => x.Id)).Max() + 1;
         var bolt = new HydraBolt(id, heads[0].Id, owner.Serial.Value, owner.Map.MapID, owner.X + 11, owner.Y, owner.Z,

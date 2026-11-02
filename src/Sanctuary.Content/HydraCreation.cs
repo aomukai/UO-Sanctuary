@@ -4,11 +4,16 @@ using System.Linq;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record HydraCreationStats(int Rank,int CasterLevel,int DurationFrames,int MaximumHeads,
+public sealed record HydraCreationStats(int Rank,int CasterLevel,int DurationFrames,int MaximumHeads,
     SummonStat[] Passives,SummonStat[] Skills)
 {
     internal int Passive(string name)=>Passives.Where(x=>x.Name==name).Sum(x=>x.Value);
     internal int Skill(string name)=>Skills.Where(x=>x.Name==name).Sum(x=>x.Value);
+    public bool Equals(HydraCreationStats other)=>other!=null&&Rank==other.Rank&&CasterLevel==other.CasterLevel
+        &&DurationFrames==other.DurationFrames&&MaximumHeads==other.MaximumHeads
+        &&Passives.SequenceEqual(other.Passives)&&Skills.SequenceEqual(other.Skills);
+    public override int GetHashCode()
+    {var hash=new HashCode();hash.Add(Rank);hash.Add(CasterLevel);hash.Add(DurationFrames);hash.Add(MaximumHeads);foreach(var x in Passives){hash.Add(x);}foreach(var x in Skills){hash.Add(x);}return hash.ToHashCode();}
 }
 
 // Birth suppliers, not a second summon controller. No inherited spawn HP or
@@ -35,7 +40,9 @@ internal static class HydraCreation
     {
         if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Sorceress)
         {throw new InvalidOperationException("Hydra requires a living Sorceress owner");}
-        return Prepare(SkillMechanics.Values(owner,CombatAbility.Hydra),ClassStats.Level(owner),name=>name switch
+        return Prepare(SkillMechanics.Values(owner,CombatAbility.Hydra),ClassStats.Level(owner),name=>Accrued(owner,name));
+    }
+    internal static int Accrued(PlayerMobile owner,string name)=>name switch
         {
             // Sorceress Fire Mastery participates in the accrued stat; the
             // Assassin-only supplier has no class mastery to collect.
@@ -43,8 +50,7 @@ internal static class HydraCreation
             "passive_fire_pierce"=>ClassGear.Bonus(owner,"pierce-fire"),
             "item_pierce_fire_immunity"=>ClassGear.Bonus(owner,"pierce-immunity-fire"),
             _=>throw new NotSupportedException("Unmapped Hydra inherited stat: "+name)
-        });
-    }
+        };
     internal static SkillValues Values(HydraCreationStats birth)
     {
         Validate(birth);var row=SkillMechanics.For(CombatAbility.Hydra);
