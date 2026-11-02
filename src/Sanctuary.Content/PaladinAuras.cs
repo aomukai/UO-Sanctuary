@@ -13,8 +13,10 @@ public sealed record PaladinAuraLease(uint Target, uint Source, CombatAbility Ab
 public sealed record PaladinAuraSave(PaladinEmitter[] Emitters, PaladinAuraLease[] Leases);
 public sealed class PaladinAuraProfiles : GenericPersistence
 {
+    private PaladinAuraSave _snapshot;
     public PaladinAuraProfiles() : base("SanctuaryPaladinAuras", 121) { }
-    public override void Serialize(IGenericWriter writer) { writer.Write(0); writer.Write(JsonSerializer.Serialize(PaladinAuras.Snapshot())); }
+    public override void Serialize(){_snapshot=PaladinAuras.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer) { writer.Write(0); writer.Write(JsonSerializer.Serialize(_snapshot)); }
     public override void Deserialize(IGenericReader reader)
     {
         if (reader.ReadInt()!=0) { throw new InvalidDataException("Unknown Paladin aura version"); }
@@ -191,10 +193,12 @@ public static class PaladinAuras
     public static void Restore(PaladinAuraSave saved)
     {
         if (saved?.Emitters==null || saved.Leases==null) { throw new InvalidDataException("Missing Paladin auras"); }
-        _emitters.Clear(); _leases.Clear();
+        var emitters=new Dictionary<uint,PaladinEmitter>();var leases=new Dictionary<(uint,CombatAbility),PaladinAuraLease>();
         foreach (var emitter in saved.Emitters)
-        { if (!PaladinCombat.IsAura(emitter.Ability) || emitter.FlatManaNumerator is <0 or >=125 || emitter.SuppressBaseMana && emitter.Ability!=CombatAbility.Prayer || !_emitters.TryAdd(emitter.Owner,emitter)) { throw new InvalidDataException("Invalid Paladin emitter"); } }
+        { if (emitter==null || !PaladinCombat.IsAura(emitter.Ability) || emitter.FlatManaNumerator is <0 or >=125 || emitter.SuppressBaseMana && emitter.Ability!=CombatAbility.Prayer || !emitters.TryAdd(emitter.Owner,emitter)) { throw new InvalidDataException("Invalid Paladin emitter"); } }
         foreach (var lease in saved.Leases)
-        { if (!PaladinCombat.IsAura(lease.Ability) || lease.Rank<1 || lease.Percent<0 || lease.MaximumResistance<0 || lease.StaminaPercent<0 || lease.VelocityPercent<0 || lease.DamagePercent<0 || lease.AttackPercent<0 || lease.UninterruptChance is <0 or >100 || !_leases.TryAdd((lease.Target,lease.Ability),lease)) { throw new InvalidDataException("Invalid Paladin aura lease"); } }
+        { if (lease==null || !PaladinCombat.IsAura(lease.Ability) || lease.Rank<1 || lease.Percent<0 || lease.MaximumResistance<0 || lease.StaminaPercent<0 || lease.VelocityPercent<0 || lease.DamagePercent<0 || lease.AttackPercent<0 || lease.UninterruptChance is <0 or >100 || !leases.TryAdd((lease.Target,lease.Ability),lease)) { throw new InvalidDataException("Invalid Paladin aura lease"); } }
+        _emitters.Clear();foreach(var row in emitters){_emitters.Add(row.Key,row.Value);}
+        _leases.Clear();foreach(var row in leases){_leases.Add(row.Key,row.Value);}
     }
 }

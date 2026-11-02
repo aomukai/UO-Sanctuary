@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "56b4a23b659b2fbdb31370fd7adbd8fb42e643fba234144b15309311ffb07e91",
+  "ContentAssemblySha256": "b8d4c3e24da602a19571c8d11dd9ace38e61c1b4ef6771ddc8a269e541813e67",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "cc57397b5820e135d3022a3a5310ef12b2e27a9ccb602b6c9d84d09289f317ae",
+    "data/Sanctuary/Balance/class-skill-status.json": "ab3d5ed9eae740f44d83da8f3c1a5cd5244ced856c22d9f87012d1012a4e38b3",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -728,7 +728,7 @@
     "src/Sanctuary.Content/NpcResourceValues.cs": "790077f78904e893ced1ffcdeae55dacd46ec7ce0973984abba9a9134a26541e",
     "src/Sanctuary.Content/NpcSpectralHit.cs": "8fe0004ef8d9c3006998440f2e185b8df8cb11b4a05312ca8af39bca3433fc3f",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464",
-    "src/Sanctuary.Content/PaladinAuras.cs": "f0d9bc2bbdade49db7c0f539662bbcd3479eb7d32695a2afbc87c6492631a483",
+    "src/Sanctuary.Content/PaladinAuras.cs": "a935c10384185544104cd1d28a8ad0e9a14fb35292daa96def3174e41c216414",
     "src/Sanctuary.Content/PaladinCharge.cs": "002d884e767f2b37b7af710e31f3341dd7ea00d5a0ae61e48980c3f21c7d1108",
     "src/Sanctuary.Content/PaladinCleansing.cs": "2379a8016eb063313dbc3459b19db8aaaccb4906dbb6f5e4b75fd5079f48b5bf",
     "src/Sanctuary.Content/PaladinCombat.cs": "f7c39b89b377714c94d284eca297945a73c3ca349d4798953fdd623d3e1227b5",

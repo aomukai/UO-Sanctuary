@@ -1,5 +1,7 @@
 # Skill effects
 
+Might/shared aura persistence review (2026-11-03): overlay `0x375A` remains an identified placeholder. Final front/back rings, selection/refresh/expiry presentation and audio remain pending. Atomic save/restore and instant input acknowledgements introduce no new asset. See [checkpoint](paladin-might-aura-checkpoint.md).
+
 Holy Shield start/persistence review (2026-11-03): enchanted-shield overlay `0x373A` and cast sound `0x1E5` remain identified placeholders. Final cast, persistent shield/glow, expiry and audio remain pending. Start-payment tickets, rank retention and save safety introduce no new effect asset. See [checkpoint](paladin-holy-shield-cast-checkpoint.md).
 
 FoH secondary migration (2026-11-03): shared source flight and typed impact add no new asset. Travel/trail `0x36E4` and existing cast/strike effects are identified placeholders. Final secondary trail, impact, wall/expiry and audio remain pending; potion-added cold/poison do not create chill/poison status effects. See [checkpoint](paladin-heaven-bolt-checkpoint.md).
