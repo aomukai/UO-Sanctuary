@@ -38,7 +38,7 @@ public static class TowardMotionChecks
             contexts++;
         }
         Require(contexts==2592 && frames==124416 && zeroDistanceMoving>0 && queriesTotal>10000,"Incomplete full toward-motion fixture");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Motion component enabled unfinished blade");
+
         Log.Information("Toward motion: {Contexts} full source paths / {Frames} exact frames / {Queries} collision queries match, including {Zero} moving frames at zero distance; no automatic controller",contexts,frames,queriesTotal,zeroDistanceMoving);
     }
 }

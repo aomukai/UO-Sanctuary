@@ -43,7 +43,7 @@ public static class ActorPathChecks
             queryCount+=queries.Count;contexts++;
         }
         Require(contexts==2250,"Incomplete source initializer fixture");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Initializer enabled unfinished blade");
+
         Log.Information("Actor path: {Contexts} complete source initializer contexts / {Queries} ordered collision queries pass; repair/AI/combat remain separate",contexts,queryCount);
     }
 }

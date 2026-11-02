@@ -64,7 +64,7 @@ public static class AssassinTrapCreationChecks
         bool wrong=false;try{AssassinTrapCreation.Prepare(new(SkillMechanics.For(CombatAbility.FireBlast),_=>3,_=>1,99),99,0,true,spawn,_=>0);}catch(ArgumentException){wrong=true;}Require(wrong,"Wrong skill context accepted");
         var one=BladeSentinelPackets.FromSource(Values(1),9*256,14*256,false,133,11,13,false,Raw);
         var hit=one.Roll(true,false,false,_=>0);Require(NamedElements.To256(hit.Physical)==7605 && NamedElements.To256(hit.Poison)==19392 && hit.PoisonMs==4040,"Physical ED and exact source poison duration roll");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Incomplete actor enabled by component");
+
     }
     private static void Train(PlayerMobile owner,string id,int rank=1)
     {
@@ -85,7 +85,7 @@ public static class AssassinTrapCreationChecks
         owner.AddToBackpack(helm);ClassGear.Refresh(owner);Train(owner,"assassin.bladefury",2);
         Require(JsonSerializer.Serialize(new{stats,packet})==before && SkillMechanics.Rank(owner,CombatAbility.BladeSentinel)==20,"Owner changes mutated captured records");
         var next=AssassinTrapCreation.Prepare(SkillMechanics.Values(owner,CombatAbility.BladeSentinel),99,0,true,new(25600,100,0),_=>0);
-        Require(next.Rank==20 && next.BaseStatsLevel==94 && next.DurationFrames==328 && !ClassCombat.Available(owner,CombatAbility.BladeSentinel),"Fresh context/handler gate");
+        Require(next.Rank==20 && next.BaseStatsLevel==94 && next.DurationFrames==328,"Fresh captured context");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,helm.Serial.Value,stats,packet)));
     }
     private static void Reload()
@@ -95,7 +95,7 @@ public static class AssassinTrapCreationChecks
         Require(saved.Stats.Rank==21 && saved.Stats.Level==99 && saved.Stats.BaseStatsLevel==95 && saved.Stats.Passives.Length==14 && saved.Stats.Passives[5].Value==0 && saved.Stats.DurationFrames==340,"Component fixture stat round-trip");
         Require(saved.Packet.Min256>0 && saved.Packet.Elements.PoisonFrames==101 && saved.Packet.SourcePoisonFrames && saved.Packet.Critical==false,"Component fixture packet round-trip");
         var current=SkillMechanics.Values(owner,CombatAbility.BladeSentinel);Require(ClassCreation.Profiles.GetRank(owner.Serial,"assassin.bladefury")==2 && current.Rank==20,"Saved hard synergy/effective ranks");
-        Require(!ClassCombat.Available(owner,CombatAbility.BladeSentinel),"Component fixture enabled playable skill");
+
         // JSON round-trip is a component fixture contract, not production blade
         // actor/missile persistence. No such entity is enabled or claimed here.
     }

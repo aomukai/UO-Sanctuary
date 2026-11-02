@@ -43,7 +43,7 @@ public static class ActorMotionChecks
         }
         Require(contexts==3240 && frames==64800,"Incomplete full actor motion fixture");
         Require(SourceActorMotion.Speed(12,128,75,0)==(2304,96),"Blade default75percent source velocity golden");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Component enabled an unfinished blade handler");
+
         Log.Information("Actor motion: {Contexts} source contexts / {Frames} exact frames, collision ordering and component JSON round-trips pass; no moving blade actor",contexts,frames);
     }
 }

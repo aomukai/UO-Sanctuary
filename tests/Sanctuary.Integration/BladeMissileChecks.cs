@@ -144,7 +144,7 @@ public static class BladeMissileChecks
         int balance=SkillHealth.Balance256(target);Require(balance<50000*256 && !BladeSentinelMissiles.Ready(missile.Id,target.Serial.Value,missile.NextUtc),"Damage delivery/25-frame delay");
         string packet=JsonSerializer.Serialize(missile.Damage);p.AddToBackpack(claw);ClassGear.Refresh(p);Require(JsonSerializer.Serialize(Missile(body).Damage)==packet,"Live gear overwrote existing missile");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,target.Serial.Value,body.Prepared,Missile(body),balance)));
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Incomplete cast/cap enabled");Natural("blade-missile-result");
+        Natural("blade-missile-result");
     }
     private static void Reload()
     {

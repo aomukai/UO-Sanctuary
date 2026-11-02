@@ -598,6 +598,9 @@ for _talent in ('frostnova','nova','staticfield','telekinesis','thunderstorm','h
     CAVEATS['sorceress.'+_talent]+=' Mouse assignment/UI and saved-binding normalization now enforce the pinned right-only flag; valid right/quick selections survive legacy migration. Teleport retains its separate approved left exception.'
 
 
+CAVEATS['assassin.bladesentinel'] = ('Learned S2/IAS cast now connects the saved source controller, following missile and shared cap5 roster. Seven mana pays once after creation, independent25-frame local delay, early/cancelled/duplicate release and unsupported owner-gear guards are explicit. Existing source path/weapon/target/lifecycle components are reused. Native learned input, real timed damage and original actor/missile reload acceptance are recorded separately. Modern NPC drain, malformed cold-sunder, source world/queue/NextHit scope, unsupported geometry/repair and complete elemental/event/PvP/item/client parity remain explicit limits; no class certificate.')
+NATIVE_PARTIAL.add('assassin.bladesentinel')
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

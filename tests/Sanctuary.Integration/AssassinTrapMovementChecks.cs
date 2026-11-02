@@ -59,7 +59,7 @@ public static class AssassinTrapMovementChecks
     }
     private static void Check()
     {
-        Paths();Attacks();Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Movement components enabled an incomplete actor handler");
+        Paths();Attacks();
         // These deterministic kernels are repeated after reload. They create no
         // actor/world state and do not claim production blade persistence/input.
     }

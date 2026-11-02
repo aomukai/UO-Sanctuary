@@ -2242,10 +2242,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 257,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned S2/IAS cast now connects the saved source controller, following missile and shared cap5 roster. Seven mana pays once after creation, independent25-frame local delay, early/cancelled/duplicate release and unsupported owner-gear guards are explicit. Existing source path/weapon/target/lifecycle components are reused. Native learned input, real timed damage and original actor/missile reload acceptance are recorded separately. Modern NPC drain, malformed cold-sunder, source world/queue/NextHit scope, unsupported geometry/repair and complete elemental/event/PvP/item/client parity remain explicit limits; no class certificate."
     },
     {
       "talentId": "assassin.chargedboltsentry",

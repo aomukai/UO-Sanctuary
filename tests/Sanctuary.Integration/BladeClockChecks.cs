@@ -42,7 +42,7 @@ public static class BladeClockChecks
             contexts++;
         }
         Require(contexts==64 && frames==11520 && lateDeaths>0,"Incomplete composed blade clock corpus / AI-observed expiry");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Prepared clock enabled incomplete blade");
+
         Log.Information("Blade clock: {Contexts} composed source contexts / {Frames} exact event/AI/movement frames / {Queries} ordered collision queries pass; full learned combat remains separate",contexts,frames,queriesTotal);
     }
 }

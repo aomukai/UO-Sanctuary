@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Blade Sentinel (2026-11-03 JST).** S2 native throw animation, sound0x23B and actor body0x9C hue0x481 are identified placeholders. Final summon/emergence/blade motion/contact/expiry effects and audio remain pending; no final imagegen work. The generated entry is updated independently of icons. See [checkpoint](assassin-blade-cast-checkpoint.md).
+
 **Slow Missiles prepared release (2026-11-03 JST).** Identified caster placeholder: UO0x375A hue0x481. Final cast_slowmissiles, innersight target overlay and amazon_handofathena audio remain pending alongside the existing logical projectile markers. The generated effect entry is updated; icons remain separate. See [checkpoint](amazon-slow-missiles-cast-checkpoint.md).
 
 **Barbarian binding follow-up (2026-11-03 JST).** Mouse/save policy adds no visual or audio effects. Existing 240-entry effect register and identified placeholders remain unchanged. See [checkpoint](barbarian-binding-checkpoint.md).

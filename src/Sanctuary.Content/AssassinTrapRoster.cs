@@ -79,7 +79,7 @@ internal static class AssassinTrapRoster
         var entries=new Dictionary<uint,AssassinTrapEntry>();var orders=new HashSet<long>();
         foreach(var entry in saved.Entries)
         {
-            if(!((Serial)entry.Owner).IsMobile || !((Serial)entry.Actor).IsMobile || entry.Order<1 || entry.Order>=saved.NextOrder
+            if(entry==null || !((Serial)entry.Owner).IsMobile || !((Serial)entry.Actor).IsMobile || entry.Order<1 || entry.Order>=saved.NextOrder
                 || !orders.Add(entry.Order) || !entries.TryAdd(entry.Actor,entry))
             {throw new InvalidDataException("Invalid saved assassin trap registration");}
         }

@@ -57,7 +57,7 @@ public static class BladeAiChecks
             Require(target==new Point2D(row[2].GetInt32(),row[3].GetInt32()) && seed==row[4].GetUInt64(),"Source owner fallback coordinates/RNG draw count");ownerCases++;
         }
         Require(contexts==7680 && missing==10 && ownerCases==512 && modeCases==8,"Incomplete Blade AI/mode/owner fixtures");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"AI component enabled unfinished skill");
+
         Log.Information("Blade AI: {Contexts} complete source decisions, {Missing} missing-skill gates, {Modes} consumed-override traces and {Owners} exact owner RNG contexts pass; automatic mode/clock/missile remains separate",contexts,missing,modeCases,ownerCases);
     }
 }

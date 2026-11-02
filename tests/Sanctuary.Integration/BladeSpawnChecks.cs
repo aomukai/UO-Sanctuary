@@ -103,7 +103,7 @@ public static class BladeSpawnChecks
             Require(!moving.Deleted && moving.Prepared.ControllerFault==null && moving.Prepared.Creation.MissileArmed
                 && moving.Prepared.Control.Creates==1 && moving.Prepared.Frames>0 && moving.Location!=origin
                 && BladeSentinelMissiles.Snapshot().Missiles.Count(x=>x.Owner==moving.Serial.Value)==1,"Actual factory did not enter live movement/once-only following creation");
-            Save(p);Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Factory prematurely enabled learned input");
+            Save(p);
             Log.Information("Blade spawn: actual source100HP/2304 speed, effective ranks and inherited real Griffon stats, three difficulty columns, sunder refusal, cap5/oldest2 replacement and live caster-origin movement/following creation pass");
         }
         finally{BladeSentinelSummons.SeedLow=seed;}
@@ -122,7 +122,7 @@ public static class BladeSpawnChecks
         var oldest=saved.Roster[0];var fresh=Create(p,DateTime.UtcNow.AddDays(1));var roster=AssassinTrapRoster.For(p);
         Require(World.FindMobile((Serial)oldest.Actor)==null && roster.Length==5 && roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
             && roster[^1].Actor==fresh.Serial.Value && roster[^1].Order>saved.Roster[^1].Order,"Reload replaced the wrong oldest trap or reused registration order");
-        Save(p);Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Reload enabled unfinished input");
+        Save(p);
         Log.Information("Blade spawn reload: five actual entities retain source/weapon/controller state and shared FIFO order; next creation replaces oldest without replaying earlier casts");
     }
 }

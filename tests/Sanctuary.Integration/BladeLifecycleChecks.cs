@@ -76,7 +76,7 @@ public static class BladeLifecycleChecks
             Require(doomed.Deleted && AssassinTrapRoster.For(mortal).Length==0,"Dead owner retained a registered trap");mortal.Delete();
             body.RescaleDifficulty(MonsterDifficulty.Hell);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,p.Location,p.Map.MapID,body.Prepared,SkillHealth.Balance256(body),weapon)));
-            Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Incomplete lifecycle enabled player input");
+
             Log.Information("Blade lifecycle: retained base-stat difficulty deltas before/after weapon inheritance, automatic owner facet stat hook, unchanged FP256 injury/packet/path/clock/seed/ranks, idempotence and owner-death trap removal pass; approved old-facet/offline-expiry adapter installed");
             body=null;p=null;
         }
@@ -214,8 +214,8 @@ public static class BladeLifecycleChecks
             NecromancerEffects.SetMana256(p,1792);Require(!BladeSentinelCasts.Release(p,Serial.Zero)
                 && NecromancerEffects.ManaBalance256(p)==1792 && AssassinTrapRoster.For(p).Length==1,"Local-delay duplicate release created/paid another trap");
             Require(!BladeSentinelCasts.Begin(p,Serial.Zero,ClassCombat.For(p).PendingPoint,Core.TickCount)
-                && !ClassCombat.Available(p,CombatAbility.BladeSentinel),"Unregistered cast adapter exposed learned input");
-            Log.Information("Blade release adapter: exact7mana successful factory payment, insufficient-mana refusal,25-frame independent skill delay and duplicate suppression pass; full windup/network input remains gated");
+                && !FireGround.Ready(p,CombatAbility.BladeSentinel),"Local delay admitted a second learned cast");
+            Log.Information("Blade release adapter: exact7mana successful factory payment, insufficient-mana refusal,25-frame independent skill delay and duplicate suppression pass; learned windup/network input covered separately");
         }
         finally
         {
@@ -234,7 +234,7 @@ public static class BladeLifecycleChecks
         Require(body.Prepared.Spawn.Difficulty==MonsterDifficulty.Normal && SkillHealth.Balance256(body)==saved.Life256,"Returning owner failed automatic stat rescale or healed blade");SameContext(state,body.Prepared);
         body.RescaleDifficulty(MonsterDifficulty.Hell);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life256=SkillHealth.Balance256(body)}));
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Reload enabled unfinished input");
+
         Log.Information("Blade lifecycle reload: rescaled actor retains captured rank/AR inheritance/FP256 injury/path/seed/clock and immutable missile; owner map notification reapplies current facet stats without recasting");
     }
 }

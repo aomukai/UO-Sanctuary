@@ -145,23 +145,26 @@ public static class BladeSentinelMissiles
     internal static void Restore(BladeMissileSave saved)
     {
         if(saved?.Missiles==null || saved.Leases==null || saved.NextId<0){throw new InvalidDataException("Missing blade missile state");}
-        Missiles.Clear();Leases.Clear();_nextId=saved.NextId;
+        var missiles=new Dictionary<long,BladeMissileState>();var leases=new Dictionary<(long,uint),WeaponFlightLease>();
         foreach(var row in saved.Missiles)
         {
+            if(row==null){throw new InvalidDataException("Null saved blade missile");}
             var d=row.Damage;
-            if(row.Id<=0 || row.Id>_nextId || !((Serial)row.Owner).IsMobile || !((Serial)row.OriginalOwner).IsMobile || row.Rank is <1 or >255
+            if(row.Id<=0 || row.Id>saved.NextId || !((Serial)row.Owner).IsMobile || !((Serial)row.OriginalOwner).IsMobile || row.Rank is <1 or >255
                 || row.Map<0 || row.Map>=Map.Maps.Length || Map.Maps[row.Map]==null || Map.Maps[row.Map]==Map.Internal || row.Z is <-128 or >127
                 || row.Position is not{Alive:true,X:>0,Y:>0} || row.Position.X>=Map.Maps[row.Map].Width*2 || row.Position.Y>=Map.Maps[row.Map].Height*2
                 || row.Position.Frame!=9 && row.Position.Frame!=10+5*row.Rank || row.NextUtc.Kind!=DateTimeKind.Utc || row.TargetDefenseDelta>0
                 || d?.Elements==null || !d.SourcePoisonFrames || d.Min256<0 || d.Max256<d.Min256 || d.Percent< -90 || !d.ValidConversion
                 || d.Conversion!=null || d.PhysicalToMagicPercent!=0 || d.LightningJavelinPercent!=null || d.FreezeColdLength || d.SkillAttackPercent!=0
                 || d.FireMastery!=0 || d.ColdMastery!=0 || d.LightningMastery!=0 || d.PoisonMastery!=0 || d.MagicMastery!=0
-                || !Missiles.TryAdd(row.Id,row)){throw new InvalidDataException("Invalid saved blade missile");}
+                || !missiles.TryAdd(row.Id,row)){throw new InvalidDataException("Invalid saved blade missile");}
         }
         foreach(var lease in saved.Leases)
         {
-            if(lease.Cast<=0 || lease.Cast>_nextId || !((Serial)lease.Target).IsMobile || lease.UntilUtc.Kind!=DateTimeKind.Utc
-                || lease.RetainWithoutFlight || !Leases.TryAdd((lease.Cast,lease.Target),lease)){throw new InvalidDataException("Invalid saved blade contact lease");}
+            if(lease==null || lease.Cast<=0 || lease.Cast>saved.NextId || !((Serial)lease.Target).IsMobile || lease.UntilUtc.Kind!=DateTimeKind.Utc
+                || lease.RetainWithoutFlight || !leases.TryAdd((lease.Cast,lease.Target),lease)){throw new InvalidDataException("Invalid saved blade contact lease");}
         }
+        Missiles.Clear();foreach(var pair in missiles){Missiles.Add(pair.Key,pair.Value);}
+        Leases.Clear();foreach(var pair in leases){Leases.Add(pair.Key,pair.Value);}_nextId=saved.NextId;
     }
 }

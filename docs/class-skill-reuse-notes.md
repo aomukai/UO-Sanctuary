@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Learned Blade Sentinel reuse (2026-11-03 JST).** Reused S2/IAS timing with Fire Blast/Shock Web, saved source path/controller/following missile, real owner collectors, shared cap5 FIFO and approved facet/offline policies. New public input and original actor/missile reload checks replace obsolete disabled-status guards while retaining numeric/source/world cohorts. Atomic two-pool restore preserves saved packets and leases. These actor/motion/persistence pieces remain candidates for Warlock Miasma Chain; its own link/cloud rules still need independent evidence. See [checkpoint](assassin-blade-cast-checkpoint.md).
+
 **Slow Missiles release reuse (2026-11-03 JST).** Reused Inner Sight source-circle projection, shared aura eligibility, Conversion species-boss table, existing dual-stat replacement/expiry and actual encounter missile capture. The prepared release remains separate from public availability; no duplicate projectile engine or global damage multiplier. Candidate-dictionary restore retains live state on malformed input. See [checkpoint](amazon-slow-missiles-cast-checkpoint.md).
 
 **Barbarian binding reuse (2026-11-03 JST).** Extended the existing pinned mouse policy and version-0/version-1 normalization; no second binding system or format. Reused all three accepted class-binding fixtures alongside 30 Barbarian source rows,132 migration contexts and independent history checks. See [checkpoint](barbarian-binding-checkpoint.md).

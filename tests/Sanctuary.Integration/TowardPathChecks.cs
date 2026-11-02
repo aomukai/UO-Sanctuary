@@ -58,7 +58,7 @@ public static class TowardPathChecks
         var node=JsonNode.Parse(JsonSerializer.Serialize(old)).AsObject();Require(node.Remove("PathType"),"Legacy path fixture removal");
         var legacy=JsonSerializer.Deserialize<ActorMotionState>(node.ToJsonString());Require(legacy.PathType==15,"Old movement JSON did not retain path15 default");
         Require(SourceActorMotion.Advance(legacy,(_,_)=>0).State.X==old.X+36864,"Legacy movement JSON no longer resumes");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Toward-path component enabled unfinished blade");
+
         Log.Information("Toward paths: {Contexts} complete source contexts / {Queries} ordered collision queries match; 24 zero-velocity and114 vector-bearing failures retained; old path15 JSON resumes",contexts,queriesTotal);
     }
 }

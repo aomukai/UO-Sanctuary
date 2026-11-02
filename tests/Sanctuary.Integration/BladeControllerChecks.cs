@@ -64,7 +64,7 @@ public static class BladeControllerChecks
         }
         finally{BladeSentinelActors.CreateFollowingMissile=old;}
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(created.Owner.Serial.Value,created.Body.Serial.Value,created.X,created.Y,created.Body.Prepared)));
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Prepared controller enabled unfinished learned skill");Natural("blade-controller-result");
+        Natural("blade-controller-result");
         Log.Information("Blade world controller: actual source pose/reversal/first-attempt state matches frame20; source allocation failure is explicit");
     }
     private static void Reload()

@@ -83,7 +83,7 @@ public static class BladeBodyChecks
         var ordinary=new GraveyardSkeleton{Name="BladeBodyFixtureDefaultSummonTimer",NoKillAwards=true,Summoned=true};
         NativeEnd(ordinary,TimedEffects.Now.AddMilliseconds(50));ordinary.MoveToWorld(new(p.X-3,p.Y+2,p.Z),p.Map);ordinary.AIObject.AITimer.Stop();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,ordinary.Serial.Value)));
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Prepared actor enabled unfinished learned handler");
+
         Log.Information("Blade body: actual no-footprint movement/placement, source stats, point-path initialization and prepared fractional pose pass; no AI/cast/damage enabled");
     }
     private static bool Same(BladeBodyState a,BladeBodyState b)=>JsonSerializer.Serialize(a)==JsonSerializer.Serialize(b);
@@ -98,7 +98,7 @@ public static class BladeBodyChecks
         p.MoveToWorld(new(body.X-2,body.Y,body.Z),body.Map);var result=body.AdvancePrepared();Require(result.Moving && body.Prepared.Frames==saved.State.Frames+1 && body.Prepared.Motion.X==saved.State.Motion.X+36864,"Saved fractional frame failed to resume");
         // Save the newly advanced real entity for the next process reload.
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared}));
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Reload enabled incomplete handler");
+
         Log.Information("Blade body reload: actual owner/creation/fractional pose preserved; native default summon expires, source-controlled body remains");
     }
 }
