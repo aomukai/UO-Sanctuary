@@ -1,0 +1,278 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "tools/reference/d2r-named-equipment/json/skills.json",
+  "sourceSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "approvedException": "docs/t33-teleport.md",
+  "skills": [
+    {
+      "talentId": "sorceress.icebolt",
+      "sourceId": 39,
+      "name": "Ice Bolt",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.frozenarmor",
+      "sourceId": 40,
+      "name": "Frozen Armor",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.frostnova",
+      "sourceId": 44,
+      "name": "Frost Nova",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.iceblast",
+      "sourceId": 45,
+      "name": "Ice Blast",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.shiverarmor",
+      "sourceId": 50,
+      "name": "Shiver Armor",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.glacialspike",
+      "sourceId": 55,
+      "name": "Glacial Spike",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.blizzard",
+      "sourceId": 59,
+      "name": "Blizzard",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.chillingarmor",
+      "sourceId": 60,
+      "name": "Chilling Armor",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.frozenorb",
+      "sourceId": 64,
+      "name": "Frozen Orb",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.coldmastery",
+      "sourceId": 65,
+      "name": "Cold Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "sorceress.chargedbolt",
+      "sourceId": 38,
+      "name": "Charged Bolt",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.telekinesis",
+      "sourceId": 43,
+      "name": "Telekinesis",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.staticfield",
+      "sourceId": 42,
+      "name": "Static Field",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.lightning",
+      "sourceId": 49,
+      "name": "Lightning",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.nova",
+      "sourceId": 48,
+      "name": "Nova",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.chainlightning",
+      "sourceId": 53,
+      "name": "Chain Lightning",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.teleport",
+      "sourceId": 54,
+      "name": "Teleport",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.thunderstorm",
+      "sourceId": 57,
+      "name": "Thunder Storm",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.energyshield",
+      "sourceId": 58,
+      "name": "Energy Shield",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.lightningmastery",
+      "sourceId": 63,
+      "name": "Lightning Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "sorceress.firebolt",
+      "sourceId": 36,
+      "name": "Fire Bolt",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.warmth",
+      "sourceId": 37,
+      "name": "Warmth",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "sorceress.inferno",
+      "sourceId": 41,
+      "name": "Inferno",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.blaze",
+      "sourceId": 46,
+      "name": "Blaze",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.fireball",
+      "sourceId": 47,
+      "name": "Fireball",
+      "sourceLeft": true,
+      "sourceRight": true,
+      "left": true,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.firewall",
+      "sourceId": 51,
+      "name": "Fire Wall",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.enchant",
+      "sourceId": 52,
+      "name": "Enchant",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.meteor",
+      "sourceId": 56,
+      "name": "Meteor",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    },
+    {
+      "talentId": "sorceress.firemastery",
+      "sourceId": 61,
+      "name": "Fire Mastery",
+      "sourceLeft": false,
+      "sourceRight": false,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "sorceress.hydra",
+      "sourceId": 62,
+      "name": "Hydra",
+      "sourceLeft": false,
+      "sourceRight": true,
+      "left": false,
+      "right": true
+    }
+  ]
+}

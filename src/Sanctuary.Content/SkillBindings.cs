@@ -27,17 +27,16 @@ public sealed class SkillBindings : GenericPersistence
     public (CombatAbility Left, CombatAbility Right) Get(PlayerMobile player) =>
         ClassCreation.Profiles.TryGet(player.Serial, out var profile) ? Get(player.Serial, profile.Class)
             : (CombatAbility.BasicAttack, CombatAbility.None);
-    // Necromancer mouse slots follow the pinned skill table. Quick casting is
-    // a separate selection path; passive availability remains its own gate.
+    // Accepted Necromancer/Sorceress mouse slots follow the pinned table.
+    // Quick casting is separate; passive/handler availability remains gated.
     internal static bool MouseAllowed(DiabloClass characterClass,bool left,CombatAbility ability)
     {
         if(!ClassAbilities.Valid(ability)){return false;}
-        // Enchant's player contract is right-only. Migrate its admission and
-        // saved-binding normalization together; other Sorceress skills retain
-        // their existing policies until their individual acceptance work.
-        if(characterClass==DiabloClass.Sorceress&&(ability is CombatAbility.Enchant or CombatAbility.EnergyShield or CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard||SorceressEffects.IsArmor(ability)))
-        {var enchant=SkillMechanics.For(ability);return left?enchant.Left:enchant.Right;}
-        if(characterClass!=DiabloClass.Necromancer||ability is CombatAbility.None or CombatAbility.BasicAttack){return true;}
+        if(ability is CombatAbility.None or CombatAbility.BasicAttack){return true;}
+        // T33 explicitly approves Teleport on left/right controls despite
+        // the D2R row's left flag. Preserve that exception during migration.
+        if(characterClass==DiabloClass.Sorceress&&ability==CombatAbility.Teleport){return true;}
+        if(characterClass is not(DiabloClass.Necromancer or DiabloClass.Sorceress)){return true;}
         var row=SkillMechanics.For(ability);
         return row.CharacterClass==characterClass&&(left?row.Left:row.Right);
     }

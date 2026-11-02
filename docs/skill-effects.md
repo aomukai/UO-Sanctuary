@@ -1,5 +1,7 @@
 # Skill effects
 
+The [Sorceress coverage/binding review](sorceress-coverage-review.md) changes mouse-slot admission and saved normalization only. It introduces no new particle, body animation or audio asset. Existing per-skill placeholders and missing-effects entries remain authoritative.
+
 [Teleport input and resource acceptance](sorceress-player-teleport-checkpoint.md) retains departure/arrival effect `0x3728`, particle variants `2023`/`5023`, pose `16` and sound `0x1FE` as identified placeholders. Final cast, departure, arrival, body feedback and audio remain pending. The shared mana-payment correction adds no effect requirement; talent and hotkey icons stay separate.
 
 The [Hydra native head/bolt checkpoint](hydra-world-checkpoint.md) uses native body `0x9C`/hue `0x489`, bolt `0x36D4` and cast sound `0x1E5` as **identified placeholders**. Final three-head emergence, targeting/attack, fire travel/contact, retirement/death and audio remain pending. Current animation metadata supplies mechanical timing; final art does not block implementation. Talent/hotkey icons remain separate.

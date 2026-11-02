@@ -1,5 +1,7 @@
 # Skill icons
 
+The [Sorceress coverage/binding review](sorceress-coverage-review.md) keeps the existing talent/right/quick icon requirements for Frost Nova, Nova, Static Field, Telekinesis, Thunder Storm and Hydra; their left slots are unavailable under the pinned policy. Teleport retains its approved left/right/quick requirement. No new icon or player action is introduced.
+
 [Teleport input and resource acceptance](sorceress-player-teleport-checkpoint.md) retains ability `4` and Sanctuary’s approved left/right/quick controls. Final talent-tree and hotkey art remains pending with existing labels/icons as placeholders. Scroll use keeps its existing physical item and belt identity; the payment fix introduces no new player action. Effects/audio stay separate.
 
 The [Hydra native head/bolt checkpoint](hydra-world-checkpoint.md) retains ability63 and its right/quick player action. Final talent-tree and hotkey artwork remain pending under the existing Hydra label/icon placeholders. Heads, AI decisions and automatic bolts introduce no separate player action or icon; effects/audio remain separate.

@@ -210,6 +210,7 @@ CAVEATS = {
     'sorceress.teleport':'Existing approved18tile,noLOS,exact-elevation/fit/travel/multi/house/arrival-field and class timing/scroll rules remain authoritative. Learned mana uses shared clamped FP payment,retaining usable fractions without reviving a remainder above native maximum. Dedicated255rank table suppliers,actual gear/FCR,release cancellation/rank/weapon/connection/late obstruction/scroll ownership and left/right/quick world-cursor controls have native acceptance. Original native player/gear/wounds/FP resources/backpack and belt scrolls/bindings survive two process reloads;unpaid learned/scroll casts staged immediately before save do not resume,and fresh casts then finish through natural callbacks. Exact modern global collision/reposition/terrain/event/client,charged/oskill and full old-DLL/unheld-save parity remain unproved. No separate Teleport tome is introduced;T34 tomes only supply its existing bonus-scroll acquisition. Final cast/departure/arrival/audio and talent/hotkey icons remain separate placeholders;no class certificate.'
 }
 
+
 # Current authored Necromancer scopes; handlers remain incompletely verified.
 CAVEATS.update({'necromancer.bonearmor': 'Exact FP256 physical pool, right/quick input, hard synergies, '
                           'snapshot/recast/group/lifecycle and new/legacy reloads verified in '
@@ -589,6 +590,11 @@ PENDING = {
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',
     'sorceress.inferno':'Pinned synergy expression is balanced and verified. Still needs its distinct SQ channelling sequence, starting/interval mana and flame collision/damage.',
 }
+
+
+# Completed Sorceress mouse-policy review; handler parity remains bounded.
+for _talent in ('frostnova','nova','staticfield','telekinesis','thunderstorm','hydra'):
+    CAVEATS['sorceress.'+_talent]+=' Mouse assignment/UI and saved-binding normalization now enforce the pinned right-only flag; valid right/quick selections survive legacy migration. Teleport retains its separate approved left exception.'
 
 
 def build():

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "3282c527b4145e33826413661dc5847fdacc5b3702ded4ec77b06b5f46ef88c2",
+  "ContentAssemblySha256": "38bc71385bea69356423909a149880c3016c8b8fbde6dffd7fe173f48518d0ca",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "20d76a88711ea696cbcbc5b37894f717aed05d54fda37faf3d600300412254d3",
+    "data/Sanctuary/Balance/class-skill-status.json": "a48655f21d6c6a9ef9809c8c4f767ddc98736cec28a95059cc716c486c93d65b",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -820,7 +820,7 @@
     "src/Sanctuary.Content/SkeletonPets.cs": "e4aa147e4a7bdab2159d794fbe04c094008339d2a4f9a0915bd1c704b7c1c022",
     "src/Sanctuary.Content/SkeletonWorldBody.cs": "b9932f8ade023991b1a4ee0f5de1a9cf8481be74df0b357a2dd5f3278feac214",
     "src/Sanctuary.Content/SkillBindingNetwork.cs": "5ca869814f1287a6a0f007a2616a7a3bb88a14cdf5b0e892df047daa819494e6",
-    "src/Sanctuary.Content/SkillBindings.cs": "781fd0e1eafd7b9273241d39b9f54c5c0f0d759f44fc89e556729eca4e5c9bc3",
+    "src/Sanctuary.Content/SkillBindings.cs": "e80bc2aead7f0894614e3270309f38890e83fcf0fb6073aca2a76e499831b3f6",
     "src/Sanctuary.Content/SkillCombat.cs": "578ed8e42a062fb4115e7398c4fc419f1f0f3ca909e94a0bebc94ea43b8b32f7",
     "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
     "src/Sanctuary.Content/SkillHealth.cs": "677ae5b4beb21842bb6cc6dc87e33604507d478fc3377471670a500970b091e8",

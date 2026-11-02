@@ -18,7 +18,7 @@ public static class NecromancerBindingChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Pinned Necromancer mouse policy and save migration",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
-    private static byte[] Encode()
+    internal static byte[] Encode()
     {var writer=new BufferWriter(new byte[4*1024*1024],true);SkillBindings.Instance.Serialize(writer);return writer.Buffer[..(int)writer.Position];}
     private static void Train(PlayerMobile p,string id)
     {TalentCatalog.TryGet(DiabloClass.Necromancer,id,out var row);foreach(var pre in row.Prerequisites){Train(p,pre);}if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}}
