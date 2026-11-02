@@ -1,0 +1,70 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "nativePolicyChanged": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    "source/D2Common/src/D2States.cpp": "0df430381b0c7af1ce270c0584d5cbec496d227f92740c8dc3a3a2a8f37dce80",
+    "source/D2Game/src/MONSTER/MonsterRegion.cpp": "2478b96c69798cc3ca68b771ad6527d2da04acfdb34a18b39d05fd8500a8e4e0",
+    "source/D2Common/src/D2Dungeon.cpp": "499cac30e2419f9e9ce2789ce0d6f4dfb062ae1690bb216c071b358c288e900a",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d"
+  },
+  "routineHashes": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "STATLIST_IsExtended": "1239d1122a0ec4f6c3a40f761df496bc237397fc66a233c1f463e36f9d1bcaad",
+    "STATLIST_AddUnitStat": "616ec88197c6a1ddd8e5b614729324fcbb202653378edb5fcf2d3ef3dad618da",
+    "D2Common_10469": "03e931e822deff014d44ad5780f3aff015319a378596abfa52e96741f173e3f6",
+    "SUNIT_GetUnitList": "04a1df050a9563226f253099751db9e5ce2bebae629e7c719fc951597eba6bd7",
+    "SUNIT_GetServerUnit": "53ecb549e0e4317024483d797b104523b4954633cbd37e7d1aff8fc7d9a9591a",
+    "SUNIT_GetOwner": "3640cd8797e7b59df0d1ffb1b1822adb1141e55d330bbae228413dc54f0e6555",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "AIUTIL_CheckAiControlFlag": "5ff07904d58308952298180f38c6357422a500424869894142445b378679d587",
+    "AIUTIL_ToggleAiControlFlag": "66af26ffbf7292e5844c4efa351492ef4084f87e6d36709d6bfa8d70e4346c73",
+    "AIGENERAL_AllocAiControl": "e6b9fbd946b98480f3ba590aa757fbe79c15998f2ef08d55fce95bf250673567",
+    "AIGENERAL_SetOwnerData": "abde36e777fe92553212921cc09e08306d5b71ef470dfbbbd1526dd13d2bff95",
+    "AIGENERAL_UpdateMinionList": "0b6907f9d6927c34aa7f8f4ca18e78df16f9d4a693bbb7f90d3ce1f000c1425f",
+    "STATES_UpdateStayDeathFlags": "497975854515a2be2374edf89a7b2cd2142d6a3ae65049ec522f868cf41b0a5f",
+    "sub_6FC68240": "73ec9e72f79eb18d1ab56e8f10016e54a19be27cde5808811eaf63c58d00a1d3",
+    "DUNGEON_SaveKilledUnitGUID": "210b6bcfcac5d1c3b199cd38f5e1e9f2713ce14f94bce9f860d873582b49be3b",
+    "D2GAME_MONSTERMODE_Unk_6FC63040": "531a8dab609a43ff1bf48a704e0524c422554e071b52734581e8d4775fb244f4",
+    "sub_6FC63E80": "c0e232a3f4d4e313f0f85e991f3163082c242b63753cf147991fbf65d7a63331",
+    "sub_6FC63B30": "1ba629928acb640a9921885e00ae9ca02b429780aa42bdde0d457d658e0ff656",
+    "sub_6FC641D0": "8b2fbb742497a99f4b9eedcc47b9cbef42bf092fe0ddf97d6d4e263beb9ef3ad",
+    "SUNIT_IsDead": "3cd4ad43d5104a851266a3d80d07b73ac1f1c5a8ea9f25a37164068bd41e874d",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "D2GAME_MONSTERS_AiFunction02_6FC65150": "c2c26d3cd1f8bb72c199c212f3b0e6cc13a81b29067e0082dc73c6aa82a039e8",
+    "MONSTERMODE_EventHandler": "82d2dfef13d74d0233a5a03e1060cb531aba8d9db23ab6a05c68ef15aef7d215"
+  },
+  "animationEvidence": "tools/reference/d2r-local-sentry-animation-evidence.json",
+  "currentDeathAnimation": {
+    "code": "LGDTHTH",
+    "frames": 23,
+    "speed": 256,
+    "events": []
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-death-clock-source-probe.json",
+    "sha256": "a62f866fcecb8ae58c494619e8d0d1a4d52e65caed31f43eebf702474a6a83fc",
+    "cases": 90
+  },
+  "established": [
+    "Complete retained death-entry/cleanup/owner bodies compose with the ordinary frame scheduler, full ENDANIM dispatch and regular death-end body.",
+    "At supplied current LGDTHTH frames23/speed256 and the unchanged NPC frame-bonus routine, ENDANIM occurs23 frames after entry. Frozen dead actors still receive ENDANIM; inherited root stats and original registered owner survive.",
+    "Zero speed, single-frame, alternate-rate, Wake-length and freeze controls exercise scheduler bounds without inventing a fixed corpse expiry."
+  ],
+  "limits": [
+    "Outer mode change, animation/rate initialization, callback lookup and event queue execution are checked services; the complete current executable is not executed.",
+    "The source chart selects ordinary death scheduling, but current metadata plus reconstructed engine composition is not a proof of all modern modifiers or callback ordering.",
+    "Modern corpse-pool insertion phase, natural exhaustion/replacement death entry, cross-family removal, room unload and native/client acceptance remain separate. No public skill is enabled."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}
