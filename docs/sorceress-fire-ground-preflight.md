@@ -1,6 +1,6 @@
 # Sorceress ground fire acceptance preflight
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. The [Fire Wall runtime checkpoint](sorceress-fire-wall-native-checkpoint.md) follows [Blaze](sorceress-blaze-checkpoint.md). Continue with **Meteor**; retain their separate creation/movement/terminal contracts. This preflight is preparation, not additional native acceptance.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. The [Fire Wall runtime checkpoint](sorceress-fire-wall-native-checkpoint.md) follows [Blaze](sorceress-blaze-checkpoint.md). Continue with [**Meteor**](sorceress-meteor-preflight.md); retain their separate creation/movement/terminal contracts. This preflight is preparation, not additional native acceptance.
 
 Reuse `FireGround`’s existing saved patches/makers/meteors/cooldowns and NPC Meteor extension, the checked do23/list/passive helper from Energy Shield, shared percentage/FP damage, the saved spell factory/motion services and the existing stationary Immolation/Fists/Phoenix field collision/recipient work. `FireGroundChecks`, `MeteorChecks` and `MageMeteorChecks` provide bounded baselines; their current generic Sorceress controls are not complete source factory/field or ordinary input acceptance.
 
