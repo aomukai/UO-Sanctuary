@@ -1,5 +1,7 @@
 # Skill icons
 
+Player Blizzard follows pinned right/quick admission; its talent-tree and right/quick icons remain required. Current mappings are placeholders; effects/audio are tracked separately.
+
 Player Meteor is right/quick only under the pinned reference. Its talent-tree and right/quick icons remain required; current bindings use identified placeholders. Effects/audio remain in their separate register.
 
 [Fire Wall](sorceress-fire-wall-native-checkpoint.md) retains ability59 and right/quick bindings, with pinned right-only saved-binding normalization. Final tree and hotkey artwork remain pending under the existing labels/icons. Automatic makers and fields add no separate player action or icon; effects/audio stay separate.

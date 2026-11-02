@@ -8,9 +8,19 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record BlizzardStorm(long Id, uint Owner, int Rank, int Map, int X, int Y, int Z,
-    int Frame, DateTime UntilUtc, DateTime NextUtc);
+    int Frame, DateTime UntilUtc, DateTime NextUtc)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool Source{get;init;}
+}
 public sealed record BlizzardShard(long Id, uint Owner, int Map, double X, double Y, int Z, int Min256, int Max256,
-    int ColdFrames, int Remaining, uint LastCollision, DateTime UntilUtc, DateTime NextUtc);
+    int ColdFrames, int Remaining, uint LastCollision, DateTime UntilUtc, DateTime NextUtc)
+{
+    public int Rank{get;init;}
+    public ulong Seed{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FirestormModifiers Modifiers{get;init;}
+}
 public sealed record BlizzardSave(BlizzardStorm[] Storms, BlizzardShard[] Shards);
 
 public sealed class BlizzardProfiles : GenericPersistence
@@ -20,11 +30,11 @@ public sealed class BlizzardProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         if (reader.ReadInt() != 0) { throw new InvalidDataException("Unknown Blizzard version"); }
-        Blizzards.Restore(JsonSerializer.Deserialize<BlizzardSave>(reader.ReadString()));
+        Blizzards.Restore(JsonSerializer.Deserialize<BlizzardSave>(reader.ReadString()),true);
     }
 }
 
-public static class Blizzards
+public static partial class Blizzards
 {
     private static readonly Dictionary<long, BlizzardStorm> _storms = new();
     private static readonly Dictionary<long, BlizzardShard> _shards = new();
@@ -42,9 +52,7 @@ public static class Blizzards
     }
     public static void Cast(PlayerMobile owner, Point3D point, SkillValues values)
     {
-        var now = TimedEffects.Now; long id = ++_nextId;
-        _storms.Add(id, new(id, owner.Serial.Value, values.Rank, owner.Map.MapID, point.X, point.Y, point.Z, 0,
-            now.AddMilliseconds(NecromancerSummons.Source("blizzardcenter", "Range") * 40), now));
+        Commit(PlayerBlizzards.Prepare(owner,point,values,TimedEffects.Now));
     }
     private static PlayerMobile Owner(uint serial, int map) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == DiabloClass.Sorceress
@@ -53,9 +61,9 @@ public static class Blizzards
     {
         var ids = new List<long>();
         foreach (var (id, storm) in _storms) { if (storm.Owner == owner.Serial.Value) { ids.Add(id); } }
-        foreach (long id in ids) { _storms.Remove(id); } ids.Clear();
+        foreach (long id in ids) { _storms.Remove(id);_loadedStorms.Remove(id); } ids.Clear();
         foreach (var (id, shard) in _shards) { if (shard.Owner == owner.Serial.Value) { ids.Add(id); } }
-        foreach (long id in ids) { _shards.Remove(id); }
+        foreach (long id in ids) { _shards.Remove(id);_loadedShards.Remove(id); }
     }
     private static void Spawn(PlayerMobile owner, BlizzardStorm storm, SkillValues values, DateTime now)
     {
@@ -77,7 +85,7 @@ public static class Blizzards
         var now = TimedEffects.Now; _keys.Clear(); _keys.AddRange(_storms.Keys);
         foreach (long id in _keys)
         {
-            if (!_storms.TryGetValue(id, out var storm)) { continue; }
+            if (!_storms.TryGetValue(id, out var storm)||storm.Source) { continue; }
             var owner = Owner(storm.Owner, storm.Map);
             if (owner == null || storm.UntilUtc <= now || storm.Frame >= NecromancerSummons.Source("blizzardcenter", "Range"))
             { _storms.Remove(id); continue; }
@@ -90,7 +98,7 @@ public static class Blizzards
         _keys.Clear(); _keys.AddRange(_shards.Keys);
         foreach (long id in _keys)
         {
-            if (!_shards.TryGetValue(id, out var shard)) { continue; }
+            if (!_shards.TryGetValue(id, out var shard)||shard.Modifiers!=null) { continue; }
             var owner = Owner(shard.Owner, shard.Map);
             // Collision handler decrements first and expires before testing the zero frame.
             if (owner == null || shard.UntilUtc <= now || shard.Remaining <= 1) { _shards.Remove(id); continue; }
@@ -112,24 +120,24 @@ public static class Blizzards
             if (_shards.ContainsKey(id))
             { _shards[id] = shard with { LastCollision = last, Remaining = shard.Remaining - 1, NextUtc = shard.NextUtc.AddMilliseconds(40) }; }
         }
+        TickSource(now,null);
     }
     public static BlizzardSave Snapshot() => new(new List<BlizzardStorm>(_storms.Values).ToArray(), new List<BlizzardShard>(_shards.Values).ToArray());
-    public static void Restore(BlizzardSave save)
+    public static void Restore(BlizzardSave save,bool loaded=false)
     {
-        if (save?.Storms == null || save.Shards == null) { throw new InvalidDataException("Missing Blizzard state"); }
-        _storms.Clear(); _shards.Clear(); _nextId = 0;
-        foreach (var storm in save.Storms)
+        if(save?.Storms==null||save.Shards==null){throw new InvalidDataException("Missing Blizzard state");}
+        var storms=new Dictionary<long,BlizzardStorm>();var shards=new Dictionary<long,BlizzardShard>();long next=0;
+        foreach(var s in save.Storms)
         {
-            if (storm.Id <= 0 || storm.Rank <= 0 || storm.Frame is < 0 or >= 100 || !_storms.TryAdd(storm.Id, storm))
-            { throw new InvalidDataException("Invalid Blizzard storm"); }
-            _nextId = Math.Max(_nextId, storm.Id);
+            if(s.Id<=0||s.Rank<=0||s.Frame is <0 or >=100||!PlayerBlizzards.Valid(s)||!storms.TryAdd(s.Id,s)){throw new InvalidDataException("Invalid Blizzard storm");}next=Math.Max(next,s.Id);
         }
-        foreach (var shard in save.Shards)
+        foreach(var s in save.Shards)
         {
-            if (shard.Id <= 0 || shard.Min256 < 0 || shard.Max256 < shard.Min256 || shard.ColdFrames < 0 || shard.Remaining is < 1 or > 9
-                || !double.IsFinite(shard.X + shard.Y) || _storms.ContainsKey(shard.Id) || !_shards.TryAdd(shard.Id, shard))
-            { throw new InvalidDataException("Invalid Blizzard shard"); }
-            _nextId = Math.Max(_nextId, shard.Id);
+            if(s.Id<=0||s.Min256<0||s.Max256<s.Min256||s.ColdFrames<0||s.Remaining is <1 or >9||!double.IsFinite(s.X+s.Y)||storms.ContainsKey(s.Id)||!PlayerBlizzards.Valid(s)||!shards.TryAdd(s.Id,s))
+            {throw new InvalidDataException("Invalid Blizzard shard");}next=Math.Max(next,s.Id);
         }
+        _loadedStorms.RemoveWhere(id=>!storms.ContainsKey(id));_loadedShards.RemoveWhere(id=>!shards.ContainsKey(id));
+        if(loaded){_loadedStorms.Clear();_loadedShards.Clear();foreach(var s in storms.Values){if(s.Source&&s.NextUtc<=TimedEffects.Now){_loadedStorms.Add(s.Id);}}foreach(var s in shards.Values){if(s.Modifiers!=null&&s.NextUtc<=TimedEffects.Now){_loadedShards.Add(s.Id);}}}
+        _storms.Clear();foreach(var pair in storms){_storms.Add(pair.Key,pair.Value);}_shards.Clear();foreach(var pair in shards){_shards.Add(pair.Key,pair.Value);}_nextId=next;
     }
 }

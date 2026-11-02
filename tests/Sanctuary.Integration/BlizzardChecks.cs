@@ -72,28 +72,30 @@ public static class BlizzardChecks
         Require(SorceressCombat.Release(owner, CombatAbility.FrozenArmor, Serial.Zero, owner.Location), "Blizzard delay blocked another skill");
         Require(ClassCreation.Profiles.TryTrain(owner.Serial, "sorceress.blizzard", out _)
             && ClassCreation.Profiles.TryTrain(owner.Serial, "sorceress.icebolt", out _), "Blizzard rank/synergy-change fixture");
-        Later(220, "blizzard-result", () =>
+        Blizzards.Advance(owner,storm.NextUtc.AddMilliseconds(220),true);
         {
             var current = Blizzards.Snapshot();
             Require(current.Storms.Single(x => x.Id == storm.Id).Rank == 1 && current.Shards.Any(x => x.Owner == owner.Serial.Value)
                 && current.Shards.Where(x => x.Owner == owner.Serial.Value).All(x => x.Min256 == 54 * 256 && x.Max256 == 90 * 256 && x.ColdFrames == 100)
                 && target.Hits < life && outside.Hits == outsideLife,
                 "Stored cast rank/fresh fall synergies, actual targeted falls or spatial exclusion");
-        });
-        Later(1900, "blizzard-result", () =>
+        }
+        Blizzards.Advance(owner,storm.NextUtc.AddMilliseconds(1900),true);
         {
             owner.Mana = owner.ManaMax;
-            Require(FireGround.Ready(owner, CombatAbility.Blizzard) && SorceressCombat.Release(owner, CombatAbility.Blizzard, Serial.Zero, center)
+            var delays=FireGround.Snapshot();Require(delays.Cooldowns.Single(x=>x.Owner==owner.Serial.Value&&x.Ability==CombatAbility.Blizzard).UntilUtc<storm.UntilUtc,"45frame delay boundary");FireGround.Restore(delays with{Cooldowns=delays.Cooldowns.Where(x=>x.Owner!=owner.Serial.Value).ToArray()});
+            Require(SorceressCombat.Release(owner, CombatAbility.Blizzard, Serial.Zero, center)
                 && Blizzards.Snapshot().Storms.Count(x => x.Owner == owner.Serial.Value) == 2, "Independent overlapping storms after 45-frame delay");
-        });
-        Later(6350, "blizzard-result", () =>
+        }
+        Blizzards.Advance(owner,storm.NextUtc.AddMilliseconds(6350),true);
         {
             Require(!Blizzards.Snapshot().Storms.Any(x => x.Owner == owner.Serial.Value)
                 && !Blizzards.Snapshot().Shards.Any(x => x.Owner == owner.Serial.Value) && outside.Hits == outsideLife,
                 "Natural storm/shard expiry or outside-area damage"); target.Delete(); outside.Delete();
+            var delays=FireGround.Snapshot();FireGround.Restore(delays with{Cooldowns=delays.Cooldowns.Where(x=>x.Owner!=owner.Serial.Value).ToArray()});
             SeedPersistence(owner, center);
             _log.Information("blizzard-result: passed");
-        });
+        }
     }
     private static void SeedPersistence(PlayerMobile owner, Point3D center)
     {
@@ -102,7 +104,7 @@ public static class BlizzardChecks
         var snapshot = Blizzards.Snapshot(); var storm = snapshot.Storms.Single(x => x.Owner == owner.Serial.Value);
         var last = Enemy(owner, new(owner.X + 12, owner.Y, owner.Z));
         // Hold the test-only payload until both process reloads; ordinary lifetime is checked above.
-        var next = TimedEffects.Now.Add(FixtureSpace.Retention); storm = storm with { NextUtc = next, UntilUtc = next.AddSeconds(4) };
+        var next = TimedEffects.Now.Add(FixtureSpace.Retention); storm = storm with { NextUtc = next, UntilUtc = next+(storm.UntilUtc-storm.NextUtc) };
         long id = snapshot.Storms.Select(x => x.Id).Concat(snapshot.Shards.Select(x => x.Id)).DefaultIfEmpty().Max() + 1;
         var shard = new BlizzardShard(id, owner.Serial.Value, owner.Map.MapID, last.X, last.Y, last.Z,
             10 * 256, 10 * 256, 100, 9, last.Serial.Value, next.AddMilliseconds(360), next);
@@ -123,9 +125,10 @@ public static class BlizzardChecks
         var fallingTarget = Enemy(owner, new((int)Math.Round(saved.Storm.X + offset.X / 2.0), (int)Math.Round(saved.Storm.Y + offset.Y / 2.0), saved.Storm.Z));
         int fallLife = fallingTarget.Hits;
         long id = snapshot.Storms.Select(x => x.Id).Concat(snapshot.Shards.Select(x => x.Id)).DefaultIfEmpty().Max(); var now = TimedEffects.Now;
-        var copyStorm = saved.Storm with { Id = ++id, NextUtc = now, UntilUtc = now.AddMilliseconds(100) };
+        var copyStorm = saved.Storm with { Id = ++id, NextUtc = now, UntilUtc = now+(saved.Storm.UntilUtc-saved.Storm.NextUtc) };
         var copyShard = saved.Shard with { Id = ++id, Remaining = 2, NextUtc = now, UntilUtc = now.AddMilliseconds(80) };
         Blizzards.Restore(snapshot with { Storms = snapshot.Storms.Append(copyStorm).ToArray(), Shards = snapshot.Shards.Append(copyShard).ToArray() });
+        Blizzards.Advance(owner,now.AddMilliseconds(100),true);
         Later(250, "blizzard-reload-result", () =>
         {
             Require(last.Hits == lastLife && next.Hits == nextLife - 12 && fallingTarget.Hits < fallLife,

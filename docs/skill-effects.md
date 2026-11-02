@@ -1,5 +1,7 @@
 # Skill effects
 
+Player Blizzard reuses falling ice `0x376A`, cold-state `0x374A` and the current fire-cast audio as **identified placeholders**. Final fall/landing/contact/size/expiry feedback and cold cast/loop/hit audio remain pending; the source controller does not wait for art.
+
 Player Meteor reuses the Mage/Phoenix warning, falling meteor, impact and burning-ground placeholders (`0x3709`, `0x36BD`, `0x398C`, hue `0x489`), plus fire cast audio. Final timing/contact presentation and audio are pending; mechanical work uses the shared controller.
 
 [Fire Wall](sorceress-fire-wall-native-checkpoint.md) reuses ground fire `0x398C`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final cast, growing wall, sustained field/contact, expiry and audio remain pending. Makers are mechanical emitters and do not gain invented contact damage for presentation. Tree/hotkey icons stay separate.
