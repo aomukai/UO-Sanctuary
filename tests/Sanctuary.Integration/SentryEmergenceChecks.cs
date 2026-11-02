@@ -76,7 +76,7 @@ public static class SentryEmergenceChecks
         Frames(b,10,false);Require(b.Prepared.Control is{Mode:1,Frame:24,NextThink:25,Thinks:0,Ai.RemainingShots:-1},"Offline phase end fired early or replayed shots");
         Frames(b,4,true);Require(b.Prepared.Control is{Frame:28,Dispatches:1,Ai.RemainingShots:4},"Return before initial AI changed first actual volley");Cleanup(b);
         var list=Enumerable.Range(0,6).Select(_=>Create(p,DateTime.UtcNow.AddDays(1))).ToArray();
-        Require(list[0].Deleted&&AssassinTrapRoster.For(p).Select(x=>x.Actor).SequenceEqual(list.Skip(1).Select(x=>x.Serial.Value)),"S1 actors did not share FIFO cap5");
+        Require(!list[0].Alive&&!list[0].Deleted&&list[0].Prepared.Retirement is{Cause:"replacement"}&&AssassinTrapRoster.For(p).Select(x=>x.Actor).SequenceEqual(list.Skip(1).Select(x=>x.Serial.Value)),"S1 actors did not share FIFO cap5");
         foreach(var body in list.Skip(1)){Cleanup(body);}
         b=Create(p,DateTime.UtcNow.AddDays(1));Frames(b,7,false);SkillHealth.SetBalance256(b,12850);var before=b.Prepared;var facets=SummonDifficulties.Facets();var map=p.Map;var point=p.Location;
         try

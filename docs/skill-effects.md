@@ -1,5 +1,7 @@
 # Skill effects
 
+**Charged Bolt Sentry retirement (2026-11-03 JST).** Mechanical death timing now exists, but the visible collapse/death animation and its sound are still missing. The original actor remains visible during its logical transition and becomes hidden at completion; its current body/hue, throw sound and bolt marker remain identified placeholders. Final art/audio is separate from the [mechanical checkpoint](sentry-retirement-checkpoint.md).
+
 **Prepared Sentry retirement (2026-11-03 JST).** Logic can retain an invisible original dead actor for released missiles. UO bolt effect0x3818/hue0x482 remains an identified placeholder; final emergence, firing, impact and collapse effects/audio remain pending. No corpse-retention art or imagegen completion is implied. See [checkpoint](sentry-corpse-pool-checkpoint.md).
 
 **Learned Blade Sentinel (2026-11-03 JST).** S2 native throw animation, sound0x23B and actor body0x9C hue0x481 are identified placeholders. Final summon/emergence/blade motion/contact/expiry effects and audio remain pending; no final imagegen work. The generated entry is updated independently of icons. See [checkpoint](assassin-blade-cast-checkpoint.md).

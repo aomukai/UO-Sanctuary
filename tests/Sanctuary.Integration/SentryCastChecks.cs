@@ -69,7 +69,7 @@ public static class SentryCastChecks
             try{Require(!Cast(p)&&AssassinTrapRoster.For(p).Select(x=>x.Actor).SequenceEqual(order)&&!first.Deleted
                 &&NecromancerEffects.ManaBalance256(p)==3328,"Failed placement changed the full roster or paid mana");}
             finally{wall.Delete();}
-            Require(Cast(p)&&first.Deleted&&AssassinTrapRoster.For(p).Length==5&&NecromancerEffects.ManaBalance256(p)==0,"Successful sixth cast did not evict oldest/pay once");Clear(p);
+            Require(Cast(p)&&!first.Alive&&!first.Deleted&&first.Prepared.Retirement is{Cause:"replacement"}&&AssassinTrapRoster.For(p).Length==5&&NecromancerEffects.ManaBalance256(p)==0,"Successful sixth cast did not evict oldest/pay once");Clear(p);
             Targets(p,aim);Persist(p,aim);p=null;
         }
         finally{if(p!=null){Clear(p);p.Delete();}}

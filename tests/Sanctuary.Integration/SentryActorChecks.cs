@@ -129,7 +129,7 @@ public static class SentryActorChecks
             p.MoveToWorld(new(1496,1628,10),Map.Trammel);
             Require(Server.Spells.SpellHelper.IsTown(p.Location,p),"Owner-town fixture");
             town.AdvanceController(town.Prepared.NextFrameUtc.AddMilliseconds(24*40),true);
-            Require(town.Deleted,"Same-facet owner-town source exit was suppressed");
+            Require(!town.Alive&&!town.Deleted&&town.Prepared.Retirement is{Cause:"source-ai"},"Same-facet owner-town death entry was suppressed");
             p.MoveToWorld(position,Map.Trammel);
             p.Kill();AssassinTrapRoster.SweepOwners();Require(body.Deleted&&AssassinTrapRoster.For(p).Length==0,"Owner death retained registered sentry");
         }
@@ -156,7 +156,7 @@ public static class SentryActorChecks
             one();Require(body.Prepared.Control.Dispatches==calls+1,"Reload missed/repeated pending dispatch");
         });
         var oldest=saved.Roster[0];var fresh=Create(p,DateTime.UtcNow.AddDays(1));var roster=AssassinTrapRoster.For(p);
-        Require(World.FindMobile((Serial)oldest.Actor)==null&&roster.Length==5&&roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
+        Require(World.FindMobile((Serial)oldest.Actor) is AssassinSentryBody{Alive:false,Deleted:false,Prepared.Retirement.Cause:"replacement"}&&roster.Length==5&&roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
             &&roster[^1].Actor==fresh.Serial.Value&&roster[^1].Order>saved.Roster[^1].Order,"Reload cap5 replaced the wrong trap or lost FIFO order");
         Save(p);Require(!AssassinCombat.Implemented(CombatAbility.ChargedBoltSentry),"Reload enabled unfinished learned skill");
         Log.Information("Sentry actor reload: actual world entities retain shot/phase/target/RNG/deadline/facet/stats/injury and FIFO; exactly one continued dispatch via declared fixture service");

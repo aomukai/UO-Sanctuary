@@ -24,6 +24,7 @@ internal sealed record SentryBodyState(uint Owner,SentryCreationStats Creation,i
     public InfernoControlState InfernoControl{get;init;}
     public DeathSentryControlState DeathControl{get;init;}
     public SentryCorpseState Corpse{get;init;}
+    public SentryRetirementState Retirement{get;init;}
 }
 
 // Saved stationary actor backend. No Constructible or learned input path exists
@@ -34,10 +35,11 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private SentryBodyState _prepared;
     internal SentryBodyState Prepared=>_prepared??(string.IsNullOrEmpty(_saved)||_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<SentryBodyState>(_saved));
-    public override bool Alive=>Prepared?.Corpse==null&&base.Alive;
+    public override bool Alive=>Prepared?.Retirement==null&&Prepared?.Corpse==null&&base.Alive;
     string ILimitedSummonCorpse.CorpseSource=>SkillMechanics.For(Prepared.Creation.Ability).Text("summon");
     bool ILimitedSummonCorpse.SourceDead=>Prepared?.Corpse!=null;
     internal bool RetainedCorpse=>Prepared?.Corpse!=null&&LimitedSummonCorpses.Contains(this);
+    internal bool ReleasedProjectileOwner=>RetainedCorpse||Prepared?.Retirement!=null;
     public override bool BlocksFit=>false;
     public override bool UsesNativeSummonTimer=>false;
     public override bool CanBeDamaged()=>false;
@@ -71,6 +73,13 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
         {throw new InvalidDataException("Unsupported saved sentry body state");}
         if(s.Corpse!=null && (c.Ability!=CombatAbility.ChargedBoltSentry || s.Corpse.CompletedUtc.Kind!=DateTimeKind.Utc || s.Control?.Mode!=0 || s.Control.Sequence!=null))
         {throw new InvalidDataException("Unsupported completed sentry corpse");}
+        if(s.Retirement is{} retirement)
+        {
+            AssassinSentryRetirement.Validate(retirement);
+            if(c.Ability!=CombatAbility.ChargedBoltSentry || s.Corpse!=null || s.Control?.Mode!=0 || s.Control.NextThink!=0
+                || s.Control.Sequence!=null || s.NextFrameUtc!=retirement.CompletesUtc)
+            {throw new InvalidDataException("Unsupported pending Sentry death");}
+        }
         if(c.Ability==CombatAbility.DeathSentry)
         {
             if(s.Control!=null || s.InfernoControl!=null || s.WakeControl!=null)
@@ -106,20 +115,33 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
         {throw new InvalidDataException("Saved sentry creation context disagrees with retained source bases");}
     }
     private void Store(SentryBodyState s){Validate(s);_prepared=s;_saved=JsonSerializer.Serialize(s);}
-    // Explicit completed-death boundary only. Actual exhaustion/replacement,
-    // DT timing and other flagged summon families remain separate adapters.
+    // Preserve the same registered dead actor throughout its nonfighting DT
+    // interval. Only the source-backed completed-death boundary joins the pool.
+    internal void BeginRetirement(DateTime at,string cause)
+    {
+        if(Deleted || Prepared.Creation.Ability!=CombatAbility.ChargedBoltSentry)
+        {throw new NotSupportedException("Unsupported natural Sentry retirement");}
+        if(Prepared.Corpse!=null || Prepared.Retirement!=null){return;}
+        var death=AssassinSentryRetirement.Begin(at,cause);
+        Store(Prepared with{Retirement=death,Control=Prepared.Control with{Mode=0,NextThink=0,Sequence=null,Target=0,EmergenceEnd=0},
+            NextFrameUtc=death.CompletesUtc,ControllerFault=null});
+        Combatant=null;FocusMob=null;Warmode=false;AIObject?.AITimer.Stop();AssassinTrapRoster.Forget(this);
+        AssassinSentryActors.Track(this);
+    }
+    // Also usable by explicitly supplied completed-death services. Other
+    // flagged summon families retain their separate death adapters.
     internal void CompleteRetirement(DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc || Deleted || Prepared.Creation.Ability!=CombatAbility.ChargedBoltSentry)
         {throw new NotSupportedException("Sentry completed-death context is not supported");}
         if(Prepared.Corpse!=null){LimitedSummonCorpses.Retain(this);return;}
         var before=Prepared;
-        Store(before with{Corpse=new(at),Control=before.Control with{Mode=0,Sequence=null,Target=0,EmergenceEnd=0},ControllerFault=null});
+        Store(before with{Corpse=new(at),Retirement=null,Control=before.Control with{Mode=0,NextThink=0,Sequence=null,Target=0,EmergenceEnd=0},ControllerFault=null});
         try{LimitedSummonCorpses.Retain(this);}catch{Store(before);throw;}
         Hidden=true;Combatant=null;FocusMob=null;Warmode=false;AIObject?.AITimer.Stop();
         AssassinSentryActors.Forget(this);AssassinTrapRoster.Forget(this);
     }
-    internal bool CorpseProjectileTarget(PlayerMobile owner,Mobile target)=>RetainedCorpse
+    internal bool CorpseProjectileTarget(PlayerMobile owner,Mobile target)=>ReleasedProjectileOwner
         && AssassinTrapTargets.Eligible(this,owner,target,()=>!Deleted&&!IsDeadBondedPet&&target is BaseCreature{Deleted:false,Alive:true,Blessed:false,IsDeadBondedPet:false,IsInvulnerable:false}
             &&target is not Server.Factions.BaseFactionGuard&&ClassCombatHooks.TargetAllowed?.Invoke(this,target)!=false&&Region.AllowHarmful(this,target));
     internal static AssassinSentryBody CreatePrepared(PlayerMobile owner,Point3D position,DateTime at,ulong seed,CombatAbility ability=CombatAbility.ChargedBoltSentry)
@@ -164,8 +186,10 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     }
     internal void AdvanceController(DateTime at,bool allowActions)
     {
-        if(Prepared?.Corpse!=null){return;}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Sentry clock must be UTC");}
+        if(Prepared?.Corpse!=null){return;}
+        if(Prepared?.Retirement is{} retirement)
+        {if(at>=retirement.CompletesUtc){CompleteRetirement(retirement.CompletesUtc);}return;}
         while(!Deleted && Prepared is{} before && before.NextFrameUtc<=at)
         {
             Validate(before);
@@ -291,7 +315,12 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
                 target=>(AssassinSentryActors.Dispatch??throw new NotSupportedException("Sentry real lightning projectile factory is not connected"))(this,target));
             Store(before with{Control=control,Seed=seed,CachedAim=cached,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40),
                 ControllerFault=control.Mode==0&&before.Creation.Ability==CombatAbility.LightningSentry?"Lightning Sentry retirement/death/GUID lifecycle is not connected":null});
-            if(control.Mode==0){if(before.Creation.Ability!=CombatAbility.LightningSentry){Delete();}return;}
+            if(control.Mode==0)
+            {
+                if(before.Creation.Ability==CombatAbility.ChargedBoltSentry)
+                {BeginRetirement(before.NextFrameUtc,"source-ai");if(Prepared.NextFrameUtc<=at){AdvanceController(at,allowActions);}}
+                return;
+            }
             AIObject?.AITimer.Stop();
         }
     }

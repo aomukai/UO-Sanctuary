@@ -43,7 +43,12 @@ internal static class AssassinTrapRoster
         {throw new InvalidOperationException("Invalid assassin trap registration");}
         var existing=For(owner);
         foreach(var old in existing.Take(Math.Max(0,existing.Length+1-maximum)))
-        {Entries.Remove(old.Actor);World.FindMobile((Serial)old.Actor)?.Delete();}
+        {
+            Entries.Remove(old.Actor);
+            if(World.FindMobile((Serial)old.Actor) is AssassinSentryBody{Alive:true,Prepared.Creation.Ability:CombatAbility.ChargedBoltSentry} sentry)
+            {sentry.BeginRetirement(TimedEffects.Now,"replacement");}
+            else{World.FindMobile((Serial)old.Actor)?.Delete();}
+        }
         Entries.Add(actor.Serial.Value,new(owner.Serial.Value,actor.Serial.Value,_nextOrder++));
     }
     internal static void Forget(BaseCreature actor)=>Entries.Remove(actor.Serial.Value);

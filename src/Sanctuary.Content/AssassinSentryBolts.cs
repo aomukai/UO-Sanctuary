@@ -103,7 +103,7 @@ public static class AssassinSentryBolts
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var body=World.FindMobile((Serial)s.Actor) as AssassinSentryBody;
-        bool ownerValid=body is{Deleted:false} && (body.Alive||body.RetainedCorpse) && body.Prepared.Owner==s.Owner && body.Map?.MapID==s.Map;
+        bool ownerValid=body is{Deleted:false} && (body.Alive||body.ReleasedProjectileOwner) && body.Prepared.Owner==s.Owner && body.Map?.MapID==s.Map;
         bool fighting=ownerValid && body.Prepared.ControllerFault==null && (allowActions??AssassinTrapRoster.Fighting(s.Owner));
         if(!fighting || s.Fault!=null)
         {if(frame>=s.Frames){Bolts.Remove(s.Id);}else{Bolts[s.Id]=next;}return;}
@@ -121,7 +121,7 @@ public static class AssassinSentryBolts
             BaseCreature target=null;
             foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z),2))
             {
-                if(Math.Abs(candidate.Z-s.Z)>=16 || !(body.RetainedCorpse?body.CorpseProjectileTarget(owner,candidate):body.TrapTarget(owner,candidate)) || SpellHelper.IsTown(candidate.Location,candidate)){continue;}
+                if(Math.Abs(candidate.Z-s.Z)>=16 || !(body.ReleasedProjectileOwner?body.CorpseProjectileTarget(owner,candidate):body.TrapTarget(owner,candidate)) || SpellHelper.IsTown(candidate.Location,candidate)){continue;}
                 int? size=CreatureProfiles.For(candidate).Traits.Size;
                 if(size is not(>=1 and <=3)){throw new NotSupportedException("Sentry collider has no mapped source size");}
                 if(CombatHitboxes.SourceTouches(1,size.Value,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){target=candidate;break;}

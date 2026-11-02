@@ -1,5 +1,7 @@
 # Skill icons
 
+**Charged Bolt Sentry retirement (2026-11-03 JST).** No final talent or right/quick-slot artwork is added. Icons remain identified placeholders; casting availability remains gated in this batch. Effects/audio are tracked separately. See [checkpoint](sentry-retirement-checkpoint.md).
+
 **Prepared Sentry retirement (2026-11-03 JST).** No artwork changes. Charged Bolt Sentry talent/right/quick icons remain pending placeholders and normal casting remains gated. Effects/audio are tracked separately. See [checkpoint](sentry-corpse-pool-checkpoint.md).
 
 **Learned Blade Sentinel (2026-11-03 JST).** Talent, left/right and quick-slot icons remain pending text placeholders. Gameplay availability does not mark artwork complete; effects/audio stay in their separate register. See [checkpoint](assassin-blade-cast-checkpoint.md).

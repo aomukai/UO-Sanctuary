@@ -1,0 +1,17 @@
+# Charged Bolt Sentry retirement checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first.
+
+Charged Bolt Sentry now enters a saved death transition when its source AI requests death or a sixth trap replaces it. The original NPC immediately stops fighting and leaves the live five-trap roster. Its already-issued bolts keep their actual source identity during the death animation and after completion. The current owned LG death record and unchanged ordinary scheduler give 23 frames at speed 256. Repeated retirement does not reset the clock; offline time continues toward its original deadline.
+
+At completion the same original dead NPC enters the existing shared oldest-first 50-corpse pool. This is an explicitly identified `owned-lg-dt23-completed-corpse-v1` implementation profile. **The exact modern pool insertion phase and same-frame callback/eviction order remain unverified.** The native code uses the prepared completed-death boundary; this does not turn that boundary into a current-executable proof. Other summon families keep their existing death adapters.
+
+Build 2/run 1 passes **39 native command/result markers across three boots, two reloads and three saves**. The ordinary connected trap clock fires all five volleys, exhausts the shot budget, enters death and completes it. An already-issued bolt damages during that actual death interval. A sixth trap retires the oldest original NPC rather than deleting it immediately. The initial save contains its pending retirement; reload completes it at the original deadline without fighting or replaying shots. The same held projectile resumes twice with unchanged trap/player identities. Inspection flight clocks are explicitly held/rearmed; they do not prove uninterrupted short flight lifetime across downtime.
+
+The retained actor, aim, emergence, free-cell cast, unit-path, projectile and target/component cohorts also pass. The pool checks cover FIFO capacity, idempotence, living/unflagged rejection and atomic malformed restores. Ninety source death-clock contexts match the native calculation. Earlier assertions that required immediate deletion on replacement/town exit now require the original dying NPC and removal from the live roster; their ordering, payment and other mechanical checks remain.
+
+Both clean builds have zero warnings/errors. Two native audit markers, 71 Python tests, 573 named definitions and the eight-class/240-skill generators pass. Audit decisions remain unchanged with 915/21 input fingerprints. The native kernel, balance data and all 106 protected installed artifacts are unchanged. No deployment or save reset. See [receipt](../tools/reference/sentry-retirement-native-evidence.json).
+
+Public Charged Bolt Sentry casting is still gated in this batch. Next: connect and verify normal S2/IAS input with once-only payment and cancellation, reusing the existing free-cell release adapter and Blade Sentinel input fixtures. Exact modern pool ordering, spawn-search fallback/occupied zero-footprint placement, charged-bolt motion, unsupported inherited stats, full item/event/PvP and client presentation stay explicit acceptance gaps. No class is certified complete; coverage remains 187/240, Assassin 18/30.
+
+Effects/audio and talent/hotkey icons remain separate pending assets. The actor body/hue, UO throw sound and lightning travel marker are identified placeholders; there is no final death/collapse animation yet.

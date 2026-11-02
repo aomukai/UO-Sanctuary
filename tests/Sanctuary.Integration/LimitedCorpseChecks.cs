@@ -37,7 +37,7 @@ public static class LimitedCorpseChecks
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Prepared shared corpse pool and actual retired Sentry projectile ownership",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     public static void Configure(){Register("limited-corpse-check",()=>FixtureNetwork.Connected("limited-corpse-result",Check));Register("limited-corpse-reload-check",()=>FixtureNetwork.Connected("limited-corpse-reload-result",Reload));}
-    private static void Pool(PlayerMobile p)
+    internal static void Pool(PlayerMobile p)
     {
         var rules=JsonSerializer.Deserialize<LimitedCorpseRules>(File.ReadAllText(Path.Join(Core.BaseDirectory,"Data/Sanctuary/Balance/limited-summon-corpses.json")),new JsonSerializerOptions{PropertyNameCaseInsensitive=true});
         var bodies=Enumerable.Range(0,51).Select(i=>
