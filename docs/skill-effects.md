@@ -1,5 +1,7 @@
 # Skill effects
 
+**Defiance verification (2026-11-03 JST).** Shared mechanics reuse is accepted within the [checkpoint](paladin-defiance-aura-checkpoint.md); final front/back aura rings and selection/refresh/expiry audio remain missing. Shared `0x375A` is an identified placeholder. No final effect/audio assets were created.
+
 Might/shared aura persistence review (2026-11-03): overlay `0x375A` remains an identified placeholder. Final front/back rings, selection/refresh/expiry presentation and audio remain pending. Atomic save/restore and instant input acknowledgements introduce no new asset. See [checkpoint](paladin-might-aura-checkpoint.md).
 
 Holy Shield start/persistence review (2026-11-03): enchanted-shield overlay `0x373A` and cast sound `0x1E5` remain identified placeholders. Final cast, persistent shield/glow, expiry and audio remain pending. Start-payment tickets, rank retention and save safety introduce no new effect asset. See [checkpoint](paladin-holy-shield-cast-checkpoint.md).

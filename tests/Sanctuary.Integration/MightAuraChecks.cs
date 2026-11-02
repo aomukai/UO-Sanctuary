@@ -141,22 +141,22 @@ public static class MightAuraChecks
         }
         Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);
     }
-    private static void Input(NetState network,string label)
+    internal static void Input(NetState network,string label,CombatAbility ability=CombatAbility.Might)
     {
-        var p=Owner();var a=Ally(p);var account=FixtureNetwork.Authenticate(network,p,"might-input-");NecromancerEffects.SetMana256(p,0);
-        bool right=label.EndsWith("right",StringComparison.Ordinal);if(right){Select(p,CombatAbility.Might);}var lease=PaladinAuras.Effect(a,CombatAbility.Might);var action=ClassCombat.For(p);action.NextAction=Core.TickCount+10000;long next=action.NextAction;long deadline=Core.TickCount+4000;
+        var p=Owner();Require(SkillBindings.Instance.AssignQuick(p,7,ability)&&!SkillBindings.Instance.Assign(p,true,ability),"Aura right/quick binding");int value=(int)SkillMechanics.Values(p,ability).Eval("aurastatcalc1");var a=Ally(p);var account=FixtureNetwork.Authenticate(network,p,"might-input-");NecromancerEffects.SetMana256(p,0);
+        bool right=label.EndsWith("right",StringComparison.Ordinal);if(right){Select(p,ability);}var lease=PaladinAuras.Effect(a,ability);var action=ClassCombat.For(p);action.NextAction=Core.TickCount+10000;long next=action.NextAction;long deadline=Core.TickCount+4000;
         void Observe()
         {
             try
             {
-                bool received=right?action.Sequence==1:SkillBindings.Instance.Get(p).Right==CombatAbility.Might;
+                bool received=right?action.Sequence==1:SkillBindings.Instance.Get(p).Right==ability;
                 if(!received){Require(Core.TickCount<deadline,"Instant Might input timeout");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(PaladinAuras.Selected(p)==CombatAbility.Might&&PaladinAuras.Effect(a,CombatAbility.Might) is{Rank:1,Percent:40}&&NecromancerEffects.ManaBalance256(p)==0&&action.PendingAbility==CombatAbility.None&&action.NextAction==next,"Instant Might input created a cast cycle or paid mana");
-                if(right){Require(PaladinAuras.Effect(a,CombatAbility.Might)==lease,"Holding selected Might refreshed its lease");}
+                Require(PaladinAuras.Selected(p)==ability&&PaladinAuras.Effect(a,ability) is{Rank:1} actual&&actual.Percent==value&&NecromancerEffects.ManaBalance256(p)==0&&action.PendingAbility==CombatAbility.None&&action.NextAction==next,"Instant Might input created a cast cycle or paid mana");
+                if(right){Require(PaladinAuras.Effect(a,ability)==lease,"Holding selected Might refreshed its lease");}
                 Log.Information("{Label}: acknowledged",label);Clean(p,a);account.Delete();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean(p,a);account.Delete();Log.Error(e,"{Label}-result: failed",label);}
         }
-        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target=0 x={X} y={Y} z={Z}",label,(int)CombatAbility.Might,(int)DiabloClass.Paladin,p.X,p.Y,p.Z);Observe();});
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target=0 x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Paladin,p.X,p.Y,p.Z);Observe();});
     }
 }

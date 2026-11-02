@@ -1,5 +1,7 @@
 # Skill icons
 
+**Defiance verification (2026-11-03 JST).** Talent-tree and right/quick icons remain pending despite verified mechanics in the [checkpoint](paladin-defiance-aura-checkpoint.md). Use the identified existing placeholders; no final artwork was created.
+
 Might/shared aura persistence review (2026-11-03): talent-tree and right/quick artwork remain pending; left-slot aura assignment remains forbidden. Shared save safety and packet checks add no player action or icon. See [checkpoint](paladin-might-aura-checkpoint.md).
 
 Holy Shield start/persistence review (2026-11-03): final talent-tree and right/quick artwork remain pending; the left slot stays forbidden by the pinned mouse policy. Start/do separation and persistence changes add no player action or icon. See [checkpoint](paladin-holy-shield-cast-checkpoint.md).
