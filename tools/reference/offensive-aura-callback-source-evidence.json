@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "reusedSourceProof": "tools/reference/might-callback-source-evidence.json",
+  "routineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLS_AuraCallback_BasicAura": "1b2f8fffb7299370685a6b0dba9851f919ff9a4fd13fafd5772dae3df175b6a6",
+    "sub_6FD0B3D0": "c075ad023a298e3233d860d844203f7e992fc88571a5f5e59b2984aead6859ec"
+  },
+  "sourceHashes": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/ItemsTbls.h": "6f9b72363d068c0623193205e3f3a37c9231bdf6812e5bbb268a4c148f7bd4dc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e"
+  },
+  "currentTables": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "cases": 120,
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete unchanged basic-aura/list/modifier composition executes supplied Concentration and Fanaticism multi-stat packets for player/monster,self/ally,rank priority and cold-effect controls. Concentration stores independent physical damage/recovery chance. Fanaticism consults cold effect,stores skill attack rate and other_animrate together,and separately stores AR and physical damage.",
+    "Weaker lists refuse before every stat/cold/rate operation;equal rank retains creator and replaces packet values;stronger/absent creates current-creator lists. Both supplied half/full self damage packets are tested."
+  ],
+  "declaredServices": [
+    "Controlled stat/list/allocation/state/clock/cold/rate/event services,not complete source stat/animation/world behavior or a modern executable certificate. Cold values-50/0 leave positive Fanaticism attack rates unchanged;actual cold/global rate composition remains separate.",
+    "Supplied rank1/2 packets and optional full-self damage do not execute do65mana comparison,self-passive application,formulas,range/filter search or native consumers. Modern zero-mana self damage remains uncertain;this callback proof does not resolve it."
+  ],
+  "artifacts": {
+    "tools/probe_offensive_aura_callback.py": "37c8d048b224c6d62d32d53c723a59705b676a18f08e38f6eb99fe44eec9fcfd",
+    "tools/reference/might-callback-source-evidence.json": "e8eb3dcd7ecbe52d904b1f2db13268c9dabbf75a28565eb3046460cbb8762bb0",
+    ".local/class-skills/might-callback-source/probe.cpp": "470f582a583a77890371db02079bb543835eab9ef8f20943f24a04783e0dc051",
+    ".local/class-skills/offensive-aura-callback-source/probe.cpp": "2b220d9618f3c4fc36f4f8318a248c4c2288d044ccb36a348de5f441fd7e79be",
+    ".local/class-skills/offensive-aura-callback-source/probe": "7dc79cc9e40bf3d27917667f8866b51d5fbb8880f8e35f76eb0d25b1144243f2",
+    ".local/class-skills/offensive-aura-callback-source/cases.json": "5abb550480f7bfb05bdb67f2a31e85e31318e2cc452522c4aad6fece9ee7e176",
+    ".local/class-skills/offensive-aura-callback-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

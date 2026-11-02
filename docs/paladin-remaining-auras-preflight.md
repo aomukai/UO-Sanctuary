@@ -1,0 +1,22 @@
+# Remaining Paladin aura review
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Finish offensive-aura acceptance before editing compiled inputs. Review the remaining twelve auras by their shared consumers, reuse existing coverage where sufficient, and prioritize concrete missing mechanics. An old evidence file's historical blocker is not current authority when newer source/status/evidence supersedes it.
+
+| Family | Skills | Existing evidence and consumers |
+| --- | --- | --- |
+| Resistance | Resist Fire, Resist Cold, Resist Lightning, Salvation | `PaladinResistance`, `PaladinResistanceChecks`, `paladin-resistance-evidence.json`: active/maximum/passive resistance pools, real overcap gear, player/native-pet filtering and original reloads. |
+| Travel/corpses | Vigor, Redemption | Existing travel fixture/evidence: stamina/velocity, movement consumers, corpse eligibility/reservation/RNG/recovery and saved states. Reuse corpse-skill infrastructure rather than creating a parallel corpse registry. |
+| Elemental | Holy Fire, Holy Freeze, Holy Shock | `PaladinElements`, existing elemental fixture/evidence, plus **newer** `HolyFreezeChecks`/`holy-freeze-engine-evidence.json`: supplier weapon additions, delayed hostile pulses, current proximity policy, separate slows and shatter/corpse state. |
+| Return damage | Thorns | Existing Thorns callback/event and flat attacker-takes-damage services, `probe_thorns_reference.py`, native fixtures and `paladin-thorns-engine-evidence.json`. Preserve ordered contact/deferred death and the distinct flat and percent paths. |
+| Undead | Sanctuary | `PaladinSanctuary`, source/native Sanctuary receipts and the user's confirmed zero-mana knockback. Keep supplier weapon/AR, resistance clamp, hostile magic pulse and source-mode knockback separate. |
+| Enemy debuff | Conviction | `PaladinConviction`, existing compiled immunity/defense proof and native fixtures: source rank, immunity snapshot delta, Lower Resist, defense, elite/self protection and saved recipient leases. |
+
+The current status and source enable Holy Freeze. The older `paladin-element-evidence.json` contains a superseded gated note; use its newer dedicated evidence for present mechanics. Modern lethal-pulse/shatter/death ordering, full native other-animation consumers and exact proximity geometry remain open rather than being silently cleared by enabling the handler.
+
+Shared selection, scheduler, atomic aura persistence and instant-input machinery have fresh Might/Defiance/Blessed Aim/offensive coverage; delayed direct resource inputs have their own observations. Use pinned flags to decide whether a particular aura applies immediately or on a later pulse. Redemption's corpse result is not the resource fixture's fixed512healing assertion. Do not duplicate handlers or relabel generic source proofs as distinct elemental/corpse/return/knockback callbacks.
+
+Review actual remaining gaps before adding tests. The resistance record still distinguishes explicit/native overrides, item-aura/max-modifier/difficulty and custody conditioning. Travel records distinguish native stamina/velocity and corpse projection. Elemental records retain supplier-only stats, released proximity behavior and modern distance/seed/mode limits. Thorns has separate source return functions and life-cap correction. Sanctuary explicitly lacks a broader source BYPASSUNDEAD consumer and retains a provisional low-mana supplier threshold; inspect the relevant damage/flag path and current reference before choosing behavior. Conviction's modern sunder/PvP/hireling/self-state edges and original native base mapping remain separate questions. Unsupported individual branches must not stop unaffected skills.
+
+Retain representative player/pet/real-gear/damage/timer/lifecycle/original save controls from these existing fixtures. If production code changes, run checks appropriate to its shared consumers; otherwise a focused verification scope plus unchanged-production evidence is sufficient without claiming a new full run. Record actual source versus host-adapter versus modern uncertainty separately. Preserve installed artifacts and saves.
+
+Final effects/audio and talent/right/quick icons for all twelve remain separate asset work with identified placeholders. Completing this review does not automatically certify every Paladin mechanic or every modern world/client branch; leave specific deferred work visible when continuing the class roadmap.

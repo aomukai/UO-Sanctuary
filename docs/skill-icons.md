@@ -1,5 +1,7 @@
 # Skill icons
 
+**Offensive aura verification (2026-11-03 JST).** Concentration/Fanaticism talent-tree and right/quick artwork remain pending in the [checkpoint](paladin-offensive-aura-checkpoint.md). Use identified placeholders;no final icons were created.
+
 **Resource aura verification (2026-11-03 JST).** Prayer,Cleansing and Meditation talent/right/quick artwork remains pending despite the [mechanics checkpoint](paladin-resource-aura-checkpoint.md). Use identified placeholders;no final icons were created.
 
 **Blessed Aim verification (2026-11-03 JST).** Talent-tree and right/quick artwork remain pending in the [checkpoint](paladin-blessed-aim-checkpoint.md), with identified existing placeholders. No final icons were created.
