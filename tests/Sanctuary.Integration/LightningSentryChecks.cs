@@ -118,7 +118,7 @@ public static class LightningSentryChecks
             &&two.Seed!=one.Seed,"LastCollide hid overlapping second victim or RNG did not advance");
         // Keep a genuine travelling/history-bearing projectile for actual saves.
         Require(NecromancerEffects.ManaBalance256(p)==mana,"Actor shot replayed player mana cost");
-        Lifetimes(p);Save(p,b,first,second,state.Id);Require(!AssassinCombat.Implemented(CombatAbility.LightningSentry),"Unfinished Lightning Sentry learned handler enabled");
+        Lifetimes(p);Save(p,b,first,second,state.Id);
         Log.Information("Lightning Sentry actual actor/sequence/one-bolt launch, travelling Size2 overlap penetration/history/RNG, captured gear, signed pierce/immunity, pure damage/credit and saved packet pass; retirement remains an explicit preparation boundary");
     }
     private static void Wall(AssassinSentryBody body)
@@ -144,8 +144,10 @@ public static class LightningSentryChecks
         try
         {
             for(int i=0;i<335;i++){b.AdvanceController(b.Prepared.NextFrameUtc,true);}
-            Require(!b.Deleted&&b.Prepared.Control is{Mode:0,Attempts:10,Dispatches:10,Ai.RemainingShots:0}
-                &&b.Prepared.ControllerFault.Contains("retirement")&&AssassinSentryLightning.Snapshot().Bolts.Count(s=>s.Actor==b.Serial.Value)==10,"Fixed ten shots or explicit retirement boundary");
+            Require(!b.Deleted&&!b.Alive&&b.Prepared.Control is{Mode:0,Attempts:10,Dispatches:10,Ai.RemainingShots:0}
+                &&b.Prepared.Retirement!=null&&b.Prepared.ControllerFault==null&&AssassinSentryLightning.Snapshot().Bolts.Count(s=>s.Actor==b.Serial.Value)==10,"Fixed ten shots or original dying actor");
+            b.AdvanceController(b.Prepared.Retirement.CompletesUtc,true);
+            Require(b.RetainedCorpse&&!AssassinSentryActors.Actors().Contains(b),"Lightning source did not complete its saved death clock");
             var s=AssassinSentryLightning.Snapshot().Bolts.First(s=>s.Actor==b.Serial.Value);Frames(s.Id,1,false);var offline=AssassinSentryLightning.State(s.Id);
             Require(offline.Frame==1&&offline.X==s.X&&offline.Seed==s.Seed,"Offline expiry replayed movement/RNG");Drain(b);
             Require(!AssassinSentryLightning.Snapshot().Bolts.Any(s=>s.Actor==b.Serial.Value),"Offline projectile lifetime froze");
@@ -170,7 +172,7 @@ public static class LightningSentryChecks
             &&next.Minimum256==saved.Bolt.Minimum256&&next.Pierce==saved.Bolt.Pierce&&next.Seed!=saved.Bolt.Seed,"Saved bolt did not resume on other overlapping victim once");
         int dispatches=b.Prepared.Control.Dispatches;b.AdvanceController(b.Prepared.NextFrameUtc,true);
         Require(b.Prepared.Control.Dispatches==dispatches&&b.Prepared.Control.Frame==saved.Body.Control.Frame+1,"Reload replayed already-dispatched sequence event");
-        Save(p,b,first,second,next.Id);Require(!AssassinCombat.Implemented(CombatAbility.LightningSentry),"Reload enabled learned Lightning Sentry");
+        Save(p,b,first,second,next.Id);
     }
     private static void Live()
     {

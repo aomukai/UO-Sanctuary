@@ -138,7 +138,7 @@ public static class AssassinSentryLightning
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var body=World.FindMobile((Serial)s.Actor) as AssassinSentryBody;
-        bool live=body is{Alive:true,Deleted:false}&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map&&body.Prepared.Creation.Ability==s.Ability;
+        bool live=body is{Deleted:false}&&(body.Alive||body.ReleasedProjectileOwner)&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map&&body.Prepared.Creation.Ability==s.Ability;
         // The source can still resolve released missiles from a registered
         // retired NPC. Holding the actor at the unresolved final-removal
         // boundary must not freeze its already-created Death Sentry bolts.
@@ -158,7 +158,7 @@ public static class AssassinSentryLightning
             BaseCreature victim=null;
             foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z),3))
             {
-                if(candidate.Serial.Value==s.LastCollision || Math.Abs(candidate.Z-s.Z)>=16 || !body.TrapTarget(owner,candidate)
+                if(candidate.Serial.Value==s.LastCollision || Math.Abs(candidate.Z-s.Z)>=16 || !(body.ReleasedProjectileOwner?body.CorpseProjectileTarget(owner,candidate):body.TrapTarget(owner,candidate))
                     || SpellHelper.IsTown(candidate.Location,candidate)){continue;}
                 int? size=CreatureProfiles.For(candidate).Traits.Size;
                 if(size is not(>=1 and <=3)){throw new NotSupportedException("Sentry collider has no mapped source size");}
@@ -182,7 +182,8 @@ public static class AssassinSentryLightning
     internal static void Restore(SentryLightningSave saved)
     {
         if(saved?.Bolts==null || saved.NextId<0){throw new InvalidDataException("Missing sentry lightning");}
-        Bolts.Clear();_nextId=saved.NextId;
-        foreach(var s in saved.Bolts){Validate(s);if(s.Id>_nextId || !Bolts.TryAdd(s.Id,s)){throw new InvalidDataException("Duplicate sentry lightning");}}
+        var candidate=new Dictionary<long,SentryLightningState>();
+        foreach(var s in saved.Bolts){Validate(s);if(s.Id>saved.NextId || !candidate.TryAdd(s.Id,s)){throw new InvalidDataException("Duplicate sentry lightning");}}
+        Bolts.Clear();foreach(var pair in candidate){Bolts.Add(pair.Key,pair.Value);}_nextId=saved.NextId;
     }
 }

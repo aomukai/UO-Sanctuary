@@ -2286,10 +2286,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 271,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared saved actor and real single Size2 lightning bolt pass focused3boots/2reloads and connected clocks. Effective NPC rank, hard synergies, captured lightning stats, fixed10shots, source-zero damage, most-recent collider penetration, wall removal, saved path/history/RNG, old-facet rescaling and offline lifetime are covered. Deployment/full-suite status is in lightning-sentry-native-evidence.json. Learned cast remains individually deferred for complete player do45 placement/payment acceptance and retirement/death/GUID chronology. Zero-velocity path flags and inherited sunder are explicitly unsupported; exact modern geometry/order/RNG/client acceptance remains open. Final effects/icons are separate."
+      "remaining": "Learned right/quick S2/IAS casting reuses the shared do45 free-cell adapter and pays20mana once after creation. Saved S1 actors retain effective NPC rank, hard synergies, inherited lightning stats and fixed10shots. Each shot creates one saved Size2 penetrating lightning bolt with most-recent collider/RNG state. Source-AI and cap replacement now use the identified LG23-frame death profile; original released bolts retain their dying/dead NPC source. Straight-flight restore validates the full candidate before replacing state. Native input, payment/cancellation, timed damage, retirement/credit, real gear and original actor/flight reload acceptance are recorded separately. Exact modern corpse-pool phase/order, spawn-search fallback/occupied size-zero placement, zero-velocity path flags, inherited sunder, geometry/seed/event/item/owner/PvP and final client presentation remain explicit gaps; no class certificate."
     },
     {
       "talentId": "assassin.wakeofinferno",

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Lightning Sentry (2026-11-03 JST).** Native S2 throw/sound 0x23B, body 0x9C/hue 0x482 and straight bolt marker 0x3818/hue 0x482 remain identified placeholders. Final S1/S2/neutral/death actor, source526 bolt travel/contact and audio remain pending. Logical casting/retirement does not complete visuals. See [checkpoint](assassin-lightning-learned-checkpoint.md).
+
 **Learned Charged Bolt Sentry (2026-11-03 JST).** Native S2 throw animation and sound 0x23B, stationary body 0x9C/hue 0x482 and bolt marker 0x3818/hue 0x482 are identified placeholders. Final emergence/firing/neutral/death actor animations, bolt travel/impact and audio remain pending. Logical timing and casting availability do not complete artwork. See [checkpoint](assassin-sentry-learned-checkpoint.md).
 
 **Charged Bolt Sentry retirement (2026-11-03 JST).** Mechanical death timing now exists, but the visible collapse/death animation and its sound are still missing. The original actor remains visible during its logical transition and becomes hidden at completion; its current body/hue, throw sound and bolt marker remain identified placeholders. Final art/audio is separate from the [mechanical checkpoint](sentry-retirement-checkpoint.md).

@@ -31,31 +31,31 @@ public static class SentryLearnedChecks
         Register("sentry-learned-check",()=>FixtureNetwork.Connected("sentry-learned-result",Save));Register("sentry-learned-reload-check",()=>FixtureNetwork.Connected("sentry-learned-reload-result",Reload));
         foreach(string mode in new[]{"left","right","quick"}){string label="sentry-learned-"+mode;Register(label+"-check",()=>FixtureNetwork.Connected(label+"-result",n=>Input(n,label)));}
     }
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh()
     {
         PlayerMobile p;_creating=true;try{p=BladeBodyChecks.Fresh(reach:20);}finally{_creating=false;}
         p.Name="SentryLearnedFixture";p.Mana=p.ManaMax;return p;
     }
-    private static void Ready(PlayerMobile p)
+    internal static void Ready(PlayerMobile p)
     {ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=Core.TickCount;s.RecoveryUntil=0;p.NextSkillTime=p.NextSpellTime=0;}
     private static Point3D Aim(PlayerMobile p)=>new(p.X+4,p.Y,p.Z);
-    private static void Clean(PlayerMobile p)
+    internal static void Clean(PlayerMobile p)
     {
         foreach(var body in AssassinSentryActors.Actors().Where(x=>x.Prepared.Owner==p.Serial.Value)){body.Delete();}
         ClassCombat.Stop(p);p.Delete();
     }
-    private static void Bind(PlayerMobile p)
+    internal static void Bind(PlayerMobile p,CombatAbility ability=CombatAbility.ChargedBoltSentry)
     {
         var left=SkillBindings.Instance.Get(p).Left;
-        Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.ChargedBoltSentry)&&SkillBindings.Instance.Get(p).Left==left
-            &&SkillBindings.Instance.Assign(p,false,CombatAbility.ChargedBoltSentry)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.ChargedBoltSentry),"Pinned right-only/quick binding policy");
+        Require(!SkillBindings.Instance.Assign(p,true,ability)&&SkillBindings.Instance.Get(p).Left==left
+            &&SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Pinned right-only/quick binding policy");
     }
-    private static AssassinSentryBody Cast(PlayerMobile p)
+    internal static AssassinSentryBody Cast(PlayerMobile p,CombatAbility ability=CombatAbility.ChargedBoltSentry)
     {
-        Ready(p);int mana=NecromancerEffects.ManaBalance256(p);Require(ClassCombat.Perform(p,CombatAbility.ChargedBoltSentry,null,Aim(p),Core.TickCount),"Learned CBS begin");
+        Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=ability==CombatAbility.LightningSentry?5120:3328;Require(ClassCombat.Perform(p,ability,null,Aim(p),Core.TickCount),"Learned CBS begin");
         var s=ClassCombat.For(p);long next=s.NextAction;
         Require(s.Animation==9&&s.Timing==AssassinSentryCasts.Timing(p)&&NecromancerEffects.ManaBalance256(p)==mana&&AssassinTrapRoster.For(p).Length==0,"S2 windup created/paid early");
-        Require(!ClassCombat.ResolveAction(p,s.EffectAt-1)&&ClassCombat.ResolveAction(p,s.EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-3328,"CBS release did not pay13 exactly once");
+        Require(!ClassCombat.ResolveAction(p,s.EffectAt-1)&&ClassCombat.ResolveAction(p,s.EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Trap release did not pay its pinned cost once");
         Require(!ClassCombat.ResolveAction(p,s.EffectAt)&&s.NextAction==next,"Duplicate release changed payment/cycle");
         return (AssassinSentryBody)World.FindMobile((Serial)AssassinTrapRoster.For(p).Single().Actor);
     }
@@ -155,10 +155,13 @@ public static class SentryLearnedChecks
         }
         finally{Clean(p);}
     }
-    private static void Clock(AssassinSentryBody body,DateTime at)
+    internal static void Clock(AssassinSentryBody body,DateTime at)
     {
         typeof(AssassinSentryBody).GetMethod("Store",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(body,[body.Prepared with{NextFrameUtc=at}]);
-        var pool=AssassinSentryBolts.Snapshot();AssassinSentryBolts.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});
+        if(body.Prepared.Creation.Ability==CombatAbility.LightningSentry)
+        {var pool=AssassinSentryLightning.Snapshot();AssassinSentryLightning.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});}
+        else
+        {var pool=AssassinSentryBolts.Snapshot();AssassinSentryBolts.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});}
     }
     private static void Hold(PlayerMobile p,AssassinSentryBody body,BladeMissileTarget target,Item helm,long bolt,Point3D origin,int map,int generation)
     {
@@ -210,9 +213,9 @@ public static class SentryLearnedChecks
         }
         Observe();
     }
-    private static void Input(NetState network,string label)
+    internal static void Input(NetState network,string label,CombatAbility ability=CombatAbility.ChargedBoltSentry)
     {
-        var p=Fresh();Bind(p);FixtureNetwork.Authenticate(network,p,"sentry-learned-input-");Ready(p);var aim=Aim(p);int mana=NecromancerEffects.ManaBalance256(p);bool windup=false;long end=Core.TickCount+5000;
+        var p=Fresh();Bind(p,ability);FixtureNetwork.Authenticate(network,p,"sentry-learned-input-");Ready(p);var aim=Aim(p);int mana=NecromancerEffects.ManaBalance256(p);bool windup=false;long end=Core.TickCount+5000;
         void Observe()
         {
             try
@@ -224,15 +227,15 @@ public static class SentryLearnedChecks
                     Require(s.PendingAbility==CombatAbility.None&&AssassinTrapRoster.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Right-only CBS accepted left-slot request");
                     Log.Information("{Label}: acknowledged",label);Clean(p);Log.Information("{Label}-result: passed",label);return;
                 }
-                if(!windup&&s.PendingAbility==CombatAbility.ChargedBoltSentry)
+                if(!windup&&s.PendingAbility==ability)
                 {Require(s.Animation==9&&s.Timing==AssassinSentryCasts.Timing(p)&&NecromancerEffects.ManaBalance256(p)==mana&&AssassinTrapRoster.For(p).Length==0,"Input created/paid before release");windup=true;Log.Information("{Label}: windup",label);}
                 var traps=AssassinTrapRoster.For(p);
-                if(traps.Length==0){Require(Core.TickCount<end,"Input did not create CBS");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(windup&&traps.Length==1&&NecromancerEffects.ManaBalance256(p)==mana-3328&&FireGround.Ready(p,CombatAbility.ChargedBoltSentry),"Input count/payment/local delay");
+                if(traps.Length==0){Require(Core.TickCount<end,"Input did not create trap");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
+                Require(windup&&traps.Length==1&&NecromancerEffects.ManaBalance256(p)==mana-(ability==CombatAbility.LightningSentry?5120:3328)&&FireGround.Ready(p,ability),"Input count/payment/local delay");
                 Clean(p);Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean(p);Log.Error(e,"{Label}-result: failed",label);}
         }
-        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} x={X} y={Y} z={Z}",label,(int)CombatAbility.ChargedBoltSentry,(int)DiabloClass.Assassin,aim.X,aim.Y,aim.Z);Observe();});
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Assassin,aim.X,aim.Y,aim.Z);Observe();});
     }
 }
