@@ -1,5 +1,7 @@
 # Skill effects
 
+[Sacrifice start allocation](paladin-sacrifice-allocation-checkpoint.md) reuses the existing weapon contact, sound `0x238` and blood effect `0x37B9` as identified placeholders. Windup capture and cancellation introduce no new asset; final blood emission/contact/audio remain pending.
+
 The [Paladin baseline/binding checkpoint](paladin-baseline-checkpoint.md) retains the existing aura, weapon, projectile, shield and contact placeholders. Slot validation and corrected approved-pet/species fixtures add no effect or audio requirement; final per-skill effects remain pending independently.
 
 The [Sorceress coverage/binding review](sorceress-coverage-review.md) changes mouse-slot admission and saved normalization only. It introduces no new particle, body animation or audio asset. Existing per-skill placeholders and missing-effects entries remain authoritative.

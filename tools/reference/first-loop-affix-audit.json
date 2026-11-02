@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "4b94c016368aa3cdea17969c69abe6c22edb487a7e6e682f53946e0d3fd1edbc",
-  "ContentAssemblyPath": ".local/class-skills/paladin-baseline/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "499c1d63774d67c716e7a8364a69cab3e9414891498f3517fd6090365fe84bf3",
+  "ContentAssemblyPath": ".local/class-skills/sacrifice-allocation/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

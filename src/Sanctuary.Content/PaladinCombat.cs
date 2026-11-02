@@ -43,16 +43,16 @@ public static class PaladinCombat
         return selected==Serial.Zero || HolyBolts.Candidate(owner,target);
     }
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
-        =>IsAura(ability)?Begin(owner,ability):ability==CombatAbility.FistOfTheHeavens?HeavenFists.Begin(owner,selected,point,now):ability==CombatAbility.Conversion?PaladinConversion.Begin(owner,selected,point,now):ability==CombatAbility.Charge?PaladinCharge.Begin(owner,selected,point,now):ability==CombatAbility.Zeal?PaladinZeal.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,ValidTarget);
+        =>IsAura(ability)?Begin(owner,ability):ability==CombatAbility.Sacrifice?PaladinSacrifice.Begin(owner,selected,point,now):ability==CombatAbility.FistOfTheHeavens?HeavenFists.Begin(owner,selected,point,now):ability==CombatAbility.Conversion?PaladinConversion.Begin(owner,selected,point,now):ability==CombatAbility.Charge?PaladinCharge.Begin(owner,selected,point,now):ability==CombatAbility.Zeal?PaladinZeal.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,ValidTarget);
     public static bool Release(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long? now=null)
     {
+        if(ability==CombatAbility.Sacrifice){return PaladinSacrifice.Release(owner,selected,now??Core.TickCount);}
         if(ability==CombatAbility.Zeal){return PaladinZeal.Release(owner,selected,now??Core.TickCount);}
         if(ability==CombatAbility.Conversion){return PaladinConversion.Release(owner,selected,now??Core.TickCount);}
         if(!Available(owner,ability) || !ValidTarget(owner,ability,selected,point) || !FireGround.Ready(owner,ability)){return false;}
         var values=SkillMechanics.Values(owner,ability);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         if(ability==CombatAbility.Vengeance){return PaladinVengeance.Strike(owner,World.FindMobile(selected),values);}
-        if(ability==CombatAbility.Sacrifice){return PaladinSacrifice.Strike(owner,World.FindMobile(selected),values);}
         if(ability==CombatAbility.Smite){return PaladinSmite.Strike(owner,World.FindMobile(selected) as BaseCreature,values);}
         if(ability==CombatAbility.HolyShield){HolyShields.Cast(owner,values);}
         else if(ability==CombatAbility.BlessedHammer){BlessedHammers.Cast(owner,values);}

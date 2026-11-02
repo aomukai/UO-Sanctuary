@@ -1233,7 +1233,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Melee action/input, additive skill damage and attack rating, FP256 endpoint roll, prepared-physical/target-life-capped rank-dependent self cost and self-before-target commit staged. Native zero mana, immunity, miss/block, Energy Shield, real absorb/soft-rank gear, whole-life debit/self death and two reloads covered. Modern start/do snapshots, converted throwing adapter and full curse/item/leech/LifeTap/retaliation/mode/owner/client acceptance remain open; no item gates cleared."
+      "remaining": "Start29 captures hit/miss and prepared typed weapon damage through shared allocation; Do64 consumes once with current fractional target-life cap and rank-dependent self cost before contact recheck. Held cursor preserves original target; movement/weapon/Stop cancel. Existing zero mana, immunity, miss/block, Energy Shield, absorb/soft-rank gear, self-death and original-save checks remain. See paladin-sacrifice-allocation-checkpoint.md for current verification. Ordered target HP/death/return migration, modern executable equivalence, converted throwing and full curse/item/leech/LifeTap/event/mode/owner/client acceptance remain open; no item gates cleared."
     },
     {
       "talentId": "paladin.smite",
