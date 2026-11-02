@@ -1,5 +1,7 @@
 # Skill icons
 
+**Slow Missiles prepared release (2026-11-03 JST).** Talent and right/quick icons remain pending text placeholders. No final artwork was generated; cast/target/projectile effects stay in the separate effect register. See [checkpoint](amazon-slow-missiles-cast-checkpoint.md).
+
 **Barbarian binding follow-up (2026-11-03 JST).** Mouse/save policy adds no talent or hotkey artwork. Existing 240-entry icon register and identified placeholders remain unchanged. See [checkpoint](barbarian-binding-checkpoint.md).
 
 **Remaining Paladin aura save verification (2026-11-03 JST).** The twelve auras in the [review](paladin-remaining-auras-preflight.md) still need final talent/right/quick artwork. Save-safety acceptance does not complete their icons;keep identified placeholders.

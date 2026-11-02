@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Slow Missiles release reuse (2026-11-03 JST).** Reused Inner Sight source-circle projection, shared aura eligibility, Conversion species-boss table, existing dual-stat replacement/expiry and actual encounter missile capture. The prepared release remains separate from public availability; no duplicate projectile engine or global damage multiplier. Candidate-dictionary restore retains live state on malformed input. See [checkpoint](amazon-slow-missiles-cast-checkpoint.md).
+
 **Barbarian binding reuse (2026-11-03 JST).** Extended the existing pinned mouse policy and version-0/version-1 normalization; no second binding system or format. Reused all three accepted class-binding fixtures alongside 30 Barbarian source rows,132 migration contexts and independent history checks. See [checkpoint](barbarian-binding-checkpoint.md).
 
 **Remaining-aura save reuse (2026-11-03 JST).** Holy Freeze,Conviction and shared knockback now reuse snapshot-before-worker and candidate-before-commit patterns,retaining version0,shatter and PauseFrozen. One generic fixture tests all three controllers on actual mapped states;dedicated HolyFreezeChecks joins existing resistance/travel/elemental/Thorns/Sanctuary/Conviction/Charge coverage.577focused/1232full markers pass on identical binaries,with parent regression and runner-only manifest diagnostic preserved. See [checkpoint](paladin-aura-persistence-checkpoint.md).

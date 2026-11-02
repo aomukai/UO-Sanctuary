@@ -1,5 +1,7 @@
 # Skill effects
 
+**Slow Missiles prepared release (2026-11-03 JST).** Identified caster placeholder: UO0x375A hue0x481. Final cast_slowmissiles, innersight target overlay and amazon_handofathena audio remain pending alongside the existing logical projectile markers. The generated effect entry is updated; icons remain separate. See [checkpoint](amazon-slow-missiles-cast-checkpoint.md).
+
 **Barbarian binding follow-up (2026-11-03 JST).** Mouse/save policy adds no visual or audio effects. Existing 240-entry effect register and identified placeholders remain unchanged. See [checkpoint](barbarian-binding-checkpoint.md).
 
 **Remaining Paladin aura save verification (2026-11-03 JST).** [Save-safety acceptance](paladin-aura-persistence-checkpoint.md) creates no final assets. Resistance/travel/elemental/return/undead/debuff aura overlays,pulse and impact art,and audio remain separate pending work. Existing effects remain identified placeholders.

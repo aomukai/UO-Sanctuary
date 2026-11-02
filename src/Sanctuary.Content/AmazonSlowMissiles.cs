@@ -102,11 +102,12 @@ public static class AmazonSlowMissiles
     internal static void Restore(SlowMissilesState[] states)
     {
         if(states==null || states.Length>1000000){throw new InvalidDataException("Missing Slow Missiles states");}
-        _states.Clear();foreach(var state in states)
+        var candidate=new Dictionary<uint,SlowMissilesState>();foreach(var state in states)
         {
-            if(!((Serial)state.Target).IsMobile || state.Target==0 || !((Serial)state.Creator).IsMobile || state.Creator==0
+            if(state==null || !((Serial)state.Target).IsMobile || state.Target==0 || !((Serial)state.Creator).IsMobile || state.Creator==0
                 || state.Rank is <1 or >255 || state.VelocityPercent is <0 or >100 || state.DamagePercent is <0 or >100
-                || !_states.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid Slow Missiles state");}
+                || !candidate.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid Slow Missiles state");}
         }
+        _states.Clear();foreach(var pair in candidate){_states.Add(pair.Key,pair.Value);}
     }
 }
