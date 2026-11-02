@@ -1,0 +1,167 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Read-only local AnimData export previously pinned by d2r-local-animation-evidence.json",
+  "rawSha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "monsterCodes": {
+    "hydra1": "HX",
+    "hydra2": "21",
+    "hydra3": "HZ"
+  },
+  "parsedRecords": 3661,
+  "records": [
+    {
+      "code": "HXS2HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HYS2HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HZS2HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HXDDHTH",
+      "frames": 1,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HYDDHTH",
+      "frames": 1,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HZDDHTH",
+      "frames": 1,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HXDTHTH",
+      "frames": 10,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HYDTHTH",
+      "frames": 10,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HZDTHTH",
+      "frames": 10,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HXNUHTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HYNUHTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HZNUHTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "21A1HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "21S2HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "21DDHTH",
+      "frames": 1,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "21DTHTH",
+      "frames": 10,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "21NUHTH",
+      "frames": 12,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "HXA1HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "HYA1HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "HZA1HTH",
+      "frames": 12,
+      "speed": 256,
+      "events": [
+        [
+          8,
+          2
+        ]
+      ]
+    }
+  ],
+  "established": [
+    "All three current Hydra model codes HX/21/HZ have12frame S2/neutral,12frame A1with marker2atframe8,10frame death and1frame dead metadata,at speed256. The HYalias has the same metadata but is not substituted for current middle-head code21.",
+    "These current owned records corroborate the previously recorded emergence/attack marker counts and additionally provide death metadata. No live game interaction is needed to read these already extracted files."
+  ],
+  "limits": [
+    "Metadata alone does not prove startup timing,AI think/expiry order,attack marker dispatch,animation completion/retirement or projectile lifetime after owner/head removal. Compose actual source scheduling and declare modern gaps separately.",
+    "No runtime/controller/data/install/save change or class completion. Final head/bolt/death effects/audio and talent/hotkey icons remain separate."
+  ],
+  "artifacts": {
+    "tools/corroborate_local_hydra_animation.py": "ca4380f8e51737404ff3e0edd152047b0459e77c442d64e22ae5e744187c53b5",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5"
+  }
+}

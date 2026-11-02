@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Hydra creation,AI,ordinary animation clock,numeric capture and bolt factory preparation",
+  "runtimeChanged": false,
+  "installed": false,
+  "completedClasses": [],
+  "verified": {
+    "sourceCases": 75998,
+    "headCreation": 12800,
+    "aiTacticsSeed": 15552,
+    "ordinaryClock": 576,
+    "numericDamage": 41310,
+    "boltFactory": 5760,
+    "currentAnimationRecords": 20,
+    "low32PercentageDecisionDifferences": 624,
+    "unchangedInstalledArtifacts": 106
+  },
+  "unchangedRuntimeArtifacts": {
+    "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
+    "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
+    "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
+    "Assemblies/Sanctuary.Content.dll": "39a52eff3b9d7f9f80c21c1b434c4eb4c717571eca509b6bff17425e9545400c",
+    "Assemblies/Sanctuary.Integration.dll": "0d719c50ace92549c35fd11c2ea09c27932647520d9834a04116b88756117faa"
+  },
+  "artifacts": {
+    ".local/class-skills/hydra-reference-checks-1.log": "8c2b83d506836c8df852acaec437ee1251fbf252f2334f2853c7317bab4c12ea",
+    ".local/class-skills/sorceress-player-frozen-orb/birth-inputs.json": "35124e7230b7e2dd7c9ad929d29066f209f2e89d8a0bc2488a76b65d97151cb9",
+    ".local/class-skills/sorceress-player-frozen-orb/pre-build-5.json": "987a5c3c46e07d8d8dd36b16ad5ff4cc2b20439c856cbf8fec7db0637810643b",
+    "docs/class-skill-roadmap.md": "2a55914ab6f199ffbc6a0745ef55b86bf38b43b56a8b7a72cbc9d1ec18ba2d74",
+    "docs/class-skills-resume-checkpoint.md": "6cc3015472b8948b370027a509644ca34f4e0b8e916539a4af4e4720a94f56fd",
+    "docs/skill-effects.md": "51863a70e54dc4bd3632dfaf42f33543ffdcec27deb4c5ebe829e1b35e7a8759",
+    "docs/skill-icons.md": "81abca2acef4f69a62a036344509bc903b90da56ce8bb0ac77f0d37d6114eae0",
+    "docs/sorceress-hydra-preflight.md": "4ff5d81ed753c458c3b34b040f8f5a8965b8158eefbc9e381d39ae67428bd95a",
+    "tools/corroborate_local_hydra_animation.py": "ca4380f8e51737404ff3e0edd152047b0459e77c442d64e22ae5e744187c53b5",
+    "tools/probe_hydra_ai.py": "c3bdd4b78d905eedd8d32e3ce91d9de4e207600ecc19e487fcc4fdc4b4d054f7",
+    "tools/probe_hydra_bolt_creation.py": "c1fdf893549372028290a86bc5fc31544b8ecb20c36e73630602aa9b9021fe64",
+    "tools/probe_hydra_clock.py": "a9e18b1e68f58e3b96489815f56ff05f94910e6dfabef9b7213ae50b533a9d68",
+    "tools/probe_hydra_creation.py": "df6f14b49b568507c4e6564fa1c8ee5dd6ae0c853f8f7773bc70fe1e5807c037",
+    "tools/probe_hydra_damage.py": "93dc0500f43a631f8c1bdf3481ad63b1b5740a3fe8970e7331f99a5a1c1515b1",
+    "tools/record_hydra_preflight.py": "87de1db9d3c534b349b037304425c2453568b87d1f4470c8d37acc530d0d4114",
+    "tools/reference/d2r-local-hydra-animation-evidence.json": "0d5d5e365314262ba4b6ebd2f10f39d6e2c5e7b01fd72f9cc3614459f62b252c",
+    "tools/reference/hydra-ai-source-evidence.json": "ba6a24e5a829019877d6b9cdedaed2052f15969d0642c1cadf5978c7e34e942f",
+    "tools/reference/hydra-bolt-creation-source-evidence.json": "853aaba9945a582b0e4b46e86202b83c9d1a592cf0bba458c5b094842b723bce",
+    "tools/reference/hydra-clock-source-evidence.json": "bf690f1f8513d19173ce3a83716f30b3c4e3ca06644652e2824f166ccd27d06f",
+    "tools/reference/hydra-creation-source-evidence.json": "92e1af50c356486871f2ca18cae5f219bf9681bb6e98f7d9d45b8eb55697a433",
+    "tools/reference/hydra-damage-source-evidence.json": "17e4e06fddb719c760a623e6c46792ee95442e73f76f1ec8422e8c6b141fdd56",
+    "tools/reference/sorceress-player-frozen-orb-native-evidence.json": "4f907b218d0d9d3549eb91287aae2395677962f9f3a60e0f4b364945b33ebab8"
+  },
+  "established": [
+    "Complete older-engine source compositions with explicit services and pinned current tables;current owned animation records corroborate12frame emergence/attack,frame8marker2and10frame death for HX/21/HZ.",
+    "Per-head FIFO18cap and partial allocation semantics,owner substitution,hard/accrued birth capture,strict expiry/range,full64bit chance,ordinary clock handoff and monster-owned337to247fire projectiles have bounded source controls. The accepted Frozen Orb source/data/native assembly inventory is unchanged."
+  ],
+  "remaining": [
+    "Native Hydra controller replacement,full targeting/world/path/InitSteps/Slow Missiles/interception,ordered collision/HP/return/events and final head/creator GUID retirement remain next. Full live scheduler/global/modern parity is unproved. No new native runtime acceptance is claimed.",
+    "Approved temporary-trap facet/offline expiry rules must reuse existing lifecycle machinery. Preserve historical saved payloads;test actual inputs/resources and original saved heads/projectiles across two reloads. Final head/bolt/death effects/audio and talent/hotkey icons remain independent. No deployment or class certificate."
+  ]
+}

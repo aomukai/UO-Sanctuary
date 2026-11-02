@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 5760,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "routineHashes": {
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "sub_6FD11420": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "MISSILES_Initialize": "c77a4ae03ff02589f6b1d7e86f55ff0b89d0dbd77ff7a3e693990ac7df8b12ff",
+    "MISSILE_AllocMissileData": "ac02d00a58fa6188d06d1d25b921c6d0b1cc513ca42e03f885d1e2297991643a",
+    "MISSILE_SetTargetX": "311ecd01dbfef017178cb8f59d76416500d7dfa581e7edbfe786c1494642c594",
+    "MISSILE_GetTargetX": "6501371e1dd0fd1d986893fb2e9d0c7873d0ba6a3b530a035505778c3ed0d674",
+    "MISSILE_SetTargetY": "af3d66a6221ba76a361c1397904d237c3f52fbdcacf16c0025a69e3c289f6cd3",
+    "MISSILE_GetTargetY": "22953b91788c79525d62af861bfbe713521e578c58445cdd384fe94495618ee3",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete ordinary wrapper/launcher/factory/initializer/data/accessors plus full MISSILE_SetOwner compose. HydraMissile337requests flags33/missile247at the head position,velocity3072FP8/range30/mode3. Stored target coordinates remain zero while physical aim is independent;self aim receives the full factory(+1,+1)nudge.",
+    "Current LastCollide initializes owner-type/GUID history to the emitter,while the separate unit creator pointer is retained. CanDestroy marks the missile attackable. Once admitted,the older generic wrapper reports success and invokes requested payment service even if allocation fails;no localdelay is requested. Player-kind rows are generic controls,not an accessible HydraMissile player talent."
+  ],
+  "declaredServices": [
+    "Older source/current tables,not modern executable proof. Exact Frozen Orb factory ABI and nine routines are retained;the tenth owner-history routine is added unchanged. Target/path/world/allocation/event/stat writing,payment service and creator registry are explicit boundaries.",
+    "Numeric capture has its separate41310case composition. InitSteps2is pinned metadata but actual initial path advancement/global scheduling remains unproven here. Slow Missiles is enabled in the row but its owner state is inactive in these controls. NPC mana arithmetic,interception,collision/HP/return,creator lifetime/removal,actual native input/save/client remain separate. No C#/runtime/install/save change."
+  ],
+  "artifacts": {
+    "tools/probe_hydra_bolt_creation.py": "c1fdf893549372028290a86bc5fc31544b8ecb20c36e73630602aa9b9021fe64",
+    "tools/reference/frozen-orb-creation-source-evidence.json": "3462f979e1b3846203bd3af85c48b3b557ead96fc92d77f9e5f8bd1817cfa388",
+    ".local/class-skills/hydra-bolt-creation-source/reused-frozen-orb.cpp": "bb7ca825cde0bb01518872371c1fd70dc78863aa4c7aef84d32a5998d428d912",
+    ".local/class-skills/hydra-bolt-creation-source/probe.cpp": "e59637b1539e5f8101fc60fb36e74c26aadd31b850fef9aefefd85f014c7a03e",
+    ".local/class-skills/hydra-bolt-creation-source/probe": "848d7ca60667a84d9645eefdb7723c859724e6f75a0ee6ab6a8f1b68ec4f5bbd",
+    ".local/class-skills/hydra-bolt-creation-source/probe-san": "a9568b42423a40be501ebdae6fc8a67be5b4d07e5fe82f13109f8a2bf155d20c",
+    ".local/class-skills/hydra-bolt-creation-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/hydra-bolt-creation-source/cases.json": "7fda646c16dc0af182b43a9bc94bd24c3d4d9b4092ad888944d6938d89fb985a"
+  }
+}

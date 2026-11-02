@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 576,
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "routineHashes": {
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC645E0": "0974fabbe5032e2cf6ee285470a555aafa7575186f5ec783e32d99b28021f742",
+    "sub_6FC63680": "8496dc74e4162d915e77e9b9ab53be043d9a8b7b7c12e329202e8f84522462c5",
+    "D2GAME_MONSTERS_AiFunction02_6FC65150": "c2c26d3cd1f8bb72c199c212f3b0e6cc13a81b29067e0082dc73c6aa82a039e8",
+    "sub_6FC64790": "44afcbcc07adb7a65b25be726164368e266644826c1c4f3e7283f72f82dfad89",
+    "D2GAME_MONSTERS_AiFunction01_6FC65080": "41a5519fb96e3b646cf9b1e66a20075cc59160e56ed32981f00ace73ee122faf"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete ordinary entry,frame-bonus,scheduler,direct event dispatch,used-skill callback,ENDANIM,generic end and neutral handoff are reused unchanged from Wake. Current three Hydra model records supply12frame S2and A1/frame8marker2. Emergence has no used skill/action;attack uses nonchannelled HydraMissile. Normal rate256gives emergence end+12and preserves initial AI+25;attack shot+8/end+12/next AI+27when no future AI deadline exists.",
+    "All three classes,six declared rate controls,four existing AI deadlines,stun and start success/failure compose in576contexts. A future existing AI event remains unchanged even if it precedes end+15;otherwise end+15or stunned end+45is scheduled. Direct generic entry ignores the supplied skill start failure on this nonmoving route."
+  ],
+  "declaredServices": [
+    "Older engine composition with current owned animation metadata,not a modern executable timing certificate. Rate computation,mode-change bridge,callback lookup,start/do/projectile creation,event list,states and StopSequence are declared services. Only ordinary nonchannelled used-skill actions and action-free emergence are exercised.",
+    "AI86execution/target acquisition,full event-list interleaving before ENDANIM,global scheduling,death/retirement,and projectile contacts/owner lifetime/persistence/input remain separate. Future-deadline controls inspect end handoff without executing that earlier AI event. No C#/runtime/install/save change."
+  ],
+  "artifacts": {
+    "tools/probe_hydra_clock.py": "a9e18b1e68f58e3b96489815f56ff05f94910e6dfabef9b7213ae50b533a9d68",
+    "tools/reference/wake-of-fire-clock-source-evidence.json": "c53b79e325b640f46fee7535ed98fbd69e1e0332f13ec0975ac1234f3a15044c",
+    "tools/probe_wake_of_fire_clock_reference.py": "8c2a000290a849f2d1c2a0b7a4f4122201d5eef153c5ac904576819abbedc533",
+    ".local/class-skills/wake-of-fire-clock-source-probe.cpp": "5edaf552d31e4679c4bae71ef17cbc9143047490752b4f1e159dbd65551e42de",
+    "tools/reference/d2r-local-hydra-animation-evidence.json": "0d5d5e365314262ba4b6ebd2f10f39d6e2c5e7b01fd72f9cc3614459f62b252c",
+    ".local/class-skills/hydra-clock-source/probe.cpp": "5e3a65163b8142f8151a8a9cad10d5d12113b30c30c5c64ec1933dc4543445f7",
+    ".local/class-skills/hydra-clock-source/probe": "2fdd2b7683072e7368a0e6b1c0f2e78366f04a0320d45940d63d9b0cec35b890",
+    ".local/class-skills/hydra-clock-source/probe-san": "ca7e65177cc092008193590d59d30cf79fee71ff4390b7667189f95c5e0d8649",
+    ".local/class-skills/hydra-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/hydra-clock-source/cases.json": "86d32450b1e65382870a826594de2f5a214b2e0fcaeb11577f4f4985905749dd"
+  }
+}

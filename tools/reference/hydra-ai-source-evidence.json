@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 15552,
+  "sourceHashes": {
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a"
+  },
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollPercentage": "4991588e10033e6919029f0bd61d925cb76aa65d965fbccc5f7a3c3061021c82",
+    "AI_RollPercentage": "3e4fb74bcdda18d01c94620227e49be8495591758b5fcfb2c38e5e3451f37551",
+    "AITHINK_Fn086_Hydra": "472a59e7a7d1a5a5925230dfd1027e12fe9e9f7cd10dd5f8eadbf2bbf511e0d8",
+    "AITACTICS_Idle": "ebd28ee5845f789f73cbc6dad96e105345280197d855257ce48e396ef687d002",
+    "AITACTICS_IdleInNeutralMode": "f33d3b068fb492a2fe39a87d61b567709f538faa7788d76327f85859bba5b894",
+    "AITACTICS_UseSkill": "a4b175d5383a9d494fef0cffc20a913a44d5f767d9a1b37fbdd4653c317ef243",
+    "AITACTICS_ChangeModeAndTargetCoordinates": "fe4cd8cd8477205fdce240db75880c23ac27048e80649cc7470d90dee0681db0"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "percentageDecisionDifferencesFromLow32": 624,
+  "established": [
+    "Complete AI86,tactics use-skill/death/neutral/idle,and seed/percentage routines compose. Only expiry strictly before current frame requests death. At equality the ordinary target/chance branch still runs. Missing/out-of-range targets idle10without drawing RNG. Distance24is eligible;25and26are not.",
+    "The canonical percentage routine uses the full64bit rolled value modulo100,not a narrowed low32bit result. The matrix includes high seeds0/666/UINT_MAX and low boundary values and demonstrates different decisions under the incorrect narrowing.",
+    "Successful chance requests configured HydraMissile337in A1. Full tactics select its skill,set server-do flag64 and path step1 before mode change;failure requests neutral then schedules AI+10. A missing selected skill is forwarded as null rather than rejected in tactics. Invalid mode16returns without those writes or idle;this is a guarded helper control,not current Hydra gameplay."
+  ],
+  "declaredServices": [
+    "Older engine,current pinned rows and canonical seed operations,not modern executable proof. The Microsoft i64literal has an equivalent C++ literal adapter;canonical function bodies are unchanged. Target/distance supplied by outer acquisition;skill lookup,mode transition acceptance/path/event storage remain explicit services.",
+    "Full mode/animation dispatch,actual projectile creation/contact/HP,caster/head removal and final GUID lifetime,modern AI event order/global entropy and native input/save/client acceptance remain separate. Do not infer a sentry shot budget or target-search radius from the AI attack eligibility test. No C#/runtime/install/save change."
+  ],
+  "artifacts": {
+    "tools/probe_hydra_ai.py": "c3bdd4b78d905eedd8d32e3ce91d9de4e207600ecc19e487fcc4fdc4b4d054f7",
+    ".local/class-skills/hydra-ai-source/probe.cpp": "263bcc9c3871e11eac435ac746974ceb44f9ff3056eaa914192ea20cc2b1c0b0",
+    ".local/class-skills/hydra-ai-source/probe": "2a9e4e721ef12953c5de7bd78d6a3a4e6c288dfcf6eed130ba463f5a0f56497b",
+    ".local/class-skills/hydra-ai-source/probe-san": "b9611ac483a89f8dcb7f357726d4f6b5abaaf200f6542e032023a19184fa5dd2",
+    ".local/class-skills/hydra-ai-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/hydra-ai-source/cases.json": "7fbdaf80dc82f46f0a07a4cf1060bcd3b8db850380f825d00dfd8c009b23e633"
+  }
+}

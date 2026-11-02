@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 12800,
+  "sourceHashes": {
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "routineHashes": {
+    "sub_6FC7DA40": "0184fe25e51ced7e307ef7552c6980c7371af9156ee9b3807e448106f7e57b95",
+    "sub_6FC7D7A0": "0c9dbe575f7f98974dfad63f3e1fc728e77fb39e3d02b7e08637ba7b157a57e3",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "sub_6FD14C30": "2588c5911b2ed1e2c633c3aaac1cfe82b6de78d4e42acf8fc62ee992ea5067a4",
+    "D2GAME_SetSkills_6FD14C60": "f613352a6f89231ba07e597314595bccfb10bd2269141c1624010fb4ad5bd3c7",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "SKILLS_SrvSt14_Hydra": "2c10cad8bddbe591f098611be6e421d1ffd76b0bfc17979a979f6bc658f19f33",
+    "SKILLS_SrvDo144_Hydra": "be9475e2652156f2c3880385399c870a282d01f9f21f5c95c594992536aeb981"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "established": [
+    "Complete start14/do144 compose with the retained full generic summon,pet registration/FIFO,assigned-skill refresh,passive helper and percentage body. Requests are independent;partial failures still permit later heads. Explicit coordinates/three consecutive classes,S2mode,revive/no-treasure flags,owner records,frame+25initial AI events and duration AI params are checked.",
+    "Hydra pettype19/group0 has an18-head limit. Each successful player-owned head appends independently and evicts one oldest head only when full. A failed head does not evict anything. Hirelings resolve an available master;ordinary monster casters retain themselves even when they have a minion owner. Monster-owned heads do not enter the player pet list and inherit alignment.",
+    "The full old passive helper captures three accrued fields and positive HydraMissile/current rank plus hard Fire Bolt/Fire Ball from the resolved owner. Four assigned-skill calls occur per positive-rank head including the base Hydra skill. The old shared calc1percentage also multiplies supplied base life by350percent;this is recorded without asserting modern untargetable-head HP semantics."
+  ],
+  "declaredServices": [
+    "Older engine plus pinned current tables,not modern executable proof. Reused trap ABI/list services are extended;all nine canonical function bodies remain unchanged. Target/room/town,summon ID/row/formula,current accrued/hard-stat values,spawn results,stat storage,skill/event wrappers and client pet-list bridge are declared services.",
+    "Spawn first-radius/fallback outcomes and missing AI data are controlled. No actual terrain search,head startup/animation/AI target acquisition,projectile emission/damage/HP/block/events,global RNG,modern scheduling/removal,charged/oskill/client or native persistence is established. Item equipment receives the old helper request only;no invented Hydra gear or incoming HP behavior. No C#/runtime/install/save change."
+  ],
+  "artifacts": {
+    "tools/probe_hydra_creation.py": "df6f14b49b568507c4e6564fa1c8ee5dd6ae0c853f8f7773bc70fe1e5807c037",
+    "tools/probe_assassin_trap_summon_reference.py": "28623ddb18dbc906be9badf78ee3191e05efdf4694167e27f6ed860c89d410f9",
+    ".local/class-skills/hydra-creation-source/probe.cpp": "2a682f7503ee11aa4c25b3fb2f208392ab784993c820a08897563ec7095e1e67",
+    ".local/class-skills/hydra-creation-source/probe": "44872c12815dfe869d325c065686b0e20ba2b51d6707b777c27b56e009f0ab52",
+    ".local/class-skills/hydra-creation-source/probe-san": "0363bbabebc6c309567cf09b0dc741ea8574fc2149e9270126200fde6bf2b0da",
+    ".local/class-skills/hydra-creation-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/hydra-creation-source/cases.json": "7e41a88c0d3d575f20a052270dabbc3b6bf6e8078277c90855f4b6ab58c63f5c"
+  }
+}
