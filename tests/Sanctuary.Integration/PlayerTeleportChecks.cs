@@ -127,7 +127,8 @@ public static class PlayerTeleportChecks
         }
         Observe();
     }
-    private static void StageSave()
+    internal static bool HasSavedFixture=>File.Exists(Manifest);
+    internal static void StageSave()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
         p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);Ready(p);var scroll=saved.Generation==1?(TeleportScroll)World.FindItem((Serial)saved.Pack):null;

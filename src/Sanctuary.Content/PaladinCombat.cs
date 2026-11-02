@@ -43,9 +43,10 @@ public static class PaladinCombat
         return selected==Serial.Zero || HolyBolts.Candidate(owner,target);
     }
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
-        =>IsAura(ability)?Begin(owner,ability):ability==CombatAbility.Vengeance?PaladinVengeance.Begin(owner,selected,point,now):ability==CombatAbility.Smite?PaladinSmite.Begin(owner,selected,point,now):ability==CombatAbility.Sacrifice?PaladinSacrifice.Begin(owner,selected,point,now):ability==CombatAbility.FistOfTheHeavens?HeavenFists.Begin(owner,selected,point,now):ability==CombatAbility.Conversion?PaladinConversion.Begin(owner,selected,point,now):ability==CombatAbility.Charge?PaladinCharge.Begin(owner,selected,point,now):ability==CombatAbility.Zeal?PaladinZeal.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,ValidTarget);
+        =>IsAura(ability)?Begin(owner,ability):ability==CombatAbility.HolyShield?HolyShields.Begin(owner,selected,point,now):ability==CombatAbility.Vengeance?PaladinVengeance.Begin(owner,selected,point,now):ability==CombatAbility.Smite?PaladinSmite.Begin(owner,selected,point,now):ability==CombatAbility.Sacrifice?PaladinSacrifice.Begin(owner,selected,point,now):ability==CombatAbility.FistOfTheHeavens?HeavenFists.Begin(owner,selected,point,now):ability==CombatAbility.Conversion?PaladinConversion.Begin(owner,selected,point,now):ability==CombatAbility.Charge?PaladinCharge.Begin(owner,selected,point,now):ability==CombatAbility.Zeal?PaladinZeal.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,ValidTarget);
     public static bool Release(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long? now=null)
     {
+        if(ability==CombatAbility.HolyShield){return HolyShields.Release(owner,now??Core.TickCount);}
         if(ability==CombatAbility.Vengeance){return PaladinVengeance.Release(owner,selected,now??Core.TickCount);}
         if(ability==CombatAbility.Sacrifice){return PaladinSacrifice.Release(owner,selected,now??Core.TickCount);}
         if(ability==CombatAbility.Zeal){return PaladinZeal.Release(owner,selected,now??Core.TickCount);}
@@ -62,8 +63,7 @@ public static class PaladinCombat
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         if(ability==CombatAbility.Smite)
         {try{return PaladinSmite.Strike(owner,World.FindMobile(selected) as BaseCreature,values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
-        if(ability==CombatAbility.HolyShield){HolyShields.Cast(owner,values);}
-        else{HolyBolts.Cast(owner,point,values);}
+        HolyBolts.Cast(owner,point,values);
         owner.PlaySound(0x1E5);return true; // Placeholder cast sound.
     }
 }

@@ -12,8 +12,10 @@ namespace Sanctuary;
 public sealed record HolyShieldState(uint Owner,int Rank,int BlockBonus,DateTime UntilUtc);
 public sealed class HolyShieldProfiles:GenericPersistence
 {
+    private HolyShieldState[] _snapshot;
     public HolyShieldProfiles():base("SanctuaryHolyShields",127){}
-    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(HolyShields.Snapshot()));}
+    public override void Serialize(){_snapshot=HolyShields.Snapshot();base.Serialize();}
+    public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Holy Shield version");}
@@ -22,6 +24,8 @@ public sealed class HolyShieldProfiles:GenericPersistence
 }
 public static class HolyShields
 {
+    // A paid start is transient action state, not part of the saved buff.
+    internal sealed record Pending(Map Map,Point3D Origin,Serial Weapon,long EffectAt);
     private static readonly Dictionary<uint,HolyShieldState> _states=new();
     private static readonly List<uint> _expired=new();
     public static HolyShieldProfiles Profiles{get;private set;}
@@ -45,10 +49,47 @@ public static class HolyShields
             tier=>definition.Number((maximum?"MaxLevDam":"MinLevDam")+tier))<<definition.Number("HitShift");
         return(Damage(false),Damage(true));
     }
-    public static void Cast(PlayerMobile owner,SkillValues values)
+    internal static void Route(SkillValues values)
     {
-        _states[owner.Serial.Value]=new(owner.Serial.Value,values.Rank,(int)values.Eval("aurastatcalc1"),TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc")*40));
+        var r=SkillMechanics.For(CombatAbility.HolyShield);
+        if(values.Ability!=CombatAbility.HolyShield||values.Rank is <1 or >255||r.SourceId!=117||r.Number("srvstfunc")!=36||r.Number("srvdofunc")!=18
+            ||r.Text("aurastate")!="holyshield"||r.Text("aurastat1")!="toblock"||r.Number("usemanaondo")!=0||r.Number("leftskill")!=0||r.Number("rightskill")!=1
+            ||values.Mana256!=8960||values.Eval("auralencalc")<=0||values.Eval("aurastatcalc1") is <0 or >40)
+        {throw new NotSupportedException("Unsupported pinned Holy Shield route");}
+    }
+    internal static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+    {
+        if(!PaladinCombat.Available(owner,CombatAbility.HolyShield)){return false;}
+        try{Route(SkillMechanics.Values(owner,CombatAbility.HolyShield));}
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
+        if(!SkillCombat.Begin(owner,CombatAbility.HolyShield,selected,point,now,PaladinCombat.ValidTarget)){return false;}
+        var s=ClassCombat.For(owner);s.HolyShieldStart=null;
+        if(!NecromancerEffects.Pay(owner,8960)){s.PendingAbility=CombatAbility.None;return false;}
+        s.HolyShieldStart=new(s.ActionMap,s.ActionOrigin,s.PendingWeapon,s.EffectAt);return true;
+    }
+    internal static bool Release(PlayerMobile owner,long now)
+    {
+        var s=ClassCombat.For(owner);var paid=s.HolyShieldStart;s.HolyShieldStart=null;
+        if(paid==null||now<paid.EffectAt||!owner.Alive||!PaladinCombat.Available(owner,CombatAbility.HolyShield)
+            ||owner.Map!=paid.Map||owner.Location!=paid.Origin||(CombatTiming.Equipped(owner)?.Serial??Serial.Zero)!=paid.Weapon){return false;}
+        // The generic action/equipment adapter cancels changed equipment.
+        // Bare do18 itself has no second shield gate and no second payment.
+        bool applied=Apply(owner,SkillMechanics.Values(owner,CombatAbility.HolyShield),TimedEffects.Now);
+        if(applied){owner.PlaySound(0x1E5);}return applied; // Identified cast placeholder.
+    }
+    internal static void EquipmentChanged(PlayerMobile owner)
+    {if(ClassCombat.For(owner).HolyShieldStart!=null){ClassCombat.Stop(owner);}}
+    public static void Cast(PlayerMobile owner,SkillValues values)=>Apply(owner,values,TimedEffects.Now);
+    internal static bool Apply(PlayerMobile owner,SkillValues values,DateTime at)
+    {
+        Route(values);if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Holy Shield clock must be UTC");}
+        var next=new HolyShieldState(owner.Serial.Value,values.Rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));Validate(next);
+        // Ungrouped same-skill state: weaker lists refuse; equal rank refreshes
+        // its values/deadline; stronger rank replaces. Cold armor is separate.
+        if(State(owner) is{} old&&old.Rank>values.Rank){return false;}
+        _states[owner.Serial.Value]=next;
         owner.FixedEffect(0x373A,10,15,0x481,0); // Placeholder enchanted shield overlay.
+        return true;
     }
     public static void Clear(Mobile owner)=>_states.Remove(owner.Serial.Value);
     public static HolyShieldState[] Snapshot()
@@ -61,8 +102,12 @@ public static class HolyShields
     public static void Restore(HolyShieldState[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing Holy Shields");}
-        _states.Clear();
+        var candidate=new Dictionary<uint,HolyShieldState>();
         foreach(var state in saved)
-        {if(state.Owner==0 || state.Rank<1 || state.BlockBonus is <0 or >40 || !_states.TryAdd(state.Owner,state)){throw new InvalidDataException("Invalid Holy Shield");}}
+        {Validate(state);if(!candidate.TryAdd(state.Owner,state)){throw new InvalidDataException("Duplicate Holy Shield");}}
+        _states.Clear();foreach(var pair in candidate){_states.Add(pair.Key,pair.Value);}
     }
+    private static void Validate(HolyShieldState state)
+    {if(state==null||state.Owner==0||!((Serial)state.Owner).IsMobile||state.Rank is <1 or >255||state.BlockBonus is <0 or >40||state.UntilUtc.Kind!=DateTimeKind.Utc)
+        {throw new InvalidDataException("Invalid Holy Shield");}}
 }

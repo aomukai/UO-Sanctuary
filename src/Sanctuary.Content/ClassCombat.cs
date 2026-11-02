@@ -33,6 +33,7 @@ public static class ClassCombat
         internal PaladinConversion.Prepared Conversion;
         internal PaladinSacrifice.Prepared SacrificeAttack;
         internal PaladinVengeance.Prepared VengeanceAttack;
+        internal HolyShields.Pending HolyShieldStart;
         internal BarbarianMelee.Prepared BarbarianAttack;
         internal BarbarianDoubleThrow.Series DoubleThrow;
         internal AmazonJab.Series Jab;
@@ -123,6 +124,7 @@ public static class ClassCombat
                 PaladinSacrifice.EquipmentChanged(from);
                 PaladinVengeance.EquipmentChanged(from);
                 PaladinConversion.EquipmentChanged(from);
+                HolyShields.EquipmentChanged(from);
                 DruidFireClaws.EquipmentChanged(from);DruidHunger.EquipmentChanged(from);DruidRabies.EquipmentChanged(from);DruidShockWave.EquipmentChanged(from);DruidFury.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
@@ -262,6 +264,7 @@ public static class ClassCombat
         For(from).Transform = null;
         For(from).FormAction = null;
         For(from).Conversion = null;
+        For(from).HolyShieldStart = null;
         For(from).BarbarianAttack = null;
         For(from).FindItemTarget = Serial.Zero;
         For(from).FindPotionTarget = Serial.Zero;
@@ -523,7 +526,7 @@ public static class ClassCombat
             return false;
         }
         if(!ShapeRestrictions.Allowed(from,ability)||ability==CombatAbility.BasicAttack&&!ReferenceEquals(session.AttackForm,DruidPlayerForms.State(from)))
-        {session.PendingAbility=CombatAbility.None;session.AttackForm=null;return false;}
+        {session.PendingAbility=CombatAbility.None;session.AttackForm=null;session.HolyShieldStart=null;return false;}
         if (ability == CombatAbility.Teleport) { return Teleportation.Resolve(from, now); }
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || !Available(from, ability) || from.Location != session.ActionOrigin || from.Map != session.ActionMap
@@ -535,6 +538,7 @@ public static class ClassCombat
             if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
             if(ability==CombatAbility.FindPotion){session.FindPotionTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
+            if(ability==CombatAbility.HolyShield){session.HolyShieldStart=null;}
             if(ability==CombatAbility.Sacrifice){session.SacrificeAttack=null;}
             if(ability==CombatAbility.Vengeance){session.VengeanceAttack=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}

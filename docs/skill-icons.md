@@ -1,5 +1,7 @@
 # Skill icons
 
+Holy Shield start/persistence review (2026-11-03): final talent-tree and right/quick artwork remain pending; the left slot stays forbidden by the pinned mouse policy. Start/do separation and persistence changes add no player action or icon. See [checkpoint](paladin-holy-shield-cast-checkpoint.md).
+
 FoH secondary migration (2026-11-03): existing talent-tree and left/right/quick artwork remain pending. Shared child capture, flight and damage introduce no extra player action or icon. See [checkpoint](paladin-heaven-bolt-checkpoint.md).
 
 FoH primary receiver review (2026-11-03): final talent-tree and left/right/quick artwork remain pending under existing placeholders. Captured primary damage, impact potion additions and save/identity handling add no new player action or icon. See [checkpoint](paladin-heaven-fist-damage-checkpoint.md).

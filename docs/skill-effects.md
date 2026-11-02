@@ -1,5 +1,7 @@
 # Skill effects
 
+Holy Shield start/persistence review (2026-11-03): enchanted-shield overlay `0x373A` and cast sound `0x1E5` remain identified placeholders. Final cast, persistent shield/glow, expiry and audio remain pending. Start-payment tickets, rank retention and save safety introduce no new effect asset. See [checkpoint](paladin-holy-shield-cast-checkpoint.md).
+
 FoH secondary migration (2026-11-03): shared source flight and typed impact add no new asset. Travel/trail `0x36E4` and existing cast/strike effects are identified placeholders. Final secondary trail, impact, wall/expiry and audio remain pending; potion-added cold/poison do not create chill/poison status effects. See [checkpoint](paladin-heaven-bolt-checkpoint.md).
 
 FoH primary receiver review (2026-11-03): sky-warning/strike `0x3709`, secondary travel `0x36E4` and cast sound `0x1E5` remain **identified placeholders**. Final warning, lightning strike, burst, secondary trail/contact/expiry and audio remain pending separately. Impact potion additions add damage without poison/chill status effects. See [checkpoint](paladin-heaven-fist-damage-checkpoint.md).

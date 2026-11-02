@@ -32,11 +32,11 @@ public static class HolyShieldChecks
         owner.MoveToWorld(ClassSkillChecks.Corridor(owner,5720,1800),owner.Map);TimedEffects.Poison(owner,owner,.000001,60000,TimedEffects.Now);return owner;
     }
     private static void Replace(HolyShieldState state)=>HolyShields.Restore(HolyShields.Snapshot().Where(x=>x.Owner!=state.Owner).Append(state).ToArray());
-    private static void Cast(PlayerMobile owner)
+    private static void Cast(PlayerMobile owner,bool success=true)
     {
         var session=ClassCombat.For(owner);session.NextAction=session.RecoveryUntil=Core.TickCount;
         Require(ClassCombat.ContinueCast(owner,CombatAbility.HolyShield,null,owner.Location,Core.TickCount),"Right-slot held Holy Shield cast");ClassCombat.ReleaseCast(owner);
-        Require(ClassCombat.ResolveAction(owner,session.EffectAt),"Holy Shield cast event");
+        Require(ClassCombat.ResolveAction(owner,session.EffectAt)==success,"Holy Shield cast event");
     }
     private static void Lifecycle()
     {
@@ -87,10 +87,10 @@ public static class HolyShieldChecks
         owner.Mana=0;NecromancerEffects.Profiles.Store(owner,new());Require(!ClassCombat.Perform(owner,CombatAbility.HolyShield,null,owner.Location,Core.TickCount),"Unpaid Holy Shield cast");
         owner.Mana=owner.ManaMax;session.NextAction=Core.TickCount;int mana=NecromancerEffects.ManaBalance256(owner);
         Require(ClassCombat.ContinueCast(owner,CombatAbility.HolyShield,null,owner.Location,Core.TickCount),"Holy Shield begin");ClassCombat.ReleaseCast(owner);
-        Require(NecromancerEffects.ManaBalance256(owner)==mana,"Holy Shield paid before event");owner.Backpack.DropItem(shield);
-        Require(!ClassCombat.ResolveAction(owner,session.EffectAt) && NecromancerEffects.ManaBalance256(owner)==mana && HolyShields.State(owner)==null,"Shield removal before event still paid/applied");
+        Require(NecromancerEffects.ManaBalance256(owner)==mana-8960,"Holy Shield failed start payment");owner.Backpack.DropItem(shield);
+        Require(!ClassCombat.ResolveAction(owner,session.EffectAt) && NecromancerEffects.ManaBalance256(owner)==mana-8960 && HolyShields.State(owner)==null,"Shield-removal cancellation refunded or applied");
         Require(owner.EquipItem(shield),"Re-equip cast shield");Cast(owner);
-        Require(NecromancerEffects.ManaBalance256(owner)==mana-8960 && HolyShields.State(owner) is{Rank:1,BlockBonus:14}
+        Require(NecromancerEffects.ManaBalance256(owner)==mana-17920 && HolyShields.State(owner) is{Rank:1,BlockBonus:14}
             && Math.Abs((HolyShields.State(owner).UntilUtc-TimedEffects.Now).TotalSeconds-30)<1,"Holy Shield cast-time cost/duration/rank snapshot");
         Consumers(owner,shield,1,14,40);Require(HolyShields.SmiteBonus(owner)==(768,1536),"Rank1 physical Smite bonus primitive");
         var helmet=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);
@@ -100,7 +100,7 @@ public static class HolyShieldChecks
         HolyShields.Cast(owner,SkillMechanics.Values(owner,CombatAbility.HolyShield,20));
         Require(HolyShields.SmiteBonus(owner)==(14592,15360) && HolyShields.BlockBonus(owner)==35 && HolyShields.DefensePercent(owner)==340
             && Math.Abs((HolyShields.State(owner).UntilUtc-TimedEffects.Now).TotalSeconds-505)<1,"Rank20 Holy Shield physical/block/defense/duration");
-        Cast(owner);Require(HolyShields.State(owner).Rank==1 && HolyShields.DefensePercent(owner)==55,"Lower recast did not replace old defensive state");Blocking(owner);
+        var strong=HolyShields.State(owner);Cast(owner,false);Require(HolyShields.State(owner)==strong && HolyShields.DefensePercent(owner)==340,"Lower recast replaced stronger ungrouped state");Blocking(owner);
         var state=HolyShields.State(owner);Replace(state with{UntilUtc=TimedEffects.Now.AddMilliseconds(80)});
         Later(160,"holy-shield-result",()=>
         {

@@ -1321,7 +1321,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Right-only shield-gated timed cast, source fixed-point mana, stored block/rank, live hard Defiance defense, shield-dependent consumers and faster block rate staged. Native cast/equipment/expiry/lifecycle and two reloads covered. Stored-rank Smite damage now has its separate staged consumer. Modern mode/weapon-swap/owner/gear/client acceptance remain open."
+      "remaining": "Learned start36 pays35mana once after shield/action admission; a transient ticket authorizes do18 without another payment. Ungrouped same-skill weaker effects refuse after paid start, equal rank refreshes and higher rank replaces; cold armor remains separate. Stored rank/block, live hard Defiance, shield-dependent defense/block/Smite and existing block timing remain. Snapshot-before-worker and atomic version0restore preserve old state fields. The save coordinator uses the retained Teleport fixture-owned manifest property and extended focused coverage exercises both branches. Dedicated source/native/input/save evidence includes120ordinary component comparisons, paid pending starts immediately before real saves and unchanged original buff/gear/bindings/wounds/resources across reloads. Modern mode/rank refresh, equipment-switch/requirement-loss, item-only/low-mana/client parity remain uncertain or unsupported; effects/audio and icons are separate placeholders."
     },
     {
       "talentId": "paladin.fistoftheheavens",
