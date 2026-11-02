@@ -57,7 +57,7 @@ internal static class FireWalls
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         FireGround.CommitWall(owner,prepared);FireGround.Delay(owner,CombatAbility.FireWall,prepared.At);owner.PlaySound(0x1E5);return true; // Cast sound placeholder.
     }
-    internal static bool Valid(FirePatch p)=>p.FireWallModifiers==null||p.BlazeModifiers==null&&p.Ability==CombatAbility.FireWall&&p.NpcCaster==0
+    internal static bool Valid(FirePatch p)=>p.FireWallModifiers==null||p.BlazeModifiers==null&&p.MeteorModifiers==null&&p.Ability==CombatAbility.FireWall&&p.NpcCaster==0
         &&p.SkillRank is >=1 and <=255&&p.Size==1&&p.DamageRate==41&&p.FireWallModifiers.Potion>=0&&p.X*2==Math.Floor(p.X*2)&&p.Y*2==Math.Floor(p.Y*2)
         &&p.NextUtc.Kind==DateTimeKind.Utc&&p.UntilUtc.Kind==DateTimeKind.Utc;
     internal static bool Valid(FireMaker m)=>m.Motion==null||m.Rank is >=1 and <=255&&m.Motion.VelocityFp8==2304&&m.Motion.Frames==7+2*m.Rank

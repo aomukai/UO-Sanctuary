@@ -53,7 +53,7 @@ internal static class Blazes
             ||F("CollideType")!=3||F("CanSlow")!=1||F("HitClass")!=32)
         {throw new NotSupportedException("Unsupported pinned Blaze field");}
     }
-    internal static bool Valid(FirePatch p)=>p.BlazeModifiers==null||p.Ability==CombatAbility.Blaze&&p.NpcCaster==0&&p.SkillRank is >=1 and <=255
+    internal static bool Valid(FirePatch p)=>p.BlazeModifiers==null||p.Ability==CombatAbility.Blaze&&p.NpcCaster==0&&p.FireWallModifiers==null&&p.MeteorModifiers==null&&p.SkillRank is >=1 and <=255
         &&p.Size==1&&p.DamageRate==0&&p.BlazeModifiers.Potion>=0&&p.Min256>=0&&p.Max256>=p.Min256
         &&p.X*2==Math.Floor(p.X*2)&&p.Y*2==Math.Floor(p.Y*2)&&p.NextUtc.Kind==DateTimeKind.Utc&&p.UntilUtc.Kind==DateTimeKind.Utc;
     internal static PreparedMonsterDamagePacket Roll(int minimum,int maximum,ref ulong seed)=>SourceFireFields.Roll(minimum,maximum,ref seed);
@@ -94,7 +94,7 @@ public static partial class FireGround
     {
         var owner=Owner(patch.Owner);
         if(owner==null||patch.NextUtc>=patch.UntilUtc||owner.Map!=Map.Internal&&owner.Map?.MapID!=patch.Map){_patches.Remove(patch.Id);return;}
-        if(patch.FireWallModifiers!=null&&_loadedWallFields.Remove(patch.Id)||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
+        if(patch.FireWallModifiers!=null&&_loadedWallFields.Remove(patch.Id)||patch.MeteorModifiers!=null&&_loadedMeteorFields.Remove(patch.Id)||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
         {if(patch.UntilUtc<=at){_patches.Remove(patch.Id);}else{_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};}return;}
         var point=new Point3D((int)Math.Round(patch.X),(int)Math.Round(patch.Y),patch.Z);
         // Field location decides town/terrain collision. Entering town alone

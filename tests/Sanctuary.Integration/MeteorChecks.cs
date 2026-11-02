@@ -55,40 +55,42 @@ public static class MeteorChecks
             && !FireGround.Ready(owner, CombatAbility.Meteor) && FireGround.Ready(owner, CombatAbility.FireWall), "Per-skill Meteor delay");
         Require(SorceressCombat.Release(owner, CombatAbility.FrozenArmor, Serial.Zero, owner.Location), "Meteor delay blocked a different skill");
         Require(ClassCreation.Profiles.TryTrain(owner.Serial, "sorceress.firemastery", out _), "Impact snapshot mastery-change fixture");
-        Later(2100, "meteor-result", () =>
+        FireGround.AdvanceMeteor(owner,drop.ImpactUtc.AddMilliseconds(-300),true);
         {
             Require(target.Hits == life && FireGround.Snapshot().Meteors.Contains(drop)
-                && FireGround.Ready(owner, CombatAbility.Meteor), "Impact was early or local delay used the fall duration");
-        });
-        Later(2520, "meteor-result", () =>
+                && FireGround.Snapshot().Cooldowns.Single(x=>x.Owner==owner.Serial.Value&&x.Ability==CombatAbility.Meteor).UntilUtc<drop.ImpactUtc, "Impact was early or local delay used the fall duration");
+        }
+        FireGround.AdvanceMeteor(owner,drop.ImpactUtc,true);
         {
             var patches = FireGround.Snapshot().Patches.Where(x => x.Owner == owner.Serial.Value).ToArray();
             Require(!FireGround.Snapshot().Meteors.Any(x => x.Owner == owner.Serial.Value) && target.Hits < life
                 && twinA.Hits < twinLife && twinA.Hits == twinB.Hits && SkillHealth.Remainder256(twinA) == SkillHealth.Remainder256(twinB)
                 && twinLife - twinA.Hits is >= 114 and <= 142, "Area damage, shared roll or cast-time impact mastery snapshot");
             Require(patches.Length == 18 && patches.All(x => x.Ability == CombatAbility.Meteor && x.Size == 2 && x.DamageRate == 41
-                && x.Min256 == 164 && x.Max256 == 274 && (x.UntilUtc - TimedEffects.Now).TotalMilliseconds is > 950 and < 1250),
+                && x.Min256 == 164 && x.Max256 == 274 && (x.UntilUtc - drop.ImpactUtc).TotalMilliseconds == 1200),
                 "Residual offsets/count, fresh mastery, independent damage or rank1 lifetime");
             Require(patches.Any(x => x.X == center.X && x.Y == center.Y + 2.5)
                 && patches.Any(x => x.X == center.X - 2 && x.Y == center.Y - 1), "Source residual footprint offsets");
             Require(outside.Hits == outsideLife && immune.Hits == immuneLife && owner.Hits == owner.HitsMax,
                 "Meteor radius, immunity or friendly exclusion");
             int afterImpact = target.Hits;
-            Later(450, "meteor-result", () => Require(target.Hits < afterImpact, "Residual ground fire did not continue damaging"));
-        });
-        Later(4020, "meteor-result", () =>
+            FireGround.AdvanceMeteor(owner,drop.ImpactUtc.AddMilliseconds(450),true);
+            Require(target.Hits < afterImpact, "Residual ground fire did not continue damaging");
+        }
+        FireGround.AdvanceMeteor(owner,drop.ImpactUtc.AddMilliseconds(1200),true);
         {
             Require(!FireGround.Snapshot().Patches.Any(x => x.Owner == owner.Serial.Value), "Rank1 residual fire did not expire independently");
             target.Delete(); twinA.Delete(); twinB.Delete(); outside.Delete(); immune.Delete();
             owner.Mana = owner.ManaMax;
+            var cooldowns=FireGround.Snapshot();FireGround.Restore(cooldowns with{Cooldowns=cooldowns.Cooldowns.Where(x=>x.Owner!=owner.Serial.Value).ToArray()});
             Require(SorceressCombat.Release(owner, CombatAbility.Meteor, Serial.Zero, center), "Next Meteor after local delay failed");
             var saved = FireGround.Snapshot(); var pending = saved.Meteors.Single(x => x.Owner == owner.Serial.Value);
             // Extend only this fixture's deadline so two process reloads can inspect the pending payload.
             pending = pending with { ImpactUtc = TimedEffects.Now.Add(FixtureSpace.Retention) };
             FireGround.Restore(saved with { Meteors = saved.Meteors.Select(x => x.Id == pending.Id ? pending : x).ToArray() });
             File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, pending)));
-            _log.Information("meteor-result: passed");
-        });
+            Later(1,"meteor-result",()=>_log.Information("meteor-result: passed"));
+        }
     }
     private static void Reload()
     {
@@ -103,7 +105,7 @@ public static class MeteorChecks
         long id = snapshot.Meteors.Select(x => x.Id).Concat(snapshot.Patches.Select(x => x.Id)).Concat(snapshot.Makers.Select(x => x.Id)).DefaultIfEmpty().Max() + 1;
         var copy = saved.Drop with { Id = id, ImpactUtc = TimedEffects.Now.AddMilliseconds(80) };
         FireGround.Restore(snapshot with { Meteors = snapshot.Meteors.Append(copy).ToArray() });
-        Later(250, "meteor-reload-result", () =>
+        FireGround.AdvanceMeteor(owner,copy.ImpactUtc,true);
         {
             Require(enemy.Hits < life && FireGround.Snapshot().Meteors.Contains(saved.Drop)
                 && !FireGround.Snapshot().Meteors.Contains(copy)
@@ -113,7 +115,7 @@ public static class MeteorChecks
             // Keep only the original pending drop; residual lifetimes were checked during the first boot.
             var current = FireGround.Snapshot();
             FireGround.Restore(current with { Patches = current.Patches.Where(x => x.Owner != owner.Serial.Value).ToArray() });
-            _log.Information("meteor-reload-result: passed");
-        });
+            Later(1,"meteor-reload-result",()=>_log.Information("meteor-reload-result: passed"));
+        }
     }
 }

@@ -6,7 +6,7 @@ using Server.Logging;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// One typed field hit path for Blaze and Fire Wall. Producers own creation,
+// One typed field hit path for Blaze, Fire Wall and Meteor. Producers own creation,
 // saved lifetime/movement and their pinned row/rate contracts.
 internal static class SourceFireFields
 {
@@ -52,6 +52,6 @@ internal static class SourceFireFields
     {
         if(ImmolationArrows.Recipient(owner,patch) is not{} target){return;}
         if(!Supported(owner,target,out string reason)){Gap(reason);return;}
-        var packet=Roll(patch.Min256,patch.Max256,ref seed);Deliver(owner,(BaseCreature)target,packet,patch.BlazeModifiers??patch.FireWallModifiers,at,patch.DamageRate);
+        var packet=Roll(patch.Min256,patch.Max256,ref seed);Deliver(owner,(BaseCreature)target,packet,patch.BlazeModifiers??patch.FireWallModifiers??patch.MeteorModifiers,at,patch.DamageRate);
     }
 }

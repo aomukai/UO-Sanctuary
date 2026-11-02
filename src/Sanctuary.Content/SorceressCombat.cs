@@ -28,6 +28,7 @@ public static class SorceressCombat
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
         if(ability==CombatAbility.Telekinesis){return TelekinesisWorld.Valid(owner,selected);}
+        if(ability==CombatAbility.Meteor){return Meteors.ValidAim(owner,selected,point,out _);}
         if(ability==CombatAbility.FireWall){return FireWalls.ValidAim(owner,selected,point,out _);}
         // Static's receiver needs a living world caster. Refuse before the
         // player's release payment, including direct server/API callers.
@@ -61,6 +62,7 @@ public static class SorceressCombat
         if (SorceressEffects.IsArmor(ability)) { return ColdArmors.Release(owner, values); }
         if(ability==CombatAbility.EnergyShield){return EnergyShields.Release(owner,values);}
         if(ability==CombatAbility.Blaze){return Blazes.Release(owner,values);}
+        if(ability==CombatAbility.Meteor){return Meteors.Release(owner,selected,point,values);}
         if(ability==CombatAbility.FireWall){return FireWalls.Release(owner,selected,point,values);}
         if(ability==CombatAbility.Enchant)
         {
@@ -78,7 +80,6 @@ public static class SorceressCombat
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         FireGround.Delay(owner, ability);
         owner.PlaySound(0x1E5); // Placeholder cast sound.
-        if (ability == CombatAbility.Meteor) { FireGround.CastMeteor(owner, point, values); return true; }
         if (ability == CombatAbility.Blizzard) { Blizzards.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.FrozenOrb) { FrozenOrbs.Cast(owner, point, values); return true; }
         if (ability == CombatAbility.Hydra) { Hydras.Cast(owner, point, values); return true; }

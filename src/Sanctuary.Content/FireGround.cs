@@ -20,6 +20,8 @@ public sealed record FirePatch(long Id, uint Owner, CombatAbility Ability, int M
     public FirestormModifiers BlazeModifiers{get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public FirestormModifiers FireWallModifiers{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FirestormModifiers MeteorModifiers{get;init;}
 }
 public sealed record FireMaker(long Id, uint Owner, int Rank, int Map, double X, double Y, int Z, double Dx, double Dy,
     int Min256, int Max256, int CellX, int CellY, DateTime UntilUtc, DateTime NextUtc)
@@ -33,6 +35,8 @@ public sealed record MeteorDrop(long Id, uint Owner, int Rank, int Map, int X, i
 {
     public uint NpcCaster{get;init;}
     public ulong Seed{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FirestormModifiers MeteorModifiers{get;init;}
 }
 public sealed record FireGroundSave(FirePatch[] Patches, FireMaker[] Makers, FireCooldown[] Cooldowns, MeteorDrop[] Meteors = null);
 
@@ -122,11 +126,7 @@ public static partial class FireGround
     }
     public static void CastMeteor(PlayerMobile owner, Point3D target, SkillValues values)
     {
-        var damage = Damage(owner, values); long id = ++_nextId;
-        _meteors.Add(id, new(id, owner.Serial.Value, values.Rank, owner.Map.MapID, target.X, target.Y, target.Z,
-            damage.Min, damage.Max, SkillGeometry.Tiles(values.Eval("aurarangecalc")),
-            TimedEffects.Now.AddMilliseconds(NecromancerSummons.Source("meteorcenter", "Range") * 40)));
-        Effects.SendLocationEffect(target, owner.Map, 0x3709, 60, 10, 0x489, 0); // Placeholder falling-meteor marker.
+        CommitMeteor(owner,Meteors.Prepare(owner,target,values,TimedEffects.Now));
     }
     private static int Roll(int minimum, int maximum) => maximum <= minimum ? minimum : Utility.RandomMinMax(minimum, maximum - 1);
     private static void MeteorImpact(PlayerMobile owner, MeteorDrop meteor, DateTime now)
@@ -156,16 +156,16 @@ public static partial class FireGround
     private static PlayerMobile Owner(uint serial,DiabloClass characterClass=DiabloClass.Sorceress) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == characterClass ? player : null;
     private static bool SourceField(FirePatch patch)=>patch.Ability is CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike
-        ||patch.Ability==CombatAbility.Blaze&&patch.BlazeModifiers!=null||patch.Ability==CombatAbility.FireWall&&patch.FireWallModifiers!=null;
+        ||patch.Ability==CombatAbility.Blaze&&patch.BlazeModifiers!=null||patch.Ability==CombatAbility.FireWall&&patch.FireWallModifiers!=null||patch.Ability==CombatAbility.Meteor&&patch.MeteorModifiers!=null;
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
         foreach (var (id, patch) in _patches) { if (patch.Owner == owner.Serial.Value || patch.NpcCaster == owner.Serial.Value) { ids.Add(id); } }
-        foreach (long id in ids) { _patches.Remove(id);_loadedWallFields.Remove(id); } ids.Clear();
+        foreach (long id in ids) { _patches.Remove(id);_loadedWallFields.Remove(id);_loadedMeteorFields.Remove(id); } ids.Clear();
         foreach (var (id, maker) in _makers) { if (maker.Owner == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _makers.Remove(id);_loadedWallMakers.Remove(id); }
         ids.Clear(); foreach (var (id, meteor) in _meteors) { if (meteor.Owner == owner.Serial.Value || meteor.NpcCaster == owner.Serial.Value) { ids.Add(id); } }
-        foreach (long id in ids) { _meteors.Remove(id); }
+        foreach (long id in ids) { _meteors.Remove(id);_missedMeteors.Remove(id); }
     }
     private static void Tick()=>Tick(TimedEffects.Now);
     internal static void Tick(DateTime now)=>Tick(now,null);
@@ -174,6 +174,7 @@ public static partial class FireGround
         foreach (long id in _keys)
         {
             var meteor = _meteors[id];
+            if(meteor.MeteorModifiers!=null){continue;}
             if(meteor.NpcCaster!=0)
             {
                 if(now<meteor.ImpactUtc){continue;}_meteors.Remove(id);
@@ -229,24 +230,30 @@ public static partial class FireGround
     }
     private static void TickSourceFields(DateTime at,bool? allowActions,uint? onlyNpcCaster)
     {
-        var queue=new PriorityQueue<(long Id,bool Maker),(DateTime At,long Id)>();
+        var queue=new PriorityQueue<(long Id,int Kind),(DateTime At,long Id)>();
         foreach(var value in _patches.Values)
-        {if((SourceField(value)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||value.NpcCaster==onlyNpcCaster.Value)){queue.Enqueue((value.Id,false),(value.NextUtc,value.Id));}}
-        if(!onlyNpcCaster.HasValue){foreach(var m in _makers.Values){if(m.Motion!=null&&m.NextUtc<=at){queue.Enqueue((m.Id,true),(m.NextUtc,m.Id));}}}
+        {if((SourceField(value)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||value.NpcCaster==onlyNpcCaster.Value)){queue.Enqueue((value.Id,0),(value.NextUtc,value.Id));}}
+        if(!onlyNpcCaster.HasValue){foreach(var m in _makers.Values){if(m.Motion!=null&&m.NextUtc<=at){queue.Enqueue((m.Id,1),(m.NextUtc,m.Id));}}}
+        if(!onlyNpcCaster.HasValue){foreach(var m in _meteors.Values){if(m.MeteorModifiers!=null&&m.ImpactUtc<=at){queue.Enqueue((m.Id,2),(m.ImpactUtc,m.Id));}}}
         while(queue.TryDequeue(out var due,out var priority))
         {
-            if(due.Maker)
+            if(due.Kind==2)
+            {
+                if(!_meteors.TryGetValue(due.Id,out var m)||m.ImpactUtc!=priority.At){continue;}
+                foreach(var child in TickPreparedMeteor(m,allowActions)){if(child.NextUtc<=at){queue.Enqueue((child.Id,0),(child.NextUtc,child.Id));}}continue;
+            }
+            if(due.Kind==1)
             {
                 if(!_makers.TryGetValue(due.Id,out var maker)||maker.NextUtc!=priority.At){continue;}
-                if(TickWallMaker(maker,at,allowActions) is{} child&&child.NextUtc<=at){queue.Enqueue((child.Id,false),(child.NextUtc,child.Id));}
-                if(_makers.TryGetValue(due.Id,out var updated)&&updated.NextUtc<=at){queue.Enqueue((updated.Id,true),(updated.NextUtc,updated.Id));}
+                if(TickWallMaker(maker,at,allowActions) is{} child&&child.NextUtc<=at){queue.Enqueue((child.Id,0),(child.NextUtc,child.Id));}
+                if(_makers.TryGetValue(due.Id,out var updated)&&updated.NextUtc<=at){queue.Enqueue((updated.Id,1),(updated.NextUtc,updated.Id));}
                 continue;
             }
             if(!_patches.TryGetValue(due.Id,out var patch)||patch.NextUtc!=priority.At){continue;}
-            if(patch.BlazeModifiers!=null||patch.FireWallModifiers!=null)
+            if(patch.BlazeModifiers!=null||patch.FireWallModifiers!=null||patch.MeteorModifiers!=null)
             {
                 TickBlaze(patch,at,allowActions);
-                if(_patches.TryGetValue(patch.Id,out var blazeNext)&&blazeNext.NextUtc<=at){queue.Enqueue((blazeNext.Id,false),(blazeNext.NextUtc,blazeNext.Id));}
+                if(_patches.TryGetValue(patch.Id,out var blazeNext)&&blazeNext.NextUtc<=at){queue.Enqueue((blazeNext.Id,0),(blazeNext.NextUtc,blazeNext.Id));}
                 continue;
             }
             if(patch.NpcCaster!=0)
@@ -255,7 +262,7 @@ public static partial class FireGround
                 var actor=NpcSource(patch.NpcCaster,patch.Owner,patch.Map,allowActions);
                 if(actor==null){if(patch.UntilUtc<=at){_patches.Remove(patch.Id);}else{_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};}continue;}
                 NpcMeteorField(actor,patch);
-                if(_patches.TryGetValue(patch.Id,out var npcNext)&&npcNext.NextUtc<=at){queue.Enqueue((npcNext.Id,false),(npcNext.NextUtc,npcNext.Id));}
+                if(_patches.TryGetValue(patch.Id,out var npcNext)&&npcNext.NextUtc<=at){queue.Enqueue((npcNext.Id,0),(npcNext.NextUtc,npcNext.Id));}
                 continue;
             }
             var owner=Owner(patch.Owner,patch.Ability==CombatAbility.ImmolationArrow?DiabloClass.Amazon:DiabloClass.Assassin);
@@ -277,7 +284,7 @@ public static partial class FireGround
             }
             if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
             {Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,0x489,0);} // Identified flame placeholder.
-            if(_patches.TryGetValue(patch.Id,out var next) && next.NextUtc<=at){queue.Enqueue((next.Id,false),(next.NextUtc,next.Id));}
+            if(_patches.TryGetValue(patch.Id,out var next) && next.NextUtc<=at){queue.Enqueue((next.Id,0),(next.NextUtc,next.Id));}
         }
     }
     public static FireGroundSave Snapshot() => new(new List<FirePatch>(_patches.Values).ToArray(), new List<FireMaker>(_makers.Values).ToArray(), Cooldowns(),
@@ -298,7 +305,7 @@ public static partial class FireGround
                 || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || (patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike) && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
-                || !double.IsFinite(patch.X + patch.Y) || !Blazes.Valid(patch) || !FireWalls.Valid(patch) || !ValidNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
+                || !double.IsFinite(patch.X + patch.Y) || !Blazes.Valid(patch) || !FireWalls.Valid(patch) || !Meteors.Valid(patch) || !ValidNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             nextId = Math.Max(nextId, patch.Id);
         }
         foreach (var maker in saved.Makers)
@@ -312,13 +319,16 @@ public static partial class FireGround
         foreach (var meteor in saved.Meteors ?? Array.Empty<MeteorDrop>())
         {
             if (meteor.Id <= 0 || meteor.Rank <= 0 || meteor.Min256 < 0 || meteor.Max256 < meteor.Min256 || !double.IsFinite(meteor.Radius)
-                || meteor.Radius <= 0 || !ValidNpc(meteor) || patches.ContainsKey(meteor.Id) || makers.ContainsKey(meteor.Id) || !meteors.TryAdd(meteor.Id, meteor))
+                || meteor.Radius <= 0 || !Meteors.Valid(meteor) || !ValidNpc(meteor) || patches.ContainsKey(meteor.Id) || makers.ContainsKey(meteor.Id) || !meteors.TryAdd(meteor.Id, meteor))
             { throw new InvalidDataException("Invalid pending meteor"); }
             nextId = Math.Max(nextId, meteor.Id);
         }
         _loadedWallMakers.RemoveWhere(id=>!makers.ContainsKey(id));_loadedWallFields.RemoveWhere(id=>!patches.ContainsKey(id));
+        _loadedMeteorFields.RemoveWhere(id=>!patches.ContainsKey(id));_missedMeteors.RemoveWhere(id=>!meteors.ContainsKey(id));
         if(loaded)
         {
+            _missedMeteors.Clear();foreach(var m in meteors.Values){if(m.MeteorModifiers!=null&&m.ImpactUtc<=TimedEffects.Now){_missedMeteors.Add(m.Id);}}
+            _loadedMeteorFields.Clear();foreach(var p in patches.Values){if(p.MeteorModifiers!=null){_loadedMeteorFields.Add(p.Id);}}
             _loadedWallMakers.Clear();foreach(var m in makers.Values){if(m.Motion!=null){_loadedWallMakers.Add(m.Id);}}
             _loadedWallFields.Clear();foreach(var p in patches.Values){if(p.FireWallModifiers!=null){_loadedWallFields.Add(p.Id);}}
         }
