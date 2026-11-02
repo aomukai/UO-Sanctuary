@@ -1,5 +1,7 @@
 # Skill icons
 
+[Blaze](sorceress-blaze-checkpoint.md) retains ability57 and right/quick bindings, with left-slot normalization following the pinned right-only contract. Final talent-tree and hotkey art remains pending with existing labels/icons as placeholders. Its automatic movement trail introduces no separate player action or icon; effects/audio stay separate.
+
 [Enchant failed-release payment](sorceress-buff-payment-checkpoint.md) keeps ability60 and right/quick bindings. No new action or icon is introduced; final tree/hotkey artwork remains pending under the existing Enchant entry. Effects/audio stay separate.
 
 [Energy Shield](sorceress-energy-shield-checkpoint.md) retains ability52 and existing right/quick bindings, with left-slot normalization following the pinned right-only contract. Final talent-tree and hotkey art remains pending with current labels/icons as placeholders; absorption adds no separate player action. Effects/audio stay separate.

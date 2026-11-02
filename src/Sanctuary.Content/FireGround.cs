@@ -14,6 +14,10 @@ public sealed record FirePatch(long Id, uint Owner, CombatAbility Ability, int M
     public int SkillRank{get;init;}
     public uint NpcCaster{get;init;}
     public ulong Seed{get;init;}
+    // Optional V0 extension. Historical fields retain their captured legacy
+    // endpoints; no rank/modifier/seed history is reconstructed for them.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FirestormModifiers BlazeModifiers{get;init;}
 }
 public sealed record FireMaker(long Id, uint Owner, int Rank, int Map, double X, double Y, int Z, double Dx, double Dy,
     int Min256, int Max256, int CellX, int CellY, DateTime UntilUtc, DateTime NextUtc);
@@ -69,28 +73,9 @@ public static partial class FireGround
         && state.UntilUtc > TimedEffects.Now ? state : null;
     public static int Speed(PlayerMobile owner) => Blaze(owner)?.Speed ?? 0;
     public static void CastBlaze(PlayerMobile owner, SkillValues values)
-    {
-        var state = new BlazeState(TimedEffects.Now.AddMilliseconds(values.Eval("auralencalc") * 40), values.Rank,
-            (int)values.Eval("passivecalc1"), owner.Map.MapID, owner.X, owner.Y, owner.Z);
-        SorceressEffects.Profiles.Store(owner, (SorceressEffects.Profiles.Find(owner) ?? new()) with { Blaze = state });
-        owner.FixedEffect(0x375A, 10, 10, 0x489, 0); // Placeholder Blaze aura.
-    }
+        =>Blazes.Apply(owner,Blazes.Prepare(owner,values,TimedEffects.Now));
     public static void Moved(PlayerMobile owner)
-    {
-        if (Blaze(owner) is not { } blaze) { return; }
-        var now = TimedEffects.Now;
-        bool adjacent = owner.Map.MapID == blaze.Map && Math.Abs(owner.X - blaze.X) <= 1 && Math.Abs(owner.Y - blaze.Y) <= 1
-            && Math.Abs(owner.Z - blaze.Z) < 16;
-        if (adjacent && (owner.X != blaze.X || owner.Y != blaze.Y) && !SpellHelper.IsTown(owner.Location, owner))
-        {
-            var values = SkillMechanics.Values(owner, CombatAbility.Blaze, blaze.Rank); var damage = Damage(owner, values);
-            int frames = NecromancerSummons.Formula("blaze", "Range", values);
-            for (int step = 1; step <= 2; step++)
-            { Add(owner, CombatAbility.Blaze, blaze.X + (owner.X - blaze.X) * step / 2.0, blaze.Y + (owner.Y - blaze.Y) * step / 2.0, owner.Z, damage.Min, damage.Max, frames, now); }
-        }
-        SorceressEffects.Profiles.Store(owner, SorceressEffects.Profiles.Find(owner) with
-        { Blaze = blaze with { Map = owner.Map.MapID, X = owner.X, Y = owner.Y, Z = owner.Z } });
-    }
+        =>Blazes.Moved(owner);
     private static (int Min, int Max) Damage(PlayerMobile owner, SkillValues values)
         => Enhance(owner, values.Damage256(false), values.Damage256(true));
     private static (int Min, int Max) Enhance(PlayerMobile owner, int minimum, int maximum)
@@ -177,7 +162,8 @@ public static partial class FireGround
     }
     private static PlayerMobile Owner(uint serial,DiabloClass characterClass=DiabloClass.Sorceress) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == characterClass ? player : null;
-    private static bool SourceField(CombatAbility ability)=>ability is CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike;
+    private static bool SourceField(FirePatch patch)=>patch.Ability is CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike
+        ||patch.Ability==CombatAbility.Blaze&&patch.BlazeModifiers!=null;
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
@@ -229,7 +215,7 @@ public static partial class FireGround
         _keys.Clear(); _keys.AddRange(_patches.Keys);
         foreach (long id in _keys)
         {
-            if (!_patches.TryGetValue(id, out var patch) || SourceField(patch.Ability) || patch.NpcCaster!=0 || onlyNpcCaster.HasValue) { continue; }
+            if (!_patches.TryGetValue(id, out var patch) || SourceField(patch) || patch.NpcCaster!=0 || onlyNpcCaster.HasValue) { continue; }
             var owner = Owner(patch.Owner);
             if (owner == null || patch.UntilUtc <= now || owner.Map != Map.Internal && (owner.Map.MapID != patch.Map || SpellHelper.IsTown(owner.Location, owner)))
             { _patches.Remove(id); continue; }
@@ -252,10 +238,16 @@ public static partial class FireGround
     {
         var queue=new PriorityQueue<FirePatch,(DateTime,long)>();
         foreach(var value in _patches.Values)
-        {if((SourceField(value.Ability)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||value.NpcCaster==onlyNpcCaster.Value)){queue.Enqueue(value,(value.NextUtc,value.Id));}}
+        {if((SourceField(value)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||value.NpcCaster==onlyNpcCaster.Value)){queue.Enqueue(value,(value.NextUtc,value.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!_patches.TryGetValue(due.Id,out var patch) || patch.NextUtc!=due.NextUtc){continue;}
+            if(patch.BlazeModifiers!=null)
+            {
+                TickBlaze(patch,at,allowActions);
+                if(_patches.TryGetValue(patch.Id,out var blazeNext)&&blazeNext.NextUtc<=at){queue.Enqueue(blazeNext,(blazeNext.NextUtc,blazeNext.Id));}
+                continue;
+            }
             if(patch.NpcCaster!=0)
             {
                 if(patch.NextUtc>=patch.UntilUtc){_patches.Remove(patch.Id);continue;}
@@ -305,7 +297,7 @@ public static partial class FireGround
                 || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || (patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike) && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
-                || !double.IsFinite(patch.X + patch.Y) || !ValidNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
+                || !double.IsFinite(patch.X + patch.Y) || !Blazes.Valid(patch) || !ValidNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             nextId = Math.Max(nextId, patch.Id);
         }
         foreach (var maker in saved.Makers)

@@ -1,5 +1,7 @@
 # Skill effects
 
+[Blaze](sorceress-blaze-checkpoint.md) uses aura `0x375A`, ground fire `0x398C`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final cast, movement trail, sustained ground/contact, expiry and audio remain pending; reuse fire assets where suitable. Mechanical field duration and damage do not wait for image generation. Talent/hotkey icons stay separate.
+
 [Enchant failed-release payment](sorceress-buff-payment-checkpoint.md) reuses the existing Enchant presentation. No new effect is introduced; final cast/recipient/weapon/contact/expiry feedback and audio remain pending, with current glows and sound as identified placeholders. Tree/hotkey icons stay separate.
 
 [Energy Shield](sorceress-energy-shield-checkpoint.md) retains shield `0x375A`/hue `0x482` and cast sound `0x1E5` as identified placeholders. Final cast, persistent shield, directional absorption/contact, depletion/expiry and audio remain pending. Reuse shared lightning/shield assets where suitable; talent/hotkey icons stay separate.

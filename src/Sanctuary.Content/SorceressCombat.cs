@@ -30,7 +30,7 @@ public static class SorceressCombat
         if(ability==CombatAbility.Telekinesis){return TelekinesisWorld.Valid(owner,selected);}
         // Static's receiver needs a living world caster. Refuse before the
         // player's release payment, including direct server/API callers.
-        if((ability is CombatAbility.StaticField or CombatAbility.ThunderStorm or CombatAbility.EnergyShield||SorceressEffects.IsArmor(ability))&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
+        if((ability is CombatAbility.StaticField or CombatAbility.ThunderStorm or CombatAbility.EnergyShield or CombatAbility.Blaze||SorceressEffects.IsArmor(ability))&&(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal)){return false;}
         if (ability == CombatAbility.Enchant)
         {
             if (owner is not { Alive: true, Deleted: false } || owner.Map == null || owner.Map == Map.Internal) { return false; }
@@ -59,6 +59,7 @@ public static class SorceressCombat
         if (ability==CombatAbility.ThunderStorm){return ThunderStorm.Release(owner,values);}
         if (SorceressEffects.IsArmor(ability)) { return ColdArmors.Release(owner, values); }
         if(ability==CombatAbility.EnergyShield){return EnergyShields.Release(owner,values);}
+        if(ability==CombatAbility.Blaze){return Blazes.Release(owner,values);}
         if(ability==CombatAbility.Enchant)
         {
             var selectedActor=World.FindMobile(selected);
@@ -75,7 +76,6 @@ public static class SorceressCombat
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         FireGround.Delay(owner, ability);
         owner.PlaySound(0x1E5); // Placeholder cast sound.
-        if (ability == CombatAbility.Blaze) { FireGround.CastBlaze(owner, values); return true; }
         if (ability == CombatAbility.FireWall) { FireGround.CastWall(owner, point, values); return true; }
         if (ability == CombatAbility.Meteor) { FireGround.CastMeteor(owner, point, values); return true; }
         if (ability == CombatAbility.Blizzard) { Blizzards.Cast(owner, point, values); return true; }

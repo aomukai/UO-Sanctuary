@@ -14,7 +14,7 @@ internal sealed record FirestormEmitter(long Id,uint Owner,int Map,int Rank,int 
     double X,double Y,double Vx,double Vy,int VelocityFp8,bool Charged,int Ordinal,Point2D[] Path,int Next,
     int CellX,int CellY,int Frame,DateTime NextUtc)
 {public string MotionAdapter{get;init;}="native-shared-q12-charged-v1";public bool CellChanged{get;init;}}
-internal sealed record FirestormModifiers(int Potion,int FireMastery,int ColdMastery,int LightningMastery,int PoisonMastery);
+public sealed record FirestormModifiers(int Potion,int FireMastery,int ColdMastery,int LightningMastery,int PoisonMastery);
 internal sealed record FirestormPatch(long Id,uint Owner,int Map,int Rank,int X,int Y,int Z,int Min256,int Max256,
     FirestormModifiers Modifiers,ulong Seed,DateTime UntilUtc,DateTime NextUtc);
 internal sealed record FirestormSave(FirestormEmitter[] Emitters,FirestormPatch[] Patches,long NextId);

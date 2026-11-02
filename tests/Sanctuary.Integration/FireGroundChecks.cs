@@ -64,6 +64,9 @@ public static class FireGroundChecks
         {
             try
             {
+                // This disconnected model fixture advances the shared field
+                // clock explicitly. Connected natural delivery is separate.
+                FireGround.AdvanceBlaze(owner,TimedEffects.Now.AddMilliseconds(200),true);
                 Require(trail.Hits < trailLife && outside.Hits == outsideLife && owner.Hits == owner.HitsMax, "Blaze trail targeting, tick damage or friendly exclusion");
                 FireGround.Cancel(owner);
                 var center = new Point3D(owner.X + 3, owner.Y, owner.Z); var wallEnemy = Enemy(owner, 3); int before = wallEnemy.Hits;
@@ -132,7 +135,7 @@ public static class FireGroundChecks
         Require(owner != null && SorceressEffects.Profiles.Find(owner)?.Blaze == saved.Aura, "Saved Blaze cast state/lifetime changed");
         var current = Patches(owner);
         Require(current.Length == saved.Patches.Length && current.All(p => saved.Patches.Any(old => p with { NextUtc = old.NextUtc } == old)),
-            "Ground fire identity, geometry, damage snapshot or expiration lost across reload");
+            "Ground fire identity, geometry, damage snapshot or expiration lost across reload: current="+JsonSerializer.Serialize(current)+" saved="+JsonSerializer.Serialize(saved.Patches));
         var fraction = World.FindMobile((Serial)saved.FractionTarget);
         Require(fraction != null && SkillHealth.Remainder256(fraction) == 17, "Fractional health remainder lost across reload");
         Require(SkillHealth.Damage(owner, fraction, 239) == 1 && SkillHealth.Remainder256(fraction) == 0, "Saved health fraction did not settle exactly");
@@ -144,7 +147,10 @@ public static class FireGroundChecks
         {
             try
             {
+                FireGround.AdvanceBlaze(owner,TimedEffects.Now.AddMilliseconds(200),true);
                 Require(enemy.Hits < before, "Restored ground fire did not resume damaging a target");
+                // Keep the advanced random streams as the next reload baseline.
+                File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Patches=Patches(owner)}));
                 _log.Information("fire-ground-reload-result: passed");
             }
             catch (Exception e) { _log.Error(e, "fire-ground-reload-result: failed"); }
