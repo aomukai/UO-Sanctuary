@@ -1,5 +1,7 @@
 # Skill icons
 
+Charge contact review (2026-11-02): existing talent-tree and left/right/quick bindings retain their placeholders. Final talent/hotkey artwork remains pending; shared contact, forced knockback and the adjacent basic fallback introduce no new skill or icon.
+
 Conversion contact review (2026-11-02): existing talent, left/right and quick-slot bindings retain their placeholders. Final talent/hotkey artwork is pending; failed attacks and successful allegiance use the same talent and add no new icon.
 
 Zeal per-event contact review (2026-11-02): existing talent,left/right and quick-slot entries remain; final talent/hotkey artwork is pending. The approved low-mana ordinary-attack fallback keeps the Zeal binding and creates no new talent or icon.

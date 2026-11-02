@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": "source/D2Game/src/MISSILES/MissMode.cpp",
+  "sourceSha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+  "completeFunction": "MISSMODE_SrvHit07_HolyBolt_FistOfTheHeavenBolt",
+  "counts": {
+    "eligibility": 768,
+    "healing": 16,
+    "guards": 4
+  },
+  "declaredServices": [
+    "Target eligibility/species/owner/table access are controlled callback returns,not executed engine services.",
+    "Formula slots return declared whole values;stored missile rank7/skill101 are observed. This does not execute current Prayer formulas.",
+    "Limited RNG returns lower/exclusive upper endpoints,not an authentic seed stream;stat/overlay stores are recorded services."
+  ],
+  "limits": [
+    "Legacy return1/heal and return3/4species branches are not modern piercing/demon policy. Current DmgFunc15 is not supplied by this source.",
+    "No claim of modern executable,world collision,allegiance/PvP/owner,event,damage-return or client parity."
+  ],
+  "artifacts": {
+    "tools/probe_holy_bolt_hit_reference.py": "c8552c7ccb228258838fd200b8f817a604e94500e541aa7225dd1b766233bdfe",
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/holy-bolt-contact/source-probe/holy-bolt-hit.cpp": "4b259a279e3ead3bda7d25f0694c5d847274b642943905ee6413c064957f9580",
+    ".local/class-skills/holy-bolt-contact/source-probe/holy-bolt-hit": "cd0fcd8d1492221f9c67c09e424f06bd8b19cd4846128b858c178ccddf66e203",
+    ".local/class-skills/holy-bolt-contact/source-probe/cases.json": "e211bff08935f208d1337b9a13582c6e462ae00d2685a2b7219e2ca0084b1610"
+  }
+}

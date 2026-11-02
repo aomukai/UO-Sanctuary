@@ -1277,7 +1277,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Travel/arrival/one-impact/recovery phases, source velocity baseline100, additive skill damage/AR, hard Might/Vigor synergies, one9-mana start payment, close basic-attack fallback and accepted native steps staged. Native input/miss/obstruction/owner-transition/two-reload and connected-owner ground phases covered. Mapped standard-monster knockback now uses the shared source mode/path controller; unknown species and special sand-leaper control stay gated. Item knockback remains suppressed. Modern collision/range/body/FP projection, fallback payment, full gear/proc/curse/durability/owner/client acceptance remain open; no item gates cleared."
+      "remaining": "Travel/arrival/one-impact/recovery,captured initial velocity,live impact rank/AR/hard Might/Vigor synergy and once-only9-mana payment retain their controller. Impact reuses ordered ordinary contact,result flag8 even on miss/block,hitclass0x70,prepared frozen-pause knockback/get-hit and independent ordinary item/leech policy. Native scoped allocation,retaliation/deferred death/credit,real cold/poison/leech/Life Tap,input and reload evidence is recorded in paladin-charge-contact-checkpoint.md. Close-range basic fallback remains separate. Modern collision/range/body/FP projection,unclassified/sand-leaper identity,special/PvP/charged/oskill,event/seed/gear/proc/durability,pending-action/legacy save and graphical-client parity remain open;effects/audio and talent/hotkey icons are separate placeholders."
     },
     {
       "talentId": "paladin.vengeance",

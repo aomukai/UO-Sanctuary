@@ -22,6 +22,8 @@ public static class PaladinCharge
     internal static Func<int,int> Roll=Utility.Random;
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
+    internal static Random Effects=Random.Shared;
     internal static int Velocity256(int run,int percent,int bonus)
         =>(int)Math.Clamp((long)run*256*(bonus+Math.Max(50,percent))/100,0,int.MaxValue);
     internal static int VelocityPercent(PlayerMobile owner)=>100-EquipmentBalance.RunPenalty(owner)
@@ -54,6 +56,12 @@ public static class PaladinCharge
         {
             if(!ClassCombat.Perform(owner,CombatAbility.BasicAttack,World.FindMobile(selected),point,now)){return false;}
             return NecromancerEffects.Pay(owner,values.Mana256);
+        }
+        if(selected!=Serial.Zero)
+        {
+            if(World.FindMobile(selected) is not BaseCreature recipient){return false;}
+            try{PlayerWeaponContact.RequireOrdinary(owner,recipient,true);}
+            catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         }
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         // The pinned Paladin charstats RunVelocity is9. Initial velocity is snapshotted by St31.
@@ -106,17 +114,22 @@ public static class PaladinCharge
             if(!ClassCombat.IsHostile(owner,target)){target=Nearby(owner,flight.Target);}
             End(owner,now+8*40); // Do67 rewinds again to point7 before committing its one impact.
             if(!AlliedOverlap.Allowed(owner) || !PaladinVengeance.ValidTarget(owner,target?.Serial??Serial.Zero)){return false;}
-            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
-            using var attempt=PaladinThorns.Attempt(owner,target,false);
-            var values=SkillMechanics.Values(owner,CombatAbility.Charge);
-            if(ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll)==true)
+            if(target is not BaseCreature recipient){return false;}
+            try
             {
-                GearEffects.Strike(owner,target,ElementRoll(),skillPhysicalPercent:(int)values.Eval("calc1"),physicalRoll:Roll,skillKnockback:true);
-                // Native source-mode knockback is separate from stun and item knockback.
-                // Unmapped/special sand-leaper cases remain explicit controller gates.
-                if(target is BaseCreature creature){SourceKnockbacks.Begin(owner,creature);}
+                // Do67 allocates at impact, not St31 travel start. Knockback is
+                // requested even for an ordinary miss/block; recipient modes
+                // decide whether it becomes knockback or get-hit instead.
+                var values=SkillMechanics.Values(owner,CombatAbility.Charge);
+                var prepared=PlayerWeaponContact.PrepareOrdinary(owner,recipient,(int)values.Formula("toht"),(int)values.Eval("calc1"),
+                    ()=>PaladinVengeance.ValidTarget(owner,recipient.Serial),HitRoll,ElementRoll,Roll,PoisonRoll,Effects,true);
+                prepared=prepared with{Flags=prepared.Flags|8,HitClass=0x70,SkillKnockback=true};
+                owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
+                bool finished=PlayerWeaponContact.Release(owner,recipient,prepared,TimedEffects.Now,true).Exit==MonsterContactExit.Finished;
+                if(finished){target.FixedEffect(0x374A,10,12);} // Source overlay147 identified placeholder.
+                return finished;
             }
-            return true;
+            catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         }
         var aimed=World.FindMobile(flight.Target);
         if(ClassCombat.IsHostile(owner,aimed))

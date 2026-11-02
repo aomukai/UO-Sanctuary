@@ -10,7 +10,7 @@ namespace Sanctuary;
 // A player actor consumer of the existing ordered source-to-NPC pipeline.
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
-    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null);
+    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false);
 
 internal static class PlayerWeaponContact
 {
@@ -125,7 +125,7 @@ internal static class PlayerWeaponContact
         {
             // Preserve existing supported conditional item consumers. Their
             // internal registration/RNG order still needs individual acceptance.
-            NamedCombat.AfterStrike(source,target,false,scope.Prepared.Effects,smite:scope.Prepared.Smite,setupApplied:true);
+            NamedCombat.AfterStrike(source,target,false,scope.Prepared.Effects,smite:scope.Prepared.Smite,skipKnockback:scope.Prepared.SkillKnockback,setupApplied:true);
         }
         internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>events.Dispatch("killed",p);
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)
@@ -159,7 +159,7 @@ internal static class PlayerWeaponContact
         {
             if(metadata!=null)
             {PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(source,source,target,metadata,death,()=>EliteCombat.OnStruck(target,source,scope.Loss),
-                knockback:scope.Prepared.Smite?SourceKnockbacks.BeginPrepared:null),true);return;}
+                knockback:scope.Prepared.Smite||scope.Prepared.SkillKnockback?SourceKnockbacks.BeginPrepared:null),true);return;}
             // Unclassified UO actors retain their existing native recovery.
             // This adapter supplies no invented D2 class/base/mode identity.
             // Death still follows the common HP,kill,attempt and return phases.
