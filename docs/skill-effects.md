@@ -1,6 +1,6 @@
 # Skill effects
 
-Hydra source preparation retains the existing head `0x398C` and bolt `0x36D4` as identified placeholders. Final three-head emergence, targeting/attack, fire travel/contact, death/expiry and audio remain pending; animation metadata is mechanical reference, not completed client art. See [preflight](sorceress-hydra-preflight.md).
+The [Hydra component checkpoint](hydra-prepared-checkpoint.md) retains the existing head `0x398C` and bolt `0x36D4` as identified placeholders. Final three-head emergence, targeting/attack, fire travel/contact, death/expiry and audio remain pending; animation metadata is mechanical reference, not completed client art. See [preflight](sorceress-hydra-preflight.md).
 
 Player Frozen Orb reuses orb `0x375A`, ice `0x36E4`, hue `0x480` and fire cast sound `0x1E5` as **identified placeholders**. Final orb/trail/terminal/contact/expiry feedback and cold cast/travel/hit audio remain pending; mechanical implementation does not wait for art. See [checkpoint](sorceress-player-frozen-orb-checkpoint.md).
 

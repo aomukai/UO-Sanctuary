@@ -672,7 +672,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Three stationary untargetable heads, six-group cap, source rank/damage/mastery/pierce snapshots, legacy animation/AI timing, travelling bolts and persistence implemented. Exact modern startup/target search/terrain fallback, immunity piercing, owner-removal order, Slow Missiles/CanDestroy and client acceptance remain open."
+      "remaining": "Existing learned casting now uses per-successful-head FIFO at18and full64bit AI percentage. Prepared birth captures effective Hydra rank,hard Fire Bolt/Fire Ball and accrued mastery/pierce/sunder;shared numeric endpoints preserve birth stats. Shared ordinary animation and serializable frame/seed/deadline controller have native component/source comparisons,offline controls and original prepared-model/caster/gear/resource two-reload checks. Full world controller replacement,target acquisition,NPC emitter/owner credit,typed ordered damage,collision/path/InitSteps/Slow Missiles/interception and final head/GUID retirement remain unfinished. Existing virtual-head/travelling-bolt saves retain their route;no natural new-controller head/bolt save or modern/client/class certificate is claimed. Effects/audio and talent/hotkey icons remain independent identified placeholders."
     },
     {
       "talentId": "necromancer.raiseskeleton",

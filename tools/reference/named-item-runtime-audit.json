@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "39a52eff3b9d7f9f80c21c1b434c4eb4c717571eca509b6bff17425e9545400c",
+  "ContentAssemblySha256": "e05934bb908e7bff2571a7d8416ada73b0e5525e71f72c22287c8fdcf47d9d4e",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "210cd800b0a703b298f798aef6ea3bdb725459e64e7c1dccc4c6596280c311c3",
+    "data/Sanctuary/Balance/class-skill-status.json": "f8280d7064fa1cf99b162968fd30f9a745520bc7048866208409d68c3f0ff9e2",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -600,7 +600,9 @@
     "src/Sanctuary.Content/Housing.cs": "ad416b41842e180d70f26f2a12982a52d5f7526d3039b2700b08e4fe7d719adf",
     "src/Sanctuary.Content/HousingGumps.cs": "d7eb2acfb4d81ac6052f9c5967c6cb512ecd88e6748d80a330e57aba0b634dfc",
     "src/Sanctuary.Content/HousingProfiles.cs": "6f6b7ef60b709b689e500d7e6a27fd8db6075dcaf8a25961ceec190bf4f1a4b1",
-    "src/Sanctuary.Content/Hydras.cs": "220407d3c717f446a727fb162a83d5f3422782fc6e8342b9449dec9d79aab4a1",
+    "src/Sanctuary.Content/HydraControl.cs": "605d43cdf36493af1f1e1f0300105f2f2f28cbc7fb7c2a887007036138e65542",
+    "src/Sanctuary.Content/HydraCreation.cs": "639eefacdb420e1dae3fb72025da0d76463b45156c87736389d4e2b144d82ed1",
+    "src/Sanctuary.Content/Hydras.cs": "4d8801c0384c9103b45ad38c5f231a14a76f9385911ffcb33814b4183c1cfc88",
     "src/Sanctuary.Content/Identification.cs": "fbf84e8ef37a91d5db9d579779c35c58eb90399a2f7096bcee49ed4102679080",
     "src/Sanctuary.Content/ImmolationArrows.cs": "36404c75a317888de796a2a40c5c8acfa705a51b7eee103932fe125878adcc9a",
     "src/Sanctuary.Content/ImpaleSlow.cs": "a94c311a8d1cb35ccee0c58e4af1197189bae1389f9934d4551e3946bd51e76b",

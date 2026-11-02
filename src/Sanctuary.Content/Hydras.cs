@@ -53,15 +53,7 @@ public static class Hydras
     public static bool CanPlace(PlayerMobile owner, Point3D point) => Places(owner, point).Count > 0;
     public static void Cast(PlayerMobile owner, Point3D point, SkillValues values)
     {
-        var groups = new SortedSet<long>();
-        foreach (var head in _heads.Values) { if (head.Owner == owner.Serial.Value) { groups.Add(head.Group); } }
-        int cap = Math.Max(1, (int)values.Eval("petmax") / 3);
-        while (groups.Count >= cap)
-        {
-            long oldest = groups.Min; var remove = new List<long>();
-            foreach (var head in _heads.Values) { if (head.Owner == owner.Serial.Value && head.Group == oldest) { remove.Add(head.Id); } }
-            foreach (long id in remove) { _heads.Remove(id); } groups.Remove(oldest);
-        }
+        int cap = Math.Max(1, (int)values.Eval("petmax"));
         var now = TimedEffects.Now; long group = ++_nextId;
         int potion = CombatPotions.Bonus(owner, "magical-penetration");
         int Scale(int damage) => (int)Math.Clamp(NamedElements.Enhance(owner, damage * (100 + potion) / 100.0, "fire"), 0, int.MaxValue);
@@ -69,6 +61,12 @@ public static class Hydras
         int pierce = Math.Max(0, ClassGear.Bonus(owner, "pierce-fire"));
         foreach (var place in Places(owner, point))
         {
+            // The source registers each successful head independently. A
+            // partial cast must not discard an entire old three-head group.
+            int count=0;long oldest=long.MaxValue;
+            foreach(var old in _heads.Values)
+            {if(old.Owner==owner.Serial.Value){count++;oldest=Math.Min(oldest,old.Id);}}
+            if(count>=cap){_heads.Remove(oldest);}
             long id = ++_nextId;
             _heads.Add(id, new(id, group, place.Index, owner.Serial.Value, values.Rank, owner.Map.MapID, place.X, place.Y, point.Z,
                 min, max, pierce, ((ulong)666 << 32) | (uint)Utility.RandomMinMax(1, int.MaxValue),
@@ -124,8 +122,8 @@ public static class Hydras
             if (head.DecisionUtc <= now)
             {
                 if (head.UntilUtc < now) { _heads.Remove(id); continue; }
-                var target = Target(owner, head); ulong seed = target == null ? head.Seed : 0x6AC690C5UL * (head.Seed & uint.MaxValue) + (head.Seed >> 32);
-                if (Decide(false, target != null, target == null ? 25 : 0, (int)((uint)seed % 100)) == HydraDecision.Shoot)
+                var target = Target(owner, head); ulong seed=head.Seed;int chance=target==null?100:HydraControl.Percentage(ref seed);
+                if (Decide(false, target != null, target == null ? 25 : 0, chance) == HydraDecision.Shoot)
                 {
                     string key = "hydra" + (head.Index + 1);
                     head = head with { Seed = seed, Target = target.Serial.Value, ShotUtc = now.AddMilliseconds(_animation.ActionFrame * 40),
