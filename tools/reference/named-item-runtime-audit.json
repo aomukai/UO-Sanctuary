@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b90e8066037fa44c01cbe3cbd22641275723a57d37332b4ab13f637b0cb76ec7",
+  "ContentAssemblySha256": "4dc37beeef83d5e9265ef0d18181967c068f9fa875e26dd353c1290a87164707",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "eb72803b115d121ade9085f9ac9de42a528e0173dced182a337b594c46658e3b",
+    "data/Sanctuary/Balance/class-skill-status.json": "252b805b910c8f428410bf867a1dba16308e4ec4686180603b1aa98a08b99f6d",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -309,6 +309,7 @@
     "src/Sanctuary.Content/BarbarianDoubleThrow.cs": "25ba53e013a606c07fb0a8baa656a67cb0286040af92e0f16028c38a9d0ad244",
     "src/Sanctuary.Content/BarbarianFindItem.cs": "d14ff3c5376bd14effe09db3b6bb0fd3e965e3239b5693e072d70038f3f3f1f6",
     "src/Sanctuary.Content/BarbarianFindPotion.cs": "025c83d744d4787251ff73187da8431eae2d90aa78ca4ed9cd3371f61fb4a41e",
+    "src/Sanctuary.Content/BarbarianFrenzyRelease.cs": "e6f4331202b84c3c00086c83842e8698b78496b709181af5457d5fc89014fe7e",
     "src/Sanctuary.Content/BarbarianHowl.cs": "96626661b34829545491cfc839e67d0e16b8ac0fe4aa447226318bf7a060512d",
     "src/Sanctuary.Content/BarbarianLeap.cs": "9e5390a7504c93f19a970cf2829e6b9eecee0f64a2f8d78c359014f7a943ce3d",
     "src/Sanctuary.Content/BarbarianMasteries.cs": "5838d760f97c5a97b49f569a79399cc36fabb3dd189acce77d38f7ff300facc6",

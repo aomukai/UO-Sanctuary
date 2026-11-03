@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 15024,
+  "byFamily": {
+    "stats": 1188,
+    "roll": 12099,
+    "phase": 1737
+  },
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "sourceHashes": {
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_GetParam1": "e77e7f87b8571d4f3eb7e25e79f4d88b944ab030235639a07ddffc14879f0f83",
+    "SKILLS_SetParam1": "8989dbf41da5364747a2d0211d0880a23ac0d84d9eeff81d86730cf52064115f",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "SKILLS_ApplyFrenzyStats": "56ea1f44ed6eebb96d5599dd319f643771dedc7f4a4cc33bdf4be303a6debe23",
+    "SKILLS_RollFrenzyDamage": "c85f7003340e2a50f90d13a46ca3ecc3d07d3f995804f355a18dccea9cf1b143",
+    "SKILLS_SrvDo009_Frenzy": "c028f3b3e4b688b9c8a5acee436e7dd03df9ad71cd62035f18a5f7885d1f06b9"
+  },
+  "inheritedGuidReference": "c92002099ccef15c9e588c50b96ce98530736d15dd4bf7d9a8b69979b789e0fd",
+  "artifacts": {
+    "tools/probe_frenzy_release.py": "fc7ad99745820855ed66ec5534a2b92245fe346cf3d67090b9dd3ea77ce8e933",
+    ".local/class-skills/frenzy-release/source.cpp": "7725dfd05efdf764b1f9e2874115c37a7a9295cf11d243d182d7ca57cfb51142",
+    ".local/class-skills/frenzy-release/source-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/frenzy-release/source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/reference/double-swing-phase-source-evidence.json": "c92002099ccef15c9e588c50b96ce98530736d15dd4bf7d9a8b69979b789e0fd",
+    ".local/class-skills/double-swing-phase/source.cpp": "8e263f409cb6b8b6cc42c448af500c354972c957c3fa750a49d6dc5d95daa859"
+  },
+  "fixture": {
+    "path": ".local/class-skills/frenzy-release-source-probe.json",
+    "sha256": "03a2ebcf0def3ccc68bf9716078a71c8917509382c9508bd345769c0f830d849"
+  },
+  "limits": [
+    "Complete legacy do9/ApplyFrenzyStats/RollFrenzyDamage/shared aura writer/Param1helpers execute with existing complete GUID selector. Target eligibility,formulas,stat/equipment/combat services are explicit;there is no modern start67,payment or player/world certification.",
+    "Formula values are supplied control services,including synthetic aura values. This does not certify modern Frenzy rounding,full stat consumers or source physical damage. Replacement-used-skill and narrow-word/element controls include synthetic contexts."
+  ]
+}

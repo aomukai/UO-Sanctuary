@@ -1,5 +1,7 @@
 # Skill effects
 
+**Frenzy release/charge preparation (2026-11-03 JST).** Internal state and graphic-flag callbacks add no live effect. Final paired strikes,charge/speed presentation,contact/miss/block and audio remain pending;ordinary weapon visuals remain identified placeholders when bound. No charge orb or aura artwork is implied by the control-flow checks. See [checkpoint](frenzy-release-checkpoint.md).
+
 **Double Swing release/target policy (2026-11-03 JST).** Internal target selection and release ordering add no artwork or live player strike. Final Double Swing weapon-swing/contact/miss/block and audio remain pending under existing class requirements;normal weapon effects remain identified placeholders. No new autonomous effect is introduced. See [checkpoint](double-swing-phase-checkpoint.md).
 
 **Shared player channel controller (2026-11-03 JST).** Timed fire/cold emissions reuse existing identified stream placeholders: Inferno0x36D4/hue0x489 and Arctic0x374A/hue0x480. No final cast/channel/contact/expiry/audio is created by the controller. Native effects and mechanical clocks are separate; final asset work remains pending. See [checkpoint](player-inferno-modes-checkpoint.md).

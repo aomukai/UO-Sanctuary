@@ -1640,7 +1640,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Individually deferred current start67, which is null in the pinned older dispatcher. Old do9 applies speed stats based on the preceding Param1 hit flag before rolling the next strike; the modern start must establish first-hit/charge and prepared damage/payment timing. Pinned current fields, reviewed body hashes and reuse plan are in barbarian-frenzy-preflight.json. Do not infer a complete start from do9 alone or invent charge/payment cadence. Continue unaffected class roadmap work."
+      "remaining": "Complete legacy do9,ApplyFrenzyStats,RollFrenzyDamage and shared aura/Param1helpers now have15024compiled source controls. Prepared release preserves prior packet drain,even-only free,equipment refresh/broken-weapon cleanup,preceding-hit charge/expiry/cap,GUID retargeting,packet narrowing and current used-skill lookup after callbacks. Formula,stat,packet/equipment/world services stay explicit;this does not certify physical damage,speed curves or actual timed state consumers. Modern start67is null in the older dispatcher and still gates first-hit initialization,payment,hand/sequence/world/input integration. Do not infer a complete start from do9. See frenzy-release-source-evidence.json and barbarian-frenzy-preflight.json;effects/audio/icons remain separate."
     },
     {
       "talentId": "barbarian.whirlwind",
