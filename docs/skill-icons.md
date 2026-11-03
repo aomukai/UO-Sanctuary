@@ -1,5 +1,7 @@
 # Skill icons
 
+**Native prepared-pet placement (2026-11-03 JST).** World relocation adds no skill or hotkey binding. Summon tree/right/quick artwork remains separately pending;no backend icon is required. See [checkpoint](pet-native-placement-checkpoint.md).
+
 **Current collision writes (2026-11-03 JST).** Shared occupancy updates add no talent or hotkey. Class summon tree/right/quick icons remain separately pending. See [checkpoint](pet-collision-writes-checkpoint.md).
 
 **Current collision reads (2026-11-03 JST).** Shared room and footprint checks add no talent or hotkey. Class summon tree/right/quick icons remain separately pending. See [checkpoint](pet-collision-reads-checkpoint.md).

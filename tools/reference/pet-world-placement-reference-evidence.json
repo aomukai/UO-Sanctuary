@@ -1,0 +1,117 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current placement hooks and room-list code reviewed for the native ground adapter",
+  "process": {
+    "pid": 21009,
+    "startTicks": 312903,
+    "name": "Main"
+  },
+  "routineRecords": [
+    [
+      "0x264460",
+      762
+    ],
+    [
+      "0x2641b0",
+      686
+    ],
+    [
+      "0x36f050",
+      1463
+    ],
+    [
+      "0x2a3c80",
+      496
+    ],
+    [
+      "0x2a3940",
+      481
+    ],
+    [
+      "0x278110",
+      208
+    ],
+    [
+      "0x278d30",
+      129
+    ],
+    [
+      "0x2a3e70",
+      181
+    ]
+  ],
+  "routineBytes": 4406,
+  "totalReadBytes": 11052,
+  "maximumBytesPerCapture": 6382,
+  "processMemoryReadDuringCheck": false,
+  "machineCodeExecuted": false,
+  "mechanicalParityVerified": false,
+  "handlerEnabled": false,
+  "scope": [
+    "Provenance and complete readable code only;this is not a new machine-code differential certificate.",
+    "The native adapter binds the forced monster before/after size-footprint hooks and operation-local room/update membership. Ground geometry reuses PetGroundWorld;native MoveToWorld supplies UO sector/client transport.",
+    "Exact D2 map/crowd geometry,full room-link edge-case comparison and D2 client visibility/global room lists remain unfinished. Automatic GenericPet AI and learned cast stay gated."
+  ],
+  "artifacts": {
+    "tools/check_pet_world_placement_reference.py": "464c9798cb95613b18b7d2c70fdefbd8f277e3f37770b5250c72e214ff1132db",
+    "tools/capture_pet_world_placement.py": "36bbf3c080c7df6d42ebbf141d8c30e34c20510d007a14f052f4bf2f10b579e5",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103.json": "f037862b372f2a5ccfdfc286da8fb8155ac9320c8dc6e2ad2f8376113db4b23d",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-264460-part0.bin": "8a81f7cb99d3566cd95a1f9338d36ca6a5cf3c0045f43f7948f2ae712ee33788",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-264460-part0.asm": "acf0dfdb0305b2f71735c0e0f5bc383dde83e2a77f74daf19c1c644e0d7cadd2",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-264460-part1.bin": "ddbeb8924570798c875c1d56b945060803e42a6ad8ee17749c78149ca9275bd5",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-264460-part1.asm": "f12010ad3aef005736a86ed451ce26c668d3f775e29dd5986333c518dcce67ef",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-264460-part2.bin": "d01456789edab9137bf996c9eb90e63155e5b2fcdc7a5d610d1520e8353afe2f",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-264460-part2.asm": "fbb1b4635857e785c3f381a67b942f0763b59021c5780fabf8191df777b4bd3f",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-2641b0-part0.bin": "1e63f243a9cffa954393215f06dfd327413f96b236f7849ad138be859ed4fc2a",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-2641b0-part0.asm": "9a30b561067c7599080e0a3e51ae1cdd855f17b1cb9c0052ae3aa5eda8544c29",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-2641b0-part1.bin": "c964592cc6cd165a64ec450c900bc018ff1c76d184082849421f696047d8f3db",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-2641b0-part1.asm": "26e6f87a30f9c5e74d9a813dc6cdbe4def2cb8c5d4d9fde5dbd075543e528022",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-2641b0-part2.bin": "bd6e5bdabf8996acdbc45ca36c99b801ee90d39b591b1eb5016bc38140d1c49c",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-2641b0-part2.asm": "457e620d3282f35c5a564212884a48848b48e735ec5d37e9745ebc7313217019",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part0.bin": "537c1399edc32ff8aa5140e5b1e9df4f14ebe93996eef10e9f26ae5e37cc8b9f",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part0.asm": "ccf73dd3a7354d63a9820e64581bb996b2fbdfc40d4117f15f4547f659e57a54",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part1.bin": "689d3e621e4306f350e03fd8d85db501975207969f86374beb2fed4288592e29",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part1.asm": "b78713195601a3e5ff4ebdea50ae90da25ec7d65437511c50913cad1234b25b1",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part2.bin": "93f1a2f73cc458b4595acd10e654d96be05740d8692adee112c77c3518bf9228",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part2.asm": "8817512f5857095b69ddb3718281f9518da10e3853aa08f72e309d9e9a3985cb",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part3.bin": "8ce99aa48597ee97f4bd0474f64159f8861718e6e6d7a91c408d0f53427bbb45",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part3.asm": "5b44f7d4c9b85cc4843e383758b98466c761460da11da6ea65da8543f5bab607",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part4.bin": "ecf7734be921898d1454d193508564f58523f831591d2e99f6c2bd57ae697f47",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part4.asm": "68a4ab69b727c9536909012090281aff23227b0c78ad562c0c8f0f65eb7ac0f5",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part5.bin": "cc96257e1027d204c23e499d039555afd8a555752bb33f630be472cd614cc0fd",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part5.asm": "4c2b744f05dcef6f21fae67dd07449030e453d829a3d3118dc398db008ea306e",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part6.bin": "e02f55a3875b67a33be6e3d473cb34aa3b7cca9af8f59e74ea892bc18f54ac3d",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part6.asm": "ef261aa08270f6a38f52153904b0f45309f4ac9f19f169dc957b38859028810a",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part7.bin": "878dd92df82c4711dbff1811c32b0b344044111e142d486739801cbea388e2a9",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hooks-20261103-36f050-part7.asm": "92375fa731e20a34b9f1b50b2f665868f39b1d29b6c49b97e1b2c55aaea32ed0",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-follow-warp-placement-20261103.json": "3c473b4b52e34e1d0e6fbc47cdd687d38209166db11c26b3594ca9015b6c8db1",
+    "tools/capture_reference_callees.py": "addf38dc41603fd7a180f5ab2863f8eecccc810f23bde0f8b78ae96282ffeb99",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103.json": "72948de6ca2e0eb62959f053e9d51ec58f310f2f4a21f13c25fef584c647b879",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part0.bin": "9d6cc93028ed186badee476d41254530f0c990bab3760029d75cfb199c8ced46",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part0.asm": "d8b3adc7865b40d3e266fd3ebf8640b4cc835a17aea231d6478b8d553cd0f473",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part1.bin": "e21282a01810ca1993b3ffca0442dd27484de5733277a0e325dc9ebbfa1d6e0a",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part1.asm": "db3f343c1c4a8258d655ca4b808cfa4a0ec837aebe98f2ad589b2b7b26f246c5",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part2.bin": "4c4249d8f4eb3f25d16abefa345b7864dc17ee5715487c81b7af53a960e31e08",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part2.asm": "2774fcaade74ad7cccae25feb34c21ff0663a59254efd321c9bf556bd3335ec8",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part3.bin": "0604fe827eae7c7940ada0ef4996e170830104e7e2d739ec2417a897c494d647",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part3.asm": "57303cb9a4371c3226529e11a2ed4d77d51d6c3ad7f65bbf7ab0d5317b65aa93",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part4.bin": "a9772aeb7d9135d0069c89d6dc775bfa0ffbb4b8d1f8983ca3eff9581f4ee3b9",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part4.asm": "13a3789b5cd3a436f23fab2dd6d10f3b6d16ff6d713edc5e48a9bdf1b26b53bd",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part5.bin": "b46e8cf7b2da1f9cdf49d6fa1877aa174c0cb3564f90217c31a508fc27ea9cc5",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part5.asm": "ce98855265cb51886cc6cf6dece5d600b6cc272dcf4a9720c758019d93fa23c4",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3940-part0.bin": "fcce0e007677f8f128999839790b07abfb94c6f75b1746892e299ba8565e7b3b",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3940-part0.asm": "49fffc89b491a24f672e384ca1a4b49ad04f4ae6fb5c95df5446f2ed2a27032f",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-path-commit-leaves-20261103.json": "9f30f16ed4baa5378a22f30395f3abab4cd523ceb6c673601c0b56953ed09257",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hook-leaves-20261103.json": "e47d5f9f9f393d2167cece0136dd6bdd727f3f6579ed8bfcd7a6b05cde61898b",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hook-leaves-20261103-278110-part0.bin": "b05261717fb39fc9fb7da394c007b15ae9d2f7b34d6467e7b8839ccd487e7dd9",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hook-leaves-20261103-278110-part0.asm": "f4f64055e0f70dcf4b9ee4b1720c4b4f76ca64f3b4723bb7b7eeb3b561490fff",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hook-leaves-20261103-278d30-part0.bin": "8368830772f20d18ecc96ebbd17cb1422b3aa089c5b0ea88511d742a411f309d",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-hook-leaves-20261103-278d30-part0.asm": "470b7407bdc70f66890d49f250d4969fa165fbecd39b3e9a83ec38b1bee49f4f",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-link-leaves-20261103.json": "29351c6bdecfc2c8228104db30f84e769bb3a3575fe47d361a63d942fcc30b67",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-link-leaves-20261103-2a3e70-part0.bin": "c2c7e929d3cddec7c6027780d1ef809d8550c21ac64f637a5111bfce0fdcbb1b",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-link-leaves-20261103-2a3e70-part0.asm": "01f3cce2c8dc31db10762029e20ad0326f2e3cadf77c23ef5eed7f5c4f37402d"
+  }
+}
