@@ -83,6 +83,10 @@ public sealed class SkillValues
         // tooltip corroborate the additive result. Keep all other forms strict.
         if (_skill.Ability == CombatAbility.SummonGoatman && field == "passivecalc3"
             && expression == "(ln56 + (skill('Demonic Mastery'.ln21))") { expression += ")"; }
+        // Tainted's independently checked EOF outer group uses its own zero
+        // ln91 pair, not Goatman's summon-rank damage increase.
+        if (_skill.Ability == CombatAbility.SummonTainted && field == "passivecalc2"
+            && expression == "(ln91 + (skill('Demonic Mastery'.ln21))") { expression += ")"; }
         return Formula(expression);
     }
     public long Formula(string expression) => SkillFormula.Evaluate(expression, Resolve);

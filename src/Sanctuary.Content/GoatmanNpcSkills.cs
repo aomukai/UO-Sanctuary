@@ -11,7 +11,8 @@ internal static class GoatmanNpcSkills
 {
     private static readonly Lazy<IReadOnlyDictionary<int,SkillDefinition>> Rows=new(()=>
     {
-        var rows=BalanceCatalog.Read<SkillDefinition>("warlock-npc-skills");
+        var rows=BalanceCatalog.Read<SkillDefinition>("warlock-npc-skills")
+            .Where(r=>r.Ability==CombatAbility.SummonGoatman).ToArray();
         if(rows.Length!=4||!rows.Select(r=>r.SourceId).SequenceEqual(new[]{416,417,418,419})
             ||rows.Any(r=>r.Ability!=CombatAbility.SummonGoatman||r.CharacterClass!=DiabloClass.Warlock||r.Left||r.Right))
         {throw new InvalidDataException("Invalid Goatman NPC source rows");}

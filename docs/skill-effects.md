@@ -1,5 +1,7 @@
 # Skill effects
 
+**Tainted (2026-11-04 JST).** The approved UO Succubus mapping reuses existing body artwork; no new base model is requested. Prepared numerical suppliers emit no body or effect. Summon spawn/cast, Fire Ball flight/explosion/contact, Resist Fire aura, Blood Boil reaction, hurt/death and audio still need their final presentation. Any generic spell markers used during later integration must remain identified placeholders. Talent/right/quick artwork is tracked in the separate icon register; internal NPC420/422 add no player hotkey icons.
+
 **Druid human SC routing (2026-11-04 JST).** No final art or sound is added. Human/form cast, elemental/armor and bird/wolf/bear/spirit emergence placeholders remain separate asset work. See [checkpoint](druid-human-cast-clock-checkpoint.md).
 
 **Assassin SC timing (2026-11-04 JST).** No final graphics or sound are added. Cast, psychic hit, cloak/blind, speed/fade/venom and blade-state/pulse placeholders remain separate asset work, including claw-dependent casting presentation. See [checkpoint](assassin-cast-clock-checkpoint.md).

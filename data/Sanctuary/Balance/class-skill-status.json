@@ -2374,10 +2374,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 376,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared own summon suppliers, captured difficulty bases and NPC Fire Ball/Resist Fire numerical packets reuse the existing demon foundation. Effective Mastery supplies fire mastery; hard Mastery alone raises the shared cap and hard Blood Boil alone supplies the NPC synergy. Exact malformed formula, full older damage routines and native owner/gear/reload checks are recorded in tainted-foundation-checkpoint.md. GenericPet controller, extended passive transport, actual NPC aura/projectile/Blood Boil release, casting/payment/cap replacement and world lifecycle remain unfinished; no learned summon enabled. Approved Succubus appearance is separate from mechanics; final effects/audio and icons remain separate."
     },
     {
       "talentId": "warlock.bloodboil",
