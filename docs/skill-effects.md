@@ -1,5 +1,7 @@
 # Skill effects
 
+**Current collision writes (2026-11-03 JST).** Occupancy updates add no independent artwork. Existing native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](pet-collision-writes-checkpoint.md).
+
 **Current collision reads (2026-11-03 JST).** Room/grid/cardinal/box reads add no independent artwork. Existing native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay pending separately. See [checkpoint](pet-collision-reads-checkpoint.md).
 
 **Current nearby placement (2026-11-03 JST).** Candidate search adds no independent artwork. Existing native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay pending separately. See [checkpoint](generic-pet-nearby-checkpoint.md).
