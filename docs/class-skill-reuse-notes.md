@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Prepared Slow Missiles windup (2026-11-04 JST).** Reuse AmazonSlowMissilesCasting with SkillCombat.BeginPrepared,AmazonCastClock and the original do6 Commit. Only a server-created transient session context reaches this resolver;consume it before payment/search. Keep the existing source-boss/target and supported-producer boundaries. Do not use a frame-position predicate on the scheduled server epoch. See [checkpoint](slow-missiles-windup-checkpoint.md).
+
 **Shared SC clock and Necromancer (2026-11-04 JST).** Reuse SourceCastClock for the literal FCR writer and scheduler offsets. Amazon supplies its weapon-specific SourceCastRow; Necromancer verifies eight uniform records and routes26 active SC skills through CombatTiming.Calculate/For. Exclude Poison Dagger and passives. Do not infer current client/repeat-input alignment from server ENDANIM offsets. See [checkpoint](necromancer-cast-clock-checkpoint.md).
 
 **Amazon SC clock (2026-11-04 JST).** Reuse AmazonCastClock for the admitted Inner Sight/Decoy start paths and future prepared Slow Missiles work. Use WeaponAnimationClasses for actual source class, not an inferred generic attack family. Preserve weapon-specific action points and FCR truncation; unknown classes refuse explicitly. Share SkillCombat.Begin and the original effect/payment transactions. See [checkpoint](amazon-cast-clock-checkpoint.md).

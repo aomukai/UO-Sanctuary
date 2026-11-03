@@ -28,6 +28,7 @@ public static class ClassCombat
         internal DruidPlayerForm AttackForm;
         internal DruidFormCasting.Pending Transform;
         internal DruidVineCasting.Pending VineCast;
+        internal AmazonSlowMissilesCasting.Pending SlowMissilesCast;
         internal DruidFormInterruption.Action FormAction;
         internal PaladinZeal.Series Zeal;
         internal PaladinCharge.Flight Charge;
@@ -259,6 +260,7 @@ public static class ClassCombat
         BladeShields.Cancel(from);
         BladeFuryModes.Interrupt(from);PlayerInfernoModes.Interrupt(from);
         DruidVineCasting.Cancel(from);
+        AmazonSlowMissilesCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -521,6 +523,7 @@ public static class ClassCombat
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.VineCast!=null){return DruidVineCasting.ResolvePrepared(from,now);}
+        if(session.SlowMissilesCast!=null){return AmazonSlowMissilesCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
         var ability = session.PendingAbility;

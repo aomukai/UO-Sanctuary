@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Manual full-body field-role review,not current client proof or a new compiled comparison.",
+  "sources": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "data/Sanctuary/Balance/uo-creatures.json": "3bda865653f577f4718f636bcd7e98de413d8324daf342608460f1d5f53ae23e",
+    "data/Sanctuary/Balance/creature-templates.json": "c83dc0851b3af25df5ead41f7fba3926be5d953c1f48ba6e3393a017e6f11ff7",
+    "data/Sanctuary/Balance/creature-difficulties.json": "9f50e7b5386269ae90fbd96a0334df4bca42f262a2726357c20de83819192650"
+  },
+  "routines": {
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "finding": "The nonsequence common cycle-end predicate consumes frame-position+speed versus total frame count. The scheduled server path instead writes gameFrame<<8 into the same named field as an epoch. Applying the former predicate to that server epoch would conflate state roles and cannot establish player/client recast timing.",
+  "remaining": [
+    "No player/client consumer of the common cycle-end predicate was established by this review.",
+    "Keep server action/ENDANIM offsets distinct from current client first/last-frame and repeat-input readiness;do not infer a one-frame adjustment.",
+    "The unreferenced native GraveyardLich profile also has no explicit Boss trait. Its Slow Missiles target admission remains separate rather than assigning a D2 species or boss default."
+  ]
+}

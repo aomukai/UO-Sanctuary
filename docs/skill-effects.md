@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Slow Missiles windup (2026-11-04 JST).** Cast overlay,affected-state visuals and amazon_handofathena audio remain missing final assets. The prepared flow keeps the identified ordinary cast marker and adds no final art/sound. See [checkpoint](slow-missiles-windup-checkpoint.md).
+
 **Necromancer SC timing (2026-11-04 JST).** No final graphics or sound are added by the shared clock. Existing cast,curse,projectile,corpse/summon and contact placeholders remain;final effects and audio are still required independently of timing acceptance. See [checkpoint](necromancer-cast-clock-checkpoint.md).
 
 **Amazon SC timing (2026-11-04 JST).** Source action/end clocks add no finished artwork. Existing Inner Sight/Slow Missiles cast overlays, Decoy silhouette and cast audio remain identified placeholders; final weapon-dependent cast/effect/Decoy visuals and audio still need assets. See [checkpoint](amazon-cast-clock-checkpoint.md).

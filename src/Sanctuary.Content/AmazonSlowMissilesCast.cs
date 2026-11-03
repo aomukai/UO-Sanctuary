@@ -27,14 +27,15 @@ internal static class AmazonSlowMissilesCast
         // Filter 0xC583 has no optional LOS bit 0x200. Do not use Targets(),
         // which would add a line-of-sight condition absent from this search.
     }
-    internal static bool Commit(PlayerMobile owner,DateTime at)
-    {
-        if(owner is not {Alive:true,Deleted:false,Frozen:false,Paralyzed:false}
-            || owner.Map==null || owner.Map==Map.Internal || at.Kind!=DateTimeKind.Utc
+    internal static bool Eligible(PlayerMobile owner)=>!(owner is not {Alive:true,Deleted:false,Frozen:false,Paralyzed:false}
+            || owner.Map==null || owner.Map==Map.Internal
             || !AlliedOverlap.Allowed(owner) || SpellHelper.IsTown(owner.Location,owner)
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Amazon
             || ClassCreation.Profiles.GetRank(owner.Serial,"amazon.slowmissiles")<1
-            || SkillMechanics.Rank(owner,CombatAbility.SlowMissiles) is <1 or >255) { return false; }
+            || SkillMechanics.Rank(owner,CombatAbility.SlowMissiles) is <1 or >255);
+    internal static bool Commit(PlayerMobile owner,DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc||!Eligible(owner)){return false;}
         var row=SkillMechanics.For(CombatAbility.SlowMissiles);
         if(row.Number("srvdofunc")!=6 || row.Number("aurafilter")!=50563
             || row.Text("auratargetstate")!="slowmissiles" || row.Text("anim")!="SC")

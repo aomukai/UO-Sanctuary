@@ -164,9 +164,9 @@
       "tree": "Passive and Magic Skills",
       "sourceId": 17,
       "implementation": "blocked",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared caster-centered release now checks source species-boss/range/floor/town rules and pays once for empty/weaker searches; actual encounter bolts capture its state. Restore validates atomically. Learned SC/input scheduling, ordinary native ranged travel and relevant native spell/breath/child producers remain individually unsupported. Source species-boss exclusion must use monstats identity, not native elite grade. Modern in-flight behavior and exact damage order remain uncertain. See the producer inventory in slow-missiles-preflight.json; continue Valkyrie creation/equipment without claiming this skill complete."
+      "remaining": "Prepared SC/FCR windup now reuses the shared action session,owned Amazon clock and existing do6 release. It retains no charge during windup and consumes its transient context before live-rank payment/search. Stop,movement,low release mana,frozen caster,weapon changes and reload are checked separately;actual encounter missiles capture the released state. Public learned availability stays gated by the recorded producer/target/current damage-order gaps. See slow-missiles-windup-checkpoint.md. Prepared caster-centered release now checks source species-boss/range/floor/town rules and pays once for empty/weaker searches; actual encounter bolts capture its state. Restore validates atomically. Learned SC/input scheduling, ordinary native ranged travel and relevant native spell/breath/child producers remain individually unsupported. Source species-boss exclusion must use monstats identity, not native elite grade. Modern in-flight behavior and exact damage order remain uncertain. See the producer inventory in slow-missiles-preflight.json; continue Valkyrie creation/equipment without claiming this skill complete."
     },
     {
       "talentId": "amazon.avoid",
