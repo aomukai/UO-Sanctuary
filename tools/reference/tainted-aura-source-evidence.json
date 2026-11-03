@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "fullCallbackFactoryModifierCases": 1152,
+  "fullDo65FilterIteratorCases": 770,
+  "compiledUnchangedRoutineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLS_AuraCallback_BasicAura": "1b2f8fffb7299370685a6b0dba9851f919ff9a4fd13fafd5772dae3df175b6a6",
+    "sub_6FD0B3D0": "c075ad023a298e3233d860d844203f7e992fc88571a5f5e59b2984aead6859ec",
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+    "sub_6FD0FE50": "1b67f3f52b30bc05b5ab7508c8c94d55518642e636b7b476ef4304bf2270c92b",
+    "sub_6FD0FE80": "205e92f8514caf6d9d96461812608f81fc4b192087e6052dba568e181a9282c2",
+    "SKILL_ComputePeriodicRate": "23b6aa71aabe794cea8d84d183eeef8232258343f19bd9218a83001d24591e0e",
+    "SKILLS_SrvDo065_BasicAura": "1c515c77b26beb1f14e914f41d4b58e32e2fd37967b36f0cc186e3294d2b0c6e"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    "tools/reference/might-callback-source-evidence.json": "e8eb3dcd7ecbe52d904b1f2db13268c9dabbf75a28565eb3046460cbb8762bb0",
+    ".local/class-skills/might-callback-source/probe.cpp": "470f582a583a77890371db02079bb543835eab9ef8f20943f24a04783e0dc051",
+    "tools/probe_lightning_fury_reference.py": "cb255aeae268a6aa5386c4a99e09e2cfb3d17ed75f72c98b8791d49ae9d78dce",
+    "tools/reference/tainted-foundation-source-evidence.json": "4725937611eafa20ceee6815c133af281fbb4f6239be7604a8f368efde9ceb07",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "tools/probe_tainted_aura.py": "6d5bd22737fc35019193bd06ef79104a0ad135f85071a2cd604f00444650c59e"
+  },
+  "established": [
+    "Owned NPC420 is immediate do65/state3/stat39,period50,filter0x12003,zero mana,no maximum stat and passive_resistfire removal metadata. Shared source timing gives50-frame pulses and51-frame leases.",
+    "Full unchanged callback, state factory and resistance modifier execute together. Same-skill weaker ranks refuse; equal rank retains creator and refreshes expiry; higher or different skill replaces. NPC420 and Paladin100 share state3 and can replace each other regardless of cross-skill rank. A new NPC420 list contains no maximum-fire-resistance stat.",
+    "Full unchanged do65/filter/iterator execute with an explicit callback recorder. Living allies/player/monster, exact radius, town/NPC/NOAURA/dead/hostile and no-LOS controls are retained. Callback-recorder and full-callback matrices are separate compositions,not a single full world pipeline."
+  ],
+  "limitations": [
+    "Allocation, state storage, room/list/hostility, formula and event services are declared fixtures. Both aura skills name passive_resistfire for removal; the fixture has no passive list. Removal callbacks are recorded,not invoked; passive-list removal/restoration history remains outside this composition.",
+    "Source do65 can self-apply in town; Sanctuary approved safe-area parking suppresses the parked emitter instead. Native2subtile/height/world order, offline/park/resume phase, current executable/global scheduler and complete client/stat-list acceptance remain separate.",
+    "NPC mana and owner mana are not consumed. No learned summon or full GenericPet AI is enabled by this source proof."
+  ],
+  "artifacts": {
+    ".local/class-skills/tainted-aura-source/callback.cpp": "181c39d7d3d4fe2c5f6f928051081aa6ebaab257c5202f3573d61a10a2d4d9f3",
+    ".local/class-skills/tainted-aura-source/callback": "f3f7c194a3931d21a33c620a4e2e8d471381526573bb88034d71470048671ac8",
+    ".local/class-skills/tainted-aura-source/callback.compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/tainted-aura-source/callback.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/tainted-aura-source/callback.json": "2466009fa469b0e24b4b363e321f0e6f34de7e31100d93fa64d6060a6ab7da91",
+    ".local/class-skills/tainted-aura-source/pulse.cpp": "425c59fdaca8cdc330f5954b074c87fed9bac994f0a573286de06dff31ac280e",
+    ".local/class-skills/tainted-aura-source/pulse": "f5ec97f8754a15a729e04424bfb6c24b56d6582c5dcab8166fa5d67bcb64666f",
+    ".local/class-skills/tainted-aura-source/pulse.compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/tainted-aura-source/pulse.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/tainted-aura-source/pulse.json": "c356fe738f7f532764e08232a742b9e0f08d390fa64d900510c2d7e991d43558"
+  }
+}

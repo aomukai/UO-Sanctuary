@@ -1,5 +1,7 @@
 # Skill effects
 
+**Tainted resistance aura (2026-11-04 JST).** The prepared automatic NPC420 aura uses generic0x375A/hue0x489 as an identified placeholder. Final aura visuals/audio, summon/cast, Fire Ball/contact, Blood Boil reaction and hurt/death assets remain pending. Effects do not gate the mechanical pulse; icons remain in their own register. See [checkpoint](tainted-aura-checkpoint.md).
+
 **Tainted rank refresh (2026-11-04 JST).** Sharing the NPC getter and refreshing the A2 release rank adds no new effect/audio asset. Existing invisible logical windup and generic0x36D4travel/0x36BDexplosion remain identified placeholders. Final cast/contact/aura/Blood Boil feedback remains pending independently. See [checkpoint](tainted-ranks-checkpoint.md).
 
 **Tainted A2 release (2026-11-04 JST).** The automatic cast service currently changes facing and has an invisible logical A2 windup, an identified presentation placeholder. Final NPC A2 windup/release and audio are still required; generic0x36D4travel/0x36BDexplosion remain interim markers. This uses the approved existing Succubus artwork and adds no new base model request. Mechanical event scheduling proceeds independently. See [checkpoint](tainted-casting-checkpoint.md).

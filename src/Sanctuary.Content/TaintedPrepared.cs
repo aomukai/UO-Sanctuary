@@ -106,6 +106,10 @@ internal static class TaintedNpcSkills
             || rows.Any(r => r.CharacterClass != DiabloClass.Warlock || r.Left || r.Right)
             || rows[0].SourceKey != "Tainted Resist Fire" || rows[0].Number("srvdofunc") != 65
             || rows[0].Text("aurastat1") != "fireresist" || rows[0].Number("perdelay") != 50
+            || rows[0].Number("aurafilter") != 73731 || rows[0].Text("aurastate") != "resistfire"
+            || rows[0].Text("auratargetstate") != "resistfire" || rows[0].Number("immediate") != 1
+            || rows[0].Number("mana") != 0 || rows[0].Number("minmana") != 0 || rows[0].Number("lvlmana") != 0
+            || rows[0].Text("aurastat2") != "0" || rows[0].Text("passivestate") != "passive_resistfire"
             || rows[1].SourceKey != "Tainted Fire Ball" || rows[1].Text("srvmissile") != "taintedfireball"
             || rows[1].Text("EType") != "fire" || rows[1].Number("SrcDam") != 0)
         { throw new InvalidDataException("Invalid Tainted NPC source rows"); }

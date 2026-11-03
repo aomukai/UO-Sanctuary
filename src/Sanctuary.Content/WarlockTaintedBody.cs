@@ -56,7 +56,7 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
     public override TimeSpan BeginMelee(Mobile target) => throw new NotSupportedException("Prepared Tainted has no automatic GenericPet skill/combat controller");
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
     public override void SuspendActions() { TaintedFireBallCasting.Cancel(this); base.SuspendActions(); }
-    public override void OnAfterDelete() { TaintedFireBallCasting.Cancel(this); NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
+    public override void OnAfterDelete() { TaintedResistFire.Forget(this); TaintedFireBallCasting.Cancel(this); NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
     internal static void Validate(TaintedBodyState state)
     {
         try
@@ -85,7 +85,7 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
             body.RestorePrepared(state); body.Initialize(owner, capture.Birth.Suppliers.Rank, 0); body.SetResistances();
             if (!body.SetControlMaster(owner)) { throw new InvalidOperationException("Tainted control master refused"); }
             BattleCommand.Track(body); PersistentMinions.Profiles.Track(body); body.MoveToWorld(point, owner.Map);
-            body.AIObject?.AITimer.Stop(); SkillHealth.SetBalance256(body, body.MaximumLife256); return body;
+            body.AIObject?.AITimer.Stop(); SkillHealth.SetBalance256(body, body.MaximumLife256); TaintedResistFire.Select(body,at); return body;
         }
         catch { body.Delete(); throw; }
     }
@@ -115,5 +115,5 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
         { RestorePrepared(Prepared with { NextRecoveryUtc = next }); }
     }
     [AfterDeserialization] private void AfterTaintedLoad()
-    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<TaintedBodyState>(_saved); Validate(_prepared); ApplyAppearance(); }
+    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<TaintedBodyState>(_saved); Validate(_prepared); ApplyAppearance(); TaintedResistFire.EnsureSelected(this,TimedEffects.Now); }
 }

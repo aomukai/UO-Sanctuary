@@ -9,7 +9,8 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record PaladinEmitter(uint Owner, CombatAbility Ability, DateTime NextUtc,bool SuppressBaseMana=false,int FlatManaNumerator=0);
-public sealed record PaladinAuraLease(uint Target, uint Source, CombatAbility Ability, int Rank, int Percent, DateTime UntilUtc,int MaximumResistance=0,int StaminaPercent=0,int VelocityPercent=0,int DamagePercent=0,int AttackPercent=0,int UninterruptChance=0,int WeaponMin=0,int WeaponMax=0);
+public sealed record PaladinAuraLease(uint Target, uint Source, CombatAbility Ability, int Rank, int Percent, DateTime UntilUtc,int MaximumResistance=0,int StaminaPercent=0,int VelocityPercent=0,int DamagePercent=0,int AttackPercent=0,int UninterruptChance=0,int WeaponMin=0,int WeaponMax=0,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] int SourceSkill=0);
 public sealed record PaladinAuraSave(PaladinEmitter[] Emitters, PaladinAuraLease[] Leases);
 public sealed class PaladinAuraProfiles : GenericPersistence
 {
@@ -76,15 +77,32 @@ public static class PaladinAuras
     private static bool Apply(Mobile target, PlayerMobile owner, CombatAbility ability, int rank, int value, int healing256, DateTime now, DateTime until,int maximumResistance=0,int staminaPercent=0,int velocityPercent=0,int damagePercent=0,int attackPercent=0,int uninterruptChance=0)
     {
         var key=(target.Serial.Value,ability);
-        if (_leases.TryGetValue(key,out var old) && old.UntilUtc>now && old.Rank>rank) { return false; }
+        _leases.TryGetValue(key,out var old);
+        bool same=old!=null&&SourceSkill(old)==SkillMechanics.For(ability).SourceId;
+        if (same && old.UntilUtc>now && old.Rank>rank) { return false; }
         if(ability==CombatAbility.Thorns&&target is IronGolemBody iron){iron.ReplaceIntrinsicThorns();}
-        uint source=old is { } && old.UntilUtc>now && old.Rank==rank ? old.Source : owner.Serial.Value;
+        uint source=same && old.UntilUtc>now && old.Rank==rank ? old.Source : owner.Serial.Value;
         _leases[key]=new(target.Serial.Value,source,ability,rank,value,until,maximumResistance,staminaPercent,velocityPercent,damagePercent,attackPercent,uninterruptChance);
         if(ability==CombatAbility.Vigor && old?.StaminaPercent!=staminaPercent){PaladinVigor.Refresh(target);}
         bool changed=ability==CombatAbility.Cleansing && value>0 && PaladinCleansing.Apply(target,value,now);
         if (healing256>0 && SkillHealth.Heal(target,healing256)>0) { changed=true; }
         return changed || value!=0 && ability is not (CombatAbility.Prayer or CombatAbility.Cleansing);
     }
+    internal static int SourceSkill(PaladinAuraLease lease)=>lease.SourceSkill==0?SkillMechanics.For(lease.Ability).SourceId:lease.SourceSkill;
+    internal static bool ApplyNpcResistance(BaseCreature source,Mobile target,int sourceSkill,int rank,int percent,DateTime at,DateTime until)
+    {
+        if(sourceSkill!=420||source is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}
+            ||rank is <1 or >99||percent is <0 or >100||at.Kind!=DateTimeKind.Utc||until.Kind!=DateTimeKind.Utc||until<=at)
+        {throw new NotSupportedException("Unsupported NPC resistance-aura state");}
+        var key=(target.Serial.Value,CombatAbility.ResistFire);_leases.TryGetValue(key,out var old);
+        bool same=old!=null&&SourceSkill(old)==sourceSkill;
+        if(same&&old.UntilUtc>at&&old.Rank>rank){return false;}
+        uint creator=same&&old.UntilUtc>at&&old.Rank==rank?old.Source:source.Serial.Value;
+        // A different skill sharing state3 replaces regardless of rank. NPC420
+        // has no maxfireresist stat or Paladin passive-stat payload.
+        _leases[key]=new(target.Serial.Value,creator,CombatAbility.ResistFire,rank,percent,until,SourceSkill:sourceSkill);return true;
+    }
+    internal static void ClearResistanceState(Mobile target)=>_leases.Remove((target.Serial.Value,CombatAbility.ResistFire));
     private static void Pulse(PlayerMobile owner, CombatAbility ability, DateTime now)
     {
         var values=SkillMechanics.Values(owner,ability);var definition=SkillMechanics.For(ability);
@@ -197,7 +215,10 @@ public static class PaladinAuras
         foreach (var emitter in saved.Emitters)
         { if (emitter==null || !PaladinCombat.IsAura(emitter.Ability) || emitter.FlatManaNumerator is <0 or >=125 || emitter.SuppressBaseMana && emitter.Ability!=CombatAbility.Prayer || !emitters.TryAdd(emitter.Owner,emitter)) { throw new InvalidDataException("Invalid Paladin emitter"); } }
         foreach (var lease in saved.Leases)
-        { if (lease==null || !PaladinCombat.IsAura(lease.Ability) || lease.Rank<1 || lease.Percent<0 || lease.MaximumResistance<0 || lease.StaminaPercent<0 || lease.VelocityPercent<0 || lease.DamagePercent<0 || lease.AttackPercent<0 || lease.UninterruptChance is <0 or >100 || !leases.TryAdd((lease.Target,lease.Ability),lease)) { throw new InvalidDataException("Invalid Paladin aura lease"); } }
+        { if (lease==null || !PaladinCombat.IsAura(lease.Ability) || lease.Rank<1 || lease.Percent<0 || lease.MaximumResistance<0 || lease.StaminaPercent<0 || lease.VelocityPercent<0 || lease.DamagePercent<0 || lease.AttackPercent<0 || lease.UninterruptChance is <0 or >100
+            ||lease.SourceSkill!=0&&lease.SourceSkill!=SkillMechanics.For(lease.Ability).SourceId&&!(lease.Ability==CombatAbility.ResistFire&&lease.SourceSkill==420)
+            ||lease.SourceSkill==420&&(lease.MaximumResistance!=0||lease.Rank>99)
+            || !leases.TryAdd((lease.Target,lease.Ability),lease)) { throw new InvalidDataException("Invalid Paladin aura lease"); } }
         _emitters.Clear();foreach(var row in emitters){_emitters.Add(row.Key,row.Value);}
         _leases.Clear();foreach(var row in leases){_leases.Add(row.Key,row.Value);}
     }
