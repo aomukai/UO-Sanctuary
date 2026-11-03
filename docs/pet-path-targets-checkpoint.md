@@ -1,0 +1,19 @@
+# Primary monster targets in pet path reset
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Parent: `41b222b06fa68baf3c89655278180ac734e6ead9`.
+
+`GenericPetNativePlacement` now supports a monster-target path when the caller supplies an explicit `GenericPetPathTargetView`. The previous blanket refusal is replaced with a checked binding. Missing or mismatched views refuse before collision/world changes. Target flag4 bypasses the getter, as in the current reset routine. Unknown class IDs return no metadata. Existing operation-local placement, room links, collision kernels, floor checks and path reset are reused.
+
+The getter at `0x6bc90` returns **primary monstats**, not secondary dimensions. Reset reads byte61 and tests bit1, **interact**. The [data receipt](../tools/reference/pet-path-targets-data-evidence.json) binds all 751 owned compiled rows and compares their eight flags with the pinned text: **6,008 flag checks**. Views bind one explicit selector; this does not infer game-selector aliases or a facet difficulty mapping.
+
+The [source receipt](../tools/reference/pet-path-targets-source-evidence.json) executes the complete current reset, coordinate routine and actual primary getter using owned compiled rows. **4,826 comparisons**, including 48 unsupported selector controls, cover every class under all three explicit views, player/monster centering, interactive/noninteractive/missing rows, target flag4 bypass and type17. All 4,586 metadata-call traces and final path fields match in the server.
+
+**Build1/run1 passes 143 native markers over three boots, two actual reloads and three saves.** All earlier 140 markers retain room/hook/collision/path comparisons, learned Necromancer reconnect/obstacle/input/combat coverage and original saved actors. Each boot adds eight actual native monster-target resets and four missing/mismatched-view refusals on the same two original Warlock/Witch test pets. Birth snapshots, wounds, identities, owners, gear, mana and orders retain. The learned Goatman handler remains disabled.
+
+Both clean builds have zero warnings/errors. Fresh 946/21 audits retain all 573 named decisions. All 71 Python tests and readiness/catalogue/roadmap checks pass. The [native receipt](../tools/reference/pet-path-targets-native-evidence.json) binds tested source/data, binaries, fixtures, logs and all 106 protected installed build/save hashes. No deployment or installed-save write occurred. The initial offline matrix run rejected its incorrect expected case count before generating any accepted fixture; that script is preserved, and only its count assertion changed.
+
+The known owner callback at `0x4b08b0` was independently traced from the initializer's exact LEA/iterator sequence. All eight unwind fragments currently have `---s` permissions. The bounded capture reads only 560 header/immutable-anchor bytes, skips all code fragments and records incomplete coverage. An initial guard assertion is preserved; the capture now records inaccessible fragments explicitly. No permissions, game input, memory writes or attach behavior changed. **The full producer of cfg+0x70 remains uncertain**; no movement default is invented from this failed capture.
+
+Next: persistent/global room and crowd ownership, visibility integration, path birth/mode/speed/timing, the unresolved owner callback/configuration producer, actual controller/combat and learned casting/payment/cap/input/lifecycle. Other class and Necromancer verification gaps remain open. Coverage stays **191 registered handlers, Warlock1/30, no completed class**.
+
+No new effect, sound or skill binding is introduced. Native pet body/movement/teleport/contact/death/audio remain identified placeholders in the effects register; talent/right/quick artwork remains separately pending in the icon register.

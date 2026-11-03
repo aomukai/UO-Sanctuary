@@ -1,5 +1,7 @@
 # Skill icons
 
+**Primary pet target-reset acceptance (2026-11-03 JST).** Target metadata adds no talent or hotkey binding. Summon talent/right/quick icons remain independently pending. See [checkpoint](pet-path-targets-checkpoint.md).
+
 **Current room-link/hook acceptance (2026-11-03 JST).** Verification adds no talent or hotkey. Class summon tree/right/quick artwork remains separately pending. See [checkpoint](pet-room-links-checkpoint.md).
 
 **Native prepared-pet placement (2026-11-03 JST).** World relocation adds no skill or hotkey binding. Summon tree/right/quick artwork remains separately pending;no backend icon is required. See [checkpoint](pet-native-placement-checkpoint.md).

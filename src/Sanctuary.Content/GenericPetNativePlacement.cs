@@ -22,6 +22,7 @@ internal sealed class GenericPetNativePlacement
     private readonly GenericPetRoomLinkServices Links;
     private readonly GenericPetMonsterRoomLink Member;
     private readonly GenericPetCollisionFootprintServices Footprints;
+    private readonly GenericPetPathTargetView TargetMetadata;
     private bool Used;
     internal int LoadedRooms=>Grids.Count;
     internal GenericPetCommitPath CommittedPath=>Path;
@@ -30,13 +31,20 @@ internal sealed class GenericPetNativePlacement
     internal static int RoomHandle(Map map,int x,int y)
         =>1+x/Span+(y/Span)*((map.Width*2+Span-1)/Span);
 
-    internal GenericPetNativePlacement(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,Point2D target)
+    internal GenericPetNativePlacement(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,Point2D target,
+        GenericPetPathTargetView targetMetadata=null)
     {
         if(body is not{Alive:true,Deleted:false,Prepared:not null}||body.Map==null||body.Map==Server.Map.Internal
             ||body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Map!=body.Map||!body.Permitted(owner)
             ||unit?.Pet==null||!unit.HasPath||path?.Actor is not{Kind:1}||path.Actor.Handle!=checked((int)body.Serial.Value)
-            ||path.Mask60!=0x100||path.Size5c is <1 or >5||path.Target is{Kind:1})
+            ||path.Mask60!=0x100||path.Size5c is <1 or >5)
         {throw new NotSupportedException("Native ground placement requires an owned prepared Goatman and its supplied live monster path");}
+        if(path.Target is{Kind:1} resetTarget&&(resetTarget.Flags124&4)==0)
+        {
+            if(targetMetadata==null){throw new NotSupportedException("Monster-target reset requires an explicit primary metadata view");}
+            targetMetadata.Require(resetTarget.Variant);
+        }
+        TargetMetadata=targetMetadata;
         Body=body;Map=body.Map;Path=path;Unit=unit;Target=target;
         int x=(ushort)(path.X>>16),y=(ushort)(path.Y>>16);
         if((x+1)/2!=body.X||(y+1)/2!=body.Y||path.Room!=RoomHandle(Map,x,y)
@@ -106,7 +114,8 @@ internal sealed class GenericPetNativePlacement
             _=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),
             _=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),
             actor=>GenericPetRoomLinks.Remove(actor,Links),(actor,room)=>GenericPetRoomLinks.Add(actor,room,Links),
-            actor=>GenericPetRoomLinks.Touch(actor,Links),(_,_)=>throw new NotSupportedException("Monster-target reset metadata is not bound"),0),Footprints);
+            actor=>GenericPetRoomLinks.Touch(actor,Links),(selector,id)=>TargetMetadata==null
+                ?throw new NotSupportedException("Monster-target reset metadata is not bound"):TargetMetadata.Flags(selector,id),0),Footprints);
         placement=GenericPetMonsterPlacementHooks.Bind(placement,Path,Footprints);
         placement=GenericPetNearbySearch.Bind(placement,GenericPetNearbySearch.WithFootprints(RoomAt,Footprints));
         placement=placement with{UpdatePath=(room,packed)=>

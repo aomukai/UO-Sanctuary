@@ -79,6 +79,24 @@ public static class PetNativePlacementChecks
                 "Native cross-room commitment lost room/update membership or movement reset");
             Require(NativeOccurrences(body)==1,"Actual native sector membership duplicated/lost original body");
             last=body.Location;
+            // The reset getter is primary monstats, not secondary dimensions.
+            // Ordinary, interactive and absent rows all retain an actual
+            // monster's centered reset. Flag4 bypasses the getter entirely.
+            var targetView=GenericPetPathTargets.Bind(1);
+            foreach(var resetTarget in new[]{new GenericPetCommitTarget(1,GenericPetSearchTables.SourceId("wargoatman").Value,1,0),
+                new GenericPetCommitTarget(1,GenericPetSearchTables.SourceId("akara").Value,1,0),
+                new GenericPetCommitTarget(1,-1,1,0),new GenericPetCommitTarget(1,148,0,4)})
+            {
+                (path,unit)=Inputs(body);path.Target=resetTarget;
+                var targeted=new GenericPetNativePlacement(body,unit,path,new(body.X*2,body.Y*2),resetTarget.Flags124==4?null:targetView);
+                Require(targeted.Place()==1&&body.Location==last&&path.Target==resetTarget&&path.Raw96==0&&path.Word30==0&&path.Word34==0
+                    &&(path.Flags&0x22)==0&&NativeOccurrences(body)==1,"Native monster-target reset lost position,identity or path state");
+            }
+            (path,unit)=Inputs(body);path.Target=new(1,148,1,0);uint unchangedX=path.X;
+            Refuse(()=>new GenericPetNativePlacement(body,unit,path,new(body.X*2,body.Y*2)));
+            Require(body.Location==last&&path.X==unchangedX&&path.Word34==37,"Missing target view partially changed native state");
+            path.Target.Variant=2;Refuse(()=>new GenericPetNativePlacement(body,unit,path,new(body.X*2,body.Y*2),targetView));
+            Require(body.Location==last&&path.X==unchangedX&&path.Word34==37,"Mismatched target view partially changed native state");
             (path,unit)=Inputs(body);path.Mask60=1;Refuse(()=>new GenericPetNativePlacement(body,unit,path,target));
             Require(body.SavedText==original.State&&SkillHealth.Balance256(body)==original.Life&&SkillHealth.Maximum256(body)==original.Maximum
                 &&body.ControlMaster==owner&&World.FindItem((Serial)original.Helm)?.Parent==owner&&NecromancerEffects.ManaBalance256(owner)==original.Mana
@@ -97,6 +115,6 @@ public static class PetNativePlacementChecks
             Require(prior.Length==2&&prior.All(x=>originals.Any(y=>x.Body==y.Body&&x.Owner==y.Owner&&x.Life==y.Life&&x.Mana==y.Mana&&x.Order==y.Order)),"Native placement original identity did not survive reload");
         }
         File.WriteAllText(Manifest,JsonSerializer.Serialize(originals.Select(x=>Scene(x,generation)).ToArray()));
-        Log.Information("Native pet placement:generation{Generation},two original actors;self-footprint,real wall,blocked skip floor,cross-room/native-sector membership and reuse guards pass;birth/wounds/owner/gear/mana/order retain;automatic AI/current wire transport remain unfinished",generation);
+        Log.Information("Native pet placement:generation{Generation},two original actors;self-footprint,real wall,blocked skip floor,cross-room/native-sector membership and reuse guards pass;eight monster-target resets and four missing/mismatched-view refusals retain birth/wounds/owner/gear/mana/order;automatic AI/current wire transport remain unfinished",generation);
     }
 }

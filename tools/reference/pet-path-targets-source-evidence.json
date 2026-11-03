@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete current path reset with actual primary monster getter and owned rows",
+  "cases": 4826,
+  "unsupportedCases": 48,
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "Real getter and complete reset/coordinate routines execute. The three synthetic selector slots explicitly bind the same supplied owned table; actual game selector aliasing is not inferred.",
+    "Room/coordinate link leaves remain the existing declared services. The native movement scenes are separate evidence."
+  ],
+  "artifacts": {
+    "tools/probe_pet_path_targets.py": "9e446a57494daed6b64d24bc7b77fd905bfe6a81972649dde96bb1e6c5715c01",
+    "tools/probe_generic_pet_path_commit.py": "3cd99aac00011e8db2a5da818771efd3f9744523baa58848a08a711faf98e840",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103.json": "925d3a27e1db9d0ce9fd13265bddc006c9c35be0b262ea961b0aead725fe5050",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part0.bin": "68dab8c6dd5590516be4c92eb45dddd96affb79b94149031534eb6bc230349b1",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part1.bin": "9d36e544636e11da9268966bec19b7a6bc7f3f703dee4172380940b661d532db",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part2.bin": "644e299678e5fb618a38762c843f984d65dbffae46e363b35ed2fca794330f48",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part3.bin": "a86fd2f290880dc5494ef27c6b3d4b7b4b9b197ee62f197acfc30f8b30676146",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part4.bin": "4bec65cfb8b852cc4ffb49a55f13388302614b8e2efb76a745bffdb527d0e7ec",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-leaves-20261103.json": "9f30f16ed4baa5378a22f30395f3abab4cd523ceb6c673601c0b56953ed09257",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-leaves-20261103-285440-part0.bin": "e1481d12a48aeba81abe5456725314cc7f61dc8d611f6be335397a4252596bc7",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-leaves-20261103-2863f0-part0.bin": "f6307dc5709f7419be1b93d3e7b26c419d603b424416cd1332a322c755ba3f94",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030.json": "9863f6e7ac832299d981fd8be7a7caa05499d381a5c338be15e276798febce89",
+    ".local/class-skills/warlock-runtime-reference/callees-live-search-services-idle-20261030-6bc90-part0.bin": "f2c4c2cd1a24212df20c3096fc02ef07f69cad0f4143b76503680e4a227f7110",
+    ".local/class-skills/pet-path-targets-reference-20261103/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/pet-path-targets-source-probe.json",
+    "sha256": "c6a596e3f6f5cb6b95d73e6d5bf4fd38ad88883a45ad903ecb0bdaab11b1c4c0"
+  }
+}

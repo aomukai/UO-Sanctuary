@@ -1,5 +1,7 @@
 # Skill effects
 
+**Primary pet target-reset acceptance (2026-11-03 JST).** Target metadata adds no artwork or audio. Native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](pet-path-targets-checkpoint.md).
+
 **Current room-link/hook acceptance (2026-11-03 JST).** Reference comparisons add no new artwork or sound. Native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay independently pending. See [checkpoint](pet-room-links-checkpoint.md).
 
 **Native prepared-pet placement (2026-11-03 JST).** Actual world movement still uses identified native body/movement/teleport/contact/death/audio placeholders. This backend adds no separate final artwork;effects/audio remain pending independently. See [checkpoint](pet-native-placement-checkpoint.md).

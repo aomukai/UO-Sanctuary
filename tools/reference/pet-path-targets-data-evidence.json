@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Primary monster byte61 for current path-target reset",
+  "verified": {
+    "rows": 751,
+    "stride": 508,
+    "compiledTextFlagMatches": 6008,
+    "inTownRows": 115,
+    "resetMask": 2,
+    "resetFlag": "interact"
+  },
+  "fields": {
+    "offset": 61,
+    "bits": [
+      "npc",
+      "interact",
+      "inTown",
+      "lUndead",
+      "hUndead",
+      "demon",
+      "flying",
+      "killable"
+    ]
+  },
+  "processMemoryRead": false,
+  "handlerEnabled": false,
+  "artifacts": {
+    "tools/reference/generic-pet-search-tables-data-evidence.json": "0190e7eaf59de19b5b0877ed538289dacaaeb9a801dec387edce471130a75229",
+    ".local/class-skills/pet-path-targets-reference-20261103/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/pet-path-targets-reference-20261103/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    "tools/build_pet_path_target_tables.py": "b07573ac13fdd191f8161194767887876af482e300a47e57971dc556c4a2cc14",
+    "data/Sanctuary/Balance/generic-pet-path-targets.json": "6ccb55da55077e988694535832d95421408df4a4ad67a57573381a7ec9cd187a"
+  },
+  "limits": [
+    "Primary monstats flags; not secondary monster metadata. Views bind one explicit selector; actual selector aliases and world target acquisition remain separate."
+  ]
+}
