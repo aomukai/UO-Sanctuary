@@ -1,5 +1,7 @@
 # Sorceress Inferno: reuse and remaining binding
 
+**Controller update2026-11-03:** Actual supplied-intent fire/cold mode binding is now implemented and accepted in the [shared-controller checkpoint](player-inferno-modes-checkpoint.md). Modern accepted input/payment frequency remains unresolved. The generated roadmap blocker has been corrected; older mode-binding/SQ6gap statements below describe historical preparation.
+
 **Update 2026-11-03:** The shared Sorceress fire-stream binding below is now prepared and verified within [its checkpoint](inferno-stream-checkpoint.md). Existing identity119flames remain unchanged. Actual mode binding and modern accepted-input/payment cadence still gate the learned handler. The remaining sections record the earlier preparation and reuse decisions.
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This is read-only preparation while the combined Necromancer run finishes; it changes no handler, runtime data, assembly or save. Inferno remains the one unregistered Sorceress talent. Asset work does not block mechanical implementation.

@@ -25,7 +25,7 @@ public static class ArcticModeChecks
     {try{run();Log.Information("{Name}: passed",n);}catch(Exception e){Log.Error(e,"{Name}: failed",n);}}));
     public static void Configure()
     {
-        Rates();Register("arctic-mode-rate-check",RateCheck);Register("arctic-mode-reload-check",Reload);
+        Rates();Register("arctic-mode-check",RateCheck);Register("arctic-mode-rate-check",RateCheck);Register("arctic-mode-reload-check",Reload);
         Register("arctic-mode-live-check",()=>FixtureClock.NextLoop("arctic-mode-live-result",()=>FixtureNetwork.Connected("arctic-mode-live-result",Live)));
     }
     [CallPriority(int.MaxValue)]public static void Initialize()=>Rates();

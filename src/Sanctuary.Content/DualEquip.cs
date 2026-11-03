@@ -94,7 +94,7 @@ public static class DualEquip
     private static void Refresh(PlayerMobile owner)
     {
         if(owner.Deleted || !ClassCombat.Enabled(owner)){return;}
-        ClassGear.Refresh(owner);BladeFuryModes.EquipmentChanged(owner);DruidArcticModes.EquipmentChanged(owner);StatNetwork.Send(owner);ClassGear.Changed(owner);
+        ClassGear.Refresh(owner);BladeFuryModes.EquipmentChanged(owner);PlayerInfernoModes.EquipmentChanged(owner);StatNetwork.Send(owner);ClassGear.Changed(owner);
     }
     private sealed class Denied:IClassEquipTransaction
     {
