@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Druid human SC routing (2026-11-04 JST).** Eighteen supported human routes now reuse the existing source-backed human/form cast clock through central timing. Eight owned DZSC records project to 15/208/action8; transformations, prepared vines and active-form clocks retain their existing paths. Source/native/start/cancel/gear/input and original form/cooldown reload scope are recorded in [the checkpoint](druid-human-cast-clock-checkpoint.md). Current client and remaining skill gaps stay explicit; no class is newly complete.
+
 **Assassin SC timing (2026-11-04 JST).** Seven supported ordinary cast routes now use ten owned 17/256/action9 records, including claw variants. Blade Shield shares the literal source clock while retaining its paid-start state and separate initial pulse. S2 placement, martial arts, channel and Shadow boundaries stay separate. Source/native/gear/input and original Shield reload scope are recorded in [the checkpoint](assassin-cast-clock-checkpoint.md). Current client timing and remaining mechanics stay explicit; no class is newly complete.
 
 **Sorceress SC timing (2026-11-04 JST).** All 23 ordinary active cast routes, including Teleport, now use the eight owned 14/256/action7 records. Lightning/Chain Lightning retain SQ12; Inferno remains unavailable. Source/native/start/cancel/gear/input and original Teleport scroll/resource reload coverage are recorded in [the checkpoint](sorceress-cast-clock-checkpoint.md). Current client and remaining per-skill gaps remain explicit; no class is newly complete.

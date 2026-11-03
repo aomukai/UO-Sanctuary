@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Druid human SC routing (2026-11-04 JST).** Reuse `DruidFormCastClock` and its existing 2,590-case source proof for ordinary human casts. The eight-row metadata projection validates the old receipt rather than recompiling duplicate functions. Keep active-form priority, transformation/vine transactions and Shock Wave/weapon/channel boundaries intact. See [checkpoint](druid-human-cast-clock-checkpoint.md).
+
 **Assassin SC timing (2026-11-04 JST).** Reuse `SourceCastClock` with all ten owned AISC records, including HT1/HT2, for the seven admitted SC routes. Blade Shield delegates its separate timing entry to the same clock; preserve its paid-start state and action-time pulse. Do not apply the override to S2, martial arts or channel routes, or infer client repeat readiness from a server epoch. See [checkpoint](assassin-cast-clock-checkpoint.md).
 
 **Sorceress SC timing (2026-11-04 JST).** Reuse `SourceCastClock` through central timing for all 23 ordinary SC routes. Include the separate Teleport controller via its existing `CombatTiming.For` call. Keep Lightning/Chain Lightning and Inferno on their sequence paths; preserve Teleport save-coordinator composition and original scroll/resource guards. See [checkpoint](sorceress-cast-clock-checkpoint.md).

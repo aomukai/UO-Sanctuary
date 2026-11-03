@@ -1,5 +1,7 @@
 # Skill icons
 
+**Druid human SC routing (2026-11-04 JST).** Talent/left/right/quick icons remain separately pending; the routing change adds no binding or finished icon. See [checkpoint](druid-human-cast-clock-checkpoint.md).
+
 **Assassin SC timing (2026-11-04 JST).** Talent/left/right/quick icons remain pending and separate; no binding or finished icon is added. See [checkpoint](assassin-cast-clock-checkpoint.md).
 
 **Sorceress SC timing (2026-11-04 JST).** Talent/left/right/quick icons remain pending and separately tracked. No new binding or finished icon is added. See [checkpoint](sorceress-cast-clock-checkpoint.md).

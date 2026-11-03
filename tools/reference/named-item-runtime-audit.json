@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "9f3e784fe9704c00f5f76bb8d84f01b6cc6b465703629ca6984181cae1486b2d",
+  "ContentAssemblySha256": "7628e3f70c249b887aa8623e12af9784ec9febad0a7849471f4b9171aa25bbe0",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -35,6 +35,7 @@
     "data/Sanctuary/Balance/creature-templates.json": "c83dc0851b3af25df5ead41f7fba3926be5d953c1f48ba6e3393a017e6f11ff7",
     "data/Sanctuary/Balance/d2-creature-fields.json": "55c725751934b5fb2aa21714adb87d647aa060c6a1f57825b03c09d1cab9f6af",
     "data/Sanctuary/Balance/d2-monsters.json": "d0e228882dc64cfca3e2c034195b37adb0c6c7969ec77f39706a1bdec3e9b866",
+    "data/Sanctuary/Balance/druid-human-cast-clock.json": "57fa67d78845e0f69b98ea7fc2ff19c151e7dba5ad576137e9f14b5926412d12",
     "data/Sanctuary/Balance/druid-npc-skills.json": "a1035f769a665a187fa2c867dc4825834a2db02705f9ee8ded7c5b3d4e088084",
     "data/Sanctuary/Balance/druid-spirit-auras.json": "a787100804a8a6c0d43aa26e49dafa6fc259dba5c0e143c68018f1de2d40da5b",
     "data/Sanctuary/Balance/economy.json": "57f0c8cb316b4c243909bd82a085e66b407557199328f326516040e689ecd5e6",
@@ -255,7 +256,7 @@
     "shared/StatProtocol.cs": "ce1aeef635fb8699814cd28e5a380f90d476e6f0fbdf5af84c67b217454a0292",
     "shared/TitleProtocol.cs": "a979934452eef58e096dc42a733e4b4d271faa07a6ff173cae893a2bca04db31",
     "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe",
-    "src/Sanctuary.Content/ActionTiming.cs": "7a839e35e158d40e63ba6bb6fe1c52de52e117c86f16cc22d7bac48361210566",
+    "src/Sanctuary.Content/ActionTiming.cs": "7f50ea433bd07aed4c3d952682ce0074c0481ad058f3c0868aeb096b718abf86",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/AlchemyGump.cs": "799f2ff47e4e02aeef16221fdc6d12aa786cdbce18d2fe95f5f3092b5ea05ea3",
     "src/Sanctuary.Content/AlchemyRestoratives.cs": "47b987dac4173c72beb247503ee19cc0bf425cbcf6b9a60e56c496d102d49fb1",
@@ -480,6 +481,7 @@
     "src/Sanctuary.Content/DruidGrizzlyStats.cs": "6592b63294eba1b343bbd7392997b68f7ea1c87c96a09eb8711feb248d37b88e",
     "src/Sanctuary.Content/DruidGrizzlyWorld.cs": "34bde64cad7b2c8fd93ebcbd291d01de2e0453907c55f190b3c1938a853fadfe",
     "src/Sanctuary.Content/DruidGroundCasting.cs": "c6a4a005d6ba7af2d4b7e6798b29c9baae899a6d5728c1595110ce3197acd1f2",
+    "src/Sanctuary.Content/DruidHumanCastClock.cs": "724e0409789c46c0ca19d72ee0dd2293ad9c2876b5d16283ce33fc23f204b756",
     "src/Sanctuary.Content/DruidHunger.cs": "65647f02452fe9eb6cc2b7cd2de1ea4af5e648a542569da464ebb5782be107c8",
     "src/Sanctuary.Content/DruidHurricane.cs": "481e23f0768c2fcaaefc4091e6d28a01dd99803b2ad60d2bbca27546cb53f0fa",
     "src/Sanctuary.Content/DruidMoltenBoulder.cs": "f960e93097fb93c44fdc58e3ad42f0761eb1b81e8497a8741591b2b09ae154dc",
