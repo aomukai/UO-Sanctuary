@@ -93,7 +93,7 @@ public static class FindPotionChecks
         }
         throw new InvalidOperationException("No Find Potion corridor");
     }
-    private static Corpse Body(PlayerMobile owner,int level=1,bool soft=true)
+    internal static Corpse Body(PlayerMobile owner,int level=1,bool soft=true)
     {
         // Test-only scoped catalogue override:the actual creature level is read
         // by production capture at death. Restore the catalogue immediately.

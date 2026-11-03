@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Barbarian SC timing (2026-11-04 JST).** Nine supported shout/warcry/corpse-search routes now use the twelve owned 14/256/action9 records, including dual-wield variants. Find Item/Potion retain start payment; Battle Orders retains resource rescaling before payment. Four deferred skills remain unavailable. Source/native/gear/input and original Orders reload scope are recorded in [the checkpoint](barbarian-cast-clock-checkpoint.md). Current client and remaining mechanics stay explicit; no class is newly complete.
+
 **Paladin SC timing (2026-11-04 JST).** Holy Bolt, Blessed Hammer, Holy Shield and FoH now use the owned 16/256/action9 records through the shared source cast clock. Holy Shield retains start payment; the other spells retain release payment. Auras and weapon clocks are excluded. Source/native/gear/input and paid-action reload coverage are recorded in [the checkpoint](paladin-cast-clock-checkpoint.md). Current client/frame-origin and remaining skill/world gaps stay explicit; no class is newly complete.
 
 **Necromancer SC timing (2026-11-04 JST).** All26 active SC routes now select the owned16/256/action8 clock through central timing,including Raise Skeleton's separate start. Poison Dagger retains its weapon clock. Shared arithmetic preserves Amazon outputs. Source/native/gear/input and retained summon acceptance are recorded in [the checkpoint](necromancer-cast-clock-checkpoint.md);client/frame-origin and remaining pet/AI/initializer gaps stay open. No class is newly complete.

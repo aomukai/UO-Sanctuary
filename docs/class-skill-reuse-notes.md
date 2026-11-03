@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Barbarian SC timing (2026-11-04 JST).** Reuse `SourceCastClock` for all twelve BASC records and the nine admitted active routes. Preserve the separate corpse-search start transactions and Battle Orders resource/payment order. Native fixtures reuse the existing original-corpse factories; do not create synthetic corpse metadata or infer the four deferred skill contracts. See [checkpoint](barbarian-cast-clock-checkpoint.md).
+
 **Paladin SC timing (2026-11-04 JST).** Reuse `SourceCastClock` with the eight owned PASC records for the four ordinary Paladin spells. Route through central timing; preserve Holy Shield start payment and other release transactions. Keep auras and weapon skills outside this override. See [checkpoint](paladin-cast-clock-checkpoint.md).
 
 **Prepared Slow Missiles windup (2026-11-04 JST).** Reuse AmazonSlowMissilesCasting with SkillCombat.BeginPrepared,AmazonCastClock and the original do6 Commit. Only a server-created transient session context reaches this resolver;consume it before payment/search. Keep the existing source-boss/target and supported-producer boundaries. Do not use a frame-position predicate on the scheduled server epoch. See [checkpoint](slow-missiles-windup-checkpoint.md).

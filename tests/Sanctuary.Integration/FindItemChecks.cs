@@ -49,7 +49,7 @@ public static class FindItemChecks
         while(ClassCreation.Profiles.GetRank(owner.Serial,row.TalentId)<rank){Require(ClassCreation.Profiles.TryTrain(owner.Serial,row.TalentId,out var why),"Train: "+why);}
     }
     private static void Ready(PlayerMobile owner){ClassCombat.Stop(owner);ClassCombat.For(owner).NextAction=ClassCombat.For(owner).RecoveryUntil=Core.TickCount;}
-    private static Corpse Body(PlayerMobile owner,MonsterDifficulty difficulty=MonsterDifficulty.Normal,bool noRewards=false)
+    internal static Corpse Body(PlayerMobile owner,MonsterDifficulty difficulty=MonsterDifficulty.Normal,bool noRewards=false)
     {
         var victim=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=noRewards};if(difficulty!=MonsterDifficulty.Normal){MonsterVariants.Assign(victim,difficulty);}victim.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);victim.AIObject.AITimer.Stop();
         Corpse corpse=null;var prior=ClassLootHooks.CreatureDied;
