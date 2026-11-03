@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    "tools/probe_spirit_wolf_rate_reference.py": "7ab6430f9be9fd02f5cc5823738e168e69ecd379f7841b6860c8bc7181691b7c",
+    "tools/probe_tainted_fireball_cast_clock.py": "1401cc8b1560684b81048eb2ef4ee07569f06569baefbcdb4792e726e90646fd"
+  },
+  "animation": {
+    "code": "BHA2HTH",
+    "frames": 10,
+    "speed": 256,
+    "events": [
+      [
+        6,
+        2
+      ]
+    ]
+  },
+  "compiledUnchangedRoutineHashes": {
+    "gaPlayerModesAnimModulators": "506250c49e302d860e7152286215c3387f80898f103f327177d38ebf4c073346",
+    "gaMonModesAnimModulators": "d2c272e5589c6fff17185713b136325fde2a313fd7ac3014e7bb6776db2b9dc8",
+    "gaMonModesAnimModulatorsExpansion": "7afde9675eabb2d75b6d5e535b137ad1ac2ba32329d251aff95c1fdf9d82e0a6",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/tainted-fireball-cast-source/cases.json",
+    "sha256": "7842180508927d1e580f00654a48578af7ceda8f673619bf13c97fcf8fd8fc2f",
+    "cases": 401
+  },
+  "generatedSourceSha256": "ca8539350a9b371b6b67a7e60d1c3b9c9f469a341abbeccc4a55aa62b070da6e",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "established": [
+    "Owned warbighead selects NPC422 through A2, not SC. Owned BHA2HTH has10frames,base256 and one kind2event at6.",
+    "The unchanged A2 mode predicate, nonweapon attack-rate writer and initial event scheduler run together for401 total attack rates, including negative slows and15..175 clamping. No owner weapon IAS or FCR is supplied.",
+    "SourceAnimationEvents and SourceAttackRate are reused; no new timing algorithm is introduced. Native checks must prove actual scheduled once-only release into the existing saved NPC missile."
+  ],
+  "remaining": [
+    "Current mode initialization/admission/owner and live skill lookup services, complete GenericPet world/controller selection and current client/global-frame phase remain unfinished.",
+    "The cast adapter requires an explicitly supplied effective NPC rank and qualified mode request. It does not infer Battle Command/cap behavior or invent missing owner iterator effects.",
+    "Lost-target path-point fallback, mid-action rate renewal, native incoming interruption and exact current offline/reload action behavior remain separate. Unissued host actions are transient; already-issued flights retain their independent persistent lifetime."
+  ],
+  "artifacts": {
+    ".local/class-skills/tainted-fireball-cast-source/probe.cpp": "ca8539350a9b371b6b67a7e60d1c3b9c9f469a341abbeccc4a55aa62b070da6e",
+    ".local/class-skills/tainted-fireball-cast-source/probe": "52a85364c98c2595b450f8a012247ce6ffb99fe47b5eb3f4f7e0d1d0570854fd",
+    ".local/class-skills/tainted-fireball-cast-source/cases.json": "7842180508927d1e580f00654a48578af7ceda8f673619bf13c97fcf8fd8fc2f",
+    ".local/class-skills/tainted-fireball-cast-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/tainted-fireball-cast-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

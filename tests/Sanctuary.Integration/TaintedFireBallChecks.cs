@@ -28,7 +28,7 @@ public static class TaintedFireBallChecks
     private static void Register(string name, Action run) => ConsoleInputHandler.RegisterCommand(name, "Tainted real NPC Fire Ball and original saved flights", _ => Core.LoopContext.Post(() =>
     { try { run(); Log.Information("{Name}: passed", name); } catch (Exception e) { Log.Error(e, "{Name}: failed", name); } }));
     private static void Require(bool value, string why) { if (!value) { throw new InvalidOperationException(why); } }
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         var p = new PlayerMobile { Name = "TaintedFlightFixture", Player = true, Body = 0x190 }; p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p, DiabloClass.Warlock); ClassCreation.Profiles.AdvanceLevel(p, 47);

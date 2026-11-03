@@ -1,5 +1,7 @@
 # Skill effects
 
+**Tainted A2 release (2026-11-04 JST).** The automatic cast service currently changes facing and has an invisible logical A2 windup, an identified presentation placeholder. Final NPC A2 windup/release and audio are still required; generic0x36D4travel/0x36BDexplosion remain interim markers. This uses the approved existing Succubus artwork and adds no new base model request. Mechanical event scheduling proceeds independently. See [checkpoint](tainted-casting-checkpoint.md).
+
 **Tainted Fire Ball flight (2026-11-04 JST).** Saved NPC422/missile734 travel now uses generic0x36D4 and its explosion uses generic0x36BD, both identified interim markers. Final summon/cast, flight/explosion/contact and audio, Resist Fire aura, Blood Boil and hurt/death presentation remain pending. Approved existing Succubus artwork is reused. Mechanical release/transport can proceed independently; see [checkpoint](tainted-fireball-checkpoint.md).
 
 **Tainted body/hit backend (2026-11-04 JST).** A prepared saved body now reuses the approved Succubus artwork; no new base model is requested. Native sound0x4B0 and stationary/native pose are interim presentation. The qualified fire receiver adds no spell-specific visual/audio. Summon/cast, actual Fire Ball flight/explosion/contact, Resist Fire aura, Blood Boil and hurt/death feedback remain pending independently of mechanics. See [checkpoint](tainted-body-checkpoint.md).
