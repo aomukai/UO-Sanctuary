@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "reader": {
+    "library": "https://github.com/ladislav-zezula/CascLib",
+    "commit": "38a34665624b8775bb875274b36191b21c38d97b",
+    "build": "Release static, Linux compatibility compiler define LPDWORD=PDWORD; no source body patch",
+    "sourcePath": ".local/class-skills/casc-reference-reader.cpp",
+    "sourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "open": "CascOpenStorage local/offline default flags0; CascOpenFile by name with CASC_STRICT_DATA_CHECK, no encrypted-zero override or downloads",
+    "binarySha256": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063"
+  },
+  "file": {
+    "path": ".local/research/d2r-3.3.93847/dataguide/data/files/missiles.js",
+    "archivePath": "data:data/global/dataguide/data/files/missiles.js",
+    "sha256": "f33a923a700f91e26da80611a89f2d2f1c7d18cc0642ee311cac27e7f5474192",
+    "bytes": 173614
+  },
+  "fields": {
+    "pSrvDoFunc": "Uses an ID value to select a specialized function for the missile's behavior while active every frame on the server side",
+    "CollideType": "Defines the missile's collision type, which controls what units, objects, or parts of the environment that the missile can impact",
+    "LastCollide": "Boolean Field. If equals 1, then the missile will track the last unit that it collided with, which is useful for making sure the missile does not hit the same unit twice. If equals 0, then ignore this.",
+    "NextHit": "Boolean Field. If equals 1, then the missile will use the next delay. If equals 0, then ignore this.",
+    "NextDelay": "Controls the delay in frame length until this and any other missiles from the same skill cast are allowed to hit the same unit again. This field relies on the $!#NextHit!$ field being enabled."
+  },
+  "established": [
+    "The pinned shipped NextDelay documentation explicitly describes sharing among missiles from the same skill cast. NextHit must be enabled. LastCollide is a distinct last-recipient identity."
+  ],
+  "limits": [
+    "Documentation does not establish the precise NPC cast identity: individual sentry placement versus each NPC skill execution and descendants. The prepared Wake backend explicitly supplies a do125 execution scope; learned dispatch remains gated.",
+    "No current executable scheduling, collision enumeration, retirement or full skill certificate follows from this read-only extraction. Raw shipped files remain local and ignored."
+  ]
+}

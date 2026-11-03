@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Wake backend (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders. Learned Wake/default dispatch are still gated; the travelling-fire backend creates no new binding or artwork. Effects/audio remain separate. See [checkpoint](wake-fire-missiles-checkpoint.md).
+
 **Learned Death Sentry (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders; the pinned skill is right-slot only. Mechanical availability does not complete artwork. Effects/audio remain separate. See [checkpoint](assassin-death-learned-checkpoint.md).
 
 **Learned Wake of Inferno (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders; the pinned skill is right-slot only. Mechanical availability does not complete artwork. Effects/audio remain separate. See [checkpoint](assassin-inferno-learned-checkpoint.md).

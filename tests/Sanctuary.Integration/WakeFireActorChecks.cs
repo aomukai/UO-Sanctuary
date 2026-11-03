@@ -93,7 +93,7 @@ public static class WakeFireActorChecks
             var blade=BladeSentinelSummons.Create(p,new(p.X+8,p.Y,p.Z),DateTime.UtcNow.AddDays(1));
             var cbs=AssassinSentryBody.CreatePrepared(p,new(p.X+3,p.Y,p.Z),DateTime.UtcNow.AddDays(1),1);
             var bodies=Enumerable.Range(0,5).Select(_=>Create(p)).ToArray();
-            Require(blade.Deleted&&cbs.Deleted&&AssassinTrapRoster.For(p).Select(x=>x.Actor).SequenceEqual(bodies.Select(x=>x.Serial.Value)),"Mixed Blade/CBS/Wake cap5 FIFO");
+            Require(blade.Deleted&&!cbs.Alive&&!cbs.Deleted&&cbs.Prepared.Retirement!=null&&AssassinTrapRoster.For(p).Select(x=>x.Actor).SequenceEqual(bodies.Select(x=>x.Serial.Value)),"Mixed Blade/CBS/Wake cap5 FIFO");
             Require(bodies.All(b=>b.Prepared.Creation is{Ability:CombatAbility.WakeOfFire,Rank:1,Level:75,Life256:25600}
                 &&b.Prepared.Control==null&&b.Prepared.WakeControl is{Mode:8,NextThink:25,EndAt:15}
                 &&b.SummonMaster==p&&b.HitsMax==100&&!b.BlocksFit&&!b.CanBeDamaged()&&!b.UsesNativeSummonTimer

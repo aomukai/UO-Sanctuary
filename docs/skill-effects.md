@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Wake travelling fire (2026-11-03 JST).** Real maker/wave mechanics use native0x36D4/hue0x489 as an identified placeholder. Final E9 actor emergence/firing/neutral/collapse, source517trail, spreading518wave/contact and audio remain missing. No final artwork follows from travelling damage. See [checkpoint](wake-fire-missiles-checkpoint.md).
+
 **Learned Death Sentry (2026-11-03 JST).** Native S2 throw/sound 0x23B, body 0x9C/hue 0x482, lightning marker 0x3818/hue 0x482 and corpse explosion 0x36BD are identified placeholders. Final LG emergence/firing/neutral/death, missile641 travel/contact, physical/fire explosion and audio remain pending. Logical casting/retirement does not complete visuals. See [checkpoint](assassin-death-learned-checkpoint.md).
 
 **Learned Wake of Inferno (2026-11-03 JST).** Native S2 throw/sound 0x23B, body 0x9C/hue 0x489 and fire marker 0x36D4/hue 0x489 remain identified placeholders. Final E9 emergence/sequence/firing/neutral/death actor, beam/trail/contact and audio remain pending. Logical 25-frame death timing supplies no collapse artwork. See [checkpoint](assassin-inferno-learned-checkpoint.md).
