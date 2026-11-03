@@ -716,7 +716,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated learned creation across all four golems checks hard1/20 and actual Wormskull effective21, life/AR/velocity and approved damage contributions, one-golem replacement, once-only windup/payment, original Iron material, gear removal/respec without recapture and original wounded actors through two reloads. Existing complete source birth matrices remain retained. See golem-mastery-checkpoint.md. Current executable movement/event/initializer/owner/client equivalence, unsupported inherited properties and unheld/old-binary snapshots remain separate; no skill/class completion certificate."
     },
     {
       "talentId": "necromancer.skeletalmage",
