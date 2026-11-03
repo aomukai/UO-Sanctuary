@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Current footprint pattern versus size (2026-11-03 JST).** Reuse `GenericPetCollisionFootprints.Bind` with prepared path services;pattern and size dispatch are distinct. Preserve full-int occupancy gates even when low16 mask bits vanish,and retain direct cell/adjacent/box ordering.7,360captured-code/native contexts and3,240path compositions pass per boot. Low-level room/adjacent/box geometry remains explicit. See [checkpoint](generic-pet-footprints-checkpoint.md).
+
 **Shared current coordinate/room/reset state (2026-11-03 JST).** Use `GenericPetPathCommit` through prepared monster placement rather than substituting a bare native teleport. Missile and ordinary footprint paths,coordinate projection,room link/touch and reset have distinct ordering.8,184current-code/native cases and684placement bindings pass per boot;collision/room/metadata services and actual controller remain explicit. Preserved footprint/nearby code is next. See [checkpoint](generic-pet-path-commit-checkpoint.md).
 
 **Original actor connected return (2026-11-03 JST).** Use the existing load/suspension/return conductor for saved skeletons. Two natural reconnect scenes retain exact original owner/body/capture/wounds/order/resources/deadline and continue the saved unarmed RNG;do not recreate or reseed an actor on login. Test authentication and release of an inspection hold remain fixture operations,not a graphical-login certificate. See [checkpoint](pet-reconnect-checkpoint.md).

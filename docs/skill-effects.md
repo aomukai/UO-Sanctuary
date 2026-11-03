@@ -1,5 +1,7 @@
 # Skill effects
 
+**Current footprint dispatch (2026-11-03 JST).** Collision masks and occupancy lanes require no independent artwork. Existing native pet movement/teleport/body/combat/hurt/death/audio cues remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](generic-pet-footprints-checkpoint.md).
+
 **Current path commitment backend (2026-11-03 JST).** Raw coordinate/room/reset preparation adds no independent artwork. Existing native pet movement/teleport/body/combat/hurt/death/audio cues remain identified placeholders;final effects/audio remain pending. Mechanical helper acceptance does not certify world relocation or final presentation. See [checkpoint](generic-pet-path-commit-checkpoint.md).
 
 **Original pet reconnect acceptance (2026-11-03 JST).** Returning the existing saved body adds no new art or mandatory summon flash. Existing native body/step/attack/contact/death/audio remain identified placeholders;final effects stay independently pending. See [checkpoint](pet-reconnect-checkpoint.md).

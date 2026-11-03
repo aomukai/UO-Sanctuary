@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current footprint pattern/size dispatch and composed path commitment",
+  "cases": 7360,
+  "byFamily": {
+    "checkPattern": 896,
+    "addPattern": 806,
+    "removePattern": 806,
+    "addSize": 806,
+    "removeSize": 806,
+    "bound": 3240
+  },
+  "unsupportedCases": 210,
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "Complete five wrappers,including both inline six-entry dispatch tables,run with explicit adjacent/box/check/room services. Tables are data and are forbidden instruction addresses.",
+    "Direct low16 grid writes execute against supplied source grid metadata. Out-of-span access is unsupported with retained prior service effects. Low-level adjacent/box geometry and real native room/collision ownership remain separate."
+  ],
+  "artifacts": {
+    "tools/probe_generic_pet_footprints.py": "326452d2b42fbf575d53d500efb4b0522b1b02761be57fe5810ff290869bdd4a",
+    "tools/probe_generic_pet_path_commit.py": "3cd99aac00011e8db2a5da818771efd3f9744523baa58848a08a711faf98e840",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103.json": "925d3a27e1db9d0ce9fd13265bddc006c9c35be0b262ea961b0aead725fe5050",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part0.bin": "68dab8c6dd5590516be4c92eb45dddd96affb79b94149031534eb6bc230349b1",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part1.bin": "9d36e544636e11da9268966bec19b7a6bc7f3f703dee4172380940b661d532db",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part2.bin": "644e299678e5fb618a38762c843f984d65dbffae46e363b35ed2fca794330f48",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part3.bin": "a86fd2f290880dc5494ef27c6b3d4b7b4b9b197ee62f197acfc30f8b30676146",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-nearby-20261103-286fa0-part4.bin": "4bec65cfb8b852cc4ffb49a55f13388302614b8e2efb76a745bffdb527d0e7ec",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-leaves-20261103.json": "9f30f16ed4baa5378a22f30395f3abab4cd523ceb6c673601c0b56953ed09257",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-leaves-20261103-285440-part0.bin": "e1481d12a48aeba81abe5456725314cc7f61dc8d611f6be335397a4252596bc7",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-leaves-20261103-2863f0-part0.bin": "f6307dc5709f7419be1b93d3e7b26c419d603b424416cd1332a322c755ba3f94",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103.json": "bdb513b29fd005ea06d26f8af059ffeb11ccd4d7e18028ac69444e7da0097630",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5f00-part0.bin": "b5a40bc6e49855d825c0615540779b32c982d093cd6569f4f7a7471680810a3b",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5fd0-part0.bin": "cd621c9e75f46029d88ff6e1e72b44ced001664a2177a3f4cbe3a7a513341dc6",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5fd0-part1.bin": "96c4be3bb0038888ad7b2091967ba53160c4e93c37b1458cfe3282614433bed9",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5fd0-part2.bin": "70a86c5d04c67d7ac8cfbbb4041026bd2420fd43d31d1309c7ab2cad9eca3f0a",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5d30-part0.bin": "22ab2ebe24428ee1c7e437c1ed94bbc4c31eb47e00a6739f5d960e22847c3176",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5d30-part1.bin": "260a1c3a11bb5ad4c96c3c6efbb18148be2601f55eea77c1341618b7401b9c81",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5d30-part2.bin": "9c34c25479354d9bd1fc094d15fbdd699c203f4c98d703aa5b7f9961bb1d6526",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5c70-part0.bin": "390c84a00d689e49822630c2262bfbdb5b8ac67e0f71f4f064527f38918295cf",
+    ".local/class-skills/pet-path-commit-reference-20261103/callees-path-commit-footprints-20261103-2a5bf0-part0.bin": "0a4932199d26354d0201da5d9b45a71aa06514aacc6f3f3a4a0592909904c1a3",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/generic-pet-footprints-source-probe.json",
+    "sha256": "ae69ed9986f77362ff4c33a3f90a0e68f50361720650e01d06441173373dc58c"
+  }
+}

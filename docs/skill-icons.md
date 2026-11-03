@@ -1,5 +1,7 @@
 # Skill icons
 
+**Current footprint dispatch (2026-11-03 JST).** Shared collision bookkeeping adds no talent or hotkey. Existing class summon tree/right/quick icons remain separately pending. See [checkpoint](generic-pet-footprints-checkpoint.md).
+
 **Current path commitment backend (2026-11-03 JST).** Prepared placement adds no talent or hotkey. Warlock/Witch summon tree/right/quick icons remain separately pending;no new helper icon is required. See [checkpoint](generic-pet-path-commit-checkpoint.md).
 
 **Original pet reconnect acceptance (2026-11-03 JST).** Reconnecting an existing actor adds no skill/hotkey. Raise Skeleton talent/right/quick artwork remains separately pending. See [checkpoint](pet-reconnect-checkpoint.md).
