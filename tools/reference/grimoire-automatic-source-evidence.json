@@ -1,0 +1,220 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Normal Grimoire automatic selection source comparison",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "compiledUnchangedRoutines": {
+    "ITEMS_ComputeCraftedMagicAffixLevel": "4cfbfd594bbe083865b64fadf2143ff03997da3f96fe01ef9ea37b5b488c6495",
+    "ITEMMODS_AffixPlayerClassisCompatible": "6e116bce01b48e3b52d40a29a838d83aa7a29fc951b1f672a06b820c2bef34d6",
+    "ITEMMODS_HasAffixWithGroup": "4e2bb2845d727cebad6cbd8e8adf6c2ea276421c6817b080c1df1b861958608f",
+    "ComputeAffixFrequency": "dadcfea34b12a1570d253f83e1b3ef6c5bc48ae536a5340042c522f3c3898549",
+    "MagicItemRollAffix": "a2ee16098705bd7d77b061f5a333b2168d6b1f9933bda938ffba56f752009b13",
+    "ITEMS_RollMagicAffixesNew": "d2b0be39a81efc94e689ab209a0ca69471d16e65c81211344a9c526735f12515",
+    "ITEMMODS_CanItemHaveMagicAffix": "0a03cc5229d75bb3d2ffd29323c6285461b77514678bccecd96fff4e15cf6cad",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "cases": 11880,
+  "bases": 15,
+  "itemLevels": 99,
+  "seeds": 8,
+  "quality": 2,
+  "automaticGroup": 306,
+  "inputs": {
+    "tools/reference/valkyrie-affix-engine-evidence.json": "4bb0e1ff98cbdc23dbc4c969d8f65a41a57c50e893c57a0cb1ad32502b83cebf",
+    ".local/class-skills/valkyrie-affix-source-probe.cpp": "0a366b0a9eebe0b3053f591c357cc415f34aece3d87fa628edfb43be58b103f5",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/itemtypes.json": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/reference/d2r-named-equipment/json/armor.json": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/warlock-hands-reference/grimoire-extraction.json": "490a61cb74c8965dc614ead98e6141d303a6a1a40b081db5024d57b248365420",
+    ".local/class-skills/warlock-hands-reference/automagic.txt": "aa5b30aa2bf51460955a5fb3ad5e9017607eac8e8cce40f9c7b08aeb9ffcb7df",
+    "data/Sanctuary/Balance/warlock-grimoire-bases.json": "8abbca53228d4d17f79fb50ebc55f0be441187cd508d8b2df3a5faf91adef1bd",
+    "tools/probe_grimoire_automatic.py": "fd3ba9c2fbefcf3c3017ba885eaa59fde41dff31d6dc51b80a046132f77dda21"
+  },
+  "artifacts": {
+    ".local/class-skills/grimoire-automatic-source/probe.cpp": "e8450caa7341665fa19e0fb59b0fba6317a8d3b9f271a145ef31d0250abe6151",
+    ".local/class-skills/grimoire-automatic-source/probe": "6b54f8fa7d5d9b3178c8d50cbe17396a99eb9eded0a9f47ba4a76e67db4d51e7",
+    ".local/class-skills/grimoire-automatic-source/cases.json": "ddeb952b3168f41f6ee2f80e4351d3cb84772ea8391fc30e6b447c767bd1318b",
+    ".local/class-skills/grimoire-automatic-source/rows.json": "656b2f37ddf23984fb56633e2d1d3ff69f62cb343354447b3b66ae3b245999ad",
+    ".local/class-skills/grimoire-automatic-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/grimoire-automatic-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/grimoire-automatic-source/diagnostic-1/probe.py": "8ef9c2acccdebd7829584d937a7103cb3dfd87fe44036be4df5c86dd2f12e731",
+    ".local/class-skills/grimoire-automatic-source/diagnostic-1/run.log": "7501a780c236530d4cf767151c718970841eb1edd11be1049f1021c3f45b646e"
+  },
+  "staffmodContiguousIdGroups": [
+    [
+      {
+        "id": 373,
+        "name": "Summon Goatman",
+        "requiredLevel": 1
+      },
+      {
+        "id": 374,
+        "name": "Demonic Mastery",
+        "requiredLevel": 1
+      },
+      {
+        "id": 375,
+        "name": "Death Mark",
+        "requiredLevel": 6
+      },
+      {
+        "id": 376,
+        "name": "Summon Tainted",
+        "requiredLevel": 12
+      },
+      {
+        "id": 377,
+        "name": "Summon Defiler",
+        "requiredLevel": 18
+      }
+    ],
+    [
+      {
+        "id": 378,
+        "name": "Blood Oath",
+        "requiredLevel": 6
+      },
+      {
+        "id": 379,
+        "name": "Engorge",
+        "requiredLevel": 24
+      },
+      {
+        "id": 380,
+        "name": "Blood Boil",
+        "requiredLevel": 18
+      },
+      {
+        "id": 381,
+        "name": "Consume",
+        "requiredLevel": 30
+      },
+      {
+        "id": 382,
+        "name": "Bind Demon",
+        "requiredLevel": 30
+      }
+    ],
+    [
+      {
+        "id": 383,
+        "name": "Levitate",
+        "requiredLevel": 1
+      },
+      {
+        "id": 384,
+        "name": "Eldritch Blast",
+        "requiredLevel": 24
+      },
+      {
+        "id": 385,
+        "name": "Hex Bane",
+        "requiredLevel": 1
+      },
+      {
+        "id": 386,
+        "name": "Hex Siphon",
+        "requiredLevel": 24
+      },
+      {
+        "id": 387,
+        "name": "Psychic Ward",
+        "requiredLevel": 18
+      }
+    ],
+    [
+      {
+        "id": 388,
+        "name": "Echoing Strike",
+        "requiredLevel": 12
+      },
+      {
+        "id": 389,
+        "name": "Hex Purge",
+        "requiredLevel": 12
+      },
+      {
+        "id": 390,
+        "name": "Blade Warp",
+        "requiredLevel": 18
+      },
+      {
+        "id": 391,
+        "name": "Cleave",
+        "requiredLevel": 6
+      },
+      {
+        "id": 392,
+        "name": "Mirrored Blades",
+        "requiredLevel": 30
+      }
+    ],
+    [
+      {
+        "id": 393,
+        "name": "Sigil Lethargy",
+        "requiredLevel": 6
+      },
+      {
+        "id": 394,
+        "name": "Ring of Fire",
+        "requiredLevel": 6
+      },
+      {
+        "id": 395,
+        "name": "Miasma Bolt",
+        "requiredLevel": 1
+      },
+      {
+        "id": 396,
+        "name": "Sigil Rancor",
+        "requiredLevel": 12
+      },
+      {
+        "id": 397,
+        "name": "Enhanced Entropy",
+        "requiredLevel": 24
+      }
+    ],
+    [
+      {
+        "id": 398,
+        "name": "Flame Wave",
+        "requiredLevel": 18
+      },
+      {
+        "id": 399,
+        "name": "Miasma Chains",
+        "requiredLevel": 12
+      },
+      {
+        "id": 400,
+        "name": "Sigil Death",
+        "requiredLevel": 24
+      },
+      {
+        "id": 401,
+        "name": "Apocalypse",
+        "requiredLevel": 30
+      },
+      {
+        "id": 402,
+        "name": "Abyss",
+        "requiredLevel": 30
+      }
+    ]
+  ],
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "established": [
+    "Complete accepted older selector,level/class/existing-group/item-property/type checks,weighted picker and seed helpers execute unchanged with all44owned automatic rows and15Grimoire bases. Each case records the selected source row,ordered pool,weights,affix level and final seed.",
+    "Caller supplies format100,normal quality2,empty existing prefixes/suffixes,force=true,assignment=false,group306 and the current Grimoire-equivalence type services. Forced selection retains the first parity draw and the totalWeight+1 endpoint assigned to the final eligible row."
+  ],
+  "limitations": [
+    "Supplementary older-code execution with declared current table/host services,not current executable parity. Item/owner/global seed allocation,property assignment,defense,staffmods and full generation/acquisition are not executed.",
+    "Valkyrie scaffold,existing current prefix/suffix/property/type initialization and normalized extraction IDs are reused. Source IDs are not claimed as modern binary IDs. Socket capacity is supplied as2;group306contains no socket property.",
+    "Owned Warlock IDs373..402are grouped by tree and their contiguous five-ID groups mix required levels. Applicability of the older linear-ID staffmod routine remains uncertain;no new sorted map,old ID arithmetic or grant-free public generator is invented."
+  ]
+}

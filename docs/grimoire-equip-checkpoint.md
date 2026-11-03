@@ -1,5 +1,7 @@
 # Grimoire gear and innate Warlock hands checkpoint
 
+**Follow-up:** [automatic bonus selection](grimoire-automatic-checkpoint.md) now shares the source picker with Valkyrie equipment. Full generation remains gated by the unresolved Warlock staffmod mapping; the equip/save acceptance below is unchanged.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Validated captured Grimoires now use the shared gear/stat path and native equip transaction. **Random generation, named Grimoire factories and player acquisition remain disabled.** This is mechanical component acceptance, not a completed talent/class or current-client certificate.
 
 Warlock and Witch can equip a captured Grimoire beside a two-handed weapon in either order, without Levitation Mastery points. `DualEquip` owns temporary layers, native conflict admission, rollback and final normalization. Removing the book restores the weapon's ordinary two-handed layer. The weapon retains its two-handed damage, including the Barbarian-style one/two-handed sword bases. Ordinary shields remain incompatible with a Warlock two-handed weapon; ordinary one-handed weapon/shield equipment remains supported. Existing Barbarian transaction checks and Levitation checks pass unchanged in their original assertions.

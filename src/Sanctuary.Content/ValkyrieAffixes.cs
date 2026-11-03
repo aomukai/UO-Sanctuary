@@ -83,13 +83,7 @@ public static class ValkyrieAffixes
     internal static uint Next(ref ulong seed,int bound)=>SourceRandom.Limited(ref seed,bound);
     internal static SummonAffix Select(string code,int itemLevel,GearRarity rarity,AffixKind kind,ref ulong seed,bool force=true,IReadOnlyList<string> existing=null)
     {
-        // Even a forced attempt consumes the original two-way seed draw.
-        if(Next(ref seed,2)==0 && !force){return null;}
-        var pool=Pool(code,itemLevel,rarity,kind,existing);
-        if(pool.Length==0){return null;}
-        int ticket=(int)Next(ref seed,checked(pool.Sum(x=>Weight(x,code))+1));
-        foreach(var row in pool){ticket-=Weight(row,code);if(ticket<0){return row;}}
-        return pool[^1]; // The legacy total+1 draw gives the last row the endpoint.
+        return SourceAffixPicker.Select<SummonAffix>(()=>Pool(code,itemLevel,rarity,kind,existing),row=>Weight(row,code),ref seed,force);
     }
     internal static void Equip(int rank,int itemLevel,ref ulong petSeed,Func<SummonEquipmentRequest,bool> create,IReadOnlyCollection<int> occupied=null)
     {

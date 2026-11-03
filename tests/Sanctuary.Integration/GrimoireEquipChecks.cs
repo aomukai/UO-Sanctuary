@@ -27,7 +27,7 @@ public static class GrimoireEquipChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Original Grimoire stats and atomic innate hand pairing",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Fresh(bool female=false,bool veto=false,DiabloClass kind=DiabloClass.Warlock,int strength=200,int dexterity=160)
+    internal static PlayerMobile Fresh(bool female=false,bool veto=false,DiabloClass kind=DiabloClass.Warlock,int strength=200,int dexterity=160)
     {
         PlayerMobile p=veto?new DualEquipChecks.RejectPlayer():new PlayerMobile();p.Body=female?0x191:0x190;p.Female=female;p.Player=true;p.Name="GrimoireEquipFixture";p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,kind);ClassCreation.Profiles.AdvanceLevel(p,99);

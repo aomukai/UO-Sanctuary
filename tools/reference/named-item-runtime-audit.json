@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "ce580d0e90e7a30e009bc669a830a06f858eb9b989fa47e0d7fd4a27979d7f4a",
+  "ContentAssemblySha256": "b7d4e94be47d07c312173840c45d7a82fb504e0ae1195df2cb19de5ce4d9df9b",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -639,6 +639,7 @@
     "src/Sanctuary.Content/GrimWardCurseTransport.cs": "66fbae19a6129ed0ea628e0c26583cd639cc8f2f982922b1b3d31fd1602043d8",
     "src/Sanctuary.Content/GrimWardLifecycle.cs": "d3c196625ee488bb57550f2b6ff9b2a7b2ac5f53e63d28f390d1f9b79f08a6dc",
     "src/Sanctuary.Content/GrimWardWorldPulse.cs": "698f23004d65106635753348331a4791cde08f5fe5470057c726e3b74925ba51",
+    "src/Sanctuary.Content/GrimoireAutomaticSelection.cs": "84559df44fc35615d1a734292772d33629d92195020704bba79a7677ef200760",
     "src/Sanctuary.Content/GrimoireEquipment.cs": "8ee49bafb976f5c9e7f22e856d2c85d8f5c4f7e19dd7f1913ad9f2dd9760a24b",
     "src/Sanctuary.Content/GrimoirePrepared.cs": "c8d5e992357c61fab0b4078ed0bc140296b282209e67f1594aaff49cc8051e25",
     "src/Sanctuary.Content/GrizzlyUpgrades.cs": "9b26a23fb0000443b2980fd6ac6fe8ecfc475845610f443af447e24667454bb4",
@@ -904,6 +905,7 @@
     "src/Sanctuary.Content/SourceAbsorptionPool.cs": "489df8924adbed07e6b3e03399035abb465d84b3514a51e92da62f2a3f623e79",
     "src/Sanctuary.Content/SourceActorMotion.cs": "ded8edc9ca4e5c939d89fc5552d844fd2ce1b9fefd1afe0b96e5f6a5febd4c48",
     "src/Sanctuary.Content/SourceActorPath.cs": "971b37839a3b1e4514864b33c18925ea005d09bda4991abab195ebfc6fb6ff9b",
+    "src/Sanctuary.Content/SourceAffixPicker.cs": "e51a9e1e8cf0986df643053d97d90fd8c04aaf9866dbe507f9122c5d8c4c9d26",
     "src/Sanctuary.Content/SourceAiEligibility.cs": "a7f7a0ad9959eb5e402ea1e8572d26252619076c422754a3b28dc0c9af932f49",
     "src/Sanctuary.Content/SourceAnimationEvents.cs": "49bae803dae993451e4bf86b8fda58bc12ca7fff31dc787c6ad28cdcbe980a9f",
     "src/Sanctuary.Content/SourceAttackRate.cs": "07f510247346f2a7dd4848d24ceafdb73a61fb25cdbedcfb6fb0a8f53a42a589",
@@ -963,7 +965,7 @@
     "src/Sanctuary.Content/TreasureMonster.cs": "f56f7f4638c4d83c92113f64214782d5a6a1b444a9858bf6093530ea68416974",
     "src/Sanctuary.Content/UnarmedPetWorld.cs": "70b1d138c0603383078a253c818f3c6ac01ba281b53a5f273dc8b3ab66831372",
     "src/Sanctuary.Content/UtilityScrolls.cs": "d7da28029fe265ba41c297f8078ef499b4a841f4bea6e4dd03db34d86255f73e",
-    "src/Sanctuary.Content/ValkyrieAffixes.cs": "d2b5a9716269b5873aaff86dc454ae9410f895de97e94815ea256aeb3e0ed255",
+    "src/Sanctuary.Content/ValkyrieAffixes.cs": "8ed77c4e7ab0222b635f36359965612fd6a189a60a5e5e1bf3345078e10cae3a",
     "src/Sanctuary.Content/ValkyrieCreation.cs": "9f189ae28d7803ce88d9d9734902b7b537d4d61d81f995be3b618f76a493f31d",
     "src/Sanctuary.Content/Venoms.cs": "8b7c375b1b479b812bcd32b8c0c2f24fa0ac6fe53166d05afc576d4b404eeee0",
     "src/Sanctuary.Content/VolcanoPatterns.cs": "8ed2f11ceca7e20f245caf06dba2cd87ccc766d48da2be651c97e29d0d0666b5",
