@@ -11,10 +11,17 @@ namespace Sanctuary;
 // Source HP and death remain owned by the ordered commitment/return phases.
 internal static class PreparedMonsterNativeDamage
 {
-    internal static void RequireIncoming(PlayerMobile source,BaseCreature target)
+    internal static void RequireIncoming(PlayerMobile source,BaseCreature target,Mobile attacker=null)
     {
+        var method=target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType;
+        bool demonGuard=(target is WarlockGoatmanBody or WarlockTaintedBody)&&method==typeof(SkeletonGuardian);
+        // These two bodies inherit only the guardian's friendship wrapper.
+        // Preserve its refusal before the ordered path bypasses Damage; the
+        // actual emitter,not its credit owner,determines that relationship.
+        if(demonGuard&&ClassCombat.Friendly(attacker??source,target))
+        {throw new NotSupportedException("Friendly demon recipient rejected before ordered damage");}
         if(target.GetSkillMod("EvilOmen")!=null||BloodOathSpell.GetBloodOath(source)==target||target.Controlled&&!target.Summoned
-            ||target.SubdueBeforeTame||target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType!=typeof(BaseCreature))
+            ||target.SubdueBeforeTame||method!=typeof(BaseCreature)&&!demonGuard)
         {throw new NotSupportedException("This recipient's native incoming damage modifier needs an ordered adapter.");}
         if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter.");}
     }

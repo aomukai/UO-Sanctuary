@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Demon incoming packets (2026-11-04 JST).** Goatman and Tainted reuse the existing pinned return identities and shared resistance/notification/life/return services. The adapter recognizes only their exact inherited guardian friendship wrapper and checks the actual attacker before ordered damage. Blood Boil new do160 remains a separate unverified execution path. See [checkpoint](demon-incoming-checkpoint.md).
+
 **Tainted resistance aura (2026-11-04 JST).** NPC420 reuses the innate rank getter, shared aura target/geometry rules, Paladin state3 lease storage and typed resistance consumers. Source skill100/420 identity prevents same-state stacking while retaining cross-skill replacement. The owned row names passive_resistfire for removal but supplies no maximum stat. Persistent selected emitters and finite recipient leases have separate lifetimes. See [checkpoint](tainted-aura-checkpoint.md).
 
 **Tainted innate ranks (2026-11-04 JST).** `InnateNpcSkills` shares the existing Druid spirit getter/common99ceiling with registered Tainted420/422/optional380 skills. Reuse the2,040 complete getter controls; the complete used-skill dispatcher proves fresh rank lookup at the action event. Registered A2 releases reread the pet own Command state, while issued packets and captured birth/hard synergy stay stored. Keep explicit supplied-rank source fixtures separate; mode admission/world controller remains upstream. See [checkpoint](tainted-ranks-checkpoint.md).

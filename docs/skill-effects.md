@@ -1,5 +1,7 @@
 # Skill effects
 
+**Demon incoming packets (2026-11-04 JST).** Source class/mode metadata and friendship protection introduce no new effect. Existing native hurt/death and generic aura markers remain identified placeholders; final demon summon,attack/spell,aura,hurt/death and audio remain pending. See [checkpoint](demon-incoming-checkpoint.md).
+
 **Tainted resistance aura (2026-11-04 JST).** The prepared automatic NPC420 aura uses generic0x375A/hue0x489 as an identified placeholder. Final aura visuals/audio, summon/cast, Fire Ball/contact, Blood Boil reaction and hurt/death assets remain pending. Effects do not gate the mechanical pulse; icons remain in their own register. See [checkpoint](tainted-aura-checkpoint.md).
 
 **Tainted rank refresh (2026-11-04 JST).** Sharing the NPC getter and refreshing the A2 release rank adds no new effect/audio asset. Existing invisible logical windup and generic0x36D4travel/0x36BDexplosion remain identified placeholders. Final cast/contact/aura/Blood Boil feedback remains pending independently. See [checkpoint](tainted-ranks-checkpoint.md).

@@ -13,7 +13,7 @@ internal static class NpcFireSpellHit
         if (fire256 < 0 || hitFlags is not (0 or 2) || hitClass is not (0 or 16)
             || at.Kind != DateTimeKind.Utc || emitter.Map != target.Map || !target.CanBeDamaged())
         { throw new NotSupportedException("Unqualified NPC fire spell recipient"); }
-        PreparedMonsterNativeDamage.RequireIncoming(owner, target);
+        PreparedMonsterNativeDamage.RequireIncoming(owner, target, emitter);
         if (MonsterUninterruptibles.Active(target) || MonsterUninterruptibles.Delayed(target))
         { throw new NotSupportedException(kind + " uninterruptible/death-delay recipient needs its actor adapter"); }
         var metadata = NativeMonsterReturn.Metadata(target);

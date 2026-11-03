@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "component": "Shared demon incoming return metadata",
+  "profiles": [
+    {
+      "Source": "wargoatman",
+      "Class": 742,
+      "Base": 742,
+      "HitClass": 3,
+      "ModeFlags": 8192,
+      "Velocity": 8,
+      "Killable": true,
+      "Town": true
+    },
+    {
+      "Source": "warbighead",
+      "Class": 743,
+      "Base": 743,
+      "HitClass": 3,
+      "ModeFlags": 8192,
+      "Velocity": 6,
+      "Killable": true,
+      "Town": true
+    }
+  ],
+  "reuses": "tools/reference/monster-return-source-evidence.json",
+  "newCompiledOracle": false,
+  "bloodBoil": {
+    "skill": 380,
+    "doFunction": 160,
+    "candidateRva": "0x44e2c0",
+    "executionVerified": false,
+    "observation": {
+      "referenceVersion": "3.3.93847",
+      "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+      "candidateTableRva": "0x163a8b0",
+      "candidateSlot": 160,
+      "candidateRva": "0x44e2c0",
+      "candidateFragments": [
+        {
+          "rva": "0x44e2c0",
+          "endRva": "0x44e450"
+        }
+      ],
+      "observations": [
+        {
+          "process": {
+            "pid": 81614,
+            "startTicks": 1735582,
+            "name": "Main"
+          },
+          "fragments": [
+            {
+              "rva": "0x44e2c0",
+              "endRva": "0x44e450",
+              "permissions": [
+                "---s"
+              ]
+            }
+          ]
+        }
+      ],
+      "processMemoryRead": false,
+      "dispatcherLinkVerified": false,
+      "semanticsVerified": false
+    }
+  },
+  "inputs": {
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    "data/Sanctuary/Balance/monster-return-identities.json": "952ee02a103c741a35f3300cc7c4a62dac8b47566154260ac862f1df6ca2e159",
+    "tools/reference/monster-return-source-evidence.json": "ec1da87854b2828c3f7573f5e295f93e091eb96aa5b2bae7028a98149816b39b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2DataTbls.h": "6a24aae3b33a3f5bf6e78745849d822432cad902b9307387ca713207471e9a9b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "tools/reference/warlock-foundation-preflight.json": "f6246b9eb3de1dbdfbcbec4ef7e6d8d4f0f11a0130dc8a350fca53b807742e31",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    ".local/class-skills/blood-boil-reference/preflight.json": "4b65368bf1d2fb5761d3541ca5a99d6a5f4cc8d042f09b6d21da3657c1a832f3",
+    "tools/review_demon_incoming.py": "2b4befc9e087904e24527578429fc6d3ac126224ea0bf11eaf87f78764a5b297"
+  },
+  "established": [
+    "Owned current monstats/monstats2 and the existing return identity agree for Goatman742 and Tainted743:own class/base,hitclass3,killable/town flags,velocities8/6,no get-hit or block mode,knockback available.",
+    "The shared demon profile previously omitted hcIdx and mode metadata,so the ordered incoming receiver refused it. Reuse existing pinned identity capabilities;do not inherit Gargoyle/Succubus UO block/recovery capabilities or implement a second damage formula."
+  ],
+  "limitations": [
+    "Metadata agreement is not full current executable parity. Existing return proof and unchanged pinned original routine bodies are bound. Historical ignored dependencies are not all present,so its whole artifact inventory is not revalidated and no new complete oracle is claimed.",
+    "Blood Boil is a distinct new do160 routine. Its candidate table/slot shape has no proven dispatcher link;the observed candidate page is unreadable. No process code was sampled and no execution,health cost,proc cadence or target-selection behavior is invented. Continue unaffected incoming mechanics."
+  ]
+}

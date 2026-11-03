@@ -199,7 +199,19 @@ public static class CreatureProfiles
                     ??throw new NotSupportedException("Missing demon model footprint"),
                 NecromancerSummons.Source(key,"DamageRegen"),NecromancerSummons.Source(key,"Drain",difficulty??body.SummonDifficulty),
                 Math.Abs(NecromancerSummons.Source(key,"coldeffect",difficulty??body.SummonDifficulty)),NecromancerSummons.Source(key,"ToBlock",difficulty??body.SummonDifficulty)),
-            SourceStats=new Dictionary<string,string>{{"Velocity",NecromancerSummons.Source(key,"Velocity").ToString()}},HitRecovery=new(false)};
+            SourceStats=new Dictionary<string,string>
+            {
+                {"hcIdx",(GenericPetSearchTables.SourceId(key)??throw new NotSupportedException("Missing demon source identity")).ToString()},
+                {"Velocity",NecromancerSummons.Source(key,"Velocity").ToString()}
+            },
+            // Reuse the pinned current return identity instead of inheriting
+            // the UO appearance's recovery/block/knockback capabilities.
+            SourceModes=new Dictionary<string,string>
+            {
+                {"mGH",((NativeMonsterReturn.Identity(key).ModeFlags>>3)&1).ToString()},
+                {"mBL",((NativeMonsterReturn.Identity(key).ModeFlags>>6)&1).ToString()},
+                {"mKB",((NativeMonsterReturn.Identity(key).ModeFlags>>13)&1).ToString()}
+            },HitRecovery=new(false)};
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
         => creature is WarlockTaintedBody tainted ? DemonVariant(tainted,"warbighead",tainted.SourceResistances(difficulty),difficulty)
             : creature is WarlockGoatmanBody goat ? DemonVariant(goat,"wargoatman",goat.SourceResistances(difficulty),difficulty)
