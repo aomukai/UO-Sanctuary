@@ -122,9 +122,9 @@ public static class IronGolemOrderedContactChecks
     private static void Refusals()
     {
         int cases=0;
-        foreach(string condition in new[]{"noheal","crush","ironmaiden","uninterruptible","evilomen"})
+        foreach(string condition in new[]{"noheal","ironmaiden","uninterruptible","evilomen"})
         {
-            var owner=Owner();var original=Original(owner,condition=="noheal"?"Blacktongue":condition=="crush"?"Goblin Toe":null);
+            var owner=Owner();var original=Original(owner,condition=="noheal"?"Blacktongue":null);
             var body=IronGolemWorld.Create(owner,original,original.Location,TimedEffects.Now.AddHours(1),1);var target=Target(owner,body);
             try
             {
@@ -138,7 +138,7 @@ public static class IronGolemOrderedContactChecks
             }
             finally{NecromancerEffects.Profiles.Clear(body);Clean(owner,target);}
         }
-        Require(cases==5,"Incomplete refusal controls");
+        Require(cases==4,"Incomplete refusal controls; original-item Crushing Blow now has its own positive acceptance");
         // Baranar's current cold property has no explicit parameter and its
         // independent fallback duration was never stored in NamedPropertyRoll.
         // Keep that original untouched; do not invent a duration or reroll it.
@@ -159,6 +159,6 @@ public static class IronGolemOrderedContactChecks
     private static void Check()
     {
         Originals();Retaliation();Refusals();
-        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;5pre-roll capability/2unrepresented birth refusals pass;learned casting checked separately");
+        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;4pre-roll capability/2unrepresented birth refusals; original-item Crushing Blow is covered by its positive shared-consumer fixture pass;learned casting checked separately");
     }
 }

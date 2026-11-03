@@ -10,7 +10,7 @@ internal sealed record NpcItemEvent(string Event,int Function);
 internal sealed record NpcItemEventStat(int Stat,string Name,NpcItemEvent[] Events);
 
 // A validated registry, not a list of silently skipped callbacks. For this
-// ordinary path supports flat return78, Open Wounds135/function15 and
+// ordinary path supports flat return78, Open Wounds135/function15, Crushing136/function16 and
 // the approved inherent Blood skill-on-hit198/function20 slot.
 // Other active registrations fail preflight before result/damage RNG or HP.
 internal sealed class NpcCombatEvents
@@ -28,11 +28,11 @@ internal sealed class NpcCombatEvents
     internal static NpcCombatEvents Empty{get;}=new();
     internal static NpcCombatEvents ForSource(SkeletonGuardian actor)
     {
-        var item=NpcEquipmentCombat.Context(actor);bool wounds=NpcOpenWounds.Potential(actor);
-        return item!=null||wounds?new(item,wounds,NpcOpenWounds.Blood(actor)):Empty;
+        var item=NpcEquipmentCombat.Context(actor);bool wounds=NpcOpenWounds.Potential(actor),crushing=NpcCrushing.Potential(actor);
+        return item!=null||wounds||crushing?new(item,wounds,NpcOpenWounds.Blood(actor),crushing):Empty;
     }
-    internal NpcCombatEvents(ItemStatContext item):this(item,false,false){}
-    private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood)
+    internal NpcCombatEvents(ItemStatContext item):this(item,false,false,false){}
+    private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood,bool inherentCrushing)
     {
         item?.RequireOrdinaryNpcDrainInputs();
         var stats=item?.ActiveNumericProperties()??[];var active=new List<NpcItemEventStat>();
@@ -44,13 +44,15 @@ internal sealed class NpcCombatEvents
             if(!Rules.Value.TryGetValue(value.Stat,out var rule)){continue;}
             bool flat=rule.Stat==78&&rule.Events.Length==1&&rule.Events[0] is{Event:"attackedinmelee",Function:6};
             bool wounds=rule.Stat==135&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:15}&&rule.Events[1] is{Event:"domissiledamage",Function:15};
-            if(!flat&&!wounds)
+            if(!flat&&!wounds&&!CrushingRule(rule))
             {throw new NotSupportedException("NPC combat event needs its consumer: "+rule.Name+"/"+string.Join(',',rule.Events.Select(e=>e.Event+":"+e.Function)));}
             active.Add(rule);
         }
         // An eligible actor keeps the potential subscription so a live hard-point
         // unlock/respec during windup is observed at the actual damage event.
         if(inherentWounds&&active.All(r=>r.Stat!=135)){active.Add(Rules.Value[135]);}
+        if(inherentCrushing&&active.All(r=>r.Stat!=136))
+        {var crushing=Rules.Value[136];if(!CrushingRule(crushing)){throw new InvalidDataException("Grizzly requires pinned Crushing Blow registration");}active.Add(crushing);}
         if(blood)
         {
             var tap=Rules.Value[198];
@@ -59,6 +61,19 @@ internal sealed class NpcCombatEvents
             active.Add(tap); // Fixed approved slot; original item writer11 remains unsupported.
         }
         Active=active.ToArray();
+    }
+    private static bool CrushingRule(NpcItemEventStat rule)=>rule.Stat==136&&rule.Events.Length==2
+        &&rule.Events[0] is{Event:"domeleedamage",Function:16}&&rule.Events[1] is{Event:"domissiledamage",Function:16};
+    internal void RequireCrushingOnly(string phase)
+    {
+        if(Active.Any(rule=>rule.Events.Any(e=>e.Event==phase&&(rule.Stat!=136||e.Function!=16))))
+        {throw new NotSupportedException("Grizzly contact requires its additional registered damage-event consumer");}
+    }
+    internal void DispatchCrushing(string phase,SkeletonGuardian source,BaseCreature target,Func<int,int> limited)
+    {
+        RequireCrushingOnly(phase);
+        // Function16 reads live victim life, not the damage-packet fields.
+        Dispatch(phase,null,source,target,null,limited);
     }
     internal void RequireWoundsOnly(string phase)
     {
@@ -72,7 +87,7 @@ internal sealed class NpcCombatEvents
         // synthetic ordinary-monster packet is invented for a cold-only hit.
         Dispatch(phase,null,source,target,at,limited);
     }
-    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> woundRoll=null)
+    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null)
     {
         foreach(var rule in Active)foreach(var registration in rule.Events)
         {
@@ -81,7 +96,12 @@ internal sealed class NpcCombatEvents
             if(rule.Stat==135&&registration.Function==15)
             {
                 if(source==null||target==null||at==null){throw new InvalidOperationException("NPC wound callback lacks its real damage-event context");}
-                NpcOpenWounds.Apply(source,target,at.Value,phase=="domissiledamage",woundRoll);continue;
+                NpcOpenWounds.Apply(source,target,at.Value,phase=="domissiledamage",damageRoll);continue;
+            }
+            if(rule.Stat==136&&registration.Function==16)
+            {
+                if(source==null||target==null){throw new InvalidOperationException("NPC Crushing Blow lacks its real damage-event context");}
+                NpcCrushing.Apply(source,target,phase=="domissiledamage",damageRoll);continue;
             }
             if(rule.Stat==198&&registration.Function==20)
             {

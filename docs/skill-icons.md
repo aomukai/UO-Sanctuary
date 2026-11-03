@@ -1,5 +1,7 @@
 # Skill icons
 
+**Grizzly approved upgrades (2026-11-03 JST).** Summon Grizzly talent/right/quick icons remain pending placeholders. Passive hard10stun/hard20Crushing Blow create no additional active binding; effects/audio remain in their own register. See [checkpoint](grizzly-upgrades-checkpoint.md).
+
 **Dire Wolf approved affixes (2026-11-03 JST).** Existing Summon Dire Wolf talent/right/quick icons remain pending placeholders. The two hard-point unlocks add no separate active hotkey; effects/audio remain in their own ledger. See [checkpoint](dire-wolf-upgrades-checkpoint.md).
 
 **Spirit Wolf approved upgrades (2026-11-03 JST).** Existing Summon Spirit Wolf talent/left/right/quick icon artwork remains pending. Hard-point unlocks add no separate active binding; effects/audio remain in their own ledger. See [checkpoint](spirit-wolf-upgrades-checkpoint.md).

@@ -280,10 +280,11 @@ internal static class DruidGrizzlyWorld
                 var prior=body.Prepared.Controller;
                 var sequence=DruidGrizzlySequence.Advance(s.Sequence,(target,packet)=>
                 {
-                    var hit=DruidGrizzlyHit.Release(body,owner,s,World.FindMobile((Serial)target) as BaseCreature,packet,s.PreparedChance,s.BlockMode,true);
+                    ulong seed=s.Seed;
+                    var hit=DruidGrizzlyHit.Release(body,owner,s,World.FindMobile((Serial)target) as BaseCreature,packet,s.PreparedChance,s.BlockMode,true,ref seed);
                     if(body.Deleted){return true;}
                     s=s with{StrikeRequests=checked(s.StrikeRequests+1),PendingStrikeTarget=target,PendingStrikeFrame=s.Frame,
-                        PendingStrikeRank=s.AttackPacket.Value.Rank,LastHit=hit,Hits=checked(s.Hits+(hit.Outcome==GrizzlyHitOutcome.Hit?1:0))};
+                        PendingStrikeRank=s.AttackPacket.Value.Rank,Seed=seed,LastHit=hit,Hits=checked(s.Hits+(hit.Outcome==GrizzlyHitOutcome.Hit?1:0))};
                     return true;
                 });
                 if(body.Deleted){return;}

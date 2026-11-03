@@ -79,6 +79,11 @@ public static class NamedCombat
         if(target is not{Alive:true,Deleted:false} || !target.CanBeDamaged()){return;}
         int chance = Math.Clamp(ClassGear.Bonus(player, "crush"), 0, 100);
         if (chance <= 0 || random.Next(100) >= chance) { return; }
+        ApplyCrushing(target,ranged);
+    }
+    // Shared item/NPC callback commitment; callers own eligibility/chance and RNG.
+    internal static int ApplyCrushing(Mobile target,bool ranged)
+    {
         int damage=CrushingLoss256(target,ranged);
         if(damage>0)
         {
@@ -87,6 +92,7 @@ public static class NamedCombat
             SkillHealth.SetBalance256(target,SkillHealth.Balance256(target)-damage);
             target.FixedEffect(0x376A,10,5,0x21,0); // Crushing overlay147 placeholder.
         }
+        return damage;
     }
     public static double OpenWoundsDamage(int level, Mobile target, bool ranged)=>OpenWoundsDamage(level,target is PlayerMobile,ranged,Elite(target));
     internal static double OpenWoundsDamage(int level,bool player,bool ranged,bool elite)

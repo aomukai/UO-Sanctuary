@@ -38,6 +38,7 @@ internal static class DruidGrizzlyHit
         chance=0;blockMode=false;
         if(!DruidGrizzlyWorld.Eligible(body,owner,target)||!InRange(body,state,target)||!AlliedOverlap.Allowed(body)){return null;}
         if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Grizzly recipient block supplier is not mapped");}
+        NpcCombatEvents.ForSource(body).RequireCrushingOnly("domeleedamage");
         var attack=state.AttackPacket??throw new InvalidOperationException("Grizzly mode stats were not captured");
         chance=Chance(body,state,target);int flags=0;
         if(AssassinTrapAttack.Hit(chance,SourceRandom.Roll(ref seed)))
@@ -68,11 +69,12 @@ internal static class DruidGrizzlyHit
         seed=current;return prepared;
     }
     internal static GrizzlyHitResult Release(DruidGrizzlyBody body,PlayerMobile owner,GrizzlyWorldState state,BaseCreature target,
-        BearSmitePrepared packet,int chance,bool blockMode,bool smite)
+        BearSmitePrepared packet,int chance,bool blockMode,bool smite,ref ulong seed)
     {
         uint id=target?.Serial.Value??0;
         if(packet==null||!DruidGrizzlyWorld.Eligible(body,owner,target)||!InRange(body,state,target)||!AlliedOverlap.Allowed(body))
         {return new(GrizzlyHitOutcome.Invalid,id,chance);}
+        var events=NpcCombatEvents.ForSource(body);events.RequireCrushingOnly("domeleedamage");
         body.DoHarmful(target,true);using var attempted=PaladinThorns.Attempt(body,target,false);
         if((packet.ResultFlags&DruidBearSmite.Successful)==0)
         {
@@ -80,6 +82,8 @@ internal static class DruidGrizzlyHit
             if((packet.ResultFlags&16)!=0){SourceBlocking.Present(target,blockMode);return new(GrizzlyHitOutcome.Blocked,id,chance);}
             return new(GrizzlyHitOutcome.Miss,id,chance);
         }
+        ulong current=seed;int Limited(int bound)=>(int)SourceRandom.Limited(ref current,bound);
+        try{events.DispatchCrushing("domeleedamage",body,target,Limited);}finally{seed=current;}
         // ExecuteEvents: on-damage Life Tap precedes the physical HP clip;
         // deferred absorption heals before cached total commits. The separate
         // post-allocation BearSmite physical field never becomes extra HP loss.
@@ -87,6 +91,7 @@ internal static class DruidGrizzlyHit
         int clipped=Math.Min(Math.Max(0,packet.Physical256),Math.Max(0,SkillHealth.Balance256(target)));
         if(packet.AbsorbedLife256>0){SkillHealth.Heal(target,packet.AbsorbedLife256);}
         int lost=SkillHealth.Damage(body,target,packet.Total256);
+        try{GrizzlyUpgrades.Stun(body,target,smite,Limited);}finally{seed=current;}
         if(packet.ColdFrames>0){ColdStates.Commit(body,target,packet.ColdFrames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),Core.TickCount);}
         SorceressEffects.MeleeAttempt(body,target);
         PaladinThorns.Prepared(body,target,packet.Physical256,false,clipped);
@@ -99,6 +104,6 @@ internal static class DruidGrizzlyHit
     internal static GrizzlyHitResult Ordinary(DruidGrizzlyBody body,PlayerMobile owner,GrizzlyWorldState state,BaseCreature target,ref ulong seed)
     {
         var packet=Prepare(body,owner,state,target,false,1,ref seed,out int chance,out bool blockMode);
-        return Release(body,owner,state,target,packet,chance,blockMode,false);
+        return Release(body,owner,state,target,packet,chance,blockMode,false,ref seed);
     }
 }

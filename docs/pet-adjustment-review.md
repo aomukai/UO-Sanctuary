@@ -51,18 +51,18 @@ Corpse shattering is accepted. Necromancers can choose a corpse-explosion build 
 
 ## Druid
 
-Spirit Wolf hard10Open Wounds and hard20breakable cold immunity are implemented with dedicated27-marker/3boot/2reload acceptance; see [the checkpoint](spirit-wolf-upgrades-checkpoint.md). Intrinsic cold-only attacks, baseline unchillability and captured birth stats remain. Dire Wolf hard10movement-only Extra Fast and hard20direct Extra Strong are implemented within the [21-marker/3boot/2reload checkpoint](dire-wolf-upgrades-checkpoint.md). Grizzly and Creeper entries below remain pending unless separately accepted.
+Spirit Wolf hard10Open Wounds and hard20breakable cold immunity are implemented with dedicated27-marker/3boot/2reload acceptance; see [the checkpoint](spirit-wolf-upgrades-checkpoint.md). Intrinsic cold-only attacks, baseline unchillability and captured birth stats remain. Dire Wolf hard10movement-only Extra Fast and hard20direct Extra Strong are implemented within the [21-marker/3boot/2reload checkpoint](dire-wolf-upgrades-checkpoint.md). Grizzly hard10ordinary-hit stun and hard20Crushing Blow are implemented within the [42-marker/3boot/2reload checkpoint](grizzly-upgrades-checkpoint.md). Poison Creeper scaling remains pending.
 
 | Pet | 10 hard points | 20 hard points / balance change |
 | --- | --- | --- |
 | Spirit Wolves | Open Wounds. | Cold immunity. Preserve cold-only attacks and baseline unchillability. |
 | Dire Wolves | Existing Extra Fast affix. | Existing Extra Strong affix. |
-| Grizzly | Stun. | **10% Crushing Blow**. |
+| Grizzly | Ordinary successful hits: 50% stun for 3 seconds; boss-flagged targets: 10% for 1 second. No stun on BearSmite/knockback swats. | **10% Crushing Blow**. |
 | Poison Creeper | — | Improve scaling toward **about 2,000 total poison damage over four seconds at rank 20**. This is total damage, not damage per second. |
 | Carrion Vine / Solar Creeper | — | No balance changes. |
 | Oak Sage / Heart of Wolverine / Spirit of Barbs | — | No balance changes. |
 
-The Grizzly stun is an approved addition beyond the baseline knockback/no-stun observation. Its chance, duration and eligible attacks still need a decision. Poison Creeper’s exact damage curve and rank/synergy reference around the rank-20 target remain open. Ravens were not specified in this pass and remain unreviewed.
+The Grizzly stun is an approved addition beyond the baseline knockback/no-stun observation. The user settled its policy on 2026-11-03: ordinary successful hits have 50% chance for 3 seconds, or 10% for 1 second against existing boss-flagged targets; no stun on the special knockback swat. This Grizzly-only rule overrides ordinary boss stun immunity and does not add the generic unique-avoidance roll. Its implementation/verification scope is recorded in the [Grizzly checkpoint](grizzly-upgrades-checkpoint.md). Poison Creeper’s exact damage curve and rank/synergy reference around the rank-20 target remain open. Ravens were not specified in this pass and remain unreviewed.
 
 ## Assets and implementation acceptance
 
