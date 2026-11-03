@@ -7,13 +7,12 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-internal sealed record AmazonCastRow(string WeaponClass,int Frames,int Speed,int Action,int Flag);
 internal static class AmazonCastClock
 {
-    private static readonly Dictionary<string,AmazonCastRow> Rows=new(StringComparer.Ordinal);
+    private static readonly Dictionary<string,SourceCastRow> Rows=new(StringComparer.Ordinal);
     public static void Configure()
     {
-        foreach(var row in BalanceCatalog.Read<AmazonCastRow>("amazon-cast-clock"))
+        foreach(var row in BalanceCatalog.Read<SourceCastRow>("amazon-cast-clock"))
         {
             if(row.Frames!=20||row.Speed!=256||row.Action is <10 or >13||row.Flag is not(1 or 2)||!Rows.TryAdd(row.WeaponClass,row))
             {throw new InvalidDataException("Unsupported pinned Amazon SC animation");}
@@ -32,10 +31,7 @@ internal static class AmazonCastClock
     {
         if(weaponClass==null||!Rows.TryGetValue(weaponClass,out var row))
         {throw new NotSupportedException("Amazon SC needs a classified source weapon animation");}
-        if(fcr is <0 or >10000){throw new NotSupportedException("Unsupported Amazon FCR");}
-        int effective=120*fcr/(120+fcr);
-        int advance=row.Speed*Math.Min(175,100+effective)/100;
-        return new((row.Frames*256+advance-1)/advance,(row.Action*256+advance-1)/advance);
+        return SourceCastClock.Calculate(row.Frames,row.Speed,row.Action,fcr);
     }
     internal static bool TryTiming(PlayerMobile owner,out ActionTiming timing)
     {

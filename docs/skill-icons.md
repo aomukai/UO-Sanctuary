@@ -1,5 +1,7 @@
 # Skill icons
 
+**Necromancer SC timing (2026-11-04 JST).** No new binding or finished icon is introduced. Necromancer talent/left/right/quick icons remain independently tracked. See [checkpoint](necromancer-cast-clock-checkpoint.md).
+
 **Amazon SC timing (2026-11-04 JST).** The clock introduces no new binding or finished icon. Inner Sight, Decoy and Slow Missiles talent/right/quick icons remain separately tracked. See [checkpoint](amazon-cast-clock-checkpoint.md).
 
 **Ward periodic world pulse (2026-11-04 JST).** No learned binding or new icon is introduced. Grim Ward talent/right/quick hotkey icons remain a separate missing-asset entry. See [checkpoint](grim-ward-world-pulse-checkpoint.md).

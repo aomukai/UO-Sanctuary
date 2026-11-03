@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/PLAYER/PlrModes.cpp",
+  "sha256": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+  "gitBlob": "68bed396c5a9fa5f04787767325681f2017395f4",
+  "routineHashes": {
+    "PLRMODE_StartXY_AttackCastThrowKickSpecialSequence": "a6624358f1bbf60140485dabdecf2fc3f22376ac186f0d53efb1ed7c9677f9d2",
+    "PLRMODE_StartID_AttackCastThrowKickSpecialSequence": "063047d321348ddaa2df7d4acc3eca1b6dcef5ffdc305045bcdc559357cd2ae8"
+  },
+  "scope": "Manual complete XY/ID cast-start inspection;not a new compiled oracle or current executable proof.",
+  "finding": "Both legacy player attack/cast/throw/kick/special/sequence starts initialize and schedule animation before sub_6FD12FD0. This supports the selected SC scheduler path,not full start/do/event or current client input cadence.",
+  "remaining": [
+    "Current client first/last-frame and repeat-input alignment remain open;ENDANIM offsets alone do not prove them.",
+    "Mode conversion,skill start/do callbacks and global clock/input scheduling retain their independent boundaries."
+  ]
+}

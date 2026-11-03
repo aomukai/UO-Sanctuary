@@ -137,6 +137,8 @@ public static class CombatTiming
     internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlowTotal(owner),CombatTiming.SkillAttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
+        if(characterClass==DiabloClass.Necromancer&&NecromancerCastClock.Handles(ability))
+        {return NecromancerCastClock.Calculate(fcr);}
         if(ability==CombatAbility.BladeShield){return BladeShields.Timing(fcr);}
         if(ability is CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.FireBlast or CombatAbility.ShockWeb){return FireBlasts.Timing(FrameAdvance(weapon,ias,chill,skillAttackRate,baseSpeed:128));}
         int row = Math.Clamp((int)characterClass - 101, 0, 7);

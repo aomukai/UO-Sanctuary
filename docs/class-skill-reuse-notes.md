@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Shared SC clock and Necromancer (2026-11-04 JST).** Reuse SourceCastClock for the literal FCR writer and scheduler offsets. Amazon supplies its weapon-specific SourceCastRow; Necromancer verifies eight uniform records and routes26 active SC skills through CombatTiming.Calculate/For. Exclude Poison Dagger and passives. Do not infer current client/repeat-input alignment from server ENDANIM offsets. See [checkpoint](necromancer-cast-clock-checkpoint.md).
+
 **Amazon SC clock (2026-11-04 JST).** Reuse AmazonCastClock for the admitted Inner Sight/Decoy start paths and future prepared Slow Missiles work. Use WeaponAnimationClasses for actual source class, not an inferred generic attack family. Preserve weapon-specific action points and FCR truncation; unknown classes refuse explicitly. Share SkillCombat.Begin and the original effect/payment transactions. See [checkpoint](amazon-cast-clock-checkpoint.md).
 
 **Ward body/world pulse (2026-11-04 JST).** Reuse GrimWardWorldPulse with the checked GrimWardLifecycle.Tick and GrimWardCurseTransport.ApplyPacket. Evaluate one packet before the world recipient loop; keep body origin and Item creator distinct from owner credit. Supply frame/context/collision services explicitly rather than guessing a scheduler or snapshot policy. Legacy other_animrate dispatch is separate from FCR,block,get-hit,knockback,velocity and attack-rate branches; neutral/special-mode consumers remain open. See [checkpoint](grim-ward-world-pulse-checkpoint.md).

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Necromancer SC timing (2026-11-04 JST).** No final graphics or sound are added by the shared clock. Existing cast,curse,projectile,corpse/summon and contact placeholders remain;final effects and audio are still required independently of timing acceptance. See [checkpoint](necromancer-cast-clock-checkpoint.md).
+
 **Amazon SC timing (2026-11-04 JST).** Source action/end clocks add no finished artwork. Existing Inner Sight/Slow Missiles cast overlays, Decoy silhouette and cast audio remain identified placeholders; final weapon-dependent cast/effect/Decoy visuals and audio still need assets. See [checkpoint](amazon-cast-clock-checkpoint.md).
 
 **Ward periodic world pulse (2026-11-04 JST).** Real area curse effects still use the identified ordinary curse marker; fixture bodies use an explicitly named placeholder. Final Ward start/body/end,fear/slow/expiry and audio remain missing. No final visual or audio asset is created by the pulse adapter. See [checkpoint](grim-ward-world-pulse-checkpoint.md).
