@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e26b609bc55bef74ad8e33f99e25299ac85ec429ce8969ae921177e922506c62",
+  "ContentAssemblySha256": "e9542190d971a20afd62eec615f80ca0fda03f1584dac63a1e3fbbac9f3feacc",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -570,6 +570,7 @@
     "src/Sanctuary.Content/GenericPetFollowMovement.cs": "5b8f0332d5beab1c5b18d95ac0f75b219148161b4c7e6e07aa541ca32aa6cb6b",
     "src/Sanctuary.Content/GenericPetGather.cs": "b41df01831bff3ee996271c87e0d2428b8dbe1c6baeee2551ca71cfc751ed0b0",
     "src/Sanctuary.Content/GenericPetMetadata.cs": "5ae06a0410a00f30611f3a0644568865c78d8e0b4c2759bb9516356f35c6adf0",
+    "src/Sanctuary.Content/GenericPetMonsterPlacement.cs": "d9ee0661d1b5ca3c4cd81681a72cdd7e49f7d5cf69c63c21623a0d862fd8490e",
     "src/Sanctuary.Content/GenericPetMotionServices.cs": "d099dc76f6eac9441f0b92596d9e22a2fe9cd0d0a7b07057717a1f768be2c805",
     "src/Sanctuary.Content/GenericPetMovement.cs": "1507cbcf57e48668e84014dcfa219810209523e7d995ad874bb3a88f76a071f7",
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
@@ -586,6 +587,7 @@
     "src/Sanctuary.Content/GenericPetTargetScoring.cs": "e292ab5de99dbe211a20d187c1c96ad3bc0dc264a80380134e2acbd7a92c131f",
     "src/Sanctuary.Content/GenericPetTraversal.cs": "5d38b9c6968bac89b76883fba826ace7ea6911bca1c6292eed50c0ed07363eb9",
     "src/Sanctuary.Content/GenericPetWarp.cs": "01b650cce346f7bd0adf480525408b7a3b693c85294c56af4a733846dafe54e8",
+    "src/Sanctuary.Content/GenericPetWarpCandidateCheck.cs": "ebd4bbd4c43b4fb0793488bec4563eb918957ec1970597933c6089bab28084e3",
     "src/Sanctuary.Content/GenericPetWarpSearch.cs": "687c197bfa46ddd7689f15072a0ae07020229e4a775e48d82ca6f224bcf98c1b",
     "src/Sanctuary.Content/GenericPetWorldIdentity.cs": "6c55aafd16fa958a428a8dd3d18d40b1b07522e8793fe7f608d433ef2d6a7d10",
     "src/Sanctuary.Content/GlacialSpikes.cs": "434a2ecf00624b6b849b932a2bd43094e5c61db0380bc2f45b51782add7cdf4e",

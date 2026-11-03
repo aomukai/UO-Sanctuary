@@ -1,5 +1,7 @@
 # Skill icons
 
+**Landing validation and placement policy (2026-11-03 JST).** No new talent or hotkey is introduced. Summon Goatman's talent/right/quick icons remain separately pending placeholders; learned casting remains disabled. Effects/audio stay in their own register. See [checkpoint](generic-pet-warp-candidate-checkpoint.md).
+
 **Warp room-search/update primitives (2026-11-03 JST).** No new player talent/hotkey binding is introduced. Summon Goatman talent/right/quick icons remain separately pending placeholders;learned casting remains disabled. Effects/audio stay in their own register. See [checkpoint](generic-pet-warp-primitives-checkpoint.md).
 
 **GenericPet warp recovery policy (2026-11-03 JST).** No new talent or player hotkey is created. Summon Goatman talent/right/quick icons remain separately pending placeholders; learned casting is still disabled. Effects/audio remain in their own register. See [checkpoint](generic-pet-warp-checkpoint.md).

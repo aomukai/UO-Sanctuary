@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current monster placement policy with actual room-update composition",
+  "cases": 5229,
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "All6placement unwind fragments execute for the actual monster/last-arg0path,including the complete room-update body. Player packet/history and nonzero-last-argument branches are outside this interface.",
+    "Nearby adjustment,path commit,geometry fields,before/after hooks and synchronization remain explicit services. This does not prove actual native world relocation or its complete path/collision effects."
+  ],
+  "artifacts": {
+    "tools/probe_generic_pet_monster_placement.py": "2aaecd76245f95a39ee0a74188c6991b2cb6bef7845eacf042e37441a22317ca",
+    "tools/probe_generic_pet_warp_primitives.py": "7f0ea07845104d4424a00ad597ce536e491bc20b7bd878a6f8598bb7de485085",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103.json": "3c473b4b52e34e1d0e6fbc47cdd687d38209166db11c26b3594ca9015b6c8db1",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-358f20-part0.bin": "37a3ec4c8f5f75807dfc1d35958f0d9f39d04fd788a99858d669e6a9c0a45a68",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103.json": "f483ebf0876aed2c6b77bfdf3d60e726675170a4b8551c44cd50e11ebee59a4e",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-2a3b30-part0.bin": "6d11c3b2df1d00e07dcd3dfe32025bc15f15587044aaf7771720d741ea0e348d",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-277ff0-part0.bin": "3c4f3912de79b020455a85b280ae6a9550eb6236e9ecf689bfcec1780e67cef8",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-266860-part0.bin": "72fb0d048b488441fbee3c70506f9273a064d68165ff7d57aca0a8b833011d03",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-3739a0-part0.bin": "f38d88ccc894412d5ef85a0a436bdf1c9aa9d5c649429e9f61c95dbeb7d52bc3",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-3739a0-part1.bin": "b7a8fb42fd844bee89c5c1529fc2b927af36a7cb33c3a5c1f57d979635c4d0fa",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-3739a0-part2.bin": "1764f536763ac943f8583b6c3fcb77466b4794448f526f7bdc5c90569490ad42",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-3739a0-part3.bin": "0a67aa49257e2c2bc0ba0691982adeba7dc44e59350750571b9478b82877aebc",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-3739a0-part4.bin": "718e7dd88a075007d7796a38c5e04a9ed2aa6ab8dda3f0acb7c91dd05759cecd",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-3739a0-part5.bin": "da9815c20c20b210ee86d8dbacf704b6572ac39a6586ad817f637059a05c9b31",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/generic-pet-monster-placement-source-probe.json",
+    "sha256": "5393a0106af9717ed38bb24e7608423ab4c4239b1cdbd17d1e4c1dd311dc9209"
+  }
+}
