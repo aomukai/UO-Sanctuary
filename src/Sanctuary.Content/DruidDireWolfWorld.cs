@@ -104,6 +104,8 @@ internal static class DruidDireWolfWorld
         body.MoveToWorld(point,map);body.AIObject?.AITimer.Stop();
         return s with{Map=map.MapID,Motion=DruidRavenMotion.Center(point.X*2,point.Y*2)};
     }
+    internal static int MovementPercent(DruidDireWolfBody body,int bonus)=>checked(100+bonus+DireWolfUpgrades.MovementPercent(body)
+        +PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body));
     private static bool Path(DruidDireWolfBody body,ref DireWolfWorldState s,Point2D target,bool run,bool deleteOnFailure=false)
     {
         if(target.X<=0 || target.Y<=0 || target.X>=body.Map.Width*2 || target.Y>=body.Map.Height*2)
@@ -113,7 +115,7 @@ internal static class DruidDireWolfWorld
         if(type==1){throw new NotSupportedException("Wolf follow needs unimplemented source AStar fallback");}
         var curse=NecromancerEffects.Curse(body);
         if(run && curse?.Ability==CombatAbility.Decrepify){run=false;type=13;bonus=0;budget=5;}
-        int percent=100+bonus+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body);
+        int percent=MovementPercent(body,bonus);
         var speed=SourceActorMotion.Speed(NecromancerSummons.Source("fenris","Velocity"),NecromancerSummons.Source("spiritwolf-animation",run?"RNSpeed":"WLSpeed"),percent,0);
         int flags=type==13?0x100:type==15?0x800:0;
         var motion=s.Motion with{PathType=type,Flags=flags,Velocity=speed.Velocity,MaximumVelocity=speed.Velocity,Acceleration=0,AccelerationCounter=0,Points=[],Index=0,Distance=budget};
@@ -285,7 +287,7 @@ internal static class DruidDireWolfWorld
             if(s.Mode is 2 or 15)
             {
                 var speed=SourceActorMotion.Speed(NecromancerSummons.Source("fenris","Velocity"),NecromancerSummons.Source("spiritwolf-animation",s.Mode==15?"RNSpeed":"WLSpeed"),
-                    100+s.MovingBonus+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body),0);
+                    MovementPercent(body,s.MovingBonus),0);
                 s=s with{Motion=s.Motion with{Velocity=speed.Velocity,MaximumVelocity=speed.Velocity}};
                 var moved=SourceActorMotion.Advance(s.Motion,(x,y)=>Collision(body,x,y));s=s with{Motion=moved.State};
                 if(!moved.Moving){s=Neutral(s,1);}

@@ -51,7 +51,7 @@ Corpse shattering is accepted. Necromancers can choose a corpse-explosion build 
 
 ## Druid
 
-Spirit Wolf hard10Open Wounds and hard20breakable cold immunity are implemented with dedicated27-marker/3boot/2reload acceptance; see [the checkpoint](spirit-wolf-upgrades-checkpoint.md). Intrinsic cold-only attacks, baseline unchillability and captured birth stats remain. Other Druid entries below are still pending unless separately accepted.
+Spirit Wolf hard10Open Wounds and hard20breakable cold immunity are implemented with dedicated27-marker/3boot/2reload acceptance; see [the checkpoint](spirit-wolf-upgrades-checkpoint.md). Intrinsic cold-only attacks, baseline unchillability and captured birth stats remain. Dire Wolf hard10movement-only Extra Fast and hard20direct Extra Strong are implemented within the [21-marker/3boot/2reload checkpoint](dire-wolf-upgrades-checkpoint.md). Grizzly and Creeper entries below remain pending unless separately accepted.
 
 | Pet | 10 hard points | 20 hard points / balance change |
 | --- | --- | --- |

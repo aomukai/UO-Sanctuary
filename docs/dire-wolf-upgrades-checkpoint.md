@@ -1,0 +1,17 @@
+# Approved Dire Wolf upgrades
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with Sanctuary's approved pet changes taking precedence. Parent accepted commit: `4f5af78d`. These unlocks are approved deviations, not new claims about the D2R baseline.
+
+Existing Dire Wolves read live hard points: rank 10 grants the existing movement-only Extra Fast modifier; rank 20 grants direct Extra Strong. The shared encounter helper supplies 100 percentage points of movement and Normal/Nightmare/Hell damage/attack-rating bonuses of 135/90, 112/75 and 99/66. These join the existing additive movement, damage and attack-rating pools. Attack speed is unchanged; no elite health or loot multiplier is added.
+
+Hard-point unlocks remain separate from captured effective birth and A1 packet ranks. Training and respec affect existing wolves without recreating them, healing wounds, changing ownership/order, recapturing birth stats or replacing the controller stream. Existing rage, Grizzly bonuses, auras and curses retain their own contributions. Difficulty changes use the existing owner-facet transaction and preserve current life percentage.
+
+The dedicated fixture checks actual ordinary encounter modifiers, soft-rank exclusions, training during an existing bite, deterministic attack damage/RNG, additive rage/curse composition, live movement and unchanged attack rate, respec removal, three difficulty branches and original saved actor identity, birth, fractional wounds, controller stream and order. A connected learned-cast scene pays 20 mana once, unlocks strength during A1 windup and waits for an automatic bite. The retained Fenris world suite covers 576 source packet cases, feeding, rage, immunity, Enchant, movement and original queued/raging actors across reloads; Iron original-item/resource regression is retained.
+
+One initial test incorrectly tried to assign a shield component to a zombie species without shield components. The fixture was corrected; production DLLs are identical. Its failed run is preserved as a diagnostic, not passing evidence. The earlier accepted run used pending roadmap wording; the final run repeats against the final metadata with identical production DLLs.
+
+Build5/run3 passes **21 native markers across three boots, two actual reloads and three saves**, including three connected paid learned-cast scenes. Both clean builds have zero warnings/errors. Two fresh runtime audits retain all 573 named decisions with 918/21 input fingerprints. All 71 Python tests and catalogue/roadmap checks pass; all 106 protected installed artifact hashes and the native kernel are unchanged. The [native receipt](../tools/reference/dire-wolf-upgrades-native-evidence.json) binds source/data/binaries and preserved diagnostics. All build/native/audit readers are terminal. No fresh full-class run, new handler, class certificate, deployment or save reset is claimed; coverage remains 191 handlers.
+
+Final wolf body, movement, summon, feeding/rage, bite, hurt/death, teleport and audio assets remain pending; existing native presentation is an identified placeholder. Talent/hotkey icons remain in their separate ledger. These passive unlocks create no additional active binding.
+
+Next: approved Grizzly Crushing Blow; its stun chance, duration and eligible attacks remain unspecified. Poison Creeper's exact curve and rank/synergy basis also remain nonblocking questions. Continue unaffected class mechanics without inventing those values.

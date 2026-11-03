@@ -1,5 +1,7 @@
 # Skill icons
 
+**Dire Wolf approved affixes (2026-11-03 JST).** Existing Summon Dire Wolf talent/right/quick icons remain pending placeholders. The two hard-point unlocks add no separate active hotkey; effects/audio remain in their own ledger. See [checkpoint](dire-wolf-upgrades-checkpoint.md).
+
 **Spirit Wolf approved upgrades (2026-11-03 JST).** Existing Summon Spirit Wolf talent/left/right/quick icon artwork remains pending. Hard-point unlocks add no separate active binding; effects/audio remain in their own ledger. See [checkpoint](spirit-wolf-upgrades-checkpoint.md).
 
 **Player attack-rate slow correction (2026-11-03 JST).** No skill availability or binding changes; existing talent/left/right/quick icons remain separate pending placeholders. The shared timing correction adds no artwork. See [checkpoint](player-attack-slow-checkpoint.md).

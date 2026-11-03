@@ -38,11 +38,11 @@ internal static class DruidDireWolfHit
     internal static int Chance(DruidDireWolfBody body,DireWolfWorldState state,BaseCreature target)
     {
         var birth=body.Prepared.Snapshot.Birth;var packet=state.AttackPacket??throw new InvalidOperationException("Fenris hit requires captured A1 stats");
-        int percent=(SorceressEffects.Enchantment(body)?.AttackPercent??0)+CombatAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
+        int percent=DireWolfUpgrades.AttackPercent(body)+(SorceressEffects.Enchantment(body)?.AttackPercent??0)+CombatAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
         return AssassinTrapAttack.Chance(birth.Level,checked(birth.BaseAttack+birth.AttackBonus+packet.Attack),0,percent,ClassStats.Level(target),ClassStats.Defense(target));
     }
     internal static int DamagePercent(DruidDireWolfBody body,DireWolfWorldState state)=>checked(body.Prepared.Snapshot.Birth.DamagePercent
-        +(state.RageUntil>state.Frame?state.RagePercent:0)+CombatAuras.DamagePercent(body)+NecromancerEffects.DamageStatPercent(body));
+        +(state.RageUntil>state.Frame?state.RagePercent:0)+DireWolfUpgrades.DamagePercent(body)+CombatAuras.DamagePercent(body)+NecromancerEffects.DamageStatPercent(body));
     private static (int Min,int Max) Aura(DruidDireWolfBody body,CombatAbility ability)
     {var aura=PaladinAuras.Effect(body,ability);return aura==null?(0,0):(NamedElements.To256(aura.WeaponMin),NamedElements.To256(aura.WeaponMax));}
     internal static DireWolfHitResult Resolve(DruidDireWolfBody body,PlayerMobile owner,DireWolfWorldState state,BaseCreature target,ref ulong seed)

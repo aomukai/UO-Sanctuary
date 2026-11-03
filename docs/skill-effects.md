@@ -1,5 +1,7 @@
 # Skill effects
 
+**Dire Wolf approved affixes (2026-11-03 JST).** Passive movement/strength changes reuse the current logical encounter modifiers. Final WFbody,movement,summon,feeding/rage,bite,hurt/death,teleport and audio remain pending; existing native presentation is an identified placeholder. No final artwork generated; see [checkpoint](dire-wolf-upgrades-checkpoint.md).
+
 **Spirit Wolf approved upgrades (2026-11-03 JST).** Wounds reuse the shared logical bleed consumer; final bleed/contact visual/audio and wolf summon/bite/hurt/death/teleport effects remain pending. Existing body0xE1 and native effects are identified placeholders. The cold-resistance floor adds no final artwork. See [checkpoint](spirit-wolf-upgrades-checkpoint.md).
 
 **Player attack-rate slow correction (2026-11-03 JST).** Shared arithmetic adds no final effects or audio. Existing per-skill cast, attack, status and contact placeholders remain independently pending. Actual-client animation/event acceptance is still required; see [checkpoint](player-attack-slow-checkpoint.md).
