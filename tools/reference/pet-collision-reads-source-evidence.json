@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current point/cardinal/recursive box collision and complete room resolver",
+  "cases": 25100,
+  "byFamily": {
+    "point": 8040,
+    "adjacent": 8040,
+    "box": 8060,
+    "resolve": 960
+  },
+  "unsupportedCases": 216,
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "Six complete captured routines run on supplied room/grid/cell metadata,including all13inline adjacent dispatch entries. The table is read-only data and forbidden as instructions;synthetic stack-cookie verification preserves RAX.",
+    "Source room resolver and recursive split/scan execute without substitute callbacks. Cell and resolver-entry query ordering are compared. Missing box cell buffers remain explicit unsupported controls. Native terrain/grid ownership,write kernels,controller and learned casts remain separate."
+  ],
+  "artifacts": {
+    "tools/probe_pet_collision_reads.py": "a79ec2a8ff1aa556c0c0bbc3beaa72f7cbf3be97daf7c4330e5628f78c8c9563",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_path_commit.py": "3cd99aac00011e8db2a5da818771efd3f9744523baa58848a08a711faf98e840",
+    "tools/capture_pet_collision_services.py": "085d6fca9fd252f9704a01c52661873beb4e287754253579c8042673c7ff0f6d",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-checks-20261103.json": "f1fae8f4ebfb43a8ea5a35b95b7f48d1f08666a9823595ac40ed1c8888ab24f9",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-checks-20261103-2a4920-part0.bin": "d2b01f512b76df2e69dac0750bf09ad13c28c6dd2d177b9fa3789f6c4a3d2359",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-checks-20261103-2a5060-part0.bin": "b5ba82ca9e3436eb0570c117cba280a3c154991440e266b3ba96727cbdfe81c2",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-checks-20261103-2a5060-part1.bin": "1f185960d217593483d4efc8a67b9b8bc81e37d3168290f065ad0e8b5823e88f",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-checks-20261103-2a5060-part2.bin": "0174e869f1b29761ff0fccc2737a00008309e3ac4fb0a7782a581c607c8a83d5",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-checks-20261103-2a4b30-part0.bin": "993b1c4893756b618b727e28da680712f82e5f7273cf1675c23fe3832d035e40",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103.json": "a606623c4ffdaac5eb50e61c697e05937ddcee68d4a2388633c7c3fb5471e19c",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4990-part0.bin": "254196d03d73cdff7959150335d0bf7ecdcee7fbc905699c04b41b81f94a7980",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4990-part1.bin": "0ad9c6586c5262632822ea894161dcd0b1c341807a0a5aac4d624f15a3820da1",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4990-part2.bin": "28a25e19ba16df8232d41f5d4beea5ccb3f767e12d2b9ec6103c2e8f0ebe8e4e",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4a30-part0.bin": "20ec6816bc7a3ce48378598e462fe86bfcc9988fa06c04470da5441a94508b8b",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4a30-part1.bin": "9de1fa932d5e451b34d4b2de51e8dc1d12e5fed8fda4dbcb29589c2646ef05a9",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4a30-part2.bin": "6920cfd56737720fc0805f3f4b29c515d795e5d8cbfefe59db7db24cc628e152",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2a4a30-part3.bin": "707d0aaa968dc318adbeceeea5c1b17b1755d12e5ff64af6dc5c0df039bea4f0",
+    ".local/class-skills/pet-collision-reference-20261103/callees-pet-collision-leaves-20261103-2972c0-part0.bin": "a69288093d0af13edbf1d94372f04622d131fbfd840da51c59d7d41f5f3212a4",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/pet-collision-reads-source-probe.json",
+    "sha256": "f62b55894faa052d76b83ca70f239ce7f2c738d1dab9ca9348288d5f22c6b0ed"
+  }
+}

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Current collision reads (2026-11-03 JST).** Room/grid/cardinal/box reads add no independent artwork. Existing native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay pending separately. See [checkpoint](pet-collision-reads-checkpoint.md).
+
 **Current nearby placement (2026-11-03 JST).** Candidate search adds no independent artwork. Existing native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay pending separately. See [checkpoint](generic-pet-nearby-checkpoint.md).
 
 **Current footprint dispatch (2026-11-03 JST).** Collision masks and occupancy lanes require no independent artwork. Existing native pet movement/teleport/body/combat/hurt/death/audio cues remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](generic-pet-footprints-checkpoint.md).

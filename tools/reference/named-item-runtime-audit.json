@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7dcc8c180b523939384aa95f92494f5149d1b6e08191db19cecb2ab2ff9d2ade",
+  "ContentAssemblySha256": "afa234a00b333f4ae173d6ac9f1a560c10bbd97e8d79944545d29f5d1ff3243b",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -567,6 +567,7 @@
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
     "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCollisionFootprints.cs": "b9871ce5f394394d9d1cbe9918bb160ecc474ebb91ba8f3a37d48b5f212efada",
+    "src/Sanctuary.Content/GenericPetCollisionReads.cs": "e39ac420d899269f939638c0c22f2bd7e9818d9851ec51f20d4a03772ecf14d2",
     "src/Sanctuary.Content/GenericPetCombat.cs": "2364d76ca78aa565ec846f6f1b1be631672c25395ecc56c2b3cf0e5c0e4c9021",
     "src/Sanctuary.Content/GenericPetDecisions.cs": "d13d4f669a95fcf35b1123630d39e3927a064a658a8c8fec643d69ef9da4657a",
     "src/Sanctuary.Content/GenericPetFollowExecutor.cs": "e161b2340387779f5a7c6a7e5e7e13950713f8b116a3dd3951c4849b6a230ce1",
