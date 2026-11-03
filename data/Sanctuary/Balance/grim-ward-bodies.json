@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 250,
+    "Name": "grimwardsmall",
+    "Period": 6,
+    "Dispatch": 30
+  },
+  {
+    "Id": 253,
+    "Name": "grimwardmedium",
+    "Period": 6,
+    "Dispatch": 30
+  },
+  {
+    "Id": 256,
+    "Name": "grimwardlarge",
+    "Period": 6,
+    "Dispatch": 30
+  }
+]

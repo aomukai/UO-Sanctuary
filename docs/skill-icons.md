@@ -1,5 +1,7 @@
 # Skill icons
 
+**Ward periodic world pulse (2026-11-04 JST).** No learned binding or new icon is introduced. Grim Ward talent/right/quick hotkey icons remain a separate missing-asset entry. See [checkpoint](grim-ward-world-pulse-checkpoint.md).
+
 **Prepared Ward monster effects (2026-11-03 JST).** Grim Ward talent and right/quick hotkey icons remain missing independently of recipient mechanics. No learned binding or final icon is introduced. See [checkpoint](grim-ward-transport-checkpoint.md).
 
 **Prepared Grim Ward curse operation (2026-11-03 JST).** No learned binding or icon is added. Grim Ward talent/right/quick icons remain separately pending. See [checkpoint](grim-ward-curse-checkpoint.md).

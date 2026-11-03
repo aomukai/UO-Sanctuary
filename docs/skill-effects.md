@@ -1,5 +1,7 @@
 # Skill effects
 
+**Ward periodic world pulse (2026-11-04 JST).** Real area curse effects still use the identified ordinary curse marker; fixture bodies use an explicitly named placeholder. Final Ward start/body/end,fear/slow/expiry and audio remain missing. No final visual or audio asset is created by the pulse adapter. See [checkpoint](grim-ward-world-pulse-checkpoint.md).
+
 **Prepared Ward monster effects (2026-11-03 JST).** Actual recipient effects reuse the identified curse-marker placeholder. Final Ward start/body/end, fear/slow/expiry and audio remain missing; the saved payload introduces no finished artwork. See [checkpoint](grim-ward-transport-checkpoint.md).
 
 **Prepared Grim Ward curse operation (2026-11-03 JST).** The stat operation adds no final artwork. Ward start/body/end,fear/slow/expiry and audio remain required;mechanical result checks proceed independently. See [checkpoint](grim-ward-curse-checkpoint.md).

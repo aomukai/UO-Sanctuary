@@ -34,13 +34,23 @@ internal static class GrimWardCurseTransport
         return seconds*100/percent;
     }
     internal static bool Apply(PlayerMobile owner,Item missile,BaseCreature target,SkillValues context,DateTime at)
+        =>Eligible(owner,missile,target,at)&&ApplyPacket(owner,missile,target,
+            GrimWardCurseOperation.Packet(context,SummonDifficulties.For(owner.Map)),at);
+    private static bool Eligible(PlayerMobile owner,Item missile,BaseCreature target,DateTime at)
     {
-        if(owner is not{Alive:true,Deleted:false}||missile is not{Deleted:false}||target is not{Alive:true,Deleted:false}
+        return !(owner is not{Alive:true,Deleted:false}||missile is not{Deleted:false}||target is not{Alive:true,Deleted:false}
             ||missile.Map!=target.Map||owner.Map!=target.Map||missile.Map==Map.Internal
             ||!ClassCombat.IsHostile(owner,target)||!NecromancerCurseCasts.Eligible(target)
             ||!NecromancerCurseCasts.AiEligible(target)||!SourceTerror.Supported(target)
-            ||EliteAuras.Curses.Active(target.Serial,at)){return false;}
-        var packet=GrimWardCurseOperation.Packet(context,SummonDifficulties.For(owner.Map));
+            ||EliteAuras.Curses.Active(target.Serial,at));
+    }
+    // Do30 evaluates its four stats once before visiting recipients. A world
+    // pulse passes that packet through unchanged, rather than re-reading live
+    // hard ranks after each monster's harmful-action callbacks.
+    internal static bool ApplyPacket(PlayerMobile owner,Item missile,BaseCreature target,GrimWardCursePacket packet,DateTime at)
+    {
+        ArgumentNullException.ThrowIfNull(packet);
+        if(!Eligible(owner,missile,target,at)){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();
         var old=state.Curse is{} c&&c.UntilUtc>at?c:null;
         if(old?.Ability==CombatAbility.GrimWard&&!Valid(old))

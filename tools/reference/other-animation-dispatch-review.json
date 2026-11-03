@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp",
+  "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+  "gitBlob": "cac33ac7614f167989129849dedd7e6b9451569d",
+  "scope": "Manual complete dispatcher/branch inspection of legacy source;not a new compiled oracle or current executable proof.",
+  "inspected": [
+    "UNITS_UpdateAnimRateAndVelocity",
+    "UNITS_UpdateCastAnimRateAndVelocity",
+    "UNITS_UpdateGetHitAnimRateAndVelocity",
+    "UNITS_UpdateKnockbackAnimRateAndVelocity",
+    "UNITS_UpdateOtherAnimRateAndVelocity",
+    "UNITS_CanAnimModeUseVelocityModifier",
+    "UNITS_CanAnimModeUseAttackRate",
+    "player and classic/expansion monster mode modulator tables"
+  ],
+  "dispatchOrder": [
+    "FCR cast/sequence",
+    "block",
+    "get-hit",
+    "knockback",
+    "velocity mode",
+    "attack-rate mode",
+    "other animation"
+  ],
+  "finding": "The other-animation field is not a blanket multiplier for casting,hit recovery,knockback,walking or ordinary attack timing. Fallback modes either retain unmodified base animation speed when allowed or clamp the other-rate stat to15..175 before scaling base animation speed.",
+  "remaining": [
+    "Current native neutral/special-mode consumers and source mode conversion/used-skill flags remain unfinished.",
+    "Do not remove the Ward/Holy Freeze/Impale other-animation gap merely because casting and get-hit are separate branches."
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "672c548130028b0b6f469ca5e5aa9a0ee7f6495d8cfc058b4efa46d24bff9926",
-  "ContentAssemblyPath": ".local/class-skills/grim-ward-transport/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "c21b1b8c50bab156a6ab5fa6cd5334a56e1c17a97a2664e55c0c4999bb63be2f",
+  "ContentAssemblyPath": ".local/class-skills/grim-ward-world-pulse/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
