@@ -29,7 +29,8 @@ public sealed class WakeFireMissileProfiles:GenericPersistence
 // Prepared real maker/wave backend. One supplied NPC do125 execution and its
 // descendants share a four-frame lease. The shipped current guide describes
 // same-cast isolation; exact modern NPC shot-versus-placement identity remains
-// acceptance work. Learned casting and the actor's default dispatch stay gated.
+// acceptance work. Learned casting stays gated; automatic actor firing uses
+// one explicit execution for each do125 call and retains that interpretation.
 // Shared native Q12/cell/terrain adapters retain their existing geometry limits.
 public static class AssassinWakeFireMissiles
 {
@@ -41,10 +42,23 @@ public static class AssassinWakeFireMissiles
     public static void Configure()=>_=new WakeFireMissileProfiles();
     internal static DateTime NextFrame=>Flights.Values.Select(x=>x.NextUtc).DefaultIfEmpty(DateTime.MaxValue).Min();
     internal static WakeFireFlight State(long id)=>Flights.GetValueOrDefault(id);
+    internal static void Dispatch(AssassinSentryBody body,uint targetSerial)
+    {
+        Point2D? point=null;
+        if(World.FindMobile((Serial)targetSerial) is{Deleted:false} target&&target!=body)
+        {
+            if(target.Map!=body.Map){throw new NotSupportedException("Cross-map pending Wake target is not mapped");}
+            point=new(target.X*2,target.Y*2);
+        }
+        var aim=AssassinSentryAim.Resolve(body.Prepared.CachedAim,point);
+        // Complete target-coordinate getter refuses either zero coordinate.
+        if(aim.X==0||aim.Y==0){return;}
+        Create(body,aim);
+    }
     internal static long Create(AssassinSentryBody body,Point2D aim)=>Create(body,body.X,body.Y,aim.X-body.X*2,aim.Y-body.Y*2,false,0,body.Prepared.NextFrameUtc);
     private static long Create(AssassinSentryBody body,double x,double y,int dx,int dy,bool wave,long execution,DateTime at)
     {
-        if(body is not{Alive:true,Deleted:false}||body.Prepared is not{ControllerFault:null,Creation.Ability:CombatAbility.WakeOfFire} c)
+        if(body is not{Deleted:false}||!(body.Alive||wave&&body.ReleasedProjectileOwner)||body.Prepared is not{ControllerFault:null,Creation.Ability:CombatAbility.WakeOfFire} c)
         {throw new InvalidOperationException("Invalid live Wake source");}
         string missile=wave?"wake of destruction":"wake of destruction maker";
         int F(string field)=>NecromancerSummons.Source(missile,field);
@@ -100,7 +114,7 @@ public static class AssassinWakeFireMissiles
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var body=World.FindMobile((Serial)s.Actor) as AssassinSentryBody;
-        bool fighting=body is{Alive:true,Deleted:false}&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map
+        bool fighting=body is{Deleted:false}&&(body.Alive||body.ReleasedProjectileOwner)&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map
             &&body.Prepared.Creation.Ability==CombatAbility.WakeOfFire&&body.Prepared.ControllerFault==null&&(actions??AssassinTrapRoster.Fighting(s.Owner));
         if(!fighting||s.Fault!=null)
         {if(frame>=s.Frames){Flights.Remove(s.Id);}else{Flights[s.Id]=next;}return;}
@@ -124,7 +138,7 @@ public static class AssassinWakeFireMissiles
             foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z),3))
             {
                 if(candidate.Serial.Value==s.LastCollision||Delayed(s.Execution,candidate.Serial.Value,s.NextUtc)||Math.Abs(candidate.Z-s.Z)>=16
-                    ||!body.TrapTarget(owner,candidate)||SpellHelper.IsTown(candidate.Location,candidate)){continue;}
+                    ||!(body.ReleasedProjectileOwner?body.CorpseProjectileTarget(owner,candidate):body.TrapTarget(owner,candidate))||SpellHelper.IsTown(candidate.Location,candidate)){continue;}
                 int? size=CreatureProfiles.For(candidate).Traits.Size;
                 if(size is not(>=1 and <=3)){throw new NotSupportedException("Wake collider has no mapped source size");}
                 if(CombatHitboxes.SourceTouches(1,size.Value,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){victim=candidate;break;}

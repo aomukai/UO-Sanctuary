@@ -46,7 +46,7 @@ internal static class AssassinTrapRoster
         {
             Entries.Remove(old.Actor);
             if(World.FindMobile((Serial)old.Actor) is AssassinSentryBody{Alive:true} sentry
-                && sentry.Prepared.Creation.Ability is (CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry))
+                && sentry.Prepared.Creation.Ability is (CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry or CombatAbility.WakeOfFire))
             {sentry.BeginRetirement(TimedEffects.Now,"replacement");}
             else{World.FindMobile((Serial)old.Actor)?.Delete();}
         }

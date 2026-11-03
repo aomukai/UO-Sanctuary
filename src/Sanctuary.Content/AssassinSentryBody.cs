@@ -60,7 +60,9 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
         AIObject?.AITimer.Stop();
     }
     private static bool Stopped(SentryBodyState state,bool pending)
-        =>state.Creation.Ability==CombatAbility.DeathSentry
+        =>state.Creation.Ability==CombatAbility.WakeOfFire
+            ?state.WakeControl is{Mode:0,Target:0,ActionAt:0,EndAt:0}&&(!pending||state.WakeControl.NextThink==0)
+            :state.Creation.Ability==CombatAbility.DeathSentry
             ?state.DeathControl is{Mode:0,Target:0,Corpse:0,Sequence:null,ActionAt:0,EndAt:0}&&(!pending||state.DeathControl.NextThink==0)
             :state.Creation.Ability==CombatAbility.WakeOfInferno
             ?state.InfernoControl is{Mode:0,EndAt:0,Target:0,Burst:null,Inferno:false}&&(!pending||state.InfernoControl.NextThink==0)
@@ -77,12 +79,12 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
             || s.Position.X<=0 || s.Position.Y<=0 || s.Position.X>=Map.Maps[s.Map].Width || s.Position.Y>=Map.Maps[s.Map].Height
             || s.Position.Z is <-128 or >127 || s.NextFrameUtc.Kind!=DateTimeKind.Utc)
         {throw new InvalidDataException("Unsupported saved sentry body state");}
-        if(s.Corpse!=null && (c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry) || s.Corpse.CompletedUtc.Kind!=DateTimeKind.Utc || !Stopped(s,false)))
+        if(s.Corpse!=null && (c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry or CombatAbility.WakeOfFire) || s.Corpse.CompletedUtc.Kind!=DateTimeKind.Utc || !Stopped(s,false)))
         {throw new InvalidDataException("Unsupported completed sentry corpse");}
         if(s.Retirement is{} retirement)
         {
             AssassinSentryRetirement.Validate(retirement,c.Ability);
-            if(c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry) || s.Corpse!=null || !Stopped(s,true) || s.NextFrameUtc!=retirement.CompletesUtc)
+            if(c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry or CombatAbility.WakeOfFire) || s.Corpse!=null || !Stopped(s,true) || s.NextFrameUtc!=retirement.CompletesUtc)
             {throw new InvalidDataException("Unsupported pending Sentry death");}
         }
         if(c.Ability==CombatAbility.DeathSentry)
@@ -124,13 +126,14 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     // interval. Only the source-backed completed-death boundary joins the pool.
     internal void BeginRetirement(DateTime at,string cause)
     {
-        if(Deleted || Prepared.Creation.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry))
+        if(Deleted || Prepared.Creation.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry or CombatAbility.WakeOfFire))
         {throw new NotSupportedException("Unsupported natural Sentry retirement");}
         if(Prepared.Corpse!=null || Prepared.Retirement!=null){return;}
         var death=AssassinSentryRetirement.Begin(at,cause,Prepared.Creation.Ability);
         Store(Prepared with{Retirement=death,Control=Prepared.Control==null?null:Prepared.Control with{Mode=0,NextThink=0,Sequence=null,Target=0,EmergenceEnd=0},
             InfernoControl=Prepared.InfernoControl==null?null:Prepared.InfernoControl with{Mode=0,NextThink=0,EndAt=0,Target=0,Burst=null,Inferno=false},
             DeathControl=Prepared.DeathControl==null?null:Prepared.DeathControl with{Mode=0,NextThink=0,Target=0,Corpse=0,Sequence=null,ActionAt=0,EndAt=0},
+            WakeControl=Prepared.WakeControl==null?null:Prepared.WakeControl with{Mode=0,NextThink=0,Target=0,ActionAt=0,EndAt=0},
             NextFrameUtc=death.CompletesUtc,ControllerFault=null});
         Combatant=null;FocusMob=null;Warmode=false;AIObject?.AITimer.Stop();AssassinTrapRoster.Forget(this);
         AssassinSentryActors.Track(this);
@@ -139,13 +142,14 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     // flagged summon families retain their separate death adapters.
     internal void CompleteRetirement(DateTime at)
     {
-        if(at.Kind!=DateTimeKind.Utc || Deleted || Prepared.Creation.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry))
+        if(at.Kind!=DateTimeKind.Utc || Deleted || Prepared.Creation.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry or CombatAbility.WakeOfFire))
         {throw new NotSupportedException("Sentry completed-death context is not supported");}
         if(Prepared.Corpse!=null){LimitedSummonCorpses.Retain(this);return;}
         var before=Prepared;
         Store(before with{Corpse=new(at),Retirement=null,Control=before.Control==null?null:before.Control with{Mode=0,NextThink=0,Sequence=null,Target=0,EmergenceEnd=0},
             InfernoControl=before.InfernoControl==null?null:before.InfernoControl with{Mode=0,NextThink=0,EndAt=0,Target=0,Burst=null,Inferno=false},
-            DeathControl=before.DeathControl==null?null:before.DeathControl with{Mode=0,NextThink=0,Target=0,Corpse=0,Sequence=null,ActionAt=0,EndAt=0},ControllerFault=null});
+            DeathControl=before.DeathControl==null?null:before.DeathControl with{Mode=0,NextThink=0,Target=0,Corpse=0,Sequence=null,ActionAt=0,EndAt=0},
+            WakeControl=before.WakeControl==null?null:before.WakeControl with{Mode=0,NextThink=0,Target=0,ActionAt=0,EndAt=0},ControllerFault=null});
         try{LimitedSummonCorpses.Retain(this);}catch{Store(before);throw;}
         Hidden=true;Combatant=null;FocusMob=null;Warmode=false;AIObject?.AITimer.Stop();
         AssassinSentryActors.Forget(this);AssassinTrapRoster.Forget(this);
@@ -297,10 +301,8 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
                     ()=>SourceRandom.Limited(ref seed,100)<100,
                     ()=>{}, // Actor281 has no start routine. Do not borrow mode14 path setup.
                     target=>(AssassinSentryActors.DispatchWake??throw new NotSupportedException("Wake real maker/wave factory is not connected"))(this,target));
-                Store(before with{WakeControl=wake,Seed=seed,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40),
-                    // This prepared actor is held at the boundary, not claimed
-                    // to have a proven death/GUID removal timeline.
-                    ControllerFault=wake.Mode==0?"Wake retirement/death/GUID lifecycle is not connected":null});
+                Store(before with{WakeControl=wake,Seed=seed,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40),ControllerFault=null});
+                if(wake.Mode==0){BeginRetirement(before.NextFrameUtc,"source-ai");if(Prepared.NextFrameUtc<=at){AdvanceController(at,allowActions);}return;}
                 AIObject?.AITimer.Stop();continue;
             }
             var control=AssassinSentryController.Advance(before.Control,true,true,town,true,true,
@@ -328,7 +330,7 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
                 ControllerFault=null});
             if(control.Mode==0)
             {
-                if(before.Creation.Ability is CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry)
+                if(before.Creation.Ability is CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry or CombatAbility.WakeOfFire)
                 {BeginRetirement(before.NextFrameUtc,"source-ai");if(Prepared.NextFrameUtc<=at){AdvanceController(at,allowActions);}}
                 return;
             }
@@ -358,12 +360,12 @@ public static class AssassinSentryActors
     // Orchestration fixtures can replace these explicitly scoped services.
     internal static Func<AssassinSentryBody,SentryTarget?> SelectTarget;
     internal static Action<AssassinSentryBody,uint> Dispatch;
-    // Intentionally unbound until the real fan factory/lifetime is verified.
+    // Default real factory; orchestration fixtures can replace it explicitly.
     internal static Action<AssassinSentryBody,uint> DispatchWake;
     public static void Initialize()
     {
         AssassinSentryWorldTargets.PrimaryPath??=AssassinSentryUnitPath.Probe;
-        SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=DispatchLightning;
+        SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=DispatchLightning;DispatchWake??=AssassinWakeFireMissiles.Dispatch;
     }
     private static void DispatchLightning(AssassinSentryBody body,uint target)
     {

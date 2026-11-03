@@ -93,15 +93,30 @@ public static class WakeFireMissileChecks
         Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Prepared backend enabled learned casting");
     }
     private static void Write(Saved saved)=>File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
+    private static WakeFireSave Scope(uint actor)
+    {
+        var all=AssassinWakeFireMissiles.Snapshot();var flights=all.Flights.Where(x=>x.Actor==actor).ToArray();var executions=flights.Select(x=>x.Execution).ToHashSet();
+        return new(flights,all.Leases.Where(x=>executions.Contains(x.Execution)).ToArray(),all.NextId);
+    }
+    // A later fixture explicitly steps its own future clock beyond our lease
+    // expiry. Reconcile that expiry before the shared save, never flight state.
+    internal static void PrepareSave()
+    {
+        if(!File.Exists(Manifest)){return;}
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var pool=Scope(saved.Body);
+        Require(JsonSerializer.Serialize(pool.Flights)==JsonSerializer.Serialize(saved.Pool.Flights),"Foreign fixture changed held Wake flights");
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Pool=pool}));
+    }
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
         var body=(AssassinSentryBody)World.FindMobile((Serial)saved.Body);var target=(BladeMissileTarget)World.FindMobile((Serial)saved.Target);
         Require(saved.Generation<2&&JsonSerializer.Serialize(body.Prepared)==JsonSerializer.Serialize(saved.Actor)
-            &&JsonSerializer.Serialize(AssassinWakeFireMissiles.Snapshot())==JsonSerializer.Serialize(saved.Pool)
-            &&SkillHealth.Balance256(body)==12850&&SkillHealth.Balance256(target)==saved.Health&&NecromancerEffects.ManaBalance256(p)==saved.Mana,"Wake original actor/flights/seed/history/leases/wounds/resources changed on reload");
-        Atomic();var old=AssassinWakeFireMissiles.Snapshot();DateTime at=AssassinWakeFireMissiles.NextFrame;
-        AssassinWakeFireMissiles.TickFrame(at,true);var next=AssassinWakeFireMissiles.Snapshot();
+            &&JsonSerializer.Serialize(Scope(saved.Body).Flights)==JsonSerializer.Serialize(saved.Pool.Flights)
+            &&JsonSerializer.Serialize(Scope(saved.Body).Leases)==JsonSerializer.Serialize(saved.Pool.Leases)
+            &&SkillHealth.Balance256(body)==12850&&SkillHealth.Balance256(target)==saved.Health&&NecromancerEffects.ManaBalance256(p)==saved.Mana,$"Wake reload mismatch actor={JsonSerializer.Serialize(body.Prepared)==JsonSerializer.Serialize(saved.Actor)} flights={JsonSerializer.Serialize(Scope(saved.Body).Flights)==JsonSerializer.Serialize(saved.Pool.Flights)} leases={JsonSerializer.Serialize(Scope(saved.Body).Leases)}/{JsonSerializer.Serialize(saved.Pool.Leases)} actorLife={SkillHealth.Balance256(body)} targetLife={SkillHealth.Balance256(target)}/{saved.Health} mana={NecromancerEffects.ManaBalance256(p)}/{saved.Mana}");
+        Atomic();var old=Scope(saved.Body);DateTime at=old.Flights.Min(x=>x.NextUtc);
+        AssassinWakeFireMissiles.TickFrame(at,true);var next=Scope(saved.Body);
         Require(old.Flights.Where(x=>x.NextUtc==at).All(x=>AssassinWakeFireMissiles.State(x.Id) is{} n&&n.Frame==x.Frame+1)
             &&next.NextId>=old.NextId&&NecromancerEffects.ManaBalance256(p)==saved.Mana,"Original Wake flights did not resume once");
         Write(saved with{Pool=next,Health=SkillHealth.Balance256(target),Generation=saved.Generation+1});

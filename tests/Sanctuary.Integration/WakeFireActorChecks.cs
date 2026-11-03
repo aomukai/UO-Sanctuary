@@ -113,11 +113,11 @@ public static class WakeFireActorChecks
                 offline.AdvanceController(offline.Prepared.NextFrameUtc.AddMilliseconds(4000),false);
                 Require(offline.Prepared.WakeControl is{Frame:126,Mode:1,Dispatches:0,Ai.RemainingShots:4}
                     &&offline.Prepared.Seed==before.Seed,"Offline Wake replay/refund/RNG/frozen clock");
-                var exhausted=bodies[3];Frames(exhausted,111);
-                Require(!exhausted.Deleted&&exhausted.Prepared.WakeControl is{Frame:111,Mode:0,Attempts:5,Dispatches:5,Ai.RemainingShots:0}
-                    &&exhausted.Prepared.ControllerFault.Contains("retirement"),"Unproved Wake retirement was silently invented");
+                var exhausted=bodies[3];Frames(exhausted,110);
+                Require(!exhausted.Deleted&&exhausted.Prepared.WakeControl is{Frame:110,Mode:0,Attempts:5,Dispatches:5,Ai.RemainingShots:0}
+                    &&exhausted.Prepared.ControllerFault==null&&exhausted.Prepared.Retirement is{Profile:AssassinSentryRetirement.InfernoProfile},"Wake five shots/E9 death entry");
                 ulong finalSeed=exhausted.Prepared.Seed;Frames(exhausted,3);
-                Require(exhausted.Prepared.WakeControl.Dispatches==5&&exhausted.Prepared.Seed==finalSeed,"Terminal prepared Wake replayed damage");
+                Require(exhausted.RetainedCorpse&&exhausted.Prepared.WakeControl.Dispatches==5&&exhausted.Prepared.Seed==finalSeed,"Terminal prepared Wake replayed damage");
             });
             var body=bodies[0];SkillHealth.SetBalance256(body,12850);var map=body.Map;var origin=body.Location;var captured=body.Prepared.Creation;
             SummonDifficulties.SetFacets([new(Map.Felucca.MapID,MonsterDifficulty.Hell)]);
@@ -126,6 +126,7 @@ public static class WakeFireActorChecks
                 &&body.Prepared.Creation.Skills.SequenceEqual(captured.Skills)&&body.Prepared.Creation.Passives.SequenceEqual(captured.Passives)
                 &&SkillHealth.Balance256(body)==12850,"Wake old-facet retention/owner difficulty/fractional injury");
             Require(NecromancerEffects.ManaBalance256(p)==mana&&!AssassinTrapRoster.Fighting(p.Serial.Value),"Prepared factory spent input mana or offline actor can fight");
+            Create(p); // The exhausted actor has released its live roster slot.
             Save(p);Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Unfinished Wake learned handler enabled");
             Log.Information("Wake actor:3711 complete damage comparisons, captured fire skills/stats, actual saved S1/direct S2, mixed cap5, offline cancellation, old-facet difficulty/injury and explicit retirement boundary pass; no live wave claim");
         }
@@ -170,7 +171,7 @@ public static class WakeFireActorChecks
             Require(b.Prepared.WakeControl.Dispatches==before+1,"Reload repeated/lost pending Wake action");
         });
         var oldest=saved.Roster[0];var fresh=Create(p);var roster=AssassinTrapRoster.For(p);
-        Require(World.FindMobile((Serial)oldest.Actor)==null&&roster.Length==5&&roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
+        Require(World.FindMobile((Serial)oldest.Actor) is AssassinSentryBody{Alive:false,Deleted:false,Prepared.Retirement:not null}&&roster.Length==5&&roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
             &&roster[^1].Actor==fresh.Serial.Value&&roster[^1].Order>saved.Roster[^1].Order,"Reload mixed cap replaced wrong Wake");
         Save(p);Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Reload enabled learned Wake");
         Log.Information("Wake actor reload:actual entities retain independent S1/S2 clocks, captured fire context, pending/terminal state, injury/facet and shared FIFO; explicit dispatch resumes once");

@@ -35,7 +35,16 @@ public sealed class SkillHealthProfiles : GenericPersistence
     public void Prune()
     {
         var remove = new List<Serial>();
-        foreach (var serial in Remainders.Keys) { if (World.FindMobile(serial) is not { Alive: true, Deleted: false }) { remove.Add(serial); } }
+        foreach (var serial in Remainders.Keys)
+        {
+            var mobile=World.FindMobile(serial);
+            // Retiring sentries retain their original registered NPC and stat
+            // context for issued missiles. Death does not round their wounds.
+            // This preserves state only; damage/healing still require Alive.
+            bool retained=mobile is AssassinSentryBody{Deleted:false} sentry
+                &&(sentry.Prepared?.Retirement!=null||sentry.Prepared?.Corpse!=null);
+            if(mobile is not{Alive:true,Deleted:false}&&!retained){remove.Add(serial);}
+        }
         foreach (var serial in remove) { Remainders.Remove(serial); }
     }
     public override void PostDeserialize() => Prune();
