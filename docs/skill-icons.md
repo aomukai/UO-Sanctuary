@@ -1,5 +1,7 @@
 # Skill icons
 
+**Current nearby placement (2026-11-03 JST).** Shared candidate search adds no talent or hotkey. Class summon tree/right/quick icons remain pending in this separate register. See [checkpoint](generic-pet-nearby-checkpoint.md).
+
 **Current footprint dispatch (2026-11-03 JST).** Shared collision bookkeeping adds no talent or hotkey. Existing class summon tree/right/quick icons remain separately pending. See [checkpoint](generic-pet-footprints-checkpoint.md).
 
 **Current path commitment backend (2026-11-03 JST).** Prepared placement adds no talent or hotkey. Warlock/Witch summon tree/right/quick icons remain separately pending;no new helper icon is required. See [checkpoint](generic-pet-path-commit-checkpoint.md).

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Shared current nearby adjustment (2026-11-03 JST).** Reuse `GenericPetNearbySearch.WithFootprints` and `Bind` for the actual null-field monster-placement caller. Preserve vertical/horizontal probe order,strict Manhattan tie retention,latest valid room and final selected-point lookup;do not copy the older null-room suppression.3,010current-code cases,3,004bindings and20placement compositions pass per boot. Field-constrained searches and actual terrain ownership remain separate. See [checkpoint](generic-pet-nearby-checkpoint.md).
+
 **Current footprint pattern versus size (2026-11-03 JST).** Reuse `GenericPetCollisionFootprints.Bind` with prepared path services;pattern and size dispatch are distinct. Preserve full-int occupancy gates even when low16 mask bits vanish,and retain direct cell/adjacent/box ordering.7,360captured-code/native contexts and3,240path compositions pass per boot. Low-level room/adjacent/box geometry remains explicit. See [checkpoint](generic-pet-footprints-checkpoint.md).
 
 **Shared current coordinate/room/reset state (2026-11-03 JST).** Use `GenericPetPathCommit` through prepared monster placement rather than substituting a bare native teleport. Missile and ordinary footprint paths,coordinate projection,room link/touch and reset have distinct ordering.8,184current-code/native cases and684placement bindings pass per boot;collision/room/metadata services and actual controller remain explicit. Preserved footprint/nearby code is next. See [checkpoint](generic-pet-path-commit-checkpoint.md).

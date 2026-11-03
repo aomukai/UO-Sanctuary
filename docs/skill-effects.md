@@ -1,5 +1,7 @@
 # Skill effects
 
+**Current nearby placement (2026-11-03 JST).** Candidate search adds no independent artwork. Existing native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay pending separately. See [checkpoint](generic-pet-nearby-checkpoint.md).
+
 **Current footprint dispatch (2026-11-03 JST).** Collision masks and occupancy lanes require no independent artwork. Existing native pet movement/teleport/body/combat/hurt/death/audio cues remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](generic-pet-footprints-checkpoint.md).
 
 **Current path commitment backend (2026-11-03 JST).** Raw coordinate/room/reset preparation adds no independent artwork. Existing native pet movement/teleport/body/combat/hurt/death/audio cues remain identified placeholders;final effects/audio remain pending. Mechanical helper acceptance does not certify world relocation or final presentation. See [checkpoint](generic-pet-path-commit-checkpoint.md).
