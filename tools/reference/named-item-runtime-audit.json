@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a9b9259a0f012b0873a6f98e2f4710d2417bf40c88a61a7d43e171fbe5e88996",
+  "ContentAssemblySha256": "e26b609bc55bef74ad8e33f99e25299ac85ec429ce8969ae921177e922506c62",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -575,6 +575,7 @@
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
     "src/Sanctuary.Content/GenericPetPreparation.cs": "80dc44dc94555a6fcf615a03a8f43f1d88c81e2ea0fdd4200ce62bff5bc916c0",
     "src/Sanctuary.Content/GenericPetRatingRouting.cs": "d820257cd1e7b2062dbb3324fc1742f46eaa3721e62a6604903fd1d7e7e6c148",
+    "src/Sanctuary.Content/GenericPetRoomUpdates.cs": "21198c3c882f1e91f4386bdde07e81e15647d0845d67953be82083fa95c6e32b",
     "src/Sanctuary.Content/GenericPetSearch.cs": "077d1c45f5067c2af57686755774f39e9318ca352fbcf3dd8cf653620a5e4eea",
     "src/Sanctuary.Content/GenericPetSearchNested.cs": "a47929789430999ef4ad2a6bd0524169aee6db2ce0ce816e89e7ea709ab4dd31",
     "src/Sanctuary.Content/GenericPetSearchProducers.cs": "f6ae7441cd6bbedff2b23e57544f1e18a8be01d9ddebfcf7b4f362d277af2e4e",
@@ -585,6 +586,7 @@
     "src/Sanctuary.Content/GenericPetTargetScoring.cs": "e292ab5de99dbe211a20d187c1c96ad3bc0dc264a80380134e2acbd7a92c131f",
     "src/Sanctuary.Content/GenericPetTraversal.cs": "5d38b9c6968bac89b76883fba826ace7ea6911bca1c6292eed50c0ed07363eb9",
     "src/Sanctuary.Content/GenericPetWarp.cs": "01b650cce346f7bd0adf480525408b7a3b693c85294c56af4a733846dafe54e8",
+    "src/Sanctuary.Content/GenericPetWarpSearch.cs": "687c197bfa46ddd7689f15072a0ae07020229e4a775e48d82ca6f224bcf98c1b",
     "src/Sanctuary.Content/GenericPetWorldIdentity.cs": "6c55aafd16fa958a428a8dd3d18d40b1b07522e8793fe7f608d433ef2d6a7d10",
     "src/Sanctuary.Content/GlacialSpikes.cs": "434a2ecf00624b6b849b932a2bd43094e5c61db0380bc2f45b51782add7cdf4e",
     "src/Sanctuary.Content/GlobalUsings.cs": "935c9f61673850542058ba06d42504fd5b329a00b53abed54d4c3913b3938435",

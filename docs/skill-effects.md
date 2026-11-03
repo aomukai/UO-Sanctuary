@@ -1,5 +1,7 @@
 # Skill effects
 
+**Warp room-search/update primitives (2026-11-03 JST).** These internal helpers add no final artwork. Final Goatman summon/run/teleport/combat/skill/hurt/death effects and audio remain pending;native body0x11 is an identified placeholder. Physical world relocation and a live teleport visual are not enabled by this batch. See [checkpoint](generic-pet-warp-primitives-checkpoint.md).
+
 **GenericPet warp recovery policy (2026-11-03 JST).** This internal recovery policy adds no final artwork or live teleport effect. Final Goatman summon/run/teleport/combat/skill/hurt/death effects and audio remain pending; native body0x11 is an identified placeholder. See [checkpoint](generic-pet-warp-checkpoint.md).
 
 **GenericPet motion services (2026-11-03 JST).** Moving-state/relative-step policies add no final artwork. Final Goatman summon/run/teleport/combat/skill/hurt/death visuals and audio remain pending; native body0x11 is an identified placeholder. The newly captured warp routine has no implemented or approved final effect yet. See [checkpoint](generic-pet-motion-services-checkpoint.md).

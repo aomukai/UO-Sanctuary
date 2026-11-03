@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current warp search and room/coordinate/path primitives",
+  "cases": 2352,
+  "byFamily": {
+    "search": 360,
+    "touch": 1296,
+    "packed": 336,
+    "word": 336,
+    "bound-search": 6,
+    "bound-touch": 6,
+    "bound-packed": 6,
+    "bound-word": 6
+  },
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "Actual warp caller arg7=0is executed;the unrelated nonzero restriction branch is not exposed by the implementation. Candidate validation remains an explicit64-bit result service.",
+    "Room bounds,region geometry,room-owned RNG,room list and path fields are explicit source state;native region/search/collision/placement/room lifecycle bindings remain separate.",
+    "Original placement and candidate bodies are freshly captured for subsequent comparison;this probe executes only search,room-update,packed-coordinate and path-word bodies."
+  ],
+  "artifacts": {
+    "tools/probe_generic_pet_warp_primitives.py": "7f0ea07845104d4424a00ad597ce536e491bc20b7bd878a6f8598bb7de485085",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103.json": "3c473b4b52e34e1d0e6fbc47cdd687d38209166db11c26b3594ca9015b6c8db1",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-placement-20261103-358f20-part0.bin": "37a3ec4c8f5f75807dfc1d35958f0d9f39d04fd788a99858d669e6a9c0a45a68",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103.json": "f483ebf0876aed2c6b77bfdf3d60e726675170a4b8551c44cd50e11ebee59a4e",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-2a3b30-part0.bin": "6d11c3b2df1d00e07dcd3dfe32025bc15f15587044aaf7771720d741ea0e348d",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-277ff0-part0.bin": "3c4f3912de79b020455a85b280ae6a9550eb6236e9ecf689bfcec1780e67cef8",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-266860-part0.bin": "72fb0d048b488441fbee3c70506f9273a064d68165ff7d57aca0a8b833011d03",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/generic-pet-warp-primitives-source-probe.json",
+    "sha256": "e55d269baa437719de80b06a519aeed451c2498523eeca941270561affd5f635"
+  }
+}
