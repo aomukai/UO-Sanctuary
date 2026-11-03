@@ -1,5 +1,7 @@
 # Skill effects
 
+**Paladin SC timing (2026-11-04 JST).** No final art or sound is added. Existing Holy Bolt, Hammer, Holy Shield and FoH cast/projectile/buff/impact placeholders remain separate asset work. See [checkpoint](paladin-cast-clock-checkpoint.md).
+
 **Prepared Slow Missiles windup (2026-11-04 JST).** Cast overlay,affected-state visuals and amazon_handofathena audio remain missing final assets. The prepared flow keeps the identified ordinary cast marker and adds no final art/sound. See [checkpoint](slow-missiles-windup-checkpoint.md).
 
 **Necromancer SC timing (2026-11-04 JST).** No final graphics or sound are added by the shared clock. Existing cast,curse,projectile,corpse/summon and contact placeholders remain;final effects and audio are still required independently of timing acceptance. See [checkpoint](necromancer-cast-clock-checkpoint.md).

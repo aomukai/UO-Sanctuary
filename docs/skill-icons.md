@@ -1,5 +1,7 @@
 # Skill icons
 
+**Paladin SC timing (2026-11-04 JST).** Existing talent/right/quick icon placeholders remain pending; no binding or finished icon is added. See [checkpoint](paladin-cast-clock-checkpoint.md).
+
 **Prepared Slow Missiles windup (2026-11-04 JST).** Talent/right/quick icons remain separate pending assets. The internal prepared entry does not publish a binding or supply an icon. See [checkpoint](slow-missiles-windup-checkpoint.md).
 
 **Necromancer SC timing (2026-11-04 JST).** No new binding or finished icon is introduced. Necromancer talent/left/right/quick icons remain independently tracked. See [checkpoint](necromancer-cast-clock-checkpoint.md).

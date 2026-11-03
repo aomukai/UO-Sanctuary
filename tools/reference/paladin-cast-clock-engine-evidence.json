@@ -1,0 +1,94 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 2072,
+  "animations": [
+    {
+      "WeaponClass": "1HS",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "1HT",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "2HS",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "2HT",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "BOW",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "HTH",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "STF",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    },
+    {
+      "WeaponClass": "XBW",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 2
+    }
+  ],
+  "completeRoutineHashes": {
+    "SKILLS_GetSkillModeFromUnit": "f9c0894bd3315b436c1860b06dd602093f69bdbf8d6a3dc54f8ebdd7b3d80d15",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_UpdateCastAnimRateAndVelocity": "de79bb2a9985ea8b00257ba3268df36fe737c1c43254a9d0c01bc1841b5b3dde",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "currentExecutableParity": false,
+  "scope": "Seven unchanged full source routines from the accepted Druid SC recipe;declared Paladin class/skill/metadata and event insertion services. Owned3.3.93847animation records;not full mode conversion or current event scheduler proof.",
+  "fixture": {
+    "path": ".local/class-skills/paladin-cast-clock-source-probe.json",
+    "sha256": "0685dac15477bbf5e830c2563a555f57dec96d4297999b0eaedfcb5572b9cccd"
+  },
+  "limits": [
+    "Native first/last-frame projection,reentry/current client and generic UO weapon classification require separate acceptance.",
+    "This timing reference does not certify Paladin NPC AI,initializers or remaining class mechanics."
+  ],
+  "artifacts": {
+    "tools/probe_paladin_cast_clock.py": "cd62a5c04db5e4ad342fa4fb90b8e14fe25f9f6a8ce13a703f9b73768f34b78a",
+    ".local/class-skills/druid-form-cast-clock-source-probe.cpp": "ef602f207800a0a5c32a6eff32de7437dbc7ba86c89256afd6aacab8b5ff632e",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/reference/druid-form-cast-clock-engine-evidence.json": "23de2808f5b10fdabb6f7bac4f9e7a084e1ff105b8eb4770b3a45d2d22bdeb50",
+    ".local/class-skills/paladin-cast-clock-source-probe.json": "0685dac15477bbf5e830c2563a555f57dec96d4297999b0eaedfcb5572b9cccd",
+    "data/Sanctuary/Balance/paladin-cast-clock.json": "21b59703ebef4f47a8e1d5bc141942120cd024efae73553ee4954de76aa6a64d",
+    ".local/class-skills/paladin-cast-clock-source/probe.cpp": "bafa4a08ea7580cae1cb81a7a6688c79d5f8d6943ada912cadf1764e8174b07a",
+    ".local/class-skills/paladin-cast-clock-source/probe": "53ccd635062970c48ed9178a98539a6bef2d1c03d1ed617b40ceebaaca155bf9",
+    ".local/class-skills/paladin-cast-clock-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/paladin-cast-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

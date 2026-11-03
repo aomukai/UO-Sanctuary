@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "53b1735d799ff7d98d07b98db2f843e663f0da774ae8aa03b3374c523597e32e",
+  "ContentAssemblySha256": "64f7ca1ca0b2179717d738f240ec09c50fb140cd9352729a9ca246a556a62a55",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -95,6 +95,7 @@
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
     "data/Sanctuary/Balance/npc-melee-geometry.json": "16d651e7047b363f8b15d072f043faea06a1bf0ae6cd6564953c5d5f7ded0c36",
+    "data/Sanctuary/Balance/paladin-cast-clock.json": "21b59703ebef4f47a8e1d5bc141942120cd024efae73553ee4954de76aa6a64d",
     "data/Sanctuary/Balance/potion-belts.json": "97081b7cca48cb3dc17c16c1f54cf8c151fee82474858dc6966653c04a3f9a42",
     "data/Sanctuary/Balance/power-scrolls.json": "4563cb89d0b75f26c14bed8121b3c56c33bd44234047f9d9276d4c508f531f8f",
     "data/Sanctuary/Balance/prevent-heal-immune-monsters.json": "e1ecbed1c42a26c729be6a8f62daf7147b38b735bbcfc3e734b1bcf1b0eff6bc",
@@ -251,7 +252,7 @@
     "shared/StatProtocol.cs": "ce1aeef635fb8699814cd28e5a380f90d476e6f0fbdf5af84c67b217454a0292",
     "shared/TitleProtocol.cs": "a979934452eef58e096dc42a733e4b4d271faa07a6ff173cae893a2bca04db31",
     "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe",
-    "src/Sanctuary.Content/ActionTiming.cs": "9620eb6464e2f0d2a0886ceeed0d52a535de197ea45cd5f75915a7ee952a7a50",
+    "src/Sanctuary.Content/ActionTiming.cs": "689b0a2555398de9f317f8cc4df3d41a03d794c688a25345d6d6b2284a50bcaa",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/AlchemyGump.cs": "799f2ff47e4e02aeef16221fdc6d12aa786cdbce18d2fe95f5f3092b5ea05ea3",
     "src/Sanctuary.Content/AlchemyRestoratives.cs": "47b987dac4173c72beb247503ee19cc0bf425cbcf6b9a60e56c496d102d49fb1",
@@ -769,6 +770,7 @@
     "src/Sanctuary.Content/NpcSpectralHit.cs": "8fe0004ef8d9c3006998440f2e185b8df8cb11b4a05312ca8af39bca3433fc3f",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464",
     "src/Sanctuary.Content/PaladinAuras.cs": "a935c10384185544104cd1d28a8ad0e9a14fb35292daa96def3174e41c216414",
+    "src/Sanctuary.Content/PaladinCastClock.cs": "f79489193ccbf2f6bc7fa06746cd88fb6102fa7da08cebe70c6c659a175539c0",
     "src/Sanctuary.Content/PaladinCharge.cs": "002d884e767f2b37b7af710e31f3341dd7ea00d5a0ae61e48980c3f21c7d1108",
     "src/Sanctuary.Content/PaladinCleansing.cs": "2379a8016eb063313dbc3459b19db8aaaccb4906dbb6f5e4b75fd5079f48b5bf",
     "src/Sanctuary.Content/PaladinCombat.cs": "f7c39b89b377714c94d284eca297945a73c3ca349d4798953fdd623d3e1227b5",

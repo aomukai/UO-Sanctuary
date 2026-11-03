@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Paladin SC timing (2026-11-04 JST).** Holy Bolt, Blessed Hammer, Holy Shield and FoH now use the owned 16/256/action9 records through the shared source cast clock. Holy Shield retains start payment; the other spells retain release payment. Auras and weapon clocks are excluded. Source/native/gear/input and paid-action reload coverage are recorded in [the checkpoint](paladin-cast-clock-checkpoint.md). Current client/frame-origin and remaining skill/world gaps stay explicit; no class is newly complete.
+
 **Necromancer SC timing (2026-11-04 JST).** All26 active SC routes now select the owned16/256/action8 clock through central timing,including Raise Skeleton's separate start. Poison Dagger retains its weapon clock. Shared arithmetic preserves Amazon outputs. Source/native/gear/input and retained summon acceptance are recorded in [the checkpoint](necromancer-cast-clock-checkpoint.md);client/frame-origin and remaining pet/AI/initializer gaps stay open. No class is newly complete.
 
 **Amazon cast timing (2026-11-04 JST).** Inner Sight and Decoy now use the owned weapon-specific Amazon SC action points with the shared source FCR/scheduler clock. The reference has 2,072 complete-source contexts across eight weapon classes. Native learned-cast, real gear/input and saved Decoy acceptance are recorded in [the clock checkpoint](amazon-cast-clock-checkpoint.md). This does not enable Slow Missiles or complete the Amazon; its projectile-consumer gaps remain separate.
