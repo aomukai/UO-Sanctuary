@@ -27,6 +27,7 @@ public static class ClassCombat
         internal TeleportCast PendingTeleport;
         internal DruidPlayerForm AttackForm;
         internal DruidFormCasting.Pending Transform;
+        internal DruidVineCasting.Pending VineCast;
         internal DruidFormInterruption.Action FormAction;
         internal PaladinZeal.Series Zeal;
         internal PaladinCharge.Flight Charge;
@@ -257,6 +258,7 @@ public static class ClassCombat
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
         BladeFuryModes.Interrupt(from);DruidArcticModes.Interrupt(from);
+        DruidVineCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -518,6 +520,7 @@ public static class ClassCombat
         if(For(from).Fury!=null){return DruidFury.Resolve(from,now);}
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
+        if(session.VineCast!=null){return DruidVineCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
         var ability = session.PendingAbility;

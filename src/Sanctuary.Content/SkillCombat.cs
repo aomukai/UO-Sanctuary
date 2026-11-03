@@ -89,10 +89,18 @@ public static class SkillCombat
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now,
         Func<PlayerMobile, CombatAbility, Serial, Point3D, bool> validTarget,bool requireMana=true,ActionTiming? timing=null)
+        =>BeginCore(owner,ability,selected,point,now,validTarget,ClassCombat.Available,requireMana,timing);
+    // Internal prepared components may exercise the same windup without
+    // publishing a learned handler. Network callers retain Available above.
+    internal static bool BeginPrepared(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now,
+        Func<PlayerMobile,CombatAbility,Serial,Point3D,bool> validTarget,Func<PlayerMobile,CombatAbility,bool> eligible,ActionTiming timing)
+        =>BeginCore(owner,ability,selected,point,now,validTarget,eligible,true,timing);
+    private static bool BeginCore(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now,
+        Func<PlayerMobile,CombatAbility,Serial,Point3D,bool> validTarget,Func<PlayerMobile,CombatAbility,bool> eligible,bool requireMana,ActionTiming? timing)
     {
         if (ClassAbilities.SelfTarget(ability)) { selected = Serial.Zero; point = owner.Location; }
         var session = ClassCombat.For(owner);
-        if (!ClassCombat.Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
+        if (!eligible(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
             || owner.Spell != null || HitRecovery.Active(owner, now) || session.PendingAbility != CombatAbility.None
             || now - session.NextAction < 0 || !FireGround.Ready(owner, ability) || !validTarget(owner, ability, selected, point)
             || requireMana && !NecromancerEffects.CanPay(owner, SkillMechanics.Values(owner, ability).Mana256)) { return false; }

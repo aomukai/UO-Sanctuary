@@ -1901,10 +1901,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 222,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared SC/FCR windup now shares the existing player action session, human/form cast clock and atomic8mana do115release. Public learned casting remains gated by unmeasured surfaced vulnerability windows and provisional poison transport; approved rank20damage target still needs its exact curve/rank-synergy basis. Visible placeholder bodies do not establish exposure. See vine-cast-windup-checkpoint.md; final effects/audio and separate icons remain pending."
     },
     {
       "talentId": "druid.oaksage",
@@ -1934,10 +1934,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 231,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared SC/FCR windup shares the action session and atomic10mana do115release, saved AI111/body and delayed player-owned corpse recovery. Learned routing remains gated by exact surfaced vulnerability windows; old corpse/fractional recovery and source/native room/order limits remain explicit. See vine-cast-windup-checkpoint.md; final effects/audio and separate icons remain pending."
     },
     {
       "talentId": "druid.heartofwolverine",
@@ -1967,10 +1967,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 241,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared SC/FCR windup shares the action session and atomic13+effective rank mana do115release. Recovery selection stays explicit: older do33reads calc1 while pinned NPC325stores recovery in calc2; the current-table profile remains provisional. Surface vulnerability windows also remain unresolved, so no learned handler is enabled. See vine-cast-windup-checkpoint.md; effects/audio/icons remain separate."
     },
     {
       "talentId": "druid.spiritofbarbs",

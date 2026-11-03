@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared vine windup (2026-11-03 JST).** Ordinary SC pose/messages and sound0x1E5 are identified placeholders. Final summon/burrow/surface/movement/poison-field/contact/corpse-consume/recovery/hurt/death/audio assets remain pending for all3vines. Visual creation will need the verified exposure timeline; this cast layer does not invent it. See [checkpoint](vine-cast-windup-checkpoint.md).
+
 **Grizzly approved upgrades (2026-11-03 JST).** Final B7body/movement/summon/swipe/swat/hurt/death/teleport, stun/CB overlays and audio remain pending. Native body0xD4, stun0x375A/hue0x481 and CB0x376A/hue0x21 are identified placeholders. Shared NPC original-item CB adds no final artwork. See [checkpoint](grizzly-upgrades-checkpoint.md).
 
 **Dire Wolf approved affixes (2026-11-03 JST).** Passive movement/strength changes reuse the current logical encounter modifiers. Final WFbody,movement,summon,feeding/rage,bite,hurt/death,teleport and audio remain pending; existing native presentation is an identified placeholder. No final artwork generated; see [checkpoint](dire-wolf-upgrades-checkpoint.md).
