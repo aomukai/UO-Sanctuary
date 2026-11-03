@@ -1,5 +1,7 @@
 # Skill effects
 
+**Native obstacle acceptance (2026-11-03 JST).** Actual blocking-wall/follow tests add no final artwork. Existing native skeleton/body/step and other summon cues remain identified placeholders;final movement/contact/death/audio assets remain pending separately. See [checkpoint](pet-obstacle-checkpoint.md).
+
 **Shared pet obstacle repair (2026-11-03 JST).** SourceAStarPath adds no separate artwork or sound. Existing native summon/body/step/attack/contact/death cues remain identified placeholders;final pet movement feedback remains pending. Mechanical path repair is verified separately in [checkpoint](astar-path-checkpoint.md).
 
 **Frenzy release/charge preparation (2026-11-03 JST).** Internal state and graphic-flag callbacks add no live effect. Final paired strikes,charge/speed presentation,contact/miss/block and audio remain pending;ordinary weapon visuals remain identified placeholders when bound. No charge orb or aura artwork is implied by the control-flow checks. See [checkpoint](frenzy-release-checkpoint.md).

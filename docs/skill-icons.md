@@ -1,5 +1,7 @@
 # Skill icons
 
+**Native obstacle acceptance (2026-11-03 JST).** Automatic follow repair adds no skill binding or icon. Raise Skeleton tree/right/quick artwork remains separately pending. See [checkpoint](pet-obstacle-checkpoint.md).
+
 **Shared pet obstacle repair (2026-11-03 JST).** Automatic movement repair adds no talent or hotkey. Existing class summon tree/right/quick icons remain separately pending;no new icon asset is required by this shared helper. See [checkpoint](astar-path-checkpoint.md).
 
 **Frenzy release/charge preparation (2026-11-03 JST).** No learned binding or additional hotkey is enabled. Frenzy talent/left/right/quick icons remain separately pending placeholders;internal latch/charge processing needs no new icon. Effects/audio stay in their own register.
