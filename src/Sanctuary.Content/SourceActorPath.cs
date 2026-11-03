@@ -40,13 +40,22 @@ internal static class SourceActorPath
         {
             var toward=SourceTowardPath.Find(motion with{PathType=2},state.Target,distance,Blocked);
             motion=toward.Motion with{PathType=7};points=toward.Points;
-            // Complete PATH_Straight first tries Toward. Its close obstacle
-            // branch requires AStar; do not replace it with another solver.
+            // Complete PATH_Straight first tries Toward, then bounded AStar
+            // within eighteen source cells. Failed repair repeats Toward.
             int Heuristic(Point2D p)
             {int x=Math.Abs(p.X-state.Target.X),y=Math.Abs(p.Y-state.Target.Y);return x>=8||y>=8?Math.Min(x,y)+2*Math.Max(x,y):Math.Max(0,SourceTowardPath.ShortDistance(x,y)+1);}
             bool reached=points.Length>0 && points[^1]!=origin && Heuristic(points[^1])<=1;
             long dx=origin.X-state.Target.X,dy=origin.Y-state.Target.Y;
-            if(!reached && dx*dx+dy*dy<=18*18){throw new NotSupportedException("Source straight path requires unimplemented AStar obstacle repair");}
+            if(!reached && dx*dx+dy*dy<=18*18)
+            {
+                var repaired=SourceAStarPath.Find(origin,state.Target,Blocked);
+                if(repaired.Length!=0){points=repaired;}
+                else if(points.Length!=0)
+                {
+                    toward=SourceTowardPath.Find(motion with{PathType=2},state.Target,distance,Blocked);
+                    motion=toward.Motion with{PathType=7};points=toward.Points;
+                }
+            }
         }
         else{(motion,points)=SourceTowardPath.Find(motion,state.Target,distance,Blocked);}
         if(points.Length==0){return Fail();}

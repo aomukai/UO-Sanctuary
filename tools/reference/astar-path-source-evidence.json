@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "sourceHashes": {
+    "source/D2Common/src/Path/AStar.cpp": "bacb57cb246621a18e48d2f49422b7359fad2152221858978eae4025af4cfc40",
+    "source/D2Common/include/Path/AStar.h": "482f908e92d6004d31bcc6341d62f221113ffac32515c7baebba39c0b1afd619",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079"
+  },
+  "completeAStarTranslationUnitSha256": "bacb57cb246621a18e48d2f49422b7359fad2152221858978eae4025af4cfc40",
+  "straightRoutineSha256": "65abf564a61823aabe8e3f7e123538b770f51d2e78c96ebc2cf6b011be87bc38",
+  "parentTranslationUnitSha256": "da2a477c1735f456e72721498e8fc5e89b5f1695b8880fa5f2e35d41a7721f60",
+  "cases": 3360,
+  "kernelCases": 1680,
+  "straightCases": 1680,
+  "collisionQueries": 827372,
+  "fixture": {
+    "path": ".local/class-skills/astar-path-source/cases.json",
+    "sha256": "df9d7edeb2ba3810ad383f55a432d31e0b123a38fcf6943bff958cc3c823bec6"
+  },
+  "artifacts": {
+    "tools/probe_astar_path_reference.py": "d74de94dd9857db16623536b99750fe399199c7d8b26b74de22150a88b6f1c1b",
+    ".local/class-skills/astar-path-source/source.cpp": "aeb18b7aa59012658ad8a740d99b3aaf45ce75a7c034eab5c768f0b436edb8cb",
+    ".local/class-skills/astar-path-source/reference": "5d6b7d53ba0391b526e6e80e937940c6804b33262a0a65b409562a99e6005aca",
+    ".local/class-skills/astar-path-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limits": [
+    "Complete older AStar translation unit and straight routine; no current executable certificate. The general initializer is marked BROKEN upstream.",
+    "Point target, synthetic room/grid, pattern0/mask0x3c01 and no target adjustment/footprint are explicit. Do not enable general path1/unit-target flags from these cases.",
+    "Direction/motion side effects and ordered collision queries are compared by native tests separately. No room recache, arbitrary unit footprint, AI/global seed or graphical-client certificate."
+  ],
+  "sanitizers": "ASan/UBSan, exit0 and empty runtime stderr"
+}
