@@ -136,7 +136,7 @@ public static class InfernoSentryChecks
         for(int i=0;i<14&&AssassinSentryLightning.State(beam.Id) is{LastCollision:0};i++){Frames(beam.Id,1,true);}
         var hit=AssassinSentryLightning.State(beam.Id);Require(hit is{Fault:null,LastCollision:>0}&&((SkillHealth.Balance256(first)<hp1)^(SkillHealth.Balance256(second)<hp2)),"Size1 first overlap contact");
         Frames(beam.Id,1,true);var other=AssassinSentryLightning.State(beam.Id);Require(other!=null&&other.LastCollision!=hit.LastCollision&&other.Seed!=hit.Seed&&SkillHealth.Balance256(first)<hp1&&SkillHealth.Balance256(second)<hp2,"Fire LastCollide filtered after selection or failed penetration");
-        Require(NecromancerEffects.ManaBalance256(p)==mana,"NPC beam paid player mana");Lifecycle(p);Save(p,b,first,second,beam.Id);Require(!AssassinCombat.Implemented(CombatAbility.WakeOfInferno),"Unfinished learned Inferno enabled");
+        Require(NecromancerEffects.ManaBalance256(p)==mana,"NPC beam paid player mana");Lifecycle(p);Save(p,b,first,second,beam.Id);
     }
     private static void Wall(AssassinSentryBody b)
     {
@@ -153,7 +153,9 @@ public static class InfernoSentryChecks
         try
         {
             for(int i=0;i<800&&b.Prepared.InfernoControl.Mode!=0;i++){b.AdvanceController(b.Prepared.NextFrameUtc,true);}
-            Require(!b.Deleted&&b.Prepared.InfernoControl is{Mode:0,Attempts:10,Ai.RemainingShots:0}&&b.Prepared.ControllerFault.Contains("retirement"),"Fixed ten channel bursts or retirement boundary");
+            Require(!b.Deleted&&!b.Alive&&b.Prepared.InfernoControl is{Mode:0,Attempts:10,Ai.RemainingShots:0}&&b.Prepared.ControllerFault==null
+                &&b.Prepared.Retirement is{Profile:AssassinSentryRetirement.InfernoProfile},"Fixed ten bursts or E9 death entry");
+            b.AdvanceController(b.Prepared.Retirement.CompletesUtc,true);Require(b.RetainedCorpse,"Inferno death did not complete at its original deadline");
             var beam=AssassinSentryLightning.Snapshot().Bolts.First(s=>s.Actor==b.Serial.Value);Frames(beam.Id,1,false);var offline=AssassinSentryLightning.State(beam.Id);Require(offline.Frame==1&&offline.X==beam.X&&offline.Seed==beam.Seed,"Offline fire moved/rolled");Drain(b);
             Require(!AssassinSentryLightning.Snapshot().Bolts.Any(x=>x.Actor==b.Serial.Value),"Offline fire lifetime froze");
         }
@@ -168,7 +170,7 @@ public static class InfernoSentryChecks
         first.Blessed=second.Blessed=false;var point=new Point3D((int)Math.Round(s.Beam.X+s.Beam.Vx),(int)Math.Round(s.Beam.Y),s.Beam.Z);first.MoveToWorld(point,b.Map);second.MoveToWorld(point,b.Map);
         Frames(s.Beam.Id,1,true);var next=AssassinSentryLightning.State(s.Beam.Id);Require(next is{Fault:null}&&next.Frame==s.Beam.Frame+1&&next.X>s.Beam.X&&next.LastCollision!=s.Beam.LastCollision&&next.Seed!=s.Beam.Seed,"Saved fire did not resume once on other collider");
         int emissions=b.Prepared.InfernoControl.Emissions;b.AdvanceController(b.Prepared.NextFrameUtc,true);Require(b.Prepared.InfernoControl.Emissions==emissions&&b.Prepared.InfernoControl.Frame==s.Body.InfernoControl.Frame+1,"Reload replayed sparse channel event");
-        Save(p,b,first,second,next.Id);Require(!AssassinCombat.Implemented(CombatAbility.WakeOfInferno),"Reload enabled learned Inferno");
+        Save(p,b,first,second,next.Id);
     }
     private static void Live()
     {

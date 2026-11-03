@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Wake of Inferno (2026-11-03 JST).** Native S2 throw/sound 0x23B, body 0x9C/hue 0x489 and fire marker 0x36D4/hue 0x489 remain identified placeholders. Final E9 emergence/sequence/firing/neutral/death actor, beam/trail/contact and audio remain pending. Logical 25-frame death timing supplies no collapse artwork. See [checkpoint](assassin-inferno-learned-checkpoint.md).
+
 **Learned Lightning Sentry (2026-11-03 JST).** Native S2 throw/sound 0x23B, body 0x9C/hue 0x482 and straight bolt marker 0x3818/hue 0x482 remain identified placeholders. Final S1/S2/neutral/death actor, source526 bolt travel/contact and audio remain pending. Logical casting/retirement does not complete visuals. See [checkpoint](assassin-lightning-learned-checkpoint.md).
 
 **Learned Charged Bolt Sentry (2026-11-03 JST).** Native S2 throw animation and sound 0x23B, stationary body 0x9C/hue 0x482 and bolt marker 0x3818/hue 0x482 are identified placeholders. Final emergence/firing/neutral/death actor animations, bolt travel/impact and audio remain pending. Logical timing and casting availability do not complete artwork. See [checkpoint](assassin-sentry-learned-checkpoint.md).

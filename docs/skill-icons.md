@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Wake of Inferno (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders; the pinned skill is right-slot only. Mechanical availability does not complete artwork. Effects/audio remain separate. See [checkpoint](assassin-inferno-learned-checkpoint.md).
+
 **Learned Lightning Sentry (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders; the pinned skill is right-slot only. Casting availability does not complete artwork. Effects/audio remain separate. See [checkpoint](assassin-lightning-learned-checkpoint.md).
 
 **Learned Charged Bolt Sentry (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders. The pinned skill is right-slot only; no left-slot icon or availability is implied. Effects/audio are tracked separately. See [checkpoint](assassin-sentry-learned-checkpoint.md).

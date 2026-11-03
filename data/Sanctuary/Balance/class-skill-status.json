@@ -2297,10 +2297,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 272,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Staged saved NPC311 actor/burst and real Size1 fire beam reuse shared AI101, sequence primitives, creation and straight-flight save identities. Source clock14400phases/JSON resumptions and1983applicable damage cases/all255ranks have native fixtures. Fixed10bursts, strict13range, sparse3-frame emissions, captured fire stats,20+hardWake beam duration capped255 and DamageRate82 retain distinct routes. Actual focused/full/deployment status is in inferno-sentry-native-evidence.json. Learned do45 placement/payment and full retirement/death/GUID chronology remain individually gated. Nonzero sunder, zero-velocity path flags, exact modern room/order/RNG/client behavior and final effects/icons remain separate."
+      "remaining": "Learned right/quick S2/IAS casting reuses do45 free-cell placement with once-only20mana after creation. The distinct saved NPC311/53/95 channel keeps ten bursts, strict13range, sparse3-frame emissions, captured fire stats,20+hardWake beam lifetime capped255 and DamageRate82. Source-AI and replacement use the identified E9 25-frame death profile, preserving the original dying/dead source for released Size1 penetrating fire. Native source/channel, gear, input, payment/cancellation, retired damage/credit and original paid actor/beam reload acceptance are recorded separately. Exact modern pool insertion/order, spawn-search fallback/occupied size-zero placement, zero-velocity paths, inherited sunder, historical fault migration and complete geometry/event/item/owner/PvP/client behavior remain explicit acceptance gaps; no class certificate."
     },
     {
       "talentId": "assassin.deathsentry",

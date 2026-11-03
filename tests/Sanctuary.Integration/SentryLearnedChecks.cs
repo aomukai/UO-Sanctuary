@@ -52,7 +52,7 @@ public static class SentryLearnedChecks
     }
     internal static AssassinSentryBody Cast(PlayerMobile p,CombatAbility ability=CombatAbility.ChargedBoltSentry)
     {
-        Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=ability==CombatAbility.LightningSentry?5120:3328;Require(ClassCombat.Perform(p,ability,null,Aim(p),Core.TickCount),"Learned CBS begin");
+        Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=ability==CombatAbility.ChargedBoltSentry?3328:5120;Require(ClassCombat.Perform(p,ability,null,Aim(p),Core.TickCount),"Learned CBS begin");
         var s=ClassCombat.For(p);long next=s.NextAction;
         Require(s.Animation==9&&s.Timing==AssassinSentryCasts.Timing(p)&&NecromancerEffects.ManaBalance256(p)==mana&&AssassinTrapRoster.For(p).Length==0,"S2 windup created/paid early");
         Require(!ClassCombat.ResolveAction(p,s.EffectAt-1)&&ClassCombat.ResolveAction(p,s.EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Trap release did not pay its pinned cost once");
@@ -158,7 +158,7 @@ public static class SentryLearnedChecks
     internal static void Clock(AssassinSentryBody body,DateTime at)
     {
         typeof(AssassinSentryBody).GetMethod("Store",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(body,[body.Prepared with{NextFrameUtc=at}]);
-        if(body.Prepared.Creation.Ability==CombatAbility.LightningSentry)
+        if(body.Prepared.Creation.Ability is CombatAbility.LightningSentry or CombatAbility.WakeOfInferno)
         {var pool=AssassinSentryLightning.Snapshot();AssassinSentryLightning.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});}
         else
         {var pool=AssassinSentryBolts.Snapshot();AssassinSentryBolts.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});}
@@ -231,7 +231,7 @@ public static class SentryLearnedChecks
                 {Require(s.Animation==9&&s.Timing==AssassinSentryCasts.Timing(p)&&NecromancerEffects.ManaBalance256(p)==mana&&AssassinTrapRoster.For(p).Length==0,"Input created/paid before release");windup=true;Log.Information("{Label}: windup",label);}
                 var traps=AssassinTrapRoster.For(p);
                 if(traps.Length==0){Require(Core.TickCount<end,"Input did not create trap");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
-                Require(windup&&traps.Length==1&&NecromancerEffects.ManaBalance256(p)==mana-(ability==CombatAbility.LightningSentry?5120:3328)&&FireGround.Ready(p,ability),"Input count/payment/local delay");
+                Require(windup&&traps.Length==1&&NecromancerEffects.ManaBalance256(p)==mana-(ability==CombatAbility.ChargedBoltSentry?3328:5120)&&FireGround.Ready(p,ability),"Input count/payment/local delay");
                 Clean(p);Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean(p);Log.Error(e,"{Label}-result: failed",label);}

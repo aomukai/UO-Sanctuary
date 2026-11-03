@@ -29,7 +29,7 @@ public static class LightningLearnedChecks
         var t=new BladeMissileTarget{NoKillAwards=true,CantWalk=true,Frozen=true};t.MoveToWorld(new(body.X+dx,body.Y,body.Z),body.Map);t.AIObject?.AITimer.Stop();
         t.SetHits(100000);t.Hits=t.HitsMax;t.SetResistance(ResistanceType.Energy,0);return t;
     }
-    private static void AtomicRestore()
+    internal static void AtomicRestore()
     {
         var before=AssassinSentryLightning.Snapshot();string json=JsonSerializer.Serialize(before);var row=before.Bolts.Last();
         foreach(var bad in new[]{before with{Bolts=before.Bolts.Where(x=>x.Id!=row.Id).Append(row with{Frame=row.Frames}).ToArray()},before with{Bolts=before.Bolts.Append(row).ToArray()},before with{Bolts=before.Bolts.Prepend(null).ToArray()}})

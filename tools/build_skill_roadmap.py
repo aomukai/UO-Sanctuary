@@ -606,6 +606,10 @@ BLOCKERS.pop('assassin.lightningsentry',None)
 CAVEATS['assassin.lightningsentry'] = ('Learned right/quick S2/IAS casting reuses the shared do45 free-cell adapter and pays20mana once after creation. Saved S1 actors retain effective NPC rank, hard synergies, inherited lightning stats and fixed10shots. Each shot creates one saved Size2 penetrating lightning bolt with most-recent collider/RNG state. Source-AI and cap replacement now use the identified LG23-frame death profile; original released bolts retain their dying/dead NPC source. Straight-flight restore validates the full candidate before replacing state. Native input, payment/cancellation, timed damage, retirement/credit, real gear and original actor/flight reload acceptance are recorded separately. Exact modern corpse-pool phase/order, spawn-search fallback/occupied size-zero placement, zero-velocity path flags, inherited sunder, geometry/seed/event/item/owner/PvP and final client presentation remain explicit gaps; no class certificate.')
 NATIVE_PARTIAL.add('assassin.lightningsentry')
 
+BLOCKERS.pop('assassin.wakeofinferno',None)
+CAVEATS['assassin.wakeofinferno'] = ('Learned right/quick S2/IAS casting reuses do45 free-cell placement with once-only20mana after creation. The distinct saved NPC311/53/95 channel keeps ten bursts, strict13range, sparse3-frame emissions, captured fire stats,20+hardWake beam lifetime capped255 and DamageRate82. Source-AI and replacement use the identified E9 25-frame death profile, preserving the original dying/dead source for released Size1 penetrating fire. Native source/channel, gear, input, payment/cancellation, retired damage/credit and original paid actor/beam reload acceptance are recorded separately. Exact modern pool insertion/order, spawn-search fallback/occupied size-zero placement, zero-velocity paths, inherited sunder, historical fault migration and complete geometry/event/item/owner/PvP/client behavior remain explicit acceptance gaps; no class certificate.')
+NATIVE_PARTIAL.add('assassin.wakeofinferno')
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
