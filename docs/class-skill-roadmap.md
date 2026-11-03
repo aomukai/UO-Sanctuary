@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Assassin SC timing (2026-11-04 JST).** Seven supported ordinary cast routes now use ten owned 17/256/action9 records, including claw variants. Blade Shield shares the literal source clock while retaining its paid-start state and separate initial pulse. S2 placement, martial arts, channel and Shadow boundaries stay separate. Source/native/gear/input and original Shield reload scope are recorded in [the checkpoint](assassin-cast-clock-checkpoint.md). Current client timing and remaining mechanics stay explicit; no class is newly complete.
+
 **Sorceress SC timing (2026-11-04 JST).** All 23 ordinary active cast routes, including Teleport, now use the eight owned 14/256/action7 records. Lightning/Chain Lightning retain SQ12; Inferno remains unavailable. Source/native/start/cancel/gear/input and original Teleport scroll/resource reload coverage are recorded in [the checkpoint](sorceress-cast-clock-checkpoint.md). Current client and remaining per-skill gaps remain explicit; no class is newly complete.
 
 **Barbarian SC timing (2026-11-04 JST).** Nine supported shout/warcry/corpse-search routes now use the twelve owned 14/256/action9 records, including dual-wield variants. Find Item/Potion retain start payment; Battle Orders retains resource rescaling before payment. Four deferred skills remain unavailable. Source/native/gear/input and original Orders reload scope are recorded in [the checkpoint](barbarian-cast-clock-checkpoint.md). Current client and remaining mechanics stay explicit; no class is newly complete.

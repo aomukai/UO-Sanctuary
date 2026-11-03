@@ -1,5 +1,7 @@
 # Skill effects
 
+**Assassin SC timing (2026-11-04 JST).** No final graphics or sound are added. Cast, psychic hit, cloak/blind, speed/fade/venom and blade-state/pulse placeholders remain separate asset work, including claw-dependent casting presentation. See [checkpoint](assassin-cast-clock-checkpoint.md).
+
 **Sorceress SC timing (2026-11-04 JST).** No final art or sound is added. Existing spell cast, field, projectile, armor and Teleport/arrival placeholders remain independent asset work, including weapon-dependent presentation. See [checkpoint](sorceress-cast-clock-checkpoint.md).
 
 **Barbarian SC timing (2026-11-04 JST).** No final art or sound is added. Cry/wave, corpse-search, drop and affected-state placeholders remain separate work, including weapon-dependent casting presentation. See [checkpoint](barbarian-cast-clock-checkpoint.md).

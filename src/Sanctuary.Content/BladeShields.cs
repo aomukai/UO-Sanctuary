@@ -47,15 +47,9 @@ public static class BladeShields
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin;
     internal static BladeShieldState State(Mobile owner)=>Eligible(owner) && States.TryGetValue(owner.Serial.Value,out var state)
         && state.UntilUtc>TimedEffects.Now?state:null;
-    internal static ActionTiming Timing(int fcr)
-    {
-        // Supplementary AISC composites:17 frames/speed256/event1 at9.
-        // SC ignores UseAttackRate. Reuse the established ordinary cast repeat
-        // minus-one adapter; current executable frame acceptance is separate.
-        int speed=CombatTiming.FrameAdvance(new(AttackFamily.Unarmed,0),fcr,0,0);
-        int end=Math.Max(1,(17*256+speed-1)/speed-1);
-        return new(end,Math.Min(end,(9*256+speed-1)/speed));
-    }
+    // Literal source action/end offsets. Current client repeat readiness is
+    // separate; do not infer a frame subtraction from the server epoch.
+    internal static ActionTiming Timing(int fcr)=>AssassinCastClock.Calculate(fcr);
     internal static BladeShieldState Start(PlayerMobile owner,SkillValues values,DateTime at)
     {
         if(!Eligible(owner) || values.Ability!=CombatAbility.BladeShield || values.Rank is <1 or >255

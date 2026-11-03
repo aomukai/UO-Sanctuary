@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Assassin SC timing (2026-11-04 JST).** Reuse `SourceCastClock` with all ten owned AISC records, including HT1/HT2, for the seven admitted SC routes. Blade Shield delegates its separate timing entry to the same clock; preserve its paid-start state and action-time pulse. Do not apply the override to S2, martial arts or channel routes, or infer client repeat readiness from a server epoch. See [checkpoint](assassin-cast-clock-checkpoint.md).
+
 **Sorceress SC timing (2026-11-04 JST).** Reuse `SourceCastClock` through central timing for all 23 ordinary SC routes. Include the separate Teleport controller via its existing `CombatTiming.For` call. Keep Lightning/Chain Lightning and Inferno on their sequence paths; preserve Teleport save-coordinator composition and original scroll/resource guards. See [checkpoint](sorceress-cast-clock-checkpoint.md).
 
 **Barbarian SC timing (2026-11-04 JST).** Reuse `SourceCastClock` for all twelve BASC records and the nine admitted active routes. Preserve the separate corpse-search start transactions and Battle Orders resource/payment order. Native fixtures reuse the existing original-corpse factories; do not create synthetic corpse metadata or infer the four deferred skill contracts. See [checkpoint](barbarian-cast-clock-checkpoint.md).

@@ -68,7 +68,7 @@ public static class BladeShieldChecks
             Require(poison.Rate256==V(15) && poison.Frames==V(16) && V(17)==(V(4)!=0?75:0),"Complete source poison rate/count/length and cold-length differential "+count);count++;
         }
         Require(count==4608,"Incomplete source melee fill inventory");
-        Require(BladeShields.Timing(0)==new ActionTiming(16,9) && BladeShields.Timing(65)==new ActionTiming(11,7),"SC supplementary metadata and FCR timing goldens");
+        Require(BladeShields.Timing(0)==new ActionTiming(17,9) && BladeShields.Timing(65)==new ActionTiming(12,7),"Owned AISC literal server scheduling and FCR goldens; current client repeat readiness remains separate");
         Log.Information("Blade Shield:4608 unchanged full player-fill rows match native physical, critical, typed mastery and poison/length helpers; current exact reach and modern event acceptance remain scoped");
     }
     private static void Cast(PlayerMobile p)

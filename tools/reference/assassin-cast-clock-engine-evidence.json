@@ -1,0 +1,108 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 2590,
+  "animations": [
+    {
+      "WeaponClass": "1HS",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "1HT",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "2HS",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "2HT",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "BOW",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "HT1",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "HT2",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "HTH",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "STF",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "XBW",
+      "Frames": 17,
+      "Speed": 256,
+      "Action": 9,
+      "Flag": 1
+    }
+  ],
+  "completeRoutineHashes": {
+    "SKILLS_GetSkillModeFromUnit": "f9c0894bd3315b436c1860b06dd602093f69bdbf8d6a3dc54f8ebdd7b3d80d15",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_UpdateCastAnimRateAndVelocity": "de79bb2a9985ea8b00257ba3268df36fe737c1c43254a9d0c01bc1841b5b3dde",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "currentExecutableParity": false,
+  "scope": "Seven unchanged full source routines from the accepted Druid SC recipe;declared Assassin class/skill/metadata and event insertion services. Owned3.3.93847animation records;not full mode conversion or current event scheduler proof.",
+  "fixture": {
+    "path": ".local/class-skills/assassin-cast-clock-source-probe.json",
+    "sha256": "1a2940fea8cb67b73a76cf4ceb6402d0fd858d6f46154603ec8bfe425204f611"
+  },
+  "limits": [
+    "Native first/last-frame projection,reentry/current client and generic UO weapon classification require separate acceptance.",
+    "This timing reference does not certify Assassin NPC AI,initializers or remaining class mechanics."
+  ],
+  "artifacts": {
+    "tools/probe_assassin_cast_clock.py": "a03a83fc9e849669d6204fcb0c48083c865c3f16bbd601c5e7e0f5634d1d0109",
+    ".local/class-skills/druid-form-cast-clock-source-probe.cpp": "ef602f207800a0a5c32a6eff32de7437dbc7ba86c89256afd6aacab8b5ff632e",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/reference/druid-form-cast-clock-engine-evidence.json": "23de2808f5b10fdabb6f7bac4f9e7a084e1ff105b8eb4770b3a45d2d22bdeb50",
+    ".local/class-skills/assassin-cast-clock-source-probe.json": "1a2940fea8cb67b73a76cf4ceb6402d0fd858d6f46154603ec8bfe425204f611",
+    "data/Sanctuary/Balance/assassin-cast-clock.json": "f73abe554da93ebb98b236bae33dd0264cbaf9812680321384b9f2549a5b3d57",
+    ".local/class-skills/assassin-cast-clock-source/probe.cpp": "e44e8821fe72b77d8505b23d76c49b4f66956dfe0a380977e32f388929b60172",
+    ".local/class-skills/assassin-cast-clock-source/probe": "86723e7fe4f6e96fe54ea20936c3d533750a3a92aab9a23c09c342d7d5779669",
+    ".local/class-skills/assassin-cast-clock-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/assassin-cast-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
