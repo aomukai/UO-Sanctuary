@@ -1,5 +1,7 @@
 # Skill effects
 
+**Blade Fury reentry (2026-11-03 JST).** Server-mode entry/lease correctness creates no final player startup/loop/release pose. Bladefragment1/2 travel/contact and audio remain missing; existing native weapon-flight rendering/component plans are placeholders. No new artwork is generated. See [checkpoint](blade-fury-reentry-checkpoint.md).
+
 **Automatic Wake/death (2026-11-03 JST).** Logical E9 death/retained issued fire supplies no final collapse artwork. Body0x9C/hue0x489 and marker0x36D4/hue0x489 remain identified placeholders. Final emergence/firing/neutral/collapse, maker trail, spreading wave/contact and audio are pending. See [checkpoint](wake-fire-automatic-checkpoint.md).
 
 **Prepared Wake travelling fire (2026-11-03 JST).** Real maker/wave mechanics use native0x36D4/hue0x489 as an identified placeholder. Final E9 actor emergence/firing/neutral/collapse, source517trail, spreading518wave/contact and audio remain missing. No final artwork follows from travelling damage. See [checkpoint](wake-fire-missiles-checkpoint.md).

@@ -66,16 +66,28 @@ internal static class BladeFuryModes
     }
     internal static bool BeginPrepared(PlayerMobile owner,Serial selected,Point3D point,DateTime at)
     {
-        if(!Eligible(owner)||State(owner)!=null||!ValidPoint(owner,point)
+        if(!Eligible(owner)||!ValidPoint(owner,point)
             ||ClassCombat.Existing(owner) is{PendingAbility:not CombatAbility.None}){return false;}
         var target=World.FindMobile(selected);
         if(selected!=Serial.Zero&&(target==null||!ClassCombat.IsHostile(owner,target)||target.Map!=owner.Map)){return false;}
+        var previous=State(owner);int frame=0;DateTime epoch=at;
+        if(previous!=null)
+        {
+            if(at<previous.EpochUtc){return false;}
+            frame=Frame(previous,at);
+            if(frame<previous.Sequence.Frame){throw new ArgumentException("Fresh Fury intent moved backwards");}
+            if(frame-1>=previous.Sequence.Frame){Advance(owner,previous.EpochUtc.AddMilliseconds((frame-1)*40L));}
+            previous=State(owner);
+            if(previous?.Sequence.UsedSkill==true){return false;}
+            if(previous!=null){epoch=previous.EpochUtc;}else{frame=0;}
+        }
         int rank=SkillMechanics.Rank(owner,CombatAbility.BladeFury);
         var cast=new BladeFuryModeCast(++_nextId,owner.Serial.Value,owner.Map.MapID,owner.Location,
-            CombatTiming.Equipped(owner)?.Serial.Value??0,selected.Value,point,at,null);
-        var step=BladeFurySequence.Enter(0,rank,Services(owner,cast,rank));
-        if(!step.Success){return false;}
-        Casts.Add(cast.Owner,cast with{Sequence=step.State});return true;
+            CombatTiming.Equipped(owner)?.Serial.Value??0,selected.Value,point,epoch,null);
+        var services=Services(owner,cast,rank);
+        var step=previous==null?BladeFurySequence.Enter(frame,rank,services):BladeFurySequence.ReenterReleased(previous.Sequence,frame,rank,services);
+        if(!step.Success&&previous==null){return false;}
+        Casts[cast.Owner]=cast with{Sequence=step.State};Commit(cast,step.State);return step.Success;
     }
     private static bool Current(PlayerMobile owner,BladeFuryModeCast cast)
         =>Eligible(owner)&&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin

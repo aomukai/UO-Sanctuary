@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "03bdb7394179ddbe36791d2330960ec9c7a077dd1402fe178b278e91ae337be8",
+  "ContentAssemblySha256": "85696419d8ef8ea20d06e22ab9e942eb1dae6c05b8a3a68c3cb84c79fab1b72c",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "c56bc4c83d84075cfe9d7452defd0f118b0fcf71c1fbe7098dd1661da397379e",
+    "data/Sanctuary/Balance/class-skill-status.json": "b012990d7061ab55b941fba79453277e3053e21220ed064faafee2c88fb4e5de",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -324,9 +324,9 @@
     "src/Sanctuary.Content/BladeFuryChannel.cs": "a48354abbd4c62907dd1ddbd918f3c15f9009bc03f7c478a66216a1821844624",
     "src/Sanctuary.Content/BladeFuryLaunch.cs": "bf8657e5fa9dd1e687d7cbfa41604d91d2115b322faaf488e1a14863164f9bac",
     "src/Sanctuary.Content/BladeFuryMissiles.cs": "50c2b48bfd44504b42b028c30404378132a4f9d5592f4084f8a875242b3a6865",
-    "src/Sanctuary.Content/BladeFuryModes.cs": "6a4f5a1914b74a8f226fdbfa143961936e401be9a275a82d3131886c7e76bcb2",
+    "src/Sanctuary.Content/BladeFuryModes.cs": "1a74c1e6f1401fe0c1d2dba4fda9f4326cbf75c5faf2bb4c803a05e6a6a7803a",
     "src/Sanctuary.Content/BladeFuryResources.cs": "bffd17c6b6f9c94fee4abfc690048d75c597de86dcb84377aebeb88d79d1f3d6",
-    "src/Sanctuary.Content/BladeFurySequence.cs": "1dc5000a5383d5674ab9804a655dcb67cca2381ce5b68b404af789be9df4e0b1",
+    "src/Sanctuary.Content/BladeFurySequence.cs": "19b0e183ec7b117ece64d2b4170a0ef82ecb74d859d242a915a154da95c3c4ba",
     "src/Sanctuary.Content/BladeSentinelAi.cs": "22750d91d51b9505b5bc1c3cfe4eb3b6a7f8bcdb3552913ea6459bbea3511949",
     "src/Sanctuary.Content/BladeSentinelBody.cs": "cc6ff565bf65912e8a11236594eedcaca75a14dc279b5c69db260d12d7e12be7",
     "src/Sanctuary.Content/BladeSentinelCasts.cs": "5e914a99416c46ebc91c55f3faf69b3942242b809df536158c782e93ca9f1032",

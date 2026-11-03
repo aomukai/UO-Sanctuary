@@ -34,13 +34,27 @@ internal static class BladeFurySequence
         =>animation with{Events=[..animation.Events,new(RemoveState,channel.Expires,0)]};
 
     internal static BladeFurySequenceStep Enter(int frame,int rank,BladeFurySequenceServices services,uint flags=64)
+        =>Entry(frame,rank,services,flags,null);
+    internal static BladeFurySequenceStep ReenterReleased(BladeFurySequenceState previous,int frame,int rank,BladeFurySequenceServices services)
+    {
+        Validate(previous,frame);
+        if(previous.UsedSkill||previous.Channel.Active||previous.Channel.HasLease&&previous.Channel.NextShot>frame)
+        {throw new NotSupportedException("Fresh Fury entry over an active or future-shot lease requires an unverified sequence rewind");}
+        if(previous.Animation.Events.Any(e=>e.Frame<frame))
+        {throw new ArgumentException("Drain older Fury callbacks before fresh mode entry");}
+        return Entry(frame,rank,services,previous.Channel.Flags,previous);
+    }
+    private static BladeFurySequenceStep Entry(int frame,int rank,BladeFurySequenceServices services,uint flags,BladeFurySequenceState previous)
     {
         if(frame<0||frame>(int.MaxValue>>8)-32){throw new ArgumentOutOfRangeException(nameof(frame));}
-        var animation=SourceAnimationEvents.Initial(BladeFuryAnimation.Create(frame*256,256),frame);
-        var fresh=new BladeFuryChannelState(false,0,0,flags&~64u){Lease=false};
+        var plan=BladeFuryAnimation.Create(frame*256,256);
+        if(previous!=null){plan=plan with{Events=previous.Animation.Events.Where(e=>e.Type==RemoveState).ToArray()};}
+        var animation=SourceAnimationEvents.Initial(plan,frame);
+        var fresh=previous==null?new BladeFuryChannelState(false,0,0,flags&~64u){Lease=false}:previous.Channel with{Flags=flags&~64u};
+        bool renews=previous!=null&&services.Mana256()>=BladeFuryResources.Cost256(rank);
         var step=BladeFuryResources.Start(fresh,frame,rank,Resources(services,
-            ()=>throw new InvalidOperationException("Fresh Fury entry unexpectedly rewound")));
-        if(step.State.HasLease){animation=AppendExpiry(animation,step.State);}
+            ()=>throw new NotSupportedException("Fresh Fury entry would rewind before its new sequence epoch")));
+        if(step.State.HasLease&&(previous==null||renews)){animation=AppendExpiry(animation,step.State);}
         var result=new BladeFurySequenceState(SequenceMode,true,frame,0,step.State,animation);
         return new(step.Success?result:End(result),step.Success);
     }
