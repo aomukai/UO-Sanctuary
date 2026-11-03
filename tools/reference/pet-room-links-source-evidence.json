@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current monster room registration/unlink/update removal and shared room touch",
+  "cases": 5952,
+  "byFamily": {
+    "add": 1488,
+    "remove": 1488,
+    "removeUpdate": 1488,
+    "touch": 1488
+  },
+  "unsupportedCases": 3222,
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "Complete add/remove/update-removal/touch bodies run for kind1 units on supplied dynamic paths and room/update lists. Unit-to-room projection and alignment remain declared services. All room/unit fields and alignment/fatal service order are compared.",
+    "Duplicate membership,null units/rooms,missing markers,count underflow,missing membership,head/middle/tail unlink and retained partial writes are explicit controls. Arbitrary cyclic lists and other unit kinds remain unsupported/unverified. Global/native world ownership,visibility and automatic AI remain separate."
+  ],
+  "artifacts": {
+    "tools/probe_pet_room_links.py": "0a892734ea2b006d89034d784cc01d0ecb91bc4465dc481e97d3c142ed749d09",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103.json": "72948de6ca2e0eb62959f053e9d51ec58f310f2f4a21f13c25fef584c647b879",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3940-part0.bin": "fcce0e007677f8f128999839790b07abfb94c6f75b1746892e299ba8565e7b3b",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part0.bin": "9d6cc93028ed186badee476d41254530f0c990bab3760029d75cfb199c8ced46",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part1.bin": "e21282a01810ca1993b3ffca0442dd27484de5733277a0e325dc9ebbfa1d6e0a",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part2.bin": "4c4249d8f4eb3f25d16abefa345b7864dc17ee5715487c81b7af53a960e31e08",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part3.bin": "0604fe827eae7c7940ada0ef4996e170830104e7e2d739ec2417a897c494d647",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part4.bin": "a9772aeb7d9135d0069c89d6dc775bfa0ffbb4b8d1f8983ca3eff9581f4ee3b9",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-links-20261103-2a3c80-part5.bin": "b46e8cf7b2da1f9cdf49d6fa1877aa174c0cb3564f90217c31a508fc27ea9cc5",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-link-leaves-20261103.json": "29351c6bdecfc2c8228104db30f84e769bb3a3575fe47d361a63d942fcc30b67",
+    ".local/class-skills/pet-world-placement-reference-20261103/callees-pet-world-link-leaves-20261103-2a3e70-part0.bin": "c2c7e929d3cddec7c6027780d1ef809d8550c21ac64f637a5111bfce0fdcbb1b",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103.json": "f483ebf0876aed2c6b77bfdf3d60e726675170a4b8551c44cd50e11ebee59a4e",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-leaves-20261103-2a3b30-part0.bin": "6d11c3b2df1d00e07dcd3dfe32025bc15f15587044aaf7771720d741ea0e348d",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/pet-room-links-source-probe.json",
+    "sha256": "38815317cc5c1777f5e2eb84a7107d77812c2de3b5c82507758e8a346b372fde"
+  }
+}
