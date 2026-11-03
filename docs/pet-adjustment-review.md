@@ -51,6 +51,8 @@ Corpse shattering is accepted. Necromancers can choose a corpse-explosion build 
 
 ## Druid
 
+Spirit Wolf hard10Open Wounds and hard20breakable cold immunity are implemented with dedicated27-marker/3boot/2reload acceptance; see [the checkpoint](spirit-wolf-upgrades-checkpoint.md). Intrinsic cold-only attacks, baseline unchillability and captured birth stats remain. Other Druid entries below are still pending unless separately accepted.
+
 | Pet | 10 hard points | 20 hard points / balance change |
 | --- | --- | --- |
 | Spirit Wolves | Open Wounds. | Cold immunity. Preserve cold-only attacks and baseline unchillability. |

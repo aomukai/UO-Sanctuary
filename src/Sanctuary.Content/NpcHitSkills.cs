@@ -7,7 +7,7 @@ namespace Sanctuary;
 // positive chance/hitflag/RNG gates. Arbitrary item proc writer11 is separate.
 internal static class NpcHitSkills
 {
-    internal static int BloodChance(SkeletonGuardian actor)=>NpcOpenWounds.Potential(actor)
+    internal static int BloodChance(SkeletonGuardian actor)=>NpcOpenWounds.Blood(actor)
         &&actor.ControlMaster is PlayerMobile{Deleted:false} owner
         &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=20?5:0;
     internal static bool Chance(int chance,uint hitFlags,bool hasPacket,uint roll)

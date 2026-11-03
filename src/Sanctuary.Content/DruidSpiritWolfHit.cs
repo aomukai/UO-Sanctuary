@@ -11,7 +11,8 @@ internal readonly record struct SpiritWolfPacket(int Cold256,int Fire256,int Lig
 
 // Current copied wolf stats have only cold damage. The older ordinary-melee
 // physical1..2floor is deliberately not inferred as current D2R behavior.
-// This explicit cold-only profile remains provisional at that narrow branch.
+// Sanctuary explicitly preserves cold-only intrinsic attacks in its approved
+// wolf upgrade plan; ordinary Enchant/elemental auras remain additive.
 internal static class DruidSpiritWolfHit
 {
     internal static SpiritWolfPacket Packet(int coldMin,int coldMax,int coldFrames,int fireMin,int fireMax,
@@ -52,8 +53,9 @@ internal static class DruidSpiritWolfHit
         return aura==null?(0,0):(NamedElements.To256(aura.WeaponMin),NamedElements.To256(aura.WeaponMax));
     }
     internal static SpiritWolfHitResult Resolve(DruidSpiritWolfBody body,PlayerMobile owner,SpiritWolfWorldState state,
-        BaseCreature target,ref ulong seed)
+        BaseCreature target,ref ulong seed,DateTime? at=null)
     {
+        DateTime when=at??TimedEffects.Now;
         uint id=target?.Serial.Value??0;
         if(!DruidSpiritWolfWorld.Eligible(body,owner,target) || !InRange(body,state,target) || !AlliedOverlap.Allowed(body))
         {return new(SpiritWolfHitOutcome.Invalid,id);}
@@ -61,6 +63,16 @@ internal static class DruidSpiritWolfHit
         {return new(SpiritWolfHitOutcome.Unsupported,id,Reason:"Spirit Wolf A1mode stats were not captured");}
         if(!SourceBlocking.TryRate(target,out _,out _))
         {return new(SpiritWolfHitOutcome.Unsupported,id,Reason:"Spirit Wolf recipient block supplier is not mapped");}
+        var sourceEvents=NpcCombatEvents.ForSource(body);sourceEvents.RequireWoundsOnly("domeleedamage");
+        if(NpcOpenWounds.Chance(body)>0)
+        {
+            // As on ordinary NPC contacts, settle overdue drains before an
+            // incoming contact can commit HP or enter its wound event.
+            TimedEffects.Settle(target,when);
+            if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0)
+            {return new(SpiritWolfHitOutcome.Invalid,id);}
+            _=NpcEquipmentRegeneration.ItemRate(target);
+        }
         body.DoHarmful(target,true);
         using var attempted=PaladinThorns.Attempt(body,target,false);
         SorceressEffects.MeleeAttempt(body,target);
@@ -82,6 +94,8 @@ internal static class DruidSpiritWolfHit
             NecromancerSummons.Source("spiritwolf","Crit"),Limited,Raw);
         seed=current;
         var parts=SkillCombat.MitigatePrepared(body,target,new(0,packet.Fire256/256.0,packet.Cold256/256.0,packet.Lightning256/256.0,0));
+        try{sourceEvents.DispatchWounds("domeleedamage",body,target,when,Limited);}
+        finally{seed=current;}
         // Pure cold still makes an ordinary melee attempt (flat Thorns may
         // apply), but cannot supply physical leech, Life Tap or percent return.
         PreparedWeaponEvents.BeforeReturn(body,target,0,false);

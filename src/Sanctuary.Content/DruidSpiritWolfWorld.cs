@@ -266,7 +266,7 @@ internal static class DruidSpiritWolfWorld
                 else if(s.Mode==4)
                 {
                     ulong seed=s.Seed;
-                    var hit=DruidSpiritWolfHit.Resolve(body,owner,s,World.FindMobile((Serial)s.Target) as BaseCreature,ref seed);
+                    var hit=DruidSpiritWolfHit.Resolve(body,owner,s,World.FindMobile((Serial)s.Target) as BaseCreature,ref seed,frameAt);
                     if(body.Deleted){return;}
                     s=s with{ActionAt=0,StrikeRequests=checked(s.StrikeRequests+1),PendingStrikeTarget=s.Target,PendingStrikeFrame=s.Frame,
                         PendingStrikeRank=s.AttackPacket.Value.Rank,Seed=seed,LastHit=hit,Hits=checked(s.Hits+(hit.Outcome==SpiritWolfHitOutcome.Hit?1:0))};

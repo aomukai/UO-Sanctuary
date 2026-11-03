@@ -1,5 +1,7 @@
 # Skill effects
 
+**Spirit Wolf approved upgrades (2026-11-03 JST).** Wounds reuse the shared logical bleed consumer; final bleed/contact visual/audio and wolf summon/bite/hurt/death/teleport effects remain pending. Existing body0xE1 and native effects are identified placeholders. The cold-resistance floor adds no final artwork. See [checkpoint](spirit-wolf-upgrades-checkpoint.md).
+
 **Player attack-rate slow correction (2026-11-03 JST).** Shared arithmetic adds no final effects or audio. Existing per-skill cast, attack, status and contact placeholders remain independently pending. Actual-client animation/event acceptance is still required; see [checkpoint](player-attack-slow-checkpoint.md).
 
 **Blade Fury reentry (2026-11-03 JST).** Server-mode entry/lease correctness creates no final player startup/loop/release pose. Bladefragment1/2 travel/contact and audio remain missing; existing native weapon-flight rendering/component plans are placeholders. No new artwork is generated. See [checkpoint](blade-fury-reentry-checkpoint.md).

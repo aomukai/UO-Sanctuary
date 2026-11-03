@@ -26,10 +26,13 @@ internal sealed class NpcCombatEvents
     private readonly NpcItemEventStat[] Active;
     private NpcCombatEvents(){Active=[];}
     internal static NpcCombatEvents Empty{get;}=new();
-    internal static NpcCombatEvents ForSource(SkeletonGuardian actor)=>NpcEquipmentCombat.Context(actor) is{} item
-        ?new(item,NpcOpenWounds.Potential(actor)):NpcOpenWounds.Potential(actor)?new(null,true):Empty;
-    internal NpcCombatEvents(ItemStatContext item):this(item,false){}
-    private NpcCombatEvents(ItemStatContext? item,bool blood)
+    internal static NpcCombatEvents ForSource(SkeletonGuardian actor)
+    {
+        var item=NpcEquipmentCombat.Context(actor);bool wounds=NpcOpenWounds.Potential(actor);
+        return item!=null||wounds?new(item,wounds,NpcOpenWounds.Blood(actor)):Empty;
+    }
+    internal NpcCombatEvents(ItemStatContext item):this(item,false,false){}
+    private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood)
     {
         item?.RequireOrdinaryNpcDrainInputs();
         var stats=item?.ActiveNumericProperties()??[];var active=new List<NpcItemEventStat>();
@@ -45,9 +48,9 @@ internal sealed class NpcCombatEvents
             {throw new NotSupportedException("NPC combat event needs its consumer: "+rule.Name+"/"+string.Join(',',rule.Events.Select(e=>e.Event+":"+e.Function)));}
             active.Add(rule);
         }
-        // A Blood actor keeps the potential subscription so a live hard-point
+        // An eligible actor keeps the potential subscription so a live hard-point
         // unlock/respec during windup is observed at the actual damage event.
-        if(blood&&active.All(r=>r.Stat!=135)){active.Add(Rules.Value[135]);}
+        if(inherentWounds&&active.All(r=>r.Stat!=135)){active.Add(Rules.Value[135]);}
         if(blood)
         {
             var tap=Rules.Value[198];
@@ -57,7 +60,19 @@ internal sealed class NpcCombatEvents
         }
         Active=active.ToArray();
     }
-    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian source=null,BaseCreature target=null,DateTime? at=null)
+    internal void RequireWoundsOnly(string phase)
+    {
+        if(Active.Any(rule=>rule.Events.Any(e=>e.Event==phase&&(rule.Stat!=135||e.Function!=15))))
+        {throw new NotSupportedException("Typed-only NPC contact requires its additional registered damage-event consumer");}
+    }
+    internal void DispatchWounds(string phase,SkeletonGuardian source,BaseCreature target,DateTime at,Func<int,int> limited)
+    {
+        RequireWoundsOnly(phase);
+        // Function15 does not read the damage packet. No physical lane or
+        // synthetic ordinary-monster packet is invented for a cold-only hit.
+        Dispatch(phase,null,source,target,at,limited);
+    }
+    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> woundRoll=null)
     {
         foreach(var rule in Active)foreach(var registration in rule.Events)
         {
@@ -66,7 +81,7 @@ internal sealed class NpcCombatEvents
             if(rule.Stat==135&&registration.Function==15)
             {
                 if(source==null||target==null||at==null){throw new InvalidOperationException("NPC wound callback lacks its real damage-event context");}
-                NpcOpenWounds.Apply(source,target,at.Value,phase=="domissiledamage");continue;
+                NpcOpenWounds.Apply(source,target,at.Value,phase=="domissiledamage",woundRoll);continue;
             }
             if(rule.Stat==198&&registration.Function==20)
             {

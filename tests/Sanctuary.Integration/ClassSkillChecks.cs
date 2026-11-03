@@ -36,13 +36,14 @@ public static class ClassSkillChecks
         }
         player.Hits = player.HitsMax; player.Mana = player.ManaMax; return player;
     }
-    private static void Train(PlayerMobile player, string id)
+    internal static void Train(PlayerMobile player, string id, int rank=1)
     {
-        if (ClassCreation.Profiles.GetRank(player.Serial, id) > 0) { return; }
+        if (ClassCreation.Profiles.GetRank(player.Serial, id) >= rank) { return; }
         ClassCreation.Profiles.TryGet(player.Serial, out var profile);
         Require(TalentCatalog.TryGet(profile.Class, id, out var definition), "No talent " + id);
         foreach (string prerequisite in definition.Prerequisites) { Train(player, prerequisite); }
-        Require(ClassCreation.Profiles.TryTrain(player.Serial, id, out _), "Cannot train " + id);
+        while(ClassCreation.Profiles.GetRank(player.Serial,id)<rank)
+        {Require(ClassCreation.Profiles.TryTrain(player.Serial, id, out _), "Cannot train " + id);}
     }
     private static GraveyardSkeleton Enemy(PlayerMobile player, int offset = 3)
     {

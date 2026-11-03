@@ -8,13 +8,15 @@ namespace Sanctuary;
 
 public sealed record SourceOpenWoundsClock(int Rate256,int ElapsedMs,uint CreditOwner);
 
-// Item function15 and approved Blood hard10 share one event/state consumer.
+// Item function15 and approved Blood/Spirit Wolf hard10 share one consumer.
 internal static class NpcOpenWounds
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NpcOpenWounds));
     private static readonly HashSet<Type> Unmapped=new();
-    internal static bool Potential(SkeletonGuardian actor)=>actor is NecromancerMinion{Kind:CombatAbility.BloodGolem};
-    internal static int Inherent(SkeletonGuardian actor)=>Potential(actor)&&actor.ControlMaster is PlayerMobile{Deleted:false} owner
+    internal static bool Blood(SkeletonGuardian actor)=>actor is NecromancerMinion{Kind:CombatAbility.BloodGolem};
+    internal static bool Potential(SkeletonGuardian actor)=>Blood(actor)||actor is DruidSpiritWolfBody;
+    internal static int Inherent(SkeletonGuardian actor)=>actor is DruidSpiritWolfBody?SpiritWolfUpgrades.OpenWounds(actor)
+        :Blood(actor)&&actor.ControlMaster is PlayerMobile{Deleted:false} owner
         &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=10?100:0;
     internal static int Chance(SkeletonGuardian actor)=>checked(Inherent(actor)+Math.Max(0,NpcEquipmentCombat.Bonus(actor,"openwounds")));
     private static bool Eligible(BaseCreature target)
@@ -26,11 +28,11 @@ internal static class NpcOpenWounds
         if(Unmapped.Add(target.GetType())){Log.Warning("NPC Open Wounds state receiver is unsupported: {Type}",target.GetType().Name);}
         return false;
     }
-    internal static bool Apply(SkeletonGuardian actor,BaseCreature target,DateTime at,bool ranged=false)
+    internal static bool Apply(SkeletonGuardian actor,BaseCreature target,DateTime at,bool ranged=false,Func<int,int> limited=null)
     {
         int chance=Chance(actor);if(chance<=0){return false;}
         // Function15 draws even at100%, before state-factory eligibility.
-        if(NpcEquipmentRandom.Limited(actor,100)>=chance||!Eligible(target)){return false;}
+        if((limited?.Invoke(100)??NpcEquipmentRandom.Limited(actor,100))>=chance||!Eligible(target)){return false;}
         if(actor.ControlMaster is not PlayerMobile{Deleted:false} owner){return false;}
         int rate=checked((int)Math.Round(NamedCombat.OpenWoundsDamage(ClassStats.Level(actor),target,ranged)*256/200));
         return TimedEffects.PreparedOpenWounds(actor,target,rate,owner.Serial.Value,at);

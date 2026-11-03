@@ -48,6 +48,7 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
     internal override string SourceMonsterId=>"spiritwolf";
     internal override int SourceRegeneration256=>Prepared?.Snapshot.Birth.Regeneration256??32;
     internal override int SourceDefensePercent=>Prepared?.Snapshot.Birth.ArmorPercent??0;
+    public override int GetResistance(ResistanceType type)=>SpiritWolfUpgrades.Resistance(this,type,base.GetResistance(type));
     public override long SourceLife256=>Prepared?.Snapshot.Birth.Life256??130*256;
     public int MaximumLife256
     {

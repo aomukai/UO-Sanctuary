@@ -1,5 +1,7 @@
 # Skill icons
 
+**Spirit Wolf approved upgrades (2026-11-03 JST).** Existing Summon Spirit Wolf talent/left/right/quick icon artwork remains pending. Hard-point unlocks add no separate active binding; effects/audio remain in their own ledger. See [checkpoint](spirit-wolf-upgrades-checkpoint.md).
+
 **Player attack-rate slow correction (2026-11-03 JST).** No skill availability or binding changes; existing talent/left/right/quick icons remain separate pending placeholders. The shared timing correction adds no artwork. See [checkpoint](player-attack-slow-checkpoint.md).
 
 **Blade Fury reentry (2026-11-03 JST).** Talent/left/right/quick icons remain separately pending placeholders. The prepared entry fix exposes no learned route and supplies no final icon. See [checkpoint](blade-fury-reentry-checkpoint.md).
