@@ -14,8 +14,8 @@ internal static class PreparedMonsterNativeDamage
     internal static void RequireIncoming(PlayerMobile source,BaseCreature target,Mobile attacker=null)
     {
         var method=target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType;
-        bool demonGuard=(target is WarlockGoatmanBody or WarlockTaintedBody)&&method==typeof(SkeletonGuardian);
-        // These two bodies inherit only the guardian's friendship wrapper.
+        bool demonGuard=(target is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)&&method==typeof(SkeletonGuardian);
+        // These demon bodies inherit only the guardian's friendship wrapper.
         // Preserve its refusal before the ordered path bypasses Damage; the
         // actual emitter,not its credit owner,determines that relationship.
         if(demonGuard&&ClassCombat.Friendly(attacker??source,target))

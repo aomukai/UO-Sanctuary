@@ -50,11 +50,9 @@ internal static class TaintedPrepared
         if (ownerLevel is < 1 or > 99 || !Enum.IsDefined(difficulty))
         { throw new ArgumentOutOfRangeException(nameof(ownerLevel)); }
         var suppliers = Capture(values, accrued);
-        int level = Math.Min(ownerLevel, values.Rank + 3 * ownerLevel / 4);
-        int life = checked(NecromancerSummons.Source("warbighead", "minHP", difficulty) * 256);
-        return new(ownerLevel, level, difficulty, life, checked(life + SourcePercentage.Calculate(life, suppliers.LifePercent, 100)),
-            NecromancerSummons.Source("warbighead", "A1TH", difficulty), NecromancerSummons.Source("level-" + level, "L-TH", difficulty),
-            NecromancerSummons.Source("warbighead", "AC", difficulty), NecromancerSummons.Source("level-" + level, "L-AC", difficulty), suppliers);
+        var vital=DemonBirthNumbers.Create("warbighead",values.Rank,ownerLevel,difficulty,suppliers.LifePercent);
+        return new(ownerLevel,vital.PetLevel,difficulty,vital.BaseLife256,vital.MaximumLife256,
+            vital.BaseAttack,vital.LevelAttack,vital.BaseArmor,vital.LevelArmor,suppliers);
     }
 
     internal static TaintedSnapshot Capture(PlayerMobile owner)

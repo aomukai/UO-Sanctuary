@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Defiler owned creation suppliers and exact malformed damage formula",
+  "handlerEnabled": false,
+  "currentExecutableParity": false,
+  "wrappedControlFogCases": 10710,
+  "rawExactFormulaVerified": false,
+  "rawDiagnostic": "Old compiler reads pending-operations[-1] while linking the leading bare par2 symbol;ASan/UBSan refuses this expression before a result.",
+  "comparedOwnedMonsterFields": 92,
+  "inputs": {
+    "tools/reference/warlock-foundation-preflight.json": "f6246b9eb3de1dbdfbcbec4ef7e6d8d4f0f11a0130dc8a350fca53b807742e31",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "tools/reference/goatman-source-evidence.json": "8efc955ea59dd12bfd5f22a80ea11d9302f049fd61e75ef46905d8ce73741cfe",
+    ".local/class-skills/tainted-foundation-source/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/tainted-foundation-source/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/tainted-foundation-source/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/tainted-foundation-source/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73",
+    ".local/class-skills/warlock-foundation/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/probe_defiler_foundation.py": "60ca9b1f189b3799ae20d20a7267831dcb360b56cc185a6db146f2ab5b689eaa"
+  },
+  "established": [
+    "The complete reused Fog compiler/evaluator executes two explicitly WRAPPED controls for all255ranks and hard Mastery0..20. Their result is10*(summon rank-1+hard Mastery). These controls do not prove the raw expression or modern execution;no production compatibility repair or damage multiplier is enabled.",
+    "Current do56 requests S3,Health Link and its own Summon Defiler ranks. NoRatio bases are140/190/300;ordinary A1 physical endpoints and armor/attack/resistances remain pinned data. Prepared suppliers do not execute Health Link or GenericPet AI."
+  ],
+  "limitations": [
+    "Fog symbol/stat callbacks are declared fixtures. Actual current extended-passive writer,health-link execution,skill-list/mode/world/controller admission,ordinary physical release and learned cap/payment/lifecycle remain separate. Nonzero inherited sunder needs its own ordered consumer.",
+    "This proves the narrow EOF compatibility case,not permission to repair arbitrary malformed formulas. Final Gazer appearance and generic effects remain placeholders;icons are separate."
+  ],
+  "artifacts": {
+    ".local/class-skills/defiler-source/formula.cpp": "6343d2f2cbe3f308561a83633a2cc60979827dea273c424e647c43a907c76982",
+    ".local/class-skills/defiler-source/formula": "f48feacd33e1ac9f74f412fc8366d2fb25ad7a35cc62bcb4f02f8b6f988564c7",
+    ".local/class-skills/defiler-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-source/formula.json": "1b0c19229fd1939d1495e0d402caa32cc6c2fe27287f39fad8266881445de80b",
+    ".local/class-skills/defiler-source/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/defiler-source/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/defiler-source/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/defiler-source/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/run.log": "e96b2a7f87b1c8b6e37054decb9e82d7e4ff6439d0b1da2b9beeee2e12d9adb0",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/sanitizer.log": "c3ca09078df7c136104d02a81e60a1ae7d97bd7422592637e4a8cca69003149b",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/formula.cpp": "f5d66d49b7a518831cf76855bd296678e425627d2d2f5f58ce32979ba7c3797c",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/formula": "d3ba8f37dda5b5663f600ca37ed203f30edea6ca7b423e1e45ae7d3a8b469714",
+    ".local/class-skills/defiler-source/raw-diagnostic-1/probe_defiler_foundation.py": "10219e0bc0cc4a566f4f761153b56792285710ca4bec841c4051aa2d7264ee48"
+  }
+}

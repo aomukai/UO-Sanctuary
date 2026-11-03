@@ -1,5 +1,7 @@
 # Skill icons
 
+**Defiler vital body (2026-11-04 JST).** Summon Defiler still needs talent-tree and right/quick-hotkey artwork. The prepared body supplies no icon;its two captured assigned-skill ranks do not create player-bindable skills or extra hotkeys. Effects/audio remain separate. See [checkpoint](defiler-body-checkpoint.md).
+
 **Demon incoming packets (2026-11-04 JST).** Incoming receiver integration adds no player skill or icon. Goatman/Tainted talent-tree and right/quick-hotkey artwork remain pending; Blood Boil still needs its own eventual talent/hotkey icon when its execution is implemented. Effects/audio stay separate. See [checkpoint](demon-incoming-checkpoint.md).
 
 **Tainted resistance aura (2026-11-04 JST).** Automatic internal NPC420 adds no player-bindable icon. Summon Tainted still needs talent-tree and right/quick-hotkey artwork; existing text labels remain identified placeholders. Effects/audio are tracked separately. See [checkpoint](tainted-aura-checkpoint.md).

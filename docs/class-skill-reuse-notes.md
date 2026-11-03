@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Defiler vital body (2026-11-04 JST).** Defiler and Tainted share DemonBirthNumbers noRatio vital calculations while Tainted retains its original saved DTO. Defiler reuses permanent-minion ownership,difficulty percentage scaling,parking and the exact inherited-guard incoming receiver. Its raw damage expression remains unverified;wrapped Fog controls do not authorize a production repair. No duplicate physical/Health Link implementation is invented. See [checkpoint](defiler-body-checkpoint.md).
+
 **Demon incoming packets (2026-11-04 JST).** Goatman and Tainted reuse the existing pinned return identities and shared resistance/notification/life/return services. The adapter recognizes only their exact inherited guardian friendship wrapper and checks the actual attacker before ordered damage. Blood Boil new do160 remains a separate unverified execution path. See [checkpoint](demon-incoming-checkpoint.md).
 
 **Tainted resistance aura (2026-11-04 JST).** NPC420 reuses the innate rank getter, shared aura target/geometry rules, Paladin state3 lease storage and typed resistance consumers. Source skill100/420 identity prevents same-state stacking while retaining cross-skill replacement. The owned row names passive_resistfire for removal but supplies no maximum stat. Persistent selected emitters and finite recipient leases have separate lifetimes. See [checkpoint](tainted-aura-checkpoint.md).

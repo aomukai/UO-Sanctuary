@@ -172,6 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is WarlockDefilerBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warputriddefiler vital entity","native","warputriddefiler","Prepared Gazer life/ownership; offense,Health Link,GenericPet and learned casting remain gated");}
         if(creature is WarlockTaintedBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warbighead entity","native","warbighead","Prepared saved vulnerable Tainted life/ownership and qualified fire hit; GenericPet controller,actual skill release and learned casting remain gated");}
         if(creature is WarlockGoatmanBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned wargoatman entity","native","wargoatman","Prepared saved vulnerable Goatman life/ownership; GenericPet world/combat and learned casting remain gated");}
         if(creature is IronGolemBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Iron Golem stat body","native","irongolem","Prepared saved numeric birth/body; source initializer,AI,attack/events and learned casting remain unfinished");}
@@ -213,7 +214,8 @@ public static class CreatureProfiles
                 {"mKB",((NativeMonsterReturn.Identity(key).ModeFlags>>13)&1).ToString()}
             },HitRecovery=new(false)};
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is WarlockTaintedBody tainted ? DemonVariant(tainted,"warbighead",tainted.SourceResistances(difficulty),difficulty)
+        => creature is WarlockDefilerBody defiler ? DemonVariant(defiler,"warputriddefiler",defiler.SourceResistances(difficulty),difficulty)
+            : creature is WarlockTaintedBody tainted ? DemonVariant(tainted,"warbighead",tainted.SourceResistances(difficulty),difficulty)
             : creature is WarlockGoatmanBody goat ? DemonVariant(goat,"wargoatman",goat.SourceResistances(difficulty),difficulty)
             : creature is IronGolemBody iron ? _native with{Enabled=true,ApplyStats=false,
             Resistances=new(Magic:NecromancerSummons.Source("irongolem","ResMa",difficulty??iron.SummonDifficulty)),

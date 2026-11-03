@@ -2396,10 +2396,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 377,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared saved Gazer appearance-only body now captures independent life,speed,defense,resistance,cap and skill-rank suppliers from owned do56/S3 data. Shared noRatio vitals preserve Tainted DTO/results;original Warlock/Witch bodies and fractional wounds use existing ownership,difficulty,parking and incoming-fire services. Raw passivecalc2 hits an old compiler leading-symbol bounds failure:10710 explicitly wrapped controls are not a modern damage certificate,and no production parser repair or damage multiplier is enabled. Ordinary offense,Health Link,GenericPet controller/mode/skill-list,learned placement/payment/shared cap and lifecycle remain unfinished. See defiler-body-checkpoint.md;effects/audio and talent/right/quick icons remain separate."
     },
     {
       "talentId": "warlock.engorge",
