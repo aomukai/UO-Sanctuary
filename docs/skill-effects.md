@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Grim Ward curse operation (2026-11-03 JST).** The stat operation adds no final artwork. Ward start/body/end,fear/slow/expiry and audio remain required;mechanical result checks proceed independently. See [checkpoint](grim-ward-curse-checkpoint.md).
+
 **Saved shared pet placement registry (2026-11-03 JST).** The internal registry needs no visual effect. Native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](pet-placement-world-checkpoint.md).
 
 **Primary pet target-reset acceptance (2026-11-03 JST).** Target metadata adds no artwork or audio. Native pet body/movement/teleport/contact/death/audio remain identified placeholders;final effects/audio stay separately pending. See [checkpoint](pet-path-targets-checkpoint.md).

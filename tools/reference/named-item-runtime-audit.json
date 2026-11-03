@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a6c5abd2759a9e921c363dff0d73069ce56824e82385b06de3166ee9ded1de20",
+  "ContentAssemblySha256": "c8e5bc3d8350e7beb755f96e27fe32a75aa66d71756c839bd16b1896c712d5f5",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "252b805b910c8f428410bf867a1dba16308e4ec4686180603b1aa98a08b99f6d",
+    "data/Sanctuary/Balance/class-skill-status.json": "d8df3ed9fc35d39c3409d2c705cf5a43b50edcbb4914da6ea70182a35630e19a",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -614,6 +614,7 @@
     "src/Sanctuary.Content/GraveyardHealer.cs": "aedd3e618359b4b7d6d89bd68fde2f1e750c9d62bc42d508ee0f8661d93f2f06",
     "src/Sanctuary.Content/GraveyardPopulation.cs": "e3ef472cc12c65080692af4c7234af24528009c0b98da23b5d1aab389b419973",
     "src/Sanctuary.Content/GraveyardUndead.cs": "223b0aa2366464b426c3f5e00b11110e4a9977436239a751c2c7650f5d6e5d53",
+    "src/Sanctuary.Content/GrimWardCurseOperation.cs": "731a2f9f300aa6f82b769deebbbe4b8b6186d770d312c83cccdeff8a1889cd6d",
     "src/Sanctuary.Content/GrimWardLifecycle.cs": "d3c196625ee488bb57550f2b6ff9b2a7b2ac5f53e63d28f390d1f9b79f08a6dc",
     "src/Sanctuary.Content/GrizzlyUpgrades.cs": "9b26a23fb0000443b2980fd6ac6fe8ecfc475845610f443af447e24667454bb4",
     "src/Sanctuary.Content/GroundMissileLaunch.cs": "ad679af4033fdf5c3a27dfcae6f9992a94cde66faa54ca6bb243ce8804546a18",

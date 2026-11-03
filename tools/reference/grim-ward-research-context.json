@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Supplemental primary reports and official intent;not a current executable or timing certificate.",
+  "sources": [
+    {
+      "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+      "kind": "official patch notes",
+      "finding": "Released 2.4 added slowing,increased damage taken and a Find Potion synergy. The owned pinned row supplies the numerical values. This states intended player behavior,not the internal missile skill lookup or snapshot timing."
+    },
+    {
+      "url": "https://us.forums.blizzard.com/en/d2r/t/grim-ward-reviewbugintent/155194",
+      "kind": "first-hand player report",
+      "reportedDate": "2023-02-12",
+      "finding": "Author reports that fleeing direction follows the Barbarian rather than the ward. This corroborates a player-only observation from an earlier release;it does not settle current dynamic target/creator resolution in multiplayer."
+    },
+    {
+      "url": "https://www.reddit.com/r/Diablo/comments/t6mhxa/",
+      "kind": "first-hand test report;search excerpt only",
+      "reportedDate": "2022-03-04",
+      "finding": "Author reports the synergy working in a later PTR. The full page fetch timed out. Retained only as a research lead,not accepted mechanical proof."
+    }
+  ],
+  "unresolved": [
+    "Live missile formula input lookup and whether hard points are read live or captured.",
+    "Actual target/creator AI transition,priority and multiplayer behavior in the pinned executable.",
+    "World terrain/corpse/clock/child insertion and learned input/resource/lifecycle acceptance."
+  ]
+}

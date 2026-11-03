@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 31134,
+  "component": "Ward explicit-context curse stat-list operation",
+  "compiledUnchangedRoutines": [
+    "SKILLS_SrvDo030_Curse",
+    "sub_6FD0B450",
+    "sub_6FD10EC0"
+  ],
+  "sanitizers": "ASan/UBSan",
+  "services": [
+    "Formula hard-Find-Potion input is supplied explicitly. The caster is a synthetic missile9,owned by player7. This does not resolve how current missile formula lookup obtains that input.",
+    "Single declared radial visit,hostility/AI eligibility services,stat-list allocation and scheduling remain supplied. Results compare final lists,counters and ordered permission/factory/stat/AI/animation service operations. No actual AI transition or world curse transport is certified."
+  ],
+  "handlerEnabled": false,
+  "currentExecutableParity": false,
+  "processMemoryRead": false,
+  "artifacts": {
+    "tools/probe_grim_ward_curse.py": "bca971b257f5bc6479465571c9632d54ef2902389ae888a7e2ae9f87e67c0c9c",
+    "tools/reference/necromancer-ai-curse-source-evidence.json": "65961a3112971738c1c33b248e7cdcfa5fdd3b376fcd6f671abd79ee2e16d4e9",
+    ".local/class-skills/necromancer-ai-curse-source/probe.cpp": "b8bc798edf6b2e825f94618d38daa912fec28435d491465ea5c2ec445734fbf4",
+    ".local/class-skills/grim-ward-curse-source/probe.cpp": "5712787cf4a4332b2ab3d6a69968cddce333731ffb0e4f0b5a6f1c514f51c16a",
+    ".local/class-skills/grim-ward-curse-source/probe": "961713b3a17beff8cf6a095ba93ebcc0bd169320fc1f51ef545ee1bb7760cc08",
+    ".local/class-skills/grim-ward-curse-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/grim-ward-curse-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "fixture": {
+    "path": ".local/class-skills/grim-ward-curse-source-probe.json",
+    "sha256": "55e73bda6980ebe33891cdaf0834b4398c5c06e5efcdbc3d1ad838fdd5159fec"
+  }
+}
