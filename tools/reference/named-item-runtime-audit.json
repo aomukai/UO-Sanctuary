@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "033527d006d16349d8e1607a05de5bb4fd8d3adada01fc16fac037eb53a8a1a1",
+  "ContentAssemblySha256": "b90e8066037fa44c01cbe3cbd22641275723a57d37332b4ab13f637b0cb76ec7",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -8,7 +8,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "b53bdd251e213a9366ddac32026d270649e1db4d329dd7735d36013db7ef565a",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "1eee15807ac9befd4a56b6e3a56067a5ffb04e0b6f8b2b3c4a33f98da8c51f58",
+    "data/Sanctuary/Balance/class-skill-status.json": "eb72803b115d121ade9085f9ac9de42a528e0173dced182a337b594c46658e3b",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -305,6 +305,7 @@
     "src/Sanctuary.Content/BarbarianBerserk.cs": "20eaa5d7bcd33085806a9d17c7c641069250e773773d7bc692cdb8d5a3759079",
     "src/Sanctuary.Content/BarbarianCombat.cs": "1a67dba9242ebdc0c063bf695818e5d57727f0d6b9efeed2ac363523b86d722b",
     "src/Sanctuary.Content/BarbarianConcentrate.cs": "221900ade9644fb7fd03cc56315e5f12551be04fefc1731f47dffdbe0befe470",
+    "src/Sanctuary.Content/BarbarianDoubleSwingPhase.cs": "bfe7093450b46f7e324f84708b47522fb8e8fac6f28257e01339dd521403c68d",
     "src/Sanctuary.Content/BarbarianDoubleThrow.cs": "25ba53e013a606c07fb0a8baa656a67cb0286040af92e0f16028c38a9d0ad244",
     "src/Sanctuary.Content/BarbarianFindItem.cs": "d14ff3c5376bd14effe09db3b6bb0fd3e965e3239b5693e072d70038f3f3f1f6",
     "src/Sanctuary.Content/BarbarianFindPotion.cs": "025c83d744d4787251ff73187da8431eae2d90aa78ca4ed9cd3371f61fb4a41e",
@@ -867,6 +868,7 @@
     "src/Sanctuary.Content/SourceCurseDuration.cs": "fa75d68ab83b70b31292bb6825b4c81c73bc4df7ec4ad267ab2f9ab42503058d",
     "src/Sanctuary.Content/SourceElementRoll.cs": "55a242436edc0815979df1df35bcfebfb1a9c03f539fe58d06f849810c5f59f4",
     "src/Sanctuary.Content/SourceFireFields.cs": "af53659aeaf3cc4804cbbea9ca0ecb26006b3218d44d5ff67b604a41242273d3",
+    "src/Sanctuary.Content/SourceGuidTargets.cs": "fb9b6dfcc78b5b40b9f76db607b783d733ae7bf3610c06b84a9d62024c9417f6",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "b99c53aa543717492b0118ef28a4c553dd3074cc0d648100cc70f71f3ca0a958",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "6eb394260f853b58aa86fcf201655e8e290bceb128a9fdd6bac4d8f2cda98b92",
     "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",

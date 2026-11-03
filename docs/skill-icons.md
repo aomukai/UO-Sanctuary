@@ -1,5 +1,7 @@
 # Skill icons
 
+**Double Swing release/target policy (2026-11-03 JST).** No learned binding or new hotkey is enabled. Double Swing talent/left/right/quick icons remain separately pending placeholders. Shared target cycling needs no icon of its own;effects/audio stay in their separate register.
+
 **Shared player channel controller (2026-11-03 JST).** No learned binding or new hotkey is enabled. Inferno and Arctic Blast talent/left/right/quick icons remain separately pending placeholders; the shared controller introduces no additional icon requirement. Effects/audio stay in their own register.
 
 **Warlock native models and prepared Inferno stream (2026-11-03 JST).** The model mappings add no hotkeys or final icons. Goatman/Defiler/Tainted talent/right/quick icons and Inferno talent/left/right/quick icons remain separately pending. Native creature bodies do not stand in for icon artwork. Effects/audio are recorded in their own register.

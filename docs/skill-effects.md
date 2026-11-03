@@ -1,5 +1,7 @@
 # Skill effects
 
+**Double Swing release/target policy (2026-11-03 JST).** Internal target selection and release ordering add no artwork or live player strike. Final Double Swing weapon-swing/contact/miss/block and audio remain pending under existing class requirements;normal weapon effects remain identified placeholders. No new autonomous effect is introduced. See [checkpoint](double-swing-phase-checkpoint.md).
+
 **Shared player channel controller (2026-11-03 JST).** Timed fire/cold emissions reuse existing identified stream placeholders: Inferno0x36D4/hue0x489 and Arctic0x374A/hue0x480. No final cast/channel/contact/expiry/audio is created by the controller. Native effects and mechanical clocks are separate; final asset work remains pending. See [checkpoint](player-inferno-modes-checkpoint.md).
 
 **Approved Warlock native models and Inferno stream (2026-11-03 JST).** Goatman now uses Gargoyle4/basic sound372; its old0x11visual placeholder is superseded. Defiler uses Gazer22/sound377 and Tainted Succubus149/sound0x4B0 when their bodies are implemented. These native body/basic-sound choices are approved assets; special summon/teleport/combat/skill VFX and custom audio still need their own work and animation review. Inferno's shared fire effect0x36D4/hue0x489 remains an identified placeholder; final channel/stream/contact/expiry/audio are missing. See [models](warlock-summon-models-checkpoint.md) and [stream](inferno-stream-checkpoint.md).

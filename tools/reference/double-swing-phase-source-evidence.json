@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "cases": 7536,
+  "byFamily": {
+    "find": 1470,
+    "phase": 6066
+  },
+  "sourceHashes": {
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Game/include/SKILLS/Skills.h": "c293243fcbb6fac33932c8fd2d6bb1d4e04203f7ff3268b649fd03b5cd2e329e",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb"
+  },
+  "completeRoutineHashes": {
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "sub_6FD15460": "31c619f497f24208cbb772d0d808a93dd5b32c03fc7b93aaf1791903ca7efde2",
+    "SKILLS_SrvDo070_DoubleSwing": "ab391f9859dd56ddea14144fba3693e49d2018de8d1f0787bde5af2b5c6454a9"
+  },
+  "artifacts": {
+    "tools/probe_double_swing_phase.py": "04bd628ffe9fca5d539bb04a3b48a4906cf2fa1c1ef5607b126e6cf7bec463b0",
+    ".local/class-skills/double-swing-phase/source.cpp": "8e263f409cb6b8b6cc42c448af500c354972c957c3fa750a49d6dc5d95daa859",
+    ".local/class-skills/double-swing-phase/source-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/double-swing-phase/source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture": {
+    "path": ".local/class-skills/double-swing-phase-source-probe.json",
+    "sha256": "81c0349c235c6298ab1f549095efb7cf79a2dcf16fa9b8ae9eb5042cfe7a26e3"
+  },
+  "limits": [
+    "Complete legacy do70/search wrapper/callback execute with explicit target/aura enumeration/start32/durability services;modern start68,actual native target filtering/room/hand/packet timing and learned input/payment remain unverified.",
+    "The selector chooses the smallest unsigned GUID greater than its anchor,otherwise wraps to the smallest eligible GUID. A lone original target can be returned. Optional count is written only on the preferred branch. Duplicate/null and negative-frame controls include synthetic cases."
+  ]
+}

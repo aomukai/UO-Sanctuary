@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Selected-hand and native equip/primary foundation implemented; focused native3boots/2reloads,7824 selection/stat and5792 primary-identity source cases pass. Double Swing handler remains pending.",
+  "status": "Selected-hand/native equip foundation is retained. Complete legacy do70 and GUID search have7536source/native cases per boot and188native markers across3boots/2reloads. Modern start68,world/hand/combat integration and learned Double Swing remain pending.",
   "skill": {
     "skill": "Double Swing",
     "*Id": 133,
@@ -69,7 +69,7 @@
   },
   "findings": [
     "Modern Double Swing uses start68/do70, SQ sequence11, two melee requirements/weapsel3, source AttackNoMana, hard Bash10% damage synergy and50% speed. Mana shift5/base8/-1/min0 gives1mana rank1, zero rank9+; do not clamp to a minimum1.",
-    "Legacy do70 alternates on precise sequence-frame parity: the odd phase searches another target with its source filter/excluded original GUID, then calls shared start32 combat preparation and durability. It is not one generic two-hit packet. Target/range/alternate weapon and payment timing need their complete source contracts.",
+    "Legacy do70 branches on signed FP8 sequence-frame parity. Odd phases set the do flag before searching with raw0x20003;the complete search wrapper ORs0xA783. It chooses the smallest unsigned GUID above the original GUID,otherwise wraps to the smallest eligible GUID. The original target can be returned when alone;it is an anchor,not a strict exclusion. do70 sets the chosen target,ignores the shared start32return and drains that chosen target even after a false preparation result. This is not one generic two-hit packet.",
     "Modern start68 points to a null entry in the pinned older start table. This is a material version boundary: old do70 alone cannot certify current start/payment/eligibility behavior. Do not silently substitute old start32 for modern start68."
   ],
   "reuse": [
@@ -113,5 +113,7 @@
     "Primary identity is now persisted and checked through ordinary/named equip, removal, transfer and reload; broaden independent swap/trade/death/history and requirement transition acceptance.",
     "Reconcile the approved crafted/rune/material behavior with source hand-specific stats before enabling those pairs. Current consumers explicitly exclude these modifier combinations.",
     "Then integrate SQ11 hand/event/target scheduling and current start68/payment behavior with existing prepared attacks, duration/mana and cancellation contracts."
-  ]
+  ],
+  "releaseEvidence": "tools/reference/double-swing-phase-source-evidence.json",
+  "releaseNativeEvidence": "tools/reference/double-swing-phase-native-evidence.json"
 }
