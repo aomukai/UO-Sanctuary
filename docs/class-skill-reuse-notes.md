@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Current compiled formulas (2026-11-04 JST).** Owned skills.bin exposes12passive stat/offset slots for all429skills. Their association can be reused independently of formula execution. Actual Defiler bytecode is not safely interchangeable with the older Fog evaluator:an internal0x02 marker causes an early return there. Preserve current bytecode,old-decoder results and explicit uncertainty;do not strip bytes to obtain an expected multiplier. See [boundary](defiler-compiled-formula-checkpoint.md).
+
 **Defiler vital body (2026-11-04 JST).** Defiler and Tainted share DemonBirthNumbers noRatio vital calculations while Tainted retains its original saved DTO. Defiler reuses permanent-minion ownership,difficulty percentage scaling,parking and the exact inherited-guard incoming receiver. Its raw damage expression remains unverified;wrapped Fog controls do not authorize a production repair. No duplicate physical/Health Link implementation is invented. See [checkpoint](defiler-body-checkpoint.md).
 
 **Demon incoming packets (2026-11-04 JST).** Goatman and Tainted reuse the existing pinned return identities and shared resistance/notification/life/return services. The adapter recognizes only their exact inherited guardian friendship wrapper and checks the actual attacker before ordered damage. Blood Boil new do160 remains a separate unverified execution path. See [checkpoint](demon-incoming-checkpoint.md).

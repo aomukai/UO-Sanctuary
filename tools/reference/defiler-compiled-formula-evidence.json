@@ -1,0 +1,118 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned Defiler bytecode layout and legacy-decoder incompatibility",
+  "rawTextCompilerUsed": false,
+  "currentCompiledDataVerified": true,
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "legacyCallerHashes": {
+    "DATATBLS_SkillCalcLinker": "b9926f8cfd48e4071dd03bef1f5cac6086df9d92848df6ea425d50e7c442c2d3",
+    "DATATBLS_SkillDescCalcLinker": "9263685c6f52f7d718a3f7e8a6b882aa67ba2aa96a0c1cb25d79d5d264a1511c"
+  },
+  "passiveStatMatches": 5148,
+  "passiveCalcPresenceMatches": 5148,
+  "skillRows": 429,
+  "skillStride": 748,
+  "passiveStatsOffset": 186,
+  "passiveCalcsOffset": 216,
+  "skill": 377,
+  "slot": 2,
+  "stat": 25,
+  "codeOffset": 8152,
+  "codeBytes": "04090410070111087601072901030210021200",
+  "legacyTokenView": [
+    [
+      4,
+      9
+    ],
+    [
+      4,
+      16
+    ],
+    [
+      7,
+      1
+    ],
+    [
+      17
+    ],
+    [
+      8,
+      374
+    ],
+    [
+      7,
+      41
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2
+    ],
+    [
+      16
+    ],
+    [
+      2
+    ],
+    [
+      18
+    ],
+    [
+      0
+    ]
+  ],
+  "rawLegacyEvaluatorCases": 5355,
+  "currentFormulaExecutionVerified": false,
+  "tenfoldCandidateMismatchCases": 5354,
+  "inputs": {
+    ".local/class-skills/defiler-compiled-formula/extraction.json": "4593da184c11c34fc49d1e4be3dfb6c895aee7b9cc755d195716fea5718cfcb1",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    ".local/class-skills/defiler-compiled-formula/skills.bin.extract.log": "0f68b04c2f7e4d9c82a674588b068b9dcee76265b6c12de385b50cd2c85aa42f",
+    ".local/class-skills/defiler-compiled-formula/skillscode.bin": "673b2afa461548c7f0471ba95c8747240f57216be21b9a1af45224a5a8314ac1",
+    ".local/class-skills/defiler-compiled-formula/skillscode.bin.extract.log": "dad4a47e8eb26fcdea1e4b5c63cda09032ce4fc1f2e87f3fa2bb9cfa83351ede",
+    ".local/class-skills/defiler-compiled-formula/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/defiler-compiled-formula/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    ".local/class-skills/warlock-foundation/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "tools/reference/defiler-source-evidence.json": "927eb97d91c871ab9b58c6f67e505e3a003e804850c34c9e9daec8a50b2b3ec2",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SkillsTbls.cpp": "af6ff0c8e0edceb3d2ae9ae22a92c6203e2206906adc66a67275b1d0a7756fb9",
+    ".local/class-skills/defiler-source/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/defiler-source/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/defiler-source/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/defiler-source/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73",
+    "tools/probe_defiler_compiled_formula.py": "afacb505186efb246a0525c540aebe6488b007f96a740eb37edb8c3c7c1784a2"
+  },
+  "established": [
+    "All429owned skill records and12passive slots agree with pinned stat names and calc presence. Skill377slot2is damagepercent25 and points to actual skillscode.bin bytes8152..8170.",
+    "The complete unchanged older evaluator consumes actual19bytes for all255ranks/hard Mastery0..20 with clean ASan/UBSan,but returns hard Mastery alone. It terminates on byte02 after the callback instead of reaching later arithmetic.5354cases differ from the proposed10*(rank-1+hard) curve. This is a decoder incompatibility/ambiguity result,not current formula execution evidence.",
+    "This establishes current field/stat/bytecode identity but does NOT resolve the damage multiplier. Byte02 also occurs before the final multiplication;its current interpretation must be established before any production rule. Offense and Health Link remain disabled."
+  ],
+  "limitations": [
+    "Current callback/marker encoding is not assumed equivalent to the old interpreter. No callback-arity stripping,marker removal or compiler normalization is used to manufacture a passing multiplier. The current formula-context helper is observed unreadable;no inaccessible code was read.",
+    "The prior raw-compiler failure remains valid and preserved. No production parser or damage changes are made. The earlier failed tenfold comparison is preserved separately;this check certifies the discrepancy rather than changing gameplay to fit it."
+  ],
+  "artifacts": {
+    ".local/class-skills/defiler-compiled-formula/evaluate.cpp": "850cc963496739fcc30470f005dcd201b589cbad07939e9fb3e757c135d0727d",
+    ".local/class-skills/defiler-compiled-formula/evaluate": "c4b184e09ba6da1f10eb4794703e8aad67a3642369fec2225cbef41fadc71f86",
+    ".local/class-skills/defiler-compiled-formula/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-compiled-formula/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-compiled-formula/cases.json": "ce7a66b3b5fec9647bdd575926c92767de52a33d396832ee45f66de77ef30350",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/reason.txt": "f34fb1a164f80078b7b91668be3a6fda4ef00445c0e64ec18ba1b63e43b7dd1f",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/actual-old-evaluator-cases.json": "ce7a66b3b5fec9647bdd575926c92767de52a33d396832ee45f66de77ef30350",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/evaluate.cpp": "850cc963496739fcc30470f005dcd201b589cbad07939e9fb3e757c135d0727d",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/probe-run-1.log": "e9e4b19d0a8559809aa94ab6af291bc1d772f2dd198f585a3a92891bc102ceb9",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/probe_defiler_compiled_formula.py": "ff510d760eddc4e5861fe424c35544429d0dcbf7d2018c86a39f16e4971033fe",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/replay.sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-compiled-formula/diagnostic-1/evaluate": "c4b184e09ba6da1f10eb4794703e8aad67a3642369fec2225cbef41fadc71f86",
+    ".local/class-skills/defiler-compiled-formula/formula-context-observation.json": "aef1802ce7b79e0d09df3f97f3ad7020f081715180778887aae3a4b257c9c8f6"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "parent": "524328631d6b8eae7e2e040660bf0dfc34ffa11e",
+  "component": "Compiled passive data identity and legacy-decoder incompatibility research",
+  "productionChanged": false,
+  "handlerEnabled": false,
+  "goalComplete": false,
+  "verified": {
+    "passiveStatMatches": 5148,
+    "passiveCalcPresenceMatches": 5148,
+    "rawLegacyEvaluatorCases": 5355,
+    "tenfoldCandidateMismatchCases": 5354,
+    "currentFormulaExecutionVerified": false,
+    "unchangedProductionBuild": true,
+    "retainedProductionMarkers": 393,
+    "retainedFocusedMarkers": 61,
+    "protectedInstalledArtifactsUnchanged": 106
+  },
+  "limitations": [
+    "Data/format evidence only.5354mismatches are incompatibility observations,not current damage comparisons. No byte stripping,normalization,multiplier or mechanical handler is enabled.",
+    "Production source/runtime data and the five accepted assemblies match the prior verified checkpoint;no new native regression was needed because no production change was made. Defiler offense/Health Link and the overall class roadmap remain unfinished."
+  ],
+  "evidence": {
+    "tools/record_defiler_compiled_boundary.py": "fb68e32d9d2505f72f74596ecd143ab48708cc62fe6db056fcdff5621952baa3",
+    "tools/probe_defiler_compiled_formula.py": "afacb505186efb246a0525c540aebe6488b007f96a740eb37edb8c3c7c1784a2",
+    "tools/reference/defiler-compiled-formula-evidence.json": "ed30a6de2008660e684c3cf202aaf9101807eff0b963a2372cd5f1e9f2978d39",
+    ".local/class-skills/defiler-compiled-formula/extraction.json": "4593da184c11c34fc49d1e4be3dfb6c895aee7b9cc755d195716fea5718cfcb1",
+    ".local/class-skills/defiler-compiled-formula/source-check.log": "fa7544e2d17bc5b18cd2f307fb3a2f4887bd9544297cd46bda0065d35d0c7f04",
+    "docs/defiler-compiled-formula-checkpoint.md": "cf444b1eced8f75326c12b743dd12774f496f16d30d7ea8f3a36ce5aa75cc42d",
+    "docs/defiler-body-checkpoint.md": "203fb9e8f7661019bc0fae6a0af83d319a4e0239fed40956a67706d6cb13c582",
+    "docs/class-skills-resume-checkpoint.md": "701c8538791850051c691e6cfaa22ef17363a0c4ee0d97442c8b0d17c892940c",
+    "docs/class-skill-reuse-notes.md": "69c3aa5bfa5d9d686ea3d2980c7bbcd77843ceeb0b6fb7dfb431a8e3731f30f0"
+  }
+}
