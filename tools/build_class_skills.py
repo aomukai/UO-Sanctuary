@@ -478,6 +478,10 @@ def products():
     attack_source=next(r for r in json.loads((SOURCE/'json/skills.json').read_text()).values() if r.get('skill')=='Attack')
     attack=dict(sourceId=0,sourceKey='Attack',ability=1,sourceFields=attack_source,sourceParameters={})
     out = {ROOT/'data/Sanctuary/Balance/common-melee-skills.json':json.dumps([attack],indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/tainted-fireball-hit.json':json.dumps([dict(
+               Skill=source_skills['422']['*Id'],Missile=missiles['taintedfireball']['*ID'],
+               HitFunction=missiles['taintedfireball']['pSrvHitFunc'],ResultFlags=missiles['taintedfireball']['ResultFlags'],
+               HitFlags=missiles['taintedfireball']['HitFlags'],Radius=source_skills['422']['Param1'])],indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/source-block-rules.json':json.dumps(blocking_rules,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-item-types.json':json.dumps(item_types,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/knockback-source-rules.json':json.dumps(knockback_rules,indent=2)+'\n',

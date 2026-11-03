@@ -114,18 +114,8 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Goatman clock must be UTC");}
-        if(Deleted||Prepared is not{} state||state.NextRecoveryUtc>at){return;}
-        if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=state.Owner){Delete();return;}
-        long frames=(at-state.NextRecoveryUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;
-        var next=state.NextRecoveryUtc.AddTicks(checked(frames*TimeSpan.FromMilliseconds(40).Ticks));
-        if(!PersistentMinions.Active(owner,this)||!Permitted(owner))
-        {PersistentMinions.ParkClass(owner,DiabloClass.Warlock);RestorePrepared(Prepared with{NextRecoveryUtc=next});return;}
-        if(!actions||owner.Map==null||owner.Map==Map.Internal)
-        {PersistentMinions.Suspend(owner);RestorePrepared(Prepared with{NextRecoveryUtc=next});return;}
-        if(Map==Map.Internal){PersistentMinions.Resume(owner);}
-        if(Map!=Map.Internal&&Alive&&!Poisoned&&TimedEffects.CanRegenerateHits(this)&&!SkillHealth.Full(this))
-        {SkillHealth.Heal(this,(int)Math.Min(int.MaxValue,frames*BattleOrders.Regeneration256(this)));}
-        RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
+        if(Prepared is{} state&&WarlockDemonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions) is{} next)
+        {RestorePrepared(Prepared with{NextRecoveryUtc=next});}
     }
     [AfterDeserialization]private void AfterGoatmanLoad()
     {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GoatmanBodyState>(_saved);Validate(_prepared);ApplyAppearance();}

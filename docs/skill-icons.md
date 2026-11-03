@@ -1,5 +1,7 @@
 # Skill icons
 
+**Tainted body/hit backend (2026-11-04 JST).** The prepared world body and internal fire receiver add no player bindings. Summon Tainted still needs its talent-tree and right/quick-hotkey artwork; NPC420/422 have no separate player icon. Current labels remain identified placeholders. Effects/audio are tracked separately.
+
 **Tainted (2026-11-04 JST).** Summon Tainted needs its talent-tree and right/quick-hotkey artwork. Internal Tainted Resist Fire (NPC420) and Tainted Fire Ball (NPC422) share the summon identity and are not player-bindable; they add no separate hotkey icons. Current text labels remain explicit placeholders. This icon backlog is independent of the remaining mechanical integration.
 
 **Druid human SC routing (2026-11-04 JST).** Talent/left/right/quick icons remain separately pending; the routing change adds no binding or finished icon. See [checkpoint](druid-human-cast-clock-checkpoint.md).

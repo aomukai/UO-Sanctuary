@@ -61,7 +61,13 @@ public static class PetReconnectChecks
             {
                 Stable(s,owner,body);var current=body.WorldState.Controller;
                 Require(Core.TickCount<deadline&&current.Fault==null,"Original reconnect did not resume natural movement");
-                if(!returned&&body.Map==owner.Map&&body.Map!=Map.Internal)
+                // Roster return places the native body before the next source
+                // frame rebinds its saved pose. Placement is not walking: begin
+                // the velocity bound only once both coordinate views agree,
+                // using the controller's own native/source projection rule.
+                var cell=IronGolemWorld.Cell(current);
+                if(!returned&&body.Map==owner.Map&&body.Map!=Map.Internal&&current.Map==body.Map.MapID
+                    &&body.X==(cell.X+1)/2&&body.Y==(cell.Y+1)/2)
                 {
                     returned=true;landing=body.Location;pose=current.Motion;frame=current.Frame;
                     Require(current.Mode!=8&&current.Attempts==0&&current.Hits==0,"Reconnect replayed birth animation or contact");
@@ -70,7 +76,7 @@ public static class PetReconnectChecks
                 {
                     long frames=current.Frame-frame;
                     Require(frames>=0&&Math.Abs((long)current.Motion.X-pose.X)<=frames*16*Math.Max(current.Motion.Velocity,pose.Velocity)
-                        &&Math.Abs((long)current.Motion.Y-pose.Y)<=frames*16*Math.Max(current.Motion.Velocity,pose.Velocity),"Reconnected actor exceeded frame/velocity movement bound");
+                        &&Math.Abs((long)current.Motion.Y-pose.Y)<=frames*16*Math.Max(current.Motion.Velocity,pose.Velocity),$"Reconnected actor exceeded frame/velocity movement bound: frames={frames},priorFrame={frame},frame={current.Frame},prior=({pose.X},{pose.Y},{pose.Velocity}),current=({current.Motion.X},{current.Motion.Y},{current.Motion.Velocity}),body={body.Location},landing={landing},mode={current.Mode}");
                     pose=current.Motion;frame=current.Frame;moving|=current.Mode==2;
                     Require(PetGroundWorld.Collision(body,IronGolemWorld.Cell(current).X,IronGolemWorld.Cell(current).Y)==0,"Reconnected actor entered blocked item space");
                     if(moving&&body.Location!=landing&&NpcEquipmentRandom.State(body).Seed!=s.Seed)

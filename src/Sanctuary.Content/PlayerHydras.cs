@@ -33,19 +33,7 @@ internal static class PlayerHydras
         if(body.Head?.Source is not{} source||World.FindMobile((Serial)body.Head.Owner) is not PlayerMobile owner
             ||body.Map!=target.Map||!body.TargetAllowed(owner,target)||!target.CanBeDamaged())
         {throw new NotSupportedException("Detached Hydra emitter or unqualified recipient");}
-        PreparedMonsterNativeDamage.RequireIncoming(owner,target);
-        if(MonsterUninterruptibles.Active(target)||MonsterUninterruptibles.Delayed(target)){throw new NotSupportedException("Hydra uninterruptible/death-delay recipient needs its actor adapter");}
-        var metadata=NativeMonsterReturn.Metadata(target);
-        if(!metadata.Killable||metadata.Base==78){throw new NotSupportedException("Hydra recipient killability/sand-leaper completion is unsupported");}
-        PreparedMonsterDamagePacket Mitigate(PreparedMonsterDamagePacket packet)
-        {
-            var parts=SkillCombat.MitigatePrepared(body,target,new(0,packet.Fire256/256.0,0,0,0),out int absorb);
-            return packet with{Total256=NamedElements.To256(parts.Total),Fire256=NamedElements.To256(parts.Fire),AbsorbedLife256=absorb};
-        }
-        NativeMonsterReturn.Session(target);
-        var services=new InstantSpellNpcDamage(owner,target,metadata,null,at,"Hydra",()=>TelekinesisCombat.DefenderRoll(),emitter:body,npcMitigation:Mitigate);
-        return PreparedMonsterDamage.ReleaseMissile(body,target,new(0,raw,0,0,5,Fire256:raw),
-            new(NamedCombat.Elite(target),()=>false,()=>metadata.Velocity,()=>false),_=>throw new InvalidOperationException("Hydra has no stun"),services,at);
+        return NpcFireSpellHit.Deliver(body,owner,target,raw,at,"Hydra");
     }
 }
 

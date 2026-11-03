@@ -1,5 +1,7 @@
 # Skill effects
 
+**Tainted body/hit backend (2026-11-04 JST).** A prepared saved body now reuses the approved Succubus artwork; no new base model is requested. Native sound0x4B0 and stationary/native pose are interim presentation. The qualified fire receiver adds no spell-specific visual/audio. Summon/cast, actual Fire Ball flight/explosion/contact, Resist Fire aura, Blood Boil and hurt/death feedback remain pending independently of mechanics. See [checkpoint](tainted-body-checkpoint.md).
+
 **Tainted (2026-11-04 JST).** The approved UO Succubus mapping reuses existing body artwork; no new base model is requested. Prepared numerical suppliers emit no body or effect. Summon spawn/cast, Fire Ball flight/explosion/contact, Resist Fire aura, Blood Boil reaction, hurt/death and audio still need their final presentation. Any generic spell markers used during later integration must remain identified placeholders. Talent/right/quick artwork is tracked in the separate icon register; internal NPC420/422 add no player hotkey icons.
 
 **Druid human SC routing (2026-11-04 JST).** No final art or sound is added. Human/form cast, elemental/armor and bird/wolf/bear/spirit emergence placeholders remain separate asset work. See [checkpoint](druid-human-cast-clock-checkpoint.md).

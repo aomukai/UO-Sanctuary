@@ -1,0 +1,10 @@
+[
+  {
+    "Skill": 422,
+    "Missile": 734,
+    "HitFunction": 1,
+    "ResultFlags": 5,
+    "HitFlags": 2,
+    "Radius": 4
+  }
+]

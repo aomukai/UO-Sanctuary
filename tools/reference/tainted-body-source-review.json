@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Tainted body and qualified fire-hit source review",
+  "currentExecutableParity": false,
+  "newSourceRoutinesExecuted": false,
+  "handlerEnabled": false,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/d2r-local-missile-data-evidence.json": "56adf8600f25379a88a756faee8ca41f801d4ab157abe4b0d763259612dd1bb7",
+    ".local/research/d2r-3.3.93847/missiles.txt": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+    "data/Sanctuary/Balance/tainted-fireball-hit.json": "d9d85d50f753c1fa48a3f6d959e3c9bf0d1a1eb04cb1db7466fc6748f0db9d2f",
+    "tools/reference/tainted-foundation-source-evidence.json": "4725937611eafa20ceee6815c133af281fbb4f6239be7604a8f368efde9ceb07",
+    "tools/review_tainted_body.py": "7323e7aebdd12087551b0da1c2774ea754ff548e44014f9b2da50ae98c711bde"
+  },
+  "reviewedCompleteRoutineHashes": {
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion": "e0b23ca0464eab53349e716dfae8d223bb75d2775be0a34bd192c98d62f37a0b",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03"
+  },
+  "established": [
+    "Owned missile734 uses hit01, result5, hitflags2 and source NPC skill422. Its zero explicit hit radius selects the NPC skill calc1/Param1=4. The prior packet evidence bounds its own damage/mastery/synergy suppliers.",
+    "The reviewed copied-area callback calls block/dodge and NPC intrinsic critical independently per recipient before successful-event/health dispatch. This increment accepts only explicitly supplied successful copies and critical decisions; it does not implement those finder/defense/RNG operations.",
+    "The existing compiled NPC intrinsic helper doubles fire and sets an initially empty hit-class high nibble to0x10. The source-zero Fire Ball copy needs no critical overlay54. Native tests supply the critical decision instead of pretending to run the source5percent roll.",
+    "Existing Hydra ordered NPC notification/typed mitigation/fractional health/return/death/credit services and Goatman explicit recovery are extracted for reuse. Retained native actor/flight/reload tests must verify these consumers separately."
+  ],
+  "remaining": [
+    "No current GenericPet controller, source skill selection/release/mode/mana transaction, NPC aura, area enumeration, projectile factory/travel or automatic intrinsic RNG is established by this review.",
+    "Source room/terrain/event/stat-list ownership, actor-removal behavior, modern critical/RNG chronology and complete graphical acceptance remain separate. No learned Tainted cast is enabled.",
+    "Only the two critical routines have a preexisting compiled proof referenced here; this review hashes the other complete bodies without claiming new execution or current-executable parity."
+  ]
+}

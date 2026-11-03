@@ -172,6 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is WarlockTaintedBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warbighead entity","native","warbighead","Prepared saved vulnerable Tainted life/ownership and qualified fire hit; GenericPet controller,actual skill release and learned casting remain gated");}
         if(creature is WarlockGoatmanBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned wargoatman entity","native","wargoatman","Prepared saved vulnerable Goatman life/ownership; GenericPet world/combat and learned casting remain gated");}
         if(creature is IronGolemBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Iron Golem stat body","native","irongolem","Prepared saved numeric birth/body; source initializer,AI,attack/events and learned casting remain unfinished");}
         if(creature is DruidOakBody spirit){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned spirit entity","native",spirit.SourceMonsterId,"Saved vulnerable Totem body; individual aura/casting and exact-current acceptance scope is recorded separately");}
@@ -191,15 +192,17 @@ public static class CreatureProfiles
         return new(creature.GetType().FullName, creature.GetType().BaseType.FullName, "Native", "Custom subclass",
             "native", null, "Unmapped custom type; native values retained");
     }
-    public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is WarlockGoatmanBody goat ? _native with{Enabled=true,ApplyStats=false,
-            Resistances=goat.SourceResistances(difficulty),
+    private static CreatureVariant DemonVariant(SkeletonGuardian body,string key,CreatureResistances resistances,MonsterDifficulty? difficulty)
+        => _native with{Enabled=true,ApplyStats=false,Resistances=resistances,
             Traits=new("Demon",false,true,false,false,false,
-                GenericPetSecondaryTables.Table.Row(GenericPetSearchTables.SourceId("wargoatman")??throw new NotSupportedException("Missing Goatman source identity"))?.SizeX
-                    ??throw new NotSupportedException("Missing Goatman model footprint"),
-                NecromancerSummons.Source("wargoatman","DamageRegen"),NecromancerSummons.Source("wargoatman","Drain",difficulty??goat.SummonDifficulty),
-                Math.Abs(NecromancerSummons.Source("wargoatman","coldeffect",difficulty??goat.SummonDifficulty)),NecromancerSummons.Source("wargoatman","ToBlock",difficulty??goat.SummonDifficulty)),
-            SourceStats=new Dictionary<string,string>{{"Velocity",NecromancerSummons.Source("wargoatman","Velocity").ToString()}},HitRecovery=new(false)}
+                GenericPetSecondaryTables.Table.Row(GenericPetSearchTables.SourceId(key)??throw new NotSupportedException("Missing demon source identity"))?.SizeX
+                    ??throw new NotSupportedException("Missing demon model footprint"),
+                NecromancerSummons.Source(key,"DamageRegen"),NecromancerSummons.Source(key,"Drain",difficulty??body.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source(key,"coldeffect",difficulty??body.SummonDifficulty)),NecromancerSummons.Source(key,"ToBlock",difficulty??body.SummonDifficulty)),
+            SourceStats=new Dictionary<string,string>{{"Velocity",NecromancerSummons.Source(key,"Velocity").ToString()}},HitRecovery=new(false)};
+    public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
+        => creature is WarlockTaintedBody tainted ? DemonVariant(tainted,"warbighead",tainted.SourceResistances(difficulty),difficulty)
+            : creature is WarlockGoatmanBody goat ? DemonVariant(goat,"wargoatman",goat.SourceResistances(difficulty),difficulty)
             : creature is IronGolemBody iron ? _native with{Enabled=true,ApplyStats=false,
             Resistances=new(Magic:NecromancerSummons.Source("irongolem","ResMa",difficulty??iron.SummonDifficulty)),
             Traits=new("Golem",false,false,false,false,false,2,3,
