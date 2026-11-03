@@ -2308,10 +2308,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 276,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned right/quick S2/IAS casting reuses do45 free-cell placement with once-only20mana after creation. Distinct AI104 preserves ordered corpse search, remembered original corpse GUID, pre-action shared shot debit, direct S2 corpse explosion and separate penetrating lightning fallback. Saved corpse base life/level/seed drive the shared physical/fire packet without invented legacy values. Source-AI and replacement use the identified LG23-frame death profile; already-issued bolts retain the original dying/dead NPC. Native source/corpse/gear/input, payment/cancellation, actual hybrid combat and original actor/flight/corpse reload acceptance are recorded separately. Missing/ambiguous legacy corpse contexts, native room/GUID projection, spawn fallback/occupied size-zero placement, exact modern pool phase/order, inherited sunder, historical fault migration and full geometry/event/item/owner/PvP/client behavior remain explicit gaps; no class certificate."
     },
     {
       "talentId": "assassin.bladeshield",

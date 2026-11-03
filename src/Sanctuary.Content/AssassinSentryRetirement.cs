@@ -14,7 +14,7 @@ internal static class AssassinSentryRetirement
     internal const string Profile="owned-lg-dt23-completed-corpse-v1";
     internal const string InfernoProfile="owned-e9-dt25-completed-corpse-v1";
     internal static string For(CombatAbility ability)=>ability switch
-    {CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry=>Profile,CombatAbility.WakeOfInferno=>InfernoProfile,_=>throw new NotSupportedException("Unsupported Sentry death profile")};
+    {CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.DeathSentry=>Profile,CombatAbility.WakeOfInferno=>InfernoProfile,_=>throw new NotSupportedException("Unsupported Sentry death profile")};
     internal static int EndDelay(int frames=23,int speed=256)
     {
         if(frames is <1 or >144 || speed is <0 or >32767){throw new ArgumentOutOfRangeException();}

@@ -31,9 +31,9 @@ public static class SentryLearnedChecks
         Register("sentry-learned-check",()=>FixtureNetwork.Connected("sentry-learned-result",Save));Register("sentry-learned-reload-check",()=>FixtureNetwork.Connected("sentry-learned-reload-result",Reload));
         foreach(string mode in new[]{"left","right","quick"}){string label="sentry-learned-"+mode;Register(label+"-check",()=>FixtureNetwork.Connected(label+"-result",n=>Input(n,label)));}
     }
-    internal static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh(int column=6000)
     {
-        PlayerMobile p;_creating=true;try{p=BladeBodyChecks.Fresh(reach:20);}finally{_creating=false;}
+        PlayerMobile p;_creating=true;try{p=BladeBodyChecks.Fresh(column,reach:20);}finally{_creating=false;}
         p.Name="SentryLearnedFixture";p.Mana=p.ManaMax;return p;
     }
     internal static void Ready(PlayerMobile p)
@@ -158,7 +158,7 @@ public static class SentryLearnedChecks
     internal static void Clock(AssassinSentryBody body,DateTime at)
     {
         typeof(AssassinSentryBody).GetMethod("Store",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(body,[body.Prepared with{NextFrameUtc=at}]);
-        if(body.Prepared.Creation.Ability is CombatAbility.LightningSentry or CombatAbility.WakeOfInferno)
+        if(body.Prepared.Creation.Ability is CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry)
         {var pool=AssassinSentryLightning.Snapshot();AssassinSentryLightning.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});}
         else
         {var pool=AssassinSentryBolts.Snapshot();AssassinSentryBolts.Restore(pool with{Bolts=pool.Bolts.Select(x=>x.Actor==body.Serial.Value?x with{NextUtc=at}:x).ToArray()});}
@@ -196,7 +196,7 @@ public static class SentryLearnedChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var body=(AssassinSentryBody)World.FindMobile((Serial)saved.Body);var target=(BladeMissileTarget)World.FindMobile((Serial)saved.Target);var helm=World.FindItem((Serial)saved.Helm);
         Require(saved.Generation<2&&helm?.Parent==p&&JsonSerializer.Serialize(body.Prepared)==JsonSerializer.Serialize(saved.Actor)
             &&JsonSerializer.Serialize(AssassinSentryBolts.State(saved.Bolt.Id))==JsonSerializer.Serialize(saved.Bolt)&&SkillHealth.Balance256(body)==12850
-            &&SkillHealth.Balance256(target)==saved.Health&&NecromancerEffects.ManaBalance256(p)==saved.Mana,"Original paid actor/bolt/gear/wounds/mana changed on reload");
+            &&SkillHealth.Balance256(target)==saved.Health&&NecromancerEffects.ManaBalance256(p)==saved.Mana,$"Original paid actor/bolt/gear/wounds/mana changed on reload: actor={JsonSerializer.Serialize(body.Prepared)==JsonSerializer.Serialize(saved.Actor)} bolt={JsonSerializer.Serialize(AssassinSentryBolts.State(saved.Bolt.Id))==JsonSerializer.Serialize(saved.Bolt)} helm={helm?.Parent==p} actorLife={SkillHealth.Balance256(body)} targetLife={SkillHealth.Balance256(target)}/{saved.Health} mana={NecromancerEffects.ManaBalance256(p)}/{saved.Mana}");
         Require(SkillBindings.Instance.Get(p).Right==CombatAbility.ChargedBoltSentry&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Assassin,7)==CombatAbility.ChargedBoltSentry,"CBS right/quick binding reload");
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);FixtureNetwork.Authenticate(network,p,"sentry-learned-resume-");Clock(body,TimedEffects.Now.AddMilliseconds(40));long end=Core.TickCount+3000;
         void Observe()

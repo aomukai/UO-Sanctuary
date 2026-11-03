@@ -80,8 +80,9 @@ public static class DeathSentryControlChecks
         for(int i=0;i<12 && SkillHealth.Balance256(enemy)==hp && AssassinSentryLightning.State(bolt.Id) is{} flight;i++){AssassinSentryLightning.TickFrame(flight.NextUtc,true);}
         Require(SkillHealth.Balance256(enemy)<hp,"Actual travelling Death Sentry lightning did no damage");
         while(body.Prepared.DeathControl.Mode!=0 && body.Prepared.DeathControl.Frame<300){Frames(body,body.Prepared.DeathControl.Frame+1);}
-        Require(!body.Deleted && body.Prepared.DeathControl is{Mode:0,Ai.RemainingShots:0,Dispatches:5}
-            && body.Prepared.ControllerFault==AssassinDeathSentryControl.RetirementFault,"Five shared shots/explicit registered retirement boundary");
+        Require(!body.Deleted&&!body.Alive&&body.Prepared.DeathControl is{Mode:0,Ai.RemainingShots:0,Dispatches:5}
+            &&body.Prepared.ControllerFault==null&&body.Prepared.Retirement is{Profile:AssassinSentryRetirement.Profile},"Five shared shots/original dying actor");
+        body.AdvanceController(body.Prepared.Retirement.CompletesUtc,true);Require(body.RetainedCorpse,"Death Sentry did not complete LG retirement");
         var released=AssassinSentryLightning.Snapshot().Bolts.Where(x=>x.Actor==body.Serial.Value).OrderBy(x=>x.Id).Last();hp=SkillHealth.Balance256(enemy);
         for(int i=0;i<12 && SkillHealth.Balance256(enemy)==hp && AssassinSentryLightning.State(released.Id) is{} flight;i++){AssassinSentryLightning.TickFrame(flight.NextUtc,true);}
         Require(SkillHealth.Balance256(enemy)<hp,"Retirement boundary froze released registered-owner lightning");
@@ -94,7 +95,6 @@ public static class DeathSentryControlChecks
         ClassCreation.Profiles.Assign(owner,DiabloClass.Assassin);ClassCreation.Profiles.AdvanceLevel(owner,99);owner.RawStr=owner.RawDex=owner.RawInt=200;
         FixtureSpace.Corridor(owner,6460,40,2000);DeathSentryExplosionChecks.Train(owner,CombatAbility.DeathSentry,1);
         Exercise(Seed(owner));File.WriteAllText(Manifest,JsonSerializer.Serialize(Seed(owner)));
-        Require(!AssassinCombat.Implemented(CombatAbility.DeathSentry),"Prepared automatic actor enabled an unfinished learned skill");
     }
     private static void Reload()
     {

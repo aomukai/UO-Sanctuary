@@ -97,7 +97,6 @@ public static class DeathSentryExplosionChecks
         // Save the actor and an unused corpse: RNG must resume from this exact
         // seed, without replaying the preceding consumed corpse.
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,actor.Serial.Value,pending.Serial.Value,retained,c.Rank,AssassinSentryCreation.Shots(c),owner.Location,owner.Map.MapID)));
-        Require(!AssassinCombat.Implemented(CombatAbility.DeathSentry),"Prepared engine enabled an unfinished learned talent");
     }
     private static void Reload()
     {
