@@ -75,8 +75,9 @@ internal sealed record GenericPetFollowServices(Func<GenericPetDecisionUnit,int,
     Func<int,bool> Execute);
 internal static class GenericPetFollow
 {
-    // Numeric modes are the actual current executor arguments. Their movement
-    // meanings and executor behavior remain unverified; no labels are invented.
+    // Numeric modes are the actual current executor arguments; the detached
+    // captured-code executor is shared through GenericPetFollowExecutor.Bind.
+    // Actual world/path/warp services remain separate acceptance.
     internal static bool Try(GenericPetFollowContext c,GenericPetFollowServices s)
     {
         ArgumentNullException.ThrowIfNull(c);ArgumentNullException.ThrowIfNull(s);
