@@ -20,7 +20,7 @@ internal static class LobProjectiles
     {
         var weapon=CombatTiming.Weapon(CombatTiming.Equipped(owner));
         if(WeaponHands.Pair(owner) is{} pair){weapon=weapon with{Modifier=(CombatTiming.Weapon(pair.Primary).Modifier+CombatTiming.Weapon(pair.Secondary).Modifier)/2};}
-        return Timing(CombatTiming.FrameAdvance(weapon,CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),
+        return Timing(CombatTiming.FrameAdvance(weapon,CombatTiming.Ias(owner),GearEffects.AttackSlowTotal(owner),
             CombatTiming.SkillAttackRate(owner),baseSpeed:128));
     }
     internal static bool Valid(PlayerMobile owner,Point3D point)=>owner is{Alive:true,Deleted:false}

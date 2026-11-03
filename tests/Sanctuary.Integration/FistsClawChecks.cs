@@ -55,9 +55,7 @@ public static class FistsClawChecks
         {
             int V(int i)=>row[i].GetInt32();if(V(1)!=0){continue;}
             int actual=CombatTiming.FrameAdvance(new(AttackFamily.Thrust,V(0)==1?(V(2)+V(3))/2:V(2)),V(4)+V(6),Math.Max(0,-V(7)),Math.Max(0,V(7)),-30,208);
-            // Existing native slow consumer caps85; the source fixture's -100
-            // control is recorded separately, not silently claimed equivalent.
-            if(V(7)==-100){continue;}Require(actual==V(10),"Separate legacy entry selector/merge/rate control");rates++;
+            Require(actual==V(10),"Separate legacy entry selector/merge/rate control");rates++;
         }
         using var seq=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"assassin-claw-sequence-source-probe.json")));int clocks=0;
         foreach(var row in seq.RootElement.EnumerateArray())
@@ -71,7 +69,7 @@ public static class FistsClawChecks
             if(row[0].GetString()!="FISTS_OF_FIRE"){continue;}int V(int i)=>row[i].GetInt32();
             Require(AssassinClaws.Advance(V(2),V(4)+V(6),V(8),V(7))==V(12) && V(9)==256 && V(10)==(V(1)==1?16:12),"Complete current-family original Fists rate/base/sequence");current++;
         }
-        Require(rates==2304 && current==2304 && clocks==576,"Source/native legacy/modern/clock matrix counts");
+        Require(rates==3072 && current==2304 && clocks==576,"Source/native legacy/modern/clock matrix counts");
     }
     private static void Cases(PlayerMobile p,BaseCreature t)
     {
@@ -118,7 +116,7 @@ public static class FistsClawChecks
         Differential();Lifecycle();var p=Fresh();var t=Target(p);Cases(p,t);var charge=State(p) with{UntilUtc=TimedEffects.Now.AddHours(1)};AssassinCharges.Restore(AssassinCharges.Snapshot().Where(x=>x.Owner!=p.Serial.Value || x.Ability!=CombatAbility.FistsOfFire).Append(charge).ToArray());
         var pending=Fresh(7020);Claw(pending);var other=Target(pending);p.Mana=p.ManaMax;var series=Begin(pending,other);ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,WeaponHands.Pair(p).Value.Primary.Serial.Value,WeaponHands.Pair(p).Value.Secondary.Serial.Value,charge,pending.Serial.Value,NecromancerEffects.ManaBalance256(pending),p.Location)));
-        Log.Information("Fists claw:2304 legacy controls,2304 current-family entry rates,576 clocks,actual IAS affix/dual hands,single/double/cap/miss/immunity/fallback,move/equipment/FHR/Stop and actual item ranks pass");
+        Log.Information("Fists claw:3072 legacy controls,2304 current-family entry rates,576 clocks,actual IAS affix/dual hands,single/double/cap/miss/immunity/fallback,move/equipment/FHR/Stop and actual item ranks pass");
     }
     private static void Reload()
     {

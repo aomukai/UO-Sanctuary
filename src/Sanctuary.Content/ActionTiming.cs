@@ -114,7 +114,7 @@ public static class CombatTiming
         if(ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike){return AmazonMelee.Timing(from);}
         ClassCreation.Profiles.TryGet(from.Serial, out var profile);
         return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from),
-            WeaponAttack(ability) ? GearEffects.AttackSlow(from) : 0, CombatTiming.SkillAttackRate(from));
+            WeaponAttack(ability) ? GearEffects.AttackSlowTotal(from) : 0, CombatTiming.SkillAttackRate(from));
     }
     internal static int SequenceRateAdjustment(CombatAbility ability)=>ability switch
     {
@@ -127,14 +127,14 @@ public static class CombatTiming
     internal static int FrameAdvance(WeaponTiming weapon,int speed,int slow,int skillRate,int rateAdjustment=0,int baseSpeed=256)
     {
         int bonus=Math.Clamp(speed,0,10000),effective=120*bonus/(120+bonus);
-        return baseSpeed*Math.Clamp(100+effective+skillRate-weapon.Modifier-Math.Clamp(slow,0,85)+rateAdjustment,15,175)/100;
+        return baseSpeed*Math.Clamp(100+effective+skillRate-weapon.Modifier-slow+rateAdjustment,15,175)/100;
     }
     internal static int WeaponSequencePoint(PlayerMobile owner,int point,CombatAbility ability)
     {
         int advance=WeaponSequenceAdvance(owner,ability);
         return (point*256+advance-1)/advance;
     }
-    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),CombatTiming.SkillAttackRate(owner),SequenceRateAdjustment(ability));
+    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlowTotal(owner),CombatTiming.SkillAttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
         if(ability==CombatAbility.BladeShield){return BladeShields.Timing(fcr);}

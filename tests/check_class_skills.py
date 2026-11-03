@@ -10,6 +10,7 @@ import struct
 import tempfile
 import time
 import threading
+from contextlib import contextmanager
 from check_britain import ROOT, SERVER, Session
 from fists_claw_input import exercise as fists_claw_input
 
@@ -25,6 +26,16 @@ def drain_fixture_client(client):
             pass
     except OSError:
         pass
+
+
+@contextmanager
+def fixture_connection(session,port):
+    """Keep one fixture connected through its result, then await disposal."""
+    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
+        yield client
+        client.shutdown(socket.SHUT_RDWR)
+    session.expect(r'Client: 127\.0\.0\.1: Disconnected\. \[0 Online\]')
 
 
 _last_snapshot = 0.0
@@ -46,7 +57,7 @@ def save_snapshot(session):
     session.expect(r'Writing world save snapshot done')
 
 
-def check():
+def check(connections_only=False):
     # The unconditional Vengeance probe and socketed-weapon fixtures need these
     # even when the optional complete named-item audit is not requested.
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
@@ -209,9 +220,25 @@ def check():
             for boot in range(3):
                 session = Session(folder, log)
                 try:
-                    if boot == 0:
-                        session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
-                    session.expect(f'Listening: 127.0.0.1:{port}')
+                    ready=session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:'+str(port))
+                    if ready.group(0).startswith('create'):
+                        session.send('n');session.expect(f'Listening: 127.0.0.1:{port}')
+                    if connections_only:
+                        # Exercise the actual older fixtures and saved worlds,
+                        # including the formerly colliding Storm -> Whirlwind
+                        # connection handoff, before the expensive full run.
+                        for family in ('thunderstorm','whirlwind'):
+                            command=family+('-check' if boot==0 else '-reload-check')
+                            result=family+('-reload-result' if boot and family=='thunderstorm' else '-result')
+                            with fixture_connection(session,port):
+                                session.send(command)
+                                assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-5000:]
+                                assert session.expect(result+r': (passed|failed)',timeout=30).group(1)=='passed',logpath.read_text()[-5000:]
+                        session.send('save');session.expect(r'Writing world save snapshot done')
+                        for name in ('thunderstorm-checks.json','whirlwind-fixtures.json'):
+                            shutil.copy2(folder/name,PACKAGE/name)
+                        session.send('shutdown');assert session.process.wait(timeout=20)==0
+                        continue
                     if boot == 0:
                         for command in ['raven-stats-check', 'raven-flight-check']:
                             session.send(command)
@@ -1003,11 +1030,12 @@ def check():
                         assert start.group(2) == 'passed', logpath.read_text()[-5000:]
                         if start.group(1) == 'check':
                             assert session.expect(r'blizzard-result: (passed|failed)',timeout=10).group(1) == 'passed', logpath.read_text()[-5000:]
-                        session.send('frozen-orb-check')
-                        start = session.expect(r'frozen-orb-(check|result): (passed|failed)')
-                        assert start.group(2) == 'passed', logpath.read_text()[-5000:]
-                        if start.group(1) == 'check':
-                            assert session.expect(r'frozen-orb-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-5000:]
+                        with fixture_connection(session,port):
+                            session.send('frozen-orb-check')
+                            start = session.expect(r'frozen-orb-(check|result): (passed|failed)')
+                            assert start.group(2) == 'passed', logpath.read_text()[-5000:]
+                            if start.group(1) == 'check':
+                                assert session.expect(r'frozen-orb-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-5000:]
                         session.send('hydra-check')
                         start = session.expect(r'hydra-(check|result): (passed|failed)')
                         assert start.group(2) == 'passed', logpath.read_text()[-5000:]
@@ -1110,11 +1138,12 @@ def check():
                         assert start.group(2) == 'passed', logpath.read_text()[-5000:]
                         if start.group(1) == 'check':
                             assert session.expect(r'sorceress-lightning-result: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
-                        session.send('thunderstorm-check')
-                        start = session.expect(r'thunderstorm-(check|result): (passed|failed)')
-                        assert start.group(2) == 'passed', logpath.read_text()[-5000:]
-                        if start.group(1) == 'check':
-                            assert session.expect(r'thunderstorm-result: (passed|failed)',timeout=20).group(1) == 'passed', logpath.read_text()[-5000:]
+                        with fixture_connection(session,port):
+                            session.send('thunderstorm-check')
+                            start = session.expect(r'thunderstorm-(check|result): (passed|failed)')
+                            assert start.group(2) == 'passed', logpath.read_text()[-5000:]
+                            if start.group(1) == 'check':
+                                assert session.expect(r'thunderstorm-result: (passed|failed)',timeout=20).group(1) == 'passed', logpath.read_text()[-5000:]
                         session.send('bone-barriers-check')
                         start = session.expect(r'bone-barriers-(check|result): (passed|failed)',timeout=45)
                         assert start.group(2) == 'passed', logpath.read_text()[-5000:]
@@ -1237,11 +1266,12 @@ def check():
                             assert session.expect(r'paladin-resource-reload-result: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
                         session.send('bone-barriers-reload-check')
                         assert session.expect(r'bone-barriers-reload-check: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
-                        session.send('thunderstorm-reload-check')
-                        start = session.expect(r'thunderstorm-reload-(check|result): (passed|failed)')
-                        assert start.group(2) == 'passed', logpath.read_text()[-5000:]
-                        if start.group(1) == 'check':
-                            assert session.expect(r'thunderstorm-reload-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-5000:]
+                        with fixture_connection(session,port):
+                            session.send('thunderstorm-reload-check')
+                            start = session.expect(r'thunderstorm-reload-(check|result): (passed|failed)')
+                            assert start.group(2) == 'passed', logpath.read_text()[-5000:]
+                            if start.group(1) == 'check':
+                                assert session.expect(r'thunderstorm-reload-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-5000:]
                     if boot == 0 and os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'):
                         session.send('first-loop-catalogue-check')
                         assert session.expect(r'first-loop-catalogue-check: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
@@ -1415,8 +1445,10 @@ def check():
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()
-    print('Native class skills and projectile checks passed, including two save/reload cycles.')
+    print('Legacy connected fixture smoke passed, including two save/reload cycles.' if connections_only else 'Native class skills and projectile checks passed, including two save/reload cycles.')
 
 
 if __name__ == '__main__':
-    check()
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--connections-only',action='store_true')
+    check(connections_only=parser.parse_args().connections_only)

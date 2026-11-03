@@ -1,5 +1,7 @@
 # Skill icons
 
+**Player attack-rate slow correction (2026-11-03 JST).** No skill availability or binding changes; existing talent/left/right/quick icons remain separate pending placeholders. The shared timing correction adds no artwork. See [checkpoint](player-attack-slow-checkpoint.md).
+
 **Blade Fury reentry (2026-11-03 JST).** Talent/left/right/quick icons remain separately pending placeholders. The prepared entry fix exposes no learned route and supplies no final icon. See [checkpoint](blade-fury-reentry-checkpoint.md).
 
 **Automatic prepared Wake (2026-11-03 JST).** Talent/right/quick icons remain pending placeholders. Default actor firing/death adds no approved icon or public learned route; effects/audio stay separate. See [checkpoint](wake-fire-automatic-checkpoint.md).

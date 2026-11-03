@@ -52,9 +52,7 @@ public static class PaladinZeal
     }
     internal static ActionTiming Timing(PlayerMobile owner)
     {
-        var weapon=CombatTiming.Weapon(CombatTiming.Equipped(owner));int ias=CombatTiming.Ias(owner);
-        int rate=Math.Clamp(100+120*ias/(120+ias)+PaladinOffense.AttackRate(owner)-weapon.Modifier-Math.Clamp(GearEffects.AttackSlow(owner),0,85),15,175);
-        return Timing(AnimationCode(owner),256*rate/100);
+        return Timing(AnimationCode(owner),CombatTiming.WeaponSequenceAdvance(owner,CombatAbility.Zeal));
     }
     internal static uint NextSerial(IEnumerable<uint> candidates,uint last)
     {

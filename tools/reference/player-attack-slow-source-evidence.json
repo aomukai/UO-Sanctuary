@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyEvidence": "tools/reference/weapon-sequence-rate-evidence.json",
+  "currentFamilyEvidence": "tools/reference/assassin-claw-modern-rate-evidence.json",
+  "unchangedSourcePrefixSha256": "3f37df26b0c1d02b73a7f1736d4eb109e56e7a5dbbd30e538eb7c5c751e311f2",
+  "baseCppSha256": "425280db390cfe73dde97f9f4df74ab38985ff9f393c31e4cda9cd1e7aef0015",
+  "baseJsSha256": "2573fcc0828af122335f985b41d91db388a9c0193aab19238d6459d72db89d92",
+  "probeSha256": "62d1157e4bba353d77531b03232807e8965833ae20886725432b643eed74dabb",
+  "scriptSha256": "937eab669425096b4274138b2870f39c700cbf6d41b2f833a5febc1f1843516a",
+  "fixture": {
+    "path": ".local/class-skills/player-attack-slow-probe.json",
+    "sha256": "1c41161e5b4011392aee8f5da7b0eed0fbac2054a755f40254b06d669a588872"
+  },
+  "engineContexts": 1296,
+  "currentFamilyContexts": 18432,
+  "prematureClampDisagreements": 546,
+  "established": [
+    "The unchanged non-dual player engine branch combines supplied attackrate with diminished IAS and player sequence adjustment before clamping15..175.",
+    "Unchanged current-family calculator Fists and Dragon Claw branches subtract supplied slowing above85 before their final clamp; haste and WSM can leave the total above the minimum.",
+    "Individual slow producers retain their own eligibility/caps. Only the aggregate player projection changes; native NPC divisor projections remain bounded."
+  ],
+  "limits": [
+    "Legacy source and original-author current-family calculator are supplementary evidence, not execution of the pinned modern client.",
+    "Engine stat access supplies aggregate attackrate; dual merging/melee-only override are inactive. Modern controls supply explicit UI values and hidden unrelated buffs.",
+    "This does not resolve modern finisher hit/block/charge timing, mid-animation event rescheduling, full stat ordering or client presentation."
+  ]
+}
