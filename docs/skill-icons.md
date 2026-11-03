@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Goatman body (2026-11-03 JST).** Summon Goatman talent/right/quick icon remains separately pending. Internal NPC skills add no player hotkeys; prepared body creation enables no public binding. Effects/audio remain in their own register. See [checkpoint](goatman-body-checkpoint.md).
+
 **Prepared vine windup (2026-11-03 JST).** Poison Creeper,Carrion Vine and Solar Creeper talent/right/quick icons remain pending placeholders. Public bindings stay disabled with the unresolved learned handlers; this internal prepared layer adds no final artwork. Effects/audio remain separate. See [checkpoint](vine-cast-windup-checkpoint.md).
 
 **Grizzly approved upgrades (2026-11-03 JST).** Summon Grizzly talent/right/quick icons remain pending placeholders. Passive hard10stun/hard20Crushing Blow create no additional active binding; effects/audio remain in their own register. See [checkpoint](grizzly-upgrades-checkpoint.md).

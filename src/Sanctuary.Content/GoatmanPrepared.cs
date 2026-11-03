@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Linq;
+using Server.Mobiles;
 namespace Sanctuary;
 internal sealed record GoatmanBase(string Difficulty,int Life,int MinimumDamage,int MaximumDamage,int Armor,int Attack);
 internal sealed record GoatmanSuppliers(int Rank,int LifePercent,int AttackSpeed,int VelocityPercent,int AttackBonus,int DisplayAttackBonus,int DefenseBonus,
@@ -12,11 +13,37 @@ internal sealed record GoatmanBirth(int OwnerLevel,int PetLevel,MonsterDifficult
     internal int ProjectedAttack=>checked(BaseAttack+LevelAttack+Suppliers.AttackBonus);
     internal int ProjectedArmor=>checked(BaseArmor+LevelArmor+Suppliers.DefenseBonus);
 }
+internal sealed record GoatmanSnapshot(GoatmanBirth Birth,int MasteryRank,int OathRank,int HardMastery,int HardDeathMark);
+
 // Prepared creation/stat projection only. GenericPet, the extended passive
 // writer, summon actor and learned cast remain unsupported. Duplicate sunder
 // slots stay separate; no aggregation or current AI behavior is invented.
 internal static class GoatmanPrepared
 {
+    internal static GoatmanSnapshot Capture(PlayerMobile owner)
+    {
+        if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
+            ||profile.Class!=DiabloClass.Warlock||ClassCreation.Profiles.GetRank(owner.Serial,"warlock.summongoatman")<1)
+        {throw new InvalidOperationException("Goatman needs a live learned Warlock owner");}
+        var values=SkillMechanics.Values(owner,CombatAbility.SummonGoatman);
+        return new(Birth(values,SummonDifficulties.For(owner.Map),profile.Level,
+            name=>name=="item_pierce_damage_immunity"?ClassGear.Bonus(owner,"pierce-immunity-damage")
+                :throw new NotSupportedException("Unmapped inherited Goatman stat: "+name)),
+            SkillMechanics.Rank(owner,CombatAbility.DemonicMastery),SkillMechanics.Rank(owner,CombatAbility.BloodOath),
+            ClassCreation.Profiles.GetRank(owner.Serial,"warlock.demonicmastery"),ClassCreation.Profiles.GetRank(owner.Serial,"warlock.deathmark"));
+    }
+    internal static GoatmanSnapshot Rescale(GoatmanSnapshot snapshot,MonsterDifficulty difficulty)
+    {
+        ArgumentNullException.ThrowIfNull(snapshot);var birth=snapshot.Birth??throw new ArgumentException("Missing Goatman birth");
+        if(snapshot.MasteryRank is <0 or >255||snapshot.OathRank is <0 or >255||snapshot.HardMastery is <0 or >20||snapshot.HardDeathMark is <0 or >20)
+        {throw new ArgumentException("Invalid captured demon passive ranks");}
+        if(birth.Suppliers.InheritedPhysical5!=birth.Suppliers.InheritedPhysical7)
+        {throw new NotSupportedException("Independent inherited Goatman sunder fields need an explicit source supplier");}
+        var values=new SkillValues(SkillMechanics.For(CombatAbility.SummonGoatman),
+            key=>key=="Summon Goatman"?birth.Suppliers.Rank:key=="Demonic Mastery"?snapshot.MasteryRank:key=="Blood Oath"?snapshot.OathRank:0,
+            key=>key=="Demonic Mastery"?snapshot.HardMastery:key=="Death Mark"?snapshot.HardDeathMark:0,birth.OwnerLevel);
+        return snapshot with{Birth=Birth(values,difficulty,birth.OwnerLevel,_=>birth.Suppliers.InheritedPhysical5)};
+    }
     internal static GenericPetParameters RawAiParameters=>GenericPetProfiles.Raw(CombatAbility.SummonGoatman);
     private static readonly Lazy<GoatmanBase[]> Bases=new(()=>
     {
