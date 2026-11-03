@@ -1,0 +1,28 @@
+[
+  {
+    "pSrvDoFunc": 1,
+    "pSrvHitFunc": 1,
+    "pSrvDmgFunc": 0,
+    "Vel": 20,
+    "VelLev": 0,
+    "MaxVel": 20,
+    "Accel": 0,
+    "Range": 50,
+    "InitSteps": 1,
+    "Activate": 0,
+    "Size": 1,
+    "CollideType": 3,
+    "CollideKill": 1,
+    "LastCollide": 1,
+    "CanSlow": 1,
+    "Collision": 0,
+    "ToHit": 0,
+    "SrcDamage": 0,
+    "Pierce": 0,
+    "NextHit": 0,
+    "ReturnFire": 1,
+    "GetHit": 1,
+    "ResultFlags": 5,
+    "HitFlags": 2
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "tools/reference/d2r-local-missile-data-evidence.json": "56adf8600f25379a88a756faee8ca41f801d4ab157abe4b0d763259612dd1bb7",
+    ".local/research/d2r-3.3.93847/missiles.txt": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+    "data/Sanctuary/Balance/tainted-fireball-flight.json": "a86e86591359140d8e18dc2017387f8a1c554a821ca0f2b3080294eef2b9491c",
+    "tools/reference/tainted-foundation-source-evidence.json": "4725937611eafa20ceee6815c133af281fbb4f6239be7604a8f368efde9ceb07",
+    "tools/reference/tainted-body-source-review.json": "13e0504e102a7afe5568ae1914ed900ef2bf959e05a8e94386b3ffcf40e2f6e6",
+    "tools/reference/tornado-area-source-evidence.json": "73a00cf3ac79abc84f1eba04fb8d39cfaeaff72ba55dafc6d76ff9bd5dff3865",
+    "tools/reference/npc-equipment-critical-source-evidence.json": "dda6d81cd9a864320bec28bfaccf62a6c056212ea1f0f85e482d0177dd82033b",
+    "tools/reference/missile-velocity-evidence.json": "f1279b81fe3bf984a4e0c39a0c95e4ef7394154ebcac57a409b989fc01dee054",
+    "tools/review_tainted_fireball_flight.py": "d6cc93557408556a19617fb15b450f68a975714e89e0cd15edfddde28868eba7"
+  },
+  "reviewedCompleteRoutineHashes": {
+    "sub_6FD11420": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e",
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+    "sub_6FD0FE80": "205e92f8514caf6d9d96461812608f81fc4b192087e6052dba568e181a9282c2",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19",
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion": "e0b23ca0464eab53349e716dfae8d223bb75d2775be0a34bd192c98d62f37a0b",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8"
+  },
+  "newSourceRoutinesExecuted": false,
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "established": [
+    "Owned NPC422 has the default srvmissile route, not a new custom do function. The reviewed ordinary sub_6FD11420 supplies flags33, original NPC origin and target coordinates. Missile734 has do1/hit1, velocity20, range50, size1, collision-kill and init-step1; its Collision layer is absent.",
+    "Reuse BasicMissileUpdate, SourceMissileSteps, Q12 MissileVectors, the launch-time SlowMissilePayload and SourceDamageAreas. Full factory/first-update/world path/terrain/global-phase/current client parity is not implied by these kernels.",
+    "Hit01 obtains one missile damage roll then default0x8583 area callbacks. sub_6FCF5DE0 copies the packet for each recipient; defense uses1/0 (avoid on, ordinary shield block off) and intrinsic critical is per recipient. The ordinary non-pet NPC projection has no class avoidance; PvP, hirelings and class/summoned/equipped passive recipients refuse explicitly.",
+    "Reuse the persisted NPC zero-item actor stream for intrinsic5percent, without falsely implementing Tainted unarmed melee. The legacy serialized Unarmed flag keeps its schema and denotes the no-item binding. Initial world/projectile seed allocation and native room-list order remain host adapters.",
+    "Use the checked qualified NPC fire receiver for resistance, fractional life, events, return/death and original-NPC/owner credit. Source class gear and player potion damage are not inherited."
+  ],
+  "remaining": [
+    "Actual GenericPet mode/owner/skill lookup and automatic selection/release, NPC420 aura, Blood Boil, incoming combat, shared cap/payment and learned summon remain unfinished.",
+    "Exact modern source disappearance/death/offline/facet behavior is unverified. Host policy ages inactive flights without movement, damage, RNG or replay; it is not asserted as exact D2R source-removal behavior.",
+    "Native source-cell/footprint/height/terrain and room/enumeration projections, callback-mutated targets, reflective missile recipients and full graphical/audio acceptance remain separate. Generic travel/explosion markers are identified placeholders; no player icon is added for internal NPC422.",
+    "This review hashes complete source bodies and reuses existing source evidence. It does not claim a newly executed complete current or older factory/area/defense pipeline."
+  ]
+}

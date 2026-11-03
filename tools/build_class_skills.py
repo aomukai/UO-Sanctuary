@@ -482,6 +482,11 @@ def products():
                Skill=source_skills['422']['*Id'],Missile=missiles['taintedfireball']['*ID'],
                HitFunction=missiles['taintedfireball']['pSrvHitFunc'],ResultFlags=missiles['taintedfireball']['ResultFlags'],
                HitFlags=missiles['taintedfireball']['HitFlags'],Radius=source_skills['422']['Param1'])],indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/tainted-fireball-flight.json':json.dumps([{
+               k:missiles['taintedfireball'].get(k,0) for k in (
+                   'pSrvDoFunc','pSrvHitFunc','pSrvDmgFunc','Vel','VelLev','MaxVel','Accel','Range','InitSteps','Activate',
+                   'Size','CollideType','CollideKill','LastCollide','CanSlow','Collision','ToHit','SrcDamage','Pierce','NextHit',
+                   'ReturnFire','GetHit','ResultFlags','HitFlags')}],indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/source-block-rules.json':json.dumps(blocking_rules,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-item-types.json':json.dumps(item_types,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/knockback-source-rules.json':json.dumps(knockback_rules,indent=2)+'\n',

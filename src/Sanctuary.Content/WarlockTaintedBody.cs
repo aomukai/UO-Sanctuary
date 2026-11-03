@@ -55,6 +55,7 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
     { var appearance = WarlockDemonAppearance.For(CombatAbility.SummonTainted); Body = appearance.Body; BaseSoundID = appearance.Sound; }
     public override TimeSpan BeginMelee(Mobile target) => throw new NotSupportedException("Prepared Tainted has no automatic GenericPet skill/combat controller");
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
+    public override void OnAfterDelete() { NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
     internal static void Validate(TaintedBodyState state)
     {
         try
