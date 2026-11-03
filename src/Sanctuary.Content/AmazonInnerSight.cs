@@ -72,7 +72,7 @@ public static class AmazonInnerSight
         return new(target,owner,rank,reduction,until);
     }
     private static bool Valid(PlayerMobile owner)=>owner.Map is not null && owner.Map!=Map.Internal && SpellHelper.CheckTown(owner.Location,owner);
-    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>SkillCombat.Begin(owner,CombatAbility.InnerSight,selected,point,now,(p,_,_,_)=>Valid(p));
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>AmazonCastClock.Begin(owner,CombatAbility.InnerSight,selected,point,now,(p,_,_,_)=>Valid(p));
     public static bool Release(PlayerMobile owner)
     {
         if(!AmazonCombat.Available(owner,CombatAbility.InnerSight) || !Valid(owner)){return false;}

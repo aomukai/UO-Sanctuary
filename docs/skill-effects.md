@@ -1,5 +1,7 @@
 # Skill effects
 
+**Amazon SC timing (2026-11-04 JST).** Source action/end clocks add no finished artwork. Existing Inner Sight/Slow Missiles cast overlays, Decoy silhouette and cast audio remain identified placeholders; final weapon-dependent cast/effect/Decoy visuals and audio still need assets. See [checkpoint](amazon-cast-clock-checkpoint.md).
+
 **Ward periodic world pulse (2026-11-04 JST).** Real area curse effects still use the identified ordinary curse marker; fixture bodies use an explicitly named placeholder. Final Ward start/body/end,fear/slow/expiry and audio remain missing. No final visual or audio asset is created by the pulse adapter. See [checkpoint](grim-ward-world-pulse-checkpoint.md).
 
 **Prepared Ward monster effects (2026-11-03 JST).** Actual recipient effects reuse the identified curse-marker placeholder. Final Ward start/body/end, fear/slow/expiry and audio remain missing; the saved payload introduces no finished artwork. See [checkpoint](grim-ward-transport-checkpoint.md).

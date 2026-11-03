@@ -46,7 +46,7 @@ public static class AmazonDecoys
             && SpellHelper.CheckTown(owner.Location,owner) && SpellHelper.CheckTown(aim,owner) && owner.Map.CanSpawnMobile(aim);
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
-        =>SkillCombat.Begin(owner,CombatAbility.Decoy,selected,point,now,(p,ability,id,where)=>Destination(p,id,where,out _));
+        =>AmazonCastClock.Begin(owner,CombatAbility.Decoy,selected,point,now,(p,ability,id,where)=>Destination(p,id,where,out _));
     public static bool Release(PlayerMobile owner)
     {
         var action=ClassCombat.For(owner);
