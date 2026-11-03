@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Bind combined player slowing to the exact tested builds and saved regressions."""
-import argparse,json,subprocess
+import argparse,ast,hashlib,json,subprocess
 from pathlib import Path
 import record_grizzly_body as inventory
 from snapshot_skill_build import check as snapshot
@@ -20,15 +20,35 @@ def record(check=False,checkpoint=False):
     for other in (smoke,audit,*(() if checkpoint else (full,))):
         assert native['artifacts']==other['artifacts'] and native['copiedData']==other['copiedData']
         assert {p:h for p,h in native['sourceInputs'].items() if p.endswith('.cs')}=={p:h for p,h in other['sourceInputs'].items() if p.endswith('.cs')}
-    counts={'class':None}
+    counts={'class':None};saves={}
     for name in (('birth',) if checkpoint else ('birth','class')):
         log=(STAGE/(name+'-native-checks.log')).read_text()
         assert ': failed' not in log and ' ERR]' not in log
         assert log.count('Shutting down')==3
         assert log.count('Writing world save snapshot done')>=3
         counts[name]=log.count(': passed')
+        saves[name]=log.count('Writing world save snapshot done')
     assert counts['birth']==234
-    if not checkpoint:assert counts['class']>=1184
+    if not checkpoint:
+        assert counts['class']==1180 and saves['class']==35
+        assert 'Native class skills and projectile checks passed, including two save/reload cycles.' in (STAGE/'class-run-4.log').read_text()
+    # Historical packages used a different marker total. Prove that the new
+    # optional smoke branch did not remove original full-run commands/asserts.
+    class Scope(ast.NodeVisitor):
+        def __init__(self):self.sends=[];self.assertions=[]
+        def visit_If(self,node):
+            if isinstance(node.test,ast.Name) and node.test.id=='connections_only':return
+            self.generic_visit(node)
+        def visit_Call(self,node):
+            if ast.unparse(node.func)=='session.send':self.sends.append(ast.unparse(node))
+            self.generic_visit(node)
+        def visit_Assert(self,node):self.assertions.append(ast.unparse(node))
+    def scope(text):
+        visitor=Scope();visitor.visit(next(n for n in ast.parse(text).body if isinstance(n,ast.FunctionDef) and n.name=='check'))
+        return dict(sends=visitor.sends,assertions=visitor.assertions)
+    parent_scope=scope(subprocess.check_output(['git','show',PARENT+':tests/check_class_skills.py'],cwd=ROOT,text=True))
+    current_scope=scope((ROOT/'tests/check_class_skills.py').read_text());assert current_scope==parent_scope
+    scope_hash=hashlib.sha256(json.dumps(current_scope,sort_keys=True).encode()).hexdigest()
     log=(STAGE/'birth-native-checks.log').read_text()
     assert log.count('Writing world save snapshot done')==3
     assert log.count('player-attack-slow-check: passed')==log.count('weapon-sequence-rate-check: passed')==3
@@ -98,7 +118,8 @@ def record(check=False,checkpoint=False):
     files.extend(p for p in diagnostic.rglob('*') if p.is_file())
     files.append(ROOT/'tests/check_class_skills.py')
     data=dict(referenceVersion='3.3.93847',parent=PARENT,status='Targeted player slow correction and connection reload smoke verified; final broad regression pending.' if checkpoint else 'Shared player aggregate slow correction verified; no new handler or class certificate.',finalBroadRegressionPending=checkpoint,
-        verified=dict(nativeMarkers=counts,connectionSmokeMarkers=12,bootsPerNativeRun=3,reloadsPerNativeRun=2,sourceContexts=1296,currentFamilyContexts=18432,currentFamilyNativeFistsContexts=9216,pythonTests=71,handlerCount=191,unchangedInstalledArtifacts=106),
+        verified=dict(nativeMarkers=counts,nativeSaves=saves,connectionSmokeMarkers=12,bootsPerNativeRun=3,reloadsPerNativeRun=2,sourceContexts=1296,currentFamilyContexts=18432,currentFamilyNativeFistsContexts=9216,pythonTests=71,handlerCount=191,unchangedInstalledArtifacts=106,
+            fullRunnerScope=dict(unchangedFromParent=True,sendExpressions=len(current_scope['sends']),assertions=len(current_scope['assertions']),sha256=scope_hash)),
         limits=['Legacy engine/current-family original calculator are supplementary evidence, not pinned modern executable equivalence.',
             'Individual slow producers and attack-entry capture are retained. Modern mid-animation event rescheduling, dual-hand stat details, NPC rollout and full client acceptance remain separate.',
             'Native NPC bounded projections are preserved. No learned Dragon/Wake/Fury gates, item gates, deployed build, saves or final assets are changed.'],
