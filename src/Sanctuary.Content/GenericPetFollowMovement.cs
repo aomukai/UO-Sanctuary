@@ -46,8 +46,8 @@ internal static class GenericPetFollowMovement
             {Prepare(speed,tuning,options);return Finish(RandomPoint(pet,random,x,y,radius,hint,4,movement));},
             Alternate=(x,y,hint,speed,tuning,options)=>
             {Prepare(speed,tuning,options);return Finish(hint==1?GenericPetMovement.Execute(pet,random,15,0,x,y,1,4,movement):Point(pet,x,y,movement));},
-            // The complete425bb0path body is not available. Keep its raw
-            // return and arguments explicit rather than replacing its policy.
+            // Explicit leaf contract retained for isolated fixtures. The
+            // checked425bb0body is supplied by GenericPetMotionServices.Bind.
             Toward=(x,y,radius,tuning)=>{Prepare(0,tuning,0);return Finish(towardPoint(x,y,radius,0,4));}
         };
     }
