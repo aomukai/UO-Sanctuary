@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original pet reconnect acceptance (2026-11-03 JST).** Returning the existing saved body adds no new art or mandatory summon flash. Existing native body/step/attack/contact/death/audio remain identified placeholders;final effects stay independently pending. See [checkpoint](pet-reconnect-checkpoint.md).
+
 **Native obstacle acceptance (2026-11-03 JST).** Actual blocking-wall/follow tests add no final artwork. Existing native skeleton/body/step and other summon cues remain identified placeholders;final movement/contact/death/audio assets remain pending separately. See [checkpoint](pet-obstacle-checkpoint.md).
 
 **Shared pet obstacle repair (2026-11-03 JST).** SourceAStarPath adds no separate artwork or sound. Existing native summon/body/step/attack/contact/death cues remain identified placeholders;final pet movement feedback remains pending. Mechanical path repair is verified separately in [checkpoint](astar-path-checkpoint.md).

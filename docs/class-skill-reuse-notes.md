@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Original actor connected return (2026-11-03 JST).** Use the existing load/suspension/return conductor for saved skeletons. Two natural reconnect scenes retain exact original owner/body/capture/wounds/order/resources/deadline and continue the saved unarmed RNG;do not recreate or reseed an actor on login. Test authentication and release of an inspection hold remain fixture operations,not a graphical-login certificate. See [checkpoint](pet-reconnect-checkpoint.md).
+
 **Automatic native obstacle scene (2026-11-03 JST).** Reuse the shared AI67/common-movement/path7kernel;do not insert a fixture-selected path into a pet. Three natural learned-skeleton scenes select the measured native-wall repair themselves,with original actor suspension/reload retention and the prior69marker scope. General path1/unit-footprint/current-engine equivalence remain distinct. See [checkpoint](pet-obstacle-checkpoint.md).
 
 **Shared close-obstacle repair (2026-11-03 JST).** Reuse `SourceAStarPath` through existing `SourceActorPath` path7fallback for Necromancer ground pets and other current point-path consumers. Preserve source neighbor/tie/partial-route/failed-repair ordering. Do not equate this pattern0point service with general path1unit/footprint/target-adjustment support.3,360source/native contexts and827,372ordered queries match per boot;see [checkpoint](astar-path-checkpoint.md).

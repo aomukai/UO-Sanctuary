@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original pet reconnect acceptance (2026-11-03 JST).** Reconnecting an existing actor adds no skill/hotkey. Raise Skeleton talent/right/quick artwork remains separately pending. See [checkpoint](pet-reconnect-checkpoint.md).
+
 **Native obstacle acceptance (2026-11-03 JST).** Automatic follow repair adds no skill binding or icon. Raise Skeleton tree/right/quick artwork remains separately pending. See [checkpoint](pet-obstacle-checkpoint.md).
 
 **Shared pet obstacle repair (2026-11-03 JST).** Automatic movement repair adds no talent or hotkey. Existing class summon tree/right/quick icons remain separately pending;no new icon asset is required by this shared helper. See [checkpoint](astar-path-checkpoint.md).
