@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Sorceress SC timing (2026-11-04 JST).** Reuse `SourceCastClock` through central timing for all 23 ordinary SC routes. Include the separate Teleport controller via its existing `CombatTiming.For` call. Keep Lightning/Chain Lightning and Inferno on their sequence paths; preserve Teleport save-coordinator composition and original scroll/resource guards. See [checkpoint](sorceress-cast-clock-checkpoint.md).
+
 **Barbarian SC timing (2026-11-04 JST).** Reuse `SourceCastClock` for all twelve BASC records and the nine admitted active routes. Preserve the separate corpse-search start transactions and Battle Orders resource/payment order. Native fixtures reuse the existing original-corpse factories; do not create synthetic corpse metadata or infer the four deferred skill contracts. See [checkpoint](barbarian-cast-clock-checkpoint.md).
 
 **Paladin SC timing (2026-11-04 JST).** Reuse `SourceCastClock` with the eight owned PASC records for the four ordinary Paladin spells. Route through central timing; preserve Holy Shield start payment and other release transactions. Keep auras and weapon skills outside this override. See [checkpoint](paladin-cast-clock-checkpoint.md).

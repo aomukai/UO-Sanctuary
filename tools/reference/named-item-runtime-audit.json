@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "65e1f9a728a29e8dddcacb28b5b728bf29448258c0e256fc4a7e4bc1c965e36a",
+  "ContentAssemblySha256": "ef38369d91bccf36a378383c42b1979e4503b97cbe1d61ae4fc69d1d33be9173",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -116,6 +116,7 @@
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
     "data/Sanctuary/Balance/smite-shields.json": "5e35a9df0f6650115033c6e594d4c8365962dc2b58027d02fdcd3b5b5067948b",
     "data/Sanctuary/Balance/socket-gems.json": "95f811ec9b294d5ab01c032204765e6215fce627fb5485c6349c373958d76d45",
+    "data/Sanctuary/Balance/sorceress-cast-clock.json": "2ba8b9438f01b69ae71ab3a98bc3de00ba9aab25268b87cee56e777f9e2ee0f1",
     "data/Sanctuary/Balance/source-aura-targets.json": "f7fe4b077bd4354abd814ef6b6896e4d3ba1b19d142ce23d0a0bfe6d1581f49b",
     "data/Sanctuary/Balance/source-block-rules.json": "19bd30dce92f3d133bc97af2d52b2d53578cf89e61521a353fdd121fa3c7199e",
     "data/Sanctuary/Balance/source-curse-no-walk.json": "8c46fdf6f46fbaf34621ff23b614f6ba5d4ff86f1b9613e1f555019bbe63f573",
@@ -253,7 +254,7 @@
     "shared/StatProtocol.cs": "ce1aeef635fb8699814cd28e5a380f90d476e6f0fbdf5af84c67b217454a0292",
     "shared/TitleProtocol.cs": "a979934452eef58e096dc42a733e4b4d271faa07a6ff173cae893a2bca04db31",
     "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe",
-    "src/Sanctuary.Content/ActionTiming.cs": "03554224b9630e9076b4b244775f1f5ecfa146766cf1073c7202669d541fdd7a",
+    "src/Sanctuary.Content/ActionTiming.cs": "ce064b3e4a09bb5a9c6249c36157abbe5e93659b212fe01684b9f915a6a09bfe",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/AlchemyGump.cs": "799f2ff47e4e02aeef16221fdc6d12aa786cdbce18d2fe95f5f3092b5ea05ea3",
     "src/Sanctuary.Content/AlchemyRestoratives.cs": "47b987dac4173c72beb247503ee19cc0bf425cbcf6b9a60e56c496d102d49fb1",
@@ -879,6 +880,7 @@
     "src/Sanctuary.Content/SocketGem.cs": "6b93781434837c64c7be27c79fab825e1fd638e3d67584bc5b49ec8a5d3ce7f7",
     "src/Sanctuary.Content/SocketGems.cs": "df308e9f6e77946617a506fb68402d8b2970ff0b2fb4681d18e046017477e95c",
     "src/Sanctuary.Content/SocketGump.cs": "bceea7cd674d1ed0f6764aa489d7bca84e5948290c80535be0f93dbcfd35f691",
+    "src/Sanctuary.Content/SorceressCastClock.cs": "2c5e54ed2ef9c819edf2e8e8e114284259e493931d834ba4ce0fcc587308b0f5",
     "src/Sanctuary.Content/SorceressCombat.cs": "68898bd93d562ab573ebc0a31853dfb8bab4c872fe5753d563ce1e89b19f7432",
     "src/Sanctuary.Content/SorceressEffects.cs": "666e58e599059eaea7d76b7129f84e20e320473d9d5cba7c42bbce52928f59f9",
     "src/Sanctuary.Content/SorceressSpellMissiles.cs": "1ded67288b3136add8148f8b94e6f4db3a639d9494ef2f246d17d64de8a6114b",

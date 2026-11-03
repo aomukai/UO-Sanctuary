@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Sorceress SC timing (2026-11-04 JST).** All 23 ordinary active cast routes, including Teleport, now use the eight owned 14/256/action7 records. Lightning/Chain Lightning retain SQ12; Inferno remains unavailable. Source/native/start/cancel/gear/input and original Teleport scroll/resource reload coverage are recorded in [the checkpoint](sorceress-cast-clock-checkpoint.md). Current client and remaining per-skill gaps remain explicit; no class is newly complete.
+
 **Barbarian SC timing (2026-11-04 JST).** Nine supported shout/warcry/corpse-search routes now use the twelve owned 14/256/action9 records, including dual-wield variants. Find Item/Potion retain start payment; Battle Orders retains resource rescaling before payment. Four deferred skills remain unavailable. Source/native/gear/input and original Orders reload scope are recorded in [the checkpoint](barbarian-cast-clock-checkpoint.md). Current client and remaining mechanics stay explicit; no class is newly complete.
 
 **Paladin SC timing (2026-11-04 JST).** Holy Bolt, Blessed Hammer, Holy Shield and FoH now use the owned 16/256/action9 records through the shared source cast clock. Holy Shield retains start payment; the other spells retain release payment. Auras and weapon clocks are excluded. Source/native/gear/input and paid-action reload coverage are recorded in [the checkpoint](paladin-cast-clock-checkpoint.md). Current client/frame-origin and remaining skill/world gaps stay explicit; no class is newly complete.

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Sorceress SC timing (2026-11-04 JST).** No final art or sound is added. Existing spell cast, field, projectile, armor and Teleport/arrival placeholders remain independent asset work, including weapon-dependent presentation. See [checkpoint](sorceress-cast-clock-checkpoint.md).
+
 **Barbarian SC timing (2026-11-04 JST).** No final art or sound is added. Cry/wave, corpse-search, drop and affected-state placeholders remain separate work, including weapon-dependent casting presentation. See [checkpoint](barbarian-cast-clock-checkpoint.md).
 
 **Paladin SC timing (2026-11-04 JST).** No final art or sound is added. Existing Holy Bolt, Hammer, Holy Shield and FoH cast/projectile/buff/impact placeholders remain separate asset work. See [checkpoint](paladin-cast-clock-checkpoint.md).

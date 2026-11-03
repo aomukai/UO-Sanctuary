@@ -1,5 +1,7 @@
 # Skill icons
 
+**Sorceress SC timing (2026-11-04 JST).** Talent/left/right/quick icons remain pending and separately tracked. No new binding or finished icon is added. See [checkpoint](sorceress-cast-clock-checkpoint.md).
+
 **Barbarian SC timing (2026-11-04 JST).** Talent/right/quick icons remain separate pending assets. The timing override adds no bindings or finished icons. See [checkpoint](barbarian-cast-clock-checkpoint.md).
 
 **Paladin SC timing (2026-11-04 JST).** Existing talent/right/quick icon placeholders remain pending; no binding or finished icon is added. See [checkpoint](paladin-cast-clock-checkpoint.md).
