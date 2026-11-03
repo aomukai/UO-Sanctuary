@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "58e66aebea638e3a9bfdca365ab2240f74f0d0058bcf986bd6f3ab6d5fa77b7b",
+  "ContentAssemblySha256": "a6c5abd2759a9e921c363dff0d73069ce56824e82385b06de3166ee9ded1de20",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -580,11 +580,13 @@
     "src/Sanctuary.Content/GenericPetMonsterPlacementHooks.cs": "993546087ddbd30164693be2dc66fb8f11641f6c84c0e14ce7b2f2a65feba76d",
     "src/Sanctuary.Content/GenericPetMotionServices.cs": "d099dc76f6eac9441f0b92596d9e22a2fe9cd0d0a7b07057717a1f768be2c805",
     "src/Sanctuary.Content/GenericPetMovement.cs": "1507cbcf57e48668e84014dcfa219810209523e7d995ad874bb3a88f76a071f7",
-    "src/Sanctuary.Content/GenericPetNativePlacement.cs": "259a3b83bfb7f1f275b0a1eb2048d81cd57b694b1c122ebb0ef788b84ee08ff3",
+    "src/Sanctuary.Content/GenericPetNativePlacement.cs": "21366ac9d01f657d214ad92d7b990b07e7aa656393323d12973d3a96919a5d3c",
     "src/Sanctuary.Content/GenericPetNearbySearch.cs": "db3c22985bccf73e7c4eb71351a260a62c1139d29660e9502a71ba7352b0555f",
     "src/Sanctuary.Content/GenericPetParameters.cs": "7e3b078247cd591e2e8e819ec3bff21901947a0c594391532865295cfb17f355",
     "src/Sanctuary.Content/GenericPetPathCommit.cs": "51d8a149d247e6bdfc8729bcab9b405cf0544b1a6bced2da02e9a225378d4582",
     "src/Sanctuary.Content/GenericPetPathTargets.cs": "f0f8a69fe3e4211b603a83acb77571ba5ba31b7d187ec995b33c23a47dd285eb",
+    "src/Sanctuary.Content/GenericPetPlacementStore.cs": "edc250020e9a31be424713045b4182763f4872a7195112ed8249dacf6ba2cb6e",
+    "src/Sanctuary.Content/GenericPetPlacementWorld.cs": "ffaca63d1438c0e9199147be471898790a4d6b0f01e6e502547d33b1e5cc4430",
     "src/Sanctuary.Content/GenericPetPreparation.cs": "80dc44dc94555a6fcf615a03a8f43f1d88c81e2ea0fdd4200ce62bff5bc916c0",
     "src/Sanctuary.Content/GenericPetRatingRouting.cs": "d820257cd1e7b2062dbb3324fc1742f46eaa3721e62a6604903fd1d7e7e6c148",
     "src/Sanctuary.Content/GenericPetRoomLinks.cs": "3d5c67a0dfe380aa5989c2f38398b8485018f095e99a415ed7a3f9ed68552d5a",

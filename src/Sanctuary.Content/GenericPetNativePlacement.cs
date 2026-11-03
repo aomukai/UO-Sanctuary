@@ -23,6 +23,8 @@ internal sealed class GenericPetNativePlacement
     private readonly GenericPetMonsterRoomLink Member;
     private readonly GenericPetCollisionFootprintServices Footprints;
     private readonly GenericPetPathTargetView TargetMetadata;
+    private readonly GenericPetPlacementWorld SharedWorld;
+    private readonly long SharedRevision;
     private bool Used;
     internal int LoadedRooms=>Grids.Count;
     internal GenericPetCommitPath CommittedPath=>Path;
@@ -31,14 +33,22 @@ internal sealed class GenericPetNativePlacement
     internal static int RoomHandle(Map map,int x,int y)
         =>1+x/Span+(y/Span)*((map.Width*2+Span-1)/Span);
 
-    internal GenericPetNativePlacement(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,Point2D target,
-        GenericPetPathTargetView targetMetadata=null)
+    internal static void RequireActor(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
     {
         if(body is not{Alive:true,Deleted:false,Prepared:not null}||body.Map==null||body.Map==Server.Map.Internal
             ||body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Map!=body.Map||!body.Permitted(owner)
             ||unit?.Pet==null||!unit.HasPath||path?.Actor is not{Kind:1}||path.Actor.Handle!=checked((int)body.Serial.Value)
             ||path.Mask60!=0x100||path.Size5c is <1 or >5)
         {throw new NotSupportedException("Native ground placement requires an owned prepared Goatman and its supplied live monster path");}
+        int x=(ushort)(path.X>>16),y=(ushort)(path.Y>>16);
+        if((x+1)/2!=body.X||(y+1)/2!=body.Y||path.Room!=RoomHandle(body.Map,x,y)
+            ||unit.Pet.ClassId!=GenericPetSearchTables.SourceId("wargoatman"))
+        {throw new NotSupportedException("Native position,room or source identity does not match the supplied path");}
+    }
+    internal GenericPetNativePlacement(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,Point2D target,
+        GenericPetPathTargetView targetMetadata=null,GenericPetPlacementWorld sharedWorld=null)
+    {
+        RequireActor(body,unit,path);
         if(path.Target is{Kind:1} resetTarget&&(resetTarget.Flags124&4)==0)
         {
             if(targetMetadata==null){throw new NotSupportedException("Monster-target reset requires an explicit primary metadata view");}
@@ -46,11 +56,11 @@ internal sealed class GenericPetNativePlacement
         }
         TargetMetadata=targetMetadata;
         Body=body;Map=body.Map;Path=path;Unit=unit;Target=target;
+        SharedWorld=sharedWorld;SharedRevision=sharedWorld?.Revision??0;
+        if(sharedWorld!=null){sharedWorld.Require(body,unit,path);}
         int x=(ushort)(path.X>>16),y=(ushort)(path.Y>>16);
-        if((x+1)/2!=body.X||(y+1)/2!=body.Y||path.Room!=RoomHandle(Map,x,y)
-            ||target.X<=0||target.Y<=0||target.X>=Map.Width*2||target.Y>=Map.Height*2
-            ||unit.Pet.ClassId!=GenericPetSearchTables.SourceId("wargoatman"))
-        {throw new NotSupportedException("Native position,room or source identity does not match the supplied path");}
+        if(target.X<=0||target.Y<=0||target.X>=Map.Width*2||target.Y>=Map.Height*2)
+        {throw new NotSupportedException("Native placement target is outside the map");}
         var wanted=new HashSet<(int X,int Y)>();
         void Include(int cx,int cy,int radius)
         {
@@ -67,7 +77,8 @@ internal sealed class GenericPetNativePlacement
             for(int ay=ry-1;ay<=ry+1;ay++)for(int ax=rx-1;ax<=rx+1;ax++)
             {if((ax!=rx||ay!=ry)&&wanted.Contains((ax,ay))){neighbors.Add(RoomHandle(Map,ax*Span,ay*Span));}}
             Grids.Add(handle,new(gx,gy,width,height,width,new ushort[width*height],neighbors));
-            Rooms.Add(handle,new(handle,new(gx,gy,width,height),new(handle,0,0,new(0))));
+            var bounds=new GenericPetCommitRoom(gx,gy,width,height);
+            Rooms.Add(handle,sharedWorld?.EnsureRoom(handle,bounds)??new(handle,bounds,new(handle,0,0,new(0))));
         }
         var cache=new Dictionary<Point2D,ushort>();
         foreach(var grid in Grids.Values)
@@ -95,14 +106,19 @@ internal sealed class GenericPetNativePlacement
         // Preserve the caller's footprint even though native fit deliberately
         // excludes the traveller. BeforeSearch removes this exact occupancy.
         GenericPetCollisionFootprints.AddSize(new(path.Room,x,y,path.Size5c,path.Mask60),Footprints);
-        Member=new(path.Actor.Handle,path,new(path.Actor.Handle,0,0)){Flags128=unit.Pet.Flags};
-        Links=new(handle=>handle==Member.Handle?Member:throw new NotSupportedException("Unbound source room member"),
-            handle=>Rooms.GetValueOrDefault(handle),_=>2);
-        GenericPetRoomLinks.Add(Member.Handle,path.Room,Links);
+        if(sharedWorld==null)
+        {
+            Member=new(path.Actor.Handle,path,new(path.Actor.Handle,0,0)){Flags128=unit.Pet.Flags};
+            Links=new(handle=>handle==Member.Handle?Member:throw new NotSupportedException("Unbound source room member"),
+                handle=>Rooms.GetValueOrDefault(handle),_=>2);
+            GenericPetRoomLinks.Add(Member.Handle,path.Room,Links);
+        }
+        else{Member=sharedWorld.Member(path.Actor.Handle);Member.Flags128=unit.Pet.Flags;Links=sharedWorld.Links;}
     }
     internal int Place(bool skipSearch=false)
     {
         if(Used||Body.Deleted||Body.Map!=Map){throw new NotSupportedException("Native placement snapshots are single-use and map-bound");}
+        SharedWorld?.Begin(SharedRevision);
         Used=true;
         int RoomAt(int room,int x,int y)=>SourceRoomTrace.Resolve(room,x,y,id=>Grids[id]);
         var placement=new GenericPetMonsterPlacementServices(()=>Path.Room,RoomAt,_=>throw new InvalidOperationException(),
@@ -126,6 +142,7 @@ internal sealed class GenericPetNativePlacement
             int result=GenericPetPathCommit.Commit(Path,room,packed,commit);
             Body.MoveToWorld(point,Map);return result;
         }};
-        return GenericPetMonsterPlacement.Place(Unit,RoomHandle(Map,Target.X,Target.Y),Target.X,Target.Y,skipSearch?1:0,placement);
+        try{return GenericPetMonsterPlacement.Place(Unit,RoomHandle(Map,Target.X,Target.Y),Target.X,Target.Y,skipSearch?1:0,placement);}
+        finally{Member.Flags128=Unit.Pet.Flags;}
     }
 }
