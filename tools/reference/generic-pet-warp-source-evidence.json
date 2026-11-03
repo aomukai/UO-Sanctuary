@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete current warp recovery and actual follow caller",
+  "cases": 1360,
+  "byFamily": {
+    "warp": 1163,
+    "follow": 197
+  },
+  "offlineMachineCodeExecuted": true,
+  "processMemoryReadDuringProbe": false,
+  "targetProcessCodeExecuted": false,
+  "worldMovementVerified": false,
+  "handlerEnabled": false,
+  "limits": [
+    "Original669-byte warp body and caller execute offline with explicit region/search/placement/packed-coordinate/size/collision/post-placement/idle services; actual room search,path relocation and scheduling remain separate world integration.",
+    "Signed16class selection,table bounds,current room loss,full integer leaf results,packed fallback coordinates,collision mask,force retry and success-only post-placement/flag/idle ordering are covered. No teleport or live summon handler is enabled."
+  ],
+  "artifacts": {
+    "tools/probe_generic_pet_warp.py": "2583343385e95e4e9375c1bb7069e8ad939d63b0d4fc43ff6a388622e2ea884c",
+    "tools/probe_generic_pet_motion_services.py": "a99ee5cab816b367a0383815a93d19bfd82f179f99cb7143c13176941c63016c",
+    "tools/probe_generic_pet_follow_movement.py": "b71bbf29494103c0e09d14c701cf506127ead1f005679ab71155f05d9617a7a4",
+    "tools/probe_generic_pet_movement.py": "8902dca2e57b371738e8fea9f5f019705c44dd6987850acd2d565e0ffc209f00",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_generic_pet_actions.py": "c37f23ccdd64fba4ee500903cd5ce7b90dee2375e69d45a30beec3a36f0673e0",
+    ".local/class-skills/warlock-runtime-reference/callees-live-approach-core-20261029.json": "bf51bf04d02ac2501004e764cf1e921c78b1a81d039e85d9721106335d9eb073",
+    ".local/class-skills/warlock-runtime-reference/callees-live-approach-core-20261029-4b1550-part0.bin": "c139d7e6dbb28df1404e537ac2f9febbb9abfbb8422888430dc77b2d9be9c018",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-approach-20261029.json": "fdfc8fcc4f0fe2a7f9d033fc041a33545de9f54af2441e827c4113b16edcab87",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-approach-20261029-4b1600-part0.bin": "18a00a770c9e467957423e72f5d86130ae676d0a870b1e47649d9e643dab1360",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029.json": "eadb82923bf62a482f179922afd8d373a183f78e879ebf012192f7c057c6babc",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4b12d0-part0.bin": "3aac2cc42d5a48b703d08c4965d78059a63260fee0b79aabf311a94e079ea5e9",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4257a0-part0.bin": "7ae2866973e917d95f32d1f2396e8f6483449042f00a6c93b73277b7cd9db441",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4257a0-part1.bin": "f48158af8c506131a444a19e23a5041cee09855c873a734bab1465dea2a31c1c",
+    ".local/class-skills/warlock-runtime-reference/callees-live-movement-core-20261029-4257a0-part2.bin": "1f56ae2c0dd2a075e19d1cc96c6ca2ef72c5e863097dd2034bb3f605d3aaab9a",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-disposition-20261029.json": "bda9ca0f1e354a09cb239e86911d6c674c8b2dc03cad0c38a6c123cc82e57ea8",
+    ".local/class-skills/warlock-runtime-reference/callees-live-action-disposition-20261029-4b2350-part0.bin": "b7243c0aabe7248ea031fa25add656c506f5499710ae2e180e181a20572ffe73",
+    ".local/class-skills/warlock-runtime-reference/movement-prepare-leaf-complete-20261029.json": "1ec01da186cfa477e97d8de5b606a034612b141019f5bc103a66c95504146d09",
+    ".local/class-skills/warlock-runtime-reference/movement-prepare-leaf-complete-20261029.bin": "411be6c8785b5108b09b666676657d57a304a5c3ea808e2ca9e894ca4d23d9fd",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030.json": "48e4a2f231babcee0055fb03034f98acd368280b2eafad06801ffbf3b042b09c",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030-425ac0-part0.bin": "59f983a088473ad6d9f32d66a570e2b2c99dbf239986f2cdb68f8d483fca3be2",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030-426210-part0.bin": "9a8aca82e8f84fae3efe6596c847512d56f8880f0e4289d5fb09987e6f6479eb",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030-4b1360-part0.bin": "9b29060481f6f82d5e74c254357eb7c0560614c701c8a8d1323249566272cfcb",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030-4b1410-part0.bin": "102290a28df7b819a6948702b157c8091a34d9d0d4583f1f0b3686ec69ebdd33",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030-4b14b0-part0.bin": "4a65836631e4a6400a5814eade09fb2aad2c249c38b3aa98b261b439dc8b14aa",
+    ".local/class-skills/warlock-runtime-reference/callees-live-follow-services-idle-20261030-40ea70-part0.bin": "ae10840b01effb4cf63aebd9e798105129ab6a91446e396b8b693d88a81158ef",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029.json": "3c73690cc4b25a184c70976cf13d20da5289c4161be89994b68233de25547de0",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-execute-20261029-4b16c0-part0.bin": "1ffc8af5db79407cd90047603c7d05f016a816d57b76c758393cad287cb00f00",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-movement-20261103.json": "a9e41d8534d70946f5317f3172dc450b0725bf350368b25a719455e240f7c965",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-movement-20261103-425bb0-part0.bin": "ed6b7e545e8d664526b4ad22058a01fa16cad2d2691f86c55130a48bf7a85800",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-movement-20261103-373f60-part0.bin": "c9b6c3eb41fc374be08ed3fcfdee882afae0832f68f999d753bbccb6caa2aabc",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-monster-mode-20261103.json": "2e691bd047943e95f8e3886eb86ff9e30bbaef021413a9e263677bd7e3371ff7",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-monster-mode-20261103-3daa80-part0.bin": "042b7e1ad7d2da07513801a04514e0b5f6f12c82ac618d0752b8b2b52c63bb3f",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-20261103.json": "c1ff16c3556f72d7c794ad65fc4ee1a330a30e8a001f0fbe685f87d2852e99e5",
+    ".local/class-skills/generic-pet-live-follow-reference-20261103/callees-follow-warp-20261103-40e7d0-part0.bin": "0e26da7aba1a62abe448e6d8276f6303744a88cab91e6e7e183b52fc4dae2c5b",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/generic-pet-warp-source-probe.json",
+    "sha256": "26bc513d250f59c143ddb61ee352978705363e98bcd4ca316e756b32f40aa224"
+  }
+}

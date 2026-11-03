@@ -1,5 +1,7 @@
 # Skill icons
 
+**GenericPet warp recovery policy (2026-11-03 JST).** No new talent or player hotkey is created. Summon Goatman talent/right/quick icons remain separately pending placeholders; learned casting is still disabled. Effects/audio remain in their own register. See [checkpoint](generic-pet-warp-checkpoint.md).
+
 **GenericPet motion services (2026-11-03 JST).** No new talent/hotkey binding is added by this NPC backend. Summon Goatman talent/right/quick icons remain separately pending placeholders; learned casting remains disabled. Effects/audio remain in their own register. See [checkpoint](generic-pet-motion-services-checkpoint.md).
 
 **Composed GenericPet movement (2026-11-03 JST).** This internal NPC backend adds no talent or hotkey binding. Summon Goatman talent/right/quick icons remain separately pending placeholders; learned casting stays disabled. Effects/audio remain in their own register. See [checkpoint](generic-pet-follow-movement-checkpoint.md).
