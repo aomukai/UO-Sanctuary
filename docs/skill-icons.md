@@ -1,5 +1,7 @@
 # Skill icons
 
+**Composed GenericPet movement (2026-11-03 JST).** This internal NPC backend adds no talent or hotkey binding. Summon Goatman talent/right/quick icons remain separately pending placeholders; learned casting stays disabled. Effects/audio remain in their own register. See [checkpoint](generic-pet-follow-movement-checkpoint.md).
+
 **GenericPet follow executor (2026-11-03 JST).** This shared NPC policy adds no player hotkeys or talent icons. Summon Goatman talent/right/quick icons remain separately pending placeholders; no public learned binding is enabled. Effects/audio remain in their own register. See [checkpoint](generic-pet-follow-executor-checkpoint.md).
 
 **Prepared Goatman body (2026-11-03 JST).** Summon Goatman talent/right/quick icon remains separately pending. Internal NPC skills add no player hotkeys; prepared body creation enables no public binding. Effects/audio remain in their own register. See [checkpoint](goatman-body-checkpoint.md).
