@@ -4,6 +4,10 @@ Reference baseline: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary d
 
 Only Necromancer and Druid pets receive the balance changes below. Warlock, Assassin and Amazon pets retain their intended baseline behavior. Reuse existing affixes, item properties, spells, projectile fans, statuses, AI, damage and persistence services.
 
+## Warlock summon presentation
+
+Approved on 2026-11-03: Goatman uses UO **Gargoyle** (body4), Defiler uses **Gazer** (body22; the user's Beholder), and Tainted uses **Succubus** (body149). These choices replace model placeholders while retaining each D2R summon’s species, stats, footprint, abilities and timing. Use the native models/basic sounds, not the corresponding UO monster classes or Magery/AI. The Goatman mapping is wired into its prepared body and old-placeholder load migration; Defiler/Tainted are registered choices awaiting their mechanical bodies. Final custom skill effects and talent/hotkey icons remain separate. See [the appearance reference](../tools/reference/warlock-demon-appearance-reference.json).
+
 ## Shared rules
 
 - Ability/affix unlocks use **hard points in the relevant summon skill**. Existing pets gain/lose unlocks on training/respec.

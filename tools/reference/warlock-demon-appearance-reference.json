@@ -1,0 +1,37 @@
+{
+  "approvedBy": "User decision in this chat,2026-11-03;Beholder clarified as Gazer",
+  "scope": "UO presentation only;D2R species,mechanics and clocks retained",
+  "mappings": [
+    {
+      "skill": "warlock.summongoatman",
+      "model": "Gargoyle",
+      "body": 4,
+      "sound": 372,
+      "implemented": true
+    },
+    {
+      "skill": "warlock.summondefiler",
+      "model": "Gazer",
+      "body": 22,
+      "sound": 377,
+      "implemented": false
+    },
+    {
+      "skill": "warlock.summontainted",
+      "model": "Succubus",
+      "body": 149,
+      "sound": 1200,
+      "implemented": false
+    }
+  ],
+  "nativeSourceHashes": {
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Gargoyle.cs": "9d0bfde3a47805f388a74887e9615017c1a4f3b02305f97d3ec143b719436901",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Gazer.cs": "e800144cc8e4c7d58077ee7c21361eebdb1b6b88f7eeac618f04cebb045207a1",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Succubus.cs": "a25080cc82e5cb12a193f9518af0f183222836ed91558380f9169fdedcf7e7e0"
+  },
+  "limits": [
+    "Only Goatman has a prepared body;Defiler/Tainted appearances are registered for their future bodies",
+    "Appearance does not provide the UO creature AI,Magery,stats,loot,flight or aura mechanics",
+    "Final custom effects,icon artwork and animation acceptance remain separate"
+  ]
+}

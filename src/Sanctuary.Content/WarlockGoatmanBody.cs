@@ -48,8 +48,14 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
     public WarlockGoatmanBody()
     {
-        Name="Summoned Goatman [placeholder]";Body=0x11;BaseSoundID=-1;CantWalk=true;ControlSlots=0;
+        Name="Summoned Goatman";ApplyAppearance();CantWalk=true;ControlSlots=0;
         AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(100);SetDamage(0,0);
+    }
+    private void ApplyAppearance()
+    {
+        var appearance=WarlockDemonAppearance.For(CombatAbility.SummonGoatman);
+        Body=appearance.Body;BaseSoundID=appearance.Sound;
+        if(Name=="Summoned Goatman [placeholder]"){Name="Summoned Goatman";}
     }
     public override TimeSpan BeginMelee(Mobile target)=>throw new NotSupportedException("Prepared Goatman body has no automatic GenericPet combat controller");
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
@@ -122,5 +128,5 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterGoatmanLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GoatmanBodyState>(_saved);Validate(_prepared);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GoatmanBodyState>(_saved);Validate(_prepared);ApplyAppearance();}
 }

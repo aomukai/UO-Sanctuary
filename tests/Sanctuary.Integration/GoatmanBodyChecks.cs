@@ -26,6 +26,9 @@ public static class GoatmanBodyChecks
     }
     private static void Numeric(WarlockGoatmanBody b)
     {
+        Require(b.Body==4&&b.BaseSoundID==372&&b.Name=="Summoned Goatman","Approved Gargoyle presentation missing");
+        Require(WarlockDemonAppearance.For(CombatAbility.SummonDefiler)==new WarlockDemonAppearance(22,377,"Gazer")
+            &&WarlockDemonAppearance.For(CombatAbility.SummonTainted)==new WarlockDemonAppearance(149,0x4B0,"Succubus"),"Approved future demon presentations differ");
         var birth=b.Prepared.Snapshot.Birth;var r=b.BodyResistances;
         Require(CreatureProfiles.Definition(b).Reference=="wargoatman"&&CreatureProfiles.For(b).Traits is{Family:"Demon",Demon:true,Undead:false,Size:2}
             &&ClassStats.Level(b)==birth.PetLevel&&ClassStats.AttackRating(b)==birth.ProjectedAttack&&ClassStats.Defense(b)==birth.ProjectedArmor,"Live source identity/footprint/level/AR/defense");
@@ -64,6 +67,9 @@ public static class GoatmanBodyChecks
             // Reset one controlled fractional wound only for retained inspection.
             SkillHealth.SetBalance256(b,b.MaximumLife256-257);PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=TimedEffects.Now.AddDays(2)});
             var saved=new Actor(p.Serial.Value,b.Serial.Value,helm.Serial.Value,female,b.SavedText,SkillHealth.Balance256(b),SkillHealth.Maximum256(b),NecromancerEffects.ManaBalance256(p),BattleCommand.PetOrder(b));
+            // The original female-owned body exercises migration from the
+            // old visual placeholder without recapturing birth or healing.
+            if(female){b.Body=0x11;b.BaseSoundID=-1;b.Name="Summoned Goatman [placeholder]";}
             b=null;p=null;return saved;
         }
         finally{SummonDifficulties.SetFacets(facets);b?.Delete();p?.Delete();}

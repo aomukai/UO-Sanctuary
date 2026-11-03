@@ -1,5 +1,7 @@
 # Sorceress Inferno: reuse and remaining binding
 
+**Update 2026-11-03:** The shared Sorceress fire-stream binding below is now prepared and verified within [its checkpoint](inferno-stream-checkpoint.md). Existing identity119flames remain unchanged. Actual mode binding and modern accepted-input/payment cadence still gate the learned handler. The remaining sections record the earlier preparation and reuse decisions.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This is read-only preparation while the combined Necromancer run finishes; it changes no handler, runtime data, assembly or save. Inferno remains the one unregistered Sorceress talent. Asset work does not block mechanical implementation.
 
 The current status text predates subsequent shared channel work. Consult these existing components before creating another channel:

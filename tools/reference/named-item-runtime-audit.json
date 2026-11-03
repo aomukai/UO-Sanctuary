@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e9542190d971a20afd62eec615f80ca0fda03f1584dac63a1e3fbbac9f3feacc",
+  "ContentAssemblySha256": "25656409ce23a28712fcd800880f276877dcead438c8ec85e9968122bfe83c89",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -853,7 +853,7 @@
     "src/Sanctuary.Content/SocketGump.cs": "bceea7cd674d1ed0f6764aa489d7bca84e5948290c80535be0f93dbcfd35f691",
     "src/Sanctuary.Content/SorceressCombat.cs": "68898bd93d562ab573ebc0a31853dfb8bab4c872fe5753d563ce1e89b19f7432",
     "src/Sanctuary.Content/SorceressEffects.cs": "666e58e599059eaea7d76b7129f84e20e320473d9d5cba7c42bbce52928f59f9",
-    "src/Sanctuary.Content/SorceressSpellMissiles.cs": "52170941c27ed85cea160391a0f25164881c82b7bd0209a61b3d9ca40b25f237",
+    "src/Sanctuary.Content/SorceressSpellMissiles.cs": "1ded67288b3136add8148f8b94e6f4db3a639d9494ef2f246d17d64de8a6114b",
     "src/Sanctuary.Content/SourceAbsorptionPool.cs": "489df8924adbed07e6b3e03399035abb465d84b3514a51e92da62f2a3f623e79",
     "src/Sanctuary.Content/SourceActorMotion.cs": "ded8edc9ca4e5c939d89fc5552d844fd2ce1b9fefd1afe0b96e5f6a5febd4c48",
     "src/Sanctuary.Content/SourceActorPath.cs": "8f1c7028bc39abaf0b61d9583e114a022075d1be711290bd871ce19f957e2a0e",
@@ -919,7 +919,8 @@
     "src/Sanctuary.Content/WardrobeStorage.cs": "37d134c715d98229dea50c8f4bc1e5d65ef864c3e70680190b5382a9011ceaa3",
     "src/Sanctuary.Content/WardrobeTransaction.cs": "70a103d600bf645a2b58f69502ba099c676633c009c097c82282d310afcd54da",
     "src/Sanctuary.Content/WarlockCombat.cs": "3ad02b1bde2c4228fa71caff851c7c5470f116e01bed9a49641e67e926810661",
-    "src/Sanctuary.Content/WarlockGoatmanBody.cs": "9ae5df8194ccf53302c4886668d0176815401ba09ac2d049f9991d109a705a23",
+    "src/Sanctuary.Content/WarlockDemonAppearance.cs": "77f726af5fc5ae263af16f9922b79532cca7558fe5174c0da36f30b6308b97ef",
+    "src/Sanctuary.Content/WarlockGoatmanBody.cs": "73734fd58d5365c5d1378bae83b761012d80c3a6d21c10a55890230f7c40670f",
     "src/Sanctuary.Content/WarlockLevitation.cs": "00c9fe16b6b77efea4c72543f0084212bef705c528acb287fd64466e13a7dc56",
     "src/Sanctuary.Content/WeaponAnimationClasses.cs": "a0f610c1c7500cf0584f0530431906d98138f38bff1a93e060efdc5345e546dc",
     "src/Sanctuary.Content/WeaponBlocks.cs": "832df328f28f20f2688557c0d0ccd748aa4e9ccbf0b1e4e8d0c42a5790794864",

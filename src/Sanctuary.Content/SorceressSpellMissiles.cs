@@ -57,14 +57,16 @@ internal static class SorceressSpellMissiles
     internal static bool Ring(CombatAbility ability)=>ability is CombatAbility.Nova or CombatAbility.FrostNova;
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(SorceressSpellMissiles));
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
+    internal static Func<bool> AllocateInferno=()=>true;
     public static void Configure()=>_ = new SorceressSpellProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
 
     private sealed record SpellRoute(string Key,string Element,int Source,int Velocity,int DamageFunction,
-        int Frames=50,int HitFunction=0,int ResultFlags=4,int HitFlags=0,int Size=1,int CollideKill=1,int InitSteps=1);
+        int Frames=50,int HitFunction=0,int ResultFlags=4,int HitFlags=0,int Size=1,int CollideKill=1,int InitSteps=1,int DamageRate=0);
     private static SpellRoute Profile(CombatAbility ability)=>ability switch
     {
         CombatAbility.FireBolt=>new("firebolt","fire",36,20,0),
+        CombatAbility.Inferno=>new("infernoflame1","fire",41,12,0,30,CollideKill:0,DamageRate:82),
         CombatAbility.ChargedBolt=>new("chargedbolt","ltng",38,12,0,77),
         CombatAbility.Lightning=>new("lightningbolt","ltng",49,30,0,25,Size:2,CollideKill:0,InitSteps:0),
         CombatAbility.IceBolt=>new("icebolt","cold",39,12,0),
@@ -78,16 +80,17 @@ internal static class SorceressSpellMissiles
     };
     internal static void Route(SkillValues values)
     {
-        bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt,armor=values.Ability==CombatAbility.ChillingArmor;var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
+        bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt,armor=values.Ability==CombatAbility.ChillingArmor,inferno=values.Ability==CombatAbility.Inferno;var profile=Profile(values.Ability);var row=SkillMechanics.For(values.Ability);int M(string key)=>NecromancerSummons.Source(profile.Key,key);
         if(values.Rank is <1 or >255||row.SourceId!=profile.Source
-            ||row.Number("srvstfunc")!=0||row.Number("srvdofunc")!=(armor?18:ring?22:charged?17:0)||row.Text(ring||charged||armor?"srvmissilea":"srvmissile")!=profile.Key
+            ||row.Number("srvstfunc")!=(inferno?11:0)||row.Number("srvdofunc")!=(inferno?19:armor?18:ring?22:charged?17:0)||row.Text(ring||charged||armor||inferno?"srvmissilea":"srvmissile")!=profile.Key
             ||row.Text("EType")!=profile.Element||row.Number("SrcDam")!=0
             ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=profile.HitFunction||M("pSrvDmgFunc")!=profile.DamageFunction||M("Vel")!=profile.Velocity||M("MaxVel")!=profile.Velocity
             ||M("VelLev")!=0||M("Accel")!=(ring?-1000:0)||M("Range")!=(charged?98:profile.Frames)||M("Size")!=profile.Size||M("CollideType")!=3
             ||M("CollideKill")!=(ring?0:profile.CollideKill)||M("LastCollide")!=1||M("ToHit")!=0||M("NextHit")!=(ring?1:0)||M("NextDelay")!=(ring?4:0)||M("Pierce")!=0
             ||M("SrcDamage")!=0||M("CanSlow")!=(ring?0:1)||M("InitSteps")!=(ring?0:profile.InitSteps)||M("Activate")!=0
             ||ring&&(values.Eval("calc1")!=0||M("HitClass")!=(values.Ability==CombatAbility.Nova?64:48))
-            ||M("ReturnFire")!=(armor?0:1)||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=0
+            ||M("ReturnFire")!=(armor||inferno?0:1)||M("GetHit")!=1||M("ResultFlags")!=profile.ResultFlags||M("HitFlags")!=profile.HitFlags||M("DamageRate")!=profile.DamageRate
+            ||inferno&&(row.Number("Param1")!=35||row.Number("Param2")!=3||row.Number("Param8")!=16||row.Text("calc1")!="ln12/2"||M("HitClass")!=32)
             ||profile.HitFunction==13&&(M("sHitPar1")!=0||M("sHitPar2")!=0||new MissileValues(profile.Key,values).Text("EType")!="frze")
             ||profile.HitFunction==1&&(M("sHitPar1")!=0||new MissileValues(profile.Key,values).Text("EType")!="fire"))
         {throw new NotSupportedException("Unmapped player straight spell route");}
@@ -96,6 +99,7 @@ internal static class SorceressSpellMissiles
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Sorceress?p:null;
     internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,int radialIndex=-1,long id=0,long cast=0,int ordinal=-1,ColdArmorState reaction=null)
     {
+        if(values.Ability==CombatAbility.Inferno){throw new NotSupportedException("Inferno requires its channel-supplied source-coordinate factory");}
         Route(values);bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt;
         bool armor=values.Ability==CombatAbility.ChillingArmor;
         if(armor!=(reaction!=null)||reaction!=null&&(reaction.Ability!=CombatAbility.ChillingArmor||reaction.Rank is <0 or >255
@@ -119,6 +123,33 @@ internal static class SorceressSpellMissiles
             SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
             {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?reaction is{Rank:0}?reaction.ColdFrames:values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0,
              Charged=charged?new(owner.X,owner.Y,ChargedBolts.Path(ChargedBolts.Seed(point,ordinal),ChargedBolts.Heading(point.X-owner.X,point.Y-owner.Y),ChargedBolts.Frames),1,ordinal):null};
+        Validate(flight);return flight;
+    }
+    internal static (int Min,int Max,int Frames) CaptureInferno(SkillValues values,int mastery)
+    {
+        if(values.Ability!=CombatAbility.Inferno||mastery<0){throw new NotSupportedException("Invalid Inferno packet supplier");}
+        Route(values);var ends=DruidFirestorm.Endpoints(values,mastery,SlowMissilePayload.Normal);
+        return(ends.Min,ends.Max,Math.Max(1,(int)values.Eval("calc1")));
+    }
+    // Explicit do19 emission only. Payment/accepted intents belong to the
+    // channel. Historical identity119 flames retain their original layout.
+    internal static SorceressSpellFlight PrepareInferno(PlayerMobile owner,Point2D aim,SkillValues values,DateTime at)
+    {
+        if(owner==null||Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal||at.Kind!=DateTimeKind.Utc)
+        {throw new NotSupportedException("Unsupported Inferno stream owner");}
+        var mods=DruidFirestorm.Modifiers(owner);var packet=CaptureInferno(values,mods.FireMastery);
+        var slow=AmazonSlowMissiles.Capture(owner,true);
+        if(slow.DamagePercent!=100){throw new NotSupportedException("Modern Inferno Slow Missiles damage order remains unverified");}
+        if(aim.X is <=0 or >65535||aim.Y is <=0 or >65535){return null;}
+        int dx=aim.X-owner.X*2,dy=aim.Y-owner.Y*2;
+        if(Math.Abs(dx)>=100||Math.Abs(dy)>=100){return null;}
+        if(dx==0&&dy==0){dx=dy=1;}
+        if(!AllocateInferno()){return null;}
+        int velocity=SlowMissilePayload.VelocityFp8(12,0,values.Rank,0x8020,0,true,slow.VelocityPercent);
+        var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
+        var flight=new SorceressSpellFlight(checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,CombatAbility.Inferno,values.Rank,
+            owner.X,owner.Y,vector.X,vector.Y,velocity,0,packet.Frames,packet.Min,packet.Max,mods,slow,
+            SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40)){LastCollision=owner.Serial.Value};
         Validate(flight);return flight;
     }
     internal static bool ReactiveArmor(PlayerMobile owner,Point3D point,ColdArmorState armor)
@@ -183,16 +214,16 @@ internal static class SorceressSpellMissiles
     {
         int raw=Roll(flight,out seed);
         var profile=Profile(flight.Ability);
-        return ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4);
+        return ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4,profile.DamageRate);
     }
-    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false)
+    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false,int damageRate=0)
     {
         SorceressEffects.MissileHit(owner,target,key);
         if(ClassAvoidance.Missile(target,key)){return 0;}
         owner.DoHarmful(target,true);
         var modifiers=captured with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};
         var packet=element=="cold"?new GearDamage(0,0,raw/256.0,0,0):element=="ltng"?new(0,0,0,raw/256.0,0):new(0,raw/256.0,0,0,0);
-        var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(modifiers,packet));
+        var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(modifiers,packet),damageRate);
         if(freeze){FreezeStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
         else if(element=="cold"){ColdStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
         int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
@@ -315,7 +346,7 @@ internal static class SorceressSpellMissiles
     }
     private static void Validate(SorceressSpellFlight s)
     {
-        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.Lightning or CombatAbility.ChargedBolt or CombatAbility.ChillingArmor))
+        if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.Inferno or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.Lightning or CombatAbility.ChargedBolt or CombatAbility.ChillingArmor))
         {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
         var profile=Profile(s.Ability);bool ring=Ring(s.Ability),capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FrostNova or CombatAbility.ChillingArmor;
         if(s.Ability==CombatAbility.ChargedBolt)
@@ -329,7 +360,8 @@ internal static class SorceressSpellMissiles
         if(s.Id<=0||!((Serial)s.Owner).IsMobile||s.Rank<(s.Ability==CombatAbility.ChillingArmor?0:1)||s.Rank>255
             ||s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal||s.Z is <-128 or >127
             ||!double.IsFinite(s.X+s.Y+s.Vx+s.Vy)||s.X<=0||s.Y<=0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
-            ||Math.Abs(s.Vx)>(s.Ability==CombatAbility.Lightning?0.703125:ring?0.5625:0.5)||Math.Abs(s.Vy)>(s.Ability==CombatAbility.Lightning?0.703125:ring?0.5625:0.5)||s.VelocityFp8<0||s.VelocityFp8>profile.Velocity*192||s.Frame<0||s.Frames!=profile.Frames||s.Frame>=s.Frames
+            ||Math.Abs(s.Vx)>(s.Ability==CombatAbility.Lightning?0.703125:ring?0.5625:0.5)||Math.Abs(s.Vy)>(s.Ability==CombatAbility.Lightning?0.703125:ring?0.5625:0.5)||s.VelocityFp8<0||s.VelocityFp8>profile.Velocity*192||s.Frame<0||s.Frames!=(s.Ability==CombatAbility.Inferno?(35+3*(s.Rank-1))/2:profile.Frames)||s.Frame>=s.Frames
+            ||s.Ability==CombatAbility.Inferno&&(s.LastCollision==0||s.Slow.DamagePercent!=100)
             ||(capturedCold?s.ColdFrames<(s.Ability==CombatAbility.ChillingArmor&&s.Rank==0?0:1)||s.ColdFrames>(s.Ability==CombatAbility.ChillingArmor?12250:s.Ability==CombatAbility.IceBlast?4035:s.Ability==CombatAbility.FrostNova?6550:9040):s.ColdFrames!=0)
             ||ring&&(s.Cast<=0||s.Cast>s.Id||s.Id!=s.Cast+s.RadialIndex||s.RadialIndex is <0 or >63||s.AccelerationCounter is <0 or >4||s.Slow.VelocityPercent!=100)
             ||!ring&&(s.Cast!=0||s.RadialIndex!=-1||s.AccelerationCounter!=0||profile.CollideKill!=0&&s.LastCollision!=0)

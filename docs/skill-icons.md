@@ -1,5 +1,7 @@
 # Skill icons
 
+**Warlock native models and prepared Inferno stream (2026-11-03 JST).** The model mappings add no hotkeys or final icons. Goatman/Defiler/Tainted talent/right/quick icons and Inferno talent/left/right/quick icons remain separately pending. Native creature bodies do not stand in for icon artwork. Effects/audio are recorded in their own register.
+
 **Landing validation and placement policy (2026-11-03 JST).** No new talent or hotkey is introduced. Summon Goatman's talent/right/quick icons remain separately pending placeholders; learned casting remains disabled. Effects/audio stay in their own register. See [checkpoint](generic-pet-warp-candidate-checkpoint.md).
 
 **Warp room-search/update primitives (2026-11-03 JST).** No new player talent/hotkey binding is introduced. Summon Goatman talent/right/quick icons remain separately pending placeholders;learned casting remains disabled. Effects/audio stay in their own register. See [checkpoint](generic-pet-warp-primitives-checkpoint.md).
