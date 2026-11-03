@@ -1,0 +1,19 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned Grimoire runtime catalogue",
+  "bases": 15,
+  "normalFamilies": 5,
+  "automaticRows": 8,
+  "inputs": {
+    ".local/class-skills/warlock-hands-reference/grimoire-extraction.json": "490a61cb74c8965dc614ead98e6141d303a6a1a40b081db5024d57b248365420",
+    ".local/class-skills/warlock-hands-reference/armor.txt": "734872b6dde85073c6ebaf4199ec4bd2b30efcbf9f0e60e381af2e22662a1b4f",
+    ".local/class-skills/warlock-hands-reference/automagic.txt": "aa5b30aa2bf51460955a5fb3ad5e9017607eac8e8cce40f9c7b08aeb9ffcb7df"
+  },
+  "outputs": {
+    "data/Sanctuary/Balance/warlock-grimoire-bases.json": "8abbca53228d4d17f79fb50ebc55f0be441187cd508d8b2df3a5faf91adef1bd",
+    "data/Sanctuary/Balance/warlock-grimoire-automatic.json": "febb9a4cc6475cf0dfeacc896afd913d856afb147d2f7a9a92f5d001391e4606"
+  },
+  "limitations": [
+    "No random generation,affix selection,staffmod selection,equip or acquisition is certified by these data rows. Blank third-property codes contribute no effect despite nonempty unused min/max cells."
+  ]
+}

@@ -2,6 +2,8 @@
 
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. This establishes owned equipment metadata and the concrete implementation dependencies. It enables no skill or equipment exception and certifies no class.
 
+**Follow-up:** the [saved Grimoire capture checkpoint](grimoire-capture-checkpoint.md) now implements the runtime catalogues and original saved capture subtype. Equip and random acquisition remain gated. This historical preflight verifier includes an unchanged-production check against52432863; reproduce that check on its original checkpoint, and use the new native receipt for the later production component. Its guard has not been weakened to accept changed source.
+
 The local installation's `charstats.txt`, `charstats.bin`, `itemtypes.txt` and `itemtypes.bin` were extracted read-only with the previously hash-pinned strict CASC reader. The executable and build manifest were checked before and after extraction. No process memory was read, no game input was sent, and no game or installed server file was written.
 
 The owned class table contains eight records of 212 bytes. All eight class names, 128 ordinary starting/movement/resource stat fields and 16 new hand-rule fields agree with the owned text. Warlock's `TwoHandedOffHandRestrictItemType` is **Grimoire**, with `TwoHandedDamageAsOneHanded` unset. The independently pinned reference JSON agrees with these fields for all eight classes.

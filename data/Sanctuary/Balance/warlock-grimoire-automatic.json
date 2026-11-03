@@ -1,0 +1,90 @@
+[
+  {
+    "name": "of Shadows",
+    "affixLevel": 1,
+    "requiredLevel": 3,
+    "rare": true,
+    "frequency": 3,
+    "magicMinimum": 3,
+    "magicMaximum": 5,
+    "fireMinimum": 0,
+    "fireMaximum": 0
+  },
+  {
+    "name": "of Darkness",
+    "affixLevel": 15,
+    "requiredLevel": 11,
+    "rare": true,
+    "frequency": 2,
+    "magicMinimum": 6,
+    "magicMaximum": 10,
+    "fireMinimum": 0,
+    "fireMaximum": 0
+  },
+  {
+    "name": "of Despair",
+    "affixLevel": 25,
+    "requiredLevel": 18,
+    "rare": true,
+    "frequency": 2,
+    "magicMinimum": 11,
+    "magicMaximum": 20,
+    "fireMinimum": 0,
+    "fireMaximum": 0
+  },
+  {
+    "name": "of Nightmares",
+    "affixLevel": 33,
+    "requiredLevel": 25,
+    "rare": false,
+    "frequency": 2,
+    "magicMinimum": 21,
+    "magicMaximum": 30,
+    "fireMinimum": 0,
+    "fireMaximum": 0
+  },
+  {
+    "name": "of Ember",
+    "affixLevel": 1,
+    "requiredLevel": 3,
+    "rare": true,
+    "frequency": 3,
+    "magicMinimum": 0,
+    "magicMaximum": 0,
+    "fireMinimum": 3,
+    "fireMaximum": 8
+  },
+  {
+    "name": "of Cinders",
+    "affixLevel": 15,
+    "requiredLevel": 11,
+    "rare": true,
+    "frequency": 2,
+    "magicMinimum": 0,
+    "magicMaximum": 0,
+    "fireMinimum": 5,
+    "fireMaximum": 16
+  },
+  {
+    "name": "of Flames",
+    "affixLevel": 25,
+    "requiredLevel": 18,
+    "rare": true,
+    "frequency": 2,
+    "magicMinimum": 0,
+    "magicMaximum": 0,
+    "fireMinimum": 8,
+    "fireMaximum": 18
+  },
+  {
+    "name": "of Inferno",
+    "affixLevel": 33,
+    "requiredLevel": 25,
+    "rare": false,
+    "frequency": 2,
+    "magicMinimum": 0,
+    "magicMaximum": 0,
+    "fireMinimum": 16,
+    "fireMaximum": 32
+  }
+]
