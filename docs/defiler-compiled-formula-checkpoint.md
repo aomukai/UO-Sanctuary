@@ -2,6 +2,8 @@
 
 Reference: **D2R Reign of the Warlock 3.3.93847**. This checkpoint records new reference evidence; it enables no talent or damage multiplier.
 
+**Follow-up:** the [modern compiler checkpoint](modern-passive-compiler-checkpoint.md) now establishes byte-exact compilation for all229populated passive formulas, including the raw Defiler text. It identifies the first02as callback arity and the later02as an unmatched-parenthesis compiler marker.5,355numeric constant-folding controls omit the outer factor10;dynamic current-runtime execution remains unverified. The observations below are historical old-decoder evidence, not a current-runtime interpretation.
+
 The installation's owned `skills.bin` and `skillscode.bin` were extracted read-only with the existing hash-pinned CASC reader, checking the executable and build manifest before and after extraction. No game-memory read or write was involved. The files contain429skill records of748bytes and10,324bytes of compiled formula data.
 
 All429records and12passive slots agree with the pinned stat-name mapping and formula presence: **5,148 stat matches and5,148 formula-presence matches**. This establishes current passive stat/offset layouts at186/216; it does not establish formula runtime semantics.

@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "productionCheckpoint": "524328631d6b8eae7e2e040660bf0dfc34ffa11e",
+  "component": "Modern passive compiler equivalence research",
+  "productionChanged": false,
+  "handlerEnabled": false,
+  "goalComplete": false,
+  "verified": {
+    "byteExactPassiveFormulas": 229,
+    "numericAnalogueControls": 5355,
+    "dynamicRuntimeExecution": false,
+    "unchangedProductionBuild": true,
+    "retainedProductionMarkers": 393,
+    "retainedFocusedMarkers": 61,
+    "protectedInstalledArtifactsUnchanged": 106,
+    "protectedSavesUnchanged": 38,
+    "protectedConfigurationsUnchanged": 20
+  },
+  "limitations": [
+    "No new native run is claimed:production C#,runtime data and five accepted assemblies are unchanged.",
+    "Raw compilation and numeric constant folding do not establish dynamic current-game execution. Defiler damage,Health Link and learned handler remain disabled;continue unaffected work rather than inventing the unresolved runtime behavior."
+  ],
+  "evidence": {
+    "tools/record_modern_passive_compiler.py": "f5df42019e9a0fe288c8700b2973520c3c40051c8f4403d8285edc99f30ed4fa",
+    "tools/reference/modern-passive-compiler-evidence.json": "7b53f46b32775ca401231f8efc318f96d81f9db16693e7a19455c770bd6d7830",
+    ".local/class-skills/modern-passive-compiler/source-check.log": "730ae251e1857e02264891c17b2a1bb131968b2f2313158c3bb0589147a0a5ed",
+    "docs/modern-passive-compiler-checkpoint.md": "11a0ae98c536e354b84e12c3beade9b02d442cb55ece37c894d93b3cb3db52f9",
+    "docs/defiler-compiled-formula-checkpoint.md": "c5a24a48a4a46fc17e508e938efdfc52ad6e313d2791e84c655c45058801ab86",
+    "docs/class-skills-resume-checkpoint.md": "de3165861bda1d570c6d5662f9ef65ba8f8054f30100899ca56e9d1a4be69655",
+    "docs/class-skill-reuse-notes.md": "71e3aff26b7d37a022cbe17fbee879c62c8fd2cc9a6bfa7624fa44fe61dd6a38"
+  }
+}

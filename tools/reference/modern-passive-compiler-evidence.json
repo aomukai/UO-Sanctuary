@@ -1,0 +1,135 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Modern passive formula compilation equivalence",
+  "upstreamRepository": "https://github.com/tomrus88/D2RBinTool",
+  "upstreamCommit": "fe6078123d6f011f46af9ea0802739ba672b0547",
+  "upstreamVariant": "D2DT_BUILD_93854",
+  "upstreamSources": {
+    "src/calc_compiler.cpp": {
+      "sha256": "e128217c8755d2cad4e628871f704b0bfc12fe7f20f00471c6a4af587264a639",
+      "gitBlob": "436060c0692eecc767d6e7413a44b3289261246e"
+    },
+    "src/calc_compiler.h": {
+      "sha256": "fe1a66b4ade9d8f9529844746c2c2022ebe5e702fa1b53ff1d02659df3ad93e6",
+      "gitBlob": "3d9d60f44b8adfdd4d36f13779335ada248ef2d0"
+    },
+    "src/decompiler.cpp": {
+      "sha256": "bdfc9e1f17c1cc00e073c81b8653f56ddaa09d1c1f0f7bc23f2dbf505b8af0a8",
+      "gitBlob": "0903ce3c292fdbd22fb75bf1928ccc1a165bcb21"
+    },
+    "src/decompiler.h": {
+      "sha256": "e959d88a4929370910bbfb7d4a94aa34ff613a858e459ccf47b063110c9bf636",
+      "gitBlob": "ce440db32048ba55d7dcbca4426dfe5e96176294"
+    },
+    "src/excel_engine.cpp": {
+      "sha256": "5e05f5199798b87b9be5fd3dc763ad65b8c0226917d5d15342140633a86672c1",
+      "gitBlob": "862b239880866d31fe1275805c36a7b104411777"
+    },
+    "src/excel_engine.h": {
+      "sha256": "4c8a88d75991810410939a3ef359d711e4004b29f1aff21c52541d9e49beef9e",
+      "gitBlob": "e875111b1991412db49e3c460ec732dc7333fd68"
+    },
+    "src/excel_types.h": {
+      "sha256": "65352f7691c25b341232c7c21cd26e2bba90202ec48cf06b900937e246b78d90",
+      "gitBlob": "1b895498050f55e1885893b7f8e0c6932890b11f"
+    },
+    "src/idx_defaults.cpp": {
+      "sha256": "90a9d5c1a8654c5001b524ae83ddfc85c3fa0be8d67a9b2c93418fbdd04cf6d5",
+      "gitBlob": "7429c218c63705f93c89ad652ce5c7dd5ca53090"
+    },
+    "src/idx_defaults.h": {
+      "sha256": "385ba821f89483592eda5dbf357a128f2cb8afbc4204057c949cb404d1639ad1",
+      "gitBlob": "58c336d3faa530bbdfea3ef3b9dd7ab403b822b2"
+    },
+    "src/json.h": {
+      "sha256": "2b9d7aec9a7e8fe452f68523fb169e6326e32ab0994cc3f520d1feb7e6013de7",
+      "gitBlob": "7fa05b258bbc3ef7fb5e2ad7d4de114a58d68d18"
+    },
+    "src/main.cpp": {
+      "sha256": "12d27caf7fe9b0609b13d760deee0e4fa18318e38749cc5bafe2fdcebbf94265",
+      "gitBlob": "0182047cb9e047018f40ab4969b5c106d0913a11"
+    },
+    "src/tables.cpp": {
+      "sha256": "527ab7beb856c73a3e1249b7d71a0f5ce01df207f99cf280b9c6d1b9ff5ed517",
+      "gitBlob": "ab20b403147c3dbedfaa09240331eff096eddd47"
+    },
+    "src/tables.h": {
+      "sha256": "b7e49433d432d2b2585e0ad746a149a832edcbcd7e6e7c76e0a61935616e9839",
+      "gitBlob": "2afaad0c730aef9bcf913312ed329f49ed6dfe57"
+    }
+  },
+  "passiveSlotsExamined": 5148,
+  "compiledFormulas": 229,
+  "byteExactFormulas": 229,
+  "rawDefilerCompiledExactly": true,
+  "rawDefilerText": "par2*((lvl - 1) + (skill('Demonic Mastery'.blvl))",
+  "rawDefilerHex": "04090410070111087601072901030210021200",
+  "constantFoldNumericAnalogueCases": 5355,
+  "constantFoldResult": "rank-1+hardMastery",
+  "currentFormulaExecutionVerified": false,
+  "productionChanged": false,
+  "handlerEnabled": false,
+  "compilerCommand": [
+    "g++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-DD2DT_BUILD_93854",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/research/D2RBinTool/src",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/class-skills/modern-passive-compiler/compile.cpp",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/research/D2RBinTool/src/calc_compiler.cpp",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/research/D2RBinTool/src/excel_engine.cpp",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/research/D2RBinTool/src/tables.cpp",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/research/D2RBinTool/src/idx_defaults.cpp",
+    "-o",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/class-skills/modern-passive-compiler/compile"
+  ],
+  "inputs": {
+    ".local/research/D2RBinTool/src/calc_compiler.cpp": "e128217c8755d2cad4e628871f704b0bfc12fe7f20f00471c6a4af587264a639",
+    ".local/research/D2RBinTool/src/calc_compiler.h": "fe1a66b4ade9d8f9529844746c2c2022ebe5e702fa1b53ff1d02659df3ad93e6",
+    ".local/research/D2RBinTool/src/decompiler.cpp": "bdfc9e1f17c1cc00e073c81b8653f56ddaa09d1c1f0f7bc23f2dbf505b8af0a8",
+    ".local/research/D2RBinTool/src/decompiler.h": "e959d88a4929370910bbfb7d4a94aa34ff613a858e459ccf47b063110c9bf636",
+    ".local/research/D2RBinTool/src/excel_engine.cpp": "5e05f5199798b87b9be5fd3dc763ad65b8c0226917d5d15342140633a86672c1",
+    ".local/research/D2RBinTool/src/excel_engine.h": "4c8a88d75991810410939a3ef359d711e4004b29f1aff21c52541d9e49beef9e",
+    ".local/research/D2RBinTool/src/excel_types.h": "65352f7691c25b341232c7c21cd26e2bba90202ec48cf06b900937e246b78d90",
+    ".local/research/D2RBinTool/src/idx_defaults.cpp": "90a9d5c1a8654c5001b524ae83ddfc85c3fa0be8d67a9b2c93418fbdd04cf6d5",
+    ".local/research/D2RBinTool/src/idx_defaults.h": "385ba821f89483592eda5dbf357a128f2cb8afbc4204057c949cb404d1639ad1",
+    ".local/research/D2RBinTool/src/json.h": "2b9d7aec9a7e8fe452f68523fb169e6326e32ab0994cc3f520d1feb7e6013de7",
+    ".local/research/D2RBinTool/src/main.cpp": "12d27caf7fe9b0609b13d760deee0e4fa18318e38749cc5bafe2fdcebbf94265",
+    ".local/research/D2RBinTool/src/tables.cpp": "527ab7beb856c73a3e1249b7d71a0f5ce01df207f99cf280b9c6d1b9ff5ed517",
+    ".local/research/D2RBinTool/src/tables.h": "b7e49433d432d2b2585e0ad746a149a832edcbcd7e6e7c76e0a61935616e9839",
+    ".local/research/D2RBinTool/README.md": "7ea514aa82136042991900bfeb145b26ddec36d74f61949ee0bda083b4374882",
+    "tools/reference/defiler-compiled-formula-evidence.json": "ed30a6de2008660e684c3cf202aaf9101807eff0b963a2372cd5f1e9f2978d39",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    ".local/class-skills/defiler-compiled-formula/skillscode.bin": "673b2afa461548c7f0471ba95c8747240f57216be21b9a1af45224a5a8314ac1",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    ".local/class-skills/warlock-foundation/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "tools/probe_modern_passive_compiler.py": "6307fd0333e99d85d326962bdbbba96ffab70747ade9d41d2f774c895c50cbad"
+  },
+  "artifacts": {
+    ".local/class-skills/modern-passive-compiler/seeds.tsv": "42d36593da03779170bf488b86ec7efb8093c54db150922c3b31299111f8322c",
+    ".local/class-skills/modern-passive-compiler/expressions.tsv": "eae4b5b99256d09ee96d3b7480892ab6e01dccff6c9c3961c0e2c703bb1d445c",
+    ".local/class-skills/modern-passive-compiler/compile.cpp": "805e7829c139fae3cfedb75123002f89f13aee2c6b16f4df58ef1007c1180262",
+    ".local/class-skills/modern-passive-compiler/compile": "12da13fe6767401bd35461c81cea41559a4ebb1636cbdfea7716c6aff32b5d4b",
+    ".local/class-skills/modern-passive-compiler/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/modern-passive-compiler/compiled.tsv": "ee94aacddc8cbe75ad85e9460885c38ec58b960237c0c119868acbbc0f26b9b5",
+    ".local/class-skills/modern-passive-compiler/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/modern-passive-compiler/comparison.json": "b82953a7504c15c30c69723a6d2604bb924cd6cb3eab565d8ac0f0caa26b36ff",
+    ".local/class-skills/modern-passive-compiler/diagnostic-1/probe.py": "1a27ca228fadecd71011694e8c715f0beae9a43c2b097b1265a7f1f6306a1a45",
+    ".local/class-skills/modern-passive-compiler/diagnostic-1/run.log": "04e5757c7096b4368bcef7ebed9476c6abfe56c173bc991bbbd3c212bb0c47fa"
+  },
+  "established": [
+    "Complete unchanged upstream modern compiler and engine/index helpers compile every populated owned passive formula to byte-identical bytes at its owned skills.bin offset. Raw text is not wrapped or repaired.",
+    "The function emission includes callback index and operand count. The raw malformed Defiler expression compiles to its actual19bytes;the internal02after callback03is its two-argument count,while the later02is an unmatched-parenthesis compiler marker.",
+    "5355explicit numeric analogues retain the malformed parentheses but replace dynamic operands with numbers. The complete upstream constant-folding path returns rank-1+hardMastery,without the outer factor10. This is evidence against silently repairing the text,not an execution comparison for the dynamic formula."
+  ],
+  "limitations": [
+    "93854 is the upstream reverse-engineered compiler variant;agreement with owned93847data establishes these compiler outputs only,not complete executable parity.",
+    "Neither the upstream decompiler nor this compilation probe executes runtime bytecode. In particular,this does not establish the game runtime treatment of the unmatched-parenthesis marker or enable Defiler damage.",
+    "UBSan is clean. This probe does not claim ASan or current-game runtime comparisons. No production parser,saved body,installed assembly,save or configuration is changed."
+  ]
+}
