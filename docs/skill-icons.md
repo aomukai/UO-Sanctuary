@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Ward monster effects (2026-11-03 JST).** Grim Ward talent and right/quick hotkey icons remain missing independently of recipient mechanics. No learned binding or final icon is introduced. See [checkpoint](grim-ward-transport-checkpoint.md).
+
 **Prepared Grim Ward curse operation (2026-11-03 JST).** No learned binding or icon is added. Grim Ward talent/right/quick icons remain separately pending. See [checkpoint](grim-ward-curse-checkpoint.md).
 
 **Saved shared pet placement registry (2026-11-03 JST).** The internal registry introduces no talent or hotkey binding. Summon talent/right/quick icons remain independently pending. See [checkpoint](pet-placement-world-checkpoint.md).

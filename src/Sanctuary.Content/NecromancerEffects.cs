@@ -11,10 +11,12 @@ namespace Sanctuary;
 
 public sealed record NecromancerMotion(uint Target, bool Flee, int OriginX, int OriginY);
 public sealed record LowerResistDeltas(int? Fire,int Lightning,int Cold,int Poison);
+public sealed record GrimWardDeltas(int Velocity,int Attack,int Other,int FullPhysical);
 public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Rank, DateTime UntilUtc, int OriginX, int OriginY,
     NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PhysicalDelta = null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] LowerResistDeltas ElementDeltas = null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] LowerResistDeltas ElementDeltas = null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] GrimWardDeltas Ward = null);
 public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null,
@@ -56,7 +58,8 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
                 || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255
                     || curse.PhysicalDelta is{} delta&&!NecromancerEffects.ValidPhysicalDelta(curse.Ability,delta)
                     || curse.ElementDeltas is{} elements&&!NecromancerEffects.ValidElementDeltas(curse,elements)
-                    || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill is CombatAbility.Howl or CombatAbility.Terror || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
+                    || !GrimWardCurseTransport.Valid(curse)
+                    || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill is CombatAbility.Howl or CombatAbility.Terror || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt || curse.Ability==CombatAbility.GrimWard && terror.Skill==CombatAbility.GrimWard) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
         _states = states;
@@ -85,9 +88,9 @@ public static class NecromancerEffects
     public static bool IsCurse(CombatAbility a) => a is CombatAbility.AmplifyDamage or CombatAbility.DimVision
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
         or CombatAbility.LifeTap or CombatAbility.Attract or CombatAbility.Decrepify or CombatAbility.LowerResist;
-    internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.CloakOfShadows;
+    internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.CloakOfShadows or CombatAbility.GrimWard;
     internal static bool ValidPhysicalDelta(CombatAbility ability,int delta)=>ability switch
-    {CombatAbility.AmplifyDamage=>delta is -100 or -20,CombatAbility.Decrepify=>delta is -50 or -10,_=>false};
+    {CombatAbility.AmplifyDamage=>delta is -100 or -20,CombatAbility.Decrepify=>delta is -50 or -10,CombatAbility.GrimWard=>delta is >=-1295 and <=-4,_=>false};
     internal static bool ValidElementDeltas(NecromancerCurse curse,LowerResistDeltas elements)
     {
         if(curse.Ability!=CombatAbility.LowerResist){return false;}
@@ -156,11 +159,12 @@ public static class NecromancerEffects
         {
             CombatAbility.AmplifyDamage when element == "physical" => curse.PhysicalDelta??-(int)values.Param(5),
             CombatAbility.Decrepify when element == "physical" => curse.PhysicalDelta??values.Param(5),
+            CombatAbility.GrimWard when element == "physical" => curse.PhysicalDelta??0,
             CombatAbility.LowerResist when element is "fire" or "cold" or "ltng" or "pois" => ElementDelta(curse,element)??-values.Diminishing(5, 6),
             _ => 0
         };
         // Immunity-breaking curses run at one fifth effectiveness against an immune monster.
-        bool captured=(curse.Ability is CombatAbility.AmplifyDamage or CombatAbility.Decrepify&&element=="physical"&&curse.PhysicalDelta.HasValue)
+        bool captured=(curse.Ability is CombatAbility.AmplifyDamage or CombatAbility.Decrepify or CombatAbility.GrimWard&&element=="physical"&&curse.PhysicalDelta.HasValue)
             ||ElementDelta(curse,element).HasValue;
         if (!captured&&target is BaseCreature and not BaseHire && (immunityBaseline ?? baseline) >= 100) { delta /= 5; }
         // Player caps apply after pierce; retain overcapped resistance until that final step.
@@ -186,6 +190,7 @@ public static class NecromancerEffects
         {
             CombatAbility.Taunt when curse.Terror!=null => SourceTerror.TargetAllowed(actor,target),
             CombatAbility.Terror => curse.Terror!=null && SourceTerror.TargetAllowed(actor,target),
+            CombatAbility.GrimWard => curse.Terror!=null && SourceTerror.TargetAllowed(actor,target),
             CombatAbility.CloakOfShadows when curse.CloakBlind => target != null && actor.Map == target.Map && actor.InRange(target, 1),
             CombatAbility.DimVision => SourceBlind.TargetAllowed(actor,target),
             _ => true
@@ -197,7 +202,7 @@ public static class NecromancerEffects
         if (Profiles.Find(creature) is { Curse: { } elapsed } state && elapsed.UntilUtc <= TimedEffects.Now)
         {
             Profiles.Store(creature, state with { Curse = null });
-            if (Vision(elapsed) || elapsed.Ability is CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract)
+            if (Vision(elapsed) || elapsed.Ability is CombatAbility.Terror or CombatAbility.GrimWard or CombatAbility.Confuse or CombatAbility.Attract)
             {
                 creature.Combatant = null; creature.FocusMob = null;
                 ai.ResetApproachState(); ai.ClearMoveIntent(); ai.Action = ActionType.Wander;
@@ -208,6 +213,7 @@ public static class NecromancerEffects
         SourceMind.Think(creature);
         if(curse?.Ability==CombatAbility.DimVision&&SourceBlind.Think(creature,curse)){return true;}
         if(curse?.Ability==CombatAbility.Taunt && curse.Terror!=null){return SourceTerror.Think(creature,curse);}
+        if(curse?.Ability==CombatAbility.GrimWard && curse.Terror!=null){return SourceTerror.Think(creature,curse);}
         if (curse?.Ability == CombatAbility.Terror)
         {
             if(curse.Terror!=null){return SourceTerror.Think(creature,curse);}

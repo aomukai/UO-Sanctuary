@@ -1,0 +1,19 @@
+# Prepared Grim Ward monster effects
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, Sanctuary deviations first. Parent: `4f169df69fe60d5fe57aad8057486f701a3332c2`.
+
+`GrimWardCurseTransport` connects the explicit-context curse operation to actual admitted hostile monsters. The missile is represented by an Item and its serial remains the creator; the owner supplies allegiance and harmful-action credit, not an assumed skill lookup. The caller must still supply the formula context. Equal-rank refresh retains creator and primary velocity while rewriting attack rate, other animation rate and captured physical resistance reduction. Higher ranks replace the creator; weaker ranks and Attract reject the application.
+
+An optional JSON payload in the existing curse persistence stores the three rate deltas and full physical penalty. Older curses omit it. Validation requires missile-kind creator identity, a matching Terror AI payload and a full or one-fifth physical penalty. Deleted creator items need not resolve during load: the curse belongs to the recipient and keeps its normal expiry.
+
+The adapter reuses the existing supported Skeleton/Zombie/Megademon Terror AI transitions and current-combatant capture. It does not replace that threat with the Ward owner. The physical resistance consumer uses the already captured immunity reduction once. Attack speed joins existing slow consumers. Movement adds the fear-running bonus, Ward slow and other existing velocity modifiers before the source 25% floor. This composition follows the legacy `UNITS_UpdateRunWalkAnimRateAndVelocity` routine; it is not a new current-executable claim. Other curse movement behavior is unchanged.
+
+**The other-animation delta is stored and exposed, but native nonattack animation modes still lack a certified consumer.** No claim that all four stats function end to end is made. Modern source target acquisition, multiplayer AI/creator behavior, unsupported species and source/native scheduling remain separate reference boundaries.
+
+The native fixture checks actual recipient state and consumers, weak/equal/higher priority, Attract refusal, deleted missile creators, schema guards, retained wounds/resources, natural expiry and autonomous monster escape. A held expiry is used only for the saved fixture so the same monster can survive two actual world reloads; live escape uses the original duration. Acceptance results and exact hashes are recorded in `tools/reference/grim-ward-transport-native-evidence.json` after the run finishes.
+
+**Accepted: content build4, integration build3, native run3: 158 markers over three boots, two actual reloads and three saves.** All 152 predecessor markers remain. Each boot repeats 31,134 legacy curse comparisons and one autonomous Ward escape/natural-expiry control. Both clean builds have zero warnings/errors. Fresh 950/21 audits preserve all 573 named decisions; all 71 Python checks and readiness/catalogue/roadmap checks pass. All 106 protected installed artifact/save hashes remain unchanged. Two failed fixture runs are preserved: an incorrect expectation that refresh would restore the owner as threat, and a corridor start row at the helper's exclusive upper bound. Correcting those two test lines left the production DLL identical. No fresh full-class regression is claimed.
+
+No learned Grim Ward handler is enabled. The periodic emitter, live missile formula owner/snapshot context, corpse/terrain/presentation, child insertion/global clock and full learned start/payment/input/lifecycle remain open. Coverage stays 191 handlers with no completed class.
+
+The shared curse marker is an identified visual placeholder. Ward body/start/end, fear/slow/expiry effects and audio still need assets; talent and hotkey icons remain a separate backlog. No image generation or final asset creation is part of this checkpoint. No deployment or installed-save write is performed.

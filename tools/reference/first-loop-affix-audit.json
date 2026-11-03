@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "c8e5bc3d8350e7beb755f96e27fe32a75aa66d71756c839bd16b1896c712d5f5",
-  "ContentAssemblyPath": ".local/class-skills/grim-ward-curse/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "672c548130028b0b6f469ca5e5aa9a0ee7f6495d8cfc058b4efa46d24bff9926",
+  "ContentAssemblyPath": ".local/class-skills/grim-ward-transport/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -17,7 +17,7 @@
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
-    "src/Sanctuary.Content/GearEffects.cs": "637627c1a4b52bf74997f0d5c7dd8afa92294926ffb075b4338d496aa24e7e15",
+    "src/Sanctuary.Content/GearEffects.cs": "87428808ac134d3963f6e2b45b66d7d2ab416a38d8efc487ad5922071fb57851",
     "src/Sanctuary.Content/GearProfiles.cs": "7e537249fb467c31b752eb89cfb790f66bc49cb27237473fcbe27b86341d1e17",
     "src/Sanctuary.Content/HitRecovery.cs": "f8efd8f84d578c1cf0341c8f8ee9d10788ac974783a0029ed4e89985c6204a80",
     "src/Sanctuary.Content/NamedAmmunition.cs": "f09c11acb35685ee0aa3019fc83e890ecbde0e92190425ed9fb30e001386dd2d",
