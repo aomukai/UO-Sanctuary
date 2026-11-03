@@ -1,5 +1,7 @@
 # Skill icons
 
+**Tainted rank refresh (2026-11-04 JST).** Registered NPC420/422/380 rank lookup adds no player-bindable icon. Summon Tainted still requires its talent-tree and right/quick-hotkey artwork; text labels remain identified placeholders. Effects/audio stay separate. See [checkpoint](tainted-ranks-checkpoint.md).
+
 **Tainted A2 release (2026-11-04 JST).** NPC422 is an internal summoned-monster action, so its cast scheduler adds no player-bindable icon. Summon Tainted still needs talent-tree and right/quick-hotkey artwork; current labels remain identified placeholders. Effects/audio are tracked separately. See [checkpoint](tainted-casting-checkpoint.md).
 
 **Tainted Fire Ball flight (2026-11-04 JST).** Internal NPC422 release adds no player binding or icon. Summon Tainted still needs talent-tree and right/quick-hotkey artwork; NPC420/422 share the summon identity. Text labels remain identified placeholders, with effects/audio in the separate register. See [checkpoint](tainted-fireball-checkpoint.md).

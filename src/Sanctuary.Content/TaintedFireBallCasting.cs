@@ -10,10 +10,12 @@ namespace Sanctuary;
 
 internal sealed record TaintedCastClock(int Skill, int Mode, int Frames, int Speed, int Action, int Flag);
 internal sealed record TaintedFireBallAction(uint Actor, uint Owner, uint Target, int Rank, int Speed,
-    DateTime StartedUtc, DateTime ActionUtc, DateTime EndUtc, bool Released = false, long Flight = 0, string Fault = null);
+    DateTime StartedUtc, DateTime ActionUtc, DateTime EndUtc, bool Released = false, long Flight = 0, string Fault = null,
+    bool LiveRank = false, int ReleasedRank = 0);
 
-// NPC A2 action service. Selection, mode admission and the live skill-rank
-// getter are explicit caller services; no replacement targeting AI is invented.
+// NPC A2 action service. Selection and mode admission remain caller services.
+// Registered casts use the shared live innate getter; explicit prepared casts
+// retain supplied source inputs. No replacement targeting AI is invented.
 // Unissued actions are transient, as with player pending actions. Issued
 // missiles use their existing independent persistent host.
 internal static class TaintedFireBallCasting
@@ -58,6 +60,12 @@ internal static class TaintedFireBallCasting
             at, at.AddMilliseconds(clock.Action * 40), at.AddMilliseconds(clock.End * 40));
         Actions.Add(body.Serial.Value, state); body.Direction = body.GetDirectionTo(target); return true;
     }
+    internal static bool BeginRegistered(WarlockTaintedBody body, Mobile target, DateTime at)
+    {
+        int rank = TaintedNpcRanks.Level(body, 422);
+        if (!BeginPrepared(body, target, rank, at)) { return false; }
+        Actions[body.Serial.Value] = State(body) with { LiveRank = true }; return true;
+    }
     // Bind the supported targeted NPC422 path into the existing captured
     // GenericPet action wrapper. Other skills keep the supplied outer service.
     // The caller still owns source mode admission and effective skill lookup.
@@ -72,6 +80,18 @@ internal static class TaintedFireBallCasting
             { throw new NotSupportedException("Tainted Fire Ball ground override or non-A2 request needs its source mode adapter"); }
             var unit = World.FindMobile((Serial)unchecked((uint)target)); int level = rank();
             return admit(unit, level) && BeginPrepared(body, unit, level, now());
+        } };
+    }
+    internal static GenericPetActionServices BindRegistered(WarlockTaintedBody body, GenericPetActionServices outer,
+        Func<Mobile, int, bool> admit, Func<DateTime> now)
+    {
+        // Reuse the same mode/target guard and caller-owned admission contract.
+        var bound = Bind(body, outer, () => TaintedNpcRanks.Level(body, 422), admit, now);
+        return bound with { ExecuteSkill = (mode, skill, target, x, y, flag) =>
+        {
+            bool accepted = bound.ExecuteSkill(mode, skill, target, x, y, flag);
+            if (accepted && skill == 422) { Actions[body.Serial.Value] = State(body) with { LiveRank = true }; }
+            return accepted;
         } };
     }
     internal static void Tick(DateTime at, bool? allowActions = null)
@@ -94,9 +114,10 @@ internal static class TaintedFireBallCasting
                     if (World.FindMobile((Serial)state.Target) is not { Alive: true, Deleted: false } target
                         || target.Map != body.Map || !ClassCombat.IsHostile(owner, target) || !body.CanBeHarmful(target, false))
                     { throw new NotSupportedException("Lost Tainted A2 target; current source path-point fallback is unverified"); }
-                    var suppliers = body.Prepared.Snapshot.Birth.Suppliers with { FireBallRank = state.Rank };
-                    long id = TaintedFireBallMissiles.LaunchPrepared(body, target.Location, state.Rank, TaintedNpcSkills.FireBall(suppliers), state.ActionUtc);
-                    next = next with { Flight = id }; Actions[state.Actor] = next;
+                    int rank = state.LiveRank ? TaintedNpcRanks.Level(body, 422) : state.Rank;
+                    var suppliers = body.Prepared.Snapshot.Birth.Suppliers with { FireBallRank = rank };
+                    long id = TaintedFireBallMissiles.LaunchPrepared(body, target.Location, rank, TaintedNpcSkills.FireBall(suppliers), state.ActionUtc);
+                    next = next with { Flight = id, ReleasedRank = rank }; Actions[state.Actor] = next;
                 }
                 catch (Exception e)
                 { next = next with { Fault = e.Message }; Actions[state.Actor] = next; Log.Error(e, "Tainted A2 release suspended: {Actor}", state.Actor); }

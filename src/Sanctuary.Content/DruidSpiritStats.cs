@@ -46,10 +46,7 @@ internal static class DruidSpiritStats
     internal static int EffectiveAuraRank(int birthRank,int commandBonus)
     {
         if(birthRank is <1 or >255 || commandBonus is <0 or >1){throw new NotSupportedException("Unsupported spirit innate skill bonus context");}
-        // This research key pins the common NPC getter's current experience maximum.
-        int maximum=NecromancerSummons.Source("oaksage-skill-context","MaximumRank");
-        if(maximum!=99){throw new NotSupportedException("Unsupported current NPC skill ceiling");}
-        return Math.Clamp(checked(birthRank+commandBonus),0,maximum);
+        return InnateNpcSkills.Level(birthRank,commandBonus);
     }
     internal static OakBirth Capture(PlayerMobile owner,CombatAbility ability)
     {

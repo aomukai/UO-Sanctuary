@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "reusedCompleteGetterCases": 2040,
+  "newCompleteDispatcherCases": 30,
+  "compiledDispatcherRoutineHash": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+  "reviewedSummonGrantRoutineHash": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+  "reviewedGetterRoutineHashes": {
+    "SKILLS_GetBonusSkillLevel": "7e20ab48d9d6657c8eb8907d879dc7ccd700c3789568b7424630d658d77827c0",
+    "SKILLS_GetSkillLevel": "4bf88a74fe5cbd91109bfc2d42f617a979446fda102007d67081e69c642952dd"
+  },
+  "inputs": {
+    "tools/reference/oak-skill-rank-engine-evidence.json": "2ac8c0efef6bce7d3a78d60a30e8c2861e5a6d24ad39de28e70c5e89d83305d3",
+    ".local/class-skills/oak-skill-rank-source-probe.json": "f75d3456f0dc683a4406cfbd020d22d588e735f6635fc3524e9e6dc2889d2759",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    "tools/review_tainted_skill_ranks.py": "f1a261e489ea2dc27e4b2dec3fc78c24651495e59079fe4e69e8a2d4466a1112"
+  },
+  "established": [
+    "Reuse the existing complete innate NPC getter proof and current common maximum99. No duplicate Druid/Warlock rank formula or second cap table is introduced. Item-owned and bonus-disabled controls are retained.",
+    "The complete unchanged used-skill dispatcher obtains the skill id and a fresh bonus-enabled skill rank at action execution, then passes that rank to the handler and cooldown dispatcher. Thirty synthetic contexts prove callback order, level transport and the absent-skill path with ASan/UBSan.",
+    "Tainted owns assigned NPC420/422 and optional Blood Boil380 ranks captured at birth. Only its own Battle Command allskills state contributes in the mapped no-equipment context. An absent optional skill is not created; Blood Boil hard synergy and captured owner mastery are not rewritten.",
+    "The reviewed complete summon-passive routine grants a listed skill only for a positive calculated rank and selects a positively granted aura. Owned warbighead has only Fire Ball and Resist Fire in its default monster slots; Blood Boil is absent there. This reviewed creation path is not a newly executed creation oracle.",
+    "The registered GenericPet/A2 adapter must refresh effective Fire Ball rank at the skill event. Its emitted missile retains that rank after later buff changes. Existing explicit supplied-rank fixtures remain a separate prepared API."
+  ],
+  "remaining": [
+    "Complete current executable mode admission/initialization, owner iterator/control, GenericPet world/skill-list/extended-passive and stat/event parity remain separate. Getter and dispatcher evidence is older source plus pinned current tables, not current executable equivalence.",
+    "NPC gear, skill shrine, per-skill/oskill/elemental bonuses, item-owned production skills and foreign summoners are unsupported here. The registered mapped Tainted has no such source suppliers.",
+    "Full NPC420 aura/Blood Boil, learned summoning/cap/payment and world lifecycle remain unfinished. No handler or class certificate is added."
+  ],
+  "artifacts": {
+    ".local/class-skills/tainted-ranks-source/dispatcher.cpp": "055a080fc5d03467e7a31823f7587f6ddf493386b7df9a3d1cb245410d3cce3e",
+    ".local/class-skills/tainted-ranks-source/dispatcher": "cb723088557b141fa9308df680c449c455e6c22f4c0ce86dac817a1ea2ff9c68",
+    ".local/class-skills/tainted-ranks-source/dispatcher.json": "4b74631b1a13ca7bf65e6896a53645dac97849c23ead517d26b2e4f1e03cf760",
+    ".local/class-skills/tainted-ranks-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/tainted-ranks-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
