@@ -34,9 +34,9 @@ public static class ClassGear
         }
         return true;
     }
-    public static bool Converted(Item item) => item != null && EquipmentBalance.TryGet(item, out var definition)
+    public static bool Converted(Item item) => item != null && (item is not WarlockGrimoire||GrimoireEquipment.Ready(item)) && EquipmentBalance.TryGet(item, out var definition)
         && definition.Category != "Unarmed";
-    public static GearDefinition Definition(Item item) => NamedGear.Definition(item, State(item))
+    public static GearDefinition Definition(Item item) => GrimoireEquipment.Definition(item)??NamedGear.Definition(item, State(item))
         ?? (EquipmentBalance.TryGet(item, out var definition) ? definition : null);
     public static bool CosmeticClothing(Item item) => Definition(item) is { Category: "Clothing" } definition
         && State(item)?.NamedItemId == null && definition.Slot != GearSlot.Belt
@@ -82,7 +82,8 @@ public static class ClassGear
         {
             foreach (var other in player.Items)
             {
-                if (Slot(other) == GearSlot.Weapon && Base(other) is { TwoHanded: true, OneOrTwoHanded: false })
+                if (Slot(other) == GearSlot.Weapon && Base(other) is { TwoHanded: true }
+                    &&(Base(other).OneOrTwoHanded==false||WarlockHands.Innate(player))&&!WarlockHands.CanPair(player,item,other))
                 {
                     return false;
                 }
@@ -118,6 +119,7 @@ public static class ClassGear
         }
         int value = GemSockets.Bonus(item, state, code) + NamedGear.Bonus(item, code, recipientLevel);
         value+=OrdinaryAffixProperties.Bonus(state,code,recipientLevel);
+        value+=GrimoireEquipment.Bonus(item,code,recipientLevel);
         foreach (var rune in state.Runes) { if (rune.Pattern.EffectCode == code) { value += rune.Percentage; } }
         string materialCode = code switch
         {
@@ -238,7 +240,7 @@ public static class ClassGear
         int classBlock = profile.Class switch
         {
             DiabloClass.Paladin => 30,
-            DiabloClass.Amazon or DiabloClass.Barbarian or DiabloClass.Assassin => 25,
+            DiabloClass.Amazon or DiabloClass.Barbarian or DiabloClass.Assassin or DiabloClass.Warlock => 25,
             _ => 20
         };
         return Math.Clamp(((Base(shield)?.Block ?? 0) + classBlock + Bonus(player, "block")+HolyShields.BlockBonus(player))
@@ -359,8 +361,9 @@ public static class ClassGear
             foreach (var other in player.Items)
             {
                 if (other != item && Slot(other) is GearSlot.Weapon or GearSlot.Shield
-                    && (Base(item) is { TwoHanded: true, OneOrTwoHanded: false }
-                        || Base(other) is { TwoHanded: true, OneOrTwoHanded: false }))
+                    && (WarlockHands.Forbidden(player,item,other)
+                        ||!WarlockHands.CanPair(player,item,other)&&(Base(item) is { TwoHanded: true, OneOrTwoHanded: false }
+                            || Base(other) is { TwoHanded: true, OneOrTwoHanded: false })))
                 {
                     player.SendMessage("This weapon requires both hands.");
                     return false;
@@ -406,6 +409,7 @@ public static class ClassGear
         var saved = State(item);
         var roll = saved?.Roll;
         if (saved?.NamedItemId != null) { NamedGear.Properties(item, saved, list); }
+        GrimoireEquipment.AddProperties(item,list);
         if (saved != null)
         {
             list.Add($"{"Base tier: "}{saved.Tier}{"; quality: "}{CraftTransactions.QualityName(saved.Quality)}");
@@ -547,6 +551,7 @@ public static class ClassGear
             Runebark.Copy(source, copy);
             InscribedRune.Copy(source, copy);
             SocketGem.Copy(source, copy);
+            if(source is WarlockGrimoire{HasCapture:true} original&&copy is WarlockGrimoire duplicate){duplicate.RestorePrepared(original.Capture);}
             Profiles.Copy(source, copy);
             CraftTransactions.Profiles?.Copy(source, copy);
             EquipmentRepairs.Profiles?.Copy(source, copy);

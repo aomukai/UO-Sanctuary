@@ -25,7 +25,7 @@ internal static class FrozenEquipmentEffects
         if(!ClassGear.Converted(item))
         {return new(0,item.Serial.Value,item.GetType().FullName,(int)item.Layer,item.ItemID,item.Hue,null,null,"[]","[]","[]","Native item combat effects have no converted equipment supplier");}
         bool active=ClassGear.Slot(item)!=GearSlot.Cosmetic&&!ClassGear.Broken(item)&&state is{Identified:true};
-        var properties=active?(state.NamedItemId!=null?NamedGear.IntrinsicProperties(item):OrdinaryAffixProperties.Properties(state)).Select(p=>new FrozenProperty(p.Property,p.Roll)).ToArray():[];
+        var properties=active?EquipmentIntrinsicProperties.For(item).Select(p=>new FrozenProperty(p.Property,p.Roll)).ToArray():[];
         var fixedBonuses=new List<FrozenBonus>();
         if(active)
         {

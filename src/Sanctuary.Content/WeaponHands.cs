@@ -75,7 +75,7 @@ public static class WeaponHands
     }
     internal static bool Contributes(PlayerMobile owner,Item item,string code)=>!Member(owner,item) || !DamageRelated(code) || item==Selected(owner);
     internal static bool TwoHanded(Item item)=>item.Parent is not PlayerMobile owner || !Member(owner,item)
-        ?item.Layer==Layer.TwoHanded || ClassGear.Base(item) is{TwoHanded:true,OneOrTwoHanded:false}:false;
+        ?WarlockHands.TwoHandedDamage(item)||item.Layer==Layer.TwoHanded || ClassGear.Base(item) is{TwoHanded:true,OneOrTwoHanded:false}:false;
     internal static bool SecondaryForSequence(int frame,bool damageSelection)=>frame>0 && (!damageSelection || (frame&1)!=0);
     internal static IDisposable Use(PlayerMobile owner,BaseWeapon weapon)
     {

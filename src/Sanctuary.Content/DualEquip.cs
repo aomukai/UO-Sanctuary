@@ -67,6 +67,8 @@ public static class DualEquip
         {
             if(item is BaseWeapon candidate && companion is BaseWeapon existing && WeaponHands.CanPair(owner,candidate,existing))
             {layer=existing.Layer==Layer.OneHanded?Layer.TwoHanded:Layer.OneHanded;pair=true;}
+            else if(WarlockHands.CanPair(owner,item,companion))
+            {pair=true;if(item is WarlockGrimoire){if(companion.Layer==Layer.TwoHanded){shifted=companion;}}else{layer=Layer.OneHanded;}}
             else if(Barbarian(owner) && item is BaseShield && Hybrid(companion) && companion.Layer==Layer.TwoHanded){shifted=companion;}
             else if(Barbarian(owner) && Hybrid(item) && companion is BaseShield){layer=Layer.OneHanded;}
         }
@@ -75,6 +77,7 @@ public static class DualEquip
     internal static void Changed(PlayerMobile owner)
     {
         if(World.Loading || Deferred(owner) || Profiles==null){return;}
+        if(WarlockHands.Innate(owner)){Profiles.Store(owner,null);WarlockHands.Normalize(owner);return;}
         if(!WeaponHands.Supports(owner)){Profiles.Store(owner,null);return;}
         BaseWeapon sole=null;int weapons=0;bool shield=false,otherHand=false;
         foreach(var item in owner.Items)
@@ -124,7 +127,7 @@ public static class DualEquip
         }
         public void Complete(bool equipped)=>_success=equipped && _item.Parent==_owner;
         internal bool PairConflict(Item first,Item second)=>_pair && (first==_item && second==_companion || first==_companion && second==_item)
-            && _item is BaseWeapon && _companion is BaseWeapon;
+            && (_item is BaseWeapon && _companion is BaseWeapon||WarlockHands.CanPair(_owner,first,second));
         public void Dispose()
         {
             if(_disposed){return;}_disposed=true;

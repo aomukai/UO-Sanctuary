@@ -15,7 +15,8 @@ internal sealed record GrimoireSnapshot(string Code,int ItemLevel,int Defense,st
 {public string Profile{get;init;}="captured-normal-grimoire-v1";}
 
 // Captured NORMAL-quality item inputs only. This does not select an automatic
-// row,generate staffmods,roll defense,or authorize player acquisition/equipping.
+// row,generate staffmods,roll defense,or authorize player acquisition. Recipient
+// and native equip policy are supplied by the separate original-item binding.
 internal static class GrimoirePrepared
 {
     private static readonly Dictionary<string,GrimoireBase> Bases=new(StringComparer.Ordinal);

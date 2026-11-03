@@ -163,6 +163,8 @@ public static class EquipmentBalance
             }
             _gear.Add(gear.Type, gear);
         }
+        GrimoireEquipment.Register(_types,_bases,_gear);
+        ValidateType("grim",new HashSet<string>());
     }
     private static void ValidateType(string code, HashSet<string> path)
     {

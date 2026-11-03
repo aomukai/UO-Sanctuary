@@ -14,11 +14,13 @@ public static class GrimoireCaptureChecks
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(GrimoireCaptureChecks));
     private sealed record Saved(uint Owner,uint Item,uint Helm,bool Female,int Mana,int Life,string Capture,int Durability);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"grimoire-capture-fixtures.json");
-    public static void Configure(){Register("grimoire-capture-check",Check);Register("grimoire-capture-reload-check",Reload);}
+    public static void Configure()
+    {Register("grimoire-capture-check",Check);Register("grimoire-capture-reload-check",Reload);
+        Register("grimoire-capture-upgrade-check",Reload);Register("grimoire-capture-upgrade-reload-check",Reload);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Owned Grimoire captures and original saved items",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool condition,string why){if(!condition){throw new InvalidOperationException(why);}}
-    private static Dictionary<string,string>[] Rows(string filename)
+    internal static Dictionary<string,string>[] Rows(string filename)
     {
         var lines=File.ReadAllLines(Path.Join(Core.BaseDirectory,filename));var header=lines[0].Split('\t');
         return lines.Skip(1).Select(line=>line.Split('\t')).Where(cells=>cells.Length==header.Length)
@@ -80,7 +82,9 @@ public static class GrimoireCaptureChecks
             Require(item.SavedText==original&&item.Capture.Grants[0]==new GrimoireGrant(383,3),"Grimoire capture aliases caller/reader arrays");
             Refuses(()=>item.RestorePrepared(item.Capture with{Defense=-1}));
             Require(item.SavedText==original&&item.Parent==owner.Backpack&&item.ItemID==0xEFA&&item.Layer==Layer.TwoHanded
-                &&item.HitPoints==17&&item.MaxHitPoints==20&&!item.CanEquip(owner)&&!ClassGear.Converted(item),"Rejected Grimoire changed state or incomplete native equipment path enabled");
+                &&item.HitPoints==17&&item.MaxHitPoints==20&&ClassGear.Converted(item)&&!ClassGear.Active(owner,item)
+                &&ClassGear.State(item) is{} state&&state.BaseCode==item.Capture.Code&&state.Defense==item.Capture.Defense,
+                "Rejected Grimoire changed capture,durability,bag activation or original gear binding");
             var saved=new Saved(owner.Serial.Value,item.Serial.Value,owner.FindItemOnLayer(Layer.Helm).Serial.Value,female,
                 NecromancerEffects.ManaBalance256(owner),SkillHealth.Balance256(owner),original,item.HitPoints);
             owner.Internalize();owner=null;item=null;return saved;
@@ -96,7 +100,9 @@ public static class GrimoireCaptureChecks
             Require(owner!=null&&item!=null&&item.Parent==owner.Backpack&&owner.Female==saved.Female&&item.SavedText==saved.Capture
                 &&item.HitPoints==saved.Durability&&item.MaxHitPoints==20&&NecromancerEffects.ManaBalance256(owner)==saved.Mana
                 &&SkillHealth.Balance256(owner)==saved.Life&&World.FindItem((Serial)saved.Helm)?.Parent==owner,"Original Warlock/Witch Grimoire/helm/resources lost on reload");
-            GrimoirePrepared.Validate(item.Capture);Require(!item.CanEquip(owner)&&!ClassGear.Converted(item),"Saved incomplete Grimoire equip path enabled");
+            GrimoirePrepared.Validate(item.Capture);GrimoireEquipment.Bind(item);
+            Require(ClassGear.Converted(item)&&!ClassGear.Active(owner,item)&&ClassGear.State(item) is{} state
+                &&state.BaseCode==item.Capture.Code&&state.Defense==item.Capture.Defense,"Original saved Grimoire gear binding changed capture or activated a backpack item");
         }
     }
 }

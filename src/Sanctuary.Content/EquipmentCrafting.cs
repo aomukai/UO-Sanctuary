@@ -129,6 +129,7 @@ public static class EquipmentCrafting
     public static int ItemLevel(GearTier tier) => tier switch { GearTier.Exceptional => 70, GearTier.Elite => 99, _ => 35 };
     public static bool Identity(Type type, GearTier tier, string code, string normal)
     {
+        if(type==typeof(WarlockGrimoire)){return GrimoireEquipment.Identity(type,tier,code);}
         if (tier == GearTier.Normal) { return code == normal; }
         foreach (var row in Recipes) { if (row.Type == type.Name && row.Tier == tier && row.BaseCode == code) { return true; } }
         // Source loot tiers do not require enabling a crafting recipe for the appearance.

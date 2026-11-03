@@ -200,6 +200,7 @@ public sealed class GearProfiles : GenericPersistence
     }
     public static void Validate(Item item, GearState state)
     {
+        GrimoireEquipment.Validate(item,state);
         var definition = NamedGear.Definition(item, state) ?? ClassGear.Definition(item)
             ?? throw new InvalidDataException("Unknown saved gear type.");
         if (state == null || state.Roll == null || !Enum.IsDefined(state.Tier) || !Enum.IsDefined(state.Quality)
@@ -252,7 +253,7 @@ public sealed class GearProfiles : GenericPersistence
             throw new InvalidDataException("Invalid converted base defence or affix count.");
         }
         var groups = new HashSet<int>();
-        int prefixes = 0, suffixes = 0, requirement = Math.Max(basis.RequiredLevel, EquipmentCrafting.EquipFloor(state.Tier));
+        int prefixes = 0, suffixes = 0, requirement = Math.Max(GrimoireEquipment.RequiredLevel(item),Math.Max(basis.RequiredLevel, EquipmentCrafting.EquipFloor(state.Tier)));
         foreach (var affix in state.Roll.Affixes)
         {
             var source = AffixBalance.Find(affix.Definition.Id);

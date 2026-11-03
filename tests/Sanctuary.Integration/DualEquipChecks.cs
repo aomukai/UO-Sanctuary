@@ -34,7 +34,10 @@ public static class DualEquipChecks
         public bool OnCasterMoving(Direction d)=>true;public bool OnCasterUsingObject(IEntity e)=>true;public bool OnCastInTown(Region r)=>true;
     }
     private static string PathName=>Path.Join(Core.BaseDirectory,"dual-equip.json");
-    public static void Configure(){Register("dual-equip-check",Check);Register("dual-equip-reload-check",Reload);}
+    public static void Configure(){Register("dual-equip-check",Check);Register("dual-equip-reload-check",Reload);
+        Register("dual-equip-regression-check",Regression);}
+    private static void Regression()
+    {Failures();Restrictions();var saved=Reverse();World.FindMobile((Serial)saved.Owner)?.Delete();}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Native equip transaction, primary identity and actual equip packet",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception ex){Log.Error(ex,"{Name}: failed",name);}}));
     private static void Require(bool value,string reason){if(!value){throw new InvalidOperationException(reason);}}

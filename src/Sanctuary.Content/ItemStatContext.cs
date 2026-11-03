@@ -23,8 +23,7 @@ internal readonly struct ItemStatContext
     private IEnumerable<(NamedProperty Property, NamedPropertyRoll Roll)> Properties()
     {
         if (ClassGear.State(Item) is not { Identified: true } state || ClassGear.Broken(Item)) { yield break; }
-        if (state.NamedItemId != null) { foreach (var p in NamedGear.IntrinsicProperties(Item)) { yield return p; } }
-        else { foreach (var p in OrdinaryAffixProperties.Properties(state)) { yield return p; } }
+        foreach(var property in EquipmentIntrinsicProperties.For(Item)){yield return property;}
     }
     internal int Bonus(string code) { RequireItem(); return ClassGear.Bonus(Item, code, RecipientLevel); }
     internal EquipmentStatValue[] ActiveNumericProperties()

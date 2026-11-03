@@ -25,7 +25,7 @@ public static class NamedGear
     private static bool Appearance(string name)
     {
         var type = EquipmentCrafting.Resolve(name);
-        return type != null && EquipmentBalance.TryGet(type, out var definition) && definition.Category != "Unarmed"
+        return type != null && type!=typeof(WarlockGrimoire) && EquipmentBalance.TryGet(type, out var definition) && definition.Category != "Unarmed"
             && (typeof(BaseWeapon).IsAssignableFrom(type) || typeof(BaseArmor).IsAssignableFrom(type)
                 || typeof(BaseClothing).IsAssignableFrom(type) || typeof(BaseJewel).IsAssignableFrom(type));
     }
@@ -238,7 +238,7 @@ public static class NamedGear
         foreach(var item in player.Items)
         {
             if(ClassGear.State(item) is not{NamedItemId:null} state || !ClassGear.Active(player,item)){continue;}
-            foreach(var property in OrdinaryAffixProperties.Properties(state))
+            foreach(var property in EquipmentIntrinsicProperties.For(item))
             {if(WeaponHands.Contributes(player,item,property.Property.Code)){yield return property;}}
         }
         foreach (var worn in Equipped(player).Items)

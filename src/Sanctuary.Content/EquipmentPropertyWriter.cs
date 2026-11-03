@@ -156,7 +156,7 @@ internal static class EquipmentRawProperties
             ||ClassGear.State(original) is not{Identified:true} state||ClassGear.Broken(original))
         {throw new NotSupportedException("Numeric projection requires an intact identified original and an unattached item graph");}
         var target=new Target(unit,values,basis,weapon,armor,throwable);var omissions=new List<EquipmentPropertyOmission>();
-        var properties=state.NamedItemId!=null?NamedGear.IntrinsicProperties(original):OrdinaryAffixProperties.Properties(state);
+        var properties=EquipmentIntrinsicProperties.For(original);
         int mode=state.NamedItemId==null?0:state.Roll.Rarity==GearRarity.Unique?3:4;
         foreach(var (property,roll) in properties)
         {

@@ -2,6 +2,8 @@
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This implements the Grimoire data/capture foundation. **Equipping, random generation and player acquisition remain disabled.** No talent or class is newly complete.
 
+**Follow-up:** [gear/innate hand acceptance](grimoire-equip-checkpoint.md) now binds these same saved captures to gear and native pairing. The disabled-equip statements below describe this historical foundation checkpoint. Its strict recorder remains tied to its original source;use the later receipt for the new production transition. Random/named acquisition remains disabled.
+
 All **15 bases across five families** and **eight automatic bonus rows** now have runtime catalogues compiled from the owned armor/automagic tables. The extractor checked the pinned executable and build manifest before and after read-only extraction. The [catalogue receipt](../tools/reference/grimoire-catalogue-evidence.json) records the source hashes. Blank third-property codes contribute no effect even when unused min/max cells contain numbers.
 
 `GrimoirePrepared` validates a supplied normal-quality capture: base, item level, defense, selected automatic row and zero to three distinct Warlock skill grants of ranks1–3. The automatic row must meet the shared affix-level boundary. It projects the existing named-property representation for the magic range or separate fixed fire endpoints and each direct skill grant. It does not select those inputs or claim current-game random-generation parity. Caller and reader arrays are copied so later mutation cannot alter a saved capture; invalid replacements fail before committing.
