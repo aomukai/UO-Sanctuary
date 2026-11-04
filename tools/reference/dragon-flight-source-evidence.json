@@ -1,0 +1,79 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "talentId": "assassin.dragonflight",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "installed": false,
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "readOnlyFileInspection": true,
+  "processMemoryRead": false,
+  "classicDescriptorsMatched": 322,
+  "currentSequence": 21,
+  "currentWeaponProfiles": 14,
+  "runtimePath": "data/Sanctuary/Balance/dragon-flight-sequence.json",
+  "runtimeSha256": "22e14805d86f7b5794ae4aeddaec0e6458d1c86f795375c5898b06e25f2ee966",
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SequenceTbls.h": "ab11d2b45b3b308fa48de9a8b542a9d67b536a1dfe7bf978215f4001f48cd533",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/player_weapon_sequences.py": "98a3105dcd8b763c8c558f407b6e3c5cf254d9bb0884fc4f309823f07c116ca5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "SKILLS_SrvSt12_Telekinesis_DragonFlight": "19b1c797b2abe12f37b937947f8d85720a946f464a0d76c2b801ca1b006f7d49",
+    "D2GAME_GetXAndYFromTargetUnit_6FD14020": "bf7cb76f34f9b068913104c633a7d6fa7b71ff3c319e15ef3106fca54df04a76",
+    "sub_6FCBDFE0": "b7dfd67a8eac506ffd789a9853c76aef242c41d88a1207ec77867f65ae9627ca",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "SKILLS_SrvDo052_DragonFlight": "15ec9e952aba34799e7ea01547faeecfd63323927a2825d520689673b9196aa3",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FC80EE0": "7aa059e046e52e4688c30ef03b67f193336c66b643268593a79c92d0f8bafab2"
+  },
+  "cases": {
+    "start": 5376,
+    "release": 768,
+    "landing": 384,
+    "warp": 256,
+    "coordinates": 18,
+    "sequence": 3845
+  },
+  "sanitizers": "ASan+UBSan clean",
+  "artifacts": {
+    ".local/class-skills/dragon-flight-source/source.cpp": "d910d5d5f19439c7e46f827c308209f8fa3fb524eabd3d861b9efbb82ff85db5",
+    ".local/class-skills/dragon-flight-source/probe": "cdf25ca44c88e892053f4cff9c86ef99397b042d50465ce53c70ca6f4bf1129c",
+    ".local/class-skills/dragon-flight-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dragon-flight-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dragon-flight-source/cases.json": "fcc8bbd7228ed48bba01190f90a2c8ad22ce19c181c95161b9e98861de244e1b",
+    ".local/class-skills/dragon-flight-source/current-sequence21.json": "22e14805d86f7b5794ae4aeddaec0e6458d1c86f795375c5898b06e25f2ee966",
+    "tools/probe_dragon_flight_reference.py": "aec3f7e416afbc82f6fb79f42360e28c43e9c15308f0114c0512342a5dedef68"
+  },
+  "established": [
+    "All14 current-file SQ21 profiles match the classic23point CAST0..9/KICK0..12 sequence, with melee markers at sequence indices9 and14. This is current immutable data, not current code execution.",
+    "The complete older scheduler/player callback maps those visual markers to ordinal0 then1 while retaining fractional sequence bits. Supplied advance0..768 yields ordered ceil(2304/advance) teleport and ceil(3584/advance) kick events; zero advance schedules only end.",
+    "Complete start12 uses inclusive squared38range with hostility and both town checks for living player/monster targets. Complete do52 does not repeat start-range or town validation.",
+    "Even do52 clears the do flag after finding its room, reads current target coordinates and the origin level teleport policy. Policy2 tests flying collision; policy1/3 do not. A zero coordinate refuses before the level lookup.",
+    "The complete warp helper searches free coordinates with player size and mask0x1C09, then commits a path move before refresh/sync/history/timer services. Player history wraps at20. Failed lookup/free-space/path movement produces no success notifications.",
+    "Do52 ignores the warp helper return and returns1 once its own permission gates pass, even if no move occurred. The declared sequence dispatcher still reaches the odd kick after a refused/failed teleport; future native code must explicitly settle this context rather than infer success from do52 return.",
+    "Odd do52 adds progressive AR to the rank AR supplier, builds body/boot damage only on hit, allocates even missed packets with srcdam128 when the row supplies0, then progressive dispatch precedes durability/contact. No ordinary weapon physical or Tail fire burst is substituted."
+  ],
+  "services": [
+    "Formula range38, rank AR60+25*(rank-1), hit flags and progressive AR are explicit suppliers. Complete source packet builders/progressive controllers already have separate receipts; here their calls/ordering are observed, not their internals or modern consume-one semantics.",
+    "Hostility, room/level, flying collision, room lookup, free-coordinate search, path movement, packet/refresh/history clocks and callbacks are explicit world/engine services. The free-space service shifts coordinates(+1,-2) to prove the helper uses its returned position. No UO landing equivalence or current collision algorithm is claimed.",
+    "Sequence speed is a supplied input; normal Assassin SQ mode conversion and used-skill flags0/living owner are supplied. The skill-dispatch seam calls unchanged do52 directly, not the complete generic dispatch/payment/posting chain. Alternate player callback paths abort.",
+    "The existing current-file reader verifies all322 classic descriptors before reading SQ21. No process input, memory attachment, writable game file, installed build/save/config or client change occurs."
+  ],
+  "remaining": [
+    "Current attack-rate selection, mode entry/posting, failed-landing payment/cancellation, landing map rules, natural input/target leeway and save/reload behavior need composed native checks.",
+    "Dragon Tail adaptation remains Tail-specific. Dragon Flight charged accuracy/block/dodge and charge/payment rules need identified source/current evidence or an explicit Sanctuary decision.",
+    "No learned Flight handler, gameplay damage, public binding or class completion is certified. Final teleport/kick/charge effects/audio and separate tree/hotkey icons remain pending."
+  ]
+}

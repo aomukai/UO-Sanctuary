@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e058ecef927822532642c87483776c2ca3909d76de39f3314d6d3d045365a092",
+  "ContentAssemblySha256": "f70d9f7fb9bd2015a7aa1a1fdaeeb56bd8920f47bd812fb6e93e58f22dd48a06",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "f7394657197a1166a35f594890f01847525f78cb85f6f57ddd95e98869317e84",
+    "data/Sanctuary/Balance/class-skill-status.json": "af01e2c3d103f4c050908bafaec986f0f0edc3938efccef9679cf061ceb93450",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -36,6 +36,7 @@
     "data/Sanctuary/Balance/curse-ai-families.json": "4e7f7a763123493b1cae085808f4bbc360984d441d918d3c6c90469f3be886ad",
     "data/Sanctuary/Balance/d2-creature-fields.json": "55c725751934b5fb2aa21714adb87d647aa060c6a1f57825b03c09d1cab9f6af",
     "data/Sanctuary/Balance/d2-monsters.json": "d0e228882dc64cfca3e2c034195b37adb0c6c7969ec77f39706a1bdec3e9b866",
+    "data/Sanctuary/Balance/dragon-flight-sequence.json": "22e14805d86f7b5794ae4aeddaec0e6458d1c86f795375c5898b06e25f2ee966",
     "data/Sanctuary/Balance/druid-human-cast-clock.json": "57fa67d78845e0f69b98ea7fc2ff19c151e7dba5ad576137e9f14b5926412d12",
     "data/Sanctuary/Balance/druid-npc-skills.json": "a1035f769a665a187fa2c867dc4825834a2db02705f9ee8ded7c5b3d4e088084",
     "data/Sanctuary/Balance/druid-spirit-auras.json": "a787100804a8a6c0d43aa26e49dafa6fc259dba5c0e143c68018f1de2d40da5b",
@@ -841,7 +842,7 @@
     "src/Sanctuary.Content/PlayerMeleeGeometry.cs": "d1bc83c4877dc1dbeeb495eb49a26d7eeb5785e9d2c0641de14b20c4f0eceac9",
     "src/Sanctuary.Content/PlayerMeleeReturn.cs": "e26ce78ce7e8c15a7029d7cf5ae642329f4346602237ad8458d80420ca2120a1",
     "src/Sanctuary.Content/PlayerWeaponContact.cs": "ea687b3264915d1b6a6d3b824de1c8b2056a1e2bdb4a75b2181100ab48e1ffb1",
-    "src/Sanctuary.Content/PlayerWeaponSequences.cs": "ac947801a127462aef849361f658642d3f70b3fbc57b2cf3da226a0e5778c2bb",
+    "src/Sanctuary.Content/PlayerWeaponSequences.cs": "edec9fe42fa8f1648be36de46a8d6dfe9c38ea0e3caed8a66144369b67a195f6",
     "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
     "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5138ab46ea33d0f529b72e18664b9677c4cbbde8562d3a8ef9b662e599d891c7",
     "src/Sanctuary.Content/PoisonDaggerContact.cs": "eb90c0218d01dc774049f549531b5f32005a294d2edcf4927d6800d986c77188",
