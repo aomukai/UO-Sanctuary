@@ -488,7 +488,7 @@ public static class ClassCombat
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
         if((DruidFormAttacks.SingleA1(ability)||ability is (CombatAbility.Hunger or CombatAbility.Rabies or CombatAbility.Fury))&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
-        if (ability is CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
+        if (ability is CombatAbility.WakeOfFire or CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
         {
             return 16;

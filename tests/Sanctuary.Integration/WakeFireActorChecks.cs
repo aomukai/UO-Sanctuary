@@ -127,7 +127,7 @@ public static class WakeFireActorChecks
                 &&SkillHealth.Balance256(body)==12850,"Wake old-facet retention/owner difficulty/fractional injury");
             Require(NecromancerEffects.ManaBalance256(p)==mana&&!AssassinTrapRoster.Fighting(p.Serial.Value),"Prepared factory spent input mana or offline actor can fight");
             Create(p); // The exhausted actor has released its live roster slot.
-            Save(p);Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Unfinished Wake learned handler enabled");
+            Save(p);Require(AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Approved Wake learned handler is missing");
             Log.Information("Wake actor:3711 complete damage comparisons, captured fire skills/stats, actual saved S1/direct S2, mixed cap5, offline cancellation, old-facet difficulty/injury and explicit retirement boundary pass; no live wave claim");
         }
         finally{SummonDifficulties.SetFacets(facets);}
@@ -173,7 +173,7 @@ public static class WakeFireActorChecks
         var oldest=saved.Roster[0];var fresh=Create(p);var roster=AssassinTrapRoster.For(p);
         Require(World.FindMobile((Serial)oldest.Actor) is AssassinSentryBody{Alive:false,Deleted:false,Prepared.Retirement:not null}&&roster.Length==5&&roster.Take(4).SequenceEqual(saved.Roster.Skip(1))
             &&roster[^1].Actor==fresh.Serial.Value&&roster[^1].Order>saved.Roster[^1].Order,"Reload mixed cap replaced wrong Wake");
-        Save(p);Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Reload enabled learned Wake");
+        Save(p);Require(AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Reload lost approved learned Wake");
         Log.Information("Wake actor reload:actual entities retain independent S1/S2 clocks, captured fire context, pending/terminal state, injury/facet and shared FIFO; explicit dispatch resumes once");
     }
 }

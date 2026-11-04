@@ -35,7 +35,7 @@ public static class WakeFireAutomaticChecks
     }
     private static void Frames(AssassinSentryBody b,int count)
     {for(int i=0;i<count;i++){b.AdvanceController(b.Prepared.NextFrameUtc,true);}}
-    private static WakeFireSave Scope(AssassinSentryBody b)
+    internal static WakeFireSave Scope(AssassinSentryBody b)
     {
         var all=AssassinWakeFireMissiles.Snapshot();var flights=all.Flights.Where(x=>x.Actor==b.Serial.Value).ToArray();var groups=flights.Select(x=>x.Execution).ToHashSet();
         return new(flights,all.Leases.Where(x=>groups.Contains(x.Execution)).ToArray(),all.NextId);
@@ -45,7 +45,7 @@ public static class WakeFireAutomaticChecks
         for(int i=0;i<count;i++)
         {var flights=Scope(b).Flights;if(flights.Length==0){return;}AssassinWakeFireMissiles.TickFrame(flights.Min(x=>x.NextUtc),actions);}
     }
-    private static void Rearm(AssassinSentryBody b,DateTime at)
+    internal static void Rearm(AssassinSentryBody b,DateTime at)
     {
         var all=AssassinWakeFireMissiles.Snapshot();AssassinWakeFireMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Actor==b.Serial.Value?x with{NextUtc=at}:x).ToArray()});
     }
@@ -88,7 +88,7 @@ public static class WakeFireAutomaticChecks
         WakeFireMissileChecks.PrepareSave();
         SkillHealth.SetBalance256(saved,12850);SkillHealth.Profiles.Prune();Require(SkillHealth.Balance256(saved)==12850,"Pending sentry lost fractional wounds");receiver.MoveToWorld(new(receiver.X,receiver.Y+8,receiver.Z),receiver.Map);p.Internalize();
         Write(new(p.Serial.Value,saved.Serial.Value,receiver.Serial.Value,saved.Prepared,Scope(saved),SkillHealth.Balance256(receiver),mana,0));
-        Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Automatic prepared actor enabled unverified learned input");
+        Require(AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Approved Wake learned route is missing");
     }
     private static void Write(Saved s)=>File.WriteAllText(Manifest,JsonSerializer.Serialize(s));
     private static void Reload()

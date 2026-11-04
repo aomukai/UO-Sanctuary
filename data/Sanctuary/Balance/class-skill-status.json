@@ -2264,10 +2264,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 262,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared automatic S1/direct-S2 actor now creates real source517 makers and opposite518waves. Captured fire packets, supplied four-frame execution leases, source finder/history, cap5 replacement, E9 death and original dying/dead missile ownership are implemented with dedicated native checks. Scoped pools retain their original flights, seed, wounds and ownership across reload; exact NPC placement-versus-do125 execution identity remains uncertain. Learned input/payment, occupied/fallback placement, modern pool/event/room/owner/client and old-fault migration remain individually gated. See wake-fire-automatic-checkpoint.md; final effects/audio and icons remain separate."
+      "remaining": "Learned right/quick do45 cast now reuses shared sentry S2 IAS timing,13mana once-only release,source S1/direct-S2 firing,five shots,moving517makers/opposite518waves,cap5 FIFO and E9 retirement. User-approved per-firing four-frame leases share the two waves while other firings/traps remain independent; original D2R identity stays unresolved reference data. Existing free-cell placement rejects unsupported occupied radius1/4 fallback without payment. See wake-learned-checkpoint.md for input,gear,original paid actor/fire saves and retained sentry coverage. Full current room/terrain/activation/pool/event/owner/PvP/client and old-fault/unheld-save parity remain bounded; no class complete."
     },
     {
       "talentId": "assassin.bladefury",

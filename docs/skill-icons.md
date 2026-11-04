@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Wake of Fire (2026-11-05 JST).** Final Assassin talent-tree and right/quick-hotkey icons remain needed. Existing generic skill/roster placeholders identify the newly available learned route; left binding remains rejected by pinned metadata. No icon slot, protocol field or final artwork is added. See [checkpoint](wake-learned-checkpoint.md).
+
 **Poison Creeper balance (2026-11-05 JST).** Talent-tree and right/quick-hotkey artwork remain separately needed. Existing generic placeholders are retained; the balance profile adds no icon slot and does not enable public learned binding. No final icon is generated. See [checkpoint](creeper-balance-checkpoint.md).
 
 **Learned Lightning Strike (2026-11-05 JST).** A final Amazon talent-tree icon and matching left/right/quick-hotkey artwork remain needed. Existing generic skill/roster placeholders identify the now-bindable skill; no dedicated final icon is supplied. Icon work remains separate from mechanical acceptance. See [checkpoint](lightning-strike-checkpoint.md).

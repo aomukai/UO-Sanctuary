@@ -64,7 +64,7 @@ public static class WakeFirePreparedChecks
         Require(n==210,"Wake source factory supported-plan fixture inventory");
         var zero=new Point2D(0,0);Require(AssassinWakeFire.Perpendicular(zero)==zero,"Rotate original zero vector before factory fallback");
         Require(AssassinWakeFire.Perpendicular(new(12,-17))==new Point2D(17,12),"Wake stored perpendicular");
-        Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Prepared Wake must not expose an unfinished learned action");
+        Require(AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Approved Wake learned route is missing");
     }
     private static WakeFireControlState[] Controller()
     {

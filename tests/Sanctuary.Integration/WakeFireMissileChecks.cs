@@ -90,7 +90,7 @@ public static class WakeFireMissileChecks
         // Receiver is moved off the held inspection path before the real save.
         target.MoveToWorld(new(target.X,target.Y+8,target.Z),target.Map);p.Internalize();
         Write(new(p.Serial.Value,body.Serial.Value,target.Serial.Value,body.Prepared,held,health,mana,0));
-        Require(!AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Prepared backend enabled learned casting");
+        Require(AssassinCombat.Implemented(CombatAbility.WakeOfFire),"Approved Wake learned route is missing");
     }
     private static void Write(Saved saved)=>File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
     private static WakeFireSave Scope(uint actor)

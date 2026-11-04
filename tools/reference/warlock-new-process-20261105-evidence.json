@@ -1,0 +1,81 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "process": {
+    "pid": 335492,
+    "startTicks": 8912766,
+    "name": "Main"
+  },
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "bytesRead": 1216,
+  "records": [
+    {
+      "slot": 36,
+      "rva": "0x44c6d0",
+      "totalBytes": 921,
+      "unwindFragmentCount": 1,
+      "identityVerified": false,
+      "fragments": [
+        {
+          "rva": "0x44c6d0",
+          "endRva": "0x44ca69",
+          "unwindRva": "0x1867bb8",
+          "permissions": "---s",
+          "captured": false,
+          "reason": "Not a readable executable range or outside this capture budget"
+        }
+      ],
+      "allUnwindFragmentsCaptured": false
+    },
+    {
+      "slot": 37,
+      "rva": "0x44ca70",
+      "totalBytes": 458,
+      "unwindFragmentCount": 1,
+      "identityVerified": false,
+      "fragments": [
+        {
+          "rva": "0x44ca70",
+          "endRva": "0x44cc3a",
+          "unwindRva": "0x1867bdc",
+          "permissions": "---s",
+          "captured": false,
+          "reason": "Not a readable executable range or outside this capture budget"
+        }
+      ],
+      "allUnwindFragmentsCaptured": false
+    },
+    {
+      "slot": 40,
+      "rva": "0x44cc40",
+      "totalBytes": 897,
+      "unwindFragmentCount": 1,
+      "identityVerified": false,
+      "fragments": [
+        {
+          "rva": "0x44cc40",
+          "endRva": "0x44cfc1",
+          "unwindRva": "0x18224e4",
+          "permissions": "---s",
+          "captured": false,
+          "reason": "Not a readable executable range or outside this capture budget"
+        }
+      ],
+      "allUnwindFragmentsCaptured": false
+    }
+  ],
+  "immutableAnchorsMatched": true,
+  "modContext": "Process command selects D2RMM and txt. No observed gameplay is used as vanilla mechanical evidence.",
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "established": "New process identity revalidated the pinned header, player-sequence and event-candidate tables. Slots36/37/40 remain unreadable ---s; no callback code bytes were requested. Continue unaffected mechanics without retrying unchanged pages.",
+  "evidence": {
+    ".local/class-skills/warlock-runtime-20261105-p335492/event-bodies-36-37-40.json": "27abf6e83972199d30cff2cbb74fa2f2448187c91e37f80db2c7a9dab01eb8de",
+    ".local/class-skills/warlock-new-process-capture-20261105.log": "154f76d1ffb56d73c92fce2305dabd68193b8683b4d783ac5614b33f2217a804",
+    "tools/capture_warlock_event_bodies.py": "08ac70c28b4ea9952be5c45bd7ecee617d8f32758cc62d878d3420df5a7823fb",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/probe_warlock_event_reference.py": "a5bf0e827cb848c109778737033f3055d905dda446e3f744349bc4d487f1617c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e"
+  }
+}

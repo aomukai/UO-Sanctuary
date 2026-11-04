@@ -14,7 +14,7 @@ internal static class AssassinSentryCasts
     internal static ActionTiming Timing(PlayerMobile owner)=>LobProjectiles.Timing(owner);
     internal static bool Supported(PlayerMobile owner,CombatAbility ability=CombatAbility.ChargedBoltSentry)
     {
-        if(owner is not{Alive:true,Deleted:false} || ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry) || !AssassinCombat.Available(owner,ability)){return false;}
+        if(owner is not{Alive:true,Deleted:false} || ability is not(CombatAbility.WakeOfFire or CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry) || !AssassinCombat.Available(owner,ability)){return false;}
         try{_=AssassinSentryCreation.Capture(owner,ability);return true;}
         catch(NotSupportedException){return false;}
     }

@@ -26,11 +26,10 @@ public sealed class WakeFireMissileProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Wake fire missile version");}AssassinWakeFireMissiles.Restore(JsonSerializer.Deserialize<WakeFireSave>(reader.ReadString()));}
 }
 
-// Prepared real maker/wave backend. One supplied NPC do125 execution and its
-// descendants share a four-frame lease. The shipped current guide describes
-// same-cast isolation; exact modern NPC shot-versus-placement identity remains
-// acceptance work. Learned casting stays gated; automatic actor firing uses
-// one explicit execution for each do125 call and retains that interpretation.
+// Real maker/wave backend. Approved Sanctuary rule: one NPC do125 firing
+// and its descendants share a four-frame lease; other firings/traps are
+// independent. The exact D2R NPC shot-versus-placement identity remains
+// unresolved reference data, superseded only by that approved adaptation.
 // Shared native Q12/cell/terrain adapters retain their existing geometry limits.
 public static class AssassinWakeFireMissiles
 {

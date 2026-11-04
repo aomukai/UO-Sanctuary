@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "decision": "approved Sanctuary adaptation",
+  "question": "Wake of Fire\u2019s waves and trap AI work, but D2R\u2019s hidden hit-delay identity is unresolved. Which Sanctuary rule should we use for its four-frame delay? This would let us finish its learned cast route.",
+  "answer": "Share the delay within each firing\u2019s two waves; separate firings and traps are independent (recommended)",
+  "rule": "Each NPC do125 firing creates one execution identity. Its maker and opposite wave descendants share a four-frame target lease. Other firings and traps use different identities. Existing emitted state already stores these identities; no reinterpretation or persistence-version change.",
+  "isD2RObservation": false,
+  "stillUncertain": [
+    "Exact D2R NPC placement-versus-firing NextDelay identity; superseded only by this approved policy.",
+    "Existing source room/geometry, occupied radius1/4 fallback, current global event/pool/owner/PvP/client and old-fault migration limits remain explicit."
+  ]
+}
