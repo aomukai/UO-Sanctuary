@@ -58,6 +58,8 @@ public static class NecromancerCombat
         if(ability==CombatAbility.RaiseSkeletalMage)
         {try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if (ability is CombatAbility.BoneArmor or CombatAbility.PoisonNova) { selected = Serial.Zero; point = owner.Location; }
+        if(ability==CombatAbility.BonePrison&&selected==Serial.Zero)
+        {if(BoneBarrierCasts.AcquirePrison(owner,point) is not{} primary){return false;}selected=primary.Serial;}
         if(BoneBarrierCasts.Handles(ability)&&!BoneBarrierCasts.Point(owner,ability,selected,point,out point)){return false;}
         var session = ClassCombat.For(owner);
         if (!Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed

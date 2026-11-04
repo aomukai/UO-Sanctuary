@@ -870,7 +870,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Twelve destructible source anchors with provisional raster connectors enclose the target. Native gap/destruction/lifetime/reload checks; exact footprint, incomplete terrain, projectile exceptions and difficulty scaling remain."
+      "remaining": "Twelve destructible source anchors with provisional raster connectors enclose the target. Native gap/destruction/lifetime/reload checks; exact footprint, incomplete terrain, projectile exceptions and difficulty scaling remain. Approved Sanctuary ground-click acquisition uses a two-tile circle, cursor-nearest eligible monster and lowest-serial exact ties; the acquired primary survives held ground refresh and ordinary release tracking. Direct self/ally targeting remains. This targeting aid is a design deviation, not a measured D2R client rule; see bone-prison-aim-checkpoint.md."
     },
     {
       "talentId": "necromancer.poisonnova",

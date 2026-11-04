@@ -311,9 +311,9 @@ public static class ClassCombat
         session.HoldUntil = now + CombatProtocol.HoldLeaseMs;
         if (ability != CombatAbility.Teleport && session.PendingAbility == ability && session.PendingLeft == attack)
         {
-            // Ground FoH/Psychic Hammer already acquired a primary. Held empty-ground input
+            // Ground FoH/Psychic Hammer/Bone Prison already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(ability!=CombatAbility.Conversion && ability!=CombatAbility.Zeal && ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.Conversion && ability!=CombatAbility.Zeal && ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer or CombatAbility.BonePrison) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);

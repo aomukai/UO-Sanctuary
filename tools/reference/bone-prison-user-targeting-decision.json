@@ -5,5 +5,12 @@
   "approvedSanctuaryBehavior": "Clicking empty ground near a monster may acquire that monster for Bone Prison.",
   "notObserved": "This is approval of a Sanctuary targeting aid, not a D2R reference observation. Exact native acquisition radius, facing and tie-breaking remain unverified.",
   "implementation": "Reuse existing acquisition helpers; choose and document a bounded radius and deterministic tie-breaking as Sanctuary policy.",
-  "status": "Approved; implementation follows the current original-summon Iron Maiden checkpoint."
+  "status": "Implemented and verified in bone-prison-aim build 1/run 2, including six actual ground right/quick casts and two reloads.",
+  "implementationPolicy": {
+    "radiusUOTiles": 2,
+    "distance": "Euclidean circle around cursor; boundary included",
+    "selection": "Nearest eligible hostile living non-invulnerable monster to cursor; lowest serial on exact ties",
+    "facing": "No facing half-plane restriction",
+    "primary": "Acquire at begin; retain across held ground refresh and use ordinary release tracking; no reacquisition on target loss"
+  }
 }

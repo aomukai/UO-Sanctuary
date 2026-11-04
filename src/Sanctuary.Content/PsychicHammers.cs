@@ -21,18 +21,8 @@ public static class PsychicHammers
             && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(target.Location,target);
     }
     internal static Mobile Acquire(PlayerMobile owner,Point3D cursor)
-    {
-        if(owner.Map==null || owner.Map==Map.Internal || !owner.InRange(cursor,CombatProtocol.TeethRange) || !owner.InLOS(cursor)){return null;}
-        Mobile closest=null;long distance=long.MaxValue;bool tied=false;
-        foreach(var target in owner.Map.GetMobilesInRange<Mobile>(cursor,NearClickTiles))
-        {
-            long dx=target.X-cursor.X,dy=target.Y-cursor.Y,squared=dx*dx+dy*dy;
-            if(squared>NearClickTiles*NearClickTiles || !Valid(owner,target.Serial)){continue;}
-            if(squared<distance){distance=squared;closest=target;tied=false;}else if(squared==distance){tied=true;}
-        }
-        // Exact equidistant tie and edge geometry remain unverified.
-        return tied?null:closest;
-    }
+        // Preserve the existing unverified-tie refusal for Psychic Hammer.
+        =>NearClickTargets.Acquire(owner,cursor,NearClickTiles,target=>Valid(owner,target.Serial));
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
         if(selected==Serial.Zero){if(Acquire(owner,point) is not{} target){return false;}selected=target.Serial;}

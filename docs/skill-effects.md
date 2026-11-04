@@ -1,5 +1,7 @@
 # Skill effects
 
+**Bone Prison ground acquisition (2026-11-04 JST).** The approved targeting aid reuses the existing identified cast and barrier placeholders. It adds no separate effect or audio cue. Final Bone Prison cast/barrier/status feedback and audio remain pending independently of mechanics. See [checkpoint](bone-prison-aim-checkpoint.md).
+
 **Original summon Iron Maiden (2026-11-04 JST).** Cursed summon contact reuses the existing identified curse-state and retaliation placeholders, including `0x374A`/hue `0x481`. Final Iron Maiden state/return feedback and audio remain pending; this correction adds no separate effect or artwork. See [checkpoint](npc-iron-maiden-checkpoint.md).
 
 **NPC allocation-time armor reduction (2026-11-04 JST).** The mechanical setup correction reuses existing Revive/Iron contact and status placeholders. It creates no separate skill effect or audio cue. Final summon/contact/status feedback and audio remain pending in this register; no imagegen artwork was created. See [checkpoint](npc-armor-setup-checkpoint.md).
