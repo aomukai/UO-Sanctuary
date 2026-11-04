@@ -1,5 +1,7 @@
 # Skill icons
 
+**Poison Explosion ground targeting (2026-11-04 JST).** Existing talent/right/quick buttons and identified placeholders remain; no skill or binding/icon was added. Final PE icons stay separate from cloud effects/audio. See [checkpoint](poison-corpse-aim-checkpoint.md).
+
 **Necromancer town permissions (2026-11-04 JST).** No skill, button or hotkey was added. Existing Necromancer talent/right/quick placeholder and final-icon requirements remain separate from effects/audio. This server gate adds no independent icon. See [checkpoint](necro-town-checkpoint.md).
 
 **Corpse Explosion ground targeting (2026-11-04 JST).** No skill or button was added. CE talent-tree and right/quick icon placeholders and pending final artwork remain separate from effects/audio. See [checkpoint](corpse-aim-checkpoint.md).
