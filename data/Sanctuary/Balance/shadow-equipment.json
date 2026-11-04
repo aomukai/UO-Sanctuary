@@ -1,0 +1,332 @@
+[
+  {
+    "Ability": "ShadowWarrior",
+    "Rows": [
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 4,
+            "Code": "ces",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 5,
+            "Code": "btl",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 3,
+            "Code": "",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 1,
+            "Code": "",
+            "Quality": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Ability": "ShadowMaster",
+    "Rows": [
+      {
+        "Rank": 17,
+        "Choices": [
+          {
+            "Slot": 2,
+            "Code": "amu",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 13,
+        "Choices": [
+          {
+            "Slot": 7,
+            "Code": "rin",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 11,
+        "Choices": [
+          {
+            "Slot": 4,
+            "Code": "7ar",
+            "Quality": 6
+          },
+          {
+            "Slot": 4,
+            "Code": "7xf",
+            "Quality": 6
+          },
+          {
+            "Slot": 4,
+            "Code": "7qr",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 11,
+        "Choices": [
+          {
+            "Slot": 5,
+            "Code": "7cs",
+            "Quality": 6
+          },
+          {
+            "Slot": 5,
+            "Code": "7tw",
+            "Quality": 6
+          },
+          {
+            "Slot": 5,
+            "Code": "7qr",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 11,
+        "Choices": [
+          {
+            "Slot": 10,
+            "Code": "ulg",
+            "Quality": 6
+          },
+          {
+            "Slot": 10,
+            "Code": "umg",
+            "Quality": 6
+          },
+          {
+            "Slot": 10,
+            "Code": "uhg",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 11,
+        "Choices": [
+          {
+            "Slot": 6,
+            "Code": "rin",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 11,
+        "Choices": [
+          {
+            "Slot": 3,
+            "Code": "",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 11,
+        "Choices": [
+          {
+            "Slot": 1,
+            "Code": "",
+            "Quality": 6
+          }
+        ]
+      },
+      {
+        "Rank": 9,
+        "Choices": [
+          {
+            "Slot": 6,
+            "Code": "rin",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 6,
+        "Choices": [
+          {
+            "Slot": 4,
+            "Code": "7ar",
+            "Quality": 4
+          },
+          {
+            "Slot": 4,
+            "Code": "7xf",
+            "Quality": 4
+          },
+          {
+            "Slot": 4,
+            "Code": "7qr",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 6,
+        "Choices": [
+          {
+            "Slot": 5,
+            "Code": "7cs",
+            "Quality": 4
+          },
+          {
+            "Slot": 5,
+            "Code": "7tw",
+            "Quality": 4
+          },
+          {
+            "Slot": 5,
+            "Code": "7qr",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 6,
+        "Choices": [
+          {
+            "Slot": 10,
+            "Code": "ulg",
+            "Quality": 4
+          },
+          {
+            "Slot": 10,
+            "Code": "umg",
+            "Quality": 4
+          },
+          {
+            "Slot": 10,
+            "Code": "uhg",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 6,
+        "Choices": [
+          {
+            "Slot": 3,
+            "Code": "",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 6,
+        "Choices": [
+          {
+            "Slot": 1,
+            "Code": "",
+            "Quality": 4
+          }
+        ]
+      },
+      {
+        "Rank": 5,
+        "Choices": [
+          {
+            "Slot": 10,
+            "Code": "ulg",
+            "Quality": 3
+          },
+          {
+            "Slot": 10,
+            "Code": "umg",
+            "Quality": 3
+          },
+          {
+            "Slot": 10,
+            "Code": "uhg",
+            "Quality": 3
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 4,
+            "Code": "7ar",
+            "Quality": 3
+          },
+          {
+            "Slot": 4,
+            "Code": "7xf",
+            "Quality": 3
+          },
+          {
+            "Slot": 4,
+            "Code": "7qr",
+            "Quality": 3
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 5,
+            "Code": "7cs",
+            "Quality": 3
+          },
+          {
+            "Slot": 5,
+            "Code": "7tw",
+            "Quality": 3
+          },
+          {
+            "Slot": 5,
+            "Code": "7qr",
+            "Quality": 3
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 3,
+            "Code": "",
+            "Quality": 3
+          }
+        ]
+      },
+      {
+        "Rank": 0,
+        "Choices": [
+          {
+            "Slot": 1,
+            "Code": "",
+            "Quality": 3
+          }
+        ]
+      }
+    ]
+  }
+]

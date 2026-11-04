@@ -89,17 +89,6 @@ public static class ValkyrieAffixes
     {
         ArgumentNullException.ThrowIfNull(create);
         if(rank is <1 or >255 || itemLevel is <1 or >787){throw new ArgumentOutOfRangeException();}
-        var filled=new HashSet<int>(occupied??Array.Empty<int>());
-        if(filled.Any(slot=>slot is <1 or >10)){throw new ArgumentOutOfRangeException(nameof(occupied));}
-        foreach(var row in _equipment)
-        {
-            if(row.Rank>rank){continue;}
-            // Every visited row consumes a pet-seed draw, including singleton
-            // choices and occupied slots. Item creation uses a separate seed.
-            var choice=row.Choices[(int)Next(ref petSeed,row.Choices.Length)];
-            if(!filled.Contains(choice.Slot) && create(new(choice.Slot,choice.Code,choice.Quality,itemLevel)))
-            {filled.Add(choice.Slot);}
-            // Failure leaves the slot free, so later lower-rank rows can retry.
-        }
+        SummonEquipment.Select(_equipment,rank,itemLevel,ref petSeed,create,occupied);
     }
 }
