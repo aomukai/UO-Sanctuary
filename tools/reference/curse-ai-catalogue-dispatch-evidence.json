@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "cases": 4416,
+  "families": 92,
+  "routines": {
+    "AITHINK_GetAiTableRecord": "be5a3ced81e1d61906f25bed3313ca849aac500c4a1be080fe0f331df2de9cf3",
+    "AITHINK_ExecuteAiFn": "9ad9d0d1f720ebba6055aa3fc2afc9cd0b701d47edd289effac538886bec67d3"
+  },
+  "sourceBodiesUnchanged": true,
+  "onlyCppChange": "main index array expanded from six established indices to all92 catalogue-admitted indices",
+  "evidence": {
+    "tools/probe_curse_ai_catalogue.py": "4d162892d0c36522967adc5a23118834c438e72823d0cb3e6fc9f1b4378dc237",
+    "tools/reference/curse-ai-transitions-source-evidence.json": "10950c5bc6c8759e8e36cc29ff973272ec88ee414c05c6710bc16cf385882f37",
+    "tools/reference/curse-ai-catalogue-source-evidence.json": "95486adfa2be463973f0314536c021e93c9c686308302b0103f5ae9244a60e04",
+    ".local/class-skills/curse-ai-transitions-source/probe.cpp": "64833004c181d33183e33cafafcc9480db65ce58123f29b1c65361230188db12",
+    ".local/class-skills/curse-ai-catalogue-source/probe.cpp": "bb40124fd59b4df47c61d74aeaa45e87620bb1fe3f1a9f663e50325593cc226a",
+    ".local/class-skills/curse-ai-catalogue-source/cases.json": "31f40037e2032c9887f5897c05c688c86b70446e96979b0a8b0900c1ec1070f0",
+    ".local/class-skills/curse-ai-catalogue-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/curse-ai-catalogue-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limits": [
+    "Function pointers outside the two complete dispatcher bodies are identity/invocation services; their AI bodies do not execute. Terror initializer and blind/fear behavior retain their existing independent source/native evidence.",
+    "Current monstats family names are pinned data. This does not prove current executable table indices, engine timing, native path/scan/global RNG, or unsupported ownership/conversion transitions. No native monster classifications are invented.",
+    "Source table lookup/dispatch and its Sand Maggot deferred-exit counterexample execute. Referenced AI bodies remain declared pointer services;current code execution and all native world behavior are separate."
+  ]
+}

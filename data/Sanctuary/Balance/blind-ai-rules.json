@@ -1,5 +1,759 @@
 [
   {
+    "Source": "andariel",
+    "Delay": [
+      15,
+      11,
+      9
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "arach7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baalcrabstairs",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baalhighpriest",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baalminion1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baalminion2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baalminion3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baaltaunt",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baaltentacle1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baaltentacle2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baaltentacle3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baaltentacle4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baaltentacle5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "baboon8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "barricadetower",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead10",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bighead9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bloodlord7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "blunderbore1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "blunderbore2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "blunderbore3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "blunderbore4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "blunderbore5",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "blunderbore6",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "bonefetish7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "brute1",
     "Delay": [
       15,
@@ -65,6 +819,435 @@
     ]
   },
   {
+    "Source": "cantor1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cantor2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cantor3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cantor4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cantor5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cantor6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapult1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapult2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapult3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapult4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapultspotter1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapultspotter2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapultspotter3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "catapultspotter4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper10",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "clawviper9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "corruptrogue1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "corruptrogue2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "corruptrogue3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "corruptrogue4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "corruptrogue5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "corruptrogue6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "councilmember1",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "councilmember2",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "councilmember3",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "cowking",
     "Delay": [
       15,
@@ -78,11 +1261,518 @@
     ]
   },
   {
+    "Source": "cr_archer1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer6",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer7",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_archer8",
+    "Delay": [
+      15,
+      13,
+      11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer6",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer7",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer8",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "cr_lancer9",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "darkelder",
     "Delay": [
       15,
       14,
       13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "darkwanderer",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "deathmauler1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "deathmauler2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "deathmauler3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "deathmauler4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "deathmauler5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "deathmauler6",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "demonhole",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "dkfig1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "dkfig2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "dkmag1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "dkmag2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "dkmag3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "doomknight1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "doomknight2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "doomknight3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "duriel",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "evilhole1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "evilhole2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "evilhole3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "evilhole4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "evilhole5",
+    "Delay": [
+      15,
+      15,
+      15
     ],
     "Range": [
       0,
@@ -187,6 +1877,617 @@
       15,
       14,
       13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallenshaman8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish11",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetish8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fetishblow8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fingermage1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fingermage2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fingermage3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fingermage4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fingermage5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "firebeast",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "firetower",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "flyingscimitar",
+    "Delay": [
+      15,
+      13,
+      10
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow6",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow7",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "foulcrow8",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "frozenhorror1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "frozenhorror2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "frozenhorror3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "frozenhorror4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "frozenhorror5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "gargoyletrap",
+    "Delay": [
+      15,
+      15,
+      15
     ],
     "Range": [
       0,
@@ -325,7 +2626,267 @@
     ]
   },
   {
+    "Source": "griswold",
+    "Delay": [
+      15,
+      13,
+      10
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "hellbovine",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "hellmeteor",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "hephasto",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "iceglobe",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "invisospawner",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "izual",
+    "Delay": [
+      15,
+      12,
+      8
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "lightningbeast",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "lightningspire",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotbaby1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotbaby2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotbaby3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotbaby4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotbaby5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotbaby6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotegg1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotegg2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotegg3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotegg4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotegg5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "maggotegg6",
     "Delay": [
       15,
       14,
@@ -408,6 +2969,1475 @@
       15,
       13,
       11
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mephisto",
+    "Delay": [
+      15,
+      10,
+      6
+    ],
+    "Range": [
+      0,
+      40,
+      46
+    ]
+  },
+  {
+    "Source": "mephistospirit",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion10",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion11",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "minion9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mosquito1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mosquito2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mosquito3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mosquito4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mummy1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mummy2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mummy3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mummy4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mummy5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "mummy6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "overseer1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "overseer2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "overseer3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "overseer4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "overseer5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "overseer6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "painworm1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "painworm2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "painworm3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "painworm4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "painworm5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "pantherwoman1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "pantherwoman2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "pantherwoman3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "pantherwoman4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "pantherwoman5",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "pantherwoman6",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "poisonorb",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "putriddefiler1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "putriddefiler2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "putriddefiler3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "putriddefiler4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "putriddefiler5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillbear1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillbear2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillbear3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillbear4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillbear5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat6",
+    "Delay": [
+      15,
+      12,
+      9
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat7",
+    "Delay": [
+      15,
+      12,
+      9
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "quillrat8",
+    "Delay": [
+      15,
+      12,
+      9
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "radament",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "reanimatedhorde1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "reanimatedhorde2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "reanimatedhorde3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "reanimatedhorde4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "reanimatedhorde5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "reanimatedhorde6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "regurgitator1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "regurgitator2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "regurgitator3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "regurgitator4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "rogue3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandleaper7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider10",
+    "Delay": [
+      15,
+      9,
+      7
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider6",
+    "Delay": [
+      15,
+      9,
+      7
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider7",
+    "Delay": [
+      15,
+      9,
+      7
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider8",
+    "Delay": [
+      15,
+      9,
+      7
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sandraider9",
+    "Delay": [
+      15,
+      9,
+      7
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "scarab8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "seventombs",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "siegebeast1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "siegebeast2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "siegebeast3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "siegebeast4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "siegebeast5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer10",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer11",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "sk_archer9",
+    "Delay": [
+      15,
+      14,
+      13
     ],
     "Range": [
       0,
@@ -520,6 +4550,487 @@
     ]
   },
   {
+    "Source": "skmage_cold1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_cold2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_cold3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_cold4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_cold5",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_cold6",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire5",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire6",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_fire7",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng5",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng6",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_ltng7",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois4",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois5",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois6",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "skmage_pois7",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger7",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger8",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "slinger9",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "smith",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "snowyeti1",
     "Delay": [
       15,
@@ -572,7 +5083,1333 @@
     ]
   },
   {
+    "Source": "succubus1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubus8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "succubuswitch9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion10",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion11",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "suicideminion9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "summoner",
+    "Delay": [
+      15,
+      13,
+      10
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "swarm1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "swarm2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "swarm3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "swarm4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "swarm5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "thornhulk1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "thornhulk2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "thornhulk3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "thornhulk4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "thornhulk5",
+    "Delay": [
+      15,
+      13,
+      12
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "trap-horzmissile",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "trap-melee",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "trap-nova",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "trap-vertmissile",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "trappedsoul1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "trappedsoul2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "turret1",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "turret2",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "turret3",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "uberandariel",
+    "Delay": [
+      15,
+      11,
+      9
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "uberduriel",
+    "Delay": [
+      15,
+      15,
+      15
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "uberizual",
+    "Delay": [
+      15,
+      12,
+      8
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "ubermephisto",
+    "Delay": [
+      15,
+      10,
+      6
+    ],
+    "Range": [
+      0,
+      40,
+      46
+    ]
+  },
+  {
+    "Source": "unraveler1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "unraveler9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vampire9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "venomlord",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilechild1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilechild2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilechild3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilechild4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilechild5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilemother1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilemother2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilemother3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilemother4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "vilemother5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "willowisp8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "wraith9",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zealot1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zealot2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zealot3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zealot4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "zealot5",
     "Delay": [
       15,
       14,

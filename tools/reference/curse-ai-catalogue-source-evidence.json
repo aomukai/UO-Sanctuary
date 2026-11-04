@@ -1,0 +1,1388 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "processMemoryRead": false,
+  "currentExecutableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "classicTableRva": "0x1d18810",
+  "classicDescriptors": 148,
+  "callbackNullPatternsChecked": 444,
+  "selected": [
+    {
+      "index": 2,
+      "family": "Skeleton",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn002_Skeleton",
+      "exit": "nullptr"
+    },
+    {
+      "index": 3,
+      "family": "Zombie",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn003_Zombie",
+      "exit": "nullptr"
+    },
+    {
+      "index": 4,
+      "family": "Bighead",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn004_Bighead",
+      "exit": "nullptr"
+    },
+    {
+      "index": 5,
+      "family": "BloodHawk",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn005_BloodHawk",
+      "exit": "nullptr"
+    },
+    {
+      "index": 6,
+      "family": "Fallen",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn006_Fallen",
+      "exit": "nullptr"
+    },
+    {
+      "index": 7,
+      "family": "Brute",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn007_Brute",
+      "exit": "nullptr"
+    },
+    {
+      "index": 8,
+      "family": "SandRaider",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn008_SandRaider",
+      "exit": "nullptr"
+    },
+    {
+      "index": 9,
+      "family": "Wraith",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn009_Wraith",
+      "exit": "nullptr"
+    },
+    {
+      "index": 10,
+      "family": "CorruptRogue",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn010_CorruptRogue",
+      "exit": "nullptr"
+    },
+    {
+      "index": 11,
+      "family": "Baboon",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn011_Baboon",
+      "exit": "nullptr"
+    },
+    {
+      "index": 12,
+      "family": "Goatman",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn012_019_Goatman_Swarm",
+      "exit": "nullptr"
+    },
+    {
+      "index": 13,
+      "family": "FallenShaman",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn013_FallenShaman",
+      "exit": "nullptr"
+    },
+    {
+      "index": 14,
+      "family": "QuillRat",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn014_QuillRat",
+      "exit": "nullptr"
+    },
+    {
+      "index": 16,
+      "family": "ClawViper",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn016_ClawViper",
+      "exit": "nullptr"
+    },
+    {
+      "index": 17,
+      "family": "SandLeaper",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn017_SandLeaper",
+      "exit": "nullptr"
+    },
+    {
+      "index": 18,
+      "family": "PantherWoman",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn018_PantherWoman",
+      "exit": "nullptr"
+    },
+    {
+      "index": 19,
+      "family": "Swarm",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn012_019_Goatman_Swarm",
+      "exit": "nullptr"
+    },
+    {
+      "index": 20,
+      "family": "Scarab",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn020_Scarab",
+      "exit": "nullptr"
+    },
+    {
+      "index": 21,
+      "family": "Mummy",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn021_Mummy",
+      "exit": "nullptr"
+    },
+    {
+      "index": 22,
+      "family": "GreaterMummy",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn022_GreaterMummy",
+      "exit": "nullptr"
+    },
+    {
+      "index": 24,
+      "family": "Mosquito",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn024_Mosquito",
+      "exit": "nullptr"
+    },
+    {
+      "index": 25,
+      "family": "WillOWisp",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn025_Willowisp",
+      "exit": "nullptr"
+    },
+    {
+      "index": 26,
+      "family": "Arach",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn026_Arach",
+      "exit": "nullptr"
+    },
+    {
+      "index": 27,
+      "family": "ThornHulk",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn027_ThornHulk",
+      "exit": "nullptr"
+    },
+    {
+      "index": 28,
+      "family": "Vampire",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn028_Vampire",
+      "exit": "nullptr"
+    },
+    {
+      "index": 30,
+      "family": "Fetish",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn030_Fetish",
+      "exit": "nullptr"
+    },
+    {
+      "index": 33,
+      "family": "HellMeteor",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn033_HellMeteor",
+      "exit": "nullptr"
+    },
+    {
+      "index": 34,
+      "family": "Andariel",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn034_Andariel",
+      "exit": "nullptr"
+    },
+    {
+      "index": 35,
+      "family": "CorruptArcher",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn035_CorruptArcher",
+      "exit": "nullptr"
+    },
+    {
+      "index": 36,
+      "family": "CorruptLancer",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn036_CorruptLancer",
+      "exit": "nullptr"
+    },
+    {
+      "index": 37,
+      "family": "SkeletonBow",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn037_SkeletonBow",
+      "exit": "nullptr"
+    },
+    {
+      "index": 38,
+      "family": "MaggotLarva",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn038_MaggotLarva",
+      "exit": "nullptr"
+    },
+    {
+      "index": 39,
+      "family": "PinHead",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn039_PinHead",
+      "exit": "nullptr"
+    },
+    {
+      "index": 40,
+      "family": "MaggotEgg",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn040_MaggotEgg",
+      "exit": "nullptr"
+    },
+    {
+      "index": 44,
+      "family": "Duriel",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn044_Duriel",
+      "exit": "nullptr"
+    },
+    {
+      "index": 46,
+      "family": "ElementalBeast",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn046_ElementalBeast",
+      "exit": "nullptr"
+    },
+    {
+      "index": 47,
+      "family": "FlyingScimitar",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn047_FlyingScimitar",
+      "exit": "nullptr"
+    },
+    {
+      "index": 48,
+      "family": "ZakarumZealot",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn048_ZakarumZealot",
+      "exit": "nullptr"
+    },
+    {
+      "index": 49,
+      "family": "ZakarumPriest",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn049_ZakarumPriest",
+      "exit": "nullptr"
+    },
+    {
+      "index": 50,
+      "family": "Mephisto",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn050_Mephisto",
+      "exit": "nullptr"
+    },
+    {
+      "index": 53,
+      "family": "Summoner",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn053_Summoner",
+      "exit": "nullptr"
+    },
+    {
+      "index": 55,
+      "family": "Izual",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn055_Izual",
+      "exit": "nullptr"
+    },
+    {
+      "index": 62,
+      "family": "TownRogue",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn062_TownRogue",
+      "exit": "nullptr"
+    },
+    {
+      "index": 63,
+      "family": "GargoyleTrap",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn063_GargoyleTrap",
+      "exit": "nullptr"
+    },
+    {
+      "index": 64,
+      "family": "SkeletonMage",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn064_SkeletonMage",
+      "exit": "nullptr"
+    },
+    {
+      "index": 68,
+      "family": "VileMother",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn068_VileMother",
+      "exit": "nullptr"
+    },
+    {
+      "index": 69,
+      "family": "VileDog",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn069_VileDog",
+      "exit": "nullptr"
+    },
+    {
+      "index": 70,
+      "family": "FingerMage",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn070_FingerMage",
+      "exit": "nullptr"
+    },
+    {
+      "index": 71,
+      "family": "Regurgitator",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn071_Regurgitator",
+      "exit": "nullptr"
+    },
+    {
+      "index": 72,
+      "family": "DoomKnight",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn072_DoomKnight",
+      "exit": "nullptr"
+    },
+    {
+      "index": 73,
+      "family": "AbyssKnight",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn073_AbyssKnight",
+      "exit": "nullptr"
+    },
+    {
+      "index": 74,
+      "family": "OblivionKnight",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn074_OblivionKnight",
+      "exit": "nullptr"
+    },
+    {
+      "index": 75,
+      "family": "QuillMother",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn075_QuillMother",
+      "exit": "nullptr"
+    },
+    {
+      "index": 76,
+      "family": "EvilHole",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn076_EvilHole",
+      "exit": "nullptr"
+    },
+    {
+      "index": 78,
+      "family": "Trap-RightArrow",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn078_TrapRightArrow",
+      "exit": "nullptr"
+    },
+    {
+      "index": 79,
+      "family": "Trap-LeftArrow",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn079_TrapLeftArrow",
+      "exit": "nullptr"
+    },
+    {
+      "index": 82,
+      "family": "InvisoSpawner",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn082_InvisoSpawner",
+      "exit": "nullptr"
+    },
+    {
+      "index": 85,
+      "family": "HighPriest",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn085_HighPriest",
+      "exit": "nullptr"
+    },
+    {
+      "index": 87,
+      "family": "Trap-Melee",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn087_TrapMelee",
+      "exit": "nullptr"
+    },
+    {
+      "index": 88,
+      "family": "7TIllusion",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn088_7TIllusion",
+      "exit": "nullptr"
+    },
+    {
+      "index": 89,
+      "family": "Megademon",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn089_Megademon",
+      "exit": "nullptr"
+    },
+    {
+      "index": 90,
+      "family": "Griswold",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn090_Griswold",
+      "exit": "nullptr"
+    },
+    {
+      "index": 91,
+      "family": "DarkWanderer",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn091_DarkWanderer",
+      "exit": "nullptr"
+    },
+    {
+      "index": 92,
+      "family": "Trap-Nova",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn080_092_TrapPoison_TrapNova",
+      "exit": "nullptr"
+    },
+    {
+      "index": 93,
+      "family": "ArcaneTower",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn093_ArcaneTower",
+      "exit": "nullptr"
+    },
+    {
+      "index": 94,
+      "family": "DesertTurret",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn094_DesertTurret",
+      "exit": "nullptr"
+    },
+    {
+      "index": 95,
+      "family": "PantherJavelin",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn095_PantherJavelin",
+      "exit": "nullptr"
+    },
+    {
+      "index": 96,
+      "family": "FetishBlowgun",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn096_FetishBlowgun",
+      "exit": "nullptr"
+    },
+    {
+      "index": 97,
+      "family": "Spirit",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn097_Spirit",
+      "exit": "nullptr"
+    },
+    {
+      "index": 98,
+      "family": "Smith",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn098_Smith",
+      "exit": "nullptr"
+    },
+    {
+      "index": 99,
+      "family": "TrappedSoul",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn099_TrappedSoul",
+      "exit": "nullptr"
+    },
+    {
+      "index": 113,
+      "family": "SiegeTower",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn113_SiegeTower",
+      "exit": "nullptr"
+    },
+    {
+      "index": 114,
+      "family": "ReanimatedHorde",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn114_ReanimatedHorde",
+      "exit": "nullptr"
+    },
+    {
+      "index": 115,
+      "family": "SiegeBeast",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn115_SiegeBeast",
+      "exit": "nullptr"
+    },
+    {
+      "index": 116,
+      "family": "Minion",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn116_Minion",
+      "exit": "nullptr"
+    },
+    {
+      "index": 117,
+      "family": "SuicideMinion",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn117_SuicideMinion",
+      "exit": "nullptr"
+    },
+    {
+      "index": 118,
+      "family": "Succubus",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn118_Succubus",
+      "exit": "nullptr"
+    },
+    {
+      "index": 119,
+      "family": "SuccubusWitch",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn119_SuccubusWitch",
+      "exit": "nullptr"
+    },
+    {
+      "index": 120,
+      "family": "Overseer",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn120_Overseer",
+      "exit": "nullptr"
+    },
+    {
+      "index": 123,
+      "family": "Catapult",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn123_Catapult",
+      "exit": "nullptr"
+    },
+    {
+      "index": 124,
+      "family": "FrozenHorror",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn124_FrozenHorror",
+      "exit": "nullptr"
+    },
+    {
+      "index": 125,
+      "family": "BloodLord",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn125_BloodLord",
+      "exit": "nullptr"
+    },
+    {
+      "index": 126,
+      "family": "CatapultSpotter",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn126_CatapultSpotter",
+      "exit": "nullptr"
+    },
+    {
+      "index": 130,
+      "family": "DeathMauler",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn130_DeathMauler",
+      "exit": "nullptr"
+    },
+    {
+      "index": 136,
+      "family": "BaalTaunt",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn136_BaalTaunt",
+      "exit": "nullptr"
+    },
+    {
+      "index": 137,
+      "family": "PutridDefiler",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn137_PutridDefiler",
+      "exit": "nullptr"
+    },
+    {
+      "index": 138,
+      "family": "BaalToStairs",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn138_BaalToStairs",
+      "exit": "nullptr"
+    },
+    {
+      "index": 139,
+      "family": "BaalTentacle",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn139_BaalTentacle",
+      "exit": "nullptr"
+    },
+    {
+      "index": 141,
+      "family": "BaalMinion",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn141_BaalMinion",
+      "exit": "nullptr"
+    },
+    {
+      "index": 142,
+      "family": "ClawViperEx",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn142_ClawViperEx",
+      "exit": "nullptr"
+    },
+    {
+      "index": 144,
+      "family": "UberIzual",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn144_UberIzual",
+      "exit": "nullptr"
+    },
+    {
+      "index": 146,
+      "family": "UberMephisto",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn146_UberMephisto",
+      "exit": "nullptr"
+    }
+  ],
+  "excluded": [
+    {
+      "index": 0,
+      "family": "None",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn000",
+      "exit": "nullptr"
+    },
+    {
+      "index": 1,
+      "family": "Idle",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn001_100_Idle_Buffy",
+      "exit": "nullptr"
+    },
+    {
+      "index": 15,
+      "family": "SandMaggot",
+      "legacyFlags": 4,
+      "currentFlags": 5,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn015_SandMaggot",
+      "exit": "D2GAME_AI_Unk015_6FCD34A0"
+    },
+    {
+      "index": 23,
+      "family": "Vulture",
+      "legacyFlags": 1,
+      "currentFlags": 3,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn023_Vulture",
+      "exit": "nullptr"
+    },
+    {
+      "index": 29,
+      "family": "BatDemon",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn029_BatDemon",
+      "exit": "D2GAME_AI_Unk029_6FCD76F0"
+    },
+    {
+      "index": 31,
+      "family": "NpcOutOfTown",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn031_NpcOutOfTown",
+      "exit": "nullptr"
+    },
+    {
+      "index": 32,
+      "family": "Npc",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn032_Npc",
+      "exit": "nullptr"
+    },
+    {
+      "index": 41,
+      "family": "Towner",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn041_Towner",
+      "exit": "nullptr"
+    },
+    {
+      "index": 42,
+      "family": "Vendor",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn042_Vendor",
+      "exit": "nullptr"
+    },
+    {
+      "index": 43,
+      "family": "FoulCrowNest",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "D2GAME_AI_Unk043_045_121_6FCD8E10",
+      "tick": "AITHINK_Fn043_FoulCrowNest",
+      "exit": "nullptr"
+    },
+    {
+      "index": 45,
+      "family": "Sarcophagus",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "D2GAME_AI_Unk043_045_121_6FCD8E10",
+      "tick": "AITHINK_Fn045_Sarcophagus",
+      "exit": "nullptr"
+    },
+    {
+      "index": 51,
+      "family": "Diablo",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn051_Diablo",
+      "exit": "D2GAME_AI_Unk051_6FCE82F0"
+    },
+    {
+      "index": 52,
+      "family": "FrogDemon",
+      "legacyFlags": 5,
+      "currentFlags": 6,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn052_FrogDemon",
+      "exit": "D2GAME_AI_Unk052_6FCDA910"
+    },
+    {
+      "index": 54,
+      "family": "NpcStationary",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn054_NpcStationary",
+      "exit": "nullptr"
+    },
+    {
+      "index": 56,
+      "family": "Tentacle",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn056_Tentacle",
+      "exit": "nullptr"
+    },
+    {
+      "index": 57,
+      "family": "TentacleHead",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn057_TentacleHead",
+      "exit": "nullptr"
+    },
+    {
+      "index": 58,
+      "family": "Navi",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn058_Navi",
+      "exit": "nullptr"
+    },
+    {
+      "index": 59,
+      "family": "BloodRaven",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "D2GAME_AI_Unk59_6FCE58D0",
+      "tick": "AITHINK_Fn059_BloodRaven",
+      "exit": "nullptr"
+    },
+    {
+      "index": 60,
+      "family": "GoodNpcRanged",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn060_GoodNpcRanged",
+      "exit": "nullptr"
+    },
+    {
+      "index": 61,
+      "family": "Hireable",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn061_Hireable",
+      "exit": "D2GAME_AI_SpecialState04_6FCDC170"
+    },
+    {
+      "index": 65,
+      "family": "FetishShaman",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn065_FetishShaman",
+      "exit": "D2GAME_AI_SpecialState04_6FCDC170"
+    },
+    {
+      "index": 66,
+      "family": "SandMaggotQueen",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn066_SandMaggotQueen",
+      "exit": "nullptr"
+    },
+    {
+      "index": 67,
+      "family": "NecroPet",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn067_NecroPet",
+      "exit": "nullptr"
+    },
+    {
+      "index": 77,
+      "family": "Trap-Missile",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn077_TrapMissile",
+      "exit": "nullptr"
+    },
+    {
+      "index": 80,
+      "family": "Trap-Poison",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn080_092_TrapPoison_TrapNova",
+      "exit": "nullptr"
+    },
+    {
+      "index": 81,
+      "family": "JarJar",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn081_JarJar",
+      "exit": "nullptr"
+    },
+    {
+      "index": 83,
+      "family": "MosquitoNest",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn083_MosquitoNest",
+      "exit": "nullptr"
+    },
+    {
+      "index": 84,
+      "family": "BoneWall",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "D2GAME_AI_Unk084_6FCDEC70",
+      "tick": "AITHINK_Fn084_BoneWall",
+      "exit": "nullptr"
+    },
+    {
+      "index": 86,
+      "family": "Hydra",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn086_Hydra",
+      "exit": "nullptr"
+    },
+    {
+      "index": 100,
+      "family": "Buffy",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn001_100_Idle_Buffy",
+      "exit": "nullptr"
+    },
+    {
+      "index": 101,
+      "family": "AssassinSentry",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "D2GAME_AI_Unk101_104_6FCE9CE0",
+      "tick": "AITHINK_Fn101_AssassinSentry",
+      "exit": "nullptr"
+    },
+    {
+      "index": 102,
+      "family": "BladeCreeper",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "D2GAME_AI_Unk102_6FCE9FB0",
+      "tick": "AITHINK_Fn102_BladeCreeper",
+      "exit": "nullptr"
+    },
+    {
+      "index": 103,
+      "family": "InvisoPet",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn103_InvisoPet",
+      "exit": "nullptr"
+    },
+    {
+      "index": 104,
+      "family": "DeathSentry",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "D2GAME_AI_Unk101_104_6FCE9CE0",
+      "tick": "AITHINK_Fn104_DeathSentry",
+      "exit": "nullptr"
+    },
+    {
+      "index": 105,
+      "family": "ShadowWarrior",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "D2GAME_AI_Unk105_6FCEA680",
+      "tick": "AITHINK_Fn105_ShadowWarrior",
+      "exit": "nullptr"
+    },
+    {
+      "index": 106,
+      "family": "ShadowMaster",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "D2GAME_AI_Unk106_6FCEAFE0",
+      "tick": "AITHINK_Fn106_143_ShadowMaster",
+      "exit": "nullptr"
+    },
+    {
+      "index": 107,
+      "family": "Raven",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "D2GAME_AI_Unk107_6FCED140",
+      "tick": "AITHINK_Fn107_Raven",
+      "exit": "nullptr"
+    },
+    {
+      "index": 108,
+      "family": "DruidWolf",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn108_DruidWolf",
+      "exit": "nullptr"
+    },
+    {
+      "index": 109,
+      "family": "Totem",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn109_Totem",
+      "exit": "nullptr"
+    },
+    {
+      "index": 110,
+      "family": "Vines",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "D2GAME_AI_Unk_110_111_6FCECC40",
+      "tick": "AITHINK_Fn110_Vines",
+      "exit": "nullptr"
+    },
+    {
+      "index": 111,
+      "family": "CycleOfLife",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "D2GAME_AI_Unk_110_111_6FCECC40",
+      "tick": "AITHINK_Fn111_CycleOfLife",
+      "exit": "nullptr"
+    },
+    {
+      "index": 112,
+      "family": "DruidBear",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn112_DruidBear",
+      "exit": "nullptr"
+    },
+    {
+      "index": 121,
+      "family": "MinionSpawner",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "D2GAME_AI_Unk043_045_121_6FCD8E10",
+      "tick": "AITHINK_Fn121_MinionSpawner",
+      "exit": "nullptr"
+    },
+    {
+      "index": 122,
+      "family": "Imp",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "D2GAME_AI_Unk122_6FCE2080",
+      "tick": "AITHINK_Fn122_Imp",
+      "exit": "nullptr"
+    },
+    {
+      "index": 127,
+      "family": "NpcBarb",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "AITHINK_Fn000",
+      "tick": "AITHINK_Fn127_NpcBarb",
+      "exit": "nullptr"
+    },
+    {
+      "index": 128,
+      "family": "Nihlathak",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "AITHINK_Fn000",
+      "tick": "AITHINK_Fn128_Nihlathak",
+      "exit": "D2GAME_AI_SpecialState04_6FCDC170"
+    },
+    {
+      "index": 129,
+      "family": "GenericSpawner",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "D2GAME_AI_Unk129_6FCE5610",
+      "tick": "AITHINK_Fn129_GenericSpawner",
+      "exit": "nullptr"
+    },
+    {
+      "index": 131,
+      "family": "Wussie",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn131_Wussie",
+      "exit": "nullptr"
+    },
+    {
+      "index": 132,
+      "family": "AncientStatue",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn132_AncientStatue",
+      "exit": "nullptr"
+    },
+    {
+      "index": 133,
+      "family": "Ancient",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn133_Ancient",
+      "exit": "nullptr"
+    },
+    {
+      "index": 134,
+      "family": "BaalThrone",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "AITHINK_Fn000",
+      "tick": "AITHINK_Fn134_BaalThrone",
+      "exit": "nullptr"
+    },
+    {
+      "index": 135,
+      "family": "BaalCrab",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn135_BaalCrab",
+      "exit": "D2GAME_AI_Unk135_140_6FCCD470"
+    },
+    {
+      "index": 140,
+      "family": "BaalCrabClone",
+      "legacyFlags": 0,
+      "currentFlags": 0,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn140_BaalCrabClone",
+      "exit": "D2GAME_AI_Unk135_140_6FCCD470"
+    },
+    {
+      "index": 143,
+      "family": "ShadowMasterNoInit",
+      "legacyFlags": 2,
+      "currentFlags": 2,
+      "entry": "D2GAME_AI_Unk143_6FCEB1B0",
+      "tick": "AITHINK_Fn106_143_ShadowMaster",
+      "exit": "nullptr"
+    },
+    {
+      "index": 145,
+      "family": "UberBaal",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn145_UberBaal",
+      "exit": "D2GAME_AI_Unk135_140_6FCCD470"
+    },
+    {
+      "index": 147,
+      "family": "UberDiablo",
+      "legacyFlags": 1,
+      "currentFlags": 1,
+      "entry": "nullptr",
+      "tick": "AITHINK_Fn147_UberDiablo",
+      "exit": "D2GAME_AI_Unk051_6FCE82F0"
+    }
+  ],
+  "changedFlags": [
+    {
+      "index": 15,
+      "family": "SandMaggot",
+      "legacy": 4,
+      "current": 5
+    },
+    {
+      "index": 23,
+      "family": "Vulture",
+      "legacy": 1,
+      "current": 3
+    },
+    {
+      "index": 52,
+      "family": "FrogDemon",
+      "legacy": 5,
+      "current": 6
+    }
+  ],
+  "untracedModernIndices": [
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154
+  ],
+  "runtimePath": "data/Sanctuary/Balance/curse-ai-families.json",
+  "runtimeSha256": "4e7f7a763123493b1cae085808f4bbc360984d441d918d3c6c90469f3be886ad",
+  "evidence": {
+    "tools/build_curse_ai_catalogue.py": "e6827b8caa14ae6702d337c67b89e84d853ea2ba2ac4ccd9adc8317c3a89d2b3",
+    ".local/class-skills/warlock-runtime-reference/monai.txt": "7c7c7b8866c46078356bcc6118789699351004f39edea92922425699d6aa86a8",
+    ".local/class-skills/warlock-runtime-reference/monai-extraction.json": "d2ea7c87ccc35746841a913cc258bb2af3f3b2a0b7ed3a5a9462d96a85ca46df",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "limits": [
+    "Owned monai names supply exact indexed family identities. All148 current classic descriptor callback-null patterns match the older table; three changed dispatch flags are excluded. Non-null entry/exit callbacks and new indices148..154 remain unsupported.",
+    "This is immutable current-file metadata and the complete older transition contract,not current dispatcher execution. Runtime species walking/boss/NPC/attackable and ordinary curse eligibility still apply. A family entry does not make bosses or owned units eligible.",
+    "No native UO monster receives an invented source identity. Native path/scan/ties/room/timing/global RNG and ownership/conversion transitions retain their existing explicit limits."
+  ]
+}

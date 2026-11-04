@@ -2,23 +2,24 @@
 """Pin current timing/range fields for traced ordinary AI transitions."""
 import argparse,hashlib,json
 from pathlib import Path
-from probe_curse_ai_transitions import FAMILIES
 ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def build(check=False):
     source=ROOT/'tools/reference/d2r-named-equipment/json/monstats.json'
     manifest=json.loads((source.parent.parent/'sources.json').read_text())
     assert sha(source)==manifest['files']['json/monstats.json']['sha256']
+    families=json.loads((ROOT/'data/Sanctuary/Balance/curse-ai-families.json').read_text())
+    family_keys={name.casefold()for name in families};assert len(family_keys)==len(families)>0
     data=json.loads(source.read_text());rows=[]
     for row in data.values():
-        if row.get('AI') not in FAMILIES:continue
+        if str(row.get('AI','')).casefold() not in family_keys:continue
         def fields(key):return [int(row.get(key+suffix,0) or 0) for suffix in ['', '(N)', '(H)']]
         rows.append(dict(Source=row['Id'],Delay=fields('aidel'),Range=fields('aidist')))
     rows.sort(key=lambda r:r['Source']);assert len({r['Source'] for r in rows})==len(rows)>0
     assert all(all(0<=v<=32767 for key in ['Delay','Range'] for v in row[key]) for row in rows)
     dest=ROOT/'data/Sanctuary/Balance/blind-ai-rules.json';render=json.dumps(rows,indent=2)+'\n'
     proof=dict(referenceVersion='3.3.93847',sourcePath=str(source.relative_to(ROOT)),sourceSha256=sha(source),producerSha256=sha(Path(__file__)),
-        ruleCount=len(rows),families=list(FAMILIES),runtimePath=str(dest.relative_to(ROOT)),runtimeSha256=hashlib.sha256(render.encode()).hexdigest(),
+        ruleCount=len(rows),families=families,runtimePath=str(dest.relative_to(ROOT)),runtimeSha256=hashlib.sha256(render.encode()).hexdigest(),
         interpretation='Raw current monstats aidel/aidist values retained per difficulty. Reviewed legacy neutral entry uses15ifdelay<=0;target acquisition uses35ifrange0. These fields do not certify all source AI callbacks or modern executable scheduling.')
     receipt=ROOT/'tools/reference/blind-ai-rule-evidence.json';evidence=json.dumps(proof,indent=2)+'\n'
     if check:assert dest.read_text()==render and receipt.read_text()==evidence

@@ -1,5 +1,7 @@
 # Skill effects
 
+Ordinary curse catalogue expansion needs the existing blind/fear recipient feedback and audio across more source identities. Existing placeholders remain identified; no new effect producer, final artwork or imagegen asset is introduced. See [checkpoint](curse-ai-catalogue-checkpoint.md).
+
 Shared curse AI family expansion adds no new effect producer. Existing Dim Vision blind feedback and Terror/fear presentation/audio remain identified placeholders for Fallen/Brute/Goatman recipients; final effects are still needed separately. Mechanical checks continue independently. See [checkpoint](curse-ai-families-checkpoint.md).
 
 **Charged Strike speed capture (2026-11-05 JST).** Slowed bolts use the existing identified lightning trail/contact/audio placeholders with their captured movement speed. No additional effect or imagegen asset is introduced; final bolt/impact/audio work remains. See [checkpoint](charged-strike-velocity-checkpoint.md).

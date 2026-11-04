@@ -18,6 +18,18 @@ public static class CurseAiFamilyChecks
     private sealed record Actor(uint Serial,string Profile,Point3D Point,int Life,NecromancerCurse Curse,BlindAiState Blind);
     private sealed record Saved(uint Owner,int Map,Point3D Point,int Life,int Mana,Actor[] Actors,int Generation);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"curse-ai-families-fixtures.json");
+    private static string CatalogueManifest=>Path.Join(Core.BaseDirectory,"curse-ai-catalogue-fixtures.json");
+    private static string[] CatalogueSources()
+    {
+        var families=BalanceCatalog.Read<string>("curse-ai-families").ToHashSet(StringComparer.OrdinalIgnoreCase);
+        return BalanceCatalog.Read<ConversionSourceRule>("conversion-source-rules")
+            .Where(r=>families.Contains(r.Ai??"")&&r.Evil&&r.SwitchAi&&r.Walk&&!r.Boss&&!r.Npc&&r.Attackable)
+            .GroupBy(r=>r.Ai,StringComparer.OrdinalIgnoreCase).OrderBy(g=>g.Key,StringComparer.OrdinalIgnoreCase)
+            .Select(g=>g.OrderBy(r=>r.Source,StringComparer.Ordinal).First().Source).ToArray();
+    }
+    private static string[] Counterexamples()=>BalanceCatalog.Read<ConversionSourceRule>("conversion-source-rules")
+        .Where(r=>r.Ai is "SandMaggot" or "Vulture" or "FrogDemon" or "GenericPet")
+        .GroupBy(r=>r.Ai).Select(g=>g.OrderBy(r=>r.Source,StringComparer.Ordinal).First().Source).ToArray();
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     public static void Configure()
     {
@@ -27,9 +39,12 @@ public static class CurseAiFamilyChecks
         {
             var profiles=(Dictionary<string,DungeonProfile>)typeof(EncounterProfiles).GetField("_profiles",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
             var basis=EncounterProfiles.Profile("crypt-sentinel-60");
-            foreach(string source in Sources.Append("sandmaggot1")){string id="curse-ai-fixture-"+source;profiles.Add(id,basis with{Id=id,Reference=source});}
+            foreach(string source in Sources.Concat(CatalogueSources()).Concat(Counterexamples()).Distinct())
+            {string id="curse-ai-fixture-"+source;profiles.Add(id,basis with{Id=id,Reference=source});}
         }
         Register("curse-ai-families-check",Check);Register("curse-ai-families-reload-check",Reload);
+        Register("curse-ai-catalogue-check",()=>Check(CatalogueSources(),CatalogueManifest,true));
+        Register("curse-ai-catalogue-reload-check",()=>Reload(CatalogueManifest));
     }
     private static void Register(string name,Action run)=>ConsoleInputHandler.RegisterCommand(name,"Shared curse AI family casting and original saved recipients",_=>Core.LoopContext.Post(()=>
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -58,9 +73,17 @@ public static class CurseAiFamilyChecks
         Require(doc.RootElement.GetArrayLength()==288,"Missing complete source transition contexts");
         foreach(var row in doc.RootElement.EnumerateArray())
         {Require(row[4].GetInt32()==1&&row[5].GetInt32()==row[2].GetInt32()&&row[6].GetInt32()==(row[2].GetInt32()==11?1:0),"Source transition clear/dispatch contract");}
-        var families=new HashSet<string>{"Skeleton","Zombie","Fallen","Brute","Goatman","Megademon"};
+        var families=BalanceCatalog.Read<string>("curse-ai-families").ToHashSet(StringComparer.OrdinalIgnoreCase);
         var rules=BalanceCatalog.Read<ConversionSourceRule>("conversion-source-rules");var blind=BalanceCatalog.Read<BlindAiRule>("blind-ai-rules");
-        Require(blind.Length==50&&blind.Select(r=>r.Source).ToHashSet().SetEquals(rules.Where(r=>families.Contains(r.Ai)).Select(r=>r.Source)),"Current family timing/range catalogue incomplete");
+        Require(blind.Select(r=>r.Source).ToHashSet().SetEquals(rules.Where(r=>families.Contains(r.Ai??"")).Select(r=>r.Source)),"Current family timing/range catalogue incomplete");
+    }
+    private static void CatalogueSource()
+    {
+        using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"curse-ai-catalogue-source.json")));
+        Require(doc.RootElement.GetArrayLength()==4416,"Missing complete catalogue transition contexts");
+        foreach(var row in doc.RootElement.EnumerateArray())
+        {Require(row[4].GetInt32()==1&&row[5].GetInt32()==row[2].GetInt32()&&row[6].GetInt32()==(row[2].GetInt32()==11?1:0),"Catalogue source transition clear/dispatch contract");}
+        Require(BalanceCatalog.Read<string>("curse-ai-families").Length==92&&BalanceCatalog.Read<BlindAiRule>("blind-ai-rules").Length==499,"Pinned catalogue coverage changed");
     }
     private static void Cast(PlayerMobile p,EncounterCreature target,CombatAbility ability)
     {
@@ -80,12 +103,16 @@ public static class CurseAiFamilyChecks
         if(ability==CombatAbility.DimVision)
         {
             var current=NecromancerEffects.Profiles.Find(t);Require(current.BlindAi!=null&&SourceBlind.Supported(t),"Missing admitted blind controller");
+            var rule=BalanceCatalog.Read<BlindAiRule>("blind-ai-rules").Single(r=>r.Source==t.Dungeon.Reference);
+            int range=rule.Range[(int)SummonDifficulties.For(t.Map)];if(range==0){range=35;}
+            bool acquired=t.InRange(p,(range+1)/2)&&SourceTerror.Distance(t,p)<=range;
+            long thinks=current.BlindAi.Thinks,draws=current.BlindAi.Draws;
             ulong seed=current.BlindAi.Seed;
             if(initial){for(int low=1;;low++){ulong candidate=SourceRandom.InitLow(low),next=candidate;if(Enumerable.Range(0,3).All(_=>SourceRandom.Roll(ref next)%100>=20)){seed=candidate;break;}}}
             NecromancerEffects.Profiles.Store(t,current with{BlindAi=current.BlindAi with{Seed=seed,NextUtc=TimedEffects.Now,Goal=null,NextStepUtc=null}});
             Require(NecromancerEffects.Think(t),"Shared blind controller did not handle new family");
             var state=NecromancerEffects.Profiles.Find(t).BlindAi;
-            Require(state.Fault==null&&state.Thinks>0&&state.Draws>0&&state.Goal==null&&!state.Combat&&state.NextUtc>TimedEffects.Now,"New-family blind idle/draw deadline");
+            Require(state.Fault==null&&state.Thinks==thinks+1&&state.Draws==draws+(acquired?1:0)&&state.Goal==null&&!state.Combat&&state.NextUtc>TimedEffects.Now,"New-family blind target/no-target idle/draw deadline");
         }
         else
         {
@@ -101,23 +128,31 @@ public static class CurseAiFamilyChecks
         NecromancerEffects.Profiles.Store(t,state with{Curse=curse,BlindAi=blind});
         var saved=new Actor(t.Serial.Value,t.Dungeon.Id,t.Location,SkillHealth.Balance256(t),curse,blind);t.Internalize();return saved;
     }
-    private static void Check()
+    private static void Check()=>Check(Sources,Manifest,false);
+    private static void Check(string[] sources,string manifest,bool catalogue)
     {
-        Source();var p=Owner();var saved=new List<Actor>();
-        foreach(string source in Sources)foreach(var ability in new[]{CombatAbility.DimVision,CombatAbility.Terror})
+        Source();if(catalogue){CatalogueSource();}var p=Owner();var saved=new List<Actor>();
+        foreach(string source in sources)foreach(var ability in new[]{CombatAbility.DimVision,CombatAbility.Terror})
         {
+            // Each catalogue context is independent; retain fractional payment
+            // without requiring one finite mana pool to fund 100+ test casts.
+            if(catalogue){NecromancerEffects.SetMana256(p,p.ManaMax*256-97);}
             var t=Enemy(p,source);Require(SourceTerror.Supported(t)&&SourceBlind.Supported(t),"New family remains unsupported");
             int life=SkillHealth.Balance256(t);Cast(p,t,ability);Resume(p,t,ability,initial:true);Require(SkillHealth.Balance256(t)==life,"AI handoff changed recipient wounds");
             saved.Add(Hold(t));
         }
-        var unsupported=Enemy(p,"sandmaggot1");
-        try{Require(!SourceTerror.Supported(unsupported)&&!SourceBlind.Supported(unsupported)&&!NecromancerEffects.Apply(p,unsupported,CombatAbility.Terror,1),"Deferred-exit family gained an immediate transition");}finally{unsupported.Delete();}
+        foreach(string source in Counterexamples())
+        {
+            var unsupported=Enemy(p,source);
+            try{Require(!SourceTerror.Supported(unsupported)&&!SourceBlind.Supported(unsupported)&&!NecromancerEffects.Apply(p,unsupported,CombatAbility.Terror,1),"Deferred/changed/new family gained an immediate transition");}finally{unsupported.Delete();}
+        }
         var s=new Saved(p.Serial.Value,p.Map.MapID,p.Location,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),saved.ToArray(),0);
-        p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(s));
+        p.Internalize();File.WriteAllText(manifest,JsonSerializer.Serialize(s));
     }
-    private static void Reload()
+    private static void Reload()=>Reload(Manifest);
+    private static void Reload(string manifest)
     {
-        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);
+        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);
         Require(SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Reload changed owner wound/mana balances");p.MoveToWorld(s.Point,Map.Maps[s.Map]);
         var next=new List<Actor>();
         foreach(var row in s.Actors)
@@ -128,6 +163,6 @@ public static class CurseAiFamilyChecks
             if(row.Curse.Terror is{} terror){NecromancerEffects.Profiles.Store(t,state with{Curse=state.Curse with{Terror=terror with{NextUtc=TimedEffects.Now}}});}
             Resume(p,t,row.Curse.Ability);Require(SkillHealth.Balance256(t)==row.Life,"Resumed AI changed wounds");next.Add(Hold(t));
         }
-        p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Actors=next.ToArray(),Generation=s.Generation+1}));
+        p.Internalize();File.WriteAllText(manifest,JsonSerializer.Serialize(s with{Actors=next.ToArray(),Generation=s.Generation+1}));
     }
 }

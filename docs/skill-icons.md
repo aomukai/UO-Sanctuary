@@ -1,5 +1,7 @@
 # Skill icons
 
+Ordinary curse catalogue expansion adds no player-bindable skill. Existing Dim Vision/Terror and shared Howl/Taunt/Grim Ward icon requirements remain separate from recipient mechanics; no final tree/right/quick icon is generated. See [checkpoint](curse-ai-catalogue-checkpoint.md).
+
 Shared curse AI family expansion creates no player-bindable skill. Existing Dim Vision and Terror talent-tree/right/quick-hotkey icons remain separately needed; broader recipient coverage does not imply final artwork. See [checkpoint](curse-ai-families-checkpoint.md).
 
 **Charged Strike speed capture (2026-11-05 JST).** No talent, hotkey, binding or icon slot is added. Existing Charged Strike tree/hotkey placeholders and final artwork stay separate from mechanical verification. See [checkpoint](charged-strike-velocity-checkpoint.md).

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+The ordinary curse catalogue replaces repeated whitelist expansion with indexed current monai/descriptors, reusing `SourceTerror.Supported` and `SourceBlind`. The complete source lookup/transition composition is unchanged; only its test index array expands. Native fixtures share the existing learned-cast/recipient/save harness across all represented eligible families. See [checkpoint](curse-ai-catalogue-checkpoint.md).
+
 Curse family expansion reuses `SourceTerror.Supported`, `SourceBlind`, saved `BlindAiState`, and the existing learned curse receiver. Complete older table/dispatch composition distinguishes immediate six-family transitions from deferred-exit species; no duplicate AI/path/RNG service or invented UO classification is added. See [checkpoint](curse-ai-families-checkpoint.md).
 
 **Charged Strike velocity reuse (2026-11-05 JST).** The existing factory FP8 speed helper now supplies this older curved bolt host. Creation captures speed; tick/restore retain the existing path and explicit missing-field legacy mode. The source oracle reuses the complete Guided Arrow factory scaffold and unchanged Charged Bolt initializer. The shared native runner accepts an ordered result tuple while preserving string callers. See [checkpoint](charged-strike-velocity-checkpoint.md).

@@ -17,6 +17,17 @@ public static class SourceTerror
 {
     private static readonly HashSet<Serial> _tracked=new();
     private static readonly HashSet<Serial> _acquiring=new();
+    private static readonly HashSet<string> Families=new(StringComparer.OrdinalIgnoreCase);
+    public static void Configure()
+    {
+        Families.Clear();
+        foreach(string family in BalanceCatalog.Read<string>("curse-ai-families"))
+        {
+            if(string.IsNullOrWhiteSpace(family)||!Families.Add(family))
+            {throw new System.IO.InvalidDataException("Invalid ordinary curse AI family catalogue");}
+        }
+        if(Families.Count==0){throw new System.IO.InvalidDataException("Empty ordinary curse AI family catalogue");}
+    }
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Expire);
     internal static void Changed(Mobile actor,NecromancerCurse before,NecromancerCurse after)
     {
@@ -67,10 +78,10 @@ public static class SourceTerror
     public static double MovementDelay(Mobile actor,double seconds)=>State(actor) is{Goal:not null,Combat:false} state
         ?seconds*100/Math.Max(1,100+state.VelocityPercent):seconds;
     internal static bool Supported(BaseCreature target)=>PaladinConversion.SourceRule(target) is{SwitchAi:true,Walk:true,Boss:false,Npc:false,Attackable:true} row
-        // Complete source table/transition composition establishes these six
-        // families have no entry/exit callbacks. Keep callback-owning families
-        // outside this bridge; their deferred transitions are a separate path.
-        && row.Ai is "Skeleton" or "Zombie" or "Megademon" or "Fallen" or "Brute" or "Goatman";
+        // Indexed current names/descriptors and complete source transition
+        // composition admit only ordinary entries without entry/exit callbacks.
+        // Changed dispatch flags and untraced modern entries remain excluded.
+        && Families.Contains(row.Ai??"");
     internal static TerrorAi Learned(BaseCreature target,int rank,DateTime at)
         // Native Combatant is the explicit adapter for SUNIT_GetTargetUnit.
         // Do30 does not add Howl's one-frame Idle request. Native AI event
