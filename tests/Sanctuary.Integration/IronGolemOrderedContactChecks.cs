@@ -132,13 +132,17 @@ public static class IronGolemOrderedContactChecks
                 if(condition=="uninterruptible"){MonsterUninterruptibles.Restore(MonsterUninterruptibles.Snapshot().Append(new MonsterModeFlags(target.Serial.Value,true,false,0)).ToArray());}
                 if(condition=="evilomen"){target.AddSkillMod(new DefaultSkillMod(SkillName.MagicResist,"EvilOmen",false,50));}
                 var state=Ready(body,target);ulong seed=NpcEquipmentRandom.State(body).Seed;int life=SkillHealth.Balance256(target);bool refused=false;string why="";
+                var prevention=TimedEffects.Snapshot().Single(x=>x.Owner==target.Serial.Value).HealBlockedUntilUtc;
                 try{IronGolemContact.Release(body,owner,state,target,state.NextUtc);}catch(NotSupportedException e){refused=true;why=e.Message;}
-                Require(refused&&why.Length>0&&NpcEquipmentRandom.State(body).Seed==seed&&SkillHealth.Balance256(target)==life&&target.Notifications==0
-                    &&NativeMonsterReturn.Session(target).Packets==0,"Unsupported capability rolled or delivered damage: "+condition);cases++;
+                if(condition=="noheal")
+                {Require(!refused&&SkillHealth.Balance256(target)<life&&target.Notifications==1&&TimedEffects.Snapshot().Single(x=>x.Owner==target.Serial.Value).HealBlockedUntilUtc==prevention,"NPC Blacktongue PMH blocked contact or refreshed the existing prevention state");}
+                else
+                {Require(refused&&why.Length>0&&NpcEquipmentRandom.State(body).Seed==seed&&SkillHealth.Balance256(target)==life&&target.Notifications==0
+                    &&NativeMonsterReturn.Session(target).Packets==0,"Unsupported capability rolled or delivered damage: "+condition);}cases++;
             }
             finally{NecromancerEffects.Profiles.Clear(body);Clean(owner,target);}
         }
-        Require(cases==4,"Incomplete refusal controls; original-item Crushing Blow now has its own positive acceptance");
+        Require(cases==4,"Incomplete three-refusal/one-dormant-PMH controls; original-item Crushing Blow has its own positive acceptance");
         // Baranar's current cold property has no explicit parameter and its
         // independent fallback duration was never stored in NamedPropertyRoll.
         // Keep that original untouched; do not invent a duration or reroll it.
@@ -159,6 +163,6 @@ public static class IronGolemOrderedContactChecks
     private static void Check()
     {
         Originals();Retaliation();Refusals();
-        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;4pre-roll capability/2unrepresented birth refusals; original-item Crushing Blow is covered by its positive shared-consumer fixture pass;learned casting checked separately");
+        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;3pre-roll capability/2unrepresented birth refusals and dormant Blacktongue PMH contact; original-item Crushing Blow is covered by its positive shared-consumer fixture pass;learned casting checked separately");
     }
 }

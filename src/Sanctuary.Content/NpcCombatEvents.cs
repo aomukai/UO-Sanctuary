@@ -50,8 +50,17 @@ internal sealed class NpcCombatEvents
         var active=new List<NpcItemEventStat>();
         foreach(var value in stats.Where(v=>v.Value!=0))
         {
+            // The reference PreventMonsterHeal helper admits player attackers
+            // before it even reads stat117. NPC-held items retain the stat, but
+            // it creates no NPC event or healing-prevention state.
+            if(value.Stat==117)
+            {
+                if(EquipmentStatValues.Definition(117).Name!="item_preventheal"||Rules.Value.ContainsKey(117))
+                {throw new NotSupportedException("NPC Prevent Monster Heal needs its reviewed player-only mapping");}
+                continue;
+            }
             // These are conditional hit paths outside ItemStatCost's registry.
-            if(value.Stat is 66 or 115 or 116 or 117 or 120)
+            if(value.Stat is 66 or 115 or 116 or 120)
             {throw new NotSupportedException("NPC conditional hit stat needs its consumer: "+EquipmentStatValues.Definition(value.Stat).Name);}
             if(!Rules.Value.TryGetValue(value.Stat,out var rule)){continue;}
             bool flat=rule.Stat==78&&rule.Events.Length==1&&rule.Events[0] is{Event:"attackedinmelee",Function:6};

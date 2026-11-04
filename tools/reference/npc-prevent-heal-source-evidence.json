@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 3960,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/probe_npc_prevent_heal.py": "ea13fd5985686699039ef7cefe7732e9882619bda71a0c9fc8e2f78a583cefb0"
+  },
+  "executed": {
+    "SUNITDMG_PreventMonsterHeal": "8678a9b2051d08dea026ce1f3442e12acb3290fcb8ab5bc198788c30cc621875"
+  },
+  "reviewed": {
+    "SUNITDMG_IsHitSuccessful": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
+  },
+  "currentWriter": {
+    "property": "noheal",
+    "function": 1,
+    "stat": "item_preventheal",
+    "id": 117,
+    "registeredEvents": []
+  },
+  "artifacts": {
+    ".local/class-skills/npc-prevent-heal-source/probe.cpp": "f911eb58588126010fc64a4944a7989c7f1316f66d1337c07d54e516ec464665",
+    ".local/class-skills/npc-prevent-heal-source/classic": "e67a875d608ccbf6308995dc8688f7a92d649bcc758e4f3d31c5955a3d962b86",
+    ".local/class-skills/npc-prevent-heal-source/classic-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-prevent-heal-source/classic-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-prevent-heal-source/classic-cases.json": "fab5bca53330ab0bfd14d421b27d7bfe0a24e54f420a7f0d319e5289ec5aa3dd",
+    ".local/class-skills/npc-prevent-heal-source/ubers": "7d66b23ce5d15d4173c08ee756ccf3b91af911200e515ea4bab11cd411c6e027",
+    ".local/class-skills/npc-prevent-heal-source/ubers-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-prevent-heal-source/ubers-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-prevent-heal-source/ubers-cases.json": "bb48818acc1352cfe8c0f6a397786209702a1b753840e3952b707415ef2ba94f"
+  },
+  "established": [
+    "Both source variants exclude every NPC attacker before reading the item stat or creating a state. Player-versus-monster controls apply120000frames and the conditional Uber exclusion;all other unit-type pairs remain inert.",
+    "Pinned current noheal writes raw stat117 through function1 and registers no ItemStatCost event. NPC admission must retain the captured stat without creating a callback,player attribution or Prevent Healing state."
+  ],
+  "limitations": [
+    "This executes the complete older helper with declared stat lookup and curse sink,not the current executable or full hit/event/curse engine. Current NPC item PMH remains a source-based interpretation;no player implementation or owner-forwarded pet proc is introduced."
+  ]
+}

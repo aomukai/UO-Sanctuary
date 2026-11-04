@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC Prevent Monster Heal admission (2026-11-04 JST).** This item-compatibility correction adds no talent or hotkey. Existing Revive/Iron talent/right/quick placeholders and final icon requirements remain separate from effects/audio. See [checkpoint](npc-prevent-heal-checkpoint.md).
+
 **Qualified equipped Revive (2026-11-04 JST).** Right/quick input verification adds no skill or button. Revive still needs its separately tracked final talent-tree and hotkey artwork; existing identified icon/text placeholders remain. See [checkpoint](revive-equipped-checkpoint.md).
 
 **Original Revive native A1 (2026-11-04 JST).** The native A1 conductor adds no talent, hotkey or button. Revive retains its existing identified talent/right/quick icon or text placeholders and pending final artwork. See [checkpoint](revive-native-swing-checkpoint.md).

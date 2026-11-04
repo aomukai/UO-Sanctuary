@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "dfa207177a334d489aa1108cee6064b4a8566c681e2abaabd1c6394da1bbb865",
+  "ContentAssemblySha256": "03cd58667d550bd4f6bedd18bd3608ceba0d2bcb5908ca5c6a6e7e2518a85a47",
   "NativeAssemblySha256": "ae1ff5ce99daf6161b0d53df170653e5252cfc218185d576b65dcafe59eb24a0",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -775,7 +775,7 @@
     "src/Sanctuary.Content/NecromancerSkeletons.cs": "00fa5a178d922b0bdd5fee63e1f103f520a275cb6b401623f0ed37c100240a10",
     "src/Sanctuary.Content/NecromancerSpellMissiles.cs": "48fcf8ef3e3122ef2ea0e354e62b49048902c357b807c8778922c5429c116f27",
     "src/Sanctuary.Content/NecromancerSummons.cs": "dcb089ff77d502d70c89dd39d53a0ac093dfe8f0358f63d9b4f0d93343901dac",
-    "src/Sanctuary.Content/NpcCombatEvents.cs": "4703ab75a522a2a62e43057a02805b299dfce1bc16940992a5bdfb82a1b2c1e0",
+    "src/Sanctuary.Content/NpcCombatEvents.cs": "333fb847c4b35c820c283a237d6892928d87f7d093e51af8f2e1b9f30bd6f3cc",
     "src/Sanctuary.Content/NpcCrushing.cs": "b7d5bb95c6f84fc008b2ab2e4d11397f5d34cf46e405ed209454b3d988bb1cc3",
     "src/Sanctuary.Content/NpcEquipmentCombat.cs": "338106161f7a5b31f40bfdb2b8ad8267f0b32658971202a9c788137ed8147e60",
     "src/Sanctuary.Content/NpcEquipmentCritical.cs": "dfa5a4af4ea8ae80f66d2d247c44c58665febc790191e536c1a5409ec4da6d47",

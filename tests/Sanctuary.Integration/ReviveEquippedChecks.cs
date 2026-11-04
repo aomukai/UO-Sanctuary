@@ -41,13 +41,13 @@ public static class ReviveEquippedChecks
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Learned equipped original admission and prepayment refusals",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static Item Named(string name)=>NamedGear.Create(NamedGear.Catalog.Items.Single(r=>r.SourceKey==name).Id,99,new Random(173),true);
-    private static PlayerMobile Owner(int row=3600)
+    internal static Item Named(string name)=>NamedGear.Create(NamedGear.Catalog.Items.Single(r=>r.SourceKey==name).Id,99,new Random(173),true);
+    internal static PlayerMobile Owner(int row=3600)
     {
         var owner=PoisonDaggerChecks.Owner();owner.Name="PoisonDaggerFixtureReviveEquippedOwner";MagePetBuffChecks.Train(owner,"necromancer.revive",20);MagePetBuffChecks.Train(owner,"necromancer.skeletonmastery",20);
         FixtureSpace.Corridor(owner,7100,24,row);Require(SkillBindings.Instance.Assign(owner,false,CombatAbility.Revive)&&SkillBindings.Instance.AssignQuick(owner,7,CombatAbility.Revive),"Equipped Revive bindings failed");return owner;
     }
-    private static Corpse Die(PlayerMobile owner,BaseCreature body,Item[] gear)
+    internal static Corpse Die(PlayerMobile owner,BaseCreature body,Item[] gear)
     {
         body.NoKillAwards=true;body.Name="PoisonDaggerFixtureReviveEquipped";foreach(var item in body.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){item.Delete();}
         foreach(var item in gear){body.AddItem(item);}Require(gear.All(i=>i.Parent==body),"Equipped corpse fixture slots collided");

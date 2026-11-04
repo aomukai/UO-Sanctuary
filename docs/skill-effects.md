@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC Prevent Monster Heal admission (2026-11-04 JST).** A retained inert NPC item property adds no PMH state, effect or audio. Existing Revive/Iron summon/contact/status placeholders and pending final artwork remain. Player PMH presentation is unchanged. See [checkpoint](npc-prevent-heal-checkpoint.md).
+
 **Qualified equipped Revive (2026-11-04 JST).** Learned equipped casting reuses the existing identified Revive summon/windup/contact/status/return placeholders. This admission change adds no standalone effect. Final original-body feedback and audio remain pending; no imagegen asset was created. See [checkpoint](revive-equipped-checkpoint.md).
 
 **Original Revive native A1 (2026-11-04 JST).** The native A1 conductor uses the identified native attack animation4/frame5 placeholder and existing shared contact/block/wound/return cues. Final original-body windup/contact/miss/block/status/return feedback and audio remain pending. Timing and packet persistence add no independent effect. See [checkpoint](revive-native-swing-checkpoint.md).
