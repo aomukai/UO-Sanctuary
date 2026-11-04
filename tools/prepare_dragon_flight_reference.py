@@ -58,6 +58,9 @@ def build(check=False):
              modeSourceEvidence='tools/reference/dragon-flight-mode-source-evidence.json',
              nativeClockEvidence='tools/reference/dragon-flight-mode-native-evidence.json',
              modeFlags=dict(UseAttackRate=0,ownedRawUseAttackRate=''),
+             landingSupplier='src/Sanctuary.Content/DragonFlightLanding.cs',
+             freeCoordinateEvidence='tools/reference/free-coordinates-source-evidence.json',
+             nativeLandingEvidence='tools/reference/dragon-flight-landing-native-evidence.json',
              established=[
                  'Current row275 uses start12/do52, sequence21 with A1 transition, Kick1, target leeway SearchEnemyNear1, both mouse bindings and low-mana ordinary attack fallback. It has no localdelay field in the pinned row.',
                  'Current constants are15mana,38source-unit target range, damage100+35*(rank-1), AR60+25*(rank-1), one charge consumed and charged-only always-hit Param8=1.',
@@ -68,10 +71,11 @@ def build(check=False):
                  'Do52 returns1 after calling the warp helper even when that helper fails to move the owner. The declared sequence dispatcher still reaches the later kick after failed/refused landing; do52 return alone cannot certify arrival or settle payment.'],
              reuse=['Prepared body/boot kick packets and independent martial charge families; ordinary weapon physical and critical are excluded from the kick lane.',
                     'Existing teleport room/landing/permission and PlayerWeaponSequences/SourceAnimationEvents are candidate native reuse points. Shared current-file reader now accepts SQ21 and verifies all322classic descriptors; no parallel sequence reader is added.',
-                    'Existing Teleportation.Landing is a range18point-target Sorceress contract; Flight uses target-range38source units and a collision-selected nearby landing. Reuse lower-level travel/space permissions without silently copying the whole Sorceress contract.'],
+                    'Existing Teleportation.Landing is a range18point-target Sorceress contract; Flight uses target-range38source units and a collision-selected nearby landing. Prepared Flight reuses extracted travel/committed movement/arrival services and Leap native ground projection without copying the whole Sorceress contract.',
+                    'SourceFreeCoordinates now shares the exact field-null ring order. Flight uses failure on all-blocked; Leap retains its blocked-origin fallback and independent final checks. The fallback flag does not prohibit queries across room boundaries.'],
              blockers=[
                  'Modern charged guaranteed-hit versus block/dodge and consume-one ordering remain Flight-specific gaps. Older result/progressive bodies do not implement the current charged branch. The approved Dragon Tail policy is not silently extended to Flight.',
-                 'Sequence21 markers, older mode entry/ordinal dispatch and flag-off fixed-clock projection are established. Current executable parity, two-phase cancellation, mana payment on failed start/landing/contact, valid native landing near the target and out-of-range retarget behavior need composed checks.',
+                 'Sequence21, older mode entry/ordinal dispatch and fixed clock are established. Prepared native landing follows source release-time current target coordinates without repeating start range,with shared travel/ground/committed arrival and existing location cancellation. Current-code parity,complete two-stage Flight cancellation,payment/contact/charge policy,natural input and saved Flight action still need composition. Half-source-cell/native-tile projection and actual D2 room/footprint equivalence remain provisional.',
                  'No native Dragon Flight handler, accepted player input, damage, teleport or save/reload test is claimed. Continue skills independent of these finisher gates.'],
              assets=dict(effects='Teleport departure/arrival, kick/contact, charge release and audio; identified placeholders permitted.',
                          icons='Separate talent, left/right and hotkey/quick icons in the240-row inventory.'),

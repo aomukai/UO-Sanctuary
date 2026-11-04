@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Dragon Flight landing (2026-11-05 JST).** Actual prepared transfer emits the existing shared **generic Teleport placeholders**:0x3728departure/arrival particles and0x1FEaudio,followed by existing native arrival-field effects. These are identified temporary effects,not final Flight assets. Dedicated teleport/kick/contact/charge presentation and audio remain pending;mechanical landing tests proceed independently. See [checkpoint](dragon-flight-landing-checkpoint.md).
+
 **Dragon Flight fixed clock (2026-11-05 JST).** Teleport departure/arrival,kick/contact,charge release and audio remain pending separately. The new fixed two-event plan emits no particles or audio and supplies no final asset. Existing generic placeholders remain identified candidates for later learned-action integration. See [checkpoint](dragon-flight-mode-checkpoint.md).
 
 **Dragon Flight sequence preparation (2026-11-05 JST).** Departure/arrival, kick/contact, progressive charge release and audio remain needed separately. The prepared two-event scheduler adds no effect producer or final artwork. Existing generic teleport/kick/charge effects are candidate identified placeholders for the future learned action; none is presented as final art or emitted by this planner. See [checkpoint](dragon-flight-preparation-checkpoint.md).

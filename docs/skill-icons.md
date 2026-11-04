@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Dragon Flight landing (2026-11-05 JST).** Final talent-tree and left/right/quick-hotkey icons remain needed separately. Native landing/transfer adds no public binding,icon slot or final asset;existing generic placeholders remain identified. See [checkpoint](dragon-flight-landing-checkpoint.md).
+
 **Dragon Flight fixed clock (2026-11-05 JST).** Talent-tree and left/right/quick-hotkey icons remain needed separately. The prepared clock adds no binding,icon slot,protocol field or final artwork; existing generic placeholders remain identified. See [checkpoint](dragon-flight-mode-checkpoint.md).
 
 **Dragon Flight sequence preparation (2026-11-05 JST).** Final talent-tree and left/right/quick-hotkey icons remain needed separately. This prepared planner adds no public binding, icon slot or final asset. Existing generic skill/roster placeholders remain the identified future fallback; the learned action is still disabled. See [checkpoint](dragon-flight-preparation-checkpoint.md).

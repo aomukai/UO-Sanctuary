@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableCodeParity": false,
+  "cases": 1210,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "tools/probe_leap_collision_reference.py": "fde96475e28903dfc4c76444553f99d66ca30f624e85c33744195a924cf6c73f"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "COLLISION_GetFreeCoordinatesImpl": "421d78b05502ef569dc8aa93099d9e63a9e301a8403cf85eac207aba43ab47b6",
+    "COLLISION_GetFreeCoordinates": "77caa8ccf83b7a2eff5260280b70b2542c84ba0891b476eef11d742b4c8df4d3"
+  },
+  "services": [
+    "Same existing-room,field-null,size2/mask0x1C09/max50/increment1 collision service. Spatial rules expose all-clear,all-blocked,single-cell,checkerboard and competing-edge candidates. No field-bearing search or actual D2 room topology is certified.",
+    "The declared ABI scaffold is read from the tracked older Leap generator AST without running or rewriting its historical evidence. Full unchanged wrapper selects the actual fallback flag,not a copied arithmetic fragment."
+  ],
+  "established": [
+    "The complete source wrapper passes the same collision mask as both masks,field=null,maxDistance50,increment1. Original point precedes square rings1..49;each ring retains minimum Manhattan score and original vertical-edge-before-horizontal-edge tie order.",
+    "Flag0 returns failure when every candidate is blocked. Flag1 can return the original blocked point/room. Flight uses0;retained Leap uses1 and independently checks final clearance/range/flying. The flag does not stop the ring loop from querying neighboring rooms.",
+    "Coordinate/call-count/FNV-trace controls include radius49success and radius50outside-limit failure. No native map/terrain/height/permission/footprint equivalence follows from this same-room scalar probe."
+  ],
+  "sanitizers": "ASan+UBSan clean",
+  "artifacts": {
+    ".local/class-skills/free-coordinates-source/source.cpp": "55d143bb028f7bc8ef5b6ef3a19f55da48fb2442002c2ed120f697cc49e6b4c5",
+    ".local/class-skills/free-coordinates-source/probe": "148f13bf08ac3e1eff83dc5cbdf26a289afca5e069c683e3a5c1eab9327ab7c2",
+    ".local/class-skills/free-coordinates-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/free-coordinates-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/free-coordinates-source/cases.json": "b1b92d69f7c6c212cfbea5669d1303e5dfd41afb48a514ec7d6e86509b1b5757",
+    "tools/probe_free_coordinates_reference.py": "57314fdce07fec904a5214b99296e1b01f664d692951b7e378f302f15167682f"
+  }
+}

@@ -34,11 +34,13 @@ public static class Teleportation
         var map = p.Map;
         return map != null && map != Map.Internal && point.X >= 0 && point.Y >= 0 && point.X < map.Width && point.Y < map.Height
             && TreasureHunts.CanLand(p, map, point) && point.Z is >= -128 and <= 127 && point != p.Location && p.InRange(point, Range)
-            && SpellHelper.CheckTravel(p, TravelCheckType.TeleportFrom, out _)
-            && SpellHelper.CheckTravel(p, map, point, TravelCheckType.TeleportTo, out _)
-            && !SpellHelper.CheckMulti(point, map) && !Region.Find(point, map).IsPartOf<HouseRegion>()
+            && TravelAllowed(p,map,point)
             && Space(map, point);
     }
+    internal static bool TravelAllowed(PlayerMobile p,Map map,Point3D point)
+        =>SpellHelper.CheckTravel(p,TravelCheckType.TeleportFrom,out _)
+            &&SpellHelper.CheckTravel(p,map,point,TravelCheckType.TeleportTo,out _)
+            &&!SpellHelper.CheckMulti(point,map)&&!Region.Find(point,map).IsPartOf<HouseRegion>();
     internal static bool Space(Map map, Point3D point, Mobile traveller = null, bool allowAllies = false)
     {
         if (!map.CanFit(point.X, point.Y, point.Z, 16, checkMobiles: traveller == null, requireSurface: true)) { return false; }
@@ -104,14 +106,20 @@ public static class Teleportation
         // revive an old fractional remainder after native regeneration capped.
         if (q.Scroll == Serial.Zero) { if(!NecromancerEffects.Pay(p,ManaCost(q.Rank)*256)){return false;} }
         else { World.FindItem(q.Scroll).Consume(); if (q.Cell >= 0) { PotionBelts.Compact(p, q.Cell % 4); } }
-        p.Location = q.Destination; p.ProcessDelta();
+        CommitTransfer(p,q.Destination,q.Origin,q.Map);
+        if (q.Cell >= 0) { PotionBeltNetwork.Send(p); }
+        return true;
+    }
+    // Caller has already claimed its action and validated the destination.
+    // Preserve the existing move/delta/pet/effect/arrival-field order.
+    internal static void CommitTransfer(PlayerMobile p,Point3D destination,Point3D origin,Map map)
+    {
+        p.Location=destination;p.ProcessDelta();
         PetOwnerRoutes.Teleported(p,TimedEffects.Now);
-        Effects.SendLocationParticles(EffectItem.Create(q.Origin, q.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 2023);
+        Effects.SendLocationParticles(EffectItem.Create(origin,map,EffectItem.DefaultDuration),0x3728,10,10,2023);
         Effects.SendLocationParticles(EffectItem.Create(p.Location, p.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
         p.PlaySound(0x1FE);
         ArrivalFields(p);
-        if (q.Cell >= 0) { PotionBeltNetwork.Send(p); }
-        return true;
     }
     internal static void ArrivalFields(PlayerMobile p)
     {
