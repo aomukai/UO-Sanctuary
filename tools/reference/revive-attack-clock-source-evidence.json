@@ -1,0 +1,175 @@
+{
+  "referenceVersion": "3.3.93847",
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5"
+  },
+  "parsedAnimationRecords": 3661,
+  "uniqueAnimationCodes": 3631,
+  "ambiguousRecords": {
+    "VMS1HTH": [
+      [
+        17,
+        200,
+        [
+          {
+            "Frame": 10,
+            "Kind": 2
+          }
+        ]
+      ],
+      [
+        17,
+        160,
+        [
+          {
+            "Frame": 10,
+            "Kind": 2
+          }
+        ]
+      ]
+    ],
+    "VMGHHTH": [
+      [
+        7,
+        192,
+        []
+      ],
+      [
+        7,
+        184,
+        []
+      ]
+    ],
+    "MINUHTH": [
+      [
+        1,
+        256,
+        []
+      ],
+      [
+        8,
+        256,
+        []
+      ]
+    ],
+    "WKNUHTH": [
+      [
+        1,
+        256,
+        []
+      ],
+      [
+        8,
+        128,
+        []
+      ]
+    ],
+    "VMWLHTH": [
+      [
+        17,
+        224,
+        []
+      ],
+      [
+        17,
+        256,
+        []
+      ]
+    ],
+    "VMNUHTH": [
+      [
+        13,
+        224,
+        []
+      ],
+      [
+        13,
+        184,
+        []
+      ]
+    ],
+    "64A1HTH": [
+      [
+        27,
+        208,
+        [
+          {
+            "Frame": 16,
+            "Kind": 2
+          }
+        ]
+      ],
+      [
+        27,
+        200,
+        [
+          {
+            "Frame": 13,
+            "Kind": 2
+          }
+        ]
+      ]
+    ],
+    "64NUHTH": [
+      [
+        14,
+        112,
+        []
+      ],
+      [
+        14,
+        256,
+        []
+      ]
+    ],
+    "VMA1HTH": [
+      [
+        17,
+        256,
+        [
+          {
+            "Frame": 8,
+            "Kind": 1
+          }
+        ]
+      ],
+      [
+        17,
+        232,
+        [
+          {
+            "Frame": 8,
+            "Kind": 1
+          }
+        ]
+      ]
+    ],
+    "3DNUHTH": [
+      [
+        1,
+        256,
+        []
+      ],
+      [
+        16,
+        176,
+        []
+      ]
+    ]
+  },
+  "sourceRows": 751,
+  "supported": 436,
+  "refusals": {
+    "Missing ordinary A1 animation record": 161,
+    "A1 requires multiple or nonmelee action events": 147,
+    "Dual-wield source requires its merged-hand attack-rate service": 2,
+    "Ambiguous owned A1 animation records require current lookup selection": 5
+  },
+  "runtimePath": "data/Sanctuary/Balance/revive-attack-clocks.json",
+  "runtimeSha256": "9f5842a4efb92e32756aa935a7bff514faee36205b61a28d56f3348c404da048",
+  "scope": "Owned animation and source/model token equality; non-dual ordinary A1 only. Native controller and modern runtime selection remain separate."
+}

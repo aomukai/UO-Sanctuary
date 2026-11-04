@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original Revive A1 clocks (2026-11-04 JST).** The owned A1 clock service adds no effect or audio. Revive’s existing identified windup/contact/block/wound/return placeholders and pending final feedback remain; verified timing metadata does not supply animation artwork. See [checkpoint](revive-swing-clock-checkpoint.md).
+
 **Original Revive live melee (2026-11-04 JST).** Live original geometry/result/contact reuses the existing identified Revive contact, block, wound and return placeholders. Final windup/contact/miss/block/status/return feedback and audio remain pending; this service adds no standalone effect. See [checkpoint](revive-melee-geometry-checkpoint.md).
 
 **Original Revive ownership graph (2026-11-04 JST).** The frozen item graph and native resource-recovery gates add no visual effect or audio. Revive keeps its existing identified summon/contact/return placeholders and pending final artwork. See [checkpoint](revive-graph-checkpoint.md).

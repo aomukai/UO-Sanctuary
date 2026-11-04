@@ -1,0 +1,8869 @@
+[
+  {
+    "Source": "act2child",
+    "Code": "2CA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act2female",
+    "Code": "2FA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act2guard1",
+    "Code": "GUA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "act2guard2",
+    "Code": "GUA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "act2guard3",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act2guard4",
+    "Code": "GUA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "act2guard5",
+    "Code": "GUA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "act2hire",
+    "Code": "GUA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "act2male",
+    "Code": "2MA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act2vendor1",
+    "Code": "M1A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act2vendor2",
+    "Code": "M2A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act3female",
+    "Code": "N3A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act3hire",
+    "Code": "IWA11HS",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "act3male",
+    "Code": "N4A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "act5barb1",
+    "Code": "0AA11HS",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      },
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act5barb2",
+    "Code": "0AA12HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      },
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act5barb3",
+    "Code": "0AA11HS",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      },
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act5barb4",
+    "Code": "0AA12HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      },
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act5hire1",
+    "Code": "0AA11HS",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      },
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act5hire2",
+    "Code": "0AA12HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      },
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "act5pow",
+    "Code": "0AA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "akara",
+    "Code": "PSA1HTH",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "alkor",
+    "Code": "ALA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "ancientbarb1",
+    "Code": "0DA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "ancientbarb2",
+    "Code": "0FA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      },
+      {
+        "Frame": 12,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "ancientbarb3",
+    "Code": "0EA1HTH",
+    "Frames": 19,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "ancientstatue1",
+    "Code": "0GA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "ancientstatue2",
+    "Code": "0HA1HTH",
+    "Frames": 16,
+    "Speed": 192,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "ancientstatue3",
+    "Code": "0IA1HTH",
+    "Frames": 16,
+    "Speed": 192,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "andariel",
+    "Code": "ANA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach1",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach2",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach3",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach4",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach5",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach6",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "arach7",
+    "Code": "SPA1HTH",
+    "Frames": 11,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "asheara",
+    "Code": "AHA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "atma",
+    "Code": "ASA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalclone",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalcrab",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalcrabstairs",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalhighpriest",
+    "Code": "HPA1HTH",
+    "Frames": 10,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baalminion1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalminion2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalminion3",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baaltaunt",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "baaltentacle1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baaltentacle2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baaltentacle3",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baaltentacle4",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baaltentacle5",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baalthrone",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "baboon1",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon2",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon3",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon4",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon5",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon6",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon7",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "baboon8",
+    "Code": "BBA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "barricadedoor1",
+    "Code": "AJA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "barricadedoor2",
+    "Code": "AGA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "barricadetower",
+    "Code": "ACA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "barricadewall1",
+    "Code": "A6A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "barricadewall2",
+    "Code": "AKA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "bat",
+    "Code": "B9A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "batdemon1",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "batdemon2",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "batdemon3",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "batdemon4",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "batdemon5",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "batdemon6",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "batdemon7",
+    "Code": "BTA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bear",
+    "Code": "TGA1HTH",
+    "Frames": 12,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead1",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead10",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead2",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead3",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead4",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead5",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead6",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead7",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead8",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bighead9",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bird1",
+    "Code": "BSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "bird2",
+    "Code": "BLA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "bladecreeper",
+    "Code": "B8A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "bloodgolem",
+    "Code": "G2A1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord1",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord2",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord3",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord4",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord5",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord6",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodlord7",
+    "Code": "L3A1HTH",
+    "Frames": 16,
+    "Speed": 184,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodmage1",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodmage2",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodmage3",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodmage4",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodmage5",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bloodraven",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "blunderbore1",
+    "Code": "PNA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "blunderbore2",
+    "Code": "PNA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "blunderbore3",
+    "Code": "PNA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "blunderbore4",
+    "Code": "PNA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "blunderbore5",
+    "Code": "PNA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "blunderbore6",
+    "Code": "PNA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish1",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish2",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish3",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish4",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish5",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish6",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bonefetish7",
+    "Code": "FKA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "boneprison1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "boneprison2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "boneprison3",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "boneprison4",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "bonewall",
+    "Code": "BWA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "brute1",
+    "Code": "YEA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "brute2",
+    "Code": "YEA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "brute3",
+    "Code": "YEA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "brute4",
+    "Code": "YEA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "brute5",
+    "Code": "YEA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "bug",
+    "Code": "BGA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "bunny",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "cain1",
+    "Code": "DCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cain2",
+    "Code": "DCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cain3",
+    "Code": "DCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cain4",
+    "Code": "DCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cain5",
+    "Code": "1DA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "cain6",
+    "Code": "DCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "camel",
+    "Code": "CMA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "cantor1",
+    "Code": "ZPA1HTH",
+    "Frames": 14,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cantor2",
+    "Code": "ZPA1HTH",
+    "Frames": 14,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cantor3",
+    "Code": "ZPA1HTH",
+    "Frames": 14,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cantor4",
+    "Code": "ZPA1HTH",
+    "Frames": 14,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cantor5",
+    "Code": "ZPA1HTH",
+    "Frames": 14,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cantor6",
+    "Code": "ZPA1HTH",
+    "Frames": 14,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "catapult1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "catapult2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "catapult3",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "catapult4",
+    "Code": "UAA1HTH",
+    "Frames": 27,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "catapultspotter1",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "catapultspotter2",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "catapultspotter3",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "catapultspotter4",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "chaoshorde1",
+    "Code": "CHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "chaoshorde2",
+    "Code": "CHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "chaoshorde3",
+    "Code": "CHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "chaoshorde4",
+    "Code": "CHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "chargeboltsentry",
+    "Code": "LGA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "charsi",
+    "Code": "CIA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "chicken",
+    "Code": "CKA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "clawviper1",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper10",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper2",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper3",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper4",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper5",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper6",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper7",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper8",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "clawviper9",
+    "Code": "SDA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "claygolem",
+    "Code": "G1A1HTH",
+    "Frames": 16,
+    "Speed": 232,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "colbarbfrenzy",
+    "Code": "0AA12HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      },
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "colbarbthrow",
+    "Code": "0AA11HS",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      },
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "colbarbwhirl",
+    "Code": "0AA11HS",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      },
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "colossal1",
+    "Code": "0DA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "colossal2",
+    "Code": "0FA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      },
+      {
+        "Frame": 12,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "colossal3",
+    "Code": "0EA1HTH",
+    "Frames": 19,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "compellingorb",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "corruptrogue1",
+    "Code": "CRA11HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "corruptrogue2",
+    "Code": "CRA11HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "corruptrogue3",
+    "Code": "CRA11HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "corruptrogue4",
+    "Code": "CRA11HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "corruptrogue5",
+    "Code": "CRA11HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "corruptrogue6",
+    "Code": "CRA11HS",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "councilmember1",
+    "Code": "HPA1HTH",
+    "Frames": 10,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "councilmember2",
+    "Code": "HPA1HTH",
+    "Frames": 10,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "councilmember3",
+    "Code": "HPA1HTH",
+    "Frames": 10,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cow",
+    "Code": "CWA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "cowking",
+    "Code": "ECA1HTH",
+    "Frames": 19,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_archer1",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer2",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer3",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer4",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer5",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer6",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer7",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_archer8",
+    "Code": "CRA1BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "cr_lancer1",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer2",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer3",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer4",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer5",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer6",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer7",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer8",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "cr_lancer9",
+    "Code": "CRA12HT",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "crownest1",
+    "Code": "BNA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "crownest2",
+    "Code": "BNA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "crownest3",
+    "Code": "BNA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "crownest4",
+    "Code": "BNA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "cycleoflife",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "darkelder",
+    "Code": "ZMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "darkguard1",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "darkguard2",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "darkguard3",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "darkguard4",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "darkguard5",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "darkwanderer",
+    "Code": "1ZA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "deathmauler1",
+    "Code": "M5A1HTH",
+    "Frames": 11,
+    "Speed": 216,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "deathmauler2",
+    "Code": "M5A1HTH",
+    "Frames": 11,
+    "Speed": 216,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "deathmauler3",
+    "Code": "M5A1HTH",
+    "Frames": 11,
+    "Speed": 216,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "deathmauler4",
+    "Code": "M5A1HTH",
+    "Frames": 11,
+    "Speed": 216,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "deathmauler5",
+    "Code": "M5A1HTH",
+    "Frames": 11,
+    "Speed": 216,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "deathmauler6",
+    "Code": "M5A1HTH",
+    "Frames": 11,
+    "Speed": 216,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "deathsentry",
+    "Code": "LGA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "demonhole",
+    "Code": "EHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "demonspawner",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "diablo",
+    "Code": "DIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "diabloclone",
+    "Code": "DIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "dkfig1",
+    "Code": "UMA1FGT",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "dkfig2",
+    "Code": "UMA1FGT",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "dkmag1",
+    "Code": "UMA1MGK",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "dkmag2",
+    "Code": "UMA1MGK",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "dkmag3",
+    "Code": "UMA1MGK",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "doomknight1",
+    "Code": "UMA1FGT",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "doomknight2",
+    "Code": "UMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "doomknight3",
+    "Code": "UMA1MGK",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "dopplezon",
+    "Code": "VKA1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "drehya",
+    "Code": "XSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "drehyaiced",
+    "Code": "XSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "drognan",
+    "Code": "DRA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "druidbear",
+    "Code": "B7A1HTH",
+    "Frames": 13,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "druidhawk",
+    "Code": "HKA1HTH",
+    "Frames": 23,
+    "Speed": 240,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "duriel",
+    "Code": "DUA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "eagle",
+    "Code": "EGA1HTH",
+    "Frames": 12,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "elzix",
+    "Code": "ELA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "evilhole1",
+    "Code": "EHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "evilhole2",
+    "Code": "EHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "evilhole3",
+    "Code": "EHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "evilhole4",
+    "Code": "EHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "evilhole5",
+    "Code": "EHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "evilhut",
+    "Code": "2TA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "fallen1",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen2",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen3",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen4",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen5",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen6",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen7",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallen8",
+    "Code": "FAA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman1",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman2",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman3",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman4",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman5",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman6",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman7",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fallenshaman8",
+    "Code": "FSA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "familiar",
+    "Code": "FIA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "fara",
+    "Code": "OFA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "fenris",
+    "Code": "WFA1HTH",
+    "Frames": 13,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish1",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish11",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish2",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish3",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish4",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish5",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish6",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish7",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetish8",
+    "Code": "FEA11HS",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fetishblow1",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow2",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow3",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow4",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow5",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow6",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow7",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishblow8",
+    "Code": "FCA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman1",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman2",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman3",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman4",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman5",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman6",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman7",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fetishshaman8",
+    "Code": "FWA1HTH",
+    "Frames": 25,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fingermage1",
+    "Code": "FRA1HTH",
+    "Frames": 14,
+    "Speed": 144,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fingermage2",
+    "Code": "FRA1HTH",
+    "Frames": 14,
+    "Speed": 144,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fingermage3",
+    "Code": "FRA1HTH",
+    "Frames": 14,
+    "Speed": 144,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fingermage4",
+    "Code": "FRA1HTH",
+    "Frames": 14,
+    "Speed": 144,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "fingermage5",
+    "Code": "FRA1HTH",
+    "Frames": 14,
+    "Speed": 144,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "firebeast",
+    "Code": "FMA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "firegolem",
+    "Code": "G3A1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "firetower",
+    "Code": "PBA1HTH",
+    "Frames": 9,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "fish",
+    "Code": "FJA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "flyingscimitar",
+    "Code": "STA1HTH",
+    "Frames": 12,
+    "Speed": 152,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow1",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow2",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow3",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow4",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow5",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow6",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow7",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "foulcrow8",
+    "Code": "BKA1HTH",
+    "Frames": 11,
+    "Speed": 260,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frogdemon1",
+    "Code": "FDA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frogdemon2",
+    "Code": "FDA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frogdemon3",
+    "Code": "FDA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frozenhorror1",
+    "Code": "F0A1HTH",
+    "Frames": 13,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frozenhorror2",
+    "Code": "F0A1HTH",
+    "Frames": 13,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frozenhorror3",
+    "Code": "F0A1HTH",
+    "Frames": 13,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frozenhorror4",
+    "Code": "F0A1HTH",
+    "Frames": 13,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "frozenhorror5",
+    "Code": "F0A1HTH",
+    "Frames": 13,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "gargoyletrap",
+    "Code": "GTA1HTH",
+    "Frames": 5,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 0,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "geglash",
+    "Code": "GEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "gheed",
+    "Code": "GHA1HTH",
+    "Frames": 8,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "goatman1",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman10",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman2",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman3",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman4",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman5",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman6",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman7",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman8",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "goatman9",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "gorgon1",
+    "Code": "GOA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "gorgon2",
+    "Code": "GOA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "gorgon3",
+    "Code": "GOA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "gorgon4",
+    "Code": "GOA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "greiz",
+    "Code": "GRA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "griswold",
+    "Code": "GZA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "halbu",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "heartofwolverine",
+    "Code": "X3A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "hellbovine",
+    "Code": "ECA1HTH",
+    "Frames": 19,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "hellmeteor",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "hephasto",
+    "Code": "5PA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "horse",
+    "Code": "HSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "hratli",
+    "Code": "HRA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "hydra1",
+    "Code": "HXA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "hydra2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "hydra3",
+    "Code": "HZA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "iceglobe",
+    "Code": "IMA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "imp1",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp2",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp3",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp4",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp5",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp6",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp7",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "imp8",
+    "Code": "IPA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "infernosentry",
+    "Code": "E9A1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 2,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "injuredbarb1",
+    "Code": "6ZA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "injuredbarb2",
+    "Code": "7JA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "injuredbarb3",
+    "Code": "7IA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "invisopet",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "invisospawner",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "irongolem",
+    "Code": "G4A1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "izual",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "izualghost",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "jamella",
+    "Code": "JAA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "jerhyn",
+    "Code": "JEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "kashya",
+    "Code": "RCA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "larva",
+    "Code": "LVA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "larzuk",
+    "Code": "XRA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "lightningbeast",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "lightningsentry",
+    "Code": "LGA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "lightningspire",
+    "Code": "AEA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "lysander",
+    "Code": "LYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggot",
+    "Code": "MAA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotbaby1",
+    "Code": "SBA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "maggotbaby2",
+    "Code": "SBA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "maggotbaby3",
+    "Code": "SBA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "maggotbaby4",
+    "Code": "SBA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "maggotbaby5",
+    "Code": "SBA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "maggotbaby6",
+    "Code": "SBA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "maggotegg1",
+    "Code": "SEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotegg2",
+    "Code": "SEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotegg3",
+    "Code": "SEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotegg4",
+    "Code": "SEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotegg5",
+    "Code": "SEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotegg6",
+    "Code": "SEA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotqueen1",
+    "Code": "MQA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotqueen2",
+    "Code": "MQA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotqueen3",
+    "Code": "MQA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotqueen4",
+    "Code": "MQA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "maggotqueen5",
+    "Code": "MQA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "malachai",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "malah",
+    "Code": "XTA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "megademon1",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "megademon2",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "megademon3",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "megademon4",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "megademon5",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "megademon6",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mephisto",
+    "Code": "MPA1HTH",
+    "Frames": 18,
+    "Speed": 192,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mephistospirit",
+    "Code": "M6A1HTH",
+    "Frames": 37,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 19,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "meshif1",
+    "Code": "MSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "meshif2",
+    "Code": "M3A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "minion1",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion10",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion11",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion2",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion3",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion4",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion5",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion6",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion7",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion8",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minion9",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner1",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner2",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner3",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner4",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner5",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner6",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner7",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minionspawner8",
+    "Code": "XAA1HTH",
+    "Frames": 21,
+    "Speed": 128,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "minispider",
+    "Code": "LSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "mosquito1",
+    "Code": "MOA1HTH",
+    "Frames": 12,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mosquito2",
+    "Code": "MOA1HTH",
+    "Frames": 12,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mosquito3",
+    "Code": "MOA1HTH",
+    "Frames": 12,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mosquito4",
+    "Code": "MOA1HTH",
+    "Frames": 12,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mummy1",
+    "Code": "MMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mummy2",
+    "Code": "MMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mummy3",
+    "Code": "MMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mummy4",
+    "Code": "MMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mummy5",
+    "Code": "MMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "mummy6",
+    "Code": "MMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "natalya",
+    "Code": "TZA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "navi",
+    "Code": "RGA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "necromage",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "necroskeleton",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "nihlathak",
+    "Code": "0JA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "nihlathakboss",
+    "Code": "XUA1HTH",
+    "Frames": 14,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "oaksage",
+    "Code": "XWA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "ormus",
+    "Code": "ORA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "overseer1",
+    "Code": "OSA1HTH",
+    "Frames": 14,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "overseer2",
+    "Code": "OSA1HTH",
+    "Frames": 14,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "overseer3",
+    "Code": "OSA1HTH",
+    "Frames": 14,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "overseer4",
+    "Code": "OSA1HTH",
+    "Frames": 14,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "overseer5",
+    "Code": "OSA1HTH",
+    "Frames": 14,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "overseer6",
+    "Code": "OSA1HTH",
+    "Frames": 14,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "painworm1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "painworm2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "painworm3",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "painworm4",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "painworm5",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "pantherwoman1",
+    "Code": "PWA1HTH",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 16,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "pantherwoman2",
+    "Code": "PWA1HTH",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 16,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "pantherwoman3",
+    "Code": "PWA1HTH",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 16,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "pantherwoman4",
+    "Code": "PWA1HTH",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 16,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "pantherwoman5",
+    "Code": "PWA1HTH",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 16,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "pantherwoman6",
+    "Code": "PWA1HTH",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 16,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "parrot",
+    "Code": "PRA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "pig",
+    "Code": "CWA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "plaguepoppy",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "poisonorb",
+    "Code": "PMA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "prisondoor",
+    "Code": "2QA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "putriddefiler1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "putriddefiler2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "putriddefiler3",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "putriddefiler4",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "putriddefiler5",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "qual-kehk",
+    "Code": "XVA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "quillbear1",
+    "Code": "S7A1HTH",
+    "Frames": 16,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillbear2",
+    "Code": "S7A1HTH",
+    "Frames": 16,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillbear3",
+    "Code": "S7A1HTH",
+    "Frames": 16,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillbear4",
+    "Code": "S7A1HTH",
+    "Frames": 16,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillbear5",
+    "Code": "S7A1HTH",
+    "Frames": 16,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat1",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat2",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat3",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat4",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat5",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat6",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat7",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "quillrat8",
+    "Code": "SIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "radament",
+    "Code": "RDA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "rat",
+    "Code": "RTA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "reanimatedhorde1",
+    "Code": "REA1HTH",
+    "Frames": 12,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "reanimatedhorde2",
+    "Code": "REA1HTH",
+    "Frames": 12,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "reanimatedhorde3",
+    "Code": "REA1HTH",
+    "Frames": 12,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "reanimatedhorde4",
+    "Code": "REA1HTH",
+    "Frames": 12,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "reanimatedhorde5",
+    "Code": "REA1HTH",
+    "Frames": 12,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "reanimatedhorde6",
+    "Code": "REA1HTH",
+    "Frames": 12,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "regurgitator1",
+    "Code": "CSA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "regurgitator2",
+    "Code": "CSA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "regurgitator3",
+    "Code": "CSA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "regurgitator4",
+    "Code": "CSA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "rogue1",
+    "Code": "RGA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "rogue2",
+    "Code": "RGA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "rogue3",
+    "Code": "RGA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "roguehire",
+    "Code": "RGA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sandleaper1",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandleaper2",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandleaper3",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandleaper4",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandleaper5",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandleaper6",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandleaper7",
+    "Code": "SLA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot1",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot2",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot3",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot4",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot5",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot6",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandmaggot7",
+    "Code": "SMA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider1",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider10",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider2",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider3",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider4",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider5",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider6",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider7",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider8",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sandraider9",
+    "Code": "SRA1HTH",
+    "Frames": 15,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sarcophagus",
+    "Code": "MGA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "scarab1",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab2",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab3",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab4",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab5",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab6",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab7",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scarab8",
+    "Code": "SCA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "scorpion",
+    "Code": "DSA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "seagull",
+    "Code": "CWA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "seventombs",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "shadowmaster",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "Dual-wield source requires its merged-hand attack-rate service"
+  },
+  {
+    "Source": "shadowwarrior",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "Dual-wield source requires its merged-hand attack-rate service"
+  },
+  {
+    "Source": "siegebeast1",
+    "Code": "OXA1HTH",
+    "Frames": 9,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "siegebeast2",
+    "Code": "OXA1HTH",
+    "Frames": 9,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "siegebeast3",
+    "Code": "OXA1HTH",
+    "Frames": 9,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "siegebeast4",
+    "Code": "OXA1HTH",
+    "Frames": 9,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "siegebeast5",
+    "Code": "OXA1HTH",
+    "Frames": 9,
+    "Speed": 160,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "sk_archer1",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer10",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer11",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer2",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer3",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer4",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer5",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer6",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer7",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer8",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "sk_archer9",
+    "Code": "SKA1BOW",
+    "Frames": 16,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skeleton1",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton2",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton3",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton4",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton5",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton6",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton7",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skeleton8",
+    "Code": "SKA11HS",
+    "Frames": 16,
+    "Speed": 224,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "skmage_cold1",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_cold2",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_cold3",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_cold4",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_cold5",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_cold6",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire1",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire2",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire3",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire4",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire5",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire6",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_fire7",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng1",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng2",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng3",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng4",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng5",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng6",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_ltng7",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois1",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois2",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois3",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois4",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois5",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois6",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "skmage_pois7",
+    "Code": "SKA1HTH",
+    "Frames": 16,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger1",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger2",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger3",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger4",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger5",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger6",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger7",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger8",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "slinger9",
+    "Code": "PWA11HT",
+    "Frames": 22,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 14,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "smith",
+    "Code": "5PA1HTH",
+    "Frames": 14,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 7,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "snake",
+    "Code": "COA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "snowyeti1",
+    "Code": "IOA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "snowyeti2",
+    "Code": "IOA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "snowyeti3",
+    "Code": "IOA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "snowyeti4",
+    "Code": "IOA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "spiritmummy",
+    "Code": "XXA1HTH",
+    "Frames": 9,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 4,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "spiritofbarbs",
+    "Code": "X4A1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "spiritwolf",
+    "Code": "WFA1HTH",
+    "Frames": 13,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus1",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus2",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus3",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus4",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus5",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus6",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus7",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubus8",
+    "Code": "0BA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch1",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch2",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch3",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch4",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch5",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch6",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch7",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch8",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "succubuswitch9",
+    "Code": "0CA1HTH",
+    "Frames": 8,
+    "Speed": 96,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "suckernest1",
+    "Code": "DHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suckernest2",
+    "Code": "DHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suckernest3",
+    "Code": "DHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suckernest4",
+    "Code": "DHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion1",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion10",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion11",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion2",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion3",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion4",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion5",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion6",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion7",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion8",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "suicideminion9",
+    "Code": "XYA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "summoner",
+    "Code": "SUA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "swarm1",
+    "Code": "SWA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "swarm2",
+    "Code": "SWA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "swarm3",
+    "Code": "SWA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "swarm4",
+    "Code": "SWA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "swarm5",
+    "Code": "SWA1HTH",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "tentacle1",
+    "Code": "TNA1HTH",
+    "Frames": 20,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "tentacle2",
+    "Code": "TNA1HTH",
+    "Frames": 20,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "tentacle3",
+    "Code": "TNA1HTH",
+    "Frames": 20,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 13,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "tentaclehead1",
+    "Code": "TEA1HTH",
+    "Frames": 15,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "tentaclehead2",
+    "Code": "TEA1HTH",
+    "Frames": 15,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "tentaclehead3",
+    "Code": "TEA1HTH",
+    "Frames": 15,
+    "Speed": 208,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "thornhulk1",
+    "Code": "THA1HTH",
+    "Frames": 10,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "thornhulk2",
+    "Code": "THA1HTH",
+    "Frames": 10,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "thornhulk3",
+    "Code": "THA1HTH",
+    "Frames": 10,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "thornhulk4",
+    "Code": "THA1HTH",
+    "Frames": 10,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "thornhulk5",
+    "Code": "THA1HTH",
+    "Frames": 10,
+    "Speed": 200,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "trap-firebolt",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "trap-horzmissile",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "trap-lightning",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "trap-melee",
+    "Code": "M4A1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "trap-nova",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "trap-poisoncloud",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "trap-vertmissile",
+    "Code": "9AA1HTH",
+    "Frames": 3,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "trappedsoul1",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "trappedsoul2",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "turret1",
+    "Code": "PBA1HTH",
+    "Frames": 9,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "turret2",
+    "Code": "PBA1HTH",
+    "Frames": 9,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "turret3",
+    "Code": "PBA1HTH",
+    "Frames": 9,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "tyrael1",
+    "Code": "TXA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "tyrael2",
+    "Code": "TYA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "tyrael3",
+    "Code": "TYA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "uberandariel",
+    "Code": "ANA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "uberbaal",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "uberdiablo",
+    "Code": "DIA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "uberduriel",
+    "Code": "DUA1HTH",
+    "Frames": 10,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "uberizual",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "ubermephisto",
+    "Code": "MPA1HTH",
+    "Frames": 18,
+    "Speed": 192,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler1",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler2",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler3",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler4",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler5",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler6",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler7",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler8",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "unraveler9",
+    "Code": "GYA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "valkyrie",
+    "Code": "VKA1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "vampire1",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire2",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire3",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire4",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire5",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire6",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire7",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire8",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vampire9",
+    "Code": "VAA1HTH",
+    "Frames": 14,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "venomlord",
+    "Code": "DMA1HTH",
+    "Frames": 16,
+    "Speed": 168,
+    "Flags": [
+      {
+        "Frame": 11,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vilechild1",
+    "Code": "VCA1HTH",
+    "Frames": 10,
+    "Speed": 248,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vilechild2",
+    "Code": "VCA1HTH",
+    "Frames": 10,
+    "Speed": 248,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vilechild3",
+    "Code": "VCA1HTH",
+    "Frames": 10,
+    "Speed": 248,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vilechild4",
+    "Code": "VCA1HTH",
+    "Frames": 10,
+    "Speed": 248,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vilechild5",
+    "Code": "VCA1HTH",
+    "Frames": 10,
+    "Speed": 248,
+    "Flags": [
+      {
+        "Frame": 6,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vilemother1",
+    "Code": "VMA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": "Ambiguous owned A1 animation records require current lookup selection"
+  },
+  {
+    "Source": "vilemother2",
+    "Code": "VMA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": "Ambiguous owned A1 animation records require current lookup selection"
+  },
+  {
+    "Source": "vilemother3",
+    "Code": "VMA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": "Ambiguous owned A1 animation records require current lookup selection"
+  },
+  {
+    "Source": "vilemother4",
+    "Code": "VMA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": "Ambiguous owned A1 animation records require current lookup selection"
+  },
+  {
+    "Source": "vilemother5",
+    "Code": "VMA1HTH",
+    "Frames": 17,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 8,
+        "Kind": 1
+      }
+    ],
+    "Issue": "Ambiguous owned A1 animation records require current lookup selection"
+  },
+  {
+    "Source": "vinecreature",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "vulture1",
+    "Code": "VDA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vulture2",
+    "Code": "VDA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vulture3",
+    "Code": "VDA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vulture4",
+    "Code": "VDA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "vulture5",
+    "Code": "VDA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wakeofdestruction",
+    "Code": "E9A1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 2,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "warbighead",
+    "Code": "BHA1HTH",
+    "Frames": 8,
+    "Speed": 176,
+    "Flags": [
+      {
+        "Frame": 3,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wargoatman",
+    "Code": "GMA12HS",
+    "Frames": 20,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "warputriddefiler",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "warriv1",
+    "Code": "WAA1HTH",
+    "Frames": 12,
+    "Speed": 256,
+    "Flags": [],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "warriv2",
+    "Code": "WXA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "willowisp1",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp2",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp3",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp4",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp5",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp6",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp7",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "willowisp8",
+    "Code": "WWA1HTH",
+    "Frames": 10,
+    "Speed": 120,
+    "Flags": [
+      {
+        "Frame": 5,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "window1",
+    "Code": "VHA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "window2",
+    "Code": "VJA1HTH",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "wolf",
+    "Code": "",
+    "Frames": 0,
+    "Speed": 0,
+    "Flags": [],
+    "Issue": "Missing ordinary A1 animation record"
+  },
+  {
+    "Source": "wolfrider1",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wolfrider2",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wolfrider3",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "worldstoneeffect",
+    "Code": "K9A1HTH",
+    "Frames": 2,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 1,
+        "Kind": 2
+      }
+    ],
+    "Issue": "A1 requires multiple or nonmelee action events"
+  },
+  {
+    "Source": "wraith1",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith2",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith3",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith4",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith5",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith6",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith7",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith8",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "wraith9",
+    "Code": "WRA1HTH",
+    "Frames": 18,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 12,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zealot1",
+    "Code": "ZZA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zealot2",
+    "Code": "ZZA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zealot3",
+    "Code": "ZZA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zealot4",
+    "Code": "ZZA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zealot5",
+    "Code": "ZZA1HTH",
+    "Frames": 15,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 10,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zombie1",
+    "Code": "ZMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zombie2",
+    "Code": "ZMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zombie3",
+    "Code": "ZMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zombie4",
+    "Code": "ZMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  },
+  {
+    "Source": "zombie5",
+    "Code": "ZMA1HTH",
+    "Frames": 16,
+    "Speed": 256,
+    "Flags": [
+      {
+        "Frame": 9,
+        "Kind": 1
+      }
+    ],
+    "Issue": null
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "parentGeneratedSourceSha256": "6b0d06a4e583f9dd3d0cf5733b524fcf7b7ea2d720e4dda2970bd12cdfe015c9",
+  "unchangedRoutineHashes": {
+    "gaPlayerModesAnimModulators": "506250c49e302d860e7152286215c3387f80898f103f327177d38ebf4c073346",
+    "gaMonModesAnimModulators": "d2c272e5589c6fff17185713b136325fde2a313fd7ac3014e7bb6776db2b9dc8",
+    "gaMonModesAnimModulatorsExpansion": "7afde9675eabb2d75b6d5e535b137ad1ac2ba32329d251aff95c1fdf9d82e0a6",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "inputs": {
+    "data/Sanctuary/Balance/revive-attack-clocks.json": "9f5842a4efb92e32756aa935a7bff514faee36205b61a28d56f3348c404da048",
+    "data/Sanctuary/Balance/revive-melee-geometry.json": "0512b3baba41de6ce03f8c65d25ce45e873071d426fc51bf0cdd29164922da2c"
+  },
+  "artifacts": {
+    ".local/class-skills/revive-attack-clock-source/source.cpp": "c5eeee4a6c96d465528c87284b44077394f6165cb8d12fc1d7c86118f5ab15a8",
+    ".local/class-skills/revive-attack-clock-source/inputs.txt": "25db5280d6bbeb5ae0f8e739aef85c7557bc796dceae10e1f7b2ad3a429b3798",
+    ".local/class-skills/revive-attack-clock-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/revive-attack-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/revive-attack-clock-source-probe.json": "5e7f8d6e83d0268771fcfea0024ebbfe08e41deeed4a200d2ab8ede7349a916f"
+  },
+  "cases": 97664,
+  "scope": "Complete unchanged A1 rate predicate/writer and initial event scheduler;436 owned single-melee-action rows,explicit IAS/rate/weapon-speed inputs;not a native controller or modern executable certificate."
+}

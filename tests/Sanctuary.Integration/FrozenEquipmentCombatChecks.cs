@@ -74,7 +74,8 @@ public static class FrozenEquipmentCombatChecks
             try
             {
                 var levels=Enumerable.Range(1,99).Select(level=>Live(item,level)).ToArray();var live=new ItemStatContext(item,1);live.RequireOrdinaryNpcDrainInputs();var b=ClassGear.Base(item);
-                var basis=new FrozenCombatBase(ClassGear.Slot(item),b.Type,ClassGear.Slot(item)==GearSlot.Weapon&&!ClassGear.Broken(item),b.TwoHanded,b.OneOrTwoHanded,b.StrengthBonus,b.DexterityBonus);
+                var basis=new FrozenCombatBase(ClassGear.Slot(item),b.Type,ClassGear.Slot(item)==GearSlot.Weapon&&!ClassGear.Broken(item),b.TwoHanded,b.OneOrTwoHanded,b.StrengthBonus,b.DexterityBonus,
+                    ClassGear.Slot(item)==GearSlot.Weapon&&!ClassGear.Broken(item)?b.Speed:0);
                 EquipmentStatValue[] numeric=[];string issue=null;
                 try{numeric=live.ActiveNumericProperties();}catch(NotSupportedException e){issue="Frozen NPC numeric projection unavailable: "+e.Message;}
                 var snapshot=FrozenEquipmentEffects.Capture(item);var result=new Saved(name,snapshot,basis,levels,numeric,issue);Assert(result);

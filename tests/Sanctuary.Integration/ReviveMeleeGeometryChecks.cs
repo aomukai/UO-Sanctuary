@@ -26,11 +26,11 @@ public static class ReviveMeleeGeometryChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Original Revive live geometry/result and shared contact",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static Item Named(string name)=>NamedGear.Create(NamedGear.Catalog.Items.Single(r=>r.SourceKey==name).Id,99,new Random(173),true);
-    private static BaseCreature Create(PlayerMobile owner)
+    internal static BaseCreature Create(PlayerMobile owner,Item[] equipment=null)
     {
         var body=new Skeleton{Name="PoisonDaggerFixtureReviveMeleeGeometry",NoKillAwards=true};
         foreach(var item in body.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){item.Delete();}
-        var gear=new[]{"The Gnasher","Swordback Hold","Goblin Toe"}.Select(Named).ToArray();foreach(var item in gear){body.AddItem(item);}
+        var gear=equipment??new[]{"The Gnasher","Swordback Hold","Goblin Toe"}.Select(Named).ToArray();foreach(var item in gear){body.AddItem(item);}
         Require(gear.All(i=>i.Parent==body),"Original melee fixture slots collided");
         body.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);body.AIObject.AITimer.Stop();Corpse corpse=null;var died=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(who,item)=>{died?.Invoke(who,item);if(who==body){corpse=item as Corpse;corpse?.DropItem(new Gold(1));}};

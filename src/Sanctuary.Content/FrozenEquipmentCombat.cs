@@ -8,7 +8,8 @@ namespace Sanctuary;
 
 internal sealed record FrozenResourceInput(int Flat256,int LevelCoefficientRaw);
 internal sealed record FrozenCombatBase(GearSlot Slot,string Type,bool Weapon,bool TwoHanded,bool OneOrTwoHanded,
-    int StrengthCoefficient,int DexterityCoefficient);
+    int StrengthCoefficient,int DexterityCoefficient,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? WeaponSpeed=null);
 internal sealed record FrozenCombatLevel(int Level,MissileSourceStats Elements,MissileSourceStats Poison,
     FrozenResourceInput Life,FrozenResourceInput Mana,FrozenResourceInput Stamina,
     int OneMinimum,int OneMaximum,int TwoMinimum,int TwoMaximum);
@@ -29,7 +30,8 @@ internal static class FrozenEquipmentCombat
             var first=new ItemStatContext(item,1);first.RequireOrdinaryNpcDrainInputs();
             var definition=ClassGear.Base(item);var slot=ClassGear.Slot(item);
             var basis=new FrozenCombatBase(slot,definition.Type,slot==GearSlot.Weapon&&!ClassGear.Broken(item),
-                definition.TwoHanded,definition.OneOrTwoHanded,definition.StrengthBonus,definition.DexterityBonus);
+                definition.TwoHanded,definition.OneOrTwoHanded,definition.StrengthBonus,definition.DexterityBonus,
+                slot==GearSlot.Weapon&&!ClassGear.Broken(item)?definition.Speed:0);
             EquipmentStatValue[] numeric=[];string numericIssue=null;FrozenItemGraph graph=null;
             try
             {
@@ -64,6 +66,7 @@ internal static class FrozenEquipmentCombat
         }
         var basis=saved.Basis;
         if(basis==null||!Enum.IsDefined(basis.Slot)||string.IsNullOrWhiteSpace(basis.Type)||basis.Weapon&&basis.Slot!=GearSlot.Weapon
+            ||basis.WeaponSpeed is <-1000 or >1000||!basis.Weapon&&basis.WeaponSpeed is not(null or 0)
             ||saved.Numeric==null||saved.Numeric.Select(s=>s.Packed).Distinct().Count()!=saved.Numeric.Length||saved.Levels.Length!=99
             ||saved.NumericIssue!=null&&(string.IsNullOrWhiteSpace(saved.NumericIssue)||saved.Numeric.Length!=0))
         {throw new InvalidDataException("Invalid frozen combat base or levels");}

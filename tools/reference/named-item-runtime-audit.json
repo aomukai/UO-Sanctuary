@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "6794fb08de6716b9b5cadce09eb037cedcf7dc77d0cb5f3e76edbe1471b62abb",
+  "ContentAssemblySha256": "60fc9cb5f08e71164dd6274934fca74454fdda0085b772d98d7202f6eddc43f5",
   "NativeAssemblySha256": "ae1ff5ce99daf6161b0d53df170653e5252cfc218185d576b65dcafe59eb24a0",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -107,6 +107,7 @@
     "data/Sanctuary/Balance/recognition-halls.json": "fd81fa70f756c33440872dd866a81373f035b6f9cf8fd3bc1ae28155139efdc4",
     "data/Sanctuary/Balance/repairs.json": "8e223aee2a41f124172bacf15fa7c0b9f475c392364fdbe2eced971450c4046b",
     "data/Sanctuary/Balance/restoration-potions.json": "e6fb79519f24dc86f6ed90d6328afe4dc96128d6192555b5ce5241f2d4353d04",
+    "data/Sanctuary/Balance/revive-attack-clocks.json": "9f5842a4efb92e32756aa935a7bff514faee36205b61a28d56f3348c404da048",
     "data/Sanctuary/Balance/revive-melee-geometry.json": "0512b3baba41de6ce03f8c65d25ce45e873071d426fc51bf0cdd29164922da2c",
     "data/Sanctuary/Balance/revive-offense-sources.json": "b7f21a1a7ee1331ef7d26ca13b5e4b03700d07f1c64ecba3f133ff92daf5b225",
     "data/Sanctuary/Balance/revive-policy.json": "40c6a3fe8845ed9298f892311583d15fa77862e0249674e6a6fdbcfacece3b3e",
@@ -576,7 +577,7 @@
     "src/Sanctuary.Content/FortificationCrafting.cs": "768d54370b3de14a09dacfad503af069c54dbfee6d12bb16d69a224ad94ed29d",
     "src/Sanctuary.Content/FortificationGump.cs": "a4dde3752d0a3d09b63ef18a8a90378a0e6f596a8faaa645bdda71773ed84649",
     "src/Sanctuary.Content/FreezeStates.cs": "2e7ef643987565beff53ce464e731cfed841506b0f4bbae6667e52c39010c52a",
-    "src/Sanctuary.Content/FrozenEquipmentCombat.cs": "37a2f39880d3b93d158b16c9049449642048d4bd78d87d5ae98a46705d04b680",
+    "src/Sanctuary.Content/FrozenEquipmentCombat.cs": "909ef2b9c7c5147aee2157d32c8e90f31dc3a1695f06f5a7b7d2986605db504e",
     "src/Sanctuary.Content/FrozenEquipmentEffects.cs": "1cdc6f6b572b9f11cb43f1b51a7c271bf12b31536c63707f322c5d46a2d98c42",
     "src/Sanctuary.Content/FrozenNpcStatGraph.cs": "fcba03dd516fa286e15e6cd8d76869574b99a8b7220846b1947c0b82d6cd47f9",
     "src/Sanctuary.Content/FrozenOrbs.cs": "7632d242d093f087b448af872d8f29437023b152d32a32800c0dd8c222de5a87",
@@ -889,6 +890,7 @@
     "src/Sanctuary.Content/ReviveRegeneration.cs": "7c27803192bf6b9d16934bffd62b72ea8416eaa475fcf0afc6c5a39a119a4f89",
     "src/Sanctuary.Content/ReviveSourcePolicy.cs": "9a6abdb7cd9a28c8ad65e85d7834ed0793a31d2a2b72f8e96bcbd30b0d4a57fe",
     "src/Sanctuary.Content/ReviveSpecies.cs": "66ef9f5b14768fea7fe05c0fd5d83a98cb48c54e4903a07440b59e56e35ed21d",
+    "src/Sanctuary.Content/ReviveSwingClock.cs": "c6161d8b010ee4fc41555136290092a59d77c070f59d94ef934f135df67c2ba6",
     "src/Sanctuary.Content/ReviveWorldControllers.cs": "86c2b3fbd4f7b5b0055157cd38009206abaf7820b6800a804121437f25f7200d",
     "src/Sanctuary.Content/RewardLife.cs": "071dd678489df315e88bd7a6646a2a1904a17d974e84970f54705a6dd521ad42",
     "src/Sanctuary.Content/RuneCraftGump.cs": "362aa394acbfcc20c04a70cd27b9b70cc93957feb062f8f8839e5057e4427fb8",
