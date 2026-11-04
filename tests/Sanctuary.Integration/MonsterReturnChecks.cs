@@ -135,7 +135,7 @@ public static class MonsterReturnChecks
         Require(PreparedMonsterReturn.SharedHitClasses.Count==shared+2,"Return consumers did not share hit-class history");
         var dying=Body();SkillHealth.SetBalance256(dying,256);world=new WorldServices(dying);
         var killed=PreparedMonsterDamage.Release(actor,dying,new(256,256,30,0,5),metadata,_=>0,new Release(world),now);
-        Require(killed.DeathModeAttempted&&world.KillCount==1&&dying.Deleted,"Real return policy did not consume native lethal result once");
+        Require(killed.DeathModeAttempted&&world.KillCount==1&&!dying.Alive&&!dying.Deleted&&ReviveOriginals.IsRetained(dying)&&dying.Corpse!=null,"Real return policy did not consume native lethal result once");
         var deferred=Body();SkillHealth.SetBalance256(deferred,256);world=new WorldServices(deferred,true);
         var delay=PreparedMonsterDamage.Release(actor,deferred,new(256,256,30,0,5),metadata,_=>0,new Release(world),now);
         Require(world.Delayed&&!delay.DeathModeAttempted&&deferred.Alive&&!deferred.Deleted&&deferred.Hits==0,"Uninterruptible source return did not defer native death");

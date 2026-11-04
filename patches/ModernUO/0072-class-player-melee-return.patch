@@ -1,0 +1,22 @@
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -15,6 +15,7 @@
+     public static Func<BaseCreature, Mobile, bool?> CreatureFriend { get; set; }
+     public static Func<BaseCreature, Mobile, Mobile> CreatureDamageMaster { get; set; }
+     public static Func<Mobile, Mobile, int, int> ApplyDamage256 { get; set; }
++    public static Func<Mobile, Mobile, IDisposable> WeaponDamageHealth { get; set; }
+     public static Func<Mobile, Mobile, bool, IDisposable> MeleeAttempt { get; set; }
+     public static Action<Mobile, Mobile, int, bool> PreparedWeaponDamage { get; set; }
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
+diff --git a/Projects/UOContent/Misc/AOS.cs b/Projects/UOContent/Misc/AOS.cs
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -292,6 +292,7 @@
+             var beforeDamage = m.Hits;
+             if (fixedTotal256 is { } fixedTotal && ClassCombatHooks.ApplyDamage256 is { } applyFixed)
+             {
++                using var healthPhase = weaponDamage ? ClassCombatHooks.WeaponDamageHealth?.Invoke(from, m) : null;
+                 applyFixed(from, m, fixedTotal);
+             }
+             else

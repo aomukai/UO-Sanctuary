@@ -10,6 +10,7 @@ internal static class CombatDamage
         // Native damage records a killer below zero; class combat also completes exact-zero kills.
         if (target.Alive && target.Hits == 0)
         {
+            if(PlayerMeleeReturn.Defer(target,attacker)){return;}
             target.LastKiller = attacker;
             target.Kill();
         }

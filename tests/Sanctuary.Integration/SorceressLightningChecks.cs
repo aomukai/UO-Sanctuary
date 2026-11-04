@@ -35,7 +35,7 @@ public static class SorceressLightningChecks
         }
         Require(CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.Lightning, weapon).EffectFrame == 7
             && CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.Lightning, weapon, fcr: 194).EffectFrame == 5
-            && CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.FireBolt, weapon).Frames == 13,
+            && CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.FireBolt, weapon) == new ActionTiming(14, 7),
             "Sequence event or ordinary cast changed");
         var row = SkillMechanics.For(CombatAbility.Lightning);
         var rank20 = new SkillValues(row, k => k == row.SourceKey ? 20 : 0, _ => 0, 99);

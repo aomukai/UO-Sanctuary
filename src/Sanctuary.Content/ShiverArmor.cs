@@ -92,7 +92,7 @@ internal static class ShiverArmor
             if(Done){return;}Done=true;
             try
             {
-                if(!owner.Alive){Gap("Late reaction after native player death requires a deferred player HP/death bridge");return;}
+                if(!owner.Alive){Gap("Damage outside the admitted fixed-point melee return completed player death before late reaction");return;}
                 if(attacker is{Alive:true,Deleted:false}&&attacker.Map==owner.Map&&attacker.InRange(owner,1)
                     &&ClassCombat.IsHostile(owner,attacker)&&SorceressEffects.Armor(owner) is{Ability:CombatAbility.ShiverArmor} armor)
                 {React(owner,attacker,armor);}

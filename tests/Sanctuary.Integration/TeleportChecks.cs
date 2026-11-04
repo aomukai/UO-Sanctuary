@@ -46,11 +46,11 @@ public static class TeleportChecks
         var p = Player(true); var to = Clear(p); int mana = p.Mana; var origin = p.Location;
         Require(SkillBindings.Instance.Assign(p, false, CombatAbility.Teleport) && Start(p, to), "Learned teleport/binding unavailable");
         var s = ClassCombat.For(p);
-        Require(s.Timing == CombatTiming.For(p, CombatAbility.Teleport) && s.Timing.Frames == 13
+        Require(s.Timing == CombatTiming.For(p, CombatAbility.Teleport) && s.Timing == new ActionTiming(14, 7)
             && !ClassCombat.ResolveAction(p, s.EffectAt - 1) && p.Location == origin && p.Mana == mana, "Teleport skipped cast timing");
         Require(!Start(p, to) && Finish(p) && p.Location == to && p.Mana == mana - 24 && !Finish(p), "Spell effect/cost replayed");
         Require(!Teleportation.Begin(p, origin, s.NextAction - 1), "Teleport bypassed recovery cycle");
-        Require(CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.Teleport, default, fcr: 105).Frames == 8, "FCR not used");
+        Require(CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.Teleport, default, fcr: 105) == new ActionTiming(9, 5), "FCR not used");
         p.Mana = 23; Require(!Start(p, origin), "Insufficient mana allowed"); p.Mana = p.ManaMax;
         Require(ClassCreation.Profiles.TryTrain(p.Serial, "sorceress.teleport", out _) && Teleportation.ManaCost(Teleportation.Rank(p)) == 23, "Rank mana progression failed");
         var scroll = Scroll(p); mana = p.Mana; Require(Start(p, origin, scroll) && Finish(p) && scroll.Deleted && p.Mana == mana, "Scroll cost not independent of mana");

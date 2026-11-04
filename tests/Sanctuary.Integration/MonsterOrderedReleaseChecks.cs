@@ -105,7 +105,7 @@ public static class MonsterOrderedReleaseChecks
         var actor=Body();var body=Body();SkillHealth.SetBalance256(body,256);var at=TimedEffects.Now;
         var services=new Services{Body=body,At=at,Frame=1000,ExpectedLife=0,ExpectedCold=0,StunChange=1,HealBeforeDeath=true,TryTwice=true,HealthWrite=true};
         var result=PreparedMonsterDamage.Release(actor,body,new(256,256,0,0,1),new(false,()=>false,()=>5,()=>false),_=>0,services,at);
-        Require(result.DeathModeAttempted&&services.DeathCalls==1&&body.Deleted,"Cached death result incorrectly replaced by healed current HP");actor.Delete();body.Delete();
+        Require(result.DeathModeAttempted&&services.DeathCalls==1&&!body.Alive&&!body.Deleted&&ReviveOriginals.IsRetained(body)&&body.Corpse!=null,"Cached death result incorrectly replaced by healed current HP");actor.Delete();body.Delete();
     }
     private static void Save()
     {

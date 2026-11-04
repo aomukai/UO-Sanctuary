@@ -1,5 +1,7 @@
 # Skill icons
 
+**Player melee return ordering (2026-11-05 JST).** No talent,hotkey or button is added. Existing Shiver/defense talent/right/quick placeholders and final artwork remain separate from effects/audio. See [checkpoint](player-melee-return-checkpoint.md).
+
 **Raise corpse-location towns (2026-11-04 JST).** Existing warrior/Mage talent/right/quick placeholders and final-icon requirements remain;no new skill,button or binding is added. Effects/audio remain separately tracked. See [checkpoint](raise-corpse-town-checkpoint.md).
 
 **Explosion corpse-location towns (2026-11-04 JST).** No skill,button or binding was added. Existing CE/Poison Explosion talent/right/quick placeholder and final-icon requirements remain separate from effects/audio. See [checkpoint](corpse-town-checkpoint.md).

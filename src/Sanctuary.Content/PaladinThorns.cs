@@ -12,6 +12,7 @@ public static class PaladinThorns
     {
         ClassCombatHooks.MeleeAttempt=Attempt;
         ClassCombatHooks.PreparedWeaponDamage=NecromancerEffects.PreparedNativeWeaponHit;
+        ClassCombatHooks.WeaponDamageHealth=PlayerMeleeReturn.Health;
     }
     // Legacy public entry point now consumes the shared physical ATD stat.
     private readonly record struct ReturnStats(int Flat,int Percent);
@@ -30,7 +31,7 @@ public static class PaladinThorns
     {
         if(ranged || !Eligible(attacker,defender)){return null;}var stats=Values(defender);
         IDisposable thorns=stats==default?null:_current=new(attacker,defender,stats,_current);
-        return ShiverArmor.Attempt(attacker,defender,ranged,thorns);
+        return PlayerMeleeReturn.Attempt(attacker,defender,ShiverArmor.Attempt(attacker,defender,ranged,thorns));
     }
     private static bool Eligible(Mobile attacker,Mobile defender)=>attacker is{Alive:true,Deleted:false,Blessed:false}
         && defender is{Deleted:false} && attacker!=defender && attacker.Map==defender.Map && attacker.Map is not null
