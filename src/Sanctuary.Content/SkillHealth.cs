@@ -102,6 +102,8 @@ public static class SkillHealth
     public static int Damage(Mobile source, Mobile target, int damage256)
     {
         if (damage256 <= 0 || target is not { Alive: true, Deleted: false } || !target.CanBeDamaged()) { return 0; }
+        if(target is Server.Mobiles.BaseCreature original&&ReviveEquipmentIncoming.Handles(original))
+        {return ReviveEquipmentIncoming.Damage(source,original,damage256);}
         var old = Profiles.Remainders.GetValueOrDefault(target.Serial);
         int fraction = target.Hits > old.ObservedHits && target.Hits >= target.HitsMax ? 0 : old.Fraction;
         long total = (long)fraction + damage256;

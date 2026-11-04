@@ -20,14 +20,24 @@ internal static class PreparedMonsterNativeDamage
         // actual emitter,not its credit owner,determines that relationship.
         if(demonGuard&&ClassCombat.Friendly(attacker??source,target))
         {throw new NotSupportedException("Friendly demon recipient rejected before ordered damage");}
-        if(target.GetSkillMod("EvilOmen")!=null||BloodOathSpell.GetBloodOath(source)==target||target.Controlled&&!target.Summoned
+        RequireBaseModifiers(source,target,demonGuard);
+    }
+    internal static void RequireBaseModifiers(Mobile source,BaseCreature target,bool demonGuard=false)
+    {
+        var method=target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType;
+        bool incoming=ReviveEquipmentIncoming.Handles(target);
+        if(incoming){ReviveEquipmentIncoming.RequireBody(target);}
+        if(target.GetSkillMod("EvilOmen")!=null||source!=null&&BloodOathSpell.GetBloodOath(source)==target
+            ||target.Controlled&&!target.Summoned&&!incoming
             ||target.SubdueBeforeTame||method!=typeof(BaseCreature)&&!demonGuard)
         {throw new NotSupportedException("This recipient's native incoming damage modifier needs an ordered adapter.");}
         if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter.");}
     }
     internal static void Notify(Mobile attacker,BaseCreature target,int after256)
+    {ArgumentNullException.ThrowIfNull(attacker);NotifyCore(attacker,target,after256);}
+    internal static void NotifyAnonymous(BaseCreature target,int after256)=>NotifyCore(null,target,after256);
+    private static void NotifyCore(Mobile attacker,BaseCreature target,int after256)
     {
-        ArgumentNullException.ThrowIfNull(attacker);
         int amount=PreparedMonsterCredit.Amount(target,after256);
         if(amount==0){return;} // SkillHealth also skips native Damage here.
         int before=SkillHealth.Balance256(target),displayed=target.Hits;
@@ -45,7 +55,7 @@ internal static class PreparedMonsterNativeDamage
         // exact-zero source result; actual death is deferred to source return.
         bool willKill=displayed-amount<0;
         target.Spell?.OnCasterHurt();Unchanged();
-        PreparedMonsterCredit.Register(attacker,target,after256);
+        if(attacker!=null){PreparedMonsterCredit.Register(attacker,target,after256);}
         target.DisruptiveAction();Unchanged();
         target.Paralyzed=false;Unchanged();
         switch(Mobile.VisibleDamageType)

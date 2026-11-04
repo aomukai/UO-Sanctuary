@@ -1,0 +1,21 @@
+# Original Revive Kind1 incoming writer
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. An optional EquipmentIncomingProfile composes the frozen event/defense/combat components. Missing fields in older setup payloads retain their existing behavior. Public equipped Revive casting remains gated.
+
+The new recipient writer accepts already-mitigated FP256 damage through SkillHealth. It uses the existing native notification/credit adapter, commits exact HP once, and completes the existing sub-one-HP NPC lethal threshold. It preserves the whole displayed-HP loss return contract. It does not remitigate, replay native BaseCreature.Damage, dispatch another weapon event, or add another hit-recovery request. Qualified contact continues to use its shared ordered commitment/return services rather than this ordinary writer.
+
+The native BaseCreature.Damage implementation conditionally draws a random controlled/nonsummoned pet multiplier before Mobile.Damage. That is a UO pet path, not the selected D2 Kind1 recipient model. Existing fractional native AOS delivery already calls ClassCombatHooks.ApplyDamage256/SkillHealth when ReviveCombat is active. Thus standard fixed-point AOS and direct class-skill/retaliation writers can share the adapter without changing the native kernel. Direct arbitrary native Damage calls and AOS branches which bypass the fractional hook are not newly certified.
+
+Prepared incoming guards reuse a shared modifier check: the controlled-pet condition is bypassed only for explicitly admitted original recipients. Evil Omen, Blood Oath, Subdue Before Tame, Paragon and unknown native damage/notification overrides remain unsupported. Admission/activation/live restore/post-load validation require the original body's default BaseCreature Damage and OnDamage methods. The existing demon friendship wrapper stays intact. Allied-target/hostility policy is unchanged; this work does not enable pets or players to attack allies.
+
+Anonymous ordinary damage uses a separate nullable notification entry point, skipping only damage-credit registration when there is no attacker. The qualified Notify API retains its nonnull-attacker contract. Both paths reuse the same notification core and reentrant-HP guards.
+
+The native fixture retains actual Skeleton-derived originals with independent/deleted The Gnasher, Swordback Hold and Goblin Toe loot. Its overridden BonusPetDamageScalar returns 8 and counts reads, making a replay of the native multiplier observable. Positive tests cover exact fractional losses, whole-display credit, anonymous damage, physical/fire/cold/poison/lightning native AOS routes, prepared player-guard admission, hit/miss retaliation through the shared contact path, lethal threshold and saved partial life. A legacy event-only original remains refused by the incoming guard, custom damage bodies remain refused, and unknown profiles cannot replace the roster. Results and reload evidence pass in the frozen build.
+
+Initial fixture compilation exposed the native ValueLinkList damage ledger's value/foreach contract; diagnostics are retained. No runtime balance data or native kernel is changed.
+
+Next: complete actual stat attachment/current event subscription chronology and original native geometry/result/swing scheduling. Existing unsupported event/property/hand/element/AI/world/PvP/client and pending action persistence cases remain explicit. No class completion or deployment is claimed. Shared damage/return effects and talent/hotkey icons remain separate placeholder ledgers; this HP adapter creates no new artwork.
+
+Build 5 / main 1 / focus 1 passes **514 broader / 39 focused markers**, retaining all 511 parent markers. Both cohorts complete three boots/two actual reloads/three saves. Fresh 1002/21 audit fingerprints preserve all 573 named decisions; 71 Python tests and readiness/catalogue/roadmap checks pass. Clean builds have zero warnings/errors. The strict receipt binds source/data/five artifacts and verifies unchanged 106 installed artifacts, 38 saves and 20 configuration files.
+
+Reproduce with `tests/check_revive_incoming.py`, `tests/check_revive_incoming_focus.py` and `tools/record_revive_incoming.py --check` against retained isolated stages. [Evidence receipt](../tools/reference/revive-incoming-native-evidence.json).

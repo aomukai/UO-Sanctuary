@@ -14,7 +14,8 @@ namespace Sanctuary;
 public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null,int? RegenerationRate=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentLifeProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentDefenseProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentEventProfile=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentEventProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentIncomingProfile=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -65,7 +66,7 @@ public static class ReviveNativeActivation
         ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
         ReviveFacets.Validate(row);
-        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);
+        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);ReviveEquipmentIncoming.Validate(row);
     }
     internal static void Restore(ReviveNativeState[] rows)
     {
@@ -75,7 +76,7 @@ public static class ReviveNativeActivation
         var previous=States;
         if(!World.Loading)
         {foreach(var row in states.Values.Where(r=>r.Setup.EquipmentDefenseProfile!=null))
-            {if(World.FindMobile((Serial)row.Actor) is BaseCreature actor){ReviveEquipmentDefenses.RequireBody(actor);}}}
+            {if(World.FindMobile((Serial)row.Actor) is BaseCreature actor){ReviveEquipmentDefenses.RequireBody(actor);if(row.Setup.EquipmentIncomingProfile!=null){ReviveEquipmentIncoming.RequireBody(actor);}}}}
         States=states;NextOrder=next;ReviveEquipmentLife.Clear();
         if(!World.Loading)
         {foreach(uint id in previous.Keys.Concat(states.Keys).Distinct())
@@ -124,6 +125,7 @@ public static class ReviveNativeActivation
         {issue="Native destination is blocked; source placement/failure composition remains separate.";return false;}
         if(setup.Mana>original.ManaMax||setup.Stamina>original.StamMax){issue="Explicit native resources exceed the original pools.";return false;}
         if(setup.EquipmentDefenseProfile!=null){ReviveEquipmentDefenses.RequireBody(original);}
+        if(setup.EquipmentIncomingProfile!=null){ReviveEquipmentIncoming.RequireBody(original);}
         MonsterVariantBaselines.RememberNormal(original);
         var row=new ReviveNativeState(original.Serial.Value,owner.Serial.Value,saved,setup,checked(NextOrder+1),SummonDifficulties.For(owner.Map));Validate(row);
         int slots=original.ControlSlots,maximum=original.HitsMaxSeed;bool noRewards=original.NoKillAwards,tamable=original.Tamable;bool detached=false;
@@ -166,6 +168,7 @@ public static class ReviveNativeActivation
         {
             if(World.FindMobile((Serial)row.Actor) is not BaseCreature actor||actor.GetType().FullName!=row.Original.RuntimeType||actor.ControlMaster?.Serial.Value!=row.Owner)
             {throw new InvalidDataException("Prepared Revive lost its original native actor/owner");}
+            if(row.Setup.EquipmentIncomingProfile!=null){ReviveEquipmentIncoming.RequireBody(actor);}
             ReviveFacets.RestoreActor(actor,row);ReviveEquipmentDefenses.Sync(actor);
             if(row.SavedLife256 is{} life)
             {SkillHealth.SetBalance256(actor,life);States[row.Actor]=row with{SavedLife256=null};}

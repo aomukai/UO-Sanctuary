@@ -111,9 +111,7 @@ internal static class IronGolemContact
         {throw new NotSupportedException("Live recipient uninterruptible completion/death-delay adapter is unfinished");}
         if(NecromancerEffects.Curse(body)?.Ability==CombatAbility.IronMaiden)
         {throw new NotSupportedException("Iron Maiden needs its source-ordered attacker event4 consumer");}
-        if(target.GetSkillMod("EvilOmen")!=null||BloodOathSpell.GetBloodOath(body)==target||target.Controlled&&!target.Summoned||target.SubdueBeforeTame
-            ||target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType!=typeof(BaseCreature))
-        {throw new NotSupportedException("Native recipient damage modifier/override needs an explicit ordered adapter");}
+        PreparedMonsterNativeDamage.RequireBaseModifiers(body,target);
         return new(metadata,sourceEvents,targetEvents,nativeRecovery);
     }
     internal static Prepared Prepare(BaseCreature body,BaseCreature target,Rules rules,Func<int> result)
