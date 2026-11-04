@@ -20,7 +20,7 @@ internal static class ReviveEquipmentImpact
         {throw new NotSupportedException("No prepared original Revive impact source");}
         if(!NpcEquipmentImpact.Fills(flags))
         {return new(actor.Serial.Value,target.Serial.Value,NpcEquipmentImpact.Packet(flags,0,null,default,0,default,0),default,0);}
-        if(ReviveNativeActivation.State(target)is{Setup.EquipmentLifeProfile:not null})
+        if(ReviveNativeActivation.State(target)is{Setup.EquipmentLifeProfile:not null}&&!ReviveEquipmentDefenses.Handles(target))
         {throw new NotSupportedException("Frozen equipped recipient needs its resistance/duration/mitigation adapter");}
         _=IronGolemContact.Events(target); // Reuse converted-recipient capability admission before RNG.
         var snapshot=ReviveEquipmentOffense.Capture(actor,target,attackSlot);

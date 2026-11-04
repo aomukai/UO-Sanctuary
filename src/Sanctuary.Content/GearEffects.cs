@@ -68,7 +68,7 @@ public static class GearEffects
     public static int AttackSlow(Mobile mobile) => Math.Clamp(AttackSlowTotal(mobile), -100, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {
-        if(target is BaseCreature && ItemDurationDefenses.HasEquipment(target))
+        if(target is BaseCreature && ItemDurationDefenses.HasDurationEquipment(target))
         {return ColdStates.Apply(attacker,target,Math.Max(0,durationMs/40),now);}
         if (target.Deleted || !target.Alive || DruidSpiritWolfBody.ObservedChillImmune(target) || NamedElements.Resistance(attacker, target, "cold", target.ColdResistance) >= 100) { return false; }
         if (ItemDurationDefenses.CannotFreeze(target)) { return false; }
@@ -100,7 +100,7 @@ public static class GearEffects
             durationMs = durationMs * (100 - reduction) / 100;
             total *= (100 - reduction) / 100.0;
         }
-        else if (target is BaseCreature && ItemDurationDefenses.HasEquipment(target))
+        else if (target is BaseCreature && ItemDurationDefenses.HasDurationEquipment(target))
         {
             // Aggregate producers retain their existing rate projection. Apply
             // the NPC duration lane through the same source helper as packets.

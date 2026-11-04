@@ -21,12 +21,12 @@ public static class NamedElements
         :owner is HydraBody hydra?code switch{"pierce-fire"=>hydra.Passive("passive_fire_pierce"),"extra-fire"=>hydra.Passive("passive_fire_mastery"),_=>0}
         :owner is BaseCreature creature&&(code is "pierce-fire" or "pierce-cold" or "pierce-ltng" or "pierce-pois" or "pierce-mag"
             or "abs-fire" or "abs-fire%" or "abs-cold" or "abs-cold%" or "abs-ltng" or "abs-ltng%")
-            ?NpcEquipmentCombat.Bonus(creature,code):0;
+            ?((code.StartsWith("abs-",StringComparison.Ordinal)?ReviveEquipmentDefenses.Bonus(creature,code):null)??NpcEquipmentCombat.Bonus(creature,code)):0;
     internal static int PoisonPierce(Mobile source)=>Math.Max(0,Bonus(source,"pierce-pois"));
     public static int MagicResistance(Mobile target) => target is PlayerMobile
         ? Math.Clamp(Bonus(target, "res-mag"), -100, 75)
         : target is BaseCreature creature ? checked((creature is NecromancerMinion summon ? summon.SummonMagicResistance : CreatureProfiles.For(creature).Resistances.Magic ?? 0)
-            +NpcEquipmentCombat.Bonus(creature,"res-mag")) : 0;
+            +NpcEquipmentCombat.DefensiveBonus(creature,"res-mag")) : 0;
     public static bool Attack(Mobile owner) => owner is PlayerMobile player
         && (SorceressCombat.Passive(player, CombatAbility.FireMastery) > 0 || SorceressCombat.Passive(player, CombatAbility.LightningMastery) > 0
             || SorceressCombat.Passive(player, CombatAbility.ColdMastery) > 0) || Bonus(owner, "extra-fire") != 0 || Bonus(owner, "extra-cold") != 0

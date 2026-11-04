@@ -106,14 +106,14 @@ internal static class ReviveFacets
                 try
                 {
                     ReviveNativeActivation.Store(next);
-                    RestoreActor(actor,next);
+                    RestoreActor(actor,next);ReviveEquipmentDefenses.Sync(actor);
                     SkillHealth.SetBalance256(actor,SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(actor)));
                     ReviveRegeneration.Recover(actor,false,Core.TickCount);
                 }
                 catch
                 {
                     ReviveNativeActivation.Store(old);actor.HitsMaxSeed=nativeMaximum;
-                    MonsterVariantBaselines.Apply(actor,before);
+                    MonsterVariantBaselines.Apply(actor,before);ReviveEquipmentDefenses.Sync(actor);
                     SkillHealth.SetBalance256(actor,life);throw;
                 }
                 Issues.Remove(actor.Serial.Value);resume=true;
