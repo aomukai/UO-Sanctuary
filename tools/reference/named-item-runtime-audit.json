@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "9d36691f915401e748675ea8293e35370b10f9eef18a2d4373b0ecacaed4ccc6",
+  "ContentAssemblySha256": "854493109a0230b7d966d7ad7fc2222f9dd53b20a2be0af140c5f5f15e5727ba",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -573,7 +573,8 @@
     "src/Sanctuary.Content/FortificationCrafting.cs": "768d54370b3de14a09dacfad503af069c54dbfee6d12bb16d69a224ad94ed29d",
     "src/Sanctuary.Content/FortificationGump.cs": "a4dde3752d0a3d09b63ef18a8a90378a0e6f596a8faaa645bdda71773ed84649",
     "src/Sanctuary.Content/FreezeStates.cs": "2e7ef643987565beff53ce464e731cfed841506b0f4bbae6667e52c39010c52a",
-    "src/Sanctuary.Content/FrozenEquipmentEffects.cs": "a71df630f43961c935d9a379736270f09e587a3d4d6570a66f2a678a05038e72",
+    "src/Sanctuary.Content/FrozenEquipmentCombat.cs": "b90659508f157fc47db63e4cfb7f83a13e504004c0f28303c2141702076e5383",
+    "src/Sanctuary.Content/FrozenEquipmentEffects.cs": "49d9bf4e676bc3fdcb7f429477fc0453c91a97d589f027ff4196fec753646ff2",
     "src/Sanctuary.Content/FrozenOrbs.cs": "7632d242d093f087b448af872d8f29437023b152d32a32800c0dd8c222de5a87",
     "src/Sanctuary.Content/Gambling.cs": "607cd8bc63d44c787030c585ffcba864fb4b1ecbe82c75dd2ce3ca11286b8734",
     "src/Sanctuary.Content/GamblingCatalog.cs": "c9e56db9446520acd1094aa8317eaf93940a1c0676cff8cb3384ad436517b4c8",

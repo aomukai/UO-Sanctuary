@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 namespace Sanctuary;
 
 public sealed record FrozenEquipmentSnapshot(int Version,uint OriginalItem,string RuntimeType,int Layer,int ItemId,int Hue,string BaseCode,
-    string GearJson,string PropertiesJson,string FixedJson,string LevelsJson,string UnavailableReason=null);
+    string GearJson,string PropertiesJson,string FixedJson,string LevelsJson,string UnavailableReason=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] string CombatJson=null);
 internal sealed record FrozenProperty(NamedProperty Property,NamedPropertyRoll Roll);
 internal sealed record FrozenBonus(string Code,int Value);
 internal sealed record FrozenEquipmentLevel(int Level,int Defense,int Minimum,int Maximum,int Life256,int Mana256);
 
 // Value payload only: no item reference, item factory, loot move or reroll.
 // Property parameters/full gear rolls remain available separately from numeric
-// suppliers. This does not yet attach a stat graph or dispatch NPC item procs.
+// suppliers. Combat suppliers capture existing live projections independently
+// from the loot;stat attachment and NPC event dispatch remain separate.
 internal static class FrozenEquipmentEffects
 {
     internal static FrozenEquipmentSnapshot Capture(Item item)
@@ -43,7 +46,8 @@ internal static class FrozenEquipmentEffects
             return new FrozenEquipmentLevel(level,context.Defense,damage.Min,damage.Max,context.LifeBonus256,context.ManaBonus256);
         }).ToArray();
         var snapshot=new FrozenEquipmentSnapshot(0,item.Serial.Value,item.GetType().FullName,(int)item.Layer,item.ItemID,item.Hue,
-            state?.BaseCode??ClassGear.Definition(item)?.BaseCode,state==null?null:JsonSerializer.Serialize(state),JsonSerializer.Serialize(properties),JsonSerializer.Serialize(fixedBonuses),JsonSerializer.Serialize(levels));
+            state?.BaseCode??ClassGear.Definition(item)?.BaseCode,state==null?null:JsonSerializer.Serialize(state),JsonSerializer.Serialize(properties),JsonSerializer.Serialize(fixedBonuses),JsonSerializer.Serialize(levels),
+            CombatJson:JsonSerializer.Serialize(FrozenEquipmentCombat.Capture(item)));
         Validate(snapshot);return snapshot;
     }
     internal static T Decode<T>(string json)where T:class
@@ -67,6 +71,11 @@ internal static class FrozenEquipmentEffects
         else if(string.IsNullOrWhiteSpace(snapshot.BaseCode)||levels.Length!=99||levels.Where((p,i)=>p==null||p.Level!=i+1||p.Defense<0||p.Minimum<0||p.Maximum<p.Minimum).Any())
         {throw new InvalidDataException("Incomplete frozen equipment numeric levels");}
         _=Gear(snapshot);
+        if(snapshot.CombatJson!=null)
+        {
+            if(snapshot.UnavailableReason!=null){throw new InvalidDataException("Unavailable equipment contains combat suppliers");}
+            FrozenEquipmentCombat.Validate(Decode<FrozenCombatSnapshot>(snapshot.CombatJson));
+        }
     }
     internal static FrozenEquipmentContext Bind(FrozenEquipmentSnapshot snapshot)=>new(snapshot);
 }
@@ -76,12 +85,14 @@ internal sealed class FrozenEquipmentContext
     private readonly FrozenBonus[] _fixed;
     private readonly FrozenEquipmentLevel[] _levels;
     private readonly string _unavailable;
+    private readonly FrozenCombatSnapshot _combat;
     internal FrozenEquipmentContext(FrozenEquipmentSnapshot snapshot)
     {
         FrozenEquipmentEffects.Validate(snapshot);_unavailable=snapshot.UnavailableReason;
         _properties=FrozenEquipmentEffects.Properties(snapshot);
         _fixed=FrozenEquipmentEffects.Decode<FrozenBonus[]>(snapshot.FixedJson);
         _levels=FrozenEquipmentEffects.Decode<FrozenEquipmentLevel[]>(snapshot.LevelsJson);
+        _combat=snapshot.CombatJson==null?null:FrozenEquipmentEffects.Decode<FrozenCombatSnapshot>(snapshot.CombatJson);
     }
     private void Require(int level)
     {
@@ -96,4 +107,27 @@ internal sealed class FrozenEquipmentContext
         return total;
     }
     internal FrozenEquipmentLevel At(int level){Require(level);return _levels[level-1];}
+    private FrozenCombatSnapshot Combat(int level)
+    {
+        Require(level);
+        if(_combat==null){throw new NotSupportedException("Historical frozen equipment has no captured combat suppliers");}
+        if(_combat.Issue!=null){throw new NotSupportedException(_combat.Issue);}
+        return _combat;
+    }
+    internal FrozenCombatBase CombatBase(int level)=>Combat(level).Basis;
+    internal EquipmentStatValue[] NumericProperties(int level)
+    {
+        var data=Combat(level);
+        if(data.NumericIssue!=null){throw new NotSupportedException(data.NumericIssue);}
+        return(EquipmentStatValue[])data.Numeric.Clone();
+    }
+    internal FrozenCombatLevel CombatAt(int level)=>Combat(level).Levels[level-1];
+    internal MissileSourceStats Elements(int level)=>CombatAt(level).Elements;
+    internal MissileSourceStats Poison(int level)=>CombatAt(level).Poison;
+    internal FrozenResourceInput ResourceInput(string code,int stat,int level)
+    {
+        var row=CombatAt(level);
+        return(code,stat)switch{("hp",216)=>row.Life,("mana",217)=>row.Mana,("stam",242)=>row.Stamina,
+            _=>throw new ArgumentException("Unsupported frozen resource/stat pair")};
+    }
 }
