@@ -1,5 +1,7 @@
 # Skill effects
 
+**Dragon Flight fixed clock (2026-11-05 JST).** Teleport departure/arrival,kick/contact,charge release and audio remain pending separately. The new fixed two-event plan emits no particles or audio and supplies no final asset. Existing generic placeholders remain identified candidates for later learned-action integration. See [checkpoint](dragon-flight-mode-checkpoint.md).
+
 **Dragon Flight sequence preparation (2026-11-05 JST).** Departure/arrival, kick/contact, progressive charge release and audio remain needed separately. The prepared two-event scheduler adds no effect producer or final artwork. Existing generic teleport/kick/charge effects are candidate identified placeholders for the future learned action; none is presented as final art or emitted by this planner. See [checkpoint](dragon-flight-preparation-checkpoint.md).
 
 **Learned Dragon Tail (2026-11-05 JST).** Final KK windup/kick, contact/block, martial-charge release, radial fire burst, knockback/get-hit presentation and audio remain needed. Native Wrestle pose, sound0x238, existing charge markers and burst0x36BD/hue0x489 are identified placeholders. Actual damage, source knockback trajectories and expiry work independently of final art. No imagegen asset is generated. See [checkpoint](dragon-tail-learned-checkpoint.md).

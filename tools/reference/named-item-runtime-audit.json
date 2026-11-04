@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f70d9f7fb9bd2015a7aa1a1fdaeeb56bd8920f47bd812fb6e93e58f22dd48a06",
+  "ContentAssemblySha256": "f78a48c940390c62693c1ed5f4d38f28dac07b9183989371f4fdbf2596a89a64",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "af01e2c3d103f4c050908bafaec986f0f0edc3938efccef9679cf061ceb93450",
+    "data/Sanctuary/Balance/class-skill-status.json": "9235e54748560c4b3edb9eeb6c8ca00074660d7e7784cc81f024ebfe5a754af7",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -271,7 +271,7 @@
     "shared/StatProtocol.cs": "ce1aeef635fb8699814cd28e5a380f90d476e6f0fbdf5af84c67b217454a0292",
     "shared/TitleProtocol.cs": "a979934452eef58e096dc42a733e4b4d271faa07a6ff173cae893a2bca04db31",
     "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe",
-    "src/Sanctuary.Content/ActionTiming.cs": "d9a8acdb6fb0238d890b4da898e8f7138cdd0ae28ea42c762ccd150b592cc2bc",
+    "src/Sanctuary.Content/ActionTiming.cs": "bcd4f429d2cd31b82ecc8a15855b772966bbed746d3c3e9af791af5142d7e9fe",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/AlchemyGump.cs": "799f2ff47e4e02aeef16221fdc6d12aa786cdbce18d2fe95f5f3092b5ea05ea3",
     "src/Sanctuary.Content/AlchemyRestoratives.cs": "47b987dac4173c72beb247503ee19cc0bf425cbcf6b9a60e56c496d102d49fb1",
@@ -449,6 +449,7 @@
     "src/Sanctuary.Content/DefilerPrepared.cs": "fcf8d4852d51a1421e742f15e1046de3e7e3bf08b93fd4d6659f3c14c55c56a3",
     "src/Sanctuary.Content/DemonBirthVitals.cs": "0c15490d0e75ea0f065387fa5928257942999944828bdab964d1961b58ae4c23",
     "src/Sanctuary.Content/DireWolfUpgrades.cs": "02923d65beee3c8e6c1981bec71c9373ab7fc1af58307edf9dc7c2c5880be633",
+    "src/Sanctuary.Content/DragonFlightPreparation.cs": "24f4d2d8f6c7f30b56934878c4d430705a75df0e7f361d8c31c90762ea864aa8",
     "src/Sanctuary.Content/DragonKickDamage.cs": "f0fca61276a92855d4ee50fc090372dabdfee6ca72f088b788563d3f6ff3cb68",
     "src/Sanctuary.Content/DragonKickPackets.cs": "7a50aedc9614d261c9b251f6fe7a47646f240b2356e4e70ef8afd60af98bae56",
     "src/Sanctuary.Content/DragonTailPreparation.cs": "00af96b7d5cd40be2245b67a4c90a7b0dc76f673de4ab418e7fe4c2e43073d56",
