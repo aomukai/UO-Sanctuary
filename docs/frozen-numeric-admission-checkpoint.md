@@ -1,0 +1,19 @@
+# Frozen equipment numeric-stat admission
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Frozen equipment payloads must contain defined numeric stat IDs before those values can participate in an original Revive's saved stat graph.
+
+The previous validator called `EquipmentStatValues.Definition` inside a `NotSupportedException` catch. That lookup returns null for an unknown ID, so the check accepted it. Validation now explicitly rejects null definitions with an `InvalidDataException` naming the unknown ID. Existing valid packed keys and values retain their prior semantics; no new source mechanic or equipment effect is inferred.
+
+A new native regression first reproduced the failure against the pushed parent production DLL, with the new test assembly: a malformed stat embedded in a real retained original's before-death equipment passed `ReviveNativeActivation.Restore`. That disposable baseline and both assemblies are preserved. The correction is tested at both the frozen payload boundary and the actual whole-roster restore boundary, including an unknown ID with a nonzero layer and zero value. A zero value must not bypass admission.
+
+Three equipped originals exercise atomic refusal: two use the prepared mana/stamina profile, including zero-base mana, and one retains the prior life-only profile. Each malformed restore must leave the entire active roster, exact life/mana/stamina balances and world item count unchanged. The checks repeat on both actual save reloads. Existing six named-item fixtures retain all supported captures, explicit unsupported capabilities, 99 levels, independence from deleted loot and historical snapshots without combat payloads.
+
+Build 2 / main 1 / focus 2 passes **493 broader markers**, retaining the full parent marker set, and **18 focused markers**, each across three boots/two actual reloads/three saves. Each cohort records nine atomic original-restore refusals and three frozen admission checks. Clean content/integration builds have zero warnings/errors. Fresh 995/21 audit fingerprints preserve all 573 named decisions; 71 Python tests and readiness/catalogue/roadmap checks pass. All 106 installed artifacts, 38 saves and 20 configuration files remain unchanged. The strict receipt binds the parent failure, exact tested source/data and all five artifacts.
+
+The next base-capture requirement is concrete: `CreatureProfiles.NativeAttack` can use live Dexterity × 2, and `NativeDefense` can use Dexterity / 4 plus native ArmorRating. The existing before-death active combat snapshot may therefore contain native equipment/stat contributions when a profile uses that fallback. It is not universally a gear-free D2 base. Capture an explicit supported basis before death, or refuse that projection; do not simply add frozen gear to the historical total. Mapped profiles with authored attack/defense fields need a separate verified branch.
+
+This completes numeric-ID admission, not the equipped Revive combat pipeline. Public equipped casting remains gated. Next: connect frozen attack-rating/defense and damage/resistance/stat/event consumers using the existing NPC routes, with explicit opt-in and source-basis checks to prevent double counting. Unsupported properties and missing historical suppliers must retain their explicit issues rather than contributing invented zeroes. Current-executable/world/PvP/client, actual old-binary migration and concurrent/unheld snapshot evidence remain separate.
+
+Coverage remains **191 handlers; no completed class**. No deployment or new assets. Effects/audio and talent/hotkey icons remain separate pending ledgers; validation adds no visual requirement.
+
+Reproduce with `tests/check_frozen_numeric_admission.py`, `tests/check_frozen_numeric_admission_focus.py` and `tools/record_frozen_numeric_admission.py --check`, using the retained isolated stages and probes.

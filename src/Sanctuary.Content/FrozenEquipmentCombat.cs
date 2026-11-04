@@ -60,8 +60,8 @@ internal static class FrozenEquipmentCombat
             ||saved.Numeric==null||saved.Numeric.Select(s=>s.Packed).Distinct().Count()!=saved.Numeric.Length||saved.Levels.Length!=99
             ||saved.NumericIssue!=null&&(string.IsNullOrWhiteSpace(saved.NumericIssue)||saved.Numeric.Length!=0))
         {throw new InvalidDataException("Invalid frozen combat base or levels");}
-        try{foreach(var stat in saved.Numeric){_=EquipmentStatValues.Definition(stat.Stat);}}
-        catch(NotSupportedException e){throw new InvalidDataException("Unknown frozen numeric stat",e);}
+        foreach(var stat in saved.Numeric)
+        {if(EquipmentStatValues.Definition(stat.Stat)==null){throw new InvalidDataException("Unknown frozen numeric stat: "+stat.Stat);}}
         for(int i=0;i<saved.Levels.Length;i++)
         {
             var row=saved.Levels[i];

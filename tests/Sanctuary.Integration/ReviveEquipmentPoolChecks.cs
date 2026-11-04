@@ -65,6 +65,22 @@ public static class ReviveEquipmentPoolChecks
         Require(b.ManaMax==(expectedMana+255)/256&&b.StamMax==(expectedStamina+255)/256,"Native resource display did not use captured bases");
         if(zero){Require(expectedMana==0,"NPC zero base gained mana from percent/raw Int");}
     }
+    private static void RejectUnknown(BaseCreature actor)
+    {
+        Require(EquipmentStatValues.Definition(ushort.MaxValue)==null,"Unknown numeric-stat fixture became defined");
+        var before=ReviveNativeActivation.Snapshot();var row=ReviveNativeActivation.State(actor);
+        var payload=ReviveBeforeDeath.Decode(row.Original.BeforeDeathJson);var gear=ReviveBeforeDeath.Equipment(payload);
+        var combat=FrozenEquipmentEffects.Decode<FrozenCombatSnapshot>(gear[0].CombatJson);
+        gear[0]=gear[0]with{CombatJson=JsonSerializer.Serialize(combat with{Numeric=[new(EquipmentStatKey.Pack(ushort.MaxValue,42),0)],NumericIssue=null})};
+        string malformed=JsonSerializer.Serialize(payload with{EquipmentJson=JsonSerializer.Serialize(gear)});
+        int life=SkillHealth.Balance256(actor),mana=NecromancerEffects.ManaBalance256(actor),stamina=BattleOrders.Stamina256(actor),items=World.Items.Count;bool refused=false;
+        try{ReviveNativeActivation.Restore(before.Select(s=>s.Actor==row.Actor?s with{Original=s.Original with{BeforeDeathJson=malformed}}:s).ToArray());}
+        catch(InvalidDataException){refused=true;}
+        Require(refused&&before.SequenceEqual(ReviveNativeActivation.Snapshot())&&SkillHealth.Balance256(actor)==life
+            &&NecromancerEffects.ManaBalance256(actor)==mana&&BattleOrders.Stamina256(actor)==stamina&&World.Items.Count==items,
+            "Unknown frozen stat accepted or changed active Revive roster/resources/loot");
+        Log.Information("Revive frozen numeric admission: malformed original restore refused atomically for {Profile}",row.Setup.EquipmentLifeProfile);
+    }
     private static void Check()
     {
         var old=SummonDifficulties.Facets();var p=PoisonDaggerChecks.Owner();p.Name="PoisonDaggerFixtureRevivePoolsOwner";
@@ -81,6 +97,7 @@ public static class ReviveEquipmentPoolChecks
             var state=ReviveNativeActivation.State(actors[0]);var legacy=ReviveBeforeDeath.Decode(state.Original.BeforeDeathJson)with{ResourceBases=null};bool refused=false;
             try{_=ReviveEquipmentResources.Prepare(state.Setup,state.Original with{BeforeDeathJson=JsonSerializer.Serialize(legacy)});}catch(NotSupportedException){refused=true;}
             Require(refused,"Historical missing resource bases were invented");
+            foreach(var actor in actors){RejectUnknown(actor);}
             p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,actors.Select(ReviveNativeActivation.State).ToArray(),actors.Select(SkillHealth.Balance256).ToArray(),actors.Select(NecromancerEffects.ManaBalance256).ToArray(),actors.Select(BattleOrders.Stamina256).ToArray(),scenes.Select(s=>s.Corpse.Serial.Value).ToArray())));
         }
         finally{SummonDifficulties.SetFacets(old);}
@@ -93,7 +110,7 @@ public static class ReviveEquipmentPoolChecks
             var b=World.FindMobile((Serial)s.Actors[i].Actor)as BaseCreature;
             Require(b is{Alive:true,Deleted:false}&&b.Map==Map.Internal&&b.ControlMaster?.Serial.Value==s.Owner&&ReviveNativeActivation.State(b)==s.Actors[i]
                 &&SkillHealth.Balance256(b)==s.Life[i]&&NecromancerEffects.ManaBalance256(b)==s.Mana[i]&&BattleOrders.Stamina256(b)==s.Stamina[i],"Saved original resource balances/profile changed");
-            Expect(b,i<2,i==1);Require(World.FindItem((Serial)s.Corpses[i])is Corpse c&&c.GetAmount(typeof(Gold))==1,"Pool independent loot changed");
+            Expect(b,i<2,i==1);RejectUnknown(b);Require(World.FindItem((Serial)s.Corpses[i])is Corpse c&&c.GetAmount(typeof(Gold))==1,"Pool independent loot changed");
         }
         Require(World.Items.Count==count,"Pool getters recreated loot");
     }

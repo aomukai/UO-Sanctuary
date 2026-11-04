@@ -56,11 +56,14 @@ public static class FrozenEquipmentCombatChecks
         Require(refused&&FrozenEquipmentEffects.Bind(unavailable).At(37)==current.At(37),"Unsupported projection lost basic snapshot or silently supplied zeros");
         var data=FrozenEquipmentEffects.Decode<FrozenCombatSnapshot>(s.Snapshot.CombatJson);var tail=(FrozenCombatLevel[])data.Levels.Clone();tail[^1]=tail[^1]with{Level=98};
         foreach(var bad in new[]{data with{Version=1},data with{Levels=[]},data with{Levels=tail},data with{Issue="unsupported"},
-            data with{Levels=[..data.Levels.Take(98),data.Levels[^1]with{Elements=data.Levels[^1].Elements with{ColdFrames=-1}}]}})
+            data with{Levels=[..data.Levels.Take(98),data.Levels[^1]with{Elements=data.Levels[^1].Elements with{ColdFrames=-1}}]},
+            data with{Numeric=[new(EquipmentStatKey.Pack(ushort.MaxValue),1)],NumericIssue=null},
+            data with{Numeric=[new(EquipmentStatKey.Pack(ushort.MaxValue,42),0)],NumericIssue=null}})
         {
             refused=false;try{FrozenEquipmentEffects.Validate(s.Snapshot with{CombatJson=JsonSerializer.Serialize(bad)});}catch(InvalidDataException){refused=true;}
-            Require(refused,"Malformed frozen combat tail/version/issue accepted");
+            Require(refused,"Malformed frozen combat tail/version/issue/numeric ID accepted");
         }
+        Log.Information("Frozen numeric admission: unknown stat IDs refused at zero/nonzero layers and values; supported snapshots retained");
     }
     private static void Check()
     {
