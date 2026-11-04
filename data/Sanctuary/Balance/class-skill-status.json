@@ -683,7 +683,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Corpse/FIFO, exact birth/resources, shared Skeleton damage/A1 clocks, mapped ordered NPC contact, guard/progression/facet/save and approved hard-point affixes have scoped native acceptance. Initial S1/AI/movement, final shield distribution, unsupported recipients and full modern events/client parity remain explicit; see skeleton-contact-checkpoint.md and necromancer-acceptance-checkpoint.md."
+      "remaining": "Learned automatic SkeletonWorldBody birth, owner-follow/AI policy, timed A1 capture/release, mapped ordered contact, fractional resources, FIFO, progression/facets/saves and approved hard-point affixes have scoped native acceptance. Source15 corpse-town validation now covers preferred/nearest search, begin/release and original wounded warrior/Mage reloads; see skeleton-world-checkpoint.md, skeleton-upgrades-checkpoint.md and raise-corpse-town-checkpoint.md. Exact modern startup/mode/room/path/scan/seed/event/client equivalence, shield distribution, unsupported recipient bridges and old-binary/unheld saves remain open; no class certificate."
     },
     {
       "talentId": "necromancer.skeletonmastery",
@@ -705,7 +705,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Dedicated exact birth/resources, effective/hard ranks, real gear/mana/replacement/PMH/BO/facets and2reloads pass; see clay-golem-birth-checkpoint.md. Incoming callback27/split rates now have scoped acceptance in clay-golem-slow-checkpoint.md. Fractional unarmed/critical and400/720ms clock now pass clay-golem-combat-checkpoint.md; outgoing slow uncertainty, NPC blocking/prepared contact/AI/initializer/client remain."
+      "remaining": "Exact learned birth/resources, captured effective/hard ranks, once-only payment/replacement, fractional combat/critical and incoming callback27 slow have dedicated acceptance. Automatic world AI/follow/movement, mapped prepared A1 contact and historical native Clay paths are implemented; approved Skeleton-equivalent damage and hard10 Stone Skin/hard20 Magic Resistant reuse shared consumers. See clay-golem-world-checkpoint.md and clay-upgrades-checkpoint.md. Modern startup/event/order/world/seed/client parity, outgoing item19 applicability, unsupported recipient/fallback and live-rate/old-binary/unheld-save cases remain explicit; these are not wholly missing AI/contact implementations."
     },
     {
       "talentId": "necromancer.golemmastery",
@@ -727,7 +727,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Approved three-element Sorceress basics at captured summon rank,flat captured Skeleton Mastery damage on each bolt,live hard5triple volleys and shared saved charged paths. Fixed Glacial/Meteor/Chain/Static,combat-start Enchant,intrinsic Frozen Armor,element migration and historical AI adoption remain. [Basic checkpoint](mage-basics-checkpoint.md) records scope/verification. Current motion/room/global seed/event/PvP/Sunder/client,display and unheld/old-DLL acceptance remain bounded;effects/audio and icons separate."
+      "remaining": "Approved three-element Sorceress basics, captured flat Skeleton Mastery on each bolt and live hard5 triples are implemented. Fixed Glacial/Meteor/Chain/Static, combat-start Enchant, intrinsic Frozen Armor, poison-to-ice migration and historical native Mage AI adoption also have dedicated scoped acceptance; see mage-basics-checkpoint.md, mage-pet-buffs-checkpoint.md, mage-glacial-checkpoint.md, mage-meteor-checkpoint.md, mage-chain-checkpoint.md, mage-static-checkpoint.md, mage-elements-checkpoint.md and mage-historical-checkpoint.md. Source15 corpse-town guards preserve explicit targeting and original wounded actors through reloads. Exact modern motion/room/global seed/event/NHD/PvP/Sunder/client and post-caster-removal behavior, historical phase reconstruction and actual old-DLL/unheld-save acceptance remain open. Effects/audio and icons are separate."
     },
     {
       "talentId": "necromancer.bloodgolem",
@@ -738,7 +738,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native target drain, 30/70 healing allocation, both overflow directions and recipient caps covered. Return-damage/incoming-damage events, difficulty bases and D2R comparison remain."
+      "remaining": "Learned exact birth, fractional event23 drain/30-70 healing/overflow/caps, prepared ordered A1 and automatic world damage/healing have dedicated native and reload coverage. Current incoming-share Param5=0, cancellation/offline and original historical bodies are covered within blood-golem-combat-checkpoint.md and blood-golem-world-checkpoint.md. Approved150percent Clay damage, hard10 Open Wounds and hard20 five-percent Life Tap5 are implemented in their dedicated checkpoints. Modern event23 rounding versus the current calc2 expression, changed nonzero incoming-share parameters, full startup/world/event/owner/seed/PvP/client and integer-fallback/old-binary/unheld-save parity remain explicit."
     },
     {
       "talentId": "necromancer.summonresist",
@@ -793,7 +793,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared source do8 integer fan replaces the provisional fixed60-degree spread. Signed perpendicular reduction, cursor-distance spread, odd-count bias and self-target factory fallback use existing Q12 missile vectors. Compiled3540 source cases and native3468-case/27166-aim differential plus actual near/far-cursor collision checks pass. Exact modern range/activation/initial-step/footprint, next-hit delay, moving-target/owner/save/client behavior remain open. Final effects/icons remain identified placeholders."
+      "remaining": "The shared do8 integer fan now feeds learned saved source-flight missiles with captured magic/slow values, accepted-contact removal and saved cast-local four-frame delay leases. Actual right/quick payment, moving-target misses, coincident delayed candidates, walls/lifecycle and two original flight/lease reloads have dedicated acceptance; see teeth-checkpoint.md. Exact modern cross-cast/caster NextHit identity, first/global-frame/FCR/dispatcher, native room/terrain/candidate/footprint order, retired-owner/recipient/event/client and actual old-DLL/unheld-save parity remain open. Cast-local delay is an explicit adapter, not a missing implementation or a current-engine certificate."
     },
     {
       "talentId": "necromancer.bonearmor",
@@ -826,7 +826,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Player74 uses shared do55 fractional corpse-seeded packets, captured base life/level/difficulty and separate physical edge clipping. Dedicated3boots/2reloads pass including orphaned original monsters, exact saved RNG/mana, retained loot, missing metadata rejection, recorded ownership/shatter/noselect gates, mixed immunities and once-only payment. Actual Tarnhelm soft rank and separate real Sorceress/Eschuta mastery/default-spell/potion controls pass. Preserve approved spell-potion and defense consumers; base corpse fire receives no mastery multiplier. Current full-regression/deployment status is recorded in necro-corpse-explosion-native-evidence.json and the resume checkpoint. Source/native geometry, exact current event/client acceptance and a class certificate remain open. Ground-click acquisition now uses the shared two-tile cursor picker under user-approved policy; nearest usable corpse and serial ties, locked pending identity, existing corpse range/eligibility and once-only loot/seed/payment rules are retained. See corpse-aim-checkpoint.md; exact D2R click boundary is unmeasured."
+      "remaining": "Learned do55 fractional corpse-seeded physical/fire packets preserve captured base life/level/difficulty, physical edge clipping, corpse RNG/loot and once-only payment. Rank/real gear, immunity/potion and original orphan-corpse reload controls are in necro-corpse-explosion-native-evidence.json and corpse-aim-checkpoint.md. Shared two-tile cursor-nearest selection with serial ties and client point routing are implemented; actual corpse-town rejection now shares the source15/17 guard, including direct/release paths. See corpse-town-checkpoint.md and raise-corpse-town-checkpoint.md. Exact D2R click boundary, native source-room/geometry/events/client and unsupported contexts remain unverified; two tiles/ties and dynamic-region release revalidation are explicit Sanctuary adaptations."
     },
     {
       "talentId": "necromancer.bonewall",
@@ -837,7 +837,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Destructible timed source-stat segments, growth and collision implemented. Native terrain, damage, lifetime and reload checks; exact growth missile range/cadence, inherited level, difficulty and live-client geometry still require D2R comparison."
+      "remaining": "Learned source-stat fractional resources across owner-facet difficulties, saved maker arms/growth/budgets, child links/collision, casting/allocation/payment and birth-relative AI expiry clocks are implemented with scoped native and reload acceptance. See bone-barrier-birth-checkpoint.md, bone-wall-maker-checkpoint.md and bone-barrier-clock-checkpoint.md. Full modern room/footprint/growth/world equivalence, owner/minion graph, DEATH/DT/hidedead/final removal and collision-release ordering, native timing/dispatch and old-binary/unheld-save/client parity remain open. Death still uses the explicitly provisional deletion/root-cleanup adapter."
     },
     {
       "talentId": "necromancer.poisonexplosion",
@@ -848,7 +848,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned corpse casts create eight saved moving clouds through the shared poison emitter/flight path, replacing the stationary filled-area adapter. Corpse/loot conservation, fractional payment, retained rank/hard synergies, contact history, overlapping clouds, immunity/cure/potion ticks, real right/quick input and two reloads have scoped acceptance. Full current-engine hit-delay grouping, room/terrain/geometry/seed/event/owner/item/PvP/client parity remain explicit; see poison-explosion-checkpoint.md."
+      "remaining": "Learned casts retain eight saved moving clouds, fractional release payment, captured rank/hard synergies, corpse/loot/seed conservation, collision history and poison immunity/cure/potion ticks. Actual right/quick and two original flight reloads are covered in poison-explosion-checkpoint.md. Shared ground acquisition/client point routing and actual corpse-town validation are implemented in poison-corpse-aim-checkpoint.md and corpse-town-checkpoint.md. The two-tile selection extension and dynamic-region release revalidation are explicit Sanctuary adaptations. Exact modern NHD/room/terrain/geometry/global seed/event/owner/item/PvP/client and unsupported recipient equivalence remain open."
     },
     {
       "talentId": "necromancer.bonespear",
@@ -870,7 +870,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Twelve destructible source anchors with provisional raster connectors enclose the target. Native gap/destruction/lifetime/reload checks; exact footprint, incomplete terrain, projectile exceptions and difficulty scaling remain. Approved Sanctuary ground-click acquisition uses a two-tile circle, cursor-nearest eligible monster and lowest-serial exact ties; the acquired primary survives held ground refresh and ordinary release tracking. Direct self/ally targeting remains. This targeting aid is a design deviation, not a measured D2R client rule; see bone-prison-aim-checkpoint.md."
+      "remaining": "Learned twelve source anchors with provisional raster connectors reuse captured difficulty resources, barrier casting/allocation/payment and birth-relative AI expiry clocks; destruction/collision/links and saved state have scoped acceptance. Approved two-tile cursor-nearest ground acquisition, serial ties, held-primary retention and direct self/ally targeting are implemented; see bone-barrier-birth-checkpoint.md, bone-barrier-clock-checkpoint.md and bone-prison-aim-checkpoint.md. Exact footprint/incomplete terrain/projectile exceptions, owner/minion graph, DEATH/DT/hidedead/collision-release and full modern world/event/client/old-binary/unheld-save parity remain open. Ground aid is Sanctuary policy, not observed D2R behavior."
     },
     {
       "talentId": "necromancer.poisonnova",
@@ -914,7 +914,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native chase preservation, obstruction stop, adjacent acquisition, special suppression, expiry and saved motion covered. Caster/species behavior and live-client comparison remain."
+      "remaining": "Learned do30 casting, rank/gear, owner-facet duration, curse arbitration/resources/input and saved motion are verified. The live saved BlindAiPolicy controller is wired for mapped Skeleton/Zombie/Megademon families, including source no-target delays, target-present wander/idle decisions, independent seed/deadlines and native movement/adjacent attack admission; see dim-vision-cast-checkpoint.md and blind-world-checkpoint.md. The combined Necromancer acceptance retains this scope. Unmapped AI/fallbacks, escape states3/19, distance5 world displacement, exact scan/path/room/callback/global-RNG/PvP/client and old-binary/unheld-save equivalence remain open; the controller is not wholly unwired."
     },
     {
       "talentId": "necromancer.weaken",
@@ -936,7 +936,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Native melee reflection and ordinary ranged/elemental exclusions covered; source event order, reflected damage and special missile exceptions remain."
+      "remaining": "Dedicated learned curse rank/creator/refresh/payment/input/expiry and fractional melee reflection precede victim-life clipping and defender Life Tap. Qualified original Revive/Iron packets preserve source identity and owner credit through reflected retirement, without duplicate or recursive reflection; see iron-maiden-checkpoint.md and npc-iron-maiden-checkpoint.md. Ranged/zero-physical/spell exclusions and original curse/wound/item/stream reloads have scoped coverage. Modern within-phase registration/order/HP-death/event/room/client parity, unowned legacy Blood-Golem healing tail, learned PvP/hireling and obscure missile cases remain unsupported or uncertain."
     },
     {
       "talentId": "necromancer.terror",
@@ -958,7 +958,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "AI consumer present; allegiance/credit/expiration behavior needs dedicated world verification."
+      "remaining": "Learned13mana casts, owner-facet duration, neutral alignment and saved mode3 SourceMind target override are implemented; confused recipients remain attackable rather than becoming friendly pets. Actual right/quick expiry, autonomous player/monster damage and post-load target reacquisition/continued combat have scoped acceptance; see confuse-cast-checkpoint.md and confuse-resume-checkpoint.md. Exact native scan/ties/LOS/acquisition clocks versus modern source, unified RNG/target-node/events, unmapped alignment/minions/credit/PvP/Sunder and reconstruction of bare historical overrides remain explicit limits."
     },
     {
       "talentId": "necromancer.lifetap",
@@ -980,7 +980,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Non-overwrite rule covered; natural AI target acquisition, expiration and interaction with Confuse require world play tests."
+      "remaining": "Learned17mana selected-centered casts create protected Neutral Attract and independent neighbor target-GUID/AIRESET leases through the shared SourceMind service. Existing neighbor curses, later arrivals, fear/blind/Confuse interaction, real right/quick expiry and autonomous damage after both reloads have scoped acceptance; see attract-cast-checkpoint.md. Unsupported orphan factory-failure transitions are logged/refused before mutation. Modern room/order/geometry/credit/event parity, monster-owned minion detach, conversion coexistence, failed-release payment and missing historical neighbor reconstruction remain open; natural AI/expiry coverage is not wholly absent."
     },
     {
       "talentId": "necromancer.decrepify",
@@ -991,7 +991,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated rank/real-gear, target/radius,11mana release, duration, four ordered stats, immunity, equal-rank original-caster/secondary-resistance refresh, actual input/expiry and two original reloads are verified in decrepify-checkpoint.md. Movement/attack-rate and ordinary native attack windup consumers are exercised. Later elite-amplify-checkpoint.md covers supported ranked elite replacement; unknown historical metadata still refuses rather than inventing a rank. Exact modern multicaster/stat/slow/haste/cap/event/mid-animation/world/PvP/Sunder/client and old-binary/unheld-save parity remain open; these dedicated controls already exist."
     },
     {
       "talentId": "necromancer.lowerresist",

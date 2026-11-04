@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "parent": "508c3f891c664c34c80bd34ef9f4db17eaa23773",
+  "scope": "Fourteen descriptive remaining-work corrections against accepted Necromancer checkpoints;no gameplay change",
+  "changedTalents": [
+    "necromancer.raiseskeleton",
+    "necromancer.claygolem",
+    "necromancer.skeletalmage",
+    "necromancer.bloodgolem",
+    "necromancer.teeth",
+    "necromancer.corpseexplosion",
+    "necromancer.bonewall",
+    "necromancer.poisonexplosion",
+    "necromancer.boneprison",
+    "necromancer.dimvision",
+    "necromancer.ironmaiden",
+    "necromancer.confuse",
+    "necromancer.attract",
+    "necromancer.decrepify"
+  ],
+  "verified": {
+    "changedFieldsOnly": [
+      "remaining"
+    ],
+    "unchangedOtherClasses": true,
+    "unchangedCSharpAndProjectInputs": true,
+    "reusedAcceptedAssemblies": true,
+    "freshRuntimeAuditMarkers": 2,
+    "pythonTests": 71,
+    "auditFingerprints": [
+      1018,
+      21
+    ],
+    "namedDecisionsUnchanged": 573,
+    "handlers": 191,
+    "necromancerHandlers": 30,
+    "necromancerPartialLabels": 30,
+    "completedClasses": [],
+    "installedArtifactsUnchanged": 106,
+    "savesUnchanged": 38,
+    "configurationsUnchanged": 20,
+    "effectsAndIconsUnchanged": true
+  },
+  "historicalEvidence": {
+    "necromancer.raiseskeleton": {
+      "receipt": "tools/reference/raise-corpse-town-native-evidence.json",
+      "receiptSha256": "6ae0cb1639d85db765b2cd15a359e07073f7064654599358f9a65a9f41e523a6",
+      "acceptedLog": ".local/class-skills/raise-corpse-town/birth-native-checks.log",
+      "logSha256": "b7461f414d2bca5dc4b216cada4d05f29999aa98198ac28a4e94cba226c8de70",
+      "historicalMarkers": 183
+    },
+    "necromancer.claygolem": {
+      "receipt": "tools/reference/clay-golem-world-native-evidence.json",
+      "receiptSha256": "d6383635b3608a09231736c2b8e692aa821cce741bc8cecf98120ab79ec76baf",
+      "acceptedLog": ".local/class-skills/clay-golem-world/birth-native-checks.log",
+      "logSha256": "d231e8fa4edb11b5c60c69c92b87e746d21d91a0336ae8dd474a50ec5673dbcf",
+      "historicalMarkers": 99
+    },
+    "necromancer.skeletalmage": {
+      "receipt": "tools/reference/mage-basics-native-evidence.json",
+      "receiptSha256": "539b96eda58ebefd56a3154a1c05a11fd35379bf99a23a01eb8ae9edafaafb4b",
+      "acceptedLog": ".local/class-skills/mage-basics/birth-native-checks.log",
+      "logSha256": "a2ef63fe7113c0307a6e4c4c63f7e2827e1e37b8f655b542e5e5e7a939323859",
+      "historicalMarkers": 388
+    },
+    "necromancer.bloodgolem": {
+      "receipt": "tools/reference/blood-golem-world-native-evidence.json",
+      "receiptSha256": "1d406f99b453c4c6e9d17adda3da0a6873fc1deb617cf8bc0ced36a6c123595b",
+      "acceptedLog": ".local/class-skills/blood-golem-world/birth-native-checks.log",
+      "logSha256": "bbeb0ca77304fef31398620349d5f60219132044770a8251c2e93f0d5b028f5d",
+      "historicalMarkers": 129
+    },
+    "necromancer.teeth": {
+      "receipt": "tools/reference/teeth-native-evidence.json",
+      "receiptSha256": "1a10941079cdb57711ebd3de0725359cc6d0be740abf93f524019d1823f88d76",
+      "acceptedLog": ".local/class-skills/teeth/birth-native-checks.log",
+      "logSha256": "b4b5f73dafb316a3030f8a630c32ebac2d0c6af9fd5e3b368ebcb89a1f90d8a7",
+      "historicalMarkers": 202
+    },
+    "necromancer.bonewall": {
+      "receipt": "tools/reference/bone-wall-maker-native-evidence.json",
+      "receiptSha256": "94214f5eb84e0a9f43126347ea8cd740332bf04f0e69fda1c10c9d5f6661682a",
+      "acceptedLog": ".local/class-skills/bone-wall-maker/birth-native-checks.log",
+      "logSha256": "7ba72a96720cc43771adb339d92fc4e4b9c6d69bd022b7d067860d844cf77542",
+      "historicalMarkers": 49
+    },
+    "necromancer.boneprison": {
+      "receipt": "tools/reference/bone-prison-aim-native-evidence.json",
+      "receiptSha256": "a85f47295db77e2d5df3194586ea83a75628cb8128d1f078714dc76edd61de12",
+      "acceptedLog": ".local/class-skills/bone-prison-aim/birth-native-checks.log",
+      "logSha256": "8b3b16989cdd4b4b8204113e9694296e050b075f1698ffa49cb943027ba5d700",
+      "historicalMarkers": 60
+    },
+    "necromancer.dimvision": {
+      "receipt": "tools/reference/blind-world-native-evidence.json",
+      "receiptSha256": "db87943aa7bbb22618f7c85b309d635926c1d85ffb52654d37eca35ddcaed2fd",
+      "acceptedLog": ".local/class-skills/blind-world-smoke/birth-native-checks.log",
+      "logSha256": "8056df4f9871b74ea268cb50b8fdd2c98eb3211527f70219f2860710ee22c76e",
+      "historicalMarkers": 18
+    },
+    "necromancer.ironmaiden": {
+      "receipt": "tools/reference/npc-iron-maiden-native-evidence.json",
+      "receiptSha256": "de46470501a402f20a3409ca1249ce8b71e0f4ed44a8b3ead5af4b8e908548d5",
+      "acceptedLog": ".local/class-skills/npc-iron-maiden/birth-native-checks.log",
+      "logSha256": "679a8254e8604ed6eb82e117c0d6c9e6774988ed5b1cc711d3e5ed889f1c8fe8",
+      "historicalMarkers": 565
+    },
+    "necromancer.confuse": {
+      "receipt": "tools/reference/confuse-resume-native-evidence.json",
+      "receiptSha256": "a44b4c7b75d4f6ca307f275a5292edb9b53bf4ee8922f34192af421bc82248d5",
+      "acceptedLog": ".local/class-skills/confuse-resume/birth-native-checks.log",
+      "logSha256": "7a0415fb05b0fe4e569e8f7b93d81099ca533fa90f3055910a95492b02863c58",
+      "historicalMarkers": 411
+    },
+    "necromancer.attract": {
+      "receipt": "tools/reference/attract-cast-native-evidence.json",
+      "receiptSha256": "7a6c14b14b57068f08c109e5a19d9277af3f303f74c4fc3cfe31d5bd7e9f220a",
+      "acceptedLog": ".local/class-skills/attract-cast/birth-native-checks.log",
+      "logSha256": "6b6c4dae1ab9e529299f23e3f547cc69404c3c41b05ccec2706d3bd9d4fd51bb",
+      "historicalMarkers": 77
+    },
+    "necromancer.decrepify": {
+      "receipt": "tools/reference/decrepify-native-evidence.json",
+      "receiptSha256": "616ab3cd6128f45f88858107b74a8a6fb403dc255f89e688ee3447b439668710",
+      "acceptedLog": ".local/class-skills/decrepify/birth-native-checks.log",
+      "logSha256": "4a117e04693a4550936eb932966cd436fefe5d4523bb034406019c534703648c",
+      "historicalMarkers": 446
+    },
+    "necromancer.corpseexplosion": {
+      "receipt": "tools/reference/corpse-aim-native-evidence.json",
+      "receiptSha256": "33d1a26ad4bf9ed1632fab29f5d3c062c231af2ad138a17ce158d373c6fcad1b",
+      "acceptedLog": ".local/class-skills/corpse-aim/birth-native-checks.log",
+      "logSha256": "8bcf1d43e75be57cb297154c88380ef6534b85123bf56b565aa69e3f5ef68e5b",
+      "historicalMarkers": 78
+    },
+    "necromancer.poisonexplosion": {
+      "receipt": "tools/reference/poison-corpse-aim-native-evidence.json",
+      "receiptSha256": "69780830e32dbbd7049c0116eb6fbc4f33b337f1871b5d20b250e636ba0d030c",
+      "acceptedLog": ".local/class-skills/poison-corpse-aim/birth-native-checks.log",
+      "logSha256": "476602040a47f3aec10e832f367411813bfdb4883d2c4a05f50f224526bac248",
+      "historicalMarkers": 129
+    }
+  },
+  "reusedArtifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "ae1ff5ce99daf6161b0d53df170653e5252cfc218185d576b65dcafe59eb24a0",
+    "Assemblies/Sanctuary.Content.dll": "9733acc2229c6b77b9f9c74fb6dbf94e8077b2d44b1f1bf19ec6acf60afcd64a",
+    "Assemblies/Sanctuary.Integration.dll": "417ef4f9ad3eca8cc5743924e6f8510ebfab09d2d2f2badafda63b14535df404"
+  },
+  "evidence": {
+    "tools/reference/raise-corpse-town-native-evidence.json": "6ae0cb1639d85db765b2cd15a359e07073f7064654599358f9a65a9f41e523a6",
+    ".local/class-skills/raise-corpse-town/birth-native-checks.log": "b7461f414d2bca5dc4b216cada4d05f29999aa98198ac28a4e94cba226c8de70",
+    "tools/reference/clay-golem-world-native-evidence.json": "d6383635b3608a09231736c2b8e692aa821cce741bc8cecf98120ab79ec76baf",
+    ".local/class-skills/clay-golem-world/birth-native-checks.log": "d231e8fa4edb11b5c60c69c92b87e746d21d91a0336ae8dd474a50ec5673dbcf",
+    "tools/reference/mage-basics-native-evidence.json": "539b96eda58ebefd56a3154a1c05a11fd35379bf99a23a01eb8ae9edafaafb4b",
+    ".local/class-skills/mage-basics/birth-native-checks.log": "a2ef63fe7113c0307a6e4c4c63f7e2827e1e37b8f655b542e5e5e7a939323859",
+    "tools/reference/blood-golem-world-native-evidence.json": "1d406f99b453c4c6e9d17adda3da0a6873fc1deb617cf8bc0ced36a6c123595b",
+    ".local/class-skills/blood-golem-world/birth-native-checks.log": "bbeb0ca77304fef31398620349d5f60219132044770a8251c2e93f0d5b028f5d",
+    "tools/reference/teeth-native-evidence.json": "1a10941079cdb57711ebd3de0725359cc6d0be740abf93f524019d1823f88d76",
+    ".local/class-skills/teeth/birth-native-checks.log": "b4b5f73dafb316a3030f8a630c32ebac2d0c6af9fd5e3b368ebcb89a1f90d8a7",
+    "tools/reference/bone-wall-maker-native-evidence.json": "94214f5eb84e0a9f43126347ea8cd740332bf04f0e69fda1c10c9d5f6661682a",
+    ".local/class-skills/bone-wall-maker/birth-native-checks.log": "7ba72a96720cc43771adb339d92fc4e4b9c6d69bd022b7d067860d844cf77542",
+    "tools/reference/bone-prison-aim-native-evidence.json": "a85f47295db77e2d5df3194586ea83a75628cb8128d1f078714dc76edd61de12",
+    ".local/class-skills/bone-prison-aim/birth-native-checks.log": "8b3b16989cdd4b4b8204113e9694296e050b075f1698ffa49cb943027ba5d700",
+    "tools/reference/blind-world-native-evidence.json": "db87943aa7bbb22618f7c85b309d635926c1d85ffb52654d37eca35ddcaed2fd",
+    ".local/class-skills/blind-world-smoke/birth-native-checks.log": "8056df4f9871b74ea268cb50b8fdd2c98eb3211527f70219f2860710ee22c76e",
+    "tools/reference/npc-iron-maiden-native-evidence.json": "de46470501a402f20a3409ca1249ce8b71e0f4ed44a8b3ead5af4b8e908548d5",
+    ".local/class-skills/npc-iron-maiden/birth-native-checks.log": "679a8254e8604ed6eb82e117c0d6c9e6774988ed5b1cc711d3e5ed889f1c8fe8",
+    "tools/reference/confuse-resume-native-evidence.json": "a44b4c7b75d4f6ca307f275a5292edb9b53bf4ee8922f34192af421bc82248d5",
+    ".local/class-skills/confuse-resume/birth-native-checks.log": "7a0415fb05b0fe4e569e8f7b93d81099ca533fa90f3055910a95492b02863c58",
+    "tools/reference/attract-cast-native-evidence.json": "7a6c14b14b57068f08c109e5a19d9277af3f303f74c4fc3cfe31d5bd7e9f220a",
+    ".local/class-skills/attract-cast/birth-native-checks.log": "6b6c4dae1ab9e529299f23e3f547cc69404c3c41b05ccec2706d3bd9d4fd51bb",
+    "tools/reference/decrepify-native-evidence.json": "616ab3cd6128f45f88858107b74a8a6fb403dc255f89e688ee3447b439668710",
+    ".local/class-skills/decrepify/birth-native-checks.log": "4a117e04693a4550936eb932966cd436fefe5d4523bb034406019c534703648c",
+    "tools/reference/corpse-aim-native-evidence.json": "33d1a26ad4bf9ed1632fab29f5d3c062c231af2ad138a17ce158d373c6fcad1b",
+    ".local/class-skills/corpse-aim/birth-native-checks.log": "8bcf1d43e75be57cb297154c88380ef6534b85123bf56b565aa69e3f5ef68e5b",
+    "tools/reference/poison-corpse-aim-native-evidence.json": "69780830e32dbbd7049c0116eb6fbc4f33b337f1871b5d20b250e636ba0d030c",
+    ".local/class-skills/poison-corpse-aim/birth-native-checks.log": "476602040a47f3aec10e832f367411813bfdb4883d2c4a05f50f224526bac248",
+    "data/Sanctuary/Balance/skill-effects.json": "3e60e9953942ffd8a1c82f628ea14a7817d60d1af2ba8fd0df466ba5eafb9411",
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    "docs/skill-effects.md": "7cb199b3241e0312ebd1c6c2c4e48228972d5607d6bd2af40a25f4004faca914",
+    "docs/skill-icons.md": "b56465c079166a361e720388e5203659fbb2172e140718a778a4f9d3b749f766",
+    "tools/build_skill_roadmap.py": "391d84a6999ed1de44f03f99129309ae1748a56901a04ce11bafe01b05053c98",
+    "data/Sanctuary/Balance/class-skill-status.json": "d109c23dc736b71019983237e67bf12c347a60188c30cade79b991f21a17c3ca",
+    "docs/class-skill-roadmap.md": "4d16f500b6d41b60b4afc9c22e48e3ddcf8d57a6395f62dde19ff254045f0c59",
+    "docs/class-skills-resume-checkpoint.md": "860a4d7255121ab92a2fdd9667e23e9bef249db5c43a15d9dee4c43767c95633",
+    "docs/necro-status-reconciliation.md": "b734eaaf91b6093b657905fcc5e1b924c24beb73d2144d38fe631d738f8316f9",
+    ".local/class-skills/necro-status-reconciliation/pre-audit.json": "3792926f718481826ffdea104f345bd092011237e4422a3bfabba3aa36e11f90",
+    ".local/class-skills/necro-status-reconciliation/audit-inputs.json": "7a74e38a03f3fa275b3cd29e177977043130350c4a94cfd9b609eeb6b01de596",
+    ".local/class-skills/necro-status-reconciliation/audit-native-checks.log": "c63573f5d6b62c1a755a5976ce96c13e799d298ca07c3666b2439c5ab6a85098",
+    ".local/class-skills/necro-status-reconciliation/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/necro-status-reconciliation/named-item-runtime-audit.json": "6f6610e041d812d4d9f68bc8e5083eab733fd6c0b1888f72703b6c6a32e481f8",
+    ".local/class-skills/necro-status-reconciliation/first-loop-affix-audit.json": "2a24817be500a7de4b71940795bde11e96753b1a0db2d77acece0299310906f7",
+    ".local/class-skills/necro-status-reconciliation/python-tests.log": "554f4a19f6899713312867c64b1f4e2ce8d9418ccc14f6f69b3eb389ac82d28d",
+    ".local/class-skills/necro-status-reconciliation/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/necro-status-reconciliation/readiness-check.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/necro-status-reconciliation/roadmap-check.log": "0101dd4227762a4a8a65e9adc791ef49d1e2d694180f217b876d167c6d5b758f"
+  },
+  "limitations": [
+    "Historical mechanics scopes overlap and are not summed or presented as fresh runs. No new183/845/full-class mechanics pass is claimed.",
+    "Description correction does not close remaining current-engine/world/event/seed/recipient/client/legacy or asset gaps and does not promote any skill/class to complete.",
+    "No C# rebuild,mechanical value/protocol/schema/client/kernel change,deployment or installed-save write. Fresh audit runs in a disposable world with matching source/data and accepted assemblies."
+  ]
+}
