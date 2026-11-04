@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontail",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutines": {
+    "SKILLS_SrvSt27_DragonTail": "7cf295dfcb449dc27543f35dec2779f76a8f4a0e567dbe6670efd9d3e4a167ce",
+    "sub_6FD15470": "e4d5249cac8104b03ff1a97850f43fd54c43a32e65fc308eeff7599c06e02a2f",
+    "STATLIST_DeactivateTemporaryStates": "9fcd78e30dff76e5058fd49206dcb54d855d078ac5f723769119b827b60614d2",
+    "UNITS_ChangeAnimMode": "c64ba3f192f07026f9da42a4206fb50fb6c2242ff548e9b6bb04f6fdde09828a"
+  },
+  "fixture": {
+    "path": ".local/class-skills/dragon-tail-lifetime-source-probe.json",
+    "sha256": "0b020d9ff47f5a0f1727b1780e55f9ce94e110de9dad1eed0e9260b21a24a73f",
+    "cppSha256": "5c190514c8f68a14f7e234870f555eebe59303ee8081df19a36a9ff586aff6ec",
+    "cases": 384,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete older start27 posts Param4=-40 before target/hit validation. Missing target and failed accuracy do not remove a successfully allocated modifier.",
+    "Complete posting allocates flags4 (TEMPONLY), posts the list, writes ATTACKRATE and refreshes rate once. Allocation failure posts nothing.",
+    "Complete mode change does not remove temporary lists when the mode number is unchanged. A different mode deactivates every temporary list, toggles an attached state off, preserves permanent stats and resets the animation start frame.",
+    "A skill-local KK clock can carry the -40 adjustment without publishing a persistent owner stat. Cancellation/completion must discard that action clock; unrelated attacks must use their own timing."
+  ],
+  "services": [
+    "Stat allocation, linked-list ownership, ordinary-list free/unlink and state toggling are explicit bounded services. Extended temporary stat lists, missing extended root, tile actors and global stat-collector correctness are outside this fixture.",
+    "Target/hit/kick allocation are declared services. Modern charged hit/consumption/payment follow the separate approved Sanctuary decision, not this old start27 implementation.",
+    "Mode refresh and animation start are counted boundaries. This is not the current executable mode dispatcher, client animation, event queue or native cancellation/input proof."
+  ],
+  "decision": "tools/reference/dragon-tail-sanctuary-decision.json",
+  "next": "Compose the approved modern contact and payment policy with the existing prepared kick packets, charge effects and learned KK action; keep remaining native/event/input/overflow limits explicit."
+}

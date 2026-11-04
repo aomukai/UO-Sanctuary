@@ -1,5 +1,7 @@
 # Skill icons
 
+**Dragon Tail preparation (2026-11-05 JST).** Talent-tree and left/right/quick artwork remain needed separately. This prepared component adds no binding, icon slot or final asset. Existing generic placeholders remain identified. See [checkpoint](dragon-tail-preparation-checkpoint.md).
+
 **Learned Wake of Fire (2026-11-05 JST).** Final Assassin talent-tree and right/quick-hotkey icons remain needed. Existing generic skill/roster placeholders identify the newly available learned route; left binding remains rejected by pinned metadata. No icon slot, protocol field or final artwork is added. See [checkpoint](wake-learned-checkpoint.md).
 
 **Poison Creeper balance (2026-11-05 JST).** Talent-tree and right/quick-hotkey artwork remain separately needed. Existing generic placeholders are retained; the balance profile adds no icon slot and does not enable public learned binding. No final icon is generated. See [checkpoint](creeper-balance-checkpoint.md).

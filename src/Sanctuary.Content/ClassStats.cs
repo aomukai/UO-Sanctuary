@@ -158,7 +158,7 @@ public static class ClassStats
     public static bool? CheckHit(Mobile attacker, Mobile defender)=>CheckHit(attacker,defender,0,projectile:
         attacker is PlayerMobile formed&&DruidFormAttacks.Active(formed)?false:
         attacker.Weapon is BaseRanged || attacker is PlayerMobile player && CombatTiming.Weapon(CombatTiming.Equipped(player)).Family==AttackFamily.Throw);
-    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false,bool notifyMelee=true)
+    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false,bool notifyMelee=true,bool guaranteed=false)
     {
         if(!projectile && notifyMelee){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
@@ -173,9 +173,11 @@ public static class ClassStats
         {
             return true;
         }
-        int attack = AttackRatingAgainst(attacker,defender,skillPercent);
+        int attack = guaranteed ? 0 : AttackRatingAgainst(attacker,defender,skillPercent);
         roll ??= Utility.RandomDouble;
-        bool hit = roll() < HitChance(attack, NamedCombat.DefenseFor(attacker, defender, Defense(defender),projectile?true:null), Level(attacker), Level(defender));
+        // A finisher's guaranteed accuracy must not bypass the existing shield
+        // and avoidance phases below. Ordinary callers retain the full AR roll.
+        bool hit = guaranteed || roll() < HitChance(attack, NamedCombat.DefenseFor(attacker, defender, Defense(defender),projectile?true:null), Level(attacker), Level(defender));
         if (hit && classDefense && ClassGear.BlockChance((PlayerMobile)defender) is > 0 and var chance)
         {
             hit = roll() * 100 >= chance;

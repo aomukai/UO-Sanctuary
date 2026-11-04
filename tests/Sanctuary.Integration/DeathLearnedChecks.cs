@@ -76,7 +76,7 @@ public static class DeathLearnedChecks
     {
         var p=SentryLearnedChecks.Fresh(7000);while(ClassCreation.Profiles.GetRank(p.Serial,"assassin.deathsentry")<20){Require(ClassCreation.Profiles.TryTrain(p.Serial,"assassin.deathsentry",out _),"Train Death Sentry");}
         var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);Require(p.EquipItem(helm),"Actual Death soft-rank helm");ClassGear.Refresh(p);SentryLearnedChecks.Bind(p,Ability);
-        var corpse=DeathSentryExplosionChecks.Body(p,new(p.X+5,p.Y,p.Z));var row=CorpseSkillRules.Profiles.Find(corpse);var target=DeathSentryExplosionChecks.Target(corpse,1);target.SetResistance(ResistanceType.Energy,0);
+        var corpse=DeathSentryExplosionChecks.Body(p,new(p.X+5,p.Y,p.Z));var row=CorpseSkillRules.Profiles.Find(corpse);var target=DeathSentryExplosionChecks.Target(corpse,1);target.Frozen=target.CantWalk=true;target.SetResistance(ResistanceType.Energy,0);
         int hp=SkillHealth.Balance256(target);FixtureNetwork.Authenticate(network,p,"death-learned-");
         int low=0;for(;low<1000;low++){ulong trial=SourceRandom.InitLow(low);if(SourceRandom.Limited(ref trial,100)<50){break;}}Require(low<1000,"Deterministic first fallback chance");
         var supplier=BladeSentinelSummons.SeedLow;AssassinSentryBody body;try{BladeSentinelSummons.SeedLow=()=>low;body=SentryLearnedChecks.Cast(p,Ability);}finally{BladeSentinelSummons.SeedLow=supplier;}
@@ -116,12 +116,13 @@ public static class DeathLearnedChecks
         Require(corpse is{Deleted:false,SanctuaryConsumed:true,Animated:true}&&corpse.GetAmount(typeof(Gold))==1&&CorpseSkillRules.Profiles.Find(corpse)==saved.CorpseRow
             &&AssassinDeathSentryCorpses.Explode(body,corpse).Status==DeathExplosionStatus.NotEligible,"Consumed source corpse/loot/seed changed or fired twice");
         Require(SkillBindings.Instance.Get(p).Right==Ability&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Assassin,7)==Ability,"Saved Death right/quick bindings");
+        target.Frozen=target.CantWalk=true;target.AIObject?.AITimer.Stop(); // This persistence fixture requires a stationary aim inside its controlled corridor.
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);FixtureNetwork.Authenticate(network,p,"death-learned-resume-");SentryLearnedChecks.Clock(body,TimedEffects.Now.AddMilliseconds(40));long end=Core.TickCount+3000;
         void Observe()
         {
             try
             {
-                var bolt=AssassinSentryLightning.State(saved.Bolt.Id);Require(bolt!=null&&bolt.Fault==null&&body.Prepared.ControllerFault==null,"Original Death resume fault");
+                var bolt=AssassinSentryLightning.State(saved.Bolt.Id);Require(bolt!=null&&bolt.Fault==null&&body.Prepared.ControllerFault==null,$"Original Death resume fault: bolt={JsonSerializer.Serialize(bolt)}, actor={JsonSerializer.Serialize(body.Prepared)}, target={target.Location}, generation={saved.Generation}");
                 if(body.Prepared.DeathControl.Frame<saved.Actor.DeathControl.Frame+2||bolt.Frame<saved.Bolt.Frame+2){Require(Core.TickCount<end,"Original Death controller/flight failed natural resume");Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
                 Require(bolt.Actor==body.Serial.Value&&bolt.Owner==p.Serial.Value&&bolt.Minimum256==saved.Bolt.Minimum256&&bolt.Maximum256==saved.Bolt.Maximum256
                     &&bolt.LastCollision==saved.Bolt.LastCollision&&body.Prepared.DeathControl.Dispatches==saved.Actor.DeathControl.Dispatches&&body.Prepared.DeathControl.Ai==saved.Actor.DeathControl.Ai

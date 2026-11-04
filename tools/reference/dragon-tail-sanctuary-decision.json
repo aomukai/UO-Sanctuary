@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "decision": "approved Sanctuary adaptation",
+  "question": "For Dragon Tail’s unresolved hit/payment edges, should Sanctuary use this rule: charges bypass the accuracy roll, shield block/dodge still apply, charges are consumed only on a successful contact, and a released kick costs 10 mana even if it misses? This is a design choice, not a request for an in-game test.",
+  "answer": "Use that explicit Sanctuary rule (recommended)",
+  "isD2RObservation": false,
+  "rules": [
+    "An active martial charge bypasses Dragon Tail’s accuracy roll. It does not bypass shield block or dodge.",
+    "A successful contact consumes one charge from each participating charge state. Missed, blocked, dodged or cancelled contacts retain charges.",
+    "A released Dragon Tail kick costs 10 mana even if it misses. An interrupted windup has not released a kick.",
+    "Existing insufficient-mana Basic Attack fallback and world hostility rules remain in force."
+  ],
+  "stillUncertain": [
+    "Exact D2R charged hit/block/dodge, consumption and miss-payment branches are superseded by these approved rules only.",
+    "Current executable packet/event/mode ordering, overflow behavior, native input and final art still need separate evidence; this decision does not certify the entire skill."
+  ]
+}

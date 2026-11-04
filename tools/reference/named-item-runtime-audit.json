@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "d710ddb12696feecd25525bdd347beddd90bcc231778db615b73d9f606784b55",
+  "ContentAssemblySha256": "d0f38f84bfffc84430e8005ac77f62677fb3b81c9dfbc4f254d4854e708cacc6",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "617193d53bc4fe26ecfb72cdaeb969cd68400c2e0e8934273b526f2b9800d875",
+    "data/Sanctuary/Balance/class-skill-status.json": "0acd94a83e99ed1f0bb7976b1f21cbe8e6679a3a2be79a43cf87833b2999c2f0",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -407,7 +407,7 @@
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
     "src/Sanctuary.Content/ClassRespec.cs": "fd93aed61e2b3a7b592cdd44c57ac39edf910361b623f1cdbafc5013a445a3ad",
     "src/Sanctuary.Content/ClassSkills.cs": "c92bedaf77d7bd19a5e4a502e918b170b61b2c34c277dac9f8c3a52a789850a6",
-    "src/Sanctuary.Content/ClassStats.cs": "b545f9444283569ce5beaa1d2a54a6fd6b4d637e07495cd38d1b03585b0bb63c",
+    "src/Sanctuary.Content/ClassStats.cs": "9322e3021f5d47587c5212fecc1f95f38e39fb5ff01dce0411d2621b1fb6da5f",
     "src/Sanctuary.Content/ClayGolemBody.cs": "3c1d64c91e68eadebf3248da919020baf02de0ebd7b2ba69052c62e11a9d48f6",
     "src/Sanctuary.Content/ClayGolemContact.cs": "e7c5f0c4443b67bff7e0aeab53d67c9430b392effb6a5da3339e2f1a0813b8bd",
     "src/Sanctuary.Content/ClayGolemSlow.cs": "08a36a8de9611e8b99a7c070b0224a158a8938bfbc802967ac616803b8f7df63",
@@ -449,6 +449,7 @@
     "src/Sanctuary.Content/DireWolfUpgrades.cs": "02923d65beee3c8e6c1981bec71c9373ab7fc1af58307edf9dc7c2c5880be633",
     "src/Sanctuary.Content/DragonKickDamage.cs": "f0fca61276a92855d4ee50fc090372dabdfee6ca72f088b788563d3f6ff3cb68",
     "src/Sanctuary.Content/DragonKickPackets.cs": "b931a5828a9524cc900d6e41206a084edfba7cf491601468230c5a1577c90c6d",
+    "src/Sanctuary.Content/DragonTailPreparation.cs": "00af96b7d5cd40be2245b67a4c90a7b0dc76f673de4ab418e7fe4c2e43073d56",
     "src/Sanctuary.Content/DruidArcticModes.cs": "fdfad739b36ab38a832c96333f785e4f2f07e18105544da561f738576a8fd8d4",
     "src/Sanctuary.Content/DruidArcticStream.cs": "dff78068cc9df787dfcbe04972bbc522b3d86ae3af53d5226edbbcf14bffa9d8",
     "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",

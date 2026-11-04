@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.dragontail",
   "sourceId": 270,
-  "status": "Current table and bounded older start/do preparation;learned handler disabled",
+  "status": "Approved Sanctuary hit/payment policy; prepared native charged-hit and isolated KK suppliers; learned action unfinished",
   "installed": false,
   "handlerEnabled": false,
   "source": {
@@ -67,12 +67,12 @@
   ],
   "openMechanics": [
     "Some old signed percentage products overflow. Prepared Tail rejects those uncorroborated contexts;modern executable overflow behavior remains unknown.",
-    "Older Skills.cpp sub_6FD12950consumes mana only after a successful start when !USEMANAONDO and !a5;start27returns0on an unsuccessful result roll. Current miss/payment behavior remains uncorroborated;do not assume every accepted swing spends10mana.",
-    "Older UNITS_ChangeAnimMode invokes temporary-state cleanup on a mode change. Compose STATLIST_TEMPONLY=4posting/cleanup with start27and current mode transitions before certifying the-40rate lifetime."
+    "Exact D2R charged hit/block/dodge, one-charge consumption and miss payment remain unverified reference data, superseded by the approved Sanctuary policy. These are no longer unanswered design questions.",
+    "384 complete older start/post/mode/cleanup contexts establish TEMPONLY removal on a real mode change. The prepared native KK clock keeps -40 local; current executable dispatch, learned interruption/end and input composition remain unfinished."
   ],
   "required": [
-    "Compose current charged guaranteed-hit versus shield block/dodge and exact one-charge consumption with kick delivery;older all-state removal is not authoritative.",
-    "4608original current-family rates and10local KK13frame/action4/base256records establish primary WSM/IAS and-40modifier without SQ-30. 4490complete older scheduler/frame-bonus contexts establish one action at ceil(1024/advance)and end at ceil(3328/advance). Compose start27modifier posting/lifetime,current executable and native scheduling before enabling;do not substitute Tiger A1 or Talon SQ19.",
+    "Use the approved charged accuracy-only bypass, retain shield/dodge, consume one participating charge on successful contact, and spend10mana on a released kick including misses. Prepared native result flags now verify charged versus uncharged accuracy, actual mapped shields and range. Full packet/contact/payment composition remains work to implement, not a pending user answer.",
+    "Native prepared suppliers match4480positive complete source KK clocks and4608original current-family rates. Reuse their primary-hand,-40,non-sequence timing in learned action scheduling; complete native cancellation,end,reentry and input checks before publishing the handler.",
     "Recompose actual boot/body/Tiger/Fists conversion/other elements/leech/proc/mitigation with current data;full old CalculateTotalDamage remains a service boundary in the current Tail probe. Complete source fill576and flow/percentage1920cases now support a staged prepared packet;learned action is still gated.",
     "Resolve knockback and recipients after lethal parent contact;verify real gear/difficulty/immunity,ranks/resources/fallback,cancellation,all natural input paths and save/reload.",
     "Keep each uncertain branch explicit and continue unaffected skills;do not ask the traps-only player for martial-arts tests."
@@ -81,5 +81,10 @@
     "effects": "Kick/contact/charge/fire-burst/knockback/audio need final assets;identified placeholders may be used without blocking mechanics.",
     "icons": "Talent/left/right/quick icons remain in the separate240row inventory."
   },
-  "next": "Prepare KK/rate and modern single-finisher hit/charge/packet paths before enabling Dragon Tail. No class completion certificate."
+  "next": "Wire the approved policy and verified prepared hit/KK suppliers into the source-ordered kick/charge/fire contact action. Then verify payment, cancellation, natural inputs and original saves before enabling Dragon Tail. No further martial-arts test is requested from the user.",
+  "sanctuaryDecision": "tools/reference/dragon-tail-sanctuary-decision.json",
+  "lifetimeEvidence": "tools/reference/dragon-tail-lifetime-source-evidence.json",
+  "preparedActionSuppliers": "src/Sanctuary.Content/DragonTailPreparation.cs",
+  "preparedActionSuppliersInstalled": false,
+  "preparedActionCheckpoint": "docs/dragon-tail-preparation-checkpoint.md"
 }
