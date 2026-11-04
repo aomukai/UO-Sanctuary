@@ -55,7 +55,10 @@ public static class EliteAuras
         foreach (var source in target.Map.GetMobilesInRange<EncounterCreature>(target.Location, 18))
         {
             if (source is not { Deleted: false, Alive: true } || source.Controlled || source.Summoned || source.ReturningHome || source.Aura != aura) { continue; }
-            bool enemy = target is PlayerMobile || target is BaseCreature { Controlled: true } or BaseCreature { Summoned: true };
+            // Conversion changes allegiance without native pet flags. Reuse
+            // its combat relationship for both hostile and friendly auras.
+            bool enemy = PaladinConversion.Enemy(source,target)
+                ?? (target is PlayerMobile || target is BaseCreature { Controlled: true } or BaseCreature { Summoned: true });
             if (enemy != hostile || !enemy && target is not EncounterCreature || Math.Abs(source.Z - target.Z) >= 16) { continue; }
             int level = SkillLevel(source);
             if (source.InRange(target, Radius(aura, level)) && source.InLOS(target) && source.CanSee(target)) { result = Math.Max(result, level); }

@@ -1,5 +1,7 @@
 # Lower Resist checkpoint
 
+**Follow-up (2026-11-04 JST):** [elite Conviction/allegiance acceptance](lower-resist-elite-checkpoint.md) fixes converted monsters missing hostile elite auras and verifies the previously open legacy-Conviction/native-mod combination. The original source/curse acceptance and its other limits below remain unchanged.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary deviations take precedence. This isolated candidate preserves the installed build and existing saves. No class completion is claimed.
 
 Lower Resist uses the shared learned Necromancer do30 cast and recipient services. Mana is 22 once at release, including a valid empty/resisted area. Source radius is `7 + (rank − 1)` subtiles under the existing world mapping; duration is `500 + 50 × (rank − 1)` frames: 20 seconds at rank 1, 60 seconds at effective rank 21. SC/FCR timing, selected-target tracking, interruption and right/quick bindings remain shared. Source filter3 does not add recipient-to-center LOS.
