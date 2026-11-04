@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original Revive live melee (2026-11-04 JST).** Live original geometry/result/contact reuses the existing identified Revive contact, block, wound and return placeholders. Final windup/contact/miss/block/status/return feedback and audio remain pending; this service adds no standalone effect. See [checkpoint](revive-melee-geometry-checkpoint.md).
+
 **Original Revive ownership graph (2026-11-04 JST).** The frozen item graph and native resource-recovery gates add no visual effect or audio. Revive keeps its existing identified summon/contact/return placeholders and pending final artwork. See [checkpoint](revive-graph-checkpoint.md).
 
 **Original Revive Kind1 incoming (2026-11-04 JST).** The [incoming HP adapter](revive-incoming-checkpoint.md) shares the existing hit/retaliation feedback placeholders. It adds no effect ID or standalone effect. Revive’s pending summon/contact/return feedback and audio remain in the existing shared asset work; the mechanical HP/credit changes do not require artwork to function.

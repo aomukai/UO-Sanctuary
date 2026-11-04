@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "inputs": {
+    "monstats": {
+      "jsonPath": "tools/reference/d2r-named-equipment/json/monstats.json",
+      "jsonSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+      "ownedPath": ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt",
+      "ownedSha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e"
+    },
+    "monstats2": {
+      "jsonPath": "tools/reference/d2r-named-equipment/json/monstats2.json",
+      "jsonSha256": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+      "ownedPath": ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt",
+      "ownedSha256": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92"
+    }
+  },
+  "runtimePath": "data/Sanctuary/Balance/revive-melee-geometry.json",
+  "runtimeSha256": "0512b3baba41de6ce03f8c65d25ce45e873071d426fc51bf0cdd29164922da2c",
+  "comparedRows": 751,
+  "comparedFields": [
+    "hcIdx",
+    "MonStatsEx",
+    "SizeX",
+    "SizeY",
+    "MeleeRng"
+  ],
+  "scope": "Owned table parity only; shared source geometry algorithm and explicit native ray bridge are separate evidence."
+}

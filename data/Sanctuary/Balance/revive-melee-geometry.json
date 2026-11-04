@@ -1,0 +1,4508 @@
+[
+  {
+    "Key": "act2child",
+    "BaseId": 197,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2female",
+    "BaseId": 196,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2guard1",
+    "BaseId": 203,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2guard2",
+    "BaseId": 331,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2guard3",
+    "BaseId": 358,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2guard4",
+    "BaseId": 377,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2guard5",
+    "BaseId": 378,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2hire",
+    "BaseId": 338,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "act2male",
+    "BaseId": 195,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2vendor1",
+    "BaseId": 204,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act2vendor2",
+    "BaseId": 205,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act3female",
+    "BaseId": 296,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act3hire",
+    "BaseId": 359,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act3male",
+    "BaseId": 294,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5barb1",
+    "BaseId": 522,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5barb2",
+    "BaseId": 523,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5barb3",
+    "BaseId": 535,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5barb4",
+    "BaseId": 536,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5hire1",
+    "BaseId": 560,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5hire2",
+    "BaseId": 561,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "act5pow",
+    "BaseId": 534,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "akara",
+    "BaseId": 148,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "alkor",
+    "BaseId": 254,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "ancientbarb1",
+    "BaseId": 540,
+    "Size": 2,
+    "RawRange": 3
+  },
+  {
+    "Key": "ancientbarb2",
+    "BaseId": 541,
+    "Size": 2,
+    "RawRange": 3
+  },
+  {
+    "Key": "ancientbarb3",
+    "BaseId": 542,
+    "Size": 2,
+    "RawRange": 3
+  },
+  {
+    "Key": "ancientstatue1",
+    "BaseId": 537,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "ancientstatue2",
+    "BaseId": 538,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "ancientstatue3",
+    "BaseId": 539,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "andariel",
+    "BaseId": 156,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach1",
+    "BaseId": 122,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach2",
+    "BaseId": 123,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach3",
+    "BaseId": 124,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach4",
+    "BaseId": 125,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach5",
+    "BaseId": 126,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach6",
+    "BaseId": 685,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "arach7",
+    "BaseId": 717,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "asheara",
+    "BaseId": 252,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "atma",
+    "BaseId": 176,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "baalclone",
+    "BaseId": 570,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "baalcrab",
+    "BaseId": 544,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "baalcrabstairs",
+    "BaseId": 559,
+    "Size": 0,
+    "RawRange": 3
+  },
+  {
+    "Key": "baalhighpriest",
+    "BaseId": 557,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "baalminion1",
+    "BaseId": 571,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "baalminion2",
+    "BaseId": 572,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "baalminion3",
+    "BaseId": 573,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "baaltaunt",
+    "BaseId": 545,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "baaltentacle1",
+    "BaseId": 562,
+    "Size": 2,
+    "RawRange": 4
+  },
+  {
+    "Key": "baaltentacle2",
+    "BaseId": 563,
+    "Size": 2,
+    "RawRange": 4
+  },
+  {
+    "Key": "baaltentacle3",
+    "BaseId": 564,
+    "Size": 2,
+    "RawRange": 4
+  },
+  {
+    "Key": "baaltentacle4",
+    "BaseId": 565,
+    "Size": 2,
+    "RawRange": 4
+  },
+  {
+    "Key": "baaltentacle5",
+    "BaseId": 566,
+    "Size": 2,
+    "RawRange": 4
+  },
+  {
+    "Key": "baalthrone",
+    "BaseId": 543,
+    "Size": 0,
+    "RawRange": 3
+  },
+  {
+    "Key": "baboon1",
+    "BaseId": 48,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon2",
+    "BaseId": 49,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon3",
+    "BaseId": 50,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon4",
+    "BaseId": 51,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon5",
+    "BaseId": 52,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon6",
+    "BaseId": 295,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon7",
+    "BaseId": 665,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "baboon8",
+    "BaseId": 666,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "barricadedoor1",
+    "BaseId": 432,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "barricadedoor2",
+    "BaseId": 433,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "barricadetower",
+    "BaseId": 435,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "barricadewall1",
+    "BaseId": 524,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "barricadewall2",
+    "BaseId": 525,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bat",
+    "BaseId": 159,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon1",
+    "BaseId": 136,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon2",
+    "BaseId": 137,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon3",
+    "BaseId": 138,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon4",
+    "BaseId": 139,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon5",
+    "BaseId": 140,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon6",
+    "BaseId": 650,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "batdemon7",
+    "BaseId": 651,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bear",
+    "BaseId": 431,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead1",
+    "BaseId": 10,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead10",
+    "BaseId": 584,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead2",
+    "BaseId": 11,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead3",
+    "BaseId": 12,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead4",
+    "BaseId": 13,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead5",
+    "BaseId": 14,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead6",
+    "BaseId": 580,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead7",
+    "BaseId": 581,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead8",
+    "BaseId": 582,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bighead9",
+    "BaseId": 583,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bird1",
+    "BaseId": 157,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "bird2",
+    "BaseId": 158,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "bladecreeper",
+    "BaseId": 413,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodgolem",
+    "BaseId": 290,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodlord1",
+    "BaseId": 506,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodlord2",
+    "BaseId": 507,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodlord3",
+    "BaseId": 508,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodlord4",
+    "BaseId": 509,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodlord5",
+    "BaseId": 510,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodlord6",
+    "BaseId": 652,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodlord7",
+    "BaseId": 653,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "bloodmage1",
+    "BaseId": 222,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodmage2",
+    "BaseId": 223,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodmage3",
+    "BaseId": 224,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodmage4",
+    "BaseId": 225,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodmage5",
+    "BaseId": 226,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bloodraven",
+    "BaseId": 267,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "blunderbore1",
+    "BaseId": 186,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "blunderbore2",
+    "BaseId": 187,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "blunderbore3",
+    "BaseId": 188,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "blunderbore4",
+    "BaseId": 189,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "blunderbore5",
+    "BaseId": 618,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "blunderbore6",
+    "BaseId": 619,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish1",
+    "BaseId": 212,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish2",
+    "BaseId": 213,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish3",
+    "BaseId": 214,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish4",
+    "BaseId": 215,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish5",
+    "BaseId": 216,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish6",
+    "BaseId": 690,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonefetish7",
+    "BaseId": 691,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "boneprison1",
+    "BaseId": 340,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "boneprison2",
+    "BaseId": 341,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "boneprison3",
+    "BaseId": 342,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "boneprison4",
+    "BaseId": 343,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "bonewall",
+    "BaseId": 344,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "brute1",
+    "BaseId": 28,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "brute2",
+    "BaseId": 24,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "brute3",
+    "BaseId": 25,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "brute4",
+    "BaseId": 26,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "brute5",
+    "BaseId": 27,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "bug",
+    "BaseId": 268,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "bunny",
+    "BaseId": 556,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "cain1",
+    "BaseId": 146,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cain2",
+    "BaseId": 244,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cain3",
+    "BaseId": 245,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cain4",
+    "BaseId": 246,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cain5",
+    "BaseId": 265,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cain6",
+    "BaseId": 520,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "camel",
+    "BaseId": 185,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "cantor1",
+    "BaseId": 238,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cantor2",
+    "BaseId": 239,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cantor3",
+    "BaseId": 240,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cantor4",
+    "BaseId": 241,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cantor5",
+    "BaseId": 673,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cantor6",
+    "BaseId": 674,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapult1",
+    "BaseId": 497,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapult2",
+    "BaseId": 498,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapult3",
+    "BaseId": 499,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapult4",
+    "BaseId": 500,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapultspotter1",
+    "BaseId": 516,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapultspotter2",
+    "BaseId": 517,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapultspotter3",
+    "BaseId": 518,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "catapultspotter4",
+    "BaseId": 519,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "chaoshorde1",
+    "BaseId": 106,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "chaoshorde2",
+    "BaseId": 107,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "chaoshorde3",
+    "BaseId": 108,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "chaoshorde4",
+    "BaseId": 109,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "chargeboltsentry",
+    "BaseId": 411,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "charsi",
+    "BaseId": 154,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "chicken",
+    "BaseId": 149,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper1",
+    "BaseId": 73,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper10",
+    "BaseId": 598,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper2",
+    "BaseId": 74,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper3",
+    "BaseId": 75,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper4",
+    "BaseId": 76,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper5",
+    "BaseId": 77,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper6",
+    "BaseId": 594,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper7",
+    "BaseId": 595,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper8",
+    "BaseId": 596,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "clawviper9",
+    "BaseId": 597,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "claygolem",
+    "BaseId": 289,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "colbarbfrenzy",
+    "BaseId": 750,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "colbarbthrow",
+    "BaseId": 749,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "colbarbwhirl",
+    "BaseId": 748,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "colossal1",
+    "BaseId": 745,
+    "Size": 2,
+    "RawRange": 3
+  },
+  {
+    "Key": "colossal2",
+    "BaseId": 746,
+    "Size": 2,
+    "RawRange": 3
+  },
+  {
+    "Key": "colossal3",
+    "BaseId": 747,
+    "Size": 2,
+    "RawRange": 3
+  },
+  {
+    "Key": "compellingorb",
+    "BaseId": 366,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "corruptrogue1",
+    "BaseId": 43,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "corruptrogue2",
+    "BaseId": 44,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "corruptrogue3",
+    "BaseId": 45,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "corruptrogue4",
+    "BaseId": 46,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "corruptrogue5",
+    "BaseId": 47,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "corruptrogue6",
+    "BaseId": 721,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "councilmember1",
+    "BaseId": 345,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "councilmember2",
+    "BaseId": 346,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "councilmember3",
+    "BaseId": 347,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cow",
+    "BaseId": 179,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "cowking",
+    "BaseId": 735,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_archer1",
+    "BaseId": 160,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer2",
+    "BaseId": 161,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer3",
+    "BaseId": 162,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer4",
+    "BaseId": 163,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer5",
+    "BaseId": 164,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer6",
+    "BaseId": 613,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer7",
+    "BaseId": 614,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_archer8",
+    "BaseId": 722,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "cr_lancer1",
+    "BaseId": 165,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer2",
+    "BaseId": 166,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer3",
+    "BaseId": 167,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer4",
+    "BaseId": 168,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer5",
+    "BaseId": 169,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer6",
+    "BaseId": 615,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer7",
+    "BaseId": 616,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer8",
+    "BaseId": 617,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "cr_lancer9",
+    "BaseId": 723,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "crownest1",
+    "BaseId": 206,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "crownest2",
+    "BaseId": 207,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "crownest3",
+    "BaseId": 208,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "crownest4",
+    "BaseId": 209,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "cycleoflife",
+    "BaseId": 426,
+    "Size": 0,
+    "RawRange": 1
+  },
+  {
+    "Key": "darkelder",
+    "BaseId": 736,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "darkguard1",
+    "BaseId": 217,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "darkguard2",
+    "BaseId": 218,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "darkguard3",
+    "BaseId": 219,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "darkguard4",
+    "BaseId": 220,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "darkguard5",
+    "BaseId": 221,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "darkwanderer",
+    "BaseId": 368,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathmauler1",
+    "BaseId": 529,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathmauler2",
+    "BaseId": 530,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathmauler3",
+    "BaseId": 531,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathmauler4",
+    "BaseId": 532,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathmauler5",
+    "BaseId": 533,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathmauler6",
+    "BaseId": 604,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "deathsentry",
+    "BaseId": 416,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "demonhole",
+    "BaseId": 711,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "demonspawner",
+    "BaseId": 710,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "diablo",
+    "BaseId": 243,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "diabloclone",
+    "BaseId": 333,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "dkfig1",
+    "BaseId": 699,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "dkfig2",
+    "BaseId": 700,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "dkmag1",
+    "BaseId": 701,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "dkmag2",
+    "BaseId": 702,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "dkmag3",
+    "BaseId": 713,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "doomknight1",
+    "BaseId": 310,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "doomknight2",
+    "BaseId": 311,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "doomknight3",
+    "BaseId": 312,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "dopplezon",
+    "BaseId": 356,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "drehya",
+    "BaseId": 512,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "drehyaiced",
+    "BaseId": 527,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "drognan",
+    "BaseId": 177,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "druidbear",
+    "BaseId": 428,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "druidhawk",
+    "BaseId": 419,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "duriel",
+    "BaseId": 211,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "eagle",
+    "BaseId": 429,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "elzix",
+    "BaseId": 199,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "evilhole1",
+    "BaseId": 321,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "evilhole2",
+    "BaseId": 322,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "evilhole3",
+    "BaseId": 323,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "evilhole4",
+    "BaseId": 324,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "evilhole5",
+    "BaseId": 325,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "evilhut",
+    "BaseId": 528,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen1",
+    "BaseId": 19,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen2",
+    "BaseId": 20,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen3",
+    "BaseId": 21,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen4",
+    "BaseId": 22,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen5",
+    "BaseId": 23,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen6",
+    "BaseId": 642,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen7",
+    "BaseId": 643,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallen8",
+    "BaseId": 644,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman1",
+    "BaseId": 58,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman2",
+    "BaseId": 59,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman3",
+    "BaseId": 60,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman4",
+    "BaseId": 61,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman5",
+    "BaseId": 62,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman6",
+    "BaseId": 645,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman7",
+    "BaseId": 646,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fallenshaman8",
+    "BaseId": 647,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "familiar",
+    "BaseId": 293,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fara",
+    "BaseId": 178,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fenris",
+    "BaseId": 421,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "fetish1",
+    "BaseId": 141,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish11",
+    "BaseId": 407,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish2",
+    "BaseId": 142,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish3",
+    "BaseId": 143,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish4",
+    "BaseId": 144,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish5",
+    "BaseId": 145,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish6",
+    "BaseId": 656,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish7",
+    "BaseId": 657,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetish8",
+    "BaseId": 658,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow1",
+    "BaseId": 396,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow2",
+    "BaseId": 397,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow3",
+    "BaseId": 398,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow4",
+    "BaseId": 399,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow5",
+    "BaseId": 400,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow6",
+    "BaseId": 659,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow7",
+    "BaseId": 660,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishblow8",
+    "BaseId": 661,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman1",
+    "BaseId": 278,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman2",
+    "BaseId": 279,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman3",
+    "BaseId": 280,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman4",
+    "BaseId": 281,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman5",
+    "BaseId": 282,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman6",
+    "BaseId": 662,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman7",
+    "BaseId": 663,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fetishshaman8",
+    "BaseId": 664,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "fingermage1",
+    "BaseId": 304,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "fingermage2",
+    "BaseId": 305,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "fingermage3",
+    "BaseId": 306,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "fingermage4",
+    "BaseId": 692,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "fingermage5",
+    "BaseId": 693,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "firebeast",
+    "BaseId": 230,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "firegolem",
+    "BaseId": 292,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "firetower",
+    "BaseId": 372,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "fish",
+    "BaseId": 320,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "flyingscimitar",
+    "BaseId": 234,
+    "Size": 1,
+    "RawRange": 2
+  },
+  {
+    "Key": "foulcrow1",
+    "BaseId": 15,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow2",
+    "BaseId": 16,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow3",
+    "BaseId": 17,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow4",
+    "BaseId": 18,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow5",
+    "BaseId": 590,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow6",
+    "BaseId": 591,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow7",
+    "BaseId": 592,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "foulcrow8",
+    "BaseId": 593,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "frogdemon1",
+    "BaseId": 247,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "frogdemon2",
+    "BaseId": 248,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "frogdemon3",
+    "BaseId": 249,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "frozenhorror1",
+    "BaseId": 501,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "frozenhorror2",
+    "BaseId": 502,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "frozenhorror3",
+    "BaseId": 503,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "frozenhorror4",
+    "BaseId": 504,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "frozenhorror5",
+    "BaseId": 505,
+    "Size": 3,
+    "RawRange": 4
+  },
+  {
+    "Key": "gargoyletrap",
+    "BaseId": 273,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "geglash",
+    "BaseId": 200,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "gheed",
+    "BaseId": 147,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman1",
+    "BaseId": 53,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman10",
+    "BaseId": 589,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman2",
+    "BaseId": 54,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman3",
+    "BaseId": 55,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman4",
+    "BaseId": 56,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman5",
+    "BaseId": 57,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman6",
+    "BaseId": 585,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman7",
+    "BaseId": 586,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman8",
+    "BaseId": 587,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "goatman9",
+    "BaseId": 588,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "gorgon1",
+    "BaseId": 34,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "gorgon2",
+    "BaseId": 35,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "gorgon3",
+    "BaseId": 36,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "gorgon4",
+    "BaseId": 37,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "greiz",
+    "BaseId": 198,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "griswold",
+    "BaseId": 365,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "halbu",
+    "BaseId": 257,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "heartofwolverine",
+    "BaseId": 423,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "hellbovine",
+    "BaseId": 391,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "hellmeteor",
+    "BaseId": 153,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "hephasto",
+    "BaseId": 409,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "horse",
+    "BaseId": 734,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "hratli",
+    "BaseId": 253,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "hydra1",
+    "BaseId": 351,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "hydra2",
+    "BaseId": 352,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "hydra3",
+    "BaseId": 353,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "iceglobe",
+    "BaseId": 231,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp1",
+    "BaseId": 492,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp2",
+    "BaseId": 493,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp3",
+    "BaseId": 494,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp4",
+    "BaseId": 495,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp5",
+    "BaseId": 496,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp6",
+    "BaseId": 688,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp7",
+    "BaseId": 689,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "imp8",
+    "BaseId": 714,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "infernosentry",
+    "BaseId": 415,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "injuredbarb1",
+    "BaseId": 567,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "injuredbarb2",
+    "BaseId": 568,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "injuredbarb3",
+    "BaseId": 569,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "invisopet",
+    "BaseId": 414,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "invisospawner",
+    "BaseId": 332,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "irongolem",
+    "BaseId": 291,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "izual",
+    "BaseId": 256,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "izualghost",
+    "BaseId": 406,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "jamella",
+    "BaseId": 405,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "jerhyn",
+    "BaseId": 201,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "kashya",
+    "BaseId": 150,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "larva",
+    "BaseId": 283,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "larzuk",
+    "BaseId": 511,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "lightningbeast",
+    "BaseId": 232,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "lightningsentry",
+    "BaseId": 412,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "lightningspire",
+    "BaseId": 371,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "lysander",
+    "BaseId": 202,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggot",
+    "BaseId": 227,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotbaby1",
+    "BaseId": 180,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotbaby2",
+    "BaseId": 181,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotbaby3",
+    "BaseId": 182,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotbaby4",
+    "BaseId": 183,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotbaby5",
+    "BaseId": 184,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotbaby6",
+    "BaseId": 680,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotegg1",
+    "BaseId": 190,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotegg2",
+    "BaseId": 191,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotegg3",
+    "BaseId": 192,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotegg4",
+    "BaseId": 193,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotegg5",
+    "BaseId": 194,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotegg6",
+    "BaseId": 681,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotqueen1",
+    "BaseId": 284,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotqueen2",
+    "BaseId": 285,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotqueen3",
+    "BaseId": 286,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotqueen4",
+    "BaseId": 287,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "maggotqueen5",
+    "BaseId": 288,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "malachai",
+    "BaseId": 408,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "malah",
+    "BaseId": 513,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "megademon1",
+    "BaseId": 360,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "megademon2",
+    "BaseId": 361,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "megademon3",
+    "BaseId": 362,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "megademon4",
+    "BaseId": 686,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "megademon5",
+    "BaseId": 687,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "megademon6",
+    "BaseId": 712,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "mephisto",
+    "BaseId": 242,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "mephistospirit",
+    "BaseId": 401,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "meshif1",
+    "BaseId": 210,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "meshif2",
+    "BaseId": 264,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion1",
+    "BaseId": 453,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion10",
+    "BaseId": 683,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion11",
+    "BaseId": 684,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion2",
+    "BaseId": 454,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion3",
+    "BaseId": 455,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion4",
+    "BaseId": 456,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion5",
+    "BaseId": 457,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion6",
+    "BaseId": 458,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion7",
+    "BaseId": 459,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion8",
+    "BaseId": 460,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minion9",
+    "BaseId": 682,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner1",
+    "BaseId": 484,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner2",
+    "BaseId": 485,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner3",
+    "BaseId": 486,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner4",
+    "BaseId": 487,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner5",
+    "BaseId": 488,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner6",
+    "BaseId": 489,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner7",
+    "BaseId": 490,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minionspawner8",
+    "BaseId": 491,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "minispider",
+    "BaseId": 339,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "mosquito1",
+    "BaseId": 114,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mosquito2",
+    "BaseId": 115,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mosquito3",
+    "BaseId": 116,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mosquito4",
+    "BaseId": 117,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mummy1",
+    "BaseId": 96,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mummy2",
+    "BaseId": 97,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mummy3",
+    "BaseId": 98,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mummy4",
+    "BaseId": 99,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mummy5",
+    "BaseId": 100,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "mummy6",
+    "BaseId": 703,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "natalya",
+    "BaseId": 297,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "navi",
+    "BaseId": 266,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "necromage",
+    "BaseId": 364,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "necroskeleton",
+    "BaseId": 363,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "nihlathak",
+    "BaseId": 514,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "nihlathakboss",
+    "BaseId": 526,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "oaksage",
+    "BaseId": 424,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "ormus",
+    "BaseId": 255,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "overseer1",
+    "BaseId": 479,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "overseer2",
+    "BaseId": 480,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "overseer3",
+    "BaseId": 481,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "overseer4",
+    "BaseId": 482,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "overseer5",
+    "BaseId": 483,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "overseer6",
+    "BaseId": 724,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "painworm1",
+    "BaseId": 551,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "painworm2",
+    "BaseId": 552,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "painworm3",
+    "BaseId": 553,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "painworm4",
+    "BaseId": 554,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "painworm5",
+    "BaseId": 555,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "pantherwoman1",
+    "BaseId": 83,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "pantherwoman2",
+    "BaseId": 84,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "pantherwoman3",
+    "BaseId": 85,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "pantherwoman4",
+    "BaseId": 86,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "pantherwoman5",
+    "BaseId": 627,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "pantherwoman6",
+    "BaseId": 628,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "parrot",
+    "BaseId": 319,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "pig",
+    "BaseId": 737,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "plaguepoppy",
+    "BaseId": 425,
+    "Size": 0,
+    "RawRange": 2
+  },
+  {
+    "Key": "poisonorb",
+    "BaseId": 233,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "prisondoor",
+    "BaseId": 434,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "putriddefiler1",
+    "BaseId": 546,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "putriddefiler2",
+    "BaseId": 547,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "putriddefiler3",
+    "BaseId": 548,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "putriddefiler4",
+    "BaseId": 549,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "putriddefiler5",
+    "BaseId": 550,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "qual-kehk",
+    "BaseId": 515,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillbear1",
+    "BaseId": 313,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillbear2",
+    "BaseId": 314,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillbear3",
+    "BaseId": 315,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillbear4",
+    "BaseId": 316,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillbear5",
+    "BaseId": 317,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat1",
+    "BaseId": 63,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat2",
+    "BaseId": 64,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat3",
+    "BaseId": 65,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat4",
+    "BaseId": 66,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat5",
+    "BaseId": 67,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat6",
+    "BaseId": 605,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat7",
+    "BaseId": 606,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "quillrat8",
+    "BaseId": 607,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "radament",
+    "BaseId": 229,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "rat",
+    "BaseId": 151,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "reanimatedhorde1",
+    "BaseId": 436,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "reanimatedhorde2",
+    "BaseId": 437,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "reanimatedhorde3",
+    "BaseId": 438,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "reanimatedhorde4",
+    "BaseId": 439,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "reanimatedhorde5",
+    "BaseId": 440,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "reanimatedhorde6",
+    "BaseId": 698,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "regurgitator1",
+    "BaseId": 307,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "regurgitator2",
+    "BaseId": 308,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "regurgitator3",
+    "BaseId": 309,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "regurgitator4",
+    "BaseId": 694,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "rogue1",
+    "BaseId": 152,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "rogue2",
+    "BaseId": 270,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "rogue3",
+    "BaseId": 272,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "roguehire",
+    "BaseId": 271,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper1",
+    "BaseId": 78,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper2",
+    "BaseId": 79,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper3",
+    "BaseId": 80,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper4",
+    "BaseId": 81,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper5",
+    "BaseId": 82,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper6",
+    "BaseId": 629,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandleaper7",
+    "BaseId": 630,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot1",
+    "BaseId": 68,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot2",
+    "BaseId": 69,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot3",
+    "BaseId": 70,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot4",
+    "BaseId": 71,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot5",
+    "BaseId": 72,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot6",
+    "BaseId": 679,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandmaggot7",
+    "BaseId": 716,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider1",
+    "BaseId": 29,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider10",
+    "BaseId": 603,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider2",
+    "BaseId": 30,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider3",
+    "BaseId": 31,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider4",
+    "BaseId": 32,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider5",
+    "BaseId": 33,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider6",
+    "BaseId": 599,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider7",
+    "BaseId": 600,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider8",
+    "BaseId": 601,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sandraider9",
+    "BaseId": 602,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sarcophagus",
+    "BaseId": 228,
+    "Size": 1,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab1",
+    "BaseId": 91,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab2",
+    "BaseId": 92,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab3",
+    "BaseId": 93,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab4",
+    "BaseId": 94,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab5",
+    "BaseId": 95,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab6",
+    "BaseId": 654,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab7",
+    "BaseId": 655,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scarab8",
+    "BaseId": 718,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "scorpion",
+    "BaseId": 269,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "seagull",
+    "BaseId": 738,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "seventombs",
+    "BaseId": 355,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "shadowmaster",
+    "BaseId": 418,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "shadowwarrior",
+    "BaseId": 417,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "siegebeast1",
+    "BaseId": 441,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "siegebeast2",
+    "BaseId": 442,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "siegebeast3",
+    "BaseId": 443,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "siegebeast4",
+    "BaseId": 444,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "siegebeast5",
+    "BaseId": 445,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer1",
+    "BaseId": 170,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer10",
+    "BaseId": 579,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer11",
+    "BaseId": 726,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer2",
+    "BaseId": 171,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer3",
+    "BaseId": 172,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer4",
+    "BaseId": 173,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer5",
+    "BaseId": 174,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer6",
+    "BaseId": 575,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer7",
+    "BaseId": 576,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer8",
+    "BaseId": 577,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "sk_archer9",
+    "BaseId": 578,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton1",
+    "BaseId": 0,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton2",
+    "BaseId": 1,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton3",
+    "BaseId": 2,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton4",
+    "BaseId": 3,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton5",
+    "BaseId": 4,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton6",
+    "BaseId": 648,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton7",
+    "BaseId": 649,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skeleton8",
+    "BaseId": 725,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_cold1",
+    "BaseId": 379,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_cold2",
+    "BaseId": 380,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_cold3",
+    "BaseId": 381,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_cold4",
+    "BaseId": 382,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_cold5",
+    "BaseId": 624,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_cold6",
+    "BaseId": 729,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire1",
+    "BaseId": 383,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire2",
+    "BaseId": 384,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire3",
+    "BaseId": 385,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire4",
+    "BaseId": 386,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire5",
+    "BaseId": 620,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire6",
+    "BaseId": 621,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_fire7",
+    "BaseId": 727,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng1",
+    "BaseId": 387,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng2",
+    "BaseId": 388,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng3",
+    "BaseId": 389,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng4",
+    "BaseId": 390,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng5",
+    "BaseId": 622,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng6",
+    "BaseId": 623,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_ltng7",
+    "BaseId": 728,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois1",
+    "BaseId": 274,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois2",
+    "BaseId": 275,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois3",
+    "BaseId": 276,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois4",
+    "BaseId": 277,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois5",
+    "BaseId": 625,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois6",
+    "BaseId": 626,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "skmage_pois7",
+    "BaseId": 730,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger1",
+    "BaseId": 373,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger2",
+    "BaseId": 374,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger3",
+    "BaseId": 375,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger4",
+    "BaseId": 376,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger5",
+    "BaseId": 394,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger6",
+    "BaseId": 395,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger7",
+    "BaseId": 610,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger8",
+    "BaseId": 611,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "slinger9",
+    "BaseId": 612,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "smith",
+    "BaseId": 402,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "snake",
+    "BaseId": 318,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "snowyeti1",
+    "BaseId": 446,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "snowyeti2",
+    "BaseId": 447,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "snowyeti3",
+    "BaseId": 448,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "snowyeti4",
+    "BaseId": 449,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "spiritmummy",
+    "BaseId": 370,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "spiritofbarbs",
+    "BaseId": 422,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "spiritwolf",
+    "BaseId": 420,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "succubus1",
+    "BaseId": 469,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus2",
+    "BaseId": 470,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus3",
+    "BaseId": 471,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus4",
+    "BaseId": 472,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus5",
+    "BaseId": 473,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus6",
+    "BaseId": 634,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus7",
+    "BaseId": 635,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubus8",
+    "BaseId": 719,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch1",
+    "BaseId": 474,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch2",
+    "BaseId": 475,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch3",
+    "BaseId": 476,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch4",
+    "BaseId": 477,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch5",
+    "BaseId": 478,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch6",
+    "BaseId": 636,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch7",
+    "BaseId": 637,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch8",
+    "BaseId": 638,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "succubuswitch9",
+    "BaseId": 720,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "suckernest1",
+    "BaseId": 334,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suckernest2",
+    "BaseId": 335,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suckernest3",
+    "BaseId": 336,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suckernest4",
+    "BaseId": 337,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion1",
+    "BaseId": 461,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion10",
+    "BaseId": 740,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion11",
+    "BaseId": 741,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion2",
+    "BaseId": 462,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion3",
+    "BaseId": 463,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion4",
+    "BaseId": 464,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion5",
+    "BaseId": 465,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion6",
+    "BaseId": 466,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion7",
+    "BaseId": 467,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion8",
+    "BaseId": 468,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "suicideminion9",
+    "BaseId": 739,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "summoner",
+    "BaseId": 250,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "swarm1",
+    "BaseId": 87,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "swarm2",
+    "BaseId": 88,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "swarm3",
+    "BaseId": 89,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "swarm4",
+    "BaseId": 90,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "swarm5",
+    "BaseId": 715,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "tentacle1",
+    "BaseId": 258,
+    "Size": 3,
+    "RawRange": 6
+  },
+  {
+    "Key": "tentacle2",
+    "BaseId": 259,
+    "Size": 3,
+    "RawRange": 6
+  },
+  {
+    "Key": "tentacle3",
+    "BaseId": 260,
+    "Size": 3,
+    "RawRange": 6
+  },
+  {
+    "Key": "tentaclehead1",
+    "BaseId": 261,
+    "Size": 3,
+    "RawRange": 6
+  },
+  {
+    "Key": "tentaclehead2",
+    "BaseId": 262,
+    "Size": 3,
+    "RawRange": 6
+  },
+  {
+    "Key": "tentaclehead3",
+    "BaseId": 263,
+    "Size": 3,
+    "RawRange": 6
+  },
+  {
+    "Key": "thornhulk1",
+    "BaseId": 127,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "thornhulk2",
+    "BaseId": 128,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "thornhulk3",
+    "BaseId": 129,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "thornhulk4",
+    "BaseId": 130,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "thornhulk5",
+    "BaseId": 609,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "trap-firebolt",
+    "BaseId": 326,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "trap-horzmissile",
+    "BaseId": 327,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "trap-lightning",
+    "BaseId": 330,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "trap-melee",
+    "BaseId": 354,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "trap-nova",
+    "BaseId": 369,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "trap-poisoncloud",
+    "BaseId": 329,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "trap-vertmissile",
+    "BaseId": 328,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "trappedsoul1",
+    "BaseId": 403,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "trappedsoul2",
+    "BaseId": 404,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "turret1",
+    "BaseId": 348,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "turret2",
+    "BaseId": 349,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "turret3",
+    "BaseId": 350,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "tyrael1",
+    "BaseId": 251,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "tyrael2",
+    "BaseId": 367,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "tyrael3",
+    "BaseId": 521,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "uberandariel",
+    "BaseId": 707,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "uberbaal",
+    "BaseId": 709,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "uberdiablo",
+    "BaseId": 705,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "uberduriel",
+    "BaseId": 708,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "uberizual",
+    "BaseId": 706,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "ubermephisto",
+    "BaseId": 704,
+    "Size": 3,
+    "RawRange": 3
+  },
+  {
+    "Key": "unraveler1",
+    "BaseId": 101,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler2",
+    "BaseId": 102,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler3",
+    "BaseId": 103,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler4",
+    "BaseId": 104,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler5",
+    "BaseId": 105,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler6",
+    "BaseId": 667,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler7",
+    "BaseId": 668,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler8",
+    "BaseId": 669,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "unraveler9",
+    "BaseId": 670,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "valkyrie",
+    "BaseId": 357,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire1",
+    "BaseId": 131,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire2",
+    "BaseId": 132,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire3",
+    "BaseId": 133,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire4",
+    "BaseId": 134,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire5",
+    "BaseId": 135,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire6",
+    "BaseId": 695,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire7",
+    "BaseId": 696,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire8",
+    "BaseId": 697,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vampire9",
+    "BaseId": 731,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "venomlord",
+    "BaseId": 558,
+    "Size": 3,
+    "RawRange": 2
+  },
+  {
+    "Key": "vilechild1",
+    "BaseId": 301,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vilechild2",
+    "BaseId": 302,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vilechild3",
+    "BaseId": 303,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vilechild4",
+    "BaseId": 677,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vilechild5",
+    "BaseId": 678,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vilemother1",
+    "BaseId": 298,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "vilemother2",
+    "BaseId": 299,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "vilemother3",
+    "BaseId": 300,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "vilemother4",
+    "BaseId": 675,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "vilemother5",
+    "BaseId": 676,
+    "Size": 3,
+    "RawRange": 1
+  },
+  {
+    "Key": "vinecreature",
+    "BaseId": 427,
+    "Size": 0,
+    "RawRange": 1
+  },
+  {
+    "Key": "vulture1",
+    "BaseId": 110,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vulture2",
+    "BaseId": 111,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vulture3",
+    "BaseId": 112,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vulture4",
+    "BaseId": 113,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "vulture5",
+    "BaseId": 608,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wakeofdestruction",
+    "BaseId": 410,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "warbighead",
+    "BaseId": 743,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "wargoatman",
+    "BaseId": 742,
+    "Size": 2,
+    "RawRange": 2
+  },
+  {
+    "Key": "warputriddefiler",
+    "BaseId": 744,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "warriv1",
+    "BaseId": 155,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "warriv2",
+    "BaseId": 175,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp1",
+    "BaseId": 118,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp2",
+    "BaseId": 119,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp3",
+    "BaseId": 120,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp4",
+    "BaseId": 121,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp5",
+    "BaseId": 639,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp6",
+    "BaseId": 640,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp7",
+    "BaseId": 641,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "willowisp8",
+    "BaseId": 733,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "window1",
+    "BaseId": 392,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "window2",
+    "BaseId": 393,
+    "Size": 3,
+    "RawRange": 0
+  },
+  {
+    "Key": "wolf",
+    "BaseId": 430,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wolfrider1",
+    "BaseId": 450,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wolfrider2",
+    "BaseId": 451,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wolfrider3",
+    "BaseId": 452,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "worldstoneeffect",
+    "BaseId": 574,
+    "Size": 0,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith1",
+    "BaseId": 38,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith2",
+    "BaseId": 39,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith3",
+    "BaseId": 40,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith4",
+    "BaseId": 41,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith5",
+    "BaseId": 42,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith6",
+    "BaseId": 631,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith7",
+    "BaseId": 632,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith8",
+    "BaseId": 633,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "wraith9",
+    "BaseId": 732,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "zealot1",
+    "BaseId": 235,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "zealot2",
+    "BaseId": 236,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "zealot3",
+    "BaseId": 237,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "zealot4",
+    "BaseId": 671,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "zealot5",
+    "BaseId": 672,
+    "Size": 2,
+    "RawRange": 1
+  },
+  {
+    "Key": "zombie1",
+    "BaseId": 5,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "zombie2",
+    "BaseId": 6,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "zombie3",
+    "BaseId": 7,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "zombie4",
+    "BaseId": 8,
+    "Size": 2,
+    "RawRange": 0
+  },
+  {
+    "Key": "zombie5",
+    "BaseId": 9,
+    "Size": 2,
+    "RawRange": 0
+  }
+]

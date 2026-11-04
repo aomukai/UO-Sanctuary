@@ -80,38 +80,8 @@ internal static class IronGolemWorld
         {return body.InRange(target,body.RangeFight)&&body.InLOS(target);}
         return SourceMeleeGeometry.Within(new(Cell(s),2,1,NativeMonsterReturn.Identity(body.SourceMonsterId).Class,0),new(PetOwnerRoutes.Cell(target),Size(body,target),1,0),bonus,(_,_,_)=>!body.InLOS(target));
     }
-    private sealed class MeleeResult(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target):SourceMeleeResultServices
-    {
-        internal bool BlockAnimation;
-        internal override int? AttackerKind=>1;
-        internal override int? DefenderKind=>1;
-        internal override bool Hostile()=>Eligible(body,owner,target);
-        internal override bool DefenderRunning()=>throw new InvalidOperationException("NPC result must not query player running mode");
-        internal override int MeleeReach()=>0;
-        internal override bool InRange(int bonus)=>Melee(body,state,target,bonus);
-        internal override bool HitSuccessful(int attackPercent,bool missile)
-        {
-            if(missile){throw new NotSupportedException("Iron Golem melee cannot use a missile hit check");}
-            return ClassStats.CheckHit(body,target,attackPercent,()=>Limited(body,100)/100.0,notifyMelee:false)
-                ??throw new NotSupportedException("Missing Iron Golem hit supplier");
-        }
-        internal override int BlockOrDodge(bool avoid,bool block)
-        {
-            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out BlockAnimation))
-            {throw new NotSupportedException("Iron Golem recipient block supplier is not mapped");}
-            return blocked?1:0;
-        }
-        internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
-    }
     internal static int Result(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target)
-    {
-        // Preflight the existing recipient mapping before consuming the attack
-        // stream. Component-choice/block RNG remains the shared native adapter.
-        if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Iron Golem recipient block supplier is not mapped");}
-        var services=new MeleeResult(body,owner,state,target);
-        int flags=SourceMeleeResult.Resolve(services);
-        return flags;
-    }
+        =>NpcMeleeResult.Resolve(body,target,bonus=>Melee(body,state,target,bonus),()=>Eligible(body,owner,target),n=>Limited(body,n));
     private static void Velocity(ref IronGolemWorldState s,int type,int speed,int budget)=>s=s with{
         PathOverride=type==0?s.PathOverride:type,VelocityBonus=speed==0?s.VelocityBonus:speed,PathBudget=budget==0?s.PathBudget:Math.Min(77,budget)};
     private static (int Velocity,int Animation) MovementSpeed(SkeletonGuardian body,int bonus)
