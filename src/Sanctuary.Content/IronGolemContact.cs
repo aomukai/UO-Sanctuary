@@ -50,11 +50,14 @@ internal static class IronGolemContact
         internal bool Consumed;
         internal void Cancel(){Consumed=true;}
     }
-    private sealed class Scope(Prepared prepared,int entryHits)
+    private sealed class Scope(Prepared prepared,int entryHits,BaseCreature source)
     {
         internal NpcWeaponImpact Impact=prepared.Impact;
         internal readonly NpcCombatEvents SourceEvents=prepared.Rules.SourceEvents,TargetEvents=prepared.Rules.TargetEvents;
         internal readonly bool NativeRecovery=prepared.Rules.NativeRecovery;
+        // Attacker damage events can retire an original Revive before hit
+        // presentation/return. Retain only this synchronous packet's identity.
+        internal readonly MonsterReturnIdentity SourceIdentity=source is{Alive:true,Deleted:false}?NativeMonsterReturn.SourceIdentity(source):null;
         internal readonly int EntryHits=entryHits;internal int Loss;
     }
     private sealed class Contact(BaseCreature body,PlayerMobile owner,Func<int,bool> range,BaseCreature target,MonsterReturnMetadata metadata,Scope scope):MonsterContactServices
@@ -65,7 +68,7 @@ internal static class IronGolemContact
         internal override bool Hostile()=>ClassCombat.IsHostile(owner,target);
         internal override bool DefenderHasRoom()=>target.Map==body.Map&&target.Map is{} map&&map!=Map.Internal;
         internal override bool DefenderInTown()=>SpellHelper.IsTown(target.Location,owner);
-        internal override bool AttackerAllowedInTown()=>NativeMonsterReturn.SourceIdentity(body).Town;
+        internal override bool AttackerAllowedInTown()=>scope.SourceIdentity.Town;
         internal override bool DefenderKillable()=>metadata.Killable&&target.CanBeDamaged();
         internal override bool DefenderDead()=>target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0;
     }
@@ -93,14 +96,14 @@ internal static class IronGolemContact
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p);
         internal override void PresentOverlay(int overlay)
         {target.FixedEffect(0x37B9,10,12,0x481,0);} // Source overlay descriptor retained in packet; identified native placeholder.
-        internal override int BaseHitClass()=>NativeMonsterReturn.SourceIdentity(source).HitClass;
+        internal override int BaseHitClass()=>scope.SourceIdentity.HitClass;
         internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p);
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("attackedinmelee",p);
         internal override bool AttackerInActiveMode()=>source is{Alive:true,Deleted:false}&&SkillHealth.Balance256(source)>0;
         internal override void BeforeThorns(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("NPC packet freed before return");}}
         internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
-            =>PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(source,owner,target,metadata,death,scope.NativeRecovery?()=>EliteCombat.OnStruck(target,source,scope.Loss):null),true);
+            =>PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(source,owner,target,metadata,death,scope.NativeRecovery?()=>EliteCombat.OnStruck(target,source,scope.Loss):null,sourceIdentity:scope.SourceIdentity),true);
         internal override void FreePacket()
         {if(Freed){throw new InvalidOperationException("NPC allocated packet freed twice");}Freed=true;scope.Impact=null;NativeMonsterReturn.Session(target).Packets++;}
     }
@@ -126,8 +129,8 @@ internal static class IronGolemContact
         else{RequireRecoveryEvents(target);}
         if(MonsterUninterruptibles.Active(target)||MonsterUninterruptibles.Delayed(target))
         {throw new NotSupportedException("Live recipient uninterruptible completion/death-delay adapter is unfinished");}
-        if(NecromancerEffects.Curse(body)?.Ability==CombatAbility.IronMaiden)
-        {throw new NotSupportedException("Iron Maiden needs its source-ordered attacker event4 consumer");}
+        // PreparedMonsterDamage already dispatches the shared fractional
+        // Iron Maiden attacker event before defender Life Tap and HP clipping.
         _=NpcArmorOnHit.Require(body,target);
         PreparedMonsterNativeDamage.RequireBaseModifiers(body,target);
         return new(metadata,sourceEvents,targetEvents,nativeRecovery);
@@ -150,7 +153,7 @@ internal static class IronGolemContact
             _=NpcEquipmentRegeneration.ItemRate(target); // Existing unsupported material rates refuse before event RNG.
         }
         prepared.Consumed=true;
-        var scope=new Scope(prepared,target.Hits);var metadata=prepared.Rules.Metadata;
+        var scope=new Scope(prepared,target.Hits,body);var metadata=prepared.Rules.Metadata;
         var recipient=new PreparedMonsterRecipient(target is EncounterCreature encounter&&encounter.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique,
             ()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(body,target,false);

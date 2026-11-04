@@ -63,9 +63,10 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     private readonly Action Recovery;
     private readonly Func<Mobile,BaseCreature,bool> KnockbackAction;
     private readonly Func<uint> DefenderRandom;
+    private readonly MonsterReturnIdentity CapturedSourceIdentity;
     internal NativeMonsterReturn(Mobile source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Action death,Action recovery=null,
-        Func<Mobile,BaseCreature,bool> knockback=null,Func<uint> defenderRandom=null)
-    {Source=source;Owner=owner;Target=target;MetadataValue=metadata;Current=Session(target);Death=death;Recovery=recovery;KnockbackAction=knockback;DefenderRandom=defenderRandom;}
+        Func<Mobile,BaseCreature,bool> knockback=null,Func<uint> defenderRandom=null,MonsterReturnIdentity sourceIdentity=null)
+    {Source=source;Owner=owner;Target=target;MetadataValue=metadata;Current=Session(target);Death=death;Recovery=recovery;KnockbackAction=knockback;DefenderRandom=defenderRandom;CapturedSourceIdentity=sourceIdentity;}
     internal override int? AttackerKind=>Source is PlayerMobile?0:1;
     internal override int TargetMode=>Target is{Alive:true,Deleted:false}?1:12; // Only death/dead are distinguished by this return branch.
     internal override int TargetClass=>MetadataValue.Class;
@@ -73,7 +74,7 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     // Short-lived Hydra heads stay in their original facet when the owner
     // travels. Query their combat room, not the owner's new map.
     internal override bool RoomInTown()=>SpellHelper.IsTown(Target.Location,Source is HydraBody?Source:Owner);
-    internal override bool? AttackerTownRule()=>Source is BaseCreature creature?SourceIdentity(creature).Town
+    internal override bool? AttackerTownRule()=>Source is BaseCreature creature?(CapturedSourceIdentity??SourceIdentity(creature)).Town
         :throw new NotSupportedException("This native return source has no NPC town rule");
     internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(Target);
     internal override bool Frozen()=>Target.Frozen||NamedControl.FrozenRemaining(Target)>0;

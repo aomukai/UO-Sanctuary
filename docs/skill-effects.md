@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original summon Iron Maiden (2026-11-04 JST).** Cursed summon contact reuses the existing identified curse-state and retaliation placeholders, including `0x374A`/hue `0x481`. Final Iron Maiden state/return feedback and audio remain pending; this correction adds no separate effect or artwork. See [checkpoint](npc-iron-maiden-checkpoint.md).
+
 **NPC allocation-time armor reduction (2026-11-04 JST).** The mechanical setup correction reuses existing Revive/Iron contact and status placeholders. It creates no separate skill effect or audio cue. Final summon/contact/status feedback and audio remain pending in this register; no imagegen artwork was created. See [checkpoint](npc-armor-setup-checkpoint.md).
 
 **NPC-held defense conditions (2026-11-04 JST).** Retained player-only item flags create no NPC debuff, effect or audio. Revive/Iron summon/contact/status placeholders and final presentation requirements remain; Razoredge keeps the existing Open Wounds effect. This correction creates no standalone asset. See [checkpoint](npc-defense-conditions-checkpoint.md).

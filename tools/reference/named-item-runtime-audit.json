@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "110467d118a2321486279f5094507f99723fc78131cea21363955befba04f2c8",
+  "ContentAssemblySha256": "9f81fc744d8aa968c453361657ca8dc95520d4282f86e5ef7ba3611dfe1651e8",
   "NativeAssemblySha256": "ae1ff5ce99daf6161b0d53df170653e5252cfc218185d576b65dcafe59eb24a0",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -687,7 +687,7 @@
     "src/Sanctuary.Content/IronGolemBody.cs": "7162a3f84a05a0b9e1d1f04195e4de110ea2c0fcc9ae29148e99343a1e4cd42c",
     "src/Sanctuary.Content/IronGolemBodyNumbers.cs": "e72447f5078b02c5cd38c8cd0f4732452ae4395eb840d85f76c11e491ee752db",
     "src/Sanctuary.Content/IronGolemCasting.cs": "95d518110249734cbfd232b7e16d61f2f107305a8c376cba8391755f01d1adb6",
-    "src/Sanctuary.Content/IronGolemContact.cs": "76fa3fd3d1c6aa4f5bc70acca83b7310e28813029fcf5e1e75e382894a1d3e0c",
+    "src/Sanctuary.Content/IronGolemContact.cs": "8f842ea900961e9b2bd13affe57d0061d75d09d3d05f4b843c8754ab7d313c5c",
     "src/Sanctuary.Content/IronGolemItemCast.cs": "a19fdc85bdd601864d2656d973df7a25d890ef11b2d2a0a54f3a1f380c27dae3",
     "src/Sanctuary.Content/IronGolemItems.cs": "dab50baf44ae44377ab7db4bfcbd0c9e8029b9cdc9dd0f3e6b628903d4bd0ede",
     "src/Sanctuary.Content/IronGolemUpgrades.cs": "2a675c78ed0d0feaf98feb308855129344e1b8472b25a585ac30ac92bdf77994",
@@ -757,7 +757,7 @@
     "src/Sanctuary.Content/NamedSetVisuals.cs": "843a8659a109c0819fec4aed7832621bc43471dbf06c76de2d85c57c71f25ad3",
     "src/Sanctuary.Content/NamedSkills.cs": "2a86ad26fb5a288f34179da98e18a9e74a829f0036753b574abc4ac11b71f5a2",
     "src/Sanctuary.Content/NamedThrowingKnife.cs": "5ab55832dd4dfcf62d3176a6bce22c67033906a4da762d0897d0218dd9388753",
-    "src/Sanctuary.Content/NativeMonsterReturn.cs": "7c18e2b40dc5a575bf9986d394e4f0997daec46edc0732eb0a6c7946adaedcc6",
+    "src/Sanctuary.Content/NativeMonsterReturn.cs": "e1fcadfc54644542e9404eb3f988711791fd37a02435daee027733ab47cd6cab",
     "src/Sanctuary.Content/NecromancerBloodBirth.cs": "ceb4ae8a811db5cbebbb6cbc849ffa7f62cf5f55fde96c89fb9246ec1d8020c9",
     "src/Sanctuary.Content/NecromancerCastClock.cs": "84fa01a179ef9b4ab8e83157c5b41f074d8710deb0d8e6a6ddb97f8c47dc3349",
     "src/Sanctuary.Content/NecromancerClayBirth.cs": "59f30a6cfcb884410a55e9057658e38467e052396bb4119e63a1c6b888647afb",

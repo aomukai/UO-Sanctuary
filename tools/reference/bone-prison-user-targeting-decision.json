@@ -1,0 +1,9 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "source": "User decision in this chat, 2026-11-04 JST",
+  "verbatim": "i have no clue, never used that skill, but that type of targeting makes sense. let's implement it.",
+  "approvedSanctuaryBehavior": "Clicking empty ground near a monster may acquire that monster for Bone Prison.",
+  "notObserved": "This is approval of a Sanctuary targeting aid, not a D2R reference observation. Exact native acquisition radius, facing and tie-breaking remain unverified.",
+  "implementation": "Reuse existing acquisition helpers; choose and document a bounded radius and deterministic tie-breaking as Sanctuary policy.",
+  "status": "Approved; implementation follows the current original-summon Iron Maiden checkpoint."
+}

@@ -133,6 +133,10 @@ public static class ReviveNativeSwingChecks
             // Inject a future UTC epoch so a real save/reload can test a remaining
             // busy deadline despite loading taking longer than a normal A1.
             _=ReviveSwings.Begin(actor,target,TimedEffects.Now.AddHours(1));var row=ReviveSwings.State(actor);Require(row?.Pending!=null,"Save control lacks a captured pending packet");
+            // Other composed save preparations can yield a normal recovery
+            // frame before serialization. Keep this fixture's wound balance
+            // stable without changing its actual pending swing or busy epoch.
+            TimedEffects.PreventHealing(actor,TimedEffects.Now);
             SkillHealth.SetBalance256(actor,SkillHealth.Maximum256(actor)*2/3+17);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Life=SkillHealth.Balance256(actor),Target=target.Serial.Value,TargetLife=SkillHealth.Balance256(target),Seed=NpcEquipmentRandom.State(actor).Seed,EndUtc=row.EndUtc}));
             Log.Information("revive-native-swing-save-result: passed");
