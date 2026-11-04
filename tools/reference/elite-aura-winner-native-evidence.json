@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "parent": "513b50aad87dc2a9f894ce350e5d90d704276db5",
+  "scope": "Native aura recipient admission and deterministic highest-rank/lower-GUID arbitration;no new D2 mechanical rule",
+  "verified": {
+    "nativeMarkers": 457,
+    "focusedMarkers": 12,
+    "parentMarkersRetained": 454,
+    "bootsPerCohort": 3,
+    "actualReloadsPerCohort": 2,
+    "auraKinds": [
+      "HolyFire",
+      "HolyFreeze",
+      "HolyShock"
+    ],
+    "scenariosPerKindPerBoot": 5,
+    "damageWitness": "Actual recipient OnDamage counts and original emitter identity",
+    "pythonTests": 71,
+    "namedDecisionsUnchanged": 573,
+    "auditFingerprints": [
+      992,
+      21
+    ],
+    "handlers": 191,
+    "installedArtifactsUnchanged": 106,
+    "savesUnchanged": 38,
+    "configurationsUnchanged": 20
+  },
+  "artifacts": {
+    "ModernUO.dll": "6a33814e97d68d4cad8efe3b2fdef1cf8eb627d66d4fcf368f0fc021d22b9d62",
+    "Server.dll": "7ff7f825a361a296d30b590e0b9cd36a321ba8cffc50d5b980ef07b97fab0cc5",
+    "Assemblies/UOContent.dll": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
+    "Assemblies/Sanctuary.Content.dll": "46313f0f5d22d12b6205829233fd83a400799bab7941a63c013ac466d91e8069",
+    "Assemblies/Sanctuary.Integration.dll": "13db1d3e5b9961fe017efdd30fb39a0cf6cf57ac7bd664cbda787f3d183b1336"
+  },
+  "evidence": {
+    "tools/record_elite_aura_winner.py": "bb915fd0524cf63633cc99b88ca1720342501c47e6181d9d80058c758d603e02",
+    "src/Sanctuary.Content/EliteAuras.cs": "84e5684e0994881d4edaad30778c1009337c496927bfb373d179906b188eede3",
+    "tests/Sanctuary.Integration/EliteAuraWinnerChecks.cs": "33261a25760d719a5e07dd4f7f23aaa152783c1a5ad6af5112ca41da4e3f4a78",
+    "tests/check_elite_aura_winner.py": "492e422a0c5fdff30bb9f3b53a089cffbd42f86db095ad1de292cb18c0e3cf56",
+    "tests/check_elite_aura_winner_focus.py": "5a5ae61a583091b788d0fd20d381c92e5805e58aa63768b914a4202efaa9b48b",
+    "docs/elite-aura-winner-checkpoint.md": "2136e38af7234d12bf8f5c84d149916d61b8a75db43e075e067637b5ff2de763",
+    "docs/class-skill-roadmap.md": "c0900101b6a97bc410a204c75aef2361e3604048a86d996d3c4e6fd7b3f3b78f",
+    "docs/class-skills-resume-checkpoint.md": "5b88092f107e3ec1656332a0cc28e60d857c933dc0147f8977727ca2b3bcad04",
+    "docs/class-skill-reuse-notes.md": "6777fa6d7fd62923ec01325b97f1248b0ec0790c710ba199cc83b2c5e031c72e",
+    ".local/class-skills/elite-aura-winner/pre-build-1.json": "5832d9a116b9fbe829366cefcae096e527eb3d9674785cd1607bb72cef1153cf",
+    ".local/class-skills/elite-aura-winner/birth-inputs.json": "22ce0a95f9b92b5809eb0abb973bf1be71b634cc7ccfa43ba00a9d68d8fb26cd",
+    ".local/class-skills/elite-aura-winner/birth-native-checks.log": "7975559c2bfe5df6c41e795ede3f01085c9302545f1489a1a08c6c2eb292553e",
+    ".local/class-skills/elite-aura-winner/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/elite-aura-winner/audit-inputs.json": "6b2a683c6a0041ef505aa2746c5566d7f91399bc3e0e491e60e3b1b53c5b3470",
+    ".local/class-skills/elite-aura-winner/audit-native-checks.log": "f1af5ce037bb7e43a82f140194892fc839fc4ed0ed947485eaf04a69dde44024",
+    ".local/class-skills/elite-aura-winner/audit-run-1.log": "a9ceca2e280ddc6fc6e4b92b68228c25e7395bbcca626092bd1c04ad24aeda60",
+    ".local/class-skills/elite-aura-winner/content-build-1.log": "6f46595b51d7d340be670f8313119de3067e2c88d27aab07242e919a42bcacb2",
+    ".local/class-skills/elite-aura-winner/integration-build-1.log": "1cada12f5250275bc77d3a2f34d54dfc67da40a397578b1df6460edc336dab77",
+    ".local/class-skills/elite-aura-winner/python-tests.log": "898ff716612b3de1ea6b30e6e9bb1e1b25f19d286d8dbdeb2b2406f9c537fd63",
+    ".local/class-skills/elite-aura-winner/python-before-audit-refresh.log": "c2fd8e10a1d63fc95cd49cca2f30baee2573a90082e4b4e4ad8f1c20830f296c",
+    ".local/class-skills/elite-aura-winner/readiness-check.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/elite-aura-winner/catalogue-check.log": "833f245e36ce092ef87abcdaad2260eab97ba869b7939fbe149631a562114692",
+    ".local/class-skills/elite-aura-winner/roadmap-check.log": "0101dd4227762a4a8a65e9adc791ef49d1e2d694180f217b876d167c6d5b758f",
+    ".local/class-skills/elite-aura-winner-focus/birth-inputs.json": "1270b4560ec4d6ce07f1278c8b8340adb71b988e358af3a7bf288a4d457b994c",
+    ".local/class-skills/elite-aura-winner-focus/birth-native-checks.log": "a239c78932efe21ac52d22bc06febe7e9a24a7b6349d1e996de1e48fc1387314",
+    ".local/class-skills/elite-aura-winner-focus/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/EliteAuraWinnerChecks.cs": "824e23e082e55a21ae15db553fd730e92e8f376f57a45e7243ed87274ad02c6c",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/EliteAuras.cs": "1227db3bdff41b2365a58fcc5b01d8f85ca3e0fd59d8085a8629b83ea4849ba2",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/before-fix-run.log": "e92f7354a8cb958607c4b20ccc4a1c44cccb3e4a3e5c5b20066a6f498abd2b21",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/birth-inputs.json": "859d7addb1a3bae47872adde51c83066b837ec3abded967f134fc05247ca80da",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/birth-native-checks.log": "6c23aa58193bb18ccba080daee18ffe37b34f88e3e23cf8ad5631038ecdf4e65",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/integration/Sanctuary.Integration.deps.json": "ccc6ffa3ebebc0d42acec94ab237b26349da283a263e2f53a08bea21396d16f9",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/integration/Sanctuary.Integration.dll": "b68c3227debb1eacc5bb1a32251d2c09d94671fc48c72aaa62fc039fcc1b7ba4",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/integration/Sanctuary.Integration.pdb": "99030ba17d43c861f88c1578875c2d535098d52653a6a606ba6aab947d61f998",
+    ".local/class-skills/elite-aura-winner-focus/before-fix/integration-before-fix.log": "1eb0bc1bd16f216d387c93cad989f2a8ca6c7ca773f5785dc91503597c58797c"
+  },
+  "limitations": [
+    "This shares the existing native floor/range/LOS/visibility/allegiance adapter;it does not prove modern source geometry or aura/global event ordering.",
+    "Converted recipient is qualified through the existing allegiance service;no conversion of an ineligible elite emitter is invented.",
+    "The regression explicitly advances pulse inspection clocks;it is not natural-period or client-animation acceptance.",
+    "No persistence layout or runtime-data change,new handler,completed class,deployment or assets;effects/audio and talent/hotkey icons remain separate."
+  ]
+}

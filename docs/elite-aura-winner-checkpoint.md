@@ -1,0 +1,17 @@
+# Elite aura winner checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This change fixes an inconsistency in the existing native aura adapter. It introduces no new D2 rule or class handler.
+
+Aura level selection already excludes emitters on another floor, outside range/visibility/LOS or outside the recipient's allegiance. Damage-pulse arbitration previously used a second, incomplete filter. A visible, equal-rank emitter on the excluded 16-Z boundary could win the lower-GUID tie and suppress an eligible emitter's pulse. The preserved before-fix run reproduces the actual missing Holy Fire damage. `EliteAuras` now shares one admission predicate between level selection and pulse arbitration; existing rank and GUID precedence are unchanged.
+
+Build1/main1/focus1 verifies **457 broader markers**, retaining all454 parent markers, and **12 focused markers**, each across three boots/two actual reloads/three saves. The new fixture exercises Holy Fire, Holy Freeze and Holy Shock against an actually converted recipient without native pet flags. An existing damage witness verifies the source identity and exactly one delivered damage event for the eligible lower-floor emitter, an equal-rank lower-GUID winner, a stronger later-created emitter and the surviving winner after that stronger emitter is internalized. Excluding every emitter by floor produces no damage. These are15 scenarios per boot. Pulse clocks are explicitly advanced inspection clocks, not natural-period acceptance.
+
+Clean content/integration builds have zero warnings/errors. Fresh992/21 audit fingerprints preserve all573 named readiness decisions;71 Python tests and catalogue/roadmap checks pass. The receipt binds the exact source/data/assemblies, complete retained marker identities, failed baseline and final logs. Existing original-item/resource save controls pass both reloads; no persistence layout or runtime-data file changes. The106 installed artifacts,38 saves and20 configuration files remain unchanged. No deployment or new assets.
+
+The initial Python run preceded audit publication: it still read the prior committed runtime export and reported seven stale-evidence failures/errors for the changed `EliteAuras.cs`. Its log is preserved as `python-before-audit-refresh.log`. After publishing the matching selected-build exports with unchanged decisions, all71 pass. No gameplay assertion is weakened.
+
+Limits remain explicit: the shared floor/range/LOS/visibility/allegiance policy is the existing native world adapter, not proof of modern D2 room geometry, global event ordering or client behavior. The fixture converts an eligible ordinary monster; it does not invent conversion of an ineligible elite emitter. No new saved aura fixture, actual old-binary migration or unheld snapshot guarantee is claimed.
+
+Coverage remains191 handlers/Necromancer30 handlers/no completed class. Continue remaining class mechanics and acceptance; the barrier hidedead44/initial graph and historical unknown curse-primary gaps remain locally deferred. Effects/audio and talent/hotkey icons stay in their separate ledgers, with existing identified placeholders. This fix needs no additional asset.
+
+Reproduce with `tests/check_elite_aura_winner.py`, `tests/check_elite_aura_winner_focus.py` and `tools/record_elite_aura_winner.py --check`. The native runners require their isolated stage assemblies and existing source probes; they never deploy to the installed world.

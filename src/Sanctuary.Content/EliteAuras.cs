@@ -57,16 +57,19 @@ public static class EliteAuras
         int result = 0;
         foreach (var source in target.Map.GetMobilesInRange<EncounterCreature>(target.Location, 18))
         {
-            if (source is not { Deleted: false, Alive: true } || source.Controlled || source.Summoned || source.ReturningHome || source.Aura != aura) { continue; }
-            // Conversion changes allegiance without native pet flags. Reuse
-            // its combat relationship for both hostile and friendly auras.
-            bool enemy = PaladinConversion.Enemy(source,target)
-                ?? (target is PlayerMobile || target is BaseCreature { Controlled: true } or BaseCreature { Summoned: true });
-            if (enemy != hostile || !enemy && target is not EncounterCreature || Math.Abs(source.Z - target.Z) >= 16) { continue; }
-            int level = SkillLevel(source);
-            if (source.InRange(target, Radius(aura, level)) && source.InLOS(target) && source.CanSee(target)) { result = Math.Max(result, level); }
+            if (Applies(source,target,aura,hostile)) { result = Math.Max(result, SkillLevel(source)); }
         }
         return result;
+    }
+    private static bool Applies(EncounterCreature source,Mobile target,EliteAura aura,bool hostile)
+    {
+        if(source is not{Deleted:false,Alive:true}||source.Controlled||source.Summoned||source.ReturningHome||source.Aura!=aura){return false;}
+        // Share admission with pulse arbitration: an emitter on another floor
+        // or outside this recipient's allegiance must not suppress its winner.
+        bool enemy=PaladinConversion.Enemy(source,target)
+            ??(target is PlayerMobile||target is BaseCreature{Controlled:true}or BaseCreature{Summoned:true});
+        return enemy==hostile&&(enemy||target is EncounterCreature)&&Math.Abs(source.Z-target.Z)<16
+            &&source.InRange(target,Radius(aura,SkillLevel(source)))&&source.InLOS(target)&&source.CanSee(target);
     }
     internal static int Diminish(int level, int minimum, int maximum) => minimum + 110 * level * (maximum - minimum) / (100 * (level + 6));
     internal static int Speed(Mobile target)
@@ -199,8 +202,7 @@ public static class EliteAuras
     {
         foreach (var other in target.Map.GetMobilesInRange<EncounterCreature>(target.Location, 18))
         {
-            if (other == source || other.Deleted || !other.Alive || other.Aura != aura || other.ReturningHome
-                || other.Controlled || other.Summoned || !other.InRange(target, Radius(aura, SkillLevel(other))) || !other.InLOS(target)) { continue; }
+            if (other == source || !Applies(other,target,aura,true)) { continue; }
             int candidate = SkillLevel(other);
             if (candidate > level || candidate == level && other.Serial.Value < source.Serial.Value) { return false; }
         }
