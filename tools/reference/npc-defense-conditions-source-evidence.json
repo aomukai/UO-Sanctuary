@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 6804,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "tools/reference/assassin-trap-attack-engine-evidence.json": "d1d3414c330e251b99f6ee8bb72f3010c0e43fdeb4513124e1e29049526b05d0",
+    ".local/class-skills/assassin-trap-attack-source-probe.cpp": "5eb014240d3cdea76a0bcb6cd36cd0688c7c4189ae745dfc43a23e5dee86118f",
+    ".local/class-skills/assassin-trap-attack-source-probe.json": "a73cfd896c31368197b43a90a61d762f029e8df6d5a2bebca89c62d837ec3f61",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/review_npc_defense_conditions.py": "dfc0cb6173237a8a879cb9a773310839585262e2d53afeb11b043b2e990492e0"
+  },
+  "routineSha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758",
+  "currentWriters": [
+    {
+      "property": "ignore-ac",
+      "stat": "item_ignoretargetac",
+      "id": 115,
+      "function": 1,
+      "registeredEvents": []
+    },
+    {
+      "property": "reduce-ac",
+      "stat": "item_fractionaltargetac",
+      "id": 116,
+      "function": 1,
+      "registeredEvents": []
+    }
+  ],
+  "artifacts": {
+    ".local/class-skills/npc-defense-conditions-source/probe.cpp": "5eb014240d3cdea76a0bcb6cd36cd0688c7c4189ae745dfc43a23e5dee86118f",
+    ".local/class-skills/npc-defense-conditions-source/probe": "6e50b2ced8b51d9f7f3aff7440feae4b31c56f5d5d2d285e63d6f8043e37cffb",
+    ".local/class-skills/npc-defense-conditions-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-defense-conditions-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-defense-conditions-source/cases.json": "a73cfd896c31368197b43a90a61d762f029e8df6d5a2bebca89c62d837ec3f61"
+  },
+  "established": [
+    "The complete unchanged hit-success routine reads raw115/116 exclusively in its player branch. The existing6804-case NPC driver deliberately supplies ignore-defense1 and fractional-defense99,without entering that branch.",
+    "The exact existing driver reproduces every prior output under ASan/UBSan. Current owned properties map ignore-ac/reduce-ac through writer1 to115/116 with no ItemStatCost events. NPC registry admission should retain those stats without new hit modifiers or owner forwarding."
+  ],
+  "limitations": [
+    "The driver uses declared stat/defense/classification/percentage/RNG/PMH services and is not execution of the complete current game. Current-executable NPC applicability remains unobserved.",
+    "This does not replace current shared hit-chance rounding,geometry,blocking,source-seed or player special-recipient acceptance. Runtime tests must demonstrate field-specific inertness and real original-item admission separately."
+  ]
+}

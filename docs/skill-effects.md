@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC-held defense conditions (2026-11-04 JST).** Retained player-only item flags create no NPC debuff, effect or audio. Revive/Iron summon/contact/status placeholders and final presentation requirements remain; Razoredge keeps the existing Open Wounds effect. This correction creates no standalone asset. See [checkpoint](npc-defense-conditions-checkpoint.md).
+
 **NPC Prevent Monster Heal admission (2026-11-04 JST).** A retained inert NPC item property adds no PMH state, effect or audio. Existing Revive/Iron summon/contact/status placeholders and pending final artwork remain. Player PMH presentation is unchanged. See [checkpoint](npc-prevent-heal-checkpoint.md).
 
 **Qualified equipped Revive (2026-11-04 JST).** Learned equipped casting reuses the existing identified Revive summon/windup/contact/status/return placeholders. This admission change adds no standalone effect. Final original-body feedback and audio remain pending; no imagegen asset was created. See [checkpoint](revive-equipped-checkpoint.md).

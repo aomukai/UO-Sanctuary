@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC-held defense conditions (2026-11-04 JST).** This item-admission correction adds no skill, button or hotkey. Revive/Iron talent/right/quick artwork remains separately pending with its existing identified placeholders. See [checkpoint](npc-defense-conditions-checkpoint.md).
+
 **NPC Prevent Monster Heal admission (2026-11-04 JST).** This item-compatibility correction adds no talent or hotkey. Existing Revive/Iron talent/right/quick placeholders and final icon requirements remain separate from effects/audio. See [checkpoint](npc-prevent-heal-checkpoint.md).
 
 **Qualified equipped Revive (2026-11-04 JST).** Right/quick input verification adds no skill or button. Revive still needs its separately tracked final talent-tree and hotkey artwork; existing identified icon/text placeholders remain. See [checkpoint](revive-equipped-checkpoint.md).

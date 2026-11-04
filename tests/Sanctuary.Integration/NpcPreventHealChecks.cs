@@ -38,9 +38,9 @@ public static class NpcPreventHealChecks
         Require(count==3960,"Missing PMH source controls");
         Require(NpcCombatEvents.FromStats([new(EquipmentStatKey.Pack(117),1),new(EquipmentStatKey.Pack(78),2),new(EquipmentStatKey.Pack(135),3),new(EquipmentStatKey.Pack(136),4)]).Subscriptions().SequenceEqual(new[]{78,135,136}),"Dormant PMH changed other event subscriptions");
         foreach(int stat in new[]{66,115,116,120})
-        {bool no=false;try{_=NpcCombatEvents.FromStats([new(EquipmentStatKey.Pack(stat),1)]);}catch(NotSupportedException){no=true;}Require(no,"Unrelated conditional hit property was admitted: "+stat);}
+        {bool no=false;try{_=NpcCombatEvents.FromStats([new(EquipmentStatKey.Pack(stat),1)]);}catch(NotSupportedException){no=true;}Require(no==(stat is 66 or 120),"Conditional hit property admission differs from its reviewed scope: "+stat);}
     }
-    private static void Start(PlayerMobile owner,CombatAbility ability,Item selected)
+    internal static void Start(PlayerMobile owner,CombatAbility ability,Item selected)
     {
         Require(SkillBindings.Instance.AssignQuick(owner,7,ability),"PMH fixture quick binding failed");ClassCombat.Stop(owner);var action=ClassCombat.For(owner);action.NextAction=0;
         int before=NecromancerEffects.ManaBalance256(owner),cost=SkillMechanics.Values(owner,ability).Mana256;
