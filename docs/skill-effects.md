@@ -1,5 +1,7 @@
 # Skill effects
 
+**Explosion corpse-location towns (2026-11-04 JST).** Rejected protected-corpse casts emit no animation,cloud or explosion. Existing permitted-field CE/poison placeholders and final cast/travel/contact/status/audio requirements remain. The shared guard adds no standalone asset;no imagegen run. See [checkpoint](corpse-town-checkpoint.md).
+
 **Poison Explosion ground targeting (2026-11-04 JST).** Shared acquisition/client point routing adds no standalone effect. Existing eight-cloud cast/travel/contact/poison/status/audio placeholders and final requirements remain; failed acquisition/release creates none. No imagegen assets were created. See [checkpoint](poison-corpse-aim-checkpoint.md).
 
 **Necromancer town permissions (2026-11-04 JST).** Rejected town starts have no cast animation/effect/payment. Permitted Bone Armor and golem casts retain their identified existing placeholders and pending final cast/birth/status/audio work. No new standalone effect or artwork is needed for the location predicate. See [checkpoint](necro-town-checkpoint.md).

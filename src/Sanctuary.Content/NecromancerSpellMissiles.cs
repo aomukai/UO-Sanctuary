@@ -135,7 +135,7 @@ internal static class NecromancerSpellMissiles
     internal static long[] CreateClouds(PlayerMobile owner,Point3D point,SkillValues values,DateTime at)=>PrepareClouds(owner,point,values,at).Select(Commit).ToArray();
     internal static bool ReleaseClouds(PlayerMobile owner,Corpse corpse,SkillValues values)
     {
-        if(!SkeletonPets.Usable(owner,corpse)){return false;}
+        if(!CorpseCastTargets.Usable(owner,CombatAbility.PoisonExplosion,corpse)){return false;}
         NecromancerSpellFlight[] prepared;
         try{prepared=PrepareClouds(owner,corpse.Location,values,TimedEffects.Now);}
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}

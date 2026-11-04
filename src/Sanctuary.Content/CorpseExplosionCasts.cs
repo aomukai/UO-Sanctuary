@@ -19,7 +19,7 @@ internal static class CorpseExplosionCasts
 
     internal static bool Release(PlayerMobile owner,Corpse corpse,SkillValues values)
     {
-        if(!Supported(corpse) || !CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)) { return false; }
+        if(!CorpseCastTargets.Usable(owner,CombatAbility.CorpseExplosion,corpse)) { return false; }
         var definition=SkillMechanics.For(CombatAbility.CorpseExplosion);
         if(definition.Number("srvdofunc")!=55 || definition.Text("EType")!="fire")
         { throw new System.NotSupportedException("Unsupported player corpse-explosion route"); }

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Explosion target-town predicate (2026-11-04 JST).** CorpseCastTargets.Usable now supplies both acquisition and direct release eligibility for CE/Poison Explosion,using actual corpse coordinates and the existing SpellHelper.IsTown projection before their distinct corpse suppliers. It avoids duplicating a caster-only guard or trusting a packet point. Dynamic-region release revalidation follows the existing Sanctuary contract;older start17and do55/do63scope remain distinct. See [checkpoint](corpse-town-checkpoint.md).
+
 **Shared explosion corpse selection (2026-11-04 JST).** CorpseCastTargets reuses NearClickTargets for CE and Poison Explosion, which share SelectProc1/cltst21/srvst17 in owned tables. CE retains base-life/seed eligibility; PE retains SkeletonPets.Usable and its existing cloud release. No copied damage or new packet format. Two tiles/ties are explicit Sanctuary policy; no inference about different summon/Revive selection modes. See [checkpoint](poison-corpse-aim-checkpoint.md).
 
 **Necromancer caster-town gate (2026-11-04 JST).** NecromancerCastRegions reads each existing skill definition’s InTown flag and uses the same SpellHelper.IsTown projection as prior spell guards and MinionSafeAreas. Ordinary begin/validation/release, separate Raise Skeleton and CE acquisition share it. Allowed golem creation reuses the existing recipe/parking/material/persistence path. NPC/item/forced/used-skill-flag contexts are not silently folded into this player-only guard. See [checkpoint](necro-town-checkpoint.md).

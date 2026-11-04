@@ -36,9 +36,8 @@ public static class NecromancerCombat
         {
             var corpse=World.FindItem(selected) as Corpse;
             if(ability==CombatAbility.Revive){return ReviveCasts.Plan(owner,corpse,out _,out _,out _);}
-            return ability==CombatAbility.CorpseExplosion
-                ?CorpseExplosionCasts.Supported(corpse) && CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
-                :SkeletonPets.Usable(owner,corpse);
+            return ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion
+                ?CorpseCastTargets.Usable(owner,ability,corpse):SkeletonPets.Usable(owner,corpse);
         }
         if (ability == CombatAbility.Attract && selected == Serial.Zero) { return false; }
         if (ability == CombatAbility.PoisonDagger)
