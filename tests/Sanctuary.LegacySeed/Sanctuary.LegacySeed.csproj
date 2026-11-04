@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Server" HintPath="$(LegacyServer)/Server.dll" Private="false" />
+    <Reference Include="UOContent" HintPath="$(LegacyServer)/Assemblies/UOContent.dll" Private="false" />
+    <Reference Include="Logger" HintPath="$(LegacyServer)/Logger.dll" Private="false" />
+    <Reference Include="Sanctuary.Content" HintPath="$(LegacyServer)/Assemblies/Sanctuary.Content.dll" Private="false" />
+  </ItemGroup>
+</Project>

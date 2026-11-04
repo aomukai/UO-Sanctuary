@@ -1,5 +1,7 @@
 # Skill effects
 
+**Earlier-build Necromancer upgrade (2026-11-05 JST).** Save/reader verification adds no effect or imagegen asset. Existing Bone Armor and Clay placeholders and final effects/audio requirements remain; see [checkpoint](necro-legacy-upgrade-checkpoint.md).
+
 **Player melee return ordering (2026-11-05 JST).** No new standalone effect or imagegen asset. Existing Shiver/cold retaliation, Thorns and player-death cast/contact/status/audio placeholders retain their requirements. The admitted path keeps the late reaction before death cleanup; raw/unsupported contexts stay explicit. See [checkpoint](player-melee-return-checkpoint.md).
 
 **Raise corpse-location towns (2026-11-04 JST).** Protected-corpse refusals create no summon,birth animation or effect. Permitted warrior/Mage field births retain their identified placeholders and final birth/combat/status/audio requirements. Shared region validation adds no standalone asset or imagegen work. See [checkpoint](raise-corpse-town-checkpoint.md).

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Earlier-build Necromancer upgrade (2026-11-05 JST).** No talent, hotkey or binding is added; the original F12 binding survives the actual upgrade. Existing icon placeholders and final artwork remain separately pending. See [checkpoint](necro-legacy-upgrade-checkpoint.md).
+
 **Player melee return ordering (2026-11-05 JST).** No talent,hotkey or button is added. Existing Shiver/defense talent/right/quick placeholders and final artwork remain separate from effects/audio. See [checkpoint](player-melee-return-checkpoint.md).
 
 **Raise corpse-location towns (2026-11-04 JST).** Existing warrior/Mage talent/right/quick placeholders and final-icon requirements remain;no new skill,button or binding is added. Effects/audio remain separately tracked. See [checkpoint](raise-corpse-town-checkpoint.md).

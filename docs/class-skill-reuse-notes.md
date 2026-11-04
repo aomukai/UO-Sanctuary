@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Actual old-writer upgrade fixture (2026-11-05 JST).** The migration runner reuses the retained matching old Integration fixture and the actual installed writer. A separate seed assembly references only the old public APIs; the current reader reuses existing legacy pool conversion and summon serialization. No hand-authored legacy DTO or production migration shim is added. See [checkpoint](necro-legacy-upgrade-checkpoint.md).
+
 **Player melee death return (2026-11-05 JST).** The existing FP receiver already writes zero HP without native below-zero death. AOS patch72 supplies an explicit weapon health phase; PlayerMeleeReturn connects that exact pair to the existing Shiver/Thorns attempt scope and CombatDamage.Finish. It defers the death transition only, preserving notifications, HP and fractional bookkeeping. Native raw/PvP/owned/hireling paths remain outside admission rather than inferring a melee event from a shared attacker alone. See [checkpoint](player-melee-return-checkpoint.md).
 
 **Shared source15/17 corpse regions (2026-11-04 JST).** NecromancerCastRegions.CorpseAllowed now supplies actual-corpse town validation to warrior search/CanRaise, Mage validation/direct creation and the explosion picker. Shared material/access rules are unchanged; Revive/start21 is not assigned source15’s branch. Warrior owner-nearest fallback, Mage explicit selection and explosion cursor-nearest selection keep their existing policies. See [checkpoint](raise-corpse-town-checkpoint.md).
