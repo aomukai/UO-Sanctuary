@@ -1,5 +1,7 @@
 # Original saved Mages share the ranged world controller
 
+**Actual old-byte adoption follow-up (2026-11-05 JST).** Original actors written by the real earlier installed content/native binaries now adopt this shared controller and fire upgraded basic volleys on two reader boots. Serial/type/owner/wounds/captured context/order and once-allocated streams survive the intervening actual save. See [army upgrade checkpoint](necro-legacy-army-checkpoint.md). No old phase/RNG is reconstructed, and this controlled fixture does not extend natural/secondary-spell/current-world acceptance.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This increment follows `de5d166`. Original saved `NecromancerMinion` Mages now use the same ranged behavior as learned `MageWorldBody` summons. The Mage package and Necromancer class remain unfinished.
 
 Before implementation, reviewed the learned Mage actor/AI/target/path/clock/seed behavior, `NecromancerGroundWorld`/Iron conductor, older native summon/melee timers, Mage JSON/actor serialization layouts, minion restore/resume/sweep, roster order and fixed spell/buff consumers. `MageWorld` extracts the existing ranged behavior; the learned subtype keeps its original `_worldSaved` field and delegates to that behavior. There is one targeting/AI/movement/frame/proc path, not a legacy duplicate.

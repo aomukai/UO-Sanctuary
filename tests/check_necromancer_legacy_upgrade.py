@@ -32,8 +32,8 @@ def copy(source, target):
     shutil.copy2(source, target)
 
 
-def check():
-    snapshot(STAGE / 'pre-build-2.json')
+def check(extra_old_commands=(), extra_new_commands=(), extra_manifests=(), extra_inputs=(), pre_build='pre-build-2.json'):
+    snapshot(STAGE / pre_build)
     installation = json.loads((ROOT / 'tools/reference/creeper-frame-installation-evidence.json').read_text())
     source_root = Path(installation['runtimeRoot'])
     installed = source_root / '.local/server'
@@ -86,7 +86,7 @@ def check():
         oldCopiedData=hashes(runtime / 'Data/Sanctuary'), seedAssemblySha256=sha(runtime / 'Assemblies/Sanctuary.LegacySeed.dll'),
         sourceInputs={str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__).resolve(),
             ROOT / 'tests/Sanctuary.LegacySeed/LegacySeed.cs', ROOT / 'tests/Sanctuary.LegacySeed/Sanctuary.LegacySeed.csproj',
-            ROOT / 'tests/Sanctuary.Integration/NecromancerLegacyUpgradeChecks.cs']}, boots=[])
+            ROOT / 'tests/Sanctuary.Integration/NecromancerLegacyUpgradeChecks.cs', *extra_inputs]}, boots=[])
     assert evidence['actualOldArtifacts'] == old_artifacts
     for boot in range(3):
         if boot == 1:
@@ -108,7 +108,7 @@ def check():
                 ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
                 if ready.group(0).startswith('create'):
                     session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                commands = ('class-skills-check', 'necro-legacy-seed') if boot == 0 else ('necro-legacy-upgrade-check',)
+                commands = ('class-skills-check', 'necro-legacy-seed', *extra_old_commands) if boot == 0 else ('necro-legacy-upgrade-check', *extra_new_commands)
                 for command in commands:
                     session.send(command)
                     assert session.expect(command + r': (passed|failed)').group(1) == 'passed'
@@ -120,7 +120,7 @@ def check():
         assert ': failed' not in text and ' ERR]' not in text
         saved = STAGE / f'world-{boot}'
         shutil.copytree(runtime / 'Saves', saved)
-        for name in ('class-skills-checks.json', 'necro-legacy-seed.json', 'necro-legacy-progress.json'):
+        for name in ('class-skills-checks.json', 'necro-legacy-seed.json', 'necro-legacy-progress.json', *extra_manifests):
             if (runtime / name).exists():
                 copy(runtime / name, STAGE / f'boot-{boot}-{name}')
         evidence['boots'].append(dict(writer='installed' if boot == 0 else 'current', saves=hashes(saved)))

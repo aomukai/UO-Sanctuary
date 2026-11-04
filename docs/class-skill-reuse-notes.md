@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Actual earlier army writer (2026-11-05 JST).** The shared upgrade runner now accepts additional old/current commands, manifests and inputs. The old corpse factories and old corridor helper produce authentic actor bytes; current Mage adoption, element migration, basic fan/Charged Bolt flights, armor, source HP and saved streams work without a new migration shim. See [checkpoint](necro-legacy-army-checkpoint.md).
+
 **Actual old-writer upgrade fixture (2026-11-05 JST).** The migration runner reuses the retained matching old Integration fixture and the actual installed writer. A separate seed assembly references only the old public APIs; the current reader reuses existing legacy pool conversion and summon serialization. No hand-authored legacy DTO or production migration shim is added. See [checkpoint](necro-legacy-upgrade-checkpoint.md).
 
 **Player melee death return (2026-11-05 JST).** The existing FP receiver already writes zero HP without native below-zero death. AOS patch72 supplies an explicit weapon health phase; PlayerMeleeReturn connects that exact pair to the existing Shiver/Thorns attempt scope and CombatDamage.Finish. It defers the death transition only, preserving notifications, HP and fractional bookkeeping. Native raw/PvP/owned/hireling paths remain outside admission rather than inferring a melee event from a shared attacker alone. See [checkpoint](player-melee-return-checkpoint.md).

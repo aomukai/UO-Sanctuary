@@ -1,5 +1,7 @@
 # Skill icons
 
+**Actual old-writer army upgrade (2026-11-05 JST).** No skill, hotkey or icon slot is added. Existing warrior/Mage tree and hotkey placeholders and final artwork remain separately tracked. See [checkpoint](necro-legacy-army-checkpoint.md).
+
 **Earlier-build Necromancer upgrade (2026-11-05 JST).** No talent, hotkey or binding is added; the original F12 binding survives the actual upgrade. Existing icon placeholders and final artwork remain separately pending. See [checkpoint](necro-legacy-upgrade-checkpoint.md).
 
 **Player melee return ordering (2026-11-05 JST).** No talent,hotkey or button is added. Existing Shiver/defense talent/right/quick placeholders and final artwork remain separate from effects/audio. See [checkpoint](player-melee-return-checkpoint.md).

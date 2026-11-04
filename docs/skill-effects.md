@@ -1,5 +1,7 @@
 # Skill effects
 
+**Actual old-writer army upgrade (2026-11-05 JST).** Former poison Mages use the existing Ice Bolt and intrinsic Frozen Armor effects/placeholders after loading. Existing warrior, Mage cast/volley/contact/cold/status/audio assets remain pending as recorded; the upgrade adds no new effect or imagegen asset. See [checkpoint](necro-legacy-army-checkpoint.md).
+
 **Earlier-build Necromancer upgrade (2026-11-05 JST).** Save/reader verification adds no effect or imagegen asset. Existing Bone Armor and Clay placeholders and final effects/audio requirements remain; see [checkpoint](necro-legacy-upgrade-checkpoint.md).
 
 **Player melee return ordering (2026-11-05 JST).** No new standalone effect or imagegen asset. Existing Shiver/cold retaliation, Thorns and player-death cast/contact/status/audio placeholders retain their requirements. The admitted path keeps the late reaction before death cleanup; raw/unsupported contexts stay explicit. See [checkpoint](player-melee-return-checkpoint.md).

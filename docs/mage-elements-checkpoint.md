@@ -1,5 +1,7 @@
 # Three-element Mage creation and in-place poison migration
 
+**Actual old-writer follow-up (2026-11-05 JST).** The earlier installed writer now creates and saves every original Mage element through its actual four-slot RNG/corpse factory. Two current-reader boots retain the original actors, wounded HP, rank JSON/order, convert poison to ice and fire the upgraded basics with saved stream continuity. Exact fractional maximum/display correction is asserted. See [actual army checkpoint](necro-legacy-army-checkpoint.md). This closes this specific old-DLL gap; broader natural/current-engine/client and active-flight/unheld-save limits remain.
+
 Reference baseline: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This increment follows `6d431f1`. The three-element roster and conversion of poison Mages to ice are approved Sanctuary changes, not baseline D2R behavior. The Mage upgrade package and Necromancer remain unfinished.
 
 Before implementation, reviewed `NecromancerSummons` creation/captured birth stats and serialized element field, both plain `NecromancerMinion` and learned `MageWorldBody` layouts, existing load/suspend/roster/difficulty/resource services, intrinsic armor and saved missile/poison consumers. Element is independent of those captured resources and controllers. Reuse the existing field and load hook; no actor clone, new profile/controller or serialization version is needed.
