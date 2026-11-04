@@ -122,7 +122,7 @@ public static class ReviveNativeActivation
         {
             // Bind while still inactive, then detach before any corpse cleanup.
             States.Add(row.Actor,row);original.ControlSlots=0;
-            if(!original.SetControlMaster(owner)){States.Remove(row.Actor);original.ControlSlots=slots;issue="Native owner binding failed.";return false;}
+            if(!original.SetControlMaster(owner)){States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);original.ControlSlots=slots;issue="Native owner binding failed.";return false;}
             original.NoKillAwards=true;original.Tamable=false;original.HitsMaxSeed=setup.MaximumLife;
             ReviveOriginals.DetachForActivation(corpse,original);detached=true;
             original.Blessed=original.Hidden=original.Frozen=original.CantWalk=false;
@@ -133,7 +133,7 @@ public static class ReviveNativeActivation
         }
         catch
         {
-            States.Remove(row.Actor);original.AIObject?.AITimer.Stop();original.SetControlMaster(null);original.ControlSlots=slots;
+            States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);original.AIObject?.AITimer.Stop();original.SetControlMaster(null);original.ControlSlots=slots;
             original.Home=home;original.HomeMap=homeMap;original.CurrentWayPoint=waypoint;
             original.HitsMaxSeed=maximum;original.NoKillAwards=noRewards;original.Tamable=tamable;original.Hits=original.Mana=original.Stam=0;
             SkillHealth.Clear(original);
@@ -145,7 +145,7 @@ public static class ReviveNativeActivation
         original.IssueOrder(OrderType.Guard,null);NecromancerCombat.Consume(corpse);
         var owned=Snapshot().Where(s=>s.Owner==row.Owner&&World.FindMobile((Serial)s.Actor) is{Alive:true,Deleted:false}).OrderBy(s=>s.Order).ToArray();
         foreach(var old in owned.Take(Math.Max(0,owned.Length-setup.Rank)))
-        {if(World.FindMobile((Serial)old.Actor) is BaseCreature oldActor){oldActor.Delete();}States.Remove(old.Actor);}
+        {if(World.FindMobile((Serial)old.Actor) is BaseCreature oldActor){oldActor.Delete();}States.Remove(old.Actor);ReviveEquipmentLife.Forget(old.Actor);NpcEquipmentRandom.Forget(old.Actor);}
         if(owner.NetState==null){PersistentMinions.Suspend(owner);}else{Behavior(original).ResumeActions();}
         MinionSafeAreas.Enforce(original);actor=original;issue=null;return true;
     }
@@ -161,14 +161,14 @@ public static class ReviveNativeActivation
             PersistentMinions.Restore(actor);
         }
     }
-    private static void Tick()
+    internal static void Tick()
     {
         foreach(var row in Snapshot())
         {
             var actor=World.FindMobile((Serial)row.Actor) as BaseCreature;
-            if(actor is not{Alive:true,Deleted:false}){States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);continue;}
+            if(actor is not{Alive:true,Deleted:false}){States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);continue;}
             if(actor.ControlMaster?.Serial.Value!=row.Owner||World.FindMobile((Serial)row.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner)
-            {actor.Delete();States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);continue;}
+            {actor.Delete();States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);continue;}
             if(!CanAct(actor)&&actor.Map!=Map.Internal){PersistentMinions.Suspend(owner);}
             ReviveRegeneration.Recover(actor,CanAct(actor),Core.TickCount);
         }

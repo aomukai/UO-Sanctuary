@@ -9,7 +9,9 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record NpcEquipmentSeed(uint Actor,uint Owner,uint Item,ulong Seed,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool Unarmed=false);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool Unarmed=false,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] uint ReviveCorpse=0,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string ReviveBinding=null);
 public sealed class NpcEquipmentRandomProfiles:GenericPersistence
 {
     public NpcEquipmentRandomProfiles():base("SanctuaryNpcEquipmentRandom",190){}
@@ -26,43 +28,63 @@ internal static class NpcEquipmentRandom
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static NpcEquipmentRandomProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
-    internal static NpcEquipmentSeed State(SkeletonGuardian actor)=>Seeds.GetValueOrDefault(actor.Serial.Value);
-    internal static void Forget(BaseCreature actor)=>Seeds.Remove(actor.Serial.Value);
+    internal static NpcEquipmentSeed State(BaseCreature actor)=>Seeds.GetValueOrDefault(actor.Serial.Value);
+    internal static void Forget(BaseCreature actor)=>Forget(actor.Serial.Value);
+    internal static void Forget(uint actor)=>Seeds.Remove(actor);
     // V0's Unarmed flag denotes the zero-item binding. A prepared Tainted
     // shares that actor stream without claiming an implemented melee packet.
     private static bool WithoutItem(SkeletonGuardian actor)=>actor is ISourceUnarmedNpc or WarlockTaintedBody;
-    private static (uint Owner,uint Item,bool Unarmed) Binding(SkeletonGuardian actor)
+    private static (uint Owner,uint Item,bool Unarmed,uint Corpse,string Identity) Binding(BaseCreature actor)
     {
-        if(NpcEquipmentCombat.Context(actor) is{} item)
-        {return(actor.ControlMaster.Serial.Value,item.Item.Serial.Value,false);}
-        if(WithoutItem(actor)&&actor.ControlMaster is PlayerMobile{Deleted:false} owner)
-        {return(owner.Serial.Value,0,true);}
-        throw new NotSupportedException("No original NPC or learned unarmed NPC random binding");
+        if(ReviveNativeActivation.State(actor)is{Setup.EquipmentLifeProfile:ReviveEquipmentCombat.Profile} original)
+        {
+            if(actor is{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Alive:true,Deleted:false} owner}&&original.Owner==owner.Serial.Value)
+            {return(owner.Serial.Value,0,false,original.Original.Corpse,ReviveEquipmentLife.Identity(original));}
+            throw new NotSupportedException("Frozen Revive random binding lost its living original/owner");
+        }
+        if(actor is SkeletonGuardian body)
+        {
+            if(NpcEquipmentCombat.Context(body)is{} item){return(actor.ControlMaster.Serial.Value,item.Item.Serial.Value,false,0,null);}
+            if(WithoutItem(body)&&actor.ControlMaster is PlayerMobile{Deleted:false} unarmedOwner){return(unarmedOwner.Serial.Value,0,true,0,null);}
+        }
+        throw new NotSupportedException("No original-item,unarmed or frozen Revive random binding");
     }
-    internal static void Set(SkeletonGuardian actor,ulong seed)
+    internal static void Set(BaseCreature actor,ulong seed)
     {
         var binding=Binding(actor);
-        Seeds[actor.Serial.Value]=new(actor.Serial.Value,binding.Owner,binding.Item,seed,binding.Unarmed);
+        Seeds[actor.Serial.Value]=new(actor.Serial.Value,binding.Owner,binding.Item,seed,binding.Unarmed,binding.Corpse,binding.Identity);
     }
-    internal static uint Raw(SkeletonGuardian actor)
+    internal static uint Raw(BaseCreature actor)
     {
         var binding=Binding(actor);
-        if(!Seeds.TryGetValue(actor.Serial.Value,out var state)||state.Owner!=binding.Owner||state.Item!=binding.Item||state.Unarmed!=binding.Unarmed)
+        if(!Seeds.TryGetValue(actor.Serial.Value,out var state)||state.Owner!=binding.Owner||state.Item!=binding.Item||state.Unarmed!=binding.Unarmed
+            ||state.ReviveCorpse!=binding.Corpse||state.ReviveBinding!=binding.Identity)
         {Set(actor,SourceRandom.InitLow(SeedLow()));state=Seeds[actor.Serial.Value];}
         ulong seed=state.Seed;uint value=SourceRandom.Roll(ref seed);Seeds[actor.Serial.Value]=state with{Seed=seed};return value;
     }
-    internal static int Limited(SkeletonGuardian actor,int bound)=>bound<=0?0:(int)(Raw(actor)%(uint)bound);
-    public static NpcEquipmentSeed[] Snapshot()=>Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor) is SkeletonGuardian{Deleted:false} actor
-        &&actor.ControlMaster?.Serial.Value==s.Owner&&(s.Unarmed?WithoutItem(actor)&&s.Item==0&&NpcEquipmentCombat.Context(actor)==null
-            :IronGolemItems.State(actor) is{} binding&&binding.Owner==s.Owner&&binding.Item==s.Item
-                &&World.FindItem((Serial)s.Item) is{Deleted:false} item&&item.Parent==actor)).OrderBy(s=>s.Actor).ToArray();
+    internal static int Limited(BaseCreature actor,int bound)=>bound<=0?0:(int)(Raw(actor)%(uint)bound);
+    private static bool Matches(BaseCreature actor,NpcEquipmentSeed saved)
+    {
+        if(actor.ControlMaster?.Serial.Value!=saved.Owner){return false;}
+        if(saved.ReviveCorpse!=0)
+        {
+            return actor.Alive&&actor.ControlMaster is PlayerMobile{Alive:true,Deleted:false}
+                &&ReviveNativeActivation.State(actor)is{Setup.EquipmentLifeProfile:ReviveEquipmentCombat.Profile} original
+                &&original.Owner==saved.Owner&&original.Original.Corpse==saved.ReviveCorpse&&ReviveEquipmentLife.Identity(original)==saved.ReviveBinding;
+        }
+        return actor is SkeletonGuardian body&&(saved.Unarmed?WithoutItem(body)&&saved.Item==0&&NpcEquipmentCombat.Context(body)==null
+            :IronGolemItems.State(body)is{} binding&&binding.Owner==saved.Owner&&binding.Item==saved.Item
+                &&World.FindItem((Serial)saved.Item)is{Deleted:false} item&&item.Parent==actor);
+    }
+    public static NpcEquipmentSeed[] Snapshot()=>Seeds.Values.Where(s=>World.FindMobile((Serial)s.Actor)is BaseCreature{Deleted:false} actor&&Matches(actor,s)).OrderBy(s=>s.Actor).ToArray();
     internal static void Restore(NpcEquipmentSeed[] saved)
     {
         if(saved==null){throw new InvalidDataException("Missing NPC equipment random state");}
         var rows=new Dictionary<uint,NpcEquipmentSeed>();
         foreach(var row in saved)
         {if(row==null||!((Serial)row.Actor).IsMobile||!((Serial)row.Owner).IsMobile||row.Actor==row.Owner
-            ||(row.Unarmed?row.Item!=0:!((Serial)row.Item).IsItem)||!rows.TryAdd(row.Actor,row)){throw new InvalidDataException("Invalid NPC equipment random state");}}
+            ||(row.ReviveCorpse!=0?row.Item!=0||row.Unarmed||!((Serial)row.ReviveCorpse).IsItem||row.ReviveBinding is not{Length:64}||row.ReviveBinding.Any(c=>c is not(>= '0' and <= '9' or >= 'a' and <= 'f'))
+                :row.ReviveBinding!=null||(row.Unarmed?row.Item!=0:!((Serial)row.Item).IsItem))||!rows.TryAdd(row.Actor,row)){throw new InvalidDataException("Invalid NPC equipment random state");}}
         Seeds.Clear();foreach(var row in rows){Seeds.Add(row.Key,row.Value);}
     }
 }

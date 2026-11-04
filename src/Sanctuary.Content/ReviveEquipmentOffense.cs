@@ -91,6 +91,13 @@ internal static class ReviveEquipmentOffense
             NpcEquipmentElements.WithBonuses(actor,elements,Bonus("extra-fire"),Bonus("extra-ltng"),Bonus("extra-cold"),Bonus("extra-mag")),
             new(actor.Serial.Value,owner.Serial.Value,poison,Bonus("extra-pois"),Math.Max(0,Bonus("pierce-pois"))));
     }
+    internal static NpcWeaponRoll Roll(BaseCreature actor,Mobile target=null,int attackSlot=1)
+    {
+        // Resolve every offensive capability before initializing/advancing
+        // the persisted stream. Swing/recipient/event services remain separate.
+        var snapshot=Capture(actor,target,attackSlot);
+        return Roll(snapshot,n=>NpcEquipmentRandom.Limited(actor,n),()=>NpcEquipmentRandom.Raw(actor));
+    }
     internal static NpcWeaponRoll Roll(ReviveOffenseSnapshot snapshot,Func<int,int> limited,Func<uint> raw)
     {
         ArgumentNullException.ThrowIfNull(snapshot);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(raw);

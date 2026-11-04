@@ -11,7 +11,7 @@ namespace Sanctuary;
 internal static class ReviveEquipmentLife
 {
     internal const string Profile="frozen-equipment-life-v1";
-    private sealed record Bound(string Json,FrozenEquipmentContext[] Items,ReviveResourceBases Bases,ReviveAttackDefenseBases CombatBases);
+    private sealed record Bound(string Json,FrozenEquipmentContext[] Items,ReviveResourceBases Bases,ReviveAttackDefenseBases CombatBases,string Identity);
     private static readonly Dictionary<uint,Bound> Cache=new();
     internal static ReviveNativeSetup Prepare(ReviveNativeSetup setup,ReviveOriginalState original)
     {
@@ -26,11 +26,12 @@ internal static class ReviveEquipmentLife
     {
         string json=state.Original.BeforeDeathJson;
         if(!Cache.TryGetValue(state.Actor,out var held)||held.Json!=json)
-        {var before=ReviveBeforeDeath.Decode(json);held=new(json,Read(json),before.ResourceBases,before.AttackDefenseBases);Cache[state.Actor]=held;}
+        {var before=ReviveBeforeDeath.Decode(json);held=new(json,Read(json),before.ResourceBases,before.AttackDefenseBases,Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(json))).ToLowerInvariant());Cache[state.Actor]=held;}
         return held;
     }
     internal static FrozenEquipmentContext[] Items(ReviveNativeState state)=>Context(state).Items;
     internal static ReviveResourceBases ResourceBases(ReviveNativeState state)=>Context(state).Bases;
+    internal static string Identity(ReviveNativeState state)=>Context(state).Identity;
     internal static ReviveAttackDefenseBases AttackDefenseBases(ReviveNativeState state)=>Context(state).CombatBases;
     internal static void Validate(ReviveNativeState state)
     {
