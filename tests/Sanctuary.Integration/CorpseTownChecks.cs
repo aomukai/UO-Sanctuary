@@ -21,11 +21,17 @@ public static class CorpseTownChecks
     private static string Manifest=>Path.Join(Core.BaseDirectory,"corpse-town-fixtures.json");
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static readonly CombatAbility[] Abilities=[CombatAbility.CorpseExplosion,CombatAbility.PoisonExplosion];
+    private static readonly CombatAbility[] Raises=[CombatAbility.RaiseSkeleton,CombatAbility.RaiseSkeletalMage];
+    private sealed record RaisedSaved(Saved Corpse,uint Warrior,uint Mage,int WarriorLife,int MageLife);
+    private static string RaisedManifest=>Path.Join(Core.BaseDirectory,"raise-corpse-town-fixtures.json");
     public static void Configure()
     {
         Register("corpse-town-check",Check);Register("corpse-town-reload-check",Reload);
         foreach(var ability in Abilities)foreach(bool quick in new[]{false,true})
         {var a=ability;bool q=quick;string label="corpse-town-"+(a==CombatAbility.CorpseExplosion?"ce":"poison")+(q?"-quick":"-right");Register(label+"-check",()=>FixtureNetwork.Connected(label+"-result",n=>Input(n,label,a,q)));}
+        Register("raise-corpse-town-check",CheckRaises);Register("raise-corpse-town-reload-check",ReloadRaises);
+        foreach(var ability in Raises)foreach(bool quick in new[]{false,true})
+        {var a=ability;bool q=quick;string label="corpse-town-"+(a==CombatAbility.RaiseSkeleton?"warrior":"mage")+(q?"-quick":"-right");Register(label+"-check",()=>FixtureNetwork.Connected(label+"-result",n=>Input(n,label,a,q)));}
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Shared explosion target-town guards and conserved original corpses",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -111,7 +117,8 @@ public static class CorpseTownChecks
     }
     private static void Input(NetState net,string label,CombatAbility ability,bool quick)
     {
-        var owner=Owner(ability==CombatAbility.CorpseExplosion?quick?2450:2400:quick?2350:2300);var corpse=Body(owner);var row=CorpseSkillRules.Profiles.Find(corpse);var town=Town(owner,corpse);
+        int location=ability==CombatAbility.CorpseExplosion?quick?2450:2400:quick?2350:2300;
+        var owner=Raises.Contains(ability)?RaiseOwner(location):Owner(location);var corpse=Body(owner);var row=CorpseSkillRules.Profiles.Find(corpse);var town=Town(owner,corpse);
         Require(SkillBindings.Instance.Assign(owner,false,ability)&&SkillBindings.Instance.AssignQuick(owner,7,ability),"Corpse town wire bindings");Ready(owner);int mana=NecromancerEffects.ManaBalance256(owner);long effect=ClassCombat.For(owner).EffectAt;
         var account=FixtureNetwork.Authenticate(net,owner,"corpse-town-");bool acknowledged=false,finished=false;long deadline=Core.TickCount+10000;
         void End(){ClassCombat.Stop(owner);town.Unregister();corpse.Delete();owner.Delete();account.Delete();}
@@ -124,12 +131,77 @@ public static class CorpseTownChecks
                 if(Sequence(owner,quick)>0&&!acknowledged){acknowledged=true;Log.Information("{Label}: acknowledged",label);}
                 if(acknowledged&&(quick||Sequence(owner,false)>=2))
                 {
-                    Require(session.PendingAbility==CombatAbility.None&&session.EffectAt==effect,"Town corpse wire animated");Conserved(owner,corpse,row,mana);finished=true;End();Log.Information("{Label}-result: passed",label);return;
+                    Require(session.PendingAbility==CombatAbility.None&&session.EffectAt==effect&&(!Raises.Contains(ability)||NecromancerSkeletons.For(owner,ability).Length==0),"Town corpse wire animated or summoned");Conserved(owner,corpse,row,mana);finished=true;End();Log.Information("{Label}-result: passed",label);return;
                 }
                 Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Inspect));
             }
             catch(Exception e){finished=true;End();Log.Error(e,"{Label}-result: failed",label);}
         }
-        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target={Target} x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Necromancer,quick?0:corpse.Serial.Value,corpse.X,corpse.Y,corpse.Z);Inspect();});
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target={Target} x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Necromancer,quick&&!Raises.Contains(ability)?0:corpse.Serial.Value,corpse.X,corpse.Y,corpse.Z);Inspect();});
+    }
+    private static PlayerMobile RaiseOwner(int row=2100)
+    {var owner=Owner(row);ClassSkillChecks.Train(owner,"necromancer.skeletalmage");Ready(owner);return owner;}
+    private static bool RaiseBegin(PlayerMobile owner,CombatAbility ability,Corpse corpse)
+        =>ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(owner,corpse.Serial,Core.TickCount):ClassCombat.BeginCorpse(owner,ability,corpse.Serial,corpse.Location,Core.TickCount);
+    private static void RejectedRaises(PlayerMobile owner,Corpse corpse)
+    {
+        Require(SkeletonPets.Usable(owner,corpse),"Town guard changed the shared material/access predicate");
+        foreach(var ability in Raises)
+        {
+            Ready(owner);var row=CorpseSkillRules.Profiles.Find(corpse);int mana=NecromancerEffects.ManaBalance256(owner);long effect=ClassCombat.For(owner).EffectAt;
+            var original=NecromancerSkeletons.For(owner,ability).Select(x=>x.Serial).ToArray();
+            Require(!NecromancerCastRegions.CorpseAllowed(owner,ability,corpse)&&!RaiseBegin(owner,ability,corpse),"Town corpse summon began");
+            if(ability==CombatAbility.RaiseSkeleton)
+            {Require(!SkeletonPets.CanRaise(owner,corpse)&&!SkeletonPets.Raise(owner,corpse)&&SkeletonPets.FindCorpse(owner,corpse.Serial)==null,"Warrior direct/search bypassed corpse town");}
+            else
+            {Require(!NecromancerCombat.ValidTarget(owner,ability,corpse.Serial,owner.Location)&&!NecromancerCombat.Release(owner,ability,corpse.Serial,corpse.Location)
+                &&!NecromancerSummons.Create(owner,ability,corpse.Serial,owner.Location),"Mage direct validation/create bypassed actual corpse town");}
+            Require(ClassCombat.For(owner).PendingAbility==CombatAbility.None&&ClassCombat.For(owner).EffectAt==effect
+                &&NecromancerSkeletons.For(owner,ability).Select(x=>x.Serial).SequenceEqual(original),"Town summon animated or changed roster");Conserved(owner,corpse,row,mana);
+        }
+    }
+    private static void CheckRaises()
+    {
+        var owner=RaiseOwner();var corpse=Body(owner);var field=Body(owner,6,1);var town=Town(owner,corpse);
+        try
+        {
+            field.MoveToWorld(field.Location,Map.Felucca);RejectedRaises(owner,corpse);field.MoveToWorld(new(owner.X+6,owner.Y+1,owner.Z),owner.Map);
+            Require(SkeletonPets.FindCorpse(owner,corpse.Serial)==field&&SkeletonPets.FindCorpse(owner,Serial.Zero)==field,"Warrior preferred/nearest fallback stopped at a town corpse");
+            Require(NecromancerCombat.ValidTarget(owner,CombatAbility.RaiseSkeletalMage,field.Serial,field.Location)
+                &&CorpseCastTargets.Acquire(owner,CombatAbility.RaiseSkeletalMage,field.Location)==null,"Mage field target or distinct selection mode changed");
+            town.GuardsDisabled=true;foreach(var ability in Raises){Require(NecromancerCastRegions.CorpseAllowed(owner,ability,corpse),"Disabled region blocked source15 corpse");}town.GuardsDisabled=false;
+        }
+        finally{town.Unregister();}
+        foreach(var ability in Raises)
+        {
+            Ready(owner);int mana=NecromancerEffects.ManaBalance256(owner);var row=CorpseSkillRules.Profiles.Find(corpse);int count=NecromancerSkeletons.For(owner,ability).Length;
+            Require(RaiseBegin(owner,ability,corpse),"Field summon start");town=Town(owner,corpse);
+            try{Require(!ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt),"Region change during summon windup ignored");Conserved(owner,corpse,row,mana);}
+            finally{town.Unregister();}
+            Require(NecromancerSkeletons.For(owner,ability).Length==count&&!field.SanctuaryConsumed,"Town release created/reacquired a summon");
+            Ready(owner);int cost=ability==CombatAbility.RaiseSkeleton?SkeletonPets.Mana(owner)*256:SkillMechanics.Values(owner,ability).Mana256;
+            Require(RaiseBegin(owner,ability,corpse)&&ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt)&&corpse.SanctuaryConsumed
+                &&NecromancerEffects.ManaBalance256(owner)==mana-cost&&NecromancerSkeletons.For(owner,ability).Length==count+1,"Positive field summon/payment failed");
+            var pet=NecromancerSkeletons.For(owner,ability).Single();pet.AIObject.AITimer.Stop();TimedEffects.PreventHealing(pet,TimedEffects.Now);
+            SkillHealth.SetBalance256(pet,SkillHealth.Maximum256(pet)*2/3+17);PersistentMinions.Suspend(pet);corpse.Delete();corpse=Body(owner);
+        }
+        field.Delete();SaveRaises(owner,corpse,0);
+    }
+    private static void SaveRaises(PlayerMobile owner,Corpse corpse,int generation)
+    {
+        Ready(owner);PersistentMinions.Suspend(owner);var warrior=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeleton).Single();var mage=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeletalMage).Single();
+        var state=new Saved(owner.Serial.Value,corpse.Serial.Value,CorpseSkillRules.Profiles.Find(corpse),owner.Location,owner.Map.MapID,NecromancerEffects.ManaBalance256(owner),generation);
+        File.WriteAllText(RaisedManifest,JsonSerializer.Serialize(new RaisedSaved(state,warrior.Serial.Value,mage.Serial.Value,SkillHealth.Balance256(warrior),SkillHealth.Balance256(mage))));owner.Internalize();
+    }
+    private static void ReloadRaises()
+    {
+        var saved=JsonSerializer.Deserialize<RaisedSaved>(File.ReadAllText(RaisedManifest));var state=saved.Corpse;var owner=(PlayerMobile)World.FindMobile((Serial)state.Owner);var corpse=(Corpse)World.FindItem((Serial)state.Corpse);
+        var warrior=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeleton).Single();var mage=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeletalMage).Single();
+        Require(warrior.Serial.Value==saved.Warrior&&mage.Serial.Value==saved.Mage&&warrior.Map==Map.Internal&&mage.Map==Map.Internal
+            &&SkillHealth.Balance256(warrior)==saved.WarriorLife&&SkillHealth.Balance256(mage)==saved.MageLife
+            &&corpse.Owner==null&&CorpseSkillRules.Profiles.Find(corpse)==state.Row&&NecromancerEffects.ManaBalance256(owner)==state.Mana,"Original summoned actors,wounds,corpse,seed or mana changed");
+        owner.MoveToWorld(state.Origin,Map.Maps[state.Map]);var town=Town(owner,corpse);try{RejectedRaises(owner,corpse);}finally{town.Unregister();}
+        foreach(var ability in Raises){Ready(owner);Require(RaiseBegin(owner,ability,corpse),"Field summon did not resume after town removal");ClassCombat.Stop(owner);}
+        SaveRaises(owner,corpse,state.Generation+1);
     }
 }

@@ -2,7 +2,6 @@
 using Server;
 using Server.Items;
 using Server.Mobiles;
-using Server.Spells;
 namespace Sanctuary;
 
 // CE and Poison Explosion share the pinned SelectProc1/cltst21 target path.
@@ -14,8 +13,7 @@ internal static class CorpseCastTargets
     internal static bool Usable(PlayerMobile owner,CombatAbility ability,Corpse corpse)
     {
         if(ability is not(CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion)
-            ||!NecromancerCastRegions.Allowed(owner,ability)||corpse is not{Deleted:false}
-            ||corpse.Map!=owner.Map||SpellHelper.IsTown(corpse.Location,owner)){return false;}
+            ||!NecromancerCastRegions.CorpseAllowed(owner,ability,corpse)){return false;}
         // Shared server start17 checks the corpse's room, independently of
         // the caster's InTown flag. Keep each release's own corpse supplier.
         return ability==CombatAbility.CorpseExplosion

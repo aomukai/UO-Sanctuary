@@ -45,7 +45,8 @@ public static class NecromancerSummons
         if(ability==CombatAbility.BloodGolem){try{NecromancerBloodBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.FireGolem){try{NecromancerFireBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         var corpse = mage ? World.FindItem(selected) as Corpse : null;
-        if (mage && !SkeletonPets.Usable(owner, corpse) || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
+        if (mage && (!NecromancerCastRegions.CorpseAllowed(owner,ability,corpse)||!SkeletonPets.Usable(owner, corpse))
+            || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
         NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemWorldBody(),CombatAbility.BloodGolem=>new BloodGolemWorldBody(),CombatAbility.FireGolem=>new FireGolemWorldBody(),_=>new MageWorldBody()};
         bool committed=false;
         try

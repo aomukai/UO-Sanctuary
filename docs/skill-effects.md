@@ -1,5 +1,7 @@
 # Skill effects
 
+**Raise corpse-location towns (2026-11-04 JST).** Protected-corpse refusals create no summon,birth animation or effect. Permitted warrior/Mage field births retain their identified placeholders and final birth/combat/status/audio requirements. Shared region validation adds no standalone asset or imagegen work. See [checkpoint](raise-corpse-town-checkpoint.md).
+
 **Explosion corpse-location towns (2026-11-04 JST).** Rejected protected-corpse casts emit no animation,cloud or explosion. Existing permitted-field CE/poison placeholders and final cast/travel/contact/status/audio requirements remain. The shared guard adds no standalone asset;no imagegen run. See [checkpoint](corpse-town-checkpoint.md).
 
 **Poison Explosion ground targeting (2026-11-04 JST).** Shared acquisition/client point routing adds no standalone effect. Existing eight-cloud cast/travel/contact/poison/status/audio placeholders and final requirements remain; failed acquisition/release creates none. No imagegen assets were created. See [checkpoint](poison-corpse-aim-checkpoint.md).

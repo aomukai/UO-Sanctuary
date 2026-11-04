@@ -57,9 +57,11 @@ public static class SkeletonPets
         && !CorpseSkillRules.Shattered(corpse) && !CorpseSkillRules.NoSelect(corpse) && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
         && corpse.Map == owner.Map && owner.InRange(corpse, Range) && Math.Abs(owner.Z - corpse.Z) < 16
         && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner, null) && !corpse.IsCriminalAction(owner);
+    private static bool RaiseUsable(PlayerMobile owner,Corpse corpse)
+        =>NecromancerCastRegions.CorpseAllowed(owner,CombatAbility.RaiseSkeleton,corpse)&&Usable(owner,corpse);
     public static Corpse FindCorpse(PlayerMobile owner, Serial preferred)
     {
-        if (World.FindItem(preferred) is Corpse hovered && Usable(owner, hovered))
+        if (World.FindItem(preferred) is Corpse hovered && RaiseUsable(owner, hovered))
         {
             return hovered;
         }
@@ -68,7 +70,7 @@ public static class SkeletonPets
         foreach (var corpse in owner.Map.GetItemsInRange<Corpse>(owner.Location, Range))
         {
             double next = owner.GetDistanceToSqrt(corpse);
-            if (Usable(owner, corpse) && (next < distance || next == distance && (best == null || corpse.Serial.Value < best.Serial.Value)))
+            if (RaiseUsable(owner, corpse) && (next < distance || next == distance && (best == null || corpse.Serial.Value < best.Serial.Value)))
             {
                 best = corpse;
                 distance = next;
@@ -89,8 +91,7 @@ public static class SkeletonPets
         return count;
     }
     public static bool CanRaise(PlayerMobile owner, Corpse corpse) => Rank(owner) > 0
-        && NecromancerCastRegions.Allowed(owner,CombatAbility.RaiseSkeleton)
-        && owner.Mana >= Mana(owner) && Usable(owner, corpse)
+        && owner.Mana >= Mana(owner) && RaiseUsable(owner, corpse)
         && owner.Map.CanSpawnMobile(corpse.X, corpse.Y, corpse.Z);
     public static bool Raise(PlayerMobile owner, Corpse corpse)
     {

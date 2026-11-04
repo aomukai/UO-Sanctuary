@@ -1,5 +1,7 @@
 # Skill icons
 
+**Raise corpse-location towns (2026-11-04 JST).** Existing warrior/Mage talent/right/quick placeholders and final-icon requirements remain;no new skill,button or binding is added. Effects/audio remain separately tracked. See [checkpoint](raise-corpse-town-checkpoint.md).
+
 **Explosion corpse-location towns (2026-11-04 JST).** No skill,button or binding was added. Existing CE/Poison Explosion talent/right/quick placeholder and final-icon requirements remain separate from effects/audio. See [checkpoint](corpse-town-checkpoint.md).
 
 **Poison Explosion ground targeting (2026-11-04 JST).** Existing talent/right/quick buttons and identified placeholders remain; no skill or binding/icon was added. Final PE icons stay separate from cloud effects/audio. See [checkpoint](poison-corpse-aim-checkpoint.md).
