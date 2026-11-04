@@ -13,12 +13,12 @@ internal static class NpcOpenWounds
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(NpcOpenWounds));
     private static readonly HashSet<Type> Unmapped=new();
-    internal static bool Blood(SkeletonGuardian actor)=>actor is NecromancerMinion{Kind:CombatAbility.BloodGolem};
-    internal static bool Potential(SkeletonGuardian actor)=>Blood(actor)||actor is DruidSpiritWolfBody;
-    internal static int Inherent(SkeletonGuardian actor)=>actor is DruidSpiritWolfBody?SpiritWolfUpgrades.OpenWounds(actor)
+    internal static bool Blood(BaseCreature actor)=>actor is NecromancerMinion{Kind:CombatAbility.BloodGolem};
+    internal static bool Potential(BaseCreature actor)=>Blood(actor)||actor is DruidSpiritWolfBody;
+    internal static int Inherent(BaseCreature actor)=>actor is DruidSpiritWolfBody?SpiritWolfUpgrades.OpenWounds(actor)
         :Blood(actor)&&actor.ControlMaster is PlayerMobile{Deleted:false} owner
         &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=10?100:0;
-    internal static int Chance(SkeletonGuardian actor)=>checked(Inherent(actor)+Math.Max(0,NpcEquipmentCombat.Bonus(actor,"openwounds")));
+    internal static int Chance(BaseCreature actor)=>checked(Inherent(actor)+Math.Max(0,NpcEquipmentCombat.EventBonus(actor,"openwounds")));
     private static bool Eligible(BaseCreature target)
     {
         if(target is not{Alive:true,Deleted:false}||target is BaseVendor){return false;}
@@ -28,7 +28,7 @@ internal static class NpcOpenWounds
         if(Unmapped.Add(target.GetType())){Log.Warning("NPC Open Wounds state receiver is unsupported: {Type}",target.GetType().Name);}
         return false;
     }
-    internal static bool Apply(SkeletonGuardian actor,BaseCreature target,DateTime at,bool ranged=false,Func<int,int> limited=null)
+    internal static bool Apply(BaseCreature actor,BaseCreature target,DateTime at,bool ranged=false,Func<int,int> limited=null)
     {
         int chance=Chance(actor);if(chance<=0){return false;}
         // Function15 draws even at100%, before state-factory eligibility.

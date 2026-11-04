@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original Revive event/contact reuse (2026-11-04 JST).** The [prepared original-body event/contact component](revive-event-checkpoint.md) adds no talent or hotkey. Revive keeps its existing identified icon/text placeholder and pending final icon. Item Open Wounds/Crushing/retaliation add no separate skill buttons; their missing feedback belongs in the effects ledger.
+
 **Defiler vital body (2026-11-04 JST).** Summon Defiler still needs talent-tree and right/quick-hotkey artwork. The prepared body supplies no icon;its two captured assigned-skill ranks do not create player-bindable skills or extra hotkeys. Effects/audio remain separate. See [checkpoint](defiler-body-checkpoint.md).
 
 **Demon incoming packets (2026-11-04 JST).** Incoming receiver integration adds no player skill or icon. Goatman/Tainted talent-tree and right/quick-hotkey artwork remain pending; Blood Boil still needs its own eventual talent/hotkey icon when its execution is implemented. Effects/audio stay separate. See [checkpoint](demon-incoming-checkpoint.md).

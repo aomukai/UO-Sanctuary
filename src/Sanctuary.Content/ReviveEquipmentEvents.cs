@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.IO;
+using System.Linq;
+using Server;
+using Server.Mobiles;
+namespace Sanctuary;
+
+// Explicit registered-event admission, separate from typed damage/defenses.
+// Incomplete raw projections and unconsumed registrations remain refusals.
+internal static class ReviveEquipmentEvents
+{
+    internal const string Profile="frozen-equipment-events-v1";
+    private static EquipmentStatValue[] Stats(FrozenEquipmentContext[] items,int level)
+    {
+        return items.SelectMany(s=>s.NumericProperties(level))
+            .GroupBy(s=>s.Packed).Select(g=>new EquipmentStatValue(g.Key,g.Aggregate(0,(sum,s)=>checked(sum+s.Value)))).OrderBy(s=>s.Packed).ToArray();
+    }
+    private static NpcCombatEvents Read(FrozenEquipmentContext[] items,int level)
+    {
+        var stats=Stats(items,level);
+        foreach(var pair in new[]{("thorns",78),("openwounds",135),("crush",136)})
+        {
+            int typed=items.Aggregate(0,(sum,item)=>checked(sum+item.Bonus(pair.Item1,level)));
+            if(typed!=EquipmentStatValues.Raw(stats,EquipmentStatKey.Pack(pair.Item2)))
+            {throw new NotSupportedException("Frozen event needs derived stat attachment: "+pair.Item1);}
+        }
+        return NpcCombatEvents.FromStats(stats);
+    }
+    private static FrozenEquipmentContext[] Items(ReviveOriginalState original)=>Array.ConvertAll(ReviveBeforeDeath.Equipment(ReviveBeforeDeath.Decode(original.BeforeDeathJson)),FrozenEquipmentEffects.Bind);
+    internal static ReviveNativeSetup Prepare(ReviveNativeSetup setup,ReviveOriginalState original)
+    {
+        var defenses=ReviveEquipmentDefenses.Prepare(setup,original);
+        _=Read(Items(original),defenses.CombatPlan.Level);
+        return defenses with{EquipmentEventProfile=Profile};
+    }
+    internal static void Validate(ReviveNativeState state)
+    {
+        if(state.Setup.EquipmentEventProfile==null){return;}
+        try
+        {
+            if(state.Setup.EquipmentEventProfile!=Profile||Prepare(state.Setup,state.Original)!=state.Setup)
+            {throw new InvalidDataException("Invalid frozen Revive combat-event profile");}
+            _=Read(Items(state.Original),(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level);
+        }
+        catch(Exception e)when(e is NotSupportedException or OverflowException)
+        {throw new InvalidDataException("Unavailable frozen Revive combat events",e);}
+    }
+    internal static bool Handles(BaseCreature actor)=>!World.Loading&&actor is{Deleted:false,ControlMaster:PlayerMobile owner}
+        &&ReviveNativeActivation.State(actor)is{Setup.EquipmentEventProfile:Profile} state&&state.Owner==owner.Serial.Value;
+    internal static NpcCombatEvents Registry(BaseCreature actor)
+    {
+        if(!Handles(actor)){throw new NotSupportedException("No admitted original Revive combat-event profile");}
+        var state=ReviveNativeActivation.State(actor);
+        return Read(ReviveEquipmentLife.Items(state),(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level);
+    }
+    internal static int? Bonus(BaseCreature actor,string code)
+    {
+        if(!Handles(actor)){return null;}
+        if(code is not("thorns" or "openwounds" or "crush"))
+        {throw new NotSupportedException("Unadmitted frozen Revive event stat: "+code);}
+        var state=ReviveNativeActivation.State(actor);
+        int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level;
+        return EquipmentStatValues.Raw(Stats(ReviveEquipmentLife.Items(state),level),EquipmentStatKey.Pack(code switch{"thorns"=>78,"openwounds"=>135,_=>136}));
+    }
+}

@@ -25,6 +25,10 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
         return rows.ToDictionary(r=>r.Source,StringComparer.Ordinal);
     });
     internal static MonsterReturnIdentity Identity(string source)=>Identities.Value.TryGetValue(source,out var row)?row:throw new NotSupportedException("Missing pinned return identity: "+source);
+    internal static MonsterReturnIdentity SourceIdentity(BaseCreature source)=>source is SkeletonGuardian guardian?Identity(guardian.SourceMonsterId)
+        :source is HydraBody hydra?Identity(hydra.SourceMonsterId)
+        :ReviveEquipmentEvents.Handles(source)&&ReviveNativeActivation.State(source)is{Setup.LifePlan:not null} original?Identity(original.Setup.LifePlan.Source)
+        :throw new NotSupportedException("This native source has no admitted NPC return identity");
     internal sealed class State
     {
         internal int LastHitClass,LastLifePercent,LastMode,Ai,Refreshes,RecoveryNotifications,Packets;
@@ -69,8 +73,7 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
     // Short-lived Hydra heads stay in their original facet when the owner
     // travels. Query their combat room, not the owner's new map.
     internal override bool RoomInTown()=>SpellHelper.IsTown(Target.Location,Source is HydraBody?Source:Owner);
-    internal override bool? AttackerTownRule()=>Source is SkeletonGuardian actor?Identity(actor.SourceMonsterId).Town
-        :Source is HydraBody hydra?Identity(hydra.SourceMonsterId).Town
+    internal override bool? AttackerTownRule()=>Source is BaseCreature creature?SourceIdentity(creature).Town
         :throw new NotSupportedException("This native return source has no NPC town rule");
     internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(Target);
     internal override bool Frozen()=>Target.Frozen||NamedControl.FrozenRemaining(Target)>0;

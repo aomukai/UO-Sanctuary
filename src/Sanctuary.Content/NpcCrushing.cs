@@ -7,9 +7,9 @@ namespace Sanctuary;
 // existing FP256 CB commitment, without a second damage or recovery event.
 internal static class NpcCrushing
 {
-    internal static bool Potential(SkeletonGuardian actor)=>actor is DruidGrizzlyBody;
-    internal static int Chance(SkeletonGuardian actor)=>Math.Clamp(checked(GrizzlyUpgrades.Crushing(actor)+Math.Max(0,NpcEquipmentCombat.Bonus(actor,"crush"))),0,100);
-    internal static int Apply(SkeletonGuardian actor,BaseCreature target,bool ranged=false,Func<int,int> limited=null)
+    internal static bool Potential(BaseCreature actor)=>actor is DruidGrizzlyBody;
+    internal static int Chance(BaseCreature actor)=>Math.Clamp(checked(GrizzlyUpgrades.Crushing(actor)+Math.Max(0,NpcEquipmentCombat.EventBonus(actor,"crush"))),0,100);
+    internal static int Apply(BaseCreature actor,BaseCreature target,bool ranged=false,Func<int,int> limited=null)
     {
         if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()){return 0;}
         int chance=Chance(actor);if(chance<=0){return 0;}

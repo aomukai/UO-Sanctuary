@@ -17,7 +17,7 @@ internal static class NpcSpectralHit
         var roll=SpectralHit.Roll(basis.Min,basis.Max,(low,high)=>checked(low+limited(checked(high-low+1))),limited);
         return new(actor.Serial.Value,owner.Serial.Value,roll,NamedElements.PoisonPierce(actor));
     }
-    internal static void After(SkeletonGuardian source,Mobile target,NpcSpectralPayload payload,DateTime at)
+    internal static void After(BaseCreature source,Mobile target,NpcSpectralPayload payload,DateTime at)
     {
         if(payload==null||target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0){return;}
         if(source.Serial.Value!=payload.Actor){throw new InvalidOperationException("Spectral Hit creator changed");}

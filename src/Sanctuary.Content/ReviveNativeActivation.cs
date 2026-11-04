@@ -13,7 +13,8 @@ namespace Sanctuary;
 // does not substitute for complete source passive/stat/event/AI composition.
 public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null,int? RegenerationRate=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentLifeProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentDefenseProfile=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentDefenseProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentEventProfile=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -64,7 +65,7 @@ public static class ReviveNativeActivation
         ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
         ReviveFacets.Validate(row);
-        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);
+        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);
     }
     internal static void Restore(ReviveNativeState[] rows)
     {

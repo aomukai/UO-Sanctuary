@@ -14,8 +14,11 @@ internal static class IronGolemContact
         if(target.IsParagon||target is EncounterCreature encounter&&encounter.Has(EliteModifier.LightningEnchanted))
         {throw new NotSupportedException("Recipient unique recovery events need an explicit live return consumer");}
     }
-    internal static NpcCombatEvents Events(BaseCreature target)
+    internal static NpcCombatEvents Events(BaseCreature target,bool requireFrozen=false)
     {
+        if(ReviveEquipmentEvents.Handles(target)){return ReviveEquipmentEvents.Registry(target);}
+        if(requireFrozen&&ReviveNativeActivation.State(target)is{Setup.EquipmentLifeProfile:not null})
+        {throw new NotSupportedException("Frozen recipient needs explicit registered-event admission");}
         if(NpcEquipmentCombat.Context(target) is{} item){return new(item);}
         if(target.Items.Any(i=>i.Layer is not(Layer.Invalid or Layer.Backpack or Layer.Hair or Layer.FacialHair or Layer.Mount)&&ClassGear.Converted(i)))
         {throw new NotSupportedException("Recipient converted equipment needs its NPC combat-event adapter");}
@@ -37,7 +40,7 @@ internal static class IronGolemContact
         internal readonly bool NativeRecovery=prepared.Rules.NativeRecovery;
         internal readonly int EntryHits=entryHits;internal int Loss;
     }
-    private sealed class Contact(SkeletonGuardian body,PlayerMobile owner,Func<int,bool> range,BaseCreature target,MonsterReturnMetadata metadata,Scope scope):MonsterContactServices
+    private sealed class Contact(BaseCreature body,PlayerMobile owner,Func<int,bool> range,BaseCreature target,MonsterReturnMetadata metadata,Scope scope):MonsterContactServices
     {
         internal override PreparedMonsterDamagePacket CapturedPacket()=>scope.Impact?.Packet;
         internal override bool InMeleeRange(int bonus)=>range(bonus);
@@ -45,11 +48,11 @@ internal static class IronGolemContact
         internal override bool Hostile()=>ClassCombat.IsHostile(owner,target);
         internal override bool DefenderHasRoom()=>target.Map==body.Map&&target.Map is{} map&&map!=Map.Internal;
         internal override bool DefenderInTown()=>SpellHelper.IsTown(target.Location,owner);
-        internal override bool AttackerAllowedInTown()=>NativeMonsterReturn.Identity(body.SourceMonsterId).Town;
+        internal override bool AttackerAllowedInTown()=>NativeMonsterReturn.SourceIdentity(body).Town;
         internal override bool DefenderKillable()=>metadata.Killable&&target.CanBeDamaged();
         internal override bool DefenderDead()=>target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0;
     }
-    private sealed class Damage(SkeletonGuardian source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Scope scope,DateTime at):PreparedMonsterDamageServices
+    private sealed class Damage(BaseCreature source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Scope scope,DateTime at):PreparedMonsterDamageServices
     {
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
@@ -73,7 +76,7 @@ internal static class IronGolemContact
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p);
         internal override void PresentOverlay(int overlay)
         {target.FixedEffect(0x37B9,10,12,0x481,0);} // Source overlay descriptor retained in packet; identified native placeholder.
-        internal override int BaseHitClass()=>NativeMonsterReturn.Identity(source.SourceMonsterId).HitClass;
+        internal override int BaseHitClass()=>NativeMonsterReturn.SourceIdentity(source).HitClass;
         internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p);
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("attackedinmelee",p);
         internal override bool AttackerInActiveMode()=>source is{Alive:true,Deleted:false}&&SkillHealth.Balance256(source)>0;
@@ -84,7 +87,7 @@ internal static class IronGolemContact
         internal override void FreePacket()
         {if(Freed){throw new InvalidOperationException("NPC allocated packet freed twice");}Freed=true;scope.Impact=null;NativeMonsterReturn.Session(target).Packets++;}
     }
-    internal static Rules Require(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,bool nativeRecovery=false)
+    internal static Rules Require(BaseCreature body,PlayerMobile owner,BaseCreature target,bool nativeRecovery=false)
     {
         // All capability checks here precede the actor's hit/block/damage RNG.
         if(body is IronGolemBody)
@@ -94,9 +97,13 @@ internal static class IronGolemContact
         }
         var metadata=NativeMonsterReturn.Metadata(target);NativeMonsterReturn.Session(target);
         var item=NpcEquipmentCombat.Context(body);
-        if(item==null&&body is not ISourceUnarmedNpc){throw new NotSupportedException("Missing ordinary NPC offensive context");}
+        if(item==null&&body is not ISourceUnarmedNpc&&!ReviveEquipmentEvents.Handles(body)){throw new NotSupportedException("Missing ordinary NPC offensive context");}
+        if(ReviveEquipmentEvents.Handles(body)&&(body.ControlMaster!=owner||owner is not{Alive:true,Deleted:false}))
+        {throw new NotSupportedException("Original Revive contact lost its living owner");}
+        _=NativeMonsterReturn.SourceIdentity(body);
+        if(ReviveEquipmentEvents.Handles(body)){_=ReviveEquipmentOffense.Capture(body,target);}
         var sourceEvents=NpcCombatEvents.ForSource(body);
-        var targetEvents=Events(target);
+        var targetEvents=Events(target,requireFrozen:true);
         if(nativeRecovery)
         {if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter");}}
         else{RequireRecoveryEvents(target);}
@@ -109,9 +116,11 @@ internal static class IronGolemContact
         {throw new NotSupportedException("Native recipient damage modifier/override needs an explicit ordered adapter");}
         return new(metadata,sourceEvents,targetEvents,nativeRecovery);
     }
-    internal static Prepared Prepare(SkeletonGuardian body,BaseCreature target,Rules rules,Func<int> result)
-        =>new(rules,NpcEquipmentImpact.Prepare(body,target,result()));
-    internal static MonsterContactResult Release(SkeletonGuardian body,PlayerMobile owner,BaseCreature target,Prepared prepared,Func<int,bool> range,DateTime at)
+    internal static Prepared Prepare(BaseCreature body,BaseCreature target,Rules rules,Func<int> result)
+        =>new(rules,body is SkeletonGuardian guardian?NpcEquipmentImpact.Prepare(guardian,target,result())
+            :ReviveEquipmentEvents.Handles(body)?ReviveEquipmentImpact.Prepare(body,target,result())
+            :throw new NotSupportedException("No admitted ordinary NPC allocator"));
+    internal static MonsterContactResult Release(BaseCreature body,PlayerMobile owner,BaseCreature target,Prepared prepared,Func<int,bool> range,DateTime at)
     {
         if(prepared==null||prepared.Consumed||prepared.Impact.Actor!=body.Serial.Value||prepared.Impact.Target!=target.Serial.Value)
         {throw new InvalidOperationException("Ordinary NPC contact is missing,changed or already consumed");}

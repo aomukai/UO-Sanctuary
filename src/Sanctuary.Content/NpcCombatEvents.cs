@@ -26,16 +26,21 @@ internal sealed class NpcCombatEvents
     private readonly NpcItemEventStat[] Active;
     private NpcCombatEvents(){Active=[];}
     internal static NpcCombatEvents Empty{get;}=new();
-    internal static NpcCombatEvents ForSource(SkeletonGuardian actor)
+    internal static NpcCombatEvents ForSource(BaseCreature actor)
     {
+        if(ReviveEquipmentEvents.Handles(actor)){return ReviveEquipmentEvents.Registry(actor);}
+        if(actor is not SkeletonGuardian){throw new NotSupportedException("No admitted NPC source combat-event adapter");}
         var item=NpcEquipmentCombat.Context(actor);bool wounds=NpcOpenWounds.Potential(actor),crushing=NpcCrushing.Potential(actor);
         return item!=null||wounds||crushing?new(item,wounds,NpcOpenWounds.Blood(actor),crushing):Empty;
     }
     internal NpcCombatEvents(ItemStatContext item):this(item,false,false,false){}
-    private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood,bool inherentCrushing)
+    private static EquipmentStatValue[] Stats(ItemStatContext? item)
+    {item?.RequireOrdinaryNpcDrainInputs();return item?.ActiveNumericProperties()??[];}
+    private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood,bool inherentCrushing):this(Stats(item),inherentWounds,blood,inherentCrushing){}
+    internal static NpcCombatEvents FromStats(EquipmentStatValue[] stats)=>new(stats,false,false,false);
+    private NpcCombatEvents(EquipmentStatValue[] stats,bool inherentWounds,bool blood,bool inherentCrushing)
     {
-        item?.RequireOrdinaryNpcDrainInputs();
-        var stats=item?.ActiveNumericProperties()??[];var active=new List<NpcItemEventStat>();
+        var active=new List<NpcItemEventStat>();
         foreach(var value in stats.Where(v=>v.Value!=0))
         {
             // These are conditional hit paths outside ItemStatCost's registry.
@@ -60,7 +65,7 @@ internal sealed class NpcCombatEvents
             {throw new InvalidDataException("Blood proc requires pinned skill-on-hit registration");}
             active.Add(tap); // Fixed approved slot; original item writer11 remains unsupported.
         }
-        Active=active.ToArray();
+        Active=active.DistinctBy(r=>r.Stat).ToArray();
     }
     private static bool CrushingRule(NpcItemEventStat rule)=>rule.Stat==136&&rule.Events.Length==2
         &&rule.Events[0] is{Event:"domeleedamage",Function:16}&&rule.Events[1] is{Event:"domissiledamage",Function:16};
@@ -87,7 +92,7 @@ internal sealed class NpcCombatEvents
         // synthetic ordinary-monster packet is invented for a cold-only hit.
         Dispatch(phase,null,source,target,at,limited);
     }
-    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null)
+    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,BaseCreature source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null)
     {
         foreach(var rule in Active)foreach(var registration in rule.Events)
         {
@@ -106,7 +111,8 @@ internal sealed class NpcCombatEvents
             if(rule.Stat==198&&registration.Function==20)
             {
                 if(source==null||target==null||at==null){throw new InvalidOperationException("NPC skill proc lacks its real damage-event context");}
-                NpcHitSkills.BloodLifeTap(source,target,packet,at.Value);continue;
+                if(source is not SkeletonGuardian guardian){throw new NotSupportedException("Inherent Blood proc requires its original summon body");}
+                NpcHitSkills.BloodLifeTap(guardian,target,packet,at.Value);continue;
             }
             throw new NotSupportedException("Unconsumed NPC registered event: "+rule.Name+"/"+phase);
         }

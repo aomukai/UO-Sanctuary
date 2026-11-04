@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using Server;
+using Server.Mobiles;
 namespace Sanctuary;
 
 // Stat78 only. This joins the existing return bridge; it does not certify
@@ -18,8 +19,8 @@ internal static class NpcEquipmentRetaliation
     }
     internal static int Flat(Mobile target)
     {
-        if(target is not SkeletonGuardian actor){return 0;}
+        if(target is not BaseCreature actor){return 0;}
         int inherent=actor is IronGolemBody{Prepared:{IntrinsicThornsReplaced:false}} iron?IronAmount(iron.BirthValues):0;
-        return checked(inherent+NpcEquipmentCombat.Bonus(actor,"thorns")+SkeletonPetUpgrades.FlatDamage(actor));
+        return checked(inherent+NpcEquipmentCombat.EventBonus(actor,"thorns")+SkeletonPetUpgrades.FlatDamage(actor));
     }
 }
