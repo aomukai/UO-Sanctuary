@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original Revive ownership graph (2026-11-04 JST).** The frozen item graph and native resource-recovery gates add no talent or hotkey. Revive retains its identified icon/text placeholder and pending final talent/right/quick artwork. See [checkpoint](revive-graph-checkpoint.md).
+
 **Original Revive Kind1 incoming (2026-11-04 JST).** The [incoming HP adapter](revive-incoming-checkpoint.md) adds no talent or hotkey. Revive retains its existing identified talent/right/quick icon or text placeholders and pending final icon; no separate receiver-state button is introduced.
 
 **Original Revive event/contact reuse (2026-11-04 JST).** The [prepared original-body event/contact component](revive-event-checkpoint.md) adds no talent or hotkey. Revive keeps its existing identified icon/text placeholder and pending final icon. Item Open Wounds/Crushing/retaliation add no separate skill buttons; their missing feedback belongs in the effects ledger.

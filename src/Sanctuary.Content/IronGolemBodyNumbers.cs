@@ -32,20 +32,9 @@ internal static class IronGolemBodyRecipes
         {effective.Add(row.SourceKey,SkillMechanics.Rank(owner,row.Ability));hard.Add(row.SourceKey,ClassCreation.Profiles.GetRank(owner.Serial,row.TalentId));}
         foreach(string code in new[]{"cold","fire","light","poison","damage","magic"})
         {if(ClassGear.Bonus(owner,"pierce-immunity-"+code)!=0){throw new NotSupportedException("Iron Golem modern sunder delivery is not integrated: "+code);}}
-        var original=new EquipmentStatUnit(item,4);original.Stats=new(){Flags=EquipmentStatNode.Extended,OwnerKind=4,Owner=original};
-        var values=new EquipmentStatValues(_=>IronGolemItems.Metadata(ClassGear.State(item).BaseCode).Body1,_=>null,_=>null,(_,_,_,_,_)=>{});
-        var b=ClassGear.Base(item);bool weapon=ClassGear.Slot(item)==GearSlot.Weapon;
-        var basis=new EquipmentPropertyBase(b.MinDamage,b.MaxDamage,b.TwoHandMin,b.TwoHandMax,b.MissileMin,b.MissileMax,b.MinDefense,b.MaxDefense);
-        original.Stats.BaseValues=Fields((21,basis.Minimum),(22,basis.Maximum),(23,basis.SecondaryMinimum),(24,basis.SecondaryMaximum),
-            (159,basis.ThrowMinimum),(160,basis.ThrowMaximum),(31,weapon?0:ClassGear.State(item).Defense));
-        var omissions=EquipmentRawProperties.Project(item,original,values,basis,weapon,!weapon,false);
-        if(omissions.Length!=0){throw new NotSupportedException("Unrepresented Iron Golem item properties: "+string.Join(",",omissions.Select(x=>x.Code+": "+x.Reason)));}
-        var properties=original.Stats.Last;
-        if(properties is{IsExtended:true}||properties?.Previous!=null||properties?.Last!=null)
-        {throw new NotSupportedException("Iron Golem needs a single numeric item property list");}
+        var numeric=NpcItemStatCapture.Capture(item);
         var recipe=new IronGolemBodyRecipe(owner.Serial.Value,item.Serial.Value,ClassGear.State(item).BaseCode,ClassStats.Level(owner),effective["IronGolem"],
-            effective,hard,NecromancerSummons.Resistance(owner),(EquipmentStatValue[])original.Stats.BaseValues.Clone(),
-            properties==null?[]:(EquipmentStatValue[])properties.BaseValues.Clone());
+            effective,hard,NecromancerSummons.Resistance(owner),numeric.ItemBase,numeric.Properties);
         Validate(recipe);return recipe;
     }
     internal static void Validate(IronGolemBodyRecipe recipe)

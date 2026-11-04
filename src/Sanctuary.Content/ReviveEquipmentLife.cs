@@ -49,6 +49,7 @@ internal static class ReviveEquipmentLife
     internal static int Maximum256(ReviveNativeState state,ReviveLifePlan source,int battleOrdersPercent)
     {
         if(state.Setup.EquipmentLifeProfile is not(Profile or ReviveEquipmentResources.Profile or ReviveEquipmentCombat.Profile)){throw new NotSupportedException("No equipped Revive life profile");}
+        if(state.Setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile){return ReviveEquipmentGraph.Maximum256(state,0,battleOrdersPercent);}
         int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level;
         int flat=0,coefficient=0,percent=0;
         foreach(var item in Items(state))
@@ -60,6 +61,6 @@ internal static class ReviveEquipmentLife
         // and Battle Orders share the existing source percentage pool.
         return NpcResourceValues.Calculate(new(1,0,level,source.Maximum256,flat,coefficient,percent,battleOrdersPercent));
     }
-    internal static void Forget(uint actor)=>Cache.Remove(actor);
-    internal static void Clear()=>Cache.Clear();
+    internal static void Forget(uint actor){Cache.Remove(actor);ReviveEquipmentGraph.Forget(actor);}
+    internal static void Clear(){Cache.Clear();ReviveEquipmentGraph.Clear();}
 }

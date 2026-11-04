@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "source": "Direct user observations in this chat, 2026-11-04 JST",
+  "observed": {
+    "difficulty": "Hell",
+    "summonDefiler": {
+      "effectiveRank": 25,
+      "hardRank": 20,
+      "maximumBoundSouls": 5,
+      "damageSharedPercent": 55,
+      "life": 5490,
+      "defense": 605,
+      "manaCost": 47
+    },
+    "demonicMastery": {
+      "effectiveRank": 25,
+      "hardRank": 20,
+      "maximumDemons": 3,
+      "reportedRatingLabel": "attack speed rating",
+      "reportedRatingBonus": 625,
+      "attackSpeedPercent": 25,
+      "damagePercent": 250,
+      "runWalkPercent": 34
+    },
+    "behavior": "Defilers do not attack; they cast the link and otherwise follow the owner."
+  },
+  "verbatim": [
+    "defilers 25 (base 20), max bound souls 5, damage shared 55%, life 5490, defence 605, mana cost 47; demonic mastery 25 (base 20), max demons 3, attack speed rating +625, attack speed +25%, damage +250%, run/walk 34%. this is in hell difficulty.",
+    "defilers don't attack, they cast the link and otherwise follow you around"
+  ],
+  "interpretation": [
+    "Damage shared is a link tooltip reading, not a reported ordinary attack damage value.",
+    "The rating label is preserved verbatim; do not silently reinterpret it as a separate attack-speed stat.",
+    "No ordinary-attack tooltip recheck is needed. The observed support-only path should be prepared independently from the unresolved raw damagepercent formula.",
+    "Blood Oath rank, character level, exact link targeting/cadence and complete current AI dispatch remain unmeasured; do not infer them from the former character observation.",
+    "This is reference evidence, not a native executable or full skill acceptance certificate."
+  ]
+}

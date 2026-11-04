@@ -1,0 +1,27 @@
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -33,6 +33,7 @@
+     public static Func<PlayerMobile, int> LightBonus { get; set; }
+     public static Func<Mobile, bool> CanRegenerateHits { get; set; }
+     public static Func<Mobile, bool> CanRegenerateMana { get; set; }
++    public static Func<Mobile, bool> CanRegenerateStamina { get; set; }
+     public static Func<BaseCreature,int,int?> StaminaMaximum { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1416,8 +1416,10 @@
+ 
+         public override bool CanRegenHits => !IsDeadPet && !Summoned && base.CanRegenHits
+             && ClassGearHooks.CanRegenerateHits?.Invoke(this) != false;
+-        public override bool CanRegenStam => !IsParagon && !IsDeadPet && base.CanRegenStam;
+-        public override bool CanRegenMana => !IsDeadPet && base.CanRegenMana;
++        public override bool CanRegenStam => !IsParagon && !IsDeadPet && base.CanRegenStam
++            && ClassGearHooks.CanRegenerateStamina?.Invoke(this) != false;
++        public override bool CanRegenMana => !IsDeadPet && base.CanRegenMana
++            && ClassGearHooks.CanRegenerateMana?.Invoke(this) != false;
+ 
+         public override bool IsDeadBondedPet => IsDeadPet;
+ 

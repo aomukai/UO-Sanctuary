@@ -13,6 +13,7 @@ internal static class NpcEquipmentCombat
     internal static int Bonus(BaseCreature actor,string code)=>Context(actor)?.Bonus(code)??0;
     internal static int EventBonus(BaseCreature actor,string code)=>ReviveEquipmentEvents.Bonus(actor,code)??Bonus(actor,code);
     internal static int DefensiveBonus(BaseCreature actor,string code)=>ReviveEquipmentDefenses.Bonus(actor,code)??Bonus(actor,code);
+    internal static int DefensePercent(BaseCreature actor)=>ReviveEquipmentGraph.DefensePercent(actor);
     internal static int Defense(BaseCreature actor)=>ReviveEquipmentCombat.Defense(actor)??(Context(actor) is{} item
         ?checked(item.Defense+item.Bonus("dex")/4):0);
     internal static int AttackFlat(BaseCreature actor)=>ReviveEquipmentCombat.AttackFlat(actor)??(Context(actor) is{} item

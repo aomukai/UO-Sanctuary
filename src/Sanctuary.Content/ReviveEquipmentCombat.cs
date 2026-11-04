@@ -92,6 +92,7 @@ internal static class ReviveEquipmentCombat
     internal static int? AttackPercent(BaseCreature actor)=>State(actor)is{} state?checked(Bonus(state,"att%")+ExtraStrongAttackPercent(actor)):null;
     internal static int? Defense(BaseCreature actor)
     {
+        if(ReviveEquipmentGraph.Defense(actor)is{} derived){return derived;}
         if(State(actor)is not{} state){return null;}
         int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level,armor=0;
         foreach(var item in ReviveEquipmentLife.Items(state)){armor=checked(armor+item.At(level).Defense);}

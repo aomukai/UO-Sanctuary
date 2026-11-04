@@ -57,6 +57,7 @@ internal static class ReviveEquipmentResources
     {
         if(World.Loading||resource is not(1 or 2)||mobile is not BaseCreature actor
             ||ReviveNativeActivation.State(actor)is not{Setup.EquipmentLifeProfile:Profile or ReviveEquipmentCombat.Profile} state){return null;}
+        if(state.Setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile){return ReviveEquipmentGraph.Maximum256(state,resource);}
         var bases=ReviveEquipmentLife.ResourceBases(state);
         if(bases is not{Issue:null,Mana256:not null,Stamina256:not null}){throw new NotSupportedException("Missing opted-in Revive resource bases");}
         int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level,flat=0,coefficient=0,percent=0;

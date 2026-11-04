@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Server;
 namespace Sanctuary;
 
@@ -12,7 +13,8 @@ internal sealed record FrozenCombatLevel(int Level,MissileSourceStats Elements,M
     FrozenResourceInput Life,FrozenResourceInput Mana,FrozenResourceInput Stamina,
     int OneMinimum,int OneMaximum,int TwoMinimum,int TwoMaximum);
 internal sealed record FrozenCombatSnapshot(int Version,FrozenCombatBase Basis,FrozenCombatLevel[] Levels,string Issue=null,
-    EquipmentStatValue[] Numeric=null,string NumericIssue=null);
+    EquipmentStatValue[] Numeric=null,string NumericIssue=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] FrozenItemGraph Graph=null);
 
 // Capture source suppliers while the actual item still exists. Nothing here
 // creates an item, moves loot, rolls acquisition or dispatches a combat event.
@@ -28,8 +30,13 @@ internal static class FrozenEquipmentCombat
             var definition=ClassGear.Base(item);var slot=ClassGear.Slot(item);
             var basis=new FrozenCombatBase(slot,definition.Type,slot==GearSlot.Weapon&&!ClassGear.Broken(item),
                 definition.TwoHanded,definition.OneOrTwoHanded,definition.StrengthBonus,definition.DexterityBonus);
-            EquipmentStatValue[] numeric=[];string numericIssue=null;
-            try{numeric=first.ActiveNumericProperties();}
+            EquipmentStatValue[] numeric=[];string numericIssue=null;FrozenItemGraph graph=null;
+            try
+            {
+                numeric=first.ActiveNumericProperties();
+                if(ClassGear.State(item)is{Identified:true}&&!ClassGear.Broken(item))
+                {var captured=first.NumericGraph();graph=new(0,captured.Body,captured.ItemBase);}
+            }
             catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException)
             {numericIssue="Frozen NPC numeric projection unavailable: "+e.Message;}
             var levels=Enumerable.Range(1,99).Select(level=>
@@ -41,7 +48,7 @@ internal static class FrozenEquipmentCombat
                 return new FrozenCombatLevel(level,context.Elements(),context.Poison(),Resource("hp",216),Resource("mana",217),Resource("stam",242),
                     one.Min,one.Max,two.Min,two.Max);
             }).ToArray();
-            var result=new FrozenCombatSnapshot(0,basis,levels,Numeric:numeric,NumericIssue:numericIssue);Validate(result);return result;
+            var result=new FrozenCombatSnapshot(0,basis,levels,Numeric:numeric,NumericIssue:numericIssue,Graph:graph);Validate(result);return result;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException)
         {return new(0,null,[],"Frozen NPC combat suppliers unavailable: "+e.Message);}
@@ -51,7 +58,7 @@ internal static class FrozenEquipmentCombat
         if(saved==null||saved.Version!=0||saved.Levels==null){throw new InvalidDataException("Invalid frozen combat supplier version/payload");}
         if(saved.Issue!=null)
         {
-            if(string.IsNullOrWhiteSpace(saved.Issue)||saved.Basis!=null||saved.Levels.Length!=0||saved.Numeric!=null||saved.NumericIssue!=null)
+            if(string.IsNullOrWhiteSpace(saved.Issue)||saved.Basis!=null||saved.Levels.Length!=0||saved.Numeric!=null||saved.NumericIssue!=null||saved.Graph!=null)
             {throw new InvalidDataException("Unsupported frozen combat contains invented suppliers");}
             return;
         }
@@ -60,6 +67,14 @@ internal static class FrozenEquipmentCombat
             ||saved.Numeric==null||saved.Numeric.Select(s=>s.Packed).Distinct().Count()!=saved.Numeric.Length||saved.Levels.Length!=99
             ||saved.NumericIssue!=null&&(string.IsNullOrWhiteSpace(saved.NumericIssue)||saved.Numeric.Length!=0))
         {throw new InvalidDataException("Invalid frozen combat base or levels");}
+        if(saved.Graph is{} graph)
+        {
+            if(saved.NumericIssue!=null||graph.Version!=0||graph.Body is <0 or >12||graph.ItemBase==null
+                ||!graph.ItemBase.Select(s=>s.Packed).SequenceEqual(graph.ItemBase.Select(s=>s.Packed).Distinct().OrderBy(s=>s)))
+            {throw new InvalidDataException("Invalid frozen item base graph");}
+            foreach(var stat in graph.ItemBase)
+            {if(EquipmentStatValues.Definition(stat.Stat)==null){throw new InvalidDataException("Unknown frozen item base stat: "+stat.Stat);}}
+        }
         foreach(var stat in saved.Numeric)
         {if(EquipmentStatValues.Definition(stat.Stat)==null){throw new InvalidDataException("Unknown frozen numeric stat: "+stat.Stat);}}
         for(int i=0;i<saved.Levels.Length;i++)

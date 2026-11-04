@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original Revive ownership graph (2026-11-04 JST).** The frozen item graph and native resource-recovery gates add no visual effect or audio. Revive keeps its existing identified summon/contact/return placeholders and pending final artwork. See [checkpoint](revive-graph-checkpoint.md).
+
 **Original Revive Kind1 incoming (2026-11-04 JST).** The [incoming HP adapter](revive-incoming-checkpoint.md) shares the existing hit/retaliation feedback placeholders. It adds no effect ID or standalone effect. Revive’s pending summon/contact/return feedback and audio remain in the existing shared asset work; the mechanical HP/credit changes do not require artwork to function.
 
 **Original Revive event/contact reuse (2026-11-04 JST).** The [prepared original-body contact component](revive-event-checkpoint.md) reuses existing Open Wounds/bleed cues, Crushing Blow overlay147 placeholder (`0x376A`, hue `0x21`), packet/contact overlay `0x37B9`/hue `0x481` and shared retaliation flash `0x374A`/hue `0x481`. Final application/contact/status/expiry feedback and audio remain pending in the shared wound/Crushing/return asset work; no new effect is created here. Native swing/action integration and current subscription chronology remain separate mechanical gates. Talent/hotkey icons remain in the icon ledger.

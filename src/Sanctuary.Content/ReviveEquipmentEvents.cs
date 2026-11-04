@@ -16,9 +16,9 @@ internal static class ReviveEquipmentEvents
         return items.SelectMany(s=>s.NumericProperties(level))
             .GroupBy(s=>s.Packed).Select(g=>new EquipmentStatValue(g.Key,g.Aggregate(0,(sum,s)=>checked(sum+s.Value)))).OrderBy(s=>s.Packed).ToArray();
     }
-    private static NpcCombatEvents Read(FrozenEquipmentContext[] items,int level)
+    private static NpcCombatEvents Read(FrozenEquipmentContext[] items,int level,EquipmentStatValue[] projected=null)
     {
-        var stats=Stats(items,level);
+        var stats=projected??Stats(items,level);
         foreach(var pair in new[]{("thorns",78),("openwounds",135),("crush",136)})
         {
             int typed=items.Aggregate(0,(sum,item)=>checked(sum+item.Bonus(pair.Item1,level)));
@@ -31,7 +31,7 @@ internal static class ReviveEquipmentEvents
     internal static ReviveNativeSetup Prepare(ReviveNativeSetup setup,ReviveOriginalState original)
     {
         var defenses=ReviveEquipmentDefenses.Prepare(setup,original);
-        _=Read(Items(original),defenses.CombatPlan.Level);
+        _=Read(Items(original),defenses.CombatPlan.Level,setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile?ReviveEquipmentGraph.Project(defenses,original).Stats:null);
         return defenses with{EquipmentEventProfile=Profile};
     }
     internal static void Validate(ReviveNativeState state)
@@ -41,7 +41,7 @@ internal static class ReviveEquipmentEvents
         {
             if(state.Setup.EquipmentEventProfile!=Profile||Prepare(state.Setup,state.Original)!=state.Setup)
             {throw new InvalidDataException("Invalid frozen Revive combat-event profile");}
-            _=Read(Items(state.Original),(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level);
+            _=Read(Items(state.Original),(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level,state.Setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile?ReviveEquipmentGraph.Project(state.Setup with{LifePlan=state.FacetPlan?.Life??state.Setup.LifePlan,CombatPlan=state.FacetPlan?.Combat??state.Setup.CombatPlan},state.Original).Stats:null);
         }
         catch(Exception e)when(e is NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unavailable frozen Revive combat events",e);}
@@ -52,7 +52,7 @@ internal static class ReviveEquipmentEvents
     {
         if(!Handles(actor)){throw new NotSupportedException("No admitted original Revive combat-event profile");}
         var state=ReviveNativeActivation.State(actor);
-        return Read(ReviveEquipmentLife.Items(state),(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level);
+        return Read(ReviveEquipmentLife.Items(state),(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level,state.Setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile?ReviveEquipmentGraph.Current(state).Stats:null);
     }
     internal static int? Bonus(BaseCreature actor,string code)
     {
@@ -61,6 +61,7 @@ internal static class ReviveEquipmentEvents
         {throw new NotSupportedException("Unadmitted frozen Revive event stat: "+code);}
         var state=ReviveNativeActivation.State(actor);
         int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level;
-        return EquipmentStatValues.Raw(Stats(ReviveEquipmentLife.Items(state),level),EquipmentStatKey.Pack(code switch{"thorns"=>78,"openwounds"=>135,_=>136}));
+        int stat=code switch{"thorns"=>78,"openwounds"=>135,_=>136};
+        return state.Setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile?ReviveEquipmentGraph.Current(state).Read(stat):EquipmentStatValues.Raw(Stats(ReviveEquipmentLife.Items(state),level),EquipmentStatKey.Pack(stat));
     }
 }

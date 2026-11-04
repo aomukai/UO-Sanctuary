@@ -15,7 +15,8 @@ public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Man
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentLifeProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentDefenseProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentEventProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentIncomingProfile=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentIncomingProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentGraphProfile=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -38,7 +39,11 @@ public static class ReviveNativeActivation
     public static void Configure()
     {
         Profiles=new();PersistentMinions.RegisterBehavior(Behavior);
+        var mana=ClassGearHooks.CanRegenerateMana;var stamina=ClassGearHooks.CanRegenerateStamina;
+        ClassGearHooks.CanRegenerateMana=actor=>NativeRecovery(actor)&&mana?.Invoke(actor)!=false;
+        ClassGearHooks.CanRegenerateStamina=actor=>NativeRecovery(actor)&&stamina?.Invoke(actor)!=false;
     }
+    private static bool NativeRecovery(Mobile actor)=>actor is not BaseCreature creature||State(creature)==null||CanAct(creature);
     public static void Initialize()
     {
         var allowed=ClassCombatHooks.TargetAllowed;
@@ -66,7 +71,7 @@ public static class ReviveNativeActivation
         ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
         ReviveFacets.Validate(row);
-        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);ReviveEquipmentIncoming.Validate(row);
+        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);ReviveEquipmentIncoming.Validate(row);ReviveEquipmentGraph.Validate(row);
     }
     internal static void Restore(ReviveNativeState[] rows)
     {
