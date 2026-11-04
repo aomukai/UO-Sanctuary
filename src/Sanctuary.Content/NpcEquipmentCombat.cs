@@ -11,9 +11,9 @@ internal static class NpcEquipmentCombat
         &&actor.ControlMaster?.Serial.Value==binding.Owner
         ?IronGolemItems.Equipment(actor,CreatureProfiles.Level(actor)):null;
     internal static int Bonus(BaseCreature actor,string code)=>Context(actor)?.Bonus(code)??0;
-    internal static int Defense(BaseCreature actor)=>Context(actor) is{} item
-        ?checked(item.Defense+item.Bonus("dex")/4):0;
-    internal static int AttackFlat(BaseCreature actor)=>Context(actor) is{} item
-        ?checked(item.Bonus("att")+5*item.Bonus("dex")):0;
-    internal static int AttackPercent(BaseCreature actor)=>Bonus(actor,"att%");
+    internal static int Defense(BaseCreature actor)=>ReviveEquipmentCombat.Defense(actor)??(Context(actor) is{} item
+        ?checked(item.Defense+item.Bonus("dex")/4):0);
+    internal static int AttackFlat(BaseCreature actor)=>ReviveEquipmentCombat.AttackFlat(actor)??(Context(actor) is{} item
+        ?checked(item.Bonus("att")+5*item.Bonus("dex")):0);
+    internal static int AttackPercent(BaseCreature actor)=>ReviveEquipmentCombat.AttackPercent(actor)??Bonus(actor,"att%");
 }

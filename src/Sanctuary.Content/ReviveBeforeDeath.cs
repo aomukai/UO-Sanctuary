@@ -14,7 +14,8 @@ public sealed record ReviveBeforeDeathState(int Version,DateTime CapturedAtUtc,R
     int Mana,int MaximumMana,int Stamina,int MaximumStamina,int Strength,int Dexterity,int Intelligence,
     bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string EquipmentJson,string AbilityClocksJson,
     ReviveAiStatus? AiStatus=null,string EligibilityIssue=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] ReviveResourceBases ResourceBases=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] ReviveResourceBases ResourceBases=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] ReviveAttackDefenseBases AttackDefenseBases=null);
 
 // Capture at accepted BaseCreature.OnBeforeDeath, before Mobile.Kill clears
 // resources/statuses and moves equipped items. Damage may already have
@@ -48,7 +49,7 @@ internal static class ReviveBeforeDeath
         var status=ReviveCasts.NativeStatus(actor,out string eligibilityIssue);
         var state=new ReviveBeforeDeathState(0,DateTime.UtcNow,ReviveCreatureSnapshots.Capture(actor,source),actor.Hits,actor.HitsMax,
             actor.Mana,actor.ManaMax,actor.Stam,actor.StamMax,actor.Str,actor.Dex,actor.Int,actor.Frozen,actor.CantWalk,actor.Hidden,actor.Blessed,
-            JsonSerializer.Serialize(equipment),JsonSerializer.Serialize(clocks),status,eligibilityIssue,ReviveEquipmentResources.Capture(actor,equipment));
+            JsonSerializer.Serialize(equipment),JsonSerializer.Serialize(clocks),status,eligibilityIssue,ReviveEquipmentResources.Capture(actor,equipment),ReviveEquipmentCombat.Capture(actor,equipment));
         string json=JsonSerializer.Serialize(state);Validate(json,actor.GetType().FullName);Pending[actor.Serial.Value]=(json,null);
     }
     internal static (string Json,string Issue) Take(BaseCreature actor)=>actor!=null&&Pending.Remove(actor.Serial.Value,out var pending)?pending:(null,null);
@@ -75,6 +76,7 @@ internal static class ReviveBeforeDeath
     {
         var state=Decode(json);
         ReviveEquipmentResources.ValidateBases(state.ResourceBases);
+        ReviveEquipmentCombat.ValidateBases(state.AttackDefenseBases,state.Creature);
         if(state.Version!=0||state.CapturedAtUtc.Kind!=DateTimeKind.Utc||state.CapturedAtUtc==default||state.Creature==null||state.Creature.RuntimeType!=runtimeType
             ||state.MaximumHits<1||state.Hits<0||state.Hits>state.MaximumHits||state.Mana<0||state.Mana>state.MaximumMana||state.Stamina<0||state.Stamina>state.MaximumStamina)
         {throw new InvalidDataException("Invalid before-death identity/resources");}
