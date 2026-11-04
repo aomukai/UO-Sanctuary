@@ -15,7 +15,10 @@ public sealed record SummonEquipChoice(int Slot,string Code,int Quality);
 public sealed record SummonEquipRow(int Rank,SummonEquipChoice[] Choices);
 public sealed record SummonEquipmentRequest(int Slot,string Code,int Quality,int ItemLevel,
     bool NoSockets=true,bool NoEthereal=true,bool NoSell=true,bool RestoreDurability=true);
-public sealed record SummonAffixCatalogue(string ReferenceVersion,SummonAffix[] Affixes,SummonAffixBase[] Bases,GearItemType[] Types,SummonEquipRow[] EquipmentRows);
+public sealed record SummonRareName(int Row,bool Prefix,string Name,int Version,string[] Include,string[] Exclude);
+public sealed record SummonRareBase(string Code,bool Stackable,bool Throwable);
+public sealed record SummonAffixCatalogue(string ReferenceVersion,SummonAffix[] Affixes,SummonAffixBase[] Bases,GearItemType[] Types,SummonEquipRow[] EquipmentRows,
+    SummonRareName[] RareNames=null,SummonRareBase[] RareBases=null);
 
 // Source selection component, not a complete item generator. Source row IDs are
 // references into the pinned extraction, never claims about modern binary IDs.
@@ -27,6 +30,7 @@ public static class ValkyrieAffixes
     private static Dictionary<string,SummonAffixBase> _bases;
     private static Dictionary<string,GearItemType> _types;
     private static SummonEquipRow[] _equipment;
+    private static SummonAffixPool _pool;
     public static void Configure()
     {
         var options=new JsonSerializerOptions{PropertyNameCaseInsensitive=true};options.Converters.Add(new JsonStringEnumConverter());
@@ -36,6 +40,7 @@ public static class ValkyrieAffixes
         _affixes=catalog.Affixes;_byId=_affixes.ToDictionary(x=>x.Definition.Id,StringComparer.Ordinal);
         _bases=catalog.Bases.ToDictionary(x=>x.Code,StringComparer.Ordinal);_types=catalog.Types.ToDictionary(x=>x.Code,StringComparer.Ordinal);
         _equipment=catalog.EquipmentRows;
+        _pool=new SummonAffixPool(catalog);
         foreach(var row in _affixes)
         {
             var d=row.Definition;
@@ -59,26 +64,10 @@ public static class ValkyrieAffixes
         // The item retains its raw calc2 level. Only the affix-level context is
         // capped here; this is equivalent to the complete source level helper
         // over the supported range, including raw item levels above 99.
-        return AffixBalance.Level(Math.Min(itemLevel,99),basis.QualityLevel,basis.MagicLevel);
+        return _pool.Level(code,itemLevel);
     }
     internal static SummonAffix[] Pool(string code,int itemLevel,GearRarity rarity,AffixKind kind,IReadOnlyList<string> existing=null)
-    {
-        if(rarity is not(GearRarity.Magic or GearRarity.Rare) || !Enum.IsDefined(kind)){throw new ArgumentOutOfRangeException();}
-        var basis=Basis(code);int level=Level(code,itemLevel);var groups=new HashSet<int>();
-        foreach(var id in existing??Array.Empty<string>()){groups.Add(Find(id).Definition.Group);}
-        bool IsType(string ancestor)=>EquipmentBalance.IsType(_types,basis.Type,ancestor);
-        return _affixes.Where(row=>
-        {
-            var d=row.Definition;
-            // Full legacy CanItemHaveMagicAffix rejects a socket first-property.
-            // Exact modern socket-affix behavior is not certified by this old
-            // helper, even though the summon requests no sockets independently.
-            return d.Kind==kind && d.Level<=level && (d.MaxLevel==0 || level<=d.MaxLevel)
-                && (rarity!=GearRarity.Rare || d.Rare) && !row.FirstPropertySockets && !groups.Contains(d.Group)
-                && (string.IsNullOrEmpty(d.ClassSpecific) || string.IsNullOrEmpty(basis.RequiredClass) || d.ClassSpecific==basis.RequiredClass)
-                && !d.Exclude.Any(IsType) && d.Include.Any(IsType);
-        }).OrderBy(x=>x.Row).ToArray();
-    }
+        =>_pool.Pool(code,itemLevel,rarity,kind,existing);
     internal static int Weight(SummonAffix row,string code)=>checked(row.Definition.Frequency*(Basis(code).MagicLevel>0?row.Definition.Level:1));
     internal static uint Next(ref ulong seed,int bound)=>SourceRandom.Limited(ref seed,bound);
     internal static SummonAffix Select(string code,int itemLevel,GearRarity rarity,AffixKind kind,ref ulong seed,bool force=true,IReadOnlyList<string> existing=null)

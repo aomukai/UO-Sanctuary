@@ -7,13 +7,15 @@ namespace Sanctuary;
 // parity draw,including forced attempts; retain the final-row endpoint bias.
 internal static class SourceAffixPicker
 {
-    internal static T Select<T>(Func<IReadOnlyList<T>> resolvePool,Func<T,int> weight,ref ulong seed,bool force=true)where T:class
+    internal static T Select<T>(Func<IReadOnlyList<T>> resolvePool,Func<T,int> weight,ref ulong seed,bool force=true,Func<T,bool> preferred=null)where T:class
     {
         if(SourceRandom.Limited(ref seed,2)==0&&!force){return null;}
         var pool=resolvePool();if(pool.Count==0){return null;}
+        if(preferred!=null){foreach(var row in pool){if(preferred(row)){return row;}}}
         int total=0;foreach(var row in pool){total=checked(total+weight(row));}
         int ticket=(int)SourceRandom.Limited(ref seed,checked(total+1));
-        foreach(var row in pool){ticket-=weight(row);if(ticket<0){return row;}}
-        return pool[pool.Count-1];
+        int count=Math.Min(pool.Count,511);
+        for(int i=0;i<count;i++){var row=pool[i];ticket-=weight(row);if(ticket<0){return row;}}
+        return pool[count-1];
     }
 }

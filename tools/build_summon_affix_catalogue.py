@@ -4,7 +4,7 @@ import argparse,csv,hashlib,io,json,urllib.request
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];REF=ROOT/'tools/reference/d2r-named-equipment'
 EXCEL='1f16064e09b97e3e65abd6943662207cff00b07f'
-def build(check=False,cross_check=False):
+def build(check=False,cross_check=False,all_items=False):
  meta=json.loads((REF/'sources.json').read_text());pins={};tables={}
  for name in ['magicprefix','magicsuffix','itemtypes','weapons','armor','misc','properties','monequip']:
   p=REF/'json'/f'{name}.json';raw=p.read_bytes();pins[name]=hashlib.sha256(raw).hexdigest();assert pins[name]==meta['files']['json/'+name+'.json']['sha256'];tables[name]=json.loads(raw)
@@ -33,7 +33,7 @@ def build(check=False,cross_check=False):
  def is_type(kind,ancestor):return kind==ancestor or any(is_type(p,ancestor) for p in types[kind]['parents'])
  for t in types.values():assert all(p in types for p in t['parents']),t
  bases=[];allbases={r['code']:r for name in ['weapons','armor','misc'] for r in tables[name].values() if r.get('code')}
- codes=sorted({r['item'+str(i)] for r in tables['monequip'].values() if r.get('monster')=='valkyrie' for i in range(1,4) if r.get('item'+str(i))})
+ codes=sorted(allbases if all_items else {r['item'+str(i)] for r in tables['monequip'].values() if r.get('monster')=='valkyrie' for i in range(1,4) if r.get('item'+str(i))})
  for c in codes:
   r=allbases[c];bases.append(dict(code=c,type=r['type'],qualityLevel=r.get('level',1),magicLevel=r.get('magic lvl',0),requiredClass=types[r['type']]['characterClass'],sourceFields=r))
  affixes=[];rejectedTypes=0;canonical={k.casefold():k for k in tables['properties']}
@@ -64,9 +64,16 @@ def build(check=False,cross_check=False):
   equipment.append(dict(rank=row.get('level',0),choices=choices))
  assert len(equipment)==19
  result=dict(referenceVersion='3.3.93847',affixes=affixes,bases=bases,types=list(types.values()),equipmentRows=equipment)
- path=ROOT/'data/Sanctuary/Balance/valkyrie-affix-catalogue.json';rendered=json.dumps(result,indent=2,ensure_ascii=False)+'\n'
+ if all_items:
+  source=ROOT/'tools/reference/item-generation';meta=json.loads((source/'sources.json').read_text());assert meta['referenceVersion']=='3.3.93847';names=[]
+  for table,prefix in [('raresuffix',False),('rareprefix',True)]:
+   p=source/(table+'.json');assert hashlib.sha256(p.read_bytes()).hexdigest()==meta['files'][table+'.json']['sha256']
+   for index,row in json.loads(p.read_text()).items():names.append(dict(row=int(index),prefix=prefix,name=row['name'],version=row.get('version',0),include=list_types(row,'itype',7),exclude=list_types(row,'etype',4)))
+  result['rareNames']=names;result['rareBases']=[dict(code=c,stackable=bool(allbases[c].get('stackable')),throwable=bool(tables['itemtypes'][allbases[c]['type']].get('Throwable'))) for c in codes]
+  assert len(bases)==692 and len(affixes)==991 and len(names)==201
+ path=ROOT/'data/Sanctuary/Balance'/('npc-item-affix-catalogue.json' if all_items else 'valkyrie-affix-catalogue.json');rendered=json.dumps(result,indent=2,ensure_ascii=False)+'\n'
  if check:assert path.read_text()==rendered
  else:path.write_text(rendered)
- print(f'Valkyrie: {len(bases)} current bases, {len(affixes)} type-eligible source affixes, {len(types)} current item types; {rejectedTypes} unrelated type rows excluded. No implementation/property/rarity/level filtering applied to catalogue.')
+ print(f'{"NPC items" if all_items else "Valkyrie"}: {len(bases)} current bases, {len(affixes)} type-eligible source affixes, {len(types)} current item types; {rejectedTypes} unrelated type rows excluded. No implementation/property/rarity/level filtering applied to catalogue.')
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');p.add_argument('--cross-check',action='store_true');a=p.parse_args();build(a.check,a.cross_check)
+ p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');p.add_argument('--cross-check',action='store_true');p.add_argument('--all-items',action='store_true');a=p.parse_args();build(a.check,a.cross_check,a.all_items)

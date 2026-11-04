@@ -1,0 +1,5 @@
+# Preserve exact upstream bytes used by the SHA-256 pins.
+rareprefix.json -text
+raresuffix.json -text
+rareprefix.txt -text -whitespace
+raresuffix.txt -text -whitespace

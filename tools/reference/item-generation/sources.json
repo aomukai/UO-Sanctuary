@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "jsonCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "tsvCommit": "1f16064e09b97e3e65abd6943662207cff00b07f",
+  "files": {
+    "rareprefix.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/rareprefix.json",
+      "sha256": "e8b052200fbd416bfe85f6f835284fdce033b233ff59ca9f253e299ca21f0864"
+    },
+    "rareprefix.txt": {
+      "url": "https://raw.githubusercontent.com/pinkufairy/D2R-Excel/1f16064e09b97e3e65abd6943662207cff00b07f/rareprefix.txt",
+      "sha256": "5ca9268675ab07cfbbcc74380bee6f76793a16df4fd9d534ef1e87ffde1cc289"
+    },
+    "raresuffix.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/raresuffix.json",
+      "sha256": "532bbda2b20a2501e60bfbeb93f1eb9f820a543de3f3202592a655baf89c5162"
+    },
+    "raresuffix.txt": {
+      "url": "https://raw.githubusercontent.com/pinkufairy/D2R-Excel/1f16064e09b97e3e65abd6943662207cff00b07f/raresuffix.txt",
+      "sha256": "3e1c88bb069730d42f0586a3e585b67b05c7a010920ed727d0432101a956f493"
+    }
+  },
+  "rareprefix": {
+    "jsonRows": 46,
+    "tsvRows": 46,
+    "checkedFields": 202,
+    "differences": []
+  },
+  "raresuffix": {
+    "jsonRows": 155,
+    "tsvRows": 155,
+    "checkedFields": 609,
+    "differences": []
+  }
+}

@@ -173,10 +173,11 @@
     "Pinned MonEquip contains4 Warrior and19 Master rows. Warrior uses magic claws and owner armor/head bases. Master includes weapon/glove/armor/head quality codes3/4/6 and jewelry code6 tiers. Do not filter unsupported rolled properties away.",
     "Warrior AI105 copies both selected owner skills with max(ownerEffective/2+summoningRank/3,1), subject to source class/aitype/target-state/charge/mana-pressure/recast/pet-type checks. It needs NPC skill contexts. Master AI106/143 needs its own complete proof and selection rules.",
     "Older do49 loops use dwAuraStatCalc[1] and dwPassiveCalc[1] for each stat. Preserve this literal indexing and compare current formulas/context; do not silently change to loop-indexed expressions.",
-    "SourceItemAffixes preserves complete older magic/rare outer orchestration:magic applies properties inside picker selection;rare first selects capped slots then applies prefix/suffix interleaved properties. Names,pickers,item RNG,legacy-format rare path and final initializer remain explicit nested services;no real generated item is certified."
+    "SourceItemAffixes preserves complete older magic/rare outer orchestration:magic applies properties inside picker selection;rare first selects capped slots then applies prefix/suffix interleaved properties. Names,pickers,item RNG,legacy-format rare path and final initializer remain explicit nested services;no real generated item is certified.",
+    "Current NPC affix pools cover all692bases/991spawnableaffixes and201rare names;Valkyrie forwards to the shared pool. Source preferred/cap/weight/seed and rare-name format/type/stack/throw/cap services are separately verified. They do not execute item properties or initialize real NPC equipment."
   ],
   "blockers": [
-    "Equipment request selection now reuses the exact shared selector;full generated NPC items and complete stat/property/event delivery remain unfinished. Existing numeric NPC equipment suppliers and frozen Revive graphs are reusable bounded components,not complete generated Shadow equipment certification. Complete magic/rare outer control flow is now prepared separately;it does not complete nested item/property/stat/event services.",
+    "Equipment request selection now reuses the exact shared selector;full generated NPC items and complete stat/property/event delivery remain unfinished. Existing numeric NPC equipment suppliers and frozen Revive graphs are reusable bounded components,not complete generated Shadow equipment certification. Complete magic/rare outer control flow is now prepared separately;it does not complete nested item/property/stat/event services. Current full pools and rare-name rolls are prepared;property execution,final initializer,quality fallback and actual generated NPC graph remain unfinished.",
     "Assassin now has24handler-present skills,but selectable NPC versions remain unfinished. ShadowWarrior AI105 and distinct Master AI106/143 still need complete context/dispatch/rank/mana/target/recast consumers;PlayerMobile handlers cannot simply be called as NPCs.",
     "Shared one-shadow ownership/replacement, generated equipment identity, NPC dual-claw combat/defenses, saved AI/state clocks and lifecycle need implementation and source/client verification."
   ],
@@ -184,7 +185,8 @@
     "Valkyrie and both Shadows use the same complete sub_6FCF9580 selector. SummonEquipment now shares row/choice/seed/occupancy/failure/base-copy contracts;Shadow profiles retain4/19current rows without player property filtering.",
     "Valkyrie source creation/life/affix/equipment proof components and persistent summon ownership.",
     "Shared property representation, equipment type inheritance, claw composition, typed damage/poison/health, source stun/knockback and conversion consumers.",
-    "Shared SourceItemAffixes Magic/Rare outer contract with41472source/native service traces. Player loot orchestration is unchanged;full current pools/names/property writers/initialization/quality fallback and NPC delivery remain required."
+    "Shared SourceItemAffixes Magic/Rare outer contract with41472source/native service traces. Player loot orchestration is unchanged;full current pools/names/property writers/initialization/quality fallback and NPC delivery remain required.",
+    "NpcItemAffixes and SummonAffixPool supply complete current source pools/rare names without player filtering. SourceAffixPicker retains parity,preferred matches and capped weighted endpoint;all original Valkyrie scopes retain."
   ],
   "required": [
     "Compile complete do49/equipment/AI routines with declared services and independent rank/quality/selection fixtures.",
@@ -196,9 +198,10 @@
     "effects": "Shadow summon/cast/body/weapon/skill presentation/audio pending; identified placeholders only.",
     "icons": "Separate talent/hotkey icons pending."
   },
-  "next": "Connect complete current pools,rare names,item-owned RNG,raw property writing,final initialization and rare/magic/superior/normal fallback with seed restoration;then NPC stat/property/event delivery and Shadow skill/AI/body/cap/lifecycle/casting/input/saves. Keep do49literal calc[1]/current extended-passive discrepancy explicit. Flight/Claw policy questions remain nonblocking;Tail is settled.",
+  "next": "Compose current full pools/rare names with SourceItemAffixes and item-owned RNG;complete raw property/event writing,final initializer and seed-preserving rare/magic/superior/normal fallback. Then actual generated NPC stat/property/event delivery,Shadow do49/skill/AI/body/shared cap/casting/lifecycle/input/saves. No invented generic gear or dropped source properties;calc[1]/extended-passive and executable gaps remain explicit. Flight/Claw policy questions stay nonblocking.",
   "equipmentSourceEvidence": "tools/reference/shadow-equipment-source-evidence.json",
   "nativeEquipmentEvidence": "tools/reference/shadow-equipment-native-evidence.json",
   "itemAffixOuterSourceEvidence": "tools/reference/item-affix-orchestration-source-evidence.json",
-  "nativeItemAffixOuterEvidence": "tools/reference/item-affixes-native-evidence.json"
+  "nativeItemAffixOuterEvidence": "tools/reference/item-affixes-native-evidence.json",
+  "npcItemAffixEvidence": "tools/reference/npc-item-affixes-native-evidence.json"
 }

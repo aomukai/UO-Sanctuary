@@ -69,4 +69,7 @@ public static class BalanceCatalog
     public static T[] Read<T>(string name) => JsonSerializer.Deserialize<T[]>(
         File.ReadAllText(Path.Join(Core.BaseDirectory, "Data", "Sanctuary", "Balance", name + ".json")), _options)
         ?? throw new InvalidDataException($"Empty balance catalog: {name}");
+    internal static T ReadObject<T>(string name) => JsonSerializer.Deserialize<T>(
+        File.ReadAllText(Path.Join(Core.BaseDirectory, "Data", "Sanctuary", "Balance", name + ".json")), _options)
+        ?? throw new InvalidDataException($"Empty balance catalog: {name}");
 }

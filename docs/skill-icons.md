@@ -1,5 +1,7 @@
 # Skill icons
 
+**Complete NPC affix pools/rare names (2026-11-05 JST).** No talent,binding,icon slot or artwork is added. Valkyrie and both Shadows still need their separate talent-tree/hotkey icons;identified generic placeholders remain. See [checkpoint](npc-item-affixes-checkpoint.md).
+
 **Shared item-affix orchestration (2026-11-05 JST).** No public skill,binding,icon slot or artwork is added. Shadow Warrior/Master talent-tree and hotkey icons remain separate pending assets;identified generic placeholders stay in place. See [checkpoint](item-affixes-checkpoint.md).
 
 **Shadow equipment requests (2026-11-05 JST).** Warrior/Master talent-tree and hotkey icons remain separate pending assets. Prepared gear requests create no public binding,icon slot or artwork;generic placeholders remain identified. See [checkpoint](shadow-equipment-checkpoint.md).

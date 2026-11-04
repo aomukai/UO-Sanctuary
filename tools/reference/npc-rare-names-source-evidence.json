@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableCodeParity": false,
+  "currentCases": 12456,
+  "syntheticCases": 2016,
+  "bases": 692,
+  "names": 201,
+  "completeRoutineHashes": {
+    "D2GAME_RollRareAffix_6FC53610": "5a2a825eeede0b51ea27a13de6ded048f51f0621d29390a319fbeff233403a87",
+    "ITEMMODS_CanItemHaveRareAffix": "e62fb49024f174d4d851a7c03473c01be4cfe15d0a2fa492ea50f8350a7082d2",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemsMagic.cpp": "ff65c78c37e031da46bbd13d83626c39ce0ddc6971c6e4a7791e594d25b57ede",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "tools/reference/d2r-named-equipment/json/itemtypes.json": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "tools/reference/d2r-named-equipment/json/armor.json": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "tools/reference/d2r-named-equipment/json/misc.json": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072",
+    "tools/reference/item-generation/raresuffix.json": "532bbda2b20a2501e60bfbeb93f1eb9f820a543de3f3202592a655baf89c5162",
+    "tools/reference/item-generation/rareprefix.json": "e8b052200fbd416bfe85f6f835284fdce033b233ff59ca9f253e299ca21f0864"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-rare-names-source/source.cpp": "62693019a46a1a521c16783b2f9eca02c85df19193d3f0a7dcc04f649c9eb93c",
+    ".local/class-skills/npc-rare-names-source/probe": "bacd18c5b108b4e9c723fa2fff100fdbb695bfeea9b618dc0951ccd8f531dd51",
+    ".local/class-skills/npc-rare-names-source/compiler.log": "031d4fcb80aa256bc84e1cdecbc7edd7dc4c2065e1a297f162313deeea8cd5ca",
+    ".local/class-skills/npc-rare-names-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-rare-names-source/cases.json": "8c0182c96ac19981b51b8a58a2ed7c7da3873313f68da4fed3e122121d41f673",
+    "tools/probe_npc_rare_names.py": "fd7d951f988f5b285526a38ff8166536337abd1caae0e261c7bf93bd6b7ec125"
+  },
+  "established": [
+    "Complete rare-name caller and eligibility plus two complete seed routines execute on all692current bases/201current rare names with formats0/99/100,both sides,three seed states. Candidate lists,source ordinals and final seeds are emitted.",
+    "Synthetic0/1/510/511/512/600/700pools verify cap511,old-format version/stackable/throwable refusal,missing selected table,no-pool no-draw and exact bounded uniform selection. No affix frequency or player implemented-property filter applies."
+  ],
+  "services": [
+    "Current item-type ancestry and item/base/table lookup,format,stackable and primary-type Throwable fields are supplied services. Table concatenation is reviewed older suffix-then-prefix layout;ordinals are extraction/source identities,not claims about modern binary IDs.",
+    "Ordered pool diagnostics call the same complete eligibility helper without mutating item seed;they do not replace the complete selector. Current full table loader/localized string resolution and global item seed allocation are not executed."
+  ],
+  "limits": [
+    "No generated NPC item/property graph,quality fallback,final initialization,AI/casting/actor/lifecycle/input/save or modern executable/client certificate. No learned Shadow/Valkyrie handler is enabled."
+  ]
+}

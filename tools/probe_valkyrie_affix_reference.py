@@ -3,7 +3,7 @@
 import argparse,hashlib,json,re,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];STAGE=ROOT/'.local/class-skills';REF=ROOT/'tools/reference/d2r-named-equipment'
-def build(check=False):
+def build(check=False,all_items=False):
  tree=json.loads((STAGE/'d2moo-source-tree.json').read_text());assert tree['sha']=='0c0bbd1e6bef9181a3da1c046523af622a925416';hashes={};blocks={}
  def source(path):
   raw=(STAGE/'d2moo-pinned-source'/path).read_bytes();assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==next(x['sha'] for x in tree['tree'] if x['path']==path);hashes[path]=hashlib.sha256(raw).hexdigest();return raw.decode()
@@ -14,7 +14,7 @@ def build(check=False):
  text=source('source/D2Game/src/ITEMS/ItemsMagic.cpp');names=['ITEMS_ComputeCraftedMagicAffixLevel','ITEMMODS_AffixPlayerClassisCompatible','ITEMMODS_HasAffixWithGroup','ComputeAffixFrequency','MagicItemRollAffix','ITEMS_RollMagicAffixesNew'];f={n:routine(text,n) for n in names}
  can=routine(source('source/D2Common/src/Items/ItemMods.cpp'),'ITEMMODS_CanItemHaveMagicAffix')
  seed=source('source/D2Common/include/D2Seed.h');rng=routine(seed,'SEED_RollRandomNumber')+routine(seed,'SEED_RollLimitedRandomNumber')
- catalogue=json.loads((ROOT/'data/Sanctuary/Balance/valkyrie-affix-catalogue.json').read_text());meta=json.loads((REF/'sources.json').read_text());tables={};pins={}
+ catalogue=json.loads((ROOT/'data/Sanctuary/Balance'/('npc-item-affix-catalogue.json' if all_items else 'valkyrie-affix-catalogue.json')).read_text());meta=json.loads((REF/'sources.json').read_text());tables={};pins={}
  for name in ['magicprefix','magicsuffix','itemtypes','properties','weapons','armor','misc']:
   raw=(REF/'json'/f'{name}.json').read_bytes();pins[name]=hashlib.sha256(raw).hexdigest();assert pins[name]==meta['files']['json/'+name+'.json']['sha256'];tables[name]=json.loads(raw)
  types={r['Code']:i+1 for i,r in enumerate(tables['itemtypes'].values()) if r.get('Code')};classes={name:i for i,name in enumerate(['ama','sor','nec','pal','bar','dru','ass','war'])};props={k.casefold():i for i,k in enumerate(tables['properties'])};suffixCount=max(map(int,tables['magicsuffix']))+1;prefixCount=max(map(int,tables['magicprefix']))+1;count=suffixCount+prefixCount
@@ -101,14 +101,36 @@ for(size_t i=0;i<poolIds.size();i++){std::printf(i?",[\"%s\",%d]":"[\"%s\",%d]",
 }
 '''
  cpp+='std::printf("]\\n");}\n'
- p=STAGE/'valkyrie-affix-source-probe.cpp';p.write_text(cpp);binary=p.with_suffix('');subprocess.run(['g++','-std=c++20','-O2','-Wno-literal-suffix',str(p),'-o',str(binary)],check=True)
- fixture=STAGE/'valkyrie-affix-source-probe.json';rows=json.loads(subprocess.check_output([str(binary)]));assert len(rows)==5184,len(rows);fixture.write_text(json.dumps(rows,separators=(',',':'))+'\n')
+ if all_items:
+  cpp=cpp.replace('for(int level:{1,25,46,99,103,787})','for(int level:{1,99})').replace('initial:{0ULL,2860518340611ULL,18446744073709551615ULL}','initial:{2860518340611ULL}')
+  cpp=cpp.replace('int previous=0;if(existing)','int preferred=0;if(!existing&&force){int x=ITEMS_RollMagicAffixesNew(&item,1,1,0,prefix,0,0);if(x)preferred=x-(prefix?'+str(suffixCount)+':0);}int previous=0;if(existing)')
+  cpp=cpp.replace('force,0,prefix,0,0);uint64_t','force,0,prefix,preferred,0);uint64_t').replace('std::printf("],%d]",force)','std::printf("],%d,%d]",force,preferred)')
+  extra=r'''for(int size:{0,1,510,511,512,700})for(int weight:{1,3})for(uint64_t initial:{0ULL,2860518340611ULL,18446744073709551615ULL})for(int force:{0,1})for(int choice:{0,1,2,3}){
+int preferred=choice==2?size:choice==3?size+1:choice;
+magicTables.pMagicAffixTxt=affixes;magicTables.pMagicSuffix=affixes;magicTables.pMagicPrefix=affixes;magicTables.pAutoMagic=affixes+size;magicTables.nMagicAffixTxtRecordCount=size;
+for(int i=0;i<size;i++){affixes[i]={};affixes[i].wSpawnable=1;affixes[i].wFrequency=weight;affixes[i].dwLevel=1;affixes[i].dwGroup=i+1;affixes[i].nRare=1;affixes[i].nClassSpecific=255;affixes[i].wIType[0]=WEAPTYPE;ids[i]=std::to_string(i+1);}
+D2ItemData data;item.pItemData=&data;item.type=WEAPTYPE;item.qlvl=1;item.magic=0;item.level=99;item.quality=6;item.itemClass=-1;item.seed.lSeed=initial;poolIds.clear();poolWeights.clear();totalWeight=0;
+int selected=ITEMS_RollMagicAffixesNew(&item,1,force,0,1,preferred,0);if(!first)std::printf(",");first=false;
+std::printf("[\"!weighted\",%d,%d,1,\"%llu\",0,\"\",99,\"%s\",\"%llu\",%d,[",size,weight,(unsigned long long)initial,selected?ids[selected-1].c_str():"",(unsigned long long)item.seed.lSeed,totalWeight);
+for(size_t i=0;i<poolIds.size();i++){std::printf(i?",[\"%s\",%d]":"[\"%s\",%d]",ids[poolIds[i]].c_str(),poolWeights[i]);}std::printf("],%d,%d]",force,preferred);
+}
+'''.replace('WEAPTYPE',str(types['weap']))
+  ending='std::printf("]\\n");}\n';assert cpp.endswith(ending);cpp=cpp[:-len(ending)]+extra+ending
+ name='npc-item-affix' if all_items else 'valkyrie-affix'
+ p=STAGE/(name+'-source-probe.cpp');p.write_text(cpp);binary=p.with_suffix('');subprocess.run(['g++','-std=c++20',*(['-O1','-g','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-pie','-no-pie'] if all_items else ['-O2']),'-Wno-literal-suffix',str(p),'-o',str(binary)],check=True)
+ run=subprocess.run([str(binary)],capture_output=True);assert run.returncode==0 and not run.stderr,run.stderr.decode()
+ fixture=STAGE/(name+'-source-probe.json');rows=json.loads(run.stdout);assert len(rows)==(22432 if all_items else 5184),len(rows);fixture.write_text(json.dumps(rows,separators=(',',':'))+'\n')
  # No Python clone supplies the selection expectation. The unchanged functions
  # above emit selected source references, complete pool/weights and final seeds.
  evidence=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],sourceHashes=hashes,compiledUnchangedRoutines=blocks,pinnedTableHashes=pins,fixture=dict(path=str(fixture.relative_to(ROOT)),sha256=hashlib.sha256(fixture.read_bytes()).hexdigest(),cases=len(rows)),established=['Complete unchanged new-affix selector, level/frequency/weighted picker, existing-group/class-compatibility, item-type/property eligibility and two seed helpers execute against all current affix rows and all18 Valkyrie bases.','Each fixture records the whole ordered eligible pool with weights, exact selected source reference and final seed. Real earlier source-selected prefix groups are excluded. Normal/raw levels1/25/46/99/103/787, magic/rare qualities, both affix kinds three seed states, and forced/unforced attempts are covered.','The complete old weighted picker draws from totalWeight+1, with the endpoint assigned to the last eligible row. Even forced selection consumes the two-way seed draw first.','Raw item level is retained; only affix level clamps1..99. Circlet magic levels multiply each affix frequency by its level. Player supported-property filtering is not applied.'],services=['Item format100, current base/row/property lookup, current-equivalence item-type classifier and existing item affix storage are declared services. No full source table loader, item creation or property execution is claimed.','The original weighted picker is enclosed in a namespace, and a wrapper records its input pool before delegating. Its body is unchanged. All selected references are pinned extraction row IDs, not assertions about modern binary affix IDs.','Inactive nameless/zero-frequency rows use a valid neutral first-property lookup sentinel to avoid undefined old negative pointer access. They cannot be selected. The modern table parser and invalid-record behavior remain outside this proof.'],limits=['This is affix selection only. Magic/rare outer orchestration, rare names, property value generation/stat application, item-level side effects, actual NPC inventory/combat/casting/lifecycle/saves and modern/client acceptance remain pending. No learned Valkyrie handler is enabled.','Full legacy CanItemHaveMagicAffix rejects a first socket property independently of the no-sockets summon request. This suspicious old behavior is preserved as bounded supplementary evidence; modern socket-affix eligibility is explicitly uncertain.','No original global item/owner seed allocation or exact modern RNG stream claim. No class completion certificate.'])
- out=ROOT/'tools/reference/valkyrie-affix-engine-evidence.json';rendered=json.dumps(evidence,indent=2)+'\n'
+ if all_items:
+  evidence['scope']='All692currentbases/991spawnableaffixes;format100,levels1/99,magic/rare,bothkinds,earlierprefixexclusion,forced/unforced and eligiblepreferredroworzero. No property execution or generated item.'
+  evidence['syntheticWeightedCases']=288;evidence['sanitizers']='ASan+UBSan clean';evidence['established'].append('288complete selector controls cover0/1/510/511/512/700candidates,two frequencies,three seeds,forced/unforced and preferred first/last/out-of-range IDs. Weight sum includes all eligible rows while stored candidates cap511;preferred matches beyond that cap still return before a weighted draw.')
+  evidence['limits']=[x.replace('Magic/rare outer orchestration, rare names, property value generation/stat application','Actual composed magic/rare item generation, property value generation/stat application') for x in evidence['limits']]
+  evidence['established']=[x.replace('all18 Valkyrie bases','all692 current bases').replace('Normal/raw levels1/25/46/99/103/787, magic/rare qualities, both affix kinds three seed states, and forced/unforced attempts are covered.','Levels1/99,magic/rare qualities,both kinds,one seed state,eligible preferred rows and forced/unforced attempts are covered.') for x in evidence['established']]
+ out=ROOT/'tools/reference'/(name+'-engine-evidence.json');rendered=json.dumps(evidence,indent=2)+'\n'
  if check:assert out.read_text()==rendered
  else:out.write_text(rendered)
  print(f'Valkyrie affixes:{len(rows)} complete source selection/pool/weight/seed cases; native comparison remains separate.')
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');build(p.parse_args().check)
+ p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');p.add_argument('--all-items',action='store_true');a=p.parse_args();build(a.check,a.all_items)
