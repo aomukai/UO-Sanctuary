@@ -182,13 +182,13 @@ public static class SkillCombat
         if(healing256>0){SkillHealth.Heal(target,healing256);}
         return parts;
     }
-    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0)
+    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0,Func<string,int?> pierceOverride=null)
     {
         var raw = DefensiveArmors.Absorb(target, damage);
         long healing256=0;
         double Channel(double value,string element)
         {
-            var result=NamedElements.Resolve256(source,target,NamedElements.To256(value),element,enhance:false,damageRate:damageRate);
+            var result=NamedElements.Resolve256(source,target,NamedElements.To256(value),element,enhance:false,damageRate:damageRate,pierceOverride:pierceOverride?.Invoke(element));
             healing256+=result.Absorbed256;return result.Damage256/256.0;
         }
         var parts=raw with

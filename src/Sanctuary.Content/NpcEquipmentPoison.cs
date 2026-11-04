@@ -24,7 +24,7 @@ internal static class NpcEquipmentPoison
         var poison=Mitigate(actor,creature,snapshot,rolled);
         return poison.Rate256>0&&poison.Frames>0?new(snapshot.Actor,snapshot.CreditOwner,poison):null;
     }
-    internal static PreparedPoison Mitigate(SkeletonGuardian actor,BaseCreature target,NpcPoisonSnapshot snapshot,WeaponPoisonRoll rolled)
+    internal static PreparedPoison Mitigate(BaseCreature actor,BaseCreature target,NpcPoisonSnapshot snapshot,WeaponPoisonRoll rolled)
     {
         if(actor.Serial.Value!=snapshot.Actor){throw new InvalidOperationException("NPC poison actor changed");}
         // Read the recipient's resistance/curse/aura pools, then apply only

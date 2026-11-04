@@ -43,10 +43,18 @@ internal static class NpcEquipmentImpact
         // field. Positive maxima/skill-supplied fields remain separate work.
         item?.RequireOrdinaryNpcDrainInputs();
         var rolled=NpcEquipmentDamage.Roll(actor,target,limited,raw)??throw new NotSupportedException("NPC offensive roll binding was lost");
+        return FromRoll(actor,target,flags,rolled,physicalMultiplier:PaladinAuras.NativeWeaponMultiplier(actor,true));
+    }
+    internal static NpcWeaponImpact FromRoll(BaseCreature actor,BaseCreature target,int flags,NpcWeaponRoll rolled,
+        Func<string,int?> pierceOverride=null,double physicalMultiplier=1)
+    {
+        if(actor is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||rolled==null||rolled.Actor!=actor.Serial.Value||rolled.Target!=target.Serial.Value
+            ||!Fills(flags)||(flags&~0xffff)!=0||physicalMultiplier<0||!double.IsFinite(physicalMultiplier))
+        {throw new ArgumentException("NPC mitigated allocation requires a matching successful offensive roll");}
         var damage=rolled.Damage;
-        var parts=SkillCombat.MitigatePrepared(actor,target,damage.Elements with{Physical=damage.Physical256/256.0*PaladinAuras.NativeWeaponMultiplier(actor,true)},out int absorbed);
+        var parts=SkillCombat.MitigatePrepared(actor,target,damage.Elements with{Physical=damage.Physical256/256.0*physicalMultiplier},out int absorbed,pierceOverride:pierceOverride);
         var poison=damage.Poison is{Rate256:0,Frames:0}?default:NpcEquipmentPoison.Mitigate(actor,target,rolled.Poison,damage.Poison);
-        int coldFrames=rolled.ColdFrames<=0?0:ColdStates.LengthFrames(rolled.ColdFrames,NamedElements.Resistance(actor,target,"cold",target.ColdResistance),
+        int coldFrames=rolled.ColdFrames<=0?0:ColdStates.LengthFrames(rolled.ColdFrames,NamedElements.Resistance(actor,target,"cold",target.ColdResistance,pierceOverride?.Invoke("cold")),
             ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
         return new(actor.Serial.Value,target.Serial.Value,Packet(flags,SkillHealth.Balance256(target),damage,parts,coldFrames,poison,absorbed,rolled.PhysicalCritical),poison,rolled.Poison.CreditOwner,rolled.Spectral);
     }

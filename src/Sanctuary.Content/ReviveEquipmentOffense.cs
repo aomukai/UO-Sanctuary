@@ -8,7 +8,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record ReviveOffenseSnapshot(uint Actor,uint Target,string Source,int Level,int AttackSlot,
-    NpcPhysicalStats Physical,NpcCriticalChances Critical,NpcElementSnapshot Elements,NpcPoisonSnapshot Poison);
+    NpcPhysicalStats Physical,NpcCriticalChances Critical,NpcElementSnapshot Elements,NpcPoisonSnapshot Poison,NpcElementPierce Pierce);
 
 // An immutable offensive packet input, not a second native damage replay.
 // Contact, mitigation, item events and persistent RNG binding remain explicit
@@ -89,7 +89,8 @@ internal static class ReviveEquipmentOffense
         if(critical is <0 or >255){throw new NotSupportedException("Original intrinsic critical chance is outside source range");}
         return new(actor.Serial.Value,target?.Serial.Value??0,source,level,attackSlot,physicalStats,new(0,0,Bonus("deadly"),critical),
             NpcEquipmentElements.WithBonuses(actor,elements,Bonus("extra-fire"),Bonus("extra-ltng"),Bonus("extra-cold"),Bonus("extra-mag")),
-            new(actor.Serial.Value,owner.Serial.Value,poison,Bonus("extra-pois"),Math.Max(0,Bonus("pierce-pois"))));
+            new(actor.Serial.Value,owner.Serial.Value,poison,Bonus("extra-pois"),Math.Max(0,Bonus("pierce-pois"))),
+            new(Bonus("pierce-fire"),Bonus("pierce-cold"),Bonus("pierce-ltng"),Bonus("pierce-mag")));
     }
     internal static NpcWeaponRoll Roll(BaseCreature actor,Mobile target=null,int attackSlot=1)
     {
