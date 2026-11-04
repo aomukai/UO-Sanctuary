@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "ownedPath": "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/warlock-runtime-reference/monstats.txt",
+  "ownedSha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+  "encoding": "utf-8-sig",
+  "currentPath": "tools/reference/d2r-named-equipment/json/monstats.json",
+  "currentSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "runtimePath": "data/Sanctuary/Balance/revive-offense-sources.json",
+  "runtimeSha256": "b7f21a1a7ee1331ef7d26ca13b5e4b03700d07f1c64ecba3f133ff92daf5b225",
+  "comparedRows": 751,
+  "scope": "Critical byte and all three innate mode/type slots equal owned current-build monstats;not complete damage/AI/event or modern executable parity."
+}

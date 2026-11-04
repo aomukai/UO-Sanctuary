@@ -69,18 +69,25 @@ internal static class NpcEquipmentDamage
         if(Capture(actor,target) is not{} stats){return null;}
         limited??=bound=>NpcEquipmentRandom.Limited(actor,bound);
         raw??=()=>NpcEquipmentRandom.Raw(actor);
-        var chances=NpcEquipmentCritical.Capture(actor);
+        var rolled=RollCaptured(actor.Serial.Value,target?.Serial.Value??0,stats,NpcEquipmentCritical.Capture(actor),
+            ()=>NpcEquipmentElements.Capture(actor),()=>NpcEquipmentPoison.Capture(actor),limited,raw,defender:target!=null);
+        var spectral=NpcSpectralHit.Capture(actor,limited);
+        var packet=rolled.Damage with{Elements=SpectralHit.Direct(rolled.Damage.Elements,spectral?.Roll)};
+        return rolled with{Damage=packet,Spectral=spectral};
+    }
+    // Factories preserve the original live read/RNG chronology. Frozen
+    // callers supply already captured values without consulting deleted loot.
+    internal static NpcWeaponRoll RollCaptured(uint actor,uint target,NpcPhysicalStats stats,NpcCriticalChances chances,
+        Func<NpcElementSnapshot> elements,Func<NpcPoisonSnapshot> poison,Func<int,int> limited,Func<uint> raw,bool defender=true)
+    {
+        ArgumentNullException.ThrowIfNull(elements);ArgumentNullException.ThrowIfNull(poison);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(raw);
         int physical=Roll256(stats,limited);
         bool physicalCritical=NpcEquipmentCritical.Physical(chances,raw);
         if(physicalCritical){physical=checked(physical*2);}
-        var snapshot=NpcEquipmentElements.Capture(actor);
-        var elements=NpcEquipmentElements.Roll(snapshot,limited);
-        var poison=NpcEquipmentPoison.Capture(actor);
-        var rolledPoison=NpcEquipmentPoison.Roll(poison,limited);
-        var packet=NpcEquipmentCritical.ApplyIntrinsic(physical,elements,rolledPoison,NpcEquipmentCritical.Intrinsic(chances,raw),defender:target!=null);
-        var spectral=NpcSpectralHit.Capture(actor,limited);
-        packet=packet with{Elements=SpectralHit.Direct(packet.Elements,spectral?.Roll)}; // Affix is after intrinsic critical.
-        return new(actor.Serial.Value,target?.Serial.Value??0,packet,snapshot.Stats.ColdFrames,poison,physicalCritical,spectral);
+        var snapshot=elements();var elementRoll=NpcEquipmentElements.Roll(snapshot,limited);
+        var poisonSnapshot=poison();var rolledPoison=NpcEquipmentPoison.Roll(poisonSnapshot,limited);
+        var packet=NpcEquipmentCritical.ApplyIntrinsic(physical,elementRoll,rolledPoison,NpcEquipmentCritical.Intrinsic(chances,raw),defender:defender);
+        return new(actor,target,packet,snapshot.Stats.ColdFrames,poisonSnapshot,physicalCritical);
     }
     internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
     {

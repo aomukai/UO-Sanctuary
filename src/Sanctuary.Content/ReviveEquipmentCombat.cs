@@ -70,6 +70,8 @@ internal static class ReviveEquipmentCombat
     private static int Basis(BaseCreature actor,ReviveNativeState state,bool defense)
     {
         var row=CreatureProfiles.For(actor);
+        if(!defense&&ExtraStrongAttackPercent(actor)!=0&&actor is EncounterCreature strong)
+        {return strong.RolledAttack==0?strong.Basis.AttackRating.Min:strong.RolledAttack;}
         if(row.ApplyStats&&(defense?row.Defense:row.Attack1.AttackRating)is{} authored){return authored;}
         var basis=ReviveEquipmentLife.AttackDefenseBases(state);
         if(basis is not{Issue:null}){throw new NotSupportedException("Missing captured Revive combat bases");}
@@ -85,7 +87,9 @@ internal static class ReviveEquipmentCombat
         foreach(var item in ReviveEquipmentLife.Items(state)){total=checked(total+item.Bonus(code,level));}return total;
     }
     internal static int? AttackFlat(BaseCreature actor)=>State(actor)is{} state?checked(Bonus(state,"att")+5*Bonus(state,"dex")):null;
-    internal static int? AttackPercent(BaseCreature actor)=>State(actor)is{} state?Bonus(state,"att%"):null;
+    internal static int ExtraStrongAttackPercent(BaseCreature actor)=>actor is EncounterCreature e&&e.Grade is EncounterGrade.Ordinary or EncounterGrade.Minion
+        &&e.Inherits(EliteModifier.ExtraStrong)?EncounterProfiles.ExtraStrong(MonsterVariants.Difficulty(e),e.Grade==EncounterGrade.Minion).AttackPercent:0;
+    internal static int? AttackPercent(BaseCreature actor)=>State(actor)is{} state?checked(Bonus(state,"att%")+ExtraStrongAttackPercent(actor)):null;
     internal static int? Defense(BaseCreature actor)
     {
         if(State(actor)is not{} state){return null;}

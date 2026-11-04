@@ -11,7 +11,11 @@ internal static class NpcEquipmentElements
     {
         var item=NpcEquipmentCombat.Context(actor);
         if(item==null&&actor is not ISourceUnarmedNpc){throw new NotSupportedException("No supported original NPC equipment");}
-        var raw=item?.Elements()??new MissileSourceStats();var enchant=SorceressEffects.Enchantment(actor);
+        return WithBonuses(actor,item?.Elements()??new MissileSourceStats(),item?.Bonus("extra-fire")??0,item?.Bonus("extra-ltng")??0,item?.Bonus("extra-cold")??0,item?.Bonus("extra-mag")??0);
+    }
+    internal static NpcElementSnapshot WithBonuses(Server.Mobiles.BaseCreature actor,MissileSourceStats raw,int fireMastery,int lightningMastery,int coldMastery,int magicMastery)
+    {
+        var enchant=SorceressEffects.Enchantment(actor);
         (int Min,int Max) Aura(CombatAbility ability)
         {var aura=PaladinAuras.Effect(actor,ability);return aura==null?(0,0):(checked(aura.WeaponMin*256),checked(aura.WeaponMax*256));}
         var fire=Aura(CombatAbility.HolyFire);var cold=Aura(CombatAbility.HolyFreeze);var lightning=Aura(CombatAbility.HolyShock);
@@ -22,7 +26,7 @@ internal static class NpcEquipmentElements
             ColdMin=checked(raw.ColdMin+cold.Min),ColdMax=checked(raw.ColdMax+cold.Max),
             LightningMin=checked(raw.LightningMin+lightning.Min),LightningMax=checked(raw.LightningMax+lightning.Max)
         };
-        return new(raw,item?.Bonus("extra-fire")??0,item?.Bonus("extra-ltng")??0,item?.Bonus("extra-cold")??0,item?.Bonus("extra-mag")??0);
+        return new(raw,fireMastery,lightningMastery,coldMastery,magicMastery);
     }
     internal static GearDamage Roll(NpcElementSnapshot snapshot,Func<int,int> limited)
     {

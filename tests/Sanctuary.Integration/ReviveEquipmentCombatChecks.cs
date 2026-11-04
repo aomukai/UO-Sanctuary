@@ -65,6 +65,11 @@ public static class ReviveEquipmentCombatChecks
         var profile=CreatureProfiles.For(b);
         int attackBase=profile.ApplyStats&&profile.Attack1.AttackRating is{} rating?rating:before.AttackDefenseBases.AttackRating.Value;
         int defenseBase=profile.ApplyStats&&profile.Defense is{} defense?defense:before.AttackDefenseBases.Defense.Value;
+        if(b is EncounterCreature strong&&strong.Inherits(EliteModifier.ExtraStrong))
+        {
+            attackBase=strong.RolledAttack==0?strong.Basis.AttackRating.Min:strong.RolledAttack;
+            percent+=EncounterProfiles.ExtraStrong(row.Difficulty,strong.Grade==EncounterGrade.Minion).AttackPercent;
+        }
         Require(CreatureProfiles.AttackRating(b)==attackBase&&CreatureProfiles.Defense(b)==defenseBase,"Revive base included frozen equipment or wrong difficulty");
         int flat=attack+5*dex,addedDefense=armor+dex/4;
         Require(NpcEquipmentCombat.AttackFlat(b)==flat&&NpcEquipmentCombat.AttackPercent(b)==percent&&NpcEquipmentCombat.Defense(b)==addedDefense,"Frozen item contributions were lost or rounded per item");
