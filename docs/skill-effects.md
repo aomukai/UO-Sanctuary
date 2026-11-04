@@ -1,5 +1,7 @@
 # Skill effects
 
+**Poison Creeper balance (2026-11-05 JST).** Higher damage adds no new effect producer. Final body/surface/burrow, vine heads/mats, poison contact/status, wither and audio assets remain needed; existing visible bodies and field/contact presentation are identified placeholders. The damage decision does not determine surface exposure timing or certify the graphical client. No imagegen asset is created. See [checkpoint](creeper-balance-checkpoint.md).
+
 **Learned Lightning Strike (2026-11-05 JST).** Final spear/javelin lightning contact, travelling chain segments, impacts and audio are still needed. Native weapon pose/sound 0x238, contact 0x374A and chain 0x3818 are identified mechanical placeholders. Visible chains follow the approved opening from the struck monster; none is emitted without another eligible enemy. No imagegen/final asset is created. See [checkpoint](lightning-strike-checkpoint.md).
 
 Ordinary curse catalogue expansion needs the existing blind/fear recipient feedback and audio across more source identities. Existing placeholders remain identified; no new effect producer, final artwork or imagegen asset is introduced. See [checkpoint](curse-ai-catalogue-checkpoint.md).

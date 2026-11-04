@@ -518,5 +518,8 @@
     "Trace actual head/trail creation, row skill override versus supplied Vine Attack294, inherited Plague Poppy/Rabies/pierce stats, Range expression evaluation and collision/hit50 meaning before implementing damage.",
     "Implement and verify the actual saved pet/mats, shared vine replacement, resource/cancellation/input, death/offline/facet/class transitions and two actual reloads. Individual uncertain branches remain nonblocking for unaffected work.",
     "Final Creeper body/underground/surface/attack/plague-vines/mat/wither/audio effects and independent talent/right/quick icons remain in the existing inventories."
-  ]
+  ],
+  "approvedDamageBalance": "tools/reference/creeper-balance-decision.json",
+  "balanceAcceptance": "tools/reference/creeper-balance-native-evidence.json",
+  "balanceStatus": "Approved proportional rank20 base midpoint2000 over4seconds is implemented before sole existing hard Rabies synergy. Raw source path remains intact; historical field profiles retain their packets. Learned exposure and modern transport remain separate gaps."
 }

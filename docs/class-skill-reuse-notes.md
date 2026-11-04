@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Poison Creeper balance (2026-11-05 JST).** The approved proportional curve wraps the existing raw DruidCreeperStats poison getter; pinned tables and source comparisons remain intact. Existing CreeperPoisonContext profiles distinguish historical versus fresh field packets, so the same field, poison, mitigation/cure/credit and save engines serve both. No second scheduler or poison implementation is added. See [checkpoint](creeper-balance-checkpoint.md).
+
 **Lightning Strike (2026-11-05 JST).** Reuses AmazonMelee start/payment/weapon snapshots/cancellation and the saved player/Mage ChainLightning controller. An optional role context supplies Amazon ownership, Lightning Strike rank/count/radius/missile metadata and the approved opening-primary exclusion. Persistence version and absent-field legacy JSON are retained. Complete child-filter evidence corrects caster-LOS admission for every shared chain; travelling segments still collide with terrain. Source damage composition reuses the complete creator/getter/setter/roll scaffold. See [checkpoint](lightning-strike-checkpoint.md).
 
 The ordinary curse catalogue replaces repeated whitelist expansion with indexed current monai/descriptors, reusing `SourceTerror.Supported` and `SourceBlind`. The complete source lookup/transition composition is unchanged; only its test index array expands. Native fixtures share the existing learned-cast/recipient/save harness across all represented eligible families. See [checkpoint](curse-ai-catalogue-checkpoint.md).

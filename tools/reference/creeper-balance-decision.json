@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "approved": true,
+  "question": "For Poison Creeper\u2019s approved rank-20 target of 2,000 damage over 4 seconds, should that be its average base damage before synergies? I suggest scaling the existing damage curve proportionally, so its progression stays familiar.",
+  "answer": "2,000 average before synergies; scale the existing curve",
+  "clarification": "There is only one synergy, Rabies. Its existing ten percent per hard point remains unchanged.",
+  "sourceAnchor": {
+    "rank": 20,
+    "minimumRate256": 768,
+    "maximumRate256": 848,
+    "frames": 100,
+    "averageTotal": "315.625"
+  },
+  "normalization": {
+    "numerator": 640,
+    "denominator": 101,
+    "rounding": "Nearest positive FP256 rate before existing synergy, then existing Slow Missiles scaling.",
+    "rank20MinimumRate256": 4867,
+    "rank20MaximumRate256": 5373,
+    "rank20AverageTotal": 2000
+  },
+  "profiles": {
+    "historical": "birth-owner-rabies-no-player-gear-provisional-v1",
+    "fresh": "sanctuary-creeper-base-2000-v1",
+    "missingProfile": "Historical source profile; do not reinterpret emitted fields or running poison."
+  },
+  "limits": [
+    "Approved Sanctuary balance, not a D2R source-table correction.",
+    "Existing birth-time hard Rabies/no-owner-gear transport remains provisional; surface exposure still requires reference evidence.",
+    "No learned handler, final effect/audio/icon or deployment is implied."
+  ]
+}

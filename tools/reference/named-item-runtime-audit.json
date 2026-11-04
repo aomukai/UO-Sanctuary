@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "77a03ca14841455db0a03c2953883547d3080913c7e71d64b5f64895778c8728",
+  "ContentAssemblySha256": "d8dbe70323177e91a691c4e730efffa426101f6cafd05d66b58600079f1db8f9",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "4a7709a759daa9722974632e81ca9d41392d2e7278d4a5640addc46115c8a029",
+    "data/Sanctuary/Balance/class-skill-status.json": "2317c3931052e49266f408dcbc425ea30e39d178f9dfdf209ba90c9e5a223888",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -465,7 +465,7 @@
     "src/Sanctuary.Content/DruidCreeperCasting.cs": "df890bf4cb100c1f03da5f7d1b59324f6929b19564e5145956bbeed1e33b29d6",
     "src/Sanctuary.Content/DruidCreeperFields.cs": "db7919712bc453fa0e1863b4d80a6dfaed848e2b4bbacff83e30035993cd8ce9",
     "src/Sanctuary.Content/DruidCreeperGround.cs": "0928ecb311b976757c85441e7cda010ecacde8c2a102372f48109450474a21aa",
-    "src/Sanctuary.Content/DruidCreeperPoison.cs": "c357fba58056ed1bd5dcd981e55b9421fa7b4c941ced4774024648446bea4b77",
+    "src/Sanctuary.Content/DruidCreeperPoison.cs": "c80936d5ed1780f1a731ed4be29bf70accd55fdea1380efb5897bfe08ba8fdc5",
     "src/Sanctuary.Content/DruidCreeperStats.cs": "33db3fd34b3a266d40d9f620ae75b0d099014fe16c9b0f074ae9d1be51547b39",
     "src/Sanctuary.Content/DruidCreeperVines.cs": "68877415e581e8061a7fa2456b5e52860f38c47eeb53afcc4670e8460b53dcad",
     "src/Sanctuary.Content/DruidCreeperWorld.cs": "6a17b30b36266320a41d8f8d6b51748f4e29f7de2d664b239ccb471b2665a160",
