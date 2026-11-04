@@ -9,7 +9,8 @@ internal readonly record struct NpcElementPierce(int Fire,int Cold,int Lightning
 }
 
 // Allocation only: it may consume existing shield pools, but does not commit
-// HP/cold/poison/events. Qualified ordered contact remains a separate consumer.
+// HP/cold/poison/events. Base-armor setup precedes the offensive roll.
+// Qualified ordered contact remains a separate consumer.
 internal static class ReviveEquipmentImpact
 {
     internal static NpcWeaponImpact Prepare(BaseCreature actor,BaseCreature target,int flags,Func<int,int> limited=null,Func<uint> raw=null,int attackSlot=1)
@@ -24,9 +25,10 @@ internal static class ReviveEquipmentImpact
         {throw new NotSupportedException("Frozen equipped recipient needs its resistance/duration/mitigation adapter");}
         _=IronGolemContact.Events(target); // Reuse converted-recipient capability admission before RNG.
         var snapshot=ReviveEquipmentOffense.Capture(actor,target,attackSlot);
+        NpcArmorOnHit.Apply(actor,target);
         limited??=n=>NpcEquipmentRandom.Limited(actor,n);raw??=()=>NpcEquipmentRandom.Raw(actor);
         var rolled=ReviveEquipmentOffense.Roll(snapshot,limited,raw);
         // Physical modifiers are already in the captured NPC percentage pool.
-        return NpcEquipmentImpact.FromRoll(actor,target,flags,rolled,snapshot.Pierce.For);
+        return NpcEquipmentImpact.FromRoll(actor,target,flags,rolled,snapshot.Pierce.For,armorPrepared:true);
     }
 }

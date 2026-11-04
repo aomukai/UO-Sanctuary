@@ -7,7 +7,7 @@ internal sealed record NpcWeaponImpact(uint Actor,uint Target,PreparedMonsterDam
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] NpcSpectralPayload Spectral=null);
 
 // Ordinary equipped NPC-to-NPC allocation. Preparation can consume defensive
-// absorb pools through existing mitigation, but does not heal/subtract HP,
+// absorb pools and mutate base armor through existing setup, but does not heal/subtract HP,
 // apply cold/poison states or dispatch contact/return/death events.
 internal static class NpcEquipmentImpact
 {
@@ -42,15 +42,18 @@ internal static class NpcEquipmentImpact
         // Ordinary current item minima do not create a positive NPC drain
         // field. Positive maxima/skill-supplied fields remain separate work.
         item?.RequireOrdinaryNpcDrainInputs();
+        NpcArmorOnHit.Apply(actor,target);
         var rolled=NpcEquipmentDamage.Roll(actor,target,limited,raw)??throw new NotSupportedException("NPC offensive roll binding was lost");
-        return FromRoll(actor,target,flags,rolled,physicalMultiplier:PaladinAuras.NativeWeaponMultiplier(actor,true));
+        return FromRoll(actor,target,flags,rolled,physicalMultiplier:PaladinAuras.NativeWeaponMultiplier(actor,true),armorPrepared:true);
     }
     internal static NpcWeaponImpact FromRoll(BaseCreature actor,BaseCreature target,int flags,NpcWeaponRoll rolled,
-        Func<string,int?> pierceOverride=null,double physicalMultiplier=1)
+        Func<string,int?> pierceOverride=null,double physicalMultiplier=1,bool armorPrepared=false)
     {
         if(actor is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||rolled==null||rolled.Actor!=actor.Serial.Value||rolled.Target!=target.Serial.Value
             ||!Fills(flags)||(flags&~0xffff)!=0||physicalMultiplier<0||!double.IsFinite(physicalMultiplier))
         {throw new ArgumentException("NPC mitigated allocation requires a matching successful offensive roll");}
+        if(!armorPrepared&&NpcArmorOnHit.Delta(actor)!=0)
+        {throw new NotSupportedException("Rolled NPC packet needs its earlier source-ordered armor setup");}
         var damage=rolled.Damage;
         var parts=SkillCombat.MitigatePrepared(actor,target,damage.Elements with{Physical=damage.Physical256/256.0*physicalMultiplier},out int absorbed,pierceOverride:pierceOverride);
         var poison=damage.Poison is{Rate256:0,Frames:0}?default:NpcEquipmentPoison.Mitigate(actor,target,rolled.Poison,damage.Poison);

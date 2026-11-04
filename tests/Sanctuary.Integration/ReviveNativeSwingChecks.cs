@@ -29,7 +29,7 @@ public static class ReviveNativeSwingChecks
         var target=new ReviveEventChecks.Recipient{NoKillAwards=true,Frozen=true,CantWalk=true};target.SetHits(60000);foreach(var resistance in Enum.GetValues<ResistanceType>()){target.SetResistance(resistance,0);}
         target.MoveToWorld(new(source.X+distance,source.Y,source.Z),owner.Map);target.AIObject.AITimer.Stop();return target;
     }
-    private static ulong HitSeed()
+    internal static ulong HitSeed()
     {for(int i=0;i<10000;i++){ulong seed=SourceRandom.InitLow(i),next=seed;if(SourceRandom.Roll(ref next)%100<5){return seed;}}throw new InvalidOperationException("No native hit seed");}
     private static void Attach(NetState net,PlayerMobile owner,BaseCreature source)
     {

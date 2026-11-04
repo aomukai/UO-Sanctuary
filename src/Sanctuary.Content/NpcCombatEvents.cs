@@ -61,8 +61,16 @@ internal sealed class NpcCombatEvents
                 {throw new NotSupportedException("NPC item condition needs its reviewed player-only mapping: "+expected);}
                 continue;
             }
-            // These are conditional hit paths outside ItemStatCost's registry.
-            if(value.Stat is 66 or 120)
+            // Flat armor loss is an allocation/setup phase, not an event.
+            if(value.Stat==120)
+            {
+                if((value.Packed&65535)!=0||EquipmentStatValues.Definition(120).Name!="item_damagetargetac"||Rules.Value.ContainsKey(120))
+                {throw new NotSupportedException("NPC target-armor setup needs its reviewed unlayered mapping");}
+                WeaponStartEffects.RequireArmorDelta(value.Value);continue;
+            }
+            // Raw stun length needs its packet-fill consumer; no current item
+            // property writes it, but supplied values must not be discarded.
+            if(value.Stat==66)
             {throw new NotSupportedException("NPC conditional hit stat needs its consumer: "+EquipmentStatValues.Definition(value.Stat).Name);}
             if(!Rules.Value.TryGetValue(value.Stat,out var rule)){continue;}
             bool flat=rule.Stat==78&&rule.Events.Length==1&&rule.Events[0] is{Event:"attackedinmelee",Function:6};

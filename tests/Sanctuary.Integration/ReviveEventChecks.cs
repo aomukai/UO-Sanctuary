@@ -19,7 +19,7 @@ public static class ReviveEventChecks
     public static void Configure(){Register("revive-event-check",Check);Register("revive-event-reload-check",Reload);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Frozen Revive registered callbacks and shared ordered contact",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    public sealed class Recipient:GraveyardZombie
+    public class Recipient:GraveyardZombie
     {
         internal int Notifications,AtNotification,DeathCalls;internal bool WoundedAtNotification;
         [Constructible] public Recipient(){CantWalk=true;}

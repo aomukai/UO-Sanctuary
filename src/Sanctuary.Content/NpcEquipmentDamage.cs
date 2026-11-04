@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using Server;
+using Server.Mobiles;
 namespace Sanctuary;
 
 internal interface ISourceUnarmedNpc
@@ -91,7 +92,8 @@ internal static class NpcEquipmentDamage
     }
     internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
     {
-        result=default;if(Roll(actor,target,limited,raw) is not{} rolled){return false;}
+        result=default;if(target is BaseCreature creature){NpcArmorOnHit.Apply(actor,creature);}
+        if(Roll(actor,target,limited,raw) is not{} rolled){return false;}
         var packet=rolled.Damage;
         var delivery=NpcEquipmentPoison.Prepare(actor,target,rolled.Poison,packet.Poison);
         result=SkillCombat.ResolveHitParts(actor,target,packet.Elements with{Physical=packet.Physical256/256.0},true,true,

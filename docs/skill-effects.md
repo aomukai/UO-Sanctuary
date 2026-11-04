@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC allocation-time armor reduction (2026-11-04 JST).** The mechanical setup correction reuses existing Revive/Iron contact and status placeholders. It creates no separate skill effect or audio cue. Final summon/contact/status feedback and audio remain pending in this register; no imagegen artwork was created. See [checkpoint](npc-armor-setup-checkpoint.md).
+
 **NPC-held defense conditions (2026-11-04 JST).** Retained player-only item flags create no NPC debuff, effect or audio. Revive/Iron summon/contact/status placeholders and final presentation requirements remain; Razoredge keeps the existing Open Wounds effect. This correction creates no standalone asset. See [checkpoint](npc-defense-conditions-checkpoint.md).
 
 **NPC Prevent Monster Heal admission (2026-11-04 JST).** A retained inert NPC item property adds no PMH state, effect or audio. Existing Revive/Iron summon/contact/status placeholders and pending final artwork remain. Player PMH presentation is unchanged. See [checkpoint](npc-prevent-heal-checkpoint.md).

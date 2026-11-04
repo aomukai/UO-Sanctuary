@@ -128,6 +128,7 @@ internal static class IronGolemContact
         {throw new NotSupportedException("Live recipient uninterruptible completion/death-delay adapter is unfinished");}
         if(NecromancerEffects.Curse(body)?.Ability==CombatAbility.IronMaiden)
         {throw new NotSupportedException("Iron Maiden needs its source-ordered attacker event4 consumer");}
+        _=NpcArmorOnHit.Require(body,target);
         PreparedMonsterNativeDamage.RequireBaseModifiers(body,target);
         return new(metadata,sourceEvents,targetEvents,nativeRecovery);
     }

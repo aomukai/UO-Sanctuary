@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC allocation-time armor reduction (2026-11-04 JST).** No skill, button or hotkey was added. Revive/Iron talent-tree and right/quick hotkey artwork remains pending with existing identified placeholders, separately from effects/audio. See [checkpoint](npc-armor-setup-checkpoint.md).
+
 **NPC-held defense conditions (2026-11-04 JST).** This item-admission correction adds no skill, button or hotkey. Revive/Iron talent/right/quick artwork remains separately pending with its existing identified placeholders. See [checkpoint](npc-defense-conditions-checkpoint.md).
 
 **NPC Prevent Monster Heal admission (2026-11-04 JST).** This item-compatibility correction adds no talent or hotkey. Existing Revive/Iron talent/right/quick placeholders and final icon requirements remain separate from effects/audio. See [checkpoint](npc-prevent-heal-checkpoint.md).

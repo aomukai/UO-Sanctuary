@@ -16,7 +16,12 @@ internal static class WeaponStartEffects
         if(rows.Length!=9||values.Count!=rows.Length){throw new InvalidDataException("Invalid pinned Prevent Monster Heal immunity rules");}return values;
     });
     internal static void Require(PlayerMobile source)
-    {if(ClassGear.Bonus(source,"dmg-ac")>0){throw new NotSupportedException("Positive target-armor mutation needs its persistent stat adapter");}}
+        =>RequireArmorDelta(ClassGear.Bonus(source,"dmg-ac"));
+    internal static void RequireArmorDelta(int delta)
+    {
+        if(delta>0){throw new NotSupportedException("Positive target-armor mutation needs its persistent stat adapter");}
+        _=checked(-delta);
+    }
     internal static bool PreventHealAllowed(string source)=>source==null||!Immune.Value.Contains(source);
     // Called after the hit roll succeeds, before shield blocking. Native
     // encounter archetypes retain their existing no-source-species policy.
@@ -28,9 +33,10 @@ internal static class WeaponStartEffects
     // FillDamageValues mutates target base armor only for an allocated damage
     // packet: after hit/block selection and before storing the weapon packet.
     internal static void PrepareDamage(PlayerMobile source,BaseCreature target)
+        =>ApplyArmorDelta(target,ClassGear.Bonus(source,"dmg-ac"),TimedEffects.Now);
+    internal static void ApplyArmorDelta(BaseCreature target,int delta,DateTime at)
     {
-        int delta=ClassGear.Bonus(source,"dmg-ac");
-        if(delta>0){throw new NotSupportedException("Positive target-armor mutation needs its persistent stat adapter");}
-        if(delta<0){TimedEffects.ReduceDefense(target,checked(-delta),TimedEffects.Now);}
+        RequireArmorDelta(delta);
+        if(delta<0){TimedEffects.ReduceDefense(target,checked(-delta),at);}
     }
 }

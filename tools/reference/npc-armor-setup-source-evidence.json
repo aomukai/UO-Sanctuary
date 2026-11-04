@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 17280,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "tools/reference/monster-weapon-phases-source-evidence.json": "7213e1c3df3a5d706a171c0b5c98e6a14344ce737b48cc5c360868970c0aff09",
+    ".local/class-skills/monster-weapon-phases-source-probe.cpp": "34e1f6b90190a7de93c05ec76c2ba401c034ff8f876fc93f9ae2728a040c56c0",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "tools/probe_npc_armor_setup.py": "4f60aeac086054488294f6512cdd7f32f16290f04b89f6683ed2d8665a37eab7"
+  },
+  "unchangedFillSha256": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+  "artifacts": {
+    ".local/class-skills/npc-armor-setup-source/probe.cpp": "844db1c4ba51e682e00836a1c51422010b5b56caac411b4c4f808625820feb93",
+    ".local/class-skills/npc-armor-setup-source/probe": "ab61440475e71203bebea5dbe734aa809576018a8954f63d34dbe8af955581c8",
+    ".local/class-skills/npc-armor-setup-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-armor-setup-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-armor-setup-source/cases.json": "5dc24b622aad80293806aaf47ba5d64b33c78f3fb34f204e2289ee007b362354"
+  },
+  "currentWriter": {
+    "property": "dmg-ac",
+    "function": 1,
+    "stat": "item_damagetargetac",
+    "id": 120,
+    "registeredEvents": []
+  },
+  "currentStunPropertyWriters": [],
+  "established": [
+    "Complete unchanged FillDamageValues mutates target armor only for a player or good-aligned source against a monster. Nonzero signed delta adds before the zero floor,independently of source-damage scaling;the mutation precedes every damage RNG service.",
+    "An already nonzero packet stun length remains unchanged. An empty length receives normalizedSrcDamage*raw66/128. No current item-property row writes raw66;that is not evidence that a supplied nonzero66is inert.",
+    "Current dmg-ac writer1 supplies signed raw120 without an event registration. Runtime integration must use the allocation/setup phase and persistent base-defense consumer,not a release-time hit callback."
+  ],
+  "limitations": [
+    "World/stat/percentage/critical/RNG services are supplied by the existing complete damage driver. Source alignment is an explicit service. This is not current-executable or full stat-list/actor/world equivalence.",
+    "Positive armor deltas and raw stun66 remain explicit runtime gaps. The raw body is called directly with a successful supplied packet;miss/block/qualification behavior belongs to its separate caller and native controls."
+  ]
+}
