@@ -25,6 +25,7 @@ public partial class EncounterCreature : GraveyardUndead
     [SerializableField(10)] private uint _groupLeader;
     [SerializableField(11, setter: "private")] private bool _deathEffectsDone;
     private CreatureVariant _profile;
+    private MonsterDifficulty? _profileDifficulty;
     private MonsterProfile _combat;
     private NormalMonsterStats _meleeStats;
     private EliteModifier[] _modifiers;
@@ -41,6 +42,16 @@ public partial class EncounterCreature : GraveyardUndead
     public bool Inherits(EliteModifier modifier) => Array.IndexOf(Modifiers, modifier) >= 0;
     public bool Leader => _grade is EncounterGrade.Unique or EncounterGrade.SuperUnique;
     public CreatureVariant EncounterProfile { get { EnsureProfile(); return _profile; } }
+    internal CreatureVariant ProfileFor(MonsterDifficulty? difficulty)
+    {
+        EnsureProfile();
+        if(!difficulty.HasValue||difficulty==_profileDifficulty){return _profile;}
+        // Explicit previews must not replace the active profile or the
+        // combat/animation objects already supplied to current consumers.
+        var active=(_profile,_combat,_meleeStats,_profileDifficulty);
+        try{EnsureProfile(difficulty);return _profile;}
+        finally{(_profile,_combat,_meleeStats,_profileDifficulty)=active;}
+    }
     public override MonsterProfile CombatProfile
     {
         get
@@ -88,13 +99,15 @@ public partial class EncounterCreature : GraveyardUndead
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
-    private void EnsureProfile()
+    private void EnsureProfile(MonsterDifficulty? requested=null)
     {
-        if (_profile != null) { return; }
+        var difficulty=requested??ReviveFacets.Difficulty(this)??_difficulty;
+        if(!Enum.IsDefined(difficulty)){throw new ArgumentOutOfRangeException(nameof(requested));}
+        if (_profile != null&&_profileDifficulty==difficulty) { return; }
         var basis = Basis; var dungeon = Dungeon;
-        int index = (int)_difficulty;
+        int index = (int)difficulty;
         int life = _rolledLife == 0 ? basis.Life.Min : _rolledLife;
-        life = life * EncounterProfiles.LifePermille(_grade, _champion, _difficulty) / 1000;
+        life = life * EncounterProfiles.LifePermille(_grade, _champion, difficulty) / 1000;
         int rating = _rolledAttack == 0 ? basis.AttackRating.Min : _rolledAttack;
         int defense = _rolledDefense == 0 ? basis.Defense.Min : _rolledDefense;
         int damageBonus = 0, ratingBonus = 0, moveBonus = 0;
@@ -107,7 +120,7 @@ public partial class EncounterCreature : GraveyardUndead
         }
         if (Inherits(EliteModifier.ExtraStrong))
         {
-            var strong=EncounterProfiles.ExtraStrong(_difficulty,_grade==EncounterGrade.Minion);
+            var strong=EncounterProfiles.ExtraStrong(difficulty,_grade==EncounterGrade.Minion);
             damageBonus += strong.DamagePercent;ratingBonus += strong.AttackPercent;
         }
         if (Inherits(EliteModifier.ExtraFast)) { moveBonus += EncounterProfiles.ModifierMovementPercent(EliteModifier.ExtraFast); }
@@ -135,6 +148,7 @@ public partial class EncounterCreature : GraveyardUndead
             res[0], res[2], res[4], res[5], res[3]);
         var melee = new MonsterMelee(min, max, basis.AttackMs / 40, 256, basis.EffectMs / 40);
         _meleeStats = new(life, melee, melee, 100, 75, basis.RecoveryMs / 40, 10, basis.CriticalChance, 2, xp, new(100, 0, 400, false));
+        _profileDifficulty=difficulty;
     }
     protected override void Deal(Mobile target, int damage, bool fire) => EliteCombat.Hit(this, target, damage, fire ? ResistanceType.Fire : ResistanceType.Physical);
     public override bool CanRaise(Corpse corpse) => false;

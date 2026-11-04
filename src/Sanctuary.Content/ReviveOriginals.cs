@@ -51,7 +51,9 @@ public static class ReviveOriginals
     internal static bool SupportedDeathPath(Type type)
     {
         var declaring=type.GetMethod(nameof(BaseCreature.OnDeath),[typeof(Container)])?.DeclaringType;
-        return declaring==typeof(BaseCreature)||declaring==typeof(GraveyardUndead);
+        // Encounter's reviewed override settles one-time death effects and
+        // aura cleanup before delegating to GraveyardUndead/BaseCreature.
+        return declaring==typeof(BaseCreature)||declaring==typeof(GraveyardUndead)||declaring==typeof(EncounterCreature);
     }
     internal static bool IsRetained(BaseCreature actor)=>actor!=null&&_registry.Actors.ContainsKey(actor.Serial.Value);
     internal static ReviveOriginalState State(Corpse corpse)=>corpse==null?null:_registry.Corpses.GetValueOrDefault(corpse.Serial.Value);

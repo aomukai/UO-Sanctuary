@@ -172,6 +172,8 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is EncounterCreature encounter){return new(creature.GetType().FullName,typeof(GraveyardUndead).FullName,"DungeonEncounter",
+            "Saved dungeon encounter profile","native",encounter.Dungeon.Reference,"Explicit encounter source identity; native archetype combat retained");}
         if(creature is WarlockDefilerBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warputriddefiler vital entity","native","warputriddefiler","Prepared Gazer life/ownership; offense,Health Link,GenericPet and learned casting remain gated");}
         if(creature is WarlockTaintedBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warbighead entity","native","warbighead","Prepared saved vulnerable Tainted life/ownership and qualified fire hit; GenericPet controller,actual skill release and learned casting remain gated");}
         if(creature is WarlockGoatmanBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned wargoatman entity","native","wargoatman","Prepared saved vulnerable Goatman life/ownership; GenericPet world/combat and learned casting remain gated");}
@@ -257,7 +259,7 @@ public static class CreatureProfiles
                 NecromancerSummons.Source("fenris","Drain",difficulty??dire.SummonDifficulty),
                 Math.Abs(NecromancerSummons.Source("fenris","coldeffect",difficulty??dire.SummonDifficulty)),0),
             HitRecovery=new(true,7,256)}
-            : creature is EncounterCreature encounter ? encounter.EncounterProfile
+            : creature is EncounterCreature encounter ? encounter.ProfileFor(difficulty)
             : _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
     internal static bool ActiveVariant(Type type, MonsterDifficulty difficulty) =>
         _variants.TryGetValue((type.FullName, difficulty), out var row) && row is { Enabled: true, ApplyStats: true };

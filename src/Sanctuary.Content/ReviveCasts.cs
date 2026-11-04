@@ -14,6 +14,7 @@ internal static class ReviveCasts
     {
         issue=actor.IsParagon?"Paragon Revive classification is not configured."
             :actor is BaseHire?"Hirelings cannot be revived."
+            :actor is EncounterCreature{Grade:EncounterGrade.Champion}?"Champion Revive eligibility is not corroborated."
             :PaladinConversion.SourceRule(actor)?.Base=="imp1"?"Attached-Imp eligibility has no native adapter."
             :null;
         // These are native actor facts, not inferred from body, hue or age.

@@ -29,8 +29,19 @@ internal static class ReviveFacets
         var birth=state.Setup.LifePlan;
         if(birth==null||state.Setup.CombatPlan==null)
         {throw new NotSupportedException("This older Revive has no source life/combat plan for facet rescaling.");}
-        var target=Target(definition,birth.Source,difficulty);
-        var corpse=new CorpseBaseSnapshot(state.Actor,target.Level,difficulty,CorpseBaseSnapshots.Base256(birth.Source,difficulty,target.Level),birth.Seed);
+        int level;
+        if(definition==typeof(EncounterCreature).FullName)
+        {
+            // Encounter level/rolls are saved independently of difficulty.
+            // Validate from immutable death data,without requiring live actors
+            // during the atomic persistence restore.
+            var original=ReviveCreatureSnapshots.Combat(ReviveBeforeDeath.Decode(state.Original.BeforeDeathJson).Creature);
+            if(state.Original.RuntimeType!=definition||original.Reference!=birth.Source||original.Level!=birth.OriginalLevel||original.Difficulty!=birth.Difficulty)
+            {throw new NotSupportedException("Encounter Revive source identity differs from its death context.");}
+            level=birth.OriginalLevel;
+        }
+        else{level=Target(definition,birth.Source,difficulty).Level;}
+        var corpse=new CorpseBaseSnapshot(state.Actor,level,difficulty,CorpseBaseSnapshots.Base256(birth.Source,difficulty,level),birth.Seed);
         var life=ReviveLife.Calculate(birth.Source,corpse,birth.CasterLevel,birth.MasteryRank);
         return new(definition,life,ReviveCombat.Calculate(life,state.Setup.Rank,_=>0));
     }
@@ -48,10 +59,22 @@ internal static class ReviveFacets
     internal static void RestoreActor(BaseCreature actor,ReviveNativeState state)
     {
         if(state.FacetPlan is not{} plan){return;}
-        if(actor is EncounterCreature||CreatureProfiles.Definition(actor).Type!=plan.Definition
-            ||MonsterVariantBaselines.Find(actor) is not{} basis)
-        {throw new InvalidDataException("Saved Revive facet projection lost its native baseline or definition");}
-        MonsterVariantBaselines.Apply(actor,basis,Target(plan.Definition,plan.Life.Source,state.Difficulty).Profile);
+        if(actor is EncounterCreature encounter)
+        {
+            if(actor.GetType()!=typeof(EncounterCreature)||plan.Definition!=typeof(EncounterCreature).FullName
+                ||encounter.Dungeon.Reference!=plan.Life.Source||encounter.Basis.Level!=plan.Life.OriginalLevel)
+            {throw new InvalidDataException("Saved encounter Revive lost its source identity");}
+            // Encounter profiles specify every native combat field,including
+            // Normal. No missing historical Normal baseline is inferred.
+            MonsterVariantBaselines.Apply(actor,MonsterVariantBaselines.Capture(actor),encounter.ProfileFor(state.Difficulty));
+        }
+        else
+        {
+            if(CreatureProfiles.Definition(actor).Type!=plan.Definition
+                ||MonsterVariantBaselines.Find(actor) is not{} basis)
+            {throw new InvalidDataException("Saved Revive facet projection lost its native baseline or definition");}
+            MonsterVariantBaselines.Apply(actor,basis,Target(plan.Definition,plan.Life.Source,state.Difficulty).Profile);
+        }
         actor.HitsMaxSeed=(plan.Life.Maximum256+255)/256;
     }
     internal static void Sync(PlayerMobile owner)
@@ -70,10 +93,12 @@ internal static class ReviveFacets
             }
             try
             {
-                if(actor is EncounterCreature){throw new NotSupportedException("Encounter Revive facet projection is not implemented.");}
                 var plan=Calculate(old,CreatureProfiles.Definition(actor).Type,difficulty);
-                MonsterVariantBaselines.RememberNormal(actor);
-                var basis=MonsterVariantBaselines.Find(actor)??throw new NotSupportedException("This older difficulty variant has no saved native Normal combat baseline.");
+                if(actor is not EncounterCreature)
+                {
+                    MonsterVariantBaselines.RememberNormal(actor);
+                    _=MonsterVariantBaselines.Find(actor)??throw new NotSupportedException("This older difficulty variant has no saved native Normal combat baseline.");
+                }
                 var next=old with{Difficulty=difficulty,FacetPlan=plan,SavedLife256=null};Validate(next);
                 int life=SkillHealth.Balance256(actor),maximum=SkillHealth.Maximum256(actor),nativeMaximum=actor.HitsMaxSeed;
                 var before=MonsterVariantBaselines.Capture(actor);
