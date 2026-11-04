@@ -1,0 +1,231 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "rules": [
+    {
+      "talent": "necromancer.raiseskeleton",
+      "ability": 3,
+      "sourceId": 70,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.skeletonmastery",
+      "ability": 64,
+      "sourceId": 69,
+      "inTown": 0,
+      "passive": true
+    },
+    {
+      "talent": "necromancer.claygolem",
+      "ability": 65,
+      "sourceId": 75,
+      "inTown": 1,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.golemmastery",
+      "ability": 66,
+      "sourceId": 79,
+      "inTown": 0,
+      "passive": true
+    },
+    {
+      "talent": "necromancer.skeletalmage",
+      "ability": 67,
+      "sourceId": 80,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.bloodgolem",
+      "ability": 68,
+      "sourceId": 85,
+      "inTown": 1,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.summonresist",
+      "ability": 69,
+      "sourceId": 89,
+      "inTown": 0,
+      "passive": true
+    },
+    {
+      "talent": "necromancer.irongolem",
+      "ability": 70,
+      "sourceId": 90,
+      "inTown": 1,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.firegolem",
+      "ability": 71,
+      "sourceId": 94,
+      "inTown": 1,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.revive",
+      "ability": 72,
+      "sourceId": 95,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.teeth",
+      "ability": 2,
+      "sourceId": 67,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.bonearmor",
+      "ability": 73,
+      "sourceId": 68,
+      "inTown": 1,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.poisondagger",
+      "ability": 74,
+      "sourceId": 73,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.corpseexplosion",
+      "ability": 75,
+      "sourceId": 74,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.bonewall",
+      "ability": 76,
+      "sourceId": 78,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.poisonexplosion",
+      "ability": 77,
+      "sourceId": 83,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.bonespear",
+      "ability": 78,
+      "sourceId": 84,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.boneprison",
+      "ability": 79,
+      "sourceId": 88,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.poisonnova",
+      "ability": 80,
+      "sourceId": 92,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.bonespirit",
+      "ability": 81,
+      "sourceId": 93,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.amplifydamage",
+      "ability": 82,
+      "sourceId": 66,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.dimvision",
+      "ability": 83,
+      "sourceId": 71,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.weaken",
+      "ability": 84,
+      "sourceId": 72,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.ironmaiden",
+      "ability": 85,
+      "sourceId": 76,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.terror",
+      "ability": 86,
+      "sourceId": 77,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.confuse",
+      "ability": 87,
+      "sourceId": 81,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.lifetap",
+      "ability": 88,
+      "sourceId": 82,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.attract",
+      "ability": 89,
+      "sourceId": 86,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.decrepify",
+      "ability": 90,
+      "sourceId": 87,
+      "inTown": 0,
+      "passive": false
+    },
+    {
+      "talent": "necromancer.lowerresist",
+      "ability": 91,
+      "sourceId": 91,
+      "inTown": 0,
+      "passive": false
+    }
+  ],
+  "inputs": {
+    "tools/review_necromancer_towns.py": "4c269b90734e8d5eb1c748eb5506139b199099c1939b3e456776d28fd196dfe5",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "staticReview": [
+    "sub_6FD12950 ordinary start rejects missing room and caster town when InTown is absent;it clears the used skill before further casting work.",
+    "D2GAME_SKILLS_Handler_6FD12BA0 also has a conditional town gate;an existing used-skill flag1 bypasses that branch. Other forced/charged/triggered contexts are not established by this review."
+  ],
+  "established": "Five town-enabled Necromancer actives;22active town-disabled and3passives. Native town projection uses existing SpellHelper.IsTown,also used by approved summon parking.",
+  "limitations": [
+    "Table identity and static source review,not a newly executed full source or modern executable cast dispatcher. Learned ordinary-player start/release is the runtime scope;special used-skill flags,charges,procs,NPC execution and region equivalence remain unverified."
+  ]
+}

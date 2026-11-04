@@ -185,6 +185,7 @@ public static class ClassCombat
     });
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
+        if(!NecromancerCastRegions.Allowed(from,CombatAbility.RaiseSkeleton)){return false;}
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || HitRecovery.Active(from, now))
         {

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Necromancer town permissions (2026-11-04 JST).** Rejected town starts have no cast animation/effect/payment. Permitted Bone Armor and golem casts retain their identified existing placeholders and pending final cast/birth/status/audio work. No new standalone effect or artwork is needed for the location predicate. See [checkpoint](necro-town-checkpoint.md).
+
 **Corpse Explosion ground targeting (2026-11-04 JST).** The targeting aid reuses the existing identified `0x36BD` explosion and cast/audio placeholders. Final corpse detonation and casting feedback/audio remain pending; no new effect or imagegen artwork was created. See [checkpoint](corpse-aim-checkpoint.md).
 
 **Bone Prison ground acquisition (2026-11-04 JST).** The approved targeting aid reuses the existing identified cast and barrier placeholders. It adds no separate effect or audio cue. Final Bone Prison cast/barrier/status feedback and audio remain pending independently of mechanics. See [checkpoint](bone-prison-aim-checkpoint.md).

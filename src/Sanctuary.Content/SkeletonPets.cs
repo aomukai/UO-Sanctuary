@@ -89,6 +89,7 @@ public static class SkeletonPets
         return count;
     }
     public static bool CanRaise(PlayerMobile owner, Corpse corpse) => Rank(owner) > 0
+        && NecromancerCastRegions.Allowed(owner,CombatAbility.RaiseSkeleton)
         && owner.Mana >= Mana(owner) && Usable(owner, corpse)
         && owner.Map.CanSpawnMobile(corpse.X, corpse.Y, corpse.Z);
     public static bool Raise(PlayerMobile owner, Corpse corpse)

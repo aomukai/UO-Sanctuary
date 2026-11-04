@@ -13,7 +13,7 @@ internal static class CorpseExplosionCasts
     // are explicit Sanctuary policy, not a measured D2R client boundary.
     internal const int NearClickTiles=2;
     internal static Corpse Acquire(PlayerMobile owner,Point3D cursor)
-        =>NearClickTargets.AcquireCorpse(owner,cursor,NearClickTiles,
+        =>!NecromancerCastRegions.Allowed(owner,CombatAbility.CorpseExplosion)?null:NearClickTargets.AcquireCorpse(owner,cursor,NearClickTiles,
             corpse=>Supported(corpse)&&CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range),stableTies:true);
     internal static bool Supported(Corpse corpse)
         => CorpseSkillRules.TryBaseLife(corpse,out var life) && life.Seed.HasValue;

@@ -26,6 +26,7 @@ public static class NecromancerCombat
         && SkillMechanics.Rank(owner, ability) > 0;
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if(!NecromancerCastRegions.Allowed(owner,ability)){return false;}
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out _);}
         if(BoneBarrierCasts.Handles(ability)){return BoneBarrierCasts.Valid(owner,ability,selected,point);}
         if (owner.Map == null || owner.Map == Map.Internal || !owner.InRange(point, CombatProtocol.TeethRange)
@@ -50,6 +51,7 @@ public static class NecromancerCombat
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now)
     {
+        if(!NecromancerCastRegions.Allowed(owner,ability)){return false;}
         if(ability==CombatAbility.PoisonDagger){return PoisonDaggerCombat.Begin(owner,selected,point,now);}
         if(ability==CombatAbility.IronGolem)
         {if(!IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out var itemIssue)){owner.SendMessage(0x22,itemIssue??"Select a supported metal item.");return false;}point=World.FindItem(selected).Location;}
@@ -80,6 +82,7 @@ public static class NecromancerCombat
     }
     public static bool Release(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if(!NecromancerCastRegions.Allowed(owner,ability)){return false;}
         if(ability==CombatAbility.PoisonDagger){return PoisonDaggerCombat.Release(owner,selected,Core.TickCount);}
         if(ability==CombatAbility.PoisonNova){selected=Serial.Zero;point=owner.Location;}
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point)) { return false; }
