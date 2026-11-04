@@ -75,7 +75,7 @@ public static class FrozenEquipmentCombatChecks
                 EquipmentStatValue[] numeric=[];string issue=null;
                 try{numeric=live.ActiveNumericProperties();}catch(NotSupportedException e){issue="Frozen NPC numeric projection unavailable: "+e.Message;}
                 var snapshot=FrozenEquipmentEffects.Capture(item);var result=new Saved(name,snapshot,basis,levels,numeric,issue);Assert(result);
-                var state=ClassGear.State(item);ClassGear.Profiles.Store(item,state with{Identified=false});item.Delete();Assert(result);return result;
+                var state=ClassGear.State(item);ClassGear.Profiles.Store(item,state with{Identified=false});item.Delete();Require(item.Deleted,"Original loot deletion failed");Assert(result);return result;
             }
             finally{if(!item.Deleted){item.Delete();}}
         }).ToArray();
@@ -104,7 +104,10 @@ public static class FrozenEquipmentCombatChecks
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest));Require(saved.Length==6,"Missing saved frozen combat items");
-        foreach(var row in saved){Require(World.FindItem((Serial)row.Snapshot.OriginalItem)==null,"Deleted original loot reappeared");Assert(row);}
+        // Native serial allocation may reuse a deleted item's number. Frozen
+        // reads must ignore that current object and must not create any item.
+        int count=World.Items.Count;foreach(var row in saved){Assert(row);}
+        Require(World.Items.Count==count,"Frozen access recreated loot");
         Compatibility(saved[0]);
     }
 }

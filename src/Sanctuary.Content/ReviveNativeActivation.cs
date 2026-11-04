@@ -11,7 +11,8 @@ namespace Sanctuary;
 
 // Optional source HP is distinct from the legacy integral native setup. It
 // does not substitute for complete source passive/stat/event/AI composition.
-public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null,int? RegenerationRate=null);
+public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Mana,int Stamina,ReviveLifePlan LifePlan=null,ReviveCombatPlan CombatPlan=null,int? RegenerationRate=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentLifeProfile=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -62,13 +63,14 @@ public static class ReviveNativeActivation
         ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
         ReviveFacets.Validate(row);
+        ReviveEquipmentLife.Validate(row);
     }
     internal static void Restore(ReviveNativeState[] rows)
     {
         ArgumentNullException.ThrowIfNull(rows);var states=new Dictionary<uint,ReviveNativeState>();var orders=new HashSet<long>();var corpses=new HashSet<uint>();long next=0;
         foreach(var row in rows)
         {Validate(row);if(!states.TryAdd(row.Actor,row)||!orders.Add(row.Order)||!corpses.Add(row.Original.Corpse)){throw new InvalidDataException("Duplicate prepared native Revive");}next=Math.Max(next,row.Order);}
-        States=states;NextOrder=next;
+        States=states;NextOrder=next;ReviveEquipmentLife.Clear();
     }
     private static bool Trained(PlayerMobile owner)
         =>ClassCreation.Profiles.TryGet(owner.Serial,out var current)&&current.Class==DiabloClass.Necromancer
@@ -164,9 +166,9 @@ public static class ReviveNativeActivation
         foreach(var row in Snapshot())
         {
             var actor=World.FindMobile((Serial)row.Actor) as BaseCreature;
-            if(actor is not{Alive:true,Deleted:false}){States.Remove(row.Actor);continue;}
+            if(actor is not{Alive:true,Deleted:false}){States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);continue;}
             if(actor.ControlMaster?.Serial.Value!=row.Owner||World.FindMobile((Serial)row.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner)
-            {actor.Delete();States.Remove(row.Actor);continue;}
+            {actor.Delete();States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);continue;}
             if(!CanAct(actor)&&actor.Map!=Map.Internal){PersistentMinions.Suspend(owner);}
             ReviveRegeneration.Recover(actor,CanAct(actor),Core.TickCount);
         }

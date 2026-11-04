@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "854493109a0230b7d966d7ad7fc2222f9dd53b20a2be0af140c5f5f15e5727ba",
+  "ContentAssemblySha256": "4e938d71a89c49c38db29b967ab5116489dc22a67331a757a46cc6e5bc9ce247",
   "NativeAssemblySha256": "cced015c537250c3c3e2fa99b25b9a2c71348773bd0d32d232f0d5c63f6a46c2",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -866,9 +866,10 @@
     "src/Sanctuary.Content/ReviveCasts.cs": "65019a9c060c610a5e48b890b85ead2f329ea86571d3851f9884c4d723aaebd1",
     "src/Sanctuary.Content/ReviveCombat.cs": "66cf839a73fc8bb7f007017f4706c30b517dd5f74f895e137f62f7632e8b7811",
     "src/Sanctuary.Content/ReviveCreatureSnapshots.cs": "7fcee0f39321dafc29c2c9645ff481f3710e77da4ccd7daff31964c5b714f889",
+    "src/Sanctuary.Content/ReviveEquipmentLife.cs": "025af09da0386e2953c49a6109e158a095433c961125e267a4d907f361563e1f",
     "src/Sanctuary.Content/ReviveFacets.cs": "3a918a3c9359c0e7234e264a8b0f8a6c7ffaa1929edd8abce1c892314cfae4ab",
-    "src/Sanctuary.Content/ReviveLife.cs": "67f38305bf8503800484695fb1f64f6d21b4173b110ec0fe97cf8775dc625e88",
-    "src/Sanctuary.Content/ReviveNativeActivation.cs": "66ce362eeb15d039ad55e437ec6c63a9329e050da9a70a180959dbe11f33d2f6",
+    "src/Sanctuary.Content/ReviveLife.cs": "83af6e06247f8236db49da0fb39f0c4095330cab6503780579647c30cbe1781e",
+    "src/Sanctuary.Content/ReviveNativeActivation.cs": "9f5cb25a28d28d97cc5d5e3f1a49a39346161b883837c823e451a03964eab8dd",
     "src/Sanctuary.Content/ReviveOriginals.cs": "5a5821db748c4ca07518aa806bc82c5e84fc589572250e9adac582bd07b71934",
     "src/Sanctuary.Content/ReviveRegeneration.cs": "7c27803192bf6b9d16934bffd62b72ea8416eaa475fcf0afc6c5a39a119a4f89",
     "src/Sanctuary.Content/ReviveSourcePolicy.cs": "9a6abdb7cd9a28c8ad65e85d7834ed0793a31d2a2b72f8e96bcbd30b0d4a57fe",
