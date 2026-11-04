@@ -52,7 +52,7 @@ public static class DragonKickChecks
         for(int rank=1;rank<=255;rank++)
         {var values=new SkillValues(skill,_=>rank,_=>0,99);Require(values.Mana256==1536 && values.Formula("toht")==20+35*(rank-1) && values.Eval("calc1")==rank/6+1,"Pinned Talon numeric golden");}
         Require(helperCount==24576 && packetCount==62208,"Incomplete kick source matrices");
-        Log.Information("Dragon kick physical:24576 complete body/boot helpers,62208 full physical compositions,15 current boot bases and255 Talon numeric goldens match; no learned kick handler");
+        Log.Information("Dragon kick physical:24576 complete body/boot helpers,62208 full physical compositions,15 current boot bases and255 Talon numeric goldens match; Talon action remains separate");
     }
     private static PlayerMobile Fresh()
     {

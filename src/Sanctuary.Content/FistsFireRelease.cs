@@ -19,11 +19,12 @@ public static class FistsFireRelease
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     internal static int Rank(MartialCharge state,int live)=>state is{Ability:CombatAbility.FistsOfFire,Count:>=1 and <=3}
         ?Math.Max(state.InitialRank,live):0;
-    internal static FistsFirePacket Capture(PlayerMobile owner,MartialCharge state)
+    internal static FistsFirePacket Capture(PlayerMobile owner,MartialCharge state,bool rollInline=true)
     {
         int rank=Rank(state,SkillMechanics.Rank(owner,CombatAbility.FistsOfFire));
         if(rank is <1 or >255){return null;}
-        return Capture(SkillMechanics.Values(owner,CombatAbility.FistsOfFire,rank),state.Count,NamedElements.MasteryPercent(owner,"fire"),DamageRoll);
+        Func<int,int> roll=rollInline?DamageRoll:_=>0;
+        return Capture(SkillMechanics.Values(owner,CombatAbility.FistsOfFire,rank),state.Count,NamedElements.MasteryPercent(owner,"fire"),roll);
     }
     internal static FistsFirePacket Capture(SkillValues values,int count,int mastery,Func<int,int> random)
     {
@@ -56,11 +57,12 @@ public static class FistsFireRelease
     internal static void AfterParent(PlayerMobile owner,Point3D center,Map map,FistsFirePacket packet,DateTime at)
     {
         if(packet==null || packet.Count<2 || owner is not{Alive:true,Deleted:false} || owner.Map!=map || map==null || map==Map.Internal){return;}
-        // Parent weapon damage, durability, drains and procs have committed. A
+        // The caller selects its progressive phase (common Attack after parent,
+        // Dragon Tail before contact). A
         // distinct skill roll is shared by the area's individually reduced hits.
         int area=WeaponMissileDamage.RollValue(packet.Min256,packet.Max256,0,DamageRoll);
         Effects.SendLocationEffect(center,map,0x36BD,3); // Identified Fists explosion placeholder.
-        foreach(var target in map.GetMobilesInRange<Mobile>(center,(packet.Radius+1)/2))
+        foreach(var target in SkillCombat.NearbySnapshot<Mobile>(map,center,(packet.Radius+1)/2))
         {
             // Default filter0x583 has no optional LOS or NOAURA check. Native
             // hostility/town/height are the established Sanctuary projection.

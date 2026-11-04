@@ -11,6 +11,12 @@ public readonly record struct SkillHitResult(int LifeLost, int Physical, int Lif
 
 public static class SkillCombat
 {
+    // Native map ranges expose a live enumerator rather than IEnumerable.
+    // Damage/death may remove actors from that range during an area callback.
+    internal static List<T> NearbySnapshot<T>(Map map,Point3D center,int radius) where T:Mobile
+    {
+        var targets=new List<T>();foreach(var target in map.GetMobilesInRange<T>(center,radius)){targets.Add(target);}return targets;
+    }
     public static int HolyImpact(PlayerMobile source,Mobile target,int enhanced256,bool bypassResistance)
     {
         if(target is not {Alive:true,Deleted:false} || ClassCombat.Friendly(source,target)){return 0;}

@@ -2055,10 +2055,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 270,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Approved Sanctuary hit/payment policy is recorded: charged accuracy bypass retains block/dodge; successful contact consumes one participating charge; released kicks cost10mana even on misses. Prepared native result flags,4480complete KK clocks and4608original rate vectors pass;384complete older temporary-stat/mode controls support a skill-local-40clock. Learned packet/contact/payment/input integration remains unfinished; these settled design questions are not blockers. Existing body/boot/typed/fire packets are retained and signed overflow is explicitly refused. See dragon-tail-preparation-checkpoint.md and dragon-tail-preflight.json."
+      "remaining": "Learned KK action uses the approved charged accuracy/block and release-payment policy, start-allocated body/boot/typed/poison packet, current progressive-state order before source contact, and full copied physical seed for the later fire burst. Shared source player melee geometry uses306pinned weapon adders; unclassified UO actors retain an explicit native bridge. Exact current executable/stat/RNG/event/room/owner/PvP/client equivalence, unsupported incoming modes/item effects and signed-overflow contexts remain outside acceptance. Final kick/charge/fire/audio and separate talent/hotkey icons remain placeholders. See dragon-tail-learned-checkpoint.md."
     },
     {
       "talentId": "assassin.clawsofthunder",

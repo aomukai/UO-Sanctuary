@@ -1,0 +1,1226 @@
+[
+  {
+    "Code": "2ax",
+    "Range": 1
+  },
+  {
+    "Code": "2hs",
+    "Range": 2
+  },
+  {
+    "Code": "6bs",
+    "Range": 1
+  },
+  {
+    "Code": "6cb",
+    "Range": 0
+  },
+  {
+    "Code": "6cs",
+    "Range": 1
+  },
+  {
+    "Code": "6hb",
+    "Range": 0
+  },
+  {
+    "Code": "6hx",
+    "Range": 0
+  },
+  {
+    "Code": "6l7",
+    "Range": 0
+  },
+  {
+    "Code": "6lb",
+    "Range": 0
+  },
+  {
+    "Code": "6ls",
+    "Range": 1
+  },
+  {
+    "Code": "6lw",
+    "Range": 0
+  },
+  {
+    "Code": "6lx",
+    "Range": 0
+  },
+  {
+    "Code": "6mx",
+    "Range": 0
+  },
+  {
+    "Code": "6rx",
+    "Range": 0
+  },
+  {
+    "Code": "6s7",
+    "Range": 0
+  },
+  {
+    "Code": "6sb",
+    "Range": 0
+  },
+  {
+    "Code": "6ss",
+    "Range": 1
+  },
+  {
+    "Code": "6sw",
+    "Range": 0
+  },
+  {
+    "Code": "6ws",
+    "Range": 1
+  },
+  {
+    "Code": "72a",
+    "Range": 1
+  },
+  {
+    "Code": "72h",
+    "Range": 2
+  },
+  {
+    "Code": "7ar",
+    "Range": 1
+  },
+  {
+    "Code": "7ax",
+    "Range": 1
+  },
+  {
+    "Code": "7b7",
+    "Range": 2
+  },
+  {
+    "Code": "7b8",
+    "Range": 0
+  },
+  {
+    "Code": "7ba",
+    "Range": 2
+  },
+  {
+    "Code": "7bk",
+    "Range": 0
+  },
+  {
+    "Code": "7bl",
+    "Range": 0
+  },
+  {
+    "Code": "7br",
+    "Range": 4
+  },
+  {
+    "Code": "7bs",
+    "Range": 0
+  },
+  {
+    "Code": "7bt",
+    "Range": 2
+  },
+  {
+    "Code": "7bw",
+    "Range": 0
+  },
+  {
+    "Code": "7cl",
+    "Range": 0
+  },
+  {
+    "Code": "7cm",
+    "Range": 2
+  },
+  {
+    "Code": "7cr",
+    "Range": 1
+  },
+  {
+    "Code": "7cs",
+    "Range": 1
+  },
+  {
+    "Code": "7dg",
+    "Range": 0
+  },
+  {
+    "Code": "7di",
+    "Range": 0
+  },
+  {
+    "Code": "7fb",
+    "Range": 2
+  },
+  {
+    "Code": "7fc",
+    "Range": 0
+  },
+  {
+    "Code": "7fl",
+    "Range": 2
+  },
+  {
+    "Code": "7ga",
+    "Range": 2
+  },
+  {
+    "Code": "7gd",
+    "Range": 2
+  },
+  {
+    "Code": "7gi",
+    "Range": 3
+  },
+  {
+    "Code": "7gl",
+    "Range": 2
+  },
+  {
+    "Code": "7gm",
+    "Range": 2
+  },
+  {
+    "Code": "7gs",
+    "Range": 2
+  },
+  {
+    "Code": "7gw",
+    "Range": 0
+  },
+  {
+    "Code": "7h7",
+    "Range": 4
+  },
+  {
+    "Code": "7ha",
+    "Range": 0
+  },
+  {
+    "Code": "7ja",
+    "Range": 2
+  },
+  {
+    "Code": "7kr",
+    "Range": 0
+  },
+  {
+    "Code": "7la",
+    "Range": 2
+  },
+  {
+    "Code": "7ls",
+    "Range": 1
+  },
+  {
+    "Code": "7lw",
+    "Range": 1
+  },
+  {
+    "Code": "7m7",
+    "Range": 1
+  },
+  {
+    "Code": "7ma",
+    "Range": 0
+  },
+  {
+    "Code": "7mp",
+    "Range": 1
+  },
+  {
+    "Code": "7mt",
+    "Range": 1
+  },
+  {
+    "Code": "7o7",
+    "Range": 2
+  },
+  {
+    "Code": "7p7",
+    "Range": 4
+  },
+  {
+    "Code": "7pa",
+    "Range": 3
+  },
+  {
+    "Code": "7pi",
+    "Range": 2
+  },
+  {
+    "Code": "7qr",
+    "Range": 1
+  },
+  {
+    "Code": "7qs",
+    "Range": 1
+  },
+  {
+    "Code": "7s7",
+    "Range": 2
+  },
+  {
+    "Code": "7s8",
+    "Range": 1
+  },
+  {
+    "Code": "7sb",
+    "Range": 0
+  },
+  {
+    "Code": "7sc",
+    "Range": 0
+  },
+  {
+    "Code": "7sm",
+    "Range": 0
+  },
+  {
+    "Code": "7sp",
+    "Range": 1
+  },
+  {
+    "Code": "7sr",
+    "Range": 3
+  },
+  {
+    "Code": "7ss",
+    "Range": 0
+  },
+  {
+    "Code": "7st",
+    "Range": 4
+  },
+  {
+    "Code": "7ta",
+    "Range": 0
+  },
+  {
+    "Code": "7tk",
+    "Range": 0
+  },
+  {
+    "Code": "7tr",
+    "Range": 3
+  },
+  {
+    "Code": "7ts",
+    "Range": 2
+  },
+  {
+    "Code": "7tw",
+    "Range": 1
+  },
+  {
+    "Code": "7vo",
+    "Range": 2
+  },
+  {
+    "Code": "7wa",
+    "Range": 2
+  },
+  {
+    "Code": "7wb",
+    "Range": 1
+  },
+  {
+    "Code": "7wc",
+    "Range": 4
+  },
+  {
+    "Code": "7wd",
+    "Range": 1
+  },
+  {
+    "Code": "7wh",
+    "Range": 1
+  },
+  {
+    "Code": "7wn",
+    "Range": 0
+  },
+  {
+    "Code": "7ws",
+    "Range": 1
+  },
+  {
+    "Code": "7xf",
+    "Range": 1
+  },
+  {
+    "Code": "7yw",
+    "Range": 0
+  },
+  {
+    "Code": "8bs",
+    "Range": 1
+  },
+  {
+    "Code": "8cb",
+    "Range": 0
+  },
+  {
+    "Code": "8cs",
+    "Range": 1
+  },
+  {
+    "Code": "8hb",
+    "Range": 0
+  },
+  {
+    "Code": "8hx",
+    "Range": 0
+  },
+  {
+    "Code": "8l8",
+    "Range": 0
+  },
+  {
+    "Code": "8lb",
+    "Range": 0
+  },
+  {
+    "Code": "8ls",
+    "Range": 1
+  },
+  {
+    "Code": "8lw",
+    "Range": 0
+  },
+  {
+    "Code": "8lx",
+    "Range": 0
+  },
+  {
+    "Code": "8mx",
+    "Range": 0
+  },
+  {
+    "Code": "8rx",
+    "Range": 0
+  },
+  {
+    "Code": "8s8",
+    "Range": 0
+  },
+  {
+    "Code": "8sb",
+    "Range": 0
+  },
+  {
+    "Code": "8ss",
+    "Range": 1
+  },
+  {
+    "Code": "8sw",
+    "Range": 0
+  },
+  {
+    "Code": "8ws",
+    "Range": 1
+  },
+  {
+    "Code": "92a",
+    "Range": 1
+  },
+  {
+    "Code": "92h",
+    "Range": 2
+  },
+  {
+    "Code": "9ar",
+    "Range": 1
+  },
+  {
+    "Code": "9ax",
+    "Range": 1
+  },
+  {
+    "Code": "9b7",
+    "Range": 2
+  },
+  {
+    "Code": "9b8",
+    "Range": 0
+  },
+  {
+    "Code": "9b9",
+    "Range": 1
+  },
+  {
+    "Code": "9ba",
+    "Range": 1
+  },
+  {
+    "Code": "9bk",
+    "Range": 0
+  },
+  {
+    "Code": "9bl",
+    "Range": 0
+  },
+  {
+    "Code": "9br",
+    "Range": 4
+  },
+  {
+    "Code": "9bs",
+    "Range": 0
+  },
+  {
+    "Code": "9bt",
+    "Range": 1
+  },
+  {
+    "Code": "9bw",
+    "Range": 0
+  },
+  {
+    "Code": "9cl",
+    "Range": 0
+  },
+  {
+    "Code": "9cm",
+    "Range": 2
+  },
+  {
+    "Code": "9cr",
+    "Range": 1
+  },
+  {
+    "Code": "9cs",
+    "Range": 1
+  },
+  {
+    "Code": "9dg",
+    "Range": 0
+  },
+  {
+    "Code": "9di",
+    "Range": 0
+  },
+  {
+    "Code": "9fb",
+    "Range": 2
+  },
+  {
+    "Code": "9fc",
+    "Range": 0
+  },
+  {
+    "Code": "9fl",
+    "Range": 2
+  },
+  {
+    "Code": "9ga",
+    "Range": 2
+  },
+  {
+    "Code": "9gd",
+    "Range": 2
+  },
+  {
+    "Code": "9gi",
+    "Range": 3
+  },
+  {
+    "Code": "9gl",
+    "Range": 2
+  },
+  {
+    "Code": "9gm",
+    "Range": 2
+  },
+  {
+    "Code": "9gs",
+    "Range": 2
+  },
+  {
+    "Code": "9gw",
+    "Range": 0
+  },
+  {
+    "Code": "9h9",
+    "Range": 4
+  },
+  {
+    "Code": "9ha",
+    "Range": 0
+  },
+  {
+    "Code": "9ja",
+    "Range": 2
+  },
+  {
+    "Code": "9kr",
+    "Range": 0
+  },
+  {
+    "Code": "9la",
+    "Range": 1
+  },
+  {
+    "Code": "9ls",
+    "Range": 1
+  },
+  {
+    "Code": "9lw",
+    "Range": 1
+  },
+  {
+    "Code": "9m9",
+    "Range": 1
+  },
+  {
+    "Code": "9ma",
+    "Range": 0
+  },
+  {
+    "Code": "9mp",
+    "Range": 1
+  },
+  {
+    "Code": "9mt",
+    "Range": 1
+  },
+  {
+    "Code": "9p9",
+    "Range": 4
+  },
+  {
+    "Code": "9pa",
+    "Range": 3
+  },
+  {
+    "Code": "9pi",
+    "Range": 2
+  },
+  {
+    "Code": "9qr",
+    "Range": 1
+  },
+  {
+    "Code": "9qs",
+    "Range": 1
+  },
+  {
+    "Code": "9s8",
+    "Range": 1
+  },
+  {
+    "Code": "9s9",
+    "Range": 2
+  },
+  {
+    "Code": "9sb",
+    "Range": 0
+  },
+  {
+    "Code": "9sc",
+    "Range": 0
+  },
+  {
+    "Code": "9sm",
+    "Range": 0
+  },
+  {
+    "Code": "9sp",
+    "Range": 1
+  },
+  {
+    "Code": "9sr",
+    "Range": 3
+  },
+  {
+    "Code": "9ss",
+    "Range": 0
+  },
+  {
+    "Code": "9st",
+    "Range": 4
+  },
+  {
+    "Code": "9ta",
+    "Range": 0
+  },
+  {
+    "Code": "9tk",
+    "Range": 0
+  },
+  {
+    "Code": "9tr",
+    "Range": 3
+  },
+  {
+    "Code": "9ts",
+    "Range": 2
+  },
+  {
+    "Code": "9tw",
+    "Range": 1
+  },
+  {
+    "Code": "9vo",
+    "Range": 2
+  },
+  {
+    "Code": "9wa",
+    "Range": 2
+  },
+  {
+    "Code": "9wb",
+    "Range": 1
+  },
+  {
+    "Code": "9wc",
+    "Range": 4
+  },
+  {
+    "Code": "9wd",
+    "Range": 1
+  },
+  {
+    "Code": "9wh",
+    "Range": 0
+  },
+  {
+    "Code": "9wn",
+    "Range": 0
+  },
+  {
+    "Code": "9ws",
+    "Range": 1
+  },
+  {
+    "Code": "9xf",
+    "Range": 1
+  },
+  {
+    "Code": "9yw",
+    "Range": 0
+  },
+  {
+    "Code": "am1",
+    "Range": 0
+  },
+  {
+    "Code": "am2",
+    "Range": 0
+  },
+  {
+    "Code": "am3",
+    "Range": 4
+  },
+  {
+    "Code": "am4",
+    "Range": 4
+  },
+  {
+    "Code": "am5",
+    "Range": 2
+  },
+  {
+    "Code": "am6",
+    "Range": 0
+  },
+  {
+    "Code": "am7",
+    "Range": 0
+  },
+  {
+    "Code": "am8",
+    "Range": 4
+  },
+  {
+    "Code": "am9",
+    "Range": 4
+  },
+  {
+    "Code": "ama",
+    "Range": 2
+  },
+  {
+    "Code": "amb",
+    "Range": 0
+  },
+  {
+    "Code": "amc",
+    "Range": 0
+  },
+  {
+    "Code": "amd",
+    "Range": 4
+  },
+  {
+    "Code": "ame",
+    "Range": 4
+  },
+  {
+    "Code": "amf",
+    "Range": 2
+  },
+  {
+    "Code": "axe",
+    "Range": 1
+  },
+  {
+    "Code": "axf",
+    "Range": 1
+  },
+  {
+    "Code": "bal",
+    "Range": 0
+  },
+  {
+    "Code": "bar",
+    "Range": 2
+  },
+  {
+    "Code": "bax",
+    "Range": 1
+  },
+  {
+    "Code": "bkf",
+    "Range": 0
+  },
+  {
+    "Code": "bld",
+    "Range": 0
+  },
+  {
+    "Code": "brn",
+    "Range": 4
+  },
+  {
+    "Code": "bsd",
+    "Range": 0
+  },
+  {
+    "Code": "bst",
+    "Range": 1
+  },
+  {
+    "Code": "bsw",
+    "Range": 1
+  },
+  {
+    "Code": "btl",
+    "Range": 1
+  },
+  {
+    "Code": "btx",
+    "Range": 1
+  },
+  {
+    "Code": "bwn",
+    "Range": 0
+  },
+  {
+    "Code": "cbw",
+    "Range": 0
+  },
+  {
+    "Code": "ces",
+    "Range": 1
+  },
+  {
+    "Code": "clb",
+    "Range": 0
+  },
+  {
+    "Code": "clm",
+    "Range": 2
+  },
+  {
+    "Code": "clw",
+    "Range": 1
+  },
+  {
+    "Code": "crs",
+    "Range": 1
+  },
+  {
+    "Code": "cst",
+    "Range": 1
+  },
+  {
+    "Code": "d33",
+    "Range": 0
+  },
+  {
+    "Code": "dgr",
+    "Range": 0
+  },
+  {
+    "Code": "dir",
+    "Range": 0
+  },
+  {
+    "Code": "fla",
+    "Range": 2
+  },
+  {
+    "Code": "flb",
+    "Range": 2
+  },
+  {
+    "Code": "flc",
+    "Range": 0
+  },
+  {
+    "Code": "g33",
+    "Range": 0
+  },
+  {
+    "Code": "gax",
+    "Range": 2
+  },
+  {
+    "Code": "gis",
+    "Range": 2
+  },
+  {
+    "Code": "gix",
+    "Range": 3
+  },
+  {
+    "Code": "glv",
+    "Range": 2
+  },
+  {
+    "Code": "gma",
+    "Range": 2
+  },
+  {
+    "Code": "gpl",
+    "Range": 0
+  },
+  {
+    "Code": "gpm",
+    "Range": 0
+  },
+  {
+    "Code": "gps",
+    "Range": 0
+  },
+  {
+    "Code": "gsc",
+    "Range": 1
+  },
+  {
+    "Code": "gsd",
+    "Range": 2
+  },
+  {
+    "Code": "gwn",
+    "Range": 0
+  },
+  {
+    "Code": "hal",
+    "Range": 4
+  },
+  {
+    "Code": "hax",
+    "Range": 0
+  },
+  {
+    "Code": "hbw",
+    "Range": 0
+  },
+  {
+    "Code": "hdm",
+    "Range": 0
+  },
+  {
+    "Code": "hfh",
+    "Range": 0
+  },
+  {
+    "Code": "hst",
+    "Range": 2
+  },
+  {
+    "Code": "hxb",
+    "Range": 0
+  },
+  {
+    "Code": "jav",
+    "Range": 2
+  },
+  {
+    "Code": "kri",
+    "Range": 0
+  },
+  {
+    "Code": "ktr",
+    "Range": 1
+  },
+  {
+    "Code": "lax",
+    "Range": 1
+  },
+  {
+    "Code": "lbb",
+    "Range": 0
+  },
+  {
+    "Code": "lbw",
+    "Range": 0
+  },
+  {
+    "Code": "leg",
+    "Range": 0
+  },
+  {
+    "Code": "lsd",
+    "Range": 1
+  },
+  {
+    "Code": "lst",
+    "Range": 1
+  },
+  {
+    "Code": "lwb",
+    "Range": 0
+  },
+  {
+    "Code": "lxb",
+    "Range": 0
+  },
+  {
+    "Code": "mac",
+    "Range": 0
+  },
+  {
+    "Code": "mau",
+    "Range": 1
+  },
+  {
+    "Code": "mpi",
+    "Range": 1
+  },
+  {
+    "Code": "msf",
+    "Range": 2
+  },
+  {
+    "Code": "mst",
+    "Range": 1
+  },
+  {
+    "Code": "mxb",
+    "Range": 0
+  },
+  {
+    "Code": "ob1",
+    "Range": 0
+  },
+  {
+    "Code": "ob2",
+    "Range": 0
+  },
+  {
+    "Code": "ob3",
+    "Range": 0
+  },
+  {
+    "Code": "ob4",
+    "Range": 0
+  },
+  {
+    "Code": "ob5",
+    "Range": 0
+  },
+  {
+    "Code": "ob6",
+    "Range": 0
+  },
+  {
+    "Code": "ob7",
+    "Range": 0
+  },
+  {
+    "Code": "ob8",
+    "Range": 0
+  },
+  {
+    "Code": "ob9",
+    "Range": 0
+  },
+  {
+    "Code": "oba",
+    "Range": 0
+  },
+  {
+    "Code": "obb",
+    "Range": 0
+  },
+  {
+    "Code": "obc",
+    "Range": 0
+  },
+  {
+    "Code": "obd",
+    "Range": 0
+  },
+  {
+    "Code": "obe",
+    "Range": 0
+  },
+  {
+    "Code": "obf",
+    "Range": 0
+  },
+  {
+    "Code": "opl",
+    "Range": 0
+  },
+  {
+    "Code": "opm",
+    "Range": 0
+  },
+  {
+    "Code": "ops",
+    "Range": 0
+  },
+  {
+    "Code": "pax",
+    "Range": 3
+  },
+  {
+    "Code": "pik",
+    "Range": 4
+  },
+  {
+    "Code": "pil",
+    "Range": 2
+  },
+  {
+    "Code": "qf1",
+    "Range": 0
+  },
+  {
+    "Code": "qf2",
+    "Range": 0
+  },
+  {
+    "Code": "rxb",
+    "Range": 0
+  },
+  {
+    "Code": "sbb",
+    "Range": 0
+  },
+  {
+    "Code": "sbr",
+    "Range": 0
+  },
+  {
+    "Code": "sbw",
+    "Range": 0
+  },
+  {
+    "Code": "scm",
+    "Range": 0
+  },
+  {
+    "Code": "scp",
+    "Range": 0
+  },
+  {
+    "Code": "scy",
+    "Range": 1
+  },
+  {
+    "Code": "skr",
+    "Range": 1
+  },
+  {
+    "Code": "spc",
+    "Range": 1
+  },
+  {
+    "Code": "spr",
+    "Range": 3
+  },
+  {
+    "Code": "spt",
+    "Range": 4
+  },
+  {
+    "Code": "ssd",
+    "Range": 0
+  },
+  {
+    "Code": "ssp",
+    "Range": 2
+  },
+  {
+    "Code": "sst",
+    "Range": 1
+  },
+  {
+    "Code": "swb",
+    "Range": 0
+  },
+  {
+    "Code": "tax",
+    "Range": 0
+  },
+  {
+    "Code": "tkf",
+    "Range": 0
+  },
+  {
+    "Code": "tri",
+    "Range": 3
+  },
+  {
+    "Code": "tsp",
+    "Range": 2
+  },
+  {
+    "Code": "vou",
+    "Range": 2
+  },
+  {
+    "Code": "wax",
+    "Range": 2
+  },
+  {
+    "Code": "whm",
+    "Range": 0
+  },
+  {
+    "Code": "wnd",
+    "Range": 0
+  },
+  {
+    "Code": "wrb",
+    "Range": 1
+  },
+  {
+    "Code": "wsc",
+    "Range": 4
+  },
+  {
+    "Code": "wsd",
+    "Range": 1
+  },
+  {
+    "Code": "wsp",
+    "Range": 1
+  },
+  {
+    "Code": "wst",
+    "Range": 1
+  },
+  {
+    "Code": "ywn",
+    "Range": 0
+  }
+]

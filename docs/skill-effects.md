@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Dragon Tail (2026-11-05 JST).** Final KK windup/kick, contact/block, martial-charge release, radial fire burst, knockback/get-hit presentation and audio remain needed. Native Wrestle pose, sound0x238, existing charge markers and burst0x36BD/hue0x489 are identified placeholders. Actual damage, source knockback trajectories and expiry work independently of final art. No imagegen asset is generated. See [checkpoint](dragon-tail-learned-checkpoint.md).
+
 **Dragon Tail preparation (2026-11-05 JST).** Clock and hit suppliers add no effect producer or final art. Kick/contact/charge/fire-burst/displacement/audio remain needed. Existing native presentation and fire burst0x36BD/hue0x489 are identified placeholders. Mechanical work proceeds independently; no learned route is enabled by this increment. See [checkpoint](dragon-tail-preparation-checkpoint.md).
 
 **Learned Wake of Fire (2026-11-05 JST).** Final E9 emergence, firing, neutral and collapse art; moving maker trail; spreading fire waves/contact; cast/firing/impact audio remain needed. Body 0x9C/hue 0x489, fire marker 0x36D4/hue 0x489, native throw pose and cast sound are identified placeholders. The learned route adds no new effect producer or imagegen asset. Existing logical projectile damage/expiry and retirement timing are independent of unfinished art. See [checkpoint](wake-learned-checkpoint.md).

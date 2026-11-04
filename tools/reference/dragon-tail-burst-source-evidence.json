@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+  },
+  "cases": 24,
+  "dispatchesPerCase": 2,
+  "resultFlags": {
+    "success": 1,
+    "getHit": 4,
+    "knockback": 8,
+    "do50": 9,
+    "admittedNpc": 13
+  },
+  "artifacts": {
+    ".local/class-skills/dragon-tail-burst-source/source.cpp": "e95e5b109be8de107621a7ad450dfcd56abf1bd57ee6712c5f5a1a314200e7dd",
+    ".local/class-skills/dragon-tail-burst-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dragon-tail-burst-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/dragon-tail-burst-source/cases.json": "d2b9dba4ef3703d892c8290b749332d09542c925b36c41b6bc3ca5c23951d716"
+  },
+  "established": [
+    "Tail do50flags9 request knockback. Copied router adds GetHit4 for an interruptible successful NPC,retaining KB8; flags13 enter the existing source return controller even when fire is zero.",
+    "Complete callback clones each packet. Mutating the first delivery cannot alter the second recipient or original fire/flags. Zero result flags dispatch nothing."
+  ],
+  "services": [
+    "NPC defense is supplied0 for context avoid1/block0; no player/PvP branch is claimed. Player-caster monster-critical call is a declared no-op,not a compiled monster-critical oracle.",
+    "Target state,context1events and damage sink are explicit boundaries. Native typed HP/return/motion use the existing ordered spell and knockback services and require separate actual-world tests."
+  ]
+}

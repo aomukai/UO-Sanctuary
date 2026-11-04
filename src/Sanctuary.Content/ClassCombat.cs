@@ -44,6 +44,7 @@ public static class ClassCombat
         internal AmazonStrafe.Series Strafe;
         internal AmazonMelee.Prepared AmazonAttack;
         internal TigerStrikes.Pending TigerAttack;
+        internal DragonTails.Prepared TailAttack;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
         internal DruidFireClaws.Pending FireClawAttack;
@@ -120,7 +121,7 @@ public static class ClassCombat
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
                 BladeFuryModes.EquipmentChanged(from);PlayerInfernoModes.EquipmentChanged(from);
-                TigerStrikes.EquipmentChanged(from);
+                TigerStrikes.EquipmentChanged(from);DragonTails.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
                 PoisonDaggerCombat.EquipmentChanged(from);
                 PaladinSacrifice.EquipmentChanged(from);
@@ -250,7 +251,7 @@ public static class ClassCombat
         AmazonStrafe.Cancel(from);
         AmazonFend.Cancel(from);
         AmazonMelee.Cancel(from);
-        TigerStrikes.Cancel(from);
+        TigerStrikes.Cancel(from);DragonTails.Cancel(from);
         DruidChargedAttacks.Cancel(from);
         PoisonDaggerCombat.Cancel(from);
         PaladinSacrifice.Cancel(from);
@@ -487,6 +488,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
+        if(ability==CombatAbility.DragonTail){return (byte)WeaponAnimation.Wrestle;} // Identified unarmed pose until final kick art.
         if((DruidFormAttacks.SingleA1(ability)||ability is (CombatAbility.Hunger or CombatAbility.Rabies or CombatAbility.Fury))&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
         if (ability is CombatAbility.WakeOfFire or CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
@@ -551,6 +553,7 @@ public static class ClassCombat
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
             if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}
             if(TigerStrikes.Handles(ability)){session.TigerAttack=null;}
+            if(ability==CombatAbility.DragonTail){session.TailAttack=null;}
             if(DruidChargedAttacks.Handles(ability)){session.DruidChargeAttack=null;}
             if(ability==CombatAbility.PoisonDagger){session.PoisonDaggerAttack=null;}
             if(ability==CombatAbility.FireClaws){session.FireClawAttack=null;}

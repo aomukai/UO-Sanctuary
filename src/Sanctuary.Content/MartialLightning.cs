@@ -70,11 +70,12 @@ public static class MartialLightning
         }
         return result.ToArray();
     }
-    internal static ThunderPacket Capture(PlayerMobile owner,MartialCharge charge)
+    internal static ThunderPacket Capture(PlayerMobile owner,MartialCharge charge,bool rollInline=true)
     {
         if(charge is not{Ability:CombatAbility.ClawsOfThunder,Count:>=1 and <=3}){return null;}
         int rank=Math.Max(charge.InitialRank,SkillMechanics.Rank(owner,CombatAbility.ClawsOfThunder));
-        return Capture(SkillMechanics.Values(owner,CombatAbility.ClawsOfThunder,rank),charge.Count,NamedElements.MasteryPercent(owner,"ltng"),ClassGear.Bonus(owner,"pierce-ltng"),DamageRoll);
+        Func<int,int> roll=rollInline?DamageRoll:_=>0;
+        return Capture(SkillMechanics.Values(owner,CombatAbility.ClawsOfThunder,rank),charge.Count,NamedElements.MasteryPercent(owner,"ltng"),ClassGear.Bonus(owner,"pierce-ltng"),roll);
     }
     internal static ThunderPacket Capture(SkillValues values,int count,int mastery,int pierce,Func<int,int> roll)
     {

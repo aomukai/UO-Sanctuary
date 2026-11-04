@@ -36,11 +36,12 @@ public static class MartialCold
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static void Configure()=>_ = new IceCubeProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
-    internal static IcePacket Capture(PlayerMobile owner,MartialCharge charge)
+    internal static IcePacket Capture(PlayerMobile owner,MartialCharge charge,bool rollInline=true)
     {
         if(charge is not{Ability:CombatAbility.BladesOfIce,Count:>=1 and <=3}){return null;}
         int rank=Math.Max(charge.InitialRank,SkillMechanics.Rank(owner,CombatAbility.BladesOfIce));
-        return Capture(SkillMechanics.Values(owner,CombatAbility.BladesOfIce,rank),charge.Count,NamedElements.MasteryPercent(owner,"cold"),DamageRoll,charge.InitialRank);
+        Func<int,int> roll=rollInline?DamageRoll:_=>0;
+        return Capture(SkillMechanics.Values(owner,CombatAbility.BladesOfIce,rank),charge.Count,NamedElements.MasteryPercent(owner,"cold"),roll,charge.InitialRank);
     }
     internal static IcePacket Capture(SkillValues values,int count,int mastery,Func<int,int> roll,int initialRank=0)
     {
@@ -71,13 +72,13 @@ public static class MartialCold
     {
         if(packet==null || packet.Count<2 || owner is not{Alive:true,Deleted:false} || owner.Map!=map || map==null || map==Map.Internal){return;}
         // Each source callback reads max(stored,current) rank and current stats.
-        // Do not retain an item bonus removed by the committed parent attack.
+        // The caller chooses whether this runs before or after its parent contact.
         var values=Current(owner,packet);int mastery=NamedElements.MasteryPercent(owner,"cold");
         int Enhance(int value)=>checked((int)((long)value*Math.Max(0,100+mastery)/100));
         int area=WeaponMissileDamage.RollValue(Enhance(values.Damage256(false)),Enhance(values.Damage256(true)),0,DamageRoll);
         var center=Center(target,fallback,map);int radius=(int)values.Eval("prgcalc2");
         Effects.SendLocationEffect(center,map,0x374A,3,10,0x480,0); // Identified cold-area placeholder.
-        foreach(var recipient in map.GetMobilesInRange<BaseCreature>(center,(radius+1)/2))
+        foreach(var recipient in SkillCombat.NearbySnapshot<BaseCreature>(map,center,(radius+1)/2))
         {
             // Current filter0x870B adds caster-to-recipient LOS. The shared
             // native allegiance/town/height projection remains explicit.

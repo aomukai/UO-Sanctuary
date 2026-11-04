@@ -16,7 +16,7 @@ public static class DragonTailPreparationChecks
     private sealed record Saved(uint Owner,uint Target,MartialCharge Charge,int Mana256,int Life256,ActionTiming Ordinary,ActionTiming Tail);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"dragon-tail-preparation-fixtures.json");
     public static void Configure(){Register("dragon-tail-preparation-check",Check);Register("dragon-tail-preparation-reload-check",Reload);}
-    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Dragon Tail approved accuracy and isolated KK clock suppliers; not a learned skill",_=>Core.LoopContext.Post(()=>
+    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Dragon Tail approved accuracy and isolated KK clock suppliers; separate from learned action",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static void Hold(MartialCharge charge)=>AssassinCharges.Restore(AssassinCharges.Snapshot().Where(x=>x.Owner!=charge.Owner||x.Ability!=charge.Ability).Append(charge).ToArray());
@@ -74,10 +74,10 @@ public static class DragonTailPreparationChecks
         Require(tail==DragonTailPreparation.Timing(CombatTiming.FrameAdvance(CombatTiming.Weapon(weapon),CombatTiming.Ias(owner),GearEffects.AttackSlowTotal(owner),CombatTiming.SkillAttackRate(owner),-40)),"Actual primary gear clock");
         Require(CombatTiming.For(owner,CombatAbility.BasicAttack)==ordinary&&AssassinCharges.State(owner)==charge,"Prepared clock/hit altered ordinary timing or consumed charges");
         Require(NecromancerEffects.ManaBalance256(owner)==mana&&SkillHealth.Balance256(target)==life,"Preparing a hit paid or damaged before contact");
-        Require(!AssassinCombat.Implemented(CombatAbility.DragonTail),"Prepared suppliers published an unfinished learned action");
+        Require(AssassinCombat.Implemented(CombatAbility.DragonTail),"Learned Tail no longer reuses the prepared suppliers");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,charge,mana,life,ordinary,tail)));
         owner.MoveToWorld(owner.Location,Map.Internal);target.MoveToWorld(target.Location,Map.Internal);
-        Log.Information("Dragon Tail preparation: 4480 complete KK clocks,4608 original rate vectors,charged/uncharged/mapped-shield/range controls; no debit/damage/consumption or learned route");
+        Log.Information("Dragon Tail preparation: 4480 complete KK clocks,4608 original rate vectors,charged/uncharged/mapped-shield/range controls; no debit/damage/consumption in supplier-only calls");
     }
     private static void Reload()
     {

@@ -62,7 +62,7 @@ public static class HitRecovery
         AmazonStrafe.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
-        TigerStrikes.Cancel(player);
+        TigerStrikes.Cancel(player);DragonTails.Cancel(player);
         DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);DruidRabies.Cancel(player);DruidShockWave.Cancel(player);DruidFury.Cancel(player);PoisonDaggerCombat.Cancel(player);
         AssassinClaws.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
@@ -122,7 +122,7 @@ public static class HitRecovery
         AmazonStrafe.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
-        TigerStrikes.Cancel(player);
+        TigerStrikes.Cancel(player);DragonTails.Cancel(player);
         DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);DruidRabies.Cancel(player);DruidShockWave.Cancel(player);DruidFury.Cancel(player);PoisonDaggerCombat.Cancel(player);
         AssassinClaws.Cancel(player);
         BarbarianBerserk.CancelMode(player);

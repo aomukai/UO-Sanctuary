@@ -10,7 +10,7 @@ namespace Sanctuary;
 // A player actor consumer of the existing ordered source-to-NPC pipeline.
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
-    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false);
+    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0);
 
 internal static class PlayerWeaponContact
 {
@@ -95,6 +95,7 @@ internal static class PlayerWeaponContact
         internal override bool InMeleeRange(int bonus)
         {
             if(bonus!=1){throw new NotSupportedException("Unmapped player weapon contact range bonus");}
+            if(scope.Prepared.RangeCheck!=null){return scope.Prepared.RangeCheck(bonus);}
             return source.Map==target.Map&&source.InRange(target,scope.Prepared.MeleeRange??CombatTiming.Range(source,CombatAbility.BasicAttack))&&source.InLOS(target);
         }
         internal override bool AttackerInDeathMode()=>source is not{Alive:true,Deleted:false}||SkillHealth.Balance256(source)<=0;
@@ -119,6 +120,7 @@ internal static class PlayerWeaponContact
         internal override void ApplyCold(int frames)
         {
             if(frames>0){ColdStates.Commit(source,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
+            if(scope.Prepared.FreezeFrames>0){FreezeStates.Commit(source,target,scope.Prepared.FreezeFrames,true,NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
             scope.Prepared.Impact.AllocatedPoison?.Commit(source,target,at);
         }
         internal override void SurvivedDamage()
@@ -164,7 +166,8 @@ internal static class PlayerWeaponContact
             // This adapter supplies no invented D2 class/base/mode identity.
             // Death still follows the common HP,kill,attempt and return phases.
             if((p.ResultFlags&2)!=0){death();}
-            else if((p.ResultFlags&1)!=0&&p.Total256>0){CreatureHitRecovery.Apply(target,source,scope.Loss,true);}
+            else if((p.ResultFlags&1)!=0&&p.Total256>0)
+            {if((p.ResultFlags&16384)!=0){EliteCombat.OnStruck(target,source,scope.Loss);}else{CreatureHitRecovery.Apply(target,source,scope.Loss,true);}}
         }
         internal override void FreePacket()
         {if(Freed){throw new InvalidOperationException("Player contact packet freed twice");}Freed=true;scope.Packet=null;NativeMonsterReturn.Session(target).Packets++;}

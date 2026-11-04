@@ -53,7 +53,7 @@ public static class MeleeGeometryChecks
         Require(Refused(()=>SourceMeleeGeometry.Npc("unknown",new(0,0))),"Unknown NPC profile silently guessed");
         Require(Refused(()=>SourceMeleeGeometry.Distance(new(0,0),new(1,1),-1,2)),"Invalid source size accepted");
         Require(Refused(()=>DruidWolfGeometry.MeleeDistance(new(0,0),new(1,1),4,2)),"Existing wolf size contract broadened implicitly");
-        Require(Refused(()=>SourceMeleeGeometry.Within(Unit(0,0,2,type:0),Unit(8,0,2),3,(_,_,_)=>false)),"Player weapon supplier silently guessed");
+        Require(Refused(()=>SourceMeleeGeometry.Within(Unit(0,0,2,type:2),Unit(8,0,2),3,(_,_,_)=>false)),"Non-player/non-monster weapon supplier silently guessed");
     }
     private sealed class Contact:GeometricMonsterContactServices
     {

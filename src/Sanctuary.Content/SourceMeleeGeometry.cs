@@ -71,8 +71,9 @@ internal static class SourceMeleeGeometry
     internal static bool Within(MeleeGeometryUnit first,MeleeGeometryUnit second,int bonus,Func<Point2D,Point2D,int,bool> ray)
     {
         if(first==null||second==null){return false;}
-        if(first.UnitType!=1){throw new NotSupportedException("Player weapon reach is not mapped by the NPC range supplier");}
-        int Reach()=>NpcReach(first.RawRange,first.TwoHandThrust);
+        if(first.UnitType is not(0 or 1)){throw new NotSupportedException("Unsupported source melee actor type");}
+        if(first.UnitType==0&&first.RawRange is <0 or >255){throw new NotSupportedException("Unsupported player weapon reach");}
+        int Reach()=>first.UnitType==0?first.RawRange:NpcReach(first.RawRange,first.TwoHandThrust);
         int Measure()=>Distance(first.Cell,second.Cell,first.Size,second.Size);
         if(second.UnitType==1&&second.BaseId is 258 or 261)
         {if(checked(Reach()+8)>Measure()){return true;}}

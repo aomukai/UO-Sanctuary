@@ -19,7 +19,7 @@ internal static class ReviveMeleeGeometry
     });
     internal static NpcMeleeGeometryProfile Profile(string source)=>source!=null&&Profiles.Value.TryGetValue(source,out var row)
         ?row:throw new NotSupportedException("No pinned source melee geometry: "+source);
-    internal static MeleeGeometryUnit Unit(BaseCreature actor)
+    internal static MeleeGeometryUnit Unit(BaseCreature actor,bool requireRange=true)
     {
         if(actor is not{Deleted:false}){throw new NotSupportedException("No live melee geometry actor");}
         string source=ReviveNativeActivation.State(actor)?.Setup.LifePlan?.Source;
@@ -39,7 +39,7 @@ internal static class ReviveMeleeGeometry
             {throw new NotSupportedException("Native melee actor source identity is not corroborated");}
         }
         var row=Profile(source);
-        if(row.RawRange==255){throw new NotSupportedException("Original composite weapon-class range is not captured");}
+        if(requireRange&&row.RawRange==255){throw new NotSupportedException("Original composite weapon-class range is not captured");}
         return new(PetOwnerRoutes.Cell(actor),row.Size,1,row.BaseId,row.RawRange,HasRoom:actor.Map!=null&&actor.Map!=Map.Internal);
     }
     internal static bool Within(BaseCreature source,BaseCreature target,int bonus)
