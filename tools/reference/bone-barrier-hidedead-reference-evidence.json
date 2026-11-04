@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bone barrier hidedead44 reference boundary",
+  "reference": {
+    "id": 44,
+    "enabled": true,
+    "version": 100,
+    "boneWallSpawnModifier": "hidedead",
+    "oldInitializerRows": 44,
+    "oldCallbackRows": 43,
+    "candidateInitializerRva": "0x163b270",
+    "candidateCallbackTableRva": "0x1723650",
+    "oldInitializerNullnessMatches": 44,
+    "initializerSharedResistantAliases": 3,
+    "callbackNullnessDifferences": [
+      114,
+      147
+    ],
+    "candidateSlot44Rva": "0x3d0280",
+    "candidateSlot44DeathCallbacksEmpty": true,
+    "dispatcherLinkVerified": false,
+    "callbackSemanticIdentityVerified": false
+  },
+  "productionChanged": false,
+  "nativeBaselineMarkers": 423,
+  "goalComplete": false,
+  "completedClasses": [],
+  "established": [
+    "Owned CASC monumod45rows assigns enabled/version100hidedead to ID44;bonewall SpawnUniqueMod names it.",
+    "The older death proof omits this modern modifier:its dispatch table has43rows and its initializer has44rows.",
+    "A pinned-file initializer candidate matches all44classic nullness positions and the three shared Resistant aliases. Slot44 points to0x3d0280. Its immutable runtime bytes match the pinned executable. Dispatcher and semantic identity are still unverified.",
+    "The near callback candidate differs in two classic nullness positions and its slot44 is empty. This does not establish that hidedead has no effect;it may act through initialization or another path.",
+    "All candidate code fragments are on observed ---s pages. No code read was attempted;no input,attach,permission change or game write occurred."
+  ],
+  "next": [
+    "Keep final barrier death/removal and initial owner/minion graph locally deferred. Do not delete at ENDANIM or infer a hidden-corpse lifetime from the modifier name.",
+    "A future convenient Bone Wall or Hydra summon may activate this initializer;that is a possible external change,not guaranteed reference data. Do not repeat the inaccessible-page probe until state changes.",
+    "Continue unaffected Necromancer/class work. Existing423check baseline,production C#/runtime data,installed106artifacts/38saves/20configuration files remain unchanged."
+  ],
+  "evidence": {
+    "tools/review_bone_barrier_hidedead.py": "96ca42b5c0f22b6e724fa2eeae3458a693490506af12dd186bf88d12f4155f37",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    ".local/class-skills/bone-barrier-death-phase-source/hidedead-capture.json": "3f37e67456b883d758bc741051ec400640e60155169b604595eb85ae499d3e5e",
+    "tools/reference/golem-mastery-native-evidence.json": "d542b03016125f591e9d7aedd177f3263a8e54d129b5c9f3064bf945897fc51c",
+    "docs/bone-barrier-hidedead-reference-checkpoint.md": "9fc0a24406bd15631a7968b401e597399c76a908ecf83d9645e3edb4108fe3c1",
+    "docs/bone-barrier-death-source-review.md": "de1a28d381af256e8ffd52e2c0f5d987fe6fa103ec7ba726f7ecc8706023a028",
+    "docs/class-skill-roadmap.md": "71503a70b39a930c9d41a55843b1316cd82c82ebe6008988316e3064c5dc75c3",
+    "docs/class-skills-resume-checkpoint.md": "0ddc8645c08340457dee0b0559d185e48cc14a5697db27ce28e1afd9b27e0b0a",
+    "docs/class-skill-reuse-notes.md": "39e94411e0d9a90ae12aa67fec5c7457412e7b951681e085e219edcc55fcd444",
+    ".local/class-skills/bone-barrier-death-phase-source/extraction.json": "d8c67b17f5b40dae044af0bfde4e18b8012f4889c050e917c100780e7ac78236",
+    ".local/class-skills/bone-barrier-death-phase-source/monumod.txt": "3a192913d0f45fcd6fa3660b080040027586c5224af0d6a749fae7ae912fd0ad",
+    ".local/class-skills/bone-barrier-death-phase-source/monstats2.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/class-skills/bone-barrier-death-phase-source/monumod.txt.extract.log": "94b82513f792ee549c7d721ae8ea48c55036f8b03add9a8cf3dedcb95e9b9b7f",
+    ".local/class-skills/bone-barrier-death-phase-source/monstats2.txt.extract.log": "1940705456e0405e9b10c6b1eb01e124a521e39de3ecbd95a1c1a3bf0625e024",
+    ".local/class-skills/bone-barrier-death-phase-source/umod-table-candidates.json": "88ec17c40177e7cd0878c07353ff75d0c2da3ea141c913a78e76e98ffe28201b",
+    ".local/class-skills/bone-barrier-death-phase-source/umod-table-near-candidates.json": "e893bdd98cbf97b2f581bf2923206a379e731eecfe549fab144635b77623b536",
+    ".local/class-skills/bone-barrier-death-phase-source/umod-init-candidates.json": "ecdcb3d064108a51fe1d3d8fe25be7314b9ad4cf681c23c06c6a38a75d3022e1"
+  }
+}

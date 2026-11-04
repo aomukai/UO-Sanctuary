@@ -1,5 +1,7 @@
 # Bone barrier death entry and owner graph review
 
+**Current-reference follow-up (2026-11-04 JST):** [owned hidedead evidence](bone-barrier-hidedead-reference-checkpoint.md) establishes modern modifier44, absent from this older composition. Its initializer candidate is currently unreadable and its dispatch/semantics remain unverified. Do not infer modern hiding/removal from the older mode12transition or DT15metadata.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This source preflight follows native Mage checkpoint `4acf156`. It adds evidence, not a new playable barrier phase or completed class.
 
 The shared death entry already exists in the sentry source proof. Reused its complete regular death-entry, cleanup, stat/state handling, owner lookup and death-end bodies, rather than writing another approximate death algorithm. Added the complete `AIGENERAL_AllocMinionList` body so the same composition can exercise nonempty linked groups. Existing source hashes are checked before and after composition.
