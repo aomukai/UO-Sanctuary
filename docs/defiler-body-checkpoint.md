@@ -16,7 +16,7 @@ The exact raw expression is `par2*((lvl - 1) + (skill('Demonic Mastery'.blvl))`.
 
 Two explicitly **wrapped controls** execute10,710 rank/hard-Mastery contexts and give10*(summon rank-1+hard Mastery). Those altered inputs do not establish the raw expression's modern behavior. The production parser remains strict; no Defiler damage multiplier or offense is enabled. This source uncertainty does not block independent vital/owner mechanics.
 
-Nonblocking reference question: if an existing current-build Defiler tooltip is convenient later, record effective summon rank, hard/effective Demonic Mastery and its displayed damage bonus. No respec is required. This can corroborate the intended formula but does not by itself certify Health Link or attack/event order.
+Resolved user observation (2026-11-04): Defilers do not attack; they cast the link and otherwise follow their owner. The [current-build observation record](../tools/reference/defiler-user-observations.json) includes the Hell rank-25 tooltip. No ordinary-attack tooltip is needed. The unresolved raw multiplier must not block link/follow implementation or be treated as evidence of an attack path.
 
 Subsequent read-only compiled-data research identifies the actual damage slot/19-byte program but shows that the older decoder returns before its remaining arithmetic. The multiplier remains unverified;see [compiled boundary](defiler-compiled-formula-checkpoint.md).
 
@@ -26,6 +26,6 @@ Build1/main-run1/focus-run1 pass **393 broader /61 focused checks**, retaining e
 
 ## Remaining work and assets
 
-Offense, Health Link, GenericPet world/controller/mode/skill-list and extended-passive services, learned casting/placement/payment/shared cap and complete owner/death/lifecycle remain unfinished. Extreme life projection retains the existing65000-native-HP ceiling. Current executable, world/event/order/RNG, complete blocking/avoidance and graphical acceptance remain separate.
+Health Link, follow behavior, GenericPet world/controller/mode/skill-list and extended-passive services, learned casting/placement/payment/shared cap and complete owner/death/lifecycle remain unfinished. Ordinary attacks are excluded by the current-build observation. Extreme life projection retains the existing65000-native-HP ceiling. Current executable, world/event/order/RNG, complete blocking/avoidance and graphical acceptance remain separate.
 
-The Gazer model is the approved existing body mapping. Generic native feedback is identified as placeholder presentation; summon/S3,attack,Health Link,hurt/death effects and audio still need their asset pass. Talent-tree and right/quick-hotkey icons are separate; the internal assigned skills introduce no player-bindable icons here.
+The Gazer model is the approved existing body mapping. Generic native feedback is identified as placeholder presentation; summon/S3, Health Link and hurt/death effects and audio still need their asset pass. No ordinary-attack asset is required for this support-only body. Talent-tree and right/quick-hotkey icons are separate; the internal assigned skills introduce no player-bindable icons here.

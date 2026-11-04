@@ -84,7 +84,7 @@ public static class ReviveCastChecks
         Require(!ReviveCasts.Plan(owner,pending,out _,out _,out var legacy)&&legacy.Contains("older corpse"),"Legacy eligibility fabricated");ReviveOriginals.Restore(originals);
         var dragon=Die(owner,new Dragon());Require(!ReviveCasts.Plan(owner,dragon,out _,out _,out var classification)&&classification.Contains("classification"),"Unclassified monster silently converted");dragon.Delete();
         var equipped=new Skeleton();equipped.AddItem(new GoldRing());var gear=Die(owner,equipped);
-        Require(!ReviveCasts.Plan(owner,gear,out _,out _,out var gearIssue)&&gearIssue.Contains("equipped combat effects")
+        Require(!ReviveCasts.Plan(owner,gear,out _,out _,out var gearIssue)&&gearIssue.Contains("Historical/inactive")
             &&gear.Items.Any(i=>i is GoldRing),"Unsupported equipped effects omitted or gear loot lost");gear.Delete();
         foreach(bool consumed in new[]{false,true})
         {

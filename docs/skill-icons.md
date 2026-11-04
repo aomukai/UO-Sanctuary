@@ -1,5 +1,7 @@
 # Skill icons
 
+**Qualified equipped Revive (2026-11-04 JST).** Right/quick input verification adds no skill or button. Revive still needs its separately tracked final talent-tree and hotkey artwork; existing identified icon/text placeholders remain. See [checkpoint](revive-equipped-checkpoint.md).
+
 **Original Revive native A1 (2026-11-04 JST).** The native A1 conductor adds no talent, hotkey or button. Revive retains its existing identified talent/right/quick icon or text placeholders and pending final artwork. See [checkpoint](revive-native-swing-checkpoint.md).
 
 **Original Revive A1 clocks (2026-11-04 JST).** The owned A1 clock service adds no talent or hotkey. Revive retains its existing identified talent/right/quick icon or text placeholders and pending final artwork. See [checkpoint](revive-swing-clock-checkpoint.md).

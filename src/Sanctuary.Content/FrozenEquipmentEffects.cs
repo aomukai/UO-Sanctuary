@@ -115,7 +115,12 @@ internal sealed class FrozenEquipmentContext
         return _combat;
     }
     internal FrozenCombatBase CombatBase(int level)=>Combat(level).Basis;
-    internal FrozenItemGraph GraphInput(int level)=>Combat(level).Graph??throw new NotSupportedException("Historical/inactive frozen item has no captured base graph");
+    internal FrozenItemGraph GraphInput(int level)
+    {
+        var saved=Combat(level);
+        if(saved.NumericIssue!=null){throw new NotSupportedException(saved.NumericIssue);}
+        return saved.Graph??throw new NotSupportedException("Historical/inactive frozen item has no captured base graph");
+    }
     internal EquipmentStatValue[] NumericProperties(int level)
     {
         var data=Combat(level);

@@ -31,18 +31,35 @@ internal static class ReviveEquipmentOffense
             ||ReviveNativeActivation.State(actor)is not{Setup.EquipmentLifeProfile:ReviveEquipmentCombat.Profile} state
             ||state.Owner!=owner.Serial.Value)
         {throw new NotSupportedException("No prepared original Revive offensive context");}
+        return Build(actor,owner.Serial.Value,state.Setup.LifePlan.Source,(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level,
+            ReviveBeforeDeath.Decode(state.Original.BeforeDeathJson),ReviveEquipmentLife.Items(state),ReviveCombat.DamagePercent(actor),target,attackSlot);
+    }
+    internal static ReviveOffenseSnapshot Preflight(BaseCreature actor,PlayerMobile owner,ReviveNativeSetup setup,ReviveOriginalState original)
+    {
+        if(actor==null||actor.Serial.Value!=original.Actor||owner==null||setup.LifePlan==null||setup.CombatPlan==null)
+        {throw new NotSupportedException("Original offense preflight lost its source/owner/setup");}
+        var before=ReviveBeforeDeath.Decode(original.BeforeDeathJson);
+        var items=ReviveBeforeDeath.Equipment(before).OrderBy(s=>s.OriginalItem).Select(FrozenEquipmentEffects.Bind).ToArray();
+        foreach(var item in items)
+        {
+            if(item.NumericProperties(setup.CombatPlan.Level).Any(s=>s.Value!=0&&s.Stat is 61 or 63 or 65))
+            {throw new NotSupportedException("Original positive attack-drain maxima need their resource/event consumer");}
+            _=item.Bonus("dmg-undead%",setup.CombatPlan.Level);_=item.Bonus("dmg-demon%",setup.CombatPlan.Level);
+        }
+        return Build(actor,owner.Serial.Value,setup.LifePlan.Source,setup.CombatPlan.Level,before,items,setup.CombatPlan.DamagePercent,null,1);
+    }
+    private static ReviveOffenseSnapshot Build(BaseCreature actor,uint owner,string source,int level,ReviveBeforeDeathState before,
+        FrozenEquipmentContext[] items,int revivePercent,Mobile target,int attackSlot)
+    {
         var profile=CreatureProfiles.For(actor);var attack=profile.Attack1;
         if(actor.PhysicalDamage!=100||actor.FireDamage!=0||actor.ColdDamage!=0||actor.EnergyDamage!=0||actor.PoisonDamage!=0||actor.ChaosDamage!=0||actor.DirectDamage!=0
             ||profile.ApplyStats&&(attack.Physical is{} physical&&physical!=100||attack.Fire is >0||attack.Cold is >0||attack.Lightning is >0||attack.Poison is >0||attack.Magic is >0))
         {throw new NotSupportedException("Original elemental body attack needs its explicit offensive adapter");}
         if(actor is EncounterCreature encounter&&new[]{EliteModifier.FireEnchanted,EliteModifier.ColdEnchanted,EliteModifier.LightningEnchanted,EliteModifier.ManaBurn,EliteModifier.SpectralHit}.Any(encounter.Has))
         {throw new NotSupportedException("Encounter elemental affix needs its original-body offensive adapter");}
-        string source=state.Setup.LifePlan.Source;
         if(!Sources.Value.TryGetValue(source,out var sourceRow)){throw new NotSupportedException("Original has no pinned offensive metadata: "+source);}
         if(sourceRow.Elements.Any(e=>string.Equals(e.Mode,"A1",StringComparison.OrdinalIgnoreCase)&&!string.IsNullOrEmpty(e.Type)))
         {throw new NotSupportedException("Source attack1 declares innate elemental damage: "+source);}
-        int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level;
-        var before=ReviveBeforeDeath.Decode(state.Original.BeforeDeathJson);
         int bodyMin=profile.ApplyStats?attack.MinDamage??before.Creature.DamageMinimum:before.Creature.DamageMinimum;
         int bodyMax=profile.ApplyStats?attack.MaxDamage??before.Creature.DamageMaximum:before.Creature.DamageMaximum;
         int nativePercent=0;
@@ -52,7 +69,7 @@ internal static class ReviveEquipmentOffense
             bodyMin=strong.Basis.MinDamage;bodyMax=strong.Basis.MaxDamage;
             nativePercent=EncounterProfiles.ExtraStrong(MonsterVariants.Difficulty(strong),strong.Grade==EncounterGrade.Minion).DamagePercent;
         }
-        var items=ReviveEquipmentLife.Items(state);var weapons=items.Where(item=>item.CombatBase(level).Weapon).ToArray();
+        var weapons=items.Where(item=>item.CombatBase(level).Weapon).ToArray();
         if(weapons.Length>1){throw new NotSupportedException("Multiple original weapons need explicit hand selection");}
         var weapon=weapons.SingleOrDefault();var basis=weapon?.CombatBase(level);
         if(basis!=null&&(ClassItemTypes.Is(basis.Type,"bow")||ClassItemTypes.Is(basis.Type,"xbow")))
@@ -68,7 +85,7 @@ internal static class ReviveEquipmentOffense
             else{min=checked(min+item.Bonus("dmg-min",level));max=checked(max+item.Bonus("dmg-max",level));offWeaponPercent=checked(offWeaponPercent+item.Bonus("dmg%",level));}
         }
         min=checked(min-normal);max=checked(max-normal);
-        int percent=checked(nativePercent+ReviveCombat.DamagePercent(actor)+CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor)+offWeaponPercent);
+        int percent=checked(nativePercent+revivePercent+CombatAuras.DamagePercent(actor)+NecromancerEffects.DamageStatPercent(actor)+offWeaponPercent);
         if(GemCombat.Undead(target)){percent=checked(percent+Bonus("dmg-undead%")+(basis!=null&&ClassItemTypes.Is(basis.Type,"blun")?50:0));}
         else if(NamedCombat.Demon(target)){percent=checked(percent+Bonus("dmg-demon%"));}
         var physicalStats=new NpcPhysicalStats(min,max,normal,percent,Bonus("str"),Bonus("dex"),basis!=null,basis?.StrengthCoefficient??0,basis?.DexterityCoefficient??0);
@@ -89,7 +106,7 @@ internal static class ReviveEquipmentOffense
         if(critical is <0 or >255){throw new NotSupportedException("Original intrinsic critical chance is outside source range");}
         return new(actor.Serial.Value,target?.Serial.Value??0,source,level,attackSlot,physicalStats,new(0,0,Bonus("deadly"),critical),
             NpcEquipmentElements.WithBonuses(actor,elements,Bonus("extra-fire"),Bonus("extra-ltng"),Bonus("extra-cold"),Bonus("extra-mag")),
-            new(actor.Serial.Value,owner.Serial.Value,poison,Bonus("extra-pois"),Math.Max(0,Bonus("pierce-pois"))),
+            new(actor.Serial.Value,owner,poison,Bonus("extra-pois"),Math.Max(0,Bonus("pierce-pois"))),
             new(Bonus("pierce-fire"),Bonus("pierce-cold"),Bonus("pierce-ltng"),Bonus("pierce-mag")));
     }
     internal static NpcWeaponRoll Roll(BaseCreature actor,Mobile target=null,int attackSlot=1)

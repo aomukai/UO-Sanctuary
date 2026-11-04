@@ -6,8 +6,8 @@ using System.Linq;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// This explicit component profile does not enable equipped learned Revive.
-// Remaining equipment consumers/events must be composed before that gate lifts.
+// Frozen life suppliers are shared by component profiles and qualified learned
+// casts. Full equipped admission is owned by ReviveCasts/ReviveSwings.
 internal static class ReviveEquipmentLife
 {
     internal const string Profile="frozen-equipment-life-v1";

@@ -43,8 +43,6 @@ internal static class ReviveCasts
             // project combat implementation. It is not an ability whitelist.
             if(!CreatureProfiles.Variant(actor).Enabled)
             {issue="This monster's combat classification is still a disabled proposal.";return false;}
-            if(ReviveBeforeDeath.Equipment(captured).Length!=0)
-            {issue="Preserving this monster's equipped combat effects is not implemented yet; its gear remains lootable.";return false;}
             if(actor.Guild!=null||actor.Spawner!=null)
             {issue="This monster still has unsupported guild or spawner ownership.";return false;}
             if(!owner.Map.CanSpawnMobile(corpse.Location))
@@ -52,10 +50,16 @@ internal static class ReviveCasts
             // D2's release does not reset mana/stamina. Native death clears
             // them, so restore the resources captured before that cleanup.
             setup=ReviveLife.Setup(owner,corpse,captured.Mana,captured.Stamina) with{RegenerationRate=ReviveRegeneration.Rate(unit.Snapshot.Source)};
+            if(ReviveBeforeDeath.Equipment(captured).Length!=0)
+            {
+                setup=ReviveSwings.Prepare(setup,saved);
+                ReviveEquipmentDefenses.RequireBody(actor);ReviveEquipmentIncoming.RequireBody(actor);
+                _=ReviveEquipmentOffense.Preflight(actor,owner,setup,saved);
+            }
             issue=null;return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)
-        {issue=e.Message;return false;}
+        {setup=null;issue=e.Message;return false;}
     }
     internal static bool Release(PlayerMobile owner,Corpse corpse)
     {

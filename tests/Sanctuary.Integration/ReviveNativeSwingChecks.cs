@@ -88,7 +88,10 @@ public static class ReviveNativeSwingChecks
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));owner=World.FindMobile((Serial)saved.Owner)as PlayerMobile;actor=World.FindMobile((Serial)saved.Actor)as BaseCreature;
             var target=World.FindMobile((Serial)saved.Target)as BaseCreature;var row=ReviveSwings.State(actor);
             Require(ReviveSwings.LoadedPending>0&&row is{Pending:null}&&row.EndUtc==saved.EndUtc&&actor.Map==Map.Internal&&SkillHealth.Balance256(actor)==saved.Life
-                &&SkillHealth.Balance256(target)==saved.TargetLife&&NpcEquipmentRandom.State(actor).Seed==saved.Seed,"Actual reload lost/cast/reseeded its saved pending packet or busy deadline");
+                &&SkillHealth.Balance256(target)==saved.TargetLife&&NpcEquipmentRandom.State(actor).Seed==saved.Seed,
+                "Actual reload lost/cast/reseeded its saved pending packet or busy deadline: loaded="+ReviveSwings.LoadedPending+
+                ", row="+JsonSerializer.Serialize(row)+", expected="+JsonSerializer.Serialize(saved)+", map="+actor.Map+
+                ", life="+SkillHealth.Balance256(actor)+", targetLife="+SkillHealth.Balance256(target)+", seed="+NpcEquipmentRandom.State(actor).Seed);
             target.Delete();generation=saved.Generation+1;
         }
         else

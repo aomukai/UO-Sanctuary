@@ -32,7 +32,9 @@ public static class ReviveEquipmentLifeChecks
         ClassLootHooks.CreatureDied=(who,container)=>{died?.Invoke(who,container);if(who==b){corpse=container as Corpse;corpse?.DropItem(new Gold(1));}};
         try{p.DoHarmful(b,true);b.Damage(b.Hits+1,p);CombatDamage.Finish(b,p);}finally{ClassLootHooks.CreatureDied=died;}
         Require(corpse is{Deleted:false}&&ReviveOriginals.Find(corpse)==b,"Equipped original was not retained");corpse.BeginDecay(FixtureSpace.Retention);
-        Require(!ReviveCasts.Plan(p,corpse,out _,out _,out var refusal)&&refusal.Contains("equipped"),"Public equipped Revive gate changed");
+        int mana=NecromancerEffects.ManaBalance256(p);
+        Require(ReviveCasts.Plan(p,corpse,out var publicPlan,out _,out var refusal)&&publicPlan.EquipmentSwingProfile==ReviveSwings.Profile
+            &&!b.Alive&&ReviveNativeActivation.State(b)==null&&NecromancerEffects.ManaBalance256(p)==mana,"Qualified public equipped preflight failed or activated/charged early: "+refusal);
         var original=ReviveOriginals.State(corpse);var before=ReviveBeforeDeath.Decode(original.BeforeDeathJson);
         var setup=ReviveLife.Setup(p,corpse,before.Mana,before.Stamina)with{RegenerationRate=ReviveRegeneration.Rate("skeleton1")};
         if(enabled){setup=ReviveEquipmentLife.Prepare(setup,original);}
