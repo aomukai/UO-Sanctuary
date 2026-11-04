@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 32,
+  "completeFilterSha256": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+  "reviewedSharedHit12Sha256": "9d6aeaf71d3ac7b7d3746b9c3c1e3add0b9ff01988946fc4a0b853653153c249",
+  "evidence": {
+    "tools/probe_chain_child_filter.py": "fdfc76dcc6956d6c09f85a5e6aaaec552b7b3d5b749951218b85c0a3b98cdbdd",
+    "tools/probe_lightning_fury_reference.py": "cb255aeae268a6aa5386c4a99e09e2cfb3d17ed75f72c98b8791d49ae9d78dce",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/chain-child-filter-source/probe.cpp": "2ee83d4915aa3205f6d0543e6358c03017edbbfa3f002ec6b2ba7658109fc26b",
+    ".local/class-skills/chain-child-filter-source/cases.json": "ba6bab94a415fb5012b29e71c6401a58c26e6fd1078accf3bf3dd68580593baf",
+    ".local/class-skills/chain-child-filter-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/chain-child-filter-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Shared complete hit12 selects children with0x88583. Complete filter makes no caster-to-target raytrace for this mask,including when the supplied ray would be blocked. Initial0x8A783control does request LOS and rejects a blocked ray.",
+    "Both masks retain supplied hostility,JustHit and town rejection in the covered living/valid/attackable monster domain. Child segment terrain collision is a separate travel consumer."
+  ],
+  "limits": [
+    "Types/modes/flags,hostility,room,state and raytrace results are declared services. Hit12 identity/filter constant is reviewed and also covered by the retained2560compiled child-flow cases; full source world traversal is not executed here.",
+    "This does not resolve Lightning Strike initial Y/Y aim,primary re-hit/solo damage,modern NHD identity,full room/filter/current-code/owner/client parity."
+  ]
+}

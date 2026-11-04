@@ -14,10 +14,10 @@ public static class AmazonMelee
     internal static Func<int,int> LightningRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     internal static Random WearRoll=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike or CombatAbility.LightningStrike;
     // Literal shared start6 reads calc1, which is also Charged Strike's bolt
     // count. Current executable corroboration of this small ED overlap is open.
-    internal static int PhysicalBonus(CombatAbility ability,SkillValues values,bool basic)=>!basic && ability==CombatAbility.ChargedStrike?(int)values.Eval("calc1"):0;
+    internal static int PhysicalBonus(CombatAbility ability,SkillValues values,bool basic)=>!basic && ability is(CombatAbility.ChargedStrike or CombatAbility.LightningStrike)?(int)values.Eval("calc1"):0;
     internal static ActionTiming Timing(string code,int advance)
     {
         if(code is not("1HT" or "2HT")){return new(1,1);}advance=Math.Max(1,advance);
@@ -39,13 +39,14 @@ public static class AmazonMelee
     {
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability) || !AmazonJab.ValidTarget(owner,selected)){return false;}
         if(ability==CombatAbility.ChargedStrike){ChargedStrikeBolts.RequireRoute();}
+        if(ability==CombatAbility.LightningStrike){ChainLightning.RequireLightningStrikeRoute();}
         var values=SkillMechanics.Values(owner,ability);bool basic=!NecromancerEffects.CanPay(owner,values.Mana256);
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>AmazonJab.ValidTarget(owner,id),requireMana:!basic)){return false;}
         var session=ClassCombat.For(owner);var target=World.FindMobile(selected);bool hit;double roll=0;int lightning=0;PreparedWeaponImpact packet=default;
         using(WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner)))
         {
             // Released2.6 fixes the older start6 zero-AR bug; use the pinned bonus.
-            hit=ClassStats.CheckHit(owner,target,basic?0:(int)values.Formula("toht"),HitRoll)==true;
+            hit=ClassStats.CheckHit(owner,target,basic||ability==CombatAbility.LightningStrike?0:(int)values.Formula("toht"),HitRoll)==true;
             if(hit)
             {
                 lightning=basic?0:Lightning(owner,values); // Skill lightning precedes weapon allocation/RNG.
@@ -76,6 +77,8 @@ public static class AmazonMelee
         // object supplies coordinates after death; no replacement is acquired.
         if(ability==CombatAbility.ChargedStrike && !prepared.Basic)
         {ChargedStrikeBolts.Cast(owner,target.Location,SkillMechanics.Values(owner,ability,prepared.Rank));}
+        if(ability==CombatAbility.LightningStrike&&!prepared.Basic)
+        {ChainLightning.CastLightningStrike(owner,target,target.Location,SkillMechanics.Values(owner,ability,prepared.Rank),TimedEffects.Now);}
         return true;
     }
     internal static void Cancel(PlayerMobile owner)

@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "decision": "approved Sanctuary adaptation",
+  "question": "Lightning Strike’s visible behavior is confirmed, but the hidden first-bolt/primary re-hit behavior is still uncertain. Which rule should Sanctuary use?",
+  "answer": "Adopt melee lightning plus chaining from the struck monster to nearby enemies; no outgoing chain when alone. Record the unresolved first-bolt behavior as an approved adaptation.",
+  "approvedRule": [
+    "Apply the ordinary spear/javelin melee lightning hit through the existing source10 attack path.",
+    "After melee release, choose a different nearby hostile around the resulting struck-monster position. No eligible neighbor means no outgoing chain.",
+    "Use the existing finite shared chain controller. The first travelling segment ignores the original primary until its first accepted collision; no hidden extra opening hit is simulated.",
+    "The emitted chain starts with pinned calc2 remaining=2+(effective rank-1). Later children decrement normally and use the existing cyclic identity search and four-frame contact leases; the primary can be revisited after the opening according to those rules."
+  ],
+  "stillUncertain": [
+    "Exact D2R internal first missile/solo damage and suspicious older Y/Y aim; these are superseded only by the approved opening adaptation.",
+    "Literal legacy melee calc1 physical ED overlap, complete modern targeting/NHD/global RNG/event/owner/PvP and graphical client equivalence."
+  ],
+  "isD2RObservation": false,
+  "assets": "Existing melee-lightning and chain placeholders; final effects/audio and talent/hotkey icons remain separately pending."
+}

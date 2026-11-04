@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "2304 compiled start/emission and2560 shared child-hit source cases pass. Native initial bolt individually deferred; no handler enabled. Continue unaffected Amazon skills.",
+  "status": "Learned Lightning Strike accepted with the explicit user-approved Sanctuary opening: melee lightning then chains from the struck monster toward a different nearby enemy; no outgoing chain when alone. Content3/integration10/native10/audit2 pass. Original hidden first-bolt/primary re-hit remains unresolved reference data superseded only by this adaptation.",
   "sourceId": 34,
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
@@ -134,7 +134,7 @@
   },
   "reuse": [
     "Amazon prepared spear/javelin A1 melee, source fixed elemental minimum helper and scoped full weapon packet. Lightning Strike has distinct start10, not start6.",
-    "Existing saved real ChainLightning flights already share missile hit12,25-frame range,30 velocity, LastCollide, Size2, NextDelay4, caster-origin LOS and cyclic target selection. Generalize ability/owner/range/damage metadata instead of creating a duplicate chain simulation.",
+    "Existing saved ChainLightning flights share missile hit12,25-frame range,30 velocity,LastCollide,Size2,NextDelay4 and cyclic target selection. Complete child filter0x88583 does not require caster-origin LOS; each travelling segment retains terrain collision. Generalized ability/owner/range/damage metadata avoids a duplicate chain simulation.",
     "Existing current mastery/hard-only synergy, upper-exclusive FP256 endpoints, weapon hit/critical/leech/CB versus spell-only damage separation and persistence/cancellation consumers."
   ],
   "reviewed": [
@@ -149,19 +149,23 @@
     "User multiple-target check confirms visible connections resembling Sorceress Chain Lightning. Effective rank and hop count remain unknown; the observation does not resolve primary re-hit or hidden lone-target damage."
   ],
   "uncertain": [
-    "The supplementary do14 initializes both nTargetX and nTargetY from CLIENTS_GetUnitY(v13). Do not silently copy the diagonal coordinate or silently correct it as if source-proven. Compile unchanged flow/factory and seek independent current reference; flag the initial aim branch explicitly.",
-    "Initial selection uses the generic cyclic search and can return the original sole target because do14 lacks a !=primary guard; the hit12 child path has that guard. User confirms no visible outgoing chain with a lone target. Factory LastCollide/origin initialization, zero-distance aim and whether an internal invisible/short-lived missile is created still require investigation.",
+    "Older do14 Y/Y aim and internal initial primary/solo collision remain unverified. The user approved a Sanctuary opening that chains from the struck monster to a different nearby enemy and emits nothing when alone; it does not simulate the hidden source-first bolt.",
+    "Exact original hidden/short-lived initial missile and primary re-hit remain unresolved reference facts. The approved opening profile explicitly skips the original primary until first accepted external contact, then uses ordinary finite cyclic chains.",
     "Full current factory/stat/collision/next-hit-delay/terrain/owner/PvP/block/avoidance/client parity and class certificate remain open. Existing ChainFlight native adapter has documented provisional geometry/time/owner limits.",
-    "Skill-versus-missile damage precedence is reviewed in the actual factory body, with missing skill SrcDam0 excluding weapon data. Compile that path separately and retain current executable/stat/event/RNG acceptance limits."
+    "Skill-versus-missile damage precedence now has36720 complete creator/getter/setter/roll comparisons. Current executable/global stat/event/RNG equivalence remains open; declared service boundaries remain explicit."
   ],
   "nextActions": [
-    "Individual deferred branch: resolve current initial aim and first collision/solo damage before enabling the whole skill. Do not invent primary exclusion or extra primary lightning.",
-    "Continue Dodge through existing hit-check and effective-rank consumers; no chain-source gap blocks it."
+    "Continue the remaining class roadmap;48 learned handlers remain absent and no class has a completion certificate. Do not reopen the approved Lightning Strike opening as a blocker.",
+    "Keep literal calc1 melee-ED overlap,complete modern geometry/filters/NHD/event/RNG/owner/PvP/client and actual old-binary/unheld-save parity explicit. Final effects/audio and talent/hotkey icons remain separate."
   ],
   "assets": {
     "effects": "Separate spear lightning/contact and moving chain/impact final effects pending; existing native weapon/chain presentation may be identified placeholders.",
     "icons": "Separate talent/hotkey icon pending."
   },
   "currentObservation": "tools/reference/lightning-strike-current-observation.json",
-  "compiledEvidence": "tools/reference/lightning-strike-engine-evidence.json"
+  "compiledEvidence": "tools/reference/lightning-strike-engine-evidence.json",
+  "openingDecision": "tools/reference/lightning-strike-sanctuary-decision.json",
+  "compiledDamageEvidence": "tools/reference/lightning-strike-damage-source-evidence.json",
+  "childFilterEvidence": "tools/reference/chain-child-filter-source-evidence.json",
+  "nativeEvidence": "tools/reference/lightning-strike-native-evidence.json"
 }

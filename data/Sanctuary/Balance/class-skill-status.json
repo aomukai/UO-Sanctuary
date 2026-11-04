@@ -108,10 +108,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 34,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Individually deferred initial bolt: compiled older do14 supplies secondary Y/Y aim, while modern observations establish visible multi-target chaining but not hidden primary re-hit/solo damage. LastCollide initializes to caster, not primary; native swept overlap does not establish source first collision. Spell-only factory precedence remains reviewed, not compiled. Reuse prepared A1/ChainLightning after resolving this branch; continue unaffected Amazon skills."
+      "remaining": "Learned start10 A1 spear/javelin melee and shared saved source-zero lightning chain use the user-approved Sanctuary opening: chain from the struck monster toward a different nearby enemy, with no outgoing chain when alone and no hidden opening primary re-hit. Existing rank/synergy/mastery/FP packet,9mana/low-mana Attack,critical/leech/gear,cancellation and chain persistence services are reused. Complete36720creator/getter/setter/roll and existing2304start/2560child source cases retain exact declared boundaries; see lightning-strike-checkpoint.md. Literal calc1ED20 overlap,exact current native geometry/filters/NHD/event/RNG/owner/PvP/client and unheld/old-binary limits remain explicit; no class complete."
     },
     {
       "talentId": "amazon.lightningfury",

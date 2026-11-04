@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Lightning Strike (2026-11-05 JST).** A final Amazon talent-tree icon and matching left/right/quick-hotkey artwork remain needed. Existing generic skill/roster placeholders identify the now-bindable skill; no dedicated final icon is supplied. Icon work remains separate from mechanical acceptance. See [checkpoint](lightning-strike-checkpoint.md).
+
 Ordinary curse catalogue expansion adds no player-bindable skill. Existing Dim Vision/Terror and shared Howl/Taunt/Grim Ward icon requirements remain separate from recipient mechanics; no final tree/right/quick icon is generated. See [checkpoint](curse-ai-catalogue-checkpoint.md).
 
 Shared curse AI family expansion creates no player-bindable skill. Existing Dim Vision and Terror talent-tree/right/quick-hotkey icons remain separately needed; broader recipient coverage does not imply final artwork. See [checkpoint](curse-ai-families-checkpoint.md).
