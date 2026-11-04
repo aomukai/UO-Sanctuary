@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shared item-affix orchestration (2026-11-05 JST).** This prepared service component produces no summon,item body,cast,weapon effect or audio. Shadow summon/body/cast/weapon/skill effects and audio remain separately pending with identified placeholders;no imagegen asset is generated. See [checkpoint](item-affixes-checkpoint.md).
+
 **Shadow equipment requests (2026-11-05 JST).** Request selection emits no visual/audio producer. Shadow summon/cast/body/weapon/skill effects and audio remain pending;identified placeholders will be tracked when actors/casting are connected. No final or imagegen asset is supplied. See [checkpoint](shadow-equipment-checkpoint.md).
 
 **Prepared Dragon Flight landing (2026-11-05 JST).** Actual prepared transfer emits the existing shared **generic Teleport placeholders**:0x3728departure/arrival particles and0x1FEaudio,followed by existing native arrival-field effects. These are identified temporary effects,not final Flight assets. Dedicated teleport/kick/contact/charge presentation and audio remain pending;mechanical landing tests proceed independently. See [checkpoint](dragon-flight-landing-checkpoint.md).

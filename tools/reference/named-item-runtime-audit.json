@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "4312c6926107dc56611148341d893501579971522a78da6febfb55811db05493",
+  "ContentAssemblySha256": "6cfe81fc3515a08a10b57ab0f97f3621f2243ff970713fe6f47c036dc5c11e96",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "e2b806c9175e40cc2727659e75016cd606d59e90912998c14a322ce1207bc6e5",
+    "data/Sanctuary/Balance/class-skill-status.json": "351eac360cbe6852a1d9321409aef54f5e852dd04d4c9015462470c780f12d76",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -956,6 +956,7 @@
     "src/Sanctuary.Content/SourceFireFields.cs": "af53659aeaf3cc4804cbbea9ca0ecb26006b3218d44d5ff67b604a41242273d3",
     "src/Sanctuary.Content/SourceFreeCoordinates.cs": "e2a5166f0eec5ef427e46acc8a968f8ceb0b5df3c712d6b25e5656428b6abb80",
     "src/Sanctuary.Content/SourceGuidTargets.cs": "fb9b6dfcc78b5b40b9f76db607b783d733ae7bf3610c06b84a9d62024c9417f6",
+    "src/Sanctuary.Content/SourceItemAffixes.cs": "2376569a206a77231c9452de2e53a90c382813fb7c2411e30978cd817af0b59f",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "b99c53aa543717492b0118ef28a4c553dd3074cc0d648100cc70f71f3ca0a958",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "222a9c0d25421d2a7fe40776c01d8a7759b126d8052efb85fd5c64030cf051c2",
     "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",

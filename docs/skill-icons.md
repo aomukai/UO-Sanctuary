@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shared item-affix orchestration (2026-11-05 JST).** No public skill,binding,icon slot or artwork is added. Shadow Warrior/Master talent-tree and hotkey icons remain separate pending assets;identified generic placeholders stay in place. See [checkpoint](item-affixes-checkpoint.md).
+
 **Shadow equipment requests (2026-11-05 JST).** Warrior/Master talent-tree and hotkey icons remain separate pending assets. Prepared gear requests create no public binding,icon slot or artwork;generic placeholders remain identified. See [checkpoint](shadow-equipment-checkpoint.md).
 
 **Prepared Dragon Flight landing (2026-11-05 JST).** Final talent-tree and left/right/quick-hotkey icons remain needed separately. Native landing/transfer adds no public binding,icon slot or final asset;existing generic placeholders remain identified. See [checkpoint](dragon-flight-landing-checkpoint.md).

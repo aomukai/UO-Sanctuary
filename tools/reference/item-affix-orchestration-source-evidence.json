@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableCodeParity": false,
+  "cases": 41472,
+  "compiledUnchangedRoutineHashes": {
+    "sub_6FC4D5E0": "3c8b1163f7eb83214cc0a0617adbfdc12ac5269535808991a7186f59c556ae42",
+    "D2GAME_RollRareItem_6FC53360": "e2bc98d74cfcb4e27d5207ca211d097f1e106fbd44ceaf0a19fa33890548a07b"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemsMagic.cpp": "ff65c78c37e031da46bbd13d83626c39ce0ddc6971c6e4a7791e594d25b57ede"
+  },
+  "sanitizers": "ASan+UBSan clean",
+  "artifacts": {
+    ".local/class-skills/item-affix-orchestration-source/source.cpp": "0ba617fea235bab9e3fc411531cbd5c203b51a46b5071bed4c3dff6926b24e3f",
+    ".local/class-skills/item-affix-orchestration-source/probe": "b7cbdcc98ca6d7ce586ad213339eebeee66a8a248721b847ccb7e29c587001a1",
+    ".local/class-skills/item-affix-orchestration-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-affix-orchestration-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-affix-orchestration-source/cases.json": "1fc1b836a101c8832d3c70edf349676b90524560cb09753f5a84b64dfb4311fd",
+    "tools/probe_item_affix_orchestration.py": "a4346fa41fe764134b2c2d87320446d2947df9ea46b0950c82b86cb9f8c50a55"
+  },
+  "established": [
+    "Complete magic outer caller preserves preferred-prefix negative/zero/positive branches,forced suffix after missing prefix,assignment order,identification clearing and final initializer only on success.",
+    "Complete rare outer caller checks rare eligibility/format,rolls both name components before validating them,selects3..6ordinary or3..4jewel affixes,caps3per side,retries the other side after empty pools and applies selected properties only afterward in prefix/suffix interleaved slot order.",
+    "Rare selection requests bAssignProperties0;magic requests1. Property RNG/effects therefore belong inside magic picker calls but after complete rare selection. No player GearRoll orchestration is substituted."
+  ],
+  "services": [
+    "Names,picker,property-record lookup/property application,legacy-format rare path and final initializer are observed services. The supplied picker models available prefix/suffix counts and records every spawn/force/property/preferred argument;it is not full pool/weighted/property execution.",
+    "Outer RNG returns a bounded counter stream;the engine SourceRandom/current item seed allocation and name RNG remain independent dependencies. All items start with empty prefix/suffix slots and identified flag set. No native item or Shadow actor is produced."
+  ],
+  "remaining": [
+    "Connect current full affix pools/name generation/property writing/final item initialization and quality fallback on an actual generated NPC item graph. Preserve unsupported properties explicitly rather than filtering.",
+    "Current executable parity,item-generation seed allocation,source-quality fallback,superior quality,normal/special bases,actual NPC inventory/combat/casting/lifecycle/input/saves and final assets remain open."
+  ]
+}
