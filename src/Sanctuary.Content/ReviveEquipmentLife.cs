@@ -11,7 +11,7 @@ namespace Sanctuary;
 internal static class ReviveEquipmentLife
 {
     internal const string Profile="frozen-equipment-life-v1";
-    private sealed record Bound(string Json,FrozenEquipmentContext[] Items);
+    private sealed record Bound(string Json,FrozenEquipmentContext[] Items,ReviveResourceBases Bases);
     private static readonly Dictionary<uint,Bound> Cache=new();
     internal static ReviveNativeSetup Prepare(ReviveNativeSetup setup,ReviveOriginalState original)
     {
@@ -22,16 +22,19 @@ internal static class ReviveEquipmentLife
     }
     private static FrozenEquipmentContext[] Read(string json)=>ReviveBeforeDeath.Equipment(ReviveBeforeDeath.Decode(json))
         .OrderBy(s=>s.OriginalItem).Select(FrozenEquipmentEffects.Bind).ToArray();
-    private static FrozenEquipmentContext[] Items(ReviveNativeState state)
+    private static Bound Context(ReviveNativeState state)
     {
         string json=state.Original.BeforeDeathJson;
         if(!Cache.TryGetValue(state.Actor,out var held)||held.Json!=json)
-        {held=new(json,Read(json));Cache[state.Actor]=held;}
-        return held.Items;
+        {held=new(json,Read(json),ReviveBeforeDeath.Decode(json).ResourceBases);Cache[state.Actor]=held;}
+        return held;
     }
+    internal static FrozenEquipmentContext[] Items(ReviveNativeState state)=>Context(state).Items;
+    internal static ReviveResourceBases ResourceBases(ReviveNativeState state)=>Context(state).Bases;
     internal static void Validate(ReviveNativeState state)
     {
         if(state.Setup.EquipmentLifeProfile==null){return;}
+        if(state.Setup.EquipmentLifeProfile==ReviveEquipmentResources.Profile){ReviveEquipmentResources.Validate(state);return;}
         try
         {
             if(state.Setup.EquipmentLifeProfile!=Profile||Prepare(state.Setup,state.Original)!=state.Setup)
@@ -42,7 +45,7 @@ internal static class ReviveEquipmentLife
     }
     internal static int Maximum256(ReviveNativeState state,ReviveLifePlan source,int battleOrdersPercent)
     {
-        if(state.Setup.EquipmentLifeProfile!=Profile){throw new NotSupportedException("No equipped Revive life profile");}
+        if(state.Setup.EquipmentLifeProfile is not(Profile or ReviveEquipmentResources.Profile)){throw new NotSupportedException("No equipped Revive life profile");}
         int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level;
         int flat=0,coefficient=0,percent=0;
         foreach(var item in Items(state))

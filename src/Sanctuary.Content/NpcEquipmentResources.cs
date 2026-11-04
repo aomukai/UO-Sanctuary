@@ -9,6 +9,7 @@ internal static class NpcEquipmentResources
     // Native resource0=life,1=stamina,2=mana;numeric channel1=mana.
     internal static int? Maximum256(Mobile mobile,int resource)
     {
+        if(ReviveEquipmentResources.Maximum256(mobile,resource)is{} revived){return revived;}
         if(World.Loading||mobile is not SkeletonGuardian actor||resource is <0 or >2
             ||IronGolemItems.State(actor) is not{} binding
             ||World.FindItem((Serial)binding.Item) is not{Deleted:false} original||original.Parent!=actor
