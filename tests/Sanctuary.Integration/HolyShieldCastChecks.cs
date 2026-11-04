@@ -140,7 +140,8 @@ public static class HolyShieldCastChecks
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,shield.Serial.Value,held,17,SkillHealth.Balance256(p),p.Location,p.Map.MapID,
             pending.Serial.Value,pendingShield.Serial.Value,pending.Location,26897,SkillHealth.Balance256(pending))));p.Internalize();pending.Internalize();
     }
-    private static void StageSave()
+    internal static bool HasSavedFixture=>File.Exists(Manifest);
+    internal static void StageSave()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var pending=(PlayerMobile)World.FindMobile((Serial)s.PendingOwner);pending.MoveToWorld(s.PendingOrigin,Map.Maps[s.Map]);
         Require(HolyShields.State(pending)==null&&NecromancerEffects.ManaBalance256(pending)==s.PendingMana&&SkillHealth.Balance256(pending)==s.PendingLife,"Pending Holy Shield original resources changed before save");

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original Revive native A1 (2026-11-04 JST).** The native A1 conductor adds no talent, hotkey or button. Revive retains its existing identified talent/right/quick icon or text placeholders and pending final artwork. See [checkpoint](revive-native-swing-checkpoint.md).
+
 **Original Revive A1 clocks (2026-11-04 JST).** The owned A1 clock service adds no talent or hotkey. Revive retains its existing identified talent/right/quick icon or text placeholders and pending final artwork. See [checkpoint](revive-swing-clock-checkpoint.md).
 
 **Original Revive live melee (2026-11-04 JST).** Live original geometry/result/contact adds no talent, hotkey or button. Revive retains its identified talent/right/quick icon or text placeholders and pending final artwork. See [checkpoint](revive-melee-geometry-checkpoint.md).

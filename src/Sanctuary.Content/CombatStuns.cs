@@ -82,6 +82,7 @@ public static class CombatStuns
     }
     private static bool Commit(BaseCreature target,DateTime until)
     {
+        ReviveSwings.Cancel(target,false);
         _states[target.Serial.Value]=new(target.Serial.Value,until);
         if(target is GraveyardUndead undead){undead.InterruptForRecovery();}
         else if(target is SkeletonGuardian guardian){guardian.InterruptForRecovery();}

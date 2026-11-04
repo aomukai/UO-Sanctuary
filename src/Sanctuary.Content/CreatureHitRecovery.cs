@@ -96,6 +96,7 @@ public static class CreatureHitRecovery
     }
     private static void Begin(BaseCreature creature,int duration)
     {
+        ReviveSwings.Cancel(creature,false);
         CreatureProfiles.Session(creature).RecoveryUntil = Core.TickCount + duration;
         creature.AIObject?.ResetApproachState();
         if (creature is GraveyardUndead undead)

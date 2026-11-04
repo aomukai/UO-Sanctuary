@@ -16,7 +16,8 @@ public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Man
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentDefenseProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentEventProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentIncomingProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentGraphProfile=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentGraphProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentSwingProfile=null);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -71,7 +72,7 @@ public static class ReviveNativeActivation
         ReviveRegeneration.Validate(row.Setup);
         ReviveBeforeDeath.Validate(row.Original.BeforeDeathJson,row.Original.RuntimeType);
         ReviveFacets.Validate(row);
-        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);ReviveEquipmentIncoming.Validate(row);ReviveEquipmentGraph.Validate(row);
+        ReviveEquipmentLife.Validate(row);ReviveEquipmentDefenses.Validate(row);ReviveEquipmentEvents.Validate(row);ReviveEquipmentIncoming.Validate(row);ReviveEquipmentGraph.Validate(row);ReviveSwings.Validate(row);
     }
     internal static void Restore(ReviveNativeState[] rows)
     {
@@ -96,11 +97,11 @@ public static class ReviveNativeActivation
         public DiabloClass SummonClass=>DiabloClass.Necromancer;
         public bool Permitted(PlayerMobile owner)=>State(actor) is{} row&&row.Owner==owner.Serial.Value&&Trained(owner)
             &&(owner.Map==null||owner.Map==Map.Internal||SummonDifficulties.For(owner.Map)==row.Difficulty);
-        public void SuspendActions(){if(actor is GraveyardUndead undead){undead.StopCombatActions();}actor.AIObject?.AITimer.Stop();actor.Blessed=true;}
+        public void SuspendActions(){ReviveSwings.Cancel(actor,true);if(actor is GraveyardUndead undead){undead.StopCombatActions();}actor.AIObject?.AITimer.Stop();actor.Blessed=true;}
         public void ResumeActions(){if(CanAct(actor)){actor.Blessed=false;actor.AIObject?.AITimer.Start();}}
     }
     private static IPersistentMinion Behavior(BaseCreature actor)=>State(actor)!=null?new NativeBehavior(actor):null;
-    private static bool CanAct(BaseCreature actor)=>actor is{Alive:true,Deleted:false}&&actor.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
+    internal static bool CanAct(BaseCreature actor)=>actor is{Alive:true,Deleted:false}&&actor.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
         &&owner.Map==actor.Map&&actor.Map!=Map.Internal&&!MinionSafeAreas.ShouldPark(owner,actor)&&PersistentMinions.Active(owner,actor)&&Behavior(actor).Permitted(owner);
     internal static bool CommitPrepared(PlayerMobile owner,Corpse corpse,Point3D destination,ReviveAiStatus status,ReviveNativeSetup setup,out BaseCreature actor,out string issue)
     {

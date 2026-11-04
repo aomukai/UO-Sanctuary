@@ -38,6 +38,13 @@ internal sealed class NpcCombatEvents
     {item?.RequireOrdinaryNpcDrainInputs();return item?.ActiveNumericProperties()??[];}
     private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood,bool inherentCrushing):this(Stats(item),inherentWounds,blood,inherentCrushing){}
     internal static NpcCombatEvents FromStats(EquipmentStatValue[] stats)=>new(stats,false,false,false);
+    internal int[] Subscriptions()=>Active.Select(r=>r.Stat).ToArray();
+    internal static NpcCombatEvents RestoreSubscriptions(int[] stats)
+    {
+        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 135 or 136)))
+        {throw new NotSupportedException("Persisted ordinary item callbacks need their admitted subscription set");}
+        return FromStats(stats.Select(s=>new EquipmentStatValue(EquipmentStatKey.Pack(s),1)).ToArray());
+    }
     private NpcCombatEvents(EquipmentStatValue[] stats,bool inherentWounds,bool blood,bool inherentCrushing)
     {
         var active=new List<NpcItemEventStat>();

@@ -9,6 +9,23 @@ namespace Sanctuary;
 
 internal static class IronGolemContact
 {
+    internal sealed record Saved(MonsterReturnMetadata Metadata,int[] SourceEvents,int[] TargetEvents,bool NativeRecovery,NpcWeaponImpact Impact);
+    internal static Saved Capture(Prepared prepared)
+    {
+        if(prepared==null||prepared.Consumed){throw new InvalidOperationException("Cannot save a consumed ordinary contact");}
+        var saved=new Saved(prepared.Rules.Metadata,prepared.Rules.SourceEvents.Subscriptions(),prepared.Rules.TargetEvents.Subscriptions(),prepared.Rules.NativeRecovery,prepared.Impact);
+        _=Restore(saved);return saved;
+    }
+    internal static Prepared Restore(Saved saved)
+    {
+        if(saved?.Metadata==null||saved.Impact is not{} impact||impact.Packet is not{} p||impact.Actor==0||impact.Target==0||impact.Actor==impact.Target
+            ||saved.Metadata.Mapping==null||saved.Metadata.Class< -1||saved.Metadata.Base< -1||saved.Metadata.Modes<0||saved.Metadata.Velocity<0
+            ||impact.Spectral!=null||impact.Poison.Rate256<0||impact.Poison.Frames<0||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0
+            ||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||(p.ResultFlags&~0xffff)!=0
+            ||(long)p.Physical256+p.Magic256+p.Fire256+p.Lightning256+p.Cold256+p.Poison256!=p.Total256)
+        {throw new System.IO.InvalidDataException("Invalid saved ordinary contact");}
+        return new(new(saved.Metadata,NpcCombatEvents.RestoreSubscriptions(saved.SourceEvents),NpcCombatEvents.RestoreSubscriptions(saved.TargetEvents),saved.NativeRecovery),impact);
+    }
     internal static void RequireRecoveryEvents(BaseCreature target)
     {
         if(target.IsParagon||target is EncounterCreature encounter&&encounter.Has(EliteModifier.LightningEnchanted))
