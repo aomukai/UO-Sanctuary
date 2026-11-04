@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "D2R Reign of the Warlock 3.3.93847",
+  "source": "Direct user observation and approval in this chat, 2026-11-04 JST",
+  "verbatim": [
+    "necromancer's corpse explosion works a bit like that. clicking the ground detonates the closest corpse.",
+    "it detonates the closest corpse. you dont have to target the corpse, but you can't click half a screen away, either. we can make it maybe 2 tiles"
+  ],
+  "established": "Ground clicking acquires a nearby corpse; exact native click tolerance is not measured.",
+  "approvedPolicy": {
+    "radiusUOTiles": 2,
+    "metric": "Euclidean cursor circle; boundary included",
+    "selection": "Closest usable corpse to cursor; lowest serial on exact ties",
+    "eligibility": "Existing corpse metadata,access,map,height,visibility and eight-tile caster range",
+    "primary": "Acquire at begin; preserve existing release checks and no reacquisition on target loss"
+  },
+  "status": "Implemented and verified: server build 1/native run 1 with78affected-system markers;24smoke markers;six actual CE ground inputs per cohort;two reloads. ClassicUO patch0039 builds and replays in the39-patch stack;rendered UI remains unverified."
+}

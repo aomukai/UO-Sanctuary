@@ -1,5 +1,7 @@
 # Skill icons
 
+**Corpse Explosion ground targeting (2026-11-04 JST).** No skill or button was added. CE talent-tree and right/quick icon placeholders and pending final artwork remain separate from effects/audio. See [checkpoint](corpse-aim-checkpoint.md).
+
 **Bone Prison ground acquisition (2026-11-04 JST).** No new skill, button or hotkey is added. Existing Bone Prison talent/right/quick placeholders and pending final icons remain separate from effects/audio. See [checkpoint](bone-prison-aim-checkpoint.md).
 
 **Original summon Iron Maiden (2026-11-04 JST).** Reusing the shared event adds no skill, button or hotkey. Existing Iron Maiden/Revive/Iron talent/right/quick placeholders and pending final icons remain separate from effects/audio. See [checkpoint](npc-iron-maiden-checkpoint.md).
