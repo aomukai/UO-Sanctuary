@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System.IO;
 using Server;
 using Server.Mobiles;
+using Server.Logging;
 
 namespace Sanctuary;
 
 public static class EliteAuras
 {
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(EliteAuras));
     private sealed class Debuff(Mobile owner)
     {
         internal Mobile Owner = owner;
         internal ResistanceMod Physical, Fire, Cold, Lightning;
         internal int Amp, Conviction;
+        internal int? KnownAmplify;
     }
     private static readonly HashSet<EncounterCreature> _emitters = new();
     private static readonly Dictionary<Serial, Debuff> _debuffs = new();
@@ -111,12 +114,24 @@ public static class EliteAuras
     internal static void Amplify(Mobile target, TimeSpan duration)
     {
         if (target is not { Deleted: false, Alive: true } || target is EncounterCreature { Grade: EncounterGrade.Champion, Champion: ChampionKind.Possessed }) { return; }
+        if(Curses.Metadata(target.Serial)!=null)
+        {Log.Warning("Duration-only Amplify cannot arbitrate a known-rank curse:{Target}",target.Serial.Value);return;}
         int frames=(int)Math.Clamp(duration.TotalMilliseconds/40,0,int.MaxValue);
         if(!SourceCurseDuration.Incoming(target,"amplifydamage",frames,out int reduced)){return;}
         // Preserve the existing native duration exactly when no curse resistance
         // applies; a Fade receiver uses the source integer-frame result.
         Curses.Apply(target.Serial,TimedEffects.Now.Add(AssassinBuffs.CurseResistance(target)==0?duration:TimeSpan.FromMilliseconds(reduced*40L))); Refresh(target);
         target.FixedParticles(0x374A, 10, 15, 5028, EffectLayer.Waist);
+    }
+    internal static bool ValidMetadata(NecromancerCurse curse)=>curse is{Ability:CombatAbility.AmplifyDamage,Rank:>=1 and<=255,PhysicalDelta:-100 or -20,
+        Motion:null,Terror:null,CloakBlind:false,ElementDeltas:null,Ward:null}&&((Serial)curse.Source).IsMobile&&curse.UntilUtc.Kind==DateTimeKind.Utc;
+    internal static int AmplifyOffset(Mobile target)=>target!=null&&_debuffs.TryGetValue(target.Serial,out var state)?state.Physical?.Offset??0:0;
+    internal static int UnderlyingPhysical(Mobile target)=>
+        (target is PlayerMobile p&&ClassCombat.Enabled(p)?ClassGear.RawResistance(p,ResistanceType.Physical):target.PhysicalResistance)-AmplifyOffset(target);
+    internal static void Amplify(EncounterCreature source,Mobile target,int rank)
+    {
+        if(EliteCombat.Enemy(source,target,18)&&NecromancerCurseCasts.NpcAmplify(source,target,rank))
+        {target.FixedParticles(0x374A,10,15,5028,EffectLayer.Waist);}
     }
     private static void Remove(Mobile target, ref ResistanceMod mod)
     { if (mod != null) { target.RemoveResistanceMod(mod); mod = null; } }
@@ -126,8 +141,10 @@ public static class EliteAuras
         _debuffs.TryGetValue(target.Serial, out var state);
         bool alive = !target.Deleted && target.Alive;
         int amp = alive && Curses.Active(target.Serial, TimedEffects.Now) ? 100 : 0;
+        int? known=alive?Curses.Metadata(target.Serial)?.PhysicalDelta:null;
+        if(known.HasValue){amp=-known.Value;}
         int conviction = alive ? Level(target, EliteAura.Conviction, true) : 0;
-        if (state != null && state.Amp == amp && state.Conviction == conviction) { return; }
+        if (state != null && state.Amp == amp && state.Conviction == conviction&&state.KnownAmplify==known) { return; }
         if (state != null)
         {
             Remove(target, ref state.Physical); Remove(target, ref state.Fire); Remove(target, ref state.Cold); Remove(target, ref state.Lightning);
@@ -135,10 +152,10 @@ public static class EliteAuras
         }
         if (!alive) { Curses.Clear(target.Serial); return; }
         if (amp == 0 && conviction == 0) { return; }
-        state = new Debuff(target) { Amp = amp, Conviction = conviction };
+        state = new Debuff(target) { Amp = amp, Conviction = conviction,KnownAmplify=known };
         if (amp > 0)
         {
-            state.Physical = new ResistanceMod(ResistanceType.Physical, "SanctuaryAmplifyDamage", target.PhysicalResistance >= 100 ? -amp / 5 : -amp);
+            state.Physical = new ResistanceMod(ResistanceType.Physical, "SanctuaryAmplifyDamage", known??(target.PhysicalResistance >= 100 ? -amp / 5 : -amp));
             target.AddResistanceMod(state.Physical);
         }
         if (conviction > 0)
@@ -196,14 +213,34 @@ public sealed class EliteCurseProfiles : GenericPersistence
     private readonly Dictionary<Serial, DateTime> _curses = new();
     private KeyValuePair<Serial, DateTime>[] _snapshot = [];
     public EliteCurseProfiles() : base("SanctuaryEliteCurses", 126) { }
-    internal void Apply(Serial serial, DateTime until) => _curses[serial] = until;
+    internal void Apply(Serial serial, DateTime until)
+    {
+        _curses[serial]=until;
+        if(World.FindMobile(serial) is{} actor&&NecromancerEffects.Profiles.Find(actor) is{EliteCurse:{}} state)
+        {NecromancerEffects.Profiles.Store(actor,state with{EliteCurse=state.EliteCurse with{UntilUtc=until}});}
+    }
+    internal void Apply(Mobile actor,NecromancerCurse metadata)
+    {
+        if(!EliteAuras.ValidMetadata(metadata)){throw new InvalidDataException("Invalid fresh elite curse");}
+        _curses[actor.Serial]=metadata.UntilUtc;
+        NecromancerEffects.Profiles.Store(actor,(NecromancerEffects.Profiles.Find(actor)??new()) with{Curse=null,EliteCurse=metadata});
+    }
+    internal NecromancerCurse Metadata(Serial serial)=>Active(serial,TimedEffects.Now)&&World.FindMobile(serial) is{} actor
+        &&NecromancerEffects.Profiles.Find(actor)?.EliteCurse is{} meta&&meta.UntilUtc==Expires(serial)?meta:null;
+    internal bool Unknown(Serial serial,DateTime at)
+    {bool active=Active(serial,at);if(!active&&World.FindMobile(serial) is{} actor){EliteAuras.Refresh(actor);}return active&&Metadata(serial)==null;}
     internal bool Active(Serial serial, DateTime now)
     {
         if (!_curses.TryGetValue(serial, out var until)) { return false; }
         if (until > now) { return true; }
-        _curses.Remove(serial); return false;
+        Clear(serial); return false;
     }
-    internal void Clear(Serial serial) => _curses.Remove(serial);
+    internal void Clear(Serial serial)
+    {
+        _curses.Remove(serial);
+        if(World.FindMobile(serial) is{} actor&&NecromancerEffects.Profiles.Find(actor) is{EliteCurse:{}} state)
+        {NecromancerEffects.Profiles.Store(actor,state with{EliteCurse=null});}
+    }
     internal DateTime Expires(Serial serial) => _curses.GetValueOrDefault(serial);
     public override void Serialize()
     {

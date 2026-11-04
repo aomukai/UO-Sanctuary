@@ -19,7 +19,7 @@ internal static class AttractCasts
     internal static bool Apply(PlayerMobile owner,Mobile target,int rank)
     {
         if(rank is<1 or>255||target is not BaseCreature selected||!Eligible(owner,selected)){return false;}
-        if(EliteAuras.Curses.Active(selected.Serial,TimedEffects.Now))
+        if(EliteAuras.Curses.Unknown(selected.Serial,TimedEffects.Now))
         {Log.Warning("Attract legacy elite-curse replacement is unsupported: {Target}",selected.Serial.Value);return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.Attract,rank);DateTime at=TimedEffects.Now;
         int resetFrames=NecromancerCurseCasts.AiFrames((int)values.Eval("auralencalc"),SummonDifficulties.For(owner.Map));
@@ -31,7 +31,7 @@ internal static class AttractCasts
             Log.Warning("Attract rejected factory/alignment orphan branch is unsupported: {Target}",selected.Serial.Value);return false;
         }
         var state=NecromancerEffects.Profiles.Find(selected)??new();
-        var next=NecromancerCurseCasts.Replacement(state.Curse,CombatAbility.Attract,owner.Serial.Value,rank,null,
+        var next=NecromancerCurseCasts.Replacement(state.Curse??EliteAuras.Curses.Metadata(selected.Serial),CombatAbility.Attract,owner.Serial.Value,rank,null,
             at.AddMilliseconds(frames*40L),at,owner.X,owner.Y);
         if(next==null){Log.Warning("Attract late factory failure transition is unsupported: {Target}",selected.Serial.Value);return false;}
         // Publishing the accepted curse models the selected unit's neutral

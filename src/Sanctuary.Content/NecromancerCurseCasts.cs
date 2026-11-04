@@ -86,7 +86,7 @@ internal static class NecromancerCurseCasts
         }
         // The earlier monster-cast Amplify store has no rank/creator payload.
         // Its compound replacement cannot yet be mapped without inventing one.
-        if(EliteAuras.Curses.Active(target.Serial,TimedEffects.Now))
+        if(EliteAuras.Curses.Unknown(target.Serial,TimedEffects.Now))
         {Log.Warning("{Ability} legacy elite-curse replacement is not mapped: {Target}",ability,target.Serial.Value);return false;}
         EliteAuras.Refresh(target); // Remove an expired native resistance mod before reading its base pool.
         int frames=(int)values.Eval("auralencalc");
@@ -101,11 +101,11 @@ internal static class NecromancerCurseCasts
         // source base/accrued item graphs remain a separately recorded gap.
         int? penalty=ability switch
         {
-            CombatAbility.AmplifyDamage=>AmplifyDamageCasts.Penalty(target.PhysicalResistance,target is not BaseHire),
-            CombatAbility.Decrepify=>PhysicalPenalty((int)values.Eval("aurastatcalc3"),target.PhysicalResistance,target is not BaseHire),
+            CombatAbility.AmplifyDamage=>AmplifyDamageCasts.Penalty(EliteAuras.UnderlyingPhysical(target),target is not BaseHire),
+            CombatAbility.Decrepify=>PhysicalPenalty((int)values.Eval("aurastatcalc3"),EliteAuras.UnderlyingPhysical(target),target is not BaseHire),
             _=>null
         };
-        var next=Replacement(state.Curse,ability,caster.Serial.Value,rank,penalty,
+        var next=Replacement(state.Curse??EliteAuras.Curses.Metadata(target.Serial),ability,caster.Serial.Value,rank,penalty,
             at.AddMilliseconds(frames*40L),at,caster.X,caster.Y,
             ability==CombatAbility.LowerResist?ElementPenalties(-values.Diminishing(5,6),
                 target.FireResistance-EliteAuras.ConvictionOffset(target,"fire"),
@@ -122,6 +122,25 @@ internal static class NecromancerCurseCasts
         if(ability==CombatAbility.DimVision){SourceBlind.Attach(creature,state.Curse?.Ability!=CombatAbility.DimVision||state.Curse.UntilUtc<=at);}
         if(ability==CombatAbility.Terror){SourceTerror.Reset(creature);}
         NecromancerEffects.CurseApplied(caster,target);return true;
+    }
+    // Qualified native elite callback. Its existing caller owns proc RNG,
+    // selection and geometry;only the shared receiver/group is bound here.
+    internal static bool NpcAmplify(EncounterCreature caster,Mobile target,int rank)
+    {
+        if(caster is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||rank is<1 or>255
+            ||target is EncounterCreature{Grade:EncounterGrade.Champion,Champion:ChampionKind.Possessed}){return false;}
+        DateTime at=TimedEffects.Now;
+        if(EliteAuras.Curses.Unknown(target.Serial,at)){Log.Warning("NPC Amplify unknown legacy replacement is unsupported:{Target}",target.Serial.Value);return false;}
+        EliteAuras.Refresh(target);
+        var row=SkillMechanics.For(CombatAbility.AmplifyDamage);
+        var values=new SkillValues(row,k=>k==row.SourceKey?rank:0,_=>0,ClassStats.Level(caster));
+        if(!SourceCurseDuration.Incoming(target,row.Text("auratargetstate"),(int)values.Eval("auralencalc"),out int frames)){return false;}
+        var state=NecromancerEffects.Profiles.Find(target)??new();
+        var next=Replacement(state.Curse??EliteAuras.Curses.Metadata(target.Serial),CombatAbility.AmplifyDamage,caster.Serial.Value,rank,
+            AmplifyDamageCasts.Penalty(EliteAuras.UnderlyingPhysical(target),target is BaseCreature and not BaseHire),at.AddMilliseconds(frames*40L),at,caster.X,caster.Y);
+        if(next==null){return false;}
+        if(!EliteAuras.ValidMetadata(next)){Log.Warning("NPC Amplify retained primary/creator is unsupported:{Target}",target.Serial.Value);return false;}
+        EliteAuras.Curses.Apply(target,next);EliteAuras.Refresh(target);NecromancerEffects.CurseApplied(caster,target);return true;
     }
     private static void Area(Mobile caster,PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values,DateTime at)
     {

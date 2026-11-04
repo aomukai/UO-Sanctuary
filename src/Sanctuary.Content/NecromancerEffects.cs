@@ -21,7 +21,8 @@ public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BlindAiState BlindAi=null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState Mind=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState Mind=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] NecromancerCurse EliteCurse=null);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
 {
@@ -31,9 +32,20 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
     public NecromancerState Find(Mobile actor) => actor is { Alive: true, Deleted: false }
         ? _states.GetValueOrDefault(actor.Serial) : null;
     public void Store(Mobile actor, NecromancerState state)
-    {if(state.Curse?.Terror is{Override:not 0}){state=SourceMind.Superseded(state);}var before=_states.GetValueOrDefault(actor.Serial);_states[actor.Serial]=state;SourceTerror.Changed(actor,before?.Curse,state.Curse);CloakShadows.Changed(actor,before?.Curse,state.Curse);SourceBlind.Changed(actor,before?.Curse,state.Curse);SourceMind.Changed(actor,state);}
+    {
+        if(state.Curse?.Terror is{Override:not 0}){state=SourceMind.Superseded(state);}
+        var before=_states.GetValueOrDefault(actor.Serial);
+        // Fresh elite AMP shares the ordinary curse group. Direct suppliers
+        // such as Attract/Battle Cry must retire its native projection too.
+        bool replacing=state.Curse!=null&&before?.EliteCurse!=null;
+        if(replacing){EliteAuras.Curses.Clear(actor.Serial);state=state with{EliteCurse=null};}
+        if(state.EliteCurse!=null&&!EliteAuras.ValidMetadata(state.EliteCurse)){throw new InvalidDataException("Invalid elite curse metadata");}
+        _states[actor.Serial]=state;
+        SourceTerror.Changed(actor,before?.Curse,state.Curse);CloakShadows.Changed(actor,before?.Curse,state.Curse);SourceBlind.Changed(actor,before?.Curse,state.Curse);SourceMind.Changed(actor,state);
+        if(replacing){EliteAuras.Refresh(actor);}
+    }
     public void Clear(Mobile actor)
-    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);}}
+    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);if(old.EliteCurse!=null){EliteAuras.Curses.Clear(actor.Serial);EliteAuras.Refresh(actor);}}}
     public override void Serialize()
     {SourceBlind.CaptureMovement();Prune();_snapshot=new(_states);base.Serialize();}
     public override void Serialize(IGenericWriter writer)
@@ -52,6 +64,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
             if(state?.BlindAi is{} blind){SourceBlind.Validate(blind);}
             if(state?.Mind is{} mind){SourceMind.Validate(mind);}
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
+                || state.EliteCurse is{} elite && (state.Curse!=null||!EliteAuras.ValidMetadata(elite))
                 || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0
                     || pool.Rank.HasValue!=pool.Maximum256.HasValue || pool.Maximum256 is{} maximum && maximum<pool.Remaining256
                     || state.BoneArmor!=(pool.Remaining256+255L)/256)

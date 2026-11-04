@@ -42,7 +42,7 @@ internal static class GrimWardCurseTransport
             ||missile.Map!=target.Map||owner.Map!=target.Map||missile.Map==Map.Internal
             ||!ClassCombat.IsHostile(owner,target)||!NecromancerCurseCasts.Eligible(target)
             ||!NecromancerCurseCasts.AiEligible(target)||!SourceTerror.Supported(target)
-            ||EliteAuras.Curses.Active(target.Serial,at));
+            ||EliteAuras.Curses.Unknown(target.Serial,at));
     }
     // Do30 evaluates its four stats once before visiting recipients. A world
     // pulse passes that packet through unchanged, rather than re-reading live
@@ -52,14 +52,15 @@ internal static class GrimWardCurseTransport
         ArgumentNullException.ThrowIfNull(packet);
         if(!Eligible(owner,missile,target,at)){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();
-        var old=state.Curse is{} c&&c.UntilUtc>at?c:null;
+        var current=state.Curse??EliteAuras.Curses.Metadata(target.Serial);
+        var old=current is{} c&&c.UntilUtc>at?c:null;
         if(old?.Ability==CombatAbility.GrimWard&&!Valid(old))
         {throw new NotSupportedException("Incomplete prepared Ward recipient state");}
         GrimWardCurseList previous=old==null?null:new(old.Ability==CombatAbility.GrimWard?56:0,old.Ability==CombatAbility.GrimWard?150:0,
             old.Rank,unchecked((int)old.Source),checked((int)Math.Ceiling((old.UntilUtc-at).TotalMilliseconds/40)),
             old.Ward?.Velocity??0,old.Ward?.Attack??0,old.Ward?.Other??0,old.PhysicalDelta??0);
         EliteAuras.Refresh(target);
-        var result=GrimWardCurseOperation.Apply(packet,new(1,1,true,AssassinBuffs.CurseResistance(target),target.PhysicalResistance,
+        var result=GrimWardCurseOperation.Apply(packet,new(1,1,true,AssassinBuffs.CurseResistance(target),EliteAuras.UnderlyingPhysical(target),
             target is BaseHire,old?.Ability==CombatAbility.Attract),previous,unchecked((int)missile.Serial.Value),0);
         if(!result.Accepted){return false;}
         var list=result.List;

@@ -110,7 +110,7 @@ public static class EliteCombat
             int radius = Math.Clamp((3 + level - 1 + 2) / 3, 1, 18);
             foreach (var mobile in source.Map.GetMobilesInRange<Mobile>(target.Location, radius))
             {
-                if (Enemy(source, mobile, 18)) { EliteAuras.Amplify(mobile, TimeSpan.FromSeconds(8 + 3 * (level - 1))); }
+                if (Enemy(source, mobile, 18)) { EliteAuras.Amplify(source,mobile,level); }
             }
         }
     }

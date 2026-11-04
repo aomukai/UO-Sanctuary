@@ -1,5 +1,7 @@
 # Amplify Damage checkpoint
 
+**Follow-up (2026-11-04 JST):** [fresh elite Amplify metadata](elite-amplify-checkpoint.md) binds the existing proc's caster/rank to the shared curse group and resolves new-proc compound replacement. Historical duration-only entries remain unknown; the original source/curse acceptance below is unchanged.
+
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary deviations take precedence. This candidate remains isolated from the installed build and existing saves. No class is declared complete.
 
 The learned skill keeps the existing SC/FCR casting, target tracking and interruption path. It costs four mana once at release, including a valid empty area or an area whose recipients resist the curse. Radius is `3 + rank - 1` source subtiles; duration is `200 + 75 × (rank - 1)` frames, without the AI-curse difficulty divisor. Item bonuses affect rank. The native area uses the existing half-subtile squared-distance mapping. Filter 3 does not request a separate LOS test from the area center to each recipient; aiming still uses the existing native cast validation.

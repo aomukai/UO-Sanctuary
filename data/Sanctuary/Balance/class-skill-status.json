@@ -903,7 +903,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Dedicated source/curse/input/rank/gear/duration/creator/immunity/arbitration/save checks are recorded in amplify-damage-checkpoint.md. Fresh elite Cursed procs retain source/rank/primary metadata and share the ordinary curse group without double native projection. Learned Decrepify replacement,AMP rank arbitration,Attract protection,Cleansing,orphaned caster and known/unknown original saves are covered in elite-amplify-checkpoint.md. Historical duration-only elite records remain unknown and refuse compound replacement;no rank is invented. Full current event/proc RNG/area/dynamic stat/species/PvP/client and unheld/old-binary scopes remain explicit;no class certificate."
     },
     {
       "talentId": "necromancer.dimvision",
