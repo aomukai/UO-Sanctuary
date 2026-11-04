@@ -37,7 +37,7 @@ public static class ChargedStrikeChecks
         try{AmazonMelee.HitRoll=()=>0;AmazonMelee.ElementRoll=()=>0;AmazonMelee.PhysicalRoll=_=>0;AmazonMelee.LightningRoll=_=>0;AmazonMelee.Effects=new Rolls(99);AmazonMelee.WearRoll=new Rolls(99);action();}
         finally{AmazonMelee.HitRoll=hit;AmazonMelee.ElementRoll=element;AmazonMelee.PhysicalRoll=physical;AmazonMelee.LightningRoll=lightning;AmazonMelee.Effects=effects;AmazonMelee.WearRoll=wear;}
     }
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh()
     {
         PlayerMobile owner;_creating=true;try{owner=new PlayerMobile{Body=0x190,Name="ChargedStrikeOwner",Player=true};}finally{_creating=false;}
         owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Amazon);ClassCreation.Profiles.AdvanceLevel(owner,99);
@@ -45,17 +45,17 @@ public static class ChargedStrikeChecks
         while(owner.RawDex<130){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Dexterity),"Dexterity");}
         FixtureSpace.Place(owner,new(2300,1100,0),Map.Trammel);Require(!SpellHelper.IsTown(owner.Location,owner),"Fixture town");Mana(owner);return owner;
     }
-    private static void Train(PlayerMobile owner,string id,int rank=1)
+    internal static void Train(PlayerMobile owner,string id,int rank=1)
     {while(ClassCreation.Profiles.GetRank(owner.Serial,id)<rank){Require(TalentCatalog.TryGet(DiabloClass.Amazon,id,out var d),"Missing talent");foreach(var prerequisite in d.Prerequisites){Train(owner,prerequisite);}Require(ClassCreation.Profiles.TryTrain(owner.Serial,id,out _),"Train "+id);}}
     private static void Mana(PlayerMobile owner)=>NecromancerEffects.SetMana256(owner,30*256+17);
     private static void Ready(PlayerMobile owner){AmazonMelee.Cancel(owner);ClassCombat.Stop(owner);var s=ClassCombat.For(owner);s.NextAction=s.RecoveryUntil=Core.TickCount;Mana(owner);}
-    private static BaseCreature Enemy(PlayerMobile owner,int dx=1,MonsterDifficulty difficulty=MonsterDifficulty.Normal)
+    internal static BaseCreature Enemy(PlayerMobile owner,int dx=1,MonsterDifficulty difficulty=MonsterDifficulty.Normal)
     {
         BaseCreature target;_creating=true;try{target=new GraveyardZombie{Name="ChargedStrikeTarget"};}finally{_creating=false;}
         if(difficulty!=MonsterDifficulty.Normal){MonsterVariants.Assign(target,difficulty);}
         target.Frozen=target.CantWalk=true;target.NoKillAwards=true;target.AIObject.AITimer.Stop();target.SetHits(50000);target.Hits=target.HitsMax;target.MoveToWorld(new(owner.X+dx,owner.Y,owner.Z),owner.Map);return target;
     }
-    private static BaseWeapon Equip(PlayerMobile owner,BaseWeapon weapon)
+    internal static BaseWeapon Equip(PlayerMobile owner,BaseWeapon weapon)
     {if(CombatTiming.Equipped(owner) is{} old){owner.AddToBackpack(old);}ClassGear.Profiles.Convert(weapon,1,GearRarity.Normal,new Random(173));Require(owner.EquipItem(weapon),"Equip weapon");ClassGear.Refresh(owner);return weapon;}
     private static Item Named(PlayerMobile owner,string source)
     {var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey==source).Id,99,new Random(173),true);Require(owner.EquipItem(item),"Named "+source);ClassGear.Refresh(owner);return item;}

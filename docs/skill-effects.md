@@ -1,5 +1,7 @@
 # Skill effects
 
+**Charged Strike speed capture (2026-11-05 JST).** Slowed bolts use the existing identified lightning trail/contact/audio placeholders with their captured movement speed. No additional effect or imagegen asset is introduced; final bolt/impact/audio work remains. See [checkpoint](charged-strike-velocity-checkpoint.md).
+
 **Actual old-writer army upgrade (2026-11-05 JST).** Former poison Mages use the existing Ice Bolt and intrinsic Frozen Armor effects/placeholders after loading. Existing warrior, Mage cast/volley/contact/cold/status/audio assets remain pending as recorded; the upgrade adds no new effect or imagegen asset. See [checkpoint](necro-legacy-army-checkpoint.md).
 
 **Earlier-build Necromancer upgrade (2026-11-05 JST).** Save/reader verification adds no effect or imagegen asset. Existing Bone Armor and Clay placeholders and final effects/audio requirements remain; see [checkpoint](necro-legacy-upgrade-checkpoint.md).

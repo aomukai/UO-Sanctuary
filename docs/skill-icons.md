@@ -1,5 +1,7 @@
 # Skill icons
 
+**Charged Strike speed capture (2026-11-05 JST).** No talent, hotkey, binding or icon slot is added. Existing Charged Strike tree/hotkey placeholders and final artwork stay separate from mechanical verification. See [checkpoint](charged-strike-velocity-checkpoint.md).
+
 **Actual old-writer army upgrade (2026-11-05 JST).** No skill, hotkey or icon slot is added. Existing warrior/Mage tree and hotkey placeholders and final artwork remain separately tracked. See [checkpoint](necro-legacy-army-checkpoint.md).
 
 **Earlier-build Necromancer upgrade (2026-11-05 JST).** No talent, hotkey or binding is added; the original F12 binding survives the actual upgrade. Existing icon placeholders and final artwork remain separately pending. See [checkpoint](necro-legacy-upgrade-checkpoint.md).

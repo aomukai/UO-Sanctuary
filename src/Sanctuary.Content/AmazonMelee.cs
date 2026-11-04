@@ -38,6 +38,7 @@ public static class AmazonMelee
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability) || !AmazonJab.ValidTarget(owner,selected)){return false;}
+        if(ability==CombatAbility.ChargedStrike){ChargedStrikeBolts.RequireRoute();}
         var values=SkillMechanics.Values(owner,ability);bool basic=!NecromancerEffects.CanPay(owner,values.Mana256);
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>AmazonJab.ValidTarget(owner,id),requireMana:!basic)){return false;}
         var session=ClassCombat.For(owner);var target=World.FindMobile(selected);bool hit;double roll=0;int lightning=0;PreparedWeaponImpact packet=default;

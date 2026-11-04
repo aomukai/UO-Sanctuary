@@ -91,9 +91,10 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                             session.send(command)
                             assert session.expect(command + r': (passed|failed)').group(1) == 'passed'
                             if command in (extra_wait_results or {}):
-                                result = extra_wait_results[command]
-                                assert session.expect(result + r': (passed|failed)', timeout=30).group(1) == 'passed'
-                                waited_results += 1
+                                results = extra_wait_results[command]
+                                for result in ((results,) if isinstance(results,str) else results):
+                                    assert session.expect(result + r': (passed|failed)', timeout=30).group(1) == 'passed'
+                                    waited_results += 1
                     for command in extra_live_commands:
                         with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
                             def drain():

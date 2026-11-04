@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Charged Strike velocity reuse (2026-11-05 JST).** The existing factory FP8 speed helper now supplies this older curved bolt host. Creation captures speed; tick/restore retain the existing path and explicit missing-field legacy mode. The source oracle reuses the complete Guided Arrow factory scaffold and unchanged Charged Bolt initializer. The shared native runner accepts an ordered result tuple while preserving string callers. See [checkpoint](charged-strike-velocity-checkpoint.md).
+
 **Actual earlier army writer (2026-11-05 JST).** The shared upgrade runner now accepts additional old/current commands, manifests and inputs. The old corpse factories and old corridor helper produce authentic actor bytes; current Mage adoption, element migration, basic fan/Charged Bolt flights, armor, source HP and saved streams work without a new migration shim. See [checkpoint](necro-legacy-army-checkpoint.md).
 
 **Actual old-writer upgrade fixture (2026-11-05 JST).** The migration runner reuses the retained matching old Integration fixture and the actual installed writer. A separate seed assembly references only the old public APIs; the current reader reuses existing legacy pool conversion and summon serialization. No hand-authored legacy DTO or production migration shim is added. See [checkpoint](necro-legacy-upgrade-checkpoint.md).

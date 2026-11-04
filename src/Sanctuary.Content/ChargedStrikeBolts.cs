@@ -8,8 +8,15 @@ using Server.Spells;
 
 namespace Sanctuary;
 
+public sealed record ChargedStrikeFactoryMotion(int VelocityFp8,int SlowVelocityPercent);
 public sealed record ChargedStrikeFlight(long Id,uint Owner,int Map,int Rank,int OriginX,int OriginY,int Z,uint Seed,int Direction,
-    double X,double Y,int NextPoint,int Frame,int Min256,int Max256,DateTime UntilUtc,DateTime NextUtc);
+    double X,double Y,int NextPoint,int Frame,int Min256,int Max256,DateTime UntilUtc,DateTime NextUtc)
+{
+    // Missing on earlier v0 flights: retain their original normal-speed path,
+    // rather than inferring a historical slow state from the current owner.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ChargedStrikeFactoryMotion FactoryMotion{get;init;}
+}
 
 public sealed class ChargedStrikeProfiles:GenericPersistence
 {
@@ -33,16 +40,29 @@ public static class ChargedStrikeBolts
     public static int Frames=>Math.Min(77,NecromancerSummons.Source("chargedstrikebolt","Range"));
     public static void Configure()=>Profiles=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.Zero,TimeSpan.FromMilliseconds(40),Tick);
+    internal static void RequireRoute()
+    {
+        int M(string key)=>NecromancerSummons.Source("chargedstrikebolt",key);
+        if(M("Vel")!=12||M("MaxVel")!=12||M("VelLev")!=0||M("Range")!=98||M("LevRange")!=0||M("CanSlow")!=1
+            ||M("pSrvDoFunc")!=1||M("InitSteps")!=1||M("Activate")!=3)
+        {throw new NotSupportedException("Unmapped Charged Strike missile factory/motion route");}
+    }
+    private static int Velocity(int rank,int percent)=>SlowMissilePayload.VelocityFp8(12,0,rank,33,0,true,percent);
+    internal static double Speed(ChargedStrikeFlight flight)=>flight.FactoryMotion is{} motion
+        ?motion.VelocityFp8/(4096.0*SkillGeometry.SubtilesPerTile):SkillGeometry.Velocity(NecromancerSummons.Source("chargedstrikebolt","Vel"));
     internal static Point3D Aim(PlayerMobile owner,Point3D origin)=>new(2*origin.X-owner.X,2*origin.Y-owner.Y,origin.Z);
     public static void Cast(PlayerMobile owner,Point3D origin,SkillValues values)
     {
+        RequireRoute();
+        var slow=AmazonSlowMissiles.Capture(owner,true);
+        var motion=new ChargedStrikeFactoryMotion(Velocity(values.Rank,slow.VelocityPercent),slow.VelocityPercent);
         var aim=Aim(owner,origin);int direction=ChargedBolts.Heading(aim.X-origin.X,aim.Y-origin.Y);
         var damage=AmazonMelee.LightningRange(values,NamedElements.MasteryPercent(owner,"ltng"));var now=TimedEffects.Now;
         for(int i=0;i<values.Eval("calc1");i++)
         {
             long id=++_next;uint seed=ChargedBolts.Seed(aim,i);
             var flight=new ChargedStrikeFlight(id,owner.Serial.Value,owner.Map.MapID,values.Rank,origin.X,origin.Y,origin.Z,seed,direction,
-                origin.X,origin.Y,1,0,damage.Min,damage.Max,now.AddMilliseconds(Frames*40),now);
+                origin.X,origin.Y,1,0,damage.Min,damage.Max,now.AddMilliseconds(Frames*40),now){FactoryMotion=motion};
             _flights.Add(id,flight);_paths.Add(id,ChargedBolts.Path(seed,direction,Frames));
         }
     }
@@ -55,16 +75,17 @@ public static class ChargedStrikeBolts
     private static PlayerMobile Owner(ChargedStrikeFlight flight)=>World.FindMobile((Serial)flight.Owner) is PlayerMobile{Alive:true,Deleted:false} owner
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Amazon
         && (owner.Map==Map.Internal || owner.Map.MapID==flight.Map && !SpellHelper.IsTown(owner.Location,owner))?owner:null;
-    private static void Tick()
+    private static void Tick()=>Tick(TimedEffects.Now);
+    internal static void Tick(DateTime now,long? only=null)
     {
-        var now=TimedEffects.Now;_keys.Clear();_keys.AddRange(_flights.Keys);
+        _keys.Clear();if(only is{} selected){_keys.Add(selected);}else{_keys.AddRange(_flights.Keys);}
         foreach(long id in _keys)
         {
             if(!_flights.TryGetValue(id,out var flight)){continue;}var owner=Owner(flight);
             if(owner==null || flight.UntilUtc<=now){Remove(id);continue;}
             if(owner.Map==Map.Internal || flight.NextUtc>now){continue;}
             var path=_paths[id];var next=ChargedBolts.Advance(path,flight.OriginX,flight.OriginY,flight.X,flight.Y,flight.NextPoint,
-                SkillGeometry.Velocity(NecromancerSummons.Source("chargedstrikebolt","Vel")));
+                Speed(flight));
             var before=new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z);
             var after=new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z);
             if(flight.Frame+1>=Frames || next.Next>=path.Length || after.X<0 || after.Y<0 || after.X>=owner.Map.Width || after.Y>=owner.Map.Height
@@ -97,6 +118,9 @@ public static class ChargedStrikeBolts
         var checkedFlights=new Dictionary<long,ChargedStrikeFlight>();var checkedPaths=new Dictionary<long,Point2D[]>();long nextId=0;
         foreach(var flight in saved)
         {
+            if(flight.FactoryMotion is{} motion&&(flight.Rank is <1 or >255||motion.SlowVelocityPercent is <0 or >100
+                ||motion.VelocityFp8!=Velocity(flight.Rank,motion.SlowVelocityPercent)))
+            {throw new InvalidDataException("Invalid Charged Strike factory motion");}
             if(flight.Id<=0 || flight.Owner==0 || flight.Rank is <1 or >255 || flight.Direction is <0 or >7 || flight.Frame<0 || flight.Frame>=Frames
                 || flight.OriginX<0 || flight.OriginY<0 || !double.IsFinite(flight.X+flight.Y) || flight.Min256<0 || flight.Max256<flight.Min256
                 || flight.NextPoint<1 || flight.NextPoint>Frames/2 || !checkedFlights.TryAdd(flight.Id,flight))

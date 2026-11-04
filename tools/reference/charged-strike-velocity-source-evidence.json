@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "compiledRoutines": [
+    "MISSILES_CreateMissileFromParams",
+    "SKILLS_MissileInit_ChargedBolt"
+  ],
+  "factoryBlockSha256": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+  "initializerBlockSha256": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d",
+  "cases": 72,
+  "evidence": {
+    "tools/probe_charged_strike_velocity.py": "ec65d597db8b7175e2741b4855f04cc91fd04fbd5d0f2a2aa90275e5c43db0db",
+    "tools/reference/guided-arrow-engine-evidence.json": "9126ed2711cb4945174947bcb512f948e6b6addb4d947ec0557b32d2a6704428",
+    ".local/class-skills/guided-arrow-source-probe.cpp": "e7dfb60ed8bb4ab8f2d19cd7f459bc120ee0cc7363f2adaf635b35bbcfcaf7a3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/class-skills/charged-strike-velocity-source/probe.cpp": "e49a5294f96f7a07762e70d0780d61f3bc16a272941a279df322d5ce0136db6c",
+    ".local/class-skills/charged-strike-velocity-source/cases.json": "62503286747fc4b62c0594b8a3ea90435469ddd2bf97db8b029aac0c41cd817c"
+  },
+  "established": [
+    "Flags33 source factory uses caster Slow Missiles only for CanSlow, truncates speed scaling before the75percent factor; 12velocity gives2304FP8 normally and1152at50percent.",
+    "The unchanged Charged Bolt initializer caps the98frame row to77total/current frames and path distance77 after factory creation."
+  ],
+  "limits": [
+    "Declared allocation/room/path/stat/damage/seed services;this executes both complete source bodies,not the current D2R executable or full path computation.",
+    "Velocity and initialization only;modern Slow Missiles damage ordering,source collision/activation and full Charged Strike/class/client fidelity remain separate."
+  ]
+}
