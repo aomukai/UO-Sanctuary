@@ -653,6 +653,10 @@ CAVEATS["sorceress.shiverarmor"] = "Prepared do18 casting and retained rank feed
 # Charged Strike now consumes the existing source factory speed helper.
 CAVEATS["amazon.chargedstrike"] = "Interruptible prepared spear/javelin melee commits before target-origin charged bolts, including misses/lethal hits. Fractional start payment, low-mana ordinary fallback, hard-only synergies and captured lightning/mastery remain separate. New bolts capture caster Slow Missiles speed at release through the existing flags33 factory helper; normal speed stays unchanged, expiry or later caster changes do not rewrite issued bolts. Missing old motion metadata retains its original normal-speed path without inventing a historical slow. See charged-strike-velocity-checkpoint.md for full factory/initializer, actual learned release, mixed original-flight reloads and retained melee controls. Modern Slow Missiles damage order is not established by this velocity change. Source subtile/Size/shotgun collision, activation, current animation/seed/stat/owner/PvP/client and broader legacy/unheld-save parity remain open; no class certificate."
 
+# Source-backed ordinary AI transition expansion; world adapters remain explicit.
+CAVEATS["necromancer.dimvision"] = CAVEATS["necromancer.dimvision"].replace("mapped Skeleton/Zombie/Megademon families", "mapped Skeleton/Zombie/Megademon/Fallen/Brute/Goatman families") + " curse-ai-families-checkpoint.md records complete older transition dispatch and the expanded current timing catalogue; callback-owning families remain unsupported."
+CAVEATS["necromancer.terror"] += " The shared transition bridge also admits Fallen/Brute/Goatman using the complete older lookup/dispatch contract; callback-owning families remain gated. See curse-ai-families-checkpoint.md."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

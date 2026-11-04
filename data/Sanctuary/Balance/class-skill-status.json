@@ -914,7 +914,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned do30 casting, rank/gear, owner-facet duration, curse arbitration/resources/input and saved motion are verified. The live saved BlindAiPolicy controller is wired for mapped Skeleton/Zombie/Megademon families, including source no-target delays, target-present wander/idle decisions, independent seed/deadlines and native movement/adjacent attack admission; see dim-vision-cast-checkpoint.md and blind-world-checkpoint.md. The combined Necromancer acceptance retains this scope. Unmapped AI/fallbacks, escape states3/19, distance5 world displacement, exact scan/path/room/callback/global-RNG/PvP/client and old-binary/unheld-save equivalence remain open; the controller is not wholly unwired."
+      "remaining": "Learned do30 casting, rank/gear, owner-facet duration, curse arbitration/resources/input and saved motion are verified. The live saved BlindAiPolicy controller is wired for mapped Skeleton/Zombie/Megademon/Fallen/Brute/Goatman families, including source no-target delays, target-present wander/idle decisions, independent seed/deadlines and native movement/adjacent attack admission; see dim-vision-cast-checkpoint.md and blind-world-checkpoint.md. The combined Necromancer acceptance retains this scope. Unmapped AI/fallbacks, escape states3/19, distance5 world displacement, exact scan/path/room/callback/global-RNG/PvP/client and old-binary/unheld-save equivalence remain open; the controller is not wholly unwired. curse-ai-families-checkpoint.md records complete older transition dispatch and the expanded current timing catalogue; callback-owning families remain unsupported."
     },
     {
       "talentId": "necromancer.weaken",
@@ -947,7 +947,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned do30/no-stat casts use seven-mana release payment, fixed radius4 and configured owner-facet duration divisors rather than monster spawn difficulty. The initializer captures the existing native Combatant; casting/priority/cancellation, actual right/quick input, flee-to-combat/blind motion and saves have dedicated coverage. Full current-engine boss/species exceptions, motion/room/seed/events/AIRESET/client parity remains explicit; see terror-cast-checkpoint.md."
+      "remaining": "Learned do30/no-stat casts use seven-mana release payment, fixed radius4 and configured owner-facet duration divisors rather than monster spawn difficulty. The initializer captures the existing native Combatant; casting/priority/cancellation, actual right/quick input, flee-to-combat/blind motion and saves have dedicated coverage. Full current-engine boss/species exceptions, motion/room/seed/events/AIRESET/client parity remains explicit; see terror-cast-checkpoint.md. The shared transition bridge also admits Fallen/Brute/Goatman using the complete older lookup/dispatch contract; callback-owning families remain gated. See curse-ai-families-checkpoint.md."
     },
     {
       "talentId": "necromancer.confuse",

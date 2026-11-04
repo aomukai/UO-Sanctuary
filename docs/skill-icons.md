@@ -1,5 +1,7 @@
 # Skill icons
 
+Shared curse AI family expansion creates no player-bindable skill. Existing Dim Vision and Terror talent-tree/right/quick-hotkey icons remain separately needed; broader recipient coverage does not imply final artwork. See [checkpoint](curse-ai-families-checkpoint.md).
+
 **Charged Strike speed capture (2026-11-05 JST).** No talent, hotkey, binding or icon slot is added. Existing Charged Strike tree/hotkey placeholders and final artwork stay separate from mechanical verification. See [checkpoint](charged-strike-velocity-checkpoint.md).
 
 **Actual old-writer army upgrade (2026-11-05 JST).** No skill, hotkey or icon slot is added. Existing warrior/Mage tree and hotkey placeholders and final artwork remain separately tracked. See [checkpoint](necro-legacy-army-checkpoint.md).

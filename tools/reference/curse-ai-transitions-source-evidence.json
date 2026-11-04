@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "families": {
+    "Skeleton": 2,
+    "Zombie": 3,
+    "Fallen": 6,
+    "Brute": 7,
+    "Goatman": 12,
+    "Megademon": 89
+  },
+  "cases": 288,
+  "routines": {
+    "AITHINK_GetAiTableRecord": "be5a3ced81e1d61906f25bed3313ca849aac500c4a1be080fe0f331df2de9cf3",
+    "AITHINK_ExecuteAiFn": "9ad9d0d1f720ebba6055aa3fc2afc9cd0b701d47edd289effac538886bec67d3"
+  },
+  "evidence": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/probe_curse_ai_transitions.py": "e875621379f1826bc9743c83c2d545de62913342b99bc5617c4a2be5a5671b4b",
+    ".local/class-skills/curse-ai-transitions-source/probe.cpp": "64833004c181d33183e33cafafcc9480db65ce58123f29b1c65361230188db12",
+    ".local/class-skills/curse-ai-transitions-source/cases.json": "dc0a6340b82d6ecb686f4eb6d8cf5f60c734465513e8a81073b578f0fa74a955",
+    ".local/class-skills/curse-ai-transitions-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/curse-ai-transitions-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Six ordinary families have no source entry/exit callbacks. Complete table lookup and transition dispatch clear three AI parameters and all commands, then install the selected state function for288 old/new/pointer contexts. Terror alone calls its existing initializer service.",
+    "Sand Maggot counterexample follows its deferred exit callback without clearing commands. It is not admitted by the ordinary-family bridge."
+  ],
+  "limits": [
+    "Function pointers outside the two complete dispatcher bodies are identity/invocation services; their AI bodies do not execute. Terror initializer and blind/fear behavior retain their existing independent source/native evidence.",
+    "Current monstats family names are pinned data. This does not prove current executable table indices, engine timing, native path/scan/global RNG, or unsupported ownership/conversion transitions. No native monster classifications are invented."
+  ]
+}

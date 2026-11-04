@@ -1,5 +1,70 @@
 [
   {
+    "Source": "brute1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "brute2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "brute3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "brute4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "brute5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
     "Source": "cowking",
     "Delay": [
       15,
@@ -14,6 +79,240 @@
   },
   {
     "Source": "darkelder",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "fallen8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman10",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman4",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman5",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman6",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman7",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "goatman9",
     "Delay": [
       15,
       14,
@@ -209,6 +508,58 @@
   },
   {
     "Source": "skeleton8",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "snowyeti1",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "snowyeti2",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "snowyeti3",
+    "Delay": [
+      15,
+      14,
+      13
+    ],
+    "Range": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "Source": "snowyeti4",
     "Delay": [
       15,
       14,

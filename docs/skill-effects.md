@@ -1,5 +1,7 @@
 # Skill effects
 
+Shared curse AI family expansion adds no new effect producer. Existing Dim Vision blind feedback and Terror/fear presentation/audio remain identified placeholders for Fallen/Brute/Goatman recipients; final effects are still needed separately. Mechanical checks continue independently. See [checkpoint](curse-ai-families-checkpoint.md).
+
 **Charged Strike speed capture (2026-11-05 JST).** Slowed bolts use the existing identified lightning trail/contact/audio placeholders with their captured movement speed. No additional effect or imagegen asset is introduced; final bolt/impact/audio work remains. See [checkpoint](charged-strike-velocity-checkpoint.md).
 
 **Actual old-writer army upgrade (2026-11-05 JST).** Former poison Mages use the existing Ice Bolt and intrinsic Frozen Armor effects/placeholders after loading. Existing warrior, Mage cast/volley/contact/cold/status/audio assets remain pending as recorded; the upgrade adds no new effect or imagegen asset. See [checkpoint](necro-legacy-army-checkpoint.md).

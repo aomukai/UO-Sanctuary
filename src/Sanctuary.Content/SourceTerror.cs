@@ -67,9 +67,10 @@ public static class SourceTerror
     public static double MovementDelay(Mobile actor,double seconds)=>State(actor) is{Goal:not null,Combat:false} state
         ?seconds*100/Math.Max(1,100+state.VelocityPercent):seconds;
     internal static bool Supported(BaseCreature target)=>PaladinConversion.SourceRule(target) is{SwitchAi:true,Walk:true,Boss:false,Npc:false,Attackable:true} row
-        // These three source AIs have no previous-state exit callback. Other
-        // species/callback mappings remain explicitly unsupported until traced.
-        && row.Ai is "Skeleton" or "Zombie" or "Megademon";
+        // Complete source table/transition composition establishes these six
+        // families have no entry/exit callbacks. Keep callback-owning families
+        // outside this bridge; their deferred transitions are a separate path.
+        && row.Ai is "Skeleton" or "Zombie" or "Megademon" or "Fallen" or "Brute" or "Goatman";
     internal static TerrorAi Learned(BaseCreature target,int rank,DateTime at)
         // Native Combatant is the explicit adapter for SUNIT_GetTargetUnit.
         // Do30 does not add Howl's one-frame Idle request. Native AI event
