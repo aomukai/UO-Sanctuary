@@ -58,7 +58,7 @@ internal static class NpcItemSpellCasts
         {
             if (mode != 0 || item != 1 || _target is not Server.Mobiles.BaseCreature target)
             { throw new NotSupportedException("NPC Life Tap needs its explicit target/item-execution context"); }
-            return NecromancerCurseCasts.NpcLifeTap(source, target, level, at) ? 1 : 0;
+            return NpcItemSkillExecution.Run(source, target, skill, level, mode, item, flag, at);
         }
         internal override void NotifyTarget(int skill, int level, int type, int id, int flag)
             => source.PlaySound(0x1E5); // Identified shared curse/item-cast audio placeholder.

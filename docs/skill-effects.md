@@ -1,5 +1,7 @@
 # Skill effects
 
+**Common skill executor (2026-11-05 JST).** The shared do/missile dispatcher adds no visual/audio asset. Actual Life Tap retains its identified curse marker and sound placeholders. Future admitted direct missile factories must reuse their spell-specific cast/travel/impact/expiry/audio requirements;the generic executor is not a visual placeholder that counts as delivered damage. No imagegen asset or binding is added. See [checkpoint](skill-execution-checkpoint.md).
+
 **Item-effect casting (2026-11-05 JST).** Actual Blood Life Tap retains the clearly identified generic curse marker0x375A/hue0x455 and sound0x1E5;the sound now follows successful execution through notification. Final Life Tap curse/cast/audio and later NPC proc-specific effects remain pending. The generic driver creates no artwork or imagegen binding. See [checkpoint](item-effect-casts-checkpoint.md).
 
 **Shared item proc callbacks (2026-11-05 JST).** Contract callbacks create no visual or audio assets. The actual Blood Life Tap retains its identified curse/audio placeholders; later generic proc delivery needs the corresponding spell's cast, projectile, impact, state and audio assets. Shadow/Valkyrie presentation remains pending. No imagegen asset is added. See [checkpoint](item-proc-callbacks-checkpoint.md).

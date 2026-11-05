@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "0dcffa74539d176485c53760d593824b67d4441334202264cee2c4d183c25fd1",
-  "ContentAssemblyPath": ".local/class-skills/item-effect-casts/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "ca08c6a0e7d4ffd6b3ac83434e3e53d0c825f90aea623c48d93e55d36ca2826e",
+  "ContentAssemblyPath": ".local/class-skills/skill-execution/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

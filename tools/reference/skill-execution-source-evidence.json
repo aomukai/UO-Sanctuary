@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 37680,
+  "legacyDoSlots": 191,
+  "skillFieldWidthsVerified": true,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518"
+  },
+  "completeRoutineHashes": {
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "artifacts": {
+    ".local/class-skills/skill-execution-source/source.cpp": "e8769dadf52f958f166a0ead74548e01dd29d87902a0770e300c2851c173d3fa",
+    ".local/class-skills/skill-execution-source/probe": "a33bf96049b823d0aeeee157d44ddcfa9c73a1f559e0f0f0d6a3bf13d6972c3c",
+    ".local/class-skills/skill-execution-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/skill-execution-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/skill-execution-source/cases.json": "2c7b78a07bcd0bcdaf1c51e95a95cb84bb85685d407465b093403bbb9d427935",
+    "tools/probe_skill_execution.py": "5e134458352636c9808f53bf836482e37cf8ab1e75e00d36442cb0e89bd7e4a8"
+  },
+  "established": [
+    "Complete common executor runs ordinary/item/outgoing callers for player,monster and nonliving units. Return,used-skill clearing,server-do flags and ordered rank/room/mana/do/missile/quantity/delay service traces are emitted.",
+    "Do-function execution and direct missile creation are independent. A valid missile route sets server-do and result1even when the mandatory nested factory returns null. Outgoing item aiming preserves zero-coordinate edges and extends nonzero aim beyond the target.",
+    "Item-effect override applies only for item+outgoing after original do bounds and use-mana-on-do checks. Item callers bypass learned-skill lookup,but retain the used-skill/town and conditional mana admission paths. Finish controls payment,quantity and delay separately."
+  ],
+  "services": [
+    "Metadata,used-skill/flags/ranks/room,tables/do-functions,resource checks,missile factories,formula evaluation and state notifications are explicit services. Synthetic callable tables use191legacy slots;this does not certify every current NPC spell or current extension. Immutable getters and source diagnostic file/line arguments are not world service operations.",
+    "All source override indexes and start indexes are valid. Corrupt out-of-range overrides have undefined C++ behavior and are excluded;production must explicitly refuse them. Source-coordinate controls avoid signed overflow."
+  ],
+  "remaining": [
+    "Actual NPC adapters must provide their own explicit skill/room/resource/stat/missile contexts rather than invoke PlayerMobile handlers. Current executable,global ordering/seed and full generic NPC admission remain unfinished."
+  ]
+}
