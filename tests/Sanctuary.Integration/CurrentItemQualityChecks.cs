@@ -36,7 +36,7 @@ public static class CurrentItemQualityChecks
         int id=row==null?0:CurrentAutoMagic.Id(row);if(row!=null){CurrentItemAffixes.ApplyModifiers(row.Modifiers,graph,level);}
         return new(graph,new(code,quality,quality,start,unit,0,0,id,0,affixes,id==0?[]:[id]),0);
     }
-    private static void Verify(PreparedItemState meta,ItemPropertyCreationContext graph,JsonElement expected,string label)
+    internal static void Verify(PreparedItemState meta,ItemPropertyCreationContext graph,JsonElement expected,string label)
     {
         Require(expected[0].GetInt32()==1&&meta.Quality==expected[1].GetInt32()&&meta.DropQuality==expected[2].GetInt32()
             &&meta.StartSeed==expected[3].GetUInt32()&&meta.UnitSeed==ulong.Parse(expected[4].GetString())&&meta.Variant==expected[5].GetInt32()
@@ -48,7 +48,7 @@ public static class CurrentItemQualityChecks
         var state=graph.Capture();Require(state.Seed==ulong.Parse(expected[15].GetString())&&state.HasProperties==expected[16].GetBoolean()
             &&!state.Ethereal&&Same(state.ItemBase,expected[17])&&Same(state.Properties,expected[18]),"Prepared quality raw graph/RNG: "+label+" actual="+Json(state)+" expected="+expected.GetRawText());
     }
-    private static void Continuation(ItemPropertyCreationContext graph,JsonElement expected)
+    internal static void Continuation(ItemPropertyCreationContext graph,JsonElement expected)
     {
         graph.Apply(EquipmentPropertyWriter.Plan("hp"),new(1,5,0));Require(graph.Seed==ulong.Parse(expected[21].GetString())&&Same(graph.Capture().Properties,expected[22]),"Prepared quality next HP-property continuation");
     }

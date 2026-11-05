@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Native generated-item checkpoint (2026-11-06):** qualified item materialization and actual item-owned serialization now pass for 2,580 originals/516 bases/five qualities through two reloads. **39 compact native markers**, 71 Python tests, four verification commands and fresh audits/protection pass. See the [checkpoint](generated-npc-item-checkpoint.md). NPC equip validity, recipient delivery and Valkyrie/Shadow actors remain required; **197/240 handlers**, no completed class.
+
 **Prepared quality/automagic checkpoint (2026-11-06):** 516 qualified equipment bases and all 44 automagic rows compose with current initialization/quality/fallback/property machinery. Independent 15,820 cases and **407 focused/623 broader/36 compact markers** pass, with 2,624 original graphs retained across two reloads; all 71 Python tests, 26 verification commands and audits/protection pass. See the [checkpoint](item-quality-current-checkpoint.md). Full materialization/NPC delivery remain required; **197/240 handlers**, no completed class.
 
 **Composed item-affix checkpoint (2026-11-05):** current magic/rare pool/name/property/staffmod composition has14,888independent cases and1,680original native contexts passing two reloads: **404 focused/620 broader/33 compact markers**;71Python/24checks and audits/protection pass. All988selectable rows/89codes are retained;ordinary tree packing follows explicit approval. See the [checkpoint](current-item-affixes-checkpoint.md). Full factory/NPC actors remain required; **197/240 handlers**, no completed class.

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Native generated items:** item artwork uses stock `0x14F0` with `[generated equipment; art placeholder]` in the name. This is a separate equipment presentation placeholder; no new skill effect/audio identity is complete. Existing Valkyrie/Shadow summon effects remain pending. See the [checkpoint](generated-npc-item-checkpoint.md).
+
 **Prepared quality/automagic:** no new skill effect/audio identity. Generated equipment and Valkyrie/Shadow presentation retain their existing identified placeholders. Preparing a raw property graph does not certify item appearance or NPC spell delivery. See the [checkpoint](item-quality-current-checkpoint.md).
 
 **Composed item affixes:** no new skill effect/audio identity. Raw proc/charge/skill fields do not establish NPC spell delivery or presentation. Generated equipment and Valkyrie/Shadow effects retain their existing identified placeholders. See the [checkpoint](current-item-affixes-checkpoint.md).
