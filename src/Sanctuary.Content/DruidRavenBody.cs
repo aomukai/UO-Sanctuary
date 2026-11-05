@@ -18,6 +18,9 @@ internal sealed record RavenBodyState(uint Owner,RavenBirth Birth,MonsterDifficu
     // Current raw animation data plus the inspected legacy NPC scheduler.
     // Blizzard changed Raven AI in2.4; exact current scheduling is not proven.
     public string TimingProfile{get;init;}="legacy-npc-clock-current-hk-metadata-v1";
+    // Missing historical JSON keeps the original live owner-stat behavior.
+    // This stat policy is independent of the unresolved modern AI cadence.
+    public string StatProfile{get;init;}=DruidRavenBody.LegacyStats;
 }
 
 // Actual minion backend. The explicit legacy timing profile is not a claim
@@ -25,6 +28,8 @@ internal sealed record RavenBodyState(uint Owner,RavenBirth Birth,MonsterDifficu
 [SerializationGenerator(0)]
 public partial class DruidRavenBody:SkeletonGuardian
 {
+    internal const string LegacyStats="legacy-live-owner-mode-v1";
+    internal const string SnapshotStats="sanctuary-summon-snapshot-v1";
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private RavenBodyState _prepared;
     private static RavenBodyState Copy(RavenBodyState state)=>state with{Motion=state.Motion with{Points=[..state.Motion.Points],SavedSteps=[..state.Motion.SavedSteps]}};
@@ -77,6 +82,8 @@ public partial class DruidRavenBody:SkeletonGuardian
             || s.Attempts<0 || s.Hits<0 || s.Hits>s.Attempts || s.Packet.Rank is <1 or >255
             || s.Packet.Minimum256<0 || s.Packet.Maximum256<s.Packet.Minimum256
             || s.TimingProfile!="legacy-npc-clock-current-hk-metadata-v1"
+            || s.StatProfile is not(LegacyStats or SnapshotStats)
+            || s.StatProfile==SnapshotStats&&(s.Remaining<0||s.Packet.Rank!=s.Birth.Rank)
             || s.Mode==1&&(s.NextThink==0 || s.ActionAt!=0 || s.EndAt!=0 || s.Target!=0)
             || s.Mode==2&&(s.NextThink!=0 || s.ActionAt!=0 || s.EndAt!=0 || (s.Motion.Flags&0x20)==0)
             || s.Mode==4&&(s.NextThink!=0 || s.Target==0 || s.EndAt<=s.Frame || s.ActionAt!=0&&s.ActionAt<=s.Frame)
@@ -95,9 +102,10 @@ public partial class DruidRavenBody:SkeletonGuardian
             || point.X>=owner.Map.Width || point.Y>=owner.Map.Height || Math.Abs(point.Z-owner.Z)>=16)
         {throw new ArgumentException("Raven needs a supported world point/UTC clock");}
         var birth=DruidRavenStats.Capture(owner);int orbit=(int)(SourceRandom.Roll(ref seed)&1);
-        var packet=DruidRavenStats.Attack(SkillMechanics.Values(owner,CombatAbility.Raven));
+        var values=SkillMechanics.Values(owner,CombatAbility.Raven);
+        var packet=DruidRavenStats.Attack(values);
         var state=new RavenBodyState(owner.Serial.Value,birth,SummonDifficulties.For(owner.Map),owner.Map.MapID,
-            DruidRavenMotion.Center(point.X*2,point.Y*2),seed,at.AddMilliseconds(40),packet,EndAt:DruidRavenMotion.Clock(true).End,Orbit:orbit);
+            DruidRavenMotion.Center(point.X*2,point.Y*2),seed,at.AddMilliseconds(40),packet,Remaining:DruidRavenStats.InitialBudget(values),EndAt:DruidRavenMotion.Clock(true).End,Orbit:orbit){StatProfile=SnapshotStats};
         Validate(state);var body=new DruidRavenBody();
         try
         {
@@ -188,7 +196,7 @@ public partial class DruidRavenBody:SkeletonGuardian
                 {
                     var clock=DruidRavenMotion.Clock(false);Direction=GetDirectionTo(target);Animate(4,5,1,true,false,0); // Identified bird-attack placeholder.
                     return s with{Mode=4,NextThink=0,ActionAt=checked(s.Frame+clock.Action),EndAt=checked(s.Frame+clock.End),Target=target.Serial.Value,
-                        Packet=DruidRavenStats.Attack(SkillMechanics.Values(owner,CombatAbility.Raven)),Remaining=s.Remaining-1,
+                        Packet=s.StatProfile==SnapshotStats?s.Packet:DruidRavenStats.Attack(SkillMechanics.Values(owner,CombatAbility.Raven)),Remaining=s.Remaining-1,
                         NextAttack=checked(s.Frame+10*NecromancerSummons.Source("druidhawk","aip3")),Attempts=checked(s.Attempts+1),Motion=Stop(s.Motion)};
                 }
                 return Path(s,new(target.X*2,target.Y*2),2,20,0,out var chase)?chase:Idle(s);

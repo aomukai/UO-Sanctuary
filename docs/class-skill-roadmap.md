@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Raven snapshot checkpoint (2026-11-05):** the new summon-time stat profile captures packet/budget while preserving historical saves and the separate timing profile. The 380 focused, 596 broader and 39 compact checks pass original saves and natural exhaustion; see the [checkpoint](raven-snapshot-checkpoint.md). Handler coverage remains **197/240** with no completed class. Remaining cross-class readers and unaffected skills follow; Arctic Blast’s modern input/payment cadence remains a reference gap.
+
 **Druid snapshot checkpoint (2026-11-05):** Spirit Wolf, Dire Wolf and Grizzly inherited upgrade/mode ranks now use summon-time records for new actors. Native acceptance passes 350 focused and 566 broader checks with original actors through two reloads; see the [checkpoint](druid-snapshot-checkpoint.md). Handler coverage remains **197/240**, with no completed class. Raven, other remaining owner readers and Arctic Blast follow.
 
 **Necromancer summon snapshots (2026-11-05 JST).** Newly summoned Mages and all four golems keep their born hard-point upgrades through owner training/gear/respec; original dictionaries/recipes and shared persistence192are reused. Ordinary summons pay before replacing a paid pet or consuming a corpse. Current casts/effects/rollback and historical compatibility are checked separately. Coverage remains197/240handlers,no class complete. See [checkpoint](necro-snapshot-checkpoint.md).

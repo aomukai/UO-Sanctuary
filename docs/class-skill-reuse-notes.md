@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Raven stat policy:** reuse the existing initial RavenAttack packet for captured-rank/hard-synergy damage and flat attack bonus; evaluate budget at birth. Keep StatProfile separate from TimingProfile so this adaptation does not imply modern cadence parity. Missing historical JSON explicitly keeps the legacy interpretation. See the [checkpoint](raven-snapshot-checkpoint.md).
+
 **Druid beast snapshots:** reuse supplement 192 and existing beast birth records for hard upgrades and effective mode-stat rank. Keep external buffs, innate Battle Command, summon capacity, permission and facet rescaling separate. Historical missing-metadata controls explicitly test the previous interpretation. The 12 current public-cast actors pass two reloads; see the [checkpoint](druid-snapshot-checkpoint.md).
 
 **Mage/golem snapshot reuse (2026-11-05 JST).** Capture the original hard value from NecromancerMinion's base-rank dictionary or Iron's saved recipe, then reuse SummonUpgradeSnapshots in every upgrade consumer. Match summon identifiers case-insensitively, as the existing monster catalogue does. Reuse the shared ordinary factory's paid callback before roster replacement/corpse consumption. Historical fixture opt-in removes only supplement metadata; current public-cast tests remain distinct. See [checkpoint](necro-snapshot-checkpoint.md).

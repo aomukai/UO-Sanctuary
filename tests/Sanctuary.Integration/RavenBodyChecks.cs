@@ -62,7 +62,7 @@ public static class RavenBodyChecks
         {
             Require(body is{Blessed:true,BlocksFit:false,CanRegenHits:false,CanRegenMana:false,CanRegenStam:false,ControlSlots:0}
                 && !body.CanBeDamaged() && body.ControlMaster==p && body.SummonClass==DiabloClass.Druid && body.Permitted(p),"Actual source invulnerability/ownership/body contract");
-            Require(body.Prepared is{Mode:8,Frame:0,Remaining:-1,NextThink:25,EndAt:14},"Birth clock context");
+            Require(body.Prepared is{Mode:8,Frame:0,Remaining:12,NextThink:25,EndAt:14,StatProfile:DruidRavenBody.SnapshotStats},"Birth clock context");
             var unmapped=new GraveyardLich();unmapped.MoveToWorld(p.Location,p.Map);unmapped.AIObject.AITimer.Stop();
             Require(!body.Eligible(p,unmapped),"Unmapped source-size target silently accepted");unmapped.Delete();
             int life=SkillHealth.Balance256(t);body.BeginMelee(t);body.OnThink();Require(SkillHealth.Balance256(t)==life,"Native skeleton swing leaked");
@@ -128,6 +128,7 @@ public static class RavenBodyChecks
     private static void ModeCapture()
     {
         var p=Fresh();var t=Enemy(p);var at=TimedEffects.Now.AddHours(1);var body=DruidRavenBody.CreatePrepared(p,p.Location,at,1);
+        RavenSnapshotChecks.Legacy(body); // Construct the historical missing-profile scope.
         try
         {
             Through(body,25);Require(body.Prepared.Packet.Rank==1,"Initial mode packet");

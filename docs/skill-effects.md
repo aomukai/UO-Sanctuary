@@ -1,5 +1,7 @@
 # Skill effects
 
+**Raven snapshot checkpoint:** no new visual or audio identities. Existing bird, summon, flight, strike and blind placeholders remain; packet/budget capture is mechanically verified. See the [checkpoint](raven-snapshot-checkpoint.md). Final effects and graphical acceptance remain pending.
+
 **Druid snapshot checkpoint:** no new visual or audio asset identities. Spirit/Dire Wolf and Grizzly retain the identified summon/movement/attack and upgrade placeholders; the capture change is mechanical and verified separately. See the [checkpoint](druid-snapshot-checkpoint.md). Final effects and graphical acceptance remain pending.
 
 **Mage/golem snapshots and payment (2026-11-05 JST).** Stat capture adds no effects/audio. Ordinary summon particles now occur only after payment succeeds. Existing Mage basic/extra-spell/armor/Enchant and Clay/Blood/Iron/Fire placeholders and final effect/audio gaps remain listed independently. No imagegen asset is created. See [checkpoint](necro-snapshot-checkpoint.md).
