@@ -1,5 +1,7 @@
 # Skill effects
 
+**Generated NPC live resources:** native fractional resource binding adds no new skill effect/audio identity. Prepared recipient/equipment art remains identified placeholders. Actual actor animation/rate and skill presentation remain open; paired Tekagi appearance/attack preview is still pending. See the [checkpoint](generated-npc-live-resources-checkpoint.md).
+
 **Generated NPC resource callbacks:** numeric pool and regeneration changes introduce no new effect/audio identity. Existing summon/equipment placeholders remain identified; live effects and paired Tekagi appearance/animation preview remain pending. See the [checkpoint](generated-npc-resources-checkpoint.md).
 
 **Generated NPC stat graph and claws:** numeric recipient graphs add no skill effect/audio identity. Existing Tekagi art (`0x27AB`/`0x27F6`) is the agreed claw presentation path; both-hand appearance and attack animation preview remain pending. Kama is an optional visual candidate. Generated summon items still use their identified stock placeholders, and live skill effects remain separately unfinished. See the [checkpoint](generated-npc-stats-checkpoint.md).

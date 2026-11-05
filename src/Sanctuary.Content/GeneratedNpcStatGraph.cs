@@ -23,17 +23,21 @@ internal sealed class GeneratedNpcStatGraph
     private readonly bool HasPath;
     private readonly Action<BaseCreature> Rate,Clamp;
     private readonly Services Dispatch;
+    private int? ResourceRegeneration;
     internal GeneratedNpcStatGraph(BaseCreature actor,EquipmentStatValue[] basis,Func<EquipmentStatUnit,int?> clock,
         Action<EquipmentStatNode,EquipmentStatUnit,uint,int,int> changed,bool dynamicPath,Action<BaseCreature> updateRate,Action<BaseCreature> clampVitals,
-        int? sourceDamageRegeneration=null)
+        int? sourceDamageRegeneration=null,uint[] activeOrder=null,Action<GeneratedNpcStatGraph> beforeReplay=null)
     {
         ArgumentNullException.ThrowIfNull(basis);ArgumentNullException.ThrowIfNull(clock);ArgumentNullException.ThrowIfNull(changed);
         ArgumentNullException.ThrowIfNull(updateRate);ArgumentNullException.ThrowIfNull(clampVitals);
-        if(sourceDamageRegeneration is <0 or >32767){throw new NotSupportedException("NPC item resources require an explicit supported monster regeneration coefficient");}
+        SetResourceCallbacks(sourceDamageRegeneration);
         if(actor is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}
             ||basis.Select(v=>v.Packed).Distinct().Count()!=basis.Length||basis.Any(v=>EquipmentStatValues.Definition(v.Stat)==null))
         {throw new NotSupportedException("Generated item graph needs its original living actor/owner and explicit known unique base stats");}
         Native=actor;OwnerId=owner.Serial.Value;Originals=GeneratedNpcEquipment.Items(actor);Payloads=Originals.Select(i=>i.SavedText).ToArray();
+        activeOrder??=Originals.Select(i=>i.Serial.Value).ToArray();
+        if(activeOrder.Distinct().Count()!=activeOrder.Length||activeOrder.Any(id=>!Originals.Any(i=>i.Serial.Value==id)))
+        {throw new NotSupportedException("Generated active item order is not a unique subset of the original inventory");}
         Kind=Originals.FirstOrDefault()?.Snapshot.Equipment.Kind??EquipMonster.Other;HasPath=dynamicPath;Rate=updateRate;Clamp=clampVitals;
         Actor=new(actor,1);var fields=basis.OrderBy(v=>v.Packed).ToArray();Actor.Stats=new(){Flags=EquipmentStatNode.Extended,OwnerKind=1,Owner=Actor,BaseValues=fields,FullValues=(EquipmentStatValue[])fields.Clone()};
         int? Clock(EquipmentStatUnit unit)
@@ -51,14 +55,24 @@ internal sealed class GeneratedNpcStatGraph
             _=>throw new NotSupportedException("NPC graph does not supply player class coefficients"),(node,source,key,old,next)=>
             {
                 changed(node,source,key,old,next);
-                if(sourceDamageRegeneration is{} regeneration&&node==Actor.Stats)
+                if(ResourceRegeneration is{} regeneration&&node==Actor.Stats)
                 {NpcItemResourceCallbacks.Changed(Values,node,key,old,next,regeneration);}
             });Dispatch=new(this);
-        foreach(var original in Originals)
+        void Restore(GeneratedNpcItem original)
         {
             var graph=original.RestoreGraph(Values);Carriers.Add(original.Serial.Value,graph);Bodies.Add(graph.Unit,original.Snapshot.Equipment.Body);
-            SourceItemStatUpdates.Update(Dispatch,graph.Unit,Actor,false);
         }
+        beforeReplay?.Invoke(this);
+        // Preserve raw item construction/attachment callback interleaving.
+        // Saved logical attachment order may differ from physical inventory.
+        foreach(uint id in activeOrder)
+        {Restore(Originals.Single(i=>i.Serial.Value==id));SourceItemStatUpdates.Update(Dispatch,Carriers[id].Unit,Actor,false);}
+        foreach(var original in Originals.Where(i=>!Carriers.ContainsKey(i.Serial.Value))){Restore(original);}
+    }
+    internal void SetResourceCallbacks(int? regeneration)
+    {
+        if(regeneration is <0 or >32767){throw new NotSupportedException("NPC item resources require an explicit supported monster regeneration coefficient");}
+        ResourceRegeneration=regeneration;
     }
     private void Current()
     {

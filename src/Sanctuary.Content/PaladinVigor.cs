@@ -30,6 +30,7 @@ public static class PaladinVigor
     public static void Refresh(Mobile actor)
     {
         if(actor is not {Deleted:false}){return;}
+        if(GeneratedNpcLiveResources.RefreshVigor(actor)){return;}
         actor.Stam=Math.Min(actor.Stam,actor.StamMax);actor.CheckStatTimers();actor.Delta(MobileDelta.Stam);
     }
 }

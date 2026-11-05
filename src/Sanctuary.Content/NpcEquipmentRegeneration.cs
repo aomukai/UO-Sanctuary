@@ -9,9 +9,10 @@ internal static class NpcEquipmentRegeneration
 {
     private sealed class Clock{internal long Last;internal int Milliseconds;}
     private static readonly ConditionalWeakTable<Mobile,Clock> Clocks=new();
-    internal static bool Handles(Mobile actor)=>ItemDurationDefenses.HasEquipment(actor);
+    internal static bool Handles(Mobile actor)=>GeneratedNpcLiveResources.Handles(actor)||ItemDurationDefenses.HasEquipment(actor);
     internal static int ItemRate(Mobile actor)
     {
+        if(GeneratedNpcLiveResources.ItemRegeneration(actor)is{} generated){return generated;}
         if(actor is not BaseCreature creature||!Handles(actor)||NpcEquipmentCombat.Context(creature) is not{} item){return 0;}
         if(ClassGear.Material(item.Item,"life-per-five")!=0)
         {throw new NotSupportedException("NPC material life-per-five needs a verified source-rate projection");}
@@ -37,7 +38,8 @@ internal static class NpcEquipmentRegeneration
         // paused-sector intervals as a burst of recovery on return.
         long elapsed=Math.Clamp(now-clock.Last,0,1000);clock.Last=now;
         long total=clock.Milliseconds+elapsed;int frames=(int)(total/40);clock.Milliseconds=(int)(total%40);
-        int delta=sourceRate??(actor is SkeletonGuardian guardian?Delta(BattleOrders.Regeneration256(guardian),ItemRate(guardian),0,false,false)
+        int delta=sourceRate??(GeneratedNpcLiveResources.RegenerationBase(actor)is{} generated?Delta(generated,ItemRate(actor),0,false,false)
+            :actor is SkeletonGuardian guardian?Delta(BattleOrders.Regeneration256(guardian),ItemRate(guardian),0,false,false)
             :throw new NotSupportedException("NPC recovery requires a supplied source rate"));
         for(int i=0;i<frames&&actor is{Alive:true,Deleted:false};i++){Apply(actor,delta);}
     }

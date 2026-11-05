@@ -112,6 +112,7 @@ public static class BattleOrders
     }
     internal static void Change(Mobile actor,Pools before,bool preserveSummonLifeRatio=false)
     {
+        GeneratedNpcLiveResources.ExternalChange(actor,before);
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
         int? regen=_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256;
         int priorLifeMaximum256=before.ExactLifeMaximum256>0?before.ExactLifeMaximum256:before.LifeMax*256;

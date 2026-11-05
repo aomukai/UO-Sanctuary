@@ -1,5 +1,7 @@
 # Skill icons
 
+**Generated NPC live resources:** no new talent/hotkey icon identity or finished icon asset. Existing class/summon placeholders remain separate from resource mechanics. See the [checkpoint](generated-npc-live-resources-checkpoint.md).
+
 **Generated NPC resource callbacks:** no new talent/hotkey icon identity or completed icon asset. Existing class/summon placeholders remain separately tracked. See the [checkpoint](generated-npc-resources-checkpoint.md).
 
 **Generated NPC stat graph:** no new talent/hotkey icon identity. Reusing Tekagi equipment art does not complete Assassin skill icons; tree/hotkey placeholders and summon icons remain separately tracked. See the [checkpoint](generated-npc-stats-checkpoint.md).
