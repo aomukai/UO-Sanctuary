@@ -1,0 +1,740 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "Types": [
+    {
+      "Code": "none",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "shie",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "tors",
+      "Body1": 3,
+      "Body2": 3,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gold",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "bowq",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": "bow"
+    },
+    {
+      "Code": "xboq",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": "xbow"
+    },
+    {
+      "Code": "play",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "herb",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "poti",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "ring",
+      "Body1": 6,
+      "Body2": 7,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "elix",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "amul",
+      "Body1": 2,
+      "Body2": 2,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "char",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "boot",
+      "Body1": 9,
+      "Body2": 9,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "glov",
+      "Body1": 10,
+      "Body2": 10,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "book",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "belt",
+      "Body1": 8,
+      "Body2": 8,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gem",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "torc",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "scro",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "scep",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "wand",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "staf",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "bow",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "bowq",
+      "Quiver": ""
+    },
+    {
+      "Code": "axe",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "club",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "swor",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "hamm",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "knif",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "spea",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "pole",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "xbow",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "xboq",
+      "Quiver": ""
+    },
+    {
+      "Code": "mace",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "helm",
+      "Body1": 1,
+      "Body2": 1,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "tpot",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "ques",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "body",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "key",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "tkni",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "taxe",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "jave",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "weap",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "mele",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "miss",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "thro",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "comb",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "armo",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "shld",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "misc",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "sock",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "seco",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "rod",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "misl",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "blun",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "jewl",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "clas",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "amaz",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "barb",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "necr",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "pala",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "sorc",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "assn",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "drui",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "warl",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "h2h",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "orb",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "head",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "ashd",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "phlm",
+      "Body1": 1,
+      "Body2": 1,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "pelt",
+      "Body1": 1,
+      "Body2": 1,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "cloa",
+      "Body1": 3,
+      "Body2": 3,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "rune",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "circ",
+      "Body1": 1,
+      "Body2": 1,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "hpot",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "mpot",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "rpot",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "spot",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "apot",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "wpot",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "scha",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "mcha",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "lcha",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "abow",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "bowq",
+      "Quiver": ""
+    },
+    {
+      "Code": "aspe",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "ajav",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "h2h2",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "mboq",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": "bow"
+    },
+    {
+      "Code": "mxbq",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": "xbow"
+    },
+    {
+      "Code": "gem0",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gem1",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gem2",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gem3",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gem4",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gema",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gemd",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "geme",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gemr",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gems",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gemt",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "gemz",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "blde",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "sppl",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "grim",
+      "Body1": 4,
+      "Body2": 5,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "cjwl",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    },
+    {
+      "Code": "csch",
+      "Body1": 0,
+      "Body2": 0,
+      "Shoots": "",
+      "Quiver": ""
+    }
+  ]
+}

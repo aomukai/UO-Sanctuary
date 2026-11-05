@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC equipment placement:** no new talent/hotkey icon identity. Physical item delivery and body metadata do not complete Valkyrie/Shadow or other class skill icons; existing placeholders remain separate. See the [checkpoint](npc-equip-placement-checkpoint.md).
+
 **Native generated items:** no new talent/hotkey icon identity. Native item payload persistence does not complete summon or Warlock skill icons; existing identified placeholders remain separate. See the [checkpoint](generated-npc-item-checkpoint.md).
 
 **Prepared quality/automagic:** no new talent/hotkey icon identity. Existing summon and Warlock icon placeholders remain separately tracked. See the [checkpoint](item-quality-current-checkpoint.md).

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e06c6422d52e741251155136109551a3952d4de23e565534c2b9a74733c930a8",
+  "ContentAssemblySha256": "7f7326d5c62c966c126dbc93677f21c4f7e1539ae3f867b1c56898e79275e4cd",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -104,6 +104,7 @@
     "data/Sanctuary/Balance/necromancer-cast-clock.json": "8ea7418c36ce32afdb0e77ed1c98216bd31d2008d699f52d8b5a7e232980d2b2",
     "data/Sanctuary/Balance/necromancer-summons.json": "a42a1f146251e0c9b397ad72ef3cc7b3dcc3f64abfed1ee31bcf86c1d9155f41",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
+    "data/Sanctuary/Balance/npc-equip-types.json": "c1f0e2a40e9aea9516a90919ada4edb0e2c2cfc53859472a42e2ccb9663ff22e",
     "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
     "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
     "data/Sanctuary/Balance/npc-melee-geometry.json": "16d651e7047b363f8b15d072f043faea06a1bf0ae6cd6564953c5d5f7ded0c36",
@@ -619,7 +620,8 @@
     "src/Sanctuary.Content/GemSockets.cs": "b0cfa08c554468f986d4bbbff76f6e8c10ba09c81b837001bec074ab630fc992",
     "src/Sanctuary.Content/GemUpgradeGump.cs": "ea8d010d4e3b2f15a95ac9bcd3f969c3526acec343e6b66ee86eec88822d7f83",
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
-    "src/Sanctuary.Content/GeneratedNpcItem.cs": "f32c3c1b33b39d47207526c6bf104250506c140ba9f1e09a0fa58d6a14b40d54",
+    "src/Sanctuary.Content/GeneratedNpcEquipment.cs": "81dee8b7597d41211054ff6b94e7847110d59b6596d140783f1bc15ef65dca9f",
+    "src/Sanctuary.Content/GeneratedNpcItem.cs": "56b440cd3871e8865fa2bd14db2c0210180a72a7f6eeb961e52bc2059d243cd4",
     "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCollisionFootprints.cs": "b9871ce5f394394d9d1cbe9918bb160ecc474ebb91ba8f3a37d48b5f212efada",
     "src/Sanctuary.Content/GenericPetCollisionReads.cs": "e39ac420d899269f939638c0c22f2bd7e9818d9851ec51f20d4a03772ecf14d2",
@@ -982,6 +984,7 @@
     "src/Sanctuary.Content/SourceCorpseIdentity.cs": "7ac3db5f010e0bda20eea71fd9a22d9ad241a9721d8b45d4170485d52edc6866",
     "src/Sanctuary.Content/SourceCurseDuration.cs": "fa75d68ab83b70b31292bb6825b4c81c73bc4df7ec4ad267ab2f9ab42503058d",
     "src/Sanctuary.Content/SourceElementRoll.cs": "55a242436edc0815979df1df35bcfebfb1a9c03f539fe58d06f849810c5f59f4",
+    "src/Sanctuary.Content/SourceEquipPlacement.cs": "96576e58e96a1aaad7494fc46118acd85996c174acfb9b35767895cb4395a05e",
     "src/Sanctuary.Content/SourceFireFields.cs": "af53659aeaf3cc4804cbbea9ca0ecb26006b3218d44d5ff67b604a41242273d3",
     "src/Sanctuary.Content/SourceFreeCoordinates.cs": "e2a5166f0eec5ef427e46acc8a968f8ceb0b5df3c712d6b25e5656428b6abb80",
     "src/Sanctuary.Content/SourceGuidTargets.cs": "fb9b6dfcc78b5b40b9f76db607b783d733ae7bf3610c06b84a9d62024c9417f6",

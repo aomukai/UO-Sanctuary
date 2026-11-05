@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "cases": 140364,
+  "bodyControls": 26988,
+  "currentBases": 692,
+  "completeRoutineHashes": {
+    "D2Common_10299": "6c5cafbb29950df3a50309874262b310bb848d344f7819bd1663867fe140725f",
+    "sub_6FD91D50": "a25319843e58b8cf91987c3d3c728c562ccfecf26705183e8e9a2ff98e269da2",
+    "sub_6FD91E80": "12ad489fef9ca66885a955ba757193a7dd0f8ee54c799de963825f9b601c9135",
+    "ITEMS_CheckBodyLocation": "23586c1422a9a4becdf83dfc44dcc2d6f95b983fcf6d291c645f0e3c7fea9082",
+    "ITEMS_Is1Or2Handed": "4f2decc2056a097c12089dd634120de9a591450560221537ce015e618bb621fc",
+    "ITEMS_AreStackablesEqual": "894791113842cbbd3e9d8cb77941a492c9f8e2fda5898cbfa0928b0c12b1bd16",
+    "ITEMS_CheckWeaponIfTwoHandedByItemId": "d550ec8ee80248fb16261c595ae7c14bc47f8ed16404a322c23f3c1181320dd6",
+    "ITEMS_CheckWeaponIfTwoHanded": "409b86e5e2a0d982672d6719153bd24d088bf4a2fb7beaf6ffb053f75cfcac53"
+  },
+  "reviewedOnlyRoutineHashes": {
+    "sub_6FC61190": "39bbda21281cc9e0b8e46ebe6a334f5e6b9d9bc8dd7623ce2f9a4949feea4580",
+    "STATLIST_GetMaxDurabilityFromUnit": "82f1513a3ec883e145428a4379d9250672a1a27757f3a5f75b338ce0b55ae766",
+    "D2Common_11248": "85ddbb36a584ad37e2a4ef6d10642784f4e24c0695a447031b88f560b6edc3d4",
+    "STATLIST_GetTotalStatValue_Layer0": "cbb5330b41e08ce600900ff6045fcefeea960c1287bdff9f5decdd946d79f29e",
+    "STATLIST_GetTotalStatValue": "22f77264e27d2e265e34f3740784f84691ecb2ace37773f833717391d209b418"
+  },
+  "noSellFlag": 4096,
+  "inlineBodyValidationSha256": "6a6e43a9da78e43eb4bc07baf1be095cabe534241e2d1910fc0ea45a2ed1f385",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Inventory.cpp": "04c9bd2fb8cd841e77cd803129b81806f0b6bebe06f96d806f248d726e2434e1",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterAI.cpp": "e225823e8ccd85e6637461846a6823f158bc72045ae125e7db79501be6252cb2",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Inventory.h": "c753eab99eae7f4298448ea6ed2e3d68504464ff8cb25746595e4ee7ed3d61e6",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "data/Sanctuary/Balance/npc-equip-types.json": "c1f0e2a40e9aea9516a90919ada4edb0e2c2cfc53859472a42e2ccb9663ff22e",
+    "tools/reference/npc-equip-types-evidence.json": "ee73ac2ceb221112d5bf70c3d0846c6a8b81e94b4f0c31119544544c0cf86472",
+    "data/Sanctuary/Balance/item-finishing-catalogue.json": "ad7cdf21665a66aa6340540c8e8451df9decc1a3e7ed8aaf411d876c1980fff9"
+  },
+  "scope": "Complete older inventory outcome/hand compatibility/body allowance/equal-stack/one-or-two-hand classifiers with all692current body contexts,hand-family triples,stack variants and lazy prerequisite/free-grid gates. Monster labels are symbolic fixture contexts,not modern row IDs.",
+  "limits": [
+    "Requirements satisfaction,exchange-grid availability,valid inventory signature/grid,logical type ancestry,immutable table lookup and six operative damage/socket fields are explicit services. No complete inventory placement/equip/stat delivery,allocation failure,player Warlock behavior or current executable parity is claimed."
+  ],
+  "artifacts": {
+    ".local/class-skills/npc-equip-placement-source/source.cpp": "d5b456e42ee539d1c50df04a4f6e863e6ab8322c0eba8e7838cf9c9d949ba6e7",
+    ".local/class-skills/npc-equip-placement-source/probe": "7125b1fe3c46755c20c253dad3fc6f0c809ebf875771b8897627435c8efacd82",
+    ".local/class-skills/npc-equip-placement-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equip-placement-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-equip-placement-source/cases.json": "490e0f7ad62c09f534de1dc5203fc72de6036d5d6b597e8fc8adee0799d25051",
+    "tools/probe_npc_equip_placement.py": "931e2588bcb4ec13ad13d3499cbb23ff759c98e7072af3609110fc6743ee3c9d"
+  }
+}

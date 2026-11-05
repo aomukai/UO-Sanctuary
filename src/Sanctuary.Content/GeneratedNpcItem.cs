@@ -8,7 +8,8 @@ using ModernUO.Serialization;
 using Server;
 namespace Sanctuary;
 
-internal sealed record GeneratedNpcItemState(int Version,string ReferenceVersion,PreparedItemRequest Request,PreparedItemState Metadata,ItemPropertyCreationState Graph);
+internal sealed record GeneratedNpcItemState(int Version,string ReferenceVersion,PreparedItemRequest Request,PreparedItemState Metadata,ItemPropertyCreationState Graph,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]GeneratedNpcEquipState Equipment=null);
 
 // Native item-owned state,not a player GearState projection or a fixture
 // manifest. This qualified creation entry point supplies explicit seed streams;
@@ -47,7 +48,8 @@ public partial class GeneratedNpcItem:Item
     }
     internal static void Validate(GeneratedNpcItemState state)
     {
-        if(state is not{Version:0,ReferenceVersion:"3.3.93847",Request:not null,Metadata:not null,Graph:not null})
+        if(state is not{Version:0 or 1,ReferenceVersion:"3.3.93847",Request:not null,Metadata:not null,Graph:not null}
+            ||(state.Version==0)!=(state.Equipment==null))
         {throw new InvalidDataException("Missing or unknown generated NPC item state");}
         CurrentItemQuality.Require(state.Request);var m=state.Metadata;var g=state.Graph;var a=m.Affixes;
         if(m.Code!=state.Request.Code||m.Quality is not(1 or 2 or 3 or 4 or 6)||m.DropQuality is not(1 or 2 or 3 or 4 or 6)
@@ -72,6 +74,13 @@ public partial class GeneratedNpcItem:Item
         int family=NpcItemAffixes.Pool.Basis(m.Code).SourceFields.TryGetProperty("auto prefix",out var p)?p.GetInt32():0;
         if(m.AutoAffix!=0&&(automatic==null||automatic.Group!=family)||!m.AutoApplied.SequenceEqual(m.AutoAffix==0?Array.Empty<int>():[m.AutoAffix]))
         {throw new InvalidDataException("Invalid generated item automagic reference identity");}
+        if(state.Equipment is{} equipped)
+        {
+            var t=GeneratedNpcEquipment.Type(m.Code);
+            if(!((Serial)equipped.Actor).IsMobile||!((Serial)equipped.Owner).IsMobile||equipped.Actor==equipped.Owner
+                ||equipped.Body is<1 or>10||equipped.Body!=t.Body1&&equipped.Body!=t.Body2||!Enum.IsDefined(equipped.Kind)||equipped.Flags!=0x1000)
+            {throw new InvalidDataException("Invalid generated NPC equipment binding");}
+        }
     }
     internal ItemPropertyCreationContext RestoreGraph(EquipmentStatValues values)
     {
@@ -79,11 +88,28 @@ public partial class GeneratedNpcItem:Item
         var state=Snapshot;var d=CurrentItemInitialization.For(state.Metadata.Code);
         return ItemPropertyCreationContext.Restore(this,values,d.PropertyBase,d.Weapon,d.Armor,d.Throwable,state.Graph);
     }
+    internal void BeginEquipment(GeneratedNpcEquipState binding)
+    {
+        var state=Snapshot;if(Deleted||Parent!=null||state.Equipment!=null){throw new InvalidOperationException("Generated item is already bound");}
+        var next=state with{Version=1,Equipment=binding};Validate(next);_saved=JsonSerializer.Serialize(next);
+    }
+    internal void CompleteEquipment()
+    {
+        var state=Snapshot;
+        if(Deleted||state.Equipment is not{} e||Parent is not Mobile actor||actor.Serial.Value!=e.Actor)
+        {throw new InvalidOperationException("Generated item lost its successful equipment delivery");}
+        var values=CreationValues();var graph=RestoreGraph(values);
+        // GetMaxDurability -> GetTotalStatValue_Layer0 uses the source cached
+        // operative reader,not a separate on-demand query path.
+        graph.SetBase(72,EquipmentStatValues.SourceRead(graph.Unit.Stats,EquipmentStatKey.Pack(73),EquipmentStatValues.Definition(73)));
+        var next=state with{Graph=graph.Capture()};Validate(next);_saved=JsonSerializer.Serialize(next);
+    }
     // Player acquisition and native UO equipment effects are not routes into
     // this raw D2 NPC item. The later NPC equipment adapter owns delivery.
     public override bool OnDragLift(Mobile from)=>false;
     public override bool CanEquip(Mobile from)=>false;
     public override bool AllowSecureTrade(Mobile from,Mobile to,Mobile newOwner,bool accepted)=>false;
+    public override DeathMoveResult OnParentDeath(Mobile parent)=>DeathMoveResult.RemainEquipped;
     [AfterDeserialization]private void AfterGeneratedItemLoad()
     {_ = Snapshot;}
 }

@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC equipment placement:** canonical body placement uses hidden stock item art `0x14F0` with an explicit generated-equipment placeholder name and `Layer.Invalid`. NPC physical storage does not establish summon effects, spell effects or audio. Existing Valkyrie/Shadow presentation placeholders remain pending. See the [checkpoint](npc-equip-placement-checkpoint.md).
+
 **Native generated items:** item artwork uses stock `0x14F0` with `[generated equipment; art placeholder]` in the name. This is a separate equipment presentation placeholder; no new skill effect/audio identity is complete. Existing Valkyrie/Shadow summon effects remain pending. See the [checkpoint](generated-npc-item-checkpoint.md).
 
 **Prepared quality/automagic:** no new skill effect/audio identity. Generated equipment and Valkyrie/Shadow presentation retain their existing identified placeholders. Preparing a raw property graph does not certify item appearance or NPC spell delivery. See the [checkpoint](item-quality-current-checkpoint.md).

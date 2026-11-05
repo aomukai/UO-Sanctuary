@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "typeRows": 105,
+  "bodyRows": 13,
+  "baseCrossChecks": 692,
+  "inputs": {
+    ".local/class-skills/item-finishing-source/itemtypes.txt": "ae957abde89a2d0276a55feffa809e0ccbdaf82f65c6eaed9443b886b960e26a",
+    "tools/reference/item-finishing-table-evidence.json": "05b28662a923320d74b26b8abdae460b6f52e7cc17d51c0a49dcc643a93b3473",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Inventory.h": "c753eab99eae7f4298448ea6ed2e3d68504464ff8cb25746595e4ee7ed3d61e6",
+    "data/Sanctuary/Balance/iron-golem-items.json": "534e9ec6bb71ae3989414f55ac70e3436f6ae7cf43db7b75cc1d36baa9f5050c",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "tools/build_npc_equip_types.py": "9f95eb7fb8dc083de16711e9b7a996cb50a1cc621f84c07873eb6e93d183ee2a"
+  },
+  "outputSha256": "c1f0e2a40e9aea9516a90919ada4edb0e2c2cfc53859472a42e2ccb9663ff22e",
+  "limits": [
+    "Body/type codes are logical reference identities,not current compiled or save IDs. No current executable/equip dispatcher parity is inferred."
+  ]
+}
