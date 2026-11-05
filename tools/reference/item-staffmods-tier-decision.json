@@ -1,0 +1,415 @@
+{
+  "referenceVersion": "3.3.93847",
+  "decisionDate": "2026-11-05",
+  "status": "user-approved-sanctuary-adaptation",
+  "answer": "Use that explicit Sanctuary adaptation",
+  "rule": "For current Reign-mode staffmods,group each class by required levels1/6/12/18/24/30;sort eligible skill IDs ascending inside each tier;use a single existing RNG draw modulo the full tier count. Retain existing count,tier,value,first-type restriction,six-attempt exhaustion and overwrite rules. Do not silently apply fixed five-ID groups to Barbarian/Warlock.",
+  "guide": {
+    "path": ".local/research/d2r-3.3.93847/dataguide/changelog.html",
+    "sha256": "4c656827df98b90ce53f9fd2bceec7ad4d52f9ab4cec1105748bf4c4766abaf1",
+    "established": [
+      "Reign of the Warlock staffmods use required skill level rather than index.",
+      "Only required levels1/6/12/18/24/30 participate."
+    ],
+    "unproved": [
+      "Exact modern internal ordering,RNG mapping and retry implementation."
+    ]
+  },
+  "currentGroups": {
+    "ama": {
+      "1": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "6": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "12": [
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "18": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "24": [
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "30": [
+        31,
+        32,
+        33,
+        34,
+        35
+      ]
+    },
+    "sor": {
+      "1": [
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "6": [
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "12": [
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "18": [
+        51,
+        52,
+        53,
+        54,
+        55
+      ],
+      "24": [
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "30": [
+        61,
+        62,
+        63,
+        64,
+        65
+      ]
+    },
+    "nec": {
+      "1": [
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "6": [
+        71,
+        72,
+        73,
+        74,
+        75
+      ],
+      "12": [
+        76,
+        77,
+        78,
+        79,
+        80
+      ],
+      "18": [
+        81,
+        82,
+        83,
+        84,
+        85
+      ],
+      "24": [
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "30": [
+        91,
+        92,
+        93,
+        94,
+        95
+      ]
+    },
+    "pal": {
+      "1": [
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "6": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "12": [
+        106,
+        107,
+        108,
+        109,
+        110
+      ],
+      "18": [
+        111,
+        112,
+        113,
+        114,
+        115
+      ],
+      "24": [
+        116,
+        117,
+        118,
+        119,
+        120
+      ],
+      "30": [
+        121,
+        122,
+        123,
+        124,
+        125
+      ]
+    },
+    "bar": {
+      "1": [
+        126,
+        127,
+        128,
+        129,
+        130,
+        131
+      ],
+      "6": [
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138
+      ],
+      "12": [
+        139,
+        140,
+        141,
+        142
+      ],
+      "18": [
+        143,
+        144,
+        145,
+        146
+      ],
+      "24": [
+        147,
+        148,
+        149,
+        150
+      ],
+      "30": [
+        151,
+        152,
+        153,
+        154,
+        155
+      ]
+    },
+    "dru": {
+      "1": [
+        221,
+        222,
+        223,
+        224,
+        225
+      ],
+      "6": [
+        226,
+        227,
+        228,
+        229,
+        230
+      ],
+      "12": [
+        231,
+        232,
+        233,
+        234,
+        235
+      ],
+      "18": [
+        236,
+        237,
+        238,
+        239,
+        240
+      ],
+      "24": [
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "30": [
+        246,
+        247,
+        248,
+        249,
+        250
+      ]
+    },
+    "ass": {
+      "1": [
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "6": [
+        256,
+        257,
+        258,
+        259,
+        260
+      ],
+      "12": [
+        261,
+        262,
+        263,
+        264,
+        265
+      ],
+      "18": [
+        266,
+        267,
+        268,
+        269,
+        270
+      ],
+      "24": [
+        271,
+        272,
+        273,
+        274,
+        275
+      ],
+      "30": [
+        276,
+        277,
+        278,
+        279,
+        280
+      ]
+    },
+    "war": {
+      "1": [
+        373,
+        374,
+        383,
+        385,
+        395
+      ],
+      "6": [
+        375,
+        378,
+        391,
+        393,
+        394
+      ],
+      "12": [
+        376,
+        388,
+        389,
+        396,
+        399
+      ],
+      "18": [
+        377,
+        380,
+        387,
+        390,
+        398
+      ],
+      "24": [
+        379,
+        384,
+        386,
+        397,
+        400
+      ],
+      "30": [
+        381,
+        382,
+        392,
+        401,
+        402
+      ]
+    }
+  },
+  "indexGroupMismatchIds": {
+    "ama": [],
+    "sor": [],
+    "nec": [],
+    "pal": [],
+    "bar": [
+      131,
+      136,
+      137,
+      138,
+      141,
+      142,
+      146
+    ],
+    "dru": [],
+    "ass": [],
+    "war": [
+      375,
+      376,
+      377,
+      379,
+      380,
+      381,
+      382,
+      383,
+      384,
+      385,
+      386,
+      387,
+      388,
+      389,
+      391,
+      392,
+      393,
+      394,
+      395,
+      396,
+      398,
+      399,
+      400
+    ]
+  },
+  "scope": "Approved current required-level tier selection;complete older bodies remain a separate legacy reference. No blanket approval for other unresolved item/skill mechanics."
+}

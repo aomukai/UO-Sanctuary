@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "fddb3ecb6358cee5fc2d15ea0636388c7027a26ca093c0ce284bb44492f4ab94",
+  "ContentAssemblySha256": "a3ac3c77a1d442a522caf03e7d9786d8e60ed4cec48af43077d9a66d9cdc1824",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -450,8 +450,9 @@
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/CreatureHitRecovery.cs": "9d4d04f79e9069b19a9385542697829d418e8a3f86fc45311659e33004cde249",
     "src/Sanctuary.Content/CreatureProfiles.cs": "ffa86c5155e396e1d1be392d4d35761dfafe8f51e5c5a977a57f8dd5b1a3ba39",
-    "src/Sanctuary.Content/CurrentItemFinishing.cs": "3b4ab05a63617ccf597dcc3674b96bd278840cb235df56890fe2ef3175f464c0",
+    "src/Sanctuary.Content/CurrentItemFinishing.cs": "9295ba1891bb3f1b0a1f596b0904756e4c79860ec8f857d3050105229d7339b6",
     "src/Sanctuary.Content/CurrentItemInitialization.cs": "4b5b6cc8dbaba6bb7817e49106d981b3f030a345821b87764316a299a11a37a8",
+    "src/Sanctuary.Content/CurrentItemStaffmods.cs": "f5c667238f859612aa952f2647843a51bd94377b80367a932d398ac77a4b2407",
     "src/Sanctuary.Content/CycloneArmorPackets.cs": "74fe8692ddfb084e862e4bc710cd5075c8a21ff75368828c9331a5372e57b419",
     "src/Sanctuary.Content/DefensiveArmors.cs": "01175d0a245f3ee95a5ab08eaf073492f53a7bb5bca8c8de7791c8c51ac78ad1",
     "src/Sanctuary.Content/DefilerPrepared.cs": "fcf8d4852d51a1421e742f15e1046de3e7e3bf08b93fd4d6659f3c14c55c56a3",
@@ -981,6 +982,7 @@
     "src/Sanctuary.Content/SourceItemFinishing.cs": "0698e20962a875b6c3048011bac8e7cde992b50e53ddba433a031debb0dca77c",
     "src/Sanctuary.Content/SourceItemInitialization.cs": "d2e27ddf651d4e2aa37ee4725f6d4ef37006e0100724ff21e53cdfc580dc8b22",
     "src/Sanctuary.Content/SourceItemQuality.cs": "ca88dd24b34f5f6e91ad5a61d464bace404939c9d57f0078b47f98ada057b761",
+    "src/Sanctuary.Content/SourceItemStaffmods.cs": "b542fb98ce0f3c464b164f8ee3b29db12860ee58be26b535255a77091169a1f6",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "b99c53aa543717492b0118ef28a4c553dd3074cc0d648100cc70f71f3ca0a958",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "222a9c0d25421d2a7fe40776c01d8a7759b126d8052efb85fd5c64030cf051c2",
     "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",

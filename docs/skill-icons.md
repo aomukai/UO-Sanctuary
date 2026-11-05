@@ -1,5 +1,7 @@
 # Skill icons
 
+**Item staffmods:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow and Warlock placeholders remain separate from generated-item skill bonuses. See the [checkpoint](item-staffmods-checkpoint.md).
+
 **Item finishing:** no new talent or hotkey icon identity. Existing Valkyrie/Shadow icon placeholders remain pending separately from item-factory mechanics. See the [checkpoint](item-finishing-checkpoint.md).
 
 **Item quality orchestration:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow placeholders stay separate from the unfinished generated-item presentation. See the [checkpoint](item-quality-checkpoint.md).

@@ -142,7 +142,7 @@ public static class ItemFinishingChecks
             // These unsupported bindings refuse before changing the supplied
             // graph;no valid caster/special base is filtered out of a pool.
             var original=rows[0];var held=World.FindItem((Serial)original.Item);var cx=ItemPropertyCreationContext.Restore(held,Services(),PropertyBases[0],true,false,false,original.Graph);string before=Json(cx.Capture());
-            foreach(string code in new[]{"sst","dgr","tbk"})
+            foreach(string code in new[]{"tbk"})
             {bool refused=false;try{_=new CurrentItemFinishing(held,cx,Services(),new(code,100,3,1,0,0,8,511,99));}catch(NotSupportedException){refused=true;}Require(refused&&Json(cx.Capture())==before,"Unbound current staffmod/special context mutated graph");}
         }
         Require(rows.Count==288,"Incomplete original finishing item cohort");File.WriteAllText(Manifest,Json(new Saved(rows.ToArray(),reload?saved.Generation+1:0)));

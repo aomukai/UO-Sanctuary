@@ -1,5 +1,7 @@
 # Skill effects
 
+**Item staffmods:** no new skill effect/audio identity. Generated equipment and Valkyrie/Shadow presentation remain unfinished with their existing identified placeholders. Raw skill bonuses do not certify NPC spell delivery or presentation. See the [checkpoint](item-staffmods-checkpoint.md).
+
 **Item finishing:** no new skill effect or audio identity. Actual generated-item appearance, ethereal presentation and Valkyrie/Shadow summon effects remain pending with their existing identified placeholders. Numeric graph acceptance does not certify presentation. See the [checkpoint](item-finishing-checkpoint.md).
 
 **Item quality orchestration:** no new skill effect/audio identity or artwork. Controlled ethereal/finalizer markers are mechanical fixture services; complete native item presentation and existing summon placeholders remain pending. See the [checkpoint](item-quality-checkpoint.md).

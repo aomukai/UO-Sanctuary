@@ -12,8 +12,8 @@ internal sealed record ItemFinishingParameters(string Code,int Format,int Qualit
 internal sealed record ItemFinishingMetadata(ItemFinishingParameters Parameters,int File,uint ItemFlags);
 
 // Actual current-table physical finishing on an existing unattached graph.
-// NPC requests already exclude sockets;staffmod/special-normal contexts must
-// acquire their own complete bindings before entering this adapter.
+// NPC requests already exclude sockets;special-normal contexts still need
+// complete bindings. Current staffmods use the approved Reign tier mapping.
 internal sealed class CurrentItemFinishing:ItemFinishingServices
 {
     private static readonly Lazy<ItemFinishingCatalogue> Data=new(()=>
@@ -33,6 +33,7 @@ internal sealed class CurrentItemFinishing:ItemFinishingServices
     private readonly Dictionary<int,string> Codes;
     private ItemFinishingParameters Parameters;
     private ulong Unit;
+    private readonly CurrentItemStaffmods Staff;
     internal int SelectedFile{get;private set;}=-1;
     internal uint ItemFlags{get;private set;}
     internal ulong UnitSeed=>Unit;
@@ -45,8 +46,9 @@ internal sealed class CurrentItemFinishing:ItemFinishingServices
         if(item is not{Deleted:false}||graph.Seed==0||parameters.Level is<1 or>787||parameters.Difficulty is<0 or>2)
         {throw new NotSupportedException("Physical finishing needs a valid original item,initialized item RNG and source level/difficulty");}
         if((parameters.Flags2&8)==0){throw new NotSupportedException("Actual socket allocation/materialization is not bound;NPC finishing requires its source no-sockets flag");}
-        if(!string.IsNullOrEmpty(Meta.StaffMods)||new[]{13,40,7,22,18}.Any(IsType))
-        {throw new NotSupportedException("Current staffmod/charm/body-part/book/scroll finishing needs its complete context");}
+        if(new[]{13,40,7,22,18}.Any(IsType))
+        {throw new NotSupportedException("Current charm/body-part/book/scroll finishing needs its complete context");}
+        if(!string.IsNullOrEmpty(Meta.StaffMods)){Staff=new CurrentItemStaffmods(Graph,Parameters,Meta.StaffMods);}
     }
     internal override bool HasItem=>Item is{Deleted:false};
     internal override ItemFinishingBase Basis=>new(Facts.Base.Durability,NpcItemAffixes.Pool.Basis(Parameters.Code).SourceFields.TryGetProperty("nodurability",out var n)&&n.GetInt32()!=0);
@@ -86,7 +88,8 @@ internal sealed class CurrentItemFinishing:ItemFinishingServices
     internal override int ItemOrSkillStat(int stat)=>FullStat(stat);
     internal override void WriteStat(int stat,int value)=>Graph.SetBase(stat,value);
     internal override void FileIndex(int id)=>SelectedFile=id;
-    internal override void StaffMods(){} // Constructor corroborates an empty current type staffmod label.
+    internal override void StaffMods()
+    {Staff?.Apply();}
     internal override void Ethereality(){ItemFlags|=0x400000;EquipmentPropertyWriter.Ethereality(Graph);}
     internal override bool Quest=>Facts.Base.Quest;internal override uint Flags1=>Parameters.Flags1;internal override uint Flags2=>Parameters.Flags2;
     internal override bool Socketable=>NpcItemAffixes.Pool.Basis(Parameters.Code).SourceFields.TryGetProperty("hasinv",out var h)&&h.GetInt32()!=0;
