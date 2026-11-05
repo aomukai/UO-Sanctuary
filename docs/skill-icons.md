@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC on-kill curses (2026-11-05 JST).** No talent, binding or icon slot is added. Existing curse tree/hotkey artwork remains separately pending with identified placeholders; later UI should reuse each underlying spell icon. See [checkpoint](npc-kill-procs-checkpoint.md).
+
 **NPC item event graphs (2026-11-05 JST).** No talent, hotkey or icon slot is added. Any later item-charge UI should reuse the underlying skill icon. Separate final tree/hotkey icons for the eight curses and Shadow/Valkyrie remain pending with identified placeholders. See [checkpoint](unit-events-checkpoint.md).
 
 **Eight NPC curse profiles (2026-11-05 JST).** The NPC services add no player talent,binding or icon slot. Separate final talent-tree/hotkey artwork for the eight underlying Necromancer curses remains pending with existing identified placeholders. Any later item-charge UI should reuse the underlying skill's icon. Full execution metadata does not substitute for artwork. See [checkpoint](item-execution-metadata-checkpoint.md).

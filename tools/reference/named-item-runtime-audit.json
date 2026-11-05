@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "403ef266843530bb0279efebc9e3fab32bc45fb7cbb6497e1238cc52399fb988",
+  "ContentAssemblySha256": "f58fa067c2c4a126d342d3424fafe4cff63ec5748d007ef103518a0442cc3896",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "ac0f33f6182ede0c904e3eda4e9e2549bd74bd4fc697e9ff37ed6632fe60f192",
+    "data/Sanctuary/Balance/class-skill-status.json": "5dbbc3ae121c2422b176f7ea8f0b84dc9cee02f16018576dc5674b862ffdb308",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -815,7 +815,7 @@
     "src/Sanctuary.Content/NpcFireSpellHit.cs": "e6a17df1a06210ed67287b6427fc659383b40b4650c778746f363365f0a75dfe",
     "src/Sanctuary.Content/NpcHitSkills.cs": "3abdbe45bb13484fca9c23debb245fedf219e1315d305b593fab28e8f76a17ce",
     "src/Sanctuary.Content/NpcItemAffixes.cs": "a669b5cdaf497d38dc484ba7222dada2ffeede13640c5226af6ba27bd2f30271",
-    "src/Sanctuary.Content/NpcItemProcGraph.cs": "8e20d3a0c9910cefad606d332fafed2ede507f592170d1a08581b4075fd7c034",
+    "src/Sanctuary.Content/NpcItemProcGraph.cs": "940f7b4d8db751ff9900df629ef5bdec721e3e89c6ff10e90906f64a8a13b71a",
     "src/Sanctuary.Content/NpcItemProcs.cs": "77aaeefa2f4242f02e4e61bf61ab486d51f366c99fa2ca44dc161220de1f503c",
     "src/Sanctuary.Content/NpcItemSkillExecution.cs": "1fe8ddf12a9257c5b6fd0fc29c65dac020c578f4a32e69848db1a0940e79888b",
     "src/Sanctuary.Content/NpcItemSpellCasts.cs": "8f1a317d790c1e04236407837035d0081644e066f11b20cae2ec9fd170b6dada",

@@ -181,7 +181,8 @@
     "Complete older item-effect handler/target/position wrappers now preserve18912source targeting/path/server-do restoration and notification contracts. Actual Blood Life Tap uses the shared driver,indirect aggression and a scoped ordinary-target guard. This is not generic NPC proc admission or a complete D2 dynamic-path/skill executor.",
     "Complete older common skill executor now preserves37680source ordinary/item/outgoing admission,ItemEffect override,independent do/missile,aim,resource/quantity/delay and return contracts. Correct skill-record field widths are pinned. Actual Blood uses an explicit native synchronous no-selected-ordinary-skill item frame and existing do30 body;other NPC execution services remain unsupported.",
     "Full current execution catalogue retains429raw rows/742missile links/blank362 and43explicit missing animations,including current delay fields. Eight NPC do30curses now reuse existing actual effects/AI and shared protected item/common-executor frames. Original source-removed held curse/AI states survive two reloads;this does not certify natural-clock movement or generic event admission.",
-    "Event-only original NPC carriers now share packed-layer LIFO subscriptions,real source writers and195/198outgoing curse execution,including innate Blood chance aggregation and optional immutable snapshot persistence. Other producers and complete equipment delivery remain gated."
+    "Event-only original NPC carriers now share packed-layer LIFO subscriptions,real source writers and195/198outgoing curse execution,including innate Blood chance aggregation and optional immutable snapshot persistence. Other producers and complete equipment delivery remain gated.",
+    "Stat196now uses the actual kill/function20registration and existing original event-only carriers,cumulative item chances,NPC curse services and pre-death qualified ordinary pipeline. Natural summon kills and original graphs/curse through2reloads are checked separately. Incoming/death/level-up/missile/post-death/ground producers,other spells and full NPC equipment delivery remain gated."
   ],
   "blockers": [
     "Equipment request selection now reuses the exact shared selector;full generated NPC items and complete stat/property/event delivery remain unfinished. Existing numeric NPC equipment suppliers and frozen Revive graphs are reusable bounded components,not complete generated Shadow equipment certification. Complete magic/rare outer control flow is now prepared separately;it does not complete nested item/property/stat/event services. Current full pools and rare-name rolls are prepared;property execution,final initializer,quality fallback and actual generated NPC graph remain unfinished. Fresh numeric/layered property execution and snapshot continuation now prepare201plans;complete specialized property/event consumers,initialization,quality fallback and NPC graph delivery remain. Proc/charge encoding is now prepared separately;NpcCombatEvents active-proc refusal and full actor skill/charge consumers remain gated.",
@@ -227,5 +228,7 @@
   "itemExecutionMetadataEvidence": "tools/reference/item-skill-execution-metadata.json",
   "nativeItemExecutionMetadataEvidence": "tools/reference/item-execution-metadata-native-evidence.json",
   "unitEventSourceEvidence": "tools/reference/unit-events-source-evidence.json",
-  "unitEventNativeEvidence": "tools/reference/unit-events-native-evidence.json"
+  "unitEventNativeEvidence": "tools/reference/unit-events-native-evidence.json",
+  "npcKillProcSourceEvidence": "tools/reference/npc-kill-proc-source-review.json",
+  "nativeNpcKillProcEvidence": "tools/reference/npc-kill-procs-native-evidence.json"
 }

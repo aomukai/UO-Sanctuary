@@ -107,7 +107,7 @@ public static class UnitEventsChecks
             Require(graph.Capture().Events.Entries.Count(e=>e.Guid1==unchecked((int)EquipmentStatKey.Pack(198,(66<<6)|5)))==2,"Duplicate skill layer registrations");
             // Unsupported inputs must not alter the live graph or its item RNG.
             string before=Json(graph.Capture());
-            Refuses(()=>graph.Apply(a,new("unsupported-kill",0,false,[new(11,196,false,0)]),new(100,5,66),ItemSkillProperties.ForLevel(40)),"Kill proc silently admitted");
+            Refuses(()=>graph.Apply(a,new("unsupported-death",0,false,[new(11,197,false,0)]),new(100,5,66),ItemSkillProperties.ForLevel(40)),"Death proc silently admitted");
             Refuses(()=>graph.Apply(a,new("unsupported-confuse",0,false,[new(11,198,false,0)]),new(100,5,81),ItemSkillProperties.ForLevel(40)),"Unsupported curse admitted");
             Require(Json(graph.Capture())==before,"Refused property changed original graph");
             string global=NpcItemProcs.SnapshotJson;var all=JsonSerializer.Deserialize<NpcProcState[]>(global);
