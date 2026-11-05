@@ -179,7 +179,8 @@
     "Separate raw proc/charge writer now covers7plans with429current skill rows/addressable blank362 and explicit6-bit charge-level context. It preserves additive procs,charge replacement,source LCG and draw-before-allocation behavior. It does not enable actor registration/trigger/casting or charge-backed skill use.",
     "Complete older proc callbacks20/21/30 now preserve gates,decode timing,source RNG,skill lookup,caster/target roles,flags,position fallback and attempted-route result semantics. Actual Blood Life Tap reuses the outgoing gate. Generic NPC event admission and full item-effect cast/spell services remain unfinished.",
     "Complete older item-effect handler/target/position wrappers now preserve18912source targeting/path/server-do restoration and notification contracts. Actual Blood Life Tap uses the shared driver,indirect aggression and a scoped ordinary-target guard. This is not generic NPC proc admission or a complete D2 dynamic-path/skill executor.",
-    "Complete older common skill executor now preserves37680source ordinary/item/outgoing admission,ItemEffect override,independent do/missile,aim,resource/quantity/delay and return contracts. Correct skill-record field widths are pinned. Actual Blood uses an explicit native synchronous no-selected-ordinary-skill item frame and existing do30 body;other NPC execution services remain unsupported."
+    "Complete older common skill executor now preserves37680source ordinary/item/outgoing admission,ItemEffect override,independent do/missile,aim,resource/quantity/delay and return contracts. Correct skill-record field widths are pinned. Actual Blood uses an explicit native synchronous no-selected-ordinary-skill item frame and existing do30 body;other NPC execution services remain unsupported.",
+    "Full current execution catalogue retains429raw rows/742missile links/blank362 and43explicit missing animations,including current delay fields. Eight NPC do30curses now reuse existing actual effects/AI and shared protected item/common-executor frames. Original source-removed held curse/AI states survive two reloads;this does not certify natural-clock movement or generic event admission."
   ],
   "blockers": [
     "Equipment request selection now reuses the exact shared selector;full generated NPC items and complete stat/property/event delivery remain unfinished. Existing numeric NPC equipment suppliers and frozen Revive graphs are reusable bounded components,not complete generated Shadow equipment certification. Complete magic/rare outer control flow is now prepared separately;it does not complete nested item/property/stat/event services. Current full pools and rare-name rolls are prepared;property execution,final initializer,quality fallback and actual generated NPC graph remain unfinished. Fresh numeric/layered property execution and snapshot continuation now prepare201plans;complete specialized property/event consumers,initialization,quality fallback and NPC graph delivery remain. Proc/charge encoding is now prepared separately;NpcCombatEvents active-proc refusal and full actor skill/charge consumers remain gated.",
@@ -195,7 +196,8 @@
     "ItemPropertyCreationContext owns a real native item numeric graph,raw base/property arrays,seed and ethereal state. Four supplied base contexts/source LCG compositions and24original-item reloads verify this component;complete item initialization/materialization and NPC delivery remain separate.",
     "ItemSkillPropertyWriter and ItemSkillProperties supply raw encoded stats;ItemProcCallbacks supplies shared source callback contracts. Actual Blood Life Tap reuses its outgoing chance/hit gate. Preserve callback attempted-route success separately from actual delivered spell.",
     "ItemEffectCasts and NpcItemSpellCasts separate cast attempt,actual execution,temporary targeting and notification. Reuse the verified NPC Life Tap area/owner/rank/expiry service and target guard;other spells/search/start services remain mandatory and unsupported until implemented.",
-    "SkillExecution and NpcItemSkillExecution retain common caller flags and real Blood delivery through the prior item-effect/target-guard services. Reuse do and missile paths independently;do-only dispatch would drop legitimate direct missiles. Mandatory unimplemented skill-list/room/resource/missile services must refuse explicitly."
+    "SkillExecution and NpcItemSkillExecution retain common caller flags and real Blood delivery through the prior item-effect/target-guard services. Reuse do and missile paths independently;do-only dispatch would drop legitimate direct missiles. Mandatory unimplemented skill-list/room/resource/missile services must refuse explicitly.",
+    "ItemSkillExecution supplies complete current execution metadata without player filtering. NpcItemSpellCasts/NpcItemSkillExecution generalize Life Tap to eight real do30curse bodies;Confuse/do61 and Attract stay distinct. Keep NPC creator/rank,target/RNG/resource/aggression and explicit unsupported-service semantics."
   ],
   "required": [
     "Compile complete do49/equipment/AI routines with declared services and independent rank/quality/selection fixtures.",
@@ -207,7 +209,7 @@
     "effects": "Shadow summon/cast/body/weapon/skill presentation/audio pending; identified placeholders only.",
     "icons": "Separate talent/hotkey icons pending."
   },
-  "next": "Complete current429-row execution metadata and actual additional NPC spell/stat/skill-list/room/missile/resource contexts,then generic event admission. Do not repeat the accepted common executor or claim original D2 used-skill/town/scheduler parity from the explicit native frame. Continue charge actions/full initializer/source low-seed fallback and Shadow/Valk actor/AI/casting/lifecycle/input. Skilltab/war-tab-rand and do49/current executable gaps remain explicit.",
+  "next": "Complete additional actual NPC spell/stat/skill-list/room/missile/resource contexts and generic event registration/ordering/lifecycle. Reuse accepted metadata/cast/common-executor/do30receiver components rather than repeat them. Continue charge actions/full initializer/source low-seed fallback and Shadow/Valk actor/AI/casting/lifecycle/input. Preserve skilltab/war-tab-rand and do49/current executable gaps;no filtered valid rolls or fake delivered spells.",
   "equipmentSourceEvidence": "tools/reference/shadow-equipment-source-evidence.json",
   "nativeEquipmentEvidence": "tools/reference/shadow-equipment-native-evidence.json",
   "itemAffixOuterSourceEvidence": "tools/reference/item-affix-orchestration-source-evidence.json",
@@ -220,5 +222,7 @@
   "itemEffectCastSourceEvidence": "tools/reference/item-effect-casts-source-evidence.json",
   "itemEffectCastNativeEvidence": "tools/reference/item-effect-casts-native-evidence.json",
   "skillExecutionSourceEvidence": "tools/reference/skill-execution-source-evidence.json",
-  "skillExecutionNativeEvidence": "tools/reference/skill-execution-native-evidence.json"
+  "skillExecutionNativeEvidence": "tools/reference/skill-execution-native-evidence.json",
+  "itemExecutionMetadataEvidence": "tools/reference/item-skill-execution-metadata.json",
+  "nativeItemExecutionMetadataEvidence": "tools/reference/item-execution-metadata-native-evidence.json"
 }

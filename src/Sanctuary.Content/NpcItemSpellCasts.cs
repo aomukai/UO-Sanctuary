@@ -6,7 +6,7 @@ using Server;
 namespace Sanctuary;
 
 // A synchronous item-skill frame, separate from the pet's saved AI controller.
-// Only the already implemented Life Tap spell is admitted. Random/corpse/start
+// Only the shared do30 curse bodies are admitted. Random/corpse/start
 // services must be supplied before admitting skills that require them.
 internal static class NpcItemSpellCasts
 {
@@ -29,7 +29,7 @@ internal static class NpcItemSpellCasts
             else { TargetScopes[_actor]--; }
         }
     }
-    private sealed class LifeTapServices(SkeletonGuardian source, DateTime at) : ItemEffectServices<Mobile>
+    private sealed class CurseServices(SkeletonGuardian source, DateTime at) : ItemEffectServices<Mobile>
     {
         private Mobile _target;
         private (int X, int Y) _point = (source.X, source.Y);
@@ -41,11 +41,8 @@ internal static class NpcItemSpellCasts
         internal override bool ServerDo { get; set; }
         internal override ItemEffectSkill Skill(int id)
         {
-            var row = SkillMechanics.For(CombatAbility.LifeTap);
-            if (id != row.SourceId || row.Number("ItemEffect") != 1 || row.Number("ItemTarget") != 0
-                || row.Number("ItemCheckStart") != 0 || row.Number("srvdofunc") != 30)
-            { throw new NotSupportedException("NPC item cast requires its admitted Life Tap record"); }
-            return new(1, 0, false);
+            var row = ItemSkillExecution.RequireCurse(id);
+            return new(row.ItemEffect, row.ItemTarget, row.ItemCheckStart);
         }
         internal override (int Type, int Id) Identity(Mobile unit) => (1, unchecked((int)unit.Serial.Value));
         internal override void SetTarget(Mobile target) => _target = target;
@@ -57,21 +54,23 @@ internal static class NpcItemSpellCasts
         internal override int Execute(int skill, int level, int mode, int item, int flag)
         {
             if (mode != 0 || item != 1 || _target is not Server.Mobiles.BaseCreature target)
-            { throw new NotSupportedException("NPC Life Tap needs its explicit target/item-execution context"); }
+            { throw new NotSupportedException("NPC curse needs its explicit target/item-execution context"); }
             return NpcItemSkillExecution.Run(source, target, skill, level, mode, item, flag, at);
         }
         internal override void NotifyTarget(int skill, int level, int type, int id, int flag)
             => source.PlaySound(0x1E5); // Identified shared curse/item-cast audio placeholder.
         internal override void NotifyPosition(int skill, int level, int x, int y, int flag)
-            => throw new NotSupportedException("NPC ground Life Tap is not admitted");
+            => throw new NotSupportedException("NPC ground item curse is not admitted");
     }
     internal static bool LifeTap(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, int rank, DateTime at)
+        => CastCurse(caster, target, CombatAbility.LifeTap, rank, at);
+    internal static bool CastCurse(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, CombatAbility ability, int rank, DateTime at)
     {
         if (caster == null) { return false; }
         // Native retaliation can synchronously feed back through BaseAI and
         // assign the caster's ordinary Combatant even for indirect aggression.
         // The item skill uses its explicit temporary frame instead.
         using var scope = new TargetScope(caster);
-        return ItemEffectCasts.Target(new LifeTapServices(caster, at), SkillMechanics.For(CombatAbility.LifeTap).SourceId, rank, target, 1) != 0;
+        return ItemEffectCasts.Target(new CurseServices(caster, at), SkillMechanics.For(ability).SourceId, rank, target, 1) != 0;
     }
 }

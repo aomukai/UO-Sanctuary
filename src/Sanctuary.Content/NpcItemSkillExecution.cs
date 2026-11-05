@@ -7,10 +7,11 @@ namespace Sanctuary;
 
 // Explicit native synchronous item frame. It has no selected ordinary D2
 // skill-list entry; never infer one from a PlayerMobile or the pet AI target.
-// The complete common executor is shared, but only Life Tap's do30 is supplied.
+// The complete common executor is shared; eight existing do30 curse bodies
+// are supplied, with full current metadata instead of a copied Life Tap row.
 internal static class NpcItemSkillExecution
 {
-    private sealed class LifeTap(SkeletonGuardian source, BaseCreature target, DateTime at) : SkillExecutionServices
+    private sealed class Curse(SkeletonGuardian source, BaseCreature target, DateTime at) : SkillExecutionServices
     {
         private static NotSupportedException Missing() => new("NPC item skill requires an additional admitted execution service");
         internal override bool HasGame => source.Map != null && source.Map != Map.Internal;
@@ -18,13 +19,7 @@ internal static class NpcItemSkillExecution
         internal override int UnitType => 1;
         internal override SkillExecutionRecord Record(int skill)
         {
-            var row = SkillMechanics.For(CombatAbility.LifeTap);
-            if (skill != row.SourceId || row.Number("srvdofunc") != 30 || row.Number("ItemEffect") != 1
-                || row.SourceFields.ContainsKey("srvmissile") || row.Number("srvstfunc") != 0
-                || row.Number("UseManaOnDo") != 0 || row.Number("lob") != 0 || row.Number("decquant") != 0
-                || row.Number("InTown") != 0 || row.Text("anim") != "SC" || row.Text("delay") != "0")
-            { throw new NotSupportedException("NPC Life Tap execution metadata changed"); }
-            return new(30, 1, -1, 0, false, false, false, false, 10, 0);
+            return ItemSkillExecution.RequireCurse(skill).LegacyRecord(false, UnitType);
         }
         internal override ExecutionSkill UsedSkill() => null;
         internal override bool HasRoom => throw Missing();
@@ -41,7 +36,7 @@ internal static class NpcItemSkillExecution
         internal override int Execute(int function, int skill, int level)
         {
             if (function != 30) { throw Missing(); }
-            return NecromancerCurseCasts.NpcLifeTap(source, target, level, at) ? 1 : 0;
+            return NecromancerCurseCasts.NpcDo30(source, target, ItemSkillExecution.CurseAbility(skill), level, at) ? 1 : 0;
         }
         internal override int MissileCount => throw Missing();
         internal override void SetServerDo() => throw Missing();
@@ -61,6 +56,6 @@ internal static class NpcItemSkillExecution
         if (source == null || target == null) { return 0; }
         if (finish != 0 || item != 1 || outgoing is < 0 or > 1 || !NpcItemSpellCasts.KeepsCombatTarget(source))
         { throw new NotSupportedException("NPC item execution needs its synchronous protected item frame"); }
-        return SkillExecution.Run(new LifeTap(source, target, at), skill, level, false, true, outgoing != 0);
+        return SkillExecution.Run(new Curse(source, target, at), skill, level, false, true, outgoing != 0);
     }
 }

@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518"
+  },
+  "legacyAnimationEnum": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "rows": 429,
+  "missiles": 742,
+  "blankSkill": 362,
+  "missingAnimationRows": 43,
+  "allFieldsRetained": true,
+  "do30Curses": [
+    66,
+    71,
+    72,
+    76,
+    77,
+    82,
+    87,
+    91
+  ],
+  "directMissileRows": 51,
+  "artifacts": {
+    "data/Sanctuary/Balance/item-skill-execution.json": "3289ba5b95ba2793c6336d9cc722cdbb14d64655d3c19374e0c3cc83508ce075",
+    "tools/build_item_skill_execution.py": "be5606f646231b1ffb2fec9d14e15ef0298f22dfaf4b5602012e372a9cbda8a6"
+  },
+  "limits": [
+    "Animation is explicitly null when absent,not invented as mode0. All raw fields including localdelay/globaldelay/perdelay remain. The older single-delay field is absent in current rows;do not replace current delays with zero or merge them.",
+    "This catalogue does not admit arbitrary skill bodies or prove current executable/animation/default parsing parity. Native profiles must supply their supported contexts and reject unsupported routes."
+  ]
+}

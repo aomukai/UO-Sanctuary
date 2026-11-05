@@ -1,5 +1,7 @@
 # Skill icons
 
+**Eight NPC curse profiles (2026-11-05 JST).** The NPC services add no player talent,binding or icon slot. Separate final talent-tree/hotkey artwork for the eight underlying Necromancer curses remains pending with existing identified placeholders. Any later item-charge UI should reuse the underlying skill's icon. Full execution metadata does not substitute for artwork. See [checkpoint](item-execution-metadata-checkpoint.md).
+
 **Common skill executor (2026-11-05 JST).** No new talent,learned binding,hotkey slot or icon is added. Existing Life Tap/Shadow/Valkyrie tree and hotkey artwork remains separately pending with identified placeholders. Later charge-backed skills should reuse the underlying skill's icon. See [checkpoint](skill-execution-checkpoint.md).
 
 **Item-effect casting (2026-11-05 JST).** No learned skill,binding,slot or icon is added. Existing Life Tap and future Shadow/Valkyrie talent-tree/hotkey artwork remain separately pending with identified placeholders. NPC proc execution should reuse its spell's existing icon where a UI needs one. See [checkpoint](item-effect-casts-checkpoint.md).
