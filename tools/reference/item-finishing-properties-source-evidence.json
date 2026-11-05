@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "approvedAdaptation": "item-superior-table-decision.json",
+  "cases": 192,
+  "selectedCurrentContexts": 20,
+  "completeRoutineHashes": {
+    "sub_6FD92CF0": "cdbf0db0f101cd1c69932be629995b2bf0223d93b82318b79e53ce410dc14032",
+    "ITEMMODS_ApplyEthereality": "54da0ac7524c5526e5e381bc798c06bc7d22fe629df6e42fa665cd4ec9765001",
+    "ITEMMODS_AddPropertyToItemStatList": "f93256c6d6c1e2b9f3ee50720f87de66762870b448720a2350b4c8d0fa688f48",
+    "ITEMMODS_PropertyFunc01": "1485f7206c6d4642b85feed5adfdce95ae0bd0c5e9106636131571ca9a097efe",
+    "ITEMMODS_PropertyFunc02": "185ba3499f82642392a3d4c1070c323511b31e1afe917c1cfc31eb0a17a641f9",
+    "ITEMMODS_PropertyFunc03": "d5a3825fd3779a46eba01057b415f7aab1ff658cd17de9233b526ce6ee2be22c",
+    "ITEMMODS_PropertyFunc04": "2134df274b6fa536234e02e3a26f0ac893dc8728af2eb2c5f3b23a0938826849",
+    "ITEMMODS_PropertyFunc05": "e284c67976ca1f10fe66edb66c71365333738f73a06efe0c4edf9d69cbcd99c5",
+    "ITEMMODS_PropertyFunc06": "edf4c5e55e67ff5be7907ce83d6479d5d604de0c54623cbcb429baeb2bb00484",
+    "ITEMMODS_PropertyFunc07": "571a37e7ec670cc795f88ec70fac962e4999ba09cb3b11ef7c98dd6d7c7eaab3",
+    "ITEMMODS_PropertyFunc08": "6688b2a7a2df967a797ea51c720d4f4ab158544b9ba0dffe36dd4b98c610f322",
+    "ITEMMODS_PropertyFunc10": "ae3d5fd9b26dd506a7c6549cd5ad04fa75acd32af83cfa525e35e974b96d4341",
+    "ITEMMODS_PropertyFunc15": "d6c91e0f6b3096db01985bb64b59ca6dc814a0dbb362b4a2109ef7974eb5cad6",
+    "ITEMMODS_PropertyFunc16": "9c77d1cba979b601e9b61a90bc38c01749c5bd6e4f3c18772278acc6f4d8390e",
+    "ITEMMODS_PropertyFunc17": "1aecef55b306f75e1c328290ea90696b2aae36888320468d01873c01b66d91f0",
+    "ITEMMODS_PropertyFunc20": "d648dfa7517fc37d974167ed9cb4184bfc72d8c9400b28831171621b59afe104",
+    "ITEMMODS_PropertyFunc21": "3bec8851006e6ca0d85fb6b662858ab79377f8cb53c340a2d664dd126697c5d1",
+    "D2COMMON_11292_ItemAssignProperty": "0e17ebcaf0d7c2eedbaa64c8516f50847e29d2db29123e2f5eff5e55ce943238",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMMODS_PropertyFunc13": "7c27aebcfbfe74aef35ca643ee51aad99446a1004eadd789e23e982481653f72"
+  },
+  "inputs": {
+    "tools/reference/item-property-creation-source-evidence.json": "56d5d8a1a05f4e28e9c7dbcd2c4f258a41f4604be3cbf5e9ff50474bd4b60ba2",
+    ".local/class-skills/item-property-creation-source/source.cpp": "a6b84963c080b73b99e78c967b16f1b927b907e928d239506e9a1c3cc8abea92",
+    "data/Sanctuary/Balance/item-finishing-catalogue.json": "ad7cdf21665a66aa6340540c8e8451df9decc1a3e7ed8aaf411d876c1980fff9",
+    "tools/reference/item-superior-table-decision.json": "76738e813334679e5fbb52acd13b7ca7ebc468f37f234bfcf8d9ddafcf5063fd",
+    ".local/class-skills/item-finishing-source/cases.json": "b532fb5295cc236a2fa0d490f0d9593aed66364cde1aac5525f2f6139c2326db",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    "data/Sanctuary/Balance/equipment-property-plans.json": "4ea7c16da2f441f682bfcf1e8acad080178365af0fcd38935b5dd4ad88e215bc",
+    "tools/probe_item_finishing_properties.py": "b74d9f4396d4f0d4d107da247f7d027428193ab5a74260396f56387883b29b4e"
+  },
+  "scope": "All8owned current superior rows in listed order,grade mode1,on4supplied bases/3seeds,with optional complete numeric ethereality and nextHP continuation. Twenty inherited complete numeric/seed routines are unchanged and complete property function13 is added;the operative maximum-durability reader is a declared supplied stat service;the incomplete old grade-property dispatcher is deliberately not represented as executed.",
+  "artifacts": {
+    ".local/class-skills/item-finishing-properties-source/source.cpp": "bf6dd86ee59f175c46b3c31b6eefe6d36cfe59eb32c6b84f5d0758c1e44c1b07",
+    ".local/class-skills/item-finishing-properties-source/probe": "024c5aaf323eec4247e4cfffb53d128e92f7fe9d6a4ea5eb3831c9d933166510",
+    ".local/class-skills/item-finishing-properties-source/compiler.log": "fe41b0498dc8488579e1c59ae66091e80daece5494dc9fbdb98f8c345d6c4939",
+    ".local/class-skills/item-finishing-properties-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-finishing-properties-source/cases.json": "fd25374bbce000adca3d1988afd870f3d12a3f2311265e0f6c9417f21a521315"
+  }
+}

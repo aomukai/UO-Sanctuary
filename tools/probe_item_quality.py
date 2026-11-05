@@ -12,7 +12,7 @@ def build(check=False):
  for rel,names in {'source/D2Game/src/ITEMS/ItemMode.cpp':['sub_6FC4C5F0_End','sub_6FC4C5F0'],'source/D2Game/src/ITEMS/Items.cpp':['ITEMS_RollItemQuality','sub_6FC4E1A0','sub_6FC4E1F0','sub_6FC4E430'],'source/D2Common/src/D2Seed.cpp':['SEED_InitLowSeed','SEED_GetLowSeed'],'source/D2Common/include/D2Seed.h':['SEED_RollRandomNumber','SEED_RollLimitedRandomNumber'],'source/D2Common/src/Items/Items.cpp':['ITEMS_GetItemSeed']}.items():
   raw=read(rel)
   for n in names:bodies[n]=function(raw,n)
- header=read('source/D2Common/include/D2Items.h');assert 'ITEMDROPFLAG_SUPERIOR = 0x00000040' in header
+ header=read('source/D2Common/include/D2Items.h');type_enum=header[header.index('enum D2C_ItemTypes'):header.index('};',header.index('enum D2C_ItemTypes'))+2];assert 'ITEMDROPFLAG_SUPERIOR = 0x00000040' in header
  header=read('source/D2Common/include/DataTbls/ItemsTbls.h');assert 'UNIQUEITEMSFLAGINDEX_ENABLED = 0,' in header and 'UNIQUEITEMSFLAGINDEX_CARRY1,\n\tUNIQUEITEMSFLAGINDEX_LADDER' in header
  ratios=[[100,80,60,40,20,10,1,2,3,4,5,6],[1]*12,[1000000000]*6+[1]*6,[20,15,10,8,6,4,2,3,4,5,6,7]]
  # version,enabled,ladder,base code,level,rarity;no current unique table is simulated as proved.
@@ -73,7 +73,7 @@ def build(check=False):
 #define D2_ASSERT(x) assert(x)
 #define D2_MAYBE_UNUSED(x) ((void)x)
 constexpr unsigned long long operator""i64(unsigned long long n){return n;}
-constexpr int UNIT_ITEM=4,IFLAG_IDENTIFIED=16,ITEMTYPE_MISCELLANEOUS=30,ITEMDROPFLAG_SUPERIOR=64,UNIQUEITEMSFLAGINDEX_ENABLED=0,UNIQUEITEMSFLAGINDEX_LADDER=3;
+constexpr int UNIT_ITEM=4,IFLAG_IDENTIFIED=16,ITEMDROPFLAG_SUPERIOR=64,UNIQUEITEMSFLAGINDEX_ENABLED=0,UNIQUEITEMSFLAGINDEX_LADDER=3;
 enum{ITEMQUAL_INFERIOR=1,ITEMQUAL_NORMAL,ITEMQUAL_SUPERIOR,ITEMQUAL_MAGIC,ITEMQUAL_SET,ITEMQUAL_RARE,ITEMQUAL_UNIQUE,ITEMQUAL_CRAFT,ITEMQUAL_TEMPERED};
 uint32_t gdwBitMasks[32];
 union D2SeedStrc{uint64_t lSeed;struct{uint32_t nLowSeed,nHighSeed;};};
@@ -123,6 +123,7 @@ void sub_6FC4DC20(D2GameStrc*,D2UnitStrc*p,D2ItemDropStrc*){G(p,2);}
 void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2GameStrc*,D2UnitStrc*p,D2ItemDropStrc*){G(p,20);}
 void sub_6FC4D900(D2GameStrc*,D2UnitStrc*p,D2ItemDropStrc*){G(p,21);}
 '''
+ cpp=cpp.replace('uint32_t gdwBitMasks[32];',type_enum+'\nuint32_t gdwBitMasks[32];')
  order=['SEED_RollRandomNumber','SEED_RollLimitedRandomNumber','SEED_InitLowSeed','SEED_GetLowSeed','ITEMS_GetItemSeed','ITEMS_RollItemQuality','sub_6FC4E1A0','sub_6FC4E1F0','sub_6FC4E430','sub_6FC4C5F0_End','sub_6FC4C5F0']
  cpp+='\n'.join(bodies[n]for n in order)+r'''
 int32_t ITEMS_RollLimitedRandomNumber(D2SeedStrc*p,int bound){auto v=SEED_RollLimitedRandomNumber(p,bound);T({0,bound,(int)v});return v;}

@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 20548,
+  "nativeContexts": 96,
+  "currentEligibilityCases": 5536,
+  "completeRoutineHashes": {
+    "sub_6FC4D6B0": "7873e1514b3c227c27ba67b212cf864035d1681c91d0681c1a0647f98e8d479f",
+    "ITEMS_MakeEthereal": "6c788a8431a29dadb91fa7a1b4cc8a1df883533f00ade30ac5197f85d84a50a9",
+    "sub_6FC4D900": "a1f41a2b4eb663b8d5bda833cb47300c0bea8e1f94d7668722364b28bfae2cf3",
+    "D2GAME_ITEMS_AssignSpecial_6FC4DB60": "cdb17fa64fd46665a02dea9028f67d53a531cc3cc61f6784aeec7fdb6387b394",
+    "sub_6FC4DC20": "54001333a51c71c0ff5524f6026d2bc4b70cfa2372c9dbb4f419db7a49dcefe3",
+    "sub_6FC54690": "67be0d0a50a2aeb2ba0f54b24ee4359aef84ebf7d887ee9a2ec9dadf52769222",
+    "sub_6FC549F0": "f1eb55ec38f13a94b35826b7c4aa67aa698ff81954bd50e282f23cae96b356de",
+    "sub_6FC54D00": "0bf733cc63396fc591135f8c2db4b5f7246bce59463406366a7ed73c82479d02",
+    "sub_6FC55270": "b9a644055851cc4baf8ce00ec0f5f6ed1bfbdef1810634a2feec0b9afc670b9c",
+    "ITEMMODS_CanItemBeHighQuality": "3bec89dd5346267af60ea640cf90832a55886468035aaf5ffd5bf84fc2cb2dde",
+    "ITEMMODS_ApplyEthereality": "54da0ac7524c5526e5e381bc798c06bc7d22fe629df6e42fa665cd4ec9765001",
+    "ITEMS_GetItemSeed": "b56814dfc54b24fd669f8c08d0a4dde881ae943f74b15dcbb01b83f8c782690b",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemsMagic.cpp": "ff65c78c37e031da46bbd13d83626c39ce0ddc6971c6e4a7791e594d25b57ede",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    "data/Sanctuary/Balance/item-finishing-catalogue.json": "ad7cdf21665a66aa6340540c8e8451df9decc1a3e7ed8aaf411d876c1980fff9",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e"
+  },
+  "sanitizers": "ASan+UBSan clean",
+  "scope": "Complete superior selector/eligibility,inferior core/format wrappers,socket/ethereal/normal routing and numeric ethereality with independent unit/property RNG. All692current bases versus8owned superior rows plus bounded branch contexts.",
+  "services": [
+    "Superior property delivery is an observed service here;approved current-table numeric compositions are proved separately. Staffmods/charm/book and actual socket allocation remain declared services,not their complete bodies.",
+    "Superior count is bounded to0..12;nonzero initialized property seeds avoid the source zero-seed fixed point. Type helpers are supplied from current type hierarchy for current cases and explicit flags for synthetic controls. Extreme signed overflow remains outside the test domain."
+  ],
+  "artifacts": {
+    ".local/class-skills/item-finishing-source/source.cpp": "927b967a90e81fe53d915a7b04f2e1b5f0c668d42e45d0f527e28a01395df9b0",
+    ".local/class-skills/item-finishing-source/probe": "4824dcf280f46d4df3e7532d25f45663b095e1af22a892c9be37329de8ee4e95",
+    ".local/class-skills/item-finishing-source/compiler.log": "a3dc47379784b6a5bcd84152a530ed1629573fc42da493d0c76adfcff2bcb62c",
+    ".local/class-skills/item-finishing-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-finishing-source/cases.json": "b532fb5295cc236a2fa0d490f0d9593aed66364cde1aac5525f2f6139c2326db",
+    "tools/probe_item_finishing.py": "6f5fe17bbc17f7662039da2ab18b133c2be7b4f4c2ce4af016def55beaf7a99e"
+  }
+}

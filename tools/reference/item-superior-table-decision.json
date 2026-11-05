@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "decisionDate": "2026-11-05",
+  "status": "user-approved-sanctuary-adaptation",
+  "question": "The pinned older source leaves superior-item property dispatch incomplete. Should Sanctuary apply the modifiers from your current D2R quality table in their listed order, using the existing numeric writers and item RNG?",
+  "answer": "Use current table order and numeric writers (recommended)",
+  "rule": "Apply each populated current qualityitems row modifier in listed order through the existing numeric creation writer with grade mode1 and the same item-data RNG. Preserve full current ranges/parameters;do not filter valid source modifiers or treat unsupported delivery as lower-quality generation failure.",
+  "sourceGap": "Complete older ITEMMODS_AssignProperty chooses two properties for PROPMODE_GRADE but returns from that branch without applying them;current executable grade dispatch is unproved.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "legacyDispatcherSha256": "4b1955390ab3060ba8c8d479e9e3666b92dcd83d9d8b862db2754924fd178537",
+  "scope": "Superior property delivery only;no approval inferred for staffmods,current socket materialization,other quality bodies or unknown modern behavior."
+}

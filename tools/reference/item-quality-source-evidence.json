@@ -35,11 +35,11 @@
     "Compose full current tables/pickers/property writers,superior/normal/ethereal/staffmod/automagic bodies,complete item initialization/materialization,NPC equipment graphs/actors and actual lifecycle/input/saves. No class or learned handler is completed by this source proof."
   ],
   "artifacts": {
-    ".local/class-skills/item-quality-source/source.cpp": "b561bdc0600b413b1495a9dc73936ea8c4f4b3faa68b85c9d435ffc444a5c91c",
-    ".local/class-skills/item-quality-source/probe": "205f266c0a4a62540cdb555b2e8156412cbfce75d16139f374e5172ac5ed6aa6",
+    ".local/class-skills/item-quality-source/source.cpp": "4549267a97e55cdf63e27a53ec6ee9e60d59620a1869a3b957173a46cf3b6444",
+    ".local/class-skills/item-quality-source/probe": "6ffad7cce7336fa56b2c896930ddcf20ee350f4cf001863bdb028077fbf89916",
     ".local/class-skills/item-quality-source/compiler.log": "2db46a552e03d7e38c71263b5231b049e3af9c080ceb53a05fc8ceee1afc77e4",
     ".local/class-skills/item-quality-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/item-quality-source/cases.json": "9e3879b2e0d97ac824717b26a2059b3fed4c46d602b2d87e764e8a2c265f62dc",
-    "tools/probe_item_quality.py": "ea7a133e10d95bae1e6648af36a23d8602a8ee7219669aca7390a2cefc3aaedc"
+    "tools/probe_item_quality.py": "d2341486bf6b902be04adc1fcc4f42d92d6dc8b89bfd6898551a4ecebfd18ee5"
   }
 }

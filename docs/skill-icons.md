@@ -1,5 +1,7 @@
 # Skill icons
 
+**Item finishing:** no new talent or hotkey icon identity. Existing Valkyrie/Shadow icon placeholders remain pending separately from item-factory mechanics. See the [checkpoint](item-finishing-checkpoint.md).
+
 **Item quality orchestration:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow placeholders stay separate from the unfinished generated-item presentation. See the [checkpoint](item-quality-checkpoint.md).
 
 **Item base initializer:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow and summon placeholders stay in this separate ledger; generated item presentation remains future factory work. See the [checkpoint](item-initialization-checkpoint.md).
