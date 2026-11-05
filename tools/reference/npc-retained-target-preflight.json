@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyEnginePin": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inspectionOnly": true,
+  "modernDispatcherParityEstablished": false,
+  "retainedTargetBridgeImplemented": false,
+  "scope": "Pinned complete dependency inspection,not a new compiled differential or actual D2R reflected-death experiment.",
+  "findings": [
+    "Callback21 uses the supplied other-unit pointer when present and otherwise requests the actor first path point. Its packet/result/chance contract is covered by the existing compiled callback oracle.",
+    "Target cast and item-effect services install a temporary target and restore the prior path/target. The existing compiled item-effect oracle covers these wrappers.",
+    "Target lookup validates the path pointer against the game type/GUID registry;missing or changed registration clears it. The monster branch here adds no death-mode test.",
+    "Do30 delegates center lookup to sub_6FD10360:an available target supplies coordinates,otherwise actor first-path coordinates are used;invalid coordinates or unavailable room reject.",
+    "Native UO deletion is not proof of which D2 logical registration/target/path state remains. Do not invent a nearest-enemy fallback or silently replace this with caster-centered casting."
+  ],
+  "next": "Capture the actual synchronous target/registration/point context before retaliation and bind it through the existing item frame/curse executor. Keep unregistered/missing-target fallback and modern/source room behavior explicit.",
+  "inputHashes": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "functionHashes": {
+    "SKILLITEM_EventFunc21_SkillOnGetHit": "16a480dc6cc7bb2c5567d196f7a9e17ad7a9d15339f912e78800cd5f5051a6e2",
+    "SKILLITEM_CastSkillOnTarget": "e5c236ee80a3c7451d613e66634efe1d6aea50e4f0ec896af39d4a9b33012a79",
+    "SKILLITEM_HandleItemEffectSkill": "ce7339b8f3591dc33f87a33be58037b0aee51e6f6ee0c67acdf0d3aa4be45c5e",
+    "sub_6FCBC7E0": "aaff389cb11a4d0d0ea412779a28e3406f85bc26c00b198c428fc15b3a23fd0c",
+    "SUNIT_GetTargetUnit": "01b6790fc0508cafb9a906e8b19e9c5c22e7a08a08d99835030ef9e9cddfd4d6",
+    "sub_6FD10360": "c146b0f236ae7a9a9288557d24e45f1350f8e324cb16b847fb3111bccf9541f9",
+    "SKILLS_SrvDo030_Curse": "0b315aa0bf6695f57d1629c0a811c01011ab6e28106fd9766aa65a1b61d85fd5"
+  }
+}

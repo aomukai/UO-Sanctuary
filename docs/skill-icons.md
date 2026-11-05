@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC lethal incoming acceptance:** no new talent/hotkey icon identity. Existing curse placeholders remain; this checkpoint verifies item-trigger lifetime boundaries. See the [checkpoint](npc-incoming-lethal-checkpoint.md).
+
 **NPC on-struck curse checkpoint:** no new talent/hotkey icon identity. Existing curse icon placeholders remain in this ledger; stat 201 is an item event. See the [checkpoint](npc-incoming-procs-checkpoint.md).
 
 **Raven snapshot checkpoint:** the existing Raven talent/hotkey placeholder remains. No new icon identity is introduced by its stat profile. See the [checkpoint](raven-snapshot-checkpoint.md).

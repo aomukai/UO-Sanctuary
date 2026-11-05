@@ -19,7 +19,7 @@ public static class NpcIncomingProcChecks
     public static void Configure(){Register("npc-incoming-proc-check",Check);Register("npc-incoming-proc-reload-check",Reload);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Qualified incoming packet/stat201 source callback and original graph",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static Item Add(PlayerMobile p,NpcItemProcGraph graph,int skill,int chance)
+    internal static Item Add(PlayerMobile p,NpcItemProcGraph graph,int skill,int chance)
     {
         var item=new Dagger();p.AddToBackpack(item);graph.Add(item,4,SourceRandom.InitLow(511));
         graph.Apply(item,new("incoming-curse",0,false,[new(11,201,false,0)]),new(chance,5,skill),ItemSkillProperties.ForLevel(40));return item;
@@ -27,7 +27,7 @@ public static class NpcIncomingProcChecks
     // The caller supplies an already qualified post-defense packet. This
     // exercises the real shared HP/return path, not a fabricated UO scalar
     // damage flag or a claim of automatic native monster AI admission.
-    private sealed class Receiver(PlayerMobile owner,BaseCreature attacker,WarlockTaintedBody target,DateTime at,bool missile,Action before):PreparedMonsterDamageServices
+    internal sealed class Receiver(PlayerMobile owner,BaseCreature attacker,WarlockTaintedBody target,DateTime at,bool missile,Action before):PreparedMonsterDamageServices
     {
         private readonly MonsterReturnMetadata Metadata=NativeMonsterReturn.Metadata(target);
         internal int Incoming,Outgoing;private bool Freed;

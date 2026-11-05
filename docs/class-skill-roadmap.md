@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**NPC lethal incoming acceptance (2026-11-05):** original target-bound curses and real item identities survive caster retirement and two reloads; qualified fatal melee/missile death/free paths pass. The 386 focused, 602 broader and 15 compact checks reuse production mechanics unchanged. See the [checkpoint](npc-incoming-lethal-checkpoint.md). Reflection/removal context and full NPC equipment/actor prerequisites remain open.
+
 **NPC incoming-proc checkpoint (2026-11-05):** qualified on-struck item curses use the common ordered incoming damage receiver, preserving packet gates, deleted-carrier cleanup, aggregation/order and original actor RNG. The 383 focused, 599 broader and 12 compact checks pass original saves and fresh incoming recasts; see the [checkpoint](npc-incoming-procs-checkpoint.md). This advances Valkyrie/Shadow prerequisites, with no new learned handler or completed class. Native scalar/PvP/removed-target, lethal/retirement/reentrant and other item services remain explicit follow-ups.
 
 **Raven snapshot checkpoint (2026-11-05):** the new summon-time stat profile captures packet/budget while preserving historical saves and the separate timing profile. The 380 focused, 596 broader and 39 compact checks pass original saves and natural exhaustion; see the [checkpoint](raven-snapshot-checkpoint.md). Handler coverage remains **197/240** with no completed class. Remaining cross-class readers and unaffected skills follow; Arctic Blast’s modern input/payment cadence remains a reference gap.

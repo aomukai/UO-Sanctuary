@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC lethal incoming acceptance:** no new effects/audio identity or artwork. Existing curse and death placeholders remain in this ledger; retirement/persistence acceptance is mechanical. See the [checkpoint](npc-incoming-lethal-checkpoint.md).
+
 **NPC on-struck curse checkpoint:** existing shared curse sound and curse markers remain identified placeholders. This event producer creates no new skill-effect identity or artwork. Final curse/item-trigger presentation remains pending; see the [checkpoint](npc-incoming-procs-checkpoint.md).
 
 **Raven snapshot checkpoint:** no new visual or audio identities. Existing bird, summon, flight, strike and blind placeholders remain; packet/budget capture is mechanically verified. See the [checkpoint](raven-snapshot-checkpoint.md). Final effects and graphical acceptance remain pending.
