@@ -1,5 +1,7 @@
 # Skill icons
 
+**Druid snapshot checkpoint:** no new talent or hotkey icon identities. Existing Spirit Wolf, Dire Wolf and Grizzly placeholders remain in this ledger; the capture change is mechanical. See the [checkpoint](druid-snapshot-checkpoint.md).
+
 **Mage/golem snapshots (2026-11-05 JST).** No talent, binding or icon slot is added. Existing Mage and golem talent/hotkey identities remain; final tree/hotkey artwork stays separately pending. See [checkpoint](necro-snapshot-checkpoint.md).
 
 **Warrior snapshot rollout (2026-11-05 JST).** Existing Raise Skeleton talent and hotkey identities are unchanged. Born hard-point upgrades add no icon slot; final Warrior tree/hotkey artwork remains separately pending. See [checkpoint](warrior-snapshot-checkpoint.md).

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Druid snapshot checkpoint:** no new visual or audio asset identities. Spirit/Dire Wolf and Grizzly retain the identified summon/movement/attack and upgrade placeholders; the capture change is mechanical and verified separately. See the [checkpoint](druid-snapshot-checkpoint.md). Final effects and graphical acceptance remain pending.
+
 **Mage/golem snapshots and payment (2026-11-05 JST).** Stat capture adds no effects/audio. Ordinary summon particles now occur only after payment succeeds. Existing Mage basic/extra-spell/armor/Enchant and Clay/Blood/Iron/Fire placeholders and final effect/audio gaps remain listed independently. No imagegen asset is created. See [checkpoint](necro-snapshot-checkpoint.md).
 
 **Warrior snapshot rollout (2026-11-05 JST).** Hard-point persistence adds no effects or audio. Existing Warrior body/shield/raise/physical-return/Extra Fast placeholders and final asset gaps remain separately listed. No imagegen asset is created. See [checkpoint](warrior-snapshot-checkpoint.md).

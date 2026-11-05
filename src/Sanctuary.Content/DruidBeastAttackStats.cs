@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server.Mobiles;
 namespace Sanctuary;
 
 internal readonly record struct BeastAttackStats(int Rank,int Minimum,int Maximum,int Attack);
@@ -8,6 +9,22 @@ internal readonly record struct BeastAttackStats(int Rank,int Minimum,int Maximu
 // Raw source writer values only; skill/sequence execution stays separate.
 internal static class DruidBeastAttackStats
 {
+    // New summons use their birth rank for ordinary mode stats. Historical
+    // actors without the optional birth supplement retain the old owner read.
+    // Battle Command's separate innate-skill rank and external buffs stay live.
+    internal static SkillValues Values(SkeletonGuardian actor,PlayerMobile owner,CombatAbility ability)
+    {
+        if(SummonUpgradeSnapshots.State(actor)==null){return SkillMechanics.Values(owner,ability);}
+        _=SummonUpgradeSnapshots.HardRank(actor,ability); // Validate species.
+        var (rank,level)=actor switch
+        {
+            DruidSpiritWolfBody wolf when ability==CombatAbility.SummonSpiritWolf=>(wolf.Prepared.Snapshot.Birth.Rank,wolf.Prepared.Snapshot.Birth.Level),
+            DruidDireWolfBody wolf when ability==CombatAbility.SummonDireWolf=>(wolf.Prepared.Snapshot.Birth.Rank,wolf.Prepared.Snapshot.Birth.Level),
+            DruidGrizzlyBody bear when ability==CombatAbility.SummonGrizzly=>(bear.Prepared.Snapshot.Birth.Rank,bear.Prepared.Snapshot.Birth.Level),
+            _=>throw new NotSupportedException("Missing beast birth profile")
+        };
+        return new(SkillMechanics.For(ability),_=>rank,_=>0,level);
+    }
     internal static BeastAttackStats Capture(SkillValues live,MonsterDifficulty difficulty,int sourceMode)
     {
         ArgumentNullException.ThrowIfNull(live);

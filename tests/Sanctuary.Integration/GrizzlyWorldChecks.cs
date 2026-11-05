@@ -12,6 +12,8 @@ using Server.Mobiles;
 using Server.Network;
 namespace Sanctuary.Integration;
 
+// Live owner-rank transition scenarios explicitly construct missing-metadata
+// historical actors; DruidSnapshotChecks covers current public births.
 public static class GrizzlyWorldChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(GrizzlyWorldChecks));
@@ -132,7 +134,7 @@ public static class GrizzlyWorldChecks
             Require(refused&&bear.SavedText==saved,"Malformed controller restore mutated body");
         }
         finally{End(p);}
-        p=Fresh();bear=DruidGrizzlyWorld.Create(p,new(p.X+1,p.Y,p.Z),at,1);var target=Target(p);
+        p=Fresh();bear=DruidGrizzlyWorld.Create(p,new(p.X+1,p.Y,p.Z),at,1);NecroSnapshotChecks.MissingMetadata(bear);var target=Target(p);
         try
         {
             var birth=bear.Prepared.Snapshot;Require(ClassCreation.Profiles.TryTrain(p.Serial,"druid.summongrizzly",out _)&&ClassCreation.Profiles.TryTrain(p.Serial,"druid.summongrizzly",out _),"Live Grizzly rank3");

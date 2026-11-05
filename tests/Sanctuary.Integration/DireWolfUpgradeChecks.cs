@@ -9,6 +9,8 @@ using Server.Mobiles;
 using Server.Network;
 namespace Sanctuary.Integration;
 
+// Live owner-rank transition scenarios explicitly construct missing-metadata
+// historical actors; DruidSnapshotChecks covers current public births.
 public static class DireWolfUpgradeChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(DireWolfUpgradeChecks));
@@ -54,7 +56,7 @@ public static class DireWolfUpgradeChecks
     }
     private static void Strength()
     {
-        var p=Owner(19);var b=DruidDireWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),17);var t=Target(p);var blocks=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        var p=Owner(19);var b=DruidDireWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),17);NecroSnapshotChecks.MissingMetadata(b);var t=Target(p);var blocks=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try
         {
             Through(b,25);var c=b.Prepared.Controller;Require(c is{Mode:4,Feeding:false,AttackPacket:not null},"Upgrade bite context");
@@ -96,7 +98,7 @@ public static class DireWolfUpgradeChecks
     }
     private static void Movement()
     {
-        var p=Owner(9);var at=TimedEffects.Now.AddHours(1);var b=DruidDireWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),at,23);
+        var p=Owner(9);var at=TimedEffects.Now.AddHours(1);var b=DruidDireWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),at,23);NecroSnapshotChecks.MissingMetadata(b);
         try
         {
             PetOwnerRoutes.Moved(p,at.AddMilliseconds(26));for(int frame=1;frame<=150&&b.Prepared.Controller.Mode is not(2 or 15);frame++){Through(b,frame);}
@@ -125,7 +127,7 @@ public static class DireWolfUpgradeChecks
         {
             NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p);
             Require(ClassCombat.Perform(p,CombatAbility.SummonDireWolf,null,new(p.X+1,p.Y,p.Z),Core.TickCount),"Live learned Dire cast");ClassCombat.ReleaseCast(p);ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt);
-            b=DruidDireWolves.For(p).Single();Require(b.Prepared.LearnedCast&&NecromancerEffects.ManaBalance256(p)==mana-20*256,"Live Dire body/payment");
+            b=DruidDireWolves.For(p).Single();NecroSnapshotChecks.MissingMetadata(b);Require(b.Prepared.LearnedCast&&NecromancerEffects.ManaBalance256(p)==mana-20*256,"Live Dire body/payment");
         }
         catch{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();t.Delete();b?.Delete();p.Delete();throw;}
         bool trained=false;int life=SkillHealth.Balance256(t);long deadline=Core.TickCount+8000;

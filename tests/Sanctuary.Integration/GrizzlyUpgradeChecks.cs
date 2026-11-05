@@ -9,6 +9,8 @@ using Server.Mobiles;
 using Server.Network;
 namespace Sanctuary.Integration;
 
+// Live owner-rank transition scenarios explicitly construct missing-metadata
+// historical actors; DruidSnapshotChecks covers current public births.
 public static class GrizzlyUpgradeChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(GrizzlyUpgradeChecks));
@@ -49,7 +51,7 @@ public static class GrizzlyUpgradeChecks
     }
     private static void Stuns()
     {
-        var p=Owner(9);var b=DruidGrizzlyWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),11);var t=Target(p);
+        var p=Owner(9);var b=DruidGrizzlyWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),11);NecroSnapshotChecks.MissingMetadata(b);var t=Target(p);
         try
         {
             int draws=0;Require(SkillMechanics.Rank(p,CombatAbility.SummonGrizzly)==10&&!GrizzlyUpgrades.Stun(b,t,false,_=>{draws++;return 0;})&&draws==0,"Soft rank10 unlocked stun");Train(p,10);
@@ -80,7 +82,7 @@ public static class GrizzlyUpgradeChecks
     {
         foreach(bool smite in new[]{false,true})
         {
-            var p=Owner(19);var b=DruidGrizzlyWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),17);var t=Target(p);
+            var p=Owner(19);var b=DruidGrizzlyWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),17);NecroSnapshotChecks.MissingMetadata(b);var t=Target(p);
             try
             {
                 var packet=Packet(b,p,t,smite,out var state);var birth=b.Prepared.Snapshot;int life=SkillHealth.Maximum256(b)-257;SkillHealth.SetBalance256(b,life);long order=BattleCommand.PetOrder(b);
@@ -129,7 +131,7 @@ public static class GrizzlyUpgradeChecks
         {
             NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p);
             Require(ClassCombat.Perform(p,CombatAbility.SummonGrizzly,null,new(p.X+1,p.Y,p.Z),Core.TickCount),"Learned Grizzly cast");ClassCombat.ReleaseCast(p);ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt);
-            b=DruidGrizzlies.For(p).Single();Require(b.Prepared.LearnedCast&&NecromancerEffects.ManaBalance256(p)==mana-40*256,"Learned Grizzly body/payment");
+            b=DruidGrizzlies.For(p).Single();NecroSnapshotChecks.MissingMetadata(b);Require(b.Prepared.LearnedCast&&NecromancerEffects.ManaBalance256(p)==mana-40*256,"Learned Grizzly body/payment");
         }
         catch{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();t.Delete();b?.Delete();p.Delete();throw;}
         bool trained=false,ordinary=false,hitChecked=false;int life=SkillHealth.Balance256(t),afterHit=0;long deadline=Core.TickCount+20000;ulong expected=0;DateTime stunUntil=default;

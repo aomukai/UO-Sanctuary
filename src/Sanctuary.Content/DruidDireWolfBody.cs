@@ -104,6 +104,7 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
         {
             body.RestorePrepared(state);body.Initialize(owner,snapshot.Birth.Rank,0);body.SetResistances();
             if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Dire Wolf control master refused");}
+            SummonUpgradeSnapshots.Capture(owner,body,CombatAbility.SummonDireWolf,ClassCreation.Profiles.GetRank(owner.Serial,"druid.summondirewolf"));
             BattleCommand.Track(body);PersistentMinions.Profiles.Track(body);body.MoveToWorld(point,owner.Map);
             body.AIObject?.AITimer.Stop();SkillHealth.SetBalance256(body,body.MaximumLife256);return body;
         }

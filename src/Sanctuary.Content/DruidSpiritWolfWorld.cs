@@ -194,7 +194,7 @@ internal static class DruidSpiritWolfWorld
                 case 6:
                     var enemy=World.FindMobile((Serial)(uint)request.B);if(enemy!=null){body.Direction=body.GetDirectionTo(enemy);}
                     int attackSpeed=SourceAttackRate.WolfSpeed(body);var attack=DruidWolfGeometry.Clock("A1",attackSpeed);
-                    var packet=DruidBeastAttackStats.Capture(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf),body.SummonDifficulty,4);
+                    var packet=DruidBeastAttackStats.Capture(DruidBeastAttackStats.Values(body,owner,CombatAbility.SummonSpiritWolf),body.SummonDifficulty,4);
                     s=s with{Mode=4,ActionAt=attack.Action==0?0:s.Frame+attack.Action,EndAt=s.Frame+attack.End,NextThink=0,AttackSpeed=attackSpeed,
                         Target=(uint)request.B,Teleport=false,AttackPacket=packet,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 7:

@@ -42,10 +42,13 @@ public static class SpiritWolfWorldChecks
         // Isolate a flat native terrain adapter above shipped dungeon geometry.
         // Adding live scenes must not accidentally select an underlying wall.
         const int z=100;
-        for(int candidate=0;candidate<64;candidate++)
+        int first=1800+sceneOffset,slots=(Map.Trammel.Height-25-first)/64+1;
+        Require(first>=24&&slots>0,"Wolf fixture offset outside facet");
+        // A combined suite may use more scenes than one traversal of the
+        // facet. Wrap only the search cursor; preserve every occupied actor.
+        for(int candidate=0;candidate<slots;candidate++)
         {
-            int y=1800+64*(_scene++)+sceneOffset;
-            if(y<24||y+24>=Map.Trammel.Height){break;}
+            int y=first+64*(_scene++%slots);
             // Scene counters restart with the process; saved fixtures do not.
             // Select an empty native test area rather than moving or deleting
             // existing actors to make a reused hard-coded location pass.

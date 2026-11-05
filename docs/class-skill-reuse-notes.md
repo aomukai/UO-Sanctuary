@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Druid beast snapshots:** reuse supplement 192 and existing beast birth records for hard upgrades and effective mode-stat rank. Keep external buffs, innate Battle Command, summon capacity, permission and facet rescaling separate. Historical missing-metadata controls explicitly test the previous interpretation. The 12 current public-cast actors pass two reloads; see the [checkpoint](druid-snapshot-checkpoint.md).
+
 **Mage/golem snapshot reuse (2026-11-05 JST).** Capture the original hard value from NecromancerMinion's base-rank dictionary or Iron's saved recipe, then reuse SummonUpgradeSnapshots in every upgrade consumer. Match summon identifiers case-insensitively, as the existing monster catalogue does. Reuse the shared ordinary factory's paid callback before roster replacement/corpse consumption. Historical fixture opt-in removes only supplement metadata; current public-cast tests remain distinct. See [checkpoint](necro-snapshot-checkpoint.md).
 
 **Hard-point birth supplements (2026-11-05 JST).** Reuse SummonUpgradeSnapshots for immutable per-actor upgrade ranks when an existing birth record lacks hard points. New learned Warriors capture separately from effective rank; missing historical metadata stays an explicit legacy path. Published JSON keeps save workers off live actor dictionaries. Deletion removes the row; restore validates the entire candidate before mutation. Other summons already capture base/hard dictionaries or recipes: reuse those when extending the policy. See [checkpoint](warrior-snapshot-checkpoint.md).

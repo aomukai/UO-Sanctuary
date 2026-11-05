@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "44ad94acdeb4269ba98a45f57966042ec5adbb27a88b56332101194821b8a551",
-  "ContentAssemblyPath": ".local/class-skills/necro-snapshot/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "99ed80b755a58dd8278607de076274f844535bd58b4637f3d9980e26799df8db",
+  "ContentAssemblyPath": ".local/class-skills/druid-snapshot/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

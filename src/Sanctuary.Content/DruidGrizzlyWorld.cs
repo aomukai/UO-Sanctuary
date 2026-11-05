@@ -185,7 +185,7 @@ internal static class DruidGrizzlyWorld
                     var enemy=World.FindMobile((Serial)(uint)request.B);if(enemy!=null){body.Direction=body.GetDirectionTo(enemy);}
                     int attackSpeed=SourceAttackRate.Speed(NecromancerSummons.Source("druidbear-animation","A1Speed"),0,SourceAttackRate.WolfRate(body));
                     var attack=DruidWolfGeometry.Clock("A1",attackSpeed,"druidbear-animation");
-                    var packet=DruidBeastAttackStats.Capture(SkillMechanics.Values(owner,CombatAbility.SummonGrizzly),body.SummonDifficulty,4);
+                    var packet=DruidBeastAttackStats.Capture(DruidBeastAttackStats.Values(body,owner,CombatAbility.SummonGrizzly),body.SummonDifficulty,4);
                     s=s with{Mode=4,ActionAt=attack.Action==0?0:s.Frame+attack.Action,EndAt=s.Frame+attack.End,NextThink=0,AttackSpeed=attackSpeed,
                         Target=(uint)request.B,Teleport=false,AttackPacket=packet,Sequence=null,PreparedChance=0,BlockMode=false,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 8:Velocity(ref s,request.A,request.B,request.C);break;
@@ -198,7 +198,7 @@ internal static class DruidGrizzlyWorld
                     if(selected!=null){body.Direction=body.GetDirectionTo(selected);}
                     int speed=SourceAttackRate.Speed(NecromancerSummons.Source("druidbear-animation","A2Speed"),0,SourceAttackRate.WolfRate(body));
                     s=s with{Mode=14,NextThink=0,ActionAt=0,EndAt=0,AttackSpeed=speed,Target=(uint)request.B,Teleport=false,
-                        AttackPacket=DruidBeastAttackStats.Capture(SkillMechanics.Values(owner,CombatAbility.SummonGrizzly),body.SummonDifficulty,14),Motion=DruidWolfGeometry.Stop(s.Motion)};
+                        AttackPacket=DruidBeastAttackStats.Capture(DruidBeastAttackStats.Values(body,owner,CombatAbility.SummonGrizzly),body.SummonDifficulty,14),Motion=DruidWolfGeometry.Stop(s.Motion)};
                     ulong seed=s.Seed;int chance=0;bool blockMode=false;int npcRank=checked(1+BattleCommand.Bonus(body));
                     var sequence=DruidGrizzlySequence.Enter(npcRank,speed,s.Target,()=>DruidGrizzlyHit.Prepare(body,owner,s,selected,true,npcRank,ref seed,out chance,out blockMode));
                     s=s with{Seed=seed};

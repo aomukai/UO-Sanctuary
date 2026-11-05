@@ -200,7 +200,7 @@ internal static class DruidDireWolfWorld
                 case 6:
                     var enemy=World.FindMobile((Serial)(uint)request.B);if(enemy!=null){body.Direction=body.GetDirectionTo(enemy);}
                     int attackSpeed=SourceAttackRate.WolfSpeed(body);var attack=DruidWolfGeometry.Clock("A1",attackSpeed);
-                    var packet=DruidBeastAttackStats.Capture(SkillMechanics.Values(owner,CombatAbility.SummonDireWolf),body.SummonDifficulty,4);
+                    var packet=DruidBeastAttackStats.Capture(DruidBeastAttackStats.Values(body,owner,CombatAbility.SummonDireWolf),body.SummonDifficulty,4);
                     s=s with{Mode=4,ActionAt=attack.Action==0?0:s.Frame+attack.Action,EndAt=s.Frame+attack.End,NextThink=0,AttackSpeed=attackSpeed,
                         Target=(uint)request.B,Teleport=false,AttackPacket=packet,Feeding=false,FeedingCorpse=0,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 11:
@@ -210,7 +210,7 @@ internal static class DruidDireWolfWorld
                     body.Direction=body.GetDirectionTo(corpse);
                     int feedSpeed=SourceAttackRate.WolfSpeed(body);var feed=DruidWolfGeometry.Clock("A1",feedSpeed);
                     s=s with{Mode=4,ActionAt=feed.Action==0?0:s.Frame+feed.Action,EndAt=s.Frame+feed.End,NextThink=0,AttackSpeed=feedSpeed,
-                        Teleport=false,Feeding=true,FeedingCorpse=corpse.Serial.Value,AttackPacket=DruidBeastAttackStats.Capture(SkillMechanics.Values(owner,CombatAbility.SummonDireWolf),body.SummonDifficulty,4),Motion=DruidWolfGeometry.Stop(s.Motion)};break;
+                        Teleport=false,Feeding=true,FeedingCorpse=corpse.Serial.Value,AttackPacket=DruidBeastAttackStats.Capture(DruidBeastAttackStats.Values(body,owner,CombatAbility.SummonDireWolf),body.SummonDifficulty,4),Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 7:
                     var cell=Cell(s);int distance=DruidWolfGeometry.Full(cell,ownerCell),sign=Math.Sign(distance-request.B),amount=Math.Min(Math.Abs(distance-request.B),request.A);
                     int dx=Math.Abs(ownerCell.X-cell.X),dy=Math.Abs(ownerCell.Y-cell.Y),sum=Math.Max(dx+dy,amount),x=0,y=0;

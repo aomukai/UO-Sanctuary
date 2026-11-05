@@ -9,6 +9,8 @@ using Server.Mobiles;
 using Server.Network;
 namespace Sanctuary.Integration;
 
+// Live owner-rank transition scenarios explicitly construct missing-metadata
+// historical actors; DruidSnapshotChecks covers current public births.
 public static class SpiritWolfUpgradeChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(SpiritWolfUpgradeChecks));
@@ -23,10 +25,11 @@ public static class SpiritWolfUpgradeChecks
     private static void Register(string name,Action check)=>ConsoleInputHandler.RegisterCommand(name,"Approved Spirit Wolf wounds and breakable cold immunity",_=>Core.LoopContext.Post(()=>
     {try{check();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Train(PlayerMobile p,int rank)=>ClassSkillChecks.Train(p,"druid.summonspiritwolf",rank);
-    private static (PlayerMobile Owner,DruidSpiritWolfBody Wolf,GraveyardSkeleton Target) Scene(int rank=9)
+    private static (PlayerMobile Owner,DruidSpiritWolfBody Wolf,GraveyardSkeleton Target) Scene(int rank=9,bool historical=true)
     {
         var p=SpiritWolfWorldChecks.Fresh(column:6600);Train(p,rank);PoisonDaggerChecks.Named(p,"Tarnhelm");
         var wolf=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now.AddHours(1),7);
+        if(historical){NecroSnapshotChecks.MissingMetadata(wolf);}
         var target=new GraveyardSkeleton{Name="SpiritWolfUpgradeTarget",CantWalk=true,Frozen=true,NoKillAwards=true};
         target.SetHits(10000);target.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);target.AIObject?.AITimer.Stop();target.SetResistance(ResistanceType.Cold,0);
         Shield(target,0);DruidSpiritWolfWorld.Advance(wolf,wolf.Prepared.Controller.NextUtc.AddMilliseconds(24*40),true);
@@ -110,7 +113,7 @@ public static class SpiritWolfUpgradeChecks
     }
     private static void Save()
     {
-        var(p,wolf,target)=Scene(20);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        var(p,wolf,target)=Scene(20,false);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try
         {
             ulong seed=Seed(wolf,target,true);DateTime inspection=TimedEffects.Now.AddHours(1);
@@ -146,7 +149,7 @@ public static class SpiritWolfUpgradeChecks
             DruidSpiritWolfCasting.SeedLow=()=>173;NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p);
             Require(ClassCombat.Perform(p,CombatAbility.SummonSpiritWolf,null,new(p.X+1,p.Y,p.Z),Core.TickCount),"Learned upgrade wolf start");
             ClassCombat.ReleaseCast(p);ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt);
-            wolf=DruidSpiritWolves.For(p).Single();
+            wolf=DruidSpiritWolves.For(p).Single();NecroSnapshotChecks.MissingMetadata(wolf);
             Require(wolf.Prepared.LearnedCast&&NecromancerEffects.ManaBalance256(p)==mana-15*256,"Learned upgrade wolf payment/body");
         }
         catch{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();target.Delete();wolf?.Delete();p.Delete();throw;}

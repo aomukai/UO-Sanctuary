@@ -7,7 +7,7 @@ namespace Sanctuary;
 internal static class GrizzlyUpgrades
 {
     internal static int HardRank(Mobile actor)=>actor is DruidGrizzlyBody{ControlMaster:PlayerMobile{Deleted:false} owner}
-        ?ClassCreation.Profiles.GetRank(owner.Serial,"druid.summongrizzly"):0;
+        ?SummonUpgradeSnapshots.HardRank(actor,CombatAbility.SummonGrizzly):0;
     internal static int Crushing(Mobile actor)=>HardRank(actor)>=20?10:0;
     // Approved Sanctuary stun overrides the ordinary boss-immunity/unique-roll
     // policy only for this passive. Rules still supplies real boss/velocity data.

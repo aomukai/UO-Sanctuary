@@ -12,6 +12,8 @@ using Server.Mobiles;
 using Server.Network;
 namespace Sanctuary.Integration;
 
+// Live owner-rank transition scenarios explicitly construct missing-metadata
+// historical actors; DruidSnapshotChecks covers current public births.
 public static class DireWolfWorldChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(DireWolfWorldChecks));
@@ -107,7 +109,7 @@ public static class DireWolfWorldChecks
     private static void Combat()
     {
         var p=Fresh();Train(p,"druid.summongrizzly");Train(p,"druid.heartofwolverine");var at=TimedEffects.Now.AddHours(1);
-        var wolf=DruidDireWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,1);var target=Target(p);var block=SourceBlocking.BlockRoll;
+        var wolf=DruidDireWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,1);NecroSnapshotChecks.MissingMetadata(wolf);var target=Target(p);var block=SourceBlocking.BlockRoll;
         var heart=DruidOakBody.CreatePrepared(p,new(p.X-1,p.Y,p.Z),at,CombatAbility.HeartOfWolverine);
         DireWolfHitResult Hit(ref ulong seed)=>DruidDireWolfHit.Resolve(wolf,p,wolf.Prepared.Controller,target,ref seed);
         try
