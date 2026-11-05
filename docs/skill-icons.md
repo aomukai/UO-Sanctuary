@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC equipment freeze:** an item combat effect adds no talent/hotkey icon identity. Existing Iron/Revive and class icon placeholders remain separate; no icon asset is marked finished. See the [checkpoint](npc-freeze-hit-checkpoint.md).
+
 **NPC flat-drain delivery:** no new talent/hotkey icon identity or finished asset. Existing class/summon icon placeholders remain separate from the recipient mechanics. See the [checkpoint](npc-flat-drains-checkpoint.md).
 
 **NPC full damage allocation:** no new talent/hotkey icon identity or completed asset. Existing class/summon icon placeholders remain separately tracked. See the [checkpoint](npc-damage-fill-checkpoint.md).

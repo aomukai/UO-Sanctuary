@@ -21,7 +21,7 @@ internal static class IronGolemContact
         if(saved?.Metadata==null||saved.Impact is not{} impact||impact.Packet is not{} p||impact.Actor==0||impact.Target==0||impact.Actor==impact.Target
             ||saved.Metadata.Mapping==null||saved.Metadata.Class< -1||saved.Metadata.Base< -1||saved.Metadata.Modes<0||saved.Metadata.Velocity<0
             ||impact.Spectral!=null||impact.Poison.Rate256<0||impact.Poison.Frames<0||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0
-            ||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||p.LifeDrain256<0||p.ManaDrain256<0||p.StaminaDrain256<0||(p.ResultFlags&~0xffff)!=0
+            ||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||p.LifeDrain256<0||p.ManaDrain256<0||p.StaminaDrain256<0||p.FreezeFrames<0||(p.ResultFlags&~0xffff)!=0
             ||(long)p.Physical256+p.Magic256+p.Fire256+p.Lightning256+p.Cold256+p.Poison256+p.LifeDrain256!=p.Total256)
         {throw new System.IO.InvalidDataException("Invalid saved ordinary contact");}
         return new(new(saved.Metadata,NpcCombatEvents.RestoreSubscriptions(saved.SourceEvents),NpcCombatEvents.RestoreSubscriptions(saved.TargetEvents),saved.NativeRecovery),impact);
@@ -88,6 +88,11 @@ internal static class IronGolemContact
         {
             if(frames!=scope.Impact.Packet.ColdFrames){throw new InvalidOperationException("Allocated cold duration changed");}
             if(frames>0){ColdStates.Commit(source,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
+        }
+        internal override bool SupportsFreeze=>true;
+        internal override void ApplyFreeze(int frames)=>NpcFreezeStatus.Commit(source,target,frames,at);
+        internal override void ApplyPoison()
+        {
             var impact=scope.Impact;
             if(impact.Poison.Rate256>0&&impact.Poison.Frames>0)
             {NpcEquipmentPoison.Commit(new(impact.Actor,impact.CreditOwner,impact.Poison),target,at);}
@@ -125,6 +130,7 @@ internal static class IronGolemContact
         if(ReviveEquipmentEvents.Handles(body)){_=ReviveEquipmentOffense.Capture(body,target);}
         var sourceEvents=NpcCombatEvents.ForSource(body);
         var targetEvents=Events(target,requireFrozen:true);
+        if(sourceEvents.Subscriptions().Contains(134)){NpcFreezeStatus.Require(body,target);}
         if(nativeRecovery)
         {if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter");}}
         else{RequireRecoveryEvents(target);}

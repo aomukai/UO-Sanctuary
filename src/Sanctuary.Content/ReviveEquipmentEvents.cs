@@ -19,7 +19,7 @@ internal static class ReviveEquipmentEvents
     private static NpcCombatEvents Read(FrozenEquipmentContext[] items,int level,EquipmentStatValue[] projected=null)
     {
         var stats=projected??Stats(items,level);
-        foreach(var pair in new[]{("thorns",78),("openwounds",135),("crush",136),("dmg-ac",120)})
+        foreach(var pair in new[]{("thorns",78),("freeze",134),("openwounds",135),("crush",136),("dmg-ac",120)})
         {
             int typed=items.Aggregate(0,(sum,item)=>checked(sum+item.Bonus(pair.Item1,level)));
             if(typed!=EquipmentStatValues.Raw(stats,EquipmentStatKey.Pack(pair.Item2)))
@@ -57,11 +57,11 @@ internal static class ReviveEquipmentEvents
     internal static int? Bonus(BaseCreature actor,string code)
     {
         if(!Handles(actor)){return null;}
-        if(code is not("thorns" or "openwounds" or "crush" or "dmg-ac"))
+        if(code is not("thorns" or "freeze" or "openwounds" or "crush" or "dmg-ac"))
         {throw new NotSupportedException("Unadmitted frozen Revive event stat: "+code);}
         var state=ReviveNativeActivation.State(actor);
         int level=(state.FacetPlan?.Combat??state.Setup.CombatPlan).Level;
-        int stat=code switch{"thorns"=>78,"openwounds"=>135,"dmg-ac"=>120,_=>136};
+        int stat=code switch{"thorns"=>78,"freeze"=>134,"openwounds"=>135,"dmg-ac"=>120,_=>136};
         return state.Setup.EquipmentGraphProfile==ReviveEquipmentGraph.Profile?ReviveEquipmentGraph.Current(state).Read(stat):EquipmentStatValues.Raw(Stats(ReviveEquipmentLife.Items(state),level),EquipmentStatKey.Pack(stat));
     }
 }

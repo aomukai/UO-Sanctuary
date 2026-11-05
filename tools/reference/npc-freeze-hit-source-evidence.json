@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": {
+    "callback": 384,
+    "status": 5760,
+    "remove": 432
+  },
+  "completeRoutineHashes": {
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_ApplyFreezeState": "35bfe82a514a76bd671e022d575bc2426e98baa4a9a17faf503d8951495b32d2",
+    "SUNITDMG_RemoveFreezeState": "fd628444248c82ed559b7331ab7b07126860133d06b7832a82bbe96b60fb7f11",
+    "SKILLITEM_EventFunc14_Freeze": "2b63b338c9aa425d73b8c0c334a14efa75a49860ed8ff487d3f7c37e941a158b"
+  },
+  "newHeaderBindings": {
+    "STATE_STUNNED": 21,
+    "STATE_SANCTUARY": 47,
+    "STATE_DEATH_DELAY": 92,
+    "STATE_SHRINE_RESIST_FIRE": 131,
+    "STATE_SHRINE_RESIST_POISON": 133,
+    "STATE_FREEZE": 1,
+    "STATE_UNINTERRUPTABLE": 54,
+    "EVENTTYPE_REMOVESTATE": 12,
+    "EVENTTYPE_STATREGEN": 3,
+    "EVENTTYPE_AITHINK": 2,
+    "STAT_LEVEL": 12,
+    "STAT_ITEM_FREEZE": 134,
+    "STAT_COLDRESIST": 43,
+    "STAT_ITEM_CANNOTBEFROZEN": 153,
+    "STAT_ITEM_HALFFREEZEDURATION": 118
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    ".local/class-skills/npc-flat-drains-source/source.cpp": "b62bebe4d72e94cf21691fd8a586a0e301fb46fba683dd8c9eb0cfb2752fb913",
+    "tools/probe_npc_freeze_hit.py": "cb40a1223ca8874dd81fdac00119bc5c7c3ebdd8cdb5d9301c4841a8ad42b208"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-freeze-hit-source/source.cpp": "3c2bd8b8f60217c652d331370086fceee91fd17dc2269887fe5f8dc2af4ca314",
+    ".local/class-skills/npc-freeze-hit-source/probe": "399ee602bde22ab06d40fd8dfe33444feb648fe45ab5e8d7985f98d55ce798b5",
+    ".local/class-skills/npc-freeze-hit-source/cases.json": "162c85cb2474cd0665ad34e9a6a926efe7ea338d9f7847acecb33c3888490840",
+    ".local/class-skills/npc-freeze-hit-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-freeze-hit-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete item callback14 through complete zero-result missile ExecuteEvents,total/resistance and freeze/remove bodies. Ordinary actor/room/empty-event/stat-list/timer/meta/RNG services declared. Cold fallback is a declared delegation;existing cold-state evidence covers its body. No invented successful hit,HP loss or return event. Older source,not modern executable certification."
+}

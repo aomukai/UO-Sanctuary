@@ -71,18 +71,20 @@ internal static class NpcEquipmentImpact
         if(actor is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||actor is BaseHire
             ||poisonSource.Actor!=actor.Serial.Value||(fill.ResultFlags&~0xffff)!=0||!Fills(fill.ResultFlags)||physicalMultiplier<0||!double.IsFinite(physicalMultiplier))
         {throw new NotSupportedException("Full ordinary impact requires qualified non-hireling NPC and matching source poison context");}
-        if(fill.FreezeFrames!=0||fill.BurnFrames!=0||(fill.HitFlags&(256|512|1024))!=0)
-        {throw new NotSupportedException("Full ordinary freeze/burn and bypass-resistance allocation needs its recipient adapter");}
-        if(fill.Physical<0||fill.Fire<0||fill.Lightning<0||fill.Cold<0||fill.Magic<0||fill.Poison<0||fill.PoisonFrames<0||fill.ColdFrames<0||fill.StunFrames<0
+        if(fill.FreezeFrames>0&&target is BaseHire){throw new NotSupportedException("Hireling freeze needs its source resistance/penalty receiver");}
+        if(fill.BurnFrames!=0||(fill.HitFlags&(256|512|1024))!=0)
+        {throw new NotSupportedException("Full ordinary burn and bypass-resistance allocation needs its recipient adapter");}
+        if(fill.Physical<0||fill.Fire<0||fill.Lightning<0||fill.Cold<0||fill.Magic<0||fill.Poison<0||fill.PoisonFrames<0||fill.ColdFrames<0||fill.StunFrames<0||fill.FreezeFrames<0
             ||fill.LifeDrain<0||fill.ManaDrain<0||fill.StaminaDrain<0)
         {throw new NotSupportedException("Full ordinary impact requires nonnegative allocated channels/lengths/drains");}
         var parts=SkillCombat.MitigatePrepared(actor,target,new(fill.Physical/256.0*physicalMultiplier,fill.Fire/256.0,fill.Cold/256.0,fill.Lightning/256.0,0,Magic:fill.Magic/256.0),out int absorb,pierceOverride:pierceOverride);
         var poison=NpcEquipmentPoison.Mitigate(actor,target,poisonSource,new(fill.Poison,fill.PoisonFrames));
         int cold=ColdStates.LengthFrames(fill.ColdFrames,NamedElements.Resistance(actor,target,"cold",target.ColdResistance,pierceOverride?.Invoke("cold")),ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
+        int freeze=ColdStates.LengthFrames(fill.FreezeFrames,NamedElements.Resistance(actor,target,"cold",target.ColdResistance,pierceOverride?.Invoke("cold")),ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
         int physical=NamedElements.To256(parts.Physical),fire=NamedElements.To256(parts.Fire),lightning=NamedElements.To256(parts.Lightning),magic=NamedElements.To256(parts.Magic),ice=NamedElements.To256(parts.Cold);
         int total=checked(physical+fire+lightning+magic+ice+poison.Rate256+fill.LifeDrain),flags=fill.ResultFlags;
         if((total&~255)>(SkillHealth.Balance256(target)&~255)){flags|=2;}
-        var packet=new PreparedMonsterDamagePacket(physical,total,fill.StunFrames,cold,flags,fill.HitClass,false,fill.Overlay,magic,fire,lightning,ice,poison.Rate256,fill.HitFlags,absorb,fill.LifeDrain,fill.ManaDrain,fill.StaminaDrain);
+        var packet=new PreparedMonsterDamagePacket(physical,total,fill.StunFrames,cold,flags,fill.HitClass,false,fill.Overlay,magic,fire,lightning,ice,poison.Rate256,fill.HitFlags,absorb,fill.LifeDrain,fill.ManaDrain,fill.StaminaDrain,freeze);
         return new(actor.Serial.Value,target.Serial.Value,packet,poison,poisonSource.CreditOwner);
     }
 

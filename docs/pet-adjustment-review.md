@@ -1,5 +1,7 @@
 # Approved Necromancer and Druid pet adjustments
 
+**Equipment freeze follow-up (2026-11-06):** original Iron and frozen Revive freeze-target effects now use shared source chance/status delivery and persistence. Approved damage, hard-point unlocks, snapshots and Mage/Revive quantity progression retain their existing rules. The event regression now splits four independent suppliers across two owners to respect the rank-20 cap of three. See the [checkpoint](npc-freeze-hit-checkpoint.md).
+
 **Shared ordinary drain receiver (2026-11-06):** allocated NPC life/mana/stamina drains now have explicit qualified resource/HP/status consumers. This does not change approved pet damage, upgrades, quantity limits or snapshots, nor remove unsupported item/controller preflights. See the [checkpoint](npc-flat-drains-checkpoint.md).
 
 **Shared offense foundation (2026-11-06):** the new full NPC allocation path reuses the qualified original item/hand graph and existing damage/poison/critical helpers. This does not alter approved pet counts, snapshots or upgrades, or establish learned summon/controller and recipient-event completion. See the [checkpoint](npc-damage-fill-checkpoint.md).

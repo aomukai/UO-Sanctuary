@@ -40,7 +40,7 @@ internal sealed class NpcCombatEvents
     internal int[] Subscriptions()=>Active.Select(r=>r.Stat).ToArray();
     internal static NpcCombatEvents RestoreSubscriptions(int[] stats)
     {
-        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 135 or 136)))
+        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 134 or 135 or 136)))
         {throw new NotSupportedException("Persisted ordinary item callbacks need their admitted subscription set");}
         return FromStats(stats.Select(s=>new EquipmentStatValue(EquipmentStatKey.Pack(s),1)).ToArray());
     }
@@ -74,7 +74,8 @@ internal sealed class NpcCombatEvents
             if(!Rules.Value.TryGetValue(value.Stat,out var rule)){continue;}
             bool flat=rule.Stat==78&&rule.Events.Length==1&&rule.Events[0] is{Event:"attackedinmelee",Function:6};
             bool wounds=rule.Stat==135&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:15}&&rule.Events[1] is{Event:"domissiledamage",Function:15};
-            if(!flat&&!wounds&&!CrushingRule(rule))
+            bool freeze=rule.Stat==134&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:14}&&rule.Events[1] is{Event:"domissiledamage",Function:14};
+            if(!flat&&!freeze&&!wounds&&!CrushingRule(rule))
             {throw new NotSupportedException("NPC combat event needs its consumer: "+rule.Name+"/"+string.Join(',',rule.Events.Select(e=>e.Event+":"+e.Function)));}
             active.Add(rule);
         }
@@ -133,8 +134,13 @@ internal sealed class NpcCombatEvents
             if(registration.Event!=phase){continue;}
             // The live graph aggregates these innate/material stats with item
             // layers and dispatches them in its actual registration order.
-            if(procs!=null&&rule.Stat is 135 or 136 or 198){continue;}
+            if(procs!=null&&rule.Stat is 134 or 135 or 136 or 198){continue;}
             if(rule.Stat==78&&registration is{Event:"attackedinmelee",Function:6}){continue;} // Owned by PreparedFlatAttempt.
+            if(rule.Stat==134&&registration.Function==14)
+            {
+                if(source==null||target==null||at==null){throw new InvalidOperationException("NPC freeze callback lacks its actual source/target/time");}
+                NpcItemFreeze.Apply(source,target,phase=="domissiledamage",at.Value);continue;
+            }
             if(rule.Stat==135&&registration.Function==15)
             {
                 if(source==null||target==null||at==null){throw new InvalidOperationException("NPC wound callback lacks its real damage-event context");}

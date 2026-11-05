@@ -74,7 +74,7 @@ public static class ReviveEventChecks
         foreach(var rule in BalanceCatalog.Read<NpcItemEventStat>("npc-item-combat-events"))
         {
             bool refused=false;try{_=NpcCombatEvents.FromStats(new[]{new EquipmentStatValue(EquipmentStatKey.Pack(rule.Stat),1)});}catch(NotSupportedException){refused=true;}
-            Require(refused==(rule.Stat is not(78 or 135 or 136)),"Unsupported registration was silently skipped: "+rule.Stat);
+            Require(refused==(rule.Stat is not(78 or 134 or 135 or 136)),"Unsupported registration was silently skipped: "+rule.Stat);
         }
     }
     private static void Contact(PlayerMobile owner,BaseCreature source)
@@ -108,7 +108,7 @@ public static class ReviveEventChecks
         {
             var b=World.FindMobile((Serial)f.Actor)as BaseCreature;var seed=NpcEquipmentRandom.State(b);bool refused=false;
             using var target=new TargetScope(Target(owner,source));
-            try{_=IronGolemContact.Require(b,owner,target.Actor);}catch(NotSupportedException){refused=true;}
+            try{_=IronGolemContact.Require(b,(PlayerMobile)b.ControlMaster,target.Actor);}catch(NotSupportedException){refused=true;}
             Require(refused&&NpcEquipmentRandom.State(b)==seed&&NpcOpenWounds.Chance(b)==0&&NpcCrushing.Chance(b)==0&&NpcEquipmentRetaliation.Flat(b)==0,"Unadmitted frozen source enabled events or consumed RNG");
         }
         var rows=ReviveNativeActivation.Snapshot();var state=rows.Single(s=>s.Actor==source.Serial.Value);var before=ReviveBeforeDeath.Decode(state.Original.BeforeDeathJson);
@@ -123,7 +123,11 @@ public static class ReviveEventChecks
     private static void Check()
     {
         var owner=PoisonDaggerChecks.Owner();owner.Name="PoisonDaggerFixtureReviveEventOwner";MagePetBuffChecks.Train(owner,"necromancer.revive",20);MagePetBuffChecks.Train(owner,"necromancer.skeletonmastery",20);FixtureSpace.Corridor(owner,6500,24,3500);
-        var fixtures=new[]{Create(owner,"events"),Create(owner,"legacy"),Create(owner,"registration"),Create(owner,"numeric")};Exercise(owner,fixtures);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,fixtures)));
+        // Rank20 now permits three Revives. Keep the fourth independent
+        // supplier on another real owner instead of pruning the first actor.
+        var other=PoisonDaggerChecks.Owner();other.Name="PoisonDaggerFixtureReviveEventNumericOwner";
+        MagePetBuffChecks.Train(other,"necromancer.revive",20);MagePetBuffChecks.Train(other,"necromancer.skeletonmastery",20);FixtureSpace.Corridor(other,6500,24,3564);
+        var fixtures=new[]{Create(owner,"events"),Create(owner,"legacy"),Create(owner,"registration"),Create(other,"numeric")};Exercise(owner,fixtures);other.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,fixtures)));
     }
     private static void Reload()
     {
