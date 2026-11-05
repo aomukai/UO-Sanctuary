@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "90fd1d8186fb6aa60eff11b6baa5bcfff331a64873256b010a8d62b2076f4cc7",
+  "ContentAssemblySha256": "03741d5f303a1864994c2f524b7aefdd6cd89679c71a026fb489d038ebcade89",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -623,7 +623,8 @@
     "src/Sanctuary.Content/GeneratedNpcEquipment.cs": "81dee8b7597d41211054ff6b94e7847110d59b6596d140783f1bc15ef65dca9f",
     "src/Sanctuary.Content/GeneratedNpcItem.cs": "56b440cd3871e8865fa2bd14db2c0210180a72a7f6eeb961e52bc2059d243cd4",
     "src/Sanctuary.Content/GeneratedNpcLiveResources.cs": "93ed7ae804479ef6e0c400e1928efe3290d00f86b0c08db6b131849c9cb59f5a",
-    "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "ca3f4d1dfc654b3e61a036ac2536ac1edb6a6fc70429c9da28108ce72c1dc59f",
+    "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "538cffa9af0ca0d48e4a1c4a90a53375cd25ee0918d6c1494ac8c377035390aa",
+    "src/Sanctuary.Content/GeneratedNpcWeaponFrame.cs": "259ad4017cb1b74981610772bb14079fb600770fc93040248f46cf219ece35c4",
     "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCollisionFootprints.cs": "b9871ce5f394394d9d1cbe9918bb160ecc474ebb91ba8f3a37d48b5f212efada",
     "src/Sanctuary.Content/GenericPetCollisionReads.cs": "e39ac420d899269f939638c0c22f2bd7e9818d9851ec51f20d4a03772ecf14d2",
@@ -1010,6 +1011,7 @@
     "src/Sanctuary.Content/SourceTowardPath.cs": "ab03a60ee716fccc76eb09a5a2a0708a28c91824782a5887b3e5296c88454dfa",
     "src/Sanctuary.Content/SourceUnitEvents.cs": "a29a857ea85570a332a8a3ff3dce36b3e906a6e8e9360240a2558c20af7d129c",
     "src/Sanctuary.Content/SourceWallFollow.cs": "d4ac803cef36c274c76f1a4f3abbd70536780338ded5b295f9cb26b79c49e071",
+    "src/Sanctuary.Content/SourceWeaponSelection.cs": "4949c8bad5871c2dbb3f5e21085dd57f0d7bd06f335b61f09ba113b266caa10a",
     "src/Sanctuary.Content/SpectralHit.cs": "07a970bd429a8995f38c7c9323d0145b60e16ee88a2109c8d6d735b89b9cf242",
     "src/Sanctuary.Content/SpellPoisonTicks.cs": "f2ec5addf8ae4fdacf5f1875eab08cce17399bbeb9691567ec0ddbe8790e1595",
     "src/Sanctuary.Content/SpiritWolfUpgrades.cs": "9bee2da4e3c346c2a710b347bb8ec9718566146c46931baf2411154ab93e9af0",

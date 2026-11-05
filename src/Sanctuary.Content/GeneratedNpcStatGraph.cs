@@ -85,6 +85,8 @@ internal sealed class GeneratedNpcStatGraph
     internal EquipmentStatValue[] Stats{get{Current();return(EquipmentStatValue[])Actor.Stats.FullValues.Clone();}}
     internal ItemPropertyCreationContext Item(uint serial){Current();return Carriers.TryGetValue(serial,out var c)?c:throw new NotSupportedException("Item is not in the original recipient graph");}
     internal void Update(uint serial,bool force=false){var item=Item(serial);SourceItemStatUpdates.Update(Dispatch,item.Unit,Actor,force);}
+    internal GeneratedNpcWeaponFrame Weapons(uint primary,uint secondary,bool hasSkill,bool hasRow,int selection,int sequenceFrame,uint skillFlags)
+    {Current();return new(this,(int)Kind,primary,secondary,hasSkill,hasRow,selection,sequenceFrame,skillFlags);}
     // Logical stat removal precedes native inventory transfer in the source.
     // Changing physical inventory invalidates this frame;the caller rebuilds
     // against its new original inventory rather than retaining a stale cache.

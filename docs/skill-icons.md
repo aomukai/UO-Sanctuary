@@ -1,5 +1,7 @@
 # Skill icons
 
+**Generated NPC selected-weapon stats:** no new talent/hotkey icon identity or finished icon asset. Summon and skill placeholders remain separately tracked. See the [checkpoint](generated-npc-weapons-checkpoint.md).
+
 **Mage town/safe-area validation:** no new talent/hotkey icon identity or completed asset. Actual right/quick routing is verified independently of the existing icon placeholders. See the [checkpoint](mage-safe-area-checkpoint.md).
 
 **Generated NPC live resources:** no new talent/hotkey icon identity or finished icon asset. Existing class/summon placeholders remain separate from resource mechanics. See the [checkpoint](generated-npc-live-resources-checkpoint.md).
