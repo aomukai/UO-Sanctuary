@@ -1,5 +1,7 @@
 # Skill icons
 
+**Generated NPC stat graph:** no new talent/hotkey icon identity. Reusing Tekagi equipment art does not complete Assassin skill icons; tree/hotkey placeholders and summon icons remain separately tracked. See the [checkpoint](generated-npc-stats-checkpoint.md).
+
 **NPC equipment placement:** no new talent/hotkey icon identity. Physical item delivery and body metadata do not complete Valkyrie/Shadow or other class skill icons; existing placeholders remain separate. See the [checkpoint](npc-equip-placement-checkpoint.md).
 
 **Native generated items:** no new talent/hotkey icon identity. Native item payload persistence does not complete summon or Warlock skill icons; existing identified placeholders remain separate. See the [checkpoint](generated-npc-item-checkpoint.md).

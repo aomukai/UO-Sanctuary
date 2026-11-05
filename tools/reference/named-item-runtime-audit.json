@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7f7326d5c62c966c126dbc93677f21c4f7e1539ae3f867b1c56898e79275e4cd",
+  "ContentAssemblySha256": "15f70d3151e92fd2e196e1efbc7f682ca7742aff6c7ee4b1c17d7f2c3f3fe9f5",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -622,6 +622,7 @@
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
     "src/Sanctuary.Content/GeneratedNpcEquipment.cs": "81dee8b7597d41211054ff6b94e7847110d59b6596d140783f1bc15ef65dca9f",
     "src/Sanctuary.Content/GeneratedNpcItem.cs": "56b440cd3871e8865fa2bd14db2c0210180a72a7f6eeb961e52bc2059d243cd4",
+    "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "2913e468b090b91abca61b0cb6badddca7b104cda9b6612dc55cca2285ed3e57",
     "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCollisionFootprints.cs": "b9871ce5f394394d9d1cbe9918bb160ecc474ebb91ba8f3a37d48b5f212efada",
     "src/Sanctuary.Content/GenericPetCollisionReads.cs": "e39ac420d899269f939638c0c22f2bd7e9818d9851ec51f20d4a03772ecf14d2",
@@ -993,6 +994,7 @@
     "src/Sanctuary.Content/SourceItemInitialization.cs": "d2e27ddf651d4e2aa37ee4725f6d4ef37006e0100724ff21e53cdfc580dc8b22",
     "src/Sanctuary.Content/SourceItemQuality.cs": "ca88dd24b34f5f6e91ad5a61d464bace404939c9d57f0078b47f98ada057b761",
     "src/Sanctuary.Content/SourceItemStaffmods.cs": "b542fb98ce0f3c464b164f8ee3b29db12860ee58be26b535255a77091169a1f6",
+    "src/Sanctuary.Content/SourceItemStatUpdates.cs": "8b212c683fdcc9b172319f53bb58adba6df4cc3b980b51cd906f006939d4eae9",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "b99c53aa543717492b0118ef28a4c553dd3074cc0d648100cc70f71f3ca0a958",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "222a9c0d25421d2a7fe40776c01d8a7759b126d8052efb85fd5c64030cf051c2",
     "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",

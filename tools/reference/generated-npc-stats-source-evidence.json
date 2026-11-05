@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "gateControls": 46800,
+  "numericCompositions": 1566,
+  "nativeSingleItems": 1548,
+  "multiItemCompositions": 18,
+  "completeRoutineHashes": {
+    "D2GAME_ITEMS_UpdateItemStatlist_6FC42310": "45de1909cf8489f82b7c4e449c0aa6080b335cbf45efd15743cace688405e53d",
+    "D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0": "96ba06d57122311e60448286c23b6310186dcd33ba5c22d6b06cccfcb30f7937",
+    "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845"
+  },
+  "inheritedRoutineHashes": {
+    "ITEMMODS_GetByTimeAdjustment": "521e5a5d2ff13fa1697bc1d57341701fd194cbed68dba2b97fcbeebe545ac4ba",
+    "STATLIST_NotifyUnitOfStatValueChange": "dcc7e2a6a8ae005402aa01371ff755e68912c61eac88bf043c02e5ea7421bdc1",
+    "STATLIST_SetUnitStatNewValue": "67e150bbfd4937179eefb4e535439bc6f863952e2e7b5c8cb6384adf377b97dc",
+    "ComputeStatPercentage": "f9803075da80b9cf9c273f9e7906f394fc9f1ec569eb31611302ba4272cdf628",
+    "sub_6FDB5830": "e757710b6226906a6e4778786ceea851caa5eba6a9e20c1c1cfb1ff9e6e3ad0b",
+    "STATLIST_FindStatIndex_6FDB6300": "137450bf9df1cf8ff347f040e668863025874f3fba8b139fb6de9c0168fa70e3",
+    "STATLIST_ApplyMinValue": "4c6fcb4e15e278d046dd31701a694673382ca4d0e481c89b7e8340648e308a30",
+    "STATLIST_GetBaseStat_6FDB6340": "c99dfdcf4b77b90803418aa4eead389d4991aaa7bf6b19be1d2d6d4b53eb9e50",
+    "STATLIST_GetTotalStat_6FDB63E0": "7cee3a26c4b5b1379f171529d51907663daa60e02fe7452484a446d721987364",
+    "sub_6FDB64A0": "c3f16db7decd9390bba4c92f68152ff635638f72d21105a58eb083e329d8bb2f",
+    "STATLIST_FindStat_6FDB6920": "90d95faf9d49fff749a45db2643bc0badafec6340097a1510253021073087999",
+    "STATLIST_InsertStatOrFail_6FDB6970": "4eb1cdf8ae8303806812ca713bad4de7b4f3d0d41365038496b503a8e9597d52",
+    "STATLIST_RemoveStat_6FDB6A30": "15a42951d805a0cbddf65e2ce8f5b99a4882d3903be5de0bf59f18fa8fa6c6a2",
+    "STATLIST_UpdateUnitStat_6FDB6AB0": "b6eb08b5aa3b3b875102850951f08867060653c110b60b653f7551952f988256",
+    "sub_6FDB6C10": "2d72d3aeab9d28b9a671f205b055332a40cc71edd9ac84cde6767216403ac3d8",
+    "STATLIST_SetBaseStat": "d010416da299c8d11b1333825b69dba25986b946caaa7f5abdf3b2c7887b0d93",
+    "D2Common_ExpireStatList_6FDB6E30": "beed0431e94762f8e5729d479654cc7327ceec69c6b1a3afef2f4bbebdf53b8a",
+    "D2COMMON_10475_PostStatToStatList": "60eafeff8d4380edbefa460a56cc6902a6e5a20471ce332a589727884a852727",
+    "STATLIST_MergeStatLists": "396ee00e0f092b0332f533757b9856da986463b3aaa9445ec4f8977d9fbdc958",
+    "STATLIST_GetOwner": "e8ba6e8182bf01e45936976055805cf7abe843ed3b5549df9fe13f5a09114104",
+    "D2Common_11274_11275_Impl": "fe7195e99fa47c214f9a130f1e7d1bf2639a8952b2761421e33fd2dd430e5688",
+    "D2Common_11274": "c7d46e1f325b100129a8f7b8298f6bc2d3565dd24ada50e92dfc5a69a4b3c38c",
+    "D2Common_11275": "7faf12e31c245601ee7a46bcf039fa473959d3c22c4915cee0e9e3a29d5a2f39"
+  },
+  "inputs": {
+    "tools/reference/iron-golem-birth-graph-source-evidence.json": "4d0ba1049d6678eb7a0fc026e4c2ae241c3f0b24f7030f4591245db0021e9758",
+    ".local/class-skills/iron-golem-birth-graph-source/source.cpp": "35a997c2f9dce316454811554e32ce05ea76d1999f98ffd3a273d0367742a32b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    ".local/class-skills/item-quality-current-source/prepared-cases.json": "27ca7ee41a3cdd6b2c86af93d3c07b87b2d4da29395551397aaa50adfc6ff2d6",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "data/Sanctuary/Balance/iron-golem-items.json": "534e9ec6bb71ae3989414f55ac70e3436f6ae7cf43db7b75cc1d36baa9f5050c"
+  },
+  "scope": "Complete older item stat add/remove and dual-wield callers compose with23complete retained numeric/stat topology routines and current raw prepared item packets. Gate service traces retain order;numeric cases preserve sibling order,callbacks,flags,base/full fields,repeat,recipient level change and reverse removal.",
+  "limits": [
+    "Synthetic gate callbacks for gem/set/player book/main-weapon/world operations are observed services,not their full bodies. Numeric compositions qualify NPC kind1 with explicit source bases/day angle and fresh unbroken generated item fields. No live Mobile callback synchronization,item mutation persistence,learned actor,current executable/world or allocation seed parity is claimed."
+  ],
+  "artifacts": {
+    ".local/class-skills/generated-npc-stats-source/source.cpp": "b1b17b2ec9f3ea25775ef261a9b9ea29aac5d4206d93896bb2df00d007a56a93",
+    ".local/class-skills/generated-npc-stats-source/probe": "d4686af5e1465982534cb790648578bf65be75756a43858bc5b75ae48e279419",
+    ".local/class-skills/generated-npc-stats-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/generated-npc-stats-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/generated-npc-stats-source/cases.json": "f82384d70063790ee03af910039d73671d359b63181caa521bd29f126f9f9f19",
+    "tools/probe_generated_npc_stats.py": "335deec5570f6ab527075e5637c31779e8eb3de4f58ba551ce2738dd8bd7b06e"
+  }
+}

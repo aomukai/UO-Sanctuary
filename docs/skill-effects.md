@@ -1,5 +1,7 @@
 # Skill effects
 
+**Generated NPC stat graph and claws:** numeric recipient graphs add no skill effect/audio identity. Existing Tekagi art (`0x27AB`/`0x27F6`) is the agreed claw presentation path; both-hand appearance and attack animation preview remain pending. Kama is an optional visual candidate. Generated summon items still use their identified stock placeholders, and live skill effects remain separately unfinished. See the [checkpoint](generated-npc-stats-checkpoint.md).
+
 **NPC equipment placement:** canonical body placement uses hidden stock item art `0x14F0` with an explicit generated-equipment placeholder name and `Layer.Invalid`. NPC physical storage does not establish summon effects, spell effects or audio. Existing Valkyrie/Shadow presentation placeholders remain pending. See the [checkpoint](npc-equip-placement-checkpoint.md).
 
 **Native generated items:** item artwork uses stock `0x14F0` with `[generated equipment; art placeholder]` in the name. This is a separate equipment presentation placeholder; no new skill effect/audio identity is complete. Existing Valkyrie/Shadow summon effects remain pending. See the [checkpoint](generated-npc-item-checkpoint.md).
