@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedDate": "2026-11-06",
+  "status": "user-approved",
+  "scope": "Necromancer Mage/Revive count progression only. Keep Druid buffs,Warrior/golem quantities,birth stat/ability snapshots and permanent Revive lifetime unchanged.",
+  "proposal": "Mages5/Revives3at effective rank20;Mages7/Revives5absolute ceilings from effective rank40.",
+  "approval": "yes, this looks like a good starting point",
+  "steps": [
+    {
+      "minimumRank": 1,
+      "mages": 1,
+      "revives": 1
+    },
+    {
+      "minimumRank": 2,
+      "mages": 2,
+      "revives": 1
+    },
+    {
+      "minimumRank": 3,
+      "mages": 3,
+      "revives": 1
+    },
+    {
+      "minimumRank": 10,
+      "mages": 4,
+      "revives": 2
+    },
+    {
+      "minimumRank": 20,
+      "mages": 5,
+      "revives": 3
+    },
+    {
+      "minimumRank": 30,
+      "mages": 6,
+      "revives": 4
+    },
+    {
+      "minimumRank": 40,
+      "mages": 7,
+      "revives": 5
+    }
+  ],
+  "rankRule": "Current effective skill rank including items/BattleCommand selects counts. Rank40caps counts,not effective skill scaling. Existing learned/granted availability gates remain.",
+  "snapshotRule": "Count ceiling is a current roster rule;individual pet combat/upgrade values retain their birth snapshots.",
+  "replacement": "Reuse successful-cast and cap-refresh saved FIFO;no recast/reroll/heal of survivors. Apply only after stable gear/class transactions,not interim wardrobe Refresh calls.",
+  "data": "data/Sanctuary/Balance/necromancer-army-limits.json"
+}

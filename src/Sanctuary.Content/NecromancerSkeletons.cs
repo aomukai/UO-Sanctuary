@@ -21,6 +21,7 @@ internal static class NecromancerSkeletons
         if(kind is not(CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage)
             ||row.Text("pettype")!=(kind==CombatAbility.RaiseSkeleton?"skeleton":"skeletonmage"))
         {throw new NotSupportedException("Unmapped skeleton summon family");}
+        if(kind==CombatAbility.RaiseSkeletalMage){return NecromancerArmyLimits.ForRank(kind,rank??SkillMechanics.Rank(owner,kind));}
         return Math.Max(1,checked((int)SkillMechanics.Values(owner,kind,rank).Eval("petmax")));
     }
     private static void Prune(PlayerMobile owner,CombatAbility kind,int maximum)
@@ -38,6 +39,7 @@ internal static class NecromancerSkeletons
         int maximum=Limit(owner,kind,created.Rank);BattleCommand.Track(created);Prune(owner,kind,maximum);
         MinionSafeAreas.Enforce(created);
     }
+    internal static void EnforceMages(PlayerMobile owner)=>Prune(owner,CombatAbility.RaiseSkeletalMage,Limit(owner,CombatAbility.RaiseSkeletalMage));
     internal static void Enforce(PlayerMobile owner)
     {
         if(owner==null||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Necromancer){return;}

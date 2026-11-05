@@ -111,6 +111,8 @@ public sealed class TalentGump : DynamicGump
             : effective > 0 && World.FindMobile(_owner) is PlayerMobile caster
                 ? $"Mana {SkillMechanics.Values(caster, skill.Ability).Mana256 / 256.0:0.##}. Skill icon and effects use placeholders."
                 : "Learn to unlock. Skill icon and effects use placeholders.";
+        if(skill?.Ability is CombatAbility.RaiseSkeletalMage or CombatAbility.Revive)
+        {detail=$"Maximum summons: {NecromancerArmyLimits.ForRank(skill.Ability,effective)}. "+detail;}
         builder.AddHtml(395, 366, 188, 35, $"<BASEFONT COLOR=#C4C4C4>{detail}</BASEFONT>", size: 2, background: false, scrollbar: true);
         builder.AddButton(22, 408, 4005, 4007, 2000);
         builder.AddLabel(57, 410, 0x481, "Mouse skills");

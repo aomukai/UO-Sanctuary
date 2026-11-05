@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Necromancer count policy:** use `NecromancerArmyLimits` for the approved Mage/Revive current-rank ceilings; keep raw D2R petmax rows intact. Reuse existing saved FIFO and original actors. Enforce after deferred stable gear changes or resume, never inside intermediate `ClassGear.Refresh` calls in wardrobe transactions. New hooks affect Mages/Revives only; existing Warrior enforcement remains unchanged. Test wounds with actual learned Revive life/recovery profiles. See the [checkpoint](necromancer-army-checkpoint.md).
+
 **Validate source ABI as well as routine text:** physical endpoint percentages use source IDs18/17, not185/186bonus fields or187cold-Sunder. Full-function hashes do not certify hand-written fixture constants. The physical probe now validates all19bound STAT constants against the pinned header, with distinct nonzero wrong-ID regression values. Keep the shared physical roller and original immutable frame. See the [correction](generated-npc-physical-stats-checkpoint.md).
 
 **Selected-hand physical reuse:** `GeneratedNpcWeaponFrame.Physical` feeds the existing `NpcEquipmentDamage.Roll256`; reuse its percentage, FP256 and bounded-draw policy. Source mastery copies at most 32 layered entries before type matching and takes the positive maximum; it is not automatically zero for NPCs. Keep skill type/range and source share explicit. Immutable frame-local item decoding retains public-operation original identity/payload checks. See the [checkpoint](generated-npc-physical-checkpoint.md).

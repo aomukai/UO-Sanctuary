@@ -1,5 +1,7 @@
 # Skill effects
 
+**Necromancer army-size policy:** quantity progression, FIFO and count text introduce no new effect/audio identity. Existing Mage/Revive/summon placeholders remain separate; lower quantities do not complete their effects. See the [checkpoint](necromancer-army-checkpoint.md).
+
 **Physical stat binding correction:** numerical percentage-field correction introduces no new effect/audio identity. Existing generated equipment/summon placeholders and paired Tekagi preview remain pending. See the [checkpoint](generated-npc-physical-stats-checkpoint.md).
 
 **Generated NPC selected-hand physical:** exact numeric damage rolls introduce no new effect/audio identity. Actual hit/skill presentation and the paired Tekagi appearance/animation preview remain open; existing summon and generated-item art placeholders remain identified. See the [checkpoint](generated-npc-physical-checkpoint.md).

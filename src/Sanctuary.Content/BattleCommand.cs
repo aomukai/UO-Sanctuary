@@ -78,6 +78,7 @@ public static class BattleCommand
         if(!ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Necromancer){return;}
         NecromancerGolems.Enforce(owner);
         NecromancerSkeletons.Enforce(owner);
+        ReviveNativeActivation.Enforce(owner);
     }
     private static void Tick()
     {

@@ -162,12 +162,17 @@ public static class ReviveNativeActivation
         var history=CorpseSkillRules.Profiles.Find(corpse);CorpseSkillRules.Profiles.Store(history with{UnitReactivated=true});
         NextOrder=row.Order;BattleCommand.Track(original);PersistentMinions.Profiles.Track(original);
         original.IssueOrder(OrderType.Guard,null);NecromancerCombat.Consume(corpse);
-        var owned=Snapshot().Where(s=>s.Owner==row.Owner&&World.FindMobile((Serial)s.Actor) is{Alive:true,Deleted:false}).OrderBy(s=>s.Order).ToArray();
-        foreach(var old in owned.Take(Math.Max(0,owned.Length-setup.Rank)))
-        {if(World.FindMobile((Serial)old.Actor) is BaseCreature oldActor){oldActor.Delete();}States.Remove(old.Actor);ReviveEquipmentLife.Forget(old.Actor);NpcEquipmentRandom.Forget(old.Actor);}
+        Prune(owner,NecromancerArmyLimits.ForRank(CombatAbility.Revive,setup.Rank));
         if(owner.NetState==null){PersistentMinions.Suspend(owner);}else{Behavior(original).ResumeActions();}
         MinionSafeAreas.Enforce(original);actor=original;issue=null;return true;
     }
+    private static void Prune(PlayerMobile owner,int maximum)
+    {
+        var owned=Snapshot().Where(s=>s.Owner==owner.Serial.Value&&World.FindMobile((Serial)s.Actor) is BaseCreature{Alive:true,Deleted:false} actor&&actor.ControlMaster==owner).ToArray();
+        foreach(var old in owned.Take(Math.Max(0,owned.Length-maximum)))
+        {if(World.FindMobile((Serial)old.Actor) is BaseCreature actor){actor.Delete();}States.Remove(old.Actor);ReviveEquipmentLife.Forget(old.Actor);NpcEquipmentRandom.Forget(old.Actor);}
+    }
+    internal static void Enforce(PlayerMobile owner)=>Prune(owner,NecromancerArmyLimits.For(owner,CombatAbility.Revive));
     internal static void AfterLoad()
     {
         Tick();foreach(var row in Snapshot())

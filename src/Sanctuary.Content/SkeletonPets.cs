@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Server.Text;
 using ModernUO.Serialization;
@@ -428,8 +429,12 @@ public sealed class PetStatsGump : DynamicGump
     {
         builder.AddBackground(0, 0, 510, 410, 5054);
         builder.AddLabel(20, 15, 0x481, $"Skeleton guardians: {SkeletonPets.Count(_owner)} / {SkeletonPets.Limit(SkeletonPets.Rank(_owner))}");
-        builder.AddLabel(20, 42, 0x47E, "Behaviour: Guard me — follow, defend, return.");
+        bool necromancer=ClassCreation.Profiles.TryGet(_owner.Serial,out var profile)&&profile.Class==DiabloClass.Necromancer;
+        builder.AddLabel(20, 42, 0x47E, necromancer
+            ?$"Mages {NecromancerSkeletons.For(_owner,CombatAbility.RaiseSkeletalMage).Length}/{NecromancerArmyLimits.For(_owner,CombatAbility.RaiseSkeletalMage)} | Revives {ReviveNativeActivation.Snapshot().Count(r=>r.Owner==_owner.Serial.Value)}/{NecromancerArmyLimits.For(_owner,CombatAbility.Revive)}"
+            :"Behaviour: Guard me — follow, defend, return.");
         using var text = ValueStringBuilder.Create();
+        if(necromancer){text.Append("Behaviour: Guard me — follow, defend, return.<BR><BR>");}
         foreach (var follower in _owner.AllFollowers ?? [])
         {
             if (follower is not SkeletonGuardian { Deleted: false } pet || pet.ControlMaster != _owner)

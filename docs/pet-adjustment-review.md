@@ -17,11 +17,11 @@ Approved on 2026-11-03: Goatman uses UO **Gargoyle** (body4), Defiler uses **Gaz
 - Keep baseline abilities and lifecycle rules except where the approved replacement formula or ability below changes them. Use the later shared summon-time snapshot rule for inherited bases/ranks and upgrades; external buffs/auras and approved difficulty rescaling remain separate. This does not grant all owner gear effects to every pet.
 - Preserve the working build and saves. Old poison Mages convert to ice, retaining ownership and current life percentage. Do not delete or reroll them.
 
-## Necromancer army-size revision — pending progression decision, 2026-11-06
+## Necromancer army-size revision — approved, 2026-11-06
 
-The user requests another Necromancer balance pass: stronger Mages and permanent Revives should trade some army size for their increased utility/persistence. Proposed endpoints are **five Mages / three Revives at effective rank20**, rising to **seven Mages / five Revives at effective rank40**, with those counts as absolute ceilings. Item skill bonuses contribute to effective rank; this proposal does not establish a global effective-skill-rank40 cap. **Druid upgrades stay unchanged**, because their original pets need the additional strength without an offsetting nerf.
+The user requests another Necromancer balance pass: stronger Mages and permanent Revives should trade some army size for their increased utility/persistence. Approved endpoints are **five Mages / three Revives at effective rank20**, rising to **seven Mages / five Revives at effective rank40**, with those counts as absolute ceilings. Item skill bonuses contribute to effective rank; this proposal does not establish a global effective-skill-rank40 cap. **Druid upgrades stay unchanged**, because their original pets need the additional strength without an offsetting nerf.
 
-The intermediate progression below is a proposal for review, not an approved formula or implemented rule. It preserves the first three Mage ranks, then adds one slot every ten effective ranks. Revives begin at one and add a slot every ten ranks. An unavailable/unlearned summon still uses its existing availability rules.
+The user approved the intermediate progression below with “yes, this looks like a good starting point”. The [implementation checkpoint](necromancer-army-checkpoint.md) records actual learned cast/FIFO, gear/parking/wardrobe and two-reload acceptance. It preserves the first three Mage ranks, then adds one slot every ten effective ranks. Revives begin at one and add a slot every ten ranks. An unavailable/unlearned summon still uses its existing availability rules.
 
 | Effective skill rank | Mage maximum | Revive maximum |
 | --- | ---: | ---: |
@@ -33,7 +33,7 @@ The intermediate progression below is a proposal for review, not an approved for
 | 30–39 | 6 | 4 |
 | 40+ | 7 | 5 |
 
-Current pinned petmax is `(lvl < 4) ? lvl : (2 + lvl / 3)` for Warriors and Mages, and `lvl` for Revive. With Warriors and the one-golem limit unchanged, the proposed counts make17pets at rank20 and28at rank40. No Warrior/Golem quantity change has been selected. Existing successful-cast FIFO replacement is reusable; Mage live-cap enforcement already exists through `NecromancerSkeletons.Enforce`, while prepared Revive currently retires entries above its captured rank on successful activation. Inspect and verify cap-change/gear/respec/parking/save behavior when implementing the selected rule; do not delete historical pets merely by documenting this proposal. Confirm progression before changing runtime limits, talent/pet-count displays or reference overrides. No new effect/audio or talent/hotkey icon identity is required.
+Current pinned petmax is `(lvl < 4) ? lvl : (2 + lvl / 3)` for Warriors and Mages, and `lvl` for Revive. With Warriors and the one-golem limit unchanged, the approved counts make17pets at rank20 and28at rank40. No Warrior/Golem quantity change has been selected. Existing successful-cast FIFO replacement is reusable; Mage live-cap enforcement already exists through `NecromancerSkeletons.Enforce`, while prepared Revive currently retires entries above its captured rank on successful activation. Inspect and verify cap-change/gear/respec/parking/save behavior when implementing the selected rule; do not delete historical pets merely by documenting this proposal. Use this approved progression in runtime limits and talent/pet-count displays, keeping the raw D2R reference tables unchanged. No new effect/audio or talent/hotkey icon identity is required.
 
 ## Necromancer
 

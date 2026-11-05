@@ -1,0 +1,40 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "Steps": [
+    {
+      "MinimumRank": 1,
+      "Mages": 1,
+      "Revives": 1
+    },
+    {
+      "MinimumRank": 2,
+      "Mages": 2,
+      "Revives": 1
+    },
+    {
+      "MinimumRank": 3,
+      "Mages": 3,
+      "Revives": 1
+    },
+    {
+      "MinimumRank": 10,
+      "Mages": 4,
+      "Revives": 2
+    },
+    {
+      "MinimumRank": 20,
+      "Mages": 5,
+      "Revives": 3
+    },
+    {
+      "MinimumRank": 30,
+      "Mages": 6,
+      "Revives": 4
+    },
+    {
+      "MinimumRank": 40,
+      "Mages": 7,
+      "Revives": 5
+    }
+  ]
+}

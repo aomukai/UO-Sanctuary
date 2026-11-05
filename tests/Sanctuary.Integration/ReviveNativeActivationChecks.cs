@@ -25,7 +25,7 @@ public static class ReviveNativeActivationChecks
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Prepared original NPC activation and shared persistent behavior",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    internal static PlayerMobile Owner()
+    internal static PlayerMobile Owner(int reviveRank=10)
     {
         var owner=new PlayerMobile{Name="NativeReviveOwner",Body=0x190,Player=true};owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(owner,50);
         FixtureSpace.Place(owner,new(6100,1700,0),Map.Trammel);
@@ -35,7 +35,7 @@ public static class ReviveNativeActivationChecks
             foreach(string prerequisite in row.Prerequisites){if(ClassCreation.Profiles.GetRank(owner.Serial,prerequisite)==0){Train(prerequisite);}}
             Require(ClassCreation.Profiles.TryTrain(owner.Serial,id,out var reason),"Prepared activation training:"+reason);
         }
-        Train("necromancer.revive");Train("necromancer.revive");return owner;
+        for(int i=0;i<reviveRank;i++){Train("necromancer.revive");}return owner;
     }
     internal static Corpse Body(PlayerMobile owner,bool dragon,out BaseCreature actor,MonsterDifficulty? difficulty=null)
     {
@@ -74,7 +74,7 @@ public static class ReviveNativeActivationChecks
     private static void Check()
     {
         var owner=Owner();var firstCorpse=Body(owner,false,out var first);var before=ReviveOriginals.Snapshot();int followers=owner.Followers;
-        var setup=new ReviveNativeSetup(2,211,194,4,10);
+        var setup=new ReviveNativeSetup(SkillMechanics.Rank(owner,CombatAbility.Revive),211,194,4,10);
         Require(!ReviveNativeActivation.CommitPrepared(owner,firstCorpse,firstCorpse.Location,Ordinary with{Unique=true},setup,out _,out _),"Source unique refusal bypassed");
         Require(!ReviveNativeActivation.CommitPrepared(owner,firstCorpse,new(-1,-1,0),Ordinary,setup,out _,out _),"Invalid native destination accepted");
         Require(!ReviveNativeActivation.CommitPrepared(owner,firstCorpse,firstCorpse.Location,Ordinary,setup with{Life=0},out _,out _),"Zero life setup accepted");

@@ -495,6 +495,7 @@ public static class ClassGear
                 return;
             }
             Refresh(player);
+            NecromancerArmyLimits.Enforce(player);
             foreach (var item in player.Items)
             {
                 if (State(item) is { NamedItemId: not null }) { item.InvalidateProperties(); }

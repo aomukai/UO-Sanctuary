@@ -33,7 +33,7 @@ public static class SkeletonRosterChecks
         var corpse=mob.Corpse as Corpse;Require(SkeletonPets.Usable(p,corpse),"Real corpse unavailable");return corpse;
     }
     private static bool Release(PlayerMobile p,CombatAbility kind,Corpse c)=>kind==CombatAbility.RaiseSkeleton?SkeletonPets.Raise(p,c):NecromancerCombat.Release(p,kind,c.Serial,c.Location);
-    private static SkeletonGuardian Cast(PlayerMobile p,CombatAbility kind)
+    internal static SkeletonGuardian Cast(PlayerMobile p,CombatAbility kind)
     {
         p.Mana=p.ManaMax;var c=Corpse(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,kind).Mana256;
         Require(Release(p,kind,c),"Learned summon refused: "+kind);var body=NecromancerSkeletons.For(p,kind).Last();
