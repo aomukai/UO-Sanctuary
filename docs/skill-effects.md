@@ -1,5 +1,7 @@
 # Skill effects
 
+**Item base initializer:** no new skill effect/audio identity or artwork. Stored inventory-variation choices still need eventual native item materialization; this checkpoint creates only hidden unattached verification items. Existing summon/item placeholders remain. See the [checkpoint](item-initialization-checkpoint.md).
+
 **NPC retained-target bridge:** no new effect/audio identity or artwork. Existing shared curse/item-cast sound and curse markers remain identified placeholders; reflected-death targeting is mechanical. See the [checkpoint](npc-retained-target-checkpoint.md).
 
 **NPC lethal incoming acceptance:** no new effects/audio identity or artwork. Existing curse and death placeholders remain in this ledger; retirement/persistence acceptance is mechanical. See the [checkpoint](npc-incoming-lethal-checkpoint.md).

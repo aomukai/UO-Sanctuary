@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Item base initialization checkpoint (2026-11-05):** the complete shared initializer and current 692-base/105-type adapter reuse existing item graphs with separate unit/base and item-data/property RNG. Source19,296 controls and 42 original unattached item cases pass two reloads and property continuation; **392 focused/608 broader/21 compact markers**. See the [checkpoint](item-initialization-checkpoint.md). Full quality/fallback/materialization and Valkyrie/Shadow equipment/actor prerequisites remain open; handler count **197/240**, no completed class.
+
 **NPC retained-target checkpoint (2026-11-05):** actual reflected attacker death preserves target-centered on-struck curses through the existing monster/corpse identity projection, shared item frame and common executor. The 389 focused, 605 broader and 18 compact markers pass original identities/resources through two reloads. See the [checkpoint](npc-retained-target-checkpoint.md). Missing target/path, modern dispatcher and full NPC equipment/actor prerequisites remain open; handler count stays **197/240**, no completed class.
 
 **NPC lethal incoming acceptance (2026-11-05):** original target-bound curses and real item identities survive caster retirement and two reloads; qualified fatal melee/missile death/free paths pass. The 386 focused, 602 broader and 15 compact checks reuse production mechanics unchanged. See the [checkpoint](npc-incoming-lethal-checkpoint.md). Reflection/removal context and full NPC equipment/actor prerequisites remain open.

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Item base initializer:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow and summon placeholders stay in this separate ledger; generated item presentation remains future factory work. See the [checkpoint](item-initialization-checkpoint.md).
+
 **NPC retained-target bridge:** no new talent/hotkey icon identity. Existing curse placeholders remain in this separate ledger. See the [checkpoint](npc-retained-target-checkpoint.md).
 
 **NPC lethal incoming acceptance:** no new talent/hotkey icon identity. Existing curse placeholders remain; this checkpoint verifies item-trigger lifetime boundaries. See the [checkpoint](npc-incoming-lethal-checkpoint.md).

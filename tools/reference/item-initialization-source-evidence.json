@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "tools/reference/d2r-named-equipment/json/itemtypes.json": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "tools/reference/d2r-named-equipment/json/armor.json": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "tools/reference/d2r-named-equipment/json/misc.json": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072"
+  },
+  "completeRoutineHashes": {
+    "D2GAME_InitItemStats_6FC4E520": "793a9c3a5f4900b485dc20c6f7fdbbc184cca8be6bdbaa3c80dae5b04be53135",
+    "ITEMS_GetItemSeed": "b56814dfc54b24fd669f8c08d0a4dde881ae943f74b15dcbb01b83f8c782690b",
+    "ITEMS_GetTotalMaxStack": "5cceb9b54ba4d6e4703f8b531693b869fd70c21a2a773ed3d906bee24114dd26",
+    "ITEMS_GetMinStackFromItemId": "cfa0ce126335c7135af543a0c6a9fddefb8a6617264a2bf4d94fdfd7803dbd15",
+    "ITEMS_GetMinStack": "a1526450beb6af79438f4efb658ee9872e5daabae4543a99513ef984069eb8cb",
+    "ITEMS_GetSpawnStackFromItemId": "ce72b7f90e5ffa3870490e467ae68a33c93f69c92b96dd58df0fd6a90a2f1272",
+    "ITEMS_GetSpawnStack": "87383b1b2d0116579ca4fc433d6fcead51462d36b9da2ef75ec94c5fb1089a15",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "currentBases": 692,
+  "syntheticBases": 14,
+  "cases": 19296,
+  "sanitizers": "ASan+UBSan clean",
+  "scope": "Distinct unit/base and item-property RNG streams are bound through the complete item-seed getter. Complete base-stat initializer and five current stack getters execute with complete source LCG;current raw bases/type facts and synthetic quantity/durability/quest/callback cases. Ordered writes,bounded calls,quality callback and quest-list/identification services are emitted.",
+  "services": [
+    "Unit/base RNG and item-data/property RNG are initialized to distinct pairs in every case. The complete item-seed getter selects the property stream;the quality mutation service and subsequent property draw leave unit/base RNG separate.",
+    "Type hierarchy,quiver,variation and raw item tables are supplied from pinned current JSON. Gold and elixir side effects are declared services,not their full implementations. Quality is an explicit one-draw mutation callback,not the full quality factory. Quest allocation/post/set helpers are declared services,including allocation refusal.",
+    "An item removed by the quality callback makes subsequent base lookup absent. No fixture invents a valid table record for sentinel class-1. Getter-only lookups are not included in the ordered action trace."
+  ],
+  "remaining": [
+    "Full quality/fallback,automagic/staffmods/ethereality/finalization,native appearance/materialization,NPC graph attachment and summon actors/AI/input/saves remain separate requirements. No learned handler is enabled by this source evidence."
+  ],
+  "artifacts": {
+    ".local/class-skills/item-initialization-source/source.cpp": "ba5b21f8281c95507f10f99195a4bda880682c209b6c86de32fa7d623993015f",
+    ".local/class-skills/item-initialization-source/probe": "04504cc093b07b4b1bac3381cd1d0efec2d11fb957a4c06ce83c06631dbe4d19",
+    ".local/class-skills/item-initialization-source/compiler.log": "465d0d47b5b94abc801cc0128555a7cca527bc966d2bfb99c45672819d5dd3e2",
+    ".local/class-skills/item-initialization-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-initialization-source/cases.json": "394bf3a2cb71fdea1e2fb185ae3d861a2c7bbaf5e32fbedfa45a71bcfec29f65",
+    "tools/probe_item_initialization.py": "7321f7bbea2215fe06be8308f222d6b394447b50aac109b2c294a373307946c1"
+  }
+}

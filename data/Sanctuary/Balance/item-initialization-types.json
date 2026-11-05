@@ -1,0 +1,635 @@
+{
+  "referenceVersion": "3.3.93847",
+  "types": [
+    {
+      "code": "abow",
+      "ordinal": 87,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "ajav",
+      "ordinal": 89,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "amaz",
+      "ordinal": 61,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "amul",
+      "ordinal": 12,
+      "quiver": false,
+      "varieties": 3
+    },
+    {
+      "code": "apot",
+      "ordinal": 82,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "armo",
+      "ordinal": 50,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "ashd",
+      "ordinal": 72,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "aspe",
+      "ordinal": 88,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "assn",
+      "ordinal": 66,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "axe",
+      "ordinal": 28,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "barb",
+      "ordinal": 62,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "belt",
+      "ordinal": 19,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "blde",
+      "ordinal": 105,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "blun",
+      "ordinal": 57,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "body",
+      "ordinal": 40,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "book",
+      "ordinal": 18,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "boot",
+      "ordinal": 15,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "bow",
+      "ordinal": 27,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "bowq",
+      "ordinal": 5,
+      "quiver": true,
+      "varieties": 0
+    },
+    {
+      "code": "char",
+      "ordinal": 13,
+      "quiver": false,
+      "varieties": 3
+    },
+    {
+      "code": "circ",
+      "ordinal": 77,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "cjwl",
+      "ordinal": 108,
+      "quiver": false,
+      "varieties": 6
+    },
+    {
+      "code": "clas",
+      "ordinal": 60,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "cloa",
+      "ordinal": 75,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "club",
+      "ordinal": 29,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "comb",
+      "ordinal": 49,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "csch",
+      "ordinal": 109,
+      "quiver": false,
+      "varieties": 3
+    },
+    {
+      "code": "drui",
+      "ordinal": 67,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "elix",
+      "ordinal": 11,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gem",
+      "ordinal": 20,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gem0",
+      "ordinal": 93,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gem1",
+      "ordinal": 94,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gem2",
+      "ordinal": 95,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gem3",
+      "ordinal": 96,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gem4",
+      "ordinal": 97,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gema",
+      "ordinal": 98,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gemd",
+      "ordinal": 99,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "geme",
+      "ordinal": 100,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gemr",
+      "ordinal": 101,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gems",
+      "ordinal": 102,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gemt",
+      "ordinal": 103,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gemz",
+      "ordinal": 104,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "glov",
+      "ordinal": 16,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "gold",
+      "ordinal": 4,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "grim",
+      "ordinal": 107,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "h2h",
+      "ordinal": 69,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "h2h2",
+      "ordinal": 90,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "hamm",
+      "ordinal": 31,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "head",
+      "ordinal": 71,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "helm",
+      "ordinal": 37,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "herb",
+      "ordinal": 8,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "hpot",
+      "ordinal": 78,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "jave",
+      "ordinal": 44,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "jewl",
+      "ordinal": 59,
+      "quiver": false,
+      "varieties": 6
+    },
+    {
+      "code": "key",
+      "ordinal": 41,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "knif",
+      "ordinal": 32,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "lcha",
+      "ordinal": 86,
+      "quiver": false,
+      "varieties": 3
+    },
+    {
+      "code": "mace",
+      "ordinal": 36,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "mboq",
+      "ordinal": 91,
+      "quiver": true,
+      "varieties": 0
+    },
+    {
+      "code": "mcha",
+      "ordinal": 85,
+      "quiver": false,
+      "varieties": 3
+    },
+    {
+      "code": "mele",
+      "ordinal": 46,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "misc",
+      "ordinal": 52,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "misl",
+      "ordinal": 56,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "miss",
+      "ordinal": 47,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "mpot",
+      "ordinal": 79,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "mxbq",
+      "ordinal": 92,
+      "quiver": true,
+      "varieties": 0
+    },
+    {
+      "code": "necr",
+      "ordinal": 63,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "none",
+      "ordinal": 1,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "orb",
+      "ordinal": 70,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "pala",
+      "ordinal": 64,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "pelt",
+      "ordinal": 74,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "phlm",
+      "ordinal": 73,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "play",
+      "ordinal": 7,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "pole",
+      "ordinal": 34,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "poti",
+      "ordinal": 9,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "ques",
+      "ordinal": 39,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "ring",
+      "ordinal": 10,
+      "quiver": false,
+      "varieties": 5
+    },
+    {
+      "code": "rod",
+      "ordinal": 55,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "rpot",
+      "ordinal": 80,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "rune",
+      "ordinal": 76,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "scep",
+      "ordinal": 24,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "scha",
+      "ordinal": 84,
+      "quiver": false,
+      "varieties": 3
+    },
+    {
+      "code": "scro",
+      "ordinal": 22,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "seco",
+      "ordinal": 54,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "shie",
+      "ordinal": 2,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "shld",
+      "ordinal": 51,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "sock",
+      "ordinal": 53,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "sorc",
+      "ordinal": 65,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "spea",
+      "ordinal": 33,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "spot",
+      "ordinal": 81,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "sppl",
+      "ordinal": 106,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "staf",
+      "ordinal": 26,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "swor",
+      "ordinal": 30,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "taxe",
+      "ordinal": 43,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "thro",
+      "ordinal": 48,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "tkni",
+      "ordinal": 42,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "torc",
+      "ordinal": 21,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "tors",
+      "ordinal": 3,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "tpot",
+      "ordinal": 38,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "wand",
+      "ordinal": 25,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "warl",
+      "ordinal": 68,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "weap",
+      "ordinal": 45,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "wpot",
+      "ordinal": 83,
+      "quiver": false,
+      "varieties": 0
+    },
+    {
+      "code": "xboq",
+      "ordinal": 6,
+      "quiver": true,
+      "varieties": 0
+    },
+    {
+      "code": "xbow",
+      "ordinal": 35,
+      "quiver": false,
+      "varieties": 0
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "8365066ea930bd7a9e915481857793f3c4576f1a61e12517c4e8f52b6d36af81",
+  "ContentAssemblySha256": "96ebf8ba75931c902907d624178feb0453ea23230b53a2243979f1493989e88a",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -77,6 +77,7 @@
     "data/Sanctuary/Balance/inscription-utilities.json": "b582330f29557a74f0e991150abf182ac2f6c2e208ae8b65652c213617affd67",
     "data/Sanctuary/Balance/insurance.json": "075cac439a1f319c2a3ce547b565c992d677ac4d0edd549b63ed3271b57172ac",
     "data/Sanctuary/Balance/iron-golem-items.json": "534e9ec6bb71ae3989414f55ac70e3436f6ae7cf43db7b75cc1d36baa9f5050c",
+    "data/Sanctuary/Balance/item-initialization-types.json": "34d5086a83ae034268f9f73b52273f3f9df2f6018654302b23fec8181724d1c1",
     "data/Sanctuary/Balance/item-skill-execution.json": "3289ba5b95ba2793c6336d9cc722cdbb14d64655d3c19374e0c3cc83508ce075",
     "data/Sanctuary/Balance/item-skill-properties.json": "01a9df5fa4a1aac1142d2656aeb787cb04bd8bbfeccfeeeb8d271e78089dffeb",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -448,6 +449,7 @@
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/CreatureHitRecovery.cs": "9d4d04f79e9069b19a9385542697829d418e8a3f86fc45311659e33004cde249",
     "src/Sanctuary.Content/CreatureProfiles.cs": "ffa86c5155e396e1d1be392d4d35761dfafe8f51e5c5a977a57f8dd5b1a3ba39",
+    "src/Sanctuary.Content/CurrentItemInitialization.cs": "4b5b6cc8dbaba6bb7817e49106d981b3f030a345821b87764316a299a11a37a8",
     "src/Sanctuary.Content/CycloneArmorPackets.cs": "74fe8692ddfb084e862e4bc710cd5075c8a21ff75368828c9331a5372e57b419",
     "src/Sanctuary.Content/DefensiveArmors.cs": "01175d0a245f3ee95a5ab08eaf073492f53a7bb5bca8c8de7791c8c51ac78ad1",
     "src/Sanctuary.Content/DefilerPrepared.cs": "fcf8d4852d51a1421e742f15e1046de3e7e3bf08b93fd4d6659f3c14c55c56a3",
@@ -973,6 +975,7 @@
     "src/Sanctuary.Content/SourceFreeCoordinates.cs": "e2a5166f0eec5ef427e46acc8a968f8ceb0b5df3c712d6b25e5656428b6abb80",
     "src/Sanctuary.Content/SourceGuidTargets.cs": "fb9b6dfcc78b5b40b9f76db607b783d733ae7bf3610c06b84a9d62024c9417f6",
     "src/Sanctuary.Content/SourceItemAffixes.cs": "2376569a206a77231c9452de2e53a90c382813fb7c2411e30978cd817af0b59f",
+    "src/Sanctuary.Content/SourceItemInitialization.cs": "d2e27ddf651d4e2aa37ee4725f6d4ef37006e0100724ff21e53cdfc580dc8b22",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "b99c53aa543717492b0118ef28a4c553dd3074cc0d648100cc70f71f3ca0a958",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "222a9c0d25421d2a7fe40776c01d8a7759b126d8052efb85fd5c64030cf051c2",
     "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",

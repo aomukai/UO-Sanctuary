@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Generated item base reuse:** initialize damage/defense/durability/quantity through `SourceItemInitialization` and current NPC raw bases/type facts, keep the unit/base RNG separate from the item-data RNG, then use the existing `ItemPropertyCreationContext` item-data seed and graph for affixes. Preserve explicit stack operands and zero-bound RNG semantics; quantity overrides do not erase earlier rolls. Keep quality/quest services and full materialization explicit. See the [checkpoint](item-initialization-checkpoint.md).
+
 **Retained logical NPC targets:** reuse `SourceCorpseIdentity` rather than creating synthetic mobiles or a second dead-unit registry. Capture the original registered monster before synchronous retaliation, then resolve its current living/corpse position when executing the existing item/common-executor/do30 frame. A missing identity needs its actual path fallback; never guess caster-centered or nearest-enemy casting. See the [checkpoint](npc-retained-target-checkpoint.md).
 
 **NPC retirement/target reuse:** incoming curse effects are target-bound and should survive caster retirement. Keep the item graph/RNG lifetime separate from the target curse lifetime. The older target lookup validates type/GUID registration and uses target coordinates or a path fallback; native UO deletion is not enough to choose that context. See the [checkpoint](npc-incoming-lethal-checkpoint.md) and [source inspection](../tools/reference/npc-retained-target-preflight.json).
