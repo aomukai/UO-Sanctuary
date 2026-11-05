@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Approved ordinary tree packing (2026-11-05 JST).** Ordinary `skilltab` uses class=`parameter/3`,tree=`parameter%3`,raw stat188 layer=`class*8+tree` by [explicit user decision](../tools/reference/item-tree-packing-decision.json). The literal older function10 remains separate;this does not approve modern `war-tab-rand` or other unresolved behavior. See the [checkpoint](current-item-affixes-checkpoint.md).
+
 **Current Reign staffmod tiers (2026-11-05 JST).** The pinned owned Blizzard guide establishes required-level tiers1/6/12/18/24/30 instead of skill-index groups. Barbarian and Warlock differ from the older grouping. Sanctuary explicitly uses ascending IDs inside each full tier and one existing random draw modulo its count, retaining the older count/value/retry/overwrite rules by [user-approved adaptation](../tools/reference/item-staffmods-tier-decision.json). Exact modern ordering/RNG remains unproved. See the [checkpoint](item-staffmods-checkpoint.md).
 
 **Approved superior-item delivery (2026-11-05 JST).** The current owned quality table supplies modifier order and ranges; Sanctuary applies them using existing numeric writers in grade mode 1 with the item-data RNG. This replaces the incomplete older grade-dispatch branch by explicit user decision. Complete controller/numeric source proofs remain separate from current executable parity and from unbound staffmods/materialization. See the [decision](../tools/reference/item-superior-table-decision.json) and [checkpoint](item-finishing-checkpoint.md).

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Composed item affixes:** no new talent/hotkey icon identity. Existing summon and skill icon placeholders remain separate from item-affix mechanics. See the [checkpoint](current-item-affixes-checkpoint.md).
+
 **Item staffmods:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow and Warlock placeholders remain separate from generated-item skill bonuses. See the [checkpoint](item-staffmods-checkpoint.md).
 
 **Item finishing:** no new talent or hotkey icon identity. Existing Valkyrie/Shadow icon placeholders remain pending separately from item-factory mechanics. See the [checkpoint](item-finishing-checkpoint.md).

@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "inputs": {
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/magicprefix.json": "9e7c42d608768e7f1dd1332345a258e4d5e4347ff48a16e8f9d1e974db39787d",
+    "tools/reference/d2r-named-equipment/json/magicsuffix.json": "d7060a8a19c2772747f0cd5d82b1571a774f953789d3ade1f7cac426df97e415",
+    "tools/reference/item-generation/sources.json": "0a5c9b1d22c177c964b34120c4ea0f0dfb8c278685ef2b64d2c256cb38dbb61f",
+    "tools/reference/item-generation/rareprefix.json": "e8b052200fbd416bfe85f6f835284fdce033b233ff59ca9f253e299ca21f0864",
+    "tools/reference/item-generation/raresuffix.json": "532bbda2b20a2501e60bfbeb93f1eb9f820a543de3f3202592a655baf89c5162",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "tools/build_item_affix_layout.py": "acda1afe1178cef0614f9def4e17e478de12e1738af05f1b99890c727a4d117a"
+  },
+  "tableSpans": {
+    "magicprefix": 722,
+    "magicsuffix": 786,
+    "rareprefix": 46,
+    "raresuffix": 155
+  },
+  "magicAffixIds": 991,
+  "selectableAffixRows": 988,
+  "selectablePropertyCodes": 89,
+  "omittedRows": {
+    "magicprefix": [
+      118
+    ],
+    "magicsuffix": [
+      114
+    ],
+    "rareprefix": [],
+    "raresuffix": []
+  },
+  "scope": "Global IDs are suffix-first then prefix,each with source +1. Table spans use largest retained row index+1,not JSON row count;omitted separator rows remain part of this explicit reference layout. Rare-name offsets use the same suffix-first convention.",
+  "outputSha256": "f711b02acb337c2d49358bbece4fccdbeda1610858fcc498a3257296b6a659c9",
+  "limits": [
+    "Reference ID offsets are internal catalogue identities;the actual current binary/compiled/save ID layout is not proved. The three socket-first affixes retain the existing complete older eligibility rejection;this is not an implementation-based property filter or proof of current socket parity."
+  ]
+}

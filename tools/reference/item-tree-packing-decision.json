@@ -1,0 +1,9 @@
+{
+  "referenceVersion": "3.3.93847",
+  "decisionDate": "2026-11-05",
+  "status": "user-approved-sanctuary-adaptation",
+  "answer": "Use the consistent class/tree encoding",
+  "rule": "Ordinary skilltab property parameters0..23 encode class=parameter/3 and zero-based tree=parameter%3;write raw stat188 layer8*class+tree. Preserve existing numeric range roll,stat shift,set/add,list and item-owned RNG behavior. Use an explicit current writer;retain the literal older function10 as separate source reference.",
+  "sourceGap": "The complete older producer uses parameter%3+8*parameter/3;its reviewed skill-rank reader uses class*8+tree. The precedence differs for many parameters.",
+  "scope": "Ordinary skilltab only;war-tab-rand and any other modern tree-randomization meaning remain unsupported. No automatic change to the original191-plan projection or201-plan generic fresh numeric admission."
+}

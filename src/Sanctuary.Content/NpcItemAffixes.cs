@@ -24,6 +24,7 @@ internal sealed class SummonAffixPool
         {throw new InvalidDataException("Invalid current NPC affix pool");}
     }
     internal SummonAffixBase Basis(string code)=>Bases.TryGetValue(code,out var r)?r:throw new InvalidDataException("Unknown current NPC base "+code);
+    internal bool CanBeRare(string code)=>Types[Basis(code).Type].Rare;
     internal SummonAffix Find(string id)=>ById.TryGetValue(id,out var r)?r:throw new InvalidDataException("Unknown current NPC affix "+id);
     internal bool IsType(string code,string ancestor)=>EquipmentBalance.IsType(Types,Basis(code).Type,ancestor);
     internal int Level(string code,int level)
@@ -53,6 +54,8 @@ internal sealed class SummonAffixPool
     internal int Weight(SummonAffix row,string code)=>checked(row.Definition.Frequency*(Basis(code).MagicLevel>0?row.Definition.Level:1));
     internal SummonAffix Select(string code,int level,GearRarity rarity,AffixKind kind,ref ulong seed,bool force=true,IReadOnlyList<string> existing=null,int preferred=0)
         =>SourceAffixPicker.Select(()=>Pool(code,level,rarity,kind,existing),r=>Weight(r,code),ref seed,force,preferred>0?r=>r.Row==preferred-1:null);
+    internal SummonAffix Select(string code,int level,GearRarity rarity,AffixKind kind,Func<int,uint> roll,bool force=true,IReadOnlyList<string> existing=null,int preferred=0)
+        =>SourceAffixPicker.Select(()=>Pool(code,level,rarity,kind,existing),r=>Weight(r,code),roll,force,preferred>0?r=>r.Row==preferred-1:null);
 }
 
 internal static class NpcItemAffixes
@@ -66,6 +69,7 @@ internal static class NpcItemAffixes
     });
     private static readonly Lazy<SummonAffixPool> Shared=new(()=>new(Catalog.Value));
     internal static SummonAffixPool Pool=>Shared.Value;
+    internal static IReadOnlyList<SummonAffix> All=>Catalog.Value.Affixes;
     internal static IReadOnlyList<SummonRareName> Names=>Catalog.Value.RareNames;
     internal static SummonRareBase RareBasis(string code)=>Catalog.Value.RareBases.Single(r=>r.Code==code);
     internal static SummonRareName RareName(string code,bool prefix,ref ulong seed,int format=100)
@@ -75,8 +79,14 @@ internal static class NpcItemAffixes
     }
     internal static SummonRareName SelectRare(IEnumerable<SummonRareName> rows,bool prefix,int format,bool stackable,bool throwable,Func<string,bool> isType,ref ulong seed)
     {
+        ulong current=seed;
+        try{return SelectRare(rows,prefix,format,stackable,throwable,isType,bound=>(int)SourceRandom.Limited(ref current,bound));}
+        finally{seed=current;}
+    }
+    internal static SummonRareName SelectRare(IEnumerable<SummonRareName> rows,bool prefix,int format,bool stackable,bool throwable,Func<string,bool> isType,Func<int,int> roll)
+    {
         var pool=RarePool(rows,prefix,format,stackable,throwable,isType);
-        return pool.Length==0?null:pool[SourceRandom.Limited(ref seed,pool.Length)];
+        return pool.Length==0?null:pool[roll(pool.Length)];
     }
     internal static SummonRareName[] RarePool(IEnumerable<SummonRareName> rows,bool prefix,int format,bool stackable,bool throwable,Func<string,bool> isType)
     {
