@@ -64,13 +64,13 @@ internal static class NpcItemSpellCasts
     }
     internal static bool LifeTap(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, int rank, DateTime at)
         => CastCurse(caster, target, CombatAbility.LifeTap, rank, at);
-    internal static bool CastCurse(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, CombatAbility ability, int rank, DateTime at)
+    internal static bool CastCurse(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, CombatAbility ability, int rank, DateTime at,int flag=1)
     {
         if (caster == null) { return false; }
         // Native retaliation can synchronously feed back through BaseAI and
         // assign the caster's ordinary Combatant even for indirect aggression.
         // The item skill uses its explicit temporary frame instead.
         using var scope = new TargetScope(caster);
-        return ItemEffectCasts.Target(new CurseServices(caster, at), SkillMechanics.For(ability).SourceId, rank, target, 1) != 0;
+        return ItemEffectCasts.Target(new CurseServices(caster, at), SkillMechanics.For(ability).SourceId, rank, target, flag) != 0;
     }
 }

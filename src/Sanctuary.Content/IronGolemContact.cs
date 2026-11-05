@@ -78,7 +78,7 @@ internal static class IronGolemContact
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
         {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at);}
-        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p);
+        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p,target,source,at);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Positive drains were refused before rolling.
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
@@ -92,13 +92,13 @@ internal static class IronGolemContact
             {NpcEquipmentPoison.Commit(new(impact.Actor,impact.CreditOwner,impact.Poison),target,at);}
         }
         internal override void SurvivedDamage(){if(!scope.NativeRecovery){RequireRecoveryEvents(target);}} // Unique damage effects belong to source return, not a second aggregate FHR roll.
-        internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("killed",p);
-        internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p);
+        internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("killed",p,target,source,at);
+        internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p,source,target,at);
         internal override void PresentOverlay(int overlay)
         {target.FixedEffect(0x37B9,10,12,0x481,0);} // Source overlay descriptor retained in packet; identified native placeholder.
         internal override int BaseHitClass()=>scope.SourceIdentity.HitClass;
-        internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p);
-        internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("attackedinmelee",p);
+        internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p,source,target,at);
+        internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("attackedinmelee",p,target,source,at);
         internal override bool AttackerInActiveMode()=>source is{Alive:true,Deleted:false}&&SkillHealth.Balance256(source)>0;
         internal override void BeforeThorns(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("NPC packet freed before return");}}

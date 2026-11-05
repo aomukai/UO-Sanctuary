@@ -15,18 +15,17 @@ internal sealed record NpcItemEventStat(int Stat,string Name,NpcItemEvent[] Even
 // Other active registrations fail preflight before result/damage RNG or HP.
 internal sealed class NpcCombatEvents
 {
-    private static readonly Lazy<Dictionary<int,NpcItemEventStat>> Rules=new(()=>
-    {
-        var rows=BalanceCatalog.Read<NpcItemEventStat>("npc-item-combat-events");
-        if(rows.Length!=21||rows.Any(r=>r.Events.Length is <1 or >2||r.Events.Any(e=>e.Function<=0||string.IsNullOrEmpty(e.Event)))
-            ||rows.Select(r=>r.Stat).Distinct().Count()!=21)
-        {throw new InvalidDataException("Invalid pinned NPC event registration map");}
-        return rows.ToDictionary(r=>r.Stat);
-    });
+    private static readonly Lazy<Dictionary<int,NpcItemEventStat>> Rules=ItemEventDefinitions.Rows;
     private readonly NpcItemEventStat[] Active;
     private NpcCombatEvents(){Active=[];}
     internal static NpcCombatEvents Empty{get;}=new();
     internal static NpcCombatEvents ForSource(BaseCreature actor)
+    {
+        var legacy=LegacyForSource(actor);
+        if(actor is SkeletonGuardian guardian){NpcItemProcs.Refresh(guardian,legacy);}
+        return legacy;
+    }
+    internal static NpcCombatEvents LegacyForSource(BaseCreature actor)
     {
         if(ReviveEquipmentEvents.Handles(actor)){return ReviveEquipmentEvents.Registry(actor);}
         if(actor is not SkeletonGuardian){throw new NotSupportedException("No admitted NPC source combat-event adapter");}
@@ -120,9 +119,19 @@ internal sealed class NpcCombatEvents
     }
     internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,BaseCreature source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null)
     {
+        var procs=source is SkeletonGuardian eventActor?NpcItemProcs.Get(eventActor):null;
+        if(procs!=null)
+        {
+            if(at==null){throw new InvalidOperationException("NPC item event lacks its actual source time");}
+            procs.Refresh(LegacyForSource(source));
+            procs.Dispatch(phase,packet,(SkeletonGuardian)source,target,at.Value,damageRoll);
+        }
         foreach(var rule in Active)foreach(var registration in rule.Events)
         {
             if(registration.Event!=phase){continue;}
+            // The live graph aggregates these innate/material stats with item
+            // layers and dispatches them in its actual registration order.
+            if(procs!=null&&rule.Stat is 135 or 136 or 198){continue;}
             if(rule.Stat==78&&registration is{Event:"attackedinmelee",Function:6}){continue;} // Owned by PreparedFlatAttempt.
             if(rule.Stat==135&&registration.Function==15)
             {

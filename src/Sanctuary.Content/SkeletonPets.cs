@@ -364,6 +364,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     public override void OnDelete()
     {
+        NpcItemProcs.Forget(this);
         SuspendActions();
         _restoreTimer.Cancel();
         base.OnDelete();

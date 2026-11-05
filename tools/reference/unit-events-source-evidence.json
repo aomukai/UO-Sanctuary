@@ -1,0 +1,78 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 1488,
+  "completeRoutines": 8,
+  "callbackTableSlots": 50,
+  "availableCallbackSlots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitEvent.cpp": "1c02d9437eb0f9dacb9d7ee04d0065e3c67e5a759bb9f77ef732479a8caa2ac9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitEvent.h": "64f385bef1e008d1d94ab59eb537bfc80fc0bb3fa6b41859d66063028bac614f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/ItemsTbls.h": "6f9b72363d068c0623193205e3f3a37c9231bdf6812e5bbb268a4c148f7bd4dc"
+  },
+  "completeRoutineHashes": {
+    "SUNITEVENT_FreeEventList": "df4cb3763e9e3940c2aacc43f460953f4863990a322fe1f281f2cc166a0073fc",
+    "SUNITEVENT_Register": "b111f56046f078df87eb60a4aaaf44e73179716210677d5af218f4e173d851ba",
+    "SUNITEVENT_FreeEvent": "f07c1cb446aaba86692a7ee5ba013456b0ce0807646f530efe194ddce7880601",
+    "SUNITEVENT_Unregister": "23f254ac8ede3d6c0cac5d4e58bee8931d67f3e94e4c5b8a55c1f0fd57089632",
+    "SUNITEVENT_GetEvent": "cc3481cfdcff7bdafd925c46b102569f26a0e963495507af7e635d70fc6a2d6d",
+    "SUNITEVENT_Trigger": "a9ca26b2192f0a4bf49946d86d9903b6b52783a4d8018dc16f91a8f6439f656b",
+    "sub_6FD156A0": "b5d70907fcbf412174eb1b113a28b93944e40e0cec84076dee7ccb266fc9722f",
+    "D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910": "cc2ed120fdaea9860211d1e316e384d264840fbce73bdba5e97d523d0835b212"
+  },
+  "artifacts": {
+    ".local/class-skills/unit-events-source/source.cpp": "78939c140c2704dbac69d424177371ec53b515056d45b9055c63734e75fd9be9",
+    ".local/class-skills/unit-events-source/probe": "fdce138868a7f7daebd0d04080ed9fd66d79ca8a30e01b381266b3ae0769efc6",
+    ".local/class-skills/unit-events-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/unit-events-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/unit-events-source/cases.json": "72894eaf0268ddf4aab8379de0e804c5d32026e363113cb479136cf0a53b8968",
+    "tools/probe_unit_events.py": "928120145212026be2f36d84b277c90882590a6dfe422e7696be01e2dce27676"
+  },
+  "established": [
+    "Six complete list functions,complete50slot callback selector and complete stat-change routine execute with real new/delete under ASan/UBSan. Per-operation allocation ordinal and complete live node order/identity/payload/queue/key/flags plus callback/lookup traces are emitted.",
+    "Direct controls cover absent owners,LIFO registration,queue0one-shots,unsigned queue comparisons,lookup/removal,ignored callback results,self-unregister with deferred deletion,registration during callbacks and bounded nested other-phase triggers.",
+    "Event-stat controls cover missing game/owner/metadata,nonpositive first event,independent optional second callback,null callback slots,full packed-layer identity,duplicate suppression,positive value changes without reordering,zero removal and negative nonzero registration."
+  ],
+  "services": [
+    "All non-event switch bodies in the complete stat-change callback are mandatory external services that trap if entered. This certificate covers its event-stat/default branch domain,not HP/mana/skill/aura/charge/state side effects. Function-table callback bodies are explicit observed services,not implemented skill effects.",
+    "Node field widths follow the header. Cases avoid freeing the cached successor or whole list during callbacks and same-event nested one-shot deletion;those old C++ allocator/reentrancy contexts are undefined and not certified. Production refuses those unsupported mutations rather than inventing current behavior."
+  ],
+  "remaining": [
+    "Current executable and general world event producers/removal contracts remain unverified. NPC actual callbacks,live graph ownership,atomic persistence and saved original identities need separate native checks."
+  ]
+}

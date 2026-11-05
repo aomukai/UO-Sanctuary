@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC item event graphs (2026-11-05 JST).** Actual supported item curses reuse the eight existing curse effects and sound placeholders (marker `0x375A`, hue `0x455`, sound `0x1E5`). Event registration and persistence add no artwork. Final curse-specific cast/state/audio assets remain pending; unsupported event producers do not count as delivered effects. See [checkpoint](unit-events-checkpoint.md).
+
 **Eight NPC curse profiles (2026-11-05 JST).** Amplify Damage,Dim Vision,Weaken,Iron Maiden,Terror,Life Tap,Decrepify and Lower Resist retain the identified shared curse marker0x375A/hue0x455 and sound0x1E5. Their final skill-specific effect/audio assets remain pending. The full execution catalogue also retains raw presentation references for later asset work;it does not create artwork or count an unsupported spell as a delivered effect. No imagegen asset/binding is added. See [checkpoint](item-execution-metadata-checkpoint.md).
 
 **Common skill executor (2026-11-05 JST).** The shared do/missile dispatcher adds no visual/audio asset. Actual Life Tap retains its identified curse marker and sound placeholders. Future admitted direct missile factories must reuse their spell-specific cast/travel/impact/expiry/audio requirements;the generic executor is not a visual placeholder that counts as delivered damage. No imagegen asset or binding is added. See [checkpoint](skill-execution-checkpoint.md).
