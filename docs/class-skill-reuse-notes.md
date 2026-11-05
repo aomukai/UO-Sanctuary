@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Safe-area fixture reuse:** create learned summons in a legal region using their existing cast route; parking is a separate lifecycle policy and does not override `InTown`. Use distinct valid spawn tiles for multiple corpses/pets. `MagePetBuffChecks.Pet` now includes exact guard diagnostics on failure. Reuse the combined Mage/safe-area harness for actual right/quick/natural delivery and saved-roster checks. See the [checkpoint](mage-safe-area-checkpoint.md).
+
 **Live NPC resource reuse:** use `GeneratedNpcLiveResources` for explicitly supplied source bases on original prepared recipients, not UO attribute conversion. Native current pools remain in the existing FP256 ledgers; rebuilding derived graphs must not replay recovery. Route skill percentage changes through `BattleOrders.Change`; Vigor refresh reuses that transition. Keep source regeneration separate from item replenishment for poison life masks. Other item consumers and learned actor admission remain separate. See the [checkpoint](generated-npc-live-resources-checkpoint.md).
 
 **Resource callback reuse:** `GeneratedNpcStatGraph` can opt into `NpcItemResourceCallbacks` with an explicit source monster regeneration coefficient. It uses the already verified `BattleOrders.Rescale256`/`RegenerationAfter` math for all three resource channels. Do not reapply this rescale from a native maximum getter or replay it on saved wounds. Live setters/persistence and other callback branches require separate admission. See the [checkpoint](generated-npc-resources-checkpoint.md).

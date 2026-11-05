@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Mage town permission corroboration (2026-11-06 JST).** Raise Skeletal Mage retains the current table’s `InTown=0`. The legacy parking fixture now uses legal wilderness casts and separately proves that town refusal leaves mana/corpse/roster unchanged. Safe-area parking does not override skill-specific town permissions. No production rule or approved deviation changed. See the [checkpoint](mage-safe-area-checkpoint.md).
+
 **Generated NPC live resources (2026-11-06 JST).** Explicit source bases/original item packets now feed native fractional maxima/pools with saved regeneration and last applied skill percentages. Derived reconstruction disables resource callbacks; BO/Oak/Vigor retain the existing native percentage transition. Unsupported time/skill/event/aura/state/charge item consumers reject resource-profile admission without filtering generation pools. No new D2R deviation or current executable parity claim. See the [checkpoint](generated-npc-live-resources-checkpoint.md).
 
 **Generated NPC resource callbacks (2026-11-06 JST).** Three unchanged older maximum-resource branches now compose with the original item/stat graph through an explicit regeneration coefficient. Existing ratio/regeneration helpers are reused; this adds no approved deviation or current executable parity claim. Native setters and the rest of the outer callback remain separate. See the [checkpoint](generated-npc-resources-checkpoint.md).

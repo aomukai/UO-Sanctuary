@@ -33,9 +33,23 @@ public static class SafeAreaMinionChecks
     private static Point3D Destination(PlayerMobile p)=>new(p.X+16,p.Y,p.Z);
     private static void Parked(PlayerMobile p,BaseCreature m)
     {Require(m.Alive&&!m.Deleted&&m.ControlMaster==p&&m.Map==Map.Internal&&MinionSafeAreas.Parked(m)&&m.ControlSlots==0&&m.Combatant==null&&m.ControlTarget==null,"Army not parked with original ownership/released slots");}
+    private static void TownMageRefusal(PlayerMobile owner)
+    {
+        var dead=new GraveyardZombie{NoKillAwards=true};dead.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);dead.Damage(100000,owner);if(dead.Alive){dead.Kill();}
+        var corpse=dead.Corpse as Corpse;
+        try
+        {
+            Require(SkeletonPets.Usable(owner,corpse)&&SkillMechanics.For(CombatAbility.RaiseSkeletalMage).Number("InTown")==0,"Town Mage refusal fixture");
+            int mana=NecromancerEffects.ManaBalance256(owner),count=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeletalMage).Count();
+            Require(!NecromancerCombat.Release(owner,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location)
+                &&NecromancerEffects.ManaBalance256(owner)==mana&&!corpse.SanctuaryConsumed&&!corpse.Animated
+                &&NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeletalMage).Count()==count,"Town Mage cast spent mana,consumed a corpse or admitted a summon");
+        }
+        finally{corpse?.Delete();dead.Delete();}
+    }
     private static void Controls()
     {
-        var p=Owner();var m=MagePetBuffChecks.Pet(p,2);var origin=p.Location;var destination=Destination(p);var town=Town(p,destination);var walls=new List<Item>();
+        var p=Owner();var m=MagePetBuffChecks.Pet(p,2);var born=MagePetBuffChecks.Pet(p,3,3,1);var origin=p.Location;var destination=Destination(p);var town=Town(p,destination);var walls=new List<Item>();
         var merc=MercenaryCareChecks.Companion(p);Require(MercenaryCare.Register(p,merc,20),"Named companion registration");
         m.ControlSlots=2;p.Followers+=2;PersistentMinions.Profiles.Track(m);int slots=p.Followers;int life=SkillHealth.Maximum256(m)-1025;SkillHealth.SetBalance256(m,life);m.SetMana(100);m.Mana=20;
         var seed=NecromancerMageMissiles.ActorSeed(m);long order=BattleCommand.PetOrder(m);int rank=m.Rank,mastery=m.Mastery;
@@ -43,7 +57,9 @@ public static class SafeAreaMinionChecks
         {
             DateTime at=TimedEffects.Now;Require(TimedEffects.AddRestoration(m,true,10,1000,at)&&TimedEffects.AddRestoration(m,false,10,1000,at),"Queued restoration fixture");TimedEffects.Chill(m,50,1000,at);
             p.MoveToWorld(destination,p.Map);Parked(p,m);Require(p.Followers==slots-2&&merc.Map!=Map.Internal&&merc.ControlMaster==p&&MercenaryCare.IsCompanion(p,merc),"Parking touched companion or wrong slot count");
-            var born=MagePetBuffChecks.Pet(p,3);Parked(p,born);born.Delete();
+            // Mages are cast outside town,as required by the pinned table.
+            // Entering safety parks both existing and newly created pets.
+            Parked(p,born);TownMageRefusal(p);born.Delete();
             p.MoveToWorld(new(destination.X+1,destination.Y,destination.Z),p.Map);PersistentMinions.Resume(p);Parked(p,m);Require(p.Followers==slots-2,"Repeated entry released/restored slots twice");
             TimedEffects.Settle(m,at.AddMilliseconds(1001));Require(SkillHealth.Balance256(m)==life&&m.Mana==20&&TimedEffects.Chill(m,at.AddMilliseconds(1001))==0,"Parking healed/refilled or froze status/restoration time");
             NpcEquipmentRegeneration.Apply(m,256);Require(SkillHealth.Balance256(m)==life,"Parked direct regeneration paid");
@@ -84,7 +100,7 @@ public static class SafeAreaMinionChecks
             try{p.MoveToWorld(roomPoint,p.Map);Require(!MinionSafeAreas.Contains(p)&&!MinionSafeAreas.Parked(m)&&m.Map==p.Map,"Ordinary dungeon building parked army");}finally{room.Unregister();}
             town.GuardsDisabled=false;p.MoveToWorld(destination,p.Map);Parked(p,m);p.Kill();PersistentMinions.Profiles.Sweep(TimedEffects.Now);Require(!p.Alive&&m.Deleted,"Parked army escaped owner-death cleanup");
         }
-        finally{foreach(var w in walls){w.Delete();}town.Unregister();m.Delete();merc.Delete();p.Delete();}
+        finally{foreach(var w in walls){w.Delete();}town.Unregister();m.Delete();born.Delete();merc.Delete();p.Delete();}
     }
     private static void LethalEntry()
     {

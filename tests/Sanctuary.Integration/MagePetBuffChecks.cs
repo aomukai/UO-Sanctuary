@@ -29,7 +29,12 @@ public static class MagePetBuffChecks
     {
         var dead=new GraveyardZombie{NoKillAwards=true};dead.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);dead.Damage(100000,p);if(dead.Alive){dead.Kill();}
         var corpse=dead.Corpse as Corpse;Require(SkeletonPets.Usable(p,corpse),"Mage buff corpse");var old=NecromancerSummons.ElementRoll;
-        try{NecromancerSummons.ElementRoll=()=>element;NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location),"Mage buff learned summon");}
+        try
+        {
+            NecromancerSummons.ElementRoll=()=>element;NecromancerEffects.SetMana256(p,p.ManaMax*256);
+            Require(NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location),
+                $"Mage buff learned summon:owner={p.Location},corpse={corpse.Location},available={NecromancerCombat.Available(p,CombatAbility.RaiseSkeletalMage)},region={NecromancerCastRegions.Allowed(p,CombatAbility.RaiseSkeletalMage)},corpseRoom={NecromancerCastRegions.CorpseAllowed(p,CombatAbility.RaiseSkeletalMage,corpse)},target={NecromancerCombat.ValidTarget(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location)},spawn={p.Map.CanSpawnMobile(corpse.Location)},mana={NecromancerEffects.ManaBalance256(p)},cost={SkillMechanics.Values(p,CombatAbility.RaiseSkeletalMage).Mana256}");
+        }
         finally{NecromancerSummons.ElementRoll=old;corpse.Delete();dead.Delete();}
         var b=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).OfType<MageWorldBody>().Last();if(future){b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});}return b;
     }

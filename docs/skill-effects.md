@@ -1,5 +1,7 @@
 # Skill effects
 
+**Mage town/safe-area validation:** no new effect/audio asset identity. The guard and fixture correction adds no cast animation or effect to rejected town casts. Existing Mage and parking presentation placeholders remain separately tracked. See the [checkpoint](mage-safe-area-checkpoint.md).
+
 **Generated NPC live resources:** native fractional resource binding adds no new skill effect/audio identity. Prepared recipient/equipment art remains identified placeholders. Actual actor animation/rate and skill presentation remain open; paired Tekagi appearance/attack preview is still pending. See the [checkpoint](generated-npc-live-resources-checkpoint.md).
 
 **Generated NPC resource callbacks:** numeric pool and regeneration changes introduce no new effect/audio identity. Existing summon/equipment placeholders remain identified; live effects and paired Tekagi appearance/animation preview remain pending. See the [checkpoint](generated-npc-resources-checkpoint.md).
