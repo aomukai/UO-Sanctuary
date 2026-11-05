@@ -37,7 +37,7 @@ public static class GeneratedNpcPhysicalChecks
         }
         Require(count==160,"Missing mastery controls");
     }
-    private static EquipmentStatValue[] Basis(int level)=>new[]{(0,100),(1,20),(2,50),(3,30),(7,256000),(9,76800),(11,25600),(12,level),(21,7),(22,14),(31,80)}
+    private static EquipmentStatValue[] Basis(int level)=>new[]{(0,100),(1,20),(2,50),(3,30),(7,256000),(9,76800),(11,25600),(12,level),(21,7),(22,14),(31,80),(18,37),(17,51),(185,89),(186,60),(187,300)}
         .Select(p=>new EquipmentStatValue(EquipmentStatKey.Pack(p.Item1),p.Item2))
         .Concat(new[]{(342,45,25),(343,45,50),(344,45,15),(345,45,35),(346,45,65),(347,45,30),(342,69,40),(343,69,80),(344,69,25)}
             .Select(p=>new EquipmentStatValue(EquipmentStatKey.Pack(p.Item1,p.Item2),p.Item3))).ToArray();
@@ -70,6 +70,12 @@ public static class GeneratedNpcPhysicalChecks
                 foreach(int added in new[]{-150,0,125})
                 {
                     var stats=weapon.Physical(48,range,added);
+                    Require(stats.MinimumPercent==EquipmentStatValues.SourceRead(graph.Actor.Stats,EquipmentStatKey.Pack(18),EquipmentStatValues.Definition(18))&&stats.MaximumPercent==EquipmentStatValues.SourceRead(graph.Actor.Stats,EquipmentStatKey.Pack(17),EquipmentStatValues.Definition(17)),"Pinned source endpoint stat IDs "+n+"/"+stage);
+                    if(n==0&&stage==0&&added==0)
+                    {
+                        var wrong=stats with{MinimumPercent=graph.Read(186),MaximumPercent=graph.Read(187)};
+                        Require(NpcEquipmentDamage.Roll256(stats,_=>0)!=NpcEquipmentDamage.Roll256(wrong,_=>0),"Regression control failed to distinguish old stat binding");
+                    }
                     foreach(int share in new[]{64,128,255})foreach(int edge in new[]{0,1})
                     {
                         int bound=0,draws=0;int damage=NpcEquipmentDamage.Roll256(stats,b=>{bound=b;draws++;return edge==0?0:b-1;},share);

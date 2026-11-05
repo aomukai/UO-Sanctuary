@@ -1,6 +1,37 @@
 {
   "referenceVersion": "3.3.93847",
   "currentExecutableParity": false,
+  "statBindings": {
+    "STAT_MAXHP": 7,
+    "STAT_MAXMANA": 9,
+    "STAT_MAXSTAMINA": 11,
+    "STAT_MINDAMAGE": 21,
+    "STAT_MAXDAMAGE": 22,
+    "STAT_SECONDARY_MINDAMAGE": 23,
+    "STAT_SECONDARY_MAXDAMAGE": 24,
+    "STAT_ITEM_NORMALDAMAGE": 111,
+    "STAT_DAMAGEPERCENT": 25,
+    "STAT_STRENGTH": 0,
+    "STAT_DEXTERITY": 2,
+    "STAT_ITEM_MINDAMAGE_PERCENT": 18,
+    "STAT_ITEM_MAXDAMAGE_PERCENT": 17,
+    "STAT_PASSIVE_MASTERY_MELEE_TH": 342,
+    "STAT_PASSIVE_MASTERY_MELEE_DMG": 343,
+    "STAT_PASSIVE_MASTERY_MELEE_CRIT": 344,
+    "STAT_PASSIVE_MASTERY_THROW_TH": 345,
+    "STAT_PASSIVE_MASTERY_THROW_DMG": 346,
+    "STAT_PASSIVE_MASTERY_THROW_CRIT": 347
+  },
+  "validatedStatBindings": 19,
+  "statIdHeader": "source/D2Common/include/D2StatList.h",
+  "regressionBasis": {
+    "18": 37,
+    "17": 51,
+    "185": 89,
+    "186": 60,
+    "187": 300
+  },
+  "supersedes": "de7a3b17 physical binding proof:wrong186/187fixture constants and native reads;old cached source remains frozen",
   "compositions": 3276,
   "stages": 5,
   "rollsPerStage": 18,
@@ -64,15 +95,17 @@
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
-    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Inventory.cpp": "04c9bd2fb8cd841e77cd803129b81806f0b6bebe06f96d806f248d726e2434e1"
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Inventory.cpp": "04c9bd2fb8cd841e77cd803129b81806f0b6bebe06f96d806f248d726e2434e1",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6"
   },
   "artifacts": {
-    ".local/class-skills/generated-npc-physical-source/source.cpp": "0fb2ec077c5e840dc262c06434b3345a9ef66e0eae7eea3753d99dcf7d85d5fb",
-    ".local/class-skills/generated-npc-physical-source/probe": "fe133f6a93ad82949afc3ec3900ad7ff778db9d6261040b4e46879c0ecd7ec3d",
-    ".local/class-skills/generated-npc-physical-source/cases.json": "a87faff0262b16c58d71e69236804684a7198cc3d4ee89f4179b899c51ecc4db",
-    ".local/class-skills/generated-npc-physical-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/generated-npc-physical-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "tools/probe_generated_npc_physical.py": "93b48f539444ab16b75d14450d0d5fbb77c8d73e90db6b5dbf2519c1c1e2b5be"
+    ".local/class-skills/generated-npc-physical-stats-source/source.cpp": "4c6a5b281a8db0efb911bce20c51423650e706b7bde00d047a16c2b29635187f",
+    ".local/class-skills/generated-npc-physical-stats-source/probe": "3a418f2642214b7c7b331cd1b810cc8a13204005335932ad585d0a85ad83b4d1",
+    ".local/class-skills/generated-npc-physical-stats-source/cases.json": "afb8214652eb2b29d2b0c32b64212999d31d465aa5f5b5fa396c18f6350a1998",
+    ".local/class-skills/generated-npc-physical-stats-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/generated-npc-physical-stats-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_generated_npc_physical.py": "92fb472515954d472de6f7d11c454dcd894295b7a5c5cc66233d21d6ee732cca"
   },
   "scope": "Complete physical getter/roll,layered mastery readers,stat copies,wield caller,coefficient getters and percentage function compose with30retained original item/stat/hand routines. Current item-type ancestry,throwability,valid raw records and body grid are declared data/services. Ordinary getStats1/initialDamage0;explicit skill range/type and added percent/source share. No elemental/poison/critical/HP/event or learned-actor admission."
 }

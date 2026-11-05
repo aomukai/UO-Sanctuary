@@ -64,7 +64,7 @@ internal sealed class GeneratedNpcWeaponFrame:SourceWeaponServices<EquipmentStat
         }
         int damage=item!=null&&Wield==2?23:21;
         return new(Read(damage),Read(damage+1),Read(111),checked(Read(25)+additionalPercent+Mastery(selected,1,firstSkillItemType,skillRange)),
-            Read(0),Read(2),item!=null,item==null?0:coefficient("StrBonus"),item==null?0:coefficient("DexBonus"),Read(186),Read(187));
+            Read(0),Read(2),item!=null,item==null?0:coefficient("StrBonus"),item==null?0:coefficient("DexBonus"),Read(18),Read(17));
     }
     internal override bool Inventory(EquipmentStatUnit actor)=>true;
     internal override bool Dual(EquipmentStatUnit actor)=>SourceItemStatUpdates.CanDualWield(actor.Kind,Kind);

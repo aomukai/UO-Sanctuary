@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "db91e11edd7d4736092725d0b79c4e49a337468277e97bf6109525e091eeb420",
+  "ContentAssemblySha256": "0d3e86a78cdd210c17e24a911dd1cc2d48ed3d5478bc4947234a6ff15bb6d4c3",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -624,7 +624,7 @@
     "src/Sanctuary.Content/GeneratedNpcItem.cs": "56b440cd3871e8865fa2bd14db2c0210180a72a7f6eeb961e52bc2059d243cd4",
     "src/Sanctuary.Content/GeneratedNpcLiveResources.cs": "93ed7ae804479ef6e0c400e1928efe3290d00f86b0c08db6b131849c9cb59f5a",
     "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "538cffa9af0ca0d48e4a1c4a90a53375cd25ee0918d6c1494ac8c377035390aa",
-    "src/Sanctuary.Content/GeneratedNpcWeaponFrame.cs": "5d6b554a7ee17a7f7e83ec5e519e0f50e13b581c5fb61b64dbc7eb4d2aa7eef4",
+    "src/Sanctuary.Content/GeneratedNpcWeaponFrame.cs": "36779002183bc1b06e18a3ba00c709b17079e98540c399e81868c75a7185c908",
     "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCollisionFootprints.cs": "b9871ce5f394394d9d1cbe9918bb160ecc474ebb91ba8f3a37d48b5f212efada",
     "src/Sanctuary.Content/GenericPetCollisionReads.cs": "e39ac420d899269f939638c0c22f2bd7e9818d9851ec51f20d4a03772ecf14d2",

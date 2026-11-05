@@ -1,5 +1,7 @@
 # Generated NPC selected-hand physical checkpoint
 
+**Superseded physical stat binding:** the original `de7a3b17` adapter and oracle both used incorrect endpoint-percentage IDs186/187. The pinned header establishes18/17. See the [correction and replacement acceptance](generated-npc-physical-stats-checkpoint.md). The original agreement below is historical and does not establish the corrected stat binding.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Parent `2e1f47be` is pushed. Coverage remains **197/240 handlers**, no completed class or deployment.
 
 `GeneratedNpcWeaponFrame.Physical` now supplies the existing `NpcEquipmentDamage.Roll256` from the original recipient graph. It reads cached source actor totals, preserves the selected hand, distinguishes one-/two-handed endpoints, includes normal damage and layered weapon mastery, and uses the source signed-short Strength/Dexterity coefficients (including the raw-one sentinel). Additional skill percent and source-damage share remain explicit caller inputs. It does not substitute native UO item attributes or create a second damage formula.

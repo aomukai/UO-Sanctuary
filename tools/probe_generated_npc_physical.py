@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Selected-hand original item graph, mastery and full source physical roll."""
-import argparse,hashlib,json,subprocess
+import argparse,hashlib,json,re,subprocess
 from pathlib import Path
 from probe_current_item_affixes import function
-ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'.local/class-skills';STAGE=BASE/'generated-npc-physical-source'
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'.local/class-skills';STAGE=BASE/'generated-npc-physical-stats-source'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def build(check=False):
  STAGE.mkdir(parents=True,exist_ok=True);inputs={}
@@ -20,6 +20,15 @@ def build(check=False):
  for item in old['items']:
   code=raw['inputs'][item['Case']][0];b=bases[code];r=b['sourceFields'];facts.append(dict(Str=r.get('StrBonus',0),Dex=r.get('DexBonus',0),Two=r.get('2handed',0),Either=r.get('1or2handed',0),Throwable=rare[code]['throwable'],Types=[i for c,i in types.items()if isa(b['type'],c)]))
  units=source('source/D2Common/src/D2StatList.cpp');skills=source('source/D2Common/src/D2Skills.cpp');damage=source('source/D2Game/src/UNIT/SUnitDmg.cpp');unique=source('source/D2Game/src/MONSTER/MonsterUnique.cpp');items=source('source/D2Common/src/Items/Items.cpp');inventory=source('source/D2Common/src/D2Inventory.cpp')
+ header=source('source/D2Common/include/D2StatList.h')
+ enum=re.search(r'enum D2C_ItemStats\s*\{(.*?)\};',header,re.S).group(1)
+ enum=re.sub(r'/\*.*?\*/|//[^\n]*','',enum,flags=re.S);statIds={};ordinal=-1
+ for entry in enum.split(','):
+  if not entry.strip():continue
+  name,sep,value=entry.strip().partition('=');ordinal=int(value.strip(),0)if sep else ordinal+1;statIds[name.strip()]=ordinal
+ costs=load('data/Sanctuary/Balance/equipment-stat-costs.json');costsById={r['Id']:r for r in costs}
+ assert statIds['STAT_ITEM_MINDAMAGE_PERCENT']==18 and costsById[18]['Name']=='item_mindamage_percent'
+ assert statIds['STAT_ITEM_MAXDAMAGE_PERCENT']==17 and costsById[17]['Name']=='item_maxdamage_percent'
  added={}
  for text,names in[(units,['STATLIST_GetTotalStatValue','STATLIST_UnitGetStatValue','STATLIST_UnitGetItemStatOrSkillStatValue','D2Common_CopyStats_6FDB9C50','STATLIST_CopyStats']),(skills,['D2Common_11024','SKILLS_GetWeaponMasteryBonus']),(items,['ITEMS_GetStrengthBonus','ITEMS_GetDexBonus']),(inventory,['INVENTORY_GetWieldType']),(unique,['MONSTERUNIQUE_CalculatePercentage']),(damage,['SUNITDMG_ApplyDamageBonuses'])]:
   for n in names:added[n]=function(text,n)
@@ -42,7 +51,7 @@ def build(check=False):
  cpp+='bool typeParents[256][256]={};void InitTypes(){'+''.join('typeParents['+str(i)+']['+str(j)+']=true;'for c,i in types.items()for p,j in types.items()if isa(c,p))+'}\n'
  cpp+=r'''
 constexpr int BODYLOC_LARM=5,BODYLOC_RARM=4,INVGRID_BODYLOC=0,ITEMTYPE_THROWN_WEAPON=48;
-constexpr int STAT_MINDAMAGE=21,STAT_MAXDAMAGE=22,STAT_SECONDARY_MINDAMAGE=23,STAT_SECONDARY_MAXDAMAGE=24,STAT_ITEM_NORMALDAMAGE=111,STAT_DAMAGEPERCENT=25,STAT_STRENGTH=0,STAT_DEXTERITY=2,STAT_ITEM_MINDAMAGE_PERCENT=186,STAT_ITEM_MAXDAMAGE_PERCENT=187;
+constexpr int STAT_MINDAMAGE=21,STAT_MAXDAMAGE=22,STAT_SECONDARY_MINDAMAGE=23,STAT_SECONDARY_MAXDAMAGE=24,STAT_ITEM_NORMALDAMAGE=111,STAT_DAMAGEPERCENT=25,STAT_STRENGTH=0,STAT_DEXTERITY=2,STAT_ITEM_MINDAMAGE_PERCENT=18,STAT_ITEM_MAXDAMAGE_PERCENT=17;
 constexpr int STAT_PASSIVE_MASTERY_MELEE_TH=342,STAT_PASSIVE_MASTERY_MELEE_DMG=343,STAT_PASSIVE_MASTERY_MELEE_CRIT=344,STAT_PASSIVE_MASTERY_THROW_TH=345,STAT_PASSIVE_MASTERY_THROW_DMG=346,STAT_PASSIVE_MASTERY_THROW_CRIT=347;
 D2InventoryStrc inv;D2InventoryGridStrc body;int gBodyLocInventoryGridInfo=0,edge=0,lastBound=0,draws=0;
 D2ItemsTxt*DATATBLS_GetItemsTxtRecord(int id){if(id<0||id>=int(ARRAY_SIZE(facts)))return nullptr;auto f=facts[id];basis.nStrBonus=f.str;basis.nDexBonus=f.dex;basis.n2Handed=f.two;basis.n1or2Handed=f.either;return&basis;}
@@ -65,6 +74,7 @@ void MasteryControls(){printf("[");bool comma=false;for(int mode=0;mode<4;mode++
 '''
  main=main.replace('bool comma=false;printf("{\\\"equippable\\\":[");','InitTypes();printf("{\\\"mastery\\\":");MasteryControls();bool comma=false;printf(",\\\"equippable\\\":[");')
  assert 'MasteryControls();'in main
+ main=main.replace('std::array{31,80}', 'std::array{31,80},std::array{18,37},std::array{17,51},std::array{185,89},std::array{186,60},std::array{187,300}')
  main=main.replace('actor.pInventory=&actor;','actor.pInventory=&inv;inv.signature=true;inv.grid=&body;for(auto&v:body.ppItems)v=nullptr;')
  main=main.replace('trace.clear();calls.clear();itemCount=', 'for(int stat=342;stat<=347;stat++){int value=stat==342?25:stat==343?50:stat==344?15:stat==345?35:stat==346?65:30;Raw(root.Stats,uint32_t(stat)<<16|45,value);Raw(root.FullStats,uint32_t(stat)<<16|45,value);}for(int stat=342;stat<=344;stat++){int value=stat==342?40:stat==343?80:25;Raw(root.Stats,uint32_t(stat)<<16|69,value);Raw(root.FullStats,uint32_t(stat)<<16|69,value);}\ntrace.clear();calls.clear();itemCount=')
  needle='u.weapon=input.weapon;u.pItemData=&flags[i];';assert needle in main;main=main.replace(needle,'u.weapon=input.weapon;u.dwClassId=c.items[i];u.throwable=facts[c.items[i]].throwable;for(int type:facts[c.items[i]].types)u.types[type]=true;body.ppItems[u.body]=&u;u.pItemData=&flags[i];')
@@ -72,15 +82,19 @@ void MasteryControls(){printf("[");bool comma=false;for(int mode=0;mode<4;mode++
  cpp+='int main(){Init();'+main
  for n,h in hashes.items():assert hashlib.sha256(function(cpp,n).encode()).hexdigest()==h,n
  for n,b in added.items():assert function(cpp,n)==b,n
+ # ABI constants are validated independently against the hash-pinned enum,
+ # not merely made to agree with a production reader or a duplicated oracle.
+ bindings={n:int(v,0)for n,v in re.findall(r'\b(STAT_[A-Z0-9_]+)\s*=\s*(-?(?:0x[\da-fA-F]+|\d+))',cpp)if not n.startswith('STAT_OP_')}
+ assert len(bindings)==19 and all(statIds.get(n)==v for n,v in bindings.items()),bindings
  generated=STAGE/'source.cpp';generated.write_text(cpp);binary=STAGE/'probe'
  with(STAGE/'compiler.log').open('w')as log:subprocess.run(['g++','-std=c++20','-O1','-g1','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-pie','-no-pie',str(generated),'-o',str(binary)],stdout=log,stderr=subprocess.STDOUT,check=True)
  run=subprocess.run([str(binary)],capture_output=True,timeout=120);(STAGE/'sanitizer.log').write_bytes(run.stderr);assert run.returncode==0 and not run.stderr,run.stderr.decode()[-2500:]
  result=json.loads(run.stdout);assert len(result['numeric'])==3276 and len(result['mastery'])==160
  out=STAGE/'cases.json';out.write_text(json.dumps(dict(numericInputs=cases['numericInputs'],hands=cases['hands'],numericOutputs=result['numeric'],mastery=result['mastery']),separators=(',',':'))+'\n')
- hashes|={n:hashlib.sha256(b.encode()).hexdigest()for n,b in added.items()};record=dict(referenceVersion='3.3.93847',currentExecutableParity=False,compositions=3276,stages=5,rollsPerStage=18,physicalRollComparisons=294840,masteryControls=160,completeRoutineHashes=hashes,inputs=inputs,artifacts={str(p.relative_to(ROOT)):sha(p)for p in(generated,binary,out,STAGE/'compiler.log',STAGE/'sanitizer.log',Path(__file__).resolve())},scope='Complete physical getter/roll,layered mastery readers,stat copies,wield caller,coefficient getters and percentage function compose with30retained original item/stat/hand routines. Current item-type ancestry,throwability,valid raw records and body grid are declared data/services. Ordinary getStats1/initialDamage0;explicit skill range/type and added percent/source share. No elemental/poison/critical/HP/event or learned-actor admission.')
+ hashes|={n:hashlib.sha256(b.encode()).hexdigest()for n,b in added.items()};record=dict(referenceVersion='3.3.93847',currentExecutableParity=False,statBindings=bindings,validatedStatBindings=19,statIdHeader='source/D2Common/include/D2StatList.h',regressionBasis={'18':37,'17':51,'185':89,'186':60,'187':300},supersedes='de7a3b17 physical binding proof:wrong186/187fixture constants and native reads;old cached source remains frozen',compositions=3276,stages=5,rollsPerStage=18,physicalRollComparisons=294840,masteryControls=160,completeRoutineHashes=hashes,inputs=inputs,artifacts={str(p.relative_to(ROOT)):sha(p)for p in(generated,binary,out,STAGE/'compiler.log',STAGE/'sanitizer.log',Path(__file__).resolve())},scope='Complete physical getter/roll,layered mastery readers,stat copies,wield caller,coefficient getters and percentage function compose with30retained original item/stat/hand routines. Current item-type ancestry,throwability,valid raw records and body grid are declared data/services. Ordinary getStats1/initialDamage0;explicit skill range/type and added percent/source share. No elemental/poison/critical/HP/event or learned-actor admission.')
  target=ROOT/'tools/reference/generated-npc-physical-source-evidence.json';encoded=json.dumps(record,indent=2)+'\n'
  if check:assert target.read_text()==encoded,'Generated NPC physical proof stale'
  else:target.write_text(encoded)
- print('Generated NPC physical:3276compositions/294840rolls/160mastery controls;',len(hashes),'complete source routines;ASan/UBSan pass.')
+ print('Generated NPC physical:3276compositions/294840rolls/160mastery controls;',len(hashes),'complete source routines;19header-verified stat IDs;ASan/UBSan pass.')
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');build(p.parse_args().check)

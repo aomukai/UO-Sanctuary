@@ -1,5 +1,7 @@
 # Skill icons
 
+**Physical stat binding correction:** no new talent/hotkey icon identity or completed asset. Existing icon placeholders remain separate. See the [checkpoint](generated-npc-physical-stats-checkpoint.md).
+
 **Generated NPC selected-hand physical:** no new talent/hotkey icon identity or completed asset. Numeric weapon/mastery work leaves the existing class and summon icon placeholders separately tracked. See the [checkpoint](generated-npc-physical-checkpoint.md).
 
 **Generated NPC selected-weapon stats:** no new talent/hotkey icon identity or finished icon asset. Summon and skill placeholders remain separately tracked. See the [checkpoint](generated-npc-weapons-checkpoint.md).

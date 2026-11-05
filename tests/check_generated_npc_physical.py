@@ -7,10 +7,10 @@ from check_iron_golem_birth import check
 
 def configuration(broader=False,compact=False):
     c=previous(broader,compact)
-    c['stage']=ROOT/'.local/class-skills'/('generated-npc-physical-compact'if compact else'generated-npc-physical-broader'if broader else'generated-npc-physical')
+    c['stage']=ROOT/'.local/class-skills'/('generated-npc-physical-stats-compact'if compact else'generated-npc-physical-stats-broader'if broader else'generated-npc-physical-stats')
     c['extra_families']+=('generated-npc-physical',)
     c['extra_inputs']+=(Path(__file__).resolve(),)
-    c['extra_files']['generated-npc-physical-cases.json']=ROOT/'.local/class-skills/generated-npc-physical-source/cases.json'
+    c['extra_files']['generated-npc-physical-cases.json']=ROOT/'.local/class-skills/generated-npc-physical-stats-source/cases.json'
     return c
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--broader',action='store_true');p.add_argument('--compact',action='store_true');a=p.parse_args()
