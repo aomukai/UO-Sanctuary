@@ -50,7 +50,7 @@ public static class VineCastWindupChecks
             var p=Fresh();var target=new GraveyardZombie{CantWalk=true,NoKillAwards=true};target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);target.AIObject?.AITimer.Stop();
             try
             {
-                Require(!DruidCombat.Implemented(a)&&!ClassCombat.Available(p,a)&&!SkillBindings.Instance.Assign(p,false,a),"Prepared vine escaped public availability gate");
+                Require(DruidCombat.Implemented(a)==DruidVineCasting.Learned(a)&&ClassCombat.Available(p,a)==DruidVineCasting.Learned(a)&&SkillBindings.Instance.Assign(p,false,a)==DruidVineCasting.Learned(a),"Vine public availability/binding does not match admitted species");
                 int mana=NecromancerEffects.ManaBalance256(p);Require(Begin(p,a,target.Serial,target.Location),"Prepared vine begin");var action=ClassCombat.For(p);
                 Require(action.Timing==new ActionTiming(19,10)&&action.VineCast?.Ability==a&&action.PendingAbility==a&&Own(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Source human SCclock or early mutation");
                 Require(!ClassCombat.ResolveAction(p,action.EffectAt-1)&&Own(p).Length==0,"Early vine release");
@@ -124,7 +124,7 @@ public static class VineCastWindupChecks
         {
             var p=World.FindMobile((Serial)s.Owner) as PlayerMobile;var b=World.FindMobile((Serial)s.Body) as SkeletonGuardian;
             Require(p!=null&&b!=null&&b.ControlMaster==p&&State(b)==s.State&&SkillHealth.Balance256(b)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana
-                &&ClassCombat.For(p).VineCast==null&&ClassCombat.For(p).PendingAbility==CombatAbility.None&&!ClassCombat.Available(p,s.Ability),"Original paid vine/birth/wounds/resource/gate changed");
+                &&ClassCombat.For(p).VineCast==null&&ClassCombat.For(p).PendingAbility==CombatAbility.None&&ClassCombat.Available(p,s.Ability)==DruidVineCasting.Learned(s.Ability),"Original paid vine/birth/wounds/resource/gate changed");
         }
         var pending=World.FindMobile((Serial)saved.PendingOwner) as PlayerMobile;Require(pending!=null&&ClassCombat.For(pending).VineCast==null&&ClassCombat.For(pending).PendingAbility==CombatAbility.None
             &&Own(pending).Length==0&&NecromancerEffects.ManaBalance256(pending)==saved.PendingMana,"Unpaid transient cast resumed/charged after reload");
@@ -132,11 +132,13 @@ public static class VineCastWindupChecks
     private static void Live(NetState network)
     {
         var p=Fresh();var account=FixtureNetwork.Authenticate(network,p,"vine-windup-");int index=0,mana=0;long effect=0,deadline=Core.TickCount+12000;
-        void End(){network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();VineCastWindupChecks.End(p);}
+#pragma warning disable CS0618 // Native NetState.Dispose explicitly supports immediate test cleanup.
+        void End(){network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();VineCastWindupChecks.End(p);network.Dispose();}
+#pragma warning restore CS0618
         void Start()
         {
             var a=Skills[index];ClassCombat.For(p).NextAction=Core.TickCount-1;mana=NecromancerEffects.ManaBalance256(p);
-            Require(!ClassCombat.Perform(p,a,null,p.Location,Core.TickCount),"Public unresolved vine cast became available");
+            if(!DruidVineCasting.Learned(a)){Require(!ClassCombat.Perform(p,a,null,p.Location,Core.TickCount),"Unresolved poison vine cast became available");}
             Require(Begin(p,a,Serial.Zero,p.Location),"Connected prepared windup");effect=ClassCombat.For(p).EffectAt;
             Require(NecromancerEffects.ManaBalance256(p)==mana&&ClassCombat.For(p).VineCast!=null,"Connected windup charged early");
         }

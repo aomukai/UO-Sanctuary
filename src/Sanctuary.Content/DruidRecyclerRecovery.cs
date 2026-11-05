@@ -11,9 +11,10 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 // Mandatory selection keeps Solar's old-engine/current-table conflict visible.
-// Neither profile enables a learned talent. LegacySource is a differential
-// control; CurrentTableSolarProvisional explicitly reads current NPC325calc2.
-internal enum RecyclerRecoveryModel{LegacySource,CurrentTableSolarProvisional}
+// LegacySource retains the old routine for comparison and Carrion recovery.
+// Historical Solar profile1 remains intact; approved profile2 uses current
+// NPC325calc2 with the source whole-point arithmetic for learned Solar.
+internal enum RecyclerRecoveryModel{LegacySource,CurrentTableSolarProvisional,SanctuaryApprovedSolar}
 internal readonly record struct RecyclerGain(bool Changed,int After256);
 internal sealed record RecyclerRecovery(long Id,uint Owner,uint Actor,CombatAbility Ability,int Rank,int Remaining,
     DateTime NextUtc,RecyclerRecoveryModel Model,bool Triggered=false);
@@ -42,10 +43,16 @@ public static class DruidRecyclerRecovery
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static string Missile(CombatAbility ability)=>ability switch
     {CombatAbility.CarrionVine=>"recycler delay",CombatAbility.SolarCreeper=>"vine recycler delay",_=>throw new NotSupportedException("Not a recycler vine")};
+    internal static int Rank(DruidRecyclerBody actor)
+    {
+        int rank=checked(actor.Prepared.Snapshot.Birth.RecyclerRank+BattleCommand.Bonus(actor));
+        return rank is >=1 and <=255?rank:throw new NotSupportedException("Recycler effective NPC rank is outside the supported formula domain");
+    }
     private static void Route(CombatAbility ability,RecyclerRecoveryModel model)
     {
         string key=Missile(ability);int callback=ability==CombatAbility.CarrionVine?29:33;
-        if(!Enum.IsDefined(model)||NecromancerSummons.Source(key,"pSrvDoFunc")!=callback
+        if(!Enum.IsDefined(model)||model==RecyclerRecoveryModel.SanctuaryApprovedSolar&&ability!=CombatAbility.SolarCreeper
+            ||NecromancerSummons.Source(key,"pSrvDoFunc")!=callback
             ||NecromancerSummons.Source(key,"Range")!=47||NecromancerSummons.Source(key,"Param1")!=45)
         {throw new NotSupportedException("Unsupported recycler recovery route");}
     }
@@ -56,7 +63,7 @@ public static class DruidRecyclerRecovery
         if(rank is <1 or >255||current256<0||maximum256<0){throw new ArgumentOutOfRangeException();}
         if(!hasOwner||!alive||age!=45||current256/256>=maximum256/256){return new(false,current256);}
         var values=DruidNpcSkills.Recycler(ability,rank);
-        string formula=ability==CombatAbility.SolarCreeper&&model==RecyclerRecoveryModel.CurrentTableSolarProvisional?"calc2":"calc1";
+        string formula=ability==CombatAbility.SolarCreeper&&model is RecyclerRecoveryModel.CurrentTableSolarProvisional or RecyclerRecoveryModel.SanctuaryApprovedSolar?"calc2":"calc1";
         int whole=current256/256,max=maximum256/256;
         int after=checked(Math.Min(max,checked(whole+SourcePercentage.Calculate(max,checked((int)values.Eval(formula)),100)))*256);
         return new(true,after);
@@ -67,7 +74,7 @@ public static class DruidRecyclerRecovery
             ||state.Owner!=owner.Serial.Value||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-2)) {return default;}
         var birth=state.Snapshot.Birth;Route(birth.Ability,model);
         if(!CorpseSkillRules.UsableAt(owner,corpse,actor,double.PositiveInfinity)||!CorpseSkillRules.Reserve(corpse)){return default;}
-        long id=checked(_nextId+1);var effect=new RecyclerRecovery(id,owner.Serial.Value,actor.Serial.Value,birth.Ability,birth.RecyclerRank,47,at.AddMilliseconds(40),model);
+        long id=checked(_nextId+1);var effect=new RecyclerRecovery(id,owner.Serial.Value,actor.Serial.Value,birth.Ability,Rank(actor),47,at.AddMilliseconds(40),model);
         // Source start63 reserves first and does not undo that reservation if
         // allocation fails. Keep the loot container intact; it is not do137's
         // immediate Dire Wolf consume transaction.

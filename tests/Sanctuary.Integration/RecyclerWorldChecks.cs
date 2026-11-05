@@ -137,7 +137,7 @@ public static class RecyclerWorldChecks
                 &&events.SequenceEqual(row[2].EnumerateArray().Select(x=>x.GetInt32())),"Complete-source walk failure flag dispatch");comparisons++;
         }
         Require(comparisons==800,"Incomplete walk flag comparison coverage");
-        Require(!DruidCombat.Implemented(CombatAbility.CarrionVine)&&!DruidCombat.Implemented(CombatAbility.SolarCreeper),"Prepared world enabled learned route");
+        Require(DruidCombat.Implemented(CombatAbility.CarrionVine)&&DruidCombat.Implemented(CombatAbility.SolarCreeper),"Learned recycler routes missing");
         Movement();Feeding(CombatAbility.CarrionVine,RecyclerRecoveryModel.LegacySource);
         Feeding(CombatAbility.SolarCreeper,RecyclerRecoveryModel.LegacySource);Feeding(CombatAbility.SolarCreeper,RecyclerRecoveryModel.CurrentTableSolarProvisional);
         FullAndApproach();FailureAndEarlyGame();

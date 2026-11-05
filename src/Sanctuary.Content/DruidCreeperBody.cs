@@ -15,8 +15,9 @@ internal sealed record CreeperBodyState(uint Owner,CreeperSnapshot Snapshot,Mons
     public CreeperWorldState Controller{get;init;}
 }
 
-// Internal saved vulnerable life/owner backend. No live VINE_BEAST state,
-// movement, skill/mats or learned cast is implied by this visible placeholder.
+// Approved Sanctuary rule: vines stay vulnerable in every action mode.
+// No underground/surface immunity timeline is created. Poison Creeper
+// learned casting retains its separate poison-transport gate.
 [SerializationGenerator(0)]
 public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
 {

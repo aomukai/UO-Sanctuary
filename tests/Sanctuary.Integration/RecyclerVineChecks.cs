@@ -38,7 +38,7 @@ public static class RecyclerVineChecks
     {var row=SkillMechanics.For(ability);return new(row,key=>key==row.SourceKey?rank:0,_=>0,level);}
     private static void Models()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.CarrionVine)&&!DruidCombat.Implemented(CombatAbility.SolarCreeper),"Prepared components enabled learned skills");
+        Require(DruidCombat.Implemented(CombatAbility.CarrionVine)&&DruidCombat.Implemented(CombatAbility.SolarCreeper),"Learned recycler skills missing");
         using var birth=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"recycler-vines-birth-source-probe.json")));int births=0;
         foreach(var row in birth.RootElement.EnumerateArray())
         {

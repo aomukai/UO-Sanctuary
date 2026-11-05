@@ -41,7 +41,7 @@ public static class RecyclerCastingChecks
         var spawn=DruidRecyclerCasting.Spawn;var model=ability==CombatAbility.CarrionVine?RecyclerRecoveryModel.LegacySource:RecyclerRecoveryModel.CurrentTableSolarProvisional;
         try
         {
-            Require(!ClassCombat.Available(p,ability)&&!DruidCombat.Implemented(ability),"Prepared cast enabled unresolved learned route");
+            Require(ClassCombat.Available(p,ability)&&DruidCombat.Implemented(ability),"Learned recycler route missing");
             Require(!p.Map.CanSpawnMobile(aim)&&PetGroundWorld.ZeroFootprint(p.Map,aim),"Zero-footprint occupied point fixture");
             var first=Cast(p,ability,enemy.Serial,p.Location,at,model);Require(first.Location==aim,"Selected-unit vine placement");SkillHealth.SetBalance256(first,1201);
             int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
@@ -106,7 +106,7 @@ public static class RecyclerCastingChecks
         Require(first.Deleted&&!wolf.Deleted&&!raven.Deleted,"Vine category replacement removed another summon family");
         PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,second.Serial.Value,wolf.Serial.Value,raven.Serial.Value,
             second.Prepared,NecromancerEffects.ManaBalance256(p),p.Map.MapID,p.Location)));
-        Log.Information("Recycler prepared cast:10mana Carrion/14rank1Solar/15soft-rank2Solar,once-only payment,allocation/payment rollback,fractional mana,occupied and moving/deleted targets,town,three-vine replacement,independent recovery and wolf/Raven coexistence pass; learned SC/input and surface-window remain gated");
+        Log.Information("Recycler prepared cast:10mana Carrion/14rank1Solar/15soft-rank2Solar,once-only payment,allocation/payment rollback,fractional mana,occupied and moving/deleted targets,town,three-vine replacement,independent recovery and wolf/Raven coexistence pass; learned input/approved exposure are checked separately");
     }
     private static void Reload()
     {

@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedDeviation": true,
+  "decisions": [
+    {
+      "topic": "Vine exposure",
+      "appliesTo": [
+        "druid.poisoncreeper",
+        "druid.carrionvine",
+        "druid.solarcreeper"
+      ],
+      "userAnswer": "let's keep them always vulnerable. no extra underground/above ground calculations. if it turns out they're too squishy, we can add some defense later.",
+      "rule": "Vines remain vulnerable in every action mode;do not create underground/surface protection windows. Existing defenses remain unchanged. Existing safe-area parking remains separate."
+    },
+    {
+      "topic": "Solar recovery",
+      "appliesTo": [
+        "druid.solarcreeper"
+      ],
+      "userAnswer": "Use the table values with whole-point rounding",
+      "rule": "Use current NPC325calc2=ln12:4percent maximum mana at effective NPCrank1,plus1percentage point per subsequent rank. Reuse source whole-point arithmetic:truncate current/max FP256 to whole points,floor the percentage gain,clamp to whole maximum and store FP256. Keep existing elapsed45delayed callback and one-use behavior.",
+      "profile": "SanctuaryApprovedSolar",
+      "enumValue": 2
+    }
+  ],
+  "legacyObservation": "tools/reference/vine-exposure-observation.json",
+  "notes": [
+    "These are approved Sanctuary rules,not newly established D2R executable behavior.",
+    "Historical recovery profiles0and1retain their behavior and saved interpretation. New learned Solar casts select profile2.",
+    "Poison Creeper still has an independent poison transport/capture/sunder gate; exposure does not imply those mechanics are finished."
+  ]
+}

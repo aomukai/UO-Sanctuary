@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Carrion/Solar (2026-11-05 JST).** Both use the existing visible silent `0x8` body placeholder, shared summon sound `0x1E5` and recovery marker `0x376A`. Final body/summon/corpse-eating/recovery/wither/audio assets remain pending. The approved always-vulnerable rule needs no mechanical underground/surface transition assets. Poison Creeper retains its separate head/trail/mat effects list and transport gate. No imagegen asset is created. See [checkpoint](recycler-learned-checkpoint.md).
+
 **NPC on-kill curses (2026-11-05 JST).** Kill-triggered curses reuse the same identified curse marker `0x375A`, hue `0x455` and sound `0x1E5`. Final spell-specific effects/audio remain pending. Event activation adds no artwork or imagegen binding. See [checkpoint](npc-kill-procs-checkpoint.md).
 
 **NPC item event graphs (2026-11-05 JST).** Actual supported item curses reuse the eight existing curse effects and sound placeholders (marker `0x375A`, hue `0x455`, sound `0x1E5`). Event registration and persistence add no artwork. Final curse-specific cast/state/audio assets remain pending; unsupported event producers do not count as delivered effects. See [checkpoint](unit-events-checkpoint.md).

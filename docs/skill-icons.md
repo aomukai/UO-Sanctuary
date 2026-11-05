@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Carrion/Solar (2026-11-05 JST).** Existing Carrion Vine and Solar Creeper talent/right/quick identities are enabled through the common binding system. Their final talent-tree and hotkey artwork remains separately pending with identified generic placeholders. Poison Creeper artwork stays separately listed while its learned route is gated. No icon art or client binding is generated. See [checkpoint](recycler-learned-checkpoint.md).
+
 **NPC on-kill curses (2026-11-05 JST).** No talent, binding or icon slot is added. Existing curse tree/hotkey artwork remains separately pending with identified placeholders; later UI should reuse each underlying spell icon. See [checkpoint](npc-kill-procs-checkpoint.md).
 
 **NPC item event graphs (2026-11-05 JST).** No talent, hotkey or icon slot is added. Any later item-charge UI should reuse the underlying skill icon. Separate final tree/hotkey icons for the eight curses and Shadow/Valkyrie remain pending with identified placeholders. See [checkpoint](unit-events-checkpoint.md).

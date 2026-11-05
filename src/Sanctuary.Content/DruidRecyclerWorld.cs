@@ -138,7 +138,6 @@ internal static class DruidRecyclerWorld
     }
     internal static RecyclerWorldState EnterFeeding(DruidRecyclerBody body,RecyclerWorldState s,Corpse corpse,DateTime at)
     {
-        if(BattleCommand.State(body)!=null){throw new NotSupportedException("Recycler innate Battle Command transport remains unverified");}
         if(corpse!=null){body.Direction=body.GetDirectionTo(corpse);}
         s=s with{Mode=8,EndAt=checked(s.Frame+SkillEnd()),NextThink=0,Motion=DruidWolfGeometry.Stop(s.Motion),SkillAttempts=checked(s.SkillAttempts+1)};
         // Complete mode8entry calls start immediately and returns success even
@@ -197,7 +196,7 @@ internal static class DruidRecyclerWorld
         var primary=Primary(body,owner,s);bool combat=primary is BaseCreature creature&&DruidWolfGeometry.MeleeDistance(Cell(s),PetOwnerRoutes.Cell(primary),0,CreatureProfiles.For(creature).Traits.Size.Value)<=2;
         s=s with{Target=primary?.Serial.Value??0,PendingVisionReset=false};
         var ai=DruidRecyclerAi.Think(new(body.VineAbility,true,DruidWolfGeometry.UnitDistance(Cell(s),ownerCell,0,2),checked(s.GameBase+s.Frame),
-            skill,true,birth.RecyclerRank>0,checked((int)DruidNpcSkills.Recycler(body.VineAbility,birth.RecyclerRank,birth.Level).Eval("aurarangecalc")),
+            skill,true,birth.RecyclerRank>0,checked((int)DruidNpcSkills.Recycler(body.VineAbility,DruidRecyclerRecovery.Rank(body),birth.Level).Eval("aurarangecalc")),
             (int)(primary?.Serial.Value??0),false,combat,SkillHealth.Full(owner),NecromancerEffects.ManaBalance256(owner)>=owner.ManaMax*256,body.SummonDifficulty),s.Ai,
             new(Request,Common,Move,range=>FindCorpse(body,owner,s,range),()=>(int)(Draw(ref s)%100),r=>
             {

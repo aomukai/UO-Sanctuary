@@ -5,8 +5,8 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Prepared do115release transaction. Deliberately not registered with
-// DruidCombat while underground exposure/current transport remain unfinished.
+// Prepared do115release transaction. Poison transport remains a separate
+// learned gate; always-vulnerable exposure is now approved for all vines.
 internal static class DruidCreeperCasting
 {
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));

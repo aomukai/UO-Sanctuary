@@ -16,8 +16,8 @@ internal sealed record RecyclerBodyState(uint Owner,RecyclerSnapshot Snapshot,Mo
     public RecyclerWorldState Controller{get;init;}
 }
 
-// Saved life/ownership backend. Visible, vulnerable and silent placeholders;
-// underground exposure and learned casting remain separate.
+// Saved life/ownership backend. Approved vines remain vulnerable in every
+// action mode, with visible silent placeholders and no exposure timeline.
 [SerializationGenerator(0)]
 public partial class DruidRecyclerBody:SkeletonGuardian,ISourceLifeMaximum
 {

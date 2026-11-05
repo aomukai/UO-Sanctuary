@@ -4,8 +4,8 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Prepared do115 release. The recovery profile is always explicit; learned
-// routing awaits the surface-window and Solar current-executable checks.
+// Shared do115 release for prepared and learned recycler vines. Recovery
+// selection is explicit; the public Solar rule is an approved adaptation.
 internal static class DruidRecyclerCasting
 {
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
