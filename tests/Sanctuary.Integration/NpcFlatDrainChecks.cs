@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using Server;
 using Server.Mobiles;
@@ -88,14 +89,48 @@ public static class NpcFlatDrainChecks
         internal override NpcFillPacket AttackedInMelee(NpcFillPacket p)=>throw new InvalidOperationException("Non-hireling fill must not use player/hireling event");
     }
 
-    private static EncounterCreature Body(string name)
+    public sealed class ResourceFixture:EncounterCreature
     {
-        var b=new EncounterCreature{Name=name,Frozen=true,CantWalk=true};
+        [Constructible]public ResourceFixture(){}
+        public ResourceFixture(Serial serial):base(serial){}
+        public override bool CanRegenHits=>false;
+        public override bool CanRegenMana=>false;
+        public override bool CanRegenStam=>false;
+        public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+        public override void Deserialize(IGenericReader reader){base.Deserialize(reader);reader.ReadInt();}
+    }
+    private static EncounterCreature Body(string name,bool ordinary=false)
+    {
+        // A name-based hour-long rate cannot replace the first delay of a
+        // stamina timer already created by the base constructor. Exact saved
+        // resource fixtures must disable native recovery from construction.
+        EncounterCreature b=ordinary?new EncounterCreature():new ResourceFixture();b.Name=name;b.Frozen=b.CantWalk=true;
         var profile=EncounterProfiles.All.First(p=>p.Archetype==MonsterArchetype.Tank);
         b.Assign(profile,Math.Clamp(60,profile.MinimumLevel,profile.MaximumLevel),MonsterDifficulty.Normal,EncounterGrade.Ordinary,ChampionKind.Champion,[],EliteAura.None,name,new Random(173));
         b.AIObject?.AITimer.Stop();b.SetHits(1000);b.SetMana(100);b.SetStam(100);
         foreach(var kind in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy,ResistanceType.Poison}){b.SetResistance(kind,0);}
         b.MoveToWorld(new(6400,2800,0),Map.Trammel);return b;
+    }
+    private static void TimerControl()
+    {
+        var ordinary=Body("Flat drain timer control [fixture]",true);var stable=Body("Flat drain stable control [fixture]");
+        BattleOrders.SetStamina256(ordinary,1025);BattleOrders.SetStamina256(stable,1025);
+        var field=typeof(Mobile).GetField("m_StamTimer",BindingFlags.Instance|BindingFlags.NonPublic);
+        var timer=field.GetValue(ordinary)as Timer;
+        Require(timer is{Running:true}&&timer.Delay<TimeSpan.FromSeconds(6)&&Mobile.GetStamRegenRate(ordinary)==TimeSpan.FromHours(1),"No retained constructor stamina timer to reproduce");
+        long delay=timer.Delay.Ticks;int nativeBefore=ordinary.Stam;
+        Timer.StartTimer(TimeSpan.FromSeconds(6),()=>Core.LoopContext.Post(()=>
+        {
+            try
+            {
+                int after=BattleOrders.Stamina256(ordinary),fixedAfter=BattleOrders.Stamina256(stable);
+                Require(after==1281&&ordinary.Stam==nativeBefore+1&&fixedAfter==1025&&timer.Delay==TimeSpan.FromHours(1),"First cached native timer or no-recovery control differs");
+                Log.Information("Drain timer:constructor delay {Delay} ticks,current rate {Rate} ticks;ordinary1025->1281,explicit no-recovery fixture1025->1025;first native tick precedes its updated hour-long interval",delay,Mobile.GetStamRegenRate(ordinary).Ticks);
+                Log.Information("npc-flat-drains-timer-result: passed");
+            }
+            catch(Exception e){Log.Error(e,"npc-flat-drains-timer-result: failed");}
+            finally{ordinary.Delete();stable.Delete();}
+        }));
     }
     private static void NativeCases()
     {
@@ -139,7 +174,7 @@ public static class NpcFlatDrainChecks
         else
         {
             var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var actor=World.FindMobile((Serial)s.Actor)as BaseCreature;var target=World.FindMobile((Serial)s.Target)as BaseCreature;
-            Require(actor is{Alive:true,Deleted:false}&&target is{Alive:true,Deleted:false}&&SkillHealth.Balance256(actor)==s.SourceLife&&SkillHealth.Balance256(target)==s.TargetLife&&NecromancerEffects.ManaBalance256(target)==s.Mana&&BattleOrders.Stamina256(target)==s.Stamina&&CombatStuns.Snapshot().Contains(s.Stun),"Original drained resource/HP/status replayed or recovered on reload");
+            Require(actor is{Alive:true,Deleted:false}&&target is{Alive:true,Deleted:false}&&SkillHealth.Balance256(actor)==s.SourceLife&&SkillHealth.Balance256(target)==s.TargetLife&&NecromancerEffects.ManaBalance256(target)==s.Mana&&BattleOrders.Stamina256(target)==s.Stamina&&CombatStuns.Snapshot().Contains(s.Stun),"Original drained resource/HP/status replayed or recovered on reload: expected="+Json(s)+", actual="+Json(new{SourceAlive=actor?.Alive,TargetAlive=target?.Alive,SourceLife=actor==null?-1:SkillHealth.Balance256(actor),TargetLife=target==null?-1:SkillHealth.Balance256(target),Mana=target==null?-1:NecromancerEffects.ManaBalance256(target),Stamina=target==null?-1:BattleOrders.Stamina256(target),Stun=CombatStuns.Snapshot().Where(x=>x.Target==s.Target).ToArray()}));
             File.WriteAllText(Manifest,Json(s with{Generation=s.Generation+1}));
         }
         Log.Information("NPC flat drains:11664full-source contexts;12actual full-fill/native HP/resource contacts;life/mana/stamina ordering and explicit receiver admission;original wounded pools/stun retained through two reloads");
@@ -147,6 +182,8 @@ public static class NpcFlatDrainChecks
     public static void Configure()
     {
         Rates();
+        ConsoleInputHandler.RegisterCommand("npc-flat-drains-timer-check","Reproduce the cached first native stamina tick",_=>Core.LoopContext.Post(()=>
+        {try{TimerControl();Log.Information("npc-flat-drains-timer-check: passed");}catch(Exception e){Log.Error(e,"npc-flat-drains-timer-check: failed");}}));
         foreach(string name in new[]{"npc-flat-drains-check","npc-flat-drains-reload-check"})ConsoleInputHandler.RegisterCommand(name,"Full ordinary NPC allocation/drain receiver",_=>Core.LoopContext.Post(()=>{try{Check(name.EndsWith("-reload-check",StringComparison.Ordinal));Log.Information("{Name}: passed",name);}catch(Exception ex){Log.Error(ex,"{Name}: failed",name);}}));
     }
 }

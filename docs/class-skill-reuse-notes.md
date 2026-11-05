@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Exact resource-fixture reuse:** overriding a regeneration rate by a name assigned after construction does not replace an existing native timer’s first delay. For saved wounded-state tests that must not recover,use explicit `CanRegenHits/Mana/Stam=false` fixture types,retaining real profile/stat/resource consumers and original expected balances. The direct ordinary-versus-stable timer control and combined reload evidence are in the [checkpoint](npc-drain-reload-checkpoint.md). Leave production recovery rules intact.
+
 **NPC freeze reuse:** `NpcItemFreeze` uses existing `NamedControl.FreezeFrames` and actor RNG; `NpcFreezeStatus` uses `ColdStates`/`FreezeStates` and the shared prepared status entry point. Keep nested zero-result status separate from an ordinary successful hit or missile return. Full allocation carries freeze as its own optional field; deliver cold → freeze → poison after HP/stun, applying resistance only once. See the [checkpoint](npc-freeze-hit-checkpoint.md). Native hireling targets remain explicitly gated.
 
 **Filled NPC hit reuse:** `NpcEquipmentImpact.FromFill` bridges full allocation into existing mitigation, poison and `PreparedMonsterDamage` rather than replaying native Damage. Three optional drain fields use `NpcFlatDrains`, existing FP256 resource setters and percentage/HP/stun primitives. Keep ordinary-NPC service admission explicit; do not reinterpret fields as player percentages or discard unsupported freeze/burn/bypass metadata. See the [checkpoint](npc-flat-drains-checkpoint.md).

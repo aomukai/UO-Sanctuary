@@ -1,5 +1,7 @@
 # NPC equipment freeze delivery
 
+**Follow-up:** the longer combined drain/Revive reload mismatch below is resolved as a test-fixture stamina-timer issue. Production mechanics are unchanged; see the [resolved checkpoint](npc-drain-reload-checkpoint.md).
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Parent `c5a45eaf`. This is shared Necromancer summon/equipment work; coverage remains **197/240 handlers**, with no completed class or deployment.
 
 `NpcItemFreeze` now admits the existing stat134/function14 on original Iron Golem equipment and frozen Revive equipment. It reuses `NamedControl.FreezeFrames`, the NPC's offensive random stream, `ColdStates` and `FreezeStates`. A successful chance roll emits the source's actual **zero-damage, zero-result nested status packet**. It does not invent another successful attack, HP notification, return, packet free or attack-attempt event. The zero-channel defensive phase remains explicit. Both outgoing melee and missile registrations are retained in the live item graph.
