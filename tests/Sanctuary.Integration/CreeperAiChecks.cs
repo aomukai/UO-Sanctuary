@@ -16,7 +16,7 @@ public static class CreeperAiChecks
     {try{Check();Log.Information("creeper-ai-check: passed");}catch(Exception e){Log.Error(e,"creeper-ai-check: failed");}}));
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Policy enabled unfinished learned Creeper");
+        Require(DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Learned Creeper route missing");
         using var document=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"creeper-ai-source-probe.json")));
         int count=0;
         foreach(MonsterDifficulty difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})

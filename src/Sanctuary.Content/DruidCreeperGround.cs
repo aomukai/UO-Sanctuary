@@ -28,7 +28,7 @@ public sealed class CreeperGroundProfiles:GenericPersistence
 }
 
 // Independent fields outlive their NPC. Original-player allegiance is retained
-// as a declared adapter. New groups carry provisional birth-Rabies contexts and
+// as a declared adapter. New groups carry approved summon-time contexts and
 // actual poison packets; legacy capture-only groups remain nondamaging.
 public static class DruidCreeperGround
 {

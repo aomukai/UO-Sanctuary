@@ -76,9 +76,9 @@ public static class CreeperPoisonChecks
         var body=DruidCreeperBody.CreatePrepared(p,new(p.X+2,p.Y,p.Z),at);var context=DruidCreeperPoison.Capture(body.Prepared.Snapshot);
         var mat=DruidCreeperPoison.Initialize(new(1,1,(p.X+3)*2,p.Y*2,125,109){Z=p.Z},context,100);uint removed=body.Serial.Value;body.Delete();
         var target=Target(p);mat=DruidCreeperPoison.Deliver(p,target,mat,at);var state=State(target);
-        Require(context.Profile==DruidCreeperPoison.BalancedProfile&&context.RabiesHardRank==20&&state.PoisonClock.Rate256 is >=609 and <912&&state.PoisonSource==p.Serial.Value,"Approved fresh base curve, hard-only synergy, source-zero packet roll or removed-actor delivery");
+        Require(context.Profile==DruidCreeperPoison.SnapshotProfile&&context.RabiesHardRank==20&&state.PoisonClock.Rate256 is >=609 and <912&&state.PoisonSource==p.Serial.Value,"Approved fresh base curve, hard-only synergy, source-zero packet roll or removed-actor delivery");
         Hold(target);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,removed,target.Serial.Value,mat,context,State(target),SkillHealth.Balance256(target))));
-        Log.Information("Creeper poison: legacy raw32/48 and hard20synergy96/144 retained; fresh balanced rank1 hard20 rates609/912, slow,40mshealth,resistance/immunity,replacement/expiry/lethal credit pass; birth Rabies timing remains provisional");
+        Log.Information("Creeper poison: legacy raw32/48 and hard20synergy96/144 retained; fresh balanced rank1 hard20 rates609/912, slow,40mshealth,resistance/immunity,replacement/expiry/lethal credit pass; summon-time snapshot approved");
     }
     private static void Reload()
     {

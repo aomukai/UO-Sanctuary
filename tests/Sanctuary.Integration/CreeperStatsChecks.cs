@@ -19,7 +19,7 @@ public static class CreeperStatsChecks
         key=>key=="Plague Poppy"?rank:255,key=>key=="Rabies"?hard:0,level);
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Numeric preparation enabled incomplete learned skill");
+        Require(DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Learned Creeper route missing");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"creeper-components-source-probe.json")));
         var fields=data.RootElement.GetProperty("fields").EnumerateArray().Select(x=>x.GetString()).ToArray();int damage=0,birth=0;
         foreach(var row in data.RootElement.GetProperty("damage").EnumerateArray())

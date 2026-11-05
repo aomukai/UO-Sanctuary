@@ -1901,10 +1901,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 222,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Always-vulnerable vines are now an approved Sanctuary deviation; no surface/underground protection window is required. Prepared SC/FCR release, saved controller and independent mats retain the approved rank20base midpoint2000 before the sole hard-Rabies10percent synergy. Learned casting remains gated by provisional birth/live Rabies and owner/NPC gear/sunder transport; historical fields retain their rates. These limits do not block learned Carrion/Solar. See vine-sanctuary-decisions.json and creeper-balance-checkpoint.md. Final body/mat/audio and talent/hotkey assets remain separate."
+      "remaining": "Learned right/quick SC/FCR casting uses the existing8mana atomic shared-vine transaction. Approved summon-time snapshot freezes effective summon rank and hard Rabies; owner poison mastery/item pierce are excluded. New explicit profile retains the approved rank20base midpoint2000over4seconds before sole hard Rabies10percent synergy; historical profiles/fields retain their packets. Always vulnerable. External Battle Command affects innate Vine Attack at emission without rewriting base stats or existing groups. Shared sunder delivery remains unsupported and nonzero captured sunder refuses before payment. Exact current room/path/vision/global scheduling and source AStar fallback remain explicit gaps. See summon-snapshot-decision.json and creeper-learned-checkpoint.md; final body/mat/audio and talent/hotkey assets stay separate."
     },
     {
       "talentId": "druid.oaksage",

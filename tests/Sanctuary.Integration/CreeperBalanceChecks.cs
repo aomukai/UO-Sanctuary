@@ -19,7 +19,7 @@ public static class CreeperBalanceChecks
     public static void Configure(){Register("creeper-balance-check",Check);Register("creeper-balance-reload-check",Reload);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Approved Creeper base curve and mixed saved damage profiles",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static CreeperPoisonContext Context(int hard=0)=>new(99,hard){Profile=DruidCreeperPoison.BalancedProfile};
+    private static CreeperPoisonContext Context(int hard=0)=>new(99,hard){Profile=DruidCreeperPoison.SnapshotProfile};
     private static void Curve()
     {
         // Independent goldens include every source tier boundary and the

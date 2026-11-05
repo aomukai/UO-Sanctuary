@@ -5,8 +5,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Prepared do115release transaction. Poison transport remains a separate
-// learned gate; always-vulnerable exposure is now approved for all vines.
+// Shared do115release transaction, used by the learned vine windup.
 internal static class DruidCreeperCasting
 {
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));

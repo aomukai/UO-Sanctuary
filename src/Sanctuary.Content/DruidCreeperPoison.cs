@@ -5,9 +5,9 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Birth-time hard Rabies is an explicitly provisional capture boundary. Current
-// tables and released2.4notes establish the synergy, not this modern timing.
-// NPC mastery/pierce are zero in the mapped no-equipment/no-sunder scope.
+// Approved Sanctuary policy snapshots owner ranks and inherited stats at summon
+// creation. Historical profiles retain their original interpretation. Owner
+// poison mastery/pierce are not inherited; sunder delivery remains unsupported.
 internal sealed record CreeperPoisonContext(int OwnerLevel,int RabiesHardRank)
 {public string Profile{get;init;}="birth-owner-rabies-no-player-gear-provisional-v1";}
 internal sealed record CreeperMatPoison(CreeperPoison Damage,int SlowDamagePercent,ulong Seed);
@@ -16,16 +16,17 @@ internal static class DruidCreeperPoison
 {
     internal const string SourceProfile="birth-owner-rabies-no-player-gear-provisional-v1";
     internal const string BalancedProfile="sanctuary-creeper-base-2000-v1";
+    internal const string SnapshotProfile="sanctuary-creeper-summon-snapshot-2000-v2";
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     internal static CreeperPoisonContext Capture(CreeperSnapshot snapshot)
     {
         if(snapshot?.Birth==null || snapshot.Birth.Pierce!=0){throw new NotSupportedException("Creeper poison sunder is not connected");}
-        var context=new CreeperPoisonContext(snapshot.OwnerLevel,snapshot.RabiesHardRank){Profile=BalancedProfile};Validate(context);return context;
+        var context=new CreeperPoisonContext(snapshot.OwnerLevel,snapshot.RabiesHardRank){Profile=SnapshotProfile};Validate(context);return context;
     }
     internal static void Validate(CreeperPoisonContext context)
     {
         if(context==null || context.OwnerLevel is <1 or >99 || context.RabiesHardRank is <0 or >20
-            || context.Profile is not(SourceProfile or BalancedProfile))
+            || context.Profile is not(SourceProfile or BalancedProfile or SnapshotProfile))
         {throw new InvalidDataException("Invalid Creeper poison context");}
     }
     internal static CreeperPoison Damage(int rank,CreeperPoisonContext context,int slowDamagePercent)

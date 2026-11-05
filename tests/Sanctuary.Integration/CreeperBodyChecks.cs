@@ -106,7 +106,7 @@ public static class CreeperBodyChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Life preparation enabled learned Creeper");LifeAndBuffs();Lifecycle();
+        Require(DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Learned Creeper route missing");LifeAndBuffs();Lifecycle();
         var p=Fresh();var body=DruidCreeperBody.CreatePrepared(p,Point(p),TimedEffects.Now.AddDays(2));var supplier=Supplier();
         SkillHealth.SetBalance256(body,6007);BattleOrders.Apply(supplier,body,1,TimedEffects.Now.AddHours(1));supplier.Delete();PersistentMinions.Suspend(p);Malformed(body);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),body.MaximumLife256,BattleOrders.Regeneration256(body),p.Map.MapID,p.Location)));

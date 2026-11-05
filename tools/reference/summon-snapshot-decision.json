@@ -1,0 +1,11 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedDeviation": true,
+  "answers": [
+    "just snapshot it on being summoned",
+    "this rule can work for any summon across all classes, including assassin traps etc"
+  ],
+  "rule": "Capture each summon/trap's inherited base stats and ranks at creation. Poison Creeper captures effective summon rank and hard Rabies; owner poison mastery/item pierce is not inherited. Captured sunder stats do not imply an implemented sunder damage consumer. Existing released fields retain their original packets.",
+  "scope": "All classes, summons and Assassin traps. Normal external buffs/auras and approved facet difficulty rescaling remain subsequent effects. Existing save/profile values remain intact.",
+  "rollout": "Poison Creeper uses a new explicit approved profile. Audit and reconcile other summon consumers and live hard-point upgrade controllers against this policy; do not claim the cross-class rollout complete."
+}

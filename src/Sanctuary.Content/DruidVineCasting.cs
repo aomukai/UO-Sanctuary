@@ -4,15 +4,14 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Shared source SC/FCR windup. Recycler vines use approved always-vulnerable
-// bodies; Poison Creeper retains its separate poison-transport gate.
+// Shared learned SC/FCR windup and approved always-vulnerable vine bodies.
 internal static class DruidVineCasting
 {
     internal sealed record Pending(CombatAbility Ability,RecyclerRecoveryModel? Recovery,DruidPlayerForm Form);
-    internal static bool Learned(CombatAbility ability)=>ability is CombatAbility.CarrionVine or CombatAbility.SolarCreeper;
+    internal static bool Learned(CombatAbility ability)=>Handles(ability);
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
         =>Learned(ability)&&BeginPrepared(owner,ability,selected,point,now,
-            ability==CombatAbility.SolarCreeper?RecyclerRecoveryModel.SanctuaryApprovedSolar:RecyclerRecoveryModel.LegacySource);
+            ability==CombatAbility.PoisonCreeper?null:ability==CombatAbility.SolarCreeper?RecyclerRecoveryModel.SanctuaryApprovedSolar:RecyclerRecoveryModel.LegacySource);
     internal static bool Release(PlayerMobile owner,CombatAbility ability,long now)
         =>Learned(ability)&&ClassCombat.Existing(owner)?.VineCast?.Ability==ability&&ResolvePrepared(owner,now);
     internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.PoisonCreeper or CombatAbility.CarrionVine or CombatAbility.SolarCreeper;

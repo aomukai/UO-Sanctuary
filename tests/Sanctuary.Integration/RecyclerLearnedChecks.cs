@@ -68,7 +68,7 @@ public static class RecyclerLearnedChecks
             Require(actual.Changed==changes&&actual.After256==expected,"Approved table/whole-point Solar recovery");count++;
         }
         Require(count==252,"Incomplete approved Solar arithmetic controls");
-        Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper)&&Skills.All(DruidCombat.Implemented),"Wrong learned vine mask");
+        Require(DruidCombat.Implemented(CombatAbility.PoisonCreeper)&&Skills.All(DruidCombat.Implemented),"Wrong learned vine mask");
     }
     private static void Transactions()
     {

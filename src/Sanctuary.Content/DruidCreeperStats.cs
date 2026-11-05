@@ -9,9 +9,8 @@ internal sealed record CreeperBirth(int Rank,int Level,int Life256,int Defense,i
 internal readonly record struct CreeperPoison(int Minimum256,int Maximum256,int Frames,int Count=0);
 internal sealed record CreeperSnapshot(CreeperBirth Birth,int OwnerLevel,int RabiesHardRank);
 
-// Prepared numeric components. No Creeper actor or learned handler is enabled.
-// In particular, supplied SkillValues/mastery are not proof of actual NPC-to-
-// owner stat transport, and birth level does not imply Raven's base-stat route.
+// Shared captured birth components. Owner inheritance uses the approved summon-
+// time policy; birth level does not imply Raven's base-stat route.
 internal static class DruidCreeperStats
 {
     private static void Route(SkillValues values)
@@ -56,6 +55,11 @@ internal static class DruidCreeperStats
         // No slow or owner-stat transport policy is selected by this component.
         var ends=DruidFirestorm.Endpoints(values,mastery,SlowMissilePayload.Normal);
         return new(ends.Min,ends.Max,values.DurationFrames);
+    }
+    internal static int AttackRank(DruidCreeperBody actor)
+    {
+        int rank=checked(actor.Prepared.Snapshot.Birth.VineAttackRank+BattleCommand.Bonus(actor));
+        return rank is >=1 and <=255?rank:throw new NotSupportedException("Creeper effective NPC rank is outside the supported formula domain");
     }
     internal static CreeperSnapshot Capture(PlayerMobile owner)
     {

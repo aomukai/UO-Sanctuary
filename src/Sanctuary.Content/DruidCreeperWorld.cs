@@ -171,7 +171,6 @@ internal static class DruidCreeperWorld
         bool Skill(CreeperAiRequest r)
         {
             if(r.A!=8 || r.B!=294){throw new NotSupportedException("Unsupported Creeper innate skill");}
-            if(BattleCommand.State(body)!=null){throw new NotSupportedException("Creeper innate-skill Battle Command transport remains unverified");}
             var clock=SkillClock();var target=World.FindMobile((Serial)(uint)r.C);if(target==null){return false;}
             body.Direction=body.GetDirectionTo(target);s=s with{Mode=8,Target=target.Serial.Value,ActionAt=s.Frame+clock.Action,EndAt=s.Frame+clock.End,NextThink=0,Motion=DruidWolfGeometry.Stop(s.Motion)};return true;
         }
@@ -179,7 +178,7 @@ internal static class DruidCreeperWorld
         {
             var ai=DruidCreeperAi.Think(new(true,DruidWolfGeometry.UnitDistance(Cell(s),ownerCell,0,2),SpellHelper.IsTown(body.Location,owner),
                 checked(s.GameBase+s.Frame),294,8,body.SummonDifficulty),s.Ai,
-                new(Request,Common,Move,Find,id=>World.FindMobile((Serial)(uint)id)?.Poisoned==true,id=>World.FindMobile((Serial)(uint)id)?.PoisonResistance??0,Skill));
+                new(Request,Common,Move,Find,id=>PoisonStates.Active(World.FindMobile((Serial)(uint)id),at),id=>World.FindMobile((Serial)(uint)id)?.PoisonResistance??0,Skill));
             s=s with{Ai=ai};
         }
         catch(Exception e){Store(body,Park(s) with{Fault=e.Message});throw;}
@@ -216,10 +215,10 @@ internal static class DruidCreeperWorld
             }
             if(s.ActionAt==s.Frame)
             {
-                var target=World.FindMobile((Serial)s.Target);var heads=target is{Deleted:false}&&target.Map==body.Map
-                    ?DruidCreeperVines.Heads(prepared.Snapshot.Birth.VineAttackRank,target.X*2,target.Y*2):[];
+                int rank=DruidCreeperStats.AttackRank(body);var target=World.FindMobile((Serial)s.Target);var heads=target is{Deleted:false}&&target.Map==body.Map
+                    ?DruidCreeperVines.Heads(rank,target.X*2,target.Y*2):[];
                 s=s with{ActionAt=0,SkillEvents=checked(s.SkillEvents+1),LastHeads=heads,
-                    LastFieldId=DruidCreeperGround.Create(body,prepared.Snapshot.Birth.VineAttackRank,heads,frameAt)};
+                    LastFieldId=DruidCreeperGround.Create(body,rank,heads,frameAt)};
             }
             if(s.Mode==8 && s.EndAt==s.Frame){int next=s.NextThink>s.Frame?s.NextThink:s.Frame+15;s=Neutral(s) with{NextThink=next};}
             if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}Store(body,s);body.AIObject?.AITimer.Stop();

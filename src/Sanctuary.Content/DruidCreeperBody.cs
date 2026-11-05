@@ -16,8 +16,8 @@ internal sealed record CreeperBodyState(uint Owner,CreeperSnapshot Snapshot,Mons
 }
 
 // Approved Sanctuary rule: vines stay vulnerable in every action mode.
-// No underground/surface immunity timeline is created. Poison Creeper
-// learned casting retains its separate poison-transport gate.
+// No underground/surface immunity timeline is created. Birth stats use the
+// approved summon-time capture policy; nonzero sunder remains unsupported.
 [SerializationGenerator(0)]
 public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
 {

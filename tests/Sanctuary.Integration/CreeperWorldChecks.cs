@@ -76,12 +76,18 @@ public static class CreeperWorldChecks
             Through(early,125+clock.Action);Require(early.Prepared.Controller.SkillEvents==1,"Early-game source decision did not resume after strict delay");early.Delete();
             var retreat=DruidCreeperWorld.Create(p,new(p.X+2,p.Y,p.Z),at,738,1000);e.SetResistance(ResistanceType.Poison,100);Require(e.PoisonResistance==100,"Retreat fixture poison resistance");
             Through(retreat,25);Require(retreat.Prepared.Controller is{Mode:2,SkillEvents:0,Ai.LastSkillFrame:0} && retreat.Prepared.Controller.Motion.FinalTarget.X<retreat.X*2,"Exact100resist target did not trigger escape away");
+            retreat.Delete();e.SetResistance(ResistanceType.Poison,0);
+            Require(TimedEffects.PoisonFrames(p,e,64,100,at)&&!e.Poisoned&&PoisonStates.Active(e,at)
+                &&PoisonStates.Active(e,at.AddMilliseconds(3999))&&!PoisonStates.Active(e,at.AddSeconds(4)),"Managed poison state query confused native poison or expiry");
+            var poisoned=DruidCreeperWorld.Create(p,new(p.X+2,p.Y,p.Z),at,738,1000);Through(poisoned,25);
+            Require(poisoned.Prepared.Controller is{Mode:2,SkillEvents:0,Ai.LastSkillFrame:0},"Managed-poison target did not trigger source escape");
+            Require(TimedEffects.CleansePoison(e,0,at.AddSeconds(1))&&!PoisonStates.Active(e,at.AddSeconds(1)),"Cured managed poison remained active");
         }
         finally{e.Delete();End(p);}
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Capture-only world enabled learned skill");Movement();SkillAndEscape();
+        Require(DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Learned Creeper route missing");Movement();SkillAndEscape();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var e=Enemy(p,3);var body=DruidCreeperWorld.Create(p,new(p.X+2,p.Y,p.Z),at,739,1000);
         Through(body,25+DruidCreeperWorld.SkillClock().Action+12);
         var ground=DruidCreeperGround.Get(body.Prepared.Controller.LastFieldId);

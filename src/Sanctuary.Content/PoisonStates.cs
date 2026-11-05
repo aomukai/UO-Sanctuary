@@ -12,6 +12,14 @@ public sealed record SourcePoisonClock(int Rate256, int ElapsedMs);
 // damage-triggered items, spell interruption and a different lethal threshold.
 public static class PoisonStates
 {
+    // Source poison is managed negative regeneration, independent of native
+    // UO Poison. Consumers must observe both without settling or replaying it.
+    internal static bool Active(Mobile target,DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Poison state clock must be UTC");}
+        return target is{Alive:true,Deleted:false,IsDeadBondedPet:false}&&(target.Poisoned
+            ||TimedEffects.TryActor(target,out var actor)&&actor.PoisonMs>0&&actor.Updated.AddMilliseconds(actor.PoisonMs)>at);
+    }
     internal static int BalanceAfter(int before256, long loss256, bool player, bool town)
     {
         if (loss256 <= 0 || !player && town && before256 < 256) { return before256; }

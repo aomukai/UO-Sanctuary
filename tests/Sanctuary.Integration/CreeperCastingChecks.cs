@@ -48,7 +48,7 @@ public static class CreeperCastingChecks
         var enemy=new GraveyardZombie{CantWalk=true,NoKillAwards=true};enemy.MoveToWorld(aim,p.Map);enemy.AIObject.AITimer.Stop();
         try
         {
-            Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper)&&!ClassCombat.Available(p,CombatAbility.PoisonCreeper),"Prepared transaction exposed unfinished learned skill");
+            Require(DruidCombat.Implemented(CombatAbility.PoisonCreeper)&&ClassCombat.Available(p,CombatAbility.PoisonCreeper),"Learned Creeper route not admitted");
             Require(!p.Map.CanSpawnMobile(aim)&&PetGroundWorld.ZeroFootprint(p.Map,aim),"Occupied point fixture did not distinguish zero footprint");
             var first=Commit(p,enemy.Serial,p.Location,at);Require(first.Location==aim,"Zero-footprint vine was displaced from its selected unit");SkillHealth.SetBalance256(first,1201);
             int mana=NecromancerEffects.ManaBalance256(p);DruidCreeperCasting.Spawn=(_,_,_,_)=>null;
@@ -90,7 +90,7 @@ public static class CreeperCastingChecks
         Require(first.Deleted&&!wolf.Deleted&&!raven.Deleted,"Vine cap deleted another summon family");
         var point=p.Location;var map=p.Map.MapID;PersistentMinions.Suspend(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,second.Serial.Value,wolf.Serial.Value,raven.Serial.Value,second.Prepared,NecromancerEffects.ManaBalance256(p),map,point)));
-        Log.Information("Creeper prepared cast:8mana, occupied zero-footprint point, allocation/payment rollback, fractional mana, selected/deleted targets, town, shared-vine category and other-family coexistence pass; learned input remains gated");
+        Log.Information("Creeper prepared cast:8mana, occupied zero-footprint point, allocation/payment rollback, fractional mana, selected/deleted targets, town, shared-vine category and other-family coexistence pass; learned input checked separately");
     }
     private static void Reload()
     {
