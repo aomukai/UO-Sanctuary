@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "96ebf8ba75931c902907d624178feb0453ea23230b53a2243979f1493989e88a",
+  "ContentAssemblySha256": "adc150fb26256729e218307d4fab11fc9ff53a5ed985071962b24033a3e8983c",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -716,7 +716,7 @@
     "src/Sanctuary.Content/ItemEventBindings.cs": "bef654fc0710828c7bcd3678051644fcc8b2fd628d2e3bfaf1e01ef6c74cdcb1",
     "src/Sanctuary.Content/ItemPoisonProjection.cs": "29ad4474e0aa86aca8a535ca7edaad0e7c236d757cda3ad1659558e1c060a7eb",
     "src/Sanctuary.Content/ItemProcCallbacks.cs": "827bb8fea1267988d0aeb2e3432f5823a697ce94b7904f0203340c7c64f58ccf",
-    "src/Sanctuary.Content/ItemPropertyCreationContext.cs": "7088c7116bcdcf324f30ba60bc30571521f6508c551f43c4efbfbb2862367c0b",
+    "src/Sanctuary.Content/ItemPropertyCreationContext.cs": "f8eb0b900ef9f703ceba7f3376a85e4c79a70ce12536b349740f78446766914f",
     "src/Sanctuary.Content/ItemSkillExecution.cs": "4c38ba29c5ec834c2e0b87167a6183aca56e49350b378134ee6b683ad2057328",
     "src/Sanctuary.Content/ItemSkillPropertyWriter.cs": "c13ac2b5523f9ddb6fac39ad663690e49546bd084bec96b425273a35e381f656",
     "src/Sanctuary.Content/ItemStatContext.cs": "fb24a7c0f09f1e6fdd13a2ac6bd670e52ab49b93ffb784f3d89c645847dbe021",
@@ -976,6 +976,7 @@
     "src/Sanctuary.Content/SourceGuidTargets.cs": "fb9b6dfcc78b5b40b9f76db607b783d733ae7bf3610c06b84a9d62024c9417f6",
     "src/Sanctuary.Content/SourceItemAffixes.cs": "2376569a206a77231c9452de2e53a90c382813fb7c2411e30978cd817af0b59f",
     "src/Sanctuary.Content/SourceItemInitialization.cs": "d2e27ddf651d4e2aa37ee4725f6d4ef37006e0100724ff21e53cdfc580dc8b22",
+    "src/Sanctuary.Content/SourceItemQuality.cs": "ca88dd24b34f5f6e91ad5a61d464bace404939c9d57f0078b47f98ada057b761",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "b99c53aa543717492b0118ef28a4c553dd3074cc0d648100cc70f71f3ca0a958",
     "src/Sanctuary.Content/SourceMeleeGeometry.cs": "222a9c0d25421d2a7fe40776c01d8a7759b126d8052efb85fd5c64030cf051c2",
     "src/Sanctuary.Content/SourceMeleeResult.cs": "61ddd964f3bda1723b1913ed9010cae1ac2f35b1d54edbdb76239b9b6b674567",

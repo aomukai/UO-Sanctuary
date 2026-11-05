@@ -1,5 +1,7 @@
 # Skill effects
 
+**Item quality orchestration:** no new skill effect/audio identity or artwork. Controlled ethereal/finalizer markers are mechanical fixture services; complete native item presentation and existing summon placeholders remain pending. See the [checkpoint](item-quality-checkpoint.md).
+
 **Item base initializer:** no new skill effect/audio identity or artwork. Stored inventory-variation choices still need eventual native item materialization; this checkpoint creates only hidden unattached verification items. Existing summon/item placeholders remain. See the [checkpoint](item-initialization-checkpoint.md).
 
 **NPC retained-target bridge:** no new effect/audio identity or artwork. Existing shared curse/item-cast sound and curse markers remain identified placeholders; reflected-death targeting is mechanical. See the [checkpoint](npc-retained-target-checkpoint.md).

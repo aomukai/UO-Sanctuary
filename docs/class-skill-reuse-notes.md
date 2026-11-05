@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Quality fallback reuse:** `SourceItemQuality` supplies the complete older roll/dispatch/finalizer/reset contract. Keep the existing property graph across fallback, restore only the saved item-data low seed, retain high-seed666 semantics and preserve the separate unit/base stream. Reset only the source-specified metadata; do not treat an unsupported valid affix as generation failure. Existing `SourceItemAffixes` and current pools/writers are the next composition dependencies. See the [checkpoint](item-quality-checkpoint.md).
+
 **Generated item base reuse:** initialize damage/defense/durability/quantity through `SourceItemInitialization` and current NPC raw bases/type facts, keep the unit/base RNG separate from the item-data RNG, then use the existing `ItemPropertyCreationContext` item-data seed and graph for affixes. Preserve explicit stack operands and zero-bound RNG semantics; quantity overrides do not erase earlier rolls. Keep quality/quest services and full materialization explicit. See the [checkpoint](item-initialization-checkpoint.md).
 
 **Retained logical NPC targets:** reuse `SourceCorpseIdentity` rather than creating synthetic mobiles or a second dead-unit registry. Capture the original registered monster before synchronous retaliation, then resolve its current living/corpse position when executing the existing item/common-executor/do30 frame. A missing identity needs its actual path fallback; never guess caster-centered or nearest-enemy casting. See the [checkpoint](npc-retained-target-checkpoint.md).

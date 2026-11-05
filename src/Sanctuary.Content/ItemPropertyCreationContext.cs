@@ -21,6 +21,8 @@ internal sealed class ItemPropertyCreationContext:EquipmentPropertyServices
     internal bool Ethereal{get;private set;}
     internal int Draws{get;private set;}
     internal ulong Seed=>RandomSeed;
+    // Quality fallback restores the item-data low seed,not the unit/base RNG.
+    internal void InitLow(uint seed)=>RandomSeed=SourceRandom.InitLow(unchecked((int)seed));
     internal ItemPropertyCreationContext(Item item,EquipmentStatValues values,EquipmentPropertyBase basis,bool weapon,bool armor,bool throwable,
         ulong seed,EquipmentStatValue[] initialBase)
     {

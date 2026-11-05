@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/ItemsTbls.h": "6f9b72363d068c0623193205e3f3a37c9231bdf6812e5bbb268a4c148f7bd4dc"
+  },
+  "completeRoutineHashes": {
+    "sub_6FC4C5F0_End": "c8fbadc0ee796f52ea8ef91b4a4ef64fd18298f6562be3e4a64e52b7f8f6b74d",
+    "sub_6FC4C5F0": "bbfd0886a013f43ab2580f0144bf6d01b7cb8835bf595b70619a9bbe449c552d",
+    "ITEMS_RollItemQuality": "05e0aeab510383195ca614ee87459ba5fc49018d5c100984ec0935cac4be3d65",
+    "sub_6FC4E1A0": "73213bddb045f2f8d0a55af3aff98ec7ca85d5f652bfec21dd0b19abab645da7",
+    "sub_6FC4E1F0": "da53b233581562fceb3df0861f6959d416d4ab010e4dcf9772bd4c7c3a110e14",
+    "sub_6FC4E430": "d68f75460a18f8e8da758669117ec22050f7f269fc0f2578868c955cdcac623c",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "SEED_GetLowSeed": "1e24a1efadca878d97ee2b06d1ec562ecb3e0d2ac8bd800f51ad976f38ed5a85",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_GetItemSeed": "b56814dfc54b24fd669f8c08d0a4dde881ae943f74b15dcbb01b83f8c782690b"
+  },
+  "cases": 22656,
+  "sanitizers": "ASan+UBSan clean",
+  "scope": "Six entry shapes execute complete outer quality generation,quality roll,finalizer,normal/superior fallback and metadata reset with complete property-seed getters/reset/LCG. Ordered actions and all state,including low-seed continuation,partial nested mutations and untouched unit RNG,are emitted.",
+  "services": [
+    "Synthetic ratio and unique tables are explicit inputs,not modern table certification. Nested quality generators deliberately mutate metadata/HP and consume declared item RNG even on failure;this checks outer cleanup/ordering,not those complete quality bodies.",
+    "Ethereal/normal finalization,automagic selection,unique world/drop eligibility,property lookup/application and item metadata are declared services. The original item identity stays stable,as in the already reviewed magic/rare outer helpers. Extreme signed overflow or candidate-buffer exhaustion is outside these bounded contexts."
+  ],
+  "remaining": [
+    "Compose full current tables/pickers/property writers,superior/normal/ethereal/staffmod/automagic bodies,complete item initialization/materialization,NPC equipment graphs/actors and actual lifecycle/input/saves. No class or learned handler is completed by this source proof."
+  ],
+  "artifacts": {
+    ".local/class-skills/item-quality-source/source.cpp": "b561bdc0600b413b1495a9dc73936ea8c4f4b3faa68b85c9d435ffc444a5c91c",
+    ".local/class-skills/item-quality-source/probe": "205f266c0a4a62540cdb555b2e8156412cbfce75d16139f374e5172ac5ed6aa6",
+    ".local/class-skills/item-quality-source/compiler.log": "2db46a552e03d7e38c71263b5231b049e3af9c080ceb53a05fc8ceee1afc77e4",
+    ".local/class-skills/item-quality-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-quality-source/cases.json": "9e3879b2e0d97ac824717b26a2059b3fed4c46d602b2d87e764e8a2c265f62dc",
+    "tools/probe_item_quality.py": "ea7a133e10d95bae1e6648af36a23d8602a8ee7219669aca7390a2cefc3aaedc"
+  }
+}
