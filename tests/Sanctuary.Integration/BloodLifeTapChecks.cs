@@ -65,6 +65,7 @@ public static class BloodLifeTapChecks
                 Release(p,b,t,packet,at);var curse=NecromancerEffects.Curse(t);
                 Require(curse is{Ability:CombatAbility.LifeTap,Rank:5}&&curse.Source==b.Serial.Value&&curse.OriginX==b.X&&curse.OriginY==b.Y&&curse.UntilUtc==at.AddMilliseconds(25600),"Proc inherited owner rank/caster/duration");
                 Require(NecromancerEffects.Curse(near)?.Rank==5&&NecromancerEffects.Curse(far)==null,"Fixed rank5target-centered radius boundary");
+                Require(t.Aggressors.Any(a=>a.Attacker==b)&&near.Aggressors.Any(a=>a.Attacker==b),"Indirect item curse lost native aggression credit");
                 Require(physical>0&&SkillHealth.Balance256(b)==life+NecromancerEffects.LifeTapHealing256(physical,50)&&NpcEquipmentRandom.State(b).Seed==expected,"First proccing swing did not heal from pre-HP physical or duplicated RNG");
                 Require(NecromancerEffects.ManaBalance256(p)==0&&NecromancerEffects.ManaBalance256(b)==0&&b.WorldState.Controller==controller,"NPC proc spent mana or replaced its attack controller");
             }
@@ -104,9 +105,43 @@ public static class BloodLifeTapChecks
         }
         finally{SourceBlocking.BlockRoll=block;t.Corpse?.Delete();t.Delete();b.Delete();p.Delete();}
     }
+    private static void ItemCastTarget()
+    {
+        var p=Owner();var b=Body(p);var t=Target(p,b);var original=Target(p,b);
+        original.MoveToWorld(new(t.X+5,t.Y,t.Z),t.Map);
+        var modes=MonsterUninterruptibles.Snapshot();
+        try
+        {
+            b.Combatant=original;
+            Require(b.Combatant==original,"Actual item-cast original target setup");
+            var controller=b.WorldState.Controller;
+            NecromancerEffects.SetMana256(p,0);NecromancerEffects.SetMana256(b,0);
+            ulong seed=NpcEquipmentRandom.State(b).Seed;
+            Require(NpcItemSpellCasts.LifeTap(b,t,5,TimedEffects.Now),"Actual item-effect Life Tap executor");
+            Require(b.Combatant==original&&b.WorldState.Controller==controller&&NpcEquipmentRandom.State(b).Seed==seed,
+                $"Item cast changed state:combatant={b.Combatant?.Serial.Value},expected={original.Serial.Value},controllerSame={b.WorldState.Controller==controller},seed={NpcEquipmentRandom.State(b).Seed},expectedSeed={seed}");
+            Require(NecromancerEffects.Curse(t) is{Rank:5} curse&&curse.Source==b.Serial.Value&&NecromancerEffects.Curse(original)==null
+                &&t.Aggressors.Any(a=>a.Attacker==b),"Item cast lost source/area/aggression credit");
+            Require(!NpcItemSpellCasts.KeepsCombatTarget(b),"Successful item cast leaked targeting scope");
+            b.Combatant=t;Require(b.Combatant==t,"Ordinary targeting remained locked after item cast");
+            b.Combatant=original;Require(b.Combatant==original,"Restored ordinary target setup after cast");
+            Require(NecromancerEffects.ManaBalance256(p)==0&&NecromancerEffects.ManaBalance256(b)==0,"Item cast paid player/NPC mana");
+            var untouched=Target(p,b);
+            try
+            {
+                MonsterUninterruptibles.Restore(modes.Where(x=>x.Actor!=b.Serial.Value).Append(new(b.Serial.Value,true,false,0)).ToArray());
+                Require(!NpcItemSpellCasts.LifeTap(b,untouched,5,TimedEffects.Now)&&NecromancerEffects.Curse(untouched)==null
+                    &&b.Combatant==original&&b.WorldState.Controller==controller&&NpcEquipmentRandom.State(b).Seed==seed,
+                    "Refused item cast changed source targeting/controller/RNG or delivered a curse");
+                Require(!NpcItemSpellCasts.KeepsCombatTarget(b),"Refused item cast leaked targeting scope");
+            }
+            finally{untouched.Delete();}
+        }
+        finally{MonsterUninterruptibles.Restore(modes);b.Combatant=null;t.Delete();original.Delete();b.Delete();p.Delete();}
+    }
     private static void Check()
     {
-        Source();Events();var p=Owner(20,3200);var b=Body(p);var t=Target(p,b);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        Source();ItemCastTarget();Events();var p=Owner(20,3200);var b=Body(p);var t=Target(p,b);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try{Release(p,b,t,Packet(p,b,t));var curse=NecromancerEffects.Curse(t);Require(curse?.Rank==5,"Saved NPC curse");curse=curse with{UntilUtc=TimedEffects.Now.AddHours(1)};NecromancerEffects.Profiles.Store(t,NecromancerEffects.Profiles.Find(t) with{Curse=curse});TimedEffects.Clear(t);uint source=b.Serial.Value;b.Delete();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,source,t.Serial.Value,curse,0)));}
         finally{SourceBlocking.BlockRoll=block;}
         Log.Information("Blood Life Tap:720complete proc comparisons;live hard19+soft1refusal/train20/respec,real source rank5area/no mana/first swing including overkill,miss/zero/absorb/uninterruptible/stronger/Attract pass");

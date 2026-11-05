@@ -177,7 +177,8 @@
     "Current NPC affix pools cover all692bases/991spawnableaffixes and201rare names;Valkyrie forwards to the shared pool. Source preferred/cap/weight/seed and rare-name format/type/stack/throw/cap services are separately verified. They do not execute item properties or initialize real NPC equipment.",
     "Fresh item-owned numeric/layered context now executes201admitted plans with real source LCG state and snapshot continuation;202older-kernel plans are separately checked. Original saved-item projection stays191. Ordinary skilltab producer/reader arithmetic and war-tab-rand step handling remain explicit gaps;fresh application refuses them without changing graph/seed.",
     "Separate raw proc/charge writer now covers7plans with429current skill rows/addressable blank362 and explicit6-bit charge-level context. It preserves additive procs,charge replacement,source LCG and draw-before-allocation behavior. It does not enable actor registration/trigger/casting or charge-backed skill use.",
-    "Complete older proc callbacks20/21/30 now preserve gates,decode timing,source RNG,skill lookup,caster/target roles,flags,position fallback and attempted-route result semantics. Actual Blood Life Tap reuses the outgoing gate. Generic NPC event admission and full item-effect cast/spell services remain unfinished."
+    "Complete older proc callbacks20/21/30 now preserve gates,decode timing,source RNG,skill lookup,caster/target roles,flags,position fallback and attempted-route result semantics. Actual Blood Life Tap reuses the outgoing gate. Generic NPC event admission and full item-effect cast/spell services remain unfinished.",
+    "Complete older item-effect handler/target/position wrappers now preserve18912source targeting/path/server-do restoration and notification contracts. Actual Blood Life Tap uses the shared driver,indirect aggression and a scoped ordinary-target guard. This is not generic NPC proc admission or a complete D2 dynamic-path/skill executor."
   ],
   "blockers": [
     "Equipment request selection now reuses the exact shared selector;full generated NPC items and complete stat/property/event delivery remain unfinished. Existing numeric NPC equipment suppliers and frozen Revive graphs are reusable bounded components,not complete generated Shadow equipment certification. Complete magic/rare outer control flow is now prepared separately;it does not complete nested item/property/stat/event services. Current full pools and rare-name rolls are prepared;property execution,final initializer,quality fallback and actual generated NPC graph remain unfinished. Fresh numeric/layered property execution and snapshot continuation now prepare201plans;complete specialized property/event consumers,initialization,quality fallback and NPC graph delivery remain. Proc/charge encoding is now prepared separately;NpcCombatEvents active-proc refusal and full actor skill/charge consumers remain gated.",
@@ -191,7 +192,8 @@
     "Shared SourceItemAffixes Magic/Rare outer contract with41472source/native service traces. Player loot orchestration is unchanged;full current pools/names/property writers/initialization/quality fallback and NPC delivery remain required.",
     "NpcItemAffixes and SummonAffixPool supply complete current source pools/rare names without player filtering. SourceAffixPicker retains parity,preferred matches and capped weighted endpoint;all original Valkyrie scopes retain.",
     "ItemPropertyCreationContext owns a real native item numeric graph,raw base/property arrays,seed and ethereal state. Four supplied base contexts/source LCG compositions and24original-item reloads verify this component;complete item initialization/materialization and NPC delivery remain separate.",
-    "ItemSkillPropertyWriter and ItemSkillProperties supply raw encoded stats;ItemProcCallbacks supplies shared source callback contracts. Actual Blood Life Tap reuses its outgoing chance/hit gate. Preserve callback attempted-route success separately from actual delivered spell."
+    "ItemSkillPropertyWriter and ItemSkillProperties supply raw encoded stats;ItemProcCallbacks supplies shared source callback contracts. Actual Blood Life Tap reuses its outgoing chance/hit gate. Preserve callback attempted-route success separately from actual delivered spell.",
+    "ItemEffectCasts and NpcItemSpellCasts separate cast attempt,actual execution,temporary targeting and notification. Reuse the verified NPC Life Tap area/owner/rank/expiry service and target guard;other spells/search/start services remain mandatory and unsupported until implemented."
   ],
   "required": [
     "Compile complete do49/equipment/AI routines with declared services and independent rank/quality/selection fixtures.",
@@ -203,7 +205,7 @@
     "effects": "Shadow summon/cast/body/weapon/skill presentation/audio pending; identified placeholders only.",
     "icons": "Separate talent/hotkey icons pending."
   },
-  "next": "Complete target/position item-effect cast wrappers and HandleItemEffectSkill with temporary target/path/server-do restoration on success or failure;then actual NPC spell contexts and generic event dispatch. Continue charge-backed skills/spending/recharge,sockets,special properties,full item initialization/source low-seed fallback and real NPC graph delivery. Skilltab/war-tab-rand and do49/current executable gaps remain explicit.",
+  "next": "Compile complete common skill executor ItemEffect override/direct-missile/used-skill/town/mana semantics with actual item flags;then additional NPC spell contexts and generic proc event admission. Continue charge-backed skills/spending/recharge,sockets,special properties,full item initialization/source low-seed fallback and actual NPC graph delivery. Preserve skilltab/war-tab-rand and do49/current executable gaps;no dropped properties or fake successful spells.",
   "equipmentSourceEvidence": "tools/reference/shadow-equipment-source-evidence.json",
   "nativeEquipmentEvidence": "tools/reference/shadow-equipment-native-evidence.json",
   "itemAffixOuterSourceEvidence": "tools/reference/item-affix-orchestration-source-evidence.json",
@@ -212,5 +214,7 @@
   "itemPropertyCreationEvidence": "tools/reference/item-property-creation-native-evidence.json",
   "itemSkillPropertyEvidence": "tools/reference/item-skill-property-native-evidence.json",
   "itemProcCallbackSourceEvidence": "tools/reference/item-proc-callbacks-source-evidence.json",
-  "itemProcCallbackNativeEvidence": "tools/reference/item-proc-callbacks-native-evidence.json"
+  "itemProcCallbackNativeEvidence": "tools/reference/item-proc-callbacks-native-evidence.json",
+  "itemEffectCastSourceEvidence": "tools/reference/item-effect-casts-source-evidence.json",
+  "itemEffectCastNativeEvidence": "tools/reference/item-effect-casts-native-evidence.json"
 }

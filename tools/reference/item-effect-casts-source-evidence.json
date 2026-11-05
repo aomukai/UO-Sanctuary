@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 18912,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a"
+  },
+  "completeRoutineHashes": {
+    "SKILLITEM_HandleItemEffectSkill": "ce7339b8f3591dc33f87a33be58037b0aee51e6f6ee0c67acdf0d3aa4be45c5e",
+    "SKILLITEM_CastSkillOnTarget": "e5c236ee80a3c7451d613e66634efe1d6aea50e4f0ec896af39d4a9b33012a79",
+    "SKILLITEM_CastSkillOnPosition": "0557b765f6972c67173217e72ff17d7af8ea70904227a07eb78dc6637df0ecbc"
+  },
+  "artifacts": {
+    ".local/class-skills/item-effect-casts-source/source.cpp": "559b7e1b8c6ecaeccad51a8fb58bc0db56159855dc429516b7846a25288b049d",
+    ".local/class-skills/item-effect-casts-source/probe": "b6b565821083d27ceb450c17addb67371ad467ce079e6fa604d293ddba8e07d1",
+    ".local/class-skills/item-effect-casts-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-effect-casts-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-effect-casts-source/cases.json": "e64ccff7646510c2181585b08d13c14ce5c7570daeffad76511b67e01b1dbb10",
+    "tools/probe_item_effect_casts.py": "507c657e431ff8c9396cb3002dfb76ee78ded552f5aec74a7417e0c9fb0c89b1"
+  },
+  "established": [
+    "Three complete older routines execute both real wrapper call shapes with paired identity/position outputs. Return status,ordered target/path/search/start/execute/notification trace and final target/path/server-do state are emitted.",
+    "Covers attacker/default,caster,random position,random corpse,last attacker and unknown target-kind default;missing source/target/game/record/effect,uninterruptible,search failure,start failure,zero and nonzero executor results,existing/no target,both original flag states and levels0/5/63.",
+    "Nested start/execution mutate target,path and server-do to exercise cleanup even on failure. Existing original target restores the target only;otherwise first path point is restored. Notifications run after restoration. Position wrapper uses returned XY only when returned X is nonzero."
+  ],
+  "services": [
+    "Target/path/getters,setters,skill metadata,random/corpse/last-attacker search,start and skill execution/notifications are declared services. The trace is a contract certificate,not execution of every underlying skill or native D2 room/path services.",
+    "Current header pins item target enum0..4,item-check-start index1 and server-do bit0x40. Both actual wrappers always provide all four result pointers;other direct optional-output pointer combinations are not accepted."
+  ],
+  "remaining": [
+    "Actual NPC spell adapter must preserve its own original AI/controller and not charge player mana. Only admitted spells may use this driver;unimplemented search/start/skill routes must fail explicitly.",
+    "Generic item event subscriptions and other spells,charge actions,full generated NPC item initializer,Shadow/Valk AI and current executable/client parity remain unfinished."
+  ]
+}

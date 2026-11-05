@@ -1,5 +1,7 @@
 # Skill effects
 
+**Item-effect casting (2026-11-05 JST).** Actual Blood Life Tap retains the clearly identified generic curse marker0x375A/hue0x455 and sound0x1E5;the sound now follows successful execution through notification. Final Life Tap curse/cast/audio and later NPC proc-specific effects remain pending. The generic driver creates no artwork or imagegen binding. See [checkpoint](item-effect-casts-checkpoint.md).
+
 **Shared item proc callbacks (2026-11-05 JST).** Contract callbacks create no visual or audio assets. The actual Blood Life Tap retains its identified curse/audio placeholders; later generic proc delivery needs the corresponding spell's cast, projectile, impact, state and audio assets. Shadow/Valkyrie presentation remains pending. No imagegen asset is added. See [checkpoint](item-proc-callbacks-checkpoint.md).
 
 **Raw proc/charge encoding (2026-11-05 JST).** Storing encoded stats produces no trigger,cast,projectile,contact,attachment or audio. Later actual proc/charge spell delivery needs its existing skill-specific effects and audio;Shadow/Valk presentation remains pending with identified placeholders. No imagegen asset is created. See [checkpoint](item-skill-property-checkpoint.md).

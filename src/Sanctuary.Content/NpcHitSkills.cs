@@ -20,6 +20,6 @@ internal static class NpcHitSkills
         // player class, learned Life Tap, soft rank or mana supplier is read.
         uint roll=NpcEquipmentRandom.Raw(actor);
         if(!Chance(chance,packet?.HitFlags??0,packet!=null,roll)){return false;}
-        return NecromancerCurseCasts.NpcLifeTap(actor,target,5,at);
+        return NpcItemSpellCasts.LifeTap(actor,target,5,at);
     }
 }

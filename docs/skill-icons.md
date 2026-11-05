@@ -1,5 +1,7 @@
 # Skill icons
 
+**Item-effect casting (2026-11-05 JST).** No learned skill,binding,slot or icon is added. Existing Life Tap and future Shadow/Valkyrie talent-tree/hotkey artwork remain separately pending with identified placeholders. NPC proc execution should reuse its spell's existing icon where a UI needs one. See [checkpoint](item-effect-casts-checkpoint.md).
+
 **Shared item proc callbacks (2026-11-05 JST).** No new learned skill, binding or icon slot is added. Separate talent-tree and hotkey artwork remains pending with identified generic placeholders. Later charge-backed skills should reuse their spell's own icon. See [checkpoint](item-proc-callbacks-checkpoint.md).
 
 **Raw proc/charge encoding (2026-11-05 JST).** No player skill,binding,hotkey slot or artwork is added. Later charge-backed skill availability must reuse the spell’s own tree/hotkey artwork and existing identified placeholders. Those assets remain separate from raw encoding;no new icon is generated. See [checkpoint](item-skill-property-checkpoint.md).

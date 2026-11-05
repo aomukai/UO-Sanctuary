@@ -222,6 +222,18 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     public override Poison PoisonImmune => Poison.Lethal;
     public override bool ReduceSpeedWithDamage => false;
     public override bool IsEnemy(Mobile mobile) => ControlMaster is PlayerMobile owner && ClassCombat.IsHostile(owner, mobile);
+    public override Mobile Combatant
+    {
+        get => base.Combatant;
+        set
+        {
+            // Item casts have a separate explicit target frame. Keep native
+            // retaliation from replacing ordinary combat targeting mid-cast;
+            // dead/deleted cleanup and all changes outside that scope proceed.
+            if (Alive && !Deleted && NpcItemSpellCasts.KeepsCombatTarget(this)) { return; }
+            base.Combatant = value;
+        }
+    }
     public override bool CanBeHarmful(Mobile target, bool message, bool ignoreOurBlessedness) => IsEnemy(target)
         && base.CanBeHarmful(target, message, ignoreOurBlessedness);
     public override void GenerateLoot(bool spawning) { }

@@ -140,14 +140,14 @@ public static class NecromancerEffects
             TimedEffects.Now.AddMilliseconds(frames * 40), owner.X, owner.Y, motion) });
         CurseApplied(owner,target);return true;
     }
-    internal static void CurseApplied(Mobile owner,Mobile target)
+    internal static void CurseApplied(Mobile owner,Mobile target,bool indirect=false)
     {
         if (TimedEffects.TryActor(target, out var actor) && actor.Control is { } control)
         { actor.Control = control with { BlindUntil = default, FearUntil = default }; }
         if (target is BaseCreature creature)
         { creature.AIObject?.ResetApproachState(); creature.AIObject?.ClearMoveIntent(); creature.AIObject?.AITimer.Prod(); }
         target.FixedEffect(0x375A, 10, 15, 0x455, 0); // Placeholder curse marker.
-        owner.DoHarmful(target);
+        owner.DoHarmful(target,indirect);
     }
     internal static NecromancerMotion CaptureMotion(BaseCreature creature)
     {

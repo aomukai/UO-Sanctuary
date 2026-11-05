@@ -74,7 +74,7 @@ internal static class NecromancerCurseCasts
             PhysicalPenalty(full,cold,monsterImmunity),PhysicalPenalty(full,poison,monsterImmunity));
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
         =>Handles(ability)&&rank is>=1 and<=255&&Apply(owner,owner,target,ability,rank,SkillMechanics.Values(owner,ability,rank),TimedEffects.Now);
-    private static bool Apply(Mobile caster,PlayerMobile owner,Mobile target,CombatAbility ability,int rank,SkillValues values,DateTime at)
+    private static bool Apply(Mobile caster,PlayerMobile owner,Mobile target,CombatAbility ability,int rank,SkillValues values,DateTime at,bool indirect=false)
     {
         if(!Handles(ability)||rank is<1 or>255||!ClassCombat.IsHostile(owner,target)||target is not BaseCreature creature||!Eligible(creature)){return false;}
         if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse && !AiEligible(creature)){return false;}
@@ -121,7 +121,7 @@ internal static class NecromancerCurseCasts
         NecromancerEffects.Profiles.Store(target,state with{Curse=next});
         if(ability==CombatAbility.DimVision){SourceBlind.Attach(creature,state.Curse?.Ability!=CombatAbility.DimVision||state.Curse.UntilUtc<=at);}
         if(ability==CombatAbility.Terror){SourceTerror.Reset(creature);}
-        NecromancerEffects.CurseApplied(caster,target);return true;
+        NecromancerEffects.CurseApplied(caster,target,indirect);return true;
     }
     // Qualified native elite callback. Its existing caller owns proc RNG,
     // selection and geometry;only the shared receiver/group is bound here.
@@ -142,7 +142,7 @@ internal static class NecromancerCurseCasts
         if(!EliteAuras.ValidMetadata(next)){Log.Warning("NPC Amplify retained primary/creator is unsupported:{Target}",target.Serial.Value);return false;}
         EliteAuras.Curses.Apply(target,next);EliteAuras.Refresh(target);NecromancerEffects.CurseApplied(caster,target);return true;
     }
-    private static void Area(Mobile caster,PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values,DateTime at)
+    private static void Area(Mobile caster,PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values,DateTime at,bool indirect=false)
     {
         int radius=(int)values.Eval("aurarangecalc");var targets=new List<BaseCreature>();
         foreach(var target in caster.Map.GetMobilesInRange<BaseCreature>(center,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
@@ -152,7 +152,7 @@ internal static class NecromancerCurseCasts
             if(AmazonInnerSight.InRadius(target.X-center.X,target.Y-center.Y,radius)&&Math.Abs(target.Z-center.Z)<16
                 &&ClassCombat.IsHostile(owner,target)){targets.Add(target);}
         }
-        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(caster,owner,target,ability,values.Rank,values,at);}
+        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(caster,owner,target,ability,values.Rank,values,at,indirect);}
     }
     internal static bool NpcLifeTap(SkeletonGuardian caster,BaseCreature target,int rank,DateTime at)
     {
@@ -161,8 +161,9 @@ internal static class NecromancerCurseCasts
             ||rank is<1 or>63||MonsterUninterruptibles.Active(caster)){return false;}
         var row=SkillMechanics.For(CombatAbility.LifeTap);
         var values=new SkillValues(row,key=>string.Equals(key,row.SourceKey,StringComparison.OrdinalIgnoreCase)?rank:0,_=>0,ClassStats.Level(caster));
-        Area(caster,owner,CombatAbility.LifeTap,target.Location,values,at);
-        caster.PlaySound(0x1E5); // Shared identified curse/item-cast placeholder; no player cast action/payment.
+        // Preserve the item-cast caller's combat target while retaining native
+        // aggression/credit. Direct DoHarmful would retarget to each recipient.
+        Area(caster,owner,CombatAbility.LifeTap,target.Location,values,at,indirect:true);
         return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values)
