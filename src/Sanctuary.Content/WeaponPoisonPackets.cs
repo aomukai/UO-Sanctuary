@@ -21,13 +21,15 @@ internal static class WeaponPoisonPackets
         =>venom==null?raw:raw with{PoisonMin=checked(raw.PoisonMin+venom.Minimum256),PoisonMax=checked(raw.PoisonMax+venom.Maximum256),PoisonFrames=venom.Frames,PoisonCount=0};
     internal static WeaponPoisonRoll Melee(MissileSourceStats raw,int mastery,int sourceDamage,Func<int,int> random,int initialRate=0,int initialFrames=0,int overrideFrames=0)
     {
-        if(sourceDamage is <1 or >128 || raw.PoisonCount<0 || initialRate<0 || initialFrames<0 || overrideFrames<0 || mastery<0){throw new ArgumentOutOfRangeException();}
-        int minimum=checked(raw.PoisonMin+SourcePercentage.Calculate(raw.PoisonMin,mastery,100)),maximum=checked(raw.PoisonMax+SourcePercentage.Calculate(raw.PoisonMax,mastery,100));
-        int rolled=0;if(raw.PoisonMax>0){int span=Math.Max(0,maximum-minimum);rolled=minimum+(span>0?Math.Clamp(random(span),0,span-1):0);}
-        int rate=checked((int)((long)Math.Max(0,checked(initialRate+rolled))*sourceDamage/128));
-        int frames=initialFrames;
-        if(rate>0){frames=checked(frames+(overrideFrames>0?overrideFrames:raw.PoisonFrames));if(overrideFrames<=0 && raw.PoisonCount>1){frames/=raw.PoisonCount;}}
-        return new(rate,frames);
+        if(sourceDamage is <1 or >255){throw new ArgumentOutOfRangeException(nameof(sourceDamage));}
+        int rolled=SourceElementRoll.Roll256(raw.PoisonMin,raw.PoisonMax,mastery,mastery,initialRate,random);
+        int rate=checked((int)((long)rolled*sourceDamage/128));
+        return new(rate,rate>0?Length(initialFrames,raw.PoisonFrames,raw.PoisonCount,overrideFrames):initialFrames);
+    }
+    internal static int Length(int initial,int duration,int count,int overrideFrames)
+    {
+        int frames=checked(initial+(overrideFrames>0?overrideFrames:duration));
+        return overrideFrames<=0&&count>1?frames/count:frames;
     }
     internal static WeaponPoisonRoll Capture(PlayerMobile owner,BaseWeapon weapon,VenomState venom,Func<int,int> random)
     {

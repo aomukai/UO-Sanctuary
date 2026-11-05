@@ -37,10 +37,12 @@ public static class NamedCombat
     internal static bool MeleeCritical(int mastery,int generic,int deadly,Random random)
         =>MeleeCritical(mastery,generic,deadly,()=>unchecked((uint)random.Next(100)));
     internal static bool MeleeCritical(int mastery,int generic,int deadly,Func<uint> raw)
+        =>MeleeCritical(()=>mastery,()=>generic,()=>deadly,raw);
+    internal static bool MeleeCritical(Func<int> mastery,Func<int> generic,Func<int> deadly,Func<uint> raw)
     {
-        if(mastery>0 && raw()%100<mastery){return true;}
-        if(generic>0 && raw()%100<generic){return true;}
-        return deadly>0 && raw()%100<deadly;
+        int chance=mastery();if(chance>0&&raw()%100<chance){return true;}
+        chance=generic();if(chance>0&&raw()%100<chance){return true;}
+        chance=deadly();return chance>0&&raw()%100<chance;
     }
     // Missile creation always draws generic critical first, even at zero chance.
     internal static bool ProjectileCritical(PlayerMobile player,Random random)

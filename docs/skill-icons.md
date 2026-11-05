@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC full damage allocation:** no new talent/hotkey icon identity or completed asset. Existing class/summon icon placeholders remain separately tracked. See the [checkpoint](npc-damage-fill-checkpoint.md).
+
 **Necromancer army-size policy:** no new talent/hotkey icon identity or completed icon asset. Talent and pet-count text use the approved limits; existing class/summon icon placeholders remain separate. See the [checkpoint](necromancer-army-checkpoint.md).
 
 **Physical stat binding correction:** no new talent/hotkey icon identity or completed asset. Existing icon placeholders remain separate. See the [checkpoint](generated-npc-physical-stats-checkpoint.md).

@@ -66,6 +66,17 @@ internal sealed class GeneratedNpcWeaponFrame:SourceWeaponServices<EquipmentStat
         return new(Read(damage),Read(damage+1),Read(111),checked(Read(25)+additionalPercent+Mastery(selected,1,firstSkillItemType,skillRange)),
             Read(0),Read(2),item!=null,item==null?0:coefficient("StrBonus"),item==null?0:coefficient("DexBonus"),Read(18),Read(17));
     }
+    internal NpcFillPacket Fill(GeneratedNpcFillTarget target,NpcFillPacket packet,int firstSkillItemType,int skillRange,
+        bool goodAlignment,int hireling,int intrinsicCritical,Func<int,int> limited,Func<uint> raw,
+        Func<NpcFillPacket,NpcFillPacket> attackedInMelee,bool ranged=false,int sourceDamage=128)
+    {
+        Current();return NpcDamageFill.Fill(new GeneratedNpcFillServices(this,Graph,target,firstSkillItemType,skillRange,
+            goodAlignment,hireling,intrinsicCritical,limited,raw,attackedInMelee),packet,ranged,sourceDamage);
+    }
+    internal bool SelectedBlunt
+    {
+        get{Current();var selected=SourceWeaponSelection.Select(this,Graph.Actor);return selected!=null&&NpcItemAffixes.Pool.IsType(State(selected).Metadata.Code,"blun");}
+    }
     internal override bool Inventory(EquipmentStatUnit actor)=>true;
     internal override bool Dual(EquipmentStatUnit actor)=>SourceItemStatUpdates.CanDualWield(actor.Kind,Kind);
     internal override EquipmentStatUnit Equipped(EquipmentStatUnit actor)=>First;

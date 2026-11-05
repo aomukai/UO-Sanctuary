@@ -23,7 +23,7 @@ internal sealed record NpcWeaponRoll(uint Actor,uint Target,NpcCriticalPacket Da
 // reached the supplied endpoints; it must not become general actor ED too.
 internal static class NpcEquipmentDamage
 {
-    internal static int Roll256(NpcPhysicalStats stats,Func<int,int> limited,int sourceDamage=128)
+    internal static int Roll256(NpcPhysicalStats stats,Func<int,int> limited,int sourceDamage=128,int initial=0)
     {
         ArgumentNullException.ThrowIfNull(limited);
         if(sourceDamage is <0 or >255){throw new ArgumentOutOfRangeException(nameof(sourceDamage));}
@@ -37,7 +37,7 @@ internal static class NpcEquipmentDamage
         percent=Math.Max(-90,percent);
         low=checked(low+SourcePercentage.Calculate(low,checked(percent+stats.MinimumPercent),100));
         high=checked(high+SourcePercentage.Calculate(high,checked(percent+stats.MaximumPercent),100));
-        int value=low;
+        int value=checked(initial+low);
         if(high>low)
         {
             int bound=checked(high-low),roll=limited(bound);
@@ -88,7 +88,7 @@ internal static class NpcEquipmentDamage
         var snapshot=elements();var elementRoll=NpcEquipmentElements.Roll(snapshot,limited);
         var poisonSnapshot=poison();var rolledPoison=NpcEquipmentPoison.Roll(poisonSnapshot,limited);
         var packet=NpcEquipmentCritical.ApplyIntrinsic(physical,elementRoll,rolledPoison,NpcEquipmentCritical.Intrinsic(chances,raw),defender:defender);
-        return new(actor,target,packet,snapshot.Stats.ColdFrames,poisonSnapshot,physicalCritical);
+        return new(actor,target,packet,elementRoll.ColdMs/40,poisonSnapshot,physicalCritical);
     }
     internal static bool TryResolve(SkeletonGuardian actor,Mobile target,out SkillHitResult result,Func<int,int> limited=null,Func<uint> raw=null)
     {

@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC full damage allocation:** no new effect/audio identity is introduced. Hit class and critical overlay are allocation metadata here; rendered overlay delivery, actual actor animation and existing summon/generated-item placeholders remain separate. The paired Tekagi visual preview is still pending. See the [checkpoint](npc-damage-fill-checkpoint.md).
+
 **Necromancer army-size policy:** quantity progression, FIFO and count text introduce no new effect/audio identity. Existing Mage/Revive/summon placeholders remain separate; lower quantities do not complete their effects. See the [checkpoint](necromancer-army-checkpoint.md).
 
 **Physical stat binding correction:** numerical percentage-field correction introduces no new effect/audio identity. Existing generated equipment/summon placeholders and paired Tekagi preview remain pending. See the [checkpoint](generated-npc-physical-stats-checkpoint.md).
