@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "93e4a622933ca682ebf599acc780b5920d7ef323da655d01a854eaaa2faf5ccc",
+  "ContentAssemblySha256": "3cea757a0548219ea5235b119637caaff490b55eda87ab5f79e8ec0f80da0185",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "ffb2f0594db1b9dbd3ea3694c83fae5e8a192b2cedda7858af61c3845f1fdfe5",
+    "data/Sanctuary/Balance/class-skill-status.json": "c82c1ff6b65f70a7d9c4bc000c1cd618dd55a80c7edb8eeab1c2de3b03223e17",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -710,6 +710,7 @@
     "src/Sanctuary.Content/ItemDamageOperations.cs": "383ec1bd2a683e754d1b0531d10813e5183af2c2ed0b860cd35ac7788373adda",
     "src/Sanctuary.Content/ItemDurationDefenses.cs": "a38385d00e83c9b7ade73cc6e356f9cc2efe5faece59a7ac19a545713c7863f3",
     "src/Sanctuary.Content/ItemPoisonProjection.cs": "29ad4474e0aa86aca8a535ca7edaad0e7c236d757cda3ad1659558e1c060a7eb",
+    "src/Sanctuary.Content/ItemProcCallbacks.cs": "827bb8fea1267988d0aeb2e3432f5823a697ce94b7904f0203340c7c64f58ccf",
     "src/Sanctuary.Content/ItemPropertyCreationContext.cs": "7088c7116bcdcf324f30ba60bc30571521f6508c551f43c4efbfbb2862367c0b",
     "src/Sanctuary.Content/ItemSkillPropertyWriter.cs": "c13ac2b5523f9ddb6fac39ad663690e49546bd084bec96b425273a35e381f656",
     "src/Sanctuary.Content/ItemStatContext.cs": "fb24a7c0f09f1e6fdd13a2ac6bd670e52ab49b93ffb784f3d89c645847dbe021",
@@ -808,7 +809,7 @@
     "src/Sanctuary.Content/NpcEquipmentResources.cs": "f4bd38356fd6952d6bbc16962be2bc10aeac7283f17a0ecb72b11b61b63e8db8",
     "src/Sanctuary.Content/NpcEquipmentRetaliation.cs": "c162bd4dd3cafe5e15ace8810177759a81e1e8b0aed3ccc888457b6469452662",
     "src/Sanctuary.Content/NpcFireSpellHit.cs": "e6a17df1a06210ed67287b6427fc659383b40b4650c778746f363365f0a75dfe",
-    "src/Sanctuary.Content/NpcHitSkills.cs": "9ea7592204b30715379642413bd5eb60ca576c96048c0d8140f423252eb9b67a",
+    "src/Sanctuary.Content/NpcHitSkills.cs": "7cebdf4161bb0751f2abe0e0320a474254a33805d3a2559d890db529bcde85da",
     "src/Sanctuary.Content/NpcItemAffixes.cs": "a669b5cdaf497d38dc484ba7222dada2ffeede13640c5226af6ba27bd2f30271",
     "src/Sanctuary.Content/NpcItemStatCapture.cs": "51c2237d20a250af40f77f80e2d2bbf1247996490bb701b8cac3910cdd747c81",
     "src/Sanctuary.Content/NpcMeleeResult.cs": "fb0ee1b68a170ef49fa6f7b8701e9c75c97bdd3bd795055c97958d01674eed68",

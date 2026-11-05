@@ -11,11 +11,11 @@ internal static class NpcHitSkills
         &&actor.ControlMaster is PlayerMobile{Deleted:false} owner
         &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=20?5:0;
     internal static bool Chance(int chance,uint hitFlags,bool hasPacket,uint roll)
-        =>chance>0&&(!hasPacket||(hitFlags&32)!=0)&&roll%100<(uint)chance;
+        =>ItemProcCallbacks.Chance(chance,hasPacket,hitFlags,roll);
     internal static bool BloodLifeTap(SkeletonGuardian actor,BaseCreature target,PreparedMonsterDamagePacket packet,DateTime at)
     {
         int chance=BloodChance(actor);
-        if(chance<=0||packet!=null&&(packet.HitFlags&32)==0){return false;}
+        if(!ItemProcCallbacks.OutgoingGate(chance,packet!=null,packet?.HitFlags??0)){return false;}
         // Cast failure (including uninterruptible) is after this draw. No
         // player class, learned Life Tap, soft rank or mana supplier is read.
         uint roll=NpcEquipmentRandom.Raw(actor);

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shared item proc callbacks (2026-11-05 JST).** Contract callbacks create no visual or audio assets. The actual Blood Life Tap retains its identified curse/audio placeholders; later generic proc delivery needs the corresponding spell's cast, projectile, impact, state and audio assets. Shadow/Valkyrie presentation remains pending. No imagegen asset is added. See [checkpoint](item-proc-callbacks-checkpoint.md).
+
 **Raw proc/charge encoding (2026-11-05 JST).** Storing encoded stats produces no trigger,cast,projectile,contact,attachment or audio. Later actual proc/charge spell delivery needs its existing skill-specific effects and audio;Shadow/Valk presentation remains pending with identified placeholders. No imagegen asset is created. See [checkpoint](item-skill-property-checkpoint.md).
 
 **Fresh item-owned property graphs (2026-11-05 JST).** Raw stat/seed/ethereal snapshots generate no cast,proc,weapon attachment or audio. Native test items are labelled unattached context fixtures with existing art. Final Shadow/Valkyrie summon/body/cast/weapon/skill presentation and later item-proc effects remain separate pending assets with identified placeholders. No imagegen asset is created. See [checkpoint](item-property-creation-checkpoint.md).

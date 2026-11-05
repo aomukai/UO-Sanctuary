@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 25920,
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce"
+  },
+  "completeRoutineHashes": {
+    "SKILLITEM_EventFunc20_SkillOnAttackHitKill": "16597b958261a8451464ec506325f5207d9eeca6b94ad80b9bb61b98c3c53cea",
+    "SKILLITEM_EventFunc21_SkillOnGetHit": "16a480dc6cc7bb2c5567d196f7a9e17ad7a9d15339f912e78800cd5f5051a6e2",
+    "SKILLITEM_EventFunc30_SkillOnDeathLevelup": "7cbe657c10946331af83a790c9a806e2333e1d7ec3362b21f3d7f720ee1aca43",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "artifacts": {
+    ".local/class-skills/item-proc-callbacks-source/source.cpp": "3187f7a4bfd8fcfdb509c5426c4b2114b9fb29a3ec9061fd59d584925c98a2c5",
+    ".local/class-skills/item-proc-callbacks-source/probe": "a58fe9bb30a9a54673751125dc43e734c215437c6bc29f03a7d0c423067ebed3",
+    ".local/class-skills/item-proc-callbacks-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-proc-callbacks-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/item-proc-callbacks-source/cases.json": "9e10b62194992e9d60067dac037663c586ec0d818700dc59d03866e535a5c47c",
+    "tools/probe_item_proc_callbacks.py": "9e055c88cabdc066f50da56a655a5c1bd9d86a56a70b7618e01ffd241ec135ba"
+  },
+  "established": [
+    "Three complete source callbacks20/21/30and two complete seed routines execute over absent sources/targets/packets,hit/result flags,chance bounds,three seed states,skill lookup outcomes,target-do flags,cast return failures and1/6/8bit contexts. Return status,final seed and ordered chance/RNG/lookup/cast traces are emitted.",
+    "Outgoing callback20requires hitflag32only when a packet exists. Get-hit21requires packet/resultflag4. Death/levelup30has no damage gate. RNG precedes skill lookup and cast attempts;failed nested cast does not undo callback1or the draw.",
+    "Callback20target-do changes caster to the target with flag0;without a target it returns1without casting. Other outgoing casts use flag1;get-hit/death/levelup use0. No-target position uses the source first path point."
+  ],
+  "services": [
+    "Stat lookup,source/target/packet,immutable bit context/skill flag records and target/position casts are declared services. Cast bodies,world admission/mana/damage/spell execution are not mocked into completeness. Pure path getters are observed through resulting cast coordinates,not host argument-evaluation order.",
+    "Callback metadata flag index29is checked against the pinned header. Source uint16stat layer conversion is represented by the stat lookup signature. Source LCG supplies every roll."
+  ],
+  "remaining": [
+    "NPC event registration/ordering/full spell contexts,charge skill actions,full item initialization/fallback/NPC actor delivery and current executable/client acceptance remain open. No new learned talent enabled;Blood gate reuse must retain actual original-native checks."
+  ]
+}
