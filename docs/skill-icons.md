@@ -1,5 +1,7 @@
 # Skill icons
 
+**Warrior snapshot rollout (2026-11-05 JST).** Existing Raise Skeleton talent and hotkey identities are unchanged. Born hard-point upgrades add no icon slot; final Warrior tree/hotkey artwork remains separately pending. See [checkpoint](warrior-snapshot-checkpoint.md).
+
 **Learned Poison Creeper (2026-11-05 JST).** The existing talent/right/quick identity is enabled through common bindings. Its final talent-tree and hotkey artwork remains separately pending with identified generic placeholders. No new icon slot or client protocol is added. See [checkpoint](creeper-learned-checkpoint.md).
 
 **Learned Carrion/Solar (2026-11-05 JST).** Existing Carrion Vine and Solar Creeper talent/right/quick identities are enabled through the common binding system. Their final talent-tree and hotkey artwork remains separately pending with identified generic placeholders. Poison Creeper artwork stays separately listed while its learned route is gated. No icon art or client binding is generated. See [checkpoint](recycler-learned-checkpoint.md).

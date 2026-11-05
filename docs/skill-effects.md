@@ -1,5 +1,7 @@
 # Skill effects
 
+**Warrior snapshot rollout (2026-11-05 JST).** Hard-point persistence adds no effects or audio. Existing Warrior body/shield/raise/physical-return/Extra Fast placeholders and final asset gaps remain separately listed. No imagegen asset is created. See [checkpoint](warrior-snapshot-checkpoint.md).
+
 **Learned Poison Creeper (2026-11-05 JST).** Public casting uses the identified body0x8 and summon sound0x1E5 placeholders. Heads/trails/mats currently run mechanically without field rendering. Final Creeper body/summon, vine head/trail/mat, poison/contact/wither and audio assets remain pending. The approved vulnerability rule needs no underground protection animation. Poison-state query and stat snapshots add no new artwork. See [checkpoint](creeper-learned-checkpoint.md).
 
 **Learned Carrion/Solar (2026-11-05 JST).** Both use the existing visible silent `0x8` body placeholder, shared summon sound `0x1E5` and recovery marker `0x376A`. Final body/summon/corpse-eating/recovery/wither/audio assets remain pending. The approved always-vulnerable rule needs no mechanical underground/surface transition assets. Poison Creeper retains its separate head/trail/mat effects list and transport gate. No imagegen asset is created. See [checkpoint](recycler-learned-checkpoint.md).

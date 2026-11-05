@@ -62,35 +62,46 @@ public static class SkeletonUpgradeChecks
         }
         Require(EncounterProfiles.MovementInterval(40,100)==40&&EncounterProfiles.ModifierMovementPercent(EliteModifier.ExtraStrong)==0,"Existing movement floor/other affix changed");
     }
-    private static void Motion(PlayerMobile p,SkeletonWorldBody b)
+    private static void Motion(SkeletonWorldBody normalBody,SkeletonWorldBody fastBody)
     {
-        // Isolate a real actor frame on the existing toward-path controller.
-        var origin=b.Location;var c=b.WorldState.Controller;int x=b.X*2,y=b.Y*2;
-        var initial=DruidRavenMotion.Center(x,y) with{PathType=13,Flags=0x100,Distance=20,Velocity=2048,MaximumVelocity=2048};
-        var motion=SourceActorPath.Initialize(new(initial,new(x+20,y),initial.FinalTarget),20,new(1,1,p.Map.Width*2-1,p.Map.Height*2-1),(_,_)=>0).Motion;
-        Require((motion.Flags&0x20)!=0,"Movement fixture lacks active source path");
-        var walk=c with{Mode=2,ActionAt=0,EndAt=0,NextThink=0,Target=0,Motion=motion,MovingBonus=0};
-        b.StoreWorld(walk);IronGolemWorld.Advance(b,walk.NextUtc,true);var normal=b.WorldState.Controller.Motion;uint delta=normal.X-motion.X;
-        Train(p,20);b.MoveToWorld(origin,p.Map);b.StoreWorld(walk);IronGolemWorld.Advance(b,walk.NextUtc,true);var fast=b.WorldState.Controller.Motion;
-        Require(delta>0&&fast.X-motion.X==2*delta&&fast.Velocity==2*normal.Velocity&&b.SourceAttackClock==(12,19)&&b.CombatProfile.AttackMs==760,"Live Extra Fast did not double actual source motion or changed attack speed");Hold(b);
+        (uint Delta,int Velocity) Step(SkeletonWorldBody b)
+        {
+            var p=(PlayerMobile)b.ControlMaster;var c=b.WorldState.Controller;int x=b.X*2,y=b.Y*2;
+            var initial=DruidRavenMotion.Center(x,y) with{PathType=13,Flags=0x100,Distance=20,Velocity=2048,MaximumVelocity=2048};
+            var motion=SourceActorPath.Initialize(new(initial,new(x+20,y),initial.FinalTarget),20,new(1,1,p.Map.Width*2-1,p.Map.Height*2-1),(_,_)=>0).Motion;
+            Require((motion.Flags&0x20)!=0,"Movement fixture lacks active source path");
+            var walk=c with{Mode=2,ActionAt=0,EndAt=0,NextThink=0,Target=0,Motion=motion,MovingBonus=0};
+            b.StoreWorld(walk);IronGolemWorld.Advance(b,walk.NextUtc,true);var moved=b.WorldState.Controller.Motion;Hold(b);return(moved.X-motion.X,moved.Velocity);
+        }
+        var normal=Step(normalBody);var fast=Step(fastBody);
+        Require(normal.Delta>0&&fast.Delta==2*normal.Delta&&fast.Velocity==2*normal.Velocity
+            &&fastBody.SourceAttackClock==(12,19)&&fastBody.CombatProfile.AttackMs==760,"Born Extra Fast did not double source movement or changed attack speed");
     }
     private static void Direct()
     {
-        EncounterReuse();var p=Owner();var helm=PoisonDaggerChecks.Named(p,"Wormskull");var b=Learned(p);var original=b.Serial;int maximum=SkillHealth.Maximum256(b);SkillHealth.SetBalance256(b,maximum-257);TimedEffects.PreventHealing(b,TimedEffects.Now);int life=SkillHealth.Balance256(b);long order=BattleCommand.PetOrder(b);ulong seed=NpcEquipmentRandom.State(b).Seed;
+        EncounterReuse();var p=Owner();var helm=PoisonDaggerChecks.Named(p,"Wormskull");var b=Learned(p);var original=b.Serial;
+        int maximum=SkillHealth.Maximum256(b);SkillHealth.SetBalance256(b,maximum-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
+        int life=SkillHealth.Balance256(b);long order=BattleCommand.PetOrder(b);ulong seed=NpcEquipmentRandom.State(b).Seed;
         try
         {
             Require(b.Rank==10&&SkeletonPetUpgrades.HardRank(b)==9&&PaladinThorns.FlatDamage(b)==0&&b.CombatProfile.MoveMs==240,"Real soft1 unlocked hard10 ATD");
-            Train(p,10);Require(PaladinThorns.FlatDamage(b)==34&&SkeletonPetUpgrades.FlatDamage(b)==34,"Hard10 did not unlock fixed34");ReturnCases(p,b,34);SkillHealth.SetBalance256(b,life);
-            p.Backpack.DropItem(helm);ClassGear.Refresh(p);Train(p,19);Require(p.EquipItem(helm),"Reequip actual soft point");ClassGear.Refresh(p);Require(SkillMechanics.Rank(p,CombatAbility.RaiseSkeleton)==20&&SkeletonPetUpgrades.HardRank(b)==19&&SkeletonPetUpgrades.MovementPercent(b)==0&&b.CombatProfile.MoveMs==240,"Soft point unlocked Extra Fast");
-            p.Backpack.DropItem(helm);ClassGear.Refresh(p);Motion(p,b);Require(SkeletonPetUpgrades.Has(b,EliteModifier.ExtraFast)&&SkeletonPetUpgrades.MovementPercent(b)==100&&b.CombatProfile.MoveMs==120,"Hard20 existing Extra Fast rule");
-            Require(b.Serial==original&&b.Rank==10&&SkillHealth.Balance256(b)==life&&SkillHealth.Maximum256(b)==maximum&&BattleCommand.PetOrder(b)==order&&NpcEquipmentRandom.State(b).Seed==seed,"Unlock recaptured birth state,healed,replaced,reordered or rerolled");
-            var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Lance of Yaggai").Id,99,new Random(836),true);item.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);Require(IronGolemItems.TryAttach(p,b,item,out var why),"Shared item ATD control: "+why);
-            Require(NpcEquipmentCombat.Bonus(b,"thorns")==8&&PaladinThorns.FlatDamage(b)==42,"Skill34 did not aggregate with actual item8");ReturnCases(p,b,42);IronGolemItems.DestroyBoundItem(b);Require(PaladinThorns.FlatDamage(b)==34,"Item removal dropped skill or retained item");
-            ClassCreation.Profiles.TryGet(p.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(p,profile);Require(!b.Deleted&&PaladinThorns.FlatDamage(b)==0&&b.CombatProfile.MoveMs==240,"Respec retained unlocks or replaced pet");Train(p,20);Require(PaladinThorns.FlatDamage(b)==34&&b.CombatProfile.MoveMs==120,"Relearn failed existing actor");
+            Train(p,10);Require(PaladinThorns.FlatDamage(b)==0&&SkeletonPetUpgrades.HardRank(b)==9,"Training rewrote old hard9 snapshot");
+            b.MoveToWorld(new(p.X+5,p.Y,p.Z),p.Map);var ten=Learned(p);Require(PaladinThorns.FlatDamage(ten)==34&&SkeletonPetUpgrades.FlatDamage(ten)==34,"New hard10 summon missed fixed34");ReturnCases(p,ten,34);
+            ten.MoveToWorld(new(p.X+6,p.Y,p.Z),p.Map);p.Backpack.DropItem(helm);ClassGear.Refresh(p);Train(p,19);Require(p.EquipItem(helm),"Reequip actual soft point");ClassGear.Refresh(p);
+            var nineteen=Learned(p);Require(SkillMechanics.Rank(p,CombatAbility.RaiseSkeleton)==20&&SkeletonPetUpgrades.HardRank(nineteen)==19&&nineteen.CombatProfile.MoveMs==240,"Born soft20 unlocked Extra Fast");
+            nineteen.MoveToWorld(new(p.X+7,p.Y,p.Z),p.Map);p.Backpack.DropItem(helm);ClassGear.Refresh(p);Train(p,20);var twenty=Learned(p);
+            Require(SkeletonPetUpgrades.HardRank(nineteen)==19&&nineteen.CombatProfile.MoveMs==240&&SkeletonPetUpgrades.Has(twenty,EliteModifier.ExtraFast)&&twenty.CombatProfile.MoveMs==120,"Resummon snapshot boundary or hard20 Extra Fast missing");
+            Motion(nineteen,twenty);
+            Require(b.Serial==original&&b.Rank==10&&SkeletonPetUpgrades.HardRank(b)==9&&SkillHealth.Balance256(b)==life&&SkillHealth.Maximum256(b)==maximum&&BattleCommand.PetOrder(b)==order&&NpcEquipmentRandom.State(b).Seed==seed,"Later training changed original birth,wounds,order or seed");
+            var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Lance of Yaggai").Id,99,new Random(836),true);item.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);Require(IronGolemItems.TryAttach(p,twenty,item,out var why),"Shared item ATD control: "+why);
+            Require(NpcEquipmentCombat.Bonus(twenty,"thorns")==8&&PaladinThorns.FlatDamage(twenty)==42,"Born34 did not aggregate with actual item8");ReturnCases(p,twenty,42);IronGolemItems.DestroyBoundItem(twenty);Require(PaladinThorns.FlatDamage(twenty)==34,"Item removal changed innate snapshot");
+            ClassCreation.Profiles.TryGet(p.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(p,profile);
+            Require(!b.Deleted&&!twenty.Deleted&&PaladinThorns.FlatDamage(b)==0&&twenty.CombatProfile.MoveMs==120&&PaladinThorns.FlatDamage(twenty)==34,"Respec rewrote born upgrade sets");
+            Train(p,20);Require(SkeletonPetUpgrades.HardRank(b)==9&&SkeletonPetUpgrades.HardRank(twenty)==20,"Relearning recaptured old hard points");
             var mage=new NecromancerMinion();try{MagePetBuffChecks.Train(p,"necromancer.skeletalmage",1);mage.Prepare(p,CombatAbility.RaiseSkeletalMage);mage.SetControlMaster(p);Require(SkeletonPetUpgrades.FlatDamage(mage)==0&&SkeletonPetUpgrades.MovementPercent(mage)==0,"Mage inherited warrior unlocks");}finally{mage.Delete();}
         }
-        finally{b.Delete();p.Delete();}
-        Log.Information("Skeleton upgrades:hard9+real soft1/19+soft1 locked,live hard10 ATD34/hard20 existing movement-only Extra Fast,item8aggregation/real native hit/miss/zero/ranged/spell/resistance controls,respec/relearn,no identity/wound/rank/order/seed/attack-clock changes;9wild affix controls and real doubled source motion pass");
+        finally{PersistentMinions.Dismiss(p);p.Delete();}
+        Log.Information("Skeleton upgrades:born hard9+soft1/19+soft1locked,hard10 ATD34/hard20 existing Extra Fast;training/respec preserve original sets;item8aggregation/native return controls and real doubled source motion pass;historical no-snapshot actors retain legacy rule");
     }
     private static void Check()
     {

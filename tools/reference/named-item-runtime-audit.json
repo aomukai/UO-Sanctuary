@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a7043f5eac020f2cf8e896dd3c00bbc58ca16412af4123793ccc4112fad3307a",
+  "ContentAssemblySha256": "5fb71b01eaf2e3d313d885934183badf3eb0f83c4681de5e4665d6c0d7b9510e",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -937,8 +937,8 @@
     "src/Sanctuary.Content/ShapeRestrictions.cs": "50e6ba4fa214a7768a291013e57bbcb3347a00c951639e5610bea814330f00fb",
     "src/Sanctuary.Content/ShiverArmor.cs": "8115593adfed04566ac9b70b7ab77187312146a1a48a61426c595fb73837e166",
     "src/Sanctuary.Content/ShockWebs.cs": "ee0005a8f62950c7f3ef1f04373ff30db1be2a6ee9bdc4ca4f1b0dbbf9fdf27b",
-    "src/Sanctuary.Content/SkeletonPetUpgrades.cs": "cdcd78ef0495c8c5ae4e3761865350f6650e26ec4f8f8236593deb91d4e2ac4e",
-    "src/Sanctuary.Content/SkeletonPets.cs": "4fd880c00b7f9e83b9cd8afddc2a9e1c3062d59dc9d1bd2cb4540926b61e8102",
+    "src/Sanctuary.Content/SkeletonPetUpgrades.cs": "9104d31643e8361606f687fc0ba82dc6051286fdd1b74290e6e9a3aaefd45ec6",
+    "src/Sanctuary.Content/SkeletonPets.cs": "5bfdbf009193fb4fb599b4709932b56b6db684887f5de0cbaab5b3593e44061e",
     "src/Sanctuary.Content/SkeletonWorldBody.cs": "b9932f8ade023991b1a4ee0f5de1a9cf8481be74df0b357a2dd5f3278feac214",
     "src/Sanctuary.Content/SkillBindingNetwork.cs": "5ca869814f1287a6a0f007a2616a7a3bb88a14cdf5b0e892df047daa819494e6",
     "src/Sanctuary.Content/SkillBindings.cs": "48a2089357903558a5875a36b270bd7d696ed8e4577eb82b58281f33e3d5721f",
@@ -992,6 +992,7 @@
     "src/Sanctuary.Content/StaticFields.cs": "cf504fef34239a42e93cf5b1f1d0469efd8db836a802bfd2079b332ee4497589",
     "src/Sanctuary.Content/SummonDifficulties.cs": "e352b4712b5edeaadffe0ee0a4c36c802418ef618f4600eb89e02d8cee5e08e2",
     "src/Sanctuary.Content/SummonEquipment.cs": "5abe5e8307bc32d36ea6e7533ee6db69de2ed771f8d33ed6647806933e6ba607",
+    "src/Sanctuary.Content/SummonUpgradeSnapshots.cs": "0260a7a115585001801c79778cea172e529e07d2305dfb4917eca328d0ad9ad9",
     "src/Sanctuary.Content/SurveyGump.cs": "5dbf81b931effa50da8ae62852e9b94678a6be9d0f827b48aee5519c69580112",
     "src/Sanctuary.Content/TaintedFireBallCasting.cs": "4cbde2e3d7c5138956336656dc445a6adaa365ca2aa4551058acc1aad145f565",
     "src/Sanctuary.Content/TaintedFireBallHit.cs": "055caa315b5821d7a3438b13dae4a689f034825cc421776f56f506d924f5a7ce",
