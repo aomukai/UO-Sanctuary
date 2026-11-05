@@ -1,5 +1,7 @@
 # Skill effects
 
+**Fresh item-owned property graphs (2026-11-05 JST).** Raw stat/seed/ethereal snapshots generate no cast,proc,weapon attachment or audio. Native test items are labelled unattached context fixtures with existing art. Final Shadow/Valkyrie summon/body/cast/weapon/skill presentation and later item-proc effects remain separate pending assets with identified placeholders. No imagegen asset is created. See [checkpoint](item-property-creation-checkpoint.md).
+
 **Complete NPC affix pools/rare names (2026-11-05 JST).** Prepared selection/name services generate no item body,summon,cast,weapon effect or audio. Shadow/Valkyrie body/summon/cast/weapon/skill presentation and audio remain separately pending with identified placeholders. Unsupported source properties are retained for later real consumers;no imagegen asset is created. See [checkpoint](npc-item-affixes-checkpoint.md).
 
 **Shared item-affix orchestration (2026-11-05 JST).** This prepared service component produces no summon,item body,cast,weapon effect or audio. Shadow summon/body/cast/weapon/skill effects and audio remain separately pending with identified placeholders;no imagegen asset is generated. See [checkpoint](item-affixes-checkpoint.md).

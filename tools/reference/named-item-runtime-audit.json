@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "82aafcbf2a0c0fb0015f5184eb80a1c3b67458b637b3904ea81c93ab73226a3c",
+  "ContentAssemblySha256": "f99351802fcd90fcc7da44d9e05ce1afdd71c1b1835c22720a9415b69bdd3704",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "c08671de76b42a9889584f623dab63257c44d270500de3a70ea7a03e1e4e2ebb",
+    "data/Sanctuary/Balance/class-skill-status.json": "15f122fe05de21823aba3aae76380936fa6cbb423e0cae9ce5d9cb725e06b96d",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -566,7 +566,7 @@
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/EquipmentInsurance.cs": "cc6bb67b78b980b989ec60163034e5abb3453f484748dbb0da0085480fb68ba4",
     "src/Sanctuary.Content/EquipmentIntrinsicProperties.cs": "95b91b96b3b6edd1fd3c20a94f75975fcc4f8741ba2c80e126386516138236a6",
-    "src/Sanctuary.Content/EquipmentPropertyWriter.cs": "282bd780ce95514698b2b6f1c95bb34ef8850ad3451547abcbefc1d86c5d1d46",
+    "src/Sanctuary.Content/EquipmentPropertyWriter.cs": "152ee61c5d69fd5c0547572e0ff8bd9be135030b473809b054eac783c8de9e02",
     "src/Sanctuary.Content/EquipmentRepairs.cs": "1054a65cb71c0a5b1f6eef8b47c99df722758d9bf911f746aebf1bc14305417b",
     "src/Sanctuary.Content/EquipmentSalvage.cs": "695be4ca9b945d8572a5f60399f175bb5bfae16e852fc4a0ee79c3d1b78bb354",
     "src/Sanctuary.Content/EquipmentStatGraph.cs": "94df8f8ec8ee54d0ec80590e8cb37d391ac30d2b82e8c9aa77cf03c19dad9bde",
@@ -709,6 +709,7 @@
     "src/Sanctuary.Content/ItemDamageOperations.cs": "383ec1bd2a683e754d1b0531d10813e5183af2c2ed0b860cd35ac7788373adda",
     "src/Sanctuary.Content/ItemDurationDefenses.cs": "a38385d00e83c9b7ade73cc6e356f9cc2efe5faece59a7ac19a545713c7863f3",
     "src/Sanctuary.Content/ItemPoisonProjection.cs": "29ad4474e0aa86aca8a535ca7edaad0e7c236d757cda3ad1659558e1c060a7eb",
+    "src/Sanctuary.Content/ItemPropertyCreationContext.cs": "46d0d21841c5ccbc177206e5db6a8e0abae1109c0305daeff1ca30c2af1201ce",
     "src/Sanctuary.Content/ItemStatContext.cs": "fb24a7c0f09f1e6fdd13a2ac6bd670e52ab49b93ffb784f3d89c645847dbe021",
     "src/Sanctuary.Content/JewelleryCrafting.cs": "a4c86d8e4d739768ec0efec16f7bd4bdd24704bd0d94cb1ae521ade67c67935c",
     "src/Sanctuary.Content/LandingReservations.cs": "cd2f123547c5df86aad9aef498c8764ace5365c838277101c299105753fb482c",

@@ -15,7 +15,7 @@ public static class EquipmentPropertyWriterChecks
     private static string Manifest=>Path.Join(Core.BaseDirectory,"item-property-writers-fixtures.json");
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private sealed record Saved(uint Owner,uint Pet,uint Item,string Gear,int Life256,int Defense,int LifeBonus256,int Armor,int Minimum,int Maximum,string[] Omissions);
-    private sealed class Fixture:EquipmentPropertyServices
+    internal sealed class Fixture:EquipmentPropertyServices
     {
         private readonly EquipmentPropertyBase Base;private readonly bool IsWeapon,Throws,Allocate;
         internal readonly Dictionary<uint,int> BaseStats=new(),List=new();internal readonly List<int[]> Trace=new();internal int Draws;

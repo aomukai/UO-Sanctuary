@@ -104,6 +104,10 @@ internal static class EquipmentPropertyWriter
                 int maximum=Math.Max(s.Basis.Maximum,s.Basis.SecondaryMaximum);long bonus=(long)value*maximum/100;
                 if(s.Weapon&&maximum+bonus<=maximum){return FlatDamage(s,p,set,true,1,state,flags);}
                 Write(s,p,set,18,0,value,state,flags);Write(s,p,set,17,0,value,state,flags);return value;
+            case 10:
+                // Literal older multiply-before-divide expression; current
+                // skill-tab reader packing differs. Fresh admission is gated.
+                return Write(s,p,set,stat,checked(p.Parameter%3+8*p.Parameter/3),first!=0?first:Rolled(p,s),state,flags);
             case 15:
                 if(stat==21){FlatDamage(s,p,set,false,p.Minimum,state,flags);}else{Write(s,p,set,stat,0,p.Minimum,state,flags);}return p.Minimum;
             case 16:
@@ -111,12 +115,29 @@ internal static class EquipmentPropertyWriter
             case 17:
                 int parameter=p.Parameter!=0?p.Parameter:Rolled(p,s);if(parameter==0){return 0;}
                 if(stat==22){FlatDamage(s,p,set,true,parameter,state,flags);}else{Write(s,p,set,stat,0,parameter,state,flags);}return parameter;
+            case 20:
+                if(!s.GetOrCreateList(state,flags)){return 0;}
+                s.AddList(152,1,0);return 1;
+            case 21:return Write(s,p,set,stat,step.Value,Rolled(p,s),state,flags);
             default:throw new NotSupportedException("Unmapped item property function "+step.Function);
         }
     }
     internal static void Apply(EquipmentPropertyPlan plan,EquipmentPropertyInput input,int mode,EquipmentPropertyServices services,int state=0,int flags=0x40)
     {
         if(plan is not{Supported:true}){throw new NotSupportedException("No verified numeric property writer for "+plan?.Code);}
+        if(mode is <0 or >7){throw new NotSupportedException("Unmapped property mode");}
+        int first=0;
+        for(int i=0;i<plan.Steps.Length;i++){int result=ApplyStep(services,input,mode,plan.Steps[i],first,state,flags);if(i==0){first=result;}}
+    }
+    // Fresh creation can roll ranges and retain layered skill stats. Original
+    // saved-item projection still uses its separately admitted191-plan set.
+    // Current war-tab-rand supplies three step values that this older func10
+    // ignores in favor of the property parameter; its modern meaning is open.
+    internal static bool CanCreate(EquipmentPropertyPlan plan)=>plan is{Steps.Length:>0}&&plan.Code!="war-tab-rand"
+        &&Array.TrueForAll(plan.Steps,s=>Functions.Contains(s.Function)||s.Function is 10 or 20 or 21);
+    internal static void Create(EquipmentPropertyPlan plan,EquipmentPropertyInput input,int mode,EquipmentPropertyServices services,int state=0,int flags=0x40)
+    {
+        if(!CanCreate(plan)){throw new NotSupportedException("No verified creation writer for "+plan?.Code);}
         if(mode is <0 or >7){throw new NotSupportedException("Unmapped property mode");}
         int first=0;
         for(int i=0;i<plan.Steps.Length;i++){int result=ApplyStep(services,input,mode,plan.Steps[i],first,state,flags);if(i==0){first=result;}}
