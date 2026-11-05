@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC on-struck curse checkpoint:** existing shared curse sound and curse markers remain identified placeholders. This event producer creates no new skill-effect identity or artwork. Final curse/item-trigger presentation remains pending; see the [checkpoint](npc-incoming-procs-checkpoint.md).
+
 **Raven snapshot checkpoint:** no new visual or audio identities. Existing bird, summon, flight, strike and blind placeholders remain; packet/budget capture is mechanically verified. See the [checkpoint](raven-snapshot-checkpoint.md). Final effects and graphical acceptance remain pending.
 
 **Druid snapshot checkpoint:** no new visual or audio asset identities. Spirit/Dire Wolf and Grizzly retain the identified summon/movement/attack and upgrade placeholders; the capture change is mechanical and verified separately. See the [checkpoint](druid-snapshot-checkpoint.md). Final effects and graphical acceptance remain pending.

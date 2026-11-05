@@ -119,7 +119,9 @@ internal sealed class NpcCombatEvents
     }
     internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,BaseCreature source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null)
     {
-        var procs=source is SkeletonGuardian eventActor?NpcItemProcs.Get(eventActor):null;
+        // Incoming graph phases are produced once by PreparedMonsterDamage,
+        // including callers whose legacy event service has no proc context.
+        var procs=phase is not("damagedinmelee"or"damagedbymissile")&&source is SkeletonGuardian eventActor?NpcItemProcs.Get(eventActor):null;
         if(procs!=null)
         {
             if(at==null){throw new InvalidOperationException("NPC item event lacks its actual source time");}

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using Server;
+using Server.Mobiles;
 
 namespace Sanctuary;
 
@@ -42,6 +43,23 @@ internal static class NpcItemProcs
         var restored=NpcItemProcGraph.Restore(state,Changed);Live.Add(actor.Serial.Value,restored);Changed(restored);return restored;
     }
     internal static void Refresh(SkeletonGuardian actor,NpcCombatEvents legacy)=>Get(actor)?.Refresh(legacy);
+    // The shared ordered damage receiver owns these phases. Do not infer a
+    // qualified packet from native scalar Damage or dispatch a second copy
+    // through the per-actor ordinary event adapter.
+    internal static void RequireIncoming(Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet)
+    {
+        if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return;}
+        graph.Refresh(NpcCombatEvents.LegacyForSource(actor));
+        if((packet.ResultFlags&4)!=0&&graph.IncomingRequired&&attacker is not BaseCreature{Alive:true,Deleted:false})
+        {throw new NotSupportedException("NPC on-struck item curses need a living NPC attacker;player/removed-target casting is separate");}
+    }
+    internal static void Received(string phase,Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet,DateTime at)
+    {
+        if(phase is not("damagedinmelee"or"damagedbymissile")){throw new InvalidOperationException("Unmapped incoming NPC proc phase");}
+        if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return;}
+        RequireIncoming(attacker,recipient,packet);
+        graph.Dispatch(phase,packet,actor,attacker as BaseCreature,at,null);
+    }
     internal static void Forget(SkeletonGuardian actor)
     {Live.Remove(actor.Serial.Value);if(Saved.Remove(actor.Serial.Value)){Publish();}}
     internal static void Restore(NpcProcState[] states)

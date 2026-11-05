@@ -28,6 +28,7 @@ internal sealed class NpcItemProcGraph
     private bool Dirty;
     private Action<NpcItemProcGraph> Changed;
     internal uint Actor=>ActorId;
+    internal bool IncomingRequired=>Unit.Stats.FullValues.Any(v=>v.Stat==201&&v.Value>0);
     private SkeletonGuardian Body=>World.FindMobile((Serial)ActorId) is SkeletonGuardian{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} p} b&&p.Serial.Value==OwnerId
         ?b:throw new NotSupportedException("NPC proc graph lost its original living actor/owner");
     private static readonly EquipmentPropertyBase EmptyBasis=new(0,0,0,0,0,0,0,0);
@@ -63,7 +64,7 @@ internal sealed class NpcItemProcGraph
         {throw new NotSupportedException("Proc carrier needs its explicit event-only base;full item initialization remains separate");}
         foreach(var value in state.Properties)
         {
-            if(value.Stat is not(195 or 196 or 198))
+            if(value.Stat is not(195 or 196 or 198 or 201))
             {throw new NotSupportedException("NPC proc carrier needs its other stat/incoming/death/level-up consumer:"+value.Stat);}
             int layer=(ushort)value.Packed,rank=layer&63;_=ItemSkillExecution.RequireCurse(layer>>6);
             if(rank==0){throw new NotSupportedException("NPC rank-zero curse proc needs its own adapter");}
@@ -83,7 +84,7 @@ internal sealed class NpcItemProcGraph
     internal void Apply(Item item,EquipmentPropertyPlan plan,EquipmentPropertyInput input,ItemSkillPropertyServices metadata)
     {
         var carrier=Items.SingleOrDefault(i=>i.Item.Serial==item.Serial)??throw new InvalidOperationException("Proc carrier is not attached");
-        if(plan is not{Steps.Length:1}||plan.Steps[0].Function!=11||plan.Steps[0].Stat is not(195 or 196 or 198))
+        if(plan is not{Steps.Length:1}||plan.Steps[0].Function!=11||plan.Steps[0].Stat is not(195 or 196 or 198 or 201))
         {throw new NotSupportedException("NPC graph admits explicit supported proc writers only");}
         // Validate through the real writer before touching the live graph.
         var isolated=new EquipmentStatValues(_=>carrier.Body,_=>null,_=>null,(_,_,_,_,_)=>{});

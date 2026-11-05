@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC on-struck curse checkpoint:** no new talent/hotkey icon identity. Existing curse icon placeholders remain in this ledger; stat 201 is an item event. See the [checkpoint](npc-incoming-procs-checkpoint.md).
+
 **Raven snapshot checkpoint:** the existing Raven talent/hotkey placeholder remains. No new icon identity is introduced by its stat profile. See the [checkpoint](raven-snapshot-checkpoint.md).
 
 **Druid snapshot checkpoint:** no new talent or hotkey icon identities. Existing Spirit Wolf, Dire Wolf and Grizzly placeholders remain in this ledger; the capture change is mechanical. See the [checkpoint](druid-snapshot-checkpoint.md).
