@@ -28,6 +28,7 @@ internal sealed record CurrentItemInitialization(ItemInitializationBase Base,int
             I("2handmindam"),I("2handmaxdam"),I("minmisdam"),I("maxmisdam"),I("quest")!=0,I("questdiffcheck")!=0),
             type.Ordinal,type.Quiver,pool.IsType(code,"armo"),pool.IsType(code,"weap"),I("stackable")!=0,I("minstack"),I("maxstack"),I("spawnstack"),type.Varieties,NpcItemAffixes.RareBasis(code).Throwable);
     }
+    internal static string TypeCode(int ordinal)=>Types.Value.Values.FirstOrDefault(t=>t.Ordinal==ordinal)?.Code;
     internal int MaxStack(int extra)=>Math.Min(checked(BaseMaxStack+extra),511);
     internal EquipmentPropertyBase PropertyBase=>new(Base.Minimum,Base.Maximum,Base.SecondaryMinimum,Base.SecondaryMaximum,
         Base.ThrowMinimum,Base.ThrowMaximum,Base.MinArmor,Base.MaxArmor);

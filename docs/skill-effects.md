@@ -1,5 +1,7 @@
 # Skill effects
 
+**Generated NPC selected-hand physical:** exact numeric damage rolls introduce no new effect/audio identity. Actual hit/skill presentation and the paired Tekagi appearance/animation preview remain open; existing summon and generated-item art placeholders remain identified. See the [checkpoint](generated-npc-physical-checkpoint.md).
+
 **Generated NPC selected-weapon stats:** no new effect/audio identity. This numeric hand policy does not complete selected-weapon animation, hit presentation or the paired Tekagi visual preview. Original generated-item art remains identified placeholders. See the [checkpoint](generated-npc-weapons-checkpoint.md).
 
 **Mage town/safe-area validation:** no new effect/audio asset identity. The guard and fixture correction adds no cast animation or effect to rejected town casts. Existing Mage and parking presentation placeholders remain separately tracked. See the [checkpoint](mage-safe-area-checkpoint.md).

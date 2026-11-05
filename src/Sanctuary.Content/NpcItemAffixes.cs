@@ -27,6 +27,7 @@ internal sealed class SummonAffixPool
     internal bool CanBeRare(string code)=>Types[Basis(code).Type].Rare;
     internal SummonAffix Find(string id)=>ById.TryGetValue(id,out var r)?r:throw new InvalidDataException("Unknown current NPC affix "+id);
     internal bool IsType(string code,string ancestor)=>EquipmentBalance.IsType(Types,Basis(code).Type,ancestor);
+    internal bool IsTypeCode(string code,string ancestor)=>code!=null&&Types.ContainsKey(code)&&Types.ContainsKey(ancestor)&&EquipmentBalance.IsType(Types,code,ancestor);
     internal int Level(string code,int level)
     {
         if(level is <1 or >787){throw new ArgumentOutOfRangeException(nameof(level));}

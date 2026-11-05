@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Selected-hand physical reuse:** `GeneratedNpcWeaponFrame.Physical` feeds the existing `NpcEquipmentDamage.Roll256`; reuse its percentage, FP256 and bounded-draw policy. Source mastery copies at most 32 layered entries before type matching and takes the positive maximum; it is not automatically zero for NPCs. Keep skill type/range and source share explicit. Immutable frame-local item decoding retains public-operation original identity/payload checks. See the [checkpoint](generated-npc-physical-checkpoint.md).
+
 **Shared selected-weapon policy:** use `SourceWeaponSelection` and `GeneratedNpcWeaponFrame` with original item graphs. Reuse existing dual-wield eligibility, `EquipmentStatGraph.Merge` and stat propagation; supply primary/secondary identities explicitly. Selection, damage-list entry and optional primary restoration are separate source operations. Reuse the 12,288 kick selector controls rather than making a second policy. Current player presentation and modern Warlock policy retain their own path. See the [checkpoint](generated-npc-weapons-checkpoint.md).
 
 **Safe-area fixture reuse:** create learned summons in a legal region using their existing cast route; parking is a separate lifecycle policy and does not override `InTown`. Use distinct valid spawn tiles for multiple corpses/pets. `MagePetBuffChecks.Pet` now includes exact guard diagnostics on failure. Reuse the combined Mage/safe-area harness for actual right/quick/natural delivery and saved-roster checks. See the [checkpoint](mage-safe-area-checkpoint.md).

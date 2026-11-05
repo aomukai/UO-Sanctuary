@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Generated NPC physical suppliers (2026-11-06 JST).** Complete older stat getters/copies, melee/throw mastery readers, wield/weapon coefficients and physical-roll caller compose with current raw item data: 42 unchanged original routines. Ordinary getStats=1/initialDamage=0 is the qualified path; item type/record/inventory and skill context are declared services. This adds no approved deviation or current executable/player Warlock policy claim. See the [checkpoint](generated-npc-physical-checkpoint.md).
+
 **Generated NPC hand policy (2026-11-06 JST).** Full older selector/entry/primary restore composes with original raw-item graphs and existing damage-related propagation; primary identity, skill selection/flags/phase and reset remain explicit services. Do not equate selector4/null with blanket exclusion from later fill. Current Warlock player hands are outside this old policy. Fresh owned anchors match but event36/37/40 pages remain unreadable; raw Sunder300 is not treated as a guessed boolean. See the [checkpoint](generated-npc-weapons-checkpoint.md).
 
 **Mage town permission corroboration (2026-11-06 JST).** Raise Skeletal Mage retains the current table’s `InTown=0`. The legacy parking fixture now uses legal wilderness casts and separately proves that town refusal leaves mana/corpse/roster unchanged. Safe-area parking does not override skill-specific town permissions. No production rule or approved deviation changed. See the [checkpoint](mage-safe-area-checkpoint.md).

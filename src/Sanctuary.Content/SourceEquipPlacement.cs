@@ -21,6 +21,15 @@ internal static class SourceEquipPlacement
     internal static bool TwoHanded(EquipPlacementItem item)=>item is{UnitType:4,TwoHanded:true};
     private static bool Weapon(EquipPlacementItem item)=>item is{UnitType:4,Weapon:true};
     private static bool Claw(EquipPlacementItem item)=>item is{UnitType:4,Claw:true};
+    internal static int Wield(EquipPlacementActor actor)
+    {
+        if(!actor.HasInventory){return -1;}
+        var left=actor.Signature&&actor.Grid?actor.Slots[5]:null;var right=actor.Signature&&actor.Grid?actor.Slots[4]:null;
+        if(left==null){return right==null?-1:TwoHanded(right)||OneOrTwo(actor,right)?2:-1;}
+        if(right==null){return TwoHanded(left)||OneOrTwo(actor,left)?2:-1;}
+        if(OneOrTwo(actor,left)||OneOrTwo(actor,right)){return 1;}
+        return TwoHanded(left)||TwoHanded(right)?2:-1;
+    }
     internal static bool EqualStacks(EquipPlacementItem first,EquipPlacementItem second)
     {
         if(first is not{UnitType:4,HasData:true}||second is not{UnitType:4,HasData:true}){return false;}

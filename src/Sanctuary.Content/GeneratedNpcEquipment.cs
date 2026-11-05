@@ -54,6 +54,13 @@ internal static class GeneratedNpcEquipment
         }
         return items;
     }
+    internal static int WieldType(BaseCreature actor)
+    {
+        var slots=new EquipPlacementItem[13];var held=Items(actor);
+        foreach(var item in held)
+        {var s=item.Snapshot;slots[s.Equipment.Body]=Describe(s.Metadata.Code,s.Metadata.Quality,s.Metadata.File,s.Graph.Ethereal,[],0);}
+        return SourceEquipPlacement.Wield(new(1,0,held.FirstOrDefault()?.Snapshot.Equipment.Kind??EquipMonster.Other,true,true,true,slots,null,null));
+    }
     internal static bool TryCreate(BaseCreature actor,PlayerMobile owner,EquipMonster kind,PreparedItemRequest request,int body,out GeneratedNpcItem item)
     {
         item=null;

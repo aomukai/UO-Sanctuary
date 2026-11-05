@@ -10,11 +10,11 @@ Approved on 2026-11-03: Goatman uses UO **Gargoyle** (body4), Defiler uses **Gaz
 
 ## Shared rules
 
-- Ability/affix unlocks use **hard points in the relevant summon skill**. Existing pets gain/lose unlocks on training/respec.
+- Ability/affix unlocks use **hard points in the relevant summon skill**, captured when summoned under the later [cross-class snapshot decision](summon-stat-snapshots.md). Current summons retain that birth context through later training/gear changes; resummoning captures the new values. Historical profiles explicitly documented as live keep that compatibility behavior until resummoned. This supersedes the original live-training/respec upgrade plan.
 - Use named monster affixes **exactly as currently implemented**. In particular, Extra Fast is movement-only; this explicitly supersedes the earlier movement-and-attack answer. Do not change the global affix or add unrelated elite health/loot bonuses.
 - Open Wounds is **100% on successful hits**, using the existing item-property consumer. This common decision also applies to the Druid wolf unlock; preserve Spirit Wolves’ cold-only attacks rather than adding a guessed physical component.
 - Cold immunity is ordinary resistance-based immunity and remains breakable under the existing immunity rules.
-- Keep baseline abilities and lifecycle rules except where the approved replacement formula or ability below changes them. Preserve existing birth/stat-capture behavior outside explicitly live hard-point unlocks; no new blanket gear-refresh rule is introduced.
+- Keep baseline abilities and lifecycle rules except where the approved replacement formula or ability below changes them. Use the later shared summon-time snapshot rule for inherited bases/ranks and upgrades; external buffs/auras and approved difficulty rescaling remain separate. This does not grant all owner gear effects to every pet.
 - Preserve the working build and saves. Old poison Mages convert to ice, retaining ownership and current life percentage. Do not delete or reroll them.
 
 ## Necromancer
