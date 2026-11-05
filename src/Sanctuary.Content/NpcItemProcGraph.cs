@@ -16,7 +16,7 @@ internal sealed record NpcProcState(uint Actor,uint Owner,EquipmentStatValue[] I
 internal sealed class NpcItemProcGraph
 {
     private sealed record Carrier(Item Item,int Body,ItemPropertyCreationContext Graph);
-    private sealed record Frame(SkeletonGuardian Actor,BaseCreature Other,PreparedMonsterDamagePacket Packet,DateTime At,Func<int,int> Roll,byte Phase);
+    private sealed record Frame(SkeletonGuardian Actor,BaseCreature Other,PreparedMonsterDamagePacket Packet,DateTime At,Func<int,int> Roll,byte Phase,NpcItemTarget Retained);
     private readonly uint ActorId,OwnerId;
     private readonly EquipmentStatUnit Unit;
     private readonly EquipmentStatValues Values;
@@ -115,10 +115,10 @@ internal sealed class NpcItemProcGraph
             foreach(var old in Unit.Stats.BaseValues.Where(v=>!wanted.Contains(v.Packed)).ToArray()){Values.SetBase(Unit.Stats,old.Packed,0);}
         });
     }
-    internal void Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian actor,BaseCreature other,DateTime at,Func<int,int> roll)
+    internal void Dispatch(string phase,PreparedMonsterDamagePacket packet,SkeletonGuardian actor,BaseCreature other,DateTime at,Func<int,int> roll,NpcItemTarget retained=null)
     {
         if(actor.Serial.Value!=ActorId){throw new InvalidOperationException("NPC proc event belongs to another actor");}
-        var previous=Current;Current=new(actor,other,packet,at,roll,ItemEventDefinitions.Code(phase));
+        var previous=Current;Current=new(actor,other,packet,at,roll,ItemEventDefinitions.Code(phase),retained);
         try{Events.Trigger(Current.Phase);}
         finally{Current=previous;Publish();}
     }
@@ -133,7 +133,7 @@ internal sealed class NpcItemProcGraph
     private sealed class ProcServices(NpcItemProcGraph graph,Frame frame):ItemProcServices
     {
         internal override bool HasSource=>frame.Actor is{Deleted:false};
-        internal override bool HasTarget=>frame.Other is{Deleted:false};
+        internal override bool HasTarget=>frame.Retained!=null||frame.Other is{Deleted:false};
         internal override bool HasPacket=>frame.Packet!=null;
         internal override uint HitFlags=>frame.Packet.HitFlags;
         internal override ushort ResultFlags=>(ushort)frame.Packet.ResultFlags;
@@ -145,6 +145,10 @@ internal sealed class NpcItemProcGraph
         internal override void CastTarget(bool targetAsCaster,int skill,int level,int flag)
         {
             if(targetAsCaster){throw new NotSupportedException("NPC target-as-caster proc needs its context");}
+            if(frame.Retained!=null)
+            {
+                NpcItemSpellCasts.CastCurse(frame.Actor,frame.Retained,ItemSkillExecution.CurseAbility(skill),level,frame.At,flag);return;
+            }
             if(frame.Other is not{Alive:true,Deleted:false})
             {throw new NotSupportedException("NPC dead/removed-target proc needs its explicit retained-target area adapter");}
             NpcItemSpellCasts.CastCurse(frame.Actor,frame.Other,ItemSkillExecution.CurseAbility(skill),level,frame.At,flag);

@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC retained-target bridge:** no new effect/audio identity or artwork. Existing shared curse/item-cast sound and curse markers remain identified placeholders; reflected-death targeting is mechanical. See the [checkpoint](npc-retained-target-checkpoint.md).
+
 **NPC lethal incoming acceptance:** no new effects/audio identity or artwork. Existing curse and death placeholders remain in this ledger; retirement/persistence acceptance is mechanical. See the [checkpoint](npc-incoming-lethal-checkpoint.md).
 
 **NPC on-struck curse checkpoint:** existing shared curse sound and curse markers remain identified placeholders. This event producer creates no new skill-effect identity or artwork. Final curse/item-trigger presentation remains pending; see the [checkpoint](npc-incoming-procs-checkpoint.md).

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Retained logical NPC targets:** reuse `SourceCorpseIdentity` rather than creating synthetic mobiles or a second dead-unit registry. Capture the original registered monster before synchronous retaliation, then resolve its current living/corpse position when executing the existing item/common-executor/do30 frame. A missing identity needs its actual path fallback; never guess caster-centered or nearest-enemy casting. See the [checkpoint](npc-retained-target-checkpoint.md).
+
 **NPC retirement/target reuse:** incoming curse effects are target-bound and should survive caster retirement. Keep the item graph/RNG lifetime separate from the target curse lifetime. The older target lookup validates type/GUID registration and uses target coordinates or a path fallback; native UO deletion is not enough to choose that context. See the [checkpoint](npc-incoming-lethal-checkpoint.md) and [source inspection](../tools/reference/npc-retained-target-preflight.json).
 
 **NPC incoming proc reuse:** stat 201/function 21 reuses the existing event graph, skill-property writer, callback and protected do30 executor. The common ordered damage receiver owns incoming graph dispatch once; per-actor legacy adapters do not send a second graph copy. Preserve Result4/32 and missile hit32/128 gates. Do not infer these flags from native scalar damage. See the [checkpoint](npc-incoming-procs-checkpoint.md).

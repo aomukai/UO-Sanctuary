@@ -29,14 +29,15 @@ internal static class NpcItemSpellCasts
             else { TargetScopes[_actor]--; }
         }
     }
-    private sealed class CurseServices(SkeletonGuardian source, DateTime at) : ItemEffectServices<Mobile>
+    private sealed class CurseServices(SkeletonGuardian source, DateTime at) : ItemEffectServices<NpcItemTarget>
     {
-        private Mobile _target;
+        private NpcItemTarget _target;
+        private readonly NpcItemTarget Caster=NpcItemTarget.Capture(source);
         private (int X, int Y) _point = (source.X, source.Y);
-        internal override Mobile Source => source;
+        internal override NpcItemTarget Source => Caster;
         internal override bool HasGame => source.Map != null && source.Map != Map.Internal;
         internal override bool Uninterruptible => MonsterUninterruptibles.Active(source);
-        internal override Mobile CurrentTarget => _target;
+        internal override NpcItemTarget CurrentTarget => _target;
         internal override (int X, int Y) FirstPathPoint => _point;
         internal override bool ServerDo { get; set; }
         internal override ItemEffectSkill Skill(int id)
@@ -44,18 +45,18 @@ internal static class NpcItemSpellCasts
             var row = ItemSkillExecution.RequireCurse(id);
             return new(row.ItemEffect, row.ItemTarget, row.ItemCheckStart);
         }
-        internal override (int Type, int Id) Identity(Mobile unit) => (1, unchecked((int)unit.Serial.Value));
-        internal override void SetTarget(Mobile target) => _target = target;
+        internal override (int Type, int Id) Identity(NpcItemTarget unit) => (1, unit.Id);
+        internal override void SetTarget(NpcItemTarget target) => _target = target;
         internal override void SetPosition(int x, int y) { _target = null; _point = (x, y); }
         internal override bool FindPosition(int skill, int level) => throw new NotSupportedException("NPC item random-position service is not admitted");
-        internal override Mobile FindCorpse(Mobile target, int skill, int level) => throw new NotSupportedException("NPC item corpse-search service is not admitted");
-        internal override Mobile LastAttacker() => throw new NotSupportedException("NPC item last-attacker service is not admitted");
+        internal override NpcItemTarget FindCorpse(NpcItemTarget target, int skill, int level) => throw new NotSupportedException("NPC item corpse-search service is not admitted");
+        internal override NpcItemTarget LastAttacker() => throw new NotSupportedException("NPC item last-attacker service is not admitted");
         internal override int Start(int skill, int level, int item) => throw new NotSupportedException("NPC item start-check service is not admitted");
         internal override int Execute(int skill, int level, int mode, int item, int flag)
         {
-            if (mode != 0 || item != 1 || _target is not Server.Mobiles.BaseCreature target)
+            if (mode != 0 || item != 1 || _target == null)
             { throw new NotSupportedException("NPC curse needs its explicit target/item-execution context"); }
-            return NpcItemSkillExecution.Run(source, target, skill, level, mode, item, flag, at);
+            return NpcItemSkillExecution.Run(source, _target, skill, level, mode, item, flag, at);
         }
         internal override void NotifyTarget(int skill, int level, int type, int id, int flag)
             => source.PlaySound(0x1E5); // Identified shared curse/item-cast audio placeholder.
@@ -65,8 +66,11 @@ internal static class NpcItemSpellCasts
     internal static bool LifeTap(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, int rank, DateTime at)
         => CastCurse(caster, target, CombatAbility.LifeTap, rank, at);
     internal static bool CastCurse(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, CombatAbility ability, int rank, DateTime at,int flag=1)
+        => caster == null || target is not { Alive:true,Deleted:false } ? false
+            : CastCurse(caster,NpcItemTarget.Capture(target),ability,rank,at,flag);
+    internal static bool CastCurse(SkeletonGuardian caster,NpcItemTarget target,CombatAbility ability,int rank,DateTime at,int flag=1)
     {
-        if (caster == null) { return false; }
+        if (caster == null || target == null) { return false; }
         // Native retaliation can synchronously feed back through BaseAI and
         // assign the caster's ordinary Combatant even for indirect aggression.
         // The item skill uses its explicit temporary frame instead.

@@ -46,19 +46,27 @@ internal static class NpcItemProcs
     // The shared ordered damage receiver owns these phases. Do not infer a
     // qualified packet from native scalar Damage or dispatch a second copy
     // through the per-actor ordinary event adapter.
-    internal static void RequireIncoming(Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet)
+    internal static NpcItemTarget RequireIncoming(Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet)
     {
-        if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return;}
+        if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return null;}
         graph.Refresh(NpcCombatEvents.LegacyForSource(actor));
-        if((packet.ResultFlags&4)!=0&&graph.IncomingRequired&&attacker is not BaseCreature{Alive:true,Deleted:false})
-        {throw new NotSupportedException("NPC on-struck item curses need a living NPC attacker;player/removed-target casting is separate");}
+        if((packet.ResultFlags&4)==0||!graph.IncomingRequired){return null;}
+        if(attacker is not BaseCreature target)
+        {throw new NotSupportedException("NPC on-struck item curses need an NPC attacker;player casting is separate");}
+        var frame=NpcItemTarget.Capture(target);_=frame.Point(actor.Map);return frame;
     }
-    internal static void Received(string phase,Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet,DateTime at)
+    internal static void Received(string phase,Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet,DateTime at,NpcItemTarget retained=null)
     {
         if(phase is not("damagedinmelee"or"damagedbymissile")){throw new InvalidOperationException("Unmapped incoming NPC proc phase");}
         if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return;}
-        RequireIncoming(attacker,recipient,packet);
-        graph.Dispatch(phase,packet,actor,attacker as BaseCreature,at,null);
+        graph.Refresh(NpcCombatEvents.LegacyForSource(actor));
+        if((packet.ResultFlags&4)!=0&&graph.IncomingRequired)
+        {
+            retained??=RequireIncoming(attacker,recipient,packet);
+            if(retained.Original!=attacker){throw new InvalidOperationException("Incoming item target frame belongs to another attacker");}
+            _=retained.Point(actor.Map); // Validate before any proc RNG is consumed.
+        }
+        graph.Dispatch(phase,packet,actor,attacker as BaseCreature,at,null,retained);
     }
     internal static void Forget(SkeletonGuardian actor)
     {Live.Remove(actor.Serial.Value);if(Saved.Remove(actor.Serial.Value)){Publish();}}

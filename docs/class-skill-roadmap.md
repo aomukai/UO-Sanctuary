@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**NPC retained-target checkpoint (2026-11-05):** actual reflected attacker death preserves target-centered on-struck curses through the existing monster/corpse identity projection, shared item frame and common executor. The 389 focused, 605 broader and 18 compact markers pass original identities/resources through two reloads. See the [checkpoint](npc-retained-target-checkpoint.md). Missing target/path, modern dispatcher and full NPC equipment/actor prerequisites remain open; handler count stays **197/240**, no completed class.
+
 **NPC lethal incoming acceptance (2026-11-05):** original target-bound curses and real item identities survive caster retirement and two reloads; qualified fatal melee/missile death/free paths pass. The 386 focused, 602 broader and 15 compact checks reuse production mechanics unchanged. See the [checkpoint](npc-incoming-lethal-checkpoint.md). Reflection/removal context and full NPC equipment/actor prerequisites remain open.
 
 **NPC incoming-proc checkpoint (2026-11-05):** qualified on-struck item curses use the common ordered incoming damage receiver, preserving packet gates, deleted-carrier cleanup, aggregation/order and original actor RNG. The 383 focused, 599 broader and 12 compact checks pass original saves and fresh incoming recasts; see the [checkpoint](npc-incoming-procs-checkpoint.md). This advances Valkyrie/Shadow prerequisites, with no new learned handler or completed class. Native scalar/PvP/removed-target, lethal/retirement/reentrant and other item services remain explicit follow-ups.

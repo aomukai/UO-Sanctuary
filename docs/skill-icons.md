@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC retained-target bridge:** no new talent/hotkey icon identity. Existing curse placeholders remain in this separate ledger. See the [checkpoint](npc-retained-target-checkpoint.md).
+
 **NPC lethal incoming acceptance:** no new talent/hotkey icon identity. Existing curse placeholders remain; this checkpoint verifies item-trigger lifetime boundaries. See the [checkpoint](npc-incoming-lethal-checkpoint.md).
 
 **NPC on-struck curse checkpoint:** no new talent/hotkey icon identity. Existing curse icon placeholders remain in this ledger; stat 201 is an item event. See the [checkpoint](npc-incoming-procs-checkpoint.md).

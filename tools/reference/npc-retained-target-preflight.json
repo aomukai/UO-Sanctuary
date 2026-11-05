@@ -3,7 +3,7 @@
   "legacyEnginePin": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "inspectionOnly": true,
   "modernDispatcherParityEstablished": false,
-  "retainedTargetBridgeImplemented": false,
+  "retainedTargetBridgeImplemented": true,
   "scope": "Pinned complete dependency inspection,not a new compiled differential or actual D2R reflected-death experiment.",
   "findings": [
     "Callback21 uses the supplied other-unit pointer when present and otherwise requests the actor first path point. Its packet/result/chance contract is covered by the existing compiled callback oracle.",
@@ -12,7 +12,8 @@
     "Do30 delegates center lookup to sub_6FD10360:an available target supplies coordinates,otherwise actor first-path coordinates are used;invalid coordinates or unavailable room reject.",
     "Native UO deletion is not proof of which D2 logical registration/target/path state remains. Do not invent a nearest-enemy fallback or silently replace this with caster-centered casting."
   ],
-  "next": "Capture the actual synchronous target/registration/point context before retaliation and bind it through the existing item frame/curse executor. Keep unregistered/missing-target fallback and modern/source room behavior explicit.",
+  "nativeBridgeScope": "A synchronous original monster reference is captured before retaliation. Existing SourceCorpseIdentity supplies dead-unit registration and current corpse position through the shared item/common-executor/do30 path. A missing corpse identity,changed registration or facet mismatch is refused before incoming proc RNG;no fabricated path fallback.",
+  "next": "Verify the native reflected-death bridge separately;keep unregistered/missing-target fallback,reentrant recipient removal and modern/source room behavior explicit.",
   "inputHashes": {
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
     ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",

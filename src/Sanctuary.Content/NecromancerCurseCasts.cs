@@ -157,15 +157,18 @@ internal static class NecromancerCurseCasts
     internal static bool NpcLifeTap(SkeletonGuardian caster,BaseCreature target,int rank,DateTime at)
         =>NpcDo30(caster,target,CombatAbility.LifeTap,rank,at);
     internal static bool NpcDo30(SkeletonGuardian caster,BaseCreature target,CombatAbility ability,int rank,DateTime at)
+        => target is not{Alive:true,Deleted:false} ? false : NpcDo30(caster,NpcItemTarget.Capture(target),ability,rank,at);
+    internal static bool NpcDo30(SkeletonGuardian caster,NpcItemTarget target,CombatAbility ability,int rank,DateTime at)
     {
         if(caster is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}
-            ||target is not{Alive:true,Deleted:false}||caster.Map==null||caster.Map==Map.Internal||caster.Map!=target.Map||owner.Map!=caster.Map
+            ||target==null||caster.Map==null||caster.Map==Map.Internal||owner.Map!=caster.Map
             ||rank is<1 or>63||MonsterUninterruptibles.Active(caster)){return false;}
+        var center=target.Point(caster.Map);
         var row=SkillMechanics.For(ability);_=ItemSkillExecution.RequireCurse(row.SourceId);
         var values=new SkillValues(row,key=>string.Equals(key,row.SourceKey,StringComparison.OrdinalIgnoreCase)?rank:0,_=>0,ClassStats.Level(caster));
         // Preserve the item-cast caller's combat target while retaining native
         // aggression/credit. Direct DoHarmful would retarget to each recipient.
-        Area(caster,owner,ability,target.Location,values,at,indirect:true);
+        Area(caster,owner,ability,center,values,at,indirect:true);
         return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values)

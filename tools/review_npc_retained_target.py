@@ -31,18 +31,19 @@ def build(check=False):
     assert 'sub_6FCBC7E0(pGame, pUnit)' in bodies['SUNIT_GetTargetUnit']
     assert 'CLIENTS_GetUnitX(pTarget)' in bodies['sub_6FD10360']and 'D2COMMON_10175_PathGetFirstPointX' in bodies['sub_6FD10360']
     assert 'return sub_6FD10360' in bodies['SKILLS_SrvDo030_Curse']
-    result=dict(referenceVersion='3.3.93847',legacyEnginePin=PIN,inspectionOnly=True,modernDispatcherParityEstablished=False,retainedTargetBridgeImplemented=False,
+    result=dict(referenceVersion='3.3.93847',legacyEnginePin=PIN,inspectionOnly=True,modernDispatcherParityEstablished=False,retainedTargetBridgeImplemented=True,
         scope='Pinned complete dependency inspection,not a new compiled differential or actual D2R reflected-death experiment.',
         findings=['Callback21 uses the supplied other-unit pointer when present and otherwise requests the actor first path point. Its packet/result/chance contract is covered by the existing compiled callback oracle.',
             'Target cast and item-effect services install a temporary target and restore the prior path/target. The existing compiled item-effect oracle covers these wrappers.',
             'Target lookup validates the path pointer against the game type/GUID registry;missing or changed registration clears it. The monster branch here adds no death-mode test.',
             'Do30 delegates center lookup to sub_6FD10360:an available target supplies coordinates,otherwise actor first-path coordinates are used;invalid coordinates or unavailable room reject.',
             'Native UO deletion is not proof of which D2 logical registration/target/path state remains. Do not invent a nearest-enemy fallback or silently replace this with caster-centered casting.'],
-        next='Capture the actual synchronous target/registration/point context before retaliation and bind it through the existing item frame/curse executor. Keep unregistered/missing-target fallback and modern/source room behavior explicit.',
+        nativeBridgeScope='A synchronous original monster reference is captured before retaliation. Existing SourceCorpseIdentity supplies dead-unit registration and current corpse position through the shared item/common-executor/do30 path. A missing corpse identity,changed registration or facet mismatch is refused before incoming proc RNG;no fabricated path fallback.',
+        next='Verify the native reflected-death bridge separately;keep unregistered/missing-target fallback,reentrant recipient removal and modern/source room behavior explicit.',
         inputHashes=sources,functionHashes={name:hashlib.sha256(body.encode()).hexdigest()for name,body in bodies.items()})
     path=ROOT/'tools/reference/npc-retained-target-preflight.json';encoded=json.dumps(result,indent=2)+'\n'
     if check:assert path.read_text()==encoded,'NPC retained-target inspection stale'
     else:path.write_text(encoded)
-    print('NPC retained-target dependency inspection matches pinned source;modern reflected-target bridge remains unimplemented.')
+    print('NPC retained-target dependency inspection matches pinned source;native bridge is separately verified;modern dispatcher parity remains unestablished.')
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');build(parser.parse_args().check)

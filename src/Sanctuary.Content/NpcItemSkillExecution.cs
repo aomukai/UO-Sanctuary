@@ -11,7 +11,7 @@ namespace Sanctuary;
 // are supplied, with full current metadata instead of a copied Life Tap row.
 internal static class NpcItemSkillExecution
 {
-    private sealed class Curse(SkeletonGuardian source, BaseCreature target, DateTime at) : SkillExecutionServices
+    private sealed class Curse(SkeletonGuardian source, NpcItemTarget target, DateTime at) : SkillExecutionServices
     {
         private static NotSupportedException Missing() => new("NPC item skill requires an additional admitted execution service");
         internal override bool HasGame => source.Map != null && source.Map != Map.Internal;
@@ -51,7 +51,7 @@ internal static class NpcItemSkillExecution
         internal override uint SequenceFrame => throw Missing();
         internal override void SetDelay(int frames) => throw Missing();
     }
-    internal static int Run(SkeletonGuardian source, BaseCreature target, int skill, int level, int finish, int item, int outgoing, DateTime at)
+    internal static int Run(SkeletonGuardian source, NpcItemTarget target, int skill, int level, int finish, int item, int outgoing, DateTime at)
     {
         if (source == null || target == null) { return 0; }
         if (finish != 0 || item != 1 || outgoing is < 0 or > 1 || !NpcItemSpellCasts.KeepsCombatTarget(source))

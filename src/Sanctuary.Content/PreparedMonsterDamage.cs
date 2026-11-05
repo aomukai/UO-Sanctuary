@@ -91,14 +91,14 @@ internal static class PreparedMonsterDamage
         if(missile){packet=Checked(services.MitigateMissile(packet));}
         if((packet.ResultFlags&32)==0)
         {
-            if(!missile||(packet.HitFlags&32)!=0){NpcItemProcs.RequireIncoming(attacker,target,packet);}
+            var incoming=!missile||(packet.HitFlags&32)!=0?NpcItemProcs.RequireIncoming(attacker,target,packet):null;
             if(missile)
             {
                 if((packet.HitFlags&32)!=0)
                 {
                     if((packet.HitFlags&128)==0){packet=Checked(services.DealtDamage(packet));}
                     packet=Checked(services.TookDamage(packet));
-                    NpcItemProcs.Received("damagedbymissile",attacker,target,packet,at);
+                    NpcItemProcs.Received("damagedbymissile",attacker,target,packet,at,incoming);
                 }
             }
             else
@@ -106,7 +106,7 @@ internal static class PreparedMonsterDamage
                 packet=Checked(services.DealtDamage(packet));
                 IronMaiden.MeleeDamage(attacker,target,packet.Physical256,false);
                 packet=Checked(services.TookDamage(packet));
-                NpcItemProcs.Received("damagedinmelee",attacker,target,packet,at);
+                NpcItemProcs.Received("damagedinmelee",attacker,target,packet,at,incoming);
                 ClayGolemSlow.Incoming(attacker,target,false,at);
                 NecromancerEffects.LifeTap(attacker,target,packet.Physical256);
             }
