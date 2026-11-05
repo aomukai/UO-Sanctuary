@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "ab12d0ef1ac5bc00adc01c651cafdb5afc59ae6ad8850e709ad14644b7564177",
+  "ContentAssemblySha256": "2025b354f5f5da4e1329cdbf47f027ae6f0ba709dd701fbc657108cbb57b17c3",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -80,6 +80,7 @@
     "data/Sanctuary/Balance/item-affix-layout.json": "f711b02acb337c2d49358bbece4fccdbeda1610858fcc498a3257296b6a659c9",
     "data/Sanctuary/Balance/item-finishing-catalogue.json": "ad7cdf21665a66aa6340540c8e8451df9decc1a3e7ed8aaf411d876c1980fff9",
     "data/Sanctuary/Balance/item-initialization-types.json": "34d5086a83ae034268f9f73b52273f3f9df2f6018654302b23fec8181724d1c1",
+    "data/Sanctuary/Balance/item-quality-current.json": "0623d4d5119847351a06db0367b585f210dcf2a1036932f375349d47834490dc",
     "data/Sanctuary/Balance/item-skill-execution.json": "3289ba5b95ba2793c6336d9cc722cdbb14d64655d3c19374e0c3cc83508ce075",
     "data/Sanctuary/Balance/item-skill-properties.json": "01a9df5fa4a1aac1142d2656aeb787cb04bd8bbfeccfeeeb8d271e78089dffeb",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -451,9 +452,11 @@
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/CreatureHitRecovery.cs": "9d4d04f79e9069b19a9385542697829d418e8a3f86fc45311659e33004cde249",
     "src/Sanctuary.Content/CreatureProfiles.cs": "ffa86c5155e396e1d1be392d4d35761dfafe8f51e5c5a977a57f8dd5b1a3ba39",
-    "src/Sanctuary.Content/CurrentItemAffixes.cs": "d2fce6cc96f070fae2edb9a24b3d30ac1c9eaa2f35e538be09cb9d57f337af93",
+    "src/Sanctuary.Content/CurrentAutoMagic.cs": "5be22fb344d8a9baf4866ab5c42b2842918c2c65b00493fda3dea46c45332540",
+    "src/Sanctuary.Content/CurrentItemAffixes.cs": "8f81f7496ccd7ecfdec69afe086bdb12ee7c72e28975d33326fa6ab86f4f4166",
     "src/Sanctuary.Content/CurrentItemFinishing.cs": "9295ba1891bb3f1b0a1f596b0904756e4c79860ec8f857d3050105229d7339b6",
     "src/Sanctuary.Content/CurrentItemInitialization.cs": "4b5b6cc8dbaba6bb7817e49106d981b3f030a345821b87764316a299a11a37a8",
+    "src/Sanctuary.Content/CurrentItemQuality.cs": "99f268e6207571cfa9420a46405052b3bde7465660546ee291d4c5ab9ccc86fc",
     "src/Sanctuary.Content/CurrentItemStaffmods.cs": "f5c667238f859612aa952f2647843a51bd94377b80367a932d398ac77a4b2407",
     "src/Sanctuary.Content/CurrentTreePropertyWriter.cs": "cf5d409a6bd44d882143ce8f8fe3642ea0dc407932bfb4505fb0e657305572e8",
     "src/Sanctuary.Content/CycloneArmorPackets.cs": "74fe8692ddfb084e862e4bc710cd5075c8a21ff75368828c9331a5372e57b419",

@@ -1,0 +1,2034 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "Types": [
+    {
+      "Code": "none",
+      "Magic": false,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "shie",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "tors",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "gold",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "bowq",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "xboq",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "play",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "herb",
+      "Magic": false,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "poti",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "ring",
+      "Magic": true,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "elix",
+      "Magic": false,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "amul",
+      "Magic": true,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "char",
+      "Magic": true,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "boot",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "glov",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "book",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "belt",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "gem",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "torc",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "scro",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "scep",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "wand",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "staf",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "bow",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "axe",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "club",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "swor",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "hamm",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "knif",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "spea",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "pole",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "xbow",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "mace",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "helm",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "tpot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "ques",
+      "Magic": false,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "body",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "key",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "tkni",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "taxe",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "jave",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "weap",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "mele",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "miss",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "thro",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "comb",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "armo",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "shld",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "misc",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "sock",
+      "Magic": false,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "seco",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "rod",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "misl",
+      "Magic": false,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "blun",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "jewl",
+      "Magic": true,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "clas",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "amaz",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "barb",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "necr",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "pala",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "sorc",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "assn",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "drui",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "warl",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "h2h",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "orb",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "head",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "ashd",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "phlm",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "pelt",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "cloa",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "rune",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "circ",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "hpot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "mpot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "rpot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "spot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "apot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "wpot",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "scha",
+      "Magic": true,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "mcha",
+      "Magic": true,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "lcha",
+      "Magic": true,
+      "Rare": false,
+      "Normal": false
+    },
+    {
+      "Code": "abow",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "aspe",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "ajav",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "h2h2",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "mboq",
+      "Magic": true,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "mxbq",
+      "Magic": true,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "gem0",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gem1",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gem2",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gem3",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gem4",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gema",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gemd",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "geme",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gemr",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gems",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gemt",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "gemz",
+      "Magic": false,
+      "Rare": false,
+      "Normal": true
+    },
+    {
+      "Code": "blde",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "sppl",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "grim",
+      "Magic": false,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "cjwl",
+      "Magic": true,
+      "Rare": true,
+      "Normal": false
+    },
+    {
+      "Code": "csch",
+      "Magic": true,
+      "Rare": false,
+      "Normal": false
+    }
+  ],
+  "AutoMagic": [
+    {
+      "Row": 0,
+      "Name": "Fletcher's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 300,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "0",
+          "Min": 1,
+          "Max": 1,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 1,
+      "Name": "Bowyer's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 40,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 300,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "0",
+          "Min": 2,
+          "Max": 2,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 2,
+      "Name": "Archer's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 60,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 300,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "0",
+          "Min": 3,
+          "Max": 3,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 3,
+      "Name": "Acrobat's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 301,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "1",
+          "Min": 1,
+          "Max": 1,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 4,
+      "Name": "Gymnast's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 40,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 301,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "1",
+          "Min": 2,
+          "Max": 2,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 5,
+      "Name": "Athlete's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 60,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 301,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "1",
+          "Min": 3,
+          "Max": 3,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 6,
+      "Name": "Harpoonist's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 302,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "2",
+          "Min": 1,
+          "Max": 1,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 7,
+      "Name": "Spearmaiden's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 40,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 302,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "2",
+          "Min": 2,
+          "Max": 2,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 8,
+      "Name": "Lancer's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 60,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 302,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "skilltab",
+          "Parameter": "2",
+          "Min": 3,
+          "Max": 3,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 9,
+      "Name": "of the Jackal",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 6,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "hp",
+          "Parameter": "0",
+          "Min": 1,
+          "Max": 5,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 10,
+      "Name": "of the Fox",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 11,
+      "MaxLevel": 0,
+      "Frequency": 5,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "hp",
+          "Parameter": "0",
+          "Min": 6,
+          "Max": 10,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 11,
+      "Name": "of the Wolf",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 27,
+      "MaxLevel": 0,
+      "Frequency": 4,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "hp",
+          "Parameter": "0",
+          "Min": 11,
+          "Max": 20,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 12,
+      "Name": "of the Tiger",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 43,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "hp",
+          "Parameter": "0",
+          "Min": 21,
+          "Max": 30,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 13,
+      "Name": "of the Mammoth",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 59,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "hp",
+          "Parameter": "0",
+          "Min": 31,
+          "Max": 40,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 14,
+      "Name": "of the Colossus",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 75,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "hp",
+          "Parameter": "0",
+          "Min": 41,
+          "Max": 60,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 15,
+      "Name": "Lizard's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 3,
+      "MaxLevel": 0,
+      "Frequency": 4,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 1,
+          "Max": 5,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 16,
+      "Name": "Snake's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 12,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 5,
+          "Max": 10,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 17,
+      "Name": "Serpent's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 23,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 11,
+          "Max": 20,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 18,
+      "Name": "Drake's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 34,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 21,
+          "Max": 30,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 19,
+      "Name": "Dragon's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 45,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 31,
+          "Max": 40,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 20,
+      "Name": "Wyrm's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 56,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 41,
+          "Max": 60,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 21,
+      "Name": "Great Wyrm's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 67,
+      "MaxLevel": 0,
+      "Frequency": 1,
+      "Group": 303,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "mana",
+          "Parameter": "0",
+          "Min": 61,
+          "Max": 80,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 22,
+      "Name": "Shimmering",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 8,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "res-all",
+          "Parameter": "0",
+          "Min": 5,
+          "Max": 10,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 23,
+      "Name": "Rainbow",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 18,
+      "MaxLevel": 0,
+      "Frequency": 7,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "res-all",
+          "Parameter": "0",
+          "Min": 8,
+          "Max": 15,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 24,
+      "Name": "Scintillating",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 28,
+      "MaxLevel": 0,
+      "Frequency": 6,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "res-all",
+          "Parameter": "0",
+          "Min": 16,
+          "Max": 30,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 25,
+      "Name": "Prismatic",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 39,
+      "MaxLevel": 0,
+      "Frequency": 5,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "res-all",
+          "Parameter": "0",
+          "Min": 25,
+          "Max": 35,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 26,
+      "Name": "Chromatic",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 50,
+      "MaxLevel": 0,
+      "Frequency": 4,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "res-all",
+          "Parameter": "0",
+          "Min": 35,
+          "Max": 45,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 27,
+      "Name": "Sharp",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 10,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "att",
+          "Parameter": "0",
+          "Min": 15,
+          "Max": 30,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "dmg%",
+          "Parameter": "0",
+          "Min": 10,
+          "Max": 20,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 28,
+      "Name": "Fine",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 18,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "att",
+          "Parameter": "0",
+          "Min": 31,
+          "Max": 60,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "dmg%",
+          "Parameter": "0",
+          "Min": 21,
+          "Max": 30,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 29,
+      "Name": "Warrior's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 30,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "att",
+          "Parameter": "0",
+          "Min": 61,
+          "Max": 80,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "dmg%",
+          "Parameter": "0",
+          "Min": 31,
+          "Max": 40,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 30,
+      "Name": "Soldier's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 42,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "att",
+          "Parameter": "0",
+          "Min": 81,
+          "Max": 100,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "dmg%",
+          "Parameter": "0",
+          "Min": 41,
+          "Max": 50,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 31,
+      "Name": "Knight's",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 50,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 304,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "att",
+          "Parameter": "0",
+          "Min": 101,
+          "Max": 121,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "dmg%",
+          "Parameter": "0",
+          "Min": 51,
+          "Max": 65,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 32,
+      "Name": "of Blight",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 305,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "pois-min",
+          "Parameter": "0",
+          "Min": 8,
+          "Max": 8,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-max",
+          "Parameter": "0",
+          "Min": 24,
+          "Max": 24,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-len",
+          "Parameter": "0",
+          "Min": 75,
+          "Max": 75,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 33,
+      "Name": "of Venom",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 15,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 305,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "pois-min",
+          "Parameter": "0",
+          "Min": 16,
+          "Max": 16,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-max",
+          "Parameter": "0",
+          "Min": 48,
+          "Max": 48,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-len",
+          "Parameter": "0",
+          "Min": 75,
+          "Max": 75,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 34,
+      "Name": "of Pestilence",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 25,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 305,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "pois-min",
+          "Parameter": "0",
+          "Min": 32,
+          "Max": 32,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-max",
+          "Parameter": "0",
+          "Min": 72,
+          "Max": 72,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-len",
+          "Parameter": "0",
+          "Min": 100,
+          "Max": 100,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 35,
+      "Name": "of Anthrax",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 33,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 305,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "pois-min",
+          "Parameter": "0",
+          "Min": 64,
+          "Max": 64,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-max",
+          "Parameter": "0",
+          "Min": 128,
+          "Max": 128,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "pois-len",
+          "Parameter": "0",
+          "Min": 100,
+          "Max": 100,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 36,
+      "Name": "of Shadows",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "dmg-mag",
+          "Parameter": "0",
+          "Min": 3,
+          "Max": 5,
+          "Mode": "DamageRange"
+        }
+      ]
+    },
+    {
+      "Row": 37,
+      "Name": "of Darkness",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 15,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "dmg-mag",
+          "Parameter": "0",
+          "Min": 6,
+          "Max": 10,
+          "Mode": "DamageRange"
+        }
+      ]
+    },
+    {
+      "Row": 38,
+      "Name": "of Despair",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 25,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "dmg-mag",
+          "Parameter": "0",
+          "Min": 11,
+          "Max": 20,
+          "Mode": "DamageRange"
+        }
+      ]
+    },
+    {
+      "Row": 39,
+      "Name": "of Nightmares",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 33,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "dmg-mag",
+          "Parameter": "0",
+          "Min": 21,
+          "Max": 30,
+          "Mode": "DamageRange"
+        }
+      ]
+    },
+    {
+      "Row": 40,
+      "Name": "of Ember",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 1,
+      "MaxLevel": 0,
+      "Frequency": 3,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "fire-min",
+          "Parameter": "0",
+          "Min": 3,
+          "Max": 3,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "fire-max",
+          "Parameter": "0",
+          "Min": 8,
+          "Max": 8,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 41,
+      "Name": "of Cinders",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 15,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "fire-min",
+          "Parameter": "0",
+          "Min": 5,
+          "Max": 5,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "fire-max",
+          "Parameter": "0",
+          "Min": 16,
+          "Max": 16,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 42,
+      "Name": "of Flames",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": true,
+      "Level": 25,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "fire-min",
+          "Parameter": "0",
+          "Min": 8,
+          "Max": 8,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "fire-max",
+          "Parameter": "0",
+          "Min": 18,
+          "Max": 18,
+          "Mode": "Numeric"
+        }
+      ]
+    },
+    {
+      "Row": 43,
+      "Name": "of Inferno",
+      "Version": 100,
+      "Spawnable": true,
+      "Rare": false,
+      "Level": 33,
+      "MaxLevel": 0,
+      "Frequency": 2,
+      "Group": 306,
+      "ClassSpecific": "",
+      "Include": [
+        "armo",
+        "weap"
+      ],
+      "Exclude": [],
+      "Modifiers": [
+        {
+          "Code": "fire-min",
+          "Parameter": "0",
+          "Min": 16,
+          "Max": 16,
+          "Mode": "Numeric"
+        },
+        {
+          "Code": "fire-max",
+          "Parameter": "0",
+          "Min": 32,
+          "Max": 32,
+          "Mode": "Numeric"
+        }
+      ]
+    }
+  ],
+  "RatioReference": [
+    {
+      "Function": "Ratio - (Monster Level / Ratio Divisor)",
+      "Version": "0",
+      "Uber": "0",
+      "Class Specific": "0",
+      "Unique": "400",
+      "UniqueDivisor": "2",
+      "UniqueMin": "6400",
+      "Rare": "160",
+      "RareDivisor": "3",
+      "RareMin": "3200",
+      "Set": "125",
+      "SetDivisor": "6",
+      "SetMin": "5600",
+      "Magic": "30",
+      "MagicDivisor": "16",
+      "MagicMin": "192",
+      "HiQuality": "12",
+      "HiQualityDivisor": "16",
+      "Normal": "4",
+      "NormalDivisor": "8"
+    },
+    {
+      "Function": "Uber",
+      "Version": "0",
+      "Uber": "1",
+      "Class Specific": "0",
+      "Unique": "240",
+      "UniqueDivisor": "2",
+      "UniqueMin": "6400",
+      "Rare": "96",
+      "RareDivisor": "3",
+      "RareMin": "3200",
+      "Set": "96",
+      "SetDivisor": "6",
+      "SetMin": "5600",
+      "Magic": "3",
+      "MagicDivisor": "100",
+      "MagicMin": "192",
+      "HiQuality": "4",
+      "HiQualityDivisor": "16",
+      "Normal": "1",
+      "NormalDivisor": "8"
+    },
+    {
+      "Function": "Ratio - (Monster Level / Ratio Divisor)",
+      "Version": "1",
+      "Uber": "0",
+      "Class Specific": "0",
+      "Unique": "400",
+      "UniqueDivisor": "1",
+      "UniqueMin": "6400",
+      "Rare": "100",
+      "RareDivisor": "2",
+      "RareMin": "3200",
+      "Set": "160",
+      "SetDivisor": "2",
+      "SetMin": "5600",
+      "Magic": "34",
+      "MagicDivisor": "3",
+      "MagicMin": "192",
+      "HiQuality": "12",
+      "HiQualityDivisor": "8",
+      "Normal": "2",
+      "NormalDivisor": "2"
+    },
+    {
+      "Function": "Uber",
+      "Version": "1",
+      "Uber": "1",
+      "Class Specific": "0",
+      "Unique": "400",
+      "UniqueDivisor": "1",
+      "UniqueMin": "6400",
+      "Rare": "100",
+      "RareDivisor": "2",
+      "RareMin": "3200",
+      "Set": "160",
+      "SetDivisor": "2",
+      "SetMin": "5600",
+      "Magic": "34",
+      "MagicDivisor": "3",
+      "MagicMin": "192",
+      "HiQuality": "12",
+      "HiQualityDivisor": "8",
+      "Normal": "1",
+      "NormalDivisor": "1"
+    },
+    {
+      "Function": "Class Specific",
+      "Version": "1",
+      "Uber": "0",
+      "Class Specific": "1",
+      "Unique": "240",
+      "UniqueDivisor": "3",
+      "UniqueMin": "6400",
+      "Rare": "80",
+      "RareDivisor": "3",
+      "RareMin": "3200",
+      "Set": "120",
+      "SetDivisor": "3",
+      "SetMin": "5600",
+      "Magic": "17",
+      "MagicDivisor": "6",
+      "MagicMin": "192",
+      "HiQuality": "9",
+      "HiQualityDivisor": "8",
+      "Normal": "2",
+      "NormalDivisor": "2"
+    },
+    {
+      "Function": "Class Specific Uber",
+      "Version": "1",
+      "Uber": "1",
+      "Class Specific": "1",
+      "Unique": "240",
+      "UniqueDivisor": "3",
+      "UniqueMin": "6400",
+      "Rare": "80",
+      "RareDivisor": "3",
+      "RareMin": "3200",
+      "Set": "120",
+      "SetDivisor": "3",
+      "SetMin": "5600",
+      "Magic": "17",
+      "MagicDivisor": "6",
+      "MagicMin": "192",
+      "HiQuality": "9",
+      "HiQualityDivisor": "8",
+      "Normal": "1",
+      "NormalDivisor": "1"
+    }
+  ]
+}

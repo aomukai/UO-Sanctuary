@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared quality/automagic:** no new talent/hotkey icon identity. Existing summon and Warlock icon placeholders remain separately tracked. See the [checkpoint](item-quality-current-checkpoint.md).
+
 **Composed item affixes:** no new talent/hotkey icon identity. Existing summon and skill icon placeholders remain separate from item-affix mechanics. See the [checkpoint](current-item-affixes-checkpoint.md).
 
 **Item staffmods:** no new talent/hotkey icon identity. Existing Valkyrie/Shadow and Warlock placeholders remain separate from generated-item skill bonuses. See the [checkpoint](item-staffmods-checkpoint.md).

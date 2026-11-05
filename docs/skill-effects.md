@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared quality/automagic:** no new skill effect/audio identity. Generated equipment and Valkyrie/Shadow presentation retain their existing identified placeholders. Preparing a raw property graph does not certify item appearance or NPC spell delivery. See the [checkpoint](item-quality-current-checkpoint.md).
+
 **Composed item affixes:** no new skill effect/audio identity. Raw proc/charge/skill fields do not establish NPC spell delivery or presentation. Generated equipment and Valkyrie/Shadow effects retain their existing identified placeholders. See the [checkpoint](current-item-affixes-checkpoint.md).
 
 **Item staffmods:** no new skill effect/audio identity. Generated equipment and Valkyrie/Shadow presentation remain unfinished with their existing identified placeholders. Raw skill bonuses do not certify NPC spell delivery or presentation. See the [checkpoint](item-staffmods-checkpoint.md).

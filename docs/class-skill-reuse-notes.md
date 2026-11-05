@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Prepared item reuse:** `CurrentItemQuality` joins the existing initializer, quality driver, physical finisher, affix/staffmod writers and raw graph; `CurrentAutoMagic` uses the shared picker and ordered modifiers. Start allocated item data at quality zero, preserve independent unit/property RNG, perform fallback low-seed reset in the driver and mark identified only after preparation. Explicit supplied seeds do not establish allocation provenance. See the [checkpoint](item-quality-current-checkpoint.md).
+
 **Current affix composition:** `CurrentItemAffixes` connects `SourceItemAffixes`, current pools/names and existing item graph/RNG. Shared pickers accept bounded-draw callbacks while preserving ref-seed callers,including exception-time draws. Keep global suffix-first IDs separate from local preferred indices;use pinned row spans rather than JSON counts. Magic property RNG occurs inside selection;rare property RNG is deferred in slot order. Ordinary tree packing is explicitly approved;random-tree remains separate. See the [checkpoint](current-item-affixes-checkpoint.md).
 
 **Staffmod reuse:** current Reign staffmods use required-level tiers from the pinned owned guide, with approved ascending-ID/full-tier mapping. `SourceItemStaffmods` shares count/tier/value/retry/overwrite/RNG across legacy reference and current mapping. `CurrentItemStaffmods` reuses `ItemSkillExecution`, type hierarchy and raw stat107 keys for all eight classes; current binding requires format100. See the [checkpoint](item-staffmods-checkpoint.md).

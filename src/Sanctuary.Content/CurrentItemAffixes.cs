@@ -31,10 +31,10 @@ internal sealed class CurrentItemAffixes:SourceItemAffixServices
     private bool Identified=true;
     private readonly List<int> Applied=new();
     internal CurrentAffixState Capture()=>new((int[])Prefixes.Clone(),(int[])Suffixes.Clone(),RarePrefix,RareSuffix,Identified,Applied.ToArray());
-    internal CurrentItemAffixes(ItemPropertyCreationContext graph,ItemFinishingParameters parameters)
+    internal CurrentItemAffixes(ItemPropertyCreationContext graph,ItemFinishingParameters parameters,bool identified=true)
     {
         ArgumentNullException.ThrowIfNull(graph);ArgumentNullException.ThrowIfNull(parameters);
-        Graph=graph;Parameters=parameters;
+        Graph=graph;Parameters=parameters;Identified=identified;
         if(graph.Unit.Entity is not Server.Item{Deleted:false}||graph.Seed==0||parameters.Format!=100||parameters.Level is<1 or>787||parameters.Quality is not(4 or 6))
         {throw new NotSupportedException("Current magic/rare affixes require a live fresh item,format100,initialized RNG and explicit source item level/quality");}
         var basis=NpcItemAffixes.Pool.Basis(parameters.Code);var type=CurrentItemFinishing.Catalogue.Types.Single(t=>t.Code==basis.Type);
@@ -70,14 +70,18 @@ internal sealed class CurrentItemAffixes:SourceItemAffixServices
     {
         if(record is not SummonAffix row){throw new NotSupportedException("Current affix property record required");}
         Applied.Add(Id(row));
-        foreach(var m in row.Definition.Modifiers)
+        ApplyModifiers(row.Definition.Modifiers,Graph,Parameters.Level);
+    }
+    internal static void ApplyModifiers(IEnumerable<AffixModifier> modifiers,ItemPropertyCreationContext graph,int level)
+    {
+        foreach(var m in modifiers)
         {
             if(!int.TryParse(m.Parameter.Length==0?"0":m.Parameter,out int parameter))
             {throw new NotSupportedException("Current affix parameter needs its complete compiler context: "+m.Code);}
             var input=new EquipmentPropertyInput(m.Min,m.Max,parameter);var plan=EquipmentPropertyWriter.Plan(m.Code);
-            if(CurrentTreePropertyWriter.Supports(plan)){CurrentTreePropertyWriter.Apply(plan,input,Graph);}
-            else if(ItemSkillPropertyWriter.Supports(plan)){Graph.ApplySkill(plan,input,ItemSkillProperties.ForLevel(Parameters.Level));}
-            else if(ItemPropertyCreationContext.Admitted(plan)){Graph.Apply(plan,input);}
+            if(CurrentTreePropertyWriter.Supports(plan)){CurrentTreePropertyWriter.Apply(plan,input,graph);}
+            else if(ItemSkillPropertyWriter.Supports(plan)){graph.ApplySkill(plan,input,ItemSkillProperties.ForLevel(level));}
+            else if(ItemPropertyCreationContext.Admitted(plan)){graph.Apply(plan,input);}
             else{throw new NotSupportedException("Valid selected affix property remains unsupported: "+m.Code);}
         }
     }

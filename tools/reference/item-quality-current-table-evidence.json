@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Strict read-only/offline CASC extraction from pinned owned installation",
+  "types": 105,
+  "automagicRows": 44,
+  "ratioReferenceRows": 6,
+  "automagicPropertyCodes": [
+    "att",
+    "dmg%",
+    "dmg-mag",
+    "fire-max",
+    "fire-min",
+    "hp",
+    "mana",
+    "pois-len",
+    "pois-max",
+    "pois-min",
+    "res-all",
+    "skilltab"
+  ],
+  "inputs": {
+    ".local/class-skills/item-quality-current-source/automagic.txt": "aa5b30aa2bf51460955a5fb3ad5e9017607eac8e8cce40f9c7b08aeb9ffcb7df",
+    ".local/class-skills/item-quality-current-source/itemratio.txt": "f8ebb2128c09311d2f17f9f3ea9e1933441f3322ab2c4c203eb9858a00af90ff",
+    ".local/class-skills/item-finishing-source/itemtypes.txt": "ae957abde89a2d0276a55feffa809e0ccbdaf82f65c6eaed9443b886b960e26a",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "data/Sanctuary/Balance/equipment-property-plans.json": "4ea7c16da2f441f682bfcf1e8acad080178365af0fcd38935b5dd4ad88e215bc",
+    ".local/class-skills/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/build_item_quality_current.py": "dfa72f22915449524ae0261daba1ac684ff3772144aff7e73caac9de76775258"
+  },
+  "installation": {
+    "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+    "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021"
+  },
+  "outputSha256": "0623d4d5119847351a06db0367b585f210dcf2a1036932f375349d47834490dc",
+  "limits": [
+    "Rows/offsets are reference identities,not proved current compiled/binary/save IDs. Ratio data is retained as reference;this does not admit unforced qualities,unique/set/world drop services or certify current executable parity."
+  ]
+}

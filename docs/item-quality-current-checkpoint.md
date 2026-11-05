@@ -1,0 +1,26 @@
+# Prepared current item-quality checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Parent `dbfe78a6` is pushed. Coverage remains **197/240 handlers**, no completed class or deployment.
+
+`CurrentItemQuality` now composes base initialization, requested quality and fallback, inferior/superior/magic/rare properties, staffmods, socket/ethereal exclusions, automagic and final identification on the existing item graph. `CurrentAutoMagic` retains all 44 owned rows and uses the existing weighted picker and ordered property writers. The default identified behavior of standalone affix callers remains intact; prepared creation supplies the source's initially unidentified state. Ordinary tree bonuses use the approved consistent class/tree encoding.
+
+Allocated source item data begins at quality zero, so base stack initialization happens before the requested quality is assigned. Its initially unwritten file/graphics fields are zero. Unit/base and item-property RNG streams remain separate; fallback resets the low item seed according to the existing complete driver. Positive requested quality bypasses unforced ratio rolls. Six owned ratio rows are retained as reference data only.
+
+The controls include forced-magic bases and failed inferior/superior/magic/rare requests falling back to normal, rather than testing only successful requested-quality generation.
+
+The [table receipt](../tools/reference/item-quality-current-table-evidence.json) pins 105 type policies and all 44 automagic rows from the owned installation. The [source receipt](../tools/reference/item-quality-current-source-evidence.json) combines 21 complete additional routines with inherited routine groups, totaling **63 distinct original routines**. **15,820 independent compositions** cover 516 nonquest/nonunique equipment bases at requested qualities 1/2/3/4/6, 252 automagic selector controls and 88 direct automagic property controls. Complete source bodies remain separate from declared ABI services and approved superior, tree and staffmod adaptations. The allocation initializer is reviewed only; it is not executed by this probe. ASan/UBSan report no errors.
+
+Native checks compare every composition's quality/fallback metadata, raw base/property contributions, identification, affix/name/application order, both final seed streams, property draw count and next HP-property roll. **2,624 original unattached fixture items** cover 2,580 prepared contexts and all 44 direct automagic rows through two reloads. World identities use native saves; graph/metadata restoration uses the explicit fixture manifest. Unsupported qualities, invalid seeds/levels/difficulty, quest and special-normal contexts refuse explicitly.
+
+Validation is complete: **407 focused, 623 broader and 36 compact markers** pass three boots, two reloads and three saves per cohort. All 71 Python tests and 26 verification commands pass. Fresh audits cover 1,067 named-item fingerprints and 21 affix fingerprints with 573 unchanged decisions. All 106 installed artifacts, 38 saves, 20 configuration files and 40 client patches remain unchanged. Content build 2, Integration build 2 and pre-build snapshot 2 are frozen and match the final readers. The [native receipt](../tools/reference/item-quality-current-native-evidence.json) binds source/data, assemblies, fixture manifests, logs and protection checks; all readers are terminal. The initial metadata-key diagnostic and C++ ABI declaration diagnostic are retained under `failed-source-1` and `failed-source-2`; neither required changing complete original routine bodies or weakening comparisons.
+
+The component requires format 100, explicitly initialized separate seeds and the NPC no-sockets/never-ethereal flags. It does not establish allocation-seed provenance, complete outer INIT/INSTORE flags, current executable parity, modern binary/save affix IDs, world drop services, item materialization or successful NPC equipment delivery. NOSELL, equip placement and restoring durability after successful delivery remain separate. Unforced/unique/set/craft/quest/special-normal generation, Warlock random-tree properties and the corrupted-jewel rare-cap discrepancy remain unsupported outside this qualified domain.
+
+Next: bind these prepared results to actual item materialization and generated NPC equipment persistence, then complete equipment stat/skill/event delivery and Valkyrie/Shadow actors. The next boundary must:
+
+- Persist the original item identity, base code, final quality/names/reference affix metadata, raw graph and both explicit seed streams without rerolling on load.
+- Bind body placement and NOSELL, restore operative maximum durability only after successful NPC equip, and remove failed deliveries according to the existing caller contract.
+- Preserve the full selected property pool; unsupported selected consumers must remain explicit, rather than filtering rows or silently lowering quality.
+- Exercise actual generated equipment and original actor/item identities through save/reload, including separate hand and skill/event contexts.
+
+Effects/audio and talent/hotkey icons remain separately tracked identified placeholders; this increment introduces no new art identity.
