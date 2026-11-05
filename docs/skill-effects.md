@@ -1,5 +1,7 @@
 # Skill effects
 
+**Queued equipment effect: lightning retaliation128.** Reference contract prepared; no runtime visual/audio implemented and Coif remains refused. Plan a brief lightning-return contact effect/audio after mechanical admission. No source radius, extra hit, projectile flight or existing asset is asserted. See the [checkpoint](npc-lightning-return-reference-checkpoint.md).
+
 **NPC equipment blind:** direct blind-on-hit uses the existing target curse marker `0x375A` as a **clearly identified placeholder**. It does not introduce a caster spell animation/audio or certify final blind/curse visuals. Final presentation and audio remain separate asset work. See the [checkpoint](npc-item-blind-checkpoint.md).
 
 **NPC equipment freeze:** original Iron/frozen Revive callbacks and filled NPC freeze delivery reuse native cold/freeze marker `0x374A` as a **clearly identified placeholder**. Final freeze application/thaw/shatter presentation and audio remain separate asset work; this mechanical checkpoint completes no visual asset. See the [checkpoint](npc-freeze-hit-checkpoint.md).
