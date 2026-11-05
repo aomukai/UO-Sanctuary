@@ -78,7 +78,7 @@ public static class IronGolemSpectralChecks
     }
     private static void Boundaries()
     {
-        var p=Owner(19,3,3240);PoisonDaggerChecks.Named(p,"Wormskull");var b=IronGolemDamageChecks.Learned(p,IronGolemDamageChecks.Original(p));
+        var p=Owner(19,3,3240);PoisonDaggerChecks.Named(p,"Wormskull");var b=IronGolemDamageChecks.Learned(p,IronGolemDamageChecks.Original(p));NecroSnapshotChecks.MissingMetadata(b);
         try
         {
             Require(b.Rank==20&&IronGolemUpgrades.HardRank(b)==19,"Hard/soft boundary setup");int draws=0;Require(NpcSpectralHit.Capture(b,n=>{draws++;return 0;})==null&&draws==0,"Soft point unlocked Spectral/drew RNG");
@@ -178,7 +178,7 @@ public static class IronGolemSpectralChecks
     }
     private static void Live(NetState network)
     {
-        var p=Owner(19,3,3360);FixtureNetwork.Authenticate(network,p,"iron-spectral");var b=IronGolemDamageChecks.Learned(p,IronGolemDamageChecks.Original(p));var t=Target(p,b);TimedEffects.PreventHealing(t,TimedEffects.Now);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        var p=Owner(19,3,3360);FixtureNetwork.Authenticate(network,p,"iron-spectral");var b=IronGolemDamageChecks.Learned(p,IronGolemDamageChecks.Original(p));NecroSnapshotChecks.MissingMetadata(b);var t=Target(p,b);TimedEffects.PreventHealing(t,TimedEffects.Now);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         NpcEquipmentRandom.Set(b,IronGolemWorldChecks.AttackSeed(b,t));b.RestoreController(b.Prepared.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});int hp=SkillHealth.Balance256(t),damage=0;string predicted=null;bool captured=false;long deadline=Core.TickCount+12000;
         void End(){SourceBlocking.BlockRoll=block;t.Delete();b.Delete();p.Delete();}
         void Wait()

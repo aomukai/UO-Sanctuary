@@ -49,7 +49,7 @@ public static class MageMeteorChecks
     }
     private static void Delivery()
     {
-        var p=Owner(9);var mage=MagePetBuffChecks.Pet(p,2);var first=Enemy(p,mage);var peer=Enemy(p,mage,4,1);var at=TimedEffects.Now;
+        var p=Owner(9);var mage=MagePetBuffChecks.Pet(p,2);NecroSnapshotChecks.MissingMetadata(mage);var first=Enemy(p,mage);var peer=Enemy(p,mage,4,1);var at=TimedEffects.Now;
         try
         {
             var helm=PoisonDaggerChecks.Named(p,"Wormskull");ulong seed=MageStaticFieldChecks.Seed(0,4,false);NecromancerMageMissiles.SetActorSeed(mage,seed);

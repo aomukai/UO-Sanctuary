@@ -49,7 +49,7 @@ public static class NpcOpenWoundsChecks
     }
     private static void Events()
     {
-        var p=Owner(9);PoisonDaggerChecks.Named(p,"Wormskull");var b=Body(p);var t=Target(p,b);var blocks=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        var p=Owner(9);PoisonDaggerChecks.Named(p,"Wormskull");var b=Body(p);NecroSnapshotChecks.MissingMetadata(b);var t=Target(p,b);var blocks=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try
         {
             Require(b.Rank==10&&NpcOpenWounds.Inherent(b)==0,"Soft point unlocked Blood wounds");var packet=Prepare(p,b,t);ulong seed=NpcEquipmentRandom.State(b).Seed;
@@ -69,7 +69,7 @@ public static class NpcOpenWoundsChecks
     }
     private static void Item()
     {
-        var p=Owner(9);var b=Body(p);var t=Target(p,b);var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Goreshovel").Id,99,new Random(836),true);item.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
+        var p=Owner(9);var b=Body(p);NecroSnapshotChecks.MissingMetadata(b);var t=Target(p,b);var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Goreshovel").Id,99,new Random(836),true);item.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
         try
         {
             Require(IronGolemItems.TryAttach(p,b,item,out var why),"Real NPC wound item: "+why);Require(NpcOpenWounds.Chance(b)==60,"Item-only wound golden");IronGolemContact.Prepared packet=null;ulong expected=0;

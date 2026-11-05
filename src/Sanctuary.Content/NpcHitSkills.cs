@@ -9,7 +9,7 @@ internal static class NpcHitSkills
 {
     internal static int BloodChance(SkeletonGuardian actor)=>NpcOpenWounds.Blood(actor)
         &&actor.ControlMaster is PlayerMobile{Deleted:false} owner
-        &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=20?5:0;
+        &&SummonUpgradeSnapshots.HardRank(actor,CombatAbility.BloodGolem)>=20?5:0;
     internal static bool Chance(int chance,uint hitFlags,bool hasPacket,uint roll)
         =>ItemProcCallbacks.Chance(chance,hasPacket,hitFlags,roll);
     internal static bool BloodLifeTap(SkeletonGuardian actor,BaseCreature target,PreparedMonsterDamagePacket packet,DateTime at)

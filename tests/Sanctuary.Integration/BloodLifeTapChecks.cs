@@ -31,12 +31,12 @@ public static class BloodLifeTapChecks
         for(ulong n=1;n<10000;n++){ulong s=n;SourceRandom.Roll(ref s);if((SourceRandom.Roll(ref s)%100<5)==success){return n;}}
         throw new InvalidOperationException("Missing wound/proc seed");
     }
-    private static IronGolemContact.Prepared Packet(PlayerMobile p,BloodGolemBody b,BaseCreature t,bool proc=true,int flags=5)
+    internal static IronGolemContact.Prepared Packet(PlayerMobile p,BloodGolemBody b,BaseCreature t,bool proc=true,int flags=5)
     {
         var packet=IronGolemContact.Prepare(b,t,UnarmedSummonContact.Require(b,p,t),()=>flags);
         NpcEquipmentRandom.Set(b,ProcSeed(proc));return packet;
     }
-    private static MonsterContactResult Release(PlayerMobile p,BloodGolemBody b,BaseCreature t,IronGolemContact.Prepared packet,DateTime? at=null)
+    internal static MonsterContactResult Release(PlayerMobile p,BloodGolemBody b,BaseCreature t,IronGolemContact.Prepared packet,DateTime? at=null)
         =>IronGolemContact.Release(b,p,t,packet,_=>true,at??TimedEffects.Now);
     private static void Source()
     {
@@ -51,7 +51,7 @@ public static class BloodLifeTapChecks
     }
     private static void Events()
     {
-        var p=Owner(19);PoisonDaggerChecks.Named(p,"Wormskull");var b=Body(p);var t=Target(p,b);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        var p=Owner(19);PoisonDaggerChecks.Named(p,"Wormskull");var b=Body(p);NecroSnapshotChecks.MissingMetadata(b);var t=Target(p,b);var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try
         {
             Require(b.Rank==20&&NpcHitSkills.BloodChance(b)==0,"Soft ranks unlocked Blood proc");var packet=Packet(p,b,t);ulong seed=NpcEquipmentRandom.State(b).Seed,expected=seed;SourceRandom.Roll(ref expected);

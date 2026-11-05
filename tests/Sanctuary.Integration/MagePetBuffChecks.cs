@@ -44,7 +44,7 @@ public static class MagePetBuffChecks
     }
     private static void Check()
     {
-        var p=Owner();var ice=Pet(p,1);var fire=Pet(p,2,3,1);var ally=Pet(p,3,2,1);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(p.X+7,p.Y+1,p.Z),p.Map);
+        var p=Owner();var ice=Pet(p,1);var fire=Pet(p,2,3,1);var ally=Pet(p,3,2,1);NecroSnapshotChecks.MissingMetadata(ice);NecroSnapshotChecks.MissingMetadata(fire);NecroSnapshotChecks.MissingMetadata(ally);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(p.X+7,p.Y+1,p.Z),p.Map);
         int defense=ClassStats.Defense(ice),life=SkillHealth.Balance256(ice);var helm=PoisonDaggerChecks.Named(p,"Wormskull");
         Require(SkillMechanics.Rank(p,CombatAbility.RaiseSkeletalMage)==20&&MagePetBuffs.HardRank(ice)==19&&SorceressEffects.Armor(ice)==null,"Soft point unlocked intrinsic armor");
         Train(p,"necromancer.skeletalmage",20);var armor=SorceressEffects.Armor(ice);var values=MagePetBuffs.Values(CombatAbility.FrozenArmor,20,ice.Level);

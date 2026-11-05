@@ -36,7 +36,11 @@ public static class NecromancerSummons
     }
     public static int Resistance(PlayerMobile owner) => SkillMechanics.Rank(owner, CombatAbility.SummonResist) is > 0
         ? SkillMechanics.Values(owner, CombatAbility.SummonResist).Diminishing(1, 2) : 0;
-    public static bool Create(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
+    public static bool Create(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point)
+        =>Create(owner,ability,selected,point,null);
+    internal static bool CreatePaid(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,int cost)
+        =>Create(owner,ability,selected,point,()=>owner is{Alive:true,Deleted:false}&&NecromancerEffects.Pay(owner,cost));
+    private static bool Create(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,Func<bool> payment)
     {
         if(ability is not(CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)){return false;}
         bool mage = ability == CombatAbility.RaiseSkeletalMage;
@@ -53,13 +57,17 @@ public static class NecromancerSummons
         {
             pet.Prepare(owner, ability);
             if (!pet.SetControlMaster(owner)) { pet.Delete(); return false; }
+            SummonUpgradeSnapshots.Capture(owner,pet,ability,pet.CapturedHardRank);
             pet.MoveToWorld(point, owner.Map);pet.IssueOrder(OrderType.Guard,null);
             if(pet is ClayGolemWorldBody clay){clay.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));}
             if(pet is BloodGolemWorldBody blood){blood.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));}
             if(pet is FireGolemWorldBody fire){fire.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));}
             if(pet is MageWorldBody caster){caster.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NecromancerMageMissiles.SeedLow()));}
             PersistentMinions.Profiles.Track(pet);
-            // Complete candidate setup before replacing a paid existing pet.
+            // Debit after complete allocation, before replacing the paid old
+            // pet or consuming its corpse. Reentrant mana loss rejects only
+            // this candidate; its birth supplement is removed on deletion.
+            if(payment!=null&&!payment()){return false;}
             pet.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);
             if(!mage){NecromancerGolems.Commit(owner,pet);}
             else
@@ -111,6 +119,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     internal int MageMissileRank=>IsMage?checked((int)Values(Kind).Eval("sumsk1calc")):0;
     private Dictionary<string, int> Snapshot => _snapshot ??= JsonSerializer.Deserialize<Dictionary<string, int>>(_ranks);
     internal SkillValues CapturedValues=>Values(Kind);
+    internal int CapturedHardRank=>Snapshot.GetValueOrDefault("base:"+SkillMechanics.For(Kind).SourceKey);
     private SkillValues Values(CombatAbility ability) => new(SkillMechanics.For(ability),
         key => Snapshot.GetValueOrDefault(key), key => Snapshot.GetValueOrDefault("base:" + key), Level);
     private int Passive(string stat)

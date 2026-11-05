@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Necromancer summon snapshots (2026-11-05 JST).** Newly summoned Mages and all four golems keep their born hard-point upgrades through owner training/gear/respec; original dictionaries/recipes and shared persistence192are reused. Ordinary summons pay before replacing a paid pet or consuming a corpse. Current casts/effects/rollback and historical compatibility are checked separately. Coverage remains197/240handlers,no class complete. See [checkpoint](necro-snapshot-checkpoint.md).
+
 **Warrior upgrade snapshots (2026-11-05 JST).** New learned Skeleton Warriors retain born hard-point unlocks through later training/gear/respec and saves. Optional supplement192preserves existing actor layouts; missing historical metadata keeps its explicit legacy behavior until resummoned. This is one step in the cross-class snapshot rollout; coverage stays197/240handlers,no class complete. See [checkpoint](warrior-snapshot-checkpoint.md).
 
 **Learned Poison Creeper (2026-11-05 JST).** Approved summon-time rank/hard-Rabies capture enables public right/quick vine casting and existing poison fields. A shared managed-poison query fixes AI recognition; natural learned casting/attacks/poison, old/new field profiles and save behavior are checked separately. Coverage **197/240 handlers, Druid29/30**; no class complete. Nonzero sunder delivery, source A* fallback, Arctic Blast and the new cross-class snapshot rollout remain unfinished. See [checkpoint](creeper-learned-checkpoint.md) and [snapshot policy](summon-stat-snapshots.md).

@@ -92,7 +92,7 @@ public static class UnitEventsChecks
     }
     private static void Check()
     {
-        var p=NpcOpenWoundsChecks.Owner(1,3160);var b=NpcOpenWoundsChecks.Body(p);var blocks=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        var p=NpcOpenWoundsChecks.Owner(1,3160);var b=NpcOpenWoundsChecks.Body(p);NecroSnapshotChecks.MissingMetadata(b);var blocks=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         var a=Carrier(p);var z=Carrier(p);var graph=NpcItemProcs.Create(b);
         try
         {

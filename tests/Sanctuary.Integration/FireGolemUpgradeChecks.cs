@@ -44,7 +44,7 @@ public static class FireGolemUpgradeChecks
     }
     private static void Controls()
     {
-        var p=Owner(9,3,3020);PoisonDaggerChecks.Named(p,"Wormskull");var b=Learned(p);var enemy=Target(p,b);var caster=new PlayerMobile{Player=true,Body=0x190};ClassCreation.Profiles.Assign(caster,DiabloClass.Paladin);
+        var p=Owner(9,3,3020);PoisonDaggerChecks.Named(p,"Wormskull");var b=Learned(p);NecroSnapshotChecks.MissingMetadata(b);var enemy=Target(p,b);var caster=new PlayerMobile{Player=true,Body=0x190};ClassCreation.Profiles.Assign(caster,DiabloClass.Paladin);
         var conviction=PaladinConviction.Snapshot();var holy=PaladinHolyFreeze.Snapshot();
         try
         {
@@ -108,7 +108,7 @@ public static class FireGolemUpgradeChecks
     }
     private static void Live(NetState network)
     {
-        var p=Owner(9,3,3140);PoisonDaggerChecks.Named(p,"Wormskull");FixtureNetwork.Authenticate(network,p,"fire-upgrades");var b=Learned(p);b.Frozen=true;b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});var t=Target(p,b);NecromancerEffects.SetMana256(p,0);NpcEquipmentRandom.Set(b,17);
+        var p=Owner(9,3,3140);PoisonDaggerChecks.Named(p,"Wormskull");FixtureNetwork.Authenticate(network,p,"fire-upgrades");var b=Learned(p);NecroSnapshotChecks.MissingMetadata(b);b.Frozen=true;b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});var t=Target(p,b);NecromancerEffects.SetMana256(p,0);NpcEquipmentRandom.Set(b,17);
         ulong expectedSeed=17;int min=b.HolyFireValues.Damage256(false),max=b.HolyFireValues.Damage256(true),pulse=2*(min+(int)SourceRandom.Limited(ref expectedSeed,max-min));int hp=SkillHealth.Balance256(t),damage=0;bool trained=false,pulsed=false,captured=false;long deadline=Core.TickCount+12000;var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         void End(){SourceBlocking.BlockRoll=block;t.Delete();b.Delete();p.Delete();}
         void Wait()

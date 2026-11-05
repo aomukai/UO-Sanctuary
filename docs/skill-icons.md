@@ -1,5 +1,7 @@
 # Skill icons
 
+**Mage/golem snapshots (2026-11-05 JST).** No talent, binding or icon slot is added. Existing Mage and golem talent/hotkey identities remain; final tree/hotkey artwork stays separately pending. See [checkpoint](necro-snapshot-checkpoint.md).
+
 **Warrior snapshot rollout (2026-11-05 JST).** Existing Raise Skeleton talent and hotkey identities are unchanged. Born hard-point upgrades add no icon slot; final Warrior tree/hotkey artwork remains separately pending. See [checkpoint](warrior-snapshot-checkpoint.md).
 
 **Learned Poison Creeper (2026-11-05 JST).** The existing talent/right/quick identity is enabled through common bindings. Its final talent-tree and hotkey artwork remains separately pending with identified generic placeholders. No new icon slot or client protocol is added. See [checkpoint](creeper-learned-checkpoint.md).

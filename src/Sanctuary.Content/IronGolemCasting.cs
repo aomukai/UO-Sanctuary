@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Server;
 using Server.Mobiles;
@@ -57,6 +58,7 @@ internal static class IronGolemCasting
             // Recheck current item capabilities and resources before paying.
             _=new NpcCombatEvents(NpcEquipmentCombat.Context(candidate)??throw new NotSupportedException("New Iron Golem lost its original context"));
             if(!NecromancerEffects.Pay(owner,cost)){return false;}paid=true;
+            SummonUpgradeSnapshots.Capture(owner,candidate,CombatAbility.IronGolem,candidate.Prepared.Recipe.Hard.GetValueOrDefault(SkillMechanics.For(CombatAbility.IronGolem).SourceKey));
             NecromancerGolems.Commit(owner,candidate);committed=true;created=candidate;
             candidate.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);
             owner.PlaySound(0x1E5); // Identified native summon/audio placeholders.

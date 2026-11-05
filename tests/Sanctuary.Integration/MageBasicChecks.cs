@@ -85,7 +85,7 @@ public static class MageBasicChecks
             foreach(int element in new[]{1,2,3})
             {
                 if(ClassCreation.Profiles.GetRank(p.Serial,"necromancer.skeletalmage")>=5){Reset(p,helm);}
-                var m=MagePetBuffChecks.Pet(p,element);var t=Target(p,m);var original=AmazonSlowMissiles.Snapshot();
+                var m=MagePetBuffChecks.Pet(p,element);NecroSnapshotChecks.MissingMetadata(m);var t=Target(p,m);var original=AmazonSlowMissiles.Snapshot();
                 try
                 {
                     int rank=m.Rank;Require(rank==5,"Real effective rank boundary");var packet=MageBasicSkills.Packet(m);ulong seed=NecromancerMageMissiles.ActorSeed(m).Seed;
@@ -151,7 +151,7 @@ public static class MageBasicChecks
         {
             if(p==null){p=Owner(4,3);helm=PoisonDaggerChecks.Named(p,"Wormskull");FixtureNetwork.Authenticate(network,p,"mage-basic");}
             else{Reset(p,helm);}
-            m=MagePetBuffChecks.Pet(p,phase);t=Target(p,m,phase==3?3:5);m.Ground.Store(m.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});NecromancerEffects.SetMana256(p,0);mana=NecromancerEffects.ManaBalance256(p);hp=SkillHealth.Balance256(t);trained=launched=false;deadline=Core.TickCount+12000;
+            m=MagePetBuffChecks.Pet(p,phase);NecroSnapshotChecks.MissingMetadata(m);t=Target(p,m,phase==3?3:5);m.Ground.Store(m.WorldState.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});NecromancerEffects.SetMana256(p,0);mana=NecromancerEffects.ManaBalance256(p);hp=SkillHealth.Balance256(t);trained=launched=false;deadline=Core.TickCount+12000;
         }
         void Wait()
         {

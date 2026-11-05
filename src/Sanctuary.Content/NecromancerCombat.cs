@@ -100,8 +100,7 @@ public static class NecromancerCombat
         }
         if (ability is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)
         {
-            if (!NecromancerSummons.Create(owner, ability, selected, point)) { return false; }
-            return NecromancerEffects.Pay(owner, values.Mana256);
+            return NecromancerSummons.CreatePaid(owner,ability,selected,point,values.Mana256);
         }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         owner.PlaySound(0x1E5); // Existing UO cast sound, pending skill-specific asset pass.

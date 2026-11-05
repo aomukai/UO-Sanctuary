@@ -11,7 +11,7 @@ internal static class MagePetBuffs
 {
     private static ColdArmorState _armor;
     internal static int HardRank(NecromancerMinion actor)=>actor is{IsMage:true,Deleted:false,ControlMaster:PlayerMobile owner}
-        ?ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.skeletalmage"):0;
+        ?SummonUpgradeSnapshots.HardRank(actor,CombatAbility.RaiseSkeletalMage):0;
     internal static SkillValues Values(CombatAbility ability,int rank,int level)
     {
         if(rank is <1 or >255||level is <1 or >99){throw new ArgumentOutOfRangeException();}

@@ -17,7 +17,7 @@ internal static class NpcOpenWounds
     internal static bool Potential(BaseCreature actor)=>Blood(actor)||actor is DruidSpiritWolfBody;
     internal static int Inherent(BaseCreature actor)=>actor is DruidSpiritWolfBody?SpiritWolfUpgrades.OpenWounds(actor)
         :Blood(actor)&&actor.ControlMaster is PlayerMobile{Deleted:false} owner
-        &&ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.bloodgolem")>=10?100:0;
+        &&SummonUpgradeSnapshots.HardRank(actor,CombatAbility.BloodGolem)>=10?100:0;
     internal static int Chance(BaseCreature actor)=>checked(Inherent(actor)+Math.Max(0,NpcEquipmentCombat.EventBonus(actor,"openwounds")));
     private static bool Eligible(BaseCreature target)
     {

@@ -4,12 +4,12 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Approved Sanctuary replacement: captured summon/mastery damage, live
-// hard-point affixes. Other birth resources and existing hit services stay intact.
+// Approved Sanctuary replacement: captured summon/mastery damage and born
+// hard-point affixes for new learned casts. Other birth resources and existing hit services stay intact.
 internal static class ClayGolemUpgrades
 {
     internal static int HardRank(Mobile actor)=>actor is NecromancerMinion{Kind:CombatAbility.ClayGolem,ControlMaster:PlayerMobile{Deleted:false} owner}
-        ?ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.claygolem"):0;
+        ?SummonUpgradeSnapshots.HardRank(actor,CombatAbility.ClayGolem):0;
     internal static (int Min,int Max,int Percent) Weapon(NecromancerMinion actor)=>GolemPetDamage.Weapon(actor);
     internal static int Defense(NecromancerMinion actor,int basis)=>HardRank(actor)>=10
         ?EncounterProfiles.ModifierDefense(basis,EliteModifier.StoneSkin):basis;

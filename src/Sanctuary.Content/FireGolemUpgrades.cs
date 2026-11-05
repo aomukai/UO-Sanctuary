@@ -7,7 +7,7 @@ namespace Sanctuary;
 internal static class FireGolemUpgrades
 {
     internal static int HardRank(Mobile actor)=>actor is NecromancerMinion{Kind:CombatAbility.FireGolem,ControlMaster:PlayerMobile{Deleted:false} owner}
-        ?ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.firegolem"):0;
+        ?SummonUpgradeSnapshots.HardRank(actor,CombatAbility.FireGolem):0;
     internal static bool CannotFreeze(Mobile actor)=>HardRank(actor)>=10;
     // An ordinary100resistance floor,not a separate invulnerability flag.
     // Existing Conviction/Lower Resist and immunity-break rules still apply.

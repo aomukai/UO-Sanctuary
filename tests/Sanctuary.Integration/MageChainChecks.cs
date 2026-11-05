@@ -35,7 +35,7 @@ public static class MageChainChecks
     {ChainLightning.Cancel(mage);var saved=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(saved with{Bolts=saved.Bolts.Where(x=>x.Actor!=mage.Serial.Value).ToArray()});}
     private static void Delivery()
     {
-        var p=Owner(9);var mage=MagePetBuffChecks.Pet(p,3);var first=Enemy(p,mage,4);var second=Enemy(p,mage,7);var oldSlow=AmazonSlowMissiles.Snapshot();var oldSeed=NecromancerMageMissiles.SeedLow;NecromancerMageMissiles.SeedLow=()=>73;
+        var p=Owner(9);var mage=MagePetBuffChecks.Pet(p,3);NecroSnapshotChecks.MissingMetadata(mage);var first=Enemy(p,mage,4);var second=Enemy(p,mage,7);var oldSlow=AmazonSlowMissiles.Snapshot();var oldSeed=NecromancerMageMissiles.SeedLow;NecromancerMageMissiles.SeedLow=()=>73;
         try
         {
             var helm=PoisonDaggerChecks.Named(p,"Wormskull");Require(SkillMechanics.Rank(p,CombatAbility.RaiseSkeletalMage)==10&&MagePetBuffs.HardRank(mage)==9,"Chain hard/soft fixture");

@@ -40,7 +40,7 @@ internal static class SummonUpgradeSnapshots
     internal static void Capture(PlayerMobile owner,SkeletonGuardian actor,CombatAbility ability,int hardRank)
     {
         if(owner is not{Deleted:false}||actor is not{Alive:true,Deleted:false}||actor.ControlMaster!=owner
-            ||actor.SourceMonsterId!=SkillMechanics.For(ability).Text("summon"))
+            ||!string.Equals(actor.SourceMonsterId,SkillMechanics.For(ability).Text("summon"),StringComparison.OrdinalIgnoreCase))
         {throw new InvalidOperationException("Summon hard points require their original actor and owner");}
         var state=new SummonUpgradeSnapshot(actor.Serial.Value,owner.Serial.Value,ability,hardRank);Validate(state);
         if(!Saved.TryAdd(state.Actor,state)){throw new InvalidOperationException("Summon birth hard points already captured");}Publish();

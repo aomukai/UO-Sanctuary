@@ -52,7 +52,7 @@ public static class IronGolemStrongChecks
     }
     private static void Check()
     {
-        Wild();var p=IronGolemDamageChecks.Owner(9,3,3280);PoisonDaggerChecks.Named(p,"Wormskull");var item=IronGolemDamageChecks.Original(p,"Messerschmidt's Reaver");var b=IronGolemDamageChecks.Learned(p,item);
+        Wild();var p=IronGolemDamageChecks.Owner(9,3,3280);PoisonDaggerChecks.Named(p,"Wormskull");var item=IronGolemDamageChecks.Original(p,"Messerschmidt's Reaver");var b=IronGolemDamageChecks.Learned(p,item);NecroSnapshotChecks.MissingMetadata(b);
         var legacy=new NecromancerMinion{Name="Historical Iron Extra Strong [fixture]",Frozen=true,CantWalk=true};legacy.Prepare(p,CombatAbility.IronGolem);legacy.SetControlMaster(p);legacy.MoveToWorld(p.Location,p.Map);legacy.AIObject.AITimer.Stop();PersistentMinions.Profiles.Track(legacy);legacy.Internalize();
         var basis=NpcEquipmentDamage.Capture(b).Value;int ratingBase=CreatureProfiles.AttackRating(b)+NpcEquipmentCombat.AttackFlat(b),itemPercent=NpcEquipmentCombat.AttackPercent(b);
         Require(b.Rank==10&&IronGolemUpgrades.HardRank(b)==9&&IronGolemUpgrades.DamagePercent(b)==0&&NpcEquipmentCombat.AttackFlat(b)>0&&itemPercent>0,"Real soft boundary/flat Dexterity/item percentage setup");
@@ -90,7 +90,7 @@ public static class IronGolemStrongChecks
     }
     private static void Live(NetState network)
     {
-        var p=IronGolemDamageChecks.Owner(9,3,3740);FixtureNetwork.Authenticate(network,p,"iron-strong");var b=IronGolemDamageChecks.Learned(p,IronGolemDamageChecks.Original(p));var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(b.Location,p.Map);t.SetHits(20000);t.SetResistance(ResistanceType.Physical,0);TimedEffects.PreventHealing(t,TimedEffects.Now);
+        var p=IronGolemDamageChecks.Owner(9,3,3740);FixtureNetwork.Authenticate(network,p,"iron-strong");var b=IronGolemDamageChecks.Learned(p,IronGolemDamageChecks.Original(p));NecroSnapshotChecks.MissingMetadata(b);var t=PoisonDaggerChecks.Target(p);t.MoveToWorld(b.Location,p.Map);t.SetHits(20000);t.SetResistance(ResistanceType.Physical,0);TimedEffects.PreventHealing(t,TimedEffects.Now);
         var block=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;NpcEquipmentRandom.Set(b,IronGolemWorldChecks.AttackSeed(b,t));b.RestoreController(b.Prepared.Controller with{NextUtc=TimedEffects.Now.AddMilliseconds(40)});int life=SkillHealth.Balance256(t),damage=0;bool captured=false;long deadline=Core.TickCount+12000;
         void End(){SourceBlocking.BlockRoll=block;t.Delete();b.Delete();p.Delete();}
         void Wait()

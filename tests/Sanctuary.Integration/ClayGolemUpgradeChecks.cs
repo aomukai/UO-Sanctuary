@@ -80,7 +80,7 @@ public static class ClayGolemUpgradeChecks
     }
     private static void Direct()
     {
-        Wild();var p=Owner();Train(p,"skeletonmastery",20);Train(p,"firegolem",4);var helm=PoisonDaggerChecks.Named(p,"Wormskull");var b=Learned(p);
+        Wild();var p=Owner();Train(p,"skeletonmastery",20);Train(p,"firegolem",4);var helm=PoisonDaggerChecks.Named(p,"Wormskull");var b=Learned(p);NecroSnapshotChecks.MissingMetadata(b);
         int basis=b.CombatProfile.Defense;var res=Res(b);int maximum=SkillHealth.Maximum256(b);SkillHealth.SetBalance256(b,maximum-257);TimedEffects.PreventHealing(b,TimedEffects.Now);
         int life=SkillHealth.Balance256(b);long order=BattleCommand.PetOrder(b);ulong seed=NpcEquipmentRandom.State(b).Seed;var source=b.UnarmedPhysical;
         try

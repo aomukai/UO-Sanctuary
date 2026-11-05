@@ -38,7 +38,7 @@ public static class MageGlacialChecks
     {for(ulong n=1;n<10000;n++){ulong seed=n;if(SourceRandom.Roll(ref seed)%100>=5&&SourceRandom.Roll(ref seed)%100>=5){return n;}}throw new InvalidOperationException("No area critical control");}
     private static void Delivery()
     {
-        var p=Owner(9);var mage=MagePetBuffChecks.Pet(p,1);var first=Enemy(p,mage,4);var peer=Enemy(p,mage,4,1);var far=Enemy(p,mage,8);var oldSlow=AmazonSlowMissiles.Snapshot();
+        var p=Owner(9);var mage=MagePetBuffChecks.Pet(p,1);NecroSnapshotChecks.MissingMetadata(mage);var first=Enemy(p,mage,4);var peer=Enemy(p,mage,4,1);var far=Enemy(p,mage,8);var oldSlow=AmazonSlowMissiles.Snapshot();
         try
         {
             var helm=PoisonDaggerChecks.Named(p,"Wormskull");ulong seed=MageStaticFieldChecks.Seed(0,4,false);NecromancerMageMissiles.SetActorSeed(mage,seed);

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Mage/golem snapshots and payment (2026-11-05 JST).** Stat capture adds no effects/audio. Ordinary summon particles now occur only after payment succeeds. Existing Mage basic/extra-spell/armor/Enchant and Clay/Blood/Iron/Fire placeholders and final effect/audio gaps remain listed independently. No imagegen asset is created. See [checkpoint](necro-snapshot-checkpoint.md).
+
 **Warrior snapshot rollout (2026-11-05 JST).** Hard-point persistence adds no effects or audio. Existing Warrior body/shield/raise/physical-return/Extra Fast placeholders and final asset gaps remain separately listed. No imagegen asset is created. See [checkpoint](warrior-snapshot-checkpoint.md).
 
 **Learned Poison Creeper (2026-11-05 JST).** Public casting uses the identified body0x8 and summon sound0x1E5 placeholders. Heads/trails/mats currently run mechanically without field rendering. Final Creeper body/summon, vine head/trail/mat, poison/contact/wither and audio assets remain pending. The approved vulnerability rule needs no underground protection animation. Poison-state query and stat snapshots add no new artwork. See [checkpoint](creeper-learned-checkpoint.md).

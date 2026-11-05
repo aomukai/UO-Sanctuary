@@ -54,7 +54,7 @@ public static class MageStaticFieldChecks
     }
     private static void Casts()
     {
-        var p=Owner(19);var mage=MagePetBuffChecks.Pet(p,3);var t=Target(p,mage);var outside=Target(p,mage,5);var immune=Target(p,mage,2,100);
+        var p=Owner(19);var mage=MagePetBuffChecks.Pet(p,3);NecroSnapshotChecks.MissingMetadata(mage);var t=Target(p,mage);var outside=Target(p,mage,5);var immune=Target(p,mage,2,100);
         var old=SummonDifficulties.Facets();
         try
         {
