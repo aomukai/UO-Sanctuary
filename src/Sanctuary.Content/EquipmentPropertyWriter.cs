@@ -63,7 +63,7 @@ internal static class EquipmentPropertyWriter
         int min=Math.Min(p.Minimum,p.Maximum),max=Math.Max(p.Minimum,p.Maximum);
         return min==max?min:checked(min+s.Roll(checked(max-min+1)));
     }
-    private static int Write(EquipmentPropertyServices s,EquipmentPropertyInput p,bool set,int stat,int layer,int value,int state,int flags)
+    internal static int Write(EquipmentPropertyServices s,EquipmentPropertyInput p,bool set,int stat,int layer,int value,int state,int flags)
     {
         if(value==0||EquipmentStatValues.Definition(stat) is not{} cost){return 0;}
         if(!s.GetOrCreateList(state,flags)){return 0;}

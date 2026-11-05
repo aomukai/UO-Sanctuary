@@ -38,6 +38,8 @@ internal sealed class ItemPropertyCreationContext:EquipmentPropertyServices
         if(!Admitted(plan)){throw new NotSupportedException("Fresh property needs verified current semantics: "+plan?.Code);}
         EquipmentPropertyWriter.Create(plan,input,0,this);
     }
+    internal void ApplySkill(EquipmentPropertyPlan plan,EquipmentPropertyInput input,ItemSkillPropertyServices metadata)
+        =>ItemSkillPropertyWriter.Apply(plan,input,metadata,this);
     internal override EquipmentPropertyBase Basis=>Base;
     internal override bool Weapon=>IsWeapon;
     internal override bool Armor=>IsArmor;

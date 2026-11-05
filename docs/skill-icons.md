@@ -1,5 +1,7 @@
 # Skill icons
 
+**Raw proc/charge encoding (2026-11-05 JST).** No player skill,binding,hotkey slot or artwork is added. Later charge-backed skill availability must reuse the spell’s own tree/hotkey artwork and existing identified placeholders. Those assets remain separate from raw encoding;no new icon is generated. See [checkpoint](item-skill-property-checkpoint.md).
+
 **Fresh item-owned property graphs (2026-11-05 JST).** No talent,binding,icon slot or artwork is added. Existing Shadow/Valkyrie talent-tree and hotkey icon requirements remain separately pending with identified generic placeholders. Raw property-context fixtures add no player-facing icon requirement. See [checkpoint](item-property-creation-checkpoint.md).
 
 **Complete NPC affix pools/rare names (2026-11-05 JST).** No talent,binding,icon slot or artwork is added. Valkyrie and both Shadows still need their separate talent-tree/hotkey icons;identified generic placeholders remain. See [checkpoint](npc-item-affixes-checkpoint.md).

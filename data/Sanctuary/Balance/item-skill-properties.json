@@ -1,0 +1,2580 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "ChargedLevelBits": 6,
+  "Skills": [
+    {
+      "Id": 0,
+      "Name": "Attack",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 1,
+      "Name": "Kick",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 2,
+      "Name": "Throw",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 3,
+      "Name": "Unsummon",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 4,
+      "Name": "Left Hand Throw",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 5,
+      "Name": "Left Hand Swing",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 6,
+      "Name": "Magic Arrow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 7,
+      "Name": "Fire Arrow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 8,
+      "Name": "Inner Sight",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 9,
+      "Name": "Critical Strike",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 10,
+      "Name": "Jab",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 11,
+      "Name": "Cold Arrow",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 12,
+      "Name": "Multiple Shot",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 13,
+      "Name": "Dodge",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 14,
+      "Name": "Power Strike",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 15,
+      "Name": "Poison Javelin",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 16,
+      "Name": "Exploding Arrow",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 17,
+      "Name": "Slow Missiles",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 18,
+      "Name": "Avoid",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 19,
+      "Name": "Impale",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 20,
+      "Name": "Lightning Bolt",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 21,
+      "Name": "Ice Arrow",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 22,
+      "Name": "Guided Arrow",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 23,
+      "Name": "Penetrate",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 24,
+      "Name": "Charged Strike",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 25,
+      "Name": "Plague Javelin",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 26,
+      "Name": "Strafe",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 27,
+      "Name": "Immolation Arrow",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 28,
+      "Name": "Dopplezon",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 29,
+      "Name": "Evade",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 30,
+      "Name": "Fend",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 31,
+      "Name": "Freezing Arrow",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 32,
+      "Name": "Valkyrie",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 33,
+      "Name": "Pierce",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 34,
+      "Name": "Lightning Strike",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 35,
+      "Name": "Lightning Fury",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 36,
+      "Name": "Fire Bolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 37,
+      "Name": "Warmth",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 38,
+      "Name": "Charged Bolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 39,
+      "Name": "Ice Bolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 40,
+      "Name": "Frozen Armor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 41,
+      "Name": "Inferno",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 42,
+      "Name": "Static Field",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 43,
+      "Name": "Telekinesis",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 44,
+      "Name": "Frost Nova",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 45,
+      "Name": "Ice Blast",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 46,
+      "Name": "Blaze",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 47,
+      "Name": "Fire Ball",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 48,
+      "Name": "Nova",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 49,
+      "Name": "Lightning",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 50,
+      "Name": "Shiver Armor",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 51,
+      "Name": "Fire Wall",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 52,
+      "Name": "Enchant",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 53,
+      "Name": "Chain Lightning",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 54,
+      "Name": "Teleport",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 55,
+      "Name": "Glacial Spike",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 56,
+      "Name": "Meteor",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 57,
+      "Name": "Thunder Storm",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 58,
+      "Name": "Energy Shield",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 59,
+      "Name": "Blizzard",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 60,
+      "Name": "Chilling Armor",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 61,
+      "Name": "Fire Mastery",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 62,
+      "Name": "Hydra",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 63,
+      "Name": "Lightning Mastery",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 64,
+      "Name": "Frozen Orb",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 65,
+      "Name": "Cold Mastery",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 66,
+      "Name": "Amplify Damage",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 67,
+      "Name": "Teeth",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 68,
+      "Name": "Bone Armor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 69,
+      "Name": "Skeleton Mastery",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 70,
+      "Name": "Raise Skeleton",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 71,
+      "Name": "Dim Vision",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 72,
+      "Name": "Weaken",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 73,
+      "Name": "Poison Dagger",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 74,
+      "Name": "Corpse Explosion",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 75,
+      "Name": "Clay Golem",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 76,
+      "Name": "Iron Maiden",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 77,
+      "Name": "Terror",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 78,
+      "Name": "Bone Wall",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 79,
+      "Name": "Golem Mastery",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 80,
+      "Name": "Raise Skeletal Mage",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 81,
+      "Name": "Confuse",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 82,
+      "Name": "Life Tap",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 83,
+      "Name": "Poison Explosion",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 84,
+      "Name": "Bone Spear",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 85,
+      "Name": "BloodGolem",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 86,
+      "Name": "Attract",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 87,
+      "Name": "Decrepify",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 88,
+      "Name": "Bone Prison",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 89,
+      "Name": "Summon Resist",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 90,
+      "Name": "IronGolem",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 91,
+      "Name": "Lower Resist",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 92,
+      "Name": "Poison Nova",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 93,
+      "Name": "Bone Spirit",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 94,
+      "Name": "FireGolem",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 95,
+      "Name": "Revive",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 96,
+      "Name": "Sacrifice",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 97,
+      "Name": "Smite",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 98,
+      "Name": "Might",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 99,
+      "Name": "Prayer",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 100,
+      "Name": "Resist Fire",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 101,
+      "Name": "Holy Bolt",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 102,
+      "Name": "Holy Fire",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 103,
+      "Name": "Thorns",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 104,
+      "Name": "Defiance",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 105,
+      "Name": "Resist Cold",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 106,
+      "Name": "Zeal",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 107,
+      "Name": "Charge",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 108,
+      "Name": "Blessed Aim",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 109,
+      "Name": "Cleansing",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 110,
+      "Name": "Resist Lightning",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 111,
+      "Name": "Vengeance",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 112,
+      "Name": "Blessed Hammer",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 113,
+      "Name": "Concentration",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 114,
+      "Name": "Holy Freeze",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 115,
+      "Name": "Vigor",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 116,
+      "Name": "Conversion",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 117,
+      "Name": "Holy Shield",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 118,
+      "Name": "Holy Shock",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 119,
+      "Name": "Sanctuary",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 120,
+      "Name": "Meditation",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 121,
+      "Name": "Fist of the Heavens",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 122,
+      "Name": "Fanaticism",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 123,
+      "Name": "Conviction",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 124,
+      "Name": "Redemption",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 125,
+      "Name": "Salvation",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 126,
+      "Name": "Bash",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 127,
+      "Name": "Blade Mastery",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 128,
+      "Name": "Axe Mastery",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 129,
+      "Name": "Mace Mastery",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 130,
+      "Name": "Howl",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 131,
+      "Name": "Find Potion",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 132,
+      "Name": "Leap",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 133,
+      "Name": "Double Swing",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 134,
+      "Name": "Pole Arm Mastery",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 135,
+      "Name": "Throwing Mastery",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 136,
+      "Name": "Spear Mastery",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 137,
+      "Name": "Taunt",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 138,
+      "Name": "Shout",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 139,
+      "Name": "Stun",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 140,
+      "Name": "Double Throw",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 141,
+      "Name": "Increased Stamina",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 142,
+      "Name": "Find Item",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 143,
+      "Name": "Leap Attack",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 144,
+      "Name": "Concentrate",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 145,
+      "Name": "Iron Skin",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 146,
+      "Name": "Battle Cry",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 147,
+      "Name": "Frenzy",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 148,
+      "Name": "Increased Speed",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 149,
+      "Name": "Battle Orders",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 150,
+      "Name": "Grim Ward",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 151,
+      "Name": "Whirlwind",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 152,
+      "Name": "Berserk",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 153,
+      "Name": "Natural Resistance",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 154,
+      "Name": "War Cry",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 155,
+      "Name": "Battle Command",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 156,
+      "Name": "Fire Hit",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 157,
+      "Name": "UnHolyBolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 158,
+      "Name": "SkeletonRaise",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 159,
+      "Name": "MaggotEgg",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 160,
+      "Name": "ShamanFire",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 161,
+      "Name": "MagottUp",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 162,
+      "Name": "MagottDown",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 163,
+      "Name": "MagottLay",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 164,
+      "Name": "AndrialSpray",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 165,
+      "Name": "Jump",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 166,
+      "Name": "Swarm Move",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 167,
+      "Name": "Nest",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 168,
+      "Name": "Quick Strike",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 169,
+      "Name": "VampireFireball",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 170,
+      "Name": "VampireFirewall",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 171,
+      "Name": "VampireMeteor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 172,
+      "Name": "GargoyleTrap",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 173,
+      "Name": "SpiderLay",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 174,
+      "Name": "VampireHeal",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 175,
+      "Name": "VampireRaise",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 176,
+      "Name": "Submerge",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 177,
+      "Name": "FetishAura",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 178,
+      "Name": "FetishInferno",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 179,
+      "Name": "ZakarumHeal",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 180,
+      "Name": "Emerge",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 181,
+      "Name": "Resurrect",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 182,
+      "Name": "Bestow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 183,
+      "Name": "MissileSkill1",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 184,
+      "Name": "MonTeleport",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 185,
+      "Name": "PrimeLightning",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 186,
+      "Name": "PrimeBolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 187,
+      "Name": "PrimeBlaze",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 188,
+      "Name": "PrimeFirewall",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 189,
+      "Name": "PrimeSpike",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 190,
+      "Name": "PrimeIceNova",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 191,
+      "Name": "PrimePoisonball",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 192,
+      "Name": "PrimePoisonNova",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 193,
+      "Name": "DiabLight",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 194,
+      "Name": "DiabCold",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 195,
+      "Name": "DiabFire",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 196,
+      "Name": "FingerMageSpider",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 197,
+      "Name": "DiabWall",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 198,
+      "Name": "DiabRun",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 199,
+      "Name": "DiabPrison",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 200,
+      "Name": "PoisonBallTrap",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 201,
+      "Name": "AndyPoisonBolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 202,
+      "Name": "HireableMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 203,
+      "Name": "DesertTurret",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 204,
+      "Name": "ArcaneTower",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 205,
+      "Name": "MonBlizzard",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 206,
+      "Name": "Mosquito",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 207,
+      "Name": "CursedBallTrapRight",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 208,
+      "Name": "CursedBallTrapLeft",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 209,
+      "Name": "MonFrozenArmor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 210,
+      "Name": "MonBoneArmor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 211,
+      "Name": "MonBoneSpirit",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 212,
+      "Name": "MonCurseCast",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 213,
+      "Name": "HellMeteor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 214,
+      "Name": "RegurgitatorEat",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 215,
+      "Name": "MonFrenzy",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 216,
+      "Name": "QueenDeath",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 217,
+      "Name": "Scroll of Identify",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 218,
+      "Name": "Book of Identify",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 219,
+      "Name": "Scroll of Townportal",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 220,
+      "Name": "Book of Townportal",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 221,
+      "Name": "Raven",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 222,
+      "Name": "Plague Poppy",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 223,
+      "Name": "Wearwolf",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 224,
+      "Name": "Shape Shifting",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 225,
+      "Name": "Firestorm",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 226,
+      "Name": "Oak Sage",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 227,
+      "Name": "Summon Spirit Wolf",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 228,
+      "Name": "Wearbear",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 229,
+      "Name": "Molten Boulder",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 230,
+      "Name": "Arctic Blast",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 231,
+      "Name": "Cycle of Life",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 232,
+      "Name": "Feral Rage",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 233,
+      "Name": "Maul",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 234,
+      "Name": "Eruption",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 235,
+      "Name": "Cyclone Armor",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 236,
+      "Name": "Heart of Wolverine",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 237,
+      "Name": "Summon Fenris",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 238,
+      "Name": "Rabies",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 239,
+      "Name": "Fire Claws",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 240,
+      "Name": "Twister",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 241,
+      "Name": "Vines",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 242,
+      "Name": "Hunger",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 243,
+      "Name": "Shock Wave",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 244,
+      "Name": "Volcano",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 245,
+      "Name": "Tornado",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 246,
+      "Name": "Spirit of Barbs",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 247,
+      "Name": "Summon Grizzly",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 248,
+      "Name": "Fury",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 249,
+      "Name": "Armageddon",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 250,
+      "Name": "Hurricane",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 251,
+      "Name": "Fire Trauma",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 252,
+      "Name": "Claw Mastery",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 253,
+      "Name": "Psychic Hammer",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 254,
+      "Name": "Tiger Strike",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 255,
+      "Name": "Dragon Talon",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 256,
+      "Name": "Shock Field",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 257,
+      "Name": "Blade Sentinel",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 258,
+      "Name": "Quickness",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 259,
+      "Name": "Fists of Fire",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 260,
+      "Name": "Dragon Claw",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 261,
+      "Name": "Charged Bolt Sentry",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 262,
+      "Name": "Wake of Fire Sentry",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 263,
+      "Name": "Weapon Block",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 264,
+      "Name": "Cloak of Shadows",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 265,
+      "Name": "Cobra Strike",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 266,
+      "Name": "Blade Fury",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 267,
+      "Name": "Fade",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 268,
+      "Name": "Shadow Warrior",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 269,
+      "Name": "Claws of Thunder",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 270,
+      "Name": "Dragon Tail",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 271,
+      "Name": "Lightning Sentry",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 272,
+      "Name": "Inferno Sentry",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 273,
+      "Name": "Mind Blast",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 274,
+      "Name": "Blades of Ice",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 275,
+      "Name": "Dragon Flight",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 276,
+      "Name": "Death Sentry",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 277,
+      "Name": "Blade Shield",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 278,
+      "Name": "Venom",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 279,
+      "Name": "Shadow Master",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 280,
+      "Name": "Royal Strike",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 281,
+      "Name": "Wake Of Destruction Sentry",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 282,
+      "Name": "Imp Inferno",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 283,
+      "Name": "Imp Fireball",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 284,
+      "Name": "Baal Taunt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 285,
+      "Name": "Baal Corpse Explode",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 286,
+      "Name": "Baal Monster Spawn",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 287,
+      "Name": "Catapult Charged Ball",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 288,
+      "Name": "Catapult Spike Ball",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 289,
+      "Name": "Suck Blood",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 290,
+      "Name": "Cry Help",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 291,
+      "Name": "Healing Vortex",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 292,
+      "Name": "Teleport 2",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 293,
+      "Name": "Self-resurrect",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 294,
+      "Name": "Vine Attack",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 295,
+      "Name": "Overseer Whip",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 296,
+      "Name": "Barbs Aura",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 297,
+      "Name": "Wolverine Aura",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 298,
+      "Name": "Oak Sage Aura",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 299,
+      "Name": "Imp Fire Missile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 300,
+      "Name": "Impregnate",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 301,
+      "Name": "Siege Beast Stomp",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 302,
+      "Name": "MinionSpawner",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 303,
+      "Name": "CatapultBlizzard",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 304,
+      "Name": "CatapultPlague",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 305,
+      "Name": "CatapultMeteor",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 306,
+      "Name": "BoltSentry",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 307,
+      "Name": "CorpseCycler",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 308,
+      "Name": "DeathMaul",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 309,
+      "Name": "Defense Curse",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 310,
+      "Name": "Blood Mana",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 311,
+      "Name": "mon inferno sentry",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 312,
+      "Name": "mon death sentry",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 313,
+      "Name": "sentry lightning",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 314,
+      "Name": "fenris rage",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 315,
+      "Name": "Baal Tentacle",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 316,
+      "Name": "Baal Nova",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 317,
+      "Name": "Baal Inferno",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 318,
+      "Name": "Baal Cold Missiles",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 319,
+      "Name": "MegademonInferno",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 320,
+      "Name": "EvilHutSpawner",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 321,
+      "Name": "CountessFirewall",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 322,
+      "Name": "ImpBolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 323,
+      "Name": "Horror Arctic Blast",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 324,
+      "Name": "death sentry ltng",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 325,
+      "Name": "VineCycler",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 326,
+      "Name": "BearSmite",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 327,
+      "Name": "Resurrect2",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 328,
+      "Name": "BloodLordFrenzy",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 329,
+      "Name": "Baal Teleport",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 330,
+      "Name": "Imp Teleport",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 331,
+      "Name": "Baal Clone Teleport",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 332,
+      "Name": "ZakarumLightning",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 333,
+      "Name": "VampireMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 334,
+      "Name": "MephistoMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 335,
+      "Name": "DoomKnightMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 336,
+      "Name": "RogueMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 337,
+      "Name": "HydraMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 338,
+      "Name": "NecromageMissile",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 339,
+      "Name": "MonBow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 340,
+      "Name": "MonFireArrow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 341,
+      "Name": "MonColdArrow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 342,
+      "Name": "MonExplodingArrow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 343,
+      "Name": "MonFreezingArrow",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 344,
+      "Name": "MonPowerStrike",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 345,
+      "Name": "SuccubusBolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 346,
+      "Name": "MephFrostNova",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 347,
+      "Name": "MonIceSpear",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 348,
+      "Name": "ShamanIce",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 349,
+      "Name": "Diablogeddon",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 350,
+      "Name": "Delerium Change",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 351,
+      "Name": "NihlathakCorpseExplosion",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 352,
+      "Name": "SerpentCharge",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 353,
+      "Name": "Trap Nova",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 354,
+      "Name": "UnHolyBoltEx",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 355,
+      "Name": "ShamanFireEx",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 356,
+      "Name": "Imp Fire Missile Ex",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 357,
+      "Name": "Interact",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 358,
+      "Name": "Loot",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 359,
+      "Name": "TownPortal",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 360,
+      "Name": "EmoteWheel",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 361,
+      "Name": "SwapWeapons",
+      "RequiredLevel": 0,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 362,
+      "Name": "",
+      "RequiredLevel": 0,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 363,
+      "Name": "ShowItems",
+      "RequiredLevel": 0,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 364,
+      "Name": "RunToggle",
+      "RequiredLevel": 0,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 365,
+      "Name": "MonHolyFreeze",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 366,
+      "Name": "MonLeap",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 367,
+      "Name": "MonLeapAttack",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 368,
+      "Name": "MonHolyFire",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 369,
+      "Name": "MonHolyShock",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 370,
+      "Name": "CubeLoot",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 371,
+      "Name": "Mark of the Bear",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 372,
+      "Name": "Mark of the Wolf",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 373,
+      "Name": "Summon Goatman",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 374,
+      "Name": "Demonic Mastery",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 375,
+      "Name": "Death Mark",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 376,
+      "Name": "Summon Tainted",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 377,
+      "Name": "Summon Defiler",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 378,
+      "Name": "Blood Oath",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 379,
+      "Name": "Engorge",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 380,
+      "Name": "Blood Boil",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 381,
+      "Name": "Consume",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 382,
+      "Name": "Bind Demon",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 383,
+      "Name": "Levitate",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 384,
+      "Name": "Eldritch Blast",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 385,
+      "Name": "Hex Bane",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 386,
+      "Name": "Hex Siphon",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 387,
+      "Name": "Psychic Ward",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 388,
+      "Name": "Echoing Strike",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 389,
+      "Name": "Hex Purge",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 390,
+      "Name": "Blade Warp",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 391,
+      "Name": "Cleave",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 392,
+      "Name": "Mirrored Blades",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 393,
+      "Name": "Sigil Lethargy",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 394,
+      "Name": "Ring of Fire",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 395,
+      "Name": "Miasma Bolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 396,
+      "Name": "Sigil Rancor",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 397,
+      "Name": "Enhanced Entropy",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 398,
+      "Name": "Flame Wave",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 399,
+      "Name": "Miasma Chains",
+      "RequiredLevel": 12,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 400,
+      "Name": "Sigil Death",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 401,
+      "Name": "Apocalypse",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 402,
+      "Name": "Abyss",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 403,
+      "Name": "Sigil Death Explosion",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 404,
+      "Name": "Hex Purge Explosion",
+      "RequiredLevel": 0,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 405,
+      "Name": "Health Link",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 406,
+      "Name": "Cold Fissure",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 407,
+      "Name": "Korlic's Leap Attack",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 408,
+      "Name": "Cold Enchant",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 409,
+      "Name": "Lightning Enchant",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 410,
+      "Name": "Talic's Whirlwind",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 411,
+      "Name": "Townportal O Skill",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 412,
+      "Name": "Fire Twisters",
+      "RequiredLevel": 18,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 413,
+      "Name": "Colossal Volcano",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 414,
+      "Name": "Colossal Thunder Storm",
+      "RequiredLevel": 24,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 415,
+      "Name": "UberAncientsHeal",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 416,
+      "Name": "Goatman Stun",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 417,
+      "Name": "Goatman Frenzy",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 418,
+      "Name": "Goatman Berserk",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 419,
+      "Name": "Goatman Cleave",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 420,
+      "Name": "Tainted Resist Fire",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 421,
+      "Name": "Tainted Fire Bolt",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 422,
+      "Name": "Tainted Fire Ball",
+      "RequiredLevel": 1,
+      "MaximumLevel": 0
+    },
+    {
+      "Id": 423,
+      "Name": "Talic's Fire Pierce",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 424,
+      "Name": "Madawc's Lightning Pierce",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 425,
+      "Name": "Korlic's Cold Pierce",
+      "RequiredLevel": 30,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 426,
+      "Name": "Charged Bolt Disk",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 427,
+      "Name": "Korlic's Bash",
+      "RequiredLevel": 1,
+      "MaximumLevel": 20
+    },
+    {
+      "Id": 428,
+      "Name": "HeraldThorns",
+      "RequiredLevel": 6,
+      "MaximumLevel": 20
+    }
+  ]
+}
