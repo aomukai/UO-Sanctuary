@@ -107,9 +107,9 @@ internal sealed class NpcItemProcGraph
             var wanted=new HashSet<uint>();
             foreach(int stat in legacy.Subscriptions().Reverse())
             {
-                if(stat is not(134 or 135 or 136 or 198)){continue;}
+                if(stat is not(113 or 134 or 135 or 136 or 198)){continue;}
                 uint key=EquipmentStatKey.Pack(stat,stat==198?(SkillMechanics.For(CombatAbility.LifeTap).SourceId<<6)|5:0);
-                int value=stat==134?NpcItemFreeze.Bonus(actor):stat==135?NpcOpenWounds.Chance(actor):stat==136?NpcCrushing.Chance(actor):NpcHitSkills.BloodChance(actor);
+                int value=stat==113?NpcItemBlind.Bonus(actor):stat==134?NpcItemFreeze.Bonus(actor):stat==135?NpcOpenWounds.Chance(actor):stat==136?NpcCrushing.Chance(actor):NpcHitSkills.BloodChance(actor);
                 wanted.Add(key);Values.SetBase(Unit.Stats,key,value);
             }
             foreach(var old in Unit.Stats.BaseValues.Where(v=>!wanted.Contains(v.Packed)).ToArray()){Values.SetBase(Unit.Stats,old.Packed,0);}
@@ -125,6 +125,7 @@ internal sealed class NpcItemProcGraph
     private int Invoke(int function,int phase,int guid1,int guid2)
     {
         var frame=Current??throw new InvalidOperationException("NPC callback has no event frame");
+        if(function==9){return NpcItemBlind.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
         if(function==14){return NpcItemFreeze.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
         if(function==15){NpcOpenWounds.Apply(frame.Actor,frame.Other,frame.At,phase==6,frame.Roll);return 1;}
         if(function==16){NpcCrushing.Apply(frame.Actor,frame.Other,phase==6,frame.Roll);return 1;}
@@ -168,7 +169,7 @@ internal sealed class NpcItemProcGraph
             ||saved.Actor==saved.Owner||saved.Items.Any(i=>i==null||!((Serial)i.Item).IsItem||i.Body is <0 or >12)
             ||saved.Items.Select(i=>i.Item).Distinct().Count()!=saved.Items.Length
             ||saved.Innate.Select(v=>v.Packed).Distinct().Count()!=saved.Innate.Length
-            ||saved.Innate.Any(v=>v.Value<0||v.Stat is not(134 or 135 or 136 or 198)||(ushort)v.Packed!=(v.Stat==198?tap:0)))
+            ||saved.Innate.Any(v=>v.Stat!=113&&v.Value<0||v.Stat is not(113 or 134 or 135 or 136 or 198)||(ushort)v.Packed!=(v.Stat==198?tap:0)))
         {throw new InvalidDataException("Invalid saved NPC proc graph");}
         _=SourceUnitEvents.Restore(saved.Events,(_,_,_,_)=>throw new InvalidOperationException("Validation cannot dispatch"));
         foreach(var item in saved.Items){Validate(item.State);}

@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC equipment blind:** direct blind-on-hit uses the existing target curse marker `0x375A` as a **clearly identified placeholder**. It does not introduce a caster spell animation/audio or certify final blind/curse visuals. Final presentation and audio remain separate asset work. See the [checkpoint](npc-item-blind-checkpoint.md).
+
 **NPC equipment freeze:** original Iron/frozen Revive callbacks and filled NPC freeze delivery reuse native cold/freeze marker `0x374A` as a **clearly identified placeholder**. Final freeze application/thaw/shatter presentation and audio remain separate asset work; this mechanical checkpoint completes no visual asset. See the [checkpoint](npc-freeze-hit-checkpoint.md).
 
 **NPC flat-drain delivery:** recovery reuses the existing native leech marker as an **identified placeholder for source overlay151**. It is not completed final effect/audio art. Existing contact, cold/poison/stun and summon placeholders remain separate. See the [checkpoint](npc-flat-drains-checkpoint.md).

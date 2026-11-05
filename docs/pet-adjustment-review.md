@@ -1,5 +1,7 @@
 # Approved Necromancer and Druid pet adjustments
 
+**Original equipment blind (2026-11-06):** learned Patriarch Iron/frozen Revive now applies real single-target Dim Vision/AI without owner spell bonuses,mana or extra damage. Original item versus loot separation,wounds,streams and curse/AI survive two reloads. Coif’s separate lightning retaliation remains refused. Approved pet buffs/counts/snapshots retain their rules. See the [checkpoint](npc-item-blind-checkpoint.md),including the isolated earlier contact assertion follow-up.
+
 **Combined reload follow-up resolved (2026-11-06):** the drain/Revive mismatch was one legitimate native stamina tick in a test fixture. Explicit no-recovery fixtures and the original combined order now pass two reloads;production pet mechanics and approved counts/buffs are unchanged. See the [checkpoint](npc-drain-reload-checkpoint.md).
 
 **Equipment freeze follow-up (2026-11-06):** original Iron and frozen Revive freeze-target effects now use shared source chance/status delivery and persistence. Approved damage, hard-point unlocks, snapshots and Mage/Revive quantity progression retain their existing rules. The event regression now splits four independent suppliers across two owners to respect the rank-20 cap of three. See the [checkpoint](npc-freeze-hit-checkpoint.md).

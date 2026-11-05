@@ -156,6 +156,18 @@ internal static class NecromancerCurseCasts
     }
     internal static bool NpcLifeTap(SkeletonGuardian caster,BaseCreature target,int rank,DateTime at)
         =>NpcDo30(caster,target,CombatAbility.LifeTap,rank,at);
+    // Item event09 calls the direct helper,not do30's radial traversal or
+    // the item-skill executor. Its actual NPC retains creator/formula context.
+    internal static bool NpcBlind(BaseCreature caster,BaseCreature target,int rank,DateTime at)
+    {
+        if(caster is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Alive:true,Deleted:false} owner}
+            ||caster.Map==null||caster.Map==Map.Internal||target.Map!=caster.Map||owner.Map!=caster.Map
+            ||rank is<1 or>20||at.Kind!=DateTimeKind.Utc){return false;}
+        var row=SkillMechanics.For(CombatAbility.DimVision);
+        var values=new SkillValues(row,key=>key==row.SourceKey?rank:0,_=>0,ClassStats.Level(caster));
+        using var scope=NpcItemSpellCasts.PreserveCombatTarget(caster);
+        return Apply(caster,owner,target,CombatAbility.DimVision,rank,values,at,indirect:true);
+    }
     internal static bool NpcDo30(SkeletonGuardian caster,BaseCreature target,CombatAbility ability,int rank,DateTime at)
         => target is not{Alive:true,Deleted:false} ? false : NpcDo30(caster,NpcItemTarget.Capture(target),ability,rank,at);
     internal static bool NpcDo30(SkeletonGuardian caster,NpcItemTarget target,CombatAbility ability,int rank,DateTime at)

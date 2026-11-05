@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Server;
+using Server.Mobiles;
 
 namespace Sanctuary;
 
@@ -11,12 +12,22 @@ namespace Sanctuary;
 internal static class NpcItemSpellCasts
 {
     private static readonly Dictionary<uint, int> TargetScopes = new();
-    internal static bool KeepsCombatTarget(SkeletonGuardian caster) => TargetScopes.ContainsKey(caster.Serial.Value);
+    internal static bool KeepsCombatTarget(BaseCreature caster) => TargetScopes.ContainsKey(caster.Serial.Value);
+    public static void Initialize()
+    {
+        var allowed=ClassCombatHooks.TargetAllowed;
+        // Native Mobile.Combatant validates CanBeHarmful while its tentative
+        // assignment is marked ChangingCombatant. Veto that assignment before
+        // retaliation/notifications,including original frozen Revive bodies.
+        ClassCombatHooks.TargetAllowed=(actor,target)=>!(actor is BaseCreature{Alive:true,Deleted:false,ChangingCombatant:true} source&&KeepsCombatTarget(source))
+            &&allowed?.Invoke(actor,target)!=false;
+    }
+    internal static IDisposable PreserveCombatTarget(BaseCreature caster)=>new TargetScope(caster);
     private sealed class TargetScope : IDisposable
     {
         private readonly uint _actor;
         private bool _disposed;
-        internal TargetScope(SkeletonGuardian caster)
+        internal TargetScope(BaseCreature caster)
         {
             _actor = caster.Serial.Value;
             TargetScopes[_actor] = TargetScopes.GetValueOrDefault(_actor) + 1;

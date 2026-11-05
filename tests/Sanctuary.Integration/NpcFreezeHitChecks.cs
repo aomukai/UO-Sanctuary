@@ -44,19 +44,19 @@ public static class NpcFreezeHitChecks
     }
     private static void Train(PlayerMobile p,string id)
     {TalentCatalog.TryGet(DiabloClass.Necromancer,id,out var row);foreach(string prior in row.Prerequisites){Train(p,prior);}if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}}
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         var p=new PlayerMobile{Name="NPC freeze owner [fixture]",Body=0x190,Player=true};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"necromancer.irongolem");Train(p,"necromancer.revive");
         FixtureSpace.Corridor(p,6100,24,2800);while(p.RawInt<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Energy),"Energy preparation");}NecromancerEffects.SetMana256(p,p.ManaMax*256);return p;
     }
     private static Item Iceblink()=>NamedGear.Create(NamedGear.Catalog.Items.Single(d=>d.SourceKey=="Iceblink").Id,99,new Random(173),true);
-    private static IronGolemBody Cast(PlayerMobile p,Item original)
+    internal static IronGolemBody Cast(PlayerMobile p,Item original,string code="freeze")
     {
         original.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);ClassCombat.Stop(p);ClassCombat.For(p).NextAction=0;
         Require(SkillBindings.Instance.AssignQuick(p,7,CombatAbility.IronGolem),"Iron quick binding");int mana=NecromancerEffects.ManaBalance256(p);
         Require(SkillBindingNetwork.Use(p,DiabloClass.Necromancer,7,CombatAbility.IronGolem,original.Serial,new(0,0,0)),"Iceblink learned start refused");
         long at=ClassCombat.For(p).EffectAt;Require(ClassCombat.ResolveAction(p,at)&&NecromancerEffects.ManaBalance256(p)==mana-35*256,"Learned release/payment failed");
-        var body=NecromancerGolems.For(p).OfType<IronGolemBody>().Single();Require(original.Parent==body&&NpcItemFreeze.Bonus(body)==1,"Original freeze item did not bind");return body;
+        var body=NecromancerGolems.For(p).OfType<IronGolemBody>().Single();Require(original.Parent==body&&NpcEquipmentCombat.EventBonus(body,code)==1,"Original freeze item did not bind");return body;
     }
     public sealed class Recipient:Skeleton
     {
@@ -144,15 +144,15 @@ public static class NpcFreezeHitChecks
         }
         finally{Remove(target);}
     }
-    private static BaseCreature Revive(PlayerMobile p,out Item gear)
+    internal static BaseCreature Revive(PlayerMobile p,out Item gear,string name="Iceblink",string code="freeze")
     {
-        var b=new Skeleton{Name="NPC freeze original [fixture]",NoKillAwards=true};foreach(var i in b.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){i.Delete();}gear=Iceblink();b.AddItem(gear);Require(gear.Parent==b,"Frozen original gear equip");
+        var b=new Skeleton{Name="NPC freeze original [fixture]",NoKillAwards=true};foreach(var i in b.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){i.Delete();}gear=NamedGear.Create(NamedGear.Catalog.Items.Single(d=>d.SourceKey==name).Id,99,new Random(173),true);b.AddItem(gear);Require(gear.Parent==b,"Frozen original gear equip");
         b.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);b.AIObject?.AITimer.Stop();Corpse corpse=null;var old=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(who,item)=>{old?.Invoke(who,item);if(who==b){corpse=item as Corpse;corpse?.DropItem(new Gold(1));}};
         try{p.DoHarmful(b,true);b.Damage(b.Hits+1,p);CombatDamage.Finish(b,p);}finally{ClassLootHooks.CreatureDied=old;}
         Require(corpse is{Deleted:false}&&ReviveOriginals.Find(corpse)==b,"Original freeze corpse not retained");corpse.BeginDecay(FixtureSpace.Retention);NecromancerEffects.SetMana256(p,p.ManaMax*256);
         Require(ReviveCasts.Plan(p,corpse,out _,out _,out var issue)&&ReviveCasts.Release(p,corpse),"Learned frozen Revive failed: "+issue);
-        Require(gear.Parent==corpse&&NpcItemFreeze.Bonus(b)==1&&ReviveSwings.Handles(b),"Frozen Revive lost loot/combat freeze/swing profile");return b;
+        Require(gear.Parent==corpse&&NpcEquipmentCombat.EventBonus(b,code)==1&&ReviveSwings.Handles(b),"Frozen Revive lost loot/combat freeze/swing profile");return b;
     }
     private static Held Hold(PlayerMobile p,BaseCreature source,Item item,Recipient target,bool revive)
     {
