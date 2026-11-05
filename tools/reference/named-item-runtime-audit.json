@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "15f70d3151e92fd2e196e1efbc7f682ca7742aff6c7ee4b1c17d7f2c3f3fe9f5",
+  "ContentAssemblySha256": "cfcd12053af5effc424e221909ff1f809c1d8963aebc2acde04c3329355d1688",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -622,7 +622,7 @@
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
     "src/Sanctuary.Content/GeneratedNpcEquipment.cs": "81dee8b7597d41211054ff6b94e7847110d59b6596d140783f1bc15ef65dca9f",
     "src/Sanctuary.Content/GeneratedNpcItem.cs": "56b440cd3871e8865fa2bd14db2c0210180a72a7f6eeb961e52bc2059d243cd4",
-    "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "2913e468b090b91abca61b0cb6badddca7b104cda9b6612dc55cca2285ed3e57",
+    "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "5bb53bd03af5dd4b8ce5a77cc984d06855a9f5c35d0545782802ac40eeed0341",
     "src/Sanctuary.Content/GenericPetActions.cs": "acc724205ea2ff1112a05158ff179e909ae0dac7fe23591a4f93188b7e9e169d",
     "src/Sanctuary.Content/GenericPetCollisionFootprints.cs": "b9871ce5f394394d9d1cbe9918bb160ecc474ebb91ba8f3a37d48b5f212efada",
     "src/Sanctuary.Content/GenericPetCollisionReads.cs": "e39ac420d899269f939638c0c22f2bd7e9818d9851ec51f20d4a03772ecf14d2",
@@ -833,6 +833,7 @@
     "src/Sanctuary.Content/NpcItemAffixes.cs": "3f461224622c519456cd4ec807ac5d029f143c2f4d9f138ecd348247fac5763c",
     "src/Sanctuary.Content/NpcItemProcGraph.cs": "bd18196a1d16e005e229815734ea8cee3bf608d13c708104f895538fef42f3dd",
     "src/Sanctuary.Content/NpcItemProcs.cs": "63d5b7abd0c7f2221a41c030bec8ddc4c2312ab790ac4116015458f6fda92212",
+    "src/Sanctuary.Content/NpcItemResourceCallbacks.cs": "9ce51be9aaa42a2affab485db4adec4c13206440a40ec0dd02d9a8c1437f5524",
     "src/Sanctuary.Content/NpcItemSkillExecution.cs": "c0901e913de4e0948dc765ae414da31771d556d513f98d80c500d0bc32abeddf",
     "src/Sanctuary.Content/NpcItemSpellCasts.cs": "daa1c6e25a8c38160db7805c44c9df93f147df490dc8a1d4bd592fa00f76fd35",
     "src/Sanctuary.Content/NpcItemStatCapture.cs": "51c2237d20a250af40f77f80e2d2bbf1247996490bb701b8cac3910cdd747c81",

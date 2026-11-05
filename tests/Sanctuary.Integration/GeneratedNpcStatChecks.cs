@@ -63,7 +63,7 @@ public static class GeneratedNpcStatChecks
         var a=fields.Where(v=>v.Value!=0).ToDictionary(v=>v.Packed,v=>v.Value);var b=expected.EnumerateArray().Where(v=>v[1].GetInt32()!=0).ToDictionary(v=>v[0].GetUInt32(),v=>v[1].GetInt32());
         return a.Count==b.Count&&a.All(p=>b.GetValueOrDefault(p.Key)==p.Value);
     }
-    private static void Compare(GeneratedNpcStatGraph graph,uint[] ids,JsonElement expected,int index,int stage)
+    internal static void Compare(GeneratedNpcStatGraph graph,uint[] ids,JsonElement expected,int index,int stage)
     {
         Require(graph.Actor.Stats.Flags==expected[0].GetUInt32()&&Fields(graph.Actor.Stats.BaseValues,expected[1])&&Fields(graph.Stats,expected[2]),"Generated actor source flags/base/full at "+index+" stage "+stage+" actual="+Json(graph.Stats)+" expected="+expected.GetRawText());
         Require(expected[3].GetArrayLength()==ids.Length,"Source item count");

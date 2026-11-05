@@ -24,10 +24,12 @@ internal sealed class GeneratedNpcStatGraph
     private readonly Action<BaseCreature> Rate,Clamp;
     private readonly Services Dispatch;
     internal GeneratedNpcStatGraph(BaseCreature actor,EquipmentStatValue[] basis,Func<EquipmentStatUnit,int?> clock,
-        Action<EquipmentStatNode,EquipmentStatUnit,uint,int,int> changed,bool dynamicPath,Action<BaseCreature> updateRate,Action<BaseCreature> clampVitals)
+        Action<EquipmentStatNode,EquipmentStatUnit,uint,int,int> changed,bool dynamicPath,Action<BaseCreature> updateRate,Action<BaseCreature> clampVitals,
+        int? sourceDamageRegeneration=null)
     {
         ArgumentNullException.ThrowIfNull(basis);ArgumentNullException.ThrowIfNull(clock);ArgumentNullException.ThrowIfNull(changed);
         ArgumentNullException.ThrowIfNull(updateRate);ArgumentNullException.ThrowIfNull(clampVitals);
+        if(sourceDamageRegeneration is <0 or >32767){throw new NotSupportedException("NPC item resources require an explicit supported monster regeneration coefficient");}
         if(actor is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}
             ||basis.Select(v=>v.Packed).Distinct().Count()!=basis.Length||basis.Any(v=>EquipmentStatValues.Definition(v.Stat)==null))
         {throw new NotSupportedException("Generated item graph needs its original living actor/owner and explicit known unique base stats");}
@@ -46,7 +48,12 @@ internal sealed class GeneratedNpcStatGraph
         foreach(var original in Originals)
         {var s=original.Snapshot;RequireClock(new(original,4),s.Graph.ItemBase.Concat(s.Graph.Properties));}
         Values=new(u=>Bodies.TryGetValue(u,out int body)?body:throw new NotSupportedException("Generated item has no original body service"),Clock,
-            _=>throw new NotSupportedException("NPC graph does not supply player class coefficients"),changed);Dispatch=new(this);
+            _=>throw new NotSupportedException("NPC graph does not supply player class coefficients"),(node,source,key,old,next)=>
+            {
+                changed(node,source,key,old,next);
+                if(sourceDamageRegeneration is{} regeneration&&node==Actor.Stats)
+                {NpcItemResourceCallbacks.Changed(Values,node,key,old,next,regeneration);}
+            });Dispatch=new(this);
         foreach(var original in Originals)
         {
             var graph=original.RestoreGraph(Values);Carriers.Add(original.Serial.Value,graph);Bodies.Add(graph.Unit,original.Snapshot.Equipment.Body);

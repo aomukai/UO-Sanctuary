@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Generated NPC resource checkpoint (2026-11-06):** the recipient graph now optionally applies source maximum-life/mana/stamina callbacks, reusing existing ratio/regeneration math. 6,264 source compositions cover fractional/tiny/empty pools and zero regeneration; 48 compact native markers pass through two reloads. See the [checkpoint](generated-npc-resources-checkpoint.md). Live setters, selected-hand/skill/event consumers and learned actors remain required; **197/240 handlers**, no completed class.
+
 **Generated NPC stat checkpoint (2026-11-06):** source add/remove/dual-wield dispatch now composes with the existing numeric engine: 46,800 gate controls, 1,566 numeric compositions and 18 multi-item orders. Native 1,566 holders/1,674 items pass two reloads with exact source arrays, flags and callbacks; **45 compact markers** pass. See the [checkpoint](generated-npc-stats-checkpoint.md). Live setter/selected-hand/skill/event consumers and learned actors remain required; **197/240 handlers**, no completed class.
 
 **NPC placement checkpoint (2026-11-06):** source body/hand/stack outcomes now have 140,364 controls; physical delivery retains original generated items, owner/body/NOSELL and post-equip operative durability. 1,548 equipped pairs across 516 bases plus four dual claws retain native payloads and identity through two reloads; **42 compact markers** pass. See the [checkpoint](npc-equip-placement-checkpoint.md). Live recipient consumers and Valkyrie/Shadow actors remain required; **197/240 handlers**, no completed class.

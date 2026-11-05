@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "numericCompositions": 6264,
+  "originalItemShapes": 1566,
+  "resourceVariants": [
+    "fractional injured",
+    "one FP256 unit",
+    "empty pools",
+    "zero monster regeneration"
+  ],
+  "completeRoutineHashes": {
+    "D2GAME_ITEMS_UpdateItemStatlist_6FC42310": "45de1909cf8489f82b7c4e449c0aa6080b335cbf45efd15743cace688405e53d",
+    "D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0": "96ba06d57122311e60448286c23b6310186dcd33ba5c22d6b06cccfcb30f7937",
+    "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+    "ITEMMODS_GetByTimeAdjustment": "521e5a5d2ff13fa1697bc1d57341701fd194cbed68dba2b97fcbeebe545ac4ba",
+    "STATLIST_NotifyUnitOfStatValueChange": "dcc7e2a6a8ae005402aa01371ff755e68912c61eac88bf043c02e5ea7421bdc1",
+    "STATLIST_SetUnitStatNewValue": "67e150bbfd4937179eefb4e535439bc6f863952e2e7b5c8cb6384adf377b97dc",
+    "ComputeStatPercentage": "f9803075da80b9cf9c273f9e7906f394fc9f1ec569eb31611302ba4272cdf628",
+    "sub_6FDB5830": "e757710b6226906a6e4778786ceea851caa5eba6a9e20c1c1cfb1ff9e6e3ad0b",
+    "STATLIST_FindStatIndex_6FDB6300": "137450bf9df1cf8ff347f040e668863025874f3fba8b139fb6de9c0168fa70e3",
+    "STATLIST_ApplyMinValue": "4c6fcb4e15e278d046dd31701a694673382ca4d0e481c89b7e8340648e308a30",
+    "STATLIST_GetBaseStat_6FDB6340": "c99dfdcf4b77b90803418aa4eead389d4991aaa7bf6b19be1d2d6d4b53eb9e50",
+    "STATLIST_GetTotalStat_6FDB63E0": "7cee3a26c4b5b1379f171529d51907663daa60e02fe7452484a446d721987364",
+    "sub_6FDB64A0": "c3f16db7decd9390bba4c92f68152ff635638f72d21105a58eb083e329d8bb2f",
+    "STATLIST_FindStat_6FDB6920": "90d95faf9d49fff749a45db2643bc0badafec6340097a1510253021073087999",
+    "STATLIST_InsertStatOrFail_6FDB6970": "4eb1cdf8ae8303806812ca713bad4de7b4f3d0d41365038496b503a8e9597d52",
+    "STATLIST_RemoveStat_6FDB6A30": "15a42951d805a0cbddf65e2ce8f5b99a4882d3903be5de0bf59f18fa8fa6c6a2",
+    "STATLIST_UpdateUnitStat_6FDB6AB0": "b6eb08b5aa3b3b875102850951f08867060653c110b60b653f7551952f988256",
+    "sub_6FDB6C10": "2d72d3aeab9d28b9a671f205b055332a40cc71edd9ac84cde6767216403ac3d8",
+    "STATLIST_SetBaseStat": "d010416da299c8d11b1333825b69dba25986b946caaa7f5abdf3b2c7887b0d93",
+    "D2Common_ExpireStatList_6FDB6E30": "beed0431e94762f8e5729d479654cc7327ceec69c6b1a3afef2f4bbebdf53b8a",
+    "D2COMMON_10475_PostStatToStatList": "60eafeff8d4380edbefa460a56cc6902a6e5a20471ce332a589727884a852727",
+    "STATLIST_MergeStatLists": "396ee00e0f092b0332f533757b9856da986463b3aaa9445ec4f8977d9fbdc958",
+    "STATLIST_GetOwner": "e8ba6e8182bf01e45936976055805cf7abe843ed3b5549df9fe13f5a09114104",
+    "D2Common_11274_11275_Impl": "fe7195e99fa47c214f9a130f1e7d1bf2639a8952b2761421e33fd2dd430e5688",
+    "D2Common_11274": "c7d46e1f325b100129a8f7b8298f6bc2d3565dd24ada50e92dfc5a69a4b3c38c",
+    "D2Common_11275": "7faf12e31c245601ee7a46bcf039fa473959d3c22c4915cee0e9e3a29d5a2f39",
+    "STATLIST_GetTotalStatValue": "22f77264e27d2e265e34f3740784f84691ecb2ace37773f833717391d209b418",
+    "STATLIST_UnitGetStatValue": "08bcaeb449082bbf9a38bd7ad4cd4007c73cf38283d90cc208a3188758ffa802",
+    "STATLIST_SetStat": "9e91d0f073431c5aa28b45da49b8fa9304f75a9c677fe822c7c55cf9d4adad97",
+    "STATLIST_SetUnitStat": "4607580a05551487e9d03d68129cb0176e1ac27dd438b507ce97513a0ec88c50"
+  },
+  "compiledUnchangedResourceBranchesSha256": "9f5bdc6d2a6d2f57f59627bd198381b0a0f901b144e76926084e4a425b4205da",
+  "inputs": {
+    "tools/reference/generated-npc-stats-source-evidence.json": "f91c1491b3f595e00b4f2ebbf3e446c25c93b582e2c78c15d2be30ad3930d36c",
+    ".local/class-skills/generated-npc-stats-source/source.cpp": "b1b17b2ec9f3ea25775ef261a9b9ea29aac5d4206d93896bb2df00d007a56a93",
+    ".local/class-skills/generated-npc-stats-source/cases.json": "f82384d70063790ee03af910039d73671d359b63181caa521bd29f126f9f9f19",
+    "tools/reference/npc-resource-callbacks-source-evidence.json": "eb140250e82f7edcf7e40f05305225b964ae79ad9199b9a675ad56c3cde9c8e9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4"
+  },
+  "artifacts": {
+    ".local/class-skills/generated-npc-resources-source/source.cpp": "1c323e4269b23a4d9fd984d1ccefde10f8cc92bfe6bd15e245cfbf8b26cb3060",
+    ".local/class-skills/generated-npc-resources-source/probe": "3e31c2b75b3f55b22f94034cba43462d8f8923e15468d4800a17d9fdd210eaaf",
+    ".local/class-skills/generated-npc-resources-source/cases.json": "18aecd8b84e0eaf34a1edc478dd098bc4ee4c97eb0b029a76ac5d4e7fe5226da",
+    ".local/class-skills/generated-npc-resources-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/generated-npc-resources-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_generated_npc_resources.py": "4bc297d915a50211cef5764f84996a46a4f86a13d0a42154ae0c3fa17bb1b3a5"
+  },
+  "scope": "Three unchanged source resource switch branches compose with30complete original stat/item routines and current raw original item packets. Explicit source bases and monster coefficient;four stages:construction,repeat,level change,reverse removal. Other outer callback branches remain observation services,not admitted live skill/event consumers."
+}
