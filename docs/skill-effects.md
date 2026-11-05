@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC flat-drain delivery:** recovery reuses the existing native leech marker as an **identified placeholder for source overlay151**. It is not completed final effect/audio art. Existing contact, cold/poison/stun and summon placeholders remain separate. See the [checkpoint](npc-flat-drains-checkpoint.md).
+
 **NPC full damage allocation:** no new effect/audio identity is introduced. Hit class and critical overlay are allocation metadata here; rendered overlay delivery, actual actor animation and existing summon/generated-item placeholders remain separate. The paired Tekagi visual preview is still pending. See the [checkpoint](npc-damage-fill-checkpoint.md).
 
 **Necromancer army-size policy:** quantity progression, FIFO and count text introduce no new effect/audio identity. Existing Mage/Revive/summon placeholders remain separate; lower quantities do not complete their effects. See the [checkpoint](necromancer-army-checkpoint.md).

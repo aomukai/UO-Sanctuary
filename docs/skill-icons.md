@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC flat-drain delivery:** no new talent/hotkey icon identity or finished asset. Existing class/summon icon placeholders remain separate from the recipient mechanics. See the [checkpoint](npc-flat-drains-checkpoint.md).
+
 **NPC full damage allocation:** no new talent/hotkey icon identity or completed asset. Existing class/summon icon placeholders remain separately tracked. See the [checkpoint](npc-damage-fill-checkpoint.md).
 
 **Necromancer army-size policy:** no new talent/hotkey icon identity or completed icon asset. Talent and pet-count text use the approved limits; existing class/summon icon placeholders remain separate. See the [checkpoint](necromancer-army-checkpoint.md).

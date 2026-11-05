@@ -5,7 +5,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record PreparedMonsterDamagePacket(int Physical256,int Total256,int StunFrames,int ColdFrames,int ResultFlags,
-    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0,int AbsorbedLife256=0);
+    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0,int AbsorbedLife256=0,int LifeDrain256=0,int ManaDrain256=0,int StaminaDrain256=0);
 internal sealed record PreparedMonsterRecipient(bool Unique,Func<bool> Boss,Func<int> Velocity,Func<bool> Hireling);
 // These services are mandatory. Supplying the actual callbacks, metadata and
 // return/mode policy remains the actor consumer's job; no missing event is
@@ -20,6 +20,7 @@ internal abstract class PreparedMonsterDamageServices
     // Ordinary leech/actor recovery services run here after physical clipping.
     // Life Tap and packet absorb healing are owned by the shared pipeline.
     internal abstract void BeforeHealth(PreparedMonsterDamagePacket clipped);
+    internal virtual bool OrdinaryNpcFlatDrains=>false;
     // Actor adapters can dispatch native notifications around the real credit
     // write here, without replaying Mobile.Damage or committing HP early.
     internal virtual void BeforeHealthCommit(Mobile attacker,BaseCreature target,int after256)
@@ -51,7 +52,7 @@ internal static class PreparedMonsterDamage
 {
     private static PreparedMonsterDamagePacket Checked(PreparedMonsterDamagePacket p)
     {
-        if(p==null||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||(p.ResultFlags&~0xffff)!=0)
+        if(p==null||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||p.LifeDrain256<0||p.ManaDrain256<0||p.StaminaDrain256<0||(p.ResultFlags&~0xffff)!=0)
         {throw new NotSupportedException("Unsupported prepared monster damage packet");}
         return p;
     }
@@ -85,6 +86,7 @@ internal static class PreparedMonsterDamage
         if(attacker is not(PlayerMobile or BaseCreature)||attacker is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
             ||SkillHealth.Balance256(target)<=0||(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Monster release requires qualified living source/recipient and a successful cached packet");}
+        NpcFlatDrains.Require(attacker,packet,services.OrdinaryNpcFlatDrains);
         using var credit=PreparedMonsterCredit.CaptureOwner(attacker,target);
         services.StoreLastAttacker();
         MonsterUninterruptibles.RecordLastAttacker(target,attacker);
@@ -114,6 +116,8 @@ internal static class PreparedMonsterDamage
         int before=SkillHealth.Balance256(target);
         packet=packet with{Physical256=Math.Min(packet.Physical256,before)};
         services.BeforeHealth(packet);
+        NpcFlatDrains.Require(attacker,packet,services.OrdinaryNpcFlatDrains);
+        if(NpcFlatDrains.Any(packet)){NpcFlatDrains.BeforeHealth((BaseCreature)attacker,target,packet);}
         if(packet.AbsorbedLife256>0&&!MonsterUninterruptibles.Delayed(target)){SkillHealth.Heal(target,packet.AbsorbedLife256);}
         if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<0)
         {throw new NotSupportedException("Reentrant native deletion/death before prepared health commitment is unsupported");}
@@ -128,6 +132,7 @@ internal static class PreparedMonsterDamage
             if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)!=after)
             {throw new NotSupportedException("Reentrant native health-setter mutation/death is unsupported");}
         }
+        NpcFlatDrains.AfterHealth(target,packet);
         int stun=PreparedMonsterStun.Resolve(packet.StunFrames,recipient.Unique,limited,recipient.Boss,recipient.Velocity,recipient.Hireling);
         if(stun>0&&!CombatStuns.ApplyPreparedDuration(target,stun,at))
         {throw new NotSupportedException("Prepared monster Stun expired or recipient changed during release");}

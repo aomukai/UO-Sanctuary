@@ -21,8 +21,8 @@ internal static class IronGolemContact
         if(saved?.Metadata==null||saved.Impact is not{} impact||impact.Packet is not{} p||impact.Actor==0||impact.Target==0||impact.Actor==impact.Target
             ||saved.Metadata.Mapping==null||saved.Metadata.Class< -1||saved.Metadata.Base< -1||saved.Metadata.Modes<0||saved.Metadata.Velocity<0
             ||impact.Spectral!=null||impact.Poison.Rate256<0||impact.Poison.Frames<0||p.Physical256<0||p.Total256<0||p.StunFrames<0||p.ColdFrames<0
-            ||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||(p.ResultFlags&~0xffff)!=0
-            ||(long)p.Physical256+p.Magic256+p.Fire256+p.Lightning256+p.Cold256+p.Poison256!=p.Total256)
+            ||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||p.LifeDrain256<0||p.ManaDrain256<0||p.StaminaDrain256<0||(p.ResultFlags&~0xffff)!=0
+            ||(long)p.Physical256+p.Magic256+p.Fire256+p.Lightning256+p.Cold256+p.Poison256+p.LifeDrain256!=p.Total256)
         {throw new System.IO.InvalidDataException("Invalid saved ordinary contact");}
         return new(new(saved.Metadata,NpcCombatEvents.RestoreSubscriptions(saved.SourceEvents),NpcCombatEvents.RestoreSubscriptions(saved.TargetEvents),saved.NativeRecovery),impact);
     }
@@ -79,8 +79,9 @@ internal static class IronGolemContact
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
         {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at);}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p,target,source,at);
+        internal override bool OrdinaryNpcFlatDrains=>true;
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
-        {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Positive drains were refused before rolling.
+        {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Existing allocators retain their preflight;qualified filled packets use the shared drain receiver.
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
             {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);scope.Loss=Math.Max(0,scope.EntryHits-(after256+255)/256);}
         internal override void ApplyCold(int frames)
