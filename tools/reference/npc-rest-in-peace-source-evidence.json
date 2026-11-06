@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "contexts": 128,
+  "constants": {
+    "STAT_ITEM_RESTINPEACE": 108,
+    "STATE_RESTINPEACE": 172
+  },
+  "completeRoutineHashes": {
+    "SKILLITEM_EventFunc29_RestInPeace": "278d5a3f7f8d574205d43790b903250a38aca86ecd4050efa599383d483c1dd9"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "tools/probe_npc_rest_in_peace.py": "f8cc8f17cb6e067617d92ec565678df282e30f1670e5a7c92209e4647b923a1f"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-rest-in-peace-source/source.cpp": "0176e3f7184e5b72d43a3a2ca5d41ecfaad4fd55664a8121726485d0653924c5",
+    ".local/class-skills/npc-rest-in-peace-source/probe": "93adeaa4f2e10518dc592bf52867e2f629f6ecba5dd94b7021164d6e09168660",
+    ".local/class-skills/npc-rest-in-peace-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-rest-in-peace-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-rest-in-peace-source/cases.json": "ed8893040f4d7cd2460cbbb19f9faeba8eb27c5d37860dcbc2ad731e08b759c7"
+  },
+  "scope": "Complete unchanged callback29:nonnull attacker/target toggles target state on and returns1,including an already-active state;missing pointers return0. Packet,event,rank,bonus,RNG and health are not read. Unit-state storage is an explicitly declared service.",
+  "limits": [
+    "No current-executable parity or global kill-producer certificate. Native pre-death state/corpse transfer,loot,eligibility and persistence require separate acceptance;no player forwarding is inferred."
+  ]
+}

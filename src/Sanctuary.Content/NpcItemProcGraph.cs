@@ -107,9 +107,9 @@ internal sealed class NpcItemProcGraph
             var wanted=new HashSet<uint>();
             foreach(int stat in legacy.Subscriptions().Reverse())
             {
-                if(stat is not(81 or 86 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150 or 198)){continue;}
+                if(stat is not(81 or 86 or 108 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150 or 198)){continue;}
                 uint key=EquipmentStatKey.Pack(stat,stat==198?(SkillMechanics.For(CombatAbility.LifeTap).SourceId<<6)|5:0);
-                int value=stat==150?NpcItemSlow.Bonus(actor):stat==86?NpcKillRecovery.Bonus(actor,false):stat==138?NpcEquipmentCombat.EventBonus(actor,"mana-kill"):stat==139?NpcKillRecovery.Bonus(actor,true):stat==81?NpcItemKnockback.Bonus(actor):stat==112?NpcItemFear.Bonus(actor):stat==113?NpcItemBlind.Bonus(actor):stat==114?NpcEquipmentCombat.EventBonus(actor,"dmg-to-mana"):stat==128?NpcLightningReturn.Bonus(actor):stat==134?NpcItemFreeze.Bonus(actor):stat==135?NpcOpenWounds.Chance(actor):stat==136?NpcCrushing.Chance(actor):NpcHitSkills.BloodChance(actor);
+                int value=stat==108?NpcEquipmentCombat.EventBonus(actor,"rip"):stat==150?NpcItemSlow.Bonus(actor):stat==86?NpcKillRecovery.Bonus(actor,false):stat==138?NpcEquipmentCombat.EventBonus(actor,"mana-kill"):stat==139?NpcKillRecovery.Bonus(actor,true):stat==81?NpcItemKnockback.Bonus(actor):stat==112?NpcItemFear.Bonus(actor):stat==113?NpcItemBlind.Bonus(actor):stat==114?NpcEquipmentCombat.EventBonus(actor,"dmg-to-mana"):stat==128?NpcLightningReturn.Bonus(actor):stat==134?NpcItemFreeze.Bonus(actor):stat==135?NpcOpenWounds.Chance(actor):stat==136?NpcCrushing.Chance(actor):NpcHitSkills.BloodChance(actor);
                 wanted.Add(key);Values.SetBase(Unit.Stats,key,value);
             }
             foreach(var old in Unit.Stats.BaseValues.Where(v=>!wanted.Contains(v.Packed)).ToArray()){Values.SetBase(Unit.Stats,old.Packed,0);}
@@ -134,6 +134,7 @@ internal sealed class NpcItemProcGraph
         if(function==9){return NpcItemBlind.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
         if(function==10){return NpcLightningReturn.Apply(frame.Actor,frame.Other,frame.At)?1:0;}
         if(function==19){return NpcItemSlow.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
+        if(function==29){return NpcRestInPeace.Apply(frame.Actor,frame.Other)?1:0;}
         if(function==17){return 0;} // NPC sources fail the player-only mana-after-kill guard.
         if(function is 18 or 28){return NpcKillRecovery.Apply(frame.Actor,frame.Other,function==18)?1:0;}
         if(function==13){return 0;} // Damage-to-mana is player-only before all packet/stat/RNG services.
@@ -180,7 +181,7 @@ internal sealed class NpcItemProcGraph
             ||saved.Actor==saved.Owner||saved.Items.Any(i=>i==null||!((Serial)i.Item).IsItem||i.Body is <0 or >12)
             ||saved.Items.Select(i=>i.Item).Distinct().Count()!=saved.Items.Length
             ||saved.Innate.Select(v=>v.Packed).Distinct().Count()!=saved.Innate.Length
-            ||saved.Innate.Any(v=>v.Stat is not(112 or 113 or 128)&&v.Value<0||v.Stat is not(81 or 86 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150 or 198)||(ushort)v.Packed!=(v.Stat==198?tap:0)))
+            ||saved.Innate.Any(v=>v.Stat is not(108 or 112 or 113 or 128)&&v.Value<0||v.Stat is not(81 or 86 or 108 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150 or 198)||(ushort)v.Packed!=(v.Stat==198?tap:0)))
         {throw new InvalidDataException("Invalid saved NPC proc graph");}
         _=SourceUnitEvents.Restore(saved.Events,(_,_,_,_)=>throw new InvalidOperationException("Validation cannot dispatch"));
         foreach(var item in saved.Items){Validate(item.State);}

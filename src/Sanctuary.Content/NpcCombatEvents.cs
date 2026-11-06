@@ -41,7 +41,7 @@ internal sealed class NpcCombatEvents
     internal int[] Subscriptions()=>Active.Select(r=>r.Stat).ToArray();
     internal static NpcCombatEvents RestoreSubscriptions(int[] stats)
     {
-        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 81 or 86 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150)))
+        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 81 or 86 or 108 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150)))
         {throw new NotSupportedException("Persisted ordinary item callbacks need their admitted subscription set");}
         return FromStats(stats.Select(s=>new EquipmentStatValue(EquipmentStatKey.Pack(s),1)).ToArray());
     }
@@ -81,6 +81,7 @@ internal sealed class NpcCombatEvents
             bool fear=rule.Stat==112&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:8}&&rule.Events[1] is{Event:"domissiledamage",Function:8};
             bool slow=rule.Stat==150&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:19}&&rule.Events[1] is{Event:"domissiledamage",Function:19};
             if(slow&&value.Value<0){throw new NotSupportedException("Negative pet item slow is outside the approved rule");}
+            bool rip=rule.Stat==108&&rule.Events.Length==1&&rule.Events[0] is{Event:"kill",Function:29};
             bool killLife=rule.Stat==86&&rule.Events.Length==1&&rule.Events[0] is{Event:"kill",Function:28};
             bool killMana=rule.Stat==138&&rule.Events.Length==1&&rule.Events[0] is{Event:"kill",Function:17};
             bool demonLife=rule.Stat==139&&rule.Events.Length==1&&rule.Events[0] is{Event:"kill",Function:18};
@@ -88,7 +89,7 @@ internal sealed class NpcCombatEvents
             {throw new NotSupportedException("Negative NPC kill-healing item stats need their signed source domain");}
             bool mana=rule.Stat==114&&rule.Events.Length==2&&rule.Events[0] is{Event:"damagedinmelee",Function:13}&&rule.Events[1] is{Event:"damagedbymissile",Function:13};
             bool lightning=rule.Stat==128&&rule.Events.Length==1&&rule.Events[0] is{Event:"damagedinmelee",Function:10};
-            if(!flat&&!knock&&!fear&&!blind&&!killLife&&!killMana&&!demonLife&&!slow&&!mana&&!lightning&&!freeze&&!wounds&&!CrushingRule(rule))
+            if(!flat&&!knock&&!fear&&!blind&&!killLife&&!killMana&&!demonLife&&!rip&&!slow&&!mana&&!lightning&&!freeze&&!wounds&&!CrushingRule(rule))
             {throw new NotSupportedException("NPC combat event needs its consumer: "+rule.Name+"/"+string.Join(',',rule.Events.Select(e=>e.Event+":"+e.Function)));}
             active.Add(rule);
         }
@@ -147,13 +148,14 @@ internal sealed class NpcCombatEvents
             if(registration.Event!=phase){continue;}
             // The live graph aggregates these innate/material stats with item
             // layers and dispatches them in its actual registration order.
-            if(procs!=null&&rule.Stat is 81 or 86 or 112 or 113 or 134 or 135 or 136 or 138 or 139 or 150 or 198){continue;}
+            if(procs!=null&&rule.Stat is 81 or 86 or 108 or 112 or 113 or 134 or 135 or 136 or 138 or 139 or 150 or 198){continue;}
             // Callback13 tests UNIT_PLAYER before reading the packet/stat.
             // This registry is exclusively an NPC adapter. Keep registration
             // and its original stat; do not forward recovery to the owner.
             if(rule.Stat==114&&registration.Function==13){continue;}
             if(rule.Stat==150&&registration.Function==19)
             {if(source==null||target==null||at==null){throw new InvalidOperationException("Pet slow lacks source/target/time");}NpcItemSlow.Apply(source,target,phase=="domissiledamage",at.Value);continue;}
+            if(rule.Stat==108&&registration.Function==29){NpcRestInPeace.Apply(source,target);continue;}
             if(rule.Stat==138&&registration.Function==17){continue;} // Player-only mana after kill.
             if(rule.Stat==86&&registration.Function==28||rule.Stat==139&&registration.Function==18)
             {NpcKillRecovery.Apply(source,target,rule.Stat==139);continue;}

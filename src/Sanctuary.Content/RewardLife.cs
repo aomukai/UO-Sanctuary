@@ -42,7 +42,7 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         }
         var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature));
         if(CombatItemEvents.KillRecoveryAllowed(player,creature)){NamedCombat.Killed(player, creature);}
-        corpse.SanctuaryRestInPeace = CombatItemEvents.Allowed(player,creature) && creature.LastKiller == player && ClassGear.Bonus(player, "rip") > 0;
+        corpse.SanctuaryRestInPeace |= CombatItemEvents.Allowed(player,creature) && creature.LastKiller == player && ClassGear.Bonus(player, "rip") > 0;
         if (creature is not EncounterCreature && CreatureGold.Policy(creature.GetType(), life.Difficulty) is not { Eligible: true })
         { TreasureHunts.DiscardFishing(corpse); Fortification.Award(life, random); return false; }
         if (creature is TreasureMonster treasure && (treasure.TreasureTier < 4 || treasure.Grade is not (EncounterGrade.Unique or EncounterGrade.Champion or EncounterGrade.Minion))) { GearDrops.Award(life, random, treasure.SourceType); }

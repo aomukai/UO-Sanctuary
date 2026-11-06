@@ -87,6 +87,7 @@ public static class CorpseSkillRules
     public static void Capture(BaseCreature creature,Container container)
     {
         if(container is not Corpse corpse){return;}
+        NpcRestInPeace.CaptureDeath(creature,corpse);
         HeavenFists.CaptureDeath(creature,corpse);
         string key=CreatureProfiles.Definition(creature).Reference;
         bool known=key!=null && _selectable.TryGetValue(key,out bool selectable);

@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC Rest in Peace (2026-11-06 JST).** Item108/function29 changes unit/corpse state without a new visual or audio producer. Existing summon/contact placeholders and final assets remain separate; no new effect artwork is completed. See [checkpoint](npc-rest-in-peace-checkpoint.md).
+
 **Approved pet slow (2026-11-06 JST).** Item150 and outgoing Clay slow reuse the existing status/rate presentation; no new visual or audio producer is added. Final Clay summon/contact and slow feedback remain pending with their identified placeholders. See [checkpoint](npc-item-slow-checkpoint.md).
 
 **NPC on-kill healing overlay (2026-11-06 JST).** Stat86/139 callbacks reuse identified UO0x376A / hue0x21 as the placeholder for source overlay151 on the healed pet. Final shared healing presentation remains pending. This adds no final artwork or separate talent/hotkey icon; see [checkpoint](saved-npc-item-recovery-checkpoint.md).
