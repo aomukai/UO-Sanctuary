@@ -35,7 +35,7 @@ public static class ReviveEventChecks
     private static Fixture Create(PlayerMobile owner,string kind)
     {
         var b=new Skeleton{Name="PoisonDaggerFixtureReviveEvent",NoKillAwards=true};foreach(var item in b.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){item.Delete();}
-        string[] names=kind switch{"skill"=>["Undead Crown"],"numeric"=>["Baranar's Star"],_=>["The Gnasher","Swordback Hold","Goblin Toe"]};
+        string[] names=kind switch{"numeric"=>["Baranar's Star"],_=>["The Gnasher","Swordback Hold","Goblin Toe"]};
         var gear=names.Select(Named).ToArray();foreach(var item in gear){b.AddItem(item);}Require(gear.All(i=>i.Parent==b),"Event gear slots collided");
         b.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);b.AIObject?.AITimer.Stop();Corpse corpse=null;var died=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(who,item)=>{died?.Invoke(who,item);if(who==b){corpse=item as Corpse;corpse?.DropItem(new Gold(1));}};
@@ -123,11 +123,11 @@ public static class ReviveEventChecks
     private static void Check()
     {
         var owner=PoisonDaggerChecks.Owner();owner.Name="PoisonDaggerFixtureReviveEventOwner";MagePetBuffChecks.Train(owner,"necromancer.revive",20);MagePetBuffChecks.Train(owner,"necromancer.skeletonmastery",20);FixtureSpace.Corridor(owner,6500,24,3500);
-        // Rank20 now permits three Revives. Keep the fourth independent
-        // supplier on another real owner instead of pruning the first actor.
+        // Keep the refused numeric supplier on a separate real owner.
+        // Undead Crown is now covered as a positive original-item source.
         var other=PoisonDaggerChecks.Owner();other.Name="PoisonDaggerFixtureReviveEventNumericOwner";
         MagePetBuffChecks.Train(other,"necromancer.revive",20);MagePetBuffChecks.Train(other,"necromancer.skeletonmastery",20);FixtureSpace.Corridor(other,6500,24,3564);
-        var fixtures=new[]{Create(owner,"events"),Create(owner,"legacy"),Create(owner,"skill"),Create(other,"numeric")};Exercise(owner,fixtures);other.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,fixtures)));
+        var fixtures=new[]{Create(owner,"events"),Create(owner,"legacy"),Create(other,"numeric")};Exercise(owner,fixtures);other.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,fixtures)));
     }
     private static void Reload()
     {

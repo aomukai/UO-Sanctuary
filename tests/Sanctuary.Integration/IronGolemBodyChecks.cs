@@ -136,9 +136,9 @@ public static class IronGolemBodyChecks
         var dying=IronGolemBody.CreatePrepared(owner,sword,sword.Location);Require(dying.Prepared.Numbers.LifeBase256%256!=0,"Fractional bare-weapon birth control lost");
         dying.Kill();Require(!dying.Alive&&sword.Deleted&&IronGolemItems.State(dying)==null,"Combat death left bound original");
         // Rejection happens before a ground item is consumed.
-        var unsupported=Named("Undead Crown");unsupported.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
-        var point=unsupported.Location;bool refused=false;try{IronGolemBody.CreatePrepared(owner,unsupported,point);}catch(NotSupportedException e){refused=e.Message.Contains("skill",StringComparison.Ordinal);}
-        Require(refused&&!unsupported.Deleted&&unsupported.Parent==null&&unsupported.Location==point&&unsupported.Visible&&unsupported.Movable,"Unsupported individual-skill projection consumed/changed original");unsupported.Delete();
+        var unsupported=Named("Baranar's Star");unsupported.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
+        var point=unsupported.Location;bool refused=false;try{IronGolemBody.CreatePrepared(owner,unsupported,point);}catch(NotSupportedException e){refused=e.Message.Contains("independent zero-parameter range fallback",StringComparison.Ordinal);}
+        Require(refused&&!unsupported.Deleted&&unsupported.Parent==null&&unsupported.Location==point&&unsupported.Visible&&unsupported.Movable,"Unsupported unrepresented independent cold-duration projection consumed/changed original");unsupported.Delete();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));owner.Internalize();
     }
     private static void Reload()

@@ -140,11 +140,11 @@ public static class NpcItemBlindChecks
         Differential();
         if(!reload)
         {
-            var rows=new List<Held>();var p=NpcFreezeHitChecks.Owner();var blocked=Original("Undead Crown");blocked.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
+            var rows=new List<Held>();var p=NpcFreezeHitChecks.Owner();var blocked=Original("Baranar's Star");blocked.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
             var before=Json(ClassGear.State(blocked));int mana=NecromancerEffects.ManaBalance256(p);
-            Require(!IronGolemCasting.Plan(p,blocked,out _,out var issue)&&issue.Contains("skill",StringComparison.Ordinal)
+            Require(!IronGolemCasting.Plan(p,blocked,out _,out var issue)&&issue.Contains("independent zero-parameter range fallback",StringComparison.Ordinal)
                 &&!IronGolemCasting.Release(p,blocked,TimedEffects.Now,out _)&&blocked.Parent==null&&blocked.Map==p.Map&&Json(ClassGear.State(blocked))==before
-                &&NecromancerEffects.ManaBalance256(p)==mana&&!NecromancerGolems.For(p).Any(),"Unsupported Undead Crown individual-skill projection was discarded or failed cast consumed item/mana");blocked.Delete();
+                &&NecromancerEffects.ManaBalance256(p)==mana&&!NecromancerGolems.For(p).Any(),"Unsupported Baranar's Star unrepresented independent cold-duration projection was discarded or failed cast consumed item/mana");blocked.Delete();
             var original=Original("The Patriarch");var body=NpcFreezeHitChecks.Cast(p,original,"stupidity");Controls(p,body);
             var t=Contact(p,body,false);Delete(t);NpcItemProcs.Create(body);NpcItemProcs.Refresh(body,NpcCombatEvents.LegacyForSource(body));
             Require(NpcItemProcs.Get(body).Capture().Events.Entries.Count(e=>e.Function==9)==2,"Live graph blind subscriptions missing");

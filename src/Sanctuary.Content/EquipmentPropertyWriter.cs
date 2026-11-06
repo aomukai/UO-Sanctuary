@@ -194,13 +194,14 @@ internal static class EquipmentRawProperties
             // writer. The original191-plan kernel catalogue stays immutable.
             bool layered=plan is{Steps.Length:>0}&&plan.Steps.All(s=>s.Function==21);
             bool tree=CurrentTreePropertyWriter.Supports(plan);
+            bool single=ItemSingleSkillProperty.Supports(plan);
             bool ethereal=SavedItemEthereality.Supports(plan);
             bool indestruct=plan is{Code:"indestruct",Steps.Length:1}&&plan.Steps[0] is{Function:20};
             bool socket=plan is{Code:"sock",Steps.Length:1}&&plan.Steps[0] is{Function:14,Stat:194,Set:false};
-            if(plan is not{Supported:true}&&!layered&&!tree&&!ethereal&&!indestruct&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
+            if(plan is not{Supported:true}&&!layered&&!tree&&!single&&!ethereal&&!indestruct&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
             if(roll.Value==0&&property.SourceMin!=property.SourceMax&&plan.Steps.Skip(1).Any(s=>s.Function is 3 or 4 or 8))
             {omissions.Add(new(property.Code,property.Slot,"A zero first roll can reroll later stats; those separate rolls are not represented"));continue;}
-            int parameter=NamedPropertyRuntime.Parameter(property);
+            int parameter=single?ItemSingleSkillProperty.Parameter(property):NamedPropertyRuntime.Parameter(property);
             if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&property.Code.EndsWith("/lvl",StringComparison.Ordinal))
             {omissions.Add(new(property.Code,property.Slot,"The original zero-parameter fallback roll is not represented"));continue;}
             if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&roll.Value!=roll.Maximum)
@@ -214,6 +215,7 @@ internal static class EquipmentRawProperties
                 if(count!=roll.Value){omissions.Add(new(property.Code,property.Slot,"Saved socket roll differs from source dimension/type/level cap"));}
             }
             else if(tree){CurrentTreePropertyWriter.Apply(plan,input,target);}
+            else if(single){ItemSingleSkillProperty.Apply(plan,input,target);}
             else if(ethereal){SavedItemEthereality.Apply(true,true,unit.Kind,target.Ethereal,target.HasDurability,target);}
             else if(layered||indestruct){EquipmentPropertyWriter.Create(plan,input,mode,target);}
             else{EquipmentPropertyWriter.Apply(plan,input,mode,target);}

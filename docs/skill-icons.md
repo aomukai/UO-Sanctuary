@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original individual-skill properties (2026-11-06 JST).** Retaining item skill layers adds no talent-tree/hotkey identity. Existing Iron Golem/Revive icons remain separately pending. See [checkpoint](single-skill-property-checkpoint.md).
+
 **Saved forced ethereality (2026-11-06 JST).** Original equipment projection adds no talent-tree or hotkey identity. Existing Iron Golem/Revive icons remain separately pending. This does not complete item artwork or the effect ledger. See [checkpoint](saved-item-ethereality-checkpoint.md).
 
 **Saved skill-tree properties (2026-11-06 JST).** Numeric equipment projection adds no talent-tree or hotkey identity. Existing Iron Golem/Revive icons remain separately pending; the Sunder preflight produces no icon. See [checkpoint](saved-tree-property-checkpoint.md).

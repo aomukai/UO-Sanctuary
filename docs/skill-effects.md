@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original individual-skill properties (2026-11-06 JST).** Raw107 storage adds no cast/contact/particle/audio producer. Existing Iron Golem/Revive effects stay identified placeholders; NPC skill activation and graphical acceptance remain separate. See [checkpoint](single-skill-property-checkpoint.md).
+
 **Saved forced ethereality (2026-11-06 JST).** Property23 reuses numeric finishing and adds no cast, contact, particle or audio producer. Existing Iron Golem/Revive effects remain identified placeholders; ethereal item appearance and final shared contact presentation are unverified. See [checkpoint](saved-item-ethereality-checkpoint.md).
 
 **Saved skill-tree properties (2026-11-06 JST).** Original tree-layer projection adds no effect or audio producer. Existing Iron Golem/Revive summon and contact placeholders remain pending. The Sunder review adds no effect implementation. See [checkpoint](saved-tree-property-checkpoint.md).

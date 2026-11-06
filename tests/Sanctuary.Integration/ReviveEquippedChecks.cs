@@ -82,14 +82,14 @@ public static class ReviveEquippedChecks
     }
     private static void Rejects(PlayerMobile owner)
     {
-        foreach(var scene in new[]{"native","skill","numeric","missile","body","element"})
+        foreach(var scene in new[]{"native","numeric","missile","body","element"})
         {
             var body=scene=="body"?new CustomSkeleton():new Skeleton();Item[] gear=scene switch
-            {"native"=>[new UnconvertedGear()],"skill"=>[Named("Undead Crown")],"numeric"=>[Named("Baranar's Star")],"missile"=>[new Bow()],_=>Gear()};
+            {"native"=>[new UnconvertedGear()],"numeric"=>[Named("Baranar's Star")],"missile"=>[new Bow()],_=>Gear()};
             if(scene=="missile"){ClassGear.Profiles.Ensure(gear[0]);}
             if(scene=="element"){body.SetDamageType(ResistanceType.Physical,0);body.SetDamageType(ResistanceType.Fire,100);}
             var corpse=Die(owner,body,gear);
-            try{Refusal(owner,corpse,scene switch{"native"=>"Native item combat effects","skill"=>"skill","numeric"=>"numeric","missile"=>"projectile","body"=>"override",_=>"elemental body"});}
+            try{Refusal(owner,corpse,scene switch{"native"=>"Native item combat effects","numeric"=>"numeric","missile"=>"projectile","body"=>"override",_=>"elemental body"});}
             finally{corpse.Delete();ReviveOriginals.Prune();}
         }
         var pending=Die(owner,new Skeleton(),Gear());var all=ReviveOriginals.Snapshot();var saved=ReviveOriginals.State(pending);var before=ReviveBeforeDeath.Decode(saved.BeforeDeathJson);
