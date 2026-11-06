@@ -130,7 +130,7 @@ public static class NpcFreezeHitChecks
             else{var result=IronGolemContact.Release(source,p,target,prepared,_=>true,at);Require(!result.DeathModeAttempted,"Nonlethal freeze contact killed recipient");}
             Require(target.Calls==1&&target.FrozenAtNotification&&FreezeStates.Shattered(target)&&SkillHealth.Balance256(target)==hp-prepared.Impact.Packet.Total256,"Freeze/main HP notification mismatch: controller="+controller+" source="+source.GetType().Name+" calls="+target.Calls+" frozenAtNotify="+target.FrozenAtNotification+" frozen="+FreezeStates.Shattered(target)+" hp="+SkillHealth.Balance256(target)+" expected="+(hp-prepared.Impact.Packet.Total256)+" frames="+frames+" result="+prepared.Impact.Packet.ResultFlags);
             Require(NpcEquipmentRandom.State(source).Seed==expected&&NativeMonsterReturn.Session(target).Packets==1&&frames>0,"Nested packet duplicated a stream draw/return/free");
-        
+
         }
         finally{SourceBlocking.BlockRoll=oldBlock;}
     }

@@ -33,13 +33,13 @@ def build(check=False):
     for stage,file in [(s,'birth-inputs.json')for s in(STAGE,REPEAT,RETAINED,FREEZE)]+[(STAGE,'audit-inputs.json')]:
         current=e.load(stage/file)
         assert current['artifacts']==born['artifacts'] and current['copiedData']==born['copiedData']
-        snapshot(STAGE/'source-snapshot-13.json',stage/file)
+        snapshot(STAGE/'source-snapshot-14.json',stage/file)
         for path,digest in current['sourceInputs'].items():assert e.sha(ROOT/path)==digest,path
-    for kind,n in [('Content',4),('Integration',13)]:
+    for kind,n in [('Content',4),('Integration',14)]:
         assert e.sha(STAGE/kind.lower()/f'Sanctuary.{kind}.dll')==born['artifacts'][f'Assemblies/Sanctuary.{kind}.dll']
         assert all(s in(STAGE/f'{kind.lower()}-build-{n}.log').read_text()for s in('Build succeeded.','0 Warning(s)','0 Error(s)'))
     # The final test-only repairs do not rebuild or modify production inputs.
-    old=e.load(STAGE/'source-snapshot-8.json')['inputs'];new=e.load(STAGE/'source-snapshot-13.json')['inputs']
+    old=e.load(STAGE/'source-snapshot-8.json')['inputs'];new=e.load(STAGE/'source-snapshot-14.json')['inputs']
     assert old['projectInputs']==new['projectInputs'] and old['copiedData']==new['copiedData']
     assert {p:h for p,h in old['sourceInputs'].items()if not p.startswith('tests/')}=={p:h for p,h in new['sourceInputs'].items()if not p.startswith('tests/')}
     assert {p for p in old['sourceInputs']if old['sourceInputs'][p]!=new['sourceInputs'][p]}=={
@@ -107,7 +107,7 @@ def build(check=False):
     files +=[ROOT/'docs'/name for name in('npc-lightning-return-checkpoint.md','class-skills-resume-checkpoint.md','class-skill-roadmap.md',
         'skill-mechanical-reference.md','class-skill-reuse-notes.md','skill-effects.md','skill-icons.md','necromancer-mechanical-audit.md','pet-adjustment-review.md')]
     files +=[ROOT/p for p in bridge['artifacts']]+e.stage_files(STAGE,REPEAT,RETAINED,FREEZE,FULL)
-    files +=[FULL/'integration/Sanctuary.Integration.dll',original]
+    files +=[FULL/'integration/Sanctuary.Integration.dll',original,STAGE/'content/Sanctuary.Content.dll',STAGE/'integration/Sanctuary.Integration.dll']
     archives=[]
     for stage in(STAGE,REPEAT,RETAINED,FREEZE,FULL):
         for directory in stage.iterdir():
@@ -118,7 +118,7 @@ def build(check=False):
                 if path.exists():files.append(path)
             archives.append(str(directory.relative_to(ROOT)))
     record=dict(referenceVersion='3.3.93847',parent=PARENT,installed=False,handlers=197,completedClasses=[],
-        artifacts=born['artifacts'],copiedData=born['copiedData'],contentBuild=4,integrationBuild=13,sourceSnapshot=13,
+        artifacts=born['artifacts'],copiedData=born['copiedData'],contentBuild=4,integrationBuild=14,sourceSnapshot=14,
         fullFillArtifacts=full['artifacts'],fullFillIntegrationBuild=12,
         fullFillFixtureDifference='Only private NpcFreezeHitChecks.Contact changed after full-fill;not executed there. Configure,reused helpers,all other C#,production DLL and data identical;both test assemblies preserved.',
         sourceContexts=source['contexts'],completeSourceRoutines=7,headerConstants=140,newMarkers=12,repeatMarkers=12,
