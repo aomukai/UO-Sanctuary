@@ -8,7 +8,7 @@ namespace Sanctuary;
 
 public static class SorceressCombat
 {
-    public static bool Implemented(CombatAbility a) => a is CombatAbility.FireBolt or CombatAbility.Fireball
+    public static bool Implemented(CombatAbility a) => a is CombatAbility.Inferno or CombatAbility.FireBolt or CombatAbility.Fireball
         or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Nova
         or CombatAbility.FrostNova or CombatAbility.StaticField or CombatAbility.Warmth
         or CombatAbility.FrozenArmor or CombatAbility.ShiverArmor or CombatAbility.ChillingArmor or CombatAbility.EnergyShield
@@ -53,9 +53,10 @@ public static class SorceressCombat
             && (selected == Serial.Zero || ClassCombat.IsHostile(owner, World.FindMobile(selected)));
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now)
-        => SkillCombat.Begin(owner, ability, selected, point, now, ValidTarget);
+        => ability!=CombatAbility.Inferno&&SkillCombat.Begin(owner, ability, selected, point, now, ValidTarget);
     public static bool Release(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
+        if (ability==CombatAbility.Inferno) { return false; } // Explicit held input owns its payment and release.
         if (!Available(owner, ability) || !ValidTarget(owner, ability, selected, point) || !FireGround.Ready(owner, ability)) { return false; }
         var values = SkillMechanics.Values(owner, ability);
         if (ability is CombatAbility.FireBolt or CombatAbility.Fireball or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Lightning) { return SorceressSpellMissiles.Cast(owner, point, values); }

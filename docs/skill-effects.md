@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved Inferno integration (2026-11-06 JST).** Inferno uses the existing identified 0x36D4 / hue 0x489 stream placeholder. Final cast/channel, flame/contact/expiry presentation and audio still need assets; held input adds no final artwork. See [checkpoint](inferno-held-input-checkpoint.md).
+
 **Howltusk / player-only mana (2026-11-06):** NPC callback13 emits no player mana-recovery overlay 152. Existing fear/knockback/summon placeholders remain; no new effect/audio identity is added. Ring of Fire creates no effect producer during its [preflight](warlock-ring-of-fire-preflight.md); final cast/ring/contact/explosion/expiry/audio remain pending.
 
 **NPC item knockback (2026-11-06):** stat81/function07 reuses the existing native movement/get-hit presentation; no new particles/audio or final asset are supplied. Final impact/recovery presentation remains with the existing knockback effects. See [checkpoint](npc-item-knockback-checkpoint.md).

@@ -28,7 +28,7 @@ public static class InfernoPrimitiveChecks
     private static void Check()
     {
         var owner = ClassSkillChecks.Player(DiabloClass.Sorceress); owner.MoveToWorld(ClassSkillChecks.Corridor(owner, 5880, 1810), owner.Map);
-        Require(!SorceressCombat.Implemented(CombatAbility.Inferno) && !ClassCombat.Available(owner, CombatAbility.Inferno), "Unverified channel accidentally enabled");
+        Require(SorceressCombat.Implemented(CombatAbility.Inferno) && ClassCombat.Available(owner, CombatAbility.Inferno), "Approved trained Inferno handler missing");
         var weapon = new WeaponTiming(AttackFamily.Unarmed, 0);
         Require(CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.Inferno, weapon) == new ActionTiming(15, 10)
             && CombatTiming.Calculate(DiabloClass.Sorceress, CombatAbility.Inferno, weapon, fcr: 105) == new ActionTiming(10, 7),

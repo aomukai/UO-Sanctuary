@@ -38,7 +38,7 @@ public static class InfernoModeChecks
             int mana=NecromancerEffects.ManaBalance256(p);
             Require(!PlayerInfernoModes.BeginPrepared(p,CombatAbility.Inferno,Serial.Zero,new(p.X+8,p.Y,p.Z),TimedEffects.Now)
                 &&PlayerInfernoModes.State(p)==null&&NecromancerEffects.ManaBalance256(p)==mana,"Disconnected prepared channel mutated state/resources");
-            Require(!SorceressCombat.Implemented(CombatAbility.Inferno),"Prepared mode enabled learned input");
+            Require(SorceressCombat.Implemented(CombatAbility.Inferno),"Approved Inferno handler missing");
         }
         finally{p.Delete();}
     }
@@ -77,7 +77,7 @@ public static class InfernoModeChecks
             Require(PlayerInfernoModes.Aim(p,Serial.Zero,new(p.X,p.Y-6,p.Z)),"Free aim update refused");PlayerInfernoModes.Advance(p,at.AddMilliseconds(520));Require(Own(p).Last().Vy<0,"Updated aim was not consumed");
             Reset(p,held);Require(PlayerInfernoModes.BeginPrepared(p,CombatAbility.Inferno,Serial.Zero,point,at),"FHR setup");long recovery=ClassCombat.For(p).RecoveryUntil;HitRecovery.Block(p,Core.TickCount);Require(PlayerInfernoModes.Active(p)&&ClassCombat.For(p).RecoveryUntil==recovery,"Ordinary pending-mode block policy differs");Require(HitRecovery.Apply(p,p.HitsMax,Core.TickCount)&&!PlayerInfernoModes.Active(p),"FHR retained mode");ClassCombat.For(p).RecoveryUntil=Core.TickCount-1;
             Reset(p,held);Require(PlayerInfernoModes.BeginPrepared(p,CombatAbility.Inferno,Serial.Zero,point,at),"Respec setup");ClassCreation.Profiles.TryGet(p.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(p,profile);Require(PlayerInfernoModes.State(p)==null,"Respec retained mode");ClassSkillChecks.Train(p,"sorceress.inferno");
-            Require(!SorceressCombat.Implemented(CombatAbility.Inferno),"Prepared mode enabled learned channel");
+            Require(SorceressCombat.Implemented(CombatAbility.Inferno),"Approved Inferno handler missing");
             Log.Information("Prepared Inferno mode:threshold96FP,debit/first suppression,reentry/stop/expiry,phase timestamps,move/equipment/FHR/respec,live rank and target/deletion/free aim pass");
         }
         finally{PlayerInfernoModes.Cancel(p);SorceressSpellMissiles.Restore(held);}

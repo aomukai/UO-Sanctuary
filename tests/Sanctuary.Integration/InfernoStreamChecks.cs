@@ -94,7 +94,7 @@ public static class InfernoStreamChecks
             Require(SorceressSpellMissiles.Snapshot().Flights.All(s=>s.Id!=overdue.Id)&&SkillHealth.Balance256(a)==life,"Restart replayed overdue fire damage");
             AmazonSlowMissiles.Restore(slow.Append(new SlowMissilesState(p.Serial.Value,p.Serial.Value,1,50,50,at.AddHours(2))).ToArray());refused=false;
             try{Emit(p,at);}catch(NotSupportedException){refused=true;}Require(refused,"Unknown modern slow damage ordering silently guessed");AmazonSlowMissiles.Restore(slow);
-            Require(NecromancerEffects.ManaBalance256(p)==mana&&!SorceressCombat.Implemented(CombatAbility.Inferno),"Stream charged mana/enabled unfinished learned channel");
+            Require(NecromancerEffects.ManaBalance256(p)==mana&&SorceressCombat.Implemented(CombatAbility.Inferno),"Stream charged mana or approved handler missing");
         }
         finally{SorceressSpellMissiles.Restore(held);AmazonSlowMissiles.Restore(slow);a.Delete();b.Delete();p.Delete();}
     }

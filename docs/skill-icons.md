@@ -1,5 +1,7 @@
 # Skill icons
 
+**Approved Inferno integration (2026-11-06 JST).** Inferno talent-tree, left/right and quick-key icons remain missing and use the existing identified placeholders. Enabling the held controls does not complete icons. See [checkpoint](inferno-held-input-checkpoint.md).
+
 **Howltusk / Ring of Fire preflight (2026-11-06):** admitting an original NPC item adds no skill or icon identity. Iron Golem/Revive and Ring of Fire retain their existing talent/hotkey icon entries; no final assets are produced.
 
 **NPC item knockback (2026-11-06):** an original equipment property adds no talent or hotkey icon identity. Iron Golem/Revive icons retain their existing asset entries. See [checkpoint](npc-item-knockback-checkpoint.md).

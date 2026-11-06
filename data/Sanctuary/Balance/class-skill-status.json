@@ -592,10 +592,10 @@
       "characterClass": "Sorceress",
       "tree": "Fire Spells",
       "sourceId": 41,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared player st11/do19 resources and full supplied-intent SQ6sequence/event composition are prepared. The fire stream now uses the saved Sorceress flight host with captured Warmth/fire mastery,lifetime,CanSlow velocity,LastCollide and DamageRate82;complete source damage/factory comparisons and legacy119/new226flight reloads are recorded in inferno-stream-native-evidence.json. Shared PlayerInfernoModes now binds actual timed fire and cold emissions to existing cancellation hooks. Modern accepted-input/start/reentry/release/payment cadence,early double-rewind/shared-lease behavior,Slow Missiles damage and full world/owner acceptance remain unresolved;learned input stays gated. Final effects/audio and talent/hotkey icons remain separate."
+      "remaining": "Approved Sanctuary held-input adaptation: six-mana fresh threshold, pinned fractional per-invocation payment, frame12 first flame and two-frame held renewals. Explicit left/right/quick press/aim/release differs from transport heartbeat; release cancels new emissions, resource failure requires a fresh press, and fired captured streams remain independent. Original wounds/mana/flights survive two reloads without replaying held input. Existing fire/cold source controls and client patch-stack/build evidence remain scoped separately. Exact modern D2R chronology, unsupported Slow Missiles damage modifiers, full PvP/owner/world geometry and graphical input remain unverified; no class complete. Final effects/audio and talent/hotkey icons remain identified placeholders; see inferno-approved-input-rule.md and inferno-held-input-checkpoint.md."
     },
     {
       "talentId": "sorceress.blaze",

@@ -295,6 +295,7 @@ public static class ClassCombat
 
     private static bool ContinueHold(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attack)
     {
+        if(ability==CombatAbility.Inferno){return false;} // Requires explicit channel press/aim/release.
         if(ability==CombatAbility.CloakOfShadows){CloakShadows.Face(from,point);target=null;point=from.Location;}
         if(ClassAbilities.SelfTarget(ability)){target=null;point=from.Location;}
         if (!attack && PaladinCombat.IsAura(ability)) { return ability==For(from).Right && PaladinCombat.Begin(from,ability); }
@@ -733,14 +734,25 @@ public static class ClassCombat
         var sequence = reader.ReadUInt32();
         var session = For(from);
         if (version != CombatProtocol.Version || unchecked((int)(sequence - session.Sequence)) <= 0
-            || reader.Remaining != (action == CombatRequest.Attack ? 4 : action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack ? 10 : action == CombatRequest.MovementMode ? 1 : 0)
-            || action is < CombatRequest.Hello or > CombatRequest.ReleaseAttack)
+            || reader.Remaining != (action == CombatRequest.Attack ? 4 : action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack ? 10 : action is CombatRequest.ChannelStart or CombatRequest.ChannelAim ? 11 : action is CombatRequest.MovementMode or CombatRequest.ChannelEnd ? 1 : 0)
+            || action is < CombatRequest.Hello or > CombatRequest.ChannelEnd)
         {
             return;
         }
         session.Sequence = sequence;
         switch (action)
         {
+            case CombatRequest.ChannelStart:
+            case CombatRequest.ChannelAim:
+                int channelSource=reader.ReadByte();
+                var channelAbility=(CombatAbility)reader.ReadByte();
+                var channelTarget=(Serial)reader.ReadUInt32();
+                var channelPoint=new Point3D(reader.ReadUInt16(),reader.ReadUInt16(),reader.ReadSByte());
+                PlayerInfernoInput.Apply(from,action,channelSource,channelAbility,channelTarget,channelPoint,TimedEffects.Now);
+                break;
+            case CombatRequest.ChannelEnd:
+                PlayerInfernoModes.EndHeld(from,reader.ReadByte());
+                break;
             case CombatRequest.MovementMode:
                 var mode = reader.ReadByte();
                 if (mode > 1)

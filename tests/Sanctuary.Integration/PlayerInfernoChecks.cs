@@ -15,7 +15,7 @@ public static class PlayerInfernoChecks
     {try{Check();Log.Information("player-inferno-check: passed");}catch(Exception e){Log.Error(e,"player-inferno-check: failed");}}));
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.ArcticBlast)&&!SorceressCombat.Implemented(CombatAbility.Inferno),"Prepared channel enabled unresolved learned route");
+        Require(!DruidCombat.Implemented(CombatAbility.ArcticBlast)&&SorceressCombat.Implemented(CombatAbility.Inferno),"Approved fire handler missing or unresolved cold route enabled");
         using var proof=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"player-inferno-channel-source-probe.json")));int compared=0,current=0;
         foreach(var row in proof.RootElement.EnumerateArray())foreach(var model in Enum.GetValues<PlayerInfernoCostModel>())
         {

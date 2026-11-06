@@ -98,7 +98,7 @@ public static class InfernoHeldCandidateChecks
     }
     private static void Check(NetState net,bool reload)
     {
-        Require(!SorceressCombat.Implemented(CombatAbility.Inferno),"Unapproved candidate enabled learned Inferno");
+        Require(SorceressCombat.Implemented(CombatAbility.Inferno),"Approved Inferno handler missing");
         if(!reload)
         {
             var p=Owner();FixtureNetwork.Authenticate(net,p,"inferno-candidate-");Cases(p);

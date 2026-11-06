@@ -671,6 +671,11 @@ CAVEATS["assassin.wakeoffire"] = "Learned right/quick do45 cast now reuses share
 CAVEATS["assassin.dragontail"] = BLOCKERS.pop("assassin.dragontail")
 NATIVE_PARTIAL.add("assassin.dragontail")
 
+# User-approved Inferno input adaptation; Arctic Blast remains separately gated.
+BLOCKERS.pop("sorceress.inferno",None)
+NATIVE_PARTIAL.add("sorceress.inferno")
+CAVEATS["sorceress.inferno"] = "Approved Sanctuary held-input adaptation: six-mana fresh threshold, pinned fractional per-invocation payment, frame12 first flame and two-frame held renewals. Explicit left/right/quick press/aim/release differs from transport heartbeat; release cancels new emissions, resource failure requires a fresh press, and fired captured streams remain independent. Original wounds/mana/flights survive two reloads without replaying held input. Existing fire/cold source controls and client patch-stack/build evidence remain scoped separately. Exact modern D2R chronology, unsupported Slow Missiles damage modifiers, full PvP/owner/world geometry and graphical input remain unverified; no class complete. Final effects/audio and talent/hotkey icons remain identified placeholders; see inferno-approved-input-rule.md and inferno-held-input-checkpoint.md."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

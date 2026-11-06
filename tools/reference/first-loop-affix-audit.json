@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "77a2ae3c05ddf32a05f065a847ddf0afaae7ce9b10afdaf13c23ede3ab643f1c",
-  "ContentAssemblyPath": ".local/class-skills/npc-damage-to-mana/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "c735590c6143a4c8958823ea1afbbe7dc2926e16694ccf834d98dcc84d3134c8",
+  "ContentAssemblyPath": ".local/class-skills/inferno-held-input/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

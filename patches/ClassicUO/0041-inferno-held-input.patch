@@ -1,0 +1,159 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -14,7 +14,7 @@
+ 
+ namespace ClassicUO.Game;
+ 
+-internal static class ClassCombatClient
++internal static partial class ClassCombatClient
+ {
+     private static readonly HashSet<uint> _hostiles = new();
+     private static readonly HashSet<uint> _allies = new();
+@@ -110,6 +110,7 @@
+ 
+     public static void Reset()
+     {
++        _channelSource=-1;
+         ClassStatsClient.Reset();
+         ClassLootClient.Reset();
+         ClassBeltClient.Reset();
+@@ -229,6 +230,7 @@
+         {
+             UIManager.Add(new CombatActionsGump(world));
+         }
++        UpdateChannel(world);
+         UpdateAttackHold(world);
+         UpdateRightHold(world);
+         if (Recovering)
+@@ -361,6 +363,7 @@
+     }
+     public static void Stop(World world)
+     {
++        EndChannel();
+         if (_groundGesture)
+         {
+             _groundCancelled = true;
+@@ -378,6 +381,7 @@
+             || Client.Game.UO.GameCursor.ItemHold.Enabled
+             || ability is not (CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion) && ClassAbilities.CorpseTarget(ability) && SelectedObject.Object is not Item { IsCorpse: true }
+             || ClassAbilities.ItemTarget(ability) && SelectedObject.Object is not Item { IsCorpse: false }) { return false; }
++        if(ability==CombatAbility.Inferno){return BeginChannel(world,slot+2);}
+         if (!ClassBeltClient.TryAim(world, out var x, out var y, out var z)) { return false; }
+         uint target = ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion
+             || ability == CombatAbility.BonePrison && SelectedObject.Object is not Mobile
+@@ -478,12 +482,14 @@
+     }
+     public static bool BeginAttackHold(World world)
+     {
+-        if (!Enabled || !Keyboard.Shift || !UIManager.IsMouseOverWorld || UIManager.IsDragging
++        if (!Enabled || (!Keyboard.Shift&&Left!=CombatAbility.Inferno) || !UIManager.IsMouseOverWorld || UIManager.IsDragging
+             || world.Player.IsDead || world.TargetManager.IsTargeting
+             || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null)
+         {
+             return false;
+         }
++        if(Left==CombatAbility.Inferno)
++        {if(BeginChannel(world,0)){_attackGesture=true;return true;}return false;}
+         Stop(world);
+         _attackHeld = _attackGesture = true;
+         _attackAbility = Left;
+@@ -493,6 +499,7 @@
+     }
+     public static bool FinishAttackHold()
+     {
++        EndChannel(0);
+         bool gesture = _attackGesture;
+         _attackGesture = false;
+         EndAttackHold();
+@@ -619,6 +626,7 @@
+         {
+             return false;
+         }
++        if(Right==CombatAbility.Inferno){BeginChannel(world,1);return true;}
+         EndRightHold();
+         EndAttackHold();
+         if (world.TargetManager.IsTargeting)
+@@ -650,6 +658,7 @@
+     }
+     public static void EndRightHold()
+     {
++        EndChannel(1);
+         if (_rightHeld)
+         {
+             _rightHeld = false;
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -1460,6 +1460,9 @@
+ 
+         internal override void OnKeyUp(SDL.SDL_KeyboardEvent e)
+         {
++            // Release even if modifiers/chat focus changed after key-down.
++            if(((SDL.SDL_Keycode)e.key)>=SDL.SDL_Keycode.SDLK_F1&&((SDL.SDL_Keycode)e.key)<=SDL.SDL_Keycode.SDLK_F12)
++            {ClassCombatClient.EndChannel((int)((SDL.SDL_Keycode)e.key)-(int)SDL.SDL_Keycode.SDLK_F1+2);}
+             if (!_world.InGame)
+             {
+                 return;
+diff --git a/src/ClassicUO.Client/Game/ClassCombatChannelClient.cs b/src/ClassicUO.Client/Game/ClassCombatChannelClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/ClassCombatChannelClient.cs
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.Managers;
++using ClassicUO.Input;
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static partial class ClassCombatClient
++{
++    private static int _channelSource=-1;
++    private static uint _nextChannelUpdate;
++    private static bool BeginChannel(World world,int source)
++    {
++        if(!Enabled||world.Player.IsDead||MovementOnly||Recovering||!Client.Game.IsActive
++            ||!UIManager.IsMouseOverWorld||UIManager.IsDragging||world.TargetManager.IsTargeting
++            ||world.CustomHouseManager!=null||Client.Game.UO.GameCursor.ItemHold.Enabled){return false;}
++        Stop(world);_channelSource=source;
++        if(!SendChannelAim(world,CombatRequest.ChannelStart)){EndChannel();return false;}
++        _nextChannelUpdate=Time.Ticks+CombatProtocol.HoldHeartbeatMs;return true;
++    }
++    public static void EndChannel(int source=-1)
++    {
++        if(_channelSource<0||source>=0&&source!=_channelSource){return;}
++        var writer=new StackDataWriter(12);
++        writer.WriteUInt8(0xBF);writer.WriteUInt16BE(12);writer.WriteUInt16BE(CombatProtocol.SubCommand);
++        writer.WriteUInt8(CombatProtocol.Version);writer.WriteUInt8((byte)CombatRequest.ChannelEnd);
++        writer.WriteUInt32BE(++_sequence);writer.WriteUInt8((byte)_channelSource);
++        NetClient.Socket.Send(writer.BufferWritten);writer.Dispose();_channelSource=-1;
++    }
++    private static void UpdateChannel(World world)
++    {
++        if(_channelSource<0){return;}
++        bool bound=(_channelSource==0?Left:_channelSource==1?Right:ClassSkillBindingsClient.Quick(_channelSource-2))==CombatAbility.Inferno;
++        if(!bound||!Client.Game.IsActive||world.Player.IsDead||MovementOnly||!UIManager.IsMouseOverWorld||UIManager.IsDragging
++            ||world.TargetManager.IsTargeting||world.CustomHouseManager!=null||Client.Game.UO.GameCursor.ItemHold.Enabled
++            ||_channelSource==0&&!Mouse.LButtonPressed||_channelSource==1&&!Mouse.RButtonPressed)
++        {EndChannel();return;}
++        StopMovement(world);
++        if(unchecked((int)(Time.Ticks-_nextChannelUpdate))<0){return;}
++        _nextChannelUpdate=Time.Ticks+CombatProtocol.HoldHeartbeatMs;
++        if(!SendChannelAim(world,CombatRequest.ChannelAim)){EndChannel();}
++    }
++    private static bool SendChannelAim(World world,CombatRequest action)
++    {
++        if(!ClassBeltClient.TryAim(world,out var x,out var y,out var z)){return false;}
++        uint target=SelectedObject.Object is Mobile mobile&&Hostile(mobile)?mobile.Serial:0;
++        var writer=new StackDataWriter(22);
++        writer.WriteUInt8(0xBF);writer.WriteUInt16BE(22);writer.WriteUInt16BE(CombatProtocol.SubCommand);
++        writer.WriteUInt8(CombatProtocol.Version);writer.WriteUInt8((byte)action);writer.WriteUInt32BE(++_sequence);
++        writer.WriteUInt8((byte)_channelSource);writer.WriteUInt8((byte)CombatAbility.Inferno);
++        writer.WriteUInt32BE(target);writer.WriteUInt16BE(x);writer.WriteUInt16BE(y);writer.WriteUInt8((byte)z);
++        NetClient.Socket.Send(writer.BufferWritten);writer.Dispose();return true;
++    }
++}

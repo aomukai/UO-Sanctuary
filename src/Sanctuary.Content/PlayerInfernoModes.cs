@@ -10,12 +10,17 @@ using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record PlayerInfernoModeCast(long Id,uint Owner,int Map,Point3D Origin,uint Weapon,uint Target,
-    Point3D Point,DateTime EpochUtc,PlayerInfernoSequenceState Sequence,CombatAbility Ability);
+    Point3D Point,DateTime EpochUtc,PlayerInfernoSequenceState Sequence,CombatAbility Ability)
+{
+    internal int HeldSource{get;init;}=-1;
+    internal DateTime HoldUntilUtc{get;init;}
+}
 
 // Shared prepared player SQ6/SQ18 controller. Sequence256 follows the checked
 // source rate route; modern client/cadence acceptance remains separate.
-// Calls are explicit accepted intents, not raw
-// client heartbeats. No learned handler is registered. Like other pending
+// Prepared calls remain supplied intents. Inferno alone additionally uses the
+// approved Sanctuary held-input rule; heartbeats renew its transport lease,
+// never invoke resource callbacks. Like other pending
 // player actions, the mode is transient across disconnect/restart; released
 // missiles use their existing independent persistence and ownership policy.
 internal static class PlayerInfernoModes
@@ -34,7 +39,7 @@ internal static class PlayerInfernoModes
     internal static void Interrupt(Mobile owner)
     {
         if(State(owner) is{} cast)
-        {Commit(cast,PlayerInfernoSequence.Cancel(cast.Sequence,cast.Sequence.Frame));}
+        {if(cast.HeldSource>=0){Cancel(owner);}else{Commit(cast,PlayerInfernoSequence.Cancel(cast.Sequence,cast.Sequence.Frame));}}
     }
     internal static void EquipmentChanged(PlayerMobile owner)
     {if(State(owner) is{} cast&&(CombatTiming.Equipped(owner)?.Serial.Value??0)!=cast.Weapon){Interrupt(owner);}}
@@ -86,8 +91,28 @@ internal static class PlayerInfernoModes
         if(!step.Success){return false;}
         Casts.Add(cast.Owner,cast with{Sequence=step.State});return true;
     }
+    internal static bool BeginHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at)
+    {
+        if(source is <0 or >=CombatProtocol.ChannelSources||!BeginPrepared(owner,CombatAbility.Inferno,selected,point,at)){return false;}
+        var cast=State(owner);Casts[cast.Owner]=cast with{HeldSource=source,HoldUntilUtc=at.AddMilliseconds(CombatProtocol.HoldLeaseMs)};
+        owner.Direction=owner.GetDirectionTo(point);return true;
+    }
+    internal static bool RenewHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at)
+    {
+        if(State(owner) is not{HeldSource:>=0} cast||cast.HeldSource!=source||at.Kind!=DateTimeKind.Utc||at<cast.EpochUtc){return false;}
+        // Drain old aim in chronological order; this heartbeat never supplies a
+        // source start callback and cannot revive a channel that has ended.
+        if(!Advance(owner,at)||!Aim(owner,selected,point)){Interrupt(owner);return false;}
+        cast=State(owner);Casts[cast.Owner]=cast with{HoldUntilUtc=at.AddMilliseconds(CombatProtocol.HoldLeaseMs)};
+        owner.Direction=owner.GetDirectionTo(point);return true;
+    }
+    internal static bool EndHeld(PlayerMobile owner,int source)
+    {
+        if(State(owner) is not{HeldSource:>=0} cast||cast.HeldSource!=source){return false;}
+        Cancel(owner);return true;
+    }
     private static bool Current(PlayerMobile owner,PlayerInfernoModeCast cast)
-        =>Eligible(owner,cast.Ability)&&ClassCombat.Existing(owner) is not{PendingAbility:not CombatAbility.None}&&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin
+        =>Eligible(owner,cast.Ability)&&(cast.HeldSource<0||PlayerInfernoInput.Bound(owner,cast.HeldSource))&&ClassCombat.Existing(owner) is not{PendingAbility:not CombatAbility.None}&&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin
             &&(CombatTiming.Equipped(owner)?.Serial.Value??0)==cast.Weapon;
     private static void Commit(PlayerInfernoModeCast cast,PlayerInfernoSequenceState sequence)
     {
@@ -99,7 +124,7 @@ internal static class PlayerInfernoModes
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Player channel clock must be UTC");}
         if(State(owner) is not{} cast){return false;}
-        if(!Connected(owner,cast.Ability)){Cancel(owner);return false;}
+        if(!Connected(owner,cast.Ability)||cast.HeldSource>=0&&at>=cast.HoldUntilUtc){Cancel(owner);return false;}
         if(cast.Sequence.UsedSkill&&!Current(owner,cast))
         {Interrupt(owner);cast=State(owner);if(cast==null){return false;}}
         if(at<cast.EpochUtc){return true;}
@@ -111,7 +136,17 @@ internal static class PlayerInfernoModes
         // phase timestamp. Same-frame intents precede only undispatched events;
         // this is a per-owner adapter,not the full game's cross-owner queue.
         for(int phase=sequence.Frame;phase<=frame;phase++)
-        {sequence=PlayerInfernoSequence.Advance(sequence,phase,rank,Services(owner,cast,rank,cast.EpochUtc.AddMilliseconds(phase*40L)));}
+        {
+            var services=Services(owner,cast,rank,cast.EpochUtc.AddMilliseconds(phase*40L));
+            if(cast.HeldSource>=0&&sequence.Animation.Events.Any(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Frame==phase&&e.Kind is 1 or 2))
+            {
+                var renewed=PlayerInfernoSequence.StartCallback(sequence,phase,rank,services);
+                if(!renewed.Success){Cancel(owner);return false;}
+                sequence=renewed.State;
+            }
+            sequence=PlayerInfernoSequence.Advance(sequence,phase,rank,services);
+            if(cast.HeldSource>=0&&!sequence.UsedSkill){Cancel(owner);return false;}
+        }
         Commit(cast,sequence);return true;
     }
     private static bool BeforeIntent(PlayerMobile owner,DateTime at,out PlayerInfernoModeCast cast,out int frame)
