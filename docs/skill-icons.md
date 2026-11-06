@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie transformed timing (2026-11-07 JST).** No learned binding or icon slot is added. Talent-tree and right/quick hotkey icons remain pending separately from the native body and future movement/contact effects.
+
 **Valkyrie inherited defense (2026-11-07 JST).** The saved defensive profile adds no player binding or icon. Valkyrie talent/right/quick artwork remains separately pending; inherited pet passives do not create owner hotkeys.
 
 **Valkyrie damage allocation (2026-11-07 JST).** Packet and inherited passive-value work adds no learned binding or icon. Valkyrie talent/right/quick artwork remains pending independently; item-granted skill icons are not implied by retained item layers.

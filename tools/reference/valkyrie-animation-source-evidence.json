@@ -1,0 +1,131 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 1368,
+  "originalLoadouts": 57,
+  "parsedAnimationRecords": 3661,
+  "records": [
+    {
+      "Code": "VKDDHTH",
+      "Frames": 1,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "VKGHHTH",
+      "Frames": 1,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "VKDTHTH",
+      "Frames": 25,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "VKRNHTH",
+      "Frames": 1,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "VKWLHTH",
+      "Frames": 1,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "VKNUHTH",
+      "Frames": 1,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AMA12HT",
+      "Frames": 18,
+      "Speed": 256,
+      "Events": [
+        [
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "VKA1HTH",
+      "Frames": 2,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AMRN2HT",
+      "Frames": 8,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AMWL2HT",
+      "Frames": 8,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AMNU2HT",
+      "Frames": 8,
+      "Speed": 128,
+      "Events": []
+    }
+  ],
+  "completeRoutineHashes": {
+    "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "UNITS_GetAnimStatBasePercentage": "10423c95fc725502dd335dae7a1d18a56db30c784d9ad7b3f48fb3ce53502162",
+    "UNITS_GetBaseAnimSpeed": "a889c63e03e882cf43fad46314a9cbb5670a5ec065a0ec581dfacb9d3cac5484",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "summonRoutineHash": "4f43423c5f54336257bc74cc20776877e27223b1e9a10a9880068a742b4f9af0",
+  "inputs": {
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/charstats.json": "15e0ec2a7812d763b15c4cd759fcb682c1cdbe1268aa1fadd4e8e6d4708cf564",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    ".local/class-skills/valkyrie-numeric-source/cases.json": "84d4b88684e46efa908b6e6a11aea45f7cfbeaf8071f9920d96c2857749312ef",
+    ".local/class-skills/valkyrie-resources-source/cases.json": "7f03a22f52d7afee1a7c50144f8bc91ae05d6ebc93f154c777c3c0564e98ec6f"
+  },
+  "established": [
+    "Pinned state93 transforms Valkyrie to player graphics/class Amazon0. Full older converter retains actual unit kind1 while converting animation lookup;monsterA1mode4 becomes playerA1mode7.",
+    "All57original loadouts hold two-handed 2HTspears. AMA12HT has18frames/marker1at11/speed256. Full older frame-bonus getter returns2,not0. Bare VKA1HTH has2frames and no marker;it is not used as an attack clock.",
+    "Full older run/walk rate path uses converted player bases:Amazon walk velocity6,walk animation213/run101. The supplied velocity-percent input must already include run-state and any external stat lists;no initializer or live run-state ownership is inferred.",
+    "Full original graph values from the already-qualified independent source reader feed IAS93/attackrate68/velocity67/fastermove96. All1368contexts compare conversion,frame bonus,attack/walk/run speed,FP8velocity and complete initial attack event plan."
+  ],
+  "services": [
+    "Original weapon identity/type and current tables are validated;composite class is2HT. Source inventory merge,non-dual-wield,no melee-only state,valid transformed state93,charstats and event queue insertion are explicit services.",
+    "The complete older routines are supplementary evidence. Current executable transformation/rate/scheduler parity,initializer bases,external aura/stat-list collection,world controller/contact and learned cast remain separate. No guessed source rate bases are persisted."
+  ],
+  "artifacts": {
+    ".local/class-skills/valkyrie-animation-source/source.cpp": "c77c792fbcb6ee8bf203cb81f769d61a7204b7e5f9cd9874bdbea471f482d903",
+    ".local/class-skills/valkyrie-animation-source/probe": "4bb81954bc21a6f9956b41ae2bc18e5b053c73542cfb758173f7dfc4b739405d",
+    ".local/class-skills/valkyrie-animation-source/input.txt": "9c6c49364b5e362386f35893824042ddce11103a1c821c75b506654284b548b4",
+    ".local/class-skills/valkyrie-animation-source/output.json": "fab5af1e7b19dccf85515e304100acaf0fcbea987f30b232df8666fec639290c",
+    ".local/class-skills/valkyrie-animation-source/cases.json": "83e8501adea8b9a10649db22689e2ff76e1bd50f281cb6c9b40faf3aa66191b1",
+    ".local/class-skills/valkyrie-animation-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/valkyrie-animation-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/Sanctuary/Balance/valkyrie-animation.json": "eb207b5775eeabeab8c68b745affa9548849ce2e98a388a40951d26a9e92c120",
+    "tools/probe_valkyrie_animation.py": "b439c50b43c000976d069461d9b611408dea7794137a393827fe00a5d45bed0f"
+  }
+}

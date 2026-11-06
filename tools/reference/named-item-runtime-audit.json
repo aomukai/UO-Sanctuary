@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7ec62ef6f8f1391926651427223b3c95e648e591b46cd2b4097ce4a7dd5d816c",
+  "ContentAssemblySha256": "3f6c4cdf7b68660eea46f4215029cbfcc9c84bd0e10675a4a57ea41db29a1005",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -156,6 +156,7 @@
     "data/Sanctuary/Balance/uo-creatures.json": "3bda865653f577f4718f636bcd7e98de413d8324daf342608460f1d5f53ae23e",
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
+    "data/Sanctuary/Balance/valkyrie-animation.json": "eb207b5775eeabeab8c68b745affa9548849ce2e98a388a40951d26a9e92c120",
     "data/Sanctuary/Balance/warlock-grimoire-automatic.json": "febb9a4cc6475cf0dfeacc896afd913d856afb147d2f7a9a92f5d001391e4606",
     "data/Sanctuary/Balance/warlock-grimoire-bases.json": "8abbca53228d4d17f79fb50ebc55f0be441187cd508d8b2df3a5faf91adef1bd",
     "data/Sanctuary/Balance/warlock-ground-launch.json": "0f4252e7a0e2155ed85b3a3cdc376383dbd619c533024381bf5d6b9ababdea51",
@@ -1089,6 +1090,7 @@
     "src/Sanctuary.Content/ValkyrieBirth.cs": "1a136175f624821660032cfcf4046e30b478aa2d99e58c7746548ba90b4cb7c5",
     "src/Sanctuary.Content/ValkyrieCreation.cs": "9f189ae28d7803ce88d9d9734902b7b537d4d61d81f995be3b618f76a493f31d",
     "src/Sanctuary.Content/ValkyrieEquipment.cs": "49f2642564a74eb0543f2f1bfcc0b4de47158c5751b2d8226afeef148a901780",
+    "src/Sanctuary.Content/ValkyrieEquipmentAnimation.cs": "86415b22874be92c33e0f45d2a611127d459452d207552a223eba095e8c03f8b",
     "src/Sanctuary.Content/ValkyrieEquipmentDamage.cs": "af054aa0072476c720744d959e63685e2811dc3c9132af2b793071e375187311",
     "src/Sanctuary.Content/ValkyrieEquipmentDefense.cs": "d489dfe44b35f47225cebb19c6daa43065b3cb44790e8318e7ca6c71a71d138b",
     "src/Sanctuary.Content/ValkyrieEquipmentResources.cs": "9bee02ea5535b53643024a83b03e96be773f1572f531a077195346ea0cd4cff2",
@@ -1111,7 +1113,7 @@
     "src/Sanctuary.Content/WarlockHands.cs": "9b749933c348babd9230ff283da141657829d675935c36ee61039700e15c393c",
     "src/Sanctuary.Content/WarlockLevitation.cs": "00c9fe16b6b77efea4c72543f0084212bef705c528acb287fd64466e13a7dc56",
     "src/Sanctuary.Content/WarlockTaintedBody.cs": "463f64e8ca671dc9efe27ff50e4349a523317f7e125c6ce1548b29b2eb7f70bc",
-    "src/Sanctuary.Content/WeaponAnimationClasses.cs": "a0f610c1c7500cf0584f0530431906d98138f38bff1a93e060efdc5345e546dc",
+    "src/Sanctuary.Content/WeaponAnimationClasses.cs": "b32d464b8a149c7af610df5f6e0d706ddb2c8ed883a636d646463245be371058",
     "src/Sanctuary.Content/WeaponBlocks.cs": "0977eb21163d76447a2ff238304aca34a8d420f13080609f55ff632edd650fd5",
     "src/Sanctuary.Content/WeaponHands.cs": "e6e65336b78f86c7b10dc574ed39decc1da09c29f3b4006a976550676ac8641b",
     "src/Sanctuary.Content/WeaponHexes.cs": "352a09cb37f79168e107282785fddcbbdf78607f10b03423ba41b68f9a2b7fb1",

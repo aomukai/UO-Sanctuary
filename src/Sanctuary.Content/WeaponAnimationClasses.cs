@@ -17,6 +17,8 @@ public static class WeaponAnimationClasses
         _rows.Clear();
         foreach(var row in BalanceCatalog.Read<WeaponAnimationClass>("weapon-animation-classes")){_rows.Add(row.Code,row);}
     }
+    internal static string For(string code,bool twoHanded)=>_rows.TryGetValue(code,out var row)
+        ?twoHanded?row.TwoHanded:row.OneHanded:null;
     internal static string Equipped(PlayerMobile owner)
     {
         var weapon=CombatTiming.Equipped(owner);

@@ -1,0 +1,39 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "State": 93,
+  "GraphicsType": 2,
+  "GraphicsClass": 0,
+  "WalkVelocity": 6,
+  "RunVelocity": 9,
+  "Rows": [
+    {
+      "Code": "AMA12HT",
+      "Frames": 18,
+      "Speed": 256,
+      "Events": [
+        [
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AMWL2HT",
+      "Frames": 8,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AMRN2HT",
+      "Frames": 8,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AMNU2HT",
+      "Frames": 8,
+      "Speed": 128,
+      "Events": []
+    }
+  ]
+}
