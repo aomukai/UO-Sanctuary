@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie hand/RNG integration (2026-11-07 JST).** Original hand identity and persisted attack RNG add no learned binding or icon. Valkyrie talent/right/quick artwork remains separately pending; item-granted skills are not enabled by this component.
+
 **Valkyrie resource integration (2026-11-07 JST).** No talent or hotkey binding/icon is added by the prepared resource recipient. Final Valkyrie talent/right/quick artwork remains independently pending; resource delivery does not enable learned casting or item-granted player skill bindings.
 
 **Valkyrie numeric equipment (2026-11-07 JST).** The prepared numeric profile adds no talent-tree or hotkey icon. Valkyrie's final talent/right/quick icons remain pending with existing placeholders; generated item skill/proc fields do not create additional player bindings.

@@ -11,7 +11,8 @@ namespace Sanctuary;
 
 internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieEquipmentState Equipment=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentStatProfile=null)
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentStatProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieWeaponBinding EquipmentWeapons=null)
 {public string Profile{get;init;}="prepared-valkyrie-body-v1";}
 
 // Saved supplied-birth backend with optional numeric equipment recipients.
@@ -77,6 +78,8 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
             }
             if(state.EquipmentStatProfile!=null&&(state.EquipmentStatProfile!=ValkyrieEquipmentStats.Profile||state.Equipment==null))
             {throw new InvalidDataException("Invalid Valkyrie numeric equipment admission");}
+            if(state.EquipmentWeapons is{} weapons)
+            {ValkyrieEquipmentWeapons.Validate(weapons);if(state.EquipmentStatProfile!=ValkyrieEquipmentStats.Profile){throw new InvalidDataException("Valkyrie hand binding requires its original numeric loadout");}}
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}
         }
@@ -124,5 +127,6 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
     {if(Prepared is{} state){RestorePrepared(state with{Difficulty=SummonDifficulty});}GeneratedNpcLiveResources.RefreshValkyrieBasis(this);base.RefreshDifficulty();ApplyNumbers();}
     internal void AdvanceRecovery(DateTime at,bool actions)
     {if(Prepared is{} state&&PermanentSummonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions)is{} next){RestorePrepared(Prepared with{NextRecoveryUtc=next});}}
+    public override void OnAfterDelete(){NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;_equipmentNumbers=null;}
 }
