@@ -69,15 +69,15 @@ public static class PaladinVengeance
         internal override bool HitSuccessful(int percent,bool missile)
         {
             if(missile){throw new InvalidOperationException("Vengeance is melee");}
-            bool hit=ClassStats.CheckHit(owner,target,percent,HitRoll,notifyMelee:false)==true;
+            bool hit=ClassStats.CheckHit(owner,target,percent,HitRoll,notifyMelee:false,npcDefense:false)==true;
             if(hit){WeaponStartEffects.SuccessfulHitRoll(owner,target);}return hit;
         }
         internal override int BlockOrDodge(bool avoid,bool block)
         {
             if(native){return 0;} // Existing unclassified UO actor policy;no source shield component is invented.
-            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out _))
+            if(!NpcBlockOrDodge.Try(target,avoid,block,out int flags,out _))
             {throw new NotSupportedException("Vengeance recipient shield rule is unavailable");}
-            return blocked?1:0;
+            return flags;
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }

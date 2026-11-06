@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie inherited defense (2026-11-07 JST).** The saved defensive profile adds no player binding or icon. Valkyrie talent/right/quick artwork remains separately pending; inherited pet passives do not create owner hotkeys.
+
 **Valkyrie damage allocation (2026-11-07 JST).** Packet and inherited passive-value work adds no learned binding or icon. Valkyrie talent/right/quick artwork remains pending independently; item-granted skill icons are not implied by retained item layers.
 
 **Valkyrie hand/RNG integration (2026-11-07 JST).** Original hand identity and persisted attack RNG add no learned binding or icon. Valkyrie talent/right/quick artwork remains separately pending; item-granted skills are not enabled by this component.

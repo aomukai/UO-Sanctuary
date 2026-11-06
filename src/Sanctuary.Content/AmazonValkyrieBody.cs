@@ -12,7 +12,8 @@ namespace Sanctuary;
 internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieEquipmentState Equipment=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentStatProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieWeaponBinding EquipmentWeapons=null)
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieWeaponBinding EquipmentWeapons=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentDefenseProfile=null)
 {public string Profile{get;init;}="prepared-valkyrie-body-v1";}
 
 // Saved supplied-birth backend with optional numeric equipment recipients.
@@ -80,6 +81,8 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
             {throw new InvalidDataException("Invalid Valkyrie numeric equipment admission");}
             if(state.EquipmentWeapons is{} weapons)
             {ValkyrieEquipmentWeapons.Validate(weapons);if(state.EquipmentStatProfile!=ValkyrieEquipmentStats.Profile){throw new InvalidDataException("Valkyrie hand binding requires its original numeric loadout");}}
+            if(state.EquipmentDefenseProfile!=null&&(state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile||state.EquipmentWeapons==null))
+            {throw new InvalidDataException("Invalid Valkyrie inherited defense admission");}
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}
         }

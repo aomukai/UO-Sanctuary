@@ -45,15 +45,15 @@ internal static class PoisonDaggerCombat
         internal override bool HitSuccessful(int percent,bool missile)
         {
             if(missile){throw new NotSupportedException("Poison Dagger is not a missile attack");}
-            bool hit=ClassStats.CheckHit(owner,target,percent,PoisonDaggerPackets.HitRoll,projectile:false)
+            bool hit=ClassStats.CheckHit(owner,target,percent,PoisonDaggerPackets.HitRoll,projectile:false,npcDefense:false)
                 ??throw new NotSupportedException("Missing player attack supplier");
             if(hit){WeaponStartEffects.SuccessfulHitRoll(owner,target);}return hit;
         }
         internal override int BlockOrDodge(bool avoid,bool block)
         {
-            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out BlockAnimation))
+            if(!NpcBlockOrDodge.Try(target,avoid,block,out int flags,out BlockAnimation))
             {throw new NotSupportedException("Poison Dagger recipient shield rule is unavailable");}
-            return blocked?1:0;
+            return flags;
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }

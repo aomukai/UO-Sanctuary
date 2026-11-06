@@ -42,5 +42,6 @@ public static class ClassAvoidance
     internal static bool Missile(Mobile owner,string missile)=>Missile(owner,
         NecromancerSummons.Source(missile,"GetHit")!=0 || NecromancerSummons.Source(missile,"KnockBack")!=0);
     internal static bool Missile(Mobile owner,bool reaction=false)=>owner is PlayerMobile player
-        && (WeaponBlocks.Attempt(player,Core.TickCount,reaction) || AmazonAvoidance.Missile(player));
+        ?WeaponBlocks.Attempt(player,Core.TickCount,reaction) || AmazonAvoidance.Missile(player)
+        :ValkyrieEquipmentDefense.Active(owner)&&ValkyrieEquipmentDefense.World((AmazonValkyrieBody)owner,true,false)!=0;
 }

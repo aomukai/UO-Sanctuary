@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "176153e5775fccd69ab5c83b80914be0c07bad7fe17181cb0d6830ce573e89c9",
-  "ContentAssemblyPath": ".local/class-skills/valkyrie-damage/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "7ec62ef6f8f1391926651427223b3c95e648e591b46cd2b4097ce4a7dd5d816c",
+  "ContentAssemblyPath": ".local/class-skills/valkyrie-defense/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -12,7 +12,7 @@
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "ba54ba65566a8444f2ddeaa8607ce6a2edb79bc5e5fef2c3219833febeab4634",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
-    "src/Sanctuary.Content/ClassStats.cs": "9322e3021f5d47587c5212fecc1f95f38e39fb5ff01dce0411d2621b1fb6da5f",
+    "src/Sanctuary.Content/ClassStats.cs": "c8f049fe99736c9ad8956e22a8faef6ddc7a54673c18fe0433d578a3bc7eb9ff",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "20a0fcbf103ae0f75c01efd8e1ceb2d1f1e252476258e125da09b9bcf477728c",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",

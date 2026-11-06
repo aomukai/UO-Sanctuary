@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 16384,
+  "completeRoutineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "SUNITDMG_GetWeaponBlock": "ad989d48d0fdca435f83ca8dd2b1e27b7ddb7c1c725f52a9fb8e535d7c68e9dd",
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06"
+  },
+  "scope": "Three complete older shield/dodge/weapon-block bodies plus four complete seed/item RNG functions,with compiler-only i64literal normalization. Supplied kind/mode,block rate,stat array,13slot inventory/hand-type and composite services;actual NPC world mode and native reaction are separate.",
+  "artifacts": {
+    ".local/class-skills/source-avoidance-source/source.cpp": "7cb58de11946b2129504cfff2b8ceef886d4141aa01aee545af0fbf83d0c58ae",
+    ".local/class-skills/source-avoidance-source/probe": "13f527c9d8bfb148444cac57a3b85273a4f83495442cb0595dbd8e9072c57d5f",
+    ".local/class-skills/source-avoidance-source/input.txt": "03343f75c3dec930c0a704f2a047d3fd4c512625f479c8c3ecb9a9f7991a90fd",
+    ".local/class-skills/source-avoidance-source/output.json": "ac112c92da1c5fff587d0eb2ef6af51dc53d5e4e877f44746bc4739ccb177a28",
+    ".local/class-skills/source-avoidance-source/cases.json": "410b739d595143035d811e8333f50761a1db25bb2cb35647bad5294eff2f0595",
+    ".local/class-skills/source-avoidance-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/source-avoidance-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_source_avoidance.py": "38e62752aefe11b9eb57a7b8cafa3977492bd36efbfc50766be624bd36c01baa"
+  }
+}

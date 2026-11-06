@@ -158,8 +158,9 @@ public static class ClassStats
     public static bool? CheckHit(Mobile attacker, Mobile defender)=>CheckHit(attacker,defender,0,projectile:
         attacker is PlayerMobile formed&&DruidFormAttacks.Active(formed)?false:
         attacker.Weapon is BaseRanged || attacker is PlayerMobile player && CombatTiming.Weapon(CombatTiming.Equipped(player)).Family==AttackFamily.Throw);
-    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false,bool notifyMelee=true,bool guaranteed=false)
+    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false,bool notifyMelee=true,bool guaranteed=false,bool npcDefense=true)
     {
+        if(ValkyrieEquipmentDefense.Active(defender)){ValkyrieEquipmentDefense.Require((AmazonValkyrieBody)defender);}
         if(!projectile && notifyMelee){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
@@ -184,6 +185,8 @@ public static class ClassStats
             if (!hit) { HitRecovery.Block((PlayerMobile)defender, Core.TickCount); }
         }
         if(hit && classDefense && ClassAvoidance.Weapon((PlayerMobile)defender,projectile,Core.TickCount)){hit=false;}
+        if(hit&&npcDefense&&ValkyrieEquipmentDefense.Active(defender))
+        {hit=ValkyrieEquipmentDefense.World((AmazonValkyrieBody)defender,projectile,true)==0;}
         return hit;
     }
     public static int DamageBonus(PlayerMobile player, BaseWeapon weapon)

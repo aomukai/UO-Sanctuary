@@ -27,14 +27,14 @@ internal static class UnarmedSummonContact
         internal override bool HitSuccessful(int percent,bool missile)
         {
             if(missile){throw new NotSupportedException("Unarmed summon A1 is not a missile");}
-            return ClassStats.CheckHit(body,target,percent,()=>NpcEquipmentRandom.Limited(body,100)/100.0,notifyMelee:false)
+            return ClassStats.CheckHit(body,target,percent,()=>NpcEquipmentRandom.Limited(body,100)/100.0,notifyMelee:false,npcDefense:false)
                 ??throw new NotSupportedException("Missing unarmed summon attack supplier");
         }
         internal override int BlockOrDodge(bool avoid,bool block)
         {
-            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out _))
+            if(!NpcBlockOrDodge.Try(target,avoid,block,out int flags,out _))
             {throw new NotSupportedException("Recipient shield rule is not mapped");}
-            return blocked?1:0;
+            return flags;
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }

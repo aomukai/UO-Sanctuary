@@ -36,7 +36,7 @@ public static class ValkyrieDamageChecks
         var d=SkillMechanics.For(CombatAbility.CriticalStrike);
         Require(new SkillValues(d,_=>2,_=>0,99).Eval("passivecalc1")==25&&new SkillValues(d,_=>12,_=>0,99).Eval("passivecalc1")==59,"Current user Critical Strike2/12 observations differ");
     }
-    private static AmazonValkyrieBody Body(PlayerMobile p,JsonElement c)
+    internal static AmazonValkyrieBody Body(PlayerMobile p,JsonElement c)
     {
         int rank=c.GetProperty("Rank").GetInt32();var difficulty=(MonsterDifficulty)c.GetProperty("Difficulty").GetInt32();var b=new AmazonValkyrieBody();
         var birth=ValkyrieBirthNumbers.Capture(p,400*256)with{Rank=rank,Critical=c.GetProperty("Critical").GetInt32(),Dodge=1,Avoid=3,Evade=20};

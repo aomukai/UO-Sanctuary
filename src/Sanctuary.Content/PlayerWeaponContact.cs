@@ -43,15 +43,15 @@ internal static class PlayerWeaponContact
         internal override bool HitSuccessful(int percent,bool missile)
         {
             if(missile){throw new InvalidOperationException("Ordinary player contact is melee");}
-            bool hit=ClassStats.CheckHit(source,target,percent,hitRoll,notifyMelee:false)==true;
+            bool hit=ClassStats.CheckHit(source,target,percent,hitRoll,notifyMelee:false,npcDefense:false)==true;
             if(hit){WeaponStartEffects.SuccessfulHitRoll(source,target);}return hit;
         }
         internal override int BlockOrDodge(bool avoid,bool block)
         {
             if(native){return 0;} // No invented D2 shield for an unclassified UO actor.
-            if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool blocked,out _))
+            if(!NpcBlockOrDodge.Try(target,avoid,block,out int flags,out _))
             {throw new NotSupportedException("Recipient shield rule is unavailable for player weapon contact.");}
-            return blocked?1:0;
+            return flags;
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }
