@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "ownedBases": 692,
+  "cases": 29240,
+  "completeRoutineHashes": {
+    "ITEMMODS_PropertyFunc14": "8ba26206995ca752ca3840a779c73b989c305390a28f8f7ae7e82fb9883f5fee",
+    "ITEMS_GetDimensions": "553bad39bdabfa72c96585c7e089223342424ba163b7cfafa97276cc45d38b25",
+    "ITEMS_GetMaxSockets": "ece6e41ad7082de338b9b8f316dd8bca386b84b702449523faa32b3afa6d68f1"
+  },
+  "inputs": {
+    "tools/reference/item-property-creation-source-evidence.json": "56d5d8a1a05f4e28e9c7dbcd2c4f258a41f4604be3cbf5e9ff50474bd4b60ba2",
+    ".local/class-skills/item-property-creation-source/source.cpp": "a6b84963c080b73b99e78c967b16f1b927b907e928d239506e9a1c3cc8abea92",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "tools/reference/d2r-named-equipment/json/armor.json": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "tools/reference/d2r-named-equipment/json/misc.json": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072",
+    "tools/reference/d2r-named-equipment/json/itemtypes.json": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "data/Sanctuary/Balance/item-finishing-catalogue.json": "ad7cdf21665a66aa6340540c8e8451df9decc1a3e7ed8aaf411d876c1980fff9"
+  },
+  "services": [
+    "Inherited complete property dispatcher/stat writers/source LCG;declared current-table record lookup,item flag/stat setters and valid property table. Current dimensions and all level caps independently match owned3.3.93847 tables."
+  ],
+  "scope": "Complete property14,dimension and max-socket helpers;all692current bases across level boundaries and fixed rolls,dispatcher/direct agreement,source first-result/range/fallback/flag/stat/RNG traces and invalid-item guards.",
+  "remaining": [
+    "Saved projection never rerolls or mutates the original item. Gem/rune contents,fresh socket materialization,invalid legacy counts and current executable parity remain separate."
+  ],
+  "artifacts": {
+    ".local/class-skills/saved-socket-property-source/source.cpp": "30e2dd5a58a1f03c81c6b4f45c3769b8f0bfe4f4b2875317b4a1e1aa4eb63290",
+    ".local/class-skills/saved-socket-property-source/probe": "7a0790252233a71c6211c3c5a6c797644574173a1ebf518f89b091e71601a806",
+    ".local/class-skills/saved-socket-property-source/compiler.log": "c44b52dca8cfdc71a1ff40fc6c5fa1da0f063224d9c2bae89d3bd3b019b4fe3d",
+    ".local/class-skills/saved-socket-property-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/saved-socket-property-source/cases.json": "68e19dad9ed08bcc416f7c2f1416e01bec0c93467fb3a7440bf69e1bbe315562",
+    "tools/probe_saved_socket_property.py": "41de9ca6018741f2799da872e4ade70fd10c8ea0d0f13e0316757c20033d3934"
+  }
+}

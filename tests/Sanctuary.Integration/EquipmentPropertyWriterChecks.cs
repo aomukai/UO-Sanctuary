@@ -66,10 +66,10 @@ public static class EquipmentPropertyWriterChecks
         foreach(var p in new[]{(21,b.Minimum),(22,b.Maximum),(23,b.SecondaryMinimum),(24,b.SecondaryMaximum),(159,b.ThrowMinimum),(160,b.ThrowMaximum),(31,weapon?0:state.Defense)})
         {values.SetBase(original.Stats,EquipmentStatKey.Pack(p.Item1),p.Item2);}
         var omissions=EquipmentRawProperties.Project(item,original,values,b,weapon,!weapon,false).Select(o=>o.Code+":"+o.Reason).ToArray();
-        Require(omissions.All(o=>o.StartsWith("sock:",StringComparison.Ordinal)),"Unexpected native fixture property omission");
+        Require(omissions.Length==0,"Unexpected native fixture property omission");
         if(!weapon)
         {
-            Require(omissions.Length==1&&EquipmentStatValues.Base(original.Stats,EquipmentStatKey.Pack(31),false)==b.MaximumArmor+1,"Armor reset or explicit socket omission missing");
+            Require(omissions.Length==0&&EquipmentStatValues.Base(original.Stats,EquipmentStatKey.Pack(31),false)==b.MaximumArmor+1,"Armor reset or saved socket projection differs");
             Require(original.Stats.Last is{IsExtended:false} propertyList&&EquipmentStatValues.Raw(propertyList.BaseValues,EquipmentStatKey.Pack(216))==2560,"Raw per-level life coefficient was flattened or lost");
         }
         else{Require(omissions.Length==0,"Plain sword acquired omissions");}
@@ -102,6 +102,6 @@ public static class EquipmentPropertyWriterChecks
             Require(pet is{Alive:true,Deleted:false}&&pet.ControlMaster?.Serial.Value==saved.Owner&&item is{Deleted:false},"Saved raw original missing");
             var current=Exercise(pet,item);Require(current with{Omissions=saved.Omissions}==saved&&current.Omissions.SequenceEqual(saved.Omissions),"Saved raw original/roll/projection changed");pet.AIObject?.AITimer.Stop();
         }
-        Log.Information("Item property writers:saved original armor/sword retain identity,private ownership,complete rolls and raw numeric projection through actual reload;socket writer remains explicitly omitted");
+        Log.Information("Item property writers:saved original armor/sword retain identity,private ownership,complete rolls and raw numeric projection through actual reload;empty sockets remain captured on the original base stat");
     }
 }

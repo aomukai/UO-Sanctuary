@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC on-kill healing overlay (2026-11-06 JST).** Stat86/139 callbacks reuse identified UO0x376A / hue0x21 as the placeholder for source overlay151 on the healed pet. Final shared healing presentation remains pending. This adds no final artwork or separate talent/hotkey icon; see [checkpoint](saved-npc-item-recovery-checkpoint.md).
+
 **Approved Inferno integration (2026-11-06 JST).** Inferno uses the existing identified 0x36D4 / hue 0x489 stream placeholder. Final cast/channel, flame/contact/expiry presentation and audio still need assets; held input adds no final artwork. See [checkpoint](inferno-held-input-checkpoint.md).
 
 **Howltusk / player-only mana (2026-11-06):** NPC callback13 emits no player mana-recovery overlay 152. Existing fear/knockback/summon placeholders remain; no new effect/audio identity is added. Ring of Fire creates no effect producer during its [preflight](warlock-ring-of-fire-preflight.md); final cast/ring/contact/explosion/expiry/audio remain pending.

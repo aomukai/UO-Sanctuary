@@ -676,6 +676,9 @@ BLOCKERS.pop("sorceress.inferno",None)
 NATIVE_PARTIAL.add("sorceress.inferno")
 CAVEATS["sorceress.inferno"] = "Approved Sanctuary held-input adaptation: six-mana fresh threshold, pinned fractional per-invocation payment, frame12 first flame and two-frame held renewals. Explicit left/right/quick press/aim/release differs from transport heartbeat; release cancels new emissions, resource failure requires a fresh press, and fired captured streams remain independent. Original wounds/mana/flights survive two reloads without replaying held input. Existing fire/cold source controls and client patch-stack/build evidence remain scoped separately. Exact modern D2R chronology, unsupported Slow Missiles damage modifiers, full PvP/owner/world geometry and graphical input remain unverified; no class complete. Final effects/audio and talent/hotkey icons remain identified placeholders; see inferno-approved-input-rule.md and inferno-held-input-checkpoint.md."
 
+for _talent in ("necromancer.irongolem","necromancer.revive"):
+    CAVEATS[_talent] += " Original saved class/element-skill layers and empty socket base194 now retain the whole item without rerolling. Qualified ordinary melee kills deliver life-after-kill86/28 and demon-life139/18 to the original NPC; mana-after-kill138/17 is player-only, with no owner forwarding. Nine original wounded actors,gear,numeric graphs,resources and RNG retain across two reloads; source29240socket/1728kill controls and shared property/birth regressions are recorded in saved-npc-item-recovery-checkpoint.md. Socket contents,invalid saved socket counts,other specialized properties/producers and full current-engine/class acceptance remain separate."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

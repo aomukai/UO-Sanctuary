@@ -62,7 +62,7 @@ public static class IronGolemOrderedContactChecks
     private static void Originals()
     {
         int cases=0;
-        foreach(string name in new string[]{null,"Battlebranch","Lance of Yaggai","Rakescar","Gleamscythe","Shaftstop"})
+        foreach(string name in new string[]{null,"Battlebranch","Lance of Yaggai","Rakescar","Gleamscythe","Shaftstop","Hellplague"})
         {
             var owner=Owner();var original=Original(owner,name);var body=IronGolemWorld.Create(owner,original,original.Location,TimedEffects.Now.AddHours(1),1);var target=Target(owner,body);
             try
@@ -86,7 +86,7 @@ public static class IronGolemOrderedContactChecks
             }
             finally{Clean(owner,target);}
         }
-        Require(cases==6,"Incomplete live original controls");
+        Require(cases==7,"Incomplete live original controls");
     }
     private static void Retaliation()
     {
@@ -148,7 +148,7 @@ public static class IronGolemOrderedContactChecks
         // Baranar's current cold property has no explicit parameter and its
         // independent fallback duration was never stored in NamedPropertyRoll.
         // Keep that original untouched; do not invent a duration or reroll it.
-        foreach(var item in new[]{("Baranar's Star","independent zero-parameter range fallback"),("Hellplague","fireskill")})
+        foreach(var item in new[]{("Baranar's Star","independent zero-parameter range fallback"),("Cutthroat1","skilltab")})
         {
             var birthOwner=Owner();var unsupported=Original(birthOwner,item.Item1);
             try
@@ -165,6 +165,6 @@ public static class IronGolemOrderedContactChecks
     private static void Check()
     {
         Originals();Retaliation();Refusals();
-        Log.Information("Ordered Iron contact:6real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;2pre-roll capability/2unrepresented birth refusals,shared Iron Maiden reflection and dormant Blacktongue PMH contact; original-item Crushing Blow is covered by its positive shared-consumer fixture pass;learned casting checked separately");
+        Log.Information("Ordered Iron contact:7real original packets/once-only HP-native notifications/cold-poison/free/offensive streams;actual HP-before-lethal retaliation-before-deferred recipient death with removed-pet owner XP;2pre-roll capability/2unrepresented birth refusals,shared Iron Maiden reflection and dormant Blacktongue PMH contact; original-item Crushing Blow is covered by its positive shared-consumer fixture pass;learned casting checked separately");
     }
 }

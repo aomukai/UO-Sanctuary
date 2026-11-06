@@ -94,15 +94,7 @@ internal sealed class CurrentItemFinishing:ItemFinishingServices
     internal override bool Quest=>Facts.Base.Quest;internal override uint Flags1=>Parameters.Flags1;internal override uint Flags2=>Parameters.Flags2;
     internal override bool Socketable=>NpcItemAffixes.Pool.Basis(Parameters.Code).SourceFields.TryGetProperty("hasinv",out var h)&&h.GetInt32()!=0;
     internal override bool Stackable=>Facts.Stackable;
-    internal override uint MaxSockets
-    {
-        get
-        {
-            int cap=Parameters.Level>40?Meta.MaxSockets40:Parameters.Level>25?Meta.MaxSockets25:Meta.MaxSockets1;
-            var raw=NpcItemAffixes.Pool.Basis(Parameters.Code).SourceFields;int gems=raw.TryGetProperty("gemsockets",out var g)?g.GetInt32():0;
-            return(uint)Math.Min(cap,gems);
-        }
-    }
+    internal override uint MaxSockets=>(uint)EquipmentSocketProperty.Geometry(Parameters.Code,Parameters.Level).Maximum;
     internal override int Difficulty=>Parameters.Difficulty;internal override uint StartSeed=>Parameters.StartSeed;
     internal override void Flag(uint flag,bool value)=>ItemFlags=value?ItemFlags|flag:ItemFlags&~flag;
     internal override void AddSockets(uint count)=>throw new NotSupportedException("Native socket materialization remains unbound");

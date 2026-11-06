@@ -124,7 +124,7 @@ public static class IronGolemBirthGraphChecks
         graph.Original.Stats.BaseValues=Fields((21,basis.Minimum),(22,basis.Maximum),(23,basis.SecondaryMinimum),(24,basis.SecondaryMaximum),
             (159,basis.ThrowMinimum),(160,basis.ThrowMaximum),(31,weapon?0:state.Defense));
         var omissions=EquipmentRawProperties.Project(item,graph.Original,graph.Values,basis,weapon,!weapon,false).Select(x=>x.Code+":"+x.Reason).ToArray();
-        Require(omissions.All(x=>x.StartsWith("sock:",StringComparison.Ordinal)),"Unexpected actual-item numeric omission: "+string.Join(",",omissions));
+        Require(omissions.Length==0,"Unexpected actual-item numeric omission: "+string.Join(",",omissions));
         // Project already posted the saved property's list. Merge the original
         // without adding a second list or rerolling any property.
         graph.Merge(null);

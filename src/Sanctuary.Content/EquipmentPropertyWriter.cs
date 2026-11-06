@@ -58,7 +58,7 @@ internal static class EquipmentPropertyWriter
         s.SetEthereal();
         foreach(int stat in s.Weapon?new[]{21,22,23,24,159,160}:new[]{31}){s.SetBase(stat,checked(3*s.BaseValue(stat))/2);}
     }
-    private static int Rolled(EquipmentPropertyInput p,EquipmentPropertyServices s)
+    internal static int Rolled(EquipmentPropertyInput p,EquipmentPropertyServices s)
     {
         int min=Math.Min(p.Minimum,p.Maximum),max=Math.Max(p.Minimum,p.Maximum);
         return min==max?min:checked(min+s.Roll(checked(max-min+1)));
@@ -182,7 +182,11 @@ internal static class EquipmentRawProperties
         foreach(var (property,roll) in properties)
         {
             var plan=EquipmentPropertyWriter.Plan(property.Code);
-            if(plan is not{Supported:true}){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
+            // Saved class/element-skill rolls reuse the already verified func21
+            // writer. The original191-plan kernel catalogue stays immutable.
+            bool layered=plan is{Steps.Length:>0}&&plan.Steps.All(s=>s.Function==21);
+            bool socket=plan is{Code:"sock",Steps.Length:1}&&plan.Steps[0] is{Function:14,Stat:194,Set:false};
+            if(plan is not{Supported:true}&&!layered&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
             if(roll.Value==0&&property.SourceMin!=property.SourceMax&&plan.Steps.Skip(1).Any(s=>s.Function is 3 or 4 or 8))
             {omissions.Add(new(property.Code,property.Slot,"A zero first roll can reroll later stats; those separate rolls are not represented"));continue;}
             int parameter=NamedPropertyRuntime.Parameter(property);
@@ -190,7 +194,16 @@ internal static class EquipmentRawProperties
             {omissions.Add(new(property.Code,property.Slot,"The original zero-parameter fallback roll is not represented"));continue;}
             if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&roll.Value!=roll.Maximum)
             {omissions.Add(new(property.Code,property.Slot,"The original independent zero-parameter range fallback is not recorded"));continue;}
-            EquipmentPropertyWriter.Apply(plan,new(roll.Value,roll.Maximum,parameter),mode,target);
+            var input=new EquipmentPropertyInput(roll.Value,roll.Maximum,parameter);
+            if(socket)
+            {
+                // A saved count incompatible with the source cap is an explicit
+                // legacy-state gap, not permission to change the live original.
+                int count=EquipmentSocketProperty.Apply(EquipmentSocketProperty.Geometry(state.BaseCode,state.Roll.ItemLevel),input,0,target,()=>{});
+                if(count!=roll.Value){omissions.Add(new(property.Code,property.Slot,"Saved socket roll differs from source dimension/type/level cap"));}
+            }
+            else if(layered){EquipmentPropertyWriter.Create(plan,input,mode,target);}
+            else{EquipmentPropertyWriter.Apply(plan,input,mode,target);}
         }
         if(state.Quality!=0){omissions.Add(new("quality","","Quality-base initialization is not integrated"));}
         if(state.MaterialRolls.Length>0||state.CraftedEquipment||state.DurabilityPercent!=0){omissions.Add(new("materials","","Crafted/material stat projection is not integrated"));}

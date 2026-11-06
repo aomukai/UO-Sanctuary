@@ -41,16 +41,16 @@ public static class NpcItemKnockbackChecks
         Require(count==24576,"Incomplete knockback source comparison");
         Require(NpcCombatEvents.RestoreSubscriptions([81]).Subscriptions().SequenceEqual(new[]{81}),"Knockback subscription restore");
     }
-    internal static PlayerMobile Owner()
+    internal static PlayerMobile Owner(PlayerMobile supplied=null)
     {
-        var p=new PlayerMobile{Name="NPC knockback owner [fixture]",Body=0x190,Player=true};p.AddItem(new Backpack());
+        var p=supplied??new PlayerMobile();p.Name="NPC knockback owner [fixture]";p.Body=0x190;p.Player=true;p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(p,99);
         MagePetBuffChecks.Train(p,"necromancer.irongolem",1);MagePetBuffChecks.Train(p,"necromancer.revive",1);
         FixtureSpace.Corridor(p,6280,24,2100+32*Scene++);
         while(p.RawInt<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Energy),"Knockback owner Energy");}
         NecromancerEffects.SetMana256(p,p.ManaMax*256);return p;
     }
-    internal static IronGolemBody Cast(PlayerMobile p,Item item)
+    internal static IronGolemBody Cast(PlayerMobile p,Item item,string bonus="knock",int expectedBonus=1)
     {
         string issue=null;bool found=false;
         for(int attempt=0;attempt<8&&!found;attempt++)
@@ -67,7 +67,7 @@ public static class NpcItemKnockbackChecks
         ClassCombat.Stop(p);ClassCombat.For(p).NextAction=0;int mana=NecromancerEffects.ManaBalance256(p);
         Require(SkillBindings.Instance.AssignQuick(p,7,CombatAbility.IronGolem)&&SkillBindingNetwork.Use(p,DiabloClass.Necromancer,7,CombatAbility.IronGolem,item.Serial,new(0,0,0)),"Original knockback learned start");
         Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-35*256,"Original knockback learned release/payment");
-        var body=NecromancerGolems.For(p).OfType<IronGolemBody>().Single();Require(item.Parent==body&&NpcItemKnockback.Bonus(body)==1,"Original knockback material identity");return body;
+        var body=NecromancerGolems.For(p).OfType<IronGolemBody>().Single();Require(item.Parent==body&&NpcEquipmentCombat.EventBonus(body,bonus)==expectedBonus,"Original knockback material identity");return body;
     }
     private static Recipient Contact(PlayerMobile p,BaseCreature source)
     {
