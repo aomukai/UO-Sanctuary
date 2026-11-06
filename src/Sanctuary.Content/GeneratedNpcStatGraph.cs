@@ -77,7 +77,11 @@ internal sealed class GeneratedNpcStatGraph
     private void Current()
     {
         if(Native is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}||owner.Serial.Value!=OwnerId
-            ||!GeneratedNpcEquipment.Items(Native).SequenceEqual(Originals)||Originals.Where((item,i)=>item.SavedText!=Payloads[i]).Any())
+            // The constructor validated every decoded binding/slot. Exact
+            // unchanged payloads plus original identity/parent/owner retain
+            // that proof without re-decoding all items on every stat read.
+            ||!Native.Items.OfType<GeneratedNpcItem>().Where(i=>!i.Deleted).SequenceEqual(Originals)
+            ||Originals.Where((item,i)=>item.Parent!=Native||item.SavedText!=Payloads[i]).Any())
         {throw new NotSupportedException("Generated numeric graph lost its original actor/owner/items or immutable item payload frame");}
     }
     internal int Read(int stat,int layer=0)

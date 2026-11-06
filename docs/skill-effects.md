@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie resource integration (2026-11-07 JST).** Pool/regeneration and save/region corrections add no final visual or audio asset. The prepared female silhouette and invisible original item art remain labelled placeholders; final body, summon, weapon/contact and skill/proc effects/audio remain separately pending. No imagegen asset is added.
+
 **Valkyrie numeric equipment (2026-11-07 JST).** Attack/defense/resistance delivery creates no final visual or audio asset. The prepared female silhouette and invisible private items remain identified placeholders. Final Valkyrie body/equipment,summon,weapon/contact,skill/proc effects and audio remain pending independently of this numeric checkpoint. No imagegen asset is added.
 
 **Valkyrie loadouts (2026-11-07 JST).** The prepared female silhouette still needs final armor/weapon presentation. Actual generated items are hidden private mechanical carriers with explicitly identified graphics placeholders. Final summon/attack/impact/despawn effects and audio remain pending; source item creation supplies no final rendered equipment or skill effect.

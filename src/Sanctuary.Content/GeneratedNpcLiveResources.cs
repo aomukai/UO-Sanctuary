@@ -9,7 +9,9 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record GeneratedNpcResourceState(int Version,uint Actor,uint Owner,EquipmentStatValue[] Basis,int DamageRegeneration,
-    int RegenerationBase,uint[] ActiveItems,int LifePercent,int ManaPercent,int StaminaPercent);
+    int RegenerationBase,uint[] ActiveItems,int LifePercent,int ManaPercent,int StaminaPercent,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieResourceBirth Valkyrie=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]int? StaminaPercentCache=null);
 
 public sealed class GeneratedNpcResourceProfiles:GenericPersistence
 {
@@ -48,6 +50,7 @@ internal static class GeneratedNpcLiveResources
             ||Raw(state.Basis,7)is <1 or >16640000||Raw(state.Basis,9)is <0 or >16640000||Raw(state.Basis,11)is <0 or >16640000||Raw(state.Basis,12)is <1 or >99
             ||state.Basis.Any(v=>v.Stat is 76 or 77 or 162)||state.LifePercent is <0 or >100000||state.ManaPercent is <0 or >100000||state.StaminaPercent is <0 or >100000)
         {throw new InvalidDataException("Invalid explicit generated NPC source resource profile");}
+        if(state.Valkyrie!=null){ValkyrieEquipmentResources.Validate(state.Valkyrie);}
     }
     private static void Supported(IEnumerable<EquipmentStatValue> fields)
     {
@@ -59,28 +62,45 @@ internal static class GeneratedNpcLiveResources
             {throw new NotSupportedException("Generated resource profile has an unsupported time/skill/event/aura/state/charge consumer: stat "+field.Stat);}
         }
     }
-    private static GeneratedNpcStatGraph Build(BaseCreature actor,GeneratedNpcResourceState state,bool birth=false)
+    private static GeneratedNpcStatGraph Build(BaseCreature actor,GeneratedNpcResourceState state,bool birth=false,MonsterDifficulty? preview=null)
     {
         Validate(state);
         if(!Live(actor)||actor.Serial.Value!=state.Actor||actor.ControlMaster.Serial.Value!=state.Owner)
         {throw new NotSupportedException("Generated resource profile lost its original live actor/owner");}
-        Supported(state.Basis);
-        foreach(var item in GeneratedNpcEquipment.Items(actor))
-        {var saved=item.Snapshot;Supported(saved.Graph.ItemBase.Concat(saved.Graph.Properties));}
-        var basis=Put(Put(Put(Put(state.Basis,74,state.RegenerationBase),76,state.LifePercent),77,state.ManaPercent),162,state.StaminaPercent);
+        if(state.Valkyrie!=null)
+        {
+            if(actor is not AmazonValkyrieBody body){throw new NotSupportedException("Valkyrie resource context belongs to another native species");}
+            ValkyrieEquipmentResources.Require(body,state,preview);
+        }
+        else
+        {
+            Supported(state.Basis);
+            foreach(var item in GeneratedNpcEquipment.Items(actor))
+            {var saved=item.Snapshot;Supported(saved.Graph.ItemBase.Concat(saved.Graph.Properties));}
+        }
+        var basis=Put(state.Basis,74,state.RegenerationBase);
         GeneratedNpcStatGraph graph=null;
         graph=new(actor,basis,_=>null,(_,_,_,_,_)=>{},false,_=>{},_=>Clamp(graph),null,state.ActiveItems,g=>
         {
-            // Establish source percentage bases before item replay. Numeric
-            // reconstruction has no live setters or resource rescale effects.
+            // Use source writers,not raw FullValues injection: operation1
+            // retains skill_staminapercent in BaseValues only. Reconstruction
+            // has no live setters or resource rescale effects.
+            foreach(var field in new[]{(76,state.LifePercent),(77,state.ManaPercent),(162,state.StaminaPercent)})
+            {g.Values.SetBase(g.Actor.Stats,EquipmentStatKey.Pack(field.Item1),field.Item2,g.Actor);}
             foreach(int stat in new[]{7,9,11}){g.Values.Recalculate(g.Actor.Stats,EquipmentStatKey.Pack(stat));}
             if(birth)
             {
+                if(state.Valkyrie is{} source&&g.Read(7)!=source.LifeMaximum256)
+                {throw new NotSupportedException("Valkyrie initial source maximum differs before original item replay");}
                 if(g.Read(6)<=0||g.Read(6)>g.Read(7)||g.Read(8)<0||g.Read(8)>g.Read(9)||g.Read(10)<0||g.Read(10)>g.Read(11))
                 {throw new NotSupportedException("Generated birth resources need explicit current balances within their source maxima");}
                 g.SetResourceCallbacks(state.DamageRegeneration);
             }
         });
+        // Source operation1 may retain an earlier FullValues entry while its
+        // BaseValues percentage changes. Item/buff order therefore matters;
+        // retain the operative cache across reconstruction,not just the base.
+        if(state.StaminaPercentCache is{} cached){graph.Actor.Stats.FullValues=Put(graph.Actor.Stats.FullValues,162,cached);}
         CheckMaximums(graph);return graph;
     }
     private static void CheckMaximums(GeneratedNpcStatGraph graph)
@@ -91,6 +111,8 @@ internal static class GeneratedNpcLiveResources
     private static GeneratedNpcStatGraph Current(BaseCreature actor)
     {
         var state=States[actor.Serial.Value];
+        if(state.Valkyrie is{} source&&(actor is not AmazonValkyrieBody body||body.Prepared.Birth!=source.Birth||body.Prepared.Difficulty!=source.Difficulty))
+        {throw new NotSupportedException("Valkyrie resource frame needs an explicit captured-basis transition");}
         if(!Frames.TryGetValue(state.Actor,out var graph)){Frames[state.Actor]=graph=Build(actor,state);}
         _=graph.Read(7);return graph;
     }
@@ -99,6 +121,30 @@ internal static class GeneratedNpcLiveResources
     internal static int? RegenerationBase(Mobile actor)=>Handles(actor)?States[actor.Serial.Value].RegenerationBase:null;
     internal static int? ItemRegeneration(Mobile actor)=>Handles(actor)?checked(Current((BaseCreature)actor).Read(74)-States[actor.Serial.Value].RegenerationBase):null;
     internal static GeneratedNpcResourceState State(BaseCreature actor)=>States.GetValueOrDefault(actor.Serial.Value)is{} state?Copy(state):null;
+    internal static GeneratedNpcStatGraph ValkyrieFrame(AmazonValkyrieBody actor,MonsterDifficulty? preview=null)
+    {
+        if(World.Loading||!Handles(actor)||States[actor.Serial.Value].Valkyrie==null){return null;}
+        var old=States[actor.Serial.Value];
+        if(preview==null||preview==old.Valkyrie.Difficulty){var current=Current(actor);Seed(actor,current);return current;}
+        var source=old.Valkyrie with{Difficulty=preview.Value};
+        return Build(actor,old with{Valkyrie=source,Basis=ValkyrieEquipmentResources.Basis(actor,source,preview.Value)},preview:preview);
+    }
+    internal static void RefreshValkyrieBasis(AmazonValkyrieBody actor)
+    {
+        if(!Handles(actor)||States[actor.Serial.Value].Valkyrie==null){return;}
+        var old=States[actor.Serial.Value];var source=old.Valkyrie with{Difficulty=actor.Prepared.Difficulty};
+        var next=old with{Valkyrie=source,Basis=ValkyrieEquipmentResources.Basis(actor,source,source.Difficulty)};
+        var graph=Build(actor,next);States[next.Actor]=next;Frames[next.Actor]=graph;
+    }
+    internal static void ActivateValkyrie(AmazonValkyrieBody actor,ValkyrieResourceBirth source)
+    {
+        if(!Live(actor)||States.ContainsKey(actor.Serial.Value)||ReviveNativeActivation.State(actor)!=null||IronGolemItems.State(actor)!=null)
+        {throw new NotSupportedException("Valkyrie source resources need an unbound original prepared recipient");}
+        var state=new GeneratedNpcResourceState(0,actor.Serial.Value,actor.ControlMaster.Serial.Value,ValkyrieEquipmentResources.Basis(actor,source,source.Difficulty),
+            NecromancerSummons.Source("valkyrie","DamageRegen"),source.RegenerationBase,ValkyrieEquipment.Originals(actor).Select(i=>i.Serial.Value).ToArray(),
+            BattleOrders.LifePercent(actor),BattleOrders.Percent(actor),checked(BattleOrders.Percent(actor)+PaladinVigor.StaminaPercent(actor)),source);
+        var graph=Build(actor,state,true);Commit(actor,state,graph);
+    }
     internal static void Activate(BaseCreature actor,EquipmentStatValue[] basis,int damageRegeneration)
     {
         if(!Live(actor)||States.ContainsKey(actor.Serial.Value)||actor is ISourceLifeMaximum||ReviveNativeActivation.State(actor)!=null
@@ -122,14 +168,17 @@ internal static class GeneratedNpcLiveResources
     }
     private static void Commit(BaseCreature actor,GeneratedNpcResourceState state,GeneratedNpcStatGraph graph)
     {
-        CheckMaximums(graph);state=state with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74))};
+        CheckMaximums(graph);state=state with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74)),StaminaPercentCache=graph.Read(162)};
+        int life=graph.Read(6),mana=graph.Read(8),stamina=graph.Read(10);
         States[state.Actor]=state;Frames[state.Actor]=graph;
-        SkillHealth.SetBalance256(actor,graph.Read(6));NecromancerEffects.SetMana256(actor,graph.Read(8));BattleOrders.SetStamina256(actor,graph.Read(10));
+        SkillHealth.SetBalance256(actor,life);NecromancerEffects.SetMana256(actor,mana);BattleOrders.SetStamina256(actor,stamina);
+        if(state.Valkyrie!=null){((AmazonValkyrieBody)actor).ApplyEquipmentResistances();}
         actor.CheckStatTimers();actor.Delta(MobileDelta.Hits|MobileDelta.Mana|MobileDelta.Stam);
     }
     internal static void ChangeBase(BaseCreature actor,int stat,int value)
     {
         _=Current(actor);var old=States[actor.Serial.Value];
+        if(old.Valkyrie!=null){throw new NotSupportedException("Captured Valkyrie source bases change only through their explicit birth/difficulty owner");}
         if(stat is 6 or 8 or 10 or 74 or 76 or 77 or 162||EquipmentStatValues.Definition(stat)==null)
         {throw new NotSupportedException("Current pools,regeneration and skill percentages have dedicated source owners");}
         var next=old with{Basis=Put(old.Basis,stat,value)};Validate(next);Supported(next.Basis);
@@ -152,8 +201,13 @@ internal static class GeneratedNpcLiveResources
     {
         if(World.Loading||!Handles(actor)){return;}
         var old=States[actor.Serial.Value];var next=old with{LifePercent=BattleOrders.LifePercent(actor),ManaPercent=BattleOrders.Percent(actor),StaminaPercent=checked(BattleOrders.Percent(actor)+PaladinVigor.StaminaPercent(actor))};
-        var graph=Build((BaseCreature)actor,next);int regen=BattleOrders.RegenerationAfter(before.ExactLifeMaximum256,graph.Read(7),before.Life256,next.DamageRegeneration,old.RegenerationBase);
-        if(regen!=next.RegenerationBase){next=next with{RegenerationBase=regen};graph=Build((BaseCreature)actor,next);}
+        var current=Current((BaseCreature)actor);
+        var graph=Build((BaseCreature)actor,old with{StaminaPercentCache=current.Read(162)});Seed((BaseCreature)actor,graph);graph.SetResourceCallbacks(old.DamageRegeneration);
+        // Preserve source setter order after the original item graph. The
+        // native buff owner subsequently commits these same pool transitions.
+        foreach(var field in new[]{(77,next.ManaPercent),(76,next.LifePercent),(162,next.StaminaPercent)})
+        {graph.Values.SetBase(graph.Actor.Stats,EquipmentStatKey.Pack(field.Item1),field.Item2,graph.Actor);}
+        CheckMaximums(graph);next=next with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74)),StaminaPercentCache=graph.Read(162)};Validate(next);
         States[next.Actor]=next;Frames[next.Actor]=graph;
     }
     internal static bool RefreshVigor(Mobile actor)
@@ -173,7 +227,17 @@ internal static class GeneratedNpcLiveResources
     internal static void Restore(GeneratedNpcResourceState[] states)
     {
         if(states==null||states.Length>100000||states.Select(s=>s.Actor).Distinct().Count()!=states.Length){throw new InvalidDataException("Invalid generated NPC resource ledger");}
-        foreach(var state in states){Validate(state);Supported(state.Basis);}
+        foreach(var state in states)
+        {
+            Validate(state);
+            if(state.Valkyrie==null){Supported(state.Basis);}
+            else if(!World.Loading)
+            {
+                if(World.FindMobile((Serial)state.Actor)is not AmazonValkyrieBody actor)
+                {throw new InvalidDataException("Live Valkyrie resource restore lost its original species");}
+                _=Build(actor,state);
+            }
+        }
         States.Clear();Frames.Clear();foreach(var state in states){States.Add(state.Actor,Copy(state));}
     }
 }

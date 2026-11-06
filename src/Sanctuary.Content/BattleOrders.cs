@@ -124,10 +124,13 @@ public static class BattleOrders
                 :Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));
         }
         int previousMana=before.ExactManaMaximum256>0?before.ExactManaMaximum256:before.ManaMax*256,nextMana=NecromancerEffects.ManaMaximum256(actor);
-        if(nextMana!=previousMana){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,previousMana,nextMana));}
+        // Difficulty refresh setters can refill native mana/stamina even
+        // when their source maxima are unchanged. Restore captured pools on
+        // that path too,just as the existing forced life-ratio path does.
+        if(nextMana!=previousMana||preserveSummonLifeRatio){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,previousMana,nextMana));}
         int stam256=before.Stamina256;
         int previousStamina=before.ExactStaminaMaximum256>0?before.ExactStaminaMaximum256:before.StaminaMax*256,nextStamina=StaminaMaximum256(actor);
-        if(nextStamina!=previousStamina)
+        if(nextStamina!=previousStamina||preserveSummonLifeRatio)
         {stam256=Rescale256(stam256,previousStamina,nextStamina);actor.Stam=stam256/256;}
         if(actor is SkeletonGuardian guardian)
         {int next=NpcEquipmentResources.LifeForRegeneration(guardian);regen=Regen(actor,before.RegenerationLifeMaximum256>0?before.RegenerationLifeMaximum256:next,next,regen);}

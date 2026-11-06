@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie resource integration (2026-11-07 JST).** No talent or hotkey binding/icon is added by the prepared resource recipient. Final Valkyrie talent/right/quick artwork remains independently pending; resource delivery does not enable learned casting or item-granted player skill bindings.
+
 **Valkyrie numeric equipment (2026-11-07 JST).** The prepared numeric profile adds no talent-tree or hotkey icon. Valkyrie's final talent/right/quick icons remain pending with existing placeholders; generated item skill/proc fields do not create additional player bindings.
 
 **Valkyrie loadouts (2026-11-07 JST).** Real private item persistence adds no final talent-tree or right/quick hotkey icon. These remain separately pending while learned casting and final model/effects are unfinished.

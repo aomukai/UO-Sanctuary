@@ -22,7 +22,14 @@ internal static class PermanentSummonRecovery
         { PersistentMinions.Suspend(owner); return next; }
         if (body.Map == Map.Internal) { PersistentMinions.Resume(owner); }
         if (body.Map != Map.Internal && body.Alive && !body.Poisoned && TimedEffects.CanRegenerateHits(body) && !SkillHealth.Full(body))
-        { SkillHealth.Heal(body, (int)Math.Min(int.MaxValue, frames * BattleOrders.Regeneration256(body))); }
+        {
+            if(GeneratedNpcLiveResources.RegenerationBase(body)is{} generated)
+            {
+                int rate=NpcEquipmentRegeneration.Delta(generated,NpcEquipmentRegeneration.ItemRate(body),0,false,false);
+                NpcEquipmentRegeneration.Apply(body,(int)Math.Clamp(Math.Min(frames,int.MaxValue)*(long)rate,int.MinValue,int.MaxValue));
+            }
+            else{SkillHealth.Heal(body, (int)Math.Min(int.MaxValue, frames * BattleOrders.Regeneration256(body)));}
+        }
         body.AIObject?.AITimer.Stop(); return next;
     }
 }

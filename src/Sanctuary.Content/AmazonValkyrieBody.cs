@@ -29,7 +29,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
     internal ValkyrieCreationStats BirthStats=>Numbers with{Passives=(SummonStat[])Numbers.Passives.Clone(),Auras=(SummonStat[])Numbers.Auras.Clone(),Skills=(SummonStat[])Numbers.Skills.Clone()};
     internal string SavedText=>_saved;
     internal GeneratedNpcStatGraph EquipmentNumbers=>!World.Loading&&Alive&&!Deleted&&State?.EquipmentStatProfile==ValkyrieEquipmentStats.Profile
-        ?_equipmentNumbers??=ValkyrieEquipmentStats.Build(this,State.Difficulty):null;
+        ?GeneratedNpcLiveResources.ValkyrieFrame(this)??(_equipmentNumbers??=ValkyrieEquipmentStats.Build(this,State.Difficulty)):null;
     private int Aura(string name)=>Numbers.Auras.FirstOrDefault(s=>s.Name==name)?.Value??0;
     private int Passive(string name)=>Numbers.Passives.FirstOrDefault(s=>s.Name==name)?.Value??0;
     public override DiabloClass SummonClass=>DiabloClass.Amazon;
@@ -46,7 +46,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
     public override long SourceLife256=>Prepared==null?400*256:Numbers.Life256;
     public int MaximumLife256
     {
-        get{long basis=SourceLife256+((long)HitsMaxSeed-CombatProfile.Life)*256;return(int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.LifePercent(this)),256,65000*256);}
+        get{if(GeneratedNpcLiveResources.Maximum256(this,0)is{} equipped){return equipped;}long basis=SourceLife256+((long)HitsMaxSeed-CombatProfile.Life)*256;return(int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.LifePercent(this)),256,65000*256);}
     }
     public override MonsterProfile CombatProfile=>Prepared==null?new(1,400,0,0,0,0,1000,400,0,0,0,0,0)
         :new(Numbers.Level,(Numbers.Life256+255)/256,EquipmentNumbers is{} attack?checked(attack.Read(19)+5*attack.Read(2)):Numbers.Attack+Passive("tohit"),
@@ -90,7 +90,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
         var d=difficulty??SummonDifficulty;var n=ValkyrieBirthNumbers.Calculate(Prepared.Birth,d);
         if(State.EquipmentStatProfile==ValkyrieEquipmentStats.Profile&&!World.Loading&&Alive&&!Deleted)
         {
-            var graph=d==State.Difficulty?EquipmentNumbers:ValkyrieEquipmentStats.Build(this,d);
+            var graph=d==State.Difficulty?EquipmentNumbers:GeneratedNpcLiveResources.ValkyrieFrame(this,d)??ValkyrieEquipmentStats.Build(this,d);
             return new(graph.Read(36),graph.Read(37),graph.Read(39),graph.Read(41),graph.Read(43),graph.Read(45));
         }
         int R(string field,string aura)=>NecromancerSummons.Source("valkyrie",field,d)+(n.Auras.FirstOrDefault(s=>s.Name==aura)?.Value??0);
@@ -121,7 +121,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
         catch{body.Delete();throw;}
     }
     internal override void RefreshDifficulty()
-    {if(Prepared is{} state){RestorePrepared(state with{Difficulty=SummonDifficulty});}base.RefreshDifficulty();ApplyNumbers();}
+    {if(Prepared is{} state){RestorePrepared(state with{Difficulty=SummonDifficulty});}GeneratedNpcLiveResources.RefreshValkyrieBasis(this);base.RefreshDifficulty();ApplyNumbers();}
     internal void AdvanceRecovery(DateTime at,bool actions)
     {if(Prepared is{} state&&PermanentSummonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions)is{} next){RestorePrepared(Prepared with{NextRecoveryUtc=next});}}
     [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;_equipmentNumbers=null;}

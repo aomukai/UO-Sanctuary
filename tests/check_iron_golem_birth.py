@@ -19,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -96,7 +96,7 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                                     except OSError:pass
                                 threading.Thread(target=drain_check,daemon=True).start()
                             session.send(command)
-                            assert session.expect(command + r': (passed|failed)').group(1) == 'passed'
+                            assert session.expect(command + r': (passed|failed)', timeout=(extra_check_timeouts or {}).get(command,60)).group(1) == 'passed'
                             if command in (extra_wait_results or {}):
                                 results = extra_wait_results[command]
                                 for result in ((results,) if isinstance(results,str) else results):
