@@ -90,7 +90,7 @@ public static class IronGolemBodyChecks
         ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(owner,99);
         Train(owner,"necromancer.irongolem");Train(owner,"necromancer.golemmastery");Train(owner,"necromancer.summonresist");
         FixtureSpace.Place(owner,new(6100,1860,0),Map.Trammel);var saved=new List<Saved>();var bodies=new List<IronGolemBody>();
-        foreach(string key in new[]{"Crown of Thieves","Shaftstop"})
+        foreach(string key in new[]{"Crown of Thieves","Shaftstop","Spiritforge"})
         {
             var original=Named(key);original.MoveToWorld(new(owner.X+bodies.Count+1,owner.Y,owner.Z),owner.Map);uint serial=original.Serial.Value;
             string gear=JsonSerializer.Serialize(ClassGear.State(original));var body=IronGolemBody.CreatePrepared(owner,original,original.Location);bodies.Add(body);
@@ -136,9 +136,9 @@ public static class IronGolemBodyChecks
         var dying=IronGolemBody.CreatePrepared(owner,sword,sword.Location);Require(dying.Prepared.Numbers.LifeBase256%256!=0,"Fractional bare-weapon birth control lost");
         dying.Kill();Require(!dying.Alive&&sword.Deleted&&IronGolemItems.State(dying)==null,"Combat death left bound original");
         // Rejection happens before a ground item is consumed.
-        var unsupported=Named("Spiritforge");unsupported.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
-        var point=unsupported.Location;bool refused=false;try{IronGolemBody.CreatePrepared(owner,unsupported,point);}catch(NotSupportedException e){refused=e.Message.Contains("sock",StringComparison.Ordinal);}
-        Require(refused&&!unsupported.Deleted&&unsupported.Parent==null&&unsupported.Location==point&&unsupported.Visible&&unsupported.Movable,"Unsupported socket recipe consumed/changed original");unsupported.Delete();
+        var unsupported=Named("Cutthroat1");unsupported.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
+        var point=unsupported.Location;bool refused=false;try{IronGolemBody.CreatePrepared(owner,unsupported,point);}catch(NotSupportedException e){refused=e.Message.Contains("skilltab",StringComparison.Ordinal);}
+        Require(refused&&!unsupported.Deleted&&unsupported.Parent==null&&unsupported.Location==point&&unsupported.Visible&&unsupported.Movable,"Unsupported skill-tree recipe consumed/changed original");unsupported.Delete();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));owner.Internalize();
     }
     private static void Reload()

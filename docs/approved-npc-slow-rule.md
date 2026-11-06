@@ -1,0 +1,5 @@
+# Approved shared pet slow rule
+
+On2026-11-06 the user explicitly answered **“Approve this shared slow rule.”** This approves pet item slow and outgoing Clay Golem slow on successful melee damage events, including fully absorbed hits. The effect lasts30seconds, capped at90% for ordinary monsters and50% for players, bosses, champions, uniques and hirelings. Reapplication refreshes duration and attack slow while retaining an already-active primary movement slow. Existing shared state/persistence/rate services should be reused.
+
+Reference remains D2R Reign of the Warlock3.3.93847. The older unchanged item callback19has a contradictory nonzero guard. The current file's slot19candidate0x3c18a0–0x3c1a4c lies in `---s` mappings in owned process694337/start19896864; only file/identity/map metadata was read, with no game-memory reads, input, attach, protection changes or writes. Dispatcher identity/current callback semantics remain unverified. This is an explicit Sanctuary adaptation, not proof of exact current D2R behavior. Ranged timing, unrelated player-item slow and incoming Clay callback27 are separate scopes.

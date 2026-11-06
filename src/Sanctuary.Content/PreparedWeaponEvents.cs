@@ -12,6 +12,7 @@ internal static class PreparedWeaponEvents
         int absorbedLife256=0,Action<int> leech=null)
     {
         NpcLightningReturn.RequireNativeIncoming(attacker,defender,ranged);
+        if(!ranged){NpcItemSlow.NativeClay(attacker,defender,TimedEffects.Now);}
         IronMaiden.MeleeDamage(attacker,defender,physical256,ranged);
         // Attacker damage events precede defender incoming events. A lethal
         // Iron Maiden return must not become a prior lightning packet.

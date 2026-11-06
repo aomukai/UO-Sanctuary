@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "legacyBodySha256": "dd9f4c78558d22d53a960ce55c25b48dcca9f6c5434a7d4087e21f8186d00175",
+  "legacyContradiction": "The unchanged positive-value guard returns0;zero falls through to a750frame zero-valued slowed state.",
+  "candidate": {
+    "slot": 19,
+    "rva": "0x3c18a0",
+    "fragments": [
+      {
+        "rva": "0x3c18a0",
+        "endRva": "0x3c1a4c"
+      }
+    ]
+  },
+  "process": {
+    "pid": 694337,
+    "startTicks": 19896864,
+    "name": "Main"
+  },
+  "observedPermissions": [
+    {
+      "rva": "0x3c18a0",
+      "endRva": "0x3c1a4c",
+      "regions": [
+        {
+          "rva": "0x3c18a0",
+          "endRva": "0x3c1a4c",
+          "permissions": "---s"
+        }
+      ],
+      "readableExecutable": false
+    }
+  ],
+  "bytesRead": 0,
+  "processMemoryRead": false,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "callbackIdentityVerified": false,
+  "currentSemanticsVerified": false,
+  "approvedAdaptation": "Approve this shared slow rule",
+  "inputs": {
+    "tools/record_npc_slow_preflight.py": "2494276937f3ecac6561938d4317f0738ca3933eb445f016bdbda30ec2058a65",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "docs/approved-npc-slow-rule.md": "d79cbeaf7325179b1d5fe0685cb215631eae5fbf4631ccc660ba60372b066949"
+  },
+  "limits": [
+    "File/owned-process identity/maps only;no protected code read or forced. Candidate table linkage and in-memory identity remain unverified. Do not retry without an external state change.",
+    "User-approved pet item/outgoing-Clay slow deliberately overrides this unresolved callback. Incoming Clay27,ranged timing and unrelated player-item behavior remain separate."
+  ]
+}

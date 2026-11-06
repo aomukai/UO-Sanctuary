@@ -77,7 +77,7 @@ internal static class IronGolemContact
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at);}
+        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}NpcItemSlow.Clay(source,target,false,at);return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at);}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p,target,source,at);
         internal override bool OrdinaryNpcFlatDrains=>true;
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
@@ -132,6 +132,7 @@ internal static class IronGolemContact
         var targetEvents=Events(target,requireFrozen:true);
         NpcLightningReturn.RequireIncoming(body,target,false);
         if(sourceEvents.Subscriptions().Contains(81)){NpcItemKnockback.Require(target);}
+        if(NpcItemSlow.Bonus(body)>0||body is NecromancerMinion{Kind:CombatAbility.ClayGolem}){_=NpcItemSlow.Cap(target);}
         if(sourceEvents.Subscriptions().Contains(134)){NpcFreezeStatus.Require(body,target);}
         if(nativeRecovery)
         {if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter");}}

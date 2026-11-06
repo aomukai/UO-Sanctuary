@@ -12,8 +12,7 @@ public partial class ClayGolemWorldBody:ClayGolemBody,IUnarmedGroundPet
     [SerializableField(0,setter:"private")] private string _worldSaved="{}";
     private UnarmedPetWorld _ground;
     internal UnarmedPetWorld Ground=>_ground??=new(this,ProfileId,()=>_worldSaved,s=>_worldSaved=s,
-        target=>base.PrepareMeleeContact(target),target=>base.CanReleaseMeleeContact(target),target=>base.ResolveMeleeContact(target),()=>base.DiscardMeleeContact(),
-        (target,result,_)=>ApplyOutgoingSlow(target,result));
+        target=>base.PrepareMeleeContact(target),target=>base.CanReleaseMeleeContact(target),target=>base.ResolveMeleeContact(target),()=>base.DiscardMeleeContact());
     UnarmedPetWorld IUnarmedGroundPet.Ground=>Ground;
     (int Action,int End) IUnarmedGroundPet.GroundAttackClock=>SourceAttackClock;
     int IUnarmedGroundPet.GroundVelocityPercent=>VelocityPercent;

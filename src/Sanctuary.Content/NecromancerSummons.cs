@@ -271,9 +271,6 @@ public partial class NecromancerMinion : SkeletonGuardian
             hit=SkillCombat.ResolveHitParts(this,target,SpectralHit.Direct(new(physical,0,0,0,0),spectral?.Roll),true,true);
             NpcSpectralHit.After(this,target,spectral,TimedEffects.Now);
         }
-        int loss = hit.LifeLost;
-        var values = Values(Kind);
-        if (Kind == CombatAbility.ClayGolem && loss > 0) { TimedEffects.Slow(target, values.Diminishing(3, 4), TimedEffects.Now); }
         if (Kind == CombatAbility.BloodGolem) { HealFromBloodHit(target, hit.Physical, hit.LifeBefore); }
     }
     public static int BloodHealingBudget(int physical, int lifeBefore, int drain, int conversion)

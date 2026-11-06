@@ -679,6 +679,9 @@ CAVEATS["sorceress.inferno"] = "Approved Sanctuary held-input adaptation: six-ma
 for _talent in ("necromancer.irongolem","necromancer.revive"):
     CAVEATS[_talent] += " Original saved class/element-skill layers and empty socket base194 now retain the whole item without rerolling. Qualified ordinary melee kills deliver life-after-kill86/28 and demon-life139/18 to the original NPC; mana-after-kill138/17 is player-only, with no owner forwarding. Nine original wounded actors,gear,numeric graphs,resources and RNG retain across two reloads; source29240socket/1728kill controls and shared property/birth regressions are recorded in saved-npc-item-recovery-checkpoint.md. Socket contents,invalid saved socket counts,other specialized properties/producers and full current-engine/class acceptance remain separate."
 
+for _talent in ("necromancer.claygolem","necromancer.irongolem","necromancer.revive"):
+    CAVEATS[_talent] += " The user-approved shared melee slow rule now covers original item150/function19 and outgoing Clay before HP,including fully absorbed hits:30seconds,ordinary cap90 and player/boss/champion/unique/hireling cap50;refresh preserves active primary velocity while updating attack slow and expiry. Original items,legacy/graph/frozen recipients and saved slow states have bounded acceptance in npc-item-slow-checkpoint.md. The older inverted item19guard/current unreadable candidate stay explicit reference gaps;incoming Clay27,unrelated player item slow,ranged producers,haste supplier/order and complete current-world/client parity remain separate."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

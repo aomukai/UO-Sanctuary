@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "contexts": 640,
+  "completeRoutineHashes": {
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "tools/probe_pet_slow_velocity.py": "46c0370465296818deda9162827c4cd0bbdd793398e6e578dfe6df3a797542ab"
+  },
+  "artifacts": {
+    ".local/class-skills/pet-slow-velocity-source/source.cpp": "5462ee498e4d9ab4cc592a7aa9da4bb02e8e912765a6c06bf045a66198bb6ea9",
+    ".local/class-skills/pet-slow-velocity-source/probe": "72d715883e181b46f7b61cf074e4ae1aab5b8b7513db8535ce4f6e739156a5a3",
+    ".local/class-skills/pet-slow-velocity-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/pet-slow-velocity-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/pet-slow-velocity-source/cases.json": "16d8f4ab4d3f61263efb2fa5e1d0c8d500b448ff91ada8350ea9db1acbd2490d"
+  },
+  "services": [
+    "Animation-base percentage,velocity stat,base animation/base velocity,path/setter/trace are declared services. MOVE selector4is checked against the source enum order;velocity stat67matches the owned cost table."
+  ],
+  "established": [
+    "The complete body floors combined movement percentage at25before integer animation/path writes. With100base percentage and no haste,nominal90slow yields25percent movement,not10."
+  ],
+  "limits": [
+    "No current executable,haste supplier composition,full NPC/player path/room/step/order or renderer certificate. The shared native delay projection is checked only for the no-haste case."
+  ]
+}

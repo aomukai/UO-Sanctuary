@@ -185,8 +185,9 @@ internal static class EquipmentRawProperties
             // Saved class/element-skill rolls reuse the already verified func21
             // writer. The original191-plan kernel catalogue stays immutable.
             bool layered=plan is{Steps.Length:>0}&&plan.Steps.All(s=>s.Function==21);
+            bool indestruct=plan is{Code:"indestruct",Steps.Length:1}&&plan.Steps[0] is{Function:20};
             bool socket=plan is{Code:"sock",Steps.Length:1}&&plan.Steps[0] is{Function:14,Stat:194,Set:false};
-            if(plan is not{Supported:true}&&!layered&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
+            if(plan is not{Supported:true}&&!layered&&!indestruct&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
             if(roll.Value==0&&property.SourceMin!=property.SourceMax&&plan.Steps.Skip(1).Any(s=>s.Function is 3 or 4 or 8))
             {omissions.Add(new(property.Code,property.Slot,"A zero first roll can reroll later stats; those separate rolls are not represented"));continue;}
             int parameter=NamedPropertyRuntime.Parameter(property);
@@ -202,7 +203,7 @@ internal static class EquipmentRawProperties
                 int count=EquipmentSocketProperty.Apply(EquipmentSocketProperty.Geometry(state.BaseCode,state.Roll.ItemLevel),input,0,target,()=>{});
                 if(count!=roll.Value){omissions.Add(new(property.Code,property.Slot,"Saved socket roll differs from source dimension/type/level cap"));}
             }
-            else if(layered){EquipmentPropertyWriter.Create(plan,input,mode,target);}
+            else if(layered||indestruct){EquipmentPropertyWriter.Create(plan,input,mode,target);}
             else{EquipmentPropertyWriter.Apply(plan,input,mode,target);}
         }
         if(state.Quality!=0){omissions.Add(new("quality","","Quality-base initialization is not integrated"));}

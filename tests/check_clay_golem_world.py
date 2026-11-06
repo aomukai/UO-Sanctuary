@@ -2,8 +2,8 @@
 """Learned Clay world controller with retained skeleton/Iron worlds and historical contacts."""
 from pathlib import Path
 from check_iron_golem_birth import ROOT,check
-if __name__=='__main__':
-    check(stage=ROOT/'.local/class-skills/clay-golem-world',extra_files={
+def configuration():
+    return dict(stage=ROOT/'.local/class-skills/clay-golem-world',extra_files={
         'clay-golem-birth-source-cases.json':ROOT/'.local/class-skills/clay-golem-birth-source/cases.json',
         'clay-golem-slow-source-cases.json':ROOT/'.local/class-skills/clay-golem-slow-source/cases.json',
         'iron-golem-birth-graph-source-cases.json':ROOT/'.local/class-skills/iron-golem-birth-graph-source/cases.json',
@@ -16,3 +16,6 @@ if __name__=='__main__':
         extra_live_commands=('clay-golem-world-live','clay-golem-combat-live','iron-golem-world-live','skeleton-world-live','skeleton-combat-live'),
         extra_ground_input_commands=('clay-golem-world-right','clay-golem-world-quick'),
         extra_target_input_commands=('clay-golem-world-right','clay-golem-world-quick','skeleton-birth-right','skeleton-birth-quick'),extra_inputs=(Path(__file__).resolve(),))
+
+if __name__=='__main__':
+    check(**configuration())

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Approved pet slow (2026-11-06 JST).** The equipment passive adds no talent or hotkey identity. Clay Golem, Iron Golem and Revive retain their existing missing icon entries and identified placeholders. Effects/audio are tracked separately in [skill-effects.md](skill-effects.md). See [checkpoint](npc-item-slow-checkpoint.md).
+
 **Approved Inferno integration (2026-11-06 JST).** Inferno talent-tree, left/right and quick-key icons remain missing and use the existing identified placeholders. Enabling the held controls does not complete icons. See [checkpoint](inferno-held-input-checkpoint.md).
 
 **Howltusk / Ring of Fire preflight (2026-11-06):** admitting an original NPC item adds no skill or icon identity. Iron Golem/Revive and Ring of Fire retain their existing talent/hotkey icon entries; no final assets are produced.

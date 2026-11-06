@@ -44,17 +44,9 @@ public partial class ClayGolemBody
         if(ControlMaster is not PlayerMobile owner||target is not BaseCreature creature){prepared.Cancel();return;}
         try
         {
-            var result=UnarmedSummonContact.Release(this,owner,creature,prepared,TimedEffects.Now);
-            ApplyOutgoingSlow(creature,result);
+            _=UnarmedSummonContact.Release(this,owner,creature,prepared,TimedEffects.Now);
         }
         catch(NotSupportedException e){_faultTarget=target.Serial.Value;ReportContact(e.Message,false);}
     }
     protected override void DiscardMeleeContact(){_preparedContact?.Cancel();_preparedContact=null;}
-    internal void ApplyOutgoingSlow(BaseCreature target,MonsterContactResult result)
-    {
-        // Shared by historical native hooks and the world controller. The old
-        // item-event19 guard is contradictory; retain the established adapter.
-        if(result.Commit is{} hit&&(hit.Before256+255)/256>(hit.AfterHealth256+255)/256)
-        {TimedEffects.Slow(target,ReactiveSlowPercent,TimedEffects.Now);}
-    }
 }
