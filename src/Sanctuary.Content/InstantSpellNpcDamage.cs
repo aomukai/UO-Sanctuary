@@ -46,7 +46,7 @@ Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=n
     internal override void ApplyCold(int frames)
     {
         if(!cold){if(frames!=0){throw new InvalidOperationException(kind+" has no cold duration");}return;}
-        if(ColdStates.Commit(owner,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at)))
+        if(ColdStates.Commit(Attacker,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at)))
         {target.FixedEffect(0x374A,10,15,0x480,0);} // Identified shared cold marker.
     }
     // Keep the existing native regeneration clock. Source one-frame

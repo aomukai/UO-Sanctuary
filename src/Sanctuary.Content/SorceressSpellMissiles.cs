@@ -23,6 +23,8 @@ internal sealed record SorceressSpellFlight(long Id,uint Owner,int Map,int Z,Com
     FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null)
 {
     // Optional V0 extension: historical Fire Bolt records retain zero length.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public NpcItemSpellSource Npc{get;init;}
     public int ColdFrames{get;init;}
     // Optional V0 ring extension. Historical straight flights use defaults.
     public long Cast{get;init;}
@@ -165,8 +167,55 @@ internal static class SorceressSpellMissiles
         var prepared=Prepare(owner,point,values,TimedEffects.Now,reaction:armor);
         Commit(prepared);return true; // Reactive emission has no additional mana.
     }
+    // The child-seed factory is explicit: current original-item callback RNG
+    // allocation is not inferred from the player/Mage SeedLow adapters.
+    internal static SorceressSpellFlight[] PrepareValkyrie(AmazonValkyrieBody actor,Point3D point,int skill,int rank,DateTime at,Func<int,ulong> childSeed)
+    {
+        ArgumentNullException.ThrowIfNull(childSeed);
+        var owner=actor?.ControlMaster as PlayerMobile;
+        if(!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-4000)
+            ||point.X<=0||point.Y<=0||point.X>=actor.Map.Width||point.Y>=actor.Map.Height||SpellHelper.IsTown(point,owner)||skill==53)
+        {throw new NotSupportedException("Original NPC spell needs its active caster, supported emission, aim and UTC release context");}
+        _=NpcEquipmentRandom.Require(actor);
+        var packet=NpcItemSpellDamage.CaptureValkyrie(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
+        var values=new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,actor.BirthStats.Level);Route(values);
+        var profile=Profile(ability);bool ring=Ring(ability),charged=ability==CombatAbility.ChargedBolt;
+        var slow=AmazonSlowMissiles.Capture(actor,!ring);long first=checked(_pool.NextId+1);
+        var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
+        var flights=new SorceressSpellFlight[packet.Emissions];
+        for(int i=0;i<flights.Length;i++)
+        {
+            int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,rank,ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
+            int dx=point.X-actor.X,dy=point.Y-actor.Y;
+            if(ring){var direction=FrozenOrbs.Direction(i);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;}
+            var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
+            var flight=new SorceressSpellFlight(checked(first+i),owner.Serial.Value,actor.Map.MapID,actor.Z,ability,rank,actor.X,actor.Y,
+                vector.X,vector.Y,velocity,0,profile.Frames,slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),new(0,0,0,0,0),slow,childSeed(i),
+                new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40))
+                {Npc=context,ColdFrames=packet.ColdFrames,Cast=ring?first:0,RadialIndex=ring?i:-1,LastCollision=ring?actor.Serial.Value:0,
+                 Charged=charged?new(actor.X,actor.Y,ChargedBolts.Path(ChargedBolts.Seed(point,i),ChargedBolts.Heading(point.X-actor.X,point.Y-actor.Y),ChargedBolts.Frames),1,i):null};
+            Validate(flight);flights[i]=flight;
+        }
+        return flights;
+    }
+    internal static void CommitValkyrie(SorceressSpellFlight[] flights)
+    {
+        if(flights is not{Length:>=1 and<=64}||flights[0]?.Npc is not{} source||flights.Length!=source.Packet.Emissions)
+        {throw new NotSupportedException("Original NPC spell needs its complete prepared emission batch");}
+        long first=checked(_pool.NextId+1);var pool=_pool.Flights;
+        for(int i=0;i<flights.Length;i++)
+        {
+            var f=flights[i];Validate(f);
+            if(f.Id!=checked(first+i)||f.Npc!=source||f.Owner!=flights[0].Owner||f.Map!=flights[0].Map||f.NextUtc!=flights[0].NextUtc
+                ||Ring(f.Ability)&&(f.Cast!=first||f.RadialIndex!=i)||f.Charged!=null&&f.Charged.Ordinal!=i)
+            {throw new InvalidOperationException("Stale, reordered or mixed original NPC spell batch");}
+            pool=pool.Add(f.Id,Copy(f));
+        }
+        _pool=new(pool,flights[^1].Id);
+    }
     internal static long Commit(SorceressSpellFlight flight)
     {
+        if(flight.Npc!=null){throw new NotSupportedException("Original NPC emissions require atomic batch commit");}
         Validate(flight);if(flight.Id!=_pool.NextId+1){throw new InvalidOperationException("Stale prepared Sorceress flight");}
         _pool=new(_pool.Flights.Add(flight.Id,Copy(flight)),flight.Id);return flight.Id;
     }
@@ -207,11 +256,12 @@ internal static class SorceressSpellMissiles
     {var pool=_pool;return new(pool.Flights.Values.OrderBy(s=>s.Id).Select(Copy).ToArray(),pool.NextId,Leases.Values.OrderBy(x=>x.Cast).ThenBy(x=>x.Target).ToArray());}
     private static void Remove(long id){_pool=_pool with{Flights=_pool.Flights.Remove(id)};Loaded.Remove(id);}
     internal static void Cancel(Mobile owner)
-    {if(owner!=null){foreach(long id in _pool.Flights.Values.Where(s=>s.Owner==owner.Serial.Value).Select(s=>s.Id).ToArray()){Remove(id);}}}
+    {if(owner!=null){foreach(long id in _pool.Flights.Values.Where(s=>s.Owner==owner.Serial.Value||s.Npc?.Actor==owner.Serial.Value).Select(s=>s.Id).ToArray()){Remove(id);}}}
 
     internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var lease)||lease.UntilUtc<=at;
     internal static int Impact(PlayerMobile owner,Mobile target,SorceressSpellFlight flight,out ulong seed)
     {
+        if(flight.Npc!=null){return NpcItemSpellFlights.Impact(owner,target,flight,out seed);}
         int raw=Roll(flight,out seed);
         var profile=Profile(flight.Ability);
         return ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4,profile.DamageRate);
@@ -260,13 +310,17 @@ internal static class SorceressSpellMissiles
     }
     private static void Advance(SorceressSpellFlight flight,DateTime at,bool? actions)
     {
-        var owner=Owner(flight.Owner);if(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map){Remove(flight.Id);return;}
+        var npc=flight.Npc==null?null:World.FindMobile((Serial)flight.Npc.Actor)as AmazonValkyrieBody;
+        var owner=flight.Npc==null?Owner(flight.Owner):World.FindMobile((Serial)flight.Owner)as PlayerMobile;
+        if(flight.Npc==null&&(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map)){Remove(flight.Id);return;}
+        Mobile caster=flight.Npc==null?owner:npc;
+        bool attached=flight.Npc==null||NpcItemSpellFlights.Attached(npc,owner,flight.Map,flight.Npc.Binding);
         bool loaded=Loaded.Remove(flight.Id);
         int elapsed=loaded?(int)Math.Min(flight.Frames-flight.Frame,(at-flight.NextUtc).Ticks/TimeSpan.TicksPerMillisecond/40+1):1;
         bool ring=Ring(flight.Ability),nonKilling=ring||Profile(flight.Ability).CollideKill==0;int frame=flight.Frame+elapsed;var next=flight with{Frame=frame,NextUtc=flight.NextUtc.AddMilliseconds(40L*elapsed)};
         // Existing persistent-spell host policy:offline/restart age harmlessly,
         // never replay past damage. This is not a modern owner-removal proof.
-        if(loaded||flight.Fault!=null||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
+        if(loaded||flight.Fault!=null||!attached||owner?.Map==Map.Internal||!(actions??owner?.NetState is{Running:true}))
         {if(frame>=flight.Frames){Remove(flight.Id);}else{_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,next)};}return;}
         var map=Map.Maps[flight.Map];bool barrier=false,removed=false;
         if(SpellHelper.IsTown(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z),owner)){Remove(flight.Id);return;}
@@ -294,7 +348,7 @@ internal static class SorceressSpellMissiles
                 if(candidate is not{Alive:true,Deleted:false,Blessed:false}||Math.Abs(candidate.Z-flight.Z)>=16
                     ||nonKilling&&candidate.Serial.Value==flight.LastCollision
                     ||ring&&!Ready(flight.Cast,candidate.Serial.Value,flight.NextUtc)
-                    ||!ClassCombat.IsHostile(owner,candidate)||!owner.CanBeHarmful(candidate,false)||SpellHelper.IsTown(candidate.Location,owner)){continue;}
+                    ||!ClassCombat.IsHostile(owner,candidate)||!caster.CanBeHarmful(candidate,false)||flight.Npc!=null&&ClassCombat.Friendly(caster,candidate)||SpellHelper.IsTown(candidate.Location,owner)){continue;}
                 int size=candidate is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
                 if(CombatHitboxes.SourceTouches(Profile(flight.Ability).Size,size,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){return candidate;}
             }
@@ -327,12 +381,12 @@ internal static class SorceressSpellMissiles
         if(_pool.Flights.ContainsKey(flight.Id)){_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,next)};}
         if(frame%2==0&&(!ring||flight.RadialIndex%8==0)){bool cold=Profile(flight.Ability).Element=="cold",lightning=Profile(flight.Ability).Element=="ltng";Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,lightning?0x3818:cold?0x36E4:0x36D4,2,10,lightning?0x482:cold?0x480:0x489,0);} // Identified shared bolt placeholders.
     }
-    internal static void Tick(DateTime at,bool? actions=null)
+    internal static void Tick(DateTime at,bool? actions=null,long? onlyId=null)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Sorceress flight clock must be UTC");}
         while(true)
         {
-            var flight=_pool.Flights.Values.Where(s=>s.NextUtc<=at).OrderBy(s=>s.NextUtc).ThenByDescending(s=>s.Id).FirstOrDefault();if(flight==null){break;}
+            var flight=_pool.Flights.Values.Where(s=>s.NextUtc<=at&&(!onlyId.HasValue||s.Id==onlyId.Value)).OrderBy(s=>s.NextUtc).ThenByDescending(s=>s.Id).FirstOrDefault();if(flight==null){break;}
             try{Advance(flight,at,actions);}
             catch(NotSupportedException e)
             {
@@ -348,6 +402,7 @@ internal static class SorceressSpellMissiles
     {
         if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.Inferno or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.Lightning or CombatAbility.ChargedBolt or CombatAbility.ChillingArmor))
         {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
+        if(s.Npc!=null){NpcItemSpellFlights.Validate(s);}
         var profile=Profile(s.Ability);bool ring=Ring(s.Ability),capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FrostNova or CombatAbility.ChillingArmor;
         if(s.Ability==CombatAbility.ChargedBolt)
         {

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original NPC spell flights (2026-11-07 JST).** Fire Bolt, Charged Bolt, Nova and Frost Nova now reuse shared travel markers from the original NPC origin. Fire 0x36D4, lightning 0x3818, cold 0x36E4 and cold status 0x374A are identified placeholders. Final projectile/ring, impact/proc and audio assets remain pending; native hit verification does not certify final client presentation.
+
 **Original NPC item spell capture (2026-11-07 JST).** Numeric capture adds no rendered effect. Fire Bolt, Charged Bolt, Nova, Frost Nova and Chain Lightning will reuse their spell presentation when original-NPC delivery is connected. Existing shared native bolt/ring/lightning markers remain identified placeholders; final impact, cold, proc and audio assets remain pending separately.
 
 **Valkyrie original ordered contact (2026-11-07 JST).** Prepared original packets now reach real HP,cold/poison and supported event/return presentation. Existing critical/defense/contact/status/retaliation markers remain identified native placeholders. Final spear impact,critical,cold/poison,knockback,retaliation,proc spell and audio work stays separate from body/summon/death artwork;no imagegen asset or learned cast is enabled.

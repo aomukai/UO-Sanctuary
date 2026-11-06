@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original NPC spell flights (2026-11-07 JST).** Prepared equipment spell emissions add no learned icon slot. Valkyrie talent/right/quick icons remain pending; shared spell artwork may serve later proc UI.
+
 **Original NPC item spell capture (2026-11-07 JST).** Equipment procs add no learned talent/hotkey slots. Existing spell icons may be reused where proc UI needs them; Valkyrie talent/right/quick icons remain pending.
 
 **Valkyrie original ordered contact (2026-11-07 JST).** The prepared item/contact profile adds no learned binding or icon slot. Valkyrie talent-tree and right/quick icons remain pending; later item procs should reuse their spell icon where a UI requires one.
