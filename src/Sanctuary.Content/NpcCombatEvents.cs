@@ -28,6 +28,7 @@ internal sealed class NpcCombatEvents
     }
     internal static NpcCombatEvents LegacyForSource(BaseCreature actor)
     {
+        if(ValkyrieEquipmentContact.Active(actor)){return ValkyrieEquipmentContact.Registry((AmazonValkyrieBody)actor);}
         if(ReviveEquipmentEvents.Handles(actor)){return ReviveEquipmentEvents.Registry(actor);}
         if(actor is not SkeletonGuardian){throw new NotSupportedException("No admitted NPC source combat-event adapter");}
         var item=NpcEquipmentCombat.Context(actor);bool wounds=NpcOpenWounds.Potential(actor),crushing=NpcCrushing.Potential(actor);

@@ -21,8 +21,12 @@ internal static class NpcArmorOnHit
         // the actual roll keeps its existing live read/RNG ordering.
         if(source is SkeletonGuardian guardian)
         {
-            _=NpcEquipmentDamage.Capture(guardian,target)??throw new NotSupportedException("Missing NPC armor-setup physical supplier");
-            _=NpcEquipmentCritical.Capture(guardian);_=NpcEquipmentElements.Capture(guardian);_=NpcEquipmentPoison.Capture(guardian);
+            if(guardian is AmazonValkyrieBody valkyrie&&ValkyrieEquipmentContact.Active(valkyrie)){ValkyrieEquipmentContact.RequireAllocation(valkyrie,target);}
+            else
+            {
+                _=NpcEquipmentDamage.Capture(guardian,target)??throw new NotSupportedException("Missing NPC armor-setup physical supplier");
+                _=NpcEquipmentCritical.Capture(guardian);_=NpcEquipmentElements.Capture(guardian);_=NpcEquipmentPoison.Capture(guardian);
+            }
         }
         else{_=ReviveEquipmentOffense.Capture(source,target);}
         return delta;

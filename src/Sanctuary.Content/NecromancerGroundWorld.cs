@@ -32,7 +32,7 @@ internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profil
         if(state?.Profile!=profile){throw new InvalidDataException("Invalid Necromancer ground profile");}
         IronGolemWorld.Validate(state with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"},ranged,run);
         if(State is not{} old||!((Serial)old.Owner).IsMobile){throw new InvalidDataException("Missing ground actor owner");}
-        var next=old with{Controller=state};string saved=JsonSerializer.Serialize(next);_state=next;write(saved);
+        var next=old with{Controller=state};string saved=JsonSerializer.Serialize(next);write(saved);_state=next;
         if(state.Mode!=4||state.ActionAt==0){cancel();}
     }
     internal void Initialize(PlayerMobile owner,DateTime at,Action initializeRandom,bool adopt=false,int? initialThink=null)

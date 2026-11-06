@@ -37,6 +37,11 @@ internal static class NpcEquipmentImpact
         if(actor is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||(flags&~0xffff)!=0)
         {throw new ArgumentException("NPC impact allocation requires existing living actors and source result flags");}
         if(!Fills(flags)){return new(actor.Serial.Value,target.Serial.Value,Packet(flags,0,null,default,0,default,0),default,0);}
+        if(actor is AmazonValkyrieBody valkyrie&&ValkyrieEquipmentContact.Active(valkyrie))
+        {
+            if(limited!=null||raw!=null){throw new NotSupportedException("Original Valkyrie allocation owns its persisted RNG");}
+            return ValkyrieEquipmentContact.Impact(valkyrie,target,flags);
+        }
         var item=NpcEquipmentCombat.Context(actor);
         if(item==null&&actor is not ISourceUnarmedNpc){throw new NotSupportedException("No original NPC impact equipment");}
         // Ordinary current item minima do not create a positive NPC drain

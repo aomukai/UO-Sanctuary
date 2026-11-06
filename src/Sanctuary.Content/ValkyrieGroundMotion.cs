@@ -49,7 +49,7 @@ internal static class ValkyrieGroundMotion
         if(body?.Prepared?.GroundMotion is not{} state||body.CantWalk||body.Ground.State?.Controller is not{} controller)
         {throw new NotSupportedException("Moving Valkyrie lacks its source mode owner");}
         RequireResources(body);
-        Validate(state,body.Prepared.Owner);
+        Validate(state with{World=body.Ground.State},body.Prepared.Owner);
         if(body.Map!=Map.Internal&&(controller.Map!=body.Map?.MapID||body.X!=(IronGolemWorld.Cell(controller).X+1)/2||body.Y!=(IronGolemWorld.Cell(controller).Y+1)/2))
         {throw new NotSupportedException("Valkyrie native pose changed before source controller repair");}
         return controller.Mode;

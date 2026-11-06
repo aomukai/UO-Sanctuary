@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie original ordered contact (2026-11-07 JST).** The prepared item/contact profile adds no learned binding or icon slot. Valkyrie talent-tree and right/quick icons remain pending; later item procs should reuse their spell icon where a UI requires one.
+
 **Valkyrie original ground movement (2026-11-07 JST).** Movement/source-mode work adds no learned binding or icon slot. Valkyrie talent-tree and right/quick hotkey icons remain pending independently of native movement and defense presentation.
 
 **Valkyrie transformed timing (2026-11-07 JST).** No learned binding or icon slot is added. Talent-tree and right/quick hotkey icons remain pending separately from the native body and future movement/contact effects.

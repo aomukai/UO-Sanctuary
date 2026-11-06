@@ -33,6 +33,7 @@ internal static class IronGolemContact
     }
     internal static NpcCombatEvents Events(BaseCreature target,bool requireFrozen=false)
     {
+        if(ValkyrieEquipmentContact.Active(target)){return ValkyrieEquipmentContact.Registry((AmazonValkyrieBody)target);}
         if(ReviveEquipmentEvents.Handles(target)){return ReviveEquipmentEvents.Registry(target);}
         if(requireFrozen&&ReviveNativeActivation.State(target)is{Setup.EquipmentLifeProfile:not null})
         {throw new NotSupportedException("Frozen recipient needs explicit registered-event admission");}
@@ -123,7 +124,7 @@ internal static class IronGolemContact
         }
         var metadata=NativeMonsterReturn.Metadata(target);NativeMonsterReturn.Session(target);
         var item=NpcEquipmentCombat.Context(body);
-        if(item==null&&body is not ISourceUnarmedNpc&&!ReviveEquipmentEvents.Handles(body)){throw new NotSupportedException("Missing ordinary NPC offensive context");}
+        if(item==null&&body is not ISourceUnarmedNpc&&!ReviveEquipmentEvents.Handles(body)&&!ValkyrieEquipmentContact.Active(body)){throw new NotSupportedException("Missing ordinary NPC offensive context");}
         if(ReviveEquipmentEvents.Handles(body)&&(body.ControlMaster!=owner||owner is not{Alive:true,Deleted:false}))
         {throw new NotSupportedException("Original Revive contact lost its living owner");}
         _=NativeMonsterReturn.SourceIdentity(body);
