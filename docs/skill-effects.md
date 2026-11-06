@@ -1,5 +1,7 @@
 # Skill effects
 
+**Saved forced ethereality (2026-11-06 JST).** Property23 reuses numeric finishing and adds no cast, contact, particle or audio producer. Existing Iron Golem/Revive effects remain identified placeholders; ethereal item appearance and final shared contact presentation are unverified. See [checkpoint](saved-item-ethereality-checkpoint.md).
+
 **Saved skill-tree properties (2026-11-06 JST).** Original tree-layer projection adds no effect or audio producer. Existing Iron Golem/Revive summon and contact placeholders remain pending. The Sunder review adds no effect implementation. See [checkpoint](saved-tree-property-checkpoint.md).
 
 **NPC Rest in Peace (2026-11-06 JST).** Item108/function29 changes unit/corpse state without a new visual or audio producer. Existing summon/contact placeholders and final assets remain separate; no new effect artwork is completed. See [checkpoint](npc-rest-in-peace-checkpoint.md).

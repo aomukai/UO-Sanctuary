@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "contexts": 13824,
+  "ownedBases": 692,
+  "constants": {
+    "STAT_MINDAMAGE": 21,
+    "STAT_MAXDAMAGE": 22,
+    "STAT_SECONDARY_MINDAMAGE": 23,
+    "STAT_SECONDARY_MAXDAMAGE": 24,
+    "STAT_ITEM_THROW_MINDAMAGE": 159,
+    "STAT_ITEM_THROW_MAXDAMAGE": 160,
+    "STAT_ARMORCLASS": 31,
+    "STAT_MAXDURABILITY": 73,
+    "STAT_ITEM_INDESCTRUCTIBLE": 152,
+    "STAT_ITEM_MAXDURABILITY_PERCENT": 75,
+    "UNIT_ITEM": 4,
+    "ITEMTYPE_WEAPON": 45,
+    "IFLAG_ETHEREAL": 4194304
+  },
+  "completeRoutineHashes": {
+    "ITEMMODS_ApplyEthereality": "54da0ac7524c5526e5e381bc798c06bc7d22fe629df6e42fa665cd4ec9765001",
+    "ITEMMODS_PropertyFunc23": "a912f1989765803af0de34d8358426ea31576ea22052c57e3cb1203c03e020a4",
+    "ITEMS_HasDurability": "6197c299173256bb253638055ba8c35c31e89fd2d71ef2c543dfb770bb255fbe",
+    "ITEMS_IsEthereal": "e35fc9ebe1a2d613f9b28120c0caae73427409fbac1d47d4e48f60f51e055758",
+    "STATLIST_GetMaxDurabilityFromUnit": "82f1513a3ec883e145428a4379d9250672a1a27757f3a5f75b338ce0b55ae766",
+    "ITEMS_GetItemData": "660fd7daff0d8453d12afc38bac1702f5fc0af742def28db49810057483cc156"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "tools/probe_saved_item_ethereality.py": "238f74bcda964e8d0d70ac130858e42b59acb47f0162a64f9cc6a2a97ed45ead"
+  },
+  "artifacts": {
+    ".local/class-skills/saved-item-ethereality-source/source.cpp": "42f4c3048b073aaf184b7cb7e8033df3af6cf119bfc92f8eca77cc8ff0aaf429",
+    ".local/class-skills/saved-item-ethereality-source/probe": "a69e66b98061015acc5f53ff3a91ecdefbc0d29d621ef88684932fcbb21b60f8",
+    ".local/class-skills/saved-item-ethereality-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/saved-item-ethereality-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/saved-item-ethereality-source/cases.json": "7d1e7f3e0bcea2bd741dd686e9c3b82b069354f6bf98cc4d25ea4f39a62907fc"
+  },
+  "services": [
+    "Complete property23,ethereality,HasDurability,IsEthereal,GetMaxDurability and inline item-data getter. Item row/type predicate,flag setter,base-stat reads/writes and operative max-durability stat query are declared services. Source flag precedes all physical writes;second application tests idempotent guard."
+  ],
+  "limits": [
+    "No current-executable/global item-factory or arbitrary native ethereal-flag reconstruction certificate. Original saved NPC projection and the shared op13 durability-query binding require separate native acceptance."
+  ]
+}

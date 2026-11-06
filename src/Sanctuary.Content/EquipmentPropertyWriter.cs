@@ -150,6 +150,14 @@ internal static class EquipmentRawProperties
     private sealed class Target(EquipmentStatUnit unit,EquipmentStatValues values,EquipmentPropertyBase basis,bool weapon,bool armor,bool throwable):EquipmentPropertyServices
     {
         private EquipmentStatNode List;
+        internal bool Ethereal{get;private set;}
+        internal bool HasDurability()
+        {
+            var facts=SavedItemEthereality.Facts(ClassGear.State((Server.Item)unit.Entity).BaseCode);
+            ItemPropertyCreationContext guard=null;
+            int Stat(int stat)=>values.Query((guard??=SavedItemEthereality.Guard((Server.Item)unit.Entity,unit,values,facts.Durability)).Unit.Stats,EquipmentStatKey.Pack(stat));
+            return SavedItemEthereality.HasDurability(true,unit.Kind,true,facts.NoDurability,facts.Durability,()=>Stat(73),()=>Stat(152));
+        }
         internal override EquipmentPropertyBase Basis=>basis;
         internal override bool Weapon=>weapon;
         internal override bool Armor=>armor;
@@ -166,7 +174,7 @@ internal static class EquipmentRawProperties
         internal override void SetList(int stat,int value,int layer)=>values.SetBase(List,EquipmentStatKey.Pack(stat,layer),value);
         internal override void AddList(int stat,int value,int layer)=>SetList(stat,checked(ListValue(stat,layer)+value),layer);
         internal override int Roll(int bound)=>throw new NotSupportedException("Projection cannot reroll a saved original item");
-        internal override void SetEthereal()=>throw new NotSupportedException("Original ethereality order must be supplied separately");
+        internal override void SetEthereal()=>Ethereal=true;
     }
     // Base arrays/type metadata remain explicit inputs until full item birth is
     // integrated. This projects saved numeric properties, not a complete item.
@@ -186,9 +194,10 @@ internal static class EquipmentRawProperties
             // writer. The original191-plan kernel catalogue stays immutable.
             bool layered=plan is{Steps.Length:>0}&&plan.Steps.All(s=>s.Function==21);
             bool tree=CurrentTreePropertyWriter.Supports(plan);
+            bool ethereal=SavedItemEthereality.Supports(plan);
             bool indestruct=plan is{Code:"indestruct",Steps.Length:1}&&plan.Steps[0] is{Function:20};
             bool socket=plan is{Code:"sock",Steps.Length:1}&&plan.Steps[0] is{Function:14,Stat:194,Set:false};
-            if(plan is not{Supported:true}&&!layered&&!tree&&!indestruct&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
+            if(plan is not{Supported:true}&&!layered&&!tree&&!ethereal&&!indestruct&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
             if(roll.Value==0&&property.SourceMin!=property.SourceMax&&plan.Steps.Skip(1).Any(s=>s.Function is 3 or 4 or 8))
             {omissions.Add(new(property.Code,property.Slot,"A zero first roll can reroll later stats; those separate rolls are not represented"));continue;}
             int parameter=NamedPropertyRuntime.Parameter(property);
@@ -205,6 +214,7 @@ internal static class EquipmentRawProperties
                 if(count!=roll.Value){omissions.Add(new(property.Code,property.Slot,"Saved socket roll differs from source dimension/type/level cap"));}
             }
             else if(tree){CurrentTreePropertyWriter.Apply(plan,input,target);}
+            else if(ethereal){SavedItemEthereality.Apply(true,true,unit.Kind,target.Ethereal,target.HasDurability,target);}
             else if(layered||indestruct){EquipmentPropertyWriter.Create(plan,input,mode,target);}
             else{EquipmentPropertyWriter.Apply(plan,input,mode,target);}
         }
