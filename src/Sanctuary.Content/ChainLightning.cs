@@ -5,9 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Server.Mobiles;
+using Server.Logging;
 using Server.Spells;
 
 namespace Sanctuary;
+
+internal sealed record ChainTrace(double X,double Y,SourceStepTrace Steps,Mobile First,bool Removed);
 
 internal sealed record ChainPlayerPacket(FirestormModifiers Modifiers,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,int VelocityFp8);
 
@@ -24,6 +27,9 @@ public sealed record ChainFlight(long Cast, uint Owner, int Map, int Rank, int R
     internal ChainPlayerPacket PlayerPacket{get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public LightningStrikeChainContext StrikeContext{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    [System.Text.Json.Serialization.JsonInclude]
+    internal NpcItemChainPacket OriginalNpc{get;init;}
     public uint NpcCaster{get;init;}
     public ulong NpcSeed{get;init;}
     public SlowMissilePayload NpcSlow{get;init;}=SlowMissilePayload.Normal;
@@ -42,6 +48,8 @@ public sealed class ChainLightningProfiles : GenericPersistence
 
 public static class ChainLightning
 {
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(ChainLightning));
+    internal static Func<NpcChainRequest,NpcChainAllocation> OriginalNpcAllocator;
     private static readonly Dictionary<long, ChainFlight> _flights = new();
     private static readonly List<long> _keys = new();
     private static long _nextCast;
@@ -85,6 +93,13 @@ public static class ChainLightning
     internal static long CommitPlayer(ChainFlight flight)
     {
         ValidatePlayer(flight);if(flight.Cast!=_nextCast+1){throw new InvalidOperationException("Stale prepared chain");}
+        _flights.Add(flight.Cast,Copy(flight));_nextCast=flight.Cast;return flight.Cast;
+    }
+    internal static ChainFlight PrepareValkyrie(AmazonValkyrieBody actor,Point3D aim,int rank,DateTime at,Func<NpcChainRequest,NpcChainAllocation> allocate)
+        =>NpcItemChainFlights.Prepare(checked(_nextCast+1),actor,aim,rank,at,allocate);
+    internal static long CommitValkyrie(ChainFlight flight)
+    {
+        NpcItemChainFlights.Validate(flight);if(flight.Cast!=_nextCast+1){throw new InvalidOperationException("Stale original NPC chain");}
         _flights.Add(flight.Cast,Copy(flight));_nextCast=flight.Cast;return flight.Cast;
     }
     public static void Cast(PlayerMobile owner,Point3D aim,SkillValues values)=>CommitPlayer(PreparePlayer(owner,aim,values,TimedEffects.Now));
@@ -156,7 +171,7 @@ public static class ChainLightning
         foreach (var delay in flight.Delays) { if (delay.Target == target && delay.UntilUtc > at) { return true; } }
         return false;
     }
-    private static Mobile NextTarget(Mobile caster,PlayerMobile owner, ChainFlight flight, Mobile hit, double x, double y, DateTime at)
+    internal static Mobile NextTarget(Mobile caster,PlayerMobile owner, ChainFlight flight, Mobile hit, double x, double y, DateTime at)
     {
         double radius = SkillGeometry.Tiles(SkillMechanics.For(Ability(flight)).Parameter(1));
         var point = new Point3D((int)Math.Round(x), (int)Math.Round(y), flight.Z);
@@ -168,6 +183,7 @@ public static class ChainLightning
             // Segment terrain is still checked by its ordinary travel path.
             if (target == hit || dx * dx + dy * dy > radius * radius || Math.Abs(target.Z - flight.Z) >= 16
                 || Delayed(flight, target.Serial.Value, at) || !ClassCombat.IsHostile(owner, target)
+                ||flight.OriginalNpc!=null&&(ClassCombat.Friendly(caster,target)||!caster.CanBeHarmful(target,false))
                 || SpellHelper.IsTown(target.Location, owner)) { continue; }
             if (smallest == null || target.Serial.Value < smallest.Serial.Value) { smallest = target; }
             if (target.Serial.Value > hit.Serial.Value && (greater == null || target.Serial.Value < greater.Serial.Value)) { greater = target; }
@@ -177,11 +193,11 @@ public static class ChainLightning
     private static void Remove(long id){_flights.Remove(id);Loaded.Remove(id);}
     public static void Cancel(Mobile owner)
     {
-        var ids = new List<long>(); foreach (var flight in _flights.Values) { if (flight.Owner == owner.Serial.Value||flight.NpcCaster==owner.Serial.Value) { ids.Add(flight.Cast); } }
+        var ids = new List<long>(); foreach (var flight in _flights.Values) { if (flight.Owner == owner.Serial.Value||flight.NpcCaster==owner.Serial.Value||flight.OriginalNpc?.Source.Actor==owner.Serial.Value) { ids.Add(flight.Cast); } }
         foreach (long id in ids) { Remove(id); }
     }
     private static void Tick()=>Tick(TimedEffects.Now);
-    internal static void Tick(DateTime now,bool? npcActions=null,long? onlyCast=null)
+    internal static void Tick(DateTime now,bool? npcActions=null,long? onlyCast=null,Func<NpcChainRequest,NpcChainAllocation> originalAllocate=null)
     {
         if(now.Kind!=DateTimeKind.Utc){throw new ArgumentException("Chain clock needs UTC");}
         _keys.Clear(); _keys.AddRange(_flights.Keys);
@@ -189,6 +205,21 @@ public static class ChainLightning
         {
             if(onlyCast.HasValue&&id!=onlyCast.Value){continue;}
             if (!_flights.TryGetValue(id, out var flight)) { continue; }
+            if(flight.OriginalNpc!=null)
+            {
+                bool loaded=flight.NextUtc<=now&&Loaded.Remove(id);
+                try
+                {
+                    var npcNext=NpcItemChainFlights.Advance(flight,now,npcActions,loaded,originalAllocate??OriginalNpcAllocator);
+                    if(npcNext==null){Remove(id);}else{_flights[id]=Copy(npcNext);}
+                }
+                catch(NotSupportedException e)
+                {
+                    Log.Error(e,"Original NPC chain suspended: {Cast}",id);var suspended=NpcItemChainFlights.Suspend(flight,e.Message);
+                    if(suspended==null){Remove(id);}else{_flights[id]=Copy(suspended);}
+                }
+                continue;
+            }
             var owner = Owner(flight);
             if(flight.UntilUtc<=now){Remove(id);continue;}
             var npc=flight.NpcCaster==0?null:World.FindMobile((Serial)flight.NpcCaster) as NecromancerMinion;
@@ -214,24 +245,9 @@ public static class ChainLightning
             double x=flight.X,y=flight.Y;Mobile first=null;
             if(flight.PlayerPacket is{} prepared)
             {
-                var steps=prepared.Steps;
-                int Move(){x+=flight.Vx;y+=flight.Vy;steps=SourceMissileSteps.Advance(flight.X,flight.Y,flight.Vx,flight.Vy,prepared.Steps);return x<0||y<0||x>=caster.Map.Width||y>=caster.Map.Height?2:1;}
-                bool Wall(SourceMissileCell cell)=>DruidFirestorm.CellBlocked(caster.Map,flight.Z,flight.X,flight.Y,cell.X,cell.Y);
-                Mobile Find(SourceMissileCell cell)
-                {
-                    foreach(var t in caster.Map.GetMobilesInRange<Mobile>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,flight.Z),3))
-                    {
-                        if(t is not{Alive:true,Deleted:false,Blessed:false}||t.Serial.Value==flight.StrikeContext?.OpeningPrimary||Math.Abs(t.Z-flight.Z)>=16||Delayed(flight,t.Serial.Value,flight.NextUtc)
-                            ||!ClassCombat.IsHostile(owner,t)||!owner.CanBeHarmful(t,false)||SpellHelper.IsTown(t.Location,owner)){continue;}
-                        int size=t is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
-                        if(CombatHitboxes.SourceTouches(2,size,cell.X-t.X*2,cell.Y-t.Y*2)){return t;}
-                    }return null;
-                }
-                var update=BasicMissileUpdate.Run(new(true,true,prepared.VelocityFp8,Frames-flight.Frame,2,Frames,true),
-                    new(Move,_=>{},()=>true,()=>true,()=>2,()=>steps.Cells,cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,
-                        (serial,terminal)=>{if(!terminal){first=World.FindMobile((Serial)serial);}return 2;}));
-                flight=flight with{PlayerPacket=prepared with{Steps=steps}};
-                if(update.Result==2&&first==null){Remove(id);continue;}
+                var moved=Trace(flight,caster,owner,prepared.Steps,prepared.VelocityFp8);x=moved.X;y=moved.Y;first=moved.First;
+                flight=flight with{PlayerPacket=prepared with{Steps=moved.Steps}};
+                if(moved.Removed){Remove(id);continue;}
             }
             else
             {
@@ -293,11 +309,31 @@ public static class ChainLightning
             }
         }
     }
-    private static ChainFlight Copy(ChainFlight f)=>f with{Delays=f.Delays.ToArray(),PlayerPacket=f.PlayerPacket is{} p?p with{Steps=new(p.Steps.Cells.ToArray())}:null};
+    internal static ChainTrace Trace(ChainFlight flight,Mobile caster,PlayerMobile owner,SourceStepTrace captured,int velocity)
+    {
+        double x=flight.X,y=flight.Y;var steps=captured;Mobile first=null;
+        int Move(){x+=flight.Vx;y+=flight.Vy;steps=SourceMissileSteps.Advance(flight.X,flight.Y,flight.Vx,flight.Vy,captured);return x<0||y<0||x>=caster.Map.Width||y>=caster.Map.Height?2:1;}
+        bool Wall(SourceMissileCell cell)=>DruidFirestorm.CellBlocked(caster.Map,flight.Z,flight.X,flight.Y,cell.X,cell.Y);
+        Mobile Find(SourceMissileCell cell)
+        {
+            foreach(var t in caster.Map.GetMobilesInRange<Mobile>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,flight.Z),3))
+            {
+                if(t is not{Alive:true,Deleted:false,Blessed:false}||t.Serial.Value==flight.StrikeContext?.OpeningPrimary||Math.Abs(t.Z-flight.Z)>=16||Delayed(flight,t.Serial.Value,flight.NextUtc)
+                    ||!ClassCombat.IsHostile(owner,t)||!caster.CanBeHarmful(t,false)||flight.OriginalNpc!=null&&ClassCombat.Friendly(caster,t)||SpellHelper.IsTown(t.Location,owner)){continue;}
+                int size=t is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
+                if(CombatHitboxes.SourceTouches(2,size,cell.X-t.X*2,cell.Y-t.Y*2)){return t;}
+            }return null;
+        }
+        var update=BasicMissileUpdate.Run(new(true,true,velocity,Frames-flight.Frame,2,Frames,true),
+            new(Move,_=>{},()=>true,()=>true,()=>2,()=>steps.Cells,cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,
+                (serial,terminal)=>{if(!terminal){first=World.FindMobile((Serial)serial);}return 2;}));
+        return new(x,y,steps,first,update.Result==2&&first==null);
+    }
+    private static ChainFlight Copy(ChainFlight f)=>f with{Delays=f.Delays.ToArray(),PlayerPacket=f.PlayerPacket is{} p?p with{Steps=new(p.Steps.Cells.ToArray())}:null,OriginalNpc=f.OriginalNpc is{} n?n with{Steps=new(n.Steps.Cells.ToArray())}:null};
     public static ChainFlight[] Snapshot()=>_flights.Values.OrderBy(x=>x.Cast).Select(Copy).ToArray();
     private static void ValidatePlayer(ChainFlight f)
     {
-        if(f.Cast<=0||f.Frame<0||f.Frame>=Frames||f.Min256<0||f.Max256<f.Min256||!double.IsFinite(f.X+f.Y+f.Vx+f.Vy)||f.PlayerPacket is not{} p||f.NpcCaster!=0||!((Serial)f.Owner).IsMobile||f.Rank is <1 or >255||f.Remaining<1||f.Remaining>(f.StrikeContext==null?(f.Rank+25)/5:f.Rank+1)
+        if(f.Cast<=0||f.Frame<0||f.Frame>=Frames||f.Min256<0||f.Max256<f.Min256||!double.IsFinite(f.X+f.Y+f.Vx+f.Vy)||f.PlayerPacket is not{} p||f.OriginalNpc!=null||f.NpcCaster!=0||!((Serial)f.Owner).IsMobile||f.Rank is <1 or >255||f.Remaining<1||f.Remaining>(f.StrikeContext==null?(f.Rank+25)/5:f.Rank+1)
             ||f.StrikeContext is{OpeningPrimary:not 0} strike&&(!((Serial)strike.OpeningPrimary).IsMobile||strike.OpeningPrimary==f.Owner)
             ||f.StrikeContext is{} context&&context.Profile!="sanctuary-lightning-strike-opening-v1"
             ||f.Map<0||f.Map>=Map.Maps.Length||Map.Maps[f.Map]==null||Map.Maps[f.Map]==Map.Internal||f.Z is <-128 or >127
@@ -324,11 +360,12 @@ public static class ChainLightning
                 ||flight.NpcCaster==0&&flight.NpcSeed!=0||!restored.TryAdd(flight.Cast,flight))
             { throw new InvalidDataException("Invalid Chain Lightning flight"); }
             if(flight.PlayerPacket!=null){ValidatePlayer(flight);}
+            if(flight.OriginalNpc!=null){NpcItemChainFlights.Validate(flight);}
             var targets = new HashSet<uint>();
             foreach (var delay in flight.Delays)
             { if (delay.Target == 0 || !targets.Add(delay.Target)) { throw new InvalidDataException("Invalid Chain Lightning delay"); } }
             nextCast=Math.Max(nextCast,flight.Cast);
         }
-        _flights.Clear();foreach(var pair in restored){_flights.Add(pair.Key,Copy(pair.Value));}_nextCast=nextCast;Loaded.Clear();foreach(var f in restored.Values.Where(f=>f.PlayerPacket!=null)){Loaded.Add(f.Cast);}
+        _flights.Clear();foreach(var pair in restored){_flights.Add(pair.Key,Copy(pair.Value));}_nextCast=nextCast;Loaded.Clear();foreach(var f in restored.Values.Where(f=>f.PlayerPacket!=null||f.OriginalNpc!=null)){Loaded.Add(f.Cast);}
     }
 }

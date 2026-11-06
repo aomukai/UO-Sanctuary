@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Original NPC Chain context (2026-11-07 JST).** Chain roots/children preserve the original actor and explicit proc rank, with own captured damage/pierce and separate per-segment/actor RNG. Allocation is a mandatory per-attempt service, never an eager future-seed list. Existing cyclic search, retained-rank child capture and four-frame delay list are reused; exact modern traversal/NHD/order and source allocator provenance remain open. See [checkpoint](npc-item-chain-checkpoint.md).
+
 **Original NPC natural projectile acceptance (2026-11-07 JST).** Moving charged/radial contacts now have native controls for independent charged children, per-target/per-cast four-frame ring delays, separate same-frame firings, exact projectile/actor RNG, HP and partial-path/ring save resumes. This adds evidence to existing mechanics; current binary callback order, terrain/footprint coverage and original proc/factory RNG remain separate. See [checkpoint](npc-item-spell-travel-checkpoint.md).
 
 **Original NPC spell emission context (2026-11-07 JST).** Four explicit equipment-spell emissions use the original actor/graph binding, own captured damage/pierce, independent supplied child seeds and the pet’s intrinsic 5% critical stream. Player spell damage and source identity remain separate. Full proc callback/seed chronology and shield-bearing recipients remain unsupported. See [checkpoint](npc-item-spell-flights-checkpoint.md).

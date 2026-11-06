@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original NPC Chain Lightning (2026-11-07 JST).** Prepared natural NPC segments reuse native 0x3818/hue0x482 as an identified link placeholder. Final chain links, proc/impact cues and audio remain pending; mechanics and save tests do not certify final client presentation.
+
 **Original NPC natural travel checks (2026-11-07 JST).** Natural charged/ring hits and resumed flights are mechanically exercised. Existing lightning 0x3818, cold 0x36E4 and cold-state 0x374A markers remain identified placeholders; final travel/ring/impact/audio assets and client presentation are still pending. This verification creates no new artwork.
 
 **Original NPC spell flights (2026-11-07 JST).** Fire Bolt, Charged Bolt, Nova and Frost Nova now reuse shared travel markers from the original NPC origin. Fire 0x36D4, lightning 0x3818, cold 0x36E4 and cold status 0x374A are identified placeholders. Final projectile/ring, impact/proc and audio assets remain pending; native hit verification does not certify final client presentation.

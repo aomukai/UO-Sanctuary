@@ -34,20 +34,25 @@ internal static class NpcItemSpellFlights
         {throw new InvalidDataException("Invalid original NPC spell flight context");}
         _=NpcItemSpellDamage.Require(p.Skill);
     }
-    internal static int Impact(PlayerMobile owner,Mobile recipient,SorceressSpellFlight flight,out ulong seed)
+    internal static (AmazonValkyrieBody Body,BaseCreature Target) RequireTarget(PlayerMobile owner,Mobile recipient,NpcItemSpellSource context,int map,DateTime at)
     {
-        Validate(flight);var context=flight.Npc;var p=context.Packet;
         var body=World.FindMobile((Serial)context.Actor)as AmazonValkyrieBody;
-        if(!Attached(body,owner,flight.Map,context.Binding)||recipient is not BaseCreature target||!ClassCombat.IsHostile(owner,target)
+        if(!Attached(body,owner,map,context.Binding)||recipient is not BaseCreature target||!ClassCombat.IsHostile(owner,target)
             ||ClassCombat.Friendly(body,target)||!body.CanBeHarmful(target,false)||SpellHelper.IsTown(target.Location,owner))
         {throw new NotSupportedException("Original NPC spell requires its attached source and living hostile NPC recipient");}
-        _=NpcElementSpellHit.Require(body,owner,target,flight.NextUtc,"Original NPC "+p.Missile);
-        // This new route does not silently inherit the older player/Mage
-        // omission of ordinary NPC shield rolls. Admit zero-block recipients
-        // until the full spell-defense phase has its independent source proof.
+        _=NpcElementSpellHit.Require(body,owner,target,at,"Original NPC "+context.Packet.Missile);
         if(!SourceBlocking.TryRate(target,out int rate,out _)||rate!=0)
         {throw new NotSupportedException("Original NPC spell shield recipient needs its source defense adapter");}
-        int raw=SorceressSpellMissiles.Roll(flight,out seed);
+        return(body,target);
+    }
+    internal static int Impact(PlayerMobile owner,Mobile recipient,SorceressSpellFlight flight,out ulong seed)
+    {
+        Validate(flight);return ImpactCaptured(owner,recipient,flight.Npc,flight.Map,flight.Minimum256,flight.Maximum256,flight.Seed,flight.NextUtc,out seed);
+    }
+    internal static int ImpactCaptured(PlayerMobile owner,Mobile recipient,NpcItemSpellSource context,int map,int minimum,int maximum,ulong initial,DateTime at,out ulong seed)
+    {
+        var(body,target)=RequireTarget(owner,recipient,context,map,at);var p=context.Packet;
+        int raw=SorceressSpellMissiles.Roll(minimum,maximum,initial,out seed);
         SorceressEffects.MissileHit(body,target,p.Missile);
         bool avoided=ClassAvoidance.Missile(target,p.Missile);
         bool critical=NpcEquipmentCritical.Intrinsic(new(0,0,0,NecromancerSummons.Source("valkyrie","Crit")),()=>NpcEquipmentRandom.Raw(body));
@@ -55,7 +60,7 @@ internal static class NpcItemSpellFlights
         var damage=NpcEquipmentCritical.ApplyIntrinsic(0,p.Element=="fire"?new(0,raw/256.0,0,0,0):p.Element=="cold"?new(0,0,raw/256.0,0,0):new(0,0,0,raw/256.0,0),new(0,0),critical);
         int? Pierce(string element)=>element switch{"fire"=>p.FirePierce,"cold"=>p.ColdPierce,"ltng"=>p.LightningPierce,_=>0};
         int before=SkillHealth.Balance256(target);
-        NpcElementSpellHit.Deliver(body,owner,target,p.Element,NamedElements.To256(damage.Elements.Total),p.ColdFrames,flight.NextUtc,"Original NPC "+p.Missile,hitClass:damage.HitClass,pierce:Pierce);
+        NpcElementSpellHit.Deliver(body,owner,target,p.Element,NamedElements.To256(damage.Elements.Total),p.ColdFrames,at,"Original NPC "+p.Missile,hitClass:damage.HitClass,pierce:Pierce);
         return Math.Max(0,before-SkillHealth.Balance256(target));
     }
 }

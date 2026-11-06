@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original NPC Chain Lightning (2026-11-07 JST).** Prepared item procs add no learned icon slot. Valkyrie talent/right/quick icons remain pending; later proc UI may reuse the Chain Lightning artwork.
+
 **Original NPC natural travel checks (2026-11-07 JST).** Verification adds no icon slot. Valkyrie talent/right/quick artwork and any later shared proc UI artwork remain independently pending.
 
 **Original NPC spell flights (2026-11-07 JST).** Prepared equipment spell emissions add no learned icon slot. Valkyrie talent/right/quick icons remain pending; shared spell artwork may serve later proc UI.
