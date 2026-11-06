@@ -36,6 +36,8 @@ internal sealed record SorceressSpellFlight(long Id,uint Owner,int Map,int Z,Com
     public SorceressChargedMotion Charged{get;init;}
 }
 internal sealed record SorceressSpellSave(SorceressSpellFlight[] Flights,long NextId,WeaponFlightLease[] Leases=null);
+internal readonly record struct NpcItemSpellAllocation(bool Allocated,ulong Seed);
+internal sealed record NpcItemSpellEmission(int Result,int Attempts,long[] Flights);
 
 public sealed class SorceressSpellProfiles:GenericPersistence
 {
@@ -179,24 +181,80 @@ internal static class SorceressSpellMissiles
         _=NpcEquipmentRandom.Require(actor);
         var packet=NpcItemSpellDamage.CaptureValkyrie(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
         var values=new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,actor.BirthStats.Level);Route(values);
-        var profile=Profile(ability);bool ring=Ring(ability),charged=ability==CombatAbility.ChargedBolt;
+        bool ring=Ring(ability);
         var slow=AmazonSlowMissiles.Capture(actor,!ring);long first=checked(_pool.NextId+1);
         var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
         var flights=new SorceressSpellFlight[packet.Emissions];
         for(int i=0;i<flights.Length;i++)
         {
-            int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,rank,ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
-            int dx=point.X-actor.X,dy=point.Y-actor.Y;
-            if(ring){var direction=FrozenOrbs.Direction(i);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;}
-            var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
-            var flight=new SorceressSpellFlight(checked(first+i),owner.Serial.Value,actor.Map.MapID,actor.Z,ability,rank,actor.X,actor.Y,
-                vector.X,vector.Y,velocity,0,profile.Frames,slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),new(0,0,0,0,0),slow,childSeed(i),
-                new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40))
-                {Npc=context,ColdFrames=packet.ColdFrames,Cast=ring?first:0,RadialIndex=ring?i:-1,LastCollision=ring?actor.Serial.Value:0,
-                 Charged=charged?new(actor.X,actor.Y,ChargedBolts.Path(ChargedBolts.Seed(point,i),ChargedBolts.Heading(point.X-actor.X,point.Y-actor.Y),ChargedBolts.Frames),1,i):null};
-            Validate(flight);flights[i]=flight;
+            flights[i]=PrepareOriginal(actor,actor.Location,point,context,slow,checked(first+i),ring?first:0,i,childSeed(i),at);
         }
         return flights;
+    }
+    // Shared packet/velocity/path constructor. Ordinary casts and synchronous
+    // item requests differ in origin and allocation,not their movement kernel.
+    private static SorceressSpellFlight PrepareOriginal(AmazonValkyrieBody actor,Point3D origin,Point3D aim,NpcItemSpellSource context,
+        SlowMissilePayload slow,long id,long cast,int ordinal,ulong seed,DateTime at,int flags=0)
+    {
+        var packet=context.Packet;int rank=packet.Rank;var ability=NpcItemSpellDamage.Ability(packet.Skill);var profile=Profile(ability);
+        bool ring=Ring(ability),charged=ability==CombatAbility.ChargedBolt;
+        if(flags==0){flags=ring?7:33;}
+        int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,rank,flags,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
+        int dx=aim.X-origin.X,dy=aim.Y-origin.Y;
+        if(ring){var direction=FrozenOrbs.Direction(ordinal);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;}
+        var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
+        var flight=new SorceressSpellFlight(id,actor.ControlMaster.Serial.Value,actor.Map.MapID,origin.Z,ability,rank,origin.X,origin.Y,
+            vector.X,vector.Y,velocity,0,profile.Frames,slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),new(0,0,0,0,0),slow,seed,
+            new([new(origin.X*2,origin.Y*2)]),at.AddMilliseconds(40))
+            {Npc=context,ColdFrames=packet.ColdFrames,Cast=ring?cast:0,RadialIndex=ring?ordinal:-1,LastCollision=ring?actor.Serial.Value:0,
+             Charged=charged?new(origin.X,origin.Y,ChargedBolts.Path(ChargedBolts.Seed(aim,ordinal),ChargedBolts.Heading(aim.X-origin.X,aim.Y-origin.Y),ChargedBolts.Frames),1,ordinal):null};
+        Validate(flight);return flight;
+    }
+    // Explicit world host for qualified original item frames. The supplied
+    // allocator owns each actual attempt and its seed;there is no RNG default.
+    // Internal IDs reserve attempted ring slots so partial rings retain the
+    // existing Cast+RadialIndex persistence identity without fabricated rays.
+    internal static NpcItemSpellEmission EmitValkyrieItem(AmazonValkyrieBody actor,NpcItemTarget target,Point3D path,
+        int skill,int rank,int outgoing,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
+    {
+        ArgumentNullException.ThrowIfNull(allocate);
+        var owner=actor?.ControlMaster as PlayerMobile;
+        if(skill is not(36 or 44 or 48)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
+            ||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-4000))
+        {throw new NotSupportedException("Original item emission needs its qualified spell,active source and UTC context");}
+        _=NpcEquipmentRandom.Require(actor);
+        var packet=NpcItemSpellDamage.CaptureValkyrie(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
+        Route(new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,actor.BirthStats.Level));
+        var point=target?.Point(actor.Map);bool ring=Ring(ability);var slow=AmazonSlowMissiles.Capture(actor,!ring);
+        var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
+        var before=_pool;long first=checked(before.NextId+1);int attempts=0;var flights=new List<SorceressSpellFlight>();
+        var frame=new NpcItemSpellOrigins((actor.X*2,actor.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),
+            actor.EquipmentNumbers.Read(19),false,request=>
+        {
+            int ordinal=attempts++;
+            if(request.Skill!=skill||request.Rank!=rank||request.Missile!=ItemSkillExecution.MissileId(packet.Missile)
+                ||ordinal>=packet.Emissions||(request.X&1)!=0||(request.Y&1)!=0
+                ||ring&&(request.Flags!=7||request.Velocity!=24||request.AttackRating!=0)
+                ||!ring&&((request.Flags&~0x1000)!=33||request.Velocity!=0))
+            {throw new NotSupportedException("Original item factory request does not match its qualified world route");}
+            var origin=new Point3D(request.X/2,request.Y/2,actor.Z);
+            // Full source factory validates its origin room before allocation.
+            // Use existing UO world/height rules,not the projected destination.
+            if(origin.X<=0||origin.Y<=0||origin.X>=actor.Map.Width||origin.Y>=actor.Map.Height
+                ||SpellHelper.IsTown(origin,owner)) {return null;}
+            int dx=ring?request.TargetX:request.TargetX-request.X,dy=ring?request.TargetY:request.TargetY-request.Y;
+            if(!ring&&(Math.Abs(dx)>=100||Math.Abs(dy)>=100)){return null;}
+            var allocation=allocate(request);if(!allocation.Allocated){return null;}
+            var aim=ring?origin:new Point3D(request.TargetX/2,request.TargetY/2,actor.Z);
+            var flight=PrepareOriginal(actor,origin,aim,context,slow,checked(first+ordinal),ring?first:0,ordinal,allocation.Seed,at,request.Flags);
+            flights.Add(flight);return flight;
+        },(_,_)=>throw new NotSupportedException("Original Chain root needs its separate live budget host"));
+        int result=frame.Run(skill,rank,outgoing);
+        if(!ReferenceEquals(before,_pool)){throw new InvalidOperationException("Original item allocator changed the flight pool reentrantly");}
+        var pool=before.Flights;
+        foreach(var flight in flights){pool=pool.Add(flight.Id,Copy(flight));}
+        _pool=new(pool,checked(before.NextId+attempts));
+        return new(result,attempts,flights.Select(f=>f.Id).ToArray());
     }
     internal static void CommitValkyrie(SorceressSpellFlight[] flights)
     {

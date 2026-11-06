@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original NPC live item emission (2026-11-07 JST).** Internal Fire Bolt/Nova/Frost Nova item emission adds no learned talent/hotkey slot. Valkyrie talent/right/quick artwork and any shared proc UI icons remain separately pending.
+
 **Original NPC item origins (2026-11-07 JST).** The internal factory adapter adds no learned skill or hotkey slot. Valkyrie talent/right/quick artwork and any later shared proc UI icons remain separately pending.
 
 **Original NPC Chain Lightning (2026-11-07 JST).** Prepared item procs add no learned icon slot. Valkyrie talent/right/quick icons remain pending; later proc UI may reuse the Chain Lightning artwork.
