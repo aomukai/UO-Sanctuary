@@ -9,6 +9,7 @@ import socket
 import struct
 import tempfile
 import threading
+import time
 from check_britain import ROOT, SERVER, Session
 
 STAGE = ROOT / '.local/class-skills/iron-golem-birth'
@@ -18,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=()):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -83,6 +84,12 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                         with ExitStack() as connected:
                             if command in extra_connected_checks:
                                 client=connected.enter_context(socket.create_connection(('127.0.0.1',port),timeout=5))
+                                def shutdown_check(client=client):
+                                    # close() alone can retain the TCP connection
+                                    # while the drain thread blocks in recv().
+                                    try:client.shutdown(socket.SHUT_RDWR)
+                                    except OSError:pass
+                                connected.callback(shutdown_check)
                                 def drain_check(client=client):
                                     try:
                                         while client.recv(65536):pass
@@ -95,6 +102,10 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                                 for result in ((results,) if isinstance(results,str) else results):
                                     assert session.expect(result + r': (passed|failed)', timeout=30).group(1) == 'passed'
                                     waited_results += 1
+                        if command in extra_connected_checks and extra_connection_settle:
+                            # Native NetState removal is queued. A subsequent fixture
+                            # must not claim the just-closed unauthenticated socket.
+                            time.sleep(extra_connection_settle)
                     for callback in extra_wire_callbacks:
                         waited_results += callback(session,port,boot)
                     for command in extra_live_commands:

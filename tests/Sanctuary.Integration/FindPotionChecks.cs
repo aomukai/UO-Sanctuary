@@ -84,14 +84,12 @@ public static class FindPotionChecks
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="FindPotionFixture"};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(p,level);
         Require(ClassCreation.Profiles.TryTrain(p.Serial,"barbarian.findpotion",out var why),why);
-        for(int x=2700;x<3050;x+=50)for(int y=1000;y<1350;y+=50)
-        {
-            Point3D point;try{FixtureSpace.Place(p,new(x,y,0),Map.Felucca);point=ClassSkillChecks.Corridor(p,x,y);}catch(InvalidOperationException){continue;}
-            bool occupied=false;foreach(var mobile in p.Map.GetMobilesInRange<Mobile>(point,20)){if(mobile!=p){occupied=true;break;}}
-            if(occupied||!Server.Spells.SpellHelper.CheckTown(point,p)){continue;}
-            p.MoveToWorld(point,p.Map);p.Mana=p.ManaMax;return p;
-        }
-        throw new InvalidOperationException("No Find Potion corridor");
+        // The old narrow Felucca candidate grid is shared by many retained
+        // warcry fixtures. Use the common independently fitted native arena;
+        // keep real occupancy,ground,town and source corpse checks in place.
+        FixtureSpace.Corridor(p,6200,12);
+        Require(Server.Spells.SpellHelper.CheckTown(p.Location,p),"Find Potion arena is protected");
+        p.Mana=p.ManaMax;return p;
     }
     internal static Corpse Body(PlayerMobile owner,int level=1,bool soft=true)
     {
