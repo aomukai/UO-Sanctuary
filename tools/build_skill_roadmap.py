@@ -700,6 +700,15 @@ CAVEATS["barbarian.doubleswing"] = "Approved Sanctuary startup/payment/timing ru
 for _talent in ("necromancer.claygolem","necromancer.irongolem","necromancer.revive"):
     CAVEATS[_talent] += " The user-approved shared melee slow rule now covers original item150/function19 and outgoing Clay before HP,including fully absorbed hits:30seconds,ordinary cap90 and player/boss/champion/unique/hireling cap50;refresh preserves active primary velocity while updating attack slow and expiry. Original items,legacy/graph/frozen recipients and saved slow states have bounded acceptance in npc-item-slow-checkpoint.md. The older inverted item19guard/current unreadable candidate stay explicit reference gaps;incoming Clay27,unrelated player item slow,ranged producers,haste supplier/order and complete current-world/client parity remain separate."
 
+
+for _talent in ("warlock.enhancedentropy","warlock.miasmachain"):
+    NATIVE_PARTIAL.add(_talent)
+    CAVEATS[_talent] = "Prepared shared cloud shape preserves effective Entropy Range/Radius separately from Chain hard-only SrvCalc1. Owned missile705/696 fields match local3.3.93847CASC and cached/runtime data;the numeric supplier reuses MissileValues and does not guess do41 layer geometry. Existing Bolt packets reuse the shared shape without changing damage. Original gear,hard/effective thresholds,captured contexts and Warlock/Witch resource persistence have dedicated scoped checks in entropy-clouds-checkpoint.md. Current do41 geometry,hit windows,first/last contacts,Chain casting and Abyss sksrc context remain unresolved;no learned cast or complete passive is enabled."
+CAVEATS["warlock.miasmabolt"] = BLOCKERS.get("warlock.miasmabolt", "Prepared Miasma Bolt numeric/launch suppliers;learned route remains gated.")+" Shared cloud shape now preserves Entropy effective rank and hard rank separately;existing packet endpoints remain unchanged. See entropy-clouds-checkpoint.md."
+
+
+CAVEATS["necromancer.attract"] += " Native live-input/reload controls now use per-actor decision and accuracy suppliers to force an initial miss then a hit through ordinary autonomous scheduling;defaults retain existing game RNG. An earlier broad eight-second damage failure and unchanged-build isolation are preserved in entropy-clouds-checkpoint.md;that failed log alone does not prove its root cause."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

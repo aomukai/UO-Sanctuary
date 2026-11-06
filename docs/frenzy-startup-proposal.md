@@ -1,8 +1,8 @@
-# Frenzy startup proposal — awaiting a decision
+# Approved Frenzy startup rule
 
-Reference: D2R Reign of the Warlock **3.3.93847**. This proposal does not enable Frenzy. The complete older release/charge routines are already prepared; the current start67 body remains unavailable. See [existing release checkpoint](frenzy-release-checkpoint.md).
+Reference: D2R Reign of the Warlock **3.3.93847**. The user approved this rule; implementation and native acceptance are still required. The complete older release/charge routines are already prepared; the current start67 body remains unavailable. See [existing release checkpoint](frenzy-release-checkpoint.md).
 
-The nonblocking question sent during Double Swing acceptance proposes:
+The exact question and answer are retained in [the approval record](../tools/reference/frenzy-start-decision.json). The approved rule is:
 
 - Require two eligible melee weapons and use the shared SQ11 events, without Double Swing’s separate 50% skill-speed addition.
 - Charge 1.5 mana per released strike; use an ordinary attack when underfunded.
@@ -10,6 +10,6 @@ The nonblocking question sent during Double Swing acceptance proposes:
 - Evaluate the pinned movement/attack-speed curves at the charge count.
 - Cancellation stops remaining strikes without refunding released strikes.
 
-This would be an explicit Sanctuary startup/payment/charge-timing adaptation. It would not establish exact current D2R startup, paired IAS/WSM quirks or the older preceding-packet success chronology. Pinned AR, hard-point damage synergies and Berserk magic conversion still need binding to existing contact/stat consumers and native verification. Final effects/audio and icons remain separate assets.
+This is an explicit Sanctuary startup/payment/charge-timing adaptation. It does not establish exact current D2R startup, paired IAS/WSM quirks or the older preceding-packet success chronology. Pinned AR, hard-point damage synergies and Berserk magic conversion still need binding to existing contact/stat consumers and native verification. Final effects/audio and icons remain separate assets.
 
-Until answered, learned Frenzy stays gated; continue unaffected roadmap work. No running D2R client is required to review the proposal.
+Learned Frenzy stays gated until this approved rule is implemented and verified. No further approval or running D2R client is needed for this contract.

@@ -41,6 +41,10 @@ public abstract partial class GraveyardUndead : BaseCreature
     private long _nextRaise = Core.TickCount;
     private long _lastRecovery, _recoveryFraction;
     private MonsterMelee _melee;
+    // Per-actor suppliers preserve ordinary RNG by default. Deterministic
+    // world acceptance can exercise misses without bypassing AI scheduling.
+    internal Func<double> AttackDecisionRoll=Utility.RandomDouble;
+    internal Func<double> MeleeAccuracyRoll=Utility.RandomDouble;
     internal long NextMeleeDecision => _nextAction;
     public MonsterLevel BalanceLevel => this switch
     {
@@ -139,7 +143,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         var normal = NormalStats;
         bool sourceAttack=SourceTerror.InCombat(this);
-        if (!sourceAttack && normal.AttackChance < 100 && Utility.RandomDouble() * 100 >= normal.AttackChance)
+        if (!sourceAttack && normal.AttackChance < 100 && AttackDecisionRoll() * 100 >= normal.AttackChance)
         {
             _nextAction = now + normal.StallMs;
             AIObject?.ResetApproachState();
@@ -173,7 +177,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         if (SameOrigin && ValidEnemy(target, 1))
         {
             using var attemptedMelee=PaladinThorns.Attempt(this,target,false);
-            if (ClassStats.CheckHit(this, target) == true)
+            if (ClassStats.CheckHit(this, target,0,MeleeAccuracyRoll,projectile:Weapon is BaseRanged) == true)
             {
                 int damage = Utility.RandomMinMax(_melee.MinDamage, _melee.MaxDamage);
                 if (Utility.RandomDouble() * 100 < NormalStats.CriticalChance)

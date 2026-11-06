@@ -1,5 +1,7 @@
 # Skill icons
 
+**Entropy cloud channels (2026-11-06 JST).** No new skill identity or binding is enabled. Enhanced Entropy needs its talent icon; Miasma Chain needs both talent and hotkey icons. These stay separate from their cloud effects. See [checkpoint](entropy-clouds-checkpoint.md).
+
 **Approved Double Swing (2026-11-06 JST).** Its existing talent/hotkey identity is retained; the dedicated Double Swing icon remains pending. Native attack presentation does not satisfy this icon task. See [checkpoint](double-swing-checkpoint.md).
 
 **Necromancer item skill grants (2026-11-06 JST).** Newly usable item-granted spells retain their existing talent/hotkey identities and pending icons. No duplicate item-specific spell icons are introduced. See [checkpoint](necromancer-item-skills-checkpoint.md).

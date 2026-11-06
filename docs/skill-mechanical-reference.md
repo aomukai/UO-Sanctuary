@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Entropy cloud channels (2026-11-06 JST).** Owned 3.3.93847 missile705/696 formulas distinguish effective Range/Radius from Chain hard-only SrvCalc1. The shared captured shape preserves that distinction; do41 geometry and Abyss sksrc remain unresolved. See [checkpoint](entropy-clouds-checkpoint.md).
+
 **Approved Double Swing startup (2026-11-06 JST).** The user approved the explicit two-hand SQ11/shared timing/50% skill-speed/per-release fractional mana/ordinary fallback/cancellation rule. It supersedes the unverified startup gate without certifying compiled start68. Current SQ11 file data and five unchanged older scheduling/callback bodies remain separately bound; shared ordinary weapon contact and hand identity implement the attacks. See [approved rule](approved-double-swing-rule.md) and [checkpoint](double-swing-checkpoint.md).
 
 **Necromancer item grants (2026-11-06 JST).** Four exact pinned unique rows bind 14 individual grants / 13 skills; twelve named activation additions expose whole Maelstrom, Ume's Lament, Blackbog's Sharp and Boneshade. Native zero-hard casts verify existing rank/binding/payment and curse/armor/barrier/poison/corpse/missile consumers, inactivity when unidentified/unequipped/foreign-class, and released snapshots plus two-reload original retention. No formula change or new design deviation; exact modern barrier/other class acceptance stays separate. See [checkpoint](necromancer-item-skills-checkpoint.md).

@@ -1,5 +1,8 @@
 # Attract casting and independent targets — bounded acceptance
 
+**Deterministic live-combat acceptance (2026-11-06 JST):** The [Entropy cloud checkpoint](entropy-clouds-checkpoint.md) includes newer Attract input/reload controls. Per-actor ordinary decision/accuracy suppliers retain default game RNG; the fixture forces a first miss then a hit through autonomous AI, and preserves the independent mind seed. A failed eight-second broad damage observation and a passing unchanged-build isolation are archived; the failure alone does not establish its root cause. This is scoped acceptance, not a new class certificate.
+
+
 The mechanical reference remains **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Build 8/run 4 has passed the bounded native acceptance below. It does not complete Necromancer or any class.
 
 Attract reuses Confuse's saved `SourceMind` target-override state, the shared curse replacement service, source-radius conversion, recipient eligibility, facet difficulty and curse-duration services. It adds mode 2 (an explicit monster target) to the existing mode 3 (Confuse's temporary faction scan); no separate persistence format or RNG consumer is needed. `SourceBlind` and `SourceTerror` read the same explicit target slot. First fear escape clears that slot, matching the reviewed legacy dispatcher. The earlier continuous five-tile attraction search is removed.

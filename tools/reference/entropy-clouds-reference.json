@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "learnedCloudBehaviorVerified": false,
+  "processMemoryRead": false,
+  "sourceFields": {
+    "miasmaboltcloud": {
+      "pSrvDoFunc": 41,
+      "NextDelay": 25,
+      "EType": "mag",
+      "Range": "\"par4+min(((skill('Enhanced Entropy'.lvl)>0)?(skill('Enhanced Entropy'.lvl)*par5):0),100)\"",
+      "Radius": "(skill('Enhanced Entropy'.lvl) >= 10)?4:((skill('Enhanced Entropy'.lvl)>=5)?3:2)",
+      "Param4": 50,
+      "Param5": 5
+    },
+    "miasmachainscloud": {
+      "pSrvDoFunc": 41,
+      "NextDelay": 25,
+      "EType": "mag",
+      "Range": "\"par2+min(((skill('Enhanced Entropy'.lvl)>0)?(skill('Enhanced Entropy'.lvl)*par3):0),100)\"",
+      "Radius": "(skill('Enhanced Entropy'.lvl) >= 10)?4:((skill('Enhanced Entropy'.lvl)>=5)?3:2)",
+      "Param2": 50,
+      "Param3": 5,
+      "SrvCalc1": "(skill('Enhanced Entropy'.blvl) >= 20)?4:((skill('Enhanced Entropy'.blvl)>=10)?3:2)"
+    }
+  },
+  "established": [
+    "Owned local missile705and696match the cached/runtime formula fields. Range uses effective Entropy rank with a100-frame bonus cap;Radius uses effective5/10thresholds. Chain SrvCalc1 separately uses hard10/20thresholds. These values must not be merged.",
+    "Existing Miasma Bolt numerical packets reuse the common captured cloud shape. The raw Chain server calculation is retained as a separate output without assigning it an unverified geometry role."
+  ],
+  "supplementary": {
+    "url": "https://diabloforfans.com/skill/enhanced-entropy",
+    "reportedVersion": "3.3.93847",
+    "scope": "Independent data-miner description corroborates effective duration/radius and absence of damage scaling;it does not explain the separate hard-point Chain SrvCalc1."
+  },
+  "remaining": [
+    "Current do41 layer geometry,hit-delay identity,first/last contacts and Chain casting remain unresolved. Abyss sksrc lookup/owner capture remains separate;no skill() alias is inferred. Enhanced Entropy remains unavailable as a certified complete passive."
+  ],
+  "inputs": {
+    "tools/reference/d2r-local-missile-data-evidence.json": "56adf8600f25379a88a756faee8ca41f801d4ab157abe4b0d763259612dd1bb7",
+    ".local/research/d2r-3.3.93847/missiles.txt": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "data/Sanctuary/Balance/necromancer-summons.json": "eb6aeb429d105a2ec93aed84808da7dfa69aa38a0e7858bc3fd3fc8841e4cf2e",
+    "tools/build_class_skills.py": "8703902766eee8def9a806db540edcbb982e5822f57364915e076dd617ae274c",
+    "tools/review_entropy_clouds.py": "e4b176c5660039b841a480f31760ce3d78f59570d2f558fac7d27270560bbad5"
+  }
+}

@@ -19,8 +19,9 @@ internal static class MiasmaPackets
             ||cloud.Text("EType")!="mag"||cloud.Number("SrcDamage")!=0||cloud.Number("SrcMissDmg")!=0||cloud.Text("Skill")!="0"
             ||cloud.Number("pSrvDoFunc")!=41||cloud.Number("Explosion")!=1||cloud.Number("NextDelay")!=25)
         {throw new NotSupportedException("Unsupported Miasma damage route");}
+        var shape=WarlockEntropyClouds.Capture(values);
         return new(values.Damage256(false),values.Damage256(true),cloud.ElementDamage256(false),cloud.ElementDamage256(true),
-            checked((int)cloud.Eval("Range")),checked((int)cloud.Eval("Radius")),values.Mana256);
+            shape.LifetimeFrames,shape.Radius,values.Mana256);
     }
     internal static MiasmaDamage Capture(PlayerMobile owner)
     {

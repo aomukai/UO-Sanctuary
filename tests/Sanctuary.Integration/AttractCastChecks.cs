@@ -146,13 +146,13 @@ public static class AttractCastChecks
         var account=FixtureNetwork.Authenticate(network,p,"attract-reload-");
         p.MoveToWorld(s.Point,Map.Maps[s.Map]);t.MoveToWorld(new(p.X+8,p.Y,p.Z),p.Map);n.MoveToWorld(new(p.X+9,p.Y,p.Z),p.Map);
         Require(n.Map.GetSector(n.Location).Active,"Connected reload did not activate NPC sector");
-        Require(SkillBindings.Instance.Get(p).Right==CombatAbility.Attract,"Saved Attract binding");int hp=t.Hits;n.Frozen=n.CantWalk=false;n.AIObject.AITimer.Prod();var deadline=TimedEffects.Now.AddSeconds(12);
+        Require(SkillBindings.Instance.Get(p).Right==CombatAbility.Attract,"Saved Attract binding");int hp=t.Hits;int rolls=0;((GraveyardUndead)n).AttackDecisionRoll=()=>0;((GraveyardUndead)n).MeleeAccuracyRoll=()=>{rolls++;if(rolls==2){Require(t.Hits==hp,"First forced melee miss dealt damage");}return rolls==1?1:0;};n.Frozen=n.CantWalk=false;n.AIObject.AITimer.Prod();var deadline=TimedEffects.Now.AddSeconds(12);
         void Finish()
         {
             if(t.Hits>=hp&&TimedEffects.Now<deadline){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Finish));return;}
             try
             {
-                Require(t.Hits<hp&&n.Combatant==t&&NecromancerEffects.Profiles.Find(n).Mind==s.Mind,$"Reload combat: life={t.Hits}/{hp}, target={n.Combatant?.Serial}/{t.Serial}, mind={JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(n)?.Mind)}, expected={JsonSerializer.Serialize(s.Mind)}, frozen={n.Frozen}/{n.CantWalk}, timer={n.AIObject.AITimer.Running}, action={n.AIObject.Action}, at={n.Location}/{t.Location}, home={n.Home}/{n.HomeMap}, returning={(n as GraveyardUndead)?.ReturningHome}, enemy={n.IsEnemy(t)}, harmful={n.CanBeHarmful(t,false)}, PMH={!TimedEffects.CanRegenerateHits(t)}, sector={n.Map.GetSector(n.Location).Active}, warmode={n.Warmode}, nextSwing={n.NextCombatTime-Core.TickCount}, nextDecision={((GraveyardUndead)n).NextMeleeDecision-Core.TickCount}, hitChance={ClassStats.HitChance(ClassStats.AttackRating(n),ClassStats.Defense(t),ClassStats.Level(n),ClassStats.Level(t))}, chance={((GraveyardUndead)n).NormalStats.AttackChance}, resistance={t.PhysicalResistance}, health256={SkillHealth.Balance256(t)}");
+                Require(t.Hits<hp&&rolls>=2&&n.Combatant==t&&NecromancerEffects.Profiles.Find(n).Mind==s.Mind,$"Reload combat: life={t.Hits}/{hp}, target={n.Combatant?.Serial}/{t.Serial}, mind={JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(n)?.Mind)}, expected={JsonSerializer.Serialize(s.Mind)}, frozen={n.Frozen}/{n.CantWalk}, timer={n.AIObject.AITimer.Running}, action={n.AIObject.Action}, at={n.Location}/{t.Location}, home={n.Home}/{n.HomeMap}, returning={(n as GraveyardUndead)?.ReturningHome}, enemy={n.IsEnemy(t)}, harmful={n.CanBeHarmful(t,false)}, PMH={!TimedEffects.CanRegenerateHits(t)}, sector={n.Map.GetSector(n.Location).Active}, warmode={n.Warmode}, nextSwing={n.NextCombatTime-Core.TickCount}, nextDecision={((GraveyardUndead)n).NextMeleeDecision-Core.TickCount}, hitChance={ClassStats.HitChance(ClassStats.AttackRating(n),ClassStats.Defense(t),ClassStats.Level(n),ClassStats.Level(t))}, chance={((GraveyardUndead)n).NormalStats.AttackChance}, resistance={t.PhysicalResistance}, health256={SkillHealth.Balance256(t)}");
                 n.Frozen=n.CantWalk=true;n.AIObject.AITimer.Stop();foreach(var actor in new Mobile[]{p,t,n,legacy}){actor.Internalize();}
                 network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();
                 File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1}));Log.Information("attract-cast-reload-result: passed");
@@ -177,14 +177,14 @@ public static class AttractCastChecks
                 Require(began&&curse.Rank==1&&NecromancerEffects.ManaBalance256(p)==mana-4352,"Real input/payment");ClassCombat.Stop(p);
                 Require((curse.UntilUtc-TimedEffects.Now).TotalMilliseconds is >11900 and <=12000,"Attract rank1 duration");
                 var mind=NecromancerEffects.Profiles.Find(n).Mind;Require(mind is{Mode:2}&&mind.Focus==t.Serial.Value,"Real neighbor override");
-                int hp=t.Hits;bool damaged=false;DateTime observe=TimedEffects.Now.AddSeconds(8);n.Frozen=n.CantWalk=false;n.AIObject.AITimer.Prod();
+                int hp=t.Hits;bool damaged=false;int rolls=0;n.AttackDecisionRoll=()=>0;n.MeleeAccuracyRoll=()=>{rolls++;if(rolls==2){Require(t.Hits==hp,"First forced melee miss dealt damage");}return rolls==1?1:0;};DateTime observe=TimedEffects.Now.AddSeconds(8);n.Frozen=n.CantWalk=false;n.AIObject.AITimer.Prod();
                 void Damage()
                 {
                     if(finished){return;}if(t.Hits>=hp&&TimedEffects.Now<observe){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Damage));return;}
                     try
                     {
-                        Require(t.Hits<hp&&SourceMind.Neutral(t)&&n.Combatant==t&&NecromancerEffects.Profiles.Find(n).Mind==mind,
-                            "Real autonomous neighbor damage/target/RNG: hits="+t.Hits+"/"+hp+",fp="+SkillHealth.Balance256(t)+",neutral="+SourceMind.Neutral(t)
+                        Require(t.Hits<hp&&rolls>=2&&SourceMind.Neutral(t)&&n.Combatant==t&&NecromancerEffects.Profiles.Find(n).Mind==mind,
+                            "Real autonomous neighbor damage/target/RNG: accuracyRolls="+rolls+",hits="+t.Hits+"/"+hp+",fp="+SkillHealth.Balance256(t)+",neutral="+SourceMind.Neutral(t)
                             +",combatant="+n.Combatant?.Serial+",target="+t.Serial+",neighbor="+n.Location+",victim="+t.Location
                             +",alive="+n.Alive+"/"+t.Alive+",frozen="+n.Frozen+",cantwalk="+n.CantWalk+",action="+n.AIObject.Action
                             +",nextMove="+n.AIObject.NextMove+",now="+Core.TickCount+",mind="+JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(n)?.Mind)+",expectedMind="+JsonSerializer.Serialize(mind));

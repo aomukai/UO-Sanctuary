@@ -1,0 +1,8 @@
+{
+  "referenceVersion": "3.3.93847",
+  "questionId": "call_0f42547163074eceb1467ab3b7945b1c",
+  "question": "For Frenzy’s missing current startup code, may Sanctuary use this explicit rule: two eligible melee weapons attack at the shared SQ11 events; each released strike costs 1.5 mana, with an ordinary attack when underfunded; each successful, unblocked contact adds one speed charge up to the effective Frenzy rank and refreshes the table duration (6 seconds plus 0.4 seconds per hard Increased Stamina point); each charge uses the pinned speed curves, and cancellation stops remaining strikes without refunding released ones? This would be recorded as an approved adaptation, with exact current D2R startup and charge timing still unverified.",
+  "answer": "Approve this explicit Frenzy rule",
+  "approved": true,
+  "scope": "Explicit Sanctuary startup/payment/charge-timing adaptation;current start67 and exact current charge chronology are not certified."
+}

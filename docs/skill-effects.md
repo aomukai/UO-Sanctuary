@@ -1,5 +1,7 @@
 # Skill effects
 
+**Entropy cloud channels (2026-11-06 JST).** The shared captured duration/radius/server outputs add no rendered cloud. Final Bolt/Chain cloud layers, contact, expiry and audio stay pending; no do41 geometry or artwork is inferred. See [checkpoint](entropy-clouds-checkpoint.md).
+
 **Approved Double Swing (2026-11-06 JST).** The two mechanical hand events use the existing native weapon animation and per-contact sound placeholders. Final alternating-hand swing/impact presentation and skill-specific audio remain pending; no image generation occurred. See [checkpoint](double-swing-checkpoint.md).
 
 **Necromancer item skill grants (2026-11-06 JST).** Four newly available uniques use the existing curse, armor, barrier, poison, corpse and missile effect routes. Their skill-specific effects/audio remain the identified placeholders in this ledger; these grants add no new visual producer or asset identity. See [checkpoint](necromancer-item-skills-checkpoint.md).
