@@ -1571,10 +1571,10 @@
       "characterClass": "Barbarian",
       "tree": "Combat Skills",
       "sourceId": 133,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Selected-hand/stat and native equip/primary foundations are retained. Complete legacy do70 and its shared GUID search wrapper/callback now have7536compiled source controls:odd-phase flag/search/target assignment,GUID successor/wrap,count retention and ignored-start-return/drain order. The original GUID is an anchor,not a strict exclusion. World enumeration,start32packet/durability and hand context remain explicit services;do70 does not replace modern start68. Current SQ11 file rows match322classic descriptors;modern start/payment/rate/dispatch/input remain unverified. Full native requirements/lifecycle/client and crafted/rune/material pairs remain separately unsupported. Learned Double Swing remains gated;see double-swing-phase-source-evidence.json and barbarian-double-swing-preflight.json."
+      "remaining": "Approved Sanctuary startup/payment/timing rule is retained in double-swing-start-decision.json and approved-double-swing-rule.md. Two eligible native melee weapons release independently on current-file SQ11events,primary then secondary,using shared timing plus Param5speed. Each released strike pays the fractional table cost (rank1=1,rank9+=0);insufficient mana uses an ordinary attack and cancellation does not refund released hits. Shared ordinary PlayerWeaponContact,scoped hands,hard Bash damage and GUID successor/wrap are reused. Current17-row/action4,9data,135complete scheduler/callback controls and1890profile comparisons remain distinct from the approved startup adaptation. Dedicated native input/contact/resource/interrupt/reload acceptance is in double-swing-checkpoint.md. Current compiled start68,paired IAS/WSM quirks,full native geometry/PvP/client and unsupported crafted/rune/material pair domains are not certified."
     },
     {
       "talentId": "barbarian.leap",

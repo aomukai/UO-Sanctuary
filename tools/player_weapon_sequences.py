@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'.local/class-skills'
 CODES=['HTH','1HT','2HT','1HS','2HS','BOW','XBW','STF','1JS','1JT','1SS','1ST','HT1','HT2']
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(sequence):
- assert sequence in [21,24,25,26];inputs={}
+ assert sequence in [11,21,24,25,26];inputs={}
  def pin(p):inputs[str(p.relative_to(ROOT))]=sha(p);return p.read_text()
  tree=json.loads(pin(BASE/'d2moo-source-tree.json'));assert tree['sha']=='0c0bbd1e6bef9181a3da1c046523af622a925416'
  def legacy(rel):

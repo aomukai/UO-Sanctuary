@@ -1,5 +1,7 @@
 # Skill icons
 
+**Approved Double Swing (2026-11-06 JST).** Its existing talent/hotkey identity is retained; the dedicated Double Swing icon remains pending. Native attack presentation does not satisfy this icon task. See [checkpoint](double-swing-checkpoint.md).
+
 **Necromancer item skill grants (2026-11-06 JST).** Newly usable item-granted spells retain their existing talent/hotkey identities and pending icons. No duplicate item-specific spell icons are introduced. See [checkpoint](necromancer-item-skills-checkpoint.md).
 
 **Original individual-skill properties (2026-11-06 JST).** Retaining item skill layers adds no talent-tree/hotkey identity. Existing Iron Golem/Revive icons remain separately pending. See [checkpoint](single-skill-property-checkpoint.md).

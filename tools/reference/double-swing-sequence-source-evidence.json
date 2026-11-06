@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "readOnlyFileInspection": true,
+  "processMemoryRead": false,
+  "processInput": false,
+  "currentExecutableCodeParity": false,
+  "handlerEnabledByThisProbe": false,
+  "sequence": 11,
+  "classicDescriptorsMatched": 322,
+  "profiles": 14,
+  "points": 17,
+  "actionIndices": [
+    4,
+    9
+  ],
+  "sourceContexts": 135,
+  "sourcePlayerClass": 4,
+  "nativeComparisons": 1890,
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SequenceTbls.h": "ab11d2b45b3b308fa48de9a8b542a9d67b536a1dfe7bf978215f4001f48cd533",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/player_weapon_sequences.py": "b5454e7274b165021e9d4a937aa021c7a0c5ab95ed449561d4599832cc4ac48e",
+    "tools/reference/dragon-flight-source-evidence.json": "0d0f4c78041c22010bc15d373aca1e3658167bb74628c396a62aae1dc26d2f3b",
+    ".local/class-skills/dragon-flight-source/source.cpp": "d910d5d5f19439c7e46f827c308209f8fa3fb524eabd3d861b9efbb82ff85db5",
+    "tools/probe_double_swing_sequence.py": "9d3019831e3461a6c2c3b6f553318f985a445950b45eccad3f76dde93add25a0"
+  },
+  "completeRoutineHashes": {
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FC80EE0": "7aa059e046e52e4688c30ef03b67f193336c66b643268593a79c92d0f8bafab2"
+  },
+  "artifacts": {
+    ".local/class-skills/double-swing-sequence-source/source.cpp": "f965a381f97bf9d5768b25d12377759acecaf8733a5b1838447a197c21e7de6a",
+    ".local/class-skills/double-swing-sequence-source/probe": "17d54c2a554c1a7d1a753244c71d375045d184f685103b425795612dbafef249",
+    ".local/class-skills/double-swing-sequence-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/double-swing-sequence-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/double-swing-sequence-source/cases.json": "7a8fcad8bdc565d60f872ab4ddc33216238617be2a7678748de5a1134ff22b18",
+    "data/Sanctuary/Balance/double-swing-sequence.json": "5ad18dfdcf86944692dbbd81c23d059781d23b2869c7313b1fca672d46f58a7e"
+  },
+  "established": [
+    "All322classic descriptor/profile pairs and exact pose rows anchor read-only current SQ11. All14current profiles retain17rows:ATTACK1mode7thenSPECIAL3mode15;action flags are atindices4/9. Raw auxiliary256is preserved without inventing its role.",
+    "Five original scheduler/sequence-reader/player-callback/frame-setter/frame-bonus bodies remain unchanged.135supplied speed/entry/fraction contexts establish event ordinals0/1and retained FP8low bits;135x14native comparisons are required separately. At supplied advance256events are entry+4,+9 and end+17;these are supplied-rate facts,not a chosen real attack rate."
+  ],
+  "services": [
+    "Existing pinned Flight oracle scaffold supplies unit/table/event queue services. The ordinary skill dispatcher is replaced by an explicit ordinal/fraction recorder;it does not run Double Swing,start68,damage,payment or target/hand selection. Barbarian class4and a present used-skill record are explicit. Frame bonus is0in source contexts."
+  ],
+  "remaining": [
+    "Current startup68,mana cadence,paired attack rate,world hand/combat/target dispatch,input and client acceptance remain unverified. Legacy do70/search evidence remains separate and does not fill start68. The playable startup uses a separately approved Sanctuary rule;this source probe does not certify it or complete a class."
+  ]
+}

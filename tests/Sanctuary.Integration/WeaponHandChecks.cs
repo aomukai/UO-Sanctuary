@@ -44,7 +44,7 @@ public static class WeaponHandChecks
         foreach(string code in new[]{"str","dex","enr","hp","mana","res-fire","res-all","allskills","cast1","light"}){Require(!WeaponHands.DamageRelated(code),"Global property incorrectly restricted "+code);}
         for(int frame=0;frame<20;frame++)
         {Require(WeaponHands.SecondaryForSequence(frame,true)==(frame>0 && frame%2!=0) && WeaponHands.SecondaryForSequence(frame,false)==(frame>0),"Source server sequence hand parity");}
-        Require(!BarbarianCombat.Implemented(CombatAbility.DoubleSwing),"Foundation accidentally enabled unverified Double Swing");
+        Require(CombatTiming.WeaponAttack(CombatAbility.DoubleSwing),"Approved Double Swing bypassed the shared weapon channel");
     }
     private static void Pools(PlayerMobile owner,BaseWeapon weapon)
     {

@@ -90,7 +90,7 @@ public static class BarbarianCastClockChecks
                     if(boosted){DualGear(p);}var weaponClock=CombatTiming.For(p,CombatAbility.BasicAttack);
                     int fcr=boosted?20:0;var expected=BarbarianCastClock.Calculate(fcr);
                     Require(CombatTiming.Fcr(p)==fcr,"Real gear FCR");
-                    foreach(var ability in new[]{CombatAbility.GrimWard,CombatAbility.DoubleSwing,CombatAbility.Frenzy,CombatAbility.LeapAttack})
+                    foreach(var ability in new[]{CombatAbility.GrimWard,CombatAbility.Frenzy,CombatAbility.LeapAttack})
                     {Require(!ClassCombat.Available(p,ability),"Clock enabled an unsupported learned skill");}
                     foreach(var skill in skills)
                     {
@@ -130,7 +130,7 @@ public static class BarbarianCastClockChecks
         }
         finally{BarbarianFindItem.Roll=itemRoll;BarbarianFindPotion.Roll=potionRoll;}
         Require(routes==2331&&ownerRoutes==18&&casts==18&&cancellations==6,"Missing Barbarian clock coverage");
-        Log.Information("Barbarian SC clock:3108source comparisons,2331static clocks,18actual owner/gear/effect casts,6cancellations;dual hands,corpse start payment,Orders rescale and four unavailable skills retain");
+        Log.Information("Barbarian SC clock:3108source comparisons,2331static clocks,18actual owner/gear/effect casts,6cancellations;dual hands,corpse start payment,Orders rescale and three unavailable skills retain");
     }
     private static void Input(NetState network,bool quick)
     {

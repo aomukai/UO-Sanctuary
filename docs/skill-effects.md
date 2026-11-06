@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved Double Swing (2026-11-06 JST).** The two mechanical hand events use the existing native weapon animation and per-contact sound placeholders. Final alternating-hand swing/impact presentation and skill-specific audio remain pending; no image generation occurred. See [checkpoint](double-swing-checkpoint.md).
+
 **Necromancer item skill grants (2026-11-06 JST).** Four newly available uniques use the existing curse, armor, barrier, poison, corpse and missile effect routes. Their skill-specific effects/audio remain the identified placeholders in this ledger; these grants add no new visual producer or asset identity. See [checkpoint](necromancer-item-skills-checkpoint.md).
 
 **Original individual-skill properties (2026-11-06 JST).** Raw107 storage adds no cast/contact/particle/audio producer. Existing Iron Golem/Revive effects stay identified placeholders; NPC skill activation and graphical acceptance remain separate. See [checkpoint](single-skill-property-checkpoint.md).

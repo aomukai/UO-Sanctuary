@@ -44,7 +44,7 @@ public static class DoubleSwingPhaseChecks
             Require(actual==JsonSerializer.Serialize(row[2]),"Double Swing/GUID case "+count+":"+actual+" expected:"+row[2]);count++;
         }
         Require(count==7536&&finds==1470&&phases==6066,"Incomplete Double Swing/GUID source matrix");
-        Require(!BarbarianCombat.Implemented(CombatAbility.DoubleSwing),"Legacy release enabled unresolved modern start68");
-        Log.Information("Double Swing:7536complete legacy cases,1470GUID selectors/6066composed release phases;flag/parity,target/count and ignored-start-return/drain order pass;modern start68 remains gated");
+        Require(BarbarianCombat.Implemented(CombatAbility.DoubleSwing),"Approved startup handler missing;legacy phase proof remains separate");
+        Log.Information("Double Swing:7536complete legacy cases,1470GUID selectors/6066composed release phases;flag/parity,target/count and ignored-start-return/drain order pass;modern start68 body remains unverified;approved playable startup is separate");
     }
 }

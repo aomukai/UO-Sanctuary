@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "questionId": "call_9156a4e3206248f3a18956c97a08ba01",
+  "question": "Double Swing’s current startup code remains unavailable. May Sanctuary use this explicit rule: require two eligible melee weapons; strike primary then secondary at the pinned SQ11 events; use the shared dual-weapon timing plus its 50% skill-speed bonus; charge the table cost for each released strike (1 mana each at rank 1, free from rank 9), with a basic attack when mana is insufficient; cancellation stops remaining strikes without refunding released ones? This would be an approved adaptation, not a claim of verified D2R startup behavior. I’ll continue the sequence verification while this is open.",
+  "answer": "Approve this explicit Double Swing rule",
+  "approved": true,
+  "rules": [
+    "Require two eligible melee weapons, using existing native pair eligibility and primary identity.",
+    "Primary and secondary strikes use the pinned SQ11 events and shared dual-weapon timing with the table's 50-percent skill-speed bonus.",
+    "Each released strike spends the skill table's fractional mana cost; rank 1 costs 1 mana per strike and rank 9 or higher is free.",
+    "Insufficient mana falls back to an ordinary attack.",
+    "Cancellation stops unreleased strikes and does not refund a released strike."
+  ],
+  "scope": "Explicit Sanctuary startup/payment/timing adaptation. Pinned source/data still supply ordinary combat, Bash hard-point damage, targeting and hand/event mechanisms. Exact D2R startup68 or current paired IAS/WSM behavior is not certified."
+}
