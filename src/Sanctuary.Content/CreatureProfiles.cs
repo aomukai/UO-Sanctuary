@@ -174,6 +174,7 @@ public static class CreatureProfiles
     {
         if(creature is EncounterCreature encounter){return new(creature.GetType().FullName,typeof(GraveyardUndead).FullName,"DungeonEncounter",
             "Saved dungeon encounter profile","native",encounter.Dungeon.Reference,"Explicit encounter source identity; native archetype combat retained");}
+        if(creature is AmazonValkyrieBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Valkyrie supplied-birth body","native","valkyrie","Prepared saved supplied life/stats/ownership; equipment,passive skills,AI and learned casting remain gated");}
         if(creature is WarlockDefilerBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warputriddefiler vital entity","native","warputriddefiler","Prepared Gazer life/ownership; offense,Health Link,GenericPet and learned casting remain gated");}
         if(creature is WarlockTaintedBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned warbighead entity","native","warbighead","Prepared saved vulnerable Tainted life/ownership and qualified fire hit; GenericPet controller,actual skill release and learned casting remain gated");}
         if(creature is WarlockGoatmanBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned wargoatman entity","native","wargoatman","Prepared saved vulnerable Goatman life/ownership; GenericPet world/combat and learned casting remain gated");}
@@ -195,9 +196,9 @@ public static class CreatureProfiles
         return new(creature.GetType().FullName, creature.GetType().BaseType.FullName, "Native", "Custom subclass",
             "native", null, "Unmapped custom type; native values retained");
     }
-    private static CreatureVariant DemonVariant(SkeletonGuardian body,string key,CreatureResistances resistances,MonsterDifficulty? difficulty)
+    private static CreatureVariant SummonVariant(SkeletonGuardian body,string key,CreatureResistances resistances,MonsterDifficulty? difficulty,bool demon=true)
         => _native with{Enabled=true,ApplyStats=false,Resistances=resistances,
-            Traits=new("Demon",false,true,false,false,false,
+            Traits=new(demon?"Demon":"Valkyrie",false,demon,false,false,false,
                 GenericPetSecondaryTables.Table.Row(GenericPetSearchTables.SourceId(key)??throw new NotSupportedException("Missing demon source identity"))?.SizeX
                     ??throw new NotSupportedException("Missing demon model footprint"),
                 NecromancerSummons.Source(key,"DamageRegen"),NecromancerSummons.Source(key,"Drain",difficulty??body.SummonDifficulty),
@@ -216,9 +217,10 @@ public static class CreatureProfiles
                 {"mKB",((NativeMonsterReturn.Identity(key).ModeFlags>>13)&1).ToString()}
             },HitRecovery=new(false)};
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is WarlockDefilerBody defiler ? DemonVariant(defiler,"warputriddefiler",defiler.SourceResistances(difficulty),difficulty)
-            : creature is WarlockTaintedBody tainted ? DemonVariant(tainted,"warbighead",tainted.SourceResistances(difficulty),difficulty)
-            : creature is WarlockGoatmanBody goat ? DemonVariant(goat,"wargoatman",goat.SourceResistances(difficulty),difficulty)
+        => creature is AmazonValkyrieBody valkyrie ? SummonVariant(valkyrie,"valkyrie",valkyrie.SourceResistances(difficulty),difficulty,false)
+            : creature is WarlockDefilerBody defiler ? SummonVariant(defiler,"warputriddefiler",defiler.SourceResistances(difficulty),difficulty)
+            : creature is WarlockTaintedBody tainted ? SummonVariant(tainted,"warbighead",tainted.SourceResistances(difficulty),difficulty)
+            : creature is WarlockGoatmanBody goat ? SummonVariant(goat,"wargoatman",goat.SourceResistances(difficulty),difficulty)
             : creature is IronGolemBody iron ? _native with{Enabled=true,ApplyStats=false,
             Resistances=new(Magic:NecromancerSummons.Source("irongolem","ResMa",difficulty??iron.SummonDifficulty)),
             Traits=new("Golem",false,false,false,false,false,2,3,

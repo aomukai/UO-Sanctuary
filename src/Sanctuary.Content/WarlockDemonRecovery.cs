@@ -4,9 +4,9 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Common explicit source-frame recovery for prepared permanent demon bodies.
+// Common explicit source-frame recovery for prepared permanent summon bodies.
 // The future GenericPet controller owns scheduling; this installs no timer.
-internal static class WarlockDemonRecovery
+internal static class PermanentSummonRecovery
 {
     internal static DateTime? Advance(SkeletonGuardian body, uint ownerId, DateTime nextUtc, DateTime at, bool actions)
     {
@@ -17,7 +17,7 @@ internal static class WarlockDemonRecovery
         long frames = (at - nextUtc).Ticks / TimeSpan.FromMilliseconds(40).Ticks + 1;
         var next = nextUtc.AddTicks(checked(frames * TimeSpan.FromMilliseconds(40).Ticks));
         if (!PersistentMinions.Active(owner, body) || !body.Permitted(owner))
-        { PersistentMinions.ParkClass(owner, DiabloClass.Warlock); return next; }
+        { PersistentMinions.ParkClass(owner, body.SummonClass); return next; }
         if (!actions || owner.Map == null || owner.Map == Map.Internal)
         { PersistentMinions.Suspend(owner); return next; }
         if (body.Map == Map.Internal) { PersistentMinions.Resume(owner); }
@@ -25,4 +25,11 @@ internal static class WarlockDemonRecovery
         { SkillHealth.Heal(body, (int)Math.Min(int.MaxValue, frames * BattleOrders.Regeneration256(body))); }
         body.AIObject?.AITimer.Stop(); return next;
     }
+}
+
+// Preserve the existing demon entry point while sharing its class-aware policy.
+internal static class WarlockDemonRecovery
+{
+    internal static DateTime? Advance(SkeletonGuardian body,uint ownerId,DateTime nextUtc,DateTime at,bool actions)
+        =>PermanentSummonRecovery.Advance(body,ownerId,nextUtc,at,actions);
 }
