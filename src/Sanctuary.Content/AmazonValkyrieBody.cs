@@ -13,20 +13,36 @@ internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterD
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieEquipmentState Equipment=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentStatProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieWeaponBinding EquipmentWeapons=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentDefenseProfile=null)
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentDefenseProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieGroundMotionState GroundMotion=null)
 {public string Profile{get;init;}="prepared-valkyrie-body-v1";}
 
 // Saved supplied-birth backend with optional numeric equipment recipients.
 // Resource/weapon/skill/event delivery,NecroPet and casting remain separate.
 [SerializationGenerator(0)]
-public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
+public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INecromancerGroundMotion
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private ValkyrieBodyState _state;
     private ValkyrieCreationStats _numbers;
     private GeneratedNpcStatGraph _equipmentNumbers;
+    private NecromancerGroundWorld _ground;
     private ValkyrieBodyState State=>_state??(_saved=="{}"?null:_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved));
-    internal ValkyrieBodyState Prepared=>State?.Equipment==null?State:State with{Equipment=ValkyrieEquipment.Copy(State.Equipment)};
+    internal ValkyrieBodyState Prepared=>State==null?null:State with{Equipment=ValkyrieEquipment.Copy(State.Equipment),GroundMotion=ValkyrieGroundMotion.Copy(State.GroundMotion)};
+    internal NecromancerGroundWorld Ground=>_ground??=new(this,ValkyrieGroundMotion.Profile,
+        ()=>State?.GroundMotion==null?"{}":JsonSerializer.Serialize(State.GroundMotion.World),StoreGround,()=>{},run:true);
+    NecromancerGroundWorld INecromancerGroundActor.WorldGround=>State?.GroundMotion==null?null:Ground;
+    int INecromancerGroundActor.MovementPercent=>0;
+    (int Velocity,int Animation) INecromancerGroundMotion.GroundMovement(int bonus,bool run)=>ValkyrieGroundMotion.Speed(this,bonus,run);
+    int INecromancerGroundMotion.GroundRegenerationBase=>GeneratedNpcLiveResources.RegenerationBase(this)
+        ??throw new NotSupportedException("Original Valkyrie motion lost its explicit source resource basis");
+    private void StoreGround(string text)
+    {
+        if(State?.GroundMotion is not{} motion){throw new InvalidDataException("Missing Valkyrie source motion binding");}
+        var next=State with{GroundMotion=motion with{World=JsonSerializer.Deserialize<SkeletonWorldState>(text)}};Validate(next);
+        // Only controller transport changed. Keep immutable birth/item caches.
+        _state=next;_saved=JsonSerializer.Serialize(next);
+    }
     private ValkyrieCreationStats Numbers=>_numbers??=ValkyrieBirthNumbers.Calculate(State.Birth,State.Difficulty);
     internal ValkyrieCreationStats BirthStats=>Numbers with{Passives=(SummonStat[])Numbers.Passives.Clone(),Auras=(SummonStat[])Numbers.Auras.Clone(),Skills=(SummonStat[])Numbers.Skills.Clone()};
     internal string SavedText=>_saved;
@@ -83,6 +99,11 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
             {ValkyrieEquipmentWeapons.Validate(weapons);if(state.EquipmentStatProfile!=ValkyrieEquipmentStats.Profile){throw new InvalidDataException("Valkyrie hand binding requires its original numeric loadout");}}
             if(state.EquipmentDefenseProfile!=null&&(state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile||state.EquipmentWeapons==null))
             {throw new InvalidDataException("Invalid Valkyrie inherited defense admission");}
+            if(state.GroundMotion is{} motion)
+            {
+                if(state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile){throw new InvalidDataException("Moving Valkyrie requires inherited defense binding");}
+                ValkyrieGroundMotion.Validate(motion,state.Owner);
+            }
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}
         }
@@ -90,7 +111,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
         {throw new InvalidDataException("Unsupported Valkyrie body snapshot",e);}
     }
     internal void RestorePrepared(ValkyrieBodyState state)
-    {Validate(state);if(state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Valkyrie loadout belongs to another body");}state=state with{Equipment=ValkyrieEquipment.Copy(state.Equipment)};string json=JsonSerializer.Serialize(state);_state=state;_numbers=null;_equipmentNumbers=null;_saved=json;}
+    {Validate(state);if(state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Valkyrie loadout belongs to another body");}state=state with{Equipment=ValkyrieEquipment.Copy(state.Equipment),GroundMotion=ValkyrieGroundMotion.Copy(state.GroundMotion)};string json=JsonSerializer.Serialize(state);_state=state;_numbers=null;_equipmentNumbers=null;_saved=json;_ground?.Invalidate();}
     internal CreatureResistances SourceResistances(MonsterDifficulty? difficulty=null)
     {
         var d=difficulty??SummonDifficulty;var n=ValkyrieBirthNumbers.Calculate(Prepared.Birth,d);
@@ -129,7 +150,12 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
     internal override void RefreshDifficulty()
     {if(Prepared is{} state){RestorePrepared(state with{Difficulty=SummonDifficulty});}GeneratedNpcLiveResources.RefreshValkyrieBasis(this);base.RefreshDifficulty();ApplyNumbers();}
     internal void AdvanceRecovery(DateTime at,bool actions)
-    {if(Prepared is{} state&&PermanentSummonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions)is{} next){RestorePrepared(Prepared with{NextRecoveryUtc=next});}}
-    public override void OnAfterDelete(){NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
-    [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;_equipmentNumbers=null;}
+    {
+        if(State?.GroundMotion!=null){IronGolemWorld.Advance(this,at,actions);return;}
+        if(Prepared is{} state&&PermanentSummonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions)is{} next){RestorePrepared(Prepared with{NextRecoveryUtc=next});}
+    }
+    public override void SuspendActions(){base.SuspendActions();if(State?.GroundMotion!=null){Ground.Suspend();}}
+    internal override void InterruptForRecovery(){base.InterruptForRecovery();if(State?.GroundMotion!=null){Ground.Suspend();}}
+    public override void OnAfterDelete(){IronGolems.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
+    [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;_equipmentNumbers=null;if(_state.GroundMotion!=null){Ground.Load();}}
 }

@@ -17,7 +17,7 @@ internal static class ValkyrieEquipmentDefense
         // The prepared immobile body cannot enter source walk/run. The future
         // moving controller must supply its actual source mode,not a guessed
         // lease inferred from native location changes or owner movement.
-        if(world&&!body.CantWalk){throw new NotSupportedException("Moving Valkyrie defense needs the actual source controller mode");}
+        if(world&&!body.CantWalk){_=ValkyrieGroundMotion.Mode(body);}
         if(!SourceBlocking.TryRate(body,out int shield,out _)||shield!=0)
         {throw new NotSupportedException("Valkyrie original no-shield component context changed");}
         if(body.EquipmentNumbers.Stats.Any(v=>v.Stat==348&&v.Value!=0))
@@ -53,7 +53,8 @@ internal static class ValkyrieEquipmentDefense
     }
     internal static int World(AmazonValkyrieBody body,bool avoid,bool block)
     {
-        Require(body);int flags=SuppliedMode(body,1,avoid,block);
+        Require(body);int mode=body.Prepared.GroundMotion==null?1:ValkyrieGroundMotion.Mode(body);
+        int flags=SuppliedMode(body,mode,avoid,block);
         if(flags!=0){body.FixedEffect(0x375A,5,5,0x481,0);body.PlaySound(0x1A4);} // Identified defense presentation placeholder.
         return flags;
     }

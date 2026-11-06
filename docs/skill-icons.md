@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie original ground movement (2026-11-07 JST).** Movement/source-mode work adds no learned binding or icon slot. Valkyrie talent-tree and right/quick hotkey icons remain pending independently of native movement and defense presentation.
+
 **Valkyrie transformed timing (2026-11-07 JST).** No learned binding or icon slot is added. Talent-tree and right/quick hotkey icons remain pending separately from the native body and future movement/contact effects.
 
 **Valkyrie inherited defense (2026-11-07 JST).** The saved defensive profile adds no player binding or icon. Valkyrie talent/right/quick artwork remains separately pending; inherited pet passives do not create owner hotkeys.

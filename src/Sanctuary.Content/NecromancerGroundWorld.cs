@@ -12,9 +12,17 @@ internal interface INecromancerGroundActor
     int MovementPercent{get;}
 }
 
+// Original equipped actors supply their own transformed animation/stat graph.
+// This motion capability grants no unarmed or legacy single-item attack path.
+internal interface INecromancerGroundMotion:INecromancerGroundActor
+{
+    (int Velocity,int Animation) GroundMovement(int bonus,bool run);
+    int GroundRegenerationBase{get;}
+}
+
 // Owner/frame/load transport shared by melee and ranged pets. Keep actor-owned
 // serialized fields and the historical owner/controller JSON shape unchanged.
-internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profile,Func<string> read,Action<string> write,Action cancel,bool ranged=false)
+internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profile,Func<string> read,Action<string> write,Action cancel,bool ranged=false,bool run=false)
 {
     private SkeletonWorldState _state;
     internal bool Loaded;
@@ -22,18 +30,18 @@ internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profil
     internal void Store(IronGolemWorldState state)
     {
         if(state?.Profile!=profile){throw new InvalidDataException("Invalid Necromancer ground profile");}
-        IronGolemWorld.Validate(state with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"},ranged);
+        IronGolemWorld.Validate(state with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"},ranged,run);
         if(State is not{} old||!((Serial)old.Owner).IsMobile){throw new InvalidDataException("Missing ground actor owner");}
         var next=old with{Controller=state};string saved=JsonSerializer.Serialize(next);_state=next;write(saved);
         if(state.Mode!=4||state.ActionAt==0){cancel();}
     }
-    internal void Initialize(PlayerMobile owner,DateTime at,Action initializeRandom,bool adopt=false)
+    internal void Initialize(PlayerMobile owner,DateTime at,Action initializeRandom,bool adopt=false,int? initialThink=null)
     {
         if(at.Kind!=DateTimeKind.Utc||body.ControlMaster!=owner||body.Map!=owner.Map||body.Map==Map.Internal)
         {throw new ArgumentException("Ground actor needs owner,world placement and UTC time");}
         initializeRandom();
         var controller=new IronGolemWorldState(body.Map.MapID,DruidRavenMotion.Center(body.X*2,body.Y*2),at.AddMilliseconds(40),
-            Mode:adopt?1:8,NextThink:adopt?1:25,EndAt:adopt?0:DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End,Ai:new(ranged?1:0,0,0)){Profile=profile};
+            Mode:adopt?1:8,NextThink:initialThink??(adopt?1:25),EndAt:adopt?0:DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End,Ai:new(ranged?1:0,0,0)){Profile=profile};
         _state=new(owner.Serial.Value,controller);Store(controller);PetOwnerRoutes.For(owner,at);
         if(!adopt){BattleCommand.Track(body);}PersistentMinions.Profiles.Track(body);IronGolems.Track(body);
     }

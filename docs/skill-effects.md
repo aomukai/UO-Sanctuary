@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie original ground movement (2026-11-07 JST).** Source movement and moving Evade now have native world consumers. The female native body/hue and defense marker 0x375A/hue0x481/sound 0x1A4 remain identified placeholders. Final walk/run,spear contact,Evade/Dodge/Avoid,recovery,summon/death,equipment and audio still need assets;mechanical movement does not certify client animation or create imagegen artwork.
+
 **Valkyrie transformed timing (2026-11-07 JST).** Prepared mechanical clocks now identify the Amazon 2HT attack/walk/run rows. They add no rendered animation or final artwork. The existing female native body/hue remains an identified appearance placeholder. Summon,walking/running,spear attack/contact,defensive reactions,death/equipment and audio remain separate asset work; no imagegen task blocks this timing preparation.
 
 **Valkyrie inherited defense (2026-11-07 JST).** Successful stationary Dodge/Avoid currently uses the identified native0x375A/hue0x481 marker and0x1A4sound. These are placeholders for final Valkyrie defensive animation/effect/audio, alongside summon/body/equipment/weapon/contact assets. No new recovery/cast-interruption lock or imagegen asset is introduced. Moving Evade presentation remains part of its future controller integration.
