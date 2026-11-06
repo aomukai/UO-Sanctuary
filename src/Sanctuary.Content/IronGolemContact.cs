@@ -131,6 +131,7 @@ internal static class IronGolemContact
         var sourceEvents=NpcCombatEvents.ForSource(body);
         var targetEvents=Events(target,requireFrozen:true);
         NpcLightningReturn.RequireIncoming(body,target,false);
+        if(sourceEvents.Subscriptions().Contains(81)){NpcItemKnockback.Require(target);}
         if(sourceEvents.Subscriptions().Contains(134)){NpcFreezeStatus.Require(body,target);}
         if(nativeRecovery)
         {if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter");}}

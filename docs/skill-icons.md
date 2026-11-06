@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC item knockback (2026-11-06):** an original equipment property adds no talent or hotkey icon identity. Iron Golem/Revive icons retain their existing asset entries. See [checkpoint](npc-item-knockback-checkpoint.md).
+
 **Inferno review-only input prototype (2026-11-06):** no learned route or new icon identity is introduced. Inferno talent/left/right/quick icons remain pending in their existing entries. See [proposal](inferno-held-input-proposal.md).
 
 **NPC equipment callback (2026-11-06):** item-triggered fear adds no talent-tree or hotkey entry. Existing Terror/Howl icon placeholders remain in this ledger; stat112/function08 needs no additional icon. See [the checkpoint](npc-item-fear-checkpoint.md).

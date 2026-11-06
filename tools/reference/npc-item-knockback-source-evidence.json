@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 24576,
+  "completeRoutineHash": "10e2cf9c21ebad1da813249d8e9a9e4ff27e73196b9cbc66187534240cb2afb7",
+  "sizeFlagIndices": {
+    "small": 10,
+    "large": 11
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "tools/probe_npc_item_knockback.py": "31fffb6645c859349b0c33a658097782f94037b8cc0943e833fb8070253ab646"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-item-knockback-source/probe.cpp": "72c8b07e74b41603aa4393b8274960a2210f95c5da19b0128581c2cdb2fd589d",
+    ".local/class-skills/npc-item-knockback-source/probe": "65a487f35e2ef6b8eb577d774c0fb241c42b38818e80c1e3e91257224e82add7",
+    ".local/class-skills/npc-item-knockback-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-knockback-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-knockback-source/cases.json": "22bec95f53fca35d3b11b36e5ce60fa7a10bae2fb78048d4f07742996553e222"
+  },
+  "scope": "Complete unchanged callback07;supplied accrued stat,metadata lookup and one raw RNG service. Positive stat is a presence gate,not a percentage. Large precedence32/128,small128/128,otherwise64/128;OR8 preserves prior result flags. Movement belongs to the later return phase.",
+  "limits": [
+    "Supplementary older callback does not certify current dispatch,global order or native movement/client parity. No elite exclusion or missile penalty is added."
+  ]
+}

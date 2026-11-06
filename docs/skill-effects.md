@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC item knockback (2026-11-06):** stat81/function07 reuses the existing native movement/get-hit presentation; no new particles/audio or final asset are supplied. Final impact/recovery presentation remains with the existing knockback effects. See [checkpoint](npc-item-knockback-checkpoint.md).
+
 **Inferno review-only input prototype (2026-11-06):** no new effect or audio producer is introduced. The reused stream keeps identified placeholder 0x36D4/hue 0x489; final channel/contact/expiry/audio remain pending. See [proposal](inferno-held-input-proposal.md).
 
 **NPC item fear reuse (2026-11-06):** stat112/function08 uses the existing identified fear placeholder `0x375A`, hue `0x21`, through the shared Terror controller. Its final visual/audio replacement remains with the existing fear assets; no separate effect identity is added. See [the checkpoint](npc-item-fear-checkpoint.md).
