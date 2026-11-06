@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 1728,
+  "completeRoutineHashes": {
+    "SKILLITEM_EventFunc28_HealAfterKill": "0367dbc60c6962f43e7116fc344721acdc09f0786c7f4b5b0755c4e4139b2cb9",
+    "SKILLITEM_EventFunc17_ManaAfterKill": "c7e190835ff368b7e98e9996c561d2c90e39b0bba75319dec4efc8b23b13f7de",
+    "SKILLITEM_EventFunc18_HealAfterDemonKill": "42de153b48bda7dc793fa30df677686d8ef59c77ada0d197ccebe1a0d98dc148"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "tools/probe_npc_kill_recovery.py": "21092c6158f8f374079416fe46482361e0683bf549790d7807f9854c9277bea1"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-kill-recovery-source/probe.cpp": "cb605ee6e21ae29f3e0612536b721d6db28b81580089369ad2e66d3ba06f3024",
+    ".local/class-skills/npc-kill-recovery-source/probe": "8f62df1d39b0fef1943d060a51132bce0f3df5b6d47f7235f481143640297194",
+    ".local/class-skills/npc-kill-recovery-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-kill-recovery-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-kill-recovery-source/cases.json": "521594c1a83497ce0b5d3aeb42c92bf78d21a00cf356a6f108b460ef69a3e919"
+  },
+  "scope": "Complete unchanged callbacks28/17/18 with explicit stat/resource/overlay and demon-predicate services. Flat whole-point addition preserves original FP balances before clamp;mana17is player-only. Stat zero and full pools have no write/overlay. Negative bonus shifts are outside this checked domain.",
+  "limits": [
+    "No current-executable/global kill/retired-source/PvP/geometry/client certificate. Native ordinary contact and direct-killer ownership require separate acceptance. Demon metadata and stat/mana/life service bindings remain explicit."
+  ]
+}
