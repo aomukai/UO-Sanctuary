@@ -1,0 +1,27 @@
+# Original NPC item spell origins
+
+Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations taking precedence. Supplementary complete older source is pinned to D2MOO `0c0bbd1e6bef9181a3da1c046523af622a925416`; this is not a claim of current executable parity.
+
+The shared common item executor now has an explicit, synchronous factory adapter for Fire Bolt, Nova, Frost Nova and Chain Lightning. It requires the NPC's supplied source/temporary-target/path coordinates, own attack rating, initial server-do state, allocation callback and actual-handle budget writer. It has no selected ordinary skill entry and never invokes a player cast handler, payment or RNG. The factory callback remains responsible for actual world allocation, seeds, path and damage capture.
+
+The earlier prepared projectile kernels implement ordinary cast origins. They must not be connected directly to outgoing callbacks:
+
+| Spell | Incoming item route | Outgoing item route |
+| --- | --- | --- |
+| Fire Bolt | Starts at caster, aims at target/path point | Starts at a nonzero target/path point and aims at twice that point minus caster position |
+| Nova / Frost Nova | Do22 emits 64 missiles centered on caster | Item-effect do36 requires a target and centers 64 missiles on it, retaining caster ownership |
+| Chain Lightning | Do26 starts at caster | Item-effect do151 starts at the target, with that target's coordinates as its supplied destination; without a target, starts at caster and uses the path point |
+
+Fire Bolt's direct-missile branch returns success even if the nested allocator fails. Ring emission attempts all 64 allocations and returns success despite individual failures. Chain returns failure on root allocation failure, and writes its rank-derived hit budget to the actual allocated root handle only after successful creation. Do36 does not set server-do; do22 does. The outer item wrapper's restoration remains a separate existing contract.
+
+Seven complete unchanged older routines pass **14,112** sanitizer-checked contexts across all nonzero six-bit ranks, both item flags, target/path/zero/same-position edges, allocation failures and own attack-rating flags. The C# adapter reuses `SkillExecution`, current item metadata and `FrozenOrbs.Direction`. **Content1 / Integration2 / source snapshot2** passes **78 focused / 386 retained markers**, each through three boots, two actual reloads and three saves. All 14,112 source comparisons repeat on each boot; the new origin check is stateless, while the existing original pet/projectile fixtures exercise actual persistence. All 75/383 parent markers remain, including saved original Chain roots and children. See [source receipt](../tools/reference/npc-item-spell-origins-source-evidence.json) and [native receipt](../tools/reference/npc-item-spell-origins-native-evidence.json).
+
+Both accepted builds have zero warnings/errors. All **71 Python tests / seven verification commands** pass; fresh runtime audits bind **1,129/21** fingerprints and retain all **573** item decisions. Installed **106 artifacts / 38 saves / 20 configurations / 41 client patches** remain protected. The test callback-parameter compile error and two missing-manifest harness attempts are archived; the successful configuration registers the stateless source comparison on every boot. Neither fixture repair changes production Content1. No native mechanical assertion failed in those archived attempts.
+
+This checkpoint does not admit original item proc callbacks or allocate live projectiles. Charged Bolt's incoming do17, full original graph registration order/history, wrapper-to-world binding, actual game-stream seed allocation, nonzero shields, modern callback/target/NHD details and Valkyrie learned casting remain separate. The four ordinary prepared flight kernels and prepared Chain retain their existing explicit limitations; their launch positions have not been silently changed. Coverage remains **202/240 handlers**, Amazon **28/30**, with no completed class or deployment.
+
+Next: consume these explicit factory requests in the existing original-NPC flight hosts, retaining the supplied origin, absolute/relative destination, flags and actual allocation handle. A partially allocated ring must retain its successful missiles: the existing complete-batch commit cannot silently substitute an all-or-nothing result. Charged Bolt's per-attempt do17 emission needs its own allocation/return check. Chain must apply the budget after root allocation and obtain new world-stream seeds only at actual child attempts. Then connect the protected item wrapper and full original stat-graph subscription history; do not filter rare-item rolls, fabricate event-only copies, borrow the NPC's intrinsic-critical stream or pre-spend future hop draws.
+
+No new effect or icon slot is introduced. Existing fire/lightning/cold markers and cast audio are identified placeholders; final projectile/ring/proc/impact/audio assets and Valkyrie talent/hotkey icons remain in their separate registers. Installed working files and existing saves remain protected.
+
+Critical Strike's user-reported **effective rank 12, base 11, 59%** is already preserved as a current-level reading in the [observation](../tools/reference/valkyrie-inherited-critical-observation.json). It supports the retained rounding curve; the earlier rank-8 reading remains an unresolved outlier.

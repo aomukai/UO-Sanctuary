@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e7fe3b9b954cb1c3d14c744db316e9cca2711b05fee7455aa9ddfe45006ba631",
+  "ContentAssemblySha256": "b9557da4617561f534861e5d447c0bdc4f9a478d3b62282a248d53f8dcabc62e",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -750,7 +750,7 @@
     "src/Sanctuary.Content/ItemProcCallbacks.cs": "827bb8fea1267988d0aeb2e3432f5823a697ce94b7904f0203340c7c64f58ccf",
     "src/Sanctuary.Content/ItemPropertyCreationContext.cs": "390f67eb210a75c252c9abf10beedbcf1b14cf5163dbe58b5c5c4f581afec290",
     "src/Sanctuary.Content/ItemSingleSkillProperty.cs": "1e1fc2e449fb76e400903a93284f391a36d792d2cb99d5a18a0e79c881519638",
-    "src/Sanctuary.Content/ItemSkillExecution.cs": "4c38ba29c5ec834c2e0b87167a6183aca56e49350b378134ee6b683ad2057328",
+    "src/Sanctuary.Content/ItemSkillExecution.cs": "b9651baee68f5944b5d5b5159979a6b617b8ac0af9650842e833876dbe9f73b0",
     "src/Sanctuary.Content/ItemSkillPropertyWriter.cs": "c13ac2b5523f9ddb6fac39ad663690e49546bd084bec96b425273a35e381f656",
     "src/Sanctuary.Content/ItemStatContext.cs": "fb24a7c0f09f1e6fdd13a2ac6bd670e52ab49b93ffb784f3d89c645847dbe021",
     "src/Sanctuary.Content/JewelleryCrafting.cs": "a4c86d8e4d739768ec0efec16f7bd4bdd24704bd0d94cb1ae521ade67c67935c",
@@ -870,6 +870,7 @@
     "src/Sanctuary.Content/NpcItemSpellCasts.cs": "e426a64cf001213a88f915f7b33d5116b745783bd1199fc6436e78b3f00a8df1",
     "src/Sanctuary.Content/NpcItemSpellDamage.cs": "7305fb4b5c6ca7a60e08915ca5134cae35acd2c1fbd8358b2ea97b9e33f8db21",
     "src/Sanctuary.Content/NpcItemSpellFlights.cs": "ba0d85cd15ed402e7e1dae8d76901e175fdc05f4ca4becf49447920084a16d1f",
+    "src/Sanctuary.Content/NpcItemSpellOrigins.cs": "3d773784027a47c7aecdf91ab7fcb1fddabb71eedda3ebcb06a5f89543db4562",
     "src/Sanctuary.Content/NpcItemStatCapture.cs": "51c2237d20a250af40f77f80e2d2bbf1247996490bb701b8cac3910cdd747c81",
     "src/Sanctuary.Content/NpcItemTarget.cs": "d1ca509c67876d1c013b77794373c25fb07a8c63ac77ebc98140ed3eed7dc0f3",
     "src/Sanctuary.Content/NpcKillRecovery.cs": "0f504cf8aeff8fd05c6773ed26bde0c87392f4788c4f29495c62af0c62cc7628",

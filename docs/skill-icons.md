@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original NPC item origins (2026-11-07 JST).** The internal factory adapter adds no learned skill or hotkey slot. Valkyrie talent/right/quick artwork and any later shared proc UI icons remain separately pending.
+
 **Original NPC Chain Lightning (2026-11-07 JST).** Prepared item procs add no learned icon slot. Valkyrie talent/right/quick icons remain pending; later proc UI may reuse the Chain Lightning artwork.
 
 **Original NPC natural travel checks (2026-11-07 JST).** Verification adds no icon slot. Valkyrie talent/right/quick artwork and any later shared proc UI artwork remain independently pending.

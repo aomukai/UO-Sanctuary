@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original NPC item origins (2026-11-07 JST).** Factory-origin verification adds no artwork or live effect. Future outgoing Nova/Frost Nova presentation must center on the target, and outgoing Fire Bolt/Chain must use their verified launch origins. Existing fire/lightning/cold and cast-audio placeholders remain identified; final projectile/ring/proc/impact/audio work remains pending separately.
+
 **Original NPC Chain Lightning (2026-11-07 JST).** Prepared natural NPC segments reuse native 0x3818/hue0x482 as an identified link placeholder. Final chain links, proc/impact cues and audio remain pending; mechanics and save tests do not certify final client presentation.
 
 **Original NPC natural travel checks (2026-11-07 JST).** Natural charged/ring hits and resumed flights are mechanically exercised. Existing lightning 0x3818, cold 0x36E4 and cold-state 0x374A markers remain identified placeholders; final travel/ring/impact/audio assets and client presentation are still pending. This verification creates no new artwork.
