@@ -28,7 +28,7 @@ public static class ParkingBoundaryChecks
     private static PlayerMobile Owner()
     {
         var p=MagePetBuffChecks.Owner(1,6600,3000);p.RawInt=200;
-        foreach(string id in new[]{"claygolem","bloodgolem","firegolem","revive"}){MagePetBuffChecks.Train(p,"necromancer."+id,id=="revive"?2:1);}
+        foreach(string id in new[]{"claygolem","bloodgolem","firegolem","revive"}){MagePetBuffChecks.Train(p,"necromancer."+id,id=="revive"?10:1);}
         return p;
     }
     private static GuardedRegion Town(Map map,Point3D at)
@@ -48,6 +48,7 @@ public static class ParkingBoundaryChecks
     private static void Move(PlayerMobile p,SkeletonGuardian[] pets,BaseCreature[] revives,ReviveNativeState[] births,Point3D at,Map map,MonsterDifficulty difficulty)
     {
         var nativeBefore=revives.Select(ReviveNativeActivation.State).ToArray();var before=pets.Select(Snapshot).ToArray();var life=revives.Select(SkillHealth.Balance256).ToArray();var maximum=revives.Select(SkillHealth.Maximum256).ToArray();int mana=NecromancerEffects.ManaBalance256(p);var deadlines=(p.NextSkillTime,p.NextSpellTime,ClassCombat.For(p).NextAction);
+        Require(nativeBefore.All(x=>x!=null),"Parking fixture lost an original Revive before movement;check the current effective-rank roster budget");
         p.MoveToWorld(at,map);Parked(p,pets);
         for(int i=0;i<pets.Length;i++)
         {
@@ -66,10 +67,13 @@ public static class ParkingBoundaryChecks
     private static void Check()
     {
         var old=SummonDifficulties.Facets();var p=Owner();SkeletonGuardian[] pets=[];var origin=p.Location;GuardedRegion townA=null,townB=null;BaseCreature[] actors=[];
+        Log.Information("Parking boundary runtime maps:Trammel={Width}x{Height},Felucca={OtherWidth}x{OtherHeight}",Map.Trammel.Width,Map.Trammel.Height,Map.Felucca.Width,Map.Felucca.Height);
         try
         {
             SummonDifficulties.SetFacets([new(Map.Trammel.MapID,MonsterDifficulty.Normal),new(Map.Felucca.MapID,MonsterDifficulty.Nightmare)]);
-            var first=ReviveFacetChecks.Create(p);var second=ReviveFacetChecks.Create(p,true);actors=[first.Actor,second.Actor];pets=Pets(p);var births=actors.Select(ReviveNativeActivation.State).ToArray();foreach(var a in actors){SkillHealth.SetBalance256(a,SkillHealth.Maximum256(a)/2+17);}townA=Town(Map.Trammel,origin);townB=Town(Map.Felucca,origin);
+            var first=ReviveFacetChecks.Create(p);var second=ReviveFacetChecks.Create(p,true);actors=[first.Actor,second.Actor];
+            Require(actors.All(x=>x is{Alive:true,Deleted:false}&&ReviveNativeActivation.State(x)!=null)&&NecromancerArmyLimits.For(p,CombatAbility.Revive)>=actors.Length,"Parking fixture needs two retained original Revives at the approved rank10 boundary");
+            pets=Pets(p);var births=actors.Select(ReviveNativeActivation.State).ToArray();foreach(var a in actors){SkillHealth.SetBalance256(a,SkillHealth.Maximum256(a)/2+17);}townA=Town(Map.Trammel,origin);townB=Town(Map.Felucca,origin);
             // Creation can suspend an offline owner's existing army. Safety
             // entry must still record/release each original slot cost once.
             Move(p,pets,actors,births,new(origin.X+1,origin.Y,origin.Z),Map.Trammel,MonsterDifficulty.Normal);

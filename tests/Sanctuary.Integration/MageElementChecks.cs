@@ -14,7 +14,7 @@ public static class MageElementChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MageElementChecks));
     private static readonly FieldInfo Element=typeof(NecromancerMinion).GetField("_element",BindingFlags.Instance|BindingFlags.NonPublic);
-    private sealed record Pet(uint Serial,string Type,int OriginalElement,int ExpectedElement,int Life,int Maximum,int Level,int Rank,int Mastery,int MissileRank,int Armor,int[] Resistances,long Order,MageCriticalSeed Seed,SkeletonWorldState World);
+    private sealed record Pet(uint Serial,string Type,int OriginalElement,int ExpectedElement,int Life,int Maximum,int Level,int Rank,int Mastery,int MissileRank,int Armor,int[] Resistances,long Order,MageCriticalSeed Seed,SkeletonWorldState World,uint Owner);
     private sealed record Saved(uint Owner,Point3D Origin,int Map,Pet[] Pets,uint Target,int TargetLife,MageMissileState PoisonFlight,int Generation);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"mage-elements-fixtures.json");
     public static void Configure()
@@ -36,7 +36,7 @@ public static class MageElementChecks
     private static void Replace(MageMissileState state)
     {var all=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(all with{NextId=Math.Max(all.NextId,state.Id),Bolts=all.Bolts.Where(x=>x.Id!=state.Id).Append(state).ToArray()});}
     private static void Step(long id){if(Flight(id) is{} f){NecromancerMageMissiles.Tick(f.NextUtc,true,id);}}
-    private static Pet Capture(NecromancerMinion mage,int original)=>new(mage.Serial.Value,mage.GetType().FullName,original,original==0?1:original,SkillHealth.Balance256(mage),SkillHealth.Maximum256(mage),mage.Level,mage.Rank,mage.Mastery,mage.MageMissileRank,mage.CombatProfile.Defense,Resistances(mage),BattleCommand.PetOrder(mage),NecromancerMageMissiles.ActorSeed(mage),(mage as MageWorldBody)?.WorldState);
+    private static Pet Capture(NecromancerMinion mage,int original)=>new(mage.Serial.Value,mage.GetType().FullName,original,original==0?1:original,SkillHealth.Balance256(mage),SkillHealth.Maximum256(mage),mage.Level,mage.Rank,mage.Mastery,mage.MageMissileRank,mage.CombatProfile.Defense,Resistances(mage),BattleCommand.PetOrder(mage),NecromancerMageMissiles.ActorSeed(mage),(mage as MageWorldBody)?.WorldState,mage.ControlMaster.Serial.Value);
     private static void Unchanged(PlayerMobile p,NecromancerMinion mage,Pet s,bool loaded)
     {
         Require(mage.GetType().FullName==s.Type&&mage.Serial.Value==s.Serial&&mage.ControlMaster==p&&mage.Level==s.Level&&mage.Rank==s.Rank&&mage.Mastery==s.Mastery&&mage.MageMissileRank==s.MissileRank&&mage.CombatProfile.Defense==s.Armor&&Resistances(mage).SequenceEqual(s.Resistances)&&BattleCommand.PetOrder(mage)==s.Order&&NecromancerMageMissiles.ActorSeed(mage)==s.Seed&&SkillHealth.Balance256(mage)==s.Life&&SkillHealth.Maximum256(mage)==s.Maximum
@@ -64,9 +64,10 @@ public static class MageElementChecks
     }
     private static void Check()
     {
-        Direct();var p=Owner();MagePetBuffChecks.Train(p,"necromancer.skeletonmastery",3);var pets=new System.Collections.Generic.List<Pet>();NecromancerMinion poisonCaster=null;
+        Direct();var owners=new[]{Owner(),Owner()};foreach(var owner in owners){MagePetBuffChecks.Train(owner,"necromancer.skeletonmastery",3);}var pets=new System.Collections.Generic.List<Pet>();NecromancerMinion poisonCaster=null;
         for(int type=0;type<2;type++)for(int element=0;element<4;element++)
         {
+            var p=owners[type];
             NecromancerMinion mage;
             if(type==1){mage=MagePetBuffChecks.Pet(p,element==0?1:element,3,element-1);mage.SuspendActions();((MageWorldBody)mage).Ground.Store(((MageWorldBody)mage).WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});}
             else
@@ -78,17 +79,18 @@ public static class MageElementChecks
             if(type==1&&element==0){poisonCaster=mage;}
             pets.Add(Capture(mage,element));
         }
-        Require(NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).Length==8,"Saved mixed Mage roster was pruned/replaced");var target=Target(p,poisonCaster,8);long id=NecromancerMageMissiles.LaunchLegacy(poisonCaster,target,TimedEffects.Now);for(int i=0;i<3;i++){Step(id);}var f=Flight(id) with{NextUtc=TimedEffects.Now.AddHours(1)};Replace(f);
+        foreach(var owner in owners){Require(NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeletalMage).Length==4&&NecromancerArmyLimits.For(owner,CombatAbility.RaiseSkeletalMage)>=4,"Saved mixed Mage roster exceeded its approved owner-local budget");}var primary=owners[1];var target=Target(primary,poisonCaster,8);long id=NecromancerMageMissiles.LaunchLegacy(poisonCaster,target,TimedEffects.Now);for(int i=0;i<3;i++){Step(id);}var f=Flight(id) with{NextUtc=TimedEffects.Now.AddHours(1)};Replace(f);
         Require(f.Packet.Missile=="necromage1"&&f.Packet.Element=="pois"&&f.Frame==3,"Saved legacy poison flight fixture");
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,p.Location,p.Map.MapID,pets.ToArray(),target.Serial.Value,SkillHealth.Balance256(target),f,0)));
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(primary.Serial.Value,primary.Location,primary.Map.MapID,pets.ToArray(),target.Serial.Value,SkillHealth.Balance256(target),f,0)));
     }
     private static void Reload()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var target=World.FindMobile((Serial)s.Target);
-        Require(NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).Select(x=>x.Serial.Value).SequenceEqual(s.Pets.OrderBy(x=>x.Order).ThenBy(x=>x.Serial).Select(x=>x.Serial)),"Saved migration roster/order changed");
+        foreach(var group in s.Pets.GroupBy(x=>x.Owner))
+        {var owner=(PlayerMobile)World.FindMobile((Serial)group.Key);Require(group.Count()==4&&NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeletalMage).Select(x=>x.Serial.Value).SequenceEqual(group.OrderBy(x=>x.Order).ThenBy(x=>x.Serial).Select(x=>x.Serial)),"Saved owner-local migration roster/order changed");}
         foreach(var row in s.Pets)
         {
-            var mage=(NecromancerMinion)World.FindMobile((Serial)row.Serial);Require(mage.MageElement==row.ExpectedElement&&!mage.MigrateMageElement(),"Saved poison conversion/idempotence failed");Unchanged(p,mage,row,true);
+            var mage=(NecromancerMinion)World.FindMobile((Serial)row.Serial);Require(mage.MageElement==row.ExpectedElement&&!mage.MigrateMageElement(),"Saved poison conversion/idempotence failed");Unchanged((PlayerMobile)World.FindMobile((Serial)row.Owner),mage,row,true);
             Require((row.ExpectedElement==1)==(SorceressEffects.Armor(mage)!=null),"Converted Ice armor unlock or other element changed");
         }
         Require(Flight(s.PoisonFlight.Id)==s.PoisonFlight&&SkillHealth.Balance256(target)==s.TargetLife,"Migration changed held poison packet or target");

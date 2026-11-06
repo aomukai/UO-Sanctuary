@@ -75,7 +75,7 @@ public static class SummonResistChecks
     }
     private static void Check()
     {
-        Source();var p=ClassSkillChecks.Player();p.Name="PoisonDaggerFixtureSummonResist";p.AddItem(new Backpack());var pets=new List<(SkeletonGuardian Body,CombatAbility Kind,int Bonus)>();
+        Source();var p=ClassSkillChecks.Player();p.Name="PoisonDaggerFixtureSummonResist";p.AddItem(new Backpack());ClassSkillChecks.Train(p,"necromancer.skeletalmage",3);var pets=new List<(SkeletonGuardian Body,CombatAbility Kind,int Bonus)>();
         while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Recipient fixture strength");}
         try
         {
@@ -95,6 +95,7 @@ public static class SummonResistChecks
             p.Backpack.DropItem(helm);ClassGear.Refresh(p);Require(NecromancerSummons.Resistance(p)==65,"Item removal effective rank");
             foreach(var old in pets){Verify(old.Body,old.Kind,old.Bonus);}
             foreach(var item in pets){SkillHealth.SetBalance256(item.Body,SkillHealth.Maximum256(item.Body)-257);TimedEffects.PreventHealing(item.Body,TimedEffects.Now);}
+            Require(NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).Length==3&&NecromancerArmyLimits.For(p,CombatAbility.RaiseSkeletalMage)==3,"Summon Resist needs three legal captured Mage recipients");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,19,pets.Select(x=>new Pet(x.Body.Serial.Value,x.Body.GetType().Name,x.Bonus,Resists(x.Body),SkillHealth.Balance256(x.Body),SkillHealth.Maximum256(x.Body))).ToArray())));p.Internalize();
         }
         catch{foreach(var x in pets){x.Body.Delete();}p.Delete();throw;}
