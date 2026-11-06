@@ -81,7 +81,7 @@ public static class GrimWardWorldPulseChecks
                 body.Delete();owner.Delete();
             }
         }
-        Require(scenes==3&&!BarbarianCombat.Implemented(CombatAbility.GrimWard),"Pulse adapter enabled learned Ward");
+        Require(scenes==3&&BarbarianCombat.Implemented(CombatAbility.GrimWard),"Pulse adapter enabled learned Ward");
         Log.Information("Ward world pulses:3body kinds,real area recipients,elapsed0/1/6,one explicit formula evaluation per pulse,retained/new primary deltas,creator/radius/floor and dispatch-before-collision pass;clock/context policy and learned cast remain open");
     }
 }

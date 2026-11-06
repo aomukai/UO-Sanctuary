@@ -1,0 +1,8 @@
+{
+  "referenceVersion": "3.3.93847",
+  "questionId": "call_5d7243db15234c1b92d600751fc6a029",
+  "question": "For Grim Ward\u2019s unresolved missile context, may Sanctuary capture Grim Ward rank and hard Find Potion points when the cast releases, center pulses on the ward, and initially make affected monsters flee from the casting Barbarian through the shared Terror AI? Gear changes would not rewrite an existing ward. This follows our snapshot preference, but exact current D2R context remains unverified; the concrete proposal is saved in docs/grim-ward-context-proposal.md. I\u2019ll continue Leap Attack\u2019s independent timing work meanwhile.",
+  "answer": "Approve this Grim Ward context rule",
+  "approved": true,
+  "scope": "Explicit Sanctuary formula snapshot and initial fear-source adaptation; exact current executable context remains unverified."
+}

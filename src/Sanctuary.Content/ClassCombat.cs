@@ -59,6 +59,7 @@ public static class ClassCombat
         internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
         internal Serial FindPotionTarget;
+        internal Serial GrimWardTarget;
         internal BarbarianConcentrate.Mode Concentrate;
         internal BarbarianBerserk.Temporary BerserkMode;
         internal bool ZealPaid;
@@ -278,6 +279,7 @@ public static class ClassCombat
         For(from).BarbarianAttack = null;
         For(from).FindItemTarget = Serial.Zero;
         For(from).FindPotionTarget = Serial.Zero;
+        For(from).GrimWardTarget = Serial.Zero;
         For(from).PendingTeleport = null;
         For(from).Zeal = null;
         For(from).ZealPaid = false;
@@ -402,7 +404,7 @@ public static class ClassCombat
         }
     }
     internal static bool CorpseCast(CombatAbility ability)=>ClassAbilities.CorpseTarget(ability) && ability!=CombatAbility.RaiseSkeleton;
-    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.FindPotion?BarbarianFindPotion.Begin(owner,selected,point,now):ability==CombatAbility.FindItem
+    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.GrimWard?BarbarianGrimWard.Begin(owner,selected,point,now):ability==CombatAbility.FindPotion?BarbarianFindPotion.Begin(owner,selected,point,now):ability==CombatAbility.FindItem
         ?BarbarianFindItem.Begin(owner,selected,point,now):NecromancerCombat.CorpseTarget(ability) && NecromancerCombat.Begin(owner,ability,selected,point,now);
     public static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => Perform(from, ability, target, point, now, false);
@@ -552,6 +554,7 @@ public static class ClassCombat
             if(ability==CombatAbility.BladeShield){BladeShields.Cancel(from);}
             if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
             if(ability==CombatAbility.FindPotion){session.FindPotionTarget=Serial.Zero;}
+            if(ability==CombatAbility.GrimWard){session.GrimWardTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(ability==CombatAbility.HolyShield){session.HolyShieldStart=null;}
             if(ability==CombatAbility.Sacrifice){session.SacrificeAttack=null;}

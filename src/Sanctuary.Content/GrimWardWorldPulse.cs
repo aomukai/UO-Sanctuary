@@ -26,7 +26,7 @@ internal static class GrimWardWorldPulse
         if(Rows.Count!=3){throw new InvalidDataException("Missing pinned Ward body rows");}
     }
     internal static GrimWardPulseResult Step(Item body,PlayerMobile owner,int missileClass,int rank,int total,int current,
-        Func<SkillValues> formulaContext,Func<int> collision,DateTime at)
+        Func<SkillValues> formulaContext,Func<int> collision,DateTime at,uint initialFear=0)
     {
         if(body is not{Deleted:false}||owner is not{Alive:true,Deleted:false}||body.Map==Map.Internal||owner.Map!=body.Map
             ||rank is <1 or >255||total<1||current<1||current>total||!Rows.ContainsKey(missileClass))
@@ -54,7 +54,7 @@ internal static class GrimWardWorldPulse
                         &&ClassCombat.IsHostile(owner,target)){targets.Add(target);}
                 }
                 targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));candidates=targets.Count;
-                foreach(var target in targets){if(GrimWardCurseTransport.ApplyPacket(owner,body,target,packet,at)){applied++;}}
+                foreach(var target in targets){if(GrimWardCurseTransport.ApplyPacket(owner,body,target,packet,at,initialFear)){applied++;}}
                 dispatched=true;
             },id=>id==serial?collision():throw new NotSupportedException("Ward collision lost body identity"));
         int result=GrimWardLifecycle.Tick(unit,GrimWardLifecycle.Elapsed(total,current),services);

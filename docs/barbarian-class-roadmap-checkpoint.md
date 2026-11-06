@@ -1,5 +1,8 @@
 # Barbarian class roadmap checkpoint
 
+**Current follow-up (2026-11-06 JST):** [Grim Ward](grim-ward-actor-checkpoint.md) now has the learned paid cast, approved captured context and saved totem lifecycle. Barbarian has **29/30 handlers**, with Leap Attack still missing. Dedicated checks retain source/native limitations; this is not class completion.
+
+
 Shared input/save-policy follow-up: [Barbarian bindings](barbarian-binding-checkpoint.md) now uses the pinned class mouse flags, preserves valid and independent quick/history selections, and leaves all four deferred actions unavailable. Four-class regression passes three boots/two reloads. No class certification.
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This follows the bounded Paladin review and its [save-safety acceptance](paladin-aura-persistence-checkpoint.md). No class is certified complete. Barbarian currently has 26 handlers and four individually deferred talents; continue source-backed work without asking the user for a Barbarian they do not have.

@@ -1,0 +1,3757 @@
+[
+  {
+    "Source": "act2child",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2female",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2guard1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2guard2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2guard3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2guard4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2guard5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2hire",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2male",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2vendor1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act2vendor2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act3female",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act3hire",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act3male",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5barb1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5barb2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5barb3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5barb4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5hire1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5hire2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "act5pow",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "akara",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "alkor",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "ancientbarb1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "ancientbarb2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "ancientbarb3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "ancientstatue1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "ancientstatue2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "ancientstatue3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "andariel",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "arach1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "arach2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "arach3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "arach4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "arach5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "arach6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "arach7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "asheara",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "atma",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baalclone",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baalcrab",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baalcrabstairs",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baalhighpriest",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baalminion1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baalminion2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baalminion3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baaltaunt",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baaltentacle1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baaltentacle2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baaltentacle3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baaltentacle4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baaltentacle5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baalthrone",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "baboon1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "baboon8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "barricadedoor1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "barricadedoor2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "barricadetower",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "barricadewall1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "barricadewall2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bat",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "batdemon7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "bear",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead10",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead7",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead8",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bighead9",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bird1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "bird2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "bladecreeper",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bloodgolem",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodlord7",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodmage1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodmage2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodmage3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodmage4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodmage5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bloodraven",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "blunderbore1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "blunderbore2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "blunderbore3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "blunderbore4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "blunderbore5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "blunderbore6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bonefetish1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bonefetish2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bonefetish3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bonefetish4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bonefetish5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bonefetish6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "bonefetish7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "boneprison1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "boneprison2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "boneprison3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "boneprison4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "bonewall",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "brute1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "brute2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "brute3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "brute4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "brute5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "bug",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "bunny",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cain1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cain2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cain3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cain4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cain5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cain6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "camel",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cantor1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cantor2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cantor3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cantor4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cantor5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cantor6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "catapult1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "catapult2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "catapult3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "catapult4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "catapultspotter1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "catapultspotter2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "catapultspotter3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "catapultspotter4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "chaoshorde1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "chaoshorde2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "chaoshorde3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "chaoshorde4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "chargeboltsentry",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "charsi",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "chicken",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper10",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "clawviper9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "claygolem",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "colbarbfrenzy",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "colbarbthrow",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "colbarbwhirl",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "colossal1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "colossal2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "colossal3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "compellingorb",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "corruptrogue1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "corruptrogue2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "corruptrogue3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "corruptrogue4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "corruptrogue5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "corruptrogue6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "councilmember1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "councilmember2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "councilmember3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cow",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cowking",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_archer8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "cr_lancer9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "crownest1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "crownest2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "crownest3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "crownest4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "cycleoflife",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "darkelder",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "darkguard1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "darkguard2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "darkguard3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "darkguard4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "darkguard5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "darkwanderer",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathmauler1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathmauler2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathmauler3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathmauler4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathmauler5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathmauler6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "deathsentry",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "demonhole",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "demonspawner",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "diablo",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "diabloclone",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "dkfig1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "dkfig2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "dkmag1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "dkmag2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "dkmag3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "doomknight1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "doomknight2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "doomknight3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "dopplezon",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "drehya",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "drehyaiced",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "drognan",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "druidbear",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "druidhawk",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "duriel",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "eagle",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "elzix",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "evilhole1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "evilhole2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "evilhole3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "evilhole4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "evilhole5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "evilhut",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "fallen1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallen8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fallenshaman8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "familiar",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "fara",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "fenris",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "fetish1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish11",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetish8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishblow8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fetishshaman8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "fingermage1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "fingermage2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "fingermage3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "fingermage4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "fingermage5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "firebeast",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "firegolem",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "firetower",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "fish",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "flyingscimitar",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "foulcrow8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "frogdemon1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frogdemon2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frogdemon3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frozenhorror1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frozenhorror2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frozenhorror3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frozenhorror4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "frozenhorror5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "gargoyletrap",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "geglash",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "gheed",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman10",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "goatman9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "gorgon1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "gorgon2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "gorgon3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "gorgon4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "greiz",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "griswold",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "halbu",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "heartofwolverine",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hellbovine",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hellmeteor",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hephasto",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "horse",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hratli",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hydra1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hydra2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "hydra3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "iceglobe",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "imp1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "imp8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "infernosentry",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "injuredbarb1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "injuredbarb2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "injuredbarb3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "invisopet",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "invisospawner",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "irongolem",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "izual",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "izualghost",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "jamella",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "jerhyn",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "kashya",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "larva",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "larzuk",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "lightningbeast",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "lightningsentry",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "lightningspire",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "lysander",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "maggot",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "maggotbaby1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotbaby2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotbaby3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotbaby4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotbaby5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotbaby6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotegg1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotegg2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotegg3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotegg4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotegg5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotegg6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "maggotqueen1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "maggotqueen2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "maggotqueen3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "maggotqueen4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "maggotqueen5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "malachai",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "malah",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "megademon1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "megademon2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "megademon3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "megademon4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "megademon5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "megademon6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mephisto",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "mephistospirit",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "meshif1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "meshif2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "minion1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion10",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion11",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion7",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion8",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minion9",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner7",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minionspawner8",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "minispider",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mosquito1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mosquito2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mosquito3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mosquito4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mummy1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mummy2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mummy3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mummy4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mummy5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "mummy6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "natalya",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "navi",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "necromage",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "necroskeleton",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "nihlathak",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "nihlathakboss",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "oaksage",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "ormus",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "overseer1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "overseer2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "overseer3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "overseer4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "overseer5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "overseer6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "painworm1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "painworm2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "painworm3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "painworm4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "painworm5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "pantherwoman1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "pantherwoman2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "pantherwoman3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "pantherwoman4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "pantherwoman5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "pantherwoman6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "parrot",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "pig",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "plaguepoppy",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "poisonorb",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "prisondoor",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "putriddefiler1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "putriddefiler2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "putriddefiler3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "putriddefiler4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "putriddefiler5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "qual-kehk",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "quillbear1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "quillbear2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "quillbear3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "quillbear4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "quillbear5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "quillrat1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat6",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat7",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "quillrat8",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "radament",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "rat",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "reanimatedhorde1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "reanimatedhorde2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "reanimatedhorde3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "reanimatedhorde4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "reanimatedhorde5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "reanimatedhorde6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "regurgitator1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "regurgitator2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "regurgitator3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "regurgitator4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "rogue1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "rogue2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "rogue3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "roguehire",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandleaper7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandmaggot7",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sandraider1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider10",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sandraider9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sarcophagus",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "scarab1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scarab8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "scorpion",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "seagull",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "seventombs",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "shadowmaster",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "shadowwarrior",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "siegebeast1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "siegebeast2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "siegebeast3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "siegebeast4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "siegebeast5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer10",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer11",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "sk_archer9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skeleton8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_cold1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_cold2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_cold3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_cold4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_cold5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_cold6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_fire7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_ltng7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "skmage_pois7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "slinger9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "smith",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "snake",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "snowyeti1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "snowyeti2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "snowyeti3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "snowyeti4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "spiritmummy",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "spiritofbarbs",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "spiritwolf",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubus8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "succubuswitch9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "suckernest1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suckernest2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suckernest3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suckernest4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion10",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion11",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion6",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion7",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion8",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "suicideminion9",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "summoner",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "swarm1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "swarm2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "swarm3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "swarm4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "swarm5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "tentacle1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "tentacle2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "tentacle3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "tentaclehead1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "tentaclehead2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "tentaclehead3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "thornhulk1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "thornhulk2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "thornhulk3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "thornhulk4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "thornhulk5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "trap-firebolt",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trap-horzmissile",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trap-lightning",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trap-melee",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trap-nova",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trap-poisoncloud",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trap-vertmissile",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trappedsoul1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "trappedsoul2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "turret1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "turret2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "turret3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "tyrael1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "tyrael2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "tyrael3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "uberandariel",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "uberbaal",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "uberdiablo",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "uberduriel",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "uberizual",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "ubermephisto",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "unraveler1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "unraveler9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "valkyrie",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vampire9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "venomlord",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "vilechild1",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "vilechild2",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "vilechild3",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "vilechild4",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "vilechild5",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "vilemother1",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "vilemother2",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "vilemother3",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "vilemother4",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "vilemother5",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "vinecreature",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "vulture1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vulture2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vulture3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vulture4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "vulture5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wakeofdestruction",
+    "Large": false,
+    "Small": true
+  },
+  {
+    "Source": "warbighead",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "wargoatman",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "warputriddefiler",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "warriv1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "warriv2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "willowisp8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "window1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "window2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wolf",
+    "Large": true,
+    "Small": false
+  },
+  {
+    "Source": "wolfrider1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wolfrider2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wolfrider3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "worldstoneeffect",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith6",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith7",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith8",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "wraith9",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zealot1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zealot2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zealot3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zealot4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zealot5",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zombie1",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zombie2",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zombie3",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zombie4",
+    "Large": false,
+    "Small": false
+  },
+  {
+    "Source": "zombie5",
+    "Large": false,
+    "Small": false
+  }
+]

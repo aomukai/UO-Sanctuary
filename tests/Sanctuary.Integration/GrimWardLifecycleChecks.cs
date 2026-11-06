@@ -59,7 +59,7 @@ public static class GrimWardLifecycleChecks
         var pulses=new List<int>();gates=2;period=6;var bodyUnit=new GrimWardSourceUnit(3,3,253,123,456,150,20);
         for(int current=1000;current>0;current--){Reset();int elapsed=GrimWardLifecycle.Elapsed(1000,current);GrimWardLifecycle.Tick(bodyUnit,elapsed,services);if(dispatch!=0){pulses.Add(elapsed);}}
         Require(JsonSerializer.Serialize(pulses)==JsonSerializer.Serialize(doc.RootElement.GetProperty("timeline"))&&pulses.Count==167,"Ward elapsed pulse timeline differs");
-        Require(count==3144&&!BarbarianCombat.Implemented(CombatAbility.GrimWard),"Lifecycle enabled unfinished curse/handler");
+        Require(count==3144&&BarbarianCombat.Implemented(CombatAbility.GrimWard),"Lifecycle enabled unfinished curse/handler");
         Log.Information("Grim Ward lifecycle:3144complete legacy-source comparisons,167elapsed pulse values;placement factory/no-draw/no-select order,owner-evaluated child and missile-context curse dispatch pass;modern curse/terrain/clock and learned cast remain gated");
     }
 }

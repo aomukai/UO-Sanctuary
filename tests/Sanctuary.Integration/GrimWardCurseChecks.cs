@@ -43,7 +43,7 @@ public static class GrimWardCurseChecks
         Require(count==31134&&accepted==5184&&retained==1296&&immune==864,"Incomplete Ward curse matrix");
         Refuse(()=>GrimWardCurseOperation.Packet(new(SkillMechanics.For(CombatAbility.Terror),_=>1,_=>0,80),MonsterDifficulty.Normal));
         Refuse(()=>GrimWardCurseOperation.Packet(new(SkillMechanics.For(CombatAbility.GrimWard),_=>0,_=>0,80),MonsterDifficulty.Normal));
-        Require(!BarbarianCombat.Implemented(CombatAbility.GrimWard),"Prepared receiver enabled incomplete Ward world/cast");
+        Require(BarbarianCombat.Implemented(CombatAbility.GrimWard),"Prepared receiver enabled incomplete Ward world/cast");
         Log.Information("Ward curse:{Count}complete legacy list/operation comparisons,{Accepted}accepted,{Retained}equal-rank creator/primary retentions,{Immune}immune reductions;explicit formula context,secondary rewrites and permission/factory/AI/stat/animation order pass;actual missile-owner/AI/world/learned context remains unverified",count,accepted,retained,immune);
     }
 }

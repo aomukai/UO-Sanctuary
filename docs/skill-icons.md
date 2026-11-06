@@ -1,5 +1,8 @@
 # Skill icons
 
+**Grim Ward checkpoint (2026-11-06 JST).** The learned route needs its final talent icon and right/quick hotkey icon. Mechanical totem/curse placeholders remain in the separate [effects register](skill-effects.md); no final icon or imagegen asset was created.
+
+
 **Approved Frenzy (2026-11-06 JST).** The existing Frenzy talent/left/right/quick identity is retained; its final talent and hotkey icon remains pending independently of weapon and speed effects. See [checkpoint](frenzy-checkpoint.md).
 
 **Entropy cloud channels (2026-11-06 JST).** No new skill identity or binding is enabled. Enhanced Entropy needs its talent icon; Miasma Chain needs both talent and hotkey icons. These stay separate from their cloud effects. See [checkpoint](entropy-clouds-checkpoint.md).

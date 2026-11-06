@@ -42,7 +42,7 @@ public static class BarbarianCastClockChecks
         var first=Named("Rixots Keen");var second=Named("Gull");Named("Magefist");
         Require(WeaponHands.Pair(p)==new WeaponPair((BaseWeapon)first,(BaseWeapon)second)&&CombatTiming.Equipped(p)==first,"Actual dual primary identity");
     }
-    private static bool CorpseSkill(CombatAbility ability)=>ability is CombatAbility.FindItem or CombatAbility.FindPotion;
+    private static bool CorpseSkill(CombatAbility ability)=>ability is CombatAbility.FindItem or CombatAbility.FindPotion or CombatAbility.GrimWard;
     private static bool Start(PlayerMobile p,CombatAbility ability,BaseCreature enemy,Corpse corpse,long now)
         =>CorpseSkill(ability)?ClassCombat.BeginCorpse(p,ability,corpse.Serial,corpse.Location,now)
             :ClassCombat.Perform(p,ability,ability==CombatAbility.Taunt?enemy:null,ability==CombatAbility.Taunt?enemy.Location:p.Location,now);
@@ -52,12 +52,12 @@ public static class BarbarianCastClockChecks
         CombatAbility.BattleOrders=>BattleOrders.State(p)!=null,
         CombatAbility.BattleCommand=>BattleCommand.State(p)!=null,
         CombatAbility.Taunt=>NecromancerEffects.Curse(enemy)?.Ability==CombatAbility.Taunt,
-        CombatAbility.FindItem or CombatAbility.FindPotion=>CorpseSkillRules.NoSelect(corpse),
+        CombatAbility.FindItem or CombatAbility.FindPotion or CombatAbility.GrimWard=>CorpseSkillRules.NoSelect(corpse),
         _=>BarbarianShout.Snapshot().Rays.Any(r=>r.Owner==p.Serial.Value&&r.Ability==ability)
     };
     private static void ClearEffects(PlayerMobile p,BaseCreature enemy=null)
     {
-        BattleCommand.Clear(p);BattleOrders.Clear(p);BarbarianShout.Clear(p);
+        GrimWardActors.Clear(p);BattleCommand.Clear(p);BattleOrders.Clear(p);BarbarianShout.Clear(p);
         var wave=BarbarianShout.Snapshot();BarbarianShout.Restore(wave with{Rays=wave.Rays.Where(r=>r.Owner!=p.Serial.Value).ToArray()});
         if(enemy!=null){NecromancerEffects.Profiles.Clear(enemy);}
     }
@@ -70,7 +70,7 @@ public static class BarbarianCastClockChecks
         foreach(var r in doc.RootElement.EnumerateArray())
         {var timing=BarbarianCastClock.Calculate(r[1].GetInt32());Require(timing.EffectFrame==r[3][0][1].GetInt32()&&timing.Frames==r[3][1][1].GetInt32(),"Complete source Barbarian SC differential");comparisons++;}
         var skills=SkillMechanics.All.Where(r=>BarbarianCastClock.Handles(r.Ability)).ToArray();
-        Require(comparisons==3108&&skills.Length==9&&!BarbarianCastClock.Handles(CombatAbility.GrimWard)&&!BarbarianCastClock.Handles(CombatAbility.Bash)&&!BarbarianCastClock.Handles(CombatAbility.IronSkin),"SC routes or exclusions changed");
+        Require(comparisons==3108&&skills.Length==10&&BarbarianCastClock.Handles(CombatAbility.GrimWard)&&!BarbarianCastClock.Handles(CombatAbility.Bash)&&!BarbarianCastClock.Handles(CombatAbility.IronSkin),"SC routes or exclusions changed");
         foreach(var skill in skills)for(int i=0;i<259;i++)
         {
             int fcr=i<256?i:i==256?500:i==257?1000:10000;
@@ -90,12 +90,12 @@ public static class BarbarianCastClockChecks
                     if(boosted){DualGear(p);}var weaponClock=CombatTiming.For(p,CombatAbility.BasicAttack);
                     int fcr=boosted?20:0;var expected=BarbarianCastClock.Calculate(fcr);
                     Require(CombatTiming.Fcr(p)==fcr,"Real gear FCR");
-                    foreach(var ability in new[]{CombatAbility.GrimWard,CombatAbility.LeapAttack})
+                    foreach(var ability in new[]{CombatAbility.LeapAttack})
                     {Require(!ClassCombat.Available(p,ability),"Clock enabled an unsupported learned skill");}
                     foreach(var skill in skills)
                     {
                         var ability=skill.Ability;ClearEffects(p,enemy);Ready(p);
-                        Corpse corpse=ability==CombatAbility.FindItem?FindItemChecks.Body(p):ability==CombatAbility.FindPotion?FindPotionChecks.Body(p):null;
+                        Corpse corpse=ability==CombatAbility.FindItem?FindItemChecks.Body(p):ability is CombatAbility.FindPotion or CombatAbility.GrimWard?FindPotionChecks.Body(p):null;
                         try
                         {
                             var loot=corpse?.Items.ToArray();int mana=NecromancerEffects.ManaBalance256(p),maximum=NecromancerEffects.ManaMaximum256(p),cost=SkillMechanics.Values(p,ability).Mana256;
@@ -113,9 +113,9 @@ public static class BarbarianCastClockChecks
                         }
                         finally{corpse?.Delete();}
                     }
-                    foreach(var ability in new[]{CombatAbility.Shout,CombatAbility.FindItem,CombatAbility.FindPotion})
+                    foreach(var ability in new[]{CombatAbility.Shout,CombatAbility.FindItem,CombatAbility.FindPotion,CombatAbility.GrimWard})
                     {
-                        ClearEffects(p,enemy);Ready(p);Corpse corpse=ability==CombatAbility.FindItem?FindItemChecks.Body(p):ability==CombatAbility.FindPotion?FindPotionChecks.Body(p):null;
+                        ClearEffects(p,enemy);Ready(p);Corpse corpse=ability==CombatAbility.FindItem?FindItemChecks.Body(p):ability is CombatAbility.FindPotion or CombatAbility.GrimWard?FindPotionChecks.Body(p):null;
                         try
                         {
                             int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
@@ -129,8 +129,8 @@ public static class BarbarianCastClockChecks
             }
         }
         finally{BarbarianFindItem.Roll=itemRoll;BarbarianFindPotion.Roll=potionRoll;}
-        Require(routes==2331&&ownerRoutes==18&&casts==18&&cancellations==6,"Missing Barbarian clock coverage");
-        Log.Information("Barbarian SC clock:3108source comparisons,2331static clocks,18actual owner/gear/effect casts,6cancellations;dual hands,corpse start payment,Orders rescale and two unavailable skills retain");
+        Require(routes==2590&&ownerRoutes==20&&casts==20&&cancellations==8,"Missing Barbarian clock coverage");
+        Log.Information("Barbarian SC clock:3108source comparisons,2590static clocks,20actual owner/gear/effect casts,8cancellations;dual hands,corpse start payment,Orders rescale and one unavailable skill retains");
     }
     private static void Input(NetState network,bool quick)
     {

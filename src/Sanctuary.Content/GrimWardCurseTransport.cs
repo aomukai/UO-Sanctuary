@@ -47,7 +47,7 @@ internal static class GrimWardCurseTransport
     // Do30 evaluates its four stats once before visiting recipients. A world
     // pulse passes that packet through unchanged, rather than re-reading live
     // hard ranks after each monster's harmful-action callbacks.
-    internal static bool ApplyPacket(PlayerMobile owner,Item missile,BaseCreature target,GrimWardCursePacket packet,DateTime at)
+    internal static bool ApplyPacket(PlayerMobile owner,Item missile,BaseCreature target,GrimWardCursePacket packet,DateTime at,uint initialFear=0)
     {
         ArgumentNullException.ThrowIfNull(packet);
         if(!Eligible(owner,missile,target,at)){return false;}
@@ -66,6 +66,9 @@ internal static class GrimWardCurseTransport
         var list=result.List;
         bool retained=old?.Ability==CombatAbility.GrimWard&&old.Rank==packet.Rank;
         var ai=SourceTerror.Learned(target,packet.Rank,at) with{Skill=CombatAbility.GrimWard};
+        // Explicit Sanctuary context approval: the learned actor supplies its
+        // caster as initial threat. Prepared legacy callers retain their input.
+        if(initialFear!=0){ai=ai with{Override=initialFear};}
         var next=new NecromancerCurse(CombatAbility.GrimWard,unchecked((uint)list.Creator),list.Rank,at.AddMilliseconds(list.Expires*40L),
             retained?old.OriginX:missile.X,retained?old.OriginY:missile.Y,Terror:ai,
             PhysicalDelta:list.Physical,Ward:new(list.Velocity,list.AttackRate,list.OtherRate,packet.Physical));

@@ -1,5 +1,8 @@
 # Skill effects
 
+**Grim Ward placeholder checkpoint (2026-11-06 JST).** Casting/lifecycle uses stock skull items named startup, active totem and expiry, the native SC pose and an existing cry sound. Final three-size start/body/end, fear/slow/expiry and audio remain pending. These placeholders do not gate mechanics; see [checkpoint](grim-ward-actor-checkpoint.md).
+
+
 **Approved Frenzy (2026-11-06 JST).** Its shared mechanical contacts use identified native weapon animation/sound placeholders. Final paired-strike, miss/block/contact and speed-charge/expiry presentation and audio remain pending. See [checkpoint](frenzy-checkpoint.md).
 
 **Entropy cloud channels (2026-11-06 JST).** The shared captured duration/radius/server outputs add no rendered cloud. Final Bolt/Chain cloud layers, contact, expiry and audio stay pending; no do41 geometry or artwork is inferred. See [checkpoint](entropy-clouds-checkpoint.md).

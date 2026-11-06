@@ -8,17 +8,17 @@
   "buildErrors": 0,
   "limitation": "Full patched-client build and exact patch-stack round trip;server wire fixtures are separate. Actual rendered cursor selection remains unverified. The existing project reports package vulnerability and compiler warnings;this is a no-restore build,not a dependency audit.",
   "sharedInputs": {
-    "shared/ClassGumpProtocol.cs": "dd287db99a8189b72ef129bf2f296d3c5022fbe203a6eadeb2ed1b6fd01fed71",
-    "shared/LootProtocol.cs": "65ccb31bdcab30ccade02a9c127a3867d7daaff5e3dd4d279c0f3d044d7b9a62",
-    "shared/CombatProtocol.cs": "e7d1c0a8f3e9a04b5f483547b5389cc12999892ab39637099bbc045705c7d8c8",
+    "shared/BeltProtocol.cs": "75be8cbc428000197c23cbccd2ce64f385a2bebe6135ac15792bc0412483504b",
     "shared/ClassAbilities.cs": "dbd5a969ad28b331825a73f893ea2dddaef02201c3e9b93adbef799d7826d84c",
+    "shared/ClassGumpProtocol.cs": "dd287db99a8189b72ef129bf2f296d3c5022fbe203a6eadeb2ed1b6fd01fed71",
+    "shared/CombatProtocol.cs": "e7d1c0a8f3e9a04b5f483547b5389cc12999892ab39637099bbc045705c7d8c8",
     "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
-    "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe",
+    "shared/LootProtocol.cs": "65ccb31bdcab30ccade02a9c127a3867d7daaff5e3dd4d279c0f3d044d7b9a62",
+    "shared/NamedVisualProtocol.cs": "ffec0a79c5fbf89bbe4716e30e02a86045d82843237e8aafb65e3101e07955cf",
     "shared/SkillBindingProtocol.cs": "e9ee7568083e94a14de110d82396c0ee49d25d467c76a6190b6b7ec16b773e2c",
     "shared/StatProtocol.cs": "ce1aeef635fb8699814cd28e5a380f90d476e6f0fbdf5af84c67b217454a0292",
     "shared/TitleProtocol.cs": "a979934452eef58e096dc42a733e4b4d271faa07a6ff173cae893a2bca04db31",
-    "shared/NamedVisualProtocol.cs": "ffec0a79c5fbf89bbe4716e30e02a86045d82843237e8aafb65e3101e07955cf",
-    "shared/BeltProtocol.cs": "75be8cbc428000197c23cbccd2ce64f385a2bebe6135ac15792bc0412483504b"
+    "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe"
   },
   "patchHashes": {
     "patches/ClassicUO/0001-use-fna-native-resolver.patch": "f9d89423a625052a36846f2abfa8bfd144cd731d4cc49da7c7449b3294966ddc",
@@ -108,7 +108,7 @@
     "src/ClassicUO.Renderer/PixelPicker.cs": "48a8bd61afa4a0874e1362149ac41b49c9cb3b8b0483f5796345c98e8ca32abc"
   },
   "artifacts": {
-    "tools/review_inferno_held_client.py": "ed8cc920ea7cac09c3fdebc642bd6574bd637d230b59c76888d04cbec3278e6e",
+    "tools/review_inferno_held_client.py": "c6bf8db048d4b377177709b3adad337aace0504c12a9af9d9e29d3c6a9e18b7e",
     ".local/class-skills/inferno-held-input/client-build-2.log": "305081748e9ba7ebcde05f7af74cc53f12fe8f4a36b3434b370c7914c591f0dc",
     ".local/class-skills/inferno-held-input/client/cuo.dll": "ef0c766eedd01284fcba865a5ee0d7f2a51f6be659e467c5c8c5ef3c5d85c7b4"
   }

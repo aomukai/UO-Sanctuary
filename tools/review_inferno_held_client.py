@@ -37,7 +37,7 @@ def review(check=False):
     scene=(client/'src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs').read_text()
     assert 'ClassCombatClient.EndChannel((int)((SDL.SDL_Keycode)e.key)-(int)SDL.SDL_Keycode.SDLK_F1+2);' in scene
     assert 'if(ability==CombatAbility.Inferno){return BeginChannel(world,slot+2);}' in routing
-    shared={str(p.relative_to(ROOT)):sha(p)for p in (ROOT/'shared').glob('*.cs')}
+    shared={str(p.relative_to(ROOT)):sha(p)for p in sorted((ROOT/'shared').glob('*.cs'))}
     for path,digest in shared.items():assert sha(STAGE/'client-root'/path)==digest,path
     with tempfile.TemporaryDirectory(prefix='sanctuary-poison-corpse-client-') as tmp:
         tmp=Path(tmp);subprocess.run(['git','init','-q'],cwd=tmp,check=True)

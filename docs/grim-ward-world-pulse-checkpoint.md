@@ -1,5 +1,8 @@
 # Prepared Grim Ward world pulse
 
+**Current follow-up (2026-11-06 JST):** the [approved learned Ward lifecycle](grim-ward-actor-checkpoint.md) now supplies captured owner context, paid SC casting and a saved totem clock. The 161-marker scope below is historical explicit-context preparation; it does not describe the current handler gate.
+
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Parent: `d378db71349686fe3ef385134b3ef66bdb0cd564`.
 
 `GrimWardWorldPulse.Step` composes the checked body do14 lifecycle with actual monster curse transport. Its controller must supply the body Item, original source missile class, owner, rank, total/current frame counters, formula supplier and collision service. These inputs remain explicit because current child insertion/global clock and live missile skill lookup have not been established. This component does not create a learned cast, choose a snapshot policy or install an automatic periodic timer.

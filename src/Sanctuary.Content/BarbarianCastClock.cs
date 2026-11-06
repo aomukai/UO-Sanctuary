@@ -6,7 +6,7 @@ namespace Sanctuary;
 
 internal static class BarbarianCastClock
 {
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.Howl or CombatAbility.FindPotion or CombatAbility.Shout or CombatAbility.Taunt or CombatAbility.BattleCry or CombatAbility.FindItem or CombatAbility.BattleOrders or CombatAbility.WarCry or CombatAbility.BattleCommand;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.Howl or CombatAbility.FindPotion or CombatAbility.Shout or CombatAbility.Taunt or CombatAbility.BattleCry or CombatAbility.FindItem or CombatAbility.BattleOrders or CombatAbility.WarCry or CombatAbility.BattleCommand or CombatAbility.GrimWard;
     public static void Configure()
     {
         var keys=new HashSet<string>(StringComparer.Ordinal);
@@ -26,7 +26,7 @@ internal static class BarbarianCastClock
             {throw new InvalidDataException("Barbarian skill no longer selects SC");}
             count++;
         }
-        if(count!=9){throw new InvalidDataException("Unexpected Barbarian SC routes");}
+        if(count!=10){throw new InvalidDataException("Unexpected Barbarian SC routes");}
     }
     // Every owned human Barbarian SC weapon record has the same clock.
     internal static ActionTiming Calculate(int fcr)=>SourceCastClock.Calculate(14,256,9,fcr);

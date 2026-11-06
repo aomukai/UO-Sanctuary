@@ -81,7 +81,7 @@ public static class GrimWardTransportChecks
                     &&!GrimWardCurseTransport.Valid(curse with{Ward=curse.Ward with{Attack=-200}})
                     &&!GrimWardCurseTransport.Valid(curse with{Ability=CombatAbility.Terror}),"Malformed Ward metadata accepted");
                 Require(!JsonSerializer.Serialize(attract).Contains("\"Ward\""),"Older curse schema gained a mandatory field");
-                Require(!BarbarianCombat.Implemented(CombatAbility.GrimWard)&&!NecromancerEffects.IsCurse(CombatAbility.GrimWard),"Recipient adapter enabled incomplete learned handler");
+                Require(BarbarianCombat.Implemented(CombatAbility.GrimWard)&&!NecromancerEffects.IsCurse(CombatAbility.GrimWard),"Recipient adapter enabled incomplete learned handler");
                 Require(target.Hits==life&&NecromancerEffects.ManaBalance256(owner)==mana,"Prepared curse caused damage or paid cast mana");
                 saved=new(owner.Serial.Value,target.Serial.Value,first.Serial.Value,curse,life,mana,0);
             }

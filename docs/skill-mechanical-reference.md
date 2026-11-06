@@ -1,5 +1,8 @@
 # Skill mechanical reference and precedence
 
+**Approved Grim Ward context (2026-11-06 JST).** Capture effective Ward rank and hard Find Potion on release; keep the totem as area center and curse creator, and initialize shared Terror against its caster. Gear changes do not rewrite the captured packet. This is the user's explicit Sanctuary adaptation, with [exact decision](../tools/reference/grim-ward-context-decision.json) and [implementation/verification scope](grim-ward-actor-checkpoint.md). Modern executable context/clock parity remains unverified. Source start33's four-mana startup payment, corpse reservation and pinned size/start/body/period fields remain independently traced.
+
+
 **Approved Frenzy (2026-11-06 JST).** The saved explicit startup/payment/charge decision enables implementation through shared SQ11 and ordinary paired contact services. Current start67 and exact modern charge chronology remain unverified; legacy release evidence stays separate. See [approval](frenzy-startup-proposal.md) and [checkpoint](frenzy-checkpoint.md).
 
 **Entropy cloud channels (2026-11-06 JST).** Owned 3.3.93847 missile705/696 formulas distinguish effective Range/Radius from Chain hard-only SrvCalc1. The shared captured shape preserves that distinction; do41 geometry and Abyss sksrc remain unresolved. See [checkpoint](entropy-clouds-checkpoint.md).
