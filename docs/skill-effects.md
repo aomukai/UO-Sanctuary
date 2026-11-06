@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie numeric equipment (2026-11-07 JST).** Attack/defense/resistance delivery creates no final visual or audio asset. The prepared female silhouette and invisible private items remain identified placeholders. Final Valkyrie body/equipment,summon,weapon/contact,skill/proc effects and audio remain pending independently of this numeric checkpoint. No imagegen asset is added.
+
 **Valkyrie loadouts (2026-11-07 JST).** The prepared female silhouette still needs final armor/weapon presentation. Actual generated items are hidden private mechanical carriers with explicitly identified graphics placeholders. Final summon/attack/impact/despawn effects and audio remain pending; source item creation supplies no final rendered equipment or skill effect.
 
 **Valkyrie body checkpoint (2026-11-07 JST).** Body0x191/hue0x481 is an identified native female appearance placeholder for the prepared backend. Final summoned model/equipment, appear/despawn and attack/contact effects plus audio remain pending. Body persistence and stat checks create no final effect asset; see [checkpoint](valkyrie-body-checkpoint.md).

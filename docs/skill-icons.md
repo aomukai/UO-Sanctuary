@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie numeric equipment (2026-11-07 JST).** The prepared numeric profile adds no talent-tree or hotkey icon. Valkyrie's final talent/right/quick icons remain pending with existing placeholders; generated item skill/proc fields do not create additional player bindings.
+
 **Valkyrie loadouts (2026-11-07 JST).** Real private item persistence adds no final talent-tree or right/quick hotkey icon. These remain separately pending while learned casting and final model/effects are unfinished.
 
 **Valkyrie body checkpoint (2026-11-07 JST).** Talent-tree and right/quick hotkey icons remain pending independently of the native appearance placeholder and future summon/combat effects. The prepared body enables no learned cast and creates no final icon or imagegen asset.

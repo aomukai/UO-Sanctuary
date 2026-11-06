@@ -18,5 +18,5 @@ internal static class NpcEquipmentCombat
         ?checked(item.Defense+item.Bonus("dex")/4):0);
     internal static int AttackFlat(BaseCreature actor)=>ReviveEquipmentCombat.AttackFlat(actor)??(Context(actor) is{} item
         ?checked(item.Bonus("att")+5*item.Bonus("dex")):0);
-    internal static int AttackPercent(BaseCreature actor)=>ReviveEquipmentCombat.AttackPercent(actor)??Bonus(actor,"att%");
+    internal static int AttackPercent(BaseCreature actor)=>ValkyrieEquipmentStats.AttackPercent(actor)??ReviveEquipmentCombat.AttackPercent(actor)??Bonus(actor,"att%");
 }
