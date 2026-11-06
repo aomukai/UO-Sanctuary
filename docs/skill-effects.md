@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved Frenzy (2026-11-06 JST).** Its shared mechanical contacts use identified native weapon animation/sound placeholders. Final paired-strike, miss/block/contact and speed-charge/expiry presentation and audio remain pending. See [checkpoint](frenzy-checkpoint.md).
+
 **Entropy cloud channels (2026-11-06 JST).** The shared captured duration/radius/server outputs add no rendered cloud. Final Bolt/Chain cloud layers, contact, expiry and audio stay pending; no do41 geometry or artwork is inferred. See [checkpoint](entropy-clouds-checkpoint.md).
 
 **Approved Double Swing (2026-11-06 JST).** The two mechanical hand events use the existing native weapon animation and per-contact sound placeholders. Final alternating-hand swing/impact presentation and skill-specific audio remain pending; no image generation occurred. See [checkpoint](double-swing-checkpoint.md).

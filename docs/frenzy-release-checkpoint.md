@@ -1,5 +1,7 @@
 # Prepared Frenzy release, charges and packet control
 
+**Approved learned-route follow-up (2026-11-06 JST):** The user has approved the startup/payment/charge contract. Its shared paired-contact implementation and native checks are documented in [the current checkpoint](frenzy-checkpoint.md). The older source controls below retain their original scope; they do not certify current start67 or replace the explicit adaptation.
+
 Reference: **D2R Reign of the Warlock3.3.93847**, approved Sanctuary deviations first. Parent commit:`4c88e60740cb49b95fa6b7ac3157d23665903cbf`. These are checked complete legacy routines with declared services; learned Frenzy remains unavailable.
 
 `BarbarianFrenzyRelease` implements older do9,ApplyFrenzyStats and RollFrenzyDamage. A release first requires the existing target. Both phases drain its preceding packet; even phases explicitly free its combat list, while odd phases set do flag0x40. Equipment refresh and broken-weapon cleanup precede charge application. The next target is retained on even phases or selected through the existing GUID successor/wrap helper on odd phases. These equipment callbacks are not animation rewinds.

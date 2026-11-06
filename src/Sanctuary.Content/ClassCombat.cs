@@ -38,7 +38,9 @@ public static class ClassCombat
         internal HolyShields.Pending HolyShieldStart;
         internal BarbarianMelee.Prepared BarbarianAttack;
         internal BarbarianDoubleThrow.Series DoubleThrow;
-        internal BarbarianDoubleSwing.Series DoubleSwing;
+        internal BarbarianPairedMelee.Series PairedMelee;
+        internal BarbarianPairedMelee.Series DoubleSwing=>PairedMelee?.Ability==CombatAbility.DoubleSwing?PairedMelee:null;
+        internal BarbarianPairedMelee.Series Frenzy=>PairedMelee?.Ability==CombatAbility.Frenzy?PairedMelee:null;
         internal AmazonJab.Series Jab;
         internal AmazonImpale.Attack Impale;
         internal AmazonFend.Series Fend;
@@ -109,8 +111,8 @@ public static class ClassCombat
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
             || !HitRecovery.Active(from,Core.TickCount) && !AmazonStrafe.Locked(from,Core.TickCount) && !AmazonFend.Locked(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)) : delay;
-        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)) : delay;
+            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)+BarbarianFrenzyEffects.Velocity(from)) : delay;
+        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)+BarbarianFrenzyEffects.Velocity(from)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
         {
             if (ClassCombat.Enabled(from))
@@ -247,7 +249,7 @@ public static class ClassCombat
         if(AmazonStrafe.Locked(from,Core.TickCount) || AmazonFend.Locked(from,Core.TickCount) || AmazonImpale.Locked(from,Core.TickCount) || AmazonJab.Locked(from,Core.TickCount) || PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount) || BarbarianLeap.Locked(from) || BarbarianWhirlwind.Locked(from)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
         BarbarianConcentrate.Cancel(from);
         BarbarianDoubleThrow.Cancel(from);
-        BarbarianDoubleSwing.Cancel(from);
+        BarbarianPairedMelee.Cancel(from);
         AmazonJab.Cancel(from);
         AmazonImpale.Cancel(from);
         AmazonStrafe.Cancel(from);
@@ -362,7 +364,7 @@ public static class ClassCombat
         BarbarianConcentrate.Tick(from,now);
         BarbarianBerserk.Tick(from,now);
         var session = For(from);
-        if(session.ClawAttack!=null || session.DoubleSwing!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null || session.Fury!=null){return;}
+        if(session.ClawAttack!=null || session.PairedMelee!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null || session.Fury!=null){return;}
         if (session.HeldAbility != CombatAbility.None)
         {
             UpdateHeldCast(from, now);
@@ -526,7 +528,7 @@ public static class ClassCombat
         if(For(from).Strafe!=null){return AmazonStrafe.Resolve(from,now);}
         if(For(from).Fend!=null){return AmazonFend.Resolve(from,now);}
         if(For(from).Fury!=null){return DruidFury.Resolve(from,now);}
-        if(For(from).DoubleSwing!=null){return BarbarianDoubleSwing.Resolve(from,now);}
+        if(For(from).PairedMelee!=null){return BarbarianPairedMelee.Resolve(from,now);}
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.VineCast!=null){return DruidVineCasting.ResolvePrepared(from,now);}

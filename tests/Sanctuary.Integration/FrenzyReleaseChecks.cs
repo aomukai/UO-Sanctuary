@@ -103,7 +103,7 @@ public static class FrenzyReleaseChecks
             string actual=JsonSerializer.Serialize(s.Result(result,unit));Require(actual==JsonSerializer.Serialize(row[2]),"Frenzy case "+count+":"+actual+" expected:"+row[2]);count++;
         }
         Require(count==15024&&stats==1188&&rolls==12099&&phases==1737,"Incomplete Frenzy source matrix");
-        Require(!BarbarianCombat.Implemented(CombatAbility.Frenzy),"Legacy release enabled unresolved modern start67");
-        Log.Information("Frenzy:15024complete legacy contexts,1188charge/12099packet/1737composed releases;previous latch,equipment/GUID order,used-skill replacement and raw narrowing pass;modern start67 remains gated");
+        Require(BarbarianCombat.Implemented(CombatAbility.Frenzy),"Approved playable Frenzy missing;legacy release remains a separate scope");
+        Log.Information("Frenzy:15024complete legacy contexts,1188charge/12099packet/1737composed releases;previous latch,equipment/GUID order,used-skill replacement and raw narrowing pass;modern start67 body remains unverified;approved playable startup separate");
     }
 }

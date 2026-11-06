@@ -1637,10 +1637,10 @@
       "characterClass": "Barbarian",
       "tree": "Combat Skills",
       "sourceId": 147,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Complete legacy do9,ApplyFrenzyStats,RollFrenzyDamage and shared aura/Param1helpers now have15024compiled source controls. Prepared release preserves prior packet drain,even-only free,equipment refresh/broken-weapon cleanup,preceding-hit charge/expiry/cap,GUID retargeting,packet narrowing and current used-skill lookup after callbacks. Formula,stat,packet/equipment/world services stay explicit;this does not certify physical damage,speed curves or actual timed state consumers. Modern start67is null in the older dispatcher and still gates first-hit initialization,payment,hand/sequence/world/input integration. Do not infer a complete start from do9. See frenzy-release-source-evidence.json and barbarian-frenzy-preflight.json;effects/audio/icons remain separate."
+      "remaining": "Approved explicit Frenzy startup/payment/charge contract is retained in frenzy-start-decision.json and frenzy-startup-proposal.md. Shared paired melee uses current SQ11 events,scoped primary/secondary hands,ordinary contact and GUID target search. Each powered release costs1.5mana;underfunded contacts are ordinary attacks. Successful unblocked committed contacts,including fully absorbed hits,add one charge capped at the effective rank at gain and refresh150+10per hard IncreasedStamina frames. Pinned dm34/dm56charge curves reach shared walk/run and skill attack-rate consumers. Charges survive stopping/moving/weapon swaps,expire by UTC and clear on death or invalid owner/skill. Hard-only DoubleSwing/Taunt damage and Berserk magic conversion reuse ordinary damage/critical/mitigation/leech services. Dedicated native checks are recorded in frenzy-checkpoint.md. Current compiled start67,exact current charge chronology,paired IAS/WSM quirks,full room/PvP/client and unsupported item/recipient domains remain unverified;the explicit approved rule takes precedence. No class complete;final effects/audio/icons remain separate placeholders."
     },
     {
       "talentId": "barbarian.whirlwind",

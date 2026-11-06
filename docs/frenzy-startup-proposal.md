@@ -1,6 +1,6 @@
 # Approved Frenzy startup rule
 
-Reference: D2R Reign of the Warlock **3.3.93847**. The user approved this rule; implementation and native acceptance are still required. The complete older release/charge routines are already prepared; the current start67 body remains unavailable. See [existing release checkpoint](frenzy-release-checkpoint.md).
+Reference: D2R Reign of the Warlock **3.3.93847**. The user approved this rule; its implementation and scoped native acceptance are recorded in [the checkpoint](frenzy-checkpoint.md). The complete older release/charge routines are already prepared; the current start67 body remains unavailable. See [existing release checkpoint](frenzy-release-checkpoint.md).
 
 The exact question and answer are retained in [the approval record](../tools/reference/frenzy-start-decision.json). The approved rule is:
 
@@ -12,4 +12,4 @@ The exact question and answer are retained in [the approval record](../tools/ref
 
 This is an explicit Sanctuary startup/payment/charge-timing adaptation. It does not establish exact current D2R startup, paired IAS/WSM quirks or the older preceding-packet success chronology. Pinned AR, hard-point damage synergies and Berserk magic conversion still need binding to existing contact/stat consumers and native verification. Final effects/audio and icons remain separate assets.
 
-Learned Frenzy stays gated until this approved rule is implemented and verified. No further approval or running D2R client is needed for this contract.
+The learned Frenzy route is enabled under this approved contract. No further approval or running D2R client is needed for it.

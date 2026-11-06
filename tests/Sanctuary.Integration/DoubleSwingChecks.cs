@@ -21,26 +21,26 @@ public static class DoubleSwingChecks
         TalentCatalog.TryGet(DiabloClass.Barbarian,id,out var row);foreach(string pre in row.Prerequisites){Train(p,pre,1);}
         while(ClassCreation.Profiles.GetRank(p.Serial,id)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
     }
-    private static PlayerMobile Owner(int rank=1,bool throwing=false)
+    internal static PlayerMobile Owner(int rank=1,bool throwing=false,CombatAbility ability=CombatAbility.DoubleSwing)
     {
         var p=new PlayerMobile{Name="PoisonDaggerFixtureDoubleSwing"+(Index++),Player=true,Body=0x190};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(p,99);
         while(p.RawStr<120)Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Strength");
         while(p.RawDex<100)Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Dexterity),"Dexterity");
-        Train(p,"barbarian.doubleswing",rank);FixtureSpace.Corridor(p,6800,24,1600+Index*24);
+        Train(p,SkillMechanics.For(ability).TalentId,rank);FixtureSpace.Corridor(p,6800,24,1600+Index*24);
         BaseWeapon first=throwing?new NamedThrowingKnife():new Broadsword(),second=throwing?new NamedThrowingKnife():new Mace();
         foreach(var weapon in new[]{first,second}){ClassGear.Profiles.Convert(weapon,99,GearRarity.Normal,new Random(173));p.AddToBackpack(weapon);Require(p.EquipItem(weapon),"Native Double Swing pair equip");}
         Require(BarbarianDoubleSwing.Pair(p)==new WeaponPair(first,second),"Pair/primary identity lost");NecromancerEffects.SetMana256(p,NecromancerEffects.ManaMaximum256(p));return p;
     }
-    private static ReviveEventChecks.Recipient Target(PlayerMobile p,int dx=1,int dy=0)
+    internal static ReviveEventChecks.Recipient Target(PlayerMobile p,int dx=1,int dy=0)
     {
         var t=new ReviveEventChecks.Recipient{Name="PoisonDaggerFixtureDoubleSwingTarget",NoKillAwards=true,Frozen=true,CantWalk=true};t.SetHits(20000);t.Hits=t.HitsMax;
         foreach(var r in Enum.GetValues<ResistanceType>())t.SetResistance(r,0);
         t.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);t.AIObject?.AITimer.Stop();TimedEffects.PreventHealing(t,TimedEffects.Now);return t;
     }
-    private static void Ready(PlayerMobile p){ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;}
+    internal static void Ready(PlayerMobile p){ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;}
     private static bool Begin(PlayerMobile p,Mobile t){Ready(p);return ClassCombat.Perform(p,CombatAbility.DoubleSwing,t,t.Location,Core.TickCount);}
     private static bool Event(PlayerMobile p)=>ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt);
-    private static void Clear(PlayerMobile p,params Mobile[] targets){ClassCombat.Stop(p);foreach(var t in targets){t.Corpse?.Delete();t.Delete();}p.Corpse?.Delete();p.Delete();}
+    internal static void Clear(PlayerMobile p,params Mobile[] targets){ClassCombat.Stop(p);foreach(var t in targets){t.Corpse?.Delete();t.Delete();}p.Corpse?.Delete();p.Delete();}
     private static void Rules()
     {
         Require(CombatTiming.WeaponAttack(CombatAbility.DoubleSwing)&&CombatTiming.SequenceRateAdjustment(CombatAbility.DoubleSwing)==20,"Approved attack-rate channel missing");

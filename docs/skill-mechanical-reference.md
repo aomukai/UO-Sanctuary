@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Approved Frenzy (2026-11-06 JST).** The saved explicit startup/payment/charge decision enables implementation through shared SQ11 and ordinary paired contact services. Current start67 and exact modern charge chronology remain unverified; legacy release evidence stays separate. See [approval](frenzy-startup-proposal.md) and [checkpoint](frenzy-checkpoint.md).
+
 **Entropy cloud channels (2026-11-06 JST).** Owned 3.3.93847 missile705/696 formulas distinguish effective Range/Radius from Chain hard-only SrvCalc1. The shared captured shape preserves that distinction; do41 geometry and Abyss sksrc remain unresolved. See [checkpoint](entropy-clouds-checkpoint.md).
 
 **Approved Double Swing startup (2026-11-06 JST).** The user approved the explicit two-hand SQ11/shared timing/50% skill-speed/per-release fractional mana/ordinary fallback/cancellation rule. It supersedes the unverified startup gate without certifying compiled start68. Current SQ11 file data and five unchanged older scheduling/callback bodies remain separately bound; shared ordinary weapon contact and hand identity implement the attacks. See [approved rule](approved-double-swing-rule.md) and [checkpoint](double-swing-checkpoint.md).

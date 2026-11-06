@@ -149,7 +149,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     internal void ResetAllocatedPoints(PlayerMobile player, CharacterProfile profile)
     {
-        int hits = player.Hits, mana = player.Mana, stam = player.Stam;
+        int hits = SkillHealth.Balance256(player), mana = NecromancerEffects.ManaBalance256(player), stam = BattleOrders.Stamina256(player);
         using var equipment = Server.Collections.PooledRefList<Item>.Create();
         foreach (var item in player.Items)
         {
@@ -182,6 +182,7 @@ public sealed class CharacterProfiles : GenericPersistence
         DruidAttackCharges.Clear(player);DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);DruidRabies.Cancel(player);DruidShockWave.Cancel(player);DruidFury.Cancel(player);PoisonDaggerCombat.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
         BarbarianBerserk.Clear(player);
+        BarbarianFrenzyEffects.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);
         BattleCommand.Clear(player);
@@ -197,9 +198,9 @@ public sealed class CharacterProfiles : GenericPersistence
             }
             if (!changed) { break; }
         }
-        player.Hits = Math.Min(hits, player.HitsMax);
-        player.Mana = Math.Min(mana, player.ManaMax);
-        player.Stam = Math.Min(stam, player.StamMax);
+        SkillHealth.SetBalance256(player,Math.Min(hits,SkillHealth.Maximum256(player)));
+        NecromancerEffects.SetMana256(player,Math.Min(mana,NecromancerEffects.ManaMaximum256(player)));
+        BattleOrders.SetStamina256(player,Math.Min(stam,BattleOrders.StaminaMaximum256(player)));
         ClassGear.Changed(player);
         StatNetwork.Send(player);
     }

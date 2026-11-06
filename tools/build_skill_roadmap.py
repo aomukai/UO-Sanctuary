@@ -709,6 +709,11 @@ CAVEATS["warlock.miasmabolt"] = BLOCKERS.get("warlock.miasmabolt", "Prepared Mia
 
 CAVEATS["necromancer.attract"] += " Native live-input/reload controls now use per-actor decision and accuracy suppliers to force an initial miss then a hit through ordinary autonomous scheduling;defaults retain existing game RNG. An earlier broad eight-second damage failure and unchanged-build isolation are preserved in entropy-clouds-checkpoint.md;that failed log alone does not prove its root cause."
 
+
+BLOCKERS.pop("barbarian.frenzy",None)
+NATIVE_PARTIAL.add("barbarian.frenzy")
+CAVEATS["barbarian.frenzy"] = "Approved explicit Frenzy startup/payment/charge contract is retained in frenzy-start-decision.json and frenzy-startup-proposal.md. Shared paired melee uses current SQ11 events,scoped primary/secondary hands,ordinary contact and GUID target search. Each powered release costs1.5mana;underfunded contacts are ordinary attacks. Successful unblocked committed contacts,including fully absorbed hits,add one charge capped at the effective rank at gain and refresh150+10per hard IncreasedStamina frames. Pinned dm34/dm56charge curves reach shared walk/run and skill attack-rate consumers. Charges survive stopping/moving/weapon swaps,expire by UTC and clear on death or invalid owner/skill. Hard-only DoubleSwing/Taunt damage and Berserk magic conversion reuse ordinary damage/critical/mitigation/leech services. Dedicated native checks are recorded in frenzy-checkpoint.md. Current compiled start67,exact current charge chronology,paired IAS/WSM quirks,full room/PvP/client and unsupported item/recipient domains remain unverified;the explicit approved rule takes precedence. No class complete;final effects/audio/icons remain separate placeholders."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

@@ -16,7 +16,7 @@ public readonly record struct ActionTiming(int Frames, int EffectFrame)
 }
 public static class CombatTiming
 {
-    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.DragonTail or CombatAbility.Fury or CombatAbility.Rabies or CombatAbility.Hunger or CombatAbility.FireClaws or CombatAbility.FeralRage or CombatAbility.Maul or CombatAbility.BladesOfIce or CombatAbility.ClawsOfThunder or CombatAbility.FistsOfFire or CombatAbility.CobraStrike or CombatAbility.TigerStrike or CombatAbility.WakeOfFire or CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.ShockWeb or CombatAbility.FireBlast or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.Strafe or CombatAbility.ImmolationArrow or CombatAbility.ColdArrow or CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.BasicAttack or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.LightningStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow or CombatAbility.DoubleSwing;
+    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.DragonTail or CombatAbility.Fury or CombatAbility.Rabies or CombatAbility.Hunger or CombatAbility.FireClaws or CombatAbility.FeralRage or CombatAbility.Maul or CombatAbility.BladesOfIce or CombatAbility.ClawsOfThunder or CombatAbility.FistsOfFire or CombatAbility.CobraStrike or CombatAbility.TigerStrike or CombatAbility.WakeOfFire or CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.ShockWeb or CombatAbility.FireBlast or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.Strafe or CombatAbility.ImmolationArrow or CombatAbility.ColdArrow or CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.BasicAttack or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.LightningStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow or CombatAbility.DoubleSwing or CombatAbility.Frenzy;
     // Each row is a class; columns follow AttackFamily. These are project balance profiles.
     private static readonly int[][] _attacks =
     [
@@ -91,7 +91,7 @@ public static class CombatTiming
         return weapon!=null && ClassGear.Base(weapon) is{OneOrTwoHanded:true} && !WeaponHands.TwoHanded(weapon)?animation switch
         {WeaponAnimation.Slash2H=>WeaponAnimation.Slash1H,WeaponAnimation.Bash2H=>WeaponAnimation.Bash1H,WeaponAnimation.Pierce2H=>WeaponAnimation.Pierce1H,_=>animation}:animation;
     }
-    internal static int SkillAttackRate(Mobile owner)=>PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner)+HexPurge.AttackRate(owner);
+    internal static int SkillAttackRate(Mobile owner)=>PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner)+HexPurge.AttackRate(owner)+BarbarianFrenzyEffects.AttackRate(owner);
     public static int Ias(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.WeaponSpeed), 0, 10000);
     public static int Fcr(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.CastSpeed), 0, 10000);
     public static ActionTiming For(PlayerMobile from, CombatAbility ability, BaseWeapon weapon = null)
@@ -119,7 +119,7 @@ public static class CombatTiming
     }
     internal static int SequenceRateAdjustment(CombatAbility ability)=>ability switch
     {
-        CombatAbility.Jab or CombatAbility.DoubleThrow=>-30,
+        CombatAbility.Jab or CombatAbility.DoubleThrow or CombatAbility.Frenzy=>-30,
         // Approved Double Swing timing: shared sequence penalty plus Param5.
         CombatAbility.DoubleSwing=>-30+SkillMechanics.For(ability).Number("Param5"),
         // Released2.4/current Param9 and the pinned original calculator place
@@ -170,7 +170,7 @@ public static class CombatTiming
         if(ability==CombatAbility.Impale){return AmazonImpale.Timing(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);}
         if(ability==CombatAbility.Fend){return AmazonFend.Timing(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);}
         if(ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike or CombatAbility.LightningStrike){return AmazonMelee.Timing(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);}
-        if(ability==CombatAbility.DoubleSwing){return new((17*256+advance-1)/advance,(4*256+advance-1)/advance);}
+        if(ability is CombatAbility.DoubleSwing or CombatAbility.Frenzy){return new((17*256+advance-1)/advance,(4*256+advance-1)/advance);}
         if(ability==CombatAbility.DoubleThrow){return new((12*256+advance-1)/advance,(5*256+advance-1)/advance);}
         if(ability==CombatAbility.Charge){return new ActionTiming(15,1);}
         if(ability==CombatAbility.Leap){return new ActionTiming(14,5);}
