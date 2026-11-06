@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC lightning return:** stat128 is an equipment passive and adds no talent/hotkey icon identity. Its current contact flash is an identified placeholder; final effect/audio remain separately tracked in [skill-effects.md](skill-effects.md). See the [checkpoint](npc-lightning-return-checkpoint.md).
+
 **Lightning retaliation reference checkpoint:** equipment passive128 adds no talent/hotkey icon identity. Its pending effect/audio is tracked independently in [skill-effects.md](skill-effects.md); neither the mechanic nor an asset is claimed finished.
 
 **NPC equipment blind:** an item’s hit effect adds no talent/hotkey icon identity. Existing Iron/Revive/Dim Vision icon placeholders remain separately tracked;no icon asset is completed by this checkpoint. See the [checkpoint](npc-item-blind-checkpoint.md).

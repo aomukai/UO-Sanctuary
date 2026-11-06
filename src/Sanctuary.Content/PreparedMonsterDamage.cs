@@ -107,6 +107,7 @@ internal static class PreparedMonsterDamage
             ||SkillHealth.Balance256(target)<=0||!statusOnly&&(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Monster release requires qualified living source/recipient and a successful cached packet");}
         if(packet.FreezeFrames>0&&!services.SupportsFreeze){throw new NotSupportedException("Prepared freeze needs its qualified status receiver before HP/events");}
+        if(!missile&&(packet.ResultFlags&32)==0){NpcLightningReturn.RequireIncoming(attacker,target,false);}
         NpcFlatDrains.Require(attacker,packet,services.OrdinaryNpcFlatDrains);
         using var credit=PreparedMonsterCredit.CaptureOwner(attacker,target);
         services.StoreLastAttacker();

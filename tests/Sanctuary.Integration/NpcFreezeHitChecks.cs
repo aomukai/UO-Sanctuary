@@ -50,13 +50,13 @@ public static class NpcFreezeHitChecks
         FixtureSpace.Corridor(p,6100,24,2800);while(p.RawInt<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Energy),"Energy preparation");}NecromancerEffects.SetMana256(p,p.ManaMax*256);return p;
     }
     private static Item Iceblink()=>NamedGear.Create(NamedGear.Catalog.Items.Single(d=>d.SourceKey=="Iceblink").Id,99,new Random(173),true);
-    internal static IronGolemBody Cast(PlayerMobile p,Item original,string code="freeze")
+    internal static IronGolemBody Cast(PlayerMobile p,Item original,string code="freeze",int expectedBonus=1)
     {
         original.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);ClassCombat.Stop(p);ClassCombat.For(p).NextAction=0;
         Require(SkillBindings.Instance.AssignQuick(p,7,CombatAbility.IronGolem),"Iron quick binding");int mana=NecromancerEffects.ManaBalance256(p);
         Require(SkillBindingNetwork.Use(p,DiabloClass.Necromancer,7,CombatAbility.IronGolem,original.Serial,new(0,0,0)),"Iceblink learned start refused");
         long at=ClassCombat.For(p).EffectAt;Require(ClassCombat.ResolveAction(p,at)&&NecromancerEffects.ManaBalance256(p)==mana-35*256,"Learned release/payment failed");
-        var body=NecromancerGolems.For(p).OfType<IronGolemBody>().Single();Require(original.Parent==body&&NpcEquipmentCombat.EventBonus(body,code)==1,"Original freeze item did not bind");return body;
+        var body=NecromancerGolems.For(p).OfType<IronGolemBody>().Single();Require(original.Parent==body&&NpcEquipmentCombat.EventBonus(body,code)==expectedBonus,"Original item event did not bind");return body;
     }
     public sealed class Recipient:Skeleton
     {
@@ -101,29 +101,38 @@ public static class NpcFreezeHitChecks
     }
     private static void Contact(PlayerMobile p,BaseCreature source,Recipient target,bool controller)
     {
-        var at=TimedEffects.Now;ulong initial=Seed(source,target,source is IronGolemBody);NpcEquipmentRandom.Set(source,initial);
-        IronGolemWorldState world=null;
-        if(controller)
+        var oldBlock=SourceBlocking.BlockRoll;
+        try
         {
-            var body=(IronGolemBody)source;world=body.Prepared.Controller with{Mode=4,Target=target.Serial.Value,NextThink=0,ActionAt=body.Prepared.Controller.Frame+1,EndAt=body.Prepared.Controller.Frame+20,AttackSpeed=256};body.RestoreController(world);at=world.NextUtc;
+            // This replay owns the actor seed and the independent defender
+            // block input; a blocked preview is not a positive freeze case.
+            SourceBlocking.BlockRoll=n=>n-1;
+            var at=TimedEffects.Now;ulong initial=Seed(source,target,source is IronGolemBody);NpcEquipmentRandom.Set(source,initial);
+            IronGolemWorldState world=null;
+            if(controller)
+            {
+                var body=(IronGolemBody)source;world=body.Prepared.Controller with{Mode=4,Target=target.Serial.Value,NextThink=0,ActionAt=body.Prepared.Controller.Frame+1,EndAt=body.Prepared.Controller.Frame+20,AttackSpeed=256};body.RestoreController(world);at=world.NextUtc;
+            }
+            var rules=IronGolemContact.Require(source,p,target);IronGolemContact.Prepared prepared=null;ulong expected=0;int frames=0;
+            // Pick a positive callback control, rather than assuming that the
+            // first actor seed must also pass the separate freeze-chance roll.
+            for(int tries=0;tries<1000&&frames<=0;tries++,initial++)
+            {
+                NpcEquipmentRandom.Set(source,initial);
+                prepared=IronGolemContact.Prepare(source,target,rules,()=>controller?IronGolemWorld.Result((IronGolemBody)source,p,world,target):5);
+                expected=NpcEquipmentRandom.State(source).Seed;uint draw=SourceRandom.Roll(ref expected);
+                frames=(prepared.Impact.Packet.ResultFlags&1)!=0?NamedControl.FreezeFrames(ClassStats.Level(source),ClassStats.Level(target),1,false,(int)(draw%100)):0;
+                if(frames<=0){prepared.Cancel();}
+            }
+            initial--;Require(frames>0,"No deterministic positive freeze control");
+            int hp=SkillHealth.Balance256(target);
+            if(controller){NpcEquipmentRandom.Set(source,initial);IronGolemWorld.Advance((IronGolemBody)source,at,true);}
+            else{var result=IronGolemContact.Release(source,p,target,prepared,_=>true,at);Require(!result.DeathModeAttempted,"Nonlethal freeze contact killed recipient");}
+            Require(target.Calls==1&&target.FrozenAtNotification&&FreezeStates.Shattered(target)&&SkillHealth.Balance256(target)==hp-prepared.Impact.Packet.Total256,"Freeze/main HP notification mismatch: controller="+controller+" source="+source.GetType().Name+" calls="+target.Calls+" frozenAtNotify="+target.FrozenAtNotification+" frozen="+FreezeStates.Shattered(target)+" hp="+SkillHealth.Balance256(target)+" expected="+(hp-prepared.Impact.Packet.Total256)+" frames="+frames+" result="+prepared.Impact.Packet.ResultFlags);
+            Require(NpcEquipmentRandom.State(source).Seed==expected&&NativeMonsterReturn.Session(target).Packets==1&&frames>0,"Nested packet duplicated a stream draw/return/free");
+        
         }
-        var rules=IronGolemContact.Require(source,p,target);IronGolemContact.Prepared prepared=null;ulong expected=0;int frames=0;
-        // Pick a positive callback control, rather than assuming that the
-        // first actor seed must also pass the separate freeze-chance roll.
-        for(int tries=0;tries<1000&&frames<=0;tries++,initial++)
-        {
-            NpcEquipmentRandom.Set(source,initial);
-            prepared=IronGolemContact.Prepare(source,target,rules,()=>controller?IronGolemWorld.Result((IronGolemBody)source,p,world,target):5);
-            expected=NpcEquipmentRandom.State(source).Seed;uint draw=SourceRandom.Roll(ref expected);
-            frames=NamedControl.FreezeFrames(ClassStats.Level(source),ClassStats.Level(target),1,false,(int)(draw%100));
-            if(frames<=0){prepared.Cancel();}
-        }
-        initial--;Require(frames>0,"No deterministic positive freeze control");
-        int hp=SkillHealth.Balance256(target);
-        if(controller){NpcEquipmentRandom.Set(source,initial);IronGolemWorld.Advance((IronGolemBody)source,at,true);}
-        else{var result=IronGolemContact.Release(source,p,target,prepared,_=>true,at);Require(!result.DeathModeAttempted,"Nonlethal freeze contact killed recipient");}
-        Require(target.Calls==1&&target.FrozenAtNotification&&FreezeStates.Shattered(target)&&SkillHealth.Balance256(target)==hp-prepared.Impact.Packet.Total256,"Freeze/main HP notification mismatch: controller="+controller+" source="+source.GetType().Name+" calls="+target.Calls+" frozenAtNotify="+target.FrozenAtNotification+" frozen="+FreezeStates.Shattered(target)+" hp="+SkillHealth.Balance256(target)+" expected="+(hp-prepared.Impact.Packet.Total256)+" frames="+frames+" result="+prepared.Impact.Packet.ResultFlags);
-        Require(NpcEquipmentRandom.State(source).Seed==expected&&NativeMonsterReturn.Session(target).Packets==1&&frames>0,"Nested packet duplicated a stream draw/return/free");
+        finally{SourceBlocking.BlockRoll=oldBlock;}
     }
     private static void Filled(PlayerMobile p,IronGolemBody source)
     {
@@ -144,7 +153,7 @@ public static class NpcFreezeHitChecks
         }
         finally{Remove(target);}
     }
-    internal static BaseCreature Revive(PlayerMobile p,out Item gear,string name="Iceblink",string code="freeze")
+    internal static BaseCreature Revive(PlayerMobile p,out Item gear,string name="Iceblink",string code="freeze",int expectedBonus=1)
     {
         var b=new Skeleton{Name="NPC freeze original [fixture]",NoKillAwards=true};foreach(var i in b.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){i.Delete();}gear=NamedGear.Create(NamedGear.Catalog.Items.Single(d=>d.SourceKey==name).Id,99,new Random(173),true);b.AddItem(gear);Require(gear.Parent==b,"Frozen original gear equip");
         b.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);b.AIObject?.AITimer.Stop();Corpse corpse=null;var old=ClassLootHooks.CreatureDied;
@@ -152,7 +161,7 @@ public static class NpcFreezeHitChecks
         try{p.DoHarmful(b,true);b.Damage(b.Hits+1,p);CombatDamage.Finish(b,p);}finally{ClassLootHooks.CreatureDied=old;}
         Require(corpse is{Deleted:false}&&ReviveOriginals.Find(corpse)==b,"Original freeze corpse not retained");corpse.BeginDecay(FixtureSpace.Retention);NecromancerEffects.SetMana256(p,p.ManaMax*256);
         Require(ReviveCasts.Plan(p,corpse,out _,out _,out var issue)&&ReviveCasts.Release(p,corpse),"Learned frozen Revive failed: "+issue);
-        Require(gear.Parent==corpse&&NpcEquipmentCombat.EventBonus(b,code)==1&&ReviveSwings.Handles(b),"Frozen Revive lost loot/combat freeze/swing profile");return b;
+        Require(gear.Parent==corpse&&NpcEquipmentCombat.EventBonus(b,code)==expectedBonus&&ReviveSwings.Handles(b),"Frozen Revive lost loot/combat event/swing profile");return b;
     }
     private static Held Hold(PlayerMobile p,BaseCreature source,Item item,Recipient target,bool revive)
     {

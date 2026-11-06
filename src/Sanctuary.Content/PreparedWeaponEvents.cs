@@ -11,7 +11,11 @@ internal static class PreparedWeaponEvents
     internal static void BeforeReturn(Mobile attacker,Mobile defender,int physical256,bool ranged,
         int absorbedLife256=0,Action<int> leech=null)
     {
+        NpcLightningReturn.RequireNativeIncoming(attacker,defender,ranged);
         IronMaiden.MeleeDamage(attacker,defender,physical256,ranged);
+        // Attacker damage events precede defender incoming events. A lethal
+        // Iron Maiden return must not become a prior lightning packet.
+        if(attacker is{Alive:true,Deleted:false}){NpcLightningReturn.NativeIncoming(attacker,defender,ranged,TimedEffects.Now);}
         ClayGolemSlow.Incoming(attacker,defender,ranged,TimedEffects.Now);
         // Frozen Armor's incoming physical event belongs before HP/death, and
         // accepts positive fractional damage. Keep the existing other-event

@@ -74,7 +74,7 @@ public static class ReviveEventChecks
         foreach(var rule in BalanceCatalog.Read<NpcItemEventStat>("npc-item-combat-events"))
         {
             bool refused=false;try{_=NpcCombatEvents.FromStats(new[]{new EquipmentStatValue(EquipmentStatKey.Pack(rule.Stat),1)});}catch(NotSupportedException){refused=true;}
-            Require(refused==(rule.Stat is not(78 or 113 or 134 or 135 or 136)),"Unsupported registration was silently skipped: "+rule.Stat);
+            Require(refused==(rule.Stat is not(78 or 113 or 128 or 134 or 135 or 136)),"Unsupported registration was silently skipped: "+rule.Stat);
         }
     }
     private static void Contact(PlayerMobile owner,BaseCreature source)

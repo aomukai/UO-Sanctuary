@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC lightning return placeholder:** stat128 now uses the existing brief native contact marker`0x374A`, hue`0x481`. Final lightning-return contact effect and audio remain missing. This is not a new projectile/travel/radius effect. Mechanical/source/validation scope is in the [checkpoint](npc-lightning-return-checkpoint.md); no imagegen work has been performed.
+
 **Queued equipment effect: lightning retaliation128.** Reference contract prepared; no runtime visual/audio implemented and Coif remains refused. Plan a brief lightning-return contact effect/audio after mechanical admission. No source radius, extra hit, projectile flight or existing asset is asserted. See the [checkpoint](npc-lightning-return-reference-checkpoint.md).
 
 **NPC equipment blind:** direct blind-on-hit uses the existing target curse marker `0x375A` as a **clearly identified placeholder**. It does not introduce a caster spell animation/audio or certify final blind/curse visuals. Final presentation and audio remain separate asset work. See the [checkpoint](npc-item-blind-checkpoint.md).

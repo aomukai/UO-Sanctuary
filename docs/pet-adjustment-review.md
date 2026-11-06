@@ -1,5 +1,7 @@
 # Approved Necromancer and Druid pet adjustments
 
+**Equipment delivery update (2026-11-06 JST):** original learned Coif Iron/frozen Revive now shares incoming lightning retaliation with existing typed HP/return and original-item persistence. Pet balance/quantity rules are unchanged. The [checkpoint](npc-lightning-return-checkpoint.md) distinguishes verified incoming routes from remaining natural pursuit/outgoing Coif, terrain, source and asset work.
+
 **Original equipment blind (2026-11-06):** learned Patriarch Iron/frozen Revive now applies real single-target Dim Vision/AI without owner spell bonuses,mana or extra damage. Original item versus loot separation,wounds,streams and curse/AI survive two reloads. Coif’s separate lightning retaliation remains refused. Approved pet buffs/counts/snapshots retain their rules. See the [checkpoint](npc-item-blind-checkpoint.md),including the isolated earlier contact assertion follow-up.
 
 **Combined reload follow-up resolved (2026-11-06):** the drain/Revive mismatch was one legitimate native stamina tick in a test fixture. Explicit no-recovery fixtures and the original combined order now pass two reloads;production pet mechanics and approved counts/buffs are unchanged. See the [checkpoint](npc-drain-reload-checkpoint.md).

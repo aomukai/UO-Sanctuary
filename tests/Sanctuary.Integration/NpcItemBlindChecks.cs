@@ -94,21 +94,40 @@ public static class NpcItemBlindChecks
     }
     private static Recipient Contact(PlayerMobile p,BaseCreature source,bool controller)
     {
-        var t=Target(p,source);var at=TimedEffects.Now;IronGolemWorldState world=null;
-        if(controller){var b=(IronGolemBody)source;world=b.Prepared.Controller with{Mode=4,Target=t.Serial.Value,NextThink=0,ActionAt=b.Prepared.Controller.Frame+1,EndAt=b.Prepared.Controller.Frame+20,AttackSpeed=256};b.RestoreController(world);at=world.NextUtc;}
-        var rules=IronGolemContact.Require(source,p,t);IronGolemContact.Prepared prepared=null;ulong initial=1,expected=0;int rank=0;
-        for(int n=0;n<1000&&rank==0;n++,initial++)
+        Recipient t=null;var oldBlock=SourceBlocking.BlockRoll;var oldChoice=SourceBlocking.ChoiceRoll;
+        try
         {
-            NpcEquipmentRandom.Set(source,initial);prepared=IronGolemContact.Prepare(source,t,rules,()=>controller?IronGolemWorld.Result((IronGolemBody)source,p,world,t):5);
-            expected=NpcEquipmentRandom.State(source).Seed;uint raw=SourceRandom.Roll(ref expected);
-            rank=(prepared.Impact.Packet.ResultFlags&1)!=0?NamedControl.BlindLevel(ClassStats.Level(source),ClassStats.Level(t),1,false,(int)(raw%100)):0;
-            if(rank==0){prepared.Cancel();}
+            // The attacker stream does not own the defender's shield/block
+            // rolls. Keep both inputs explicit when replaying a cached hit.
+            SourceBlocking.ChoiceRoll=n=>Math.Min(1,n-1);
+            t=Target(p,source);
+            Require(SourceBlocking.TryRate(t,out int blockRate,out bool blockMode)&&blockRate>0&&blockMode,"Blind fixture needs its real shield/block supplier");
+            SourceBlocking.BlockRoll=n=>n-1;
+            var at=TimedEffects.Now;IronGolemWorldState world=null;
+            if(controller){var b=(IronGolemBody)source;world=b.Prepared.Controller with{Mode=4,Target=t.Serial.Value,NextThink=0,ActionAt=b.Prepared.Controller.Frame+1,EndAt=b.Prepared.Controller.Frame+20,AttackSpeed=256};b.RestoreController(world);at=world.NextUtc;}
+            var rules=IronGolemContact.Require(source,p,t);IronGolemContact.Prepared prepared=null;ulong initial=1,expected=0;int rank=0;
+            for(int n=0;n<1000&&rank==0;n++,initial++)
+            {
+                NpcEquipmentRandom.Set(source,initial);prepared=IronGolemContact.Prepare(source,t,rules,()=>controller?IronGolemWorld.Result((IronGolemBody)source,p,world,t):5);
+                expected=NpcEquipmentRandom.State(source).Seed;uint raw=SourceRandom.Roll(ref expected);
+                rank=(prepared.Impact.Packet.ResultFlags&1)!=0?NamedControl.BlindLevel(ClassStats.Level(source),ClassStats.Level(t),1,false,(int)(raw%100)):0;
+                if(rank==0){prepared.Cancel();}
+            }
+            initial--;Require(rank>0,"No deterministic positive blind contact");int hp=SkillHealth.Balance256(t);
+            if(controller)
+            {
+                // Same attacker seed,opposite independent defender draw: a
+                // block consumes only the hit draw,not damage or blind RNG.
+                SourceBlocking.BlockRoll=_=>0;NpcEquipmentRandom.Set(source,initial);
+                int blocked=IronGolemWorld.Result((IronGolemBody)source,p,world,t);ulong hitOnly=initial;SourceRandom.Roll(ref hitOnly);
+                Require(blocked==SourceMeleeResult.Block&&NpcEquipmentRandom.State(source).Seed==hitOnly&&SkillHealth.Balance256(t)==hp&&t.Notifications==0,"Independent block counterexample did not isolate the missing fixture input");
+                SourceBlocking.BlockRoll=n=>n-1;NpcEquipmentRandom.Set(source,initial);IronGolemWorld.Advance((IronGolemBody)source,at,true);
+            }
+            else{IronGolemContact.Release(source,p,t,prepared,_=>true,at);}
+            Require(t.Notifications==1&&t.BlindAtNotification&&SkillHealth.Balance256(t)==hp-prepared.Impact.Packet.Total256&&NpcEquipmentRandom.State(source).Seed==expected&&NativeMonsterReturn.Session(t).Packets==1,"Blind contact differs: source="+source.GetType().Name+" controller="+controller+" notifications="+t.Notifications+" blindAtNotify="+t.BlindAtNotification+" life="+SkillHealth.Balance256(t)+" expectedLife="+(hp-prepared.Impact.Packet.Total256)+" seed="+NpcEquipmentRandom.State(source).Seed+" expectedSeed="+expected+" packets="+NativeMonsterReturn.Session(t).Packets+" blockRate="+blockRate+" returnMode="+NativeMonsterReturn.Session(t).LastMode+" world="+Json((source as IronGolemBody)?.Prepared.Controller));
+            Require(NecromancerEffects.Curse(t)is{Ability:CombatAbility.DimVision} c&&c.Rank==rank&&c.Source==source.Serial.Value&&NecromancerEffects.Profiles.Find(t)?.BlindAi!=null,"Contact lost NPC curse source/rank/AI");return t;
         }
-        initial--;Require(rank>0,"No deterministic positive blind contact");int hp=SkillHealth.Balance256(t);
-        if(controller){NpcEquipmentRandom.Set(source,initial);IronGolemWorld.Advance((IronGolemBody)source,at,true);}
-        else{IronGolemContact.Release(source,p,t,prepared,_=>true,at);}
-        Require(t.Notifications==1&&t.BlindAtNotification&&SkillHealth.Balance256(t)==hp-prepared.Impact.Packet.Total256&&NpcEquipmentRandom.State(source).Seed==expected&&NativeMonsterReturn.Session(t).Packets==1,"Blind contact differs: source="+source.GetType().Name+" controller="+controller+" notifications="+t.Notifications+" blindAtNotify="+t.BlindAtNotification+" life="+SkillHealth.Balance256(t)+" expectedLife="+(hp-prepared.Impact.Packet.Total256)+" seed="+NpcEquipmentRandom.State(source).Seed+" expectedSeed="+expected+" packets="+NativeMonsterReturn.Session(t).Packets+" world="+Json((source as IronGolemBody)?.Prepared.Controller));
-        Require(NecromancerEffects.Curse(t)is{Ability:CombatAbility.DimVision} c&&c.Rank==rank&&c.Source==source.Serial.Value&&NecromancerEffects.Profiles.Find(t)?.BlindAi!=null,"Contact lost NPC curse source/rank/AI");return t;
+        finally{SourceBlocking.BlockRoll=oldBlock;SourceBlocking.ChoiceRoll=oldChoice;}
     }
     private static Held Hold(PlayerMobile p,BaseCreature source,Item item,Recipient t,bool revive)
     {
@@ -121,11 +140,11 @@ public static class NpcItemBlindChecks
         Differential();
         if(!reload)
         {
-            var rows=new List<Held>();var p=NpcFreezeHitChecks.Owner();var blocked=Original("Coif of Glory");blocked.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
+            var rows=new List<Held>();var p=NpcFreezeHitChecks.Owner();var blocked=Original("Howltusk");blocked.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
             var before=Json(ClassGear.State(blocked));int mana=NecromancerEffects.ManaBalance256(p);
-            Require(!IronGolemCasting.Plan(p,blocked,out _,out var issue)&&issue.Contains("item_attackertakeslightdamage")
+            Require(!IronGolemCasting.Plan(p,blocked,out _,out var issue)&&issue.Contains("consumer",StringComparison.Ordinal)
                 &&!IronGolemCasting.Release(p,blocked,TimedEffects.Now,out _)&&blocked.Parent==null&&blocked.Map==p.Map&&Json(ClassGear.State(blocked))==before
-                &&NecromancerEffects.ManaBalance256(p)==mana&&!NecromancerGolems.For(p).Any(),"Unsupported Coif callback was discarded or failed cast consumed item/mana");blocked.Delete();
+                &&NecromancerEffects.ManaBalance256(p)==mana&&!NecromancerGolems.For(p).Any(),"Unsupported Howltusk callback was discarded or failed cast consumed item/mana");blocked.Delete();
             var original=Original("The Patriarch");var body=NpcFreezeHitChecks.Cast(p,original,"stupidity");Controls(p,body);
             var t=Contact(p,body,false);Delete(t);NpcItemProcs.Create(body);NpcItemProcs.Refresh(body,NpcCombatEvents.LegacyForSource(body));
             Require(NpcItemProcs.Get(body).Capture().Events.Entries.Count(e=>e.Function==9)==2,"Live graph blind subscriptions missing");
@@ -136,6 +155,7 @@ public static class NpcItemBlindChecks
         else
         {
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
+            FixtureNetwork.Authenticate(net,(PlayerMobile)World.FindMobile((Serial)saved.Actors[0].Owner),"npc-blind-reload-");
             foreach(var row in saved.Actors)
             {
                 var p=World.FindMobile((Serial)row.Owner)as PlayerMobile;var source=World.FindMobile((Serial)row.Source)as BaseCreature;var t=World.FindMobile((Serial)row.Target)as BaseCreature;var item=World.FindItem((Serial)row.Item);
