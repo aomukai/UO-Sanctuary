@@ -70,6 +70,16 @@ def record(check=False):
     status=e.load(ROOT/'data/Sanctuary/Balance/class-skill-status.json')
     assert sum(r['implementation']=='handler-present' for r in status['skills'])==197 and not status['completedClasses']
     files=e.stage_files(STAGE,WIDE)
+    isolated=BASE/'npc-item-fear-attract-input';isolated_inputs=e.load(isolated/'birth-inputs.json')
+    assert sum(markers(isolated/'birth-native-checks.log').values())==21
+    isolated_log=(isolated/'birth-native-checks.log').read_text()
+    assert ' ERR]' not in isolated_log and ': failed' not in isolated_log
+    assert isolated_log.count('Shutting down')==isolated_log.count('Writing world save snapshot done')==3
+    for kind in ('Content','Integration'):
+        path=STAGE/'pre-lease-6'/kind.lower()/f'Sanctuary.{kind}.dll'
+        assert e.sha(path)==isolated_inputs['artifacts'][f'Assemblies/Sanctuary.{kind}.dll'];files.append(path)
+    assert e.sha(STAGE/'pre-lease-6/AttractCastChecks.cs')==isolated_inputs['sourceInputs']['tests/Sanctuary.Integration/AttractCastChecks.cs']
+    files+=e.stage_files(isolated)+[STAGE/'pre-lease-6/AttractCastChecks.cs',STAGE/'pre-lease-6/source-snapshot-6.json']
     for folder,filename,sourcepath,message in ((STAGE/'failed-native-1','ReviveEquipmentEvents.cs','src/Sanctuary.Content/ReviveEquipmentEvents.cs','Unadmitted frozen Revive event stat: howl'),(WIDE/'failed-retained-1','NpcFreezeHitChecks.cs','tests/Sanctuary.Integration/NpcFreezeHitChecks.cs',"denied by connection filter 'auto-denylist'"),(WIDE/'failed-retained-2','AttractCastChecks.cs','tests/Sanctuary.Integration/AttractCastChecks.cs','Real autonomous neighbor damage/target/RNG'),(STAGE/'failed-native-4','NecromancerEffects.cs','src/Sanctuary.Content/NecromancerEffects.cs','item=False,mind=')):
         inputs=e.load(folder/'birth-inputs.json')
         assert e.sha(folder/filename)==inputs['sourceInputs'][sourcepath]
@@ -83,7 +93,7 @@ def record(check=False):
         contentBuild=5,integrationBuild=8,sourceSnapshot=8,focusedRun=5,retainedRun=3,auditRun=3,sourceContexts=6656,completeSourceRoutines=3,
         focusedMarkers=15,retainedMarkers=149,bootsPerCohort=3,reloadsPerCohort=2,savesPerCohort=3,originalSavedActors=3,
         savedIronActors=2,savedOriginalRevives=1,retainedFamilies=23,retainedSharedChecks=6,retainedInputActions=9,naturalFearSessions=6,
-        pythonTests=71,auditFingerprints=fingerprints,protection=protection,artifacts=born['artifacts'],copiedData=born['copiedData'],
+        pythonTests=71,isolatedHistoricalAttractMarkers=21,isolatedHistoricalAttractBinaries=isolated_inputs['artifacts'],auditFingerprints=fingerprints,protection=protection,artifacts=born['artifacts'],copiedData=born['copiedData'],
         scope=[
             'Actual original Face of Horror learned Iron legacy/live graph and frozen original Revive use NPC stat112/function08 once per qualified damage event. Raw low7chance/fixed20frame Terror,shared resistance/rank/creator/Attract rules and independent target/AI initialization have dedicated coverage.',
             'Optional saved ItemTerror separates AI initializer from the curse list,including stronger/equal creators,transient Attract refusal and a later learned Terror target handoff. Actual natural movement/expiry and original wounded ownership/loot/RNG/effect states survive two reloads per cohort;the held saved phase is also advanced after official pet resume.',
