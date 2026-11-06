@@ -61,13 +61,25 @@ internal static class GeneratedNpcEquipment
         {var s=item.Snapshot;slots[s.Equipment.Body]=Describe(s.Metadata.Code,s.Metadata.Quality,s.Metadata.File,s.Graph.Ethereal,[],0);}
         return SourceEquipPlacement.Wield(new(1,0,held.FirstOrDefault()?.Snapshot.Equipment.Kind??EquipMonster.Other,true,true,true,slots,null,null));
     }
-    internal static bool TryCreate(BaseCreature actor,PlayerMobile owner,EquipMonster kind,PreparedItemRequest request,int body,out GeneratedNpcItem item)
+    private static GeneratedNpcItem[] Require(BaseCreature actor,PlayerMobile owner,EquipMonster kind,int body)
     {
-        item=null;
         if(actor is not{Alive:true,Deleted:false}||owner is not{Alive:true,Deleted:false}||actor.ControlMaster!=owner||body is<1 or>10||!Enum.IsDefined(kind))
         {throw new NotSupportedException("NPC generated equipment needs explicit original live actor/owner,kind and primary body slot");}
-        var held=Items(actor);if(held.Any(i=>i.Snapshot.Equipment.Kind!=kind)){throw new NotSupportedException("NPC equipment kind changed");}
-        var created=GeneratedNpcItem.Create(request);
+        var held=Items(actor);if(held.Any(i=>i.Snapshot.Equipment.Kind!=kind)){throw new NotSupportedException("NPC equipment kind changed");}return held;
+    }
+    internal static bool TryCreate(BaseCreature actor,PlayerMobile owner,EquipMonster kind,PreparedItemRequest request,int body,out GeneratedNpcItem item)
+    {
+        var held=Require(actor,owner,kind,body);var created=GeneratedNpcItem.Create(request);
+        return Attach(actor,owner,kind,created,body,held,out item);
+    }
+    internal static bool TryCreateAllocated(BaseCreature actor,PlayerMobile owner,EquipMonster kind,string code,int level,int quality,int difficulty,int body,SourceSeedStream game,out GeneratedNpcItem item)
+    {
+        var held=Require(actor,owner,kind,body);var created=GeneratedNpcItem.CreateAllocated(code,level,quality,difficulty,game);
+        return Attach(actor,owner,kind,created,body,held,out item);
+    }
+    private static bool Attach(BaseCreature actor,PlayerMobile owner,EquipMonster kind,GeneratedNpcItem created,int body,GeneratedNpcItem[] held,out GeneratedNpcItem item)
+    {
+        item=null;
         try
         {
             var slots=new EquipPlacementItem[13];foreach(var old in held){slots[old.Snapshot.Equipment.Body]=Describe(old);}

@@ -1,5 +1,7 @@
 # Valkyrie supplied-birth body checkpoint
 
+**Newer follow-up:** [Actual private MonEquip loadouts](valkyrie-equipment-checkpoint.md) now attach and persist original generated items. This page retains the earlier supplied-body scope; full live item/stat/event and learned combat/casting admission remain separate.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Parent: `6f5bde2ac23418f15406cd3e7369742de8ee5d0b`. This implements a persistent backend for Valkyrie's existing creation component. **It does not enable Valkyrie's learned cast or complete the skill.** Coverage remains 202/240 handlers, Amazon28/30, with no completed class.
 
 `ValkyrieBirthNumbers` captures effective Valkyrie rank, owner level, hard Decoy/Dodge/Avoid/Evade/Critical Strike, five independent inherited sunder values and game context. Existing `ValkyrieCreation` supplies the level, life, armor/attack bases, seven passive fields, strength/dexterity, four resistances, inherited skill ranks and requested equipment level. Removing real skill gear or training more Decoy points leaves an existing birth unchanged. Arrays exposed by the body are defensive copies.

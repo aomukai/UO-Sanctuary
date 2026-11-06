@@ -9,7 +9,8 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
+internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieEquipmentState Equipment=null)
 {public string Profile{get;init;}="prepared-valkyrie-body-v1";}
 
 // Saved supplied-birth backend only. Full equipment, inherited skill delivery,
@@ -20,8 +21,9 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private ValkyrieBodyState _state;
     private ValkyrieCreationStats _numbers;
-    internal ValkyrieBodyState Prepared=>_state??(_saved=="{}"?null:_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved));
-    private ValkyrieCreationStats Numbers=>_numbers??=ValkyrieBirthNumbers.Calculate(Prepared.Birth,Prepared.Difficulty);
+    private ValkyrieBodyState State=>_state??(_saved=="{}"?null:_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved));
+    internal ValkyrieBodyState Prepared=>State?.Equipment==null?State:State with{Equipment=ValkyrieEquipment.Copy(State.Equipment)};
+    private ValkyrieCreationStats Numbers=>_numbers??=ValkyrieBirthNumbers.Calculate(State.Birth,State.Difficulty);
     internal ValkyrieCreationStats BirthStats=>Numbers with{Passives=(SummonStat[])Numbers.Passives.Clone(),Auras=(SummonStat[])Numbers.Auras.Clone(),Skills=(SummonStat[])Numbers.Skills.Clone()};
     internal string SavedText=>_saved;
     private int Aura(string name)=>Numbers.Auras.FirstOrDefault(s=>s.Name==name)?.Value??0;
@@ -56,6 +58,11 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
                 ||state.NextRecoveryUtc.Kind!=DateTimeKind.Utc||state.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40))
             {throw new InvalidDataException("Invalid Valkyrie body state");}
             _=ValkyrieBirthNumbers.Calculate(state.Birth,state.Difficulty);
+            if(state.Equipment is{} equipment)
+            {
+                ValkyrieEquipment.Validate(equipment);
+                if(equipment.Owner!=state.Owner||equipment.Rank!=state.Birth.Rank){throw new InvalidDataException("Valkyrie equipment birth owner/rank changed");}
+            }
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}
         }
@@ -63,7 +70,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
         {throw new InvalidDataException("Unsupported Valkyrie body snapshot",e);}
     }
     internal void RestorePrepared(ValkyrieBodyState state)
-    {Validate(state);string json=JsonSerializer.Serialize(state);_state=state;_numbers=null;_saved=json;}
+    {Validate(state);if(state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Valkyrie loadout belongs to another body");}state=state with{Equipment=ValkyrieEquipment.Copy(state.Equipment)};string json=JsonSerializer.Serialize(state);_state=state;_numbers=null;_saved=json;}
     internal CreatureResistances SourceResistances(MonsterDifficulty? difficulty=null)
     {
         var d=difficulty??SummonDifficulty;var n=ValkyrieBirthNumbers.Calculate(Prepared.Birth,d);
@@ -94,5 +101,5 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum
     {if(Prepared is{} state){RestorePrepared(state with{Difficulty=SummonDifficulty});}base.RefreshDifficulty();ApplyNumbers();}
     internal void AdvanceRecovery(DateTime at,bool actions)
     {if(Prepared is{} state&&PermanentSummonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions)is{} next){RestorePrepared(Prepared with{NextRecoveryUtc=next});}}
-    [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);_numbers=null;}
+    [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;}
 }

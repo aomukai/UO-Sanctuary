@@ -722,6 +722,8 @@ CAVEATS["barbarian.leapattack"] = "Approved circular landing-area identity/order
 
 BLOCKERS["amazon.valkyrie"] += " Prepared AmazonValkyrieBody now persists supplied post-initializer noRatio life and summon-time owner/rank/hard-passive/sunder capture;current source identity,base AC/level AR,source armor percent,attributes/resistances and explicit class-aware recovery share existing services. Difficulty recomposes captured birth without rerolling or replacing its wounded percentage;original body/owner/gear/order/snapshot saves are checked separately in valkyrie-body-checkpoint.md. Supplied400..480life deliberately does not choose initializer/component/player-count RNG or allocation seeds. Generated equipment,actual inherited Dodge/Avoid/Evade/Critical delivery,NecroPet world/combat,nonzero sunder and learned casting remain gated;no handler or class certificate is enabled."
 
+BLOCKERS["amazon.valkyrie"] += " Actual prepared MonEquip loadouts now materialize on the original body with supplied independent pet/game streams,source allocator two-word unit/property seeds,requested quality,private original item identities,source flags and successful-equip durability restoration. Optional allocation/loadout JSON preserves legacy items and bare-body payloads;unknown rolls propagate with item rollback and consumed seed continuation. Dedicated source/native/save scope is in valkyrie-equipment-checkpoint.md. This closes private creation/storage,not live stat/skill/proc/contact,initializer/controller or learned-cast admission."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

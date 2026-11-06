@@ -27,8 +27,8 @@ internal sealed class CurrentItemQuality:ItemQualityServices
     private uint Start,Flags;
     private ulong Unit;
     private readonly int Variant;
-    private CurrentItemQuality(Item item,ItemPropertyCreationContext graph,EquipmentStatValues values,PreparedItemRequest request,CurrentItemInitialization facts,int variant,ulong unit)
-    {Item=item;Graph=graph;Values=values;Request=request;Facts=facts;Policy=CurrentAutoMagic.Type(request.Code);CurrentDropQuality=request.Quality;Start=request.StartSeed;Unit=unit;Variant=variant;}
+    private CurrentItemQuality(Item item,ItemPropertyCreationContext graph,EquipmentStatValues values,PreparedItemRequest request,CurrentItemInitialization facts,int variant,ulong unit,uint initialFlags)
+    {Item=item;Graph=graph;Values=values;Request=request;Facts=facts;Policy=CurrentAutoMagic.Type(request.Code);CurrentDropQuality=request.Quality;Start=request.StartSeed;Unit=unit;Variant=variant;Flags=initialFlags;Affixes=Affixes with{Identified=(initialFlags&16)!=0};}
     internal static void Require(PreparedItemRequest r)
     {
         ArgumentNullException.ThrowIfNull(r);var b=NpcItemAffixes.Pool.Basis(r.Code);var raw=b.SourceFields;var facts=CurrentItemInitialization.For(r.Code);
@@ -37,13 +37,14 @@ internal sealed class CurrentItemQuality:ItemQualityServices
         if(!(facts.Weapon||facts.Armor||b.Type is"ring"or"amul")||facts.Base.Quest||raw.TryGetProperty("unique",out var unique)&&unique.GetInt32()!=0)
         {throw new NotSupportedException("Prepared NPC body equipment does not supply special-normal/quest/unique/drop-world creation services");}
     }
-    internal static PreparedItemResult Prepare(Item item,EquipmentStatValues values,PreparedItemRequest request)
+    internal static PreparedItemResult Prepare(Item item,EquipmentStatValues values,PreparedItemRequest request,uint initialFlags=0)
     {
+        if(initialFlags!=0&&initialFlags!=NpcItemAllocations.InitialFlags){throw new NotSupportedException("Unsupported item factory flags");}
         Require(request);var facts=CurrentItemInitialization.For(request.Code);
         // Allocated source item data starts at quality0;requested quality is
         // resolved only after base initialization,so stack magic=false here.
         var fresh=facts.Prepare(item,values,request.UnitSeed,request.ItemSeed,false);
-        var s=new CurrentItemQuality(item,fresh.Context,values,request,facts,Math.Max(fresh.Variant,0),fresh.UnitSeed);
+        var s=new CurrentItemQuality(item,fresh.Context,values,request,facts,Math.Max(fresh.Variant,0),fresh.UnitSeed,initialFlags);
         if(SourceItemQuality.Run(s)==0){throw new InvalidOperationException("Qualified source item quality generation failed");}
         // Complete outer CreateItemUnit marks the result identified. NOSSELL
         // and full durability belong to successful later NPC equipment delivery.

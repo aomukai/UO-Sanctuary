@@ -9,7 +9,8 @@ using Server;
 namespace Sanctuary;
 
 internal sealed record GeneratedNpcItemState(int Version,string ReferenceVersion,PreparedItemRequest Request,PreparedItemState Metadata,ItemPropertyCreationState Graph,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]GeneratedNpcEquipState Equipment=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]GeneratedNpcEquipState Equipment=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]NpcItemAllocation Allocation=null);
 
 // Native item-owned state,not a player GearState projection or a fixture
 // manifest. This qualified creation entry point supplies explicit seed streams;
@@ -26,18 +27,30 @@ public partial class GeneratedNpcItem:Item
     internal static EquipmentStatValues CreationValues()=>new(_=>0,_=>null,_=>null,(_,_,_,_,_)=>{});
     internal static GeneratedNpcItem Create(PreparedItemRequest request)
     {
-        // Reject unsupported contexts before allocating a world identity.
-        CurrentItemQuality.Require(request);
+        CurrentItemQuality.Require(request);var item=new GeneratedNpcItem();
+        try{item.Prepare(request,null);return item;}catch{item.Delete();throw;}
+    }
+    internal static GeneratedNpcItem CreateAllocated(string code,int level,int quality,int difficulty,SourceSeedStream game)
+    {
+        // Domain rejection precedes native allocation. A failed allocation
+        // cannot consume source game RNG. Generation failures keep its draws.
+        ArgumentNullException.ThrowIfNull(game);
+        CurrentItemQuality.Require(new(code,level,quality,difficulty,1,1,0));
         var item=new GeneratedNpcItem();
         try
         {
-            var prepared=CurrentItemQuality.Prepare(item,CreationValues(),request);
-            var state=new GeneratedNpcItemState(0,"3.3.93847",request,prepared.State,prepared.Graph.Capture());
-            Validate(state);item._saved=JsonSerializer.Serialize(state);
-            string name=NpcItemAffixes.Pool.Basis(request.Code).SourceFields.GetProperty("name").GetString();
-            item.Name=name+" [generated equipment; art placeholder]";return item;
+            var allocation=NpcItemAllocations.Take(ref game.Value);
+            item.Prepare(NpcItemAllocations.Request(code,level,quality,difficulty,allocation),allocation);return item;
         }
         catch{item.Delete();throw;}
+    }
+    private void Prepare(PreparedItemRequest request,NpcItemAllocation allocation)
+    {
+        var prepared=CurrentItemQuality.Prepare(this,CreationValues(),request,allocation==null?0:NpcItemAllocations.InitialFlags);
+        var state=new GeneratedNpcItemState(0,"3.3.93847",request,prepared.State,prepared.Graph.Capture(),Allocation:allocation);
+        Validate(state);_saved=JsonSerializer.Serialize(state);
+        string name=NpcItemAffixes.Pool.Basis(request.Code).SourceFields.GetProperty("name").GetString();
+        Name=name+" [generated equipment; art placeholder]";
     }
     // Return isolated arrays so callers cannot edit saved metadata or graphs
     // through a snapshot reference. Restoring never invokes a property writer.
@@ -53,10 +66,12 @@ public partial class GeneratedNpcItem:Item
         {throw new InvalidDataException("Missing or unknown generated NPC item state");}
         CurrentItemQuality.Require(state.Request);var m=state.Metadata;var g=state.Graph;var a=m.Affixes;
         if(m.Code!=state.Request.Code||m.Quality is not(1 or 2 or 3 or 4 or 6)||m.DropQuality is not(1 or 2 or 3 or 4 or 6)
-            ||m.File is<-1 or>7||m.Flags!=16||a is not{Identified:true,Prefixes.Length:3,Suffixes.Length:3,Applied:not null}
+            ||m.File is<-1 or>7||m.Flags!=(state.Allocation==null?16u:NpcItemAllocations.InitialFlags)||a is not{Identified:true,Prefixes.Length:3,Suffixes.Length:3,Applied:not null}
             ||m.AutoApplied==null||m.AutoApplied.Length>1||a.Applied.Length>6||g.Seed==0||g.Ethereal
             ||g.ItemBase==null||g.Properties==null||!g.HasProperties&&g.Properties.Length!=0)
         {throw new InvalidDataException("Invalid prepared generated NPC item metadata/graph");}
+        if(state.Allocation is{} allocation)
+        {try{NpcItemAllocations.Validate(allocation,state.Request);}catch(ArgumentException e){throw new InvalidDataException("Invalid generated item allocation context",e);}}
         int varieties=CurrentItemInitialization.For(m.Code).Varieties;
         if(m.Variant<0||m.Variant>=Math.Max(varieties,1))
         {throw new InvalidDataException("Invalid generated item graphic variant");}

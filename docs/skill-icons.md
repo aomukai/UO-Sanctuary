@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie loadouts (2026-11-07 JST).** Real private item persistence adds no final talent-tree or right/quick hotkey icon. These remain separately pending while learned casting and final model/effects are unfinished.
+
 **Valkyrie body checkpoint (2026-11-07 JST).** Talent-tree and right/quick hotkey icons remain pending independently of the native appearance placeholder and future summon/combat effects. The prepared body enables no learned cast and creates no final icon or imagegen asset.
 
 **Learned Leap Attack (2026-11-06 JST).** The playable isolated mechanical route still needs its talent-tree icon and left/right/quick hotkey icons. These remain separate from jump/landing/contact effects and audio. No final icon or imagegen asset was created.

@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "contexts": 960,
+  "completeRoutineHashes": {
+    "SEED_InitSeed": "a6fd3fc960b1d1a567ff479c34deb3ce52aa9e4ffbc26469e7f760b150a89b85",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_AllocItemData": "72193b1720fb4ef953e2e13a00fefa39fdef3c62d6eab0ccefb3d5a7118e7898",
+    "ITEMS_InitItemSeed": "737aea756d798071bb507450f71393c27bf4b30b3417e8aec3ecdc61027cc35b",
+    "ITEMS_GetItemStartSeed": "e4250ee29bc50a98b61381f2633bc1e637bb5ade57016026077257f4e71679c1",
+    "ITEMS_SetItemStartSeed": "46f1c6ed5a34d48b4ed82a3f0d249a80615f01db5582543e8ef892b54e5abaca",
+    "SUNIT_InitSeed": "04cc66b94317d7477df18a663e74864215f8b9ae46697abf5626d1261372d538",
+    "sub_6FC4BE80": "76ab4fb484d9d91f1c1024e31ac4c7c536e87b2bda9d417d5d28e1f8fb92d3a6",
+    "SUNIT_AllocUnitData": "b8ae6893292f5fa02b90957bea6f149d3e2275b194024e8eb9d0a042323f0652"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94"
+  },
+  "inputs": {
+    "tools/probe_npc_item_allocation.py": "168380a5505200cf1c9e938e1c58444d46bdd4f4dcae6064ed7c2c9e60163a78"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-item-allocation-source/probe.cpp": "13a571eecc385b53182eca496a1db5d13024db817e04b85bfcb1eb41f00d1726",
+    ".local/class-skills/npc-item-allocation-source/probe": "cc48580aab7eef06004e91de8c8dff8cbecec54c825acdcf71d10d8f8f029faa",
+    ".local/class-skills/npc-item-allocation-source/cases.json": "5f800e0a7ce6d10fe1b140e399be370a87729e963adf5165d4aee1c18ff277c8",
+    ".local/class-skills/npc-item-allocation-source/sanitizers.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": [
+    "Complete older SUNIT allocator/seed and item data/init helpers execute with item kind4,mode4,initialized game service and explicit world/table/memory/path services. Successful allocations draw game twice;unit/base and property seeds independently initialize high666. Failed native allocation returns before RNG or GUID changes.",
+    "Source LCG is a declared service,independently compared in Python for zero/high/edge seeds and serial allocations. Named synthetic unit flags do not certify binary constants. Item identified16is pinned."
+  ],
+  "limits": [
+    "No current allocator execution,world seed provenance,real memory/room/registration/player/monster/object/missile services or complete item-quality factory is certified. No-global-seed fallback intentionally aborts. Source helpers do not themselves generate or equip a Valkyrie item."
+  ]
+}

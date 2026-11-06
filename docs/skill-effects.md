@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie loadouts (2026-11-07 JST).** The prepared female silhouette still needs final armor/weapon presentation. Actual generated items are hidden private mechanical carriers with explicitly identified graphics placeholders. Final summon/attack/impact/despawn effects and audio remain pending; source item creation supplies no final rendered equipment or skill effect.
+
 **Valkyrie body checkpoint (2026-11-07 JST).** Body0x191/hue0x481 is an identified native female appearance placeholder for the prepared backend. Final summoned model/equipment, appear/despawn and attack/contact effects plus audio remain pending. Body persistence and stat checks create no final effect asset; see [checkpoint](valkyrie-body-checkpoint.md).
 
 **Learned Leap Attack (2026-11-06 JST).** Mechanics now emit the approved circular landing hit and separate later weapon contact. Final jump/arc, landing-area presentation, weapon impact and audio are still missing; existing native cast pose/sound are identified placeholders. Neither an invisible final wave asset nor an icon is implied by mechanical completion. See [checkpoint](leap-attack-checkpoint.md).
