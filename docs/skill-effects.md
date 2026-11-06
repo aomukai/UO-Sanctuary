@@ -1,5 +1,7 @@
 # Skill effects
 
+**Saved skill-tree properties (2026-11-06 JST).** Original tree-layer projection adds no effect or audio producer. Existing Iron Golem/Revive summon and contact placeholders remain pending. The Sunder review adds no effect implementation. See [checkpoint](saved-tree-property-checkpoint.md).
+
 **NPC Rest in Peace (2026-11-06 JST).** Item108/function29 changes unit/corpse state without a new visual or audio producer. Existing summon/contact placeholders and final assets remain separate; no new effect artwork is completed. See [checkpoint](npc-rest-in-peace-checkpoint.md).
 
 **Approved pet slow (2026-11-06 JST).** Item150 and outgoing Clay slow reuse the existing status/rate presentation; no new visual or audio producer is added. Final Clay summon/contact and slow feedback remain pending with their identified placeholders. See [checkpoint](npc-item-slow-checkpoint.md).

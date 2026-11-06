@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "0f44fdda46aa56879c10802102dad41aa73be4828bea08b859ea766a81a76427",
+  "ContentAssemblySha256": "43fd2a2bf3fd1358d6c730a44e1a4bdf14b2bf76619476adb0abd115ef1f87da",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "aa90f5b9b4f5699ebdec507b292f88162a436e9583fa9fafabff6db842dfaf4e",
+    "data/Sanctuary/Balance/class-skill-status.json": "52693cfaea22ebcabcaafc1f68d89493d5d0e1a98e12e705ef7d1db8c932f550",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -582,7 +582,7 @@
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/EquipmentInsurance.cs": "cc6bb67b78b980b989ec60163034e5abb3453f484748dbb0da0085480fb68ba4",
     "src/Sanctuary.Content/EquipmentIntrinsicProperties.cs": "95b91b96b3b6edd1fd3c20a94f75975fcc4f8741ba2c80e126386516138236a6",
-    "src/Sanctuary.Content/EquipmentPropertyWriter.cs": "77c7a00394432b915448bf8869486ca1f022d5af0afb13fd875ea1d3eea50f2c",
+    "src/Sanctuary.Content/EquipmentPropertyWriter.cs": "f4a2e49fc58060b5a208825b19d8f5952c7251ad171b714f6c2ce0eb12fe4f07",
     "src/Sanctuary.Content/EquipmentRepairs.cs": "1054a65cb71c0a5b1f6eef8b47c99df722758d9bf911f746aebf1bc14305417b",
     "src/Sanctuary.Content/EquipmentSalvage.cs": "695be4ca9b945d8572a5f60399f175bb5bfae16e852fc4a0ee79c3d1b78bb354",
     "src/Sanctuary.Content/EquipmentSocketProperty.cs": "3770d789cc5722bdb4f08f58d777c20edc1162fdb5e1a94783c4407acaad83ca",

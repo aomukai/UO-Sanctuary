@@ -1,0 +1,265 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Nonzero consumer unsupported;unaffected work continues",
+  "processMemoryRead": false,
+  "processInput": false,
+  "currentReducerVerified": false,
+  "approvedSummonTimeSnapshot": true,
+  "charmsExcludedByExistingPolicy": true,
+  "stats": {
+    "item_pierce_cold_immunity": 187,
+    "item_pierce_fire_immunity": 189,
+    "item_pierce_light_immunity": 190,
+    "item_pierce_poison_immunity": 191,
+    "item_pierce_damage_immunity": 192,
+    "item_pierce_magic_immunity": 193
+  },
+  "passives": {
+    "necromancer.raiseskeleton": {
+      "passivestat3": {
+        "stat": "item_pierce_damage_immunity",
+        "formula": "stat('item_pierce_damage_immunity'.accr)"
+      }
+    },
+    "necromancer.claygolem": {
+      "passivestat5": {
+        "stat": "item_pierce_damage_immunity",
+        "formula": "stat('item_pierce_damage_immunity'.accr)"
+      }
+    },
+    "necromancer.skeletalmage": {
+      "passivestat2": {
+        "stat": "item_pierce_cold_immunity",
+        "formula": "stat('item_pierce_cold_immunity'.accr)"
+      },
+      "passivestat3": {
+        "stat": "item_pierce_fire_immunity",
+        "formula": "stat('item_pierce_fire_immunity'.accr)"
+      },
+      "passivestat4": {
+        "stat": "item_pierce_light_immunity",
+        "formula": "stat('item_pierce_light_immunity'.accr)"
+      },
+      "passivestat5": {
+        "stat": "item_pierce_poison_immunity",
+        "formula": "stat('item_pierce_poison_immunity'.accr)"
+      }
+    },
+    "necromancer.bloodgolem": {
+      "passivestat5": {
+        "stat": "item_pierce_damage_immunity",
+        "formula": "stat('item_pierce_damage_immunity'.accr)"
+      }
+    },
+    "necromancer.irongolem": {
+      "passivestat5": {
+        "stat": "item_pierce_cold_immunity",
+        "formula": "stat('item_pierce_cold_immunity'.accr)"
+      },
+      "passivestat6": {
+        "stat": "item_pierce_fire_immunity",
+        "formula": "stat('item_pierce_fire_immunity'.accr)"
+      },
+      "passivestat7": {
+        "stat": "item_pierce_light_immunity",
+        "formula": "stat('item_pierce_light_immunity'.accr)"
+      },
+      "passivestat8": {
+        "stat": "item_pierce_poison_immunity",
+        "formula": "stat('item_pierce_poison_immunity'.accr)"
+      },
+      "passivestat9": {
+        "stat": "item_pierce_damage_immunity",
+        "formula": "stat('item_pierce_damage_immunity'.accr)"
+      },
+      "passivestat10": {
+        "stat": "item_pierce_magic_immunity",
+        "formula": "stat('item_pierce_magic_immunity'.accr)"
+      }
+    },
+    "necromancer.firegolem": {
+      "passivestat4": {
+        "stat": "item_pierce_fire_immunity",
+        "formula": "stat('item_pierce_fire_immunity'.accr)"
+      }
+    },
+    "necromancer.revive": {
+      "passivestat2": {
+        "stat": "item_pierce_cold_immunity",
+        "formula": "stat('item_pierce_cold_immunity'.accr)"
+      },
+      "passivestat3": {
+        "stat": "item_pierce_fire_immunity",
+        "formula": "stat('item_pierce_fire_immunity'.accr)"
+      },
+      "passivestat4": {
+        "stat": "item_pierce_light_immunity",
+        "formula": "stat('item_pierce_light_immunity'.accr)"
+      },
+      "passivestat5": {
+        "stat": "item_pierce_poison_immunity",
+        "formula": "stat('item_pierce_poison_immunity'.accr)"
+      },
+      "passivestat6": {
+        "stat": "item_pierce_damage_immunity",
+        "formula": "stat('item_pierce_damage_immunity'.accr)"
+      },
+      "passivestat7": {
+        "stat": "item_pierce_magic_immunity",
+        "formula": "stat('item_pierce_magic_immunity'.accr)"
+      }
+    }
+  },
+  "charms": {
+    "Cold Rupture": [
+      {
+        "code": "pierce-immunity-cold",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Flame Rift": [
+      {
+        "code": "pierce-immunity-fire",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crack of the Heavens": [
+      {
+        "code": "pierce-immunity-light",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Rotting Fissure": [
+      {
+        "code": "pierce-immunity-poison",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Bone Break": [
+      {
+        "code": "pierce-immunity-damage",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Black Cleft": [
+      {
+        "code": "pierce-immunity-magic",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "PreCrafted Cold Rupture": [
+      {
+        "code": "pierce-immunity-cold",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crafted Cold Rupture": [
+      {
+        "code": "pierce-immunity-cold",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "PreCrafted Flame Rift": [
+      {
+        "code": "pierce-immunity-fire",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "PreCrafted Crack of the Heavens": [
+      {
+        "code": "pierce-immunity-light",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "PreCrafted Rotting Fissure": [
+      {
+        "code": "pierce-immunity-poison",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "PreCrafted Bone Break": [
+      {
+        "code": "pierce-immunity-damage",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "PreCrafted Black Cleft": [
+      {
+        "code": "pierce-immunity-magic",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crafted Flame Rift": [
+      {
+        "code": "pierce-immunity-fire",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crafted Crack of the Heavens": [
+      {
+        "code": "pierce-immunity-light",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crafted Rotting Fissure": [
+      {
+        "code": "pierce-immunity-poison",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crafted Bone Break": [
+      {
+        "code": "pierce-immunity-damage",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ],
+    "Crafted Black Cleft": [
+      {
+        "code": "pierce-immunity-magic",
+        "minimum": 300,
+        "maximum": 300
+      }
+    ]
+  },
+  "inputs": {
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "data/Sanctuary/Balance/unique-items.json": "0c50d618909ca62fcd2f79c1b19e0e49790ca02073a5343c89dfa0c13a3404b0",
+    "src/Sanctuary.Content/NamedGear.cs": "3079aae9f9143c291d1909386a750a94c9b8257d51f47973116eca4431717020",
+    "src/Sanctuary.Content/NamedElements.cs": "93ece72ff6cf8845b4a99e47118ff413c6d03e4f95152c693febb2bb9ac5b51f",
+    "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "bb8b3f6ba5722744dd7cb907b50ff409b31dc1ec77befa8b5d2e5c407257b940",
+    "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
+    "src/Sanctuary.Content/IronGolemBodyNumbers.cs": "e72447f5078b02c5cd38c8cd0f4732452ae4395eb840d85f76c11e491ee752db",
+    "src/Sanctuary.Content/IronGolemContact.cs": "40a4a4c511223fb59f4f63bcc8a2f5f42c252a289275d622e8a5120c6de1e972",
+    "src/Sanctuary.Content/ReviveCombat.cs": "66cf839a73fc8bb7f007017f4706c30b517dd5f74f895e137f62f7632e8b7811",
+    "docs/necro-sunder-preflight.md": "0b06b53cfdca87b4d265e62af71b400f1dae6d77f0d12982ae342cc638d0e616",
+    "tools/record_necro_sunder_preflight.py": "f3cfbd271fe46d125b796e9d59f7e5868e7453335fa37963da94cda869b9ff55"
+  },
+  "sources": [
+    {
+      "url": "https://news.blizzard.com/en-us/article/23827590/diablo-ii-resurrected-ladder-season-two-has-concluded",
+      "scope": "Historical official95percent/before-other-modifiers/nonplayer/summon description;not an exact current numeric reducer."
+    },
+    {
+      "url": "https://diabloforfans.com/mechanics",
+      "scope": "User-supplied mechanics page reviewed;no300numeric consumer established."
+    }
+  ]
+}

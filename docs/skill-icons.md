@@ -1,5 +1,7 @@
 # Skill icons
 
+**Saved skill-tree properties (2026-11-06 JST).** Numeric equipment projection adds no talent-tree or hotkey identity. Existing Iron Golem/Revive icons remain separately pending; the Sunder preflight produces no icon. See [checkpoint](saved-tree-property-checkpoint.md).
+
 **NPC Rest in Peace (2026-11-06 JST).** This equipment passive adds no talent-tree or hotkey identity. Existing Iron Golem and Revive icon placeholders remain pending; effects/audio are tracked separately. See [checkpoint](npc-rest-in-peace-checkpoint.md).
 
 **Approved pet slow (2026-11-06 JST).** The equipment passive adds no talent or hotkey identity. Clay Golem, Iron Golem and Revive retain their existing missing icon entries and identified placeholders. Effects/audio are tracked separately in [skill-effects.md](skill-effects.md). See [checkpoint](npc-item-slow-checkpoint.md).

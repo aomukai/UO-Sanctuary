@@ -148,7 +148,7 @@ public static class IronGolemOrderedContactChecks
         // Baranar's current cold property has no explicit parameter and its
         // independent fallback duration was never stored in NamedPropertyRoll.
         // Keep that original untouched; do not invent a duration or reroll it.
-        foreach(var item in new[]{("Baranar's Star","independent zero-parameter range fallback"),("Cutthroat1","skilltab")})
+        foreach(var item in new[]{("Baranar's Star","independent zero-parameter range fallback"),("Ethereal Edge","ethereal")})
         {
             var birthOwner=Owner();var unsupported=Original(birthOwner,item.Item1);
             try
