@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 11655,
+  "rootCases": 315,
+  "childCases": 11340,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "SKILLS_SrvDo026_ChainLightning": "28f272e19b707c930853fce3fdab971cd312857085c81f11e2a5982b405f345a",
+    "MISSMODE_SrvHit12_ChainLightning_LightningStrike": "9d6aeaf71d3ac7b7d3746b9c3c1e3add0b9ff01988946fc4a0b853653153c249"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "inputs": {
+    "tools/probe_npc_chain_routes.py": "2cdf709ff2219af21e2eed0504aa1020357084069f000b886d7a739908ced46d",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-chain-routes-source/probe.cpp": "8ca4ba5a07badf6f0da707f98398fa0f538fa0895c8319520f48575e4f79b582",
+    ".local/class-skills/npc-chain-routes-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-chain-routes-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-chain-routes-source/cases.json": "cb4d9a9793ab97afef5bc126d3027883762a89d02e4ded77cbb1cab4a801cf25"
+  },
+  "established": [
+    "Complete unchanged do26/hit12 compose with an actual NPC owner at all nonzero six-bit proc ranks. Root count is(rank+25)/5;failed metadata refuses before server-do/formula/factory,while allocation failure retains its actual earlier flag/formula call.",
+    "Hit12 uses the missile owner and retained skill/rank,centers its filter0x88583 search on the missile rather than a moved caster,and excludes the struck GUID. A different selected target receives a fresh same-class child with flags0x21,explicit hit coordinates/target coordinates/owner/rank and budget-1. No target,same target,exhausted budget and allocation failure create no successful child."
+  ],
+  "services": [
+    "Skill/count/radius formula,table/stat/world/target-search and allocation leaves are explicit. This executes two complete older bodies with pinned current data,not complete modern target traversal,damage/hit-delay/HP or the shared missile factory.",
+    "Child seed/RNG services are intentionally absent from these two bodies and belong to the declared allocator. A future adapter must provide allocation at each actual hop;precomputing/spending all future world draws at cast time would require separate evidence or approval."
+  ],
+  "limits": [
+    "No runtime NPC Chain Lightning,proc callback dispatch,skill-list/owner-removal/seed-allocation or current executable parity is claimed. Existing source factory/missile numeric/step services remain separate."
+  ]
+}

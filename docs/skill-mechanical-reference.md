@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Original NPC natural projectile acceptance (2026-11-07 JST).** Moving charged/radial contacts now have native controls for independent charged children, per-target/per-cast four-frame ring delays, separate same-frame firings, exact projectile/actor RNG, HP and partial-path/ring save resumes. This adds evidence to existing mechanics; current binary callback order, terrain/footprint coverage and original proc/factory RNG remain separate. See [checkpoint](npc-item-spell-travel-checkpoint.md).
+
 **Original NPC spell emission context (2026-11-07 JST).** Four explicit equipment-spell emissions use the original actor/graph binding, own captured damage/pierce, independent supplied child seeds and the pet’s intrinsic 5% critical stream. Player spell damage and source identity remain separate. Full proc callback/seed chronology and shield-bearing recipients remain unsupported. See [checkpoint](npc-item-spell-flights-checkpoint.md).
 
 **Original NPC item spell capture (2026-11-07 JST).** Explicit nonzero six-bit proc ranks use the NPC’s own item-graph mastery and pierce; owner synergies/equipment/potions and +skill adjustment of the proc rank are excluded. Full source-zero packets omit weapon/elemental/leech/critical inheritance. Item effects 1, 36 and 151 retain their distinct current metadata. Original callback history, emission/RNG and actual hits remain separate. See [source evidence](../tools/reference/npc-item-spell-damage-source-evidence.json) and [checkpoint](npc-item-spell-damage-checkpoint.md).

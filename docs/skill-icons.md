@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original NPC natural travel checks (2026-11-07 JST).** Verification adds no icon slot. Valkyrie talent/right/quick artwork and any later shared proc UI artwork remain independently pending.
+
 **Original NPC spell flights (2026-11-07 JST).** Prepared equipment spell emissions add no learned icon slot. Valkyrie talent/right/quick icons remain pending; shared spell artwork may serve later proc UI.
 
 **Original NPC item spell capture (2026-11-07 JST).** Equipment procs add no learned talent/hotkey slots. Existing spell icons may be reused where proc UI needs them; Valkyrie talent/right/quick icons remain pending.
