@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC item fear reuse (2026-11-06):** stat112/function08 uses the existing identified fear placeholder `0x375A`, hue `0x21`, through the shared Terror controller. Its final visual/audio replacement remains with the existing fear assets; no separate effect identity is added. See [the checkpoint](npc-item-fear-checkpoint.md).
+
 **NPC lightning return placeholder:** stat128 now uses the existing brief native contact marker`0x374A`, hue`0x481`. Final lightning-return contact effect and audio remain missing. This is not a new projectile/travel/radius effect. Mechanical/source/validation scope is in the [checkpoint](npc-lightning-return-checkpoint.md); no imagegen work has been performed.
 
 **Queued equipment effect: lightning retaliation128.** Reference contract prepared; no runtime visual/audio implemented and Coif remains refused. Plan a brief lightning-return contact effect/audio after mechanical admission. No source radius, extra hit, projectile flight or existing asset is asserted. See the [checkpoint](npc-lightning-return-reference-checkpoint.md).

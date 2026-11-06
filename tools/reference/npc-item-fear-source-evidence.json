@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": {
+    "callback": 5376,
+    "composition": 1280
+  },
+  "completeRoutineHashes": {
+    "SKILLITEM_EventFunc08_Howl": "d1fc4eb8ae2167dabde9e9ec749ab349382c699a3f191caeee3e33441a4a1c03",
+    "AIUTIL_ApplyTerrorCurseState": "b4bdd5f7a126faec7f30268151e7c21ed29d3c3e107234f78c37169db6158323",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c"
+  },
+  "headerBindings": {
+    "MONTYPEFLAG_UNIQUE": 8,
+    "MONTYPEFLAG_CHAMPION": 4,
+    "MONTYPEFLAG_SUPERUNIQUE": 2,
+    "SKILL_HOWL": 130,
+    "SKILL_TERROR": 77,
+    "STAT_ITEM_HOWL": 112
+  },
+  "inputs": {
+    ".local/class-skills/npc-item-blind-source/probe.cpp": "1af757be47ff5b15b2934d7b789bf5a94bec163abcb29985c28ab62bea031176",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsIds.h": "b0003258b3a043b2391ad4afa665575fad54f3219f11958f27664e9e985d56d3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "tools/probe_npc_item_fear.py": "0467c6a6bce5cf2cb43460a9df6924534e2be807714378377e9706ba7d9d664c"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-item-fear-source/probe.cpp": "38f5a8c1873ae093c543803c70df7e6aae685aab88e90e84c42828d3e647b9e2",
+    ".local/class-skills/npc-item-fear-source/probe": "f7ac50730ecf113bb018249c9b1900e9e02555744fd063316d0d3982bb9194b3",
+    ".local/class-skills/npc-item-fear-source/cases.json": "4d8b5596d8c2a5d50efad14b0a09cafd63e0d2042080f4145e4be93e01452b01",
+    ".local/class-skills/npc-item-fear-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-fear-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Three complete unchanged callback08/direct Terror helper/curse factory bodies. The inherited blind proof provides the independently rebound full factory environment. Raw NPC RNG, AI eligibility, stat-list services and AI initializer/timer are declared services; real controller acceptance is separate. Chance uses raw&127; helper always supplies Terror rank1/20frames, then resets AI/target and idles one frame even when factory refuses. No difficulty or caster-level scale is introduced.",
+  "limits": [
+    "Older supplementary source is not a current-executable certificate. Full AI switch/class callbacks, global event scheduling, path/target scans and current-engine/PvP/client parity remain separate."
+  ]
+}

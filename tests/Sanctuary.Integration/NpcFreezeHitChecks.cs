@@ -187,6 +187,7 @@ public static class NpcFreezeHitChecks
         else
         {
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
+            FixtureNetwork.Authenticate(net,(PlayerMobile)World.FindMobile((Serial)saved.Actors[0].Owner),"npc-freeze-reload-");
             foreach(var row in saved.Actors)
             {
                 var p=(PlayerMobile)World.FindMobile((Serial)row.Owner);var source=World.FindMobile((Serial)row.Source)as BaseCreature;var item=World.FindItem((Serial)row.Item);var target=World.FindMobile((Serial)row.Target)as BaseCreature;

@@ -15,6 +15,8 @@ public enum TerrorDecision{End,Idle,Attack,Escape}
 public enum TauntDecision{End,Approach,AttackTaunter,AttackNearby}
 public static class SourceTerror
 {
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(SourceTerror));
+    private static readonly HashSet<Serial> UnmappedItemCurse=new();
     private static readonly HashSet<Serial> _tracked=new();
     private static readonly HashSet<Serial> _acquiring=new();
     private static readonly HashSet<string> Families=new(StringComparer.OrdinalIgnoreCase);
@@ -31,14 +33,14 @@ public static class SourceTerror
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Expire);
     internal static void Changed(Mobile actor,NecromancerCurse before,NecromancerCurse after)
     {
-        if(after?.Terror!=null){_tracked.Add(actor.Serial);}
+        if(after?.Terror!=null||after?.Ability==CombatAbility.Terror&&NecromancerEffects.Profiles.Find(actor)?.ItemTerror!=null){_tracked.Add(actor.Serial);}
         else{_tracked.Remove(actor.Serial);}
         if(before?.Terror!=null && (after?.Terror==null || before.Source!=after.Source || before.UntilUtc!=after.UntilUtc))
         {Reset(actor);}
     }
     internal static void AfterLoad(IEnumerable<KeyValuePair<Serial,NecromancerState>> states)
     {
-        _tracked.Clear();foreach(var pair in states){if(pair.Value.Curse?.Terror!=null){_tracked.Add(pair.Key);}}
+        _tracked.Clear();foreach(var pair in states){if(pair.Value.Curse?.Terror!=null||pair.Value.Curse?.Ability==CombatAbility.Terror&&pair.Value.ItemTerror!=null){_tracked.Add(pair.Key);}}
         Expire();
     }
     internal static void Reset(Mobile actor)
@@ -53,7 +55,7 @@ public static class SourceTerror
         foreach(var serial in _tracked.ToArray())
         {
             var actor=World.FindMobile(serial);var state=actor==null?null:NecromancerEffects.Profiles.Find(actor);
-            if(state?.Curse?.Terror==null){_tracked.Remove(serial);if(state==null && actor!=null){NecromancerEffects.Profiles.Clear(actor);}Reset(actor);}
+            if(state?.Curse==null||state.Curse.Terror==null&&state.ItemTerror==null){_tracked.Remove(serial);if(state==null && actor!=null){NecromancerEffects.Profiles.Clear(actor);}Reset(actor);}
             else if(state.Curse.UntilUtc<=TimedEffects.Now){NecromancerEffects.Profiles.Store(actor,state with{Curse=null});}
         }
     }
@@ -71,7 +73,57 @@ public static class SourceTerror
     internal static int Duration(int frames,int resistance)=>resistance>=100?0:frames-(int)((long)frames*resistance/100);
     internal static int Velocity(int walk,int run)=>walk<=0?0:Math.Clamp(100*run/walk-100,0,120);
     internal static TerrorDecision Decide(bool active,bool started,int distance,bool combat,bool canAttack)=>!active?TerrorDecision.End:distance>30?TerrorDecision.Idle:started && combat && canAttack?TerrorDecision.Attack:TerrorDecision.Escape;
-    internal static TerrorAi State(Mobile actor)=>NecromancerEffects.Curse(actor)?.Terror;
+    internal static TerrorAi State(Mobile actor)=>NecromancerEffects.Profiles.Find(actor)?.ItemTerror??NecromancerEffects.Curse(actor)?.Terror;
+    internal static bool ItemActive(Mobile actor)=>NecromancerEffects.Profiles.Find(actor)?.ItemTerror!=null;
+    internal static void ValidateItem(TerrorAi state)
+    {
+        if(state.Skill!=CombatAbility.Howl||state.LaunchRank!=1||state.Map<0||state.Map>=Map.Maps.Length||Map.Maps[state.Map]==null||Map.Maps[state.Map]==Map.Internal
+            ||state.NextUtc.Kind!=DateTimeKind.Utc||state.VelocityPercent is<0 or>120)
+        {throw new System.IO.InvalidDataException("Invalid item Terror AI initializer");}
+    }
+    // Item callback08 calls the direct helper. Its nominal Howl/20 arguments
+    // do not select skill/rank/radius: the helper writes Terror rank1/20frames.
+    // AI initialization follows the factory even when that factory declines.
+    internal static bool ApplyItem(BaseCreature source,BaseCreature target,DateTime at)
+    {
+        if(source?.Map==null||source.Map==Map.Internal||target is not{Alive:true,Deleted:false}||target.Map!=source.Map
+            ||!Supported(target)||target is{Controlled:true}or{Summoned:true}or BaseHire
+            ||target is EncounterCreature{Grade:EncounterGrade.SuperUnique}||target.BardProvoked||MonsterUninterruptibles.Active(target)){return false;}
+        if(EliteAuras.Curses.Unknown(target.Serial,at))
+        {
+            if(UnmappedItemCurse.Add(target.Serial)){Log.Warning("NPC item Terror cannot replace an unknown legacy elite curse: {Target}",target.Serial.Value);}
+            return false;
+        }
+        EliteAuras.Refresh(target);
+        var state=NecromancerEffects.Profiles.Find(target)??new();
+        var ai=new TerrorAi(CombatAbility.Howl,1,target.Map.MapID,false,source.Serial.Value,0,at.AddMilliseconds(40));
+        bool acceptedDuration=SourceCurseDuration.Incoming(target,"terror",20,out int frames);
+        var next=acceptedDuration?NecromancerCurseCasts.Replacement(state.Curse??EliteAuras.Curses.Metadata(target.Serial),CombatAbility.Terror,source.Serial.Value,1,null,at.AddMilliseconds(frames*40L),at,source.X,source.Y):null;
+        // No-stat curses do not rewrite a stronger/equal list's creator. The
+        // independent initializer still takes the new attacking unit as target.
+        if(next!=null&&next.Terror==null){next=next with{Terror=ai};}
+        Reset(target);
+        NecromancerEffects.Profiles.Store(target,SourceMind.Superseded(state) with{Curse=next??state.Curse,ItemTerror=ai});
+        if(next!=null&&TimedEffects.TryActor(target,out var actor)&&actor.Control is{} control)
+        {actor.Control=control with{BlindUntil=default,FearUntil=default};}
+        target.AIObject?.AITimer.Prod();
+        if(next!=null){target.FixedEffect(0x375A,10,15,0x21,0);} // Shared identified fear placeholder.
+        return true;
+    }
+    internal static bool ThinkItem(BaseCreature creature)
+    {
+        var profile=NecromancerEffects.Profiles.Find(creature);if(profile?.ItemTerror is not{} state){return false;}
+        if(state.NextUtc>TimedEffects.Now){return true;}
+        if(profile.Curse is not{Ability:CombatAbility.Terror} curse||curse.UntilUtc<=TimedEffects.Now||creature.Map?.MapID!=state.Map)
+        {
+            NecromancerEffects.Profiles.Store(creature,profile with{ItemTerror=null});Reset(creature);
+            // State11 without STATE_TERROR returns to ordinary AI and idles one
+            // frame. Keep the rejected/protected curse and its own expiry.
+            if(creature.AIObject is{} ai){ai.NextMove=Core.TickCount+40;}
+            return true;
+        }
+        return Think(creature,curse);
+    }
     internal static bool TargetAllowed(Mobile actor,Mobile target)=>_acquiring.Contains(actor.Serial)
         || State(actor) is{Combat:true} state && target?.Serial.Value==state.Focus;
     internal static bool InCombat(Mobile actor)=>State(actor)?.Combat==true;
@@ -84,9 +136,12 @@ public static class SourceTerror
         && Families.Contains(row.Ai??"");
     internal static TerrorAi Learned(BaseCreature target,int rank,DateTime at)
         // Native Combatant is the explicit adapter for SUNIT_GetTargetUnit.
+        // An active item initializer owns that dynamic target independently
+        // while its victim's native Combatant is intentionally cleared.
         // Do30 does not add Howl's one-frame Idle request. Native AI event
         // scheduling remains an adapter; do not fabricate that extra delay.
-        =>new(CombatAbility.Terror,rank,target.Map.MapID,false,target.Combatant?.Serial.Value??0,0,at);
+        =>new(CombatAbility.Terror,rank,target.Map.MapID,false,
+            NecromancerEffects.Profiles.Find(target)?.ItemTerror is{} item?item.Override!=0?item.Override:item.Focus:target.Combatant?.Serial.Value??0,0,at);
     internal static bool Apply(PlayerMobile source,BaseCreature target,int rank,int frames,DateTime at)
     {
         if(!Supported(target) || !NecromancerEffects.AiCurse(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Terror or CombatAbility.Attract || NamedControl.Fear(target)){return false;}
@@ -123,11 +178,11 @@ public static class SourceTerror
     }
     private static void Store(BaseCreature target,NecromancerCurse curse,TerrorAi ai)
     {
-        var state=NecromancerEffects.Profiles.Find(target);if(state!=null){NecromancerEffects.Profiles.Store(target,state with{Curse=curse with{Terror=ai}});}
+        var state=NecromancerEffects.Profiles.Find(target);if(state!=null){NecromancerEffects.Profiles.Store(target,state.ItemTerror!=null?state with{ItemTerror=ai}:state with{Curse=curse with{Terror=ai}});}
     }
     internal static bool Think(BaseCreature creature,NecromancerCurse curse)
     {
-        if(curse.Terror is not{} state || creature.AIObject is not{} ai){return false;}
+        if((NecromancerEffects.Profiles.Find(creature)?.ItemTerror??curse.Terror) is not{} state || creature.AIObject is not{} ai){return false;}
         if(state.Skill==CombatAbility.Taunt){return ThinkTaunt(creature,curse,state);}
         if(creature.Map?.MapID!=state.Map || curse.UntilUtc<=TimedEffects.Now)
         {var profile=NecromancerEffects.Profiles.Find(creature);if(profile!=null){NecromancerEffects.Profiles.Store(creature,profile with{Curse=null});}return false;}

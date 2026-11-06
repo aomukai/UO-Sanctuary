@@ -181,7 +181,16 @@ public static class AttractCastChecks
                 void Damage()
                 {
                     if(finished){return;}if(t.Hits>=hp&&TimedEffects.Now<observe){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Damage));return;}
-                    try{Require(t.Hits<hp&&SourceMind.Neutral(t)&&n.Combatant==t&&NecromancerEffects.Profiles.Find(n).Mind==mind,"Real autonomous neighbor damage/target/RNG");damaged=true;}catch(Exception e){Fail(e);}
+                    try
+                    {
+                        Require(t.Hits<hp&&SourceMind.Neutral(t)&&n.Combatant==t&&NecromancerEffects.Profiles.Find(n).Mind==mind,
+                            "Real autonomous neighbor damage/target/RNG: hits="+t.Hits+"/"+hp+",fp="+SkillHealth.Balance256(t)+",neutral="+SourceMind.Neutral(t)
+                            +",combatant="+n.Combatant?.Serial+",target="+t.Serial+",neighbor="+n.Location+",victim="+t.Location
+                            +",alive="+n.Alive+"/"+t.Alive+",frozen="+n.Frozen+",cantwalk="+n.CantWalk+",action="+n.AIObject.Action
+                            +",nextMove="+n.AIObject.NextMove+",now="+Core.TickCount+",mind="+JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(n)?.Mind)+",expectedMind="+JsonSerializer.Serialize(mind));
+                        damaged=true;
+                    }
+                    catch(Exception e){Fail(e);}
                 }
                 void Expired()
                 {

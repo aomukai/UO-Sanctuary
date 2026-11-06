@@ -26,10 +26,11 @@ public static class NamedControl
     public static bool Blind(Mobile owner) => State(owner)?.BlindUntil > TimedEffects.Now
         || NecromancerEffects.Vision(NecromancerEffects.Curse(owner));
     public static bool Fear(Mobile owner) => State(owner)?.FearUntil > TimedEffects.Now;
-    public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Blind(owner) && !Fear(owner)
+    public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Blind(owner) && !Fear(owner)&&!SourceTerror.ItemActive(owner)
         && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror)
         && SourceTerror.State(owner)?.Skill!=CombatAbility.Taunt;
     public static bool TargetAllowed(Mobile owner, Mobile target) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Fear(owner)
+        &&(!SourceTerror.ItemActive(owner)||SourceTerror.TargetAllowed(owner,target))
         && (!Blind(owner) || SourceBlind.AcquiringTarget(owner) || target != null && owner.Map == target.Map && owner.InRange(target, 1));
     private static int DifficultyDivisor(BaseCreature creature) => MonsterVariants.Difficulty(creature) switch
     { MonsterDifficulty.Nightmare => 2, MonsterDifficulty.Hell => 4, _ => 1 };

@@ -1,5 +1,7 @@
 # Necromancer acceptance map
 
+**NPC item fear increment (2026-11-06):** original Face of Horror Iron/Revive now uses the shared Terror controller with an independent saved item-AI initializer. Focused15markers/two reloads pass; the affected combined cohort is still running. This is a newer dedicated scope, not a rerun of the115-family acceptance. See [the checkpoint](npc-item-fear-checkpoint.md).
+
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. Sanctuary's approved pet, targeting and roster changes override the reference. This map identifies the existing execution paths and tests; handler presence or a passing subset is not a class-completion certificate. The detailed unresolved limits remain in `data/Sanctuary/Balance/class-skill-status.json` and the linked checkpoints.
 
 `NecromancerCombat` supplies the learned begin/release routes, with `ClassCombat` dispatching them before its historical fallback. The three passive talents feed summon creation rather than appearing as active casts. Existing shared flight, poison, curse, prepared-contact and pet controllers remain the implementations of those mechanics.

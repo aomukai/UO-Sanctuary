@@ -22,7 +22,8 @@ public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArm
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BlindAiState BlindAi=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState Mind=null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] NecromancerCurse EliteCurse=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] NecromancerCurse EliteCurse=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] TerrorAi ItemTerror=null);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
 {
@@ -33,8 +34,16 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         ? _states.GetValueOrDefault(actor.Serial) : null;
     public void Store(Mobile actor, NecromancerState state)
     {
-        if(state.Curse?.Terror is{Override:not 0}){state=SourceMind.Superseded(state);}
         var before=_states.GetValueOrDefault(actor.Serial);
+        // A new special-AI initializer supersedes a prior item initializer.
+        // Updating that item's own clock does not replace the curse it shadows.
+        bool changedAi=state.Curse?.Terror!=before?.Curse?.Terror||state.BlindAi!=before?.BlindAi
+            ||state.Mind is{Mode:3}&&state.Mind!=before?.Mind;
+        if(changedAi&&state.ItemTerror==before?.ItemTerror){state=state with{ItemTerror=null};}
+        // Mode2 is an explicit neighbor target lease, not an AI initializer.
+        // Once item AI clears its initial override, an older shadowed curse
+        // payload must not erase a later generic target lease.
+        if((state.ItemTerror??state.Curse?.Terror) is{Override:not 0}){state=SourceMind.Superseded(state);}
         // Fresh elite AMP shares the ordinary curse group. Direct suppliers
         // such as Attract/Battle Cry must retire its native projection too.
         bool replacing=state.Curse!=null&&before?.EliteCurse!=null;
@@ -45,7 +54,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         if(replacing){EliteAuras.Refresh(actor);}
     }
     public void Clear(Mobile actor)
-    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);if(old.EliteCurse!=null){EliteAuras.Curses.Clear(actor.Serial);EliteAuras.Refresh(actor);}}}
+    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);if(old.ItemTerror!=null){SourceTerror.Reset(actor);}CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);if(old.EliteCurse!=null){EliteAuras.Curses.Clear(actor.Serial);EliteAuras.Refresh(actor);}}}
     public override void Serialize()
     {SourceBlind.CaptureMovement();Prune();_snapshot=new(_states);base.Serialize();}
     public override void Serialize(IGenericWriter writer)
@@ -63,6 +72,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<NecromancerState>(reader.ReadString());
             if(state?.BlindAi is{} blind){SourceBlind.Validate(blind);}
             if(state?.Mind is{} mind){SourceMind.Validate(mind);}
+            if(state?.ItemTerror is{} itemTerror){SourceTerror.ValidateItem(itemTerror);}
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
                 || state.EliteCurse is{} elite && (state.Curse!=null||!EliteAuras.ValidMetadata(elite))
                 || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0
@@ -212,6 +222,7 @@ public static class NecromancerEffects
     public static bool Think(BaseCreature creature)
     {
         if (creature.AIObject is not { } ai) { return false; }
+        if(SourceTerror.ThinkItem(creature)){return true;}
         if (Profiles.Find(creature) is { Curse: { } elapsed } state && elapsed.UntilUtc <= TimedEffects.Now)
         {
             Profiles.Store(creature, state with { Curse = null });
