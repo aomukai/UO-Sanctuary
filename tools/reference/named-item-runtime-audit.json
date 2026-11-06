@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b9455bb6a47286ae326b92ad678a040fadd1292e49b431de6dd3e9ef18657679",
+  "ContentAssemblySha256": "8cc1c49706b5c9c3236a6e2a04b40aa5d07569200e0c39b0fc1d8d2a4ac6d7eb",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "cb8c72ea88db844f08b36128d65cad08d7c84ebb7ccd19c8f35fca2d74a0c2af",
+    "data/Sanctuary/Balance/class-skill-status.json": "bf578f701b96521661f5f478168eb6a25c041b9f4ebf99a3bf2caf6794332076",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -95,11 +95,11 @@
     "data/Sanctuary/Balance/monster-return-identities.json": "952ee02a103c741a35f3300cc7c4a62dac8b47566154260ac862f1df6ca2e159",
     "data/Sanctuary/Balance/monsters.json": "dbf6d73e64c798df4bef6cad9aa97ac54895320fbe2742e3c14798bcb9cb8d2e",
     "data/Sanctuary/Balance/moulds.json": "3c9e474bc0a9eacc14d1842fdd49e2b99683c66aead8e05423e378f43a59a2ce",
-    "data/Sanctuary/Balance/named-active-skills.json": "ce5131fca180bacf6cba3a2db0d07f93b2ac48608f59140193406926a1be7274",
+    "data/Sanctuary/Balance/named-active-skills.json": "752fe9a6971d04c42afbc8c9e8af1e280ca2cc0cab4e9ee38349933359431fcd",
     "data/Sanctuary/Balance/named-item-bases.json": "038453a54d680f73feaf2bac89e18e77ca0756ffd1b7fe75b437a0d93207ae9a",
-    "data/Sanctuary/Balance/named-item-coverage.json": "cb499356f8771511c5615667830fcf1ff107646abe73c198b285b72aea0e1b11",
+    "data/Sanctuary/Balance/named-item-coverage.json": "67342818180acca28bd6d9b78abdfa03a838c6eadb28ea87fa80f357b7c7c073",
     "data/Sanctuary/Balance/named-item-properties.json": "dc5f3b95c4eb24d5dc756381b8b08272db84134c5fc0ea6c8e77f11e4fa58762",
-    "data/Sanctuary/Balance/named-skill-backlog.json": "2a9e4b686189b51e41910020dd27cc3f2a065d73edc5c3f530c3c10d84b2a3cb",
+    "data/Sanctuary/Balance/named-skill-backlog.json": "88b8a49560a239e19efbcfe1f0008c4a3d4e74e226c11d255484dbab4cf1e996",
     "data/Sanctuary/Balance/named-skill-bindings.json": "b7859dfea4db641ec9c84ca3661d5ec7734098a0676fb7b0e45fa760490b4438",
     "data/Sanctuary/Balance/necromancer-army-limits.json": "8af13038435643945ea762d2d19a26fe42c716cbf2e661ac043a44e530319218",
     "data/Sanctuary/Balance/necromancer-cast-clock.json": "8ea7418c36ce32afdb0e77ed1c98216bd31d2008d699f52d8b5a7e232980d2b2",
@@ -1219,10 +1219,8 @@
       "BaseCode": "ywn",
       "SetId": null,
       "SourceAvailability": "SpawnableDefinition",
-      "Available": false,
-      "Reasons": [
-        "Effect: skill"
-      ]
+      "Available": true,
+      "Reasons": []
     },
     {
       "Id": "unique/12",
@@ -1241,10 +1239,8 @@
       "BaseCode": "gwn",
       "SetId": null,
       "SourceAvailability": "SpawnableDefinition",
-      "Available": false,
-      "Reasons": [
-        "Effect: skill"
-      ]
+      "Available": true,
+      "Reasons": []
     },
     {
       "Id": "unique/14",
@@ -2924,10 +2920,8 @@
       "BaseCode": "9kr",
       "SetId": null,
       "SourceAvailability": "SpawnableDefinition",
-      "Available": false,
-      "Reasons": [
-        "Effect: skill"
-      ]
+      "Available": true,
+      "Reasons": []
     },
     {
       "Id": "unique/171",
@@ -4851,10 +4845,8 @@
       "BaseCode": "7bw",
       "SetId": null,
       "SourceAvailability": "SpawnableDefinition",
-      "Available": false,
-      "Reasons": [
-        "Effect: skill"
-      ]
+      "Available": true,
+      "Reasons": []
     },
     {
       "Id": "unique/352",

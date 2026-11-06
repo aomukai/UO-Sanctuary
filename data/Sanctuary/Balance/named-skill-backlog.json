@@ -2,148 +2,24 @@
   "schemaVersion": 1,
   "sourceCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
   "workingDirectSkills": [
+    "necromancer.amplifydamage",
+    "necromancer.bonearmor",
+    "necromancer.bonespear",
+    "necromancer.bonespirit",
+    "necromancer.bonewall",
+    "necromancer.corpseexplosion",
+    "necromancer.decrepify",
+    "necromancer.ironmaiden",
+    "necromancer.poisondagger",
+    "necromancer.poisonexplosion",
+    "necromancer.poisonnova",
     "necromancer.raiseskeleton",
     "necromancer.skeletonmastery",
     "necromancer.teeth",
+    "necromancer.terror",
     "sorceress.teleport"
   ],
   "items": [
-    {
-      "id": "unique/11",
-      "name": "Maelstrom",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 74,
-              "sourceId": 74,
-              "name": "Corpse Explosion",
-              "sourceKey": "Corpse Explosion",
-              "talentId": "necromancer.corpseexplosion",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Corpse Explosion"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 77,
-              "sourceId": 77,
-              "name": "Terror",
-              "sourceKey": "Terror",
-              "talentId": "necromancer.terror",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Terror"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "8",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 66,
-              "sourceId": 66,
-              "name": "Amplify Damage",
-              "sourceKey": "Amplify Damage",
-              "talentId": "necromancer.amplifydamage",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Amplify Damage"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "9",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 76,
-              "sourceId": 76,
-              "name": "Iron Maiden",
-              "sourceKey": "Iron Maiden",
-              "talentId": "necromancer.ironmaiden",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Iron Maiden"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/13",
-      "name": "Ume's Lament",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 77,
-              "sourceId": 77,
-              "name": "Terror",
-              "sourceKey": "Terror",
-              "talentId": "necromancer.terror",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Terror"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 87,
-              "sourceId": 87,
-              "name": "Decrepify",
-              "sourceKey": "Decrepify",
-              "talentId": "necromancer.decrepify",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Decrepify"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
     {
       "id": "unique/16",
       "name": "Rusthandle",
@@ -992,11 +868,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-hit proc dispatcher"
           ]
         }
@@ -1042,11 +917,10 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Decrepify",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -1235,11 +1109,10 @@
               "name": "Bone Spirit",
               "sourceKey": "Bone Spirit",
               "talentId": "necromancer.bonespirit",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Bone Spirit",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -1261,25 +1134,6 @@
           "prerequisites": [
             "Implement spell/skill: Bone Prison",
             "on-taking-hit proc dispatcher"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 77,
-              "sourceId": 77,
-              "name": "Terror",
-              "sourceKey": "Terror",
-              "talentId": "necromancer.terror",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Terror"
           ]
         },
         {
@@ -1424,11 +1278,10 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Decrepify",
             "on-hit proc dispatcher"
           ]
         },
@@ -1738,11 +1591,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         },
@@ -1758,11 +1610,10 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Iron Maiden",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -1778,11 +1629,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1889,11 +1739,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-hit proc dispatcher"
           ]
         },
@@ -1970,11 +1819,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         }
@@ -2146,74 +1994,6 @@
           ],
           "prerequisites": [
             "Implement spell/skill: Grim Ward"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/170",
-      "name": "Blackbog's Sharp",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 73,
-              "sourceId": 73,
-              "name": "Poison Dagger",
-              "sourceKey": "Poison Dagger",
-              "talentId": "necromancer.poisondagger",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Poison Dagger"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 83,
-              "sourceId": 83,
-              "name": "Poison Explosion",
-              "sourceKey": "Poison Explosion",
-              "talentId": "necromancer.poisonexplosion",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Poison Explosion"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "8",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 92,
-              "sourceId": 92,
-              "name": "Poison Nova",
-              "sourceKey": "Poison Nova",
-              "talentId": "necromancer.poisonnova",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Poison Nova"
           ]
         }
       ],
@@ -2578,11 +2358,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         },
@@ -2710,11 +2489,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -2823,11 +2601,10 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Iron Maiden",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -2843,11 +2620,10 @@
               "name": "Corpse Explosion",
               "sourceKey": "Corpse Explosion",
               "talentId": "necromancer.corpseexplosion",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Corpse Explosion",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -2996,11 +2772,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -3016,11 +2791,10 @@
               "name": "Poison Explosion",
               "sourceKey": "Poison Explosion",
               "talentId": "necromancer.poisonexplosion",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Explosion",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3410,11 +3184,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         }
@@ -3585,11 +3358,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         }
@@ -3616,11 +3388,10 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Iron Maiden",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -3950,11 +3721,10 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Decrepify",
             "on-kill proc dispatcher"
           ]
         }
@@ -4103,11 +3873,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         }
@@ -4134,11 +3903,10 @@
               "name": "Poison Explosion",
               "sourceKey": "Poison Explosion",
               "talentId": "necromancer.poisonexplosion",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Explosion",
             "on-hit proc dispatcher"
           ]
         }
@@ -4165,11 +3933,10 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Decrepify",
             "on-hit proc dispatcher"
           ]
         }
@@ -4441,11 +4208,10 @@
               "name": "Terror",
               "sourceKey": "Terror",
               "talentId": "necromancer.terror",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Terror",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -4472,11 +4238,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -4554,11 +4319,10 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Iron Maiden",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -4641,93 +4405,6 @@
           ],
           "prerequisites": [
             "Implement spell/skill: Raven"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/351",
-      "name": "Boneshade",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "4",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Bone Armor",
-              "sourceId": 68,
-              "name": "Bone Armor",
-              "sourceKey": "Bone Armor",
-              "talentId": "necromancer.bonearmor",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Bone Armor"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Bone Spear",
-              "sourceId": 84,
-              "name": "Bone Spear",
-              "sourceKey": "Bone Spear",
-              "talentId": "necromancer.bonespear",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Bone Spear"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Bone Spirit",
-              "sourceId": 93,
-              "name": "Bone Spirit",
-              "sourceKey": "Bone Spirit",
-              "talentId": "necromancer.bonespirit",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Bone Spirit"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Bone Wall",
-              "sourceId": 78,
-              "name": "Bone Wall",
-              "sourceKey": "Bone Wall",
-              "talentId": "necromancer.bonewall",
-              "implemented": false
-            }
-          ],
-          "prerequisites": [
-            "Implement spell/skill: Bone Wall"
           ]
         }
       ],
@@ -5467,11 +5144,10 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Iron Maiden",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -5498,11 +5174,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -5682,11 +5357,10 @@
               "name": "Corpse Explosion",
               "sourceKey": "Corpse Explosion",
               "talentId": "necromancer.corpseexplosion",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Corpse Explosion",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -5702,11 +5376,10 @@
               "name": "Bone Spear",
               "sourceKey": "Bone Spear",
               "talentId": "necromancer.bonespear",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Bone Spear",
             "on-hit proc dispatcher"
           ]
         }
@@ -5875,11 +5548,10 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Nova",
             "on-death proc dispatcher"
           ]
         }
@@ -6040,11 +5712,10 @@
               "name": "Terror",
               "sourceKey": "Terror",
               "talentId": "necromancer.terror",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Terror",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -6100,11 +5771,10 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Decrepify",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -6346,11 +6016,10 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Amplify Damage",
             "on-hit proc dispatcher"
           ]
         },
@@ -6592,11 +6261,10 @@
               "name": "Bone Armor",
               "sourceKey": "Bone Armor",
               "talentId": "necromancer.bonearmor",
-              "implemented": false
+              "implemented": true
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Bone Armor",
             "on-taking-hit proc dispatcher"
           ]
         }

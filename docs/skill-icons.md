@@ -1,5 +1,7 @@
 # Skill icons
 
+**Necromancer item skill grants (2026-11-06 JST).** Newly usable item-granted spells retain their existing talent/hotkey identities and pending icons. No duplicate item-specific spell icons are introduced. See [checkpoint](necromancer-item-skills-checkpoint.md).
+
 **Original individual-skill properties (2026-11-06 JST).** Retaining item skill layers adds no talent-tree/hotkey identity. Existing Iron Golem/Revive icons remain separately pending. See [checkpoint](single-skill-property-checkpoint.md).
 
 **Saved forced ethereality (2026-11-06 JST).** Original equipment projection adds no talent-tree or hotkey identity. Existing Iron Golem/Revive icons remain separately pending. This does not complete item artwork or the effect ledger. See [checkpoint](saved-item-ethereality-checkpoint.md).

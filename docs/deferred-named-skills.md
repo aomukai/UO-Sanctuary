@@ -8,14 +8,12 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 
 Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Teleport. A working spell alone does not supply a proc, aura, charge or cross-class grant system. Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.
 
-169 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 19 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
+165 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 19 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
 
 ## Source-spawnable items to revisit
 
 | ID | Item | Prerequisite spells/skills and systems |
 | --- | --- | --- |
-| unique/11 | Maelstrom | own `skill`: Corpse Explosion — Implement spell/skill: Corpse Explosion<br>own `skill`: Terror — Implement spell/skill: Terror<br>own `skill`: Amplify Damage — Implement spell/skill: Amplify Damage<br>own `skill`: Iron Maiden — Implement spell/skill: Iron Maiden |
-| unique/13 | Ume's Lament | own `skill`: Terror — Implement spell/skill: Terror<br>own `skill`: Decrepify — Implement spell/skill: Decrepify |
 | unique/16 | Rusthandle | own `skill`: Vengeance — Implement spell/skill: Vengeance<br>own `skill`: Thorns — Implement spell/skill: Thorns |
 | unique/17 | Stormeye | own `skill`: Resist Lightning — Implement spell/skill: Resist Lightning<br>own `skill`: Holy Shock — Implement spell/skill: Holy Shock<br>own `skill`: Fist of the Heavens — Implement spell/skill: Fist of the Heavens |
 | unique/20 | Bloodrise | own `skill`: Sacrifice — Implement spell/skill: Sacrifice |
@@ -35,30 +33,29 @@ Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Te
 | unique/129 | Coldkill | own `hit-skill`: Ice Blast — Implement spell/skill: Ice Blast; on-hit proc dispatcher<br>own `gethit-skill`: Frost Nova — Implement spell/skill: Frost Nova; on-taking-hit proc dispatcher |
 | unique/131 | Islestrike | own `skill`: Maul — Implement spell/skill: Maul<br>own `skill`: Fury — Implement spell/skill: Fury |
 | unique/132 | Pompeii's Wrath | own `hit-skill`: Volcano — Implement spell/skill: Volcano; on-hit proc dispatcher |
-| unique/133 | Guardian Naga | own `hit-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-hit proc dispatcher |
-| unique/135 | Spellsteel | own `charged`: Teleport (spell implemented) — charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Decrepify — Implement spell/skill: Decrepify; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Holy Bolt — Implement spell/skill: Holy Bolt; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Firestorm — Implement spell/skill: Firestorm; charged-skill casting, targeting, charge ledger and recharge |
+| unique/133 | Guardian Naga | own `hit-skill`: Poison Nova (spell implemented) — on-hit proc dispatcher |
+| unique/135 | Spellsteel | own `charged`: Teleport (spell implemented) — charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Decrepify (spell implemented) — charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Holy Bolt — Implement spell/skill: Holy Bolt; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Firestorm — Implement spell/skill: Firestorm; charged-skill casting, targeting, charge ledger and recharge |
 | unique/136 | Stormrider | own `hit-skill`: Chain Lightning — Implement spell/skill: Chain Lightning; on-hit proc dispatcher<br>own `hit-skill`: Charged Bolt — Implement spell/skill: Charged Bolt; on-hit proc dispatcher<br>own `gethit-skill`: Charged Bolt — Implement spell/skill: Charged Bolt; on-taking-hit proc dispatcher |
 | unique/137 | Boneslayer Blade | own `charged`: Holy Bolt — Implement spell/skill: Holy Bolt; charged-skill casting, targeting, charge ledger and recharge<br>own `gethit-skill`: Holy Bolt — Implement spell/skill: Holy Bolt; on-taking-hit proc dispatcher |
-| unique/141 | Arm of King Leoric | own `gethit-skill`: Bone Spirit — Implement spell/skill: Bone Spirit; on-taking-hit proc dispatcher<br>own `gethit-skill`: Bone Prison — Implement spell/skill: Bone Prison; on-taking-hit proc dispatcher<br>own `skill`: Terror — Implement spell/skill: Terror<br>own `skill`: Raise Skeletal Mage — Implement spell/skill: Raise Skeletal Mage |
+| unique/141 | Arm of King Leoric | own `gethit-skill`: Bone Spirit (spell implemented) — on-taking-hit proc dispatcher<br>own `gethit-skill`: Bone Prison — Implement spell/skill: Bone Prison; on-taking-hit proc dispatcher<br>own `skill`: Raise Skeletal Mage — Implement spell/skill: Raise Skeletal Mage |
 | unique/142 | Blackhand Key | own `charged`: Grim Ward — Implement spell/skill: Grim Ward; charged-skill casting, targeting, charge ledger and recharge |
 | unique/144 | Zakarum's Hand | own `hit-skill`: Blizzard — Implement spell/skill: Blizzard; on-hit proc dispatcher<br>own `skill`: Holy Freeze — Implement spell/skill: Holy Freeze<br>own `skill`: Holy Shock — Implement spell/skill: Holy Shock |
-| unique/145 | The Fetid Sprinkler | own `hit-skill`: Decrepify — Implement spell/skill: Decrepify; on-hit proc dispatcher<br>own `hit-skill`: Confuse — Implement spell/skill: Confuse; on-hit proc dispatcher |
+| unique/145 | The Fetid Sprinkler | own `hit-skill`: Decrepify (spell implemented) — on-hit proc dispatcher<br>own `hit-skill`: Confuse — Implement spell/skill: Confuse; on-hit proc dispatcher |
 | unique/146 | Hand of Blessed Light | own `skill`: Holy Bolt — Implement spell/skill: Holy Bolt<br>own `skill`: Fist of the Heavens — Implement spell/skill: Fist of the Heavens<br>own `hit-skill`: Fist of the Heavens — Implement spell/skill: Fist of the Heavens; on-hit proc dispatcher |
 | unique/148 | Sureshrill Frost | own `charged`: Frozen Orb — Implement spell/skill: Frozen Orb; charged-skill casting, targeting, charge ledger and recharge |
 | unique/149 | Moonfall | own `hit-skill`: Meteor — Implement spell/skill: Meteor; on-hit proc dispatcher<br>own `charged`: Meteor — Implement spell/skill: Meteor; charged-skill casting, targeting, charge ledger and recharge |
 | unique/150 | Baezil's Vortex | own `hit-skill`: Nova — Implement spell/skill: Nova; on-hit proc dispatcher<br>own `charged`: Nova — Implement spell/skill: Nova; charged-skill casting, targeting, charge ledger and recharge |
 | unique/151 | Earthshaker | own `hit-skill`: Fissure — Implement spell/skill: Fissure; on-hit proc dispatcher |
 | unique/152 | Bloodtree Stump | own `skill`: Mace Mastery — Implement spell/skill: Mace Mastery |
-| unique/153 | The Gavel of Pain | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher<br>own `gethit-skill`: Iron Maiden — Implement spell/skill: Iron Maiden; on-taking-hit proc dispatcher<br>own `charged`: Amplify Damage — Implement spell/skill: Amplify Damage; charged-skill casting, targeting, charge ledger and recharge |
+| unique/153 | The Gavel of Pain | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher<br>own `gethit-skill`: Iron Maiden (spell implemented) — on-taking-hit proc dispatcher<br>own `charged`: Amplify Damage (spell implemented) — charged-skill casting, targeting, charge ledger and recharge |
 | unique/154 | Bloodletter | own `skill`: Blade Mastery — Implement spell/skill: Blade Mastery<br>own `skill`: Whirlwind — Implement spell/skill: Whirlwind |
 | unique/156 | Hexfire | own `charged`: Hydra — Implement spell/skill: Hydra; charged-skill casting, targeting, charge ledger and recharge |
-| unique/160 | Plague Bearer | own `hit-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-hit proc dispatcher<br>own `skill`: Rabies — Implement spell/skill: Rabies |
+| unique/160 | Plague Bearer | own `hit-skill`: Poison Nova (spell implemented) — on-hit proc dispatcher<br>own `skill`: Rabies — Implement spell/skill: Rabies |
 | unique/163 | Bing Sz Wang | own `hit-skill`: Frozen Orb — Implement spell/skill: Frozen Orb; on-hit proc dispatcher |
-| unique/164 | The Vile Husk | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher |
+| unique/164 | The Vile Husk | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher |
 | unique/165 | Cloudcrack | own `hit-skill`: Fist of the Heavens — Implement spell/skill: Fist of the Heavens; on-hit proc dispatcher |
 | unique/166 | Todesfaelle Flamme | own `att-skill`: Fire Ball — Implement spell/skill: Fire Ball; on-attack proc dispatcher<br>own `charged`: Enchant — Implement spell/skill: Enchant; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Fire Wall — Implement spell/skill: Fire Wall; charged-skill casting, targeting, charge ledger and recharge |
 | unique/169 | Heart Carver | own `skill`: Find Potion — Implement spell/skill: Find Potion<br>own `skill`: Find Item — Implement spell/skill: Find Item<br>own `skill`: Grim Ward — Implement spell/skill: Grim Ward |
-| unique/170 | Blackbog's Sharp | own `skill`: Poison Dagger — Implement spell/skill: Poison Dagger<br>own `skill`: Poison Explosion — Implement spell/skill: Poison Explosion<br>own `skill`: Poison Nova — Implement spell/skill: Poison Nova |
 | unique/171 | Stormspike | own `gethit-skill`: Charged Bolt — Implement spell/skill: Charged Bolt; on-taking-hit proc dispatcher |
 | unique/172 | The Impaler | own `skill`: Impale — Implement spell/skill: Impale<br>own `skill`: Power Strike — Implement spell/skill: Power Strike |
 | unique/178 | Blackleach Blade | own `hit-skill`: Weaken — Implement spell/skill: Weaken; on-hit proc dispatcher |
@@ -67,16 +64,16 @@ Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Te
 | unique/188 | Skystrike | own `hit-skill`: Meteor — Implement spell/skill: Meteor; on-hit proc dispatcher |
 | unique/190 | Kuko Shakaku | own `skill`: Immolation Arrow — Implement spell/skill: Immolation Arrow<br>own `explosivearrow`: Exploding Arrow — Implement spell/skill: Exploding Arrow; Inherent exploding-arrow attack and area damage |
 | unique/191 | Endlesshail | own `skill`: Strafe — Implement spell/skill: Strafe |
-| unique/192 | Witchwild String | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher<br>own `magicarrow`: Magic Arrow — Implement spell/skill: Magic Arrow; Inherent magic-arrow attack and projectile delivery |
+| unique/192 | Witchwild String | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher<br>own `magicarrow`: Magic Arrow — Implement spell/skill: Magic Arrow; Inherent magic-arrow attack and projectile delivery |
 | unique/194 | Magewrath | own `skill`: Guided Arrow — Implement spell/skill: Guided Arrow |
 | unique/195 | Goldstrike Arch | own `hit-skill`: Fist of the Heavens — Implement spell/skill: Fist of the Heavens; on-hit proc dispatcher |
-| unique/197 | Pus Spitter | own `hit-skill`: Lower Resist — Implement spell/skill: Lower Resist; on-hit proc dispatcher<br>own `gethit-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-taking-hit proc dispatcher |
+| unique/197 | Pus Spitter | own `hit-skill`: Lower Resist — Implement spell/skill: Lower Resist; on-hit proc dispatcher<br>own `gethit-skill`: Poison Nova (spell implemented) — on-taking-hit proc dispatcher |
 | unique/199 | Demon Machine | own `explosivearrow`: Exploding Arrow — Implement spell/skill: Exploding Arrow; Inherent exploding-arrow attack and area damage |
 | unique/204 | Darksight Helm | own `gethit-skill`: Dim Vision — Implement spell/skill: Dim Vision; on-taking-hit proc dispatcher<br>own `charged`: Cloak of Shadows — Implement spell/skill: Cloak of Shadows; charged-skill casting, targeting, charge ledger and recharge |
-| unique/222 | Corpsemourn | own `gethit-skill`: Iron Maiden — Implement spell/skill: Iron Maiden; on-taking-hit proc dispatcher<br>own `charged`: Corpse Explosion — Implement spell/skill: Corpse Explosion; charged-skill casting, targeting, charge ledger and recharge |
+| unique/222 | Corpsemourn | own `gethit-skill`: Iron Maiden (spell implemented) — on-taking-hit proc dispatcher<br>own `charged`: Corpse Explosion (spell implemented) — charged-skill casting, targeting, charge ledger and recharge |
 | unique/226 | Stormchaser | own `gethit-skill`: Blizzard — Implement spell/skill: Blizzard; on-taking-hit proc dispatcher<br>own `gethit-skill`: Tornado — Implement spell/skill: Tornado; on-taking-hit proc dispatcher |
 | unique/227 | Tiamat's Rebuke | own `gethit-skill`: Frost Nova — Implement spell/skill: Frost Nova; on-taking-hit proc dispatcher<br>own `gethit-skill`: Nova — Implement spell/skill: Nova; on-taking-hit proc dispatcher<br>own `gethit-skill`: Hydra — Implement spell/skill: Hydra; on-taking-hit proc dispatcher |
-| unique/229 | Radament's Sphere | own `gethit-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-taking-hit proc dispatcher<br>own `charged`: Poison Explosion — Implement spell/skill: Poison Explosion; charged-skill casting, targeting, charge ledger and recharge |
+| unique/229 | Radament's Sphere | own `gethit-skill`: Poison Nova (spell implemented) — on-taking-hit proc dispatcher<br>own `charged`: Poison Explosion (spell implemented) — charged-skill casting, targeting, charge ledger and recharge |
 | unique/235 | Lava Gout | own `hit-skill`: Enchant — Implement spell/skill: Enchant; on-hit proc dispatcher |
 | unique/236 | Hellmouth | own `hit-skill`: Meteor — Implement spell/skill: Meteor; on-hit proc dispatcher<br>own `hit-skill`: Firestorm — Implement spell/skill: Firestorm; on-hit proc dispatcher |
 | unique/237 | Infernostride | own `gethit-skill`: Blaze — Implement spell/skill: Blaze; on-taking-hit proc dispatcher |
@@ -85,13 +82,13 @@ Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Te
 | unique/252 | Blackoak Shield | own `gethit-skill`: Weaken — Implement spell/skill: Weaken; on-taking-hit proc dispatcher |
 | unique/254 | Hellslayer | own `att-skill`: Fire Ball — Implement spell/skill: Fire Ball; on-attack proc dispatcher |
 | unique/257 | Schaefer's Hammer | own `hit-skill`: Static Field — Implement spell/skill: Static Field; on-hit proc dispatcher |
-| unique/258 | The Cranium Basher | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher |
+| unique/258 | The Cranium Basher | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher |
 | unique/259 | Lightsabre | own `att-skill`: Chain Lightning — Implement spell/skill: Chain Lightning; on-attack proc dispatcher |
 | unique/260 | Doombringer | own `hit-skill`: Weaken — Implement spell/skill: Weaken; on-hit proc dispatcher |
 | unique/264 | Stormspire | own `gethit-skill`: Chain Lightning — Implement spell/skill: Chain Lightning; on-taking-hit proc dispatcher<br>own `gethit-skill`: Charged Bolt — Implement spell/skill: Charged Bolt; on-taking-hit proc dispatcher |
 | unique/270 | The Rising Sun | own `gethit-skill`: Meteor — Implement spell/skill: Meteor; on-taking-hit proc dispatcher |
-| unique/273 | Atma's Scarab | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher |
-| unique/277 | Saracen's Chance | own `gethit-skill`: Iron Maiden — Implement spell/skill: Iron Maiden; on-taking-hit proc dispatcher |
+| unique/273 | Atma's Scarab | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher |
+| unique/277 | Saracen's Chance | own `gethit-skill`: Iron Maiden (spell implemented) — on-taking-hit proc dispatcher |
 | unique/284 | The Oculus | own `gethit-skill`: Teleport (spell implemented) — on-taking-hit proc dispatcher |
 | unique/289 | Bloodmoon | own `charged`: Blood Golem — Implement spell/skill: Blood Golem; charged-skill casting, targeting, charge ledger and recharge |
 | unique/292 | Warshrike | own `hit-skill`: Nova — Implement spell/skill: Nova; on-hit proc dispatcher |
@@ -102,25 +99,24 @@ Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Te
 | unique/306 | Horizon's Tornado | own `hit-skill`: Tornado — Implement spell/skill: Tornado; on-hit proc dispatcher |
 | unique/310 | Cerebus' Bite | own `skill`: Feral Rage — Implement spell/skill: Feral Rage |
 | unique/312 | Soul Drainer | own `hit-skill`: Weaken — Implement spell/skill: Weaken; on-hit proc dispatcher |
-| unique/315 | Executioner's Justice | own `kill-skill`: Decrepify — Implement spell/skill: Decrepify; on-kill proc dispatcher |
+| unique/315 | Executioner's Justice | own `kill-skill`: Decrepify (spell implemented) — on-kill proc dispatcher |
 | unique/319 | Wisp Projector | own `hit-skill`: Lightning — Implement spell/skill: Lightning; on-hit proc dispatcher<br>own `charged`: Oak Sage — Implement spell/skill: Oak Sage; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Heart of Wolverine — Implement spell/skill: Heart of Wolverine; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Spirit of Barbs — Implement spell/skill: Spirit of Barbs; charged-skill casting, targeting, charge ledger and recharge |
 | unique/320 | Gargoyle's Bite | own `charged`: Plague Javelin — Implement spell/skill: Plague Javelin; charged-skill casting, targeting, charge ledger and recharge |
-| unique/321 | Lacerator | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher |
-| unique/323 | Viperfork | own `hit-skill`: Poison Explosion — Implement spell/skill: Poison Explosion; on-hit proc dispatcher |
-| unique/326 | The Reaper's Toll | own `hit-skill`: Decrepify — Implement spell/skill: Decrepify; on-hit proc dispatcher |
+| unique/321 | Lacerator | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher |
+| unique/323 | Viperfork | own `hit-skill`: Poison Explosion (spell implemented) — on-hit proc dispatcher |
+| unique/326 | The Reaper's Toll | own `hit-skill`: Decrepify (spell implemented) — on-hit proc dispatcher |
 | unique/328 | Hellrack | own `charged`: Immolation Arrow — Implement spell/skill: Immolation Arrow; charged-skill casting, targeting, charge ledger and recharge |
 | unique/331 | Widowmaker | own `magicarrow`: Magic Arrow — Implement spell/skill: Magic Arrow; Inherent magic-arrow attack and projectile delivery<br>own `oskill`: Guided Arrow — Implement spell/skill: Guided Arrow; cross-class skill grants and casting |
 | unique/332 | Blood Raven's Charge | own `explosivearrow`: Exploding Arrow — Implement spell/skill: Exploding Arrow; Inherent exploding-arrow attack and area damage<br>own `charged`: Revive — Implement spell/skill: Revive; charged-skill casting, targeting, charge ledger and recharge |
 | unique/334 | Shadow Killer | own `hit-skill`: Frost Nova — Implement spell/skill: Frost Nova; on-hit proc dispatcher |
 | unique/337 | Windhammer | own `hit-skill`: Twister — Implement spell/skill: Twister; on-hit proc dispatcher |
 | unique/338 | Thunderstroke | own `hit-skill`: Lightning — Implement spell/skill: Lightning; on-hit proc dispatcher<br>own `skill`: Lightning Bolt — Implement spell/skill: Lightning Bolt |
-| unique/341 | Boneflame | own `gethit-skill`: Terror — Implement spell/skill: Terror; on-taking-hit proc dispatcher |
-| unique/345 | Andariel's Visage | own `gethit-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-taking-hit proc dispatcher<br>own `charged`: Venom — Implement spell/skill: Venom; charged-skill casting, targeting, charge ledger and recharge |
+| unique/341 | Boneflame | own `gethit-skill`: Terror (spell implemented) — on-taking-hit proc dispatcher |
+| unique/345 | Andariel's Visage | own `gethit-skill`: Poison Nova (spell implemented) — on-taking-hit proc dispatcher<br>own `charged`: Venom — Implement spell/skill: Venom; charged-skill casting, targeting, charge ledger and recharge |
 | unique/347 | Dragonscale | own `oskill`: Hydra — Implement spell/skill: Hydra; cross-class skill grants and casting |
-| unique/348 | Steel Carapace | own `gethit-skill`: Iron Maiden — Implement spell/skill: Iron Maiden; on-taking-hit proc dispatcher |
+| unique/348 | Steel Carapace | own `gethit-skill`: Iron Maiden (spell implemented) — on-taking-hit proc dispatcher |
 | unique/349 | Medusa's Gaze | own `gethit-skill`: Lower Resist — Implement spell/skill: Lower Resist; on-taking-hit proc dispatcher<br>own `death-skill`: Nova — Implement spell/skill: Nova; on-death proc dispatcher |
 | unique/350 | Ravenlore | own `skill`: Raven — Implement spell/skill: Raven |
-| unique/351 | Boneshade | own `skill`: Bone Armor — Implement spell/skill: Bone Armor<br>own `skill`: Bone Spear — Implement spell/skill: Bone Spear<br>own `skill`: Bone Spirit — Implement spell/skill: Bone Spirit<br>own `skill`: Bone Wall — Implement spell/skill: Bone Wall |
 | unique/353 | Flamebellow | own `hit-skill`: Firestorm — Implement spell/skill: Firestorm; on-hit proc dispatcher<br>own `oskill`: Inferno — Implement spell/skill: Inferno; cross-class skill grants and casting |
 | unique/355 | Wolfhowl | own `oskill`: Werewolf — Implement spell/skill: Werewolf; cross-class skill grants and casting<br>own `charged`: Summon Dire Wolf — Implement spell/skill: Summon Dire Wolf; charged-skill casting, targeting, charge ledger and recharge<br>own `oskill`: Lycanthropy — Implement spell/skill: Lycanthropy; cross-class skill grants and casting<br>own `oskill`: Feral Rage — Implement spell/skill: Feral Rage; cross-class skill grants and casting |
 | unique/356 | Spirit Ward | own `gethit-skill`: Fade — Implement spell/skill: Fade; on-taking-hit proc dispatcher |
@@ -132,26 +128,26 @@ Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Te
 | unique/368 | Firelizard's Talons | own `skill`: Wake of Fire — Implement spell/skill: Wake of Fire<br>own `skill`: Wake of Inferno — Implement spell/skill: Wake of Inferno |
 | unique/370 | Marrowwalk | own `charged`: Bone Prison — Implement spell/skill: Bone Prison; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Life Tap — Implement spell/skill: Life Tap; charged-skill casting, targeting, charge ledger and recharge |
 | unique/373 | Arachnid Mesh | own `charged`: Venom — Implement spell/skill: Venom; charged-skill casting, targeting, charge ledger and recharge |
-| unique/375 | Metalgrid | own `charged`: Iron Golem — Implement spell/skill: Iron Golem; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Iron Maiden — Implement spell/skill: Iron Maiden; charged-skill casting, targeting, charge ledger and recharge |
-| unique/378 | Carrion Wind | own `gethit-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-taking-hit proc dispatcher<br>own `charged`: Poison Creeper — Implement spell/skill: Poison Creeper; charged-skill casting, targeting, charge ledger and recharge<br>own `hit-skill`: Twister — Implement spell/skill: Twister; on-hit proc dispatcher |
+| unique/375 | Metalgrid | own `charged`: Iron Golem — Implement spell/skill: Iron Golem; charged-skill casting, targeting, charge ledger and recharge<br>own `charged`: Iron Maiden (spell implemented) — charged-skill casting, targeting, charge ledger and recharge |
+| unique/378 | Carrion Wind | own `gethit-skill`: Poison Nova (spell implemented) — on-taking-hit proc dispatcher<br>own `charged`: Poison Creeper — Implement spell/skill: Poison Creeper; charged-skill casting, targeting, charge ledger and recharge<br>own `hit-skill`: Twister — Implement spell/skill: Twister; on-hit proc dispatcher |
 | unique/383 | Cranebeak | own `charged`: Raven — Implement spell/skill: Raven; charged-skill casting, targeting, charge ledger and recharge |
 | unique/384 | Nord's Tenderizer | own `charged`: Blizzard — Implement spell/skill: Blizzard; charged-skill casting, targeting, charge ledger and recharge |
 | unique/385 | Earth Shifter | own `hit-skill`: Fissure — Implement spell/skill: Fissure; on-hit proc dispatcher<br>own `charged`: Volcano — Implement spell/skill: Volcano; charged-skill casting, targeting, charge ledger and recharge |
-| unique/387 | Bonehew | own `charged`: Corpse Explosion — Implement spell/skill: Corpse Explosion; charged-skill casting, targeting, charge ledger and recharge<br>own `hit-skill`: Bone Spear — Implement spell/skill: Bone Spear; on-hit proc dispatcher |
+| unique/387 | Bonehew | own `charged`: Corpse Explosion (spell implemented) — charged-skill casting, targeting, charge ledger and recharge<br>own `hit-skill`: Bone Spear (spell implemented) — on-hit proc dispatcher |
 | unique/389 | The Redeemer | own `skill`: Redemption — Implement spell/skill: Redemption<br>own `skill`: Holy Bolt — Implement spell/skill: Holy Bolt |
 | unique/392 | Rainbow Facet | own `death-skill`: Chain Lightning — Implement spell/skill: Chain Lightning; on-death proc dispatcher |
 | unique/393 | Rainbow Facet | own `death-skill`: Blizzard — Implement spell/skill: Blizzard; on-death proc dispatcher |
 | unique/394 | Rainbow Facet | own `death-skill`: Meteor — Implement spell/skill: Meteor; on-death proc dispatcher |
-| unique/395 | Rainbow Facet | own `death-skill`: Poison Nova — Implement spell/skill: Poison Nova; on-death proc dispatcher |
+| unique/395 | Rainbow Facet | own `death-skill`: Poison Nova (spell implemented) — on-death proc dispatcher |
 | unique/396 | Rainbow Facet | own `levelup-skill`: Nova — Implement spell/skill: Nova; on-level-up proc dispatcher |
 | unique/397 | Rainbow Facet | own `levelup-skill`: Frost Nova — Implement spell/skill: Frost Nova; on-level-up proc dispatcher |
 | unique/398 | Rainbow Facet | own `levelup-skill`: Blaze — Implement spell/skill: Blaze; on-level-up proc dispatcher |
 | unique/399 | Rainbow Facet | own `levelup-skill`: Venom — Implement spell/skill: Venom; on-level-up proc dispatcher |
-| unique/408 | Ars Al'Diabolos | own `skilltab` — Warlock skill-tree rank bonuses<br>own `gethit-skill`: Terror — Implement spell/skill: Terror; on-taking-hit proc dispatcher<br>own `skill`: Apocalypse — Implement spell/skill: Apocalypse |
-| unique/409 | Ars Tor'Baalos | own `skilltab` — Warlock skill-tree rank bonuses<br>own `gethit-skill`: Decrepify — Implement spell/skill: Decrepify; on-taking-hit proc dispatcher<br>own `skill`: Demonic Mastery — Implement spell/skill: Demonic Mastery<br>own `skill`: Blood Boil — Implement spell/skill: Blood Boil<br>own `skill`: Engorge — Implement spell/skill: Engorge<br>own `skill`: Consume — Implement spell/skill: Consume |
+| unique/408 | Ars Al'Diabolos | own `skilltab` — Warlock skill-tree rank bonuses<br>own `gethit-skill`: Terror (spell implemented) — on-taking-hit proc dispatcher<br>own `skill`: Apocalypse — Implement spell/skill: Apocalypse |
+| unique/409 | Ars Tor'Baalos | own `skilltab` — Warlock skill-tree rank bonuses<br>own `gethit-skill`: Decrepify (spell implemented) — on-taking-hit proc dispatcher<br>own `skill`: Demonic Mastery — Implement spell/skill: Demonic Mastery<br>own `skill`: Blood Boil — Implement spell/skill: Blood Boil<br>own `skill`: Engorge — Implement spell/skill: Engorge<br>own `skill`: Consume — Implement spell/skill: Consume |
 | unique/410 | Ars Dul'Mephistos | own `war` — Warlock class skill ranks<br>own `gethit-skill`: Blizzard — Implement spell/skill: Blizzard; on-taking-hit proc dispatcher |
 | unique/411 | Measured Wrath | own `war` — Warlock class skill ranks<br>own `gethit-skill`: Ring of Fire — Implement spell/skill: Ring of Fire; on-taking-hit proc dispatcher<br>own `skill`: Summon Tainted — Implement spell/skill: Summon Tainted<br>own `skill`: Ring of Fire — Implement spell/skill: Ring of Fire<br>own `skill`: Flame Wave — Implement spell/skill: Flame Wave |
-| unique/412 | Dreadfang | own `hit-skill`: Amplify Damage — Implement spell/skill: Amplify Damage; on-hit proc dispatcher<br>own `skill`: Mirrored Blades — Implement spell/skill: Mirrored Blades |
+| unique/412 | Dreadfang | own `hit-skill`: Amplify Damage (spell implemented) — on-hit proc dispatcher<br>own `skill`: Mirrored Blades — Implement spell/skill: Mirrored Blades |
 | unique/413 | Wraithstep | own `skilltab` via skilltab-war — Warlock skill-tree rank bonuses<br>own `skilltab` via skilltab-war — Warlock skill-tree rank bonuses |
 | unique/414 | Bloodpact Shard | own `skill`: Blood Oath — Implement spell/skill: Blood Oath<br>own `skill`: Blood Boil — Implement spell/skill: Blood Boil<br>own `skill`: Bind Demon — Implement spell/skill: Bind Demon |
 | unique/415 | Sling | own `oskill`: Town Portal — Implement spell/skill: Town Portal; cross-class skill grants and casting |
@@ -188,7 +184,7 @@ Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Te
 
 | ID | Item | Prerequisite spells/skills and systems |
 | --- | --- | --- |
-| unique/420 | Defender's Bile | own `gethit-skill`: Bone Armor — Implement spell/skill: Bone Armor; on-taking-hit proc dispatcher |
+| unique/420 | Defender's Bile | own `gethit-skill`: Bone Armor (spell implemented) — on-taking-hit proc dispatcher |
 | unique/421 | Guardian's Thunder | own `gethit-skill`: Cyclone Armor — Implement spell/skill: Cyclone Armor; on-taking-hit proc dispatcher |
 | unique/422 | Protector's Frost | own `gethit-skill`: Frozen Armor — Implement spell/skill: Frozen Armor; on-taking-hit proc dispatcher |
 | unique/423 | Defender's Fire | own `gethit-skill`: Blaze — Implement spell/skill: Blaze; on-taking-hit proc dispatcher |

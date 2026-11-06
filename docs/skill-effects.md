@@ -1,5 +1,7 @@
 # Skill effects
 
+**Necromancer item skill grants (2026-11-06 JST).** Four newly available uniques use the existing curse, armor, barrier, poison, corpse and missile effect routes. Their skill-specific effects/audio remain the identified placeholders in this ledger; these grants add no new visual producer or asset identity. See [checkpoint](necromancer-item-skills-checkpoint.md).
+
 **Original individual-skill properties (2026-11-06 JST).** Raw107 storage adds no cast/contact/particle/audio producer. Existing Iron Golem/Revive effects stay identified placeholders; NPC skill activation and graphical acceptance remain separate. See [checkpoint](single-skill-property-checkpoint.md).
 
 **Saved forced ethereality (2026-11-06 JST).** Property23 reuses numeric finishing and adds no cast, contact, particle or audio producer. Existing Iron Golem/Revive effects remain identified placeholders; ethereal item appearance and final shared contact presentation are unverified. See [checkpoint](saved-item-ethereality-checkpoint.md).

@@ -2,7 +2,7 @@
 
 Generated from the real native factory/eligibility fixture. This records staged acquisition eligibility; it does not certify deployment or every gameplay path. Every source definition appears in the runtime audit, and every deferred definition is listed below. Excluded charms remain in the source audit only. Rebuild with `python3 tools/build_named_readiness.py`; verify with `--check`.
 
-Currently eligible: **245 Unique variants and 88 Set pieces**. **196 source-spawnable definitions remain held**; 29 other source records retain their source/quest/recipe restrictions. 15 charm definitions are intentionally excluded, with no implementation or class-return task.
+Currently eligible: **249 Unique variants and 88 Set pieces**. **192 source-spawnable definitions remain held**; 29 other source records retain their source/quest/recipe restrictions. 15 charm definitions are intentionally excluded, with no implementation or class-return task.
 
 Unavailable outcomes keep their original weight: empty drops or refunded gambles, without replacement rolls. A Set stays held until all its pieces and bonuses can work. The [spell/skill prerequisite list](deferred-named-skills.md) gives the exact source skills and delivery systems.
 
@@ -23,7 +23,7 @@ Counts overlap: one item may need several systems. Shared combat, maintenance an
 
 | Workstream | Held definitions | Remaining gates |
 | --- | ---: | --- |
-| Class skills and effect delivery | 168 | Implement each listed skill/effect and its proc, aura, charge or cross-class delivery. A rank bonus alone does not complete these paths. |
+| Class skills and effect delivery | 164 | Implement each listed skill/effect and its proc, aura, charge or cross-class delivery. A rank bonus alone does not complete these paths. |
 | Equipment, sockets and appearance | 21 | Rainbow Facet socket delivery; dual wielding; vampire form; held Warlock/quest gear representations. The item rows identify each dependency. |
 | Source groups, restrictions and unresolved data | 13 | Saved random source-group choices, six quest-only acquisition paths, Warlock prerequisites and unresolved source data. Never invent missing definitions. |
 | Whole-set dependency gate | 47 | These are dependent partner pieces, not separate mechanics. Release the whole set after all pieces and bonuses work. |
@@ -48,7 +48,7 @@ A definition may have several blockers. These include shared item mechanics as w
 | Effect: oskill | 6 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: reanimate | 1 | Implement source monster template, on-kill ownership, AI, lifetime and persistence. |
 | Effect: roguesbow-affix1 | 1 | Resolve the exact pinned property group and all argument ranges/delivery systems; never invent missing Gelid-Affix5. |
-| Effect: skill | 43 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
+| Effect: skill | 39 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: skill-rand | 1 | Persist the selected source skill and rank, then implement every possible skill effect. |
 | Effect: skilltab-war | 1 | Implement the Warlock source tree, bindings and skill consumers. |
 | Effect: war | 3 | Implement the source Warlock class and class skill bonuses. |
@@ -113,8 +113,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | piece/137 | Horazon's Hold | Set effect: oskill; Set effect: war; Set has unavailable pieces |
 | piece/138 | Horazon's Legacy | Set effect: oskill; Set effect: war; Set has unavailable pieces |
 | piece/139 | Horazon's Secrets | No reviewed equipment appearance; Set effect: oskill; Set effect: war; Warlock class is not implemented; Set has unavailable pieces |
-| unique/11 | Maelstrom | Effect: skill |
-| unique/13 | Ume's Lament | Effect: skill |
 | unique/16 | Rusthandle | Effect: skill |
 | unique/17 | Stormeye | Effect: skill |
 | unique/20 | Bloodrise | Effect: skill |
@@ -163,7 +161,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/165 | Cloudcrack | Effect: hit-skill |
 | unique/166 | Todesfaelle Flamme | Effect: att-skill; Effect: charged |
 | unique/169 | Heart Carver | Effect: skill |
-| unique/170 | Blackbog's Sharp | Effect: skill |
 | unique/171 | Stormspike | Effect: gethit-skill |
 | unique/172 | The Impaler | Effect: skill |
 | unique/178 | Blackleach Blade | Effect: hit-skill |
@@ -225,7 +222,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/348 | Steel Carapace | Effect: gethit-skill |
 | unique/349 | Medusa's Gaze | Effect: death-skill; Effect: gethit-skill |
 | unique/350 | Ravenlore | Effect: skill |
-| unique/351 | Boneshade | Effect: skill |
 | unique/353 | Flamebellow | Effect: hit-skill; Effect: oskill |
 | unique/355 | Wolfhowl | Effect: charged; Effect: oskill |
 | unique/356 | Spirit Ward | Effect: gethit-skill |
@@ -400,7 +396,9 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/8 | Brainhew | Unique |
 | unique/9 | Humongous | Unique |
 | unique/10 | Torch of Iro | Unique |
+| unique/11 | Maelstrom | Unique |
 | unique/12 | Gravenspine | Unique |
+| unique/13 | Ume's Lament | Unique |
 | unique/14 | Felloak | Unique |
 | unique/15 | Knell Striker | Unique |
 | unique/18 | Stoutnail | Unique |
@@ -508,6 +506,7 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/162 | Crainte Vomir | Unique |
 | unique/167 | Swordguard | Unique |
 | unique/168 | Spineripper | Unique |
+| unique/170 | Blackbog's Sharp | Unique |
 | unique/173 | Kelpie Snare | Unique |
 | unique/174 | Soulfeast Tine | Unique |
 | unique/175 | Hone Sundan | Unique |
@@ -616,6 +615,7 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/342 | Steel Pillar | Unique |
 | unique/343 | Nightwing's Veil | Unique |
 | unique/344 | Crown of Ages | Unique |
+| unique/351 | Boneshade | Unique |
 | unique/354 | Death's Fathom | Unique |
 | unique/357 | Kira's Guardian | Unique |
 | unique/363 | Spike Thorn | Unique |
