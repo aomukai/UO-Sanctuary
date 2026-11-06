@@ -1,0 +1,99 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "process": {
+    "pid": 694337,
+    "startTicks": 19896864,
+    "name": "Main"
+  },
+  "candidate": {
+    "tableCandidateRva": "0x163aeb0",
+    "slot": 11,
+    "skillId": 41,
+    "candidateRva": "0x43bf70",
+    "fragments": [
+      {
+        "rva": "0x43bf70",
+        "endRva": "0x43c01c",
+        "unwindRva": "0x18668c4"
+      },
+      {
+        "rva": "0x43c01c",
+        "endRva": "0x43c06a",
+        "unwindRva": "0x18668dc"
+      },
+      {
+        "rva": "0x43c06a",
+        "endRva": "0x43c0fe",
+        "unwindRva": "0x18668f0"
+      }
+    ]
+  },
+  "observedPermissions": [
+    {
+      "rva": "0x43bf70",
+      "endRva": "0x43c01c",
+      "mappingCoverageComplete": true,
+      "readableExecutable": false,
+      "regions": [
+        {
+          "rva": "0x43bf70",
+          "endRva": "0x43c000",
+          "permissions": "r-xs"
+        },
+        {
+          "rva": "0x43c000",
+          "endRva": "0x43c01c",
+          "permissions": "---s"
+        }
+      ]
+    },
+    {
+      "rva": "0x43c01c",
+      "endRva": "0x43c06a",
+      "mappingCoverageComplete": true,
+      "readableExecutable": false,
+      "regions": [
+        {
+          "rva": "0x43c01c",
+          "endRva": "0x43c06a",
+          "permissions": "---s"
+        }
+      ]
+    },
+    {
+      "rva": "0x43c06a",
+      "endRva": "0x43c0fe",
+      "mappingCoverageComplete": true,
+      "readableExecutable": false,
+      "regions": [
+        {
+          "rva": "0x43c06a",
+          "endRva": "0x43c0fe",
+          "permissions": "---s"
+        }
+      ]
+    }
+  ],
+  "bytesRead": 0,
+  "processMemoryOpened": false,
+  "processInput": false,
+  "ptraceAttach": false,
+  "protectionsChanged": false,
+  "gameMemoryWritten": false,
+  "processImageVerified": false,
+  "callbackLinkVerified": false,
+  "completeCandidateReadable": false,
+  "inputs": {
+    "tools/observe_inferno_current_context.py": "1efa3d40650451edf0ea8faf293f78745931f96b66d5e21a6223c4e1f0a6a2e8",
+    "tools/reference/inferno-current-reference-preflight.json": "613242aa5ae99846a2a0fdec85ab0bed08ec18cb130b1c613cd2ccc286b81012",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/probe_inferno_current_reference.py": "786f7739374f675cef8a7813b4eada9524df28e4d4e425e6d322fa97e290bae1",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "limits": [
+    "A different owned process justified one fresh permission check;the candidate still spans inaccessible mappings. No memory file was opened and no game input or writes occurred.",
+    "Addresses come from the separately hashed pinned executable. This does not verify in-memory PE identity,dispatcher linkage or Inferno callback semantics.",
+    "Modern accepted-input/payment/reentry chronology remains unresolved. A proposed Sanctuary policy must remain a candidate until explicitly approved."
+  ]
+}

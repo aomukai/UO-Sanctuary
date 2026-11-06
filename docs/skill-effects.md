@@ -1,5 +1,7 @@
 # Skill effects
 
+**Inferno review-only input prototype (2026-11-06):** no new effect or audio producer is introduced. The reused stream keeps identified placeholder 0x36D4/hue 0x489; final channel/contact/expiry/audio remain pending. See [proposal](inferno-held-input-proposal.md).
+
 **NPC item fear reuse (2026-11-06):** stat112/function08 uses the existing identified fear placeholder `0x375A`, hue `0x21`, through the shared Terror controller. Its final visual/audio replacement remains with the existing fear assets; no separate effect identity is added. See [the checkpoint](npc-item-fear-checkpoint.md).
 
 **NPC lightning return placeholder:** stat128 now uses the existing brief native contact marker`0x374A`, hue`0x481`. Final lightning-return contact effect and audio remain missing. This is not a new projectile/travel/radius effect. Mechanical/source/validation scope is in the [checkpoint](npc-lightning-return-checkpoint.md); no imagegen work has been performed.
