@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Leap Attack (2026-11-06 JST).** The playable isolated mechanical route still needs its talent-tree icon and left/right/quick hotkey icons. These remain separate from jump/landing/contact effects and audio. No final icon or imagegen asset was created.
+
 **Leap Attack timing checkpoint (2026-11-06 JST).** Talent and left/right/quick hotkey icons remain pending separately from jump/impact/landing effects. No imagegen or final icon was created by sequence preparation.
 
 

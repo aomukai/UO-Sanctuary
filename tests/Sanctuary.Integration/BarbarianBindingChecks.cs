@@ -43,7 +43,7 @@ public static class BarbarianBindingChecks
             Require(!SkillBindings.MouseAllowed(DiabloClass.Barbarian,left,CombatAbility.FireBolt)&&!SkillBindings.MouseAllowed(DiabloClass.Barbarian,left,(CombatAbility)255),"Foreign/invalid mouse choice admitted");
         }
     }
-    private static bool Deferred(CombatAbility ability)=>ability is CombatAbility.LeapAttack;
+    private static bool Deferred(CombatAbility ability)=>false;
     private static void Migration(PlayerMobile p)
     {
         byte[] original=NecromancerBindingChecks.Encode();int count=0;
@@ -95,7 +95,7 @@ public static class BarbarianBindingChecks
     private static void Check()
     {
         var p=ClassSkillChecks.Player(DiabloClass.Barbarian);p.AddItem(new Server.Items.Backpack());p.Name="BarbarianBindingFixture";Migration(p);Reference(p);Bind(p);History(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,0)));
-        Log.Information("Barbarian bindings:30pinned rows,60mouse checks,direct/passive/quick and one deferred gate,132legacy migrations/idempotence and history;Bash left/Shout right/quick retained");
+        Log.Information("Barbarian bindings:30pinned rows,60mouse checks,direct/passive/quick and no deferred gates,132legacy migrations/idempotence and history;Bash left/Shout right/quick retained");
     }
     private static void Reload()
     {
@@ -103,7 +103,7 @@ public static class BarbarianBindingChecks
         Require(s.Generation<2&&SkillBindings.Instance.Get(p)==(CombatAbility.Bash,CombatAbility.Shout)&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Barbarian,7)==CombatAbility.Shout,"Original saved Barbarian bindings changed");
         Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.Shout),"Reload admitted forbidden left war cry");
         Require(SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Paladin,7)==CombatAbility.BasicAttack,"Reload lost independent inactive history");
-        foreach(var ability in new[]{CombatAbility.LeapAttack})
+        foreach(var ability in Array.Empty<CombatAbility>())
         {Require(!ClassCombat.Available(p,ability)&&!SkillBindings.Instance.AssignQuick(p,0,ability),"Deferred skill became available after reload");}
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1}));
     }

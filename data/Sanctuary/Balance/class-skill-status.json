@@ -1615,10 +1615,10 @@
       "characterClass": "Barbarian",
       "tree": "Combat Skills",
       "sourceId": 143,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Individually deferred: modern do78 landing-nova count/directions/creation/weapon-versus-area order is absent from the older source. Pinned current tables and released2.4 confirm separate weapon-independent physical area,10mana,minimum12 airborne frames,175-percent speed and adjacent-target leaps. Legacy target geometry differs from Leap; a64-ray Shout ring is only a candidate reuse point, not established emission. See barbarian-leap-attack-preflight.json; no substitute knockback or invented area enabled. Continue unaffected Amazon work."
+      "remaining": "Approved circular landing-area identity/order is recorded in leap-attack-landing-decision.json. Learned cast reuses saved Leap flight,reservations,network/deferred-death and source size/collision consumers,with distinct beyond-target/free-cell placement,current SQ14/absolute phase resets,10mana once,175percent velocity and12minimum airborne frames. The source-selected target/GUID fallback feeds separate ordinary post-landing weapon contact,including source knockback and raw hit flag32;area uses shared WarCry physical spell mitigation/block without weapon procs,damage,crit or leech. Optional saved attack payload preserves old Leap JSON;immutable snapshots and disconnect/load settlement prevent replay or second payment. Dedicated coverage is in leap-attack-checkpoint.md. Exact current rate/start41/do78/target/gear and delayed-death area parity,terrain/room/subtile mapping,unclassified recipients,PvP and rendered client remain explicit limits. All30Barbarian handlers are implementation coverage,not class completion. Final arc/area/impact/audio and talent/hotkey icons remain separate placeholders."
     },
     {
       "talentId": "barbarian.concentrate",

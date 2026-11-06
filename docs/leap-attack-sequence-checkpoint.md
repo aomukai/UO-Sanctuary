@@ -1,6 +1,6 @@
 # Leap Attack sequence and absolute phase reset
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. The user approved the separate [circular landing hit and landing-before-weapon order](leap-attack-landing-proposal.md); the [exact answer](../tools/reference/leap-attack-landing-decision.json) is saved. Do not ask for that decision again. It has not yet been integrated into a learned cast.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. The user approved the separate [circular landing hit and landing-before-weapon order](leap-attack-landing-proposal.md); the [exact answer](../tools/reference/leap-attack-landing-decision.json) is saved. Do not ask for that decision again. It is now integrated in the [later learned-cast checkpoint](leap-attack-checkpoint.md); this page retains the earlier sequence-only evidence.
 
 Read-only inspection of the pinned executable now exports SQ14 through the existing player-sequence reader, retaining its **322 classic descriptor/row comparisons**. There are fourteen weapon descriptors: twelve active profiles of 22, 25, 27 or 28 points, plus explicitly empty BOW/XBW profiles. All retain raw auxiliary 256. Active profiles have action markers at points 5 and 11 and a weapon-dependent contact at 16, 17 or 18. The rows change from SPECIAL1 to ATTACK1 after point 14. These are file data, not a chosen real attack rate or proof of the modern flight/landing body.
 

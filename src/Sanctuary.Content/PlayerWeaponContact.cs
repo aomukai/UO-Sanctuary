@@ -10,7 +10,7 @@ namespace Sanctuary;
 // A player actor consumer of the existing ordered source-to-NPC pipeline.
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
-    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0);
+    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0);
 
 internal static class PlayerWeaponContact
 {
@@ -179,7 +179,7 @@ internal static class PlayerWeaponContact
         var packet=new PreparedMonsterDamagePacket(NamedElements.To256(parts.Physical),impact.LifeDamage256??NamedElements.To256(parts.Total),impact.SourceStunFrames,
             prepared.ColdFrames,prepared.Flags,HitClass:(prepared.Flags&1)!=0?prepared.HitClass:0,
             Magic256:NamedElements.To256(parts.Magic),Fire256:NamedElements.To256(parts.Fire),Lightning256:NamedElements.To256(parts.Lightning),
-            Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256);
+            Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
         var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
         var recipient=new PreparedMonsterRecipient(target is EncounterCreature e&&(e.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique||prepared.Smite&&e.Grade==EncounterGrade.Champion),

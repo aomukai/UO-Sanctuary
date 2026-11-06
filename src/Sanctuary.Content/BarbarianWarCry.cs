@@ -25,13 +25,21 @@ public static class BarbarianWarCry
     }
     internal static bool Hit(PlayerMobile owner,Mobile target,ShoutRay ray)
     {
+        if(ray.MinDamage256 is not{} min||ray.MaxDamage256 is not{} max){return false;}
+        return PhysicalHit(owner,target,min,max,Roll,creature=>
+            CombatStuns.Apply(creature,(int)SkillMechanics.Values(owner,CombatAbility.WarCry,ray.Rank).Eval("calc4"),ray.NextUtc));
+    }
+    // Shared weapon-independent physical spell path; optional control occurs
+    // after block/absorption and before health,retaining War Cry's event order.
+    internal static bool PhysicalHit(PlayerMobile owner,Mobile target,int min,int max,Func<int,int> roll,Action<BaseCreature> beforeHealth=null)
+    {
         // PvP, unmapped monsters and nonzero passive dodge/weapon-block adapters
         // remain acceptance work; do not infer them from native UO armor.
         if(target is not BaseCreature creature || !ClassCombat.IsHostile(owner,target) || !owner.InLOS(target)
-            || !SpellHelper.CheckTown(target.Location,owner) || ray.MinDamage256 is not{} min || ray.MaxDamage256 is not{} max
+            || !SpellHelper.CheckTown(target.Location,owner)
             || !(BarbarianBattleCry.Supported(target) || target is EncounterCreature)
             || !SourceBlocking.TryRate(creature,out _,out _)){return false;}
-        int damage=DamageRoll(min,max,max>min?Roll(max-min):0);
+        int damage=DamageRoll(min,max,max>min?roll(max-min):0);
         owner.DoHarmful(target,true);
         if(!SourceBlocking.TryBlock(creature,damage!=0,out bool blocked) || blocked){return false;}
         // Reuse prepared mitigation/FP health; SrcDam0 supplies no weapon/ED,
@@ -40,7 +48,7 @@ public static class BarbarianWarCry
         var parts=SkillCombat.MitigatePrepared(owner,target,new(damage/256.0,0,0,0,0));
         // ExecuteEvents reaches stun even when physical resistance removes all
         // damage. A blocked hit never enters that event path.
-        CombatStuns.Apply(creature,(int)SkillMechanics.Values(owner,CombatAbility.WarCry,ray.Rank).Eval("calc4"),ray.NextUtc);
+        beforeHealth?.Invoke(creature);
         int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
         CreatureHitRecovery.Apply(creature,owner,loss);
         return true;

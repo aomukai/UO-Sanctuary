@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Learned Leap Attack (2026-11-06 JST).** The [approved landing rule](leap-attack-landing-proposal.md) now binds shared saved flight/reservations, distinct destination search, ten-mana payment, pinned 175% speed/minimum twelve airborne frames, SQ14 takeoff/check/absolute landing events and ordinary weapon contact. Area hits use shared physical-spell mitigation/block/dodge without weapon procs or stun; the separate later strike retains ordinary accuracy/damage/events. Actual input and original saved phases pass dedicated checks alongside ordinary Leap/War Cry. See [checkpoint](leap-attack-checkpoint.md) for the exact source/adaptation/native boundaries. **202 handlers; Barbarian30; no class complete or modern executable parity claim.**
+
 **Approved Leap Attack landing rule (2026-11-06 JST).** One circular, weapon-independent physical hit per eligible enemy on landing within the pinned seven-source-subtile radius (4.6 tooltip yards), then the separate weapon strike at its post-landing sequence contact. The area uses pinned damage/hard Leap synergy and shared physical spell mitigation/block/dodge, without weapon damage/critical/leech/on-strike effects. This explicitly replaces unresolved server wave travel/overlap and ordering; see [exact decision](../tools/reference/leap-attack-landing-decision.json) and [integration status](leap-attack-sequence-checkpoint.md). Static SQ14 and supplied-rate old-engine scheduling evidence do not certify modern flight/rate/target behavior.
 
 

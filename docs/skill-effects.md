@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Leap Attack (2026-11-06 JST).** Mechanics now emit the approved circular landing hit and separate later weapon contact. Final jump/arc, landing-area presentation, weapon impact and audio are still missing; existing native cast pose/sound are identified placeholders. Neither an invisible final wave asset nor an icon is implied by mechanical completion. See [checkpoint](leap-attack-checkpoint.md).
+
 **Leap Attack timing checkpoint (2026-11-06 JST).** Current SQ14 distinguishes jump poses and the later weapon contact. Its approved circular landing area still needs final jump/arc, landing-wave, weapon impact and audio presentation. Timing preparation supplies no final effect asset; keep these distinct from ordinary Leap knockback. See [checkpoint](leap-attack-sequence-checkpoint.md).
 
 

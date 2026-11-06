@@ -51,7 +51,7 @@ public static class LeapAttackSequenceChecks
             var row=PlayerWeaponSequences.Profile(14,code);row.Rows[5][4]=0;
             Require(PlayerWeaponSequences.Profile(14,code).Rows[5][4]==1,"SQ14 caller changed shared data");
         }
-        Require(initial==1620&&absolute==1080&&!BarbarianCombat.Implemented(CombatAbility.LeapAttack),"Incomplete SQ14 matrix or learned route silently enabled");
+        Require(initial==1620&&absolute==1080&&BarbarianCombat.Implemented(CombatAbility.LeapAttack),"Incomplete SQ14 matrix or learned route silently enabled");
         Log.Information("Leap Attack SQ14:1620initial and1080absolute phase-reset source comparisons,12active/2empty profiles,three action markers,ordinal/fraction/unrelated-event retention and immutable rows pass;actual flight/rate/landing wave and learned route remain separate");
     }
 }

@@ -1,6 +1,6 @@
 # Barbarian class roadmap checkpoint
 
-**Current follow-up (2026-11-06 JST):** [Grim Ward](grim-ward-actor-checkpoint.md) now has the learned paid cast, approved captured context and saved totem lifecycle. Barbarian has **29/30 handlers**, with Leap Attack still missing. Dedicated checks retain source/native limitations; this is not class completion.
+**Current follow-up (2026-11-06 JST):** [Leap Attack](leap-attack-checkpoint.md) now has the approved landing area, separate weapon contact and shared saved flight. **Barbarian30/30 handlers; 202/240 total.** Focused48/retained317 markers pass with two reloads, ordinary Leap/War Cry and real input. No class is certified complete; exact modern, terrain, gear/PvP/client and asset acceptance remains. The earlier rows below describe historical gaps; use the linked current checkpoints for resolved adaptations.
 
 
 Shared input/save-policy follow-up: [Barbarian bindings](barbarian-binding-checkpoint.md) now uses the pinned class mouse flags, preserves valid and independent quick/history selections, and leaves all four deferred actions unavailable. Four-class regression passes three boots/two reloads. No class certification.
@@ -11,7 +11,7 @@ Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations
 | --- | --- | --- |
 | Double Swing | Pending; selected-hand, stat and transactional dual-weapon equip/primary-identity foundations exist. | Modern start68, SQ11 hand/target transitions and payment/eligibility; older start68 is null. Old do70 is not a substitute for that start. |
 | Frenzy | Pending; current fields and older do9/charge bodies are reviewed. | Modern start67, first-hit flag/charge initialization, prepared damage and payment cadence; older start67 is null. |
-| Leap Attack | Pending; source table and released modern leap/nova rules are recorded. | Modern do78 landing nova count, directions, creation phase and weapon/area order, plus changed adjacent/ground targeting. Do not replace it with Leap knockback or invent a Shout ring. |
+| Leap Attack | Learned route; approved circular landing hit then SQ14 weapon contact, shared paid saved flight. | Exact modern rate/target/callback parity, terrain/zero-distance/dead-owner/gear/PvP/client acceptance and final assets remain. See [checkpoint](leap-attack-checkpoint.md). |
 | Grim Ward | Blocked individually; placement, corpse/body and elapsed-pulse foundations exist. | Modern body-missile formula context, owner hard-Find-Potion synergy and fear creator/target context. Do not silently use caster-centered Howl, zero synergy or assumed owner values. |
 
 Use the existing preflights: `barbarian-double-swing-preflight.json`, `barbarian-frenzy-preflight.json`, `barbarian-leap-attack-preflight.json` and the Grim Ward lifecycle records. They preserve reviewed bodies and explicit missing boundaries. The verified dual-equip foundation includes ordinary/named pairs, transactional rollback, real lift/equip packets, reverse presentation layers and saved primary identity; reuse it rather than rebuilding a dual-wield system.

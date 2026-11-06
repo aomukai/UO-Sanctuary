@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f54b35a19462cf2cee9ece68a2def214655efd4c4179cf32dd3e58f0a2ecabac",
+  "ContentAssemblySha256": "9a4cae11f9111355af1d275dbd0385aa99a94266120f79c06cf0134f512ef354",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "a52b561230d22f63059c818c9cc8794fb149e6ac3c384265ef66d37f5f9baced",
+    "data/Sanctuary/Balance/class-skill-status.json": "24bee7dafe88d5d4f7eccc95f867a9bb74a0da2b124f2646ef337ea4e889747f",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -285,7 +285,7 @@
     "shared/StatProtocol.cs": "ce1aeef635fb8699814cd28e5a380f90d476e6f0fbdf5af84c67b217454a0292",
     "shared/TitleProtocol.cs": "a979934452eef58e096dc42a733e4b4d271faa07a6ff173cae893a2bca04db31",
     "shared/TradeSkills.cs": "0ea60a64ee1448a704091df109727f8e83bf3e2d266ae2fc098c896e19232abe",
-    "src/Sanctuary.Content/ActionTiming.cs": "312a714de864d772ad476e55033cd6d4f25e0d628531f830a6df3708260494c9",
+    "src/Sanctuary.Content/ActionTiming.cs": "e3a14f04f181d8071a3554c707ece3cf28890a1952719f2271b571a1d2646ade",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/AlchemyGump.cs": "799f2ff47e4e02aeef16221fdc6d12aa786cdbce18d2fe95f5f3092b5ea05ea3",
     "src/Sanctuary.Content/AlchemyRestoratives.cs": "47b987dac4173c72beb247503ee19cc0bf425cbcf6b9a60e56c496d102d49fb1",
@@ -345,7 +345,7 @@
     "src/Sanctuary.Content/BarbarianBattleCry.cs": "635e66665af02e4df9213199f8cf0d748a851747463a6fdc8cc1ffc192053e13",
     "src/Sanctuary.Content/BarbarianBerserk.cs": "20eaa5d7bcd33085806a9d17c7c641069250e773773d7bc692cdb8d5a3759079",
     "src/Sanctuary.Content/BarbarianCastClock.cs": "8dbbd044e1c0e7e92724a722ffab4b513c35db2ede659dc71108fb5435b2d290",
-    "src/Sanctuary.Content/BarbarianCombat.cs": "cae7177d2b691688838f910dae6af9a39cd4455be6824a3d6824db4722af17a4",
+    "src/Sanctuary.Content/BarbarianCombat.cs": "0a9d03c6e622330b2f2b01762dfae8c1cd6ef154e5f424cba3aa4123c55b43c7",
     "src/Sanctuary.Content/BarbarianConcentrate.cs": "221900ade9644fb7fd03cc56315e5f12551be04fefc1731f47dffdbe0befe470",
     "src/Sanctuary.Content/BarbarianDoubleSwing.cs": "1e8933776f8bf6023deef14c94101197822a4d4db4ea8c8a51ff1216ce1190d6",
     "src/Sanctuary.Content/BarbarianDoubleSwingPhase.cs": "bfe7093450b46f7e324f84708b47522fb8e8fac6f28257e01339dd521403c68d",
@@ -357,14 +357,15 @@
     "src/Sanctuary.Content/BarbarianFrenzyRelease.cs": "e6f4331202b84c3c00086c83842e8698b78496b709181af5457d5fc89014fe7e",
     "src/Sanctuary.Content/BarbarianGrimWard.cs": "f4b8744822142eaf9144b31bac428a06120be0fbe85da9aa3d4e73eb58a07a4f",
     "src/Sanctuary.Content/BarbarianHowl.cs": "96626661b34829545491cfc839e67d0e16b8ac0fe4aa447226318bf7a060512d",
-    "src/Sanctuary.Content/BarbarianLeap.cs": "9e5390a7504c93f19a970cf2829e6b9eecee0f64a2f8d78c359014f7a943ce3d",
+    "src/Sanctuary.Content/BarbarianLeap.cs": "4057d5e86d055c5ddbb1b8dd2520b6377c411398c824726e6499e41c60667a95",
+    "src/Sanctuary.Content/BarbarianLeapAttack.cs": "5feee3acb17d8eb13e8f2caca035d0498d6071a15e0c7926990c70c94583d0cd",
     "src/Sanctuary.Content/BarbarianMasteries.cs": "5838d760f97c5a97b49f569a79399cc36fabb3dd189acce77d38f7ff300facc6",
     "src/Sanctuary.Content/BarbarianMelee.cs": "6ff1841bfeb79607ccaa93e0c2e30f6462e7ad68d31b749ba8ae057923ab419e",
     "src/Sanctuary.Content/BarbarianPairedMelee.cs": "48fdcbba8ca126ebf7c3917fb7315f7d69e123b9481db16ef444d866ccc9521e",
     "src/Sanctuary.Content/BarbarianShout.cs": "5180e7d04c9d88b3b46c5a28f02d358ed11526db559fff1e2fac7db44493d43f",
     "src/Sanctuary.Content/BarbarianTaunt.cs": "f4a0c577156695062364de936f9160a6354be159ba6ddfb418eb7f183fa7be8e",
     "src/Sanctuary.Content/BarbarianThrowing.cs": "b15d481cebdf30b578a325e908fdae7e148468faff5fa82fc7e07a40c5ff9db4",
-    "src/Sanctuary.Content/BarbarianWarCry.cs": "92f2edf2d6c9c8fb2d54f40b5eb8fe2c079a1e4a3998d90d7854e3c39e5657dc",
+    "src/Sanctuary.Content/BarbarianWarCry.cs": "74e5171d83eac0f17e1dd1850b9fce11457778121a15eae71cebbcf16c22a5ac",
     "src/Sanctuary.Content/BarbarianWhirlwind.cs": "8ab5df0a7d445f793c9b1c15002ed771d0976dc17d3216fbfd2c63df763893b7",
     "src/Sanctuary.Content/BasicMissileUpdate.cs": "e4a9646715853aad9685d8df10ece84dc6b2133a2e57f3819944bd9709938705",
     "src/Sanctuary.Content/BattleCommand.cs": "5af9375ea7a14164e7bf20ce7bff63a5a17db401289811ceb06b09748beac3a6",
@@ -905,7 +906,7 @@
     "src/Sanctuary.Content/PlayerInfernoSequence.cs": "c066bc4813b79ba752003408242721b2dae0274f3f9aafb3a83571feaa5f2e52",
     "src/Sanctuary.Content/PlayerMeleeGeometry.cs": "d1bc83c4877dc1dbeeb495eb49a26d7eeb5785e9d2c0641de14b20c4f0eceac9",
     "src/Sanctuary.Content/PlayerMeleeReturn.cs": "e26ce78ce7e8c15a7029d7cf5ae642329f4346602237ad8458d80420ca2120a1",
-    "src/Sanctuary.Content/PlayerWeaponContact.cs": "21f765b238dcde917403e2c7d52fddc84f0db5a51fd128a75c93bac29b4ec7a2",
+    "src/Sanctuary.Content/PlayerWeaponContact.cs": "431f58e8c63975e53b53833946d5995303855e1c2bdbea70e0da07d893702296",
     "src/Sanctuary.Content/PlayerWeaponSequences.cs": "0b1c9f6741bceb4cee2faeae0b94188378a2b2212f90a2150c8193b530fbb307",
     "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
     "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5138ab46ea33d0f529b72e18664b9677c4cbbde8562d3a8ef9b662e599d891c7",
@@ -1244,7 +1245,7 @@
     },
     {
       "Id": "unique/13",
-      "Name": "Ume's Lament",
+      "Name": "Ume\u0027s Lament",
       "Rarity": "Unique",
       "BaseCode": "gwn",
       "SetId": null,
@@ -1330,7 +1331,7 @@
     },
     {
       "Id": "unique/21",
-      "Name": "The General's Tan Do Li Ga",
+      "Name": "The General\u0027s Tan Do Li Ga",
       "Rarity": "Unique",
       "BaseCode": "fla",
       "SetId": null,
@@ -1370,7 +1371,7 @@
     },
     {
       "Id": "unique/25",
-      "Name": "Rixot's Keen",
+      "Name": "Rixot\u0027s Keen",
       "Rarity": "Unique",
       "BaseCode": "ssd",
       "SetId": null,
@@ -1422,7 +1423,7 @@
     },
     {
       "Id": "unique/30",
-      "Name": "Griswold's Edge",
+      "Name": "Griswold\u0027s Edge",
       "Rarity": "Unique",
       "BaseCode": "bsd",
       "SetId": null,
@@ -1442,7 +1443,7 @@
     },
     {
       "Id": "unique/32",
-      "Name": "Culwen's Point",
+      "Name": "Culwen\u0027s Point",
       "Rarity": "Unique",
       "BaseCode": "wsd",
       "SetId": null,
@@ -1472,7 +1473,7 @@
     },
     {
       "Id": "unique/35",
-      "Name": "Kinemil's Awl",
+      "Name": "Kinemil\u0027s Awl",
       "Rarity": "Unique",
       "BaseCode": "gis",
       "SetId": null,
@@ -1604,7 +1605,7 @@
     },
     {
       "Id": "unique/48",
-      "Name": "Dimoak's Hew",
+      "Name": "Dimoak\u0027s Hew",
       "Rarity": "Unique",
       "BaseCode": "bar",
       "SetId": null,
@@ -1756,7 +1757,7 @@
     },
     {
       "Id": "unique/62",
-      "Name": "Rogue's Bow",
+      "Name": "Rogue\u0027s Bow",
       "Rarity": "Unique",
       "BaseCode": "cbw",
       "SetId": null,
@@ -1854,7 +1855,7 @@
     },
     {
       "Id": "unique/71",
-      "Name": "Biggin's Bonnet",
+      "Name": "Biggin\u0027s Bonnet",
       "Rarity": "Unique",
       "BaseCode": "cap",
       "SetId": null,
@@ -1944,7 +1945,7 @@
     },
     {
       "Id": "unique/80",
-      "Name": "Blinkbat's Form",
+      "Name": "Blinkbat\u0027s Form",
       "Rarity": "Unique",
       "BaseCode": "lea",
       "SetId": null,
@@ -2427,7 +2428,7 @@
     },
     {
       "Id": "unique/127",
-      "Name": "Khalim's Flail",
+      "Name": "Khalim\u0027s Flail",
       "Rarity": "Unique",
       "BaseCode": "qf1",
       "SetId": null,
@@ -2439,7 +2440,7 @@
     },
     {
       "Id": "unique/128",
-      "Name": "Khalim's Will",
+      "Name": "Khalim\u0027s Will",
       "Rarity": "Unique",
       "BaseCode": "qf2",
       "SetId": null,
@@ -2464,7 +2465,7 @@
     },
     {
       "Id": "unique/130",
-      "Name": "Butcher's Pupil",
+      "Name": "Butcher\u0027s Pupil",
       "Rarity": "Unique",
       "BaseCode": "9ax",
       "SetId": null,
@@ -2486,7 +2487,7 @@
     },
     {
       "Id": "unique/132",
-      "Name": "Pompeii's Wrath",
+      "Name": "Pompeii\u0027s Wrath",
       "Rarity": "Unique",
       "BaseCode": "9mp",
       "SetId": null,
@@ -2510,7 +2511,7 @@
     },
     {
       "Id": "unique/134",
-      "Name": "Warlord's Trust",
+      "Name": "Warlord\u0027s Trust",
       "Rarity": "Unique",
       "BaseCode": "9la",
       "SetId": null,
@@ -2623,7 +2624,7 @@
     },
     {
       "Id": "unique/144",
-      "Name": "Zakarum's Hand",
+      "Name": "Zakarum\u0027s Hand",
       "Rarity": "Unique",
       "BaseCode": "9sc",
       "SetId": null,
@@ -2696,7 +2697,7 @@
     },
     {
       "Id": "unique/150",
-      "Name": "Baezil's Vortex",
+      "Name": "Baezil\u0027s Vortex",
       "Rarity": "Unique",
       "BaseCode": "9fl",
       "SetId": null,
@@ -2791,7 +2792,7 @@
     },
     {
       "Id": "unique/158",
-      "Name": "Ginther's Rift",
+      "Name": "Ginther\u0027s Rift",
       "Rarity": "Unique",
       "BaseCode": "9cr",
       "SetId": null,
@@ -2925,7 +2926,7 @@
     },
     {
       "Id": "unique/170",
-      "Name": "Blackbog's Sharp",
+      "Name": "Blackbog\u0027s Sharp",
       "Rarity": "Unique",
       "BaseCode": "9kr",
       "SetId": null,
@@ -3021,7 +3022,7 @@
     },
     {
       "Id": "unique/179",
-      "Name": "Athena's Wrath",
+      "Name": "Athena\u0027s Wrath",
       "Rarity": "Unique",
       "BaseCode": "9s8",
       "SetId": null,
@@ -3051,7 +3052,7 @@
     },
     {
       "Id": "unique/182",
-      "Name": "Grim's Burning Dead",
+      "Name": "Grim\u0027s Burning Dead",
       "Rarity": "Unique",
       "BaseCode": "9wc",
       "SetId": null,
@@ -3317,7 +3318,7 @@
     },
     {
       "Id": "unique/207",
-      "Name": "Blackhorn's Face",
+      "Name": "Blackhorn\u0027s Face",
       "Rarity": "Unique",
       "BaseCode": "xsk",
       "SetId": null,
@@ -3407,7 +3408,7 @@
     },
     {
       "Id": "unique/216",
-      "Name": "Duriel's Shell",
+      "Name": "Duriel\u0027s Shell",
       "Rarity": "Unique",
       "BaseCode": "xrs",
       "SetId": null,
@@ -3417,7 +3418,7 @@
     },
     {
       "Id": "unique/217",
-      "Name": "Skullder's Ire",
+      "Name": "Skullder\u0027s Ire",
       "Rarity": "Unique",
       "BaseCode": "xpl",
       "SetId": null,
@@ -3447,7 +3448,7 @@
     },
     {
       "Id": "unique/220",
-      "Name": "Atma's Wail",
+      "Name": "Atma\u0027s Wail",
       "Rarity": "Unique",
       "BaseCode": "xth",
       "SetId": null,
@@ -3480,7 +3481,7 @@
     },
     {
       "Id": "unique/223",
-      "Name": "Que-Hegan's Wisdom",
+      "Name": "Que-Hegan\u0027s Wisdom",
       "Rarity": "Unique",
       "BaseCode": "xtp",
       "SetId": null,
@@ -3500,7 +3501,7 @@
     },
     {
       "Id": "unique/225",
-      "Name": "Moser's Blessed Circle",
+      "Name": "Moser\u0027s Blessed Circle",
       "Rarity": "Unique",
       "BaseCode": "xml",
       "SetId": null,
@@ -3522,7 +3523,7 @@
     },
     {
       "Id": "unique/227",
-      "Name": "Tiamat's Rebuke",
+      "Name": "Tiamat\u0027s Rebuke",
       "Rarity": "Unique",
       "BaseCode": "xit",
       "SetId": null,
@@ -3534,7 +3535,7 @@
     },
     {
       "Id": "unique/228",
-      "Name": "Gerke's Sanctuary",
+      "Name": "Gerke\u0027s Sanctuary",
       "Rarity": "Unique",
       "BaseCode": "xow",
       "SetId": null,
@@ -3544,7 +3545,7 @@
     },
     {
       "Id": "unique/229",
-      "Name": "Radament's Sphere",
+      "Name": "Radament\u0027s Sphere",
       "Rarity": "Unique",
       "BaseCode": "xts",
       "SetId": null,
@@ -3703,7 +3704,7 @@
     },
     {
       "Id": "unique/244",
-      "Name": "Gloom's Trap",
+      "Name": "Gloom\u0027s Trap",
       "Rarity": "Unique",
       "BaseCode": "zmb",
       "SetId": null,
@@ -3726,7 +3727,7 @@
     },
     {
       "Id": "unique/246",
-      "Name": "Thundergod's Vigor",
+      "Name": "Thundergod\u0027s Vigor",
       "Rarity": "Unique",
       "BaseCode": "zhb",
       "SetId": null,
@@ -3759,7 +3760,7 @@
     },
     {
       "Id": "unique/250",
-      "Name": "The Gladiator's Bane",
+      "Name": "The Gladiator\u0027s Bane",
       "Rarity": "Unique",
       "BaseCode": "utu",
       "SetId": null,
@@ -3769,7 +3770,7 @@
     },
     {
       "Id": "unique/251",
-      "Name": "Arkaine's Valor",
+      "Name": "Arkaine\u0027s Valor",
       "Rarity": "Unique",
       "BaseCode": "upl",
       "SetId": null,
@@ -3813,7 +3814,7 @@
     },
     {
       "Id": "unique/255",
-      "Name": "Messerschmidt's Reaver",
+      "Name": "Messerschmidt\u0027s Reaver",
       "Rarity": "Unique",
       "BaseCode": "7ga",
       "SetId": null,
@@ -3823,7 +3824,7 @@
     },
     {
       "Id": "unique/256",
-      "Name": "Baranar's Star",
+      "Name": "Baranar\u0027s Star",
       "Rarity": "Unique",
       "BaseCode": "7mt",
       "SetId": null,
@@ -3833,7 +3834,7 @@
     },
     {
       "Id": "unique/257",
-      "Name": "Schaefer's Hammer",
+      "Name": "Schaefer\u0027s Hammer",
       "Rarity": "Unique",
       "BaseCode": "7wh",
       "SetId": null,
@@ -3945,7 +3946,7 @@
     },
     {
       "Id": "unique/268",
-      "Name": "Bul-Kathos' Wedding Band",
+      "Name": "Bul-Kathos\u0027 Wedding Band",
       "Rarity": "Unique",
       "BaseCode": "rin",
       "SetId": null,
@@ -3955,7 +3956,7 @@
     },
     {
       "Id": "unique/269",
-      "Name": "The Cat's Eye",
+      "Name": "The Cat\u0027s Eye",
       "Rarity": "Unique",
       "BaseCode": "amu",
       "SetId": null,
@@ -3987,7 +3988,7 @@
     },
     {
       "Id": "unique/272",
-      "Name": "Mara's Kaleidoscope",
+      "Name": "Mara\u0027s Kaleidoscope",
       "Rarity": "Unique",
       "BaseCode": "amu",
       "SetId": null,
@@ -3997,7 +3998,7 @@
     },
     {
       "Id": "unique/273",
-      "Name": "Atma's Scarab",
+      "Name": "Atma\u0027s Scarab",
       "Rarity": "Unique",
       "BaseCode": "amu",
       "SetId": null,
@@ -4029,7 +4030,7 @@
     },
     {
       "Id": "unique/276",
-      "Name": "Highlord's Wrath",
+      "Name": "Highlord\u0027s Wrath",
       "Rarity": "Unique",
       "BaseCode": "amu",
       "SetId": null,
@@ -4039,7 +4040,7 @@
     },
     {
       "Id": "unique/277",
-      "Name": "Saracen's Chance",
+      "Name": "Saracen\u0027s Chance",
       "Rarity": "Unique",
       "BaseCode": "amu",
       "SetId": null,
@@ -4051,7 +4052,7 @@
     },
     {
       "Id": "unique/279",
-      "Name": "Arreat's Face",
+      "Name": "Arreat\u0027s Face",
       "Rarity": "Unique",
       "BaseCode": "baa",
       "SetId": null,
@@ -4071,7 +4072,7 @@
     },
     {
       "Id": "unique/281",
-      "Name": "Titan's Revenge",
+      "Name": "Titan\u0027s Revenge",
       "Rarity": "Unique",
       "BaseCode": "ama",
       "SetId": null,
@@ -4081,7 +4082,7 @@
     },
     {
       "Id": "unique/282",
-      "Name": "Lycander's Aim",
+      "Name": "Lycander\u0027s Aim",
       "Rarity": "Unique",
       "BaseCode": "am7",
       "SetId": null,
@@ -4091,7 +4092,7 @@
     },
     {
       "Id": "unique/283",
-      "Name": "Lycander's Flank",
+      "Name": "Lycander\u0027s Flank",
       "Rarity": "Unique",
       "BaseCode": "am9",
       "SetId": null,
@@ -4123,7 +4124,7 @@
     },
     {
       "Id": "unique/286",
-      "Name": "Bartuc's Cut-Throat",
+      "Name": "Bartuc\u0027s Cut-Throat",
       "Rarity": "Unique",
       "BaseCode": "9tw",
       "SetId": null,
@@ -4133,7 +4134,7 @@
     },
     {
       "Id": "unique/287",
-      "Name": "Jalal's Mane",
+      "Name": "Jalal\u0027s Mane",
       "Rarity": "Unique",
       "BaseCode": "dra",
       "SetId": null,
@@ -4207,7 +4208,7 @@
     },
     {
       "Id": "unique/294",
-      "Name": "Razor's Edge",
+      "Name": "Razor\u0027s Edge",
       "Rarity": "Unique",
       "BaseCode": "7ha",
       "SetId": null,
@@ -4264,7 +4265,7 @@
     },
     {
       "Id": "unique/299",
-      "Name": "Death's Web",
+      "Name": "Death\u0027s Web",
       "Rarity": "Unique",
       "BaseCode": "7gw",
       "SetId": null,
@@ -4274,7 +4275,7 @@
     },
     {
       "Id": "unique/300",
-      "Name": "Nature's Peace",
+      "Name": "Nature\u0027s Peace",
       "Rarity": "Unique",
       "BaseCode": "rin",
       "SetId": null,
@@ -4298,7 +4299,7 @@
     },
     {
       "Id": "unique/302",
-      "Name": "Seraph's Hymn",
+      "Name": "Seraph\u0027s Hymn",
       "Rarity": "Unique",
       "BaseCode": "amu",
       "SetId": null,
@@ -4308,7 +4309,7 @@
     },
     {
       "Id": "unique/303",
-      "Name": "Zakarum's Salvation",
+      "Name": "Zakarum\u0027s Salvation",
       "Rarity": "Unique",
       "BaseCode": null,
       "SetId": null,
@@ -4344,7 +4345,7 @@
     },
     {
       "Id": "unique/306",
-      "Name": "Horizon's Tornado",
+      "Name": "Horizon\u0027s Tornado",
       "Rarity": "Unique",
       "BaseCode": "7fl",
       "SetId": null,
@@ -4386,7 +4387,7 @@
     },
     {
       "Id": "unique/310",
-      "Name": "Cerebus' Bite",
+      "Name": "Cerebus\u0027 Bite",
       "Rarity": "Unique",
       "BaseCode": "drb",
       "SetId": null,
@@ -4398,7 +4399,7 @@
     },
     {
       "Id": "unique/311",
-      "Name": "Tyrael's Might",
+      "Name": "Tyrael\u0027s Might",
       "Rarity": "Unique",
       "BaseCode": "uar",
       "SetId": null,
@@ -4440,7 +4441,7 @@
     },
     {
       "Id": "unique/315",
-      "Name": "Executioner's Justice",
+      "Name": "Executioner\u0027s Justice",
       "Rarity": "Unique",
       "BaseCode": "7gi",
       "SetId": null,
@@ -4472,7 +4473,7 @@
     },
     {
       "Id": "unique/318",
-      "Name": "Larzuk's Champion",
+      "Name": "Larzuk\u0027s Champion",
       "Rarity": "Unique",
       "BaseCode": null,
       "SetId": null,
@@ -4498,7 +4499,7 @@
     },
     {
       "Id": "unique/320",
-      "Name": "Gargoyle's Bite",
+      "Name": "Gargoyle\u0027s Bite",
       "Rarity": "Unique",
       "BaseCode": "7ts",
       "SetId": null,
@@ -4522,7 +4523,7 @@
     },
     {
       "Id": "unique/322",
-      "Name": "Mang Song's Lesson",
+      "Name": "Mang Song\u0027s Lesson",
       "Rarity": "Unique",
       "BaseCode": "6ws",
       "SetId": null,
@@ -4554,7 +4555,7 @@
     },
     {
       "Id": "unique/325",
-      "Name": "Demonhorn's Edge",
+      "Name": "Demonhorn\u0027s Edge",
       "Rarity": "Unique",
       "BaseCode": "bad",
       "SetId": null,
@@ -4564,7 +4565,7 @@
     },
     {
       "Id": "unique/326",
-      "Name": "The Reaper's Toll",
+      "Name": "The Reaper\u0027s Toll",
       "Rarity": "Unique",
       "BaseCode": "7s8",
       "SetId": null,
@@ -4631,7 +4632,7 @@
     },
     {
       "Id": "unique/332",
-      "Name": "Blood Raven's Charge",
+      "Name": "Blood Raven\u0027s Charge",
       "Rarity": "Unique",
       "BaseCode": "amb",
       "SetId": null,
@@ -4676,7 +4677,7 @@
     },
     {
       "Id": "unique/336",
-      "Name": "Griffon's Eye",
+      "Name": "Griffon\u0027s Eye",
       "Rarity": "Unique",
       "BaseCode": "ci3",
       "SetId": null,
@@ -4724,7 +4725,7 @@
     },
     {
       "Id": "unique/340",
-      "Name": "Demon's Arch",
+      "Name": "Demon\u0027s Arch",
       "Rarity": "Unique",
       "BaseCode": "7s7",
       "SetId": null,
@@ -4756,7 +4757,7 @@
     },
     {
       "Id": "unique/343",
-      "Name": "Nightwing's Veil",
+      "Name": "Nightwing\u0027s Veil",
       "Rarity": "Unique",
       "BaseCode": "uhm",
       "SetId": null,
@@ -4776,7 +4777,7 @@
     },
     {
       "Id": "unique/345",
-      "Name": "Andariel's Visage",
+      "Name": "Andariel\u0027s Visage",
       "Rarity": "Unique",
       "BaseCode": "usk",
       "SetId": null,
@@ -4825,7 +4826,7 @@
     },
     {
       "Id": "unique/349",
-      "Name": "Medusa's Gaze",
+      "Name": "Medusa\u0027s Gaze",
       "Rarity": "Unique",
       "BaseCode": "uow",
       "SetId": null,
@@ -4886,7 +4887,7 @@
     },
     {
       "Id": "unique/354",
-      "Name": "Death's Fathom",
+      "Name": "Death\u0027s Fathom",
       "Rarity": "Unique",
       "BaseCode": "obf",
       "SetId": null,
@@ -4921,7 +4922,7 @@
     },
     {
       "Id": "unique/357",
-      "Name": "Kira's Guardian",
+      "Name": "Kira\u0027s Guardian",
       "Rarity": "Unique",
       "BaseCode": "ci2",
       "SetId": null,
@@ -4931,7 +4932,7 @@
     },
     {
       "Id": "unique/358",
-      "Name": "Ormus' Robes",
+      "Name": "Ormus\u0027 Robes",
       "Rarity": "Unique",
       "BaseCode": "uui",
       "SetId": null,
@@ -4943,7 +4944,7 @@
     },
     {
       "Id": "unique/359",
-      "Name": "Gheed's Fortune",
+      "Name": "Gheed\u0027s Fortune",
       "Rarity": "Unique",
       "BaseCode": "cm3",
       "SetId": null,
@@ -4967,7 +4968,7 @@
     },
     {
       "Id": "unique/361",
-      "Name": "Halaberd's Reign",
+      "Name": "Halaberd\u0027s Reign",
       "Rarity": "Unique",
       "BaseCode": "bae",
       "SetId": null,
@@ -4979,7 +4980,7 @@
     },
     {
       "Id": "unique/362",
-      "Name": "Warriv's Warder",
+      "Name": "Warriv\u0027s Warder",
       "Rarity": "Unique",
       "BaseCode": null,
       "SetId": null,
@@ -5002,7 +5003,7 @@
     },
     {
       "Id": "unique/364",
-      "Name": "Dracul's Grasp",
+      "Name": "Dracul\u0027s Grasp",
       "Rarity": "Unique",
       "BaseCode": "uvg",
       "SetId": null,
@@ -5026,7 +5027,7 @@
     },
     {
       "Id": "unique/366",
-      "Name": "Templar's Might",
+      "Name": "Templar\u0027s Might",
       "Rarity": "Unique",
       "BaseCode": "uar",
       "SetId": null,
@@ -5036,7 +5037,7 @@
     },
     {
       "Id": "unique/367",
-      "Name": "Eschuta's Temper",
+      "Name": "Eschuta\u0027s Temper",
       "Rarity": "Unique",
       "BaseCode": "obc",
       "SetId": null,
@@ -5046,7 +5047,7 @@
     },
     {
       "Id": "unique/368",
-      "Name": "Firelizard's Talons",
+      "Name": "Firelizard\u0027s Talons",
       "Rarity": "Unique",
       "BaseCode": "7lw",
       "SetId": null,
@@ -5080,7 +5081,7 @@
     },
     {
       "Id": "unique/371",
-      "Name": "Heaven's Light",
+      "Name": "Heaven\u0027s Light",
       "Rarity": "Unique",
       "BaseCode": "7sc",
       "SetId": null,
@@ -5090,7 +5091,7 @@
     },
     {
       "Id": "unique/372",
-      "Name": "Merman's Sprocket",
+      "Name": "Merman\u0027s Sprocket",
       "Rarity": "Unique",
       "BaseCode": null,
       "SetId": null,
@@ -5115,7 +5116,7 @@
     },
     {
       "Id": "unique/374",
-      "Name": "Nosferatu's Coil",
+      "Name": "Nosferatu\u0027s Coil",
       "Rarity": "Unique",
       "BaseCode": "uvc",
       "SetId": null,
@@ -5137,7 +5138,7 @@
     },
     {
       "Id": "unique/376",
-      "Name": "Verdungo's Hearty Cord",
+      "Name": "Verdungo\u0027s Hearty Cord",
       "Rarity": "Unique",
       "BaseCode": "umc",
       "SetId": null,
@@ -5147,7 +5148,7 @@
     },
     {
       "Id": "unique/377",
-      "Name": "Siggard's Stealth",
+      "Name": "Siggard\u0027s Stealth",
       "Rarity": "Unique",
       "BaseCode": null,
       "SetId": null,
@@ -5184,7 +5185,7 @@
     },
     {
       "Id": "unique/380",
-      "Name": "Astreon's Iron Ward",
+      "Name": "Astreon\u0027s Iron Ward",
       "Rarity": "Unique",
       "BaseCode": "7ws",
       "SetId": null,
@@ -5206,7 +5207,7 @@
     },
     {
       "Id": "unique/382",
-      "Name": "Arioc's Needle",
+      "Name": "Arioc\u0027s Needle",
       "Rarity": "Unique",
       "BaseCode": "7sr",
       "SetId": null,
@@ -5228,7 +5229,7 @@
     },
     {
       "Id": "unique/384",
-      "Name": "Nord's Tenderizer",
+      "Name": "Nord\u0027s Tenderizer",
       "Rarity": "Unique",
       "BaseCode": "7cl",
       "SetId": null,
@@ -5276,7 +5277,7 @@
     },
     {
       "Id": "unique/388",
-      "Name": "Ondal's Wisdom",
+      "Name": "Ondal\u0027s Wisdom",
       "Rarity": "Unique",
       "BaseCode": "6cs",
       "SetId": null,
@@ -5298,7 +5299,7 @@
     },
     {
       "Id": "unique/390",
-      "Name": "Head Hunter's Glory",
+      "Name": "Head Hunter\u0027s Glory",
       "Rarity": "Unique",
       "BaseCode": "ush",
       "SetId": null,
@@ -5512,7 +5513,7 @@
     },
     {
       "Id": "unique/408",
-      "Name": "Ars Al'Diabolos",
+      "Name": "Ars Al\u0027Diabolos",
       "Rarity": "Unique",
       "BaseCode": "waf",
       "SetId": null,
@@ -5527,7 +5528,7 @@
     },
     {
       "Id": "unique/409",
-      "Name": "Ars Tor'Baalos",
+      "Name": "Ars Tor\u0027Baalos",
       "Rarity": "Unique",
       "BaseCode": "wae",
       "SetId": null,
@@ -5542,7 +5543,7 @@
     },
     {
       "Id": "unique/410",
-      "Name": "Ars Dul'Mephistos",
+      "Name": "Ars Dul\u0027Mephistos",
       "Rarity": "Unique",
       "BaseCode": "wac",
       "SetId": null,
@@ -5647,7 +5648,7 @@
     },
     {
       "Id": "unique/418",
-      "Name": "Gheed's Wager",
+      "Name": "Gheed\u0027s Wager",
       "Rarity": "Unique",
       "BaseCode": "utc",
       "SetId": null,
@@ -5657,7 +5658,7 @@
     },
     {
       "Id": "unique/419",
-      "Name": "Hellwarden's Will",
+      "Name": "Hellwarden\u0027s Will",
       "Rarity": "Unique",
       "BaseCode": "xsk",
       "SetId": null,
@@ -5667,7 +5668,7 @@
     },
     {
       "Id": "unique/420",
-      "Name": "Defender's Bile",
+      "Name": "Defender\u0027s Bile",
       "Rarity": "Unique",
       "BaseCode": "cjw",
       "SetId": null,
@@ -5681,7 +5682,7 @@
     },
     {
       "Id": "unique/421",
-      "Name": "Guardian's Thunder",
+      "Name": "Guardian\u0027s Thunder",
       "Rarity": "Unique",
       "BaseCode": "cjw",
       "SetId": null,
@@ -5695,7 +5696,7 @@
     },
     {
       "Id": "unique/422",
-      "Name": "Protector's Frost",
+      "Name": "Protector\u0027s Frost",
       "Rarity": "Unique",
       "BaseCode": "cjw",
       "SetId": null,
@@ -5709,7 +5710,7 @@
     },
     {
       "Id": "unique/423",
-      "Name": "Defender's Fire",
+      "Name": "Defender\u0027s Fire",
       "Rarity": "Unique",
       "BaseCode": "cjw",
       "SetId": null,
@@ -5723,7 +5724,7 @@
     },
     {
       "Id": "unique/424",
-      "Name": "Protector's Stone",
+      "Name": "Protector\u0027s Stone",
       "Rarity": "Unique",
       "BaseCode": "cjw",
       "SetId": null,
@@ -5738,7 +5739,7 @@
     },
     {
       "Id": "unique/425",
-      "Name": "Guardian's Light",
+      "Name": "Guardian\u0027s Light",
       "Rarity": "Unique",
       "BaseCode": "cjw",
       "SetId": null,
@@ -5939,7 +5940,7 @@
     },
     {
       "Id": "piece/0",
-      "Name": "Civerb's Ward",
+      "Name": "Civerb\u0027s Ward",
       "Rarity": "Set",
       "BaseCode": "lrg",
       "SetId": "set/0",
@@ -5949,7 +5950,7 @@
     },
     {
       "Id": "piece/1",
-      "Name": "Civerb's Icon",
+      "Name": "Civerb\u0027s Icon",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/0",
@@ -5959,7 +5960,7 @@
     },
     {
       "Id": "piece/2",
-      "Name": "Civerb's Cudgel",
+      "Name": "Civerb\u0027s Cudgel",
       "Rarity": "Set",
       "BaseCode": "gsc",
       "SetId": "set/0",
@@ -5969,7 +5970,7 @@
     },
     {
       "Id": "piece/3",
-      "Name": "Hsarus' Iron Heel",
+      "Name": "Hsarus\u0027 Iron Heel",
       "Rarity": "Set",
       "BaseCode": "mbt",
       "SetId": "set/1",
@@ -5979,7 +5980,7 @@
     },
     {
       "Id": "piece/4",
-      "Name": "Hsarus' Iron Fist",
+      "Name": "Hsarus\u0027 Iron Fist",
       "Rarity": "Set",
       "BaseCode": "buc",
       "SetId": "set/1",
@@ -5989,7 +5990,7 @@
     },
     {
       "Id": "piece/5",
-      "Name": "Hsarus' Iron Stay",
+      "Name": "Hsarus\u0027 Iron Stay",
       "Rarity": "Set",
       "BaseCode": "mbl",
       "SetId": "set/1",
@@ -5999,7 +6000,7 @@
     },
     {
       "Id": "piece/6",
-      "Name": "Cleglaw's Tooth",
+      "Name": "Cleglaw\u0027s Tooth",
       "Rarity": "Set",
       "BaseCode": "lsd",
       "SetId": "set/2",
@@ -6009,7 +6010,7 @@
     },
     {
       "Id": "piece/7",
-      "Name": "Cleglaw's Claw",
+      "Name": "Cleglaw\u0027s Claw",
       "Rarity": "Set",
       "BaseCode": "sml",
       "SetId": "set/2",
@@ -6019,7 +6020,7 @@
     },
     {
       "Id": "piece/8",
-      "Name": "Cleglaw's Pincers",
+      "Name": "Cleglaw\u0027s Pincers",
       "Rarity": "Set",
       "BaseCode": "mgl",
       "SetId": "set/2",
@@ -6029,7 +6030,7 @@
     },
     {
       "Id": "piece/9",
-      "Name": "Iratha's Collar",
+      "Name": "Iratha\u0027s Collar",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/3",
@@ -6039,7 +6040,7 @@
     },
     {
       "Id": "piece/10",
-      "Name": "Iratha's Cuff",
+      "Name": "Iratha\u0027s Cuff",
       "Rarity": "Set",
       "BaseCode": "tgl",
       "SetId": "set/3",
@@ -6049,7 +6050,7 @@
     },
     {
       "Id": "piece/11",
-      "Name": "Iratha's Coil",
+      "Name": "Iratha\u0027s Coil",
       "Rarity": "Set",
       "BaseCode": "crn",
       "SetId": "set/3",
@@ -6059,7 +6060,7 @@
     },
     {
       "Id": "piece/12",
-      "Name": "Iratha's Cord",
+      "Name": "Iratha\u0027s Cord",
       "Rarity": "Set",
       "BaseCode": "tbl",
       "SetId": "set/3",
@@ -6069,7 +6070,7 @@
     },
     {
       "Id": "piece/13",
-      "Name": "Isenhart's Lightbrand",
+      "Name": "Isenhart\u0027s Lightbrand",
       "Rarity": "Set",
       "BaseCode": "bsd",
       "SetId": "set/4",
@@ -6079,7 +6080,7 @@
     },
     {
       "Id": "piece/14",
-      "Name": "Isenhart's Parry",
+      "Name": "Isenhart\u0027s Parry",
       "Rarity": "Set",
       "BaseCode": "gts",
       "SetId": "set/4",
@@ -6089,7 +6090,7 @@
     },
     {
       "Id": "piece/15",
-      "Name": "Isenhart's Case",
+      "Name": "Isenhart\u0027s Case",
       "Rarity": "Set",
       "BaseCode": "brs",
       "SetId": "set/4",
@@ -6099,7 +6100,7 @@
     },
     {
       "Id": "piece/16",
-      "Name": "Isenhart's Horns",
+      "Name": "Isenhart\u0027s Horns",
       "Rarity": "Set",
       "BaseCode": "fhl",
       "SetId": "set/4",
@@ -6109,7 +6110,7 @@
     },
     {
       "Id": "piece/17",
-      "Name": "Vidala's Barb",
+      "Name": "Vidala\u0027s Barb",
       "Rarity": "Set",
       "BaseCode": "lbb",
       "SetId": "set/5",
@@ -6119,7 +6120,7 @@
     },
     {
       "Id": "piece/18",
-      "Name": "Vidala's Fetlock",
+      "Name": "Vidala\u0027s Fetlock",
       "Rarity": "Set",
       "BaseCode": "tbt",
       "SetId": "set/5",
@@ -6129,7 +6130,7 @@
     },
     {
       "Id": "piece/19",
-      "Name": "Vidala's Ambush",
+      "Name": "Vidala\u0027s Ambush",
       "Rarity": "Set",
       "BaseCode": "lea",
       "SetId": "set/5",
@@ -6139,7 +6140,7 @@
     },
     {
       "Id": "piece/20",
-      "Name": "Vidala's Snare",
+      "Name": "Vidala\u0027s Snare",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/5",
@@ -6149,7 +6150,7 @@
     },
     {
       "Id": "piece/21",
-      "Name": "Milabrega's Orb",
+      "Name": "Milabrega\u0027s Orb",
       "Rarity": "Set",
       "BaseCode": "kit",
       "SetId": "set/6",
@@ -6159,7 +6160,7 @@
     },
     {
       "Id": "piece/22",
-      "Name": "Milabrega's Rod",
+      "Name": "Milabrega\u0027s Rod",
       "Rarity": "Set",
       "BaseCode": "wsp",
       "SetId": "set/6",
@@ -6169,7 +6170,7 @@
     },
     {
       "Id": "piece/23",
-      "Name": "Milabrega's Diadem",
+      "Name": "Milabrega\u0027s Diadem",
       "Rarity": "Set",
       "BaseCode": "crn",
       "SetId": "set/6",
@@ -6179,7 +6180,7 @@
     },
     {
       "Id": "piece/24",
-      "Name": "Milabrega's Robe",
+      "Name": "Milabrega\u0027s Robe",
       "Rarity": "Set",
       "BaseCode": "aar",
       "SetId": "set/6",
@@ -6189,7 +6190,7 @@
     },
     {
       "Id": "piece/25",
-      "Name": "Cathan's Rule",
+      "Name": "Cathan\u0027s Rule",
       "Rarity": "Set",
       "BaseCode": "bst",
       "SetId": "set/7",
@@ -6199,7 +6200,7 @@
     },
     {
       "Id": "piece/26",
-      "Name": "Cathan's Mesh",
+      "Name": "Cathan\u0027s Mesh",
       "Rarity": "Set",
       "BaseCode": "chn",
       "SetId": "set/7",
@@ -6209,7 +6210,7 @@
     },
     {
       "Id": "piece/27",
-      "Name": "Cathan's Visage",
+      "Name": "Cathan\u0027s Visage",
       "Rarity": "Set",
       "BaseCode": "msk",
       "SetId": "set/7",
@@ -6219,7 +6220,7 @@
     },
     {
       "Id": "piece/28",
-      "Name": "Cathan's Sigil",
+      "Name": "Cathan\u0027s Sigil",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/7",
@@ -6229,7 +6230,7 @@
     },
     {
       "Id": "piece/29",
-      "Name": "Cathan's Seal",
+      "Name": "Cathan\u0027s Seal",
       "Rarity": "Set",
       "BaseCode": "rin",
       "SetId": "set/7",
@@ -6239,7 +6240,7 @@
     },
     {
       "Id": "piece/30",
-      "Name": "Tancred's Crowbill",
+      "Name": "Tancred\u0027s Crowbill",
       "Rarity": "Set",
       "BaseCode": "mpi",
       "SetId": "set/8",
@@ -6249,7 +6250,7 @@
     },
     {
       "Id": "piece/31",
-      "Name": "Tancred's Spine",
+      "Name": "Tancred\u0027s Spine",
       "Rarity": "Set",
       "BaseCode": "ful",
       "SetId": "set/8",
@@ -6259,7 +6260,7 @@
     },
     {
       "Id": "piece/32",
-      "Name": "Tancred's Hobnails",
+      "Name": "Tancred\u0027s Hobnails",
       "Rarity": "Set",
       "BaseCode": "lbt",
       "SetId": "set/8",
@@ -6269,7 +6270,7 @@
     },
     {
       "Id": "piece/33",
-      "Name": "Tancred's Weird",
+      "Name": "Tancred\u0027s Weird",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/8",
@@ -6279,7 +6280,7 @@
     },
     {
       "Id": "piece/34",
-      "Name": "Tancred's Skull",
+      "Name": "Tancred\u0027s Skull",
       "Rarity": "Set",
       "BaseCode": "bhm",
       "SetId": "set/8",
@@ -6289,7 +6290,7 @@
     },
     {
       "Id": "piece/35",
-      "Name": "Sigon's Gage",
+      "Name": "Sigon\u0027s Gage",
       "Rarity": "Set",
       "BaseCode": "hgl",
       "SetId": "set/9",
@@ -6299,7 +6300,7 @@
     },
     {
       "Id": "piece/36",
-      "Name": "Sigon's Visor",
+      "Name": "Sigon\u0027s Visor",
       "Rarity": "Set",
       "BaseCode": "ghm",
       "SetId": "set/9",
@@ -6309,7 +6310,7 @@
     },
     {
       "Id": "piece/37",
-      "Name": "Sigon's Shelter",
+      "Name": "Sigon\u0027s Shelter",
       "Rarity": "Set",
       "BaseCode": "gth",
       "SetId": "set/9",
@@ -6319,7 +6320,7 @@
     },
     {
       "Id": "piece/38",
-      "Name": "Sigon's Sabot",
+      "Name": "Sigon\u0027s Sabot",
       "Rarity": "Set",
       "BaseCode": "hbt",
       "SetId": "set/9",
@@ -6329,7 +6330,7 @@
     },
     {
       "Id": "piece/39",
-      "Name": "Sigon's Wrap",
+      "Name": "Sigon\u0027s Wrap",
       "Rarity": "Set",
       "BaseCode": "hbl",
       "SetId": "set/9",
@@ -6339,7 +6340,7 @@
     },
     {
       "Id": "piece/40",
-      "Name": "Sigon's Guard",
+      "Name": "Sigon\u0027s Guard",
       "Rarity": "Set",
       "BaseCode": "tow",
       "SetId": "set/9",
@@ -6379,7 +6380,7 @@
     },
     {
       "Id": "piece/44",
-      "Name": "Berserker's Headgear",
+      "Name": "Berserker\u0027s Headgear",
       "Rarity": "Set",
       "BaseCode": "hlm",
       "SetId": "set/11",
@@ -6389,7 +6390,7 @@
     },
     {
       "Id": "piece/45",
-      "Name": "Berserker's Hauberk",
+      "Name": "Berserker\u0027s Hauberk",
       "Rarity": "Set",
       "BaseCode": "spl",
       "SetId": "set/11",
@@ -6399,7 +6400,7 @@
     },
     {
       "Id": "piece/46",
-      "Name": "Berserker's Hatchet",
+      "Name": "Berserker\u0027s Hatchet",
       "Rarity": "Set",
       "BaseCode": "2ax",
       "SetId": "set/11",
@@ -6409,7 +6410,7 @@
     },
     {
       "Id": "piece/47",
-      "Name": "Death's Hand",
+      "Name": "Death\u0027s Hand",
       "Rarity": "Set",
       "BaseCode": "lgl",
       "SetId": "set/12",
@@ -6419,7 +6420,7 @@
     },
     {
       "Id": "piece/48",
-      "Name": "Death's Guard",
+      "Name": "Death\u0027s Guard",
       "Rarity": "Set",
       "BaseCode": "lbl",
       "SetId": "set/12",
@@ -6429,7 +6430,7 @@
     },
     {
       "Id": "piece/49",
-      "Name": "Death's Touch",
+      "Name": "Death\u0027s Touch",
       "Rarity": "Set",
       "BaseCode": "wsd",
       "SetId": "set/12",
@@ -6519,7 +6520,7 @@
     },
     {
       "Id": "piece/58",
-      "Name": "Arcanna's Sign",
+      "Name": "Arcanna\u0027s Sign",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/15",
@@ -6529,7 +6530,7 @@
     },
     {
       "Id": "piece/59",
-      "Name": "Arcanna's Deathwand",
+      "Name": "Arcanna\u0027s Deathwand",
       "Rarity": "Set",
       "BaseCode": "wst",
       "SetId": "set/15",
@@ -6539,7 +6540,7 @@
     },
     {
       "Id": "piece/60",
-      "Name": "Arcanna's Head",
+      "Name": "Arcanna\u0027s Head",
       "Rarity": "Set",
       "BaseCode": "skp",
       "SetId": "set/15",
@@ -6549,7 +6550,7 @@
     },
     {
       "Id": "piece/61",
-      "Name": "Arcanna's Flesh",
+      "Name": "Arcanna\u0027s Flesh",
       "Rarity": "Set",
       "BaseCode": "ltp",
       "SetId": "set/15",
@@ -6559,7 +6560,7 @@
     },
     {
       "Id": "piece/62",
-      "Name": "Natalya's Totem",
+      "Name": "Natalya\u0027s Totem",
       "Rarity": "Set",
       "BaseCode": "xh9",
       "SetId": "set/17",
@@ -6569,7 +6570,7 @@
     },
     {
       "Id": "piece/63",
-      "Name": "Natalya's Mark",
+      "Name": "Natalya\u0027s Mark",
       "Rarity": "Set",
       "BaseCode": "7qr",
       "SetId": "set/17",
@@ -6579,7 +6580,7 @@
     },
     {
       "Id": "piece/64",
-      "Name": "Natalya's Shadow",
+      "Name": "Natalya\u0027s Shadow",
       "Rarity": "Set",
       "BaseCode": "ucl",
       "SetId": "set/17",
@@ -6589,7 +6590,7 @@
     },
     {
       "Id": "piece/65",
-      "Name": "Natalya's Soul",
+      "Name": "Natalya\u0027s Soul",
       "Rarity": "Set",
       "BaseCode": "xmb",
       "SetId": "set/17",
@@ -6599,7 +6600,7 @@
     },
     {
       "Id": "piece/66",
-      "Name": "Aldur's Stony Gaze",
+      "Name": "Aldur\u0027s Stony Gaze",
       "Rarity": "Set",
       "BaseCode": "dr8",
       "SetId": "set/18",
@@ -6609,7 +6610,7 @@
     },
     {
       "Id": "piece/67",
-      "Name": "Aldur's Deception",
+      "Name": "Aldur\u0027s Deception",
       "Rarity": "Set",
       "BaseCode": "uul",
       "SetId": "set/18",
@@ -6619,7 +6620,7 @@
     },
     {
       "Id": "piece/68",
-      "Name": "Aldur's Rhythm",
+      "Name": "Aldur\u0027s Rhythm",
       "Rarity": "Set",
       "BaseCode": "9mt",
       "SetId": "set/18",
@@ -6629,7 +6630,7 @@
     },
     {
       "Id": "piece/69",
-      "Name": "Aldur's Advance",
+      "Name": "Aldur\u0027s Advance",
       "Rarity": "Set",
       "BaseCode": "xtb",
       "SetId": "set/18",
@@ -6639,7 +6640,7 @@
     },
     {
       "Id": "piece/70",
-      "Name": "Immortal King's Will",
+      "Name": "Immortal King\u0027s Will",
       "Rarity": "Set",
       "BaseCode": "ba5",
       "SetId": "set/19",
@@ -6651,7 +6652,7 @@
     },
     {
       "Id": "piece/71",
-      "Name": "Immortal King's Soul Cage",
+      "Name": "Immortal King\u0027s Soul Cage",
       "Rarity": "Set",
       "BaseCode": "uar",
       "SetId": "set/19",
@@ -6664,7 +6665,7 @@
     },
     {
       "Id": "piece/72",
-      "Name": "Immortal King's Detail",
+      "Name": "Immortal King\u0027s Detail",
       "Rarity": "Set",
       "BaseCode": "zhb",
       "SetId": "set/19",
@@ -6676,7 +6677,7 @@
     },
     {
       "Id": "piece/73",
-      "Name": "Immortal King's Forge",
+      "Name": "Immortal King\u0027s Forge",
       "Rarity": "Set",
       "BaseCode": "xhg",
       "SetId": "set/19",
@@ -6689,7 +6690,7 @@
     },
     {
       "Id": "piece/74",
-      "Name": "Immortal King's Pillar",
+      "Name": "Immortal King\u0027s Pillar",
       "Rarity": "Set",
       "BaseCode": "xhb",
       "SetId": "set/19",
@@ -6701,7 +6702,7 @@
     },
     {
       "Id": "piece/75",
-      "Name": "Immortal King's Stone Crusher",
+      "Name": "Immortal King\u0027s Stone Crusher",
       "Rarity": "Set",
       "BaseCode": "7m7",
       "SetId": "set/19",
@@ -6713,7 +6714,7 @@
     },
     {
       "Id": "piece/76",
-      "Name": "Tal Rasha's Fine-Spun Cloth",
+      "Name": "Tal Rasha\u0027s Fine-Spun Cloth",
       "Rarity": "Set",
       "BaseCode": "zmb",
       "SetId": "set/20",
@@ -6725,7 +6726,7 @@
     },
     {
       "Id": "piece/77",
-      "Name": "Tal Rasha's Adjudication",
+      "Name": "Tal Rasha\u0027s Adjudication",
       "Rarity": "Set",
       "BaseCode": "amu",
       "SetId": "set/20",
@@ -6737,7 +6738,7 @@
     },
     {
       "Id": "piece/78",
-      "Name": "Tal Rasha's Lidless Eye",
+      "Name": "Tal Rasha\u0027s Lidless Eye",
       "Rarity": "Set",
       "BaseCode": "oba",
       "SetId": "set/20",
@@ -6750,7 +6751,7 @@
     },
     {
       "Id": "piece/79",
-      "Name": "Tal Rasha's Guardianship",
+      "Name": "Tal Rasha\u0027s Guardianship",
       "Rarity": "Set",
       "BaseCode": "uth",
       "SetId": "set/20",
@@ -6762,7 +6763,7 @@
     },
     {
       "Id": "piece/80",
-      "Name": "Tal Rasha's Horadric Crest",
+      "Name": "Tal Rasha\u0027s Horadric Crest",
       "Rarity": "Set",
       "BaseCode": "xsk",
       "SetId": "set/20",
@@ -6774,7 +6775,7 @@
     },
     {
       "Id": "piece/81",
-      "Name": "Griswold's Valor",
+      "Name": "Griswold\u0027s Valor",
       "Rarity": "Set",
       "BaseCode": "urn",
       "SetId": "set/21",
@@ -6784,7 +6785,7 @@
     },
     {
       "Id": "piece/82",
-      "Name": "Griswold's Heart",
+      "Name": "Griswold\u0027s Heart",
       "Rarity": "Set",
       "BaseCode": "xar",
       "SetId": "set/21",
@@ -6794,7 +6795,7 @@
     },
     {
       "Id": "piece/83",
-      "Name": "Griswold's Redemption",
+      "Name": "Griswold\u0027s Redemption",
       "Rarity": "Set",
       "BaseCode": "7ws",
       "SetId": "set/21",
@@ -6804,7 +6805,7 @@
     },
     {
       "Id": "piece/84",
-      "Name": "Griswold's Honor",
+      "Name": "Griswold\u0027s Honor",
       "Rarity": "Set",
       "BaseCode": "paf",
       "SetId": "set/21",
@@ -6814,7 +6815,7 @@
     },
     {
       "Id": "piece/85",
-      "Name": "Trang-Oul's Guise",
+      "Name": "Trang-Oul\u0027s Guise",
       "Rarity": "Set",
       "BaseCode": "uh9",
       "SetId": "set/22",
@@ -6828,7 +6829,7 @@
     },
     {
       "Id": "piece/86",
-      "Name": "Trang-Oul's Scales",
+      "Name": "Trang-Oul\u0027s Scales",
       "Rarity": "Set",
       "BaseCode": "xul",
       "SetId": "set/22",
@@ -6842,7 +6843,7 @@
     },
     {
       "Id": "piece/87",
-      "Name": "Trang-Oul's Wing",
+      "Name": "Trang-Oul\u0027s Wing",
       "Rarity": "Set",
       "BaseCode": "ne9",
       "SetId": "set/22",
@@ -6856,7 +6857,7 @@
     },
     {
       "Id": "piece/88",
-      "Name": "Trang-Oul's Claws",
+      "Name": "Trang-Oul\u0027s Claws",
       "Rarity": "Set",
       "BaseCode": "xmg",
       "SetId": "set/22",
@@ -6870,7 +6871,7 @@
     },
     {
       "Id": "piece/89",
-      "Name": "Trang-Oul's Girth",
+      "Name": "Trang-Oul\u0027s Girth",
       "Rarity": "Set",
       "BaseCode": "utc",
       "SetId": "set/22",
@@ -6884,7 +6885,7 @@
     },
     {
       "Id": "piece/90",
-      "Name": "M'avina's True Sight",
+      "Name": "M\u0027avina\u0027s True Sight",
       "Rarity": "Set",
       "BaseCode": "ci3",
       "SetId": "set/23",
@@ -6896,7 +6897,7 @@
     },
     {
       "Id": "piece/91",
-      "Name": "M'avina's Embrace",
+      "Name": "M\u0027avina\u0027s Embrace",
       "Rarity": "Set",
       "BaseCode": "uld",
       "SetId": "set/23",
@@ -6909,7 +6910,7 @@
     },
     {
       "Id": "piece/92",
-      "Name": "M'avina's Icy Clutch",
+      "Name": "M\u0027avina\u0027s Icy Clutch",
       "Rarity": "Set",
       "BaseCode": "xtg",
       "SetId": "set/23",
@@ -6921,7 +6922,7 @@
     },
     {
       "Id": "piece/93",
-      "Name": "M'avina's Tenet",
+      "Name": "M\u0027avina\u0027s Tenet",
       "Rarity": "Set",
       "BaseCode": "zvb",
       "SetId": "set/23",
@@ -6933,7 +6934,7 @@
     },
     {
       "Id": "piece/94",
-      "Name": "M'avina's Caster",
+      "Name": "M\u0027avina\u0027s Caster",
       "Rarity": "Set",
       "BaseCode": "amc",
       "SetId": "set/23",
@@ -7009,7 +7010,7 @@
     },
     {
       "Id": "piece/100",
-      "Name": "Dangoon's Teaching",
+      "Name": "Dangoon\u0027s Teaching",
       "Rarity": "Set",
       "BaseCode": "7ma",
       "SetId": "set/25",
@@ -7022,7 +7023,7 @@
     },
     {
       "Id": "piece/101",
-      "Name": "Taebaek's Glory",
+      "Name": "Taebaek\u0027s Glory",
       "Rarity": "Set",
       "BaseCode": "uts",
       "SetId": "set/25",
@@ -7034,7 +7035,7 @@
     },
     {
       "Id": "piece/102",
-      "Name": "Haemosu's Adamant",
+      "Name": "Haemosu\u0027s Adamant",
       "Rarity": "Set",
       "BaseCode": "xrs",
       "SetId": "set/25",
@@ -7046,7 +7047,7 @@
     },
     {
       "Id": "piece/103",
-      "Name": "Ondal's Almighty",
+      "Name": "Ondal\u0027s Almighty",
       "Rarity": "Set",
       "BaseCode": "uhm",
       "SetId": "set/25",
@@ -7059,7 +7060,7 @@
     },
     {
       "Id": "piece/104",
-      "Name": "Guillaume's Face",
+      "Name": "Guillaume\u0027s Face",
       "Rarity": "Set",
       "BaseCode": "xhm",
       "SetId": "set/26",
@@ -7069,7 +7070,7 @@
     },
     {
       "Id": "piece/105",
-      "Name": "Wilhelm's Pride",
+      "Name": "Wilhelm\u0027s Pride",
       "Rarity": "Set",
       "BaseCode": "ztb",
       "SetId": "set/26",
@@ -7079,7 +7080,7 @@
     },
     {
       "Id": "piece/106",
-      "Name": "Magnus' Skin",
+      "Name": "Magnus\u0027 Skin",
       "Rarity": "Set",
       "BaseCode": "xvg",
       "SetId": "set/26",
@@ -7089,7 +7090,7 @@
     },
     {
       "Id": "piece/107",
-      "Name": "Whitstan's Guard",
+      "Name": "Whitstan\u0027s Guard",
       "Rarity": "Set",
       "BaseCode": "xml",
       "SetId": "set/26",
@@ -7099,7 +7100,7 @@
     },
     {
       "Id": "piece/108",
-      "Name": "Hwanin's Splendor",
+      "Name": "Hwanin\u0027s Splendor",
       "Rarity": "Set",
       "BaseCode": "xrn",
       "SetId": "set/27",
@@ -7111,7 +7112,7 @@
     },
     {
       "Id": "piece/109",
-      "Name": "Hwanin's Refuge",
+      "Name": "Hwanin\u0027s Refuge",
       "Rarity": "Set",
       "BaseCode": "xcl",
       "SetId": "set/27",
@@ -7124,7 +7125,7 @@
     },
     {
       "Id": "piece/110",
-      "Name": "Hwanin's Blessing",
+      "Name": "Hwanin\u0027s Blessing",
       "Rarity": "Set",
       "BaseCode": "mbl",
       "SetId": "set/27",
@@ -7136,7 +7137,7 @@
     },
     {
       "Id": "piece/111",
-      "Name": "Hwanin's Justice",
+      "Name": "Hwanin\u0027s Justice",
       "Rarity": "Set",
       "BaseCode": "9vo",
       "SetId": "set/27",
@@ -7149,7 +7150,7 @@
     },
     {
       "Id": "piece/112",
-      "Name": "Sazabi's Cobalt Redeemer",
+      "Name": "Sazabi\u0027s Cobalt Redeemer",
       "Rarity": "Set",
       "BaseCode": "7ls",
       "SetId": "set/28",
@@ -7159,7 +7160,7 @@
     },
     {
       "Id": "piece/113",
-      "Name": "Sazabi's Ghost Liberator",
+      "Name": "Sazabi\u0027s Ghost Liberator",
       "Rarity": "Set",
       "BaseCode": "upl",
       "SetId": "set/28",
@@ -7169,7 +7170,7 @@
     },
     {
       "Id": "piece/114",
-      "Name": "Sazabi's Mental Sheath",
+      "Name": "Sazabi\u0027s Mental Sheath",
       "Rarity": "Set",
       "BaseCode": "xhl",
       "SetId": "set/28",
@@ -7179,7 +7180,7 @@
     },
     {
       "Id": "piece/115",
-      "Name": "Bul-Kathos' Sacred Charge",
+      "Name": "Bul-Kathos\u0027 Sacred Charge",
       "Rarity": "Set",
       "BaseCode": "7gd",
       "SetId": "set/29",
@@ -7192,7 +7193,7 @@
     },
     {
       "Id": "piece/116",
-      "Name": "Bul-Kathos' Tribal Guardian",
+      "Name": "Bul-Kathos\u0027 Tribal Guardian",
       "Rarity": "Set",
       "BaseCode": "7wd",
       "SetId": "set/29",
@@ -7205,7 +7206,7 @@
     },
     {
       "Id": "piece/117",
-      "Name": "Cow King's Horns",
+      "Name": "Cow King\u0027s Horns",
       "Rarity": "Set",
       "BaseCode": "xap",
       "SetId": "set/30",
@@ -7218,7 +7219,7 @@
     },
     {
       "Id": "piece/118",
-      "Name": "Cow King's Hide",
+      "Name": "Cow King\u0027s Hide",
       "Rarity": "Set",
       "BaseCode": "stu",
       "SetId": "set/30",
@@ -7232,7 +7233,7 @@
     },
     {
       "Id": "piece/119",
-      "Name": "Cow King's Hooves",
+      "Name": "Cow King\u0027s Hooves",
       "Rarity": "Set",
       "BaseCode": "vbt",
       "SetId": "set/30",
@@ -7245,7 +7246,7 @@
     },
     {
       "Id": "piece/120",
-      "Name": "Naj's Puzzler",
+      "Name": "Naj\u0027s Puzzler",
       "Rarity": "Set",
       "BaseCode": "6cs",
       "SetId": "set/31",
@@ -7258,7 +7259,7 @@
     },
     {
       "Id": "piece/121",
-      "Name": "Naj's Light Plate",
+      "Name": "Naj\u0027s Light Plate",
       "Rarity": "Set",
       "BaseCode": "ult",
       "SetId": "set/31",
@@ -7270,7 +7271,7 @@
     },
     {
       "Id": "piece/122",
-      "Name": "Naj's Circlet",
+      "Name": "Naj\u0027s Circlet",
       "Rarity": "Set",
       "BaseCode": "ci0",
       "SetId": "set/31",
@@ -7283,7 +7284,7 @@
     },
     {
       "Id": "piece/123",
-      "Name": "Sander's Paragon",
+      "Name": "Sander\u0027s Paragon",
       "Rarity": "Set",
       "BaseCode": "cap",
       "SetId": "set/32",
@@ -7293,7 +7294,7 @@
     },
     {
       "Id": "piece/124",
-      "Name": "Sander's Riprap",
+      "Name": "Sander\u0027s Riprap",
       "Rarity": "Set",
       "BaseCode": "vbt",
       "SetId": "set/32",
@@ -7303,7 +7304,7 @@
     },
     {
       "Id": "piece/125",
-      "Name": "Sander's Taboo",
+      "Name": "Sander\u0027s Taboo",
       "Rarity": "Set",
       "BaseCode": "vgl",
       "SetId": "set/32",
@@ -7313,7 +7314,7 @@
     },
     {
       "Id": "piece/126",
-      "Name": "Sander's Superstition",
+      "Name": "Sander\u0027s Superstition",
       "Rarity": "Set",
       "BaseCode": "bwn",
       "SetId": "set/32",
@@ -7323,7 +7324,7 @@
     },
     {
       "Id": "piece/127",
-      "Name": "Warlord's Conquest",
+      "Name": "Warlord\u0027s Conquest",
       "Rarity": "Set",
       "BaseCode": "hgl",
       "SetId": "set/33",
@@ -7337,7 +7338,7 @@
     },
     {
       "Id": "piece/128",
-      "Name": "Warlord's Lust",
+      "Name": "Warlord\u0027s Lust",
       "Rarity": "Set",
       "BaseCode": "ghm",
       "SetId": "set/33",
@@ -7351,7 +7352,7 @@
     },
     {
       "Id": "piece/129",
-      "Name": "Warlord's Mantle",
+      "Name": "Warlord\u0027s Mantle",
       "Rarity": "Set",
       "BaseCode": "ful",
       "SetId": "set/33",
@@ -7365,7 +7366,7 @@
     },
     {
       "Id": "piece/130",
-      "Name": "Warlord's Crushers",
+      "Name": "Warlord\u0027s Crushers",
       "Rarity": "Set",
       "BaseCode": "hbt",
       "SetId": "set/33",
@@ -7379,7 +7380,7 @@
     },
     {
       "Id": "piece/131",
-      "Name": "Warlord's Authority",
+      "Name": "Warlord\u0027s Authority",
       "Rarity": "Set",
       "BaseCode": "hbl",
       "SetId": "set/33",
@@ -7393,7 +7394,7 @@
     },
     {
       "Id": "piece/132",
-      "Name": "Bane's Oathmaker",
+      "Name": "Bane\u0027s Oathmaker",
       "Rarity": "Set",
       "BaseCode": "kri",
       "SetId": "set/34",
@@ -7403,7 +7404,7 @@
     },
     {
       "Id": "piece/133",
-      "Name": "Bane's Wraithskin",
+      "Name": "Bane\u0027s Wraithskin",
       "Rarity": "Set",
       "BaseCode": "hla",
       "SetId": "set/34",
@@ -7413,7 +7414,7 @@
     },
     {
       "Id": "piece/134",
-      "Name": "Bane's Authority",
+      "Name": "Bane\u0027s Authority",
       "Rarity": "Set",
       "BaseCode": "vbl",
       "SetId": "set/34",
@@ -7423,7 +7424,7 @@
     },
     {
       "Id": "piece/135",
-      "Name": "Horazon's Countenance",
+      "Name": "Horazon\u0027s Countenance",
       "Rarity": "Set",
       "BaseCode": "usk",
       "SetId": "set/35",
@@ -7438,7 +7439,7 @@
     },
     {
       "Id": "piece/136",
-      "Name": "Horazon's Dominion",
+      "Name": "Horazon\u0027s Dominion",
       "Rarity": "Set",
       "BaseCode": "xpl",
       "SetId": "set/35",
@@ -7452,7 +7453,7 @@
     },
     {
       "Id": "piece/137",
-      "Name": "Horazon's Hold",
+      "Name": "Horazon\u0027s Hold",
       "Rarity": "Set",
       "BaseCode": "xlg",
       "SetId": "set/35",
@@ -7466,7 +7467,7 @@
     },
     {
       "Id": "piece/138",
-      "Name": "Horazon's Legacy",
+      "Name": "Horazon\u0027s Legacy",
       "Rarity": "Set",
       "BaseCode": "utb",
       "SetId": "set/35",
@@ -7480,7 +7481,7 @@
     },
     {
       "Id": "piece/139",
-      "Name": "Horazon's Secrets",
+      "Name": "Horazon\u0027s Secrets",
       "Rarity": "Set",
       "BaseCode": "wad",
       "SetId": "set/35",
