@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original NPC item spell capture (2026-11-07 JST).** Numeric capture adds no rendered effect. Fire Bolt, Charged Bolt, Nova, Frost Nova and Chain Lightning will reuse their spell presentation when original-NPC delivery is connected. Existing shared native bolt/ring/lightning markers remain identified placeholders; final impact, cold, proc and audio assets remain pending separately.
+
 **Valkyrie original ordered contact (2026-11-07 JST).** Prepared original packets now reach real HP,cold/poison and supported event/return presentation. Existing critical/defense/contact/status/retaliation markers remain identified native placeholders. Final spear impact,critical,cold/poison,knockback,retaliation,proc spell and audio work stays separate from body/summon/death artwork;no imagegen asset or learned cast is enabled.
 
 **Valkyrie original ground movement (2026-11-07 JST).** Source movement and moving Evade now have native world consumers. The female native body/hue and defense marker 0x375A/hue0x481/sound 0x1A4 remain identified placeholders. Final walk/run,spear contact,Evade/Dodge/Avoid,recovery,summon/death,equipment and audio still need assets;mechanical movement does not certify client animation or create imagegen artwork.

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Original NPC item spell capture (2026-11-07 JST).** Equipment procs add no learned talent/hotkey slots. Existing spell icons may be reused where proc UI needs them; Valkyrie talent/right/quick icons remain pending.
+
 **Valkyrie original ordered contact (2026-11-07 JST).** The prepared item/contact profile adds no learned binding or icon slot. Valkyrie talent-tree and right/quick icons remain pending; later item procs should reuse their spell icon where a UI requires one.
 
 **Valkyrie original ground movement (2026-11-07 JST).** Movement/source-mode work adds no learned binding or icon slot. Valkyrie talent-tree and right/quick hotkey icons remain pending independently of native movement and defense presentation.

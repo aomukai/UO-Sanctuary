@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e443b3b44d4f18c42fc78ad3b11f6d39a4fd27960c73ad38b0d3064e177bf4eb",
+  "ContentAssemblySha256": "20d99a5656846ca26833c149b0383d763f10ded5e445e5f5e470793e2d4b1bc7",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -866,6 +866,7 @@
     "src/Sanctuary.Content/NpcItemSkillExecution.cs": "c0901e913de4e0948dc765ae414da31771d556d513f98d80c500d0bc32abeddf",
     "src/Sanctuary.Content/NpcItemSlow.cs": "3c161b32b6fb74fd8e95dbba497b54e1fea7dab039a8048647a75b7ef1737ef8",
     "src/Sanctuary.Content/NpcItemSpellCasts.cs": "e426a64cf001213a88f915f7b33d5116b745783bd1199fc6436e78b3f00a8df1",
+    "src/Sanctuary.Content/NpcItemSpellDamage.cs": "7305fb4b5c6ca7a60e08915ca5134cae35acd2c1fbd8358b2ea97b9e33f8db21",
     "src/Sanctuary.Content/NpcItemStatCapture.cs": "51c2237d20a250af40f77f80e2d2bbf1247996490bb701b8cac3910cdd747c81",
     "src/Sanctuary.Content/NpcItemTarget.cs": "d1ca509c67876d1c013b77794373c25fb07a8c63ac77ebc98140ed3eed7dc0f3",
     "src/Sanctuary.Content/NpcKillRecovery.cs": "0f504cf8aeff8fd05c6773ed26bde0c87392f4788c4f29495c62af0c62cc7628",
