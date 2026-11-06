@@ -98,9 +98,9 @@ public static class IronGolemCastChecks
                     &&NecromancerEffects.ManaBalance256(p)==(mode==2?0:mana),"Moved item/caster/lost mana consumed original or replaced old");
                 p.MoveToWorld(point,p.Map);i.Delete();
             }
-            Mana(p);var unsupported=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Howltusk").Id,99,new Random(12),true);
+            Mana(p);var unsupported=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Deathspade").Id,99,new Random(12),true);
             unsupported.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);int before=NecromancerEffects.ManaBalance256(p);
-            Require(!IronGolemCasting.Plan(p,unsupported,out _,out var issue)&&issue.Contains("consumer")&&!Begin(p,unsupported)&&unsupported.Parent==null&&!old.Deleted&&NecromancerEffects.ManaBalance256(p)==before,"Unsupported Howltusk callback entered learned windup or changed original item/roster/mana: "+issue);unsupported.Delete();
+            Require(!IronGolemCasting.Plan(p,unsupported,out _,out var issue)&&issue.Contains("consumer")&&!Begin(p,unsupported)&&unsupported.Parent==null&&!old.Deleted&&NecromancerEffects.ManaBalance256(p)==before,"Unsupported Deathspade callback entered learned windup or changed original item/roster/mana: "+issue);unsupported.Delete();
         }
         finally{Drop(p);}
     }

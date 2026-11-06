@@ -41,7 +41,7 @@ public static class NpcItemKnockbackChecks
         Require(count==24576,"Incomplete knockback source comparison");
         Require(NpcCombatEvents.RestoreSubscriptions([81]).Subscriptions().SequenceEqual(new[]{81}),"Knockback subscription restore");
     }
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         var p=new PlayerMobile{Name="NPC knockback owner [fixture]",Body=0x190,Player=true};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(p,99);
@@ -50,7 +50,7 @@ public static class NpcItemKnockbackChecks
         while(p.RawInt<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Energy),"Knockback owner Energy");}
         NecromancerEffects.SetMana256(p,p.ManaMax*256);return p;
     }
-    private static IronGolemBody Cast(PlayerMobile p,Item item)
+    internal static IronGolemBody Cast(PlayerMobile p,Item item)
     {
         string issue=null;bool found=false;
         for(int attempt=0;attempt<8&&!found;attempt++)

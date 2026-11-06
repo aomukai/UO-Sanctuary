@@ -10,7 +10,7 @@ internal sealed record NpcItemEvent(string Event,int Function);
 internal sealed record NpcItemEventStat(int Stat,string Name,NpcItemEvent[] Events);
 
 // A validated registry, not a list of silently skipped callbacks. For this
-// ordinary path supports flat return78, knockback81/function07, fear112/function08, blind113/function09, lightning128/function10, freeze134/function14,
+// ordinary path supports flat return78, knockback81/function07, fear112/function08, blind113/function09, player-only mana114/function13, lightning128/function10, freeze134/function14,
 // Open Wounds135/function15, Crushing136/function16 and
 // the approved inherent Blood skill-on-hit198/function20 slot.
 // Other active registrations fail preflight before result/damage RNG or HP.
@@ -41,7 +41,7 @@ internal sealed class NpcCombatEvents
     internal int[] Subscriptions()=>Active.Select(r=>r.Stat).ToArray();
     internal static NpcCombatEvents RestoreSubscriptions(int[] stats)
     {
-        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 81 or 112 or 113 or 128 or 134 or 135 or 136)))
+        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 81 or 112 or 113 or 114 or 128 or 134 or 135 or 136)))
         {throw new NotSupportedException("Persisted ordinary item callbacks need their admitted subscription set");}
         return FromStats(stats.Select(s=>new EquipmentStatValue(EquipmentStatKey.Pack(s),1)).ToArray());
     }
@@ -79,8 +79,9 @@ internal sealed class NpcCombatEvents
             bool blind=rule.Stat==113&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:9}&&rule.Events[1] is{Event:"domissiledamage",Function:9};
             bool knock=rule.Stat==81&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:7}&&rule.Events[1] is{Event:"domissiledamage",Function:7};
             bool fear=rule.Stat==112&&rule.Events.Length==2&&rule.Events[0] is{Event:"domeleedamage",Function:8}&&rule.Events[1] is{Event:"domissiledamage",Function:8};
+            bool mana=rule.Stat==114&&rule.Events.Length==2&&rule.Events[0] is{Event:"damagedinmelee",Function:13}&&rule.Events[1] is{Event:"damagedbymissile",Function:13};
             bool lightning=rule.Stat==128&&rule.Events.Length==1&&rule.Events[0] is{Event:"damagedinmelee",Function:10};
-            if(!flat&&!knock&&!fear&&!blind&&!lightning&&!freeze&&!wounds&&!CrushingRule(rule))
+            if(!flat&&!knock&&!fear&&!blind&&!mana&&!lightning&&!freeze&&!wounds&&!CrushingRule(rule))
             {throw new NotSupportedException("NPC combat event needs its consumer: "+rule.Name+"/"+string.Join(',',rule.Events.Select(e=>e.Event+":"+e.Function)));}
             active.Add(rule);
         }
@@ -140,6 +141,10 @@ internal sealed class NpcCombatEvents
             // The live graph aggregates these innate/material stats with item
             // layers and dispatches them in its actual registration order.
             if(procs!=null&&rule.Stat is 81 or 112 or 113 or 134 or 135 or 136 or 198){continue;}
+            // Callback13 tests UNIT_PLAYER before reading the packet/stat.
+            // This registry is exclusively an NPC adapter. Keep registration
+            // and its original stat; do not forward recovery to the owner.
+            if(rule.Stat==114&&registration.Function==13){continue;}
             if(rule.Stat==78&&registration is{Event:"attackedinmelee",Function:6}){continue;} // Owned by PreparedFlatAttempt.
             if(rule.Stat==128&&registration.Function==10)
             {

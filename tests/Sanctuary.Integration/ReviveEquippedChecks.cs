@@ -85,7 +85,7 @@ public static class ReviveEquippedChecks
         foreach(var scene in new[]{"native","registration","numeric","missile","body","element"})
         {
             var body=scene=="body"?new CustomSkeleton():new Skeleton();Item[] gear=scene switch
-            {"native"=>[new UnconvertedGear()],"registration"=>[Named("Howltusk")],"numeric"=>[Named("Baranar's Star")],"missile"=>[new Bow()],_=>Gear()};
+            {"native"=>[new UnconvertedGear()],"registration"=>[Named("Deathspade")],"numeric"=>[Named("Baranar's Star")],"missile"=>[new Bow()],_=>Gear()};
             if(scene=="missile"){ClassGear.Profiles.Ensure(gear[0]);}
             if(scene=="element"){body.SetDamageType(ResistanceType.Physical,0);body.SetDamageType(ResistanceType.Fire,100);}
             var corpse=Die(owner,body,gear);

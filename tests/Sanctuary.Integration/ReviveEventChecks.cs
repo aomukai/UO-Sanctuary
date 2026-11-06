@@ -35,7 +35,7 @@ public static class ReviveEventChecks
     private static Fixture Create(PlayerMobile owner,string kind)
     {
         var b=new Skeleton{Name="PoisonDaggerFixtureReviveEvent",NoKillAwards=true};foreach(var item in b.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank).ToArray()){item.Delete();}
-        string[] names=kind switch{"registration"=>["Howltusk"],"numeric"=>["Baranar's Star"],_=>["The Gnasher","Swordback Hold","Goblin Toe"]};
+        string[] names=kind switch{"registration"=>["Deathspade"],"numeric"=>["Baranar's Star"],_=>["The Gnasher","Swordback Hold","Goblin Toe"]};
         var gear=names.Select(Named).ToArray();foreach(var item in gear){b.AddItem(item);}Require(gear.All(i=>i.Parent==b),"Event gear slots collided");
         b.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);b.AIObject?.AITimer.Stop();Corpse corpse=null;var died=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(who,item)=>{died?.Invoke(who,item);if(who==b){corpse=item as Corpse;corpse?.DropItem(new Gold(1));}};
@@ -74,7 +74,7 @@ public static class ReviveEventChecks
         foreach(var rule in BalanceCatalog.Read<NpcItemEventStat>("npc-item-combat-events"))
         {
             bool refused=false;try{_=NpcCombatEvents.FromStats(new[]{new EquipmentStatValue(EquipmentStatKey.Pack(rule.Stat),1)});}catch(NotSupportedException){refused=true;}
-            Require(refused==(rule.Stat is not(78 or 81 or 112 or 113 or 128 or 134 or 135 or 136)),"Unsupported registration was silently skipped: "+rule.Stat);
+            Require(refused==(rule.Stat is not(78 or 81 or 112 or 113 or 114 or 128 or 134 or 135 or 136)),"Unsupported registration was silently skipped: "+rule.Stat);
         }
     }
     private static void Contact(PlayerMobile owner,BaseCreature source)

@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 4032,
+  "completeRoutineHashes": {
+    "SKILLITEM_EventFunc13_DamageToMana": "5f4529e3de6055a4f281577ec244f50ec2ffde1f009fc411987818d38d491e33",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "tools/probe_npc_damage_to_mana.py": "0676a9e12ce6cf141d8f169bcf700b66a5fd1054909c7c3f9e81ea040f65b594"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-damage-to-mana-source/probe.cpp": "3faafbd7c90d3932bc05b1b82ab3209d04ff1d5300085a62a707e9f11560512f",
+    ".local/class-skills/npc-damage-to-mana-source/probe": "2549e5dacc740f444e6b03bee1c8ee8f9abe7ab7741ed4ba6e087b5ec1e055d7",
+    ".local/class-skills/npc-damage-to-mana-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-damage-to-mana-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-damage-to-mana-source/cases.json": "1d828d52b04714dbef11d0d55e7083297defbedac575c354dbd59d27a65b82b5"
+  },
+  "scope": "Complete unchanged callback13 and percentage helper. NPC/item sources return0 before any stat/resource/overlay services,irrespective of target or packet. Player controls retain positive damage/percentage,FP mana/clamps and overlay152;the NPC adapter does not grant player or owner recovery.",
+  "limits": [
+    "Supplementary older source is not current-executable identity or full damage/event/shield/PvP/client order. Stat/mana/overlay services and declared player/NPC unit-type constants remain explicit bindings."
+  ]
+}

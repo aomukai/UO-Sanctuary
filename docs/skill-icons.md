@@ -1,5 +1,7 @@
 # Skill icons
 
+**Howltusk / Ring of Fire preflight (2026-11-06):** admitting an original NPC item adds no skill or icon identity. Iron Golem/Revive and Ring of Fire retain their existing talent/hotkey icon entries; no final assets are produced.
+
 **NPC item knockback (2026-11-06):** an original equipment property adds no talent or hotkey icon identity. Iron Golem/Revive icons retain their existing asset entries. See [checkpoint](npc-item-knockback-checkpoint.md).
 
 **Inferno review-only input prototype (2026-11-06):** no learned route or new icon identity is introduced. Inferno talent/left/right/quick icons remain pending in their existing entries. See [proposal](inferno-held-input-proposal.md).
