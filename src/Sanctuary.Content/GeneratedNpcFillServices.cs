@@ -18,14 +18,15 @@ internal sealed class GeneratedNpcFillServices:NpcDamageFillServices
     private readonly Func<int,int> Bound;
     private readonly Func<uint> Random;
     private readonly Func<NpcFillPacket,NpcFillPacket> Event;
+    private readonly Func<NpcFillStat,int> Read;
     internal GeneratedNpcFillServices(GeneratedNpcWeaponFrame frame,GeneratedNpcStatGraph graph,GeneratedNpcFillTarget target,
-        int firstType,int range,bool good,int hireling,int critical,Func<int,int> limited,Func<uint> raw,Func<NpcFillPacket,NpcFillPacket> attacked)
+        int firstType,int range,bool good,int hireling,int critical,Func<int,int> limited,Func<uint> raw,Func<NpcFillPacket,NpcFillPacket> attacked,Func<NpcFillStat,int> read=null)
     {
         ArgumentNullException.ThrowIfNull(frame);ArgumentNullException.ThrowIfNull(graph);ArgumentNullException.ThrowIfNull(target);
         ArgumentNullException.ThrowIfNull(target.Armor);ArgumentNullException.ThrowIfNull(target.SetArmor);ArgumentNullException.ThrowIfNull(target.TypeMatches);
         ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(raw);ArgumentNullException.ThrowIfNull(attacked);
         if(hireling<0||critical is <0 or >255){throw new ArgumentOutOfRangeException();}
-        Frame=frame;Graph=graph;Target=target;FirstType=firstType;Range=range;Good=good;Hire=hireling;Crit=critical;Bound=limited;Random=raw;Event=attacked;
+        Frame=frame;Graph=graph;Target=target;FirstType=firstType;Range=range;Good=good;Hire=hireling;Crit=critical;Bound=limited;Random=raw;Event=attacked;Read=read??(stat=>Graph.Read((int)stat));
     }
     internal override bool AttackerPresent=>true;
     internal override bool DefenderPresent=>Target.Present;
@@ -39,7 +40,7 @@ internal sealed class GeneratedNpcFillServices:NpcDamageFillServices
     internal override bool Blunt=>Frame.SelectedBlunt;
     internal override int Hireling=>Hire;
     internal override int IntrinsicCritical=>Crit;
-    internal override int Stat(NpcFillStat stat)=>Graph.Read((int)stat);
+    internal override int Stat(NpcFillStat stat)=>Read(stat);
     internal override IEnumerable<EquipmentStatValue> TypeDamage=>Graph.Stats.Where(s=>s.Stat==(int)NpcFillStat.DAMAGE_VS_MONTYPE);
     internal override bool TypeMatches(int layer,int monsterType)=>Target.TypeMatches(layer,monsterType);
     internal override int WeaponCritical()=>Frame.Mastery(2,FirstType,Range);

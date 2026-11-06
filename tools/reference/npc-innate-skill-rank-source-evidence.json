@@ -1,0 +1,24 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 8192,
+  "completeRoutineHashes": {
+    "SKILLS_GetBonusSkillLevel": "7e20ab48d9d6657c8eb8907d879dc7ccd700c3789568b7424630d658d77827c0",
+    "SKILLS_GetSkillLevel": "4bf88a74fe5cbd91109bfc2d42f617a979446fda102007d67081e69c642952dd"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "tools/reference/oak-skill-rank-engine-evidence.json": "2ac8c0efef6bce7d3a78d60a30e8c2861e5a6d24ad39de28e70c5e89d83305d3"
+  },
+  "scope": "Complete older bonus/level getters with NPC unit kind1;class/tree branches abort if reached. Explicit item stat,row validity,shrine,item ownership and pinned class0MaxLvl99 services;no skill entry creation or passive-stat-list refresh claimed.",
+  "artifacts": {
+    ".local/class-skills/npc-innate-skill-rank-source/source.cpp": "14a2d006579f8b7d98a6c4cd75e199176004eccc41fab2039d92daba6a3a5ed1",
+    ".local/class-skills/npc-innate-skill-rank-source/probe": "241f428ab240ed59649afe57d40fbb109f4ab887090d5cf031c0ef7ab77b8910",
+    ".local/class-skills/npc-innate-skill-rank-source/input.txt": "fe1a9fc50cd35fe196f91281dec385108dd78c320f9eb094ce2b172c41ae2f26",
+    ".local/class-skills/npc-innate-skill-rank-source/output.json": "02963ee5d702193a38beac32db883b3551c0921e85e7682b6eefd36a461d1a9b",
+    ".local/class-skills/npc-innate-skill-rank-source/cases.json": "fdf184801e059ab2560f49c5baa5aeba9f32077c1a0befda5be42dd7eeb17a40",
+    ".local/class-skills/npc-innate-skill-rank-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-innate-skill-rank-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_npc_innate_skill_rank.py": "77437dba17b380b6170579d8682991ad4fdb77b22daeaa01139397b90cfe06ea"
+  }
+}

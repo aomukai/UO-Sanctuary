@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie damage allocation (2026-11-07 JST).** Physical/element/poison/drain and intrinsic-critical hit-class/overlay fields now exist as packet metadata; no new HP/status/proc delivery or final overlay presentation is enabled. Body/equipment,summon,weapon/contact,critical overlay and skill/proc effects/audio remain separately pending and identified placeholders.
+
 **Valkyrie hand/RNG integration (2026-11-07 JST).** Saved weapon identity and attack-stream binding add no final visual or audio asset. The prepared female body and hidden item graphics remain explicitly identified placeholders. Final body/equipment, summon, weapon/contact and granted skill/proc effects/audio remain pending separately.
 
 **Valkyrie resource integration (2026-11-07 JST).** Pool/regeneration and save/region corrections add no final visual or audio asset. The prepared female silhouette and invisible original item art remain labelled placeholders; final body, summon, weapon/contact and skill/proc effects/audio remain separately pending. No imagegen asset is added.

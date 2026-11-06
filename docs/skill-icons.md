@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie damage allocation (2026-11-07 JST).** Packet and inherited passive-value work adds no learned binding or icon. Valkyrie talent/right/quick artwork remains pending independently; item-granted skill icons are not implied by retained item layers.
+
 **Valkyrie hand/RNG integration (2026-11-07 JST).** Original hand identity and persisted attack RNG add no learned binding or icon. Valkyrie talent/right/quick artwork remains separately pending; item-granted skills are not enabled by this component.
 
 **Valkyrie resource integration (2026-11-07 JST).** No talent or hotkey binding/icon is added by the prepared resource recipient. Final Valkyrie talent/right/quick artwork remains independently pending; resource delivery does not enable learned casting or item-granted player skill bindings.

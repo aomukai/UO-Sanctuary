@@ -71,6 +71,14 @@ internal static class NpcEquipmentRandom
         }
         ulong seed=state.Seed;uint value=SourceRandom.Roll(ref seed);Seeds[actor.Serial.Value]=state with{Seed=seed};return value;
     }
+    internal static NpcEquipmentSeed Require(BaseCreature actor)
+    {
+        var binding=Binding(actor);var state=State(actor);
+        if(state==null||state.Owner!=binding.Owner||state.Item!=binding.Item||state.Unarmed!=binding.Unarmed
+            ||state.ReviveCorpse!=binding.Corpse||state.ReviveBinding!=binding.Identity||state.ValkyrieBinding!=binding.Valkyrie)
+        {throw new NotSupportedException("Missing or changed explicit NPC attack RNG context");}
+        return state;
+    }
     internal static int Limited(BaseCreature actor,int bound)=>bound<=0?0:(int)(Raw(actor)%(uint)bound);
     private static bool Matches(BaseCreature actor,NpcEquipmentSeed saved)
     {

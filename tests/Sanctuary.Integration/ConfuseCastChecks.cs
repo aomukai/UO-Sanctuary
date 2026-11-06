@@ -162,6 +162,12 @@ public static class ConfuseCastChecks
     private static void Input(NetState network,bool quick)
     {
         var p=Owner();var t=Enemy(p,6);var victim=Enemy(p,7);Ready(p);int mana=NecromancerEffects.ManaBalance256(p);string label=quick?"confuse-cast-quick":"confuse-cast-right";
+        // Existing per-actor suppliers keep real AI scheduling, decision and
+        // accuracy checks. Exercise a stall, a miss, then a successful swing
+        // without making success depend on random luck in a ten-second lease.
+        int decisions=0,accuracy=0;
+        t.AttackDecisionRoll=()=>++decisions==1?0.99:0.0;
+        t.MeleeAccuracyRoll=()=>++accuracy==1?0.99:0.0;
         // The inspection target has50000life, which also scales its custom
         // regeneration. Reuse the existing PMH fixture control to observe hits.
         TimedEffects.PreventHealing(victim,TimedEffects.Now);
@@ -184,15 +190,13 @@ public static class ConfuseCastChecks
                 void ObserveCombat()
                 {
                     if(finished){return;}
-                    // Target selection is deterministic here; native melee
-                    // decision/hit rolls are not. Observe real damage during
-                    // the actual curse lease instead of assuming a hit by4s.
-                    // Leave the original10s effect and all hit rolls intact.
+                    // Observe real damage during the original ten-second
+                    // curse, after the controlled decision and accuracy paths.
                     if(victim.Hits>=victimHp&&TimedEffects.Now<curse.UntilUtc.AddMilliseconds(-100))
                     {Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(ObserveCombat));return;}
-                    try{Require(victim.Hits<victimHp&&SourceMind.Neutral(t)&&p.CanBeHarmful(t,false)&&t.GetMaster()==null,
+                    try{Require(victim.Hits<victimHp&&decisions>=3&&accuracy>=2&&SourceMind.Neutral(t)&&p.CanBeHarmful(t,false)&&t.GetMaster()==null,
                         $"Real Confuse cast failed autonomous NPC combat/neutral attackability: hp={victim.Hits}/{victimHp}, mind={JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(t)?.Mind)}, combatant={t.Combatant?.Serial}, victim={victim.Serial}, positions={t.Location}/{victim.Location}, action={t.AIObject.Action}, running={t.AIObject.AITimer.Running}, sector={t.Map.GetSector(t.Location).Active}, returning={t.ReturningHome}, enemy={t.IsEnemy(victim)}, harmful={t.CanBeHarmful(victim,false)}, attackChance={t.NormalStats.AttackChance}, hitChance={ClassStats.HitChance(ClassStats.AttackRating(t),ClassStats.Defense(victim),ClassStats.Level(t),ClassStats.Level(victim))}, nextSwing={t.NextCombatTime-Core.TickCount}, nextDecision={t.NextMeleeDecision-Core.TickCount}, frozen={t.Frozen}/{t.CantWalk}");
-                        fought=true;Log.Information("Confuse input combat: {Label},first damage after{ElapsedMs}ms,hit chance={HitChance}",label,(TimedEffects.Now-combatStarted).TotalMilliseconds,ClassStats.HitChance(ClassStats.AttackRating(t),ClassStats.Defense(victim),ClassStats.Level(t),ClassStats.Level(victim)));}catch(Exception e){Fail(e);}
+                        fought=true;Log.Information("Confuse input combat: {Label},first damage after{ElapsedMs}ms,hit chance={HitChance},controlled stall/miss/hit decisions={Decisions},accuracy={Accuracy}",label,(TimedEffects.Now-combatStarted).TotalMilliseconds,ClassStats.HitChance(ClassStats.AttackRating(t),ClassStats.Defense(victim),ClassStats.Level(t),ClassStats.Level(victim)),decisions,accuracy);}catch(Exception e){Fail(e);}
                 }
                 Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(ObserveCombat));
                 void Expired()

@@ -68,10 +68,10 @@ internal sealed class GeneratedNpcWeaponFrame:SourceWeaponServices<EquipmentStat
     }
     internal NpcFillPacket Fill(GeneratedNpcFillTarget target,NpcFillPacket packet,int firstSkillItemType,int skillRange,
         bool goodAlignment,int hireling,int intrinsicCritical,Func<int,int> limited,Func<uint> raw,
-        Func<NpcFillPacket,NpcFillPacket> attackedInMelee,bool ranged=false,int sourceDamage=128)
+        Func<NpcFillPacket,NpcFillPacket> attackedInMelee,bool ranged=false,int sourceDamage=128,Func<NpcFillStat,int> read=null)
     {
         Current();return NpcDamageFill.Fill(new GeneratedNpcFillServices(this,Graph,target,firstSkillItemType,skillRange,
-            goodAlignment,hireling,intrinsicCritical,limited,raw,attackedInMelee),packet,ranged,sourceDamage);
+            goodAlignment,hireling,intrinsicCritical,limited,raw,attackedInMelee,read),packet,ranged,sourceDamage);
     }
     internal bool SelectedBlunt
     {

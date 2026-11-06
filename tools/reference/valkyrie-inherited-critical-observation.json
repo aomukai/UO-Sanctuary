@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "User's existing Amazon tooltip",
+  "questionId": "call_65612a98d6ab4ad1a1091373eaef8b49",
+  "skill": "Critical Strike",
+  "hardRank": 1,
+  "effectiveRank": 2,
+  "reportedPercent": 25,
+  "retainedSharedCurvePercent": 25,
+  "supplementaryOlderHelperPercent": 25,
+  "scope": "Current Critical Strike12=59 distinguishes the models and supports the retained two-stage curve. Rank2/5/9/10 agree with both. Reported rank8=54 conflicts with both predictions51/52 and remains an unresolved outlier;current-versus-next preview remains an unproven hypothesis. No global curve change or second respec requested. This tooltip evidence is not proof of all ranks or inherited NPC formula/stat-list dispatch.",
+  "additionalUserReadings": [
+    {
+      "hardRank": 4,
+      "effectiveRank": 5,
+      "reportedPercent": 42,
+      "retainedSharedCurvePercent": 42,
+      "supplementaryOlderHelperPercent": 42
+    },
+    {
+      "hardRank": 7,
+      "effectiveRank": 8,
+      "reportedPercent": 54,
+      "retainedSharedCurvePercent": 51,
+      "supplementaryOlderHelperPercent": 52
+    },
+    {
+      "hardRank": 8,
+      "effectiveRank": 9,
+      "reportedPercent": 54,
+      "retainedSharedCurvePercent": 54,
+      "supplementaryOlderHelperPercent": 54
+    },
+    {
+      "hardRank": 9,
+      "effectiveRank": 10,
+      "reportedPercent": 56,
+      "retainedSharedCurvePercent": 56,
+      "supplementaryOlderHelperPercent": 56
+    }
+  ],
+  "distinguishingReading": {
+    "questionId": "call_ae6a101f57e048dcabfc30c370cb2f4d",
+    "hardRank": 11,
+    "effectiveRank": 12,
+    "reportedPercent": 59,
+    "retainedSharedCurvePercent": 59,
+    "supplementaryOlderHelperPercent": 60
+  }
+}

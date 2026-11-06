@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "bodies": 171,
+  "originalLoadouts": 57,
+  "originalItems": 990,
+  "packets": 5130,
+  "packetsPerBoot": 1710,
+  "completeRoutineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "SKILLS_GetBonusSkillLevel": "7e20ab48d9d6657c8eb8907d879dc7ccd700c3789568b7424630d658d77827c0",
+    "SKILLS_GetSkillLevel": "4bf88a74fe5cbd91109bfc2d42f617a979446fda102007d67081e69c642952dd"
+  },
+  "inputs": {
+    "tools/reference/npc-damage-fill-source-evidence.json": "839a00012d0275030fab9dc44cc334ceb2409c232455ebe9714b77d95a619b65",
+    ".local/class-skills/npc-damage-fill-source/source.cpp": "0e3e1e6ba0204aee36b0862e8da30c2127226984c0d01c35e35722c70d008913",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    ".local/class-skills/valkyrie-numeric-source/cases.json": "84d4b88684e46efa908b6e6a11aea45f7cfbeaf8071f9920d96c2857749312ef",
+    ".local/class-skills/valkyrie-resources-source/cases.json": "7f03a22f52d7afee1a7c50144f8bc91ae05d6ebc93f154c777c3c0564e98ec6f",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "tools/reference/valkyrie-inherited-critical-observation.json": "470dc77733bb028b5e8ebb6572cfc58f40e9e2e2cae128a9a71a5cf506455139"
+  },
+  "declaredServices": [
+    "Original scalar/layered source-reader values from the independent30-routine resource oracle;original57loadout field proofs remain separate. Spear2handed/strength/dexterity metadata comes from pinned current table;no weapon mastery entries occur in this corpus,existing42-routine controls retain that general service.",
+    "Captured innate hard ranks;NPC item stat readers;class0maximum99;current two-stage dm12 formula service,with direct current Critical12=59corroboration. Source passive-stat-list allocation/refresh and complete current NPC formula dispatch remain unclaimed.",
+    "Explicit target categories,type-match modulo service,armor20,ordinary good-aligned nonhireling hand service;no native target species mapping,AI,accuracy,HP/status/proc/contact delivery claimed. RNG seed is mandatory supplied context,not world ownership."
+  ],
+  "artifacts": {
+    ".local/class-skills/valkyrie-damage-source/source.cpp": "1e0ac427bdc528caac49de673ea70808267184ec5ced959002fcbfd616d92511",
+    ".local/class-skills/valkyrie-damage-source/probe": "db1907d3a0f1fcab16c46a843905ee547bfcdec847f0b4a4f5e9cdce86282381",
+    ".local/class-skills/valkyrie-damage-source/input.txt": "1a46744ede73fb5d3a399afaa1ffacd1e57b5e5901dde06961197946c368f649",
+    ".local/class-skills/valkyrie-damage-source/output.json": "9e347035a54fba9a23a4f2f147a0b99662b3caa75d0a68ced48e5efc3c8585c1",
+    ".local/class-skills/valkyrie-damage-source/cases.json": "26b3779811daf7d6b859bc57b8daabbf2e779850b7760eb302e7faa2cdd78b32",
+    ".local/class-skills/valkyrie-damage-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/valkyrie-damage-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_valkyrie_damage.py": "d9ea850c26f116a6d592d4e0eb7406c985398a1667daa590561bac24a76b8d69"
+  }
+}
