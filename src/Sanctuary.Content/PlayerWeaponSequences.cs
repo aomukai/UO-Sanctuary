@@ -10,6 +10,7 @@ internal sealed record PlayerWeaponSequence(string Code,int Sequence,int Points,
 internal static class PlayerWeaponSequences
 {
     private static readonly Lazy<IReadOnlyDictionary<string,PlayerWeaponSequence>> Swing=new(()=>Load("double-swing-sequence",11));
+    private static readonly Lazy<IReadOnlyDictionary<string,PlayerWeaponSequence>> LeapAttack=new(()=>Load("leap-attack-sequence",14));
     private static readonly Lazy<IReadOnlyDictionary<string,PlayerWeaponSequence>> Flight=new(()=>Load("dragon-flight-sequence",21));
     private static readonly Lazy<IReadOnlyDictionary<string,PlayerWeaponSequence>> Cleave=new(()=>Load("cleave-sequence",24));
     private static readonly Lazy<IReadOnlyDictionary<string,PlayerWeaponSequence>> Mirrored=new(()=>Load("mirrored-blades-sequence",25));
@@ -20,7 +21,17 @@ internal static class PlayerWeaponSequences
         if(rows.Length!=14||!rows.Select(x=>x.Code).SequenceEqual(codes)){throw new InvalidDataException("Missing player weapon sequence profiles");}
         foreach(var r in rows)
         {
-            bool flight=sequence==21,swing=sequence==11;
+            bool flight=sequence==21,swing=sequence==11,leap=sequence==14;
+            if(leap)
+            {
+                int points=r.Code switch{"HTH"or"1JS"or"1JT"or"1SS"or"1ST"or"HT1"or"HT2"=>22,"1HT"or"1HS"=>25,"2HS"=>27,"2HT"or"STF"=>28,"BOW"or"XBW"=>0,_=>-1};
+                int contact=points switch{22 or 25=>16,27=>17,28=>18,_=>-1};
+                if(r.Sequence!=14||r.Points!=points||r.Frames!=points||r.RawAuxiliary!=256||r.Rows?.Length!=points
+                    ||r.Rows.Where((x,i)=>x?.Length!=5||x[0]!=0||x[3]!=0||x[1]!=(i<15?13:7)
+                        ||x[2]!=(i<15?i:points==22?i-10:i-9)||x[4]!=(i==5||i==11||i==contact?1:0)).Any())
+                {throw new InvalidDataException("Unsupported Leap Attack weapon sequence row");}
+                continue;
+            }
             int[] swingPoses=[1,2,4,6,7,9,11,13,14,2,4,5,6,8,9,10,11];
             if(r.Sequence!=sequence||r.Points!=r.Frames||r.Points<16||r.Points>(flight?23:22)||r.RawAuxiliary!=256||r.Rows?.Length!=r.Points
                 ||r.Rows.Any(x=>x?.Length!=5||x[0]!=0||x[3]!=0||x[4] is <0 or >1)
@@ -33,13 +44,14 @@ internal static class PlayerWeaponSequences
     }
     internal static PlayerWeaponSequence Profile(int sequence,string sourceWeaponCode)
     {
-        var table=sequence switch{11=>Swing.Value,21=>Flight.Value,24=>Cleave.Value,25=>Mirrored.Value,_=>throw new NotSupportedException("Unsupported player weapon sequence")};
+        var table=sequence switch{11=>Swing.Value,14=>LeapAttack.Value,21=>Flight.Value,24=>Cleave.Value,25=>Mirrored.Value,_=>throw new NotSupportedException("Unsupported player weapon sequence")};
         if(sourceWeaponCode==null||!table.TryGetValue(sourceWeaponCode,out var r)){throw new NotSupportedException("Unknown source weapon class");}
         return r with{Rows=r.Rows.Select(x=>x.ToArray()).ToArray()};
     }
     internal static SourceAnimationState Schedule(int sequence,string sourceWeaponCode,int advance,int frameBonus,int atFrame)
     {
         var s=Profile(sequence,sourceWeaponCode);
+        if(s.Points==0){throw new NotSupportedException("This source weapon class has no skill sequence");}
         return SourceAnimationEvents.Initial(new(0,advance,s.Frames*256,s.Rows.Select(x=>x[4]).ToArray(),[]),atFrame,frameBonus);
     }
 }

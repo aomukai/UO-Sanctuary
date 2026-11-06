@@ -79,7 +79,7 @@
     ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
     "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
-    "tools/reference/double-swing-sequence-source-evidence.json": "6bd71f6028e29a436a0a9582c352dac3b1e99bfd514e2975a3012a4870ef32fb",
+    "tools/reference/double-swing-sequence-source-evidence.json": "f4313dc027839edcee32dabce08098cb76acfb8ab0bea6afa698882538b52a74",
     "data/Sanctuary/Balance/double-swing-sequence.json": "5ad18dfdcf86944692dbbd81c23d059781d23b2869c7313b1fca672d46f58a7e",
     "tools/review_frenzy_rules.py": "4f70c1473bbfd4dcf0188a82bcdb4d069f63e1aff5c84862380bffd257159e6e"
   }

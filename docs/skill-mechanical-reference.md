@@ -1,5 +1,8 @@
 # Skill mechanical reference and precedence
 
+**Approved Leap Attack landing rule (2026-11-06 JST).** One circular, weapon-independent physical hit per eligible enemy on landing within the pinned seven-source-subtile radius (4.6 tooltip yards), then the separate weapon strike at its post-landing sequence contact. The area uses pinned damage/hard Leap synergy and shared physical spell mitigation/block/dodge, without weapon damage/critical/leech/on-strike effects. This explicitly replaces unresolved server wave travel/overlap and ordering; see [exact decision](../tools/reference/leap-attack-landing-decision.json) and [integration status](leap-attack-sequence-checkpoint.md). Static SQ14 and supplied-rate old-engine scheduling evidence do not certify modern flight/rate/target behavior.
+
+
 **Approved Grim Ward context (2026-11-06 JST).** Capture effective Ward rank and hard Find Potion on release; keep the totem as area center and curse creator, and initialize shared Terror against its caster. Gear changes do not rewrite the captured packet. This is the user's explicit Sanctuary adaptation, with [exact decision](../tools/reference/grim-ward-context-decision.json) and [implementation/verification scope](grim-ward-actor-checkpoint.md). Modern executable context/clock parity remains unverified. Source start33's four-mana startup payment, corpse reservation and pinned size/start/body/period fields remain independently traced.
 
 

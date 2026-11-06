@@ -1,5 +1,8 @@
 # Class skill roadmap
 
+**Leap Attack timing preparation (2026-11-06 JST).** Current SQ14 weapon rows and the distinct absolute phase-reset scheduler now have dedicated source/native comparisons; they do not enable a cast or choose an actual attack rate. The user approved one circular landing-area hit before the separate post-landing weapon strike. See [checkpoint](leap-attack-sequence-checkpoint.md) and [decision](../tools/reference/leap-attack-landing-decision.json). Integrating shared flight, placement, payment, area and contact is next. Coverage remains **201 handlers / Barbarian29**, with no class complete.
+
+
 **Grim Ward casting checkpoint (2026-11-06 JST).** Approved captured context and caster-directed initial fear now bind shared corpse placement, source size flags, start/body timing, periodic curse/Terror, UTC owner lifecycle and original loot retention to the learned paid SC route. Right/quick input and natural startup have dedicated checks. See [checkpoint](grim-ward-actor-checkpoint.md); exact native/retained scope stays explicit. **201 handlers / Barbarian29; no class complete.** Leap Attack remains its missing handler.
 
 

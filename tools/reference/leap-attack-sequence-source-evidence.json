@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "readOnlyFileInspection": true,
+  "processMemoryRead": false,
+  "currentExecutableCodeParity": false,
+  "classicDescriptorsMatched": 322,
+  "sequence": 14,
+  "profiles": 14,
+  "activeProfiles": 12,
+  "emptyProfiles": [
+    "BOW",
+    "XBW"
+  ],
+  "initialContexts": 1620,
+  "absoluteContexts": 1080,
+  "completeRoutineHashes": {
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FC80EE0": "7aa059e046e52e4688c30ef03b67f193336c66b643268593a79c92d0f8bafab2",
+    "D2GAME_SKILLS_RewindSkillEx_6FCBD260": "a596b21a17089eb76882b9829587246f82228d36f7639adfa0310d2267d54220"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SequenceTbls.h": "ab11d2b45b3b308fa48de9a8b542a9d67b536a1dfe7bf978215f4001f48cd533",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/player_weapon_sequences.py": "676bcd79570b7ed2b90ba42c02158851bf693540beda56c52a49b99ca16ad44e",
+    "tools/reference/dragon-flight-source-evidence.json": "e8ec78b9c720d80e549a2677d69de323dc77594967816715f4886da044ae301f",
+    ".local/class-skills/dragon-flight-source/source.cpp": "d910d5d5f19439c7e46f827c308209f8fa3fb524eabd3d861b9efbb82ff85db5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/probe_leap_attack_sequence.py": "524b9e206b296131c5b1a7a8557b3ca443464182a98f2a63319d98895acac0b2"
+  },
+  "artifacts": {
+    ".local/class-skills/leap-attack-sequence-source/source.cpp": "61c58eaff97afe990774c084aeedbd840419e6225618e4d09c6460e762b9d108",
+    ".local/class-skills/leap-attack-sequence-source/probe": "bbed69c7bd21ec3de8430193b14454820f89de1f4c1f2d34248c3f08d71d3dfb",
+    ".local/class-skills/leap-attack-sequence-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/leap-attack-sequence-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/leap-attack-sequence-source/cases.json": "8b5df35699569741890e24db3fa35b690ccfda68f177fc19f97be72767ec9311",
+    "data/Sanctuary/Balance/leap-attack-sequence.json": "8783b5387f0f07d04433cb1d23d9d1be149e484894cc6e730d9803064bc32c4a"
+  },
+  "established": [
+    "Current SQ14 retains twelve22/25/27/28point profiles and two empty ranged profiles;raw auxiliary256. Three source action markers occur at5,11and the weapon-dependent16/17/18contact point. This file data does not select actual attack rate or flight duration.",
+    "Six complete older scheduler/reader/frame/player-callback/absolute-reset bodies execute unchanged with explicit table/queue/unit/dispatcher services. Initial callbacks preserve ordinal and low fractional bits. Absolute resets cancel action/end events,preserve other event types,set epoch directly from point10or16,and leave dwSeqFrame unchanged. Future callbacks from the reset carry parameter0 rather than fresh initial ordinals."
+  ],
+  "remaining": [
+    "Modern start41/do78,actual rate/flight/target/payment/death/input and landing wave emission/order remain unverified. Legacy absolute phase reset is distinct from relative rewind;neither is a new learned cast or a modern code certificate."
+  ]
+}

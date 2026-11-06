@@ -1,0 +1,8 @@
+{
+  "referenceVersion": "3.3.93847",
+  "questionId": "call_c5ec32f09d924894aa7afd72ba193386",
+  "question": "Leap Attack\u2019s modern landing-wave emission and hit ordering are still unavailable. May Sanctuary explicitly use one circular, weapon-independent physical hit per nearby enemy on landing, within the pinned 4.6-yard radius, followed by the separate weapon strike at its post-landing animation event? The area would use the pinned damage and Leap synergy, with no weapon damage, leech, critical or on-strike effects. This replaces unverified wave travel/overlap with a defined landing hit; the proposal is saved in docs/leap-attack-landing-proposal.md. I\u2019ll continue flight and timing work either way.",
+  "answer": "Approve this Leap Attack landing rule",
+  "approved": true,
+  "scope": "Explicit Sanctuary area hit identity and landing-before-weapon order;current wave travel/overlap/callback behavior remains unverified."
+}

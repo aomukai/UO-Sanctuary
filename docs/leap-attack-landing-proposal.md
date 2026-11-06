@@ -1,0 +1,11 @@
+# Proposed Leap Attack landing rule
+
+Status: **approved by the user**. The [exact answer](../tools/reference/leap-attack-landing-decision.json) authorizes this Sanctuary adaptation; it is not a claim of verified D2R executable behavior.
+
+The pinned reference remains **D2R Reign of the Warlock 3.3.93847**. Current skill143 and missile685 data plus Blizzard's released 2.4 notes establish a weapon strike and a separate weapon-independent physical landing area. They do not establish the current server's wave emission count, overlap/hit identity or ordering relative to the weapon contact. Older do78 predates that area. The available pinned executable's static SQ14 rows establish animation data, not the unavailable modern landing body.
+
+Approved adaptation: resolve **one circular physical area hit per eligible enemy on landing**, within the pinned seven-source-subtile radius (the tooltip's 4.6 yards, projected through the existing two-subtile/native-tile geometry). Then resolve the distinct weapon strike at its post-landing SQ14 contact event. The area uses the pinned skill damage and hard Leap synergy through shared physical spell mitigation and block/dodge; it receives no weapon damage, weapon critical, leech or on-strike effects. Its presentation remains an identified landing-wave placeholder. It does not invent a number of server rays or allow repeated overlapping rays to multiply its damage.
+
+This explicitly chooses the area hit identity and order. It trades unverified server wave travel/collision details for a defined circular landing hit; those details must remain recorded as an approved adaptation rather than silently claimed as authentic D2R. The separate weapon contact retains its normal eligibility, accuracy, damage and item effects.
+
+Other work can proceed independently: the existing Leap flight/reservation/network/deferred-death services, distinct source destination search, current 175% flight speed/minimum twelve airborne frames, SQ14 weapon profiles and absolute phase reset, payment/input/cancellation, original saves and assets. This approval does not itself certify those integrations, set an undocumented target-reacquisition rule or mark Barbarian complete.

@@ -80,4 +80,34 @@ internal static class SourceAnimationEvents
         else{events.Add(new(EndAnimation,frame+1,0));}
         return state with{Epoch256=epoch,Events=events.ToArray()};
     }
+
+    // D2GAME_SKILLS_RewindSkillEx sets an absolute sequence point. Its a3 is
+    // not a relative rewind amount; action callbacks after this reset all use
+    // parameter0. No clock, rate, flight phase or skill dispatch is chosen here.
+    internal static SourceAnimationState AtPoint(SourceAnimationState state,int frame,int point)
+    {
+        Validate(state,frame);
+        if(point<1||point>=state.FrameEvents.Length||point*256>=state.FrameCount256||frame<point)
+        {throw new ArgumentOutOfRangeException(nameof(point));}
+        var events=new List<SourceAnimationEvent>();
+        foreach(var e in state.Events){if(e.Type is not(ModeChange or EndAnimation)){events.Add(e);}}
+        int current=frame;
+        if(state.Speed>0)
+        {
+            int index=point-1;
+            for(long phase=point*256L+state.Speed;phase<state.FrameCount256;phase+=state.Speed)
+            {
+                current++;
+                while(index<=phase/256)
+                {
+                    int kind=state.FrameEvents[index++];
+                    if(kind is >0 and <=4){events.Add(new(ModeChange,current,kind));}
+                }
+            }
+            if(current==frame){current++;}
+            events.Add(new(EndAnimation,current+1,0));
+        }
+        else{events.Add(new(EndAnimation,frame+1,0));}
+        return state with{Epoch256=checked((frame-point)*256),Events=events.ToArray()};
+    }
 }

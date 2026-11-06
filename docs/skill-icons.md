@@ -1,5 +1,8 @@
 # Skill icons
 
+**Leap Attack timing checkpoint (2026-11-06 JST).** Talent and left/right/quick hotkey icons remain pending separately from jump/impact/landing effects. No imagegen or final icon was created by sequence preparation.
+
+
 **Grim Ward checkpoint (2026-11-06 JST).** The learned route needs its final talent icon and right/quick hotkey icon. Mechanical totem/curse placeholders remain in the separate [effects register](skill-effects.md); no final icon or imagegen asset was created.
 
 

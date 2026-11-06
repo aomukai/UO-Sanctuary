@@ -1,5 +1,8 @@
 # Skill effects
 
+**Leap Attack timing checkpoint (2026-11-06 JST).** Current SQ14 distinguishes jump poses and the later weapon contact. Its approved circular landing area still needs final jump/arc, landing-wave, weapon impact and audio presentation. Timing preparation supplies no final effect asset; keep these distinct from ordinary Leap knockback. See [checkpoint](leap-attack-sequence-checkpoint.md).
+
+
 **Grim Ward placeholder checkpoint (2026-11-06 JST).** Casting/lifecycle uses stock skull items named startup, active totem and expiry, the native SC pose and an existing cry sound. Final three-size start/body/end, fear/slow/expiry and audio remain pending. These placeholders do not gate mechanics; see [checkpoint](grim-ward-actor-checkpoint.md).
 
 

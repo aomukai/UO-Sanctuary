@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "93a4cb7d538821bf0358b7f0053bb62f9d8eaeab3848e1cc90f66544d2e00e88",
+  "ContentAssemblySha256": "f54b35a19462cf2cee9ece68a2def214655efd4c4179cf32dd3e58f0a2ecabac",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -89,6 +89,7 @@
     "data/Sanctuary/Balance/jewellery-grades.json": "941828b133ef89e4c6a1f61460f5bdfd064a08fd09f653527c4cfe2b898f4025",
     "data/Sanctuary/Balance/kick-boots.json": "e9d75fa929eb325dabfdfd68ce8098a6629273b160881c0cac9650ce9412085f",
     "data/Sanctuary/Balance/knockback-source-rules.json": "c25cd474660ede733b6a5cc72a2cf018a4e8652f05d450c6b8181de05f63a86a",
+    "data/Sanctuary/Balance/leap-attack-sequence.json": "8783b5387f0f07d04433cb1d23d9d1be149e484894cc6e730d9803064bc32c4a",
     "data/Sanctuary/Balance/limited-summon-corpses.json": "85853e3a536cd34b9b998508246dea6e5c72091e374e8401ef32509a35bfae53",
     "data/Sanctuary/Balance/map-surveys.json": "9b8d6e4d755df99525d09550d18aedecdcbdd6082ba56a49754cad0b0a7f271d",
     "data/Sanctuary/Balance/market-settings.json": "186dad5886c6b131fcf4d8959a3f3908612520e42fe274bea8753bf37b312d86",
@@ -905,7 +906,7 @@
     "src/Sanctuary.Content/PlayerMeleeGeometry.cs": "d1bc83c4877dc1dbeeb495eb49a26d7eeb5785e9d2c0641de14b20c4f0eceac9",
     "src/Sanctuary.Content/PlayerMeleeReturn.cs": "e26ce78ce7e8c15a7029d7cf5ae642329f4346602237ad8458d80420ca2120a1",
     "src/Sanctuary.Content/PlayerWeaponContact.cs": "21f765b238dcde917403e2c7d52fddc84f0db5a51fd128a75c93bac29b4ec7a2",
-    "src/Sanctuary.Content/PlayerWeaponSequences.cs": "9c19bc7491ff2f3d08d95ebf31e6f9bfef678f8151967219987f48a34a97f563",
+    "src/Sanctuary.Content/PlayerWeaponSequences.cs": "0b1c9f6741bceb4cee2faeae0b94188378a2b2212f90a2150c8193b530fbb307",
     "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
     "src/Sanctuary.Content/PoisonDaggerCombat.cs": "5138ab46ea33d0f529b72e18664b9677c4cbbde8562d3a8ef9b662e599d891c7",
     "src/Sanctuary.Content/PoisonDaggerContact.cs": "eb90c0218d01dc774049f549531b5f32005a294d2edcf4927d6800d986c77188",
@@ -1007,7 +1008,7 @@
     "src/Sanctuary.Content/SourceActorPath.cs": "971b37839a3b1e4514864b33c18925ea005d09bda4991abab195ebfc6fb6ff9b",
     "src/Sanctuary.Content/SourceAffixPicker.cs": "0fd03f43a3b89ce9bbba8ca53b0048886b15799846e665e61697cfb066cf2b44",
     "src/Sanctuary.Content/SourceAiEligibility.cs": "a7f7a0ad9959eb5e402ea1e8572d26252619076c422754a3b28dc0c9af932f49",
-    "src/Sanctuary.Content/SourceAnimationEvents.cs": "49bae803dae993451e4bf86b8fda58bc12ca7fff31dc787c6ad28cdcbe980a9f",
+    "src/Sanctuary.Content/SourceAnimationEvents.cs": "4f3b4221f5917b3aff6de5b9b425f9ef0c720b3b768fdd5263a892d5e05685ac",
     "src/Sanctuary.Content/SourceAttackRate.cs": "07f510247346f2a7dd4848d24ceafdb73a61fb25cdbedcfb6fb0a8f53a42a589",
     "src/Sanctuary.Content/SourceBlind.cs": "255b7e581323dec4c3d5ff7ad6dfd4d52802ef74baeaee0a03bfb0dca9e51cb5",
     "src/Sanctuary.Content/SourceBlocking.cs": "9d2470e982e7cdaf0621f0623bd36fd0ae521105d6eb7a6cf129448d144173aa",
