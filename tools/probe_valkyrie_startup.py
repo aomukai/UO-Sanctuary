@@ -42,7 +42,7 @@ def main():
  units=pinned('source/D2Common/src/Units/Units.cpp');game=pinned('source/D2Game/src/UNIT/SUnit.cpp')
  names=[(units,'UNITS_CharacterStartRunningOrKnockback'),(units,'UNITS_SetAnimStartFrame'),(units,'UNITS_ChangeAnimMode'),(game,'SUNIT_SetCombatMode'),(game,'sub_6FCBC4D0')];bodies={n:function(t,n)for t,n in names};cpp+='\n'.join(bodies.values())
  cpp=cpp.replace('D2ObjectData*pObjectData=nullptr;','D2ObjectData*pObjectData=nullptr;void*pSeed=nullptr;')
- 
+
  modulators=units[units.index('struct D2AnimUnkStrc'):units.index('struct D2UnitAnimModeStatBasePercentageStrc')]
  def enum(rel,name):return re.search(r'enum '+name+r'\s*\{.*?\};',pinned(rel),re.S).group()
  monmodes=enum('source/D2Common/include/D2Monsters.h','D2C_MonModes')
@@ -61,7 +61,7 @@ def main():
  assert enum_values(enum('source/D2Common/include/DataTbls/MonsterTbls.h','D2C_MonStatsTxtFlagIndices'))['MONSTATSFLAGINDEX_NPC']==8
  assert enum_values(enum('source/D2Common/include/DataTbls/SkillsTbls.h','D2C_SkillsTxtFlagIndices'))['SKILLSFLAGINDEX_USEATTACKRATE']==19
  flags=enum_values(enum('source/D2Common/include/D2Skills.h','D2C_SkillFlags'));assert flags['SKFLAG_PASSIVE']==1 and flags['SKFLAG_STUN']==0x1000
- 
+
  cpp=cpp.replace('struct Anim{',monmodes+'\n'+monids+'\nstruct Anim{')
  cpp=cpp.replace('int dwFrames=18,dwAnimSpeed=256;', 'int dwFrames=18,dwAnimSpeed=256;')
  cpp=cpp.replace('struct D2MonStatsTxt{int ', 'struct D2MonStatsTxt{unsigned dwMonStatsFlags=0;int ')
@@ -102,7 +102,7 @@ def main():
  r=subprocess.run([str(S/'probe')],input=request.encode(),capture_output=True);(S/'sanitizer.log').write_bytes(r.stderr);(S/'output.json').write_bytes(r.stdout);assert r.returncode==0 and not r.stderr,r.stderr.decode()[-2000:];rows=json.loads(r.stdout);assert len(rows)==5016
  for i,c in enumerate(contexts):c['Steps']=rows[i*11:(i+1)*11]
  (S/'cases.json').write_text(json.dumps(contexts,separators=(',',':'))+'\n')
- 
+
  for i,c in enumerate(contexts):
   for step,r in enumerate(c['Steps']):
    assert r[0]==i and r[1]==c['Variant']and r[2]==step

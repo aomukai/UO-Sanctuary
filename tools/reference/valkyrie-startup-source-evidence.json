@@ -78,6 +78,6 @@
     ".local/class-skills/valkyrie-startup-source/cases.json": "8d952433a7ddea1c983c7230d1f12ef1e8ef275c8ace7a95ebf964d7518f346f",
     ".local/class-skills/valkyrie-startup-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/valkyrie-startup-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "tools/probe_valkyrie_startup.py": "3c5d20db91cc93dc16ae7e2571ccdadfcc28640de69797d362ae7fc9fff8f4f8"
+    "tools/probe_valkyrie_startup.py": "e31674c543581a47ffe922caa0f6b5efb5dd4833b4fd9c00c43942b3a7ff9329"
   }
 }

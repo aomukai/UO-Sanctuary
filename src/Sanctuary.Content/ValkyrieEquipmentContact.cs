@@ -37,14 +37,14 @@ internal static class ValkyrieEquipmentContact
         return Codes.TryGetValue(code,out int stat)?graph.Read(stat)
             :throw new NotSupportedException("Unadmitted original Valkyrie scalar consumer: "+code);
     }
-    private static NpcCombatEvents ValidateGraph(AmazonValkyrieBody body,bool original=false)
+    private static NpcCombatEvents ValidateGraph(AmazonValkyrieBody body,bool original=false,bool registration=false)
     {
         _=ValkyrieEquipmentWeapons.Frame(body);_=ValkyrieEquipmentDamage.Passives(body);_=NpcEquipmentRandom.Require(body);
         if(GeneratedNpcLiveResources.State(body)is not{Valkyrie:not null} resources)
         {throw new NotSupportedException("Original Valkyrie contact requires supplied source resources");}
         ValkyrieEquipmentResources.Require(body,resources);
         if(NpcItemProcs.Get(body)!=null){throw new NotSupportedException("Original Valkyrie items cannot use a separate event-only carrier graph");}
-        if(original){_=NpcOriginalItemProcs.RequireHost(body);}
+        if(original){_=registration?NpcOriginalItemProcs.RequireRegistrationHost(body):NpcOriginalItemProcs.RequireHost(body);}
         return original?NpcCombatEvents.FromOriginalStats(body.EquipmentNumbers.Stats):NpcCombatEvents.FromStats(body.EquipmentNumbers.Stats);
     }
     internal static NpcCombatEvents Registry(AmazonValkyrieBody body)
@@ -62,7 +62,13 @@ internal static class ValkyrieEquipmentContact
     {
         if(body?.Prepared is not{EquipmentContactProfile:null,EquipmentDefenseProfile:ValkyrieEquipmentDefense.Profile} old)
         {throw new NotSupportedException("Original proc contact needs its qualified original defense/weapon context");}
-        _=ValidateGraph(body,true);body.RestorePrepared(old with{EquipmentContactProfile=OriginalProfile});
+        _=ValidateGraph(body,true,true);body.RestorePrepared(old with{EquipmentContactProfile=OriginalProfile});
+    }
+    internal static void RequireRegistration(AmazonValkyrieBody body)
+    {
+        if(body?.Prepared?.EquipmentContactProfile!=OriginalProfile)
+        {throw new NotSupportedException("Original Valkyrie registration is not activated");}
+        _=ValidateGraph(body,true,true);
     }
     internal static void RequireAllocation(AmazonValkyrieBody body,BaseCreature target)
     {

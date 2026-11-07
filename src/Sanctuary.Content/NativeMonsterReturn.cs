@@ -100,7 +100,7 @@ internal sealed class NativeMonsterReturn:MonsterReturnServices
                 {throw new NotSupportedException("Native recipient rejected source get-hit mode");}break;
             case PreparedMonsterReturn.Block:SourceBlocking.Present(Target,true);break;
             case PreparedMonsterReturn.Knockback:
-                if(!targetAttacker||!(KnockbackAction?.Invoke(Source,Target)??SourceKnockbacks.Begin(Source,Target))){throw new NotSupportedException("Native recipient rejected source knockback mode");}break;
+                if(!targetAttacker||!(KnockbackAction?.Invoke(Source,Target)??SourceKnockbacks.BeginPrepared(Source,Target))){throw new NotSupportedException("Native recipient rejected source knockback mode");}break;
             default:throw new NotSupportedException("Unsupported native return mode");
         }
     }

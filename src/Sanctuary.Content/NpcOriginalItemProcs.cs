@@ -20,10 +20,12 @@ internal static class NpcOriginalItemProcs
     internal static Action<AmazonValkyrieBody,NpcOriginalProcVisit> Observed;
     internal static bool Active(BaseCreature actor)=>!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b
         &&b.Prepared?.EquipmentContactProfile==ValkyrieEquipmentContact.OriginalProfile;
-    internal static GeneratedNpcStatGraph RequireHost(AmazonValkyrieBody actor)
+    internal static GeneratedNpcStatGraph RequireHost(AmazonValkyrieBody actor)=>Host(actor,true);
+    internal static GeneratedNpcStatGraph RequireRegistrationHost(AmazonValkyrieBody actor)=>Host(actor,false);
+    private static GeneratedNpcStatGraph Host(AmazonValkyrieBody actor,bool world)
     {
         if(Allocator==null){throw new NotSupportedException("Original NPC contact needs its world missile allocation service");}
-        var graph=Require(actor);
+        var graph=world?Require(actor):RequireRegistration(actor);
         if(graph.Stats.Any(v=>v.Value>0&&v.Stat is 195 or 196 or 198 or 201&&((ushort)v.Packed>>6)==53)&&ChainLightning.OriginalNpcAllocator==null)
         {throw new NotSupportedException("Original Chain proc contact needs its world child allocation service");}
         return graph;
@@ -45,6 +47,15 @@ internal static class NpcOriginalItemProcs
         if(actor is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile owner}
             ||!NpcItemSpellFlights.Attached(actor,owner,actor.Map?.MapID??-1)||NpcItemProcs.Get(actor)!=null)
         {throw new NotSupportedException("Original NPC callbacks require their attached original world actor,not event-only carriers");}
+        return RequireRegistration(actor);
+    }
+    // Validates the saved original graph without granting combat,callbacks or
+    // missile allocation to a parked/in-town/inactive actor.
+    internal static GeneratedNpcStatGraph RequireRegistration(AmazonValkyrieBody actor)
+    {
+        if(actor is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Alive:true,Deleted:false} owner}
+            ||actor.Prepared?.Owner!=owner.Serial.Value||!actor.Permitted(owner)||NpcItemProcs.Get(actor)!=null)
+        {throw new NotSupportedException("Original registration needs its living original body and recorded owner,not an event-only carrier");}
         _=ValkyrieEquipmentDamage.Passives(actor);_=NpcEquipmentRandom.Require(actor);
         var graph=actor.EquipmentNumbers;
         if(graph?.ItemEvents==null){throw new NotSupportedException("Original NPC callbacks need their full saved registration history");}

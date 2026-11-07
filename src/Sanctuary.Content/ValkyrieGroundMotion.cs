@@ -54,7 +54,9 @@ internal static class ValkyrieGroundMotion
         {
             if(old.EquipmentContactProfile!=ValkyrieEquipmentContact.OriginalProfile)
             {throw new NotSupportedException("Valkyrie ground combat needs its full original item-event/contact binding");}
-            _=ValkyrieEquipmentContact.Registry(body);_=ValkyrieEquipmentAnimation.Plan(body,4,attackRate.Value,0);
+            if(startupProfile==ValkyrieStartup.Profile){ValkyrieEquipmentContact.RequireRegistration(body);}
+            else{_=ValkyrieEquipmentContact.Registry(body);}
+            _=ValkyrieEquipmentAnimation.Plan(body,4,attackRate.Value,0);
         }
         // Validate original transformed row/graph before changing admission.
         _=ValkyrieEquipmentAnimation.Plan(body,2,0,walkVelocityPercent);_=ValkyrieEquipmentAnimation.Plan(body,15,0,runVelocityPercent);

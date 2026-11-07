@@ -62,7 +62,15 @@ public static class SourceKnockbacks
     {
         if(target is not{Alive:true,Deleted:false} || !prepared&&(target.Frozen||target.Paralyzed) || source is not{Deleted:false}
             || source.Map!=target.Map || target.Map==null || target.Map==Map.Internal || Rule(target) is not{Knockback:true,GetHit:true,Distance:5} rule){return false;}
-        var offset=Offset(target.X-source.X,target.Y-source.Y,rule.Distance);if(offset.Length16==0){return false;}
+        int dx=target.X-source.X,dy=target.Y-source.Y;
+        if(dx==0&&dy==0)
+        {
+            // Approved Sanctuary projection rule: co-located native tiles use
+            // the attacker's facing;chance,source distance and RNG stay intact.
+            var next=source.Location;Server.Movement.Movement.Offset(source.Direction&Direction.Mask,ref next);
+            dx=next.X-source.X;dy=next.Y-source.Y;
+        }
+        var offset=Offset(dx,dy,rule.Distance);if(offset.Length16==0){return false;}
         var now=TimedEffects.Now;
         _states[target.Serial.Value]=new(target.Serial.Value,target.Map.MapID,target.Location,new(target.X+offset.X,target.Y+offset.Y,target.Z),offset.Length16,0,0,now.AddMilliseconds(40),false,default){PauseFrozen=prepared};
         if(target is GraveyardUndead undead){undead.InterruptForRecovery();}

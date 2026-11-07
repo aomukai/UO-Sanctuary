@@ -22,7 +22,7 @@ internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterD
 // Saved supplied-birth backend with optional numeric equipment recipients.
 // Resource/weapon/skill/event delivery,NecroPet and casting remain separate.
 [SerializationGenerator(0)]
-public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INecromancerGroundEquipmentContact
+public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INecromancerGroundEquipmentContact,IPersistentMinion
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private ValkyrieBodyState _state;
@@ -187,15 +187,13 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
     }
     internal static AmazonValkyrieBody CreateInitializedController(PlayerMobile owner,Point3D point,DateTime at)
     {
-        // Town/safe-area contact registration remains a separate admission;
-        // refuse that known unsupported route before creating items or RNG.
-        if(owner?.Map==null||owner.Map==Map.Internal||Server.Spells.SpellHelper.IsTown(point,owner)
-            ||Server.Spells.SpellHelper.IsTown(owner.Location,owner)||NpcOriginalItemProcs.Allocator==null)
-        {throw new NotSupportedException("Initialized Valkyrie controller requires its outside-town original item host");}
+        if(owner?.Map==null||owner.Map==Map.Internal||NpcOriginalItemProcs.Allocator==null)
+        {throw new NotSupportedException("Initialized Valkyrie controller requires its recorded world owner and original item host");}
         _=ValkyrieStartup.Rates;var body=CreateInitialized(owner,point,at);
         try
         {
-            ValkyrieEquipmentContact.ActivateOriginal(body);ValkyrieGroundMotion.ActivateInitialized(body,at);return body;
+            ValkyrieEquipmentContact.ActivateOriginal(body);ValkyrieGroundMotion.ActivateInitialized(body,at);
+            MinionSafeAreas.Enforce(body);return body;
         }
         catch{body.Delete();throw;}
     }
@@ -205,6 +203,17 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
     {
         if(State?.GroundMotion!=null){IronGolemWorld.Advance(this,at,actions);return;}
         if(Prepared is{} state&&PermanentSummonRecovery.Advance(this,state.Owner,state.NextRecoveryUtc,at,actions)is{} next){RestorePrepared(Prepared with{NextRecoveryUtc=next});}
+    }
+    void IPersistentMinion.ResumeActions()
+    {
+        if(State?.GroundMotion==null||Map==null||Map==Map.Internal||ControlMaster is not PlayerMobile owner||owner.Map!=Map){return;}
+        var state=Ground.State.Controller;var cell=IronGolemWorld.Cell(state);
+        if(state.Map!=Map.MapID||X!=(cell.X+1)/2||Y!=(cell.Y+1)/2)
+        {
+            // Return placement must own its neutral pose before an incoming
+            // hit can query Dodge/Evade;it cannot wait for the next40ms tick.
+            Ground.Store(IronGolemWorld.Park(state with{Map=Map.MapID,Motion=DruidRavenMotion.Center(X*2,Y*2)}));
+        }
     }
     public override void SuspendActions(){base.SuspendActions();if(State?.GroundMotion!=null){Ground.Suspend();}}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();if(State?.GroundMotion!=null){Ground.Suspend();}}
