@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shared startup dispatcher (2026-11-07 JST).** No new talent or hotkey icon is introduced. Existing Shadow Warrior/Master talent and hotkey icon work remains separate from this internal mechanical dispatcher. See [checkpoint](skill-startup-checkpoint.md).
+
 **NPC item skill grants (2026-11-07 JST).** No new public bindings or artwork. All pending talent/hotkey icons remain tracked separately from NPC intrinsic entries. See [checkpoint](npc-item-skills-checkpoint.md).
 
 **Shadow passive lists (2026-11-07 JST).** No new icon or public skill binding is added. Weapon Block/Claw Mastery tree icons and Shadow Warrior/Master talent/hotkey icons retain their separate pending asset status. See [checkpoint](shadow-passives-checkpoint.md).

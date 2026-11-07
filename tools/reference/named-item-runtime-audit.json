@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "78630b77fd8dcb764784eccbdd179f1173cd171b391dba5ad70f57c719a113b1",
+  "ContentAssemblySha256": "b386ce48e3e668c189d9ba2af65e90873ac649a16df458eb71805bb6de5b7c61",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -1024,6 +1024,7 @@
     "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
     "src/Sanctuary.Content/SkillHealth.cs": "341154de81f3f9cc22840157a4f4f7e9dd6a0aa685ff9b7dcd14fdea80306ea0",
     "src/Sanctuary.Content/SkillMechanics.cs": "2360eed4760050c91c4512181e0b2acba131e4dd641ed68ee8551c16283bfa07",
+    "src/Sanctuary.Content/SkillStartup.cs": "65bd617d627d1b9f133382e7fef9610f1f26f6c28bac068df8c4cf1623df8226",
     "src/Sanctuary.Content/SocketGem.cs": "6b93781434837c64c7be27c79fab825e1fd638e3d67584bc5b49ec8a5d3ce7f7",
     "src/Sanctuary.Content/SocketGems.cs": "df308e9f6e77946617a506fb68402d8b2970ff0b2fb4681d18e046017477e95c",
     "src/Sanctuary.Content/SocketGump.cs": "bceea7cd674d1ed0f6764aa489d7bca84e5948290c80535be0f93dbcfd35f691",

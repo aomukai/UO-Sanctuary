@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shared startup dispatcher (2026-11-07 JST).** No new visual or audio asset is required by the dispatcher itself. Existing Shadow cast/contact/buff/death effects and appearance placeholders remain in their separate entries; no new live Shadow effect is enabled. See [checkpoint](skill-startup-checkpoint.md).
+
 **NPC item skill grants (2026-11-07 JST).** Skill ownership and source ordering add no final effects/audio. Existing Shadow appearance and pending cast/contact/death effects remain separate. See [checkpoint](npc-item-skills-checkpoint.md).
 
 **Shadow passive lists (2026-11-07 JST).** Actual passive stats and graphics-change notifications are implemented without final client effects. Shadow body `0x190`, hue `0x455`, remains an explicitly named appearance placeholder. Block/contact reactions, casting, modifier-death effects and audio remain pending separately from stat-list ownership. See [checkpoint](shadow-passives-checkpoint.md).

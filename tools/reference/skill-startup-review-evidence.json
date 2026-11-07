@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "inputs": {
+    "tools/reference/skill-startup-source-evidence.json": "2083148622b7b1645c9ba413550dfd2339561a2f2758669d9691dab948043183",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    "src/Sanctuary.Content/SkillStartup.cs": "65bd617d627d1b9f133382e7fef9610f1f26f6c28bac068df8c4cf1623df8226",
+    "src/Sanctuary.Content/SkillExecution.cs": "3edfa09743a3648f7ea5e1efb7c867bf30c97e4661350540a182abb897c5f6ec",
+    "tests/Sanctuary.Integration/SkillStartupChecks.cs": "ddf004c3962b1a43671f33bbd030e92fecea2146a06dbc4a7a32b050d07843aa",
+    "tests/check_skill_startup.py": "6aeae068108cbf4ff0f0b3937d31cb35b48abb1cf4763deef1c68d32ed75b780",
+    "tools/probe_skill_startup.py": "c3b281a9179b3a86343ec2733b34873f6db0edbed582c8a13b4d08bdd7edfa00",
+    "tools/review_skill_startup.py": "224c150872ccb904cd4800112ec0e96be49a52507c52db3eab86d6d51e6ec4a5"
+  },
+  "sourceContexts": 6796,
+  "completeOlderStartupWrapper": true,
+  "completeOlderStartDispatcher": true,
+  "currentExecutableParityVerified": false,
+  "npcWorldAdapterImplemented": false,
+  "handlerEnabled": false,
+  "handlers": 203,
+  "scope": [
+    "Selected-skill startup preserves the source targetable-only enemy/pet/ally short-circuit, targetable/corpse cleanup, effective-versus-item-owned rank, zero-charge rejection, ally rejection and town cancellation.",
+    "Direct startup preserves room/record/player-mana order, item flag bypass, all five source collision masks, zero-coordinate and invalid-LOS behavior, signed start index bounds, absent-start success, callback result, payment and periodic-event deletion order.",
+    "Services are mandatory and abstract. Missing nested bodies propagate refusal without subsequent payment/event deletion. This kernel complements the existing complete do dispatcher; it supplies neither an invented successful callback nor a player-cast surrogate for NPCs."
+  ],
+  "limits": [
+    "Both routines are executed from the complete pinned older source with declared nested services. This does not establish current 3.3.93847 executable parity or implement those permission, collision, rank, mana, effect or event services.",
+    "No live NPC/Shadow adapter calls this kernel yet. Mode/sequence/action events, effect/combat hosts, AI105/106 and learned Shadow casting remain gated.",
+    "The three-boot native test compares kernel results and ordered services; its saved digest only proves stable test inputs. Retained suites separately exercise real original NPC bodies, items and resource saves.",
+    "No new playable skill, public input, effect, sound or icon is enabled. Existing build/saves and parked Shadow appearances remain unchanged."
+  ]
+}

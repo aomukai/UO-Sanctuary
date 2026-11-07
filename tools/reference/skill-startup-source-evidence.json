@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518"
+  },
+  "routines": {
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "sub_6FD12FD0": "652267d1698d99a0ec9b56fc69f14142e4e87b29d298c43b83dd90ae48b185d5"
+  },
+  "startFunctionCount": 91,
+  "cases": 6796,
+  "casesSha256": "089d29aeaa6a5dfa95492b0572ee9177353f9759ae998f5d5be2d73b2cd4dbc1",
+  "cppSha256": "565440cec0e992e128ad4a0a8ba892d1f1ac23fa07baba6b6b1c2d4abb95298b",
+  "compiler": [
+    "g++",
+    "-std=c++17",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-fno-pie",
+    "-no-pie",
+    "/home/aomukai/.codex/worktrees/revive-respec/Sanctuary/.local/class-skills/skill-startup-source/startup.cpp"
+  ],
+  "sanitizers": "address,undefined:clean",
+  "scope": "Both complete pinned older routines execute. Nested permission, rank, charged ownership, room, collision, start-body, payment and event services are declared inputs, not source implementations or current executable parity.",
+  "currentExecutableParity": false,
+  "liveNpcControllerEnabled": false,
+  "remaining": [
+    "Real NPC permission and collision adapters",
+    "Nested skill start bodies",
+    "Mode/sequence/action events",
+    "Ordinary effect/combat hosts",
+    "AI105/106 and learned Shadow casts"
+  ]
+}
