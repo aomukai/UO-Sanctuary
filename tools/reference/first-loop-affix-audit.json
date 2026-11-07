@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "1f2a8172c5916bf001fd1bc80c172769f5291ef824f02693a9664b5d78e074ab",
-  "ContentAssemblyPath": ".local/class-skills/dragon-flight-action/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "f1df0d4d4c1842d717dacab9cd1343ae478f4d0e6900998e63fd322dff8b79ee",
+  "ContentAssemblyPath": ".local/class-skills/shadow-original-events/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

@@ -1,0 +1,39 @@
+{
+  "parent": "55a83c436211bce58def6980e835b51826ef386e",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "contentBuild": 3,
+  "integrationBuild": 3,
+  "sourceSnapshot": 3,
+  "nativeMarkers": 18,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "auditFingerprints": {
+    "named-item-runtime-audit.json": 1160,
+    "first-loop-affix-audit.json": 21
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "f1df0d4d4c1842d717dacab9cd1343ae478f4d0e6900998e63fd322dff8b79ee",
+    "Assemblies/Sanctuary.Integration.dll": "e23a6d9d672ada2834b3867548467fdea1f5994a519d37e7772c9a36c0c696ed"
+  },
+  "inputsSha256": "f297d5f83aef0329cc3dff60a36a6b4779ae345e38e050dcfcb2edd7510e5480",
+  "nativeLogSha256": "9a90ed49b6a20d9a1d10d6eee1f1ccd7d42f1406b9f70dbd8caf753c0265af28",
+  "scope": "Original Shadow item-event registration/order/reattachment/persistence on shared graph;original bodies/items/passives/wounds/RNG preserved. Existing Shadow bodies and57Valkyrie original-event loadouts retained. Parked/world/proc-execution gates remain.",
+  "remaining": "Species-aware live proc host,incoming/outgoing/motion and NPC casting/AI105/106,then learned summons. No class completion or deployment."
+}

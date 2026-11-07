@@ -9,3 +9,5 @@ The attempted next connection was a real Shadow Fire Blast cast using the shared
 Before live NPC spells, provide coherent world admission and ownership/parking/death behavior, preserve the original resource/item/passive graph and wounds across moves/reloads, and connect incoming/outgoing combat and actual NPC mode/action events. Then reuse the shared startup/do dispatchers, owned skill ranks, lob travel and elemental receivers. Do not replace the Shadow with a player cast or a Valkyrie source profile.
 
 This is a documented nonblocking skill prerequisite. Shadow Warrior/Master stay unavailable; other class work can proceed. Their body `0x190`/hue `0x455` appearance placeholder and separate effect/icon work remain unchanged. No user question is required to retain these safeguards.
+
+Update2026-11-08: [original Shadow item-event registration](shadow-original-events-checkpoint.md) now reuses the shared Valkyrie registry and persists on the actual Shadow resource graph. Live proc execution, world admission and NPC action/AI remain separate; the map/activation safeguards above still apply.

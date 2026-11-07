@@ -59,12 +59,12 @@ internal static class GeneratedNpcLiveResources
         if(state.Shadow!=null)
         {
             ShadowEquipmentResources.Validate(state.Shadow);
-            if(state.Valkyrie!=null||state.ItemEvents!=null){throw new InvalidDataException("Shadow resource-only frame cannot claim another species or active item events");}
+            if(state.Valkyrie!=null){throw new InvalidDataException("Shadow resource frame cannot claim another species");}
         }
         if(state.ItemEvents is{} events)
         {
             GeneratedNpcItemEvents.Validate(events);
-            if(state.Valkyrie==null||events.Actor!=state.Actor||events.Owner!=state.Owner||!events.ActiveItems.SequenceEqual(state.ActiveItems))
+            if(state.Valkyrie==null&&state.Shadow==null||events.Actor!=state.Actor||events.Owner!=state.Owner||!events.ActiveItems.SequenceEqual(state.ActiveItems))
             {throw new InvalidDataException("Original item events lost their source resource binding");}
         }
         if(state.Passives is{} passives)
@@ -224,10 +224,10 @@ internal static class GeneratedNpcLiveResources
             BattleOrders.LifePercent(actor),BattleOrders.Percent(actor),checked(BattleOrders.Percent(actor)+PaladinVigor.StaminaPercent(actor)),source);
         var graph=Build(actor,state,true);Commit(actor,state,graph);
     }
-    internal static void ActivateItemEvents(AmazonValkyrieBody actor)
+    internal static void ActivateItemEvents(SkeletonGuardian actor)
     {
-        if(!Handles(actor)||States[actor.Serial.Value]is not{Valkyrie:not null,ItemEvents:null} old||NpcItemProcs.Get(actor)!=null)
-        {throw new NotSupportedException("Original item registrations require their unbound full Valkyrie resource graph");}
+        if(!Handles(actor)||States[actor.Serial.Value]is not{ItemEvents:null} old||old.Valkyrie==null&&old.Shadow==null||NpcItemProcs.Get(actor)!=null)
+        {throw new NotSupportedException("Original item registrations require their unbound full equipped-summon resource graph");}
         var graph=Build(actor,old,bindItemEvents:true);Seed(actor,graph);Commit(actor,old,graph);
     }
     internal static void Activate(BaseCreature actor,EquipmentStatValue[] basis,int damageRegeneration)
