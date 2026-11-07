@@ -15,7 +15,8 @@ internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterD
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieWeaponBinding EquipmentWeapons=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentDefenseProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieGroundMotionState GroundMotion=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentContactProfile=null)
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentContactProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieInitialization Initialization=null)
 {public string Profile{get;init;}="prepared-valkyrie-body-v1";}
 
 // Saved supplied-birth backend with optional numeric equipment recipients.
@@ -94,6 +95,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
                 ValkyrieEquipment.Validate(equipment);
                 if(equipment.Owner!=state.Owner||equipment.Rank!=state.Birth.Rank){throw new InvalidDataException("Valkyrie equipment birth owner/rank changed");}
             }
+            if(state.Initialization is{} initialization){ValkyrieInitializer.Validate(initialization,state.Birth,state.Equipment);}
             if(state.EquipmentStatProfile!=null&&(state.EquipmentStatProfile!=ValkyrieEquipmentStats.Profile||state.Equipment==null))
             {throw new InvalidDataException("Invalid Valkyrie numeric equipment admission");}
             if(state.EquipmentWeapons is{} weapons)
@@ -144,9 +146,36 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
         Validate(state);var body=new AmazonValkyrieBody();
         try
         {
-            body.RestorePrepared(state);body.Initialize(owner,state.Birth.Rank,0);body.ApplyNumbers();
-            if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Valkyrie control master refused");}
-            BattleCommand.Track(body);PersistentMinions.Profiles.Track(body);body.MoveToWorld(point,owner.Map);body.AIObject?.AITimer.Stop();SkillHealth.SetBalance256(body,body.MaximumLife256);return body;
+            body.InitializePrepared(owner,point,state);return body;
+        }
+        catch{body.Delete();throw;}
+    }
+    private void InitializePrepared(PlayerMobile owner,Point3D point,ValkyrieBodyState state)
+    {
+        RestorePrepared(state);Initialize(owner,state.Birth.Rank,0);ApplyNumbers();
+        if(!SetControlMaster(owner)){throw new InvalidOperationException("Valkyrie control master refused");}
+        BattleCommand.Track(this);PersistentMinions.Profiles.Track(this);MoveToWorld(point,owner.Map);AIObject?.AITimer.Stop();SkillHealth.SetBalance256(this,MaximumLife256);
+    }
+    internal static AmazonValkyrieBody CreateInitialized(PlayerMobile owner,Point3D point,DateTime at)
+    {
+        // Validate the supported captured domain before native allocation or
+        // world RNG. The actual body constructor succeeds before its unit draw.
+        if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-40)||owner?.Map==null||owner.Map==Map.Internal||!owner.Map.CanSpawnMobile(point))
+        {throw new ArgumentException("Valkyrie needs a legal native point and UTC clock");}
+        var difficulty=SummonDifficulties.For(owner.Map);var birth=ValkyrieBirthNumbers.Capture(owner,NecromancerSummons.Source("valkyrie","minHP",difficulty)*256);
+        var preflight=new ValkyrieBodyState(owner.Serial.Value,birth,difficulty,at.AddMilliseconds(40));Validate(preflight);
+        var body=new AmazonValkyrieBody();
+        try
+        {
+            var initial=ValkyrieInitializer.Allocate(difficulty);var state=preflight with{Birth=birth with{SpawnLife256=initial.SpawnLife256},Initialization=initial};
+            body.InitializePrepared(owner,point,state);var own=new SourceSeedStream(initial.AfterInitialization);
+            ValkyrieEquipment.Materialize(body,own,NpcWorldAllocation.RequireStream());
+            ValkyrieEquipmentStats.Activate(body);ValkyrieEquipmentWeapons.Activate(body,own.Value);
+            ValkyrieEquipmentResources.Activate(body,0,0,0,0,initial.RegenerationBase);GeneratedNpcLiveResources.ActivateItemEvents(body);
+            ValkyrieEquipmentDefense.Activate(body);
+            // Contact/controller activation belongs to its live world route;
+            // creation also works before safe-area parking or town admission.
+            return body;
         }
         catch{body.Delete();throw;}
     }

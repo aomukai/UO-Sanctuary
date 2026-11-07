@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie source initialization (2026-11-07 JST).** The creation backend adds no new talent/hotkey slot. Valkyrie talent/right/quick and later pet-management UI artwork remain separately pending.
+
 **Persistent NPC world allocation (2026-11-07 JST).** This backend service adds no talent or hotkey slot. Valkyrie talent/right/quick and later proc UI icons remain separately pending.
 
 **Original NPC contact producers (2026-11-07 JST).** Internal combat profile and saved event context add no talent/hotkey slot. Valkyrie talent/right/quick and later proc UI icons remain separately pending.

@@ -19,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None, extra_pre_save_commands=()):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -152,6 +152,9 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                                     while client.recv(65536):pass
                                 except OSError:pass
                             threading.Thread(target=drain_save,daemon=True).start()
+                        for command in extra_pre_save_commands:
+                            session.send(command)
+                            assert session.expect(command + r': (passed|failed)',timeout=30).group(1)=='passed'
                         session.send(save_command)
                         if save_result:
                             assert session.expect(save_result + r': (passed|failed)').group(1) == 'passed'
@@ -164,7 +167,7 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                 finally:
                     session.close()
     text = (stage / 'birth-native-checks.log').read_text()
-    assert ': failed' not in text and ' ERR]' not in text and text.count(': passed') == 9 + 3 * (len(extra_families)+len(extra_checks)+len(extra_live_commands)+2*len(extra_target_input_commands)+len(checked_live_commands)+len(extra_save_results)) + waited_results - len(extra_one_reload_families) + (3 if save_result else 0)
+    assert ': failed' not in text and ' ERR]' not in text and text.count(': passed') == 9 + 3 * (len(extra_families)+len(extra_checks)+len(extra_live_commands)+2*len(extra_target_input_commands)+len(checked_live_commands)+len(extra_save_results)+len(extra_pre_save_commands)) + waited_results - len(extra_one_reload_families) + (3 if save_result else 0)
     assert text.count('Shutting down') == text.count('Writing world save snapshot done') == 3
     print('Iron Golem prepared birth:source/native numeric checks and optional graph scopes pass across3boots/2reloads,with original-item/resource regression. Learned actor remains unfinished.')
 

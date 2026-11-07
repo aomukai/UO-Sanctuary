@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "contexts": 840,
+  "completeRoutineHashes": {
+    "MONSTER_GetHpBonus": "95308634fd857397be002f2ebf9d840eabd7dbc2df7f38251e96a4343e8f62ea",
+    "MONSTER_GetExperienceBonus": "91d41548a900380d654362eef5e0488fe880bdc678fd64f00eeab50070e01112",
+    "MONSTER_GetPlayerCountBonus": "0d266c3fd5c7e64cd2aa1efcc8f29efbf44a06081139a11246da4da9f0c88350",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "MONSTER_SetComponents": "f8f56e2fe4747972b3dd6dc122e1b9f28f70f4faeef1439ea19f9bc003add8ce",
+    "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "currentDataEvidenceSha256": "9dcaee8b212dea1d0baa1656a3f0e2f475d4ae06ffbfa65d62117e3a48865069",
+  "inputs": {
+    "tools/probe_valkyrie_initializer.py": "22ffc31fffe169f9880d9405e9a45310766b85cb0f04d496c617b3bf60b53fc8"
+  },
+  "artifacts": {
+    ".local/class-skills/valkyrie-initializer-source/probe.cpp": "b8819cb428a7c43b739946a4c6eb3f654515869f8bbe9ccf600e4670689d7d84",
+    ".local/class-skills/valkyrie-initializer-source/probe": "6fc66158fad9cf6f2cf331467f9dd7fe2c38c5d15e5579313a1e33a878e4eec0",
+    ".local/class-skills/valkyrie-initializer-source/cases.json": "1699ec53a8ded45209a43fb736f3c31c3050de4b2a1486cd9e15b3356e4f8227",
+    ".local/class-skills/valkyrie-initializer-source/sanitizers.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": [
+    "Complete older stats/skills initializer,component setter,limited draw,percentage,noRatio table and player-count helpers execute with current friendly357inputs. Zero component choices/no region variants consume no draw;HP consumes one inclusive81roll. Explicit non-current variant controls establish extra component draw order.",
+    "All three difficulties,both table contexts,four supplied player counts and seven edge seed words are independently checked. Friendly playerCount1/no HP scaling,base level0/AC141-152-164,unwritten AR0,block28,attack/other rates100,velocity75,regen from raw spawnHP and empty mana/stamina/skills are established at the stats-initializer boundary."
+  ],
+  "services": [
+    "Declared table/stat/skill/inventory/memory/room services are not a binary ABI. NoRatio avoids ratio callbacks;classic scaling is a friendly no-op. Monster-property lookup returns absent for compiled65535;equipment-onInit only records the call;current nineteen Valkyrie rows all disable that guard. These services do not introduce hidden RNG.",
+    "Outer native unit allocation,AI/quest/animation callbacks,initialization of a region component cache and post-initializer summon skill helpers remain separate existing/source evidence. The supplied no-cache world adapter is the valid zero-variant path;variant controls are not asserted current Valkyrie data."
+  ],
+  "limits": [
+    "No complete current monster initializer execution or learned cast is certified. Current base-rate callback effects and complete outer creation/controller timing must be integrated separately. This probe does not generate equipment or select a world seed."
+  ]
+}

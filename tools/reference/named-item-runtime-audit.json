@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "fd3fd5c9992682b609c6887ab7645e1c286561bc5f935395be893a8c3355fba6",
+  "ContentAssemblySha256": "9f04dbd3f71e0baf6f06d27a1e4cfa48c875dd35308ebd66a7633bb3f87487bc",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -157,6 +157,7 @@
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
     "data/Sanctuary/Balance/valkyrie-animation.json": "eb207b5775eeabeab8c68b745affa9548849ce2e98a388a40951d26a9e92c120",
+    "data/Sanctuary/Balance/valkyrie-initializer.json": "59cf13eeaed2f05edc61c5dafde4c0fb099b3dcfbb0ad6e50bc79de20227a1e5",
     "data/Sanctuary/Balance/warlock-grimoire-automatic.json": "febb9a4cc6475cf0dfeacc896afd913d856afb147d2f7a9a92f5d001391e4606",
     "data/Sanctuary/Balance/warlock-grimoire-bases.json": "8abbca53228d4d17f79fb50ebc55f0be441187cd508d8b2df3a5faf91adef1bd",
     "data/Sanctuary/Balance/warlock-ground-launch.json": "0f4252e7a0e2155ed85b3a3cdc376383dbd619c533024381bf5d6b9ababdea51",
@@ -307,7 +308,7 @@
     "src/Sanctuary.Content/AmazonSlowMissilesCast.cs": "25fa831f65fdfae7835badb21bfdd5ce0782bfdd47d4c035dbe3b188ac90cecd",
     "src/Sanctuary.Content/AmazonSlowMissilesCasting.cs": "8977e5c68db4452ceb38236fc7fe3ae46625b82a6d28316497adb913c46fba3b",
     "src/Sanctuary.Content/AmazonStrafe.cs": "30f9cc90e565f56ee87b50df850ab9fff7390d6c2c7b0e4b4e0899bbea0e996d",
-    "src/Sanctuary.Content/AmazonValkyrieBody.cs": "92a48a7dfb9c85a4e2357015720a978e148fb8ebc30216ca78331c590dcd47a5",
+    "src/Sanctuary.Content/AmazonValkyrieBody.cs": "09f90581cc86958e985551cfd6c05edbfbd4ca1105ada33e96127597af4c8f15",
     "src/Sanctuary.Content/AmplifyDamageCasts.cs": "537eb5124cd52515c02792cdf4b7e3bacb3defb5ce0e5a1327de2126e33d35ff",
     "src/Sanctuary.Content/AssassinBuffs.cs": "00577a9ac6676219c44fb13230283be566e23096c821a0918fb1d3f3599334f8",
     "src/Sanctuary.Content/AssassinCastClock.cs": "05392ffa81f60d153fdbfcdda1c845fe81ff200e0f1854b286b998c04af2bd36",
@@ -1107,6 +1108,7 @@
     "src/Sanctuary.Content/ValkyrieEquipmentStats.cs": "31f253c533915462a6188e3b966728f15b1c1c765b646ae21ee673b9395c9277",
     "src/Sanctuary.Content/ValkyrieEquipmentWeapons.cs": "b17dff8032565ca74108c11863c3976b6f15d75b3dfbba91af5083e71b4c18d7",
     "src/Sanctuary.Content/ValkyrieGroundMotion.cs": "35de3359a28b4a016884a8bdf5cf1dda1641ce589cccbb8990ca5eee3b90023d",
+    "src/Sanctuary.Content/ValkyrieInitializer.cs": "11fbecf6898051da6030692229868a319f319f67121b7610fddf9cc83b34c29a",
     "src/Sanctuary.Content/Venoms.cs": "8b7c375b1b479b812bcd32b8c0c2f24fa0ac6fe53166d05afc576d4b404eeee0",
     "src/Sanctuary.Content/VolcanoPatterns.cs": "8ed2f11ceca7e20f245caf06dba2cd87ccc766d48da2be651c97e29d0d0666b5",
     "src/Sanctuary.Content/WardrobeAccess.cs": "f3b2a77c52239c1ed92c09bd8bfeb7414e35029146c6419250d3c6f936caaf5e",

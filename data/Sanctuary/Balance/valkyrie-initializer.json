@@ -1,0 +1,45 @@
+[
+  {
+    "monster": 357,
+    "alignment": 1,
+    "level": [
+      0,
+      0,
+      0
+    ],
+    "noRatio": true,
+    "componentChoiceCounts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "totalPieces": 2,
+    "monsterProperty": 65535,
+    "monsterPropertyCount": 13,
+    "initialSkills": [],
+    "onInitEquipment": false,
+    "minimumLife": [
+      400,
+      400,
+      400
+    ],
+    "maximumLife": [
+      480,
+      480,
+      480
+    ]
+  }
+]

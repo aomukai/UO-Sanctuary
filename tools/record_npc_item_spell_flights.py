@@ -13,6 +13,7 @@ def expected(c):
  out=Counter({'iron-golem-birth-check':3,'iron-golem-items-check':1,'iron-golem-items-reload-check':2,'npc-resource-callbacks-check':1,'npc-resource-callbacks-reload-check':2})
  for family in c.get('extra_families',()):out[family+'-check']+=1;out[family+'-reload-check']+=2
  for command in c.get('extra_checks',()):out[command]+=3
+ for command in c.get('extra_pre_save_commands',()):out[command]+=3
  for command,result in c.get('extra_wait_results',{}).items():
   assert out[command]>0
   for name in [result]if isinstance(result,str)else result:out[name]+=out[command]

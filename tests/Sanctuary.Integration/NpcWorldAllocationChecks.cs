@@ -12,9 +12,24 @@ public static class NpcWorldAllocationChecks
 {
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(NpcWorldAllocationChecks));
     private sealed record Saved(uint Owner,Point3D Point,uint Body,string BodyState,uint EquippedBody,string EquippedState,uint Item,string ItemState,
-        NpcWorldAllocationState World,NpcEquipmentSeed Actor,ChainFlight Flight,uint[] Targets,int[] Lives,int Generation=0);
+        NpcWorldAllocationState World,NpcEquipmentSeed Actor,ChainFlight Flight,uint[] Targets,int[] Lives,int Generation=0,
+        [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]NpcWorldAllocationState WorldAtSave=null);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"npc-world-allocation-fixtures.json");
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
+    internal static NpcWorldAllocationState LoadedWorld{get;private set;}
+    internal static NpcWorldAllocationState CheckedContinuation{get;private set;}
+    // Server.Initialize runs after World.Load. Keep this immutable boot witness
+    // separate from subsequent legitimate draws by other fixture families.
+    public static void Initialize(){LoadedWorld=CheckedContinuation=NpcWorldAllocation.Capture();}
+    internal static void Checked(NpcWorldAllocationState state)
+    {Require(NpcWorldAllocation.Capture()==state,"Checked world endpoint differs from live continuation");CheckedContinuation=state;}
+    internal static void SealSave(NpcWorldAllocationState final)
+    {
+        Require(NpcWorldAllocation.Capture()==final&&CheckedContinuation==final,"Unexpected allocation after the checked family endpoints");
+        if(!File.Exists(Manifest)){return;}
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
+        File.WriteAllText(Manifest,Json(saved with{WorldAtSave=final}));
+    }
     public static void Configure(){Register("npc-world-allocation-check",false);Register("npc-world-allocation-reload-check",true);}
     private static void Register(string name,bool reload)=>ConsoleInputHandler.RegisterCommand(name,"Persistent shared world item/root/child allocation",_=>Core.LoopContext.Post(()=>
     {try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -106,7 +121,7 @@ public static class NpcWorldAllocationChecks
         {
             if(reload)
             {
-                var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=saved.Generation+1;Require(generation<=2&&NpcWorldAllocation.Capture()==saved.World,"World persistence did not load exact continuation");
+                var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=saved.Generation+1;Require(generation<=2&&LoadedWorld==(saved.WorldAtSave??saved.World)&&NpcWorldAllocation.Capture()==CheckedContinuation,"World persistence/checked boot continuation differs");
                 NpcWorldAllocation.SeedLow=()=>throw new InvalidOperationException("Reload reseeded world");
                 p=World.FindMobile((Serial)saved.Owner)as PlayerMobile;b=World.FindMobile((Serial)saved.Body)as AmazonValkyrieBody;equipped=World.FindMobile((Serial)saved.EquippedBody)as AmazonValkyrieBody;item=World.FindItem((Serial)saved.Item)as GeneratedNpcItem;point=saved.Point;
                 Require(b?.SavedText==saved.BodyState&&equipped?.SavedText==saved.EquippedState&&item?.SavedText==saved.ItemState&&item.Parent==equipped&&NpcEquipmentRandom.Require(b)==saved.Actor,"World reload recreated original body/item/actor RNG");
@@ -127,7 +142,7 @@ public static class NpcWorldAllocationChecks
                 before=NpcWorldAllocation.Capture();flight=ChainLightning.PrepareValkyrie(b,targets[0].Location,3,TimedEffects.Now.AddDays(2),ChainLightning.OriginalNpcAllocator);ChainLightning.CommitValkyrie(flight);
                 Require(NpcWorldAllocation.Capture().Seed==Advance(before.Seed,1),"Chain root did not use world stream");flight=Hop(b,flight);Require(calls==(fresh?1:0),"Item/root/child generation reseeded world");
             }
-            var actor=NpcEquipmentRandom.Require(b);var world=NpcWorldAllocation.Capture();var held=new Saved(p.Serial.Value,point,b.Serial.Value,b.SavedText,equipped.Serial.Value,equipped.SavedText,item.Serial.Value,item.SavedText,world,actor,flight,targets.Select(t=>t.Serial.Value).ToArray(),targets.Select(SkillHealth.Balance256).ToArray(),generation);
+            var actor=NpcEquipmentRandom.Require(b);var world=NpcWorldAllocation.Capture();Checked(world);var held=new Saved(p.Serial.Value,point,b.Serial.Value,b.SavedText,equipped.Serial.Value,equipped.SavedText,item.Serial.Value,item.SavedText,world,actor,flight,targets.Select(t=>t.Serial.Value).ToArray(),targets.Select(SkillHealth.Balance256).ToArray(),generation);
             Require(flight.OriginalNpc.Ordinal==generation+1&&flight.Remaining==4-generation&&targets.Any(t=>SkillHealth.Balance256(t)<65000*256),"World child did not damage a real recipient");
             PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,Json(held));
             Log.Information("World allocation:960complete mixed source contexts;one persistent world stream,independent actor/item/property/missile streams,actual equipped item/five root spells/natural path child beforeHP,range/domain guards,lazy host entropy once,exact world/item/child/HP continuation through two reloads;no historical global chronology or learned initializer/AI claim");

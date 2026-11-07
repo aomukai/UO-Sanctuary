@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie source initialization (2026-11-07 JST).** Actual initialized bodies and original private equipment keep the existing appearance/equipment art placeholders. Summon/transformation/movement/weapon/contact/audio assets remain separately pending. Zero current component choices are source data,not a generated-art requirement. No artwork is created.
+
 **Persistent NPC world allocation (2026-11-07 JST).** Saved stream ownership and factory binding are invisible. Existing generated-equipment art and fire/cold/lightning/cast/travel/link/impact/audio markers remain identified placeholders;this stage creates no artwork.
 
 **Original NPC contact producers (2026-11-07 JST).** Actual ordinary/incoming item callbacks now reach shared fire/lightning/cold spell placeholders and item audio0x1E5 under explicit host services. No artwork is generated;final proc/cast/travel/link/impact/audio and client presentation remain pending. Existing knockback/get-hit/return markers are reused.

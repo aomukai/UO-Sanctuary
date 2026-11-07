@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "compiledTextMatches": {
+    "primaryRows": 751,
+    "propertyIndexOffset": 78,
+    "alignmentOffset": 135,
+    "secondaryRows": 623,
+    "componentCountsOffset": 21,
+    "totalPiecesOffset": 236
+  },
+  "valkyrie": {
+    "monster": 357,
+    "alignment": 1,
+    "level": [
+      0,
+      0,
+      0
+    ],
+    "noRatio": true,
+    "componentChoiceCounts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "totalPieces": 2,
+    "monsterProperty": 65535,
+    "monsterPropertyCount": 13,
+    "initialSkills": [],
+    "onInitEquipment": false,
+    "minimumLife": [
+      400,
+      400,
+      400
+    ],
+    "maximumLife": [
+      480,
+      480,
+      480
+    ]
+  },
+  "limits": [
+    "These are current table fields,not executed current initialization code. Legacy helper code establishes conditional player-count,component RNG,initial rates and allocation order separately. No empty-string-to-index assumption or old/current raw-layout equivalence is used;compiled fields were matched across all rows."
+  ],
+  "artifacts": {
+    ".local/class-skills/valkyrie-initializer-source/extraction.json": "b444b8284be99f1316f985d29b2217b5f2e84a15763559cb862a47111f58fa36",
+    "tools/corroborate_valkyrie_initializer.py": "4f49b85497905d6c0a81b2756b50af082c2e1b69a71e0530ed4bd4030559bc3c",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    ".local/class-skills/valkyrie-initializer-source/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/valkyrie-initializer-source/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/valkyrie-initializer-source/monstats2.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    ".local/class-skills/valkyrie-initializer-source/monstats2.bin": "f13b15eafdf4b9ef2416a0dbc55202a5fb81e076ae47111551098e46a2ab1248",
+    ".local/class-skills/valkyrie-initializer-source/monprop.txt": "2e7b22f19aa571f1ee3cca8426e219d146471b0b13a25c5fb70a452c2c8c9f4d",
+    ".local/class-skills/valkyrie-initializer-source/monequip.txt": "f731a867dc96c1f44d23e48b6e819b976280da907f7a95fca0dbfe97d9e83f0a",
+    ".local/class-skills/valkyrie-initializer-source/difficultylevels.txt": "8dc24e9f15c236f79dba3b039899155cf8e512ba387d97473583882358340c3e",
+    "data/Sanctuary/Balance/valkyrie-initializer.json": "59cf13eeaed2f05edc61c5dafde4c0fb099b3dcfbb0ad6e50bc79de20227a1e5"
+  }
+}
