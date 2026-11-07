@@ -1,0 +1,194 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceContexts": 1600,
+  "currentPassiveStatMatches": 28,
+  "currentPassiveCalcPresenceMatches": 28,
+  "currentParameterMatches": 12,
+  "metadata": [
+    {
+      "skill": 252,
+      "fields": [
+        {
+          "stat": 342,
+          "calc": 5934,
+          "text": "ln12"
+        },
+        {
+          "stat": 343,
+          "calc": 5937,
+          "text": "ln34"
+        },
+        {
+          "stat": 344,
+          "calc": 5940,
+          "text": "dm56"
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        }
+      ]
+    },
+    {
+      "skill": 263,
+      "fields": [
+        {
+          "stat": 348,
+          "calc": 6444,
+          "text": "dm12"
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        },
+        {
+          "stat": -1,
+          "calc": -1,
+          "text": null
+        }
+      ]
+    }
+  ],
+  "completeRefreshSha256": "ecf9ad68d04bd60c72597d18332920006d5ae49e30ed4edfc71c820616872b07",
+  "currentExecutablePassiveParityVerified": false,
+  "declaredServices": [
+    "NPC intrinsic presence/effective rank;existing or absent passive list;successful allocation;numeric stat/state/post/free and gfx services;existing shared linear/two-stage diminishing curves with the approved WeaponBlock20=58exception. No Fog decoder or old dm-rounding parity is claimed."
+  ],
+  "limits": [
+    "Complete older per-skill refresh lifecycle only;no current executable refresh/callback parity. Current14slot records terminate after3Claw/1WeaponBlock writes,so older5slot iteration has identical active slots for these two rows.",
+    "All/element skill callbacks are connected;NPC single-skill107 deliberately has no immediate passive refresh. Oskill97materialization,foreign/charged skills and transformed class/tree callback contexts remain gated. The rank22WeaponBlock58%reading doesnot resolve all current rounding ranks."
+  ],
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/defiler-compiled-formula/extraction.json": "4593da184c11c34fc49d1e4be3dfb6c895aee7b9cc755d195716fea5718cfcb1",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    ".local/class-skills/defiler-compiled-formula/skillscode.bin": "673b2afa461548c7f0471ba95c8747240f57216be21b9a1af45224a5a8314ac1",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "tools/reference/weapon-block-current-tooltip.json": "54d7a9e0db504b0a391b79c5279ee61734de8f313b1f0c4f2ec7ae1ccd613cf7",
+    "tools/reference/weapon-block-rank20-deviation.json": "c83d5a08b1f1f4667b780f5a9fac04fb191eefd7d11455bd4a9a0a9b6b561639",
+    "tools/reference/diminishing-reference-conflict.json": "5ca2798fa5c8682db80e4e60d0fc2c9ca019e1b93cb01578fe772498434096be",
+    "tools/reference/shadow-skill-metadata-data-evidence.json": "6bf140a448011a6236e5687df40adfa38333c704185ac64f3127aefa6507877a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/probe_shadow_passives.py": "9f6de260fc6750eec334dd7f68665eac4c3182bfae61295cb517d78d543e1475"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-passives-source/source.cpp": "52bf9b3934e790ccbd523fe6e3cf0756f4a6a2dc407360e1432d16c832de1061",
+    ".local/class-skills/shadow-passives-source/cases.json": "9bb23267d2ac58429e94df82a01f5b99cf994e32d3b2b85c8c8d65365b526e9d",
+    ".local/class-skills/shadow-passives-source/probe": "10f77a59e8ffca7ed87ff23fe612d7422f29ce499f74b710c6a7a798508cc52c",
+    ".local/class-skills/shadow-passives-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-passives-source/sanitizers.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-passives-source/compiler-failed-1.log": "9a777081baaf769c4ee2ecb9fcab92733daf49ffcd62284f2a8e25d4b2893e34",
+    ".local/class-skills/shadow-passives-source/source-failed-1.cpp": "0da6281d075e913df728393611a9ae3432d88d91010f70ec044f0a3c96a03336"
+  }
+}

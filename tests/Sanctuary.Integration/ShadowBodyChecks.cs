@@ -48,6 +48,11 @@ public static class ShadowBodyChecks
             var book=b.OwnedSkills;Require(book.Left==251&&book.Right==266&&book.Used==251&&book.Find(251).Bonus==2,"Original NPC skill entries/selections/bonus did not survive save");
             Require(book.Find(266).Mode==14&&book.Find(0).Mode==5,"Reload reset NPC custom modes");
         }
+        if(resources.Passives is{} passives)
+        {
+            Require(graph.Passives!=null&&BattleCommand.Bonus(b)==1&&Json(graph.Passives.Capture())==Json(passives),"Reload lost active Command or exact source passive cache/order");
+            foreach(var list in passives.Lists){Require(list.Level==b.OwnedSkillRank(list.Skill),"Loaded passive did not retain its Command-adjusted own skill rank");}
+        }
     }
     private static void CallbackBirth(AssassinShadowBody b)
     {
@@ -137,7 +142,7 @@ public static class ShadowBodyChecks
                     Require(b.Prepared.Capture==snapshot&&b.Prepared.Capture.Rank==new[]{1,2,10,20}[n]&&b.Prepared.Initialization.WorldBefore==before.Seed,"Actual trained/item owner capture or unit allocation changed");
                     Require(b.Prepared.Equipment.GameAfter==NpcWorldAllocation.Capture().Seed&&b.Prepared.Equipment.PetAfter==NpcEquipmentRandom.Require(b).Seed,"Original equipment did not hand off its actual continuations");
                     Require(helm==null||helm.Parent==p&&armor.Parent==p&&b.Prepared.Capture.Head==ClassGear.Base(helm).Code&&b.Prepared.Capture.Armor==ClassGear.Base(armor).Code,"Shadow borrowed owner items or guessed owner bases");
-                    ShadowSkillBookChecks.Body(b,p);Validate(b);CallbackBirth(b);Pools(b);Random(b);Rescale(b,p,difficulty);Refusals(b,p);
+                    ShadowSkillBookChecks.Body(b,p);ShadowPassiveChecks.Body(b);Validate(b);CallbackBirth(b);Pools(b);Random(b);Rescale(b,p,difficulty);Refusals(b,p);
                     if(helm!=null){var capture=b.Prepared.Capture;p.AddToBackpack(helm);ClassGear.Refresh(p);Require(ShadowOwnerSnapshot.Capture(p,ability).Rank==capture.Rank-1&&b.Prepared.Capture==capture,"Existing Shadow recaptured changed owner gear");Require(p.EquipItem(helm),"Owner helm return");ClassGear.Refresh(p);}
                     held.Add(Capture(b));p.Internalize();
                 }
@@ -146,6 +151,7 @@ public static class ShadowBodyChecks
             Require(held.Count==24,"Missing actual Shadow rank/difficulty births");
         }
         Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Resource backend enabled incomplete learned Shadows");
+        ShadowPassiveChecks.SourceControls();
         NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(held.ToArray(),generation)));
         Log.Information("Shadow bodies:24actual initialized species/owners and unfiltered original inventories;source callback before birth scaling,item/actor/world continuations,FP256 life/mana/stamina,logical item changes,owner snapshots,parked no-recovery/healer support and designated-facet rescale;actual body/items/resources/wounds/RNG through two reloads;NPC skills/events,AI105/106,UMod death and learned casts remain gated");
     }

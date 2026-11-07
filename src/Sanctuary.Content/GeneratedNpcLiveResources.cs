@@ -13,7 +13,8 @@ internal sealed record GeneratedNpcResourceState(int Version,uint Actor,uint Own
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieResourceBirth Valkyrie=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]int? StaminaPercentCache=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]GeneratedNpcEventState ItemEvents=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ShadowResourceBirth Shadow=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ShadowResourceBirth Shadow=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ShadowPassiveFrame Passives=null);
 
 public sealed class GeneratedNpcResourceProfiles:GenericPersistence
 {
@@ -40,7 +41,8 @@ internal static class GeneratedNpcLiveResources
     private static bool Live(Mobile actor)=>actor is BaseCreature{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false}};
     internal static bool Handles(Mobile actor)=>actor is BaseCreature{Alive:true,Deleted:false}&&States.ContainsKey(actor.Serial.Value);
     private static GeneratedNpcResourceState Copy(GeneratedNpcResourceState state)=>state with{Basis=(EquipmentStatValue[])state.Basis.Clone(),ActiveItems=(uint[])state.ActiveItems.Clone(),
-        ItemEvents=state.ItemEvents is{} events?events with{ActiveItems=(uint[])events.ActiveItems.Clone(),Events=events.Events with{Entries=(UnitEventEntry[])events.Events.Entries.Clone()}}:null};
+        ItemEvents=state.ItemEvents is{} events?events with{ActiveItems=(uint[])events.ActiveItems.Clone(),Events=events.Events with{Entries=(UnitEventEntry[])events.Events.Entries.Clone()}}:null,
+        Passives=ShadowPassiveGraph.Copy(state.Passives)};
     private static int Raw(EquipmentStatValue[] fields,int stat)=>EquipmentStatValues.Raw(fields,EquipmentStatKey.Pack(stat));
     private static EquipmentStatValue[] Put(EquipmentStatValue[] fields,int stat,int value)=>fields.Where(v=>v.Packed!=EquipmentStatKey.Pack(stat))
         .Append(new(EquipmentStatKey.Pack(stat),value)).Where(v=>v.Value!=0).OrderBy(v=>v.Packed).ToArray();
@@ -64,6 +66,11 @@ internal static class GeneratedNpcLiveResources
             GeneratedNpcItemEvents.Validate(events);
             if(state.Valkyrie==null||events.Actor!=state.Actor||events.Owner!=state.Owner||!events.ActiveItems.SequenceEqual(state.ActiveItems))
             {throw new InvalidDataException("Original item events lost their source resource binding");}
+        }
+        if(state.Passives is{} passives)
+        {
+            if(state.Shadow==null){throw new InvalidDataException("NPC passive frame belongs to its original Shadow");}
+            ShadowPassiveGraph.Validate(passives,state.ActiveItems);
         }
     }
     private static void Supported(IEnumerable<EquipmentStatValue> fields)
@@ -92,6 +99,8 @@ internal static class GeneratedNpcLiveResources
         {
             if(actor is not AssassinShadowBody body){throw new NotSupportedException("Shadow resources belong to another species");}
             ShadowEquipmentResources.Require(body,state,preview);
+            if(state.Passives is{} passives&&passives.Book!=body.Prepared.Skills)
+            {throw new NotSupportedException("Shadow passive cache lost its actual owned skill book");}
         }
         else
         {
@@ -129,6 +138,8 @@ internal static class GeneratedNpcLiveResources
                 g.SetResourceCallbacks(state.DamageRegeneration);
             }
         },bindItemEvents:bindItemEvents,eventHistory:state.ItemEvents);
+        if(state.Passives!=null)
+        {graph.Passives=ShadowPassiveGraph.Restore(graph,state.Passives,()=>BattleCommand.Bonus(actor));}
         // Source operation1 may retain an earlier FullValues entry while its
         // BaseValues percentage changes. Item/buff order therefore matters;
         // retain the operative cache across reconstruction,not just the base.
@@ -146,7 +157,8 @@ internal static class GeneratedNpcLiveResources
         if(state.Valkyrie is{} source&&(actor is not AmazonValkyrieBody body||body.Prepared.Birth!=source.Birth||body.Prepared.Difficulty!=source.Difficulty))
         {throw new NotSupportedException("Valkyrie resource frame needs an explicit captured-basis transition");}
         if(state.Shadow is{} shadow&&(actor is not AssassinShadowBody recipient||recipient.Prepared.Capture!=shadow.Capture
-            ||recipient.Prepared.Initialization!=shadow.Initialization||recipient.Prepared.Difficulty!=shadow.Difficulty))
+            ||recipient.Prepared.Initialization!=shadow.Initialization||recipient.Prepared.Difficulty!=shadow.Difficulty
+            ||state.Passives is{} passives&&recipient.Prepared.Skills!=passives.Book))
         {throw new NotSupportedException("Shadow resource frame needs an explicit captured-basis transition");}
         if(!Frames.TryGetValue(state.Actor,out var graph)){Frames[state.Actor]=graph=Build(actor,state);}
         _=graph.Read(7);return graph;
@@ -178,7 +190,10 @@ internal static class GeneratedNpcLiveResources
             NecromancerSummons.Source(actor.SourceMonsterId,"DamageRegen"),source.Initialization.RegenerationBase,
             ShadowLoadout.Originals(actor).Select(i=>i.Serial.Value).ToArray(),BattleOrders.LifePercent(actor),BattleOrders.Percent(actor),
             checked(BattleOrders.Percent(actor)+PaladinVigor.StaminaPercent(actor)),Shadow:source);
-        var graph=Build(actor,state,true);Commit(actor,state,graph);
+        var graph=Build(actor,state,true);
+        if(actor.Prepared.Skills!=null)
+        {graph.Passives=ShadowPassiveGraph.Initialize(graph,actor.Prepared.Skills,()=>BattleCommand.Bonus(actor));}
+        Commit(actor,state,graph);
     }
     internal static GeneratedNpcStatGraph ValkyrieFrame(AmazonValkyrieBody actor,MonsterDifficulty? preview=null)
     {
@@ -235,7 +250,7 @@ internal static class GeneratedNpcLiveResources
     {
         CheckMaximums(graph);state=state with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74)),StaminaPercentCache=graph.Read(162)};
         int life=graph.Read(6),mana=graph.Read(8),stamina=graph.Read(10);
-        state=state with{ItemEvents=graph.ItemEvents?.Capture()};Validate(state);
+        state=state with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(state);
         States[state.Actor]=state;Frames[state.Actor]=graph;
         SkillHealth.SetBalance256(actor,life);NecromancerEffects.SetMana256(actor,mana);BattleOrders.SetStamina256(actor,stamina);
         if(state.Valkyrie!=null){((AmazonValkyrieBody)actor).ApplyEquipmentResistances();}
@@ -275,7 +290,24 @@ internal static class GeneratedNpcLiveResources
         foreach(var field in new[]{(77,next.ManaPercent),(76,next.LifePercent),(162,next.StaminaPercent)})
         {graph.Values.SetBase(graph.Actor.Stats,EquipmentStatKey.Pack(field.Item1),field.Item2,graph.Actor);}
         CheckMaximums(graph);next=next with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74)),StaminaPercentCache=graph.Read(162)};Validate(next);
-        next=next with{ItemEvents=graph.ItemEvents?.Capture()};Validate(next);
+        next=next with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(next);
+        States[next.Actor]=next;Frames[next.Actor]=graph;
+    }
+    internal static void ChangeShadowSkills(AssassinShadowBody actor,string book)
+    {
+        _=Current(actor);var old=States[actor.Serial.Value];var nextBook=ShadowSkillBook.Restore(book).Save();
+        if(old.Passives==null){actor.RestorePrepared(actor.Prepared with{Skills=nextBook});return;}
+        var graph=Build(actor,old);Seed(actor,graph);graph.Passives.Refresh(nextBook);
+        var next=old with{Passives=graph.Passives.Capture()};Validate(next);CheckMaximums(graph);
+        // The admitted passive fields have no resource/value operations.
+        // Both candidates validate before replacing either authoritative state.
+        actor.RestorePrepared(actor.Prepared with{Skills=nextBook});States[next.Actor]=next;Frames[next.Actor]=graph;
+    }
+    internal static void RefreshShadowPassives(Mobile actor)
+    {
+        if(World.Loading||actor is not AssassinShadowBody body||!Handles(body)||States[body.Serial.Value].Passives==null){return;}
+        var old=States[body.Serial.Value];_=Current(body);var graph=Build(body,old);Seed(body,graph);
+        graph.Passives.Refresh(body.Prepared.Skills);var next=old with{Passives=graph.Passives.Capture()};Validate(next);CheckMaximums(graph);
         States[next.Actor]=next;Frames[next.Actor]=graph;
     }
     internal static bool RefreshVigor(Mobile actor)
@@ -288,7 +320,7 @@ internal static class GeneratedNpcLiveResources
     {
         var result=new List<GeneratedNpcResourceState>();
         foreach(var state in States.Values)
-        {if(World.FindMobile((Serial)state.Actor)is BaseCreature actor&&Handles(actor)){var graph=Current(actor);var saved=state with{ItemEvents=graph.ItemEvents?.Capture()};Validate(saved);result.Add(Copy(saved));}}
+        {if(World.FindMobile((Serial)state.Actor)is BaseCreature actor&&Handles(actor)){var graph=Current(actor);var saved=state with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(saved);result.Add(Copy(saved));}}
         foreach(uint id in States.Keys.Except(result.Select(s=>s.Actor)).ToArray()){States.Remove(id);Frames.Remove(id);}
         return result.OrderBy(s=>s.Actor).ToArray();
     }

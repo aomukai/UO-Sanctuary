@@ -47,6 +47,7 @@ public static class BattleCommand
     private static void Refresh(Mobile actor,BattleOrders.Pools before)
     {
         BattleOrders.Change(actor,before);
+        GeneratedNpcLiveResources.RefreshShadowPassives(actor);
         if(actor is PlayerMobile player)
         {
             // Existing passive consumers query effective ranks live. Refresh native

@@ -71,6 +71,9 @@ public sealed class SkillValues
     // .ln synergy must not donate baseline-minus-increment at rank zero.
     public int Linear(int first, int second) => Rank <= 0 ? 0 : Param(first) + (Rank - 1) * Param(second);
     public int Diminishing(int first, int second) => Rank <= 0 ? 0
+        // Approved Sanctuary value, not an observed current D2R tooltip.
+        // Keep this single rank separate from the unresolved legacy rounding.
+        : Ability==CombatAbility.WeaponBlock&&first==1&&second==2&&Rank==20?58
         : Param(first) + (Param(second) - Param(first)) * Math.Min(100, 110 * Rank / (Rank + 6)) / 100;
     public long Eval(string field)
     {

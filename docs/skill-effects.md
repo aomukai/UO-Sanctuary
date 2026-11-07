@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shadow passive lists (2026-11-07 JST).** Actual passive stats and graphics-change notifications are implemented without final client effects. Shadow body `0x190`, hue `0x455`, remains an explicitly named appearance placeholder. Block/contact reactions, casting, modifier-death effects and audio remain pending separately from stat-list ownership. See [checkpoint](shadow-passives-checkpoint.md).
+
 **Shadow intrinsic skills (2026-11-07 JST).** Skill ownership adds no final effects or audio. Parked Shadow Warrior/Master bodies retain their explicitly named body `0x190`, hue `0x455` appearance placeholder. Casting, skill-specific effects, contact and modifier-death visuals remain pending in this effects list; ownership does not mark them complete. See [checkpoint](shadow-skills-checkpoint.md).
 
 **Dedicated Shadow bodies (2026-11-07 JST).** Source resource actors use the named appearance placeholder body `0x190`, hue `0x455` and remain parked. No final art or effects are installed. Shadow emergence, disappearance, movement, attacks, skill releases, modifier death effects and audio remain pending. See [checkpoint](shadow-body-checkpoint.md).

@@ -23,6 +23,8 @@ internal sealed class GeneratedNpcStatGraph
     private readonly Dictionary<uint,ItemPropertyCreationContext> Carriers=new();
     private readonly Dictionary<EquipmentStatUnit,int> Bodies=new();
     private readonly HashSet<EquipmentStatNode> BirthLists=new();
+    private readonly HashSet<EquipmentStatNode> PassiveLists=new();
+    internal ShadowPassiveGraph Passives{get;set;}
     private readonly EquipMonster Kind;
     private readonly bool HasPath;
     private readonly Action<BaseCreature> Rate,Clamp;
@@ -70,6 +72,7 @@ internal sealed class GeneratedNpcStatGraph
                 changed(node,source,key,old,next);
                 if(ResourceRegeneration is{} regeneration&&node==Actor.Stats)
                 {NpcItemResourceCallbacks.Changed(Values,node,key,old,next,regeneration);}
+                Passives?.Changed(node,key);
             });Dispatch=new(this);
         void Restore(GeneratedNpcItem original)
         {
@@ -108,7 +111,7 @@ internal sealed class GeneratedNpcStatGraph
             Current();var result=new List<uint>();
             for(var node=Actor.Stats.Last;node!=null;node=node.Previous)
             {
-                if(BirthLists.Contains(node)){continue;}
+                if(BirthLists.Contains(node)||PassiveLists.Contains(node)){continue;}
                 if(node.Owner?.Entity is not GeneratedNpcItem item||!Carriers.ContainsKey(item.Serial.Value))
                 {throw new NotSupportedException("Original NPC event graph has an unknown attached stat-list owner");}
                 result.Add(item.Serial.Value);
@@ -120,6 +123,33 @@ internal sealed class GeneratedNpcStatGraph
     {
         if(node is not{OwnerKind:1,Owner:null}||node.Parent!=Actor.Stats||node.Recipient!=Actor||!BirthLists.Add(node))
         {throw new NotSupportedException("NPC birth list must be its original posted non-item source list");}
+    }
+    internal bool IsBirthList(EquipmentStatNode node)=>BirthLists.Contains(node);
+    internal void RegisterPassiveList(EquipmentStatNode node)
+    {
+        if(node is not{OwnerKind:1,Owner:null,State:152 or 155}||node.Parent!=Actor.Stats||node.Recipient!=Actor
+            ||BirthLists.Contains(node)||!PassiveLists.Add(node))
+        {throw new NotSupportedException("NPC passive list must be its explicitly posted source state list");}
+    }
+    internal void UnregisterPassiveList(EquipmentStatNode node)
+    {if(node.Parent!=null||node.Recipient!=null||!PassiveLists.Remove(node)){throw new NotSupportedException("Passive list removal lost its original attachment");}}
+    internal EquipmentStatNode[] SourceListOrder()
+    {
+        Current();_=ActiveItems;var nodes=new List<EquipmentStatNode>();
+        for(var node=Actor.Stats.Last;node!=null;node=node.Previous){nodes.Add(node);}
+        nodes.Reverse();return nodes.ToArray();
+    }
+    internal void RestoreSourceListOrder(EquipmentStatNode[] order)
+    {
+        // Restoration only: independent passive fields have no operations or
+        // item events. Keep the already replayed numeric graph untouched.
+        var current=SourceListOrder();var birth=current.TakeWhile(IsBirthList).ToArray();
+        if(current.Skip(birth.Length).Any(IsBirthList)||order==null||order.Any(n=>n==null||IsBirthList(n))
+            ||order.Distinct().Count()!=order.Length||!current.Skip(birth.Length).ToHashSet().SetEquals(order))
+        {throw new NotSupportedException("Source attachment restoration changed original node membership");}
+        var all=birth.Concat(order).ToArray();
+        for(int i=0;i<all.Length;i++){all[i].Previous=i==0?null:all[i-1];all[i].Next=i+1==all.Length?null:all[i+1];}
+        Actor.Stats.Last=all.LastOrDefault();
     }
     internal ItemPropertyCreationContext Item(uint serial){Current();return Carriers.TryGetValue(serial,out var c)?c:throw new NotSupportedException("Item is not in the original recipient graph");}
     internal void Update(uint serial,bool force=false){var item=Item(serial);SourceItemStatUpdates.Update(Dispatch,item.Unit,Actor,force);}

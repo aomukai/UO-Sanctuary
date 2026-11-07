@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "skill": "assassin.weaponblock",
+  "effectiveRank": 20,
+  "chancePercent": 58,
+  "status": "user-approved Sanctuary adaptation",
+  "approvedOn": "2026-11-07",
+  "userInstruction": "i don't have it, let's set it to 58%",
+  "scope": "The same shared Weapon Block dm12 evaluation supplies58at effective20for player and NPC consumers. All other ranks retain the existing shared curve;this is not approval to replace the whole curve with older engine rounding.",
+  "limits": [
+    "This is an explicit design value,not an in-game measurement. The separate current-build rank22tooltip58%remains firsthand evidence. Exact current rounding at other disputed ranks stays uncertain."
+  ]
+}

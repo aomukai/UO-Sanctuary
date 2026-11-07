@@ -37,7 +37,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     internal void ChangeSkills(Action<ShadowSkillBook> change)
     {
         ArgumentNullException.ThrowIfNull(change);var book=OwnedSkills;change(book);
-        RestorePrepared(State with{Skills=book.Save()});
+        if(GeneratedNpcLiveResources.Handles(this)){GeneratedNpcLiveResources.ChangeShadowSkills(this,book.Save());}
+        else{RestorePrepared(State with{Skills=book.Save()});}
     }
     internal int OwnedSkillRank(int id)
     {var graph=EquipmentNumbers??throw new NotSupportedException("Shadow skill ranks need its original item graph");return OwnedSkills.Rank(id,graph.Read,BattleCommand.Bonus(this));}

@@ -82,9 +82,10 @@ public static class WeaponBlockChecks
     private static void Goldens()
     {
         var row=SkillMechanics.For(CombatAbility.WeaponBlock);Require(row.Passive && row.SourceId==263 && row.Text("passiveitype")=="h2h" && row.Text("passivestat1")=="passive_weaponblock","Pinned passive row");
-        int[] golden=[26,32,36,39,42,44,46,47,49,50,51,52,53,54,55,56,56,56,57,57];
+        int[] golden=[26,32,36,39,42,44,46,47,49,50,51,52,53,54,55,56,56,56,57,58];
         for(int i=0;i<golden.Length;i++){int rank=i+1;Require(new SkillValues(row,_=>rank,_=>0,99).Eval("passivecalc1")==golden[i],"Independent Weapon Block rank "+rank);}
         Require(new SkillValues(row,_=>22,_=>0,99).Eval("passivecalc1")==58,"Current user rank22=58");
+        Require(new SkillValues(row,_=>20,_=>0,99).Formula("dm12")==58,"Approved rank20value did not reach shared formula references");
     }
     private static void Differential(PlayerMobile p)
     {
@@ -154,7 +155,7 @@ public static class WeaponBlockChecks
         if((blocked?_calls==0:SkillHealth.Balance256(_owner)==_before) && Core.TickCount<_deadline){Later(30,Observe);return;}
         Require(_calls==(_phase==0?0:1) && (blocked?SkillHealth.Balance256(_owner)==_before:SkillHealth.Balance256(_owner)<_before) && NecromancerEffects.ManaBalance256(_owner)==0,"Natural projectile/block/live-claw phase "+_phase+" calls="+_calls);
         if(_source is EncounterCreature e){EliteBolts.Cancel(e);}_source.Delete();_source=null;if(++_phase<4){Next();return;}
-        Train(_owner,CombatAbility.WeaponBlock,20);var helm=Named(_owner,"Tarnhelm");var amulet=Named(_owner,"Highlord's Wrath");Require(WeaponBlocks.Chance(_owner)==58 && !ClassCreation.Profiles.TryTrain(_owner.Serial,"assassin.weaponblock",out _),"Current effective22/hard20 cap");Still(_owner);Pair(_owner,_first,_second);
+        Train(_owner,CombatAbility.WeaponBlock,20);Require(SkillMechanics.Rank(_owner,CombatAbility.WeaponBlock)==20&&WeaponBlocks.Chance(_owner)==58,"Approved effective20player value");var helm=Named(_owner,"Tarnhelm");var amulet=Named(_owner,"Highlord's Wrath");Require(WeaponBlocks.Chance(_owner)==58 && !ClassCreation.Profiles.TryTrain(_owner.Serial,"assassin.weaponblock",out _),"Current effective22/hard20 cap");Still(_owner);Pair(_owner,_first,_second);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(_owner.Serial.Value,_first.Serial.Value,_second.Serial.Value,helm.Serial.Value,amulet.Serial.Value,NecromancerEffects.ManaBalance256(_owner))));Cleanup();Log.Information("weapon-block-result: passed");
     }
     private static void Reload()
