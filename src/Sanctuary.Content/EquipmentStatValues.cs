@@ -22,6 +22,10 @@ internal sealed class EquipmentStatValues:EquipmentStatServices
         return rows.ToDictionary(r=>r.Id);
     });
     internal static EquipmentStatDefinition Definition(int id)=>Definitions.Value.GetValueOrDefault(id);
+    private static readonly Lazy<IReadOnlyDictionary<string,EquipmentStatDefinition>> Names=new(()=>
+        Definitions.Value.Values.ToDictionary(r=>r.Name,StringComparer.Ordinal));
+    internal static EquipmentStatDefinition Definition(string name)=>Names.Value.GetValueOrDefault(name);
+    internal static int Count=>Definitions.Value.Count;
     private readonly Func<EquipmentStatUnit,int> Body;
     private readonly Func<EquipmentStatUnit,int?> Clock;
     private readonly Func<EquipmentStatUnit,EquipmentClassCoefficients?> Classes;

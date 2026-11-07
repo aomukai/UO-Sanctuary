@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "5838f531066b9c104de4185b7dc13ff0e99847851a580137683ef5dd6171e4ee",
+  "ContentAssemblySha256": "13045977d0247fbce470e6932c6fd69cc43f879519a7cfc74058519a0d2fef86",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "0496589fa5ddf105c244249bb8bc2b37e49ea8ad3de20d2d51b1576073cb1304",
+    "data/Sanctuary/Balance/class-skill-status.json": "f99ff97aa15a56a5b1cac115e80c8dba1701fb34f177e458fe915f22c097fec5",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -600,7 +600,7 @@
     "src/Sanctuary.Content/EquipmentSalvage.cs": "695be4ca9b945d8572a5f60399f175bb5bfae16e852fc4a0ee79c3d1b78bb354",
     "src/Sanctuary.Content/EquipmentSocketProperty.cs": "3770d789cc5722bdb4f08f58d777c20edc1162fdb5e1a94783c4407acaad83ca",
     "src/Sanctuary.Content/EquipmentStatGraph.cs": "94df8f8ec8ee54d0ec80590e8cb37d391ac30d2b82e8c9aa77cf03c19dad9bde",
-    "src/Sanctuary.Content/EquipmentStatValues.cs": "1198bd743b4aa8f3a436a47f9b09085953e18e2a8f55c99628b01b802a7dd5a9",
+    "src/Sanctuary.Content/EquipmentStatValues.cs": "29609eb76b957202a70f93236ea86e3075eec5ac91a79597d8898745cfcb632d",
     "src/Sanctuary.Content/EscrowValuation.cs": "dfd434ac964f51acb82196a6862e81a198a4eccec7d7597eff6470c811c573b8",
     "src/Sanctuary.Content/EssenceGump.cs": "0705f9f65525be47b5be896ab60b3e2f4e47e642710536f8cdb3e021cd5d5660",
     "src/Sanctuary.Content/ExperienceLevels.cs": "ea57918e5227d532435e87bdb802976de196c3145c9b45ab6cea46b15e4acea3",
@@ -997,6 +997,7 @@
     "src/Sanctuary.Content/RunebarkHarvesting.cs": "16554b30e973232d744408150f99ae05b72e1cea7c7c7f7344c2ee056f0a4b2f",
     "src/Sanctuary.Content/SavedItemEthereality.cs": "b44541823d839fa0132e5e032ba6a56a1b2e6ac4fb47923ba814b4ed1cc6b490",
     "src/Sanctuary.Content/SentryNpcSkills.cs": "34e230fe3438c33d8c761127e850e7f9c3eb9b48eaca75e230d9648a0c420c53",
+    "src/Sanctuary.Content/ShadowCreation.cs": "1caf9995d5495da6a2a3d29e7624a09846d8bed2e996f671c911ab14cf03d491",
     "src/Sanctuary.Content/ShadowEquipment.cs": "8ed989d4e4410bcf4ae9e83b2fbaa0f6d40f289408e0adf0651673f647a064ca",
     "src/Sanctuary.Content/ShapeRestrictions.cs": "50e6ba4fa214a7768a291013e57bbcb3347a00c951639e5610bea814330f00fb",
     "src/Sanctuary.Content/ShiverArmor.cs": "8115593adfed04566ac9b70b7ab77187312146a1a48a61426c595fb73837e166",
