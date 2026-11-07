@@ -11,6 +11,7 @@ namespace Sanctuary;
 public interface IPersistentMinion
 {
     DiabloClass SummonClass { get; }
+    bool CanActivate => true;
     DateTime? ExpiresUtc => null;
     bool Permitted(PlayerMobile owner)=>true;
     void SuspendActions();
@@ -35,7 +36,7 @@ public static class PersistentMinions
         Profiles = new();
         ClassCombatHooks.PersistentMinion = pet => Behavior(pet)!=null;
         ClassCombatHooks.GuardTarget = (pet,target) => Behavior(pet)==null?null:
-            pet is{Alive:true,Deleted:false,Blessed:false}&&pet.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
+            pet is{Alive:true,Deleted:false,Blessed:false}&&Behavior(pet).CanActivate&&pet.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
             &&owner.Map==pet.Map&&pet.Map!=Map.Internal&&Active(owner,pet)&&Permitted(owner,pet,Behavior(pet).SummonClass)
             &&!MinionSafeAreas.ShouldPark(owner,pet)&&ClassCombat.IsHostile(owner,target)&&ClassCombatHooks.TargetAllowed?.Invoke(pet,target)!=false;
         ClassCombatHooks.SuspendMinions = Suspend;
@@ -134,7 +135,7 @@ public static class PersistentMinions
         }
         var state = Profiles.Track(pet);
         if (state == null || state.ExpiresUtc is { } expires && DateTime.UtcNow >= expires) { pet.Delete(); return false; }
-        if (!Active(owner, pet) || !Permitted(owner, pet, Behavior(pet).SummonClass) || MinionSafeAreas.ShouldPark(owner,pet)) { Park(pet); return false; }
+        if (!Behavior(pet).CanActivate || !Active(owner, pet) || !Permitted(owner, pet, Behavior(pet).SummonClass) || MinionSafeAreas.ShouldPark(owner,pet)) { Park(pet); return false; }
         if (owner.NetState == null || owner.Map == null || owner.Map == Map.Internal)
         {
             Suspend(pet);
@@ -157,7 +158,7 @@ public static class PersistentMinions
         }
         var state = Profiles.Track(pet);
         if (state == null) { pet.Delete(); return; }
-        if (!Active(owner, pet) || !Permitted(owner, pet, Behavior(pet).SummonClass) || MinionSafeAreas.ShouldPark(owner,pet)) { Park(pet); return; }
+        if (!Behavior(pet).CanActivate || !Active(owner, pet) || !Permitted(owner, pet, Behavior(pet).SummonClass) || MinionSafeAreas.ShouldPark(owner,pet)) { Park(pet); return; }
         Suspend(pet);
         if (owner.NetState != null)
         {
@@ -181,7 +182,7 @@ public static class PersistentMinions
             if (follower is not BaseCreature { Deleted: false, Alive: true } pet || Behavior(pet) is not{} minion || pet.ControlMaster != owner) { continue; }
             var state = Profiles.Track(pet); if (state == null) { continue; }
             if (state.ExpiresUtc is { } expires && DateTime.UtcNow >= expires) { pet.Delete(); continue; }
-            if (!Active(owner, pet) || !Permitted(owner, pet, minion.SummonClass) || MinionSafeAreas.ShouldPark(owner,pet)) { Park(pet); continue; }
+            if (!minion.CanActivate || !Active(owner, pet) || !Permitted(owner, pet, minion.SummonClass) || MinionSafeAreas.ShouldPark(owner,pet)) { Park(pet); continue; }
             // Settle the parked interval before restoring slots/admission. A
             // failed landing keeps both internal identity and released slots.
             if(state.Parked){TimedEffects.Settle(pet,TimedEffects.Now);if(pet.Deleted||!pet.Alive){continue;}}

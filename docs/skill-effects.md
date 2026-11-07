@@ -1,5 +1,7 @@
 # Skill effects
 
+**Dedicated Shadow bodies (2026-11-07 JST).** Source resource actors use the named appearance placeholder body0x190/hue0x455 and remain parked. No final art or effects are installed. Shadow emergence, disappearance, movement, attacks, skill releases, modifier death effects and audio remain pending. See [checkpoint](shadow-body-checkpoint.md).
+
 **Prepared Shadow initialization (2026-11-07 JST).** No new artwork is installed. Original equipment and numeric storage fixtures use clearly labeled test holders. Actual Shadow appearance,spawn/despawn,combat/skill/death effects and audio remain pending;no playable Shadow route is enabled. See [checkpoint](shadow-initializer-checkpoint.md).
 
 **Learned Valkyrie cast (2026-11-07 JST).** The playable route reuses clearly identified summon glow/audio and source movement/attack/proc/status placeholders. Final appearance, original body/equipment/spear, summon/return/death, elemental/projectile/contact/recovery and audio assets remain missing and listed separately. Mechanics do not wait for imagegen artwork.

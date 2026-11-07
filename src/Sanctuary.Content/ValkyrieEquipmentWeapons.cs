@@ -23,18 +23,9 @@ internal static class ValkyrieEquipmentWeapons
     }
     private static ValkyrieWeaponBinding Original(AmazonValkyrieBody body)
     {
-        var originals=ValkyrieEquipment.Originals(body);var slots=new SourceInventoryWeapon[13];
-        var inventory=new SourceInventoryWeapons(true,true,true,SourceInventoryWeapons.Invalid,slots);
-        foreach(var item in originals)
-        {
-            var s=item.Snapshot;var code=s.Metadata.Code;
-            var row=new SourceInventoryWeapon(item.Serial.Value,4,NpcItemAffixes.Pool.IsType(code,"weap"),NpcItemAffixes.Pool.IsType(code,"mpot"),s.Equipment.Body,true,checked((uint)s.Metadata.Flags)|s.Equipment.Flags);
-            // Materialize records only completed source placements. Replay
-            // GUID updates after each placement, in original request order.
-            slots[row.Body]=row;inventory.Insert(row);
-        }
-        if(inventory.Primary()is not{} primary){throw new NotSupportedException("Valkyrie has no admitted original primary weapon");}
-        uint secondary=inventory.Secondary()?.Guid??0;
+        var originals=ValkyrieEquipment.Originals(body);var(primary,other)=GeneratedNpcHands.Read(originals);
+        if(primary==null){throw new NotSupportedException("Valkyrie has no admitted original primary weapon");}
+        uint secondary=other?.Guid??0;
         string witness=JsonSerializer.Serialize(new{body.Prepared.Birth,body.Prepared.Equipment,Payloads=originals.Select(i=>i.SavedText).ToArray(),primary.Guid,Secondary=secondary});
         return new(primary.Guid,secondary,Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(witness))));
     }

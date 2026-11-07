@@ -1,5 +1,7 @@
 # Skill icons
 
+**Dedicated Shadow bodies (2026-11-07 JST).** No public skill binding or icon slot changes. Shadow Warrior/Master tree and hotkey artwork remain separate pending assets with existing placeholders; real body/resource persistence does not enable their learned cast. See [checkpoint](shadow-body-checkpoint.md).
+
 **Prepared Shadow initialization (2026-11-07 JST).** No public binding or icon slot changes. Shadow Warrior/Master talent-tree and hotkey icons remain separate pending assets with existing identified placeholders. See [checkpoint](shadow-initializer-checkpoint.md).
 
 **Learned Valkyrie input (2026-11-07 JST).** The existing Valkyrie talent/hotkey icon is still a placeholder. Right and quick slots use it; left assignment is disallowed by the pinned row. Roster/status placeholders remain separate from summon/body/equipment and skill-effect assets.
