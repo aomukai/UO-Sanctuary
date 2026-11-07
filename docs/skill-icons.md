@@ -914,3 +914,5 @@ No public binding or icon slot changes. Shadow Warrior/Master talent-tree and ho
 **Shadow Quickness/Fade (2026-11-08):** no new public binding or icon slot. Existing Burst of Speed/Fade and Shadow talent/hotkey artwork stays separately pending; intrinsic NPC consumers do not complete those assets. See [checkpoint](shadow-buffs-checkpoint.md).
 
 **Shadow Venom (2026-11-08):** no new public binding or icon slot. Venom and Shadow talent-tree/hotkey artwork remain separately pending; the intrinsic NPC consumer reuses the skill identity. See [checkpoint](shadow-venom-checkpoint.md).
+
+**Shadow Psychic Hammer (2026-11-08):** no new public binding or icon slot. Psychic Hammer and Shadow talent/hotkey artwork remain separately pending; the intrinsic NPC consumer uses the existing identity. See [checkpoint](shadow-psychic-checkpoint.md).

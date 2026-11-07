@@ -1,0 +1,59 @@
+{
+  "parent": "6d6e867fbc5c34f054d57fe069aef1418b7e436e",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 18,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "09a2f980c62ca2df09c9f52948c5540044e1330548d8654c306f2eb1f88c2e38",
+    "Assemblies/Sanctuary.Integration.dll": "a66056c8395b03111ecccc39af0caaa915ae50ceadfef938a259edcf0e448890"
+  },
+  "inputsSha256": "7fd8a2f92491642c716b3a3ace51b4d28ff38d4bd1e609b3db31c10b0578a413",
+  "nativeLogSha256": "12949a361cb97c2ba3efba8741a64ff104ba8257f63727ccf70aaf03b59f3801",
+  "sourceSnapshotSha256": "ee6886a4e6882ef54717516cfb881c2c3f8297078ff1551144d44f74fbb32497",
+  "reusedSourceProofs": {
+    "tools/reference/psychic-hammer-engine-evidence.json": "e87ac0a798678375c1507d0d7768d48be627b66f01b9e93389f1c2eab35ed00e",
+    "tools/reference/psychic-hammer-damage-engine-evidence.json": "dedb1097685e274a0720a75520c9d085e11e1dc6d6a4307ca1fa3bbd0e2ea65d",
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Both original Shadow species use own intrinsic start22/do33/SC and physical/magic RNG/modifiers;split shared typed notification/credit/HP then post-damage own chance and monster return. Native exact RNG/notification order,physical immunity,lethal death/knockback,owner potion/mana exclusion,no projectile,target/town/park cancellation,Warrior AI and saved original actors/items/wounds/RNG. Venom/ground retained.",
+  "failedRuns": [
+    "Integration fixture compiler issues:sealed base,shadowed field and uint/int callback corrected before accepted builds",
+    "failed-native-1.log:Hammer passed;retained Venom event-history reconstruction failed;next cohort passed after diagnostics only"
+  ],
+  "unresolved": [
+    "Loadout-dependent original NPC item-event reconstruction mismatch observed once. Validation guard unchanged;identity/event-signature diagnostics added. Not fixed and remains a full activation gate."
+  ],
+  "notRerun": [
+    "new arithmetic/animation source harnesses for unchanged routines",
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": [
+    "reproduce/fix original event-frame case",
+    "Mind Blast and remaining intrinsic consumers",
+    "Master AI106",
+    "current UMod42 death behavior",
+    "learned summon/payment/replacement/input",
+    "full current-executable/terrain/inherited-sunder/original-item/PvP/hireling/client acceptance",
+    "final effects and icons"
+  ]
+}

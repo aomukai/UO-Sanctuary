@@ -25,3 +25,5 @@ Own AI105, shared ground transport, original melee and Fire Blast handoff are no
 Own Quickness/Fade consumers now use source SC events and actual timed stat lists, with group-2 replacement, own numeric/curse effects and preserved expiry. Warrior AI selection is verified. Venom and other intrinsic consumers, AI106, death and learned casting remain. See [buff checkpoint](shadow-buffs-checkpoint.md).
 
 Venom's own state-31 list, captured mastery, shared SC cast and actual original-claw poison delivery are now verified. The shared filler/poison engine needed no changes. Other intrinsic consumers, AI106, current death and learned casting remain;see [Venom checkpoint](shadow-venom-checkpoint.md).
+
+Psychic Hammer now has own SC/start22/do33, typed physical/magic HP/death/knockback and Warrior AI coverage. A retained Venom loadout hit an event-history reconstruction mismatch once; it did not recur in the next cohort. The guard remains intact with richer diagnostics, and reproducing/fixing that case is an additional full-activation gate. See [Hammer checkpoint](shadow-psychic-checkpoint.md).

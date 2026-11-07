@@ -52,6 +52,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
     {
         bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target.Location,at)
+            :mode==7&&skill==253?ShadowActions.BeginPsychicHammer(this,target,at)
             :mode==7&&ShadowDefensiveBuffs.Handles(skill)?ShadowActions.BeginBuff(this,target,at,skill)
                 :throw new NotSupportedException("Selected Shadow intrinsic skill needs its NPC action consumer: "+skill);
         if(!started){return 0;}

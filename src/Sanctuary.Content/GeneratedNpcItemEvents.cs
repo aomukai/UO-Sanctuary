@@ -61,7 +61,9 @@ internal sealed class GeneratedNpcItemEvents
         var signature=static(UnitEventEntry row)=>(row.Event,row.Guid1,row.Guid2,row.Function,row.Queue,row.Key);
         if(saved.Actor!=Actor||saved.Owner!=Owner||saved.Originals!=Originals||!saved.ActiveItems.SequenceEqual(current.ActiveItems)
             ||!saved.Events.Entries.Select(signature).Order().SequenceEqual(current.Events.Entries.Select(signature).Order()))
-        {throw new InvalidDataException("Saved NPC event history lost its original item/recipient graph");}
+        {
+            throw new InvalidDataException($"Saved NPC event history lost its original item/recipient graph: actor={saved.Actor==Actor},owner={saved.Owner==Owner},originals={saved.Originals==Originals},active={saved.ActiveItems.SequenceEqual(current.ActiveItems)},events=[{string.Join(';',saved.Events.Entries.Select(signature).Order())}] vs [{string.Join(';',current.Events.Entries.Select(signature).Order())}]");
+        }
         // Replayed registrations prove membership; the saved list owns order,
         // IDs and head history. Never replace it with sorted stat traversal.
         Events=SourceUnitEvents.Restore(saved.Events,Invoke);Bindings=new(Events,ItemEventDefinitions.Bindings);
