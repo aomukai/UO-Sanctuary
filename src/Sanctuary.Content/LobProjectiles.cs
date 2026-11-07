@@ -23,7 +23,7 @@ internal static class LobProjectiles
         return Timing(CombatTiming.FrameAdvance(weapon,CombatTiming.Ias(owner),GearEffects.AttackSlowTotal(owner),
             CombatTiming.SkillAttackRate(owner),baseSpeed:128));
     }
-    internal static bool Valid(PlayerMobile owner,Point3D point)=>owner is{Alive:true,Deleted:false}
+    internal static bool Valid(Mobile owner,Point3D point)=>owner is{Alive:true,Deleted:false}
         && owner.Map!=null && owner.Map!=Map.Internal && point.X>0 && point.Y>0 && point.X<owner.Map.Width && point.Y<owner.Map.Height
         && owner.InRange(point,CombatProtocol.TeethRange) && Math.Abs(owner.Z-point.Z)<16
         && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(point,owner);
@@ -67,7 +67,7 @@ internal static class LobProjectiles
         }
         return barrier?(previous.X,previous.Y,true):(x,y,remaining<=1);
     }
-    internal static bool CanLand(PlayerMobile owner,double x,double y)
+    internal static bool CanLand(Mobile owner,double x,double y)
     {
         int dx=Math.Abs(owner.X*2-(int)Math.Floor(x*2+.5)),dy=Math.Abs(owner.Y*2-(int)Math.Floor(y*2+.5));
         return Math.Max(dx,dy)+Math.Min(dx,dy)/2<=100;

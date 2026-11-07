@@ -1,0 +1,45 @@
+{
+  "parent": "ae5304b498a241ade191fd4b3db8943b66e53665",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "contentBuild": 3,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeMarkers": 42,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "56a942d95b7cb3fb27960c17bd9e9b4873446ec87bc3c54183e73a56d4fdfadb",
+    "Assemblies/Sanctuary.Integration.dll": "cc15e9df8a7622a6a4dff4fa86f9bcc070cd6d48fa5f9ce1956ba056dd081442"
+  },
+  "inputsSha256": "b1792a8025d16c0bd521bc13979a0130e110b94a8755bf2f5b62b832a1d8ab48",
+  "nativeLogSha256": "282fb8bdd901b7fa5d44e1e47fc81e356ab73e9fac784066164b09136d1aed8a",
+  "sourceSnapshotSha256": "28a95ae9b962be555a18c71ac003ad3da1b803f63a3c06dde2014814a48c40af",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Actual owned intrinsic Shadow Fire Blast start/do release through common dispatchers and existing persistent lob pool. Both species own skill book/rank/hard synergies/item graph/child seed and NPC emitter damage;no owner/NPC mana debit,actor RNG preserved,post-birth owner gear cannot rewrite ranks. Natural lob/landing/explosion,moving-target miss,park/offline/reload no replay and malformed shared-pool atomicity. Existing player Fire Blast and original Shadow/Valkyrie defense/projectile/chain/contact cohorts retained.",
+  "limits": [
+    "Caller supplies actual NPC action release event;no autonomous animation/controller/AI or learned Shadow summon route enabled.",
+    "Inactive/reloaded NPC bombs age harmlessly and remain dormant until expiry;current D2R owner-removal/resume behavior is unverified. Player projectile behavior remains unchanged.",
+    "NPC-enemy recipients only;shield recipients,PvP,nonzero inherited sunder and full current executable parity remain separate qualification work."
+  ],
+  "notRerun": [
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": "Own NPC action/motion clock and AI105/106,other intrinsic Shadow skills/current modifier42 death qualification,then learned summon casts. No deployment or class completion."
+}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 using Server.Spells;
@@ -12,7 +13,10 @@ namespace Sanctuary;
 
 public sealed record FireBomb(long Id,uint Owner,int Map,int Rank,double X,double Y,int Z,double Vx,double Vy,
     int Remaining,bool Ground,DateTime NextUtc,int Min256=0,int Max256=0,int Potion=0,
-    int FireMastery=0,int ColdMastery=0,int LightningMastery=0,int PoisonMastery=0);
+    int FireMastery=0,int ColdMastery=0,int LightningMastery=0,int PoisonMastery=0)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public FireBombNpc Npc{get;init;}
+}
 
 public sealed class FireBlastProfiles:GenericPersistence
 {
@@ -28,6 +32,7 @@ public static class FireBlasts
 {
     private static readonly Dictionary<long,FireBomb> _bombs=new();
     private static long _next;
+    private static readonly HashSet<long> NpcLoaded=new();
     internal static Func<int,int> Roll=Utility.Random;
     public static FireBlastProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
@@ -62,7 +67,12 @@ public static class FireBlasts
         owner.PlaySound(0x23B); // Identified throw-audio placeholder; no final FireTrauma art.
         return true;
     }
-    private static Point3D Point(FireBomb b)=>new((int)Math.Round(b.X),(int)Math.Round(b.Y),b.Z);
+    internal static Point3D Point(FireBomb b)=>new((int)Math.Round(b.X),(int)Math.Round(b.Y),b.Z);
+    internal static bool EmitShadow(AssassinShadowBody body,Point3D aim,int rank,DateTime at)
+    {
+        var b=ShadowFireBlasts.Prepare(checked(_next+1),body,aim,rank,at);if(b==null){return false;}
+        _bombs.Add(b.Id,b);_next=b.Id;body.PlaySound(0x23B);return true;
+    }
     internal static bool Recipient(PlayerMobile owner,BaseCreature target,FireBomb b)
     {
         bool attackable=target is EncounterCreature?target.CanBeDamaged():SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable==true;
@@ -101,13 +111,22 @@ public static class FireBlasts
             FireMastery=NamedElements.MasteryPercent(owner,"fire"),ColdMastery=NamedElements.MasteryPercent(owner,"cold"),
             LightningMastery=NamedElements.MasteryPercent(owner,"ltng"),PoisonMastery=NamedElements.MasteryPercent(owner,"pois")};
     }
-    internal static void Tick(DateTime now)
+    internal static void Tick(DateTime now,bool? npcActions=null)
     {
         var queue=new PriorityQueue<FireBomb,(DateTime,long)>();
         foreach(var b in _bombs.Values){if(b.NextUtc<=now){queue.Enqueue(b,(b.NextUtc,b.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!_bombs.TryGetValue(due.Id,out var b) || b.NextUtc!=due.NextUtc){continue;}
+            if(b.Npc!=null)
+            {
+                FireBomb npc;
+                try{npc=ShadowFireBlasts.Advance(b,npcActions,NpcLoaded.Remove(b.Id));}
+                catch(NotSupportedException error)
+                {npc=ShadowFireBlasts.Advance(b with{Npc=b.Npc with{Dormant=true,Fault=error.Message}},false,false);}
+                if(npc==null){_bombs.Remove(b.Id);continue;}
+                _bombs[b.Id]=npc;if(npc.NextUtc<=now){queue.Enqueue(npc,(npc.NextUtc,npc.Id));}continue;
+            }
             var owner=World.FindMobile((Serial)b.Owner) as PlayerMobile;
             if(owner is not{Deleted:false} || owner.Map==null || ClassCreation.Profiles.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Assassin
                 || owner.Map!=Map.Internal && owner.Map.MapID!=b.Map)
@@ -134,7 +153,7 @@ public static class FireBlasts
     internal static FireBomb[] Snapshot()=>_bombs.Values.OrderBy(b=>b.Id).ToArray();
     internal static void Restore(FireBomb[] saved)
     {
-        if(saved==null){throw new InvalidDataException("Missing Fire Blast state");}_bombs.Clear();_next=0;
+        if(saved==null){throw new InvalidDataException("Missing Fire Blast state");}var bombs=new Dictionary<long,FireBomb>();long next=0;
         foreach(var b in saved)
         {
             if(b.Id<=0 || !((Serial)b.Owner).IsMobile || b.Rank is <1 or >255 || b.Remaining<1 || b.Remaining>(b.Ground?5:264)
@@ -142,7 +161,10 @@ public static class FireBlasts
                 || b.X<0 || b.Y<0 || b.X>=Map.Maps[b.Map].Width || b.Y>=Map.Maps[b.Map].Height
                 || b.Min256<0 || b.Max256<b.Min256 || b.Potion<0 || Math.Abs(b.Vx)>1 || Math.Abs(b.Vy)>1
                 || b.Ground && (b.Vx!=0 || b.Vy!=0) || !b.Ground && (b.Min256!=0 || b.Max256!=0 || b.Potion!=0)
-                || !_bombs.TryAdd(b.Id,b)){throw new InvalidDataException("Invalid saved Fire Blast");}_next=Math.Max(_next,b.Id);
+                || !bombs.TryAdd(b.Id,b)){throw new InvalidDataException("Invalid saved Fire Blast");}
+            if(b.Npc!=null){ShadowFireBlasts.Validate(b);}next=Math.Max(next,b.Id);
         }
+        _bombs.Clear();NpcLoaded.Clear();_next=next;
+        foreach(var b in bombs.Values){_bombs.Add(b.Id,b);if(b.Npc!=null){NpcLoaded.Add(b.Id);}}
     }
 }

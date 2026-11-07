@@ -11,3 +11,5 @@ Automatic activation and learned Shadow casts remain unavailable: `CanActivate=f
 Native checking identified a separate resolved integration error: public item lineNumber is not the compiled skill type ID. Owned compiled skill fields establish claw layer68; the owned linker table now resolves it to h2h instead of the unrelated public-line type. Both defense and NPC mastery use that shared compiled lookup. Source provenance and exact checks are in the checkpoint/receipt above.
 
 Shadow appearance/body/equipment/effect/audio placeholders and pending talent/hotkey icons remain separate from these mechanical dependencies. No class is certified complete.
+
+Intrinsic Fire Blast connection2026-11-08: both actual Shadow skill books now reach the common startup/do dispatchers and existing persistent lob/landing/explosion/NPC damage services. The release-event caller is explicit; autonomous animation/action, other intrinsic skills and AI remain unfinished. Exact current source-removal behavior is still bounded by harmless dormant expiry. See [verified checkpoint](shadow-fire-blast-checkpoint.md).
