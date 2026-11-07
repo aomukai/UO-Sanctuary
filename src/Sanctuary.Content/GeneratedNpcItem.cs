@@ -30,6 +30,11 @@ public partial class GeneratedNpcItem:Item
         CurrentItemQuality.Require(request);var item=new GeneratedNpcItem();
         try{item.Prepare(request,null);return item;}catch{item.Delete();throw;}
     }
+    internal static GeneratedNpcItem CreateWorldAllocated(string code,int level,int quality,int difficulty)
+    {
+        CurrentItemQuality.Require(new(code,level,quality,difficulty,1,1,0));
+        return CreateAllocated(code,level,quality,difficulty,NpcWorldAllocation.RequireStream());
+    }
     internal static GeneratedNpcItem CreateAllocated(string code,int level,int quality,int difficulty,SourceSeedStream game)
     {
         // Domain rejection precedes native allocation. A failed allocation

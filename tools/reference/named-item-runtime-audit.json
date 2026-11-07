@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a5bbf7ed4287bde6ae61edefed9e244195338bcf39b273a59ca97aef016b8104",
+  "ContentAssemblySha256": "fd3fd5c9992682b609c6887ab7645e1c286561bc5f935395be893a8c3355fba6",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -634,9 +634,9 @@
     "src/Sanctuary.Content/GemSockets.cs": "b0cfa08c554468f986d4bbbff76f6e8c10ba09c81b837001bec074ab630fc992",
     "src/Sanctuary.Content/GemUpgradeGump.cs": "ea8d010d4e3b2f15a95ac9bcd3f969c3526acec343e6b66ee86eec88822d7f83",
     "src/Sanctuary.Content/GemUpgrading.cs": "ea299eaae810b9073e483e2d73dc2dc3e1a03f684816202a3d131ca846f09c7f",
-    "src/Sanctuary.Content/GeneratedNpcEquipment.cs": "0fdb99c305b8d4197611b8bab54adffedd7de2e1694a12ca8af8de7a35ee8f04",
+    "src/Sanctuary.Content/GeneratedNpcEquipment.cs": "a72a67bdad3ec46399fa74e6f6ad128da10f1beb5b7a5140bfc1d72629a0a113",
     "src/Sanctuary.Content/GeneratedNpcFillServices.cs": "77a413811eb2ff25557ee5e07940f19c2a468b722b47f944402eb3887b11a42a",
-    "src/Sanctuary.Content/GeneratedNpcItem.cs": "450a01d65d93ff878d32bb8afca5f769fda21a157484796c2262e89af9856a6f",
+    "src/Sanctuary.Content/GeneratedNpcItem.cs": "41b88b30c6dfa8bb7f8e1b7ee169c99d59c23f6aea99e8734ec622d1814ed107",
     "src/Sanctuary.Content/GeneratedNpcItemEvents.cs": "3711f91086f9364395b4e40f253b259f4262708b10e1ad3300836ce7d10025ef",
     "src/Sanctuary.Content/GeneratedNpcLiveResources.cs": "1834d50f9eab0c6e004e86d93d5a0d84019d867ad38fc367c66c82045a4f9752",
     "src/Sanctuary.Content/GeneratedNpcStatGraph.cs": "dd2c98e9178b279f72e9cae35753c9b2b3520827d04f04a798a601fb37a2b065",
@@ -884,6 +884,7 @@
     "src/Sanctuary.Content/NpcResourceValues.cs": "790077f78904e893ced1ffcdeae55dacd46ec7ce0973984abba9a9134a26541e",
     "src/Sanctuary.Content/NpcRestInPeace.cs": "6f0012b35cc11582a83dba953fab305ee2f9d4104c4daef6cfa0d2f67a56e0b2",
     "src/Sanctuary.Content/NpcSpectralHit.cs": "e30c5f7891e43d6a2149ffebe27e5f5ab71c6b002e97b507e6a591572d0ff6e7",
+    "src/Sanctuary.Content/NpcWorldAllocation.cs": "12d55d1df6c8669e0824708fe92e6af282dd7d497fd0978855dfb62e2b8c1529",
     "src/Sanctuary.Content/OrdinaryAffixProperties.cs": "73a0f373575530d37e8ac0d94ce23933f6063f4909373554d4371d8c200e9464",
     "src/Sanctuary.Content/PaladinAuras.cs": "f4cdec62739e25fddaa0247061a9da6ff4b9fb6ad1c29f6301c675b6aa77c6e9",
     "src/Sanctuary.Content/PaladinCastClock.cs": "f79489193ccbf2f6bc7fa06746cd88fb6102fa7da08cebe70c6c659a175539c0",

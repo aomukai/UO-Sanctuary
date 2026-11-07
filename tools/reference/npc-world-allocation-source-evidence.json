@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "parent": "tools/reference/npc-item-allocation-source-evidence.json",
+  "parentSha256": "cbcc7acec303e0406db4ef267d635f35a04545bc42f5729f4d2e8440ff22034d",
+  "contexts": 960,
+  "entropyContexts": 80,
+  "successfulAllocations": 1560,
+  "failedAllocations": 1560,
+  "missiles": 1080,
+  "items": 480,
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "completeRoutineHashes": {
+    "SEED_InitSeed": "a6fd3fc960b1d1a567ff479c34deb3ce52aa9e4ffbc26469e7f760b150a89b85",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_AllocItemData": "72193b1720fb4ef953e2e13a00fefa39fdef3c62d6eab0ccefb3d5a7118e7898",
+    "ITEMS_InitItemSeed": "737aea756d798071bb507450f71393c27bf4b30b3417e8aec3ecdc61027cc35b",
+    "ITEMS_GetItemStartSeed": "e4250ee29bc50a98b61381f2633bc1e637bb5ade57016026077257f4e71679c1",
+    "ITEMS_SetItemStartSeed": "46f1c6ed5a34d48b4ed82a3f0d249a80615f01db5582543e8ef892b54e5abaca",
+    "SUNIT_InitSeed": "04cc66b94317d7477df18a663e74864215f8b9ae46697abf5626d1261372d538",
+    "sub_6FC4BE80": "76ab4fb484d9d91f1c1024e31ac4c7c536e87b2bda9d417d5d28e1f8fb92d3a6",
+    "SUNIT_AllocUnitData": "b8ae6893292f5fa02b90957bea6f149d3e2275b194024e8eb9d0a042323f0652",
+    "SEED_GetRandomValue": "dfa96f0ca7e755ff6921698626e819cc461776e5432812137b8ee20dd8815e71",
+    "MISSILES_Initialize": "c77a4ae03ff02589f6b1d7e86f55ff0b89d0dbd77ff7a3e693990ac7df8b12ff"
+  },
+  "inputs": {
+    "tools/probe_npc_world_allocation.py": "300d5509b7012c2251df9166e8c0aa8dda63ee32ade1804a747537a33015b59a"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-world-allocation-source/probe.cpp": "cbc75647a5480921fa9a7092fcda24f24a41cc35fdf79feeb8c1e89ac415a948",
+    ".local/class-skills/npc-world-allocation-source/probe": "2bdc03e356a5499f897008752a7b00e3d7818617423a7d00e8e15a671e397455",
+    ".local/class-skills/npc-world-allocation-source/cases.json": "c5eec6059291b1ab5b3958808e5ba420e4680c720d1316d735f88904145a946c",
+    ".local/class-skills/npc-world-allocation-source/sanitizers.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": [
+    "Complete unchanged older allocator,seed,item helpers and missile initializer run in mixed interleaved contexts. Each successful missile consumes one supplied game draw;items consume two. Refused native allocation consumes neither RNG nor GUID. Missile data/event services are explicit counters;initial flags are named synthetic services,not a binary ABI.",
+    "Independent Python checks unit/property seed high666,per-kind GUID wrap,shared game continuation,and full legacy entropy helper with explicit wall/tick services. Null missile initialization invokes no services."
+  ],
+  "limits": [
+    "No current executable allocation chronology or seed bootstrap is established. The game-creation function is not extracted/executed;entropy helper checks do not certify its full call order. Real missile-data storage,room/event registration,memory failure and cross-world initialization remain host services. No learned summon or default world RNG is enabled by this source probe."
+  ]
+}

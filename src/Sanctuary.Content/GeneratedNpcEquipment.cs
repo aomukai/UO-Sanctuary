@@ -72,6 +72,11 @@ internal static class GeneratedNpcEquipment
         var held=Require(actor,owner,kind,body);var created=GeneratedNpcItem.Create(request);
         return Attach(actor,owner,kind,created,body,held,out item);
     }
+    internal static bool TryCreateWorldAllocated(BaseCreature actor,PlayerMobile owner,EquipMonster kind,string code,int level,int quality,int difficulty,int body,out GeneratedNpcItem item)
+    {
+        var held=Require(actor,owner,kind,body);var created=GeneratedNpcItem.CreateWorldAllocated(code,level,quality,difficulty);
+        return Attach(actor,owner,kind,created,body,held,out item);
+    }
     internal static bool TryCreateAllocated(BaseCreature actor,PlayerMobile owner,EquipMonster kind,string code,int level,int quality,int difficulty,int body,SourceSeedStream game,out GeneratedNpcItem item)
     {
         var held=Require(actor,owner,kind,body);var created=GeneratedNpcItem.CreateAllocated(code,level,quality,difficulty,game);

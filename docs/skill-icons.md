@@ -1,5 +1,7 @@
 # Skill icons
 
+**Persistent NPC world allocation (2026-11-07 JST).** This backend service adds no talent or hotkey slot. Valkyrie talent/right/quick and later proc UI icons remain separately pending.
+
 **Original NPC contact producers (2026-11-07 JST).** Internal combat profile and saved event context add no talent/hotkey slot. Valkyrie talent/right/quick and later proc UI icons remain separately pending.
 
 **Full original NPC proc callbacks (2026-11-07 JST).** Internal original-item callback execution adds no talent/hotkey slot. Valkyrie talent/right/quick artwork and later proc UI icons remain separately pending.
