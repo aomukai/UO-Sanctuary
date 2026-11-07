@@ -9,11 +9,15 @@ namespace Sanctuary;
 internal static class NpcDirectSpellHit
 {
     internal sealed record Pending(BaseCreature Emitter,BaseCreature Target,InstantSpellNpcDamage Services,PreparedMonsterCommitResult Commit);
-    internal static Pending Commit(BaseCreature emitter,PlayerMobile owner,BaseCreature target,GearDamage raw,DateTime at,string kind,Func<string,int?> pierce=null)
+    internal static Pending Commit(BaseCreature emitter,PlayerMobile owner,BaseCreature target,GearDamage raw,DateTime at,string kind,Func<string,int?> pierce=null,
+        int stunFrames=0,bool knockback=false,Func<int,int> limited=null)
     {
-        if(raw.Physical<0||raw.Magic<0||raw.Fire!=0||raw.Cold!=0||raw.Lightning!=0||raw.Poison!=0)
+        if(raw.Physical<0||raw.Magic<0||raw.Fire!=0||raw.Cold!=0||raw.Lightning!=0||raw.Poison!=0||stunFrames<0||stunFrames>0&&limited==null)
         {throw new NotSupportedException("Direct NPC spell needs its physical/magic packet");}
         var metadata=NpcElementSpellHit.Require(emitter,owner,target,at,kind);
+        bool boss=false;int velocity=metadata.Velocity;
+        if(stunFrames>0&&!CombatStuns.Rules(target,out boss,out velocity))
+        {throw new NotSupportedException(kind+" needs explicit recipient stun metadata");}
         PreparedMonsterDamagePacket Mitigate(PreparedMonsterDamagePacket packet)
         {
             var parts=SkillCombat.MitigatePrepared(emitter,target,new(packet.Physical256/256.0,0,0,0,0,Magic:packet.Magic256/256.0),out int absorb,pierceOverride:pierce);
@@ -25,8 +29,8 @@ internal static class NpcDirectSpellHit
         int physical=NamedElements.To256(raw.Physical),magic=NamedElements.To256(raw.Magic);
         // This transport requires the known eventual successful-spell flag;
         // hitflags0 has no melee/missile item callbacks during commitment.
-        var commit=PreparedMonsterDamage.CommitQualified(emitter,target,new(physical,checked(physical+magic),0,0,1,Magic256:magic),
-            new(NamedCombat.Elite(target),()=>false,()=>metadata.Velocity,()=>false),_=>throw new InvalidOperationException(kind+" has no stun"),services,at,missile:true);
+        var commit=PreparedMonsterDamage.CommitQualified(emitter,target,new(physical,checked(physical+magic),stunFrames,0,knockback?9:1,Magic256:magic),
+            new(PreparedMonsterStun.IsUnique(target),()=>boss,()=>velocity,()=>target is BaseHire),limited??(_=>throw new InvalidOperationException(kind+" has no stun")),services,at,missile:true);
         return new(emitter,target,services,commit);
     }
     internal static PreparedMonsterDamageResult Finish(Pending pending,int additionalFlags=0)

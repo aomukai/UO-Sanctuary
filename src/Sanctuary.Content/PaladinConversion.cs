@@ -90,7 +90,8 @@ public static class PaladinConversion
     }
     public static bool? Friend(BaseCreature actor,Mobile target)=>Active(actor) || Active(target)?Friendly(actor,target):null;
     public static Mobile DamageMaster(BaseCreature actor,Mobile target)=>Active(actor) && Lease(actor) is{} state
-        && World.FindMobile((Serial)state.Source) is PlayerMobile{Deleted:false} owner?owner:null;
+        ?World.FindMobile((Serial)state.Source) switch
+        {PlayerMobile{Deleted:false} owner=>owner,AssassinShadowBody{Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}=>owner,_=>null}:null;
     internal static bool Eligible(PlayerMobile owner,BaseCreature target)
     {
         if(owner is not{Alive:true,Deleted:false} || !ClassCombat.Enabled(owner) || !ClassCombat.IsHostile(owner,target)
@@ -113,10 +114,12 @@ public static class PaladinConversion
         return (int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.LifePercent(target)),1,65000*256);
     }
     internal static bool MindBlastEligible(PlayerMobile owner,BaseCreature target)
+        =>MindBlastEligible(owner,owner,target);
+    internal static bool MindBlastEligible(Mobile caster,PlayerMobile owner,BaseCreature target)
     {
         // AIUTIL rejects uniques/superuniques, not champions. Attached Imps
         // have no native attachment-state adapter and remain an explicit gap.
-        return owner is{Alive:true,Deleted:false} && WildEnemy(target) && !SourceMind.Neutral(target) && ClassCombat.IsHostile(owner,target)
+        return caster is{Alive:true,Deleted:false} && owner is{Alive:true,Deleted:false} && WildEnemy(target) && !SourceMind.Neutral(target) && ClassCombat.IsHostile(owner,target)
             && target is not BaseHire && !target.BardProvoked
             && target is not EncounterCreature{Grade:EncounterGrade.Unique or EncounterGrade.SuperUnique}
             && SourceRule(target) is{Evil:true,SwitchAi:true,Walk:true,Boss:false,Attackable:true,Base:not "imp1"};
@@ -142,15 +145,23 @@ public static class PaladinConversion
         return Math.Min(maximum,reconstructed)*256;
     }
     internal static bool ApplyMindBlast(PlayerMobile owner,BaseCreature target,int frames)
+        =>ApplyMindBlast(owner,owner,target,frames,TimedEffects.Now);
+    internal static bool ApplyMindBlast(AssassinShadowBody caster,BaseCreature target,int frames,DateTime at)
+        =>caster?.ControlMaster is PlayerMobile owner&&ApplyMindBlast(caster,owner,target,frames,at);
+    private static bool ApplyMindBlast(Mobile caster,PlayerMobile owner,BaseCreature target,int frames,DateTime at)
     {
-        if(frames<=0 || !MindBlastEligible(owner,target)){return false;}
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Mind Blast allegiance needs UTC");}
+        if(frames<=0 || !MindBlastEligible(caster,owner,target)){return false;}
         ClearAuras(target);
-        int level=ClassStats.Level(target),ownerLevel=ClassStats.Level(owner),current=SkillHealth.Balance256(target);
+        int level=ClassStats.Level(target),ownerLevel=ClassStats.Level(caster),current=SkillHealth.Balance256(target);
         ConversionLife life=null;
         if(level>ownerLevel && level>0){life=Scale(level,SkillHealth.Maximum256(target)>>8,ownerLevel,out current,current>>8);}
-        _states[target.Serial.Value]=new(target.Serial.Value,owner.Serial.Value,TimedEffects.Now.AddMilliseconds(frames*40L),CombatAbility.MindBlast,life);
+        _states[target.Serial.Value]=new(target.Serial.Value,caster.Serial.Value,at.AddMilliseconds(frames*40L),CombatAbility.MindBlast,life);
         if(life!=null){SkillHealth.SetBalance256(target,current);target.Delta(MobileDelta.Hits);}
-        ResetTargeting(target);ClassCombat.Stop(owner);return true;
+        ResetTargeting(target);
+        if(caster is PlayerMobile player){ClassCombat.Stop(player);}
+        else{caster.Combatant=null;} // Clear the NPC emitter's target;do not cancel its owner's independent action.
+        return true;
     }
     private static bool Supported(PlayerMobile owner,BaseCreature target)
     {

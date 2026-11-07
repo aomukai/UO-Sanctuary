@@ -70,7 +70,7 @@ internal static class ShadowAnimation
     internal static ShadowAnimationPlan Cast(AssassinShadowBody body)
     {
         _=ShadowEquipmentDefense.Require(body);
-        if(body.OwnedSkills.Used is not{} id||!(id==253||ShadowDefensiveBuffs.Handles(id))||body.OwnedSkills.Find(id)?.Mode!=7||ShadowEquipmentDefense.Composite(body)!=13)
+        if(body.OwnedSkills.Used is not{} id||!(id is 253 or 273||ShadowDefensiveBuffs.Handles(id))||body.OwnedSkills.Find(id)?.Mode!=7||ShadowEquipmentDefense.Composite(body)!=13)
         {throw new NotSupportedException("Shadow SC needs its own defensive buff and original active dual claws");}
         return Original(body,BuffRow.Value);
     }

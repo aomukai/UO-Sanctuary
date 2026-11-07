@@ -24,6 +24,7 @@ internal static class ShadowSkillCasting
     private static ItemExecutionMetadata Row(int id)
     {
         if(id==253){return ShadowPsychicHammers.Row();}
+        if(id==273){return ShadowMindBlasts.Row();}
         var row=ItemSkillExecution.Skill(id);
         bool buff=ShadowDefensiveBuffs.Handles(id);
         if(id!=251&&!buff||row is not{Start:0,UseManaOnDo:false,DecrementQuantity:false}
@@ -48,7 +49,8 @@ internal static class ShadowSkillCasting
     {
         var row=Row(skill);
         if(!Attached(body)||row.Lob&&!LobProjectiles.Valid(body,aim)||target!=null&&(!Enemy(body,target)||target.Map!=body.Map)
-            ||skill==253&&!ShadowPsychicHammers.Valid(body,target)||body.OwnedSkillRank(skill)<=0){return null;}
+            ||skill==253&&!ShadowPsychicHammers.Valid(body,target)||skill==273&&!ShadowMindBlasts.Valid(body,target?.Location??aim)
+            ||body.OwnedSkillRank(skill)<=0){return null;}
         body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill);
         return SkillStartup.Selected(new Startup(cast))!=0?cast:null;
     }
@@ -107,10 +109,11 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 51?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
-                :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at):throw Missing();
+                :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
+                :function==51&&skill==273?ShadowMindBlasts.Release(Body,cast.Target,cast.Aim,level,at):throw Missing();
         internal override int MissileCount=>ItemSkillExecution.MissileCount;
         internal override void SetServerDo(){}
         internal override (int X,int Y)? TargetPoint=>cast.Target is{Alive:true,Deleted:false} target?(target.X*2,target.Y*2):null;

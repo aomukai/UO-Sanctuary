@@ -28,12 +28,14 @@ public static class MindBlasts
         return SkillCombat.Begin(owner,CombatAbility.MindBlast,selected,point,now,(p,_,_,at)=>Valid(p,at));
     }
     internal static bool Target(PlayerMobile owner,BaseCreature target,Point3D point,int radius)
+        =>Target(owner,owner,target,point,radius);
+    internal static bool Target(Mobile caster,PlayerMobile owner,BaseCreature target,Point3D point,int radius)
     {
         // Filter8383: living attackable enemies, no town, caster-to-victim LOS.
         // do51 passes bCheckMonAuraFlag=0: NOAURA is not an exclusion here.
         bool attackable=target is EncounterCreature?target.CanBeDamaged():SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable==true;
         return attackable && ClassCombat.IsHostile(owner,target) && AmazonInnerSight.InRadius(target.X-point.X,target.Y-point.Y,radius)
-            && Math.Abs(target.Z-point.Z)<16 && owner.InLOS(target) && !SpellHelper.IsTown(target.Location,target);
+            && Math.Abs(target.Z-point.Z)<16 && caster.InLOS(target) && !SpellHelper.IsTown(target.Location,target);
     }
     internal static int Chance(SkillValues values)=>values.Diminishing(5,6);
     internal static GearDamage Damage(SkillValues values,Func<int,int> random)

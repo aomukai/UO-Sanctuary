@@ -65,7 +65,7 @@ public static class CombatStuns
     public static bool Apply(BaseCreature target,int frames,DateTime? at=null)
     {
         if(target is not{Alive:true,Deleted:false} || !Rules(target,out bool boss,out int velocity)){return false;}
-        bool unique=target is EncounterCreature{Grade:EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique};
+        bool unique=PreparedMonsterStun.IsUnique(target);
         int duration=Frames(frames,true,unique,boss,velocity,false,unique?Roll(100):0);
         DateTime until=(at??TimedEffects.Now).AddMilliseconds(duration*40);
         if(duration<=0 || until<=TimedEffects.Now){return false;}

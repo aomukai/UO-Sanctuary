@@ -25,6 +25,8 @@ internal static class ShadowActions
             :throw new NotSupportedException("Unqualified Shadow self buff: "+skill);
     internal static bool BeginPsychicHammer(AssassinShadowBody body,BaseCreature target,DateTime at)
         =>BeginSkill(body,target,target?.Location??body.Location,at,253);
+    internal static bool BeginMindBlast(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at)
+        =>BeginSkill(body,target,aim,at,273);
     private static bool BeginSkill(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs its UTC entry clock");}
@@ -32,7 +34,7 @@ internal static class ShadowActions
         var cast=ShadowSkillCasting.Start(body,target,aim,skill);if(cast==null){return false;}
         try
         {
-            var plan=skill==251?ShadowAnimation.FireBlast(body):skill==253?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
+            var plan=skill==251?ShadowAnimation.FireBlast(body):skill is 253 or 273?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
             int marker=skill==251?2:1;
             if(plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker)!=1
                 ||plan.Events.Count(e=>e.Type==SourceAnimationEvents.EndAnimation)!=1)
@@ -83,7 +85,7 @@ internal static class ShadowActions
                 int frame=action.Frame+1;bool end=false;
                 foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
                 {
-                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&action.Cast.Skill==251||e.Kind==1&&(action.Cast.Skill==253||ShadowDefensiveBuffs.Handles(action.Cast.Skill))))
+                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&action.Cast.Skill==251||e.Kind==1&&(action.Cast.Skill is 253 or 273||ShadowDefensiveBuffs.Handles(action.Cast.Skill))))
                     {_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
                     else if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1&&action.Cast.Skill==0)
                     {

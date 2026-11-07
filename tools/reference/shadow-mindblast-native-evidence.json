@@ -1,0 +1,94 @@
+{
+  "parent": "c1adc9cc505bd9dd92abfb83435fe6fb15a50aa1",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-mindblast-check": 1,
+    "shadow-psychic-check": 1,
+    "shadow-item-frame-check": 1,
+    "mind-blast-check": 1,
+    "mind-blast-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-mindblast-reload-check": 2,
+    "shadow-psychic-reload-check": 2,
+    "shadow-item-frame-reload-check": 2,
+    "mind-blast-reload-check": 2,
+    "mind-blast-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": 6,
+  "contentBuild": 3,
+  "integrationBuild": 6,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "a654242f7db3a87ca3d0983625a3c498681f38205496e9fe5700a90b78ff48e5",
+    "Assemblies/Sanctuary.Integration.dll": "6a11a17bae463981daf376a79708e30da2dec11e3613c6803e9590cfce858958"
+  },
+  "inputsSha256": "9b0c4a559e13e30491bc66e44aab92d8e1c0cc860a6ef3a2365a26d3dac0491f",
+  "nativeLogSha256": "d245f1cad25af459b1af1413f183a76f9e9a880909d76e6ad634348bc943858e",
+  "sourceSnapshotSha256": "6e375aadae4d10d4c711ad791846da58bdce0a4023a5c1c426972e1c68827b32",
+  "reusedSourceProofs": {
+    "tools/reference/mind-blast-engine-evidence.json": "77c5d49e198f99b389cd5425d89e25797ea80b5e85eeb1fe7ea09e0bbddf783d",
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26",
+    "tools/reference/druid-shock-wave-stun-engine-evidence.json": "4f148fcb1c586ffa545c6ead3bf87e35b7ba11f901a3fac514d4f55b8afa4566"
+  },
+  "inspectedPinnedSource": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9"
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Both original Shadow species execute own SC/start0/do51 with current area metadata,one physical area draw,serial native victim order,inclusive own conversion and duration draws. Own RNG and damage notification ordering are checked.",
+    "Confirmed current success behavior damages while hostile,finishes lethal return,then changes surviving allegiance with no added stun/knockback. Failed conversion uses shared typed HP/stun/return,including physical immunity and lethal hits.",
+    "Existing allegiance ledger retains actual Shadow serial,original caster level and player credit. A rank30 Shadow with a later rank99 owner scales a higher-level Hell zombie at30 and expires through existing source life restoration. Owner independent cast,mana and potion remain separate.",
+    "Shared stun eligibility now tests Unique(8),not Champion(4) or generic elite/boss. Native Unique boss cases prove conditional RNG then boss suppression;champion cases prove failed conversion then ordinary stun without unique RNG. Real player Mind Blast uses the corrected champion path too.",
+    "Actual Warrior AI selects/releases Mind Blast;ground area/empty/radius,town and park cases,original actors/items/resources/wounds/RNG and target allegiance survive two reloads without pending action replay. Player Mind Blast,Hammer and original selected-hand/event regression retained."
+  ],
+  "failedRuns": [
+    "Content1 used LINQ on a native range iterator;replaced with ordinary pooled enumeration before accepted Content2/3.",
+    "Native1 expected an HP notification for fully immune zero damage;fixture corrected.",
+    "Native4 expanded champion fixture omitted its valid conversion draw. Native5 passed with that corrected expectation;subsequent source review found and fixed the separate shared Unique/Champion classification. Only final Native6 certifies the resulting source."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-mindblast/content-build-1.log": "9caba3d1733922f76e01a336677b8e25d452101fd83e9aff4c0a5c39142e6ff1",
+    ".local/class-skills/shadow-mindblast/failed-native-1.log": "3f5ec47ff90a8e9e1d2c3c8e396842022f33953636a63983f247df98f186fa14",
+    ".local/class-skills/shadow-mindblast/failed-native-4.log": "26640f9a4edf8054d0086af9674b7d0887e55aeeb3f77ea194eaf084810d33dd",
+    ".local/class-skills/shadow-mindblast/passed-native-5.log": "a163569104ad157f4111a6b3492107c7740cbb45332694f2136463eae3de416c",
+    ".local/class-skills/shadow-mindblast/content-build-3.log": "2805e3dd08d1a94be27265d533ce50945551c8e1ce1fa2ba158952b98e60466e",
+    ".local/class-skills/shadow-mindblast/integration-build-6.log": "00a7f5d8d41442111207e08a7ae6c0c14f7ecf246bb074f2f0b680850dad93dc"
+  },
+  "notRerun": [
+    "full class suite",
+    "full item-audit exporter",
+    "new arithmetic/animation source harnesses for unchanged routines"
+  ],
+  "limitations": [
+    "Current-executable NPC conversion-success/scaling order remains unverified;confirmed current player observations supply the shared damage-without-stun/knockback success behavior.",
+    "Native serial victim order and LOS remain explicit adapters,not exact D2 room traversal. Progressive-charge context,source AI node ownership,cross-owner/PvP/hireling,full original-item/current-executable and graphical behavior remain open.",
+    "Native Unique encounter profile also classifies it as boss;positive nonboss Unique stun uses previously complete source resolver controls rather than a newly claimed live fixture.",
+    "Unsupported recipient metadata is refused before area RNG/HP. Remaining intrinsic skills,Master AI106,current modifier42 death and learned summon/payment/replacement/input remain gated. No deployment or new public handler.",
+    "Final cast/center/impact/conversion/stun/recovery/audio and talent/hotkey icons remain separately inventoried placeholders."
+  ]
+}
