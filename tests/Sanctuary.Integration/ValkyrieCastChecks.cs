@@ -44,7 +44,7 @@ public static class ValkyrieCastChecks
     }
     private static PlayerMobile Owner(bool trained=true)
     {
-        PlayerMobile p;Creating=true;try{p=new PlayerMobile{Body=0x190,Player=true,Name="ValkyrieCastFixture"};}finally{Creating=false;}
+        PlayerMobile p;Creating=true;try{p=new RecyclerFixturePlayer{Body=0x190,Player=true,Name="ValkyrieCastFixture"};}finally{Creating=false;}
         p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Amazon);ClassCreation.Profiles.AdvanceLevel(p,99);
         while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Valkyrie fixture Strength");}
         if(trained){ClassSkillChecks.Train(p,"amazon.valkyrie",1);}FixtureSpace.Corridor(p,6400,28,3340+32*Scene++);Ready(p);return p;
@@ -134,7 +134,7 @@ public static class ValkyrieCastChecks
     private static void Input(NetState network,bool quick)
     {
         var p=Owner();if(quick){var item=NamedGear.Create(NamedGear.Catalog.Items.Single(r=>r.SourceKey=="Magefist").Id,99,new Random(173),true);p.AddToBackpack(item);Require(p.EquipItem(item),"Valkyrie FCR gear");ClassGear.Refresh(p);}
-        var t=new ValkyrieContactChecks.Recipient();t.SetHits(65000);t.MoveToWorld(new(p.X+5,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var type in Enum.GetValues<ResistanceType>()){t.SetResistance(type,0);}
+        var t=new ValkyrieContactChecks.Recipient();t.SetHits(65000);t.MoveToWorld(new(p.X+5,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var type in Enum.GetValues<ResistanceType>()){t.SetResistance(type,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Valkyrie)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Valkyrie),"Valkyrie socket bindings");var account=FixtureNetwork.Authenticate(network,p,"valkyrie-cast-");Ready(p);
         int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.Valkyrie).Mana256,life=SkillHealth.Balance256(t);var point=new Point3D(p.X+3,p.Y,p.Z);string label=quick?"valkyrie-cast-quick":"valkyrie-cast-right";long limit=Core.TickCount+15000;bool began=false,finished=false;
         void Cleanup(){ClassCombat.Stop(p);foreach(var pet in AmazonValkyrieCasting.For(p)){SorceressSpellMissiles.Cancel(pet);ChainLightning.Cancel(pet);}t.Delete();Drop(p);account.Delete();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());}
@@ -142,7 +142,7 @@ public static class ValkyrieCastChecks
         {
             if(finished){return;}try
             {
-                if(Core.TickCount>=limit){throw new InvalidOperationException("Valkyrie real input/combat timeout:began="+began+",controller="+Json(AmazonValkyrieCasting.For(p).SingleOrDefault()?.Prepared?.GroundMotion));}var a=ClassCombat.For(p);
+                if(Core.TickCount>=limit){throw new InvalidOperationException("Valkyrie real input/combat timeout:began="+began+",recipient="+Json(new{Life=SkillHealth.Balance256(t),InitialLife=life,t.Hits,t.HitsMax,t.Notifications,t.AtNotification,Packets=NativeMonsterReturn.Session(t).Packets,CanDamage=t.CanBeDamaged(),t.Blessed,Town=Server.Spells.SpellHelper.IsTown(t.Location,p),Metadata=NativeMonsterReturn.Metadata(t),Position=t.Location,Resists=new[]{t.PhysicalResistance,t.FireResistance,t.ColdResistance,t.PoisonResistance,t.EnergyResistance}})+",controller="+Json(AmazonValkyrieCasting.For(p).SingleOrDefault()?.Prepared?.GroundMotion));}var a=ClassCombat.For(p);
                 if(a.PendingAbility==CombatAbility.Valkyrie&&!began){Require(AmazonCastClock.TryTiming(p,out var timing)&&a.Timing==timing&&NecromancerEffects.ManaBalance256(p)==mana,"Socket SC windup paid early");began=true;Log.Information("{Label}: windup",label);}
                 var b=AmazonValkyrieCasting.For(p).SingleOrDefault();if(b==null||SkillHealth.Balance256(t)==life){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Inspect));return;}
                 Require(began&&NecromancerEffects.ManaBalance256(p)==mana-cost&&b.Prepared.LearnedCast&&b.Ground.State.Controller.Frame>=20&&t.Notifications>0&&NativeMonsterReturn.Session(t).Packets>0,"Actual input/source controller combat or one-time mana failed");finished=true;Cleanup();Log.Information("{Label}-result: passed",label);
