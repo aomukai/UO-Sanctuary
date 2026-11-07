@@ -1,5 +1,7 @@
 # Skill icons
 
+**Dragon Flight (2026-11-08 JST).** Talent and left/right/quick icons remain needed text-label placeholders. Native input verification is separate from final artwork and rendered presentation;see [checkpoint](dragon-flight-action-checkpoint.md).
+
 **Dragon Claw (2026-11-08 JST).** Talent and left/right/quick icons remain pending text-label placeholders. Actual server bindings and input are checked separately from artwork and rendered-client acceptance. See [checkpoint](dragon-claw-action-checkpoint.md);effects/audio stay separate.
 
 **Learned Dragon Talon (2026-11-08 JST).** Talent and left/right/quick-hotkey icons remain pending text-label placeholders. Actual server bindings are checked independently;no final artwork or rendered-client acceptance is claimed. See [checkpoint](dragon-talon-action-checkpoint.md);effects/audio stay separate.

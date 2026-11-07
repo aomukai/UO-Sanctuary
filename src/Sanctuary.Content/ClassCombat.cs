@@ -49,6 +49,7 @@ public static class ClassCombat
         internal TigerStrikes.Pending TigerAttack;
         internal DragonTails.Prepared TailAttack;
         internal DragonTalons.Series Talon;
+        internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
         internal DruidFireClaws.Pending FireClawAttack;
@@ -126,7 +127,7 @@ public static class ClassCombat
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
                 BladeFuryModes.EquipmentChanged(from);PlayerInfernoModes.EquipmentChanged(from);
-                TigerStrikes.EquipmentChanged(from);DragonTails.EquipmentChanged(from);DragonTalons.EquipmentChanged(from);
+                TigerStrikes.EquipmentChanged(from);DragonTails.EquipmentChanged(from);DragonTalons.EquipmentChanged(from);DragonFlights.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
                 PoisonDaggerCombat.EquipmentChanged(from);
                 PaladinSacrifice.EquipmentChanged(from);
@@ -257,7 +258,7 @@ public static class ClassCombat
         AmazonStrafe.Cancel(from);
         AmazonFend.Cancel(from);
         AmazonMelee.Cancel(from);
-        TigerStrikes.Cancel(from);DragonTails.Cancel(from);DragonTalons.Cancel(from);
+        TigerStrikes.Cancel(from);DragonTails.Cancel(from);DragonTalons.Cancel(from);DragonFlights.Cancel(from);
         DruidChargedAttacks.Cancel(from);
         PoisonDaggerCombat.Cancel(from);
         PaladinSacrifice.Cancel(from);
@@ -323,7 +324,7 @@ public static class ClassCombat
         {
             // Ground FoH/Psychic Hammer/Bone Prison already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(ability!=CombatAbility.Conversion && ability!=CombatAbility.Zeal && ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer or CombatAbility.BonePrison) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.DragonFlight && ability!=CombatAbility.Conversion && ability!=CombatAbility.Zeal && ability!=CombatAbility.Vengeance && ability!=CombatAbility.Sacrifice && ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer or CombatAbility.BonePrison) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -367,7 +368,7 @@ public static class ClassCombat
         BarbarianConcentrate.Tick(from,now);
         BarbarianBerserk.Tick(from,now);
         var session = For(from);
-        if(session.Talon!=null || session.ClawAttack!=null || session.PairedMelee!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null || session.Fury!=null){return;}
+        if(session.Flight!=null || session.Talon!=null || session.ClawAttack!=null || session.PairedMelee!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null || session.Fury!=null){return;}
         if (session.HeldAbility != CombatAbility.None)
         {
             UpdateHeldCast(from, now);
@@ -496,7 +497,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
-        if(ability is CombatAbility.DragonTail or CombatAbility.DragonTalon){return (byte)WeaponAnimation.Wrestle;} // Identified unarmed pose until final kick art.
+        if(ability is CombatAbility.DragonFlight or CombatAbility.DragonTail or CombatAbility.DragonTalon){return (byte)WeaponAnimation.Wrestle;} // Identified unarmed pose until final kick art.
         if((DruidFormAttacks.SingleA1(ability)||ability is (CombatAbility.Hunger or CombatAbility.Rabies or CombatAbility.Fury))&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
         if (ability is CombatAbility.WakeOfFire or CombatAbility.DeathSentry or CombatAbility.WakeOfInferno or CombatAbility.LightningSentry or CombatAbility.ChargedBoltSentry or CombatAbility.BladeSentinel or CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
@@ -525,6 +526,7 @@ public static class ClassCombat
     public static bool ResolveAction(PlayerMobile from, long now)
     {
         if(BarbarianLeap.State(from)!=null || BarbarianWhirlwind.State(from)!=null){return false;}
+        if(For(from).Flight!=null){return DragonFlights.Resolve(from,now);}
         if(For(from).Talon!=null){return DragonTalons.Resolve(from,now);}
         if(For(from).ClawAttack!=null){return AssassinClaws.Resolve(from,now);}
         if(For(from).Jab!=null){return AmazonJab.Resolve(from,now);}

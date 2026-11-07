@@ -1,5 +1,7 @@
 # Skill effects
 
+**Dragon Flight (2026-11-08 JST).** Learned transfer/kick uses identified shared Teleport particles0x3728/sound0x1FE, native Wrestle/contact sound0x238 and charge cues. Final departure/arrival,dragonflight target overlay,directional kick/contact,progressive releases and audio remain pending. See [checkpoint](dragon-flight-action-checkpoint.md);icons remain separate.
+
 **Dragon Claw (2026-11-08 JST).** The learned dual-claw action uses identified native weapon pose/contact sound0x238 and shared charge/element cues. Final directional primary/secondary sequence,contacts,progressive releases,miss/block/interruption/recovery and audio remain pending independently of mechanics. See [checkpoint](dragon-claw-action-checkpoint.md);icons stay separate.
 
 **Learned Dragon Talon (2026-11-08 JST).** The approved series reuses native Wrestle pose/contact sound0x238 and existing identified charge/element/knockback cues. Final directional kicks,series/contact,charge releases,miss/block/interruption/recovery and audio remain needed independently of mechanics. See [checkpoint](dragon-talon-action-checkpoint.md);icons stay separate.

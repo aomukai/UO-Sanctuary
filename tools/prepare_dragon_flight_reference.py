@@ -46,8 +46,8 @@ def build(check=False):
         symbols.append(dict(path=relative, symbol=symbol, sourceSha256=hashlib.sha256(raw).hexdigest(),
                             routineSha256=hashlib.sha256(text[match.start():end].encode()).hexdigest()))
     e = dict(referenceVersion='3.3.93847', talentId='assassin.dragonflight', sourceId=275,
-             status='Prepared source control flow; current SQ21 file data corroborated, learned action remains deferred',
-             handlerEnabled=False, installed=False,
+             status='Learned two-stage Flight uses the separately approved landing-commit payment and charged-contact policy;modern parity limits remain explicit',
+             handlerEnabled=True, installed=False,
              source=dict(cachedSkillsSha256=cached, localSkills=dict(path=str(local.relative_to(ROOT)),
                          sha256=hashlib.sha256(blob).hexdigest(), fieldsCorroborated=len(facts)), skill=facts),
              legacyInspection=dict(commit='0c0bbd1e6bef9181a3da1c046523af622a925416', routines=symbols,
@@ -61,6 +61,9 @@ def build(check=False):
              landingSupplier='src/Sanctuary.Content/DragonFlightLanding.cs',
              freeCoordinateEvidence='tools/reference/free-coordinates-source-evidence.json',
              nativeLandingEvidence='tools/reference/dragon-flight-landing-native-evidence.json',
+             approval='docs/dragon-flight-approved-action-rule.md',
+             learnedAction='src/Sanctuary.Content/DragonFlights.cs',
+             nativeActionEvidence='tools/reference/dragon-flight-action-native-evidence.json',
              established=[
                  'Current row275 uses start12/do52, sequence21 with A1 transition, Kick1, target leeway SearchEnemyNear1, both mouse bindings and low-mana ordinary attack fallback. It has no localdelay field in the pinned row.',
                  'Current constants are15mana,38source-unit target range, damage100+35*(rank-1), AR60+25*(rank-1), one charge consumed and charged-only always-hit Param8=1.',
@@ -74,19 +77,19 @@ def build(check=False):
                     'Existing Teleportation.Landing is a range18point-target Sorceress contract; Flight uses target-range38source units and a collision-selected nearby landing. Prepared Flight reuses extracted travel/committed movement/arrival services and Leap native ground projection without copying the whole Sorceress contract.',
                     'SourceFreeCoordinates now shares the exact field-null ring order. Flight uses failure on all-blocked; Leap retains its blocked-origin fallback and independent final checks. The fallback flag does not prohibit queries across room boundaries.'],
              blockers=[
-                 'Modern charged guaranteed-hit versus block/dodge and consume-one ordering remain Flight-specific gaps. Older result/progressive bodies do not implement the current charged branch. The approved Dragon Tail policy is not silently extended to Flight.',
-                 'Sequence21, older mode entry/ordinal dispatch and fixed clock are established. Prepared native landing follows source release-time current target coordinates without repeating start range,with shared travel/ground/committed arrival and existing location cancellation. Current-code parity,complete two-stage Flight cancellation,payment/contact/charge policy,natural input and saved Flight action still need composition. Half-source-cell/native-tile projection and actual D2 room/footprint equivalence remain provisional.',
-                 'No native Dragon Flight handler, accepted player input, damage, teleport or save/reload test is claimed. Continue skills independent of these finisher gates.'],
+                 'Exact modern executable timing,payment,charged accuracy/block and consume-one ordering remain unverified;the explicit Flight-specific Sanctuary rule is approved rather than inferred from another finisher.',
+                 'Native half-source-cell/room/footprint projection,full item/proc/owner/PvP and event/RNG/client equivalence remain outside acceptance. Shared source item/recipient refusals remain explicit.',
+                 'Current SearchEnemyNear ground-click acquisition remains unresolved and is part of the separately recorded later targeting pass. Final effects/audio and icons remain separate assets.'],
              assets=dict(effects='Teleport departure/arrival, kick/contact, charge release and audio; identified placeholders permitted.',
                          icons='Separate talent, left/right and hotkey/quick icons in the240-row inventory.'),
-             next='Use the prepared fixed-clock two-event plan while composing explicit landing/contact/payment/cancellation and natural input/save tests. Keep unresolved Flight policy/current-code parity separate and continue unaffected skills. No class completion certificate.')
+             next='Retain the documented learned-action native/input/resource/lifecycle qualification and explicit reference/asset limits;continue both Shadow summons and remaining Amazon/Warlock routes. No class completion certificate.')
     out = ROOT / 'tools/reference/dragon-flight-preflight.json'
     encoded = json.dumps(e, indent=2) + '\n'
     if check:
         assert out.read_text() == encoded, 'Dragon Flight preflight stale'
     else:
         out.write_text(encoded)
-    print(f'Dragon Flight:{len(facts)} current local fields/current SQ21 and complete older control flow; learned payment/landing/current-code gates explicit.')
+    print(f'Dragon Flight:{len(facts)} current local fields/current SQ21 and complete older control flow; separately approved learned policy and remaining modern/native/asset limits explicit.')
 
 
 if __name__ == '__main__':

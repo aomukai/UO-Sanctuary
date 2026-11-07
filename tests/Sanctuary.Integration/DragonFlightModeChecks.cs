@@ -45,7 +45,7 @@ public static class DragonFlightModeChecks
         {
             Require(CombatTiming.Calculate(DiabloClass.Assassin,CombatAbility.DragonFlight,new(family,modifier),ias,fcr,slow,skillRate)==new ActionTiming(23,9),"Flight incorrectly inherited IAS/FCR/WSM/attack-slow/skill-rate");variations++;
         }
-        Require(variations==1296&&!AssassinCombat.Implemented(CombatAbility.DragonFlight),"Prepared Flight must not enable an unfinished action");
+        Require(variations==1296&&AssassinCombat.Implemented(CombatAbility.DragonFlight),"Approved Flight lost prepared clock");
         Log.Information("Dragon Flight mode:1680 full source mode/rate/event comparisons,1296 native modifier controls;fixed256/actions9,14/end23;no learned cast");
     }
     private static void Owner(PlayerMobile owner,int mana,ActionTiming ordinary,ActionTiming tail)

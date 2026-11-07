@@ -88,7 +88,7 @@ public static class DragonFlightLandingChecks
         var other=Target(owner,1);other.MoveToWorld(other.Location,Map.Felucca);
         Require(!DragonFlightLanding.Transfer(owner,other,out _)&&owner.Location==destination,"Cross-facet target moved owner");other.Delete();
         Require(!DragonFlightLanding.Transfer(owner,other,out _)&&owner.Location==destination,"Deleted target moved owner");
-        Require(!AssassinCombat.Implemented(CombatAbility.DragonFlight),"Prepared landing enabled unfinished learned action");
+        Require(AssassinCombat.Implemented(CombatAbility.DragonFlight),"Approved Flight lost landing adapter");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,destination,mana,life,targetLife,charge)));
         Log.Information("Dragon Flight landing:1210 source traces,retained Leap fallback,source start range,current-target native free-cell search,late-obstacle transfer,unpaid Tail cancellation;no learned Flight payment/contact policy");
     }

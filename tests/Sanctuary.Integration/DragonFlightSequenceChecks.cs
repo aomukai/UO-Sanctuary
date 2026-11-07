@@ -54,7 +54,7 @@ public static class DragonFlightSequenceChecks
                 count++;
             }
         }
-        Require(count==53830&&!AssassinCombat.Implemented(CombatAbility.DragonFlight),"Incomplete Flight learned route enabled");
+        Require(count==53830&&AssassinCombat.Implemented(CombatAbility.DragonFlight),"Approved Flight lost sequence supplier");
         try{PlayerWeaponSequences.Profile(21,"???");throw new InvalidOperationException("Unknown Flight weapon class accepted");}catch(NotSupportedException){}
         File.WriteAllText(Path.Join(Core.BaseDirectory,"dragon-flight-sequence-fixtures.json"),JsonSerializer.Serialize(new{Profiles=14,Comparisons=count,LearnedCast=false}));
         Log.Information("Dragon Flight:14 current SQ21 profiles/53830 complete scheduler comparisons; no learned cast or Flight save acceptance");

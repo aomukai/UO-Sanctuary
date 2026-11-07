@@ -37,15 +37,15 @@ public static class DragonTails
         var pair=WeaponHands.Pair(owner);using var primary=pair is{} hands?WeaponHands.Use(owner,hands.Primary):null;
         var weapon=CombatTiming.Equipped(owner);using var melee=weapon!=null?WeaponHands.UseMelee(owner,weapon):null;
         int flags=DragonTailPreparation.ResultFlags(owner,target,()=>PlayerMeleeGeometry.Within(owner,target,1),
-            ability==CombatAbility.DragonTalon?DragonTalons.HitRoll:HitRoll,ability);
+            ability==CombatAbility.DragonFlight?DragonFlights.HitRoll:ability==CombatAbility.DragonTalon?DragonTalons.HitRoll:HitRoll,ability);
         PreparedKickPacket kick=null;PreparedWeaponImpact impact=default;int cold=0,freeze=0;
         if((flags&1)!=0)
         {
             WeaponStartEffects.PrepareDamage(owner,target);
-            bool talon=ability==CombatAbility.DragonTalon;
-            kick=DragonKickPackets.Prepare(owner,target,talon?SkillMechanics.Values(owner,ability).Linear(1,2):0,
-                talon?DragonTalons.ElementRoll():ElementRoll(),talon?DragonTalons.PhysicalRoll:PhysicalRoll,
-                talon?DragonTalons.PoisonRoll:PoisonRoll,talon?DragonTalons.Effects:Effects,orderedPoison:true);impact=kick.Impact;
+            bool talon=ability==CombatAbility.DragonTalon,flight=ability==CombatAbility.DragonFlight;
+            kick=DragonKickPackets.Prepare(owner,target,(talon||flight)?SkillMechanics.Values(owner,ability).Linear(1,2):0,
+                flight?DragonFlights.ElementRoll():talon?DragonTalons.ElementRoll():ElementRoll(),flight?DragonFlights.PhysicalRoll:talon?DragonTalons.PhysicalRoll:PhysicalRoll,
+                flight?DragonFlights.PoisonRoll:talon?DragonTalons.PoisonRoll:PoisonRoll,flight?DragonFlights.Effects:talon?DragonTalons.Effects:Effects,orderedPoison:true);impact=kick.Impact;
             if(kick.SoftHit){flags|=0x4000;}
             if(knockback){flags|=8|SourceMeleeResult.GetHit;}
             (cold,freeze)=ColdLengths(owner,target,kick.ColdFrames??0,kick.FreezeFrames);
@@ -53,9 +53,9 @@ public static class DragonTails
             if(ability==CombatAbility.DragonTail){_=DragonKickPackets.TailFire256(NamedElements.To256(impact.Parts.Physical),SkillMechanics.Values(owner,CombatAbility.DragonTail),NamedElements.MasteryPercent(owner,"fire"));}
         }
         var contact=new PlayerWeaponContactPrepared(flags,impact,kick?.Drain??default,cold,CreatureHitRecovery.PlayerHitClass(owner),
-            ability==CombatAbility.DragonTalon?DragonTalons.Effects:Effects,
+            ability==CombatAbility.DragonFlight?DragonFlights.Effects:ability==CombatAbility.DragonTalon?DragonTalons.Effects:Effects,
             RangeCheck:bonus=>PlayerMeleeGeometry.Within(owner,target,bonus),FreezeFrames:freeze,
-            SkillKnockback:knockback,HitFlags:ability==CombatAbility.DragonTalon?3u:0u);
+            SkillKnockback:knockback,HitFlags:ability==CombatAbility.DragonTalon||ability==CombatAbility.DragonFlight&&(flags&1)!=0?3u:0u);
         return new(target.Serial,flags,kick,contact,effectAt);
     }
     internal static (int Cold,int Freeze) ColdLengths(PlayerMobile owner,BaseCreature target,int rawCold,int rawFreeze)
@@ -92,7 +92,7 @@ public static class DragonTails
     }
     internal static void Progressive(PlayerMobile owner,BaseCreature target,Point3D center,Map map,CombatAbility finisher=CombatAbility.DragonTail)
     {
-        if(finisher is not(CombatAbility.DragonTail or CombatAbility.DragonTalon or CombatAbility.DragonClaw)){throw new NotSupportedException("Unapproved dragon finisher consumption policy");}
+        if(finisher is not(CombatAbility.DragonTail or CombatAbility.DragonTalon or CombatAbility.DragonClaw or CombatAbility.DragonFlight)){throw new NotSupportedException("Unapproved dragon finisher consumption policy");}
         var states=AssassinCharges.Finisher(owner);
         foreach(var ability in ProgressiveOrder)
         {

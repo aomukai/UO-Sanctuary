@@ -7,8 +7,9 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-// Prepared release-time world adapter only; no learned action, mana debit or
-// charge policy. It reports actual transfer success, not do52's ignored return.
+// Release-time world adapter. An optional caller claim runs after all landing
+// checks and before committed transfer;default callers retain no payment policy.
+// Reports actual transfer success,not do52's ignored return.
 internal static class DragonFlightLanding
 {
     private static bool Target(PlayerMobile owner,BaseCreature target)=>owner is{Deleted:false,Alive:true}
@@ -43,11 +44,12 @@ internal static class DragonFlightLanding
             ||!Teleportation.TravelAllowed(owner,map,landing)){return false;}
         destination=landing;return true;
     }
-    internal static bool Transfer(PlayerMobile owner,BaseCreature target,out Point3D destination)
+    internal static bool Transfer(PlayerMobile owner,BaseCreature target,out Point3D destination,Func<Point3D,bool> claim=null)
     {
         var origin=owner?.Location??default;var map=owner?.Map;
         if(!Destination(owner,target,out destination)||!Target(owner,target)||owner.Map!=map||owner.Location!=origin
             ||!Teleportation.Space(map,destination,owner)){return false;}
+        if(claim?.Invoke(destination)==false){return false;}
         Teleportation.CommitTransfer(owner,destination,origin,map);return true;
     }
 }

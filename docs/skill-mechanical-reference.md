@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Dragon Flight adaptation approved2026-11-08 JST.** The [recorded approval](dragon-flight-approved-action-rule.md) authorizes fixed9/14/23events,15mana at a validated landing commit,free cancellation of failed landing,and charged accuracy-only/consume-one contact. This differs deliberately from the older ignored-warp-return path. Modern parity and ground acquisition remain unresolved;see [checkpoint](dragon-flight-action-checkpoint.md).
+
 **Dragon Claw adaptation approved2026-11-08 JST.** The [recorded approval](dragon-claw-approved-action-rule.md) separately authorizes the dual-claw clock,two-mana entry payment,independent selected-hand hit rolls,charged accuracy-only bypass and per-successful-contact consume-one policy. Modern timing/charge/primary-roll-sharing remain unverified source details;see [implementation/checks](dragon-claw-action-checkpoint.md).
 
 **Dragon Talon adaptation approved2026-11-08 JST.** The [approved action rule](dragon-talon-approved-action-rule.md) authorizes the explicit calculator-based human clock,six-mana entry payment,fixed target and per-successful-kick consume-one policy with accuracy-only charge bypass. This supersedes earlier Talon action-policy gates;exact modern timing and charge boundaries remain unverified. See [implementation/checks](dragon-talon-action-checkpoint.md);shared packet/knockback/item limitations remain explicit.

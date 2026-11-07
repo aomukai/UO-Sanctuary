@@ -51,7 +51,7 @@ internal static class DragonTailPreparation
     }
     internal static int ResultFlags(PlayerMobile owner,BaseCreature target,Func<bool> inRange,Func<double> hitRoll,CombatAbility ability=CombatAbility.DragonTail)
     {
-        if(ability is not(CombatAbility.DragonTail or CombatAbility.DragonTalon or CombatAbility.DragonClaw)){throw new NotSupportedException("Unapproved dragon finisher hit policy");}
+        if(ability is not(CombatAbility.DragonTail or CombatAbility.DragonTalon or CombatAbility.DragonClaw or CombatAbility.DragonFlight)){throw new NotSupportedException("Unapproved dragon finisher hit policy");}
         PlayerWeaponContact.RequireOrdinary(owner,target,true);
         var charges=AssassinCharges.Finisher(owner);
         int attack=checked((int)SkillMechanics.Values(owner,ability).Formula("toht")+charges.Sum(x=>x.AttackPercent));

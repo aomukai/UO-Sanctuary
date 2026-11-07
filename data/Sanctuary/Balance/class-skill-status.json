@@ -2088,10 +2088,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 275,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared fixed-clock/native landing,learned action deferred. Owned flag-off SQ21 projects256advance/teleport9/kick14/end23. Complete older source controls retain14profiles and mode/warp semantics. SourceFreeCoordinates shares Flight failure versus Leap fallback;1210 full wrapper/search controls bind tie/radius/call order. Prepared native transfer reuses ground/travel/committed arrival,reads current release target without repeating start range,and triggers existing movement cancellation without deciding payment/contact/charge policy. Shared Sorceress18tile contract remains separate. See dragon-flight-landing-native-evidence.json. Current-code parity,two-stage Flight action,cancellation/payment/contact/charges,natural input and saves remain;half-cell/room/footprint projection is provisional. Tail approval is not silently extended. Continue unaffected skills."
+      "remaining": "Learned separately approved two-stage Flight reuses SQ21fixed256clock with teleport9/kick14/end23,shared release-time free-cell/travel/committed transfer and body/boot/typed/poison/charge/contact services. Requires15mana at entry without debit;validated landing commit spends15once before arrival hazards. Failed landing/late mana cancels without movement,payment or kick. Initial target is retained;its current position supplies landing without repeating start range. Charged kick bypasses accuracy only;block/dodge remain and successful unblocked contact consumes one per family. Own transfer preserves the kick;external pre/post movement,equipment/recovery/owner changes cancel with no refund after commit. Paid/unpaid transient stages never replay on reload;see dragon-flight-action-checkpoint.md. Modern timing/payment/charge parity,ground-click SearchEnemyNear,full item/proc/owner/PvP,half-cell/room/footprint,geometry/RNG/event and client acceptance remain explicit. Effects/audio and talent/hotkey icons remain separate placeholders."
     },
     {
       "talentId": "assassin.phoenixstrike",
