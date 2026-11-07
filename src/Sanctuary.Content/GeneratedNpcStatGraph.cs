@@ -22,6 +22,7 @@ internal sealed class GeneratedNpcStatGraph
     private readonly string[] Payloads;
     private readonly Dictionary<uint,ItemPropertyCreationContext> Carriers=new();
     private readonly Dictionary<EquipmentStatUnit,int> Bodies=new();
+    private readonly HashSet<EquipmentStatNode> BirthLists=new();
     private readonly EquipMonster Kind;
     private readonly bool HasPath;
     private readonly Action<BaseCreature> Rate,Clamp;
@@ -107,12 +108,18 @@ internal sealed class GeneratedNpcStatGraph
             Current();var result=new List<uint>();
             for(var node=Actor.Stats.Last;node!=null;node=node.Previous)
             {
+                if(BirthLists.Contains(node)){continue;}
                 if(node.Owner?.Entity is not GeneratedNpcItem item||!Carriers.ContainsKey(item.Serial.Value))
                 {throw new NotSupportedException("Original NPC event graph has an unknown attached stat-list owner");}
                 result.Add(item.Serial.Value);
             }
             result.Reverse();return result.ToArray();
         }
+    }
+    internal void RegisterBirthList(EquipmentStatNode node)
+    {
+        if(node is not{OwnerKind:1,Owner:null}||node.Parent!=Actor.Stats||node.Recipient!=Actor||!BirthLists.Add(node))
+        {throw new NotSupportedException("NPC birth list must be its original posted non-item source list");}
     }
     internal ItemPropertyCreationContext Item(uint serial){Current();return Carriers.TryGetValue(serial,out var c)?c:throw new NotSupportedException("Item is not in the original recipient graph");}
     internal void Update(uint serial,bool force=false){var item=Item(serial);SourceItemStatUpdates.Update(Dispatch,item.Unit,Actor,force);}

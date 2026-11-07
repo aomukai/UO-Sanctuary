@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Shadow initialization (2026-11-07 JST).** No new artwork is installed. Original equipment and numeric storage fixtures use clearly labeled test holders. Actual Shadow appearance,spawn/despawn,combat/skill/death effects and audio remain pending;no playable Shadow route is enabled. See [checkpoint](shadow-initializer-checkpoint.md).
+
 **Learned Valkyrie cast (2026-11-07 JST).** The playable route reuses clearly identified summon glow/audio and source movement/attack/proc/status placeholders. Final appearance, original body/equipment/spear, summon/return/death, elemental/projectile/contact/recovery and audio assets remain missing and listed separately. Mechanics do not wait for imagegen artwork.
 
 **Valkyrie external buffs (2026-11-07 JST).** Original Enchant/aura damage support reuses existing identified weapon-glow, aura, elemental-hit, status and audio placeholders. No final art is generated. Valkyrie summon/body/equipment/movement/spear/death effects and talent/hotkey icons remain separate asset work.

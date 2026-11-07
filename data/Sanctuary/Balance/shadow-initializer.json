@@ -1,0 +1,274 @@
+[
+  {
+    "ability": "ShadowWarrior",
+    "monster": 417,
+    "alignment": 1,
+    "level": [
+      0,
+      0,
+      0
+    ],
+    "noRatio": true,
+    "inventory": true,
+    "componentChoiceCounts": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "totalPieces": 2,
+    "monsterProperty": 65535,
+    "monsterPropertyCount": 13,
+    "initialSkills": [
+      {
+        "id": 259,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 266,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 56
+      },
+      {
+        "id": 274,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 260,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 275,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 53
+      },
+      {
+        "id": 269,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 0,
+        "rank": 1,
+        "mode": 5,
+        "sequence": -1
+      }
+    ],
+    "onInitEquipment": false,
+    "minimumLife": [
+      376,
+      376,
+      376
+    ],
+    "maximumLife": [
+      376,
+      376,
+      376
+    ],
+    "defense": [
+      196,
+      196,
+      196
+    ],
+    "block": [
+      50,
+      50,
+      50
+    ],
+    "resistances": [
+      [
+        40,
+        40,
+        40
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "damageRegeneration": 3,
+    "difficultySkillBonus": [
+      0,
+      3,
+      7
+    ]
+  },
+  {
+    "ability": "ShadowMaster",
+    "monster": 418,
+    "alignment": 1,
+    "level": [
+      0,
+      0,
+      0
+    ],
+    "noRatio": true,
+    "inventory": true,
+    "componentChoiceCounts": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "totalPieces": 2,
+    "monsterProperty": 65535,
+    "monsterPropertyCount": 13,
+    "initialSkills": [
+      {
+        "id": 259,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 266,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 56
+      },
+      {
+        "id": 274,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 260,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 275,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 53
+      },
+      {
+        "id": 269,
+        "rank": 1,
+        "mode": 14,
+        "sequence": 49
+      },
+      {
+        "id": 0,
+        "rank": 1,
+        "mode": 5,
+        "sequence": -1
+      }
+    ],
+    "onInitEquipment": false,
+    "minimumLife": [
+      376,
+      376,
+      376
+    ],
+    "maximumLife": [
+      376,
+      376,
+      376
+    ],
+    "defense": [
+      196,
+      196,
+      196
+    ],
+    "block": [
+      50,
+      50,
+      50
+    ],
+    "resistances": [
+      [
+        40,
+        40,
+        40
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "damageRegeneration": 2,
+    "difficultySkillBonus": [
+      0,
+      3,
+      7
+    ]
+  }
+]
