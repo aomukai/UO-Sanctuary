@@ -3,6 +3,8 @@
 import argparse
 from collections import Counter
 from pathlib import Path
+import json
+import subprocess
 import skill_checkpoint_evidence as e
 from snapshot_skill_build import check as snapshot
 from record_inferno_held_input import preservation
@@ -11,7 +13,7 @@ from record_poison_dagger_contact import markers
 ROOT=e.ROOT
 BASE=ROOT/'.local/class-skills'
 STAGE=BASE/'blade-fury-held-input'
-PARENT='65567581'
+PARENT='6556758165ee160120646453d865a81dcc97b7ab'
 
 
 def record(check=False):
@@ -78,10 +80,25 @@ def record(check=False):
     assert sum(r['implementation']=='handler-present' for r in status['skills'])==205
     assert sum(r['implementation']=='handler-present' for r in status['skills'] if r['characterClass']=='Assassin')==25
     assert not status['completedClasses']
+    missiles=e.load(ROOT/'data/Sanctuary/Balance/necromancer-summons.json')
+    assert next(r for r in missiles if r['key']=='bladefragment1')['fields']['CanSlow']==1
+    before=json.loads(subprocess.check_output(['git','show',PARENT+':data/Sanctuary/Balance/class-skill-status.json'],cwd=ROOT))
+    prior_rows={r['talentId']:r for r in before['skills']}
+    assert [r['talentId'] for r in status['skills'] if r!=prior_rows[r['talentId']]]==['assassin.bladefury']
     fingerprints=e.audits(STAGE,PARENT,born['artifacts']);protected=preservation()
+    frozen=STAGE/'frozen-c2-i3'
+    for p,h in e.load(frozen/'hashes.json').items():assert e.sha(frozen/p)==h,p
+    for kind in ['Content','Integration']:
+        assert e.sha(frozen/f'Sanctuary.{kind}.dll')==born['artifacts'][f'Assemblies/Sanctuary.{kind}.dll']
     failed=STAGE/'superseded-c1-i2'
     assert 'Component exposed unfinished learned input' in(failed/'fury-retained/birth-native-checks.log').read_text()
     assert 'KeyboardInterrupt' in(failed/'focused/run-1.log').read_text()
+    diagnostic=e.load(failed/'focused/birth-inputs.json')
+    for p in ['src/Sanctuary.Content/BladeFuryModes.cs','src/Sanctuary.Content/BladeFuryMissiles.cs',
+              'tests/Sanctuary.Integration/BladeFuryResourceChecks.cs','tests/Sanctuary.Integration/BladeFuryMissileChecks.cs']:
+        assert e.sha(failed/Path(p).name)==diagnostic['sourceInputs'][p],p
+    for kind in ['Content','Integration']:
+        assert e.sha(failed/kind.lower()/f'Sanctuary.{kind}.dll')==diagnostic['artifacts'][f'Assemblies/Sanctuary.{kind}.dll']
     files=[p for p in e.stage_files(STAGE,wide,BASE/'blade-fury-held-input-isolate',BASE/'blade-fury-held-input-shared',fury)
            if not p.name.startswith('receipt-')]
     files += [Path(__file__).resolve(),parent_path,proto_path,client_path,
@@ -91,6 +108,7 @@ def record(check=False):
               'class-skill-roadmap.md','class-skills-resume-checkpoint.md','skill-effects.md','skill-icons.md']]
     files += [p for p in failed.rglob('*') if p.is_file()]
     files += [p for p in(STAGE/'failed-integration-1').iterdir() if p.is_file()]
+    files += list(frozen.iterdir())
     result=dict(referenceVersion='3.3.93847',parent=PARENT,approved=True,approval='Approve this Blade Fury rule',
         approvalDate='2026-11-08',learnedBladeFuryHandler=True,installed=False,currentD2RInputTimingVerified=False,
         graphicalInputVerified=False,handlers=205,assassinHandlers=25,completedClasses=[],contentBuild=2,integrationBuild=3,
