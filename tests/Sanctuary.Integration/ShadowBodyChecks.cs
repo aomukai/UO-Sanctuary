@@ -43,6 +43,11 @@ public static class ShadowBodyChecks
         Require(CreatureProfiles.Definition(b).Reference==b.SourceMonsterId&&CreatureProfiles.Variant(b).Traits is{Family:"Shadow",Undead:false,Demon:false},"Shadow inherited skeleton/appearance traits");
         Require(b.InitialSkillRequests.All(s=>s.Rank==1+new[]{0,3,7}[(int)state.Difficulty]),"Shadow initial skill request difficulty did not rescale");
         Reject(()=>b.BeginMelee(b.ControlMaster));
+        if(state.Skills!=null)
+        {
+            var book=b.OwnedSkills;Require(book.Left==251&&book.Right==266&&book.Used==251&&book.Find(251).Bonus==2,"Original NPC skill entries/selections/bonus did not survive save");
+            Require(book.Find(266).Mode==14&&book.Find(0).Mode==5,"Reload reset NPC custom modes");
+        }
     }
     private static void CallbackBirth(AssassinShadowBody b)
     {
@@ -104,6 +109,7 @@ public static class ShadowBodyChecks
     }
     private static void Check(bool reload)
     {
+        ShadowSkillBookChecks.SourceControls();
         Require(NpcWorldAllocation.Capture()==NpcWorldAllocationChecks.CheckedContinuation,"Unexpected shared world draws before Shadow bodies");
         var held=new List<Held>();int generation=0;
         if(reload)
@@ -124,13 +130,14 @@ public static class ShadowBodyChecks
                 {
                     var p=new PlayerMobile{Name="ShadowBodyOwnerFixture",Body=0x190,Player=true};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Assassin);ClassCreation.Profiles.AdvanceLevel(p,99);
                     int hard=new[]{1,1,9,19}[n];ClassSkillChecks.Train(p,SkillMechanics.For(ability).TalentId,hard);FixtureSpace.Corridor(p,6240,32,3380);
+                    ClassSkillChecks.Train(p,SkillMechanics.Source("Fire Trauma").TalentId,3);
                     Item helm=null,armor=null;if(n>0){helm=PoisonDaggerChecks.Named(p,"Tarnhelm");armor=PoisonDaggerChecks.Named(p,"Greyform");ClassGear.Refresh(p);}
                     SummonDifficulties.SetFacets(facets.Where(f=>f.Map!=p.Map.MapID).Append(new(p.Map.MapID,difficulty)).ToArray());
                     var snapshot=ShadowOwnerSnapshot.Capture(p,ability);var before=NpcWorldAllocation.Capture();var b=AssassinShadowBody.CreateInitialized(p,ability,TimedEffects.Now);
                     Require(b.Prepared.Capture==snapshot&&b.Prepared.Capture.Rank==new[]{1,2,10,20}[n]&&b.Prepared.Initialization.WorldBefore==before.Seed,"Actual trained/item owner capture or unit allocation changed");
                     Require(b.Prepared.Equipment.GameAfter==NpcWorldAllocation.Capture().Seed&&b.Prepared.Equipment.PetAfter==NpcEquipmentRandom.Require(b).Seed,"Original equipment did not hand off its actual continuations");
                     Require(helm==null||helm.Parent==p&&armor.Parent==p&&b.Prepared.Capture.Head==ClassGear.Base(helm).Code&&b.Prepared.Capture.Armor==ClassGear.Base(armor).Code,"Shadow borrowed owner items or guessed owner bases");
-                    Validate(b);CallbackBirth(b);Pools(b);Random(b);Rescale(b,p,difficulty);Refusals(b,p);
+                    ShadowSkillBookChecks.Body(b,p);Validate(b);CallbackBirth(b);Pools(b);Random(b);Rescale(b,p,difficulty);Refusals(b,p);
                     if(helm!=null){var capture=b.Prepared.Capture;p.AddToBackpack(helm);ClassGear.Refresh(p);Require(ShadowOwnerSnapshot.Capture(p,ability).Rank==capture.Rank-1&&b.Prepared.Capture==capture,"Existing Shadow recaptured changed owner gear");Require(p.EquipItem(helm),"Owner helm return");ClassGear.Refresh(p);}
                     held.Add(Capture(b));p.Internalize();
                 }

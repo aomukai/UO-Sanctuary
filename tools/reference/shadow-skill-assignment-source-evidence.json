@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "masterWholeInitializerContexts": 255,
+  "warriorAssignmentSliceContexts": 1530,
+  "sourceRoutineHashes": {
+    "D2GAME_AI_Unk106_6FCEAFE0": "9d6fa87731cb9cd48a5b27ac8d9572eabee7a618106a29d10547286331e1cdab",
+    "AITHINK_Fn105_ShadowWarrior.assignmentSlice": "0b4b7b1e362f7f2f3346c70948145a2948d82e76e3f83f2a49e0caf68c14c749"
+  },
+  "inputs": {
+    "tools/probe_shadow_skill_assignment.py": "03b55724a0bb5427fef4e09c9a6e96d58fc4e4bbcaaeba1ba0997d7eb9cfc7c6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/reference/shadow-skill-metadata-data-evidence.json": "6bf140a448011a6236e5687df40adfa38333c704185ac64f3127aefa6507877a",
+    "tools/reference/npc-innate-skill-rank-source-evidence.json": "e69ac83765274289a368bab51d109677ea3273045ffb32cd537ab5995e917c90"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-skills-source/source.cpp": "43e13d0722393d98a9f36bc08f8f320abff0d40774f0ccd40184e0911558c93d",
+    ".local/class-skills/shadow-skills-source/cases.json": "04308325ac9dffd6f7c291756333bffb7a01e37c04f558137e697d9e0a85257d",
+    ".local/class-skills/shadow-skills-source/probe": "58f84a5fa7f7e10f065906138af4be7bfae583fc0dce60cad117ba9876d0251f",
+    ".local/class-skills/shadow-skills-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-skills-source/sanitizers.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "declaredServices": [
+    "Owner/player lookup and highest summoning skill;intrinsic owner hard/effective ranks;existing Attack entry;class-list order251..280;target-pet eligibility excludes both Shadow pettype16 skills;assignment records calls without passive refresh."
+  ],
+  "limits": [
+    "Older initializer and a clearly identified AI105 assignment slice,not current executable AI parity. The full Warrior/Master think loop,target permissions,passive stat refresh,item-grant callbacks,animation and skill execution are not certified.",
+    "Global approved snapshot policy captures owner ranks at summon;live selection IDs can later change control inputs. Current class-list order and current assignment/getter callback parity remain unverified. No learned Shadow cast or active-world controller is enabled."
+  ]
+}

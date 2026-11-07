@@ -1,12 +1,18 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Linq;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server.Mobiles;
 namespace Sanctuary;
 
+internal sealed record ShadowCapturedSkill(int Id,int Hard,int Rank);
 internal sealed record ShadowOwnerSnapshot(CombatAbility Ability,int Level,int Rank,int ColdSunder,int FireSunder,
     int LightningSunder,int PoisonSunder,int PhysicalSunder,string Head,string Armor)
 {
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]
+    public string Skills{get;init;}
     internal static ShadowOwnerSnapshot Capture(PlayerMobile owner,CombatAbility ability)
     {
         if(ability is not(CombatAbility.ShadowWarrior or CombatAbility.ShadowMaster)||owner is not{Alive:true,Deleted:false}
@@ -21,7 +27,9 @@ internal sealed record ShadowOwnerSnapshot(CombatAbility Ability,int Level,int R
         }
         var result=new ShadowOwnerSnapshot(ability,profile.Level,SkillMechanics.Rank(owner,ability),
             ClassGear.Bonus(owner,"pierce-immunity-cold"),ClassGear.Bonus(owner,"pierce-immunity-fire"),ClassGear.Bonus(owner,"pierce-immunity-light"),
-            ClassGear.Bonus(owner,"pierce-immunity-poison"),ClassGear.Bonus(owner,"pierce-immunity-damage"),Code(GearSlot.Head),Code(GearSlot.Body));
+            ClassGear.Bonus(owner,"pierce-immunity-poison"),ClassGear.Bonus(owner,"pierce-immunity-damage"),Code(GearSlot.Head),Code(GearSlot.Body))
+        {Skills=JsonSerializer.Serialize(SkillMechanics.All.Where(s=>s.CharacterClass==DiabloClass.Assassin).OrderBy(s=>s.SourceId)
+            .Select(s=>new ShadowCapturedSkill(s.SourceId,ClassCreation.Profiles.GetRank(owner.Serial,s.TalentId),SkillMechanics.Rank(owner,s.Ability))).ToArray())};
         result.Validate();return result;
     }
     internal void Validate()
@@ -35,6 +43,20 @@ internal sealed record ShadowOwnerSnapshot(CombatAbility Ability,int Level,int R
             if(type.Body1!=pair.Item2&&type.Body2!=pair.Item2){throw new NotSupportedException("Captured owner base lost its original body slot");}
         }
         _=Plan(376*256);
+        if(Skills!=null)
+        {
+            var skills=SkillRanks();int id=Ability==CombatAbility.ShadowMaster?279:268;
+            if(skills.Single(s=>s.Id==id).Rank!=Rank){throw new InvalidDataException("Captured Shadow summon rank changed");}
+        }
+    }
+    internal ShadowCapturedSkill[] SkillRanks()
+    {
+        if(Skills==null){throw new NotSupportedException("Legacy parked Shadow has no owner skill snapshot");}
+        var rows=JsonSerializer.Deserialize<ShadowCapturedSkill[]>(Skills);
+        if(rows==null||rows.Length!=30||rows.Any(s=>s==null)||!rows.Select(s=>s.Id).SequenceEqual(Enumerable.Range(251,30))
+            ||rows.Any(s=>s.Hard is<0 or>20||s.Rank is<0 or>255))
+        {throw new InvalidDataException("Invalid captured Shadow owner skills");}
+        return rows;
     }
     internal string OwnerBase(int slot)=>slot switch{1=>Head,3=>Armor,_=>throw new NotSupportedException("Unexpected Shadow owner equipment slot")};
     internal int Accrued(string name)=>name switch

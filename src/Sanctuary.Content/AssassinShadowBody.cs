@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using ModernUO.Serialization;
 using Server;
 using Server.Mobiles;
@@ -11,7 +12,10 @@ namespace Sanctuary;
 
 internal sealed record ShadowBodyState(uint Owner,ShadowOwnerSnapshot Capture,ShadowInitialization Initialization,
     MonsterDifficulty Difficulty,DateTime NextRecoveryUtc,ShadowLoadoutState Equipment=null,ShadowWeaponBinding Weapons=null)
-{public string Profile{get;init;}="parked-shadow-resources-v1";}
+{
+    public string Profile{get;init;}="parked-shadow-resources-v1";
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string Skills{get;init;}
+}
 
 // Real serialized species/ownership/original inventory and FP256 resource
 // recipient. The missing NPC skills/events/controller keep it parked. The
@@ -29,6 +33,14 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     internal GeneratedNpcStatGraph EquipmentNumbers=>!World.Loading&&State?.Equipment!=null&&Alive&&!Deleted
         ?GeneratedNpcLiveResources.ShadowFrame(this)??ShadowEquipmentResources.Numeric(this):null;
     internal ShadowInitialSkill[] InitialSkillRequests=>ShadowInitializer.Roll(State.Capture.Ability,State.Initialization.UnitSeed,State.Difficulty).Skills;
+    internal ShadowSkillBook OwnedSkills=>ShadowSkillBook.Restore(State?.Skills);
+    internal void ChangeSkills(Action<ShadowSkillBook> change)
+    {
+        ArgumentNullException.ThrowIfNull(change);var book=OwnedSkills;change(book);
+        RestorePrepared(State with{Skills=book.Save()});
+    }
+    internal int OwnedSkillRank(int id)
+    {var graph=EquipmentNumbers??throw new NotSupportedException("Shadow skill ranks need its original item graph");return OwnedSkills.Rank(id,graph.Read,BattleCommand.Bonus(this));}
     public override DiabloClass SummonClass=>DiabloClass.Assassin;
     bool IPersistentMinion.CanActivate=>false;
     public override bool Permitted(PlayerMobile owner)=>State!=null&&ClassCreation.Profiles.Histories(owner.Serial)
@@ -66,6 +78,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
                 ||!Enum.IsDefined(s.Difficulty)||s.NextRecoveryUtc.Kind!=DateTimeKind.Utc||s.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40))
             {throw new InvalidDataException("Invalid Shadow actor birth");}
             s.Capture.Validate();ShadowInitializer.Validate(s.Initialization);
+            if(s.Skills!=null){_=s.Capture.SkillRanks();_=ShadowSkillBook.Restore(s.Skills);}
             if(s.Capture.Ability!=s.Initialization.Ability){throw new InvalidDataException("Shadow actor species changed");}
             if(s.Equipment is{} e)
             {
@@ -109,7 +122,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         _=ShadowInitializer.Roll(ability,SourceRandom.InitLow(1),difficulty);var body=new AssassinShadowBody();
         try
         {
-            var init=ShadowInitializer.Allocate(ability,difficulty);var state=new ShadowBodyState(owner.Serial.Value,capture,init,difficulty,at.AddMilliseconds(40));
+            var init=ShadowInitializer.Allocate(ability,difficulty);var state=new ShadowBodyState(owner.Serial.Value,capture,init,difficulty,at.AddMilliseconds(40))
+            {Skills=ShadowSkillBook.Initialize(capture,init).Save()};
             body.RestorePrepared(state);body.Name=(ability==CombatAbility.ShadowWarrior?"Shadow Warrior":"Shadow Master")+" [appearance placeholder]";
             body.Initialize(owner,capture.Rank,0);body.SetStr(body.Numbers.Auras.Single(s=>s.Name=="strength").Value);body.SetDex(body.Numbers.Auras.Single(s=>s.Name=="dexterity").Value);body.SetInt(0);body.SetMana(0);body.SetStam(0);
             if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Shadow owner binding refused");}

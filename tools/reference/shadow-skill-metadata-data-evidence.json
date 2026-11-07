@@ -1,0 +1,78 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "compiledFieldMatches": 3003,
+  "compiledRows": 429,
+  "shadowMetadataRows": 31,
+  "assassinClassOrder": [
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280
+  ],
+  "passiveClawType": 68,
+  "fields": {
+    "class": 44,
+    "monmode": 49,
+    "element": 644,
+    "passiveState": 180,
+    "passiveType": 182,
+    "summon": 272,
+    "petType": 274
+  },
+  "petTypeMissingZeroRows": [
+    78,
+    88,
+    199
+  ],
+  "currentClassOrderExecuted": false,
+  "inputs": {
+    ".local/class-skills/defiler-compiled-formula/extraction.json": "4593da184c11c34fc49d1e4be3dfb6c895aee7b9cc755d195716fea5718cfcb1",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "tools/reference/d2r-local-monmode-evidence.json": "8a5bccaaba5199bef904b86d300341376a4dfc48cff48502245ad40d6df58599",
+    "tools/reference/warlock-hands-reference-evidence.json": "a56704e677b304c81ce151b6bf41150afc918e4601517759561bf41cdf8fd51f",
+    ".local/class-skills/warlock-hands-reference/itemtypes.txt": "ae957abde89a2d0276a55feffa809e0ccbdaf82f65c6eaed9443b886b960e26a",
+    "data/Sanctuary/Balance/shadow-skill-metadata.json": "d0c372bc287898e85af893822f375a13a36343d09a9660a0e12409ae199691c5",
+    "tools/build_shadow_skill_metadata.py": "cbea434e30fa1db6d743ab6df5bf00d0b429fc3ae5ea47b887fb5e7c1faae955",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SkillsTbls.cpp": "af6ff0c8e0edceb3d2ae9ae22a92c6203e2206906adc66a67275b1d0a7756fb9"
+  },
+  "scope": [
+    "All429compiled skills match owned/public fields for class,monster animation,element,passive state/type,summon and pet type. Absent monster mode compiles255;three absent-pet-type rows compile0rather than-1,and remain explicitly identified. Only31actual Attack/Assassin rows enter this NPC adapter.",
+    "Item type IDs follow the owned linker row order with the Expansion marker omitted;claw passive layer68 is not guessed from public line numbers. Both Shadow summon skills use pet type16.",
+    "The old class-list loader appends physical skill IDs in ascending row order;current compiled class membership is251..280. Exact current class-list execution/order is not certified."
+  ],
+  "limits": [
+    "Metadata is not a skill-list allocator,passive refresh,AI or skill execution certificate. Current executable getter/assignment/init parity and world selector binding remain separate. No handler or class certificate is added."
+  ]
+}

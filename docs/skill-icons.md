@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shadow intrinsic skills (2026-11-07 JST).** No public bindings or icon slots change. Shadow Warrior/Master talent-tree and hotkey icons remain pending separately from body and skill effects; internal NPC skill records do not complete icon work. See [checkpoint](shadow-skills-checkpoint.md).
+
 **Dedicated Shadow bodies (2026-11-07 JST).** No public skill binding or icon slot changes. Shadow Warrior/Master tree and hotkey artwork remain separate pending assets with existing placeholders; real body/resource persistence does not enable their learned cast. See [checkpoint](shadow-body-checkpoint.md).
 
 **Prepared Shadow initialization (2026-11-07 JST).** No public binding or icon slot changes. Shadow Warrior/Master talent-tree and hotkey icons remain separate pending assets with existing identified placeholders. See [checkpoint](shadow-initializer-checkpoint.md).
