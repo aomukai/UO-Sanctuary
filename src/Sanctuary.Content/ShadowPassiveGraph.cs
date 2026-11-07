@@ -66,7 +66,7 @@ internal sealed class ShadowPassiveGraph
     {Lists=frame.Lists.Select(s=>s with{Values=(EquipmentStatValue[])s.Values.Clone()}).ToArray(),Order=(ShadowPassiveAttachment[])frame.Order.Clone()};
     internal static void Validate(ShadowPassiveFrame frame,uint[] active)
     {
-        if(frame?.Profile!="shadow-passive-lists-v1"||frame.Lists==null||frame.Order==null||frame.Lists.Length>4
+        if(frame?.Profile!="shadow-passive-lists-v1"||frame.Lists==null||frame.Order==null||frame.Lists.Length>5
             ||frame.Lists.Any(l=>l==null)||frame.Order.Any(a=>a==null)||frame.Lists.Select(l=>l.State).Distinct().Count()!=frame.Lists.Length)
         {throw new InvalidDataException("Invalid Shadow passive frame");}
         var book=ShadowSkillBook.Restore(frame.Book);var states=new HashSet<int>();
@@ -132,17 +132,17 @@ internal sealed class ShadowPassiveGraph
     {
         ShadowDefensiveBuffs.Validate(saved);
         EquipmentStatNode node=null;
-        if(saved.Skill==278&&Lists.TryGetValue(saved.State,out node))
+        if(saved.Skill is 264 or 278&&Lists.TryGetValue(saved.State,out node))
         {
             int oldRank=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351));
-            if(saved.Level<oldRank){return false;}
+            if(saved.Skill==278&&saved.Level<oldRank){return false;}
             // The shared factory refreshes an equal-rank list in place,
             // preserving attachment order while rewriting its aura fields.
-            if(saved.Level>oldRank){Remove(saved.State);node=null;}
+            if(saved.Skill==278&&saved.Level>oldRank){Remove(saved.State);node=null;}
         }
         // Current source group2 contains only quickness157/fade159. Do18
         // removes the same state as well;group0 Venom is independent.
-        if(saved.Skill!=278){foreach(int state in Timed.Keys.Where(s=>s is 157 or 159).ToArray()){Remove(state);}}
+        if(saved.Skill is 258 or 267){foreach(int state in Timed.Keys.Where(s=>s is 157 or 159).ToArray()){Remove(state);}}
         node??=Create(saved.State,true);
         foreach(var field in saved.Values){Graph.Values.SetBase(node,field.Packed,field.Value);Writes++;}
         Timed[saved.State]=saved.UntilUtc.Value;

@@ -1,0 +1,87 @@
+{
+  "parent": "9bd7ef6c7327de2b5c4d77c1c69bb93da050b870",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 27,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-cloak-check": 1,
+    "shadow-buffs-check": 1,
+    "shadow-venom-check": 1,
+    "shadow-item-frame-check": 1,
+    "cloak-check": 1,
+    "cloak-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-cloak-reload-check": 2,
+    "shadow-buffs-reload-check": 2,
+    "shadow-venom-reload-check": 2,
+    "shadow-item-frame-reload-check": 2,
+    "cloak-reload-check": 2,
+    "cloak-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": 4,
+  "contentBuild": 2,
+  "integrationBuild": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "83e28aba70f42b41f8ea59356ea3f10ce3900be6190b6be0cb699cd849e67f69",
+    "Assemblies/Sanctuary.Integration.dll": "0350839b2050c80946ec6513afc39a4be22429ae8f1a7d9d84d02d392adfa6d5"
+  },
+  "inputsSha256": "b7910ed6ff28cd848cf952b24ab4dee610217cc3f94890db2f4e5ea9b80d4a64",
+  "nativeLogSha256": "6c06a92acc9b8c014845e1dfcd1cc23c760d899c2387f494bbdd97869f09552f",
+  "sourceSnapshotSha256": "e0e6b69889c68cb9d0bdb7f77074b6507c6aab327f2720a998788617bfbd3b36",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "reusedSourceProofs": {
+    "tools/reference/cloak-engine-evidence.json": "5d66d5028f52f7de68f3b10e2af067a4c7760d0f4a0a44fd91b259c3ffe59f7f",
+    "tools/reference/cloak-current-observations.json": "224cabe366fe54753e8aa4e730704e87d11a2f28a7b2c382c478b504c61f4503",
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26"
+  },
+  "scope": [
+    "Both original Shadow species cast own SC/start0/do47 through existing buff action. Warrior AI selects/releases the skill;no player proxy,item proc or new public handler.",
+    "Existing Cloak target/duration/curse/blind/recast services retain actual NPC source,rank and center. Native radius/behind/edge/outside,unique stats versus blind eligibility and unchanged Nightmare/Hell duration are checked.",
+    "Own known state153 is a timed posted stat16 list through existing operation13 writer and actual defense consumer. Two permanent plus three timed lists persist;Quickness/Fade,Venom and Cloak remain independent. Owner bonus/mana,original item armor and own wounds/mana/RNG are unchanged.",
+    "Living distant target and fresh-group recast rejection,death unlock,lower-rank replacement while old own bonus is active,no armor stacking,independent caster expiry with target lock,town and parked windup cancellation are checked.",
+    "Original bodies/items/resources/wounds/RNG,five-list armor/buffs,target curse/blind/defense and global lock survive two reloads without action replay. Player Cloak,Shadow buffs/Venom and selected-hand/event regression retained."
+  ],
+  "failedRuns": [
+    "Integration1 used nonexistent curse X/Y properties;corrected to OriginX/OriginY.",
+    "Native1 correctly refused state153 until explicitly admitted alongside the existing original passive states. Structural comparisons replaced reference equality for array-backed list snapshots."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-cloak/integration-build-1.log": "b67625106e36159b8476e39758f4bec53d9a5012639d08be2ced173cfffbf2dd",
+    ".local/class-skills/shadow-cloak/failed-native-1.log": "df8c5e0b55ee1190dabd5b4a9a2a39b2d3201dd4869451a75281d6bf87c1d360",
+    ".local/class-skills/shadow-cloak/content-build-2.log": "b2877970e982679b9b6ea2229b3b38d972c06dc89ac5ed075f7c5cd4e5f09fdc",
+    ".local/class-skills/shadow-cloak/integration-build-4.log": "4ebe03f24d7a24073b408b28ec7c6c983592f4973e8a7c25dc5d99b2e0e84ea8"
+  },
+  "notRerun": [
+    "full class suite",
+    "full item audit exporter",
+    "new source harnesses for unchanged routines"
+  ],
+  "limitations": [
+    "Exact current NPC self-timer/recast/removal/get-hit behavior is unverified. Current player observation supplies target lock;existing player adapter keeps caster armor until normal expiry and refreshes a permitted recast. Older do47 existing-own-state refusal conflicts with observed early recast after target death.",
+    "Cross-caster/rank and unique-only target lock,source state10 AI timing,modern AI priorities/node ownership,native room/LOS,full original-item/PvP/hireling/current-executable and graphical behavior remain open.",
+    "Warrior aura-state heuristic may skip an active caster state independently of manual admission,following its existing source AI. Other intrinsic consumers,Master AI106,current modifier42 death and learned summon/payment/replacement/input remain gated.",
+    "Final SC/darkness/armor/blind/recovery/audio and talent/hotkey assets remain separate placeholders. No deployment."
+  ]
+}

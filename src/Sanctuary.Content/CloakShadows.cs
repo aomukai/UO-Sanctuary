@@ -42,7 +42,7 @@ public static class CloakShadows
         if(owner.Map is{} map && map!=Map.Internal && point.X>=0 && point.Y>=0 && point.X<map.Width && point.Y<map.Height
             && (point.X!=owner.X || point.Y!=owner.Y)){owner.Direction=owner.GetDirectionTo(point);}
     }
-    private static bool RecastAllowed(PlayerMobile owner)
+    internal static bool RecastAllowed(Mobile owner)
     {
         // Corrected 3.3.93847 firsthand observation: a surviving affected mob
         // locks this caster globally. A fresh group or leaving the old group's
@@ -64,13 +64,15 @@ public static class CloakShadows
         return SkillCombat.Begin(owner,CombatAbility.CloakOfShadows,Serial.Zero,owner.Location,now,(p,_,_,_)=>Valid(p) && RecastAllowed(p));
     }
     internal static bool Target(PlayerMobile owner,BaseCreature target,int radius)
+        =>Target(owner,owner,target,radius);
+    internal static bool Target(Mobile caster,PlayerMobile owner,BaseCreature target,int radius)
     {
         bool boss=PaladinConversion.SourceRule(target)?.Boss??(target is not EncounterCreature && CreatureProfiles.For(target).Traits.Boss==true);
         // Source filter E003 excludes monstats Boss and town, has no LOS bit,
         // and its search separately excludes monstats NOAURA. Native dungeon
         // archetypes retain the existing explicit SourceAuraTargets adapter.
         return ClassCombat.IsHostile(owner,target) && !boss && SourceAuraTargets.Eligible(target)
-            && AmazonInnerSight.InRadius(target.X-owner.X,target.Y-owner.Y,radius) && Math.Abs(target.Z-owner.Z)<16
+            && AmazonInnerSight.InRadius(target.X-caster.X,target.Y-caster.Y,radius) && Math.Abs(target.Z-caster.Z)<16
             && !SpellHelper.IsTown(target.Location,target);
     }
     internal static bool BlindEligible(BaseCreature target)
@@ -88,12 +90,14 @@ public static class CloakShadows
         return next;
     }
     internal static bool Apply(PlayerMobile owner,BaseCreature target,SkillValues values,DateTime at)
+        =>Apply((Mobile)owner,target,values,at);
+    internal static bool Apply(Mobile caster,BaseCreature target,SkillValues values,DateTime at)
     {
         if(target is not{Alive:true,Deleted:false} || values.Rank is <1 or >255){return false;}
         int frames=(int)values.Eval("auralencalc");if(!SourceCurseDuration.Incoming(target,"cloaked",frames,out frames)){return false;}
         bool blind=BlindEligible(target);var old=NecromancerEffects.Curse(target);
         var motion=blind?NecromancerEffects.CaptureMotion(target):null;
-        var next=Replacement(old,new(CombatAbility.CloakOfShadows,owner.Serial.Value,values.Rank,at.AddMilliseconds(frames*40L),owner.X,owner.Y,motion,CloakBlind:blind));
+        var next=Replacement(old,new(CombatAbility.CloakOfShadows,caster.Serial.Value,values.Rank,at.AddMilliseconds(frames*40L),caster.X,caster.Y,motion,CloakBlind:blind));
         if(next==null){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();NecromancerEffects.Profiles.Store(target,state with{Curse=next});
         if(blind)
@@ -101,7 +105,7 @@ public static class CloakShadows
             if(TimedEffects.TryActor(target,out var actor) && actor.Control is{} control){actor.Control=control with{BlindUntil=default,FearUntil=default};}
             target.AIObject?.ResetApproachState();target.AIObject?.ClearMoveIntent();target.AIObject?.AITimer.Prod();
         }
-        owner.DoHarmful(target,true);target.FixedEffect(0x375A,10,15,0x455,0); // Identified cloaked overlay placeholder.
+        caster.DoHarmful(target,true);target.FixedEffect(0x375A,10,15,0x455,0); // Identified cloaked overlay placeholder.
         return true;
     }
     public static bool Release(PlayerMobile owner)

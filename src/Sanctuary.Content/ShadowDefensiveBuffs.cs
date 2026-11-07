@@ -8,14 +8,16 @@ namespace Sanctuary;
 // values are real posted actor stat lists, not bonuses copied to its owner.
 internal static class ShadowDefensiveBuffs
 {
-    internal static bool Handles(int id)=>id is 258 or 267 or 278;
-    internal static int State(int id)=>id switch{258=>157,267=>159,278=>31,_=>throw new NotSupportedException("Unqualified Shadow buff: "+id)};
+    internal static bool Handles(int id)=>id is 258 or 264 or 267 or 278;
+    internal static int State(int id)=>id switch{258=>157,264=>153,267=>159,278=>31,_=>throw new NotSupportedException("Unqualified Shadow buff: "+id)};
     internal static ShadowPassiveList Capture(int id,SkillValues values,DateTime at,int poisonMastery=0)
     {
         if(!Handles(id)||SkillMechanics.For(values.Ability).SourceId!=id||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Shadow buff needs its own intrinsic skill values and UTC release");}
         (int Stat,int Value)[] fields;DateTime until;
-        if(id==278)
+        if(id==264)
+        {var cloak=CloakShadows.Capture(0,values,at);until=cloak.UntilUtc;fields=[(16,cloak.Defense)];}
+        else if(id==278)
         {
             var venom=Venoms.Capture(0,values,poisonMastery,at);until=venom.UntilUtc;
             fields=[(57,venom.Minimum256),(58,venom.Maximum256),(101,venom.Frames)];
@@ -45,8 +47,9 @@ internal static class ShadowDefensiveBuffs
             // Existing numeric writers handle the current resistance op2/6
             // dependents and attackrate's damage-related flag. These lists
             // are temporary flag2, not dynamic weapon-merge lists.
-            if(cost.Flags!=(field.Stat is 57 or 58 or 68?4u:0u)||cost.Operation!=0||cost.HasOperations!=(field.Stat is 39 or 41 or 43 or 45 or 58)
-                ||cost.BaseOfOther||cost.AppliesToItem||cost.Dependents.Length!=0)
+            bool armor=field.Stat==16;
+            if(cost.Flags!=(field.Stat is 57 or 58 or 68?4u:0u)||cost.Operation!=(armor?13:0)||cost.HasOperations!=(field.Stat is 39 or 41 or 43 or 45 or 58)
+                ||cost.BaseOfOther!=armor||cost.AppliesToItem||cost.Dependents.Length!=0||armor&&!cost.Targets.SequenceEqual(new[]{31,65535,65535}))
             {throw new NotSupportedException("Defensive buff fields need their additional numeric operations");}
         }
     }

@@ -136,7 +136,7 @@ internal sealed class GeneratedNpcStatGraph
     internal bool IsPassiveList(EquipmentStatNode node)=>PassiveLists.Contains(node);
     internal void RegisterPassiveList(EquipmentStatNode node)
     {
-        if(node is not{OwnerKind:1,Owner:null,State:31 or 152 or 155 or 157 or 159}||node.Parent!=Actor.Stats||node.Recipient!=Actor
+        if(node is not{OwnerKind:1,Owner:null,State:31 or 152 or 153 or 155 or 157 or 159}||node.Parent!=Actor.Stats||node.Recipient!=Actor
             ||BirthLists.Contains(node)||!PassiveLists.Add(node))
         {throw new NotSupportedException("NPC passive list must be its explicitly posted source state list");}
     }

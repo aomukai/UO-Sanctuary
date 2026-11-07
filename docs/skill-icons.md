@@ -918,3 +918,5 @@ No public binding or icon slot changes. Shadow Warrior/Master talent-tree and ho
 **Shadow Psychic Hammer (2026-11-08):** no new public binding or icon slot. Psychic Hammer and Shadow talent/hotkey artwork remain separately pending; the intrinsic NPC consumer uses the existing identity. See [checkpoint](shadow-psychic-checkpoint.md).
 
 **Shadow Mind Blast (2026-11-08):** no new public binding or icon slot. Mind Blast and Shadow talent/hotkey artwork remain separately pending; the intrinsic NPC consumer keeps the existing identity. See [checkpoint](shadow-mindblast-checkpoint.md).
+
+**Shadow Cloak (2026-11-08):** no new public binding or icon slot. Cloak and Shadow talent/hotkey artwork remain separately pending; the intrinsic NPC consumer uses the existing identity. See [checkpoint](shadow-cloak-checkpoint.md).
