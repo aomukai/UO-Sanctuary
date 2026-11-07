@@ -1,0 +1,72 @@
+[
+  {
+    "WeaponClass": "1HS",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "1HT",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "2HS",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "2HT",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "BOW",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "HT1",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "HT2",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "HTH",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "STF",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  },
+  {
+    "WeaponClass": "XBW",
+    "Frames": 13,
+    "Speed": 256,
+    "Action": 4,
+    "Flag": 1
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Prepared Dragon Talon current-calculator clock",
+  "handlerEnabled": false,
+  "currentExecutableTimingVerified": false,
+  "installed": false,
+  "currentAnimationProfiles": 10,
+  "rateCases": 490,
+  "rankPlanCases": 3315,
+  "rollbackRows": 13,
+  "originalAuthor": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261"
+  },
+  "reviewedOlderRoutineHashes": {
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd"
+  },
+  "olderRoutinesExecuted": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functionHashes": {
+    "calculateEIAS": "17917168709c73ed7811387e0ce48641ce60de5e61007495d052dbd7aba3b3c1",
+    "limitEIAS": "4e863a94ef512260a865cb2255935d3d16db1ef2e299b587761b6059344b17cb",
+    "getStartingFrame": "ee06905636d7f8d1ac252fa52c2f39d1ac12961461b2e2cd81b0bc9c821328c5",
+    "calculateActionFrame": "dc4228f157d5a68420a19984e1604094ac222efef38c3a155b6f98ec7bcf8bfc",
+    "calculateFramesPerDirection": "4efdc6fb73ffed220cb72f664361218da5f790c9b9272d6b2cee311d03f15a34",
+    "calculateAnimationSpeed": "df33a9786098714d57e4548184696313e0e3cf0a9c1331a93d63ab83fa4f9a71",
+    "rbf": "f1b665fc0e40708db5720878697fd9f2cf41e6eda4a6c0fc88bbd1e1d1319b4a",
+    "rhits": "fb6b6b4515da0a1aaff29f71347dd41c25e6e0082afff41ea45c35013a761388",
+    "convertIAStoEIAS": "7d38047cf89cf66548c68491a204fe3491f277f091d5737fcf714de4923a8845"
+  },
+  "rollbackBlockHash": "88bcfedf1282fb869b0fdc1e275fc0bfe1480014b6293d900c6c76aaf1a3178c",
+  "inputs": {
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/research/ias-calculator-b7d7910/README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+    ".local/research/ias-calculator-b7d7910/calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+    ".local/research/ias-calculator-b7d7910/constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+  },
+  "artifacts": {
+    "data/Sanctuary/Balance/assassin-kick-clock.json": "e17a58edc3e0d36b97b208931f0ab9ea763f21e573cb6e2dda30e27f407b7ed2",
+    ".local/class-skills/dragon-talon-clock/original-calculator.js": "48b26a35af02796231153bfc75932e3c8e6efc65abda4bfd0b82196bac358e8e",
+    ".local/class-skills/dragon-talon-clock/cases.json": "5e5e4c727e0d11647644f8ed4ef87f226ca2942dc5d4bf057c8557ad387900f1",
+    "tools/probe_dragon_talon_clock.py": "0b8bdc0a61155d79826c869a3d586d0e3045653a7fa3f7240a7b18db5feb1e0c",
+    "tools/reference/dragon-talon-sequence-source-evidence.json": "63b72a2251b4c9482430d41cbb09855039bdc648ec5a10f92b3fc5b240b10b99"
+  },
+  "established": [
+    "Owned current KK records are13frames/base256/event4 for all10weapon classes. The skill selects KK/KK;seqnum19does not select SQ in the separately reviewed ordinary player entry.",
+    "Pinned original author calculator selects primary IAS/WSM,base256,zero starting frame,100percent rollback and action4/full13. Secondary WSM/IAS read attempts are refused by the declared harness.",
+    "Original rollback output keeps final full-cycle ceil(13*256/advance)-1 separately from repeated ceil(4*256/advance) contacts.255ranks across13rates retain floor(rank/6)+1kicks."
+  ],
+  "limits": [
+    "This is the original calculator with declared UI/metadata/SIAS inputs,not current executable or graphical/input equivalence. Negative SIAS aggregates owner slow and skill bonuses;their native suppliers need separate checks.",
+    "The older actual mode/scheduler/rewind composition and its frameFlags[-1] header access are not executed by this probe. Do not relabel this projection as complete older/current engine timing.",
+    "No hit/block/charge consumption,target selection,payment,packet/proc,world actor or learned cast is enabled. Any unresolved modern policy remains explicitly gated."
+  ]
+}

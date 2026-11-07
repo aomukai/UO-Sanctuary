@@ -1,0 +1,17 @@
+# Dragon Talon action proposal
+
+Status: **not approved; learned route remains gated**. Mechanical reference is **D2R Reign of the Warlock 3.3.93847**. The prepared body/boot packet and [explicit calculator clock](dragon-talon-clock-checkpoint.md) are available for reuse. Exact modern per-kick charge and outer timing behavior remain unverified; this is a proposed Sanctuary adaptation, not a playtest request.
+
+| Boundary | Proposed action rule | Basis |
+| --- | --- | --- |
+| Count | Capture effective rank at entry; perform `floor(rank/6)+1` kicks. | Pinned current formula and older start controls. |
+| Clock | Use the prepared human KK profile: primary IAS/WSM,13-frame base,action4,100percent rollback and the separate final full-cycle recovery. Re-read current speed when scheduling a subsequent kick. | Explicit original-calculator adaptation; exact current D2R event timing remains unverified. |
+| Payment | Spend six mana once when the series begins. Insufficient mana uses the existing ordinary attack fallback. Cancellation does not refund spent mana. | Current six-mana/start-payment fields and approved general insufficient-mana melee behavior; complete route still needs native verification. |
+| Target | Keep the initial selected enemy for the series. If it dies, disappears, becomes ineligible or leaves melee reach, stop remaining kicks. Later input may begin another series. | Explicit proposed target-loss rule. Empty-ground melee assistance remains the separately recorded later pass. |
+| Charged hit | Evaluate each kick separately. While at least one martial charge remains, bypass only accuracy; shield block/dodge still apply. | Proposed extension of Tail's approved hit rule; Talon approval is separate. |
+| Consumption | Each successful,unblocked contact releases and consumes one of each active charge family. Later kicks use the charges still remaining. A miss/block does not consume charges. Fully absorbed successful contact still counts as contact. | Explicit per-kick adaptation rather than inventing what current do42 does. |
+| Packet | Reuse body/boot physical damage, current skill ED,Tiger/Cobra and existing typed/progressive/contact services. No ordinary physical critical doubling is added to the kick packet. | Existing prepared kick and learned Tail consumers; full Talon composition remains to be verified. |
+| Knockback | Single-kick start keeps its existing immediate knockback request. On the last kick of a longer series,use pinned normal/unique/boss/player chance curves at effective rank. Existing recipient knockback eligibility still applies. | Bounded older start/do42 observations and current formulas. Do not silently repair its cancelling target-level expression. |
+| Cancellation | Movement,Stop,changed selected equipment,death/disconnect or invalid owner state stop future kicks. Reserve each ordinal before callbacks; already committed damage is not replayed or refunded. Transient series do not resume after restart. | Existing shared action lifecycle; actual integration remains required. |
+
+Approval authorizes this defined action policy. It does not certify exact modern executable parity, full item/proc/owner/PvP behavior, original geometry/RNG ordering or final client rendering. Before exposing the talent, implement and verify real bindings, timing, fractional resources, hits/misses/blocks, charge tiers, target loss, callbacks, interruption and save/reload behavior. Reuse existing shared mechanics throughout. Effects/audio and talent/hotkey icons remain separately pending.
