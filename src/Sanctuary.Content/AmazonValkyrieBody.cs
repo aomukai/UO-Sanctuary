@@ -22,7 +22,7 @@ internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterD
 // Saved supplied-birth backend with optional numeric equipment recipients.
 // Resource/weapon/skill/event delivery,NecroPet and casting remain separate.
 [SerializationGenerator(0)]
-public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INecromancerGroundMotion
+public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INecromancerGroundEquipmentContact
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private ValkyrieBodyState _state;
@@ -36,6 +36,9 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
     NecromancerGroundWorld INecromancerGroundActor.WorldGround=>State?.GroundMotion==null?null:Ground;
     int INecromancerGroundActor.MovementPercent=>0;
     (int Velocity,int Animation) INecromancerGroundMotion.GroundMovement(int bonus,bool run)=>ValkyrieGroundMotion.Speed(this,bonus,run);
+    (int Speed,int Action,int End) INecromancerGroundEquipmentContact.GroundAttack()=>ValkyrieGroundCombat.Attack(this);
+    bool INecromancerGroundEquipmentContact.GroundRelease(PlayerMobile owner,IronGolemWorldState state,BaseCreature target,DateTime at)
+        =>ValkyrieGroundCombat.Release(this,owner,state,target,at);
     int INecromancerGroundMotion.GroundRegenerationBase=>GeneratedNpcLiveResources.RegenerationBase(this)
         ??throw new NotSupportedException("Original Valkyrie motion lost its explicit source resource basis");
     private void StoreGround(string text)
@@ -106,6 +109,8 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
             {
                 if(state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile){throw new InvalidDataException("Moving Valkyrie requires inherited defense binding");}
                 ValkyrieGroundMotion.Validate(motion,state.Owner);
+                if(motion.AttackRate!=null&&state.EquipmentContactProfile!=ValkyrieEquipmentContact.OriginalProfile)
+                {throw new InvalidDataException("Valkyrie combat motion requires full original contact admission");}
             }
             if(state.EquipmentContactProfile!=null&&(state.EquipmentContactProfile is not(ValkyrieEquipmentContact.Profile or ValkyrieEquipmentContact.OriginalProfile)||state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile))
             {throw new InvalidDataException("Invalid original Valkyrie contact admission");}

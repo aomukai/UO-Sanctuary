@@ -20,6 +20,14 @@ internal interface INecromancerGroundMotion:INecromancerGroundActor
     int GroundRegenerationBase{get;}
 }
 
+// Original equipment owns its animation plan and ordered contact at the
+// action marker. This capability never falls through to unarmed/Iron damage.
+internal interface INecromancerGroundEquipmentContact:INecromancerGroundMotion
+{
+    (int Speed,int Action,int End) GroundAttack();
+    bool GroundRelease(PlayerMobile owner,IronGolemWorldState state,Server.Mobiles.BaseCreature target,DateTime at);
+}
+
 // Owner/frame/load transport shared by melee and ranged pets. Keep actor-owned
 // serialized fields and the historical owner/controller JSON shape unchanged.
 internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profile,Func<string> read,Action<string> write,Action cancel,bool ranged=false,bool run=false)

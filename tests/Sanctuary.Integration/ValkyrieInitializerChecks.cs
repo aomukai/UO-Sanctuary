@@ -25,7 +25,7 @@ public static class ValkyrieInitializerChecks
             try
             {
                 var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var final=NpcWorldAllocation.Capture();
-                Require(final==saved.World,"World changed after the checked initializer endpoint");
+                Require(final==NpcWorldAllocationChecks.CheckedContinuation,"World changed after the last checked family endpoint");
                 NpcWorldAllocationChecks.SealSave(final);File.WriteAllText(Manifest,Json(saved with{WorldAtSave=final}));
                 Log.Information("valkyrie-initializer-seal: passed");
             }

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie automatic A1 (2026-11-07 JST).** Actual AI/frame contact now uses the existing native `Animate(4,5,1,...)` as an identified attack placeholder. The source event plan owns mechanical timing. Final Valkyrie spear animation/impact, movement, defensive reactions, summon/death/equipment and audio assets remain pending separately; no imagegen artwork is created.
+
 **Valkyrie source initialization (2026-11-07 JST).** Actual initialized bodies and original private equipment keep the existing appearance/equipment art placeholders. Summon/transformation/movement/weapon/contact/audio assets remain separately pending. Zero current component choices are source data,not a generated-art requirement. No artwork is created.
 
 **Persistent NPC world allocation (2026-11-07 JST).** Saved stream ownership and factory binding are invisible. Existing generated-equipment art and fire/cold/lightning/cast/travel/link/impact/audio markers remain identified placeholders;this stage creates no artwork.

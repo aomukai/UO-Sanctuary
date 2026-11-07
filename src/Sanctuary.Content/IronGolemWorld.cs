@@ -193,11 +193,16 @@ internal static class IronGolemWorld
                     if(MageWorld.For(body)==null){throw new NotSupportedException("Unbound ranged reposition request");}
                     var around=World.FindMobile((Serial)(uint)r.A);if(around!=null){Path(body,ref s,Wander(body,PetOwnerRoutes.Cell(around),r.B),false);}break;
                 case NecromancerPetAiKind.Attack:
-                    if(body is INecromancerGroundMotion)
-                    {throw new NotSupportedException("Original equipped ground actor needs its full item-event/contact binding;unarmed or legacy Iron fallback is forbidden");}
                     var target=World.FindMobile((Serial)(uint)r.B);if(target!=null){body.Direction=body.GetDirectionTo(target);}
                     int speed; (int Action,int End) clock;
-                    if(body is IUnarmedGroundPet unarmed)
+                    if(body is INecromancerGroundMotion)
+                    {
+                        if(body is not INecromancerGroundEquipmentContact equipped)
+                        {throw new NotSupportedException("Original equipped ground actor needs its full item-event/contact binding;unarmed or legacy Iron fallback is forbidden");}
+                        var plan=equipped.GroundAttack();speed=plan.Speed;clock=(plan.Action,plan.End);
+                        body.Animate(4,5,1,true,false,0); // Identified A1 visual placeholder; source events own the mechanics.
+                    }
+                    else if(body is IUnarmedGroundPet unarmed)
                     {
                         speed=SourceAttackRate.Speed(NecromancerSummons.Source(body.SourceMonsterId+"-animation","A1Speed"),0,SourceAttackRate.WolfRate(body));
                         clock=unarmed.GroundAttackClock;
@@ -268,6 +273,7 @@ internal static class IronGolemWorld
                 if(Eligible(body,owner,target)&&(MageWorld.For(body)!=null||Melee(body,s,target,3)))
                 {
                     if(MageWorld.For(body) is{} caster){hit=caster.Launch(owner,target,frameAt);}
+                    else if(body is INecromancerGroundEquipmentContact equipped){hit=equipped.GroundRelease(owner,s,(BaseCreature)target,frameAt);}
                     else if(body is IUnarmedGroundPet unarmed){hit=unarmed.Ground.Release(owner,s,(BaseCreature)target,frameAt);}
                     else
                     {

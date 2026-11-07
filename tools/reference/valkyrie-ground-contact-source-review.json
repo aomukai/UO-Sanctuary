@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "outerDispatcherExecuted": false,
+  "review": "Complete unchanged older source bodies inspected; prior independent animation oracle retained.",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "tools/reference/valkyrie-animation-source-evidence.json": "de262fda3997269a22a48cb0f4fb584e53cfdb210cf940436626e0b5b9e84743"
+  },
+  "completeRoutineHashes": {
+    "sub_6FC645E0": "0974fabbe5032e2cf6ee285470a555aafa7575186f5ec783e32d99b28021f742",
+    "sub_6FC64790": "44afcbcc07adb7a65b25be726164368e266644826c1c4f3e7283f72f82dfad89",
+    "sub_6FC62D90": "fbd91e7303669c0f5651cabe9c3843a6de66ce6b8bb6e485afb72cb906b47c1a",
+    "MONSTERMODE_GetModeChangeInfo": "fb644546852ba5e79a5054598432a61700a26729c7d1b0c54cd7b3d45c293338",
+    "sub_6FC64450": "867a4e937ef17ab22e27c38b3264d586e00a3ec98f1cff9068c7a7bdbb93c9fd",
+    "sub_6FC644E0": "54dbe03fec29865a9e5f7f79d92aa7ce403c8b057b521c881b06b00daa5f3cde",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "established": [
+    "Ordinary monster A1 mode entry selects combat mode. Its ordinary event callback calls target lookup, result allocation and combat allocation, then durability release. A prepared windup must not preallocate this packet.",
+    "Current Valkyrie has no A1 movement-enabled flag. The prior complete transformed-rate/event oracle covers1368contexts and57original loadouts; it supplies the single action marker followed by end animation used by the shared controller."
+  ],
+  "limits": [
+    "Outer dispatcher, special-mode callbacks and current executable parity are not executed/certified by this static review. Native automatic AI and event delivery are tested separately.",
+    "Post-transform running/base-rate callback ownership remains unresolved; attack/walk/run bases are explicit supplied inputs. Learned summon, nonzero sunder and unsupported contact adapters remain gated."
+  ]
+}
