@@ -6,23 +6,23 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-// Prepared player-flight adapter. Learned input stays gated. The AR profile
+// Shared prepared/approved-held player-flight adapter. The AR profile
 // retains the older missile mastery exclusion plus the documented current Fury
 // bonus; current mastery/slow rounding and full executable acceptance stay scoped.
 internal static class BladeFuryMissiles
 {
     internal const string Profile="source-player-missile-plus-current-fury-v1";
     internal static void Cancel(Mobile owner)=>WeaponMissiles.CancelBladeFury(owner);
-    internal static long Launch(PlayerMobile owner,Point3D aim,int rank,Random random)
+    internal static long Launch(PlayerMobile owner,Point3D aim,int rank,Random random,DateTime? phase=null)
     {
         if(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal||!ClassCombat.Enabled(owner)
             ||SpellHelper.IsTown(owner.Location,owner)||aim.X<=0||aim.Y<=0||aim.X>=owner.Map.Width||aim.Y>=owner.Map.Height
-            ||rank is <1 or >255){return 0;}
+            ||rank is <1 or >255||phase.HasValue&&phase.Value.Kind!=DateTimeKind.Utc){return 0;}
         var damage=BladeFuryLaunch.Capture(owner,rank,random);
         var slow=AmazonSlowMissiles.Capture(owner,NecromancerSummons.Source("bladefragment1","CanSlow")!=0);
         damage=Scale(damage,slow);
         return WeaponMissiles.Launch(owner,CombatAbility.BladeFury,new(aim.X-owner.X,aim.Y-owner.Y,32,1),damage,
-            WeaponMissiles.NewCast(),0,22,40,0,"bladefragment1",rank,slow:slow,mechanicalProfile:Profile);
+            WeaponMissiles.NewCast(),0,22,40,0,"bladefragment1",rank,slow:slow,mechanicalProfile:Profile,bladeFuryPhase:phase);
     }
     internal static WeaponMissileDamage Scale(WeaponMissileDamage damage,SlowMissilePayload slow)
         =>damage with{Min256=slow.Damage256(damage.Min256),Max256=slow.Damage256(damage.Max256),

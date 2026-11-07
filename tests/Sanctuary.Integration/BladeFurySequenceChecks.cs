@@ -56,7 +56,7 @@ public static class BladeFurySequenceChecks
             contexts++;
         }
         Require(contexts==2880&&frames==95040&&ties>0,"Complete mode/sequence inventory");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeFury),"Prepared sequence exposed learned input");
+        Require(AssassinCombat.Implemented(CombatAbility.BladeFury),"Approved Fury handler missing");
         Log.Information("Blade Fury sequence:2880 complete XY/ID fresh mode/action/end/resource compositions and95040 FIFO event frames match; flag64 entry clear, pending stop action, callback renewal/expiry tie, rank1 correction and component round-trip pass; current input remains separate");
     }
 }

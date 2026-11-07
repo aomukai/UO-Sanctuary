@@ -121,7 +121,7 @@ public static class BladeFuryHeldCandidateChecks
     }
     private static void Check(NetState net,bool reload)
     {
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeFury),"Review candidate exposed learned Fury");
+        Require(AssassinCombat.Implemented(CombatAbility.BladeFury),"Approved Fury handler missing");
         if(!reload)
         {
             var p=Owner();FixtureNetwork.Authenticate(net,p,"fury-candidate-");Cases(p);

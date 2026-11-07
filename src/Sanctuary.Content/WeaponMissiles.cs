@@ -140,7 +140,7 @@ public static class WeaponMissiles
     internal static long NewCast()=>++_nextCast;
     internal static WeaponFlight State(long id)=>_flights.GetValueOrDefault(id);
     internal static int CurrentPierce(PlayerMobile owner)=>NamedProjectiles.PierceChance(owner);
-    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0,GuidedFlight guided=null,SlowMissilePayload? slow=null,string mechanicalProfile=null)
+    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0,GuidedFlight guided=null,SlowMissilePayload? slow=null,string mechanicalProfile=null,DateTime? bladeFuryPhase=null)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
@@ -153,10 +153,11 @@ public static class WeaponMissiles
             || ability==CombatAbility.BladeFury && (velocity!=22 || !BladeFuryMissiles.Valid(skillRank,frames,ray.ActivationFrame,nextDelay,pierces,ray.Flags,missile,damage,slow,mechanicalProfile))
             || ability!=CombatAbility.BladeFury && (slow!=null || mechanicalProfile!=null)
             || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability is not(CombatAbility.Strafe or CombatAbility.BladeFury) && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
-            || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
+            || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0
+            ||bladeFuryPhase.HasValue&&(ability!=CombatAbility.BladeFury||bladeFuryPhase.Value.Kind!=DateTimeKind.Utc)){return 0;}
         var v=ability==CombatAbility.BladeFury?BladeFuryMissiles.Velocity(ray,skillRank,slow.Value):FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided,Slow=slow,MechanicalProfile=mechanicalProfile,SourceSteps=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.BladeFury?new([new(owner.X*2,owner.Y*2)]):null});return id;
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,bladeFuryPhase??TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided,Slow=slow,MechanicalProfile=mechanicalProfile,SourceSteps=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.BladeFury?new([new(owner.X*2,owner.Y*2)]):null});return id;
     }
     internal static long LaunchFuryChild(PlayerMobile owner,WeaponFlight parent,Mobile target,DateTime at)
     {

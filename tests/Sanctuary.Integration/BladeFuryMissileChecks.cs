@@ -150,7 +150,7 @@ public static class BladeFuryMissileChecks
             f=Launch(p);int health=SkillHealth.Balance256(first);p.MoveToWorld(p.Location,Map.Internal);
             WeaponMissiles.Tick(f.NextUtc.AddMilliseconds((f.Frames-f.Frame)*40L));Require(Own(p).Length==0&&SkillHealth.Balance256(first)==health,"Internal-map offline flight damaged or failed expiry");
             p.MoveToWorld(first.Location,first.Map);first.Delete();second.Delete();
-            Require(!AssassinCombat.Implemented(CombatAbility.BladeFury)&&!ClassCombat.Available(p,CombatAbility.BladeFury),"Prepared flight exposed learned input");
+            Require(AssassinCombat.Implemented(CombatAbility.BladeFury)&&ClassCombat.Available(p,CombatAbility.BladeFury),"Approved Fury availability changed");
         }
         finally{WeaponMissiles.Cancel(p);p.Delete();}
     }
@@ -181,7 +181,7 @@ public static class BladeFuryMissileChecks
         Drain(p);Require(SkillHealth.Balance256(target)==health-NamedElements.To256(expected.Total)&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Restored immutable packet failed damaging continuation or repaid mana");
         Require(p.EquipItem(w),"Restore saved selected weapon");ClassGear.Refresh(p);f=s.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,f);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Flight=f,Health=SkillHealth.Balance256(target)}));
-        Log.Information("Blade Fury flight reload: actual player/weapon/source path/packet/profile/clock retained; gear swap does not rewrite released damage; continuation damages once without payment; learned input remains gated");
+        Log.Information("Blade Fury flight reload: actual player/weapon/source path/packet/profile/clock retained; gear swap does not rewrite released damage; continuation damages once without payment; learned input is verified separately");
     }
     private static void Natural()
     {

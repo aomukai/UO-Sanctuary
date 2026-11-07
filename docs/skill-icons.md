@@ -1,5 +1,7 @@
 # Skill icons
 
+**Approved learned Blade Fury (2026-11-08 JST).** Existing left/right/quick gestures now admit Fury through the shared channel transport. Talent and left/right/quick icon assets remain pending placeholders; no new icon identity is introduced. See [checkpoint](blade-fury-held-input-checkpoint.md). Effects/audio remain separate.
+
 **Blade Fury input proposal (2026-11-08 JST).** No learned input or new icon identity is added by the test-only candidate. Blade Fury talent and left/right/quick icons remain pending placeholders, independently of its effect/audio work. See [proposal](blade-fury-held-input-proposal.md).
 
 **Learned Arctic input (2026-11-08 JST).** The client now routes left/right/quick Arctic gestures through the held channel. The existing Arctic talent and corresponding hotkey icon assets remain placeholders;adding this mechanical route creates no new icon identity. Effects/audio remain separate. See [checkpoint](arctic-held-input-checkpoint.md).

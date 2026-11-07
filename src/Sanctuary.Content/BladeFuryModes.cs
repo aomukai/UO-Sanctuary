@@ -10,10 +10,14 @@ using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record BladeFuryModeCast(long Id,uint Owner,int Map,Point3D Origin,uint Weapon,uint Target,
-    Point3D Point,DateTime EpochUtc,BladeFurySequenceState Sequence);
+    Point3D Point,DateTime EpochUtc,BladeFurySequenceState Sequence)
+{
+    internal int HeldSource{get;init;}=-1;
+    internal DateTime HoldUntilUtc{get;init;}
+}
 
-// Prepared server-mode adapter. Calls are explicit accepted intents, not raw
-// client heartbeats. No learned handler is registered. Like other pending
+// Prepared and separately approved held-input server-mode adapter. Only the
+// source scheduler invokes resource callbacks; transport renews a lease. Like other pending
 // player actions, the mode is transient across disconnect/restart; released
 // missiles use their existing independent persistence and ownership policy.
 internal static class BladeFuryModes
@@ -33,7 +37,7 @@ internal static class BladeFuryModes
     internal static void Interrupt(Mobile owner)
     {
         if(State(owner) is{} cast)
-        {Commit(cast,BladeFurySequence.Cancel(cast.Sequence,cast.Sequence.Frame));}
+        {if(cast.HeldSource>=0){Cancel(owner);}else{Commit(cast,BladeFurySequence.Cancel(cast.Sequence,cast.Sequence.Frame));}}
     }
     internal static void EquipmentChanged(PlayerMobile owner)
     {if(State(owner) is{} cast&&(CombatTiming.Equipped(owner)?.Serial.Value??0)!=cast.Weapon){Interrupt(owner);}}
@@ -50,7 +54,7 @@ internal static class BladeFuryModes
         =>point.X>0&&point.Y>0&&point.X<owner.Map.Width&&point.Y<owner.Map.Height;
     private static int Frame(BladeFuryModeCast cast,DateTime at)
         =>checked((int)Math.Max(0,(at.Ticks-cast.EpochUtc.Ticks)/TimeSpan.TicksPerMillisecond/40));
-    private static BladeFurySequenceServices Services(PlayerMobile owner,BladeFuryModeCast cast,int rank)
+    private static BladeFurySequenceServices Services(PlayerMobile owner,BladeFuryModeCast cast,int rank,DateTime? phase=null)
     {
         Point3D aim=cast.Point;
         bool Resolve()
@@ -62,7 +66,7 @@ internal static class BladeFuryModes
             return ValidPoint(owner,aim);
         }
         return new(()=>NecromancerEffects.ManaBalance256(owner),cost=>NecromancerEffects.Pay(owner,cost),
-            ()=>true,Resolve,()=>BladeFuryMissiles.Launch(owner,aim,rank,LaunchRandom)>0);
+            ()=>true,Resolve,()=>BladeFuryMissiles.Launch(owner,aim,rank,LaunchRandom,phase)>0);
     }
     internal static bool BeginPrepared(PlayerMobile owner,Serial selected,Point3D point,DateTime at)
     {
@@ -90,8 +94,30 @@ internal static class BladeFuryModes
         Casts[cast.Owner]=cast with{Sequence=step.State};Commit(cast,step.State);return step.Success;
     }
     private static bool Current(PlayerMobile owner,BladeFuryModeCast cast)
-        =>Eligible(owner)&&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin
+        =>Eligible(owner)&&(cast.HeldSource<0||PlayerInfernoInput.Bound(owner,cast.HeldSource,CombatAbility.BladeFury)
+                &&ClassCombat.Existing(owner) is not{PendingAbility:not CombatAbility.None})
+            &&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin
             &&(CombatTiming.Equipped(owner)?.Serial.Value??0)==cast.Weapon;
+    internal static bool BeginHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at)
+    {
+        if(source is <0 or >=CombatProtocol.ChannelSources||at.Kind!=DateTimeKind.Utc||owner?.NetState?.Running!=true){return false;}
+        // Approved fresh-press rule never reenters an old released/future lease.
+        Cancel(owner);if(!BeginPrepared(owner,selected,point,at)){return false;}
+        var cast=State(owner);Casts[cast.Owner]=cast with{HeldSource=source,HoldUntilUtc=at.AddMilliseconds(CombatProtocol.HoldLeaseMs)};
+        owner.Direction=owner.GetDirectionTo(point);return true;
+    }
+    internal static bool RenewHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at)
+    {
+        if(State(owner) is not{HeldSource:>=0} cast||cast.HeldSource!=source||at.Kind!=DateTimeKind.Utc||at<cast.EpochUtc){return false;}
+        if(!Advance(owner,at)||!Aim(owner,selected,point)){Interrupt(owner);return false;}
+        cast=State(owner);Casts[cast.Owner]=cast with{HoldUntilUtc=at.AddMilliseconds(CombatProtocol.HoldLeaseMs)};
+        owner.Direction=owner.GetDirectionTo(point);return true;
+    }
+    internal static bool EndHeld(PlayerMobile owner,int source)
+    {
+        if(State(owner) is not{HeldSource:>=0} cast||cast.HeldSource!=source){return false;}
+        Cancel(owner);return true;
+    }
     private static void Commit(BladeFuryModeCast cast,BladeFurySequenceState sequence)
     {
         if(!Casts.TryGetValue(cast.Owner,out var present)||present.Id!=cast.Id){return;}
@@ -100,15 +126,32 @@ internal static class BladeFuryModes
     }
     internal static bool Advance(PlayerMobile owner,DateTime at)
     {
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Fury clock must be UTC");}
         if(State(owner) is not{} cast){return false;}
-        if(!Connected(owner)){Cancel(owner);return false;}
+        if(!Connected(owner)||cast.HeldSource>=0&&(!owner.NetState.Running||at>=cast.HoldUntilUtc)){Cancel(owner);return false;}
         if(cast.Sequence.UsedSkill&&!Current(owner,cast))
         {Interrupt(owner);cast=State(owner);if(cast==null){return false;}}
         if(at<cast.EpochUtc){return true;}
         int frame=Frame(cast,at);
         if(frame<cast.Sequence.Frame){throw new ArgumentException("Prepared Fury clock moved backwards");}
         int rank=Math.Max(1,SkillMechanics.Rank(owner,CombatAbility.BladeFury));
-        Commit(cast,BladeFurySequence.Advance(cast.Sequence,frame,rank,Services(owner,cast,rank)));return true;
+        if(cast.HeldSource<0){Commit(cast,BladeFurySequence.Advance(cast.Sequence,frame,rank,Services(owner,cast,rank)));return true;}
+        var sequence=cast.Sequence;
+        for(int phase=sequence.Frame;phase<=frame;phase++)
+        {
+            var services=Services(owner,cast,rank,cast.EpochUtc.AddMilliseconds(phase*40L));
+            bool action=sequence.Animation.Events.Any(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Frame==phase&&e.Kind is 1 or 2);
+            // Approved policy: equality advances only the existing do event.
+            // Heartbeats merely lease input; this scheduler supplies callbacks.
+            if(action&&sequence.Channel.NextShot!=phase)
+            {
+                var renewed=BladeFurySequence.StartCallback(sequence,phase,rank,services);
+                if(!renewed.Success){Cancel(owner);return false;}sequence=renewed.State;
+            }
+            sequence=BladeFurySequence.Advance(sequence,phase,rank,services);
+            if(!sequence.UsedSkill){Cancel(owner);return false;}
+        }
+        Commit(cast,sequence);return true;
     }
     private static bool BeforeIntent(PlayerMobile owner,DateTime at,out BladeFuryModeCast cast,out int frame)
     {

@@ -124,8 +124,8 @@ public static class BladeFuryResourceChecks
                 &&attempts==3&&NecromancerEffects.ManaBalance256(p)==255,"Unaffordable active start renewed/emitted/paid");
             NecromancerEffects.SetMana256(p,863);factory=false;shot=BladeFuryResources.Start(state,frame,1,services);state=shot.State;
             Require(shot.Success&&attempts==4&&NecromancerEffects.ManaBalance256(p)==607&&state.NextShot==1031,"Failed factory attempt refunded or repeated a source shot");
-            Require(!AssassinCombat.Implemented(CombatAbility.BladeFury)&&!ClassCombat.Available(p,CombatAbility.BladeFury)
-                &&ClassCombat.For(p).PendingAbility==CombatAbility.None,"Component exposed unfinished learned input");
+            Require(AssassinCombat.Implemented(CombatAbility.BladeFury)&&ClassCombat.Available(p,CombatAbility.BladeFury)
+                &&ClassCombat.For(p).PendingAbility==CombatAbility.None,"Approved Fury availability/component isolation changed");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,607,state,animation)));keep=true;
         }
         finally{if(!keep){p.Delete();}}
@@ -136,7 +136,7 @@ public static class BladeFuryResourceChecks
         Require(p!=null&&!p.Deleted&&NecromancerEffects.ManaBalance256(p)==saved.Mana256&&p.Mana==2
             &&SkillMechanics.Rank(p,CombatAbility.BladeFury)==1,"Saved native owner/rank/fractional mana changed");
         Require(saved.Channel is{Active:true,Expires:1034,NextShot:1031}&&saved.Animation.Epoch256>1000*256
-            &&ClassCombat.For(p).PendingAbility==CombatAbility.None&&!ClassCombat.Available(p,CombatAbility.BladeFury),"Fixture component snapshot or gated input changed");
+            &&ClassCombat.For(p).PendingAbility==CombatAbility.None&&ClassCombat.Available(p,CombatAbility.BladeFury),"Fixture component snapshot or gated input changed");
         Log.Information("Blade Fury resource reload: real character/equipment and607FP mana retained; component snapshot is fixture data, not a persisted production channel; no automatic action/payment replay");
     }
 }

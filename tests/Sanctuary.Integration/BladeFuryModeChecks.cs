@@ -89,7 +89,7 @@ public static class BladeFuryModeChecks
         // Re-train only the mode's normal prerequisite path after the real respec.
         void Train(string id){Require(TalentCatalog.TryGet(DiabloClass.Assassin,id,out var t),"Mode talent");foreach(string pre in t.Prerequisites){if(ClassCreation.Profiles.GetRank(p.Serial,pre)==0){Train(pre);}}if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Mode retrain");}}
         Train("assassin.bladefury");Reset(p);
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeFury),"Prepared timer exposed learned input");
+        Require(AssassinCombat.Implemented(CombatAbility.BladeFury),"Approved Fury handler missing");
         Log.Information("Prepared Fury mode cases: actual fresh threshold,12-frame warmup, pending stop shot, independent end/expiry and released flight, FIFO expiry tie, block/FHR, move-away/return, real claw change, Tarnhelm live rank, target requery/deletion and respec pass; accepted callback is not a client heartbeat gate");
     }
     private static void Live()

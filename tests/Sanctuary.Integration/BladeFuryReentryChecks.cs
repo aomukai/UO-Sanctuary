@@ -54,7 +54,7 @@ public static class BladeFuryReentryChecks
         var unused=new BladeFurySequenceServices(()=>4096,_=>throw new Exception("Unsupported entry debited"),()=>throw new Exception("Unsupported entry allocated"),()=>throw new Exception("Unsupported entry aimed"),()=>throw new Exception("Unsupported entry emitted"));
         foreach(var unsupported in new[]{basis with{Channel=basis.Channel with{Active=true}},basis with{Channel=basis.Channel with{NextShot=1001}}})
         {bool refused=false;try{BladeFurySequence.ReenterReleased(unsupported,1000,3,unused);}catch(NotSupportedException){refused=true;}Require(refused,"Unverified fresh sequence rewind was guessed");}
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeFury),"Prepared reentry enabled an unfinished learned skill");
+        Require(AssassinCombat.Implemented(CombatAbility.BladeFury),"Approved Fury handler missing");
     }
     private static WeaponFlight[] Own(PlayerMobile p)=>WeaponMissiles.Snapshot().Flights.Where(x=>x.Owner==p.Serial.Value).ToArray();
     private static void WorldCase(NetState network)

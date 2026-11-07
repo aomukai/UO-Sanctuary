@@ -66,7 +66,7 @@ public static class BladeFuryReleaseChecks
         Require(old.Lease==null&&old.HasLease&&BladeFuryChannel.Release(old) is{Active:false,Lease:true,Expires:1020,NextShot:1004,Flags:192},"Old coincident component JSON compatibility");
         var expired=BladeFuryChannel.Expire(BladeFuryChannel.Release(old));
         Require(!expired.Active&&!expired.HasLease&&expired.Expires==0&&expired.Flags==192&&expired.NextShot==1004,"Stop incorrectly substituted expiry or reset skill deadline");
-        Require(!AssassinCombat.Implemented(CombatAbility.BladeFury),"Release component exposed learned input");
+        Require(AssassinCombat.Implemented(CombatAbility.BladeFury),"Approved Fury handler missing");
         Log.Information("Blade Fury release:5400 complete stop/state-bit/list-walker/resource compositions match; retained released lease, no rewind without bit and current rank1 debit remain distinct from expiry; no client timing certificate");
     }
     private static void WorldCase()

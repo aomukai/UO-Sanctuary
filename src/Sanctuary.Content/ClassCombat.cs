@@ -301,7 +301,7 @@ public static class ClassCombat
 
     private static bool ContinueHold(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attack)
     {
-        if(ability is CombatAbility.Inferno or CombatAbility.ArcticBlast){return false;} // Requires explicit channel press/aim/release.
+        if(ability is CombatAbility.Inferno or CombatAbility.ArcticBlast or CombatAbility.BladeFury){return false;} // Requires explicit channel press/aim/release.
         if(ability==CombatAbility.CloakOfShadows){CloakShadows.Face(from,point);target=null;point=from.Location;}
         if(ClassAbilities.SelfTarget(ability)){target=null;point=from.Location;}
         if (!attack && PaladinCombat.IsAura(ability)) { return ability==For(from).Right && PaladinCombat.Begin(from,ability); }
@@ -759,7 +759,7 @@ public static class ClassCombat
                 PlayerInfernoInput.Apply(from,action,channelSource,channelAbility,channelTarget,channelPoint,TimedEffects.Now);
                 break;
             case CombatRequest.ChannelEnd:
-                PlayerInfernoModes.EndHeld(from,reader.ReadByte());
+                PlayerInfernoInput.EndHeld(from,reader.ReadByte());
                 break;
             case CombatRequest.MovementMode:
                 var mode = reader.ReadByte();

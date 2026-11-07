@@ -2275,10 +2275,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 266,
-      "implementation": "pending",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared channel/payment/SQ23 and saved size1 weapon flights retain their existing source/native controls. Fresh mode entry over a released inactive ready/equal-deadline list now preserves independent expiry callbacks and live rank/payment without resetting the six-mana threshold or reactivating the bit;576complete source contexts/13824frames cover that composition. Active-bit/future-shot fresh rewinds and accepted current client hold/reentry cadence remain unsupported rather than padded. Learned input remains gated. Native held-intent, gear, resource, original-flight and reload limits are recorded in blade-fury-reentry-checkpoint.md; current AR/mastery/slow/item/owner/client and separate effects/icons remain acceptance work."
+      "remaining": "Approved Sanctuary held-input route reuses SQ23/channel/resource and saved size1 weapon flights. Six-mana fresh threshold/no entry debit, first blade frame12 then5frames, pinned per-blade costs, immediate release/fresh windup, actual source binding/aim/lease and transient input are implemented. Exact current D2R outer input timing is unverified; see blade-fury-approved-input-rule.md. Prepared released-state reentry retains its separate source controls. Native wire/save/client verification is being completed; modern AR/mastery/Slow Missiles damage ordering, full item/proc/owner/PvP, geometry and final effects/icons remain explicit acceptance work."
     },
     {
       "talentId": "assassin.lightningsentry",

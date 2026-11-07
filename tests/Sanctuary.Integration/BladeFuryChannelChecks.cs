@@ -39,7 +39,7 @@ public static class BladeFuryChannelChecks
             var result=BladeFuryChannel.Expire(state);
             Require(!result.Active&&result.Expires==0&&result.Flags==row[4].GetUInt32()&&result.NextShot==1004,"Source expiry callback reset unrelated deadline/flags");expiry++;
         }
-        Require(expiry==12&&!AssassinCombat.Implemented(CombatAbility.BladeFury),"Expiry inventory or unfinished channel exposed learned input");
+        Require(expiry==12&&AssassinCombat.Implemented(CombatAbility.BladeFury),"Expiry inventory or approved Fury handler missing");
         Log.Information("Blade Fury channel: {Count} complete source start/do and {Expiry} expiry cases match; component round-trips,21/7 leases, strict equality, failed allocation attempts and explicit resource/rewind services; production input/animation/missile persistence remain separate",cases,expiry);
     }
 }

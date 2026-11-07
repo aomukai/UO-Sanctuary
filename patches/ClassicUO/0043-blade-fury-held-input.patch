@@ -1,0 +1,11 @@
+--- a/src/ClassicUO.Client/Game/ClassCombatChannelClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatChannelClient.cs
+@@ -12,7 +12,7 @@
+ {
+     private static int _channelSource=-1;
+     private static CombatAbility _channelAbility;
+-    private static bool IsChannel(CombatAbility ability)=>ability is CombatAbility.Inferno or CombatAbility.ArcticBlast;
++    private static bool IsChannel(CombatAbility ability)=>ability is CombatAbility.Inferno or CombatAbility.ArcticBlast or CombatAbility.BladeFury;
+     private static CombatAbility ChannelBinding(int source)=>source==0?Left:source==1?Right:ClassSkillBindingsClient.Quick(source-2);
+     private static uint _nextChannelUpdate;
+     private static bool BeginChannel(World world,int source)

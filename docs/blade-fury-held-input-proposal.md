@@ -1,6 +1,6 @@
 # Blade Fury held-input proposal
 
-Status: **review-only; not approved or enabled**. Mechanical reference is **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Inferno and Arctic Blast approvals do not cover Blade Fury. No production C#, runtime data, handler registration, client patch or installed build changes in this proposal.
+Status: **approved on2026-11-08 JST; this page records the earlier review-only candidate**. See [the separate approval](blade-fury-approved-input-rule.md). Mechanical reference is **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Inferno and Arctic Blast approvals did not cover Blade Fury. The original candidate changed no production C#, runtime data, handler registration, client patch or installed build. Implementation and its verification are tracked separately.
 
 The candidate reuses `BladeFuryModes`, its checked SQ23 sequence, start26/do48 resource composition and the existing saved weapon-flight service. The missing modern outer input acceptance rule remains unverified. The following policy is an explicit Sanctuary proposal, not a claim that the current D2R client uses this scheduler.
 
