@@ -311,8 +311,9 @@ internal static class GeneratedNpcLiveResources
     {
         _=Current(actor);var old=States[actor.Serial.Value];
         if(old.Passives==null){throw new NotSupportedException("Shadow buff needs its original posted skill lists");}
-        var captured=ShadowDefensiveBuffs.Capture(skill,values,at);ShadowDefensiveBuffs.Validate(captured);
-        var graph=Build(actor,old);Seed(actor,graph);graph.Passives.ApplyBuff(captured);Commit(actor,old,graph);return true;
+        var captured=ShadowDefensiveBuffs.Capture(skill,values,at,skill==278?Current(actor).Read(332):0);ShadowDefensiveBuffs.Validate(captured);
+        var graph=Build(actor,old);Seed(actor,graph);
+        if(!graph.Passives.ApplyBuff(captured)){return false;}Commit(actor,old,graph);return true;
     }
     internal static void ExpireShadowBuffs(AssassinShadowBody actor,DateTime at)
     {

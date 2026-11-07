@@ -9,6 +9,7 @@ namespace Sanctuary;
 internal sealed record ShadowPassiveList(int Skill,int State,int Level,EquipmentStatValue[] Values)
 {
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public DateTime? UntilUtc{get;init;}
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public int? PoisonMastery{get;init;}
 }
 internal sealed record ShadowPassiveAttachment(uint Item,int State)
 {[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public bool Birth{get;init;}}
@@ -27,6 +28,7 @@ internal sealed class ShadowPassiveGraph
     private readonly Func<int> Command;
     private readonly Dictionary<int,EquipmentStatNode> Lists=new();
     private readonly Dictionary<int,DateTime> Timed=new();
+    private readonly Dictionary<int,int> PoisonMasteries=new();
     private ShadowSkillBook Book;
     private bool Refreshing;
     private readonly bool ItemSkillCallbacks;
@@ -64,7 +66,7 @@ internal sealed class ShadowPassiveGraph
     {Lists=frame.Lists.Select(s=>s with{Values=(EquipmentStatValue[])s.Values.Clone()}).ToArray(),Order=(ShadowPassiveAttachment[])frame.Order.Clone()};
     internal static void Validate(ShadowPassiveFrame frame,uint[] active)
     {
-        if(frame?.Profile!="shadow-passive-lists-v1"||frame.Lists==null||frame.Order==null||frame.Lists.Length>3
+        if(frame?.Profile!="shadow-passive-lists-v1"||frame.Lists==null||frame.Order==null||frame.Lists.Length>4
             ||frame.Lists.Any(l=>l==null)||frame.Order.Any(a=>a==null)||frame.Lists.Select(l=>l.State).Distinct().Count()!=frame.Lists.Length)
         {throw new InvalidDataException("Invalid Shadow passive frame");}
         var book=ShadowSkillBook.Restore(frame.Book);var states=new HashSet<int>();
@@ -74,12 +76,12 @@ internal sealed class ShadowPassiveGraph
             if(list.UntilUtc.HasValue)
             {
                 ShadowDefensiveBuffs.Validate(list);
-                if(frame.Lists.Count(l=>l.UntilUtc.HasValue)>1){throw new InvalidDataException("Shadow group2 buffs must replace each other");}
+                if(frame.Lists.Count(l=>l.UntilUtc.HasValue&&l.Skill is 258 or 267)>1){throw new InvalidDataException("Shadow group2 buffs must replace each other");}
                 states.Add(list.State);continue;
             }
             var row=Row(list.Skill);
             if(list.State!=row.Metadata.PassiveState||book.Find(list.Skill)==null||list.Level is<1 or>99||list.Values==null
-                ||list.Values.Select(v=>v.Packed).Distinct().Count()!=list.Values.Length)
+                ||list.PoisonMastery.HasValue||list.Values.Select(v=>v.Packed).Distinct().Count()!=list.Values.Length)
             {throw new InvalidDataException("Invalid source Shadow passive list");}
             var expected=row.Stats.Select((stat,i)=>new EquipmentStatValue(EquipmentStatKey.Pack(stat,68),Value(row.Definition,list.Level,i+1)))
                 .Concat(new[]{new EquipmentStatValue(EquipmentStatKey.Pack(350),list.Skill),new EquipmentStatValue(EquipmentStatKey.Pack(351),list.Level)})
@@ -105,6 +107,7 @@ internal sealed class ShadowPassiveGraph
             var node=result.Create(saved.State,saved.UntilUtc.HasValue);
             foreach(var field in saved.Values){graph.Values.SetBase(node,field.Packed,field.Value);}
             if(saved.UntilUtc.HasValue){result.Timed.Add(saved.State,saved.UntilUtc.Value);}
+            if(saved.PoisonMastery.HasValue){result.PoisonMasteries.Add(saved.State,saved.PoisonMastery.Value);}
         }
         var order=frame.Order.Select(o=>o.Birth?graph.SourceListOrder().Single(graph.IsBirthList):o.Item!=0?graph.Item(o.Item).Unit.Stats:result.Lists[o.State]).ToArray();
         graph.RestoreSourceListOrder(order,frame.Order.Any(o=>o.Birth));return result;
@@ -117,7 +120,7 @@ internal sealed class ShadowPassiveGraph
     private void Remove(int state)
     {
         if(!Lists.Remove(state,out var node)){return;}
-        EquipmentStatGraph.Detach(node,Graph.Values);Graph.UnregisterPassiveList(node);Timed.Remove(state);
+        EquipmentStatGraph.Detach(node,Graph.Values);Graph.UnregisterPassiveList(node);Timed.Remove(state);PoisonMasteries.Remove(state);
     }
     internal bool Expire(DateTime at)
     {
@@ -125,15 +128,26 @@ internal sealed class ShadowPassiveGraph
         var expired=Timed.Where(s=>s.Value<=at).Select(s=>s.Key).ToArray();
         foreach(int state in expired){Remove(state);GraphicsNotifications++;}return expired.Length!=0;
     }
-    internal void ApplyBuff(ShadowPassiveList saved)
+    internal bool ApplyBuff(ShadowPassiveList saved)
     {
         ShadowDefensiveBuffs.Validate(saved);
+        EquipmentStatNode node=null;
+        if(saved.Skill==278&&Lists.TryGetValue(saved.State,out node))
+        {
+            int oldRank=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351));
+            if(saved.Level<oldRank){return false;}
+            // The shared factory refreshes an equal-rank list in place,
+            // preserving attachment order while rewriting its aura fields.
+            if(saved.Level>oldRank){Remove(saved.State);node=null;}
+        }
         // Current source group2 contains only quickness157/fade159. Do18
-        // removes the same state as well, so lower-rank recasts are allowed.
-        foreach(int state in Timed.Keys.ToArray()){Remove(state);}
-        var node=Create(saved.State,true);
+        // removes the same state as well;group0 Venom is independent.
+        if(saved.Skill!=278){foreach(int state in Timed.Keys.Where(s=>s is 157 or 159).ToArray()){Remove(state);}}
+        node??=Create(saved.State,true);
         foreach(var field in saved.Values){Graph.Values.SetBase(node,field.Packed,field.Value);Writes++;}
-        Timed.Add(saved.State,saved.UntilUtc.Value);GraphicsNotifications++;
+        Timed[saved.State]=saved.UntilUtc.Value;
+        if(saved.PoisonMastery.HasValue){PoisonMasteries[saved.State]=saved.PoisonMastery.Value;}
+        GraphicsNotifications++;return true;
     }
     internal void Refresh(string json)
     {
@@ -187,7 +201,8 @@ internal sealed class ShadowPassiveGraph
             if(Lists.TryGetValue(node.State,out var known)&&known==node)
             {
                 int skill=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(350)),rank=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351));
-                lists.Add(new(skill,node.State,rank,(EquipmentStatValue[])node.BaseValues.Clone()){UntilUtc=Timed.TryGetValue(node.State,out var until)?until:null});order.Add(new(0,node.State));
+                lists.Add(new(skill,node.State,rank,(EquipmentStatValue[])node.BaseValues.Clone()){
+                    UntilUtc=Timed.TryGetValue(node.State,out var until)?until:null,PoisonMastery=PoisonMasteries.TryGetValue(node.State,out int mastery)?mastery:null});order.Add(new(0,node.State));
             }
             else if(node.Owner?.Entity is GeneratedNpcItem item){_=Graph.Item(item.Serial.Value);order.Add(new(item.Serial.Value,0));}
             else{throw new NotSupportedException("Unknown Shadow source attachment");}

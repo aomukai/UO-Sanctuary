@@ -1,0 +1,57 @@
+{
+  "parent": "3f70538f1bd9324b28003dcf3c327eb4428c4e37",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 24,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "endpointMasteryControls": 8,
+  "sourceSnapshot": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "47a7613db4b035a720b81e0c6275de4ddd0dda05cbc844f3c00fd0855da5fa28",
+    "Assemblies/Sanctuary.Integration.dll": "21d0ec030a998e0e8b1e8d6a9ef2025b34c60c13d9514256150bf827eed30f9e"
+  },
+  "inputsSha256": "3f2aaa9e6a006f412a003df6a2ca560ebd0f4f10079a63d6de5cb0a110baa4c8",
+  "nativeLogSha256": "c581b5f34d486a2e4ab5139511a2ff46b396d65b1dee7ce317474e579dc5983c",
+  "sourceSnapshotSha256": "691cfb99819094f8bae8c825a4ab3735d627394aff25423e2d8d2ef7c6fd82b2",
+  "reusedSourceProofs": {
+    "tools/reference/venom-buff-engine-evidence.json": "11f82bbaa63893f5de657ae7ddf9a9d8123f1de96780f9a05ef5f0db8549a2a0",
+    "tools/reference/venom-damage-engine-evidence.json": "1adcdcb6aef1b300ecb43f7c512048dd89dae69747b596a465fd96e0ab368ecf",
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Both original species own Venom state31 with cast mastery and absolute expiry;shared SC casts,independent Fade/Quickness,lower/equal-rank rules and attachment order,own numeric mastery boundary,unchanged original NPC melee/full fill/10frame poison delivery,cure and buff-expiry independence,original buffs/items/wounds/RNG and actual poison continuation across two reloads. Player Venom and Shadow buff/ground retained.",
+  "declaredFixture": "Nonzero NPC mastery is a transient numeric stat input at actual release,not a live original gear-producer claim. Supported owner Wormskull supplies poison gear discrimination;unavailable Trang-Oul set is not enabled or stripped.",
+  "failedRuns": [
+    "failed-native-1.log:Trang-Oul Claws fixture definition unavailable;used supported Wormskull plus declared own mastery stat boundary"
+  ],
+  "notRerun": [
+    "new full source harnesses for unchanged arithmetic",
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": [
+    "other intrinsic target/state/delay/action consumers",
+    "Master AI106",
+    "current UMod42 death behavior",
+    "learned summon/payment/replacement/input",
+    "nonzero live NPC mastery-item producer",
+    "full current-executable/ranged Venom/inherited-sunder/item/PvP/world/client acceptance",
+    "final effects and icons"
+  ]
+}

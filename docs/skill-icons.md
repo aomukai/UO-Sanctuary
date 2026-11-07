@@ -912,3 +912,5 @@ NPC current-resource percentage callbacks add no separately bindable skill or ic
 No public binding or icon slot changes. Shadow Warrior/Master talent-tree and hotkey icons remain separately pending; internal AI/movement verification does not complete their artwork. See [checkpoint](shadow-ground-checkpoint.md).
 
 **Shadow Quickness/Fade (2026-11-08):** no new public binding or icon slot. Existing Burst of Speed/Fade and Shadow talent/hotkey artwork stays separately pending; intrinsic NPC consumers do not complete those assets. See [checkpoint](shadow-buffs-checkpoint.md).
+
+**Shadow Venom (2026-11-08):** no new public binding or icon slot. Venom and Shadow talent-tree/hotkey artwork remain separately pending; the intrinsic NPC consumer reuses the skill identity. See [checkpoint](shadow-venom-checkpoint.md).

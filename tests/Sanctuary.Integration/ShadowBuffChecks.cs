@@ -28,7 +28,7 @@ public static class ShadowBuffChecks
         }
         Require(count==324,"Missing defensive cast source clocks");
     }
-    private static ShadowPassiveList Cast(AssassinShadowBody b,int skill,int rank,DateTime at)
+    internal static ShadowPassiveList Cast(AssassinShadowBody b,int skill,int rank,DateTime at)
     {
         b.ChangeSkills(book=>book.Assign(skill,rank));var owner=(PlayerMobile)b.ControlMaster;
         int mana=NecromancerEffects.ManaBalance256(owner),life=SkillHealth.Balance256(b);var random=NpcEquipmentRandom.Require(b);var game=NpcWorldAllocation.Capture();
@@ -39,7 +39,7 @@ public static class ShadowBuffChecks
         Require(Json(b.EquipmentNumbers.Passives.Capture().Lists)==Json(before.Lists),"Buff applied before own SC release");
         ShadowActions.Tick(at.AddMilliseconds(release*40),true,b.Serial.Value);
         var list=b.EquipmentNumbers.Passives.Capture().Lists.Single(l=>l.Skill==skill);int effective=b.OwnedSkillRank(skill);
-        var expected=ShadowDefensiveBuffs.Capture(skill,ShadowSkillCasting.Values(b,effective,skill),at.AddMilliseconds(release*40));
+        var expected=ShadowDefensiveBuffs.Capture(skill,ShadowSkillCasting.Values(b,effective,skill),at.AddMilliseconds(release*40),skill==278?b.EquipmentNumbers.Read(332):0);
         Require(Json(list)==Json(expected)&&list.Level==effective,"SC release did not post its own source buff values/expiry");
         ShadowActions.Tick(at.AddMilliseconds(end*40+400),true,b.Serial.Value);
         Require(ShadowActions.State(b)==null&&b.OwnedSkills.Used==null&&NpcEquipmentRandom.Require(b)==random&&NpcWorldAllocation.Capture()==game

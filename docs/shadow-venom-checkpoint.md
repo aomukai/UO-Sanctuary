@@ -1,0 +1,19 @@
+# Shadow Venom checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Coverage remains **208/240 handlers; Assassin 28/30**. Learned Shadow summons remain gated by other consumers, Master AI and death handling.
+
+Both original Shadow species now cast intrinsic Venom through the existing SC/start/do route. The existing `Venoms.Capture` evaluates mastered cast-time poison endpoints and the 10-frame override; the Shadow’s own original numeric graph supplies poison mastery. The resulting state-31 list stores poison minimum/maximum, override length, skill/rank, captured mastery and absolute expiry. Live changes and passive refresh do not rewrite it.
+
+Venom is group 0 and coexists with Quickness or Fade. A lower-rank recast leaves the stronger state intact; equal-rank recasts refresh and rewrite its values in place without changing list attachment order. A higher rank replaces the old Venom list. Group-2 replacement and expiry remove only their own states. The existing whole do18/group/factory/writer evidence is reused rather than reimplemented as a new buff policy.
+
+**No changes to the weapon filler or poison-delivery engine were required.** The shared full NPC filler already reads poison rates, live poison mastery and `skill_poison_override_length`; it produces the 10-frame packet. Existing mitigation, ordered original contact and poison scheduling deliver it using the NPC’s damage and the owner’s durable credit. Already-delivered poison continues after the weapon buff expires; curing stops its remaining ticks. Owner poison gear is excluded.
+
+Verification uses both real original Shadow species, actual SC casts and original claw contacts, independent Fade/Quickness, lower/equal-rank behavior, refreshed list order, passive refresh, exact poison ticks, cure, parked buff state, original items/wounds/RNG and saved poison continuation. Eight endpoint/mastery controls cover ranks 1/21 and 0/25/50/100 mastery. A separately declared temporary actor-stat input exercises nonzero cast-time mastery through the actual dispatcher; normal reconstruction clears the input while the buff retains its captured value. This is **not** a claim that a live original NPC gear producer was tested with that modifier.
+
+**Verified:** zero-warning Content/Integration builds; snapshot 4 matches final native inputs; **24 native markers across three boots, two reloads and three saves**. Existing player Venom, Shadow buffs/passives and ground/AI consumers remain in the focused cohort. Their already-pinned source controls are reused; no new full source harness or item audit was needed. The first fixture attempted the currently unavailable full Trang-Oul set; it was replaced with the previously supported Wormskull poison producer without changing availability rules or stripping set properties.
+
+See [native receipt](../tools/reference/shadow-venom-native-evidence.json), [existing Venom buff evidence](../tools/reference/venom-buff-engine-evidence.json), [poison arithmetic evidence](../tools/reference/venom-damage-engine-evidence.json) and [SC clock evidence](../tools/reference/shadow-buff-animation-source-evidence.json). Installed artifacts/saves/configuration and historical client patches remain preserved; full class suites and item-audit exports were not repeated.
+
+Remaining: other intrinsic target/state/delay/action consumers; distinct Master AI106; current UMod42 death behavior; learned summon/payment/replacement/input; broader current-executable, original-item, inherited-sunder, ranged Venom/mastery, PvP/world/client acceptance. Nonzero live NPC mastery-item production remains unverified.
+
+Final Shadow SC animation, venomclaws overlay, poison contact/tick/cure/expiry and audio remain pending with the named body/equipment placeholder. Effects and talent/hotkey icons remain separate inventories; no imagegen asset blocks this mechanic.
