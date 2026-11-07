@@ -114,6 +114,13 @@ internal static class GeneratedNpcLiveResources
         {
             if(state.Shadow is{} shadow)
             {
+                if(birth&&actor is AssassinShadowBody newborn&&newborn.Prepared.Skills!=null)
+                {
+                    // The source summon wrapper installs owner data and runs
+                    // the AI initializer before do49's helper/equipment.
+                    g.Passives=ShadowPassiveGraph.Initialize(g,newborn.Prepared.Skills,()=>BattleCommand.Bonus(actor),true);
+                    g.Passives.InitializeMaster(shadow.Capture);
+                }
                 // The initializer already installed the server callback.
                 // Birth maximum-life writes therefore rescale HP/regen before
                 // item replay. Reconstruction keeps the saved regen cache;
@@ -191,8 +198,6 @@ internal static class GeneratedNpcLiveResources
             ShadowLoadout.Originals(actor).Select(i=>i.Serial.Value).ToArray(),BattleOrders.LifePercent(actor),BattleOrders.Percent(actor),
             checked(BattleOrders.Percent(actor)+PaladinVigor.StaminaPercent(actor)),Shadow:source);
         var graph=Build(actor,state,true);
-        if(actor.Prepared.Skills!=null)
-        {graph.Passives=ShadowPassiveGraph.Initialize(graph,actor.Prepared.Skills,()=>BattleCommand.Bonus(actor));}
         Commit(actor,state,graph);
     }
     internal static GeneratedNpcStatGraph ValkyrieFrame(AmazonValkyrieBody actor,MonsterDifficulty? preview=null)
@@ -251,6 +256,8 @@ internal static class GeneratedNpcLiveResources
         CheckMaximums(graph);state=state with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74)),StaminaPercentCache=graph.Read(162)};
         int life=graph.Read(6),mana=graph.Read(8),stamina=graph.Read(10);
         state=state with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(state);
+        if(state.Shadow!=null&&state.Passives!=null&&actor is AssassinShadowBody body&&body.Prepared.Skills!=state.Passives.Book)
+        {body.RestorePrepared(body.Prepared with{Skills=state.Passives.Book});}
         States[state.Actor]=state;Frames[state.Actor]=graph;
         SkillHealth.SetBalance256(actor,life);NecromancerEffects.SetMana256(actor,mana);BattleOrders.SetStamina256(actor,stamina);
         if(state.Valkyrie!=null){((AmazonValkyrieBody)actor).ApplyEquipmentResistances();}

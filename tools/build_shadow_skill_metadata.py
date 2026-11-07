@@ -34,13 +34,21 @@ def build(check=False):
  path=ROOT/'data/Sanctuary/Balance/shadow-skill-metadata.json';encoded=json.dumps(records,indent=2)+'\n'
  if check:assert path.read_text()==encoded
  else:path.write_text(encoded)
+ allrecords=[]
+ for i,r in enumerate(rows):
+  values={n:v[i]for n,fmt,offset,v in expected}
+  allrecords.append(dict(Id=i,Name=r.get('skill'),Class=values['class'],Mode=values['monmode'],Element=values['element'],PassiveState=values['passiveState'],PassiveType=values['passiveType'],Summon=values['summon'],PetType=values['petType']))
+ generic=ROOT/'data/Sanctuary/Balance/npc-skill-metadata.json';encoded=json.dumps(allrecords,indent=2)+'\n'
+ if check:assert generic.read_text()==encoded
+ else:generic.write_text(encoded)
+ pin(generic)
  pin(path);pin(Path(__file__).resolve());loader=BASE/'d2moo-pinned-source/source/D2Common/src/DataTbls/SkillsTbls.cpp';pin(loader)
- result=dict(referenceVersion='3.3.93847',executableSha256=e['executableSha256'],compiledFieldMatches=429*7,compiledRows=429,shadowMetadataRows=31,assassinClassOrder=ids,passiveClawType=68,
+ result=dict(referenceVersion='3.3.93847',executableSha256=e['executableSha256'],compiledFieldMatches=429*7,compiledRows=429,shadowMetadataRows=31,npcMetadataRows=429,unnamedNpcRows=[i for i,r in enumerate(rows)if not r.get('skill')],assassinClassOrder=ids,passiveClawType=68,
   fields={n:offset for n,fmt,offset,values in expected},petTypeMissingZeroRows=[78,88,199],currentClassOrderExecuted=False,inputs=inputs,
-  scope=['All429compiled skills match owned/public fields for class,monster animation,element,passive state/type,summon and pet type. Absent monster mode compiles255;three absent-pet-type rows compile0rather than-1,and remain explicitly identified. Only31actual Attack/Assassin rows enter this NPC adapter.','Item type IDs follow the owned linker row order with the Expansion marker omitted;claw passive layer68 is not guessed from public line numbers. Both Shadow summon skills use pet type16.','The old class-list loader appends physical skill IDs in ascending row order;current compiled class membership is251..280. Exact current class-list execution/order is not certified.'],limits=['Metadata is not a skill-list allocator,passive refresh,AI or skill execution certificate. Current executable getter/assignment/init parity and world selector binding remain separate. No handler or class certificate is added.'])
+  scope=['All429compiled skills match owned/public fields for class,monster animation,element,passive state/type,summon and pet type. Absent monster mode compiles255;three absent-pet-type rows compile0rather than-1,and remain explicitly identified. The31row Shadow view remains unchanged;all429rows also enter a generic NPC metadata view. Missing monster modes remain255and missing public names remain null rather than invented.','Item type IDs follow the owned linker row order with the Expansion marker omitted;claw passive layer68 is not guessed from public line numbers. Both Shadow summon skills use pet type16.','The old class-list loader appends physical skill IDs in ascending row order;current compiled class membership is251..280. Exact current class-list execution/order is not certified.'],limits=['Metadata is not a skill-list allocator,passive refresh,AI or skill execution certificate. Current executable getter/assignment/init parity and world selector binding remain separate. No handler or class certificate is added.'])
  out=ROOT/'tools/reference/shadow-skill-metadata-data-evidence.json';encoded=json.dumps(result,indent=2)+'\n'
  if check:assert out.read_text()==encoded
  else:out.write_text(encoded)
- print('Shadow NPC skill metadata:3003compiled field matches,31actual rows,claw layer68;current class-list execution remains separate.')
+ print('Shadow NPC skill metadata:3003compiled field matches,31Shadow/429NPC rows,claw layer68;current class-list execution remains separate.')
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');build(p.parse_args().check)

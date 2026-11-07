@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 namespace Sanctuary;
 
@@ -13,7 +14,8 @@ internal static class ShadowBirthGraph
         Func<string,int> ownerStats,Func<string,int> petStats)
     {
         ArgumentNullException.ThrowIfNull(graph);var actor=graph.Actor;var values=graph.Values;
-        if(actor is not{Kind:1,Stats:{IsExtended:true,OwnerKind:1} root}||root.Owner!=actor||root.Last!=null||root.Sets!=null)
+        if(actor is not{Kind:1,Stats:{IsExtended:true,OwnerKind:1} root}||root.Owner!=actor||root.Sets!=null
+            ||graph.SourceListOrder().Any(node=>!graph.IsPassiveList(node)))
         {throw new NotSupportedException("Shadow birth requires an initialized NPC graph before item replay");}
         if(Used.TryGetValue(actor,out _)){throw new InvalidOperationException("Shadow birth already started on this graph");}
         int life=EquipmentStatValues.SourceRead(root,EquipmentStatKey.Pack(7),EquipmentStatValues.Definition(7));

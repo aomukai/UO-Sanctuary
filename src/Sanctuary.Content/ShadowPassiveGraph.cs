@@ -3,12 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 namespace Sanctuary;
 
 internal sealed record ShadowPassiveList(int Skill,int State,int Level,EquipmentStatValue[] Values);
-internal sealed record ShadowPassiveAttachment(uint Item,int State);
+internal sealed record ShadowPassiveAttachment(uint Item,int State)
+{[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public bool Birth{get;init;}}
 internal sealed record ShadowPassiveFrame(string Book,ShadowPassiveList[] Lists,ShadowPassiveAttachment[] Order)
-{public string Profile{get;init;}="shadow-passive-lists-v1";}
+{
+    public string Profile{get;init;}="shadow-passive-lists-v1";
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public bool ItemSkillCallbacks{get;init;}
+}
 
 // Actual posted source stat lists. Only the two current Assassin passives are
 // admitted. Their fields have no value operations/dependents/resource effects;
@@ -20,10 +25,11 @@ internal sealed class ShadowPassiveGraph
     private readonly Dictionary<int,EquipmentStatNode> Lists=new();
     private ShadowSkillBook Book;
     private bool Refreshing;
+    private readonly bool ItemSkillCallbacks;
     internal int Writes{get;private set;}
     internal int GraphicsNotifications{get;private set;}
-    private ShadowPassiveGraph(GeneratedNpcStatGraph graph,ShadowSkillBook book,Func<int> command)
-    {Graph=graph;Book=book;Command=command;}
+    private ShadowPassiveGraph(GeneratedNpcStatGraph graph,ShadowSkillBook book,Func<int> command,bool itemSkillCallbacks=false)
+    {Graph=graph;Book=book;Command=command;ItemSkillCallbacks=itemSkillCallbacks;}
     private static (SkillDefinition Definition,ShadowSkillMetadata Metadata,int[] Stats) Row(int id)
     {
         int[] stats=id switch{252=>[342,343,344],263=>[348],_=>throw new NotSupportedException("Unknown Shadow passive skill")};
@@ -58,6 +64,7 @@ internal sealed class ShadowPassiveGraph
             ||frame.Lists.Any(l=>l==null)||frame.Order.Any(a=>a==null)||frame.Lists.Select(l=>l.State).Distinct().Count()!=frame.Lists.Length)
         {throw new InvalidDataException("Invalid Shadow passive frame");}
         var book=ShadowSkillBook.Restore(frame.Book);var states=new HashSet<int>();
+        foreach(int id in PassiveIds(book)){_=Row(id);}
         foreach(var list in frame.Lists)
         {
             var row=Row(list.Skill);
@@ -71,24 +78,25 @@ internal sealed class ShadowPassiveGraph
             states.Add(list.State);
         }
         var items=frame.Order.Where(o=>o.Item!=0).Select(o=>o.Item).ToArray();
-        if(!items.SequenceEqual(active)||frame.Order.Any(o=>(o.Item==0)==(o.State==0))
+        if(!items.SequenceEqual(active)||frame.Order.Count(o=>o.Birth)>1
+            ||frame.Order.Any(o=>o.Birth?o.Item!=0||o.State!=0:(o.Item==0)==(o.State==0))
             ||!frame.Order.Where(o=>o.State!=0).Select(o=>o.State).OrderBy(s=>s).SequenceEqual(states.OrderBy(s=>s)))
         {throw new InvalidDataException("Shadow passive attachment order lost an original item/list");}
     }
-    internal static ShadowPassiveGraph Initialize(GeneratedNpcStatGraph graph,string json,Func<int> command)
+    internal static ShadowPassiveGraph Initialize(GeneratedNpcStatGraph graph,string json,Func<int> command,bool itemSkillCallbacks=false)
     {
-        var result=new ShadowPassiveGraph(graph,ShadowSkillBook.Restore(json),command);result.Refresh(json);return result;
+        var result=new ShadowPassiveGraph(graph,ShadowSkillBook.Restore(json),command,itemSkillCallbacks);result.Refresh(json);return result;
     }
     internal static ShadowPassiveGraph Restore(GeneratedNpcStatGraph graph,ShadowPassiveFrame frame,Func<int> command)
     {
-        Validate(frame,graph.ActiveItems);var result=new ShadowPassiveGraph(graph,ShadowSkillBook.Restore(frame.Book),command);
+        Validate(frame,graph.ActiveItems);var result=new ShadowPassiveGraph(graph,ShadowSkillBook.Restore(frame.Book),command,frame.ItemSkillCallbacks);
         foreach(var saved in frame.Lists)
         {
             var node=result.Create(saved.State);
             foreach(var field in saved.Values){graph.Values.SetBase(node,field.Packed,field.Value);}
         }
-        var order=frame.Order.Select(o=>o.Item!=0?graph.Item(o.Item).Unit.Stats:result.Lists[o.State]).ToArray();
-        graph.RestoreSourceListOrder(order);return result;
+        var order=frame.Order.Select(o=>o.Birth?graph.SourceListOrder().Single(graph.IsBirthList):o.Item!=0?graph.Item(o.Item).Unit.Stats:result.Lists[o.State]).ToArray();
+        graph.RestoreSourceListOrder(order,frame.Order.Any(o=>o.Birth));return result;
     }
     private EquipmentStatNode Create(int state)
     {
@@ -110,34 +118,45 @@ internal sealed class ShadowPassiveGraph
         {
             Book=next;var states=ids.Select(id=>Row(id).Metadata.PassiveState).ToHashSet();
             foreach(int state in Lists.Keys.Where(s=>!states.Contains(s)).ToArray()){Remove(state);}
-            foreach(int id in ids)
-            {
-                var row=Row(id);int state=row.Metadata.PassiveState;
-                int rank=Book.Rank(id,Graph.Read,Command());
-                if(rank==0){Remove(state);continue;}
-                if(!Lists.TryGetValue(state,out var node)){node=Create(state);}
-                if(EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351))==rank){continue;}
-                for(int i=0;i<row.Stats.Length;i++)
-                {Graph.Values.SetBase(node,EquipmentStatKey.Pack(row.Stats[i],68),Value(row.Definition,rank,i+1));Writes++;}
-                Graph.Values.SetBase(node,EquipmentStatKey.Pack(350),id);Graph.Values.SetBase(node,EquipmentStatKey.Pack(351),rank);
-                Writes+=2;GraphicsNotifications++;
-            }
+            foreach(int id in ids){RefreshSkill(id);}
         }
         finally{Refreshing=false;}
     }
+    private void RefreshSkill(int id)
+    {
+        if(ShadowSkillBook.Metadata(id).PassiveState<=0){return;}
+        var row=Row(id);int state=row.Metadata.PassiveState;
+        int rank=Book.Rank(id,Graph.Read,Command());
+        if(rank==0){Remove(state);return;}
+        if(!Lists.TryGetValue(state,out var node)){node=Create(state);}
+        if(EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351))==rank){return;}
+        for(int i=0;i<row.Stats.Length;i++)
+        {Graph.Values.SetBase(node,EquipmentStatKey.Pack(row.Stats[i],68),Value(row.Definition,rank,i+1));Writes++;}
+        Graph.Values.SetBase(node,EquipmentStatKey.Pack(350),id);Graph.Values.SetBase(node,EquipmentStatKey.Pack(351),rank);
+        Writes+=2;GraphicsNotifications++;
+    }
+    internal void InitializeMaster(ShadowOwnerSnapshot capture)=>Book.MasterInitialize(capture,RefreshSkill);
     internal void Changed(EquipmentStatNode node,uint key)
     {
         // Complete old server callbacks for elemental/all-skills refresh all
-        // existing passives. NPC single-skill107 has no such callback. Oskill
-        // materialization97 and transformed class/tree callbacks stay gated.
-        if(node==Graph.Actor.Stats&&EquipmentStatKey.Stat(key)is 126 or 127){Refresh(Book.Save());}
+        // existing passives. NPC single-skill107 has no such callback.
+        if(node!=Graph.Actor.Stats){return;}
+        int stat=EquipmentStatKey.Stat(key);
+        if(stat is 126 or 127){Refresh(Book.Save());}
+        else if(ItemSkillCallbacks&&stat==97)
+        {
+            int id=(ushort)key;if(id==0){return;}
+            if(ShadowSkillBook.Metadata(id).PassiveState>0){_=Row(id);}
+            Book.ItemGrant(stat,id,Graph.Read(stat,id),Graph.Read,RefreshSkill,true,Command());
+        }
     }
     internal ShadowPassiveFrame Capture()
     {
         var lists=new List<ShadowPassiveList>();var order=new List<ShadowPassiveAttachment>();
         foreach(var node in Graph.SourceListOrder())
         {
-            if(Graph.IsBirthList(node)){continue;}
+            if(Graph.IsBirthList(node))
+            {if(ItemSkillCallbacks){order.Add(new(0,0){Birth=true});}continue;}
             if(Lists.TryGetValue(node.State,out var known)&&known==node)
             {
                 int skill=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(350)),rank=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351));
@@ -146,6 +165,6 @@ internal sealed class ShadowPassiveGraph
             else if(node.Owner?.Entity is GeneratedNpcItem item){_=Graph.Item(item.Serial.Value);order.Add(new(item.Serial.Value,0));}
             else{throw new NotSupportedException("Unknown Shadow source attachment");}
         }
-        var result=new ShadowPassiveFrame(Book.Save(),lists.ToArray(),order.ToArray());Validate(result,Graph.ActiveItems);return result;
+        var result=new ShadowPassiveFrame(Book.Save(),lists.ToArray(),order.ToArray()){ItemSkillCallbacks=ItemSkillCallbacks};Validate(result,Graph.ActiveItems);return result;
     }
 }

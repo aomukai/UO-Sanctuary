@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "kind": "static complete-routine ordering review,not executed current constructor",
+  "masterAiInitializationBeforeDo49HelperAndEquipment": true,
+  "currentConstructorParityVerified": false,
+  "completeRoutineHashes": {
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "SKILLS_SrvDo049_ShadowWarrior_Master": "36b8145ad041530b84cba2145e567f8295448b19ce7356e822ab2661838bbb67",
+    "AITHINK_ExecuteAiFn": "9ad9d0d1f720ebba6055aa3fc2afc9cd0b701d47edd289effac538886bec67d3",
+    "D2GAME_AI_Unk106_6FCEAFE0": "9d6fa87731cb9cd48a5b27ac8d9572eabee7a618106a29d10547286331e1cdab"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "limits": [
+    "The older summon wrapper assigns owner data then calls the AI initializer before returning. do49later replaces level,applies the helper and generates equipment. Current captured birth-helper/dispatch evidence remains separate;this review doesnot certify the full current constructor.",
+    "Only independent admitted Claw/WeaponBlock passive fields may pre-exist the helper. New frames record the birth node among passive/item nodes;old frames retain their historical order and disabled item-grant callback flag."
+  ]
+}

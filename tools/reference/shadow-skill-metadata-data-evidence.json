@@ -4,6 +4,10 @@
   "compiledFieldMatches": 3003,
   "compiledRows": 429,
   "shadowMetadataRows": 31,
+  "npcMetadataRows": 429,
+  "unnamedNpcRows": [
+    362
+  ],
   "assassinClassOrder": [
     251,
     252,
@@ -63,12 +67,13 @@
     "tools/reference/d2r-local-monmode-evidence.json": "8a5bccaaba5199bef904b86d300341376a4dfc48cff48502245ad40d6df58599",
     "tools/reference/warlock-hands-reference-evidence.json": "a56704e677b304c81ce151b6bf41150afc918e4601517759561bf41cdf8fd51f",
     ".local/class-skills/warlock-hands-reference/itemtypes.txt": "ae957abde89a2d0276a55feffa809e0ccbdaf82f65c6eaed9443b886b960e26a",
+    "data/Sanctuary/Balance/npc-skill-metadata.json": "7595212bb46b3d8e1537a3a6753dc10360eb908387cb488786181546b564d24f",
     "data/Sanctuary/Balance/shadow-skill-metadata.json": "d0c372bc287898e85af893822f375a13a36343d09a9660a0e12409ae199691c5",
-    "tools/build_shadow_skill_metadata.py": "cbea434e30fa1db6d743ab6df5bf00d0b429fc3ae5ea47b887fb5e7c1faae955",
+    "tools/build_shadow_skill_metadata.py": "f8a4efd77682283038b7846a5b2a7fbe44aab23f699e33ef945c439ce5b476b5",
     ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SkillsTbls.cpp": "af6ff0c8e0edceb3d2ae9ae22a92c6203e2206906adc66a67275b1d0a7756fb9"
   },
   "scope": [
-    "All429compiled skills match owned/public fields for class,monster animation,element,passive state/type,summon and pet type. Absent monster mode compiles255;three absent-pet-type rows compile0rather than-1,and remain explicitly identified. Only31actual Attack/Assassin rows enter this NPC adapter.",
+    "All429compiled skills match owned/public fields for class,monster animation,element,passive state/type,summon and pet type. Absent monster mode compiles255;three absent-pet-type rows compile0rather than-1,and remain explicitly identified. The31row Shadow view remains unchanged;all429rows also enter a generic NPC metadata view. Missing monster modes remain255and missing public names remain null rather than invented.",
     "Item type IDs follow the owned linker row order with the Expansion marker omitted;claw passive layer68 is not guessed from public line numbers. Both Shadow summon skills use pet type16.",
     "The old class-list loader appends physical skill IDs in ascending row order;current compiled class membership is251..280. Exact current class-list execution/order is not certified."
   ],

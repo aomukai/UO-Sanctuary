@@ -66,7 +66,7 @@ internal static class ShadowSkillBookChecks
         Require(b.Left==0&&b.Right==0&&b.Used==null,"Intrinsic removal lost Attack fallback/used pointer clearing");
         var saved=b.Save();var exposed=b.Snapshot();exposed.Entries[0]=new(0,999,0,0);Require(b.Save()==saved,"Skill snapshot exposed live entry storage");
         Require(ShadowSkillBook.Restore(saved).Save()==saved,"Owned skill roundtrip changed bytes");
-        Reject(()=>b.Assign(33,1));Reject(()=>b.Assign(251,-1));Reject(()=>b.Use(253));Reject(()=>b.Assign(0,0,true));Reject(()=>ShadowSkillBook.Restore(null));
+        Reject(()=>b.Assign(429,1));Reject(()=>b.Assign(251,-1));Reject(()=>b.Use(253));Reject(()=>b.Assign(0,0,true));Reject(()=>ShadowSkillBook.Restore(null));
         Reject(()=>ShadowSkillBook.Restore(JsonSerializer.Serialize(b.Snapshot()with{Left=253})));Reject(()=>ShadowSkillBook.Restore(JsonSerializer.Serialize(b.Snapshot()with{Entries=[b.Find(0),b.Find(0)]})));
         Reject(()=>b.Mirror(cap,251,33));Require(b.Save()==saved,"Failed mirror changed partial skill state");
     }

@@ -142,7 +142,7 @@ public static class ShadowBodyChecks
                     Require(b.Prepared.Capture==snapshot&&b.Prepared.Capture.Rank==new[]{1,2,10,20}[n]&&b.Prepared.Initialization.WorldBefore==before.Seed,"Actual trained/item owner capture or unit allocation changed");
                     Require(b.Prepared.Equipment.GameAfter==NpcWorldAllocation.Capture().Seed&&b.Prepared.Equipment.PetAfter==NpcEquipmentRandom.Require(b).Seed,"Original equipment did not hand off its actual continuations");
                     Require(helm==null||helm.Parent==p&&armor.Parent==p&&b.Prepared.Capture.Head==ClassGear.Base(helm).Code&&b.Prepared.Capture.Armor==ClassGear.Base(armor).Code,"Shadow borrowed owner items or guessed owner bases");
-                    ShadowSkillBookChecks.Body(b,p);ShadowPassiveChecks.Body(b);Validate(b);CallbackBirth(b);Pools(b);Random(b);Rescale(b,p,difficulty);Refusals(b,p);
+                    NpcItemSkillChecks.FreshShadow(b);ShadowSkillBookChecks.Body(b,p);ShadowPassiveChecks.Body(b);Validate(b);CallbackBirth(b);Pools(b);Random(b);Rescale(b,p,difficulty);Refusals(b,p);
                     if(helm!=null){var capture=b.Prepared.Capture;p.AddToBackpack(helm);ClassGear.Refresh(p);Require(ShadowOwnerSnapshot.Capture(p,ability).Rank==capture.Rank-1&&b.Prepared.Capture==capture,"Existing Shadow recaptured changed owner gear");Require(p.EquipItem(helm),"Owner helm return");ClassGear.Refresh(p);}
                     held.Add(Capture(b));p.Internalize();
                 }

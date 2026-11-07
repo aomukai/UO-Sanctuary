@@ -125,6 +125,7 @@ internal sealed class GeneratedNpcStatGraph
         {throw new NotSupportedException("NPC birth list must be its original posted non-item source list");}
     }
     internal bool IsBirthList(EquipmentStatNode node)=>BirthLists.Contains(node);
+    internal bool IsPassiveList(EquipmentStatNode node)=>PassiveLists.Contains(node);
     internal void RegisterPassiveList(EquipmentStatNode node)
     {
         if(node is not{OwnerKind:1,Owner:null,State:152 or 155}||node.Parent!=Actor.Stats||node.Recipient!=Actor
@@ -139,11 +140,18 @@ internal sealed class GeneratedNpcStatGraph
         for(var node=Actor.Stats.Last;node!=null;node=node.Previous){nodes.Add(node);}
         nodes.Reverse();return nodes.ToArray();
     }
-    internal void RestoreSourceListOrder(EquipmentStatNode[] order)
+    internal void RestoreSourceListOrder(EquipmentStatNode[] order,bool includesBirth=false)
     {
         // Restoration only: independent passive fields have no operations or
         // item events. Keep the already replayed numeric graph untouched.
         var current=SourceListOrder();var birth=current.TakeWhile(IsBirthList).ToArray();
+        if(includesBirth)
+        {
+            if(order==null||order.Any(n=>n==null)||order.Distinct().Count()!=order.Length||!current.ToHashSet().SetEquals(order))
+            {throw new NotSupportedException("Full source attachment restoration changed original node membership");}
+            for(int i=0;i<order.Length;i++){order[i].Previous=i==0?null:order[i-1];order[i].Next=i+1==order.Length?null:order[i+1];}
+            Actor.Stats.Last=order.LastOrDefault();return;
+        }
         if(current.Skip(birth.Length).Any(IsBirthList)||order==null||order.Any(n=>n==null||IsBirthList(n))
             ||order.Distinct().Count()!=order.Length||!current.Skip(birth.Length).ToHashSet().SetEquals(order))
         {throw new NotSupportedException("Source attachment restoration changed original node membership");}

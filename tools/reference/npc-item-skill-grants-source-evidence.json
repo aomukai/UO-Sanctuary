@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceContexts": 4096,
+  "completeItemSkillBranchSha256": "30f78f02f7c76083a5db0beb6dfdd6ee1dd4d78f32c2848b3766914103a1d8a3",
+  "completeRoutineHashes": {
+    "D2COMMON_SKILLS_RemoveSkill_6FDAFFF0": "273766e0fb4d1671495f7353ee27c0163569f64601fcf1385aaaa4c8575c9289",
+    "SKILLS_AddSkill": "2b0bc14a3384208ed9279b6689933cfe64b01ccb79fc0adf1d67e044ccf78ce0",
+    "SKILLS_AssignSkill": "3e8aef148d9b52c73cdf234b1919b1605ff3d5ab3046654b07a413a81a13f09d"
+  },
+  "playerOnlyPetHelperSha256": "73f81eef1c87a462ae61d26cca0c1e13111805da376fb2be0124db83b99b5a8a",
+  "currentExecutableParityVerified": false,
+  "declaredServices": [
+    "NPC stat/rank getter already qualified separately;real current429row modes/elements/states;intrinsic lookup/selections/passive refresh trace;NPC null client and player-only pet-helper guard;inactive aura/channel fallback. Removed source entries remain quarantined until case end to observe the old tail without allocator reuse."
+  ],
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    "data/Sanctuary/Balance/npc-skill-metadata.json": "7595212bb46b3d8e1537a3a6753dc10360eb908387cb488786181546b564d24f",
+    "tools/probe_npc_item_skill_grants.py": "9b23a060cc0c87aabe9d7d10692759adeb8ad50f2cabcf0e785b01011801b5bf"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-item-skill-grants-source/source.cpp": "02c46ed2433056dab06dda81a461cc3c157bd954069c57fb7b0a1be2a488d2d7",
+    ".local/class-skills/npc-item-skill-grants-source/input.txt": "f9cc8f278086a045a248655fb462f63adb0b3c2ed5ea6eea43f6c6e5e24b7f8e",
+    ".local/class-skills/npc-item-skill-grants-source/cases.json": "05a2ba7478ce59e010c28928b173540b0f9d95e90ea3c277c916544de51ddbd5",
+    ".local/class-skills/npc-item-skill-grants-source/probe": "e4d1a345ae7d7c1da7b88e089ee26ea4009f587d3687bf9b1f0b2ba298cdd218",
+    ".local/class-skills/npc-item-skill-grants-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-item-skill-grants-source/sanitizers.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limits": [
+    "Older complete97/107callback branch plus complete add/assign/remove writers;current callback ABI,active aura/channel fallback and pool reuse are not certified. Foreign passives outside the two admitted Shadow rows remain explicitly unsupported;all429entries can be retained without enabling their execution."
+  ]
+}

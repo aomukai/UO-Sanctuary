@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC item skill grants (2026-11-07 JST).** No new public bindings or artwork. All pending talent/hotkey icons remain tracked separately from NPC intrinsic entries. See [checkpoint](npc-item-skills-checkpoint.md).
+
 **Shadow passive lists (2026-11-07 JST).** No new icon or public skill binding is added. Weapon Block/Claw Mastery tree icons and Shadow Warrior/Master talent/hotkey icons retain their separate pending asset status. See [checkpoint](shadow-passives-checkpoint.md).
 
 **Shadow intrinsic skills (2026-11-07 JST).** No public bindings or icon slots change. Shadow Warrior/Master talent-tree and hotkey icons remain pending separately from body and skill effects; internal NPC skill records do not complete icon work. See [checkpoint](shadow-skills-checkpoint.md).

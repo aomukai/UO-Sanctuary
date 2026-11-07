@@ -18,9 +18,9 @@ internal sealed class ShadowSkillBook
 {
     private static readonly Lazy<Dictionary<int,ShadowSkillMetadata>> Rows=new(()=>
     {
-        var rows=BalanceCatalog.Read<ShadowSkillMetadata>("shadow-skill-metadata");
-        if(rows.Length!=31||!rows.Select(r=>r.Id).SequenceEqual(new[]{0}.Concat(Enumerable.Range(251,30)))
-            ||rows.Any(r=>r.Mode is<0 or>32||r.Element is<0 or>9)||rows.Where(r=>r.Id is 268 or 279).Any(r=>r.PetType!=16))
+        var rows=BalanceCatalog.Read<ShadowSkillMetadata>("npc-skill-metadata");
+        if(rows.Length!=429||!rows.Select(r=>r.Id).SequenceEqual(Enumerable.Range(0,429))
+            ||rows.Any(r=>r.Mode is not(>=0 and<=32 or 255)||r.Element is<0 or>9)||rows.Where(r=>r.Id is 268 or 279).Any(r=>r.PetType!=16))
         {throw new InvalidDataException("Unsupported Shadow NPC skill metadata");}
         return rows.ToDictionary(r=>r.Id);
     });
@@ -31,7 +31,7 @@ internal sealed class ShadowSkillBook
     private ShadowSkillBook(ShadowSkillBookState state)
     {Entries=new(state.Entries);Left=state.Left;Right=state.Right;Used=state.Used;}
     internal static ShadowSkillMetadata Metadata(int id)=>Rows.Value.TryGetValue(id,out var row)?row
-        :throw new NotSupportedException("Shadow skill book does not admit this foreign skill: "+id);
+        :throw new NotSupportedException("NPC skill book has no current source row: "+id);
     internal ShadowOwnedSkill Find(int id)=>Entries.FirstOrDefault(s=>s.Id==id);
     internal ShadowSkillBookState Snapshot()=>new(Entries.ToArray(),Left,Right,Used);
     internal string Save()=>JsonSerializer.Serialize(Snapshot());
@@ -39,11 +39,11 @@ internal sealed class ShadowSkillBook
     {
         if(json==null){throw new NotSupportedException("Legacy parked Shadow has no captured NPC skill book");}
         var s=JsonSerializer.Deserialize<ShadowSkillBookState>(json);
-        if(s?.Profile!="shadow-intrinsic-skills-v1"||s.Entries==null||s.Entries.Length>31
+        if(s?.Profile!="shadow-intrinsic-skills-v1"||s.Entries==null||s.Entries.Length>429
             ||s.Entries.Any(e=>e==null)||s.Entries.Select(e=>e.Id).Distinct().Count()!=s.Entries.Length)
         {throw new InvalidDataException("Invalid intrinsic Shadow skill list");}
         foreach(var e in s.Entries)
-        {_=Metadata(e.Id);if(e.Base<0||e.Mode is<0 or>32){throw new InvalidDataException("Invalid owned Shadow skill rank/mode");}}
+        {_=Metadata(e.Id);if(e.Base<0||e.Mode is not(>=0 and<=32 or 255)){throw new InvalidDataException("Invalid owned Shadow skill rank/mode");}}
         foreach(var id in new[]{s.Left,s.Right,s.Used})
         {if(id.HasValue&&!s.Entries.Any(e=>e.Id==id.Value)){throw new InvalidDataException("Shadow skill selection lost its intrinsic entry");}}
         return new(s);
@@ -83,25 +83,53 @@ internal sealed class ShadowSkillBook
         return NpcInnateSkillRank.Read(e.Base,e.Bonus,checked(stat(127,0)+command),stat(97,id),stat(107,id),
             r.Element>0?stat(126,r.Element):0,r.Element>0,bonuses:bonuses,shrine:shrine);
     }
-    internal static ShadowSkillBook Initialize(ShadowOwnerSnapshot capture,ShadowInitialization init)
+    internal void ItemGrant(int stat,int id,int value,Func<int,int,int> read,Action<int> refresh,bool inactive,int command=0)
+    {
+        if(!inactive){throw new NotSupportedException("NPC item skill callbacks need their inactive aura/channel context");}
+        if(stat is not(97 or 107)){throw new ArgumentOutOfRangeException(nameof(stat));}
+        // The NPC branch does not create or refresh a singleskill107 entry.
+        if(id==0||stat==107){return;}
+        _=Metadata(id);ArgumentNullException.ThrowIfNull(read);ArgumentNullException.ThrowIfNull(refresh);
+        if(Find(id)==null)
+        {
+            Assign(id,1);refresh(id);Assign(id,0);refresh(id);
+            // The original skill packet has no NPC client. The companion
+            // summon-limit helper is player-only; neither targets the owner.
+        }
+        refresh(id);
+        if(value<=0)
+        {
+            if(Rank(id,read,bonuses:false)==0){Assign(id,0,true);refresh(id);refresh(id);}
+            // Removal already resets selections before unlinking the entry;
+            // never dereference the older routine's freed skill pointer.
+            else if(Rank(id,read,command)==0)
+            {if(Left==id){Select(0,false);}if(Right==id){Select(0,true);}}
+        }
+    }
+    internal static ShadowSkillBook Initial(ShadowOwnerSnapshot capture,ShadowInitialization init)
     {
         capture.Validate();ShadowInitializer.Validate(init);
         if(capture.Ability!=init.Ability){throw new InvalidDataException("Shadow skill initializer species mismatch");}
         var book=new ShadowSkillBook(new([]));
         foreach(var s in ShadowInitializer.Roll(init.Ability,init.UnitSeed,init.Difficulty).Skills)
         {book.Assign(s.Id,s.Rank);book.SetMode(s.Id,s.Mode);}
-        if(capture.Ability==CombatAbility.ShadowMaster)
+        return book;
+    }
+    internal void MasterInitialize(ShadowOwnerSnapshot capture,Action<int> refresh=null)
+    {
+        if(capture.Ability!=CombatAbility.ShadowMaster){return;}
+        var owner=capture.SkillRanks();Select(0,false);Select(0,true);
+        foreach(var row in Rows.Value.Values.Where(r=>r.Class==6).OrderBy(r=>r.Id))
         {
-            var owner=capture.SkillRanks();book.Select(0,false);book.Select(0,true);
-            foreach(var row in Rows.Value.Values.Where(r=>r.Class==6).OrderBy(r=>r.Id))
-            {
-                // Both summon skills use pet type16, so the owner's actual
-                // Shadow roster excludes both, not merely the same species.
-                if(row.Summon==418||row.Summon!=65535&&row.PetType==16){continue;}
-                var s=owner.Single(s=>s.Id==row.Id);
-                book.Assign(row.Id,Math.Clamp(capture.Rank/2+s.Hard/2,1,24));
-            }
+            if(row.Summon==418||row.Summon!=65535&&row.PetType==16){continue;}
+            var s=owner.Single(s=>s.Id==row.Id);
+            if(Find(row.Id)==null&&refresh!=null){Assign(row.Id,1);refresh(row.Id);}
+            Assign(row.Id,Math.Clamp(capture.Rank/2+s.Hard/2,1,24));refresh?.Invoke(row.Id);
         }
+    }
+    internal static ShadowSkillBook Initialize(ShadowOwnerSnapshot capture,ShadowInitialization init)
+    {
+        var book=Initial(capture,init);book.MasterInitialize(capture);
         return book;
     }
     // AI105's assignment step only. Controller eligibility/RNG/execution is

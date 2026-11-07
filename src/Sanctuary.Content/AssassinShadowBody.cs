@@ -124,7 +124,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         try
         {
             var init=ShadowInitializer.Allocate(ability,difficulty);var state=new ShadowBodyState(owner.Serial.Value,capture,init,difficulty,at.AddMilliseconds(40))
-            {Skills=ShadowSkillBook.Initialize(capture,init).Save()};
+            {Skills=ShadowSkillBook.Initial(capture,init).Save()};
             body.RestorePrepared(state);body.Name=(ability==CombatAbility.ShadowWarrior?"Shadow Warrior":"Shadow Master")+" [appearance placeholder]";
             body.Initialize(owner,capture.Rank,0);body.SetStr(body.Numbers.Auras.Single(s=>s.Name=="strength").Value);body.SetDex(body.Numbers.Auras.Single(s=>s.Name=="dexterity").Value);body.SetInt(0);body.SetMana(0);body.SetStam(0);
             if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Shadow owner binding refused");}
