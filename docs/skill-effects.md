@@ -984,3 +984,5 @@ Prepared Iron Golem/NPC flat retaliation uses the shared UO0x374A/hue0x481flash 
 ## Shadow Warrior ground/AI presentation — 2026-11-08
 
 Mechanical motion/AI adds no final artwork. Body `0x190`/hue `0x455`, native A1 animation and existing shared contact/Fire Blast effects remain identified placeholders. Final Shadow movement, equipment, attacks, casts, contact, death and audio remain pending. See [mechanical checkpoint](shadow-ground-checkpoint.md); talent/hotkey icons stay in `skill-icons.md`.
+
+**Shadow Quickness/Fade (2026-11-08):** own SC events and buff lists are mechanical additions. Final Shadow SC animation, quickness/fade overlays, application/expiry and audio remain pending with the named body/equipment presentation placeholder. Reuse player buff effects where appropriate during the asset pass. See [checkpoint](shadow-buffs-checkpoint.md).

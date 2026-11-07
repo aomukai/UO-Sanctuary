@@ -51,8 +51,10 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     void INecromancerGroundBrain.GroundThink(PlayerMobile owner,int frame,DateTime at,NecromancerPetAiServices services)=>ShadowGroundMotion.Think(this,owner,frame,at,services);
     int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
     {
-        if(mode!=9||skill!=251){throw new NotSupportedException("Selected Shadow intrinsic skill needs its NPC action consumer: "+skill);}
-        if(!ShadowActions.BeginFireBlast(this,target,target.Location,at)){return 0;}
+        bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target.Location,at)
+            :mode==7&&ShadowDefensiveBuffs.Handles(skill)?ShadowActions.BeginBuff(this,target,at,skill)
+                :throw new NotSupportedException("Selected Shadow intrinsic skill needs its NPC action consumer: "+skill);
+        if(!started){return 0;}
         return ShadowActions.State(this).Plan.Events.Single(e=>e.Type==2).Frame;
     }
     void INecromancerGroundPeriodic.GroundFrame(int frame,DateTime at)

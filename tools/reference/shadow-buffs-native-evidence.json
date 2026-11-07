@@ -1,0 +1,56 @@
+{
+  "parent": "88079e8f9be9f10c1a2a1c5eb99bd84f49846996",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 24,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "castSourceContexts": 324,
+  "retainedPassiveSourceContexts": 1600,
+  "sourceSnapshot": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "b07a530332e28f343e6b5cc9e7243e55791d50e4dc307cf849398908a3eb3370",
+    "Assemblies/Sanctuary.Integration.dll": "430ec6fda873cc50a3031e32ed99aaf1c2b579ac7e7f2353ea474b5d745a0197"
+  },
+  "inputsSha256": "9dadc38d8fa203587ff77b18c9414a780188f8480adff056d71ef9b984dc5bb3",
+  "nativeLogSha256": "512a39801bbd6476d550c702394092bfdb21d37ece51acd1d04e59eb00a64723",
+  "sourceSnapshotSha256": "fd7f86563d52828fe80dc4056106722de08130003b63acf221b9cecbfe32dfc9",
+  "sourceProofs": {
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26",
+    "tools/reference/assassin-buff-engine-evidence.json": "6c9ac2230137e5b4a4dc1dfa7c122a54c5c78d105d0a788912a961930f624606"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Both original Shadow species own Quickness/Fade temporary stat lists,SC marker casts,group2 same/lower-rank replacement and own numeric/curse consumers. Warrior AI selects/casts Quickness while Fade is active and gains actual own movement speed. Passive refresh,parked expiry/cancel and original equipment/wounds/RNG/buff values/expiry persist across reloads. Ground/S2/player Fade retained.",
+  "failedRuns": [
+    "failed-native-1.log:passive helper needed an actor fixture before invocation",
+    "failed-native-2.log:retained player Fade reference fixture missing from runner package"
+  ],
+  "notRerun": [
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": [
+    "Venom poison stat/delivery integration",
+    "remaining intrinsic target/state/delay/action consumers",
+    "Master AI106",
+    "current UMod42 death behavior",
+    "learned summon/payment/replacement/input",
+    "full current-executable/elemental mitigation-overcap/item/PvP/world/client acceptance",
+    "final effects and icons"
+  ]
+}

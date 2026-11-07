@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "contexts": 324,
+  "completeRoutineHashes": {
+    "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "inputs": {
+    "tools/probe_shadow_buff_animation.py": "7d583e0b876bcb347787dea6ec21e3d199264ed103eae65bfab931221d2d79be",
+    ".local/class-skills/shadow-animation-source/source.cpp": "12e9c8c2a4d972fc9f48fc95cbf87455b06cb6f450762403dec932ada5c181c6",
+    "data/Sanctuary/Balance/shadow-buff-animation.json": "02dba12fb0f514a583fbbdd067ee4e5bc37a2fccc76ebd9d0a4e20069dbf9ebb",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/assassin-buff-engine-evidence.json": "6c9ac2230137e5b4a4dc1dfa7c122a54c5c78d105d0a788912a961930f624606"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-buff-animation-source/source.cpp": "7b1bd9345285b8b52e82718058afd7e797fccf3a78e310c26a406eca108fa955",
+    ".local/class-skills/shadow-buff-animation-source/cases.json": "2a34cfba07e06e7d6518161b2db3eb8b8e59049ef445c4015cfc35778b513165"
+  },
+  "scope": "Owned transformed SC17frame/speed256/flag1at9 with four complete older conversion/bonus/dual-hand rate/event routines. Existing do18/group2/aura/passive source evidence is reused. Current executable/input/visual parity remains separate."
+}

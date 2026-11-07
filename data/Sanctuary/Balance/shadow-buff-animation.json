@@ -1,0 +1,38 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "Rows": [
+    {
+      "Code": "AISCHT1",
+      "Frames": 17,
+      "Speed": 256,
+      "Events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AISCHT2",
+      "Frames": 17,
+      "Speed": 256,
+      "Events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AISCHTH",
+      "Frames": 17,
+      "Speed": 256,
+      "Events": [
+        [
+          9,
+          1
+        ]
+      ]
+    }
+  ]
+}

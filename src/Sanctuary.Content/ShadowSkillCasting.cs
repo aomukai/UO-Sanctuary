@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using Server;
 using Server.Mobiles;
 using Server.Spells;
@@ -23,8 +24,10 @@ internal static class ShadowSkillCasting
     private static ItemExecutionMetadata Row(int id)
     {
         var row=ItemSkillExecution.Skill(id);
-        if(id!=251||row is not{Start:0,Do:0,Lob:true,InTown:false,UseManaOnDo:false,DecrementQuantity:false}
-            ||row.Missile!=ItemSkillExecution.MissileId("bomb in air")||row.Number("TargetableOnly")!=0
+        bool buff=ShadowDefensiveBuffs.Handles(id);
+        if(id!=251&&!buff||row is not{Start:0,UseManaOnDo:false,DecrementQuantity:false}
+            ||(buff?row.Do!=18||row.Lob||!row.InTown||row.Missile!=-1:row.Do!=0||!row.Lob||row.InTown||row.Missile!=ItemSkillExecution.MissileId("bomb in air"))
+            ||row.Number("TargetableOnly")!=0
             ||row.Number("TargetCorpse")!=0||row.Number("TargetAlly")!=0||row.Number("LineOfSight")!=0
             ||row.HasDelay("delay")||row.HasDelay("localdelay")||row.HasDelay("globaldelay")||row.HasDelay("perdelay"))
         {throw Missing();}
@@ -32,26 +35,27 @@ internal static class ShadowSkillCasting
     }
     internal static bool Attached(AssassinShadowBody body)=>body?.ControlMaster is PlayerMobile owner
         &&NpcItemSpellFlights.Attached(body,owner,body.Map?.MapID??-1);
-    internal static SkillValues Values(AssassinShadowBody body,int rank)
+    internal static SkillValues Values(AssassinShadowBody body,int rank,int skill=251)
     {
         var book=body.OwnedSkills;var graph=OriginalNpcEquipment.Graph(body);
         int Id(string key)=>SkillMechanics.Source(key).SourceId;
-        return new(SkillMechanics.For(CombatAbility.FireBlast),key=>Id(key)==251?rank:book.Rank(Id(key),graph.Read,BattleCommand.Bonus(body)),
+        _=Row(skill);
+        return new(SkillMechanics.All.Single(s=>s.SourceId==skill),key=>Id(key)==skill?rank:book.Rank(Id(key),graph.Read,BattleCommand.Bonus(body)),
             key=>book.Find(Id(key))?.Base??0,OriginalNpcEquipment.Level(body));
     }
-    internal static Cast Start(AssassinShadowBody body,BaseCreature target,Point3D aim)
+    internal static Cast Start(AssassinShadowBody body,BaseCreature target,Point3D aim,int skill=251)
     {
-        _=Row(251);
-        if(!Attached(body)||!LobProjectiles.Valid(body,aim)||target!=null&&(!Enemy(body,target)||target.Map!=body.Map)
-            ||body.OwnedSkillRank(251)<=0){return null;}
-        body.ChangeSkills(book=>book.Use(251));var cast=new Cast(body,target,aim);
+        var row=Row(skill);
+        if(!Attached(body)||row.Lob&&!LobProjectiles.Valid(body,aim)||target!=null&&(!Enemy(body,target)||target.Map!=body.Map)
+            ||body.OwnedSkillRank(skill)<=0){return null;}
+        body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill);
         return SkillStartup.Selected(new Startup(cast))!=0?cast:null;
     }
     internal static int Release(Cast cast,DateTime at)
     {
-        if(cast==null||cast.Skill!=251||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=251){return 0;}
+        if(cast==null||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
         cast.Released=true;
-        return SkillExecution.Run(new Execution(cast,at),251,cast.Body.OwnedSkillRank(251),true,false,false);
+        return SkillExecution.Run(new Execution(cast,at),cast.Skill,cast.Body.OwnedSkillRank(cast.Skill),true,false,false);
     }
     internal static void Complete(Cast cast)
     {if(cast==null){return;}cast.Released=true;if(cast.Body is{Alive:true,Deleted:false} body&&body.OwnedSkills.Used==cast.Skill){body.ChangeSkills(book=>book.Use(null));}}
@@ -64,7 +68,7 @@ internal static class ShadowSkillCasting
         internal override bool HasSource=>Body is{Alive:true,Deleted:false};
         internal override int UnitType=>1;
         internal override ExecutionSkill UsedSkill()=>Body.OwnedSkills.Used is{} id?new(id,0):null;
-        internal override SkillStartupRecord Record(int skill){_=Row(skill);return new(false,false,false,false,0,0,false,false);}
+        internal override SkillStartupRecord Record(int skill){var row=Row(skill);return new(false,false,false,row.InTown,0,0,false,false);}
         internal override SkillStartupTarget Target()=>cast.Target is{} target?new(1,target.Alive?1:12,target.Alive&&target.CanBeDamaged()):null;
         internal override bool EnemyAllowed(SkillStartupTarget target)=>Enemy(Body,cast.Target);
         internal override bool PetAllowed(SkillStartupTarget target,int skill)=>false;
@@ -101,8 +105,9 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:throw Missing();
-        internal override int Execute(int function,int skill,int level)=>throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function==18?true:throw Missing();
+        internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
+            ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0:throw Missing();
         internal override int MissileCount=>ItemSkillExecution.MissileCount;
         internal override void SetServerDo(){}
         internal override (int X,int Y)? TargetPoint=>cast.Target is{Alive:true,Deleted:false} target?(target.X*2,target.Y*2):null;

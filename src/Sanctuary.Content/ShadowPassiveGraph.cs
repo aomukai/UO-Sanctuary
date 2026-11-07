@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text.Json.Serialization;
 namespace Sanctuary;
 
-internal sealed record ShadowPassiveList(int Skill,int State,int Level,EquipmentStatValue[] Values);
+internal sealed record ShadowPassiveList(int Skill,int State,int Level,EquipmentStatValue[] Values)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public DateTime? UntilUtc{get;init;}
+}
 internal sealed record ShadowPassiveAttachment(uint Item,int State)
 {[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public bool Birth{get;init;}}
 internal sealed record ShadowPassiveFrame(string Book,ShadowPassiveList[] Lists,ShadowPassiveAttachment[] Order)
@@ -23,6 +26,7 @@ internal sealed class ShadowPassiveGraph
     private readonly GeneratedNpcStatGraph Graph;
     private readonly Func<int> Command;
     private readonly Dictionary<int,EquipmentStatNode> Lists=new();
+    private readonly Dictionary<int,DateTime> Timed=new();
     private ShadowSkillBook Book;
     private bool Refreshing;
     private readonly bool ItemSkillCallbacks;
@@ -55,18 +59,24 @@ internal sealed class ShadowPassiveGraph
             _=>throw new NotSupportedException("Unqualified passive hard-point dependency"),1).Eval("passivecalc"+slot));
     private static IEnumerable<int> PassiveIds(ShadowSkillBook book)=>book.Snapshot().Entries
         .Where(s=>ShadowSkillBook.Metadata(s.Id).PassiveState>0).Select(s=>s.Id);
-    internal bool State(int state)=>PassiveIds(Book).Any(id=>Row(id).Metadata.PassiveState==state);
+    internal bool State(int state)=>Timed.TryGetValue(state,out var until)?until>TimedEffects.Now:PassiveIds(Book).Any(id=>Row(id).Metadata.PassiveState==state);
     internal static ShadowPassiveFrame Copy(ShadowPassiveFrame frame)=>frame==null?null:frame with
     {Lists=frame.Lists.Select(s=>s with{Values=(EquipmentStatValue[])s.Values.Clone()}).ToArray(),Order=(ShadowPassiveAttachment[])frame.Order.Clone()};
     internal static void Validate(ShadowPassiveFrame frame,uint[] active)
     {
-        if(frame?.Profile!="shadow-passive-lists-v1"||frame.Lists==null||frame.Order==null||frame.Lists.Length>2
+        if(frame?.Profile!="shadow-passive-lists-v1"||frame.Lists==null||frame.Order==null||frame.Lists.Length>3
             ||frame.Lists.Any(l=>l==null)||frame.Order.Any(a=>a==null)||frame.Lists.Select(l=>l.State).Distinct().Count()!=frame.Lists.Length)
         {throw new InvalidDataException("Invalid Shadow passive frame");}
         var book=ShadowSkillBook.Restore(frame.Book);var states=new HashSet<int>();
         foreach(int id in PassiveIds(book)){_=Row(id);}
         foreach(var list in frame.Lists)
         {
+            if(list.UntilUtc.HasValue)
+            {
+                ShadowDefensiveBuffs.Validate(list);
+                if(frame.Lists.Count(l=>l.UntilUtc.HasValue)>1){throw new InvalidDataException("Shadow group2 buffs must replace each other");}
+                states.Add(list.State);continue;
+            }
             var row=Row(list.Skill);
             if(list.State!=row.Metadata.PassiveState||book.Find(list.Skill)==null||list.Level is<1 or>99||list.Values==null
                 ||list.Values.Select(v=>v.Packed).Distinct().Count()!=list.Values.Length)
@@ -92,21 +102,38 @@ internal sealed class ShadowPassiveGraph
         Validate(frame,graph.ActiveItems);var result=new ShadowPassiveGraph(graph,ShadowSkillBook.Restore(frame.Book),command,frame.ItemSkillCallbacks);
         foreach(var saved in frame.Lists)
         {
-            var node=result.Create(saved.State);
+            var node=result.Create(saved.State,saved.UntilUtc.HasValue);
             foreach(var field in saved.Values){graph.Values.SetBase(node,field.Packed,field.Value);}
+            if(saved.UntilUtc.HasValue){result.Timed.Add(saved.State,saved.UntilUtc.Value);}
         }
         var order=frame.Order.Select(o=>o.Birth?graph.SourceListOrder().Single(graph.IsBirthList):o.Item!=0?graph.Item(o.Item).Unit.Stats:result.Lists[o.State]).ToArray();
         graph.RestoreSourceListOrder(order,frame.Order.Any(o=>o.Birth));return result;
     }
-    private EquipmentStatNode Create(int state)
+    private EquipmentStatNode Create(int state,bool timed=false)
     {
-        var node=new EquipmentStatNode{OwnerKind=1,State=state};EquipmentStatGraph.Post(Graph.Actor,node,true,Graph.Values);
+        var node=new EquipmentStatNode{OwnerKind=1,State=state,Flags=timed?EquipmentStatNode.NewLength:0};EquipmentStatGraph.Post(Graph.Actor,node,true,Graph.Values);
         Graph.RegisterPassiveList(node);Lists.Add(state,node);return node;
     }
     private void Remove(int state)
     {
         if(!Lists.Remove(state,out var node)){return;}
-        EquipmentStatGraph.Detach(node,Graph.Values);Graph.UnregisterPassiveList(node);
+        EquipmentStatGraph.Detach(node,Graph.Values);Graph.UnregisterPassiveList(node);Timed.Remove(state);
+    }
+    internal bool Expire(DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Shadow expiry needs UTC");}
+        var expired=Timed.Where(s=>s.Value<=at).Select(s=>s.Key).ToArray();
+        foreach(int state in expired){Remove(state);GraphicsNotifications++;}return expired.Length!=0;
+    }
+    internal void ApplyBuff(ShadowPassiveList saved)
+    {
+        ShadowDefensiveBuffs.Validate(saved);
+        // Current source group2 contains only quickness157/fade159. Do18
+        // removes the same state as well, so lower-rank recasts are allowed.
+        foreach(int state in Timed.Keys.ToArray()){Remove(state);}
+        var node=Create(saved.State,true);
+        foreach(var field in saved.Values){Graph.Values.SetBase(node,field.Packed,field.Value);Writes++;}
+        Timed.Add(saved.State,saved.UntilUtc.Value);GraphicsNotifications++;
     }
     internal void Refresh(string json)
     {
@@ -117,7 +144,7 @@ internal sealed class ShadowPassiveGraph
         try
         {
             Book=next;var states=ids.Select(id=>Row(id).Metadata.PassiveState).ToHashSet();
-            foreach(int state in Lists.Keys.Where(s=>!states.Contains(s)).ToArray()){Remove(state);}
+            foreach(int state in Lists.Keys.Where(s=>!states.Contains(s)&&!Timed.ContainsKey(s)).ToArray()){Remove(state);}
             foreach(int id in ids){RefreshSkill(id);}
         }
         finally{Refreshing=false;}
@@ -160,7 +187,7 @@ internal sealed class ShadowPassiveGraph
             if(Lists.TryGetValue(node.State,out var known)&&known==node)
             {
                 int skill=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(350)),rank=EquipmentStatValues.Total(node,EquipmentStatKey.Pack(351));
-                lists.Add(new(skill,node.State,rank,(EquipmentStatValue[])node.BaseValues.Clone()));order.Add(new(0,node.State));
+                lists.Add(new(skill,node.State,rank,(EquipmentStatValue[])node.BaseValues.Clone()){UntilUtc=Timed.TryGetValue(node.State,out var until)?until:null});order.Add(new(0,node.State));
             }
             else if(node.Owner?.Entity is GeneratedNpcItem item){_=Graph.Item(item.Serial.Value);order.Add(new(item.Serial.Value,0));}
             else{throw new NotSupportedException("Unknown Shadow source attachment");}

@@ -31,7 +31,8 @@ public static class AssassinBuffs
         && _states.TryGetValue(owner.Serial.Value,out var state) && state.UntilUtc>TimedEffects.Now?state:null;
     public static int Velocity(Mobile owner)=>State(owner)?.Velocity??0;
     public static int AttackRate(Mobile owner)=>State(owner)?.AttackRate??0;
-    public static int CurseResistance(Mobile owner)=>State(owner)?.CurseResistance??0;
+    public static int CurseResistance(Mobile owner)=>owner is AssassinShadowBody shadow&&GeneratedNpcLiveResources.Handles(shadow)
+        ?OriginalNpcEquipment.Graph(shadow).Read(109):State(owner)?.CurseResistance??0;
     public static bool Faded(Mobile owner)=>State(owner)?.Fade>0;
     public static int Resistance(Mobile owner,ResistanceType type)=>State(owner) is{} state?type switch
     {ResistanceType.Physical=>state.PhysicalResistance,ResistanceType.Fire or ResistanceType.Cold or ResistanceType.Energy or ResistanceType.Poison=>state.ElementResistance,_=>0}:0;

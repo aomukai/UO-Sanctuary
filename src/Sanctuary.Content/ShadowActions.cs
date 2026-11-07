@@ -19,14 +19,20 @@ internal static class ShadowActions
         &&ShadowSkillCasting.Attached(body)&&SkillHealth.Balance256(body)>0&&CreatureHitRecovery.Remaining(body)==0
         &&CombatStuns.Remaining(body)==0&&AlliedOverlap.Allowed(body);
     internal static bool BeginFireBlast(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at)
+        =>BeginSkill(body,target,aim,at,251);
+    internal static bool BeginBuff(AssassinShadowBody body,BaseCreature target,DateTime at,int skill)
+        =>ShadowDefensiveBuffs.Handles(skill)?BeginSkill(body,target,body.Location,at,skill)
+            :throw new NotSupportedException("Unqualified Shadow self buff: "+skill);
+    private static bool BeginSkill(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs its UTC entry clock");}
         if(!CanAct(body)||State(body)!=null){return false;}
-        var cast=ShadowSkillCasting.Start(body,target,aim);if(cast==null){return false;}
+        var cast=ShadowSkillCasting.Start(body,target,aim,skill);if(cast==null){return false;}
         try
         {
-            var plan=ShadowAnimation.FireBlast(body);
-            if(plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==2)!=1
+            var plan=skill==251?ShadowAnimation.FireBlast(body):ShadowAnimation.Buff(body);
+            int marker=skill==251?2:1;
+            if(plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker)!=1
                 ||plan.Events.Count(e=>e.Type==SourceAnimationEvents.EndAnimation)!=1)
             {throw new NotSupportedException("Shadow S2 needs one actual release and end event");}
             Actions.Add(body.Serial.Value,new(cast,plan,body.Map,body.Location,ShadowLoadout.Binding(body).Identity,
@@ -75,7 +81,8 @@ internal static class ShadowActions
                 int frame=action.Frame+1;bool end=false;
                 foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
                 {
-                    if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==2&&action.Cast.Skill==251){_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
+                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&action.Cast.Skill==251||e.Kind==1&&ShadowDefensiveBuffs.Handles(action.Cast.Skill)))
+                    {_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
                     else if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1&&action.Cast.Skill==0)
                     {
                         action.Cast.Released=true;

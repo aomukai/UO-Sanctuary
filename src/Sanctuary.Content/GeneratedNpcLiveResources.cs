@@ -168,6 +168,11 @@ internal static class GeneratedNpcLiveResources
             ||state.Passives is{} passives&&recipient.Prepared.Skills!=passives.Book))
         {throw new NotSupportedException("Shadow resource frame needs an explicit captured-basis transition");}
         if(!Frames.TryGetValue(state.Actor,out var graph)){Frames[state.Actor]=graph=Build(actor,state);}
+        if(graph.Passives?.Expire(TimedEffects.Now)==true)
+        {
+            States[state.Actor]=state with{Passives=graph.Passives.Capture()};
+            if(actor is AssassinShadowBody shadowBody){shadowBody.ApplyEquipmentResistances();}
+        }
         _=graph.Read(7);return graph;
     }
     internal static int? Maximum256(Mobile actor,int resource)=>!World.Loading&&resource is >=0 and <=2&&Handles(actor)
@@ -253,6 +258,7 @@ internal static class GeneratedNpcLiveResources
     }
     private static void Commit(BaseCreature actor,GeneratedNpcResourceState state,GeneratedNpcStatGraph graph)
     {
+        graph.Passives?.Expire(TimedEffects.Now);
         CheckMaximums(graph);state=state with{RegenerationBase=EquipmentStatValues.Base(graph.Actor.Stats,EquipmentStatKey.Pack(74)),StaminaPercentCache=graph.Read(162)};
         int life=graph.Read(6),mana=graph.Read(8),stamina=graph.Read(10);
         state=state with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(state);
@@ -261,6 +267,7 @@ internal static class GeneratedNpcLiveResources
         States[state.Actor]=state;Frames[state.Actor]=graph;
         SkillHealth.SetBalance256(actor,life);NecromancerEffects.SetMana256(actor,mana);BattleOrders.SetStamina256(actor,stamina);
         if(state.Valkyrie!=null){((AmazonValkyrieBody)actor).ApplyEquipmentResistances();}
+        if(state.Shadow!=null){((AssassinShadowBody)actor).ApplyEquipmentResistances();}
         if(state.Shadow!=null){((AssassinShadowBody)actor).ApplyEquipmentResistances();}
         actor.CheckStatTimers();actor.Delta(MobileDelta.Hits|MobileDelta.Mana|MobileDelta.Stam);
     }
@@ -300,6 +307,17 @@ internal static class GeneratedNpcLiveResources
         next=next with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(next);
         States[next.Actor]=next;Frames[next.Actor]=graph;
     }
+    internal static bool ApplyShadowBuff(AssassinShadowBody actor,int skill,SkillValues values,DateTime at)
+    {
+        _=Current(actor);var old=States[actor.Serial.Value];
+        if(old.Passives==null){throw new NotSupportedException("Shadow buff needs its original posted skill lists");}
+        var captured=ShadowDefensiveBuffs.Capture(skill,values,at);ShadowDefensiveBuffs.Validate(captured);
+        var graph=Build(actor,old);Seed(actor,graph);graph.Passives.ApplyBuff(captured);Commit(actor,old,graph);return true;
+    }
+    internal static void ExpireShadowBuffs(AssassinShadowBody actor,DateTime at)
+    {
+        var graph=Current(actor);if(graph.Passives?.Expire(at)==true){Commit(actor,States[actor.Serial.Value],graph);}
+    }
     internal static void ChangeShadowSkills(AssassinShadowBody actor,string book)
     {
         _=Current(actor);var old=States[actor.Serial.Value];var nextBook=ShadowSkillBook.Restore(book).Save();
@@ -313,7 +331,7 @@ internal static class GeneratedNpcLiveResources
     internal static void RefreshShadowPassives(Mobile actor)
     {
         if(World.Loading||actor is not AssassinShadowBody body||!Handles(body)||States[body.Serial.Value].Passives==null){return;}
-        var old=States[body.Serial.Value];_=Current(body);var graph=Build(body,old);Seed(body,graph);
+        _=Current(body);var old=States[body.Serial.Value];var graph=Build(body,old);Seed(body,graph);
         graph.Passives.Refresh(body.Prepared.Skills);var next=old with{Passives=graph.Passives.Capture()};Validate(next);CheckMaximums(graph);
         States[next.Actor]=next;Frames[next.Actor]=graph;
     }
@@ -326,7 +344,7 @@ internal static class GeneratedNpcLiveResources
     internal static GeneratedNpcResourceState[] Snapshot()
     {
         var result=new List<GeneratedNpcResourceState>();
-        foreach(var state in States.Values)
+        foreach(var state in States.Values.ToArray())
         {if(World.FindMobile((Serial)state.Actor)is BaseCreature actor&&Handles(actor)){var graph=Current(actor);var saved=state with{ItemEvents=graph.ItemEvents?.Capture(),Passives=graph.Passives?.Capture()};Validate(saved);result.Add(Copy(saved));}}
         foreach(uint id in States.Keys.Except(result.Select(s=>s.Actor)).ToArray()){States.Remove(id);Frames.Remove(id);}
         return result.OrderBy(s=>s.Actor).ToArray();

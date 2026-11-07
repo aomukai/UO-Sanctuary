@@ -48,7 +48,7 @@ internal static class ShadowGroundMotion
         var controller=body.WorldGround.State.Controller;
         if(body.Map!=Map.Internal&&(controller.Map!=body.Map?.MapID||body.X!=(IronGolemWorld.Cell(controller).X+1)/2||body.Y!=(IronGolemWorld.Cell(controller).Y+1)/2))
         {throw new NotSupportedException("Shadow native pose changed before source controller repair");}
-        return ShadowActions.State(body)!=null?9:controller.Mode;
+        return ShadowActions.State(body)is{} action?body.OwnedSkills.Find(action.Cast.Skill).Mode:controller.Mode;
     }
     internal static (int Velocity,int Animation) Speed(AssassinShadowBody body,int bonus,bool run)
     {
@@ -87,7 +87,9 @@ internal static class ShadowGroundMotion
             var row=ShadowSkillBook.Metadata(skill.Id);
             return row.Summon!=417&&(row.PetType<0||row.PetType!=16);
         }
-        bool State(ShadowAiSkill skill)=>throw new NotSupportedException("Shadow skill state query needs its NPC consumer: "+skill.Id);
+        bool State(ShadowAiSkill skill)=>ShadowDefensiveBuffs.Handles(skill.Id)
+            ?OriginalNpcEquipment.Graph(body).Passives.State(ShadowDefensiveBuffs.State(skill.Id))
+                :throw new NotSupportedException("Shadow skill state query needs its NPC consumer: "+skill.Id);
         var s=new ShadowWarriorServices(()=>true,()=>Selected(false),()=>Selected(true),
             (left,right)=>body.ChangeSkills(book=>book.Mirror(body.Prepared.Capture,left,right)),Skill,Pet,State,State,State,
             ()=>NpcEquipmentRandom.Raw(body),n=>NpcEquipmentRandom.Limited(body,n),()=>NpcEquipmentRandom.Limited(body,100),q.CommonMove,

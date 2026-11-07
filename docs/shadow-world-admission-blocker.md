@@ -21,3 +21,5 @@ Ordinary fallback attack2026-11-08: both Shadow species now share the original f
 ## Warrior movement/AI update — 2026-11-08
 
 Own AI105, shared ground transport, original melee and Fire Blast handoff are now verified in qualified internal fixtures. Master AI106, other intrinsic consumers and current death behavior still gate learned activation. The approved actual-dual-claw Weapon Block routine observes the owned movement mode; walking/running do not roll it. See [checkpoint](shadow-ground-checkpoint.md).
+
+Own Quickness/Fade consumers now use source SC events and actual timed stat lists, with group-2 replacement, own numeric/curse effects and preserved expiry. Warrior AI selection is verified. Venom and other intrinsic consumers, AI106, death and learned casting remain. See [buff checkpoint](shadow-buffs-checkpoint.md).
