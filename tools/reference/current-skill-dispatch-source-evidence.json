@@ -1,0 +1,171 @@
+{
+  "referenceVersion": "3.3.93847",
+  "skillDoTableIdentityVerified": true,
+  "shadowEntryLinked": true,
+  "fullExecutorVerified": false,
+  "handlerEnabled": false,
+  "tableRva": "0x163a8b0",
+  "ordinaryMaximumIndex": 190,
+  "dispatchSliceContexts": 1440,
+  "ownedFieldControls": 1287,
+  "sourceCaptures": [
+    {
+      "name": "services-shadow-skill-entry-20261107.json",
+      "bytesRead": 5522,
+      "process": {
+        "pid": 240343,
+        "startTicks": 6876164,
+        "name": "Main"
+      }
+    },
+    {
+      "name": "services-shadow-mode-row-20261107.json",
+      "bytesRead": 1240,
+      "process": {
+        "pid": 240343,
+        "startTicks": 6876164,
+        "name": "Main"
+      }
+    },
+    {
+      "name": "shadow-mode-table-20261107.json",
+      "bytesRead": 4794,
+      "process": {
+        "pid": 240343,
+        "startTicks": 6876164,
+        "name": "Main"
+      }
+    },
+    {
+      "name": "services-shadow-skill-start-20261107.json",
+      "bytesRead": 2782,
+      "process": {
+        "pid": 240343,
+        "startTicks": 6876164,
+        "name": "Main"
+      }
+    },
+    {
+      "name": "services-shadow-skill-do-20261107.json",
+      "bytesRead": 1192,
+      "process": {
+        "pid": 240343,
+        "startTicks": 6876164,
+        "name": "Main"
+      }
+    },
+    {
+      "name": "services-shadow-skill-dispatch-20261107.json",
+      "bytesRead": 3844,
+      "process": {
+        "pid": 240343,
+        "startTicks": 6876164,
+        "name": "Main"
+      }
+    }
+  ],
+  "established": [
+    "Preserved GenericPet action calls the captured NPC skill/mode entry. A captured lookup forms mode table+32*index;immutable table edges lead to the captured mode callbacks and skill wrapper. The wrapper directly calls the complete1642byte common executor.",
+    "Its executed dispatch slice loads srvdofunc at record0x4e,checks ordinary index<=190,conditionally calls the mana service,applies item/outgoing ItemEffect override and calls the indexed immutable table with original game/source/skill/rank. All429owned compiled records corroborate three consumed fields.",
+    "Shadow Warrior268 and Master279 select49;the verified table entry points to the preserved caller0x447730,which directly invokes the already verified stat helper0x4473c0. This closes table/slot linkage without asserting full permission/start/input/AI execution."
+  ],
+  "limits": [
+    "Only the dispatch slice executes in1440controlled contexts. The full executor,actual NPC skill lists,resource/room/target services,mode/event ordering,original AI and learned casting remain unverified. Alternate indices use the trusted current catalogue range;no new source bounds check is invented.",
+    "Slow Missiles6 and Valkyrie16 callback bodies remain unreadable in the preserved capture;their table addresses alone do not establish modern behavior. No current game input,memory write,attach or security change occurred. No runtime C#/data or skill handler is changed by this reference."
+  ],
+  "inputs": {
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107.json": "9b65592cb25fbbe9bd85502552dc0f0760d9e847e7b57cbb0d533aae9cad1eea",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b54d0-part0.asm": "4c056692a7a19a604a9b51167f75df7672264ce033c3ae318e675da37aa53e2e",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029-4b54d0-part0.bin": "12b5c8a3733cc3a888c0d734c1ccc721e0364e9a1b5d0c49c6d25590a28835ea",
+    ".local/class-skills/warlock-runtime-reference/callees-live-after-combat-actions-20261029.json": "202d740541dad9026a96f3480baf1f1850e6c058357545648eeb72db1da57918",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part0.asm": "0448f3ffe40f29362b14ace3b1931f740509cbbd364d0ba70a48f7e639a2af33",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part0.bin": "6f7b700935fdcc41360c920dda50f63aa4ff18de69d524bf74d2c26433dba48f",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part1.asm": "61af2f4e013808349ec57aa06e6138c7ee2eb0cf056c2312906ab7f43502fcbe",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part1.bin": "c1a3ba629c744d49223364ae275a1168c93c9441dd7420439307af731b425cfa",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part2.asm": "3d5bcc5654362a9415108c7471ef2fb1abee33a40bcdc0568d17e0a1bf7cf5e8",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part2.bin": "3bef0f0b0f8cf2fc3e6842ebaa82927b3e14ba5185b911e7f90841b2ff7b22a0",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part3.asm": "079b552d89b7e7126a40cda5adba9b2e138b42dea939a06905f47aff374be570",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part3.bin": "c90329552cd070cacc59154107941f6f45f17a3ee82a437221906b65e3d2e204",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part4.asm": "41076d1d161c410ce098349f8a420e4e31263bfeff8f61e540f434af4eef8db3",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part4.bin": "4e2b5ff85843d207f46dca3e178e39dc305263473942661e3108bff1a4d3fd62",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part0.asm": "e907faa72f8ef1bca13ebb3b2ec8b97c22032cfa99a0848b9e374e5d1e493391",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part0.bin": "c992db16f54cd2e6e3fe1bd1680534ad5c83d1d06b009ee635a6a78c6208594f",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part1.asm": "b9c990f7a6ce8488fe057bd342eaba1de173faad14d48e537e11c975c9562ab1",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part1.bin": "83defb9ad2bfbd57ba7728490a8db5d4faff8af9474f30f6ca281fd5ce857692",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part2.asm": "ea086e879f0ed099b844fbf34154c29b68b02dd339b1f7cc7558a3d9322922a7",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part2.bin": "721c7e4654b1fa4f161715a5238e5b3a5a117ca4359b677f162cabbf7c3e3f29",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-4253d0-part0.asm": "6be0a15deb0bd0fbfd24d7e81150c9297f31953db6ede2b6426c4cdb015e5f35",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-4253d0-part0.bin": "9f57861be6ee2f24ceb18217992be47a964131ef3492d5d8ccdd086b078229f2",
+    "tools/capture_reference_service_edges.py": "b55c5858812d0c0af26f7465cefdfb1011af5f8950a62950c3da718a9bd4bbaf",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/reference/generic-pet-search-nested-source-evidence.json": "d853dd7ce210c6e089aacf43e970f3554df19c791fdae938d0bfc5d786456bf1",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-mode-row-20261107.json": "d86f5fb311bc4a851b8314fa73fc3d89b42ee0671a849d7ca477640da4eaf53f",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-mode-row-20261107-3dd650-part0.asm": "9c2a527d2ab23834a462ce40ee3f918e1e5aa93e6e8a1c2c5cc687a5e047e892",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-mode-row-20261107-3dd650-part0.bin": "2f58f8a0ab1e39aa2bdfeeefaae1ca8138252e6c2f683dd18f511ca1aca316d4",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-20261107.json": "6bc16397948b2445973d39e38f6e40d237aff1809d4b38fe1cc5698c5820d5c6",
+    "tools/probe_shadow_skill_gateway.py": "4dbd3400ed49884d1e917767dfc1666d19b81f255f01e24f4a2ca1302a6600c1",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-20261107.bin": "7f1e37b8fd0008c9a05d252e43f46d56450216f01e43521bbf4ffc1a65c9b53d",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dca90-part0.bin": "9729c98531fb69f5a92d2b71a861664de10f0f667661d3c01496af7c2960fee3",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dca90-part0.asm": "c2510cb0fed44234964d4d69923b5952e1c7c1894ecace71fe65b1e97d914d80",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part0.bin": "cb81fa5af9615f07ac40979d3208d67dd6f2e65e61ca26ad5f782bb7918a498e",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part0.asm": "281f8f8fc6738381109ceeeef229f31118100c7eebec5fb1103b3a951cb464ca",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part1.bin": "f009c4d9a9d7e6e1bc481fba06fb96bdaffd3508120af5e5c87594bec5bf9e3b",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part1.asm": "b9a2625ac8c41a48a0b850aa67560e5522ae61a790d6d5850598561aee560592",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part2.bin": "fb2ddcdd1d3260ac4f21c7ceaf86be52e63eb60c4fe444ae843a9ef2c684c704",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part2.asm": "11ae7f2b6e05085524194d75b195aae4f192229f62201cf21f9e64f12e63df35",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part3.bin": "18b4215acf4f31f4e4d7de14ea0644527b1451ecf058c5b3b964de57f75dc5ee",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dcc70-part3.asm": "a6b3566327a4d02f2f51a551d2805d23ac21719150ef161a9a9af50fe1608930",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part0.bin": "60cd0e30cfe8f6051b5765fd8f7983fad671004064ce2d434b932d3cd7cb71fa",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part0.asm": "6ba4708a8c0bd050d192cb87e7707514779fd269196f2c90831f0e16c61400c1",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part1.bin": "62281c072432ead7a66faca29a346ce3312c229822462029ef16e93f1448e251",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part1.asm": "d6c6d6ba2fd2484f61de94d6a9bb4efe2dce90e59aacf96162c8498a12d87b8a",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part2.bin": "f8e1bf57dbf80895d82fcb1314b1f8e29f1f3d76741c343726ffcdc84d3adbe2",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part2.asm": "e7720549944c037ac4c618e886f7df0c865e8d7cb5d5280ac1c06a2605658355",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part3.bin": "75cbaf0bf7606cccb38a9cc2c96a555a3269600ea543fa3d952d364dcb43a89f",
+    ".local/class-skills/warlock-runtime-reference/shadow-mode-table-3dd530-part3.asm": "75a695d4c00f5c2b98250917080b944b54cb9233fd5f71c30d99df274d897e6d",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107.json": "92af1646165c232d5305ec54c87ed5b1601818615a9bedafdc82fa5d04b56436",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part0.asm": "fb4bf946f4eb6eb167e86c9a899018949fa41a0f4378a8e712c7707413d08c31",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part0.bin": "e58e7a2aa86f61d7c9082d60812670de5b91525881a28b1e550cf36acd5867ca",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part1.asm": "bcac902858d564e2b96a19633d9e233993b439905178d83dbc0821cbe12dfadb",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part1.bin": "c41a9ee527bb6a7061e7775e534de4292e0913f5b8d020e27515efa2229e0e0f",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part2.asm": "2b32231a75e92b39e7c646d0bb7a854a078a69615acc6b8ff60d159a6d197101",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part2.bin": "accf03b09d985686a80d16ecde6a67e11a98a8e1d7c740e242a5b6cb8a0dca27",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part3.asm": "33fe985e78b2b1e6ae8f6ac93752cdec30099769806bf61065b39aa2ad0f903b",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part3.bin": "312237675d9fbf03f59a9b957ebcf0d2d7b6edb06e22b1d5b08426e00f1c7b0a",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part4.asm": "79e556ae8d5cca9250a43c1332cb8c6e0afce40e230dc80c2524e223f1c2e80c",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-start-20261107-3ab7d0-part4.bin": "a84e64868dbd8e0f37a5a417774be2169264763089b71f3f2abc29d98e0671a4",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107.json": "bd94619529fdecd3d8e2ddb99ed402d999819b9946714cf4e1d63fe7fa32f2ff",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part0.asm": "443f922e8db83866f16a0c3962398a081fefdbbe21bc3ba123bcff539fc8a7b5",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part0.bin": "17b9a72f5c6270c5622840a2353319399a5cbf394f13c261d0e4424d717c0a84",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part1.asm": "d65fb96a0ad698eebc266f3112dc3f2f7c4c5312d2dcd54c4daa3667c38e5167",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part1.bin": "7161a758ad4523d3c06c502a713969ea68f93dc06705eafa73774c0c0a9a1dd8",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part2.asm": "503f9bb222b9a2707d5a620c4084025ef5e188cf84799443f8764b8babb91172",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part2.bin": "97c58a801f4c21324e07ec3a87233991e009079d5db73f2144ae91b916947c0a",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part3.asm": "13195c86480cf2fa2333f46a3d56693cd4082629e66f5b7d660ead36f3cb9105",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part3.bin": "fb1ef656e8a60c7f3c7fd0c59e692d0aa1d12027540b106cf6fa71594e20f7de",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part4.asm": "a618d760f95bea43cab25bd2a40d8ed0c3e9d61323ebf091983a2e6f9a08a319",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-do-20261107-3abda0-part4.bin": "0d90a1469a06ed24990c0614c7db823d08e33c887a6d4e224568397fca920509",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107.json": "40cb10d0ee1b3a1c622b42435d8538b56fbc5e4baf5aec81777322419fd37593",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107-3aaf70-part0.asm": "8862d71096ee3bbc40b2fc0df20a99270aec95016578ae0c1675ffb02b09d8bb",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107-3aaf70-part0.bin": "a708885304244d4f6a389d61bf5af78a208ef598f75be2ebba17f8ffeeae6c8e",
+    ".local/class-skills/skill-do-dispatch-current/capture.json": "029f8880a734763160ac253f83e8335641a8422dc36a881f03ac51188fd9a0e0",
+    ".local/class-skills/skill-do-dispatch-current/candidate-table.bin": "01eb169abea885f94dba34abec81679caf1e10d41ceb65ed7f7c7e3ad650f8a9",
+    "tools/reference/shadow-current-birth-source-evidence.json": "8fd1f930d7a3eb9294d197dacca844e770d6d6f289e970c7e4cdeb798cc6738f",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    ".local/class-skills/warlock-runtime-reference/current-shadow-do49-20261107.json": "ef7645ea8b7fb9b85539a9761aa90037fe36892d5f5da7964e41e0a9ac02af64",
+    ".local/class-skills/skill-do-dispatch-current/slot-49-part-0.bin": "ebf9766c541e6e852b6d0bd73240e38d22d7fc7e1542ad1f22fea260e5303d12",
+    ".local/class-skills/skill-do-dispatch-current/slot-49-part-0.asm": "79454e6d46463f53e51be5c64ed1245b3d7bea76dbd669a68864b42552f0e779",
+    "tools/probe_skill_do_dispatch.py": "a755f6eb7477d84bd150ac5602fb9f4ae664d8615660a0fc96523e8bc140028a",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/current-skill-dispatch-cases.json": "533adb2825c528ccbbed4045c65f6be74e966fb6fc51344dfc6f0ae279beb2b2",
+    "tools/probe_current_skill_dispatch.py": "561a20e9e9df3841a3166967ee688e5b6b892e3e5e7a0bd69b28ed81caffa216",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/record_current_skill_dispatch.py": "12ef06e5297bea332d6eccdf471133a17560ae1bb0444ac7ded0d3f129c53160",
+    ".local/class-skills/skill-do-dispatch-current/dispatch-probe-2.log": "ace76f05913e66c8a494d6a5a154c7d19e597932a0973d646d5ea07084346e40",
+    ".local/class-skills/skill-do-dispatch-current/dispatch-check.log": "ace76f05913e66c8a494d6a5a154c7d19e597932a0973d646d5ea07084346e40",
+    "docs/current-skill-dispatch-checkpoint.md": "1a327c4114f2bd2b066faca62576565c9301cbc00f4842a3bbab5c5c8ebd50c1"
+  }
+}
