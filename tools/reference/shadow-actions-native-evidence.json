@@ -1,0 +1,51 @@
+{
+  "parent": "a05f1eeaa88796f7a92b4037de8a3f39c382c780",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeMarkers": 24,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "completeSourceContexts": 900,
+  "completeSourceRoutines": 4,
+  "sourceProofSha256": "baf4ff8fbd451bc8ed3abb52849c3e5c9745affadb56545266a56a10e3fc6e7e",
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "f3f78b085a1f554fdc7561351b7f421f91f8f14346cde31cb7be0a2c47c734c5",
+    "Assemblies/Sanctuary.Integration.dll": "795f08ec7bc924f47c47ce50c6e786511d09645f0b2282a065a197b09a0447c3"
+  },
+  "inputsSha256": "79e2be82edc588028447ad06567351181a040d8531f774a5a9d92e7d12a6be2e",
+  "nativeLogSha256": "d987a4c028a5d0534f0d161114a1cc9754e3e008c7d0dcdc7790393e536f1b5a",
+  "sourceSnapshotSha256": "efd29bf9fc7ff0b74c619f5522b0a8fa500134cefd394ed9a999dbe1e17d00e2",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Own transformed Shadow S2 clock and transient conductor. State119/Assassin6,monster mode9 to player mode14,8frame128speed marker2at4,zero frame bonus. Shared original selected-hand graph merge,dual-hand correction,source rate clamp and source event planner;no player sequence penalty or owner IAS. Both species exact release/end,live aim,one late catchup release,stale event rejection,recovery/freeze/move/item/park cancellation and saved original body/items/wounds/RNG. Retained intrinsic Fire Blast,defense and player Fire Blast cohorts.",
+  "failedRuns": [
+    "failed-native-1.log:second fixture placed on occupied allied tile;shared overlap refusal retained and fixtures parked between bodies"
+  ],
+  "limits": [
+    "Complete older routines corroborated by owned current state/animation metadata;full current executable scheduling parity unverified.",
+    "Only intrinsic Fire Blast action is connected;no automatic AI selection,movement or learned Shadow summon activation.",
+    "The intrinsic Fire Blast owner-removal/shield/PvP/sunder scope remains as recorded in its parent checkpoint."
+  ],
+  "notRerun": [
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": "Connect own movement/AI105/106 and remaining intrinsic skills,current modifier42 death qualification,then learned summons. No deployment or class completion."
+}

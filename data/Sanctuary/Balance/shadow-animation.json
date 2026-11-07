@@ -1,0 +1,43 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "State": 119,
+  "GraphicsType": 2,
+  "GraphicsClass": 6,
+  "ActorMode": 9,
+  "GraphicsMode": 14,
+  "Rows": [
+    {
+      "Code": "AIS2HT1",
+      "Frames": 8,
+      "Speed": 128,
+      "Events": [
+        [
+          4,
+          2
+        ]
+      ]
+    },
+    {
+      "Code": "AIS2HT2",
+      "Frames": 8,
+      "Speed": 128,
+      "Events": [
+        [
+          4,
+          2
+        ]
+      ]
+    },
+    {
+      "Code": "AIS2HTH",
+      "Frames": 8,
+      "Speed": 128,
+      "Events": [
+        [
+          4,
+          2
+        ]
+      ]
+    }
+  ]
+}

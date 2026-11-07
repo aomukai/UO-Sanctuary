@@ -1,0 +1,17 @@
+# Shadow S2 action checkpoint
+
+Reference: **D2R Reign of the Warlock3.3.93847**, approved Sanctuary deviations first. Coverage stays208/240, Assassin28/30; no learned Shadow route or autonomous AI is enabled.
+
+The pinned state119 transforms both Shadows to Assassin graphics/class6. Full older conversion maps monster S2mode9 to player S2mode14; the owned AnimData rows AIS2HT1/HT2/HTH each have8frames,base speed128 and marker2at frame4. The complete frame-bonus routine returns0. Four complete routines execute900controls under ASan/UBSan: transformation,frame bonus,dual-weapon attack rate and initial event planning. Source input getters represent the already merged hand view; actual stat-list merge is exercised natively. See [source receipt](../tools/reference/shadow-animation-source-evidence.json).
+
+`ShadowAnimation` uses the existing original weapon selection/merge, source rate clamp and `SourceAnimationEvents` planner. It reads the NPC’s own IAS/attackrate/hand stats and existing aura/slow suppliers; its captured initializer already supplies attackrate100. The complete dual-hand adjustment is applied before the15–175rate clamp. NPCs receive no player-only sequence minus30. Owner gear and FCR do not supply this clock.
+
+`ShadowActions` owns the transient40ms frame queue. It releases the verified intrinsic Fire Blast once at the exact source marker and completes at the planned end event, including late catchup. Recovery,freeze,location/item changes,parking and offline admission stop remaining events; existing emitted bombs retain their independent policy/lifetime. Completion/cancellation invalidates stale cast requests. No pending action queue is serialized or inferred from a saved skill selection. Generic summon suspend/recovery/delete hooks reuse this cancellation.
+
+**Verification:** Content2/Integration2/snapshot2;24native markers across three boots,two reloads,three saves. Each boot compares900complete-source clock contexts,then exercises both original species for exact timing,live target aim,late-event uniqueness,stale/cancelled requests and preserved original bodies/items/wounds/actor RNG. Intrinsic Fire Blast,Shadow defense and existing player Fire Blast remain green. The first fixture overlapped the second Shadow with the first: the existing overlap guard correctly refused it; fixtures now park each body between checks. No production guard was removed. Source snapshot matches tested inputs; installed build/saves/configuration remain unchanged. See [native receipt](../tools/reference/shadow-actions-native-evidence.json).
+
+The state conversion also explains why raw monster BaseW alone was insufficient for the earlier Weapon Block comparison. The approved dual-claw rule remains; the raw monster branch is not the whole transformed composite path. Exact current executable conversion/scheduling parity remains separate.
+
+Next: integrate own ground movement and AI105/106,extend the intrinsic caster to remaining supported skills,and qualify current modifier42 death behavior before learned summon casting. Full class suites/item audit export were not repeated for this focused conductor connection. Fire Blast's existing source-removal/shield/PvP/sunder scope remains explicit.
+
+Effects and icons remain separate: existing bomb/landing/explosion/audio placeholders are reused; final Shadow S2/body animation presentation and talent/hotkey icons are still pending. No final art is required for source event timing.

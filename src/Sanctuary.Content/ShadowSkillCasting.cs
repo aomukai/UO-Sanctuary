@@ -53,7 +53,7 @@ internal static class ShadowSkillCasting
         return SkillExecution.Run(new Execution(cast,at),251,cast.Body.OwnedSkillRank(251),true,false,false);
     }
     internal static void Complete(Cast cast)
-    {if(cast?.Body is{Alive:true,Deleted:false} body&&body.OwnedSkills.Used==251){body.ChangeSkills(book=>book.Use(null));}}
+    {if(cast==null){return;}cast.Released=true;if(cast.Body is{Alive:true,Deleted:false} body&&body.OwnedSkills.Used==251){body.ChangeSkills(book=>book.Use(null));}}
     private static bool Enemy(AssassinShadowBody body,BaseCreature target)=>body.ControlMaster is PlayerMobile owner
         &&target is{Alive:true,Deleted:false}&&ClassCombat.IsHostile(owner,target)&&!ClassCombat.Friendly(body,target)&&body.CanBeHarmful(target,false);
     private sealed class Startup(Cast cast):SkillStartupServices

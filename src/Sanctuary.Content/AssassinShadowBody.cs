@@ -72,6 +72,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     {Name="Shadow [appearance placeholder]";Body=0x190;Hue=0x455;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(376);SetMana(0);SetStam(0);SetDamage(0,0);}
     public override TimeSpan BeginMelee(Mobile target)=>throw new NotSupportedException("Shadow NPC skills/events/controller have not been qualified");
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
+    public override void SuspendActions(){ShadowActions.Cancel(this);base.SuspendActions();}
+    internal override void InterruptForRecovery(){ShadowActions.Cancel(this);base.InterruptForRecovery();}
     internal static void Validate(ShadowBodyState s)
     {
         try
@@ -148,7 +150,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         if(State is{} old&&PermanentSummonRecovery.Advance(this,old.Owner,old.NextRecoveryUtc,at,actions)is{} next)
         {RestorePrepared(State with{NextRecoveryUtc=next});}
     }
-    public override void OnAfterDelete(){GeneratedNpcLiveResources.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
+    public override void OnAfterDelete(){ShadowActions.Cancel(this);GeneratedNpcLiveResources.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterShadowLoad()
     {
         AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ShadowBodyState>(_saved);Validate(_state);_birth=null;
