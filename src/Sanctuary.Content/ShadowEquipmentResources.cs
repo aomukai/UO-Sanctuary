@@ -20,7 +20,8 @@ internal static class ShadowEquipmentResources
     internal static void Require(AssassinShadowBody actor,GeneratedNpcResourceState s,MonsterDifficulty? preview)
     {
         var source=s.Shadow;Validate(source);var state=actor.Prepared;
-        if(state is not{Equipment:not null}||actor.Map!=Map.Internal&&!ShadowEquipmentDefense.NumericWorld(actor)||((IPersistentMinion)actor).CanActivate
+        if(state is not{Equipment:not null}||actor.Map!=Map.Internal&&!ShadowEquipmentDefense.NumericWorld(actor)
+            ||((IPersistentMinion)actor).CanActivate&&!ShadowGroundMotion.Active(actor)
             ||state.Capture!=source.Capture||state.Initialization!=source.Initialization||(preview??state.Difficulty)!=source.Difficulty
             ||s.DamageRegeneration!=NecromancerSummons.Source(actor.SourceMonsterId,"DamageRegen")||!s.Basis.SequenceEqual(Basis(source)))
         {throw new NotSupportedException("Shadow resources need their original captured parked numeric recipient");}

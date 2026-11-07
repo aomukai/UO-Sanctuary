@@ -7,7 +7,7 @@ internal readonly record struct NecromancerPetAiTarget(int Id,int Distance,bool 
 internal enum NecromancerPetAiKind
 {
     DeleteThink,Owner,LookupPlayer,Distance,OwnerTarget,Primary,PetIgnore,MissileBarrier,ValidTarget,
-    Percentage,CommonMove,Town,Idle,PetMove,Wander,Attack,Velocity,Approach,Skill,Reposition
+    Percentage,CommonMove,Town,Idle,PetMove,Wander,Attack,Velocity,Approach,Skill,Reposition,RunTarget
 }
 internal readonly record struct NecromancerPetAiRequest(NecromancerPetAiKind Kind,int A=0,int B=0,int C=0,int D=0);
 internal sealed record NecromancerPetAiContext(NecromancerPetAiState State,int Velocity,int Run,int SkillMode,int Skill);

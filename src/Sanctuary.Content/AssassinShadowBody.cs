@@ -16,19 +16,53 @@ internal sealed record ShadowBodyState(uint Owner,ShadowOwnerSnapshot Capture,Sh
     public string Profile{get;init;}="parked-shadow-resources-v1";
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string Skills{get;init;}
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string DefenseProfile{get;init;}
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShadowGroundState GroundMotion{get;init;}
 }
 
 // Real serialized species/ownership/original inventory and FP256 resource
 // recipient. The missing NPC skills/events/controller keep it parked. The
 // talent cast is still unavailable; no inherited skeleton combat is allowed.
 [SerializationGenerator(0)]
-public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPersistentMinion
+public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPersistentMinion,INecromancerGroundEquipmentContact,INecromancerGroundBrain,INecromancerGroundPeriodic
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private ShadowBodyState _state;
     private ShadowCreationStats _birth;
     private ShadowBodyState State=>_state??(_saved=="{}"?null:_state=JsonSerializer.Deserialize<ShadowBodyState>(_saved));
-    internal ShadowBodyState Prepared=>State==null?null:State with{Equipment=ShadowLoadout.Copy(State.Equipment)};
+    internal ShadowBodyState Prepared=>State==null?null:State with{Equipment=ShadowLoadout.Copy(State.Equipment),GroundMotion=ShadowGroundMotion.Copy(State.GroundMotion)};
+    private NecromancerGroundWorld _ground;
+    NecromancerGroundWorld INecromancerGroundActor.WorldGround=>State?.GroundMotion==null?null:WorldGround;
+    internal NecromancerGroundWorld WorldGround=>_ground??=new(this,ShadowGroundMotion.Profile,
+        ()=>State?.GroundMotion==null?"{}":JsonSerializer.Serialize(State.GroundMotion.World),saved=>RestorePrepared(State with{
+            GroundMotion=new(JsonSerializer.Deserialize<SkeletonWorldState>(saved),State.GroundMotion?.Warrior??new())}),()=>{},run:true);
+    int INecromancerGroundActor.MovementPercent=>0;
+    int INecromancerGroundMotion.GroundRegenerationBase=>State.Initialization.RegenerationBase;
+    (int Velocity,int Animation) INecromancerGroundMotion.GroundMovement(int bonus,bool run)=>ShadowGroundMotion.Speed(this,bonus,run);
+    (int Speed,int Action,int End) INecromancerGroundEquipmentContact.GroundAttack()
+    {
+        ChangeSkills(book=>book.Use(0));var plan=ShadowAnimation.Melee(this);
+        return(plan.Speed,plan.Events.Single(e=>e.Type==1&&e.Kind==1).Frame,plan.Events.Single(e=>e.Type==2).Frame);
+    }
+    bool INecromancerGroundEquipmentContact.GroundRelease(PlayerMobile owner,IronGolemWorldState state,BaseCreature target,DateTime at)
+    {
+        var contact=OriginalNpcMelee.Prepare(this,owner,target,b=>IronGolemWorld.Melee(this,state,target,b),at);
+        return(IronGolemContact.Release(this,owner,target,contact,b=>IronGolemWorld.Melee(this,state,target,b),at).Packet.ResultFlags&1)!=0;
+    }
+    void INecromancerGroundBrain.GroundThink(PlayerMobile owner,int frame,DateTime at,NecromancerPetAiServices services)=>ShadowGroundMotion.Think(this,owner,frame,at,services);
+    int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
+    {
+        if(mode!=9||skill!=251){throw new NotSupportedException("Selected Shadow intrinsic skill needs its NPC action consumer: "+skill);}
+        if(!ShadowActions.BeginFireBlast(this,target,target.Location,at)){return 0;}
+        return ShadowActions.State(this).Plan.Events.Single(e=>e.Type==2).Frame;
+    }
+    void INecromancerGroundPeriodic.GroundFrame(int frame,DateTime at)
+    {
+        ShadowActions.Tick(at,true,Serial.Value);
+        if(WorldGround.State.Controller.EndAt==frame&&OwnedSkills.Used==0){ChangeSkills(book=>book.Use(null));}
+    }
+    void INecromancerGroundPeriodic.GroundSkipped(int frame)
+    {ShadowActions.Cancel(this);if(OwnedSkills.Used==0){ChangeSkills(book=>book.Use(null));}}
+    internal void ChangeGroundMemory(ShadowWarriorMemory memory)=>RestorePrepared(State with{GroundMotion=State.GroundMotion with{Warrior=memory}});
     internal string SavedText=>_saved;
     private ShadowCreationStats Numbers=>_birth??=State.Capture.Plan(State.Initialization.SpawnLife256);
     internal GeneratedNpcStatGraph EquipmentNumbers=>!World.Loading&&State?.Equipment!=null&&Alive&&!Deleted
@@ -44,7 +78,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     internal int OwnedSkillRank(int id)
     {var graph=EquipmentNumbers??throw new NotSupportedException("Shadow skill ranks need its original item graph");return OwnedSkills.Rank(id,graph.Read,BattleCommand.Bonus(this));}
     public override DiabloClass SummonClass=>DiabloClass.Assassin;
-    bool IPersistentMinion.CanActivate=>false;
+    bool IPersistentMinion.CanActivate=>ShadowGroundMotion.Active(this);
     public override bool Permitted(PlayerMobile owner)=>State!=null&&ClassCreation.Profiles.Histories(owner.Serial)
         .Any(h=>h.Profile.Class==DiabloClass.Assassin&&h.Ranks.GetValueOrDefault(SkillMechanics.For(State.Capture.Ability).TalentId)>0);
     public override bool UsesNativeSummonTimer=>false;
@@ -72,8 +106,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     {Name="Shadow [appearance placeholder]";Body=0x190;Hue=0x455;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(376);SetMana(0);SetStam(0);SetDamage(0,0);}
     public override TimeSpan BeginMelee(Mobile target)=>throw new NotSupportedException("Shadow NPC skills/events/controller have not been qualified");
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
-    public override void SuspendActions(){ShadowActions.Cancel(this);base.SuspendActions();}
-    internal override void InterruptForRecovery(){ShadowActions.Cancel(this);base.InterruptForRecovery();}
+    public override void SuspendActions(){ShadowActions.Cancel(this);if(State?.GroundMotion!=null){WorldGround.Suspend();}base.SuspendActions();}
+    internal override void InterruptForRecovery(){ShadowActions.Cancel(this);if(State?.GroundMotion!=null){WorldGround.Suspend();}base.InterruptForRecovery();}
     internal static void Validate(ShadowBodyState s)
     {
         try
@@ -82,6 +116,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
                 ||!Enum.IsDefined(s.Difficulty)||s.NextRecoveryUtc.Kind!=DateTimeKind.Utc||s.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40))
             {throw new InvalidDataException("Invalid Shadow actor birth");}
             s.Capture.Validate();ShadowInitializer.Validate(s.Initialization);
+            ShadowGroundMotion.Validate(s.GroundMotion,s.Owner,s.Capture);
             if(s.DefenseProfile!=null&&s.DefenseProfile!=ShadowEquipmentDefense.Profile)
             {throw new InvalidDataException("Unknown original Shadow defense profile");}
             if(s.Skills!=null){_=s.Capture.SkillRanks();_=ShadowSkillBook.Restore(s.Skills);}
@@ -147,13 +182,22 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     }
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
+        if(State?.GroundMotion!=null){IronGolemWorld.Advance(this,at,actions);return;}
         if(State is{} old&&PermanentSummonRecovery.Advance(this,old.Owner,old.NextRecoveryUtc,at,actions)is{} next)
         {RestorePrepared(State with{NextRecoveryUtc=next});}
+    }
+    void IPersistentMinion.ResumeActions()
+    {
+        if(State?.GroundMotion==null||Map==null||Map==Map.Internal||ControlMaster is not PlayerMobile owner||owner.Map!=Map){return;}
+        var s=WorldGround.State.Controller;var cell=IronGolemWorld.Cell(s);
+        if(s.Map!=Map.MapID||X!=(cell.X+1)/2||Y!=(cell.Y+1)/2)
+        {WorldGround.Store(IronGolemWorld.Park(s with{Map=Map.MapID,Motion=DruidRavenMotion.Center(X*2,Y*2)}));}
     }
     public override void OnAfterDelete(){ShadowActions.Cancel(this);GeneratedNpcLiveResources.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterShadowLoad()
     {
         AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ShadowBodyState>(_saved);Validate(_state);_birth=null;
         if(_state.Equipment==null||_state.Weapons==null||_state.Equipment.Actor!=Serial.Value){throw new InvalidDataException("Saved Shadow lost its completed original loadout");}
+        if(_state.GroundMotion!=null){WorldGround.Load();}
     }
 }

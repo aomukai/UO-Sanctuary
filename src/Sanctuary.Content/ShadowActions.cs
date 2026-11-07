@@ -59,11 +59,12 @@ internal static class ShadowActions
     }
     internal static void Cancel(AssassinShadowBody body)
     {if(body!=null&&Actions.Remove(body.Serial.Value,out var action)){ShadowSkillCasting.Complete(action.Cast);}}
-    internal static void Tick(DateTime at,bool? actions=null)
+    internal static void Tick(DateTime at,bool? actions=null,uint? onlyActor=null)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Shadow action clock needs UTC");}
         foreach(uint actor in Actions.Keys.ToArray())
         {
+            if(onlyActor.HasValue&&actor!=onlyActor.Value){continue;}
             while(Actions.TryGetValue(actor,out var action)&&action.NextUtc<=at)
             {
                 var body=action.Cast.Body;var owner=body.ControlMaster as PlayerMobile;

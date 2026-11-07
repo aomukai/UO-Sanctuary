@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "contexts": 140,
+  "completeRoutineHashes": {
+    "UNITS_GetAnimStatBasePercentage": "10423c95fc725502dd335dae7a1d18a56db30c784d9ad7b3f48fb3ce53502162",
+    "UNITS_GetBaseAnimSpeed": "a889c63e03e882cf43fad46314a9cbb5670a5ec065a0ec581dfacb9d3cac5484",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb"
+  },
+  "inputs": {
+    "tools/probe_shadow_ground_motion.py": "88bca5d4561d5fe859294230b7cef5ac65162ecf77a1659444d623bf0e762d3b",
+    ".local/class-skills/shadow-animation-source/source.cpp": "12e9c8c2a4d972fc9f48fc95cbf87455b06cb6f450762403dec932ada5c181c6",
+    "tools/reference/d2r-named-equipment/json/charstats.json": "15e0ec2a7812d763b15c4cd759fcb682c1cdbe1268aa1fadd4e8e6d4708cf564",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "data/Sanctuary/Balance/shadow-ground-animation.json": "4afee20c52004b8cddb370aa9a9291b89b8d1f42a24b28222890be89689ca517"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-ground-source/source.cpp": "eda7db8ee4d58ceba1e7eaf713e8a5585ce82d5009052a3680dc42532c4a0802",
+    ".local/class-skills/shadow-ground-source/cases.json": "5b36d63d46b8d7a9fee554b77eea1f83447d186306bf5a3fd02ded3eea668753"
+  },
+  "scope": "Complete older converted Assassin motion rate/velocity routines;owned Walk6/Run9 and locomotion rows. Native path transport/collision and current executable parity are distinct."
+}

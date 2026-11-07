@@ -1,0 +1,19 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "WalkVelocity": 6,
+  "RunVelocity": 9,
+  "Rows": [
+    {
+      "Code": "AIRNHT2",
+      "Frames": 8,
+      "Speed": 256,
+      "Events": []
+    },
+    {
+      "Code": "AIWLHT2",
+      "Frames": 8,
+      "Speed": 256,
+      "Events": []
+    }
+  ]
+}

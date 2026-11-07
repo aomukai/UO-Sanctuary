@@ -1,0 +1,51 @@
+{
+  "parent": "999eb90d921926fcc9d89f863a4089b7fb8b8697",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 18,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "aiSourceContexts": 323,
+  "motionSourceContexts": 140,
+  "sourceSnapshot": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "375ca4158c683afaf20519e695558b2a553645caa2bd6cfd17d3fcdc8c1b800a",
+    "Assemblies/Sanctuary.Integration.dll": "66a98055b844691e63aa5eaaf6cfb39c372a495159ab56244368832d1da68975"
+  },
+  "inputsSha256": "7b787e51723ea83d405f9cee47c0af29ee0eb4cea5bb3b8648860f6847eda12e",
+  "nativeLogSha256": "4172161ead1315fcddaa79058c0f8e78c72eb8d0b5823323cc30774bf100647e",
+  "sourceSnapshotSha256": "dd3a5ee43d6dbc3d4e1648306d81c6b8d06ec0288f3a340bd239580fca0a9184",
+  "sourceProofs": {
+    "tools/reference/shadow-warrior-ai-source-evidence.json": "8708ed7ff7903ff220856d8d6b87376f4ae1aef500bc4f86d3ad5633a8e50a24",
+    "tools/reference/shadow-ground-source-evidence.json": "1a4ee577e23752e629e2b100f9141482ea64580d0bce2a05a218828c5898e931"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Own Warrior AI105 on shared ground transport;actual walk/run and moving Weapon Block restrictions,owner follow,original melee,AI-to-S2 Fire Blast marker handoff,recovery and parking;own original items,wounds,memory and RNG across reloads. Prior ordinary melee/S2 cohorts retained.",
+  "notRerun": [
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": [
+    "Master AI106",
+    "remaining intrinsic state/delay/action consumers",
+    "current UMod42 death behavior",
+    "learned summon/payment/replacement/input",
+    "broader class/world/current-executable/client verification",
+    "final effects and icons"
+  ]
+}

@@ -1,0 +1,18 @@
+# Shadow Warrior ground/AI checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Coverage remains **208/240 handlers; Assassin 28/30**. Neither learned Shadow summon is enabled by this checkpoint.
+
+Shadow Warrior now has its own AI105 selection, eligibility, mana-weighted budget and cooldown memory over the existing equipped-summon ground conductor. It uses the shared owner-follow policy and native target/path adapters; it does not inherit Necromancer AI67. Shadow Master still needs its distinct AI106 selector. The existing original-equipment melee and Fire Blast consumers are connected to Warrior decisions. Skill ranks use the approved birth snapshot; current owner mouse selections choose the mirrored skill IDs.
+
+The complete pinned older AI105 and eligibility routines provide **323 ordered service contexts**, including owner/selection absence, target/owner distance boundaries, combat eligibility, state gates, rejected pet types, mana/cooldown/budget checks, alternate selection, missing Attack creation and RNG order. The qualified locomotion source is reused with the owned Assassin transformation, WalkVelocity 6 / RunVelocity 9 and AIWLHT2/AIRNHT2 rows: **140 complete source rate/velocity contexts**. Both source harnesses have clean ASan/UBSan output. These are scoped older-engine comparisons, not certification of every current executable path.
+
+Native checks verify actual walk/run pose advancement, independent actor RNG, moving Weapon Block restrictions, automatic following, original claw melee and AI-to-S2 Fire Blast entry/release/end. The spell allocates its child packet at the source marker without player mana or immediate damage. Existing melee and S2 checks remain in the focused cohort. Recovery cancels pending melee; parking preserves wounds; ground frames own regeneration without the old recovery path counting it again. Serialized AI memory, motion, original equipment, wounds and RNG survive two real reloads. Pending transient casts do not replay. Legacy parked Shadow snapshots retain their old admission behavior.
+
+**Verification:** zero-warning Content and Integration builds; snapshot 2 matches the final native input manifest; **18 native markers across three boots, two reloads and three saves**. Exact artifact/log/input hashes are in [the native receipt](../tools/reference/shadow-ground-native-evidence.json). The first passing cohort was extended with a direct AI/Fire Blast handoff check, then rerun. The installed build, 38 saves, configuration and historical client patches remain preserved. Full class suites and item-audit exports were not repeated for this scoped change.
+
+Remaining work:
+
+- Master AI106 and the other intrinsic NPC skill/state/delay consumers. An unsupported selected consumer raises a named unsupported boundary; the shared controller records a fault instead of inventing an action. The internal Warrior admission is currently for qualified mechanical fixtures, not the learned talent route.
+- Current death/UMod42 qualification. The older cold-enchanted callbacks remain a research lead, not proof of current death behavior.
+- Learned summon casting, payment, replacement and actual input, followed by broader class/world verification. Exact current target lookup, path geometry and neutral/busy cadence remain scoped native adapters.
+- Final Shadow body/equipment, movement/attack/cast/contact/death/audio presentation and talent/hotkey artwork. Body `0x190`, hue `0x455`, native A1 animation and shared Fire Blast/contact effects remain clearly identified placeholders. Effects and icons stay in their separate inventories.

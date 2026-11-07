@@ -28,6 +28,13 @@ internal interface INecromancerGroundEquipmentContact:INecromancerGroundMotion
     bool GroundRelease(PlayerMobile owner,IronGolemWorldState state,Server.Mobiles.BaseCreature target,DateTime at);
 }
 
+// Species may reuse transport/query bindings without inheriting NecroPet AI67.
+internal interface INecromancerGroundBrain:INecromancerGroundMotion
+{
+    void GroundThink(PlayerMobile owner,int frame,DateTime at,NecromancerPetAiServices services);
+    int GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at);
+}
+
 // Owner/frame/load transport shared by melee and ranged pets. Keep actor-owned
 // serialized fields and the historical owner/controller JSON shape unchanged.
 internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profile,Func<string> read,Action<string> write,Action cancel,bool ranged=false,bool run=false)

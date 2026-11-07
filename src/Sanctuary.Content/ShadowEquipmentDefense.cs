@@ -13,10 +13,10 @@ internal static class ShadowEquipmentDefense
     internal const string Profile="shadow-original-defense-v1";
     internal static bool Active(Mobile actor)=>!Server.World.Loading&&actor is AssassinShadowBody{Alive:true,Deleted:false} body
         &&body.Prepared?.DefenseProfile==Profile;
-    internal static bool NumericWorld(AssassinShadowBody body)=>Active(body)&&body.CantWalk&&!((IPersistentMinion)body).CanActivate;
+    internal static bool NumericWorld(AssassinShadowBody body)=>Active(body)&&(ShadowGroundMotion.Active(body)||body.CantWalk&&!((IPersistentMinion)body).CanActivate);
     internal static GeneratedNpcStatGraph Require(AssassinShadowBody body,bool world=true)
     {
-        if(!Active(body)||!body.CantWalk||world&&body.Map==Map.Internal)
+        if(!Active(body)||!body.CantWalk&&!ShadowGroundMotion.Active(body)||world&&body.Map==Map.Internal)
         {throw new NotSupportedException("Shadow defense needs its qualified stationary original recipient");}
         var graph=OriginalNpcEquipment.Graph(body);_=NpcEquipmentRandom.Require(body);
         if(!SourceBlocking.TryRate(body,out int rate,out _)||rate!=0)
@@ -68,7 +68,7 @@ internal static class ShadowEquipmentDefense
     }
     internal static int World(AssassinShadowBody body,bool avoid,bool block)
     {
-        _=Require(body);int flags=SuppliedMode(body,1,avoid,block);
+        _=Require(body);int flags=SuppliedMode(body,ShadowGroundMotion.Active(body)?ShadowGroundMotion.Mode(body):1,avoid,block);
         if(flags!=0){body.FixedEffect(0x375A,5,5,0x481,0);body.PlaySound(0x1A4);} // Shared identified defense placeholders.
         return flags;
     }

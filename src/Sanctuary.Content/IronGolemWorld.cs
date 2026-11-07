@@ -183,7 +183,16 @@ internal static class IronGolemWorld
                 case NecromancerPetAiKind.Velocity:Velocity(ref s,r.A,r.B,r.C);break;
                 case NecromancerPetAiKind.Approach:
                     var chase=World.FindMobile((Serial)(uint)r.A);if(chase!=null){Velocity(ref s,13,0,0);Path(body,ref s,PetOwnerRoutes.Cell(chase),false);}break;
+                case NecromancerPetAiKind.RunTarget:
+                    if(body is not INecromancerGroundBrain){throw new NotSupportedException("Unbound species run-to-target request");}
+                    var runTarget=World.FindMobile((Serial)(uint)r.A);if(runTarget!=null){Path(body,ref s,PetOwnerRoutes.Cell(runTarget),true);}break;
                 case NecromancerPetAiKind.Skill:
+                    if(body is INecromancerGroundBrain brain)
+                    {
+                        var recipient=World.FindMobile((Serial)(uint)r.C)as BaseCreature;
+                        int duration=brain.GroundSkill(owner,r.A,r.B,recipient,at);
+                        s=Neutral(s,Math.Max(1,duration+1)) with{Target=(uint)r.C};break;
+                    }
                     if(MageWorld.For(body) is not{} mage||r.A!=4||r.B!=338){throw new NotSupportedException("Unbound ranged pet skill request");}
                     var aim=World.FindMobile((Serial)(uint)r.C);if(aim!=null){body.Direction=body.GetDirectionTo(aim);}
                     mage.CombatStart(owner);var cast=((NecromancerMinion)body).MageAttackClock;
@@ -230,8 +239,12 @@ internal static class IronGolemWorld
         var queries=MageWorld.For(body) is{} caster
             ?NecromancerPetTargets.BindRanged(body,owner,target=>Eligible(body,owner,target),target=>Full(body,s,target),_=>caster.Primary(owner,s),Request,()=>Limited(body,100),Common,Move)
             :NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(body,s,target),target=>Melee(body,s,target,0),Request,()=>Limited(body,100),Common,Move);
-        var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),MageWorld.For(body)!=null?4:0,MageWorld.For(body)!=null?338:0),queries);
-        s=s with{Ai=memory};
+        if(body is INecromancerGroundBrain own){own.GroundThink(owner,s.Frame,at,queries);}
+        else
+        {
+            var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),MageWorld.For(body)!=null?4:0,MageWorld.For(body)!=null?338:0),queries);
+            s=s with{Ai=memory};
+        }
         if(s.NextThink==0&&s.Mode is not(2 or 4 or 8)){s=s with{NextThink=s.Frame+15};}return s;
     }
     internal static void Advance(SkeletonGuardian body,DateTime at,bool actions)

@@ -980,3 +980,7 @@ NPC current-life/mana/stamina percentage callbacks add no independent active eff
 Prepared Iron Golem body/controller: silent UO body14/hue0x835 and the explicit “Iron Golem [prepared placeholder]” name identify temporary presentation. Moving and ordinary-contact mechanics now have a prepared controller; learned casting remains disabled. Final G4 emergence/walk/attack/death, summon, thorns, contact/state effects and audio remain pending. G4 has no separate GH/BL/RN animation row in the pinned file; do not invent one by copying another summon. Talent and hotkey icons remain separate; the internal controller adds no icon.
 
 Prepared Iron Golem/NPC flat retaliation uses the shared UO0x374A/hue0x481flash as an identified placeholder. Final thorns/contact/audio and any state-appearance change remain pending. Same-state replacement/expiry does not certify a final fade or aura graphic; the current body remains the named UO placeholder. This internal consumer adds no separate talent/hotkey icon.
+
+## Shadow Warrior ground/AI presentation — 2026-11-08
+
+Mechanical motion/AI adds no final artwork. Body `0x190`/hue `0x455`, native A1 animation and existing shared contact/Fire Blast effects remain identified placeholders. Final Shadow movement, equipment, attacks, casts, contact, death and audio remain pending. See [mechanical checkpoint](shadow-ground-checkpoint.md); talent/hotkey icons stay in `skill-icons.md`.

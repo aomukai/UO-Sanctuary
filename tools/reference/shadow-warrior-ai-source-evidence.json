@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderSourceTree": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 323,
+  "completeRoutineHashes": {
+    "AITHINK_ShadowWarriorCheckUseSkill": "9d8a17b57e8378ad853360da2de8c1b67256b3d90a187bf55ae173e4373ea707",
+    "AITHINK_Fn105_ShadowWarrior": "07416d376dd0f7f74e98e28bf4d6c9b31faf80db06b43d8ebce1465fd41c64ee"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/probe_shadow_warrior_ai.py": "fa94a2762aeb366ef56761f2b2c453ef29534a14291eaaf64d543df67f464f6b"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-warrior-ai-source/source.cpp": "c7f9e70dd9c59977fdfa6acc0c2d9e1784f0311618abfff7f4b7dce2e5b09db7",
+    ".local/class-skills/shadow-warrior-ai-source/cases.json": "5f1f97b479ffa6532d51bdd5e8e227a03eeae9ea01b9958323792b173d1478b7"
+  },
+  "scope": "Whole older AI105 plus eligibility; ordered tactic/RNG results and saved parameters. Query/skill inputs are explicit synthetic service contexts. Modern parity, AI106 and intrinsic skill consumers are not established."
+}

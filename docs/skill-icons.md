@@ -906,3 +906,7 @@ NPC Replenish Life shares Iron Golem’s pending talent-tree/hotkey artwork and 
 Exact NPC regeneration-basis callbacks share Iron Golem’s pending talent-tree/hotkey icons. They add no separately bindable skill; text-label placeholders and the separate effects register remain authoritative.
 
 NPC current-resource percentage callbacks add no separately bindable skill or icon. Iron Golem’s talent-tree/hotkey artwork remains pending with text-label placeholders; effects/audio are tracked separately.
+
+## Shadow Warrior ground/AI icons — 2026-11-08
+
+No public binding or icon slot changes. Shadow Warrior/Master talent-tree and hotkey icons remain separately pending; internal AI/movement verification does not complete their artwork. See [checkpoint](shadow-ground-checkpoint.md).
