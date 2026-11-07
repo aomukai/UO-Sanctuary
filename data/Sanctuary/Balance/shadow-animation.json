@@ -39,5 +39,40 @@
         ]
       ]
     }
+  ],
+  "MeleeRows": [
+    {
+      "Code": "AIKKHT1",
+      "Frames": 13,
+      "Speed": 256,
+      "Events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AIKKHT2",
+      "Frames": 13,
+      "Speed": 256,
+      "Events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AIKKHTH",
+      "Frames": 13,
+      "Speed": 256,
+      "Events": [
+        [
+          4,
+          1
+        ]
+      ]
+    }
   ]
 }

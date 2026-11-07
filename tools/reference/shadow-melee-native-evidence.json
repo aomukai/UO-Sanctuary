@@ -1,0 +1,49 @@
+{
+  "parent": "f8c3d10a5c0e38c27bc4fe835f0d4760064d7daf",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "contentBuild": 3,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeMarkers": 21,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "completeSourceContexts": 1800,
+  "sourceProofSha256": "5dfa0e3a4b04ca5aaa11c3e2eae36454a7149b3cab52719c85c12eed366e67c8",
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "3d9dc645bde38a9bec3fc5a9cdb58f0cb8795d2e00b95260ff8675a8570de145",
+    "Assemblies/Sanctuary.Integration.dll": "ea286a87611a5cffd4ff6528ef1bda46161d9db0fdc2ebbfef7372f886fb6370"
+  },
+  "inputsSha256": "5b63b8e6f87fa055eb25cd16ffb18f17e01df03ba404fcb582b7419ac4a356fd",
+  "nativeLogSha256": "afcccc6b972eb3cf49fba16d746dea629a2f0cbb8106f848620af6c845b216ae",
+  "sourceSnapshotSha256": "caf1cb4cfa0a815824c7b4177b853fa399e32f157c9f2a116dbe1629ecf8e5be",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Original equipped-NPC full-fill/contact bridge shared by Valkyries and Shadows. Both Shadow species own claws,posted mastery AR/damage/critical and actor RNG;source transformed A1/kick marker clock,live range recheck,late end/park cancellation,no owner mana or missile allocation. Original actors/items/wounds/RNG persist across reloads;S2/intrinsic Fire Blast and original Valkyrie contact retained.",
+  "failedRuns": [
+    "failed-native-1.log:no legal native fixture corridor;fixture moved to previously proven area"
+  ],
+  "notRerun": [
+    "full class suite",
+    "item audit exporter"
+  ],
+  "limits": [
+    "This is original ordinary weapon damage with kick-looking graphics,not the player Dragon Talon/boot-damage route.",
+    "Current executable parity,inherited sunder/PvP and previously scoped original-item limitations remain separate."
+  ],
+  "remaining": "Shared ground motion transport and own AI105/106,remaining intrinsic skills,current UMod42death behavior,then learned summon routes. No deployment or class completion."
+}

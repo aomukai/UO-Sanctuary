@@ -1,6 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
-  "contexts": 900,
+  "contexts": 1800,
+  "s2Contexts": 900,
+  "meleeContexts": 900,
   "completeRoutineHashes": {
     "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb",
     "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
@@ -20,13 +22,14 @@
     "data/Sanctuary/Balance/npc-skill-metadata.json": "7595212bb46b3d8e1537a3a6753dc10360eb908387cb488786181546b564d24f",
     "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
     ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
-    "data/Sanctuary/Balance/shadow-animation.json": "77e5da8f11e0074ffb0738281e6543490e5951cc46de0cd3b9a41d738c0ac6ef",
-    "tools/probe_shadow_animation.py": "c4d1b76dbc490c0a2921d7cb19a5e81e81e064dab851d24a40c8a66d93d162e6"
+    "data/Sanctuary/Balance/shadow-animation.json": "a7a19d0b007f5358bd19a4d2208d7ebe4b1f2c125a33f7d10380aa84a10f9510",
+    "tools/probe_shadow_animation.py": "6305f799d44b4dac118673c24412d598c3170dbc3e04ff36f2c6ccf164f3ed81"
   },
   "artifacts": {
-    ".local/class-skills/shadow-animation-source/source.cpp": "b8ea6e60c68fb7222446745e2366af06a830fe1786ade6ac693b78dd88ea1bc4",
-    ".local/class-skills/shadow-animation-source/probe": "84521522e6be26527f7b6a845ecd407202e6c9e59c8f419d83b7efdcee7ab231",
-    ".local/class-skills/shadow-animation-source/cases.json": "5f7495fbf1243d8b243a332db0b040a840112177c87bffcea6ae88a3e28ab30e"
+    ".local/class-skills/shadow-animation-source/source.cpp": "12e9c8c2a4d972fc9f48fc95cbf87455b06cb6f450762403dec932ada5c181c6",
+    ".local/class-skills/shadow-animation-source/probe": "1cfaa25c9b8833bc8a972120d5ee067947fadabefe188321666f37ac891820c6",
+    ".local/class-skills/shadow-animation-source/cases.json": "68a8769464f97ea4a7552cb9a5ffefeb38c8620dc7391ef4b1c593da0ee6cf7e",
+    ".local/class-skills/shadow-animation-source/melee-cases.json": "d65fcbc2c6a271538c2bdfe5c865358f4a05bd58c031e48cc9b6bb160692b00c"
   },
-  "scope": "Owned state119/Assassin6 transforms both species;monster S2mode9 becomes playerS2mode14,frame bonus0. Owned8frame/speed128/flag2at4 rows;complete older conversion,bonus,dual-wield rate and event routines. Numeric input getters already include selected-hand merge;actual graph merge is a native consumer check. Modern full executable parity is not claimed."
+  "scope": "Owned state119/Assassin6 transforms both species;monster S2mode9 becomes playerS2mode14 and monsterA1mode4 becomes playerKKmode12,frame bonus0. Owned8frame/speed128/flag2at4 rows;complete older conversion,bonus,dual-wield rate and event routines. Numeric input getters already include selected-hand merge;actual graph merge is a native consumer check. Modern full executable parity is not claimed."
 }

@@ -10,9 +10,10 @@ namespace Sanctuary;
 // clock, call a player talent or turn an item proc into an intrinsic skill.
 internal static class ShadowSkillCasting
 {
-    internal sealed class Cast(AssassinShadowBody body,BaseCreature target,Point3D aim)
+    internal sealed class Cast(AssassinShadowBody body,BaseCreature target,Point3D aim,int skill=251)
     {
         internal readonly AssassinShadowBody Body=body;
+        internal readonly int Skill=skill;
         internal readonly Map Map=body.Map;
         internal BaseCreature Target=target;
         internal readonly Point3D Aim=aim;
@@ -48,12 +49,12 @@ internal static class ShadowSkillCasting
     }
     internal static int Release(Cast cast,DateTime at)
     {
-        if(cast==null||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=251){return 0;}
+        if(cast==null||cast.Skill!=251||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=251){return 0;}
         cast.Released=true;
         return SkillExecution.Run(new Execution(cast,at),251,cast.Body.OwnedSkillRank(251),true,false,false);
     }
     internal static void Complete(Cast cast)
-    {if(cast==null){return;}cast.Released=true;if(cast.Body is{Alive:true,Deleted:false} body&&body.OwnedSkills.Used==251){body.ChangeSkills(book=>book.Use(null));}}
+    {if(cast==null){return;}cast.Released=true;if(cast.Body is{Alive:true,Deleted:false} body&&body.OwnedSkills.Used==cast.Skill){body.ChangeSkills(book=>book.Use(null));}}
     private static bool Enemy(AssassinShadowBody body,BaseCreature target)=>body.ControlMaster is PlayerMobile owner
         &&target is{Alive:true,Deleted:false}&&ClassCombat.IsHostile(owner,target)&&!ClassCombat.Friendly(body,target)&&body.CanBeHarmful(target,false);
     private sealed class Startup(Cast cast):SkillStartupServices

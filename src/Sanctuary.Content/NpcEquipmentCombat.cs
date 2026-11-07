@@ -18,5 +18,10 @@ internal static class NpcEquipmentCombat
         ?checked(item.Defense+item.Bonus("dex")/4):0);
     internal static int AttackFlat(BaseCreature actor)=>ReviveEquipmentCombat.AttackFlat(actor)??(Context(actor) is{} item
         ?checked(item.Bonus("att")+5*item.Bonus("dex")):0);
-    internal static int AttackPercent(BaseCreature actor)=>ValkyrieEquipmentStats.AttackPercent(actor)??ReviveEquipmentCombat.AttackPercent(actor)??Bonus(actor,"att%");
+    private static int ShadowAttackPercent(AssassinShadowBody body)
+    {
+        var graph=OriginalNpcEquipment.Graph(body);var frame=OriginalNpcEquipment.WeaponFrame(body);frame.Enter();
+        return checked(graph.Read(119)+frame.Mastery(0,0,1));
+    }
+    internal static int AttackPercent(BaseCreature actor)=>actor is AssassinShadowBody shadow&&ShadowEquipmentDefense.Active(shadow)?ShadowAttackPercent(shadow):ValkyrieEquipmentStats.AttackPercent(actor)??ReviveEquipmentCombat.AttackPercent(actor)??Bonus(actor,"att%");
 }

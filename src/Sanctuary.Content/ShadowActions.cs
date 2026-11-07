@@ -34,6 +34,29 @@ internal static class ShadowActions
         }
         catch{ShadowSkillCasting.Complete(cast);throw;}
     }
+    private static bool MeleeRange(AssassinShadowBody body,BaseCreature target,int bonus)
+    {
+        var point=DruidRavenMotion.Center(body.X*2,body.Y*2);
+        return IronGolemWorld.Melee(body,new(body.Map.MapID,point,TimedEffects.Now),target,bonus);
+    }
+    internal static bool BeginMelee(AssassinShadowBody body,BaseCreature target,DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs UTC");}
+        if(!CanAct(body)||State(body)!=null||target is not{Alive:true,Deleted:false}||target.Map!=body.Map
+            ||body.ControlMaster is not PlayerMobile owner||!ClassCombat.IsHostile(owner,target)||ClassCombat.Friendly(body,target)
+            ||!MeleeRange(body,target,0)||body.OwnedSkillRank(0)<=0){return false;}
+        OriginalNpcMelee.RequireAllocation(body,target);body.ChangeSkills(book=>book.Use(0));
+        var cast=new ShadowSkillCasting.Cast(body,target,target.Location,0);
+        try
+        {
+            var plan=ShadowAnimation.Melee(body);
+            if(plan.Events.Count(e=>e.Type==1&&e.Kind==1)!=1||plan.Events.Count(e=>e.Type==2)!=1)
+            {throw new NotSupportedException("Shadow A1 needs one melee action and end event");}
+            Actions.Add(body.Serial.Value,new(cast,plan,body.Map,body.Location,ShadowLoadout.Binding(body).Identity,
+                body.EquipmentNumbers.ActiveItems,0,at.AddMilliseconds(40)));return true;
+        }
+        catch{ShadowSkillCasting.Complete(cast);throw;}
+    }
     internal static void Cancel(AssassinShadowBody body)
     {if(body!=null&&Actions.Remove(body.Serial.Value,out var action)){ShadowSkillCasting.Complete(action.Cast);}}
     internal static void Tick(DateTime at,bool? actions=null)
@@ -45,13 +68,22 @@ internal static class ShadowActions
             {
                 var body=action.Cast.Body;var owner=body.ControlMaster as PlayerMobile;
                 if(!CanAct(body)||!(actions??owner?.NetState is{Running:true})||body.Map!=action.Map||body.Location!=action.Position
-                    ||body.OwnedSkills.Used!=251||ShadowLoadout.Binding(body).Identity!=action.Binding
+                    ||body.OwnedSkills.Used!=action.Cast.Skill||ShadowLoadout.Binding(body).Identity!=action.Binding
                     ||!body.EquipmentNumbers.ActiveItems.SequenceEqual(action.Items))
                 {Cancel(body);break;}
                 int frame=action.Frame+1;bool end=false;
                 foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
                 {
-                    if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==2){_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
+                    if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==2&&action.Cast.Skill==251){_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
+                    else if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1&&action.Cast.Skill==0)
+                    {
+                        action.Cast.Released=true;
+                        if(action.Cast.Target is{Alive:true,Deleted:false} target&&target.Map==body.Map&&ClassCombat.IsHostile(owner,target)&&!ClassCombat.Friendly(body,target))
+                        {
+                            var contact=OriginalNpcMelee.Prepare(body,owner,target,b=>MeleeRange(body,target,b),action.NextUtc);
+                            _=IronGolemContact.Release(body,owner,target,contact,b=>MeleeRange(body,target,b),action.NextUtc);
+                        }
+                    }
                     else if(e.Type==SourceAnimationEvents.EndAnimation){end=true;}
                     else{Cancel(body);throw new NotSupportedException("Unqualified Shadow action event");}
                 }

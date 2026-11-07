@@ -25,6 +25,18 @@ internal static class OriginalNpcEquipment
         AssassinShadowBody body=>ShadowLoadout.Binding(body).Identity,
         _=>throw new NotSupportedException("Original NPC equipment needs its own original hand binding")
     };
+    internal static GeneratedNpcWeaponFrame WeaponFrame(SkeletonGuardian actor)
+    {
+        if(actor is AmazonValkyrieBody v){return ValkyrieEquipmentWeapons.Frame(v);}
+        if(actor is AssassinShadowBody shadow)
+        {
+            var binding=ShadowLoadout.Binding(shadow);var graph=Graph(shadow);
+            if(!graph.ActiveItems.Contains(binding.Primary)||binding.Secondary!=0&&!graph.ActiveItems.Contains(binding.Secondary))
+            {throw new NotSupportedException("Original Shadow hand has been detached from its stat graph");}
+            return graph.Weapons(binding.Primary,binding.Secondary,false,false,0,0,0);
+        }
+        throw new NotSupportedException("Original NPC weapon frame needs its own species adapter");
+    }
     internal static int Level(SkeletonGuardian actor)=>actor switch
     {
         AmazonValkyrieBody body=>body.BirthStats.Level,

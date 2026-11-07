@@ -70,40 +70,8 @@ internal static class ValkyrieEquipmentContact
         {throw new NotSupportedException("Original Valkyrie registration is not activated");}
         _=ValidateGraph(body,true,true);
     }
-    internal static void RequireAllocation(AmazonValkyrieBody body,BaseCreature target)
-    {
-        _=Registry(body);
-        if(target is not{Alive:true,Deleted:false}){throw new NotSupportedException("Original Valkyrie allocation needs a living NPC recipient");}
-        if(body.EquipmentNumbers.Stats.Any(v=>v.Stat==180&&v.Value!=0))
-        {throw new NotSupportedException("Original monster-type damage needs a concrete current target-type adapter");}
-        WeaponStartEffects.RequireArmorDelta(body.EquipmentNumbers.Read(120));
-        if(checked(CreatureProfiles.Defense(target)+NpcEquipmentCombat.Defense(target))<0)
-        {throw new NotSupportedException("Original Valkyrie target armor is outside the native base-stat adapter");}
-    }
+    internal static void RequireAllocation(AmazonValkyrieBody body,BaseCreature target)=>OriginalNpcMelee.RequireAllocation(body,target);
     internal static IronGolemContact.Prepared Prepare(AmazonValkyrieBody body,PlayerMobile owner,BaseCreature target,Func<int,bool> range,DateTime at)
-    {
-        ArgumentNullException.ThrowIfNull(range);
-        if(at.Kind!=DateTimeKind.Utc||owner is not{Alive:true,Deleted:false}||body?.ControlMaster!=owner||body.Map==null||body.Map==Map.Internal||body.Map!=target?.Map||owner.Map!=body.Map)
-        {throw new NotSupportedException("Original Valkyrie contact needs its living world owner and explicit UTC allocation phase");}
-        RequireAllocation(body,target);var rules=IronGolemContact.Require(body,owner,target);
-        if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Original Valkyrie recipient block rule is unavailable");}
-        return IronGolemContact.Prepare(body,target,rules,()=>NpcMeleeResult.Resolve(body,target,range,()=>ClassCombat.IsHostile(owner,target),n=>NpcEquipmentRandom.Limited(body,n)));
-    }
-    internal static NpcWeaponImpact Impact(AmazonValkyrieBody body,BaseCreature target,int flags)
-    {
-        RequireAllocation(body,target);
-        int Armor()=>Math.Max(0,checked(CreatureProfiles.Defense(target)+NpcEquipmentCombat.Defense(target))-TimedEffects.DefenseLoss(target));
-        void SetArmor(int value)
-        {
-            int delta=checked(value-Armor());WeaponStartEffects.ApplyArmorDelta(target,delta,TimedEffects.Now);
-            if(target is not{Alive:true,Deleted:false}){throw new NotSupportedException("Recipient retired during original Valkyrie armor setup;do not retry allocation");}
-        }
-        var facts=new GeneratedNpcFillTarget(true,true,NamedCombat.Demon(target),GemCombat.Undead(target),0,Armor,SetArmor,
-            (_,_)=>throw new NotSupportedException("Original target monster-type service is not admitted"));
-        var graph=body.EquipmentNumbers;
-        var fill=ValkyrieEquipmentDamage.Allocate(body,facts,new(ResultFlags:flags,AdditionalPercent:checked(CombatAuras.DamagePercent(body)+NecromancerEffects.DamageStatPercent(body))));
-        var poison=new NpcPoisonSnapshot(body.Serial.Value,body.ControlMaster.Serial.Value,new(PoisonMin:graph.Read(57),PoisonMax:graph.Read(58),PoisonFrames:graph.Read(59),PoisonCount:graph.Read(326)),graph.Read(332),Math.Max(0,graph.Read(336)));
-        var pierce=new NpcElementPierce(graph.Read(333),graph.Read(335),graph.Read(334),graph.Read(358));
-        return NpcEquipmentImpact.FromFill(body,target,fill,poison,pierce.For,PaladinAuras.NativeWeaponMultiplier(body,true));
-    }
+        =>OriginalNpcMelee.Prepare(body,owner,target,range,at);
+    internal static NpcWeaponImpact Impact(AmazonValkyrieBody body,BaseCreature target,int flags)=>OriginalNpcMelee.Impact(body,target,flags);
 }
