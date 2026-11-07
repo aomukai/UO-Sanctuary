@@ -1,0 +1,92 @@
+{
+  "parent": "4ca9a115eaf30a2719b85a9003999327bb617b93",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "sourceControls": 64,
+  "nativeMarkers": 27,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-blade-shield-check": 1,
+    "shadow-actions-check": 1,
+    "shadow-item-frame-check": 1,
+    "npc-original-contact-check": 1,
+    "blade-shield-check": 1,
+    "blade-shield-result": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-blade-shield-reload-check": 2,
+    "shadow-actions-reload-check": 2,
+    "shadow-item-frame-reload-check": 2,
+    "npc-original-contact-reload-check": 2,
+    "blade-shield-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": 4,
+  "contentBuild": 1,
+  "integrationBuild": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "b94b56b563278fb067a2e6933a47e6060a18696e5632ef51650f7b900ade3037",
+    "Assemblies/Sanctuary.Integration.dll": "80f2ecd9a0903ca179a9f36e5ea6edc14313e491662be0c0286ddcbca78f4e16"
+  },
+  "inputsSha256": "99df967d62c1dbd23cf530a12bd23606d11773b67a600d8d375484652966178b",
+  "nativeLogSha256": "6f51a91d16578ec1e2358d4e1c5fffaf5e9e23df753ac8a9b6939a6023e15b0d",
+  "sourceSnapshotSha256": "94f780475b732ff1da1792caac1d64b3b07852ef2838912878e5597a9e83da16",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "sourceProofs": {
+    "tools/reference/npc-blade-shield-fill-source-evidence.json": "28ff1ebe5779beb17788b27cabe7f95aa8822893197d2603e646f7412efd6964",
+    "tools/reference/blade-shield-source-evidence.json": "59f32f9237d1f5f9b70dee215e2e757c804279c0a1bc690973fcaa9a359f8e2e",
+    "tools/reference/blade-shield-damage-source-evidence.json": "ab085cd6aa622a073707c689edd8680ce1737fb08bccd13f04c9fb757d18901d",
+    "tools/reference/npc-damage-fill-source-evidence.json": "839a00012d0275030fab9dc44cc334ceb2409c232455ebe9714b77d95a619b65",
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26"
+  },
+  "preservedLegacyCasesSha256": "271dbfc6bd095887138f90a94a5dd22910712d09eee1e902b9b42c224466d804",
+  "scope": [
+    "Both original species execute own start28/SC/do54 using the existing shared persistent BladeShieldState identity,cast rank,expiry and due time. NPC startup has no player debit;current-rank initial and saved-rank recurring dispatch remain separate.",
+    "One skill physical packet per area and each victim own hit/block/full original weapon fill at96,typed mitigation,poison/status/flat-drain and contact/return reuse existing NPC services. Player RNG delegates are deliberately unavailable in the fixture;owner mana/state and original equipment payload/wear remain unchanged.",
+    "An intact original Master loadout with a positive primary-hand on-attack property is generated through the actual advancing allocation stream. At least one callback is required,and every observed source phase is the named attack-attempt phase;damage/kill phases remain suppressed by32. Unused generated candidate bodies are deleted without editing or rerolling their items.",
+    "Initial marker,actual HP/radius,recurring/duplicate due,offline/park/town,canceled lower-rank replacement,own Venom delivery/cure,absolute expiry and actual Warrior AI startup/release are checked.",
+    "Original body/items/resources/wounds/RNG and existing shield identity/rank/start/expiry persist through two reloads. Each reload then resumes actual damage after unpark on that same identity/rank/lifetime and next cadence,without windup replay. Offline scheduling may advance due time but must retain a nonnull due and resume damage.",
+    "64complete six-routine NPC source controls at96 match existing field/RNG/event comparison;ASan/UBSan clean. Prior5120-case output remains unchanged. Retained S2,selected-hand regression,57original Valkyrie contact loadouts and player Blade Shield pass."
+  ],
+  "failedRuns": [
+    "Integration1 used nonexistent RemovePoison;fixture corrected to existing CleansePoison.",
+    "Expanded Native2 guessed event code9;the authoritative map names domeleeattack as7. Corrected to named mapping and required a nonempty intact original on-attack loadout,avoiding an earlier vacuous random-loadout pass."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-blade-shield/integration-build-1.log": "c180a0b08822f7929ab13a05c60a424e62c87514888783fbf66a27dddf3aeaca",
+    ".local/class-skills/shadow-blade-shield/failed-native-2.log": "fdbe9a0939f06cef70e979431f498ca9b49dcde5bbd7f4a2af2141973610913f",
+    ".local/class-skills/shadow-blade-shield/source-probe.log": "27c274d34fb3fd25650b22fcfc1aa8cce997c440a2b6d6a46bb7401c8a943900",
+    ".local/class-skills/shadow-blade-shield/content-build-1.log": "dda01e01757510d5c8feddf628ed1a01a7301cf283843569e0399baaa1eee233",
+    ".local/class-skills/shadow-blade-shield/integration-build-4.log": "f1045120ae5e14d984ab518a9eace9844de31cfe860baeceb1f3cf42eab12e9d"
+  },
+  "notRerun": [
+    "full class suite",
+    "full item audit exporter",
+    "prior5120-source matrix"
+  ],
+  "limitations": [
+    "Exact current NPC outer hit reach versus older extra melee gate remains unverified;the pinned scan radius and existing beyond-contact player observation supply the same explicit radius adapter.",
+    "Native traversal/LOS,periodic dual-hand context during other actions,progressive charges,current item/thorns/attack-event parity,cross-owner/PvP/hireling and graphical acceptance remain open. Unsupported item/recipient services refuse intact.",
+    "Player Blade Shield later attack-attempt/thorns parity is a separately recorded unresolved gap;the NPC connection does not certify it. Other intrinsic skills,Master AI106,current modifier42 death and learned summon/payment/replacement/input remain gated.",
+    "Final cast/attachment/orbit/pulse/contact/expiry/audio and talent/hotkey assets remain separate placeholders. No deployment or new public handler."
+  ]
+}

@@ -89,6 +89,7 @@ internal static class ShadowGroundMotion
         }
         bool State(ShadowAiSkill skill)=>ShadowDefensiveBuffs.Handles(skill.Id)
             ?OriginalNpcEquipment.Graph(body).Passives.State(ShadowDefensiveBuffs.State(skill.Id))
+                :skill.Id==277?BladeShields.State(body)!=null
                 :throw new NotSupportedException("Shadow skill state query needs its NPC consumer: "+skill.Id);
         var s=new ShadowWarriorServices(()=>true,()=>Selected(false),()=>Selected(true),
             (left,right)=>body.ChangeSkills(book=>book.Mirror(body.Prepared.Capture,left,right)),Skill,Pet,State,State,State,

@@ -50,15 +50,15 @@ public static class NpcDamageFillChecks
         internal override NpcFillPacket AttackedInMelee(NpcFillPacket p)
         {Trace.Add([5,3,0]);return A[15]!=0?p with{Physical=p.Physical+257,ConversionType=10,ConversionPercent=37}:p;}
     }
-    private static void SourceCases()
+    internal static void SourceCases(string file="npc-damage-fill-cases.json",int expectedCount=5120)
     {
-        using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"npc-damage-fill-cases.json")));int count=0;
+        using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,file)));int count=0;
         foreach(var row in doc.RootElement.EnumerateArray())
         {
             var s=new Services(row);var args=Array(row.GetProperty("args"));var p=NpcDamageFill.Fill(s,Packet(Array(row.GetProperty("initial"))),args[3]!=0,args[4]);
             Require(Fields(p).SequenceEqual(Array(row.GetProperty("output"))),"Full source fill fields at "+count+" args="+Json(args)+" got="+Json(Fields(p))+" expected="+row.GetProperty("output").GetRawText());
             Require(s.Armor==row.GetProperty("armor").GetInt32(),"Full source target armor at "+count);
-            if(count==20)
+            if(count==20&&expectedCount==5120)
             {
                 // Source variant5 removes initial cold and applies -100% mastery:
                 // no cold damage and no cold length. Exercise the older actual
@@ -71,7 +71,7 @@ public static class NpcDamageFillChecks
 
             Require(Json(s.Trace)==row.GetProperty("trace").GetRawText(),"Full source RNG/entry/event/overlay/restore chronology at "+count+" got="+Json(s.Trace)+" expected="+row.GetProperty("trace").GetRawText());count++;
         }
-        Require(count==5120,"Missing full source fill contexts");
+        Require(count==expectedCount,"Missing full source fill contexts");
     }
     private sealed record Held(int Case,uint Actor,uint[] Items,string[] Payloads);
     private sealed record Saved(uint Owner,Held[] Holders,int Generation);

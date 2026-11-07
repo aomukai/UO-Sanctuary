@@ -11,8 +11,9 @@ def enum(text,name):
   if not part.strip():continue
   key,sep,n=part.strip().partition('=');value=int(n.strip(),0)if sep else value+1;out[key.strip()]=value
  return out
-def build(check=False):
- STAGE.mkdir(parents=True,exist_ok=True);tree=json.loads((BASE/'d2moo-source-tree.json').read_text());assert tree['sha']=='0c0bbd1e6bef9181a3da1c046523af622a925416';inputs={};bodies={}
+def build(check=False,shield=False):
+ stage=BASE/'npc-damage-fill-shield-source'if shield else STAGE;case_count=64 if shield else 5120
+ stage.mkdir(parents=True,exist_ok=True);tree=json.loads((BASE/'d2moo-source-tree.json').read_text());assert tree['sha']=='0c0bbd1e6bef9181a3da1c046523af622a925416';inputs={};bodies={}
  def read(rel):
   p=BASE/'d2moo-pinned-source'/rel;raw=p.read_bytes();assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==next(r['sha']for r in tree['tree']if r['path']==rel);inputs[str(p.relative_to(ROOT))]=sha(p);return raw.decode()
  stats=enum(read('source/D2Common/include/D2StatList.h'),'D2C_ItemStats');hits=enum(read('source/D2Game/include/UNIT/SUnitDmg.h'),'D2DamageHitFlags');elements=enum(read('source/D2Common/include/D2Combat.h'),'D2C_ElemTypes')
@@ -98,17 +99,23 @@ auto Packet=[&](){printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%u,%d,%d,%d,%d,
 SUNITDMG_FillDamageValues(nullptr,&actor,&target,&p,range,share);printf("],\"output\":[");Packet();printf("],\"armor\":%d,\"trace\":[",target.stats[STAT_ARMORCLASS]);for(size_t i=0;i<trace.size();i++)printf("%s[%d,%d,%d]",i?",":"",trace[i][0],trace[i][1],trace[i][2]);printf("]}");
 }printf("]\n");}
 '''
+ if shield:
+  main=main.replace('for(int kind:{0,1})for(int hired:{0,1})for(int good:{0,1})for(int range:{0,1})for(int share:{0,1,64,128,255})',
+                    'for(int kind:{1})for(int hired:{0})for(int good:{1})for(int range:{0})for(int share:{96})')
+  anchor='if(variant==15)p.wResultFlags=DAMAGERESULTFLAG_32;p.dwHitClass=variant%2?0x63:3;'
+  assert anchor in main
+  main=main.replace(anchor,anchor+'p.wResultFlags|=37;p.dwHitFlags|=2;p.dwHitClass=3;')
  cpp+=main
  for n,b in bodies.items():assert function(cpp,n)==b,n
- path=STAGE/'source.cpp';path.write_text(cpp);binary=STAGE/'probe'
- with(STAGE/'compiler.log').open('w')as log:subprocess.run(['g++','-std=c++20','-O1','-g1','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-pie','-no-pie',str(path),'-o',str(binary)],stdout=log,stderr=subprocess.STDOUT,check=True)
- run=subprocess.run([str(binary)],capture_output=True,timeout=120);(STAGE/'sanitizer.log').write_bytes(run.stderr);assert run.returncode==0 and not run.stderr,run.stderr.decode()[-3000:]
- cases=json.loads(run.stdout);assert len(cases)==5120,len(cases);out=STAGE/'cases.json';out.write_text(json.dumps(cases,separators=(',',':'))+'\n')
+ path=stage/'source.cpp';path.write_text(cpp);binary=stage/'probe'
+ with(stage/'compiler.log').open('w')as log:subprocess.run(['g++','-std=c++20','-O1','-g1','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-pie','-no-pie',str(path),'-o',str(binary)],stdout=log,stderr=subprocess.STDOUT,check=True)
+ run=subprocess.run([str(binary)],capture_output=True,timeout=120);(stage/'sanitizer.log').write_bytes(run.stderr);assert run.returncode==0 and not run.stderr,run.stderr.decode()[-3000:]
+ cases=json.loads(run.stdout);assert len(cases)==case_count,len(cases);out=stage/'cases.json';out.write_text(json.dumps(cases,separators=(',',':'))+'\n')
  for name in ['src/Sanctuary.Content/NpcDamageFill.cs','src/Sanctuary.Content/NpcEquipmentElements.cs','src/Sanctuary.Content/WeaponPoisonPackets.cs','src/Sanctuary.Content/NpcEquipmentDamage.cs','src/Sanctuary.Content/NamedCombat.cs',str(Path(__file__).resolve().relative_to(ROOT))]:inputs[name]=sha(ROOT/name)
- record=dict(referenceVersion='3.3.93847',currentExecutableParity=False,cases=5120,completeRoutineHashes={n:hashlib.sha256(b.encode()).hexdigest()for n,b in bodies.items()},statBindings=typed,serviceBindings=dict(goodAlignment=2,attackedInMelee=3,blunt=57,criticalResult=8192,eventSkipResult=32),inputs=inputs,artifacts={str(p.relative_to(ROOT)):sha(p)for p in(path,binary,out,STAGE/'compiler.log',STAGE/'sanitizer.log')},scope='Six full unchanged older routines:FillDamageValues,ApplyDamageBonuses,element range,percentage,intrinsic critical,hit class. Stat arrays,hand metadata/mastery,alignment,target species/type,armor write,copy128,event and mutable RNG services are declared. Complete source caller and arithmetic,not complete stat engine,live source graph,recipient HP/events,current executable or learned actors.')
- target=ROOT/'tools/reference/npc-damage-fill-source-evidence.json';encoded=json.dumps(record,indent=2)+'\n'
+ record=dict(referenceVersion='3.3.93847',currentExecutableParity=False,cases=case_count,completeRoutineHashes={n:hashlib.sha256(b.encode()).hexdigest()for n,b in bodies.items()},statBindings=typed,serviceBindings=dict(goodAlignment=2,attackedInMelee=3,blunt=57,criticalResult=8192,eventSkipResult=32),inputs=inputs,artifacts={str(p.relative_to(ROOT)):sha(p)for p in(path,binary,out,stage/'compiler.log',stage/'sanitizer.log')},scope='Six full unchanged older routines:FillDamageValues,ApplyDamageBonuses,element range,percentage,intrinsic critical,hit class. Stat arrays,hand metadata/mastery,alignment,target species/type,armor write,copy128,event and mutable RNG services are declared. Complete source caller and arithmetic,not complete stat engine,live source graph,recipient HP/events,current executable or learned actors.')
+ target=ROOT/('tools/reference/npc-blade-shield-fill-source-evidence.json'if shield else'tools/reference/npc-damage-fill-source-evidence.json');encoded=json.dumps(record,indent=2)+'\n'
  if check:assert target.read_text()==encoded,'Full fill proof stale'
  else:target.write_text(encoded)
- print('NPC full damage fill:5120complete caller contexts/6routines;header-verified stats/flags/elements;ASan/UBSan pass.')
+ print(f'NPC full damage fill:{case_count}complete caller contexts/6routines;header-verified stats/flags/elements;ASan/UBSan pass.')
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');build(p.parse_args().check)
+ p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');p.add_argument('--blade-shield',action='store_true');a=p.parse_args();build(a.check,a.blade_shield)

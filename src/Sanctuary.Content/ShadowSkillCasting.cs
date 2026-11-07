@@ -11,13 +11,14 @@ namespace Sanctuary;
 // clock, call a player talent or turn an item proc into an intrinsic skill.
 internal static class ShadowSkillCasting
 {
-    internal sealed class Cast(AssassinShadowBody body,BaseCreature target,Point3D aim,int skill=251)
+    internal sealed class Cast(AssassinShadowBody body,BaseCreature target,Point3D aim,int skill=251,DateTime? started=null)
     {
         internal readonly AssassinShadowBody Body=body;
         internal readonly int Skill=skill;
         internal readonly Map Map=body.Map;
         internal BaseCreature Target=target;
         internal readonly Point3D Aim=aim;
+        internal readonly DateTime StartedUtc=started??TimedEffects.Now;
         internal bool Released;
     }
     private static NotSupportedException Missing()=>new("Shadow intrinsic skill needs an additional qualified NPC action service");
@@ -25,6 +26,7 @@ internal static class ShadowSkillCasting
     {
         if(id==253){return ShadowPsychicHammers.Row();}
         if(id==264){return ShadowCloaks.Row();}
+        if(id==277){return ShadowBladeShields.Row();}
         if(id==273){return ShadowMindBlasts.Row();}
         var row=ItemSkillExecution.Skill(id);
         bool buff=ShadowDefensiveBuffs.Handles(id);
@@ -46,13 +48,13 @@ internal static class ShadowSkillCasting
         return new(SkillMechanics.All.Single(s=>s.SourceId==skill),key=>Id(key)==skill?rank:book.Rank(Id(key),graph.Read,BattleCommand.Bonus(body)),
             key=>book.Find(Id(key))?.Base??0,OriginalNpcEquipment.Level(body));
     }
-    internal static Cast Start(AssassinShadowBody body,BaseCreature target,Point3D aim,int skill=251)
+    internal static Cast Start(AssassinShadowBody body,BaseCreature target,Point3D aim,int skill=251,DateTime? at=null)
     {
         var row=Row(skill);
         if(!Attached(body)||row.Lob&&!LobProjectiles.Valid(body,aim)||target!=null&&(!Enemy(body,target)||target.Map!=body.Map)
             ||skill==253&&!ShadowPsychicHammers.Valid(body,target)||skill==273&&!ShadowMindBlasts.Valid(body,target?.Location??aim)
             ||skill==264&&!ShadowCloaks.Valid(body)||body.OwnedSkillRank(skill)<=0){return null;}
-        body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill);
+        body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill,at);
         return SkillStartup.Selected(new Startup(cast))!=0?cast:null;
     }
     internal static int Release(Cast cast,DateTime at)
@@ -72,7 +74,7 @@ internal static class ShadowSkillCasting
         internal override bool HasSource=>Body is{Alive:true,Deleted:false};
         internal override int UnitType=>1;
         internal override ExecutionSkill UsedSkill()=>Body.OwnedSkills.Used is{} id?new(id,0):null;
-        internal override SkillStartupRecord Record(int skill){var row=Row(skill);return new(row.Number("TargetableOnly")!=0,false,false,row.InTown,row.Number("LineOfSight"),row.Start,false,false);}
+        internal override SkillStartupRecord Record(int skill){var row=Row(skill);return new(row.Number("TargetableOnly")!=0,false,false,row.InTown,row.Number("LineOfSight"),row.Start,row.Number("periodic")!=0,false);}
         internal override SkillStartupTarget Target()=>cast.Target is{} target?new(1,target.Alive?1:12,target.Alive&&target.CanBeDamaged()):null;
         internal override bool EnemyAllowed(SkillStartupTarget target)=>Enemy(Body,cast.Target);
         internal override bool PetAllowed(SkillStartupTarget target,int skill)=>false;
@@ -88,11 +90,13 @@ internal static class ShadowSkillCasting
         internal override (int X,int Y) FirstPathPoint=>(cast.Aim.X*2,cast.Aim.Y*2);
         internal override bool ClearLine(int x,int y,uint mask)=>cast.Skill==253&&mask==SourceMeleeGeometry.FlyingCollisionMask
             ?cast.Target!=null&&x==cast.Target.X*2&&y==cast.Target.Y*2&&Body.InLOS(cast.Target):throw Missing(); // Shared native LOS projection;exact D2 terrain remains separate.
-        internal override int StartCount=>23;
-        internal override bool HasStart(int function)=>function==0?false:function==22?true:throw Missing();
-        internal override int ExecuteStart(int function,int skill,int rank)=>function==22&&skill==253?ShadowPsychicHammers.Valid(Body,cast.Target)?1:0:throw Missing();
+        internal override int StartCount=>29;
+        internal override bool HasStart(int function)=>function==0?false:function is 22 or 28?true:throw Missing();
+        internal override int ExecuteStart(int function,int skill,int rank)=>function==22&&skill==253?ShadowPsychicHammers.Valid(Body,cast.Target)?1:0
+            :function==28&&skill==277?ShadowBladeShields.Start(Body,rank,cast.StartedUtc):throw Missing();
         internal override void ConsumeMana(int skill,int rank){} // Ordinary NPC, intrinsic ownership, no player/item charge.
-        internal override void DeletePeriodicEvent()=>throw Missing();
+        internal override void DeletePeriodicEvent()
+        {if(cast.Skill!=277||BladeShields.State(Body)is not{NextPulseUtc:null}){throw Missing();}} // Start28 already replaced the old periodic state.
     }
     private sealed class Execution(Cast cast,DateTime at):SkillExecutionServices
     {
@@ -110,11 +114,12 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 47 or 51?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 47 or 51 or 54?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
                 :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
                 :function==47&&skill==264?ShadowCloaks.Release(Body,level,at)
+                :function==54&&skill==277?ShadowBladeShields.Release(Body,at)
                 :function==51&&skill==273?ShadowMindBlasts.Release(Body,cast.Target,cast.Aim,level,at):throw Missing();
         internal override int MissileCount=>ItemSkillExecution.MissileCount;
         internal override void SetServerDo(){}
@@ -127,7 +132,7 @@ internal static class ShadowSkillCasting
             var point=cast.Target is{Alive:true,Deleted:false} target?target.Location:cast.Aim;
             FireBlasts.EmitShadow(Body,point,level,at);
         }
-        internal override bool HasStart(int function)=>function==0?false:function==22?true:throw Missing();
+        internal override bool HasStart(int function)=>function==0?false:function is 22 or 28?true:throw Missing();
         internal override void ConsumeMana(int skill,int level){}
         internal override void ConsumeQuantity()=>throw Missing();
         internal override int Delay(int formula,int skill,int level)=>formula==0?0:throw Missing();

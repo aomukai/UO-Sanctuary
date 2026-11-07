@@ -43,8 +43,9 @@ public static class BladeShields
         EventSink.Connected+=owner=>{if(owner is PlayerMobile player){Resume(player,TimedEffects.Now);}};
     }
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
-    internal static bool Eligible(Mobile owner)=>owner is PlayerMobile{Alive:true,Deleted:false}
-        && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin;
+    internal static bool Eligible(Mobile owner)=>owner is AssassinShadowBody{Alive:true,Deleted:false} shadow
+        ?shadow.Prepared?.DefenseProfile==ShadowEquipmentDefense.Profile
+        :owner is PlayerMobile{Alive:true,Deleted:false}&&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Assassin;
     internal static BladeShieldState State(Mobile owner)=>Eligible(owner) && States.TryGetValue(owner.Serial.Value,out var state)
         && state.UntilUtc>TimedEffects.Now?state:null;
     // Literal source action/end offsets. Current client repeat readiness is
@@ -55,13 +56,22 @@ public static class BladeShields
         if(!Eligible(owner) || values.Ability!=CombatAbility.BladeShield || values.Rank is <1 or >255
             || at.Kind!=DateTimeKind.Utc || !NecromancerEffects.CanPay(owner,values.Mana256))
         {throw new InvalidOperationException("Invalid Blade Shield start context");}
-        var state=new BladeShieldState(owner.Serial.Value,checked(++_nextId),values.Rank,at,
-            at.AddMilliseconds(checked(values.Eval("auralencalc")*40)));
+        var state=Attach(owner,values,at);
         // Complete start28 replaces its own state regardless of the old rank.
         // Generic start consumes mana afterwards and deletes old periodic work.
-        States[owner.Serial.Value]=state;
         if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Blade Shield start mana changed synchronously");}
         return state;
+    }
+    private static BladeShieldState Attach(Mobile owner,SkillValues values,DateTime at)
+    {
+        var state=new BladeShieldState(owner.Serial.Value,checked(++_nextId),values.Rank,at,at.AddMilliseconds(checked(values.Eval("auralencalc")*40)));
+        States[owner.Serial.Value]=state;return state;
+    }
+    internal static BladeShieldState StartShadow(AssassinShadowBody owner,SkillValues values,DateTime at)
+    {
+        if(!Eligible(owner)||values.Ability!=CombatAbility.BladeShield||values.Rank is<1 or>255||at.Kind!=DateTimeKind.Utc)
+        {throw new InvalidOperationException("Invalid original Shadow Blade Shield start context");}
+        return Attach(owner,values,at); // NPC start28 has no player mana debit;replacement deletes its old periodic due time.
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
@@ -79,20 +89,22 @@ public static class BladeShields
             || (CombatTiming.Equipped(owner)?.Serial??Serial.Zero)!=cast.Weapon){return false;}
         return Activate(owner,state.Id,TimedEffects.TimeAt(now));
     }
-    internal static bool Activate(PlayerMobile owner,long id,DateTime at)
+    internal static bool Activate(Mobile owner,long id,DateTime at)
     {
         if(!Eligible(owner) || !States.TryGetValue(owner.Serial.Value,out var state) || state.Id!=id || at<state.StartedUtc || state.UntilUtc<=at){return false;}
-        int initialRank=SkillMechanics.Rank(owner,CombatAbility.BladeShield);
+        int initialRank=owner is AssassinShadowBody shadow?shadow.OwnedSkillRank(277):SkillMechanics.Rank((PlayerMobile)owner,CombatAbility.BladeShield);
         if(initialRank<=0){return false;}
-        Pulse(owner,initialRank); // Initial used-skill rank; recurring events keep the state-list cast rank.
+        if(owner is AssassinShadowBody original){ShadowBladeShields.Pulse(original,initialRank,at);}else{Pulse((PlayerMobile)owner,initialRank);} // Recurring events keep the state-list cast rank.
         if(States.TryGetValue(owner.Serial.Value,out var current) && current.Id==id)
         {States[owner.Serial.Value]=current with{NextPulseUtc=at.AddMilliseconds(1000)};}
         return true;
     }
     internal static int RollSkill(SkillValues values)
+        =>RollSkill(values,SkillRoll);
+    internal static int RollSkill(SkillValues values,Func<int,int> random)
     {
         int min=values.PhysicalDamage256(false),max=values.PhysicalDamage256(true),span=Math.Max(0,max-min);
-        return min+(span>0?Math.Clamp(SkillRoll(span),0,span-1):0);
+        return min+(span>0?Math.Clamp(random(span),0,span-1):0);
     }
     internal static int Pulse(PlayerMobile owner,int rank)
     {
@@ -140,11 +152,21 @@ public static class BladeShields
         }
         return hits;
     }
-    internal static void Tick(DateTime at)
+    internal static void Tick(DateTime at,bool? shadowActions=null,uint? onlyActor=null)
     {
         Prune(at);
         foreach(var state in States.Values.Where(x=>x.NextPulseUtc<=at).OrderBy(x=>x.Owner).ToArray())
         {
+            if(onlyActor.HasValue&&state.Owner!=onlyActor.Value){continue;}
+            if(World.FindMobile((Serial)state.Owner)is AssassinShadowBody shadow)
+            {
+                if(shadow.OwnedSkillRank(277)<=0){States[state.Owner]=state with{NextPulseUtc=null};continue;}
+                if(ShadowSkillCasting.Attached(shadow)&&(shadowActions??shadow.ControlMaster?.NetState is{Running:true}))
+                {ShadowBladeShields.Pulse(shadow,state.Rank,at);}
+                if(States.TryGetValue(state.Owner,out var currentShadow)&&currentShadow.Id==state.Id)
+                {States[state.Owner]=currentShadow with{NextPulseUtc=at.AddMilliseconds(1000)};}
+                continue;
+            }
             if(World.FindMobile((Serial)state.Owner) is PlayerMobile learned && SkillMechanics.Rank(learned,CombatAbility.BladeShield)<=0)
             {States[state.Owner]=state with{NextPulseUtc=null};continue;}
             if(World.FindMobile((Serial)state.Owner) is not PlayerMobile owner || owner.NetState is not{Running:true}
