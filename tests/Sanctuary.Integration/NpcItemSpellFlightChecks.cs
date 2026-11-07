@@ -35,7 +35,7 @@ public static class NpcItemSpellFlightChecks
     private static SorceressSpellFlight[] Prepare(AmazonValkyrieBody b,Point3D aim,int skill,DateTime at)
     {
         string text=b.SavedText,items=Json(Items(b));var random=NpcEquipmentRandom.State(b);int count=0;
-        var f=SorceressSpellMissiles.PrepareValkyrie(b,aim,skill,3,at,i=>{Require(i==count++,"Child seed factory skipped/repeated ordinal");return SourceRandom.InitLow(900+i);});
+        var f=SorceressSpellMissiles.PrepareOriginalNpc(b,aim,skill,3,at,i=>{Require(i==count++,"Child seed factory skipped/repeated ordinal");return SourceRandom.InitLow(900+i);});
         Require(count==f.Length&&count==(skill is 44 or 48?64:skill==38?5:1),"Original emission count");
         Require(text==b.SavedText&&items==Json(Items(b))&&random==NpcEquipmentRandom.State(b),"Factory changed original source/items/actor seed");
         Require(f.All(x=>x.X==b.X&&x.Y==b.Y&&x.Owner==b.ControlMaster.Serial.Value&&x.Npc.Actor==b.Serial.Value&&x.Modifiers==new FirestormModifiers(0,0,0,0,0)),"NPC origin/credit/own packet context lost");
@@ -98,7 +98,7 @@ public static class NpcItemSpellFlightChecks
         }
         finally{SorceressSpellMissiles.Cancel(b);target.Delete();}
         var before=NpcEquipmentRandom.State(b);bool rejected=false;
-        try{SorceressSpellMissiles.PrepareValkyrie(b,b.Location,53,3,TimedEffects.Now,_=>throw new InvalidOperationException("Should not allocate a child"));}catch(NotSupportedException){rejected=true;}
+        try{SorceressSpellMissiles.PrepareOriginalNpc(b,b.Location,53,3,TimedEffects.Now,_=>throw new InvalidOperationException("Should not allocate a child"));}catch(NotSupportedException){rejected=true;}
         Require(rejected&&NpcEquipmentRandom.State(b)==before&&Flights(b).Length==0,"Unfinished Chain Lightning silently launched or consumed actor RNG");
     }
     private static void Check(bool reload)

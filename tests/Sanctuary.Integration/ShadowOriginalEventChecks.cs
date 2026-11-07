@@ -29,6 +29,49 @@ public static class ShadowOriginalEventChecks
         }
         Require(Json(body.EquipmentNumbers.ItemEvents.Capture())==Json(state),"Traversal changed saved registrations");
     }
+    private static void Host(AssassinShadowBody body)
+    {
+        var before=Capture(body);var graph=OriginalNpcEquipment.Graph(body);
+        Require(OriginalNpcEquipment.Owner(body)==body.Prepared.Owner&&OriginalNpcEquipment.Level(body)==body.Prepared.Capture.Level
+            &&OriginalNpcEquipment.Binding(body)==ShadowLoadout.Binding(body).Identity
+            &&body.SourceMonsterId==(body.Prepared.Capture.Ability==CombatAbility.ShadowMaster?"shadowmaster":"shadowwarrior"),"Shared host replaced Shadow source identity");
+        foreach(int skill in new[]{36,38,39,44,48,49,53})
+        {
+            var actual=NpcItemSpellDamage.CaptureOriginal(body,skill,3);
+            int mastery=graph.Read(skill==36?329:skill is 39 or 44?331:330);
+            var expected=NpcItemSpellDamage.Calculate(skill,3,body.Prepared.Capture.Level,mastery,graph.Read(333),graph.Read(335),graph.Read(334));
+            Require(actual==expected,"Shared item spell borrowed owner rank/mastery/piercing");
+        }
+        bool supported=true;
+        foreach(var stat in graph.Stats.Where(s=>s.Value!=0))
+        foreach(var row in ItemEventDefinitions.Bindings(stat.Stat)??[])
+        {
+            if(row.Event<=0){continue;}
+            if(row.Function is 20 or 21)
+            {
+                try{if(stat.Stat is not(195 or 196 or 198 or 201)||(stat.Packed&63)==0){supported=false;}
+                    else{_=NpcItemSpellDamage.Require((ushort)stat.Packed>>6);}}
+                catch(NotSupportedException){supported=false;}
+            }
+            else if(row.Function is not(6 or 7 or 8 or 9 or 10 or 13 or 14 or 15 or 16 or 17 or 18 or 19 or 28 or 29)){supported=false;}
+        }
+        bool registered=false;
+        try{Require(ReferenceEquals(NpcOriginalItemProcs.RequireRegistration(body),graph),"Registration replaced the actual Shadow graph");registered=true;}
+        catch(NotSupportedException)when(!supported){}
+        Require(registered==supported,"Shared registration admitted an unsupported callback or rejected supported ones");
+        int allocations=0;var owner=(PlayerMobile)body.ControlMaster;var at=TimedEffects.Now;
+        Require(!NpcItemSpellFlights.Attached(body,owner,owner.Map.MapID),"Parked Shadow became an attached spell source");
+        foreach(Action cast in new Action[]{
+            ()=>SorceressSpellMissiles.PrepareOriginalNpc(body,owner.Location,36,3,at,_=>{allocations++;return 1;}),
+            ()=>ChainLightning.PrepareOriginalNpc(body,owner.Location,3,at,_=>{allocations++;return new(true,1);}),
+            ()=>NpcOriginalItemProcs.Dispatch(body,null,"domeleeattack",new(0,0,0,0,1),at,_=>{allocations++;return new(true,1);})})
+        {
+            bool refused=false;try{cast();}catch(NotSupportedException){refused=true;}
+            Require(refused,"Unqualified Shadow world cast bypassed admission");
+        }
+        Require(!NpcItemSpellCasts.CastOriginalPosition(body,owner.Location,36,3,1,at,_=>{allocations++;return new(true,1);})
+            &&allocations==0&&Json(Capture(body))==Json(before),"Refused host work allocated,rewrote resources/items or consumed RNG");
+    }
     private static void Check(bool reload)
     {
         var bodies=new System.Collections.Generic.List<AssassinShadowBody>();int generation=0;
@@ -57,6 +100,7 @@ public static class ShadowOriginalEventChecks
         {
             Require(body.Map==Map.Internal&&!((IPersistentMinion)body).CanActivate&&!NpcOriginalItemProcs.Active(body),"Registration accidentally exposed unfinished world/callback execution");
             var before=Capture(body);Dispatch(body);Require(Json(Capture(body))==Json(before),"Registry traversal consumed body resources or RNG");
+            Host(body);
             entries+=body.EquipmentNumbers.ItemEvents.Capture().Events.Entries.Length;
             var item=GeneratedNpcLiveResources.State(body).ActiveItems[0];GeneratedNpcLiveResources.SetItemActive(body,item,false);GeneratedNpcLiveResources.SetItemActive(body,item,true);
             Require(body.EquipmentNumbers.ItemEvents.Capture().ActiveItems.Last()==item,"Original reattachment order not retained");

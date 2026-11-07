@@ -181,7 +181,7 @@ internal static class SorceressSpellMissiles
     }
     // The child-seed factory is explicit: current original-item callback RNG
     // allocation is not inferred from the player/Mage SeedLow adapters.
-    internal static SorceressSpellFlight[] PrepareValkyrie(AmazonValkyrieBody actor,Point3D point,int skill,int rank,DateTime at,Func<int,ulong> childSeed)
+    internal static SorceressSpellFlight[] PrepareOriginalNpc(SkeletonGuardian actor,Point3D point,int skill,int rank,DateTime at,Func<int,ulong> childSeed)
     {
         ArgumentNullException.ThrowIfNull(childSeed);
         var owner=actor?.ControlMaster as PlayerMobile;
@@ -189,11 +189,11 @@ internal static class SorceressSpellMissiles
             ||point.X<=0||point.Y<=0||point.X>=actor.Map.Width||point.Y>=actor.Map.Height||SpellHelper.IsTown(point,owner)||skill==53)
         {throw new NotSupportedException("Original NPC spell needs its active caster, supported emission, aim and UTC release context");}
         _=NpcEquipmentRandom.Require(actor);
-        var packet=NpcItemSpellDamage.CaptureValkyrie(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
-        var values=new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,actor.BirthStats.Level);Route(values);
+        var packet=NpcItemSpellDamage.CaptureOriginal(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
+        var values=new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,OriginalNpcEquipment.Level(actor));Route(values);
         bool ring=Ring(ability);
         var slow=AmazonSlowMissiles.Capture(actor,!ring);long first=checked(_pool.NextId+1);
-        var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
+        var context=new NpcItemSpellSource(actor.Serial.Value,OriginalNpcEquipment.Binding(actor),packet);
         var flights=new SorceressSpellFlight[packet.Emissions];
         for(int i=0;i<flights.Length;i++)
         {
@@ -203,7 +203,7 @@ internal static class SorceressSpellMissiles
     }
     // Shared packet/velocity/path constructor. Ordinary casts and synchronous
     // item requests differ in origin and allocation,not their movement kernel.
-    private static SorceressSpellFlight PrepareOriginal(AmazonValkyrieBody actor,Point3D origin,Point3D aim,NpcItemSpellSource context,
+    private static SorceressSpellFlight PrepareOriginal(SkeletonGuardian actor,Point3D origin,Point3D aim,NpcItemSpellSource context,
         SlowMissilePayload slow,long id,long cast,int ordinal,ulong seed,DateTime at,int flags=0)
     {
         var packet=context.Packet;int rank=packet.Rank;var ability=NpcItemSpellDamage.Ability(packet.Skill);var profile=Profile(ability);
@@ -232,7 +232,7 @@ internal static class SorceressSpellMissiles
     // allocator owns each actual attempt and its seed;there is no RNG default.
     // Internal IDs reserve attempted ring slots so partial rings retain the
     // existing Cast+RadialIndex persistence identity without fabricated rays.
-    internal static NpcItemSpellEmission EmitValkyrieItem(AmazonValkyrieBody actor,NpcItemTarget target,Point3D path,
+    internal static NpcItemSpellEmission EmitOriginalItem(SkeletonGuardian actor,NpcItemTarget target,Point3D path,
         int skill,int rank,int outgoing,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool serverDo=false,Action<bool> serverDoChanged=null)
     {
         ArgumentNullException.ThrowIfNull(allocate);
@@ -241,13 +241,13 @@ internal static class SorceressSpellMissiles
             ||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-4000))
         {throw new NotSupportedException("Original item emission needs its qualified spell,active source and UTC context");}
         _=NpcEquipmentRandom.Require(actor);
-        var packet=NpcItemSpellDamage.CaptureValkyrie(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
-        Route(new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,actor.BirthStats.Level));
+        var packet=NpcItemSpellDamage.CaptureOriginal(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
+        Route(new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,OriginalNpcEquipment.Level(actor)));
         var point=target?.Point(actor.Map);bool ring=Ring(ability),charged=skill==38;var slow=AmazonSlowMissiles.Capture(actor,!ring);
-        var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
+        var context=new NpcItemSpellSource(actor.Serial.Value,OriginalNpcEquipment.Binding(actor),packet);
         var before=_pool;long first=checked(before.NextId+1);int attempts=0;var flights=new List<SorceressSpellFlight>();
         var frame=new NpcItemSpellOrigins((actor.X*2,actor.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),
-            actor.EquipmentNumbers.Read(19),serverDo,request=>
+            OriginalNpcEquipment.Graph(actor).Read(19),serverDo,request=>
         {
             int attempt=attempts++,ordinal=charged?request.ChargedOrdinal:attempt;
             if(request.Skill!=skill||request.Rank!=rank||request.Missile!=ItemSkillExecution.MissileId(packet.Missile)
@@ -389,7 +389,7 @@ internal static class SorceressSpellMissiles
     }
     private static void Advance(SorceressSpellFlight flight,DateTime at,bool? actions)
     {
-        var npc=flight.Npc==null?null:World.FindMobile((Serial)flight.Npc.Actor)as AmazonValkyrieBody;
+        var npc=flight.Npc==null?null:World.FindMobile((Serial)flight.Npc.Actor)as SkeletonGuardian;
         var owner=flight.Npc==null?Owner(flight.Owner):World.FindMobile((Serial)flight.Owner)as PlayerMobile;
         if(flight.Npc==null&&(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map)){Remove(flight.Id);return;}
         Mobile caster=flight.Npc==null?owner:npc;

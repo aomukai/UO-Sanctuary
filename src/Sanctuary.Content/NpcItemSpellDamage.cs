@@ -5,7 +5,7 @@ namespace Sanctuary;
 internal sealed record NpcItemSpellPacket(int Skill,int Rank,string Missile,string Element,int Minimum256,int Maximum256,
     int ColdFrames,int Emissions,int FirePierce,int ColdPierce,int LightningPierce);
 
-// Numeric capture for the original Valkyrie's equipment proc spells.
+// Numeric capture for the original equipped NPC's equipment proc spells.
 // No selected/learned Sorceress skill exists on this NPC: explicit proc rank
 // is not increased by +skills, and owner hard synergies/gear are not inputs.
 // This does not execute a proc, allocate a missile or admit its item callback.
@@ -46,12 +46,12 @@ internal static class NpcItemSpellDamage
         return new(skill,rank,definition.Text(skill is 36 or 39 or 49?"srvmissile":"srvmissilea"),definition.Text("EType"),
             endpoints.Min,endpoints.Max,skill is 39 or 44?values.DurationFrames:0,emissions,firePierce,coldPierce,lightningPierce);
     }
-    internal static NpcItemSpellPacket CaptureValkyrie(AmazonValkyrieBody body,int skill,int rank)
+    internal static NpcItemSpellPacket CaptureOriginal(SkeletonGuardian body,int skill,int rank)
     {
         // Also rejects unmaterialized item-granted skills: silently assuming
         // those new skill-list entries are absent would corrupt synergies.
-        _=ValkyrieEquipmentDamage.Passives(body);var graph=body.EquipmentNumbers;
+        var graph=OriginalNpcEquipment.Graph(body);
         int mastery=graph.Read(skill==36?329:skill is 39 or 44?331:330);
-        return Calculate(skill,rank,body.BirthStats.Level,mastery,graph.Read(333),graph.Read(335),graph.Read(334));
+        return Calculate(skill,rank,OriginalNpcEquipment.Level(body),mastery,graph.Read(333),graph.Read(335),graph.Read(334));
     }
 }

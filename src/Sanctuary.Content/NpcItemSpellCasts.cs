@@ -106,22 +106,24 @@ internal static class NpcItemSpellCasts
         });
         return ItemEffectCasts.Target(frame,SkillMechanics.For(ability).SourceId,rank,target,flag)!=0;
     }
-    internal static ItemEffectServices<NpcItemTarget> OriginalFrame(AmazonValkyrieBody caster,DateTime at,
+    internal static ItemEffectServices<NpcItemTarget> OriginalFrame(SkeletonGuardian caster,DateTime at,
         Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notified=null)
     {
+        if(!NpcItemSpellFlights.Attached(caster,caster?.ControlMaster as PlayerMobile,caster?.Map?.MapID??-1))
+        {throw new NotSupportedException("Original item frame needs its qualified attached NPC species");}
         ArgumentNullException.ThrowIfNull(allocate);Services frame=null;
         frame=new(caster,NpcItemSpellDamage.Require,i=>NpcItemSkillExecution.RunOriginal(caster,i.Target,new(i.Point.X,i.Point.Y,caster.Z),
             i.Skill,i.Level,i.Mode,i.Item,i.Flag,at,allocate,frame.ServerDo,value=>frame.ServerDo=value),true,notified);
         return frame;
     }
-    internal static bool CastOriginal(AmazonValkyrieBody caster,NpcItemTarget target,int skill,int rank,int flag,DateTime at,
+    internal static bool CastOriginal(SkeletonGuardian caster,NpcItemTarget target,int skill,int rank,int flag,DateTime at,
         Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
     {
         if(caster is not{Alive:true,Deleted:false}||caster.Map==null||caster.Map==Map.Internal||target==null){return false;}
         using var scope=new TargetScope(caster);
         return ItemEffectCasts.Target(OriginalFrame(caster,at,allocate),skill,rank,target,flag)!=0;
     }
-    internal static bool CastOriginalPosition(AmazonValkyrieBody caster,Point3D point,int skill,int rank,int flag,DateTime at,
+    internal static bool CastOriginalPosition(SkeletonGuardian caster,Point3D point,int skill,int rank,int flag,DateTime at,
         Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
     {
         if(caster is not{Alive:true,Deleted:false}||caster.Map==null||caster.Map==Map.Internal){return false;}

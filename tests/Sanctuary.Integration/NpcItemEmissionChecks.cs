@@ -66,7 +66,7 @@ public static class NpcItemEmissionChecks
     private static NpcItemSpellEmission Emit(AmazonValkyrieBody b,Recipient target,int skill,int outgoing,DateTime at,int failure,List<NpcItemMissileRequest> requests)
     {
         string body=b.SavedText,items=Json(Items(b)),resources=Json(GeneratedNpcLiveResources.State(b));var seed=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b);
-        var result=SorceressSpellMissiles.EmitValkyrieItem(b,NpcItemTarget.Capture(target),target.Location,skill,3,outgoing,at,r=>
+        var result=SorceressSpellMissiles.EmitOriginalItem(b,NpcItemTarget.Capture(target),target.Location,skill,3,outgoing,at,r=>
         {int i=requests.Count;requests.Add(r);return new(failure!=3&&(failure!=1||i!=0)&&(failure!=2||i%3!=0),SourceRandom.InitLow(6000+i));});
         Require(b.SavedText==body&&Json(Items(b))==items&&Json(GeneratedNpcLiveResources.State(b))==resources&&NpcEquipmentRandom.State(b)==seed&&SkillHealth.Balance256(b)==life,"Item emission mutated original source/items/resources/RNG");
         Require(result.Result==1&&result.Attempts==requests.Count&&requests.Count==(skill==36?1:64),"Item source return/attempt count differs");
@@ -103,14 +103,14 @@ public static class NpcItemEmissionChecks
             finally{SorceressSpellMissiles.Cancel(b);foreach(var t in targets){t.Delete();}}
         }
         Place(b,p);int calls=0;var before=Json(Own(b));var random=NpcEquipmentRandom.State(b);
-        var missing=SorceressSpellMissiles.EmitValkyrieItem(b,null,b.Location,48,3,1,TimedEffects.Now,_=>{calls++;return new(true,1);});
+        var missing=SorceressSpellMissiles.EmitOriginalItem(b,null,b.Location,48,3,1,TimedEffects.Now,_=>{calls++;return new(true,1);});
         Require(missing.Result==0&&missing.Attempts==0&&calls==0&&Json(Own(b))==before&&NpcEquipmentRandom.State(b)==random,"Missing outgoing ring target allocated or mutated source");
-        var empty=SorceressSpellMissiles.EmitValkyrieItem(b,null,Point3D.Zero,36,3,1,TimedEffects.Now,_=>{calls++;return new(true,1);});
+        var empty=SorceressSpellMissiles.EmitOriginalItem(b,null,Point3D.Zero,36,3,1,TimedEffects.Now,_=>{calls++;return new(true,1);});
         Require(empty.Result==1&&empty.Attempts==0&&calls==0,"Zero-path direct item return/guard differs");
-        var distant=SorceressSpellMissiles.EmitValkyrieItem(b,null,new(b.X+60,b.Y,b.Z),36,3,0,TimedEffects.Now,_=>{calls++;return new(true,1);});
+        var distant=SorceressSpellMissiles.EmitOriginalItem(b,null,new(b.X+60,b.Y,b.Z),36,3,0,TimedEffects.Now,_=>{calls++;return new(true,1);});
         Require(distant.Result==1&&distant.Attempts==1&&calls==0&&Json(Own(b))==before,"Source100-subtile factory range guard allocated or changed direct return");
         foreach(int unsupported in new[]{41,53})
-        {bool refused=false;try{SorceressSpellMissiles.EmitValkyrieItem(b,null,b.Location,unsupported,3,0,TimedEffects.Now,_=>{calls++;return new(true,1);});}catch(NotSupportedException){refused=true;}Require(refused&&calls==0&&NpcEquipmentRandom.State(b)==random,"Unqualified item world path allocated or drew RNG");}
+        {bool refused=false;try{SorceressSpellMissiles.EmitOriginalItem(b,null,b.Location,unsupported,3,0,TimedEffects.Now,_=>{calls++;return new(true,1);});}catch(NotSupportedException){refused=true;}Require(refused&&calls==0&&NpcEquipmentRandom.State(b)==random,"Unqualified item world path allocated or drew RNG");}
     }
     private static Held Hold(AmazonValkyrieBody b,int skill,DateTime at)
     {

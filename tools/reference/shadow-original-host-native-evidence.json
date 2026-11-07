@@ -1,0 +1,40 @@
+{
+  "parent": "9cbe05b55c6f81dbe977d715e3c44608483247a3",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "learnedShadowsEnabled": false,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeMarkers": 27,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "21fb52db163777977bf139773ada9ebcec90a4ffa0bb8f98cb7c1bc5ff5b726b",
+    "Assemblies/Sanctuary.Integration.dll": "2044848af58ccdd84c9ef9a94a47d6d2a963144b2a291f7f489d57ffcecae703"
+  },
+  "inputsSha256": "1641cf4b16e09add9e9259b99fb16ce7345850d7307a1af1e326b8b23fbb36db",
+  "nativeLogSha256": "0ac045e8e6be10fee1194d690acc66054dee5d1b353feb8a52491fc756d119ea",
+  "sourceSnapshotSha256": "0209cd2d5761251cb91f4a05c1989d889e4f011d3e53316907bfebbd8043a28c",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Species-aware shared original-item spell/proc host. Twelve original Shadows retain own binding/owner/level/passives and numeric packets; unsupported callbacks and unqualified world emission refuse before allocation/RNG. Existing24Shadow bodies and actual Valkyrie emissions,saved projectiles,chains and ordinary/incoming original callbacks retained.",
+  "notRerun": [
+    "full class suite",
+    "item audit exporter"
+  ],
+  "remaining": "Shadow incoming defense,world/motion/action lifecycle,intrinsic Assassin NPC casting,AI105/106 and modifier42 death qualification;then learned summon routes. No deployment or class completion."
+}

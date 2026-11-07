@@ -15,14 +15,14 @@ internal static class NpcOriginalItemProcs
 {
     // Mandatory world allocation boundary. The host owns its persistent game
     // stream; absence refuses before ordinary allocation/HP,never reseeds.
-    internal static Func<AmazonValkyrieBody,NpcItemMissileRequest,DateTime,NpcItemSpellAllocation> Allocator;
-    internal static Func<AmazonValkyrieBody,Point3D> FirstPath;
-    internal static Action<AmazonValkyrieBody,NpcOriginalProcVisit> Observed;
+    internal static Func<SkeletonGuardian,NpcItemMissileRequest,DateTime,NpcItemSpellAllocation> Allocator;
+    internal static Func<SkeletonGuardian,Point3D> FirstPath;
+    internal static Action<SkeletonGuardian,NpcOriginalProcVisit> Observed;
     internal static bool Active(BaseCreature actor)=>!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b
         &&b.Prepared?.EquipmentContactProfile==ValkyrieEquipmentContact.OriginalProfile;
-    internal static GeneratedNpcStatGraph RequireHost(AmazonValkyrieBody actor)=>Host(actor,true);
-    internal static GeneratedNpcStatGraph RequireRegistrationHost(AmazonValkyrieBody actor)=>Host(actor,false);
-    private static GeneratedNpcStatGraph Host(AmazonValkyrieBody actor,bool world)
+    internal static GeneratedNpcStatGraph RequireHost(SkeletonGuardian actor)=>Host(actor,true);
+    internal static GeneratedNpcStatGraph RequireRegistrationHost(SkeletonGuardian actor)=>Host(actor,false);
+    private static GeneratedNpcStatGraph Host(SkeletonGuardian actor,bool world)
     {
         if(Allocator==null){throw new NotSupportedException("Original NPC contact needs its world missile allocation service");}
         var graph=world?Require(actor):RequireRegistration(actor);
@@ -30,7 +30,7 @@ internal static class NpcOriginalItemProcs
         {throw new NotSupportedException("Original Chain proc contact needs its world child allocation service");}
         return graph;
     }
-    internal static PreparedMonsterDamagePacket Hosted(AmazonValkyrieBody actor,BaseCreature other,string phase,PreparedMonsterDamagePacket packet,
+    internal static PreparedMonsterDamagePacket Hosted(SkeletonGuardian actor,BaseCreature other,string phase,PreparedMonsterDamagePacket packet,
         DateTime at,Func<int,int> roll=null,NpcItemTarget retained=null)
     {
         _=RequireHost(actor);var allocate=Allocator;
@@ -42,7 +42,7 @@ internal static class NpcOriginalItemProcs
     internal static int? Bonus(BaseCreature actor,string code)=>actor!=null&&Frames.TryGetValue(actor.Serial.Value,out var graph)
         ?ValkyrieEquipmentContact.Number(graph,code):null;
 
-    internal static GeneratedNpcStatGraph Require(AmazonValkyrieBody actor)
+    internal static GeneratedNpcStatGraph Require(SkeletonGuardian actor)
     {
         if(actor is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile owner}
             ||!NpcItemSpellFlights.Attached(actor,owner,actor.Map?.MapID??-1)||NpcItemProcs.Get(actor)!=null)
@@ -51,13 +51,13 @@ internal static class NpcOriginalItemProcs
     }
     // Validates the saved original graph without granting combat,callbacks or
     // missile allocation to a parked/in-town/inactive actor.
-    internal static GeneratedNpcStatGraph RequireRegistration(AmazonValkyrieBody actor)
+    internal static GeneratedNpcStatGraph RequireRegistration(SkeletonGuardian actor)
     {
         if(actor is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Alive:true,Deleted:false} owner}
-            ||actor.Prepared?.Owner!=owner.Serial.Value||!actor.Permitted(owner)||NpcItemProcs.Get(actor)!=null)
+            ||OriginalNpcEquipment.Owner(actor)!=owner.Serial.Value||!actor.Permitted(owner)||NpcItemProcs.Get(actor)!=null)
         {throw new NotSupportedException("Original registration needs its living original body and recorded owner,not an event-only carrier");}
-        _=ValkyrieEquipmentDamage.Passives(actor);_=NpcEquipmentRandom.Require(actor);
-        var graph=actor.EquipmentNumbers;
+        _=NpcEquipmentRandom.Require(actor);
+        var graph=OriginalNpcEquipment.Graph(actor);
         if(graph?.ItemEvents==null){throw new NotSupportedException("Original NPC callbacks need their full saved registration history");}
         foreach(var value in graph.Stats.Where(v=>v.Value!=0))
         {
@@ -76,7 +76,7 @@ internal static class NpcOriginalItemProcs
         }
         return graph;
     }
-    internal static PreparedMonsterDamagePacket Dispatch(AmazonValkyrieBody actor,BaseCreature other,string phase,PreparedMonsterDamagePacket packet,
+    internal static PreparedMonsterDamagePacket Dispatch(SkeletonGuardian actor,BaseCreature other,string phase,PreparedMonsterDamagePacket packet,
         DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Func<int,int> roll=null,NpcItemTarget retained=null,
         Point3D? firstPathPoint=null,Action<NpcOriginalProcVisit> observed=null,Func<Point3D> readPath=null)
     {
@@ -103,7 +103,7 @@ internal static class NpcOriginalItemProcs
         finally{if(had){Frames[id]=previous;}else{Frames.Remove(id);}}
         return services.Packet;
     }
-    private sealed class Services(AmazonValkyrieBody actor,GeneratedNpcStatGraph graph,NpcItemTarget target,PreparedMonsterDamagePacket packet,
+    private sealed class Services(SkeletonGuardian actor,GeneratedNpcStatGraph graph,NpcItemTarget target,PreparedMonsterDamagePacket packet,
         DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Point3D? path,Func<Point3D> readPath):ItemProcServices
     {
         internal PreparedMonsterDamagePacket Packet=packet;

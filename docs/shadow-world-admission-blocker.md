@@ -11,3 +11,5 @@ Before live NPC spells, provide coherent world admission and ownership/parking/d
 This is a documented nonblocking skill prerequisite. Shadow Warrior/Master stay unavailable; other class work can proceed. Their body `0x190`/hue `0x455` appearance placeholder and separate effect/icon work remain unchanged. No user question is required to retain these safeguards.
 
 Update2026-11-08: [original Shadow item-event registration](shadow-original-events-checkpoint.md) now reuses the shared Valkyrie registry and persists on the actual Shadow resource graph. Live proc execution, world admission and NPC action/AI remain separate; the map/activation safeguards above still apply.
+
+Update2026-11-08, shared original-item host: item-spell/proc services now accept the species-aware original graph and source binding; parked Shadow registration/capture reuse them. World activation, incoming defense and intrinsic Assassin action/AI are still prerequisites. These guards remain in force; see the [updated checkpoint](shadow-original-events-checkpoint.md).

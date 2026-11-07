@@ -47,7 +47,7 @@ public static class NpcItemSpellDamageChecks
             foreach(var r in expected)
             {
                 uint key=r.GetProperty("Key").GetUInt32();Require(procs.Single(v=>v.Packed==key).Value==r.GetProperty("Chance").GetInt32(),"Original proc chance/layer changed");
-                int rank=(int)(key&63),skill=(int)((key&65535)>>6);var packet=NpcItemSpellDamage.CaptureValkyrie(b,skill,rank);Expected(packet,cases[r.GetProperty("Input").GetInt32()]);
+                int rank=(int)(key&63),skill=(int)((key&65535)>>6);var packet=NpcItemSpellDamage.CaptureOriginal(b,skill,rank);Expected(packet,cases[r.GetProperty("Input").GetInt32()]);
                 Require(packet.FirePierce==r.GetProperty("FirePierce").GetInt32()&&packet.ColdPierce==r.GetProperty("ColdPierce").GetInt32()&&packet.LightningPierce==r.GetProperty("LightningPierce").GetInt32(),"Original own-pierce snapshot differs");
                 Require(JsonSerializer.Deserialize<NpcItemSpellPacket>(Json(packet))==packet,"Immutable numeric packet roundtrip changed");count++;
             }

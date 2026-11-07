@@ -64,13 +64,13 @@ internal static class NpcWorldAllocation
         var game=RequireStream();uint low=SourceRandom.Roll(ref game.Value);
         return SourceRandom.InitLow(unchecked((int)low));
     }
-    private static void Source(AmazonValkyrieBody body,DateTime at)
+    private static void Source(SkeletonGuardian body,DateTime at)
     {
         if(World.Loading||body?.ControlMaster is not PlayerMobile owner||!NpcItemSpellFlights.Attached(body,owner,body.Map?.MapID??-1)
             ||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000))
         {throw new NotSupportedException("NPC world missile allocation needs its attached original source and UTC frame");}
     }
-    internal static NpcItemSpellAllocation Root(AmazonValkyrieBody body,NpcItemMissileRequest request,DateTime at)
+    internal static NpcItemSpellAllocation Root(SkeletonGuardian body,NpcItemMissileRequest request,DateTime at)
     {
         Source(body,at);
         if(request==null||request.Rank is<1 or>63){throw new NotSupportedException("NPC world root lost its explicit proc rank");}
@@ -89,7 +89,7 @@ internal static class NpcWorldAllocation
     internal static NpcChainAllocation Child(NpcChainRequest request)
     {
         if(request==null){throw new NotSupportedException("Missing NPC world child request");}
-        var body=World.FindMobile((Serial)request.Actor)as AmazonValkyrieBody;Source(body,request.At);
+        var body=World.FindMobile((Serial)request.Actor)as SkeletonGuardian;Source(body,request.At);
         if(request.Skill!=53||request.Rank is<1 or>63||request.Cast<=0||request.Ordinal<0||request.Remaining<1||request.Flags!=33
             ||request.Owner!=body.ControlMaster.Serial.Value||request.Map!=body.Map.MapID||!double.IsFinite(request.X+request.Y)
             ||request.X<=0||request.Y<=0||request.X>=body.Map.Width||request.Y>=body.Map.Height)

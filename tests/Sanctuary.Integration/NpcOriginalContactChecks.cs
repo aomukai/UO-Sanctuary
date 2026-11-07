@@ -22,9 +22,9 @@ public static class NpcOriginalContactChecks
     private static void Cancel(AmazonValkyrieBody b){SorceressSpellMissiles.Cancel(b);ChainLightning.Cancel(b);}
     private sealed class Host:IDisposable
     {
-        private readonly Func<AmazonValkyrieBody,NpcItemMissileRequest,DateTime,NpcItemSpellAllocation> Old=NpcOriginalItemProcs.Allocator;
-        private readonly Func<AmazonValkyrieBody,Point3D> OldPath=NpcOriginalItemProcs.FirstPath;
-        private readonly Action<AmazonValkyrieBody,NpcOriginalProcVisit> OldObserved=NpcOriginalItemProcs.Observed;
+        private readonly Func<SkeletonGuardian,NpcItemMissileRequest,DateTime,NpcItemSpellAllocation> Old=NpcOriginalItemProcs.Allocator;
+        private readonly Func<SkeletonGuardian,Point3D> OldPath=NpcOriginalItemProcs.FirstPath;
+        private readonly Action<SkeletonGuardian,NpcOriginalProcVisit> OldObserved=NpcOriginalItemProcs.Observed;
         private readonly Func<NpcChainRequest,NpcChainAllocation> OldChain=ChainLightning.OriginalNpcAllocator;
         internal ulong Game;internal readonly List<Seen> Visits=[];internal readonly List<NpcItemMissileRequest> Allocations=[];internal bool Fail;
         internal Host(ulong game)

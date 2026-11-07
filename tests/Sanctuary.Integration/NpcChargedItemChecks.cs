@@ -54,7 +54,7 @@ public static class NpcChargedItemChecks
     {var t=new GraveyardZombie{CantWalk=true,Frozen=true,NoKillAwards=true};t.SetHits(65000);t.MoveToWorld(new(b.X+12,b.Y,b.Z),b.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
     private static NpcItemSpellEmission Emit(AmazonValkyrieBody b,GraveyardZombie t,int rank,int flag,DateTime at,bool partial=false,bool failed=false)
     {
-        int calls=0;var rng=NpcEquipmentRandom.State(b);var result=SorceressSpellMissiles.EmitValkyrieItem(b,NpcItemTarget.Capture(t),t.Location,38,rank,flag,at,r=>
+        int calls=0;var rng=NpcEquipmentRandom.State(b);var result=SorceressSpellMissiles.EmitOriginalItem(b,NpcItemTarget.Capture(t),t.Location,38,rank,flag,at,r=>
         {Require(r.Flags==33&&r.AttackRating==0&&r.ChargedOrdinal==calls,"Charged source used helper AR or lost ordinal");int i=calls++;return new(!failed&&(!partial||i%2==0),SourceRandom.InitLow(999+i));});
         int count=Math.Min(24,rank+2);var own=Own(b).Where(f=>result.Flights.Contains(f.Id)).ToArray();
         Require(result.Result==1&&result.Attempts==calls&&calls==count&&own.Length==(failed?0:partial?(count+1)/2:count)&&NpcEquipmentRandom.State(b)==rng,"Charged emission count/return/actor RNG differs");

@@ -95,7 +95,7 @@ public static class ChainLightning
         ValidatePlayer(flight);if(flight.Cast!=_nextCast+1){throw new InvalidOperationException("Stale prepared chain");}
         _flights.Add(flight.Cast,Copy(flight));_nextCast=flight.Cast;return flight.Cast;
     }
-    internal static ChainFlight PrepareValkyrie(AmazonValkyrieBody actor,Point3D aim,int rank,DateTime at,Func<NpcChainRequest,NpcChainAllocation> allocate)
+    internal static ChainFlight PrepareOriginalNpc(SkeletonGuardian actor,Point3D aim,int rank,DateTime at,Func<NpcChainRequest,NpcChainAllocation> allocate)
         =>NpcItemChainFlights.Prepare(checked(_nextCast+1),actor,aim,rank,at,allocate);
     internal static long CommitValkyrie(ChainFlight flight)
     {
@@ -108,14 +108,14 @@ public static class ChainLightning
         internal ChainFlight Flight=candidate with{Remaining=0};
         internal bool BudgetSet;
     }
-    internal static NpcItemSpellEmission EmitValkyrieItem(AmazonValkyrieBody body,NpcItemTarget target,Point3D path,int rank,int outgoing,
+    internal static NpcItemSpellEmission EmitOriginalItem(SkeletonGuardian body,NpcItemTarget target,Point3D path,int rank,int outgoing,
         DateTime at,Func<NpcItemMissileRequest,NpcChainAllocation> allocate,bool serverDo=false,Action<bool> serverDoChanged=null)
     {
         ArgumentNullException.ThrowIfNull(allocate);var owner=body?.ControlMaster as PlayerMobile;
         if(!NpcItemSpellFlights.Attached(body,owner,body?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000))
         {throw new NotSupportedException("Original item chain needs its active source and UTC factory frame");}
         var point=target?.Point(body.Map);long cast=checked(_nextCast+1);int attempts=0;ItemRoot root=null;
-        var frame=new NpcItemSpellOrigins((body.X*2,body.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),body.EquipmentNumbers.Read(19),serverDo,request=>
+        var frame=new NpcItemSpellOrigins((body.X*2,body.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),OriginalNpcEquipment.Graph(body).Read(19),serverDo,request=>
         {
             if(++attempts!=1){throw new NotSupportedException("Original item chain requested multiple roots");}
             var candidate=NpcItemChainFlights.PrepareFactory(cast,body,request,at);if(candidate==null){return null;}

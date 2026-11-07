@@ -26,7 +26,7 @@ public static class NpcItemChainRootChecks
     private static NpcItemSpellEmission Emit(AmazonValkyrieBody b,NpcItemTarget target,Point3D path,int rank,int flag,DateTime at,bool failed=false)
     {
         string before=Json(Own(b)),body=b.SavedText,items=Json(Items(b)),resources=Json(GeneratedNpcLiveResources.State(b));var random=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b),calls=0;
-        var point=target?.Point(b.Map);var outcome=ChainLightning.EmitValkyrieItem(b,target,path,rank,flag,at,r=>
+        var point=target?.Point(b.Map);var outcome=ChainLightning.EmitOriginalItem(b,target,path,rank,flag,at,r=>
         {
             Require(++calls==1&&r.Skill==53&&r.Rank==rank&&r.Missile==93&&r.Flags==(33|(b.EquipmentNumbers.Read(19)!=0?0x1000:0))&&r.AttackRating==b.EquipmentNumbers.Read(19),"Item Chain allocator lost own metadata/AR");
             var origin=flag==1&&point is{} p?p:b.Location;Require(r.X==origin.X*2&&r.Y==origin.Y*2&&Json(Own(b))==before,"Item Chain root published early or used ordinary origin");return new(!failed,SourceRandom.InitLow(7100));
@@ -67,9 +67,9 @@ public static class NpcItemChainRootChecks
             foreach(int rank in Enumerable.Range(1,63))foreach(int flag in new[]{0,1})
             {Emit(b,NpcItemTarget.Capture(target),target.Location,rank,flag,TimedEffects.Now.AddMinutes(10));ChainLightning.Cancel(b);}
             Emit(b,null,new(b.X+12,b.Y,b.Z),3,1,TimedEffects.Now.AddMinutes(10));var root=Own(b).Single();Require(root.X==b.X&&root.Y==b.Y&&root.Vx>0&&root.Vy==0,"Targetless item Chain invented a target origin");ChainLightning.Cancel(b);
-            int allocations=0;var rng=NpcEquipmentRandom.State(b);var empty=ChainLightning.EmitValkyrieItem(b,null,Point3D.Zero,3,1,TimedEffects.Now,_=>{allocations++;return new(true,1);});
+            int allocations=0;var rng=NpcEquipmentRandom.State(b);var empty=ChainLightning.EmitOriginalItem(b,null,Point3D.Zero,3,1,TimedEffects.Now,_=>{allocations++;return new(true,1);});
             Require(empty.Result==0&&empty.Attempts==0&&allocations==0&&Own(b).Length==0,"Zero-path Chain allocated or claimed success");
-            var distant=ChainLightning.EmitValkyrieItem(b,null,new(b.X+60,b.Y,b.Z),3,0,TimedEffects.Now,_=>{allocations++;return new(true,1);});
+            var distant=ChainLightning.EmitOriginalItem(b,null,new(b.X+60,b.Y,b.Z),3,0,TimedEffects.Now,_=>{allocations++;return new(true,1);});
             Require(distant.Result==0&&distant.Attempts==1&&allocations==0&&NpcEquipmentRandom.State(b)==rng,"Chain source factory range guard drew RNG");
         }
         finally{ChainLightning.Cancel(b);target.Delete();}

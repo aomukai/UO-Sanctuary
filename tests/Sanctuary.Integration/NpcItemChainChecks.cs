@@ -49,7 +49,7 @@ public static class NpcItemChainChecks
     }
     private static ChainFlight Root(AmazonValkyrieBody b,DateTime at,List<NpcChainRequest> requests)
     {
-        var before=NpcEquipmentRandom.State(b);var f=ChainLightning.PrepareValkyrie(b,new(b.X+12,b.Y,b.Z),3,at,r=>Allocate(r,requests));
+        var before=NpcEquipmentRandom.State(b);var f=ChainLightning.PrepareOriginalNpc(b,new(b.X+12,b.Y,b.Z),3,at,r=>Allocate(r,requests));
         Require(f is{Remaining:5,Rank:3,OriginalNpc.Ordinal:0}&&f.PlayerPacket==null&&f.NpcCaster==0&&NpcEquipmentRandom.State(b)==before,"NPC root borrowed Mage/player context or consumed actor RNG");
         Require(f.OriginalNpc.Source.Packet.LightningPierce==0,"Fixture needs original zero-pierce packet");ChainLightning.CommitValkyrie(f);return f;
     }
@@ -88,7 +88,7 @@ public static class NpcItemChainChecks
             }
             finally{ChainLightning.Cancel(b);first.Delete();second?.Delete();}
         }
-        Place(b,p);var rng=NpcEquipmentRandom.State(b);var failed=ChainLightning.PrepareValkyrie(b,b.Location,3,TimedEffects.Now,_=>new(false,0));
+        Place(b,p);var rng=NpcEquipmentRandom.State(b);var failed=ChainLightning.PrepareOriginalNpc(b,b.Location,3,TimedEffects.Now,_=>new(false,0));
         Require(failed==null&&Own(b).Length==0&&NpcEquipmentRandom.State(b)==rng,"Failed root emitted or consumed actor RNG");
         var a=Target(b,2);var peer=Target(b,8);var list=new List<NpcChainRequest>();
         try

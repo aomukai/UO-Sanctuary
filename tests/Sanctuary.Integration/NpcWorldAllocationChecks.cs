@@ -139,7 +139,7 @@ public static class NpcWorldAllocationChecks
                 var before=NpcWorldAllocation.Capture();Require(GeneratedNpcEquipment.TryCreateWorldAllocated(equipped,p,EquipMonster.Other,"cap",20,2,0,1,out item),"World allocated item did not attach");
                 Require(NpcWorldAllocation.Capture().Seed==Advance(before.Seed,2)&&item.Snapshot.Allocation.GameBefore==before.Seed&&item.Parent==equipped,"Item borrowed another allocation stream");
                 targets=Enumerable.Range(0,5).Select(i=>(BaseCreature)NpcItemChainChecks.Target(b,4+i*2)).ToArray();Spells(b,targets[0]);
-                before=NpcWorldAllocation.Capture();flight=ChainLightning.PrepareValkyrie(b,targets[0].Location,3,TimedEffects.Now.AddDays(2),ChainLightning.OriginalNpcAllocator);ChainLightning.CommitValkyrie(flight);
+                before=NpcWorldAllocation.Capture();flight=ChainLightning.PrepareOriginalNpc(b,targets[0].Location,3,TimedEffects.Now.AddDays(2),ChainLightning.OriginalNpcAllocator);ChainLightning.CommitValkyrie(flight);
                 Require(NpcWorldAllocation.Capture().Seed==Advance(before.Seed,1),"Chain root did not use world stream");flight=Hop(b,flight);Require(calls==(fresh?1:0),"Item/root/child generation reseeded world");
             }
             var actor=NpcEquipmentRandom.Require(b);var world=NpcWorldAllocation.Capture();Checked(world);var held=new Saved(p.Serial.Value,point,b.Serial.Value,b.SavedText,equipped.Serial.Value,equipped.SavedText,item.Serial.Value,item.SavedText,world,actor,flight,targets.Select(t=>t.Serial.Value).ToArray(),targets.Select(SkillHealth.Balance256).ToArray(),generation);

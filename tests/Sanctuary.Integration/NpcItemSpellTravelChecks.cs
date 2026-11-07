@@ -54,7 +54,7 @@ public static class NpcItemSpellTravelChecks
     }
     private static SorceressSpellFlight[] Emit(AmazonValkyrieBody b,int skill,DateTime at)
     {
-        var f=SorceressSpellMissiles.PrepareValkyrie(b,new(b.X+10,b.Y,b.Z),skill,3,at,i=>SourceRandom.InitLow(1700+i));
+        var f=SorceressSpellMissiles.PrepareOriginalNpc(b,new(b.X+10,b.Y,b.Z),skill,3,at,i=>SourceRandom.InitLow(1700+i));
         Require(f.All(x=>x.Npc.Packet.FirePierce==0&&x.Npc.Packet.ColdPierce==0&&x.Npc.Packet.LightningPierce==0),"Fixture original packet needs explicit zero-pierce arithmetic controls");
         SorceressSpellMissiles.CommitValkyrie(f);return f;
     }

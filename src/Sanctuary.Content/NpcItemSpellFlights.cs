@@ -13,12 +13,12 @@ internal sealed record NpcItemSpellSource(uint Actor,string Binding,NpcItemSpell
 // engine. Original item callbacks and their child-seed allocation are separate.
 internal static class NpcItemSpellFlights
 {
-    internal static bool Attached(AmazonValkyrieBody body,PlayerMobile owner,int map,string binding=null)
+    internal static bool Attached(SkeletonGuardian body,PlayerMobile owner,int map,string binding=null)
     {
-        if(body is not{Alive:true,Deleted:false}||owner is not{Alive:true,Deleted:false}||body.ControlMaster!=owner
+        if(!OriginalNpcEquipment.WorldEnabled(body)||body is not{Alive:true,Deleted:false}||owner is not{Alive:true,Deleted:false}||body.ControlMaster!=owner
             ||body.Map==null||body.Map==Map.Internal||body.Map.MapID!=map||owner.Map!=body.Map
             ||!PersistentMinions.Active(owner,body)||!body.Permitted(owner)||SpellHelper.IsTown(body.Location,owner)) {return false;}
-        var current=ValkyrieEquipmentWeapons.Binding(body);return binding==null||current.Identity==binding;
+        var current=OriginalNpcEquipment.Binding(body);return binding==null||current==binding;
     }
     internal static void Validate(SorceressSpellFlight flight)
     {
@@ -34,9 +34,9 @@ internal static class NpcItemSpellFlights
         {throw new InvalidDataException("Invalid original NPC spell flight context");}
         _=NpcItemSpellDamage.Require(p.Skill);
     }
-    internal static (AmazonValkyrieBody Body,BaseCreature Target) RequireTarget(PlayerMobile owner,Mobile recipient,NpcItemSpellSource context,int map,DateTime at)
+    internal static (SkeletonGuardian Body,BaseCreature Target) RequireTarget(PlayerMobile owner,Mobile recipient,NpcItemSpellSource context,int map,DateTime at)
     {
-        var body=World.FindMobile((Serial)context.Actor)as AmazonValkyrieBody;
+        var body=World.FindMobile((Serial)context.Actor)as SkeletonGuardian;
         if(!Attached(body,owner,map,context.Binding)||recipient is not BaseCreature target||!ClassCombat.IsHostile(owner,target)
             ||ClassCombat.Friendly(body,target)||!body.CanBeHarmful(target,false)||SpellHelper.IsTown(target.Location,owner))
         {throw new NotSupportedException("Original NPC spell requires its attached source and living hostile NPC recipient");}
@@ -55,7 +55,7 @@ internal static class NpcItemSpellFlights
         int raw=SorceressSpellMissiles.Roll(minimum,maximum,initial,out seed);
         SorceressEffects.MissileHit(body,target,p.Missile);
         bool avoided=ClassAvoidance.Missile(target,p.Missile);
-        bool critical=NpcEquipmentCritical.Intrinsic(new(0,0,0,NecromancerSummons.Source("valkyrie","Crit")),()=>NpcEquipmentRandom.Raw(body));
+        bool critical=NpcEquipmentCritical.Intrinsic(new(0,0,0,NecromancerSummons.Source(body.SourceMonsterId,"Crit")),()=>NpcEquipmentRandom.Raw(body));
         if(avoided){return 0;}
         var damage=NpcEquipmentCritical.ApplyIntrinsic(0,p.Element=="fire"?new(0,raw/256.0,0,0,0):p.Element=="cold"?new(0,0,raw/256.0,0,0):new(0,0,0,raw/256.0,0),new(0,0),critical);
         int? Pierce(string element)=>element switch{"fire"=>p.FirePierce,"cold"=>p.ColdPierce,"ltng"=>p.LightningPierce,_=>0};

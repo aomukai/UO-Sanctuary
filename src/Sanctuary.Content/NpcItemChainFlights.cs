@@ -46,7 +46,7 @@ internal static class NpcItemChainFlights
     }
     private static NpcChainRequest Request(ChainFlight f,int ordinal,uint actor,uint target,double x,double y,Point3D aim,DateTime at)
         =>new(f.Cast,ordinal,actor,f.Owner,target,53,f.Rank,f.Remaining,f.Map,f.Z,x,y,aim.X,aim.Y,0x21,at);
-    internal static ChainFlight Prepare(long cast,AmazonValkyrieBody body,Point3D aim,int rank,DateTime at,Func<NpcChainRequest,NpcChainAllocation> allocate)
+    internal static ChainFlight Prepare(long cast,SkeletonGuardian body,Point3D aim,int rank,DateTime at,Func<NpcChainRequest,NpcChainAllocation> allocate)
     {
         ArgumentNullException.ThrowIfNull(allocate);Route();var owner=body?.ControlMaster as PlayerMobile;
         if(cast<=0||!NpcItemSpellFlights.Attached(body,owner,body?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000)
@@ -60,7 +60,7 @@ internal static class NpcItemChainFlights
     // Shared ordinary/item root constructor in source subtile coordinates.
     // Returns a fully checked candidate before actual unit allocation. Item
     // execution keeps its private handle budget unset until do26/151 writes it.
-    internal static ChainFlight PrepareFactory(long cast,AmazonValkyrieBody body,NpcItemMissileRequest request,DateTime at)
+    internal static ChainFlight PrepareFactory(long cast,SkeletonGuardian body,NpcItemMissileRequest request,DateTime at)
     {
         Route();var owner=body?.ControlMaster as PlayerMobile;
         if(cast<=0||!NpcItemSpellFlights.Attached(body,owner,body?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000)
@@ -73,13 +73,13 @@ internal static class NpcItemChainFlights
         int dx=request.TargetX-request.X,dy=request.TargetY-request.Y;
         if(Math.Abs((long)dx)>=100||Math.Abs((long)dy)>=100){return null;}
         _=NpcEquipmentRandom.Require(body);int rank=request.Rank;
-        var packet=NpcItemSpellDamage.CaptureValkyrie(body,53,rank);var slow=AmazonSlowMissiles.Capture(body,true);
+        var packet=NpcItemSpellDamage.CaptureOriginal(body,53,rank);var slow=AmazonSlowMissiles.Capture(body,true);
         int velocity=SlowMissilePayload.VelocityFp8(30,0,rank,request.Flags,0,true,slow.VelocityPercent);
         if(velocity!=0&&dx==0&&dy==0){dx=dy=1;}
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         var f=new ChainFlight(cast,owner.Serial.Value,body.Map.MapID,rank,packet.Emissions,0,x,y,body.Z,vector.X,vector.Y,0,
             slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),[],at.AddMilliseconds(1000),at.AddMilliseconds(40))
-            {OriginalNpc=new(new(body.Serial.Value,ValkyrieEquipmentWeapons.Binding(body).Identity,packet),slow,0,new([new(request.X,request.Y)]),velocity)};
+            {OriginalNpc=new(new(body.Serial.Value,OriginalNpcEquipment.Binding(body),packet),slow,0,new([new(request.X,request.Y)]),velocity)};
         Validate(f);return f;
     }
     private static ChainFlight Age(ChainFlight f,DateTime now,bool loaded)
@@ -91,7 +91,7 @@ internal static class NpcItemChainFlights
     {
         Validate(f);if(now.Kind!=DateTimeKind.Utc){throw new ArgumentException("Original chain clock needs UTC");}
         if(f.UntilUtc<=now){return null;}if(f.NextUtc>now){return f;}
-        var n=f.OriginalNpc;var body=World.FindMobile((Serial)n.Source.Actor)as AmazonValkyrieBody;var owner=World.FindMobile((Serial)f.Owner)as PlayerMobile;
+        var n=f.OriginalNpc;var body=World.FindMobile((Serial)n.Source.Actor)as SkeletonGuardian;var owner=World.FindMobile((Serial)f.Owner)as PlayerMobile;
         if(loaded||n.Fault!=null||!NpcItemSpellFlights.Attached(body,owner,f.Map,n.Source.Binding)||!(actions??owner?.NetState is{Running:true}))
         {return Age(f,now,loaded);}
         var moved=ChainLightning.Trace(f,body,owner,n.Steps,n.VelocityFp8);
@@ -106,7 +106,7 @@ internal static class NpcItemChainFlights
         {
             _=NpcItemSpellFlights.RequireTarget(owner,next,n.Source,f.Map,f.NextUtc);
             if(allocate==null){throw new NotSupportedException("Original NPC chain child needs its actual per-hop allocator service before HP/RNG");}
-            var packet=NpcItemSpellDamage.CaptureValkyrie(body,53,f.Rank);var slow=AmazonSlowMissiles.Capture(body,true);
+            var packet=NpcItemSpellDamage.CaptureOriginal(body,53,f.Rank);var slow=AmazonSlowMissiles.Capture(body,true);
             int velocity=SlowMissilePayload.VelocityFp8(30,0,f.Rank,33,0,true,slow.VelocityPercent),dx=(int)Math.Round((next.X-moved.X)*2),dy=(int)Math.Round((next.Y-moved.Y)*2);if(dx==0&&dy==0){dx=dy=1;}
             var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
             child=f with{Remaining=f.Remaining-1,AimTarget=next.Serial.Value,X=moved.X,Y=moved.Y,Vx=vector.X,Vy=vector.Y,Frame=0,Min256=slow.Damage256(packet.Minimum256),Max256=slow.Damage256(packet.Maximum256),
