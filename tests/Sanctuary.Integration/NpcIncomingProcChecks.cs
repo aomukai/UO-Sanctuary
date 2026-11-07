@@ -27,7 +27,7 @@ public static class NpcIncomingProcChecks
     // The caller supplies an already qualified post-defense packet. This
     // exercises the real shared HP/return path, not a fabricated UO scalar
     // damage flag or a claim of automatic native monster AI admission.
-    internal sealed class Receiver(PlayerMobile owner,BaseCreature attacker,WarlockTaintedBody target,DateTime at,bool missile,Action before):PreparedMonsterDamageServices
+    internal sealed class Receiver(PlayerMobile owner,BaseCreature attacker,BaseCreature target,DateTime at,bool missile,Action before):PreparedMonsterDamageServices
     {
         private readonly MonsterReturnMetadata Metadata=NativeMonsterReturn.Metadata(target);
         internal int Incoming,Outgoing;private bool Freed;
@@ -35,7 +35,7 @@ public static class NpcIncomingProcChecks
         internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)=>p;
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p){Outgoing++;return p;}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)
-        {Incoming++;return NpcCombatEvents.Empty.Dispatch(missile?"damagedbymissile":"damagedinmelee",p,target,attacker,at);}
+        {Incoming++;return IronGolemContact.Events(target).Dispatch(missile?"damagedbymissile":"damagedinmelee",p,target,attacker,at);}
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)=>before();
         internal override void BeforeHealthCommit(Mobile source,BaseCreature recipient,int after)=>PreparedMonsterNativeDamage.Notify(source,recipient,after);
         internal override void ApplyCold(int frames)=>Require(frames==0,"Fixture has no cold state");
@@ -45,7 +45,7 @@ public static class NpcIncomingProcChecks
         internal override void PresentOverlay(int overlay)=>throw new InvalidOperationException("Fixture has no overlay");
         internal override int BaseHitClass()=>0;
         internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>p;
-        internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>NpcCombatEvents.Empty.Dispatch("attackedinmelee",p,target,attacker,at);
+        internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>IronGolemContact.Events(target).Dispatch("attackedinmelee",p,target,attacker,at);
         internal override bool AttackerInActiveMode()=>attacker.Alive&&!attacker.Deleted;
         internal override void BeforeThorns(PreparedMonsterDamagePacket p){}
         internal override void Return(ref PreparedMonsterDamagePacket p,Action death)=>PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(attacker,owner,target,Metadata,death),true);

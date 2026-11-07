@@ -48,6 +48,13 @@ internal static class NpcItemProcs
     // through the per-actor ordinary event adapter.
     internal static NpcItemTarget RequireIncoming(Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet)
     {
+        if(NpcOriginalItemProcs.Active(recipient))
+        {
+            var original=(AmazonValkyrieBody)recipient;var numbers=NpcOriginalItemProcs.RequireHost(original);
+            if((packet.ResultFlags&4)==0||!numbers.Stats.Any(v=>v.Stat==201&&v.Value>0)){return null;}
+            if(attacker is not BaseCreature other){throw new NotSupportedException("Original NPC on-struck spells need their NPC attacker context");}
+            var originalTarget=NpcItemTarget.Capture(other);_=originalTarget.Point(original.Map);return originalTarget;
+        }
         if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return null;}
         graph.Refresh(NpcCombatEvents.LegacyForSource(actor));
         if((packet.ResultFlags&4)==0||!graph.IncomingRequired){return null;}
@@ -58,6 +65,17 @@ internal static class NpcItemProcs
     internal static void Received(string phase,Mobile attacker,BaseCreature recipient,PreparedMonsterDamagePacket packet,DateTime at,NpcItemTarget retained=null)
     {
         if(phase is not("damagedinmelee"or"damagedbymissile")){throw new InvalidOperationException("Unmapped incoming NPC proc phase");}
+        if(NpcOriginalItemProcs.Active(recipient))
+        {
+            var original=(AmazonValkyrieBody)recipient;var numbers=NpcOriginalItemProcs.RequireHost(original);
+            if((packet.ResultFlags&4)!=0&&numbers.Stats.Any(v=>v.Stat==201&&v.Value>0))
+            {
+                retained??=RequireIncoming(attacker,recipient,packet);
+                if(retained.Original!=attacker){throw new InvalidOperationException("Original incoming target belongs to another attacker");}
+                _=retained.Point(original.Map);
+            }
+            NpcOriginalItemProcs.Hosted(original,attacker as BaseCreature,phase,packet,at,retained:retained);return;
+        }
         if(recipient is not SkeletonGuardian actor||Get(actor)is not{} graph){return;}
         graph.Refresh(NpcCombatEvents.LegacyForSource(actor));
         if((packet.ResultFlags&4)!=0&&graph.IncomingRequired)

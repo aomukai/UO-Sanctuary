@@ -105,7 +105,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
                 if(state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile){throw new InvalidDataException("Moving Valkyrie requires inherited defense binding");}
                 ValkyrieGroundMotion.Validate(motion,state.Owner);
             }
-            if(state.EquipmentContactProfile!=null&&(state.EquipmentContactProfile!=ValkyrieEquipmentContact.Profile||state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile))
+            if(state.EquipmentContactProfile!=null&&(state.EquipmentContactProfile is not(ValkyrieEquipmentContact.Profile or ValkyrieEquipmentContact.OriginalProfile)||state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile))
             {throw new InvalidDataException("Invalid original Valkyrie contact admission");}
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}

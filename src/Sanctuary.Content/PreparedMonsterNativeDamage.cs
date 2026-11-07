@@ -14,8 +14,9 @@ internal static class PreparedMonsterNativeDamage
     internal static void RequireIncoming(PlayerMobile source,BaseCreature target,Mobile attacker=null)
     {
         var method=target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType;
-        bool demonGuard=(target is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)&&method==typeof(SkeletonGuardian);
-        // These demon bodies inherit only the guardian's friendship wrapper.
+        bool demonGuard=(target is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody||NpcOriginalItemProcs.Active(target))&&method==typeof(SkeletonGuardian);
+        // These demons and qualified original Valkyries inherit only the
+        // guardian's friendship wrapper.
         // Preserve its refusal before the ordered path bypasses Damage; the
         // actual emitter,not its credit owner,determines that relationship.
         if(demonGuard&&ClassCombat.Friendly(attacker??source,target))
@@ -25,6 +26,10 @@ internal static class PreparedMonsterNativeDamage
     internal static void RequireBaseModifiers(Mobile source,BaseCreature target,bool demonGuard=false)
     {
         var method=target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType;
+        // Ordinary contact performs hostility qualification before HP. Its
+        // explicit original Valkyrie profile supplies the same known guardian
+        // wrapper; spell callers check friendship in RequireIncoming above.
+        demonGuard|=NpcOriginalItemProcs.Active(target)&&method==typeof(SkeletonGuardian);
         bool incoming=ReviveEquipmentIncoming.Handles(target);
         if(incoming){ReviveEquipmentIncoming.RequireBody(target);}
         if(target.GetSkillMod("EvilOmen")!=null||source!=null&&BloodOathSpell.GetBloodOath(source)==target

@@ -9,11 +9,14 @@ namespace Sanctuary;
 
 internal static class IronGolemContact
 {
-    internal sealed record Saved(MonsterReturnMetadata Metadata,int[] SourceEvents,int[] TargetEvents,bool NativeRecovery,NpcWeaponImpact Impact);
+    internal sealed record Saved(MonsterReturnMetadata Metadata,int[] SourceEvents,int[] TargetEvents,bool NativeRecovery,NpcWeaponImpact Impact,
+        [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]bool SourceOriginalEvents=false,
+        [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]bool TargetOriginalEvents=false);
     internal static Saved Capture(Prepared prepared)
     {
         if(prepared==null||prepared.Consumed){throw new InvalidOperationException("Cannot save a consumed ordinary contact");}
-        var saved=new Saved(prepared.Rules.Metadata,prepared.Rules.SourceEvents.Subscriptions(),prepared.Rules.TargetEvents.Subscriptions(),prepared.Rules.NativeRecovery,prepared.Impact);
+        var saved=new Saved(prepared.Rules.Metadata,prepared.Rules.SourceEvents.Subscriptions(),prepared.Rules.TargetEvents.Subscriptions(),prepared.Rules.NativeRecovery,prepared.Impact,
+            prepared.Rules.SourceEvents.OriginalEvents,prepared.Rules.TargetEvents.OriginalEvents);
         _=Restore(saved);return saved;
     }
     internal static Prepared Restore(Saved saved)
@@ -24,7 +27,7 @@ internal static class IronGolemContact
             ||p.Magic256<0||p.Fire256<0||p.Lightning256<0||p.Cold256<0||p.Poison256<0||p.AbsorbedLife256<0||p.LifeDrain256<0||p.ManaDrain256<0||p.StaminaDrain256<0||p.FreezeFrames<0||(p.ResultFlags&~0xffff)!=0
             ||(long)p.Physical256+p.Magic256+p.Fire256+p.Lightning256+p.Cold256+p.Poison256+p.LifeDrain256!=p.Total256)
         {throw new System.IO.InvalidDataException("Invalid saved ordinary contact");}
-        return new(new(saved.Metadata,NpcCombatEvents.RestoreSubscriptions(saved.SourceEvents),NpcCombatEvents.RestoreSubscriptions(saved.TargetEvents),saved.NativeRecovery),impact);
+        return new(new(saved.Metadata,NpcCombatEvents.RestoreSubscriptions(saved.SourceEvents,saved.SourceOriginalEvents),NpcCombatEvents.RestoreSubscriptions(saved.TargetEvents,saved.TargetOriginalEvents),saved.NativeRecovery),impact);
     }
     internal static void RequireRecoveryEvents(BaseCreature target)
     {
@@ -51,7 +54,7 @@ internal static class IronGolemContact
         internal bool Consumed;
         internal void Cancel(){Consumed=true;}
     }
-    private sealed class Scope(Prepared prepared,int entryHits,BaseCreature source)
+    private sealed class Scope(Prepared prepared,int entryHits,BaseCreature source,BaseCreature target)
     {
         internal NpcWeaponImpact Impact=prepared.Impact;
         internal readonly NpcCombatEvents SourceEvents=prepared.Rules.SourceEvents,TargetEvents=prepared.Rules.TargetEvents;
@@ -59,6 +62,7 @@ internal static class IronGolemContact
         // Attacker damage events can retire an original Revive before hit
         // presentation/return. Retain only this synchronous packet's identity.
         internal readonly MonsterReturnIdentity SourceIdentity=source is{Alive:true,Deleted:false}?NativeMonsterReturn.SourceIdentity(source):null;
+        internal readonly NpcItemTarget RetainedTarget=prepared.Rules.SourceEvents.OriginalEvents&&target is{Alive:true,Deleted:false}?NpcItemTarget.Capture(target):null;
         internal readonly int EntryHits=entryHits;internal int Loss;
     }
     private sealed class Contact(BaseCreature body,PlayerMobile owner,Func<int,bool> range,BaseCreature target,MonsterReturnMetadata metadata,Scope scope):MonsterContactServices
@@ -78,7 +82,7 @@ internal static class IronGolemContact
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}NpcItemSlow.Clay(source,target,false,at);return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at);}
+        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}NpcItemSlow.Clay(source,target,false,at);return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at,retained:scope.RetainedTarget);}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p,target,source,at);
         internal override bool OrdinaryNpcFlatDrains=>true;
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
@@ -100,11 +104,11 @@ internal static class IronGolemContact
         }
         internal override void SurvivedDamage(){if(!scope.NativeRecovery){RequireRecoveryEvents(target);}} // Unique damage effects belong to source return, not a second aggregate FHR roll.
         internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("killed",p,target,source,at);
-        internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p,source,target,at);
+        internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p,source,target,at,retained:scope.RetainedTarget);
         internal override void PresentOverlay(int overlay)
         {target.FixedEffect(0x37B9,10,12,0x481,0);} // Source overlay descriptor retained in packet; identified native placeholder.
         internal override int BaseHitClass()=>scope.SourceIdentity.HitClass;
-        internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p,source,target,at);
+        internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p,source,target,at,retained:scope.RetainedTarget);
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("attackedinmelee",p,target,source,at);
         internal override bool AttackerInActiveMode()=>source is{Alive:true,Deleted:false}&&SkillHealth.Balance256(source)>0;
         internal override void BeforeThorns(PreparedMonsterDamagePacket p)
@@ -154,6 +158,13 @@ internal static class IronGolemContact
     {
         if(prepared==null||prepared.Consumed||prepared.Impact.Actor!=body.Serial.Value||prepared.Impact.Target!=target.Serial.Value)
         {throw new InvalidOperationException("Ordinary NPC contact is missing,changed or already consumed");}
+        foreach(var pair in new[]{(Actor:body,Events:prepared.Rules.SourceEvents),(Actor:target,Events:prepared.Rules.TargetEvents)})
+        {
+            if(pair.Actor is not{Alive:true,Deleted:false}){continue;}
+            if(pair.Events.OriginalEvents!=NpcOriginalItemProcs.Active(pair.Actor))
+            {throw new NotSupportedException("Prepared contact changed original event producer profile");}
+            if(pair.Events.OriginalEvents){_=NpcOriginalItemProcs.RequireHost((AmazonValkyrieBody)pair.Actor);}
+        }
         if(NpcOpenWounds.Chance(body)>0)
         {
             // Settle before entering the qualified hit: a callback must never
@@ -164,7 +175,7 @@ internal static class IronGolemContact
             _=NpcEquipmentRegeneration.ItemRate(target); // Existing unsupported material rates refuse before event RNG.
         }
         prepared.Consumed=true;
-        var scope=new Scope(prepared,target.Hits,body);var metadata=prepared.Rules.Metadata;
+        var scope=new Scope(prepared,target.Hits,body,target);var metadata=prepared.Rules.Metadata;
         var recipient=new PreparedMonsterRecipient(target is EncounterCreature encounter&&encounter.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique,
             ()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(body,target,false);

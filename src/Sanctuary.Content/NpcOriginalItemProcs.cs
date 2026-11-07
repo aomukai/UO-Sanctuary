@@ -10,9 +10,32 @@ internal sealed record NpcOriginalProcVisit(int Function,int Phase,uint Packed,i
 
 // Full original item graph -> actual shared callbacks and protected spell
 // wrappers. The world caller supplies allocation and any targetless path;
-// this does not fabricate a game seed or enable ordinary AI/contact routes.
+// the explicit original combat profile never fabricates a game seed or AI.
 internal static class NpcOriginalItemProcs
 {
+    // Mandatory world allocation boundary. The host owns its persistent game
+    // stream; absence refuses before ordinary allocation/HP,never reseeds.
+    internal static Func<AmazonValkyrieBody,NpcItemMissileRequest,DateTime,NpcItemSpellAllocation> Allocator;
+    internal static Func<AmazonValkyrieBody,Point3D> FirstPath;
+    internal static Action<AmazonValkyrieBody,NpcOriginalProcVisit> Observed;
+    internal static bool Active(BaseCreature actor)=>!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b
+        &&b.Prepared?.EquipmentContactProfile==ValkyrieEquipmentContact.OriginalProfile;
+    internal static GeneratedNpcStatGraph RequireHost(AmazonValkyrieBody actor)
+    {
+        if(Allocator==null){throw new NotSupportedException("Original NPC contact needs its world missile allocation service");}
+        var graph=Require(actor);
+        if(graph.Stats.Any(v=>v.Value>0&&v.Stat is 195 or 196 or 198 or 201&&((ushort)v.Packed>>6)==53)&&ChainLightning.OriginalNpcAllocator==null)
+        {throw new NotSupportedException("Original Chain proc contact needs its world child allocation service");}
+        return graph;
+    }
+    internal static PreparedMonsterDamagePacket Hosted(AmazonValkyrieBody actor,BaseCreature other,string phase,PreparedMonsterDamagePacket packet,
+        DateTime at,Func<int,int> roll=null,NpcItemTarget retained=null)
+    {
+        _=RequireHost(actor);var allocate=Allocator;
+        return Dispatch(actor,other,phase,packet,at,r=>allocate(actor,r,at),roll,retained,
+            observed:v=>Observed?.Invoke(actor,v),readPath:()=>FirstPath?.Invoke(actor)
+                ??throw new NotSupportedException("Missing original NPC path service"));
+    }
     private static readonly Dictionary<uint,GeneratedNpcStatGraph> Frames=new();
     internal static int? Bonus(BaseCreature actor,string code)=>actor!=null&&Frames.TryGetValue(actor.Serial.Value,out var graph)
         ?ValkyrieEquipmentContact.Number(graph,code):null;
@@ -44,7 +67,7 @@ internal static class NpcOriginalItemProcs
     }
     internal static PreparedMonsterDamagePacket Dispatch(AmazonValkyrieBody actor,BaseCreature other,string phase,PreparedMonsterDamagePacket packet,
         DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Func<int,int> roll=null,NpcItemTarget retained=null,
-        Point3D? firstPathPoint=null,Action<NpcOriginalProcVisit> observed=null)
+        Point3D? firstPathPoint=null,Action<NpcOriginalProcVisit> observed=null,Func<Point3D> readPath=null)
     {
         ArgumentNullException.ThrowIfNull(allocate);var graph=Require(actor);byte code=ItemEventDefinitions.Code(phase);
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000))
@@ -53,7 +76,7 @@ internal static class NpcOriginalItemProcs
         if(retained!=null&&other!=null&&retained.Original!=other)
         {throw new NotSupportedException("Original NPC callback target changed identity");}
         if(target!=null){_=target.Point(actor.Map);}
-        var services=new Services(actor,graph,target,packet,at,allocate,firstPathPoint);
+        var services=new Services(actor,graph,target,packet,at,allocate,firstPathPoint,readPath);
         uint id=actor.Serial.Value;bool had=Frames.TryGetValue(id,out var previous);Frames[id]=graph;
         try{graph.ItemEvents.Trigger(code,(function,eventPhase,guid1,guid2)=>
         {
@@ -70,7 +93,7 @@ internal static class NpcOriginalItemProcs
         return services.Packet;
     }
     private sealed class Services(AmazonValkyrieBody actor,GeneratedNpcStatGraph graph,NpcItemTarget target,PreparedMonsterDamagePacket packet,
-        DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Point3D? path):ItemProcServices
+        DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Point3D? path,Func<Point3D> readPath):ItemProcServices
     {
         internal PreparedMonsterDamagePacket Packet=packet;
         internal override bool HasSource=>actor is{Deleted:false};
@@ -82,7 +105,8 @@ internal static class NpcOriginalItemProcs
         internal override int Chance(int stat,int layer)=>graph.Values.Query(graph.Actor.Stats,EquipmentStatKey.Pack(stat,layer));
         internal override uint Roll()=>NpcEquipmentRandom.Raw(actor);
         internal override ItemProcSkill Skill(int id)=>new(NpcItemSpellDamage.Require(id).ItemTargetDo);
-        internal override (int X,int Y) FirstPathPoint()=>path is{} p?(p.X,p.Y):throw new NotSupportedException("Missing original NPC path service");
+        internal override (int X,int Y) FirstPathPoint()
+        {var p=path??readPath?.Invoke()??throw new NotSupportedException("Missing original NPC path service");return(p.X,p.Y);}
         internal override void CastTarget(bool targetAsCaster,int skill,int level,int flag)
         {
             if(targetAsCaster){throw new NotSupportedException("Original NPC target-as-caster proc needs its separate context");}

@@ -12,6 +12,7 @@ namespace Sanctuary;
 internal static class ValkyrieEquipmentContact
 {
     internal const string Profile="valkyrie-original-equipment-contact-v1";
+    internal const string OriginalProfile="valkyrie-original-proc-contact-v1";
     private static readonly Dictionary<string,int> Codes=new(StringComparer.Ordinal)
     {
         ["thorns"]=78,["knock"]=81,["heal-kill"]=86,["rip"]=108,["howl"]=112,["stupidity"]=113,["dmg-to-mana"]=114,
@@ -20,7 +21,8 @@ internal static class ValkyrieEquipmentContact
         ["abs-fire%"]=142,["abs-fire"]=143,["abs-ltng%"]=144,["abs-ltng"]=145,["abs-cold%"]=148,["abs-cold"]=149,
         ["pierce-fire"]=333,["pierce-ltng"]=334,["pierce-cold"]=335,["pierce-pois"]=336,["pierce-mag"]=358
     };
-    internal static bool Active(BaseCreature actor)=>!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b&&b.Prepared?.EquipmentContactProfile==Profile;
+    internal static bool Active(BaseCreature actor)=>!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b
+        &&b.Prepared?.EquipmentContactProfile is Profile or OriginalProfile;
     internal static int? Bonus(BaseCreature actor,string code)
     {
         if(!Active(actor)){return null;}
@@ -35,25 +37,32 @@ internal static class ValkyrieEquipmentContact
         return Codes.TryGetValue(code,out int stat)?graph.Read(stat)
             :throw new NotSupportedException("Unadmitted original Valkyrie scalar consumer: "+code);
     }
-    private static NpcCombatEvents ValidateGraph(AmazonValkyrieBody body)
+    private static NpcCombatEvents ValidateGraph(AmazonValkyrieBody body,bool original=false)
     {
         _=ValkyrieEquipmentWeapons.Frame(body);_=ValkyrieEquipmentDamage.Passives(body);_=NpcEquipmentRandom.Require(body);
         if(GeneratedNpcLiveResources.State(body)is not{Valkyrie:not null} resources)
         {throw new NotSupportedException("Original Valkyrie contact requires supplied source resources");}
         ValkyrieEquipmentResources.Require(body,resources);
         if(NpcItemProcs.Get(body)!=null){throw new NotSupportedException("Original Valkyrie items cannot use a separate event-only carrier graph");}
-        return NpcCombatEvents.FromStats(body.EquipmentNumbers.Stats);
+        if(original){_=NpcOriginalItemProcs.RequireHost(body);}
+        return original?NpcCombatEvents.FromOriginalStats(body.EquipmentNumbers.Stats):NpcCombatEvents.FromStats(body.EquipmentNumbers.Stats);
     }
     internal static NpcCombatEvents Registry(AmazonValkyrieBody body)
     {
         if(!Active(body)){throw new NotSupportedException("Original Valkyrie contact is not activated");}
-        return ValidateGraph(body);
+        return ValidateGraph(body,body.Prepared.EquipmentContactProfile==OriginalProfile);
     }
     internal static void Activate(AmazonValkyrieBody body)
     {
         if(body?.Prepared is not{EquipmentContactProfile:null,EquipmentDefenseProfile:ValkyrieEquipmentDefense.Profile} old)
         {throw new NotSupportedException("Original Valkyrie contact needs its qualified original defense/weapon context");}
         _=ValidateGraph(body);body.RestorePrepared(old with{EquipmentContactProfile=Profile});
+    }
+    internal static void ActivateOriginal(AmazonValkyrieBody body)
+    {
+        if(body?.Prepared is not{EquipmentContactProfile:null,EquipmentDefenseProfile:ValkyrieEquipmentDefense.Profile} old)
+        {throw new NotSupportedException("Original proc contact needs its qualified original defense/weapon context");}
+        _=ValidateGraph(body,true);body.RestorePrepared(old with{EquipmentContactProfile=OriginalProfile});
     }
     internal static void RequireAllocation(AmazonValkyrieBody body,BaseCreature target)
     {

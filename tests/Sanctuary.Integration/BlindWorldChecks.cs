@@ -116,46 +116,63 @@ public static class BlindWorldChecks
         var account=new Account("blind-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;network.Account=account;network.Mobile=p;p.NetState=network;
         network.ResetMovementState();network.SendMobileUpdate(p);
         Require(t.Map.GetSector(t.Location).Active,"Connected player did not activate the blind actor's sector");
-        Apply(p,t);State(t,State(t) with{Seed=Seed(false),NextUtc=TimedEffects.Now.AddHours(1)});
-        bool finished=false;
+        Apply(p,t);var liveCurse=NecromancerEffects.Profiles.Find(t).Curse;var appliedAt=TimedEffects.Now;
+        State(t,State(t) with{Seed=Seed(false),NextUtc=TimedEffects.Now.AddHours(1)});
+        bool finished=false,finishing=false;var prior=SourceBlind.DecisionObserved;
         void Finish(Exception e=null)
-        {if(finished){return;}finished=true;t.Delete();p.Delete();account.Delete();if(e==null){Log.Information("blind-world-live-result: passed");}else{Log.Error(e,"blind-world-live-result: failed");}}
-        // Native wheel callbacks can run during catch-up while Core.TickCount
-        // is ahead. Observe the controller's real clock on the loop queue;
-        // polling never advances the actor's decision or step deadlines.
-        void Observe(DateTime at,Action observation)
         {
-            void Poll()
-            {
-                if(finished){return;}
-                if(TimedEffects.Now<at){Timer.StartTimer(TimeSpan.FromMilliseconds(10),()=>Core.LoopContext.Post(Poll));return;}
-                try{observation();}catch(Exception e){Finish(e);}
-            }
-            Timer.StartTimer(TimeSpan.Zero,()=>Core.LoopContext.Post(Poll));
+            if(finished){return;}finished=true;SourceBlind.DecisionObserved=prior;
+            t.Delete();p.Delete();account.Delete();
+            if(e==null){Log.Information("blind-world-live-result: passed");}else{Log.Error(e,"blind-world-live-result: failed");}
+        }
+        void QueueFinish(Exception e=null)
+        {
+            if(finishing||finished){return;}finishing=true;
+            // Finish after the controller returns,not inside its decision stack.
+            Core.LoopContext.Post(()=>Finish(e));
         }
         FixtureClock.NextLoop("blind-world-live-result",()=>
         {
-            State(t,State(t) with{NextUtc=TimedEffects.Now});t.NextReacquireTime=Core.TickCount;
-            Log.Information("blind-world-live: ready");
-            Observe(TimedEffects.Now.AddMilliseconds(100),()=>
+            var before=NecromancerEffects.Profiles.Find(t);var now=TimedEffects.Now;
+            Log.Information("Blind live clock arming: applied={Applied:o},originalUntil={Until:o},now={Now:o},current={Current},facet={Facet}",appliedAt,liveCurse.UntilUtc,now,before.Curse?.Ability,SummonDifficulties.For(p.Map));
+            // This probe measures natural decision deadlines. Controls() tests
+            // curse expiry separately. Arm at observation start after catch-up.
+            var previous=before.BlindAi with{NextUtc=now};
+            NecromancerEffects.Profiles.Store(t,before with{Curse=liveCurse with{UntilUtc=now.AddMinutes(1)},BlindAi=previous});
+            t.Combatant=null;t.FocusMob=null;t.NextReacquireTime=Core.TickCount;
+            SourceBlind.DecisionObserved=(actor,next,at)=>
             {
-                var first=State(t);Require(first is{Thinks:1,Draws:1,Goal:null,Fault:null},"Natural first idle decision");
-                // Beyond the18-tile acquisition adapter while still inside
-                // the connected player's two-sector native activation range.
-                p.MoveToWorld(new(t.X+20,t.Y,t.Z),p.Map);
-                Require(t.Map.GetSector(t.Location).Active,"No-target inspection culled the actor's sector");
-                Observe(first.NextUtc.AddMilliseconds(-50),()=>Require(State(t)==first,"Natural controller acted before its source idle deadline"));
-                Observe(first.NextUtc.AddMilliseconds(100),()=>
+                prior?.Invoke(actor,next,at);
+                if(actor!=t||finished||finishing){return;}
+                try
                 {
-                    var second=State(t);Require(second is{Thinks:2,Draws:1,Focus:0,Goal:null,Fault:null}&&network.Running,$"Natural no-target decision/connection: state={JsonSerializer.Serialize(second)}, running={network.Running}");
-                    p.MoveToWorld(new(t.X-1,t.Y,t.Z),p.Map);
-                    Observe(second.NextUtc.AddMilliseconds(-50),()=>Require(State(t)==second,"Returning enemy bypassed the no-target idle deadline"));
-                    Observe(second.NextUtc.AddMilliseconds(100),()=>
+                    Log.Information("Blind live decision: at={At:o},previousDeadline={Previous:o},state={State}",at,previous.NextUtc,JsonSerializer.Serialize(next));
+                    Require(at>=previous.NextUtc,"Natural controller acted before its source deadline");
+                    Require(next.Thinks==previous.Thinks+1&&next.Fault==null&&network.Running,"Natural decision count/fault/connection");
+                    if(next.Thinks==1)
                     {
-                        var attack=State(t);Require(attack is{Combat:true,Draws:1,Fault:null}&&attack.Thinks>=3&&attack.Focus==p.Serial.Value&&t.Combatant==p&&network.Running,"Natural no-target-to-adjacent reacquisition/admission");Finish();
-                    });
-                });
-            });
+                        Require(next is{Draws:1,Goal:null,Combat:false}&&Math.Abs((next.NextUtc-at).TotalMilliseconds-400)<30,"Natural first idle decision/400ms deadline");
+                        // Beyond18-tile acquisition,but still within native
+                        // connected-player sector activation. No forced Think.
+                        p.MoveToWorld(new(t.X+20,t.Y,t.Z),p.Map);
+                        Require(t.Map.GetSector(t.Location).Active,"No-target inspection culled the actor's sector");
+                    }
+                    else if(next.Thinks==2)
+                    {
+                        Require(next is{Draws:1,Focus:0,Goal:null,Combat:false}&&Math.Abs((next.NextUtc-at).TotalMilliseconds-1000)<30,"Natural no-target decision/1000ms deadline");
+                        p.MoveToWorld(new(t.X-1,t.Y,t.Z),p.Map);
+                    }
+                    else
+                    {
+                        Require(next is{Thinks:3,Combat:true,Draws:1}&&next.Focus==p.Serial.Value&&t.Combatant==p,"Natural no-target-to-adjacent reacquisition/admission");
+                        QueueFinish();
+                    }
+                    previous=next;
+                }
+                catch(Exception e){QueueFinish(e);}
+            };
+            Log.Information("blind-world-live: ready");
+            Timer.StartTimer(TimeSpan.FromSeconds(20),()=>{if(!finished&&!finishing){QueueFinish(new TimeoutException($"Natural Blind decision observation timed out: {JsonSerializer.Serialize(State(t))}"));}});
         });
     }
 }

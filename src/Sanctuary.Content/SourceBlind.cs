@@ -24,6 +24,8 @@ public static class SourceBlind
     private static readonly HashSet<Serial> Acquiring=new();
     private static readonly HashSet<Type> Unmapped=new();
     private static readonly Dictionary<string,BlindAiRule> Rules=new(StringComparer.OrdinalIgnoreCase);
+    // Passive checkpoint observer; no subscriber participates in decisions or RNG.
+    internal static Action<BaseCreature,BlindAiState,DateTime> DecisionObserved;
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static void Configure()
     {
@@ -221,6 +223,7 @@ public static class SourceBlind
                 else if(!progress){return Fault(actor,state with{Seed=seed,Draws=draws},"source walk entry failed in native path adapter");}
             }
         }
-        Store(actor,state with{Seed=seed,Draws=draws});return true;
+        var decided=state with{Seed=seed,Draws=draws};Store(actor,decided);
+        DecisionObserved?.Invoke(actor,decided,TimedEffects.Now);return true;
     }
 }

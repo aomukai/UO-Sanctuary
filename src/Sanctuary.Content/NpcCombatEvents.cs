@@ -18,7 +18,9 @@ internal sealed class NpcCombatEvents
 {
     private static readonly Lazy<Dictionary<int,NpcItemEventStat>> Rules=ItemEventDefinitions.Rows;
     private readonly NpcItemEventStat[] Active;
+    internal bool OriginalEvents{get;}
     private NpcCombatEvents(){Active=[];}
+    private NpcCombatEvents(NpcItemEventStat[] active,bool original){Active=active;OriginalEvents=original;}
     internal static NpcCombatEvents Empty{get;}=new();
     internal static NpcCombatEvents ForSource(BaseCreature actor)
     {
@@ -39,15 +41,20 @@ internal sealed class NpcCombatEvents
     {item?.RequireOrdinaryNpcDrainInputs();return item?.ActiveNumericProperties()??[];}
     private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood,bool inherentCrushing):this(Stats(item),inherentWounds,blood,inherentCrushing){}
     internal static NpcCombatEvents FromStats(EquipmentStatValue[] stats)=>new(stats,false,false,false);
+    internal static NpcCombatEvents FromOriginalStats(EquipmentStatValue[] stats)=>new(stats,false,false,false,true);
     internal int[] Subscriptions()=>Active.Select(r=>r.Stat).ToArray();
-    internal static NpcCombatEvents RestoreSubscriptions(int[] stats)
+    internal static NpcCombatEvents RestoreSubscriptions(int[] stats,bool original=false)
     {
-        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 81 or 86 or 108 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150)))
+        if(stats==null||stats.Distinct().Count()!=stats.Length||stats.Any(s=>s is not(78 or 81 or 86 or 108 or 112 or 113 or 114 or 128 or 134 or 135 or 136 or 138 or 139 or 150)&&(!original||s is not(195 or 196 or 198 or 201))))
         {throw new NotSupportedException("Persisted ordinary item callbacks need their admitted subscription set");}
+        // This saved list describes producer capability only. Actual chance,
+        // layer and order are read from its bound original graph at dispatch.
+        if(original){return new(stats.Select(s=>Rules.Value[s]).ToArray(),true);}
         return FromStats(stats.Select(s=>new EquipmentStatValue(EquipmentStatKey.Pack(s),1)).ToArray());
     }
-    private NpcCombatEvents(EquipmentStatValue[] stats,bool inherentWounds,bool blood,bool inherentCrushing)
+    private NpcCombatEvents(EquipmentStatValue[] stats,bool inherentWounds,bool blood,bool inherentCrushing,bool original=false)
     {
+        OriginalEvents=original;
         var active=new List<NpcItemEventStat>();
         foreach(var value in stats.Where(v=>v.Value!=0))
         {
@@ -90,7 +97,8 @@ internal sealed class NpcCombatEvents
             {throw new NotSupportedException("Negative NPC kill-healing item stats need their signed source domain");}
             bool mana=rule.Stat==114&&rule.Events.Length==2&&rule.Events[0] is{Event:"damagedinmelee",Function:13}&&rule.Events[1] is{Event:"damagedbymissile",Function:13};
             bool lightning=rule.Stat==128&&rule.Events.Length==1&&rule.Events[0] is{Event:"damagedinmelee",Function:10};
-            if(!flat&&!knock&&!fear&&!blind&&!killLife&&!killMana&&!demonLife&&!rip&&!slow&&!mana&&!lightning&&!freeze&&!wounds&&!CrushingRule(rule))
+            bool proc=original&&rule.Stat is 195 or 196 or 198 or 201&&rule.Events.All(e=>e.Function==(rule.Stat==201?21:20));
+            if(!flat&&!knock&&!fear&&!blind&&!killLife&&!killMana&&!demonLife&&!rip&&!slow&&!mana&&!lightning&&!freeze&&!wounds&&!CrushingRule(rule)&&!proc)
             {throw new NotSupportedException("NPC combat event needs its consumer: "+rule.Name+"/"+string.Join(',',rule.Events.Select(e=>e.Event+":"+e.Function)));}
             active.Add(rule);
         }
@@ -133,8 +141,16 @@ internal sealed class NpcCombatEvents
         // synthetic ordinary-monster packet is invented for a cold-only hit.
         Dispatch(phase,null,source,target,at,limited);
     }
-    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,BaseCreature source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null)
+    internal PreparedMonsterDamagePacket Dispatch(string phase,PreparedMonsterDamagePacket packet,BaseCreature source=null,BaseCreature target=null,DateTime? at=null,Func<int,int> damageRoll=null,NpcItemTarget retained=null)
     {
+        if(OriginalEvents)
+        {
+            if(source is not AmazonValkyrieBody body||!NpcOriginalItemProcs.Active(body)||at==null)
+            {throw new NotSupportedException("Original event producer lost its actual source profile/time");}
+            // Incoming phases are emitted once by the ordered receiver.
+            if(phase is "damagedinmelee"or"damagedbymissile"){return packet;}
+            return NpcOriginalItemProcs.Hosted(body,target,phase,packet,at.Value,damageRoll,retained);
+        }
         // Incoming graph phases are produced once by PreparedMonsterDamage,
         // including callers whose legacy event service has no proc context.
         var procs=phase is not("damagedinmelee"or"damagedbymissile")&&source is SkeletonGuardian eventActor?NpcItemProcs.Get(eventActor):null;
