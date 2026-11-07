@@ -2022,10 +2022,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 260,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Individually deferred while current per-contact versus per-sequence consume-one and charged hit/block behavior remain unverified. Complete1,152-case/2,304-contact legacy start/packet/do46/progressive source composition and distinct current dual-only speed controls are prepared; see dragon-claw-preflight.json. Do not port old full-list removal or guess multi-contact policy. Continue Claws of Thunder and unaffected skills."
+      "remaining": "Learned separately approved two-claw finisher reuses the existing claw sequence controller and source weapon/contact/poison/progressive services. Distinct original-calculator dualOnly clock averages both WSMs and separately diminished hand IAS before one truncation;captures events6/10/end16at256. Two mana is paid once;underfunded use is ordinary Attack. Each selected-hand contact rolls separately;charges bypass accuracy only,block/dodge remain,successful unblocked contacts consume one per family. Current calc1 uses effective Dragon Claw rank plus hard Claw Mastery only;ordinary critical remains. Initial-target loss,Stop/movement/pair/recovery/owner invalidation cancel future contacts;paid transient series do not replay. Source/native scopes are in dragon-claw-action-checkpoint.md. Exact modern timing/charge/roll-sharing,full item/proc/owner/PvP,geometry/RNG/event and client acceptance remain unverified. Final dual-claw/contact/progressive/audio and talent/hotkey icons remain pending placeholders."
     },
     {
       "talentId": "assassin.fistsoffire",

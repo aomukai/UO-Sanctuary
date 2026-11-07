@@ -1,5 +1,7 @@
 # Skill effects
 
+**Dragon Claw (2026-11-08 JST).** The learned dual-claw action uses identified native weapon pose/contact sound0x238 and shared charge/element cues. Final directional primary/secondary sequence,contacts,progressive releases,miss/block/interruption/recovery and audio remain pending independently of mechanics. See [checkpoint](dragon-claw-action-checkpoint.md);icons stay separate.
+
 **Learned Dragon Talon (2026-11-08 JST).** The approved series reuses native Wrestle pose/contact sound0x238 and existing identified charge/element/knockback cues. Final directional kicks,series/contact,charge releases,miss/block/interruption/recovery and audio remain needed independently of mechanics. See [checkpoint](dragon-talon-action-checkpoint.md);icons stay separate.
 
 **Prepared Dragon Talon clock (2026-11-08 JST).** Numeric planning creates no effect producer or final animation. Kick/series/contact, progressive-charge effects and audio remain needed;existing generic melee presentation is a placeholder. See [checkpoint](dragon-talon-clock-checkpoint.md). Talent/hotkey icons remain separate.

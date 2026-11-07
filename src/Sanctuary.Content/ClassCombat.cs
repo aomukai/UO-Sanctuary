@@ -287,7 +287,7 @@ public static class ClassCombat
         For(from).ZealHits = 0;
         ReleaseCast(from);
     }
-    public static int ActionInterval(PlayerMobile from, CombatAbility ability) => PaladinCombat.IsAura(ability) ? 0 : CombatTiming.For(from, ability).DurationMs;
+    public static int ActionInterval(PlayerMobile from, CombatAbility ability) => PaladinCombat.IsAura(ability)||ability==CombatAbility.DragonClaw&&!DragonClawPreparation.WeaponAllowed(from) ? 0 : CombatTiming.For(from, ability).DurationMs;
     public static bool ContinueCast(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => ContinueHold(from, ability, target, point, now, false);
 

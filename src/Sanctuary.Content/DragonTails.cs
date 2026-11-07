@@ -48,13 +48,7 @@ public static class DragonTails
                 talon?DragonTalons.PoisonRoll:PoisonRoll,talon?DragonTalons.Effects:Effects,orderedPoison:true);impact=kick.Impact;
             if(kick.SoftHit){flags|=0x4000;}
             if(knockback){flags|=8|SourceMeleeResult.GetHit;}
-            int resistance=NamedElements.Resistance(owner,target,"cold",target.ColdResistance);
-            bool cannot=ItemDurationDefenses.CannotFreeze(target),half=ItemDurationDefenses.HalfFreeze(target);
-            cold=ColdStates.LengthFrames(kick.ColdFrames??0,resistance,cannot,half);
-            int mode=FreezeStates.Mode(1,false,CreatureProfiles.For(target).Traits.Boss==true,NamedCombat.Elite(target),false,
-                PaladinHolyFreeze.SourceRule(target)==null?null:ColdStates.Effect(target));
-            int length=ColdStates.LengthFrames(kick.FreezeFrames,resistance,cannot,half);
-            if(mode==2){freeze=length;}else if(mode==1){cold=Math.Max(cold,length);}
+            (cold,freeze)=ColdLengths(owner,target,kick.ColdFrames??0,kick.FreezeFrames);
             // Refuse unverified old signed-overflow contexts before payment.
             if(ability==CombatAbility.DragonTail){_=DragonKickPackets.TailFire256(NamedElements.To256(impact.Parts.Physical),SkillMechanics.Values(owner,CombatAbility.DragonTail),NamedElements.MasteryPercent(owner,"fire"));}
         }
@@ -63,6 +57,17 @@ public static class DragonTails
             RangeCheck:bonus=>PlayerMeleeGeometry.Within(owner,target,bonus),FreezeFrames:freeze,
             SkillKnockback:knockback,HitFlags:ability==CombatAbility.DragonTalon?3u:0u);
         return new(target.Serial,flags,kick,contact,effectAt);
+    }
+    internal static (int Cold,int Freeze) ColdLengths(PlayerMobile owner,BaseCreature target,int rawCold,int rawFreeze)
+    {
+        int resistance=NamedElements.Resistance(owner,target,"cold",target.ColdResistance);
+        bool cannot=ItemDurationDefenses.CannotFreeze(target),half=ItemDurationDefenses.HalfFreeze(target);
+        int cold=ColdStates.LengthFrames(rawCold,resistance,cannot,half),freeze=0;
+        int mode=FreezeStates.Mode(1,false,CreatureProfiles.For(target).Traits.Boss==true,NamedCombat.Elite(target),false,
+            PaladinHolyFreeze.SourceRule(target)==null?null:ColdStates.Effect(target));
+        int length=ColdStates.LengthFrames(rawFreeze,resistance,cannot,half);
+        if(mode==2){freeze=length;}else if(mode==1){cold=Math.Max(cold,length);}
+        return(cold,freeze);
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
@@ -87,7 +92,7 @@ public static class DragonTails
     }
     internal static void Progressive(PlayerMobile owner,BaseCreature target,Point3D center,Map map,CombatAbility finisher=CombatAbility.DragonTail)
     {
-        if(finisher is not(CombatAbility.DragonTail or CombatAbility.DragonTalon)){throw new NotSupportedException("Unapproved dragon finisher consumption policy");}
+        if(finisher is not(CombatAbility.DragonTail or CombatAbility.DragonTalon or CombatAbility.DragonClaw)){throw new NotSupportedException("Unapproved dragon finisher consumption policy");}
         var states=AssassinCharges.Finisher(owner);
         foreach(var ability in ProgressiveOrder)
         {

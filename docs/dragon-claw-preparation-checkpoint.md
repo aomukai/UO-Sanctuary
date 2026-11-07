@@ -1,0 +1,11 @@
+# Dragon Claw timing and damage suppliers
+
+Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. `DragonClawPreparation` supplies the distinct dual-claw clock and current damage formula consumed by [the approved action](dragon-claw-action-checkpoint.md). Its original-calculator profile is explicit; exact modern executable timing is not claimed.
+
+The pinned [original calculator](https://github.com/Warren1001/IAS_Calculator/tree/b7d791031b73b0c6e56a3659e9198578aed21261) uses a different branch for Dragon Claw than for Fists/Thunder/Ice. It combines both WSMs and separately diminished total IAS for each selected hand, then truncates once. Truncating either average early would change odd and negative cases. The supplier reuses the shared frame-advance clamp and the existing dual-claw sequence scheduler. At advance 256, contacts are frames 6 and 10, with completion at frame 16.
+
+Native checks compare **1,152 eligible dual-claw original-author rate cases** and **192 complete older sequence-clock cases**. The original rate fixture also contains single-claw service controls; those do not authorize an ineligible single-claw cast. Both original functions and complete older sequence helpers remain pinned in their source receipts. These are bounded source controls, not live modern D2R execution.
+
+Actual equipment tests use a complete IAS-affix primary claw, Bartuc's offhand with a different WSM, and Tarnhelm. They check both selected-hand IAS suppliers, restoration inside an outer secondary-hand scope, and unchanged original item rolls through two reloads. Current `calc1` applies effective Dragon Claw rank and **hard** Claw Mastery points: soft mastery does not add synergy. Planning spends no mana, heals no wounds and wears no items. The separate learned action owns payment, packets, charges and lifecycle.
+
+An initial preparation-only isolated cohort passed before the action was authorized. The final learned-action cohort reruns these suppliers and saved original contexts; [the action receipt](../tools/reference/dragon-claw-action-native-evidence.json) records the accepted binaries, data and retained regressions. Final effects/audio and talent/hotkey icons remain separate pending assets.
