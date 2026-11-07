@@ -122,11 +122,21 @@ internal static class SorceressSpellMissiles
         int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,armor?32:ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
         int dx=point.X-owner.X,dy=point.Y-owner.Y;if(ring){var direction=FrozenOrbs.Direction(radialIndex);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
+        // Unit allocation still draws once. Charged initialization then
+        // replaces that seed and path generation advances the missile stream.
+        ulong seed=SourceRandom.InitLow(SeedLow());SorceressChargedMotion motion=null;
+        if(charged)
+        {
+            int ax=point.X*2,cx=point.X-owner.X,cy=point.Y-owner.Y;
+            if(cx==0&&cy==0&&velocity!=0){ax++;cx=cy=1;}
+            var path=ChargedBolts.Path(ChargedBolts.SeedSubtile(ax,ordinal),ChargedBolts.Heading(cx,cy),ChargedBolts.Frames,out seed);
+            motion=new(owner.X,owner.Y,path,1,ordinal);
+        }
         var flight=new SorceressSpellFlight(ring||charged?id:checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
             values.Ability,reaction?.Rank??values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
-            SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
+            seed,new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
             {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?reaction is{Rank:0}?reaction.ColdFrames:values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0,
-             Charged=charged?new(owner.X,owner.Y,ChargedBolts.Path(ChargedBolts.Seed(point,ordinal),ChargedBolts.Heading(point.X-owner.X,point.Y-owner.Y),ChargedBolts.Frames),1,ordinal):null};
+             Charged=motion};
         Validate(flight);return flight;
     }
     internal static (int Min,int Max,int Frames) CaptureInferno(SkillValues values,int mastery)
@@ -203,11 +213,19 @@ internal static class SorceressSpellMissiles
         int dx=aim.X-origin.X,dy=aim.Y-origin.Y;
         if(ring){var direction=FrozenOrbs.Direction(ordinal);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;}
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
+        SorceressChargedMotion motion=null;
+        if(charged)
+        {
+            int ax=aim.X*2,cx=aim.X-origin.X,cy=aim.Y-origin.Y;
+            if(cx==0&&cy==0&&velocity!=0){ax++;cx=cy=1;}
+            var path=ChargedBolts.Path(ChargedBolts.SeedSubtile(ax,ordinal),ChargedBolts.Heading(cx,cy),ChargedBolts.Frames,out seed);
+            motion=new(origin.X,origin.Y,path,1,ordinal);
+        }
         var flight=new SorceressSpellFlight(id,actor.ControlMaster.Serial.Value,actor.Map.MapID,origin.Z,ability,rank,origin.X,origin.Y,
             vector.X,vector.Y,velocity,0,profile.Frames,slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),new(0,0,0,0,0),slow,seed,
             new([new(origin.X*2,origin.Y*2)]),at.AddMilliseconds(40))
             {Npc=context,ColdFrames=packet.ColdFrames,Cast=ring?cast:0,RadialIndex=ring?ordinal:-1,LastCollision=ring?actor.Serial.Value:0,
-             Charged=charged?new(origin.X,origin.Y,ChargedBolts.Path(ChargedBolts.Seed(aim,ordinal),ChargedBolts.Heading(aim.X-origin.X,aim.Y-origin.Y),ChargedBolts.Frames),1,ordinal):null};
+             Charged=motion};
         Validate(flight);return flight;
     }
     // Explicit world host for qualified original item frames. The supplied
@@ -219,21 +237,21 @@ internal static class SorceressSpellMissiles
     {
         ArgumentNullException.ThrowIfNull(allocate);
         var owner=actor?.ControlMaster as PlayerMobile;
-        if(skill is not(36 or 44 or 48)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
+        if(skill is not(36 or 38 or 44 or 48)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
             ||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-4000))
         {throw new NotSupportedException("Original item emission needs its qualified spell,active source and UTC context");}
         _=NpcEquipmentRandom.Require(actor);
         var packet=NpcItemSpellDamage.CaptureValkyrie(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
         Route(new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,actor.BirthStats.Level));
-        var point=target?.Point(actor.Map);bool ring=Ring(ability);var slow=AmazonSlowMissiles.Capture(actor,!ring);
+        var point=target?.Point(actor.Map);bool ring=Ring(ability),charged=skill==38;var slow=AmazonSlowMissiles.Capture(actor,!ring);
         var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
         var before=_pool;long first=checked(before.NextId+1);int attempts=0;var flights=new List<SorceressSpellFlight>();
         var frame=new NpcItemSpellOrigins((actor.X*2,actor.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),
             actor.EquipmentNumbers.Read(19),false,request=>
         {
-            int ordinal=attempts++;
+            int attempt=attempts++,ordinal=charged?request.ChargedOrdinal:attempt;
             if(request.Skill!=skill||request.Rank!=rank||request.Missile!=ItemSkillExecution.MissileId(packet.Missile)
-                ||ordinal>=packet.Emissions||(request.X&1)!=0||(request.Y&1)!=0
+                ||ordinal<0||ordinal>=packet.Emissions||(request.X&1)!=0||(request.Y&1)!=0
                 ||ring&&(request.Flags!=7||request.Velocity!=24||request.AttackRating!=0)
                 ||!ring&&((request.Flags&~0x1000)!=33||request.Velocity!=0))
             {throw new NotSupportedException("Original item factory request does not match its qualified world route");}
@@ -246,9 +264,12 @@ internal static class SorceressSpellMissiles
             if(!ring&&(Math.Abs(dx)>=100||Math.Abs(dy)>=100)){return null;}
             var allocation=allocate(request);if(!allocation.Allocated){return null;}
             var aim=ring?origin:new Point3D(request.TargetX/2,request.TargetY/2,actor.Z);
-            var flight=PrepareOriginal(actor,origin,aim,context,slow,checked(first+ordinal),ring?first:0,ordinal,allocation.Seed,at,request.Flags);
+            var flight=PrepareOriginal(actor,origin,aim,context,slow,checked(first+attempt),ring?first:0,ordinal,allocation.Seed,at,request.Flags);
             flights.Add(flight);return flight;
-        },(_,_)=>throw new NotSupportedException("Original Chain root needs its separate live budget host"));
+        },(_,_)=>throw new NotSupportedException("Original Chain root needs its separate live budget host"),chargedAim:_=>
+        {
+            var p=target?.Point(actor.Map);return p is{} current?(current.X*2,current.Y*2):(path.X*2,path.Y*2);
+        });
         int result=frame.Run(skill,rank,outgoing);
         if(!ReferenceEquals(before,_pool)){throw new InvalidOperationException("Original item allocator changed the flight pool reentrantly");}
         var pool=before.Flights;

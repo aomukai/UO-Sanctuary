@@ -6,7 +6,7 @@ namespace Sanctuary;
 // This is a factory request, not a saved projectile. Flags retain the source
 // distinction between absolute destinations (33) and ring offsets (7).
 internal sealed record NpcItemMissileRequest(int Missile, int Skill, int Rank,
-    int X, int Y, int TargetX, int TargetY, int Flags, int Velocity, int AttackRating);
+    int X, int Y, int TargetX, int TargetY, int Flags, int Velocity, int AttackRating,int ChargedOrdinal=-1);
 
 // Explicit synchronous NPC item frame with no selected ordinary skill entry.
 // The caller owns actual allocation/seed/path/damage and the returned handle.
@@ -19,11 +19,12 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     private readonly int _attackRating;
     private readonly Func<NpcItemMissileRequest, object> _create;
     private readonly Action<object, int> _setBudget;
+    private readonly Func<int,(int X,int Y)?> _chargedAim;
     internal bool ServerDo { get; private set; }
 
     internal NpcItemSpellOrigins((int X, int Y) source, (int X, int Y)? target,
         (int X, int Y) path, int attackRating, bool serverDo,
-        Func<NpcItemMissileRequest, object> create, Action<object, int> setBudget)
+        Func<NpcItemMissileRequest, object> create, Action<object, int> setBudget,Func<int,(int X,int Y)?> chargedAim=null)
     {
         ArgumentNullException.ThrowIfNull(create);
         ArgumentNullException.ThrowIfNull(setBudget);
@@ -31,7 +32,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
         if (!Bounded(source) || !Bounded(path) || target is {} t && !Bounded(t) || attackRating < 0)
         { throw new NotSupportedException("NPC item origin frame exceeds its coordinate/stat domain"); }
         _source = source; _target = target; _path = path; _attackRating = attackRating;
-        ServerDo = serverDo; _create = create; _setBudget = setBudget;
+        ServerDo = serverDo; _create = create; _setBudget = setBudget;_chargedAim=chargedAim;
     }
 
     internal int Run(int skill, int rank, int outgoing)
@@ -43,7 +44,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
 
     private static ItemExecutionMetadata Require(int skill)
     {
-        if (skill is not (36 or 44 or 48 or 53))
+        if (skill is not (36 or 38 or 44 or 48 or 53))
         { throw new NotSupportedException("NPC item origin frame has no qualified do body for this spell"); }
         return NpcItemSpellDamage.Require(skill);
     }
@@ -61,7 +62,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     internal override bool HasDo(int function) => function switch
     {
         0 => false,
-        22 or 26 or 36 or 151 => true,
+        17 or 22 or 26 or 36 or 151 => true,
         _ => throw Missing()
     };
 
@@ -87,6 +88,19 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     {
         var row = Require(skill);
         int missile = ItemSkillExecution.MissileId(row.Text("srvmissilea"));
+        if(function==17&&skill==38)
+        {
+            SetServerDo();
+            var values=new SkillValues(SkillMechanics.For(CombatAbility.ChargedBolt),_=>rank,_=>0,1);
+            int count=checked((int)values.Eval("calc1"));
+            for(int i=0;i<count;i++)
+            {
+                var aim=_chargedAim==null?_target??_path:_chargedAim(i);
+                if(aim is not{} p||p.X==0||p.Y==0){continue;}
+                _=_create(new(missile,skill,rank,_source.X,_source.Y,p.X,p.Y,33,0,0,i));
+            }
+            return 1;
+        }
         if (function is 22 or 36)
         {
             if (skill is not (44 or 48)) { throw Missing(); }

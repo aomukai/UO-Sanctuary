@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC Charged Bolt/post-path RNG (2026-11-07 JST).** Internal item emission adds no learned slot. Sorceress Charged Bolt, shared Mage visuals/proc UI and Valkyrie talent/right/quick artwork remain in their existing separate pending registers.
+
 **Original NPC live item emission (2026-11-07 JST).** Internal Fire Bolt/Nova/Frost Nova item emission adds no learned talent/hotkey slot. Valkyrie talent/right/quick artwork and any shared proc UI icons remain separately pending.
 
 **Original NPC item origins (2026-11-07 JST).** The internal factory adapter adds no learned skill or hotkey slot. Valkyrie talent/right/quick artwork and any later shared proc UI icons remain separately pending.

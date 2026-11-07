@@ -110,11 +110,12 @@ internal static class NecromancerMageMissiles
         =>actor is{Alive:true,Deleted:false,IsMage:true}?LaunchPacket(actor,target,at,Packet(actor.MageElement,actor.MageMissileRank)):0;
     internal static long LaunchGlacial(NecromancerMinion actor,Mobile target,DateTime at)
         =>actor is{Alive:true,Deleted:false,IsMage:true}?LaunchPacket(actor,target,at,GlacialSpikes.Packet(actor)):0;
-    internal static long LaunchPacket(NecromancerMinion actor,Mobile target,DateTime at,MageMissilePacket packet,FanRay? ray=null,MageChargedMotion charged=null)
+    internal static long LaunchPacket(NecromancerMinion actor,Mobile target,DateTime at,MageMissilePacket packet,FanRay? ray=null,MageChargedMotion charged=null,ulong? initializedSeed=null)
     {
         if(actor is not{Alive:true,Deleted:false,IsMage:true,ControlMaster:PlayerMobile owner}||target is not{Alive:true,Deleted:false}
             ||actor.Map==null||actor.Map==Map.Internal||target.Map!=actor.Map||!ClassCombat.IsHostile(owner,target)) {return 0;}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Mage missile needs UTC launch time");}
+        if((charged!=null)!=initializedSeed.HasValue){throw new NotSupportedException("Charged Mage creation needs its actual post-path missile seed");}
         var slow=AmazonSlowMissiles.Capture(actor,true);
         packet=packet with{Minimum256=slow.Damage256(packet.Minimum256),Maximum256=slow.Damage256(packet.Maximum256)};
         int frames=MageBasicSkills.Frames(packet);
@@ -123,8 +124,9 @@ internal static class NecromancerMageMissiles
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=checked(++_nextId);
         if(!Seeds.TryGetValue(actor.Serial.Value,out var seed)||seed.Owner!=owner.Serial.Value)
         {Seeds[actor.Serial.Value]=new(actor.Serial.Value,owner.Serial.Value,SourceRandom.InitLow(SeedLow()));}
+        ulong allocatedSeed=SourceRandom.InitLow(SeedLow());
         var state=new MageMissileState(id,actor.Serial.Value,owner.Serial.Value,actor.Map.MapID,actor.Z,actor.X,actor.Y,vector.X,vector.Y,
-            0,frames,velocity,packet,slow,SourceRandom.InitLow(SeedLow()),new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40)){Charged=charged};
+            0,frames,velocity,packet,slow,initializedSeed??allocatedSeed,new([new(actor.X*2,actor.Y*2)]),at.AddMilliseconds(40)){Charged=charged};
         Validate(state);Bolts.Add(id,state);return id;
     }
     private static bool Fighting(MageMissileState s,NecromancerMinion actor,PlayerMobile owner)=>Fighting(actor,owner,s.Map);

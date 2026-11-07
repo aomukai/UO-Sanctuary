@@ -56,7 +56,7 @@ public static class NpcItemSpellOriginsChecks
             int allocations = 0;
             var guard = new NpcItemSpellOrigins((1, 1), null, (2, 2), 0, true,
                 _ => { allocations++; return new object(); }, (_, _) => throw new InvalidOperationException("Unexpected budget"));
-            (int Skill, int Rank, int Flag)[] invalids = [(38,1,0), (36,0,0), (36,64,0), (36,1,2)];
+            (int Skill, int Rank, int Flag)[] invalids = [(41,1,0), (36,0,0), (36,64,0), (36,1,2)];
             foreach (var invalid in invalids)
             {
                 bool refused = false;

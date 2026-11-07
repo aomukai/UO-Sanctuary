@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC Charged Bolt/post-path RNG (2026-11-07 JST).** Live original-NPC bolts now share charged motion and resume saved partial paths with the initialized damage stream. Existing lightning 0x3818 remains an identified placeholder. Final charged travel/proc/impact/audio assets and client presentation remain pending; the RNG correction adds no artwork.
+
 **Original NPC live item emission (2026-11-07 JST).** Outgoing Fire Bolt and target-centered Nova/Frost Nova now run natural contacts and saved partial rings. Shared fire 0x36D4, lightning 0x3818, cold 0x36E4 and cold-state 0x374A remain identified native placeholders. Final item-proc/travel/ring/impact/audio assets and client presentation are still pending; no new artwork is created by these checks.
 
 **Original NPC item origins (2026-11-07 JST).** Factory-origin verification adds no artwork or live effect. Future outgoing Nova/Frost Nova presentation must center on the target, and outgoing Fire Bolt/Chain must use their verified launch origins. Existing fire/lightning/cold and cast-audio placeholders remain identified; final projectile/ring/proc/impact/audio work remains pending separately.

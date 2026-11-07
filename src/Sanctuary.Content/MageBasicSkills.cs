@@ -40,15 +40,17 @@ internal static class MageBasicSkills
         foreach(var ray in rays)for(int i=0;i<count;i++,ordinal++)
         {
             var aim=new Point2D(actor.X*2+ray.X,actor.Y*2+ray.Y);
-            MageChargedMotion motion=null;
+            MageChargedMotion motion=null;ulong? initializedSeed=null;
             if(packet.Spell==CombatAbility.ChargedBolt)
             {
                 // One concatenated ordinal space keeps additional volleys'
                 // deterministic paths distinct,using the existing initializer.
-                uint seed=ChargedBolts.SeedSubtile(aim.X,ordinal);
-                motion=new(actor.X,actor.Y,ChargedBolts.Path(seed,ChargedBolts.Heading(ray.X,ray.Y),ChargedBolts.Frames),1);
+                int ax=aim.X,dx=ray.X,dy=ray.Y;if(dx==0&&dy==0&&AmazonSlowMissiles.Capture(actor,true).VelocityPercent!=0){ax++;dx=dy=1;}
+                uint seed=ChargedBolts.SeedSubtile(ax,ordinal);
+                var path=ChargedBolts.Path(seed,ChargedBolts.Heading(dx,dy),ChargedBolts.Frames,out ulong finalSeed);
+                motion=new(actor.X,actor.Y,path,1);initializedSeed=finalSeed;
             }
-            long id=NecromancerMageMissiles.LaunchPacket(actor,target,at,packet,ray,motion);if(first==0){first=id;}
+            long id=NecromancerMageMissiles.LaunchPacket(actor,target,at,packet,ray,motion,initializedSeed);if(first==0){first=id;}
         }
         return first;
     }

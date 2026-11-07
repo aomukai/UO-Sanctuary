@@ -109,7 +109,7 @@ public static class NpcItemEmissionChecks
         Require(empty.Result==1&&empty.Attempts==0&&calls==0,"Zero-path direct item return/guard differs");
         var distant=SorceressSpellMissiles.EmitValkyrieItem(b,null,new(b.X+60,b.Y,b.Z),36,3,0,TimedEffects.Now,_=>{calls++;return new(true,1);});
         Require(distant.Result==1&&distant.Attempts==1&&calls==0&&Json(Own(b))==before,"Source100-subtile factory range guard allocated or changed direct return");
-        foreach(int unsupported in new[]{38,53})
+        foreach(int unsupported in new[]{41,53})
         {bool refused=false;try{SorceressSpellMissiles.EmitValkyrieItem(b,null,b.Location,unsupported,3,0,TimedEffects.Now,_=>{calls++;return new(true,1);});}catch(NotSupportedException){refused=true;}Require(refused&&calls==0&&NpcEquipmentRandom.State(b)==random,"Unqualified item world path allocated or drew RNG");}
     }
     private static Held Hold(AmazonValkyrieBody b,int skill,DateTime at)

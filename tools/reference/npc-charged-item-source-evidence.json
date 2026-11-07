@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 3780,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "routineHashes": {
+    "SKILLS_SrvDo017_ChargedBolt_BoltSentry": "9365a809a5698835c5f1603d25a61bb1c0b30b6ab114be1ecce328887afa546a"
+  },
+  "inputs": {
+    "tools/probe_npc_charged_item.py": "27c3c2514889bc89aba12c81e7eb0c32ba7ecfe5d150d3276d34e935f4851c2d",
+    "tools/reference/npc-item-spell-origins-source-evidence.json": "fd4dfd1bd08e15c4fa65c3897229e75fc3bbf628a7df7d45e412757906b8750e",
+    ".local/class-skills/npc-item-spell-origins-source/probe.cpp": "44c14842dfef29a47cd18d310f4c747e0a3c836a19f15647b0113c40231da7fe",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-charged-item-source/probe.cpp": "e7a88a2d9b6aa4a79ee98dad455761777c36715c9b3a2091a463c99d168020e6",
+    ".local/class-skills/npc-charged-item-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-charged-item-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-charged-item-source/cases.json": "f9e499eca55ca076a987f37e9f21352611312dc76d8723cb09d0bd8632063ab6"
+  },
+  "established": [
+    "Complete common item executor composes actual do17 for all63nonzero proc ranks,both incoming/outgoing flags,per-ordinal failed/zero/valid/alternating aim,creation failure and nonzero own AR. Source flags33 omit the helper AR flag;InitArg retains actual source ordinal even when earlier aims skip allocation.",
+    "All target lookups occur;failed creation never aborts later ordinals or changes successful do return. Proc frame uses no learned skill,mana,quantity or owner RNG."
+  ],
+  "services": [
+    "Final factory and initializer identity are declared leaves here;actual initializer45/path2160proofs and native post-path seed checks are separate. This is supplementary older source,not full current executable. Reused complete common helper/ring/alternate bodies are unchanged but only common+do17 execute in this matrix."
+  ]
+}

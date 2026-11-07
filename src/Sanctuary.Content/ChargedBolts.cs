@@ -19,6 +19,8 @@ public static class ChargedBolts
         return dx > 0 ? dy > 0 ? 1 : 7 : dy > 0 ? 3 : 5;
     }
     public static Point2D[] Path(uint seed, int direction, int frames)
+        => Path(seed,direction,frames,out _);
+    public static Point2D[] Path(uint seed, int direction, int frames,out ulong finalSeed)
     {
         // Each source waypoint is two subtiles apart: one tile in the staged geometry mapping.
         var result = new Point2D[(frames >> 1) + 1];
@@ -31,7 +33,7 @@ public static class ChargedBolts
             var step = _directions[(direction + offset) & 7]; x += step.X; y += step.Y;
             result[i] = new(x, y);
         }
-        return result;
+        finalSeed=state;return result;
     }
     internal static (double X,double Y,int Next) Advance(Point2D[] path,int originX,int originY,double x,double y,int next,double remaining)
     {

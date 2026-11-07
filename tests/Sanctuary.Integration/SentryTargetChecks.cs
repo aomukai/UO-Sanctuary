@@ -41,11 +41,11 @@ public static class SentryTargetChecks
                 int origin=row[0].GetInt32(),dx=row[1].GetInt32(),dy=row[2].GetInt32(),distance=row[4].GetInt32();uint seed=row[3].GetUInt32();
                 int heading=ChargedBolts.Heading(unchecked((ushort)(origin+dx))-origin,unchecked((ushort)(origin+dy))-origin);
                 Require(heading==row[5].GetInt32(),"Shared charged-bolt heading differential "+cases);
-                var path=ChargedBolts.Path(seed,heading,distance);var expected=row[7];Require(path.Length==expected.GetArrayLength(),"Complete source path length "+cases);
+                var path=ChargedBolts.Path(seed,heading,distance,out ulong finalSeed);var expected=row[7];Require(path.Length==expected.GetArrayLength(),"Complete source path length "+cases);
                 for(int i=0;i<path.Length;i++)
                 {Require(unchecked((ushort)(origin+2*path[i].X))==expected[i][0].GetInt32()&&unchecked((ushort)(origin+2*path[i].Y))==expected[i][1].GetInt32(),"Shared complete charged-bolt path differential "+cases);}
                 ulong state=SourceRandom.InitLow(unchecked((int)seed));for(int i=1;i<path.Length;i++){SourceRandom.Roll(ref state);}
-                Require(state==row[6].GetUInt64(),"Shared final path RNG seed differential "+cases);cases++;
+                Require(state==row[6].GetUInt64()&&finalSeed==state,"Shared final path RNG seed differential "+cases);cases++;
             }
             Require(cases==2160,"Charged-bolt path reference inventory");
         }
