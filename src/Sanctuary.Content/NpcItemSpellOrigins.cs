@@ -20,11 +20,12 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     private readonly Func<NpcItemMissileRequest, object> _create;
     private readonly Action<object, int> _setBudget;
     private readonly Func<int,(int X,int Y)?> _chargedAim;
+    private readonly Action<bool> _serverDoChanged;
     internal bool ServerDo { get; private set; }
 
     internal NpcItemSpellOrigins((int X, int Y) source, (int X, int Y)? target,
         (int X, int Y) path, int attackRating, bool serverDo,
-        Func<NpcItemMissileRequest, object> create, Action<object, int> setBudget,Func<int,(int X,int Y)?> chargedAim=null)
+        Func<NpcItemMissileRequest, object> create, Action<object, int> setBudget,Func<int,(int X,int Y)?> chargedAim=null,Action<bool> serverDoChanged=null)
     {
         ArgumentNullException.ThrowIfNull(create);
         ArgumentNullException.ThrowIfNull(setBudget);
@@ -32,7 +33,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
         if (!Bounded(source) || !Bounded(path) || target is {} t && !Bounded(t) || attackRating < 0)
         { throw new NotSupportedException("NPC item origin frame exceeds its coordinate/stat domain"); }
         _source = source; _target = target; _path = path; _attackRating = attackRating;
-        ServerDo = serverDo; _create = create; _setBudget = setBudget;_chargedAim=chargedAim;
+        ServerDo = serverDo; _create = create; _setBudget = setBudget;_chargedAim=chargedAim;_serverDoChanged=serverDoChanged;
     }
 
     internal int Run(int skill, int rank, int outgoing)
@@ -55,7 +56,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     internal override ExecutionSkill UsedSkill() => null;
     internal override int DoCount => 191;
     internal override int MissileCount => ItemSkillExecution.MissileCount;
-    internal override void SetServerDo() => ServerDo = true;
+    internal override void SetServerDo(){ServerDo=true;_serverDoChanged?.Invoke(true);}
     internal override (int X, int Y)? TargetPoint => _target;
     internal override (int X, int Y) FirstPathPoint => _path;
     internal override (int X, int Y) SourcePoint => _source;

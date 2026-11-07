@@ -233,7 +233,7 @@ internal static class SorceressSpellMissiles
     // Internal IDs reserve attempted ring slots so partial rings retain the
     // existing Cast+RadialIndex persistence identity without fabricated rays.
     internal static NpcItemSpellEmission EmitValkyrieItem(AmazonValkyrieBody actor,NpcItemTarget target,Point3D path,
-        int skill,int rank,int outgoing,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
+        int skill,int rank,int outgoing,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool serverDo=false,Action<bool> serverDoChanged=null)
     {
         ArgumentNullException.ThrowIfNull(allocate);
         var owner=actor?.ControlMaster as PlayerMobile;
@@ -247,7 +247,7 @@ internal static class SorceressSpellMissiles
         var context=new NpcItemSpellSource(actor.Serial.Value,ValkyrieEquipmentWeapons.Binding(actor).Identity,packet);
         var before=_pool;long first=checked(before.NextId+1);int attempts=0;var flights=new List<SorceressSpellFlight>();
         var frame=new NpcItemSpellOrigins((actor.X*2,actor.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),
-            actor.EquipmentNumbers.Read(19),false,request=>
+            actor.EquipmentNumbers.Read(19),serverDo,request=>
         {
             int attempt=attempts++,ordinal=charged?request.ChargedOrdinal:attempt;
             if(request.Skill!=skill||request.Rank!=rank||request.Missile!=ItemSkillExecution.MissileId(packet.Missile)
@@ -269,12 +269,12 @@ internal static class SorceressSpellMissiles
         },(_,_)=>throw new NotSupportedException("Original Chain root needs its separate live budget host"),chargedAim:_=>
         {
             var p=target?.Point(actor.Map);return p is{} current?(current.X*2,current.Y*2):(path.X*2,path.Y*2);
-        });
+        },serverDoChanged:serverDoChanged);
         int result=frame.Run(skill,rank,outgoing);
         if(!ReferenceEquals(before,_pool)){throw new InvalidOperationException("Original item allocator changed the flight pool reentrantly");}
         var pool=before.Flights;
         foreach(var flight in flights){pool=pool.Add(flight.Id,Copy(flight));}
-        _pool=new(pool,checked(before.NextId+attempts));
+        if(attempts!=0){_pool=new(pool,checked(before.NextId+attempts));}
         return new(result,attempts,flights.Select(f=>f.Id).ToArray());
     }
     internal static void CommitValkyrie(SorceressSpellFlight[] flights)

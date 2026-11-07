@@ -7,10 +7,20 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 // A synchronous item-skill frame, separate from the pet's saved AI controller.
-// Only the shared do30 curse bodies are admitted. Random/corpse/start
-// services must be supplied before admitting skills that require them.
+// Shared do30 curses and qualified original-item spell bodies use the same
+// temporary target/path/flag restoration. Other search/start services refuse.
 internal static class NpcItemSpellCasts
 {
+    private sealed record Invocation(NpcItemTarget Target,(int X,int Y) Point,int Skill,int Level,int Mode,int Item,int Flag);
+    private sealed class FrameState(SkeletonGuardian source)
+    {
+        internal NpcItemTarget Target;
+        internal (int X,int Y) Point=(source.X,source.Y);
+        internal bool ServerDo;
+    }
+    // Nested synchronous item casts share the current unit frame. This entry
+    // exists only during execution and is restored even on an exception.
+    private static readonly Dictionary<uint,FrameState> ActiveFrames=new();
     private static readonly Dictionary<uint, int> TargetScopes = new();
     internal static bool KeepsCombatTarget(BaseCreature caster) => TargetScopes.ContainsKey(caster.Serial.Value);
     public static void Initialize()
@@ -40,39 +50,42 @@ internal static class NpcItemSpellCasts
             else { TargetScopes[_actor]--; }
         }
     }
-    private sealed class CurseServices(SkeletonGuardian source, DateTime at) : ItemEffectServices<NpcItemTarget>
+    private sealed class Services(SkeletonGuardian source,Func<int,ItemExecutionMetadata> require,Func<Invocation,int> execute,
+        bool positions=false,Action<ItemEffectResult> notified=null) : ItemEffectServices<NpcItemTarget>
     {
-        private NpcItemTarget _target;
+        private readonly FrameState State=ActiveFrames.GetValueOrDefault(source.Serial.Value)??new(source);
         private readonly NpcItemTarget Caster=NpcItemTarget.Capture(source);
-        private (int X, int Y) _point = (source.X, source.Y);
         internal override NpcItemTarget Source => Caster;
         internal override bool HasGame => source.Map != null && source.Map != Map.Internal;
         internal override bool Uninterruptible => MonsterUninterruptibles.Active(source);
-        internal override NpcItemTarget CurrentTarget => _target;
-        internal override (int X, int Y) FirstPathPoint => _point;
-        internal override bool ServerDo { get; set; }
+        internal override NpcItemTarget CurrentTarget => State.Target;
+        internal override (int X, int Y) FirstPathPoint => State.Point;
+        internal override bool ServerDo { get=>State.ServerDo;set=>State.ServerDo=value; }
         internal override ItemEffectSkill Skill(int id)
         {
-            var row = ItemSkillExecution.RequireCurse(id);
+            var row = require(id);
             return new(row.ItemEffect, row.ItemTarget, row.ItemCheckStart);
         }
         internal override (int Type, int Id) Identity(NpcItemTarget unit) => (1, unit.Id);
-        internal override void SetTarget(NpcItemTarget target) => _target = target;
-        internal override void SetPosition(int x, int y) { _target = null; _point = (x, y); }
+        internal override void SetTarget(NpcItemTarget target) => State.Target = target;
+        internal override void SetPosition(int x, int y) { State.Target = null; State.Point = (x, y); }
         internal override bool FindPosition(int skill, int level) => throw new NotSupportedException("NPC item random-position service is not admitted");
         internal override NpcItemTarget FindCorpse(NpcItemTarget target, int skill, int level) => throw new NotSupportedException("NPC item corpse-search service is not admitted");
         internal override NpcItemTarget LastAttacker() => throw new NotSupportedException("NPC item last-attacker service is not admitted");
         internal override int Start(int skill, int level, int item) => throw new NotSupportedException("NPC item start-check service is not admitted");
         internal override int Execute(int skill, int level, int mode, int item, int flag)
         {
-            if (mode != 0 || item != 1 || _target == null)
-            { throw new NotSupportedException("NPC curse needs its explicit target/item-execution context"); }
-            return NpcItemSkillExecution.Run(source, _target, skill, level, mode, item, flag, at);
+            uint id=source.Serial.Value;bool had=ActiveFrames.TryGetValue(id,out var previous);ActiveFrames[id]=State;
+            try{return execute(new(State.Target,State.Point,skill,level,mode,item,flag));}
+            finally{if(had){ActiveFrames[id]=previous;}else{ActiveFrames.Remove(id);}}
         }
         internal override void NotifyTarget(int skill, int level, int type, int id, int flag)
-            => source.PlaySound(0x1E5); // Identified shared curse/item-cast audio placeholder.
+        {source.PlaySound(0x1E5);notified?.Invoke(new(type,id,0,0));} // Identified shared item-cast audio placeholder.
         internal override void NotifyPosition(int skill, int level, int x, int y, int flag)
-            => throw new NotSupportedException("NPC ground item curse is not admitted");
+        {
+            if(!positions){throw new NotSupportedException("NPC ground item curse is not admitted");}
+            source.PlaySound(0x1E5);notified?.Invoke(new(6,-1,x,y));
+        }
     }
     internal static bool LifeTap(SkeletonGuardian caster, Server.Mobiles.BaseCreature target, int rank, DateTime at)
         => CastCurse(caster, target, CombatAbility.LifeTap, rank, at);
@@ -86,6 +99,33 @@ internal static class NpcItemSpellCasts
         // assign the caster's ordinary Combatant even for indirect aggression.
         // The item skill uses its explicit temporary frame instead.
         using var scope = new TargetScope(caster);
-        return ItemEffectCasts.Target(new CurseServices(caster, at), SkillMechanics.For(ability).SourceId, rank, target, flag) != 0;
+        var frame=new Services(caster,ItemSkillExecution.RequireCurse,i=>
+        {
+            if(i.Mode!=0||i.Item!=1||i.Target==null){throw new NotSupportedException("NPC curse needs its explicit target/item-execution context");}
+            return NpcItemSkillExecution.Run(caster,i.Target,i.Skill,i.Level,i.Mode,i.Item,i.Flag,at);
+        });
+        return ItemEffectCasts.Target(frame,SkillMechanics.For(ability).SourceId,rank,target,flag)!=0;
+    }
+    internal static ItemEffectServices<NpcItemTarget> OriginalFrame(AmazonValkyrieBody caster,DateTime at,
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notified=null)
+    {
+        ArgumentNullException.ThrowIfNull(allocate);Services frame=null;
+        frame=new(caster,NpcItemSpellDamage.Require,i=>NpcItemSkillExecution.RunOriginal(caster,i.Target,new(i.Point.X,i.Point.Y,caster.Z),
+            i.Skill,i.Level,i.Mode,i.Item,i.Flag,at,allocate,frame.ServerDo,value=>frame.ServerDo=value),true,notified);
+        return frame;
+    }
+    internal static bool CastOriginal(AmazonValkyrieBody caster,NpcItemTarget target,int skill,int rank,int flag,DateTime at,
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
+    {
+        if(caster is not{Alive:true,Deleted:false}||caster.Map==null||caster.Map==Map.Internal||target==null){return false;}
+        using var scope=new TargetScope(caster);
+        return ItemEffectCasts.Target(OriginalFrame(caster,at,allocate),skill,rank,target,flag)!=0;
+    }
+    internal static bool CastOriginalPosition(AmazonValkyrieBody caster,Point3D point,int skill,int rank,int flag,DateTime at,
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
+    {
+        if(caster is not{Alive:true,Deleted:false}||caster.Map==null||caster.Map==Map.Internal){return false;}
+        using var scope=new TargetScope(caster);
+        return ItemEffectCasts.Position(OriginalFrame(caster,at,allocate),skill,rank,point.X,point.Y,flag)!=0;
     }
 }

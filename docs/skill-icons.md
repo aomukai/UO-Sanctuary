@@ -1,5 +1,7 @@
 # Skill icons
 
+**Protected original item wrappers (2026-11-07 JST).** The internal wrapper adds no talent or hotkey slot. Original pet talent/right/quick and later proc UI artwork remain separately pending.
+
 **Actual NPC item Chain roots (2026-11-07 JST).** Internal item casting adds no learned icon slot. Valkyrie talent/right/quick artwork and any later shared Chain Lightning proc UI icons remain separately pending.
 
 **NPC Charged Bolt/post-path RNG (2026-11-07 JST).** Internal item emission adds no learned slot. Sorceress Charged Bolt, shared Mage visuals/proc UI and Valkyrie talent/right/quick artwork remain in their existing separate pending registers.

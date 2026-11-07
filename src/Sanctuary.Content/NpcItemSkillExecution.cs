@@ -58,4 +58,18 @@ internal static class NpcItemSkillExecution
         { throw new NotSupportedException("NPC item execution needs its synchronous protected item frame"); }
         return SkillExecution.Run(new Curse(source, target, at), skill, level, false, true, outgoing != 0);
     }
+    internal static int RunOriginal(AmazonValkyrieBody source,NpcItemTarget target,Point3D path,int skill,int level,int finish,int item,int outgoing,
+        DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool serverDo,Action<bool> serverDoChanged)
+    {
+        if(source==null){return 0;}
+        if(finish!=0||item!=1||outgoing is<0 or>1||!NpcItemSpellCasts.KeepsCombatTarget(source))
+        {throw new NotSupportedException("Original NPC spell needs its protected synchronous item frame");}
+        _=NpcItemSpellDamage.Require(skill);ArgumentNullException.ThrowIfNull(allocate);
+        if(skill==53)
+        {
+            return ChainLightning.EmitValkyrieItem(source,target,path,level,outgoing,at,r=>
+            {var a=allocate(r);return new(a.Allocated,a.Seed);},serverDo,serverDoChanged).Result;
+        }
+        return SorceressSpellMissiles.EmitValkyrieItem(source,target,path,skill,level,outgoing,at,allocate,serverDo,serverDoChanged).Result;
+    }
 }
