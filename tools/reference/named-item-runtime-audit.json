@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b386ce48e3e668c189d9ba2af65e90873ac649a16df458eb71805bb6de5b7c61",
+  "ContentAssemblySha256": "fda9e9bdf5633d69c8d41c2c87003e786bf07811f8bc5ac72e1ab0fa675da55e",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -11,7 +11,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "888b2b5d128c2908ae65f02527238cc1e7fa1c19c8a4d0d179a71046ddbae6b1",
+    "data/Sanctuary/Balance/class-skill-status.json": "0c05137f2236b5c66b694ad42b8ba327524819d966510771543cd4f5ac3f2550",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -491,7 +491,7 @@
     "src/Sanctuary.Content/DragonTailPreparation.cs": "d5a9708aa36991d562dbe6bd235a858f06848cff48929924cefdb4d3ffc13740",
     "src/Sanctuary.Content/DragonTails.cs": "8cca08fb3773175b94700ad6ac15932b10d3ae39dd47145ff8ef6a489c73d801",
     "src/Sanctuary.Content/DruidArcticModes.cs": "fdfad739b36ab38a832c96333f785e4f2f07e18105544da561f738576a8fd8d4",
-    "src/Sanctuary.Content/DruidArcticStream.cs": "dff78068cc9df787dfcbe04972bbc522b3d86ae3af53d5226edbbcf14bffa9d8",
+    "src/Sanctuary.Content/DruidArcticStream.cs": "418cd2d10bf22945f7f0d598bc7df51ef01c07d2ec33c9241c326221c86eea61",
     "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",
     "src/Sanctuary.Content/DruidAttackChargeModel.cs": "76cf94228cc7501be2d40dbf4964459c31fd72febd1c3a7df8b4da18ccdeae8e",
     "src/Sanctuary.Content/DruidAttackCharges.cs": "6de72f80bbfca8095f8bee8d1a3649ac156d706c3d1efe36b8c63d09e3c982ae",

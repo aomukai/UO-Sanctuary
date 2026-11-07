@@ -1,5 +1,7 @@
 # Skill effects
 
+**Arctic potion delivery (2026-11-07 JST).** Reusing the spell receiver adds no new effect/audio asset. Existing cold-stream `0x374A`/hue `0x480` and Arctic cast/stream/audio work remain identified placeholders. Approved held-input integration is next; tree/hotkey icons remain separate. See [checkpoint](arctic-potion-checkpoint.md).
+
 **Shared startup dispatcher (2026-11-07 JST).** No new visual or audio asset is required by the dispatcher itself. Existing Shadow cast/contact/buff/death effects and appearance placeholders remain in their separate entries; no new live Shadow effect is enabled. See [checkpoint](skill-startup-checkpoint.md).
 
 **NPC item skill grants (2026-11-07 JST).** Skill ownership and source ordering add no final effects/audio. Existing Shadow appearance and pending cast/contact/death effects remain separate. See [checkpoint](npc-item-skills-checkpoint.md).

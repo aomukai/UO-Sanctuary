@@ -1,5 +1,7 @@
 # Skill icons
 
+**Arctic potion delivery (2026-11-07 JST).** This internal receiver change adds no icon. Arctic Blast still needs its existing talent and left/right/quick-hotkey icon assets; held input was separately approved and awaits integration. See [checkpoint](arctic-potion-checkpoint.md).
+
 **Shared startup dispatcher (2026-11-07 JST).** No new talent or hotkey icon is introduced. Existing Shadow Warrior/Master talent and hotkey icon work remains separate from this internal mechanical dispatcher. See [checkpoint](skill-startup-checkpoint.md).
 
 **NPC item skill grants (2026-11-07 JST).** No new public bindings or artwork. All pending talent/hotkey icons remain tracked separately from NPC intrinsic entries. See [checkpoint](npc-item-skills-checkpoint.md).

@@ -17,6 +17,10 @@ internal sealed record ArcticMissile(long Id,uint Owner,int Map,int Z,int Rank,d
     int Remaining,ArcticPacket Damage,uint LastCollision,ulong Seed,SourceStepTrace Steps,DateTime NextUtc,string Fault=null)
 {
     public string MotionAdapter{get;init;}="native-shared-q12-sourcecells-v1";
+    // Optional V0 extension. Historical emissions have no captured mastery
+    // for added potion elements; retain that explicit legacy boundary.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FirestormModifiers Modifiers{get;init;}
 }
 internal sealed record ArcticStreamSave(ArcticMissile[] Missiles,long NextId);
 public sealed class ArcticStreamProfiles:GenericPersistence
@@ -67,10 +71,11 @@ public static class DruidArcticStream
         if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Druid
             ||owner.Map==null||owner.Map==Map.Internal||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Unsupported Arctic stream owner");}
-        var packet=Capture(values,NamedElements.MasteryPercent(owner,"cold"));
+        var modifiers=DruidFirestorm.Modifiers(owner) with{Potion=0};
+        var packet=Capture(values,modifiers.ColdMastery);
         var slow=AmazonSlowMissiles.Capture(owner,false);
-        if(slow.DamagePercent!=100||CombatPotions.Bonus(owner,"magical-penetration")!=0)
-        {throw new NotSupportedException("Arctic modern Slow Missiles damage/potion ordering remains unverified");}
+        if(slow.DamagePercent!=100)
+        {throw new NotSupportedException("Arctic modern Slow Missiles damage ordering remains unverified");}
         if(aim.X is <=0 or >65535||aim.Y is <=0 or >65535){return 0;}
         int dx=aim.X-owner.X*2,dy=aim.Y-owner.Y*2;
         if(Math.Abs(dx)>=100||Math.Abs(dy)>=100){return 0;}
@@ -79,7 +84,8 @@ public static class DruidArcticStream
         int velocity=SlowMissilePayload.VelocityFp8(12,0,values.Rank,0x8020,0,false,slow.VelocityPercent);
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=checked(_pool.NextId+1);
         var s=new ArcticMissile(id,owner.Serial.Value,owner.Map.MapID,owner.Z,values.Rank,owner.X,owner.Y,vector.X,vector.Y,
-            packet.Frames,packet,owner.Serial.Value,SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40));
+            packet.Frames,packet,owner.Serial.Value,SourceRandom.InitLow(SeedLow()),new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
+            {Modifiers=modifiers};
         Validate(s);_pool=new(_pool.Missiles.Add(id,s),id);return id;
     }
     private static ArcticMissile Copy(ArcticMissile s)=>s with{Steps=new(s.Steps.Cells.ToArray())};
@@ -99,20 +105,18 @@ public static class DruidArcticStream
     }
     internal static ArcticMissile Impact(PlayerMobile owner,BaseCreature target,ArcticMissile s)
     {
+        if(s.Modifiers==null&&CombatPotions.BonusAt(owner,"magical-penetration",s.NextUtc)!=0)
+        {throw new NotSupportedException("Legacy Arctic emission has no captured mastery for potion elements");}
         // LastCollide remembers only the most recent recipient; it is not a
         // lifetime hit set or a shared per-cast delay. Cold has no physical block.
         ulong seed=s.Seed;int raw=WeaponMissileDamage.RollValue(s.Damage.Minimum256,s.Damage.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         var next=s with{LastCollision=target.Serial.Value,Seed=seed};
-        SorceressEffects.MissileHit(owner,target,"arcticblast1"); // ReturnFire0: no armor retaliation.
-        if(ClassAvoidance.Missile(target,"arcticblast1")){return next;}
-        owner.DoHarmful(target,true);
-        double cold=SorceressEffects.Absorb(target,new(0,0,raw/256.0,0,0)).Cold;
-        // Mastery was captured once at birth; item pierce/resistance are read
-        // by the existing source-owner consumer at contact.
-        var reduced=NamedElements.Resolve256(owner,target,NamedElements.To256(cold),"cold",enhance:false,damageRate:41);
-        if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
-        ColdStates.Apply(owner,target,s.Damage.ColdFrames,TimedEffects.TickAt(s.NextUtc));
-        int loss=SkillHealth.Damage(owner,target,reduced.Damage256);CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);
+        // Shared spell delivery retains original mastered cold, adds the
+        // approved T29 lanes using captured masteries and the live potion,
+        // then applies defenses/resistance/absorb/DamageRate once per lane.
+        // ReturnFire0 and cold length still come from Arctic's own route.
+        SorceressSpellMissiles.ImpactPrepared(owner,target,"arcticblast1","cold",raw,
+            s.Modifiers??new(0,0,0,0,0),s.NextUtc,s.Damage.ColdFrames,damageRate:41);
         if(owner is not{Alive:true,Deleted:false}||owner.Map?.MapID!=s.Map)
         {next=next with{Fault="Arctic reentrant owner/death/facet chronology remains unverified"};}
         return next;
@@ -163,6 +167,7 @@ public static class DruidArcticStream
             ||s.Damage.Frames!=(35+2*(s.Rank-1))/2||s.Damage.ColdFrames!=100+15*(s.Rank-1)||s.Remaining<1||s.Remaining>s.Damage.Frames
             ||s.NextUtc.Kind!=DateTimeKind.Utc||s.Steps?.Cells is not{Length:>=1 and <=10}||s.Steps.Cells.Any(c=>c.X<=0||c.Y<=0||c.X>=Map.Maps[s.Map].Width*2||c.Y>=Map.Maps[s.Map].Height*2))
         {throw new InvalidDataException("Invalid saved Arctic emission");}
+        if(s.Modifiers is{Potion:not 0}){throw new InvalidDataException("Arctic emission cannot freeze its contact-time potion bonus");}
     }
     internal static void Restore(ArcticStreamSave saved)
     {
