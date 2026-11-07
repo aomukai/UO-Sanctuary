@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
@@ -24,9 +27,11 @@ internal sealed class GeneratedNpcStatGraph
     private readonly Action<BaseCreature> Rate,Clamp;
     private readonly Services Dispatch;
     private int? ResourceRegeneration;
+    internal GeneratedNpcItemEvents ItemEvents{get;}
     internal GeneratedNpcStatGraph(BaseCreature actor,EquipmentStatValue[] basis,Func<EquipmentStatUnit,int?> clock,
         Action<EquipmentStatNode,EquipmentStatUnit,uint,int,int> changed,bool dynamicPath,Action<BaseCreature> updateRate,Action<BaseCreature> clampVitals,
-        int? sourceDamageRegeneration=null,uint[] activeOrder=null,Action<GeneratedNpcStatGraph> beforeReplay=null)
+        int? sourceDamageRegeneration=null,uint[] activeOrder=null,Action<GeneratedNpcStatGraph> beforeReplay=null,
+        bool bindItemEvents=false,GeneratedNpcEventState eventHistory=null)
     {
         ArgumentNullException.ThrowIfNull(basis);ArgumentNullException.ThrowIfNull(clock);ArgumentNullException.ThrowIfNull(changed);
         ArgumentNullException.ThrowIfNull(updateRate);ArgumentNullException.ThrowIfNull(clampVitals);
@@ -40,6 +45,12 @@ internal sealed class GeneratedNpcStatGraph
         {throw new NotSupportedException("Generated active item order is not a unique subset of the original inventory");}
         Kind=Originals.FirstOrDefault()?.Snapshot.Equipment.Kind??EquipMonster.Other;HasPath=dynamicPath;Rate=updateRate;Clamp=clampVitals;
         Actor=new(actor,1);var fields=basis.OrderBy(v=>v.Packed).ToArray();Actor.Stats=new(){Flags=EquipmentStatNode.Extended,OwnerKind=1,Owner=Actor,BaseValues=fields,FullValues=(EquipmentStatValue[])fields.Clone()};
+        if(bindItemEvents||eventHistory!=null)
+        {
+            string identity=Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(
+                Originals.Select((i,n)=>new{Item=i.Serial.Value,Payload=Payloads[n]}).ToArray()))));
+            ItemEvents=new(this,actor.Serial.Value,OwnerId,identity);
+        }
         int? Clock(EquipmentStatUnit unit)
         {var value=clock(unit);if(value is<0 or>359){throw new NotSupportedException("Generated item graph needs a source day angle0..359");}return value;}
         void RequireClock(EquipmentStatUnit unit,IEnumerable<EquipmentStatValue> values)
@@ -54,6 +65,7 @@ internal sealed class GeneratedNpcStatGraph
         Values=new(u=>Bodies.TryGetValue(u,out int body)?body:throw new NotSupportedException("Generated item has no original body service"),Clock,
             _=>throw new NotSupportedException("NPC graph does not supply player class coefficients"),(node,source,key,old,next)=>
             {
+                ItemEvents?.Changed(node,key,next);
                 changed(node,source,key,old,next);
                 if(ResourceRegeneration is{} regeneration&&node==Actor.Stats)
                 {NpcItemResourceCallbacks.Changed(Values,node,key,old,next,regeneration);}
@@ -68,6 +80,7 @@ internal sealed class GeneratedNpcStatGraph
         foreach(uint id in activeOrder)
         {Restore(Originals.Single(i=>i.Serial.Value==id));SourceItemStatUpdates.Update(Dispatch,Carriers[id].Unit,Actor,false);}
         foreach(var original in Originals.Where(i=>!Carriers.ContainsKey(i.Serial.Value))){Restore(original);}
+        if(eventHistory!=null){ItemEvents.Restore(eventHistory);}
     }
     internal void SetResourceCallbacks(int? regeneration)
     {
@@ -87,6 +100,20 @@ internal sealed class GeneratedNpcStatGraph
     internal int Read(int stat,int layer=0)
     {Current();return EquipmentStatValues.SourceRead(Actor.Stats,EquipmentStatKey.Pack(stat,layer),EquipmentStatValues.Definition(stat));}
     internal EquipmentStatValue[] Stats{get{Current();return(EquipmentStatValue[])Actor.Stats.FullValues.Clone();}}
+    internal uint[] ActiveItems
+    {
+        get
+        {
+            Current();var result=new List<uint>();
+            for(var node=Actor.Stats.Last;node!=null;node=node.Previous)
+            {
+                if(node.Owner?.Entity is not GeneratedNpcItem item||!Carriers.ContainsKey(item.Serial.Value))
+                {throw new NotSupportedException("Original NPC event graph has an unknown attached stat-list owner");}
+                result.Add(item.Serial.Value);
+            }
+            result.Reverse();return result.ToArray();
+        }
+    }
     internal ItemPropertyCreationContext Item(uint serial){Current();return Carriers.TryGetValue(serial,out var c)?c:throw new NotSupportedException("Item is not in the original recipient graph");}
     internal void Update(uint serial,bool force=false){var item=Item(serial);SourceItemStatUpdates.Update(Dispatch,item.Unit,Actor,force);}
     internal GeneratedNpcWeaponFrame Weapons(uint primary,uint secondary,bool hasSkill,bool hasRow,int selection,int sequenceFrame,uint skillFlags)

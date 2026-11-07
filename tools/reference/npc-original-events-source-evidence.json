@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 57,
+  "originalItems": 330,
+  "cycles": 3,
+  "stages": 2892,
+  "eventStatChanges": 593,
+  "numericRoutineHashes": {
+    "D2GAME_ITEMS_UpdateItemStatlist_6FC42310": "45de1909cf8489f82b7c4e449c0aa6080b335cbf45efd15743cace688405e53d",
+    "D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0": "96ba06d57122311e60448286c23b6310186dcd33ba5c22d6b06cccfcb30f7937",
+    "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+    "STATLIST_GetTotalStatValue": "22f77264e27d2e265e34f3740784f84691ecb2ace37773f833717391d209b418",
+    "STATLIST_UnitGetStatValue": "08bcaeb449082bbf9a38bd7ad4cd4007c73cf38283d90cc208a3188758ffa802",
+    "STATLIST_UnitGetItemStatOrSkillStatValue": "761327600913c128276511abcaf7b3f45b3aa71dba1d63fc8793ca636994c6f0",
+    "UNITS_GetDefense": "cb7c7d7ad0c4d4714181ddba115139b5103e7ecceb5c3eed7aa1f6bee2eb22dc"
+  },
+  "eventRoutineHashes": {
+    "SUNITEVENT_FreeEventList": "df4cb3763e9e3940c2aacc43f460953f4863990a322fe1f281f2cc166a0073fc",
+    "SUNITEVENT_Register": "b111f56046f078df87eb60a4aaaf44e73179716210677d5af218f4e173d851ba",
+    "SUNITEVENT_FreeEvent": "f07c1cb446aaba86692a7ee5ba013456b0ce0807646f530efe194ddce7880601",
+    "SUNITEVENT_Unregister": "23f254ac8ede3d6c0cac5d4e58bee8931d67f3e94e4c5b8a55c1f0fd57089632",
+    "SUNITEVENT_GetEvent": "cc3481cfdcff7bdafd925c46b102569f26a0e963495507af7e635d70fc6a2d6d",
+    "SUNITEVENT_Trigger": "a9ca26b2192f0a4bf49946d86d9903b6b52783a4d8018dc16f91a8f6439f656b",
+    "sub_6FD156A0": "b5d70907fcbf412174eb1b113a28b93944e40e0cec84076dee7ccb266fc9722f",
+    "D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910": "cc2ed120fdaea9860211d1e316e384d264840fbce73bdba5e97d523d0835b212"
+  },
+  "inputs": {
+    "tools/reference/valkyrie-numeric-source-evidence.json": "2d84dc0d3847d9a857a077126307cbe7048b21edc71e7cf889d050ac99519a58",
+    ".local/class-skills/valkyrie-numeric-source/source.cpp": "3d41dc022d1131ec48c3635eeaa94998d6b96d2f6f36f8a1120e5e7551e57e44",
+    "tools/reference/unit-events-source-evidence.json": "5237d32bd37294571e1a9a19ac374c084a04413d6b6a8a5b609fa797e1f43c02",
+    ".local/class-skills/unit-events-source/source.cpp": "78939c140c2704dbac69d424177371ec53b515056d45b9055c63734e75fd9be9",
+    "data/Sanctuary/Balance/npc-item-combat-events.json": "cacbad2ed1a2484d011f5f12849f2ff4c27da9fe690b301e45902950d4395fb8",
+    ".local/class-skills/valkyrie-numeric-source/cases.json": "84d4b88684e46efa908b6e6a11aea45f7cfbeaf8071f9920d96c2857749312ef"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-original-events-source/numeric.cpp": "56a8d334f3be2c76dd709c43571abc760b2eeca4404a62817a0b228fb9a48b18",
+    ".local/class-skills/npc-original-events-source/numeric": "11833a04a157938f94b362d534c13cb0e0d034082ef5115986ee21308b8e6bf6",
+    ".local/class-skills/npc-original-events-source/numeric-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-original-events-source/numeric-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-original-events-source/events.cpp": "cb53f38da9456eda54cb6124613e0445348a0f5cc00327df1fad47125dddaa7a",
+    ".local/class-skills/npc-original-events-source/events": "cd694de7007659afba527c35314e3d0668e2fac93b89a8ec0aabcd8067ab0f4d",
+    ".local/class-skills/npc-original-events-source/events-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-original-events-source/events-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-original-events-source/cases.json": "db44c77ca2ac9d7602550a59f49d7eea3604b2a13ace010706c4c4c7337a21b3",
+    "tools/probe_npc_original_events.py": "fab12f4d5fc0c7d250c6944121d0ce688ca8caa9815ca20bddfbd888b7b8cd12"
+  },
+  "scope": "Complete older numeric/item replay produces actor value changes from57unfiltered original loadouts;actual current21stat registration metadata and complete older event callback/list kernel consume those changes. Initial replay,repeat,all removals/re-additions,percentage changes and shifted reattachment order continue through three cycles. Event IDs/head/order/keys/functions are emitted under ASan/UBSan. Non-event callback effects and actual proc bodies remain separate;current executable chronology not certified."
+}

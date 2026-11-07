@@ -1,5 +1,7 @@
 # Skill effects
 
+**Original NPC item event history (2026-11-07 JST).** Registration and persistence add no visible effect. Existing fire/lightning/cold/proc/impact/audio placeholders remain identified;final art and client presentation remain pending. Effect bodies still require the original combat dispatcher binding.
+
 **Protected original item wrappers (2026-11-07 JST).** Successful target/position wrappers reuse identified audio placeholder0x1E5 after restoring their temporary frame. Fire/lightning/cold markers remain placeholders; final proc/cast/travel/link/impact/audio and client presentation remain pending. Mechanical restoration and save tests add no artwork.
 
 **Actual NPC item Chain roots (2026-11-07 JST).** Item roots and saved child segments now use the shared native lightning 0x3818/hue0x482 placeholder. Final source-to-root/link/proc/impact/audio and client presentation remain pending; budget/HP/save verification creates no new artwork.
