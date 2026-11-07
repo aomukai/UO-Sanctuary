@@ -59,7 +59,7 @@
     "src/Sanctuary.Content/EquipmentStatGraph.cs": "94df8f8ec8ee54d0ec80590e8cb37d391ac30d2b82e8c9aa77cf03c19dad9bde",
     "src/Sanctuary.Content/EquipmentStatValues.cs": "29609eb76b957202a70f93236ea86e3075eec5ac91a79597d8898745cfcb632d",
     "tests/Sanctuary.Integration/ShadowBodyChecks.cs": "57a12c2d89f7d07ac710dc6dcd34e0c16a349a8bff959bcd06754aa05351f05e",
-    "tests/Sanctuary.Integration/ShadowPassiveChecks.cs": "7f93111e3f04398a6500f587c066ebbd8787f7bd322cb579b73a761167aa5c92",
+    "tests/Sanctuary.Integration/ShadowPassiveChecks.cs": "12176764ae54712f6907e4af60a3ee3a9e720878c6a4f9cda3afb1381e999eba",
     "tests/Sanctuary.Integration/WeaponBlockChecks.cs": "54de89b926ba4023ff099b980445aec517e26e488770cf6347dffc357f034d30",
     "tests/check_shadow_passives.py": "69bb7aed5e83aeafe4bf9e93e214349a988698af0519a86fbe4c2add7be41a51",
     "tools/review_shadow_passives.py": "97ba8e0528c188ba9a2b76376f1f07609c6f23fee7ea87fecca8374c579a6daf"

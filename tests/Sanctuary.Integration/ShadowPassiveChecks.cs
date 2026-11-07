@@ -67,7 +67,12 @@ internal static class ShadowPassiveChecks
         int before=Rank(252);BattleCommand.Apply(supplier,b,20,TimedEffects.Now.AddHours(1));
         Require(BattleCommand.Bonus(b)==1&&Rank(252)==before+1&&b.EquipmentNumbers.Passives.Capture().Lists.Single(l=>l.Skill==252).Level==Rank(252),"Battle Command application skipped real passive refresh");
         BattleCommand.Clear(b);Require(Rank(252)==before&&b.EquipmentNumbers.Passives.Capture().Lists.Single(l=>l.Skill==252).Level==before&&SkillHealth.Balance256(b)==life,"Command removal refilled life or left passive rank stale");
-        GeneratedNpcLiveResources.SetItemActive(b,items[0].Serial.Value,false);GeneratedNpcLiveResources.SetItemActive(b,items[0].Serial.Value,true);
+        int maximum=SkillHealth.Maximum256(b);GeneratedNpcLiveResources.SetItemActive(b,items[0].Serial.Value,false);
+        int nextMaximum=SkillHealth.Maximum256(b);life=BattleOrders.Rescale256(life,maximum,nextMaximum);
+        Require(SkillHealth.Balance256(b)==life,"Passive item removal lost exact proportional FP256 wounds");
+        GeneratedNpcLiveResources.SetItemActive(b,items[0].Serial.Value,true);
+        life=BattleOrders.Rescale256(life,nextMaximum,SkillHealth.Maximum256(b));
+        Require(SkillHealth.Balance256(b)==life,"Passive item reattachment lost exact proportional FP256 wounds");
         var order=GeneratedNpcLiveResources.State(b).Passives.Order;Require(order.Last().Item==items[0].Serial.Value,"Reattached original item lost order after passive lists");
         b.ChangeSkills(book=>
         {
@@ -82,6 +87,9 @@ internal static class ShadowPassiveChecks
         else{bad=bad with{Order=[new(0,152)]};}
         Reject(()=>GeneratedNpcLiveResources.Restore(snapshot.Select(s=>s.Actor==b.Serial.Value?s with{Passives=bad}:s).ToArray()));
         Require(Json(GeneratedNpcLiveResources.State(b))==valid,"Malformed passive restoration partially committed");
-        Require(NpcWorldAllocation.Capture()==world&&NpcEquipmentRandom.Require(b)==random&&items.Select(i=>i.SavedText).SequenceEqual(payloads)&&SkillHealth.Balance256(b)==life,"Passive transitions changed original items,wounds or RNG");
+        Require(NpcWorldAllocation.Capture()==world,"Passive transitions consumed world RNG");
+        Require(NpcEquipmentRandom.Require(b)==random,"Passive transitions consumed actor RNG");
+        Require(items.Select(i=>i.SavedText).SequenceEqual(payloads),"Passive transitions changed original item payloads");
+        Require(SkillHealth.Balance256(b)==life,"Passive transitions refilled or reset proportional FP256 wounds");
     }
 }
