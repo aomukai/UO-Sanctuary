@@ -1,5 +1,7 @@
 # Skill effects
 
+**Actual NPC item Chain roots (2026-11-07 JST).** Item roots and saved child segments now use the shared native lightning 0x3818/hue0x482 placeholder. Final source-to-root/link/proc/impact/audio and client presentation remain pending; budget/HP/save verification creates no new artwork.
+
 **NPC Charged Bolt/post-path RNG (2026-11-07 JST).** Live original-NPC bolts now share charged motion and resume saved partial paths with the initialized damage stream. Existing lightning 0x3818 remains an identified placeholder. Final charged travel/proc/impact/audio assets and client presentation remain pending; the RNG correction adds no artwork.
 
 **Original NPC live item emission (2026-11-07 JST).** Outgoing Fire Bolt and target-centered Nova/Frost Nova now run natural contacts and saved partial rings. Shared fire 0x36D4, lightning 0x3818, cold 0x36E4 and cold-state 0x374A remain identified native placeholders. Final item-proc/travel/ring/impact/audio assets and client presentation are still pending; no new artwork is created by these checks.

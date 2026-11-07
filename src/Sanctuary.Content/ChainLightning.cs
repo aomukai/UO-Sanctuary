@@ -102,6 +102,41 @@ public static class ChainLightning
         NpcItemChainFlights.Validate(flight);if(flight.Cast!=_nextCast+1){throw new InvalidOperationException("Stale original NPC chain");}
         _flights.Add(flight.Cast,Copy(flight));_nextCast=flight.Cast;return flight.Cast;
     }
+    private sealed class ItemRoot(ChainFlight candidate)
+    {
+        // This handle is not published or serialized with budget zero.
+        internal ChainFlight Flight=candidate with{Remaining=0};
+        internal bool BudgetSet;
+    }
+    internal static NpcItemSpellEmission EmitValkyrieItem(AmazonValkyrieBody body,NpcItemTarget target,Point3D path,int rank,int outgoing,
+        DateTime at,Func<NpcItemMissileRequest,NpcChainAllocation> allocate)
+    {
+        ArgumentNullException.ThrowIfNull(allocate);var owner=body?.ControlMaster as PlayerMobile;
+        if(!NpcItemSpellFlights.Attached(body,owner,body?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000))
+        {throw new NotSupportedException("Original item chain needs its active source and UTC factory frame");}
+        var point=target?.Point(body.Map);long cast=checked(_nextCast+1);int attempts=0;ItemRoot root=null;
+        var frame=new NpcItemSpellOrigins((body.X*2,body.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),body.EquipmentNumbers.Read(19),false,request=>
+        {
+            if(++attempts!=1){throw new NotSupportedException("Original item chain requested multiple roots");}
+            var candidate=NpcItemChainFlights.PrepareFactory(cast,body,request,at);if(candidate==null){return null;}
+            var allocation=allocate(request);if(!allocation.Allocated){return null;}
+            root=new(candidate with{OriginalNpc=candidate.OriginalNpc with{Seed=allocation.Seed}});return root;
+        },(handle,count)=>
+        {
+            if(handle is not ItemRoot allocated||!ReferenceEquals(allocated,root)||allocated.BudgetSet||allocated.Flight.Remaining!=0
+                ||count!=allocated.Flight.OriginalNpc.Source.Packet.Emissions)
+            {throw new NotSupportedException("Original item chain budget lost its actual allocation handle/order");}
+            allocated.Flight=allocated.Flight with{Remaining=count};NpcItemChainFlights.Validate(allocated.Flight);allocated.BudgetSet=true;
+        });
+        int result=frame.Run(53,rank,outgoing);
+        if(result==0)
+        {
+            if(root!=null){throw new InvalidOperationException("Failed item chain retained an allocated root");}
+            return new(0,attempts,[]);
+        }
+        if(root is not{BudgetSet:true}){throw new InvalidOperationException("Item chain succeeded without its root budget");}
+        return new(result,attempts,[CommitValkyrie(root.Flight)]);
+    }
     public static void Cast(PlayerMobile owner,Point3D aim,SkillValues values)=>CommitPlayer(PreparePlayer(owner,aim,values,TimedEffects.Now));
     internal static void RequireLightningStrikeRoute()
     {

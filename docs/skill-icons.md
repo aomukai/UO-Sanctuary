@@ -1,5 +1,7 @@
 # Skill icons
 
+**Actual NPC item Chain roots (2026-11-07 JST).** Internal item casting adds no learned icon slot. Valkyrie talent/right/quick artwork and any later shared Chain Lightning proc UI icons remain separately pending.
+
 **NPC Charged Bolt/post-path RNG (2026-11-07 JST).** Internal item emission adds no learned slot. Sorceress Charged Bolt, shared Mage visuals/proc UI and Valkyrie talent/right/quick artwork remain in their existing separate pending registers.
 
 **Original NPC live item emission (2026-11-07 JST).** Internal Fire Bolt/Nova/Frost Nova item emission adds no learned talent/hotkey slot. Valkyrie talent/right/quick artwork and any shared proc UI icons remain separately pending.

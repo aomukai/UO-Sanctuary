@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "997faf23e7021d4856e6cccc4aade665d2d6121f93cfd16283b5fbbc8dfe9225",
+  "ContentAssemblySha256": "82810615c8f95b46595b282bb9bd105d51285c19a4670b56832ce76ef0b3d5b6",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -414,7 +414,7 @@
     "src/Sanctuary.Content/BritainBaseline.cs": "b89f0511bc447a28bef383a3acde07facde23c2ede78beaa282657bd65d57f62",
     "src/Sanctuary.Content/CarpentryCrafting.cs": "3db990690064d43a852bfb55514d30a0c784cbb2b94ff6dfc18b8e5c37dee6eb",
     "src/Sanctuary.Content/CarpentryGump.cs": "12a1f8e678a70da584f74654d916d68011465565e046308253440519e4e88471",
-    "src/Sanctuary.Content/ChainLightning.cs": "75f041e3d2b2327f076a226c418702442e372ca0ae7c050f98ce88a8e229b460",
+    "src/Sanctuary.Content/ChainLightning.cs": "1cc3c57cf95c52e55ad26935c0eaad92c2606458b24c4270860ccb1fba2b98e2",
     "src/Sanctuary.Content/CharacterProfiles.cs": "0a9eb83de1887148a9fb5ed0558660768c5fa01136870c3c414bda57a0f121e2",
     "src/Sanctuary.Content/ChargeMotion.cs": "29ec245cb9fde78e15b261b489e675bb84f609c761d13eff6ebc3e24b69b01a0",
     "src/Sanctuary.Content/ChargedBolts.cs": "c67a7a28e70d13175a9bfc8cd135fe50812140e1628d207e405c18dce5b4bf61",
@@ -858,7 +858,7 @@
     "src/Sanctuary.Content/NpcItemAffixes.cs": "2f9990b7a2813087ed48a6b7272e822f219842ab04a3edbd0407b859c6c9a9b7",
     "src/Sanctuary.Content/NpcItemAllocation.cs": "42ea99c55ccd6e10185ba94b084d6712426596fee4be3df872cbeb8c2c68906d",
     "src/Sanctuary.Content/NpcItemBlind.cs": "d815607fcaecd6bb0c2cde756ebff58ea65bb21fa7168f0d54baa91c39167dea",
-    "src/Sanctuary.Content/NpcItemChainFlights.cs": "2e2daa2e976259e9d8dfad04ebc7db0acc93ab1e8bf72918c52a6a8bbba2f847",
+    "src/Sanctuary.Content/NpcItemChainFlights.cs": "bdf8a5479098a6d3516a4d8591f436a9f5bee713977885105b66c7da147bb9f9",
     "src/Sanctuary.Content/NpcItemFear.cs": "35f115b545598895b962db3ab3ce1448da8b84118d6e985eb7cc68739b8fd5ff",
     "src/Sanctuary.Content/NpcItemFreeze.cs": "202874ca8d75f4c6dbf3bf232a430873c46fbecbf09f158f283829fc8df9e31c",
     "src/Sanctuary.Content/NpcItemKnockback.cs": "4138810ab52a3cd2843d5d9bbce4fa2ad2d6a8841be0a25bcdacc3236832daf8",

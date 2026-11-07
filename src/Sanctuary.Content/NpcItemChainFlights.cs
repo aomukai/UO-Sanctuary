@@ -52,14 +52,35 @@ internal static class NpcItemChainFlights
         if(cast<=0||!NpcItemSpellFlights.Attached(body,owner,body?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000)
             ||aim.X<=0||aim.Y<=0||aim.X>=body.Map.Width||aim.Y>=body.Map.Height||SpellHelper.IsTown(aim,owner))
         {throw new NotSupportedException("Original NPC chain needs its active source,aim and explicit UTC allocation context");}
-        _=NpcEquipmentRandom.Require(body);var packet=NpcItemSpellDamage.CaptureValkyrie(body,53,rank);var slow=AmazonSlowMissiles.Capture(body,true);
-        int velocity=SlowMissilePayload.VelocityFp8(30,0,rank,33,0,true,slow.VelocityPercent);int dx=aim.X-body.X,dy=aim.Y-body.Y;if(dx==0&&dy==0){dx=dy=1;}
-        var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
-        var f=new ChainFlight(cast,owner.Serial.Value,body.Map.MapID,rank,packet.Emissions,0,body.X,body.Y,body.Z,vector.X,vector.Y,0,
-            slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),[],at.AddMilliseconds(1000),at.AddMilliseconds(40))
-            {OriginalNpc=new(new(body.Serial.Value,ValkyrieEquipmentWeapons.Binding(body).Identity,packet),slow,0,new([new(body.X*2,body.Y*2)]),velocity)};
-        Validate(f);var allocated=allocate(Request(f,0,body.Serial.Value,0,body.X,body.Y,aim,at));
+        var request=new NpcItemMissileRequest(93,53,rank,body.X*2,body.Y*2,aim.X*2,aim.Y*2,33,0,0);
+        var f=PrepareFactory(cast,body,request,at);if(f==null){return null;}
+        var allocated=allocate(Request(f,0,body.Serial.Value,0,body.X,body.Y,aim,at));
         return allocated.Allocated?f with{OriginalNpc=f.OriginalNpc with{Seed=allocated.Seed}}:null;
+    }
+    // Shared ordinary/item root constructor in source subtile coordinates.
+    // Returns a fully checked candidate before actual unit allocation. Item
+    // execution keeps its private handle budget unset until do26/151 writes it.
+    internal static ChainFlight PrepareFactory(long cast,AmazonValkyrieBody body,NpcItemMissileRequest request,DateTime at)
+    {
+        Route();var owner=body?.ControlMaster as PlayerMobile;
+        if(cast<=0||!NpcItemSpellFlights.Attached(body,owner,body?.Map?.MapID??-1)||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-2000)
+            ||request is not{Missile:93,Skill:53,Rank:>=1 and<=63,Velocity:0,ChargedOrdinal:-1}
+            ||(request.Flags&~0x1000)!=33||request.AttackRating<0||(request.X&1)!=0||(request.Y&1)!=0)
+        {throw new NotSupportedException("Original chain factory needs its qualified NPC source,request and UTC context");}
+        double x=request.X/2.0,y=request.Y/2.0;
+        if(x<=0||y<=0||x>=body.Map.Width||y>=body.Map.Height||request.TargetX==0||request.TargetY==0
+            ||SpellHelper.IsTown(new Point3D((int)x,(int)y,body.Z),owner)) {return null;}
+        int dx=request.TargetX-request.X,dy=request.TargetY-request.Y;
+        if(Math.Abs((long)dx)>=100||Math.Abs((long)dy)>=100){return null;}
+        _=NpcEquipmentRandom.Require(body);int rank=request.Rank;
+        var packet=NpcItemSpellDamage.CaptureValkyrie(body,53,rank);var slow=AmazonSlowMissiles.Capture(body,true);
+        int velocity=SlowMissilePayload.VelocityFp8(30,0,rank,request.Flags,0,true,slow.VelocityPercent);
+        if(velocity!=0&&dx==0&&dy==0){dx=dy=1;}
+        var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
+        var f=new ChainFlight(cast,owner.Serial.Value,body.Map.MapID,rank,packet.Emissions,0,x,y,body.Z,vector.X,vector.Y,0,
+            slow.Damage256(packet.Minimum256),slow.Damage256(packet.Maximum256),[],at.AddMilliseconds(1000),at.AddMilliseconds(40))
+            {OriginalNpc=new(new(body.Serial.Value,ValkyrieEquipmentWeapons.Binding(body).Identity,packet),slow,0,new([new(request.X,request.Y)]),velocity)};
+        Validate(f);return f;
     }
     private static ChainFlight Age(ChainFlight f,DateTime now,bool loaded)
     {

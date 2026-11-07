@@ -12,11 +12,11 @@ namespace Sanctuary.Integration;
 public static class NpcItemChainChecks
 {
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(NpcItemChainChecks));
-    private sealed record Contact(int Ordinal,uint Target,uint Source,int Before,int Minimum,int Maximum,ulong Seed);
+    internal sealed record Contact(int Ordinal,uint Target,uint Source,int Before,int Minimum,int Maximum,ulong Seed);
     private sealed record TargetState(uint Actor,int Life);
     private sealed record Held(long Cast,int Ordinal,TargetState First,TargetState Second);
     private sealed record Saved(uint Owner,uint Actor,Point3D Point,string Body,string[] Items,NpcEquipmentSeed Random,int Life,string Resources,Held[] Held,ChainFlight[] Flights,int Generation=0);
-    private static ChainFlight Current;private static List<Contact> Contacts;
+    internal static ChainFlight Current;internal static List<Contact> Contacts;
     private static string Manifest=>Path.Join(Core.BaseDirectory,"npc-item-chain-fixtures.json");
     private static string Json<T>(T x)=>JsonSerializer.Serialize(x);
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
@@ -38,9 +38,9 @@ public static class NpcItemChainChecks
     {try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static ChainFlight[] Own(AmazonValkyrieBody b)=>ChainLightning.Snapshot().Where(f=>f.OriginalNpc?.Source.Actor==b.Serial.Value).ToArray();
     private static string[] Items(AmazonValkyrieBody b)=>ValkyrieEquipment.Originals(b).Select(i=>i.SavedText).ToArray();
-    private static void Place(AmazonValkyrieBody b,PlayerMobile p)
+    internal static void Place(AmazonValkyrieBody b,PlayerMobile p)
     {b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.AIObject?.AITimer.Stop();var row=PersistentMinions.Profiles.Track(b);PersistentMinions.Profiles.Store(b,row with{Parked=false});Require(NpcItemSpellFlights.Attached(b,p,p.Map.MapID),"Original chain source not active");}
-    private static Recipient Target(AmazonValkyrieBody b,int dx)
+    internal static Recipient Target(AmazonValkyrieBody b,int dx)
     {var t=new Recipient();t.SetHits(65000);t.MoveToWorld(new(b.X+dx,b.Y,b.Z),b.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
     private static NpcChainAllocation Allocate(NpcChainRequest r,List<NpcChainRequest> requests,bool fail=false)
     {
@@ -53,14 +53,14 @@ public static class NpcItemChainChecks
         Require(f is{Remaining:5,Rank:3,OriginalNpc.Ordinal:0}&&f.PlayerPacket==null&&f.NpcCaster==0&&NpcEquipmentRandom.State(b)==before,"NPC root borrowed Mage/player context or consumed actor RNG");
         Require(f.OriginalNpc.Source.Packet.LightningPierce==0,"Fixture needs original zero-pierce packet");ChainLightning.CommitValkyrie(f);return f;
     }
-    private static void Step(AmazonValkyrieBody b,long cast,List<Contact> contacts,Func<NpcChainRequest,NpcChainAllocation> allocate,bool actions=true)
+    internal static void Step(AmazonValkyrieBody b,long cast,List<Contact> contacts,Func<NpcChainRequest,NpcChainAllocation> allocate,bool actions=true)
     {
         var f=Own(b).Single(x=>x.Cast==cast);var old=Current;var previous=Contacts;Current=f;Contacts=contacts;
         try{ChainLightning.Tick(f.NextUtc,actions,cast,allocate);}finally{Current=old;Contacts=previous;}
     }
-    private static void Through(AmazonValkyrieBody b,long cast,List<Contact> contacts,Func<NpcChainRequest,NpcChainAllocation> allocate,int limit=150)
+    internal static void Through(AmazonValkyrieBody b,long cast,List<Contact> contacts,Func<NpcChainRequest,NpcChainAllocation> allocate,int limit=150)
     {for(int i=0;i<limit&&Own(b).Any(f=>f.Cast==cast);i++){Step(b,cast,contacts,allocate);}}
-    private static void Verify(AmazonValkyrieBody b,NpcEquipmentSeed before,List<Contact> contacts,Recipient[] targets,int[] initial)
+    internal static void Verify(AmazonValkyrieBody b,NpcEquipmentSeed before,List<Contact> contacts,Recipient[] targets,int[] initial)
     {
         var lives=targets.Select((t,i)=>(t.Serial.Value,Life:initial[i])).ToDictionary(x=>x.Value,x=>x.Life);ulong critical=before.Seed;
         foreach(var c in contacts)
