@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "completeCapturedFunctionBytes": 256,
+  "completeFragments": 5,
+  "sourceContexts": 1920,
+  "modifier": 42,
+  "initializerPointer": 0,
+  "currentModifierRegistrationVerified": true,
+  "deathBehaviorVerified": false,
+  "handlerEnabled": false,
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/shadow-modifier-table-20261107.json": "7f0f518ea0c85a53d5a142a67613953e0ab237e18b4b7b020c20293f8ef4cfce",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-umod-20261107.json": "715392c0ea1c8d2d4800cbd5af43d9fa444fee340d6accfbcdedfae76d1a9341",
+    ".local/class-skills/shadow-modifier-cases.json": "0892d791d1efbae157126651997b4155a66f821eed9eb85997079d02395ef985",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-umod-20261107-3d5fd0-part0.bin": "f13a30e9329325114fddee6ac850f0f829445d858c58e8212c9f21dc0569ff94",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-umod-20261107-3d5fd0-part1.bin": "43153eebf13d6309925a847a9f6c0942bdc55be620ac2104355a9e5fe14041a0",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-umod-20261107-3d5fd0-part2.bin": "945027f2ae043aca6d734b96fef089c6c5e729d0f3c0414d42e1d2266674b530",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-umod-20261107-3d5fd0-part3.bin": "3c03849e22fb90a63ad268a3247fe7115ae368b7cc6178d271021cbcaa94df31",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-umod-20261107-3d5fd0-part4.bin": "a798ae80bc749ed528c15ab047b3e1f03bd4cfd91ad107b12f5f7ae32b6364c3",
+    "tools/probe_shadow_modifier.py": "851bce70ada584adab1774b56880d06fe3006cb4524911a892324d8817e7c317",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db"
+  },
+  "scope": [
+    "The actual captured birth helper calls this complete assignment routine. Its code indexes immutable initializer table0x163b270;current slot42 is null. Full-array/empty-slot,unit/data,unique flag,existing unique/special flag,region and alignment controls execute actual captured instructions.",
+    "Modifier42 is stored in the first empty one of nine slots;unique request ORs source monster flag8 even if slots are full. Eligible region count increments use the explicit alignment service. No initializer callback runs for42."
+  ],
+  "limits": [
+    "Alignment service body,source region allocation/count consumers,modifier death callback and Nova/ordinary skill execution remain separate. A source unique flag is not permission to grant a UO elite modifier. No runtime code or learned Shadow route changes."
+  ]
+}

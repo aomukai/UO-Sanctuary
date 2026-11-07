@@ -77,7 +77,7 @@ public static class ShadowInitializerChecks
         ulong expected=init.WorldBefore;uint low=SourceRandom.Roll(ref expected);ulong own=SourceRandom.InitLow(unchecked((int)low));SourceRandom.Roll(ref own);SourceRandom.Roll(ref own);
         Require(init.WorldBefore==(before?.Seed??SourceRandom.InitLow(unchecked((int)NpcWorldAllocation.Capture().InitialLow)))
             &&expected==init.WorldAfter&&own==init.AfterInitialization&&init.SpawnLife256==96256&&init.RegenerationBase==(ability==CombatAbility.ShadowWarrior?70:47),"Actual world allocation/own two-draw handoff");
-        var b=new Rat{Name="Shadow numeric storage [test fixture]",Frozen=true,CantWalk=true,ControlSlots=0};b.SetHits(50);Require(b.SetControlMaster(owner),"Shadow fixture owner");b.AIObject?.AITimer.Stop();b.Internalize();
+        var b=new SkeletonGuardian{Name="Shadow numeric storage [test fixture]",Frozen=true,CantWalk=true,ControlSlots=0};b.Initialize(owner,2,0);Require(b.SetControlMaster(owner),"Shadow fixture owner");PersistentMinions.Profiles.Track(b);b.AIObject?.AITimer.Stop();b.Internalize();
         var empty=Build(b,init,rank);
         Require(empty.Graph.Read(19)==rank*40&&empty.Graph.Read(0)==rank*10&&empty.Graph.Read(2)==rank*10&&empty.Graph.Read(7)==empty.Writes.MaximumLifeWrite256,"Current birth graph missing aura/vital writes");
         Require(empty.Graph.Read(39)==empty.Writes.Passives.Single(s=>s.Name=="fireresist").Value,"Current resistance list was not applied");
@@ -96,7 +96,7 @@ public static class ShadowInitializerChecks
         ulong replay=init.AfterInitialization;var expectedRequests=new List<SummonEquipmentRequest>();
         ShadowEquipment.Select(ability,rank,ref replay,r=>{expectedRequests.Add(r);return items.Any(i=>i.Snapshot.Equipment.Body==r.Slot);},slot=>slot==1?"cap":"qui");
         Require(replay==pet.Value&&attempts.SequenceEqual(expectedRequests)&&game.Value!=init.WorldAfter,"Original loadout stream/order continuation");
-        b.Hits=37;return Capture(b,init,rank,pet.Value,game.Value);
+        b.Hits=Math.Max(1,b.HitsMax-3);return Capture(b,init,rank,pet.Value,game.Value);
     }
     private static void Check(bool reload)
     {
@@ -115,7 +115,7 @@ public static class ShadowInitializerChecks
         }
         else
         {
-            owner=new PlayerMobile{Name="ShadowInitializerOwnerFixture",Body=0x190,Player=true};ClassCreation.Profiles.Assign(owner,DiabloClass.Assassin);ClassCreation.Profiles.AdvanceLevel(owner,99);
+            owner=new PlayerMobile{Name="ShadowInitializerOwnerFixture",Body=0x190,Player=true};ClassCreation.Profiles.Assign(owner,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(owner,99);ClassSkillChecks.Train(owner,"necromancer.raiseskeleton",2);
             foreach(var ability in new[]{CombatAbility.ShadowWarrior,CombatAbility.ShadowMaster})foreach(var difficulty in Enum.GetValues<MonsterDifficulty>())foreach(int rank in new[]{1,10,20,40})
             {held.Add(Create(owner,ability,rank,difficulty));}
             Require(held.Count==24,"Missing Shadow skill/rank/difficulty original item fixtures");owner.Internalize();

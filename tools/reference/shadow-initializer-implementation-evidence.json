@@ -38,9 +38,9 @@
     "src/Sanctuary.Content/EquipmentStatValues.cs": "29609eb76b957202a70f93236ea86e3075eec5ac91a79597d8898745cfcb632d",
     "src/Sanctuary.Content/NpcWorldAllocation.cs": "73ca711a6da0278b3e51126a02bb71dc5f49ed5c0e660374aa2e9b8a2ae38e48",
     "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
-    "tests/Sanctuary.Integration/ShadowInitializerChecks.cs": "c764b5bc4f4564d1d4e1b44de4a2b8073e343139aa8b88859c78898bbbf3f890",
+    "tests/Sanctuary.Integration/ShadowInitializerChecks.cs": "8a0631ed60dc64ff14c5e48263bf4fac855aaaf64d50f8039590f485ac75dc28",
     "tests/check_shadow_initializer.py": "03835bc8cabbb54ab68508ce054847d71d3ad2887d6a4bec21202531bbe3b077",
-    "tools/review_shadow_initializer.py": "fd732b5e151fdb0011213df4fc560e0f05330de8efbbe942261c1992ca172fd2"
+    "tools/review_shadow_initializer.py": "9264d56fd9dcb556df40e58c0da22861186b97860e8379490b6af86db8d5f1ac"
   },
   "scope": [
     "Current owned primary/secondary/component/skill/difficulty fields supply the separately qualified complete older initializer. Fixed component and HP draws precede original equipment. Skill ranks include difficulty0/3/7;no Valkyrie-specific AC/AR additions.",
@@ -48,7 +48,7 @@
     "GeneratedNpcStatGraph tracks explicitly registered posted birth lists separately from its original item attachment order. Arbitrary unknown list owners still refuse. Existing item/stat/percentage/formula/random/allocation services are reused."
   ],
   "limits": [
-    "No live Shadow actor/resource admission,AI105/106,actual NPC skill assignment/permission/modes/events,UMod42 death execution,learned casting/payment/input or full pet persistence. Native storage fixtures are existing UO Rat holders,not a substitute Shadow species. Their native pools remain unchanged.",
+    "No live Shadow actor/resource admission,AI105/106,actual NPC skill assignment/permission/modes/events,UMod42 death execution,learned casting/payment/input or full pet persistence. Native storage fixtures are existing persistent skeleton holders,not a substitute Shadow species. Their native pools remain unchanged.",
     "Original item properties remain unfiltered in the numeric graph. Retention is not permission to execute skill/event/aura/state/charge/resource consumers. Exact current initializer parity remains unverified;the captured current birth helper and dispatch linkage have separate evidence.",
     "Sequence IDs are validated table metadata,not completed sequence/event execution. Active sunder,outer spawn callbacks/region cache generation and allocation-failure stat-list semantics remain separately scoped."
   ]
