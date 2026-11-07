@@ -47,9 +47,9 @@ internal sealed class GeneratedNpcWeaponFrame:SourceWeaponServices<EquipmentStat
         if(selected==null){return 0;}
         string code=State(selected).Metadata.Code;
         bool throwing=HasSkill&&HasRow&&CurrentItemInitialization.For(code).Throwable&&firstSkillItemType>0
-            &&NpcItemAffixes.Pool.IsTypeCode(CurrentItemInitialization.TypeCode(firstSkillItemType),"thro")&&skillRange==2;
+            &&NpcItemAffixes.Pool.IsTypeCode(NpcSkillItemTypes.Code(firstSkillItemType),"thro")&&skillRange==2;
         return SourceWeaponMastery.Read(Graph.Actor.Stats.FullValues,true,true,Graph.Actor.Stats.IsExtended,throwing,kind,
-            type=>CurrentItemInitialization.TypeCode(type)is{} ancestor&&NpcItemAffixes.Pool.IsType(code,ancestor));
+            type=>NpcSkillItemTypes.Code(type)is{} ancestor&&NpcItemAffixes.Pool.IsType(code,ancestor));
     }
     internal NpcPhysicalStats Physical(int firstSkillItemType,int skillRange,int additionalPercent=0)
     {

@@ -67,9 +67,10 @@
     "tools/reference/d2r-local-monmode-evidence.json": "8a5bccaaba5199bef904b86d300341376a4dfc48cff48502245ad40d6df58599",
     "tools/reference/warlock-hands-reference-evidence.json": "a56704e677b304c81ce151b6bf41150afc918e4601517759561bf41cdf8fd51f",
     ".local/class-skills/warlock-hands-reference/itemtypes.txt": "ae957abde89a2d0276a55feffa809e0ccbdaf82f65c6eaed9443b886b960e26a",
+    "data/Sanctuary/Balance/npc-skill-item-types.json": "b292cb086edbd18df4386acbb82b6f040b5cd80e9cfac0edf681a1c56c772fca",
     "data/Sanctuary/Balance/npc-skill-metadata.json": "7595212bb46b3d8e1537a3a6753dc10360eb908387cb488786181546b564d24f",
     "data/Sanctuary/Balance/shadow-skill-metadata.json": "d0c372bc287898e85af893822f375a13a36343d09a9660a0e12409ae199691c5",
-    "tools/build_shadow_skill_metadata.py": "f8a4efd77682283038b7846a5b2a7fbe44aab23f699e33ef945c439ce5b476b5",
+    "tools/build_shadow_skill_metadata.py": "d2e85a119968afb939925233cc477f982d52a746792def0b447c473f80c40d42",
     ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SkillsTbls.cpp": "af6ff0c8e0edceb3d2ae9ae22a92c6203e2206906adc66a67275b1d0a7756fb9"
   },
   "scope": [

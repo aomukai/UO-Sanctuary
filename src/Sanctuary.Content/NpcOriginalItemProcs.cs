@@ -18,7 +18,7 @@ internal static class NpcOriginalItemProcs
     internal static Func<SkeletonGuardian,NpcItemMissileRequest,DateTime,NpcItemSpellAllocation> Allocator;
     internal static Func<SkeletonGuardian,Point3D> FirstPath;
     internal static Action<SkeletonGuardian,NpcOriginalProcVisit> Observed;
-    internal static bool Active(BaseCreature actor)=>!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b
+    internal static bool Active(BaseCreature actor)=>ShadowEquipmentDefense.Active(actor)||!World.Loading&&actor is AmazonValkyrieBody{Alive:true,Deleted:false} b
         &&b.Prepared?.EquipmentContactProfile==ValkyrieEquipmentContact.OriginalProfile;
     internal static GeneratedNpcStatGraph RequireHost(SkeletonGuardian actor)=>Host(actor,true);
     internal static GeneratedNpcStatGraph RequireRegistrationHost(SkeletonGuardian actor)=>Host(actor,false);

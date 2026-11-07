@@ -10,7 +10,7 @@ internal static class OriginalNpcEquipment
     internal static bool WorldEnabled(SkeletonGuardian actor)=>actor switch
     {
         AmazonValkyrieBody=>true,
-        AssassinShadowBody=>false,
+        AssassinShadowBody body=>ShadowEquipmentDefense.NumericWorld(body),
         _=>false
     };
     internal static uint Owner(SkeletonGuardian actor)=>actor switch

@@ -30,6 +30,7 @@ internal sealed class NpcCombatEvents
     }
     internal static NpcCombatEvents LegacyForSource(BaseCreature actor)
     {
+        if(actor is AssassinShadowBody shadow&&ShadowEquipmentDefense.Active(shadow)){return ShadowEquipmentDefense.Registry(shadow);}
         if(ValkyrieEquipmentContact.Active(actor)){return ValkyrieEquipmentContact.Registry((AmazonValkyrieBody)actor);}
         if(ReviveEquipmentEvents.Handles(actor)){return ReviveEquipmentEvents.Registry(actor);}
         if(actor is not SkeletonGuardian){throw new NotSupportedException("No admitted NPC source combat-event adapter");}
@@ -145,7 +146,7 @@ internal sealed class NpcCombatEvents
     {
         if(OriginalEvents)
         {
-            if(source is not AmazonValkyrieBody body||!NpcOriginalItemProcs.Active(body)||at==null)
+            if(source is not SkeletonGuardian body||!NpcOriginalItemProcs.Active(body)||at==null)
             {throw new NotSupportedException("Original event producer lost its actual source profile/time");}
             // Incoming phases are emitted once by the ordered receiver.
             if(phase is "damagedinmelee"or"damagedbymissile"){return packet;}

@@ -36,6 +36,7 @@ internal static class IronGolemContact
     }
     internal static NpcCombatEvents Events(BaseCreature target,bool requireFrozen=false)
     {
+        if(target is AssassinShadowBody shadow&&ShadowEquipmentDefense.Active(shadow)){return ShadowEquipmentDefense.Registry(shadow);}
         if(ValkyrieEquipmentContact.Active(target)){return ValkyrieEquipmentContact.Registry((AmazonValkyrieBody)target);}
         if(ReviveEquipmentEvents.Handles(target)){return ReviveEquipmentEvents.Registry(target);}
         if(requireFrozen&&ReviveNativeActivation.State(target)is{Setup.EquipmentLifeProfile:not null})
@@ -163,7 +164,7 @@ internal static class IronGolemContact
             if(pair.Actor is not{Alive:true,Deleted:false}){continue;}
             if(pair.Events.OriginalEvents!=NpcOriginalItemProcs.Active(pair.Actor))
             {throw new NotSupportedException("Prepared contact changed original event producer profile");}
-            if(pair.Events.OriginalEvents){_=NpcOriginalItemProcs.RequireHost((AmazonValkyrieBody)pair.Actor);}
+            if(pair.Events.OriginalEvents){_=NpcOriginalItemProcs.RequireHost((SkeletonGuardian)pair.Actor);}
         }
         if(NpcOpenWounds.Chance(body)>0)
         {

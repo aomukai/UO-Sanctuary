@@ -14,9 +14,9 @@ internal static class ItemDurationDefenses
     // Native OnRemoved callbacks also run during an explicit move. They see
     // no passive bonus;the explicit binding reader still rejects that move.
     internal static bool HasEquipment(Mobile target)=>Equipment(target)!=null;
-    internal static bool HasDurationEquipment(Mobile target)=>HasEquipment(target)||target is BaseCreature actor&&(ValkyrieEquipmentContact.Active(actor)||ReviveEquipmentDefenses.Handles(actor));
+    internal static bool HasDurationEquipment(Mobile target)=>HasEquipment(target)||target is BaseCreature actor&&(ShadowEquipmentDefense.Active(actor)||ValkyrieEquipmentContact.Active(actor)||ReviveEquipmentDefenses.Handles(actor));
     private static int Bonus(Mobile target,string code)=>target is PlayerMobile player?ClassGear.Bonus(player,code)
-        :target is BaseCreature actor?(ValkyrieEquipmentContact.Bonus(actor,code)??ReviveEquipmentDefenses.Bonus(actor,code)??Equipment(target)?.Bonus(code)??0):0;
+        :target is BaseCreature actor?(ShadowEquipmentDefense.Bonus(actor,code)??ValkyrieEquipmentContact.Bonus(actor,code)??ReviveEquipmentDefenses.Bonus(actor,code)??Equipment(target)?.Bonus(code)??0):0;
     internal static int PoisonLength(Mobile target)=>Bonus(target,"res-pois-len");
     internal static bool CannotFreeze(Mobile target)=>FireGolemUpgrades.CannotFreeze(target)||Bonus(target,"nofreeze")>0;
     internal static bool HalfFreeze(Mobile target)=>Bonus(target,"half-freeze")>0;

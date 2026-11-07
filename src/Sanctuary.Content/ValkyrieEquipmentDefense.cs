@@ -42,7 +42,7 @@ internal static class ValkyrieEquipmentDefense
         internal override int Stat(int stat)=>checked(body.EquipmentNumbers.Read(stat)+passive.Where(p=>p.Stat==stat).Sum(p=>p.Value));
         internal override IEnumerable<EquipmentStatValue> WeaponBlockStats=>body.EquipmentNumbers.Stats.Where(v=>v.Stat==348);
         internal override bool HandType(int type)=>ValkyrieEquipment.Originals(body).Where(i=>i.Snapshot.Equipment.Body is 4 or 5)
-            .Any(i=>CurrentItemInitialization.TypeCode(type)is{} code&&NpcItemAffixes.Pool.IsType(i.Snapshot.Metadata.Code,code));
+            .Any(i=>NpcSkillItemTypes.Code(type)is{} code&&NpcItemAffixes.Pool.IsType(i.Snapshot.Metadata.Code,code));
         internal override int WeaponClass=>throw new NotSupportedException("Unadmitted Valkyrie weapon-block composite");
         internal override uint Raw()=>NpcEquipmentRandom.Raw(body);
     }
@@ -67,6 +67,8 @@ internal static class NpcBlockOrDodge
     internal static bool Try(BaseCreature target,bool avoid,bool block,out int flags,out bool animation)
     {
         flags=0;animation=false;
+        if(target is AssassinShadowBody shadow&&ShadowEquipmentDefense.Active(shadow))
+        {flags=ShadowEquipmentDefense.World(shadow,avoid,block);return true;}
         if(ValkyrieEquipmentDefense.Active(target))
         {flags=ValkyrieEquipmentDefense.World((AmazonValkyrieBody)target,avoid,block);return true;}
         if(avoid||!block||!SourceBlocking.TryRoll(target,true,out bool shield,out animation)){return false;}

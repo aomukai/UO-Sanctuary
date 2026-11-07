@@ -41,6 +41,10 @@ def build(check=False):
  generic=ROOT/'data/Sanctuary/Balance/npc-skill-metadata.json';encoded=json.dumps(allrecords,indent=2)+'\n'
  if check:assert generic.read_text()==encoded
  else:generic.write_text(encoded)
+ compiled=ROOT/'data/Sanctuary/Balance/npc-skill-item-types.json';encoded=json.dumps(dict(referenceVersion='3.3.93847',codes=[r['Code']for r in itemrows]),indent=2)+'\n'
+ if check:assert compiled.read_text()==encoded
+ else:compiled.write_text(encoded)
+ pin(compiled)
  pin(generic)
  pin(path);pin(Path(__file__).resolve());loader=BASE/'d2moo-pinned-source/source/D2Common/src/DataTbls/SkillsTbls.cpp';pin(loader)
  result=dict(referenceVersion='3.3.93847',executableSha256=e['executableSha256'],compiledFieldMatches=429*7,compiledRows=429,shadowMetadataRows=31,npcMetadataRows=429,unnamedNpcRows=[i for i,r in enumerate(rows)if not r.get('skill')],assassinClassOrder=ids,passiveClawType=68,

@@ -50,7 +50,7 @@ internal static class NpcItemProcs
     {
         if(NpcOriginalItemProcs.Active(recipient))
         {
-            var original=(AmazonValkyrieBody)recipient;var numbers=NpcOriginalItemProcs.RequireHost(original);
+            var original=(SkeletonGuardian)recipient;var numbers=NpcOriginalItemProcs.RequireHost(original);
             if((packet.ResultFlags&4)==0||!numbers.Stats.Any(v=>v.Stat==201&&v.Value>0)){return null;}
             if(attacker is not BaseCreature other){throw new NotSupportedException("Original NPC on-struck spells need their NPC attacker context");}
             var originalTarget=NpcItemTarget.Capture(other);_=originalTarget.Point(original.Map);return originalTarget;
@@ -67,7 +67,7 @@ internal static class NpcItemProcs
         if(phase is not("damagedinmelee"or"damagedbymissile")){throw new InvalidOperationException("Unmapped incoming NPC proc phase");}
         if(NpcOriginalItemProcs.Active(recipient))
         {
-            var original=(AmazonValkyrieBody)recipient;var numbers=NpcOriginalItemProcs.RequireHost(original);
+            var original=(SkeletonGuardian)recipient;var numbers=NpcOriginalItemProcs.RequireHost(original);
             if((packet.ResultFlags&4)!=0&&numbers.Stats.Any(v=>v.Stat==201&&v.Value>0))
             {
                 retained??=RequireIncoming(attacker,recipient,packet);

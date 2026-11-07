@@ -15,6 +15,7 @@ internal sealed record ShadowBodyState(uint Owner,ShadowOwnerSnapshot Capture,Sh
 {
     public string Profile{get;init;}="parked-shadow-resources-v1";
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string Skills{get;init;}
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string DefenseProfile{get;init;}
 }
 
 // Real serialized species/ownership/original inventory and FP256 resource
@@ -79,6 +80,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
                 ||!Enum.IsDefined(s.Difficulty)||s.NextRecoveryUtc.Kind!=DateTimeKind.Utc||s.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40))
             {throw new InvalidDataException("Invalid Shadow actor birth");}
             s.Capture.Validate();ShadowInitializer.Validate(s.Initialization);
+            if(s.DefenseProfile!=null&&s.DefenseProfile!=ShadowEquipmentDefense.Profile)
+            {throw new InvalidDataException("Unknown original Shadow defense profile");}
             if(s.Skills!=null){_=s.Capture.SkillRanks();_=ShadowSkillBook.Restore(s.Skills);}
             if(s.Capture.Ability!=s.Initialization.Ability){throw new InvalidDataException("Shadow actor species changed");}
             if(s.Equipment is{} e)
