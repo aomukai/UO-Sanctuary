@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "runtimeChanged": false,
+  "currentProperty": {
+    "code": "dmg-mon%",
+    "*Id": 257,
+    "*Enabled": 1,
+    "func1": 24,
+    "stat1": "damage_vs_montype",
+    "*Tooltip": "#% to Damage versus [Monster Type]",
+    "*Parameter": "monstats.txt MonType",
+    "*Min": "Min #",
+    "*Max": "Max #",
+    "*Notes": "Currently Not Used",
+    "expansion": 1,
+    "lineNumber": 258
+  },
+  "catalogueAffixes": 991,
+  "catalogueBases": 692,
+  "equipmentRows": 19,
+  "scannedCurrentTables": {
+    "tools/reference/d2r-named-equipment/json/magicprefix.json": 721,
+    "tools/reference/d2r-named-equipment/json/magicsuffix.json": 785,
+    "tools/reference/d2r-named-equipment/json/uniqueitems.json": 433,
+    "tools/reference/d2r-named-equipment/json/setitems.json": 140
+  },
+  "currentCatalogProducers": 0,
+  "currentSkillStatProducers": 0,
+  "nonzeroGuardRetained": true,
+  "blocksCurrentValkyrieGeneratedEquipment": false,
+  "scope": "No dmg-mon% producer exists in the pinned NPC catalogue or scanned current property-bearing tables;the property itself is enabled but explicitly marked unused. No target taxonomy is inferred. Manually supplied/future nonzero stat180 remains unsupported and refused. Proceed with learned casting for current supported input data.",
+  "inputs": {
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "tools/reference/d2r-named-equipment/json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "tools/reference/d2r-named-equipment/json/magicprefix.json": "9e7c42d608768e7f1dd1332345a258e4d5e4347ff48a16e8f9d1e974db39787d",
+    "tools/reference/d2r-named-equipment/json/magicsuffix.json": "d7060a8a19c2772747f0cd5d82b1571a774f953789d3ade1f7cac426df97e415",
+    "tools/reference/d2r-named-equipment/json/uniqueitems.json": "e6f28489942a6145d99190728071c0e7557313239517bb03c627d3d41bbad8e7",
+    "tools/reference/d2r-named-equipment/json/setitems.json": "c9987086caa820e8642149248d3138d3ebb89215f971525aec8e20e97fac4c5b",
+    "src/Sanctuary.Content/ValkyrieEquipmentContact.cs": "93d94fe75c75beb24f4e555ed06e25766308c124dd499d8c86b3b8c2db09f545",
+    "docs/valkyrie-montype-preflight.md": "28adc1e11eac88989a81dcebdf524a4118e1b120fa4c15090dfd9eea64156635",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/record_valkyrie_montype_preflight.py": "b3ff8b038a2492621d356aa0c3ffd755472efbd5e83d87f27c86cc7c57c0039c"
+  }
+}
