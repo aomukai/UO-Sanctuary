@@ -19,6 +19,17 @@ def drain(client):
     except OSError:pass
 
 
+def keepalive(client):
+    # Other retained input suites can run longer than native socket-idle
+    # limits. A normal ping keeps this independent save socket connected;
+    # it supplies no channel input,resource callback or synthetic activity.
+    try:
+        while True:
+            time.sleep(2)
+            client.sendall(b'\x73\x00')
+    except OSError:pass
+
+
 def wires(session,port,boot):
     count=0
     for prefix in ['inferno','arctic']:
@@ -48,6 +59,7 @@ def wires(session,port,boot):
         threading.Thread(target=drain,args=(client,),daemon=True).start()
         command=prefix+'-held-input-save-stage-check';session.send(command)
         assert session.expect(command+r': (passed|failed)',timeout=30).group(1)=='passed'
+        threading.Thread(target=keepalive,args=(client,),daemon=True).start()
         count+=1
     return count
 

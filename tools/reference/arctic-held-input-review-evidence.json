@@ -71,7 +71,7 @@
     "tests/Sanctuary.Integration/ArcticHeldInputChecks.cs": "a42aa23ff4bdb3c0839ee4feaf345e74efcf8d36cb6ae08e62548572dac210f4",
     "tests/Sanctuary.Integration/InfernoHeldInputChecks.cs": "6def0f362a53a3500177c366226e4881b55e5653b05de7d572e2123dadfe7067",
     "tests/Sanctuary.Integration/ArcticStreamChecks.cs": "56e11a22777332d1533915bf4801be793fc0e1d002b0b93d12a3a3788a3863a2",
-    "tests/check_arctic_held_input.py": "5cf0745e4ef732d91223c46881879dbfc09a9a09f0149c8dca5def11dc72abbf",
+    "tests/check_arctic_held_input.py": "8eb3cf6b110b7bbb1e32e7a66bda1ce2cbf40c929b7d2951fc9837851c549f34",
     "tools/build_skill_roadmap.py": "d2f3edaa061463f4d52dfe7f676e2bec6202132fca26790ca8446f87213d02bd",
     "data/Sanctuary/Balance/class-skill-status.json": "78c6a1f7927671a49a501f6580ec97a879f3a6baf6d25fad1cd917841ff42eca",
     "tools/reference/arctic-potion-native-evidence.json": "b3e2927efb45dad61e26a38ddf70127bb880fb6df82f9bde4e236738c8aec19c",
