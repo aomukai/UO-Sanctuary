@@ -69,7 +69,7 @@ public static class PlayerInfernoSequenceChecks
         }
         Require(ledger==0&&debits==16&&attempts==14&&!finite.UsedSkill&&!finite.Channel.Lease,
             "Finite rank1current-cost control retained the old free channel or failed independent expiry");
-        Require(!DruidCombat.Implemented(CombatAbility.ArcticBlast)&&SorceressCombat.Implemented(CombatAbility.Inferno),"Approved fire handler missing or unresolved cold route enabled");
+        Require(DruidCombat.Implemented(CombatAbility.ArcticBlast)&&SorceressCombat.Implemented(CombatAbility.Inferno),"Approved fire handler missing or unresolved cold route enabled");
         Log.Information("Player Inferno/Arctic sequence:4608complete-source contexts/188928frames plus4224explicit current-cost controls/173184frames,17664JSON continuations pass; finite rank1control16debits/14attempts and early-reentry no-side-effect guards pass; modern input/rate and cold flight remain open");
     }
 }

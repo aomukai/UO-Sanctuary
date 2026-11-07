@@ -77,7 +77,7 @@ public static class ArcticModeChecks
             Require(DruidArcticModes.Aim(p,Serial.Zero,new(p.X,p.Y-6,p.Z)),"Free aim update refused");DruidArcticModes.Advance(p,at.AddMilliseconds(520));Require(Own(p).Last().Vy<0,"Updated aim was not consumed");
             Reset(p,held);Require(DruidArcticModes.BeginPrepared(p,Serial.Zero,point,at),"FHR setup");long recovery=ClassCombat.For(p).RecoveryUntil;HitRecovery.Block(p,Core.TickCount);Require(DruidArcticModes.Active(p)&&ClassCombat.For(p).RecoveryUntil==recovery,"Ordinary pending-mode block policy differs");Require(HitRecovery.Apply(p,p.HitsMax,Core.TickCount)&&!DruidArcticModes.Active(p),"FHR retained mode");ClassCombat.For(p).RecoveryUntil=Core.TickCount-1;
             Reset(p,held);Require(DruidArcticModes.BeginPrepared(p,Serial.Zero,point,at),"Respec setup");ClassCreation.Profiles.TryGet(p.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(p,profile);Require(DruidArcticModes.State(p)==null,"Respec retained mode");RecyclerVineChecks.Train(p,"druid.arcticblast");
-            Require(!DruidCombat.Implemented(CombatAbility.ArcticBlast),"Prepared mode enabled learned channel");
+            Require(DruidCombat.Implemented(CombatAbility.ArcticBlast),"Approved cold handler missing");
             Log.Information("Prepared Arctic mode:threshold96FP,debit/first suppression,reentry/stop/expiry,phase timestamps,move/equipment/FHR/respec,live rank and target/deletion/free aim pass");
         }
         finally{DruidArcticModes.Cancel(p);DruidArcticStream.Restore(held);}

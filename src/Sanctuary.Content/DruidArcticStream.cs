@@ -31,7 +31,7 @@ public sealed class ArcticStreamProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Arctic stream version");}DruidArcticStream.Restore(JsonSerializer.Deserialize<ArcticStreamSave>(reader.ReadString()));}
 }
 
-// Prepared player230 emissions; this does not register a learned channel.
+// Player230 emissions; the shared held-input controller owns learned casting.
 // Source size/history/countdown and cold packets share existing checked kernels.
 // Native room order/Q12/terrain remain adapters,not executable parity claims.
 public static class DruidArcticStream

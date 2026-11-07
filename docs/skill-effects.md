@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Arctic input (2026-11-08 JST).** Channel mechanics reuse the existing identified `0x374A`/hue `0x480` cold-stream marker. Final arctic_blast_cast/stream/caster-animation and druid_windcast/audio work remains pending. Mechanical acceptance does not certify final rendered timing. No new generated bitmap is introduced;tree/hotkey icons remain separate. See [checkpoint](arctic-held-input-checkpoint.md).
+
 **Arctic potion delivery (2026-11-07 JST).** Reusing the spell receiver adds no new effect/audio asset. Existing cold-stream `0x374A`/hue `0x480` and Arctic cast/stream/audio work remain identified placeholders. Approved held-input integration is next; tree/hotkey icons remain separate. See [checkpoint](arctic-potion-checkpoint.md).
 
 **Shared startup dispatcher (2026-11-07 JST).** No new visual or audio asset is required by the dispatcher itself. Existing Shadow cast/contact/buff/death effects and appearance placeholders remain in their separate entries; no new live Shadow effect is enabled. See [checkpoint](skill-startup-checkpoint.md).

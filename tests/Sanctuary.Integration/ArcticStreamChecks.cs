@@ -132,8 +132,8 @@ public static class ArcticStreamChecks
     }
     private static void ExpiryStage()
     {
-        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=Fresh();var t=Target(p,1);One(p,TimedEffects.Now);
-        File.WriteAllText(Manifest,Json(s with{ExpiryOwner=p.Serial.Value,ExpiryTarget=t.Serial.Value,ExpiryLife256=SkillHealth.Balance256(t),State=s.State with{NextId=DruidArcticStream.Snapshot().NextId}}));
+        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var retained=DruidArcticStream.Snapshot();var p=Fresh();var t=Target(p,1);One(p,TimedEffects.Now);
+        File.WriteAllText(Manifest,Json(s with{ExpiryOwner=p.Serial.Value,ExpiryTarget=t.Serial.Value,ExpiryLife256=SkillHealth.Balance256(t),State=retained with{NextId=DruidArcticStream.Snapshot().NextId}}));
     }
     private static void Live(NetState network)
     {

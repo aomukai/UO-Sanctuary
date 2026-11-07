@@ -9,19 +9,20 @@ namespace Sanctuary;
 // intent is saved. A failed/expired press requires a new physical press.
 internal static class PlayerInfernoInput
 {
-    internal static bool Bound(PlayerMobile owner,int source)
+    internal static bool Bound(PlayerMobile owner,int source,CombatAbility ability=CombatAbility.Inferno)
     {
         if(source is <0 or >=CombatProtocol.ChannelSources||!ClassProfessions.Ready(owner)||owner.Target!=null
-            ||!SorceressCombat.Available(owner,CombatAbility.Inferno)){return false;}
+            ||ability is not(CombatAbility.Inferno or CombatAbility.ArcticBlast)
+            ||!(ability==CombatAbility.Inferno?SorceressCombat.Available(owner,ability):DruidCombat.Available(owner,ability))){return false;}
         var pair=SkillBindings.Instance.Get(owner);
-        return (source==0?pair.Left:source==1?pair.Right:SkillBindings.Instance.GetQuick(owner.Serial,DiabloClass.Sorceress,source-2))==CombatAbility.Inferno;
+        return (source==0?pair.Left:source==1?pair.Right:SkillBindings.Instance.GetQuick(owner.Serial,SkillMechanics.For(ability).CharacterClass,source-2))==ability;
     }
     internal static bool Apply(PlayerMobile owner,CombatRequest action,int source,CombatAbility ability,Serial target,Point3D point,DateTime at)
     {
-        if(at.Kind!=DateTimeKind.Utc||ability!=CombatAbility.Inferno||!Bound(owner,source)
+        if(at.Kind!=DateTimeKind.Utc||!Bound(owner,source,ability)
             ||owner.Map==null||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height
             ||Math.Abs((long)point.X-owner.X)>=50||Math.Abs((long)point.Y-owner.Y)>=50
-            ||AmazonSlowMissiles.Capture(owner,true).DamagePercent!=100)
+            ||AmazonSlowMissiles.Capture(owner,ability==CombatAbility.Inferno).DamagePercent!=100)
         {PlayerInfernoModes.EndHeld(owner,source);return false;}
         if(action==CombatRequest.ChannelAim){return PlayerInfernoModes.RenewHeld(owner,source,target,point,at);}
         if(action!=CombatRequest.ChannelStart){return false;}
@@ -30,6 +31,6 @@ internal static class PlayerInfernoInput
         var session=ClassCombat.For(owner);
         if(Core.TickCount<session.NextAction||session.PendingAbility!=CombatAbility.None){return false;}
         ClassCombat.Stop(owner);
-        return PlayerInfernoModes.BeginHeld(owner,source,target,point,at);
+        return PlayerInfernoModes.BeginHeld(owner,source,target,point,at,ability);
     }
 }

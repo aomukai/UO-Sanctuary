@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Arctic input (2026-11-08 JST).** The client now routes left/right/quick Arctic gestures through the held channel. The existing Arctic talent and corresponding hotkey icon assets remain placeholders;adding this mechanical route creates no new icon identity. Effects/audio remain separate. See [checkpoint](arctic-held-input-checkpoint.md).
+
 **Arctic potion delivery (2026-11-07 JST).** This internal receiver change adds no icon. Arctic Blast still needs its existing talent and left/right/quick-hotkey icon assets; held input was separately approved and awaits integration. See [checkpoint](arctic-potion-checkpoint.md).
 
 **Shared startup dispatcher (2026-11-07 JST).** No new talent or hotkey icon is introduced. Existing Shadow Warrior/Master talent and hotkey icon work remains separate from this internal mechanical dispatcher. See [checkpoint](skill-startup-checkpoint.md).

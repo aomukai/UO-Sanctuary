@@ -18,8 +18,8 @@ internal sealed record PlayerInfernoModeCast(long Id,uint Owner,int Map,Point3D 
 
 // Shared prepared player SQ6/SQ18 controller. Sequence256 follows the checked
 // source rate route; modern client/cadence acceptance remains separate.
-// Prepared calls remain supplied intents. Inferno alone additionally uses the
-// approved Sanctuary held-input rule; heartbeats renew its transport lease,
+// Prepared calls remain supplied intents. Inferno and Arctic Blast separately
+// use approved Sanctuary held-input rules; heartbeats renew their transport lease,
 // never invoke resource callbacks. Like other pending
 // player actions, the mode is transient across disconnect/restart; released
 // missiles use their existing independent persistence and ownership policy.
@@ -91,9 +91,9 @@ internal static class PlayerInfernoModes
         if(!step.Success){return false;}
         Casts.Add(cast.Owner,cast with{Sequence=step.State});return true;
     }
-    internal static bool BeginHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at)
+    internal static bool BeginHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at,CombatAbility ability=CombatAbility.Inferno)
     {
-        if(source is <0 or >=CombatProtocol.ChannelSources||!BeginPrepared(owner,CombatAbility.Inferno,selected,point,at)){return false;}
+        if(source is <0 or >=CombatProtocol.ChannelSources||!BeginPrepared(owner,ability,selected,point,at)){return false;}
         var cast=State(owner);Casts[cast.Owner]=cast with{HeldSource=source,HoldUntilUtc=at.AddMilliseconds(CombatProtocol.HoldLeaseMs)};
         owner.Direction=owner.GetDirectionTo(point);return true;
     }
@@ -112,7 +112,7 @@ internal static class PlayerInfernoModes
         Cancel(owner);return true;
     }
     private static bool Current(PlayerMobile owner,PlayerInfernoModeCast cast)
-        =>Eligible(owner,cast.Ability)&&(cast.HeldSource<0||PlayerInfernoInput.Bound(owner,cast.HeldSource))&&ClassCombat.Existing(owner) is not{PendingAbility:not CombatAbility.None}&&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin
+        =>Eligible(owner,cast.Ability)&&(cast.HeldSource<0||PlayerInfernoInput.Bound(owner,cast.HeldSource,cast.Ability))&&ClassCombat.Existing(owner) is not{PendingAbility:not CombatAbility.None}&&owner.Map.MapID==cast.Map&&owner.Location==cast.Origin
             &&(CombatTiming.Equipped(owner)?.Serial.Value??0)==cast.Weapon;
     private static void Commit(PlayerInfernoModeCast cast,PlayerInfernoSequenceState sequence)
     {

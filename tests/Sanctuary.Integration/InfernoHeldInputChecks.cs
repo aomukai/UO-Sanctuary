@@ -112,7 +112,7 @@ public static class InfernoHeldInputChecks
         if(!reload)
         {
             var p=Owner();FixtureNetwork.Authenticate(net,p,"inferno-candidate-");Cases(p);
-            var at=TimedEffects.Now.Add(FixtureSpace.Retention);var point=new Point3D(p.X+3,p.Y,p.Z);Require(Press(p,point,at)&&Hold(p,at.AddMilliseconds(2000)),"Candidate held save setup");
+            var at=TimedEffects.Now.Add(FixtureSpace.Retention*3);var point=new Point3D(p.X+3,p.Y,p.Z);Require(Press(p,point,at)&&Hold(p,at.AddMilliseconds(2000)),"Candidate held save setup");
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-257);File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(p),Own(p),false)));
         }
         else
@@ -123,6 +123,8 @@ public static class InfernoHeldInputChecks
         }
     }
     private static void SaveConnected(NetState net)
+    {StageConnected(net);World.Save();}
+    private static void StageConnected(NetState net)
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
         // The old socket may still be awaiting its asynchronous disconnect.
@@ -135,7 +137,6 @@ public static class InfernoHeldInputChecks
             Require(Press(p,new Point3D(p.X+3,p.Y,p.Z),TimedEffects.Now.Add(FixtureSpace.Retention)),"Candidate connected save press");
             File.WriteAllText(Manifest,Json(saved with{Mana256=NecromancerEffects.ManaBalance256(p)}));
         }
-        World.Save();
     }
     private static void SaveBoundary()
     {
@@ -187,6 +188,7 @@ public static class InfernoHeldInputChecks
         Rates();EventSink.WorldSave+=SaveBoundary;
         foreach(int source in new[]{0,1,9})
         {int input=source;string name="inferno-held-wire-"+source;ConsoleInputHandler.RegisterCommand(name+"-check","Actual held channel wire/natural timer",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected(name+"-result",net=>Wire(net,input))));}
+        ConsoleInputHandler.RegisterCommand("inferno-held-input-save-stage-check","Stage a connected press without saving",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected("inferno-held-input-save-stage-check",net=>{try{StageConnected(net);Log.Information("inferno-held-input-save-stage-check: passed");}catch(Exception e){Log.Error(e,"inferno-held-input-save-stage-check: failed");}})));
         ConsoleInputHandler.RegisterCommand("inferno-held-input-save","Connected candidate save boundary",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected("inferno-held-input-save",SaveConnected)));
         foreach(string name in new[]{"inferno-held-input-check","inferno-held-input-reload-check"})ConsoleInputHandler.RegisterCommand(name,"Approved held Inferno adapter",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected(name,net=>
         {try{Check(net,name.EndsWith("-reload-check",StringComparison.Ordinal));Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}})));
