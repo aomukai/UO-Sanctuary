@@ -149,7 +149,6 @@ public static class NpcItemEmissionChecks
         var random=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b);string resources=Json(GeneratedNpcLiveResources.State(b));PersistentMinions.Suspend(p);p.Internalize();
         Require(random==NpcEquipmentRandom.State(b)&&life==SkillHealth.Balance256(b)&&resources==Json(GeneratedNpcLiveResources.State(b)),"Outgoing emission parking reset original source");
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),random,life,resources,held,flights,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Item emission enabled unqualified learned cast");
         Log.Information("Original item emission:Fire Bolt/target-centered Nova/Frost Nova use verified requests and shared motion/HP;24incoming/outgoing allocation cases,partial ray survival,source100-subtile guard,exact child/actor RNG and natural contacts;85partial outgoing flights plus original items/resources/wounds through two reloads;Charged/Chain world binding/full callback history/game RNG remain separate");
     }
 }

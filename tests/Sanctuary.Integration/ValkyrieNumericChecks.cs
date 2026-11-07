@@ -51,7 +51,7 @@ public static class ValkyrieNumericChecks
             var damage=NamedElements.Resolve256(null,body,10000,pair.Item1,enhance:false);
             Require(damage.Damage256==NamedElements.Reduce256(10000,Read(pair.Item2),0,0,0).Damage256,"Native typed mitigation ignored the operative original resistance");
         }
-        Require(!GeneratedNpcLiveResources.Handles(body)&&!ClassCombat.Available((PlayerMobile)body.ControlMaster,CombatAbility.Valkyrie)&&body.SkillWeaponDamage==(0,0),"Numeric recipient enabled resource/weapon/learned consumers");
+        Require(!GeneratedNpcLiveResources.Handles(body)&&body.SkillWeaponDamage==(0,0),"Numeric recipient enabled resource/weapon/learned consumers");
         // Skill trees,class bonuses,charges and chance-to-cast layers remain
         // present in g.Stats above. They are not granted to the owner or pet.
         var items=ValkyrieEquipment.Originals(body);var expected=c.GetProperty("Items").EnumerateArray().ToArray();Require(items.Length==expected.Length,"Unfiltered source loadout lost items");

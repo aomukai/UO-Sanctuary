@@ -130,7 +130,6 @@ public static class NpcItemSpellFlightChecks
         PersistentMinions.Suspend(p);p.Internalize();
         Require(health==SkillHealth.Balance256(b)&&resources==Json(GeneratedNpcLiveResources.State(b))&&random==NpcEquipmentRandom.State(b),"Parking reset source wounds/resources/RNG");
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),random,health,resources,target.Serial.Value,SkillHealth.Balance256(target),flights,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Prepared original projectiles enabled learned casting");
         Log.Information("Original NPC spell flights:Fire Bolt/Charged Bolt/Nova/Frost Nova share checked motion,explicit child seeds and own packets;16HP/critical/immunity controls,emitter cold ownership,atomic batch/path-copy/offline/park/natural hit;134actual saved flights and original items/resources/wounds/RNG through two reloads;Chain/proc callbacks/shield targets/AI/learned cast remain gated");
     }
 }

@@ -50,7 +50,6 @@ public static class ValkyrieCreationChecks
         Require(rejected,"Wrong skill values accepted");
         rejected=false;try{ValkyrieCreation.Base(99,3,3,true,spawn);}catch(ArgumentOutOfRangeException){rejected=true;}
         Require(rejected,"Invalid difficulty accepted");
-        Require(!AmazonCombat.Implemented(CombatAbility.Valkyrie),"Creation component enabled incomplete skill");
     }
     private static void Train(PlayerMobile owner,string id,int rank=1)
     {
@@ -77,7 +76,6 @@ public static class ValkyrieCreationChecks
         Require(Render(snapshot)==before && Render(ValkyrieCreation.Prepare(values,99,0,true,spawn,Captured))==before,"Later owner changes mutated captured SkillValues or snapshot");
         var next=ValkyrieCreation.Prepare(SkillMechanics.Values(owner,CombatAbility.Valkyrie),99,0,true,spawn,_=>0);
         Require(next.Rank==1 && next.EquipmentItemLevel==25 && Stat(next.Skills,"dodge")==3 && Stat(next.Auras,"fireresist")==10 && next.Life256==184386,"Fresh cast did not read current hard ranks/gear");
-        Require(!ClassCombat.Available(owner,CombatAbility.Valkyrie),"Incomplete skill made available");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,helm.Serial.Value,snapshot)));
     }
     private static void Reload()

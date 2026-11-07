@@ -113,7 +113,6 @@ public static class NpcItemChainRootChecks
         Controls(b,p);NpcItemChainChecks.Place(b,p);var at=TimedEffects.Now.AddMinutes(10);var held=new[]{Hold(b,0,at),Hold(b,1,at)};var flights=Own(b);Require(flights.Length==2,"Saved item Chain root/child count");
         var random=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b);string resources=Json(GeneratedNpcLiveResources.State(b));PersistentMinions.Suspend(p);p.Internalize();
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),random,life,resources,held,flights,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Item Chain enabled learned casting");
         Log.Information("NPC item Chain roots:do26/151 actual factory origins/ownAR/zero-vector,budget after successful handle,126rank/flag roots,lone/five-hop/failure and targetless/range guards;shared per-hop beforeHP/exact HP/RNG;partial actual item root+child/original items/resources/wounds through two reloads;full wrapper/proc/game stream remain separate");
     }
 }

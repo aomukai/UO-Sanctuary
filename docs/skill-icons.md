@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Valkyrie input (2026-11-07 JST).** The existing Valkyrie talent/hotkey icon is still a placeholder. Right and quick slots use it; left assignment is disallowed by the pinned row. Roster/status placeholders remain separate from summon/body/equipment and skill-effect assets.
+
 **Valkyrie external buffs (2026-11-07 JST).** This adds no player skill or hotkey. Existing Valkyrie, Enchant and aura talent/hotkey icons and buff/status placeholders remain in their separate asset lists.
 
 **Valkyrie town and overlap (2026-11-07 JST).** Structural registration, parking and facing fallback add no skill or hotkey icon. Existing Valkyrie talent/hotkey and related effect/status icon placeholders remain in the separate asset list.

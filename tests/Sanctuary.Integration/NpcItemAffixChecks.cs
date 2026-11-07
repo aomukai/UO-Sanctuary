@@ -79,7 +79,7 @@ public static class NpcItemAffixChecks
             Require(pool.Select(x=>x.Row+1).SequenceEqual(row[10].EnumerateArray().Select(x=>x.GetInt32())),"Synthetic source ordered cap511");synthetic++;
         }
         Require(current==12456&&synthetic==2016&&NpcItemAffixes.Names.Count==201,"Incomplete rare-name controls");
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AmazonCombat.Implemented(CombatAbility.Valkyrie),"Catalogue enabled incomplete summons");
+        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Catalogue enabled incomplete summons");
         Log.Information("NPC rare names:12456 current/2016 synthetic complete source eligibility,pool,cap,format and seed controls;no generated item or actor");
     }
 }

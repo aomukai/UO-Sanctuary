@@ -138,7 +138,6 @@ public static class NpcItemWrapperChecks
         Matrix(b,p);NpcItemChainChecks.Place(b,p);var at=TimedEffects.Now.AddMinutes(10);var held=new[]{36,38,44,48,53}.Select(skill=>Hold(b,skill,at)).ToArray();var spells=Spells(b);var chains=Chains(b);
         Require(spells.Length==88&&chains.Length==1&&held.Sum(h=>h.Ids.Length)==89,"Wrapper saved partial population differs");var rng=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b);string resources=Json(GeneratedNpcLiveResources.State(b));PersistentMinions.Suspend(p);p.Internalize();
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),rng,life,resources,held,spells,chains,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Wrapper enabled learned cast");
         Log.Information("NPC original item wrappers:320target/position/flag/failure/nested restoration cases,ordinary combatant and live serverdo state,notification-after-restore,no owner payment/RNG;five actual spell bodies and89saved partial projectiles resume natural exactHP/RNG through two reloads;full original graph/proc/game stream remain separate");
     }
 }

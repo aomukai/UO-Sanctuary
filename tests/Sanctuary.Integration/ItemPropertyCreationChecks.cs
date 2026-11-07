@@ -98,7 +98,7 @@ public static class ItemPropertyCreationChecks
             restored.Apply(EquipmentPropertyWriter.Plan("hp"),new(1,5,0));State(restored,row,true);
             Require(restored.Draws==row[8].GetInt32()-row[4].GetInt32(),"Restored seed continued with extra draws");count++;
         }
-        Require(count==24&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AmazonCombat.Implemented(CombatAbility.Valkyrie),"Fresh graph enabled incomplete item factory or summons");
+        Require(count==24&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Fresh graph enabled incomplete item factory or summons");
         if(!reload){File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));}
         Log.Information("Fresh property graphs:24original native items/source LCG compositions;class layers,raw values,ethereal snapshots,unresolved refusals and exact seed continuation;no full item initialization or NPC actor");
     }

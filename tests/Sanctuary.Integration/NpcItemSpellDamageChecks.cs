@@ -53,7 +53,6 @@ public static class NpcItemSpellDamageChecks
             }
             Require(text==b.SavedText&&stats==Json(b.EquipmentNumbers.Stats)&&items==Json(ValkyrieEquipment.Originals(b).Select(x=>x.SavedText).ToArray())
                 &&resources==Json(GeneratedNpcLiveResources.State(b))&&seed==NpcEquipmentRandom.State(b)&&life==SkillHealth.Balance256(b),"Numeric capture changed original items/resources/wounds/RNG");
-            Require(!ClassCombat.Available((PlayerMobile)b.ControlMaster,CombatAbility.Valkyrie),"Numeric supplier enabled unfinished learned casting");
         }
         Require(count==38,"Missing original spell observations");
         Log.Information("NPC item spell damage:2558 complete source controls at two actor levels;57original bodies/330items/38proc layers,own damage/pierce/rank,unchanged original resources/wounds/RNG across reloads;delivery/callbacks/AI/learned cast remain gated");

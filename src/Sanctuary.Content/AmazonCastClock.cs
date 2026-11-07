@@ -20,7 +20,7 @@ internal static class AmazonCastClock
         foreach(string key in new[]{"HTH","1HS","1HT","2HS","2HT","STF","BOW","XBW"})
         {if(!Rows.ContainsKey(key)){throw new InvalidDataException("Missing Amazon SC weapon class");}}
         if(Rows.Count!=8){throw new InvalidDataException("Unexpected Amazon SC weapon class");}
-        foreach(var ability in new[]{CombatAbility.InnerSight,CombatAbility.SlowMissiles,CombatAbility.Decoy})
+        foreach(var ability in new[]{CombatAbility.InnerSight,CombatAbility.SlowMissiles,CombatAbility.Decoy,CombatAbility.Valkyrie})
         {
             var row=SkillMechanics.For(ability);
             if(row.Text("anim")!="SC"||row.Text("seqtrans")!="SC")
@@ -42,7 +42,7 @@ internal static class AmazonCastClock
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now,
         Func<PlayerMobile,CombatAbility,Serial,Point3D,bool> validTarget)
     {
-        if(ability is not(CombatAbility.InnerSight or CombatAbility.Decoy))
+        if(ability is not(CombatAbility.InnerSight or CombatAbility.Decoy or CombatAbility.Valkyrie))
         {throw new NotSupportedException("Only admitted learned Amazon SC routes may use this entry");}
         if(!TryTiming(owner,out var timing))
         {owner.SendMessage(0x22,"This weapon's Amazon casting animation is not classified yet.");return false;}

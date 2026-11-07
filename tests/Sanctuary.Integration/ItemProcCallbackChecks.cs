@@ -46,7 +46,7 @@ public static class ItemProcCallbackChecks
                 Require(s.Trace.Count==trace.Length&&s.Trace.Zip(trace).All(p=>p.First.SequenceEqual(p.Second)),"Complete proc service ordering/caster/target/flag/position at "+count);count++;
             }
             Require(count==25920,"Incomplete source proc callback controls");
-            Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AmazonCombat.Implemented(CombatAbility.Valkyrie),"Proc contract enabled unfinished summon");
+            Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Proc contract enabled unfinished summon");
             const string scope="source-callback-contract-only:cast-services-not-spell-delivery";
             if(reload){Require(File.ReadAllText(Manifest)==scope,"Original explicit proc callback fixture scope");}else{File.WriteAllText(Manifest,scope);}
             Log.Information("Item proc callbacks:25920complete gate/decode/LCG/lookup/cast-role/flag/position/return controls;Blood chance gate shared;no generic NPC subscription or spell delivery");

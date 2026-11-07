@@ -144,7 +144,6 @@ public static class ValkyrieContactChecks
         var helds=bodies.Select((b,i)=>Pending(b,owner,cases[i].GetProperty("Supported").GetBoolean())).ToArray();PersistentMinions.Suspend(owner);owner.Internalize();
         for(int i=0;i<bodies.Count;i++){Require(Json(Store(bodies[i],helds[i].Supported,helds[i].Target,helds[i].Pending,helds[i].TargetLife))==Json(helds[i]),"Parking changed original contact inputs");}
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,point,helds,generation)));
-        Require(!ClassCombat.Available(owner,CombatAbility.Valkyrie),"Prepared contact enabled unresolved learned cast");
         Log.Information("Valkyrie contact:57original loadouts/330items;30full-fill ordered HP/event consumers and27atomic proc refusals;original pending packets/items/resources/wounds/RNG through two reloads;AI/cast remain gated");
     }
 }

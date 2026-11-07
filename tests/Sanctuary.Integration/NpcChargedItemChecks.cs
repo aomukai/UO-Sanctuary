@@ -131,7 +131,6 @@ public static class NpcChargedItemChecks
         Controls(b,p);Place(b,p);var held=Target(b);var made=Emit(b,held,3,0,TimedEffects.Now.AddMinutes(10),true);held.Internalize();foreach(var f in Own(b)){Step(f);}var flights=Own(b);Require(flights.Length==3&&flights.All(f=>f.Frame==1)&&flights.Select(f=>f.Charged.Ordinal).SequenceEqual(new[]{0,2,4}),"Held partial charged population differs");
         var path=flights[0].Charged;var targetPoint=new Point3D(path.OriginX+path.Path[3].X,path.OriginY+path.Path[3].Y,b.Z);var random=NpcEquipmentRandom.State(b);int hp=SkillHealth.Balance256(b);string resources=Json(GeneratedNpcLiveResources.State(b));PersistentMinions.Suspend(p);p.Internalize();
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),random,hp,resources,held.Serial.Value,targetPoint,SkillHealth.Balance256(held),flights,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Charged item emission enabled learned casting");
         Log.Information("NPC charged item:3780source do17/2160source path contexts;378world rank/flag/failure casts,post-path stream and retained allocation draws,player/Mage triples,self-aim and legacy seed preservation;partial3flights/original items/resources/wounds resume exact natural HP/RNG through two reloads;Chain/full callbacks/game RNG remain separate");
     }
 }

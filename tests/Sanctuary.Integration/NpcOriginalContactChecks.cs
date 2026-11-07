@@ -211,7 +211,6 @@ public static class NpcOriginalContactChecks
             foreach(var b in bodies){NpcItemChainChecks.Place(b,p);MissingHost(b,p,host);MissingChild(b,p,host);Outgoing(b,p,host);Incoming(b,p,host);Lethal(b,p,host);PersistentMinions.Park(b);}
             Contexts(bodies[0],bodies[1],p,host);var held=bodies.Select(b=>Pending(b,p)).ToArray();PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,point,held,host.Game,generation)));
         }
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Original contact enabled learned cast");
         Log.Information("Original NPC contact:57unfiltered original loadouts admitted by explicit host/profile;ordinary hit/miss/range/lethal,actual proc allocation and single incoming melee/missile phases,pre-HP hooks,own actor/world streams,both saved event profiles and original pending packets through two reloads;default game service/AI/cast remain gated");
     }
 }

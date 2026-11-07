@@ -16,7 +16,8 @@ internal sealed record ValkyrieBodyState(uint Owner,ValkyrieBirth Birth,MonsterD
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentDefenseProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieGroundMotionState GroundMotion=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]string EquipmentContactProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieInitialization Initialization=null)
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]ValkyrieInitialization Initialization=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]bool LearnedCast=false)
 {public string Profile{get;init;}="prepared-valkyrie-body-v1";}
 
 // Saved supplied-birth backend with optional numeric equipment recipients.
@@ -83,7 +84,10 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
         return base.GetResistance(type);
     }
     public AmazonValkyrieBody(){Name="Valkyrie [appearance placeholder]";Body=0x191;Hue=0x481;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(400);SetDamage(0,0);}
-    public override TimeSpan BeginMelee(Mobile target)=>throw new NotSupportedException("Valkyrie generated equipment/contact and AI delivery are unfinished");
+    // As with the source-owned Iron Golem and wolves,Combatant can arm UO's
+    // fist timer even with native AI stopped. Only the source conductor hits.
+    public override TimeSpan BeginMelee(Mobile target)=>State?.GroundMotion?.AttackRate!=null&&State.EquipmentContactProfile==ValkyrieEquipmentContact.OriginalProfile
+        ?TimeSpan.FromSeconds(1):throw new NotSupportedException("Valkyrie native swing has no original source combat controller");
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     internal static void Validate(ValkyrieBodyState state)
     {
@@ -115,6 +119,8 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
             if(state.EquipmentContactProfile!=null&&(state.EquipmentContactProfile is not(ValkyrieEquipmentContact.Profile or ValkyrieEquipmentContact.OriginalProfile)||state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile))
             {throw new InvalidDataException("Invalid original Valkyrie contact admission");}
             ValkyrieStartup.Validate(state);
+            if(state.LearnedCast&&(state.Initialization==null||state.EquipmentContactProfile!=ValkyrieEquipmentContact.OriginalProfile||state.GroundMotion?.StartupProfile!=ValkyrieStartup.Profile))
+            {throw new InvalidDataException("Learned Valkyrie requires its original initialized combat controller");}
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}
         }

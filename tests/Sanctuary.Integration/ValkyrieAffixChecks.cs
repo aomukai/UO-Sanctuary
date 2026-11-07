@@ -66,7 +66,6 @@ public static class ValkyrieAffixChecks
         requests.Clear();ValkyrieAffixes.Equip(255,787,ref random,x=>{requests.Add(x);return true;});Require(requests.All(x=>x.ItemLevel==787) && ValkyrieAffixes.Level("7p7",787)==99,"Raw item level silently clamped to player item limit");
         ulong before=random;Require(ValkyrieAffixes.Next(ref random,0)==0 && random==before,"Zero bound advanced source seed");
         Require(ValkyrieAffixes.All.Count==478 && ValkyrieAffixes.All.Any(x=>x.FirstPropertySockets) && !ValkyrieAffixes.Pool("ci2",99,GearRarity.Magic,AffixKind.Prefix).Any(x=>x.FirstPropertySockets),"Bounded legacy socket-first-property rule");
-        Require(!AmazonCombat.Implemented(CombatAbility.Valkyrie),"Equipment selection component enabled unfinished summon");
     }
     private static void Train(PlayerMobile owner,string id,int rank=1)
     {
@@ -87,7 +86,6 @@ public static class ValkyrieAffixChecks
         Require(plan.Single(x=>x.Slot==4).Code=="7p7" && plan.All(x=>x.ItemLevel==73),"Effective rank17 source equipment threshold/item level");
         owner.AddToBackpack(helm);ClassGear.Refresh(owner);var next=Plan(owner,out _);
         Require(next.Single(x=>x.Slot==4).Code=="9p9" && next.All(x=>x.ItemLevel==70) && plan.Single(x=>x.Slot==4).Code=="7p7","Actual gear removal mutated earlier request or failed to affect later plan");
-        Require(!ClassCombat.Available(owner,CombatAbility.Valkyrie),"Incomplete skill became available");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,helm.Serial.Value,plan,seed)));
     }
     private static void Reload()

@@ -101,7 +101,7 @@ public static class ValkyrieWeaponChecks
         foreach(var b in bodies)
         {
             var binding=ValkyrieEquipmentWeapons.Binding(b);var items=ValkyrieEquipment.Originals(b);Require(items.Single(i=>i.Snapshot.Equipment.Body==4).Serial.Value==binding.Primary&&binding.Secondary==0&&ValkyrieEquipmentWeapons.Frame(b).Selected==binding.Primary,"Original source spear was replaced by slot fallback/secondary");
-            Draw(b);Require(!ClassCombat.Available(p,CombatAbility.Valkyrie)&&b.SkillWeaponDamage==(0,0),"Hand/RNG delivery enabled unfinished contact or learned cast");
+            Draw(b);Require(b.SkillWeaponDamage==(0,0),"Hand/RNG delivery enabled unfinished contact or learned cast");
             b.RestorePrepared(b.Prepared with{NextRecoveryUtc=TimedEffects.Now.AddDays(2)});
         }
         // Gear refresh and real difficulty notifications must not reseed or

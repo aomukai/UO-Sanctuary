@@ -52,7 +52,7 @@ public static class ValkyrieBodyChecks
             {bool refused=false;try{AmazonValkyrieBody.CreatePrepared(p,new(p.X+1,p.Y,p.Z),bad,at);}catch(InvalidDataException){refused=true;}Require(refused&&World.Mobiles.Count==count,"Unsupported birth allocated a body");}
             b=AmazonValkyrieBody.CreatePrepared(p,new(p.X+1,p.Y,p.Z),spawn,at);
             Require(b.ControlMaster==p&&b.SummonClass==DiabloClass.Amazon&&b.Permitted(p)&&b.ControlSlots==0&&b.Summoned&&b.Prepared.Birth==captured
-                &&SkillHealth.Full(b)&&NecromancerEffects.ManaBalance256(p)==mana&&!ClassCombat.Available(p,CombatAbility.Valkyrie),"Prepared ownership/fill/payment/public gate");Numeric(b);
+                &&SkillHealth.Full(b)&&NecromancerEffects.ManaBalance256(p)==mana,"Prepared ownership/fill/payment/public gate");Numeric(b);
             int max=b.MaximumLife256;SkillHealth.SetBalance256(b,max-2000);b.AdvanceRecovery(at.AddMilliseconds(39),true);Require(SkillHealth.Balance256(b)==max-2000,"Early recovery");
             b.AdvanceRecovery(at.AddMilliseconds(40),true);Require(SkillHealth.Balance256(b)==max-2000+b.SourceRegeneration256,"Explicit source40ms recovery");
             int life=SkillHealth.Balance256(b);b.AdvanceRecovery(at.AddMilliseconds(80),false);Require(SkillHealth.Balance256(b)==life&&b.Map==Map.Internal,"Offline recovery refilled or retained a body");PersistentMinions.Resume(p);
@@ -99,7 +99,7 @@ public static class ValkyrieBodyChecks
         {
             var p=World.FindMobile((Serial)s.Owner)as PlayerMobile;var b=World.FindMobile((Serial)s.Body)as AmazonValkyrieBody;var helm=World.FindItem((Serial)s.Helm);
             Require(s.Generation<2&&p!=null&&b!=null&&b.ControlMaster==p&&helm?.Parent==p&&b.SavedText==s.State&&SkillHealth.Balance256(b)==s.Life
-                &&b.MaximumLife256==s.Maximum&&NecromancerEffects.ManaBalance256(p)==s.Mana&&BattleCommand.PetOrder(b)==s.Order&&!ClassCombat.Available(p,CombatAbility.Valkyrie),"Original owner/body/gear/wounds/snapshot/public gate changed");Numeric(b);
+                &&b.MaximumLife256==s.Maximum&&NecromancerEffects.ManaBalance256(p)==s.Mana&&BattleCommand.PetOrder(b)==s.Order,"Original owner/body/gear/wounds/snapshot/public gate changed");Numeric(b);
             int before=SkillHealth.Balance256(b);b.AdvanceRecovery(TimedEffects.Now,false);Require(SkillHealth.Balance256(b)==before,"Reload healed before future deadline");
         }
         File.WriteAllText(Manifest,JsonSerializer.Serialize(rows.Select(s=>s with{Generation=s.Generation+1}).ToArray()));

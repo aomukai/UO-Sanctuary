@@ -36,7 +36,7 @@ public sealed class SkillBindings : GenericPersistence
         // T33 explicitly approves Teleport on left/right controls despite
         // the D2R row's left flag. Preserve that exception during migration.
         if(characterClass==DiabloClass.Sorceress&&ability==CombatAbility.Teleport){return true;}
-        if(characterClass is not(DiabloClass.Necromancer or DiabloClass.Sorceress or DiabloClass.Paladin or DiabloClass.Barbarian or DiabloClass.Assassin)){return true;}
+        if(characterClass is not(DiabloClass.Necromancer or DiabloClass.Sorceress or DiabloClass.Paladin or DiabloClass.Barbarian or DiabloClass.Assassin or DiabloClass.Amazon)){return true;}
         var row=SkillMechanics.For(ability);
         return row.CharacterClass==characterClass&&(left?row.Left:row.Right);
     }

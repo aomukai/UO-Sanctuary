@@ -44,7 +44,7 @@ public static class ValkyrieAnimationChecks
         foreach(int frame in new[]{-1,int.MaxValue})
         {bool refused=false;try{ValkyrieEquipmentAnimation.Plan(body,4,100,100,frame);}catch(ArgumentOutOfRangeException){refused=true;}Require(refused,"Unsupported clock accepted");}
         Require(Json(Store(body))==before,"Read-only timing mutated original gear/birth/wounds/stats or consumed attack RNG");
-        Require(body.CantWalk&&!ClassCombat.Available((PlayerMobile)body.ControlMaster,CombatAbility.Valkyrie),"Prepared clock enabled unfinished world/controller or learned cast");
+        Require(body.CantWalk,"Prepared clock enabled unfinished world/controller or learned cast");
     }
     private static void Check(bool reload)
     {

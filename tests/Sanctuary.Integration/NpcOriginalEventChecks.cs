@@ -117,7 +117,6 @@ public static class NpcOriginalEventChecks
         }
         for(int i=0;i<bodies.Count;i++){Cycle(bodies[i],cases[i],i,generation);PersistentMinions.Park(bodies[i]);}
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,point,bodies.Select(Store).ToArray(),generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Original event history enabled learned cast");
         Log.Information("Original NPC item events:57unfiltered loadouts/330original items;complete source registration head/order/IDs through3cycles,all removals/re-additions,percentage/difficulty/cache rebuilds and two actual reloads;all14phase traversal,nested/throwing callbacks,corrupt-history/alias guards;no proc carrier copies or automatic proc admission");
     }
 }

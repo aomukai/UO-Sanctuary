@@ -133,7 +133,7 @@ public static class ValkyrieMotionChecks
             bool rejected=false;try{bodies[0].BeginMelee(owner);}catch(NotSupportedException){rejected=true;}Require(rejected,"Movement enabled unfinished ordinary offense");
         }
         PersistentMinions.Suspend(owner);owner.Internalize();var held=bodies.Select(Store).ToArray();
-        Require(bodies.All(b=>b.Prepared.GroundMotion is{WalkVelocityPercent:75,RunVelocityPercent:125}&&b.Map==Map.Internal&&!ClassCombat.Available(owner,CombatAbility.Valkyrie)),"Saved motion recaptured bases or enabled cast");
+        Require(bodies.All(b=>b.Prepared.GroundMotion is{WalkVelocityPercent:75,RunVelocityPercent:125}&&b.Map==Map.Internal),"Saved motion recaptured bases or enabled cast");
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,held,generation)));
         Log.Information("Valkyrie motion:actual shared walk/run/follow and source-mode melee/missile Evade;original rates/items/wounds/stream through parking/two reloads;offense and learned cast remain gated");
     }

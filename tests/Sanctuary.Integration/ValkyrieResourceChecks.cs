@@ -50,7 +50,7 @@ public static class ValkyrieResourceChecks
         int Read(int stat)=>g.Read(stat);
         Require(Pools(b).SequenceEqual(new[]{Read(6),Read(7),Read(8),Read(9),Read(10),Read(11)})&&b.HitsMax==(Read(7)+255)/256&&b.ManaMax==(Read(9)+255)/256&&b.StamMax==(Read(11)+255)/256,"Native FP256 pools/maxima differ from source graph");
         Require(GeneratedNpcLiveResources.RegenerationBase(b)==expected[1].GetInt32()&&NpcEquipmentRegeneration.ItemRate(b)==Read(74)-expected[1].GetInt32(),"Source regeneration base/item contribution was omitted or doubled");
-        Require(!ClassCombat.Available((PlayerMobile)b.ControlMaster,CombatAbility.Valkyrie)&&b.SkillWeaponDamage==(0,0),"Resources enabled an unfinished learned cast/weapon");
+        Require(b.SkillWeaponDamage==(0,0),"Resources enabled an unfinished learned cast/weapon");
     }
     private static Held Store(AmazonValkyrieBody b,int index)
     {

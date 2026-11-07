@@ -69,7 +69,6 @@ public static class ValkyrieEquipmentChecks
                 &&EquipmentStatValues.SourceRead(graph.Unit.Stats,EquipmentStatKey.Pack(194),EquipmentStatValues.Definition(194))==0,"Private original flags/durability/socket/ethereal context");
         }
         s.Attempts[0]=s.Attempts[0]with{Item=0};Require(b.Prepared.Equipment.Attempts[0].Item!=0,"Mutable loadout array escaped body state");
-        Require(!ClassCombat.Available((PlayerMobile)b.ControlMaster,CombatAbility.Valkyrie),"Loadout enabled an unfinished learned cast");
     }
     private static void Check(bool reload)
     {

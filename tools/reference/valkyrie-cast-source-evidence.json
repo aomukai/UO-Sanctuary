@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceId": 32,
+  "row": {
+    "srvdofunc": 16,
+    "summon": "valkyrie",
+    "pettype": "valkyrie",
+    "petmax": 1,
+    "InTown": 1,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "mana": 25,
+    "lvlmana": 1,
+    "manashift": 8,
+    "minmana": 1,
+    "leftskill": 0,
+    "rightskill": 1
+  },
+  "firstThinkFrames": 20,
+  "sourceDispatchCases": 15,
+  "sourceSchedulerCases": 2072,
+  "weaponClasses": [
+    "1HS",
+    "1HT",
+    "2HS",
+    "2HT",
+    "BOW",
+    "HTH",
+    "STF",
+    "XBW"
+  ],
+  "currentExecutableParity": false,
+  "inputs": {
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "tools/reference/valkyrie-equipment-engine-evidence.json": "305c298cbf9b4434c07ae307bdd60fa14ec42d099941850293c9ba09304cc7fb",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    ".local/class-skills/valkyrie-equipment-source-probe.json": "1aa77defc3f9e533aac8c97cb12ebdd6afedaf84d025572ef84ff58c06d5791b",
+    "tools/reference/amazon-cast-clock-engine-evidence.json": "580a2c9f3256830dacc10615f5114bcbc24ff224462613a7fb9a8a1503b1e5f3",
+    "tools/probe_amazon_cast_clock.py": "fb4c48d53d48ce0f5d4356d8d045a9ab80357390c99b2ad3c823e62f42691981",
+    ".local/class-skills/druid-form-cast-clock-source-probe.cpp": "ef602f207800a0a5c32a6eff32de7437dbc7ba86c89256afd6aacab8b5ff632e",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/reference/druid-form-cast-clock-engine-evidence.json": "23de2808f5b10fdabb6f7bac4f9e7a084e1ff105b8eb4770b3a45d2d22bdeb50",
+    ".local/class-skills/amazon-cast-clock-source-probe.json": "c34907c98ac46c632fb848c9dde1d22f14ef404633ee054e01e219adb9388958",
+    "data/Sanctuary/Balance/amazon-cast-clock.json": "e34dcfc40ac4a9d839637dc87733367f2ea69cd755829765117b866ef8162d5c",
+    ".local/class-skills/amazon-cast-clock-source/probe.cpp": "ff249108df90285fcd03af7e13b13f95edf01c004dc392beb0c24294d666f143",
+    ".local/class-skills/amazon-cast-clock-source/probe": "7220b7953c5de1e7d9cae3f9eb3bede47fff47b802261b3aa6f975e3601bc86a",
+    ".local/class-skills/amazon-cast-clock-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/amazon-cast-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/Sanctuary.Content/AmazonCastClock.cs": "b284fafe2aa8125611896871ad164418bd0216b723f97fb8c679b3e87721aa56",
+    "src/Sanctuary.Content/AmazonValkyrieCasting.cs": "34a405e0d154fccc322542fbf5885617e9cefa554a1460e1017ae6c8b57d8c49",
+    "src/Sanctuary.Content/AmazonValkyrieBody.cs": "b077da0223b5b028df95c077c1eff9105ca90ef6e16339850ce6f5c54f953b86",
+    "src/Sanctuary.Content/AmazonCombat.cs": "13f1d21fc696569e1feb396c7e4bdb01b53a9c943c4bbaf893f11e520a26632b",
+    "src/Sanctuary.Content/ClassCombat.cs": "3be27b5e169fbce0175797936cb9f7db39e7c1c3d2c42ef9bc3cc77999363f3b",
+    "src/Sanctuary.Content/SkillBindings.cs": "d184c706371ba027473d678fa9def4678afe1e17abe8d597a5c3d09287dca43f",
+    "src/Sanctuary.Content/GroundSummonPlacement.cs": "b17b43e367443380ad402e9df057bd2a9d92a2777f3095257b15326a309a48dd",
+    "tools/review_valkyrie_cast.py": "f00d04c1670a4c3bded7cd431d8f568e81fe90bfb2d330a067ae16fe26d7bd74"
+  },
+  "scope": [
+    "Current row selects the same owned Amazon SC rows and shared seven-routine scheduling recipe already verified across2072contexts. Existing complete do16 evidence covers15dispatch cases and20frame first think;no new scheduler or spawn arithmetic is substituted.",
+    "Native placement uses the existing Druid target/fallback/two-tile adapter,not recovered D2room search. Candidate/payment/learned-roster commit follows existing persistent summon transactions;item-only/proc/foreign-class contexts are outside the trained-Amazon route.",
+    "Exact current executable outer mana/room/input chronology and graphical client acceptance remain unproven. Native tests separately verify actual routing,resource/roster/lifecycle and live socket combat."
+  ]
+}

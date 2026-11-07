@@ -162,7 +162,6 @@ public static class NpcOriginalProcChecks
         }
         var ids=held.Select(h=>h.Actor).ToHashSet();var spells=SorceressSpellMissiles.Snapshot().Flights.Where(f=>ids.Contains(f.Npc?.Actor??0)).ToArray();var chains=ChainLightning.Snapshot().Where(f=>ids.Contains(f.OriginalNpc?.Source.Actor??0)).ToArray();
         PersistentMinions.Suspend(p);p.Internalize();File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,point,held.ToArray(),spells,chains,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Original proc adapter enabled learned cast");
         Log.Information("Original NPC procs:{Count}source callback contexts across57unfiltered loadouts;actual full graph order/chance/rank/flags and actor/allocation streams;five proc-created saved spell bodies resume exact natural HP/RNG through two reloads;ordinary producers/game stream remain separate",count);
     }
     private static JsonElement CaseRow(JsonElement[] cases,int skill)=>cases.First(c=>c.GetProperty("Case").GetInt32()==(skill switch{36=>8,38=>10,44=>46,48=>1,53=>26,_=>throw new InvalidOperationException()})&&c.GetProperty("Variant").GetInt32()==0&&c.GetProperty("Allocate").GetInt32()==1&&Casts(c)is{Length:1} casts&&casts[0][2]==skill);

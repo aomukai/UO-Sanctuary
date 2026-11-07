@@ -295,7 +295,7 @@ public static class ClassCombat
 
     private static bool CastTargetAllowed(PlayerMobile from, CombatAbility ability, Mobile target) => IsHostile(from, target)
         || BoneBarrierCasts.Handles(ability)&&BoneBarrierCasts.MobileTarget(from,target)
-        || ability is (CombatAbility.Raven or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs or CombatAbility.PoisonCreeper or CombatAbility.CarrionVine or CombatAbility.SolarCreeper) && target is { Deleted: false } && target.Map==from.Map
+        || ability is (CombatAbility.Valkyrie or CombatAbility.Raven or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs or CombatAbility.PoisonCreeper or CombatAbility.CarrionVine or CombatAbility.SolarCreeper) && target is { Deleted: false } && target.Map==from.Map
         || ClassAbilities.AllyTarget(ability) && target is { Alive: true, Deleted: false } && target.Map == from.Map
             && (target == from || Friendly(from, target));
 

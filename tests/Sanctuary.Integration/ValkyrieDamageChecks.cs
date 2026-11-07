@@ -73,7 +73,7 @@ public static class ValkyrieDamageChecks
             BattleCommand.Clear(b);
         }
         Require(count==10&&Pools(b).SequenceEqual(before.Pools)&&b.SavedText==before.Text&&Json(b.EquipmentNumbers.Stats)==before.Stats,"Command/allocation changed original birth,wounds,graph or expected packet count");
-        Require(!ClassCombat.Available((PlayerMobile)b.ControlMaster,CombatAbility.Valkyrie)&&b.SkillWeaponDamage==(0,0),"Packet allocation enabled unfinished AI/contact or learned cast");
+        Require(b.SkillWeaponDamage==(0,0),"Packet allocation enabled unfinished AI/contact or learned cast");
     }
     private static void Refusals(AmazonValkyrieBody b)
     {

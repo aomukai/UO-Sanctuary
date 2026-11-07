@@ -155,7 +155,6 @@ public static class NpcItemChainChecks
         var random=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b);string resources=Json(GeneratedNpcLiveResources.State(b));PersistentMinions.Suspend(p);p.Internalize();
         Require(random==NpcEquipmentRandom.State(b)&&life==SkillHealth.Balance256(b)&&resources==Json(GeneratedNpcLiveResources.State(b)),"Chain parking reset original source");
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),random,life,resources,held,flights,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Prepared original Chain enabled learned casting");
         Log.Information("Original NPC Chain:own source/rank/packet and shared cell travel;natural lone/five-hop/failure contacts,per-hop allocator-before-HP,moved-caster origin,exact child/actor RNG,atomic restore/missing-service/offline guards;original partial root+child/items/resources/wounds through two reloads;proc dispatch/allocator provenance/shield targets/AI/cast remain gated");
     }
 }

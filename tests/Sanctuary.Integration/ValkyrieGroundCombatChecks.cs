@@ -119,7 +119,6 @@ public static class ValkyrieGroundCombatChecks
         // exists yet; restart cancels the obsolete event instead of replaying it.
         var active=bodies[0];NpcItemChainChecks.Place(active,p);active.Ground.Store(IronGolemWorld.Park(State(active)) with{Map=active.Map.MapID,Motion=DruidRavenMotion.Center(active.X*2,active.Y*2)});
         var pending=Target(active);Start(active,p,pending);Require(State(active).ActionAt==State(active).Frame+1,"Save fixture must stop immediately before the action marker");
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Prepared ground combat enabled learned summon");
         NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,bodies.Select(Capture).ToArray(),pending.Serial.Value,SkillHealth.Balance256(pending),generation)));
         Log.Information("Valkyrie ground combat:57unfiltered original loadouts;automatic AI67 transformed A1 hit/miss,pre-action RNG/HP silence,departed targets/interruption,end mode;original items/resources/wounds/RNG and actual pre-action windup through two reloads;supplied timing bases and learned cast remain separate");
     }

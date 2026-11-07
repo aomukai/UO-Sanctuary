@@ -200,7 +200,6 @@ public static class NpcItemSpellTravelChecks
         var seedNow=NpcEquipmentRandom.State(b);int life=SkillHealth.Balance256(b);string resources=Json(GeneratedNpcLiveResources.State(b));PersistentMinions.Suspend(p);p.Internalize();
         Require(seedNow==NpcEquipmentRandom.State(b)&&life==SkillHealth.Balance256(b)&&resources==Json(GeneratedNpcLiveResources.State(b)),"Parking reset saved travel source");
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,b.Serial.Value,point,b.SavedText,Items(b),seedNow,life,resources,held.ToArray(),saved,generation)));
-        Require(!ClassCombat.Available(p,CombatAbility.Valkyrie),"Natural travel evidence enabled learned casting");
         Log.Information("Original NPC spell travel:five independent charged contacts and moving waypoint hit;Nova/Frost Nova natural multi-target/per-cast four-frame leases,independent simultaneous casts,exact child/actor RNG and HP;133partially travelled flights/original items/resources/wounds persist and resume real charged/ring hits through two reloads;proc callbacks/Chain/shield targets/AI/cast remain gated");
     }
 }
