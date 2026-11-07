@@ -34,7 +34,7 @@ internal sealed class GeneratedNpcStatGraph
     internal GeneratedNpcStatGraph(BaseCreature actor,EquipmentStatValue[] basis,Func<EquipmentStatUnit,int?> clock,
         Action<EquipmentStatNode,EquipmentStatUnit,uint,int,int> changed,bool dynamicPath,Action<BaseCreature> updateRate,Action<BaseCreature> clampVitals,
         int? sourceDamageRegeneration=null,uint[] activeOrder=null,Action<GeneratedNpcStatGraph> beforeReplay=null,
-        bool bindItemEvents=false,GeneratedNpcEventState eventHistory=null)
+        bool bindItemEvents=false,GeneratedNpcEventState eventHistory=null,uint[] damageItems=null)
     {
         ArgumentNullException.ThrowIfNull(basis);ArgumentNullException.ThrowIfNull(clock);ArgumentNullException.ThrowIfNull(changed);
         ArgumentNullException.ThrowIfNull(updateRate);ArgumentNullException.ThrowIfNull(clampVitals);
@@ -46,6 +46,8 @@ internal sealed class GeneratedNpcStatGraph
         activeOrder??=Originals.Select(i=>i.Serial.Value).ToArray();
         if(activeOrder.Distinct().Count()!=activeOrder.Length||activeOrder.Any(id=>!Originals.Any(i=>i.Serial.Value==id)))
         {throw new NotSupportedException("Generated active item order is not a unique subset of the original inventory");}
+        if(damageItems!=null&&(damageItems.Distinct().Count()!=damageItems.Length||damageItems.Any(id=>!activeOrder.Contains(id))))
+        {throw new NotSupportedException("Damage-included items must be unique active originals");}
         Kind=Originals.FirstOrDefault()?.Snapshot.Equipment.Kind??EquipMonster.Other;HasPath=dynamicPath;Rate=updateRate;Clamp=clampVitals;
         Actor=new(actor,1);var fields=basis.OrderBy(v=>v.Packed).ToArray();Actor.Stats=new(){Flags=EquipmentStatNode.Extended,OwnerKind=1,Owner=Actor,BaseValues=fields,FullValues=(EquipmentStatValue[])fields.Clone()};
         if(bindItemEvents||eventHistory!=null)
@@ -84,6 +86,11 @@ internal sealed class GeneratedNpcStatGraph
         foreach(uint id in activeOrder)
         {Restore(Originals.Single(i=>i.Serial.Value==id));SourceItemStatUpdates.Update(Dispatch,Carriers[id].Unit,Actor,false);}
         foreach(var original in Originals.Where(i=>!Carriers.ContainsKey(i.Serial.Value))){Restore(original);}
+        // A used-skill hand selection may have toggled damage-related fields
+        // after ordinary item replay. Restore those flags through the same
+        // source merge writer before proving saved event membership.
+        if(damageItems!=null)
+        {foreach(uint id in activeOrder){EquipmentStatGraph.Merge(Actor,Carriers[id].Unit,damageItems.Contains(id),Values);}}
         if(eventHistory!=null){ItemEvents.Restore(eventHistory);}
     }
     internal void SetResourceCallbacks(int? regeneration)
@@ -119,6 +126,7 @@ internal sealed class GeneratedNpcStatGraph
             result.Reverse();return result.ToArray();
         }
     }
+    internal uint[] DamageItems=>ActiveItems.Where(id=>!Carriers[id].Unit.Stats.Is(EquipmentStatNode.Dynamic)).ToArray();
     internal void RegisterBirthList(EquipmentStatNode node)
     {
         if(node is not{OwnerKind:1,Owner:null}||node.Parent!=Actor.Stats||node.Recipient!=Actor||!BirthLists.Add(node))

@@ -1,0 +1,81 @@
+{
+  "parent": "1e6352cc94be5a849a452ab67659aa9abb437b9b",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-item-frame-check": 1,
+    "shadow-venom-check": 1,
+    "shadow-ground-check": 1,
+    "npc-original-contact-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-item-frame-reload-check": 2,
+    "shadow-venom-reload-check": 2,
+    "shadow-ground-reload-check": 2,
+    "npc-original-contact-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": 6,
+  "contentBuild": 3,
+  "integrationBuild": 6,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "a5508a4fc6356583b09088908132532949d595083bac46913dd3840a45d56f68",
+    "Assemblies/Sanctuary.Integration.dll": "c15a4eefc9a8024b4ac103a5f626ee9d87d104ac4b2fc861cbbca5affe8a4516"
+  },
+  "inputsSha256": "6b0f0b7c31bb43d528e93a2f6f6e94d05daa93365608d941124970d7195b2837",
+  "nativeLogSha256": "394d7d7d25dbdaa4b0f74c45005095633e6dafce0a168d8d498d6a6fcd66248e",
+  "sourceSnapshotSha256": "8029af51405ff2731e439ce3176a8fc431f43fb6735ba84f676a10f87adccb05",
+  "reproduced": {
+    "allocationLow": 4,
+    "diagnostic": "Saved NPC event history lost its original item/recipient graph: actor=True,owner=True,originals=True,active=True,events=[(1, 13175811, 0, 21, 2, 13175811);(2, 13175811, 0, 21, 2, 13175811);(5, 7340032, 0, 8, 2, 7340032);(6, 7340032, 0, 8, 2, 7340032);(7, 12782917, 0, 20, 2, 12782917);(8, 12782917, 0, 20, 2, 12782917)] vs [(1, 13175811, 0, 21, 2, 13175811);(2, 13175811, 0, 21, 2, 13175811)] <s:Sanctuary.Integration.ShadowItemFrameChecks>",
+    "oldContentNumericFailure": "1710e4868907dbbd5f332e900d421562d7769a3317b466502aa2c37fdfddb8e4"
+  },
+  "files": {
+    ".local/class-skills/shadow-item-frame/before-fix-native.log": "1710e4868907dbbd5f332e900d421562d7769a3317b466502aa2c37fdfddb8e4",
+    ".local/class-skills/shadow-item-frame/failed-native-2.log": "d739e94245bf848afae4b9cefe8628c2bf68fee741a0e5929e6b2bf669977ce7",
+    ".local/class-skills/shadow-item-frame/failed-native-3.log": "1ee968792aac8ef260745c9dd06a326e15b49c5c056ec98c3a62510301efb184",
+    ".local/class-skills/shadow-item-frame/failed-native-5.log": "826f310be4197d36eca6d57790c54e2f394fd2e8b55237730678d92afc607bd5",
+    ".local/class-skills/shadow-item-frame/content-build-3.log": "47622fe0173831c7d4426dbb2063c8929c2525214cba52a44908673e9ef007b8",
+    ".local/class-skills/shadow-item-frame/integration-build-6.log": "1f7a55c0ed3ca51883825676ff9a50bb99786266bcc8292016b96146337ff2ec"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Persist actual original-item damage-inclusion flags and restore via existing source merge before unchanged event membership/order validation.",
+    "Old Content reproduces lost hand damage;declared original-loadout seed4 reproduces the exact event-history mismatch when the inclusion subset is removed. Real subset preserves stats/events across skill-book rebuild and Venom expiry.",
+    "Both hand selections,valid legacy null subset,atomic malformed-subset rejection and lazy buff expiry during actual event dispatch are checked. Temporary independent fixtures are deleted and actual world allocation state restored.",
+    "Original Shadow state,selected-hand numeric/event frame and wounds/RNG survive two reloads;retained Shadow Venom/ground and 57 original Valkyrie loadouts exercise actual item procs and incoming/outgoing contact."
+  ],
+  "failedRuns": [
+    "Before-fix regression deliberately failed against prior accepted Content.",
+    "Run2 compared poison fields before versus after expected Venom expiry;fixture corrected.",
+    "Run3 exposed capture during ordinary callback reads;live reads were moved before capture. Review also retained passive-only lazy expiry and added its callback regression.",
+    "Run5 fixture incorrectly restored posted passive lists into an already populated graph;corrected to existing in-place ApplyBuff."
+  ],
+  "limitations": [
+    "Legacy null uses historical canonical replay;missing historical hand state in an already-inconsistent snapshot is not fabricated and strict event validation still refuses it.",
+    "Capturing/rebuilding during active event dispatch still requires an explicit mutation service;ordinary reads and non-event buff expiry remain supported.",
+    "No new public handler,world deployment,full class/item audit or new arithmetic/animation source harness. Existing approved dual-claw Weapon Block remains unchanged.",
+    "Remaining intrinsic consumers,Master AI106,current modifier42 death,learned casts and broader engine/item/terrain/PvP/hireling/client acceptance remain. Final effects/icons remain separate."
+  ]
+}
