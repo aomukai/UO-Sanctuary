@@ -237,7 +237,7 @@ internal static class SorceressSpellMissiles
     {
         ArgumentNullException.ThrowIfNull(allocate);
         var owner=actor?.ControlMaster as PlayerMobile;
-        if(skill is not(36 or 38 or 44 or 48)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
+        if(skill is not(36 or 38 or 39 or 44 or 48 or 49)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
             ||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-4000))
         {throw new NotSupportedException("Original item emission needs its qualified spell,active source and UTC context");}
         _=NpcEquipmentRandom.Require(actor);

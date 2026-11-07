@@ -45,7 +45,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
 
     private static ItemExecutionMetadata Require(int skill)
     {
-        if (skill is not (36 or 38 or 44 or 48 or 53))
+        if (skill is not (36 or 38 or 39 or 44 or 48 or 49 or 53))
         { throw new NotSupportedException("NPC item origin frame has no qualified do body for this spell"); }
         return NpcItemSpellDamage.Require(skill);
     }
@@ -82,7 +82,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     }
     internal override void Launch(bool lob, int missile, int skill, int rank, int x, int y, int targetX, int targetY, int flags)
     {
-        if (lob || flags != 0 || skill != 36 || missile != 58) { throw Missing(); }
+        if (lob || flags != 0 || skill is not(36 or 39 or 49) || missile != Require(skill).Missile) { throw Missing(); }
         _ = Missile(missile, skill, rank, x, y, targetX, targetY);
     }
     internal override int Execute(int function, int skill, int rank)

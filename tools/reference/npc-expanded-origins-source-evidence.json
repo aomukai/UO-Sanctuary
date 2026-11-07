@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 21168,
+  "completeRoutines": 7,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "routineHashes": {
+    "sub_6FD11420": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e",
+    "sub_6FD14170": "2d0a4b0f5e5cd52c04cf272c351e8f460b7b1a28346eff16532d3c68eb5f2349",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "SKILLS_SrvDo022_NovaAttack": "be31bbe6cf4fe5489d81e5a4828b9f3ed161cad9e806cbceb324ba3b04778fc0",
+    "SKILLS_SrvDo026_ChainLightning": "28f272e19b707c930853fce3fdab971cd312857085c81f11e2a5982b405f345a",
+    "SKILLS_SrvDo151_Unused": "956705cdc907373ed6432c3898d3bd63c0b5e53457076c1607a5b72e3c70307c",
+    "SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2": "7b98653240c5efd9c71ea2e3c9445cd69f54ca415dca463da34d42e521b6f8aa"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "inputs": {
+    "tools/probe_npc_expanded_origins.py": "393c943008ba2660f4ebde8b5540e12f92abb5f87bd20c2926364c6d39a742d5",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-expanded-origins-source/probe.cpp": "e69af500d5c5f40513935c97a16882a755b7f54aa64f34d661120a13dddd8bc9",
+    ".local/class-skills/npc-expanded-origins-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-expanded-origins-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-expanded-origins-source/cases.json": "a825555ebd06e7f3b649a8b35149d6880b3524cc20aedf9daf6cc7e69d7f456f"
+  },
+  "established": [
+    "Seven complete older bodies compose common item dispatch, missile coordinate helper, ordinary do22/do26, alternate item do36/do151 and all64 ring emissions. Six pinned current rows/all nonzero six-bit ranks, both outgoing flags, target/path/zero/same-position edges, allocation failure and own NPC attack-rating flags are independently checked.",
+    "Outgoing direct Fire Bolt/Ice Bolt/Lightning starts at a nonzero target/path point and aims at twice that point minus caster position. Incoming direct missile starts at the caster. A direct missile route returns success even if its allocator returns null.",
+    "Outgoing Nova/Frost Nova do36 requires a target and centers all64 missiles on that target, retaining the NPC owner. It does not set server-do. Incoming do22 centers on the caster and sets server-do. Ring allocation failure does not stop later allocation attempts or change successful do return.",
+    "Outgoing Chain do151 starts at its actual target position and supplies that same position as destination; without a target it starts at the caster and uses the path point. Incoming do26 starts at the caster. Failed root allocation returns zero; successful roots retain floor((rank+25)/5) budget."
+  ],
+  "services": [
+    "Current skill/missile tables, progressive missile lookup, zero ring formula/current Chain count, positions, own attack-rating and final factory allocation are declared services. No selected/known ordinary skill or owner rank, mana or quantity is borrowed.",
+    "The allocator is traced, not executed here. The separate complete factory evidence owns zero-vector correction, world/room allocation, seed, path initialization, damage capture and later collision. Invalid pointers/overflow/out-of-range override indices are excluded."
+  ],
+  "remaining": [
+    "Prepared ordinary projectile launchers must not be treated as outgoing item launchers until these origins and return semantics are bound and verified. In particular, current prepared rings start at the actor, and prepared original Chain roots implement ordinary do26.",
+    "Charged Bolt incoming do17, original event subscription history/order, nested callback dispatch, actual world seed allocation, shield paths, current executable parity and learned Valkyrie cast remain separate."
+  ]
+}

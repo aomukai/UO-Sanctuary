@@ -1,0 +1,110 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "cases": 3566,
+  "numericMatrix": 3528,
+  "originalBodies": 57,
+  "originalProcLayers": 38,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "routineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_GetMinDamage": "6c2948d1dabc88c2483299b9d9dea71bb47dfaa28ef01ccd1baee7345d7c7a88",
+    "MISSILE_GetMaxDamage": "c0d0145ed075a48dad26c5d5b5b3392d5a6df94bad3e5007b92b5d4e0c2415af",
+    "MISSILE_CalculateMasteryBonus": "5859689eb6bab8817cda79e2b23b6c66d1377095258f35ba39bb2482c785dc72"
+  },
+  "packetFields": [
+    "nBurnLength",
+    "nBurningMax",
+    "nBurningMin",
+    "nColdLength",
+    "nColdMaxDamage",
+    "nColdMinDamage",
+    "nDamagePercent",
+    "nDamageTargetAC",
+    "nDemonDamagePercent",
+    "nFireLength",
+    "nFireMaxDamage",
+    "nFireMinDamage",
+    "nFlags",
+    "nLifeDrainMaxDamage",
+    "nLifeDrainMinDamage",
+    "nLightMaxDamage",
+    "nLightMinDamage",
+    "nMagicMaxDamage",
+    "nMagicMinDamage",
+    "nManaDrainMaxDamage",
+    "nManaDrainMinDamage",
+    "nMaxDamage",
+    "nMinDamage",
+    "nPoisonCount",
+    "nPoisonLength",
+    "nPoisonMaxDamage",
+    "nPoisonMinDamage",
+    "nStaminaDrainMaxDamage",
+    "nStaminaDrainMinDamage",
+    "nStunLength",
+    "nUndeadDamagePercent"
+  ],
+  "storedStats": [
+    "STAT_MINDAMAGE",
+    "STAT_MAXDAMAGE",
+    "STAT_FIREMINDAM",
+    "STAT_FIREMAXDAM",
+    "STAT_COLDMINDAM",
+    "STAT_COLDMAXDAM",
+    "STAT_LIGHTMINDAM",
+    "STAT_LIGHTMAXDAM",
+    "STAT_POISONMINDAM",
+    "STAT_POISONMAXDAM",
+    "STAT_MAGICMINDAM",
+    "STAT_MAGICMAXDAM",
+    "STAT_PASSIVE_FIRE_MASTERY",
+    "STAT_PASSIVE_COLD_MASTERY",
+    "STAT_PASSIVE_LTNG_MASTERY",
+    "STAT_PASSIVE_POIS_MASTERY",
+    "STAT_ITEM_DEADLYSTRIKE",
+    "STAT_COLDLENGTH"
+  ],
+  "inputs": {
+    "tools/probe_npc_expanded_spells.py": "73b4f3584fc664ddc8c452ac03c814f4e6841322e3432b82b34fbed72d85d88b",
+    "tools/reference/frozen-orb-damage-source-evidence.json": "b14ef74dc3ee3b904f1f7fa6b5838a93c83fd04a5eaee6cf386a312862dcddf9",
+    ".local/class-skills/frozen-orb-damage-source/probe.cpp": "afd5a8e03858e271ae0d94a9c1cf489c0db491a26ec7a2aa049d5b2a4491430c",
+    ".local/class-skills/valkyrie-resources-source/cases.json": "7f03a22f52d7afee1a7c50144f8bc91ae05d6ebc93f154c777c3c0564e98ec6f",
+    "tools/reference/valkyrie-resources-source-evidence.json": "89f77766af5883d694dad262cd8916a2f087dfe66dc6ee7648fb7372dc58587b",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c"
+  },
+  "currentTable": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-expanded-spells-source/probe.cpp": "1fe25ebf79213a2f4edee6c5eb5e7ba49f16b63fbf0d4ec3cff001bfaf4da974",
+    ".local/class-skills/npc-expanded-spells-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-expanded-spells-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-expanded-spells-source/cases.json": "1754092ff3aff57cf1804e6c53721c289ab0706d75342341a016e40e4d950f7f"
+  },
+  "established": [
+    "Sixteen complete creator/getter/writer routines compose seven current spell rows at all six-bit nonzero proc ranks1..63,negative/zero/positive own mastery and unrelated owner/weapon/origin stat noise. Explicit Skill row owns endpoints;source0 excludes weapon/elemental/leech/critical payload,with no intrinsic critical call during creation. Ice Bolt and Frost Nova store their separate source cold lengths.",
+    "The38original proc layers across57unchanged source item graphs use their own masteries/pierce and exact retained layer rank;there is no owner synergy/gear or +skill rank adjustment. The zero hard-formula service is an explicit Valkyrie context with only its four captured defensive/passive skills;unmaterialized item-granted skills remain refused."
+  ],
+  "limits": [
+    "This executes older numeric source with pinned current tables,not modern binary proc delivery. Formula/stat/row/ratio and empty monster-type-copy services remain declared. Signed mastery controls are bounded to the tested matrix;the runtime exposes a bounded numeric domain.",
+    "No spell emission,hit/HP,cold application,proc trigger order/history,child RNG allocation,source-removal,skill-list materialization,learned cast or assets are admitted by this proof. Existing player/Mage launchers and their separate source evidence must be reused with an explicit original-NPC context."
+  ]
+}

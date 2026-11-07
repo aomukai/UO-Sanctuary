@@ -114,6 +114,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
             }
             if(state.EquipmentContactProfile!=null&&(state.EquipmentContactProfile is not(ValkyrieEquipmentContact.Profile or ValkyrieEquipmentContact.OriginalProfile)||state.EquipmentDefenseProfile!=ValkyrieEquipmentDefense.Profile))
             {throw new InvalidDataException("Invalid original Valkyrie contact admission");}
+            ValkyrieStartup.Validate(state);
             if(state.Birth is not{ColdSunder:0,FireSunder:0,LightningSunder:0,PoisonSunder:0,PhysicalSunder:0})
             {throw new NotSupportedException("Valkyrie nonzero inherited sunder delivery remains unfinished");}
         }
@@ -181,6 +182,20 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
             // Contact/controller activation belongs to its live world route;
             // creation also works before safe-area parking or town admission.
             return body;
+        }
+        catch{body.Delete();throw;}
+    }
+    internal static AmazonValkyrieBody CreateInitializedController(PlayerMobile owner,Point3D point,DateTime at)
+    {
+        // Town/safe-area contact registration remains a separate admission;
+        // refuse that known unsupported route before creating items or RNG.
+        if(owner?.Map==null||owner.Map==Map.Internal||Server.Spells.SpellHelper.IsTown(point,owner)
+            ||Server.Spells.SpellHelper.IsTown(owner.Location,owner)||NpcOriginalItemProcs.Allocator==null)
+        {throw new NotSupportedException("Initialized Valkyrie controller requires its outside-town original item host");}
+        _=ValkyrieStartup.Rates;var body=CreateInitialized(owner,point,at);
+        try
+        {
+            ValkyrieEquipmentContact.ActivateOriginal(body);ValkyrieGroundMotion.ActivateInitialized(body,at);return body;
         }
         catch{body.Delete();throw;}
     }

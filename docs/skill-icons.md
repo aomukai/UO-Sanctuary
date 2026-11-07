@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie startup and expanded procs (2026-11-07 JST).** Derived controller rates and NPC item casts add no player skill or hotkey icon. The Valkyrie and existing Ice Bolt/Lightning/Amplify talent/hotkey entries retain identified icon placeholders,tracked separately from effects.
+
 **Valkyrie automatic A1 (2026-11-07 JST).** Prepared AI/contact integration adds no icon. The Valkyrie talent-tree and hotkey icons remain clearly identified placeholders; final icon work is separate from body/equipment and skill-effect assets.
 
 **Valkyrie source initialization (2026-11-07 JST).** The creation backend adds no new talent/hotkey slot. Valkyrie talent/right/quick and later pet-management UI artwork remain separately pending.

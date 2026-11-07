@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "outerMonsterModeDispatcherExecuted": false,
+  "completeRateDispatcherExecuted": true,
+  "contexts": 456,
+  "transitions": 5016,
+  "originalLoadouts": 57,
+  "canonicalContexts": 57,
+  "nullAndTileGuards": 912,
+  "completeRoutineHashes": {
+    "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "UNITS_GetAnimStatBasePercentage": "10423c95fc725502dd335dae7a1d18a56db30c784d9ad7b3f48fb3ce53502162",
+    "UNITS_GetBaseAnimSpeed": "a889c63e03e882cf43fad46314a9cbb5670a5ec065a0ec581dfacb9d3cac5484",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "UNITS_CharacterStartRunningOrKnockback": "2acee1a45d0cef523ad7fb64316879c85919c28d5724667a88117cfefe1d588c",
+    "UNITS_SetAnimStartFrame": "91f716d40f30a849c8e5b31c2d1f8f8ee6ebff5517134bd3255baa410e2043b2",
+    "UNITS_ChangeAnimMode": "c64ba3f192f07026f9da42a4206fb50fb6c2242ff548e9b6bb04f6fdde09828a",
+    "SUNIT_SetCombatMode": "fe40e3d4e000be5b3fb7262c1e0ca2132d5bf74d69ed3baf9646670ca49bffa3",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_IsAnimModeBlocking": "7f5c5ee26f4eddb80954f602cc76b10ed3601489d8f810b685e138cf47abc08d",
+    "UNITS_IsAnimModeGetHit": "9274bc655b13019f29363f1dae3ca8e5cf475ad7c051db167a528829e0cf5d3f",
+    "UNITS_IsAnimModeKnockBack": "5fe8df87f461353e8c90ee13b92efc689969ade300436a5123964b1897a1961b",
+    "UNITS_CanAnimModeUseVelocityModifier": "e82b95369e08773a3daab3d21e8159559107ee66785cc26664b767c326df35d2",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_AnimModeAllowsAnimSpeed": "499c5c402bdc2f5eb3dffdfc38cd5f79d790b9dc54e71db2b165299d27a19279",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "UNITS_SetAnimData": "65fcaabaa4340c1608291c70cd609a0569d2c278ee8e3ca51f7015195fef66c0",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220"
+  },
+  "initialStatsRoutineHash": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519",
+  "rates": {
+    "attack": 100,
+    "walk": 75,
+    "run": 125,
+    "temporaryRunBonus": 50
+  },
+  "inputs": {
+    "tools/reference/valkyrie-animation-source-evidence.json": "de262fda3997269a22a48cb0f4fb584e53cfdb210cf940436626e0b5b9e84743",
+    ".local/class-skills/valkyrie-animation-source/source.cpp": "c77c792fbcb6ee8bf203cb81f769d61a7204b7e5f9cd9874bdbea471f482d903",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Skills.h": "726b52047189dd2098e87b0f4f931c237292c4f5cfa02ea7be0fd168a8853ead",
+    ".local/class-skills/valkyrie-animation-source/cases.json": "83e8501adea8b9a10649db22689e2ff76e1bd50f281cb6c9b40faf3aa66191b1",
+    "data/Sanctuary/Balance/valkyrie-animation.json": "eb207b5775eeabeab8c68b745affa9548849ce2e98a388a40951d26a9e92c120",
+    "tools/reference/valkyrie-initializer-source-evidence.json": "6aea30bd73ec4dc9f3d15f00ee7957e66b1cd86ef9a3860874b49fd53256732a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a"
+  },
+  "services": [
+    "Exact current four transformed rows and Amazon walk6/run9 are supplied to the animation lookup. Stat/temporary-list/player-graphics services preserve current original-item values;actual monster identity1 is retained while converted graphics type0/class0 choose player predicates.",
+    "The complete rate dispatcher and its six predicates execute unchanged. Cast/block/gethit/knockback/used-skill services assert if selected;those states are outside the supplied idle/walk/run/ordinary A1 domain. The outer monster mode-change dispatcher, room/path generation, damage and event-loop callbacks remain separate."
+  ],
+  "established": [
+    "The actual combat-mode setter calls complete ChangeAnimMode, which deactivates temporary states on a changed mode and enters the complete start-frame getter. Converted Amazon run allocates/posts exactly one +50velocity list. Repeating run does not stack it;leaving run removes it.",
+    "The subsequent complete game reset helper sets sequence frame0 and updates rates without removing the running list. Full initial scheduler still uses spear frame bonus2 and the action marker11/end plan. Item attack/movement/faster-movement values remain separate from initial100/75 and temporary50.",
+    "All57 original loadouts execute eight supplied base-rate controls and11 transitions,including repeated run/A1/walk/neutral. Null and tile mode-change guards refuse without entering unsupported animation services. Current default rates100/75/125follow the accepted initial stats boundary plus current Amazon charstats."
+  ],
+  "limits": [
+    "Complete older bodies with pinned current table/animation inputs supplement the reference;current executable equivalence is not claimed. The full outer monster mode dispatcher is not executed here.",
+    "Actors without a dynamic path, sequences and other animation modes retain explicit unsupported services. This does not certify learned summon/payment/replacement, town/parking, sunder, external elemental stat lists or target-type contact adapters."
+  ],
+  "artifacts": {
+    ".local/class-skills/valkyrie-startup-source/source.cpp": "ba90a4f8dd5dfd9e002e5782bcbe0eed01ec8d6b87dbfa1748da2353a0d57ae7",
+    ".local/class-skills/valkyrie-startup-source/probe": "e08bdbae83a5e4f8fdfd700fd28d7fcb53015e4c5c4a03789634382fde119996",
+    ".local/class-skills/valkyrie-startup-source/input.txt": "7059555a3c8de41ddf734fa3e238748996410f2ad91a1fd2efcc5ed5d60edf74",
+    ".local/class-skills/valkyrie-startup-source/output.json": "ba19c52257c725cd5838c477ac73c4fe8eef8d28b4c707a42fa0716454f8b118",
+    ".local/class-skills/valkyrie-startup-source/cases.json": "8d952433a7ddea1c983c7230d1f12ef1e8ef275c8ace7a95ebf964d7518f346f",
+    ".local/class-skills/valkyrie-startup-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/valkyrie-startup-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_valkyrie_startup.py": "3c5d20db91cc93dc16ae7e2571ccdadfcc28640de69797d362ae7fc9fff8f4f8"
+  }
+}

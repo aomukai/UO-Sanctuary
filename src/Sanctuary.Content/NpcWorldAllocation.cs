@@ -75,7 +75,7 @@ internal static class NpcWorldAllocation
         Source(body,at);
         if(request==null||request.Rank is<1 or>63){throw new NotSupportedException("NPC world root lost its explicit proc rank");}
         _=NpcItemSpellDamage.Require(request.Skill);var row=SkillMechanics.For(NpcItemSpellDamage.Ability(request.Skill));
-        string missile=row.Text(request.Skill==36?"srvmissile":"srvmissilea");bool ring=request.Skill is 44 or 48;
+        string missile=row.Text(request.Skill is 36 or 39 or 49?"srvmissile":"srvmissilea");bool ring=request.Skill is 44 or 48;
         if(request.Missile!=ItemSkillExecution.MissileId(missile)||request.X<=0||request.Y<=0||request.X>=body.Map.Width*2||request.Y>=body.Map.Height*2
             ||(request.X&1)!=0||(request.Y&1)!=0||request.AttackRating<0
             ||ring&&(request.Flags!=7||request.Velocity!=24||request.AttackRating!=0)

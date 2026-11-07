@@ -24,10 +24,10 @@ internal static class NpcItemSpellFlights
     {
         var source=flight.Npc;var p=source?.Packet;
         if(source==null||!((Serial)source.Actor).IsMobile||source.Actor==flight.Owner||source.Binding is not{Length:64}
-            ||source.Binding.Any(c=>c is not(>='0'and<='9'or>='a'and<='f'))||p==null||p.Skill is not(36 or 38 or 44 or 48)
-            ||p.Rank!=flight.Rank||p.Rank is<1 or>63||NpcItemSpellDamage.Ability(p.Skill)!=flight.Ability||p.Element!=(p.Skill==36?"fire":p.Skill==44?"cold":"ltng")
-            ||p.Missile!=(p.Skill==36?"firebolt":p.Skill==38?"chargedbolt":p.Skill==44?"frostnova":"nova")
-            ||p.Minimum256<0||p.Maximum256<p.Minimum256||p.ColdFrames!=(p.Skill==44?200+25*(p.Rank-1):0)
+            ||source.Binding.Any(c=>c is not(>='0'and<='9'or>='a'and<='f'))||p==null||p.Skill is not(36 or 38 or 39 or 44 or 48 or 49)
+            ||p.Rank!=flight.Rank||p.Rank is<1 or>63||NpcItemSpellDamage.Ability(p.Skill)!=flight.Ability||p.Element!=(p.Skill==36?"fire":p.Skill is 39 or 44?"cold":"ltng")
+            ||p.Missile!=(p.Skill==36?"firebolt":p.Skill==38?"chargedbolt":p.Skill==39?"icebolt":p.Skill==44?"frostnova":p.Skill==49?"lightningbolt":"nova")
+            ||p.Minimum256<0||p.Maximum256<p.Minimum256||p.ColdFrames!=(p.Skill==44?200+25*(p.Rank-1):p.Skill==39?150+35*(p.Rank-1):0)
             ||p.Emissions!=(p.Skill is 44 or 48?64:p.Skill==38?Math.Min(24,p.Rank+2):1)
             ||flight.Minimum256!=flight.Slow.Damage256(p.Minimum256)||flight.Maximum256!=flight.Slow.Damage256(p.Maximum256)
             ||flight.ColdFrames!=p.ColdFrames||flight.Modifiers!=new FirestormModifiers(0,0,0,0,0))

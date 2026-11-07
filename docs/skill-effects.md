@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie startup and expanded procs (2026-11-07 JST).** Derived rates add no artwork. Original NPC Ice Bolt/Lightning reuse the existing identified projectile/impact/cold/line placeholders; Amplify Damage uses the shared curse effect/audio placeholder. Final effects/audio remain separate from Valkyrie body/equipment,summon/movement/spear/death assets. No imagegen asset is created.
+
 **Valkyrie automatic A1 (2026-11-07 JST).** Actual AI/frame contact now uses the existing native `Animate(4,5,1,...)` as an identified attack placeholder. The source event plan owns mechanical timing. Final Valkyrie spear animation/impact, movement, defensive reactions, summon/death/equipment and audio assets remain pending separately; no imagegen artwork is created.
 
 **Valkyrie source initialization (2026-11-07 JST).** Actual initialized bodies and original private equipment keep the existing appearance/equipment art placeholders. Summon/transformation/movement/weapon/contact/audio assets remain separately pending. Zero current component choices are source data,not a generated-art requirement. No artwork is created.

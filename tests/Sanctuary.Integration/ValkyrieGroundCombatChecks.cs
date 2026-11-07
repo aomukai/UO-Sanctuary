@@ -53,7 +53,7 @@ public static class ValkyrieGroundCombatChecks
         if(s.ActionAt>s.Frame+1){Through(b,s.ActionAt-1);}
         Require(NpcEquipmentRandom.Require(b).Seed==expected&&SkillHealth.Balance256(target)==life,"Pre-action frame allocated contact or damaged target");
     }
-    private static void Contacts(AmazonValkyrieBody b,PlayerMobile p)
+    internal static void Contacts(AmazonValkyrieBody b,PlayerMobile p)
     {
         foreach(bool hit in new[]{true,false})
         {

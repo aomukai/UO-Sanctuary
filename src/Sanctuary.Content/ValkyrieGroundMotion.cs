@@ -7,7 +7,11 @@ namespace Sanctuary;
 
 internal sealed record ValkyrieGroundMotionState(int WalkVelocityPercent,int RunVelocityPercent,SkeletonWorldState World,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]int? AttackRate=null)
-{public string Profile{get;init;}="valkyrie-original-ground-motion-v1";}
+{
+    public string Profile{get;init;}="valkyrie-original-ground-motion-v1";
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public string StartupProfile{get;init;}
+}
 
 // Saved actual source-mode ownership on the shared ground conductor. Rate
 // bases are explicit captured inputs;modern initializer/run-list defaults and
@@ -22,17 +26,22 @@ internal static class ValkyrieGroundMotion
     {
         if(state is not{Profile:Profile,World.Controller:not null}||state.World.Owner!=owner
             ||state.WalkVelocityPercent is <-10000 or >10000||state.RunVelocityPercent is <-10000 or >10000
-            ||state.AttackRate is <-10000 or >10000||state.World.Controller.Profile!=Profile
+            ||state.AttackRate is <-10000 or >10000||state.StartupProfile is not(null or ValkyrieStartup.Profile)||state.World.Controller.Profile!=Profile
             ||(state.AttackRate==null&&(state.World.Controller.Mode is not(1 or 2 or 15)||state.World.Controller.Attempts!=0||state.World.Controller.Hits!=0))
             ||(state.AttackRate!=null&&state.World.Controller.Mode is not(1 or 2 or 4 or 15)))
         {throw new InvalidDataException("Invalid supplied Valkyrie ground motion context");}
         IronGolemWorld.Validate(state.World.Controller with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"},run:true);
     }
     internal static void Activate(AmazonValkyrieBody body,int walkVelocityPercent,int runVelocityPercent,DateTime at)
-        =>Activate(body,walkVelocityPercent,runVelocityPercent,at,null);
+        =>Activate(body,walkVelocityPercent,runVelocityPercent,at,null,null);
     internal static void ActivateCombat(AmazonValkyrieBody body,int attackRate,int walkVelocityPercent,int runVelocityPercent,DateTime at)
-        =>Activate(body,walkVelocityPercent,runVelocityPercent,at,attackRate);
-    private static void Activate(AmazonValkyrieBody body,int walkVelocityPercent,int runVelocityPercent,DateTime at,int? attackRate)
+        =>Activate(body,walkVelocityPercent,runVelocityPercent,at,attackRate,null);
+    internal static void ActivateInitialized(AmazonValkyrieBody body,DateTime at)
+    {
+        ValkyrieStartup.Require(body?.Prepared);var rates=ValkyrieStartup.Rates;
+        Activate(body,rates.Walk,rates.Run,at,rates.Attack,ValkyrieStartup.Profile);
+    }
+    private static void Activate(AmazonValkyrieBody body,int walkVelocityPercent,int runVelocityPercent,DateTime at,int? attackRate,string startupProfile)
     {
         if(body?.Prepared is not{GroundMotion:null,EquipmentDefenseProfile:ValkyrieEquipmentDefense.Profile} old
             ||body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=old.Owner
@@ -40,7 +49,7 @@ internal static class ValkyrieGroundMotion
         {throw new NotSupportedException("Valkyrie motion needs its original immobile recipient,world owner and UTC context");}
         RequireResources(body);
         ValkyrieEquipmentDefense.Require(body);var controller=new IronGolemWorldState(body.Map.MapID,DruidRavenMotion.Center(body.X*2,body.Y*2),at.AddMilliseconds(40),Mode:1,NextThink:20){Profile=Profile};
-        var state=new ValkyrieGroundMotionState(walkVelocityPercent,runVelocityPercent,new(old.Owner,controller),attackRate);Validate(state,old.Owner);
+        var state=new ValkyrieGroundMotionState(walkVelocityPercent,runVelocityPercent,new(old.Owner,controller),attackRate){StartupProfile=startupProfile};Validate(state,old.Owner);
         if(attackRate!=null)
         {
             if(old.EquipmentContactProfile!=ValkyrieEquipmentContact.OriginalProfile)

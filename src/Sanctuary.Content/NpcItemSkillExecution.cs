@@ -65,6 +65,11 @@ internal static class NpcItemSkillExecution
         if(finish!=0||item!=1||outgoing is<0 or>1||!NpcItemSpellCasts.KeepsCombatTarget(source))
         {throw new NotSupportedException("Original NPC spell needs its protected synchronous item frame");}
         _=NpcItemSpellDamage.Require(skill);ArgumentNullException.ThrowIfNull(allocate);
+        if(skill==66)
+        {
+            if(target==null){throw new NotSupportedException("Original NPC ground curse needs its explicit target/position adapter");}
+            return Run(source,target,skill,level,finish,item,outgoing,at);
+        }
         if(skill==53)
         {
             return ChainLightning.EmitValkyrieItem(source,target,path,level,outgoing,at,r=>
