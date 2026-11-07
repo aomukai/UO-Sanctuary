@@ -1,5 +1,7 @@
 # Skill effects
 
+**Blade Fury input proposal (2026-11-08 JST).** Test-only channel policy creates no new final asset. Startup/loop/release poses, bladefragment1/2 travel/contact and audio remain missing; native weapon-flight presentation is an identified placeholder. See [proposal](blade-fury-held-input-proposal.md). Talent/hotkey icons remain separate.
+
 **Learned Arctic input (2026-11-08 JST).** Channel mechanics reuse the existing identified `0x374A`/hue `0x480` cold-stream marker. Final arctic_blast_cast/stream/caster-animation and druid_windcast/audio work remains pending. Mechanical acceptance does not certify final rendered timing. No new generated bitmap is introduced;tree/hotkey icons remain separate. See [checkpoint](arctic-held-input-checkpoint.md).
 
 **Arctic potion delivery (2026-11-07 JST).** Reusing the spell receiver adds no new effect/audio asset. Existing cold-stream `0x374A`/hue `0x480` and Arctic cast/stream/audio work remain identified placeholders. Approved held-input integration is next; tree/hotkey icons remain separate. See [checkpoint](arctic-potion-checkpoint.md).

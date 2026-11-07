@@ -1,5 +1,7 @@
 # Skill icons
 
+**Blade Fury input proposal (2026-11-08 JST).** No learned input or new icon identity is added by the test-only candidate. Blade Fury talent and left/right/quick icons remain pending placeholders, independently of its effect/audio work. See [proposal](blade-fury-held-input-proposal.md).
+
 **Learned Arctic input (2026-11-08 JST).** The client now routes left/right/quick Arctic gestures through the held channel. The existing Arctic talent and corresponding hotkey icon assets remain placeholders;adding this mechanical route creates no new icon identity. Effects/audio remain separate. See [checkpoint](arctic-held-input-checkpoint.md).
 
 **Arctic potion delivery (2026-11-07 JST).** This internal receiver change adds no icon. Arctic Blast still needs its existing talent and left/right/quick-hotkey icon assets; held input was separately approved and awaits integration. See [checkpoint](arctic-potion-checkpoint.md).
