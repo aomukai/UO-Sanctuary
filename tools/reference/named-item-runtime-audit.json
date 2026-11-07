@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "71734c02e5913cbe54f192c8f35155b566181ef2eba16bda22c7c11b6d675cf7",
+  "ContentAssemblySha256": "ef047934d9d5e272791da9c3823391e4b21c56cfe5b481914805fa15e32ce628",
   "NativeAssemblySha256": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -1101,8 +1101,8 @@
     "src/Sanctuary.Content/ValkyrieCreation.cs": "9f189ae28d7803ce88d9d9734902b7b537d4d61d81f995be3b618f76a493f31d",
     "src/Sanctuary.Content/ValkyrieEquipment.cs": "49f2642564a74eb0543f2f1bfcc0b4de47158c5751b2d8226afeef148a901780",
     "src/Sanctuary.Content/ValkyrieEquipmentAnimation.cs": "86415b22874be92c33e0f45d2a611127d459452d207552a223eba095e8c03f8b",
-    "src/Sanctuary.Content/ValkyrieEquipmentContact.cs": "64c9058f6019d2ec7fd0ca0216a9e7a0a0ff4186529fb5f97751b6a0571e94c4",
-    "src/Sanctuary.Content/ValkyrieEquipmentDamage.cs": "af054aa0072476c720744d959e63685e2811dc3c9132af2b793071e375187311",
+    "src/Sanctuary.Content/ValkyrieEquipmentContact.cs": "93d94fe75c75beb24f4e555ed06e25766308c124dd499d8c86b3b8c2db09f545",
+    "src/Sanctuary.Content/ValkyrieEquipmentDamage.cs": "279c8fb7348acab42eb3309456639e775098aa5b872cc838717b68955fe9e8ac",
     "src/Sanctuary.Content/ValkyrieEquipmentDefense.cs": "582db148595ecb13936f60af72ea4141270c2009eaa22503ad1effe4e1ac77e4",
     "src/Sanctuary.Content/ValkyrieEquipmentResources.cs": "9bee02ea5535b53643024a83b03e96be773f1572f531a077195346ea0cd4cff2",
     "src/Sanctuary.Content/ValkyrieEquipmentStats.cs": "31f253c533915462a6188e3b966728f15b1c1c765b646ae21ee673b9395c9277",

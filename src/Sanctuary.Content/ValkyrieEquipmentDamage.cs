@@ -42,7 +42,18 @@ internal static class ValkyrieEquipmentDamage
         var weapon=ValkyrieEquipmentWeapons.Frame(body);var graph=body.EquipmentNumbers;var passives=Passives(body);
         NpcEquipmentRandom.Require(body);
         int critical=passives.Where(s=>s.Stat==337).Sum(s=>s.Value);
-        int Read(NpcFillStat stat)=>checked(graph.Read((int)stat)+(stat==NpcFillStat.PASSIVE_CRITICAL_STRIKE?critical:0));
+        var external=NpcEquipmentElements.WithBonuses(body,new(),0,0,0,0).Stats;
+        // Enchant's enma/exma stat-list writers store whole-point mastered
+        // endpoints. Reuse live buff composition without changing the graph
+        // or adding a second elemental roll;the full filler applies own mastery.
+        int Extra(NpcFillStat stat)=>stat switch
+        {
+            NpcFillStat.FIREMINDAM=>external.FireMin/256,NpcFillStat.FIREMAXDAM=>external.FireMax/256,
+            NpcFillStat.LIGHTMINDAM=>external.LightningMin/256,NpcFillStat.LIGHTMAXDAM=>external.LightningMax/256,
+            NpcFillStat.COLDMINDAM=>external.ColdMin/256,NpcFillStat.COLDMAXDAM=>external.ColdMax/256,
+            NpcFillStat.PASSIVE_CRITICAL_STRIKE=>critical,_=>0
+        };
+        int Read(NpcFillStat stat)=>checked(graph.Read((int)stat)+Extra(stat));
         // Source NPCs are not hirelings. The player/hireling-only melee event
         // must never be substituted with a generic item-proc callback here.
         return weapon.Fill(target,initial??new(),0,1,true,0,NecromancerSummons.Source("valkyrie","Crit"),

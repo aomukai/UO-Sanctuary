@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "originalLoadouts": 57,
+  "originalItems": 330,
+  "packets": 5472,
+  "packetsPerBoot": 1824,
+  "completeRoutineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "SKILLS_GetBonusSkillLevel": "7e20ab48d9d6657c8eb8907d879dc7ccd700c3789568b7424630d658d77827c0",
+    "SKILLS_GetSkillLevel": "4bf88a74fe5cbd91109bfc2d42f617a979446fda102007d67081e69c642952dd"
+  },
+  "reviewedWriterHashes": {
+    "SKILLS_GetSpecialParamValue": "725f034cfdece6722e4a13ac7194ea6a0d0216b1ab9dc0bca31d22ab3fbc0328",
+    "SKILLS_SrvDo025_Enchant": "a76eee60714eae538acd93506fec1689fcaae134905b3c2f135da34b02b4d6bb"
+  },
+  "inputs": {
+    "tools/reference/valkyrie-damage-source-evidence.json": "c446b7844eef67231cbe051bea4e3448eedfb85ca23ae757235f6298a01c7eb5",
+    ".local/class-skills/valkyrie-damage-source/source.cpp": "1e0ac427bdc528caac49de673ea70808267184ec5ced959002fcbfd616d92511",
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "tools/reference/hex-bane-source-evidence.json": "908814ea17916bd40e38092e6d8bbabd867f58fe5094bbf4ce54fe2879c1d69b",
+    ".local/class-skills/fire-golem-mode-source/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    ".local/class-skills/valkyrie-numeric-source/cases.json": "84d4b88684e46efa908b6e6a11aea45f7cfbeaf8071f9920d96c2857749312ef",
+    ".local/class-skills/valkyrie-resources-source/cases.json": "7f03a22f52d7afee1a7c50144f8bc91ae05d6ebc93f154c777c3c0564e98ec6f",
+    "data/Sanctuary/Balance/npc-item-affix-catalogue.json": "97ac98d63b6462c21b22af474e92e2e82bbcd8eba574c56536f88455b816800e"
+  },
+  "scope": [
+    "Twelve complete prior fill/innate/RNG bodies remain unchanged.57original source-reader loadouts,8external contexts,4shares,3continuations compare whole packets/armor/exact actor RNG. No-buff,subpoint and expired services retain their original source graph.",
+    "Current Enchant table uses enma/exma;owned aliases49/50and complete reviewed getter establish whole-point mastered endpoints. Source do25 writes those formula results. This harness supplies external integer stat-list values;it does not execute a complete current buff publisher or claim current executable chronology.",
+    "Aura leases are explicit existing native services. Own item mastery is applied once by full fill after combining endpoints. No owner item/mastery inheritance or additional buff RNG. Actual learned/pet Enchant and live contact/saves are native checks,not implied by this source matrix."
+  ],
+  "artifacts": {
+    ".local/class-skills/valkyrie-buffs-source/source.cpp": "45514db3991005ee9d5a625eadb42ffa4804d57da2d0b630effeb665ec64c4e0",
+    ".local/class-skills/valkyrie-buffs-source/input.txt": "61ac0af9cc5076ce8b31f819a95997916656806430c1f7eb8cf5c3a52b707a58",
+    ".local/class-skills/valkyrie-buffs-source/output.json": "837c3832e048d94d9e03a03d478ff7a40fe496e9beb9dc7b2b3c724116f66da9",
+    ".local/class-skills/valkyrie-buffs-source/cases.json": "812c8395965305c76f9ed7fd063d58ad9937d6f47c4e533e9d69f5709176f74e",
+    ".local/class-skills/valkyrie-buffs-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/valkyrie-buffs-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_valkyrie_buffs.py": "8f60668d3b6c87a106b9dec68511ac97025b71173fb92dbd51a25788359ee809"
+  }
+}

@@ -76,8 +76,6 @@ internal static class ValkyrieEquipmentContact
         if(target is not{Alive:true,Deleted:false}){throw new NotSupportedException("Original Valkyrie allocation needs a living NPC recipient");}
         if(body.EquipmentNumbers.Stats.Any(v=>v.Stat==180&&v.Value!=0))
         {throw new NotSupportedException("Original monster-type damage needs a concrete current target-type adapter");}
-        if(SorceressEffects.Enchantment(body)!=null||new[]{CombatAbility.HolyFire,CombatAbility.HolyFreeze,CombatAbility.HolyShock}.Any(a=>PaladinAuras.Effect(body,a)!=null))
-        {throw new NotSupportedException("Original Valkyrie fill needs external elemental stat-list composition");}
         WeaponStartEffects.RequireArmorDelta(body.EquipmentNumbers.Read(120));
         if(checked(CreatureProfiles.Defense(target)+NpcEquipmentCombat.Defense(target))<0)
         {throw new NotSupportedException("Original Valkyrie target armor is outside the native base-stat adapter");}

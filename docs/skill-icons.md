@@ -1,5 +1,7 @@
 # Skill icons
 
+**Valkyrie external buffs (2026-11-07 JST).** This adds no player skill or hotkey. Existing Valkyrie, Enchant and aura talent/hotkey icons and buff/status placeholders remain in their separate asset lists.
+
 **Valkyrie town and overlap (2026-11-07 JST).** Structural registration, parking and facing fallback add no skill or hotkey icon. Existing Valkyrie talent/hotkey and related effect/status icon placeholders remain in the separate asset list.
 
 **Valkyrie startup and expanded procs (2026-11-07 JST).** Derived controller rates and NPC item casts add no player skill or hotkey icon. The Valkyrie and existing Ice Bolt/Lightning/Amplify talent/hotkey entries retain identified icon placeholders,tracked separately from effects.

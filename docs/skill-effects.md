@@ -1,5 +1,7 @@
 # Skill effects
 
+**Valkyrie external buffs (2026-11-07 JST).** Original Enchant/aura damage support reuses existing identified weapon-glow, aura, elemental-hit, status and audio placeholders. No final art is generated. Valkyrie summon/body/equipment/movement/spear/death effects and talent/hotkey icons remain separate asset work.
+
 **Valkyrie town and approved knockback direction (2026-11-07 JST).** Parking/return and same-tile facing change mechanical admission and movement, not final art. Existing appear/disappear, spear/knockback, recovery, status, curse/projectile and audio markers remain identified placeholders. Final Valkyrie body/equipment and summon/death assets remain separate; no imagegen artwork is created.
 
 **Valkyrie startup and expanded procs (2026-11-07 JST).** Derived rates add no artwork. Original NPC Ice Bolt/Lightning reuse the existing identified projectile/impact/cold/line placeholders; Amplify Damage uses the shared curse effect/audio placeholder. Final effects/audio remain separate from Valkyrie body/equipment,summon/movement/spear/death assets. No imagegen asset is created.
