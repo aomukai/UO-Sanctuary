@@ -49,12 +49,13 @@ internal static class DragonTailPreparation
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }
-    internal static int ResultFlags(PlayerMobile owner,BaseCreature target,Func<bool> inRange,Func<double> hitRoll)
+    internal static int ResultFlags(PlayerMobile owner,BaseCreature target,Func<bool> inRange,Func<double> hitRoll,CombatAbility ability=CombatAbility.DragonTail)
     {
+        if(ability is not(CombatAbility.DragonTail or CombatAbility.DragonTalon)){throw new NotSupportedException("Unapproved dragon finisher hit policy");}
         PlayerWeaponContact.RequireOrdinary(owner,target,true);
         var charges=AssassinCharges.Finisher(owner);
-        int attack=checked((int)SkillMechanics.Values(owner,CombatAbility.DragonTail).Formula("toht")+charges.Sum(x=>x.AttackPercent));
-        // Explicit approved Sanctuary rule: charged accuracy only. The shared
+        int attack=checked((int)SkillMechanics.Values(owner,ability).Formula("toht")+charges.Sum(x=>x.AttackPercent));
+        // Separately approved Tail/Talon rule: charged accuracy only. The shared
         // result pipeline still enforces hostility, range and block/dodge.
         return SourceMeleeResult.Resolve(new Result(owner,target,inRange,hitRoll,charges.Length!=0,
             PlayerWeaponContact.Metadata(target,true)==null),attack);

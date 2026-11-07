@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Dragon Talon (2026-11-08 JST).** Talent and left/right/quick-hotkey icons remain pending text-label placeholders. Actual server bindings are checked independently;no final artwork or rendered-client acceptance is claimed. See [checkpoint](dragon-talon-action-checkpoint.md);effects/audio stay separate.
+
 **Prepared Dragon Talon clock (2026-11-08 JST).** No active binding is exposed by the prepared planner. Talon talent and left/right/quick icons remain pending placeholders. See [checkpoint](dragon-talon-clock-checkpoint.md);effects/audio remain separate.
 
 **Approved learned Blade Fury (2026-11-08 JST).** Existing left/right/quick gestures now admit Fury through the shared channel transport. Talent and left/right/quick icon assets remain pending placeholders; no new icon identity is introduced. See [checkpoint](blade-fury-held-input-checkpoint.md). Effects/audio remain separate.

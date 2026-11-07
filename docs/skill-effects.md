@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Dragon Talon (2026-11-08 JST).** The approved series reuses native Wrestle pose/contact sound0x238 and existing identified charge/element/knockback cues. Final directional kicks,series/contact,charge releases,miss/block/interruption/recovery and audio remain needed independently of mechanics. See [checkpoint](dragon-talon-action-checkpoint.md);icons stay separate.
+
 **Prepared Dragon Talon clock (2026-11-08 JST).** Numeric planning creates no effect producer or final animation. Kick/series/contact, progressive-charge effects and audio remain needed;existing generic melee presentation is a placeholder. See [checkpoint](dragon-talon-clock-checkpoint.md). Talent/hotkey icons remain separate.
 
 **Approved learned Blade Fury (2026-11-08 JST).** The held-input route reuses native weapon-flight presentation as an identified placeholder. Final startup/loop/release poses, bladefragment1/2 travel/contact/expiry and audio remain pending. Mechanics introduce no generated asset. See [checkpoint](blade-fury-held-input-checkpoint.md); talent/hotkey icons remain separate.

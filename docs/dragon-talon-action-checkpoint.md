@@ -1,0 +1,25 @@
+# Dragon Talon action checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations taking precedence. The user explicitly approved [the saved action rule](dragon-talon-approved-action-rule.md) on 2026-11-08 JST. The implementation uses that rule; exact modern timing and charge boundaries remain unverified.
+
+Dragon Talon now has a learned handler. It captures `floor(effective rank / 6) + 1` kicks, pays six mana once at entry and retains its original target. Each successful, unblocked kick releases and consumes one charge from every active martial charge family. Charges bypass accuracy only: shield block and dodge still apply. Misses and blocks preserve charges; fully absorbed successful contact consumes them. Insufficient mana uses the existing ordinary attack fallback.
+
+The action reuses `DragonTalonTiming`, body and boot damage, selected-primary weapon scopes, ordered poison and typed damage, charge release/consumption, ordinary contact, leech, source knockback and hit recovery. Dragon Tail shares the prepared kick and progressive-release helpers without adopting Talon's entry payment or timing. The approved clock rereads current speed when scheduling later kicks and retains the final full-cycle recovery. Count stays captured at entry. Each ordinal is reserved before callbacks so cancellation cannot replay it.
+
+Movement, weapon/secondary/boot identity changes, hit recovery, invalid owner state and loss of the original target stop future kicks. Paid mana is not refunded. Subsequent input can start a new series once the action deadline permits. Series are transient and never replay after a save/restart; resources, original equipment, bindings and unconsumed charges persist separately.
+
+The accepted package is **Content 4 / Integration 5 / source snapshot 1**. Both final builds have zero warnings and errors. **87 focused, 303 retained and 36 isolated native markers** pass on the same frozen binaries and data, each over three boots, two actual reloads and three saves. All **71 Python tests and six source/generator/snapshot commands** pass. Fresh audits with **1,157 / 21 input fingerprints** preserve all **573 item availability decisions**. The installed **106 artifacts, 38 saves, 20 configurations and 43 client patches** remain unchanged. See [the native receipt](../tools/reference/dragon-talon-action-native-evidence.json); `python3 tools/record_dragon_talon.py --check` rechecks its exact evidence.
+
+Native action cases cover four contacts and final recovery, fractional entry payment, misses, charged accuracy, shield block, fully absorbed contact, Tiger/Cobra consumption, single/final knockback, target loss/death and seven interruption paths. Actual left/right/quick packets drive the native update loop. The same original Tarnhelm, Gorerider, effective rank, bindings, wounds, fractional mana and remaining charge survive both reloads. A separately paid pending series is absent after reload without a refund or replay. Retained kick, Tail, Flight, charge and broader trap checks remain intact.
+
+Three initial isolated attempts rejected fixture assumptions: Cobra mana leech changed the expected balance; the training helper could not lower rank for the rank-one case; and an offline owner needed restoration to its saved position before a new cast. Those cases were corrected without weakening the entry-payment, rank-one or saved-resource checks. The fourth isolated candidate passed before the final source/data freeze and clean rebuild; only the final cohorts above certify the accepted package. Failed logs are recorded in the receipt, and no installed world was used.
+
+Explicit limits:
+
+- The clock is the separately approved, pinned original-calculator profile, not verified execution of modern D2R. Current executable timing, charge boundaries, geometry, event/RNG order, arbitrary item/proc/owner contexts and PvP remain outside acceptance.
+- Native NPCs without an admitted knockback/recovery profile are explicitly refused before entry payment. No invented D2 source profile or silently ineffective innate knockback is supplied.
+- Firelizard's individual-skill item catalogue admission remains unavailable. Its properties are preserved; the retained timing control uses a complete socketed IAS claw.
+- Empty-ground melee assistance is the separately recorded later pass. The series keeps the selected enemy and does not retarget a nearby replacement.
+- Final kick/series/contact, progressive-charge effects and audio remain missing. Native Wrestle pose, contact sound `0x238` and existing shared cues are identified placeholders. Talent and left/right/quick icons remain separately pending in [icons](skill-icons.md); [effects](skill-effects.md) tracks the other assets.
+
+The goal remains active with **206/240 handlers, Assassin 26/30**. A handler is not a full class certificate. Dragon Claw, Dragon Flight and both Shadow summons remain on the Assassin roadmap; Amazon Slow Missiles and 29 Warlock routes also remain. No installed build, existing save, configuration or client patch is changed by this disposable-world verification.

@@ -90,7 +90,7 @@ public static class DragonKickChecks
         int skillDamage=5+AssassinCharges.TigerPercent(charge,SkillMechanics.Rank(p,CombatAbility.TigerStrike));var captured=DragonKickDamage.Capture(p,skillDamage);
         var previous=DragonKickDamage.Capture(p,skillDamage);p.AddToBackpack(gloves);ClassGear.Refresh(p);Require(DragonKickDamage.Capture(p,skillDamage).MaxDamagePercent==0 && DragonKickDamage.Range256(captured)==DragonKickDamage.Range256(previous),"Captured boot packet changed with later armor removal");Require(p.EquipItem(gloves),"Reequip armor ED");ClassGear.Refresh(p);
         Require(AssassinCharges.State(p)==charge && DragonKickDamage.Capture(p,skillDamage)==captured,"Preparation consumed/refreshed charge or altered gear");
-        Require(!AssassinCombat.Implemented(CombatAbility.DragonTalon),"Prepared component must not enable unsupported kick cast");
+        Require(AssassinCombat.Implemented(CombatAbility.DragonTalon),"Approved Talon must reuse prepared kick component");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,bootIds,first.Serial.Value,second.Serial.Value,gloves.Serial.Value,captured,charge)));
         Log.Information("Dragon kick live capture:actual Bartuc nondamage attributes, selected hand,normal/exceptional/elite boots,Steelrend ED and immutable charge/packet controls pass");
     }

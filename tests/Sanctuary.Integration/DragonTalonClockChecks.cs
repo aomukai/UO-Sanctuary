@@ -46,7 +46,7 @@ public static class DragonTalonClockChecks
         {bool refused=false;try{DragonTalonTiming.Plan(rank,256);}catch(ArgumentOutOfRangeException){refused=true;}Require(refused,"Invalid Talon rank admitted");}
         foreach(int advance in new[]{0,37,449})
         {bool refused=false;try{DragonTalonTiming.Plan(1,advance);}catch(NotSupportedException){refused=true;}Require(refused,"Unknown Talon rate admitted");}
-        Require(!AssassinCombat.Implemented(CombatAbility.DragonTalon),"Prepared timing exposed learned Talon");
+        Require(AssassinCombat.Implemented(CombatAbility.DragonTalon),"Approved Talon lost prepared timing");
         Log.Information("Talon prepared clock:490original-author primary-rate controls/3315rank extensions/10owned KK profiles;rank20at256 contacts4,8,12,16/end24;no input/charge/payment/engine-parity claim");
     }
     private static void Check()
@@ -74,8 +74,8 @@ public static class DragonTalonClockChecks
         NecromancerEffects.SetMana256(p,20*256+31);SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-257);
         int mana=NecromancerEffects.ManaBalance256(p),life=SkillHealth.Balance256(p),durability=primary.HitPoints,otherDurability=secondary.HitPoints;
         var plan=DragonTalonTiming.Plan(p);
-        Require(!ClassCombat.Available(p,CombatAbility.DragonTalon)&&!SkillBindings.Instance.Assign(p,false,CombatAbility.DragonTalon)
-            &&!ClassCombat.Perform(p,CombatAbility.DragonTalon,null,p.Location,Core.TickCount),"Prepared Talon timing enabled active input");
+        Require(ClassCombat.Available(p,CombatAbility.DragonTalon)&&SkillBindings.Instance.Assign(p,false,CombatAbility.DragonTalon)
+            &&!ClassCombat.Perform(p,CombatAbility.DragonTalon,null,p.Location,Core.TickCount),"Approved Talon availability or empty-target refusal");
         Require(NecromancerEffects.ManaBalance256(p)==mana&&SkillHealth.Balance256(p)==life&&primary.HitPoints==durability&&secondary.HitPoints==otherDurability,"Prepared clock paid/healed/wore actual items");
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,primary.Serial.Value,secondary.Serial.Value,helm.Serial.Value,mana,life,Json(ClassGear.State(secondary)),plan)));
     }

@@ -1,6 +1,6 @@
 # Dragon Talon action proposal
 
-Status: **not approved; learned route remains gated**. Mechanical reference is **D2R Reign of the Warlock 3.3.93847**. The prepared body/boot packet and [explicit calculator clock](dragon-talon-clock-checkpoint.md) are available for reuse. Exact modern per-kick charge and outer timing behavior remain unverified; this is a proposed Sanctuary adaptation, not a playtest request.
+Status: **approved2026-11-08 JST**; see [the recorded approval](dragon-talon-approved-action-rule.md) and [implementation checkpoint](dragon-talon-action-checkpoint.md). The table retains its original proposed-rule wording for traceability. Mechanical reference is **D2R Reign of the Warlock 3.3.93847**. The prepared body/boot packet and [explicit calculator clock](dragon-talon-clock-checkpoint.md) are available for reuse. Exact modern per-kick charge and outer timing behavior remain unverified; this is a proposed Sanctuary adaptation, not a playtest request.
 
 | Boundary | Proposed action rule | Basis |
 | --- | --- | --- |
