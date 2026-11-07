@@ -1,5 +1,7 @@
 # Skill effects
 
+**Full original NPC proc callbacks (2026-11-07 JST).** Actual original-item callbacks now create Fire Bolt,Charged Bolt,Frost Nova,Nova and Chain Lightning through existing placeholder effects. Shared item-cast audio0x1E5 and fire/cold/lightning markers remain identified placeholders;final proc/cast/travel/link/impact/audio/client presentation still need assets. This checkpoint generates no artwork.
+
 **Original NPC item event history (2026-11-07 JST).** Registration and persistence add no visible effect. Existing fire/lightning/cold/proc/impact/audio placeholders remain identified;final art and client presentation remain pending. Effect bodies still require the original combat dispatcher binding.
 
 **Protected original item wrappers (2026-11-07 JST).** Successful target/position wrappers reuse identified audio placeholder0x1E5 after restoring their temporary frame. Fire/lightning/cold markers remain placeholders; final proc/cast/travel/link/impact/audio and client presentation remain pending. Mechanical restoration and save tests add no artwork.

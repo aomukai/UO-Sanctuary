@@ -1,5 +1,7 @@
 # Skill icons
 
+**Full original NPC proc callbacks (2026-11-07 JST).** Internal original-item callback execution adds no talent/hotkey slot. Valkyrie talent/right/quick artwork and later proc UI icons remain separately pending.
+
 **Original NPC item event history (2026-11-07 JST).** Internal registration and persistence add no talent/hotkey slot. Valkyrie talent/right/quick and later proc UI icons remain separately pending.
 
 **Protected original item wrappers (2026-11-07 JST).** The internal wrapper adds no talent or hotkey slot. Original pet talent/right/quick and later proc UI artwork remain separately pending.

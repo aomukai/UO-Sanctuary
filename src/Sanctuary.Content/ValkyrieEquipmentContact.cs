@@ -27,8 +27,12 @@ internal static class ValkyrieEquipmentContact
         var body=(AmazonValkyrieBody)actor;_=ValkyrieEquipmentWeapons.Frame(body);
         // The source-profile/native resistance pool already contains stat37.
         // Its additive recipient hook must not count that full graph twice.
+        return Number(body.EquipmentNumbers,code);
+    }
+    internal static int Number(GeneratedNpcStatGraph graph,string code)
+    {
         if(code=="res-mag"){return 0;}
-        return Codes.TryGetValue(code,out int stat)?body.EquipmentNumbers.Read(stat)
+        return Codes.TryGetValue(code,out int stat)?graph.Read(stat)
             :throw new NotSupportedException("Unadmitted original Valkyrie scalar consumer: "+code);
     }
     private static NpcCombatEvents ValidateGraph(AmazonValkyrieBody body)

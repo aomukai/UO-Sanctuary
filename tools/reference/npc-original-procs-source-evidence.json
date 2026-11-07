@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableParity": false,
+  "contexts": 1536,
+  "loadouts": 27,
+  "sourceRoutines": {
+    "SKILLITEM_EventFunc20_SkillOnAttackHitKill": "16597b958261a8451464ec506325f5207d9eeca6b94ad80b9bb61b98c3c53cea",
+    "SKILLITEM_EventFunc21_SkillOnGetHit": "16a480dc6cc7bb2c5567d196f7a9e17ad7a9d15339f912e78800cd5f5051a6e2",
+    "SKILLITEM_EventFunc30_SkillOnDeathLevelup": "7cbe657c10946331af83a790c9a806e2333e1d7ec3362b21f3d7f720ee1aca43",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "inputs": {
+    "tools/reference/item-proc-callbacks-source-evidence.json": "08c21bef243756397468a23b97fd75958374e2dd53fbbb9f7c999dab338aff57",
+    ".local/class-skills/item-proc-callbacks-source/source.cpp": "3187f7a4bfd8fcfdb509c5426c4b2114b9fb29a3ec9061fd59d584925c98a2c5",
+    ".local/class-skills/npc-original-events-source/cases.json": "db44c77ca2ac9d7602550a59f49d7eea3604b2a13ace010706c4c4c7337a21b3",
+    ".local/class-skills/valkyrie-resources-source/cases.json": "7f03a22f52d7afee1a7c50144f8bc91ae05d6ebc93f154c777c3c0564e98ec6f"
+  },
+  "artifacts": {
+    ".local/class-skills/npc-original-procs-source/source.cpp": "5ecc5dd4117aad8537178742f36a83c7c1e9ff879ace055e0607684cb7f8b7fd",
+    ".local/class-skills/npc-original-procs-source/probe": "2f8a44995a8f10fef3c42d655e988a0ac68fd45eafb181d46979006c04486924",
+    ".local/class-skills/npc-original-procs-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-original-procs-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/npc-original-procs-source/cases.json": "ea92c5c60299007c07e7a866c4adf22ad535ef36c467d55ee0db239272e92636",
+    "tools/probe_npc_original_procs.py": "c57ff69142238a1d37f106f7c611b3bf93ee79d635d9f5373c9b7ba4ab4af77c"
+  },
+  "scope": "Actual original graph phase/head/layer/chance frames feed complete older callbacks and LCG. Three packet contexts,four boundary-roll seeds and success/failure cast services preserve result,per-node seed and ordered chance/RNG/lookup/cast services. World emission and allocation remain separate native checks."
+}

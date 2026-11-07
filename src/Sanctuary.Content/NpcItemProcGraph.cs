@@ -125,23 +125,11 @@ internal sealed class NpcItemProcGraph
     private int Invoke(int function,int phase,int guid1,int guid2)
     {
         var frame=Current??throw new InvalidOperationException("NPC callback has no event frame");
-        if(function==7)
+        if(function is not(20 or 21))
         {
-            var result=NpcItemKnockback.Apply(frame.Actor,frame.Other,frame.Packet);
-            Current=frame with{Packet=result.Packet};return result.Success?1:0;
+            var packet=frame.Packet;int result=NpcItemEventEffects.Run(function,phase,frame.Actor,frame.Other,ref packet,frame.At,frame.Roll);
+            Current=frame with{Packet=packet};return result;
         }
-        if(function==8){return NpcItemFear.Apply(frame.Actor,frame.Other,frame.At)?1:0;}
-        if(function==9){return NpcItemBlind.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
-        if(function==10){return NpcLightningReturn.Apply(frame.Actor,frame.Other,frame.At)?1:0;}
-        if(function==19){return NpcItemSlow.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
-        if(function==29){return NpcRestInPeace.Apply(frame.Actor,frame.Other)?1:0;}
-        if(function==17){return 0;} // NPC sources fail the player-only mana-after-kill guard.
-        if(function is 18 or 28){return NpcKillRecovery.Apply(frame.Actor,frame.Other,function==18)?1:0;}
-        if(function==13){return 0;} // Damage-to-mana is player-only before all packet/stat/RNG services.
-        if(function==14){return NpcItemFreeze.Apply(frame.Actor,frame.Other,phase==6,frame.At)?1:0;}
-        if(function==15){NpcOpenWounds.Apply(frame.Actor,frame.Other,frame.At,phase==6,frame.Roll);return 1;}
-        if(function==16){NpcCrushing.Apply(frame.Actor,frame.Other,phase==6,frame.Roll);return 1;}
-        if(function is not(20 or 21)){throw new NotSupportedException("NPC callback has no admitted body:"+function);}
         return ItemProcCallbacks.Run(function,unchecked((uint)guid1),new ProcServices(this,frame));
     }
     private sealed class ProcServices(NpcItemProcGraph graph,Frame frame):ItemProcServices
