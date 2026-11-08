@@ -87,7 +87,7 @@ internal static class ShadowMasterWorld
                     (s,t,px,py)=>
                     {
                         if(s.Id==0){return q.Act(new(NecromancerPetAiKind.Attack,s.Mode,t?.Id??0));}
-                        if(!(s.Id is 251 or 253 or 255 or 256 or 260 or 264 or 270 or 273 or 275 or 277||s.Id==257&&ShadowBladeSentinels.AutomaticReady||ShadowDefensiveBuffs.Handles(s.Id)||ShadowSentries.Handles(s.Id)||ShadowFinishers.Builder(s.Id)))
+                        if(!(s.Id is 251 or 253 or 255 or 256 or 260 or 264 or 266 or 270 or 273 or 275 or 277||s.Id==257&&ShadowBladeSentinels.AutomaticReady||ShadowDefensiveBuffs.Handles(s.Id)||ShadowSentries.Handles(s.Id)||ShadowFinishers.Builder(s.Id)))
                         {body.MasterGap(s.Id,"Intrinsic skill action consumer remains unimplemented or separately gated");return 0;}
                         if(px!=0||py!=0){throw new NotSupportedException("Master coordinate action needs its own saved aim bridge");}
                         return q.Act(new(NecromancerPetAiKind.Skill,s.Mode,s.Id,t?.Id??0));

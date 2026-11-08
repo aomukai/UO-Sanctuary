@@ -18,6 +18,21 @@ internal static class ShadowFuryPackets
         {throw new NotSupportedException("Unqualified own Shadow Fury packet row");}
         return r;
     }
+    internal static (int Passive,int Deadly,int Mastery) CriticalChances(AssassinShadowBody body)
+    {
+        _=Row();_=ShadowEquipmentDefense.Require(body,false);
+        if(body.OwnedSkills.Used!=266||body.OwnedSkillRank(266)<1||ShadowEquipmentDefense.Composite(body)!=13)
+        {throw new NotSupportedException("Fury critical capture needs its own selected original dual claws");}
+        var graph=OriginalNpcEquipment.Graph(body);var binding=ShadowLoadout.Binding(body);
+        var frame=graph.Weapons(binding.Primary,binding.Secondary,false,false,0,0,0);frame.Enter();
+        try
+        {
+            if(frame.Selected!=binding.Primary){throw new NotSupportedException("Fury critical lost original primary claw");}
+            // Source MISSILE_HasBonusStats supplies a null skill to mastery.
+            return(graph.Read(337),graph.Read(141),frame.Mastery(2,0,0));
+        }
+        finally{frame.Restore();}
+    }
     internal static ShadowFuryPacket Capture(AssassinShadowBody body,int rank,bool critical)
     {
         _=Row();_=ShadowEquipmentDefense.Require(body,false);

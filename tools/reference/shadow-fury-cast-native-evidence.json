@@ -1,0 +1,100 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "approvedRules": [
+    "Approve the single-sequence Shadow Fury rule",
+    "Approve unsigned NPC missile critical"
+  ],
+  "nativeMarkers": 27,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-fury-cast-check": 1,
+    "shadow-fury-clock-check": 1,
+    "shadow-fury-packets-check": 1,
+    "shadow-fury-missiles-check": 1,
+    "shadow-master-world-check": 1,
+    "blade-fury-missile-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-fury-cast-reload-check": 2,
+    "shadow-fury-clock-reload-check": 2,
+    "shadow-fury-packets-reload-check": 2,
+    "shadow-fury-missiles-reload-check": 2,
+    "shadow-master-world-reload-check": 2,
+    "blade-fury-missile-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 3,
+  "sourceSnapshot": 4,
+  "newCompilerMatrices": 0,
+  "reusedSource": {
+    "shadow-fury-packets": {
+      "sha256": "152a4aef4551058b10addd8ee0d5b3d1329f596a77de5ce53f3a50a10cea56e1",
+      "contexts": 16
+    },
+    "shadow-fury-missiles": {
+      "sha256": "d1b7fa210d7a4db4e2e65e5d65c1f0ec06fb38cd469aa3bec92c570842a2fd25",
+      "contexts": 128
+    },
+    "shadow-fury-clock": {
+      "sha256": "3d7bd3c20216fc36aa70151c79322f04d56342e969866a3b0a693f7e8ffa8c56",
+      "contexts": 12
+    },
+    "shadow-fury-action": {
+      "sha256": "a390f06d3e6a6526488bedbaa11a867983c13799e6ab486ffe9237b7a48a1a27",
+      "contexts": 46
+    },
+    "shadow-fury-callback": {
+      "sha256": "bbcf6d7bbd4d196cc0eeda1cd4ab4a0276b8ddf69e0579fe4eed5a1209e6761d",
+      "contexts": 12
+    }
+  },
+  "files": {
+    "src/Sanctuary.Content/ShadowBladeFury.cs": "a7c48faa0f890923fece5419a1f072fb6cf75748c905d7ad3a64ab10fe91a530",
+    "src/Sanctuary.Content/ShadowFuryPackets.cs": "f095f6d9445cf5bd47f1c72732cb5fdb1b42a823d46cb3bad12935f0cb732080",
+    "src/Sanctuary.Content/ShadowFuryMissiles.cs": "e50790f8a47ab9d62a885001a9d4f5581271bcc186260f0cb7e0d7182cdc26c6",
+    "src/Sanctuary.Content/ShadowSkillCasting.cs": "6434bc7d692141e23441b2163263d7d5ffb2b3d5421c0b689b4a5c54f5c22edf",
+    "src/Sanctuary.Content/ShadowActions.cs": "7032c30e11aabe7d56b73d14bfbaa9e7e5cfa0f2c563091f3c80d341faa51fc0",
+    "src/Sanctuary.Content/NpcMissileCritical.cs": "b8343620f96bd124d931d4a0374cc0aa31f06940812486f85f7b2584c2116b74",
+    "src/Sanctuary.Content/AssassinShadowBody.cs": "64c711538338302358c12cf022fc1ecef19539429eca64860bdd832bd0428971",
+    "src/Sanctuary.Content/ShadowMasterWorld.cs": "9bdfad4610322617a7b882f7af8ad3239b7e1c3db2b0f232356d2a7c0ecd6a9a",
+    "tests/Sanctuary.Integration/ShadowFuryActionChecks.cs": "3b3725634b32f9667aef7a0eaba44c586f38a2d7502af11996083ada1af778b5",
+    "tests/Sanctuary.Integration/ShadowMasterWorldChecks.cs": "949bc0f92ba9109b1e08850921f466d65303eedba543213eb28a2c70e8a09a47",
+    "tests/check_shadow_fury_cast.py": "8414b22295e094fa7b0db3261e5343b6a85537aa6588012e3edc4a9b333f9f97",
+    "tools/record_shadow_fury_cast.py": "c95fad8a954877fc325284d47e2fb4ad9802754ee0934965c54bd0c2d7b90b23"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "f03c17572145744380ebbd21f1a76099b57909f3025b0476d390d3f67a8a1b9f",
+    "Assemblies/Sanctuary.Integration.dll": "f83dbe6bebfc56f5c8ba767dd703140cd506fccf1fa0fe0ee219b68e156dc59b"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Actual original own mode14 sequence releases at10 and recovers at18,without rewind/cross-action lease. Shared startup26/do48/free resource state and action conductor reused. Unsigned own337/141/selected-primary null-skill mastery tests short circuit on actual NPC stream;world unit seed allocated separately,private projectile seed preserved. No additional player or pet mana. Common own packet/projectile/typed damage/return/credit/save host retained. Direct action-born blade travel/HP damage,ground,moving/deleted-target,live-rank,duplicate/end,pending suspend/no replay,eight interruptions and both natural Warrior and isolated-candidate Master AI pass. Existing 128NPCimpact,16packet,12clock,46SC/critical controls and retained player missile/Master world checks pass across two reloads. Master synthetic unavailable-repeat regression now uses owned passive252 rather than newly supported Fury266;no off-class skill inserted.",
+  "diagnostic": "Native1 fixture expected a previously initialized world seed although the allocation service correctly initializes lazily. Added explicit world initialization before seed-order comparisons. C1/I3/native3 passes27markers. Earlier failed log/input manifest retained. No prior compiler matrix rerun.",
+  "remaining": [
+    "Learned Shadow admission and full class certification remain separate;handler count remains208",
+    "Exact current D2R rewind/re-entry/critical signedness is replaced only by the two explicit approvals,not established as current-executable behavior",
+    "Other recipient/property contexts retain explicit refusals,including NPC Fury unsupported burn/bypass/positive armor packets and player/PvP recipients",
+    "Full modern AI/geometry/mutation/removal parity and other inherited item consumers remain scoped",
+    "Final Fury/Shadow poses,blade travel/impact/expiry and sound remain existing identified placeholders;talent/hotkey icons separately tracked"
+  ]
+}

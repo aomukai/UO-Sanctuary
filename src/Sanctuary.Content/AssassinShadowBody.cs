@@ -63,6 +63,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         bool started=mode==9&&skill==256?ShadowActions.BeginShockWeb(this,target,target?.Location??Location,at)
             :mode==9&&skill==257?ShadowActions.BeginBladeSentinel(this,target,target?.Location??Location,at)
             :mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
+            :mode==14&&skill==266?ShadowActions.BeginBladeFury(this,target,target?.Location??Location,at)
             :mode==14&&skill==275?ShadowActions.BeginDragonFlight(this,target,at)
             :mode==14&&skill==260?ShadowActions.BeginDragonClaw(this,target,at)
             :mode==4&&skill==255?ShadowActions.BeginDragonTalon(this,target,at)

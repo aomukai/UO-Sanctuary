@@ -4,9 +4,10 @@ namespace Sanctuary;
 
 internal static class NpcMissileCritical
 {
-    // Concrete proposed policy only. Intrinsic Shadow AI does not call this
-    // until the legacy signed-roll discrepancy has an approved resolution.
-    internal static bool ProposedUnsigned(int passive,int deadly,int mastery,Func<uint> raw)
+    // User-approved unsigned NPC weapon-missile policy. The historical
+    // proposal entry remains for its retained differential source controls.
+    internal static bool ProposedUnsigned(int passive,int deadly,int mastery,Func<uint> raw)=>Unsigned(passive,deadly,mastery,raw);
+    internal static bool Unsigned(int passive,int deadly,int mastery,Func<uint> raw)
     {
         if(passive<0||deadly<0||mastery<0){throw new NotSupportedException("Negative NPC missile critical chances need a source policy");}
         ArgumentNullException.ThrowIfNull(raw);

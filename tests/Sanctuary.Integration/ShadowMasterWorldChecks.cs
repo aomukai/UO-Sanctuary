@@ -47,9 +47,9 @@ public static class ShadowMasterWorldChecks
             // Enabling a candidate changes normal selection order. Exercise a
             // declared unavailable repeat directly instead of relying on a
             // particular unsupported skill being randomly tried before damage.
-            ShadowActions.Cancel(b);b.ChangeMasterMemory(b.Prepared.GroundMotion.Master with{Repeat=1,Skill=266});
+            ShadowActions.Cancel(b);b.ChangeMasterMemory(b.Prepared.GroundMotion.Master with{Repeat=1,Skill=252});
             for(int i=0;i<200&&b.Prepared.GroundMotion.Master.Repeat>0;i++){Frame(b);}
-            Require(b.Prepared.GroundMotion.Master.Repeat==0&&b.Prepared.GroundMotion.Gaps?.Any(g=>g.Skill==266&&g.Reason.Contains("consumer",StringComparison.Ordinal))==true,"Unavailable intrinsic repeat was not decremented/recorded");
+            Require(b.Prepared.GroundMotion.Master.Repeat==0&&b.Prepared.GroundMotion.Gaps?.Any(g=>g.Skill==252&&g.Reason.Contains("consumer",StringComparison.Ordinal))==true,"Unavailable intrinsic repeat was not decremented/recorded");
             ShadowActions.Cancel(b);
         }
         finally{ShadowMasterWorld.ObservedScan=previous;}
@@ -97,14 +97,14 @@ public static class ShadowMasterWorldChecks
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=saved.Generation+1;owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);b=(AssassinShadowBody)World.FindMobile((Serial)saved.Actor);target=(BaseCreature)World.FindMobile((Serial)saved.Target);
             Require(b.SavedText==saved.Body&&Json(GeneratedNpcLiveResources.State(b))==saved.Resources&&ShadowLoadout.Originals(b).Select(i=>i.SavedText).SequenceEqual(saved.Items)
                 &&NpcEquipmentRandom.Require(b)==saved.Random&&SkillHealth.Balance256(b)==saved.Life&&SkillHealth.Balance256(target)==saved.TargetLife,"Reload lost Master body/equipment/wounds/RNG/target or repeat state");
-            Require(b.Prepared.GroundMotion.Master is{Repeat:3,Skill:266}&&ShadowActions.State(b)==null,"Reload reset repeat memory or replayed cast");
+            Require(b.Prepared.GroundMotion.Master is{Repeat:3,Skill:252}&&ShadowActions.State(b)==null,"Reload reset repeat memory or replayed cast");
             owner.MoveToWorld(new(6260,3608,0),Map.Trammel);PersistentMinions.Resume(owner);if(b.Map==Map.Internal){b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);}
             int hp=SkillHealth.Balance256(target);var random=NpcEquipmentRandom.Require(b);Frame(b);
             Require(NpcEquipmentRandom.Require(b)==random&&SkillHealth.Balance256(target)==hp&&b.Prepared.GroundMotion.Master.Repeat==3,"Loaded skip replayed an action/RNG or cleared repeat state");
             // This is a synthetic own-class repeat input,not a claim that
-            // do48 Blade Fury generates do19 repeat state. The unavailable
+            // passive Claw Mastery generates do19 repeat state. The unavailable
             // consumer must decrement/record while other skills continue.
-            Combat(b,owner,target);Require(b.Prepared.GroundMotion.Master.Repeat<3&&b.Prepared.GroundMotion.Gaps.Any(g=>g.Skill==266),"Unavailable retained repeated skill did not decrement/record/continue");target.Delete();
+            Combat(b,owner,target);Require(b.Prepared.GroundMotion.Master.Repeat<3&&b.Prepared.GroundMotion.Gaps.Any(g=>g.Skill==252),"Unavailable retained repeated skill did not decrement/record/continue");target.Delete();
         }
         else
         {
@@ -117,7 +117,7 @@ public static class ShadowMasterWorldChecks
         // Retain real original inventory/resources with a synthetic repeat
         // input. Actual do19 production is proved by the separate full-source
         // policy controls;no off-class skill is inserted into this body.
-        b.ChangeSkills(book=>book.Assign(266,3));b.ChangeMasterMemory(new(3,266,b.Prepared.Capture.Rank));
+        b.ChangeSkills(book=>book.Assign(252,3));b.ChangeMasterMemory(new(3,252,b.Prepared.Capture.Rank));
         b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);var state=State(b);b.WorldGround.Store(IronGolemWorld.Park(state)with{Motion=DruidRavenMotion.Center(b.X*2,b.Y*2),Target=0,NextUtc=TimedEffects.Now.AddMinutes(30)});
         target=Target(b,3);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,b.Serial.Value,b.SavedText,Json(GeneratedNpcLiveResources.State(b)),ShadowLoadout.Originals(b).Select(i=>i.SavedText).ToArray(),NpcEquipmentRandom.Require(b),SkillHealth.Balance256(b),target.Serial.Value,SkillHealth.Balance256(target),generation)));

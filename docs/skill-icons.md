@@ -1,5 +1,7 @@
 # Skill icons
 
+**Intrinsic Shadow Fury (2026-11-08 JST).** No additional public talent/hotkey icon for an intrinsic pet action. Blade Fury and Shadow Warrior/Master retain identified text placeholders;final icons remain pending separately from shared effects/audio. [Checkpoint](shadow-fury-cast-checkpoint.md).
+
 **Master Sentinel range (2026-11-08 JST).** No new talent/hotkey icon. Blade Sentinel and Shadow Warrior/Master retain their identified text placeholders;final icons remain pending separately from effects/audio. [Checkpoint](shadow-master-range-checkpoint.md).
 
 **NPC-owned Hydra equipment proc (2026-11-08 JST).** No new public talent/hotkey icon for the equipment proc. Existing Hydra and Shadow talent/hotkey placeholders remain;head/bolt effects and audio remain separate. [Checkpoint](npc-hydra-world-checkpoint.md).

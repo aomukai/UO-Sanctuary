@@ -17,16 +17,24 @@ internal static class ShadowFuryMissiles
     internal const string Profile="source-original-shadow-fury-missile-v1";
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(ShadowFuryMissiles));
     private static readonly HashSet<string> Gaps=new();
+    internal static bool CanLaunch(AssassinShadowBody body,Point3D aim,DateTime at)
+        =>at.Kind==DateTimeKind.Utc&&ShadowSkillCasting.Attached(body)&&body.ControlMaster is PlayerMobile
+            &&aim.X>0&&aim.Y>0&&aim.X<body.Map.Width&&aim.Y<body.Map.Height&&body.InLOS(aim)&&!SpellHelper.IsTown(aim,body.ControlMaster);
     internal static long LaunchPrepared(AssassinShadowBody body,Point3D aim,int rank,bool critical,ulong seed,DateTime at)
     {
-        if(at.Kind!=DateTimeKind.Utc||!ShadowSkillCasting.Attached(body)||body.ControlMaster is not PlayerMobile owner||aim.X<=0||aim.Y<=0||aim.X>=body.Map.Width||aim.Y>=body.Map.Height){return 0;}
+        if(!CanLaunch(body,aim,at)){return 0;}
+        return LaunchCaptured(body,aim,rank,ShadowFuryPackets.Capture(body,rank,critical),seed,at);
+    }
+    internal static long LaunchCaptured(AssassinShadowBody body,Point3D aim,int rank,ShadowFuryPacket packet,ulong seed,DateTime at)
+    {
+        if(!CanLaunch(body,aim,at)){return 0;}RequirePacket(packet);
+        if(packet.Actor!=body.Serial.Value||packet.Binding!=ShadowLoadout.Binding(body).Identity){throw new NotSupportedException("Fury launch lost its actual packet source");}
         foreach(var pair in new[]{("GetHit",1),("HitClass",10),("CollideKill",1),("Size",1),("ToHit",1),("Vel",22),("Range",40),("Activate",1)})
         {if(NecromancerSummons.Source("bladefragment1",pair.Item1)!=pair.Item2){throw new NotSupportedException("Unqualified own Fury missile field: "+pair.Item1);}}
-        var packet=ShadowFuryPackets.Capture(body,rank,critical);RequirePacket(packet);
-        var slow=AmazonSlowMissiles.Capture(body,true);var damage=BladeFuryMissiles.Scale(packet.Damage,slow);
+        var owner=(PlayerMobile)body.ControlMaster;var slow=AmazonSlowMissiles.Capture(body,true);var damage=BladeFuryMissiles.Scale(packet.Damage,slow);
         return WeaponMissiles.LaunchNpcFury(body,new(owner.Serial.Value,packet,seed),aim,rank,damage,slow,at);
     }
-    private static void RequirePacket(ShadowFuryPacket packet)
+    internal static void RequirePacket(ShadowFuryPacket packet)
     {
         if(packet?.Damage is not{} d||packet.Flags!=(d.Critical?3:1)||packet.TargetArmorDelta>0||d.Elements is not{} e||e.BurnMin!=0||e.BurnMax!=0||e.BurnFrames!=0)
         {throw new NotSupportedException("NPC Fury burn/bypass/positive armor packet needs an explicit missile adapter");}
