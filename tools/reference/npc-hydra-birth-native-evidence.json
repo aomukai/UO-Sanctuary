@@ -1,0 +1,65 @@
+{
+  "parent": "138b50268b9911a19b2d9409d2052146047542c2",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticNpcHydraEnabled": false,
+  "sourceProofSha256": "92e1af50c356486871f2ca18cae5f219bf9681bb6e98f7d9d45b8eb55697a433",
+  "reusedSourceContexts": 12800,
+  "selectedNonhirelingNativeComparisons": 128,
+  "newCompilerMatrices": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "npc-hydra-birth-check": 1,
+    "npc-item-spell-flights-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "npc-hydra-birth-reload-check": 2,
+    "npc-item-spell-flights-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "contentSourceSnapshot": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "2760082b6b3c93c1079e2e037a062b07cbbc0d98e0e0f91b7a8db36a73874d90",
+    "Assemblies/Sanctuary.Integration.dll": "1df07cbedbffef2979071161389885609406607901e29fe8e1ba6bd72672b22f"
+  },
+  "files": {
+    "src/Sanctuary.Content/NpcHydraCreation.cs": "2d52f5a66dcfa39e2af59684d838bfa6b6ae3f24f268af7ffa787f0a5ab2eebd",
+    "src/Sanctuary.Content/NpcItemSpellCasts.cs": "d87ea1e480177acf9203b69c1c6fc629a26ad068df1a6582a063ac20b541b671",
+    "tests/Sanctuary.Integration/NpcHydraBirthChecks.cs": "1b96d235df80ade5e2e9d019b40415083342b4472affbb762468b23170faf93f",
+    "tests/check_npc_hydra_birth.py": "c257f3c5711cf142ee848e9c1609d141698398f9990f075ca7d526f61217dce9",
+    "tools/record_npc_hydra_birth.py": "a51ff9d11358268e5df0ef361de0207954405d2e7342fcf51f4afc33f0dbdd7a"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "First native run passed source/start/frame controls for both original casters,then its root-gear fixture requested unavailable Ormus Robes. Replaced that unrelated fixture with a supported ordinary root claw/stat swap;unchanged content assembly reused. Final run passes all15markers/2reloads. First log/input manifest retained. No old compiler matrices rerun.",
+  "scope": "Prepared birth reads actual original NPC accrued mastery/pierce/sunder and own hard Fire Bolt/Fire Ball;explicit item rank stays six-bit. Caster is actual NPC;root player is responsible-credit provenance only. Existing unchanged source explicitly keeps ordinary monster ownership,alignment and no player FIFO registration;hirelings are a distinct branch. Source start14 room/town semantics and common do144 item executor feed three independently accepted/rejected half-tile requests. All partial masks,target/ground,outgoing flags and exception restoration pass with no mana/actor RNG/world allocation/head materialization. Real Warrior allocation1/Master allocation9 original equipment and source snapshots persist;root equipment/stat swaps do not rewrite capture. Existing original item-spell flight consumers retained. This is a required prepared factory component,not working automatic NPC Hydra or learned Shadow admission.",
+  "remaining": [
+    "Actual NPC-owned Hydra head allocation/ownership/alignment,own roster exclusion from player18-head FIFO,private seeds,AI/bolts/credit/persistence remain to connect through existing backend",
+    "NPC parent-removal/lifetime and current executable behavior still need source qualification or explicit adaptation;do not silently substitute player ownership",
+    "Nonzero inherited fire sunder remains blocked by existing Hydra damage host",
+    "Automatic proc metadata still explicitly refuses skill62;do not remove original Master equipment to bypass the gap",
+    "Fury/other Master range/AI gaps and learned Shadow admission remain unfinished;effects/icons retain separate placeholders"
+  ]
+}

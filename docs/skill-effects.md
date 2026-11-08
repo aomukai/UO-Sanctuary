@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared original NPC Hydra factory (2026-11-08 JST).** No head/bolt asset is emitted by this prepared factory seam. Actual NPC-owned heads/bolts will reuse existing identified Hydra placeholders;final emergence/attack/death,fire-bolt travel/impact/expiry and sound remain required in the shared Hydra family. [Checkpoint](npc-hydra-birth-checkpoint.md). Icons remain separate.
+
 **Prepared original Shadow death nova (2026-11-08 JST).** Mechanically connected to the retained dead NPC and existing shared Nova projectile/contact presentation. Treat the current presentation as a placeholder:final Shadow death collapse,lightning ring,travel/impact/expiry cues and sound remain required in the Shadow/Nova effects family. No imagegen work was performed. [Checkpoint](shadow-death-checkpoint.md). Icons remain separate.
 
 **Own Sentinel/Shock Web S2 actions (2026-11-08 JST).** Connected mechanics reuse identified S2/cast cues,`0x23B` summon audio,blade travel/contact and web lob/field placeholders. Final NPC poses,release/impact/expiry cues and audio remain pending in their existing families. [Checkpoint](shadow-sentinel-action-checkpoint.md). Modifier42 nova artwork/audio is recorded for the upcoming mechanic;icons remain separate.

@@ -51,10 +51,12 @@ internal static class NpcItemSpellCasts
         }
     }
     private sealed class Services(SkeletonGuardian source,Func<int,ItemExecutionMetadata> require,Func<Invocation,int> execute,
-        bool positions=false,Action<ItemEffectResult> notified=null) : ItemEffectServices<NpcItemTarget>
+        bool positions=false,Action<ItemEffectResult> notified=null,Func<int,int,int,int> start=null) : ItemEffectServices<NpcItemTarget>
     {
         private readonly FrameState State=ActiveFrames.GetValueOrDefault(source.Serial.Value)??new(source);
         private readonly NpcItemTarget Caster=NpcItemTarget.Capture(source);
+        internal NpcItemTarget TargetForHydra=>State.Target;
+        internal (int X,int Y) PointForHydra=>State.Point;
         internal override NpcItemTarget Source => Caster;
         internal override bool HasGame => source.Map != null && source.Map != Map.Internal;
         internal override bool Uninterruptible => MonsterUninterruptibles.Active(source);
@@ -72,7 +74,8 @@ internal static class NpcItemSpellCasts
         internal override bool FindPosition(int skill, int level) => throw new NotSupportedException("NPC item random-position service is not admitted");
         internal override NpcItemTarget FindCorpse(NpcItemTarget target, int skill, int level) => throw new NotSupportedException("NPC item corpse-search service is not admitted");
         internal override NpcItemTarget LastAttacker() => throw new NotSupportedException("NPC item last-attacker service is not admitted");
-        internal override int Start(int skill, int level, int item) => throw new NotSupportedException("NPC item start-check service is not admitted");
+        internal override int Start(int skill, int level, int item) => start?.Invoke(skill,level,item)
+            ??throw new NotSupportedException("NPC item start-check service is not admitted");
         internal override int Execute(int skill, int level, int mode, int item, int flag)
         {
             uint id=source.Serial.Value;bool had=ActiveFrames.TryGetValue(id,out var previous);ActiveFrames[id]=State;
@@ -105,6 +108,17 @@ internal static class NpcItemSpellCasts
             return NpcItemSkillExecution.Run(caster,i.Target,i.Skill,i.Level,i.Mode,i.Item,i.Flag,at);
         });
         return ItemEffectCasts.Target(frame,SkillMechanics.For(ability).SourceId,rank,target,flag)!=0;
+    }
+    // Explicit prepared factory seam. This does not extend the automatic proc
+    // whitelist until actual NPC-owned head placement/lifetime is qualified.
+    internal static ItemEffectServices<NpcItemTarget> PreparedHydraFrame(SkeletonGuardian caster,DateTime at,
+        Func<NpcHydraRequest,bool> summon,Action<ItemEffectResult> notified=null)
+    {
+        ArgumentNullException.ThrowIfNull(summon);Services frame=null;
+        frame=new(caster,id=>id==62?NpcHydraCreation.Require():throw new NotSupportedException("Prepared Hydra frame skill"),
+            i=>new NpcHydraExecution(caster,i.Target,i.Point,at,summon).Run(i.Level,i.Flag),true,notified,
+            (id,rank,item)=>id==62&&item==1&&NpcHydraCreation.Start(caster,frame.TargetForHydra,frame.PointForHydra,rank,out _)?1:0);
+        return frame;
     }
     internal static ItemEffectServices<NpcItemTarget> OriginalFrame(SkeletonGuardian caster,DateTime at,
         Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notified=null)
