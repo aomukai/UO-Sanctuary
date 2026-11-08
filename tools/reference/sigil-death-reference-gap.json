@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "skillId": 400,
+  "hiddenSkillId": 403,
+  "learnedHandlerEnabled": false,
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "process": {
+    "pid": 556242,
+    "startTicks": 16928234,
+    "name": "Main"
+  },
+  "ownedSummonSkillSlots": 2145,
+  "ownedPresentSummonFormulas": 49,
+  "compiledOffsets": {
+    "aurastatcalc1": "0x88",
+    "sumskill1": "0x118",
+    "sumsk1calc": "0x124"
+  },
+  "eventCandidate": {
+    "tableRva": "0x163a750",
+    "dispatcherLinked": false,
+    "slot33Rva": "0x3b0430",
+    "completeBytes": 950,
+    "slot34Rva": "0x44a3e0",
+    "protectedBytes": 759
+  },
+  "explosion": {
+    "dispatcherLinked": true,
+    "do": 153,
+    "rva": "0x44a6e0",
+    "protectedBytes": 159
+  },
+  "capturedCodeBytes": 950,
+  "processBytesRead": 6732,
+  "primary": {
+    "aurafilter": 278530,
+    "auratargetstate": "sigildeath",
+    "auralencalc": 12,
+    "aurarangecalc": "(lvl >= 20)?8:((lvl>=10)?6:4)",
+    "mana": 20,
+    "lvlmana": 1,
+    "manashift": 7
+  },
+  "hiddenPrimary": {
+    "aurarangecalc": "ln34",
+    "TargetCorpse": 1,
+    "EType": "fire",
+    "calc1": "par1",
+    "calc2": "par2",
+    "calc3": "par5",
+    "Param1": 70,
+    "Param2": 120,
+    "Param3": 8,
+    "Param4": 0,
+    "Param5": 50
+  },
+  "observations": [
+    "The complete candidate33 body evaluates aura formula fields, resolves/swaps units, guards skill-node recursion, advances a unit RNG, checks chance, then invokes a skill from sumskill1 with sumsk1calc. Its comparison permits roll equality. This is a disassembly observation, not qualified Sigil Death execution.",
+    "All 2145 owned compiled summon-skill IDs match case-insensitive primary names and all 49 present formula offsets are in bounds. This qualifies the field labels without running a duplicate Shadow aura matrix.",
+    "Reuse candidates are SourceUnitEvents for event traversal and CorpseExplosionPackets for percentages/RNG/split arithmetic. Neither proves modern event33/34 dispatch or explosion153 behavior."
+  ],
+  "unresolved": [
+    "Link candidate event table indices33/34 to the actual current dispatcher; coherent code and matching immutable pointers alone do not establish that identity.",
+    "Event34 installation/damage bookkeeping, mark replacement, removal and death-event ownership remain unreadable.",
+    "Explosion153 current eligibility, corpse consumption, HP source, roll owner, mitigation/mastery, radius and physical/fire placement remain unreadable. Do not substitute old do55 level scaling, physical inner radius or corpse RNG.",
+    "SourceUnitEvents.RegisterFunction deliberately admits only legacy1..31. Do not extend its domain from an unverified table candidate.",
+    "No mark, explosion, learned cast or automatic recipient callback is enabled; prepared Sigil markers remain separate."
+  ],
+  "next": "Continue unaffected Warlock work; retain these captures. Retry protected bodies only after a relevant external-state change. Rancor cast request remains optional and pending.",
+  "installedBuildChanged": false,
+  "savesChanged": false,
+  "inputs": {
+    ".local/class-skills/warlock-runtime-reference/sigil-death-events-20261109.json": "8712551873f0955c06b665a2cc9e9f5bc1afef05f66277bd37ab685d1be607f8",
+    "tools/capture_sigil_death_events.py": "05f4a49dc0005e81b82bd1e8df7ed9e66c2e74b9f6ac59b39ada89cf79c59a51",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/probe_warlock_event_reference.py": "a5bf0e827cb848c109778737033f3055d905dda446e3f744349bc4d487f1617c",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    ".local/class-skills/warlock-runtime-reference/sigil-death-events-20261109-33-part0.bin": "9140e87eb99ea78e7a5ca77a0edc9a8baba5ab8a52da3cdffd6e2a778dd90221",
+    ".local/class-skills/warlock-runtime-reference/sigil-death-events-20261109-33-part0.asm": "af6952374a86901119f7085ac2a9a08ac12ee7bb8e24cd6ea285796a636fcd27",
+    ".local/class-skills/warlock-runtime-reference/sigil-death-explosion-153-20261109/capture.json": "15089595099fd350e2689a65b98fc0c2189727b52db2a73e493b0e6629e6654c",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107.json": "40cb10d0ee1b3a1c622b42435d8538b56fbc5e4baf5aec81777322419fd37593",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107-3aaf70-part0.bin": "a708885304244d4f6a389d61bf5af78a208ef598f75be2ebba17f8ffeeae6c8e",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107-3aaf70-part0.asm": "8862d71096ee3bbc40b2fc0df20a99270aec95016578ae0c1675ffb02b09d8bb",
+    "tools/capture_warlock_skill_do.py": "14b59b0068fe7e3e324ee59927fb95bfabe8a76f053237a6822245ae59f37b10",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/defiler-compiled-formula/extraction.json": "4593da184c11c34fc49d1e4be3dfb6c895aee7b9cc755d195716fea5718cfcb1",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    ".local/class-skills/defiler-compiled-formula/skillscode.bin": "673b2afa461548c7f0471ba95c8747240f57216be21b9a1af45224a5a8314ac1",
+    "tools/reference/shadow-current-birth-source-evidence.json": "8fd1f930d7a3eb9294d197dacca844e770d6d6f289e970c7e4cdeb798cc6738f",
+    "src/Sanctuary.Content/SourceUnitEvents.cs": "a29a857ea85570a332a8a3ff3dce36b3e906a6e8e9360240a2558c20af7d129c",
+    "src/Sanctuary.Content/CorpseExplosionPackets.cs": "d8ba36248d3bfd3650144513c632f6be7e751f0efdfd1db12cc171388e9da041",
+    "tools/record_sigil_death_reference.py": "a70c6fa58ea4363b500e898913512fec3df22c7c1c2a3b471efb22498eb0747a"
+  }
+}

@@ -2616,10 +2616,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 400,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared Sigil launch/tracking/markers are prepared. Owned current400 links killed event33 to hidden403/do153 and damage/install events34. A complete950byte candidate33 trigger-skill body is retained, but its event-table dispatcher identity is not linked;candidate34 has759protected bytes and linked explosion153 has159protected bytes. All2145 compiled summon-skill IDs and49formula presences/bounds match primary data. Do not substitute CorpseExplosion do55 HP/RNG/level scaling/inner radius or extend legacy event1..31 registration without qualification. Mark bookkeeping,death ownership,explosion and learned input remain gated;see sigil-death-reference-checkpoint.md. Effects/icons separate."
     },
     {
       "talentId": "warlock.enhancedentropy",

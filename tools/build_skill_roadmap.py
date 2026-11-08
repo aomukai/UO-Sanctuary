@@ -740,6 +740,10 @@ BLOCKERS['warlock.miasmachain'] = 'Prepared current do167 launches maker711 with
 BLOCKERS['warlock.ringoffire'] = 'Learned self-centered Warlock/Witch SC uses current do154 launch,count16below effective10/32from10,shared source motion and approved elapsed age/contact/world rules. One radius3source-subtile explosion per fragment,later knockback-only contacts,shared11frame recipient delay within a cast,separate casts independent. Eligible knockback survives fire immunity;source RNG/birth/finite lifetime/offline no-replay are saved. Release commits table mana once;cancel/failed allocation/insufficient mana are free. Exact current hit1/damage dispatcher,whole-game RNG/room ordering and special-recipient/PvP/class certification remain unverified under explicit approvals. See ring-cast-checkpoint.md;final effects/audio and talent/left/right/quick icons remain separate.'
 
 
+# Preserve the qualified Death data and current callback gaps on regeneration.
+BLOCKERS['warlock.sigildeath'] = 'Shared Sigil launch/tracking/markers are prepared. Owned current400 links killed event33 to hidden403/do153 and damage/install events34. A complete950byte candidate33 trigger-skill body is retained, but its event-table dispatcher identity is not linked;candidate34 has759protected bytes and linked explosion153 has159protected bytes. All2145 compiled summon-skill IDs and49formula presences/bounds match primary data. Do not substitute CorpseExplosion do55 HP/RNG/level scaling/inner radius or extend legacy event1..31 registration without qualification. Mark bookkeeping,death ownership,explosion and learned input remain gated;see sigil-death-reference-checkpoint.md. Effects/icons separate.'
+
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
