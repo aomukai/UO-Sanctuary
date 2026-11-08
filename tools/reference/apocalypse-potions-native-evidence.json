@@ -1,0 +1,77 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedApocalypseEnabled": false,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "apocalypse-impact-check": 1,
+    "apocalypse-area-check": 1,
+    "apocalypse-potions-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "apocalypse-impact-reload-check": 2,
+    "apocalypse-area-reload-check": 2,
+    "apocalypse-potions-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "nativeRun": 2,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/apocalypse-potions/source-snapshot-3.json",
+    "sha256": "006b63dca3273f78b0ef1c0b048db259dfc4839fae55194f63c5d7cc19f175be"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/apocalypse-potions/birth-inputs.json",
+    "sha256": "1853580d5d1ce6d8c748b013a875679486a8d77699c40eca56080d877df4a28d"
+  },
+  "files": {
+    "src/Sanctuary.Content/ApocalypseImpact.cs": "9dd9b69fecaa161bcef73b518bdfe53fb205ef43994dd9597e25234d31a3e97f",
+    "src/Sanctuary.Content/ApocalypseArea.cs": "9f5983c24ce4fee108059f96cf0d5f98c4b43b947a85b931e1996cd93f59926b",
+    "src/Sanctuary.Content/SkillCombat.cs": "1f1ac8401e0f95879a2cbbbcf9d1a30fb7c84a140f6861ed062f2735892f9cde",
+    "tests/Sanctuary.Integration/ApocalypsePotionChecks.cs": "11db8b837746329722ce98d1cf45804b50dd8f97a0d8da06e7cf8eb08b7d171b",
+    "tests/check_apocalypse_potions.py": "4fa2fea35231d1f300129d9b2ddb201b8ac266886a3f35ae21052e55bbd9fb8f",
+    "tools/probe_apocalypse_gate.py": "cd8420bd87a04d70b026937640046f007f0497e1c7c1f8a7457ea358776a0a7b",
+    "tools/reference/apocalypse-gate-current-evidence.json": "9a4601deebf4bde96febd3772b2db51c6f6d59fb354d04c50a956e335ea1f95e"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "6891d7d8f4a96917e93073f0d69b0dbce100205400d8a844542fa7bcf36b5665",
+    "Assemblies/Sanctuary.Integration.dll": "57bd09ec50bae066acd5cbc0d04e49cbb6e04921231d007976e483d4b2707d01"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "currentNonAuraGateCases": 12,
+  "priorCompilerMatricesRerun": 0,
+  "verification": [
+    "Actual ordinary-NPC HP:live four-element potion composition,independent immunity/resistance,fire-only temporary penalty,FP256 rounding,expiry/removal/reapplication,zero/allocation refusal and two reloads.",
+    "Shared mitigation kernel:real Dwarf Star on supported player equipment path;combined fire reduced once,percentage absorption,poison separate. Numeric-only kernel;no Apocalypse PvP admission.",
+    "Prior142 resistance helper controls,255 per-hit penalty ranks,6 current area contexts,255 radius ranks and actual wall/HP area tests retained.",
+    "Failed native1 fixture expected ordinary NPC worn-item inheritance;unsupported test setup replaced,not production behavior. Native2 production DLL equals native1."
+  ],
+  "limits": [
+    "Prepared ordinary-NPC damage/area only;ground launch/hit23/controller/RNG/startup/payment/localdelay45/input integration remain unfinished.",
+    "12 current helper cases use supplied pinned aura0 row;immediate-aura scheduling is not implemented or claimed.",
+    "Ordinary NPCs do not automatically inherit worn D2 items;registered existing NPC item contexts are separate. No new gear-admission or special-recipient/PvP rule.",
+    "Approved minimum-getter fallback remains;full raw temporary-stat factory/reentrant-event parity remains unverified.",
+    "No final effects/icons;separate registers and recipient0x36D4 placeholder retained."
+  ]
+}

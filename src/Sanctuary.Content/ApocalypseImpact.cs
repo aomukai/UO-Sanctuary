@@ -26,11 +26,17 @@ internal static class ApocalypseImpact
             ||target is not{Alive:true,Deleted:false}||!ClassCombat.IsHostile(owner,target)||enhancedFire256<0){return default;}
         if(!allocation){return default;} // Current callback refuses damage when its temporary state allocation fails.
         TaintedFireBallMissiles.RequireOrdinaryRecipient(owner,target);
-        var result=NamedElements.Resolve256(owner,target,enhancedFire256,"fire",enhance:false,pierceOverride:pierceOverride,skillResistanceDelta:delta);
+        // Base fire already includes its explosion-captured enhancement. Reuse
+        // the existing potion additions and mitigate each combined element
+        // once;only fire receives this skill's temporary resistance penalty.
+        var raw=DruidMoltenBoulder.Potion(DruidFirestorm.Modifiers(owner),new GearDamage(0,enhancedFire256/256.0,0,0,0));
+        var parts=SkillCombat.MitigatePrepared(owner,target,raw,out int absorbed,
+            pierceOverride:element=>element=="fire"?pierceOverride:null,skillResistanceDelta:element=>element=="fire"?delta:0);
+        int damage=NamedElements.To256(parts.Total);
         owner.DoHarmful(target,true);
-        if(result.Absorbed256>0){SkillHealth.Heal(target,result.Absorbed256);}
-        int lost=SkillHealth.Damage(owner,target,result.Damage256);
+        if(absorbed>0){SkillHealth.Heal(target,absorbed);}
+        int lost=SkillHealth.Damage(owner,target,damage);
         if(!target.Deleted){target.FixedEffect(0x36D4,10,10);} // Identified Apocalypse recipient placeholder.
-        return new(true,lost,result.Damage256);
+        return new(true,lost,damage);
     }
 }

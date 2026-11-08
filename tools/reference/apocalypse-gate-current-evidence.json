@@ -1,0 +1,110 @@
+{
+  "referenceVersion": "3.3.93847",
+  "cases": [
+    {
+      "gameEnabled": 0,
+      "immediate": 0,
+      "aura": 0,
+      "deadline": 0,
+      "refused": 0,
+      "after": 0
+    },
+    {
+      "gameEnabled": 0,
+      "immediate": 0,
+      "aura": 0,
+      "deadline": 100,
+      "refused": 0,
+      "after": 100
+    },
+    {
+      "gameEnabled": 0,
+      "immediate": 0,
+      "aura": 0,
+      "deadline": 1000,
+      "refused": 0,
+      "after": 1000
+    },
+    {
+      "gameEnabled": 0,
+      "immediate": 1,
+      "aura": 0,
+      "deadline": 0,
+      "refused": 0,
+      "after": 0
+    },
+    {
+      "gameEnabled": 0,
+      "immediate": 1,
+      "aura": 0,
+      "deadline": 100,
+      "refused": 0,
+      "after": 100
+    },
+    {
+      "gameEnabled": 0,
+      "immediate": 1,
+      "aura": 0,
+      "deadline": 1000,
+      "refused": 0,
+      "after": 1000
+    },
+    {
+      "gameEnabled": 1,
+      "immediate": 0,
+      "aura": 0,
+      "deadline": 0,
+      "refused": 0,
+      "after": 0
+    },
+    {
+      "gameEnabled": 1,
+      "immediate": 0,
+      "aura": 0,
+      "deadline": 100,
+      "refused": 0,
+      "after": 100
+    },
+    {
+      "gameEnabled": 1,
+      "immediate": 0,
+      "aura": 0,
+      "deadline": 1000,
+      "refused": 0,
+      "after": 1000
+    },
+    {
+      "gameEnabled": 1,
+      "immediate": 1,
+      "aura": 0,
+      "deadline": 0,
+      "refused": 0,
+      "after": 0
+    },
+    {
+      "gameEnabled": 1,
+      "immediate": 1,
+      "aura": 0,
+      "deadline": 100,
+      "refused": 0,
+      "after": 100
+    },
+    {
+      "gameEnabled": 1,
+      "immediate": 1,
+      "aura": 0,
+      "deadline": 1000,
+      "refused": 0,
+      "after": 1000
+    }
+  ],
+  "currentMachineCodeExecutedOffline": true,
+  "rva": "0x3a6090",
+  "scope": "Pinned Apocalypse aura0 guarantees bypass,irrespective of immediate bit/game enable/future deadline. Does not implement or verify immediate-aura scheduling;localdelay45 is separate.",
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109.json": "80cf44379ef56596fde909b42a628a02416415292db7fda02671de09f96f9b3e",
+    "tools/probe_apocalypse_gate.py": "cd8420bd87a04d70b026937640046f007f0497e1c7c1f8a7457ea358776a0a7b",
+    "tools/probe_apocalypse_area.py": "3ca412c1ec6f6d14b9c8655a5a0275c218a8a533491b630f570aaeba8cf4cf04",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6090-part0.bin": "54ce03c5d0c385aabc27031d7e6f0004a921f827c3b45078c09f36b947ae3cbb"
+  }
+}

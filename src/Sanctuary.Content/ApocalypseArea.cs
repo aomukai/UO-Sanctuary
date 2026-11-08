@@ -11,7 +11,9 @@ internal static class ApocalypseArea
     {
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
         var row=SkillMechanics.For(CombatAbility.Apocalypse);
-        if(row.Number("aurafilter")!=0x8783){throw new NotSupportedException("Apocalypse area filter changed");}
+        // Current3a6090 requires both immediate and aura flags to gate an
+        // area pulse. This non-aura row bypasses it;localdelay is separate.
+        if(row.Number("aurafilter")!=0x8783||row.Number("aura")!=0){throw new NotSupportedException("Apocalypse area filter/aura binding changed");}
         return checked((int)new SkillValues(row,k=>k==row.SourceKey?rank:0,_=>0,1).Eval("aurarangecalc"));
     }
     internal static Point3D Center(PlayerMobile owner,Point3D center)=>center.X==0||center.Y==0?owner.Location:center;
