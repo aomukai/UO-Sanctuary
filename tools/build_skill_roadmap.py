@@ -726,6 +726,12 @@ CAVEATS["barbarian.leapattack"] = "Approved circular landing-area identity/order
 
 
 
+# Retain accepted learned Shadow and Lethargy checkpoints on regeneration.
+NATIVE_PARTIAL.update({'warlock.sigillethargy', 'assassin.shadowmaster', 'assassin.shadowwarrior'})
+BLOCKERS['assassin.shadowwarrior'] = 'Learned Assassin SC route uses the shared original Shadow creator,own skills/AI/death,ground controller and candidate/payment/roster transaction. Both species share one learned roster;town parking and original items/resources/wounds/RNG persist. Shared Druid ground placement is an existing native projection,not recovered D2room search. Unsupported rolled equipment/property/recipient contexts fail explicitly without payment or replacing the old summon. Current executable AI/geometry/mutation parity,remaining item consumers and final body/equipment/effects/audio/talent/hotkey assets remain open;no class certificate. See shadow-learned-cast-checkpoint.md.'
+BLOCKERS['assassin.shadowmaster'] = 'Learned Assassin SC route uses the shared original Shadow creator,own skills/AI/death,ground controller and candidate/payment/roster transaction. Both species share one learned roster;town parking and original items/resources/wounds/RNG persist. Shared Druid ground placement is an existing native projection,not recovered D2room search. Unsupported rolled equipment/property/recipient contexts fail explicitly without payment or replacing the old summon. Current executable AI/geometry/mutation parity,remaining item consumers and final body/equipment/effects/audio/talent/hotkey assets remain open;no class certificate. See shadow-learned-cast-checkpoint.md.'
+BLOCKERS['warlock.sigillethargy'] = 'Learned ordinary Warlock/Witch SC/right/quick ground cast composes current shared launch/tracking,original saved marker and independent non-curse state192. Attack-rate/defense/movement penalties use shared consumers;12frame duration ignores curse resistance/Attract and coexists with ordinary curses. Source-rank/creator retention,once-only mana,cancellation/failure,offline/facet expiry and approved owner-death cleanup have dedicated checks. Exact current full-factory RNG/notification/unknown12c/room/PvP/mid-animation parity and final effects/audio/talent/hotkey assets remain scoped;no class certificate. See sigil-cast-checkpoint.md.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

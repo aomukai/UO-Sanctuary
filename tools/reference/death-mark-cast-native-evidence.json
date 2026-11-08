@@ -1,0 +1,101 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "currentExecutableParity": false,
+  "sourceCases": 122,
+  "sourceBytes": 1431,
+  "sourceProofSha256": "96d93d5b53946cb3575fa91ae0130e7de8f6744c9e2aecf20df04387755eb8ff",
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-cast-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-cast-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 4,
+  "nativeRun": 2,
+  "newSourceCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "0c01827407fd9aaf9a7cacbe93bf6d69ab7daa3256ecff14a3eff868bd03d74c",
+    "Assemblies/Sanctuary.Integration.dll": "46dddeb86ba5723810e681b509a0220b157912b71a0f30c3c1ec62a266a4abe3"
+  },
+  "files": {
+    "tools/build_skill_roadmap.py": "5fed357a6028e8ea07573dea98b761f00229258fcfa10a35fa2e43b6c520a325",
+    "src/Sanctuary.Content/DeathMarkCast.cs": "7424cb315dd04ff64fae49a8d0d9b881302d27566ef1b7fc1b494ac350c9f283",
+    "src/Sanctuary.Content/GenericPetDecisions.cs": "d13d4f669a95fcf35b1123630d39e3927a064a658a8c8fec643d69ef9da4657a",
+    "tests/Sanctuary.Integration/DeathMarkCastChecks.cs": "fbd606fb1f5ac9024df341692ccd74e81ebf28c7acaca69cceb8aefa69d975d2",
+    "tests/check_death_mark_cast.py": "fa87f37d29ba302560e5b8e860ec7b01d58e9728a50c14745740b7611048cd06",
+    "tools/probe_death_mark_cast.py": "18fa0d947f20bf7020b7a8614fe3b899d317b3c7589bec1f9421bb3a7aead14c",
+    "tools/capture_death_mark_callback.py": "cfda694298eae69c4ec4d8e036cb319a99e338635fce134e984b39a75aa94f39",
+    "tools/record_death_mark_cast.py": "d18428bd323e28da63f2491350dd676476b35334884dbf1696bda0114f567eed",
+    "tools/reference/death-mark-cast-current-evidence.json": "96d93d5b53946cb3575fa91ae0130e7de8f6744c9e2aecf20df04387755eb8ff"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Prepared translation of complete current do155 for DeathMark375. Native C# matches all122 captured-machine-code returns,flags and ordered external calls/directives/state requests on each boot. Shared GenericPetDecisionUnit supplies source coordinate widths. Cases include own row binding/effective ranks,town and level gates,two separate range evaluations and signed overflow,typed/all-pet iteration,clear-control directive,remaining-count condition,failed state allocation after pet commands,bind/aura/stat350/351/202order and explicit source assertion boundaries. Full target identity is separate from a numeric GUID that can be reused across unit types. No native Death Mark world actor,debuff,teleport or learned input is created by these pure checks.",
+  "initialCallbackGap": {
+    "capture": ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-initial.json",
+    "sha256": "e2f3227c3e4e2bd18b45a5f33c3b5f251121c68f0291f6e4672d3fc7d4c21093",
+    "rva": "0x44aa70",
+    "all3FragmentsProtected": true,
+    "semanticsVerified": false,
+    "process": {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    },
+    "bytesRead": 560
+  },
+  "currentCallbackReference": {
+    "capture": ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-after-user-cast.json",
+    "sha256": "b32d9be28eaf4e80d89ed58fec3c207659d2a4b9f648603c4f8bbb4f1aa74620",
+    "rva": "0x44aa70",
+    "sourceBytes": 546,
+    "allFragmentsCaptured": true,
+    "callbackTranslationVerified": false,
+    "helperCapture": ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108.json",
+    "helperSha256": "e599dee0fefbc8a5b7c858e4dcf3f0749051794d8b66f758f1d69782155a08bc",
+    "completeHelpers": [
+      "0x3739a0",
+      "0x425550",
+      "0x27ab60"
+    ],
+    "protectedHelper": "0x398a80",
+    "placementReusesExistingSourceCases": 5229,
+    "placementProofSha256": "964e3a6351466a2e96e20126616478e352252889fd4bd11f0ede5d22dd56b124",
+    "userAction": "User confirmed casting Death Mark;new bounded capture afterward established availability;no automated game input"
+  },
+  "roadmapRepair": "Generator now retains accepted partial-native coverage/caveats for learned Shadow Warrior,Shadow Master and Lethargy. Accepted status JSON is byte-identical;regenerated roadmap is current and --check passes.",
+  "diagnostic": "Initial121case C1/I1/native1passed12 markers and is archived. Review then found numeric GUID equality could misidentify a different unit type as the caster. Explicit IsCaster identity and typed state target retain source pointer identity;the122nd current-code case covers the alias. Signed row field types also retain byte/word widths. FinalC2/I2/native2passes12 markers. No old compiler matrix or unrelated retained cohort was rerun.",
+  "correction": "The prior Sigil next-action suggestion incorrectly associated MiasmaBolt with do155/poison. Owned row395 has ordinary srvmissile launch and magic damage;do155 belongs to DeathMark375. Miasma hit41/cloud-do41/world/mastery gaps remain explicit;no poison substitute was implemented.",
+  "remaining": [
+    "Callback44aa70 became readable after the user cast Death Mark;all546bytes/3fragments are preserved. Translate/compare its relocation,overlay,target-command,idle and21/1/11state clearing next. It is not yet connected to this composition. Existing1128byte monster-placement helper matches retained5229case proof;reuse it. Target-command398a80 remains protected;idle204byte/overlay326byte bodies are captured but unqualified.",
+    "Actual original demon roster/owner/facet/placement/state binding and recipient stat/duration/replacement consumers need native world acceptance.",
+    "Startup requirespettype,localdelay20,ordinary SC cancellation/payment and learned left/right/quick routes remain unfinished. Prepared composition does not add another handler.",
+    "Death Mark cast,pet warp/landing overlay,target mark/aura/expiry and audio remain final asset work;talent/hotkey icons stay in separate inventory."
+  ]
+}

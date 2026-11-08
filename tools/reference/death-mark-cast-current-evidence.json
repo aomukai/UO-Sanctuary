@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x44aca0",
+  "skillId": 375,
+  "dispatcherIndexLinked": true,
+  "currentMachineCodeExecutedOffline": true,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "cases": 122,
+  "sourceBytes": 1431,
+  "unicornVersion": "2.1.4",
+  "emulatorLibrarySha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+  "externalServices": [
+    "Skill/room/level/coordinate/target helpers and formula outputs are explicit. Signed distance/range products and source coordinate width execute in the real captured body.",
+    "Pet traversal records callback44aa70,typed versus unfiltered path,and complete mutable directive;the supplied remaining count represents callback consumption,not a verified teleport implementation.",
+    "State factory captures caster,target,skill,rank,duration,stat/value/state/removal fields. Bind/aura/stat writes are recorded in source order without inventing their internals.",
+    "Source fatal assertion paths are captured as boundary result-1;no live code,input,memory writes or protection changes."
+  ],
+  "limits": [
+    "No learned Death Mark or actual pet warp,CC removal,ordinary state replacement or native player payment is admitted by this composition.",
+    "Callback44aa70 and other target/pet/state services require their own current binding/world acceptance;source row alone does not establish them."
+  ],
+  "artifacts": {
+    ".local/class-skills/death-mark-cast-source/cases.json": "30e38e15ae3860fb69d3bfb562179ec4b804f527bbb50aa489e86e6bbbb9f6d8",
+    "tools/probe_death_mark_cast.py": "18fa0d947f20bf7020b7a8614fe3b899d317b3c7589bec1f9421bb3a7aead14c",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/capture.json": "92a2434e03599e464f44b16284963d8462f313e258cf7b49e1d9d912bb9f7ace",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part0.bin": "3f000936e6e3b6caf081589143816a2938c8e085696f30d63a2e712a79db16c6",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part1.bin": "5353de51f2c453aca05cc4c55db449298857836b79c08ece5c4470f319d0486e",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part2.bin": "872dd23ec6425f60d8ddf6ee35f49ef3e034a29e56e5e063809179e357c36e74",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part3.bin": "529bfefc1a525cf2758c223c6fa8066a940e96c7bc9541a4378a1a61584dfdb8"
+  }
+}
