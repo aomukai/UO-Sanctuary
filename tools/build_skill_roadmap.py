@@ -742,6 +742,8 @@ BLOCKERS['warlock.ringoffire'] = 'Learned self-centered Warlock/Witch SC uses cu
 
 # Preserve the qualified Death data and current callback gaps on regeneration.
 BLOCKERS['warlock.sigildeath'] = 'Shared Sigil launch/tracking/markers are prepared. Owned current400 links killed event33 to hidden403/do153 and damage/install events34. A complete950byte candidate33 trigger-skill body is retained, but its event-table dispatcher identity is not linked;candidate34 has759protected bytes and linked explosion153 has159protected bytes. All2145 compiled summon-skill IDs and49formula presences/bounds match primary data. Do not substitute CorpseExplosion do55 HP/RNG/level scaling/inner radius or extend legacy event1..31 registration without qualification. Mark bookkeeping,death ownership,explosion and learned input remain gated;see sigil-death-reference-checkpoint.md. Effects/icons separate.'
+NATIVE_PARTIAL.add('warlock.eldritchblast')
+BLOCKERS['warlock.eldritchblast'] = 'Prepared pinned384 suppliers reuse SkillValues for magic endpoints,hard BladeWarp/HexPurge50percent synergies,hard PsychicWard duration,constant5life/mana recovery fields,raw range5,period30 and fractional mana. Nova721 is copied unchanged into an isolated profile,not emitted. Native tier/real gear/captured-context/reload checks qualify the suppliers only. Current do165 has only its92byte prefix readable;periodic state221 installation,perdelay timing,range geometry,nova emission,damage/recovery recipient order,magic mastery/pierce,RNG and startup/payment/input remain gated. Do not treat the skill as an ordinary travelling magic bolt or infer Param2/9 effects. See eldritch-blast-suppliers-checkpoint.md;effects/icons separate.'
 
 
 def build():

@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "missileSourceSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missile": {
+    "key": "eldritchblastnova",
+    "fields": {
+      "Missile": "eldritchblastnova",
+      "*ID": 721,
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 1,
+      "Vel": 12,
+      "MaxVel": 12,
+      "Accel": -600,
+      "Range": 16,
+      "Radius": 5,
+      "Red": 192,
+      "Green": 192,
+      "Blue": 192,
+      "InitSteps": 1,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "CelFile": "WarcryShockwave",
+      "animrate": 1024,
+      "AnimLen": 16,
+      "AnimSpeed": 16,
+      "CollideType": 6,
+      "Size": 1,
+      "Trans": 1,
+      "Skill": "Eldritch Blast",
+      "NumDirections": 32,
+      "TravelSound": "Warlock_Skill_Eldritch_Blast_03",
+      "lineNumber": 721
+    }
+  }
+}

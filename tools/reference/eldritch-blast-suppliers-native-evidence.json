@@ -1,0 +1,94 @@
+{
+  "referenceVersion": "3.3.93847",
+  "learnedEnabled": false,
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "eldritch-blast-suppliers-check": 1,
+    "eldritch-blast-suppliers-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "tableBoundaryControls": 48,
+  "newCompilerMatrices": 0,
+  "newProcessReads": 0,
+  "currentDo165": {
+    "dispatcherLinked": true,
+    "capturedPrefixBytes": 92,
+    "totalBytes": 1198,
+    "crossMapFragments": 1,
+    "protectedFragments": 7,
+    "callbackVerified": false
+  },
+  "primary": {
+    "calc1": "par1",
+    "calc2": "par1",
+    "auralencalc": "par3 + skill('Psychic Ward'.blvl) * par4",
+    "aurarangecalc": 5,
+    "perdelay": 30,
+    "mana": 11,
+    "lvlmana": 1,
+    "manashift": 7,
+    "EDmgSymPerCalc": "(skill('Blade Warp'.blvl)+skill('Hex Purge'.blvl))*par8"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "1834e426f301c4a0fcfc27f95b06b55262f10574a62f394500a5030204eb8a01",
+    "Assemblies/Sanctuary.Integration.dll": "39469dd1e2ad770f61e922493971ba5ea186cf42a08beea9cf76e1b4db6e3e29"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Pinned table-only magic suppliers,hard-only damage/duration,constant recovery fields and fractional costs;48 independent tier/hard-point controls.",
+    "Real Warlock/Witch hard/effective ranks,Tarnhelm context capture,subsequent gear/training independence,original saved helm and unchanged resources through two native reloads.",
+    "No binding or learned cast admission;no periodic timer,damage,resource transfer or nova emission was created."
+  ],
+  "limits": [
+    "Only92of1198current do165 bytes were readable in the retained capture. Startup28,periodic state221 installation/refresh,first pulse and later cadence,range geometry,damage/recovery recipient ordering and actual nova role remain unverified.",
+    "Existing SkillValues arithmetic supplies unmastered magic endpoints;this does not qualify the current do165 getter/capture/roll/mastery/pierce context,especially large-rank arithmetic. Nonzero owner magic mastery is explicitly refused.",
+    "The raw radius5,period30and recovery5fields are not a combat or healing contract. Param2/Param9 descriptions do not override actual calc formulas. Full input/payment/world/special-recipient behavior is not implemented.",
+    "Effects/audio and talent/left/right/quick icons remain separately needed."
+  ],
+  "inputs": {
+    ".local/class-skills/eldritch-blast-suppliers/birth-inputs.json": "b42ab9e5b9a5291ba577f0a7208d166915b7371b94f60cf39571d5442acb4061",
+    ".local/class-skills/eldritch-blast-suppliers/source-snapshot-1.json": "d4a956c243608fc55ca87adc3cdcfa4039a557e98e8a771b3fa194295f883f30",
+    ".local/class-skills/eldritch-blast-suppliers/content-build-1.log": "4d00952e394826517ebc0047e2f85d84729d456abc54e92e23ba004d4e246de8",
+    ".local/class-skills/eldritch-blast-suppliers/integration-build-1.log": "d14ea14252e4a62dd0dc804649c620d7b45a3735e6be2e6d4eb0a54ab9f19465",
+    ".local/class-skills/eldritch-blast-suppliers/birth-native-checks.log": "cca974f821d6992168de8a1560066918ca0c08f35b4536c911ac2155cb0eedf2",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "data/Sanctuary/Balance/eldritch-blast-profile.json": "152f64f071621ee22a3f2d4f67aff394d6168d2ad205816e82ddc6bb9d66a7cd",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-165-20261108/capture.json": "9a84240805964de884006b1677639616bbb42c3c4c993c00fae7eb32edb21d16",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "tests/check_eldritch_blast_suppliers.py": "53e89b90a64b829c35aa55e38c1fda9f5fcc2f242e3f5b2943c221f6c453cc03",
+    "docs/eldritch-blast-suppliers-checkpoint.md": "90505aca1de7e02f234126bc5608669d50fe5023ce272beba8ed5f89351c1b00",
+    "docs/class-skills-resume-checkpoint.md": "1c6eeee5f0e1c7dccb7931a4d254e9d2894168a51bea7f99e1f480e6a7e6d583",
+    "docs/class-skill-roadmap.md": "a9a1b242a216eadaa2718978a3e2006241f2427baab46fef92a5fa57479e41eb",
+    "docs/skill-mechanical-reference.md": "02e28d7b1810e9c05f8e747b9365c29aa3cac416a9f66ab6d5414717117513a1",
+    "tools/record_eldritch_blast_suppliers.py": "f2c563de6d10be298f72b899261a988ed6f4bc25012386c977b81a4e8b331660"
+  }
+}
