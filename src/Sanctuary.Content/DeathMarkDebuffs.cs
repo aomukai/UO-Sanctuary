@@ -8,7 +8,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record DeathMarkDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc);
+internal sealed record DeathMarkDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc,int CastId=0);
 public sealed class DeathMarkDebuffProfiles:GenericPersistence
 {
     private DeathMarkDebuff[] _snapshot;
@@ -21,8 +21,8 @@ public sealed class DeathMarkDebuffProfiles:GenericPersistence
 }
 
 // Proposed stat application for the captured factory's state212. Current
-// binder45f8d0 is protected;learned routes stay closed pending the explicit
-// proposal decision and remaining controller/cast integration.
+// binder45f8d0 is protected;the user approved the recipient adaptation.
+// Learned routes stay closed pending remaining controller/cast integration.
 internal static class DeathMarkDebuffs
 {
     private static ImmutableDictionary<uint,DeathMarkDebuff> _states=ImmutableDictionary<uint,DeathMarkDebuff>.Empty;
@@ -35,20 +35,31 @@ internal static class DeathMarkDebuffs
     internal static int DurationFrames(int rank)=>checked(125+13*(rank-1));
     internal static bool ApplyPrepared(PlayerMobile owner,Mobile target,int rank,DateTime at)
     {
+        var state=Prepare(owner,target,rank,at);if(state==null){return false;}
+        BindPrepared(owner,target,state);return true;
+    }
+    internal static DeathMarkDebuff Prepare(PlayerMobile owner,Mobile target,int rank,DateTime at)
+    {
         if(at.Kind!=DateTimeKind.Utc||rank is <1 or >255){throw new ArgumentException("Death Mark needs a qualified UTC/rank");}
         if(owner is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false,Blessed:false}||owner==target||owner.Map==null||owner.Map!=target.Map
-            ||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Warlock||!ClassCombat.IsHostile(owner,target)) {return false;}
+            ||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Warlock||!ClassCombat.IsHostile(owner,target)) {return null;}
         var row=SkillMechanics.For(CombatAbility.DeathMark);
         if(row.SourceId!=375||row.Text("auratargetstate")!="death_mark"||row.Text("aurastat1")!="armorclass"
             ||row.Text("aurastat2")!="normal_damage_reduction"||row.Text("aurastat3")!="magic_damage_reduction"||PaladinCleansing.IsCurse("death_mark"))
         {throw new NotSupportedException("Unqualified Death Mark stat binding");}
-        var old=State(target,at);if(old!=null&&rank<old.Rank){return false;}
+        var old=State(target,at);if(old!=null&&rank<old.Rank){return null;}
         uint creator=old?.Rank==rank?old.Creator:owner.Serial.Value;
-        _states=_states.SetItem(target.Serial.Value,new(target.Serial.Value,creator,rank,at.AddMilliseconds(DurationFrames(rank)*40L)));
+        return new(target.Serial.Value,creator,rank,at.AddMilliseconds(DurationFrames(rank)*40L),old?.Rank==rank?old.CastId:0);
+    }
+    internal static void BindPrepared(PlayerMobile owner,Mobile target,DeathMarkDebuff state)
+    {
+        if(state?.Target!=target?.Serial.Value){throw new NotSupportedException("Prepared Death Mark recipient changed");}
+        _states=_states.SetItem(target.Serial.Value,state);
         owner.DoHarmful(target,true);target.Delta(MobileDelta.Stat);
         target.FixedEffect(0x375A,10,15,0x48A,0); // Identified prepared Death Mark target placeholder.
-        return true;
     }
+    internal static void WriteCastId(Mobile target,int castId)
+    {if(State(target)is not{} state){throw new NotSupportedException("Death Mark metadata needs the bound recipient");}_states=_states.SetItem(state.Target,state with{CastId=castId});}
     internal static void Clear(Mobile target){if(target!=null){_states=_states.Remove(target.Serial.Value);target.Delta(MobileDelta.Stat);}}
     internal static void Prune()
     {foreach(var s in _states.Values){var target=World.FindMobile((Serial)s.Target);if(State(target)==null){_states=_states.Remove(s.Target);target?.Delta(MobileDelta.Stat);}}}

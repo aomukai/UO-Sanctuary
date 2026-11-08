@@ -33,7 +33,7 @@ public static class DeathMarkWorldChecks
             {try{if(again){Reload(network);}else{Check(network);}Log.Information("{Name}: passed",name+"-result");}catch(Exception e){Log.Error(e,"{Name}: failed",name+"-result");}}); }));
         }
     }
-    private static void Register(SkeletonGuardian body)
+    internal static void Register(SkeletonGuardian body)
     {
         int id=WarlockDemonPlacement.ClassId(body);var secondary=GenericPetSecondaryTables.Table.Row(id);
         // Explicit supplied controller path,not a claim of birth-path recovery.

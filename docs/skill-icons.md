@@ -1,5 +1,7 @@
 # Skill icons
 
+**Combined Death Mark release (2026-11-09 JST).** No final icon artwork or learned bindings are added by the prepared cast transaction. Talent,left/right and quick icons remain pending with existing text/fallback placeholders. [Checkpoint](death-mark-world-release-checkpoint.md). Effects/audio remain separate.
+
 **Approved prepared Death Mark recipient (2026-11-09 JST).** No new icon art or learned binding is admitted. Talent,left/right and quick icons still need final artwork;existing text/fallback identities remain placeholders. [Rule/checkpoint](death-mark-debuff-proposal.md). Effects/audio remain in their separate register.
 
 **Live Death Mark demon bridge (2026-11-09 JST).** No new icon artwork or learned bindings are admitted. Death Mark still needs talent,left/right and quick icons,with existing text/fallback placeholders. [Checkpoint](death-mark-world-checkpoint.md). Effects/audio remain separate.

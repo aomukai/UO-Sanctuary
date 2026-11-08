@@ -1,0 +1,75 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "automaticGenericPetAiEnabled": false,
+  "currentFullWorldParity": false,
+  "approval": {
+    "path": "tools/reference/death-mark-recipient-approval.json",
+    "sha256": "26594c510fb578e65bd21cf1b89672758779cec0800f4cae92e0a457588fbe33"
+  },
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-debuff-check": 1,
+    "death-mark-cast-check": 1,
+    "death-mark-world-release-check": 1,
+    "death-mark-world-release-check-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-debuff-reload-check": 2,
+    "death-mark-cast-reload-check": 2,
+    "death-mark-world-release-reload-check": 2,
+    "death-mark-world-release-reload-check-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "priorCompilerMatricesRerun": 0,
+  "retainedCurrentCastCases": 122,
+  "pinnedRecipientRanks": 255,
+  "files": {
+    "src/Sanctuary.Content/DeathMarkWorldRelease.cs": "a2070a59836805039edee54eb2f3b4f118f4005195d97b7ec204a3f98a2e4364",
+    "src/Sanctuary.Content/DeathMarkCast.cs": "7424cb315dd04ff64fae49a8d0d9b881302d27566ef1b7fc1b494ac350c9f283",
+    "src/Sanctuary.Content/DeathMarkWorld.cs": "21f6c90dfa05e811c853dc5a342a2576727f3151c3cabf65457592390d226804",
+    "src/Sanctuary.Content/DeathMarkDebuffs.cs": "4a8946dd24c5e65caa7fd88f058346e0e16925ba01802aadf1cea32fcad1995d",
+    "tests/Sanctuary.Integration/DeathMarkWorldReleaseChecks.cs": "264f401bdf599f2787fa3a3e78fba5b0e40e663961f0713a1235b338b2f7fdf4",
+    "tests/Sanctuary.Integration/DeathMarkWorldChecks.cs": "984e2d2cf8c5fb54fa3d0c45af5e317ec4e49679810842280c51f3dbed1a28b8",
+    "tests/check_death_mark_world_release.py": "62fd63595151d608b35b71d633b28a11cdcf87862ee756b456c53ed1f098fbd2",
+    "tools/record_death_mark_world_release.py": "c0fa3ce9405f42c4f1b4079395804819ced4c5c8792efa11cfcd0f967bdc89cf"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "c00572c86aae24e0726741fa1b1a81e366806dc3169f92abc5ce9d9479082f39",
+    "Assemblies/Sanctuary.Integration.dll": "32f9531438c1cfcea43e89a0547e2252eb2eebfb9c4b16f2b9d37f12491bc020"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Current do155 composition now performs real native relocation and commands on the original Goatman,Tainted,Defiler and binds the approved recipient state. Supplied fourth original actor tests the shared three-pet quota without learned summon-cap admission. Empty roster,source range and duplicate roster controls;weaker mark allocation refusal returns0 after completed pet moves without rollback;ground-only relocation leaves prior enemy command and existing target mark unchanged. Skill350/rank351 are the bound effect identity;opaque castid202 is written last and saved. Original demon serials,birth snapshots,wounds,maxlife,mana,order,source commands and recipient natural deadline/castid survive two actual reloads and support further ground relocation. Retains all approved debuff controls and122current cast comparisons per boot plus required original-item/resource checks.",
+  "compatibility": "DeathMarkDebuff gains optional CastId default0;old JSON without it deserializes. No persistence version reset or artificial lifetime hold. Source202value is preserved opaquely,not inferred from native clocks.",
+  "limits": [
+    "Caller must supply qualified source cast context,room/level/target services and ordered registered original demon roster. Native D2level IDs,levelbyte14,pet iteration order and birth/controller paths are not invented.",
+    "Automatic controller command consumption/neutral/action interruption,requirespettype startup,localdelay/payment/cancellation and left/right/quick admission remain unfinished.",
+    "Prepared recipient scope is hostile ordinary NPC;current numeric binder remains protected and uses explicit approved adaptation. No PvP or full current world parity claim.",
+    "Existing target/landing placeholders and separate final effects/audio/icons remain pending."
+  ]
+}
