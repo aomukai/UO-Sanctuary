@@ -1,5 +1,7 @@
 # Skill effects
 
+**Sigil roster tracking (2026-11-08 JST).** Prepared eviction changes the old missile's lifetime rather than emitting an instant deletion effect. No world art/audio is produced yet;all three Sigils retain their pending cast,marker,pulse,recipient and expiry families with identified placeholders. [Checkpoint](sigil-tracking-checkpoint.md). Icons remain separate.
+
 **Shared Sigil launch (2026-11-08 JST).** Prepared factory requests create no world art. All three Sigils retain pending cast,ground marker,pulse,recipient,expiry and audio identities;use labelled placeholders when world consumers are connected. [Checkpoint](sigil-launch-checkpoint.md). No final effects were generated;icons remain separate.
 
 **Prepared missile packet scaling (2026-11-08 JST).** Numeric-only component adds no effect or audio identity. Ring cast,expansion,contact,explosion and expiry remain in the existing pending family below;no final artwork is claimed. [Checkpoint](missile-damage-scale-checkpoint.md). Icons remain separately tracked.

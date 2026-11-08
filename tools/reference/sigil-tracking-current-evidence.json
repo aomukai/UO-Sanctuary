@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x28fa10",
+  "currentMachineCodeExecutedOffline": true,
+  "targetProcessCodeExecuted": false,
+  "processMemoryRead": false,
+  "cases": 111,
+  "sourceBytes": 2217,
+  "unicornVersion": "2.1.4",
+  "emulatorLibrarySha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+  "externalServices": [
+    "Existing or newly-created state list,stat354/355row/read/write and missile resolver are declared services;all tracking and <=32element sort decisions execute.",
+    "Cases have at most6existing slots so the original inline8element vector never grows. Larger corrupted/foreign lists and allocator failure are unsupported.",
+    "Owner selector1,known stat rows,integer stat values and ordinary state-list expiry are supplied. Source list allocation/posting and timer dispatch are outside this core.",
+    "Functor destruction/disposal and cookie ABI are declared no-gameplay services."
+  ],
+  "limits": [
+    "Return is reschedule-needed,not a general tracking-success flag. Existing list entries can change while false is returned.",
+    "This does not implement recipient statuses,world missiles or owner-state removal callbacks."
+  ],
+  "artifacts": {
+    ".local/class-skills/sigil-tracking-source/cases.json": "c2df7e87c0886b8a646a15a22c7e9b4d375c994c2e06916bb2015436bbe78fa0",
+    "tools/probe_sigil_tracking.py": "9c8e4dcb9b550dd8a523c92df6fb6528cab99b09a732c71ed18cc2ff007ff201",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108.json": "5a3184ddb8a898d017913b1d46fc0aa1e08cf0c9181d2c3ab7e98cd9f3328d8d",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/sigil-tracking-callback-20261108.json": "ac1829e8d3f857c07ff3ef41b28d566335448ebefae50be5e3b6a35a0390b0b9",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108-28fa10-part0.bin": "850d02e65a69664d6dc415d81ec81d49d892546615800ffdf64d0b43b273a1e3",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108-28fa10-part1.bin": "f3f5e1ebc071df470ab4bcf034de10ea9b1bf8baacee86f48bc1e8c3890f9add",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108-28fa10-part2.bin": "1a7303c033cea0b8eac03ce40e76e6db4f2f0b338f1f6f3f70300f366f7e5817",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108-28fa10-part3.bin": "f2a9a019f7cab22b6a74078df8d38774c1e6763c6a3238857d7679bef244654d",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108-28fa10-part4.bin": "ae0d7a961f9229c5d5866f5660b81b317c1f82b1b3fb5525dc39e64886c6107e",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-limit-services-20261108-28fa10-part5.bin": "79123ca05c8021064ddab620d69cebae8ccfab2de2d07983ee41103b31938c88",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/sigil-tracking-290910-part0.bin": "976832b7fafe20cafa2b67f2240cae5e10eea089f7645f98b97a445b7a608f19",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/sigil-tracking-290910-part1.bin": "3a6a5795432d4979ad32d62312dec598c69d6201049fcb662dcc16985a251a45",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/sigil-tracking-290910-part2.bin": "a5bf638226bfe793f3fd3bf887558fc591c55b01af5edc55499642e749c8e33f",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/sigil-tracking-290910-part3.bin": "820b5802b77721ed1122b6911146d686cfdaaab0ae2e6c5c37d77ce3669055bd",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/sigil-tracking-290910-part4.bin": "12eb084cad27961b3d735405ff344fac0916bb9d12d7232f9018dcff8fecc5fb"
+  }
+}
