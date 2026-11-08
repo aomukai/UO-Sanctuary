@@ -1,0 +1,80 @@
+{
+  "parent": "4463dcbcccfe007916a150ad463b86429a20fcd6",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "newCompiledSourceContexts": 336,
+  "reusedSource": {
+    "npc-item-spell-damage-source-evidence": "4b40e94f2d1e68487eaaaaa3080cfff77fda3390289b30379d8346b71326f15d",
+    "shadow-fury-missiles-source-evidence": "d1b7fa210d7a4db4e2e65e5d65c1f0ec06fb38cd469aa3bec92c570842a2fd25"
+  },
+  "sourceProofSha256": "7c29ad21ab34c5dc1a187b2cc303391eb2fd68f113da9cf8a7c4a5069f978190",
+  "oldCompilerMatricesRerun": 0,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "shadow-death-live": 3,
+    "shadow-death-live-result": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-death-check": 1,
+    "npc-item-spell-flights-check": 1,
+    "shadow-unique-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-death-reload-check": 2,
+    "npc-item-spell-flights-reload-check": 2,
+    "shadow-unique-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 4,
+  "integrationBuild": 6,
+  "sourceSnapshot": 9,
+  "contentSourceSnapshot": 8,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "470cb57a40019ca5de7622abc4202be66584c405f4b4d38661291a8986d8e2f9",
+    "Assemblies/Sanctuary.Integration.dll": "53d1b3c0a4622819e37a7523c2f06a3f897fa6df7c3e3a8f87a029075a4dcf73"
+  },
+  "files": {
+    "src/Sanctuary.Content/AssassinShadowBody.cs": "3d05ff949b0daa4d237a03b13229966049a0c6a06a0cbdc43533afc1402c8a4d",
+    "src/Sanctuary.Content/AssassinShadowDeath.cs": "bb3ab4030609857bcab0aeaf28f3d8c7517a752b8641346295510cc7fcd5f9b1",
+    "src/Sanctuary.Content/ShadowLoadout.cs": "9cd51f12a8e4203dfaeb06f58275d29a26823594f0af91742f05ed7a6fdce30f",
+    "src/Sanctuary.Content/PersistentMinions.cs": "04b1d5bf1c949f506328e32a844041b33c73ca374f890dd1890f732a0f40e423",
+    "src/Sanctuary.Content/PreparedMonsterDamage.cs": "db1681e93c35a28fc9c24a0d1b59a5e248d8d013afb0d773cdf084d6701dd4aa",
+    "src/Sanctuary.Content/InstantSpellNpcDamage.cs": "baaa370d517da985a2bd6923b943de29492af36c645b9e3c8b782717089ff8ad",
+    "src/Sanctuary.Content/NpcElementSpellHit.cs": "854a3d5a76621258f1a9aacc6598bb2f38f70331d3fe61ee931d50ecc1d911e6",
+    "src/Sanctuary.Content/NpcItemSpellFlights.cs": "1c7061da5cba66a41779bc9ed33e80e442dc3639569506bd6e17e264f4c65824",
+    "src/Sanctuary.Content/SorceressSpellMissiles.cs": "3e980369c90ef8b160aa2fab3bab3bbdaa1e881a7f0affd49eebf0bb4a46d4f6",
+    "tests/Sanctuary.Integration/ShadowDeathChecks.cs": "5af7014319bb8288b68f19e2902efc09e969a64191e6435f16890632800ddc06",
+    "tests/check_shadow_death.py": "4c1be148d893f79612c93176fc64d4fcc0e991825280380de733b2ca3123b647",
+    "tools/probe_shadow_death.py": "4fc63ee312bec7b35e462c302fffddb02dde64bae76166fa0c8da66a2991ca02",
+    "tools/record_shadow_death.py": "b787c8fe50178e3fd1625b77fd2baa73b165034da90e05215164970ee047f646",
+    "tools/reference/shadow-death-source-evidence.json": "7c29ad21ab34c5dc1a187b2cc303391eb2fd68f113da9cf8a7c4a5069f978190"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Initial content compile used a nonexistent batch name;changed to existing species-neutral CommitValkyrie. First native cohort passed initial prepared deaths and actual connected lethal-hit/travel/damage/cleanup,but reload exposed dead-original RNG filtering. Read-only original-loadout access now permits only retained retiring Shadows. Native2 still exposed pending-source placement loss;native3 added diagnostics identifying shared minion suspension internalizing dead casters. Shared suspension now applies only to living companions. Native4 passed all24markers;native5 adds explicit default dead-source refusal and actual returned lightning hit-class controls,also passes. Failed logs/input manifests and native4 passed log retained. No old compiler matrices rerun.",
+  "scope": "Both seed1 initialized Shadow species retain their actual dead body,original items and ownership for four-frame Nova emission and child expiry. Nova rank uses summon-birth effective Shadow Warrior snapshot even for Master,capped15;current packet is own NPC Nova with no player weapon/potion/synergy payload.64 rays use existing ring geometry/flags7/velocity24/private world allocation and shared typed NPC damage;actual hit class64 is retained. Only matching saved retirement context admits dead missile delivery;ordinary/default dead sources refuse. Real death differs from ordinary Delete;inactive callbacks expire without catch-up damage;duplicate calls cannot allocate again. Original items and attack stream survive pending/emitted reloads and are deleted once at expiry. Owner parking preserves dead-source facet. Both species direct Kill and NPC HP/root kill-credit paths pass;connected real native lethal damage and automatic timed travelling Nova pass for Warrior on each boot. Existing original-NPC spell flights and unique/slow consumers retained.",
+  "remaining": [
+    "Mapped NPC recipients only:player/PvP and nonzero ordinary shield-rate recipients remain explicitly rejected by the existing NPC-spell host pending their adapters",
+    "Current executable death timing/callback/item mutation parity is not independently observed;older source/current tables and approved summon-birth snapshot precedence are explicit",
+    "Legacy owner snapshots without skills and unqualified Master off-class/item graphs are not admitted by the capture service;resolve before learned admission",
+    "Remaining Fury rewind/critical,Master item/range/AI gaps and learned Shadow Warrior/Master admission remain unfinished",
+    "Final Shadow death collapse/Nova ring/impact/expiry art and sound remain placeholders;no separate public proc icon"
+  ]
+}

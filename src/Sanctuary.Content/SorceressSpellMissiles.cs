@@ -201,6 +201,17 @@ internal static class SorceressSpellMissiles
         }
         return flights;
     }
+    internal static int NovaFrames=>Profile(CombatAbility.Nova).Frames;
+    internal static SorceressSpellFlight[] PrepareDeathNova(AssassinShadowBody actor,NpcItemSpellSource context,DateTime at)
+    {
+        var owner=actor.ControlMaster as PlayerMobile;
+        if(!context.DeathNova||!NpcItemSpellFlights.AttachedSource(actor,owner,actor.Map.MapID,context)||at.Kind!=DateTimeKind.Utc)
+        {throw new NotSupportedException("Death nova needs its retained actual original source");}
+        Route(new SkillValues(SkillMechanics.For(CombatAbility.Nova),_=>context.Packet.Rank,_=>0,actor.Prepared.Capture.Level));
+        var slow=AmazonSlowMissiles.Capture(actor,false);long first=checked(_pool.NextId+1);var flights=new SorceressSpellFlight[64];
+        for(int i=0;i<flights.Length;i++){flights[i]=PrepareOriginal(actor,actor.Location,actor.Location,context,slow,checked(first+i),first,i,NpcWorldAllocation.UnitSeed(),at,7);}
+        return flights;
+    }
     // Shared packet/velocity/path constructor. Ordinary casts and synchronous
     // item requests differ in origin and allocation,not their movement kernel.
     private static SorceressSpellFlight PrepareOriginal(SkeletonGuardian actor,Point3D origin,Point3D aim,NpcItemSpellSource context,
@@ -393,7 +404,7 @@ internal static class SorceressSpellMissiles
         var owner=flight.Npc==null?Owner(flight.Owner):World.FindMobile((Serial)flight.Owner)as PlayerMobile;
         if(flight.Npc==null&&(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map)){Remove(flight.Id);return;}
         Mobile caster=flight.Npc==null?owner:npc;
-        bool attached=flight.Npc==null||NpcItemSpellFlights.Attached(npc,owner,flight.Map,flight.Npc.Binding);
+        bool attached=flight.Npc==null||NpcItemSpellFlights.AttachedSource(npc,owner,flight.Map,flight.Npc);
         bool loaded=Loaded.Remove(flight.Id);
         int elapsed=loaded?(int)Math.Min(flight.Frames-flight.Frame,(at-flight.NextUtc).Ticks/TimeSpan.TicksPerMillisecond/40+1):1;
         bool ring=Ring(flight.Ability),nonKilling=ring||Profile(flight.Ability).CollideKill==0;int frame=flight.Frame+elapsed;var next=flight with{Frame=frame,NextUtc=flight.NextUtc.AddMilliseconds(40L*elapsed)};
@@ -427,7 +438,7 @@ internal static class SorceressSpellMissiles
                 if(candidate is not{Alive:true,Deleted:false,Blessed:false}||Math.Abs(candidate.Z-flight.Z)>=16
                     ||nonKilling&&candidate.Serial.Value==flight.LastCollision
                     ||ring&&!Ready(flight.Cast,candidate.Serial.Value,flight.NextUtc)
-                    ||!ClassCombat.IsHostile(owner,candidate)||!caster.CanBeHarmful(candidate,false)||flight.Npc!=null&&ClassCombat.Friendly(caster,candidate)||SpellHelper.IsTown(candidate.Location,owner)){continue;}
+                    ||!ClassCombat.IsHostile(owner,candidate)||!(flight.Npc==null?caster.CanBeHarmful(candidate,false):NpcItemSpellFlights.CanHarm(npc,owner,candidate,flight.Npc))||flight.Npc!=null&&ClassCombat.Friendly(caster,candidate)||SpellHelper.IsTown(candidate.Location,owner)){continue;}
                 int size=candidate is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
                 if(CombatHitboxes.SourceTouches(Profile(flight.Ability).Size,size,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){return candidate;}
             }

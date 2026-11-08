@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared original Shadow death nova (2026-11-08 JST).** Mechanically connected to the retained dead NPC and existing shared Nova projectile/contact presentation. Treat the current presentation as a placeholder:final Shadow death collapse,lightning ring,travel/impact/expiry cues and sound remain required in the Shadow/Nova effects family. No imagegen work was performed. [Checkpoint](shadow-death-checkpoint.md). Icons remain separate.
+
 **Own Sentinel/Shock Web S2 actions (2026-11-08 JST).** Connected mechanics reuse identified S2/cast cues,`0x23B` summon audio,blade travel/contact and web lob/field placeholders. Final NPC poses,release/impact/expiry cues and audio remain pending in their existing families. [Checkpoint](shadow-sentinel-action-checkpoint.md). Modifier42 nova artwork/audio is recorded for the upcoming mechanic;icons remain separate.
 
 **Prepared Shadow Sentinel (2026-11-08 JST).** Reuses the existing blade actor/following-missile and identified cast/travel/contact placeholders. Final S2 pose,blade travel/turn/contact/expiry cues and audio remain pending in the shared Sentinel family;birth snapshot adds no visual identity. [Checkpoint](shadow-sentinel-checkpoint.md). Icons remain separate.

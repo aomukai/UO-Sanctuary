@@ -10,7 +10,7 @@ namespace Sanctuary;
 internal sealed class InstantSpellNpcDamage(PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,FirestormModifiers modifiers,DateTime at,
 string kind,Func<uint> defenderRoll,Func<Mobile,BaseCreature,bool> knockback=null,bool cold=false,int damageRate=0,
 BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> npcMitigation=null,
-Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=null,bool freeze=false):PreparedMonsterDamageServices
+Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=null,bool freeze=false,Func<Mobile,bool> retainedSource=null):PreparedMonsterDamageServices
 {
     internal static bool Supported(PlayerMobile owner,Mobile actor,string kind,out string reason)
     {
@@ -26,6 +26,7 @@ Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=n
     }
     private int Loss,EntryHits;private bool Freed;
     private Mobile Attacker=>emitter??(Mobile)owner;
+    internal override bool RetainedDeadSource(Mobile source)=>retainedSource?.Invoke(source)==true;
     internal override void StoreLastAttacker(){Attacker.DoHarmful(target,true);EntryHits=target.Hits;}
     internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)
     {

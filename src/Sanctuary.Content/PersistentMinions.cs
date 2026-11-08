@@ -113,6 +113,9 @@ public static class PersistentMinions
 
     internal static void Suspend(BaseCreature pet)
     {
+        // Retained dead casters own their effect lifetime and original facet.
+        // Parking/internalization applies only to living companions.
+        if(pet.Deleted||!pet.Alive){return;}
         Behavior(pet).SuspendActions();
         pet.Combatant = null;
         pet.FocusMob = null;

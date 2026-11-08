@@ -17,6 +17,7 @@ internal sealed record ShadowBodyState(uint Owner,ShadowOwnerSnapshot Capture,Sh
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string Skills{get;init;}
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string DefenseProfile{get;init;}
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShadowGroundState GroundMotion{get;init;}
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShadowDeathState Death{get;init;}
 }
 
 // Real serialized species/ownership/original inventory and FP256 resource
@@ -147,7 +148,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
             if(s?.Capture==null||s.Initialization==null||s.Profile!="parked-shadow-resources-v1"||!((Serial)s.Owner).IsMobile
                 ||!Enum.IsDefined(s.Difficulty)||s.NextRecoveryUtc.Kind!=DateTimeKind.Utc||s.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40))
             {throw new InvalidDataException("Invalid Shadow actor birth");}
-            s.Capture.Validate();ShadowInitializer.Validate(s.Initialization);
+            s.Capture.Validate();ShadowInitializer.Validate(s.Initialization);ShadowDeathNovas.Validate(s.Death,s);
             ShadowGroundMotion.Validate(s.GroundMotion,s.Owner,s.Capture);
             if(s.DefenseProfile!=null&&s.DefenseProfile!=ShadowEquipmentDefense.Profile)
             {throw new InvalidDataException("Unknown original Shadow defense profile");}
@@ -225,11 +226,12 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         if(s.Map!=Map.MapID||X!=(cell.X+1)/2||Y!=(cell.Y+1)/2)
         {WorldGround.Store(IronGolemWorld.Park(s with{Map=Map.MapID,Motion=DruidRavenMotion.Center(X*2,Y*2)}));}
     }
-    public override void OnAfterDelete(){ShadowActions.Cancel(this);GeneratedNpcLiveResources.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
+    public override void OnAfterDelete(){_deathTimer.Cancel();ShadowActions.Cancel(this);GeneratedNpcLiveResources.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterShadowLoad()
     {
         AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ShadowBodyState>(_saved);Validate(_state);_birth=null;
         if(_state.Equipment==null||_state.Weapons==null||_state.Equipment.Actor!=Serial.Value){throw new InvalidDataException("Saved Shadow lost its completed original loadout");}
-        if(_state.GroundMotion!=null){WorldGround.Load();}
+        if(_state.Death!=null){RestoreDeath();}
+        else if(_state.GroundMotion!=null){WorldGround.Load();}
     }
 }

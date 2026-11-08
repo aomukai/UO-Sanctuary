@@ -40,7 +40,7 @@ internal static class ShadowLoadout
     internal static GeneratedNpcItem[] Originals(AssassinShadowBody body)
     {
         var s=body.Prepared?.Equipment??throw new NotSupportedException("Shadow original equipment is not complete");Validate(s);
-        if(body is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}||s.Actor!=body.Serial.Value||s.Owner!=owner.Serial.Value)
+        if(body is not{Deleted:false,ControlMaster:PlayerMobile{Deleted:false} owner}||!body.Alive&&!body.Retiring||s.Actor!=body.Serial.Value||s.Owner!=owner.Serial.Value)
         {throw new NotSupportedException("Shadow loadout lost its original body/owner");}
         var items=GeneratedNpcEquipment.Items(body);var ids=s.Attempts.Where(a=>a.Success).Select(a=>a.Item).ToArray();
         if(items.Length!=ids.Length||items.Any(i=>!ids.Contains(i.Serial.Value))){throw new NotSupportedException("Shadow original inventory changed");}

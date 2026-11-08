@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared original Shadow death nova (2026-11-08 JST).** The internal modifier42 proc adds no public talent/hotkey icon. Shadow Warrior/Master retain their existing identified talent/hotkey text placeholders;final death/Nova effects and sound are tracked separately. [Checkpoint](shadow-death-checkpoint.md).
+
 **Own Sentinel/Shock Web S2 actions (2026-11-08 JST).** No new public icon IDs. Shock Web,Blade Sentinel and Shadow Warrior/Master keep identified talent/hotkey text placeholders. [Checkpoint](shadow-sentinel-action-checkpoint.md). The upcoming internal death-nova proc adds no separate talent icon;effects/audio remain separate.
 
 **Prepared Shadow Sentinel (2026-11-08 JST).** Blade Sentinel and Shadow Warrior/Master retain identified talent/hotkey text placeholders;no separate nested-pet icon is introduced. [Checkpoint](shadow-sentinel-checkpoint.md). Effects/audio remain in the separate inventory.

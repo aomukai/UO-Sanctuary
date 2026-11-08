@@ -1,5 +1,7 @@
 # Remaining Shadow modifier42 work
 
+**Implementation update:** the [retained death-nova checkpoint](shadow-death-checkpoint.md) now verifies the prepared NPC path. The historical review below remains read-only evidence;current executable/PvP and admission limits are explicit in the checkpoint.
+
 **Update:** unique-recipient identity and approved slow cap are now implemented and verified in the [unique checkpoint](shadow-unique-checkpoint.md). Delayed death nova remains unfinished. The review below describes its original read-only scope.
 
 Read-only source review,2026-11-08 JST. **Not implemented or certified by this review.** Reference: D2R Reign of the Warlock3.3.93847 current sumumod42 rows and the explicitly pinned older source.

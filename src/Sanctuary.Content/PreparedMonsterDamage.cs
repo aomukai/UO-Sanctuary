@@ -12,6 +12,8 @@ internal sealed record PreparedMonsterRecipient(bool Unique,Func<bool> Boss,Func
 // silently replaced by an inferred proc or a native Mobile.Damage replay.
 internal abstract class PreparedMonsterDamageServices
 {
+    // Only an explicit retained-caster service can admit a dead missile source.
+    internal virtual bool RetainedDeadSource(Mobile source)=>false;
     internal abstract void StoreLastAttacker();
     internal abstract PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket packet);
     internal abstract PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket packet);
@@ -103,7 +105,7 @@ internal static class PreparedMonsterDamage
     {
         Checked(packet);if(statusOnly){CheckedStatus(packet);}
         ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(services);
-        if(attacker is not(PlayerMobile or BaseCreature)||attacker is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
+        if(attacker is not(PlayerMobile or BaseCreature)||attacker.Deleted||!attacker.Alive&&!(missile&&services.RetainedDeadSource(attacker))||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
             ||SkillHealth.Balance256(target)<=0||!statusOnly&&(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
         {throw new NotSupportedException("Monster release requires qualified living source/recipient and a successful cached packet");}
         if(packet.FreezeFrames>0&&!services.SupportsFreeze){throw new NotSupportedException("Prepared freeze needs its qualified status receiver before HP/events");}

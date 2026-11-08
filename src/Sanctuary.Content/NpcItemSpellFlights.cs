@@ -2,12 +2,16 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
-internal sealed record NpcItemSpellSource(uint Actor,string Binding,NpcItemSpellPacket Packet);
+internal sealed record NpcItemSpellSource(uint Actor,string Binding,NpcItemSpellPacket Packet)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public bool DeathNova{get;init;}
+}
 
 // Explicit original-NPC emission context for the shared Sorceress flight
 // engine. Original item callbacks and their child-seed allocation are separate.
@@ -20,6 +24,10 @@ internal static class NpcItemSpellFlights
             ||!PersistentMinions.Active(owner,body)||!body.Permitted(owner)||SpellHelper.IsTown(body.Location,owner)) {return false;}
         var current=OriginalNpcEquipment.Binding(body);return binding==null||current==binding;
     }
+    internal static bool AttachedSource(SkeletonGuardian body,PlayerMobile owner,int map,NpcItemSpellSource context)
+        =>context.DeathNova?body is AssassinShadowBody shadow&&ShadowDeathNovas.Attached(shadow,owner,map,context):Attached(body,owner,map,context.Binding);
+    internal static bool CanHarm(SkeletonGuardian body,PlayerMobile owner,Mobile target,NpcItemSpellSource context)
+        =>context.DeathNova?owner.CanBeHarmful(target,false):body.CanBeHarmful(target,false);
     internal static void Validate(SorceressSpellFlight flight)
     {
         var source=flight.Npc;var p=source?.Packet;
@@ -27,6 +35,7 @@ internal static class NpcItemSpellFlights
             ||source.Binding.Any(c=>c is not(>='0'and<='9'or>='a'and<='f'))||p==null||p.Skill is not(36 or 38 or 39 or 44 or 48 or 49)
             ||p.Rank!=flight.Rank||p.Rank is<1 or>63||NpcItemSpellDamage.Ability(p.Skill)!=flight.Ability||p.Element!=(p.Skill==36?"fire":p.Skill is 39 or 44?"cold":"ltng")
             ||p.Missile!=(p.Skill==36?"firebolt":p.Skill==38?"chargedbolt":p.Skill==39?"icebolt":p.Skill==44?"frostnova":p.Skill==49?"lightningbolt":"nova")
+            ||source.DeathNova&&(p.Skill!=48||p.Rank>15)
             ||p.Minimum256<0||p.Maximum256<p.Minimum256||p.ColdFrames!=(p.Skill==44?200+25*(p.Rank-1):p.Skill==39?150+35*(p.Rank-1):0)
             ||p.Emissions!=(p.Skill is 44 or 48?64:p.Skill==38?Math.Min(24,p.Rank+2):1)
             ||flight.Minimum256!=flight.Slow.Damage256(p.Minimum256)||flight.Maximum256!=flight.Slow.Damage256(p.Maximum256)
@@ -37,8 +46,8 @@ internal static class NpcItemSpellFlights
     internal static (SkeletonGuardian Body,BaseCreature Target) RequireTarget(PlayerMobile owner,Mobile recipient,NpcItemSpellSource context,int map,DateTime at)
     {
         var body=World.FindMobile((Serial)context.Actor)as SkeletonGuardian;
-        if(!Attached(body,owner,map,context.Binding)||recipient is not BaseCreature target||!ClassCombat.IsHostile(owner,target)
-            ||ClassCombat.Friendly(body,target)||!body.CanBeHarmful(target,false)||SpellHelper.IsTown(target.Location,owner))
+        if(!AttachedSource(body,owner,map,context)||recipient is not BaseCreature target||!ClassCombat.IsHostile(owner,target)
+            ||ClassCombat.Friendly(body,target)||!CanHarm(body,owner,target,context)||SpellHelper.IsTown(target.Location,owner))
         {throw new NotSupportedException("Original NPC spell requires its attached source and living hostile NPC recipient");}
         _=NpcElementSpellHit.Require(body,owner,target,at,"Original NPC "+context.Packet.Missile);
         if(!SourceBlocking.TryRate(target,out int rate,out _)||rate!=0)
@@ -60,7 +69,7 @@ internal static class NpcItemSpellFlights
         var damage=NpcEquipmentCritical.ApplyIntrinsic(0,p.Element=="fire"?new(0,raw/256.0,0,0,0):p.Element=="cold"?new(0,0,raw/256.0,0,0):new(0,0,0,raw/256.0,0),new(0,0),critical);
         int? Pierce(string element)=>element switch{"fire"=>p.FirePierce,"cold"=>p.ColdPierce,"ltng"=>p.LightningPierce,_=>0};
         int before=SkillHealth.Balance256(target);
-        NpcElementSpellHit.Deliver(body,owner,target,p.Element,NamedElements.To256(damage.Elements.Total),p.ColdFrames,at,"Original NPC "+p.Missile,hitClass:damage.HitClass,pierce:Pierce);
+        NpcElementSpellHit.Deliver(body,owner,target,p.Element,NamedElements.To256(damage.Elements.Total),p.ColdFrames,at,"Original NPC "+p.Missile,hitClass:context.DeathNova?64:damage.HitClass,pierce:Pierce,retainedSource:context.DeathNova?source=>source==body&&AttachedSource(body,owner,map,context):null,hitClassActive:context.DeathNova);
         return Math.Max(0,before-SkillHealth.Balance256(target));
     }
 }

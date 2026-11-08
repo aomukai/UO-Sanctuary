@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 336,
+  "completeRoutineHashes": {
+    "MONSTERUNIQUE_ColdEnchantedModeChange": "bcda42ff99fb3d2cd45e727e0b597198bb9dc57f4b76a14baa291599bfb400a1",
+    "MONSTERUNIQUE_CastNova": "dbb867ad9e8e67aa7c06f84df8e6fb114261af293f08538fabadde7e9dd9d51d",
+    "sub_6FD14170": "2d0a4b0f5e5cd52c04cf272c351e8f460b7b1a28346eff16532d3c68eb5f2349"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MissilesIds.h": "d37ebd5e351a17fe36444dca6c0a8a91b92610271bc160307c7d83aae589961a",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/SkillsIds.h": "b0003258b3a043b2391ad4afa665575fad54f3219f11958f27664e9e985d56d3",
+    "tools/probe_shadow_death.py": "4fc63ee312bec7b35e462c302fffddb02dde64bae76166fa0c8da66a2991ca02"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-death-source/source.cpp": "00a5049a81887fa96867ba0a22cca1299ba581b14c1af58c6861de17fa09d1ed",
+    ".local/class-skills/shadow-death-source/cases.json": "6f84d60da93abdfc07b33bd6686482e6223758bcd32c15171b263481dee74945"
+  },
+  "scope": "Unchanged complete mode-change,CastNova and64-ray helper over declared owner/effective-skill/life/event/missile allocation services. Verifies4-frame death schedule,unique guard,Warrior rank even for Master,cap15,life>10 override,actual owner/origin,skill0/flags7/velocity24 and ring directions. Does not compile the whole damage creator or prove modern executable behavior;existing typed NPC Nova damage/movement proofs are reused. Snapshot rank timing is the separately approved Sanctuary summon-birth adaptation."
+}
