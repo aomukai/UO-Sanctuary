@@ -1,0 +1,21 @@
+# Ring of Fire world-rule proposal
+
+**Pending user decision.** The candidate is implemented and verified in a disposable native world. Learned casting remains gated. Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations first.
+
+Your reference requirement calls for an explicit choice here: the current hit1 callback and damage-dispatch connection remain unreadable/unverified. The primary table, current launch and approved age scaling are established. The following defines the remaining contact behavior without presenting it as verified current D2R code.
+
+Proposed Sanctuary rule:
+
+- Emit the pinned 16 fragments below effective rank 10, and 32 from rank 10. Use the verified directions and existing source motion projection for eleven 40 ms updates. First collision processing occurs on the first update; initial factory setup adds no extra collision pass or age.
+- Capture effective rank, hard synergies, fire endpoints and enhancement at release. Roll once when a fragment first explodes, then copy that packet to its recipients. Apply the approved elapsed-age growth before the existing spell mitigation. Potion additions and resistance penetration follow the shared spell pipeline.
+- Each fragment gets **one damaging explosion**, with the pinned radius of three source subtiles (1.5 native tiles), centered on its first accepted contact. There is no additional direct damage to that primary target. Source-subtile circle membership and ordinary native LOS/hostility/safety checks apply.
+- The fragment continues moving. Later eligible contacts **knock back without another fire explosion**. If it reaches a wall or its lifetime ends before any contact, that is its one damaging explosion. Visual child730 adds no second damage packet.
+- Share an **11-frame/440 ms recipient delay within one cast**, across all fragments and explosion recipients. A delayed recipient cannot receive another contact from that cast. Separate casts are independent.
+- Direct eligible contacts attempt the pinned 100% knockback, including against fire-immune targets. Reuse existing monster knockback eligibility, movement, distance and same-tile facing rules; immunity does not make an otherwise eligible target immovable. Explosion neighbors receive damage but no separate knockback unless reached by an eligible direct contact.
+- Commit the table mana cost once when at least one fragment can be published: rank 1 costs 8 mana, plus 0.5 per effective rank. Failed/all-failed allocation or insufficient mana publishes nothing and costs nothing. Learned input will reuse the existing Warlock SC windup/cancellation and release transaction.
+- Use the existing native seed/geometry adapters; opaque source unit context has value0. The caster remains the source and receives credit. These host projections do not claim D2's whole-game RNG or room ordering.
+- Owner death/deletion or facet travel removes the fragments. Logout and safe-area entry stop combat while lifetime continues. Reload consumes elapsed updates without replaying hits. Original flight IDs, birth data, seed, wounds and remaining lifetime persist; parking/offline time grants no reset or recovery.
+
+The ordinary-recipient guard continues to identify unsupported class-pet/hireling/PvP and special mode cases explicitly. This decision qualifies the ordinary world route; those broader checks and final class certification remain separate. Final effects/audio and talent/hotkey icons remain in their own registers with identified placeholders.
+
+**Verification:** [native receipt](../tools/reference/ring-world-native-evidence.json), Content4/Integration3/snapshot4/native1. Twelve markers passed across three boots, two reloads and three saves. Actual HP/knockback checks cover a shared first explosion, approved growth before resistance, independent casts, later knockback without repeat damage, fire immunity, mana/allocation/facet/death/boundary guards and sixteen original final-frame missiles whose expiry does not replay damage after reload. Installed build/config/saves remain intact.

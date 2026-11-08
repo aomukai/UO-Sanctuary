@@ -1,5 +1,7 @@
 # Skill effects
 
+**Ring candidate world producer (2026-11-09 JST).** [Checkpoint](ring-world-checkpoint.md). Candidate sparse travel uses generic fire0x36D4;first explosion uses0x36BD. Both are identified placeholders. Final cast/ring expansion,first damaging contact,later knockback-only tail,terminal/expiry and audio remain needed. Visual730must not introduce another server damage child. Talent/hotkey icons stay separate.
+
 **Prepared Cleave sweep (2026-11-09 JST).** [Checkpoint](cleave-sweep-checkpoint.md). A pure arc/area request creates no world visual or damage producer. Existing SQ/contact presentations remain identified placeholders;final Cleave cast/sweep/contact/audio stay pending. Icons remain separate.
 
 **Ring approved-age prepared recipient (2026-11-09 JST).** [Checkpoint](ring-age-checkpoint.md). The shared generic fire-contact presentation is an identified placeholder for explicit recipient checks;no automatic projectile/explosion producer or final art is added. Existing cast/ring/contact/terminal/expiry/audio work remains pending;icons remain separate.

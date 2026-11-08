@@ -6,6 +6,7 @@ namespace Sanctuary;
 
 internal sealed record RingOfFirePacket(uint Owner,int Rank,int Minimum256,int Maximum256,int Fire256,
     FirestormModifiers Modifiers,ulong SeedBefore,ulong SeedAfter);
+internal sealed record RingOfFireBirth(int Rank,int Minimum256,int Maximum256,FirestormModifiers Modifiers);
 
 // Prepared ordinary recipient only. Contact selection, explosion enumeration
 // and delay identity remain outside this receiver; it publishes no missile.
@@ -20,9 +21,20 @@ internal static class RingOfFireDamage
         {throw new NotSupportedException("Unqualified Ring fire packet");}
         // Reuse the existing spell endpoint/roll contract. Slow Missiles does
         // not scale this CanSlow0 missile. Enhancement is captured once.
+        return RollBorn(owner,Birth(values,modifiers),ref seed);
+    }
+    internal static RingOfFireBirth Birth(SkillValues values,FirestormModifiers modifiers)
+    {
+        if(values?.Ability!=CombatAbility.RingOfFire||values.Rank is <1 or >255||modifiers==null){throw new NotSupportedException("Invalid Ring birth capture");}
         var ends=DruidFirestorm.Endpoints(values,modifiers.FireMastery,SlowMissilePayload.Normal);
-        int raw=SorceressSpellMissiles.Roll(ends.Min,ends.Max,seed,out var after);
-        var packet=new RingOfFirePacket(owner.Serial.Value,values.Rank,ends.Min,ends.Max,raw,modifiers,seed,after);seed=after;return packet;
+        return new(values.Rank,ends.Min,ends.Max,modifiers);
+    }
+    internal static RingOfFirePacket RollBorn(PlayerMobile owner,RingOfFireBirth birth,ref ulong seed)
+    {
+        if(owner==null||birth is not{Rank:>=1 and <=255,Minimum256:>=0,Modifiers:not null}||birth.Maximum256<birth.Minimum256)
+        {throw new NotSupportedException("Invalid Ring birth packet");}
+        int raw=SorceressSpellMissiles.Roll(birth.Minimum256,birth.Maximum256,seed,out var after);
+        var packet=new RingOfFirePacket(owner.Serial.Value,birth.Rank,birth.Minimum256,birth.Maximum256,raw,birth.Modifiers,seed,after);seed=after;return packet;
     }
     internal static void Validate(RingOfFirePacket packet)
     {

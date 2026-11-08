@@ -1,0 +1,76 @@
+{
+  "referenceVersion": "3.3.93847",
+  "candidateOnly": true,
+  "worldRuleApproved": false,
+  "learnedRingEnabled": false,
+  "handlers": 212,
+  "warlockHandlers": 3,
+  "completedClasses": [],
+  "contentBuild": 4,
+  "integrationBuild": 3,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/ring-world/source-snapshot-4.json",
+    "sha256": "6cf00f1c2cbc705dd2792d545411c0cf5774a6ed6911b36ddfc30af0027e8652"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/ring-world/birth-inputs.json",
+    "sha256": "3aa510ee0331ab7328760ef52c80971d50035486b82c32ce22b28a2176020e0a"
+  },
+  "nativeRun": 1,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "ring-world-check": 1,
+    "ring-world-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "originalFinalFrameFlights": 16,
+  "newCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "newProcessReads": 0,
+  "files": {
+    "src/Sanctuary.Content/RingOfFireDamage.cs": "a9391a003958e4bfa76c4b24449fe278f2e01b088feaa6c5735d8b32ca7dee52",
+    "src/Sanctuary.Content/RingOfFireWorld.cs": "4f6570fe246b988daeea289676352622392c0c202368b60990a5adeec79f26d1",
+    "tests/Sanctuary.Integration/RingWorldChecks.cs": "f74ab07dc5e97cf560522067f6207a1c92ebd60df8e137cfcd42e236d9de5adb",
+    "tests/check_ring_world.py": "8eb046d5c12b8ab13cae7292a76fcf8b69ac1fb25295da8ef439b8047f313aa8"
+  },
+  "artifacts": {
+    ".local/class-skills/ring-world/birth-native-checks.log": "b86edc16c0378d35cac48deaab2e4142dea75986a2b6689b46cf8f2c138c07aa",
+    ".local/class-skills/ring-world/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/ring-world/content-build-4.log": "689a335af4132b59579cfc185a4595203a0b25880949f0836eae4fcdb2b6556c",
+    ".local/class-skills/ring-world/integration-build-3.log": "f8d3cc27e8d61b457d1fffea96584fea3436a0634cf43cf1beeb70deacb7c97d",
+    ".local/class-skills/ring-world/ring-world-fixtures.json": "d0f0f09fb9eb36b8bb30b1e1723acbf48554aff8ce9050c40598315e84b2c80a",
+    ".local/class-skills/ring-world/content/Sanctuary.Content.dll": "8f94768ef71663cd6f57b47b125f07038ec396c5968f8a2c083190e5035b5226",
+    ".local/class-skills/ring-world/integration/Sanctuary.Integration.dll": "1ffb4ad99a50a6f28fc9c72f03ff1352e6cddcd13a3a54b4a44de75137a81965"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Candidate composes retained current do154 primary16/32launch,shared source motion/basic updater/footprints/area/ordinary receiver/knockback and approved elapsed age;no second spell-damage implementation.",
+    "Actual HP verifies first shared area roll,once-per-cast recipient delay,independent recasts,and one damaging explosion per fragment with later knockback-only contacts. Fire immunity retains eligible knockback without fire damage.",
+    "Once-only fractional mana,all-failed allocation/no mana guards,facet/death cleanup,offline map boundary,finite lifetime and atomic malformed restore pass.",
+    "Original16final-frame flights retain IDs,owner,birth,coordinates,seeds and next times over two reloads. Loaded final-frame expiry does not replay terminal damage onto the same wounded target;original fractional wounds remain."
+  ],
+  "limits": [
+    "Contact/first-explosion/pierce/NextHit identity/knockback/current hit1 and damage dispatch semantics are explicitly proposed Sanctuary rules,pending user decision. Approved age alone does not approve them.",
+    "Full current native factory/RNG/room/collision/recipient ordering is not certified. Native opaque unit12c uses0;initial seed provider and geometry/lifecycle use existing host projections.",
+    "No learned SC/left/right/quick Ring route is admitted. Ordinary recipient guard keeps class pets/hirelings/PvP and unsupported mode cases explicit.",
+    "Final effects/audio and talent/hotkey icons remain separately pending. Installed build/config/saves preserved;no deployment."
+  ],
+  "diagnostics": "Content1 failed on an ambiguous target-typed map point overload;explicit Point3D fixed it. Pre-subtile and pre-passive-boundary source/binaries/build records retained before geometric/lifecycle corrections. Final C4/I3/snapshot4/native1 passed first native attempt;no native cohort retry or old compiler matrices."
+}
