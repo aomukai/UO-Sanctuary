@@ -1,5 +1,7 @@
 # GenericPet owner survey
 
+**Follow-up field correction (2026-11-09 JST):** the callback's row lookup receives the raw unit field at `+8`, not the class field at `+4` used by other code. The adapter field is now named `Id8` and preserves that exact input. Its row-lookup purpose remains uncertain; no native monster class is substituted. The new command-target checkpoint rechecks the unchanged78numeric callback cases and uses actual native serials for the composed fixture. All three current demon profiles skip this lookup because `SwarmRaw=0`.
+
 2026-11-09 JST. Pinned reference: **D2R Reign of the Warlock 3.3.93847**. **213/240 handlers, Warlock4/30; no class certified.** This implements the previously unavailable initializer callback and its follow/search output bindings. Automatic demon AI and learned summon casts remain unfinished.
 
 The earlier callback capture belonged to process21009/start312903. The current running game is process556242/start16928234: a confirmed process change justified one fresh bounded read. All **725 bytes in eight unwind fragments** of callback`4b08b0` were readable. The retained initializer directly passes that address to player-pet iterator`35e6d0`. The capture read2010bytes total, including anchors and stable duplicate reads, with no input, attach, protection change or game-memory write. Its generic AI dispatcher identity is not newly certified. Raw binaries remain ignored locally.

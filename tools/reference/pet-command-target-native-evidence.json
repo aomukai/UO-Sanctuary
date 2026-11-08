@@ -1,0 +1,89 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "currentGetterBytes": 262,
+  "newSourceContexts": 35,
+  "assertionContexts": 2,
+  "retainedSurveyContexts": 78,
+  "sourceRegistryTraversal": "Shared GenericPetRegistry",
+  "nativeWorldRegistry": "GenericPetWorldIdentity",
+  "originalRegisteredDemonSpecies": 3,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-owner-survey-check": 1,
+    "pet-owner-survey-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "newProcessReads": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "cf4330d5296d1205b9a80b06922935c9f357d0b3a72e4dc512be724fef0fd120",
+    "Assemblies/Sanctuary.Integration.dll": "8f236327ca12950ca455c63787df6de9d649a23c02717006c9fd8dd8f840053d"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Whole current command getter guard/type/ID/linked registry semantics;no added predicate or stale-command clearing.",
+    "Existing owner survey reads actual registered original commands through the live native registry. Existing binding observes controller dictionary replacement. Wrong role,missing/unsupported target and unregistered actor cases are checked.",
+    "Original Goatman/Tainted/Defiler bodies,birth snapshots,fractional wounds,mana,Warlock/Witch ownership and typed player/monster commands survive two native reloads. No movement or recapture is required to query saved commands.",
+    "Survey raw+8 field now namedId8 rather thanClassId;all78numeric controls retained. Native composed fixture supplies serial,not monster class. All three defaultSwarmRaw0 profiles bypass the uncertain row lookup."
+  ],
+  "limits": [
+    "Actual owner iterator,live survey unit/row/validity/path services and complete initializer consumption/scratch lifetime remain unfinished. The native composition supplies those remaining services explicitly.",
+    "Why the current callback uses raw+8 for6bc90row lookup remains uncertain. No +4class substitution,correction of source behavior or automatic gameplay admission is inferred.",
+    "Root event scheduling,movement/search/combat/actions,birth paths and learned summon/DeathMark payment/input remain gated. No class certificate follows from these component checks.",
+    "No new effect or final asset was emitted. Existing demon effects/audio and talent/hotkey icons remain separately tracked."
+  ],
+  "diagnostics": [
+    "Content1/snapshot1 were retained in pre-review-1 before any native test. Field naming was corrected and content rebuilt;accepted package isC2/I1/snapshot2/native1. No failed native run occurred."
+  ],
+  "inputs": {
+    "tools/reference/pet-command-target-source-evidence.json": "be0359d8eaea780eb5aa962fb6caf0b9612fa741f1c8b40bc73c18a6127bcc9a",
+    "tools/reference/pet-owner-survey-source-evidence.json": "d3ea0e27213636e747a7117b3a5b06bddd3f14ca54f8fde67e9f46632383ba33",
+    ".local/class-skills/pet-command-target/birth-inputs.json": "0fd73c58d955bd0e1bee363dc8937ae3eaf2a25fac3649db5c413ba672ceca86",
+    ".local/class-skills/pet-command-target/source-snapshot-2.json": "0ec83f8e889df10f35259f913e1153a576a0fbe11fde3193cbacfd7ed383a719",
+    ".local/class-skills/pet-command-target/content-build-2.log": "3337cd0e324b94127035836d53d70b0bc62b67e85746b0233a9dd8ce3447aaca",
+    ".local/class-skills/pet-command-target/integration-build-1.log": "af22910f546cba234bc716ef6d99f64eb45920a2fe7cb8586c5c42824fa292ae",
+    ".local/class-skills/pet-command-target/birth-native-checks.log": "44e8e3f5dfefff3d7997d592e46add17ff3289d358d2573f5d60fc8e5e555fe6",
+    ".local/class-skills/pet-command-target/pet-command-target-fixtures.json": "9d28e61ec6c296a2d0110fa6adaafdddd23c36f5ef137d2c6b5eb5bb7f047274",
+    ".local/class-skills/pet-command-target/pre-review-1/source-snapshot-1.json": "3b9ce2290722a3d6594b48250185d4c61274add4c52288de7cf32b06dbd0ffb1",
+    ".local/class-skills/pet-command-target/pre-review-1/content-build-1.log": "c352618f7961c71de813e888fec5b174d8b462983648afd3be4f9c20c9fb6057",
+    ".local/class-skills/pet-command-target/pre-review-1/sources/src/Sanctuary.Content/GenericPetOwnerSurvey.cs": "02b3086654d5b74f359e8b91a3f33f5b3586cc175bcdfb4182332df4d4de9273",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-command-target-checkpoint.md": "4346c60d4d81e418f3b3f6fe066b02c41545483ccade7655aa30f5e99b56e036",
+    "docs/pet-owner-survey-checkpoint.md": "92b6f815b04733f6c552d54366ede8dbab64e9bee2e24d8fac2761a48e80e232",
+    "docs/class-skills-resume-checkpoint.md": "807ac0316dea6f5ebc00a770f907e474984609472b3d3a9ca70368c5b27b0057",
+    "docs/class-skill-roadmap.md": "af895316ebfbefb08c04f039900a81be4114128074ffbfb80e624355ef6d0b5a",
+    "docs/class-skill-reuse-notes.md": "27db826225a7216303de0a679cc4e6248d99f94849dd75a00674e847c12a7153",
+    "docs/skill-mechanical-reference.md": "7598f60505bdeb535bebce77331005a6aa3a70b17f21e25a3d4737974686dd6d",
+    "tests/check_pet_command_target.py": "4f33f5815d571c23bf9913c44d93ee4842269125b71b1ee895d42098169ad20c",
+    "tools/record_pet_command_target.py": "b859141ebc193d637465345a976ba535877fe25cb90acdc938436e3639070267"
+  }
+}

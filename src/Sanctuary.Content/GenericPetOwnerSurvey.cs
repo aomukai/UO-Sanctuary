@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Sanctuary;
 
-internal sealed record GenericPetSurveyUnit(int Kind,int ClassId,bool HasMonsterData,bool HasAi,bool GenericPetAi,GenericPetPathTarget Path);
+// The callback loads +8,not the +4 class field used by the command setter.
+// Preserve the raw lookup key;do not silently substitute a monster class ID.
+internal sealed record GenericPetSurveyUnit(int Kind,int Id8,bool HasMonsterData,bool HasAi,bool GenericPetAi,GenericPetPathTarget Path);
 internal sealed class GenericPetOwnerSurveyState(int pet,int swarmRaw)
 {
     internal readonly int Pet=pet,SwarmRaw=swarmRaw;
@@ -26,7 +28,7 @@ internal static class GenericPetOwnerSurvey
         state.Visits=unchecked(state.Visits+1);
         if(state.Pet==unit||state.SwarmRaw<=0||unit==0){return;}
         var info=services.Unit(unit)??throw new NotSupportedException("Missing visited source unit");
-        if(info.Kind!=1||!info.HasMonsterData||!info.HasAi||!info.GenericPetAi||!services.MonsterRow(selector,info.ClassId)){return;}
+        if(info.Kind!=1||!info.HasMonsterData||!info.HasAi||!info.GenericPetAi||!services.MonsterRow(selector,info.Id8)){return;}
         int target=services.CurrentTarget(unit);
         if(target==0||services.ValidTarget(unit,target,1)==0)
         {

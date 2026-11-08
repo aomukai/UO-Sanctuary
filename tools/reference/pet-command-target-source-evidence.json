@@ -1,0 +1,19 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceBytes": 262,
+  "sourceCases": 35,
+  "assertionContexts": 2,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "unicornVersion": "2.1.4",
+  "artifacts": {
+    ".local/class-skills/pet-command-target-source/cases.json": "c2eef578992e5ec68689e61b3a82ac8e1b9b8178c0426f8cdec9a2b93f62bf87",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-order-20261029-4b06a0-part0.bin": "6b7bbb9681c6d6a99f7d0c0142a7d15859f71261abe2e3514407b4b1436def49",
+    ".local/class-skills/warlock-runtime-reference/callees-live-actions-order-20261029.json": "5c71bae38f5deeb8e077a4a97b78000eeee3a7d228f4f799f2f4ebda838ea297",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_command_target.py": "19e16b50eba545bc8140759b449127b43a331424c085c1b9e753ca3a378c557e"
+  },
+  "scope": "Complete retained4b06a0 getter over an explicit370610 bucket-head service;actual source ID/next158 chain traversal executes. No validity/LOS/range/path filtering or command write is inferred."
+}

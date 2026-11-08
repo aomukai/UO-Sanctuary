@@ -2,7 +2,8 @@
 using System;
 namespace Sanctuary;
 
-// Cfg+0x70 remains a neutral source field until its producer is established.
+// Cfg+0x70 is the initializer's owner-iterator visit count;the neutral field
+// name is retained for raw source contexts and explicit producer bindings.
 internal sealed record GenericPetFollowExecution(GenericPetDecisionUnit Pet,GenericPetDecisionUnit Owner,
     int Mode,int CloseRaw,int WanderRaw,int Word70);
 // Opaque room handles and leaf actions preserve the current calling contract;

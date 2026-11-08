@@ -45,6 +45,14 @@ internal static class DeathMarkWorld
         return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next);
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
+    // Read the registered original command,not a detached saved DTO or native
+    // Combatant. Lookup stays separate from the survey's validity/path checks.
+    internal static GenericPetOwnerSurveyServices BindTargets(GenericPetOwnerSurveyServices services,GenericPetWorldIdentity identity)
+    {
+        ArgumentNullException.ThrowIfNull(identity);
+        return GenericPetTargetCommand.Bind(services,identity.Game,
+            id=>_actors.TryGetValue(id,out var actor)?actor.Command:null,identity.Resolve);
+    }
     // Registered source mode is shared with active intrinsic actions. Update
     // it before cancellation so a callback cannot restore the outgoing mode.
     internal static void ChangeMode(SkeletonGuardian body,int next)
