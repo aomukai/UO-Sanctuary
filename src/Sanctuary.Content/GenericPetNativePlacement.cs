@@ -12,7 +12,7 @@ namespace Sanctuary;
 internal sealed class GenericPetNativePlacement
 {
     private const int Span=32;
-    private readonly WarlockGoatmanBody Body;
+    private readonly SkeletonGuardian Body;
     private readonly Map Map;
     private readonly GenericPetCommitPath Path;
     private readonly GenericPetMonsterPlacementUnit Unit;
@@ -33,19 +33,19 @@ internal sealed class GenericPetNativePlacement
     internal static int RoomHandle(Map map,int x,int y)
         =>1+x/Span+(y/Span)*((map.Width*2+Span-1)/Span);
 
-    internal static void RequireActor(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
+    internal static void RequireActor(SkeletonGuardian body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
     {
-        if(body is not{Alive:true,Deleted:false,Prepared:not null}||body.Map==null||body.Map==Server.Map.Internal
+        if(body is not{Alive:true,Deleted:false}||!WarlockDemonPlacement.Prepared(body)||body.Map==null||body.Map==Server.Map.Internal
             ||body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Map!=body.Map||!body.Permitted(owner)
             ||unit?.Pet==null||!unit.HasPath||path?.Actor is not{Kind:1}||path.Actor.Handle!=checked((int)body.Serial.Value)
             ||path.Mask60!=0x100||path.Size5c is <1 or >5)
-        {throw new NotSupportedException("Native ground placement requires an owned prepared Goatman and its supplied live monster path");}
+        {throw new NotSupportedException("Native ground placement requires an owned prepared Warlock demon and its supplied live monster path");}
         int x=(ushort)(path.X>>16),y=(ushort)(path.Y>>16);
         if((x+1)/2!=body.X||(y+1)/2!=body.Y||path.Room!=RoomHandle(body.Map,x,y)
-            ||unit.Pet.ClassId!=GenericPetSearchTables.SourceId("wargoatman"))
+            ||unit.Pet.ClassId!=WarlockDemonPlacement.ClassId(body))
         {throw new NotSupportedException("Native position,room or source identity does not match the supplied path");}
     }
-    internal GenericPetNativePlacement(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,Point2D target,
+    internal GenericPetNativePlacement(SkeletonGuardian body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,Point2D target,
         GenericPetPathTargetView targetMetadata=null,GenericPetPlacementWorld sharedWorld=null)
     {
         RequireActor(body,unit,path);

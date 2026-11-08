@@ -1,5 +1,7 @@
 # Skill effects
 
+**Live Death Mark demon bridge (2026-11-09 JST).** Actual relocation now emits identified landing placeholder0x3728. Final cast,warp/landing overlay,target mark/expiry and audio are pending;no final images were generated. [Checkpoint](death-mark-world-checkpoint.md). Icons remain separately tracked.
+
 **Prepared Death Mark pet composition (2026-11-09 JST).** Relocation/command/control helpers are implemented as detached mechanics;no new world art is emitted. Final cast, pet warp/landing overlay, target mark/expiry and audio remain pending for world integration. [Checkpoint](death-mark-pets-checkpoint.md). No image generation performed;icons stay separate.
 
 **Prepared Death Mark cast composition (2026-11-08 JST).** This component produces no world effect. Final cast, per-pet warp/landing overlay, target mark, aura/expiry and audio remain pending when the world route is connected. [Checkpoint](death-mark-cast-checkpoint.md). No final art or image generation was performed; icons remain separate.

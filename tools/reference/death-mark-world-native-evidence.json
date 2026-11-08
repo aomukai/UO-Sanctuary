@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "automaticGenericPetAiEnabled": false,
+  "currentExecutableParity": false,
+  "nativeMarkers": 30,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "pet-path-targets-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "goatman-body-check": 1,
+    "pet-native-placement-check": 1,
+    "death-mark-world-check": 1,
+    "death-mark-world-check-result": 1,
+    "death-mark-pets-check": 1,
+    "death-mark-cast-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "goatman-body-reload-check": 2,
+    "pet-native-placement-reload-check": 2,
+    "death-mark-world-reload-check": 2,
+    "death-mark-world-reload-check-result": 2,
+    "death-mark-pets-reload-check": 2,
+    "death-mark-cast-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 3,
+  "nativeRun": 1,
+  "newSourceCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "retainedCurrentCases": {
+    "callback": 97,
+    "command": 165,
+    "cast": 122
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "8ac7f689a9a02e09d297834789e09fa3e7b98b0641ad8ebcf2cc9b7e8c8a9745",
+    "Assemblies/Sanctuary.Integration.dll": "c33c0643c865236f10fa5e8b240041988cfeac0618bc2aafe8b8a224e70fb2a2"
+  },
+  "files": {
+    "src/Sanctuary.Content/DeathMarkWorld.cs": "21f6c90dfa05e811c853dc5a342a2576727f3151c3cabf65457592390d226804",
+    "src/Sanctuary.Content/WarlockDemonPlacement.cs": "59b232c0862dd27538fa5437d848bceb2be09e5cdc48f1c390396079960b44c8",
+    "src/Sanctuary.Content/GenericPetNativePlacement.cs": "c6326a65da26e0dac0ca1ed62042f8f2ab38c8b3894fcf92769319d5f7c0d9ab",
+    "src/Sanctuary.Content/GenericPetPlacementWorld.cs": "e0aabc95fa57a9c2aa063284f27cad16eceee2f365e5b8142ab4c5ccda14b87f",
+    "src/Sanctuary.Content/ColdStates.cs": "678e2cee78688f9cfd89ccd8d57a40fd9534434dd36bf4ae6f5913eceb12f301",
+    "src/Sanctuary.Content/FreezeStates.cs": "e7394cbe4a87d9310d3150c7be44684400722b78a5b7f49c091e32d0c70c41f3",
+    "tests/Sanctuary.Integration/DeathMarkWorldChecks.cs": "c27b6e19b10257b03062a94332ae2cce64f86cc32a134319232c0d187582680a",
+    "tests/check_death_mark_world.py": "b83f79e883a79118c6b2be8d2e0c71c3ae8c5f918c5ef83a7976745b2a07d36a",
+    "tools/record_death_mark_world.py": "b64bbd408ed9287f1a218c48c12653a7192f91526e9871f254cae890f67a58d1"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Live prepared original Goatman,Tainted,Defiler use the shared source native placement/room graph. An explicit controller-path registration preserves original body/owner/source identity and adds saved command48/4c,mode and next-AI request. Callback moves actual native actors once,clears managed source21stun/1freeze/11cold only when requested,and leaves poison/fear/ordinarycurse,wounds,mana,birth snapshots,owner/order unchanged. Both clear=false and true are tested per species;original source paths/commands/clock/body identity survive two actual reloads and resume relocation. Exhausted quota and invalid destination preserve graph/commands;duplicate/missing/invalid command-image restore refuses atomically. Old Goatman body/native placement,path reset,384 current-code cases and required item/resource controls remain passing.",
+  "worldProjection": "GenericPetNativePlacement now admits exactly the3original prepared demon types and validates their logical source IDs. Existing native terrain/room/collision projection is reused,not replaced with D2 map parity. Registration requires a caller-supplied live controller path;this does not recover or generate a D2birth path. New profile246 stores source placement graph and command metadata. No automatic controller/timer is started;neutral/next-AI requests are retained for that future consumer.",
+  "controlProjection": "The live managed status backend exposes its one active source stun/freeze/cold manager per state as the callback lists. Removal uses CombatStuns.Clear and shared ColdStates.Remove/FreezeStates.Remove;freeze follows normal removal/AI-delay settlement. These operations do not settle poison or grant regeneration. Legacy untagged freeze is explicitly unsupported before relocation. Native raw-stat allocators/duplicates and exact client effects are not claimed by this managed projection.",
+  "persistence": "No artificial retention hold was used. Original three demon snapshots,body serials,FP256life,maxlife,native mana,pet order,source path/room graph,target command and natural40msAI-request timestamp are compared through both reloads. The request may be past due;it is not replayed by this prepared bridge. Poison is cured only in fixture cleanup after the immediate preservation assertion,so unrelated background damage cannot invalidate the original-life persistence control.",
+  "remaining": [
+    "Actual GenericPet controller/AI consumption,active intrinsic action cancellation and full event-list neutral transition still need world admission. This bridge stores the source neutral/next-AI request and keeps native fallback AI stopped.",
+    "Connect actual recipient armor/normal/magic damage-reduction state,duration/replacement and requirespettype/localdelay20/SCpayment/cancellation/left-right-quick input before learned DeathMark.",
+    "Full current-client/room/footprint/allocator parity and interrupted/retiring controller contexts remain scoped;no class certificate.",
+    "Final warp/landing/mark/cast/expiry/audio and talent/hotkey icons remain separately tracked;live landing effect0x3728 is an identified placeholder."
+  ]
+}

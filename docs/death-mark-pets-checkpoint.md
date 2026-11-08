@@ -1,5 +1,7 @@
 # Death Mark pet callback checkpoint
 
+**Follow-up (2026-11-09 JST).** Actual original demon placement,commands,managed control removal and saved path/room state are now connected in the [live bridge checkpoint](death-mark-world-checkpoint.md). Automatic AI,recipient debuff and learned input remain unfinished.
+
 2026-11-09 JST. Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. **211/240 handlers; Warlock2/30; no class certified complete.** The cast-to-pet composition is prepared and compared. Actual saved demon/controller/debuff integration and learned input are still required.
 
 `DeathMarkPets` translates all546bytes of current callback44aa70. Missing pet/directive, exhausted quota and failed relocation perform no later action and consume no quota. A successful relocation applies the overlay, optionally assigns the target, requests one-frame idle, performs requested control removal and decrements the shared quota. Placement binds directly to the existing `GenericPetMonsterPlacement`; its1128captured bytes match the retained5229-case source proof. No second movement algorithm was introduced.

@@ -23,6 +23,12 @@ public static class ColdStates
         return Math.Max(0,SourcePercentage.Calculate(frames,Math.Clamp(100-resistance,0,200),100));
     }
     internal static void Expire(Mobile target,TimedActor actor)=>actor.Cold=null;
+    internal static bool Remove(Mobile target,DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Control removal needs UTC");}
+        if(!TimedEffects.TryActor(target,out var actor)||actor.Cold==null||actor.ChillUntil<=at){return false;}
+        actor.ChillUntil=at;actor.ChillPercent=0;Expire(target,actor);return true;
+    }
     public static int OtherRate(Mobile target)=>TimedEffects.TryActor(target,out var actor) && actor.Cold!=null && actor.ChillUntil>TimedEffects.Now?-actor.ChillPercent:0;
     internal static bool Commit(Mobile source,Mobile target,int mitigatedFrames,bool monster,int effect,int divisor,long tick)
     {

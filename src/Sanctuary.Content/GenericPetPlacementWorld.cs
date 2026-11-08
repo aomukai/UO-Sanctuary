@@ -66,20 +66,20 @@ internal sealed class GenericPetPlacementWorld
         if(revision!=Revision){throw new NotSupportedException("Pet placement context belongs to an older world revision");}
         Revision=checked(Revision+1);
     }
-    internal void Require(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
+    internal void Require(SkeletonGuardian body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
     {
-        if(body.Map!=Map||!Members.TryGetValue(path.Actor.Handle,out var e)||e.Owner!=body.Prepared.Owner||body.ControlMaster?.Serial.Value!=e.Owner
+        if(body.Map!=Map||!Members.TryGetValue(path.Actor.Handle,out var e)||e.Owner!=WarlockDemonPlacement.Owner(body)||body.ControlMaster?.Serial.Value!=e.Owner
             ||!ReferenceEquals(unit,e.Unit)||!ReferenceEquals(path,e.Link.Path))
         {throw new NotSupportedException("Pet body,path or placement identity differs from its registered world");}
     }
-    internal void Register(WarlockGoatmanBody body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
+    internal void Register(SkeletonGuardian body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path)
     {
         GenericPetNativePlacement.RequireActor(body,unit,path);Validate();
-        if(body.Map!=Map||body.ControlMaster?.Serial.Value!=body.Prepared.Owner||Members.ContainsKey(path.Actor.Handle))
+        if(body.Map!=Map||body.ControlMaster?.Serial.Value!=WarlockDemonPlacement.Owner(body)||Members.ContainsKey(path.Actor.Handle))
         {throw new NotSupportedException("Pet already registered or belongs to another map/owner");}
         int handle=path.Actor.Handle;var room=EnsureRoom(path.Room,Bounds(path.Room));
         var link=new GenericPetMonsterRoomLink(handle,path,new(handle,0,0)){Flags128=unit.Pet.Flags};
-        Begin(Revision);Members.Add(handle,new(body.Prepared.Owner,unit,link));
+        Begin(Revision);Members.Add(handle,new(WarlockDemonPlacement.Owner(body),unit,link));
         GenericPetRoomLinks.Add(handle,room.Handle,Links);
     }
     internal void Remove(int handle)
@@ -109,7 +109,7 @@ internal sealed class GenericPetPlacementWorld
         {
             var p=e.Link.Path;
             if(p?.Actor is not{Kind:1}||p.Actor.Handle!=e.Link.Handle||p.Mask60!=0x100||p.Size5c is <1 or >5
-                ||!e.Unit.HasPath||e.Unit.Pet.ClassId!=GenericPetSearchTables.SourceId("wargoatman")||e.Link.Flags128!=e.Unit.Pet.Flags
+                ||!e.Unit.HasPath||!WarlockDemonPlacement.ClassIdAllowed(e.Unit.Pet.ClassId)||e.Link.Flags128!=e.Unit.Pet.Flags
                 ||!((Serial)e.Owner).IsMobile||!((Serial)unchecked((uint)e.Link.Handle)).IsMobile||!membership.Contains(e.Link.Handle)
                 ||((e.Link.Update.Flags124&0x2000)!=0)!=updates.Contains(e.Link.Handle)
                 ||!updates.Contains(e.Link.Handle)&&e.Link.Update.Next150!=0)

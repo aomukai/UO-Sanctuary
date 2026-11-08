@@ -1,5 +1,7 @@
 # Skill icons
 
+**Live Death Mark demon bridge (2026-11-09 JST).** No new icon artwork or learned bindings are admitted. Death Mark still needs talent,left/right and quick icons,with existing text/fallback placeholders. [Checkpoint](death-mark-world-checkpoint.md). Effects/audio remain separate.
+
 **Prepared Death Mark pet composition (2026-11-09 JST).** No icon artwork or learned input is added. Death Mark retains its text/fallback placeholder and still needs talent/left/right/quick icons independently of final effects. [Checkpoint](death-mark-pets-checkpoint.md).
 
 **Prepared Death Mark cast composition (2026-11-08 JST).** No new binding or icon artwork is admitted. Death Mark still needs its distinct talent, left/right and quick-slot icons; the existing text/fallback identity remains a placeholder. [Checkpoint](death-mark-cast-checkpoint.md). Effects/audio stay in their own inventory.

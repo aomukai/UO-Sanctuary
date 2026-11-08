@@ -60,6 +60,12 @@ public static class FreezeStates
         if(freeze.Removed && freeze.AiUntilUtc<=now){control=control with{Freeze=null};}
         actor.Control=control;
     }
+    internal static bool Remove(Mobile target,DateTime at)
+    {
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Control removal needs UTC");}
+        if(!TimedEffects.TryActor(target,out var actor)||actor.Control is not{} control||control.FreezeUntil<=at){return false;}
+        actor.Control=control with{FreezeUntil=at};Settle(target,actor,at);return true;
+    }
     internal static bool Waiting(Mobile target)
     {
         if(!TimedEffects.TryActor(target,out var actor)){return false;}Settle(target,actor,TimedEffects.Now);
