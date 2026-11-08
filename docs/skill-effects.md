@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Ring launch (2026-11-08 JST).** Pure source launch producer emits only explicit factory requests;no world effect or final art is created. Cast,expanding ring,contact,explosion,expiry and audio remain required in the existing Ring of Fire family,using identified placeholders when world emission is connected. [Checkpoint](ring-of-fire-launch-checkpoint.md). Icons stay separate.
+
 **Warlock ordinary cast clock (2026-11-08 JST).** Clock/planning adds no emitter or new asset identity. Prepared Warlock/Witch poses remain identified human-animation placeholders;final casting poses and each skill’s effect/audio stay in their existing families. [Checkpoint](warlock-cast-clock-checkpoint.md). Icons remain separate.
 
 **Learned Shadow casts (2026-11-08 JST).** Mechanics reuse identified humanoid `0x190`/hue`0x455` appearance and shared `0x376A` emergence/`0x1E5` summon sound placeholders. Final original bodies/equipment,player cast,emergence,source attack/spell and death/expiry effects/audio remain required in the Shadow/shared skill families. [Checkpoint](shadow-learned-cast-checkpoint.md). No imagegen work;icons stay separate.

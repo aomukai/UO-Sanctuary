@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x44a7a0",
+  "currentMachineCodeExecutedOffline": true,
+  "targetProcessCodeExecuted": false,
+  "processMemoryRead": false,
+  "cases": 148,
+  "sourceBytes": 711,
+  "unicornVersion": "2.1.4",
+  "emulatorLibrarySha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+  "externalServices": [
+    "Skill row lookup and progressive missile ID are supplied.",
+    "Missile count,base velocity,formula tokens194/198and source path/coords are explicit synthetic inputs;their helper internals are not emulated.",
+    "Factory records all152bytes with zero reserved fields and supplied success/failure;it does not allocate world actors or RNG.",
+    "Stack-cookie validation is a declared service preserving the pending return register."
+  ],
+  "artifacts": {
+    ".local/class-skills/ring-of-fire-launch-source/cases.json": "ed8824e498a32e2da1c68bd18824b49fdaa522f564da279872528024ed3787c3",
+    "tools/probe_ring_of_fire_launch.py": "7de62a9087dd197b9fc7c366cf66f7f6361f8006ab7899ae3081edcd47b2de95",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/capture.json": "92a2434e03599e464f44b16284963d8462f313e258cf7b49e1d9d912bb9f7ace",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part0.bin": "de592cf4e8c56839fa11bb37a406de872e29f21cc2a5fa101e63455c7cea5bab",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part1.bin": "7b5888a9d211f01bb969ef0402bbe51eb11492995272771b9a84ebe1ccacf104",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part2.bin": "56de3b25805955ecbb56c0baa972e535b8e01e36222c40713f821279e3676683"
+  },
+  "limits": [
+    "This establishes current launch assembly composition,not damage17,missile travel/collision or real factory/player resource/lifecycle behavior.",
+    "No missing/protected helper is replaced with a claimed current implementation. Native producer must compare ordered requests with these declared boundaries before learned admission."
+  ]
+}

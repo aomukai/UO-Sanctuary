@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 210,
+  "completedClasses": [],
+  "learnedRingEnabled": false,
+  "currentSourceContexts": 148,
+  "currentSourceEvidenceSha256": "fb9ea0fa913f70b0640f298138fd2a8eee916022e8183008141c3777d2f86409",
+  "cookieCurrentEvidenceSha256": "ccdffe6efbfaddc126526fd452dcd815dc4b42ae2ee7026e90688a8b495c98c6",
+  "cookiePreservesPendingReturn": true,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "ring-of-fire-launch-check": 1,
+    "warlock-cast-clock-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "ring-of-fire-launch-reload-check": 2,
+    "warlock-cast-clock-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "newCompilerMatrices": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "f79a7b57d8d5e5c1dda2bfed46d270784fa11eac37cfe170e4c706281fc19eae",
+    "Assemblies/Sanctuary.Integration.dll": "8301cad5409f267db8b4fe77868e725523b94f882dba621e19688ab8f503babb"
+  },
+  "files": {
+    "src/Sanctuary.Content/RingOfFireLaunch.cs": "d5cf162a8cfb7564c19341cefd49bf008ec0df6e5e60979d9994902402094529",
+    "tests/Sanctuary.Integration/RingOfFireLaunchChecks.cs": "61f9eb52ee306c4148074581e7709831bcf13e41d3268236c141a42a9b637e72",
+    "tests/check_ring_of_fire_launch.py": "388950982c166d194351266638e876befb9e3bf56dfa2bef151a7813073e57ec",
+    "tools/probe_ring_of_fire_launch.py": "7de62a9087dd197b9fc7c366cf66f7f6361f8006ab7899ae3081edcd47b2de95",
+    "tools/record_ring_of_fire_launch.py": "9d9aadc946e7abbeb581cbfa21c2103408c48e1fbfc886ad733442e703d7e1cf"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "C# do154launch composition matches148offline executions of complete captured current instructions over explicit getter/formula/factory boundaries. Reuses all64FrozenOrbs.Direction vectors,matched to pinned current PE data. Server-do mark/guard/service ordering,fields198then194,32bit count rounding/clamp1..64/step,typed source-coordinate reads,flags3/7,origin/skill/rank/context12c and all independent allocation requests match;individual allocation failures do not stop later attempts or successful do return. Current Ring normal count supplier remains16/32at10,velocity adder0. World actor/RNG/resource/learned route is not enabled. Existing ordinary Warlock timing checks retained;installed files/saves unchanged.",
+  "diagnostic": "Native1 exposed the emulator cookie stub overwriting RAX after the real function had set its return result. Corrected declared service preserves pending RAX;only143return values changed,all148case flags/service traces/requests unchanged. Actual33byte current cookie function was subsequently captured through its verified direct edge and confirms the nonfatal path preserves RAX. Its encrypted executable-file view is not accepted as code. Prototype source/fixtures/evidence and failed native log/input manifest remain archived. C# launch implementation/binaries were unchanged;native2passes15markers/two reloads.",
+  "remaining": [
+    "Progressive missile/velocity helper internals and exact compiled formula-field binding remain separate;the source emulator supplies their declared values",
+    "Real current missile factory mutation/RNG/world emission and damage17,travel/collision/explosion/NextHit/immune knockback/owner lifecycle remain unqualified before learned admission",
+    "Outer player SC startup/payment/cancellation/input and public skill availability remain unfinished;handler count remains210",
+    "Current placeholder cast/ring/contact/explosion/expiry/audio and talent/hotkey icons remain separately tracked"
+  ]
+}

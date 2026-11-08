@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Current Ring do154launch (2026-11-08 JST).** Source/native composition now preserves server-do marking,ordered guards/formulas,power-of-two count rounding/signed clamp1..64,64vector stepping,coordinate widths,flags3/7and independent allocation failures.148captured-instruction cases/15native markers/two reloads pass. Protected getter/formula binding,actual factory/missile/damage17and outer player route remain separately unqualified. [Checkpoint](ring-of-fire-launch-checkpoint.md).
+
 **Current Warlock dispatcher linkage (2026-11-08 JST).** Complete current3aaf70dispatch and a stable immutable191pointer table establish do-slot indexing;new complete bodies154/155/157/158/163/164/167and missile factory400760are preserved. This supersedes earlier table-shape-only linkage limits for these entries;detailed callee/function/gameplay semantics still need implementation checks. Event35/36/37/39/40remain inaccessible. [Checkpoint](warlock-current-do-reference-checkpoint.md).
 
 **Warlock ordinary SC projection (2026-11-08 JST).** Owned WKSC scheduling fields exactly match the existing Necromancer source clock;2072controls reused without a compiler matrix rerun.22ordinary nonpassive candidates use shared16/256/8FCRtiming. Chain carries UseAttackRate despite SC and remains separately unqualified,alongside three SQ routes. No new spell availability or full current-engine dispatch parity is claimed. [Checkpoint](warlock-cast-clock-checkpoint.md).

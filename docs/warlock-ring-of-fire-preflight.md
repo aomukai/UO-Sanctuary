@@ -1,5 +1,7 @@
 # Ring of Fire mechanical preflight
 
+**Launch composition follow-up (2026-11-08 JST).** Complete current do154now has a translated request producer with148offline current-instruction/native comparisons and15native markers/two reloads. Source directions reuse the existing64vector table. Getter/formula binding,real factory/world emission and damage17remain separate;learned admission is still unavailable. [Launch checkpoint](ring-of-fire-launch-checkpoint.md).
+
 **Current reference follow-up (2026-11-08 JST).** In a newly verified owned client process,the complete do154body and directly referenced missile factory became readable and were captured with all unwind fragments. The current dispatcher/index linkage is also established. The older inaccessible-process observation below remains historical;launch semantics,helper identities and damage17still require qualification. [Current checkpoint](warlock-current-do-reference-checkpoint.md).
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This preparation enables no handler. Coverage stays197/240, Warlock1/30 and zero completed classes.
