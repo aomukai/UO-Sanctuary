@@ -6,7 +6,11 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-internal sealed record BladeSpawnContext(MonsterDifficulty Difficulty,int Speed);
+internal sealed record BladeSpawnContext(MonsterDifficulty Difficulty,int Speed)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public int? BaseOwnerLevel{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] public uint Caster{get;init;}
+}
 internal sealed record BladeSpawnCapture(AssassinTrapCreationStats Creation,BladeSpawnContext Context);
 
 // Actual owner/source-data collection. Learned input/payment remains a separate
@@ -29,8 +33,8 @@ internal static class BladeSentinelSummons
     internal static BladeSpawnCapture Rescale(AssassinTrapCreationStats creation,BladeSpawnContext context,MonsterDifficulty difficulty)
     {
         ArgumentNullException.ThrowIfNull(creation);ArgumentNullException.ThrowIfNull(context);
-        var old=ValkyrieCreation.Base(creation.Level,creation.Rank,(int)context.Difficulty,true,SourceSpawn(context.Difficulty));
-        var next=ValkyrieCreation.Base(creation.Level,creation.Rank,(int)difficulty,true,SourceSpawn(difficulty));
+        var old=ValkyrieCreation.Base(context.BaseOwnerLevel??creation.Level,creation.Rank,(int)context.Difficulty,true,SourceSpawn(context.Difficulty));
+        var next=ValkyrieCreation.Base(context.BaseOwnerLevel??creation.Level,creation.Rank,(int)difficulty,true,SourceSpawn(difficulty));
         if(old.Level!=creation.BaseStatsLevel || next.Level!=old.Level)
         {throw new NotSupportedException("Blade retained base-stat level is not mapped");}
         // Leave inherited weapon AR/AP, birth passives, assigned skills and
@@ -49,10 +53,12 @@ internal static class BladeSentinelSummons
         }
     }
     internal static BladeSpawnCapture Capture(PlayerMobile owner)
+        =>Capture(owner,SkillMechanics.Rank(owner,CombatAbility.BladeSentinel));
+    internal static BladeSpawnCapture Capture(PlayerMobile owner,int rank)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin
-            || SkillMechanics.Rank(owner,CombatAbility.BladeSentinel) is <1 or >255)
+            || rank is <1 or >255)
         {throw new InvalidOperationException("Blade summon needs a live learned Assassin world owner");}
         var difficulty=SummonDifficulties.For(owner.Map);const string source="bladecreeper";
         // Non-evil alignment gives playerCount1/zero HP bonus in the source
@@ -63,7 +69,7 @@ internal static class BladeSentinelSummons
         // callback. Do not silently admit an unsupported equipped sunder state.
         foreach(string name in new[]{"item_pierce_damage_immunity","item_pierce_fire_immunity","item_pierce_light_immunity","item_pierce_poison_immunity","item_pierce_cold_immunity"})
         {Accrued(owner,name);}
-        var values=SkillMechanics.Values(owner,CombatAbility.BladeSentinel);
+        var values=SkillMechanics.Values(owner,CombatAbility.BladeSentinel,rank);
         var creation=AssassinTrapCreation.Prepare(values,ClassStats.Level(owner),(int)difficulty,true,
             spawn,name=>Accrued(owner,name));
         int speed=SourceActorMotion.Speed(NecromancerSummons.Source(source,"Velocity"),0,75,0).Velocity;
@@ -72,18 +78,26 @@ internal static class BladeSentinelSummons
     internal static BladeSentinelBody Create(PlayerMobile owner,Point3D destination,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Blade summon clock must be UTC");}
-        var capture=Capture(owner);var map=owner.Map;
+        return CreateCaptured(owner,destination,at,Capture(owner),owner.Location);
+    }
+    internal static BladeSentinelBody CreateCaptured(PlayerMobile owner,Point3D destination,DateTime at,BladeSpawnCapture capture,Point3D origin,ulong? seed=null)
+    {
+        if(at.Kind!=DateTimeKind.Utc||owner is not{Alive:true,Deleted:false}){throw new ArgumentException("Blade summon needs its living root owner and UTC clock");}
+        var map=owner.Map;
         if(SpellHelper.IsTown(owner.Location,owner) || SpellHelper.IsTown(destination,owner))
         {throw new InvalidOperationException("Blade summon is not permitted in town");}
         if(map.Width*2>65536 || map.Height*2>65536 || destination.X<=0 || destination.Y<=0
-            || destination.X>=map.Width || destination.Y>=map.Height || Math.Abs(destination.Z-owner.Z)>=16)
+            || destination.X>=map.Width || destination.Y>=map.Height || Math.Abs(destination.Z-origin.Z)>=16)
         {throw new NotSupportedException("Blade summon destination/room is not mapped");}
-        uint x=checked((uint)(owner.X*2))<<16|32768,y=checked((uint)(owner.Y*2))<<16|32768;
+        uint x=checked((uint)(origin.X*2))<<16|32768,y=checked((uint)(origin.Y*2))<<16|32768;
         var motion=new ActorMotionState(x,y,[],new(destination.X*2,destination.Y*2),0,0,0,0,0,new(0,0),new(0,0),20,0x800,0,[],0);
-        var body=BladeSentinelBody.CreatePrepared(owner,capture.Creation,motion,owner.Z,capture.Context);
+        var body=BladeSentinelBody.CreatePrepared(owner,capture.Creation,motion,origin.Z,capture.Context);
         try
         {
-            body.StartPreparedController(new(destination.X*2,destination.Y*2),capture.Context.Speed,SourceRandom.InitLow(SeedLow()),at);
+            // Approved all-summon snapshot rule:freeze root weapon/ranks at
+            // creation,not the first later AI frame. Arming still occurs once.
+            body.SetFirstMissile(BladeSentinelLaunch.Capture(owner,capture.Creation,BladeSentinelMissiles.LaunchRandom));
+            body.StartPreparedController(new(destination.X*2,destination.Y*2),capture.Context.Speed,seed??SourceRandom.InitLow(SeedLow()),at);
             AssassinTrapRoster.Register(owner,body,checked((int)SkillMechanics.Values(owner,CombatAbility.BladeSentinel,capture.Creation.Rank).Eval("petmax")));
             return body;
         }

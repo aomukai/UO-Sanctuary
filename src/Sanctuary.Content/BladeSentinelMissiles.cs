@@ -43,7 +43,7 @@ public static class BladeSentinelMissiles
         var prepared=body.Prepared;
         if(Missiles.Values.Any(x=>x.Owner==body.Serial.Value)){throw new InvalidOperationException("Repeated blade following missile");}
         if(World.FindMobile((Serial)prepared.Owner) is not PlayerMobile owner){throw new NotSupportedException("Missing blade player snapshot supplier");}
-        var capture=BladeSentinelLaunch.Capture(owner,prepared.Creation,LaunchRandom);
+        var capture=prepared.FirstMissile??BladeSentinelLaunch.Capture(owner,prepared.Creation,LaunchRandom); // Older saved/synthetic bodies retain their existing first-arm path.
         long id=checked(++_nextId);var pose=new BladeFollowPosition((int)(prepared.Motion.X>>16),(int)(prepared.Motion.Y>>16),10+5*prepared.Creation.Rank);
         Missiles.Add(id,new(id,body.Serial.Value,owner.Serial.Value,prepared.Map,prepared.Z,prepared.Creation.Rank,pose,capture.Damage,
             capture.TargetDefenseDelta,SourceRandom.InitLow(SeedLow()),prepared.NextFrameUtc.AddMilliseconds(40)));

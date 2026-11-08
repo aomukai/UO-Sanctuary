@@ -10,7 +10,10 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record BladeBodyState(uint Owner,AssassinTrapCreationStats Creation,ActorMotionState Motion,int Map,int Z,long Frames,
-    BladeControlState Control=null,DateTime NextFrameUtc=default,string ControllerFault=null,BladeSpawnContext Spawn=null);
+    BladeControlState Control=null,DateTime NextFrameUtc=default,string ControllerFault=null,BladeSpawnContext Spawn=null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] public BladeMissileCapture FirstMissile{get;init;}
+}
 
 // Prepared world entity. Its source controller can be activated with explicit
 // movement stats and a missile-creation service; no learned cast is enabled.
@@ -56,6 +59,10 @@ public partial class BladeSentinelBody:BaseCreature
         if(s.Spawn is{} spawn && (spawn.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
             || spawn.Speed<=0 || c.BaseStatsLevel is <1 or >99 || s.Control is{} clock && clock.Speed!=spawn.Speed))
         {throw new InvalidDataException("Invalid saved blade spawn context");}
+        if(s.Spawn is{BaseOwnerLevel:{} birth}&&(birth is <1 or >99)){throw new InvalidDataException("Invalid blade root-owner birth level");}
+        if(s.FirstMissile is{} first&&(c.MissileArmed||!first.Creation.MissileArmed||first.Damage?.Elements==null||first.TargetDefenseDelta>0
+            ||JsonSerializer.Serialize(first.Creation with{Attack=c.Attack,AttackPercent=c.AttackPercent,MissileArmed=false})!=JsonSerializer.Serialize(c)))
+        {throw new InvalidDataException("Invalid frozen first-missile creation snapshot");}
         var point=Position(s);var map=Map.Maps[s.Map];
         if(point.X<=0 || point.Y<=0 || point.X>=map.Width || point.Y>=map.Height){throw new InvalidDataException("Prepared blade outside world");}
         // Reuse the motion validator without advancing or consulting the world.
@@ -65,6 +72,8 @@ public partial class BladeSentinelBody:BaseCreature
         {throw new InvalidDataException("Invalid saved blade controller");}
     }
     private void Store(BladeBodyState s){Validate(s);_prepared=s;_saved=JsonSerializer.Serialize(s);}
+    internal void SetFirstMissile(BladeMissileCapture capture)
+    {if(Prepared.FirstMissile!=null||Prepared.Creation.MissileArmed){throw new InvalidOperationException("Blade snapshot already captured");}Store(Prepared with{FirstMissile=capture});}
     internal static BladeSentinelBody CreatePrepared(PlayerMobile owner,AssassinTrapCreationStats stats,ActorMotionState motion,int z,BladeSpawnContext spawn=null)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal
@@ -118,7 +127,9 @@ public partial class BladeSentinelBody:BaseCreature
         if(before.Spawn.Difficulty==difficulty){return;}
         var next=BladeSentinelSummons.Rescale(before.Creation,before.Spawn,difficulty);
         int life=SkillHealth.Balance256(this),maximum=SkillHealth.Maximum256(this);
-        Store(before with{Creation=next.Creation,Spawn=next.Context});
+        var first=before.FirstMissile;
+        if(first!=null){first=first with{Creation=first.Creation with{Life256=next.Creation.Life256,Defense=next.Creation.Defense,Attack=checked(first.Creation.Attack+next.Creation.Attack-before.Creation.Attack)}};}
+        Store(before with{Creation=next.Creation,Spawn=next.Context,FirstMissile=first});
         if(next.Creation.Life256!=before.Creation.Life256){SetHits(next.Creation.Life256/256);}
         SkillHealth.SetBalance256(this,SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(this)));
     }
@@ -152,7 +163,7 @@ public partial class BladeSentinelBody:BaseCreature
                     var create=BladeSentinelActors.CreateFollowingMissile??throw new NotSupportedException("Blade following missile/stat service is not connected");
                     creation=create(this)??throw new InvalidDataException("Missing blade missile creation snapshot");
                 });
-            Store(before with{Control=frame.Control,Creation=creation,Motion=frame.Motion,Frames=before.Frames+frame.Control.Moves-before.Control.Moves,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
+            Store(before with{Control=frame.Control,Creation=creation,FirstMissile=creation.MissileArmed?null:before.FirstMissile,Motion=frame.Motion,Frames=before.Frames+frame.Control.Moves-before.Control.Moves,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
             var point=Position(Prepared);if(Location!=point){MoveToWorld(point,Map);}AIObject?.AITimer.Stop();
             if(frame.Control.Mode==0){Delete();}
         }

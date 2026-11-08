@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 12,
+  "completeRoutines": {
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2",
+    "sub_6FCBD120": "81fc71dd01d80ea8700a239227e6a42c9f9265fadfb757cb00fc663a9ad94ac8",
+    "SKILLS_SrvDo048_BladeFury": "7955cadcc3e83991969e62797b4fd03a2462ffa283ec73f85559f77d354f64ab",
+    "SKILLS_SrvSt26_BladeFury": "ead80372d972461f9786ccbd3dd9cdbafa3dad1301844ea8f607181f10102ac7",
+    "SKILLS_StatRemoveCallback_RemoveState": "93a390dff6ba7f8309a4d2c936a5f7231af89740538084175ba35ae11fc1cd2d",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe"
+  },
+  "inputs": {
+    ".local/class-skills/blade-fury-resource-source-probe.cpp": "1b50f7caeb392ca017d29552a2a966e6a705f5022da0a3182cc9b708d205c3df",
+    "data/Sanctuary/Balance/shadow-fury-sequence.json": "37c0db7c67925b30683efc8d633ab313207bd9bbb35329e44c4dc893a135cbee",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-fury-callback-source/source.cpp": "8e24f6018ccfc07b4a3a5c3eef1dcc048bc2c410543533978bcdc57979ee8bce",
+    ".local/class-skills/shadow-fury-callback-source/probe": "c3689d66e3f40b6d3459cd6c1e2d27ff2c0b9b5bcba171864df734469b3bdfd0",
+    ".local/class-skills/shadow-fury-callback-source/cases.json": "3976f6c970235b3c54086d7bce9cadabc38eab90e078743eb7f35428a1efcaa0",
+    ".local/class-skills/shadow-fury-callback-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-fury-callback-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_shadow_fury_callback.py": "f0024535cf3a803140b4370037c696147c13477b4ff61abed614f914fefcc5c4"
+  },
+  "scope": "Composed complete old original mode14 callback/sequence/do48/start26/remove-state/rewind bodies. Declared current17point row,free NPC threshold0,missile/aim/factory services,neutral/end and bounded symbolic event-list host. Actual old infinite-before-finite order and deletion semantics reviewed;not a full Game/Event executable. Critical and allocation services are not real. Tests deliberately vary game epoch to expose pose-versus-epoch rewind dependence,not assert modern D2R parity. Source event queue,skillflags1 and generic resource wrapper remain separately scoped."
+}

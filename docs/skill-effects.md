@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Shadow Sentinel (2026-11-08 JST).** Reuses the existing blade actor/following-missile and identified cast/travel/contact placeholders. Final S2 pose,blade travel/turn/contact/expiry cues and audio remain pending in the shared Sentinel family;birth snapshot adds no visual identity. [Checkpoint](shadow-sentinel-checkpoint.md). Icons remain separate.
+
 **Original Shadow Fury clock (2026-11-08 JST).** No effects/audio emitted by this numeric clock. Original mode14 uses SC poses inside its own17point sequence;final poses/channel/travel/impact/expiry cues and sounds remain pending in the existing Fury/Shadow family. [Checkpoint](shadow-fury-clock-checkpoint.md). Prior `0xF42` blade placeholder remains;icons stay separate.
 
 **Own Shadow Fury travelling receiver (2026-11-08 JST).** The NPC route reuses identified `0xF42` travelling-blade and shared contact/return placeholders. Final NPC cast/channel poses,blade travel/impact/expiry cues and audio remain pending;reuse the player Fury family. [Checkpoint](shadow-fury-missiles-checkpoint.md). These assets do not gate mechanics. Icons stay separate.

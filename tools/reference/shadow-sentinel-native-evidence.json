@@ -1,0 +1,135 @@
+{
+  "parent": "c11a4d826850c1ee4588ab51815435d9732c8d6b",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicSentinelCastConnected": false,
+  "preparedNestedSentinelFactory": true,
+  "allNewSentinelBirthWeaponSnapshots": true,
+  "approvedRule": "Snapshot any summon when summoned,including traps",
+  "sourceReuse": {
+    "assassin-trap-summon-engine-evidence": {
+      "receipt": "c04ed72e5add240d76de80c2648527759399aa1ffcbf7745f54cfb6b9e682145",
+      "fixture": {
+        "path": ".local/class-skills/assassin-trap-summon-source-probe.json",
+        "sha256": "0cb7b65e90e964b16be8576c4386f11cde16b7df3b968c4f2f8c6a642dde4569",
+        "cases": {
+          "factory": 5184,
+          "fifo": 24
+        },
+        "total": 5208
+      },
+      "routines": {
+        "sub_6FC7DA40": "0184fe25e51ced7e307ef7552c6980c7371af9156ee9b3807e448106f7e57b95",
+        "sub_6FC7D7A0": "0c9dbe575f7f98974dfad63f3e1fc728e77fb39e3d02b7e08637ba7b157a57e3",
+        "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+        "sub_6FCF8610": "423d93a804d0045ea253f057bfd128c84442bdc06b4644c9b16ed3846f79a0a8"
+      }
+    },
+    "blade-sentinel-engine-evidence": {
+      "receipt": "dc6b13b460c70db7a167809597a41548627ec43054e06d2d39de2c2ca5f85e62",
+      "fixture": {
+        "path": ".local/class-skills/blade-sentinel-source-probe.json",
+        "sha256": "ad739a3060acac6f72d54680a8e9f8a0bb66506f45e196f1941aa2a89efea85b",
+        "cases": {
+          "ai": 7680,
+          "missingSkill": 10,
+          "dispatch": 80,
+          "follow": 8,
+          "initialization": 1,
+          "hit": 2
+        },
+        "total": 7781
+      },
+      "routines": {
+        "SKILLS_SrvDo044_BladeSentinel": "62313b951e61bc86bb1a399c2d9c195e90e1fa997e83a0efaba86d62beb8617d",
+        "D2GAME_AI_Unk102_6FCE9FB0": "a4aa394880b056d37790011dcfb75167f3fe6995d976c781f183cd3905d5a1b4",
+        "AITHINK_Fn102_BladeCreeper": "2db0e2a29a0c135ee4169e1267a45864136a436717c6dc69de100b980b142306",
+        "MISSMODE_SrvDo20_BladeCreeper": "12f6fb43a3a3e2ef6c2001ee7d5209b3aeefb2ded405827914ff02504a0a747a",
+        "MISSMODE_SrvHit37_BladeCreeper": "c7df4c194283feed1fe93969feaab6f3df31c0df3130da29be88a5005a91b2ed"
+      }
+    }
+  },
+  "newComposedFurySourceContexts": 12,
+  "nativeMarkers": 27,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-sentinel-check": 1,
+    "blade-spawn-check": 1,
+    "blade-missile-check": 1,
+    "blade-missile-result": 1,
+    "blade-lifecycle-check": 1,
+    "blade-offline-result": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-sentinel-reload-check": 2,
+    "blade-spawn-reload-check": 2,
+    "blade-missile-reload-check": 2,
+    "blade-missile-reload-result": 2,
+    "blade-lifecycle-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "41aa9a66fe4258154082fd2c70f7200bd52981a7adb49a587f8fd7aa27bf019c",
+    "Assemblies/Sanctuary.Integration.dll": "465bf6a81a3341b04950ed364101cee32f1260ce51901b381915b44aed1ac909"
+  },
+  "files": {
+    ".local/class-skills/shadow-fury-callback-source/compiler-failed-1.log": "f0ce6488f3a2e93ec9c06458e67d800a8549bf322919554e34dab1d9459ab9c2",
+    ".local/class-skills/shadow-fury-callback-source/probe-run-1.log": "eb883a29dccf7f52c83982a706c2bee7d34ed6555391e8d6c4b8fa8e83b7da0e",
+    ".local/class-skills/shadow-fury-callback-source/probe-run-2.log": "5bed30ca2a5497c50f6fc102746b2406b488516cf45de0bdbfb9c5b881e4fb24",
+    ".local/class-skills/shadow-fury-callback-source/source-failed-1.cpp": "77d8141a75b048bfd1aacaf11815b330997bfe67695ed39d9ecd743969659413",
+    ".local/class-skills/shadow-sentinel/birth-inputs-failed-1.json": "f50398fab79212ec04de5645fd552afba64f1ca61890315c4a45b3379eb00c19",
+    ".local/class-skills/shadow-sentinel/birth-inputs.json": "a37e1f86b76b8185872f25ab614ca1c700efb0e05df93cb9a60fe3705cd1d4c7",
+    ".local/class-skills/shadow-sentinel/birth-native-checks-failed-1.log": "074a5a7670494a4cb8b45e00c3c16e4134b75ee2fe3f223e305dc3b43b0232b5",
+    ".local/class-skills/shadow-sentinel/birth-native-checks.log": "de2011557c0868900d31e8fcd664a48753accb51a0589b153008be085a238f06",
+    ".local/class-skills/shadow-sentinel/blade-lifecycle-fixtures.json": "34bb5405c5fef1730ef4602da35f04562c46ef83a4547e89b559f3e05aaa2a4b",
+    ".local/class-skills/shadow-sentinel/blade-missile-fixtures.json": "5498164fc3e17ca6d8226f180cc8c4e0efa8da39c92e939f910511f939ac53e8",
+    ".local/class-skills/shadow-sentinel/blade-spawn-fixtures.json": "858d2719d6b268df0c58213153cca4fbda27132a114f0f1ac8fa15c11d2d87c3",
+    ".local/class-skills/shadow-sentinel/content-build-1.log": "00e8fe76bdcad0d5049803668d8f7b4f421018dc02aa5a2d89d6d1c0d5cfdcd2",
+    ".local/class-skills/shadow-sentinel/integration-build-1.log": "1ed7599009b22c79f7104f655e73b539e975c86b6c0eb6063e48a9f1e09f880c",
+    ".local/class-skills/shadow-sentinel/integration-build-2.log": "8b92d48fa5ec96f6dbae30b8baf4017e45c3c62d69d78e7e28b44fe70eb76c23",
+    ".local/class-skills/shadow-sentinel/iron-golem-items-fixtures.json": "9ac5e624156058f211d5d1f0e03d4135802292617a8f205c771ef530ac21178b",
+    ".local/class-skills/shadow-sentinel/native-run-1.log": "5fe050c201facc36bdb985082a42f07542cb9a1a51b8c64906fec150cc7d3b7a",
+    ".local/class-skills/shadow-sentinel/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-sentinel/npc-resource-callbacks-fixtures.json": "7e08297a7d83998038293631e08cc199c865cf4ffd3f21e827407622a7c3d855",
+    ".local/class-skills/shadow-sentinel/shadow-sentinel-fixtures.json": "58e4e57632cccb0d38f6b26bb6ac992f7a608873698ac9000235152b7729a188",
+    ".local/class-skills/shadow-sentinel/source-snapshot-1.json": "b8fa456ab3f9ef026a91aa7d1a731d931e40243bb703f571f8da99832c312eac",
+    ".local/class-skills/shadow-sentinel/source-snapshot-2.json": "c9bd12fdb9965bd1825fd2cf6f5a2bdf83df7f6215dfe34de06c5e1efd81feee",
+    ".local/class-skills/shadow-sentinel/source-snapshot-3.json": "a04da0a87eec008632f083da6b3037994362ee710987da9edfa249ef8cd0bb29",
+    "tests/check_shadow_sentinel.py": "c2e276538186080ca7e056153cf283fdf26a0072e9e9efd8c9904fd85474a7dc",
+    "tools/probe_shadow_fury_callback.py": "f0024535cf3a803140b4370037c696147c13477b4ff61abed614f914fefcc5c4",
+    "tools/record_shadow_sentinel.py": "92b22ac44ab3a761b356970e6a74d3385ab07e28672cd56495610a035ef6564a",
+    "tools/reference/shadow-fury-callback-source-evidence.json": "bbcf6d7bbd4d196cc0eeda1cd4ab4a0276b8ddf69e0579fe4eed5a1209e6761d"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Fury callback harness first needed its shared shot-vector declaration moved before the factory service and ANIMSEQ_EVENT_NONE supplied;failed compiler/source retained. New12contexts expose older pose-as-epoch rewind:an identical successful first shot ends at26frames with epoch1 but12with epoch1000. That unverified automatic action stays parked. Sentinel first native fixture unintentionally inherited every rank1talent from ClassSkillChecks.Player;fixture now resets allocated points before training only Shadow prerequisites,proving root Sentinel rank0 with own NPC rank. No further production fix was needed;final native2 passes.",
+  "scope": "Actual original seed1 Warrior/Master create prepared Sentinel with own intrinsic rank/current level/origin;shared old summon factory and AI resolve root player for base/passives/weapon/roster. No owner/Shadow mana or Shadow attack RNG consumed. Existing root player critical policy is reused and not replaced by pending NPC unsigned proposal. New Sentinel births freeze root first-missile weapon and AR at creation under explicit summon snapshot rule;once-only arming consumes that saved packet at first AI. Optional fields preserve old/synthetic fallback. Pre-arm difficulty rescale preserves weapon packet while updating deferred base stats. Original pending birth packets survive2reloads while root removes its weapon. Retained live player spawn,following missile and lifecycle tests pass. No old compiler matrices rerun.",
+  "remaining": [
+    "Own Sentinel S2 startup/release/AI and current localdelay25 versus older NPC executor policy need separate admission",
+    "Fury callback/rewind current behavior remains unsupported;old composed model is game-epoch-dependent,not proof of modern D2R mechanics",
+    "NPC unsigned critical proposal and earlier Shock Web localdelay15 question remain nonblocking",
+    "Root/caster different-level end-to-end native factory case,arbitrary callback/stat mutation,current executable/PvP and full Shadow certification remain unverified",
+    "Death modifier42 and learned Shadow admission still pending"
+  ]
+}
