@@ -2,17 +2,25 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record ShadowGroundState(SkeletonWorldState World,ShadowWarriorMemory Warrior);
+internal sealed record ShadowMasterGap(int Skill,string Reason);
+internal sealed record ShadowGroundState(SkeletonWorldState World,ShadowWarriorMemory Warrior)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShadowMasterMemory Master{get;init;}
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShadowMasterGap[] Gaps{get;init;}
+}
 internal sealed record ShadowGroundAnimation(string ReferenceVersion,int WalkVelocity,int RunVelocity,ValkyrieAnimationRow[] Rows);
 // Own source motion/brain over the existing equipped-summon ground transport.
 // Master's distinct AI106 is not replaced by Warrior or NecroPet behavior.
 internal static class ShadowGroundMotion
 {
     internal const string Profile="shadow-warrior-original-ground-v1";
+    internal const string MasterProfile="shadow-master-original-ground-v1";
+    internal static string ProfileFor(AssassinShadowBody body)=>body.Prepared.Capture.Ability==CombatAbility.ShadowMaster?MasterProfile:Profile;
     private static readonly Lazy<ShadowGroundAnimation> Animation=new(()=>
     {
         var data=BalanceCatalog.ReadObject<ShadowGroundAnimation>("shadow-ground-animation");
@@ -22,22 +30,26 @@ internal static class ShadowGroundMotion
         {throw new InvalidDataException("Unsupported owned Shadow locomotion rows");}
         return data;
     });
-    internal static bool Active(AssassinShadowBody body)=>body?.Prepared?.GroundMotion?.World?.Controller?.Profile==Profile;
+    internal static bool Active(AssassinShadowBody body)=>body?.Prepared is{} saved&&saved.GroundMotion?.World?.Controller?.Profile==(saved.Capture.Ability==CombatAbility.ShadowMaster?MasterProfile:Profile);
     internal static ShadowGroundState Copy(ShadowGroundState s)=>s==null?null:s with{World=s.World with{Controller=s.World.Controller with{
-        Motion=s.World.Controller.Motion with{Points=(Point2D[])s.World.Controller.Motion.Points.Clone(),SavedSteps=(Point2D[])s.World.Controller.Motion.SavedSteps.Clone()}}}};
+        Motion=s.World.Controller.Motion with{Points=(Point2D[])s.World.Controller.Motion.Points.Clone(),SavedSteps=(Point2D[])s.World.Controller.Motion.SavedSteps.Clone()}}},Gaps=s.Gaps?.ToArray()};
     internal static void Validate(ShadowGroundState s,uint owner,ShadowOwnerSnapshot capture)
     {
         if(s==null){return;}
-        if(capture.Ability!=CombatAbility.ShadowWarrior||s.World?.Owner!=owner||s.World.Controller?.Profile!=Profile||s.Warrior==null
-            ||s.Warrior.AllowedFrame<0||s.Warrior.Budget<0)
-        {throw new InvalidDataException("Invalid original Shadow Warrior ground context");}
+        bool master=capture.Ability==CombatAbility.ShadowMaster;
+        if(capture.Ability is not(CombatAbility.ShadowMaster or CombatAbility.ShadowWarrior)||s.World?.Owner!=owner||s.World.Controller?.Profile!=(master?MasterProfile:Profile)||s.Warrior==null
+            ||s.Warrior.AllowedFrame<0||s.Warrior.Budget<0||!master&&(s.Master!=null||s.Gaps!=null)
+            ||master&&(s.Master==null||s.Master.Repeat is<0 or>25||s.Master.Skill is<0 or>428||s.Master.Rank!=capture.Rank
+                ||s.Warrior.AllowedFrame!=0||s.Warrior.Budget!=0||s.Gaps is{Length:>429}
+                ||s.Gaps!=null&&(s.Gaps.Any(g=>g==null||g.Skill is<0 or>428||string.IsNullOrEmpty(g.Reason)||g.Reason.Length>512)||s.Gaps.Select(g=>g.Skill).Distinct().Count()!=s.Gaps.Length)))
+        {throw new InvalidDataException("Invalid original Shadow ground/brain context");}
         IronGolemWorld.Validate(s.World.Controller with{Profile="prepared-necropet-ground-fit-equipment-clock-v1"},false,true);
     }
     internal static void Activate(AssassinShadowBody body,PlayerMobile owner,DateTime at)
     {
-        if(body?.Prepared is not{Capture.Ability:CombatAbility.ShadowWarrior,GroundMotion:null} old||!body.CantWalk
+        if(body?.Prepared is not{GroundMotion:null} old||old.Capture.Ability is not(CombatAbility.ShadowWarrior or CombatAbility.ShadowMaster)||!body.CantWalk
             ||!ShadowSkillCasting.Attached(body))
-        {throw new NotSupportedException("Ground activation needs its original qualified Warrior;Master AI remains separate");}
+        {throw new NotSupportedException("Ground activation needs its original qualified Shadow with a distinct brain profile");}
         _=Animation.Value;_=ShadowEquipmentDefense.Registry(body);
         try{body.WorldGround.Initialize(owner,at,()=>NpcEquipmentRandom.Require(body),adopt:true,initialThink:20);body.CantWalk=false;}
         catch{IronGolems.Forget(body);body.RestorePrepared(old);body.WorldGround.Invalidate();body.CantWalk=true;throw;}
@@ -63,6 +75,7 @@ internal static class ShadowGroundMotion
         &&value.TryGetInt32(out int number)?number:throw new InvalidDataException("Missing Shadow AI parameter: "+name);
     internal static void Think(AssassinShadowBody body,PlayerMobile owner,int frame,DateTime at,NecromancerPetAiServices q)
     {
+        if(body.Prepared.Capture.Ability==CombatAbility.ShadowMaster){ShadowMasterWorld.Think(body,owner,at,q);return;}
         var primary=q.Primary(false,0);var state=body.Prepared.GroundMotion;
         var c=new ShadowWarriorContext(frame,primary.Id,primary.Distance,primary.Combat,q.Distance((int)owner.Serial.Value),body.Prepared.Capture.Rank,
             Source(body,"aip1"),Source(body,"aip2"),Source(body,"aip3"),Source(body,"aip4"),Source(body,"aip8(N)"),Source(body,"aip8(H)"));
@@ -80,7 +93,7 @@ internal static class ShadowGroundMotion
                 key=>body.OwnedSkills.Find(SkillMechanics.Source(key).SourceId)?.Base??0,body.Prepared.Capture.Level);
             if(row.HasDelay("delay")){throw new NotSupportedException("Shadow current delay needs its own source field context");}
             return new(id,ShadowSkillBook.Metadata(id).Class,entry.Mode,row.Number("aitype"),rank,Math.Max(0,(values?.Mana256??0)>>8),0,
-                row.Text("aurastate")!="0",row.Text("auratargetstate")!="0",row.Number("progressive")!=0,row.Text("range")=="h2h"?1:2);
+                row.Text("aurastate")!="0",row.Text("auratargetstate")!="0",row.Number("progressive")!=0,ShadowSkillCasting.Range(body,id));
         }
         bool Pet(ShadowAiSkill skill)
         {

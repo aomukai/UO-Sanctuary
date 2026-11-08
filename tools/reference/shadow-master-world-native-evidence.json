@@ -1,0 +1,91 @@
+{
+  "parent": "37bc9e4ca6cb099a0bc2b8e84cc1a8d61bf177a9",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "internalMasterWorldEnabled": true,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-master-world-check": 1,
+    "shadow-ground-check": 1,
+    "shadow-actions-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-master-world-reload-check": 2,
+    "shadow-ground-reload-check": 2,
+    "shadow-actions-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 7,
+  "integrationBuild": 5,
+  "sourceSnapshot": 5,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "c662d057350c7ab61c0c09a302686afb724e2a98f18ebb1d02eba67f880914d3",
+    "Assemblies/Sanctuary.Integration.dll": "75d03296e7b95e43578be15cdf969b04482841b7e25fa841368854e8000ddd74"
+  },
+  "inputsSha256": "f3fc87889ef6b80f26f0df3251facbb67c4994df5433e4123b0d9ab25b159dc5",
+  "nativeLogSha256": "ce625ddad4f923761533d07e19f8e7a7c8feda1b49c0f51ef70fdb0993ebc9e3",
+  "sourceSnapshotSha256": "75a691a82642c7926cfd66d4b0902180c11d6216013a56687c691a65e54aa567",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "sourceProofs": {
+    "tools/reference/shadow-master-ai-source-evidence.json": "35b8359da627fb48b83424ff31967bfd0d52d9a26de05ab2d6ad4ccfbeaf50bc",
+    "tools/reference/shadow-master-target-source-evidence.json": "ca91bb6526c1adecd4a23beb01cc7d173fa6b987a9814e33bc6b5a0b01154aab",
+    "tools/reference/shadow-master-world-source-review.json": "d65824fc951eb4c1204413d7c96baebdd78f24546a7e889e5b5a539150f23ac6"
+  },
+  "missileRanges": {
+    "rows": 742,
+    "literal": 694,
+    "unresolvedExpressions": 48,
+    "sha256": "804df446e86f30c893aad44dea45927168da8dcc730c03ddf1b10b4da5fd4f68"
+  },
+  "scope": [
+    "Distinct Master profile and saved memory connect accepted full AI106 policy,target/tactic helpers,current state groups/aura metadata,own book/graph/RNG,shared transport/contact/S2/SC/sentry and result-bearing requests. Warrior profile/legacy null-field serialization stays unchanged.",
+    "Actual Master follows,scans native adjacent sectors,starts original actions and causes HP damage. Invulnerable allied trap count and champion/unique special scan order run on real actors. Dual-claw both-range is melee,moving Weapon Block refuses without RNG,invalid memory rejects atomically and gap arrays do not leak mutable state.",
+    "Unavailable intrinsic consumers record bounded per-skill saved diagnostics and failed attempts instead of substituted spells. Master-only NotSupported action failures cancel without action replay/RNG rewind;other unexpected errors retain strict faults. Full original equipment/skills/resources remain intact.",
+    "Original same Master body/items/resources/wounds/RNG/diagnostics and a synthetic own-class repeat input survive two reloads. Loaded skip does not replay actions/rolls or clear memory;the original actor then resumes actual damage and decrements/flags its unavailable Blade Fury input while other skills continue. This does not claim do48naturally generates do19repeat memory.",
+    "Existing 32-source-cell native room grid and generic pet state/skill/monster tables are reused. Current literal missile ranges gain a hash-validated common742-ID view;48range expressions remain explicit unqualified metadata. Blade SentinelAI257 is flagged/unavailable rather than guessed.",
+    "Retained Warrior AI/ground persistence and own S2 action cohorts pass. Their463source controls are retained comparisons,not new Master controls. Prior497whole Master and869target/tactic source matrices were not rerun;five additional helpers are authenticated source review only."
+  ],
+  "failedRuns": [
+    "Content1 used yield across the native ref-struct mobile enumerator and had an unread service parameter. The native room query now snapshots a list in source-adapter order.",
+    "Native1 caught absent secondary missile sentinel0being looked up as a real name. Native2 then exposed the sparse summon-field dictionary missing blade creeper missile data.",
+    "The first complete-range export correctly rejected48string expressions. An exploratory batch lacked an early set-e and reached Native3 without the data file;that failed package is archived. Accepted generation/build/run is fail-fast and pins all742rows,numeric versus unresolved expression fields explicitly.",
+    "Native4 passed initial Master/Warrior/actions but reload rejected a foreign Inferno skill in the fixture through the existing off-class graph guard. The guard is intact;accepted fixture uses a clearly synthetic own-class Blade Fury repeat input and resumed damage. Production Content DLL is unchanged from Native4."
+  ],
+  "limitations": [
+    "Internal Master world admission is available to qualified fixtures;learned/public summoning remains gated by remaining intrinsic charge/melee/channel/Blade Sentinel consumers,current modifier42death and summon/payment/replacement/input.",
+    "Native16tile/32source-cell sectors and unit order project adjacent rooms;they do not establish current D2 room geometry/order. Primary target search,LOS/path/velocity/cadence,source classification versus native vendors/encounters,resistance projection and broad owner/PvP/item/event behavior remain scoped.",
+    "Master precombat state-groups reuse the existing table/graph. Current AI106 exact behavior and start timing,unimplemented charge producers,target state consumers and full source-data/metadata suppliers remain unverified. Known unsupported skills/fields remain saved diagnostics,not completed talents.",
+    "48current missile ranges are formulas whose older numeric AI getter cannot interpret. They remain gated when required. Exact modern interpretation requires more reference evidence or a separately approved adaptation. The two pending explicit questions remain Shock Web localdelay15 and occupied-point sentry placement.",
+    "Existing off-class item/intrinsic guard is preserved. Natural do19repeat production on a live Master is not established by the synthetic persistence fixture. Player Blade Shield event/thorns gap remains separate.",
+    "Final Shadow movement/turn/cast/contact/retreat/recovery and skill effects/audio plus talent/hotkey icons remain separate placeholders. No deployment/public handler or class completion."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-master-world/content-build-1.log": "0eeb8bdae81840678ccddd379a2e1d48876614b15d1419eecdf255db92e01b07",
+    ".local/class-skills/shadow-master-world/failed-native-1.log": "fccfd7ee99155f2a4b02ea24e988ca21f8ccd28e91cf8232a3b934c706e50019",
+    ".local/class-skills/shadow-master-world/failed-native-2.log": "520da7de5517b8eb57ab862dae67f18fdac8264540ff439c7ae110e739c4c0a0",
+    ".local/class-skills/shadow-master-world/failed-native-3.log": "8d2f6fb7d907108f9fd52555e678a8ba4fec3c966f6022d751a1aca267281d2b",
+    ".local/class-skills/shadow-master-world/failed-native-4.log": "5e997e739364a53725d82f8c739b9c5817cec44e3903244acef8b0eca30d91ec",
+    ".local/class-skills/shadow-master-world/content-build-7.log": "0ffde0049f027ceaa79655f75125b4de2faa52051e9cf495c71c60762edf8fb8",
+    ".local/class-skills/shadow-master-world/integration-build-5.log": "32e58247268fb1fc6f8ab6f7a302a24441d5eb9da630aa7fb7cce72ebf561eff"
+  }
+}

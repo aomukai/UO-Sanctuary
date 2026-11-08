@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server;
 namespace Sanctuary;
 
 internal readonly record struct NecromancerPetAiState(int Parameter0,int Parameter1,int RememberedOwner);
@@ -15,7 +16,16 @@ internal sealed record NecromancerPetAiServices(Action<NecromancerPetAiRequest> 
     Func<int,int> LookupPlayer,Func<int,int> Distance,Func<int,NecromancerPetAiTarget> OwnerTarget,
     Func<bool,int,NecromancerPetAiTarget> Primary,Func<int,bool> PetIgnore,Func<int,bool> MissileBarrier,
     Func<int,bool> ValidTarget,Func<int> Percentage,Func<int,bool,int,int,bool> CommonMove,
-    Func<bool> Town,Func<int,bool,int,int,bool> PetMove);
+    Func<bool> Town,Func<int,bool,int,int,bool> PetMove)
+{
+    // Result-bearing original-species requests share the same transport.
+    // Historical AI67/105 callers retain their existing void request API.
+    internal Func<NecromancerPetAiRequest,int> Act{get;init;}
+    internal Func<int,int,bool,bool> Retreat{get;init;}
+    internal Func<Point2D> Cell{get;init;}
+    internal Func<uint> CurrentTarget{get;init;}
+    internal Func<Server.Mobile,bool> InMelee{get;init;}
+}
 
 // Complete pinned older NecroPet AI67, including its ordinary-melee helper.
 // Query services deliberately stay ordered: the primary lookup's combat flag

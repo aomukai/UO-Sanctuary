@@ -41,6 +41,18 @@ internal static class ShadowSkillCasting
     }
     internal static bool Attached(AssassinShadowBody body)=>body?.ControlMaster is PlayerMobile owner
         &&NpcItemSpellFlights.Attached(body,owner,body.Map?.MapID??-1);
+    internal static int Range(AssassinShadowBody body,int id)
+    {
+        var range=ItemSkillExecution.Skill(id).Text("range");
+        if(range=="both")
+        {
+            // Complete D2Common_11016 selects melee for a non-bow NPC.
+            // Shadows retain their approved actual original dual-claw binding.
+            if(ShadowEquipmentDefense.Composite(body)!=13){throw new NotSupportedException("Shadow both-range needs its original dual-claw composite");}
+            return 1;
+        }
+        return range switch{"h2h"=>1,"rng"=>2,"0"or"none"=>0,_=>throw new NotSupportedException("Unmapped Shadow skill range: "+range)};
+    }
     internal static SkillValues Values(AssassinShadowBody body,int rank,int skill=251)
     {_=Row(skill);return OwnValues(body,rank,skill);}
     // Producers with separately qualified execution metadata can share the

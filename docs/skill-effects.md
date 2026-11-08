@@ -1,5 +1,7 @@
 # Skill effects
 
+**Master world (2026-11-08 JST).** Distinct Master now follows/fights in qualified internal fixtures using existing Shadow native movement/attack/cast and skill cues. Final walk/run/turn, retreat, attack/cast/contact/recovery, state overlays and audio remain pending placeholders;reuse the existing Shadow/skill families. See [checkpoint](shadow-master-world-checkpoint.md). No new final art is introduced;icons stay separate.
+
 **Intrinsic Shadow stationary sentries (2026-11-08 JST).** All five do45 casts reuse identified native Shadow poses, summon sound0x23B and the existing sentry body0x9C/hue0x482 (Inferno0x489), projectile and impact placeholders. Final placement/S2, distinct trap models/emergence, firing/contact, expiry/retirement and audio remain needed; share their existing player-sentry asset families. See [checkpoint](shadow-sentry-checkpoint.md). Icons remain separate.
 
 **Shadow Shock Web fields (2026-11-08 JST).** NPC fields reuse identified air0x36E4, electric-field0x374A and throw sound0x23B placeholders. Final lob, landing, field/contact, expiry and audio remain needed and can share the player Shock Web asset family. Action admission is still gated; see [checkpoint](shadow-shock-web-checkpoint.md). Icons remain separate.

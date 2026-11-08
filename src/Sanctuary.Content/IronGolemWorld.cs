@@ -236,9 +236,37 @@ internal static class IronGolemWorld
             if(MageWorld.For(body) is{} mage){mage.ObserveCombatTarget(target!=0);}
             return SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
         }
+        int OriginalAction(NecromancerPetAiRequest r)
+        {
+            if(body is not AssassinShadowBody{Prepared.Capture.Ability:CombatAbility.ShadowMaster} master)
+            {throw new NotSupportedException("Result-bearing original requests need the qualified Master bridge");}
+            if(r.Kind==NecromancerPetAiKind.Skill)
+            {
+                var target=World.FindMobile((Serial)(uint)r.C)as BaseCreature;
+                int duration=((INecromancerGroundBrain)master).GroundSkill(owner,r.A,r.B,target,at);
+                if(duration<=0){return 0;}s=Neutral(s,duration+1) with{Target=(uint)r.C};return 1;
+            }
+            if(r.Kind==NecromancerPetAiKind.RunTarget)
+            {return World.FindMobile((Serial)(uint)r.A)is{} target&&Path(body,ref s,PetOwnerRoutes.Cell(target),true)?1:0;}
+            if(r.Kind==NecromancerPetAiKind.Attack)
+            {if(!Eligible(body,owner,World.FindMobile((Serial)(uint)r.B))){return 0;}OriginalNpcMelee.RequireAllocation(body,(BaseCreature)World.FindMobile((Serial)(uint)r.B));Request(r);return 1;}
+            throw new NotSupportedException("Unsupported original result-bearing tactic");
+        }
+        bool OriginalRetreat(int target,int distance,bool delete)
+        {
+            if(body is not AssassinShadowBody{Prepared.Capture.Ability:CombatAbility.ShadowMaster}||distance!=8)
+            {throw new NotSupportedException("Unqualified original Master retreat");}
+            var away=World.FindMobile((Serial)(uint)target);if(away==null||away.Map!=body.Map){return false;}
+            // Complete sub_6FCD06D0: source-cell sign offsets,velocity budget,
+            // RUN and delete-think flag. Native path/fit is the shared adapter.
+            var cell=Cell(s);var targetCell=PetOwnerRoutes.Cell(away);if(distance>5){Velocity(ref s,0,0,distance);}
+            return Path(body,ref s,new(cell.X+Math.Sign(cell.X-targetCell.X)*distance,cell.Y+Math.Sign(cell.Y-targetCell.Y)*distance),true,delete);
+        }
         var queries=MageWorld.For(body) is{} caster
             ?NecromancerPetTargets.BindRanged(body,owner,target=>Eligible(body,owner,target),target=>Full(body,s,target),_=>caster.Primary(owner,s),Request,()=>Limited(body,100),Common,Move)
             :NecromancerPetTargets.Bind(body,owner,()=>s.Target,target=>Eligible(body,owner,target),target=>Full(body,s,target),target=>Melee(body,s,target,0),Request,()=>Limited(body,100),Common,Move);
+        if(body is AssassinShadowBody{Prepared.Capture.Ability:CombatAbility.ShadowMaster})
+        {queries=queries with{Act=OriginalAction,Retreat=OriginalRetreat,Cell=()=>Cell(s),CurrentTarget=()=>s.Target,InMelee=t=>Melee(body,s,t,0)};}
         if(body is INecromancerGroundBrain own){own.GroundThink(owner,s.Frame,at,queries);}
         else
         {

@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderSourceTree": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceReviewOnly": true,
+  "newCompiledControls": 0,
+  "authenticated": {
+    "source/D2Game/src/AI/AiUtil.cpp": {
+      "sha256": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+      "routines": {
+        "sub_6FCF1E80": "677d7de64527f5eaf7bd530cb3581c47d6bb8a37e29929f2a633e7bde2baf24a",
+        "AIUTIL_FindTargetInAdjacentRooms": "01f430410bec84147342403e1003b3e4516bf943edb6689ee8d69804d658e6f2"
+      }
+    },
+    "source/D2Game/src/AI/AiTactics.cpp": {
+      "sha256": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+      "routines": {
+        "sub_6FCD06D0": "b670ba190b21fe07b9e4d9dafda667cc464bcd26503816751ca230a0dc4c8d13"
+      }
+    },
+    "source/D2Common/src/D2Skills.cpp": {
+      "sha256": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+      "routines": {
+        "D2Common_11016": "8ca4fd8f88af783f0053c3f2ddc0ce167c684af0fe2d82ddb991b1aec4ae8893"
+      }
+    },
+    "source/D2Common/src/Units/Units.cpp": {
+      "sha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "routines": {
+        "UNITS_GetCurrentLifePercentage": "6ae1ec2311eac35bceb0cd7e37b398904e21e8d16cc53dfd80bdea04b100a4d8"
+      }
+    }
+  },
+  "established": [
+    "Callback selector1 invokes the supplied Master callback across adjacent rooms and every linked unit;callback null results continue the scan. Native sector projection retains its own explicit room/unit order,not a certificate of D2 room geometry/order.",
+    "Retreat helper uses sign(caster-target)*maximum offsets,sets velocity parameters0/0/maximum when maximum>5,requests RUN and delete-event flag4. The Master native bridge requests distance8 and reuses shared path/velocity services.",
+    "D2Common_11016 maps both-range3 to bow-or-crossbow+1. Non-bow NPCs therefore use melee1;the melee-only state-mask override is player-only. Qualified original dual-claw Shadows are non-bow. This corrects the prior Warrior both-to-ranged adapter too.",
+    "Life percentage truncates current and maximum FP256 life separately to whole hit points before multiplying current by100/dividing. The bridge follows that ordering."
+  ],
+  "limits": [
+    "These are authenticated full-source reviews,not newly compiled isolated helper probes. Native world/control/regression evidence is separate.",
+    "Current missile JSON has694literal ranges and48expressions;the literal older AI getter cannot establish modern expression interpretation. Expressions remain explicit unsupported metadata,not guessed constants.",
+    "Current executable parity,native terrain/room/target classification,full raw resistance state projection and broad events/items/PvP remain unverified."
+  ]
+}

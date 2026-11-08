@@ -62,6 +62,8 @@ internal static class ItemSkillExecution
     });
     internal static IReadOnlyList<ItemExecutionMetadata> All => Catalog.Value.Skills;
     internal static int MissileCount => Catalog.Value.MissileIds.Count;
+    internal static string MissileSourceHash=>Catalog.Value.SourceHashes["tools/reference/d2r-named-equipment/json/missiles.json"];
+    internal static string MissileName(int id)=>Catalog.Value.MissileIds.FirstOrDefault(p=>p.Value==id).Key;
     internal static int MissileId(string key) => Catalog.Value.MissileIds.TryGetValue(key, out int id)
         ? id : throw new NotSupportedException("Unknown item execution missile: " + key);
     internal static ItemExecutionMetadata Skill(int id) => id is >= 0 and < 429 ? Catalog.Value.Skills[id] : null;

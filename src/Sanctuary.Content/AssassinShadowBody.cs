@@ -32,9 +32,11 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     internal ShadowBodyState Prepared=>State==null?null:State with{Equipment=ShadowLoadout.Copy(State.Equipment),GroundMotion=ShadowGroundMotion.Copy(State.GroundMotion)};
     private NecromancerGroundWorld _ground;
     NecromancerGroundWorld INecromancerGroundActor.WorldGround=>State?.GroundMotion==null?null:WorldGround;
-    internal NecromancerGroundWorld WorldGround=>_ground??=new(this,ShadowGroundMotion.Profile,
+    internal NecromancerGroundWorld WorldGround=>_ground??=new(this,ShadowGroundMotion.ProfileFor(this),
         ()=>State?.GroundMotion==null?"{}":JsonSerializer.Serialize(State.GroundMotion.World),saved=>RestorePrepared(State with{
-            GroundMotion=new(JsonSerializer.Deserialize<SkeletonWorldState>(saved),State.GroundMotion?.Warrior??new())}),()=>{},run:true);
+            GroundMotion=State.GroundMotion is{} old?old with{World=JsonSerializer.Deserialize<SkeletonWorldState>(saved)}
+                :new(JsonSerializer.Deserialize<SkeletonWorldState>(saved),new())
+                    {Master=State.Capture.Ability==CombatAbility.ShadowMaster?new(Rank:State.Capture.Rank):null}}),()=>{},run:true);
     int INecromancerGroundActor.MovementPercent=>0;
     int INecromancerGroundMotion.GroundRegenerationBase=>State.Initialization.RegenerationBase;
     (int Velocity,int Animation) INecromancerGroundMotion.GroundMovement(int bonus,bool run)=>ShadowGroundMotion.Speed(this,bonus,run);
@@ -45,13 +47,17 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     }
     bool INecromancerGroundEquipmentContact.GroundRelease(PlayerMobile owner,IronGolemWorldState state,BaseCreature target,DateTime at)
     {
-        var contact=OriginalNpcMelee.Prepare(this,owner,target,b=>IronGolemWorld.Melee(this,state,target,b),at);
-        return(IronGolemContact.Release(this,owner,target,contact,b=>IronGolemWorld.Melee(this,state,target,b),at).Packet.ResultFlags&1)!=0;
+        try
+        {
+            var contact=OriginalNpcMelee.Prepare(this,owner,target,b=>IronGolemWorld.Melee(this,state,target,b),at);
+            return(IronGolemContact.Release(this,owner,target,contact,b=>IronGolemWorld.Melee(this,state,target,b),at).Packet.ResultFlags&1)!=0;
+        }
+        catch(NotSupportedException e)when(State.Capture.Ability==CombatAbility.ShadowMaster){MasterGap(0,e.Message);return false;}
     }
     void INecromancerGroundBrain.GroundThink(PlayerMobile owner,int frame,DateTime at,NecromancerPetAiServices services)=>ShadowGroundMotion.Think(this,owner,frame,at,services);
     int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
     {
-        bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target.Location,at)
+        bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
             :mode==9&&ShadowSentries.Handles(skill)?ShadowActions.BeginSentry(this,target,target?.Location??Location,at,skill)
             :mode==7&&skill==253?ShadowActions.BeginPsychicHammer(this,target,at)
             :mode==7&&skill==273?ShadowActions.BeginMindBlast(this,target,target?.Location??Location,at)
@@ -63,12 +69,21 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     }
     void INecromancerGroundPeriodic.GroundFrame(int frame,DateTime at)
     {
-        ShadowActions.Tick(at,true,Serial.Value);
+        var skill=ShadowActions.State(this)?.Cast.Skill;
+        try{ShadowActions.Tick(at,true,Serial.Value);}
+        catch(NotSupportedException e)when(State.Capture.Ability==CombatAbility.ShadowMaster&&skill.HasValue)
+        {ShadowActions.Cancel(this);MasterGap(skill.Value,e.Message);}
         if(WorldGround.State.Controller.EndAt==frame&&OwnedSkills.Used==0){ChangeSkills(book=>book.Use(null));}
     }
     void INecromancerGroundPeriodic.GroundSkipped(int frame)
     {ShadowActions.Cancel(this);if(OwnedSkills.Used==0){ChangeSkills(book=>book.Use(null));}}
     internal void ChangeGroundMemory(ShadowWarriorMemory memory)=>RestorePrepared(State with{GroundMotion=State.GroundMotion with{Warrior=memory}});
+    internal void ChangeMasterMemory(ShadowMasterMemory memory)=>RestorePrepared(State with{GroundMotion=State.GroundMotion with{Master=memory}});
+    internal void MasterGap(int skill,string reason)
+    {
+        var old=State.GroundMotion;if(old?.Master==null||old.Gaps?.Any(g=>g.Skill==skill)==true){return;}
+        reason=reason[..Math.Min(reason.Length,512)];RestorePrepared(State with{GroundMotion=old with{Gaps=(old.Gaps??[]).Append(new(skill,reason)).ToArray()}});
+    }
     internal string SavedText=>_saved;
     private ShadowCreationStats Numbers=>_birth??=State.Capture.Plan(State.Initialization.SpawnLife256);
     internal GeneratedNpcStatGraph EquipmentNumbers=>!World.Loading&&State?.Equipment!=null&&Alive&&!Deleted
