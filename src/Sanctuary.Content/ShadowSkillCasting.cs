@@ -39,6 +39,8 @@ internal static class ShadowSkillCasting
         if(id==275){return ShadowDragonFlight.Row();}
         if(ShadowChargeStrikes.Handles(id)){return ShadowChargeStrikes.Row(id);}
         if(ShadowSentries.Handles(id)){return ShadowSentries.Row(id);}
+        if(id==257){return ShadowBladeSentinels.Row();}
+        if(id==256){return ShadowShockWebs.Row();}
         if(id==253){return ShadowPsychicHammers.Row();}
         if(id==264){return ShadowCloaks.Row();}
         if(id==277){return ShadowBladeShields.Row();}
@@ -85,6 +87,7 @@ internal static class ShadowSkillCasting
             ||skill==253&&!ShadowPsychicHammers.Valid(body,target)||skill==273&&!ShadowMindBlasts.Valid(body,target?.Location??aim)
             ||skill==264&&!ShadowCloaks.Valid(body)
             ||body.OwnedSkillRank(skill)<=0){return null;}
+        if(skill is 256 or 257&&!ShadowBladeSentinels.Destination(body,target,aim,out aim)){return null;}
         if(ShadowSentries.Handles(skill)&&!ShadowSentries.Destination(body,target,aim,out aim)){return null;}
         body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill,at);
         try
@@ -177,7 +180,9 @@ internal static class ShadowSkillCasting
         internal override bool HasGame=>Attached(Body);
         internal override bool HasSource=>Body is{Alive:true,Deleted:false};
         internal override int UnitType=>1;
-        internal override SkillExecutionRecord Record(int skill)=>Row(skill).LegacyRecord(true,1);
+        internal override SkillExecutionRecord Record(int skill)=>ShadowNpcCooldowns.Approved(skill)
+            ?ShadowNpcCooldowns.Record(skill) // Approved intrinsic NPC adaptation only.
+            :Row(skill).LegacyRecord(true,1);
         internal override ExecutionSkill UsedSkill()=>Body.OwnedSkills.Used is{} id?new(id,0):null;
         internal override bool HasRoom=>Body.Map!=null&&Body.Map!=Map.Internal;
         internal override bool RoomInTown=>SpellHelper.IsTown(Body.Location,Body.ControlMaster);
@@ -187,7 +192,7 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 42 or 45 or 46 or 47 or 50 or 51 or 52 or 54?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 42 or 43 or 44 or 45 or 46 or 47 or 50 or 51 or 52 or 54?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
                 :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
@@ -198,6 +203,8 @@ internal static class ShadowSkillCasting
                 :function==52&&skill==275?ShadowDragonFlight.Release(cast,at)
                 :function==50&&skill==270?ShadowDragonTail.Release(cast,level,at)
                 :function==47&&skill==264?ShadowCloaks.Release(Body,level,at)
+                :function==43&&skill==256?ShadowShockWebs.Release(Body,cast.Target,cast.Aim,level,at)
+                :function==44&&skill==257?ShadowBladeSentinels.Release(Body,cast.Target,cast.Aim,level,at)
                 :function==45&&ShadowSentries.Handles(skill)?ShadowSentries.Release(Body,cast.Target,cast.Aim,skill,level,at)
                 :function==54&&skill==277?ShadowBladeShields.Release(Body,at)
                 :function==51&&skill==273?ShadowMindBlasts.Release(Body,cast.Target,cast.Aim,level,at):throw Missing();

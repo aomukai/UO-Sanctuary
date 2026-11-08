@@ -68,7 +68,7 @@ internal static class ShadowAnimation
     internal static ShadowAnimationPlan S2(AssassinShadowBody body)
     {
         _=ShadowEquipmentDefense.Require(body);
-        if(body.OwnedSkills.Used is not{} id||!(id==251||ShadowSentries.Handles(id))||body.OwnedSkills.Find(id)?.Mode!=9||ShadowEquipmentDefense.Composite(body)!=13)
+        if(body.OwnedSkills.Used is not{} id||!(id is 251 or 256 or 257||ShadowSentries.Handles(id))||body.OwnedSkills.Find(id)?.Mode!=9||ShadowEquipmentDefense.Composite(body)!=13)
         {throw new NotSupportedException("Shadow S2 needs its qualified intrinsic skill and original active dual claws");}
         return Original(body,Row.Value);
     }

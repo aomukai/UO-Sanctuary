@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Read-only source map for original Shadow modifier42;not execution proof."""
+import hashlib,json,re
+from pathlib import Path
+from probe_current_item_affixes import function
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'.local/class-skills'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ tree=json.loads((BASE/'d2moo-source-tree.json').read_text());inputs={};routines={};bodies={}
+ for rel,names in {'source/D2Game/src/MONSTER/MonsterUnique.cpp':['D2GAME_BOSSES_AssignUMod_6FC6FF10','sub_6FC6E780','MONSTERUNIQUE_ColdEnchantedModeChange','MONSTERUNIQUE_CastNova'],'source/D2Game/src/SKILLS/SkillAss.cpp':['SKILLS_SrvDo049_ShadowWarrior_Master']}.items():
+  p=BASE/'d2moo-pinned-source'/rel;b=p.read_bytes();assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==next(x['sha']for x in tree['tree']if x['path']==rel);inputs[str(p.relative_to(ROOT))]=sha(p)
+  for n in names:s=function(b.decode(),n);routines[n]=hashlib.sha256(s.encode()).hexdigest();bodies[n]=s
+ d=bodies['sub_6FC6E780'];start=d.index('stru_6FD2F0C8[43]');start=d.index('{',start);arr=d[start:d.index('};',start)];rows=[list(map(str.strip,m.split(',')))for m in re.findall(r'\{([^{}]*)\}',arr)];assert len(rows)==43 and rows[42]==['nullptr','MONSTERUNIQUE_ColdEnchantedModeChange','MONSTERUNIQUE_CastNova','nullptr','nullptr','nullptr']
+ assert 'pSkillsTxtRecord->wSumUMod, 1)'in bodies['SKILLS_SrvDo049_ShadowWarrior_Master']and 'nTypeFlag |= MONTYPEFLAG_UNIQUE'in bodies['D2GAME_BOSSES_AssignUMod_6FC6FF10']
+ nova=bodies['MONSTERUNIQUE_CastNova'];assert 'SKILL_SHADOWWARRIOR'in nova and '/ 2 + 1, 15)'in nova and 'UNITS_GetCurrentLifePercentage(pUnit) > 10'in nova and 'MISSILE_NOVA, 0, nSkillLevel'in nova
+ mode=bodies['MONSTERUNIQUE_ColdEnchantedModeChange'];assert 'pGame->dwGameFrame + 4'in mode
+ raw=ROOT/'tools/reference/d2r-named-equipment/json/skills.json';skills=json.loads(raw.read_text());assert skills['268']['sumumod']==42 and skills['279']['sumumod']==42;inputs[str(raw.relative_to(ROOT))]=sha(raw)
+ result=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],inputs=inputs,reviewedCompleteRoutines=routines,modifier=42,callbacks=rows[42],establishedBySourceReview=['Shadow summon service assigns its sumumod with bUnique1;AssignUMod sets MONTYPEFLAG_UNIQUE,not a general boss/encounter grade.','Dispatcher derives bUnique from actual type flag.42mode-change schedules MONUMOD at+4 on death;MONUMOD callback is CastNova.','Nova returns when not unique;otherwise derives rank from root owner effective ShadowWarrior rank/2+1,capped15,default1. This exact older helper names Warrior even for Master.','If current life percentage exceeds10,the helper forces rank1. On normal death that condition should not hold;actual native delivery and deletion ordering remain unverified.','Existing missile/owner/source flags and death timing must be preserved;this is not just a cosmetic nova.'],requiredIntegration=['Unique bit in original Shadow recipient semantics,including unique-only stun eligibility and approved unique slow caps,without assigning generic boss/loot/encounter behavior.','Delayed retained actual-NPC nova delivery after UO deletion;do not impersonate the root player to reuse its damage/mastery/equipment.','Apply approved summon-birth snapshot preference deliberately to owner rank/context;modern capture timing and other current binary details remain unresolved.','Death versus replacement/respec/logout/parking must remain separate;only appropriate terminal reason may trigger death proc.','Preserve original items/roster/ownership cleanup and pending actions;test real incoming lethal damage and exact once-only emission.'],scope='Read-only map of exact pinned older bodies and current sumumod42 rows;no new compiled/native execution or class admission claimed.',reviewToolSha256=sha(Path(__file__).resolve()))
+ (ROOT/'tools/reference/shadow-death-modifier-source-review.json').write_text(json.dumps(result,indent=2)+'\n');print('Modifier42 source review:unique flag +delayed nova identified;implementation/verification still required.')
+if __name__=='__main__':main()

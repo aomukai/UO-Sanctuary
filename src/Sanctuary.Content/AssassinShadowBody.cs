@@ -57,7 +57,11 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     void INecromancerGroundBrain.GroundThink(PlayerMobile owner,int frame,DateTime at,NecromancerPetAiServices services)=>ShadowGroundMotion.Think(this,owner,frame,at,services);
     int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
     {
-        bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
+        if(mode==9&&skill==257&&!ShadowBladeSentinels.AutomaticReady)
+        {if(State.Capture.Ability==CombatAbility.ShadowMaster){MasterGap(257,"Intrinsic Sentinel cooldown policy not admitted");}return 0;}
+        bool started=mode==9&&skill==256?ShadowActions.BeginShockWeb(this,target,target?.Location??Location,at)
+            :mode==9&&skill==257?ShadowActions.BeginBladeSentinel(this,target,target?.Location??Location,at)
+            :mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
             :mode==14&&skill==275?ShadowActions.BeginDragonFlight(this,target,at)
             :mode==14&&skill==260?ShadowActions.BeginDragonClaw(this,target,at)
             :mode==4&&skill==255?ShadowActions.BeginDragonTalon(this,target,at)

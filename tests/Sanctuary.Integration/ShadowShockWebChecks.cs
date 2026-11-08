@@ -17,7 +17,7 @@ public static class ShadowShockWebChecks
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
     private static Held Capture(AssassinShadowBody b)=>new(b.Serial.Value,b.SavedText,Json(GeneratedNpcLiveResources.State(b)),ShadowLoadout.Originals(b).Select(i=>i.SavedText).ToArray(),NpcEquipmentRandom.Require(b),SkillHealth.Balance256(b));
     public static void Configure(){Register("shadow-shock-web-check",false);Register("shadow-shock-web-reload-check",true);}
-    private static void Register(string name,bool reload)=>ConsoleInputHandler.RegisterCommand(name,"Own Shadow Shock Web field,leases,soft hit and saves;action admission remains gated",_=>Core.LoopContext.Post(()=>{try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+    private static void Register(string name,bool reload)=>ConsoleInputHandler.RegisterCommand(name,"Own Shadow Shock Web field,leases,soft hit and saves;action/cooldown coverage is in the shared S2 cohort",_=>Core.LoopContext.Post(()=>{try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static BaseCreature Target(AssassinShadowBody b,int life=65000)
     {
         var t=new ShadowPsychicChecks.Witness{CasterId=b.Serial.Value};t.SetHits(life);foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}
@@ -139,6 +139,6 @@ public static class ShadowShockWebChecks
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,target.Serial.Value,SkillHealth.Balance256(target),bodies.Select(Capture).ToArray(),pending,generation)));
         Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Field implementation enabled unfinished learned summons");
-        Log.Information("Shadow Shock Web:both original species,shared lob/scatter and cast leases,own unit RNG/damage/mastery/pierce,no owner mana/potion,typed immunity/death,soft-hit positive recovery control,atomic shared restore and parked/offline/reload expiry;intrinsic action cooldown/learned route remain gated");
+        Log.Information("Shadow Shock Web:both original species,shared lob/scatter and cast leases,own unit RNG/damage/mastery/pierce,no owner mana/potion,typed immunity/death,soft-hit positive recovery control,atomic shared restore and parked/offline/reload expiry;approved intrinsic cooldown/action is covered separately;learned Shadow route remains gated");
     }
 }

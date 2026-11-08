@@ -10,7 +10,7 @@ namespace Sanctuary;
 public sealed record ShockShardNpc(uint Actor,string Binding,ulong Seed,int LightningPierce=0,bool Dormant=false,string Fault=null);
 
 // Own NPC lob/field producer. Intrinsic action admission remains separate
-// pending the explicit current-localdelay policy;no player cast is proxied.
+// uses the approved intrinsic no-extra NPC cooldown policy;no player cast is proxied.
 internal static class ShadowShockWebs
 {
     internal static ItemExecutionMetadata Row()
@@ -25,6 +25,14 @@ internal static class ShadowShockWebs
             ||NecromancerSummons.Source("shock field on ground","GetHit")!=0||NecromancerSummons.Source("shock field on ground","SrcDamage")!=0)
         {throw new NotSupportedException("Unqualified current Shadow Shock Web metadata");}
         return r;
+    }
+    internal static int Release(AssassinShadowBody body,BaseCreature target,Point3D cached,int rank,DateTime at)
+    {
+        _=Row();
+        if(!ShadowNpcCooldowns.Approved(256)||!ShadowSkillCasting.Attached(body)||body.OwnedSkills.Used!=256||rank!=body.OwnedSkillRank(256)
+            ||!ShadowBladeSentinels.Destination(body,target,cached,out var point)){return 0;}
+        // Full do43 reports success even when close-point exclusions yield0.
+        return ShockWebs.EmitShadow(body,point,rank,at)>=0?1:0;
     }
     internal static void Validate(ShockShard s)
     {

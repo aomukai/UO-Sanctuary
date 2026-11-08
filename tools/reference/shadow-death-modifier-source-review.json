@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "reviewedCompleteRoutines": {
+    "D2GAME_BOSSES_AssignUMod_6FC6FF10": "7bd6ead255e78ea92064ecbe6c45d6eecbde7a92f7ee2f447c425c0da060613a",
+    "sub_6FC6E780": "eac87e22262c1b59576f2a6d27438b9014a90b9ba6375adfe2c74cc1ab05ca8b",
+    "MONSTERUNIQUE_ColdEnchantedModeChange": "bcda42ff99fb3d2cd45e727e0b597198bb9dc57f4b76a14baa291599bfb400a1",
+    "MONSTERUNIQUE_CastNova": "dbb867ad9e8e67aa7c06f84df8e6fb114261af293f08538fabadde7e9dd9d51d",
+    "SKILLS_SrvDo049_ShadowWarrior_Master": "36b8145ad041530b84cba2145e567f8295448b19ce7356e822ab2661838bbb67"
+  },
+  "modifier": 42,
+  "callbacks": [
+    "nullptr",
+    "MONSTERUNIQUE_ColdEnchantedModeChange",
+    "MONSTERUNIQUE_CastNova",
+    "nullptr",
+    "nullptr",
+    "nullptr"
+  ],
+  "establishedBySourceReview": [
+    "Shadow summon service assigns its sumumod with bUnique1;AssignUMod sets MONTYPEFLAG_UNIQUE,not a general boss/encounter grade.",
+    "Dispatcher derives bUnique from actual type flag.42mode-change schedules MONUMOD at+4 on death;MONUMOD callback is CastNova.",
+    "Nova returns when not unique;otherwise derives rank from root owner effective ShadowWarrior rank/2+1,capped15,default1. This exact older helper names Warrior even for Master.",
+    "If current life percentage exceeds10,the helper forces rank1. On normal death that condition should not hold;actual native delivery and deletion ordering remain unverified.",
+    "Existing missile/owner/source flags and death timing must be preserved;this is not just a cosmetic nova."
+  ],
+  "requiredIntegration": [
+    "Unique bit in original Shadow recipient semantics,including unique-only stun eligibility and approved unique slow caps,without assigning generic boss/loot/encounter behavior.",
+    "Delayed retained actual-NPC nova delivery after UO deletion;do not impersonate the root player to reuse its damage/mastery/equipment.",
+    "Apply approved summon-birth snapshot preference deliberately to owner rank/context;modern capture timing and other current binary details remain unresolved.",
+    "Death versus replacement/respec/logout/parking must remain separate;only appropriate terminal reason may trigger death proc.",
+    "Preserve original items/roster/ownership cleanup and pending actions;test real incoming lethal damage and exact once-only emission."
+  ],
+  "scope": "Read-only map of exact pinned older bodies and current sumumod42 rows;no new compiled/native execution or class admission claimed.",
+  "reviewToolSha256": "fd83838b6fb5de9c907f9fc79d28e3ae806e7acefddffa0693231d987fc38b36"
+}
