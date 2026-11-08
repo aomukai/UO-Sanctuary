@@ -1,5 +1,7 @@
 # Skill effects
 
+**Ring approved-age prepared recipient (2026-11-09 JST).** [Checkpoint](ring-age-checkpoint.md). The shared generic fire-contact presentation is an identified placeholder for explicit recipient checks;no automatic projectile/explosion producer or final art is added. Existing cast/ring/contact/terminal/expiry/audio work remains pending;icons remain separate.
+
 **Ring prepared motion profile (2026-11-09 JST).** [Checkpoint](ring-profile-checkpoint.md). No world actor or visual is emitted by the prepared free-flight/packet plan. Existing Ring cast,expanding ring,contact,terminal explosion,expiry and audio entries remain pending;identified placeholders will be used when world emission is connected. Icons remain separate.
 
 **Learned Apocalypse placeholders (2026-11-09 JST).** Mechanics now have a learned cast;art remains pending. Ground`0x1B7A`,recipient`0x36D4`,shared cast sound`0x1E5` and human casting pose are identified placeholders. Final cast/countdown/detonation/recipient effects and audio still need creation. [Checkpoint](apocalypse-cast-checkpoint.md). Talent/hotkey icons remain separate;no final artwork generated.

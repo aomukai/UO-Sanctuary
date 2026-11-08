@@ -1,5 +1,7 @@
 # Ring of Fire primary profile checkpoint
 
+**Follow-up:** the user approved elapsed-update age;prepared ordinary-recipient/native acceptance is in [ring-age-checkpoint.md](ring-age-checkpoint.md). The earlier pending status below is historical.
+
 Reference: D2R Reign of the Warlock **3.3.93847**. Prepared mechanics only; **212/240 handlers, Warlock 3/30; no class certified**.
 
 `RingOfFireMotion` now composes the retained current do154 launch producer with the actual primary skill/missile rows. All three launch selectors resolve missile689; effective ranks below10 emit16 requests, ranks10+ emit32. Allocation failure preserves the producer’s remaining attempts. The existing velocity helper supplies4800 FP8. The primary missile689 and visual730 rows are copied unchanged into `ring-of-fire-world.json`, with their original source hash.

@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "Approve this explicit frame-age rule",
+  "proposal": "docs/ring-of-fire-age-proposal.md",
+  "rule": {
+    "atCreation": 0,
+    "updateMilliseconds": 40,
+    "incrementBeforeCollision": true,
+    "factoryPathSetupExtraFrames": 0,
+    "percent": "100 + 5 * elapsedUpdates",
+    "firstUpdatePercent": 105,
+    "eleventhUpdatePercent": 155,
+    "stage": "rolled packet before defender mitigation"
+  },
+  "limits": [
+    "Explicit Sanctuary adaptation;current live frame supplier remains protected.",
+    "Does not approve or establish collision/explosion,hit-delay identity,knockback,damage dispatcher/index binding or learned world casting."
+  ]
+}

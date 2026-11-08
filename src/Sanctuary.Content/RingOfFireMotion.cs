@@ -30,7 +30,7 @@ internal static class RingOfFireMotion
         if(m.Number("*ID")!=689||m.Number("pSrvDoFunc")!=1||m.Number("pSrvHitFunc")!=1||m.Number("pSrvDmgFunc")!=17
             ||m.Number("Vel")!=25||m.Number("MaxVel")!=25||m.Number("VelLev")!=0||m.Number("Accel")!=-1000||m.Number("Range")!=11
             ||m.Number("CollideType")!=3||m.Number("Size")!=2||m.Number("CanSlow")!=0||m.Number("InitSteps")!=1
-            ||m.Number("NextHit")!=1||m.Number("NextDelay")!=11||m.Number("KnockBack")!=100||m.Number("sHitPar1")!=3
+            ||m.Number("NextHit")!=1||m.Number("NextDelay")!=11||m.Number("KnockBack")!=100||m.Number("GetHit")!=1||m.Number("ReturnFire")!=1||m.Number("sHitPar1")!=3
             ||m.Number("Pierce")!=1||m.Number("AlwaysExplode")!=1||m.Text("DmgCalc1")!="100+(fnum*par1)"||m.Number("Param1")!=5)
         {throw new NotSupportedException("Ring missile profile changed");}
         return m;

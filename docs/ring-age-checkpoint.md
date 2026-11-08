@@ -1,0 +1,15 @@
+# Ring of Fire approved age and prepared damage checkpoint
+
+D2R Reign of the Warlock **3.3.93847**; approved Sanctuary deviations first. **212/240 handlers, Warlock3/30; no class certified**. Ring remains unavailable through learned casting.
+
+The user approved [elapsed missile-update age](ring-of-fire-age-proposal.md). Damage is100% at creation,105% after the first40ms update and155% after the eleventh, before defender mitigation. Initial path setup adds no age. The current live `fnum` getter remains unverified; the [approval record](../tools/reference/ring-age-approval.json) explicitly defines Sanctuary’s behavior.
+
+`RingOfFireDamage` captures effective-rank fire endpoints, enhancement and the existing spell RNG roll once. `AtAge` reuses the existing float32 packet scaler. A supplied ordinary recipient then uses the shared spell potion, mitigation, fractional-HP and recovery pipeline. It neither applies Apocalypse’s resistance penalty nor enhances the base twice. Saved packet provenance rejects altered rolls. This is a prepared recipient API: no collision, explosion enumeration, timed projectile or learned cast is scheduled.
+
+Focused native2 passes **12 markers across three boots, two reloads and three saves**, with zero build warnings/errors: Content2/Integration2/snapshot2 in `.local/class-skills/ring-age`. Actual monster HP verifies age growth before25% fire resistance, fire immunity and preserved wounds after reload. Original source fixture8launch/36supplied-frame controls remain; the old112-scaler cohort and compiler matrices were not rerun. Native1 exposed a historical missile-catalog lookup for `ringoffire`; its exact inputs/source/binaries/logs were archived. The shared receiver now accepts an explicit pinned reaction flag, preserving defaults for existing callers and reusing its damage logic.
+
+One bounded read-only observation found the current hit1 candidate at3f0830 wholly protected:988bytes/eight fragments. Only1,712bytes of immutable candidate-table/identity anchors were read; zero callback code bytes, no forced read/input/attachment/protection change/write. Table shape is not dispatcher proof. Older shared hit01 rolls one area packet and returns1; this remains a reuse lead, not a current Ring damage-order certificate. [Reference gap](../tools/reference/ring-hit-reference-gap.json). Do not retry that unchanged observation.
+
+Remaining: current direct/area and damage17 dispatch order, initial factory/contact behavior, NextHit identity, pierce/post-first-contact behavior, immune knockback, terminal visuals and actual world casting. Continue unaffected Warlock work using retained complete current bodies while these are unfinished. Age approval resolves only the frame interpretation. Effects/audio and talent/hotkey icons remain in their separate registers; no final asset is added.
+
+[Native receipt](../tools/reference/ring-age-native-evidence.json). Installed106artifacts,38saves and20configuration files remain intact; no deployment occurred.

@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedAgeRule": true,
+  "approval": {
+    "path": "tools/reference/ring-age-approval.json",
+    "sha256": "fcbfa4be73ef69584c2776ff21b077ed3f2495d70b20c76c3f718e4a6e247f04"
+  },
+  "handlers": 212,
+  "warlockHandlers": 3,
+  "completedClasses": [],
+  "learnedRingEnabled": false,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "nativeRun": 2,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "ring-profile-check": 1,
+    "ring-profile-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/ring-age/source-snapshot-2.json",
+    "sha256": "13d36364534728834856f8ac366bc82a979ccc2b769057a9f87e20087f53e7a6"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/ring-age/birth-inputs.json",
+    "sha256": "73364f314bae7a7dcea4659a8e26b2274d7cdc8bbec13bf94492f6c9b2ef0db9"
+  },
+  "sourceFixturesReused": {
+    "launch": 8,
+    "suppliedFrameScale": 36
+  },
+  "newCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "oldScale112CohortRerun": false,
+  "files": {
+    "src/Sanctuary.Content/RingOfFireDamage.cs": "706085b4476e5de8082ac8d9eba5aa7e18c7f71c7023e85b7c89d4d1108ac9e2",
+    "src/Sanctuary.Content/RingOfFireMotion.cs": "51858d380d275f5e6e4dda86c5b90e4a9cfc04532894bce357ec64eda53d701f",
+    "src/Sanctuary.Content/SorceressSpellMissiles.cs": "020d12cb89832562c2a3f08f34772f118a68d98cba3da7823f55a08a89728e7b",
+    "tests/Sanctuary.Integration/RingProfileChecks.cs": "5ce30681cdca99a09b2852103d3603dc94b59b0a29568335274c461851bc7037",
+    "tests/check_ring_age.py": "4d799ce470778a393e2edeb9cf545d32ae5f615274eae4c51d7c4ea33d8185a0",
+    "tools/reference/ring-age-approval.json": "fcbfa4be73ef69584c2776ff21b077ed3f2495d70b20c76c3f718e4a6e247f04",
+    "tools/capture_ring_hit_reference.py": "6794a5e563d2e570932c532754a7e0c6f45a2f74319fc1e664dea27785327111",
+    "tools/reference/ring-hit-reference-gap.json": "d3aa229774b227cdcec0c8ed0da3b44ea1da03581937fd4cf98ce66dbdee8d77"
+  },
+  "artifacts": {
+    ".local/class-skills/ring-age/birth-native-checks.log": "b33c4e486bff02316bfb23e31ed5cfef1df74c96ca1b87842a735c1977449e89",
+    ".local/class-skills/ring-age/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/ring-age/content-build-2.log": "075c51aeb2c27ed3ec46512cc59c302c91d996cc59bdcdde3bf6e1722f0aeb9e",
+    ".local/class-skills/ring-age/integration-build-2.log": "38728d73b0f1df7d2621c48f3a33616ec714138c74317167554e6499aef7c265",
+    ".local/class-skills/ring-age/ring-profile-fixtures.json": "7fd5ac7c4c3cfac9376fe02081ebc0d55363cd8d7b8f0105aafbe48773f94c51",
+    ".local/class-skills/ring-age/content/Sanctuary.Content.dll": "5b5e1e1c5857acd73f877ac59d3e00eec73a3940cfab8681e27a420e9dc6e4c4",
+    ".local/class-skills/ring-age/integration/Sanctuary.Integration.dll": "ae60990fca4d54aa4e02976e6335eaff8255ce3892432b62728e0487eb7b2920",
+    ".local/class-skills/ring-age/failed-native-1/birth-native-checks.log": "5d59cf464d7768cbc6bc9ca84bdd82a026a0c72b2770dd5fd19c477a85aeb321",
+    ".local/class-skills/ring-age/failed-native-1/birth-inputs.json": "b9ecc4bce7bbd866d19be9b55165aabe99ec2cbe6a1b7a20f6c0f1e18c8e1371",
+    ".local/class-skills/ring-age/failed-native-1/source-snapshot-1.json": "2d313a148dde93cf0ab4478d04a101b6c2d771d6486be5661c1eb4bfc0b11aac"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Approved elapsed-update0/1/11 growth reuses current float32 scaler;captured rolled fire/endpoints/modifiers use existing spell services and do not re-enhance the base.",
+    "Actual ordinary monster HP verifies growth before25percent fire resistance,unchanged recipient resistance,fire immunity and exact saved wounds. Saved packet roll/seed provenance validates on two reloads;this is not active Ring projectile persistence.",
+    "Shared spell receiver accepts explicit pinned GetHit/KnockBack context;default existing missile lookup is unchanged. No Ring row is injected into the old summon missile catalog."
+  ],
+  "limits": [
+    "Current hit1 candidate all988bytes/eight fragments protected;new capture reads1712bytes only from immutable table/identity anchors. No forced read,input,attach,protection change or write.",
+    "Contact selection,area/direct-hit ordering,initial factory step,NextHit identity,immune knockback,current damage dispatcher and learned world casting remain unfinished. No automatic prepared hit is scheduled.",
+    "Current live fnum getter remains unverified under the explicit approved adaptation. No class certificate;effects/audio/icons remain separate."
+  ],
+  "diagnostics": "Native1 failed at historical catalog lookup for ringoffire in shared ClassAvoidance;original inputs,changed source,binaries and logs archived before fix. Native2 passes after explicit pinned reaction context is supplied,without copying spell mitigation/HP logic."
+}

@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "candidateTableRva": "0x163be50",
+  "candidateSlot": 1,
+  "immutableCandidateTableMatches": true,
+  "dispatcherIndexLinked": false,
+  "process": {
+    "pid": 556242,
+    "startTicks": 16928234,
+    "name": "Main"
+  },
+  "bytesRead": 1712,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "gameMemoryWritten": false,
+  "capture": {
+    "path": ".local/class-skills/warlock-runtime-reference/ring-hit1-20261109.json",
+    "sha256": "33d96168961ffa577b57cfd8fe98900988b8243241430f47f9ef017f0a9da30f"
+  },
+  "candidateEntryRva": "0x3f0830",
+  "candidateBytes": 988,
+  "protectedFragments": 8,
+  "codeBytesRead": 0,
+  "scope": "Only immutable candidate table and identity anchors were read. Current hit1 body is protected;table shape does not establish dispatch linkage or mechanics.",
+  "legacyBaseline": "Retained old hit01 and existing Sorceress Fire Ball roll once for an area and return1. That is a reuse lead,not proof of current Ring direct/area/damage17 ordering.",
+  "next": "Do not repeat unchanged protected observation. Keep collision,area/direct-hit ordering,NextHit identity and immune-knockback unfinished;continue independent packet/age receiver work."
+}

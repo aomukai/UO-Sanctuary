@@ -356,10 +356,12 @@ internal static class SorceressSpellMissiles
         var profile=Profile(flight.Ability);
         return ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4,profile.DamageRate);
     }
-    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false,int damageRate=0)
+    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false,int damageRate=0,bool? missileReaction=null)
     {
         SorceressEffects.MissileHit(owner,target,key);
-        if(ClassAvoidance.Missile(target,key)){return 0;}
+        // New separately pinned profiles can supply GetHit/KnockBack context
+        // without being inserted into the historical summon missile catalog.
+        if(missileReaction is{} reaction?ClassAvoidance.Missile(target,reaction):ClassAvoidance.Missile(target,key)){return 0;}
         owner.DoHarmful(target,true);
         var modifiers=captured with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",at)};
         var packet=element=="cold"?new GearDamage(0,0,raw/256.0,0,0):element=="ltng"?new(0,0,0,raw/256.0,0):new(0,raw/256.0,0,0,0);
