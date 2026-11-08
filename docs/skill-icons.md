@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shared Sigil launch (2026-11-08 JST).** No new talent identity or final artwork. Lethargy,Rancor and Death retain their separate pending talent/hotkey icons and identified text placeholders. [Checkpoint](sigil-launch-checkpoint.md). Ground and pulse effects/audio remain separately tracked.
+
 **Prepared missile packet scaling (2026-11-08 JST).** No new skill identity or icon is introduced. Ring of Fire's identified text placeholder and pending talent/hotkey icons remain unchanged. [Checkpoint](missile-damage-scale-checkpoint.md). Effects/audio remain separate.
 
 **Prepared Ring launch (2026-11-08 JST).** No new talent/hotkey identity or artwork. Ring of Fire retains its identified text placeholder;final talent/right/quick icon remains pending independently from world effects/audio. [Checkpoint](ring-of-fire-launch-checkpoint.md).

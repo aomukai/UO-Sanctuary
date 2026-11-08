@@ -1,0 +1,75 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x44a100",
+  "dispatcherIndexLinked": true,
+  "currentMachineCodeExecutedOffline": true,
+  "targetProcessCodeExecuted": false,
+  "processMemoryRead": false,
+  "cases": 126,
+  "pinnedBindings": [
+    {
+      "skill": 393,
+      "missiles": [
+        699,
+        686,
+        702
+      ],
+      "serverDo": 157,
+      "missileDo": 14,
+      "period": 6,
+      "dispatch": 30,
+      "range": "100+(lvl*25)"
+    },
+    {
+      "skill": 396,
+      "missiles": [
+        700,
+        687,
+        703
+      ],
+      "serverDo": 157,
+      "missileDo": 14,
+      "period": 6,
+      "dispatch": 61,
+      "range": "100+(lvl*25)"
+    },
+    {
+      "skill": 400,
+      "missiles": [
+        701,
+        688,
+        704
+      ],
+      "serverDo": 157,
+      "missileDo": 14,
+      "period": 6,
+      "dispatch": 30,
+      "range": "100+(lvl*25)"
+    }
+  ],
+  "sourceBytes": 858,
+  "unicornVersion": "2.1.4",
+  "emulatorLibrarySha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+  "externalServices": [
+    "Record/progressive selector/placement/coordinates/distance supplied; complete do157 executes all guards and call ordering.",
+    "Factory captures all152bytes including zero fields;success and created actor raw kind/data/float14 are supplied,not real allocation.",
+    "Calc field198,tracking state/limit callback and event scheduling are declared services. Tracking service includes unqualified list replacement/removal internals.",
+    "The captured135byte finite-input paths of rounding helper15982f8 execute with owned constants40and1;NaN tail handling is outside this fixture.",
+    "Cookie service preserves the pending return per previously captured current cookie helper."
+  ],
+  "limits": [
+    "No learned cast,world status recipient,tracking callback cleanup or payment is enabled by this component.",
+    "Source field12c and created data float14 retain raw labels;gameplay field roles are not inferred."
+  ],
+  "artifacts": {
+    ".local/class-skills/sigil-launch-source/cases.json": "6a9472c2c3f97c2b8bd87efeba726356688f1c1a593ce036e4f47fe1fa16e6f3",
+    "tools/probe_sigil_launch.py": "e23de509a0b5e5940d861a70f20f3a94aecb88b628c292d307695101571f53e1",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/capture.json": "a86c2d2dc6f587982794ab4b624ecede56be7242475dbba1f5a50ae78405a2cb",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/do-157-part0.bin": "5c4e256deef9945f908f01dde647f1311ee7ec0ad99dfd54fd62234c56e9a6ea",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-rounding-20261108.json": "98d89eec679a1caa6c790b81ed0204afd449bd58964af13b83affb155127add9",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-rounding-20261108-15982f8-part0.bin": "9056d800f9ea6f5093e5f7838ac1fa8d354c6284ba1179457d86908cb482e02b"
+  }
+}
