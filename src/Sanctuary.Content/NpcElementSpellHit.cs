@@ -21,7 +21,7 @@ internal static class NpcElementSpellHit
     internal static PreparedMonsterDamageResult Deliver(BaseCreature emitter,PlayerMobile owner,BaseCreature target,string element,
         int raw256,int coldFrames,DateTime at,string kind,uint hitFlags=0,int hitClass=0,Func<string,int?> pierce=null,bool softHit=false,int freezeFrames=0,bool periodic=false)
     {
-        if(element is not("fire"or"cold"or"ltng")||raw256<0||coldFrames<0||freezeFrames<0||element!="cold"&&(coldFrames!=0||freezeFrames!=0)||hitFlags is not(0 or 1 or 2)||hitClass is not(0 or 16 or 32)||periodic&&softHit)
+        if(element is not("fire"or"cold"or"ltng")||raw256<0||coldFrames<0||freezeFrames<0||element!="cold"&&(coldFrames!=0||freezeFrames!=0)||hitFlags is not(0 or 1 or 2)||hitClass is not(0 or 16 or 32 or 64)||periodic&&softHit)
         {throw new NotSupportedException("Unqualified NPC elemental spell packet");}
         var metadata=Require(emitter,owner,target,at,kind);
         if(freezeFrames>0){NpcFreezeStatus.Require(emitter,target);}

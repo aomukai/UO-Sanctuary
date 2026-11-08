@@ -1,5 +1,7 @@
 # Skill icons
 
+**Own Shadow Thunder (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Claws of Thunder talent/hotkey icons retain identified text placeholders; effects/audio remain separate. [Checkpoint](shadow-thunder-checkpoint.md).
+
 **Own Shadow Fists of Fire (2026-11-08 JST).** No public binding or icon identity is added. Shadow Warrior/Master and Fists of Fire talent/hotkey icons retain identified text placeholders; effects/audio remain separate. [Checkpoint](shadow-fists-checkpoint.md).
 
 **Shadow elemental charge sequences (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Fists/Thunder/Ice talent/hotkey icons retain identified text placeholders. [Checkpoint](shadow-claw-sequence-checkpoint.md); effects/audio remain separate.

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Thunder (2026-11-08 JST).** Inline lightning,64nova rays and16charged bolts now work mechanically in the shared player pool. They reuse identified charge0x375A and sampled lightning trail0x3818/hue0x482 placeholders. Final claw/basic/A2/S4 poses, charge overlays, nova/charged-bolt travel, impacts, expiry cues and audio remain pending;share the player Thunder family. [Checkpoint](shadow-thunder-checkpoint.md). Icons stay separate.
+
 **Own Shadow Fists of Fire (2026-11-08 JST).** Inline fire/conversion, burst and scattered damaging fields now work mechanically. They reuse identified charge0x375A, burst0x36BD and flame0x398C placeholders. Final selected-claw/A2/S4/basic poses, charge overlays, burst/field art, hit/expiry cues and audio remain pending; share the player Fists asset family. [Checkpoint](shadow-fists-checkpoint.md). Icons stay separate.
 
 **Shadow elemental charge sequences (2026-11-08 JST).** Fists/Thunder/Ice builders use existing identified charge marker0x375A. Final A2/S4 poses, selected-claw contacts, distinct gain/refresh/expiry overlays and audio remain pending placeholders; share the existing player elemental charge families. Their finisher emissions remain a separate mechanical dependency. [Checkpoint](shadow-claw-sequence-checkpoint.md). Icons stay separate.

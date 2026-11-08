@@ -17,6 +17,8 @@ internal sealed record ThunderFlight(long Id,long Cast,uint Owner,int Map,int Ra
     double X,double Y,double Vx,double Vy,Point2D[] Path,int Next,int Frame,int Frames,int VelocityFp8,int Min256,int Max256,
     int Pierce,SlowMissilePayload Slow,ulong Seed,SourceStepTrace Steps,uint LastCollision,DateTime NextUtc,string Fault=null)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public PhoenixNpcSource Npc{get;init;}
     public int TargetX{get;init;}
     public Point2D Direction{get;init;}
     public int Acceleration{get;init;}
@@ -32,12 +34,12 @@ public sealed class ThunderProfiles:GenericPersistence
     public override void Serialize(){_snapshot=MartialLightning.Snapshot();base.Serialize();}
     public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
-    {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown martial lightning version");}MartialLightning.Restore(JsonSerializer.Deserialize<ThunderSave>(reader.ReadString()));}
+    {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown martial lightning version");}MartialLightning.Restore(JsonSerializer.Deserialize<ThunderSave>(reader.ReadString()),true);}
 }
 
 // Shared missile stepping/collision adapters retain their documented native
 // geometry/path limits. Emission, seed ownership and child setup are source-compared.
-public static class MartialLightning
+public static partial class MartialLightning
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MartialLightning));
     private static readonly Dictionary<long,ThunderFlight> Flights=new();
@@ -102,28 +104,37 @@ public static class MartialLightning
     internal static long AfterParent(PlayerMobile owner,Point3D center,Map map,ThunderPacket packet,DateTime at)
     {
         if(packet==null || packet.Count<2 || owner is not{Alive:true,Deleted:false} || owner.Map!=map || map==null || map==Map.Internal || SpellHelper.IsTown(center,owner)){return 0;}
+        return Emit(owner,center,map,packet,at,SeedLow,null);
+    }
+    private static long Emit(PlayerMobile owner,Point3D center,Map map,ThunderPacket packet,DateTime at,Func<int> lowSeed,AssassinShadowBody body)
+    {
+        if(packet.Count is <2 or >3){throw new NotSupportedException("Unmapped Thunder emission tier");}
         Tables();long cast=checked(++_nextCast);
         // Nova never draws the owner seed. The bolt callback consumes exactly
         // one owner low draw; its child initializer owns the independent stream.
-        foreach(var spawn in Pattern(packet.Count,packet.Count==3?SeedLow():0))
+        void Add(ThunderSpawn spawn)
         {
             string key=spawn.Bolt?"clawsofthunderbolt":"clawsofthundernova";
-            var slow=AmazonSlowMissiles.Capture(owner,NecromancerSummons.Source(key,"CanSlow")!=0);
+            var slow=AmazonSlowMissiles.Capture((Mobile)body??owner,NecromancerSummons.Source(key,"CanSlow")!=0);
             int speed=SlowMissilePayload.VelocityFp8(NecromancerSummons.Source(key,"Vel"),0,packet.Rank,spawn.Flags,spawn.Velocity,
                 NecromancerSummons.Source(key,"CanSlow")!=0,slow.VelocityPercent);
             var velocity=MissileVectors.VelocityFp8(spawn.X,spawn.Y,speed);
             Point2D[] path=spawn.Bolt?ChargedBolts.Path(spawn.Seed,ChargedBolts.Heading(spawn.X,spawn.Y),spawn.Frames):[];
-            ulong seed=SourceRandom.InitLow(unchecked((int)spawn.Seed));
+            var npc=body==null?null:new PhoenixNpcSource(body.Serial.Value,OriginalNpcEquipment.Binding(body),NpcWorldAllocation.UnitSeed(),packet.Pierce);
+            ulong seed=spawn.Bolt||npc==null?SourceRandom.InitLow(unchecked((int)spawn.Seed)):npc.UnitSeed;
             // Existing charged-path adapter consumes one child roll per waypoint.
             for(int i=1;i<path.Length;i++){SourceRandom.Roll(ref seed);}
             long id=checked(++_nextId);
             var flight=new ThunderFlight(id,cast,owner.Serial.Value,map.MapID,packet.Rank,spawn.Bolt,center.X,center.Y,center.Z,
                 center.X,center.Y,velocity.X,velocity.Y,path,1,0,spawn.Frames,speed,
                 slow.Damage256(spawn.Bolt?packet.BoltMin256:packet.NovaMin256),slow.Damage256(spawn.Bolt?packet.BoltMax256:packet.NovaMax256),
-                packet.Pierce,slow,seed,new([new(center.X*2,center.Y*2)]),owner.Serial.Value,at.AddMilliseconds(40));
-            flight=flight with{TargetX=spawn.TargetX,Direction=MissileVectors.Direction(spawn.X,spawn.Y),Acceleration=NecromancerSummons.Source(key,"Accel"),MaximumVelocityFp8=NecromancerSummons.Source(key,"MaxVel")<<8};
+                packet.Pierce,slow,seed,new([new(center.X*2,center.Y*2)]),body?.Serial.Value??owner.Serial.Value,at.AddMilliseconds(40));
+            flight=flight with{Npc=npc,TargetX=spawn.TargetX,Direction=MissileVectors.Direction(spawn.X,spawn.Y),Acceleration=NecromancerSummons.Source(key,"Accel"),MaximumVelocityFp8=NecromancerSummons.Source(key,"MaxVel")<<8};
             Validate(flight);Flights.Add(id,flight);
         }
+        foreach(var spawn in Pattern(2,0)){Add(spawn);}
+        // Stacked callback37 draws only after callback36 has made its rays.
+        if(packet.Count==3){foreach(var spawn in Pattern(3,lowSeed()).Where(s=>s.Bolt)){Add(spawn);}}
         return cast;
     }
     internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var lease) || lease.UntilUtc<=at;
@@ -141,6 +152,7 @@ public static class MartialLightning
     internal static (int Loss,ulong Seed) Impact(PlayerMobile owner,BaseCreature target,ThunderFlight s)
     {
         Leases[(s.Cast,target.Serial.Value)]=new(s.Cast,target.Serial.Value,s.NextUtc.AddMilliseconds(160));
+        if(s.Npc!=null){return NpcImpact(owner,target,s);}
         if(ClassAvoidance.Missile(target)){return(0,s.Seed);}
         SorceressEffects.MissileHit(owner,target,s.Bolt?"clawsofthunderbolt":"clawsofthundernova");
         ulong seed=s.Seed;int damage=WeaponMissileDamage.RollValue(s.Min256,s.Max256,0,n=>(int)SourceRandom.Limited(ref seed,n));
@@ -148,19 +160,21 @@ public static class MartialLightning
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
         int loss=SkillHealth.Damage(owner,target,reduced.Damage256);CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return(loss,seed);
     }
-    internal static void Tick(DateTime at,bool? allowActions=null)
+    internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyNpcActor=null)
     {
+        var scoped=onlyNpcActor.HasValue?Flights.Values.Where(s=>s.Npc?.Actor==onlyNpcActor.Value).Select(s=>s.Cast).ToHashSet():null;
         var queue=new PriorityQueue<ThunderFlight,(DateTime,long)>();
-        foreach(var s in Flights.Values){if(s.NextUtc<=at){queue.Enqueue(s,(s.NextUtc,-s.Id));}}
+        foreach(var s in Flights.Values){if(s.NextUtc<=at&&(!onlyNpcActor.HasValue||s.Npc?.Actor==onlyNpcActor.Value)){queue.Enqueue(s,(s.NextUtc,-s.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!Flights.TryGetValue(due.Id,out var s) || s.NextUtc!=due.NextUtc){continue;}
             try{Advance(s,allowActions);}
+            catch(NotSupportedException e)when(s.Npc!=null){Flights[s.Id]=s with{Frame=s.Frame+1,NextUtc=s.NextUtc.AddMilliseconds(40),Npc=s.Npc with{Dormant=true,Fault=e.Message[..Math.Min(e.Message.Length,512)]}};if(s.Frame+1>=s.Frames){Flights.Remove(s.Id);}}
             catch(Exception e){Flights[s.Id]=s with{Fault=e.Message,Frame=s.Frame+1,NextUtc=s.NextUtc.AddMilliseconds(40)};if(s.Frame+1>=s.Frames){Flights.Remove(s.Id);}Log.Error(e,"Thunder missile suspended: {Id}",s.Id);}
             if(Flights.TryGetValue(s.Id,out var next) && next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,-next.Id));}
         }
         var active=Flights.Values.Select(x=>x.Cast).ToHashSet();
-        foreach(var key in Leases.Where(x=>x.Value.UntilUtc<=at || !active.Contains(x.Key.Item1)).Select(x=>x.Key).ToArray()){Leases.Remove(key);}
+        foreach(var key in Leases.Where(x=>(scoped==null||scoped.Contains(x.Key.Item1))&&(x.Value.UntilUtc<=at || !active.Contains(x.Key.Item1))).Select(x=>x.Key).ToArray()){Leases.Remove(key);}
     }
     internal static (int Velocity,int Acceleration,int Counter,int X,int Y) VelocityStep(int velocity,int acceleration,int counter,int maximum,int basis,int dx,int dy)
         =>MissileVectors.Accelerate(velocity,acceleration,counter,maximum,basis,dx,dy);
@@ -168,10 +182,16 @@ public static class MartialLightning
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var owner=World.FindMobile((Serial)s.Owner) as PlayerMobile;
-        if(owner is not{Alive:true,Deleted:false} || ClassCreation.Profiles.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Assassin
-            || owner.Map==null || owner.Map!=Map.Internal && owner.Map.MapID!=s.Map){Flights.Remove(s.Id);return;}
-        bool active=owner.Map!=Map.Internal && (allowActions??owner.NetState is{Running:true});
-        if(!active || s.Fault!=null){if(frame>=s.Frames){Flights.Remove(s.Id);}else{Flights[s.Id]=next;}return;}
+        bool active;
+        if(s.Npc!=null)
+        {active=MartialPhoenix.NpcActor(owner,s.Npc,s.Map,allowActions)!=null;if(!active){next=next with{Npc=s.Npc with{Dormant=true}};}}
+        else
+        {
+            if(owner is not{Alive:true,Deleted:false} || ClassCreation.Profiles.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Assassin
+                || owner.Map==null || owner.Map!=Map.Internal && owner.Map.MapID!=s.Map){Flights.Remove(s.Id);return;}
+            active=owner.Map!=Map.Internal && (allowActions??owner.NetState is{Running:true});
+        }
+        if(s.Npc==null&&!active || s.Fault!=null){if(frame>=s.Frames){Flights.Remove(s.Id);}else{Flights[s.Id]=next;}return;}
         var map=Map.Maps[s.Map];var velocity=VelocityStep(s.VelocityFp8,s.Acceleration,s.AccelerationCounter,s.MaximumVelocityFp8,0,s.Direction.X,s.Direction.Y);
         next=next with{VelocityFp8=velocity.Velocity,Acceleration=velocity.Acceleration,AccelerationCounter=velocity.Counter,Vx=velocity.X/131072.0,Vy=velocity.Y/131072.0};
         double x=s.X+next.Vx,y=s.Y+next.Vy;int pathNext=s.Next;
@@ -181,14 +201,14 @@ public static class MartialLightning
         foreach(var cell in next.Steps.Cells)
         {
             if(cell.X<=0 || cell.Y<=0 || cell.X>=map.Width*2 || cell.Y>=map.Height*2){Flights.Remove(s.Id);return;}
-            var target=Recipient(owner,map,next with{NextUtc=s.NextUtc},cell);
+            var target=active?Recipient(owner,map,next with{NextUtc=s.NextUtc},cell):null;
             if(target!=null)
             {
                 var hit=Impact(owner,target,next with{NextUtc=s.NextUtc});next=next with{Seed=hit.Seed};
                 if(s.Bolt){Flights.Remove(s.Id);return;}
                 next=next with{LastCollision=target.Serial.Value};
             }
-            else if(!map.LineOfSight(new Point3D((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z+12),new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z+12)))
+            else if(active&&!map.LineOfSight(new Point3D((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z+12),new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z+12)))
             {Flights.Remove(s.Id);return;}
         }
         Flights[s.Id]=next;
@@ -198,6 +218,7 @@ public static class MartialLightning
     }
     private static void Validate(ThunderFlight s)
     {
+        if(s!=null){MartialPhoenix.ValidateNpc(s.Npc,s.Owner);if(s.Npc!=null&&s.Npc.Pierce!=s.Pierce){throw new InvalidDataException("Thunder NPC source pierce changed");}}
         if(s==null || s.Id<=0 || s.Cast<=0 || !((Serial)s.Owner).IsMobile || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal
             || s.Rank is <1 or >255 || s.Frame<0 || s.Frame>=s.Frames || s.Frames!=(s.Bolt?77:13) || s.NextUtc.Kind!=DateTimeKind.Utc
             || !double.IsFinite(s.X+s.Y+s.Vx+s.Vy) || s.X<0 || s.Y<0 || s.X>=Map.Maps[s.Map].Width || s.Y>=Map.Maps[s.Map].Height
@@ -212,11 +233,11 @@ public static class MartialLightning
         for(int i=1;i<s.Path.Length;i++){int dx=Math.Abs(s.Path[i].X-s.Path[i-1].X),dy=Math.Abs(s.Path[i].Y-s.Path[i-1].Y);if(dx>1 || dy>1 || dx+dy==0){throw new InvalidDataException("Invalid Thunder path step");}}
     }
     internal static ThunderSave Snapshot()=>new(Flights.Values.OrderBy(x=>x.Id).ToArray(),Leases.Values.OrderBy(x=>x.Cast).ThenBy(x=>x.Target).ToArray(),_nextId,_nextCast);
-    internal static void Restore(ThunderSave save)
+    internal static void Restore(ThunderSave save,bool loaded=false)
     {
         if(save?.Flights==null || save.Leases==null || save.NextId<0 || save.NextCast<0){throw new InvalidDataException("Missing Thunder state");}
         var flights=new Dictionary<long,ThunderFlight>();var leases=new Dictionary<(long,uint),WeaponFlightLease>();
-        foreach(var s in save.Flights){Validate(s);if(s.Id>save.NextId || s.Cast>save.NextCast || !flights.TryAdd(s.Id,s)){throw new InvalidDataException("Duplicate Thunder missile");}}
+        foreach(var input in save.Flights){var s=loaded&&input?.Npc!=null?input with{Npc=input.Npc with{Dormant=true}}:input;Validate(s);if(s.Id>save.NextId || s.Cast>save.NextCast || !flights.TryAdd(s.Id,s)){throw new InvalidDataException("Duplicate Thunder missile");}}
         foreach(var s in save.Leases){if(s.Cast<=0 || s.Cast>save.NextCast || !((Serial)s.Target).IsMobile || s.UntilUtc.Kind!=DateTimeKind.Utc || !leases.TryAdd((s.Cast,s.Target),s)){throw new InvalidDataException("Invalid Thunder hit lease");}}
         Flights.Clear();foreach(var s in flights){Flights.Add(s.Key,s.Value);}Leases.Clear();foreach(var s in leases){Leases.Add(s.Key,s.Value);}_nextId=save.NextId;_nextCast=save.NextCast;
     }

@@ -1,0 +1,67 @@
+{
+  "parent": "c67718b6e6682daa4a5d9766609b7ec15bcbbfcb",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicThunderConnected": true,
+  "newCompiledSourceControls": 0,
+  "reusedAuthenticatedRoutines": 17,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-thunder-check": 1,
+    "shadow-fists-check": 1,
+    "shadow-finisher-check": 1,
+    "shadow-phoenix-check": 1,
+    "thunder-release-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-thunder-reload-check": 2,
+    "shadow-fists-reload-check": 2,
+    "shadow-finisher-reload-check": 2,
+    "shadow-phoenix-reload-check": 2,
+    "thunder-release-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "8416ea1dc2688f27a145712cb7959442f9abcc57dfa4da45b9f4ebfe78e24d93",
+    "Assemblies/Sanctuary.Integration.dll": "afb53e2123f6057d11e0a20f3d96fc50e35a695540b99d9cf7327108b6c5ed61"
+  },
+  "files": {
+    ".local/class-skills/shadow-thunder/source-snapshot-2.json": "60551267bead1420d6435cbb6ff40d2fd3e4ca338703d10b27c560915ffbc8d0",
+    ".local/class-skills/shadow-thunder/birth-inputs.json": "97578a3412dd845ebfcba1b2864f721ab9c795f61bbaa42074c914eb0d43a0cf",
+    ".local/class-skills/shadow-thunder/birth-native-checks.log": "bd591fb2666ce96a0a7406938d4e18721c4cefcb4eba74b369d66ce4c97f2ae3",
+    ".local/class-skills/shadow-thunder/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-thunder/content-build-2.log": "aae207d1b297023e4e810ecfb2fc751cc9fc1473d01016b9e67de1fcc02e90f2",
+    ".local/class-skills/shadow-thunder/integration-build-1.log": "824b90fc1be4d0343f8f311f74b093347cd0e28536308e96e482c5d27efc593c",
+    ".local/class-skills/shadow-thunder/shadow-thunder-fixtures.json": "db70687fb537b1dc78fc95df93c7f8a8f8b5c59afe1ef4184c4aa687466a834d",
+    "tools/record_shadow_thunder.py": "bc0a405f48f4d3cd964d04fbf5ea64d0a3e50238d05a62a9ecf9275b96133c7c",
+    "tools/review_shadow_thunder.py": "7a03205ec89716f5de7bd7a04122828da72754e128bade6ea9004a22585fc5fc",
+    "tools/reference/shadow-thunder-source-review.json": "0fbe818e06286b288e09d93d27195adde5084f2f39cb4d10823ad43780f68810",
+    "tests/check_shadow_thunder.py": "9cfd32d1d8ebc35d50db4225e8bf01004313122f5b1dbcc5a17f85f816e62b80"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Both original Shadows:post-fill inline lightning/unchanged physical,pre-parent64nova/16charged emission with exact caster/world/private initializer/path streams,typed moving lightning/HitClass64/per-cast four-frame lease,immunity/miss/tight-range/offline/expiry/atomic restore,world/basic/natural Warrior AI and exact original partial-motion saves. Shared player pool reused and retained own Fists/Tiger/Cobra/Phoenix/player Thunder pass. Modern parity/removal/stat/factory/event/geometry/PvP and other intrinsic/death/learned gates remain;no class completion."
+}

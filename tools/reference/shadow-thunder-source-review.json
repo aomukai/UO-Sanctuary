@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "PATH_SetNewDistance": "b26f8bfc8eb307e2894b13488d3fca9bcf36d1b8f197d20b9afb22d45d09c1aa",
+    "MISSILE_SetTargetX": "311ecd01dbfef017178cb8f59d76416500d7dfa581e7edbfe786c1494642c594",
+    "SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2": "7b98653240c5efd9c71ea2e3c9445cd69f54ca415dca463da34d42e521b6f8aa",
+    "SKILLS_SrvDo037_ClawsOfThunder_ProgressiveFn3": "3a77aaaefe0a44c3c962cbbe5348d248bc1db7ae04e24d6398d53bfd988528e9",
+    "sub_6FCF6600": "9b44a51cbac5a3ef8e6773390b43b86959c8334bc82ba78e21363f1fd552d237",
+    "sub_6FCF6C10": "4bbd7e9b61bff9e26aa38dd4ea290555075a3e24a7ddfcd096b8b2efc3d133a8",
+    "sub_6FD14170": "2d0a4b0f5e5cd52c04cf272c351e8f460b7b1a28346eff16532d3c68eb5f2349",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+  },
+  "inputs": {
+    "tools/reference/martial-lightning-source-evidence.json": "049b3667af646806db82fdb540a7bd3dccad9629ea2b41654064e3af15caf292",
+    "tools/reference/thunder-damage-source-evidence.json": "96887c00058a7242770b25b955c4009c33660ca33d4a00f22fb1296c183af430",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "newCompiledControls": 0,
+  "scope": "Existing complete stacked dispatcher/36/37/nova emitter/charged initializer and numeric getter proof reused. Nova64/no caster draw precedes bolt16/one caster draw. Each factory gets a world unit seed; bolt initializer then replaces its private seed with spread low and consumes the existing charged-path stream. Shared path/velocity/collision/lease engine retained. Current child HitClass64/GETHIT/no srvdmg validated. Own NPC typed damage/seed/persistence/world/AI composition is separate native verification;modern parity/lifecycle/event/geometry/PvP scopes remain."
+}
