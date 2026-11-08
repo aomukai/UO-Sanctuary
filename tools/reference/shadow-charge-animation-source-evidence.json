@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "contexts": 12,
+  "completeRoutineHashes": {
+    "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "inputs": {
+    "tools/probe_shadow_charge_animation.py": "8e76e13a423ed5b69e8fbb0a1e228a994c815f2b629001305540242a4b0f3bd6",
+    ".local/class-skills/shadow-animation-source/source.cpp": "12e9c8c2a4d972fc9f48fc95cbf87455b06cb6f450762403dec932ada5c181c6",
+    "data/Sanctuary/Balance/shadow-charge-animation.json": "c0b05f77f2973f058d797279ff31644488110e7edc67b69cf9661749764ec3bd",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/shadow-animation-source-evidence.json": "5dfa0e3a4b04ca5aaa11c3e2eae36454a7149b3cab52719c85c12eed366e67c8"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-charge-animation-source/source.cpp": "ebb50dceaffef16d8e95bed4ae7c1b019cf368948574fe0aef511ef65d1d577c",
+    ".local/class-skills/shadow-charge-animation-source/cases.json": "95117e2651c3ff1d58640287755ae6bb9ba657e2915c3c602fe2f1a02356d96a"
+  },
+  "scope": "Twelve distinct new A2 contexts reuse four unchanged full authenticated source routines and the existing source harness. Owned state119 converts NPC mode5 to Assassin player A2mode8, frame bonus0; current dual-claw rows12frames/speed227/flag1at6. Original dual-hand rate correction and event scheduling are compared; no duplicate old S2/SC matrix. Native action delivery and modern full executable behavior are separate."
+}

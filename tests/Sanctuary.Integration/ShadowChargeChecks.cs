@@ -32,6 +32,53 @@ public static class ShadowChargeChecks
         Require(ShadowSkillCasting.Release(cast,at)==1,"Own do34 dispatch failed");var after=NpcEquipmentRandom.Require(b);
         Require(ShadowSkillCasting.Release(cast,at)==0&&NpcEquipmentRandom.Require(b)==after,"Duplicate charge release replayed");ShadowSkillCasting.Complete(cast);
     }
+    private static void Animation()
+    {
+        using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"shadow-charge-animation-cases.json")));int count=0;
+        foreach(var c in doc.RootElement.EnumerateArray())
+        {
+            var r=c.GetProperty("Rates").EnumerateArray().Select(x=>x.GetInt32()).ToArray();var expected=c.GetProperty("Expected");
+            var plan=ShadowAnimation.SuppliedCharge(r[0],r[1],r[2],r[3],r[4]);
+            var events=expected[6].EnumerateArray().Select(x=>new SourceAnimationEvent(x[0].GetInt32(),x[1].GetInt32(),x[2].GetInt32(),x[3].GetInt32())).ToArray();
+            Require(expected[2].GetInt32()==8&&plan.Speed==expected[4].GetInt32()&&plan.Events.SequenceEqual(events),"A2 transformed rate/events differ from full source context");count++;
+        }
+        Require(count==12,"Missing distinct new A2 source contexts");
+    }
+    private static void Action(AssassinShadowBody b,PlayerMobile owner,BaseCreature target,int id,DateTime at)
+    {
+        var ability=Values(b,id).Ability;var before=AssassinCharges.State(b,ability);int hp=SkillHealth.Balance256(target);NpcEquipmentRandom.Set(b,Seed(true));var rng=NpcEquipmentRandom.Require(b);
+        Require(ShadowActions.BeginCharge(b,target,at,id),"Own A2 action entry refused");var action=ShadowActions.State(b);
+        int release=action.Plan.Events.Single(e=>e.Type==1&&e.Kind==1).Frame,end=action.Plan.Events.Single(e=>e.Type==2).Frame;
+        Require(release>1&&end>release&&action.Cast.Skill==id&&NpcEquipmentRandom.Require(b)==rng&&!action.Cast.Released,"A2 entry allocated early or used wrong clock");
+        ShadowActions.Tick(at.AddMilliseconds((release-1)*40),true,b.Serial.Value);
+        Require(SkillHealth.Balance256(target)==hp&&AssassinCharges.State(b,ability)==before&&NpcEquipmentRandom.Require(b)==rng,"A2 gained/damaged before marker");
+        var phase=at.AddMilliseconds(release*40);ShadowActions.Tick(phase,true,b.Serial.Value);
+        Require(action.Cast.Released&&SkillHealth.Balance256(target)<hp&&AssassinCharges.State(b,ability)is{Count:3} after
+            &&after.UntilUtc==phase.AddMilliseconds(Values(b,id).Eval("auralencalc")*40),"A2 actual release/contact/charge deadline failed");
+        hp=SkillHealth.Balance256(target);rng=NpcEquipmentRandom.Require(b);ShadowActions.Tick(at.AddMilliseconds(end*40),true,b.Serial.Value);
+        ShadowActions.Tick(at.AddSeconds(20),true,b.Serial.Value);
+        Require(ShadowActions.State(b)==null&&b.OwnedSkills.Used==null&&SkillHealth.Balance256(target)==hp&&NpcEquipmentRandom.Require(b)==rng,"A2 end/duplicate tick replayed release");
+        // Same admitted enemy remains the target; leaving reach before the
+        // marker must not hit it or silently select another nearby monster.
+        at=at.AddSeconds(2);before=AssassinCharges.State(b,ability);var point=target.Location;
+        Require(ShadowActions.BeginCharge(b,target,at,id),"A2 moved-target fixture entry");target.MoveToWorld(new(b.X+12,b.Y,b.Z),b.Map);
+        ShadowActions.Tick(at.AddSeconds(2),true,b.Serial.Value);target.MoveToWorld(point,b.Map);
+        Require(AssassinCharges.State(b,ability)==before&&SkillHealth.Balance256(target)==hp&&NpcEquipmentRandom.Require(b)==rng,"Out-of-reach A2 target gained/hit/rolled");
+        for(int reason=0;reason<6;reason++)
+        {
+            at=at.AddSeconds(3);before=AssassinCharges.State(b,ability);rng=NpcEquipmentRandom.Require(b);
+            Require(ShadowActions.BeginCharge(b,target,at,id),"A2 cancellation fixture entry");action=ShadowActions.State(b);
+            if(reason==0){b.InterruptForRecovery();}if(reason==1){b.Frozen=true;}
+            if(reason==2){b.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);}
+            if(reason==3){GeneratedNpcLiveResources.SetItemActive(b,ShadowLoadout.Binding(b).Primary,false);}
+            if(reason==4){PersistentMinions.Park(b);}
+            ShadowActions.Tick(at.AddSeconds(2),reason!=5,b.Serial.Value);
+            Require(ShadowActions.State(b)==null&&AssassinCharges.State(b,ability)==before&&SkillHealth.Balance256(target)==hp&&NpcEquipmentRandom.Require(b)==rng
+                &&ShadowSkillCasting.Release(action.Cast,at)==0,"Interrupted A2 action retained/replayed/gained");
+            if(reason==1){b.Frozen=false;}if(reason==3){GeneratedNpcLiveResources.SetItemActive(b,ShadowLoadout.Binding(b).Primary,true);}
+            b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
+        }
+    }
     private static void Exercise(AssassinShadowBody b,PlayerMobile owner,int generation)
     {
         b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
@@ -57,6 +104,7 @@ public static class ShadowChargeChecks
                         &&state.UntilUtc==at.AddMilliseconds(n*40+v.Eval("auralencalc")*40),"Own charge count/rank/AR/cap/refresh differs from shared source builder");
                 }
                 Require(SkillHealth.Balance256(target)<hp,"Successful own original charge contacts did not damage target");
+                Action(b,owner,target,id,at.AddSeconds(1));
             }
             Require(AssassinCharges.Finisher(b).Length==3&&AssassinCharges.Any(b),"Own simultaneous progressive states are not visible to Master queries");
             var saved=Charges(b);AssassinCharges.Clear(b);var rest=AssassinCharges.Snapshot();AssassinCharges.Restore([..rest,..saved]);
@@ -77,7 +125,7 @@ public static class ShadowChargeChecks
     }
     private static void Check(bool reload)
     {
-        PlayerMobile owner;AssassinShadowBody[] bodies;int generation=0;
+        Animation();PlayerMobile owner;AssassinShadowBody[] bodies;int generation=0;
         if(reload)
         {
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=saved.Generation+1;owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
@@ -95,6 +143,6 @@ public static class ShadowChargeChecks
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
         Require(!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior),"Builder backend enabled unfinished learned Shadows");
-        Log.Information("Shadow charge backend: own selected start23/do34 for Tiger/Cobra/Phoenix, full original contact/AR/RNG, hit-only three-charge cap/refresh and independent slots, no owner mana, duplicate/miss/range/expiry guards, original persistent body/charges through reloads. A2 conductor and progressive finishers remain gated; no new source matrix rerun.");
+        Log.Information("Shadow charge backend: own selected start23/do34 for Tiger/Cobra/Phoenix, full original contact/AR/RNG, hit-only three-charge cap/refresh and independent slots, no owner mana, duplicate/miss/range/expiry guards, original persistent body/charges through reloads. A2 conductor checked against12new full source contexts; automatic builders and progressive finishers remain gated.");
     }
 }

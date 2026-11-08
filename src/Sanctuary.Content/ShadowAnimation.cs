@@ -8,6 +8,7 @@ internal sealed record ShadowAnimationData(string ReferenceVersion,int State,int
     int ActorMode,int GraphicsMode,ValkyrieAnimationRow[] Rows,ValkyrieAnimationRow[] MeleeRows);
 internal sealed record ShadowAnimationPlan(int Speed,SourceAnimationEvent[] Events);
 internal sealed record ShadowBuffAnimationData(string ReferenceVersion,ValkyrieAnimationRow[] Rows);
+internal sealed record ShadowChargeAnimationData(string ReferenceVersion,int State,int ActorMode,int GraphicsMode,ValkyrieAnimationRow[] Rows);
 // Both species use state119's Assassin graphics. Rate and event planning are
 // the existing source services; original dual-hand stats supply their inputs.
 internal static class ShadowAnimation
@@ -38,12 +39,23 @@ internal static class ShadowAnimation
         {throw new InvalidDataException("Unsupported owned Shadow defensive cast animation");}
         return data.Rows.Single(r=>r.Code=="AISCHT2");
     });
+    private static readonly Lazy<ValkyrieAnimationRow> ChargeRow=new(()=>
+    {
+        var data=BalanceCatalog.ReadObject<ShadowChargeAnimationData>("shadow-charge-animation");
+        if(data is not{ReferenceVersion:"3.3.93847",State:119,ActorMode:5,GraphicsMode:8,Rows.Length:3}
+            ||!data.Rows.Select(r=>r.Code).Order().SequenceEqual(new[]{"AIA2HT1","AIA2HT2","AIA2HTH"})
+            ||data.Rows.Any(r=>r.Frames!=12||r.Speed!=(r.Code=="AIA2HTH"?256:227)||r.Events is not{Length:1}||!r.Events[0].SequenceEqual(new[]{6,1})))
+        {throw new InvalidDataException("Unsupported owned Shadow charge A2 animation");}
+        return data.Rows.Single(r=>r.Code=="AIA2HT2");
+    });
     internal static ShadowAnimationPlan Supplied(int ias,int attack,int rightRate,int leftRate,int frame=0)
         =>SuppliedRow(Row.Value,ias,attack,rightRate,leftRate,frame);
     internal static ShadowAnimationPlan SuppliedMelee(int ias,int attack,int rightRate,int leftRate,int frame=0)
         =>SuppliedRow(MeleeRow.Value,ias,attack,rightRate,leftRate,frame);
     internal static ShadowAnimationPlan SuppliedBuff(int ias,int attack,int rightRate,int leftRate,int frame=0)
         =>SuppliedRow(BuffRow.Value,ias,attack,rightRate,leftRate,frame);
+    internal static ShadowAnimationPlan SuppliedCharge(int ias,int attack,int rightRate,int leftRate,int frame=0)
+        =>SuppliedRow(ChargeRow.Value,ias,attack,rightRate,leftRate,frame);
     private static ShadowAnimationPlan SuppliedRow(ValkyrieAnimationRow row,int ias,int attack,int rightRate,int leftRate,int frame)
     {
         int correction=checked((rightRate+leftRate)/2-rightRate);
@@ -66,6 +78,13 @@ internal static class ShadowAnimation
         if(body.OwnedSkills.Used!=0||ShadowEquipmentDefense.Composite(body)!=13)
         {throw new NotSupportedException("Shadow A1 needs its own Attack and original active dual claws");}
         return Original(body,MeleeRow.Value);
+    }
+    internal static ShadowAnimationPlan Charge(AssassinShadowBody body)
+    {
+        _=ShadowEquipmentDefense.Require(body);
+        if(body.OwnedSkills.Used is not{} id||!ShadowChargeStrikes.Handles(id)||body.OwnedSkills.Find(id)?.Mode!=5||ShadowEquipmentDefense.Composite(body)!=13)
+        {throw new NotSupportedException("Shadow A2 needs its own charge skill and original active dual claws");}
+        return Original(body,ChargeRow.Value);
     }
     internal static ShadowAnimationPlan Buff(AssassinShadowBody body)
         =>body.OwnedSkills.Used is{} id&&ShadowDefensiveBuffs.Handles(id)?Cast(body):throw new NotSupportedException("Shadow has no used defensive buff");

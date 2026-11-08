@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shadow A2 charge actions (2026-11-08 JST).** Mechanical release/end timing is connected using current owned animation data. Final visible A2 poses, weapon-contact cues, distinct charge gain/refresh/expiry overlays and audio still need assets; reuse existing player charge families and identified marker0x375A. See [checkpoint](shadow-charge-action-checkpoint.md). Icons remain separate.
+
 **Shadow charge backend (2026-11-08 JST).** Tiger/Cobra/Phoenix gain reuses identified generic marker0x375A. Final NPC A2 and weapon-contact poses, family-specific charge overlays/refresh/expiry and audio remain pending; share the existing player charge families. A2 conductor and progressive finishers remain mechanically gated. See [checkpoint](shadow-charge-checkpoint.md). Icons remain separate.
 
 **Master world (2026-11-08 JST).** Distinct Master now follows/fights in qualified internal fixtures using existing Shadow native movement/attack/cast and skill cues. Final walk/run/turn, retreat, attack/cast/contact/recovery, state overlays and audio remain pending placeholders;reuse the existing Shadow/skill families. See [checkpoint](shadow-master-world-checkpoint.md). No new final art is introduced;icons stay separate.

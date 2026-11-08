@@ -1,0 +1,84 @@
+{
+  "parent": "5d4edc563d59cfde8e2886739d66aa05d803b09b",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticBuildersEnabled": false,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-ground-check": 1,
+    "shadow-actions-check": 1,
+    "tiger-strike-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-ground-reload-check": 2,
+    "shadow-actions-reload-check": 2,
+    "tiger-strike-reload-check": 2
+  },
+  "sourceContexts": 12,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "54611dcfd063739f559669d07389df4472e2f127b91127cae87126bbb108754c",
+    "Assemblies/Sanctuary.Integration.dll": "add7bb49e006b1e4b6afb47aee06843c62ca1852a70ebc9e3399e48ec51282e6"
+  },
+  "files": {
+    ".local/class-skills/shadow-charge-actions/source-snapshot-1.json": "460e10511fb6baf3b9b92c723b36725b05806191aac705d870c19411895253f2",
+    ".local/class-skills/shadow-charge-actions/birth-inputs.json": "d6d9081defdf4ef043ac34679258a5f38ef3dbb923be709f14088b8eaef4ecc1",
+    ".local/class-skills/shadow-charge-actions/birth-native-checks.log": "456198297fdfa0e77d197cb2a939091976e9a74d8f3b719e778657b4b15c1eb2",
+    ".local/class-skills/shadow-charge-actions/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-charge-actions/content-build-1.log": "19833858170fd158237c3873b3d986d8fe08a58832763f3e0e6fa2b594991a7c",
+    ".local/class-skills/shadow-charge-actions/integration-build-1.log": "31a997850a48db9b8fbc054b1cae2bc2e685795cffd28468b426cd22da1067d9",
+    ".local/class-skills/shadow-charge-animation-source/source.cpp": "ebb50dceaffef16d8e95bed4ae7c1b019cf368948574fe0aef511ef65d1d577c",
+    ".local/class-skills/shadow-charge-animation-source/cases.json": "95117e2651c3ff1d58640287755ae6bb9ba657e2915c3c602fe2f1a02356d96a",
+    ".local/class-skills/shadow-charge-animation-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-charge-animation-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-charge-animation-source/first-diagnostic.txt": "dd62c92099c37188d196d5c9b1ba263fdf3de8ac74820633fa51c71f34af2775",
+    ".local/class-skills/shadow-charge-animation-source/probe-first.py": "27cff048e41b7a83a9412ccb851ce391c34cf5863a3e7b55a65df53faa32bf3f",
+    "tools/probe_shadow_charge_animation.py": "8e76e13a423ed5b69e8fbb0a1e228a994c815f2b629001305540242a4b0f3bd6",
+    "tools/reference/shadow-charge-animation-source-evidence.json": "8820aa2579980c0960d13853e116446f3b2beb927c33aedc802c82edddf30c0e",
+    "tools/reference/shadow-charge-native-evidence.json": "461eefcc39aa46f1dde3ee874ee4f5804f64192bfe5b8a9597c211e2e076e538",
+    "data/Sanctuary/Balance/shadow-charge-animation.json": "c0b05f77f2973f058d797279ff31644488110e7edc67b69cf9661749764ec3bd",
+    ".local/class-skills/shadow-charge-animation-source/probe": "d3b4f6f7812d0bfaffaea354c9d4dd90adf13617d60e286dfd162f2477da0241"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Current owned A2 rows and legacy complete transform/bonus/dual-hand rate/event routines:12 distinct new mode5 contexts,converted Assassin mode8,12frames/base227/marker1at6,source RNG not involved. Four unchanged helpers are reused; no old S2/SC/full skill matrix regenerated.",
+    "Actual own A2 conductor invokes existing selected start23/do34 for Tiger/Cobra/Phoenix on both original species. Entry and premarker ticks cause no damage/charge/RNG; actual marker damages and refreshes cap3 at its UTC phase. End and repeated ticks do not replay.",
+    "Original enemy leaving reach receives no hit/charge/hit RNG and no replacement target is selected. Recovery,freeze,movement,equipment drift,parking and offline cancellation clear the action and prevent later direct release replay.",
+    "Same original actors retain body,items,resources,wounds,RNG and all three charge slots/deadlines through both reloads,then complete new actual A2 attacks. Shared player Tiger,Warrior ground,original casting and previous charge backend checks pass."
+  ],
+  "diagnostics": [
+    "Initial source producer retained the SC harness expected graphics mode10; the unchanged conversion routine returned8 for A2. Corrected only that expected mode before native/content builds; first script and diagnosis archived. No failed native/content/integration run."
+  ],
+  "limitations": [
+    "Automatic builders remain gated until own progressive state/stat and finisher effects exist. Neither public Shadow learned handler is enabled. Ordinary active-charge finisher guard remains explicit.",
+    "Qualified old-source clock plus current table/animation data is not direct current-executable input/event certification. Broad owner/PvP/item/death and world/reference scopes remain as documented.",
+    "Other intrinsic skills,modifier42 death,learned summoning/payment/replacement/input,modern missile expressions,both pending design questions and separate player Blade Shield event gap remain.",
+    "Final A2 poses,weapon contacts,charge overlays/audio and talent/hotkey icons remain separate pending assets. No deployment."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "ReferenceVersion": "3.3.93847",
+  "State": 119,
+  "ActorMode": 5,
+  "GraphicsMode": 8,
+  "Rows": [
+    {
+      "Code": "AIA2HT1",
+      "Frames": 12,
+      "Speed": 227,
+      "Events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AIA2HT2",
+      "Frames": 12,
+      "Speed": 227,
+      "Events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "Code": "AIA2HTH",
+      "Frames": 12,
+      "Speed": 256,
+      "Events": [
+        [
+          6,
+          1
+        ]
+      ]
+    }
+  ]
+}
