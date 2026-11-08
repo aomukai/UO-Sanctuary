@@ -13,7 +13,13 @@ namespace Sanctuary;
 
 internal sealed record IcePacket(int Count,int InitialRank,int Rank,int Inline256,int Minimum256,int Maximum256,int Frames,int Radius,int ScatterRadius);
 internal sealed record IceCube(long Id,uint Owner,int Map,int Rank,double X,double Y,int Z,int Frame,int Minimum256,int Maximum256,
-    int Frames,int ColdFrames,int Pierce,SlowMissilePayload Slow,uint LastCollision,DateTime NextUtc,string Fault=null);
+    int Frames,int ColdFrames,int Pierce,SlowMissilePayload Slow,uint LastCollision,DateTime NextUtc,string Fault=null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public PhoenixNpcSource Npc{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public ulong Seed{get;init;}
+}
 internal sealed record IceCubeSave(IceCube[] Cubes,long NextId);
 public sealed class IceCubeProfiles:GenericPersistence
 {
@@ -22,12 +28,12 @@ public sealed class IceCubeProfiles:GenericPersistence
     public override void Serialize(){_snapshot=MartialCold.Snapshot();base.Serialize();}
     public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
-    {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown ice-cube version");}MartialCold.Restore(JsonSerializer.Deserialize<IceCubeSave>(reader.ReadString()));}
+    {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown ice-cube version");}MartialCold.Restore(JsonSerializer.Deserialize<IceCubeSave>(reader.ReadString()),true);}
 }
 
 // The shared charge action and source cold/freeze state kernels remain separate
 // from these Ice-only inline, copied area and stationary missile consumers.
-public static class MartialCold
+public static partial class MartialCold
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MartialCold));
     private static readonly Dictionary<long,IceCube> Cubes=new();
@@ -55,8 +61,10 @@ public static class MartialCold
         Math.Max(packet.InitialRank,SkillMechanics.Rank(owner,CombatAbility.BladesOfIce)));
     private static Point3D Center(Mobile target,Point3D fallback,Map map)=>target is{Deleted:false} && target.Map==map?target.Location:fallback;
     internal static bool AreaAllowed(PlayerMobile owner,Mobile target,Point3D center,Map map,int radius)
+        =>AreaAllowed(owner,owner,target,center,map,radius);
+    internal static bool AreaAllowed(Mobile caster,PlayerMobile owner,Mobile target,Point3D center,Map map,int radius)
         =>target.Map==map && FistsFireRelease.InRadius(center,target,radius) && ClassCombat.IsHostile(owner,target)
-            && !SpellHelper.IsTown(target.Location,target) && owner.InLOS(target);
+            && !SpellHelper.IsTown(target.Location,target) && caster.InLOS(target);
     internal static int Impact(PlayerMobile owner,BaseCreature target,int damage256,int coldFrames,int freezeFrames,int? pierce,long tick)
     {
         if(ClassAvoidance.Missile(target)){return 0;}
@@ -92,11 +100,17 @@ public static class MartialCold
         {
             double x=center.X+offset.X/2.0,y=center.Y+offset.Y/2.0;
             if(x<0 || y<0 || x>=map.Width || y>=map.Height || SpellHelper.IsTown(new Point3D((int)Math.Round(x),(int)Math.Round(y),center.Z),owner)){continue;}
-            var slow=AmazonSlowMissiles.Capture(owner,false);int minimum=Enhance(FireGround.MissileDamage256("bladesoficecubes",values.Rank,0,false));
+            int minimum=Enhance(FireGround.MissileDamage256("bladesoficecubes",values.Rank,0,false));
             int maximum=Enhance(FireGround.MissileDamage256("bladesoficecubes",values.Rank,0,true));
-            var cube=new IceCube(checked(++_nextId),owner.Serial.Value,map.MapID,values.Rank,x,y,center.Z,0,slow.Damage256(minimum),slow.Damage256(maximum),
-                30,100,ClassGear.Bonus(owner,"pierce-cold"),slow,owner.Serial.Value,at.AddMilliseconds(40));Validate(cube);Cubes.Add(cube.Id,cube);
+            AddCube(owner,owner,map,values.Rank,x,y,center.Z,minimum,maximum,ClassGear.Bonus(owner,"pierce-cold"),null,at);
         }
+    }
+    private static IceCube AddCube(PlayerMobile owner,Mobile caster,Map map,int rank,double x,double y,int z,int minimum,int maximum,int pierce,PhoenixNpcSource npc,DateTime at)
+    {
+        var slow=AmazonSlowMissiles.Capture(caster,false);
+        var cube=new IceCube(checked(++_nextId),owner.Serial.Value,map.MapID,rank,x,y,z,0,slow.Damage256(minimum),slow.Damage256(maximum),
+            30,100,pierce,slow,caster.Serial.Value,at.AddMilliseconds(40)){Npc=npc,Seed=npc?.UnitSeed??0};
+        Validate(cube);Cubes.Add(cube.Id,cube);return cube;
     }
     private static void Tables()
     {
@@ -117,13 +131,14 @@ public static class MartialCold
         }
         return null;
     }
-    internal static void Tick(DateTime at,bool? allowActions=null)
+    internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyNpcActor=null)
     {
-        var queue=new PriorityQueue<IceCube,(DateTime,long)>();foreach(var cube in Cubes.Values){if(cube.NextUtc<=at){queue.Enqueue(cube,(cube.NextUtc,-cube.Id));}}
+        var queue=new PriorityQueue<IceCube,(DateTime,long)>();foreach(var cube in Cubes.Values){if(cube.NextUtc<=at&&(!onlyNpcActor.HasValue||cube.Npc?.Actor==onlyNpcActor.Value)){queue.Enqueue(cube,(cube.NextUtc,-cube.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!Cubes.TryGetValue(due.Id,out var cube) || cube.NextUtc!=due.NextUtc){continue;}
             try{Advance(cube,allowActions);}
+            catch(NotSupportedException e)when(cube.Npc!=null){if(cube.Frame+1>=cube.Frames){Cubes.Remove(cube.Id);}else{Cubes[cube.Id]=cube with{Frame=cube.Frame+1,NextUtc=cube.NextUtc.AddMilliseconds(40),Npc=cube.Npc with{Dormant=true,Fault=e.Message[..Math.Min(e.Message.Length,512)]}};}}
             catch(Exception e){if(cube.Frame+1>=cube.Frames){Cubes.Remove(cube.Id);}else{Cubes[cube.Id]=cube with{Fault=e.Message,Frame=cube.Frame+1,NextUtc=cube.NextUtc.AddMilliseconds(40)};}Log.Error(e,"Ice cube suspended: {Id}",cube.Id);}
             if(Cubes.TryGetValue(cube.Id,out var next) && next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,-next.Id));}
         }
@@ -131,19 +146,30 @@ public static class MartialCold
     private static void Advance(IceCube cube,bool? allowActions)
     {
         int frame=cube.Frame+1;var owner=World.FindMobile((Serial)cube.Owner) as PlayerMobile;
-        if(frame>=cube.Frames || owner is not{Alive:true,Deleted:false} || ClassCreation.Profiles.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Assassin
-            || owner.Map==null || owner.Map!=Map.Internal && owner.Map.MapID!=cube.Map){Cubes.Remove(cube.Id);return;}
-        var next=cube with{Frame=frame,NextUtc=cube.NextUtc.AddMilliseconds(40)};
-        bool active=owner.Map!=Map.Internal && (allowActions??owner.NetState is{Running:true});
+        if(frame>=cube.Frames){Cubes.Remove(cube.Id);return;}
+        var next=cube with{Frame=frame,NextUtc=cube.NextUtc.AddMilliseconds(40)};bool active;
+        if(cube.Npc!=null)
+        {active=MartialPhoenix.NpcActor(owner,cube.Npc,cube.Map,allowActions)!=null;if(!active){next=next with{Npc=cube.Npc with{Dormant=true}};}}
+        else
+        {
+            if(owner is not{Alive:true,Deleted:false} || ClassCreation.Profiles.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Assassin
+                || owner.Map==null || owner.Map!=Map.Internal && owner.Map.MapID!=cube.Map){Cubes.Remove(cube.Id);return;}
+            active=owner.Map!=Map.Internal && (allowActions??owner.NetState is{Running:true});
+        }
         if(active && cube.Fault==null)
         {
             var target=Recipient(owner,cube);
             if(target!=null)
             {
-                int damage=WeaponMissileDamage.RollValue(cube.Minimum256,cube.Maximum256,0,DamageRoll);
-                // Settle controls at the source event time when catching up.
-                long tick=Core.TickCount+(long)(cube.NextUtc-TimedEffects.Now).TotalMilliseconds;
-                Impact(owner,target,damage,cube.ColdFrames,cube.ColdFrames,cube.Pierce,tick);next=next with{LastCollision=target.Serial.Value};
+                if(cube.Npc!=null){next=next with{Seed=NpcImpact(owner,target,cube)};}
+                else
+                {
+                    int damage=WeaponMissileDamage.RollValue(cube.Minimum256,cube.Maximum256,0,DamageRoll);
+                    // Settle controls at the source event time when catching up.
+                    long tick=Core.TickCount+(long)(cube.NextUtc-TimedEffects.Now).TotalMilliseconds;
+                    Impact(owner,target,damage,cube.ColdFrames,cube.ColdFrames,cube.Pierce,tick);
+                }
+                next=next with{LastCollision=target.Serial.Value};
             }
             else if(LobProjectiles.Barrier(Map.Maps[cube.Map],new Point3D((int)Math.Round(cube.X),(int)Math.Round(cube.Y),cube.Z))){Cubes.Remove(cube.Id);return;}
             if(frame%5==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(cube.X),(int)Math.Round(cube.Y),cube.Z),Map.Maps[cube.Map],0x374A,2,10,0x480,0);} // Identified stationary cube placeholder.
@@ -152,6 +178,7 @@ public static class MartialCold
     }
     private static void Validate(IceCube cube)
     {
+        if(cube!=null){MartialPhoenix.ValidateNpc(cube.Npc,cube.Owner);if(cube.Npc!=null&&cube.Npc.Pierce!=cube.Pierce){throw new InvalidDataException("Ice NPC source pierce changed");}}
         if(cube==null || cube.Id<=0 || !((Serial)cube.Owner).IsMobile || cube.Map<0 || cube.Map>=Map.Maps.Length || Map.Maps[cube.Map]==null || Map.Maps[cube.Map]==Map.Internal
             || cube.Rank is <1 or >255 || !double.IsFinite(cube.X+cube.Y) || cube.X<0 || cube.Y<0 || cube.X>=Map.Maps[cube.Map].Width || cube.Y>=Map.Maps[cube.Map].Height
             || cube.Z is <-128 or >127 || cube.Frame<0 || cube.Frame>=30 || cube.Frames!=30 || cube.ColdFrames!=100 || cube.Minimum256<0 || cube.Maximum256<cube.Minimum256
@@ -159,10 +186,10 @@ public static class MartialCold
         {throw new InvalidDataException("Invalid saved Ice cube");}
     }
     internal static IceCubeSave Snapshot()=>new(Cubes.Values.OrderBy(x=>x.Id).ToArray(),_nextId);
-    internal static void Restore(IceCubeSave save)
+    internal static void Restore(IceCubeSave save,bool loaded=false)
     {
         if(save?.Cubes==null || save.NextId<0){throw new InvalidDataException("Missing Ice cubes");}var cubes=new Dictionary<long,IceCube>();
-        foreach(var cube in save.Cubes){Validate(cube);if(cube.Id>save.NextId || !cubes.TryAdd(cube.Id,cube)){throw new InvalidDataException("Duplicate Ice cube");}}
+        foreach(var input in save.Cubes){var cube=loaded&&input?.Npc!=null?input with{Npc=input.Npc with{Dormant=true}}:input;Validate(cube);if(cube.Id>save.NextId || !cubes.TryAdd(cube.Id,cube)){throw new InvalidDataException("Duplicate Ice cube");}}
         Cubes.Clear();foreach(var cube in cubes){Cubes.Add(cube.Key,cube.Value);}_nextId=save.NextId;
     }
 }

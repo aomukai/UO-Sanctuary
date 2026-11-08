@@ -1,5 +1,7 @@
 # Shadow world and action admission
 
+**Latest intrinsic release scope (2026-11-08 JST):** Ice274 now has all three own NPC tiers, separate cold/freeze,parent-before-area and shared cubes. All six ordinary charge-family consumers and their source state order are qualified within scope, with world/basic/natural Warrior AI. [Checkpoint](shadow-ice-checkpoint.md). Dragon/Fury/Sentinel/current-death/learned dependencies remain; current parity and separate player callback chronology are unverified. Existing dual-claw Weapon Block approval is unchanged.
+
 **Latest intrinsic release scope (2026-11-08 JST):** Thunder269 now has all three own NPC tiers, pre-parent nova/bolt emission and ordinary world/AI admission. Direct mode14/basic requests and natural Warrior AI are verified. [Checkpoint](shadow-thunder-checkpoint.md). Ice274 remains builder-only with its finisher/automatic admission gates. Other intrinsic/death/learned dependencies and current parity uncertainty remain; dual-claw Weapon Block approval is unchanged.
 
 **Latest intrinsic release scope (2026-11-08 JST):** Fists259 now has all three own NPC finisher tiers, source-ordered parent/burst/shared fields and ordinary world/AI admission. Direct mode14 requests, basic clock and natural Warrior AI are verified. [Checkpoint](shadow-fists-checkpoint.md). Thunder269/Ice274 remain builders only with their finisher/automatic admission gates; other intrinsic/death/learned dependencies remain. Existing dual-claw Weapon Block approval is unchanged; current sequence parity remains unverified.

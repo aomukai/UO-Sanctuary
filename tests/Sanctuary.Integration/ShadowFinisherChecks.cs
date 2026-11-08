@@ -85,11 +85,12 @@ public static class ShadowFinisherChecks
             var at=TimedEffects.Now.AddMinutes(20+generation);NecromancerEffects.SetMana256(target,250*256);SkillHealth.SetBalance256(b,b.MaximumLife256/2);
             int ownerMana=NecromancerEffects.ManaBalance256(owner),ownMana=NecromancerEffects.ManaBalance256(b);var items=ShadowLoadout.Originals(b).Select(i=>i.SavedText).ToArray();
             NpcEquipmentRandom.Set(b,Seed(true));var ordinary=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);var baseline=ordinary.Impact.Packet;ordinary.Cancel();
-            Gain(b,254,3,at);Gain(b,265,3,at);var slots=Charges(b);var rng=NpcEquipmentRandom.Require(b);
-            // An unsupported elemental slot remains an explicit, atomic gate.
-            b.ChangeSkills(book=>book.Assign(274,3));AssassinCharges.Gain(b,ShadowSkillCasting.OwnValues(b,b.OwnedSkillRank(274),274),at);bool refused=false;
-            try{_=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);}catch(NotSupportedException e){refused=e.Message.Contains("elemental",StringComparison.Ordinal);}
-            Require(refused&&NpcEquipmentRandom.Require(b)==rng&&AssassinCharges.State(b,CombatAbility.BladesOfIce)?.Count==1,"Unsupported elemental finisher mutated state/RNG");
+            Gain(b,254,3,at);Gain(b,265,3,at);var slots=Charges(b);
+            // All six families now have qualified ordinary consumers. An
+            // Ice inline hit must compose with Tiger/Cobra rather than refuse.
+            b.ChangeSkills(book=>book.Assign(274,3));AssassinCharges.Gain(b,ShadowSkillCasting.OwnValues(b,b.OwnedSkillRank(274),274),at);
+            NpcEquipmentRandom.Set(b,Seed(true));var elemental=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);
+            Require((elemental.Impact.Packet.ResultFlags&1)!=0&&elemental.Impact.Packet.Cold256>baseline.Cold256&&AssassinCharges.State(b,CombatAbility.BladesOfIce)==null,"Qualified Ice/Tiger/Cobra contact failed");elemental.Cancel();
             AssassinCharges.Clear(b);foreach(var slot in slots){Gain(b,slot.Ability==CombatAbility.TigerStrike?254:265,3,at);}
             NpcEquipmentRandom.Set(b,Seed(false));var missed=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);
             Require((missed.Impact.Packet.ResultFlags&1)==0&&Json(Charges(b))==Json(slots),"Miss consumed own charges");missed.Cancel();
