@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "candidateEntryRva": "0x3fa2f0",
+  "candidateTableRva": "0x163c0b0",
+  "candidateSlot": 17,
+  "dispatcherIndexLinked": false,
+  "currentMachineCodeExecutedOffline": true,
+  "targetProcessCodeExecuted": false,
+  "processMemoryRead": false,
+  "cases": 112,
+  "sourceBytes": 421,
+  "unicornVersion": "2.1.4",
+  "emulatorLibrarySha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+  "changedPacketOffsets": [
+    "0x18",
+    "0x20",
+    "0x24",
+    "0x2c",
+    "0x30",
+    "0x34",
+    "0x38"
+  ],
+  "externalServices": [
+    "Missile row lookup supplies a formula token from raw offset0xb4. Token-1 skips scaling.",
+    "Owner resolver and missile formula evaluator are supplied; exact formula/fnum binding and damage field gameplay names are not inferred.",
+    "The complete candidate instructions execute, including all guards, raw context forwarding and floating arithmetic."
+  ],
+  "limits": [
+    "The immutable31entry table matches the owned image, but its dispatcher/index linkage is not yet established. No public Ring handler is enabled.",
+    "This scales only an existing raw packet. Damage roll stage, mitigation, collision and lifetime remain separate."
+  ],
+  "artifacts": {
+    ".local/class-skills/missile-damage-scale-source/cases.json": "b5f547f039677747ac8d9faca8fdb09d38307e8505616e1a4d4edd5a1f0f0481",
+    "tools/probe_missile_damage_scale.py": "2ba8c5adf2e82b388aa45493c05203661ccb26ad4ecb056396a23c4eaee2437b",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/capture.json": "a3faafeff728f4d8da94ce9590120af565bd98e947757466615d90e080cf4a5a",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/3fa2f0-part0.bin": "dc7079df5a90925a3d8c33e685c57da3fe55613707013297313e75d7c440ae2d",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/3fa2f0-part1.bin": "5838cc46c100c70c1da002905656d6d21597051eeb1badd61eb3124202739151",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/3fa2f0-part2.bin": "3b36523578345e94d030ff986b1f283829a324019b775c1466f449a80631ed36",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/3fa2f0-part3.bin": "a056d71b592a0600fa5e3fda5b4d5bc8351e32258519416e83039dda2e22799b",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/3fa2f0-part4.bin": "75b8742304dbe9ace7b7c7305570e54a9b2bb37c85df89776b673d3a39ba0b80",
+    ".local/class-skills/warlock-runtime-reference/ring-damage-body-20261108/3fa2f0-part5.bin": "034cdf80abb03401df61973151acaf24ce97bd6b42df36991978c9bc26091336"
+  }
+}

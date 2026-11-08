@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared missile packet scaling (2026-11-08 JST).** Numeric-only component adds no effect or audio identity. Ring cast,expansion,contact,explosion and expiry remain in the existing pending family below;no final artwork is claimed. [Checkpoint](missile-damage-scale-checkpoint.md). Icons remain separately tracked.
+
 **Prepared Ring launch (2026-11-08 JST).** Pure source launch producer emits only explicit factory requests;no world effect or final art is created. Cast,expanding ring,contact,explosion,expiry and audio remain required in the existing Ring of Fire family,using identified placeholders when world emission is connected. [Checkpoint](ring-of-fire-launch-checkpoint.md). Icons stay separate.
 
 **Warlock ordinary cast clock (2026-11-08 JST).** Clock/planning adds no emitter or new asset identity. Prepared Warlock/Witch poses remain identified human-animation placeholders;final casting poses and each skill’s effect/audio stay in their existing families. [Checkpoint](warlock-cast-clock-checkpoint.md). Icons remain separate.
