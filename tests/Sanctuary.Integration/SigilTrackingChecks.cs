@@ -37,7 +37,7 @@ public static class SigilTrackingChecks
             Require(Same(state.Stats.Select(e=>new[]{e.Key.Stat,e.Key.Layer,e.Value}),expected.GetProperty("stats"))&&Same(state.Writes,expected.GetProperty("writes")),"Current slot reuse,max index or ordered stat writes differ");
             Require(state.Expiry==expected.GetProperty("expiry").GetSingle()&&state.Flags==expected.GetProperty("flags").GetUInt32()&&actors.Select(a=>a.Lifetime).SequenceEqual(expected.GetProperty("lifetimes").EnumerateArray().Select(e=>e.GetSingle())),"Current lifetime-zero replacement or state expiry/flags differ");n++;
         }
-        Require(n==111&&NpcWorldAllocation.Capture()==world&&!WarlockCombat.Implemented(CombatAbility.SigilLethargy),"Prepared tracking allocated world state or admitted missing recipients");
+        Require(n==111&&NpcWorldAllocation.Capture()==world,"Pure tracking allocated world state");
         File.WriteAllText(Manifest,generation.ToString());Require(generation<=2,"Unexpected fixture generation");
         Log.Information("Sigil tracking:111current core/sort contexts,ordered lookup/write traces,stable equal-time replacement,missing/invalid IDs,slot reuse,max index,lifetime-zero eviction and conditional timer result match. World stat-list allocation,owner-state removal and recipients remain separate.");
     }

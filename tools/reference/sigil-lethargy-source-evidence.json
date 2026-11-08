@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "handlerEnabled": false,
+  "cases": 128,
+  "compiledUnchangedRoutines": [
+    "sub_6FD0B450",
+    "sub_6FD10EC0",
+    "sub_6FCBD900"
+  ],
+  "sanitizers": "ASan/UBSan",
+  "processMemoryRead": false,
+  "established": [
+    "Owned state192has no curse flag:12frames ignore100curse resistance/Attract and keep the independent ordinary curse pool unchanged.",
+    "Same-state lower rank refuses,equal rank retains creator/primary stat while refreshing expiry and rewriting secondary stats,higher rank replaces;ordered writes/flags/events/rate update are recorded."
+  ],
+  "services": [
+    "Current numeric skill/row packet is supplied to the complete unchanged older receiver/factory. State-mask lookup is supplied from pinned current flags.",
+    "State allocation/stat storage,owner/alignment/room services are declared;world radial geometry and full current executor are not executed.",
+    "Unusual old primary/secondary values intentionally distinguish retention from rewriting;native saved statuses accept only qualified generated values."
+  ],
+  "artifacts": {
+    ".local/class-skills/sigil-lethargy-source/probe.cpp": "f41aceb7b734d15eb605d4f1bfe78ae4a82874f1446fa2c2d43055dc3d72a85d",
+    ".local/class-skills/sigil-lethargy-source/cases.json": "f157f2629ad66d9e19759525fd260462ce5cf86d0e403c085100427be2483c73",
+    ".local/class-skills/sigil-lethargy-source/probe": "b54ad4e1e1b28ab4e0293bf9c653862a2538167f118f737bb2a2c5a9fb5e82be",
+    ".local/class-skills/amplify-damage-source/probe.cpp": "a7a0d9644305578e72d33aed5ac3ff99c115e87299aeddb0b068eff32bc09aeb",
+    "tools/reference/amplify-damage-source-evidence.json": "6aee4077a34eea9d27d1cf88c1d348aeb1571a9aa87a9b63544a44a7097b0dcc",
+    "tools/probe_sigil_lethargy.py": "f6ca28bad4e7be246d85cc1b3af93ede3d005ddaeddff829cb6aaac84dec5ca5",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  }
+}

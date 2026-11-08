@@ -83,7 +83,17 @@ internal static class SigilActors
         }
         return false;
     }
-    internal static SigilActor CreatePrepared(PlayerMobile owner,SkillValues values,Point3D point,DateTime at)
+    internal static bool TargetPoint(PlayerMobile owner,Point3D requested,out Point3D point)
+    {
+        point=requested;return owner is{Alive:true,Deleted:false,Map:not null}&&owner.Map!=Map.Internal&&!MinionSafeAreas.Contains(owner)
+            &&owner.InRange(requested,50)&&Ground(owner,owner.Map,requested,out point)
+            &&SkillGeometry.SourceDistance((point.X-owner.X)*2,(point.Y-owner.Y)*2)<=100;
+    }
+    internal static SigilActor CreatePrepared(PlayerMobile owner,SkillValues values,Point3D point,DateTime at)=>Create(owner,values,point,at,null);
+    internal static SigilActor CreatePaid(PlayerMobile owner,SkillValues values,Point3D point,DateTime at,int cost)
+        =>cost==values.Mana256?Create(owner,values,point,at,()=>owner is{Alive:true,Deleted:false}&&NecromancerEffects.Pay(owner,cost))
+            :throw new NotSupportedException("Sigil payment does not match its captured skill values");
+    private static SigilActor Create(PlayerMobile owner,SkillValues values,Point3D point,DateTime at,Func<bool> payment)
     {
         if(owner is not{Alive:true,Deleted:false,Map:not null}||owner.Map==Map.Internal||at.Kind!=DateTimeKind.Utc
             ||values?.Ability!=CombatAbility.SigilLethargy||values.Rank is <1 or >255||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
@@ -120,6 +130,7 @@ internal static class SigilActors
                 if(request.Body.Flags!=1||request.Body.Missile!=shape.Id||request.Body.Point!=new Point2D(ground.X*2,ground.Y*2))
                 {throw new NotSupportedException("World Sigil factory request changed");}
                 var marker=new Static(0x1B7A){Name="Sigil: Lethargy (placeholder)",Movable=false};marker.MoveToWorld(ground,map);
+                if(payment!=null&&!payment()){marker.Delete();return null;}
                 created=new(marker.Serial.Value,owner.Serial.Value,map.MapID,ground,values.Rank,profile.Level,shape.Id,shape.Key,shape.Frames,born);
                 _actors=_actors.Add(created.Marker,created);
                 // Current flags1 stationary factory initializes float14 to

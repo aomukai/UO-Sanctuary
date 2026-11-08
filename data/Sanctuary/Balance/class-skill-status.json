@@ -2572,10 +2572,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 393,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned ordinary Warlock/Witch SC/right/quick ground cast composes current shared launch/tracking,original saved marker and independent non-curse state192. Attack-rate/defense/movement penalties use shared consumers;12frame duration ignores curse resistance/Attract and coexists with ordinary curses. Source-rank/creator retention,once-only mana,cancellation/failure,offline/facet expiry and approved owner-death cleanup have dedicated checks. Exact current full-factory RNG/notification/unknown12c/room/PvP/mid-animation parity and final effects/audio/talent/hotkey assets remain scoped;no class certificate. See sigil-cast-checkpoint.md."
     },
     {
       "talentId": "warlock.sigilrancor",

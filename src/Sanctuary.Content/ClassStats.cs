@@ -132,7 +132,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return AmazonInnerSight.Defense(creature,Math.Max(0,checked(CreatureProfiles.Defense(creature)+NpcEquipmentCombat.Defense(creature))-TimedEffects.DefenseLoss(creature)),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+NpcEquipmentCombat.DefensePercent(creature)+SorceressEffects.Defense(creature)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature));
+            return AmazonInnerSight.Defense(creature,Math.Max(0,checked(CreatureProfiles.Defense(creature)+NpcEquipmentCombat.Defense(creature))-TimedEffects.DefenseLoss(creature)),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+NpcEquipmentCombat.DefensePercent(creature)+SorceressEffects.Defense(creature)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature)+SigilLethargy.Defense(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {
@@ -148,7 +148,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player)+DruidPlayerForms.ArmorPercent(player)+HexBane.DefensePercent(player));
+            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player)+DruidPlayerForms.ArmorPercent(player)+HexBane.DefensePercent(player)+SigilLethargy.Defense(player));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }
@@ -166,7 +166,7 @@ public static class ClassStats
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
         if (!classAttack && !classDefense && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && !ReviveCombat.Active(attacker) && !ReviveCombat.Active(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
-            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null && HexBane.Debuff(attacker)==null && HexBane.Debuff(defender)==null)
+            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null && HexBane.Debuff(attacker)==null && HexBane.Debuff(defender)==null&&SigilLethargy.State(defender)==null)
         {
             return null;
         }

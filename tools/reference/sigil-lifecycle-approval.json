@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedByUser": true,
+  "approvedOn": "2026-11-08",
+  "answer": "Approve this Sigil lifecycle rule",
+  "scope": "Sigil Lethargy, Sigil Rancor and Sigil Death when their respective mechanics are implemented",
+  "rules": {
+    "ownerDeathOrDeletion": "Remove markers",
+    "ownerLogoutOrFacetTravel": "Leave markers at the cast location, stop combat pulses and keep lifetime running",
+    "return": "Resume only new pulses; do not replay skipped combat"
+  },
+  "referenceLimit": "This is an explicit Sanctuary adaptation; exact D2R owner-death cleanup remains unverified. It does not approve incomplete recipient, Rancor Confuse or Death execution mechanics.",
+  "reviewedImplementation": "docs/sigil-actor-checkpoint.md"
+}

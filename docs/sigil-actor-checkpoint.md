@@ -1,5 +1,7 @@
 # Prepared Lethargy world checkpoint
 
+**Follow-up (2026-11-08 JST).** The user approved the Sigil lifecycle rule,including owner-death/deletion cleanup. Recipient stats and learned left/right/quick casting are now connected;the later checkpoint reaches211/240handlers. The prepared-only availability and unresolved-death notes below describe this earlier stage. [Learned checkpoint](sigil-cast-checkpoint.md) / [approval](../tools/reference/sigil-lifecycle-approval.json).
+
 2026-11-08 JST. Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. **210/240 handlers; no class certified complete.** Lethargy now has original saved world markers composing the reviewed launch and tracking components. Numeric recipient effects and the learned cast route remain unfinished.
 
 `SigilActors.CreatePrepared` creates a labelled static marker, retaining owner, map, original position, effective rank, level, selected missile tier and lifetime. Current Lethargy699/686/702uses125/350/600frames at ranks1/10/20. All nine primary Sigil missile rows and the actual742-entry count are cached separately by a reproducible builder. The shared `MissileValues` engine accepts that explicit field dictionary; existing named-cache construction keeps its behavior. The existing do14 driver supplies six-frame pulses without duplicating its dispatch logic.

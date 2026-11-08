@@ -22,7 +22,7 @@ public static class GearEffects
 {
     public static void Configure()
     {
-        ClassGearHooks.MovementDelay = (mobile, seconds) => GrimWardCurseTransport.MovementDelay(mobile,seconds)
+        ClassGearHooks.MovementDelay = (mobile, seconds) => SigilLethargy.MovementDelay(mobile,seconds)??GrimWardCurseTransport.MovementDelay(mobile,seconds)
             ?? SourceTerror.MovementDelay(mobile,PaladinVigor.MovementDelay(mobile,seconds)) * 100 / (100 - MovementSlow(mobile));
         ClassGearHooks.AttackDelay = (mobile, delay) => TimeSpan.FromTicks(delay.Ticks * 100 / Math.Clamp(100 + (mobile is BaseCreature?PaladinOffense.AttackRate(mobile):0) - AttackSlow(mobile),15,175));
     }
@@ -59,12 +59,12 @@ public static class GearEffects
         int elite=EliteAuras.Slow(mobile);return elite>0?Math.Max(cold,elite):cold;
     }
     internal static int MovementSlowTotal(Mobile mobile) => ChillPercent(mobile)
-        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.VelocitySlow(mobile) + ImpaleSlow.Velocity(mobile) - GrimWardCurseTransport.Velocity(mobile);
+        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.VelocitySlow(mobile) + ImpaleSlow.Velocity(mobile) - GrimWardCurseTransport.Velocity(mobile)-SigilLethargy.Velocity(mobile);
     public static int MovementSlow(Mobile mobile) => Math.Clamp(MovementSlowTotal(mobile), -100, 75);
     // Player source-rate consumers add haste/WSM before their final rate clamp.
     // Keep the bounded projection for native NPC delay divisors.
     internal static int AttackSlowTotal(Mobile mobile) => ChillPercent(mobile)
-        + TimedEffects.SlowAttack(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile) - GrimWardCurseTransport.Attack(mobile);
+        + TimedEffects.SlowAttack(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile) - GrimWardCurseTransport.Attack(mobile)-SigilLethargy.Attack(mobile);
     public static int AttackSlow(Mobile mobile) => Math.Clamp(AttackSlowTotal(mobile), -100, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {

@@ -81,12 +81,12 @@ public static class SigilActorChecks
             Invalid(current with{Owners=current.Owners.Select(o=>o.Owner==p.Serial.Value?o with{Flags=128}:o).ToArray()});
             SigilActors.Clear(p);p.MoveToWorld(origin,map);
             var saved=SigilActors.CreatePrepared(p,Values(200),point,TimedEffects.Now);
-            Require(saved is{Rank:200,Frames:5100,Missile:702}&&!WarlockCombat.Implemented(CombatAbility.SigilLethargy),"Normal saved marker or public gate mismatch");
+            Require(saved is{Rank:200,Frames:5100,Missile:702}&&WarlockCombat.Implemented(CombatAbility.SigilLethargy),"Normal saved marker or public handler mismatch");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,saved,State(p),0)));
             var witch=ClassSkillChecks.Player(DiabloClass.Warlock);witch.Female=true;ClassCreation.Profiles.AdvanceLevel(witch,99);
             try{FixtureSpace.Corridor(witch,6800,8,3520);Require(SigilActors.CreatePrepared(witch,Values(1),new(witch.X+2,witch.Y,witch.Z),TimedEffects.Now)!=null,"Witch prepared marker refused");}
             finally{SigilActors.Clear(witch);witch.Delete();}
-            Log.Information("Sigil actor:real marker and source roster,all three Lethargy tiers,do14periodic identity,gear/position snapshot,facet/offline no replay,lifetime-zero retirement,longer owner timer,missing item repair,failed placement,atomic malformed restore and resource preservation pass;normal204second marker saved for actual reloads. No recipient status or learned cast admitted.");
+            Log.Information("Sigil actor:real marker and source roster,all three Lethargy tiers,do14periodic identity,gear/position snapshot,facet/offline no replay,lifetime-zero retirement,longer owner timer,missing item repair,failed placement,atomic malformed restore and resource preservation pass;normal204second marker saved for actual reloads. Recipient and learned cast acceptance have separate checks.");
         }
         finally{SigilActors.Pulse-=Pulse;}
     }

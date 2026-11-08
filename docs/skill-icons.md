@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Lethargy (2026-11-08 JST).** Actual left/right/quick bindings are admitted and tested. Talent and all three binding icons still use the existing identified text/fallback placeholders;final artwork remains pending independently of mechanical completion. Rancor/Death remain separately tracked. [Checkpoint](sigil-cast-checkpoint.md).
+
 **Prepared Lethargy world marker (2026-11-08 JST).** No talent/hotkey identity or artwork changes. Lethargy's existing text placeholder and pending talent/right/quick icons remain separate from the new labelled world marker. Rancor/Death icon entries remain pending. [Checkpoint](sigil-actor-checkpoint.md).
 
 **Sigil roster tracking (2026-11-08 JST).** No talent identity or new icon is added. All three Sigils retain separately pending talent/hotkey icons and identified text placeholders. [Checkpoint](sigil-tracking-checkpoint.md). Replacement/expiry effects and audio remain separate.
