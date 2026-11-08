@@ -23,9 +23,9 @@ public sealed class RingOfFireWorldProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Ring world save");}RingOfFireWorld.Restore(JsonSerializer.Deserialize<RingOfFireWorldSave>(reader.ReadString()));}
 }
 
-// Candidate world composition, not admitted through WarlockCombat. Contact,
-// delay and lifecycle rules are an explicit pending Sanctuary proposal, not
-// claimed current hit1 semantics. Reuse the verified launch/motion/age kernels.
+// Approved Sanctuary world composition:contact,delay and lifecycle rules are
+// recorded in ring-world-rule-proposal.md. Current hit1 semantics remain
+// unverified. Learned casting reuses the verified launch/motion/age kernels.
 internal static class RingOfFireWorld
 {
     private static ImmutableDictionary<long,RingOfFireFlight> _flights=ImmutableDictionary<long,RingOfFireFlight>.Empty;
@@ -34,19 +34,20 @@ internal static class RingOfFireWorld
     private static long _nextId;
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(RingOfFireWorld));
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
+    internal static Func<RingOfFireLaunchRequest,bool> Allocate=_=>true;
     public static void Configure()=>_=new RingOfFireWorldProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     private static bool Owner(PlayerMobile p)=>p is{Alive:true,Deleted:false}&&ClassCreation.Profiles.TryGet(p.Serial,out var c)&&c.Class==DiabloClass.Warlock;
     private static bool Ready(long cast,uint target,DateTime at)=>!_leases.TryGetValue((cast,target),out var lease)||lease.UntilUtc<=at;
     private static void Lease(long cast,uint target,DateTime at)=>_leases[(cast,target)]=new(cast,target,at.AddMilliseconds(440));
-    internal static long CreatePaidCandidate(PlayerMobile owner,SkillValues values,DateTime at,Func<RingOfFireLaunchRequest,bool> allocate=null)
+    internal static long CreatePaid(PlayerMobile owner,SkillValues values,DateTime at,Func<RingOfFireLaunchRequest,bool> allocate=null)
     {
         if(!Owner(owner)||owner.Map==null||owner.Map==Map.Internal||values?.Ability!=CombatAbility.RingOfFire||at.Kind!=DateTimeKind.Utc
             ||at<=DateTime.UnixEpoch||at>DateTime.MaxValue.AddMilliseconds(-440)||MinionSafeAreas.Contains(owner)||!NecromancerEffects.CanPay(owner,values.Mana256)){return 0;}
         var birth=RingOfFireDamage.Birth(values,DruidFirestorm.Modifiers(owner));
         // Native host has no equivalent opaque unit+12c field;zero is explicit
         // in the candidate projection. Failed allocation publishes nothing.
-        var plan=RingOfFireMotion.Prepare(owner,values,0,allocate);
+        var plan=RingOfFireMotion.Prepare(owner,values,0,allocate??Allocate);
         if(plan.Motions.Length==0){return 0;}
         long cast=checked(_nextId+1);var staged=new List<RingOfFireFlight>();
         foreach(var motion in plan.Motions)
@@ -112,7 +113,7 @@ internal static class RingOfFireWorld
                 ulong seed=next.Seed;_=SourceRandom.Limited(ref seed,100);next=next with{Seed=seed,LastCollision=serial};
                 Lease(state.Cast,serial,state.NextUtc);if(fighting){_=SourceKnockbacks.Begin(owner,target);}
             }
-            return 1; // Candidate pierces;later contacts cannot explode again.
+            return 1; // Approved rule pierces;later contacts cannot explode again.
         }
         bool active=fighting&&state.Fault==null&&owner.Map==map&&!MinionSafeAreas.Contains(owner);
         if(!active)
@@ -146,7 +147,7 @@ internal static class RingOfFireWorld
             try{Advance(s,actions??AssassinTrapRoster.Fighting(s.Owner));}
             catch(NotSupportedException e)
             {
-                Log.Error(e,"Candidate Ring suspended: {Id}",s.Id);
+                Log.Error(e,"Ring suspended: {Id}",s.Id);
                 var m=RingOfFireMotion.Step(s.Motion);if(m.Frame>=11||!Inside(m)){Remove(s.Id);}else{_flights=_flights.SetItem(s.Id,s with{Motion=m,NextUtc=s.NextUtc.AddMilliseconds(40),Fault=e.Message});}
             }
         }

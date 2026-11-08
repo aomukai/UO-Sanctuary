@@ -2561,10 +2561,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 394,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Owned3.3.93847skill394/missile689and visual730are pinned separately. Current count is16before effective10,32from10;rank1cost8mana usesmanashift7. New do154launch and damage17frame-scaling/rounding are absent from the older source. Current cast-table candidate has three inaccessible unwind fragments;dispatcher linkage is unverified and no process memory was read. Standard fire/motion/knockback kernels are reuse points,not proof of new launch/collision/NextHit/explosion/immune/post-first-hit semantics. Visual730has no server do/hit fields;do not invent a second damage child. See ring-of-fire-preflight.json and warlock-ring-of-fire-preflight.md. Continue unaffected work;no handler enabled;effects/audio/icons remain separate."
+      "remaining": "Learned self-centered Warlock/Witch SC uses current do154 launch,count16below effective10/32from10,shared source motion and approved elapsed age/contact/world rules. One radius3source-subtile explosion per fragment,later knockback-only contacts,shared11frame recipient delay within a cast,separate casts independent. Eligible knockback survives fire immunity;source RNG/birth/finite lifetime/offline no-replay are saved. Release commits table mana once;cancel/failed allocation/insufficient mana are free. Exact current hit1/damage dispatcher,whole-game RNG/room ordering and special-recipient/PvP/class certification remain unverified under explicit approvals. See ring-cast-checkpoint.md;final effects/audio and talent/left/right/quick icons remain separate."
     },
     {
       "talentId": "warlock.sigillethargy",
@@ -2594,10 +2594,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 399,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared shared cloud shape preserves effective Entropy Range/Radius separately from Chain hard-only SrvCalc1. Owned missile705/696 fields match local3.3.93847CASC and cached/runtime data;the numeric supplier reuses MissileValues and does not guess do41 layer geometry. Existing Bolt packets reuse the shared shape without changing damage. Original gear,hard/effective thresholds,captured contexts and Warlock/Witch resource persistence have dedicated scoped checks in entropy-clouds-checkpoint.md. Current do41 geometry,hit windows,first/last contacts,Chain casting and Abyss sksrc context remain unresolved;no learned cast or complete passive is enabled."
+      "remaining": "Prepared current do167 launches maker711 with flags33,source path/target/skill/rank and zero remaining factory fields;factory failure returns0 after retaining the action flag. Full graph is711maker43\u2192712chain45/hit41\u2192713cloudmaker43\u2192696cloud41. Shared Entropy shape keeps effective Range/Radius separate from hard-only SrvCalc1. Actual maker/motion/cloud emission,hit windows,magic mastery/pierce,placement/RNG/ownership/lifecycle and learned input remain unsupported. Candidate missile-do41/45bodies are protected and dispatcher linkage remains unverified;do not substitute an ordinary bolt or BasicMissileUpdate. See miasma-chain-launch-checkpoint.md;effects/icons separate."
     },
     {
       "talentId": "warlock.flamewave",

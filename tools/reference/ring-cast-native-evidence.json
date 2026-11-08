@@ -1,0 +1,106 @@
+{
+  "referenceVersion": "3.3.93847",
+  "worldRuleApproved": true,
+  "learnedRingEnabled": true,
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "nativeMarkers": 42,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "ring-cast-check": 1,
+    "ring-cast-reload-check": 2,
+    "ring-cast-check-result": 1,
+    "ring-cast-reload-check-result": 2,
+    "ring-world-check": 1,
+    "ring-world-reload-check": 2,
+    "sigil-cast-check": 1,
+    "sigil-cast-reload-check": 2,
+    "sigil-cast-check-result": 1,
+    "sigil-cast-reload-check-result": 2,
+    "ring-cast-left-check": 3,
+    "ring-cast-left-result": 3,
+    "ring-cast-right-check": 3,
+    "ring-cast-right-result": 3,
+    "ring-cast-quick-check": 3,
+    "ring-cast-quick-result": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 3,
+  "nativeRun": 3,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/ring-cast/source-snapshot-3.json",
+    "sha256": "20a54df9e3268e10b71a050a26c00c5c612cb48c17eaf22f96e0135374606d8b"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/ring-cast/birth-inputs.json",
+    "sha256": "021dfa6713d69305bc96c2d3957467023b4cff6d200666e06cf618f50c7b799f"
+  },
+  "newCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "newProcessReads": 0,
+  "files": {
+    "shared/ClassAbilities.cs": "757c0aa9665f591f15ebfba2bed93a855570330dd31973405df3414e62928eaf",
+    "src/Sanctuary.Content/WarlockCombat.cs": "b01238d39f6eb5ea8424061447922c8660628e1ecb20ca715d497be3b6ce8929",
+    "src/Sanctuary.Content/RingOfFireWorld.cs": "5f446d5a7d1f2c5e357e21906f5975406915cee0a6b8a3afaa09e1278ad4e2d7",
+    "tests/Sanctuary.Integration/RingCastChecks.cs": "df5caf15e6113d24a29c64714c8dae86c57c6c266be9fa6daf0c2594fec86593",
+    "tests/Sanctuary.Integration/RingWorldChecks.cs": "b166b8408ec71c50256aa4d996eddfdf3c7151a035df2aca42c795a0e34c7533",
+    "tests/Sanctuary.Integration/RingProfileChecks.cs": "b17f1a75097f750a4b19e360a940af77c8b649b31ef8436e56e00dcea1523f71",
+    "tests/check_ring_cast.py": "7ab9d9effd11ebf843c9545321d7dca12f2dbd8d344c139ffaa34c67ff502f19",
+    "tools/build_skill_roadmap.py": "f2e946de6902a26be2560e717b987dbd9c161a300733ed912af4d4d18184b05d",
+    "data/Sanctuary/Balance/class-skill-status.json": "e9e1252a4b0595927f0bd09dbf58997a6f4157992a5932cd424e1bd62bd15d50",
+    "tools/reference/ring-world-approval.json": "63eacb5de308dadfe96bd7f828880c572ed7497aed5ba2fdacbf405ace24598b",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4"
+  },
+  "artifacts": {
+    ".local/class-skills/ring-cast/birth-native-checks.log": "02678253d0217ffa1702613cce84dbadd16cb1be796c3804b81761d91554d672",
+    ".local/class-skills/ring-cast/native-run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/ring-cast/content-build-3.log": "5d72d64cc8fe551c4f3d849f78edae3405cb2cee890c3f9ae5ea3e4951bd0f77",
+    ".local/class-skills/ring-cast/integration-build-3.log": "e5855efe6240ce32aa47368d6489cea6309118f54f1642da9d7ef4fc8f06770d",
+    ".local/class-skills/ring-cast/ring-cast-fixtures.json": "fb8dc4c16e51875eed7dfcf79d87a0592b912447efda786f9783e3c1d65234f0",
+    ".local/class-skills/ring-cast/ring-world-fixtures.json": "d4bb3135e76606762d23a23394e10ed24841cca57f2a4a989e8695b44c68e1f3",
+    ".local/class-skills/ring-cast/preservation.json": "501f674fae36c0c6e0d887508da1380dc72d59ee6d85eadd65c826270d9f4f66",
+    ".local/class-skills/ring-cast/content/Sanctuary.Content.dll": "f7a1bf547e05a989f6289a9d01a77317f5f3364bde411594bf300964f398bacb",
+    ".local/class-skills/ring-cast/integration/Sanctuary.Integration.dll": "5d5e905850f3b42ef7b752acfca1318b38450193286595917838ef86ff2ce724",
+    ".local/class-skills/ring-cast/failed-native-1/birth-native-checks.log": "62d3e096be6f096a00ddd7c36fe84edea00e3fb5c127a377c49be3b73adf9fcb",
+    ".local/class-skills/ring-cast/failed-native-1/birth-inputs.json": "312589ebaa5c1de982fc6a8c0395a96d83fc6e14f7972d31113b62acb783db2b",
+    ".local/class-skills/ring-cast/failed-native-2/birth-native-checks.log": "e776b989369589b19d2c48b1d82ccdb122834891d1728094b340c1569bf50876",
+    ".local/class-skills/ring-cast/failed-native-2/birth-inputs.json": "77a918757ad31d5b3a1188c34025a5fd7ee52efbb9e4bb1e3db7281daca0bf3f"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "completeClientPatches": 43,
+    "intentionalSharedSourceChanges": [
+      "shared/ClassAbilities.cs",
+      "shared/CombatProtocol.cs"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Approved Ring is available through learned self-centered Warlock/Witch SC,left/right/quick. Cursor/selected target is discarded;existing source cast clock,unpaid windup and once-only release transaction are reused.",
+    "Connected cancellation,movement,underfunding,late mana and all-failed allocation publish nothing or charge no fee. One successful rank1release publishes16fragments for8mana and16child seeds exactly once;later gear does not rewrite birth.",
+    "Actual left/right/Witch20FCR quick socket input runs on all three boots;natural timer creates,damages and expires missiles. Existing approved world contact/immunity/knockback/payment/lifecycle and original16final-frame wounds/seeds/no-replay survive two reloads;global ID allocation is monotonic across unrelated casts.",
+    "Existing learned Sigil connected regression and required birth/item/resource regressions pass. Complete current43patch client reverses/forwards exactly and builds with39warnings/0errors;shared self-target metadata matches server."
+  ],
+  "limits": [
+    "Contact/delay/payment/lifecycle and elapsed-age rules are explicit Sanctuary approvals;current hit1/damage dispatcher/whole-game RNG/room/world ordering remains unverified.",
+    "Special recipient/hireling/class-pet/PvP and actual graphical cursor/keyboard/rendering acceptance remain separate. No class certificate.",
+    "Final cast/ring/contact/spent-tail/expiry/audio and talent/left/right/quick icons remain identified placeholders. Installed build/config/saves preserved;no deployment."
+  ],
+  "diagnostics": [
+    "Native1left/right passed;quick never started because the fixture lacked the ordinary backpack required by quick-use readiness. Native2adds backpack/ready assertion and all wire paths pass.",
+    "Native2first reload compared the entire earlier world snapshot although later wire casts legitimately advanced NextId. Native3compares original fields/leases/wounds while retaining the monotonic global counter. Production Content DLL is identical across all three native attempts;both failures and exact inputs/source/binaries retained.",
+    "First client copy/build had historical41patch inputs;current inventory check caught0042/0043. Prior state archived,extras apply cleanly,full43patch roundtrip and final client build pass.",
+    "Authoritative roadmap generator now preserves full Miasma maker43/chain45 dependencies;earlier direct generated-status edits were overwritten. Current generated output matches source and native copied data. Retained ring-world log labels are historical;its admission assertion and connected Ring controls reflect approved status."
+  ]
+}

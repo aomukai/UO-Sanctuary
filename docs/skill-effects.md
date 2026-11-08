@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Ring presentation (2026-11-09 JST).** [Checkpoint](ring-cast-checkpoint.md). Selfcast uses existing humanSC and shared0x1E5sound;travel0x36D4 and firstexplosion0x36BD are identified placeholders. Final cast/expanding ring,first damaging contact,later knockback-only tail,terminal/expiry and audio remain needed. Approved mechanics and hotkey use do not wait for final art;icons remain separate.
+
 **Miasma Chain launch preparation (2026-11-09 JST).** [Checkpoint](miasma-chain-launch-checkpoint.md). Pure maker request emits no world art. Final cast/maker,travelling or returning chain,contact/cloud-maker,layered cloud/expiry and audio remain required;the new43/45stages must not disappear behind a generic bolt visual. Identified placeholders may accompany later world mechanics. Icons stay separate.
 
 **Ring candidate world producer (2026-11-09 JST).** [Checkpoint](ring-world-checkpoint.md). Candidate sparse travel uses generic fire0x36D4;first explosion uses0x36BD. Both are identified placeholders. Final cast/ring expansion,first damaging contact,later knockback-only tail,terminal/expiry and audio remain needed. Visual730must not introduce another server damage child. Talent/hotkey icons stay separate.

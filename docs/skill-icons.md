@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Ring bindings (2026-11-09 JST).** [Checkpoint](ring-cast-checkpoint.md). Ring now works on left/right and quick-slot input with the identified text placeholder. Final talent/left/right/quick artwork remains pending in this register;cast/travel/contact/expiry/audio are separate.
+
 **Miasma Chain launch preparation (2026-11-09 JST).** [Checkpoint](miasma-chain-launch-checkpoint.md). No learned binding or final artwork. Miasma Chain retains its pending talent/left/right/quick entries and identified text placeholder;effects/audio stay separate.
 
 **Ring candidate world producer (2026-11-09 JST).** [Checkpoint](ring-world-checkpoint.md). No learned binding or final artwork is added. Talent/left/right/quick icons retain their pending entries and identified text placeholder;world effects/audio remain separate.

@@ -26,7 +26,7 @@ public static class RingWorldChecks
     private static long Cast(PlayerMobile owner,DateTime at,bool one=false)
     {
         var values=SkillMechanics.Values(owner,CombatAbility.RingOfFire);int mana=NecromancerEffects.ManaBalance256(owner);
-        long cast=RingOfFireWorld.CreatePaidCandidate(owner,values,at,one?r=>r.TargetX==30&&r.TargetY==0:null);
+        long cast=RingOfFireWorld.CreatePaid(owner,values,at,one?r=>r.TargetX==30&&r.TargetY==0:null);
         Require(cast>0&&Flights(cast).Length==(one?1:16)&&NecromancerEffects.ManaBalance256(owner)==mana-values.Mana256,"Candidate launch/count/once-only payment");return cast;
     }
     private static void Finish(long cast)
@@ -65,15 +65,15 @@ public static class RingWorldChecks
     private static void Guards()
     {
         var p=Owner(3200);var values=SkillMechanics.Values(p,CombatAbility.RingOfFire);var at=TimedEffects.Now.AddMinutes(5);
-        int mana=NecromancerEffects.ManaBalance256(p);Require(RingOfFireWorld.CreatePaidCandidate(p,values,at,_=>false)==0&&NecromancerEffects.ManaBalance256(p)==mana,"All-failed candidate allocations charged mana");
-        NecromancerEffects.SetMana256(p,values.Mana256-1);Require(RingOfFireWorld.CreatePaidCandidate(p,values,at)==0,"Underfunded Ring emitted");NecromancerEffects.SetMana256(p,mana);
+        int mana=NecromancerEffects.ManaBalance256(p);Require(RingOfFireWorld.CreatePaid(p,values,at,_=>false)==0&&NecromancerEffects.ManaBalance256(p)==mana,"All-failed candidate allocations charged mana");
+        NecromancerEffects.SetMana256(p,values.Mana256-1);Require(RingOfFireWorld.CreatePaid(p,values,at)==0,"Underfunded Ring emitted");NecromancerEffects.SetMana256(p,mana);
         long cast=Cast(p,at);p.MoveToWorld(p.Location,Map.Felucca);RingOfFireWorld.Tick(Flights(cast).Min(s=>s.NextUtc),true,cast);Require(Flights(cast).Length==0,"Facet travel retained candidate missiles");
         p.MoveToWorld(new(6400,3200,0),Map.Trammel);cast=Cast(p,at);var snapshot=RingOfFireWorld.Snapshot();var left=Flights(cast).First(s=>s.Motion.Request.TargetX==-30&&s.Motion.Request.TargetY==0);
         // A legitimate outward final in-bounds position from a tile1 launch.
         var edge=left with{Motion=left.Motion with{Frame=1,X=1-4800/8192.0,AccelerationCounter=1,Request=left.Motion.Request with{X=2},Steps=new([new(1,p.Y*2)])}};
         RingOfFireWorld.Restore(snapshot with{Flights=[edge],Leases=[]});RingOfFireWorld.Tick(edge.NextUtc,false,cast);Require(Flights(cast).Length==0,"Offline boundary crossing retained an invalid saved position");
         cast=Cast(p,at);p.Kill();RingOfFireWorld.Tick(Flights(cast).Min(s=>s.NextUtc),true,cast);Require(Flights(cast).Length==0,"Owner death retained candidate missiles");
-        Require(!WarlockCombat.Implemented(CombatAbility.RingOfFire),"Unapproved Ring candidate enabled");
+        Require(WarlockCombat.Implemented(CombatAbility.RingOfFire),"Approved Ring handler missing");
     }
     private static void Check()
     {
@@ -88,9 +88,12 @@ public static class RingWorldChecks
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var t=(BaseCreature)World.FindMobile((Serial)saved.Target);p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);
-        Require(saved.Generation<2&&JsonSerializer.Serialize(RingOfFireWorld.Snapshot())==JsonSerializer.Serialize(saved.State)&&SkillHealth.Balance256(t)==saved.Life256,"Original Ring state/seed/wounds changed on reload");
+        var current=RingOfFireWorld.Snapshot();
+        Require(saved.Generation<2&&current.NextId>=saved.State.NextId&&JsonSerializer.Serialize(current.Flights)==JsonSerializer.Serialize(saved.State.Flights)
+            &&JsonSerializer.Serialize(current.Leases)==JsonSerializer.Serialize(saved.State.Leases)&&SkillHealth.Balance256(t)==saved.Life256,"Original Ring flights/seed/wounds or monotonic allocator changed on reload");
         RingOfFireWorld.Tick(saved.State.Flights.Min(s=>s.NextUtc),true,saved.State.Flights[0].Cast);
         Require(RingOfFireWorld.Snapshot().Flights.Length==0&&SkillHealth.Balance256(t)==saved.Life256,"Loaded terminal missiles replayed damage or failed expiry");
-        RingOfFireWorld.Restore(saved.State);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
+        var restored=saved.State with{NextId=current.NextId};RingOfFireWorld.Restore(restored);
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=restored,Generation=saved.Generation+1}));
     }
 }

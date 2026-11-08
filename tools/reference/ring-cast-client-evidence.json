@@ -1,0 +1,26 @@
+{
+  "nativeCommit": "ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93",
+  "inputManifest": {
+    "path": ".local/class-skills/ring-cast/client-inputs-2.json",
+    "sha256": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373"
+  },
+  "patches": 43,
+  "affectedPaths": 42,
+  "buildWarnings": 39,
+  "buildErrors": 0,
+  "graphicalInputVerified": false,
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "scope": "Complete current43patch stack reverses to exact pinned client and reapplies to exact built input. All linked shared sources match workspace,including Ring self-target metadata. Fresh isolated no-restore build succeeds;installed client and accepted earlier41patch inputs are untouched.",
+  "artifacts": {
+    ".local/class-skills/ring-cast/client-build-2.log": "80e6160ac881d5dedb7c74b8d943cbaad8d86bfcd30e3ae6d4bc6ab971a3e960",
+    ".local/class-skills/ring-cast/client/cuo.dll": "03bcb60404ce804c85910e8bffe4944128adc797e036bca84297c91abe4b92b0",
+    ".local/class-skills/ring-cast/client-roundtrip.json": "3f5afec3aa86e25a43a919662b394104d94eb74a5ce1c67a6005980b4b04e488"
+  },
+  "limits": [
+    "Retains existing package/compiler/analyzer warnings;no dependency update or audit claimed.",
+    "Server wire fixtures do not establish actual graphical mouse/keyboard/rendering acceptance."
+  ],
+  "diagnostics": "Initial private copy/build used accepted41patch baseline;current43patch inventory check caught missing0042/0043. Prior inputs/log/binary archived client-before-43. Both new patches applied cleanly,full43roundtrip and final build pass."
+}

@@ -1,6 +1,6 @@
 # Ring of Fire world-rule proposal
 
-**Approved by the user on 2026-11-09: “Approve the complete Ring world rule”.** [Approval record](../tools/reference/ring-world-approval.json). The candidate is implemented and verified in a disposable native world. Learned casting remains gated. Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations first.
+**Approved by the user on 2026-11-09: “Approve the complete Ring world rule”.** [Approval record](../tools/reference/ring-world-approval.json). The candidate is implemented and verified in a disposable native world. Learned SC/left/right/quick casting is now verified in [ring-cast-checkpoint.md](ring-cast-checkpoint.md). Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations first.
 
 Your reference requirement calls for an explicit choice here: the current hit1 callback and damage-dispatch connection remain unreadable/unverified. The primary table, current launch and approved age scaling are established. The following defines the remaining contact behavior without presenting it as verified current D2R code.
 

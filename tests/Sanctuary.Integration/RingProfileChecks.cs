@@ -80,7 +80,7 @@ public static class RingProfileChecks
         ClassSkillChecks.Train(owner,"warlock.ringoffire",9);owner.RawStr=owner.RawDex=1000;
         var gloves=NamedGear.Create(NamedGear.Catalog.Items.Single(s=>s.SourceKey=="Magefist").Id,99,new Random(173),true);owner.AddToBackpack(gloves);Require(owner.EquipItem(gloves),"Ring +skills fixture");ClassGear.Refresh(owner);
         Require(SkillMechanics.Rank(owner,CombatAbility.RingOfFire)==10&&RingOfFireMotion.Prepare(owner,SkillMechanics.Values(owner,CombatAbility.RingOfFire),173).Motions.Length==32,"Effective +skills count threshold");gloves.Delete();ClassGear.Refresh(owner);
-        Require(Values(1).Mana256==2048&&Values(2).Mana256==2176&&!WarlockCombat.Implemented(CombatAbility.RingOfFire),"Half-mana profile or unfinished admission");
+        Require(Values(1).Mana256==2048&&Values(2).Mana256==2176&&WarlockCombat.Implemented(CombatAbility.RingOfFire),"Half-mana profile or unfinished admission");
         ulong seed=SourceRandom.InitLow(173);var packet=RingOfFireDamage.CapturePrepared(owner,Values(1),new(0,0,0,0,0),ref seed);
         FixtureSpace.Corridor(owner,6400,30,2800);var target=FireBoltChecks.Target(owner,6);Damage(owner,target,packet);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,ring.Motions[0],0,target.Serial.Value,SkillHealth.Balance256(target),packet)));
