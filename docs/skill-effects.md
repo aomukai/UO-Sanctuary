@@ -1,5 +1,7 @@
 # Skill effects
 
+**Miasma Chain launch preparation (2026-11-09 JST).** [Checkpoint](miasma-chain-launch-checkpoint.md). Pure maker request emits no world art. Final cast/maker,travelling or returning chain,contact/cloud-maker,layered cloud/expiry and audio remain required;the new43/45stages must not disappear behind a generic bolt visual. Identified placeholders may accompany later world mechanics. Icons stay separate.
+
 **Ring candidate world producer (2026-11-09 JST).** [Checkpoint](ring-world-checkpoint.md). Candidate sparse travel uses generic fire0x36D4;first explosion uses0x36BD. Both are identified placeholders. Final cast/ring expansion,first damaging contact,later knockback-only tail,terminal/expiry and audio remain needed. Visual730must not introduce another server damage child. Talent/hotkey icons stay separate.
 
 **Prepared Cleave sweep (2026-11-09 JST).** [Checkpoint](cleave-sweep-checkpoint.md). A pure arc/area request creates no world visual or damage producer. Existing SQ/contact presentations remain identified placeholders;final Cleave cast/sweep/contact/audio stay pending. Icons remain separate.

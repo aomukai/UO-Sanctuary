@@ -1,5 +1,7 @@
 # Skill icons
 
+**Miasma Chain launch preparation (2026-11-09 JST).** [Checkpoint](miasma-chain-launch-checkpoint.md). No learned binding or final artwork. Miasma Chain retains its pending talent/left/right/quick entries and identified text placeholder;effects/audio stay separate.
+
 **Ring candidate world producer (2026-11-09 JST).** [Checkpoint](ring-world-checkpoint.md). No learned binding or final artwork is added. Talent/left/right/quick icons retain their pending entries and identified text placeholder;world effects/audio remain separate.
 
 **Prepared Cleave sweep (2026-11-09 JST).** [Checkpoint](cleave-sweep-checkpoint.md). No learned binding or final icon is added. Cleave retains its identified text placeholder and pending talent/left/right/quick artwork;effects/audio stay separate.

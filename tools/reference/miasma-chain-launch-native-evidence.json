@@ -1,0 +1,86 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 212,
+  "warlockHandlers": 3,
+  "completedClasses": [],
+  "learnedChainEnabled": false,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "nativeRun": 1,
+  "sourceCases": 20,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "miasma-chain-launch-check": 1,
+    "miasma-chain-launch-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/miasma-chain-launch/source-snapshot-1.json",
+    "sha256": "75db37bc64b289331d40e5f3ce872f373350659dc83eb038f6a7d1051d36b247"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/miasma-chain-launch/birth-inputs.json",
+    "sha256": "4c658f484b078d580b49ec8e7e9ec861eee88b3495c2af251907cbccd832e61e"
+  },
+  "newCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "files": {
+    "src/Sanctuary.Content/MiasmaChainLaunch.cs": "f2d50ceb3bae327f333320e901c55cbf5239eb7f71fe0b59d4db67f2bf3681f4",
+    "tests/Sanctuary.Integration/MiasmaChainLaunchChecks.cs": "7a0eff71d527dc6837d5b122242825bd374cb59d3dffb0f9d1afc88410dc8283",
+    "tests/check_miasma_chain_launch.py": "b4db1da7ffbd381ae02ccefd0fc28aea002c19964e4957b9500785561b520c96",
+    "tools/probe_miasma_chain_launch.py": "b59e3dd30a82157b29421d095d7c7de8c715150d3ad3ad247281bf0314482669",
+    "tools/capture_miasma_missile_reference.py": "f493f403be26edf852c4dde65946cf41c2a588bf2593e1ee51faedadcdfb316b",
+    "tools/reference/miasma-chain-launch-current-evidence.json": "e4d92a5f193bdb3ef6c4a5e9d02fb64f713582e5c2a62a14e7d711e13622ff1e",
+    "data/Sanctuary/Balance/miasma-chain-route.json": "ec08b04ac34102f93e7c61f3c5b0a9780ca58e88cbf7de69de272d0bb050bdfb",
+    "data/Sanctuary/Balance/class-skill-status.json": "3c8d282dd3cdeb1f8f2072d9657bd8324656a80cfac718283a01b222315e6ec0"
+  },
+  "artifacts": {
+    ".local/class-skills/miasma-chain-launch/birth-native-checks.log": "fb5039afe83a81fd3adfebcb49fab92dd526f5eebc70ac87615e151449512f56",
+    ".local/class-skills/miasma-chain-launch/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/miasma-chain-launch/content-build-1.log": "8d363ff8d40e73b7433f5067ab5822fcf383cf30e0fffec61970419c6b7d003d",
+    ".local/class-skills/miasma-chain-launch/integration-build-1.log": "a2f3a1c6ab2af6632298d00f37107e1130a9793a3e66e6c9857d81cbf709728e",
+    ".local/class-skills/miasma-chain-launch/miasma-chain-launch-fixtures.json": "f15e984236beabd1a9abe7a1ddde8b1b2bf13bcda2c4d9f64a117c21b9594fc8",
+    ".local/class-skills/miasma-chain-launch/content/Sanctuary.Content.dll": "a0c08bd5ba84246bb1b618805fbe13ea4d5a5425057da64bb24b2292473c0edf",
+    ".local/class-skills/miasma-chain-launch/integration/Sanctuary.Integration.dll": "c3e0dac5fdbd63aa4fdb1ba6368b529b72a91bbdb8cca72c9ea93ec1053abd4f"
+  },
+  "candidateCaptures": [
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/miasma-missile-41-20261109.json",
+      "sha256": "fa86c19870c1ee5c14c85535171d628b83a3a837d289494caee7f54a23bb5b41"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/miasma-missile-45-20261109.json",
+      "sha256": "6c0170d46df58bddee9b43b3a0ee1bb654642fec225acde6b0fe2ac5526ae77c"
+    }
+  ],
+  "candidateMemoryBytesRead": 2816,
+  "candidateCodeBytesRead": 0,
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Complete current do167 executes with explicit row/progressive/target/factory services;native C# matches20guards/request/failure contexts. Reserved/velocity/context fields in all152factory bytes are zero.",
+    "Current cast produces711maker43\u2192712chain45/hit41\u2192713cloudmaker43\u2192696cloud41;four original rows are copied unchanged into an isolated catalog,without adding active footprint producers.",
+    "Original Tarnhelm/owner/request DTO survives two reloads;effective rank1\u21922 follows actual gear,mana4.5\u21925,without learned casting or active missile persistence."
+  ],
+  "limits": [
+    "New missile maker43/moving-chain45/hit41/cloud41,placement/RNG/magic damage/mastery/pierce/geometry/delay/lifecycle/input remain unfinished. Do not substitute an ordinary straight bolt or BasicMissileUpdate for the chain.",
+    "Immutable missile-do table candidate matches owned image,but dispatcher linkage remains unverified. Slot41/45candidate bodies170/245bytes wholly protected;only2816anchor/table bytes read,noforce/input/write/attach/protectionchange. Do not repeat unchanged observations.",
+    "Protected progressive-helper behavior remains an explicit service;the pinned maker ID is not proof of its current execution. Effects/audio and talent/hotkey icons remain separate."
+  ]
+}

@@ -1,10 +1,10 @@
 # Ring of Fire world-rule proposal
 
-**Pending user decision.** The candidate is implemented and verified in a disposable native world. Learned casting remains gated. Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations first.
+**Approved by the user on 2026-11-09: “Approve the complete Ring world rule”.** [Approval record](../tools/reference/ring-world-approval.json). The candidate is implemented and verified in a disposable native world. Learned casting remains gated. Reference: D2R Reign of the Warlock **3.3.93847**, with approved Sanctuary deviations first.
 
 Your reference requirement calls for an explicit choice here: the current hit1 callback and damage-dispatch connection remain unreadable/unverified. The primary table, current launch and approved age scaling are established. The following defines the remaining contact behavior without presenting it as verified current D2R code.
 
-Proposed Sanctuary rule:
+Approved Sanctuary rule:
 
 - Emit the pinned 16 fragments below effective rank 10, and 32 from rank 10. Use the verified directions and existing source motion projection for eleven 40 ms updates. First collision processing occurs on the first update; initial factory setup adds no extra collision pass or age.
 - Capture effective rank, hard synergies, fire endpoints and enhancement at release. Roll once when a fragment first explodes, then copy that packet to its recipients. Apply the approved elapsed-age growth before the existing spell mitigation. Potion additions and resistance penetration follow the shared spell pipeline.

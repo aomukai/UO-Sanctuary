@@ -1,0 +1,24 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x452650",
+  "dispatcherIndexLinked": true,
+  "currentMachineCodeExecutedOffline": true,
+  "processMemoryRead": false,
+  "cases": 20,
+  "sourceBytes": 357,
+  "externalServices": [
+    "Row and progressive missile helper are supplied;nonpositive ID fails before target/flag/factory.",
+    "Target coordinates,allocation result and cookie are explicit;the cookie preserves the pending RAX result.",
+    "Current full152byte factory request is checked,including all zero reserved/velocity/context fields. No factory/world execution is claimed."
+  ],
+  "limits": [
+    "New maker43,moving-chain45,hit41/cloud41 dependencies,actual target/placement/factory/magic damage/casting/lifecycle remain separate.",
+    "A supplied progressive ID711 is not a complete current progressive-helper proof."
+  ],
+  "artifacts": {
+    "tools/probe_miasma_chain_launch.py": "b59e3dd30a82157b29421d095d7c7de8c715150d3ad3ad247281bf0314482669",
+    ".local/class-skills/miasma-chain-launch-source/cases.json": "b2f5418d7be85d5f52d591d8edc19c21ad727af9be0c2e650452e951f6460ef9",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/capture.json": "157eb69b34f65df19d3e70330460251d7c358cc5256a27f0db4b1458c7064ea1",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/do-167-part0.bin": "f8a811030ebdfa218444941c3652118604e21b80dcf3123367da4e0951d56f5f"
+  }
+}

@@ -1,5 +1,7 @@
 # Current missile damage scaling checkpoint
 
+**Reference follow-up (2026-11-09):** the [Miasma launch checkpoint](miasma-chain-launch-checkpoint.md) identifies an immutable missile-do table candidate whose slots37/42/43point to the three previously protected neighboring addresses. Their earlier dispatcher-candidate label was only a discovery hypothesis. Current table/dispatcher linkage remains unverified;do not retry unchanged protected pages.
+
 2026-11-08 JST. Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. **210/240 handlers; no class certified complete.** This prepares a reusable damage-packet component; Ring of Fire remains unavailable until its remaining dependencies are qualified.
 
 The owned immutable candidate table at RVA163c0b0 has31entries, with slot17 pointing to3fa2f0. A bounded read-only capture verifies that table against the owned executable and preserves all421bytes of the candidate body. **The table's dispatcher linkage remains unverified.** Three neighboring dispatcher candidates were inaccessible; no protection changes, forced reads or repeated polling were used. Table shape alone is not a callback identity certificate.

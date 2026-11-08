@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "Approve the complete Ring world rule",
+  "proposal": "docs/ring-world-rule-proposal.md",
+  "candidateCommit": "05a74e6272b6a2ddd12c59a2197467351320b05b",
+  "scope": "Complete saved world-rule proposal:launch/birth/first explosion/later knockback/per-cast delay/payment/native adapters/lifecycle. Earlier elapsed-age approval remains in effect.",
+  "limits": [
+    "Explicit Sanctuary adaptation;current hit1/damage dispatcher/whole-game native world parity remain unverified.",
+    "Full special recipients/PvP/class certification and final assets remain separate."
+  ]
+}

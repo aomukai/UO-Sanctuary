@@ -1,5 +1,7 @@
 # Ring of Fire candidate world checkpoint
 
+**Follow-up:** the complete world rule is now [approved](../tools/reference/ring-world-approval.json). Shared SC and actual input admission are next;the earlier pending status below is historical.
+
 Reference: D2R Reign of the Warlock **3.3.93847**. **212/240 handlers, Warlock3/30; no class certified.** Candidate contact rules are [pending user decision](ring-world-rule-proposal.md); learned Ring remains unavailable.
 
 `RingOfFireWorld` now composes the retained do154 request producer, pinned primary profile, shared motion/step tracing/basic updater, existing footprints, source area projection, ordinary fire recipient and source knockback. No duplicate mitigation or displacement engine is introduced. `RingOfFireDamage` separates birth endpoints from the first collision-time roll. Existing capture callers keep their behavior.
