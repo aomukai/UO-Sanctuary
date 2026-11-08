@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceBytes": 832,
+  "sourceContexts": 33,
+  "assertionContexts": 7,
+  "nullGameDereferenceContexts": 1,
+  "growthContexts": 1,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "unicornVersion": "2.1.4",
+  "artifacts": {
+    ".local/class-skills/pet-owner-iterator-source/cases.json": "2dc9be3dfa85f29bf1daaba404e89571a4c7f943b1d6004c82a534f4348e3b1f",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-bucket-20261109-35e510-part0.bin": "8faef746fc2c7a0f2bbf20939b0e448aef7728366b5c994463dc6b9c237c6de6",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-bucket-20261109.json": "19a4cc9257c435fd389fa5f494383c392df5339418c197f2a7a63da975ebba87",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109-35e6d0-part0.bin": "b47d1ef20b589b70288adc9693ad9dc14c1f2c341adc0720b0438d5cc4a74358",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109-35e6d0-part1.bin": "7aa0ec29905df2eb18b27f80860caae2318fda85b25fcca133cbe2135ee58d05",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109-35e6d0-part2.bin": "e432d4bda9dc837cfac9df2370fa4dc457e4e3f5efafc19ece9125494a6f20ed",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109-35e6d0-part3.bin": "abdba1f573262ac81088f0fff942c6d6b3fe9a6606f4b7e2526d3b20c5593a40",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109-35e6d0-part4.bin": "fb7dc33ac5b7599256fe5454272b8eda4f53b88b415476288935be454f299592",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109-35e6d0-part5.bin": "097302907fe319ebaf0849581f7adebfb15bf5619374ff2cb41abde646d78173",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109.json": "a8e087ca454b16ca2c932d9dd6fa3ae2ca9b5ef7b22b8c5479f71413c592f1f8",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_owner_iterator.py": "e88f8b1801b61548e34f4687d9a4d870d30c265bdf1edc8067c31ba51e8d2d6e"
+  },
+  "scope": "Complete outer and bucket bodies execute against supplied player-store descriptors/linked nodes,real inline registry traversal,and explicit bucket/growth/callback/cookie services. Snapshot mutation/selector reload and65-entry growth are included. Native insertion/removal/order producers and raw allocator fidelity remain separate."
+}

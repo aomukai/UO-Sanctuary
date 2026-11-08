@@ -1,0 +1,81 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "currentIteratorBytes": 832,
+  "newSourceContexts": 33,
+  "freshCaptureBytesRead": 2784,
+  "oldLargeSourceMatricesRerun": 0,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "8270955293007799cf401e35df9980569549c934dd1a1a739a9ad916daba7df0",
+    "Assemblies/Sanctuary.Integration.dll": "0da505c77085826043bd1a502f0b108805f89734e815899bffe19d6763a402a8"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete current outer/bucket routines execute offline against explicit pet-store graphs. C# matches visitation and service ordering in33contexts,including duplicates,flags,lookup and callback mutations,bucket21,65-entry growth. Existing registry and initializer reused.",
+    "Original registered three-species demons/Warlock-Witch owners consume supplied store graphs through actual world registry,command/life initialization and finishing. Original births,fractional wounds and typed commands survive two reloads. Graphs are explicit fixtures,recreated after load,not a persisted native pet-store claim."
+  ],
+  "limits": [
+    "Actual live player-pet store membership/insertion/removal/order and compiled type-count supplier remain unbound. Named type IDs1..21 give the fixture its explicit upper bound22;DeathMark approved roster order is not silently generalized.",
+    "Managed list replaces raw temporary vector allocator. Seven original assertion contexts and one distinct null-game dereference are refused;raw player-data/null pointer layouts outside supported context are not reconstructed.",
+    "Persistent AI-control words,timed events,remaining native world/search/path/movement/combat/action services and learned summon/DeathMark casts remain unfinished. No automatic AI or class certificate.",
+    "No new assets/deployment;effects/audio and talent/hotkey icons remain separate."
+  ],
+  "diagnostics": [
+    "First offline probe stopped on original null-game dereference;exact script/log archived. Corrected probe labels that boundary separately from source assertions. No native build/run failure."
+  ],
+  "inputs": {
+    "tools/reference/pet-owner-iterator-source-evidence.json": "69c27234c8451a77e9ff49ad6f1ceb32f01f731c991cdbb13d9605c0c673bffc",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-iterator-20261109.json": "a8e087ca454b16ca2c932d9dd6fa3ae2ca9b5ef7b22b8c5479f71413c592f1f8",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-bucket-20261109.json": "19a4cc9257c435fd389fa5f494383c392df5339418c197f2a7a63da975ebba87",
+    ".local/class-skills/pet-owner-iterator/birth-inputs.json": "294774724f69bc0b84d2954e40f1531e71f5993470aa058d5fedff142e376da5",
+    ".local/class-skills/pet-owner-iterator/source-snapshot-1.json": "a960289b165d9dc43db6bdcb5131bd612a1aa5f1d1828e60aaea8c1155d499f8",
+    ".local/class-skills/pet-owner-iterator/content-build-1.log": "c05af832b9c9fbca10b50b2e1bc33bc8575fd709c4df5e0eda6c412daeee1b75",
+    ".local/class-skills/pet-owner-iterator/integration-build-1.log": "cf00ab30721f9bf28871882805c06993982884aaf114f921c421ce2340c4791a",
+    ".local/class-skills/pet-owner-iterator/birth-native-checks.log": "515a5a0209f6e96d375d3c7e78c2f66bb5186973eb21488d842dd357a4ab2d95",
+    ".local/class-skills/pet-owner-iterator/pet-command-target-fixtures.json": "8c59f983ddf9e99e036357081bb760e7bf0ced7d74c677dc8ca6c7f172ecf1e2",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    ".local/class-skills/pet-owner-iterator-source/failed-probe-1/probe_pet_owner_iterator.py": "78fc3ac7f11bba2f9b103c5c82f2a89a5e4bd581755d9585fcccc33e637bc309",
+    ".local/class-skills/pet-owner-iterator-source/failed-probe-1/probe-run.log": "15632ffce4144c5bd684b5f7898ba8c65606b9ebf2b7a965cc41a7d1640a7211",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-owner-iterator-checkpoint.md": "679b50d53cd09f60988adfbaab9e37fc3c81a0a235379b689e6ad9aab45b91f0",
+    "docs/class-skills-resume-checkpoint.md": "e8fa22e613c232b9e3aa68c182e711864e30ebf08507fc5131397301b8441b64",
+    "docs/class-skill-roadmap.md": "8c03f202ea92580faca0b8f3f7bf1997e2cc8980d63a6c30bc2e4dc0c4342107",
+    "docs/class-skill-reuse-notes.md": "f7a11a8475f1b9f50f42cce7acaaf86a6fea811996fcff2318b55c17690804a3",
+    "docs/skill-mechanical-reference.md": "db9d9d89316eb98778301fb05f5131f95a90dc2df38a2bbce08671bb5f41939d",
+    "tests/check_pet_owner_iterator.py": "f735a4fe77f689898fd555af1d3abcd764b61fa25a9d9f3f737e7c147586560a",
+    "tools/record_pet_owner_iterator.py": "cc8420eb36d888a1ca729ec6df7e9a1967a0a22cce9ebf0527938375d904332b"
+  }
+}

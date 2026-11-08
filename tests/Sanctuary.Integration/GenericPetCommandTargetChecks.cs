@@ -96,7 +96,7 @@ public static class GenericPetCommandTargetChecks
     }
     private static void Check()
     {
-        Source();var owners=new[]{ClassSkillChecks.Player(DiabloClass.Warlock),ClassSkillChecks.Player(DiabloClass.Warlock)};
+        Source();GenericPetOwnerIteratorChecks.Source();var owners=new[]{ClassSkillChecks.Player(DiabloClass.Warlock),ClassSkillChecks.Player(DiabloClass.Warlock)};
         owners[1].Female=true;owners[1].Body=0x191;
         FixtureSpace.Corridor(owners[0],6400,40,3680);owners[1].MoveToWorld(new(6400,3682,0),Map.Trammel);
         var target=FireBoltChecks.Target(owners[0],12);

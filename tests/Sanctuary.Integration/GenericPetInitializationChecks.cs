@@ -100,8 +100,8 @@ public static class GenericPetInitializationChecks
                 _=>throw new InvalidOperationException("Unbound command"),(_,_,_)=>throw new InvalidOperationException("Swarm0 valid"),_=>throw new InvalidOperationException("Swarm0 path"));
             var control=new GenericPetDecisionMemory{Value0=31,Value1=32,Value2=33};
             var leaves=new GenericPetInitializationServices((_,_,_)=>throw new InvalidOperationException("Unbound registry"),_=>throw new InvalidOperationException("Native life property not bound"),
-                unit=>World.FindMobile((Serial)(uint)unit) is PlayerMobile?0:1,(which,visit)=>
-                {Require(which==owner,"Wrong owner iterator");foreach(var other in bodies.Where(b=>checked((int)b.GetMaster().Serial.Value)==which)){visit(checked((int)other.Serial.Value));}},raw);
+                unit=>World.FindMobile((Serial)(uint)unit) is PlayerMobile?0:1,(_,_)=>throw new InvalidOperationException("Unbound player pet store"),raw);
+            leaves=GenericPetOwnerIteratorChecks.Originals(leaves,owner,bodies,world);
             var frame=DeathMarkWorld.InitializePrepared(body,owner,control,world,leaves);
             int expected=before.Type4c==1?before.Target48:checked((int)target.Serial.Value);
             Require(frame.Decision.Memory.Target==expected&&frame.Decision.Memory.Value0==31&&frame.Survey.Visits==bodies.Count(b=>checked((int)b.GetMaster().Serial.Value)==owner)
