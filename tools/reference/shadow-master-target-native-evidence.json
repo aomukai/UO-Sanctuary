@@ -1,0 +1,62 @@
+{
+  "parent": "580b73d31de2524f2b56ea04db0e7abbce54283a",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticMasterAIEnabled": false,
+  "sourceControls": 869,
+  "sourceScanContexts": 613,
+  "sourceTacticContexts": 256,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "shadow-master-target-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "fa2130f3a0f24af8a535544ff1541a7c477699d544182bd8f847cc8665dd6299",
+    "Assemblies/Sanctuary.Integration.dll": "65dff03fad951a429e84b9bcec284d447301f0eb39ec3125dc53f0ff55fec0b5"
+  },
+  "inputsSha256": "401008113811cec98acb6280d634209e3dab3aa39f67829d66e841c201b02f3c",
+  "nativeLogSha256": "148120d16892a3bf2cf7d51b1c84dde27ef82846f4708a347a8ac29165b5559f",
+  "sourceSnapshotSha256": "e19f4817af1362fd149a4745ec371e6cc82109e789258b300b90e536832aad43",
+  "sourceProofSha256": "ca91bb6526c1adecd4a23beb01cc7d173fa6b987a9814e33bc6b5a0b01154aab",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Three complete authenticated older routines compile unchanged with ASan/UBSan:Master callback,special-monster predicate and own-skill tactic admission.613scan and256tactic contexts match native C# results and ordered queries/actions on each of three boots.",
+    "All six aligned trap bases count before attackability/enemy admission;self/dead/null/monster-kind/table/NPC/killability,champion/unique/superunique/boss/prime masks,100/1024 distance boundaries,owner-independent counters,strict first-nearest ties and last-special scan ordering are covered.",
+    "Tactic admission rejects owner/self before own-skill lookup,never borrows a missing player spell,and preserves melee run flags4 versus skill mode/target/source coordinates and service return values.",
+    "Each boot also exercises an actual original Master/own book through the tactic helper into existing S2 and real CBS creation. Own rank differs from owner rank;zero owner mana,parent RNG and once-only completed action remain intact. The temporary fixture is deleted;no new saved Master brain state is claimed.",
+    "The same cohort retains original item/resource baseline saves over two reloads. These are12command markers,not a full-class or full AI106 acceptance claim. No unrelated matrices,full class suite or item audit rerun."
+  ],
+  "limitations": [
+    "Full AI106 approach/owner/target selection,skill scoring/candidate ordering,progressive-state behavior,repeat memory and world enumeration/metadata/movement/action bridges remain to implement/qualify. This prepared policy does not enable automatic Master AI or learned summons.",
+    "Exact current D2R AI106 equivalence,room enumeration order/scope,native monster versus D2 classification,geometry/PvP/ownership and graphical behavior remain unverified. Do not replace these explicit query services with an invented generic nearest-enemy brain.",
+    "Pending individual design decisions remain Shock Web NPC localdelay15 and bounded occupied-point sentry placement. Remaining intrinsic charge/melee/channel/Blade Sentinel consumers,current modifier42 death and learned summon/payment/replacement/input remain;player Blade Shield events stay separately flagged.",
+    "There are no new visual/icon identities for this prepared AI policy. Existing Shadow/sentry effects/audio and talent/hotkey assets remain pending in separate inventories. Installed build/saves/configuration are unchanged;no deployment/public handler."
+  ],
+  "failedRuns": []
+}

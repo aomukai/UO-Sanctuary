@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderSourceTree": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scanContexts": 613,
+  "tacticContexts": 256,
+  "completeRoutineHashes": {
+    "AITHINK_IsTargetKillableByShadowMaster": "b7ddf450b3f5bd5690d9c4f3835e0199b7873f2e1cf9137fa91f9d939a548d4a",
+    "AITHINK_TargetCallback_ShadowMaster": "ecb0bc65dfefbcd06d159bbb72169bc9a11c1081b95cb07a4f94c31747ec7e64",
+    "sub_6FCECBA0": "ea70891414c877b713dc3571f937bc3a301fb2158705c491b069258f42c24a85"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/probe_shadow_master_targets.py": "617f252128c0d827bce472f28d898ed71b61dbe232091872d30a315aa5fea5f9"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-master-target-source/source.cpp": "7295f41f79fcaeea3b2f899660f16156a04d498f62319c9be91824c7a19772ac",
+    ".local/class-skills/shadow-master-target-source/cases.json": "a52b0b3d0e350b3a2f76bc93eecba064ed9a5f6e908c4b9df56a1d058622a8e8",
+    ".local/class-skills/shadow-master-target-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Complete older AI106 callback,special-monster predicate and tactic admission. Ordered query/tactic traces,owner/self ties,trap counting,elite classification and source distance boundaries are compared by the native C# host. Room enumeration,world metadata/movement/action suppliers and full AI106 selection remain separate;no current-executable parity or learned activation is claimed."
+}
