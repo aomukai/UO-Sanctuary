@@ -59,10 +59,11 @@ internal static class DeathMarkWorld
         ArgumentNullException.ThrowIfNull(body);ArgumentNullException.ThrowIfNull(identity);ArgumentNullException.ThrowIfNull(services);
         if(!_actors.TryGetValue(checked((int)body.Serial.Value),out var actor))
         {throw new NotSupportedException("Original demon controller is not registered");}
+        GenericPetLifePercent.Require(checked((int)body.Serial.Value));GenericPetLifePercent.Require(owner);
         var ability=body switch{WarlockGoatmanBody=>CombatAbility.SummonGoatman,WarlockTaintedBody=>CombatAbility.SummonTainted,
             WarlockDefilerBody=>CombatAbility.SummonDefiler,_=>throw new NotSupportedException("Unsupported original GenericPet body")};
         return GenericPetInitialization.Run(new(identity.Game,actor.Selector,checked((int)body.Serial.Value),owner,actor.Command,control,GenericPetProfiles.Raw(ability)),
-            services with{Resolve=identity.Resolve,Survey=BindTargets(services.Survey,identity)});
+            services with{Resolve=identity.Resolve,Property=GenericPetLifePercent.For,Survey=BindTargets(services.Survey,identity)});
     }
     internal static int FinishPrepared(SkeletonGuardian body,(int Kind,int Id)? target)
     {

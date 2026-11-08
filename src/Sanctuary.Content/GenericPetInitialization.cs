@@ -7,7 +7,11 @@ internal sealed record GenericPetInitializationContext(int Game,byte Selector,in
 internal sealed record GenericPetInitializationServices(Func<int,int,int,int> Resolve,Func<int,int> Property,
     Func<int,int> Kind,Action<int,Action<int>> OwnerUnits,GenericPetOwnerSurveyServices Survey);
 internal sealed record GenericPetInitializedFrame(GenericPetDecisionFrame Decision,GenericPetOwnerSurveyState Survey,
-    int Property64,int Property68,GenericPetGatherState Gather);
+    int PetLifePercent,int OwnerLifePercent,GenericPetGatherState Gather)
+{
+    internal GenericPetScoreContext ScoreContext(byte selector,byte gameByte260,int pet,int owner)
+        =>new(selector,gameByte260,pet,owner,PetLifePercent,OwnerLifePercent,Gather.Value108);
+}
 
 // Current4b0b90 composition over the existing decoder,getter and owner callback.
 // A fresh managed frame replaces its empty-default copy/vector lifetime;

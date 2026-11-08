@@ -7,7 +7,7 @@ internal static class GenericPetRatingRouting
 {
     // This ports the complete routing wrapper. Its per-target scoring callee is
     // mandatory and still separate; no generic replacement score is supplied.
-    internal static GenericPetCombatCandidate Rate(byte selector,GenericPetParameters parameters,int frame100,
+    internal static GenericPetCombatCandidate Rate(byte selector,GenericPetParameters parameters,int petLifePercent,
         GenericPetCombatSelection selection,GenericPetCombatCandidate row,GenericPetRatingRoutingServices s)
     {
         ArgumentNullException.ThrowIfNull(parameters);ArgumentNullException.ThrowIfNull(selection);ArgumentNullException.ThrowIfNull(s);
@@ -37,7 +37,7 @@ internal static class GenericPetRatingRouting
             case 13:
             {
                 uint low=unchecked((uint)selection.Word40),high=unchecked((uint)((ulong)selection.Word40>>32));
-                if(!(frame100>=50&&high<=3)&&selection.Targets[2]!=0&&low<4)
+                if(!(petLifePercent>=50&&high<=3)&&selection.Targets[2]!=0&&low<4)
                 {
                     var copy=Score(row with{Target=selection.Targets[2]});
                     if(copy.Rating>int.MinValue){return copy with{Rating=unchecked(copy.Rating+20)};}

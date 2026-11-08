@@ -5,7 +5,7 @@ internal sealed record GenericPetScoreSkill(byte Flags36,byte Flags39,short Quar
     short State162,short Class272,sbyte OwnerCompare274,int Calc276);
 internal sealed record GenericPetScoreUnit(GenericPetDecisionUnit Position,int ClassId,int UnitId,byte Selector445,bool HasStats,
     bool HasMonsterData=false,bool HasMonsterRow=false,bool SnapshotOverride=false,byte SnapshotByte8=0);
-internal sealed record GenericPetScoreContext(byte GameSelector,byte GameByte260,int Pet,int Owner,int Frame100,int Frame104,int Frame108);
+internal sealed record GenericPetScoreContext(byte GameSelector,byte GameByte260,int Pet,int Owner,int PetLifePercent,int OwnerLifePercent,int GatherValue108);
 internal sealed record GenericPetScoreServices(Func<byte,int,GenericPetScoreSkill> Skill,Func<int,int,int> Flag4Value,
     Func<int,GenericPetScoreUnit> Unit,Func<byte,int,bool> StatCost,Func<int,int,int> StatValue,Func<int,int,int,int> Distance,
     Func<byte,int> StateCount,Func<byte,int,ushort?> StateGroup,Func<int,int,bool> HasState,
@@ -35,7 +35,7 @@ internal static class GenericPetTargetScoring
                     score=skill.Bonus730+skill.Quarter532/4+row.Opaque24;
                     if((skill.Flags36&4)!=0)
                     {if(s.Flag4Value(c.Pet,row.SkillId)>3){return Reject();}score+=p.ProgressiveBonus;}
-                    if((skill.Flags36&8)!=0){score+=c.Frame108>0?2*c.Frame108:-10;}
+                    if((skill.Flags36&8)!=0){score+=c.GatherValue108>0?2*c.GatherValue108:-10;}
                     if(row.Target!=0)
                     {
                         int stat=skill.Element644 switch{0=>36,1=>39,2=>41,3=>37,4 or 12=>43,5=>45,_=>-1},value=0;
@@ -92,7 +92,7 @@ internal static class GenericPetTargetScoring
                         if(target.Position.Kind==1&&target.HasMonsterData&&target.HasMonsterRow)
                         {byte index=target.SnapshotOverride?target.SnapshotByte8:c.GameByte260;if(s.MonsterByte242(row.Target,index)<25){return Reject();}}
                     }
-                    if(row.Byte36==12){score+=c.Frame100<50?10:c.Frame100<75?5:0;}
+                    if(row.Byte36==12){score+=c.PetLifePercent<50?10:c.PetLifePercent<75?5:0;}
                     score+=p.MeleeBonus+(distance<p.MeleeMaxSquared/2?10:0);return Finish(score);
                 }
                 case 5:case 11:
@@ -100,7 +100,7 @@ internal static class GenericPetTargetScoring
                     if((uint)word48>0){score-=5;}return Finish(score+p.RangedBonus);
                 case 7:
                 {
-                    if(c.Frame100>66)
+                    if(c.PetLifePercent>66)
                     {
                         if(row.Target==0){return Reject();}
                         if(p.MeleeBonus>p.RangedBonus)
@@ -121,13 +121,13 @@ internal static class GenericPetTargetScoring
                         // The second current read is pet X again,not pet Y.
                         int y=px+(int)SourceRandom.Limited(ref random.Seed,40)-20;row=row with{Target=0,Opaque8=XY(x,y)};
                     }
-                    return Finish(score+(c.Frame100>=33?5:15));
+                    return Finish(score+(c.PetLifePercent>=33?5:15));
                 }
                 case 8:
                 {
-                    int value=c.Frame100,recipient=c.Pet;
+                    int value=c.PetLifePercent,recipient=c.Pet;
                     if(value>66)
-                    {if(skill==null||(skill.Flags39&4)==0||c.Owner==0){return Reject();}value=c.Frame104;if(value>66){return Reject();}recipient=c.Owner;}
+                    {if(skill==null||(skill.Flags39&4)==0||c.Owner==0){return Reject();}value=c.OwnerLifePercent;if(value>66){return Reject();}recipient=c.Owner;}
                     row=row with{Target=recipient};return Finish(score+(value<33?40:20));
                 }
                 case 13:

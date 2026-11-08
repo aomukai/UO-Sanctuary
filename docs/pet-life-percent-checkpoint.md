@@ -1,0 +1,21 @@
+# GenericPet life-percentage producer
+
+2026-11-09 JST. Reference **D2R Reign of the Warlock3.3.93847**. **213/240 handlers, Warlock4/30; no class certified.** The prepared demon initializer now reads actual pet/owner health and supplies the existing scoring policies. Automatic AI and learned summon casts remain unfinished.
+
+`GenericPetLifePercent.Calculate` matches the retained current`27acb0`/`24fa20` helpers: shift current and maximum FP8life **separately** right by8, then compute signed integer `100 × current whole life / maximum whole life`. A zero whole maximum returns0. No0–100clamp is added. For example,10.5/21.5life supplies **47%**, and257/511FP8supplies **100%**; dividing before truncating would give different results.
+
+The native projection uses existing `SkillHealth.Balance256` and `Maximum256` for class players and original prepared Warlock demons. Missing/deleted units return0; unclassified live units are explicitly refused. This reuses the existing health accounting without reconstructing a D2heap/stat-root. Player resource maxima already project by floor, which preserves the getter's whole-life denominator; original summon maxima use their FP256source interface. Unsupported native contexts are checked before the prepared initializer consumes commands.
+
+`DeathMarkWorld.InitializePrepared` binds that producer instead of a supplied numeric placeholder. Initialized frames expose `PetLifePercent` and `OwnerLifePercent`; `ScoreContext` passes them, plus the existing gather accumulator, to the scorer. Misleading `frame100`/`Frame100`/`Frame104` labels are corrected. **Scorer/router arithmetic is unchanged**: the receipt compares the complete files with the parent after only those name substitutions. Historical oracle JSONkeys remain unchanged as recorded evidence.
+
+**Verification:**57focused comparisons execute both complete current helpers,216retained bytes, with declared available stat6/7 metadata/value services and a null-unit control. They cover fractional and whole boundaries, signed extremes, zero denominator and out-of-range percentage results. No new process read or large historical source/compiler matrix was needed.
+
+Native checks create a real class player's fractional wound: the source property reports **49% while rounded native hits report50%**. Actual health reaches the original demon initializer and existing type8scoring/type13routing. An earlier captured frame retains its old percentage after a new wound. These checks issue no skill or healing action. Owner life is explicitly restored as fixture cleanup; injured-player persistence or suppressed regeneration is not claimed.
+
+A wounded original Goatman retains its birth snapshot, exact fractional life, source maximum and49%value through two actual reloads. Its loaded initializer reads those preserved values without healing or recapture. The retained three-species command cohort also exercises the new producer for original Goatman/Tainted/Defiler bodies and Warlock/Witch owners after load, preserving typed commands and wounds.
+
+Accepted stage `.local/class-skills/pet-life-percent`: **Content1/Integration2/snapshot2/native2**,15markers/three boots/two reloads/three saves, zero warnings/errors. Native1passed arithmetic and the original command cohort, then the fixture started at3800while its corridor loop required a row below3800. Exact failed sources/inputs/logs/binaries are archived under `failed-native-1`. Only fixture placement changed; production DLL is identical in accepted native2.
+
+[Source receipt](../tools/reference/pet-life-percent-source-evidence.json), [native receipt](../tools/reference/pet-life-percent-native-evidence.json). `python3 tools/record_pet_life_percent.py --check` authenticates accepted evidence offline. Installed106artifacts,38saves,20configuration files and43current client patches remain unchanged. No deployment, new effect or final asset; existing demon effects/audio and talent/hotkey icons remain separate.
+
+Next: qualify actual owner-iterator membership/order, persistent AI-control words and timed AI scheduling, then bind the remaining live search/path/movement/combat/action services. Keep the raw`+8`survey lookup uncertainty explicit. No simpler AI or automatic learned route was substituted.

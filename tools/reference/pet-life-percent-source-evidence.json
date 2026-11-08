@@ -1,0 +1,24 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceBytes": 216,
+  "sourceContexts": 57,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "unicornVersion": "2.1.4",
+  "artifacts": {
+    ".local/class-skills/pet-life-percent-source/cases.json": "33cc23371c9e3b934abadfc65c3abe108d7f43344dd8b931d73276de77f3658f",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-maxlife-20261109-24fa20-part0.bin": "7e6d6df50812f56d0e3fd82f4ebc8c611d80246ee62794234367b174384b9331",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-maxlife-20261109-24fa20-part1.bin": "c03e34f67c60c6bb2417b0a424fc181e001919044a3ff7768de9c1192b1333ec",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-maxlife-20261109-24fa20-part2.bin": "6b9ab5a3dd28f605327adadacd83b540e133f5143b82a4002756262e4b6512c8",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-maxlife-20261109.json": "48fd33135a868639216428d91c485540e32cd15e3060611daa679b821ce9b316",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-property-20261109-27acb0-part0.bin": "621623b29226f30f5005d55f719bc15e2cbadaf7a1aeafa0b1a2f71213541dd6",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-property-20261109-27acb0-part1.bin": "5c67f8943601af2f55b891e4c2a09c448e90980ecf309c5747a587e8ca80a987",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-property-20261109-27acb0-part2.bin": "c80d1038ebf391167e03581fbb7bed79a5dcc4993d242d9cf2948d8981254e62",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-property-20261109.json": "5ec012e274bf34033004a8cb07b3fb6c573de1572e20abdce8e7f99d37c52131",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_life_percent.py": "97db4022a0b5bc7dbc49fbf0efeb0a5d962363954fa51e76b6e0bdabd52abcb8"
+  },
+  "scope": "Both complete captured arithmetic/getter bodies execute with declared available stat6/7 metadata and FP8values. Null-unit behavior is included. Missing/raw-stat-root metadata and allocator fidelity are not native admission claims."
+}

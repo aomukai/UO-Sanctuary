@@ -54,7 +54,7 @@ public static class GenericPetInitializationChecks
             var initial=expected.GetProperty("initialized");var frame=state.Decision;
             Require(Parameters(frame.Parameters).SequenceEqual(Ints(initial.GetProperty("parameters"))),"Composed default/decoded parameters differ");
             Require(frame.Memory.Target==N(initial,"target")&&new[]{frame.Memory.Value0,frame.Memory.Value1,frame.Memory.Value2}.SequenceEqual(Ints(initial.GetProperty("memory"))),"Command cache/control snapshot order differs");
-            Require(new[]{state.Property64,state.Property68}.SequenceEqual(Ints(initial.GetProperty("properties")))&&state.Gather.Value108==N(initial,"gather"),"Property/default scratch differs");
+            Require(new[]{state.PetLifePercent,state.OwnerLifePercent}.SequenceEqual(Ints(initial.GetProperty("properties")))&&state.Gather.Value108==N(initial,"gather"),"Property/default scratch differs");
             Require(state.Survey.Visits==N(initial,"visits")&&state.Survey.Targets.SequenceEqual(initial.GetProperty("swarm").EnumerateArray().Select(x=>new GenericPetSearchSwarm(x[0].GetInt32(),x[1].GetInt32()))),"Actual owner callback output differs");
             Require(new[]{data.Target48,data.Type4c}.SequenceEqual(Ints(initial.GetProperty("command"))),"Initial command consumption/property side effect differs");Trace(trace,initial.GetProperty("trace"));trace.Clear();
             int selected=N(p,"finishTarget");(int Kind,int Id)? target=selected==0?null:(N(p,"finishKind"),100+selected);
@@ -99,13 +99,13 @@ public static class GenericPetInitializationChecks
             var raw=new GenericPetOwnerSurveyServices(_=>throw new InvalidOperationException("Swarm0 unit"),(_,_)=>throw new InvalidOperationException("Swarm0 row"),
                 _=>throw new InvalidOperationException("Unbound command"),(_,_,_)=>throw new InvalidOperationException("Swarm0 valid"),_=>throw new InvalidOperationException("Swarm0 path"));
             var control=new GenericPetDecisionMemory{Value0=31,Value1=32,Value2=33};
-            var leaves=new GenericPetInitializationServices((_,_,_)=>throw new InvalidOperationException("Unbound registry"),unit=>unit==id?7:8,
+            var leaves=new GenericPetInitializationServices((_,_,_)=>throw new InvalidOperationException("Unbound registry"),_=>throw new InvalidOperationException("Native life property not bound"),
                 unit=>World.FindMobile((Serial)(uint)unit) is PlayerMobile?0:1,(which,visit)=>
                 {Require(which==owner,"Wrong owner iterator");foreach(var other in bodies.Where(b=>checked((int)b.GetMaster().Serial.Value)==which)){visit(checked((int)other.Serial.Value));}},raw);
             var frame=DeathMarkWorld.InitializePrepared(body,owner,control,world,leaves);
             int expected=before.Type4c==1?before.Target48:checked((int)target.Serial.Value);
             Require(frame.Decision.Memory.Target==expected&&frame.Decision.Memory.Value0==31&&frame.Survey.Visits==bodies.Count(b=>checked((int)b.GetMaster().Serial.Value)==owner)
-                &&frame.Property64==7&&frame.Property68==8&&frame.Gather.Value108==0,"Original actor initializer did not consume supplied source context");
+                &&frame.PetLifePercent==GenericPetLifePercent.For(id)&&frame.OwnerLifePercent==GenericPetLifePercent.For(owner)&&frame.Gather.Value108==0,"Original actor initializer did not consume supplied source context");
             Require(DeathMarkWorld.State(body) is{Target48:0,Type4c:0},"Original registered command not consumed");
             Require(DeathMarkWorld.FinishPrepared(body,(before.Type4c-1,before.Target48))==1&&DeathMarkWorld.State(body)==before,"Original selected command not restored without resetting controller");
         }

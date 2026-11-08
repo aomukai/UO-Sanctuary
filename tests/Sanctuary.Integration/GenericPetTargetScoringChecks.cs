@@ -62,7 +62,7 @@ public static class GenericPetTargetScoringChecks
                 else
                 {
                     compositions++;var selection=new GenericPetCombatSelection(p.GetProperty("targets").EnumerateArray().Select(v=>v.GetInt32()).ToArray(),word40,word48);
-                    row=GenericPetRatingRouting.Rate(selector,parameters,context.Frame100,selection,row,new((table,id)=>Skill(table,id)?.Flags39,Score));
+                    row=GenericPetRatingRouting.Rate(selector,parameters,context.PetLifePercent,selection,row,new((table,id)=>Skill(table,id)?.Flags39,Score));
                 }
             }
             catch(NotSupportedException e) when(e.Message is "Current type2 target scorer requires skill metadata" or "Current target scorer requires a pet" or "Current target scoring state-table selector requires 1..3")

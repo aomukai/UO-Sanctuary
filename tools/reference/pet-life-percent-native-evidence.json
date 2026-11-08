@@ -1,0 +1,84 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "currentLifeHelperBytes": 216,
+  "newSourceContexts": 57,
+  "retainedGetterContexts": 35,
+  "newProcessReads": 0,
+  "oldLargeSourceMatricesRerun": 0,
+  "scoringPoliciesChanged": "Names only;exact replacement comparison against parent",
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-life-percent-check": 1,
+    "pet-life-percent-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeRun": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "0d98b7bb8263cde689f19ed60208d633ca32668734894d035503ec5ec2acf68d",
+    "Assemblies/Sanctuary.Integration.dll": "4df6324b4e18815ebb76785b68afde96b4b9218701e1558dc6ccde7a69cff3e0"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete captured216-byte life/max arithmetic matches57native comparisons with available stat6/7 services and null-unit case. Each FP8operand shifts separately before signed division;zero whole max returns0;no0..100clamp.",
+    "Original registered demon initializer now reads real existing SkillHealth fields for pet/owner. A49percent FP wound appears as50percent from rounded player hits. Existing type8scorer/type13router consume the actual produced fields;captured earlier life remains frozen.",
+    "New original wounded Goatman/birth/max/fraction/percentage survive two reloads. Existing three-species typed-command/Warlock-Witch body tests use the new native property binding after load. Player life is explicitly restored for fixture cleanup;injured-player persistence/regen suppression is not claimed."
+  ],
+  "limits": [
+    "Native health projection supports class players and original prepared Warlock demons;unclassified live units are explicitly refused. It reuses existing life accounting,not raw D2heap/stat-root reconstruction or missing metadata equivalence.",
+    "Owner iteration/order,persistent AI-control words,remaining live predicates/path/event/movement/search/action services and automatic/learned casts remain gated. No class certificate follows.",
+    "Life-field renaming leaves existing scorer/router arithmetic unchanged. Historical fixture JSONkeys frame100/104/108 remain as recorded source inputs.",
+    "No new visual/assets/deployment;existing effects/audio and talent/hotkey icons remain separate."
+  ],
+  "diagnostics": [
+    "Native1passed arithmetic controls and original command cohort,then failed because fixturefirstRow3800equaled the corridor loop upper bound. Exact failed source/inputs/logs/binaries archived. Fixture starts3400and uses actual placed owner coordinates;productionDLLidentical in accepted native2."
+  ],
+  "inputs": {
+    "tools/reference/pet-life-percent-source-evidence.json": "96f7683530b5ad6203091c28c420fe5891c812533e5f0bf2f3d5ead72dd67c5f",
+    ".local/class-skills/pet-life-percent/birth-inputs.json": "cf258e419a1e33cf0890651cfcb46ba016c000178900e09044507884e373a2ef",
+    ".local/class-skills/pet-life-percent/source-snapshot-2.json": "21113b05e807416247994cbf78c1ba5bcf0df275c12fc9f275f399aae4cd9c72",
+    ".local/class-skills/pet-life-percent/content-build-1.log": "c96d2087fa9cf9ca1a5defe53ddb71ae46dfccb1c82153f9cc53e222e48cdbef",
+    ".local/class-skills/pet-life-percent/integration-build-2.log": "13fe4c118cd1274cc6291f71330174d93abacd785f92f383ed914d5ca0775635",
+    ".local/class-skills/pet-life-percent/birth-native-checks.log": "984be9858d182575f8b07b13077cc5fd14a841fb262740bed6ea6c5eb9488b5e",
+    ".local/class-skills/pet-life-percent/pet-life-percent-fixtures.json": "7a473e0d848eed510cd1deb5a13661d5d50793a96beb831ebf2dc4926ffc8559",
+    ".local/class-skills/pet-life-percent/pet-command-target-fixtures.json": "1661ac057967d6ccc3f9cf397c8212e2d25adeae903f6f08102b868b5a1e9fc7",
+    ".local/class-skills/pet-life-percent/failed-native-1/birth-native-checks.log": "fb1b843e867ef1ffbe59905f375928cc8a8cbade3a83974947d79b7afeb1a95d",
+    ".local/class-skills/pet-life-percent/failed-native-1/sources/tests/Sanctuary.Integration/GenericPetLifePercentChecks.cs": "ac994a2833d7b8456f9577618854f3d742fc96fe32730b2615e79a788e2a1410",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-life-percent-checkpoint.md": "600dab4342d00a7d7f22cf289737e5ba5d7e72b39f708e67a7cc6a7a61104894",
+    "docs/class-skills-resume-checkpoint.md": "258dfb8f25a103df2199104b1404584e5e6cccd2d1620aa16ad7a3ffb3d0dcb7",
+    "docs/class-skill-roadmap.md": "cf2f4b3c08a1047885534b41b9c06a0377137a97aa6e046408bb578ba2e18b2d",
+    "docs/class-skill-reuse-notes.md": "6527ca2777d723f0670757a17c73c845ea417409006eda9ee18000850ab2f6df",
+    "docs/skill-mechanical-reference.md": "e4dee4d235343c6985608cdc5df66148776fdc1218d9ce29d2544a82e676e914",
+    "tests/check_pet_life_percent.py": "33771f3ea413d3eb3af8b88d55ebb4bb7f67ddfbe53ac17fd674dd1fd01c9de9",
+    "tools/record_pet_life_percent.py": "7f19cf857c9e637442cee5473124251204026555da5e69d2e01ac464c7f0672e"
+  }
+}
