@@ -11,7 +11,7 @@ internal sealed record GenericPetEventBinding(GenericPetRootContext Context,Gene
 // Current timed event producer/remover;not SourceUnitEvents subscriptions or
 // SourceAnimationEvents tags. No dispatcher,timer or allocator is installed.
 // This supported store contains monster events with a null callback only.
-internal sealed class GenericPetTimedEvents
+internal sealed partial class GenericPetTimedEvents
 {
     private readonly Dictionary<int,GenericPetTimedEvent> _nodes=new();
     private readonly Dictionary<int,List<int>> _units=new(),_buckets=new();
@@ -49,6 +49,7 @@ internal sealed class GenericPetTimedEvents
         var node=Node(handle);
         if((node.Flags&1)!=0){_nodes[handle]=node with{Flags=checked((ushort)(node.Flags|8))};return;}
         if((node.Flags&2)!=0){throw new NotSupportedException("Timed event already released");}
+        if(_cursor==handle){_cursor=Previous(handle);}
         _units[node.Actor].Remove(handle);_buckets[node.Frame%64].Remove(handle);_nodes[handle]=node with{Flags=2};_free.Push(handle);
     }
     internal int Idle(int actor,int ticks,Func<GenericPetEventClock> live,Action neutral,Action deferred)

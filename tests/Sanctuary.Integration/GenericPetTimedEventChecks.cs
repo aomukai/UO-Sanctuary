@@ -59,17 +59,21 @@ public static class GenericPetTimedEventChecks
         Require(count==31,"Missing timed-event controls");
         Log.Information("Timed events:31current sequences/1796retained bytes;frame clamp,per-unit and64-frame bucket insertion,removal,processing flags,reuse,neutral idle replacement andpost-service status match. Available pool/null callback are declared;dispatch/timer remains gated.");
     }
-    internal static GenericPetEventBinding Bind(SkeletonGuardian body,GenericPetRootContext context,GenericPetRootServices root)
+    internal static GenericPetEventBinding Bind(SkeletonGuardian body,GenericPetRootContext context,GenericPetRootServices root,GenericPetTimedEvents pending=null)
     {
-        int actor=checked((int)body.Serial.Value);var events=new GenericPetTimedEvents();var clock=new GenericPetEventClock(100,1,1,55,false,0,0,0);
-        events.Schedule(actor,2,110,()=>clock,()=>throw new InvalidOperationException());
-        int retained=events.Schedule(actor,1,120,()=>clock,()=>throw new InvalidOperationException());
-        events.Schedule(actor,2,111,()=>clock,()=>throw new InvalidOperationException());
+        int actor=checked((int)body.Serial.Value);var events=pending??new GenericPetTimedEvents();var clock=new GenericPetEventClock(100,1,1,55,false,0,0,0);
+        if(pending==null)
+        {
+            events.Schedule(actor,2,110,()=>clock,()=>throw new InvalidOperationException());
+            events.Schedule(actor,1,120,()=>clock,()=>throw new InvalidOperationException());
+            events.Schedule(actor,2,111,()=>clock,()=>throw new InvalidOperationException());
+        }
+        var retained=events.Unit(actor).Where(id=>events.Node(id).Type!=2).ToArray();
         var binding=events.Bind(context,root,actor);var removal=root.RemoveEvent;var finish=root.Finish;
         return binding with{Services=binding.Services with
         {
             RemoveEvent=index=>{binding.Services.RemoveEvent(index);removal(index);},
-            Finish=memory=>{Require(events.Unit(actor).SequenceEqual(new[]{retained})&&events.Node(retained).Type==1,"Root did not remove exactly timed AI events");finish(memory);}
+            Finish=memory=>{Require(events.Unit(actor).Where(id=>(events.Node(id).Flags&1)==0).SequenceEqual(retained),"Root did not remove exactly timed AI events");finish(memory);}
         }};
     }
 }

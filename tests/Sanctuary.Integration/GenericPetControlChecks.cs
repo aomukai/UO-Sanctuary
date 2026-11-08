@@ -28,7 +28,7 @@ internal static class GenericPetControlChecks
             Require(DeathMarkWorld.State(body)==before with{Control=seed},"Explicit control registration changed command/mode/next-AI");
         }
     }
-    internal static void Root(SkeletonGuardian body,int owner,GenericPetWorldIdentity world,GenericPetInitializationServices leaves)
+    internal static void Root(SkeletonGuardian body,int owner,GenericPetWorldIdentity world,GenericPetInitializationServices leaves,GenericPetTimedEvents pending=null)
     {
         var before=DeathMarkWorld.State(body);var words=before.Control;Require(words!=null,"Loaded original lost control words");
         var after=new GenericPetSavedControl(unchecked(words.Value0+1),unchecked(words.Value1-7),words.Value2^0x5a5a5a5a);
@@ -51,9 +51,9 @@ internal static class GenericPetControlChecks
             Require(DeathMarkWorld.FinishPrepared(body,(before.Type4c-1,before.Target48))==1,"Original root finishing rejected typed target");trace.Add("finish");
         },(_,_,_)=>throw new InvalidOperationException("Persistent control writer was not bound"));
         root=DeathMarkWorld.BindControlPersistence(body,root);
-        var events=GenericPetTimedEventChecks.Bind(body,new(pet,true,true,true,Array.Empty<byte>()),root);
+        var events=GenericPetTimedEventChecks.Bind(body,new(pet,true,true,true,Array.Empty<byte>()),root,pending);
         GenericPetDecisions.Think(events.Context,events.Services);
-        Require(trace.SequenceEqual(new[]{"init","remove0","remove2","combat","finish"})&&DeathMarkWorld.State(body)==before with{Control=after},"Root failed to publish exactly three AI words after finishing");
+        Require(trace.SequenceEqual(new[]{"init"}.Concat(events.Context.EventTypes.Select((type,index)=>(type,index)).Where(entry=>entry.type==2).Select(entry=>"remove"+entry.index)).Concat(new[]{"combat","finish"}))&&DeathMarkWorld.State(body)==before with{Control=after},"Root failed to publish exactly three AI words after finishing");
         // Source frame is transient. Subsequent writes cannot rewrite the saved
         // controller;the next initialization reads its last published values.
         initialized.Decision.Memory.Value0=123;

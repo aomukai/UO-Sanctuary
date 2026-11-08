@@ -108,6 +108,7 @@ public static class GenericPetInitializationChecks
             Require(DeathMarkWorld.State(body) is{Target48:0,Type4c:0},"Original registered command not consumed");
             Require(DeathMarkWorld.FinishPrepared(body,(before.Type4c-1,before.Target48))==1&&DeathMarkWorld.State(body)==before,"Original selected command not restored without resetting controller");
             GenericPetControlChecks.Root(body,owner,world,leaves);
+            GenericPetEventDispatchChecks.Native(body,owner,world,leaves);
         }
     }
 }
