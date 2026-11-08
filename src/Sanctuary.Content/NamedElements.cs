@@ -109,7 +109,7 @@ public static class NamedElements
         resist = Resistance(source, target, element, resist, pierceOverride);
         int reduction = element == "pois" ? 0 : element == "physical"
             ? GemCombat.PhysicalReduction(target) : GemCombat.Reduction(target);
-        int scaledReduction=(int)Math.Clamp((long)reduction*256*(damageRate>0?damageRate:1024)/1024,0,int.MaxValue);
+        int scaledReduction=GemCombat.Reduction256(reduction,damageRate);
         if (element is "fire" or "cold" or "ltng")
         {
             int innate=target is NecromancerMinion minion && element=="fire"?minion.FireAbsorb:0;

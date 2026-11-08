@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved prepared Death Mark recipient (2026-11-09 JST).** Target effect0x375A/hue0x48A is an identified placeholder. Final cast,warp/landing,target mark/expiry and audio still need creation;no final artwork was generated. [Rule/checkpoint](death-mark-debuff-proposal.md). Mechanical work continues independently;icons remain separate.
+
 **Live Death Mark demon bridge (2026-11-09 JST).** Actual relocation now emits identified landing placeholder0x3728. Final cast,warp/landing overlay,target mark/expiry and audio are pending;no final images were generated. [Checkpoint](death-mark-world-checkpoint.md). Icons remain separately tracked.
 
 **Prepared Death Mark pet composition (2026-11-09 JST).** Relocation/command/control helpers are implemented as detached mechanics;no new world art is emitted. Final cast, pet warp/landing overlay, target mark/expiry and audio remain pending for world integration. [Checkpoint](death-mark-pets-checkpoint.md). No image generation performed;icons stay separate.

@@ -15,14 +15,23 @@ public static class GemCombat
     }
     public static bool Undead(Mobile target) => target is BaseCreature creature
         && (CreatureProfiles.For(creature).Traits.Undead ?? (creature is GraveyardUndead or SkeletonGuardian || SlayerGroup.GetEntryByName(SlayerName.Silver)?.Slays(creature) == true));
-    public static int Reduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
+    private static int ItemReduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
         ? Math.Max(0, ClassGear.Bonus(p, "magic-reduction"))
         : target is BaseCreature creature ? Math.Max(0,NpcEquipmentCombat.DefensiveBonus(creature,"magic-reduction")) : 0;
+    public static int Reduction(Mobile target)=>checked(ItemReduction(target)+DeathMarkDebuffs.Reduction(target));
+    public static int PhysicalReduction(Mobile target)=>checked(ItemPhysicalReduction(target)+DeathMarkDebuffs.Reduction(target));
+    internal static int Reduction256(int amount,int damageRate)
+    {
+        if(amount<=0){return (int)Math.Clamp((long)amount*256,int.MinValue,0);}
+        long value=(long)amount*256;int rate=damageRate>0?damageRate:1024;
+        if(value>(long)int.MaxValue*1024/rate){return int.MaxValue;}
+        return (int)(value*rate/1024);
+    }
     internal static double Component(Mobile target, double damage, int resistance, bool magical)
-        => Math.Max(0, damage - (magical ? Reduction(target) : PhysicalReduction(target))) * Math.Clamp(100 - resistance, 0, 200) / 100.0;
+        => damage<=0?0:Math.Max(0, damage - (magical ? Reduction(target) : PhysicalReduction(target))) * Math.Clamp(100 - resistance, 0, 200) / 100.0;
     internal static double PoisonComponent(Mobile target, double damage)
         => Math.Max(0, damage) * Math.Clamp(100 - target.PoisonResistance, 0, 200) / 100.0;
-    public static int PhysicalReduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
+    private static int ItemPhysicalReduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
         ? Math.Max(0, ClassGear.Bonus(p, "physical-reduction"))
         : target is BaseCreature creature ? Math.Max(0,NpcEquipmentCombat.DefensiveBonus(creature,"physical-reduction")) : 0;
     public static int? ResistedDamage(Mobile target, int damage, int physical, int fire, int cold, int poison, int lightning)

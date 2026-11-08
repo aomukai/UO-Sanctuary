@@ -64,7 +64,9 @@ public static class AmazonInnerSight
         // nonnegative hit-defense clamp. Modern full stat-graph parity is open.
         return (int)Math.Clamp(raw+raw*percent/(raw<=0?-100:100),0,int.MaxValue);
     }
-    internal static int Defense(Mobile target,int basis,int percent)=>State(target) is{} state?DefenseValue(basis,percent,state.Reduction):ClassStats.ScaleDefense(basis,percent);
+    internal static int Defense(Mobile target,int basis,int percent)=>DeathMarkDebuffs.State(target)!=null
+        ?DefenseValue(checked(basis+DeathMarkDebuffs.Armor(target)),percent,Reduction(target))
+        :State(target) is{} state?DefenseValue(basis,percent,state.Reduction):ClassStats.ScaleDefense(basis,percent);
     internal static InnerSightState Replacement(InnerSightState old,uint target,uint owner,int rank,int reduction,DateTime until,DateTime at)
     {
         if(old!=null && old.UntilUtc>at)

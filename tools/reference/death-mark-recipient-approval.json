@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedByUser": true,
+  "approvedOn": "2026-11-09",
+  "answer": "Approve this Death Mark recipient rule",
+  "reviewedImplementation": "docs/death-mark-debuff-proposal.md",
+  "rules": {
+    "armor": "Pinned signed flat armor penalty before the common armor percentage, alongside Inner Sight",
+    "reduction": "Pinned physical and magic/elemental flat reduction penalties combine with corresponding item reductions before resistance",
+    "negativeTotals": "Amplify only already-present matching non-poison components; do not scale negative totals by damage rate",
+    "positiveTotals": "Retain existing positive damage-rate scaling",
+    "safety": "Retain nonnegative final damage and integer-maximum saturation",
+    "replacement": "Reject weaker active mark; refresh equal mark retaining creator; stronger mark replaces",
+    "duration": "Pinned effective-rank duration with an absolute saved expiry; independent noncurse state212"
+  },
+  "referenceLimit": "Explicit Sanctuary adaptation. Current numeric binder45f8d0 is protected and full current signed-reduction/stat-factory parity remains unverified. This does not admit unfinished learned casting, automatic pet AI, PvP or unclassified recipient paths."
+}

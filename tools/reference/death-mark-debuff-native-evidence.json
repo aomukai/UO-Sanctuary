@@ -1,0 +1,129 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "tested-approved-adaptation",
+  "approval": {
+    "path": "tools/reference/death-mark-recipient-approval.json",
+    "sha256": "26594c510fb578e65bd21cf1b89672758779cec0800f4cae92e0a457588fbe33"
+  },
+  "currentNumericBinderVerified": false,
+  "currentExecutableParity": false,
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-debuff-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-debuff-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "priorCompilerMatricesRerun": 0,
+  "pinnedFormulaRanks": 255,
+  "capture": {
+    "path": ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109.json",
+    "sha256": "ebe9965434e12ee3a65ba3366774551609487c9d11580ee233a66c3696d35933",
+    "bytesRead": 3468,
+    "process": {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    },
+    "artifacts": {
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part0.bin": "cedf248d8d76c532f048801beb4f04caaaf992f052dd58a74dcd9620dae48253",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part0.asm": "572a5395f8d421b6bde265946001cbf388ef9d747f3b32966c2e0735628ef47d",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part1.bin": "62465eb9d333928aeb835780577d9ff0415e2646672d0d6f89a87483bacda318",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part1.asm": "e9dd9b49a2cb72ad8730c984c1c81c6b021c962473714637bbe5cdb903e858d6",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part2.bin": "cc562be70faf256dacd0050b9d001b872242edb97101c8ff6671bf1c4a0fc214",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part2.asm": "ef2d51835b01a00e316ee5675fb14f8724d377958b528eb60d88a70c328d7873",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part3.bin": "d004a56ef503fd70832fa970a632cf825a6cfa720e46a193094a5b9bbc73c7e7",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part3.asm": "8b8ecd8fce3676c558618854b11735ef9b1db454bab858ef0f2237fcd7be3d9e",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part4.bin": "d90b913ffcc979e29b606ea849b4ccf489819c122afed778c7c181b201f693d8",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3afe80-part4.asm": "f32d53ee3bc074431a1069f273530adb179aa384a3503fbacac260b5050ce4d3",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part0.bin": "e7b7e0e3a11fea42787b9a6f215e38f697238868cc6dbe1d9eceb700233e8f2e",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part0.asm": "3db7e31dff9453977fff6a1dd44a36f8015f42be9190267ba57dc17ca752a76f",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part1.bin": "5921a20d44523e2c8c005732b662cf9a1a66c0bfd39b0927635596c2f9790710",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part1.asm": "ea13aa3c35f24df1948e198cb10b263c59ada18587154839825b47f8159adb50",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part2.bin": "097db75c6693670c66e75b4b398ceb2328d5081095c0f98bfefaa16c1e040ae0",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part2.asm": "d0be7985dc85d5a8125bbce57c0e8bf0c4b7806d0e61cb3c384b0fb292912517",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part3.bin": "09684e69667cbf5eed36a2c78f432a2edcc9942e1346b10b8d2254b813b01639",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part3.asm": "eeb52e1fbb3cd5da3d6aa1588e2cf26ae2fd2f9acbb245ecf4b68fb0ff1a80ab",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part4.bin": "0975d3bb3063aa13d70f44b7d52787ca6c7ced6559fe65c9db0fc6cba0bc7095",
+      ".local/class-skills/warlock-runtime-reference/callees-death-mark-recipient-services-20261109-3a80c0-part4.asm": "93cacf0842cd4b2ee397e75ace4bf9a9aae5ce03cc8ca3158d2dfd32d3443065",
+      ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-after-user-cast.json": "b32d9be28eaf4e80d89ed58fec3c207659d2a4b9f648603c4f8bbb4f1aa74620",
+      "tools/capture_reference_callees.py": "addf38dc41603fd7a180f5ab2863f8eecccc810f23bde0f8b78ae96282ffeb99",
+      "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+      "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e"
+    }
+  },
+  "compiledRow": {
+    "path": ".local/class-skills/defiler-compiled-formula/skills.bin",
+    "sha256": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    "stride": 748,
+    "id": 375,
+    "auraStats": [
+      31,
+      34,
+      35,
+      -1,
+      -1,
+      -1
+    ],
+    "targetState": 212,
+    "auraEvents": [
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "eventFunctions": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "577b5db96040d66c019487b447781634d020351dc3ddf63872cef3d599834ab8",
+    "Assemblies/Sanctuary.Integration.dll": "b3bf19db4a581592ec7dc3a4a12de80275f402bca5ef90c67682f1b3eefc7814"
+  },
+  "files": {
+    "src/Sanctuary.Content/DeathMarkDebuffs.cs": "4d8502eea83e1ae8d533e301a4177c8235572b1f5d7f68364ea2794a6e59c8b4",
+    "src/Sanctuary.Content/GemCombat.cs": "4c907e1c0a885f7e60e372c6a6fbb97e66129fd3a6235e3529a825e5f67aa922",
+    "src/Sanctuary.Content/NamedElements.cs": "8a93381a5f553b11be7727f74fabf2a4277d6085899d7c9f724316128117fc65",
+    "src/Sanctuary.Content/AmazonInnerSight.cs": "df56cb0e14cc10c7b57565e44dd83be91ccdf6d47b2173983f694b5608b99b72",
+    "tests/Sanctuary.Integration/DeathMarkDebuffChecks.cs": "85e116bf793951b8e23b0a287e95ca99e6599bcd6d98d632b6b273be3165d6ac",
+    "tests/check_death_mark_debuff.py": "696bf2d5e09441123419d979ff7e05a8d0d6a32d31e8be29594a1449d2863a41",
+    "tools/record_death_mark_debuff.py": "98dbab76ccd63a910588abb02e4a82e9c075ee9b30df281dcaa514e8ff79db60"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Prepared hostile ordinary NPC recipient:actual armor/native damage hooks,signed flat penalties before resistance,no absent components or poison amplification,positive scaling controls,safe saturation,rank/creator/deadline replacement,curse/InnerSight coexistence,atomic malformed restore,expiry prune. Natural rank255 mark and ordinary curse survive two actual reloads without retention holds. No learned cast or automatic pet AI enabled.",
+  "limitations": [
+    "Current numeric binder45f8d0 remains protected. Numeric and replacement rules are user-approved Sanctuary adaptations,not current-build equivalence.",
+    "Player/PvP,enemy-owned pets and unclassified recipients remain outside the prepared predicate.",
+    "Automatic GenericPet controller consumption/action cancellation,startup/payment/input and final assets still required."
+  ]
+}
