@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 46,
+  "contextsByKind": {
+    "initial": 6,
+    "rewind": 24,
+    "critical": 16
+  },
+  "completeRoutines": {
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBD120": "81fc71dd01d80ea8700a239227e6a42c9f9265fadfb757cb00fc663a9ad94ac8",
+    "MISSILE_HasBonusStats": "a176a57753d2e9a208feb4715ff14721b6152fbfb33a3ab31db7a58c243606da"
+  },
+  "inputs": {
+    "tools/probe_blade_fury_timing_reference.py": "77a8e1782364101d8972011a98ae009cc811086397fb685db153a5e6e06955c8",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/reference/shadow-buff-animation-source-evidence.json": "ed93113605771662a11f1c6888bc97234aa02abe9ba763e08a375bb0eb4c3c26",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-fury-action-source/source.cpp": "667b51f9d93397de7aa46b11fe91881c003f779fd497d46570b3995eeaee75ad",
+    ".local/class-skills/shadow-fury-action-source/probe": "9eab1e9cf970cf5eb9f308026bf0e236bc240b3abff7e8aa234101222e7f53fa",
+    ".local/class-skills/shadow-fury-action-source/cases.json": "dd157aef285c1aa6485debb00ca1d6f5cb0dab53ed669b806f9b1f7b6f447734",
+    ".local/class-skills/shadow-fury-action-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-fury-action-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_shadow_fury_action.py": "d185656e5eb51048eaf2927727c692902d07b678fe6ae5a76e7478bf7cd30b84"
+  },
+  "scope": "Complete initial/ordinary rewind on owned SC17/event9 geometry,6speeds/24rewinds.16critical comparisons compile full unchanged legacy MISSILE_HasBonusStats and separately named explicitly changed unsigned proposal. Target/chance/stat/random/event insert/delete services supplied;no automatic critical policy qualified. Existing SC conversion/rates/resource and NPCcallback0 proof reused,no prior matrices rerun. FIFO scheduled-state-before-renewed-action ordering reviewed in Event.cpp;modern executable remains unverified."
+}

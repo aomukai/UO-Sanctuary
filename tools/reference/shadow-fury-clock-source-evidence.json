@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "contexts": 12,
+  "completeClockRoutines": {
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f"
+  },
+  "reviewedCallback": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe",
+  "inputs": {
+    ".local/class-skills/shadow-flight-clock-source/source.cpp": "7c9bbf9f4b6e30f829ad37872d86a8b326c08062efc294874476b9244fbff12c",
+    ".local/research/d2r-3.3.93847/monseq.txt": "a48a884a654cab7cafe0be2764fa8a77f428a9b48855d27461d133a1f553898c",
+    ".local/research/d2r-3.3.93847/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "reusedProof": {
+    "tools/reference/shadow-flight-clock-source-evidence.json": "58e2212919712201114ce41db14725d84401f08e3c1e4ed1a4f8e67df3b0e121"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-fury-clock-source/source.cpp": "ea51eff2be3317b8223673954a8d96b8ee4490dc49272a93d207a76c96c3cafb",
+    ".local/class-skills/shadow-fury-clock-source/probe": "7870e9a02302e6d7cb21818ae1ea33ce43abd39523a8c565fc16185f0a8d1588",
+    ".local/class-skills/shadow-fury-clock-source/cases.json": "83e5d9054cfa92ec8f194cc4ede79c6fe72a3501665ad511341872cbcc17cca9",
+    "data/Sanctuary/Balance/shadow-fury-sequence.json": "37c0db7c67925b30683efc8d633ab313207bd9bbb35329e44c4dc893a135cbee",
+    ".local/class-skills/shadow-fury-clock-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-fury-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_shadow_fury_clock.py": "65441c41c3959802c0a277c3c7b444c2fe9be981779beea4453ccf755a4fab71"
+  },
+  "scope": "Original monstats slot2/Fury retained mode14 overrides generic SC metadata. Complete retained initializer/rate/stop routines now use actual17point sequence,action9 consumed atNPCframe10,end18. SeqtransA1/UseAttackRate0 selectOther and leave sequence speed256. Generic SC comparison is not the initialized action. Source do48/state/rewind scheduling,remaining lease across reentry,critical/world/private seeds and full AI remain separate."
+}
