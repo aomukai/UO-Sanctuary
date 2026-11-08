@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderSourceTree": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 497,
+  "completeRoutineHashes": {
+    "AITHINK_Fn106_143_ShadowMaster": "844c612911f319e28b6427b681e50135099f615950af72e1fcb7e86b3fe24d13"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "tools/probe_shadow_master_ai.py": "e397d589e8ffc2356d0236a37315a0262238c92f3bd4235b095871ec9804be56"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-master-ai-source/source.cpp": "4c4bb85a7c0d199d222960396cb19e74f7c8973c3f171c06f86b1474c05667a7",
+    ".local/class-skills/shadow-master-ai-source/cases.json": "b4889d344a6e4589f470bbd21c6476a1ba0a83441fce0c8b36607defd97caad1",
+    ".local/class-skills/shadow-master-ai-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Whole older AI106/143 branch/scoring/ordered-attempt/repeat-memory policy compiled unchanged with ASan/UBSan. Target scan/special classification and own-skill tactic are declared prequalified service boundaries;all world rows,geometry,RNG outputs,movement and action outcomes are explicit fixtures. Native C# must compare ordered traces,memory,left selection and RNG/action counts. No automatic world Master or modern-executable parity is established."
+}

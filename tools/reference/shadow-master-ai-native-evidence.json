@@ -1,0 +1,71 @@
+{
+  "parent": "5b198e24d9b7ffbbcaa18fd5de6c196fb4446684",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticMasterAIEnabled": false,
+  "sourceControls": 497,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "shadow-master-ai-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "b3972447f05f0e32e90967a7a519a378f49cacace0e4b849722ccbe941d6cb7d",
+    "Assemblies/Sanctuary.Integration.dll": "e3a849127dabe6c211f3a967cccd7b26af1077abde2d916773fab1e71701c474"
+  },
+  "inputsSha256": "5a2d43fc0c04de205a026dd833962095b4b7e36413f3f7915f6342c4e47b643e",
+  "nativeLogSha256": "5b850b9b7a43d122885dc6d3c876a87a584ce5344925b1ebd3b93d0131f44736",
+  "sourceSnapshotSha256": "38c5b05bdfb3bf736b2f943218d7b13430eed5ad2f974c8d3b656312441bfeb7",
+  "sourceProofSha256": "35b8359da627fb48b83424ff31967bfd0d52d9a26de05ab2d6ad4ccfbeaf50bc",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Complete authenticated AITHINK_Fn106_143_ShadowMaster compiles unchanged with ASan/UBSan and497whole-function contexts. Native C# matches complete ordered query/RNG/movement/action traces,return memory,left selection and consumed RNG/action counts on each boot.",
+    "No-skill/leash/repeat/ignore-distance branches,precombat buff group checks,owner target precedence,secondary target/minion-owner selection,near-enemy retreat and ordinary attack gating are covered.",
+    "All source AI types0..13 are represented,including active/passive/buff/trap/charge/missile/leech/escape rules,health/distance/resistance thresholds,progressive aura accumulation,missile range and left-skill mutation. Every positive candidate is appended in original skill order,then attempted in reverse with raw&3. A deterministic final control proves a lower-score later skill wins and do19 stores25repeat attempts.",
+    "Target scan/special-monster and own-skill tactic are explicit prequalified service boundaries,not replaced algorithms. The tactic fixture retains its unconditional self/owner-target rejection. The prior869target/tactic controls and actual own Master action boundary are retained separate evidence,not rerun.",
+    "The12command-marker cohort includes the unchanged original item/resource baseline over two reloads/three saves. The prepared Master memory is an explicit return value;no new live/saved Master world brain is claimed. No unrelated matrix,full item exporter or full-class suite rerun."
+  ],
+  "failedRuns": [],
+  "preNativeDiagnostics": [
+    "The initial probe script had a missing space in a Python conditional and stopped before compilation. It was corrected before source/native acceptance.",
+    "The initial source probe passed497contexts;the native fixture initially expected529before its first build. The count was corrected before native execution. Freeze is explicitly source element12,not stun9.",
+    "The declared tactic boundary was tightened before native execution to preserve its already-proved self/owner rejection without consuming action outcomes."
+  ],
+  "limitations": [
+    "Actual Master world enumeration/metadata/geometry,source-state/charge suppliers,retreat/movement/action scheduling and saved repeat-memory bridge remain unqualified. The pure policy is not connected to automatic Master activation or learned summons.",
+    "Exact D2R3.3.93847 AI106 equivalence is unverified. Older self-buff eligibility and source array/list quirks are preserved rather than silently corrected. Candidate lists exceeding the qualified48-slot source capacity refuse explicitly.",
+    "Actual own charge/melee/channel/Blade Sentinel consumers,current modifier42 death and learned summon/payment/replacement/input remain. Shock Web localdelay15 and bounded occupied-target sentry placement remain separate nonblocking questions;player Shield events remain flagged.",
+    "No visual/icon identity is added by this prepared AI policy. Existing Shadow/sentry effects/audio and talent/hotkey icons remain pending separately. Installed build/saves/configuration unchanged;no deployment/public handler."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-master-ai-source-run.log": "55a4edd66472459f63bc256ae206f607ef5540133facb9de3aab1d19a84ba6ff",
+    ".local/class-skills/shadow-master-ai-source-run-2.log": "517ed9054d9a207e7d605e9d9dd5d2d8c6f738751a5218f227f846fa0b4d0154",
+    ".local/class-skills/shadow-master-ai/content-build-2.log": "2dfb4e0e4f91bf4189670738434d58392be16574d7d5f2723a4245501d4082a0",
+    ".local/class-skills/shadow-master-ai/integration-build-1.log": "83320769b4b709e00443702121ce29c2d49691a6034bdd0bfa76ff1a8a78f0ef"
+  }
+}
