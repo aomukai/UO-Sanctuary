@@ -1,0 +1,74 @@
+{
+  "parent": "2f23680ebe693e2808b96ae4e3b8a3db3c630594",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "newCompiledSourceControls": 0,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "npc-spell-freeze-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-master-world-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "npc-spell-freeze-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-master-world-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "824a75d94d593037de8c64aafba4d2be3d692ca4353572af5aab85daedb1c87f",
+    "Assemblies/Sanctuary.Integration.dll": "ee174a01c981d6e6928f058a715e186fe8f19a95847a739e9ec3a3c943ed3e48"
+  },
+  "files": {
+    ".local/class-skills/npc-spell-freeze/source-snapshot-1.json": "c1b9fe67c79bd24f1d325ff5b4e9cb2c77fd14ec895c230b76266d7c7ad8518b",
+    ".local/class-skills/npc-spell-freeze/birth-inputs.json": "6064f4bf7d37a56a566777b76504a6d47bb0a6da973fe97d714417cc4c5c2248",
+    ".local/class-skills/npc-spell-freeze/birth-native-checks.log": "304592c7c4e262bbc694edcfd66ae02ee0a0b1665ac3da28944d860632f77463",
+    ".local/class-skills/npc-spell-freeze/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/npc-spell-freeze/content-build-1.log": "2911cae5515d1b14db0e14cd1e261a32ea15ee57491ec1c29d67ddd573e79fe7",
+    ".local/class-skills/npc-spell-freeze/integration-build-1.log": "5ddc6e157067b80cbe9abd712c00b4f2746cfda2a026d267db05cf1dae33c57f",
+    ".local/class-skills/npc-spell-freeze/npc-spell-freeze-fixtures.json": "7e4ca5572b835c69d2613a1f8602fdd1d38ac3f16c3ad4f33997ff1725b94804",
+    "tools/reference/npc-freeze-hit-source-evidence.json": "adb08e49b2d9448f82cd64060f44757a4aae0a7f8ddb314a7d5375a3f2eaafda",
+    "tools/reference/npc-freeze-hit-native-evidence.json": "fb4a70dc024b99d9e22b9aa83b1fbac58ebd161e4069c12b7b7b7a09c6b92554",
+    "tools/reference/shadow-charge-action-native-evidence.json": "d66be5497296f67354ce97d526904086c0d5a29e5460fe681ed91f1a19c0c0dc",
+    "tools/reference/shadow-finisher-native-evidence.json": "0cfcf1e965e3963eaf60274fb33a5202c50afb0345c5aef509df9a426cafd22a"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Generic owned-NPC elemental spell receiver adds independent freezeFrames,with non-cold/negative rejection and existing NPC freeze capability preflight before HP. Existing typed packet already has this lane;no save schema changes.",
+    "Cold damage,ordinary chill and freeze durations stay separate. Cold resistance/explicit caster pierce/CBF/half-length are reduced in allocation once;existing NpcFreezeStatus owns freeze-or-chill/divisor/expiry/status source at delivery. InstantSpellNpcDamage explicitly admits the lane only for its supplied NPC emitter;default old callers unchanged.",
+    "Actual original Warrior and Master:existing chill-only damage remains chill-only;zero-damage freezes at resist0/50 and immunity100,explicit pierce,invalid non-cold rejection without HP/RNG mutation,and own Phoenix chaos-ice pure packet cause actual cold damage/freeze without adding ordinary chill or extra source RNG. No owner mana/items borrowed.",
+    "Same original actors/items/resources/wounds/RNG and recipient freeze owner/deadlines persist through both reloads,then new receiver hits run. Charge/A2 and distinct Master world regressions pass. Existing complete freeze/status source controls are reused,not regenerated."
+  ],
+  "limitations": [
+    "Receiver prerequisite only:Phoenix moving missiles/meteor/fields and elemental finisher emission are not connected by this package. It does not certify current pSrvDmgFunc2 production or projectile collision/hit-delay context.",
+    "Fists259/Thunder269/Ice274 use current monanim xx /mode14 and do35;they require own NPC sequence qualification,not the A2 row used by Tiger/Cobra/Phoenix. Existing player sequences/emitters are reuse candidates,not proof of an NPC input route.",
+    "MageMeteors has a fixed rank10 NecromancerMinion source path and cannot be substituted for a Shadow Phoenix meteor. Reuse primitives with an explicitly qualified emitter/profile. Existing MartialPhoenix paths/packets/shared pool are the starting points for own Phoenix flights.",
+    "Cold boss/unique fallback,CBF/half/difficulty arithmetic come from existing source-qualified status services;new native checks here cover declared ordinary recipients and supplied resistance/pierce cases,not every target category.",
+    "Other intrinsic/current-death/learned gates,Warrior Cobra category conflict,NPC Hydra62 item adapter gap,modern missile expressions,both pending questions and separate player Shield event gap remain. Effects/icons are separate;no deployment."
+  ],
+  "failedRuns": []
+}

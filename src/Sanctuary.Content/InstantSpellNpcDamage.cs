@@ -10,7 +10,7 @@ namespace Sanctuary;
 internal sealed class InstantSpellNpcDamage(PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,FirestormModifiers modifiers,DateTime at,
 string kind,Func<uint> defenderRoll,Func<Mobile,BaseCreature,bool> knockback=null,bool cold=false,int damageRate=0,
 BaseCreature emitter=null,Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> npcMitigation=null,
-Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=null):PreparedMonsterDamageServices
+Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=null,bool freeze=false):PreparedMonsterDamageServices
 {
     internal static bool Supported(PlayerMobile owner,Mobile actor,string kind,out string reason)
     {
@@ -48,6 +48,13 @@ Func<PreparedMonsterDamagePacket,PreparedMonsterDamagePacket> playerMitigation=n
         if(!cold){if(frames!=0){throw new InvalidOperationException(kind+" has no cold duration");}return;}
         if(ColdStates.Commit(Attacker,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at)))
         {target.FixedEffect(0x374A,10,15,0x480,0);} // Identified shared cold marker.
+    }
+    internal override bool SupportsFreeze=>freeze&&emitter!=null;
+    internal override void ApplyFreeze(int frames)
+    {
+        if(frames==0){return;}
+        if(!SupportsFreeze){throw new NotSupportedException(kind+" has no qualified NPC freeze lane");}
+        _=NpcFreezeStatus.Commit(emitter,target,frames,at);
     }
     // Keep the existing native regeneration clock. Source one-frame
     // regen rescheduling still needs that clock's separate actor adapter.
