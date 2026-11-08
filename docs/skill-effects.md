@@ -1,5 +1,7 @@
 # Skill effects
 
+**Master Sentinel range (2026-11-08 JST).** AI eligibility adds no emitter or new visual identity. Actual casts retain identified shared S2/blade travel/contact/expiry and audio placeholders;final assets remain required in the Sentinel/Shadow family. [Checkpoint](shadow-master-range-checkpoint.md). Icons stay separate.
+
 **NPC-owned Hydra world (2026-11-08 JST).** Connected NPC heads/bolts reuse identified Hydra body and fire-bolt placeholders;no imagegen work performed. Final appearance,emergence/attack/death,bolt travel/impact/expiry and audio remain required in the shared Hydra family. [Checkpoint](npc-hydra-world-checkpoint.md). Independent lifetime changes no asset identity;icons stay separate.
 
 **Prepared original NPC Hydra factory (2026-11-08 JST).** No head/bolt asset is emitted by this prepared factory seam. Actual NPC-owned heads/bolts will reuse existing identified Hydra placeholders;final emergence/attack/death,fire-bolt travel/impact/expiry and sound remain required in the shared Hydra family. [Checkpoint](npc-hydra-birth-checkpoint.md). Icons remain separate.

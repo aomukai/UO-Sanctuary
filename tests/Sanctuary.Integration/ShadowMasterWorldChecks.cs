@@ -44,7 +44,12 @@ public static class ShadowMasterWorldChecks
             Require(SkillHealth.Balance256(enemy)<hp,"Master AI did not cause actual damage;state="+Json(State(b))+" gaps="+Json(b.Prepared.GroundMotion.Gaps));
             Require(scans>0&&b.Prepared.GroundMotion.Master.Rank==b.Prepared.Capture.Rank&&b.Prepared.GroundMotion.Warrior==new ShadowWarriorMemory(),"Master used another brain or lost captured rank");
             Require(NecromancerEffects.ManaBalance256(owner)==mana,"Master AI borrowed player mana");
-            Require(b.Prepared.GroundMotion.Gaps?.Any(g=>g.Reason.Contains("consumer",StringComparison.Ordinal))==true,"Unimplemented intrinsic actions were not explicitly recorded");
+            // Enabling a candidate changes normal selection order. Exercise a
+            // declared unavailable repeat directly instead of relying on a
+            // particular unsupported skill being randomly tried before damage.
+            ShadowActions.Cancel(b);b.ChangeMasterMemory(b.Prepared.GroundMotion.Master with{Repeat=1,Skill=266});
+            for(int i=0;i<200&&b.Prepared.GroundMotion.Master.Repeat>0;i++){Frame(b);}
+            Require(b.Prepared.GroundMotion.Master.Repeat==0&&b.Prepared.GroundMotion.Gaps?.Any(g=>g.Skill==266&&g.Reason.Contains("consumer",StringComparison.Ordinal))==true,"Unavailable intrinsic repeat was not decremented/recorded");
             ShadowActions.Cancel(b);
         }
         finally{ShadowMasterWorld.ObservedScan=previous;}
@@ -73,7 +78,8 @@ public static class ShadowMasterWorldChecks
         Require(ShadowSkillCasting.Range(b,0)==1&&ShadowSkillCasting.Range(b,261)==2,"Original dual-claw both/ranged skill resolution");
         Require(SkillMissileRanges.Range(ItemSkillExecution.MissileId("shock field in air"))==50,"Pinned numeric missile base range");
         bool expressionRefused=false;try{_=SkillMissileRanges.Range(ItemSkillExecution.MissileId("blade creeper"));}catch(NotSupportedException){expressionRefused=true;}
-        Require(expressionRefused&&b.Prepared.GroundMotion.Gaps.Any(g=>g.Skill==257&&g.Reason.Contains("expression",StringComparison.Ordinal)),"Modern range expression was silently treated as a numeric base");
+        Require(expressionRefused&&ShadowMasterWorld.CandidateRange(257,ItemSkillExecution.MissileId("blade creeper"),b.OwnedSkillRank(257))==10+5*b.OwnedSkillRank(257)
+            &&!b.Prepared.GroundMotion.Gaps.Any(g=>g.Skill==257&&g.Reason.Contains("expression",StringComparison.Ordinal)),"Approved Master Sentinel scope/default range gate changed");
         var shadow=Json(b.Prepared);var malformed=b.Prepared with{GroundMotion=b.Prepared.GroundMotion with{Master=new(-1,0,b.Prepared.Capture.Rank)}};bool refused=false;
         try{b.RestorePrepared(malformed);}catch(InvalidDataException){refused=true;}
         Require(refused&&Json(b.Prepared)==shadow,"Invalid Master memory partially replaced original state");

@@ -13,7 +13,7 @@ public static class ShadowMasterAiChecks
     public static void Configure()=>ConsoleInputHandler.RegisterCommand("shadow-master-ai-check","Whole Master AI106 selection policy against unchanged source control traces",_=>Core.LoopContext.Post(()=>{try{Check();Log.Information("shadow-master-ai-check: passed");}catch(Exception e){Log.Error(e,"shadow-master-ai-check: failed");}}));
     private static string Json<T>(T x)=>JsonSerializer.Serialize(x);
     private static int[] Read(JsonElement r)=>r.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
-    private sealed class Probe:ShadowMasterServices
+    internal sealed class Probe:ShadowMasterServices
     {
         internal readonly int[] C,S,G,Rolls,Outcomes;internal readonly int[][] Owned;
         internal readonly Dictionary<int,int[]> Units,Rows;internal readonly List<int[]> Trace=new();internal int RngAt,ActionAt,LeftId;

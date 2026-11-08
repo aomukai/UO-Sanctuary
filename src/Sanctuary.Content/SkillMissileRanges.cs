@@ -18,6 +18,23 @@ internal static class SkillMissileRanges
         {throw new InvalidDataException("Missile base ranges do not match pinned skill execution metadata");}
         return data.Rows;
     });
+    // Explicit prepared evaluation,not an assertion of modern NPC-AI context.
+    // Callers must approve the meaning of lvl before using this in gameplay.
+    internal static int? PreparedAtRank(int id,int rank)
+    {
+        if(rank is<0 or>255){throw new ArgumentOutOfRangeException(nameof(rank));}
+        if(id<0||id>=Rows.Value.Length){return null;}var row=Rows.Value[id];
+        if(row.Range is{} literal){return literal;}
+        try
+        {
+            long value=SkillFormula.Evaluate(row.Expression,(name,argument,property)=>name=="lvl"?rank
+                :throw new NotSupportedException("Missile range needs an explicit scope variable:"+name));
+            if(value is<0 or>65535){throw new NotSupportedException("Missile range leaves its source word domain");}
+            return(int)value;
+        }
+        catch(Exception e)when(e is FormatException or OverflowException or ArgumentException)
+        {throw new NotSupportedException("Missile range formula remains unqualified:"+row.Name,e);}
+    }
     internal static int? Range(int id)
     {
         if(id<0||id>=Rows.Value.Length){return null;}var row=Rows.Value[id];

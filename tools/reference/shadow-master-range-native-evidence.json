@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "approvedRule": "Approve the Master Sentinel range rule",
+  "newCompilerMatrices": 0,
+  "reusedSourceContexts": 497,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "shadow-master-ai-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-master-range-check": 1,
+    "shadow-master-world-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-master-range-reload-check": 2,
+    "shadow-master-world-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 4,
+  "sourceSnapshot": 6,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "8d084dd63ec9cad421894acbbcf5949cbcde0a751ff6de8d94943c4d4635f1be",
+    "Assemblies/Sanctuary.Integration.dll": "abda077a7e12420d973c4603cf3abb446f9c137be20822c0daa20c477cd588ac"
+  },
+  "files": {
+    "src/Sanctuary.Content/SkillMissileRanges.cs": "59be3c5250bd99763cc2091b79deb412c2d3ac2e417037fac062d6a62d289e1f",
+    "src/Sanctuary.Content/ShadowMasterWorld.cs": "69e55beb5cbccb2cff5e3989fcc0252f622d4a888fb363a3248d26542917f975",
+    "tests/Sanctuary.Integration/ShadowMasterAiChecks.cs": "5f40e6059d0d51dd0cc153a6f11f6e6f4a0d856a1bbc79da7721857ff3212c1e",
+    "tests/Sanctuary.Integration/ShadowMasterRangeChecks.cs": "1895defea8bf9de00e791a264330a52256a6cfec545d5c8f9d7a3c0a1f1cd893",
+    "tests/Sanctuary.Integration/ShadowMasterWorldChecks.cs": "01a1d0f65c96fa2ee7ae4e89dddabca9b0e2deabd56976b2f82368dc97cd4f04",
+    "tests/check_shadow_master_range.py": "6db119a1ffa0a30f732eaf1d17e8a99e6274e9a8fdac40739e0d701a08c6b1c4",
+    "tools/record_shadow_master_range.py": "c02669ca44d374be8177c4001bf90b872a56af92c791a5eee7b3ef97862254a5",
+    "docs/shadow-master-sentinel-range-proposal.md": "7116aed8e922a56d9c625004b48fb6415fc1967ab890aa823e3d80e60943758f"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Only Master Sentinel257/blade creeper supplies its own effective rank to current10+5*lvl Range and retains the complete older AI strict squared-distance guard.694literal rows unchanged,48default expression gates retained,seven rank goldens and21whole-policy boundaries pass. Other skill/missile pairings refuse expression context. Actual initialized original Master natural selection/release/recovery creates exactly one own Sentinel with own rank and no player mana;existing Master world movement/target queries/damage/unsupported actions/nontrivial repeat/original-equipment and wound saves retained through two reloads. Root stat/weapon factory and real blade lifetime/path unchanged. Exact modern range caller context remains an approved adaptation,not a current-executable claim.",
+  "remaining": [
+    "Fury current NPC callback/rewind and pending unsigned missile critical proposal remain separate",
+    "Other missile expression contexts and full modern Master AI/geometry/callback parity remain unqualified",
+    "Learned Shadow admission and class certification remain gated",
+    "Existing Sentinel/Shadow effects/audio and talent/hotkey placeholders remain in separate inventories"
+  ]
+}

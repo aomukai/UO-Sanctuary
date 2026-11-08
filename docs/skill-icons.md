@@ -1,5 +1,7 @@
 # Skill icons
 
+**Master Sentinel range (2026-11-08 JST).** No new talent/hotkey icon. Blade Sentinel and Shadow Warrior/Master retain their identified text placeholders;final icons remain pending separately from effects/audio. [Checkpoint](shadow-master-range-checkpoint.md).
+
 **NPC-owned Hydra equipment proc (2026-11-08 JST).** No new public talent/hotkey icon for the equipment proc. Existing Hydra and Shadow talent/hotkey placeholders remain;head/bolt effects and audio remain separate. [Checkpoint](npc-hydra-world-checkpoint.md).
 
 **Prepared original NPC item Hydra (2026-11-08 JST).** No extra talent/hotkey icon for an internal equipment proc. Existing Sorceress Hydra and Shadow Warrior/Master talent/hotkey placeholders remain;NPC head/bolt effects/audio stay in their separate inventory. [Checkpoint](npc-hydra-birth-checkpoint.md).

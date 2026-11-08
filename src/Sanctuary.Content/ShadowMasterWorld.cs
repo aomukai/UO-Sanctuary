@@ -12,6 +12,19 @@ namespace Sanctuary;
 internal static class ShadowMasterWorld
 {
     internal static Action<AssassinShadowBody,ShadowMasterScan> ObservedScan;
+    // Approved Sanctuary adapter:only Master's Sentinel candidate supplies
+    // its own effective rank to this modern range expression. Other callers
+    // retain the literal-only gate;this does not alter missile lifetime.
+    internal static int? CandidateRange(int skill,int missile,int rank)
+    {
+        if(skill==257&&missile==ItemSkillExecution.MissileId("blade creeper"))
+        {
+            if(ItemSkillExecution.Skill(skill).Text("srvmissilea")!="blade creeper")
+            {throw new NotSupportedException("Master Sentinel range metadata changed");}
+            return SkillMissileRanges.PreparedAtRank(missile,rank);
+        }
+        return SkillMissileRanges.Range(missile);
+    }
     internal static void Think(AssassinShadowBody body,PlayerMobile owner,DateTime at,NecromancerPetAiServices q)
     {
         if(body.Prepared.GroundMotion?.Master is not{} memory||q.Act==null||q.Retreat==null||q.Cell==null||q.CurrentTarget==null||q.InMelee==null)
@@ -88,7 +101,7 @@ internal static class ShadowMasterWorld
             currentSkill=id;var r=ItemSkillExecution.Skill(id);var meta=GenericPetMetadata.Table.Skill(id);
             int missileA=r.Text("srvmissilea") is "0"or""?-1:ItemSkillExecution.MissileId(r.Text("srvmissilea"));
             if(meta?.AiType is 5 or 11&&r.Missile<0&&missileA>=0)
-            {try{_=SkillMissileRanges.Range(missileA);}catch(NotSupportedException e){body.MasterGap(id,e.Message);return null;}}
+            {try{_=MissileRange(missileA);}catch(NotSupportedException e){body.MasterGap(id,e.Message);return null;}}
             return meta==null?null:new(id,meta.AiType,meta.AuraState,meta.AuraTargetState,ShadowSkillBook.Metadata(id).Element,r.Number("reqlevel"),r.Number("aibonus"),
                 (meta.Flags36&4)!=0,r.Missile,missileA,r.Do);
         }
@@ -139,7 +152,7 @@ internal static class ShadowMasterWorld
         internal override int Limited(int maximum)=>NpcEquipmentRandom.Limited(body,maximum);
         internal override int? Charges(int id)
         {var definition=SkillMechanics.All.FirstOrDefault(s=>s.SourceId==id);return definition!=null&&AssassinCharges.Supports(definition.Ability)?AssassinCharges.State(body,definition.Ability)?.Count:null;}
-        internal override int? MissileRange(int id)=>SkillMissileRanges.Range(id);
+        internal override int? MissileRange(int id)=>CandidateRange(currentSkill,id,body.OwnedSkillRank(currentSkill));
         internal override int? Drain(ShadowMasterUnit target)=>Find(target)is BaseCreature mob?CreatureProfiles.For(mob).Traits.DrainEffectiveness:null;
         internal override bool Melee(ShadowMasterUnit target)=>Find(target)is{} t&&q.InMelee(t);
     }
