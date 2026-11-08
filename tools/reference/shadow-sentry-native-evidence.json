@@ -1,0 +1,89 @@
+{
+  "parent": "6bf0a305f8450e81f9ce6d75d745db8ad5040b0d",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicSkills": [
+    261,
+    262,
+    271,
+    272,
+    276
+  ],
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "sentry-learned-mechanics-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-sentry-check": 1,
+    "shadow-actions-check": 1,
+    "sentry-actor-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-sentry-reload-check": 2,
+    "shadow-actions-reload-check": 2,
+    "sentry-actor-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": 3,
+  "contentBuild": 3,
+  "integrationBuild": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "484f6065077af4b44fcec670fd5ffc6fd627da3d07274d4eb884a18b7c216b17",
+    "Assemblies/Sanctuary.Integration.dll": "5a38f3b71c4045e38b762878fbf16b440f83f5a4946105c597f5ebe10362ad05"
+  },
+  "inputsSha256": "099a8087d2e081168f75eba4a873ded14c6e510dfad6a4d22d4143aad5b53441",
+  "nativeLogSha256": "4ccf18474ce2e5fdf981640e8b5cf215b8325143d86d008a82c17b14d7ea95ef",
+  "sourceSnapshotSha256": "5efe07fab31eea06ee037de40f420b3528e2d5847c72238af6bfd1459fdae209",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "sourceProofs": {
+    "tools/reference/assassin-trap-summon-engine-evidence.json": "c04ed72e5add240d76de80c2648527759399aa1ffcbf7745f54cfb6b9e682145",
+    "tools/reference/sentry-cast-source-evidence.json": "a017d210c2ec7130192f2c0ae58f307783af03bddd23f704df76b6b63e3ca562",
+    "tools/reference/shadow-animation-source-evidence.json": "5dfa0e3a4b04ca5aaa11c3e2eae36454a7149b3cab52719c85c12eed366e67c8",
+    "tools/reference/sentry-controller-source-evidence.json": "25f003616a9e40197f812fc28ff4df2e6a624adf3ba073725a490b8c05acb5d2"
+  },
+  "scope": [
+    "Both original species cast all five stationary sentries through own selected skill/start/do45/S2 release/end,using the existing original dual-claw animation and NPC resource policy.",
+    "The complete older factory resolves ultimate player ownership before base/passive helpers while retaining the NPC cast rank. Existing captured creation,emergence,controllers,projectiles,retirement and shared player five-trap FIFO are reused. Owner Shock Web hard3 versus Shadow hard10 distinguishes actual synergy inheritance.",
+    "Actual native target scan,AI,sequence,missile emission and HP damage run for every sentry type from both Shadow species. Parent RNG,mana,original equipment and once-only world child allocation are checked. Cancel,blocked release,parked source,duplicate marker/end and oldest-player-trap replacement are checked.",
+    "All five original saved sentries resume actual damage after each reload,on the same serials/creation snapshots without a new parent casting action. Original parent body/items/resources/wounds/RNG and the shared trap FIFO persist. No summon action is replayed.",
+    "Occupied-target Warrior ground admission explicitly refuses without allocation;it does not fabricate the unrecovered fallback. The bounded native placement proposal is a pending question and is not enabled.",
+    "Retained own S2 conductor,prepared sentry source/controller/native saves and player CBS timing,resource,creation and cancellation checks pass. Prior full factory/animation evidence is reused,not rerun or represented as new current-executable proof."
+  ],
+  "failedRuns": [
+    "Native1 correctly refused metadata because the initial qualifier assumed LineOfSight0. Current rows all supply4;the adapter now checks4 and uses the existing0x804 startup/native LOS service.",
+    "Native2 reached the pending-save builder after both species completed all five firing/limit checks,but its second simultaneous caster overlapped the first and was correctly refused. The accepted fixture parks each source after its cast and adds actual original-actor resumed damage on both reloads. Production Content DLL hash is unchanged from Native2."
+  ],
+  "limitations": [
+    "Current D2R NPC trap ultimate-owner inheritance,shared replacement behavior and full world allocation chronology are not independently corroborated;the named old-source routing is explicit. Do not replace it with invented own-Shadow stats or a separate cap.",
+    "Occupied-target and obstacle fallback remain unavailable under the current requested-free-cell contract. docs/sentry-occupied-placement-proposal.md contains a concrete shared native adaptation awaiting an answer. Automatic ordinary-target Warrior trap placement is therefore unfinished;free-ground intrinsic actions work.",
+    "Exact D2 terrain/spawn-search order,current animation/retirement adapter provenance,full inherited item/sunder and PvP/owner/projectile acceptance retain existing limits. Unsupported sunder and unqualified services refuse intact.",
+    "Master AI106,remaining intrinsic melee/channel/Blade Sentinel consumers,current modifier42 death and learned summon/payment/replacement/input remain gated. Shock Web NPC localdelay15 is a separate pending question;player Blade Shield event/thorns follow-up remains open.",
+    "Final S2/placement,trap model/emergence,firing/contact/expiry/retirement/audio and talent/hotkey icons remain separate identified placeholders. No deployment or new public handler."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-sentries/failed-native-1.log": "bdca8f52830e7c7cd35115b4a5ad99b23d4b121f8770d025abe82c1b9446e2f5",
+    ".local/class-skills/shadow-sentries/failed-native-2.log": "0d54df7177d06ff50596de666d113377ad7ef32b26caf431d74bc884b3183b2f",
+    ".local/class-skills/shadow-sentries/native-run-1.log": "117d4c9ecbb369d82965fdf661769d84ccc1361340d8f2aa8219f2f3830bf5e5",
+    ".local/class-skills/shadow-sentries/native-run-2.log": "117d4c9ecbb369d82965fdf661769d84ccc1361340d8f2aa8219f2f3830bf5e5",
+    ".local/class-skills/shadow-sentries/content-build-3.log": "10f4a94d6dddf4dd6cfb67a39a9ce31dbee0a524ec0aec787d89d0e952af4c67",
+    ".local/class-skills/shadow-sentries/integration-build-3.log": "e073370f2e0f1402fb037d2a909c98f6cc8eee20c4e53ded094000d2296bcef3"
+  }
+}

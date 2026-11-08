@@ -18,7 +18,7 @@ internal static class AssassinSentryCasts
         try{_=AssassinSentryCreation.Capture(owner,ability);return true;}
         catch(NotSupportedException){return false;}
     }
-    internal static bool Destination(PlayerMobile owner,Serial selected,Point3D cached,out Point3D point)
+    internal static bool Destination(Mobile owner,Serial selected,Point3D cached,out Point3D point)
     {
         point=cached;
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal){return false;}

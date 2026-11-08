@@ -52,10 +52,12 @@ internal static class ShadowAnimation
         return new(speed,SourceAnimationEvents.Initial(new(0,speed,row.Frames*256,flags,[]),frame).Events);
     }
     internal static ShadowAnimationPlan FireBlast(AssassinShadowBody body)
+        =>body.OwnedSkills.Used==251?S2(body):throw new NotSupportedException("Shadow has no used Fire Blast");
+    internal static ShadowAnimationPlan S2(AssassinShadowBody body)
     {
         _=ShadowEquipmentDefense.Require(body);
-        if(body.OwnedSkills.Used!=251||body.OwnedSkills.Find(251)?.Mode!=9||ShadowEquipmentDefense.Composite(body)!=13)
-        {throw new NotSupportedException("Shadow S2 needs its intrinsic Fire Blast and original active dual claws");}
+        if(body.OwnedSkills.Used is not{} id||!(id==251||ShadowSentries.Handles(id))||body.OwnedSkills.Find(id)?.Mode!=9||ShadowEquipmentDefense.Composite(body)!=13)
+        {throw new NotSupportedException("Shadow S2 needs its qualified intrinsic skill and original active dual claws");}
         return Original(body,Row.Value);
     }
     internal static ShadowAnimationPlan Melee(AssassinShadowBody body)

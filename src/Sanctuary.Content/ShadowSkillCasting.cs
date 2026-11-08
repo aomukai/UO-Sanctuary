@@ -24,6 +24,7 @@ internal static class ShadowSkillCasting
     private static NotSupportedException Missing()=>new("Shadow intrinsic skill needs an additional qualified NPC action service");
     private static ItemExecutionMetadata Row(int id)
     {
+        if(ShadowSentries.Handles(id)){return ShadowSentries.Row(id);}
         if(id==253){return ShadowPsychicHammers.Row();}
         if(id==264){return ShadowCloaks.Row();}
         if(id==277){return ShadowBladeShields.Row();}
@@ -56,7 +57,8 @@ internal static class ShadowSkillCasting
         var row=Row(skill);
         if(!Attached(body)||row.Lob&&!LobProjectiles.Valid(body,aim)||target!=null&&(!Enemy(body,target)||target.Map!=body.Map)
             ||skill==253&&!ShadowPsychicHammers.Valid(body,target)||skill==273&&!ShadowMindBlasts.Valid(body,target?.Location??aim)
-            ||skill==264&&!ShadowCloaks.Valid(body)||body.OwnedSkillRank(skill)<=0){return null;}
+            ||skill==264&&!ShadowCloaks.Valid(body)||ShadowSentries.Handles(skill)&&!ShadowSentries.Destination(body,target,aim,out _)
+            ||body.OwnedSkillRank(skill)<=0){return null;}
         body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill,at);
         return SkillStartup.Selected(new Startup(cast))!=0?cast:null;
     }
@@ -91,8 +93,10 @@ internal static class ShadowSkillCasting
         internal override bool PlayerManaAllowed()=>true; // This source gate only checks player mana; Kind1 has no debit.
         internal override (int X,int Y) TargetPoint(SkillStartupTarget target)=>(cast.Target.X*2,cast.Target.Y*2);
         internal override (int X,int Y) FirstPathPoint=>(cast.Aim.X*2,cast.Aim.Y*2);
-        internal override bool ClearLine(int x,int y,uint mask)=>cast.Skill==253&&mask==SourceMeleeGeometry.FlyingCollisionMask
-            ?cast.Target!=null&&x==cast.Target.X*2&&y==cast.Target.Y*2&&Body.InLOS(cast.Target):throw Missing(); // Shared native LOS projection;exact D2 terrain remains separate.
+        internal override bool ClearLine(int x,int y,uint mask)=>mask==SourceMeleeGeometry.FlyingCollisionMask
+            ?cast.Skill==253?cast.Target!=null&&x==cast.Target.X*2&&y==cast.Target.Y*2&&Body.InLOS(cast.Target)
+                :ShadowSentries.Handles(cast.Skill)?Body.InLOS(new Point3D(x/2,y/2,cast.Target?.Z??cast.Aim.Z)):throw Missing()
+            :throw Missing(); // Shared native LOS projection;exact D2 terrain remains separate.
         internal override int StartCount=>29;
         internal override bool HasStart(int function)=>function==0?false:function is 22 or 28?true:throw Missing();
         internal override int ExecuteStart(int function,int skill,int rank)=>function==22&&skill==253?ShadowPsychicHammers.Valid(Body,cast.Target)?1:0
@@ -117,11 +121,12 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 47 or 51 or 54?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 45 or 47 or 51 or 54?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
                 :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
                 :function==47&&skill==264?ShadowCloaks.Release(Body,level,at)
+                :function==45&&ShadowSentries.Handles(skill)?ShadowSentries.Release(Body,cast.Target,cast.Aim,skill,level,at)
                 :function==54&&skill==277?ShadowBladeShields.Release(Body,at)
                 :function==51&&skill==273?ShadowMindBlasts.Release(Body,cast.Target,cast.Aim,level,at):throw Missing();
         internal override int MissileCount=>ItemSkillExecution.MissileCount;

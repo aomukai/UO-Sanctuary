@@ -1,5 +1,7 @@
 # Skill effects
 
+**Intrinsic Shadow stationary sentries (2026-11-08 JST).** All five do45 casts reuse identified native Shadow poses, summon sound0x23B and the existing sentry body0x9C/hue0x482 (Inferno0x489), projectile and impact placeholders. Final placement/S2, distinct trap models/emergence, firing/contact, expiry/retirement and audio remain needed; share their existing player-sentry asset families. See [checkpoint](shadow-sentry-checkpoint.md). Icons remain separate.
+
 **Shadow Shock Web fields (2026-11-08 JST).** NPC fields reuse identified air0x36E4, electric-field0x374A and throw sound0x23B placeholders. Final lob, landing, field/contact, expiry and audio remain needed and can share the player Shock Web asset family. Action admission is still gated; see [checkpoint](shadow-shock-web-checkpoint.md). Icons remain separate.
 
 **Dragon Flight (2026-11-08 JST).** Learned transfer/kick uses identified shared Teleport particles0x3728/sound0x1FE, native Wrestle/contact sound0x238 and charge cues. Final departure/arrival,dragonflight target overlay,directional kick/contact,progressive releases and audio remain pending. See [checkpoint](dragon-flight-action-checkpoint.md);icons remain separate.

@@ -49,12 +49,16 @@ internal static class AssassinSentryCreation
         return new(values.Rank,casterLevel,basis.Level,spawn.Life256,basis.Defense,basis.Attack,difficulty,passives,skills){Ability=values.Ability};
     }
     internal static SentryCreationStats Capture(PlayerMobile owner,CombatAbility ability=CombatAbility.ChargedBoltSentry)
+        =>Capture(owner,ability,owner==null?0:SkillMechanics.Rank(owner,ability));
+    // The shared trap helper resolves a monster caster to its ultimate player
+    // owner for bases/passives,while retaining the supplied caster skill rank.
+    internal static SentryCreationStats Capture(PlayerMobile owner,CombatAbility ability,int rank)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Server.Map.Internal
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin
-            || SkillMechanics.Rank(owner,ability) is <1 or >255)
+            || rank is <1 or >255)
         {throw new InvalidOperationException("Sentry needs a living learned Assassin world owner");}
-        return Prepare(SkillMechanics.Values(owner,ability),ClassStats.Level(owner),SummonDifficulties.For(owner.Map),
+        return Prepare(SkillMechanics.Values(owner,ability,rank),ClassStats.Level(owner),SummonDifficulties.For(owner.Map),
             name=>AssassinTrapStats.Accrued(owner,name));
     }
     internal static SentryCreationStats Rescale(SentryCreationStats old,MonsterDifficulty difficulty)

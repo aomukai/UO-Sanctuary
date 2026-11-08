@@ -163,9 +163,13 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     // invokes this after its own placement, eligibility and resource checks.
     internal static AssassinSentryBody CreateEmerging(PlayerMobile owner,Point3D position,DateTime at,ulong seed,CombatAbility ability=CombatAbility.ChargedBoltSentry)
         =>Create(owner,position,at,seed,true,ability);
-    private static AssassinSentryBody Create(PlayerMobile owner,Point3D position,DateTime at,ulong seed,bool emerging,CombatAbility ability)
+    internal static AssassinSentryBody CreateCaptured(PlayerMobile owner,Point3D position,DateTime at,ulong seed,SentryCreationStats stats)
+        =>Create(owner,position,at,seed,true,stats.Ability,stats);
+    private static AssassinSentryBody Create(PlayerMobile owner,Point3D position,DateTime at,ulong seed,bool emerging,CombatAbility ability,SentryCreationStats captured=null)
     {
-        var stats=AssassinSentryCreation.Capture(owner,ability);var map=owner.Map;
+        var stats=captured??AssassinSentryCreation.Capture(owner,ability);var map=owner.Map;
+        if(stats.CasterLevel!=ClassStats.Level(owner)||stats.Difficulty!=SummonDifficulties.For(map))
+        {throw new InvalidOperationException("Captured sentry needs its original owner level and room difficulty");}
         if(at.Kind!=DateTimeKind.Utc || SpellHelper.IsTown(owner.Location,owner) || SpellHelper.IsTown(position,owner))
         {throw new InvalidOperationException("Prepared sentry needs a UTC clock and non-town owner/destination");}
         // Prepared fixtures retain their explicit neutral/+25 initial state.

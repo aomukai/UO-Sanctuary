@@ -20,6 +20,8 @@ internal static class ShadowActions
         &&CombatStuns.Remaining(body)==0&&AlliedOverlap.Allowed(body);
     internal static bool BeginFireBlast(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at)
         =>BeginSkill(body,target,aim,at,251);
+    internal static bool BeginSentry(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
+        =>ShadowSentries.Handles(skill)?BeginSkill(body,target,aim,at,skill):throw new NotSupportedException("Unqualified Shadow sentry");
     internal static bool BeginBuff(AssassinShadowBody body,BaseCreature target,DateTime at,int skill)
         =>ShadowDefensiveBuffs.Handles(skill)?BeginSkill(body,target,body.Location,at,skill)
             :throw new NotSupportedException("Unqualified Shadow self buff: "+skill);
@@ -35,8 +37,9 @@ internal static class ShadowActions
         var cast=ShadowSkillCasting.Start(body,target,aim,skill,at);if(cast==null){return false;}
         try
         {
-            var plan=skill==251?ShadowAnimation.FireBlast(body):skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
-            int marker=skill==251?2:1;
+            bool s2=skill==251||ShadowSentries.Handles(skill);
+            var plan=s2?ShadowAnimation.S2(body):skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
+            int marker=s2?2:1;
             if(plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker)!=1
                 ||plan.Events.Count(e=>e.Type==SourceAnimationEvents.EndAnimation)!=1)
             {throw new NotSupportedException("Shadow S2 needs one actual release and end event");}
@@ -86,7 +89,7 @@ internal static class ShadowActions
                 int frame=action.Frame+1;bool end=false;
                 foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
                 {
-                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&action.Cast.Skill==251||e.Kind==1&&(action.Cast.Skill is 253 or 273 or 277||ShadowDefensiveBuffs.Handles(action.Cast.Skill))))
+                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&(action.Cast.Skill==251||ShadowSentries.Handles(action.Cast.Skill))||e.Kind==1&&(action.Cast.Skill is 253 or 273 or 277||ShadowDefensiveBuffs.Handles(action.Cast.Skill))))
                     {_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
                     else if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1&&action.Cast.Skill==0)
                     {
