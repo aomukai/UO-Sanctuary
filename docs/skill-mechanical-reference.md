@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Shadow Fury resource exception approved (2026-11-08 JST):** bypass only the intrinsic Shadow six-mana availability threshold,spend no pet/owner mana;do not import player held timing. Shared source state/lease/deadline component now implements this exception. [Approval](shadow-fury-mana-proposal.md) / [checkpoint](shadow-fury-packets-checkpoint.md). Also corrected the catalog’s exact lowercase `usemanaondo` field for25/266/402;raw pinned data unchanged.
+
 **Approved own Shadow Flight implemented (2026-11-08 JST).** Own monster sequence consumes events at NPC frames10/15/end24; explicit first teleport/second kick, actual landing required, free NPC startup and shared charged-contact rule. Stored/current-frame pose and arrival interruption are verified. 33 native markers/two reloads, 12 new clock contexts. [Checkpoint](shadow-flight-checkpoint.md). Older raw-phase conflict is replaced by the approved adaptation; exact current executable parity remains unverified.
 
 **Shadow Flight rule approved (2026-11-08 JST):** first owned-sequence marker teleports; second kicks only after actual successful landing; retain target, no pet/player mana, shared approved charged-contact policy; interruption discards pending intent. This replaces unresolved older raw NPC phase/flag behavior, not a claim of modern executable equivalence. [Approved rule](shadow-flight-action-proposal.md) / [packet checkpoint](shadow-flight-packets-checkpoint.md).

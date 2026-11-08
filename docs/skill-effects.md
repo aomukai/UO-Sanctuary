@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Fury packet/resources (2026-11-08 JST).** No new effects emitted by this snapshot/state component. Final NPC cast/channel poses,blade travel/impact/expiry cues and audio remain identified placeholders shared with player Fury. [Checkpoint](shadow-fury-packets-checkpoint.md). Icons stay separate.
+
 **Own Shadow Flight action (2026-11-08 JST).** Mechanics use identified shared `0x3728` teleport, `0x1FE` teleport sound and `0x238` kick sound placeholders. Final NPC sequence poses, departure/arrival, kick/contact/charge-release cues and audio remain pending; reuse player Flight and charge families. [Checkpoint](shadow-flight-checkpoint.md). Icons stay separate.
 
 **Own Shadow Flight packet (2026-11-08 JST).** No new emitter/art created. Final teleport departure/arrival, NPC sequence/kick/charge-contact cues and audio remain identified placeholders shared with player Flight; full NPC action is pending. [Checkpoint](shadow-flight-packets-checkpoint.md). Icons stay separate.

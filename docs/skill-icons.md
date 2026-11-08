@@ -1,5 +1,7 @@
 # Skill icons
 
+**Own Shadow Fury packet/resources (2026-11-08 JST).** No new public icon identity. Blade Fury and both Shadow talents retain identified talent/hotkey text placeholders. [Checkpoint](shadow-fury-packets-checkpoint.md). Effects/audio stay separate.
+
 **Own Shadow Flight action (2026-11-08 JST).** No new public icon identity. Dragon Flight and Shadow Warrior/Master retain identified talent/hotkey text placeholders. [Checkpoint](shadow-flight-checkpoint.md). Final effects/audio remain separate.
 
 **Own Shadow Flight packet (2026-11-08 JST).** Dragon Flight and both Shadow talents retain identified tree/hotkey text placeholders; no new skill/icon identity. [Checkpoint](shadow-flight-packets-checkpoint.md). Effects/audio stay separate.

@@ -1,0 +1,148 @@
+{
+  "parent": "1a100ab8b8622cc310ca361aee9de484a727d1e5",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicFuryConnected": false,
+  "packetQualified": true,
+  "freeNpcResourceComponent": true,
+  "approval": "Approve the Shadow Fury mana exception",
+  "newSourceContexts": 16,
+  "completeNewSourceRoutines": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "reusedSource": {
+    "blade-fury-damage-source-evidence": {
+      "receipt": "f1d4276f51ff4866c84bc8301604d1328cc75d494fa435d2f3fade3dc4f306d7",
+      "fixture": {
+        "path": ".local/class-skills/blade-fury-damage-source-probe.json",
+        "sha256": "9ea6aa09101e93b945ecd185ab1bcdbfab6fa8a3ebda71c4f78f0092441308af",
+        "cases": 960
+      },
+      "routines": {
+        "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+        "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+        "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+        "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+        "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+        "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+      }
+    },
+    "blade-fury-resource-source-evidence": {
+      "receipt": "d3415bd6d97c5d278b1b52bac982afc143298e9d97a4fb549f00b44de8d5dbca",
+      "fixture": {
+        "path": ".local/class-skills/blade-fury-resource-source-probe.json",
+        "cases": 7200,
+        "sha256": "13a4ea085c4063659d0908387ad7d2818d68b9da1336d3c61e414e26c77f667b"
+      },
+      "routines": {
+        "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+        "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+        "SKILLS_SrvDo048_BladeFury": "7955cadcc3e83991969e62797b4fd03a2462ffa283ec73f85559f77d354f64ab",
+        "SKILLS_SrvSt26_BladeFury": "ead80372d972461f9786ccbd3dd9cdbafa3dad1301844ea8f607181f10102ac7",
+        "SKILLS_StatRemoveCallback_RemoveState": "93a390dff6ba7f8309a4d2c936a5f7231af89740538084175ba35ae11fc1cd2d",
+        "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+        "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+        "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+        "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+      }
+    }
+  },
+  "correctedManaFlagSkills": [
+    25,
+    266,
+    402
+  ],
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-fury-packets-check": 1,
+    "item-execution-metadata-check": 1,
+    "npc-item-skills-check": 1,
+    "blade-fury-missile-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-fury-packets-reload-check": 2,
+    "item-execution-metadata-reload-check": 2,
+    "npc-item-skills-reload-check": 2,
+    "blade-fury-missile-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 4,
+  "integrationBuild": 3,
+  "sourceSnapshot": 5,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "e095d5cabad0f13e4be3fabdaa034d6fe1e84e48263c41eba1046691e4ef9c61",
+    "Assemblies/Sanctuary.Integration.dll": "4b0422a862c379ef954611cbc0f99d448c78de40460242552a1d956feb421e91"
+  },
+  "files": {
+    ".local/class-skills/shadow-fury-packets/source-snapshot-1.json": "d8a175cf574de92a69e88825bfd05f54a25ea3f7b8f5e1fb708f8825c0c3578e",
+    ".local/class-skills/shadow-fury-packets/source-snapshot-2.json": "b1e99b04a27d60a53ee3844bd4746ae7af8f92c0d397a7ec86e97ec27e504293",
+    ".local/class-skills/shadow-fury-packets/source-snapshot-3.json": "e64406ec2a2add2a207d400a74206c3829661f29726e355de736c88eba2c78a8",
+    ".local/class-skills/shadow-fury-packets/source-snapshot-4.json": "ce23c2963341e3a403aa6d82e9d46eeebd065dee78a67cf478443ebff6c71d04",
+    ".local/class-skills/shadow-fury-packets/source-snapshot-5.json": "6ec30554afc6cf646f17c0527e0db0d7f9872ab00d7bf3f901f539872ba437b2",
+    ".local/class-skills/shadow-fury-packets/birth-inputs.json": "21d33be30dbbeb4bd6512f26aa93ad643613bec48f45d415c3fa6b272af786e9",
+    ".local/class-skills/shadow-fury-packets/birth-native-checks.log": "c8466c2db3de56ac9cbdf1073dd3d1a4d46243c68879da6d9fa40a609f2c0bcb",
+    ".local/class-skills/shadow-fury-packets/birth-inputs-failed-1.json": "8337bc18f1a199e47c0e4889cbacca062b2663671d2442f332e895b899446099",
+    ".local/class-skills/shadow-fury-packets/birth-native-checks-failed-1.log": "f1c91bb4d621bc306062430539554afd9f5f9beb5ca8cd57a1505020dd0e612e",
+    ".local/class-skills/shadow-fury-packets/birth-inputs-pre-resource-pass.json": "89a59c5492e2088c41ece6c3fc37b27e154d04397a98f5515e7446ab5d0e88f6",
+    ".local/class-skills/shadow-fury-packets/birth-native-checks-pre-resource-pass.log": "3f87e2a276b28278ae16cfec37f2951f5efceba9dc1d4d269bd9ee6388b5f5f6",
+    ".local/class-skills/shadow-fury-packets/native-run-1.log": "48f5adf3455c94e21ca13740230ab8109cbf9118e54bd4ac4532f0f52a966597",
+    ".local/class-skills/shadow-fury-packets/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-fury-packets/native-run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-fury-packets/content-build-1.log": "0cc4c6595af3227c0ae2cea69762d14f6b076e8b1d20eac2bb79c85214bdd150",
+    ".local/class-skills/shadow-fury-packets/content-build-2.log": "c8c56ff75e939e6b251b4b0a86a27dcc373313365160137942a2228ac9cb5783",
+    ".local/class-skills/shadow-fury-packets/content-build-3.log": "88badd26353cfd1876c37a7eb8b383cc66ed79fb561d227a32d088d7c8b86a58",
+    ".local/class-skills/shadow-fury-packets/content-build-4.log": "64f00dd49babb27b922155b9b9508f801822d7a609b7f7ac2a54babf3937699d",
+    ".local/class-skills/shadow-fury-packets/integration-build-1.log": "35d97baf2eb00c3b2d82b6aa01580ae06c9c996ceb8daef3c064db307e0756b0",
+    ".local/class-skills/shadow-fury-packets/integration-build-2.log": "aeeab9f25bf3f3cd6fd411e5ddedaeabb6008b42b2d87627a411eb89dcf8b454",
+    ".local/class-skills/shadow-fury-packets/integration-build-3.log": "648769d62ec9141ceee4301b8402e7eeb54ee370f13e726c61eccecc14214a02",
+    ".local/class-skills/shadow-fury-packets/shadow-fury-packets-fixtures.json": "088bfd5246d0449669cd02c8c8b4a88b0c675ce7c03b96e83f4c735e281e794a",
+    ".local/class-skills/shadow-fury-packets/item-skill-execution-before.json": "3289ba5b95ba2793c6336d9cc722cdbb14d64655d3c19374e0c3cc83508ce075",
+    ".local/class-skills/shadow-fury-packets/item-skill-execution-metadata-before.json": "c51d7566fbbf9532c5195477599c66e68a5f1c12db4af77ea048f4279d1ad9b7",
+    ".local/class-skills/shadow-fury-packets-source-run-1.log": "8440ae6a810696dcb544275d1c7fd2cb8b85bb55e349986875baa3c3e42eb9f3",
+    ".local/class-skills/shadow-fury-packets-source-run-2.log": "fa6a37bce7b6b666de4aab565029f1fcf018ec4dc6f45d50c1d2b12c863ba916",
+    ".local/class-skills/shadow-fury-packets-source-run-3.log": "5979a2a41d1262500503038794092c1a4727f59d0817e7944d8ed8afa4f49da5",
+    ".local/class-skills/shadow-fury-packets-source/compiler-failed-2.log": "8f8571f394e7e02c4c48294242365846ffaf833619e27a14f99513af994df59f",
+    ".local/class-skills/shadow-fury-packets-source/source-failed-2.cpp": "e093b11a334777a445f71cdaca77860b6950e784b5c89cc5c0bb1cc3b0183ca4",
+    "tools/record_shadow_fury_packets.py": "99ed536348af01ba6009937b44654bcdccc6742fdb2d5201fc8e411c336518ae",
+    "tools/probe_shadow_fury_packets.py": "72922661b1f7a1fbff52870b6a79eddf4b740cd209991b707dffec3f6ffaa3c2",
+    "tools/build_item_skill_execution.py": "5df93f961ea2b77b3f7ddb8a3c4909486788fe753466be306affb84bbc4a22b6",
+    "tools/reference/item-skill-execution-metadata.json": "6b9b67ce04fb3f30a67419bd1157dd4e1a713540a90078e235a42de6054b4ff6",
+    "tools/reference/shadow-fury-packets-source-evidence.json": "152a4aef4551058b10addd8ee0d5b3d1329f596a77de5ce53f3a50a10cea56e1",
+    "tests/check_shadow_fury_packets.py": "e108e0ffb9c25af8d09ba9baa07747790934fb18d122c174ccc0b8e1d27d425e",
+    "docs/shadow-fury-mana-proposal.md": "4dd8d0c81ce37c6ed179c9aecd47501aab1cbebf196fcdad5abbe2a861c070e9"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Source harness first assumed an older receipt schema key,then needed cstdlib for aborting unused service stubs;both diagnostics retained. Initial native row guard exposed a real catalogue capitalization bug:UseManaOnDo read a missing field instead of current usemanaondo. Generator,reader validation and exactly3normalized booleans corrected;all raw rows unchanged. The next cohort passed. Approved no-mana NPC state adapter and focused zero-mana/lease/deadline/reentry tests were then added;final run passed.",
+  "scope": "Both original Shadows:own primary weapon/body stats and hard synergy capture through existing Fury/Bow creator,typed source96,poison override/count,source double armor delta,creation flags and supplied critical. No actor/world RNG,emission,damage,charge consumption or mana spending during capture. Owner-stat isolation,secondary-hand exclusion,soft/hard synergy distinction,original primary restoration,borrowed-rank refusal,packet JSON and exact original actor/items/resources/wounds/seed/packet across2reloads pass. Approved free NPC resource adapter reuses full shared21/7frame lease,strict5frame emission deadline,released-bit/list distinction and expiry/reentry with actual zero owner/pet mana. All429raw metadata rows and flags25/266/402,original NPC item skills and player Fury missile impacts/saves pass.16new monster creator controls;old compiler matrices not rerun.",
+  "limits": [
+    "Critical selection remains an explicit supplied boolean. NPC channel clock/startup/rewind/automatic AI/world missile allocation,private RNG,AR/block/impact/events and released-flight persistence remain unconnected/unverified. This checkpoint does not enable or certify intrinsic Fury gameplay.",
+    "Resource tests exercise the reused component through explicit emission/rewind/allocation services;they do not establish NPC animation or callback timing. Poison/mastery/pierce/bypass consumption at projectile impact remains separate.",
+    "Corrected catalogue flags are verified for all3rows and shared consumers;this is not new full Plague Javelin/Abyss mechanical certification. Existing saves/installed build unchanged;no completed class/deployment.",
+    "Final blade/channel/cast/impact/audio and talent/hotkey icons remain identified placeholders."
+  ]
+}

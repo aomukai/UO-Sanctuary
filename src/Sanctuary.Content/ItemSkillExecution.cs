@@ -48,7 +48,7 @@ internal static class ItemSkillExecution
                 || r.Do != r.Number("srvdofunc") || r.Do is < 0 or > 65535 || r.Start != r.Number("srvstfunc") || r.Start is < -32768 or > 32767
                 || r.ItemEffect != r.Number("ItemEffect") || r.ItemEffect is < 0 or > 65535 || r.ItemTarget != r.Number("ItemTarget") || r.ItemTarget is < 0 or > 255
                 || r.ItemTargetDo != (r.Number("ItemTgtDo") != 0) || r.ItemCheckStart != (r.Number("ItemCheckStart") != 0)
-                || r.InTown != (r.Number("InTown") != 0) || r.UseManaOnDo != (r.Number("UseManaOnDo") != 0)
+                || r.InTown != (r.Number("InTown") != 0) || r.UseManaOnDo != (r.Number("usemanaondo") != 0)
                 || r.Lob != (r.Number("lob") != 0) || r.DecrementQuantity != (r.Number("decquant") != 0))
             { throw new InvalidDataException("Inconsistent item execution row"); }
             int missile = r.Fields.ContainsKey("srvmissile") ? c.MissileIds[r.Text("srvmissile")] : -1;

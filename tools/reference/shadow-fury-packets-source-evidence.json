@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 16,
+  "completeRoutines": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/class-skills/bow-launch-source-probe.cpp": "6ccf8f9c83a144f2a641b2e5e6d71171c04fcc3850ac8b1cc74af51efae53072"
+  },
+  "retainedProof": "tools/reference/blade-fury-damage-source-evidence.json",
+  "artifacts": {
+    ".local/class-skills/shadow-fury-packets-source/source.cpp": "7d128466b63c1557109fb05071a8209715d149f6e472290d1bb33dd6d8dc7943",
+    ".local/class-skills/shadow-fury-packets-source/probe": "d4e47c017043915065fdcd3703b26102bfa0c86332673f00c6015a1c78c35dce",
+    ".local/class-skills/shadow-fury-packets-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-fury-packets-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-fury-packets-source/cases.json": "c59056e8b13bad6fc2bc7ecad62e44c94a241a0263d0499457fc79b59c056fb7",
+    "tools/probe_shadow_fury_packets.py": "72922661b1f7a1fbff52870b6a79eddf4b740cd209991b707dffec3f6ffaa3c2"
+  },
+  "scope": "Full unchanged monster-branch missile creator/add/scale and physical skill getters;ordinary equipped nonhireling owner,primary one-hand weapon,rank/hard synergy/percent/critical contexts. Weapon selection,mastery17/strength100/dex50,raw fields,critical boolean and primary restore are declared services. No source RNG selection,world impact,channel/timing or current executable equivalence. Existing960player matrix is not rerun."
+}

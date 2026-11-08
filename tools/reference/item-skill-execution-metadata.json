@@ -23,8 +23,8 @@
   ],
   "directMissileRows": 51,
   "artifacts": {
-    "data/Sanctuary/Balance/item-skill-execution.json": "3289ba5b95ba2793c6336d9cc722cdbb14d64655d3c19374e0c3cc83508ce075",
-    "tools/build_item_skill_execution.py": "be5606f646231b1ffb2fec9d14e15ef0298f22dfaf4b5602012e372a9cbda8a6"
+    "data/Sanctuary/Balance/item-skill-execution.json": "37c83d6fc76870319eb3dcec62633a159c686cb0588cbec87f532c7da7965a73",
+    "tools/build_item_skill_execution.py": "5df93f961ea2b77b3f7ddb8a3c4909486788fe753466be306affb84bbc4a22b6"
   },
   "limits": [
     "Animation is explicitly null when absent,not invented as mode0. All raw fields including localdelay/globaldelay/perdelay remain. The older single-delay field is absent in current rows;do not replace current delays with zero or merge them.",

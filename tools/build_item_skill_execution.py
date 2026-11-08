@@ -18,11 +18,11 @@ def build(check=False):
   assert int(key)==r['*Id'];number=lambda name:r.get(name,0)
   for name in ('srvdofunc','ItemEffect'):assert isinstance(number(name),int) and 0<=number(name)<=65535
   for name in ('srvstfunc',):assert isinstance(number(name),int) and -32768<=number(name)<=32767
-  for name in ('ItemTgtDo','ItemCheckStart','InTown','UseManaOnDo','lob','decquant'):assert number(name) in (0,1)
+  for name in ('ItemTgtDo','ItemCheckStart','InTown','usemanaondo','lob','decquant'):assert number(name) in (0,1)
   assert 0<=number('ItemTarget')<=255
   missile=missiles[r['srvmissile']] if 'srvmissile' in r else -1
   anim=MODES.index(r['anim']) if 'anim' in r else None
-  rows.append(dict(Id=int(key),Name=r.get('skill',''),Do=number('srvdofunc'),Start=number('srvstfunc'),ItemEffect=number('ItemEffect'),ItemTarget=number('ItemTarget'),ItemTargetDo=bool(number('ItemTgtDo')),ItemCheckStart=bool(number('ItemCheckStart')),InTown=bool(number('InTown')),UseManaOnDo=bool(number('UseManaOnDo')),Lob=bool(number('lob')),DecrementQuantity=bool(number('decquant')),Missile=missile,Animation=anim,Fields=r))
+  rows.append(dict(Id=int(key),Name=r.get('skill',''),Do=number('srvdofunc'),Start=number('srvstfunc'),ItemEffect=number('ItemEffect'),ItemTarget=number('ItemTarget'),ItemTargetDo=bool(number('ItemTgtDo')),ItemCheckStart=bool(number('ItemCheckStart')),InTown=bool(number('InTown')),UseManaOnDo=bool(number('usemanaondo')),Lob=bool(number('lob')),DecrementQuantity=bool(number('decquant')),Missile=missile,Animation=anim,Fields=r))
  assert len(rows)==429 and [r['Id'] for r in rows]==list(range(429)) and [r['Id'] for r in rows if not r['Name']]==[362]
  unresolved=[r['Id'] for r in rows if r['Animation'] is None];assert len(unresolved)==43
  data=dict(ReferenceVersion='3.3.93847',SourceHashes=inputs,MissileIds=missiles,UnresolvedAnimationIds=unresolved,Skills=rows)
