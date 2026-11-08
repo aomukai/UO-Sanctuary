@@ -74,7 +74,7 @@ internal static class ShadowMasterWorld
                     (s,t,px,py)=>
                     {
                         if(s.Id==0){return q.Act(new(NecromancerPetAiKind.Attack,s.Mode,t?.Id??0));}
-                        if(!(s.Id is 251 or 253 or 264 or 273 or 277||ShadowDefensiveBuffs.Handles(s.Id)||ShadowSentries.Handles(s.Id)))
+                        if(!(s.Id is 251 or 253 or 264 or 273 or 277||ShadowDefensiveBuffs.Handles(s.Id)||ShadowSentries.Handles(s.Id)||ShadowFinishers.Builder(s.Id)))
                         {body.MasterGap(s.Id,"Intrinsic skill action consumer remains unimplemented or separately gated");return 0;}
                         if(px!=0||py!=0){throw new NotSupportedException("Master coordinate action needs its own saved aim bridge");}
                         return q.Act(new(NecromancerPetAiKind.Skill,s.Mode,s.Id,t?.Id??0));
@@ -95,7 +95,7 @@ internal static class ShadowMasterWorld
         internal override bool State(ShadowMasterUnit unit,int state)
         {
             var actor=Find(unit);if(actor==body)
-            {return state==119||OriginalNpcEquipment.Graph(body).Passives.State(state)
+            {return state==119||ShadowChargeStrikes.State(body,state)||OriginalNpcEquipment.Graph(body).Passives.State(state)
                 ||GenericPetMetadata.Table.State(state)?.Name=="bladeshield"&&BladeShields.State(body)!=null;}
             if(GenericPetMetadata.Table.State(state)?.Name=="cloaked")
             {return NecromancerEffects.Curse(actor)is{Ability:CombatAbility.CloakOfShadows,CloakBlind:true};}

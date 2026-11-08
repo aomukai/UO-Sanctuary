@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shadow Tiger/Cobra finishers (2026-11-08 JST).** No public binding or icon identity is added. Shadow Warrior/Master and existing Tiger/Cobra talent/hotkey icons remain identified text placeholders; final effects/audio remain separate. See [checkpoint](shadow-finisher-checkpoint.md).
+
 **Shadow A2 charge actions (2026-11-08 JST).** No public binding or icon identity is added. Shadow Warrior/Master and Tiger/Cobra/Phoenix talent/hotkey icons remain identified text placeholders; effects/audio stay separate. See [checkpoint](shadow-charge-action-checkpoint.md).
 
 **Shadow charge backend (2026-11-08 JST).** No new public binding or icon identity is added. Shadow Warrior/Master and the existing Tiger/Cobra/Phoenix talent/hotkey icons retain their identified text placeholders. See [checkpoint](shadow-charge-checkpoint.md); effects/audio remain separately tracked.

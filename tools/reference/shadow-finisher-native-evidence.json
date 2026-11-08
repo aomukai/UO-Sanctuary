@@ -1,0 +1,100 @@
+{
+  "parent": "5b91d7cc27aa4012e1a5140516aef0f3870fbc66",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticBuilderIds": [
+    254,
+    265
+  ],
+  "warriorCobraCategoryConflict": true,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-finisher-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-master-world-check": 1,
+    "shadow-ground-check": 1,
+    "tiger-strike-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-finisher-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-master-world-reload-check": 2,
+    "shadow-ground-reload-check": 2,
+    "tiger-strike-reload-check": 2
+  },
+  "sourceContexts": 0,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 8,
+  "integrationBuild": 8,
+  "sourceSnapshot": 8,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "a1e1238800a08e854e31a8ec0d00fddfefda5d7d4928bfa6e4656e3af9392f31",
+    "Assemblies/Sanctuary.Integration.dll": "4669db0b664062cd7bcb8edc02fc15c5cfa6826839b006deda6373c4e26107b1"
+  },
+  "files": {
+    ".local/class-skills/shadow-finishers/source-snapshot-8.json": "7cbfb44abb2ff970c76e43b0b7434ea5a294a19cae36042a2ecff2280a225046",
+    ".local/class-skills/shadow-finishers/birth-inputs.json": "d4bfe43b5924a757fad8d650a19016b6a56daa9831295ed18b6108523c90fa31",
+    ".local/class-skills/shadow-finishers/birth-native-checks.log": "883d0eb3936897ab30274fcffc444d3241200e54ac9994de410ebf5fb295ee7d",
+    ".local/class-skills/shadow-finishers/native-run-8.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-finishers/content-build-8.log": "8db839a7c0903018bdfa54fcf7f869bdbf3a9a0dd3489812573b84479fa35a5d",
+    ".local/class-skills/shadow-finishers/integration-build-8.log": "bad0ccd126a54d8a280edfd9e82ba492740c947977eb286a288de351df96e5c8",
+    ".local/class-skills/shadow-finishers/shadow-finisher-fixtures.json": "e9d5db67f636621ee802de6c890dc3c83a160a10aa23db4bbaf14af759d7c5cf",
+    "tools/reference/shadow-finisher-source-review.json": "18f6f4941b325905999bc3a25a1a302a01a01830aa3921036492ad64b4dc475a",
+    "tools/reference/tiger-strike-source-evidence.json": "201cf2e8345e30490037b848f660e2219be2573d89acb504aae73d47bbf1cac8",
+    "tools/reference/cobra-strike-source-evidence.json": "9143d388eb6366ddf6263b181a4db0b79aedaf362bea1d25e8ad1df019dd9bc0",
+    "tools/reference/npc-flat-drains-native-evidence.json": "af877c00b300318c19cf9f8185b045784de15731d2327a88ebf843765a42f8bf"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "loadoutSurvey": {
+    "total": 64,
+    "admitted": 63,
+    "unsupported": [
+      {
+        "Seed": 9,
+        "Ability": 201,
+        "Reason": "NPC item spell requires its own damage/execution adapter: 62"
+      }
+    ],
+    "lowerEnhancedRealizedRolls": 1
+  },
+  "productionDllUnchangedFromInitialRun": true,
+  "scope": [
+    "Own ordinary NPC Tiger prefill enhanced damage and Cobra postfill raw fixed-point drains compose through existing original full weapon fill,mitigation/contact and NPC flat-drain receiver. Own progressive AR feeds shared hit/block. Modern common Attack consume-one policy is reused after successful allocation within tight progressive range; later contact cancellation does not refund it.",
+    "Both original species:actual basic finisher marker consumes/damages,late own current rank/retained initial-rank helpers,independent two-family consumption/AR,miss and tight-range edges,duplicate-contact refusal,fractional target mana/life effects and no player-style self/owner mana recovery. Unsupported elemental family refuses before source hit RNG/charge consumption.",
+    "Actual Warrior Tiger AI builds/finishes. Current Cobra aitype12 is refused by unchanged older AI105 in melee,explicitly tested rather than overridden. Both Master own world request consumers release their A2/contacts; the full distinct Master world cohort is retained,not a claim of observed natural Cobra selection.",
+    "64 declared original allocation/species samples:63 admitted damage packets exactly match source physical RNG/critical and raw Cobra stages;one original Master at seed9 requires missing NPC Hydra62. Original equipment is not stripped/rerolled to pass. One lower enhanced realization is valid because RNG bounds change raw modulo;the earlier strict-monotonic packet assertion was wrong.",
+    "Same original actors/items/resources/wounds/RNG and charge slots/deadlines survive both reloads,then finish/build again. Affected charge/A2,Master world,Warrior ground and player Tiger regressions pass. Existing complete Tiger/Cobra and NPC drain source controls are authenticated/reused;no duplicate compiled matrix."
+  ],
+  "diagnostics": [
+    "Native1-3 incorrectly required Warrior Cobra selection. Native2 added policy diagnostics;source audit shows current category12 versus older AI105 melee4/13. Fixture now verifies Tiger selection and preserves/tests Cobra refusal. Production AI policy unchanged.",
+    "Native4 rejected a realized enhanced physical roll versus same-seed baseline. Native5 with richer diagnostics passed three boots;seeded survey replaces the false monotonic expectation with exact source RNG prediction and reproduces a valid lower realization.",
+    "Native6 survey read Cobra expected drain after consumption,halving the expected three-charge field;fixture now captures pre-consumption state. Native7 reached existing explicit missing NPC item Hydra62 during original event registration. Accepted survey records that one named unsupported loadout;no production guard loosened.",
+    "Content DLL byte-identical across failed diagnostic inputs and accepted run;changes after initial implementation were test diagnostics/expectations only. Failed logs/inputs/snapshots remain archived."
+  ],
+  "limitations": [
+    "Phoenix/Fists/Thunder/Ice and other progressive finisher effects remain explicitly unqualified. Other intrinsic skills,current modifier42 death,learned summon/payment/replacement/input and previous world/reference scopes remain. No class is certified complete.",
+    "Current Cobra category versus older Warrior policy is an explicit modern-reference conflict,not resolved by changing the AI. NPC Hydra item spell62 is a separate original-equipment gap. Source NPC drain semantics are not current executable certification.",
+    "Both pending design questions,modern missile range expressions and separate player Blade Shield event gap remain independent. Final effects/audio and talent/hotkey icons stay in separate pending inventories. No deployment."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "routines": {
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "SKILLS_SrvDo001_Attack_LeftHandSwing": "c20364bdd0433c0990308bba34248cecffb6a5d34439c13067c9fd724ec06528"
+  },
+  "reusedEvidence": [
+    "tools/reference/tiger-strike-source-evidence.json",
+    "tools/reference/cobra-strike-source-evidence.json",
+    "tools/reference/npc-flat-drains-native-evidence.json"
+  ],
+  "newCompiledControls": 0,
+  "scope": "Full ordinary Attack/Tiger/Cobra/progressive-release order reviewed against authenticated existing source proof. Modern Attack consume-one rule comes from existing pinned common-melee data, not obsolete all-charge removal. NPC fixed-point drain receiver and source helpers are reused; no duplicate compiled matrix. Native own-actor composition and AI admission are separately tested."
+}

@@ -1,5 +1,7 @@
 # Deferred item skill effects
 
+**Original Shadow equipment gap (2026-11-08 JST): NPC Hydra62.** The declared finisher survey finds an original Shadow Master loadout at world allocation seed9 whose item-event registration requires the missing NPC Hydra execution adapter. It refuses before combat; its gear is not stripped, rerolled or silently ignored. The other63/64 surveyed original loadouts pass the focused finisher packet comparison. Reuse the existing Hydra actor/creation and NPC ownership services when implementing this separate adapter; source caster/owner inheritance still needs qualification. This is a mechanical gap, separate from final Hydra artwork/icons. See [checkpoint](shadow-finisher-checkpoint.md) and [receipt](../tools/reference/shadow-finisher-native-evidence.json).
+
 User decision: return to skill-dependent item effects after the relevant class mechanics are implemented. A finished skill handler still needs its item trigger, grant, aura or charge delivery system. Existing supported bonuses keep working; this list does not disable them.
 
 | Return task | Source property codes | Required work |

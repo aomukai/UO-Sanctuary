@@ -77,10 +77,12 @@ public static class AssassinCharges
         return remaining==0?null:state with{Count=remaining,AttackPercent=state.AttackPercent*remaining/state.Count};
     }
     internal static void Consume(PlayerMobile owner,MartialCharge captured,int count)
+        =>Consume((Mobile)owner,captured,count);
+    internal static void Consume(Mobile owner,MartialCharge captured,int count)
     {
         if(captured==null || State(owner,captured.Ability)!=captured){return;}
         var next=Consumed(captured,count);var key=(captured.Owner,captured.Ability);
-        if(next==null){States.Remove(key);}else{States[key]=next;}StatNetwork.Send(owner);
+        if(next==null){States.Remove(key);}else{States[key]=next;}if(owner is PlayerMobile player){StatNetwork.Send(player);}
     }
     public static void Clear(Mobile owner)
     {if(owner==null){return;}foreach(var key in States.Keys.Where(x=>x.Item1==owner.Serial.Value).ToArray()){States.Remove(key);}}

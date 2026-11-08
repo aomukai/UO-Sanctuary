@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
@@ -9,6 +10,14 @@ namespace Sanctuary;
 internal static class ShadowChargeStrikes
 {
     internal static bool Handles(int id)=>id is 254 or 265 or 280;
+    internal static MartialCharge Charge(AssassinShadowBody body,int id)=>AssassinCharges.State(body,id switch
+        {254=>CombatAbility.TigerStrike,265=>CombatAbility.CobraStrike,280=>CombatAbility.PhoenixStrike,
+            _=>throw new NotSupportedException("Unqualified Shadow progressive state")});
+    internal static bool State(AssassinShadowBody body,int state)
+    {
+        string name=GenericPetMetadata.Table.State(state)?.Name;
+        return new[]{254,265,280}.Any(id=>ItemSkillExecution.Skill(id).Text("aurastate")==name&&Charge(body,id)!=null);
+    }
     internal static ItemExecutionMetadata Row(int id)
     {
         var r=ItemSkillExecution.Skill(id);

@@ -103,9 +103,12 @@ internal static class ShadowGroundMotion
         bool State(ShadowAiSkill skill)=>ShadowDefensiveBuffs.Handles(skill.Id)
             ?OriginalNpcEquipment.Graph(body).Passives.State(ShadowDefensiveBuffs.State(skill.Id))
                 :skill.Id==277?BladeShields.State(body)!=null
+                :ShadowChargeStrikes.Handles(skill.Id)?ShadowChargeStrikes.Charge(body,skill.Id)!=null
                 :throw new NotSupportedException("Shadow skill state query needs its NPC consumer: "+skill.Id);
         var s=new ShadowWarriorServices(()=>true,()=>Selected(false),()=>Selected(true),
-            (left,right)=>body.ChangeSkills(book=>book.Mirror(body.Prepared.Capture,left,right)),Skill,Pet,State,State,State,
+            (left,right)=>body.ChangeSkills(book=>book.Mirror(body.Prepared.Capture,left,right)),Skill,Pet,State,State,
+            skill=>ShadowChargeStrikes.Handles(skill.Id)?ShadowChargeStrikes.Charge(body,skill.Id)?.Count>=3
+                :throw new NotSupportedException("Shadow progressive count needs its own consumer"),
             ()=>NpcEquipmentRandom.Raw(body),n=>NpcEquipmentRandom.Limited(body,n),()=>NpcEquipmentRandom.Limited(body,100),q.CommonMove,
             n=>q.Request(new(NecromancerPetAiKind.Idle,n)),target=>q.Request(new(NecromancerPetAiKind.RunTarget,target)),
             (skill,target)=>q.Request(skill.Id==0?new(NecromancerPetAiKind.Attack,4,target):new(NecromancerPetAiKind.Skill,skill.Mode,skill.Id,target)),

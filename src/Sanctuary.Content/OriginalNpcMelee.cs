@@ -32,11 +32,12 @@ internal static class OriginalNpcMelee
         {throw new NotSupportedException("Original equipped NPC contact needs its living world owner and explicit UTC allocation phase");}
         RequireAllocation(body,target);var rules=IronGolemContact.Require(body,owner,target);
         if(body is AssassinShadowBody&&AssassinCharges.Any(body))
-        {throw new NotSupportedException("Shadow ordinary finisher must release its active martial charges; consumer remains unqualified");}
+        {return ShadowFinishers.Prepare((AssassinShadowBody)body,owner,target,range,at,rules);}
         if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Original equipped NPC recipient block rule is unavailable");}
         return IronGolemContact.Prepare(body,target,rules,()=>NpcMeleeResult.Resolve(body,target,range,()=>ClassCombat.IsHostile(owner,target),n=>NpcEquipmentRandom.Limited(body,n)));
     }
-    internal static NpcWeaponImpact Impact(SkeletonGuardian body,BaseCreature target,int flags,NpcFillPacket initial=null,int sourceDamage=128)
+    internal static NpcWeaponImpact Impact(SkeletonGuardian body,BaseCreature target,int flags,NpcFillPacket initial=null,int sourceDamage=128,
+        Func<NpcFillPacket,NpcFillPacket> afterFill=null)
     {
         RequireAllocation(body,target);
         int Armor()=>Math.Max(0,checked(CreatureProfiles.Defense(target)+NpcEquipmentCombat.Defense(target))-TimedEffects.DefenseLoss(target));
@@ -49,6 +50,7 @@ internal static class OriginalNpcMelee
             (_,_)=>throw new NotSupportedException("Original target monster-type service is not admitted"));
         var graph=OriginalNpcEquipment.Graph(body);
         var fill=Allocate(body,facts,(initial??new()) with{ResultFlags=flags,AdditionalPercent=checked((initial?.AdditionalPercent??0)+CombatAuras.DamagePercent(body)+NecromancerEffects.DamageStatPercent(body))},sourceDamage);
+        if(afterFill!=null){fill=afterFill(fill);}
         var poison=new NpcPoisonSnapshot(body.Serial.Value,body.ControlMaster.Serial.Value,new(PoisonMin:graph.Read(57),PoisonMax:graph.Read(58),PoisonFrames:graph.Read(59),PoisonCount:graph.Read(326)),graph.Read(332),Math.Max(0,graph.Read(336)));
         var pierce=new NpcElementPierce(graph.Read(333),graph.Read(335),graph.Read(334),graph.Read(358));
         return NpcEquipmentImpact.FromFill(body,target,fill,poison,pierce.For,PaladinAuras.NativeWeaponMultiplier(body,true));

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shadow Tiger/Cobra finishers (2026-11-08 JST).** Mechanical ordinary-contact release now works for both families. Final basic-finisher/contact poses, Tiger foot-impact and charge overlays, Cobra drain overlays/audio remain pending; the flat-drain receiver reuses identified overlay0x376A. Share existing player charge families. NPC Hydra62 in one original item loadout is a separate mechanical adapter gap. See [checkpoint](shadow-finisher-checkpoint.md). Icons stay separate.
+
 **Shadow A2 charge actions (2026-11-08 JST).** Mechanical release/end timing is connected using current owned animation data. Final visible A2 poses, weapon-contact cues, distinct charge gain/refresh/expiry overlays and audio still need assets; reuse existing player charge families and identified marker0x375A. See [checkpoint](shadow-charge-action-checkpoint.md). Icons remain separate.
 
 **Shadow charge backend (2026-11-08 JST).** Tiger/Cobra/Phoenix gain reuses identified generic marker0x375A. Final NPC A2 and weapon-contact poses, family-specific charge overlays/refresh/expiry and audio remain pending; share the existing player charge families. A2 conductor and progressive finishers remain mechanically gated. See [checkpoint](shadow-charge-checkpoint.md). Icons remain separate.
