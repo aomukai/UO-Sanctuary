@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Phoenix (2026-11-08 JST).** Mechanical parent release,meteor/18fields,chain and chaos travel/contact/freeze now work in shared pools. Identified placeholders remain warning0x3709,meteor0x36BD,fire0x398C,chain0x3818 and ice0x374A. Final Shadow finisher pose,warning/fall/impact/ground fire,distinct chain/chaos travel and contact,freeze/thaw and audio are still needed;share existing player Phoenix/cold/fire families. See [checkpoint](shadow-phoenix-checkpoint.md). Icons stay separate.
+
 **Owned NPC spell freeze (2026-11-08 JST).** Typed freeze delivery reuses identified cold/freeze marker0x374A. Final chaos-ice/Ice release travel/contact,freeze/thaw and audio remain pending within existing martial/cold families. No Phoenix projectile or elemental finisher emission is enabled by this receiver prerequisite. See [checkpoint](npc-spell-freeze-checkpoint.md). Icons stay separate.
 
 **Shadow Tiger/Cobra finishers (2026-11-08 JST).** Mechanical ordinary-contact release now works for both families. Final basic-finisher/contact poses, Tiger foot-impact and charge overlays, Cobra drain overlays/audio remain pending; the flat-drain receiver reuses identified overlay0x376A. Share existing player charge families. NPC Hydra62 in one original item loadout is a separate mechanical adapter gap. See [checkpoint](shadow-finisher-checkpoint.md). Icons stay separate.

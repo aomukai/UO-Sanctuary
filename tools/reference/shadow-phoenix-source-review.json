@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routines": {
+    "SKILLS_SrvDo040_RoyalStrike_ProgressiveFn1": {
+      "sha256": "0841220641fb6abcc119d33ba096bf0bf26ee372646a73fb3cd46b6ef5e6f364",
+      "reused": [
+        "phoenix-release-source-evidence.json"
+      ]
+    },
+    "SKILLS_SrvDo041_RoyalStrike_ProgressiveFn3": {
+      "sha256": "0f01cad806a292e9a8edbdeed8ba17e43c9890e32b619fc5b5213bd26a019d28",
+      "reused": [
+        "phoenix-release-source-evidence.json"
+      ]
+    },
+    "SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn": {
+      "sha256": "226af98db59cda0eb4798b616f4e1cb709f21bcc0cefafce2d924a0dc5042928",
+      "reused": [
+        "martial-fire-release-source-evidence.json"
+      ]
+    },
+    "sub_6FCF6D70": {
+      "sha256": "38caa57113c6afa164bf9b6323cb46b342ad812a371d34ece7da689e59238002",
+      "reused": [
+        "phoenix-release-source-evidence.json"
+      ]
+    },
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": {
+      "sha256": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
+      "reused": [
+        "phoenix-meteor-source-evidence.json"
+      ]
+    },
+    "MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor": {
+      "sha256": "f54c079ceb702c12d0c809113f0f5117058648e8f2a253d794c29bb39de93ab5",
+      "reused": [
+        "phoenix-meteor-source-evidence.json"
+      ]
+    },
+    "MISSMODE_CreateMeteor_MoltenBoulderSubmissiles": {
+      "sha256": "b60345be1230f9d5f9bc44e9f84ab6dd8321d2d31a93634073043271ce25dfb6",
+      "reused": [
+        "phoenix-meteor-source-evidence.json"
+      ]
+    }
+  },
+  "newCompiledSourceControls": 0,
+  "scope": "Seven full unchanged emission/meteor routines authenticated against existing compiled evidence. do143/do41 draw one local-spread seed from actual caster;missile parameters retain that NPC as owner,unlike the ultimate-player sentry factory. Shared existing paths/curve/packet/meteor offset and lifetime controls are reused. Explicit world unit-seed context remains the existing native allocation adapter;this is not current executable whole-engine seed chronology certification. NPC typed delivery,shared pools,contact and reloads are separately tested."
+}

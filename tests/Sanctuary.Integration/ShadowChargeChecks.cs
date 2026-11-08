@@ -109,9 +109,11 @@ public static class ShadowChargeChecks
             Require(AssassinCharges.Finisher(b).Length==3&&AssassinCharges.Any(b),"Own simultaneous progressive states are not visible to Master queries");
             var saved=Charges(b);AssassinCharges.Clear(b);var rest=AssassinCharges.Snapshot();AssassinCharges.Restore([..rest,..saved]);
             Require(Json(Charges(b))==Json(saved),"Shared charge restore lost original NPC slots");
+            b.ChangeSkills(book=>book.Assign(259,3));AssassinCharges.Gain(b,ShadowSkillCasting.OwnValues(b,b.OwnedSkillRank(259),259),at);
             var rng=NpcEquipmentRandom.Require(b);bool refused=false;
             try{_=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);}catch(NotSupportedException e){refused=e.Message.Contains("finisher",StringComparison.Ordinal);}
             Require(refused&&NpcEquipmentRandom.Require(b)==rng,"Unqualified ordinary NPC finisher silently ignored charges or rolled");
+            AssassinCharges.Clear(b);rest=AssassinCharges.Snapshot();AssassinCharges.Restore([..rest,..saved]);
             // Real deadlines expire while parked; expiry grants no reset/heal.
             AssassinCharges.Gain(b,Values(b,254),TimedEffects.Now.AddMinutes(-1));
             Require(AssassinCharges.State(b,CombatAbility.TigerStrike)==null,"Expired replacement remains active");AssassinCharges.Prune();

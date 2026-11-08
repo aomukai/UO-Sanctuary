@@ -9,10 +9,12 @@ using Server.Logging;
 using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
-internal sealed record PhoenixDrop(long Id,long Cast,uint Owner,int Map,int Rank,int X,int Y,int Z,int Frame,DateTime NextUtc,string Fault=null);
+internal sealed record PhoenixDrop(long Id,long Cast,uint Owner,int Map,int Rank,int X,int Y,int Z,int Frame,DateTime NextUtc,string Fault=null)
+{[System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]public PhoenixNpcSource Npc{get;init;}}
 internal sealed record PhoenixFlight(long Id,long Cast,uint Owner,int Map,int Rank,bool Cold,double X,double Y,int Z,int Frame,int Frames,
     int VelocityFp8,int Minimum256,int Maximum256,int ColdFrames,int Pierce,SlowMissilePayload Slow,ulong Seed,uint TargetSeed,int Packed,
-    Point2D Direction,Point2D[] Path,int Next,SourceStepTrace Steps,DateTime NextUtc,string Fault=null);
+    Point2D Direction,Point2D[] Path,int Next,SourceStepTrace Steps,DateTime NextUtc,string Fault=null)
+{[System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]public PhoenixNpcSource Npc{get;init;}}
 internal sealed record PhoenixSave(PhoenixDrop[] Drops,PhoenixFlight[] Flights,WeaponFlightLease[] Leases,long NextId,long NextCast);
 public sealed class PhoenixProfiles:GenericPersistence
 {
@@ -20,9 +22,9 @@ public sealed class PhoenixProfiles:GenericPersistence
     public PhoenixProfiles():base("SanctuaryMartialPhoenix",162){}
     public override void Serialize(){_snapshot=MartialPhoenix.Snapshot();base.Serialize();}
     public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
-    public override void Deserialize(IGenericReader reader){if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Phoenix version");}MartialPhoenix.Restore(JsonSerializer.Deserialize<PhoenixSave>(reader.ReadString()));}
+    public override void Deserialize(IGenericReader reader){if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Phoenix version");}MartialPhoenix.Restore(JsonSerializer.Deserialize<PhoenixSave>(reader.ReadString()),loaded:true);}
 }
-public static class MartialPhoenix
+public static partial class MartialPhoenix
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MartialPhoenix));
     private static readonly Dictionary<long,PhoenixDrop> Drops=new();
@@ -104,7 +106,7 @@ public static class MartialPhoenix
     {
         foreach(var target in Map.Maps[f.Map].GetMobilesInRange<BaseCreature>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,f.Z),2))
         {
-            if(Math.Abs(target.Z-f.Z)>=16 || !ClassCombat.IsHostile(owner,target) || !Ready(f.Cast,target.Serial.Value,f.NextUtc) || SpellHelper.IsTown(target.Location,target)){continue;}
+            if(Math.Abs(target.Z-f.Z)>=16 || f.Npc!=null&&ClassCombat.Friendly(World.FindMobile((Serial)f.Npc.Actor),target) || !ClassCombat.IsHostile(owner,target) || !Ready(f.Cast,target.Serial.Value,f.NextUtc) || SpellHelper.IsTown(target.Location,target)){continue;}
             int size=CreatureProfiles.For(target).Traits.Size??throw new NotSupportedException("Phoenix collider lacks mapped source size");
             if(CombatHitboxes.SourceTouches(f.Cold?1:2,size,cell.X-target.X*2,cell.Y-target.Y*2)){return target;}
         }
@@ -113,25 +115,27 @@ public static class MartialPhoenix
     internal static PhoenixFlight Impact(PlayerMobile owner,BaseCreature target,PhoenixFlight f)
     {
         Leases[(f.Cast,target.Serial.Value)]=new(f.Cast,target.Serial.Value,f.NextUtc.AddMilliseconds(160));
+        if(f.Npc!=null){return NpcImpact(owner,target,f);}
         if(ClassAvoidance.Missile(target)){return f;}ulong seed=f.Seed;int damage=WeaponMissileDamage.RollValue(f.Minimum256,f.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         owner.DoHarmful(target,true);var reduced=NamedElements.Resolve256(owner,target,damage,f.Cold?"cold":"ltng",enhance:false,pierceOverride:f.Pierce);
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
         if(f.Cold){long tick=Core.TickCount+(long)(f.NextUtc-TimedEffects.Now).TotalMilliseconds;FreezeStates.Apply(owner,target,f.ColdFrames,tick,f.Pierce);} // damage2 clears ordinary chill.
         int loss=SkillHealth.Damage(owner,target,reduced.Damage256);CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return f with{Seed=seed};
     }
-    internal static void Tick(DateTime at,bool? allowActions=null)
+    internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyNpcActor=null)
     {
         var queue=new PriorityQueue<(long Id,bool Drop,DateTime Next),(DateTime,long)>();
-        foreach(var d in Drops.Values){if(d.NextUtc<=at){queue.Enqueue((d.Id,true,d.NextUtc),(d.NextUtc,-d.Id));}}
-        foreach(var f in Flights.Values){if(f.NextUtc<=at){queue.Enqueue((f.Id,false,f.NextUtc),(f.NextUtc,-f.Id));}}
+        foreach(var d in Drops.Values){if(d.NextUtc<=at&&(!onlyNpcActor.HasValue||d.Npc?.Actor==onlyNpcActor.Value)){queue.Enqueue((d.Id,true,d.NextUtc),(d.NextUtc,-d.Id));}}
+        foreach(var f in Flights.Values){if(f.NextUtc<=at&&(!onlyNpcActor.HasValue||f.Npc?.Actor==onlyNpcActor.Value)){queue.Enqueue((f.Id,false,f.NextUtc),(f.NextUtc,-f.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(due.Drop)
             {
                 if(!Drops.TryGetValue(due.Id,out var d) || d.NextUtc!=due.Next){continue;}
-                var owner=Owner(d.Owner,d.Map);if(owner==null){Drops.Remove(d.Id);continue;}
+                var owner=SourceOwner(d.Owner,d.Map,d.Npc);if(owner==null&&d.Npc==null){Drops.Remove(d.Id);continue;}
                 var next=d with{Frame=d.Frame+1,NextUtc=d.NextUtc.AddMilliseconds(40)};
-                if(next.Frame>=60){Drops.Remove(d.Id);if(Active(owner,allowActions) && d.Fault==null){try{MeteorImpact(owner,d,d.NextUtc);}catch(Exception e){Log.Error(e,"Phoenix meteor suspended: {Id}",d.Id);}}}
+                if(d.Npc!=null&&NpcActor(owner,d.Npc,d.Map,allowActions)==null){next=next with{Npc=d.Npc with{Dormant=true}};}
+                if(next.Frame>=60){Drops.Remove(d.Id);if(d.Fault==null){try{if(d.Npc!=null){if(NpcActor(owner,next.Npc,d.Map,allowActions)is{} actor){NpcMeteorImpact(actor,d,d.NextUtc);}}else if(Active(owner,allowActions)){MeteorImpact(owner,d,d.NextUtc);}}catch(Exception e){Log.Error(e,"Phoenix meteor suspended: {Id}",d.Id);}}}
                 else{Drops[d.Id]=next;if(next.NextUtc<=at){queue.Enqueue((d.Id,true,next.NextUtc),(next.NextUtc,-d.Id));}}
             }
             else
@@ -145,9 +149,11 @@ public static class MartialPhoenix
     }
     private static void Advance(PhoenixFlight f,bool? actions)
     {
-        var owner=Owner(f.Owner,f.Map);if(owner==null){Flights.Remove(f.Id);return;}
+        var owner=SourceOwner(f.Owner,f.Map,f.Npc);if(owner==null&&f.Npc==null){Flights.Remove(f.Id);return;}
         var next=f with{Frame=f.Frame+1,NextUtc=f.NextUtc.AddMilliseconds(40)};
-        if(!Active(owner,actions) || f.Fault!=null){if(next.Frame>=f.Frames){Flights.Remove(f.Id);}else{Flights[f.Id]=next;}return;}
+        bool active=f.Npc==null?Active(owner,actions):NpcActor(owner,f.Npc,f.Map,actions)!=null;
+        if(f.Npc!=null&&!active){next=next with{Npc=f.Npc with{Dormant=true}};}
+        if(f.Npc==null&&!active || f.Fault!=null){if(next.Frame>=f.Frames){Flights.Remove(f.Id);}else{Flights[f.Id]=next;}return;}
         double x=f.X,y=f.Y;int index=f.Next;
         if(f.Cold)
         {
@@ -166,7 +172,7 @@ public static class MartialPhoenix
         foreach(var cell in next.Steps.Cells)
         {
             if(cell.X<=0 || cell.Y<=0 || cell.X>=map.Width*2 || cell.Y>=map.Height*2){Flights.Remove(f.Id);return;}
-            if(Recipient(owner,next with{NextUtc=f.NextUtc},cell) is{} target)
+            if(active&&Recipient(owner,next with{NextUtc=f.NextUtc},cell) is{} target)
             {next=Impact(owner,target,next with{NextUtc=f.NextUtc}) with{NextUtc=next.NextUtc};if(f.Cold){Flights.Remove(f.Id);return;}break;}
             if(!map.LineOfSight(new Point3D((int)Math.Round(f.X),(int)Math.Round(f.Y),f.Z+12),new Point3D((cell.X+1)/2,(cell.Y+1)/2,f.Z+12))){Flights.Remove(f.Id);return;}
         }
@@ -180,15 +186,16 @@ public static class MartialPhoenix
             || f.Z is <-128 or >127 || f.VelocityFp8<0 || f.Minimum256<0 || f.Maximum256<f.Minimum256 || f.Path==null || f.Next<0 || f.Next>f.Path.Length || f.Cold && f.Path.Length!=0 || !f.Cold && f.Path.Length!=60
             || f.ColdFrames<0 || !f.Cold && f.ColdFrames!=0 || f.Slow.VelocityPercent is <0 or >100 || f.Slow.DamagePercent is <0 or >100 || f.Steps?.Cells is not{Length:>=1 and <=10})
         {throw new InvalidDataException("Invalid saved Phoenix flight");}
+        ValidateNpc(f.Npc,f.Owner);if(f.Npc!=null&&f.Npc.Pierce!=f.Pierce){throw new InvalidDataException("Phoenix NPC pierce mismatch");}
         if(f.Path.Any(x=>x.X is <0 or >65535 || x.Y is <0 or >65535)){throw new InvalidDataException("Invalid Phoenix path point");}
     }
     internal static PhoenixSave Snapshot()=>new(Drops.Values.OrderBy(x=>x.Id).ToArray(),Flights.Values.OrderBy(x=>x.Id).ToArray(),Leases.Values.OrderBy(x=>x.Cast).ThenBy(x=>x.Target).ToArray(),_nextId,_nextCast);
-    internal static void Restore(PhoenixSave save)
+    internal static void Restore(PhoenixSave save,bool loaded=false)
     {
         if(save?.Drops==null || save.Flights==null || save.Leases==null || save.NextId<0 || save.NextCast<0){throw new InvalidDataException("Missing Phoenix state");}
         var drops=new Dictionary<long,PhoenixDrop>();var flights=new Dictionary<long,PhoenixFlight>();var leases=new Dictionary<(long,uint),WeaponFlightLease>();
-        foreach(var d in save.Drops){if(d.Id<=0 || d.Id>save.NextId || d.Cast<=0 || d.Cast>save.NextCast || d.Frame is <0 or >=60 || d.Rank is <1 or >255 || d.Map<0 || d.Map>=Map.Maps.Length || Map.Maps[d.Map]==null || Map.Maps[d.Map]==Map.Internal || d.X<=0 || d.Y<=0 || d.X>=Map.Maps[d.Map].Width || d.Y>=Map.Maps[d.Map].Height || !((Serial)d.Owner).IsMobile || d.NextUtc.Kind!=DateTimeKind.Utc || !drops.TryAdd(d.Id,d)){throw new InvalidDataException("Invalid Phoenix warning");}}
-        foreach(var f in save.Flights){Validate(f);if(f.Id>save.NextId || f.Cast>save.NextCast || drops.ContainsKey(f.Id) || !flights.TryAdd(f.Id,f)){throw new InvalidDataException("Duplicate Phoenix flight");}}
+        foreach(var input in save.Drops){var d=loaded&&input?.Npc!=null?input with{Npc=input.Npc with{Dormant=true}}:input;if(d==null){throw new InvalidDataException("Missing Phoenix warning");}ValidateNpc(d.Npc,d.Owner);if(d.Id<=0 || d.Id>save.NextId || d.Cast<=0 || d.Cast>save.NextCast || d.Frame is <0 or >=60 || d.Rank is <1 or >255 || d.Map<0 || d.Map>=Map.Maps.Length || Map.Maps[d.Map]==null || Map.Maps[d.Map]==Map.Internal || d.X<=0 || d.Y<=0 || d.X>=Map.Maps[d.Map].Width || d.Y>=Map.Maps[d.Map].Height || !((Serial)d.Owner).IsMobile || d.NextUtc.Kind!=DateTimeKind.Utc || !drops.TryAdd(d.Id,d)){throw new InvalidDataException("Invalid Phoenix warning");}}
+        foreach(var input in save.Flights){var f=loaded&&input?.Npc!=null?input with{Npc=input.Npc with{Dormant=true}}:input;Validate(f);if(f.Id>save.NextId || f.Cast>save.NextCast || drops.ContainsKey(f.Id) || !flights.TryAdd(f.Id,f)){throw new InvalidDataException("Duplicate Phoenix flight");}}
         foreach(var l in save.Leases){if(l.Cast<=0 || l.Cast>save.NextCast || !((Serial)l.Target).IsMobile || l.UntilUtc.Kind!=DateTimeKind.Utc || !leases.TryAdd((l.Cast,l.Target),l)){throw new InvalidDataException("Invalid Phoenix lease");}}
         Drops.Clear();foreach(var d in drops){Drops.Add(d.Key,d.Value);}Flights.Clear();foreach(var f in flights){Flights.Add(f.Key,f.Value);}Leases.Clear();foreach(var l in leases){Leases.Add(l.Key,l.Value);}_nextId=save.NextId;_nextCast=save.NextCast;
     }

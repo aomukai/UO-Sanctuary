@@ -12,6 +12,8 @@ public sealed record FirePatch(long Id, uint Owner, CombatAbility Ability, int M
     int Min256, int Max256, int DamageRate, DateTime UntilUtc, DateTime NextUtc, int Size = 1)
 {
     public int SkillRank{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public PhoenixNpcSource PhoenixNpc{get;init;}
     public uint NpcCaster{get;init;}
     public ulong Seed{get;init;}
     // Optional V0 extension. Historical fields retain their captured legacy
@@ -160,7 +162,7 @@ public static partial class FireGround
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
-        foreach (var (id, patch) in _patches) { if (patch.Owner == owner.Serial.Value || patch.NpcCaster == owner.Serial.Value) { ids.Add(id); } }
+        foreach (var (id, patch) in _patches) { if (patch.Owner == owner.Serial.Value || patch.NpcCaster == owner.Serial.Value || patch.PhoenixNpc?.Actor == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _patches.Remove(id);_loadedWallFields.Remove(id);_loadedMeteorFields.Remove(id); } ids.Clear();
         foreach (var (id, maker) in _makers) { if (maker.Owner == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _makers.Remove(id);_loadedWallMakers.Remove(id); }
@@ -232,7 +234,7 @@ public static partial class FireGround
     {
         var queue=new PriorityQueue<(long Id,int Kind),(DateTime At,long Id)>();
         foreach(var value in _patches.Values)
-        {if((SourceField(value)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||value.NpcCaster==onlyNpcCaster.Value)){queue.Enqueue((value.Id,0),(value.NextUtc,value.Id));}}
+        {if((SourceField(value)||value.NpcCaster!=0) && value.NextUtc<=at && (!onlyNpcCaster.HasValue||(value.PhoenixNpc?.Actor??value.NpcCaster)==onlyNpcCaster.Value)){queue.Enqueue((value.Id,0),(value.NextUtc,value.Id));}}
         if(!onlyNpcCaster.HasValue){foreach(var m in _makers.Values){if(m.Motion!=null&&m.NextUtc<=at){queue.Enqueue((m.Id,1),(m.NextUtc,m.Id));}}}
         if(!onlyNpcCaster.HasValue){foreach(var m in _meteors.Values){if(m.MeteorModifiers!=null&&m.ImpactUtc<=at){queue.Enqueue((m.Id,2),(m.ImpactUtc,m.Id));}}}
         while(queue.TryDequeue(out var due,out var priority))
@@ -254,6 +256,13 @@ public static partial class FireGround
             {
                 TickBlaze(patch,at,allowActions);
                 if(_patches.TryGetValue(patch.Id,out var blazeNext)&&blazeNext.NextUtc<=at){queue.Enqueue((blazeNext.Id,0),(blazeNext.NextUtc,blazeNext.Id));}
+                continue;
+            }
+            if(patch.PhoenixNpc!=null)
+            {
+                try{TickPhoenixNpc(patch,allowActions);}
+                catch(NotSupportedException e){_patches[patch.Id]=patch with{NextUtc=patch.NextUtc.AddMilliseconds(40),PhoenixNpc=patch.PhoenixNpc with{Dormant=true,Fault=e.Message[..Math.Min(e.Message.Length,512)]}};}
+                if(_patches.TryGetValue(patch.Id,out var phoenixNext)&&phoenixNext.NextUtc<=at){queue.Enqueue((phoenixNext.Id,0),(phoenixNext.NextUtc,phoenixNext.Id));}
                 continue;
             }
             if(patch.NpcCaster!=0)
@@ -299,13 +308,15 @@ public static partial class FireGround
     {
         if (saved?.Patches == null || saved.Makers == null || saved.Cooldowns == null) { throw new InvalidDataException("Missing fire-ground state"); }
         var patches=new Dictionary<long,FirePatch>();var makers=new Dictionary<long,FireMaker>();var meteors=new Dictionary<long,MeteorDrop>();var cooldowns=new Dictionary<(uint Owner,CombatAbility Ability),DateTime>();long nextId=0;
-        foreach (var patch in saved.Patches)
+        foreach (var input in saved.Patches)
         {
+            var patch=loaded&&input?.PhoenixNpc!=null?input with{PhoenixNpc=input.PhoenixNpc with{Dormant=true}}:input;
+            if(patch==null){throw new InvalidDataException("Missing fire patch");}
             if (patch.Id <= 0 || patch.Min256 < 0 || patch.Max256 < patch.Min256 || patch.Size is < 1 or > 8
                 || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || (patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike) && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
-                || !double.IsFinite(patch.X + patch.Y) || !Blazes.Valid(patch) || !FireWalls.Valid(patch) || !Meteors.Valid(patch) || !ValidNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
+                || !double.IsFinite(patch.X + patch.Y) || !Blazes.Valid(patch) || !FireWalls.Valid(patch) || !Meteors.Valid(patch) || !ValidNpc(patch) || !ValidPhoenixNpc(patch) || !patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             nextId = Math.Max(nextId, patch.Id);
         }
         foreach (var maker in saved.Makers)

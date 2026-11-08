@@ -87,9 +87,9 @@ public static class ShadowFinisherChecks
             NpcEquipmentRandom.Set(b,Seed(true));var ordinary=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);var baseline=ordinary.Impact.Packet;ordinary.Cancel();
             Gain(b,254,3,at);Gain(b,265,3,at);var slots=Charges(b);var rng=NpcEquipmentRandom.Require(b);
             // An unsupported elemental slot remains an explicit, atomic gate.
-            b.ChangeSkills(book=>book.Assign(280,3));Gain(b,280,1,at);bool refused=false;
+            b.ChangeSkills(book=>book.Assign(259,3));AssassinCharges.Gain(b,ShadowSkillCasting.OwnValues(b,b.OwnedSkillRank(259),259),at);bool refused=false;
             try{_=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);}catch(NotSupportedException e){refused=e.Message.Contains("elemental",StringComparison.Ordinal);}
-            Require(refused&&NpcEquipmentRandom.Require(b)==rng&&AssassinCharges.State(b,CombatAbility.PhoenixStrike)?.Count==1,"Unsupported elemental finisher mutated state/RNG");
+            Require(refused&&NpcEquipmentRandom.Require(b)==rng&&AssassinCharges.State(b,CombatAbility.FistsOfFire)?.Count==1,"Unsupported elemental finisher mutated state/RNG");
             AssassinCharges.Clear(b);foreach(var slot in slots){Gain(b,slot.Ability==CombatAbility.TigerStrike?254:265,3,at);}
             NpcEquipmentRandom.Set(b,Seed(false));var missed=OriginalNpcMelee.Prepare(b,owner,target,_=>true,at);
             Require((missed.Impact.Packet.ResultFlags&1)==0&&Json(Charges(b))==Json(slots),"Miss consumed own charges");missed.Cancel();

@@ -1,0 +1,84 @@
+{
+  "parent": "5ce3e2cd03e2fa1b51bcf1ea2e057576f4c56b84",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicPhoenixConnected": true,
+  "newCompiledSourceControls": 0,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-phoenix-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-finisher-check": 1,
+    "phoenix-release-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-phoenix-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-finisher-reload-check": 2,
+    "phoenix-release-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "ad0f4380b661970f90695286792e0808f50849ab119caa1e891c19e9ec4857de",
+    "Assemblies/Sanctuary.Integration.dll": "b9aee12ba9ff4525f306c3f6aa8b3508a6fa1e6da971c66a1015d8359a34b651"
+  },
+  "files": {
+    ".local/class-skills/shadow-phoenix/source-snapshot-3.json": "d952683ab5d6d771a59c09c13f6ee00a55e924abe30ac33f8f00daf69e4d5827",
+    ".local/class-skills/shadow-phoenix/birth-inputs.json": "7d9f005551cdc6b2dcfb77011f162c71be451b834193efa9b9e7533fbbddd525",
+    ".local/class-skills/shadow-phoenix/birth-native-checks.log": "d489bcd13a3872873711322e018385488b329a35f2b816330bc745f1dcac85b0",
+    ".local/class-skills/shadow-phoenix/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-phoenix/content-build-3.log": "f7c97aff9dc8d5534005047cc4f9c3e608f9d01f7cc6f10081adb9211d87ae46",
+    ".local/class-skills/shadow-phoenix/integration-build-2.log": "8e6c78366ad077ba3e8f0ad5fb4137b069018ad2182a404fea79038384aa4ea2",
+    ".local/class-skills/shadow-phoenix/shadow-phoenix-fixtures.json": "91f5f803567252b2b7dc923422d4aff6d20fd4160faa8bde9c316a3a40dc5743",
+    ".local/class-skills/shadow-phoenix/birth-native-checks-failed-1.log": "e0b6c4d310c45bbc9262c837a0dee6101ee814eb6b3cd75086909cefc76dc6b4",
+    ".local/class-skills/shadow-phoenix/birth-inputs-failed-1.json": "887d357ddaa13faa94e6ba1ad3f4fb8acf7d14923f56ef582db721498fbbf726",
+    "tools/reference/shadow-phoenix-source-review.json": "5ddd8dedc3da95618eca33bf917a900b0389dd8ab6662fbb288e6ecf30f2ab55",
+    "tools/reference/phoenix-release-source-evidence.json": "80502e73d9db63beae050a650ce9d46ecae34850dee07ecd94b28d7029776503",
+    "tools/reference/phoenix-meteor-source-evidence.json": "6e1c28806296eca2b5c7eae50a1b19f50d2ef9d416b8720c3cb4f313dced21ff",
+    "tools/reference/phoenix-chaos-source-evidence.json": "826c01ac41f57026c3873754598727740be51df861ff83c6fc1ebe309a43e3e1",
+    "tools/reference/phoenix-chain-init-source-evidence.json": "1b25fb91ef3c935cba4748227e1045bbdcb03b26f46dc1983eedc86ca0d769ca",
+    "tools/reference/npc-spell-freeze-native-evidence.json": "faa24d0ec99bbcffdb14ec19c2e68c9ec7babac40425498bdc33de7fcf201ac8"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Own original NPC Phoenix in existing shared warning/flight/field pools. Three nonstacked tiers:60frame warning then own meteor/18fields,seven chain paths,sixteen chaos curves. Existing paths/curve/packets/offset/lifetime/collision and cast-target four-frame leases reused;NPC identity/binding/world unit-seed/pierce explicit,legacy null contexts omitted from JSON.",
+    "Valid own source emission draws no caster spread seed for meteor and one for chain/chaos,plus separate world unit seeds for each missile. Per-flight/field private RNG and own skill book/graph damage/mastery/pierce,actual original caster damage/freeze source and ultimate-player kill credit stay separate. Existing world-allocation adapter is reused,not a new claim of exact current whole-engine chronology.",
+    "Both original species cause actual meteor,field,moving-chain and moving-chaos HP damage;chaos applies freeze without ordinary chill. Field periodic result1 has no GETHIT/extra SOFTHIT roll or extra caster RNG. Malformed NPC source restore refuses atomically. All three finisher tiers emit before parent contact and use modern one-charge consumption;actual A2/world request and Warrior AI build/release Phoenix without owner mana or item mutation.",
+    "Offline NPC effects retain movement/age but become harmless until expiry;warnings spawn no children. Loaded NPC contexts become dormant without rewriting paths,packets,private seeds,clock or lifetime. Same original bodies/items/resources/wounds/RNG and partial warnings,23flights,field persist through both reloads;loaded age produces no damage/children/source or world RNG replay,then original actors emit anew.",
+    "Legacy player Phoenix exact release/paths/fields/partial reload controls pass alongside affected charge/A2 and Tiger/Cobra finisher cohorts. Those guards now use the still-unimplemented Fists family rather than incorrectly treating Phoenix as unsupported. Existing full source emission/meteor/paths controls are authenticated/reused;no duplicate compiled matrix."
+  ],
+  "diagnostics": [
+    "Content1 found the generic field selector returns Mobile while the owned typed spell receiver requires BaseCreature. The NPC path now explicitly refuses player recipients before source field RNG rather than casting/proxying them.",
+    "Native1 expected a preexisting allocation root after the fixture intentionally restored a null world stream. The test now initializes the real lazy world stream before recording expected draws;normal production creation already does so. Content DLL is byte-identical between that failed native run and accepted Native2."
+  ],
+  "limitations": [
+    "Modern executable event/child-creation/capture timing,global seed chronology,full owner/PvP/item/kill-event acceptance and source-removal parity remain scoped. Loaded/offline harmless movement is an explicit bounded native adapter;it is not certified D2R post-caster-removal behavior.",
+    "Warning retains own captured rank;meteor and fields use own live book/graph when their child is created,matching the existing player route/source composition. Exact modern capture edges remain unverified. Ordinary nonzero intrinsic critical is explicitly refused;current Shadow rows are0.",
+    "NPC field player recipients and unqualified target services refuse explicitly;field unsupported reasons are bounded/persisted and the field ages harmlessly. Other unexpected errors retain shared strict faults. Other elemental charge/sequence/finisher consumers,Dragon skills,BladeFury/Sentinel,current modifier42 death and learned summoning/payment/replacement/input remain.",
+    "Fists/Thunder/Ice monanim xx/mode14/do35 needs actual NPC sequence qualification. Warrior Cobra category12 conflict,NPC Hydra62 original item adapter,modern missile ranges,both pending questions and separate player Shield events remain independent. Effects and icons remain separate placeholders;no deployment."
+  ]
+}

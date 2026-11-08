@@ -8,12 +8,12 @@ namespace Sanctuary;
 // then mitigation/allocation and progressive consumption before contact.
 internal static class ShadowFinishers
 {
-    internal static bool Builder(int id)=>id is 254 or 265;
+    internal static bool Builder(int id)=>id is 254 or 265 or 280;
     internal static IronGolemContact.Prepared Prepare(AssassinShadowBody body,PlayerMobile owner,BaseCreature target,
         Func<int,bool> range,DateTime at,IronGolemContact.Rules rules)
     {
         var states=AssassinCharges.Finisher(body);
-        if(states.Any(s=>s.Ability is not(CombatAbility.TigerStrike or CombatAbility.CobraStrike)))
+        if(states.Any(s=>s.Ability is not(CombatAbility.TigerStrike or CombatAbility.CobraStrike or CombatAbility.PhoenixStrike)))
         {throw new NotSupportedException("Shadow ordinary finisher has an unqualified elemental release consumer");}
         int flags=NpcMeleeResult.Resolve(body,target,range,()=>ClassCombat.IsHostile(owner,target),
             n=>NpcEquipmentRandom.Limited(body,n),states.Sum(s=>s.AttackPercent));
@@ -28,7 +28,11 @@ internal static class ShadowFinishers
         // than GetResultFlags. Modern Attack's consume-one policy is shared
         // with players; later contact cancellation does not refund allocation.
         if(range(0))
-        {foreach(var state in states){AssassinCharges.Consume(body,state,CommonMeleeSkills.Attack.Number("prgchargesconsumed"));}}
+        {
+            var phoenix=states.FirstOrDefault(s=>s.Ability==CombatAbility.PhoenixStrike);
+            if(phoenix!=null){_=MartialPhoenix.AfterShadow(body,target,target.Location,phoenix,at);}
+            foreach(var state in states){AssassinCharges.Consume(body,state,CommonMeleeSkills.Attack.Number("prgchargesconsumed"));}
+        }
         return new(rules,impact);
     }
 }
