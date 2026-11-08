@@ -1,0 +1,69 @@
+{
+  "parent": "e5f3f06f97d3da93080d8fbc21f637b926ad9543",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicFistsConnected": true,
+  "newCompiledSourceControls": 0,
+  "reusedAuthenticatedRoutines": 12,
+  "nativeMarkers": 27,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-fists-check": 1,
+    "shadow-claw-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-finisher-check": 1,
+    "shadow-phoenix-check": 1,
+    "fists-fire-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-fists-reload-check": 2,
+    "shadow-claw-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-finisher-reload-check": 2,
+    "shadow-phoenix-reload-check": 2,
+    "fists-fire-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "e84b085dd62694f27e486459a4fa57437479fa32965a6990ce1f85d534206bb0",
+    "Assemblies/Sanctuary.Integration.dll": "ab1e5f9f70caeef2660f0270ad6a7e97c8c7ef099327a6cfc57f3cccfc2413e9"
+  },
+  "files": {
+    ".local/class-skills/shadow-fists/source-snapshot-3.json": "dc584ba66c7f975e5033d718f9d804f1bfa6cad328ae975140dd009b566b8d3b",
+    ".local/class-skills/shadow-fists/birth-inputs.json": "3a41ccbeb309d46ffa6c3ff3cdeeecf164a220c0a98633f9535ea683d61fd2b2",
+    ".local/class-skills/shadow-fists/birth-native-checks.log": "9427ac925404c69d04d4f3077a1ac961ebccd67d161d098501b77935cd1d9067",
+    ".local/class-skills/shadow-fists/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-fists/content-build-3.log": "e426246e86c9235fa3e18e781648b6a3cb8e5341b8c7bfcf0fb14d176a35af49",
+    ".local/class-skills/shadow-fists/integration-build-2.log": "8cbdc857de66b4ad73281f128350ad175ff37c49eba5a8f676185852c624831c",
+    ".local/class-skills/shadow-fists/shadow-fists-fixtures.json": "d32e2f31d351a85fe922586600cc6b3d8254ccbfc92ac6eec9bb04f42e800d78",
+    "tools/record_shadow_fists.py": "f64bff21a91e97bbed99adf9eca59718f04c15aa09a0c850bb9fd4a17f790a37",
+    "tools/review_shadow_fists.py": "98643b05d17bde5f3b4095bf4d95c34d1115ef7505f7147affa63d97ce3dd973",
+    "tools/reference/shadow-fists-source-review.json": "0cad76493aaffe0d9343a1d8b2d8491382eae7ab48d11df7ad6f4661b536231e",
+    "tests/check_shadow_fists.py": "e203da8c594711d35b757543cc2a757297302370fdb4b12544829def6b2f5e41"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Both original Shadows:own post-fill inline fire/conversion/SOFTHIT,actual parent before copied burst,source scatter and private field RNG,immunity/death/miss/range/cancel/duplicate guards,63damaging field updates/64frame expiry,world mode14/basic action/natural Warrior AI and original actor/field persistence. Shared player extra Immolation srvdmg3 draw corrected and retained player/own consumers pass. Modern NPC parity/removal/event/geometry/PvP and other intrinsic/death/learned gates remain;no class completion."
+}

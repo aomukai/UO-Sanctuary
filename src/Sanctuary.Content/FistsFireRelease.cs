@@ -11,7 +11,7 @@ namespace Sanctuary;
 // sequence are implemented separately in AssassinClaws.
 internal sealed record FistsFirePacket(int Count,int Rank,int ConversionPercent,int Inline256,int Min256,int Max256,
     int FieldMin256,int FieldMax256,int Radius,int ScatterRadius);
-public static class FistsFireRelease
+public static partial class FistsFireRelease
 {
     internal static Func<int,int> DamageRoll=Utility.Random;
     // Owner seed acquisition is a native RNG adapter; the child scatter itself

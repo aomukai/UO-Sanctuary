@@ -1,5 +1,7 @@
 # Shadow world and action admission
 
+**Latest intrinsic release scope (2026-11-08 JST):** Fists259 now has all three own NPC finisher tiers, source-ordered parent/burst/shared fields and ordinary world/AI admission. Direct mode14 requests, basic clock and natural Warrior AI are verified. [Checkpoint](shadow-fists-checkpoint.md). Thunder269/Ice274 remain builders only with their finisher/automatic admission gates; other intrinsic/death/learned dependencies remain. Existing dual-claw Weapon Block approval is unchanged; current sequence parity remains unverified.
+
 **Latest internal action scope (2026-11-08 JST):** Fists259/Thunder269/Ice274 charge builders now have a tested own monster mode14 conductor and original-hand contact/charge lifecycle. Elemental finisher emissions and ordinary AI admission remain gated. [Checkpoint](shadow-claw-sequence-checkpoint.md). Existing dual-claw Weapon Block approval is unchanged; raw sequence parity is an older-source implementation with current D2R behavior explicitly unverified. No learned Shadow gate is cleared.
 
 Reference: **D2R Reign of the Warlock3.3.93847**, approved Sanctuary deviations first.

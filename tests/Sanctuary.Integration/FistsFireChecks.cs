@@ -23,9 +23,9 @@ public static class FistsFireChecks
     private static void Controlled(Action action)
     {
         var hit=TigerStrikes.HitRoll;var element=TigerStrikes.ElementRoll;var physical=TigerStrikes.PhysicalRoll;var effects=TigerStrikes.Effects;
-        var fire=FistsFireRelease.DamageRoll;var seed=FistsFireRelease.SeedLow;var block=SourceBlocking.BlockRoll;var field=WeaponMissiles.DamageRoll;
-        try{TigerStrikes.HitRoll=()=>0;TigerStrikes.ElementRoll=()=>0;TigerStrikes.PhysicalRoll=_=>0;TigerStrikes.Effects=new FixedRandom();FistsFireRelease.DamageRoll=_=>0;FistsFireRelease.SeedLow=()=>7;SourceBlocking.BlockRoll=_=>99;WeaponMissiles.DamageRoll=_=>0;action();}
-        finally{TigerStrikes.HitRoll=hit;TigerStrikes.ElementRoll=element;TigerStrikes.PhysicalRoll=physical;TigerStrikes.Effects=effects;FistsFireRelease.DamageRoll=fire;FistsFireRelease.SeedLow=seed;SourceBlocking.BlockRoll=block;WeaponMissiles.DamageRoll=field;}
+        var fire=FistsFireRelease.DamageRoll;var seed=FistsFireRelease.SeedLow;var block=SourceBlocking.BlockRoll;var field=WeaponMissiles.DamageRoll;var soft=ImmolationArrows.SoftHitRoll;
+        try{TigerStrikes.HitRoll=()=>0;TigerStrikes.ElementRoll=()=>0;TigerStrikes.PhysicalRoll=_=>0;TigerStrikes.Effects=new FixedRandom();FistsFireRelease.DamageRoll=_=>0;FistsFireRelease.SeedLow=()=>7;SourceBlocking.BlockRoll=_=>99;WeaponMissiles.DamageRoll=_=>0;ImmolationArrows.SoftHitRoll=_=>throw new InvalidOperationException("Fists field must not dispatch Immolation srvdmg3");action();}
+        finally{TigerStrikes.HitRoll=hit;TigerStrikes.ElementRoll=element;TigerStrikes.PhysicalRoll=physical;TigerStrikes.Effects=effects;FistsFireRelease.DamageRoll=fire;FistsFireRelease.SeedLow=seed;SourceBlocking.BlockRoll=block;WeaponMissiles.DamageRoll=field;ImmolationArrows.SoftHitRoll=soft;}
     }
     private static SkillValues Values(int rank,int synergy=0)=>new(SkillMechanics.For(CombatAbility.FistsOfFire),k=>k=="Fists of Fire"?rank:0,k=>k=="Royal Strike"?synergy:0,99);
     private static MartialCharge Charge(PlayerMobile p,int count=3,int rank=1,CombatAbility ability=CombatAbility.FistsOfFire)=>new(p.Serial.Value,ability,count,rank,count*50,TimedEffects.Now.AddHours(1));

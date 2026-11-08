@@ -58,7 +58,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
     {
         bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
-            :mode==5&&ShadowFinishers.Builder(skill)?ShadowActions.BeginCharge(this,target,at,skill)
+            :mode==(skill==259?14:5)&&ShadowFinishers.Builder(skill)?ShadowActions.BeginCharge(this,target,at,skill)
             :mode==9&&ShadowSentries.Handles(skill)?ShadowActions.BeginSentry(this,target,target?.Location??Location,at,skill)
             :mode==7&&skill==253?ShadowActions.BeginPsychicHammer(this,target,at)
             :mode==7&&skill==273?ShadowActions.BeginMindBlast(this,target,target?.Location??Location,at)

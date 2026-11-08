@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "reusedEvidence": [
+    "tools/reference/fists-fire-source-evidence.json",
+    "tools/reference/martial-fire-release-source-evidence.json",
+    "tools/reference/shadow-finisher-source-review.json"
+  ],
+  "routineHashes": {
+    "sub_6FCF5BC0": "e740b401d198473cff5ce134603f63c196e37a3bc70994994d2ee7e1bd35bad4",
+    "SKILLS_SrvDo035_FistsOfFire_ClawsOfThunder_BladesOfIce": "2b058e16202ec8e7cb1d5885cb76c0ab75546afefa92c0cfffff3cc78d50b7bd",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo038_FistsOfFire_BladesOfIce_ProgressiveFn2": "71259c405fee7b5db27bc1c59c13c0ee84f5ae24c2a6df8ac38cfc9e2eb109fc",
+    "SKILLS_SrvDo039_FistsOfFire_BladesOfIce_ProgressiveFn3": "003f8acdc1a884265a76c47cc27bf0c582c5280832a86fe8b0c6976ff11d93f3",
+    "SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn": "226af98db59cda0eb4798b616f4e1cb709f21bcc0cefafce2d924a0dc5042928",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+    "SKILLS_SrvDo001_Attack_LeftHandSwing": "c20364bdd0433c0990308bba34248cecffb6a5d34439c13067c9fd724ec06528"
+  },
+  "inputs": {
+    "tools/reference/fists-fire-source-evidence.json": "e995d4a575c233e9b703882eed8fe0a8508b0a53bffed0414a84a22f343a8bfe",
+    "tools/reference/martial-fire-release-source-evidence.json": "a5169888c1bf39fcba561fac4c939d9fec6cfaaf61d73e8dece3e2851d471514",
+    "tools/reference/shadow-finisher-source-review.json": "18f6f4941b325905999bc3a25a1a302a01a01830aa3921036492ad64b4dc475a",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "newCompiledControls": 0,
+  "currentField": {
+    "missile": 557,
+    "serverDo": 1,
+    "damageCallback": 0,
+    "frames": 64,
+    "size": 2,
+    "hitClass": 32,
+    "getHit": false,
+    "applyMastery": true
+  },
+  "scope": "Authenticate existing full prgdam4/conversion/do35/progressive dispatcher/38/39/143/common Attack proofs;no duplicate compiled matrix. Fists143 has no missileA;38 drains parent before copied area;39 takes one caster seed then local scatter. Current field has no Immolation srvdmg3 draw. Own NPC contact/area/field,private RNG and actual save/world delivery require the separate native receipt. Modern callback/lifecycle acceptance remains scoped."
+}

@@ -286,9 +286,9 @@ public static partial class FireGround
             if(ImmolationArrows.Recipient(owner,patch) is{} target)
             {
                 int damage=WeaponMissileDamage.RollValue(patch.Min256,patch.Max256,0,WeaponMissiles.DamageRoll);
-                // No GETHIT flag on the field; the separate19/128 SOFTHIT
-                // draw affects source result/refresh flags, never weapon procs.
-                if(patch.Ability!=CombatAbility.PhoenixStrike){ImmolationArrows.SoftHitRoll(128);}
+                // Only ImmolationFire has srvdmg3's19/128 SOFTHIT draw.
+                // Fists/Phoenix have no damage callback and no extra draw.
+                if(patch.Ability==CombatAbility.ImmolationArrow){ImmolationArrows.SoftHitRoll(128);}
                 SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);
             }
             if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)

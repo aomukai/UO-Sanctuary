@@ -14,7 +14,7 @@ internal static class IronGolemContact
         [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]bool TargetOriginalEvents=false);
     internal static Saved Capture(Prepared prepared)
     {
-        if(prepared==null||prepared.Consumed){throw new InvalidOperationException("Cannot save a consumed ordinary contact");}
+        if(prepared==null||prepared.Consumed||prepared.AfterContact!=null){throw new InvalidOperationException("Cannot save a consumed ordinary contact or transient progressive callback");}
         var saved=new Saved(prepared.Rules.Metadata,prepared.Rules.SourceEvents.Subscriptions(),prepared.Rules.TargetEvents.Subscriptions(),prepared.Rules.NativeRecovery,prepared.Impact,
             prepared.Rules.SourceEvents.OriginalEvents,prepared.Rules.TargetEvents.OriginalEvents);
         _=Restore(saved);return saved;
@@ -53,7 +53,8 @@ internal static class IronGolemContact
     {
         internal readonly Rules Rules=rules;internal readonly NpcWeaponImpact Impact=impact;
         internal bool Consumed;
-        internal void Cancel(){Consumed=true;}
+        internal Action AfterContact;
+        internal void Cancel(){Consumed=true;AfterContact=null;}
     }
     private sealed class Scope(Prepared prepared,int entryHits,BaseCreature source,BaseCreature target)
     {
@@ -183,6 +184,7 @@ internal static class IronGolemContact
         var result=PreparedMonsterContact.Release(body,target,new Contact(body,owner,range,target,metadata,scope),recipient,
             n=>NpcEquipmentRandom.Limited(body,n),new Damage(body,owner,target,metadata,scope,at),at);
         if(result.Commit is{AfterHealth256:>0}){NpcSpectralHit.After(body,target,prepared.Impact.Spectral,at);}
+        var after=prepared.AfterContact;prepared.AfterContact=null;after?.Invoke();
         return result;
     }
     internal static MonsterContactResult Release(IronGolemBody body,PlayerMobile owner,IronGolemWorldState state,BaseCreature target,DateTime at)

@@ -8,15 +8,26 @@ namespace Sanctuary;
 public static partial class FireGround
 {
     internal static void AddShadowPhoenix(AssassinShadowBody body,int rank,double x,double y,int z,int minimum,int maximum,PhoenixNpcSource source,DateTime at)
+        =>AddShadowFire(body,CombatAbility.PhoenixStrike,rank,x,y,z,minimum,maximum,source,MartialPhoenixPackets.MeteorFieldFrames(rank),at);
+    internal static void AddShadowFists(AssassinShadowBody body,int rank,double x,double y,int z,int minimum,int maximum,PhoenixNpcSource source,DateTime at)
     {
-        long id=checked(++_nextId);var patch=new FirePatch(id,body.ControlMaster.Serial.Value,CombatAbility.PhoenixStrike,body.Map.MapID,x,y,z,minimum,maximum,0,
-            at.AddMilliseconds(MartialPhoenixPackets.MeteorFieldFrames(rank)*40L),at.AddMilliseconds(40),2){SkillRank=rank,PhoenixNpc=source,Seed=source.UnitSeed};
+        const string key="fistsoffirefirewall";
+        if(NecromancerSummons.Source(key,"Size")!=2||NecromancerSummons.Source(key,"Range")!=64
+            ||NecromancerSummons.Source(key,"DamageRate")!=0||NecromancerSummons.Source(key,"pSrvDmgFunc")!=0
+            ||NecromancerSummons.Source(key,"HitClass")!=32)
+        {throw new NotSupportedException("Unsupported current Fists field route");}
+        AddShadowFire(body,CombatAbility.FistsOfFire,rank,x,y,z,minimum,maximum,source,64,at);
+    }
+    private static void AddShadowFire(AssassinShadowBody body,CombatAbility ability,int rank,double x,double y,int z,int minimum,int maximum,PhoenixNpcSource source,int frames,DateTime at)
+    {
+        long id=checked(++_nextId);var patch=new FirePatch(id,body.ControlMaster.Serial.Value,ability,body.Map.MapID,x,y,z,minimum,maximum,0,
+            at.AddMilliseconds(frames*40L),at.AddMilliseconds(40),2){SkillRank=rank,PhoenixNpc=source,Seed=source.UnitSeed};
         if(!ValidPhoenixNpc(patch)){throw new InvalidDataException("Invalid Shadow Phoenix field");}_patches.Add(id,patch);
     }
     private static bool ValidPhoenixNpc(FirePatch p)
     {
         if(p.PhoenixNpc==null){return true;}MartialPhoenix.ValidateNpc(p.PhoenixNpc,p.Owner);
-        return p.NpcCaster==0&&p.Ability==CombatAbility.PhoenixStrike&&p.BlazeModifiers==null&&p.FireWallModifiers==null&&p.MeteorModifiers==null
+        return p.NpcCaster==0&&(p.Ability is CombatAbility.PhoenixStrike or CombatAbility.FistsOfFire)&&p.BlazeModifiers==null&&p.FireWallModifiers==null&&p.MeteorModifiers==null
             &&p.Map>=0&&p.Map<Map.Maps.Length&&Map.Maps[p.Map]!=null&&Map.Maps[p.Map]!=Map.Internal&&p.X>=0&&p.Y>=0&&p.X<Map.Maps[p.Map].Width&&p.Y<Map.Maps[p.Map].Height
             &&p.Z is>=-128 and<=127&&p.NextUtc.Kind==DateTimeKind.Utc&&p.UntilUtc.Kind==DateTimeKind.Utc&&p.NextUtc<=p.UntilUtc;
     }
@@ -33,8 +44,9 @@ public static partial class FireGround
         if(recipient is BaseCreature target)
         {
             ulong seed=patch.Seed;int raw=WeaponMissileDamage.RollValue(patch.Min256,patch.Max256,0,n=>(int)SourceRandom.Limited(ref seed,n));next=next with{Seed=seed};
-            // Phoenix's fire has no extra SOFTHIT roll or ordinary GETHIT.
-            _=NpcElementSpellHit.Deliver(body,owner,target,"fire",raw,0,patch.NextUtc,"Shadow Phoenix field",pierce:e=>e=="fire"?patch.PhoenixNpc.Pierce:0,periodic:true);
+            // Both current rows lack a damage callback and ordinary GETHIT.
+            _=NpcElementSpellHit.Deliver(body,owner,target,"fire",raw,0,patch.NextUtc,"Shadow martial fire field",
+                hitClass:patch.Ability==CombatAbility.FistsOfFire?32:0,pierce:e=>e=="fire"?patch.PhoenixNpc.Pierce:0,periodic:true);
         }
         _patches[patch.Id]=next;
         if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0){Effects.SendLocationEffect(point,body.Map,0x398C,3,10,0x489,0);} // Identified field placeholder.

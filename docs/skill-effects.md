@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Fists of Fire (2026-11-08 JST).** Inline fire/conversion, burst and scattered damaging fields now work mechanically. They reuse identified charge0x375A, burst0x36BD and flame0x398C placeholders. Final selected-claw/A2/S4/basic poses, charge overlays, burst/field art, hit/expiry cues and audio remain pending; share the player Fists asset family. [Checkpoint](shadow-fists-checkpoint.md). Icons stay separate.
+
 **Shadow elemental charge sequences (2026-11-08 JST).** Fists/Thunder/Ice builders use existing identified charge marker0x375A. Final A2/S4 poses, selected-claw contacts, distinct gain/refresh/expiry overlays and audio remain pending placeholders; share the existing player elemental charge families. Their finisher emissions remain a separate mechanical dependency. [Checkpoint](shadow-claw-sequence-checkpoint.md). Icons stay separate.
 
 **Own Shadow Phoenix (2026-11-08 JST).** Mechanical parent release,meteor/18fields,chain and chaos travel/contact/freeze now work in shared pools. Identified placeholders remain warning0x3709,meteor0x36BD,fire0x398C,chain0x3818 and ice0x374A. Final Shadow finisher pose,warning/fall/impact/ground fire,distinct chain/chaos travel and contact,freeze/thaw and audio are still needed;share existing player Phoenix/cold/fire families. See [checkpoint](shadow-phoenix-checkpoint.md). Icons stay separate.
