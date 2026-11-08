@@ -98,16 +98,16 @@ public static class GenericPetInitializationChecks
             int id=checked((int)body.Serial.Value),owner=checked((int)body.GetMaster().Serial.Value);var before=DeathMarkWorld.State(body);
             var raw=new GenericPetOwnerSurveyServices(_=>throw new InvalidOperationException("Swarm0 unit"),(_,_)=>throw new InvalidOperationException("Swarm0 row"),
                 _=>throw new InvalidOperationException("Unbound command"),(_,_,_)=>throw new InvalidOperationException("Swarm0 valid"),_=>throw new InvalidOperationException("Swarm0 path"));
-            var control=new GenericPetDecisionMemory{Value0=31,Value1=32,Value2=33};
             var leaves=new GenericPetInitializationServices((_,_,_)=>throw new InvalidOperationException("Unbound registry"),_=>throw new InvalidOperationException("Native life property not bound"),
                 unit=>World.FindMobile((Serial)(uint)unit) is PlayerMobile?0:1,(_,_)=>throw new InvalidOperationException("Unbound player pet store"),raw);
             leaves=GenericPetOwnerIteratorChecks.Originals(leaves,owner,bodies,world);
-            var frame=DeathMarkWorld.InitializePrepared(body,owner,control,world,leaves);
+            var frame=DeathMarkWorld.InitializePrepared(body,owner,world,leaves);
             int expected=before.Type4c==1?before.Target48:checked((int)target.Serial.Value);
-            Require(frame.Decision.Memory.Target==expected&&frame.Decision.Memory.Value0==31&&frame.Survey.Visits==bodies.Count(b=>checked((int)b.GetMaster().Serial.Value)==owner)
+            Require(frame.Decision.Memory.Target==expected&&new GenericPetSavedControl(frame.Decision.Memory.Value0,frame.Decision.Memory.Value1,frame.Decision.Memory.Value2)==before.Control&&frame.Survey.Visits==bodies.Count(b=>checked((int)b.GetMaster().Serial.Value)==owner)
                 &&frame.PetLifePercent==GenericPetLifePercent.For(id)&&frame.OwnerLifePercent==GenericPetLifePercent.For(owner)&&frame.Gather.Value108==0,"Original actor initializer did not consume supplied source context");
             Require(DeathMarkWorld.State(body) is{Target48:0,Type4c:0},"Original registered command not consumed");
             Require(DeathMarkWorld.FinishPrepared(body,(before.Type4c-1,before.Target48))==1&&DeathMarkWorld.State(body)==before,"Original selected command not restored without resetting controller");
+            GenericPetControlChecks.Root(body,owner,world,leaves);
         }
     }
 }

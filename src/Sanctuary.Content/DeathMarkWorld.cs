@@ -7,7 +7,12 @@ using System.Text.Json;
 using Server;
 namespace Sanctuary;
 
-internal sealed record DeathMarkSavedActor(int Handle,int Map,byte Selector,int Target48,int Type4c,int Mode,DateTime NextAiUtc);
+internal sealed record GenericPetSavedControl(int Value0,int Value1,int Value2);
+internal sealed record DeathMarkSavedActor(int Handle,int Map,byte Selector,int Target48,int Type4c,int Mode,DateTime NextAiUtc)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public GenericPetSavedControl Control{get;init;}
+}
 internal sealed record DeathMarkWorldImage(GenericPetPlacementImage[] Worlds,DeathMarkSavedActor[] Actors);
 public sealed class DeathMarkWorldProfiles:GenericPersistence
 {
@@ -26,7 +31,7 @@ public sealed class DeathMarkWorldProfiles:GenericPersistence
 internal static class DeathMarkWorld
 {
     private sealed class Actor(int map,byte selector,GenericPetCommandUnit command,int mode,DateTime next)
-    {internal int Map=map,Mode=mode;internal readonly byte Selector=selector;internal readonly GenericPetCommandUnit Command=command;internal DateTime Next=next;}
+    {internal int Map=map,Mode=mode;internal readonly byte Selector=selector;internal readonly GenericPetCommandUnit Command=command;internal DateTime Next=next;internal GenericPetSavedControl Control;}
     private static Dictionary<int,GenericPetPlacementWorld> _worlds=new();
     private static Dictionary<int,Actor> _actors=new();
     public static void Configure()=>_=new DeathMarkWorldProfiles();
@@ -42,7 +47,7 @@ internal static class DeathMarkWorld
     internal static DeathMarkSavedActor State(SkeletonGuardian body)
     {
         if(body==null||!_actors.TryGetValue(unchecked((int)body.Serial.Value),out var actor)){return null;}
-        return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next);
+        return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next){Control=actor.Control};
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
     // Read the registered original command,not a detached saved DTO or native
@@ -64,6 +69,34 @@ internal static class DeathMarkWorld
             WarlockDefilerBody=>CombatAbility.SummonDefiler,_=>throw new NotSupportedException("Unsupported original GenericPet body")};
         return GenericPetInitialization.Run(new(identity.Game,actor.Selector,checked((int)body.Serial.Value),owner,actor.Command,control,GenericPetProfiles.Raw(ability)),
             services with{Resolve=identity.Resolve,Property=GenericPetLifePercent.For,Survey=BindTargets(services.Survey,identity)});
+    }
+    // Birth/default production remains separate. Legacy controllers keep a null
+    // control until a qualified caller explicitly provides all three words.
+    internal static void RegisterControl(SkeletonGuardian body,GenericPetSavedControl control)
+    {
+        ArgumentNullException.ThrowIfNull(control);var actor=ControlledActor(body,false);
+        if(actor.Control!=null){throw new NotSupportedException("Original demon AI control is already supplied");}
+        actor.Control=control;
+    }
+    private static Actor ControlledActor(SkeletonGuardian body,bool requireControl=true)
+    {
+        if(body is not{Deleted:false,Alive:true}||!WarlockDemonPlacement.Prepared(body)
+            ||!_actors.TryGetValue(checked((int)body.Serial.Value),out var actor)||requireControl&&actor.Control==null)
+        {throw new NotSupportedException("Original demon has no qualified persistent AI control");}
+        return actor;
+    }
+    internal static GenericPetInitializedFrame InitializePrepared(SkeletonGuardian body,int owner,
+        GenericPetWorldIdentity identity,GenericPetInitializationServices services)
+    {
+        var control=ControlledActor(body).Control;
+        return InitializePrepared(body,owner,new(){Value0=control.Value0,Value1=control.Value1,Value2=control.Value2},identity,services);
+    }
+    internal static GenericPetRootServices BindControlPersistence(SkeletonGuardian body,GenericPetRootServices root)
+    {
+        ArgumentNullException.ThrowIfNull(root);_=ControlledActor(body);
+        // Re-resolve on publication: a stale closure must not resurrect an
+        // actor removed or replaced during another explicit root service.
+        return root with{Persist=(a,b,c)=>ControlledActor(body).Control=new(a,b,c)};
     }
     internal static int FinishPrepared(SkeletonGuardian body,(int Kind,int Id)? target)
     {
@@ -145,7 +178,7 @@ internal static class DeathMarkWorld
         {if(_actors[id].Mode==5&&World.FindMobile((Serial)(uint)id)is WarlockTaintedBody body){ChangeMode(body,1);}}
     }
     internal static DeathMarkWorldImage Capture()=>new(_worlds.Values.OrderBy(w=>w.Map.MapID).Select(w=>w.Capture()).ToArray(),
-        _actors.OrderBy(p=>p.Key).Select(p=>new DeathMarkSavedActor(p.Key,p.Value.Map,p.Value.Selector,p.Value.Command.Data.Target48,p.Value.Command.Data.Type4c,p.Value.Mode,p.Value.Next)).ToArray());
+        _actors.OrderBy(p=>p.Key).Select(p=>new DeathMarkSavedActor(p.Key,p.Value.Map,p.Value.Selector,p.Value.Command.Data.Target48,p.Value.Command.Data.Type4c,p.Value.Mode,p.Value.Next){Control=p.Value.Control}).ToArray());
     internal static void Restore(DeathMarkWorldImage image)
     {
         if(image?.Worlds==null||image.Actors==null){throw new InvalidDataException("Missing Death Mark world image");}
@@ -161,7 +194,7 @@ internal static class DeathMarkWorld
             if(saved==null||saved.Selector is <1 or >3||saved.Type4c>=5||saved.Mode is <0 or >255||saved.NextAiUtc.Kind!=DateTimeKind.Utc
                 ||!members.TryGetValue(saved.Handle,out int map)||map!=saved.Map||actors.ContainsKey(saved.Handle))
             {throw new InvalidDataException("Invalid saved demon controller context");}
-            var unit=worlds[map].Unit(saved.Handle);actors.Add(saved.Handle,new(map,saved.Selector,new(1,unit.Pet.ClassId,saved.Selector,new(saved.Target48,saved.Type4c)),saved.Mode,saved.NextAiUtc));
+            var unit=worlds[map].Unit(saved.Handle);actors.Add(saved.Handle,new(map,saved.Selector,new(1,unit.Pet.ClassId,saved.Selector,new(saved.Target48,saved.Type4c)),saved.Mode,saved.NextAiUtc){Control=saved.Control});
         }
         if(actors.Count!=members.Count){throw new InvalidDataException("Missing original demon command state");}
         _worlds=worlds;_actors=actors;

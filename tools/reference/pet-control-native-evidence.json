@@ -1,0 +1,77 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "retainedInitializerBytes": 2522,
+  "retainedRootBytes": 781,
+  "retainedIteratorContexts": 33,
+  "newProcessReads": 0,
+  "oldLargeSourceMatricesRerun": 0,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "3c182eaffadd831b38ca7782e609b28937ef635f879e4e32591d1583ea806347",
+    "Assemblies/Sanctuary.Integration.dll": "96d382a16d120446a3483f97b03f3802a17253478dc3b957450c23a2b9118b1a"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Existing registered original demon controller now retains exactly three signed AI-control words separately from command/temporary target. Unknown legacy entries remain null;qualified explicit registration is one-time. No birth defaults invented.",
+    "Actual original demon initializer snapshots registered control. Existing current root publishes updated words only after finishing;frame edits do not alias persistent state. Existing initializer/root/iterator policies are text-identical to parent checkpoint.",
+    "Original three-species Warlock/Witch birth snapshots,fractional wounds,typed commands and control words survive two actual reloads. Three source-root executions per actor produce exactly the expected signed boundary values. Legacy seven-field JSON omission/roundtrip and early refusal are checked in memory."
+  ],
+  "limits": [
+    "Birth/default control producer is still unknown and must supply all three words explicitly. Legacy-format refusal/roundtrip is in memory;actual native reloads cover supplied control entries. No claim of deriving authentic startup words.",
+    "Actual native player-pet store and timed event/scheduling producers,remaining search/path/movement/combat/actions and learned summons/DeathMark admission remain unfinished. BindControlPersistence overrides only the explicit root publication service.",
+    "Registered control publication re-resolves actor and refuses missing/deleted/ineligible controllers;that guard does not certify full concurrency/reentrancy or atomic rollback of unrelated root services.",
+    "No new assets/deployment;effects/audio and talent/hotkey icons remain separate."
+  ],
+  "inputs": {
+    "tools/reference/pet-owner-iterator-source-evidence.json": "69c27234c8451a77e9ff49ad6f1ceb32f01f731c991cdbb13d9605c0c673bffc",
+    "tools/reference/pet-initialization-source-evidence.json": "8ef6b30881c6f41e98fd562d3b80b573be07681b90ae4ceafc962b0174dd2020",
+    "tools/reference/generic-pet-decisions-source-evidence.json": "8b8fa669e5104550039f0c421c00930b46804e53617ddf9e8f701ca4bd5d23c5",
+    ".local/class-skills/pet-control/birth-inputs.json": "a9d41686dbb8254c16d23eaaea9b3186bdbe657fa3c4bbbe9019aec4fc8824ae",
+    ".local/class-skills/pet-control/source-snapshot-1.json": "a82e971cd6f4d784d78465c9a3aabe86f1ae1442969477675ae631f4826c2f39",
+    ".local/class-skills/pet-control/content-build-1.log": "5b7251fde881cf07860bc59e6e7a74ee0c0cab8bd94cc326cd496ca2324d9cf7",
+    ".local/class-skills/pet-control/integration-build-1.log": "71495dc22de028283c41d72eb2f5852e9cee897df2303850f5c0874280b4bfd8",
+    ".local/class-skills/pet-control/birth-native-checks.log": "98c8714a2f5a0ef6a57c14aada3c8467c2ef10ff8297068c55978bc9bae570af",
+    ".local/class-skills/pet-control/pet-command-target-fixtures.json": "61c79e685ea1d5eb02eb02fccc3f305bd34832b88456b08f9341ba42d185ed6a",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-control-checkpoint.md": "8185e746dc9ba97f9c67e1d830954080d3595889618360104b416a771bcc6e5f",
+    "docs/class-skills-resume-checkpoint.md": "3bef4f22a9ff29a5cf69667a1680b8eb3a2df99100836e526284e1153341a705",
+    "docs/class-skill-roadmap.md": "2e9bb592f71dbd5057e56156cf959844d836ac199e0eccfc2420bf1c19c144d4",
+    "docs/class-skill-reuse-notes.md": "b76587665cadf86942a26668a19d44ab0dfab7b60f73c594ba0e12a051a1d704",
+    "docs/skill-mechanical-reference.md": "59e0d2921840fdec6fa9b7efbb7ca50fd3f44176d864ce4fb0c10f560921e99f",
+    "tests/check_pet_control.py": "8918fb2357707d140c04002df3aaab7dd2e3a45c8ddae3328b9c9f009f83aa42",
+    "tools/record_pet_control.py": "3c3ac34a8c2a9b72fcb8e8176f75a69f69bc980232490d3ef875bf43f70a456b"
+  }
+}

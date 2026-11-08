@@ -86,7 +86,7 @@ public static class GenericPetCommandTargetChecks
         // Keep both command kinds on the original controller across saves.
         Command(bodies[1],1,Id(owners[1]));
         foreach(var body in bodies.Where((_,i)=>i!=1)){Command(body,2,Id(target));}
-        GenericPetInitializationChecks.Originals(owners,target,bodies);
+        GenericPetInitializationChecks.Originals(owners,target,bodies);GenericPetControlChecks.Report();
         Require(!WarlockCombat.Implemented(CombatAbility.DeathMark),"Lookup admitted unfinished learned cast");
     }
     private static void Save(PlayerMobile[] owners,BaseCreature target,SkeletonGuardian[] bodies,int generation)
@@ -104,6 +104,7 @@ public static class GenericPetCommandTargetChecks
             WarlockTaintedBody.CreatePrepared(owners[1],new(6403,3680,0),TimedEffects.Now),
             WarlockDefilerBody.CreatePrepared(owners[0],new(6405,3680,0),TimedEffects.Now)];
         foreach(var body in bodies){DeathMarkWorldChecks.Register(body);SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)-333);}
+        GenericPetControlChecks.Seed(bodies);
         var births=bodies.Select(Birth).ToArray();var life=bodies.Select(SkillHealth.Balance256).ToArray();
         Live(owners,target,bodies);
         Require(bodies.Select(Birth).SequenceEqual(births)&&bodies.Select(SkillHealth.Balance256).SequenceEqual(life),"Command reads healed or recaptured original demons");
@@ -122,7 +123,7 @@ public static class GenericPetCommandTargetChecks
         }
         var binding=Binding(bodies);
         for(int i=0;i<bodies.Length;i++){Require(binding.CurrentTarget(Id(bodies[i]))==(i==1?Id(owners[1]):Id(target)),"Saved typed command did not resolve original live unit");}
-        GenericPetInitializationChecks.Originals(owners,target,bodies);
+        GenericPetInitializationChecks.Originals(owners,target,bodies);GenericPetControlChecks.Report();
         // Continue exercising registry reads after reload without moving the
         // saved actors or recapturing their prepared birth snapshots.
         Require(owners[1].Female&&!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Witch identity or unfinished summon gate changed");
