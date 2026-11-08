@@ -1,5 +1,7 @@
 # Death Mark cast composition checkpoint
 
+**Follow-up (2026-11-09 JST).** The pet callback and target command are now translated/compared, and actual owned command metadata is connected to the prepared helpers. Both user cast requests are answered;398a80is captured. [Later checkpoint](death-mark-pets-checkpoint.md). The remaining protected-helper wording below describes the earlier cast-only stage.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **211/240 handlers; Warlock2/30; no class certified complete.** Death Mark's cast composition is prepared. Actual pet teleport/control clearing, debuff consumers and learned input remain unfinished.
 
 `DeathMarkCast` translates the complete captured **1431-byte current do155**, linked to skill375. It reuses `GenericPetDecisionUnit.Coordinates` for unsigned16 dynamic paths versus signed static coordinates. The source's two separate range evaluations, signed multiplication/overflow and town-level gates are retained. Level metadata byte14 and placement mask0x1804 remain explicit services rather than guessed native region rules.

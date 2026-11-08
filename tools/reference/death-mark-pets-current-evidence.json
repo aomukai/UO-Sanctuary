@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x44aa70",
+  "currentMachineCodeExecutedOffline": true,
+  "targetProcessCodeExecuted": false,
+  "processMemoryRead": false,
+  "cases": 97,
+  "commandCases": 165,
+  "commandBytes": 126,
+  "sourceBytes": 546,
+  "unicornVersion": "2.1.4",
+  "emulatorLibrarySha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+  "scope": "Complete current callback over explicit services;quota changes only after successful placement;overlay,target,idle and21/1/11 first-list-before-second removal/free order. Root is reloaded after each removal;post-unlink signed flags control free. Valid acyclic source lists are supplied. State2/other states and duplicate lists remain untouched when not selected.",
+  "externalServices": [
+    "Placement3739a0 supplies a result and records all source room/skip/last zero arguments;the native binding separately reuses GenericPetMonsterPlacement.",
+    "Overlay27ab60,target command398a80,idle425550,unlink24c5d0 and free24cd40 record exact arguments. Unlink rewires selected nodes and may null/disable the root;their helper internals are not emulated."
+  ],
+  "limits": [
+    "This callback comparison does not qualify world demon/room/CC adapters or learned DeathMark. Protected target-command body and complete stat-service binding remain separate."
+  ],
+  "artifacts": {
+    ".local/class-skills/death-mark-pets-source/cases.json": "9a3d59d8f958f70b7e89616862684a163c9fb35ddbc78f3b51b94a0b988b855e",
+    "tools/probe_death_mark_pets.py": "4c4c5b2ec3c50454a15d979377697a75383920dd251b8ead80917b8d716215dd",
+    ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-after-user-cast.json": "b32d9be28eaf4e80d89ed58fec3c207659d2a4b9f648603c4f8bbb4f1aa74620",
+    ".local/class-skills/warlock-runtime-reference/callees-death-mark-target-command-20261109.json": "461458f3a460d80a016765bf60d28998df972161b474f407266e8c7d21473867",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-after-user-cast-part0.bin": "2b408d0fc097dcb60fb0457403348ae684379c93ac5b3a9a6a15918ce2a1f864",
+    ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-after-user-cast-part1.bin": "0c83bd24a87613c574240ebb649f24cd6ab7d52b0222af9809e2414d1cc83710",
+    ".local/class-skills/warlock-runtime-reference/death-mark-callback-20261108-after-user-cast-part2.bin": "47f7a07460b8bb467b86904b20d51ac5280d85838cd4b4d3acd0549ba5c86c87",
+    ".local/class-skills/warlock-runtime-reference/callees-death-mark-target-command-20261109-398a80-part0.bin": "ed074c4e59cc482b719b97a3305d2f15d1d99484b05a080d293ae46f50008c09"
+  }
+}

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 namespace Sanctuary;
 
-public sealed record GenericPetPathTargetMetadata(int Id,string Name,byte Flags61);
+public sealed record GenericPetPathTargetMetadata(int Id,string Name,byte Flags61,byte? Flags62=null);
 internal sealed class GenericPetPathTargetView
 {
     private readonly byte Selector;
@@ -19,6 +19,10 @@ internal sealed class GenericPetPathTargetView
     internal byte? Flags(byte selector,int id)
     {
         Require(selector);return id>=0&&id<Rows.Length?Rows[id].Flags61:null;
+    }
+    internal byte? CommandFlags(byte selector,int id)
+    {
+        Require(selector);return id>=0&&id<Rows.Length?Rows[id].Flags62??throw new NotSupportedException("Missing pinned primary command flags"):null;
     }
     internal void Require(byte selector)
     {if(selector!=Selector){throw new NotSupportedException("Path target selector is not bound to this view");}}

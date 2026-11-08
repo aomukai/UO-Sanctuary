@@ -7,7 +7,10 @@
     "compiledTextFlagMatches": 6008,
     "inTownRows": 115,
     "resetMask": 2,
-    "resetFlag": "interact"
+    "resetFlag": "interact",
+    "commandSwitchFlagMatches": 751,
+    "commandMask": 1,
+    "commandFlag": "switchai"
   },
   "fields": {
     "offset": 61,
@@ -20,7 +23,9 @@
       "demon",
       "flying",
       "killable"
-    ]
+    ],
+    "commandOffset": 62,
+    "commandBit0": "switchai"
   },
   "processMemoryRead": false,
   "handlerEnabled": false,
@@ -28,8 +33,8 @@
     "tools/reference/generic-pet-search-tables-data-evidence.json": "0190e7eaf59de19b5b0877ed538289dacaaeb9a801dec387edce471130a75229",
     ".local/class-skills/pet-path-targets-reference-20261103/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
     ".local/class-skills/pet-path-targets-reference-20261103/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
-    "tools/build_pet_path_target_tables.py": "b07573ac13fdd191f8161194767887876af482e300a47e57971dc556c4a2cc14",
-    "data/Sanctuary/Balance/generic-pet-path-targets.json": "6ccb55da55077e988694535832d95421408df4a4ad67a57573381a7ec9cd187a"
+    "tools/build_pet_path_target_tables.py": "b2a4649ec4f708ba14de7786ef84469eb013a18e08d24f76a9e4b2c531633bf9",
+    "data/Sanctuary/Balance/generic-pet-path-targets.json": "0e75fd63cd009793a032b9ebd6c1c52c39ab2c99d022c5258d37019d255e8c68"
   },
   "limits": [
     "Primary monstats flags; not secondary monster metadata. Views bind one explicit selector; actual selector aliases and world target acquisition remain separate."

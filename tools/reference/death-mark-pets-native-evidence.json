@@ -1,0 +1,110 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "currentExecutableParity": false,
+  "sourceCases": {
+    "petCallback": 97,
+    "targetCommand": 165,
+    "retainedCast": 122
+  },
+  "sourceBytes": {
+    "petCallback": 546,
+    "targetCommand": 126
+  },
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "pet-path-targets-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-pets-check": 1,
+    "death-mark-cast-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-pets-reload-check": 2,
+    "death-mark-cast-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 3,
+  "sourceSnapshot": 6,
+  "nativeRun": 3,
+  "newSourceCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "sharedPlacement": {
+    "proofSha256": "964e3a6351466a2e96e20126616478e352252889fd4bd11f0ede5d22dd56b124",
+    "retainedSourceCases": 5229,
+    "codeByteIdentical": true,
+    "oldEmulatorNotRerun": true
+  },
+  "targetCommandCapture": {
+    "path": ".local/class-skills/warlock-runtime-reference/callees-death-mark-target-command-20261109.json",
+    "sha256": "461458f3a460d80a016765bf60d28998df972161b474f407266e8c7d21473867",
+    "userEnemyCastConfirmed": true,
+    "allFragmentsCaptured": true
+  },
+  "controlServiceReference": {
+    "path": ".local/class-skills/warlock-runtime-reference/callees-death-mark-control-list-services-20261109.json",
+    "sha256": "a39203c98087497c1e3c70dfbdf9f9ff84b8dd4e20988714f4d65ad7a55e9ae2",
+    "completeBytes": 2220,
+    "translationVerified": false
+  },
+  "metadata": {
+    "rows": 751,
+    "compiledPathFlagChecks": 6008,
+    "compiledSwitchAiChecks": 751,
+    "commandOffset": 62,
+    "commandMask": 1,
+    "sourceFlag": "switchai",
+    "oldPathRowsUnchanged": true,
+    "demonRows": [
+      742,
+      743,
+      744
+    ]
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "7fd5236d3711a50b4ca8bd46b8f5532d4b50c215f83f9f9967e1bc412c77195d",
+    "Assemblies/Sanctuary.Integration.dll": "da7ba05d3cf1f86122af52fe089552ea5b7df3f011ed4392c2bdd716aeeeae9a"
+  },
+  "files": {
+    "src/Sanctuary.Content/DeathMarkPets.cs": "27026d27047c9ee5f388838e49947f7e61255ce3e16dfa990470a27f64faf03a",
+    "src/Sanctuary.Content/GenericPetTargetCommand.cs": "0237efe6e329b75f7f194821169bdf4432e937e7abfc3aeadf7f46a98e994ed6",
+    "src/Sanctuary.Content/GenericPetPathTargets.cs": "d9661d75986e0f4fea5fab7f72faa75e52456a30135462ef35c71adee2fc351f",
+    "src/Sanctuary.Content/GenericPetMonsterPlacement.cs": "d9ee0661d1b5ca3c4cd81681a72cdd7e49f7d5cf69c63c21623a0d862fd8490e",
+    "tests/Sanctuary.Integration/DeathMarkPetChecks.cs": "c692123c4dd4476a96bdf73466d72fe785fb18e504ad1e962e7ea88c9d8d17b0",
+    "tests/check_death_mark_pets.py": "f89eea29f553abc337d7d445480f0748a29a15c011ad537c17d69d3840b234d7",
+    "tools/probe_death_mark_pets.py": "4c4c5b2ec3c50454a15d979377697a75383920dd251b8ead80917b8d716215dd",
+    "tools/build_pet_path_target_tables.py": "b2a4649ec4f708ba14de7786ef84469eb013a18e08d24f76a9e4b2c531633bf9",
+    "tools/record_death_mark_pets.py": "e081abe8989443bef8bd16589c33cd8cb530a76d8d306ced7b421d6ca262c735",
+    "tools/reference/death-mark-pets-current-evidence.json": "4ec999934e583ca87d2f3a5309cecc0e5fca8b0a588abc15c7e665a307bc7df7",
+    "tools/reference/pet-path-targets-data-evidence.json": "56b4e5e47f43ae246ad832d5aa7cf14bcee1fdcc74f07096bc3ad7f8fc5625ba"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Prepared current pet callback and shared target-command helper match262 machine-code cases,including null/failed relocation,no quota loss,overlay/target/idle order,21stunned/1freeze/11cold first-list precedence,root reload after unlink,post-unlink signed free flags and untouched poison/duplicate states. Native bindings call existing monster placement and the real current command setter;command refusal does not reject successful relocation. Combined cast/pet checks preserve a shared3pet quota,failed-place retries,no mark when none moved,and state-allocation failure after pet commands. Original122 cast cases and the unchanged byte61 path reset consumer remain passing. Byte62 is exported from the same owned751row primary table and switchai corroborated against text;actual demon rows reach the setter through explicit selector-bound metadata. No actual DeathMark world/debuff/CC/controller or learned input is admitted by these detached checks.",
+  "diagnostic": "C1/I1/native1passed15 markers/97 callback plus122 cast cases. User monster-targeted DeathMark then unlocked126byte target command;C2/I2/native2adds165 command cases and passes15 markers. C3/I3/native3publishes owned command flags and adds retained path reset checks,passes18 markers. Prior passed input/source/binary/log/fixture sets are archived native-1/native-2. No failed native run or previous compiler matrix rerun.",
+  "remaining": [
+    "Bind callback/command/placement to actual original demon roster/controller and saved command fields;native checks here use detached source contexts,not live DeathMark actors.",
+    "Overlay326byte/idle204byte and freshly captured unlink1896byte/free324byte helpers remain services needing comparison/binding. Reuse existing stat/movement systems where contracts match;no new user cast request is pending.",
+    "Connect actual target armor/normal/magic damage-reduction state,duration/replacement,requirespettype startup,localdelay20,SC payment/cancellation and left/right/quick before learned admission.",
+    "Final cast/warp/landing/mark/expiry/audio and talent/hotkey icons remain separate pending assets;no images generated."
+  ]
+}

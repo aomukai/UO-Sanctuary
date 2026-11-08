@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Death Mark pet composition (2026-11-09 JST).** No icon artwork or learned input is added. Death Mark retains its text/fallback placeholder and still needs talent/left/right/quick icons independently of final effects. [Checkpoint](death-mark-pets-checkpoint.md).
+
 **Prepared Death Mark cast composition (2026-11-08 JST).** No new binding or icon artwork is admitted. Death Mark still needs its distinct talent, left/right and quick-slot icons; the existing text/fallback identity remains a placeholder. [Checkpoint](death-mark-cast-checkpoint.md). Effects/audio stay in their own inventory.
 
 **Shared Sigil markers (2026-11-08 JST).** Marker reuse adds no icon artwork or learned Rancor/Death bindings. All three still need distinct talent, left/right and quick-slot icons; Lethargy retains its tested text/fallback placeholders. [Checkpoint](sigil-family-checkpoint.md). Effects and audio are tracked separately.

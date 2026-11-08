@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Death Mark pet composition (2026-11-09 JST).** Relocation/command/control helpers are implemented as detached mechanics;no new world art is emitted. Final cast, pet warp/landing overlay, target mark/expiry and audio remain pending for world integration. [Checkpoint](death-mark-pets-checkpoint.md). No image generation performed;icons stay separate.
+
 **Prepared Death Mark cast composition (2026-11-08 JST).** This component produces no world effect. Final cast, per-pet warp/landing overlay, target mark, aura/expiry and audio remain pending when the world route is connected. [Checkpoint](death-mark-cast-checkpoint.md). No final art or image generation was performed; icons remain separate.
 
 **Shared Sigil markers (2026-11-08 JST).** Lethargy, Rancor and Death now use one prepared world host with item0x1B7A labelled by its own skill name plus “placeholder.” Rancor/Death have no admitted recipient effects yet. Final cast, animated ground, pulse, recipient, expiry and audio remain pending for each skill. [Checkpoint](sigil-family-checkpoint.md). No image generation was performed; icon work stays separate.
