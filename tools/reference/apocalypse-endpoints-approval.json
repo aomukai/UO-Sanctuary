@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedByUser": true,
+  "approvedOn": "2026-11-09",
+  "answer": "let's do it",
+  "proposal": "Use pinned minimum-damage columns with existing elemental formula; effective Apocalypse rank; hard Ring of Fire and Flame Wave points each contribute 10%; apply fire enhancement once; one shared explosion roll.",
+  "rules": {
+    "endpoints": "Shared SkillValues.Damage256 for pinned table minimum and maximum",
+    "synergies": "Hard points only; effective rank controls Apocalypse base",
+    "enhancement": "Shared NamedElements.Enhance once per endpoint before rolling",
+    "roll": "One current signed-width/exclusive-upper-bound roll per explosion, shared by targets"
+  },
+  "referenceLimit": "Approved Sanctuary table-based fallback. Current minimum getter 28cdc0 is protected on its normal path; full current endpoint-getter equivalence is unverified. Rank1 is80\u2013100 without synergies and96\u2013120 with one hard point in each. Does not approve guessed launch, area or other mechanics."
+}

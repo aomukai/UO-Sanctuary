@@ -143,14 +143,20 @@ public sealed class SkillValues
     public int Mana256 => Math.Max(_skill.Number("aura") != 0 ? 0 : _skill.Number("minmana") * 256,
         Math.Max(0, _skill.Number("mana") + Math.Max(0, Rank - 1) * _skill.Number("lvlmana")) << _skill.Number("manashift", 8));
     public int DurationFrames => (int)(Tier(_skill.Number("ELen"), Rank, i => _skill.Number("ELevLen" + Math.Min(i, 3))) * (100 + Eval("ELenSymPerCalc")) / 100);
-    public int Damage256(bool maximum)
+    public int Damage256(bool maximum, bool sourcePercentage = false)
     {
         if(Rank<=0){return 0;}
         string key = maximum ? "EMax" : "EMin";
         long value = (long)Tier(_skill.Number(key), Rank, i => _skill.Number(key + "Lev" + i)) << _skill.Number("HitShift", 8);
         // SKILLS_GetMinElemDamage deliberately leaves a fixed minimum of one
         // (or less) unsynergized when the first tier increment is zero.
-        if(maximum || value>256 || _skill.Number("EMinLev1")!=0){value += value*Eval("EDmgSymPerCalc")/100;}
+        if(maximum || value>256 || _skill.Number("EMinLev1")!=0)
+        {
+            long percent=Eval("EDmgSymPerCalc");
+            // Opt-in for the captured current getter's large-value early
+            // division. Existing callers retain their established arithmetic.
+            value += sourcePercentage ? SourcePercentage.Calculate(checked((int)value),checked((int)percent),100) : value*percent/100;
+        }
         return (int)Math.Clamp(value, 0, int.MaxValue);
     }
     public double Damage(bool maximum) => Damage256(maximum) / 256.0;

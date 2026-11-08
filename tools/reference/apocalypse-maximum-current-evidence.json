@@ -1,0 +1,20 @@
+{
+  "referenceVersion": "3.3.93847",
+  "cases": 108,
+  "currentMachineCodeExecutedOffline": true,
+  "processMemoryRead": false,
+  "rva": "0x28d050",
+  "scope": "Current maximum elemental getter with supplied pinned Apocalypse table,tier bonus,hard synergy formula and fire mastery leaves. Confirms percentage ordering/rounding;does not execute protected minimum getter or supplied leaves.",
+  "artifacts": {
+    "tools/probe_apocalypse_maximum.py": "e8ea8a45d3e61bfe8392c285e32390f5f4a5f79c562fa811be99147186c3a37b",
+    ".local/class-skills/apocalypse-maximum-source/cases.json": "0bc0671edf7a0fc2bc4721438b3aeebc314dcdc7e3e6f08615c2f1408cd9afd3",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109.json": "33e0c26fbde71feef595c05e0e48fb493ea8581f37049bfd76f5882882659305",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28d050-part0.bin": "39272f9a2c336075233a30c56545b718850a39b1d1755b1ce0e80ebb8106a26e",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28d050-part1.bin": "7fa580843bb44d55af40545bff29bfc9c1368b051b523a212e67048147675ef3",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28d050-part2.bin": "bb92ad580e3a2f14ebf2447118dfc4c77b472800e40d946666b9277723d92d96",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28d050-part3.bin": "f827716f810364140194c99ff823c24ffbc4228240bfb7978e5e043a488abee5",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28d050-part4.bin": "cb04c9eacbb67ebc43ad4e64995660020e1b1c00d43823972d16ce46ad9c1a3e",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28cdc0-part5.bin": "bd290c19ecab52183d8099747526f789d45a3d12052955c40c34695bd2fc39d8",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-28cdc0-part6.bin": "0016955eb8f581c1ef7af313c4ee2ff72b5e055bd6a9192490d058c5b9bafca2"
+  }
+}

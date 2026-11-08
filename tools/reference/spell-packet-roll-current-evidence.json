@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentMachineCodeExecutedOffline": true,
+  "processMemoryRead": false,
+  "cases": 132,
+  "functions": {
+    "physical": "0x3aef10",
+    "elemental": "0x3aeda0",
+    "fireWriter": "0x3a97a0",
+    "copy": "0x392350"
+  },
+  "scope": "Qualified present caster/skill and firetype1. Current physical and elemental wrappers plus fire writer execute with explicitly supplied endpoint/length getters. Actual zero-vector/empty-function packet copy executes three times,retaining scalar fields and seed. No full endpoint-formula,nonempty custom-function or other-element comparison.",
+  "artifacts": {
+    "tools/probe_spell_packet_roll.py": "10342e80400c651afa30936d6d12f8059effc7971e0b4d81576b2168519be608",
+    ".local/class-skills/spell-packet-roll-source/cases.json": "656127a07d955d6b80351e406843f75c8cf4e6a569ea817d25099f9743ce0b56",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109.json": "80cf44379ef56596fde909b42a628a02416415292db7fda02671de09f96f9b3e",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aef10-part0.bin": "66d1bd7458aea247d2964b203168e9e24aacba8dda7bea27ccfb06c21f9bd319",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aef10-part1.bin": "7bbff61d1046ec2cb93954372b969018cb02b826ee3ff2a139ddc93e65452e7a",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aef10-part2.bin": "967ee9d3d05f682a276517a784e9fc1c3604648d4759efae234a16e86b16c9ca",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aef10-part3.bin": "e32c61afb3a1364a9c34982363d1c49598352c47e2c6ff090be54e34619b68ec",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aeda0-part0.bin": "e93ab77e58dc642802c5c5f2d5603242623b6d767d805dcd7e4bfb5f8ae81c43",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aeda0-part1.bin": "120d36d0332ecdb169283bad7bfdf726851e5ca8bdd63648b4ee6cde76328fc1",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aeda0-part2.bin": "14135b087aae7f6a79aa6e990d9b3019299ecf3afd2f42616b32920f9c0b5c55",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3aeda0-part3.bin": "48ad1b2594a37614ab0b9ead231149d4b4b4892c1d983d278280651801f7afba",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-392350-part0.bin": "2abd95a2786108188d1901684fb889c0ca88e5dc1095bd07e1a3bd4d5b21149a",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109.json": "33e0c26fbde71feef595c05e0e48fb493ea8581f37049bfd76f5882882659305",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-leaves-20261109-3a97a0-part0.bin": "0bed38cbc9061c4939bf031abc171f1630cecf63ab282a19b4c41ea937c53bba"
+  }
+}

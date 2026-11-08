@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedApocalypseEnabled": false,
+  "minimumGetterFallbackApproved": true,
+  "fullCurrentMinimumGetterVerified": false,
+  "currentRollCases": 132,
+  "currentMaximumCases": 108,
+  "pinnedEndpointPairs": 36,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "apocalypse-impact-check": 1,
+    "apocalypse-packets-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "apocalypse-impact-reload-check": 2,
+    "apocalypse-packets-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 3,
+  "sourceSnapshot": 4,
+  "nativeRun": 3,
+  "priorCompilerMatricesRerun": 0,
+  "files": {
+    "src/Sanctuary.Content/ApocalypsePackets.cs": "31e2b3e9dd3c7f1094db235e807cfc3b51030d4c654a06d8a3831b175287d4c6",
+    "src/Sanctuary.Content/SourceSpellPacketRoll.cs": "d94eeef5b15b94ca186f8114a7a744db1d61d78a2d2d1d478ec8066565d23710",
+    "src/Sanctuary.Content/SkillMechanics.cs": "3c8ba9a60c8b7524c9d72f1b10e4c7d96417d733c4b1081d15fa6a58304835e2",
+    "tests/Sanctuary.Integration/ApocalypsePacketChecks.cs": "1aaca06c5312f13287a40fd71b3196f26d140b3ada5a27beab50c4cb18de43ca",
+    "tests/check_apocalypse_packets.py": "3f70e18195b18ba35764bbba77b0568aa2ef186c5cd444db5081fba550d9f3d0",
+    "tools/probe_spell_packet_roll.py": "10342e80400c651afa30936d6d12f8059effc7971e0b4d81576b2168519be608",
+    "tools/probe_apocalypse_maximum.py": "e8ea8a45d3e61bfe8392c285e32390f5f4a5f79c562fa811be99147186c3a37b",
+    "tools/record_apocalypse_packets.py": "5d8f089fb8330350bbfb690d00e69d12e6091799fe29b9769bcffeec13bd8d18",
+    "tools/reference/apocalypse-endpoints-approval.json": "448d6a415521f4587fc022cce2539b9f1dd1ed9158199e14892a64d284e26914"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "6b8738045fbf41be1534aa527caa11ed4af6fe8d55a7bfc49d8496026d60da80",
+    "Assemblies/Sanctuary.Integration.dll": "65e9b700307071429e64991cc4d81e1f5fca45dcf8138e612edaef820d8b7b9d"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "limits": [
+    "Prepared fire explosion packet only;area/launch/payment/input and potion components remain unfinished.",
+    "Offline getters use explicit supplied table/tier/formula/mastery leaves. Protected current minimum is approved table fallback.",
+    "Saved DTO proves packet serialization/continued receiver use,not persistence of active explosions.",
+    "No new final effects/icons;recipient0x36D4 remains identified placeholder."
+  ]
+}
