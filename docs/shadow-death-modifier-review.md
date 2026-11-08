@@ -1,5 +1,7 @@
 # Remaining Shadow modifier42 work
 
+**Update:** unique-recipient identity and approved slow cap are now implemented and verified in the [unique checkpoint](shadow-unique-checkpoint.md). Delayed death nova remains unfinished. The review below describes its original read-only scope.
+
 Read-only source review,2026-11-08 JST. **Not implemented or certified by this review.** Reference: D2R Reign of the Warlock3.3.93847 current sumumod42 rows and the explicitly pinned older source.
 
 Both Shadow skills assign modifier42 with `bUnique=1`. The assignment helper sets `MONTYPEFLAG_UNIQUE`. This must eventually reach original-recipient semantics such as the unique-only stun roll and the approved unique slow cap. It must not assign generic boss behavior,encounter loot or an encounter grade.

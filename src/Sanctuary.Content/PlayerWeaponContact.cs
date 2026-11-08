@@ -182,7 +182,7 @@ internal static class PlayerWeaponContact
             Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
         var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
-        var recipient=new PreparedMonsterRecipient(target is EncounterCreature e&&(e.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique||prepared.Smite&&e.Grade==EncounterGrade.Champion),
+        var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target)||prepared.Smite&&target is EncounterCreature{Grade:EncounterGrade.Champion},
             ()=>prepared.Smite?stunBoss:CreatureProfiles.For(target).Traits.Boss??false,()=>prepared.Smite?(stunRules?stunVelocity:0):metadata?.Velocity??0,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(source,target,false);
         try

@@ -29,7 +29,7 @@ internal static class NpcItemSlow
         PlayerMobile=>50,
         BaseHire=>50,
         BaseCreature creature when creature.IsParagon=>throw new NotSupportedException("Pet slow needs an explicit Paragon classification"),
-        BaseCreature creature=>NamedCombat.Elite(creature)?50:90,
+        BaseCreature creature=>NamedCombat.Elite(creature)||PreparedMonsterStun.IsUnique(creature)?50:90,
         _=>throw new NotSupportedException("Pet slow needs a player or NPC recipient")
     };
     internal static bool Apply(BaseCreature source,Mobile target,bool ranged,DateTime at)

@@ -10,7 +10,8 @@ internal static class PreparedMonsterStun
 {
     // ExecuteEvents tests MONTYPEFLAG_UNIQUE(8),not the Champion(4)
     // or generic boss/elite classification. Superuniques carry Unique too.
-    internal static bool IsUnique(BaseCreature target)=>target is EncounterCreature{Grade:EncounterGrade.Unique or EncounterGrade.SuperUnique};
+    internal static bool IsUnique(BaseCreature target)=>target is AssassinShadowBody{SourceUnique:true}
+        or EncounterCreature{Grade:EncounterGrade.Unique or EncounterGrade.SuperUnique};
     internal static int Resolve(int frames,bool unique,Func<int,int> limited,
         Func<bool> boss,Func<int> velocity,Func<bool> hireling)
     {

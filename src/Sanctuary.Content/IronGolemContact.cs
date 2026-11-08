@@ -184,7 +184,7 @@ internal static class IronGolemContact
     {
         if(prepared.AfterContact!=null){throw new NotSupportedException("Missile cannot carry a melee progressive callback");}
         var scope=BeginRelease(body,target,prepared,at);if(scope==null){return null;}var metadata=prepared.Rules.Metadata;
-        var recipient=new PreparedMonsterRecipient(NamedCombat.Elite(target),()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
+        var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target),()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         var services=new Damage(body,owner,target,metadata,scope,at,true);
         if((prepared.Impact.Packet.ResultFlags&1)==0)
         {var finish=PreparedMonsterDamage.Finish(body,target,prepared.Impact.Packet,services,false,true);return new(finish.Packet,SkillHealth.Balance256(target),SkillHealth.Balance256(target),0,finish.DeathModeAttempted);}
@@ -193,7 +193,7 @@ internal static class IronGolemContact
     internal static MonsterContactResult Release(BaseCreature body,PlayerMobile owner,BaseCreature target,Prepared prepared,Func<int,bool> range,DateTime at)
     {
         var scope=BeginRelease(body,target,prepared,at);if(scope==null){return new(MonsterContactExit.SettledRecipientFreed,prepared.Impact.Packet with{ResultFlags=prepared.Impact.Packet.ResultFlags&~3},null);}var metadata=prepared.Rules.Metadata;
-        var recipient=new PreparedMonsterRecipient(target is EncounterCreature encounter&&encounter.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique,
+        var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target),
             ()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(body,target,false);
         var result=PreparedMonsterContact.Release(body,target,new Contact(body,owner,range,target,metadata,scope),recipient,

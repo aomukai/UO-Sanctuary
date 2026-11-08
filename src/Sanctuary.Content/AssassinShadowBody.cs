@@ -96,6 +96,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     }
     internal string SavedText=>_saved;
     private ShadowCreationStats Numbers=>_birth??=State.Capture.Plan(State.Initialization.SpawnLife256);
+    internal bool SourceUnique=>State!=null&&Numbers.Modifier==42;
     internal GeneratedNpcStatGraph EquipmentNumbers=>!World.Loading&&State?.Equipment!=null&&Alive&&!Deleted
         ?GeneratedNpcLiveResources.ShadowFrame(this)??ShadowEquipmentResources.Numeric(this):null;
     internal ShadowInitialSkill[] InitialSkillRequests=>ShadowInitializer.Roll(State.Capture.Ability,State.Initialization.UnitSeed,State.Difficulty).Skills;

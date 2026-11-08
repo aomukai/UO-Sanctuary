@@ -52,6 +52,13 @@ public static class CombatStuns
     }
     internal static bool Rules(BaseCreature target,out bool boss,out int velocity)
     {
+        if(target is AssassinShadowBody{SourceUnique:true} shadow)
+        {
+            // Intrinsic movement uses its separate animation profile. ExecuteEvents
+            // reads the original monstats Velocity (currently zero), not movement speed.
+            boss=NecromancerSummons.Source(shadow.SourceMonsterId,"boss")==1;
+            velocity=NecromancerSummons.Source(shadow.SourceMonsterId,"Velocity");return true;
+        }
         var profile=CreatureProfiles.For(target);
         velocity=0;
         boss=profile.Traits.Boss==true;

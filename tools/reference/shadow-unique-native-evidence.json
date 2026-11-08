@@ -1,0 +1,64 @@
+{
+  "parent": "af2f7d1a7abfdfb40dd7ffddb9907bda7a2472f7",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "sourceReviewSha256": "981eaf1adc0946627b98ef2d78880259070d999711a58262b79c80de7c879f48",
+  "newCompilerMatrices": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-unique-check": 1,
+    "npc-item-slow-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-unique-reload-check": 2,
+    "npc-item-slow-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "0b1523f50df9356225269496b86cfc801e2ab19b8d86e8f6454712fd1ce1c66b",
+    "Assemblies/Sanctuary.Integration.dll": "7cd78020b9ffcf881bcc82a894b468353c3e62797bc481da4e321d731df7b324"
+  },
+  "files": {
+    "src/Sanctuary.Content/AssassinShadowBody.cs": "7f79383613b7b70322a991630091dc167e6638298f2bf2d0539a980d20130d0b",
+    "src/Sanctuary.Content/PreparedMonsterStun.cs": "4ffcccae4e9833e0a0d24a05d23047efbc719d2f8883a89a270d3103955a0bbc",
+    "src/Sanctuary.Content/CombatStuns.cs": "3bbf2c95574ca8da1a92d7e892d9d364521730f04696d7ce8a526f056b56794a",
+    "src/Sanctuary.Content/NpcItemSlow.cs": "2651c665abfd9ea6ca5b83b5244f39296b3f8cfd4419745ef510c26364f9cd0b",
+    "src/Sanctuary.Content/PlayerWeaponContact.cs": "54d5ac895d945c1e445a056a38a1fe805f5d7a91f83550403782e096894ce323",
+    "src/Sanctuary.Content/IronGolemContact.cs": "358810d9392912f4aa7ec5370e50ca449ce9bc722ce88fd4034a7ae867099f44",
+    "tests/Sanctuary.Integration/ShadowUniqueChecks.cs": "01e4068b2e83fa3f9982b6ee7b43ae745817edcd8e746c061b3d7a8d34a849d9",
+    "tests/check_shadow_unique.py": "2b30966a2771b266cf64edae36120fe7a813c4353793850dce5209cc838780b7",
+    "tools/record_shadow_unique.py": "1b83dfb32a06cff6eeedace7fc8a011338789520916d33cf9d19873036a64534"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "First run passed new Shadow identity checks;existing pet-slow fixture then required its connected-socket harness. Reused that fixture configuration without rebuilding unchanged assemblies. First log/input manifest retained. Second run passes all three boots/two reloads.",
+  "scope": "Both real original Shadow species expose assigned modifier42 as unique,without EncounterGrade/boss/loot changes. Shared prepared player/pet melee and pet missile recipient constructors use the same unique predicate;Smite retains its explicit Champion rule. Approved pet slow reads unique identity and actual applications cap at50%. Generic Shadow stun rules read original monstats zero Velocity,not separate movement speed;unique draw occurs and stun is rejected. Explicit nonzero-velocity prepared controls verify unique90% rejection boundary. Original actor RNG/birth state unchanged;wounds/identity persist. Existing slow categories/contact/absorption/refresh/expiry/save checks retained.",
+  "remaining": [
+    "Modifier42 delayed death nova,actual retained dead caster/packet lifetime and cleanup remain unimplemented",
+    "Modern executable stun behavior is not independently observed;this qualifies pinned row/older-source routing",
+    "Fury rewind/critical,Master item/range/action gaps and learned Shadow admission remain separate",
+    "No class certified complete;installed build and saves preserved"
+  ]
+}
