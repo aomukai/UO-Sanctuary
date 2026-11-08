@@ -36,7 +36,7 @@ public static class NamedElements
     public static bool Defense(Mobile target) => target is FireGolemBody{Kind:CombatAbility.FireGolem} fire && fire.FireAbsorb>0 || Bonus(target, "abs-fire") != 0 || Bonus(target, "abs-fire%") != 0
         || Bonus(target, "abs-cold") != 0 || Bonus(target, "abs-cold%") != 0
         || Bonus(target, "abs-ltng") != 0 || Bonus(target, "abs-ltng%") != 0;
-    public static int Resistance(Mobile source, Mobile target, string element, int resistance, int? pierceOverride = null)
+    public static int Resistance(Mobile source, Mobile target, string element, int resistance, int? pierceOverride = null,int skillResistanceDelta=0)
     {
         ResistanceType type=element switch {"fire"=>ResistanceType.Fire,"cold"=>ResistanceType.Cold,"ltng"=>ResistanceType.Energy,"pois"=>ResistanceType.Poison,_=>ResistanceType.Physical};
         bool playerResistance=element!="mag" && target is PlayerMobile player && ClassCombat.Enabled(player);
@@ -54,6 +54,9 @@ public static class NamedElements
         int beforeBreaking=resistance-(PaladinConviction.Managed(target)?0:EliteAuras.ConvictionOffset(target,element));
         resistance = NecromancerEffects.Resistance(target, element, resistance,PaladinConviction.Managed(target)?immunityBase:null,PaladinConviction.Managed(target));
         resistance+=PaladinConviction.ResistanceDelta(target,element,immunityBase);
+        // A per-hit skill reduction sees the existing aggregate skill/aura
+        // pool and can break immunity before ordinary item pierce is tested.
+        if(skillResistanceDelta!=0){resistance+=PaladinConviction.ImmunityDelta(target,resistance,skillResistanceDelta);}
         if (element == "cold" && source is PlayerMobile caster && (target is not BaseCreature || resistance < 100))
         {
             int mastery=SorceressCombat.Passive(caster,CombatAbility.ColdMastery);
@@ -97,7 +100,7 @@ public static class NamedElements
         long flat=Math.Min(value-percent,Math.Max(0,absorbFlat256));
         return new((int)Math.Clamp(value-percent-flat,0,int.MaxValue),(int)Math.Clamp(percent+flat,0,int.MaxValue));
     }
-    internal static ElementReduction Resolve256(Mobile source,Mobile target,int damage256,string element,int? resistance=null,bool enhance=true,int damageRate=0,int? pierceOverride=null)
+    internal static ElementReduction Resolve256(Mobile source,Mobile target,int damage256,string element,int? resistance=null,bool enhance=true,int damageRate=0,int? pierceOverride=null,int skillResistanceDelta=0)
     {
         if(damage256<=0){return default;}
         if(enhance){damage256=(int)Math.Clamp((long)damage256*Math.Max(0,100+MasteryPercent(source,element))/100,0,int.MaxValue);}
@@ -106,7 +109,7 @@ public static class NamedElements
             "fire" => target.FireResistance, "cold" => target.ColdResistance, "ltng" => target.EnergyResistance,
             "pois" => target.PoisonResistance, "mag" => MagicResistance(target), _ => target.PhysicalResistance
         };
-        resist = Resistance(source, target, element, resist, pierceOverride);
+        resist = Resistance(source, target, element, resist, pierceOverride,skillResistanceDelta);
         int reduction = element == "pois" ? 0 : element == "physical"
             ? GemCombat.PhysicalReduction(target) : GemCombat.Reduction(target);
         int scaledReduction=GemCombat.Reduction256(reduction,damageRate);

@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x453660",
+  "currentMachineCodeExecutedOffline": true,
+  "processMemoryRead": false,
+  "cases": 142,
+  "sourceBytes": 256,
+  "codePrefixBytes": 216,
+  "inlineTableBytes": 40,
+  "stats": [
+    36,
+    37,
+    39,
+    41,
+    43,
+    45
+  ],
+  "nativeComparisonScope": "Returned numeric value for explicit source lookup/stat-root contexts;external ABI calls asserted by emulator,not reimplemented world metadata.",
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-resistance-20261109.json": "6ab249d984100d90693abfbc213a4972cc551b4eec45ef47f3148361e56a08e5",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-resistance-20261109-453660-part0.bin": "af806c27f672e97ef6500907132e49dd3bec61ffbbeddc5cbadc8bb1811acbd4",
+    "tools/probe_skill_resistance.py": "da6d97017c26efb1fd1eaa159d9a7ae83b6919793b9f81f12fbeaa33a50bb1d5",
+    ".local/class-skills/skill-resistance-source/cases.json": "8cbb9a580a75b72a23a73dd9b5c296412453ede45ca6ea71dcd1b9567f96ea3c"
+  }
+}

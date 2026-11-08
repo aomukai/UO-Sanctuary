@@ -35,7 +35,7 @@ public static class PaladinConviction
     public static int SupplierRank(Mobile target)=>Math.Max(ClassSupplierRank(target),EliteAuras.OwnConvictionRank(target));
     public static bool Managed(Mobile target)=>target!=null && (Effect(target)!=null || ClassSupplierRank(target)>0);
     public static bool Protected(Mobile target,int incomingRank)=>SupplierRank(target)>incomingRank;
-    public static int ImmunityDelta(Mobile target,int baseline,int delta)=>delta<0 && target is BaseCreature and not BaseHire && baseline>=100?delta/5:delta;
+    public static int ImmunityDelta(Mobile target,int baseline,int delta)=>SourceSkillResistance.ImmunityDelta(baseline,delta,target is BaseCreature and not BaseHire);
     private static int LegacyRank(Mobile target)=>EliteAuras.Level(target,EliteAura.Conviction,true);
     private static int Armor(int rank)
     {

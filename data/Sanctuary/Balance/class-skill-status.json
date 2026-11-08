@@ -2363,10 +2363,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 375,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared current do155/callback/command now drive actual original demon relocation,shared quota,managed controls and approved recipient penalties. Native target/roster mapping is approved. Actual Tainted pending actions interrupt on neutral,issued missiles remain independent,and saved transient A2 mode normalizes without replay. Source/world/native checkpoints include two actual reloads;see death-mark-interrupt-checkpoint.md. Learned input/startup/payment and automatic GenericPet controller remain dependencies of unfinished demon intrinsic/decision services. Continue independent Warlock skills;do not repeat solved source requests or matrices. Effects/icons remain separate."
     },
     {
       "talentId": "warlock.summontainted",
@@ -2639,9 +2639,9 @@
       "tree": "Chaos",
       "sourceId": 401,
       "implementation": "blocked",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared do123ground allocation/caster RNG/client notification and complete missile hit23have source/native controls. Hit23forwards original skill401/rank to new skill do163;the older dispatcher has a null163slot. Exact area/filter/LOS,one-roll-versus-target damage,fire-resistance state/immunity penalty and restoration/expiry remain unverified. No generic Volcano explosion or guessed curse is substituted. The prepared launch does not enable a cast. See warlock-ground-launch-native-evidence.json; final cast/detonation/debuff effects/audio and talent/hotkey icons remain separate."
+      "remaining": "Current872byte do163 and newly captured895byte target callback close the prior protected-code gap;see apocalypse-impact-checkpoint.md. Current453660resistance helper includes216codebytes/40inline-table bytes and142offline numerical controls. Prepared ordinary-NPC fire receiver now applies pinned per-hit-only reduction before item pierce,using shared one-fifth immunity scaling without leaving a curse. Actual damage,allocation/zero guards and reload controls are in the focused checkpoint. Full current area/filter/LOS,shared packet roll/mastery/extra elements,ground launch/hit23and native stat-list/reentrant-event parity remain unfinished;no learned handler or certificate. Effects/audio/icons remain separate."
     },
     {
       "talentId": "warlock.abyss",

@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedApocalypseEnabled": false,
+  "fullCurrentCallbackParity": false,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-debuff-check": 1,
+    "apocalypse-impact-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-debuff-reload-check": 2,
+    "apocalypse-impact-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "nativeRun": 2,
+  "currentResistanceCases": 142,
+  "pinnedPenaltyRanks": 255,
+  "priorCompilerMatricesRerun": 0,
+  "callback": {
+    "path": ".local/class-skills/warlock-runtime-reference/apocalypse-callback-20261109-first.json",
+    "sha256": "4e39d2ed174706ec70af6860d686b4788c870ce7d5deefa864f593b6243dcb5c",
+    "rva": "0x450090",
+    "bytes": 895,
+    "process": {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    },
+    "bytesRead": 2350,
+    "review": "Complete current callback captured and reviewed;not fully emulated"
+  },
+  "helper": "tools/reference/skill-resistance-current-evidence.json",
+  "files": {
+    "src/Sanctuary.Content/SourceSkillResistance.cs": "9d31b829d24ebdd5aad941244ca00fe0eca985312cce4f34bc100beb16e369ad",
+    "src/Sanctuary.Content/ApocalypseImpact.cs": "0302e085d67f9d27ed2fb36bba5da80cee070e4edd92a35ba4bdf3ddf61e4e56",
+    "src/Sanctuary.Content/NamedElements.cs": "38158c85f3eb6cf045e9e8e2963bbfdcff46e0d399f8769d283b616f07eb0fd5",
+    "src/Sanctuary.Content/PaladinConviction.cs": "4b941b4ac1fc8d346a26925d38519202ef70c556ea334913a240464661c71839",
+    "src/Sanctuary.Content/TaintedFireBallMissiles.cs": "f155d567f18dea75e7ae31d34a17d9aa94c99c504701b216e191dff3c8ac8ce0",
+    "tests/Sanctuary.Integration/ApocalypseImpactChecks.cs": "fbb1cae983e55d975e030d91ad81bbc6e9c1096d2e28adda1c360b0492c12595",
+    "tests/check_apocalypse_impact.py": "a065ac890ee316709bda3718412da0c36d061f44d38899909e31ba18beebaac5",
+    "tools/capture_apocalypse_callback.py": "12d2814ab043b9af4d293218fbd167f61355f069c194d2e0ff79f1729e46b98f",
+    "tools/probe_skill_resistance.py": "da6d97017c26efb1fd1eaa159d9a7ae83b6919793b9f81f12fbeaa33a50bb1d5",
+    "tools/record_apocalypse_impact.py": "c86d07ecdf0f522809a126c399ad630723388b5cd59167867f05cfbf5da7edb3",
+    "tools/build_skill_roadmap.py": "d809a18efdfd13dddf3be61af4d69233f6403e2c60b1a9666dfa52b5dba408fa"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "83bf956997dcf7f7f0fb37272d548050628518e135616e71be6f35d8d15dfc79",
+    "Assemblies/Sanctuary.Integration.dll": "d35aec60f340deca2e77faff96c4e23d61d7aabb4562ffaec37c92c94730905f"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "copiedDataChange": "Only class-skill-status.json:record verified DeathMark dependency and current Apocalypse partial evidence;handler count unchanged.",
+  "scope": "Prepared ordinary-NPC supplied enhanced fire component:actual HP loss,normal and one-fifth immunity scaling,immunity break before supplied item-pierce,rank cap40,zero/allocation refusal,unchanged native fire resistance/ordinary curse/later spell. Existing LowerResist pool is reduced before the per-hit stage. Original target/curse and absence of any lasting Apocalypse resistance reduction survive two actual reloads. Shared Paladin immunity primitive reused;existing Tainted ordinary-recipient guards reused without behavior change;DeathMark signed-reduction regression passes.",
+  "diagnostics": "Native1initial impacts/source cases passed but reload fixture caster was not restored to its saved world pose. Native1source,binaries,log,inputs,fixtures archived. Native2restores only fixture pose/adds diagnostic detail;production DLL identical.",
+  "limits": [
+    "Full do163 area/filter/LOS and shared damage packet construction,roll identity/mastery/potion extras,launch/hit23 input/payment/cancellation remain unfinished.",
+    "Current temporary raw-stat-list factory and reentrant event exposure are not reproduced by a per-hit parameter;allocation acceptance is a supplied prepared context. Native scope excludes unqualified special reactions/PvP/pets through existing recipient guard.",
+    "No learned handler or class certificate;final effects/audio and talent/hotkey icons remain separate placeholders."
+  ]
+}

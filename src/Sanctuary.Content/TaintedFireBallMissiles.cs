@@ -112,7 +112,7 @@ internal static class TaintedFireBallMissiles
         && Math.Abs(target.Z - z) < 16 && ClassCombat.IsHostile(owner, target) && !ClassCombat.Friendly(actor, target)
         && actor.CanBeHarmful(target, false) && !SpellHelper.IsTown(target.Location, owner);
 
-    private static void RequireOrdinaryRecipient(PlayerMobile owner, Mobile candidate)
+    internal static void RequireOrdinaryRecipient(PlayerMobile owner, Mobile candidate)
     {
         // These NPCs have no mapped source passive Avoid/Evade/Weapon Block.
         // Shield block is intentionally absent: hit01 calls defense with1/0.
