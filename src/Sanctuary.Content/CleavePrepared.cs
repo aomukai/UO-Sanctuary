@@ -5,7 +5,8 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record CleaveValues(int Rank,int DamagePercent,int AttackPercent,int SpeedPercent,int RawSlices,int TooltipArcDegrees,int Mana256);
-// Components only: new start68/do164 and actual rank20 arc remain unsupported.
+// Components only: CleaveSweep supplies the current do164 outer arc planner;
+// start68 and the protected recipient/contact callback remain unsupported.
 // No cast registration, automatic target selection, payment or windup is implied.
 internal static class CleavePrepared
 {

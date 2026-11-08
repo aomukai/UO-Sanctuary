@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Cleave sweep (2026-11-09 JST).** [Checkpoint](cleave-sweep-checkpoint.md). No learned binding or final icon is added. Cleave retains its identified text placeholder and pending talent/left/right/quick artwork;effects/audio stay separate.
+
 **Ring approved-age packet (2026-11-09 JST).** [Checkpoint](ring-age-checkpoint.md). No learned binding or final icon is added. Talent/left/right/quick icons retain their pending entries and identified text placeholder;effects/audio stay separate.
 
 **Ring prepared motion profile (2026-11-09 JST).** [Checkpoint](ring-profile-checkpoint.md). No learned talent/hotkey identity or artwork is added. Ring’s identified text placeholder and pending talent/left/right/quick icon work remain in this register;effects/audio are separate.

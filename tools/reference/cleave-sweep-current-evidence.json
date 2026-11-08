@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "entryRva": "0x4508e0",
+  "dispatcherIndexLinked": true,
+  "currentMachineCodeExecutedOffline": true,
+  "processMemoryRead": false,
+  "cases": 26,
+  "sourceBytes": 779,
+  "externalServices": [
+    "Primary row lookup,target-coordinate resolution and immediate aura gate are supplied.",
+    "Direction service supplies a valid0..63heading;the outer function packed coordinates are checked independently.",
+    "calc5/6/7,weapon reach and area center are explicit inputs. All formula order,arc float32/wrap math,flags,source-damage fallback and full recipient request fields execute in the current body.",
+    "Area enumeration records the450780callback/context but never replaces its protected contact behavior with damage."
+  ],
+  "limits": [
+    "Does not implement start68,recipient callback450780 or establish actual native target/arc membership,weapon contact/payment/lifecycle/input.",
+    "Heading helper and weapon reach were captured separately;this probe does not certify their math/inventory subcalls."
+  ],
+  "artifacts": {
+    "tools/probe_cleave_sweep.py": "9ffb364a670fb535565a3c6e33d7b8baa6313e4401483323ffb6edae2c3ba49e",
+    ".local/class-skills/cleave-sweep-source/cases.json": "c85c7ee5b8d539f290e12a75c41ccc1974326a748a92c025bf7546cec09782b4",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/capture.json": "c6061da802be89bd98a4072e75b90ae2f2def7e15794f927ffd168e960186e34",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part0.bin": "e0f8204194f761461c46b8c09c8eb179acf95b8c292266d3fbd4fc0afa7adbf1",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part1.bin": "736023b0acf97530b81f25b279ade556bd2bd3032e8dc43c501a928bb1d905eb",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part2.bin": "200376a67db7667aa7964bacc3fafd8308b1bf6461cc5323251206c116aef9a6",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part3.bin": "462e0a03db8eef6c85deea2fe3809cfe6e3e82b0a87bfc53f43128d8827efda4"
+  }
+}

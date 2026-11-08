@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Cleave sweep (2026-11-09 JST).** [Checkpoint](cleave-sweep-checkpoint.md). A pure arc/area request creates no world visual or damage producer. Existing SQ/contact presentations remain identified placeholders;final Cleave cast/sweep/contact/audio stay pending. Icons remain separate.
+
 **Ring approved-age prepared recipient (2026-11-09 JST).** [Checkpoint](ring-age-checkpoint.md). The shared generic fire-contact presentation is an identified placeholder for explicit recipient checks;no automatic projectile/explosion producer or final art is added. Existing cast/ring/contact/terminal/expiry/audio work remains pending;icons remain separate.
 
 **Ring prepared motion profile (2026-11-09 JST).** [Checkpoint](ring-profile-checkpoint.md). No world actor or visual is emitted by the prepared free-flight/packet plan. Existing Ring cast,expanding ring,contact,terminal explosion,expiry and audio entries remain pending;identified placeholders will be used when world emission is connected. Icons remain separate.

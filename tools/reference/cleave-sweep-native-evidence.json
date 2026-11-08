@@ -1,0 +1,85 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 212,
+  "warlockHandlers": 3,
+  "completedClasses": [],
+  "learnedCleaveEnabled": false,
+  "sourceCases": 26,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "nativeRun": 1,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "cleave-sweep-check": 1,
+    "cleave-sweep-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/cleave-sweep/source-snapshot-1.json",
+    "sha256": "b929ee43aa78ba9151d49208f7bc9b524f402221538ea4f56e87030dd10c7e07"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/cleave-sweep/birth-inputs.json",
+    "sha256": "0e7e4c7b9f891b28581acbbd732f726719db93d8403466b721d152e6318fff30"
+  },
+  "newCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "files": {
+    "src/Sanctuary.Content/CleaveSweep.cs": "cd50ab3ed0738664b10923078e984d2437848ad1e3660315e4a6516192cf8c11",
+    "src/Sanctuary.Content/CleavePrepared.cs": "32e8c639facaec78382d163bef41e040e840e404ca49a96218e674fc75c9d98b",
+    "tests/Sanctuary.Integration/CleaveSweepChecks.cs": "57fcb77975bfa38b8722ba1e8fe3131ff9f8d62d9d8f02161ded3299a9ab9295",
+    "tests/check_cleave_sweep.py": "4470785acc700d9c6f939603a912f3fc66b75472b9ce5391a7004045f6e2cdb7",
+    "tools/capture_cleave_services.py": "f0a856196495177770423586ddb6cf8ab8653eaa0950b56292e64ddc56b6333f",
+    "tools/probe_cleave_sweep.py": "9ffb364a670fb535565a3c6e33d7b8baa6313e4401483323ffb6edae2c3ba49e",
+    "tools/reference/cleave-sweep-current-evidence.json": "77146113f7fe6d3a4e1276681b8ba1f5687e938ddaf7909266177ce17d1e6a93"
+  },
+  "artifacts": {
+    ".local/class-skills/cleave-sweep/birth-native-checks.log": "33f92d4d522e182a0a8ee89886b1175c82b178d4076054f2e19f5a888bfad3b1",
+    ".local/class-skills/cleave-sweep/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/cleave-sweep/content-build-1.log": "a97e89a30d179513cf677ab8907edca11b68194dc6226021966b8cea25167820",
+    ".local/class-skills/cleave-sweep/integration-build-1.log": "f46cea8f2b52260a8836741a8839722efc32a3ae0b373dc41cfaaa39785ca16d",
+    ".local/class-skills/cleave-sweep/cleave-sweep-fixtures.json": "21f02c8e7bcefd2188095ba834d833b2131cc2595c18cd305cae4d4e4bc56ee6",
+    ".local/class-skills/cleave-sweep/content/Sanctuary.Content.dll": "c968c74374ec2d51404f9b6ecbcf21f3324a43a06a1b301dbe1e55711bafb008",
+    ".local/class-skills/cleave-sweep/integration/Sanctuary.Integration.dll": "fc56c28e9d8e062dd8f0ab3af53df2132d07fd9d7850bd4e8f92fc51eb56c8ee"
+  },
+  "referenceCapture": {
+    "path": ".local/class-skills/warlock-runtime-reference/cleave-services-20261109.json",
+    "sha256": "8ec5b8a416c0739cf2b41cfc08b0eedca861811f7b9425661589766e3093a4d9"
+  },
+  "referenceProcess": {
+    "pid": 556242,
+    "startTicks": 16928234,
+    "name": "Main"
+  },
+  "referenceBytesRead": 2054,
+  "referenceCodeBytes": 747,
+  "protectedRecipientBytes": 339,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Complete current do164 outer flow executes offline with explicit services;native C# matches ordered row/target/flag/gate/direction/formula/reach/center/area calls and every request field.",
+    "Current float32 division/multiplications,truncation,64-direction wrap,nonpositive/full-width branches,fixed-point coordinates,SrcDam0fallback128 and radius reach+4+calc7 are preserved.",
+    "Original Tarnhelm moves effective19\u219220 and actual primary formulas change quantized bounds34/30\u219243/21 at heading0;gear/request DTO remains identical over two reloads. The pinned table width drop is preserved,not smoothed."
+  ],
+  "limits": [
+    "This is a prepared sweep/request producer,not actual target membership,damage,weapon wear,start68,payment/cancellation/input or active action persistence. No public handler or class certificate.",
+    "Recipient callback450780remains wholly protected;no force/input/attach/protection change/write. Direction346bytes and reach401bytes captured,but their math/inventory subcalls remain independent services in this outer proof.",
+    "Modern area world ordering/collision,actual reach/heading and invalid native fatal contexts remain qualified. Effects/audio and talent/hotkey icons stay separate."
+  ]
+}
