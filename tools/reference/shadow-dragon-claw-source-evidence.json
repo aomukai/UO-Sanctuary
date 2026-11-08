@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 24,
+  "reusedWholePacketRoutineHashes": {
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+    "SKILLS_SrvSt25_64_DragonClaw_MonFrenzy": "6db553e03765c40ec5cace3e1757f6054bf460df77aa4f8d728818572472c512",
+    "sub_6FCF8C70": "b74a34f75bac11977b773f1cbcdc15a98fa9bf2a990da99dffb2ccfe90da54aa",
+    "SKILLS_SrvDo046_DragonClaw": "4103b7552d64e1e65f78eeaa8d1fd75f01dce13606b09a3c0578e523ee17cfa4",
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+    "sub_6FCF5BC0": "e740b401d198473cff5ce134603f63c196e37a3bc70994994d2ee7e1bd35bad4",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo038_FistsOfFire_BladesOfIce_ProgressiveFn2": "71259c405fee7b5db27bc1c59c13c0ee84f5ae24c2a6df8ac38cfc9e2eb109fc",
+    "SKILLS_SrvDo039_FistsOfFire_BladesOfIce_ProgressiveFn3": "003f8acdc1a884265a76c47cc27bf0c582c5280832a86fe8b0c6976ff11d93f3",
+    "SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn": "226af98db59cda0eb4798b616f4e1cb709f21bcc0cefafce2d924a0dc5042928"
+  },
+  "genericExecutionRoutineHashes": {
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "artifacts": {
+    "tools/probe_shadow_dragon_claw.py": "3f6d22a96c2b730ee5f8b39744591ac30cb6560bdc6e30858d5aec7ece7499e9",
+    ".local/class-skills/shadow-claw-sequence-source/source.cpp": "c9cebe108e003a854165dccced8e4884e1c41a384256f7dee07f537c805e06d3",
+    ".local/research/d2r-3.3.93847/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/shadow-dragon-claw-source/source.cpp": "4f22ae64a7c1665420975c674809075fdb7eab14e70664c6a3f6cd79027188a3",
+    ".local/class-skills/shadow-dragon-claw-source/probe": "8edce40d97ec79b9ce34939cd378125dba3b1977e2dcad48f212b75642251724",
+    ".local/class-skills/shadow-dragon-claw-source/cases.json": "c0f048f7e5e104f210fd26d494058c3631717429832f0f7729c1ad55540ef05d",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "tools/reference/skill-execution-source-evidence.json": "bd72c412bd45b9e766df2a7a9dd9ab953327b3ca5573b2fe280243ad13d2df94"
+  },
+  "scope": "Complete normal NPC mode14 initializer/callback/step/end/selector plus complete do46/start25. Successful packet builder/progressive release are declared trace services here;their existing1152whole-source composition is authenticated without repeating it. Raw point hand choice and flag clear at packet/progressive entry,progressive sets it before drain,parity only afterward;missing target preserves prior flag. Owned monster slot4selects the existing16row sequence. Modern exact NPC phase/charge/accuracy boundaries remain scoped;runtime reuses approved charged-hit/consume policy,not player payment/clock."
+}

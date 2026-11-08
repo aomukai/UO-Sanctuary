@@ -27,6 +27,7 @@ internal static class ShadowSkillCasting
     private static NotSupportedException Missing()=>new("Shadow intrinsic skill needs an additional qualified NPC action service");
     private static ItemExecutionMetadata Row(int id)
     {
+        if(id==260){return ShadowDragonClaw.Row();}
         if(ShadowChargeStrikes.Handles(id)){return ShadowChargeStrikes.Row(id);}
         if(ShadowSentries.Handles(id)){return ShadowSentries.Row(id);}
         if(id==253){return ShadowPsychicHammers.Row();}
@@ -80,13 +81,13 @@ internal static class ShadowSkillCasting
     }
     internal static int Release(Cast cast,DateTime at)
     {
-        if(cast==null||ShadowChargeStrikes.Claws(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
+        if(cast==null||ShadowClawSequence.Handles(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
         cast.Released=true;
         return SkillExecution.Run(new Execution(cast,at),cast.Skill,cast.Body.OwnedSkillRank(cast.Skill),true,false,false);
     }
     internal static int ReleaseSequence(Cast cast,int point,DateTime at)
     {
-        if(cast==null||!ShadowChargeStrikes.Claws(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map
+        if(cast==null||!ShadowClawSequence.Handles(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map
             ||cast.Body.OwnedSkills.Used!=cast.Skill||point is <0 or >=ShadowClawSequence.Points||point<=cast.LastSequencePoint){return 0;}
         var pending=ShadowActions.State(cast.Body);
         if(pending?.Cast!=cast||pending.Sequence is not{} sequence||sequence.Clock.Point!=point||!ShadowClawSequence.Releases(sequence)){return 0;}
@@ -124,9 +125,10 @@ internal static class ShadowSkillCasting
                 :ShadowSentries.Handles(cast.Skill)?Body.InLOS(new Point3D(x/2,y/2,cast.Target?.Z??cast.Aim.Z)):throw Missing()
             :throw Missing(); // Shared native LOS projection;exact D2 terrain remains separate.
         internal override int StartCount=>29;
-        internal override bool HasStart(int function)=>function==0?false:function is 22 or 23 or 28?true:throw Missing();
+        internal override bool HasStart(int function)=>function==0?false:function is 22 or 23 or 25 or 28?true:throw Missing();
         internal override int ExecuteStart(int function,int skill,int rank)=>function==22&&skill==253?ShadowPsychicHammers.Valid(Body,cast.Target)?1:0
             :function==23&&ShadowChargeStrikes.Handles(skill)?ShadowChargeStrikes.Start(Body,cast.Target)?1:0
+            :function==25&&skill==260?cast.Target!=null?1:0
             :function==28&&skill==277?ShadowBladeShields.Start(Body,rank,cast.StartedUtc):throw Missing();
         internal override void ConsumeMana(int skill,int rank){} // Ordinary NPC, intrinsic ownership, no player/item charge.
         internal override void DeletePeriodicEvent()
@@ -148,12 +150,13 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 45 or 47 or 51 or 54?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 45 or 46 or 47 or 51 or 54?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
                 :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
                 :function==34&&ShadowChargeStrikes.Handles(skill)?ShadowChargeStrikes.Release(Body,cast.Target,skill,level,at)
                 :function==35&&ShadowChargeStrikes.Claws(skill)?ClawRelease(skill,level)
+                :function==46&&skill==260?DragonRelease()
                 :function==47&&skill==264?ShadowCloaks.Release(Body,level,at)
                 :function==45&&ShadowSentries.Handles(skill)?ShadowSentries.Release(Body,cast.Target,cast.Aim,skill,level,at)
                 :function==54&&skill==277?ShadowBladeShields.Release(Body,at)
@@ -165,7 +168,15 @@ internal static class ShadowSkillCasting
             cast.ServerDo=((point>>8)&1)!=0;
             _=ShadowChargeStrikes.Release(Body,cast.Target,skill,level,at);return 1; // Complete do35 returns1 even if do34 declines.
         }
-        internal override void SetServerDo(){if(ShadowChargeStrikes.Claws(cast.Skill)){cast.ServerDo=true;}}
+        private int DragonRelease()
+        {
+            if(cast.SequencePoint is not{} point){throw Missing();}
+            if(cast.Target==null){return 0;}
+            int result=ShadowDragonClaw.Release(Body,cast.Target,at);
+            cast.ServerDo=((point>>8)&1)!=0; // do46 updates the flag after contact.
+            return result;
+        }
+        internal override void SetServerDo(){if(ShadowClawSequence.Handles(cast.Skill)){cast.ServerDo=true;}}
         internal override (int X,int Y)? TargetPoint=>cast.Target is{Alive:true,Deleted:false} target?(target.X*2,target.Y*2):null;
         internal override (int X,int Y) FirstPathPoint=>(cast.Aim.X*2,cast.Aim.Y*2);
         internal override (int X,int Y) SourcePoint=>(Body.X*2,Body.Y*2);
@@ -175,7 +186,7 @@ internal static class ShadowSkillCasting
             var point=cast.Target is{Alive:true,Deleted:false} target?target.Location:cast.Aim;
             FireBlasts.EmitShadow(Body,point,level,at);
         }
-        internal override bool HasStart(int function)=>function==0?false:function is 22 or 23 or 28?true:throw Missing();
+        internal override bool HasStart(int function)=>function==0?false:function is 22 or 23 or 25 or 28?true:throw Missing();
         internal override void ConsumeMana(int skill,int level){}
         internal override void ConsumeQuantity()=>throw Missing();
         internal override int Delay(int formula,int skill,int level)=>formula==0?0:throw Missing();

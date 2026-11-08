@@ -1,0 +1,73 @@
+{
+  "parent": "830f9d380b413800ca2b7dd26419ee332c3584e3",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicDragonClawConnected": true,
+  "newCompiledSourceControls": 24,
+  "reusedAuthenticatedPacketRoutines": 13,
+  "reusedGenericExecutorRoutines": 1,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-dragon-claw-check": 1,
+    "shadow-claw-check": 1,
+    "shadow-finisher-check": 1,
+    "shadow-ice-check": 1,
+    "shadow-thunder-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-dragon-claw-reload-check": 2,
+    "shadow-claw-reload-check": 2,
+    "shadow-finisher-reload-check": 2,
+    "shadow-ice-reload-check": 2,
+    "shadow-thunder-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "52ce02c66782b2a46232043f8426b4577c6431c54b6f0e097a65e83c4beb70c7",
+    "Assemblies/Sanctuary.Integration.dll": "448df9ec46ab5b864e258f553c5351499e2a1b44094dafe8674eb7a89fa6ee26"
+  },
+  "files": {
+    ".local/class-skills/shadow-dragon-claw/source-snapshot-3.json": "eb762cb515cd80673152cc7561c50e27023a7d427af691724875798482b3c36f",
+    ".local/class-skills/shadow-dragon-claw/birth-inputs.json": "23f10523005adbc2a67a1a044aa367eae10f569d3ac51fb36c1722c7b1541e29",
+    ".local/class-skills/shadow-dragon-claw/birth-native-checks.log": "48f66d8e9c3af8e984d4fb08477d8f07808e0ffe924934770de54e636c31eece",
+    ".local/class-skills/shadow-dragon-claw/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-dragon-claw/content-build-3.log": "6102e13e47e5c2723f2744cb0fb1742a72a21a6142dfeb5c407476f4697ef273",
+    ".local/class-skills/shadow-dragon-claw/integration-build-2.log": "04073584613fabdad7b773d7fdd672af377d3ca904311a785eb6ba6c79b57792",
+    ".local/class-skills/shadow-dragon-claw/shadow-dragon-claw-fixtures.json": "d137dbf3f73aaca28b580bae305e4395101610fa16d1b2577fe9666656002bc5",
+    ".local/class-skills/shadow-dragon-claw/birth-native-checks-failed-1.log": "a12d0104a116bc8bb876c2a2cbf88e03e41d5a397393023fbe732d5a683f4d4f",
+    ".local/class-skills/shadow-dragon-claw/birth-inputs-failed-1.json": "2daf51ae0733c8b9b72575182239bacea4dc5fa4a73b1c5c9fa1b92e88674bb4",
+    "tools/record_shadow_dragon_claw.py": "341cea9d318f99d945768cb9f56932e930a5d8be76845d8505df7520200f5569",
+    "tools/probe_shadow_dragon_claw.py": "3f6d22a96c2b730ee5f8b39744591ac30cb6560bdc6e30858d5aec7ece7499e9",
+    "tools/reference/shadow-dragon-claw-source-evidence.json": "18bdd175f199ab2b0a4102048dda3306600bd4a56fc9d97f1be4955dd93df01f",
+    "tests/check_shadow_dragon_claw.py": "7774039e870873bdb18092c70fad129a1649cb8251e25a0245e7b822cc7aa140",
+    ".local/class-skills/shadow-dragon-claw-source/source-before-handler-review.cpp": "dea5b9747c566c51fb18dbea65380d61ebb25964850a7c2cd1f980eae64fc976",
+    ".local/class-skills/shadow-dragon-claw-source/cases-before-handler-review.json": "2c030c9aaa9bdc710f035496e85d97d53e536577b2ae35a8fa3744c67f82bef8"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Initial native run exposed a missing progressive-phase flag. Generic non-missile executor does not pre-set it;full progressive helper sets before contact,do46writes raw parity afterward. Runtime fixed and source bridge assumption corrected;failed inputs/log and pre-review source/cases preserved.",
+  "scope": "Both original Shadows:own NPC mode14/start25/do46/raw-point hand/rates,no NPC mana,full original source128skill ED/hard mastery,approved charged accuracy-only guarantee with block retained,per-contact all-six release/consume-one,world/natural Warrior AI,target-loss/interrupt/no replay and exact original saves. Source packet/progressive trace services declared;existing whole packet proof reused. Current NPC parity/charged boundaries and other intrinsic/death/learned/player mixed-order/geometry/PvP/event/removal scopes remain,no class completion."
+}

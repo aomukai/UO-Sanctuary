@@ -89,7 +89,7 @@ internal static class ShadowAnimation
     internal static ShadowAnimationPlan Claws(AssassinShadowBody body)
     {
         _=ShadowEquipmentDefense.Require(body);
-        if(body.OwnedSkills.Used is not{} id||!ShadowChargeStrikes.Claws(id)||body.OwnedSkills.Find(id)?.Mode!=14||ShadowEquipmentDefense.Composite(body)!=13)
+        if(body.OwnedSkills.Used is not{} id||!ShadowClawSequence.Handles(id)||body.OwnedSkills.Find(id)?.Mode!=14||ShadowEquipmentDefense.Composite(body)!=13)
         {throw new NotSupportedException("Shadow sequence needs its own elemental skill and original dual claws");}
         var r=OriginalRates(body);return SuppliedClaws(r.Ias,r.Attack,r.Right,r.Left);
     }

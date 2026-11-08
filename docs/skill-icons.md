@@ -1,5 +1,7 @@
 # Skill icons
 
+**Own Shadow Dragon Claw (2026-11-08 JST).** No new public binding/icon identity. Shadow Warrior/Master and Dragon Claw tree/hotkey icons retain identified text placeholders;effects/audio remain separate. [Checkpoint](shadow-dragon-claw-checkpoint.md).
+
 **Own Shadow Ice (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Blades of Ice talent/hotkey icons retain identified text placeholders; effects/audio remain separate. [Checkpoint](shadow-ice-checkpoint.md).
 
 **Own Shadow Thunder (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Claws of Thunder talent/hotkey icons retain identified text placeholders; effects/audio remain separate. [Checkpoint](shadow-thunder-checkpoint.md).

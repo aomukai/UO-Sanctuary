@@ -13,6 +13,7 @@ internal sealed record ShadowClawSequenceState(SentrySequenceState Clock,bool Se
 internal static class ShadowClawSequence
 {
     internal const int Points=16*256;
+    internal static bool Handles(int skill)=>ShadowChargeStrikes.Claws(skill)||skill==260;
     private static readonly Lazy<ShadowClawSequenceData> Data=new(()=>
     {
         var d=BalanceCatalog.ReadObject<ShadowClawSequenceData>("shadow-claw-sequence");

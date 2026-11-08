@@ -33,7 +33,7 @@ internal static class OriginalNpcEquipment
             var binding=ShadowLoadout.Binding(shadow);var graph=Graph(shadow);
             if(!graph.ActiveItems.Contains(binding.Primary)||binding.Secondary!=0&&!graph.ActiveItems.Contains(binding.Secondary))
             {throw new NotSupportedException("Original Shadow hand has been detached from its stat graph");}
-            if(ShadowActions.State(shadow) is{Sequence:not null} action&&ShadowChargeStrikes.Claws(action.Cast.Skill))
+            if(ShadowActions.State(shadow) is{Sequence:not null} action&&ShadowClawSequence.Handles(action.Cast.Skill))
             {return graph.Weapons(binding.Primary,binding.Secondary,true,true,3,action.Sequence.Clock.Point,0);}
             return graph.Weapons(binding.Primary,binding.Secondary,false,false,0,0,0);
         }

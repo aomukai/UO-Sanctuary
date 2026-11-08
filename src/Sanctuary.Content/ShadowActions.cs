@@ -34,6 +34,8 @@ internal static class ShadowActions
     internal static bool BeginCharge(AssassinShadowBody body,BaseCreature target,DateTime at,int skill)
         =>ShadowChargeStrikes.Handles(skill)?BeginSkill(body,target,target?.Location??body.Location,at,skill)
             :throw new NotSupportedException("Unqualified Shadow charge action");
+    internal static bool BeginDragonClaw(AssassinShadowBody body,BaseCreature target,DateTime at)
+        =>BeginSkill(body,target,target?.Location??body.Location,at,260);
     private static bool BeginSkill(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs its UTC entry clock");}
@@ -42,7 +44,7 @@ internal static class ShadowActions
         try
         {
             bool s2=skill==251||ShadowSentries.Handles(skill);
-            bool claws=ShadowChargeStrikes.Claws(skill);
+            bool claws=ShadowClawSequence.Handles(skill);
             var plan=s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
                 :skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
             int marker=s2?2:1;
@@ -96,6 +98,7 @@ internal static class ShadowActions
                 int frame=action.Frame+1;bool end=false;
                 if(action.Sequence is{} sequence)
                 {
+                    if(action.Cast.Skill==260&&!ShadowDragonClaw.Continues(body,action.Cast.Target)){Cancel(body);break;}
                     if(ShadowClawSequence.Complete(sequence)){Cancel(body);break;}
                     if(ShadowClawSequence.Releases(sequence))
                     {

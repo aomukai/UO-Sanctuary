@@ -10,8 +10,11 @@ internal static class ShadowFinishers
 {
     internal static bool Builder(int id)=>id is 254 or 265 or 280 or 259 or 269 or 274;
     internal static IronGolemContact.Prepared Prepare(AssassinShadowBody body,PlayerMobile owner,BaseCreature target,
-        Func<int,bool> range,DateTime at,IronGolemContact.Rules rules)
+        Func<int,bool> range,DateTime at,IronGolemContact.Rules rules,int skill=0)
     {
+        if(skill is not(0 or 260)){throw new NotSupportedException("Unqualified own Shadow finisher skill");}
+        var policy=skill==0?null:ShadowDragonClaw.Row();
+        var skillValues=skill==0?null:ShadowSkillCasting.OwnValues(body,body.OwnedSkillRank(skill),skill);
         var states=AssassinCharges.Finisher(body);
         if(states.Any(s=>s.Ability is not(CombatAbility.TigerStrike or CombatAbility.CobraStrike or CombatAbility.PhoenixStrike or CombatAbility.FistsOfFire or CombatAbility.ClawsOfThunder or CombatAbility.BladesOfIce)))
         {throw new NotSupportedException("Shadow ordinary finisher has an unqualified elemental release consumer");}
@@ -22,14 +25,15 @@ internal static class ShadowFinishers
         var iceState=states.FirstOrDefault(s=>s.Ability==CombatAbility.BladesOfIce);
         if(iceState?.Count==3){NpcFreezeStatus.Require(body,target);}
         int flags=NpcMeleeResult.Resolve(body,target,range,()=>ClassCombat.IsHostile(owner,target),
-            n=>NpcEquipmentRandom.Limited(body,n),states.Sum(s=>s.AttackPercent));
+            n=>NpcEquipmentRandom.Limited(body,n),checked(states.Sum(s=>s.AttackPercent)+(skillValues==null?0:(int)skillValues.Formula("toht"))),
+            guaranteed:skill==260&&states.Length>0&&policy.Number("Param8")==1);
         if(!NpcEquipmentImpact.Fills(flags)){return new(rules,NpcEquipmentImpact.Prepare(body,target,flags));}
         int tiger=AssassinCharges.TigerPercent(states.FirstOrDefault(s=>s.Ability==CombatAbility.TigerStrike),body.OwnedSkillRank(254));
         var cobra=AssassinCharges.CobraDrain(states.FirstOrDefault(s=>s.Ability==CombatAbility.CobraStrike),body.OwnedSkillRank(265));
         FistsFirePacket fire=null;var fireState=states.FirstOrDefault(s=>s.Ability==CombatAbility.FistsOfFire);
         ThunderPacket thunder=null;var thunderState=states.FirstOrDefault(s=>s.Ability==CombatAbility.ClawsOfThunder);
         IcePacket ice=null;
-        var impact=OriginalNpcMelee.Impact(body,target,flags,new(AdditionalPercent:tiger,HitFlags:2),afterFill:fill=>
+        var impact=OriginalNpcMelee.Impact(body,target,flags,new(AdditionalPercent:checked(tiger+(skillValues==null?0:(int)skillValues.Eval("calc1"))),HitFlags:2),sourceDamage:policy?.Number("SrcDam")??128,afterFill:fill=>
         {
             fire=FistsFireRelease.CaptureShadow(body,fireState);
             fill=FistsFireRelease.InlineShadow(fill,fire);
@@ -48,6 +52,7 @@ internal static class ShadowFinishers
         // with players; later contact cancellation does not refund allocation.
         if(range(0))
         {
+            if(skill==260){ShadowDragonClaw.Progressive(body);}
             var center=target.Location;var map=target.Map;
             var phoenix=states.FirstOrDefault(s=>s.Ability==CombatAbility.PhoenixStrike);
             if(phoenix!=null){_=MartialPhoenix.AfterShadow(body,target,center,phoenix,at);}
@@ -64,7 +69,7 @@ internal static class ShadowFinishers
                 };
             }
             else if(thunder is{Count:>=2}){_=MartialLightning.AfterShadow(body,center,thunder,at);}
-            foreach(var state in states){AssassinCharges.Consume(body,state,CommonMeleeSkills.Attack.Number("prgchargesconsumed"));}
+            foreach(var state in states){AssassinCharges.Consume(body,state,policy?.Number("prgchargesconsumed")??CommonMeleeSkills.Attack.Number("prgchargesconsumed"));}
         }
         return prepared;
     }
