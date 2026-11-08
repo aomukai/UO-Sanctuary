@@ -1,5 +1,7 @@
 # Skill icons
 
+**Ring prepared motion profile (2026-11-09 JST).** [Checkpoint](ring-profile-checkpoint.md). No learned talent/hotkey identity or artwork is added. Ring’s identified text placeholder and pending talent/left/right/quick icon work remain in this register;effects/audio are separate.
+
 **Learned Apocalypse icons pending (2026-11-09 JST).** Talent,left/right and quick bindings now function with existing identified text/fallback placeholders. Final icon artwork remains needed independently of its learned mechanics. [Checkpoint](apocalypse-cast-checkpoint.md). Effects/audio remain in their separate register.
 
 **Apocalypse prepared impact (2026-11-09 JST).** No learned binding or final icon artwork is added. Talent,left/right and quick icons remain pending with identified text/fallback placeholders. [Checkpoint](apocalypse-impact-checkpoint.md). Effects/audio remain separately tracked.

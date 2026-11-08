@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 212,
+  "warlockHandlers": 3,
+  "completedClasses": [],
+  "learnedRingEnabled": false,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "ring-profile-check": 1,
+    "ring-profile-reload-check": 2,
+    "missile-damage-scale-check": 1,
+    "missile-damage-scale-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "nativeRun": 1,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/ring-profile/source-snapshot-1.json",
+    "sha256": "e4610e41fa2443941ce2693372f75ae0604aa51324f35060e6ace0563a4666f7"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/ring-profile/birth-inputs.json",
+    "sha256": "1db874f630bae84045006ad35bb243466563622b0e196b6cff35389c61d9b2b2"
+  },
+  "sourceLaunchCases": 8,
+  "sourceScaleCases": 36,
+  "reusedScaleRegressionCases": 112,
+  "newCompilerMatrices": 0,
+  "priorCompilerMatricesRerun": 0,
+  "files": {
+    "src/Sanctuary.Content/MissileValues.cs": "e4f4d55c3693efeb7b6b48587904e48f18919004d94dcdd3c5d39190d3f033ef",
+    "src/Sanctuary.Content/MissileDamageScale.cs": "8e6211b7229918046484a76a30d593fc99ca95bbc8aded550dd7eadc335a7e02",
+    "src/Sanctuary.Content/RingOfFireMotion.cs": "3ab874bdc5faaa5011604666d42cad5917dbe6c0525464dba1c1540e7e2d55cb",
+    "tests/Sanctuary.Integration/RingProfileChecks.cs": "4ab7ca400315dca57f4e083cf272842c6937cc2cb0427ac554b8c56a84fe40b2",
+    "tests/check_ring_profile.py": "6247bab6a87798501769c08a701defdf1fd7b1e00bb9c8e377e2aba7aa516108",
+    "tools/probe_ring_profile.py": "4f62fc24d6d53ccc9aea210751b957cdb257ad418b04adf83c04ddd65ba6ac68",
+    "tools/capture_ring_formula_binding.py": "442139ac75c9e95d76b793de1cf5b66c7ab805a2506c060c474365286944fb01",
+    "data/Sanctuary/Balance/ring-of-fire-world.json": "ab4f0b01aeea24431d9efc396031f97bd89134ab0ba2bb64c58df29ce6d03e40",
+    "tools/reference/ring-profile-current-evidence.json": "d712b706649a52f28395b7ca3d73928a98d5ede8d42b9782763b2bb5d6235115"
+  },
+  "artifacts": {
+    ".local/class-skills/ring-profile/birth-native-checks.log": "a3c41d9f00421102c07e9085a3f3dcc598346b3f64db47e23531465e003ebb3d",
+    ".local/class-skills/ring-profile/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/ring-profile/content-build-1.log": "bb80b0bcaa87c79fc9e401ad023678fbb8b3188d60a3cec34e26034bce67f72b",
+    ".local/class-skills/ring-profile/integration-build-1.log": "38f3b265836047090acb8e8015d20a0487d6d9cea4622af61a09742d40a61904",
+    ".local/class-skills/ring-profile/ring-profile-fixtures.json": "4e459320ac9938f392ea372b0e052eb8453f12b6f71d109ba233de2dfdc3c084",
+    ".local/class-skills/ring-profile/content/Sanctuary.Content.dll": "c556a160ef64285f4ac880a6fcea7f9119cfbd000d9797fc48ee58218997f82e",
+    ".local/class-skills/ring-profile/integration/Sanctuary.Integration.dll": "86948bd26282579e07e11741cfa3b306271ec2cb6ba4ece5b697bb7da9c259dd"
+  },
+  "readOnlyReference": {
+    "callback": {
+      "path": ".local/class-skills/warlock-runtime-reference/ring-formula-binding-20261109.json",
+      "sha256": "d36d733dfc0508770fb1ca905ee22ce75f139294b16c3dc055eb09ae8e677704"
+    },
+    "protectedSupplier": {
+      "path": ".local/class-skills/warlock-runtime-reference/callees-ring-formula-params-20261109.json",
+      "sha256": "8ea629bb06fe78b64356b43870e30acbec81a6d0943379f133ccda5b211a70b7"
+    },
+    "process": {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    },
+    "callbackRva": "0x2bb350",
+    "callbackBytes": 65,
+    "callbackReadBytes": 690,
+    "protectedSupplierRva": "0x2d5730",
+    "protectedSupplierBytes": 1308,
+    "protectedObservationAnchorReadBytes": 560,
+    "forcedReads": false,
+    "gameMemoryWritten": false,
+    "processInput": false
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": [
+    "Primary 689/730 copied unchanged from pinned missile data;current do154 composed with explicit primary formula/getter/factory services,16/32 effective-rank count and shared initial velocity4800.",
+    "Prepared free-flight Nova projection reuses vector acceleration/step tracing;eleven axis updates and serialized DTO continuation pass across reloads. No original active Ring missile is emitted or persisted.",
+    "Supplied fnum0..11 drives primary100+5*fnum through the existing float32 packet kernel;ordinary formula evaluation still rejects unsupplied fnum.36 current-code/native coupling cases plus112existing scaler regressions."
+  ],
+  "limits": [
+    "Live fnum source remains unverified;elapsed-age adaptation proposed,not approved or activated.",
+    "Current generic damage dispatcher/index linkage,collision/explosion,InitSteps factory/contact,NextHit identity,immune knockback and post-first-contact semantics remain separate.",
+    "No learned cast,world damage or full projectile persistence admission;no additional handler or class certificate. Effects/audio and icons remain separately pending."
+  ]
+}

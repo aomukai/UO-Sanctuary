@@ -1,5 +1,7 @@
 # Skill effects
 
+**Ring prepared motion profile (2026-11-09 JST).** [Checkpoint](ring-profile-checkpoint.md). No world actor or visual is emitted by the prepared free-flight/packet plan. Existing Ring cast,expanding ring,contact,terminal explosion,expiry and audio entries remain pending;identified placeholders will be used when world emission is connected. Icons remain separate.
+
 **Learned Apocalypse placeholders (2026-11-09 JST).** Mechanics now have a learned cast;art remains pending. Ground`0x1B7A`,recipient`0x36D4`,shared cast sound`0x1E5` and human casting pose are identified placeholders. Final cast/countdown/detonation/recipient effects and audio still need creation. [Checkpoint](apocalypse-cast-checkpoint.md). Talent/hotkey icons remain separate;no final artwork generated.
 
 **Apocalypse ground controller placeholder (2026-11-09 JST).** Original static`0x1B7A` represents the ground countdown;recipient`0x36D4` remains a placeholder. Final cast,countdown,detonation/area,recipient effects and audio still need creation. [Checkpoint](apocalypse-ground-checkpoint.md). Talent/hotkey icons remain in the separate icon register;no final artwork generated.

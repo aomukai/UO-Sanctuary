@@ -28,6 +28,10 @@ internal sealed class MissileValues
         throw new NotSupportedException("Unsupported missile formula supplier "+name);
     }
     internal long Eval(string field)=>SkillFormula.Evaluate(Text(field),Resolve);
+    // Explicit caller-supplied frame variable;ordinary Eval must continue to
+    // reject fnum rather than silently assuming an age or remaining lifetime.
+    internal long EvalAtFrame(string field,int frameNumber)=>frameNumber<0?throw new ArgumentOutOfRangeException(nameof(frameNumber))
+        :SkillFormula.Evaluate(Text(field),(name,argument,property)=>name=="fnum"?frameNumber:Resolve(name,argument,property));
     internal int ElementFrames()
     {
         int rank=skill.Rank;if(rank<1){return Number("ELen");}

@@ -22,7 +22,7 @@ internal static class MissileDamageScale
         ScaleRawPacket(packet,percent);
     }
 
-    private static void ScaleRawPacket(Span<int> packet,int percent)
+    internal static void ScaleRawPacket(Span<int> packet,int percent)
     {
         if(packet.Length<15){throw new ArgumentException("Current damage packet requires fields through offset0x38",nameof(packet));}
         float factor=(float)(Math.Max(0,percent)/100.0);
