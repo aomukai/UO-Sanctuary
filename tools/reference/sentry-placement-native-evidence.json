@@ -1,0 +1,81 @@
+{
+  "parent": "39f18f6b9bd5415ece66a5d5f57c5dc8ccfc9e17",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "approvedAdaptation": "Requested tile,then native UO inner1/outer4tile bands;distance-squared/X/Y order;retained Z and per-candidate normal bounds/range/town/LOS/spawn checks. Startup and release share the helper;release resolves live target. Fully blocked failure has no mana debit,unit seed,allocation or FIFO replacement.",
+  "abilities": [
+    "Charged Bolt Sentry",
+    "Wake of Fire",
+    "Lightning Sentry",
+    "Wake of Inferno",
+    "Death Sentry"
+  ],
+  "candidateLimit": 81,
+  "newSourceCompilerMatrices": 0,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "sentry-learned-mechanics-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "sentry-placement-check": 1,
+    "shadow-sentry-check": 1,
+    "sentry-cast-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "sentry-placement-reload-check": 2,
+    "shadow-sentry-reload-check": 2,
+    "sentry-cast-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "3e5e0a2595120b24493dd761656a7f10c989dbb62307e25c4045c1e7ac0534a6",
+    "Assemblies/Sanctuary.Integration.dll": "263d2ed5cedf32f2bbbcc80788448f1782128223e082b6c9ed92e5352bbc2be6"
+  },
+  "files": {
+    ".local/class-skills/sentry-placement/source-snapshot-3.json": "ff7029b2514e14dd114b8fbf045e36f39a9f4044d190dd65066c546074e5203f",
+    ".local/class-skills/sentry-placement/birth-inputs.json": "2489c2206fe34cca294d6fe9311f9c8d0314d45e0e4d1eb8ad94a7fca4ab336d",
+    ".local/class-skills/sentry-placement/birth-native-checks.log": "fec9e717edf6e75724b524a18a9ae94c6d501eecad4ed77cbd65cd2f64e6c5bf",
+    ".local/class-skills/sentry-placement/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/sentry-placement/content-build-2.log": "f12441aa967b5b2867a1fc047195001850aee5a10572dc3943a15ca1b99a77ef",
+    ".local/class-skills/sentry-placement/integration-build-2.log": "558815e45f048d168b027f2f34938bfd1c71f04193dfb3b0007cba581ff1b0f5",
+    ".local/class-skills/sentry-placement/sentry-placement-fixtures.json": "c294ee49829b4a45f17048a0ce53150cf2b991b417180d6cd0a23da02f00ceba",
+    ".local/class-skills/sentry-placement/shadow-sentry-fixtures.json": "6f137cde205424d9bd99294152421315ae8b44d7bb11272f8a152586583e7e4b",
+    ".local/class-skills/sentry-placement/sentry-cast-fixture.json": "86753cd6126adc72873c254318fe22d35c9fdc578d58772e173b4014e16ed020",
+    ".local/class-skills/sentry-placement/birth-inputs-failed-1.json": "d5ab19e5c310a4a0196eb203687f9dba8b598fc67bd3e5fc3a6d413a2f1508f8",
+    ".local/class-skills/sentry-placement/birth-native-checks-failed-1.log": "bdf33ca41f4086b0b5f4ca312f35a1b234a94e20d5165f8e79d828243cfd32ba",
+    ".local/class-skills/sentry-placement/native-run-1.log": "730957a03330e9798c841edaaaa24dbd89d43febfebaa692bd8e0126775d448f",
+    "tools/record_sentry_placement.py": "d01cc00a7a07d1d02eae378c4a2d11e1d79cc960118195a522f871750f1675c5",
+    "tests/check_sentry_placement.py": "4f2213f5d852df005769dd3cd82b90926851f8257324af45ad9ad6722976a368",
+    "docs/sentry-occupied-placement-proposal.md": "669911b4a5cfc0d7a74497372ac9fb01a382666f55f8403a03683372d3926559"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Initial native pass verified new casts/natural AI but reload found mana drift in the new fixture,which constructed its player outside the existing creation-time regeneration guard. It now reuses SentryLearnedChecks.Fresh;fractional balance is checked exactly. Review also found Shadow startup checking LOS to the original requested target rather than the resolved candidate;fixed and explicit both-species LOS-wall tests added. Initial failed log/inputs retained.",
+  "scope": "Native81-cell ordering/ties/bounds/retained Z,inner-band exhaustion,LOS wall and caster/candidate town rules;all five real player windups/live occupied-target releases/exact once-only payment/free fully blocked release;all five own casts from both original Shadows,world unit seed/no borrowed mana or actor RNG,resolved-candidate startup LOS,natural Warrior occupied-target AI;five original injured paid traps and both original Shadow/trap/FIFO states through two reloads. Existing free-ground five-trap firing/shared FIFO,blocked failure/cancellation,player low-mana/payment/bindings and paid cast persistence retained.",
+  "limits": [
+    "Exact D2R spawn-search order remains unrecovered and is explicitly replaced by this approved UO policy.",
+    "Other intrinsic/current-death/learned Shadow gates remain. Talon packet and46rewind controls from parent are preserved;its runtime repeated action remains next.",
+    "No new effect or icon identity;existing sentry casting/placement/emergence/impact/audio and talent/hotkey placeholders remain separately inventoried."
+  ]
+}

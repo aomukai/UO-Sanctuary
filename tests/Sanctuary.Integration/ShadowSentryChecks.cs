@@ -69,9 +69,9 @@ public static class ShadowSentryChecks
         Require(ShadowActions.BeginSentry(b,null,point,at,261),"Cancellation fixture");ShadowActions.Cancel(b);ShadowActions.Tick(at.AddSeconds(2),true,b.Serial.Value);
         Require(NpcWorldAllocation.Capture()==before&&AssassinTrapRoster.For(owner).Length==count,"Canceled sentry allocated/spawned");
         Require(!ShadowActions.BeginSentry(b,null,new(1438,1696,0),at,261)&&NpcWorldAllocation.Capture()==before,"Town/far destination allocated or cast");
-        Require(ShadowActions.BeginSentry(b,null,point,at,261),"Failed release fixture");var wall=new Server.Items.Static(0x6);wall.MoveToWorld(point,b.Map);
+        Require(ShadowActions.BeginSentry(b,null,point,at,261),"Failed release fixture");var walls=SentryPlacementChecks.Block(b.Map,point);
         try{ShadowActions.Tick(at.AddSeconds(2),true,b.Serial.Value);Require(NpcWorldAllocation.Capture()==before&&AssassinTrapRoster.For(owner).Length==count,"Blocked release allocated or spawned");}
-        finally{wall.Delete();ShadowActions.Cancel(b);}
+        finally{foreach(var wall in walls){wall.Delete();}ShadowActions.Cancel(b);}
         var position=b.Location;PersistentMinions.Park(b);Require(!ShadowActions.BeginSentry(b,null,point,at,261)&&NpcWorldAllocation.Capture()==before,"Parked source cast/allocated");b.MoveToWorld(position,owner.Map);
     }
     private static void SharedCap(AssassinShadowBody b,DateTime at)
@@ -90,8 +90,11 @@ public static class ShadowSentryChecks
         {
             b.ChangeSkills(book=>book.Assign(261,3));GeneratedNpcLiveResources.ActivateItemEvents(b);ShadowEquipmentDefense.Activate(b);b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);ShadowGroundMotion.Activate(b,owner,TimedEffects.Now.AddMinutes(20));target=Target(b,new(owner.X+5,owner.Y,owner.Z));
             var before=NpcWorldAllocation.Capture();int count=AssassinTrapRoster.For(owner).Length;
-            Require(((INecromancerGroundBrain)b).GroundSkill(owner,9,261,target,TimedEffects.Now.AddMinutes(20))==0
-                &&NpcWorldAllocation.Capture()==before&&AssassinTrapRoster.For(owner).Length==count,"Occupied target silently used an unqualified spawn fallback");
+            int frames=((INecromancerGroundBrain)b).GroundSkill(owner,9,261,target,TimedEffects.Now.AddMinutes(20));
+            Require(frames>0&&NpcWorldAllocation.Capture()==before&&AssassinTrapRoster.For(owner).Length==count,"Occupied-target windup allocated early or refused approved fallback");
+            ShadowActions.Tick(TimedEffects.Now.AddMinutes(21),true,b.Serial.Value);
+            var placed=(AssassinSentryBody)World.FindMobile((Serial)AssassinTrapRoster.For(owner).Single().Actor);
+            Require(placed.Location!=target.Location&&placed.InRange(target,4),"Occupied-target ground request missed bounded fallback");
         }
         finally{target?.Delete();Clear(owner);PersistentMinions.Park(b);b.Delete();}
         FixtureSpace.Corridor(owner,6260,24,3480);
@@ -132,6 +135,6 @@ public static class ShadowSentryChecks
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),pending.Select(t=>new Trap(t.Serial.Value,t.Prepared,SkillHealth.Balance256(t))).ToArray(),AssassinTrapRoster.For(owner),generation)));
         Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"do45 adapter enabled unfinished learned summons");
-        Log.Information("Shadow sentries:five intrinsic do45/S2 casts from both original species,own rank/ultimate player inheritance and shared FIFO,no mana/actor RNG,cancel/failed placement/park/duplicate end,actual firing/HP,occupied-target ground rejection and original saves through two reloads;modern source-equivalence and learned summons remain scoped");
+        Log.Information("Shadow sentries:five intrinsic do45/S2 casts from both original species,own rank/ultimate player inheritance and shared FIFO,no mana/actor RNG,cancel/fully blocked placement/park/duplicate end,actual firing/HP,approved occupied-target ground fallback and original saves through two reloads;exact D2R search order and learned summons remain scoped");
     }
 }

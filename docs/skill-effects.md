@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved shared sentry placement (2026-11-08 JST).** Search adds no new visual effect. Existing cast,placement,emergence,firing/impact/expiry cues and audio remain identified placeholders for all five sentries and both Shadows;share existing families. [Checkpoint](sentry-placement-checkpoint.md). Icons stay separate.
+
 **Own Shadow Talon packet (2026-11-08 JST).** Prepared typed/charge damage uses existing contact/status services;allocation emits no new effect. Final NPC kick poses,impact/charge-release/chill/freeze cues and audio remain pending,sharing existing player and elemental families. [Checkpoint](shadow-kick-packets-checkpoint.md). Icons stay separate.
 
 **Own Shadow kick equipment (2026-11-08 JST).** Prepared numeric capture emits no new visual effect. Existing player/NPC kick poses,contact and charge-release cues/audio remain pending;reuse those families when the NPC action is connected. [Checkpoint](shadow-kick-checkpoint.md). Icons stay separate.

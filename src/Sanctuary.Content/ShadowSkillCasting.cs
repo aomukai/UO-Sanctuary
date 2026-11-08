@@ -74,8 +74,9 @@ internal static class ShadowSkillCasting
         var row=Row(skill);
         if(!Attached(body)||row.Lob&&!LobProjectiles.Valid(body,aim)||target!=null&&(!Enemy(body,target)||target.Map!=body.Map)
             ||skill==253&&!ShadowPsychicHammers.Valid(body,target)||skill==273&&!ShadowMindBlasts.Valid(body,target?.Location??aim)
-            ||skill==264&&!ShadowCloaks.Valid(body)||ShadowSentries.Handles(skill)&&!ShadowSentries.Destination(body,target,aim,out _)
+            ||skill==264&&!ShadowCloaks.Valid(body)
             ||body.OwnedSkillRank(skill)<=0){return null;}
+        if(ShadowSentries.Handles(skill)&&!ShadowSentries.Destination(body,target,aim,out aim)){return null;}
         body.ChangeSkills(book=>book.Use(skill));var cast=new Cast(body,target,aim,skill,at);
         return SkillStartup.Selected(new Startup(cast))!=0?cast:null;
     }
@@ -118,7 +119,8 @@ internal static class ShadowSkillCasting
         internal override void ClearUsedSkill()=>Body.ChangeSkills(book=>book.Use(null));
         internal override void TownNeutral()=>throw Missing();
         internal override bool PlayerManaAllowed()=>true; // This source gate only checks player mana; Kind1 has no debit.
-        internal override (int X,int Y) TargetPoint(SkillStartupTarget target)=>(cast.Target.X*2,cast.Target.Y*2);
+        internal override (int X,int Y) TargetPoint(SkillStartupTarget target)=>ShadowSentries.Handles(cast.Skill)
+            ?(cast.Aim.X*2,cast.Aim.Y*2):(cast.Target.X*2,cast.Target.Y*2);
         internal override (int X,int Y) FirstPathPoint=>(cast.Aim.X*2,cast.Aim.Y*2);
         internal override bool ClearLine(int x,int y,uint mask)=>mask==SourceMeleeGeometry.FlyingCollisionMask
             ?cast.Skill==253?cast.Target!=null&&x==cast.Target.X*2&&y==cast.Target.Y*2&&Body.InLOS(cast.Target)

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Approved shared sentry placement (2026-11-08 JST).** No new public skill or icon identity. All five sentries and Shadow Warrior/Master keep their identified talent/hotkey text placeholders;effects/audio remain separate. [Checkpoint](sentry-placement-checkpoint.md).
+
 **Own Shadow Talon packet (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Dragon Talon talent/hotkey icons retain identified text placeholders;effects/audio stay separate. [Checkpoint](shadow-kick-packets-checkpoint.md).
 
 **Own Shadow kick equipment (2026-11-08 JST).** No new public binding or icon identity. Existing Shadow Warrior/Master and Dragon Talon tree/hotkey text placeholders remain;effects/audio stay separate. [Checkpoint](shadow-kick-checkpoint.md).

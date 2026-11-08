@@ -49,10 +49,10 @@ public static class SentryCastChecks
             NecromancerEffects.SetMana256(p,3328+127);
             foreach(var bad in new[]{new Point3D(0,aim.Y,aim.Z),new Point3D(aim.X,0,aim.Z),new Point3D(aim.X,aim.Y,p.Z+16),new Point3D(p.X+100,p.Y,p.Z)})
             {session.PendingPoint=bad;Require(!Cast(p)&&NecromancerEffects.ManaBalance256(p)==3455&&AssassinTrapRoster.For(p).Length==0,"Invalid point spent mana or fell back to caster");}
-            session.PendingPoint=aim;var wall=new Static(0x80);wall.MoveToWorld(aim,p.Map);
+            session.PendingPoint=aim;var walls=SentryPlacementChecks.Block(p.Map,aim);
             try
-            {Require(!p.Map.CanSpawnMobile(aim)&&!Cast(p)&&NecromancerEffects.ManaBalance256(p)==3455&&AssassinTrapRoster.For(p).Length==0,"Obstructed unsupported fallback created/paid a trap");}
-            finally{wall.Delete();}
+            {Require(!p.Map.CanSpawnMobile(aim)&&!Cast(p)&&NecromancerEffects.ManaBalance256(p)==3455&&AssassinTrapRoster.For(p).Length==0,"Fully blocked bounded placement created/paid a trap");}
+            finally{foreach(var wall in walls){wall.Delete();}}
             Require(Cast(p)&&NecromancerEffects.ManaBalance256(p)==127,"Rank1 did not pay current thirteen mana exactly once");
             var first=Last(p);
             Require(first.Location==aim&&first.SummonMaster==p&&first.Prepared.Control is{Mode:8,Frame:0,NextThink:25}
@@ -62,10 +62,10 @@ public static class SentryCastChecks
             // Shared player scheduling must dispatch each request only once.
             for(int i=0;i<4;i++){NecromancerEffects.SetMana256(p,3328);Require(Cast(p)&&NecromancerEffects.ManaBalance256(p)==0,"Independent no-delay cast failed/debited twice");}
             var order=AssassinTrapRoster.For(p).Select(x=>x.Actor).ToArray();Require(order.Length==5&&!first.Deleted,"Cap before replacement");
-            wall=new Static(0x80);wall.MoveToWorld(aim,p.Map);NecromancerEffects.SetMana256(p,3328);
+            walls=SentryPlacementChecks.Block(p.Map,aim);NecromancerEffects.SetMana256(p,3328);
             try{Require(!Cast(p)&&AssassinTrapRoster.For(p).Select(x=>x.Actor).SequenceEqual(order)&&!first.Deleted
                 &&NecromancerEffects.ManaBalance256(p)==3328,"Failed placement changed the full roster or paid mana");}
-            finally{wall.Delete();}
+            finally{foreach(var wall in walls){wall.Delete();}}
             Require(Cast(p)&&!first.Alive&&!first.Deleted&&first.Prepared.Retirement is{Cause:"replacement"}&&AssassinTrapRoster.For(p).Length==5&&NecromancerEffects.ManaBalance256(p)==0,"Successful sixth cast did not evict oldest/pay once");Clear(p);
             Targets(p,aim);Persist(p,aim);p=null;
         }

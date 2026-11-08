@@ -5,10 +5,8 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-// Learned do45 adapter. Free-cell placement uses the existing native
-// Decoy contract; the reconstructed general spawn-search routine is a stub.
-// Radius-1/4 fallback and full current executable acceptance remain
-// separate. In particular, failed placement never substitutes the caster cell.
+// Learned do45 adapter. All five sentries share the approved bounded native
+// placement policy with Shadows; the exact D2R search order is unrecovered.
 internal static class AssassinSentryCasts
 {
     internal static ActionTiming Timing(PlayerMobile owner)=>LobProjectiles.Timing(owner);
@@ -31,7 +29,7 @@ internal static class AssassinSentryCasts
             if(World.FindMobile(selected) is{Deleted:false} target)
             {if(target.Map!=owner.Map){return false;}point=target.Location;}
         }
-        return LobProjectiles.Valid(owner,point) && owner.InLOS(point) && owner.Map.CanSpawnMobile(point);
+        return AssassinSentryPlacement.Resolve(point,p=>LobProjectiles.Valid(owner,p)&&owner.InLOS(p)&&owner.Map.CanSpawnMobile(p),out point);
     }
     internal static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now,CombatAbility ability=CombatAbility.ChargedBoltSentry)
     {
