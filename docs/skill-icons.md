@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Lethargy world marker (2026-11-08 JST).** No talent/hotkey identity or artwork changes. Lethargy's existing text placeholder and pending talent/right/quick icons remain separate from the new labelled world marker. Rancor/Death icon entries remain pending. [Checkpoint](sigil-actor-checkpoint.md).
+
 **Sigil roster tracking (2026-11-08 JST).** No talent identity or new icon is added. All three Sigils retain separately pending talent/hotkey icons and identified text placeholders. [Checkpoint](sigil-tracking-checkpoint.md). Replacement/expiry effects and audio remain separate.
 
 **Shared Sigil launch (2026-11-08 JST).** No new talent identity or final artwork. Lethargy,Rancor and Death retain their separate pending talent/hotkey icons and identified text placeholders. [Checkpoint](sigil-launch-checkpoint.md). Ground and pulse effects/audio remain separately tracked.

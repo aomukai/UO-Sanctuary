@@ -1,0 +1,74 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 210,
+  "completedClasses": [],
+  "learnedSigilEnabled": false,
+  "worldAdapter": "Prepared Lethargy only;all3owned missile tiers",
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "sigil-actor-check": 1,
+    "sigil-actor-check-result": 1,
+    "sigil-tracking-check": 1,
+    "sigil-launch-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "sigil-actor-reload-check": 2,
+    "sigil-actor-reload-check-result": 2,
+    "sigil-tracking-reload-check": 2,
+    "sigil-launch-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 3,
+  "sourceSnapshot": 6,
+  "nativeRun": 3,
+  "newCompilerMatrices": 0,
+  "retainedSourceCases": {
+    "tracking": 111,
+    "launch": 126
+  },
+  "factoryCaptureSha256": "24689e57066e167d32d1ac93b6b994f0ee9bbf9c068fcb92e3e5896de8eeada2",
+  "factoryLifetimeBlockSha256": "84cb51b17ff2090299ce40305146557afeb35e33b4bd9b983efb92de6f4083c9",
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "ffd743ec346856a3600ec1d332f0c31527e272f4c506f5ea40aee7a6a6931829",
+    "Assemblies/Sanctuary.Integration.dll": "d59b221b1dd2182f1984d854160f6143429780ea45035e94e33cff303aa34efb"
+  },
+  "files": {
+    "src/Sanctuary.Content/SigilActors.cs": "fce7e8f3f5b094b0ac460fb0b05389fbf0a3baec26d39bd3acae4e160ee1724b",
+    "src/Sanctuary.Content/MissileValues.cs": "3e777018b1958ec3ced4d0452e24d346290678955d41d910ccd552a4f6fdf2de",
+    "data/Sanctuary/Balance/sigil-world.json": "9e9f40b773df782951e275eb9b21ee9c356a6c49503a7bf4fb680478e66c38c7",
+    "tests/Sanctuary.Integration/SigilActorChecks.cs": "88f604a149332e1d4e3e8c318581e6a5c81a9c16c6df848c408116a4c95eaf4d",
+    "tests/check_sigil_actor.py": "dbe4ea70f6788dd56fa2f449b66e5d837ad0ef1c00b59d4fe05225ea93d50b95",
+    "tools/build_sigil_world_data.py": "2f92ed65c4315cfae9248d5959a7a4dbe6565d11ef95605356adf20c0e1ae6ff",
+    "tools/record_sigil_actor.py": "6aa7edb36062c8e309a3a8548a69f1faa064a1273f99529a21b60cc1fb0ae6aa"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Prepared original world marker composes current launch/tracking and existing do14driver. Nine owned rows/count742cached separately;existing missile expression engine reused through a fields overload. Native Warlock/Witch checks cover terrain-only placement beneath a monster,three Lethargy tiers/Range,actual items/labelled art,owner/gear snapshots,period6identity,facet/offline no-replay,normal expiry,lifetime-zero retirement on next tick,slot repair,failed placement/no resources,atomic malformed save refusal and original owner/marker/context/UTC/roster through two real reloads. One normal rank200204second marker is saved;no artificial lifetime hold.",
+  "clock": "Saved owner-state205has a per-roster UTC epoch;integer25Hzframes preserve sort/expiry and float state arithmetic. Marker birth is quantized to that same frame so event12cannot predate a new marker by a partial frame. No health or mana recovery is attached to this state. Whole-room/source-coordinate geometry and current-frame parity remain host-adapter limits.",
+  "diagnostic": "Native1passed before a review found partial-frame marker/state expiry skew. Native2passes the aligned birth invariant. A later source-mask review removed leap-only multi/mobile restrictions from placement;native3adds occupied-monster-cell casting and passes. Prior passed source/input/binary/log/fixture sets remain archived under native-1/native-2. No old compiler matrix was repeated.",
+  "remaining": [
+    "Lethargy numeric recipient stats/curse replacement,animation/movement/defense hooks and player SC/payment/cancellation/input still required before learned admission",
+    "Owner-state/event representation is a saved host adapter with no D2client list/event objects;exact source death-mask/callback parity remains unqualified. Current prepared world follows existing temporary actor policy and removes markers when the owner dies/is deleted;do not claim that as observed D2R parity",
+    "Whole current factory RNG/notification/unknown12ccontext and exact room/geometry/ordering/client parity are not certified by this specialized stationary marker adapter",
+    "Rancor Confuse61and Death reactive/execution/explosion remain separate from this Lethargy world host",
+    "Final ground/cast/pulse/recipient/expiry/audio and talent/hotkey icons remain separate placeholders"
+  ]
+}

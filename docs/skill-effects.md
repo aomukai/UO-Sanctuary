@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Lethargy world marker (2026-11-08 JST).** Real stationary item0x1B7Ais named`Sigil: Lethargy (placeholder)`. It follows the reviewed clock/retirement and emits mechanical pulse callbacks;final cast,ground animation,pulse,recipient,expiry and audio are still needed. [Checkpoint](sigil-actor-checkpoint.md). No final art or automatic Rancor/Death world effect is claimed;icons remain separate.
+
 **Sigil roster tracking (2026-11-08 JST).** Prepared eviction changes the old missile's lifetime rather than emitting an instant deletion effect. No world art/audio is produced yet;all three Sigils retain their pending cast,marker,pulse,recipient and expiry families with identified placeholders. [Checkpoint](sigil-tracking-checkpoint.md). Icons remain separate.
 
 **Shared Sigil launch (2026-11-08 JST).** Prepared factory requests create no world art. All three Sigils retain pending cast,ground marker,pulse,recipient,expiry and audio identities;use labelled placeholders when world consumers are connected. [Checkpoint](sigil-launch-checkpoint.md). No final effects were generated;icons remain separate.

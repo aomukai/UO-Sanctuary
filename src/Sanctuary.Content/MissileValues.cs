@@ -7,9 +7,13 @@ namespace Sanctuary;
 
 // Distinct from skill getters: missile elemental synergy truncates BEFORE
 // HitShift. parN belongs to the missile row; skill('x'.parN) belongs to x.
-internal sealed class MissileValues(string key,SkillValues skill)
+internal sealed class MissileValues
 {
-    private readonly IReadOnlyDictionary<string,JsonElement> _fields=NecromancerSummons.Fields(key);
+    private readonly IReadOnlyDictionary<string,JsonElement> _fields;
+    private readonly SkillValues skill;
+    internal MissileValues(string key,SkillValues skill):this(NecromancerSummons.Fields(key),skill){}
+    internal MissileValues(IReadOnlyDictionary<string,JsonElement> fields,SkillValues skill)
+    { _fields=fields;this.skill=skill; }
     internal int Number(string field,int fallback=0)=>_fields.TryGetValue(field,out var v)
         ?v.ValueKind==JsonValueKind.Number&&v.TryGetInt32(out int n)?n:throw new NotSupportedException("Expected numeric missile field "+field):fallback;
     internal string Text(string field)=>_fields.TryGetValue(field,out var v)?v.ValueKind==JsonValueKind.String?v.GetString():v.GetRawText():"0";
