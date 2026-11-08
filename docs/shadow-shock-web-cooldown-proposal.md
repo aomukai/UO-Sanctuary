@@ -1,0 +1,7 @@
+# Shadow Shock Web cooldown proposal
+
+Reference: D2R Reign of the Warlock **3.3.93847**. The current Shock Web row has `localdelay=15` (0.60 seconds). The complete older common skill finisher and skill-delay admission check apply their delay state only to players. Its Warrior AI instead uses the old delay formula divided by three plus an18-frame minimum between skill choices. Exact current NPC handling of the newer local-delay field is not established, and the current D2R process is closed.
+
+Proposed explicit Sanctuary rule: successful Shadow Shock Web releases apply the pinned15-frame local cooldown to that Shadow alone, using the existing `FireGround.Ready/Delay(Mobile, ability, at)` service. Admission checks the same caster/skill clock; rejected or interrupted releases neither pay nor start cooldown. Ordinary NPC mana remains unchanged. Warrior AI retains its own existing budget and18-frame minimum, independently of this clock. Saved cooldowns keep their absolute expiry; parking or offline time grants no reset.
+
+Alternative: explicitly retain historical NPC delay admission, with no additional local cooldown, and keep the existing AI timing. Either choice needs to be identified as Sanctuary policy while modern NPC behavior remains unverified. Lob scatter, field lifetime, own damage/RNG, leases and persistence can be implemented and verified independently; the learned NPC action route stays gated until this policy is resolved.

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shadow Shock Web fields (2026-11-08 JST).** No new public binding or icon identity is introduced. Shadow Warrior/Master talent and hotkey icons and the existing player Shock Web icon remain pending identified text placeholders. Final NPC effects/audio are tracked separately; see [checkpoint](shadow-shock-web-checkpoint.md).
+
 **Dragon Flight (2026-11-08 JST).** Talent and left/right/quick icons remain needed text-label placeholders. Native input verification is separate from final artwork and rendered presentation;see [checkpoint](dragon-flight-action-checkpoint.md).
 
 **Dragon Claw (2026-11-08 JST).** Talent and left/right/quick icons remain pending text-label placeholders. Actual server bindings and input are checked separately from artwork and rendered-client acceptance. See [checkpoint](dragon-claw-action-checkpoint.md);effects/audio stay separate.

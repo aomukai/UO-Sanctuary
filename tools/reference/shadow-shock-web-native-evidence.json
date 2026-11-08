@@ -1,0 +1,83 @@
+{
+  "parent": "8ee017800e55c46234c439bd69a8a84ed4686250",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicShockWebActionEnabled": false,
+  "cooldownQuestion": "Pending: NPC localdelay15 versus explicitly historical NPC admission;the separate Weapon Block approval is already implemented and does not resolve this.",
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-shock-web-check": 1,
+    "shock-web-check": 1,
+    "shock-web-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-shock-web-reload-check": 2,
+    "shock-web-reload-check": 2,
+    "shock-web-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 5,
+  "integrationBuild": 4,
+  "sourceSnapshot": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "eb98b92564e671921a1a3dcd97ca2931e357f7dc69e43ee4a74eb2873e951c1e",
+    "Assemblies/Sanctuary.Integration.dll": "93b0f98003b6f39e6cf08b2939df951be304c3d3d319db2d71846a67355caa43"
+  },
+  "inputsSha256": "346caff8a83be8ef95cd31b325e1485b77e35d2f123a6eee014b69abe49daf22",
+  "nativeLogSha256": "b8b4d283148119875f422c8750b58158fee38719a6ba4b4e787f3e38136e389a",
+  "sourceSnapshotSha256": "0c4a63304dcc69c3a8bff08159c042a5d1b95bd13f093b350bd8fc91da4bd588",
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "sourceProofs": {
+    "tools/reference/shock-web-engine-evidence.json": "e277af141c8633f0e2b6b2296804efa3bc0b3dc2dd9f0b322b702f01424b349f",
+    "tools/reference/shock-web-field-engine-evidence.json": "683e998d6dce5c9848c39e22164b4284a45abc4ed2ca64695ef27120e09ca7aa",
+    "tools/reference/shock-web-damage-engine-evidence.json": "defb21c4ad2be456607b20a5b01839f043280979a89d152dd76b0df067140ce0"
+  },
+  "scope": [
+    "Both original Shadow species emit real shared-pool air shards from own skill book/count/scatter,with exact saved-world child allocation and no caster RNG or owner mana/potion borrowing.",
+    "Landing captures retained rank and current own synergy/mastery/pierce;exact own child roll/typed HP,same-cast25frame leases,separate overlapping throws,lightning immunity and lethal return are checked.",
+    "Soft-hit refresh versus ordinary get-hit is checked with a large-hit positive control. Real shared-queue damage consumes a queued child seed,and its fields expire without final-frame damage.",
+    "Malformed NPC and lease tails reject atomically before replacing the shared player/NPC pool. Optional NPC JSON leaves legacy null fields omitted;retained player Shock Web source goldens and native behavior pass.",
+    "Parked/offline/loaded fields age without replay. Actual allocated air/ground payloads and original body/items/resources/wounds/RNG survive two reloads;their original remaining lifetime expires harmlessly.",
+    "Existing source evidence is reused,not regenerated or presented as new current-executable proof. No full-class suite,full item exporter or unrelated matrix rerun."
+  ],
+  "failedRuns": [
+    "Native2 added a shared-queue fixture at a new arbitrary ground point and failed its combined damage/expiry assertion. Native3 uses an actual computed landing cell and separates damage from expiry;no production code changed.",
+    "Native3 passed the initial queued-damage check but its reload ordinary-recovery positive control failed. Final fixture increases the control hit from1000to3000of5000HP,adds diagnostic state,keeps the saved witness out of combat recipient selection,and requires a queued child seed change. The unchanged production DLL hash is verified against Native3. These fixture diagnostics do not establish a production bug or its cause."
+  ],
+  "limitations": [
+    "No intrinsic startup/S2/do43 action or learned Shadow route is admitted pending the separately documented cooldown decision.",
+    "Exact current NPC local delay,scatter/factory/world allocation chronology,recipient/avoidance/shield/item/PvP/geometry and repeated-throw NHD identity remain unverified. Nonzero shield-defense recipients or unavailable NPC damage services refuse with a bounded diagnostic.",
+    "Conservative existing NPC source-removal/offline/reload policy makes fields harmless until their original expiry;this is not certified D2R3.3.93847 continuation behavior.",
+    "Master AI106,remaining intrinsic consumers,current modifier42 death,learned summon/payment/replacement/input and the separate player Blade Shield event/thorns gap remain.",
+    "Final effects/audio and talent/hotkey icons are separate identified placeholders. No deployment or new public handler."
+  ],
+  "archivedEvidence": {
+    ".local/class-skills/shadow-shock-web/failed-native-2.log": "8fc6c059424924315806828f097cbf937f6deeeee2a91c508e8665382701b923",
+    ".local/class-skills/shadow-shock-web/failed-native-3.log": "8a14440302a68b8d603f11bf5810ab1043314d086a2414ac50b194a2bc10b72b",
+    ".local/class-skills/shadow-shock-web/native-run-2.log": "fbbea6e6e1811972a38dad0a3f305e61f9f1828676d3a0d8eee8fa0a0e34d5e9",
+    ".local/class-skills/shadow-shock-web/native-run-3.log": "fbbea6e6e1811972a38dad0a3f305e61f9f1828676d3a0d8eee8fa0a0e34d5e9",
+    ".local/class-skills/shadow-shock-web/content-build-5.log": "f40b07c169f3e8cb7c90ff0cece0cfcff0b0997b64bb17fd9b4d7e6306f5e9be",
+    ".local/class-skills/shadow-shock-web/integration-build-4.log": "103454ec575bc98905dfaa54d4071c5829f78ad19a91bd86447a620df744d8b4",
+    ".local/class-skills/shadow-shock-web/passing-native-1.log": "624b91c4b455953f2d85ab1f04c61c993e9648a58277cac82410c5494ce1ff00"
+  }
+}

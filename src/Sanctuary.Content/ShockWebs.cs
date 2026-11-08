@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 using Server.Spells;
@@ -12,7 +13,8 @@ namespace Sanctuary;
 
 public sealed record ShockShard(long Id,long Cast,uint Owner,int Map,int Rank,double X,double Y,int Z,double Vx,double Vy,
     int Remaining,bool Ground,DateTime NextUtc,int Min256=0,int Max256=0,int Potion=0,
-    int FireMastery=0,int ColdMastery=0,int LightningMastery=0,int PoisonMastery=0);
+    int FireMastery=0,int ColdMastery=0,int LightningMastery=0,int PoisonMastery=0)
+{[JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShockShardNpc Npc{get;init;}}
 public sealed record ShockWebSave(ShockShard[] Shards,WeaponFlightLease[] Leases,long NextId,long NextCast);
 public sealed class ShockWebProfiles:GenericPersistence
 {
@@ -29,6 +31,7 @@ public static class ShockWebs
     private static readonly Dictionary<long,ShockShard> _shards=new();
     private static readonly Dictionary<(long,uint),WeaponFlightLease> _leases=new();
     private static long _nextId,_nextCast;
+    private static readonly HashSet<long> NpcLoaded=new();
     internal static Func<int,int> Roll=Utility.Random;
     public static ShockWebProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
@@ -70,6 +73,14 @@ public static class ShockWebs
         return true;
     }
     internal static bool Ready(long cast,uint target,DateTime at)=>!_leases.TryGetValue((cast,target),out var lease) || lease.UntilUtc<=at;
+    internal static void Lease(ShockShard shard,BaseCreature target)
+        =>_leases[(shard.Cast,target.Serial.Value)]=new(shard.Cast,target.Serial.Value,shard.NextUtc.AddMilliseconds(NecromancerSummons.Source("shock field on ground","NextDelay")*40L));
+    internal static int EmitShadow(AssassinShadowBody body,Point3D aim,int rank,DateTime at)
+    {
+        var shards=ShadowShockWebs.Prepare(checked(_nextId+1),checked(_nextCast+1),body,aim,rank,at);
+        if(shards==null){return -1;}_nextCast++;
+        foreach(var s in shards){_shards.Add(s.Id,s);_nextId=s.Id;}body.PlaySound(0x23B);return shards.Length;
+    }
     internal static BaseCreature Recipient(PlayerMobile owner,ShockShard shard)
     {
         var point=new Point3D((int)Math.Round(shard.X),(int)Math.Round(shard.Y),shard.Z);
@@ -95,7 +106,7 @@ public static class ShockWebs
         // Current origin/cast scope follows the existing weapon-projectile
         // lease model and released2.7 rule. Exact repeated-throw scope remains
         // explicitly tracked for current-game corroboration.
-        _leases[(shard.Cast,target.Serial.Value)]=new(shard.Cast,target.Serial.Value,shard.NextUtc.AddMilliseconds(NecromancerSummons.Source("shock field on ground","NextDelay")*40L));
+        Lease(shard,target);
         var raw=Packet(shard,WeaponMissileDamage.RollValue(shard.Min256,shard.Max256,0,Roll));
         if(ClassAvoidance.Missile(target)){return;}
         owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,raw);
@@ -111,13 +122,22 @@ public static class ShockWebs
             FireMastery=NamedElements.MasteryPercent(owner,"fire"),ColdMastery=NamedElements.MasteryPercent(owner,"cold"),
             LightningMastery=NamedElements.MasteryPercent(owner,"ltng"),PoisonMastery=NamedElements.MasteryPercent(owner,"pois")};
     }
-    internal static void Tick(DateTime at)
+    internal static void Tick(DateTime at,bool? npcActions=null)
     {
         var queue=new PriorityQueue<ShockShard,(DateTime,long)>();
         foreach(var s in _shards.Values){if(s.NextUtc<=at){queue.Enqueue(s,(s.NextUtc,s.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!_shards.TryGetValue(due.Id,out var s) || s.NextUtc!=due.NextUtc){continue;}
+            if(s.Npc!=null)
+            {
+                ShockShard npc;
+                try{npc=ShadowShockWebs.Advance(s,npcActions,NpcLoaded.Remove(s.Id));}
+                catch(NotSupportedException error)
+                {npc=ShadowShockWebs.Advance(s with{Npc=s.Npc with{Dormant=true,Fault=error.Message[..Math.Min(error.Message.Length,512)]}},false,false);}
+                if(npc==null){_shards.Remove(s.Id);continue;}_shards[s.Id]=npc;
+                if(npc.NextUtc<=at){queue.Enqueue(npc,(npc.NextUtc,npc.Id));}continue;
+            }
             var owner=World.FindMobile((Serial)s.Owner) as PlayerMobile;
             if(owner is not{Deleted:false} || owner.Map==null || ClassCreation.Profiles.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Assassin
                 || owner.Map!=Map.Internal && owner.Map.MapID!=s.Map){_shards.Remove(s.Id);continue;}
@@ -149,18 +169,23 @@ public static class ShockWebs
     internal static void Restore(ShockWebSave saved)
     {
         if(saved?.Shards==null || saved.Leases==null || saved.NextId<0 || saved.NextCast<0){throw new InvalidDataException("Missing Shock Web state");}
-        _shards.Clear();_leases.Clear();_nextId=saved.NextId;_nextCast=saved.NextCast;
+        var shards=new Dictionary<long,ShockShard>();var leases=new Dictionary<(long,uint),WeaponFlightLease>();var loaded=new HashSet<long>();
+        long nextId=saved.NextId,nextCast=saved.NextCast;
         foreach(var s in saved.Shards)
         {
-            if(s.Id<=0 || s.Cast<=0 || !((Serial)s.Owner).IsMobile || s.Rank is <1 or >255 || s.Remaining<1 || s.Remaining>(s.Ground?90:264)
+            if(s==null || s.Id<=0 || s.Cast<=0 || !((Serial)s.Owner).IsMobile || s.Rank is <1 or >255 || s.Remaining<1 || s.Remaining>(s.Ground?90:264)
                 || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || !double.IsFinite(s.X+s.Y+s.Vx+s.Vy)
                 || s.X<0 || s.Y<0 || s.X>=Map.Maps[s.Map].Width || s.Y>=Map.Maps[s.Map].Height || s.Min256<0 || s.Max256<s.Min256
                 || s.Potion<0 || Math.Abs(s.Vx)>1 || Math.Abs(s.Vy)>1 || s.NextUtc.Kind!=DateTimeKind.Utc
                 || s.Ground && (s.Vx!=0 || s.Vy!=0) || !s.Ground && (s.Min256!=0 || s.Max256!=0 || s.Potion!=0)
-                || !_shards.TryAdd(s.Id,s)){throw new InvalidDataException("Invalid saved Shock Web");}
-            _nextId=Math.Max(_nextId,s.Id);_nextCast=Math.Max(_nextCast,s.Cast);
+                || !shards.TryAdd(s.Id,s)){throw new InvalidDataException("Invalid saved Shock Web");}
+            if(s.Npc!=null){ShadowShockWebs.Validate(s);loaded.Add(s.Id);}
+            nextId=Math.Max(nextId,s.Id);nextCast=Math.Max(nextCast,s.Cast);
         }
         foreach(var lease in saved.Leases)
-        {if(lease.Cast<=0 || !((Serial)lease.Target).IsMobile || lease.UntilUtc.Kind!=DateTimeKind.Utc || !_leases.TryAdd((lease.Cast,lease.Target),lease)){throw new InvalidDataException("Invalid Shock Web hit-delay lease");}_nextCast=Math.Max(_nextCast,lease.Cast);}
+        {if(lease==null || lease.Cast<=0 || !((Serial)lease.Target).IsMobile || lease.UntilUtc.Kind!=DateTimeKind.Utc || !leases.TryAdd((lease.Cast,lease.Target),lease)){throw new InvalidDataException("Invalid Shock Web hit-delay lease");}nextCast=Math.Max(nextCast,lease.Cast);}
+        _shards.Clear();foreach(var pair in shards){_shards.Add(pair.Key,pair.Value);}
+        _leases.Clear();foreach(var pair in leases){_leases.Add(pair.Key,pair.Value);}
+        NpcLoaded.Clear();NpcLoaded.UnionWith(loaded);_nextId=nextId;_nextCast=nextCast;
     }
 }

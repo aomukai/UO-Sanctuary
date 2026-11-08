@@ -19,7 +19,7 @@ internal static class NpcElementSpellHit
         return metadata;
     }
     internal static PreparedMonsterDamageResult Deliver(BaseCreature emitter,PlayerMobile owner,BaseCreature target,string element,
-        int raw256,int coldFrames,DateTime at,string kind,uint hitFlags=0,int hitClass=0,Func<string,int?> pierce=null)
+        int raw256,int coldFrames,DateTime at,string kind,uint hitFlags=0,int hitClass=0,Func<string,int?> pierce=null,bool softHit=false)
     {
         if(element is not("fire"or"cold"or"ltng")||raw256<0||coldFrames<0||element!="cold"&&coldFrames!=0||hitFlags is not(0 or 2)||hitClass is not(0 or 16))
         {throw new NotSupportedException("Unqualified NPC elemental spell packet");}
@@ -33,7 +33,7 @@ internal static class NpcElementSpellHit
         }
         NativeMonsterReturn.Session(target);
         var services=new InstantSpellNpcDamage(owner,target,metadata,null,at,kind,()=>TelekinesisCombat.DefenderRoll(),cold:element=="cold",emitter:emitter,npcMitigation:Mitigate);
-        return PreparedMonsterDamage.ReleaseMissile(emitter,target,new(0,raw256,0,coldFrames,5,HitClass:hitClass,
+        return PreparedMonsterDamage.ReleaseMissile(emitter,target,new(0,raw256,0,coldFrames,softHit?16385:5,HitClass:hitClass,
             Fire256:element=="fire"?raw256:0,Cold256:element=="cold"?raw256:0,Lightning256:element=="ltng"?raw256:0,HitFlags:hitFlags),
             new(NamedCombat.Elite(target),()=>false,()=>metadata.Velocity,()=>false),_=>throw new InvalidOperationException(kind+" has no stun"),services,at);
     }

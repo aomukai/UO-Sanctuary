@@ -41,10 +41,13 @@ internal static class ShadowSkillCasting
     internal static bool Attached(AssassinShadowBody body)=>body?.ControlMaster is PlayerMobile owner
         &&NpcItemSpellFlights.Attached(body,owner,body.Map?.MapID??-1);
     internal static SkillValues Values(AssassinShadowBody body,int rank,int skill=251)
+    {_=Row(skill);return OwnValues(body,rank,skill);}
+    // Producers with separately qualified execution metadata can share the
+    // same own-book/stat composition without granting their action route.
+    internal static SkillValues OwnValues(AssassinShadowBody body,int rank,int skill)
     {
         var book=body.OwnedSkills;var graph=OriginalNpcEquipment.Graph(body);
         int Id(string key)=>SkillMechanics.Source(key).SourceId;
-        _=Row(skill);
         return new(SkillMechanics.All.Single(s=>s.SourceId==skill),key=>Id(key)==skill?rank:book.Rank(Id(key),graph.Read,BattleCommand.Bonus(body)),
             key=>book.Find(Id(key))?.Base??0,OriginalNpcEquipment.Level(body));
     }

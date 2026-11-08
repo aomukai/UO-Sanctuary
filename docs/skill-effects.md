@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shadow Shock Web fields (2026-11-08 JST).** NPC fields reuse identified air0x36E4, electric-field0x374A and throw sound0x23B placeholders. Final lob, landing, field/contact, expiry and audio remain needed and can share the player Shock Web asset family. Action admission is still gated; see [checkpoint](shadow-shock-web-checkpoint.md). Icons remain separate.
+
 **Dragon Flight (2026-11-08 JST).** Learned transfer/kick uses identified shared Teleport particles0x3728/sound0x1FE, native Wrestle/contact sound0x238 and charge cues. Final departure/arrival,dragonflight target overlay,directional kick/contact,progressive releases and audio remain pending. See [checkpoint](dragon-flight-action-checkpoint.md);icons remain separate.
 
 **Dragon Claw (2026-11-08 JST).** The learned dual-claw action uses identified native weapon pose/contact sound0x238 and shared charge/element cues. Final directional primary/secondary sequence,contacts,progressive releases,miss/block/interruption/recovery and audio remain pending independently of mechanics. See [checkpoint](dragon-claw-action-checkpoint.md);icons stay separate.
