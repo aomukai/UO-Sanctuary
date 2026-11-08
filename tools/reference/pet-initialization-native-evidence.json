@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "composedCurrentBytes": 2522,
+  "composedContexts": 29,
+  "retainedGetterContexts": 35,
+  "largeHistoricalMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-initialization-check": 1,
+    "pet-initialization-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "ad5506eeea4a4b617663de6d27d17f7b1034dbd47cb0e8ef26928e5f8ef944b0",
+    "Assemblies/Sanctuary.Integration.dll": "023f6bd6925b4df4be2258dd63ffa648f6a57c7f69f5e22324092c6c048d498e"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Current decoder/getter/owner survey/finishing compose in source order:cache command,copy control,clear raw command,property lookups,player-only owner iteration;new scratch starts empty.",
+    "The existing root uses the produced decision frame;event removal precedes combat,command finishing precedes publishing the three control words. Finishing reuses the qualified setter and clears before null/invalid selections.",
+    "Actual original Goatman/Tainted/Defiler command objects initialize/consume/restore before and after two reloads without moving,healing or recapturing bodies. Original birth/wound/mana/typed-command/Warlock-Witch identity checks retained."
+  ],
+  "nextPropertyReference": {
+    "sourceBytes": 216,
+    "bytesRead": 1552,
+    "currentRva": "0x27acb0",
+    "maximumRva": "0x24fa20",
+    "statIds": [
+      6,
+      7
+    ],
+    "meaning": "Whole-life percentage:shift each FP8stat by8 independently,then signed100*currentWhole/maximumWhole;zero whole maximum returns0.",
+    "nativeSupplierEnabled": false,
+    "sourceNumericBridgeVerified": false,
+    "process": {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    }
+  },
+  "limits": [
+    "AI-control words,properties,owner membership/order,live survey row/validity/path services remain explicit caller obligations;native producer/state/event scheduling and full automatic AI not enabled.",
+    "Source vector copy is qualified only for the initializer-reachable empty temporary with initialized inline destination;managed scratch does not certify raw allocator behavior and is not persisted.",
+    "New life-percentage helper/max-life code is fully captured and its stat IDs checked;actual source/native numeric and life-stat producer comparison is next. Do not use a tick count for cfg64/68.",
+    "Existing raw+8survey lookup uncertainty remains. Learned spawn/cap/payment/input and full special-recipient scopes remain gated. Effects/audio and talent/hotkey icons stay separate."
+  ],
+  "inputs": {
+    "tools/reference/pet-initialization-source-evidence.json": "8ef6b30881c6f41e98fd562d3b80b573be07681b90ae4ceafc962b0174dd2020",
+    ".local/class-skills/pet-initialization/birth-inputs.json": "28e84878c6f31a7c3ea89161d87e77a05d224abc59fd1ea27a2e933205e3f83b",
+    ".local/class-skills/pet-initialization/source-snapshot-1.json": "3cee52884277f8242551cc0f53846931e1ffe3a282cae8874b45e6c088ed9519",
+    ".local/class-skills/pet-initialization/content-build-1.log": "863b6fcba56d9ad29ab5eb5bf96f47443aafebbc440b8258b648c7da0dbb0f1c",
+    ".local/class-skills/pet-initialization/integration-build-1.log": "89f58a79b5edb74ccd04383478ff39800b4e0b7e65c6c27c60671800d075de93",
+    ".local/class-skills/pet-initialization/birth-native-checks.log": "41cb3adb94db8b767db8d967716425dee99e105d9e8baef7ef53bd86f21ee32e",
+    ".local/class-skills/pet-initialization/pet-command-target-fixtures.json": "f4156377cfb1695208348a65efdc966715446c5548298fe49317948d94b49248",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-property-20261109.json": "5ec012e274bf34033004a8cb07b3fb6c573de1572e20abdce8e7f99d37c52131",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-initializer-maxlife-20261109.json": "48fd33135a868639216428d91c485540e32cd15e3060611daa679b821ce9b316",
+    "data/Sanctuary/Balance/equipment-stat-costs.json": "0975522f9eea2be2cced6468fbf85991cf0dd10051353be7c83d62ebd4d59db6",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-initialization-checkpoint.md": "da89c308302dbf085d57ec33baadff7d56d43dd048f6955eed95335d1b5e0376",
+    "docs/class-skills-resume-checkpoint.md": "843b60d88b2ca9250a3e00043709da762e202933bf28beca82d95888f1c99587",
+    "docs/class-skill-roadmap.md": "1eaf665974fdac014c35ede13567e4c7ac5a63bdf3dd9ad867081b5d9745c67a",
+    "docs/class-skill-reuse-notes.md": "e39ad9d35e01b2c2cce22d78ef861e1ad1fd6e3e3616009b7b9ebb97dfaf8318",
+    "docs/skill-mechanical-reference.md": "332184a61dcea1100ed9520bc8dba4cf01002031d692e0088fb656398683dff9",
+    "tests/check_pet_initialization.py": "0a30dc17ca00bd502038090b30f0dfe300f6902b2d52b5293a1cf1a8317cf7b4",
+    "tools/record_pet_initialization.py": "aa81abd4b1c034b6bf67d1fd52eec171d10412abad75e21d26dd2ea88eafc3f5"
+  }
+}

@@ -53,6 +53,22 @@ internal static class DeathMarkWorld
         return GenericPetTargetCommand.Bind(services,identity.Game,
             id=>_actors.TryGetValue(id,out var actor)?actor.Command:null,identity.Resolve);
     }
+    internal static GenericPetInitializedFrame InitializePrepared(SkeletonGuardian body,int owner,GenericPetDecisionMemory control,
+        GenericPetWorldIdentity identity,GenericPetInitializationServices services)
+    {
+        ArgumentNullException.ThrowIfNull(body);ArgumentNullException.ThrowIfNull(identity);ArgumentNullException.ThrowIfNull(services);
+        if(!_actors.TryGetValue(checked((int)body.Serial.Value),out var actor))
+        {throw new NotSupportedException("Original demon controller is not registered");}
+        var ability=body switch{WarlockGoatmanBody=>CombatAbility.SummonGoatman,WarlockTaintedBody=>CombatAbility.SummonTainted,
+            WarlockDefilerBody=>CombatAbility.SummonDefiler,_=>throw new NotSupportedException("Unsupported original GenericPet body")};
+        return GenericPetInitialization.Run(new(identity.Game,actor.Selector,checked((int)body.Serial.Value),owner,actor.Command,control,GenericPetProfiles.Raw(ability)),
+            services with{Resolve=identity.Resolve,Survey=BindTargets(services.Survey,identity)});
+    }
+    internal static int FinishPrepared(SkeletonGuardian body,(int Kind,int Id)? target)
+    {
+        if(body==null||!_actors.TryGetValue(checked((int)body.Serial.Value),out var actor)){return 0;}
+        return GenericPetTargetCommand.Finish(actor.Command,target,GenericPetPathTargets.Bind(actor.Selector).CommandFlags);
+    }
     // Registered source mode is shared with active intrinsic actions. Update
     // it before cancellation so a callback cannot restore the outgoing mode.
     internal static void ChangeMode(SkeletonGuardian body,int next)

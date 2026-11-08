@@ -86,6 +86,7 @@ public static class GenericPetCommandTargetChecks
         // Keep both command kinds on the original controller across saves.
         Command(bodies[1],1,Id(owners[1]));
         foreach(var body in bodies.Where((_,i)=>i!=1)){Command(body,2,Id(target));}
+        GenericPetInitializationChecks.Originals(owners,target,bodies);
         Require(!WarlockCombat.Implemented(CombatAbility.DeathMark),"Lookup admitted unfinished learned cast");
     }
     private static void Save(PlayerMobile[] owners,BaseCreature target,SkeletonGuardian[] bodies,int generation)
@@ -121,6 +122,7 @@ public static class GenericPetCommandTargetChecks
         }
         var binding=Binding(bodies);
         for(int i=0;i<bodies.Length;i++){Require(binding.CurrentTarget(Id(bodies[i]))==(i==1?Id(owners[1]):Id(target)),"Saved typed command did not resolve original live unit");}
+        GenericPetInitializationChecks.Originals(owners,target,bodies);
         // Continue exercising registry reads after reload without moving the
         // saved actors or recapturing their prepared birth snapshots.
         Require(owners[1].Female&&!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Witch identity or unfinished summon gate changed");
