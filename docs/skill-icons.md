@@ -1,5 +1,7 @@
 # Skill icons
 
+**Warlock ordinary cast clock (2026-11-08 JST).** Timing adds no public talent/hotkey ID or icon. All unfinished Warlock skills retain their existing identified text placeholders;final talent/right/quick artwork remains required separately from effects/audio. [Checkpoint](warlock-cast-clock-checkpoint.md).
+
 **Learned Shadow Warrior/Master (2026-11-08 JST).** The two existing talent/right/quick IDs are now mechanically available;their identified text placeholders remain. Final separate Warrior/Master talent and hotkey artwork is still required. [Checkpoint](shadow-learned-cast-checkpoint.md). Body/equipment/effects/audio remain in the separate asset inventory.
 
 **Intrinsic Shadow Fury (2026-11-08 JST).** No additional public talent/hotkey icon for an intrinsic pet action. Blade Fury and Shadow Warrior/Master retain identified text placeholders;final icons remain pending separately from shared effects/audio. [Checkpoint](shadow-fury-cast-checkpoint.md).

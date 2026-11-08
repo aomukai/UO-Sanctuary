@@ -1,0 +1,13 @@
+# Warlock ordinary casting clock checkpoint
+
+2026-11-08 JST. Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. **210/240 handlers; Warlock1/30; no class certified complete.** This closes a shared timing prerequisite without enabling an unfinished spell.
+
+The owned `AnimData.d2` contains eight `WKSC` weapon records. Every numeric scheduling field matches the existing Necromancer records:16frames,base speed256,one event1at frame8. The new Warlock view reuses `SourceCastClock.Calculate(16,256,8,fcr)` and the already authenticated2072complete-source scheduling controls. No arithmetic copy or compiler matrix rerun was needed. The builder checks the pinned animation hash and exact numeric equality with the old proof. [Data evidence](../tools/reference/warlock-cast-clock-data-evidence.json).
+
+The shared player timing dispatcher now uses this projection for22ordinary nonpassive Warlock SC/FCR candidates. **Miasma Chain is excluded:** its row says SC but also sets `UseAttackRate=1`;its caller/rate semantics remain separately unqualified. Bind Demon,Cleave and Mirrored Blades retain their SQ contexts. Passives do not enter the casting clock. SC alone is not treated as proof that FCR applies.
+
+Validation: **C1/I2/snapshot3/native1**,zero warnings/errors;**15 native success markers,three boots,two actual reloads,three saves**. The2072unchanged source controls compare directly;5698candidate/rate projections cover22skills and259FCR inputs,with weapon/IAS/chill isolation. Actual Warlock and Witch player fixtures verify prepared windup/cancel at zero and20FCR,including equipped Magefist:16/8and14/7clocks,no premature mana or world allocation. Public missing skills stay unavailable. Existing learned Shadow transactions,town/cohort and original-save checks are retained. [Native receipt](../tools/reference/warlock-cast-clock-native-evidence.json). Installed build,configuration and saves remain unchanged.
+
+Limits:owned animation data and the shared complete-source scheduler establish this declared ordinary SC projection,not full current-executable class/mode/event dispatch parity. Skill-specific startup,release,resource,event/missile/controller and actual public input still need their respective mechanics. Current Warlock event35/36/37/39/40and other protected routines remain incomplete in saved references;the client-open question is nonblocking while existing source components continue.
+
+The clock emits no new visual or sound. Final Warlock/Witch casting poses,skill effects/audio and talent/hotkey artwork remain separate identified placeholders. Next connect the existing demon/controller or ordinary spell components;do not count a clock candidate as a playable handler.

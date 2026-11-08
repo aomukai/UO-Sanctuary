@@ -145,6 +145,8 @@ public static class CombatTiming
     {
         if(characterClass==DiabloClass.Assassin&&ability==CombatAbility.DragonFlight)
         {return DragonFlightPreparation.Timing();}
+        if(characterClass==DiabloClass.Warlock&&WarlockCastClock.Handles(ability))
+        {return WarlockCastClock.Calculate(fcr);}
         if(characterClass==DiabloClass.Druid&&DruidHumanCastClock.Handles(ability))
         {return DruidHumanCastClock.Calculate(fcr);}
         if(characterClass==DiabloClass.Assassin&&AssassinCastClock.Handles(ability))

@@ -1,0 +1,101 @@
+{
+  "referenceVersion": "3.3.93847",
+  "animationSha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "priorClockEvidenceSha256": "60424971c01461d6e20360d45e3d990632608f0efcecc4bbd0f4e83377dae31d",
+  "retainedSourceContexts": 2072,
+  "newCompilerMatrices": 0,
+  "animations": [
+    {
+      "WeaponClass": "1HS",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "1HT",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "2HS",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "2HT",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "BOW",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "HTH",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "STF",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    },
+    {
+      "WeaponClass": "XBW",
+      "Frames": 16,
+      "Speed": 256,
+      "Action": 8,
+      "Flag": 1
+    }
+  ],
+  "sourceFixture": {
+    "path": ".local/class-skills/necromancer-cast-clock-source-probe.json",
+    "sha256": "3edfa6ab278bd1b7e0c1403b4908bd4ea593a6efd3199d763b125ca3c527cea7"
+  },
+  "eligibleSourceIds": [
+    373,
+    375,
+    376,
+    380,
+    377,
+    379,
+    381,
+    385,
+    388,
+    389,
+    390,
+    387,
+    384,
+    386,
+    395,
+    394,
+    393,
+    396,
+    398,
+    400,
+    401,
+    402
+  ],
+  "excluded": [
+    "warlock.binddemon",
+    "warlock.cleave",
+    "warlock.mirroredblades",
+    "warlock.miasmachain"
+  ],
+  "currentExecutableParity": false,
+  "scope": "Owned WKSC rows are identical in all numeric scheduling fields to the existing complete-source Necromancer fixture;reuse SourceCastClock(16,256,8). Declared ordinary human SC/FCR projection only. Miasma Chain carries UseAttackRate despite SC and stays separate with the three SQ routes. No active handler or current executable mode/skill dispatch parity follows from timing alone."
+}

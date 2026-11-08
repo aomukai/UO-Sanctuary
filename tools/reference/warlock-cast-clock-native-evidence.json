@@ -1,0 +1,70 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 210,
+  "warlockHandlers": 1,
+  "completedClasses": [],
+  "currentExecutableParity": false,
+  "newCompilerMatrices": 0,
+  "retainedSourceContexts": 2072,
+  "ownedWeaponRows": 8,
+  "ordinaryScCandidates": 22,
+  "excluded": [
+    "warlock.binddemon",
+    "warlock.cleave",
+    "warlock.mirroredblades",
+    "warlock.miasmachain"
+  ],
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "warlock-cast-clock-check": 1,
+    "shadow-cast-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "warlock-cast-clock-reload-check": 2,
+    "shadow-cast-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "04459447959f311606906537a597797d97dc1e68fbc8ace885ce1677e3d1b66e",
+    "Assemblies/Sanctuary.Integration.dll": "43199c36557cc339a3ce695bd60147393b6d61e628cb7ce8d3f43523b085dd90"
+  },
+  "files": {
+    "src/Sanctuary.Content/WarlockCastClock.cs": "303ae3fc26c89c8f555837ad257a4bb66bc4e30ac06a87a11db60b8f045b87f5",
+    "src/Sanctuary.Content/ActionTiming.cs": "9d1a347d8073e387c7da831188748ac2772adb381cb09b762e1de62fc57ce28b",
+    "data/Sanctuary/Balance/warlock-cast-clock.json": "8ea7418c36ce32afdb0e77ed1c98216bd31d2008d699f52d8b5a7e232980d2b2",
+    "tests/Sanctuary.Integration/WarlockCastClockChecks.cs": "cc3300fa5b3c8aff4aee38c7f5cc60c0198a8764897577d466a4eec501ef6a9e",
+    "tests/check_warlock_cast_clock.py": "834e52f6d0d127b4860f45013d1044cd7ebc692eefc3449f067a908b25854ddb",
+    "tools/build_warlock_cast_clock.py": "6d23958992b3244e4dd82b21916d7d6eff27a1a8b67b68b1baff59f91d677d71",
+    "tools/record_warlock_cast_clock.py": "f14c4708fdb507f9b0b5a64ab9b338399dac851f2b200452270fffea28222430"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Eight owned WKSC records match the existing Necromancer source scheduling fields16/256/8/1 exactly. Shared SourceCastClock reused;no clock arithmetic duplicated and no old compiler matrix rerun. All2072complete source controls compare directly;22ordinary SC/FCR candidates have5698native timing projections with weapon/IAS/chill isolation. Warlock/Witch prepared real-player windup/cancel with zero/20FCR leaves mana and world allocation unchanged;public missing spells stay unavailable. Existing learned Shadow transactions/town/cohorts/original saves retained through two reloads. Handler count unchanged;this is the common clock prerequisite,not a newly completed spell.",
+  "remaining": [
+    "Miasma Chain SC carries UseAttackRate1;its caller/rate context remains separately unqualified",
+    "Bind Demon/Cleave/Mirrored Blades retain their own SQ clocks;passives do not enter SC",
+    "Ordinary Warlock skill startup/do/missile/event/AI/world/learned payment and public inputs remain separate dependencies",
+    "Exact current executable mode/rate/event/input parity remains unverified beyond this owned-data/shared-source projection",
+    "Effects/audio and talent/hotkey icons remain separately recorded;clock emits no new asset"
+  ]
+}
