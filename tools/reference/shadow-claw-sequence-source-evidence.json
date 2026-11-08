@@ -1,0 +1,181 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/PLAYER/Player.cpp": "d22428034a002b53f4694512d9d87c91e857fbebf55ee553452a6e246e9ab147",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/D2Composit.cpp": "703362434adf701aa3f5dac5300834b80de3b3d6e6ac91b4fe26124c4df0276c"
+  },
+  "routineHashes": {
+    "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike": "e9c3a12adee2ad48a9fed56679eb1feb22c622e7b8eedbcb4917824117711fa8",
+    "SKILLS_SrvDo035_FistsOfFire_ClawsOfThunder_BladesOfIce": "2b058e16202ec8e7cb1d5885cb76c0ab75546afefa92c0cfffff3cc78d50b7bd",
+    "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2",
+    "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe",
+    "D2COMMON_11013_ConvertMode": "7131180f7e624922c9ba8a3e55bcdbe8efc1e01127ea7786bae333048f76a2cb",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "SKILLS_GetSeqNumFromSkill": "5099fbafeb681996265ec2de54b4be134c87420f904092b1c7c3f38c6b58e1d2",
+    "DATATBLS_GetSeqRecordFromUnit": "8895841ad95eb9cf54cce17e7c97e9549a68a367e2f8dc902e3d5e27a9aac628",
+    "D2Common_10884_COMPOSIT_unk": "4f89840392ee1428291c408ac24f01fe4435e908d3a93991ce859737791feaf3"
+  },
+  "contexts": 144,
+  "rateContexts": 12,
+  "installation": {
+    "path": "/home/aomukai/Games/battlenet/pfx/drive_c/Program Files (x86)/Diablo II Resurrected",
+    "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+    "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936"
+  },
+  "ownedInputs": {
+    ".local/research/d2r-3.3.93847/monseq.txt": "a48a884a654cab7cafe0be2764fa8a77f428a9b48855d27461d133a1f553898c",
+    ".local/research/d2r-3.3.93847/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5"
+  },
+  "slotLinks": {
+    "shadowwarrior": {
+      "1": "seq_swtigerfist",
+      "3": "seq_swtigerfist",
+      "6": "seq_swtigerfist"
+    },
+    "shadowmaster": {
+      "1": "seq_swtigerfist",
+      "3": "seq_swtigerfist",
+      "6": "seq_swtigerfist"
+    }
+  },
+  "sequence": [
+    [
+      5,
+      0,
+      0,
+      0
+    ],
+    [
+      5,
+      1,
+      0,
+      0
+    ],
+    [
+      5,
+      2,
+      0,
+      0
+    ],
+    [
+      5,
+      3,
+      0,
+      0
+    ],
+    [
+      5,
+      4,
+      0,
+      0
+    ],
+    [
+      5,
+      5,
+      0,
+      0
+    ],
+    [
+      5,
+      6,
+      0,
+      1
+    ],
+    [
+      11,
+      3,
+      0,
+      0
+    ],
+    [
+      11,
+      4,
+      0,
+      0
+    ],
+    [
+      11,
+      5,
+      0,
+      0
+    ],
+    [
+      11,
+      6,
+      0,
+      1
+    ],
+    [
+      11,
+      7,
+      0,
+      0
+    ],
+    [
+      11,
+      8,
+      0,
+      0
+    ],
+    [
+      11,
+      9,
+      0,
+      0
+    ],
+    [
+      11,
+      10,
+      0,
+      0
+    ],
+    [
+      11,
+      11,
+      0,
+      0
+    ]
+  ],
+  "gh": [
+    {
+      "Code": "AIGHHT1",
+      "Frames": 5,
+      "Speed": 256
+    },
+    {
+      "Code": "AIGHHT2",
+      "Frames": 5,
+      "Speed": 256
+    },
+    {
+      "Code": "AIGHHTH",
+      "Frames": 5,
+      "Speed": 256
+    }
+  ],
+  "artifacts": {
+    "tools/probe_shadow_claw_sequence.py": "63cc7ad905ab82c8e2c1ed5ad4649084bc9f1c4b4f5d731b33b653042feae69b",
+    ".local/class-skills/assassin-claw-sequence-source-probe.cpp": "0df18c60b3a27958fa7019628267b9589a8fe59e395b1e07d9d19ec15990fa41",
+    "data/Sanctuary/Balance/shadow-claw-sequence.json": "8870e62b885f61ac0c0ee0e12bd6402322a64ebaa96a7961af570e47eefea4dd",
+    ".local/class-skills/shadow-claw-sequence-source/source.cpp": "c9cebe108e003a854165dccced8e4884e1c41a384256f7dee07f537c805e06d3",
+    ".local/class-skills/shadow-claw-sequence-source/probe": "90cd264e1b294a164995cdc64c21f3439275945833f1dfd7706aa90da7267a9b",
+    ".local/class-skills/shadow-claw-sequence-source/cases.json": "f011948b8c1c06676bb27b180086212aa562364f2a179cb511be3dced1f4125c",
+    ".local/class-skills/shadow-animation-source/source.cpp": "12e9c8c2a4d972fc9f48fc95cbf87455b06cb6f450762403dec932ada5c181c6",
+    ".local/class-skills/shadow-claw-sequence-source/rate.cpp": "1d869adec691a24627ced0222b89a7be4773d78a92fb6ffabcad5494dbf9801b",
+    ".local/class-skills/shadow-claw-sequence-source/rate": "f8b46fbc91e9f1404f8357ae992d324cf8c13dceea6ebcfd6d670ceccad2d713",
+    ".local/class-skills/shadow-claw-sequence-source/rates.json": "f04c4a41951d069886fea032db077bfa50f5aab17028bf3f214f762788dc2bc3"
+  },
+  "scope": "Full normal NPC mode14 callback+initializer/step/end+do35/do34+selector+actual NPC dual eligibility with owned16row table. Skillflags0 and valid target/record/inventory/stat-list/allocation are declared fixture services. Monster-slot sequence lookup/composite GH override reviewed separately;supplied speeds are not a current executable rate certificate. Current monotonic point parity/bit64 is preserved,not player action ordinals;modern parity stays unverified."
+}

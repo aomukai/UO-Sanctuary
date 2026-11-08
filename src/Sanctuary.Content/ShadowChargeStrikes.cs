@@ -9,21 +9,25 @@ namespace Sanctuary;
 // original contact; A2 action timing and progressive finishers are separate.
 internal static class ShadowChargeStrikes
 {
-    internal static bool Handles(int id)=>id is 254 or 265 or 280;
+    internal static bool Claws(int id)=>id is 259 or 269 or 274;
+    internal static bool Handles(int id)=>id is 254 or 265 or 280||Claws(id);
     internal static MartialCharge Charge(AssassinShadowBody body,int id)=>AssassinCharges.State(body,id switch
         {254=>CombatAbility.TigerStrike,265=>CombatAbility.CobraStrike,280=>CombatAbility.PhoenixStrike,
+            259=>CombatAbility.FistsOfFire,269=>CombatAbility.ClawsOfThunder,274=>CombatAbility.BladesOfIce,
             _=>throw new NotSupportedException("Unqualified Shadow progressive state")});
     internal static bool State(AssassinShadowBody body,int state)
     {
         string name=GenericPetMetadata.Table.State(state)?.Name;
-        return new[]{254,265,280}.Any(id=>ItemSkillExecution.Skill(id).Text("aurastate")==name&&Charge(body,id)!=null);
+        return new[]{254,265,280,259,269,274}.Any(id=>ItemSkillExecution.Skill(id).Text("aurastate")==name&&Charge(body,id)!=null);
     }
     internal static ItemExecutionMetadata Row(int id)
     {
         var r=ItemSkillExecution.Skill(id);
-        if(!Handles(id)||r is not{Start:23,Do:34,InTown:false,UseManaOnDo:false,Lob:false,DecrementQuantity:false,Missile:-1}
-            ||r.Number("TargetableOnly")!=1||r.Number("TargetCorpse")!=0||r.Number("TargetAlly")!=0||r.Number("LineOfSight")!=0
-            ||r.Text("monanim")!="A2"||r.Number("UseAttackRate")!=1||ShadowSkillBook.Metadata(id).Mode!=5||r.Number("SrcDam")!=128
+        bool claws=Claws(id);
+        if(!Handles(id)||r is not{Start:23,InTown:false,UseManaOnDo:false,Lob:false,DecrementQuantity:false,Missile:-1}||r.Do!=(claws?35:34)
+            ||r.Number("TargetableOnly")!=(id==269?0:1)||r.Number("TargetCorpse")!=0||r.Number("TargetAlly")!=0||r.Number("LineOfSight")!=0
+            ||r.Text("monanim")!=(claws?"xx":"A2")||r.Number("UseAttackRate")!=1||ShadowSkillBook.Metadata(id).Mode!=(claws?14:5)||r.Number("SrcDam")!=128
+            ||claws&&r.Number("weapsel")!=3
             ||r.Text("aurastat2")!="progressive_tohit"||r.Number("progressive")!=1
             ||r.HasDelay("delay")||r.HasDelay("localdelay")||r.HasDelay("globaldelay")||r.HasDelay("perdelay"))
         {throw new NotSupportedException("Unsupported original Shadow charge-builder fields");}

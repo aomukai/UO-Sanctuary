@@ -1,5 +1,7 @@
 # Shadow world and action admission
 
+**Latest internal action scope (2026-11-08 JST):** Fists259/Thunder269/Ice274 charge builders now have a tested own monster mode14 conductor and original-hand contact/charge lifecycle. Elemental finisher emissions and ordinary AI admission remain gated. [Checkpoint](shadow-claw-sequence-checkpoint.md). Existing dual-claw Weapon Block approval is unchanged; raw sequence parity is an older-source implementation with current D2R behavior explicitly unverified. No learned Shadow gate is cleared.
+
 Reference: **D2R Reign of the Warlock3.3.93847**, approved Sanctuary deviations first.
 
 An explicit stationary `DefenseProfile` now admits the original Shadow resource graph to world maps for incoming defense and existing original-item services. Both species reuse the shared avoidance, accuracy, ordered melee/missile HP, item callbacks and scalar/duration defenses. Unqualified legacy bodies retain their map guard. Original source identity, owner/items/skills/passives, wounds and actor/world RNG remain intact. See the [verified defense checkpoint](shadow-defense-checkpoint.md).

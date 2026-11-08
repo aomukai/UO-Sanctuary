@@ -20,6 +20,9 @@ internal static class ShadowSkillCasting
         internal readonly Point3D Aim=aim;
         internal readonly DateTime StartedUtc=started??TimedEffects.Now;
         internal bool Released;
+        internal int? SequencePoint;
+        internal int LastSequencePoint=-1;
+        internal bool ServerDo;
     }
     private static NotSupportedException Missing()=>new("Shadow intrinsic skill needs an additional qualified NPC action service");
     private static ItemExecutionMetadata Row(int id)
@@ -77,9 +80,19 @@ internal static class ShadowSkillCasting
     }
     internal static int Release(Cast cast,DateTime at)
     {
-        if(cast==null||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
+        if(cast==null||ShadowChargeStrikes.Claws(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
         cast.Released=true;
         return SkillExecution.Run(new Execution(cast,at),cast.Skill,cast.Body.OwnedSkillRank(cast.Skill),true,false,false);
+    }
+    internal static int ReleaseSequence(Cast cast,int point,DateTime at)
+    {
+        if(cast==null||!ShadowChargeStrikes.Claws(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map
+            ||cast.Body.OwnedSkills.Used!=cast.Skill||point is <0 or >=ShadowClawSequence.Points||point<=cast.LastSequencePoint){return 0;}
+        var pending=ShadowActions.State(cast.Body);
+        if(pending?.Cast!=cast||pending.Sequence is not{} sequence||sequence.Clock.Point!=point||!ShadowClawSequence.Releases(sequence)){return 0;}
+        cast.LastSequencePoint=point;cast.SequencePoint=point;
+        try{return SkillExecution.Run(new Execution(cast,at),cast.Skill,cast.Body.OwnedSkillRank(cast.Skill),true,false,false);}
+        finally{cast.SequencePoint=null;}
     }
     internal static void Complete(Cast cast)
     {if(cast==null){return;}cast.Released=true;if(cast.Body is{Alive:true,Deleted:false} body&&body.OwnedSkills.Used==cast.Skill){body.ChangeSkills(book=>book.Use(null));}}
@@ -135,17 +148,24 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 45 or 47 or 51 or 54?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 45 or 47 or 51 or 54?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
                 :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
                 :function==34&&ShadowChargeStrikes.Handles(skill)?ShadowChargeStrikes.Release(Body,cast.Target,skill,level,at)
+                :function==35&&ShadowChargeStrikes.Claws(skill)?ClawRelease(skill,level)
                 :function==47&&skill==264?ShadowCloaks.Release(Body,level,at)
                 :function==45&&ShadowSentries.Handles(skill)?ShadowSentries.Release(Body,cast.Target,cast.Aim,skill,level,at)
                 :function==54&&skill==277?ShadowBladeShields.Release(Body,at)
                 :function==51&&skill==273?ShadowMindBlasts.Release(Body,cast.Target,cast.Aim,level,at):throw Missing();
         internal override int MissileCount=>ItemSkillExecution.MissileCount;
-        internal override void SetServerDo(){}
+        private int ClawRelease(int skill,int level)
+        {
+            if(cast.SequencePoint is not{} point){throw Missing();}
+            cast.ServerDo=((point>>8)&1)!=0;
+            _=ShadowChargeStrikes.Release(Body,cast.Target,skill,level,at);return 1; // Complete do35 returns1 even if do34 declines.
+        }
+        internal override void SetServerDo(){if(ShadowChargeStrikes.Claws(cast.Skill)){cast.ServerDo=true;}}
         internal override (int X,int Y)? TargetPoint=>cast.Target is{Alive:true,Deleted:false} target?(target.X*2,target.Y*2):null;
         internal override (int X,int Y) FirstPathPoint=>(cast.Aim.X*2,cast.Aim.Y*2);
         internal override (int X,int Y) SourcePoint=>(Body.X*2,Body.Y*2);

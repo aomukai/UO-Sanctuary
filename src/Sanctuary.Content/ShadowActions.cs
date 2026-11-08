@@ -11,7 +11,8 @@ namespace Sanctuary;
 internal static class ShadowActions
 {
     internal sealed record Pending(ShadowSkillCasting.Cast Cast,ShadowAnimationPlan Plan,Map Map,Point3D Position,
-        string Binding,uint[] Items,int Frame,DateTime NextUtc);
+        string Binding,uint[] Items,int Frame,DateTime NextUtc)
+    {internal ShadowClawSequenceState Sequence{get;init;}}
     private static readonly Dictionary<uint,Pending> Actions=new();
     internal static Pending State(AssassinShadowBody body)=>body==null?null:Actions.GetValueOrDefault(body.Serial.Value);
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
@@ -41,14 +42,16 @@ internal static class ShadowActions
         try
         {
             bool s2=skill==251||ShadowSentries.Handles(skill);
-            var plan=s2?ShadowAnimation.S2(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
+            bool claws=ShadowChargeStrikes.Claws(skill);
+            var plan=s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
                 :skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
             int marker=s2?2:1;
-            if(plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker)!=1
+            int releases=plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker);
+            if((claws?releases is <1 or >2:releases!=1)
                 ||plan.Events.Count(e=>e.Type==SourceAnimationEvents.EndAnimation)!=1)
             {throw new NotSupportedException("Shadow S2 needs one actual release and end event");}
             Actions.Add(body.Serial.Value,new(cast,plan,body.Map,body.Location,ShadowLoadout.Binding(body).Identity,
-                body.EquipmentNumbers.ActiveItems,0,at.AddMilliseconds(40)));return true;
+                body.EquipmentNumbers.ActiveItems,0,at.AddMilliseconds(40)){Sequence=claws?ShadowClawSequence.Initial():null});return true;
         }
         catch{ShadowSkillCasting.Complete(cast);throw;}
     }
@@ -91,6 +94,20 @@ internal static class ShadowActions
                     ||!body.EquipmentNumbers.ActiveItems.SequenceEqual(action.Items))
                 {Cancel(body);break;}
                 int frame=action.Frame+1;bool end=false;
+                if(action.Sequence is{} sequence)
+                {
+                    if(ShadowClawSequence.Complete(sequence)){Cancel(body);break;}
+                    if(ShadowClawSequence.Releases(sequence))
+                    {
+                        _=ShadowSkillCasting.ReleaseSequence(action.Cast,sequence.Clock.Point,action.NextUtc);
+                        if(!Actions.TryGetValue(actor,out var current)||!ReferenceEquals(current,action)||action.Cast.Released){break;}
+                        if(action.Cast.ServerDo!=(((sequence.Clock.Point>>8)&1)!=0))
+                        {Cancel(body);throw new NotSupportedException("Shadow do35 lost its raw NPC sequence context");}
+                    }
+                    Actions[actor]=action with{Frame=frame,NextUtc=action.NextUtc.AddMilliseconds(40),
+                        Sequence=ShadowClawSequence.Advance(sequence,action.Plan.Speed)};
+                    continue;
+                }
                 foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
                 {
                     if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&(action.Cast.Skill==251||ShadowSentries.Handles(action.Cast.Skill))||e.Kind==1&&(action.Cast.Skill is 253 or 273 or 277||ShadowDefensiveBuffs.Handles(action.Cast.Skill)||ShadowChargeStrikes.Handles(action.Cast.Skill))))

@@ -86,6 +86,15 @@ internal static class ShadowAnimation
         {throw new NotSupportedException("Shadow A2 needs its own charge skill and original active dual claws");}
         return Original(body,ChargeRow.Value);
     }
+    internal static ShadowAnimationPlan Claws(AssassinShadowBody body)
+    {
+        _=ShadowEquipmentDefense.Require(body);
+        if(body.OwnedSkills.Used is not{} id||!ShadowChargeStrikes.Claws(id)||body.OwnedSkills.Find(id)?.Mode!=14||ShadowEquipmentDefense.Composite(body)!=13)
+        {throw new NotSupportedException("Shadow sequence needs its own elemental skill and original dual claws");}
+        var r=OriginalRates(body);return SuppliedClaws(r.Ias,r.Attack,r.Right,r.Left);
+    }
+    internal static ShadowAnimationPlan SuppliedClaws(int ias,int attack,int rightRate,int leftRate)
+        =>ShadowClawSequence.Plan(SourceAttackRate.Speed(256,ias,checked(attack+(rightRate+leftRate)/2-rightRate)));
     internal static ShadowAnimationPlan Buff(AssassinShadowBody body)
         =>body.OwnedSkills.Used is{} id&&ShadowDefensiveBuffs.Handles(id)?Cast(body):throw new NotSupportedException("Shadow has no used defensive buff");
     internal static ShadowAnimationPlan Cast(AssassinShadowBody body)
@@ -97,6 +106,10 @@ internal static class ShadowAnimation
     }
     private static ShadowAnimationPlan Original(AssassinShadowBody body,ValkyrieAnimationRow row)
     {
+        var r=OriginalRates(body);return SuppliedRow(row,r.Ias,r.Attack,r.Right,r.Left,0);
+    }
+    private static (int Ias,int Attack,int Right,int Left) OriginalRates(AssassinShadowBody body)
+    {
         var binding=ShadowLoadout.Binding(body);var graph=OriginalNpcEquipment.Graph(body);
         var weapon=graph.Weapons(binding.Primary,binding.Secondary,true,true,0,0,0);
         weapon.Enter(); // Complete shared source selected-hand stat-list merge, not owner/average IAS.
@@ -107,6 +120,6 @@ internal static class ShadowAnimation
         }
         // Shadow's captured initializer already posts base attackrate100.
         // NPCs do not receive the player-only sequence minus30 modifier.
-        return SuppliedRow(row,graph.Read(93),checked(graph.Read(68)+SourceAttackRate.WolfRate(body)-100),HandRate(4),HandRate(5),0);
+        return (graph.Read(93),checked(graph.Read(68)+SourceAttackRate.WolfRate(body)-100),HandRate(4),HandRate(5));
     }
 }

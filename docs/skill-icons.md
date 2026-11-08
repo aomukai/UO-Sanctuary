@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shadow elemental charge sequences (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Fists/Thunder/Ice talent/hotkey icons retain identified text placeholders. [Checkpoint](shadow-claw-sequence-checkpoint.md); effects/audio remain separate.
+
 **Own Shadow Phoenix (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and existing Phoenix talent/hotkey icons remain identified text placeholders;final effects/audio are separate. See [checkpoint](shadow-phoenix-checkpoint.md).
 
 **Owned NPC spell freeze (2026-11-08 JST).** No public binding or icon identity is added. Shadow Warrior/Master,Phoenix and existing elemental charge talent/hotkey icons remain identified text placeholders; effects/audio stay separate. See [checkpoint](npc-spell-freeze-checkpoint.md).

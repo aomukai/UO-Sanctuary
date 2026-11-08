@@ -1,0 +1,72 @@
+{
+  "parent": "b20c059da42b1d86f780a318f2c1387f6fcbb10f",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "elementalBuildersInternal": true,
+  "elementalFinishersEnabled": false,
+  "automaticElementalBuilderAi": false,
+  "compiledNpcSequenceControls": 144,
+  "compiledRateControls": 12,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-claw-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-finisher-check": 1,
+    "shadow-phoenix-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-claw-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-finisher-reload-check": 2,
+    "shadow-phoenix-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "snapshotChronology": "Snapshot2 precedes Content2 and initial Integration1. Only the test corridor anchor changed before Integration2. Snapshot3 captured afterward and matches the accepted native inputs; no duplicate build/test was run solely to refresh a receipt.",
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "3d5399171a787c5cfb1e98a0818f1796abb26aee3460fee910d2bf02ca0bbc59",
+    "Assemblies/Sanctuary.Integration.dll": "2c059552a9472f1c64a953f87fa69a14eb3ae30aa4a69203eb5452418c7a4f6e"
+  },
+  "files": {
+    ".local/class-skills/shadow-claw-sequence/source-snapshot-2.json": "ae10f53af9fcb74b14bf6a3b49c60411351c85aa21d08b78e8346398338cdee5",
+    ".local/class-skills/shadow-claw-sequence/source-snapshot-3.json": "b465eefa33d8702ecb9cf422a69f3ee7d1c9f445a8ebbb6c7fb2a085d1bac68c",
+    ".local/class-skills/shadow-claw-sequence/birth-inputs.json": "dc347317b3cbefe48c3c5b21c2c3c60131b79fba6892ea0b8ee667c0479a4c5b",
+    ".local/class-skills/shadow-claw-sequence/birth-native-checks.log": "971a732246e3ee3bd5239b7d4ff556590e8f5645933c5fd4b3380287acae3b72",
+    ".local/class-skills/shadow-claw-sequence/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-claw-sequence/content-build-2.log": "542168b15b3576bbe20c8320047da1280988a789eae9077d29d654c281055086",
+    ".local/class-skills/shadow-claw-sequence/integration-build-2.log": "311d11b65470b7d483a6d86ee859dd9284471bc6d73e06bce3cbc4cadd02e87f",
+    ".local/class-skills/shadow-claw-sequence/shadow-claw-fixtures.json": "9d04e4d59c6f09fa68335223b9803df38c2e43ee48cb720a6d01a025b99e7e08",
+    ".local/class-skills/shadow-claw-sequence/birth-native-checks-failed-1.log": "a35d07c4b8910f4ff9e33bb919e0aeba0e1acf9e4ed61bafeed41a2f02e0d62a",
+    ".local/class-skills/shadow-claw-sequence/birth-inputs-failed-1.json": "bd4a967c7c2a9f61c45d8f58015f853cada79f31108f994140d91dc550c22746",
+    "tools/probe_shadow_claw_sequence.py": "63cc7ad905ab82c8e2c1ed5ad4649084bc9f1c4b4f5d731b33b653042feae69b",
+    "tools/record_shadow_claws.py": "3021ac5e693a9aacf3934e59cb5b208f385b925dd72f9026f318cd9f44ab22d1",
+    "tools/reference/shadow-claw-sequence-source-evidence.json": "7b26679fcb13ac0cf00180046b96788b1853d047915ad08427e3f8ce021fa154",
+    "tests/check_shadow_claws.py": "52173647863ddb7482fb4cba85c7bb516ece37dce2756427229224f601cfbfea"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Normal older NPC mode14/skillflags0,owned16row sequence,original dual-claw source rates/selection and own start23/do35/do34 contacts/charge lifecycle. Current D2R raw-point parity unverified; no player ordinal adaptation inferred. Both original species/retained charge+finishers+Phoenix and exact saved bodies/items/resources/wounds/RNG/charges through two reloads. Elemental emission/AI/learned routes gated; other reference gaps retained.",
+  "diagnostic": "Initial native attempt stopped at fixture corridor y3800, which is beyond the helper loop. Test-only anchor3520 fixed it; failed inputs/log retained. Production mechanics unchanged."
+}

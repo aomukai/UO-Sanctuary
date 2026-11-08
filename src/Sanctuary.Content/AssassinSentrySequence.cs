@@ -16,16 +16,20 @@ internal static class AssassinSentrySequence
     // Both pinned stationary sequences consist solely of S2 rows and one
     // action1 row. Keep their point count and action index explicit.
     internal static SentrySequenceState AdvanceIn(SentrySequenceState state,int points,int actionIndex,int speed=256)
+        =>AdvanceIn(state,points,stackalloc int[]{actionIndex},speed);
+    internal static SentrySequenceState AdvanceIn(SentrySequenceState state,int points,ReadOnlySpan<int> actionIndices,int speed=256)
     {
         ArgumentNullException.ThrowIfNull(state);
-        if(points<=0 || points%256!=0 || actionIndex<0 || actionIndex>=points/256
+        if(points<=0 || points%256!=0
             || state.Point<0 || state.Point>=points || state.Remaining<=0 || speed<0 || speed>points || state.Action is <0 or >1)
         {throw new ArgumentOutOfRangeException();}
+        foreach(int index in actionIndices){if(index<0||index>=points/256){throw new ArgumentOutOfRangeException(nameof(actionIndices));}}
         int next=state.Point+speed;if(next>=points){next-=points;}
         // Complete ComputeSequenceAnimation returns the last crossed event.
         // On wrapping to a smaller index its forward-only loop finds none.
-        int action=next==state.Point?(next>>8)==actionIndex?1:0
-            :((state.Point>>8)+1<=actionIndex && (next>>8)>=actionIndex?1:0);
+        int action=0;
+        foreach(int index in actionIndices)
+        {if(next==state.Point?(next>>8)==index:((state.Point>>8)+1<=index&&(next>>8)>=index)){action=1;}}
         return new(next,checked(state.Remaining-speed),action);
     }
 }
