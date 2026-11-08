@@ -99,6 +99,14 @@ internal static class ShadowAnimation
         var state=SourceAnimationEvents.Percent(new(0,plan.Speed,row.Frames*256,flags,plan.Events),frame,100,unchecked((byte)(row.Speed>>24)));
         return new(plan.Speed,state.Events);
     }
+    internal static ShadowAnimationPlan Tail(AssassinShadowBody body)
+    {
+        _=ShadowEquipmentDefense.Require(body);
+        if(body.OwnedSkills.Used!=270||body.OwnedSkills.Find(270)?.Mode!=4||ShadowEquipmentDefense.Composite(body)!=13)
+        {throw new NotSupportedException("Shadow Tail needs its original A1/kick context");}
+        var r=OriginalRates(body);
+        return SuppliedMelee(r.Ias,checked(r.Attack+ShadowDragonTail.Row().Number("Param4")),r.Right,r.Left);
+    }
     internal static ShadowAnimationPlan Claws(AssassinShadowBody body)
     {
         _=ShadowEquipmentDefense.Require(body);

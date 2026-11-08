@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Dragon Tail (2026-11-08 JST).** Kick and area mechanics reuse existing services. Final NPC A1/KK poses, charge releases, kick/contact/knockback, fire burst and audio remain pending. Shared `0x36BD`, hue `0x489` is an identified burst placeholder. [Checkpoint](shadow-tail-checkpoint.md). Icons remain separate.
+
 **Own Shadow Dragon Talon (2026-11-08 JST).** Cached/repeated kick contacts and existing six-family releases now work mechanically. Final NPC A1/KK poses,kick/knockback/charge-release cues,elemental impacts/expiry and audio remain pending placeholders;reuse player Talon and existing charge families. [Checkpoint](shadow-talon-checkpoint.md). Icons stay separate.
 
 **Approved shared sentry placement (2026-11-08 JST).** Search adds no new visual effect. Existing cast,placement,emergence,firing/impact/expiry cues and audio remain identified placeholders for all five sentries and both Shadows;share existing families. [Checkpoint](sentry-placement-checkpoint.md). Icons stay separate.

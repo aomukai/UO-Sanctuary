@@ -28,17 +28,7 @@ internal static class ShadowDragonTalon
     private static bool Range(AssassinShadowBody body,BaseCreature target,int bonus)=>IronGolemWorld.Melee(body,
         new(body.Map.MapID,DruidRavenMotion.Center(body.X*2,body.Y*2),TimedEffects.Now),target,bonus);
     private static IronGolemContact.Prepared Allocate(ShadowSkillCasting.Cast cast,bool knockback,DateTime at)
-    {
-        var body=cast.Body;var target=cast.Target;var owner=(PlayerMobile)body.ControlMaster;
-        OriginalNpcMelee.RequireAllocation(body,target);var rules=IronGolemContact.Require(body,owner,target);
-        if((rules.Metadata.Modes&(1<<PreparedMonsterReturn.Knockback))!=0&&SourceKnockbacks.Rule(target)is not{Knockback:true,GetHit:true,Distance:5})
-        {throw new NotSupportedException("Shadow Talon needs its mapped recipient knockback trajectory");}
-        var states=ShadowFinisherDamage.States(body,target,at);var v=ShadowSkillCasting.OwnValues(body,body.OwnedSkillRank(255),255);
-        int flags=NpcMeleeResult.Resolve(body,target,b=>Range(body,target,b),()=>ClassCombat.IsHostile(owner,target),
-            n=>NpcEquipmentRandom.Limited(body,n),checked((int)v.Formula("toht")+states.Sum(s=>s.AttackPercent)),guaranteed:states.Length>0&&Row().Number("Param8")==1);
-        if(knockback&&(flags&1)!=0){flags|=12;}
-        return new(rules,ShadowKickPackets.Prepare(body,target,flags,at).Impact);
-    }
+        =>ShadowKickContacts.Allocate(cast,255,knockback,at);
     internal static int Start(ShadowSkillCasting.Cast cast,int rank)
     {
         _=Row();if(!Continues(cast.Body,cast.Target)){return 0;}

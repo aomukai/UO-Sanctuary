@@ -1,5 +1,7 @@
 # Shadow world and action admission
 
+**Latest intrinsic admission (2026-11-08 JST):** own Dragon Tail270 now joins Talon255, using original startup/do50, shared kick/charge contacts and separate fire area. World requests for both species and natural Warrior AI pass, with 24 native markers/two reloads. [Checkpoint](shadow-tail-checkpoint.md). Flight/Fury/Sentinel/death/learned dependencies and unrestricted Master loadouts remain.
+
 **Latest intrinsic action scope (2026-11-08 JST):** own Dragon Talon255 now has original cached startup/do42repeated contacts,ordinary percent rewind and full recovery,shared six-family charge callbacks,world requests and natural Warrior AI.24 native markers through two reloads;20new four-routine composition controls/46retained rewinds. [Checkpoint](shadow-talon-checkpoint.md). Modern NPC timing/charge/other-flags behavior remains scoped;Tail/Flight/Fury/Sentinel/death/learned dependencies remain. Shared sentry placement is approved and implemented.
 
 **Approved shared sentry placement (2026-11-08 JST), resolved:** all five stationary sentries now use the same bounded native search for players and original Shadows. Startup LOS follows the resolved candidate;release revalidates the live target.21 native markers through two reloads include natural Warrior AI,all-five player/both-Shadow casts,free blocked failure/FIFO preservation and original saves. [Checkpoint](sentry-placement-checkpoint.md). Exact D2R search order remains an approved adaptation;Shock Web cooldown and other intrinsic/death/learned gates remain.

@@ -38,6 +38,8 @@ internal static class ShadowActions
         =>BeginSkill(body,target,target?.Location??body.Location,at,260);
     internal static bool BeginDragonTalon(AssassinShadowBody body,BaseCreature target,DateTime at)
         =>BeginSkill(body,target,target?.Location??body.Location,at,255);
+    internal static bool BeginDragonTail(AssassinShadowBody body,BaseCreature target,DateTime at)
+        =>BeginSkill(body,target,target?.Location??body.Location,at,270);
     private static bool BeginSkill(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs its UTC entry clock");}
@@ -47,7 +49,7 @@ internal static class ShadowActions
         {
             bool s2=skill==251||ShadowSentries.Handles(skill);
             bool claws=ShadowClawSequence.Handles(skill);
-            var plan=skill==255?ShadowAnimation.Talon(body):s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
+            var plan=skill==270?ShadowAnimation.Tail(body):skill==255?ShadowAnimation.Talon(body):s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
                 :skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
             int marker=s2?2:1;
             int releases=plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker);
@@ -129,7 +131,7 @@ internal static class ShadowActions
                 }
                 foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
                 {
-                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&(action.Cast.Skill==251||ShadowSentries.Handles(action.Cast.Skill))||e.Kind==1&&(action.Cast.Skill is 253 or 273 or 277||ShadowDefensiveBuffs.Handles(action.Cast.Skill)||ShadowChargeStrikes.Handles(action.Cast.Skill))))
+                    if(e.Type==SourceAnimationEvents.ModeChange&&(e.Kind==2&&(action.Cast.Skill==251||ShadowSentries.Handles(action.Cast.Skill))||e.Kind==1&&(action.Cast.Skill is 253 or 270 or 273 or 277||ShadowDefensiveBuffs.Handles(action.Cast.Skill)||ShadowChargeStrikes.Handles(action.Cast.Skill))))
                     {_=ShadowSkillCasting.Release(action.Cast,action.NextUtc);}
                     else if(e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1&&action.Cast.Skill==0)
                     {
