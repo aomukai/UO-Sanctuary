@@ -31,6 +31,8 @@ internal static class OriginalNpcMelee
         if(at.Kind!=DateTimeKind.Utc||owner is not{Alive:true,Deleted:false}||body?.ControlMaster!=owner||body.Map==null||body.Map==Map.Internal||body.Map!=target?.Map||owner.Map!=body.Map)
         {throw new NotSupportedException("Original equipped NPC contact needs its living world owner and explicit UTC allocation phase");}
         RequireAllocation(body,target);var rules=IronGolemContact.Require(body,owner,target);
+        if(body is AssassinShadowBody&&AssassinCharges.Any(body))
+        {throw new NotSupportedException("Shadow ordinary finisher must release its active martial charges; consumer remains unqualified");}
         if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Original equipped NPC recipient block rule is unavailable");}
         return IronGolemContact.Prepare(body,target,rules,()=>NpcMeleeResult.Resolve(body,target,range,()=>ClassCombat.IsHostile(owner,target),n=>NpcEquipmentRandom.Limited(body,n)));
     }

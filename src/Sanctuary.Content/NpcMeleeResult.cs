@@ -30,11 +30,11 @@ internal static class NpcMeleeResult
         }
         internal override bool Uninterruptible()=>MonsterUninterruptibles.Active(target);
     }
-    internal static int Resolve(BaseCreature source,BaseCreature target,Func<int,bool> range,Func<bool> hostile,Func<int,int> limited)
+    internal static int Resolve(BaseCreature source,BaseCreature target,Func<int,bool> range,Func<bool> hostile,Func<int,int> limited,int attackPercent=0)
     {
         ArgumentNullException.ThrowIfNull(range);ArgumentNullException.ThrowIfNull(hostile);ArgumentNullException.ThrowIfNull(limited);
         // Preserve existing component appearance/block admission before actor hit RNG.
         if(!SourceBlocking.TryRate(target,out _,out _)){throw new NotSupportedException("Ordinary NPC recipient block supplier is not mapped");}
-        return SourceMeleeResult.Resolve(new Services(source,target,range,hostile,limited));
+        return SourceMeleeResult.Resolve(new Services(source,target,range,hostile,limited),attackPercent);
     }
 }

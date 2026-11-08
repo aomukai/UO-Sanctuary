@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "source": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "routines": {
+    "SKILLS_SrvSt23_AssasinChargeStrikes": "5545eadf694455e1f70de937730e53a2051ed1ee3558c6f4de5d58593c2f3da2",
+    "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike": "e9c3a12adee2ad48a9fed56679eb1feb22c622e7b8eedbcb4917824117711fa8"
+  },
+  "reusedEvidence": [
+    "tools/reference/tiger-strike-source-evidence.json",
+    "tools/reference/cobra-strike-source-evidence.json",
+    "tools/reference/phoenix-builder-source-evidence.json"
+  ],
+  "newCompiledControls": 0,
+  "scope": "Reviewed full start23/do34 NPC-eligible bodies and authenticated existing compiled producer controls. New own-actor native contact/lifecycle/reload tests are separate. A2 conductor and progressive NPC finishers are not qualified; no claim of current executable startup parity."
+}

@@ -1,0 +1,76 @@
+{
+  "parent": "4d816b16eda286d225b5b0c46695f58db57a6e3f",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticBuildersEnabled": false,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-charge-check": 1,
+    "shadow-ground-check": 1,
+    "shadow-actions-check": 1,
+    "tiger-strike-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-charge-reload-check": 2,
+    "shadow-ground-reload-check": 2,
+    "shadow-actions-reload-check": 2,
+    "tiger-strike-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "042bbf92311db6ebd22afb558836b676d3ae106461775fcbe0af0028a03b34c4",
+    "Assemblies/Sanctuary.Integration.dll": "fb11f9442a93d2b5f758fc8b0a338e1d001ac93605118673f9e361a893be0496"
+  },
+  "files": {
+    ".local/class-skills/shadow-charges/birth-inputs.json": "2fed486305188b2ef8a36adeffdfa8183d94be56cc4dd647f2b223b9a375feab",
+    ".local/class-skills/shadow-charges/birth-native-checks.log": "b6213a97a7abeac65cc60735676ccb2ccfdc80e0146e02c523855bd3df690408",
+    ".local/class-skills/shadow-charges/source-snapshot-1.json": "f31d91f0de24349bf0c59af15475fc3830a706cccae75aa2aa0954363d0053c8",
+    ".local/class-skills/shadow-charges/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-charges/content-build-1.log": "152980c1dd69ebd385ea69b50098d0b50dd2b605e2ccb5e14c500dfa20a357a3",
+    ".local/class-skills/shadow-charges/integration-build-1.log": "d6434defb1023c358a5e5478d1d559b5594404a054b794d2a3340fbfe48cd8a2",
+    "tools/reference/shadow-charge-source-review.json": "bff48855afb74b30f4bd79e2f116f0a13d7942ebfdb5b065ee0d455cebbca85b",
+    "tools/reference/tiger-strike-source-evidence.json": "201cf2e8345e30490037b848f660e2219be2573d89acb504aae73d47bbf1cac8",
+    "tools/reference/cobra-strike-source-evidence.json": "9143d388eb6366ddf6263b181a4db0b79aedaf362bea1d25e8ad1df019dd9bc0",
+    "tools/reference/phoenix-builder-source-evidence.json": "90afa10f3bb68292f3838c1b99021fbe09fb5ae3aabfeb63ec8a117bccd25837"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "newCompiledSourceControls": 0,
+  "scope": [
+    "Own intrinsic selected start23/do34 backend for both original Warrior and Master: Tiger254,Cobra265,Phoenix280. Own ranks, skill to-hit input, source-owned hit RNG and full original equipment allocation/contact; successful allocation gains charges before ordered contact. No player cast, mana, items or talent proxy.",
+    "Each family on each species causes actual HP damage; misses gain no charge and cause no life loss; startup rejects out-of-melee without RNG; repeated release cannot replay. Independent slots, initial rank, AR increments, cap3, refresh deadlines and expired replacement/prune use existing AssassinCharges lifecycle.",
+    "Same original bodies, inventories, resources, wounds, RNG and three charge slots with unchanged deadlines survive both reloads, then build/damage again. No A2 animation scheduling is introduced by this backend. Owner charge slots/mana and original inventory remain separate.",
+    "Active own charges make ordinary shared Shadow Prepare explicitly refuse before RNG until progressive finisher effects are qualified; no silent loss of charge semantics. Existing Warrior/actions and player Tiger charge/finisher/persistence regressions pass.",
+    "Existing complete start23/do34 source hashes and compiled controls are reused and authenticated; no duplicate source matrix is generated. This is source review plus native composition evidence, not current executable behavioral certification."
+  ],
+  "limitations": [
+    "Backend only: current NPC monanim A2/mode5 conductor and full progressive own stat-list/finisher consumers are unfinished. Neither automatic AI consumer nor learned Shadow route is enabled. No claim of completed Shadow talents.",
+    "Current D2R exact startup, animation, skill/item/PvP/death behavior remains scoped as documented in Shadow admission checkpoint. Own charge AR/count are in shared lifecycle, not silently installed into original NPC stat graph.",
+    "Pending NPC Shock Web delay15 and occupied sentry placement questions, current modifier42 death, modern missile range expressions and other intrinsic skills remain independent. Player Blade Shield events remain separate.",
+    "Charge markers retain existing identified generic placeholder. Final A2, contact, progressive overlays/audio and talent/hotkey assets remain in their separate inventories."
+  ],
+  "failedRuns": []
+}

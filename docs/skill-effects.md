@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shadow charge backend (2026-11-08 JST).** Tiger/Cobra/Phoenix gain reuses identified generic marker0x375A. Final NPC A2 and weapon-contact poses, family-specific charge overlays/refresh/expiry and audio remain pending; share the existing player charge families. A2 conductor and progressive finishers remain mechanically gated. See [checkpoint](shadow-charge-checkpoint.md). Icons remain separate.
+
 **Master world (2026-11-08 JST).** Distinct Master now follows/fights in qualified internal fixtures using existing Shadow native movement/attack/cast and skill cues. Final walk/run/turn, retreat, attack/cast/contact/recovery, state overlays and audio remain pending placeholders;reuse the existing Shadow/skill families. See [checkpoint](shadow-master-world-checkpoint.md). No new final art is introduced;icons stay separate.
 
 **Intrinsic Shadow stationary sentries (2026-11-08 JST).** All five do45 casts reuse identified native Shadow poses, summon sound0x23B and the existing sentry body0x9C/hue0x482 (Inferno0x489), projectile and impact placeholders. Final placement/S2, distinct trap models/emergence, firing/contact, expiry/retirement and audio remain needed; share their existing player-sentry asset families. See [checkpoint](shadow-sentry-checkpoint.md). Icons remain separate.

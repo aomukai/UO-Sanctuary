@@ -30,7 +30,8 @@ public static class AssassinCharges
     public static void Configure(){Profiles=new();EventSink.WorldSave+=Prune;}
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Prune);
     internal static bool Owner(Mobile owner)=>owner is{Alive:true,Deleted:false}
-        && ClassCreation.Profiles?.TryGet(owner.Serial,out var p)==true && p.Class==DiabloClass.Assassin;
+        && (owner is AssassinShadowBody{Prepared:not null}
+            ||ClassCreation.Profiles?.TryGet(owner.Serial,out var p)==true && p.Class==DiabloClass.Assassin);
     public static MartialCharge State(Mobile owner,CombatAbility ability=CombatAbility.TigerStrike)
         =>Owner(owner) && States.TryGetValue((owner.Serial.Value,ability),out var state) && state.UntilUtc>TimedEffects.Now?state:null;
     internal static MartialCharge Build(MartialCharge old,uint owner,SkillValues values,DateTime at)
@@ -43,11 +44,14 @@ public static class AssassinCharges
             at.AddMilliseconds(checked(values.Eval("auralencalc")*40)));
     }
     internal static void Gain(PlayerMobile owner,SkillValues values)
+        =>Gain(owner,values,TimedEffects.Now);
+    internal static void Gain(Mobile owner,SkillValues values,DateTime at)
     {
+        if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Martial charge gain needs UTC");}
         if(!Owner(owner)){return;}
-        var state=Build(State(owner,values.Ability),owner.Serial.Value,values,TimedEffects.Now);States[(state.Owner,state.Ability)]=state;
+        var state=Build(States.GetValueOrDefault((owner.Serial.Value,values.Ability)),owner.Serial.Value,values,at);States[(state.Owner,state.Ability)]=state;
         // Identified generic marker; final tigerstrike1/cobrastrike1 charge1/2/3 orbiting art/audio pending.
-        owner.FixedEffect(0x375A,5,5,values.Ability==CombatAbility.BladesOfIce?0x480:values.Ability==CombatAbility.FistsOfFire?0x489:values.Ability==CombatAbility.CobraStrike?0x26:0x481,0);StatNetwork.Send(owner);
+        owner.FixedEffect(0x375A,5,5,values.Ability==CombatAbility.BladesOfIce?0x480:values.Ability==CombatAbility.FistsOfFire?0x489:values.Ability==CombatAbility.CobraStrike?0x26:0x481,0);if(owner is PlayerMobile player){StatNetwork.Send(player);}
     }
     internal static int TigerPercent(MartialCharge state,int currentRank)
     {

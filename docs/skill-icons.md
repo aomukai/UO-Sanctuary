@@ -1,5 +1,7 @@
 # Skill icons
 
+**Shadow charge backend (2026-11-08 JST).** No new public binding or icon identity is added. Shadow Warrior/Master and the existing Tiger/Cobra/Phoenix talent/hotkey icons retain their identified text placeholders. See [checkpoint](shadow-charge-checkpoint.md); effects/audio remain separately tracked.
+
 **Master world (2026-11-08 JST).** Internal AI activation adds no public binding or icon identity. Shadow Warrior/Master talent/hotkey icons remain pending identified text placeholders;final effects/audio are separate. Learned summons remain gated. See [checkpoint](shadow-master-world-checkpoint.md).
 
 **Intrinsic Shadow stationary sentries (2026-11-08 JST).** No additional public binding or icon identity is added. Shadow Warrior/Master and all five player sentry talent/hotkey icons remain pending identified text placeholders. Mechanics and saved original actors are checked separately from final rendered presentation; see [checkpoint](shadow-sentry-checkpoint.md). Effects/audio remain separate.
