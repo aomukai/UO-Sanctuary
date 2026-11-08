@@ -1,0 +1,76 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedApocalypseEnabled": false,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "apocalypse-area-check": 1,
+    "apocalypse-potions-check": 1,
+    "apocalypse-ground-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "apocalypse-area-reload-check": 2,
+    "apocalypse-potions-reload-check": 2,
+    "apocalypse-ground-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "nativeRun": 1,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/apocalypse-ground/source-snapshot-1.json",
+    "sha256": "1608cf82cbe983a0c8a9ed043ed3e036216a25658f3734eac8aeebbad9823f9c"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/apocalypse-ground/birth-inputs.json",
+    "sha256": "6ca1bc60c79fc5465a6e5f8134ff52cb0450e0c487054c971082682f6d943687"
+  },
+  "files": {
+    "src/Sanctuary.Content/ApocalypseGround.cs": "eb7e7fe4e09ce6a1516027fdbe127124d67b60d38d5410040eb8077d463713bf",
+    "src/Sanctuary.Content/SigilActors.cs": "abb3b71a1da8a5be316da93c418fedba5ceaeba37a215d97f7db2aeb8b39b896",
+    "src/Sanctuary.Content/BasicMissileUpdate.cs": "e4a9646715853aad9685d8df10ece84dc6b2133a2e57f3819944bd9709938705",
+    "src/Sanctuary.Content/GroundMissileLaunch.cs": "ad679af4033fdf5c3a27dfcae6f9992a94cde66faa54ca6bb243ce8804546a18",
+    "tests/Sanctuary.Integration/ApocalypseGroundChecks.cs": "fcbbd9ba4175297454045dbbcad176890c207c284f7cf6a88b189ec991f3d872",
+    "tests/check_apocalypse_ground.py": "2d0132a77b4ef583bba92924c537530cfe85e1409f8bdb470d5dedf1b78635d9"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "67b5c1e7307f5089af7dbf49e099d212728ca6be331f9712e52a2884210db2b0",
+    "Assemblies/Sanctuary.Integration.dll": "6b4529a7816f1bd74a7b54d2de21f3b53b0e12af3478cda0fa4538e5209a7d79"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "priorCompilerMatricesRerun": 0,
+  "verification": [
+    "Shared start14/do123 and size1 native floor/LOS projection;draw before failed allocation;target-memory stores source sample.",
+    "Stationary no-collision do1:frame49 no hit on occupied tile;frame50 invokes hit23/163 once;no replay.",
+    "Caster stream shared by launch and explosion;retained launch rank while hard synergy changes live;actual enemy HP matches expected single roll.",
+    "Original marker,origin,remaining frame,rank,birth deadline,owner seed and wounded target retained through two native reloads;invalid restore is atomic.",
+    "Prepared suppression consumes lifetime without damage/explosion RNG on offline/facet paths;previous area and potion native controls remain passing."
+  ],
+  "limits": [
+    "Prepared controller only;learned startup/payment/action flag/client notification/initial native RNG adapter and input still need integration.",
+    "Initial stream supplied explicitly;cross-ability RNG interleaving and simultaneous source unit-update ordering unverified.",
+    "Basic do1/generic expiry contract reused from existing legacy-qualified helper;current binary parity is not newly established.",
+    "Native map/placement and offline/facet/death lifecycle are prepared world projections,not full current D2R cleanup certification.",
+    "No final effects/icons;original static0x1B7A is identified ground placeholder."
+  ]
+}

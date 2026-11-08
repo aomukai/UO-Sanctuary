@@ -1,5 +1,7 @@
 # Skill effects
 
+**Apocalypse ground controller placeholder (2026-11-09 JST).** Original static`0x1B7A` represents the ground countdown;recipient`0x36D4` remains a placeholder. Final cast,countdown,detonation/area,recipient effects and audio still need creation. [Checkpoint](apocalypse-ground-checkpoint.md). Talent/hotkey icons remain in the separate icon register;no final artwork generated.
+
 **Apocalypse prepared impact (2026-11-09 JST).** Recipient effect0x36D4 is an identified placeholder. Final cast,ground countdown,detonation/area,recipient overlay and audio remain needed;the temporary resistance reduction does not create a new lasting curse visual. [Checkpoint](apocalypse-impact-checkpoint.md). No final image generation performed;icons remain separate.
 
 **Death Mark intrinsic interruption (2026-11-09 JST).** Cancellation adds no final art. Issued Tainted Fire Balls retain their current travel/impact placeholders and independent damage after caster warp;pending casts stop emitting. Existing landing0x3728,target0x375A and final cast/warp/mark/expiry/audio remain pending. [Checkpoint](death-mark-interrupt-checkpoint.md). Icons remain separate.

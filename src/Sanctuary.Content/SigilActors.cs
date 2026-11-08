@@ -78,7 +78,7 @@ internal static class SigilActors
     private static bool Cell(PlayerMobile owner,Map map,Point3D point)=>map!=null&&map!=Map.Internal&&point.X>=0&&point.Y>=0
         &&point.X<map.Width&&point.Y<map.Height&&point.Z is >=-128 and <=127&&!SpellHelper.IsTown(point,owner)
         &&map.CanFit(point,1,true,false,true)&&owner.InLOS(point);
-    private static bool Ground(PlayerMobile owner,Map map,Point3D requested,out Point3D ground)
+    internal static bool Ground(PlayerMobile owner,Map map,Point3D requested,out Point3D ground)
     {
         // Current size1/mask5 placement checks terrain,not occupying actors.
         // Reuse native floor/static projection without leap's travel/multi or
