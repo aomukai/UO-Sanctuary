@@ -93,7 +93,7 @@ public static class NpcHydraBirthChecks
         Require(p.EquipItem(claw),"Root claw equip");ClassGear.Refresh(p);
         for(int i=0;i<bodies.Length;i++){Require(NpcHydraCreation.Capture(bodies[i],3)==before[i],"Prepared Hydra borrowed changed root player equipment/stats");}
         p.AddToBackpack(claw);claw.Delete();ClassGear.Refresh(p);var held=bodies.Select(Hold).ToArray();foreach(var b in bodies){PersistentMinions.Park(b);}p.Internalize();File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared Hydra enabled learned Shadow");
+
         Log.Information("NPC Hydra prepared birth/item frame:128reused nonhireling source contexts;own stats/hard synergies and actual NPC owner,zero player FIFO registration,all partial-failure masks,target/ground/start14/do144,free resources,restoration and no automatic materialization;real Warrior1/Master9original gear/root swaps/saves pass. NPC-owned world consumer is verified separately.");
     }
 }

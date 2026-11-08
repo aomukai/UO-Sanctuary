@@ -150,7 +150,7 @@ public static class ShadowBodyChecks
             finally{SummonDifficulties.SetFacets(facets);}
             Require(held.Count==24,"Missing actual Shadow rank/difficulty births");
         }
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Resource backend enabled incomplete learned Shadows");
+
         ShadowPassiveChecks.SourceControls();
         NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(held.ToArray(),generation)));
         Log.Information("Shadow bodies:24actual initialized species/owners and unfiltered original inventories;source callback before birth scaling,item/actor/world continuations,FP256 life/mana/stamina,logical item changes,owner snapshots,parked no-recovery/healer support and designated-facet rescale;actual body/items/resources/wounds/RNG through two reloads;NPC skills/events,AI105/106,UMod death and learned casts remain gated");

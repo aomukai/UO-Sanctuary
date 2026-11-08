@@ -167,7 +167,7 @@ public static class ShadowIceChecks
             Gain(b,274,3,at);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);GeneratedNpcLiveResources.Snapshot();held.Add(Capture(b,t));
         }
         PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,held.ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Ice enabled unfinished learned Shadows");
+
         Log.Information("Own Ice:inline cold length replacement/three-charge freeze,parent-before-chill area,source scatter/cube damage10 cold+freeze/LastCollision/30frame expiry,all-six state-order streams,immunity/miss/cancel/atomic restore,world/basic/natural Warrior AI and exact original body/cube/status saves through two reloads;other intrinsic/modern/learned gates remain.");
     }
 }

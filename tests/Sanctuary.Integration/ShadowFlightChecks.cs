@@ -170,7 +170,7 @@ public static class ShadowFlightChecks
             Clear(b);var t=Target(b);Gain(b,254,at.AddMinutes(6));Require(ShadowActions.BeginDragonFlight(b,t,at.AddMinutes(6)),"Pending saved Flight refused");if(b.Prepared.Capture.Ability==CombatAbility.ShadowMaster){ShadowActions.Tick(at.AddMinutes(6).AddMilliseconds(400),true,b.Serial.Value);}t.Delete();SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Flight enabled unfinished learned Shadows");
+
         Log.Information("Own Flight:approved first-marker actual transfer/second-marker own kick,original NPC10/15/24clock,shared six-family contacts/free NPC mana,stored and in-flight ground pose synchronization,world/natural Warrior AI,cancel/no replay and exact original saves through two reloads;modern boundaries and other learned gates remain.");
     }
 }

@@ -65,7 +65,7 @@ public static class ShadowSentinelChecks
         // The saved pending packets must remain frozen while the root has
         // no weapon. Each is armed from its original packet on the next boot.
         p.AddToBackpack(claw);claw.Delete();ClassGear.Refresh(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,casters.Select(c=>c.Serial.Value).ToArray(),held,NecromancerEffects.ManaBalance256(p),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared factory enabled unfinished learned Shadows");
+
         Log.Information("Nested Sentinel factory:own rank/origin/current level,root player base/passives/weapon snapshot and roster,no player/Shadow mana or Shadow critical RNG;birth gear frozen before first AI,once-only arming,pre-arm difficulty rescale and saved pending packets pass. Own cast/localdelay admission remains separate.");
     }
 }

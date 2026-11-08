@@ -1,0 +1,117 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 210,
+  "assassinHandlers": 30,
+  "completedClasses": [],
+  "learnedShadowsEnabled": true,
+  "currentExecutableParity": false,
+  "newCompilerMatrices": 0,
+  "retainedScSourceContexts": 2590,
+  "rows": [
+    {
+      "sourceId": 268,
+      "fields": {
+        "srvdofunc": 49,
+        "summon": "shadowwarrior",
+        "pettype": "shadowwarrior",
+        "petmax": 1,
+        "summode": "NU",
+        "anim": "SC",
+        "seqtrans": "SC",
+        "InTown": 1,
+        "localdelay": 15,
+        "leftskill": 0,
+        "rightskill": 1,
+        "minmana": 1,
+        "manashift": 7,
+        "mana": 54,
+        "lvlmana": 1
+      }
+    },
+    {
+      "sourceId": 279,
+      "fields": {
+        "srvdofunc": 49,
+        "summon": "shadowmaster",
+        "pettype": "shadowwarrior",
+        "petmax": 1,
+        "summode": "NU",
+        "anim": "SC",
+        "seqtrans": "SC",
+        "InTown": 1,
+        "localdelay": 15,
+        "leftskill": 0,
+        "rightskill": 1,
+        "minmana": 1,
+        "manashift": 7,
+        "mana": 70,
+        "lvlmana": 1
+      }
+    }
+  ],
+  "completeDo49Sha256": "36b8145ad041530b84cba2145e567f8295448b19ce7356e822ab2661838bbb67",
+  "pinnedSkillAssSha256": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+  "clockEvidenceSha256": "bc61b1a9ed052a1ebe406d4763fdef8eecb422bbda57d1b5138b31ac89e03163",
+  "nativeMarkers": 30,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-cast-check": 1,
+    "shadow-fury-cast-check": 1,
+    "shadow-master-world-check": 1,
+    "shadow-cast-right-check": 3,
+    "shadow-cast-right-result": 3,
+    "shadow-cast-quick-check": 3,
+    "shadow-cast-quick-result": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-cast-reload-check": 2,
+    "shadow-fury-cast-reload-check": 2,
+    "shadow-master-world-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 5,
+  "sourceSnapshot": 9,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "df166ed4c9a2efb238a18707c09aa1ffc7b6d70f9e42e7f5b13f780606f8df10",
+    "Assemblies/Sanctuary.Integration.dll": "881c3f45be0412a3d449e2b7db6cb6dc4e21c6ddfefe729204bafd962da2ad9a"
+  },
+  "files": {
+    "src/Sanctuary.Content/AssassinShadowCasting.cs": "2005218674a336086b814f085dfd7c83c563d0e8dc2381aac8ad325a53ffb22d",
+    "src/Sanctuary.Content/AssassinShadowBody.cs": "c8bc2e324fdd7e2693ec87cc1044389fb6cb067eb2047e93e9d01ce6d8efa040",
+    "src/Sanctuary.Content/ShadowGroundMotion.cs": "13363b63260590a6f30aeb1d4bdcb6c06e6c15e9c889e3d9ae87efa11b7b0ce7",
+    "src/Sanctuary.Content/AssassinCombat.cs": "989466e52cc3a8ae97ff0446ed103e1e629ff297568ae00eba65fc9883a68003",
+    "src/Sanctuary.Content/AssassinCastClock.cs": "d14b21cf18cd3332238c8d5b301d7de6d36d3ca437669e77c149ef09186b6639",
+    "tests/Sanctuary.Integration/ShadowCastChecks.cs": "c4df4cc353ae26bc6b68b04245b290709d6688677a357fb1e89df10cf49d7ceb",
+    "tests/Sanctuary.Integration/AssassinCastClockChecks.cs": "126ff02c39b3cc86cd012a66fe710b1c6c3a535a341e2995108e8c73d581f399",
+    "tests/check_shadow_learned_cast.py": "8d2a9a7b05252de497dce8da89f6ec7d769351fcf5721a04b677b5ab03234e77",
+    "tools/record_shadow_learned_cast.py": "73c3bb3ac748bdd5a0185502d08107637695e18af008b33fba535f2851bef1c7",
+    "data/Sanctuary/Balance/class-skill-status.json": "2f218b26c9feed723452f62d34255901809d58b7f19be70151bfd768f9713127"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Trained Assassin learned SC/right and quick routes create the actual original Shadow controller. Live release rank/cost/placement checks,candidate qualification,once-only fractional payment,learned saved flag and shared one-pet Warrior/Master roster reuse existing Valkyrie transaction. Failed allocation/payment preserve the existing wounded pet and resources;actual failed allocation remains forward. Town initialization checks actual original ownership separately from combat permission,then parks normally without healing. Existing combat Attached town gate remains. Qualified native fist timers return1second without damage/RNG/allocation;legacy unqualified bodies keep their guard. Both real socket routes cause source-controller HP damage. Eight original creation cohort contexts (two species/four seeds),interruptions,underfunding,other-species replacement,backend-body isolation,parked original item/resource/wound/seed and paid-roster saves pass. Existing intrinsic Fury and Master world consumers retained.37obsolete public-unavailability assertions removed/reduced to their numeric/action invariants;new learned acceptance tests replace that blanket gate. No complete class claim.",
+  "diagnostic": "I1 exposed two copied fixture type names;fixed to reuse existing mapped recipient. Native1 exposed town controller initialization reusing combat-only Attached and parked validation requiring a world map;ownership-only initialization plus parked-compatible qualification fix both. Native2 passed transactions/town/cohort but real socket combat reached the prior throwing native BeginMelee guard and terminated the disposable server. Qualified original controllers now reuse Valkyrie no-op1second timer,with direct no-mutation verification;unqualified legacy guard unchanged. Native3 passed;native4/C3/I5 adds the actual committed local-cooldown boundary and final whitespace cleanup. Failed logs/input manifests retained;installed server never changed.",
+  "remaining": [
+    "Unsupported original equipment/property/recipient cases still report/refuse intact without stripping items or charging failed learned casts",
+    "Full modern AI/geometry/callback/removal/PvP and nonzero immunity-pierce acceptance remain explicitly scoped",
+    "Final Shadow bodies/equipment,cast/attack/death/spell effects/audio and talent/hotkey icons remain separate placeholders",
+    "Amazon Slow Missiles and remaining Warlock skills remain on the class roadmap"
+  ]
+}

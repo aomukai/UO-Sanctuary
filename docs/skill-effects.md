@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Shadow casts (2026-11-08 JST).** Mechanics reuse identified humanoid `0x190`/hue`0x455` appearance and shared `0x376A` emergence/`0x1E5` summon sound placeholders. Final original bodies/equipment,player cast,emergence,source attack/spell and death/expiry effects/audio remain required in the Shadow/shared skill families. [Checkpoint](shadow-learned-cast-checkpoint.md). No imagegen work;icons stay separate.
+
 **Intrinsic Shadow Fury (2026-11-08 JST).** Actual action now emits through the existing identified `0xF42` blade/contact/return placeholders. Final original sequence poses,release,travel/impact/expiry and audio remain required in the shared Fury/Shadow family. [Checkpoint](shadow-fury-cast-checkpoint.md). No imagegen work performed;icons remain separate.
 
 **Master Sentinel range (2026-11-08 JST).** AI eligibility adds no emitter or new visual identity. Actual casts retain identified shared S2/blade travel/contact/expiry and audio placeholders;final assets remain required in the Sentinel/Shadow family. [Checkpoint](shadow-master-range-checkpoint.md). Icons stay separate.

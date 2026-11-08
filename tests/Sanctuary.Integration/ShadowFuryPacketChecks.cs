@@ -96,7 +96,7 @@ public static class ShadowFuryPacketChecks
             b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.ChangeSkills(book=>{book.Assign(266,12);book.Assign(257,3);book.Assign(277,3);});Live(b,p);Resources(b,p);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();var held=bodies.Select(Capture).ToArray();PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Fury packet enabled unfinished learned Shadows");
+
         Log.Information("Own Fury packet:16complete monster creator contexts,original primary weapon/body stats/hard synergies,typed source96/poison override/double armor delta,supplied critical without actor RNG or emissions,and exact original actor/items/resources/wounds/seed/packet through two reloads;channel,critical selection and impact remain separate.");
     }
 }

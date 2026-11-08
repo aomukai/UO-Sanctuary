@@ -149,7 +149,7 @@ public static class ShadowFistsChecks
             FireGround.AddShadowFists(b,3,b.X+1,b.Y,b.Z,256,512,source,at);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Fists enabled unfinished learned Shadows");
+
         Log.Information("Own Fists:inline post-fill conversion/SOFTHIT,actual parent before burst and independent scatter/field seeds,death/immunity/miss/range/cancel/duplicates,63field hits/64frame expiry,world sequence/basic action,atomic restore and original saved source/items/resources/wounds/RNG/charges/fields through two reloads. Other intrinsic/modern/learned gates remain.");
     }
 }

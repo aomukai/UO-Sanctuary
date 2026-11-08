@@ -80,7 +80,7 @@ public static class ShadowFuryClockChecks
             b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.ChangeSkills(s=>{s.Assign(266,12);s.Assign(257,3);s.Assign(277,3);});Clock(b,p);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();var held=bodies.Select(Capture).ToArray();PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared SC action enabled learned Shadows");
+
         Log.Information("Original Fury:mode14 slot2/17point sequence,speed256/marker10/end18,own rate isolation,no RNG/payment/emission;source comparison and proposed critical arithmetic pass;own originals retained. Full lease/rewind/emission/critical/seed/AI remain gated.");
     }
 }

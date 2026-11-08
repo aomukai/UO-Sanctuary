@@ -177,7 +177,7 @@ public static class ShadowTalonChecks
             Clear(b);var pending=Target(b);Gain(b,254,3,at);Require(ShadowActions.BeginDragonTalon(b,pending,at.AddMinutes(3)),"Pending-save Talon entry refused");pending.Delete();SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Talon enabled unfinished learned Shadows");
+
         Log.Information("Own NPC Talon:20composed source/46rewind controls,original startup cache,do42immediate follow-up/repeats/full recovery,approved per-contact charge/accuracy policy,all-six emissions,knockback,original hands/no NPC mana,world/natural Warrior AI,cancel/no replay and original saves;modern NPC boundaries remain scoped.");
     }
 }

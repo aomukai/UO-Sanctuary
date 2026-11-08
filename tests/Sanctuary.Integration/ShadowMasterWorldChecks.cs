@@ -121,7 +121,7 @@ public static class ShadowMasterWorldChecks
         b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);var state=State(b);b.WorldGround.Store(IronGolemWorld.Park(state)with{Motion=DruidRavenMotion.Center(b.X*2,b.Y*2),Target=0,NextUtc=TimedEffects.Now.AddMinutes(30)});
         target=Target(b,3);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,b.Serial.Value,b.SavedText,Json(GeneratedNpcLiveResources.State(b)),ShadowLoadout.Originals(b).Select(i=>i.SavedText).ToArray(),NpcEquipmentRandom.Require(b),SkillHealth.Balance256(b),target.Serial.Value,SkillHealth.Balance256(target),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior),"Internal Master bridge enabled unfinished learned summons");
+
         Log.Information("Master world:distinct AI106/native sectors,own skill/RNG and shared transport/contact/actions,target queries and actual damage,follow/run/moving block,explicit unsupported consumers,saved original state and nontrivial repeated input,no replay and resumed damage after two reloads;learned/world parity gates remain");
     }
 }

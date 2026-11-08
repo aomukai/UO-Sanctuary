@@ -91,7 +91,7 @@ public static class ItemSkillPropertyChecks
             Require(continued.Seed==ulong.Parse(row[5].GetString())&&continued.Draws==row[6].GetInt32()-row[3].GetInt32()&&Same(continued.Capture().Properties,row[7]),"Snapshot charge replacement/seed continuation differs");
             index++;
         }
-        Require(index==12&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Raw skill properties enabled incomplete summons");
+        Require(index==12,"Raw skill property fixture count changed");
         if(!reload){File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));}
         Log.Information("Encoded skill graphs:12original native items;proc addition,charge overwrite,missing-record no-op,source LCG and snapshot continuation;NPC dispatch gate retained");
     }

@@ -101,7 +101,7 @@ public static class ShadowFireBlastChecks
         Require(pending.All(b=>Find(b.Id)==b),"Sibling lob advancement changed held air/ground fixtures before save");
         PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,target.Serial.Value,bodies.Select(Capture).ToArray(),pending,SkillHealth.Balance256(target),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Intrinsic dispatcher enabled unfinished learned Shadow casts");
+
         Log.Information("Shadow Fire Blast:both intrinsic skill books through common startup/do,own rank/synergy/item packets,exact child/actor RNG,no NPC/owner mana,lob landing/explosion/moving miss,offline/reload no replay,atomic shared-pool restore and original saved bodies;animation/AI/learned routes remain gated");
     }
 }

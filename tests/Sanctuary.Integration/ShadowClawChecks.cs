@@ -142,7 +142,7 @@ public static class ShadowClawChecks
             finally{NpcWorldAllocation.Restore(world);}
         }
         foreach(var b in bodies){Exercise(b,owner,generation);PersistentMinions.Park(b);}GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior),"Unfinished learned Shadows enabled");
+
         Log.Information("Own elemental claw builders:144 complete NPC sequence traces/12 mode14 rate controls,actual original contacts/hands/RNG/charges,miss/cap/refresh/independent slots,interruption/no replay and exact original resources/items/wounds/charges through two reloads. Elemental finishers/automatic AI/learned routes remain gated;modern parity unverified.");
     }
 }

@@ -152,7 +152,7 @@ public static class ShadowThunderChecks
             Charge(b,3,at);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Thunder enabled unfinished learned Shadows");
+
         Log.Information("Own Thunder:source64nova/16charged initializer streams,post-fill inline lightning/pre-parent emission,typed moving impacts/shared per-cast four-frame leases,immunity/miss/range/offline/expiry/atomic restore,world/basic/natural Warrior AI and exact original partial-motion saves through two reloads;remaining intrinsic/modern/learned gates retained.");
     }
 }

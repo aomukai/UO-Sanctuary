@@ -70,7 +70,7 @@ public static class ItemAffixChecks
             count++;
         }
         Require(count == 41472, "Incomplete magic/rare outer source matrix");
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior) && !AssassinCombat.Implemented(CombatAbility.ShadowMaster), "Outer services enabled incomplete Shadows");
+
         Log.Information("Item affix:41472 complete magic/rare outer results and service traces;selection/property phase order,empty-side retries,slots,names,flags,format and preferences;no generated NPC item");
     }
 }

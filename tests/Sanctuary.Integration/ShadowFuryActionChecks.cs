@@ -121,7 +121,7 @@ public static class ShadowFuryActionChecks
             var target=Target(b);Require(ShadowActions.BeginBladeFury(b,target,target.Location,TimedEffects.Now),"Save windup entry refused");PersistentMinions.Suspend(b);target.Delete();Require(ShadowActions.State(b)==null&&b.OwnedSkills.Used==null,"Suspend retained Fury lease/selection");SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);
         }
         Natural(p,CombatAbility.ShadowWarrior);Natural(p,CombatAbility.ShadowMaster);GeneratedNpcLiveResources.Snapshot();var held=bodies.Select(Capture).ToArray();PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Intrinsic Fury enabled unfinished learned Shadows");
+
         Log.Information("Approved own Fury:single original10/18 sequence,free NPC state scoped to action,once-only critical/world/private seed composition,actual NPC packet,live target/rank,deleted-target no allocation,eight interruptions and suspend/no replay;natural Warrior/Master selection/release/recovery and original saves pass. Learned admission remains separate.");
     }
 }

@@ -143,7 +143,7 @@ public static class ShadowChargeChecks
         foreach(var b in bodies){Exercise(b,owner,generation);PersistentMinions.Park(b);}
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowMaster)&&!AssassinCombat.Implemented(CombatAbility.ShadowWarrior),"Builder backend enabled unfinished learned Shadows");
+
         Log.Information("Shadow charge backend: own selected start23/do34 for Tiger/Cobra/Phoenix, full original contact/AR/RNG, hit-only three-charge cap/refresh and independent slots, no owner mana, duplicate/miss/range/expiry guards, original persistent body/charges through reloads. A2 conductor checked against12new full source contexts; automatic builders and progressive finishers remain gated.");
     }
 }

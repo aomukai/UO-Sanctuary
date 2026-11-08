@@ -80,7 +80,7 @@ public static class ShadowKickChecks
         foreach(var b in bodies){Numeric(b,owner);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);}
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared kick enabled unfinished learned Shadows");
+
         Log.Information("Own Shadow kick: original NPC body level/boots, both actual weapon damage-list suppression with nondamage stats retained, primary restoration, saved actor-only physical RNG and exact original resource/item/wound persistence; typed fill, startup/repeated kick action and progressive emission remain gated.");
     }
 }

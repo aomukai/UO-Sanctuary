@@ -53,7 +53,7 @@ public static class ShadowUniqueChecks
             SkillHealth.SetBalance256(body,body.MaximumLife256*2/3-1);PersistentMinions.Park(body);
         }
         PersistentMinions.Suspend(owner);owner.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,bodies.Select(b=>b.Serial.Value).ToArray(),bodies.Select(b=>b.SavedText).ToArray())));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Unique recipient support admitted unfinished learned Shadow");
+
         Log.Information("Both original Shadows:modifier42 unique identity without encounter/boss grade,50% applied slow cap,original zero-Velocity stun rejection,unique RNG boundary and unchanged actor RNG/birth data;wounds and identity survive reload. Death nova remains unfinished.");
     }
 }

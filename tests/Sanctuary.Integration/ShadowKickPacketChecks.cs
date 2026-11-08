@@ -132,7 +132,7 @@ public static class ShadowKickPacketChecks
         GeneratedNpcLiveResources.Snapshot();
         held=held.Select(h=>h with{Resources=Json(GeneratedNpcLiveResources.State((AssassinShadowBody)World.FindMobile((Serial)h.Actor)))}).ToArray();
         PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared packet enabled learned Shadows");
+
         Log.Information("Own NPC Talon/Flight packets:original body/boot physical plus full source128typed fill,primary-only typed hand,flags3critical bypass,six-family shared postfill without emission/consumption,miss/no RNG,ordered HP/no replay and saved original prepared packet through two reloads;startup/repeated action remains separate.");
     }
 }

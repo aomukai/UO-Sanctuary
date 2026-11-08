@@ -14,6 +14,7 @@ internal sealed record ShadowBodyState(uint Owner,ShadowOwnerSnapshot Capture,Sh
     MonsterDifficulty Difficulty,DateTime NextRecoveryUtc,ShadowLoadoutState Equipment=null,ShadowWeaponBinding Weapons=null)
 {
     public string Profile{get;init;}="parked-shadow-resources-v1";
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public bool LearnedCast{get;init;}
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string Skills{get;init;}
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public string DefenseProfile{get;init;}
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public ShadowGroundState GroundMotion{get;init;}
@@ -21,8 +22,8 @@ internal sealed record ShadowBodyState(uint Owner,ShadowOwnerSnapshot Capture,Sh
 }
 
 // Real serialized species/ownership/original inventory and FP256 resource
-// recipient. The missing NPC skills/events/controller keep it parked. The
-// talent cast is still unavailable; no inherited skeleton combat is allowed.
+// recipient. Qualified actors use the original ground controller;legacy
+// unqualified bodies remain parked. No inherited skeleton combat is allowed.
 [SerializationGenerator(0)]
 public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPersistentMinion,INecromancerGroundEquipmentContact,INecromancerGroundBrain,INecromancerGroundPeriodic
 {
@@ -138,7 +139,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     public override(int Min,int Max)SkillWeaponDamage=>(0,0);
     public AssassinShadowBody()
     {Name="Shadow [appearance placeholder]";Body=0x190;Hue=0x455;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(376);SetMana(0);SetStam(0);SetDamage(0,0);}
-    public override TimeSpan BeginMelee(Mobile target)=>throw new NotSupportedException("Shadow NPC skills/events/controller have not been qualified");
+    public override TimeSpan BeginMelee(Mobile target)=>ShadowGroundMotion.Active(this)?TimeSpan.FromSeconds(1)
+        :throw new NotSupportedException("Shadow native melee needs its qualified original controller");
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override void SuspendActions(){ShadowActions.Cancel(this);if(State?.GroundMotion!=null){WorldGround.Suspend();}base.SuspendActions();}
     internal override void InterruptForRecovery(){ShadowActions.Cancel(this);if(State?.GroundMotion!=null){WorldGround.Suspend();}base.InterruptForRecovery();}
@@ -208,6 +210,16 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
             BattleCommand.Track(body);PersistentMinions.Park(body);body.ApplyEquipmentResistances();return body;
         }
         catch{body.Delete();throw;}
+    }
+    internal static AssassinShadowBody CreateInitializedController(PlayerMobile owner,Point3D point,DateTime at,CombatAbility ability)
+    {
+        var body=CreateInitialized(owner,ability,at);
+        try
+        {
+            GeneratedNpcLiveResources.ActivateItemEvents(body);ShadowEquipmentDefense.Activate(body);
+            body.MoveToWorld(point,owner.Map);ShadowGroundMotion.Activate(body,owner,at);MinionSafeAreas.Enforce(body);return body;
+        }
+        catch{PersistentMinions.Park(body);body.Delete();throw;}
     }
     internal override void RefreshDifficulty()
     {

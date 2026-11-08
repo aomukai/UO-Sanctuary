@@ -117,7 +117,7 @@ public static class NpcHydraWorldChecks
             p=Owner();b=Caster(p);target=Target(p);var orphan=Caster(p);missing=orphan.Serial.Value;var at=TimedEffects.Now.Add(FixtureSpace.Retention);
             Require(Cast(b,p,at,deterministic:true)==1&&Cast(orphan,p,at,deterministic:true)==1,"Saved NPC Hydra casts");Hydras.Advance(p,at.AddMilliseconds(35*40),true);Require(Bolts(p).Length==6&&Bolts(p).All(x=>x.Frame==2),"Saved NPC bolts not partially travelled");PersistentMinions.Park(orphan);orphan.Delete();
         }
-        Save(p,b,missing,target,generation);Creation();Damage(false);Damage(true);Automatic();Require(!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared/proposed Hydra enabled learned Master");
+        Save(p,b,missing,target,generation);Creation();Damage(false);Damage(true);Automatic();
         Log.Information("NPC Hydra world:actual NPC summoner/root credit,21heads/no player FIFO,private world/head/bolt seeds,source controller and travelling typed damage,kill credit/expiry,atomic graph restore and original real/orphan proposal saves pass. Approved parent-independent lifetime is standard;automatic item62 metadata/start/do is connected for qualified immunity-pierce-zero originals.");
     }
 }

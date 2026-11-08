@@ -134,7 +134,7 @@ public static class ShadowSentryChecks
         var pending=Skills.Select((skill,i)=>{var b=bodies[i%2];b.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);var trap=Cast(b,skill,new(owner.X+4+i,owner.Y,owner.Z),TimedEffects.Now.AddMinutes(30));PersistentMinions.Park(b);return trap;}).ToArray();
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),pending.Select(t=>new Trap(t.Serial.Value,t.Prepared,SkillHealth.Balance256(t))).ToArray(),AssassinTrapRoster.For(owner),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"do45 adapter enabled unfinished learned summons");
+
         Log.Information("Shadow sentries:five intrinsic do45/S2 casts from both original species,own rank/ultimate player inheritance and shared FIFO,no mana/actor RNG,cancel/fully blocked placement/park/duplicate end,actual firing/HP,approved occupied-target ground fallback and original saves through two reloads;exact D2R search order and learned summons remain scoped");
     }
 }

@@ -138,7 +138,7 @@ public static class ShadowShockWebChecks
         var pool=ShockWebs.Snapshot();ShockWebs.Restore(pool with{Shards=pool.Shards.Where(s=>s.Npc==null).Concat(pending).ToArray()});
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,target.Serial.Value,SkillHealth.Balance256(target),bodies.Select(Capture).ToArray(),pending,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Field implementation enabled unfinished learned summons");
+
         Log.Information("Shadow Shock Web:both original species,shared lob/scatter and cast leases,own unit RNG/damage/mastery/pierce,no owner mana/potion,typed immunity/death,soft-hit positive recovery control,atomic shared restore and parked/offline/reload expiry;approved intrinsic cooldown/action is covered separately;learned Shadow route remains gated");
     }
 }

@@ -116,6 +116,6 @@ public static class ShadowSentinelActionChecks
             b.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);b.ChangeSkills(s=>s.Assign(257,12));foreach(string mode in new[]{"ground","moving","deleted","rank"}){Cast(b,p,mode);}Shock(b,p);Cancel(b,p);SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         WorldAi(p,257);WorldAi(p,256);GeneratedNpcLiveResources.Snapshot();var held=bodies.Select(Capture).ToArray();PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared S2 action enabled learned Shadows");Log.Information("Own Sentinel S2:actual owned attack-rate plan,start0/do44,once-only root factory,ground/live/deleted target and live-rank contexts,free NPC resources,ten cancellations and failed range,original saves;approved no-extra NPC cooldown,world release/recovery and natural Warrior AI for both skills pass;learned Shadow admission remains separate.");
+        Log.Information("Own Sentinel S2:actual owned attack-rate plan,start0/do44,once-only root factory,ground/live/deleted target and live-rank contexts,free NPC resources,ten cancellations and failed range,original saves;approved no-extra NPC cooldown,world release/recovery and natural Warrior AI for both skills pass;learned Shadow admission remains separate.");
     }
 }

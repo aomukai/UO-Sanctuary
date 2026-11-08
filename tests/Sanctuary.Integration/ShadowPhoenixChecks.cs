@@ -135,7 +135,7 @@ public static class ShadowPhoenixChecks
             finally{NpcWorldAllocation.Restore(world);}
         }
         foreach(var b in bodies){Exercise(b,owner,generation);PersistentMinions.Park(b);}var held=bodies.Select(b=>Save(b,owner,generation)).ToArray();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Phoenix backend enabled unfinished public Shadows");
+
         Log.Information("Own Phoenix:three source-seeded emissions,60frame meteor/18fields/periodic no-GETHIT,7chain/16chaos shared moving collisions,four-frame leases/freeze-only,original finisher/A2/world/Warrior AI,no owner proxy,atomic malformed restore,offline/dormant loaded aging and original saved identity through reloads;other intrinsic/death/learned gates remain.");
     }
 }

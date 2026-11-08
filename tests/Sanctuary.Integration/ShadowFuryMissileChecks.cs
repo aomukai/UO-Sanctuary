@@ -136,7 +136,7 @@ public static class ShadowFuryMissileChecks
             var target=Target(b,15);NpcEquipmentRandom.Set(b,Seed(true));var f=Launch(b);WeaponMissiles.Tick(f.NextUtc.AddMilliseconds(40),true,b.Serial.Value);f=Own(b).Single();Require(f.Frame==2&&f.X>b.X,"Partial Fury did not move");Hold(b,f with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)});SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);GeneratedNpcLiveResources.Snapshot();held[i]=Capture(b,target);
         }
         PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,NecromancerEffects.ManaBalance256(p),held,generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared missiles enabled unfinished learned Shadows");
+
         Log.Information("Own Fury missiles: both original species,travel/critical/typed damage,flat NPC drains,accuracy/private RNG,shield return,Life Tap versus Iron Maiden,poison,inactive expiry,and exact partial-flight/body/items/resources/RNG continuity; full action remains gated.");
     }
 }

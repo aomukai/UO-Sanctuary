@@ -47,7 +47,7 @@ public static class ShadowEquipmentChecks
         }
         var detached=ShadowEquipment.Rows(CombatAbility.ShadowMaster);detached[0].Choices[0]=new(2,"bad",0);
         Require(ShadowEquipment.Rows(CombatAbility.ShadowMaster)[0].Choices[0].Code=="amu","Mutable Shadow profile escaped");
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Equipment requests enabled incomplete actors");
+
         Log.Information("Shadow equipment:4752 complete shared selector controls/510 pinned item-level suppliers;Valkyrie reuse;no generated NPC items or learned Shadow actor");
     }
     private static (SummonEquipmentRequest[] Requests,ulong Seed) Capture(PlayerMobile owner,Item helm,Item armor,int rank)

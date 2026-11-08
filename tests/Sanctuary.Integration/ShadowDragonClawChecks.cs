@@ -172,7 +172,7 @@ public static class ShadowDragonClawChecks
             var pending=Target(b);Gain(b,254,3,at);Require(ShadowActions.BeginDragonClaw(b,pending,at.AddMinutes(2)),"Pending-save Dragon entry refused");pending.Delete();SkillHealth.SetBalance256(b,b.MaximumLife256*2/3-1);PersistentMinions.Park(b);
         }
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Dragon Claw enabled unfinished learned Shadows");
+
         Log.Information("Own Dragon Claw:24whole NPC callback/start25/do46 controls,original raw-point hands/flag phase,skill ED/hard synergy,uncharged accuracy/charged guarantee with retained block,per-contact all-six release/consume-one,no NPC mana,world/basic/natural Warrior AI,cancellation/no replay and exact original saves through two reloads;modern NPC boundary and remaining intrinsic/death/learned scopes retained.");
     }
 }

@@ -97,7 +97,7 @@ public static class NpcSpellFreezeChecks
         }
         var targets=bodies.Select(b=>Exercise(b,owner,generation)).ToArray();GeneratedNpcLiveResources.Snapshot();foreach(var b in bodies){PersistentMinions.Park(b);}PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select((b,i)=>Capture(b,targets[i])).ToArray(),generation)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Receiver prerequisite enabled unfinished learned Shadows");
+
         Log.Information("Owned NPC spell freeze:shared typed length/mitigation/status,independent zero-damage freeze and chill-only lane,resistance/pierce/immunity,own chaos-ice packet damage/source/RNG and original resources/status deadlines through reloads;Phoenix missile and elemental finisher routes remain unimplemented.");
     }
 }

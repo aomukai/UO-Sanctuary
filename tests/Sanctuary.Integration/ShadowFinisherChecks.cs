@@ -169,7 +169,7 @@ public static class ShadowFinisherChecks
         if(!reload){loadouts=Loadouts(owner);}
         foreach(var b in bodies){Exercise(b,owner,generation);PersistentMinions.Park(b);}
         GeneratedNpcLiveResources.Snapshot();PersistentMinions.Suspend(owner);owner.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,bodies.Select(Capture).ToArray(),generation,loadouts)));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Unfinished public Shadows enabled");
+
         Log.Information("Own Tiger/Cobra finishers:ordered prefill/postfill,raw fractional NPC drains,modern one-charge consumption,miss/tight-range/unsupported/replay guards,real basic conductor,Warrior Tiger AI/category12 refusal and Master own world request,original saved state through reloads;elemental finishers and other learned gates remain.");
     }
 }

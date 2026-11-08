@@ -61,9 +61,9 @@ public static class AssassinCastClockChecks
         int comparisons=0,routes=0,starts=0,casts=0;
         foreach(var r in doc.RootElement.EnumerateArray())
         {var t=AssassinCastClock.Calculate(r[1].GetInt32());Require(t.EffectFrame==r[3][0][1].GetInt32()&&t.Frames==r[3][1][1].GetInt32(),"Complete source Assassin SC differential");comparisons++;}
-        var skills=SkillMechanics.All.Where(r=>AssassinCastClock.Handles(r.Ability)).ToArray();
+        var skills=SkillMechanics.All.Where(r=>AssassinCastClock.Handles(r.Ability)&&r.Ability is not(CombatAbility.ShadowWarrior or CombatAbility.ShadowMaster)).ToArray();
         Require(comparisons==2590&&skills.Length==7,"SC source/route coverage");
-        foreach(var ability in new[]{CombatAbility.FireBlast,CombatAbility.ShockWeb,CombatAbility.TigerStrike,CombatAbility.BladeFury,CombatAbility.ShadowWarrior,CombatAbility.ShadowMaster})
+        foreach(var ability in new[]{CombatAbility.FireBlast,CombatAbility.ShockWeb,CombatAbility.TigerStrike,CombatAbility.BladeFury})
         {Require(!AssassinCastClock.Handles(ability),"SC captured a separate/gated route");}
         foreach(var skill in skills)for(int i=0;i<259;i++)
         {

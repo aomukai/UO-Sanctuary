@@ -76,7 +76,7 @@ public static class ShadowBirthChecks
         Reject(()=>ShadowCreation.Prepare(Values(CombatAbility.ShadowWarrior,1),Values(CombatAbility.ShadowMaster,1),256000,true,_=>0,_=>0));
         Reject(()=>ShadowCreation.Prepare(Values(CombatAbility.ShadowWarrior,1),Values(CombatAbility.ShadowWarrior,2),256000,true,_=>0,_=>0));
         Reject(()=>ShadowCreation.Prepare(Values(CombatAbility.ShadowWarrior,1),Values(CombatAbility.ShadowWarrior,1),0,true,_=>0,_=>0));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared birth enabled incomplete Shadow actors");
+
     }
     private static ShadowCreationStats Plan(PlayerMobile owner,CombatAbility ability,Dictionary<string,int> stats)
     {

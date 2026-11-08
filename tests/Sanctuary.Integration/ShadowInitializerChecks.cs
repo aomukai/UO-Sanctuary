@@ -123,7 +123,7 @@ public static class ShadowInitializerChecks
         var world=NpcWorldAllocation.Capture();Reject(()=>ShadowInitializer.Allocate(CombatAbility.BasicAttack,MonsterDifficulty.Normal));Reject(()=>ShadowInitializer.Allocate(CombatAbility.ShadowWarrior,(MonsterDifficulty)3));
         Require(NpcWorldAllocation.Capture()==world,"Invalid initializer spent a shared world draw");
         var sample=held[0].Initialization;Reject(()=>ShadowInitializer.Validate(sample with{AfterInitialization=sample.AfterInitialization^1}));Reject(()=>ShadowInitializer.Basis(sample,0));
-        Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared initialization enabled incomplete learned Shadows");
+
         NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,held.ToArray(),generation)));
         Log.Information("Shadow initializer:1344whole older-source contexts with current tables;24actual unit allocations and unfiltered original-item storage fixtures;current birth helper applied before item replay;two own draws,40physical resistance,196AC/zeroAR bases,initial skill ranks1/4/8;original native items/numeric graph and untouched native wounds through two reloads;no live Shadow actor/resources/AI/UMod death action or learned cast");
     }

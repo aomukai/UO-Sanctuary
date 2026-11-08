@@ -2176,10 +2176,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 268,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Dedicated parked Shadow bodies, original equipment/RNG, FP256 resources, owner-rank snapshots and actual intrinsic skill books are implemented and verified. Claw Mastery/Weapon Block now post source layer68 lists with cached levels and saved item/list order; source126/127, explicit book changes and Command refresh are connected. Current birth-helper/dispatch linkage has separate evidence; see shadow-body-checkpoint.md, shadow-skills-checkpoint.md and shadow-passives-checkpoint.md. Remaining: original item skill-grant contexts, protected NPC permission/target/mode/sequence/event execution, ordinary/item combat, AI105/106, modifier42death and learned casting/payment/input. Current executable parity, other disputed rounding ranks, nonzero inherited sunder delivery and actual client acceptance remain explicitly uncertain or unsupported. Source actors remain parked and the learned handler stays unavailable; no class complete."
+      "remaining": "Learned Assassin SC route uses the shared original Shadow creator,own skills/AI/death,ground controller and candidate/payment/roster transaction. Both species share one learned roster;town parking and original items/resources/wounds/RNG persist. Shared Druid ground placement is an existing native projection,not recovered D2room search. Unsupported rolled equipment/property/recipient contexts fail explicitly without payment or replacing the old summon. Current executable AI/geometry/mutation parity,remaining item consumers and final body/equipment/effects/audio/talent/hotkey assets remain open;no class certificate. See shadow-learned-cast-checkpoint.md."
     },
     {
       "talentId": "assassin.mindblast",
@@ -2209,10 +2209,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 279,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Dedicated parked Shadow bodies, original equipment/RNG, FP256 resources, owner-rank snapshots and actual intrinsic skill books are implemented and verified. Claw Mastery/Weapon Block now post source layer68 lists with cached levels and saved item/list order; source126/127, explicit book changes and Command refresh are connected. Current birth-helper/dispatch linkage has separate evidence; see shadow-body-checkpoint.md, shadow-skills-checkpoint.md and shadow-passives-checkpoint.md. Remaining: original item skill-grant contexts, protected NPC permission/target/mode/sequence/event execution, ordinary/item combat, AI105/106, modifier42death and learned casting/payment/input. Current executable parity, other disputed rounding ranks, nonzero inherited sunder delivery and actual client acceptance remain explicitly uncertain or unsupported. Source actors remain parked and the learned handler stays unavailable; no class complete."
+      "remaining": "Learned Assassin SC route uses the shared original Shadow creator,own skills/AI/death,ground controller and candidate/payment/roster transaction. Both species share one learned roster;town parking and original items/resources/wounds/RNG persist. Shared Druid ground placement is an existing native projection,not recovered D2room search. Unsupported rolled equipment/property/recipient contexts fail explicitly without payment or replacing the old summon. Current executable AI/geometry/mutation parity,remaining item consumers and final body/equipment/effects/audio/talent/hotkey assets remain open;no class certificate. See shadow-learned-cast-checkpoint.md."
     },
     {
       "talentId": "assassin.fireblast",

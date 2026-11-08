@@ -65,7 +65,7 @@ public static class ShadowMasterTargetChecks
             ShadowActions.Tick(at.AddSeconds(2),true,body.Serial.Value);var trap=(AssassinSentryBody)World.FindMobile((Serial)AssassinTrapRoster.For(owner).Single().Actor);
             Require(trap.Prepared.Creation.Rank==body.OwnedSkillRank(261)&&trap.Prepared.Creation.Rank!=SkillMechanics.Rank(owner,CombatAbility.ChargedBoltSentry)
                 &&trap.SummonMaster==owner&&NecromancerEffects.ManaBalance256(owner)==0&&NpcEquipmentRandom.Require(body)==random,"Master tactic borrowed owner rank,mana or actor RNG");
-            Require(ShadowActions.State(body)==null&&body.OwnedSkills.Used==null&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared tactic enabled/replayed unfinished Master brain/learned cast");
+            Require(ShadowActions.State(body)==null&&body.OwnedSkills.Used==null,"Prepared tactic replayed a source action");
         }
         finally{ShadowActions.Cancel(body);foreach(var e in AssassinTrapRoster.For(owner)){World.FindMobile((Serial)e.Actor)?.Delete();}PersistentMinions.Park(body);body.Delete();owner.Delete();AssassinTrapRoster.Prune();}
     }

@@ -48,7 +48,8 @@ internal static class ShadowGroundMotion
     internal static void Activate(AssassinShadowBody body,PlayerMobile owner,DateTime at)
     {
         if(body?.Prepared is not{GroundMotion:null} old||old.Capture.Ability is not(CombatAbility.ShadowWarrior or CombatAbility.ShadowMaster)||!body.CantWalk
-            ||!ShadowSkillCasting.Attached(body))
+            ||owner is not{Alive:true,Deleted:false}||body.ControlMaster!=owner||owner.Map==null||owner.Map==Map.Internal||body.Map!=owner.Map
+            ||OriginalNpcEquipment.Owner(body)!=owner.Serial.Value)
         {throw new NotSupportedException("Ground activation needs its original qualified Shadow with a distinct brain profile");}
         _=Animation.Value;_=ShadowEquipmentDefense.Registry(body);
         try{body.WorldGround.Initialize(owner,at,()=>NpcEquipmentRandom.Require(body),adopt:true,initialThink:20);body.CantWalk=false;}

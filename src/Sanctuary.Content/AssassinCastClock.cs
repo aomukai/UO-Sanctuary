@@ -6,7 +6,7 @@ namespace Sanctuary;
 
 internal static class AssassinCastClock
 {
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.PsychicHammer or CombatAbility.BurstOfSpeed or CombatAbility.CloakOfShadows or CombatAbility.Fade or CombatAbility.MindBlast or CombatAbility.Venom or CombatAbility.BladeShield;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.ShadowWarrior or CombatAbility.ShadowMaster or CombatAbility.PsychicHammer or CombatAbility.BurstOfSpeed or CombatAbility.CloakOfShadows or CombatAbility.Fade or CombatAbility.MindBlast or CombatAbility.Venom or CombatAbility.BladeShield;
     public static void Configure()
     {
         var keys=new HashSet<string>(StringComparer.Ordinal);
@@ -26,7 +26,7 @@ internal static class AssassinCastClock
             {throw new InvalidDataException("Assassin skill no longer selects SC");}
             count++;
         }
-        if(count!=7){throw new InvalidDataException("Unexpected Assassin SC routes");}
+        if(count!=9){throw new InvalidDataException("Unexpected Assassin SC routes");}
     }
     // Every owned human Assassin SC weapon record has the same clock.
     internal static ActionTiming Calculate(int fcr)=>SourceCastClock.Calculate(17,256,9,fcr);
