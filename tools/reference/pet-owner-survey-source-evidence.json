@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "callbackRva": "0x4b08b0",
+  "sourceBytes": 725,
+  "completeFragments": 8,
+  "cases": 78,
+  "unsupported": 1,
+  "allocationContexts": 6,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "unicornVersion": "2.1.4",
+  "artifacts": {
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part0.bin": "e62bccfeafb0410653508247fab84b313653f5e7f2fcc3ad8383238e4bf798b4",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part1.bin": "137d53768ad650080d770438f6c1953b11065d9a8b0386b768b20af0c7b79177",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part2.bin": "ea8890a3fa96544ea1877123bc446da37c99e8e3b20ea4d9976b0d6739a3331b",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part3.bin": "82ac6a1a3a8a89456031da52181cdc360724e63b6a6bfa5e1c5d3f92daea5db1",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part4.bin": "adbeccfb5933045284179b43f38984302be7cc90eb96553e1099cbcbd4b8b007",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part5.bin": "dbceb44884d3419dc96616515107e6d1b1bb80d906cd41a96b624b9dff7ffb8b",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part6.bin": "2430526324bb39beeb5d2bffa3beac25b45b4d758328dbda8075a2ba634c12da",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback-part7.bin": "34fa8e6bb038f810a0fe12d93b1766c74bd5e15c754fb5a4b73700994353dfe8",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback.json": "6e09bf2c1f2860fe4facd11009f55a3271b99c4c291d673f2fce18ae760dee9e",
+    ".local/class-skills/pet-owner-survey-source/cases.json": "83209b25361df86e95acdfcd297e5ad6fd8353d4c53a1b309c35dc025aa31bd4",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "data/Sanctuary/Balance/generic-pet-parameters.json": "279df12b94ef257f9c90f33ce718118badcd52ec7985adc0ecc02899da69b704",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_owner_survey.py": "e1bf11a9fb36d5cfe57fbcdef7acfc9671d26ce6790ac0590dbcccc517bfe31b",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  },
+  "services": [
+    "Monster row existence,current target,target validation and actual path refresh remain declared source services. GenericPet callback identity is checked as pointer equality to root4b60c0.",
+    "Captured vector append/growth/copy/free executes against explicit managed-memory allocator services;raw capacity/allocator fidelity is not a gameplay claim.",
+    "Owner iterator order/membership and actual world registration remain supplied. Count includes self/null/nonmatching visits before all filters;no radius or pet-cap interpretation is invented."
+  ]
+}

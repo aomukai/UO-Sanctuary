@@ -1,0 +1,98 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "callbackLinkedToInitializer": true,
+  "currentAiDispatcherNewlyCertified": false,
+  "currentCallbackBytes": 725,
+  "completeFragments": 8,
+  "sourceContexts": 78,
+  "assertionBoundaryContexts": 1,
+  "sourceAllocationContexts": 6,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-owner-survey-check": 1,
+    "pet-owner-survey-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 2,
+  "newProcessBytesRead": 2010,
+  "externalStateChange": {
+    "previous": {
+      "pid": 21009,
+      "startTicks": 312903,
+      "name": "Main"
+    },
+    "current": {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    }
+  },
+  "previousCompilerMatricesRerun": 0,
+  "transientSurveyPersisted": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "bbdbd8c40c2010e3e1bfaca2b7c583bc9150eded55970b65e59cf9b5f8213e43",
+    "Assemblies/Sanctuary.Integration.dll": "038131d88c8ef5ddcb7d215b15fd25785becdba8bbb920ad104da69ad25035cd"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete current initializer callback semantics over explicit leaf services:count-before-filter,signed wrap,AI identity,command-first/path-fallback validity,refresh/re-read,self-target rejection,first matching duplicate and insertion order.",
+    "Native C# matches all78new source contexts once. Existing follow executor consumes the produced count;existing search wrapper consumes the produced target records. Bindings/raw profiles repeat after reload without rerunning the source matrix.",
+    "All three current demon profiles have SwarmRaw0:every supplied iterator visit counts,but no unit/target service is called. Actual player-pet membership/order remains a caller obligation."
+  ],
+  "limits": [
+    "This is a transient initializer survey,not a persistent actor or automatic controller. Actual owner iterator,live command target/validation/path refresh,root event/movement/search/combat/action and learned spawn/payment/input remain separate.",
+    "Managed vector storage preserves target/count observations;raw heap layout/capacity,allocation failure and malformed source containers are not certified. One source fatal tile transition is explicitly refused by C#.",
+    "The captured callback is directly referenced by the initializer. This does not newly certify current top-level GenericPet dispatcher admission or all leaf services.",
+    "No new visual or final asset was created;existing demon effects/audio and talent/hotkey icons remain separately tracked."
+  ],
+  "diagnostics": [
+    "Native1passed initial source/binding commands,then harness required a nonexistent transient survey manifest. Exact failed sources/inputs/logs/binaries are archived. Wrapper now aliases existing resource manifest for copy step;production and Integration DLLs are identical in accepted native2."
+  ],
+  "inputs": {
+    "tools/reference/pet-owner-survey-source-evidence.json": "d3ea0e27213636e747a7117b3a5b06bddd3f14ca54f8fde67e9f46632383ba33",
+    ".local/class-skills/pet-owner-reference-20261109/owner-callback.json": "6e09bf2c1f2860fe4facd11009f55a3271b99c4c291d673f2fce18ae760dee9e",
+    ".local/class-skills/pet-owner-reference-20261103/owner-callback.json": "c51372cc7cc09e0eac831feb08e4428e6d3e997aaa4fb21316df90201a06f3a2",
+    ".local/class-skills/pet-owner-survey/birth-inputs.json": "bcf8206b3cbd42431925a371dd029e7e72ea8720105810082512da7a0338ee05",
+    ".local/class-skills/pet-owner-survey/source-snapshot-1.json": "cd0880b73066334356b3ad21f06719976b061d704eacd608c6a02f12193cfff4",
+    ".local/class-skills/pet-owner-survey/content-build-1.log": "821d0cf112b5bc5ee448e91bfd0997bd35172ce6ca682345cee302bb3b047928",
+    ".local/class-skills/pet-owner-survey/integration-build-1.log": "63fee4a20dd8546322bace5bd17fdafb981ea49e494bfd2c44fcaaa3f797dd3b",
+    ".local/class-skills/pet-owner-survey/birth-native-checks.log": "528cc4deefaa2c80a6407e4990b2ee0eb1616ace929a0c6db38e2d6bfe23f0e4",
+    ".local/class-skills/pet-owner-survey/failed-native-1/native-run-1.log": "bed0183ab99b66aead4ecf9226cc43fb0a4ff998fadc7e97db48c755db7885b3",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-owner-survey-checkpoint.md": "7a66badd06b1208a242a531b713b6440599c7ffd46f614cc90e165d73989f7b2",
+    "docs/class-skills-resume-checkpoint.md": "9efe5823f77f0f29580cd30b481adf059d724d351d33a0bbed638f8b2f4fc00c",
+    "docs/class-skill-roadmap.md": "3408984f5706e999fe188f81715cd579d6d66aa087fdda0aba909fefaed249a0",
+    "docs/class-skill-reuse-notes.md": "1d482a1ef337a38b136892519eb58330d167c8f323fc3991fac8652c0303141d",
+    "docs/skill-mechanical-reference.md": "c6acbcc6cf52827b7b7f2e7af7dee0bd376c73dc18d86a2dda673c71131e4739",
+    "tools/build_skill_roadmap.py": "81861cf5421260014abfa160e56b58d40d81a8f319f8edc96b1df459928b1ffc",
+    "tests/check_pet_owner_survey.py": "b3c709e6fc1923852ed9a2a84fedc4509bd35a86803c1928b8c7b3406658dcfb",
+    "tools/record_pet_owner_survey.py": "444a38772cbf833d315444a2c0b02a1ade0a133bce8dff1d2d46f054595b7caf"
+  }
+}
