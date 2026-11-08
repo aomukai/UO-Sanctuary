@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approvedByUser": true,
+  "approvedOn": "2026-11-09",
+  "answer": "Approve this Death Mark world mapping",
+  "reviewedImplementation": "docs/death-mark-native-world-proposal.md",
+  "rules": {
+    "world": "Use existing actual safety regions and shared native floor/static/LOS checks;actual per-pet placement replaces unavailable D2level terrain metadata",
+    "destination": "Use a visible live non-self mobile's current position;self,empty or stale selection uses clicked ground;reject invalid/cross-facet/unseen/zero destinations",
+    "roster": "Actual live owned permitted same-facet original demons;parked and inactive followers excluded;uninitialized or unregistered live original controllers explicitly refused",
+    "order": "Saved summon creation order;serial tie/fallback;untracked historical summons sort after tracked summons",
+    "sourceMechanics": "Retain captured38-source-unit range,sharedthree-pet quota,current callbacks/commands/partial-failure behavior and separately approved recipient rule"
+  },
+  "referenceLimit": "Explicit Sanctuary world adaptation,not D2 room-flag or linked-list-order parity. This does not approve unfinished automatic AI,unknown startup/payment timing,or learned input admission."
+}

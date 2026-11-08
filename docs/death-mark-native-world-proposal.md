@@ -1,0 +1,24 @@
+# Approved Death Mark native-world mapping
+
+2026-11-09 JST. Reference **D2R Reign of the Warlock 3.3.93847**. Prepared implementation, explicitly approved by the user: “Approve this Death Mark world mapping.” [Approval record](../tools/reference/death-mark-native-world-approval.json). **211/240 handlers; Warlock2/30; no class certified.** The recipient's numerical adaptation is already approved and is not being reopened.
+
+Proposed mapping for Britannia:
+
+- Use existing actual safety regions for the caster and destination, together with the shared Sigil floor/static/LOS checks. Reject invalid, cross-facet, unseen and zero-coordinate destinations. A visible non-self mobile supplies its live position; self, empty or stale selection uses the requested ground point. Item selection remains outside this prepared mobile/ground scope.
+- Retain Death Mark's captured Euclidean38-source-unit range check (19 native tiles), shared three-pet quota and actual per-pet placement search. The native floor preflight replaces D2's level-byte14 terrain mode; it does not invent that byte's value for a UO region. Existing safety checks can be stricter than a D2 ground cast across a town border.
+- Build the roster from actual live, owned, permitted, same-facet original Warlock demons. Parked, dead, deleted, other-owner and other-class followers are excluded. Uninitialized original demons and live demons lacking registered controller paths are explicitly refused rather than silently omitted.
+- Use the existing saved summon-creation order, then serial as a tie/fallback. Historical followers without a ledger entry sort after tracked summons, by serial. Exact current D2 pet-list insertion order is still unverified. No active eligible demons means no prepared release.
+
+This is an explicit host adaptation under the user's D2R-reference requirement, not a claim that Britannia has D2 room flags or its linked pet list. Native safety maps only to a town-predicate sentinel for the captured guards; it does not label Britannia regions with real D2 level IDs. The do155 source algorithm, original actor movement, commands, quota and approved recipient penalties remain shared with the previous checkpoint.
+
+`DeathMarkNativeRelease` now supplies the real target, destination, town predicate and follower roster to `DeathMarkWorldRelease`. It returns the source result and whether its server-do marker ran. Source skill/table context and opaque cast ID remain explicit inputs for the future cast controller; they are not derived from a wall clock. The test's pet-type20/count21 and state212/count232 match the pinned owned primary tables and existing state-mask view.
+
+The290-byte current coordinate helper `3ad8d0` was already preserved for Sigils. Its disassembly shows target refresh, a non-self live target's coordinates, otherwise the caster's requested path destination, and rejection when either coordinate is zero. The new host follows that policy with native entity resolution. No duplicate process capture or old compiler matrix was run; this manual helper review is not a new emulator-equivalence claim.
+
+## Verified checkpoint
+
+[Native receipt](../tools/reference/death-mark-native-evidence.json); stage `.local/class-skills/death-mark-native`, Content3/Integration3/snapshot3/native1. **18 native markers, three boots, two actual reloads and three saves.** Builds have zero warnings/errors. The final build includes uninitialized-roster and zero-coordinate guards; earlier build logs are retained. No prior compiler matrix or unrelated class cohort was rerun.
+
+Native checks cover moved, stale, self and ground selection; zero-coordinate rejection; no-demon refusal; actual saved follower order; explicit uninitialized/unregistered controller rejection; actual three-species relocation/commands and approved mark; ground-only behavior; captured range rejection; unchanged wounded life/birth/order and mana; saved target deadline/cast ID and resumed native roster movement after both reloads. The approved recipient controls and255 pinned rank formulas remain passing in the same host. The status uses its natural rank255 lifetime, without an artificial hold. After owner parking, tests restore explicit original positions before resumed source movement; automatic controller recovery is not claimed.
+
+Installed build, existing saves and configuration remain unchanged. The prepared bridge spends no mana and admits no learned binding. Automatic GenericPet command/neutral/action interruption, qualified startup/payment/localdelay/cancellation and left/right/quick input remain unfinished; they are the next work, with no world-mapping question pending. Existing landing0x3728 and recipient0x375A are identified placeholders; effects/audio and talent/hotkey icons remain separate pending asset work.

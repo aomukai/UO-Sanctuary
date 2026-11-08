@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved native Death Mark bridge (2026-11-09 JST).** Live targeting and follower selection reuse the existing landing0x3728 and target0x375A placeholders;no new artwork is generated. Final cast,warp/landing,target/expiry and audio remain pending. [Checkpoint](death-mark-native-world-proposal.md). Icons remain separate.
+
 **Combined Death Mark release (2026-11-09 JST).** Actual pet relocation and approved recipient binding reuse identified landing0x3728 and target0x375A/hue0x48A placeholders. Final cast,warp/landing,target mark/expiry and audio remain needed;no final artwork was generated. [Checkpoint](death-mark-world-release-checkpoint.md). Icons remain a separate asset register.
 
 **Approved prepared Death Mark recipient (2026-11-09 JST).** Target effect0x375A/hue0x48A is an identified placeholder. Final cast,warp/landing,target mark/expiry and audio still need creation;no final artwork was generated. [Rule/checkpoint](death-mark-debuff-proposal.md). Mechanical work continues independently;icons remain separate.

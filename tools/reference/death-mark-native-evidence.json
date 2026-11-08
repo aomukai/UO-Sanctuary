@@ -1,0 +1,85 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "tested-approved-adaptation",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "automaticGenericPetAiEnabled": false,
+  "currentFullWorldParity": false,
+  "approval": {
+    "path": "tools/reference/death-mark-native-world-approval.json",
+    "sha256": "38f1c8b5e38f3fd32e7ca888df40d551e8e006c4ce782eb3955b085be51b183f"
+  },
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-debuff-check": 1,
+    "death-mark-native-check": 1,
+    "death-mark-native-check-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-debuff-reload-check": 2,
+    "death-mark-native-reload-check": 2,
+    "death-mark-native-reload-check-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 3,
+  "sourceSnapshot": 3,
+  "nativeRun": 1,
+  "priorCompilerMatricesRerun": 0,
+  "pinnedRecipientRanks": 255,
+  "primaryTables": {
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "petTypeCount": 21,
+  "demonType": 20,
+  "stateCount": 232,
+  "deathMarkState": 212,
+  "reusedCoordinateHelper": {
+    "rva": "0x3ad8d0",
+    "bytes": 290,
+    "artifacts": {
+      ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-cast-services-20261108-3ad8d0-part0.asm": "507749bd3ec96538106f4c6341944f46e9a561f97780e9e55d0b173f455543d6",
+      ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/services-sigil-cast-services-20261108-3ad8d0-part0.bin": "c8888f6e149903b7ccb4f02e1b00bd8ec02705e3192cd75ddabe47e724bbb40e"
+    },
+    "analysis": "Existing current capture reviewed manually;no additional process read or emulator-equivalence claim"
+  },
+  "files": {
+    "src/Sanctuary.Content/DeathMarkNativeRelease.cs": "a8b5ad6cc05cbf212e06c3c62fa7488c3143c350bdfc7e147f38fb5b10313931",
+    "tests/Sanctuary.Integration/DeathMarkNativeChecks.cs": "9e5bb4981288083048ca496c6cbca42a226790fb52ec4cd87052377d3f6a4b20",
+    "tests/check_death_mark_native.py": "c939f9057b0ed44ad5534533ada2a2e469033bc362657cef5ce00bdda7d3e1e4",
+    "tools/record_death_mark_native.py": "e86239096a343d09c83951481302f11f24ca5b4f8ac36389a878eec6488d07fb"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "8f49c9ecadb40a9acc418829582db040ae81cd614a3e5c947b029ff7ebe4ac11",
+    "Assemblies/Sanctuary.Integration.dll": "422fb2587f1f488708de5480e0756edda79c10bd34559158fa01594aff0e6004"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Native moved/stale/self/ground mobile destination resolution,zero guard,actual follower ownership/creation order,required-demon absence and explicit unregistered/uninitialized controller refusal. Actual three original species relocate/command and bind approved mark;ground casts preserve existing mark and source38unit range remains enforced. Original bodies/birth/wounds/order,recipient natural deadline/castid and native roster movement survive two actual reloads. Prepared bridge pays no mana and enables no learned route.",
+  "limits": [
+    "Native safe-area/floor/static/LOS,per-pet placement and creation-ledger order are explicit host adaptation choices;no D2 room flag/list-order parity claim.",
+    "Source context/selector/counts/castid still explicit controller inputs. The test count bounds match pinned primary metadata.",
+    "Automatic GenericPet command/neutral/action interruption,startup/payment/localdelay/cancellation and left/right/quick admission remain unfinished. Item/PvP/unclassified recipients outside scope.",
+    "Existing identified effect placeholders and separate final effects/audio/icons remain pending."
+  ]
+}
