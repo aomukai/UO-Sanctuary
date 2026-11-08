@@ -36,6 +36,12 @@ internal sealed class GeneratedNpcWeaponFrame:SourceWeaponServices<EquipmentStat
     internal uint Selected{get{Current();return( SourceWeaponSelection.Select(this,Graph.Actor)?.Entity as GeneratedNpcItem)?.Serial.Value??0;}}
     internal void Enter(bool reset=false){Current();SourceWeaponSelection.Enter(this,Graph.Actor,reset);}
     internal void Restore(bool enabled=true){Current();SourceWeaponSelection.RestorePrimary(this,Graph.Actor,enabled);}
+    internal void SuppressDamage()
+    {
+        Current();
+        foreach(var hand in new[]{First,Second})
+        {if(hand!=null&&Weapon(hand)&&Equippable(hand)&&Owner(hand)!=null){Merge(Graph.Actor,hand,false);}}
+    }
     // These source skill fields must be supplied by the eventual dispatcher;
     // selecting a physical hand does not establish a throw-skill context.
     internal int Mastery(int kind,int firstSkillItemType,int skillRange)

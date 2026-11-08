@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow kick equipment (2026-11-08 JST).** Prepared numeric capture emits no new visual effect. Existing player/NPC kick poses,contact and charge-release cues/audio remain pending;reuse those families when the NPC action is connected. [Checkpoint](shadow-kick-checkpoint.md). Icons stay separate.
+
 **Own Shadow Dragon Claw (2026-11-08 JST).** Actual contacts and six-family releases now work through existing mechanical services. Final paired-claw A2/S4/basic poses,selected-hand contact,charge release/impact/expiry cues and audio remain pending placeholders;reuse the player Dragon Claw and existing elemental families. [Checkpoint](shadow-dragon-claw-checkpoint.md). Icons stay separate.
 
 **Own Shadow Ice (2026-11-08 JST).** Inline cold/freeze,copied chill area and stationary cold/freezing cubes now work mechanically. Existing charge0x375A and cold-area/cube0x374A/hue0x480 markers are identified placeholders. Final claw/basic/A2/S4 poses,charge overlays,chill/freeze/shatter cues,area/cube/contact/expiry art and audio remain pending;share the player Ice family. [Checkpoint](shadow-ice-checkpoint.md). Icons stay separate.

@@ -1,5 +1,7 @@
 # Shadow world and action admission
 
+**Latest prepared physical scope (2026-11-08 JST):** own NPC kick equipment capture/physical RNG is verified for both original species through two reloads. This does not admit Talon:typed fill,startup packet caching,repeated scheduler and progressive contact remain next. [Checkpoint](shadow-kick-checkpoint.md). Existing dual-claw Weapon Block policy already implements the latest approval;learned gates remain.
+
 **Latest intrinsic action scope (2026-11-08 JST):** Dragon Claw260 now uses own monster sequence/start25/do46,full original damage and six-family release,approved charged-hit/consume policy,actual world/natural Warrior AI and original persistence. [Checkpoint](shadow-dragon-claw-checkpoint.md). NPC timing/mana remain distinct from the player action. Talon/Tail/Flight/Fury/Sentinel/death/learned dependencies and exact modern NPC boundaries remain;dual-claw Weapon Block approval is unchanged.
 
 **Latest intrinsic release scope (2026-11-08 JST):** Ice274 now has all three own NPC tiers, separate cold/freeze,parent-before-area and shared cubes. All six ordinary charge-family consumers and their source state order are qualified within scope, with world/basic/natural Warrior AI. [Checkpoint](shadow-ice-checkpoint.md). Dragon/Fury/Sentinel/current-death/learned dependencies remain; current parity and separate player callback chronology are unverified. Existing dual-claw Weapon Block approval is unchanged.

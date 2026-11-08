@@ -1,0 +1,80 @@
+{
+  "parent": "945a387dd0311c463926a03c6d487d8c5ddeac53",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicTalonConnected": false,
+  "authenticatedSource": {
+    "routines": {
+      "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+      "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+      "SKILLS_CalculateKickDamage": "5d135d473ce68448ad968e7f43858f7dab229846386e500f12d6f861bd460487",
+      "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+      "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+      "sub_6FC7C900": "4dc2c5c3cc92b6d8f835bc976bc1258dad0afa632a88b012c411f52eb5fdbf2f",
+      "sub_6FCF7CE0": "fb6cab859027d65162dcc79046b28daac2a7d2eacc51dae2314d2ae2bbe35329"
+    },
+    "receipts": {
+      "tools/reference/dragon-kick-damage-source-evidence.json": "c235213cfe1478351a33caafa136732d863a19f647f82e61871af90b2e7b33ae",
+      "tools/reference/dragon-talon-hands-source-evidence.json": "3d6958d3821930fa0663353116719c94630478710d7893315bc58e29a107c50d",
+      "tools/reference/dragon-kick-packet-source-evidence.json": "cd5df668c7a16aa07cdb22bbd6b7698d891f8cf76e3e960ae498e43818cb8ce8"
+    },
+    "newCompilerMatrices": 0
+  },
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-kick-check": 1,
+    "shadow-dragon-claw-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-kick-reload-check": 2,
+    "shadow-dragon-claw-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "173e36637ea6da9903bf4d1c8b9d222562cdb30a7598bd40234c83ee33da62aa",
+    "Assemblies/Sanctuary.Integration.dll": "f511c1a7688be942146d70745c728fad7305b989727111a9734158bc3ded6e79"
+  },
+  "files": {
+    ".local/class-skills/shadow-kick/source-snapshot-1.json": "013b17809ac373a3deed87c6c5734a80e75f3b528bd2233681f19400e6d62a18",
+    ".local/class-skills/shadow-kick/birth-inputs.json": "1a3f83dfdd4ab6e6c535d6c2f5d249538455a4fe60bb939af3223e25f94753e1",
+    ".local/class-skills/shadow-kick/birth-native-checks.log": "467ccc1ea0b46c629daece0de5d7168a7a34d64cad6ea76595701e97067b6dff",
+    ".local/class-skills/shadow-kick/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-kick/content-build-1.log": "991bf11d01eef3268007bb331a1ffc21a3aa05ca8d8ef205582c876eace488b4",
+    ".local/class-skills/shadow-kick/integration-build-1.log": "3c0abbb651e06e03c9cd55ba23df9c999183bd5897c46bc3567ca0f5f865015d",
+    ".local/class-skills/shadow-kick/shadow-kick-fixtures.json": "90f6db7e3f34ac1b3d9e2c687eb255fca1c3746ee7c8ce8b228aff81521cb8b2",
+    "tools/record_shadow_kick.py": "fab1ca760c07a52bf796b2c134e5ef9a1045d157a734691b313bc5f3e8dafe25",
+    "tests/check_shadow_kick.py": "2180705f676d5222e985ecb073a5e55cc814b9eb1b982fa04f16767b90601057"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Both clean builds and the focused native run passed on their first attempt.",
+  "scope": "Both original Shadows:prepared own NPC kick body level, original boots, weapon-damage suppression with nondamage attributes retained, primary restoration, actual saved actor-only physical RNG, no owner resource/HP/charge mutation and original item/resource/wound/RNG saves. Retained own Dragon Claw contacts and its source controls pass. Seven prior full routines and their existing fixtures authenticated without rerunning matrices.",
+  "limits": [
+    "No Talon startup allocation/cache, typed kick fill, repeated action scheduler, progressive delivery/consumption, world/AI Talon or learned Shadow admission yet.",
+    "Older flat kick double-add with boots and modern NPC input/timing/hand/charge/callback/removal/PvP boundaries remain uncertain.",
+    "Prepared kick emits no new visual or icon. Existing pending assets stay separately inventoried."
+  ]
+}
