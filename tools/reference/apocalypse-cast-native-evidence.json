@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 212,
+  "warlockHandlers": 3,
+  "completedClasses": [],
+  "learnedApocalypseEnabled": true,
+  "nativeMarkers": 45,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "apocalypse-cast-check": 1,
+    "apocalypse-cast-check-result": 1,
+    "apocalypse-ground-check": 1,
+    "apocalypse-potions-check": 1,
+    "sigil-cast-check": 1,
+    "sigil-cast-check-result": 1,
+    "apocalypse-cast-left-check": 3,
+    "apocalypse-cast-left-result": 3,
+    "apocalypse-cast-right-check": 3,
+    "apocalypse-cast-right-result": 3,
+    "apocalypse-cast-quick-check": 3,
+    "apocalypse-cast-quick-result": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "apocalypse-cast-reload-check": 2,
+    "apocalypse-cast-reload-check-result": 2,
+    "apocalypse-ground-reload-check": 2,
+    "apocalypse-potions-reload-check": 2,
+    "sigil-cast-reload-check": 2,
+    "sigil-cast-reload-check-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "nativeRun": 2,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/apocalypse-cast/source-snapshot-2.json",
+    "sha256": "1911a8b7ca230a7b68b3101a179342f9f718b1d498a26b287f4689925e3b5698"
+  },
+  "nativeInputs": {
+    "path": ".local/class-skills/apocalypse-cast/birth-inputs.json",
+    "sha256": "cb53ef60fa5914bc27470cdd8cd02c56b86c2fe8b431fed7bf6bf6c714e60cbb"
+  },
+  "files": {
+    "src/Sanctuary.Content/WarlockCombat.cs": "530b93033330241538628f0eff097c1b10f9c76a0251590a204fb93c231ed4bb",
+    "src/Sanctuary.Content/ApocalypseGround.cs": "3bd40c495006a2d1bf00d5f0f18f2765417cc1e7c5ce15a06c3f0032e08cf63a",
+    "tests/Sanctuary.Integration/ApocalypseCastChecks.cs": "2588df2151c520f027a428c8608b51c59e925407a732c1c627c513dca828defe",
+    "tests/Sanctuary.Integration/ApocalypseGroundChecks.cs": "273dcb7b2c015a285dea5d50ea0f77cfdcf9c827c399320cc9ed962472eaea9d",
+    "tests/check_apocalypse_cast.py": "53243f1c28c61571f21f544c64acb88c9dd7d6c29eedcc3677dfd43657a20aeb",
+    "tools/build_skill_roadmap.py": "fef00328658a8783b36083aeac8682aecab6e7094aa693ba36b3420f86026e5f",
+    "data/Sanctuary/Balance/class-skill-status.json": "3c8d282dd3cdeb1f8f2072d9657bd8324656a80cfac718283a01b222315e6ec0",
+    "tools/reference/apocalypse-startup-payment-evidence.json": "e91cd6dce4852f180816f9a984de7064f0d6012fc4bddb383a1c8182cf3d66d3"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "3d254beba6fadfcb91663d385069e1f51a2c3f4e6cd77957272ce56d9c429507",
+    "Assemblies/Sanctuary.Integration.dll": "62380e55485c127220476a07816817ccb5575cb2f177c07e9f3205f346f43c5a"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "priorCompilerMatricesRerun": 0,
+  "verification": [
+    "Connected normal SC:pinned start0;unpaid windup/cancellation;mana32 once at successful field commit;underfunded/late mana/late placement preserve old roster/resources.",
+    "Native caster seed bound once;multiple learned fields/explosions share stream;current selected target coordinates;actual HP;exact45frame cooldown boundary.",
+    "Real left/right/Witch quick20FCR packets wind up,create original50frame field and automatically damage enemy/delete once on every boot.",
+    "Bindings and saved stream survive reload;offline expiration does not replay;prepared original one-frame fields and potion mitigation regressions pass.",
+    "Existing learned Sigil successful-do payment/cancellation and shared SC remain passing."
+  ],
+  "limits": [
+    "Modern generic caller not recovered;payment follows pinned AP start0 plus older generic successful-do branch.",
+    "Source world collision/cleanup/update ordering and whole-game RNG interleaving remain qualified native projections.",
+    "Approved minimum endpoint fallback;full raw stat/reentrant-event and special-recipient/PvP parity remain unverified;no class certificate.",
+    "Final effects/audio/talent/hotkey icons remain placeholders. Installed server not overwritten."
+  ],
+  "rejectedCandidate": "Native1/C1/I1 tested wrong start14 attribution;final table audit rejected it. Archived source/binaries/logs/data;native2/C2/I2/snapshot2 corrects both payment and extra startup gate."
+}

@@ -57,7 +57,6 @@ public static class ApocalypseAreaChecks
         Require(suppliedRank.Rank==10&&SkillMechanics.Rank(owner,CombatAbility.Apocalypse)==1,"Explosion did not retain supplied launch rank");
         var life=targets.Select(SkillHealth.Balance256).ToArray();
         Require(ApocalypseArea.ReleasePrepared(owner,Map.Felucca,center,suppliedRank)==0&&targets.Select(SkillHealth.Balance256).SequenceEqual(life),"Facet refusal still damaged");
-        Require(!WarlockCombat.Implemented(CombatAbility.Apocalypse),"Area preparation enabled unfinished learned launch");
     }
     private static void Check()
     {

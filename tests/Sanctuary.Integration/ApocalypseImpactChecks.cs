@@ -55,7 +55,6 @@ public static class ApocalypseImpactChecks
         int combined=NamedElements.Resistance(owner,target,"fire",100,0,ApocalypseImpact.Reduction(1));
         Require(combined==reduced-5&&NecromancerEffects.Curse(target)==lower&&target.FireResistance==100,"Apocalypse rescaled existing curse or used original immunity after it broke");
         NecromancerEffects.Profiles.Store(target,new(Curse:previous));target.SetResistance(ResistanceType.Fire,0);
-        Require(!WarlockCombat.Implemented(CombatAbility.Apocalypse),"Prepared fire receiver admitted unfinished Apocalypse launch/area packet");
     }
     private static void Check()
     {

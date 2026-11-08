@@ -2638,10 +2638,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 401,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared ordinary-NPC fire impact uses per-hit-only reduction,shared immunity and resistance/absorption services. Approved table-based minimum endpoint fallback resolves the protected-getter gap;effective rank and hard synergies feed shared SkillValues. Current maximum getter confirms percentage ordering,including large-value early division. Current damage wrappers/copy confirm one explosion roll reused by recipients. See apocalypse-packets-checkpoint.md and its scoped native evidence. Area/filter/LOS,extra potion elements,ground launch/hit23 integration,startup/payment/localdelay/input and raw stat-list/reentrant-event parity remain unfinished;no learned handler or class certificate. Effects/audio/icons remain separate."
+      "remaining": "Learned ordinary Warlock/Witch SC composes pinned start0/do123,original50frame ground marker,hit23 and prepared current do163 packet/area/potion impact. Pinned start0 follows the older generic successful-do payment route;32mana at rank1,unpaid windup/cancellation and failed placement,with one debit at successful field commit. Existing45frame localdelay and left/right/quick input are wired. Minimum getter uses the approved table fallback. Modern generic startup caller,whole-game RNG interleaving,source world cleanup/order/collision and full temporary raw-stat/reentrant-event/special-recipient/PvP parity remain qualified;no class certificate. See apocalypse-cast-checkpoint.md. Final effects/audio and talent/hotkey icons remain separate."
     },
     {
       "talentId": "warlock.abyss",

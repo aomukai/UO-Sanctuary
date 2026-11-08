@@ -59,7 +59,7 @@ public static class ApocalypsePotionChecks
                 $"Combined fire MDR/absorption kernel:damage={NamedElements.To256(parts.Total)},absorb={absorbed},expected={expected}/{expectedAbsorb}");
         }
         finally{ring.Delete();ClassGear.Refresh(owner);TimedEffects.RemoveBuff(owner,TimedEffectCategory.Potion);}
-        Require(target.FireResistance==0&&target.PoisonResistance==0&&!WarlockCombat.Implemented(CombatAbility.Apocalypse),"Potion path left resistance state or enabled unfinished cast");
+        Require(target.FireResistance==0&&target.PoisonResistance==0,"Potion path left resistance state");
     }
     private static void Check()
     {

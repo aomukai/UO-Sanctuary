@@ -1,5 +1,7 @@
 # Apocalypse original ground controller
 
+**Superseded binding note:** Apocalypse has start0,not Abyss's start14. The extra prepared start14 call is removed in the [learned cast checkpoint](apocalypse-cast-checkpoint.md);its successful-release payment and current status supersede this earlier snapshot.
+
 2026-11-09 JST. Reference **D2R Reign of the Warlock3.3.93847**,approved deviations first. **211/240 handlers;Warlock2/30;no class certified.** This composes the prepared ground controller;learned input remains gated.
 
 The pinned `apocalypse` missile722 has velocity0,collision type0 by default,do1,hit23,hit parameter163 and50-frame range. `ApocalypseGround` reuses `GroundMissileLaunch.Start14/Do123`,the existing `BasicMissileUpdate` stationary/no-collision path,and `GroundMissileLaunch.Hit23`. Frame49 has no hit,including on an occupied enemy tile. Frame50 dispatches the prepared do163 packet/area once;the terminal wrapper removes the marker. The existing legacy-qualified basic updater and expiry contract are reused;new current-binary parity for that generic helper is not claimed.

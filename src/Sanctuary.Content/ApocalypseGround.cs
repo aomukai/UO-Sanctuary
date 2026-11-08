@@ -31,6 +31,7 @@ internal static class ApocalypseGround
     private static ImmutableDictionary<uint,ApocalypseGroundField> _fields=ImmutableDictionary<uint,ApocalypseGroundField>.Empty;
     private static ImmutableDictionary<uint,ulong> _seeds=ImmutableDictionary<uint,ulong>.Empty;
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(ApocalypseGround));
+    internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
     public static void Configure()=>_=new ApocalypseGroundProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static void BindSeedPrepared(PlayerMobile owner,ulong seed)
@@ -41,7 +42,7 @@ internal static class ApocalypseGround
     internal static ulong Seed(PlayerMobile owner)=>_seeds.TryGetValue(owner.Serial.Value,out var seed)?seed:throw new NotSupportedException("Apocalypse caster RNG provider is not bound");
     private static uint Random(PlayerMobile owner)
     {ulong seed=Seed(owner);uint sample=SourceRandom.Roll(ref seed);_seeds=_seeds.SetItem(owner.Serial.Value,seed);return sample;}
-    private sealed class Launch(PlayerMobile owner,Point3D point,int rank,DateTime at,bool allocation):GroundLaunchServices
+    private sealed class Launch(PlayerMobile owner,Point3D point,int rank,DateTime at,bool allocation,Func<bool> payment):GroundLaunchServices
     {
         internal ApocalypseGroundField Created;
         private Point3D Ground=point;
@@ -65,20 +66,36 @@ internal static class ApocalypseGround
             {throw new NotSupportedException("Apocalypse ground factory identity changed");}
             if(Distance(request.Point)>100||!allocation){return false;}
             var marker=new Static(0x1B7A){Name="Apocalypse ground (placeholder)",Movable=false};marker.MoveToWorld(Ground,owner.Map);
+            if(payment!=null&&!payment()){marker.Delete();return false;}
             Created=new(marker.Serial.Value,owner.Serial.Value,owner.Map.MapID,Ground,rank,at,50,0);_fields=_fields.Add(Created.Marker,Created);return true;
         }
         internal override void SetTargetMemory(uint sample)
         {Created=Created with{TargetMemory=sample};_fields=_fields.SetItem(Created.Marker,Created);}
         internal override void Notify(GroundMissileRequest request,uint sample){} // Identified original marker stands in for client notification.
     }
+    internal static void EnsureSeed(PlayerMobile owner)
+    {
+        // Established native seed adapter;retain the saved owner stream after
+        // initial binding. Cross-ability D2 interleaving remains unverified.
+        if(!_seeds.ContainsKey(owner.Serial.Value)){BindSeedPrepared(owner,SourceRandom.InitLow(SeedLow()));}
+    }
+    internal static ApocalypseGroundField CreatePaid(PlayerMobile owner,SkillValues values,Point3D point,DateTime at)
+    {
+        if(values?.Ability!=CombatAbility.Apocalypse){throw new NotSupportedException("Apocalypse needs its own captured payment values");}
+        if(!NecromancerEffects.CanPay(owner,values.Mana256)){return null;}
+        EnsureSeed(owner);
+        return Create(owner,point,values.Rank,at,true,()=>NecromancerEffects.Pay(owner,values.Mana256));
+    }
     internal static ApocalypseGroundField CreatePrepared(PlayerMobile owner,Point3D point,int rank,DateTime at,bool allocation=true)
+        =>Create(owner,point,rank,at,allocation,null);
+    private static ApocalypseGroundField Create(PlayerMobile owner,Point3D point,int rank,DateTime at,bool allocation,Func<bool> payment)
     {
         if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Warlock
             ||rank is <1 or >255||at.Kind!=DateTimeKind.Utc||at<=DateTime.UnixEpoch){return null;}
         _=Seed(owner);var route=WarlockGroundRoutes.For(CombatAbility.Apocalypse);
-        if(route.Lifetime!=50||route.MissileDo!=1||route.MissileHit!=23||route.HitDispatch!=163){throw new NotSupportedException("Apocalypse delayed ground route changed");}
-        var launch=new Launch(owner,point,rank,at,allocation);
-        return GroundMissileLaunch.Start14(launch)&&GroundMissileLaunch.Do123(401,rank,launch)?launch.Created:null;
+        if(route.StartFunction!=0||route.Lifetime!=50||route.MissileDo!=1||route.MissileHit!=23||route.HitDispatch!=163){throw new NotSupportedException("Apocalypse delayed ground route changed");}
+        var launch=new Launch(owner,point,rank,at,allocation,payment);
+        return GroundMissileLaunch.Do123(401,rank,launch)?launch.Created:null;
     }
     private sealed class Hit(ApocalypseGroundField s,PlayerMobile owner,bool fighting):GroundHitServices
     {
@@ -98,10 +115,10 @@ internal static class ApocalypseGround
             _=ApocalypseArea.ReleasePrepared(owner,Map.Maps[s.Map],s.Origin,packet);
         }
     }
-    internal static void Tick(DateTime at,bool? allowActions=null)
+    internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyOwner=null)
     {
         if(World.Loading){return;}if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Apocalypse clock must be UTC");}
-        foreach(var initial in _fields.Values.OrderBy(s=>s.BornUtc).ThenBy(s=>s.Marker).ToArray())
+        foreach(var initial in _fields.Values.Where(s=>!onlyOwner.HasValue||s.Owner==onlyOwner.Value).OrderBy(s=>s.BornUtc).ThenBy(s=>s.Marker).ToArray())
         {
             var s=initial;var marker=World.FindItem((Serial)s.Marker);var owner=World.FindMobile((Serial)s.Owner)as PlayerMobile;
             if(marker is not{Deleted:false}||marker.Map?.MapID!=s.Map||marker.Location!=s.Origin||owner is not{Alive:true,Deleted:false}){Remove(s);continue;}

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Apocalypse placeholders (2026-11-09 JST).** Mechanics now have a learned cast;art remains pending. Ground`0x1B7A`,recipient`0x36D4`,shared cast sound`0x1E5` and human casting pose are identified placeholders. Final cast/countdown/detonation/recipient effects and audio still need creation. [Checkpoint](apocalypse-cast-checkpoint.md). Talent/hotkey icons remain separate;no final artwork generated.
+
 **Apocalypse ground controller placeholder (2026-11-09 JST).** Original static`0x1B7A` represents the ground countdown;recipient`0x36D4` remains a placeholder. Final cast,countdown,detonation/area,recipient effects and audio still need creation. [Checkpoint](apocalypse-ground-checkpoint.md). Talent/hotkey icons remain in the separate icon register;no final artwork generated.
 
 **Apocalypse prepared impact (2026-11-09 JST).** Recipient effect0x36D4 is an identified placeholder. Final cast,ground countdown,detonation/area,recipient overlay and audio remain needed;the temporary resistance reduction does not create a new lasting curse visual. [Checkpoint](apocalypse-impact-checkpoint.md). No final image generation performed;icons remain separate.

@@ -87,7 +87,6 @@ public static class ApocalypsePacketChecks
             &&x.Damage256==NamedElements.Resolve256(owner,first,packet.Fire256,"fire",enhance:false,pierceOverride:0,skillResistanceDelta:-5).Damage256,
             "Shared explosion rerolled,enhanced again or read new rank");
         int before=SkillHealth.Balance256(first);Require(!ApocalypsePackets.ReleasePrepared(owner,first,packet,false).Applied&&SkillHealth.Balance256(first)==before,"Allocation refusal packet");
-        Require(!WarlockCombat.Implemented(CombatAbility.Apocalypse),"Packet work enabled unfinished launch/area");
     }
     private static void Check()
     {

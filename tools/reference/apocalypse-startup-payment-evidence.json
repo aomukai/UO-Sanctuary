@@ -1,0 +1,16 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentExecutableCallerVerified": false,
+  "legacyTreeCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp",
+  "sourceSha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+  "functions": {
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "primaryStartFunction": 0,
+  "primaryUseManaOnDo": 0,
+  "abyssStartFunction": 14,
+  "interpretation": "AP start0 is a null start callback. Pinned older generic handler consumes after successful do for ordinary payment context with no start callback. Successful release pays once;windup/cancellation and failed placement are free. Current generic caller remains unverified.",
+  "correction": "Native1 candidate incorrectly attributed Abyss start14 to AP. Rejected during final table audit despite its candidate tests passing;not pushed. Native2 follows primary AP start0 and removes the extra start14 gate."
+}
