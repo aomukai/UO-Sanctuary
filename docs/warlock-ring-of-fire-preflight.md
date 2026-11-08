@@ -1,5 +1,7 @@
 # Ring of Fire mechanical preflight
 
+**Current reference follow-up (2026-11-08 JST).** In a newly verified owned client process,the complete do154body and directly referenced missile factory became readable and were captured with all unwind fragments. The current dispatcher/index linkage is also established. The older inaccessible-process observation below remains historical;launch semantics,helper identities and damage17still require qualification. [Current checkpoint](warlock-current-do-reference-checkpoint.md).
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This preparation enables no handler. Coverage stays197/240, Warlock1/30 and zero completed classes.
 
 The [primary-table receipt](../tools/reference/ring-of-fire-preflight.json) binds the owned-build skill extraction, cached current skill/missile rows, pinned executable and supplementary source. Skill394 uses new server do154; parent missile689 uses standard do1/hit1 but new damage17. Both new callbacks are null in the pinned older dispatcher tables. The visual explosion730 has no server-do/server-hit fields: its name is not evidence for a second server damage child.

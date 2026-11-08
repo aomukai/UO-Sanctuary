@@ -1,0 +1,479 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "handlers": 210,
+  "completedClasses": [],
+  "productionChanged": false,
+  "newNativeRuns": 0,
+  "process": [
+    {
+      "pid": 556242,
+      "startTicks": 16928234,
+      "name": "Main"
+    }
+  ],
+  "captures": [
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/capture.json",
+      "bytesRead": 8164,
+      "sha256": "92a2434e03599e464f44b16284963d8462f313e258cf7b49e1d9d912bb9f7ace"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-common-do-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "8b87b9b8907f36afef454a731f710c8ca2eb9dd0fb6e816a514201cb2e75957d"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-156-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "764c864fc0774f8dfec306b636ade19763d4e97123ca865e94f1aa75f3b8e9ea"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/capture.json",
+      "bytesRead": 5062,
+      "sha256": "a86c2d2dc6f587982794ab4b624ecede56be7242475dbba1f5a50ae78405a2cb"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/capture.json",
+      "bytesRead": 5034,
+      "sha256": "187309c19795e557ff35b55d08c9caf4bdaed039d6ca468b2d6d9bc5d436013d"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-159-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "79726992bf183c3882c8aebf636506cdc6943ceb7c8b15741d5da1aab122e0a3"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-160-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "2292857b0bad3f0d94246194b73cc854f9da4e193b3dd2d6851b6ada3b38e76e"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-161-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "f7d2ef214dfa982f6df2dcd11874d0e7ff83c7b3125816d73e290573dc89a6d8"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-162-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "6b219ed8a7a43a9f5ded394a612390b85a695a27d6fd545b1f31b40027e90b60"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/capture.json",
+      "bytesRead": 5360,
+      "sha256": "f20cd0ed3f7d9520a89bf1bb70c6f962f163615133816121f8ead02bbc5fa5a1"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/capture.json",
+      "bytesRead": 5174,
+      "sha256": "c6061da802be89bd98a4072e75b90ae2f2def7e15794f927ffd168e960186e34"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-165-20261108/capture.json",
+      "bytesRead": 3800,
+      "sha256": "9a84240805964de884006b1677639616bbb42c3c4c993c00fae7eb32edb21d16"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-166-20261108/capture.json",
+      "bytesRead": 3616,
+      "sha256": "9e672f547d21ef89a5ba724ae19d0566b0d0b64baeb08e6e181000e4e5c38c52"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/capture.json",
+      "bytesRead": 4330,
+      "sha256": "157eb69b34f65df19d3e70330460251d7c358cc5256a27f0db4b1458c7064ea1"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-progressive-helpers.json",
+      "bytesRead": 560,
+      "sha256": "14f29539e60d62b57fa50bdd1e2adf82f832953f8cfceda358da1f85e3320005"
+    },
+    {
+      "path": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-missile-factory.json",
+      "bytesRead": 5890,
+      "sha256": "24689e57066e167d32d1ac93b6b994f0ee9bbf9c068fcb92e3e5896de8eeada2"
+    }
+  ],
+  "complete": {
+    "do154": {
+      "rva": "0x44a7a0",
+      "bytes": 711,
+      "fragments": 3,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/capture.json",
+      "fragmentSha256": [
+        "de592cf4e8c56839fa11bb37a406de872e29f21cc2a5fa101e63455c7cea5bab",
+        "7b5888a9d211f01bb969ef0402bbe51eb11492995272771b9a84ebe1ccacf104",
+        "56de3b25805955ecbb56c0baa972e535b8e01e36222c40713f821279e3676683"
+      ]
+    },
+    "do155": {
+      "rva": "0x44aca0",
+      "bytes": 1431,
+      "fragments": 4,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/capture.json",
+      "fragmentSha256": [
+        "3f000936e6e3b6caf081589143816a2938c8e085696f30d63a2e712a79db16c6",
+        "5353de51f2c453aca05cc4c55db449298857836b79c08ece5c4470f319d0486e",
+        "872dd23ec6425f60d8ddf6ee35f49ef3e034a29e56e5e063809179e357c36e74",
+        "529bfefc1a525cf2758c223c6fa8066a940e96c7bc9541a4378a1a61584dfdb8"
+      ]
+    },
+    "do157": {
+      "rva": "0x44a100",
+      "bytes": 723,
+      "fragments": 1,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/capture.json",
+      "fragmentSha256": [
+        "5c4e256deef9945f908f01dde647f1311ee7ec0ad99dfd54fd62234c56e9a6ea"
+      ]
+    },
+    "do158": {
+      "rva": "0x44bc50",
+      "bytes": 709,
+      "fragments": 3,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/capture.json",
+      "fragmentSha256": [
+        "cb9f12aac84cc170dde6d78032d815ed1f58dd7a9ee59d885a606511eb84e02f",
+        "fb93b73b556f30c67db8d73e40f15dacf0e49beb4f9e3b8ae438a3e6e2d8a156",
+        "79f23abac446fcedd65a546b0aba5954dfd36b0882e5fc1279ef1fc91541ae8c"
+      ]
+    },
+    "do163": {
+      "rva": "0x450410",
+      "bytes": 872,
+      "fragments": 4,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/capture.json",
+      "fragmentSha256": [
+        "738ef9f0fb8c39a561ae1e39a369d21bf025dc64f560c4f173c7abd19f5dfc1f",
+        "0f4ce96a8b332619d9fa46633a741e7d170c54672756d9105136ec0c50584029",
+        "28160a5e619dbee1ef19b5ec6e60e63b97fab9633f1ae43c5201a28cab870c9d",
+        "ea104a35bee2dafe36bea1e4bb730fd100cbbebc628a1b40f7d9338272e6d48e"
+      ]
+    },
+    "do164": {
+      "rva": "0x4508e0",
+      "bytes": 779,
+      "fragments": 4,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/capture.json",
+      "fragmentSha256": [
+        "e0f8204194f761461c46b8c09c8eb179acf95b8c292266d3fbd4fc0afa7adbf1",
+        "736023b0acf97530b81f25b279ade556bd2bd3032e8dc43c501a928bb1d905eb",
+        "200376a67db7667aa7964bacc3fafd8308b1bf6461cc5323251206c116aef9a6",
+        "462e0a03db8eef6c85deea2fe3809cfe6e3e82b0a87bfc53f43128d8827efda4"
+      ]
+    },
+    "do167": {
+      "rva": "0x452650",
+      "bytes": 357,
+      "fragments": 1,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/capture.json",
+      "fragmentSha256": [
+        "f8a811030ebdfa218444941c3652118604e21b80dcf3123367da4e0951d56f5f"
+      ]
+    },
+    "0x400760": {
+      "rva": "0x400760",
+      "bytes": 2665,
+      "fragments": 1,
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-missile-factory.json",
+      "fragmentSha256": [
+        "26c1396038b01a0ff3b49d9b7d9df4a183bde0832c7ceb1b57bedc23d6fc05a8"
+      ]
+    }
+  },
+  "unavailable": {
+    "do156": {
+      "rva": "0x44cfd0",
+      "permissions": [
+        "cross-map",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-156-20261108/capture.json"
+    },
+    "do159": {
+      "rva": "0x44d690",
+      "permissions": [
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-159-20261108/capture.json"
+    },
+    "do160": {
+      "rva": "0x44e2c0",
+      "permissions": [
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-160-20261108/capture.json"
+    },
+    "do161": {
+      "rva": "0x44e780",
+      "permissions": [
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-161-20261108/capture.json"
+    },
+    "do162": {
+      "rva": "0x44f6b0",
+      "permissions": [
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-162-20261108/capture.json"
+    },
+    "do165": {
+      "rva": "0x450f40",
+      "permissions": [
+        "cross-map",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-165-20261108/capture.json"
+    },
+    "do166": {
+      "rva": "0x451c40",
+      "permissions": [
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-166-20261108/capture.json"
+    },
+    "do56": {
+      "rva": "0x4571d0",
+      "permissions": [
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-common-do-20261108/capture.json"
+    },
+    "0x4421f0": {
+      "rva": "0x4421f0",
+      "permissions": [
+        "---s",
+        "---s",
+        "---s",
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-progressive-helpers.json"
+    },
+    "0x2de700": {
+      "rva": "0x2de700",
+      "permissions": [
+        "---s"
+      ],
+      "capture": ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-progressive-helpers.json"
+    }
+  },
+  "eventCandidatesUnavailable": [
+    {
+      "slot": 40,
+      "rva": "0x44cc40",
+      "unavailable": true
+    },
+    {
+      "slot": 37,
+      "rva": "0x44ca70",
+      "unavailable": true
+    },
+    {
+      "slot": 35,
+      "rva": "0x44c330",
+      "unavailable": true
+    },
+    {
+      "slot": 36,
+      "rva": "0x44c6d0",
+      "unavailable": true
+    },
+    {
+      "slot": 39,
+      "rva": "0x4521d0",
+      "unavailable": true
+    }
+  ],
+  "skillTableMapping": [
+    {
+      "id": 375,
+      "name": "Death Mark",
+      "serverDo": 155,
+      "itemEffect": 0
+    },
+    {
+      "id": 382,
+      "name": "Bind Demon",
+      "serverDo": 158,
+      "itemEffect": 0
+    },
+    {
+      "id": 391,
+      "name": "Cleave",
+      "serverDo": 164,
+      "itemEffect": 0
+    },
+    {
+      "id": 393,
+      "name": "Sigil Lethargy",
+      "serverDo": 157,
+      "itemEffect": 1
+    },
+    {
+      "id": 394,
+      "name": "Ring of Fire",
+      "serverDo": 154,
+      "itemEffect": 154
+    },
+    {
+      "id": 396,
+      "name": "Sigil Rancor",
+      "serverDo": 157,
+      "itemEffect": 1
+    },
+    {
+      "id": 399,
+      "name": "Miasma Chains",
+      "serverDo": 167,
+      "itemEffect": 167
+    },
+    {
+      "id": 400,
+      "name": "Sigil Death",
+      "serverDo": 157,
+      "itemEffect": 1
+    },
+    {
+      "id": 419,
+      "name": "Goatman Cleave",
+      "serverDo": 164,
+      "itemEffect": 0
+    }
+  ],
+  "dispatcherIndexLinked": true,
+  "callbackSemanticsVerified": false,
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "gameMemoryWritten": false,
+  "processInput": false,
+  "ptraceAttach": false,
+  "securitySettingsChanged": false,
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107.json": "40cb10d0ee1b3a1c622b42435d8538b56fbc5e4baf5aec81777322419fd37593",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107-3aaf70-part0.bin": "a708885304244d4f6a389d61bf5af78a208ef598f75be2ebba17f8ffeeae6c8e",
+    ".local/class-skills/warlock-runtime-reference/services-shadow-skill-dispatch-20261107-3aaf70-part0.asm": "8862d71096ee3bbc40b2fc0df20a99270aec95016578ae0c1675ffb02b09d8bb",
+    "tools/capture_warlock_skill_do.py": "14b59b0068fe7e3e324ee59927fb95bfabe8a76f053237a6822245ae59f37b10",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part0.bin": "de592cf4e8c56839fa11bb37a406de872e29f21cc2a5fa101e63455c7cea5bab",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part0.asm": "9cb12ee0a4a90ee7a8a63ddafb797f136fd7f5b4a1fd480b9a205fc5b7c4d34f",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part1.bin": "7b5888a9d211f01bb969ef0402bbe51eb11492995272771b9a84ebe1ccacf104",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part1.asm": "78889d895d16b899d2aae72246c1fae1e1768bbdddc5fb9cf36e9c0cb0b67abb",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part2.bin": "56de3b25805955ecbb56c0baa972e535b8e01e36222c40713f821279e3676683",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-154-part2.asm": "6ebf3d16d55e04f1693bc00ec662544be90bf172b04bf08230adabe76062b7ce",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part0.bin": "3f000936e6e3b6caf081589143816a2938c8e085696f30d63a2e712a79db16c6",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part0.asm": "ac49fbc3b78eef10a4e84a77c91c278734c44f9d7de5d9012b1007b188951453",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part1.bin": "5353de51f2c453aca05cc4c55db449298857836b79c08ece5c4470f319d0486e",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part1.asm": "43b0c24e823dc499d42ce98bc5e80f60f03a34bf6a48119de656a71f7e44ad9a",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part2.bin": "872dd23ec6425f60d8ddf6ee35f49ef3e034a29e56e5e063809179e357c36e74",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part2.asm": "502492a332d5f569a0f99b5116cae348ce78829e8a98fbbbb65a5fa0b54b62d1",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part3.bin": "529bfefc1a525cf2758c223c6fa8066a940e96c7bc9541a4378a1a61584dfdb8",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-155-part3.asm": "e9da9307b39f98baa9a8deebeb1d7acfb9c55a426d39b92df2c76a2f03d700b8",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-163-part2.bin": "28160a5e619dbee1ef19b5ec6e60e63b97fab9633f1ae43c5201a28cab870c9d",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-163-part2.asm": "fd001614d5c3e9fb18dec40c52a42e6bf2b1b05d7a90830d106d93d1a9642082",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-163-part3.bin": "ea104a35bee2dafe36bea1e4bb730fd100cbbebc628a1b40f7d9338272e6d48e",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-163-part3.asm": "67ae655c6e7d7df3b33697f72a88d05e14b8f7a88466891b672ef7e5b51b99fe",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-164-part2.bin": "200376a67db7667aa7964bacc3fafd8308b1bf6461cc5323251206c116aef9a6",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-164-part2.asm": "ae140a96433eec5074c3e04e6cee7f841d42181c15880bc8cf646c1b4d2e754b",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-164-part3.bin": "462e0a03db8eef6c85deea2fe3809cfe6e3e82b0a87bfc53f43128d8827efda4",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/do-164-part3.asm": "a3c005305b36b799845e47132e08f070bd7156be37deafe1ff172f8aa1995727",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/capture.json": "92a2434e03599e464f44b16284963d8462f313e258cf7b49e1d9d912bb9f7ace",
+    ".local/class-skills/warlock-runtime-reference/warlock-common-do-20261108/capture.json": "8b87b9b8907f36afef454a731f710c8ca2eb9dd0fb6e816a514201cb2e75957d",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-156-20261108/capture.json": "764c864fc0774f8dfec306b636ade19763d4e97123ca865e94f1aa75f3b8e9ea",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/do-157-part0.bin": "5c4e256deef9945f908f01dde647f1311ee7ec0ad99dfd54fd62234c56e9a6ea",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/do-157-part0.asm": "7766d91ffa47a88e16aa6d46921f2ef16ad087452f7e18c2d416c176be340abf",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-157-20261108/capture.json": "a86c2d2dc6f587982794ab4b624ecede56be7242475dbba1f5a50ae78405a2cb",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part0.bin": "cb9f12aac84cc170dde6d78032d815ed1f58dd7a9ee59d885a606511eb84e02f",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part0.asm": "f83b6624de93fe400a6797e2c2189aefe1ada4692549c9320e5256e4ab4a71ce",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part1.bin": "fb93b73b556f30c67db8d73e40f15dacf0e49beb4f9e3b8ae438a3e6e2d8a156",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part1.asm": "6dab0ae0d6b9384c6c98018f7fef5a6d06c46d8f2233a444a4322f7862761960",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part2.bin": "79f23abac446fcedd65a546b0aba5954dfd36b0882e5fc1279ef1fc91541ae8c",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part2.asm": "cb553e42063c842b4f3ac8750e167513bc0e84bd565a035cb6970a26e05dc920",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/capture.json": "187309c19795e557ff35b55d08c9caf4bdaed039d6ca468b2d6d9bc5d436013d",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-159-20261108/capture.json": "79726992bf183c3882c8aebf636506cdc6943ceb7c8b15741d5da1aab122e0a3",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-160-20261108/capture.json": "2292857b0bad3f0d94246194b73cc854f9da4e193b3dd2d6851b6ada3b38e76e",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-161-20261108/capture.json": "f7d2ef214dfa982f6df2dcd11874d0e7ff83c7b3125816d73e290573dc89a6d8",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-162-20261108/capture.json": "6b219ed8a7a43a9f5ded394a612390b85a695a27d6fd545b1f31b40027e90b60",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part0.bin": "738ef9f0fb8c39a561ae1e39a369d21bf025dc64f560c4f173c7abd19f5dfc1f",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part0.asm": "bb17bb383a8683c3b68ce2066d5e9a84f0f2da40b1c52090bed56c1c243c638a",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part1.bin": "0f4ce96a8b332619d9fa46633a741e7d170c54672756d9105136ec0c50584029",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part1.asm": "1d3f67c95b14f4561dd36b03bf56f73c9afe76f2f36defaf7eaff52fa2efc898",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part2.bin": "28160a5e619dbee1ef19b5ec6e60e63b97fab9633f1ae43c5201a28cab870c9d",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part2.asm": "e40e4a968eca22b43aa24c2bc877e66d362241ea0da69e6a44c911a85e0ddfe6",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part3.bin": "ea104a35bee2dafe36bea1e4bb730fd100cbbebc628a1b40f7d9338272e6d48e",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/do-163-part3.asm": "6442f8451cf8bd5977301192f628cf333d14381f20493cbd26fd397e91ed9731",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-163-20261108/capture.json": "f20cd0ed3f7d9520a89bf1bb70c6f962f163615133816121f8ead02bbc5fa5a1",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part0.bin": "e0f8204194f761461c46b8c09c8eb179acf95b8c292266d3fbd4fc0afa7adbf1",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part0.asm": "0f0290024c494f76742477c48fb1e57cf68f07345d93ccb6f5133795e5a8abc8",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part1.bin": "736023b0acf97530b81f25b279ade556bd2bd3032e8dc43c501a928bb1d905eb",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part1.asm": "893950af2a8b36d84a5cebe71569b198d29e85d7f69a62be68f45921a048f5e4",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part2.bin": "200376a67db7667aa7964bacc3fafd8308b1bf6461cc5323251206c116aef9a6",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part2.asm": "82870f7107a0ef8a42c8916743487a0b7b8ecff03370fc1fc877c98a7647fbdc",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part3.bin": "462e0a03db8eef6c85deea2fe3809cfe6e3e82b0a87bfc53f43128d8827efda4",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/do-164-part3.asm": "bb9fdfcde3375c03ca338f5205803d286cc6bf41a601d3aca15dd3e803d9b9af",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-164-20261108/capture.json": "c6061da802be89bd98a4072e75b90ae2f2def7e15794f927ffd168e960186e34",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-165-20261108/do-165-part0.bin": "7d7c2fd3227cc866767d2facc015298ec62e1dea7e1c8eee0041d3e110055ab9",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-165-20261108/do-165-part0.asm": "11dba9e03d6f5dd292220cbdd0483036328287c999d58e8f4e8fa320fee545ae",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-165-20261108/capture.json": "9a84240805964de884006b1677639616bbb42c3c4c993c00fae7eb32edb21d16",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-166-20261108/capture.json": "9e672f547d21ef89a5ba724ae19d0566b0d0b64baeb08e6e181000e4e5c38c52",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/do-167-part0.bin": "f8a811030ebdfa218444941c3652118604e21b80dcf3123367da4e0951d56f5f",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/do-167-part0.asm": "6443f6271a947839eb7429adb36352f8f8ea8fe0b6368c6289c74dd1ad5300df",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-167-20261108/capture.json": "157eb69b34f65df19d3e70330460251d7c358cc5256a27f0db4b1458c7064ea1",
+    "tools/capture_reference_service_edges.py": "b55c5858812d0c0af26f7465cefdfb1011af5f8950a62950c3da718a9bd4bbaf",
+    "tools/pe_unwind_groups.py": "55aa643d7fabca14ee3b1ca2c04c50eee062c18a026ac7a1c518c5246887e27e",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/reference/generic-pet-search-nested-source-evidence.json": "d853dd7ce210c6e089aacf43e970f3554df19c791fdae938d0bfc5d786456bf1",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-progressive-helpers.json": "14f29539e60d62b57fa50bdd1e2adf82f832953f8cfceda358da1f85e3320005",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-missile-factory-400760-part0.asm": "d4aaa451d3581c33dfbd86bcc802252bf4995bddbf3544bf3410d211b9cc689a",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-missile-factory-400760-part0.bin": "26c1396038b01a0ff3b49d9b7d9df4a183bde0832c7ceb1b57bedc23d6fc05a8",
+    ".local/class-skills/warlock-runtime-reference/warlock-new-do-20261108/services-ring-missile-factory.json": "24689e57066e167d32d1ac93b6b994f0ee9bbf9c068fcb92e3e5896de8eeada2",
+    ".local/class-skills/warlock-runtime-reference/current-20261108/event-bodies-40-37.json": "425aa251a5c32a8326330329f1397c36e1615040d8d7c27a5cb2ac377cf1dc8c",
+    "tools/capture_warlock_event_bodies.py": "08ac70c28b4ea9952be5c45bd7ecee617d8f32758cc62d878d3420df5a7823fb",
+    "tools/probe_warlock_event_reference.py": "a5bf0e827cb848c109778737033f3055d905dda446e3f744349bc4d487f1617c",
+    ".local/class-skills/warlock-runtime-reference/current-20261108/event-bodies-35-36-39.json": "126a1cf6ae01f967cba10fa8166fc0e93bc4526a74b2dc28d60e5a8040788ae0"
+  },
+  "established": [
+    "Preserved complete current dispatcher3aaf70bounds primary do by190,loads the index from skill field4e (or alternate ItemEffect context),and calls table163a8b0[index]. The freshly read immutable191pointer table equals the pinned executable. This resolves index linkage beyond earlier unique-shape corroboration.",
+    "Complete current bodies154/155/157/158/163/164/167and directly referenced missile factory400760are captured with all unwind fragments and no invalid-instruction markers. No runtime heap/player state/input/write/protection change was used. Raw binaries/disassembly stay ignored locally.",
+    "The process uses Linux comm Main. Exact process-name pgrep D2R.exe is insufficient to establish closure;use probe_warlock_runtime.processes(),then CodeReader identity/anchors for reference reads."
+  ],
+  "limits": [
+    "Dispatch index linkage and complete capture do not establish the detailed semantics of every callee,formula/damage/event ordering or a playable skill. No handler/class is certified.",
+    "Do56/156/159/160/161/162/165/166and Ring progressive helpers remain incomplete in these captures. Some initial omissions were capture-budget limits;separate per-slot observations resolve the final complete set. Protected or incomplete code is never synthesized from partial fragments.",
+    "Event candidates35/36/37/39/40remain inaccessible;their callback identities/semantics are still unverified. No unchanged polling window or forced access was used.",
+    "Next translate/emulate the complete Ring launch or Sigil/Cleave body using existing factory/vector/skill services;qualify needed helper and missile-damage contexts before enabling learned casts."
+  ]
+}
