@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "currentTimedEventBytes": 1796,
+  "sourceSequences": 31,
+  "freshCaptureBytesRead": 4136,
+  "oldLargeSourceMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-timed-events-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "9a8ff98246e2245eebc602bb487b7ca79c38c1186276bec46c82be0f970952fa",
+    "Assemblies/Sanctuary.Integration.dll": "4bd3bce6cdfd5bc1410afb740ff4318047ac711bc338a6e549f711c5f7eea501"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete retained idle/remover and captured wrapper/scheduler/node factory execute31focused sequences with available source pool and declared null-callback validation. Native C# matches metadata,unit-list and bucket ordering,reuse,processing flags,neutral/deferred service order,selector refusals and post-service status.",
+    "Prepared event-store entries now supply root event types and removal for original three-species demons. Root removes both AI events while retaining its other event,finishes typed commands and publishes existing persistent controls. Original birth/wounds/commands/control values survive two native reloads;the event store is recreated,not persisted.",
+    "Existing initializer/root/DeathMark controller source files are text-identical to parent;no replacement AI or automatic dispatcher is introduced. Installed artifacts,saves,configuration and current client remain unchanged."
+  ],
+  "limits": [
+    "Monster/null-callback events over explicit ordinary frame requests only. Non-null callback validation is an opaque declared service;raw pool-growth path,other unit groups,untimed sentinel,global dispatch cursor and dispatch completion are not certified.",
+    "No automatic tick/due-event execution,event persistence or host frame projection. Special stat-root inputs and post-service status remain explicit;no gameplay meaning or live default is inferred. Binding snapshots explicit root entries;the supported initializer does not mutate timed events.",
+    "Live player-pet store,birth/default AI-control values,remaining search/path/movement/combat/actions and learned summon/DeathMark admission remain unfinished. No class certificate or new assets."
+  ],
+  "diagnostics": [
+    "Oracle review replaced free-list-head-derived snapshot count with actual factory-return high-water tracking before native comparison. Earlier script retained in probe-diagnostics-1;no native/build failure."
+  ],
+  "inputs": {
+    "tools/reference/pet-timed-events-source-evidence.json": "d7553acf7639e56a1782c1427219b801ed6f4746f2065f4a4b2152836f11bd1e",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-schedule-20261109.json": "1005095d98a56540b860da1c4d7ba5bf06eca6288ca66f284207fe3ad109fd88",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-event-20261109.json": "575cb5a394d8df3aad663a3e0fe90bba56342c523463e08ccc7349a680c2fc04",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-event-node-20261109.json": "333a94da13ad4948f623aa302ed17356f4ccbde43c1d163ecb48bbdfa1774f5a",
+    ".local/class-skills/pet-timed-events/birth-inputs.json": "2a7a465efb435d50eecbd06425fa8674c23ab271061484f89bc55e883be56d12",
+    ".local/class-skills/pet-timed-events/source-snapshot-1.json": "72898075ee60ae36fe2e29a81c99720700dfb243f9de0af727b4874f7af1b966",
+    ".local/class-skills/pet-timed-events/content-build-1.log": "8f40c13a8ed3544c41a934dcd49445d45f72df5b3c83277a691f4b38742909a1",
+    ".local/class-skills/pet-timed-events/integration-build-1.log": "4ab80e898d11247269cbd1dec2ca6e4a36c0ef0b354642c4e0dfb8019316e3c7",
+    ".local/class-skills/pet-timed-events/birth-native-checks.log": "90b6a3fadbb6cb0283162672174e660153a1a6d9ea6d4411cd3c933e5a50135e",
+    ".local/class-skills/pet-timed-events/pet-command-target-fixtures.json": "60620683845026964269ee02ee0d4955b532dfacc6af51fa68db83fad0f8df5c",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-timed-events-checkpoint.md": "9a7140d110ba6604091f6bb6fb68856b9fb6627c07bafaa0f427e45462218535",
+    "docs/class-skills-resume-checkpoint.md": "22e8afcdba0024a4d1e1fdad2997cf18b034c2dd5fabc0bff56a1fa4f9919a95",
+    "docs/class-skill-roadmap.md": "0dfb6bff41d7b45b91c81fc5919bafff00e224b4c12079349f2f2f545fbb9d81",
+    "docs/class-skill-reuse-notes.md": "1cbbb0ac83affd63f50bea3cbe5cf6b456b588796d9d051663710d53f2830916",
+    "docs/skill-mechanical-reference.md": "d9ba91371b57203034dc2f1e45d212d88e5e480c368421af53d65c1d098c1160",
+    "tests/check_pet_timed_events.py": "c348d138edb244d05ab7211e15fa92bf98ada753211522e65214c4f62e482588",
+    "tools/record_pet_timed_events.py": "82e2c798b606ab9f74976b37210cb1276b0f29c79eb78d8c787a7ef084f54e3f"
+  }
+}

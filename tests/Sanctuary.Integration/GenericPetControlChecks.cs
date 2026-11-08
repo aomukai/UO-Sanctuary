@@ -51,7 +51,8 @@ internal static class GenericPetControlChecks
             Require(DeathMarkWorld.FinishPrepared(body,(before.Type4c-1,before.Target48))==1,"Original root finishing rejected typed target");trace.Add("finish");
         },(_,_,_)=>throw new InvalidOperationException("Persistent control writer was not bound"));
         root=DeathMarkWorld.BindControlPersistence(body,root);
-        GenericPetDecisions.Think(new(pet,true,true,true,new byte[]{2,1,2}),root);
+        var events=GenericPetTimedEventChecks.Bind(body,new(pet,true,true,true,Array.Empty<byte>()),root);
+        GenericPetDecisions.Think(events.Context,events.Services);
         Require(trace.SequenceEqual(new[]{"init","remove0","remove2","combat","finish"})&&DeathMarkWorld.State(body)==before with{Control=after},"Root failed to publish exactly three AI words after finishing");
         // Source frame is transient. Subsequent writes cannot rewrite the saved
         // controller;the next initialization reads its last published values.
