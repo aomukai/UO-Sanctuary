@@ -29,7 +29,7 @@ public static class ShadowDragonClawChecks
     private static Held Capture(AssassinShadowBody b)=>new(b.Serial.Value,b.SavedText,Json(GeneratedNpcLiveResources.State(b)),ShadowLoadout.Originals(b).Select(i=>i.SavedText).ToArray(),NpcEquipmentRandom.Require(b),SkillHealth.Balance256(b),Charges(b));
     public static void Configure(){Register("shadow-dragon-claw-check",false);Register("shadow-dragon-claw-reload-check",true);}
     private static void Register(string name,bool reload)=>ConsoleInputHandler.RegisterCommand(name,"Own NPC Dragon Claw mode14/start25/do46 original contacts and saves",_=>Core.LoopContext.Post(()=>{try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static void Clear(AssassinShadowBody b)
+    internal static void Clear(AssassinShadowBody b)
     {
         ShadowActions.Cancel(b);AssassinCharges.Clear(b);var c=MartialCold.Snapshot();MartialCold.Restore(c with{Cubes=c.Cubes.Where(x=>x.Npc?.Actor!=b.Serial.Value).ToArray()});
         var f=FireGround.Snapshot();FireGround.Restore(f with{Patches=f.Patches.Where(x=>x.PhoenixNpc?.Actor!=b.Serial.Value).ToArray()});

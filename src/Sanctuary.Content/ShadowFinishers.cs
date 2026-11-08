@@ -27,12 +27,20 @@ internal static class ShadowFinishers
         var impact=OriginalNpcMelee.Impact(body,target,flags,new(AdditionalPercent:checked(tiger+(skillValues==null?0:(int)skillValues.Eval("calc1"))),HitFlags:2),sourceDamage:policy?.Number("SrcDam")??128,afterFill:fill=>
             ShadowFinisherDamage.Inline(body,states,fill,out fire,out ice,out thunder));
         var prepared=new IronGolemContact.Prepared(rules,impact);
-        // The source progressive-release routine checks tighter melee range
-        // than GetResultFlags. Modern Attack's consume-one policy is shared
-        // with players; later contact cancellation does not refund allocation.
         if(range(0))
         {
             if(skill==260){ShadowDragonClaw.Progressive(body);}
+            Emit(body,target,prepared,states,fire,ice,thunder,at,policy?.Number("prgchargesconsumed")??CommonMeleeSkills.Attack.Number("prgchargesconsumed"));
+        }
+        return prepared;
+    }
+    internal static void Emit(AssassinShadowBody body,BaseCreature target,IronGolemContact.Prepared prepared,MartialCharge[] states,
+        FistsFirePacket fire,IcePacket ice,ThunderPacket thunder,DateTime at,int consume)
+    {
+        // The source progressive-release routine checks tighter melee range
+        // than GetResultFlags. Modern Attack's consume-one policy is shared
+        // with players; later contact cancellation does not refund allocation.
+        {
             var center=target.Location;var map=target.Map;
             var phoenix=states.FirstOrDefault(s=>s.Ability==CombatAbility.PhoenixStrike);
             if(phoenix!=null){_=MartialPhoenix.AfterShadow(body,target,center,phoenix,at);}
@@ -49,8 +57,7 @@ internal static class ShadowFinishers
                 };
             }
             else if(thunder is{Count:>=2}){_=MartialLightning.AfterShadow(body,center,thunder,at);}
-            foreach(var state in states){AssassinCharges.Consume(body,state,policy?.Number("prgchargesconsumed")??CommonMeleeSkills.Attack.Number("prgchargesconsumed"));}
+            foreach(var state in states){AssassinCharges.Consume(body,state,consume);}
         }
-        return prepared;
     }
 }

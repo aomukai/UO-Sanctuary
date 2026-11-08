@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sanctuary;
 
@@ -79,6 +80,33 @@ internal static class SourceAnimationEvents
         }
         else{events.Add(new(EndAnimation,frame+1,0));}
         return state with{Epoch256=epoch,Events=events.ToArray()};
+    }
+
+    // Ordinary-animation sub6FCBCFD0. The caller supplies the actual byte
+    // preceding frameFlags (high byte of the owned record's base speed).
+    internal static SourceAnimationState Percent(SourceAnimationState state,int frame,int percent,int precedingFlag)
+    {
+        Validate(state,frame);
+        if(percent is <0 or >100||precedingFlag is <0 or >255||frame<(state.Epoch256>>8)){throw new ArgumentOutOfRangeException();}
+        int calc=checked((100-percent)*(frame-(state.Epoch256>>8))/100);
+        var events=new List<SourceAnimationEvent>(state.Events.Where(e=>e.Type is not(ModeChange or EndAnimation)));
+        int current=frame,index=calc-1;
+        if(state.Speed>0)
+        {
+            for(long point=(long)calc*256+state.Speed;point<state.FrameCount256;point+=state.Speed)
+            {
+                current++;
+                while(index<=point/256)
+                {
+                    int kind=index==-1?precedingFlag:state.FrameEvents[index];index++;
+                    if(kind is >0 and <=4){events.Add(new(ModeChange,current,kind));}
+                }
+            }
+            if(current==frame){current++;}
+            events.Add(new(EndAnimation,current+1,0));
+        }
+        else{events.Add(new(EndAnimation,frame+1,0));}
+        return state with{Epoch256=checked((frame-calc)*256),Events=events.ToArray()};
     }
 
     // D2GAME_SKILLS_RewindSkillEx sets an absolute sequence point. Its a3 is

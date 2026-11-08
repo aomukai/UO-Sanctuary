@@ -1,0 +1,150 @@
+{
+  "parent": "e24f42f356ce8e609bf10980f782b7b2f2d0dd61",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicTalonConnected": true,
+  "composedSourceControls": 20,
+  "completeComposedRoutines": {
+    "SKILLS_SrvSt24_DragonTalon": "a52a25f734acff209da22d706e9e2269890347cc9829519b4323c9556bbe97cf",
+    "SKILLS_SrvDo042_DragonTalon": "bc9c052e66ab95170b0c765aec9542f4a418bd66f74b3057942e196cf0163ed7",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6"
+  },
+  "retainedRewindControls": 46,
+  "reusedPacketSource": {
+    "reused": {
+      "routines": {
+        "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+        "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+        "SKILLS_CalculateKickDamage": "5d135d473ce68448ad968e7f43858f7dab229846386e500f12d6f861bd460487",
+        "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+        "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+        "sub_6FC7C900": "4dc2c5c3cc92b6d8f835bc976bc1258dad0afa632a88b012c411f52eb5fdbf2f",
+        "sub_6FCF7CE0": "fb6cab859027d65162dcc79046b28daac2a7d2eacc51dae2314d2ae2bbe35329",
+        "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+        "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+        "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+        "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+        "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+        "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+        "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+        "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+        "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+        "SKILLS_SrvDo001_Attack_LeftHandSwing": "c20364bdd0433c0990308bba34248cecffb6a5d34439c13067c9fd724ec06528"
+      },
+      "receipts": {
+        "tools/reference/dragon-kick-damage-source-evidence.json": "c235213cfe1478351a33caafa136732d863a19f647f82e61871af90b2e7b33ae",
+        "tools/reference/dragon-talon-hands-source-evidence.json": "3d6958d3821930fa0663353116719c94630478710d7893315bc58e29a107c50d",
+        "tools/reference/dragon-kick-packet-source-evidence.json": "cd5df668c7a16aa07cdb22bbd6b7698d891f8cf76e3e960ae498e43818cb8ce8",
+        "tools/reference/npc-damage-fill-source-evidence.json": "839a00012d0275030fab9dc44cc334ceb2409c232455ebe9714b77d95a619b65",
+        "tools/reference/npc-blade-shield-fill-source-evidence.json": "28ff1ebe5779beb17788b27cabe7f95aa8822893197d2603e646f7412efd6964",
+        "tools/reference/shadow-finisher-source-review.json": "18f6f4941b325905999bc3a25a1a302a01a01830aa3921036492ad64b4dc475a"
+      },
+      "newCompilerMatrices": 0,
+      "generatorSuccessor": {
+        "path": "tools/probe_npc_damage_fill.py",
+        "historical": "376a29dba1a1d52347f504e8fcd207d435f2e163ffc681a52344b4374b209afa",
+        "current": "5d83a322bd01e1beb6aa428a935c894a372101714777df35b8d68644e11746a5",
+        "reason": "Later shield controls extended the generator;original5120 compiler/binary/cases remain unchanged and all six complete source bodies match."
+      }
+    },
+    "rewindReceipt": "be606276e206290cc4dee0377739e2163bd7fe2d774a37f6e86f4420f97239f0",
+    "newRewindControls": 46
+  },
+  "kickAttackRateReview": {
+    "routineHash": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "convertedPlayerMode": 12,
+    "modeRow": [
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    "optionalSkillFlag": 0
+  },
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-talon-check": 1,
+    "shadow-kick-packets-check": 1,
+    "shadow-dragon-claw-check": 1,
+    "shadow-ice-check": 1,
+    "shadow-sentry-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-talon-reload-check": 2,
+    "shadow-kick-packets-reload-check": 2,
+    "shadow-dragon-claw-reload-check": 2,
+    "shadow-ice-reload-check": 2,
+    "shadow-sentry-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 3,
+  "sourceSnapshot": 4,
+  "contentUnchangedSinceSnapshot": 3,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "b2e549c2360b7a66342b88ddc34cf4032c84397cc47e7b367b5ee68be407778d",
+    "Assemblies/Sanctuary.Integration.dll": "9e86c6617a054bf5ad50b7a888dfa8dcc2a693f2e8f33acc7f2ff706fa766b28"
+  },
+  "files": {
+    ".local/class-skills/shadow-talon/source-snapshot-3.json": "5239ef7a7a82379f47d08ca89811d6a944326937b861228016ba223387ceed93",
+    ".local/class-skills/shadow-talon/source-snapshot-4.json": "53f670c0fe190017d6617f5c210811514103e02f05a9611041ec23bd0c263384",
+    ".local/class-skills/shadow-talon/birth-inputs.json": "50e495d322fee1876476571c4daefac37da2e2a6bc97d447ff18073bcb707ecd",
+    ".local/class-skills/shadow-talon/birth-native-checks.log": "57c39e4f1c16a26af295a0cd82195abe4c06b0268314bc047872b203cc9d372d",
+    ".local/class-skills/shadow-talon/native-run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-talon/content-build-2.log": "c28a36c2ae484913b2cbfc82f20b2ddda42cd43c8047435dcefcface26f11943",
+    ".local/class-skills/shadow-talon/integration-build-3.log": "08f7179e23b5226f373375f6538f5fd1770563a982012d572f66f94abbe415e3",
+    ".local/class-skills/shadow-talon/shadow-talon-fixtures.json": "c0fea79b0a95623a575669db26331fc06ec11a1452b5dbcf88f3ba0d5d04c55d",
+    ".local/class-skills/shadow-talon/birth-inputs-failed-1.json": "e7e0c12eaff6b364a9b4becb509e3fede80d1e43ddf3c13d4d220181adf6272c",
+    ".local/class-skills/shadow-talon/birth-native-checks-failed-1.log": "c5b19a3a8bacc4376dc8c35295e494fbecad4830c6a70fbb4cc64ce2712c73c2",
+    ".local/class-skills/shadow-talon/native-run-1.log": "615e48a5592ed0afc9c80e14933b7e2e45447091c39ae6f42872cd4fde41a6af",
+    ".local/class-skills/shadow-talon/birth-inputs-failed-2.json": "4fca797c51f1142f9799f581ada23a6fab969b82c185b5e533e4982be260c331",
+    ".local/class-skills/shadow-talon/birth-native-checks-failed-2.log": "3966efe25d6a91334a25a5493ca9a39d2fa10e0b5bae62de6fbb6dd8a53be4f1",
+    ".local/class-skills/shadow-talon/native-run-2.log": "615e48a5592ed0afc9c80e14933b7e2e45447091c39ae6f42872cd4fde41a6af",
+    "tools/record_shadow_talon.py": "2636b850e248e13f14e68c1296291b359ba97b2a2e63403e0f8b6a80933ce7f6",
+    "tools/probe_shadow_talon.py": "de47d95d31e4ef4e4225abfaa8e3cf3c5ae009c90dcde451154cfe72eefe6158",
+    "tools/reference/shadow-talon-source-evidence.json": "d6e40ad8ef653f1c3cd91fbaaaf6a6f8789dcfac7fdcc9950690d31f6f727752",
+    "tests/check_shadow_talon.py": "5c8996496f3c9a0b0c56d482b36135af225f427cd1e7d9ff67a64b1878297d31",
+    "docs/dragon-talon-approved-action-rule.md": "e40ed321ba20aca0a4fbe5e6cb5227610e45c6b6e236c3063b99e5330fc3476a"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "ordinaryCallbackReview": {
+    "routineHashes": {
+      "sub_6FC64790": "44afcbcc07adb7a65b25be726164368e266644826c1c4f3e7283f72f82dfad89",
+      "sub_6FD13410": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+      "sub_6FD13260": "ac5cb3b349bce1c4dc48c60eae618e6ea35fc2e1c73f8f5e87c00b89db0b0fb9",
+      "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f"
+    },
+    "scope": "Reviewed complete NPC callback:nonnull normal used-skill flags0 calls generic execution once;ordinary nonsequence StopSequence clears action marker only. Wrapper periodic follow-up is a no-op for this nonpassive/nonaura row. Other skillflags and current executable parity are unqualified;not a new compiled matrix."
+  },
+  "diagnostic": "Initial native preflight refused the row because a new guard incorrectly required UseAttackRate1. The actual pinned row has no flag;the transformed player KK mode independently admits attack rate. Guard corrected to0 against source/data. The second native run passed functionality but its reload fixture attempted to reactivate an already-restored ground profile;fixture now retains it. Both failed logs/inputs retained. Production content is unchanged since snapshot3;both final builds are clean.",
+  "scope": "Both original Shadows:own NPC A1->KK/start24 cached full packet,do42 immediate second packet then percent-rewound follow-ups/final recovery,source hand/rate/own RNG and no mana debit. Approved accuracy-only charged guarantee with shield retention and per-successful-contact consume-one,all-six shared callback order/effects,live charge expiry with cached inline damage retained,no unused inline RNG,normal final knockback,world request/full occupancy,natural Warrior AI,target death/escape/interruption/offline/park/item change/no replay and exact original saved actor/items/resources/wounds/RNG/charges. Retained packet,Dragon Claw,Ice/all-six and all five shared-placement sentry consumers pass.17 prior packet routines authenticated without rerunning matrices;20new four-routine composed controls plus46retained complete ordinary rewind cases.",
+  "limits": [
+    "Modern exact NPC input/rate/stat mutation/charge/hand/event/geometry/PvP/removal behavior remains scoped. Approved per-successful-kick charge policy replaces obsolete all-charge consumption and applies to follow-up contacts;this is not current executable proof.",
+    "Natural Warrior selection and both-species direct world requests are checked;unrestricted natural Master skill selection/loadouts retain their existing gaps.",
+    "Other Dragon Tail/Flight/Fury/Sentinel/current death/learned Shadow dependencies and separate player mixed-finisher audit remain.",
+    "Existing final kick/charge/elemental effect/audio and talent/hotkey icon placeholders remain separately inventoried."
+  ]
+}

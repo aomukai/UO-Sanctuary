@@ -19,7 +19,7 @@ internal static class ShadowKickPackets
         {throw new NotSupportedException("Unqualified original Shadow Talon packet row");}
         return r;
     }
-    internal static ShadowKickPacket Prepare(AssassinShadowBody body,BaseCreature target,int flags)
+    internal static ShadowKickPacket Prepare(AssassinShadowBody body,BaseCreature target,int flags,DateTime? at=null)
     {
         var row=Row();int rank=body.OwnedSkillRank(255);
         if(rank is<1 or>255||(flags&~0xffff)!=0||!ShadowSkillCasting.Attached(body)||target is not{Alive:true,Deleted:false}
@@ -31,7 +31,7 @@ internal static class ShadowKickPackets
             var miss=NpcEquipmentImpact.Prepare(body,target,flags);
             return new(null,new(ResultFlags:flags,HitClass:1),miss with{Packet=miss.Packet with{HitClass=1}});
         }
-        var states=ShadowFinisherDamage.States(body,target);
+        var states=ShadowFinisherDamage.States(body,target,at);
         int enhanced=checked(row.Number("Param1")+(rank-1)*row.Number("Param2")+
             AssassinCharges.TigerPercent(states.FirstOrDefault(s=>s.Ability==CombatAbility.TigerStrike),body.OwnedSkillRank(254)));
         var input=ShadowKickDamage.Capture(body,enhanced);

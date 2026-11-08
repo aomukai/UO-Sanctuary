@@ -36,6 +36,8 @@ internal static class ShadowActions
             :throw new NotSupportedException("Unqualified Shadow charge action");
     internal static bool BeginDragonClaw(AssassinShadowBody body,BaseCreature target,DateTime at)
         =>BeginSkill(body,target,target?.Location??body.Location,at,260);
+    internal static bool BeginDragonTalon(AssassinShadowBody body,BaseCreature target,DateTime at)
+        =>BeginSkill(body,target,target?.Location??body.Location,at,255);
     private static bool BeginSkill(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs its UTC entry clock");}
@@ -45,7 +47,7 @@ internal static class ShadowActions
         {
             bool s2=skill==251||ShadowSentries.Handles(skill);
             bool claws=ShadowClawSequence.Handles(skill);
-            var plan=s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
+            var plan=skill==255?ShadowAnimation.Talon(body):s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
                 :skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
             int marker=s2?2:1;
             int releases=plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker);
@@ -96,6 +98,20 @@ internal static class ShadowActions
                     ||!body.EquipmentNumbers.ActiveItems.SequenceEqual(action.Items))
                 {Cancel(body);break;}
                 int frame=action.Frame+1;bool end=false;
+                if(action.Cast.Skill==255)
+                {
+                    var talon=action.Cast.Talon;
+                    if(talon==null||(talon.Cached!=null||talon.Remaining>0)&&!ShadowDragonTalon.Continues(body,action.Cast.Target)){Cancel(body);break;}
+                    var plan=action.Plan;
+                    if(plan.Events.Any(e=>e.Type==1&&e.Kind==1&&e.Frame==frame))
+                    {
+                        _=ShadowSkillCasting.ReleaseTalon(action.Cast,frame,action.NextUtc);
+                        if(!Actions.TryGetValue(actor,out var current)||!ReferenceEquals(current,action)||action.Cast.Released){break;}
+                        if(talon.Rewind){plan=ShadowAnimation.RewindTalon(plan,frame);}
+                    }
+                    if(plan.Events.Any(e=>e.Type==2&&e.Frame==frame)){Cancel(body);break;}
+                    Actions[actor]=action with{Frame=frame,NextUtc=action.NextUtc.AddMilliseconds(40),Plan=plan};continue;
+                }
                 if(action.Sequence is{} sequence)
                 {
                     if(action.Cast.Skill==260&&!ShadowDragonClaw.Continues(body,action.Cast.Target)){Cancel(body);break;}

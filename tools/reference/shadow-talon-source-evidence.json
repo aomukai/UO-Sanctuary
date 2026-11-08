@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 20,
+  "completeRoutineHashes": {
+    "SKILLS_SrvSt24_DragonTalon": "a52a25f734acff209da22d706e9e2269890347cc9829519b4323c9556bbe97cf",
+    "SKILLS_SrvDo042_DragonTalon": "bc9c052e66ab95170b0c765aec9542f4a418bd66f74b3057942e196cf0163ed7",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/probe_shadow_talon.py": "de47d95d31e4ef4e4225abfaa8e3cf3c5ae009c90dcde451154cfe72eefe6158"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-talon-source/source.cpp": "5b3844510e8919873a36f42612165461861630d437ac1a98b413ea5c703fcac9",
+    ".local/class-skills/shadow-talon-source/probe": "00a16e7995888868f257f91deb8f3cd1e3c376ebe6785405f4c4f3e7c179507c",
+    ".local/class-skills/shadow-talon-source/cases.json": "2102ed3a2c36ef3eeb5ed933214cbc7bc95916fcc43dba61338c5d28ffedc224",
+    ".local/class-skills/shadow-talon-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-talon-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Four complete unchanged routines composed:ordinary initial/percent-rewind event calendars plus own NPC start24/do42. Current owned kick flags/base/header reused. Observed allocations/drains retain one cached packet,first callback may deliver two,then one per rewound callback;all final recovery ends retain source timing. Packet damage,hit/block,progressive/emission/charge rules are explicit services,not compiled here. Ordinary target/formula/RNG controls supplied;no sequence branch.",
+  "limits": [
+    "Approved per-successful-kick charge policy is a separate runtime adapter;old do42s progressive callback placement is not a modern consume-one proof.",
+    "Current NPC input/rate/mutation/event/geometry/PvP/removal boundaries remain unverified. Existing packet/contact proofs are reused;no old individual matrices rerun."
+  ]
+}

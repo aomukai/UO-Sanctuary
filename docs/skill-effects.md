@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Dragon Talon (2026-11-08 JST).** Cached/repeated kick contacts and existing six-family releases now work mechanically. Final NPC A1/KK poses,kick/knockback/charge-release cues,elemental impacts/expiry and audio remain pending placeholders;reuse player Talon and existing charge families. [Checkpoint](shadow-talon-checkpoint.md). Icons stay separate.
+
 **Approved shared sentry placement (2026-11-08 JST).** Search adds no new visual effect. Existing cast,placement,emergence,firing/impact/expiry cues and audio remain identified placeholders for all five sentries and both Shadows;share existing families. [Checkpoint](sentry-placement-checkpoint.md). Icons stay separate.
 
 **Own Shadow Talon packet (2026-11-08 JST).** Prepared typed/charge damage uses existing contact/status services;allocation emits no new effect. Final NPC kick poses,impact/charge-release/chill/freeze cues and audio remain pending,sharing existing player and elemental families. [Checkpoint](shadow-kick-packets-checkpoint.md). Icons stay separate.

@@ -86,6 +86,19 @@ internal static class ShadowAnimation
         {throw new NotSupportedException("Shadow A2 needs its own charge skill and original active dual claws");}
         return Original(body,ChargeRow.Value);
     }
+    internal static ShadowAnimationPlan Talon(AssassinShadowBody body)
+    {
+        _=ShadowEquipmentDefense.Require(body);
+        if(body.OwnedSkills.Used!=255||body.OwnedSkills.Find(255)?.Mode!=4||ShadowEquipmentDefense.Composite(body)!=13)
+        {throw new NotSupportedException("Shadow Talon needs its own A1/kick context and original dual claws");}
+        return Original(body,MeleeRow.Value);
+    }
+    internal static ShadowAnimationPlan RewindTalon(ShadowAnimationPlan plan,int frame)
+    {
+        var row=MeleeRow.Value;var flags=new int[row.Frames];foreach(var e in row.Events){flags[e[0]]=e[1];}
+        var state=SourceAnimationEvents.Percent(new(0,plan.Speed,row.Frames*256,flags,plan.Events),frame,100,unchecked((byte)(row.Speed>>24)));
+        return new(plan.Speed,state.Events);
+    }
     internal static ShadowAnimationPlan Claws(AssassinShadowBody body)
     {
         _=ShadowEquipmentDefense.Require(body);

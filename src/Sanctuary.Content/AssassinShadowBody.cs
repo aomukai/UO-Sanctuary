@@ -59,6 +59,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     {
         bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
             :mode==14&&skill==260?ShadowActions.BeginDragonClaw(this,target,at)
+            :mode==4&&skill==255?ShadowActions.BeginDragonTalon(this,target,at)
             :mode==(ShadowChargeStrikes.Claws(skill)?14:5)&&ShadowFinishers.Builder(skill)?ShadowActions.BeginCharge(this,target,at,skill)
             :mode==9&&ShadowSentries.Handles(skill)?ShadowActions.BeginSentry(this,target,target?.Location??Location,at,skill)
             :mode==7&&skill==253?ShadowActions.BeginPsychicHammer(this,target,at)
@@ -67,7 +68,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
             :mode==7&&ShadowDefensiveBuffs.Handles(skill)?ShadowActions.BeginBuff(this,target,at,skill)
                 :throw new NotSupportedException("Selected Shadow intrinsic skill needs its NPC action consumer: "+skill);
         if(!started){return 0;}
-        return ShadowActions.State(this).Plan.Events.Single(e=>e.Type==2).Frame;
+        var action=ShadowActions.State(this);
+        return skill==255?ShadowDragonTalon.Duration(action.Plan,action.Cast.Talon.Remaining+1):action.Plan.Events.Single(e=>e.Type==2).Frame;
     }
     void INecromancerGroundPeriodic.GroundFrame(int frame,DateTime at)
     {
