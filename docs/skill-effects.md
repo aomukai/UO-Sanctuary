@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Flight packet (2026-11-08 JST).** No new emitter/art created. Final teleport departure/arrival, NPC sequence/kick/charge-contact cues and audio remain identified placeholders shared with player Flight; full NPC action is pending. [Checkpoint](shadow-flight-packets-checkpoint.md). Icons stay separate.
+
 **Own Shadow Dragon Tail (2026-11-08 JST).** Kick and area mechanics reuse existing services. Final NPC A1/KK poses, charge releases, kick/contact/knockback, fire burst and audio remain pending. Shared `0x36BD`, hue `0x489` is an identified burst placeholder. [Checkpoint](shadow-tail-checkpoint.md). Icons remain separate.
 
 **Own Shadow Dragon Talon (2026-11-08 JST).** Cached/repeated kick contacts and existing six-family releases now work mechanically. Final NPC A1/KK poses,kick/knockback/charge-release cues,elemental impacts/expiry and audio remain pending placeholders;reuse player Talon and existing charge families. [Checkpoint](shadow-talon-checkpoint.md). Icons stay separate.

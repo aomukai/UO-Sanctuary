@@ -1,0 +1,195 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "parent": "e4d06ccd0c32f494e7e8718d03061f4b71300cb6",
+  "currentExecutableParity": false,
+  "newCompilerMatrices": 0,
+  "actionEnabled": false,
+  "adaptationApproved": true,
+  "approval": "Approve this Shadow Flight rule",
+  "inputs": {
+    ".local/research/d2r-3.3.93847/monseq.txt": "a48a884a654cab7cafe0be2764fa8a77f428a9b48855d27461d133a1f553898c",
+    ".local/research/d2r-3.3.93847/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "data/Sanctuary/Balance/npc-skill-metadata.json": "7595212bb46b3d8e1537a3a6753dc10360eb908387cb488786181546b564d24f",
+    "data/Sanctuary/Balance/item-skill-execution.json": "3289ba5b95ba2793c6336d9cc722cdbb14d64655d3c19374e0c3cc83508ce075"
+  },
+  "completeReusedRoutineHashes": {
+    "SKILLS_GetSeqNumFromSkill": "5099fbafeb681996265ec2de54b4be134c87420f904092b1c7c3f38c6b58e1d2",
+    "DATATBLS_GetSeqRecordFromUnit": "8895841ad95eb9cf54cce17e7c97e9549a68a367e2f8dc902e3d5e27a9aac628",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe",
+    "SKILLS_SrvDo052_DragonFlight": "15ec9e952aba34799e7ea01547faeecfd63323927a2825d520689673b9196aa3"
+  },
+  "retainedProofs": {
+    "tools/reference/shadow-claw-sequence-source-evidence.json": "7b26679fcb13ac0cf00180046b96788b1853d047915ad08427e3f8ce021fa154",
+    "tools/reference/dragon-flight-source-evidence.json": "e8ec78b9c720d80e549a2677d69de323dc77594967816715f4886da044ae301f"
+  },
+  "slot5": {
+    "shadowwarrior": [
+      "Dragon Flight",
+      "seq_swdragonflight"
+    ],
+    "shadowmaster": [
+      "Dragon Flight",
+      "seq_swdragonflight"
+    ]
+  },
+  "sequence": [
+    [
+      7,
+      0,
+      0,
+      0
+    ],
+    [
+      7,
+      1,
+      0,
+      0
+    ],
+    [
+      7,
+      2,
+      0,
+      0
+    ],
+    [
+      7,
+      3,
+      0,
+      0
+    ],
+    [
+      7,
+      4,
+      0,
+      0
+    ],
+    [
+      7,
+      5,
+      0,
+      0
+    ],
+    [
+      7,
+      6,
+      0,
+      0
+    ],
+    [
+      7,
+      7,
+      0,
+      0
+    ],
+    [
+      7,
+      8,
+      0,
+      0
+    ],
+    [
+      7,
+      9,
+      0,
+      1
+    ],
+    [
+      4,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      1,
+      0,
+      0
+    ],
+    [
+      4,
+      2,
+      0,
+      0
+    ],
+    [
+      4,
+      3,
+      0,
+      0
+    ],
+    [
+      4,
+      4,
+      0,
+      1
+    ],
+    [
+      4,
+      5,
+      0,
+      0
+    ],
+    [
+      4,
+      6,
+      0,
+      0
+    ],
+    [
+      4,
+      7,
+      0,
+      0
+    ],
+    [
+      4,
+      8,
+      0,
+      0
+    ],
+    [
+      4,
+      9,
+      0,
+      0
+    ],
+    [
+      4,
+      10,
+      0,
+      0
+    ],
+    [
+      4,
+      11,
+      0,
+      0
+    ],
+    [
+      4,
+      12,
+      0,
+      0
+    ]
+  ],
+  "events": [
+    {
+      "rawPoint": 9,
+      "olderDo52Branch": "kick"
+    },
+    {
+      "rawPoint": 14,
+      "olderDo52Branch": "teleport"
+    }
+  ],
+  "inference": "The retained ordinary NPC sequence callback does not perform the player ordinal rewrite. Composing that raw point with do52 implies kick at9 and teleport at14,contrary to intended Flight order. Successful tight contact can also set the server-do flag and suppress the later callback. This is a source/data inference,not a current executable observation or a newly compiled composition.",
+  "proposedAdaptation": "Use the owned23-point sequence with explicit first-marker teleport and second-marker kick stages. Require actual successful landing before kick,retain the original target,spend no NPC/player mana,and reuse approved accuracy-only charged guarantee/block retention/per-successful-contact consume-one. Discard interrupted/pending action without replay. Native source-to-tile landing adapter remains explicit;do not call the player caster.",
+  "next": "Implement the approved Shadow phase/landing adaptation using own sequence and shared packet/landing services. Player Flight approval does not establish NPC callback identity."
+}

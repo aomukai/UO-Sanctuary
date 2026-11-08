@@ -1,0 +1,13 @@
+# Own Shadow Dragon Flight packet checkpoint
+
+2026-11-08 JST. D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. Parent: `e4d06ccd0c32f494e7e8718d03061f4b71300cb6`.
+
+The user approved the [Shadow Flight phase/landing rule](shadow-flight-action-proposal.md): first sequence marker teleports, second kicks; actual landing is required; no pet/player mana; approved charged-contact policy is reused. [Source/data review](../tools/reference/shadow-flight-source-review.json) records why the old raw NPC callback conflicts with intended phase order. Both original monster slot-5 links and the owned 23-point sequence are authenticated. This approval does not establish current executable parity.
+
+The existing `ShadowKickPackets` now qualifies skill 275 alongside Talon/Tail. It uses Flight's `100 + 35 × (rank − 1)` damage percentage, original NPC body/boots, source-128 full typed fill, own equipment/used-skill/weapsel4 and persisted actor RNG. It preserves the filler's hit class rather than applying Talon's class-1 overwrite. Existing six-family postfill remains allocation-only: no early emissions, charge consumption or HP delivery. No parallel damage engine or source compiler matrix was added.
+
+**C1 / I1 / snapshot1: 18 native markers across three boots, two reloads and three saves.** The shared packet fixture now checks Talon and rank-12 Flight (485%): original physical/filler composition and draw order, foreign-frame rejection, weapon ED and ordinary critical exclusion, primary-only typed hand/restoration, six-family postfill, miss/no damage RNG, native ordered HP/no replay and unchanged player mana. Talon and Tail actions remain passing. Original actors/items/resources/wounds/RNG and the existing synthetic prepared Talon packet survive reloads. The saved packet is not a Flight-action save proof. [Receipt](../tools/reference/shadow-flight-packets-native-evidence.json).
+
+The first harness invocation stopped before boot because the fresh stage lacked its shared native-kernel symlink. Reusing the existing verified kernel fixed setup; no production/test correction was required. Final content and integration builds are clean. Installed artifacts, saves and configuration remain unchanged.
+
+**Next:** implement and verify own Flight startup, NPC sequence clock, two-stage transfer/contact, ground-controller position synchronization, failed-landing/cancellation/replay guards and AI admission under the approved rule. Then Fury/Sentinel/death/learned Shadow dependencies. **208/240 handlers; Assassin 28/30; no class complete or deployment.** Final Flight effects/audio and talent/hotkey icons remain separate placeholders.
