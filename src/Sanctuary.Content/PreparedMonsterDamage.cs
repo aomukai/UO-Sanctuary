@@ -123,6 +123,7 @@ internal static class PreparedMonsterDamage
                     if((packet.HitFlags&128)==0){packet=Checked(services.DealtDamage(packet));}
                     packet=Checked(services.TookDamage(packet));
                     NpcItemProcs.Received("damagedbymissile",attacker,target,packet,at,incoming);
+                    NecromancerEffects.LifeTap(attacker,target,packet.Physical256); // Pinned Life Tap also registers damagedbymissile.
                 }
             }
             else

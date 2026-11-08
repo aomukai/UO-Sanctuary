@@ -79,13 +79,14 @@ internal static class IronGolemContact
         internal override bool DefenderKillable()=>metadata.Killable&&target.CanBeDamaged();
         internal override bool DefenderDead()=>target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0;
     }
-    private sealed class Damage(BaseCreature source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Scope scope,DateTime at):PreparedMonsterDamageServices
+    private sealed class Damage(BaseCreature source,PlayerMobile owner,BaseCreature target,MonsterReturnMetadata metadata,Scope scope,DateTime at,bool missile=false):PreparedMonsterDamageServices
     {
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}NpcItemSlow.Clay(source,target,false,at);return scope.SourceEvents.Dispatch("domeleedamage",p,source,target,at,retained:scope.RetainedTarget);}
-        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("damagedinmelee",p,target,source,at);
+        {if(source is BloodGolemBody blood){BloodGolemHealing.Dealt(blood,target,p);}if(!missile){NpcItemSlow.Clay(source,target,false,at);}return scope.SourceEvents.Dispatch(missile?"domissiledamage":"domeleedamage",p,source,target,at,retained:scope.RetainedTarget);}
+        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch(missile?"damagedbymissile":"damagedinmelee",p,target,source,at);
+        internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)=>missile?p:throw new InvalidOperationException("Ordinary melee has no missile mitigation stage"); // Already mitigated by the shared FromFill allocator.
         internal override bool OrdinaryNpcFlatDrains=>true;
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Existing allocators retain their preflight;qualified filled packets use the shared drain receiver.
@@ -120,7 +121,7 @@ internal static class IronGolemContact
         internal override void FreePacket()
         {if(Freed){throw new InvalidOperationException("NPC allocated packet freed twice");}Freed=true;scope.Impact=null;NativeMonsterReturn.Session(target).Packets++;}
     }
-    internal static Rules Require(BaseCreature body,PlayerMobile owner,BaseCreature target,bool nativeRecovery=false)
+    internal static Rules Require(BaseCreature body,PlayerMobile owner,BaseCreature target,bool nativeRecovery=false,bool missile=false)
     {
         // All capability checks here precede the actor's hit/block/damage RNG.
         if(body is IronGolemBody)
@@ -137,7 +138,7 @@ internal static class IronGolemContact
         if(ReviveEquipmentEvents.Handles(body)){_=ReviveEquipmentOffense.Capture(body,target);}
         var sourceEvents=NpcCombatEvents.ForSource(body);
         var targetEvents=Events(target,requireFrozen:true);
-        NpcLightningReturn.RequireIncoming(body,target,false);
+        NpcLightningReturn.RequireIncoming(body,target,missile);
         if(sourceEvents.Subscriptions().Contains(81)){NpcItemKnockback.Require(target);}
         if(NpcItemSlow.Bonus(body)>0||body is NecromancerMinion{Kind:CombatAbility.ClayGolem}){_=NpcItemSlow.Cap(target);}
         if(sourceEvents.Subscriptions().Contains(134)){NpcFreezeStatus.Require(body,target);}
@@ -148,7 +149,7 @@ internal static class IronGolemContact
         {throw new NotSupportedException("Live recipient uninterruptible completion/death-delay adapter is unfinished");}
         // PreparedMonsterDamage already dispatches the shared fractional
         // Iron Maiden attacker event before defender Life Tap and HP clipping.
-        _=NpcArmorOnHit.Require(body,target);
+        if(!missile){_=NpcArmorOnHit.Require(body,target);}
         PreparedMonsterNativeDamage.RequireBaseModifiers(body,target);
         return new(metadata,sourceEvents,targetEvents,nativeRecovery);
     }
@@ -156,7 +157,7 @@ internal static class IronGolemContact
         =>new(rules,body is SkeletonGuardian guardian?NpcEquipmentImpact.Prepare(guardian,target,result())
             :ReviveEquipmentEvents.Handles(body)?ReviveEquipmentImpact.Prepare(body,target,result())
             :throw new NotSupportedException("No admitted ordinary NPC allocator"));
-    internal static MonsterContactResult Release(BaseCreature body,PlayerMobile owner,BaseCreature target,Prepared prepared,Func<int,bool> range,DateTime at)
+    private static Scope BeginRelease(BaseCreature body,BaseCreature target,Prepared prepared,DateTime at)
     {
         if(prepared==null||prepared.Consumed||prepared.Impact.Actor!=body.Serial.Value||prepared.Impact.Target!=target.Serial.Value)
         {throw new InvalidOperationException("Ordinary NPC contact is missing,changed or already consumed");}
@@ -173,11 +174,25 @@ internal static class IronGolemContact
             // dispatch overdue damage while its incoming HP is being committed.
             TimedEffects.Settle(target,at);
             if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0)
-            {prepared.Cancel();return new(MonsterContactExit.SettledRecipientFreed,prepared.Impact.Packet with{ResultFlags=prepared.Impact.Packet.ResultFlags&~3},null);}
+            {prepared.Cancel();return null;}
             _=NpcEquipmentRegeneration.ItemRate(target); // Existing unsupported material rates refuse before event RNG.
         }
         prepared.Consumed=true;
-        var scope=new Scope(prepared,target.Hits,body,target);var metadata=prepared.Rules.Metadata;
+        return new Scope(prepared,target.Hits,body,target);
+    }
+    internal static PreparedMonsterDamageResult ReleaseMissile(BaseCreature body,PlayerMobile owner,BaseCreature target,Prepared prepared,DateTime at)
+    {
+        if(prepared.AfterContact!=null){throw new NotSupportedException("Missile cannot carry a melee progressive callback");}
+        var scope=BeginRelease(body,target,prepared,at);if(scope==null){return null;}var metadata=prepared.Rules.Metadata;
+        var recipient=new PreparedMonsterRecipient(NamedCombat.Elite(target),()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
+        var services=new Damage(body,owner,target,metadata,scope,at,true);
+        if((prepared.Impact.Packet.ResultFlags&1)==0)
+        {var finish=PreparedMonsterDamage.Finish(body,target,prepared.Impact.Packet,services,false,true);return new(finish.Packet,SkillHealth.Balance256(target),SkillHealth.Balance256(target),0,finish.DeathModeAttempted);}
+        return PreparedMonsterDamage.ReleaseMissile(body,target,prepared.Impact.Packet,recipient,n=>NpcEquipmentRandom.Limited((SkeletonGuardian)body,n),services,at);
+    }
+    internal static MonsterContactResult Release(BaseCreature body,PlayerMobile owner,BaseCreature target,Prepared prepared,Func<int,bool> range,DateTime at)
+    {
+        var scope=BeginRelease(body,target,prepared,at);if(scope==null){return new(MonsterContactExit.SettledRecipientFreed,prepared.Impact.Packet with{ResultFlags=prepared.Impact.Packet.ResultFlags&~3},null);}var metadata=prepared.Rules.Metadata;
         var recipient=new PreparedMonsterRecipient(target is EncounterCreature encounter&&encounter.Grade is EncounterGrade.Unique or EncounterGrade.SuperUnique,
             ()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(body,target,false);

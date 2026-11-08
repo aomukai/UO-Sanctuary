@@ -64,6 +64,14 @@ internal static class ValkyrieEquipmentDefense
 // Valkyrie returns the full source action flags,without folding Dodge into Block.
 internal static class NpcBlockOrDodge
 {
+    internal static bool Missile(BaseCreature target,bool physical,out int flags)
+    {
+        if(target is AssassinShadowBody shadow&&ShadowEquipmentDefense.Active(shadow)||ValkyrieEquipmentDefense.Active(target))
+        {return Try(target,true,physical,out flags,out _);}
+        // Ordinary mapped native monsters have the shared shield adapter;
+        // player/owned Amazon/Shadow avoidance remains in its own producer.
+        flags=0;if(!SourceBlocking.TryRoll(target,physical,out bool shield,out _)){return false;}flags=shield?1:0;return true;
+    }
     internal static bool Try(BaseCreature target,bool avoid,bool block,out int flags,out bool animation)
     {
         flags=0;animation=false;

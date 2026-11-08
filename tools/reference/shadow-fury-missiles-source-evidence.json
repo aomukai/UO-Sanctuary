@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 128,
+  "completeRoutine": {
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+  },
+  "source": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "retainedProof": {
+    "tools/reference/assassin-trap-attack-engine-evidence.json": "d1d3414c330e251b99f6ee8bb72f3010c0e43fdeb4513124e1e29049526b05d0",
+    "tools/reference/weapon-missile-impact-evidence.json": "438f42ceff6ea4357038fdc785d21d21ed9584049fcdc96f2105178aa9d63207",
+    "tools/reference/shadow-fury-packets-source-evidence.json": "152a4aef4551058b10addd8ee0d5b3d1329f596a77de5ce53f3a50a10cea56e1"
+  },
+  "retainedCases": {
+    "npcAccuracy": 6804,
+    "impactReader": 5184,
+    "ownCreator": 16
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-fury-missiles-source/source.cpp": "f988b442cc7792f8ed147e085d20123ece0a42c972f27856759bdb38016d0d1a",
+    ".local/class-skills/shadow-fury-missiles-source/probe": "d429cea3f8769b05f572fe8de319d2aadbca5e1a05e6ac80229e26177d8b1519",
+    ".local/class-skills/shadow-fury-missiles-source/cases.json": "2c3c941b154a70b074c177bc99fa5b3d7bff69054e30cbd054a57665cccee815",
+    ".local/class-skills/shadow-fury-missiles-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-fury-missiles-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_shadow_fury_missiles.py": "dfcdda9c168952b96e6b1692ed8d21be7a2af1b1e4257e7a6c2c733357a059e7"
+  },
+  "scope": "Complete unchanged flag/event/return routine,all32defense masks,physical eligibility,creation critical bit. Declared services: bladefragment1 GetHit/HitClass/flags and own intrinsic monster Crit0,block mask,event/return counters,interruptible mapped NPC. Reuses existing source-qualified NPC hit and impact reader;no prior compiler matrices rerun. Prepared critical/child seed supplied;current executable equivalence,full NPC channel/AI and caster-removal lifetime not claimed."
+}

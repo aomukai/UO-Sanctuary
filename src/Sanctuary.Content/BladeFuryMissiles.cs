@@ -37,8 +37,10 @@ internal static class BladeFuryMissiles
         =>ClassStats.AttackRatingAgainst(owner,target,skillPercent-WeaponMasteries.Bonus(owner,CombatTiming.Equipped(owner),1));
     internal static bool Valid(int rank,int frames,int activation,int nextDelay,int pierces,uint flags,string missile,
         WeaponMissileDamage damage,SlowMissilePayload? slow,string profile)
+        =>profile==Profile&&ValidValues(rank,frames,activation,nextDelay,pierces,flags,missile,damage,slow);
+    internal static bool ValidValues(int rank,int frames,int activation,int nextDelay,int pierces,uint flags,string missile,WeaponMissileDamage damage,SlowMissilePayload? slow)
         =>rank is >=1 and <=255&&frames==40&&activation==1&&nextDelay==0&&pierces==0&&flags==32
-            &&missile=="bladefragment1"&&profile==Profile&&slow is{VelocityPercent:>=0 and <=100,DamagePercent:>=0 and <=100}
+            &&missile=="bladefragment1"&&slow is{VelocityPercent:>=0 and <=100,DamagePercent:>=0 and <=100}
             &&damage is{Min256:>=0,SourcePoisonFrames:true,PhysicalToMagicPercent:0,Conversion:null,FreezeColdLength:false,LightningJavelinPercent:null}
             &&damage.Max256>=damage.Min256&&damage.Elements!=null&&damage.SkillAttackPercent==rank*10;
     internal static bool Valid(WeaponFlight flight)=>!flight.HostileSpell&&flight.Guided==null&&!flight.PathChanged

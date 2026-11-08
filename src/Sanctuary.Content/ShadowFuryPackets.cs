@@ -2,7 +2,7 @@
 using System;
 namespace Sanctuary;
 
-internal sealed record ShadowFuryPacket(uint Actor,string Binding,WeaponMissileDamage Damage,int TargetArmorDelta,int Flags);
+public sealed record ShadowFuryPacket(uint Actor,string Binding,WeaponMissileDamage Damage,int TargetArmorDelta,int Flags);
 
 // Own original equipment -> existing missile creator arithmetic. Critical
 // selection is an explicit caller input,not an invented NPC RNG policy.
