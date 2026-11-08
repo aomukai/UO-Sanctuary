@@ -1,0 +1,82 @@
+{
+  "parent": "5073a40865a3c5b46a92605e29ffee99cd8c970e",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "automaticNpcHydraEnabled": true,
+  "automaticDomain": "qualified original NPCs with zero inherited immunity-pierce;nonzero explicitly refused before admission/allocation",
+  "approvedRule": "Approve independent Hydra lifetime",
+  "reusedSource": {
+    "hydra-creation-source-evidence": "92e1af50c356486871f2ca18cae5f219bf9681bb6e98f7d9d45b8eb55697a433",
+    "hydra-ai-source-evidence": "ba6a24e5a829019877d6b9cdedaed2052f15969d0642c1cadf5978c7e34e942f",
+    "hydra-clock-source-evidence": "bf690f1f8513d19173ce3a83716f30b3c4e3ca06644652e2824f166ccd27d06f",
+    "hydra-damage-source-evidence": "17e4e06fddb719c760a623e6c46792ee95442e73f76f1ec8422e8c6b141fdd56",
+    "hydra-bolt-creation-source-evidence": "853aaba9945a582b0e4b46e86202b83c9d1a592cf0bba458c5b094842b723bce",
+    "hydra-retained-owner-damage-source-evidence": "6fd26af039874d351776fcb16a6b0719893b2060a8259cb9af00a6d299fcee3a"
+  },
+  "newCompilerMatrices": 0,
+  "nativeMarkers": 20,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "npc-hydra-world-check": 1,
+    "npc-hydra-birth-check": 1,
+    "hydra-world-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "npc-hydra-world-reload-check": 2,
+    "npc-hydra-birth-reload-check": 2,
+    "hydra-world-reload-check": 2,
+    "hydra-world-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 4,
+  "integrationBuild": 6,
+  "sourceSnapshot": 9,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "6c2dd5577cbeac4954d340d9c3ddaa4f18eef33d0da83b57edc18b07c7dac1c6",
+    "Assemblies/Sanctuary.Integration.dll": "6f0ee76c0810957452a8839266f1b074a8e4ae069e6b1e6135e6903c3eaf8f84"
+  },
+  "files": {
+    "src/Sanctuary.Content/HydraBody.cs": "161f0ecf7b2137f79dfe5f1dfc62b99d4a1c8478060c1b6cd42deb3113686d32",
+    "src/Sanctuary.Content/Hydras.cs": "ff82373e66ee19b45fc739a1590e407df0b3cc1783c20575ff8524fb2d3eca54",
+    "src/Sanctuary.Content/PlayerHydras.cs": "101e22e9a3ac11e36c623e1d3bd838da1cbc3cf18ceb2e59cfe14aa43174075d",
+    "src/Sanctuary.Content/NpcHydraWorld.cs": "3fd17f9c51e10558e11ec290e570c2e0a160bd8996a96b059a5f9e80d9876be9",
+    "src/Sanctuary.Content/NpcHydraCreation.cs": "83c24c5fbbd1cb4cd58ae84e93e3079c3fbb871a30d77d3bbb18862e8d757c38",
+    "src/Sanctuary.Content/NpcOriginalItemProcs.cs": "6ff689f77f370983378811d4ef9f25f7e7246ee64637425c97c22abc93ec3f23",
+    "src/Sanctuary.Content/NpcItemSpellCasts.cs": "b0aebfe38a60970de12b0ab6e11a391069966a826692153b1024b904e7c345fd",
+    "src/Sanctuary.Content/NpcItemSkillExecution.cs": "71111b772497e613181351ab6818f35dddc37292f25fb9652022000087923603",
+    "src/Sanctuary.Content/NpcItemSpellDamage.cs": "2b038a84674987b18d900984c4c73feeafad0d89c8f4dc6e9f0e75ac853f753c",
+    "tests/Sanctuary.Integration/NpcHydraWorldChecks.cs": "71e6c5b1002f9a390a3676b62e9af6d92f05a3b286192c1657087f553c695aba",
+    "tests/Sanctuary.Integration/NpcHydraBirthChecks.cs": "06808d8623ebed37ae0a05cbfe8de1fe15971a57d6d61ed6d1409ac49f2c607f",
+    "tests/check_npc_hydra_world.py": "605394c22b44fae0c634016ab176dc717ce5b354e6f5f6be2a0921c113c0bf54",
+    "tools/record_npc_hydra_world.py": "8be3908c28c8d867081722ad1dff2910280301a1bdf35e65275098d363eb387b",
+    "docs/npc-hydra-parent-removal-proposal.md": "e0795797c2e72530aabc6deb85d1ef40f55b8c008c15067130a69fbb2cb1259f"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Prototype native1 exposed deleting an unadmitted Master9 numeric actor from a world map;fixture cleanup/removal now parks it first. Native2 passed damage/credit before its fixture incorrectly expected immediate actor cleanup on the first overdue observation;existing400ms retirement lease requires a second observation. Prototype native3 passed all20markers. User approved independent lifetime;removed temporary per-head proposal flag,connected real item metadata/start14/common do144 and registry callback,activated genuine Master9 numeric/item world profile. Final C4/I6/native4 passes all20markers including real parent death/removal and registered automatic item callback. Earlier logs/manifests retained;no old compiler matrices rerun.",
+  "scope": "Actual NPC summon owner is distinct from root responsible player. Existing Hydra controller/bolt/typed damage reused,with own birth capture and original ID/binding provenance.21NPCheads/no player18-head FIFO,three independent allocations,private world/head/bolt seeds,unchanged parent attack RNG for head creation/control/bolts and no player mana cost;normal automatic proc chance retains its parent RNG,source AI/action/travel/HP/actual-head kill/root credit,expiry/retired emitter cleanup,atomic malformed graph rejection and real/missing-caster saves pass. Approved250frame parent-independent lifetime is standard,with existing already-fired bolt lifetime and root lifecycle. Missing parent never becomes a replacement mobile or player summon owner;native owner reference may be null after reload while saved NPC provenance remains. Real Master9 item registry callback creates three actual heads through start14/do144;failed automatic start returns0without allocation. Original player Hydra admission/payment/AI/bolts/damage/other-facet return/retirement and natural reload-resume checks retained. No class completion/deployment claim.",
+  "remaining": [
+    "Nonzero inherited item_pierce_fire_immunity remains explicitly gated;current table value300does not itself establish its current damage-side interpretation",
+    "Player/PvP recipient adapters,full modern room/target-acquisition and arbitrary nested mutation parity remain unqualified",
+    "Fury current callback/rewind and pending weapon-missile critical proposal,Master range/AI and learned Shadow admission remain unfinished",
+    "Final NPC Hydra head/cast/bolt/impact/retirement effects/audio remain shared placeholders;no new public proc icon"
+  ]
+}

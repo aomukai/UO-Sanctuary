@@ -68,7 +68,8 @@ internal static class NpcOriginalItemProcs
                 {
                     if(value.Stat is not(195 or 196 or 198 or 201)||(value.Packed&63)==0)
                     {throw new NotSupportedException("Original NPC proc needs its supported six-bit skill layer");}
-                    _=NpcItemSpellDamage.Require((ushort)value.Packed>>6);
+                    int skill=(ushort)value.Packed>>6;_=NpcItemSpellDamage.Require(skill);
+                    if(skill==62&&graph.Read(189)!=0){throw new NotSupportedException("Original NPC Hydra immunity-pierce consumer remains unqualified");}
                 }
                 else if(row.Function is not(6 or 7 or 8 or 9 or 10 or 13 or 14 or 15 or 16 or 17 or 18 or 19 or 28 or 29))
                 {throw new NotSupportedException("Original NPC registration needs its actual effect body:"+row.Function);}

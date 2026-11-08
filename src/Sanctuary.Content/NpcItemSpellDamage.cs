@@ -14,11 +14,12 @@ internal static class NpcItemSpellDamage
     internal static CombatAbility Ability(int skill)=>skill switch
     {
         36=>CombatAbility.FireBolt,38=>CombatAbility.ChargedBolt,39=>CombatAbility.IceBolt,44=>CombatAbility.FrostNova,
-        48=>CombatAbility.Nova,49=>CombatAbility.Lightning,53=>CombatAbility.ChainLightning,66=>CombatAbility.AmplifyDamage,
+        48=>CombatAbility.Nova,49=>CombatAbility.Lightning,53=>CombatAbility.ChainLightning,62=>CombatAbility.Hydra,66=>CombatAbility.AmplifyDamage,
         _=>throw new NotSupportedException("NPC item spell requires its own damage/execution adapter: "+skill)
     };
     internal static ItemExecutionMetadata Require(int skill)
     {
+        if(skill==62){return NpcHydraCreation.Require();}
         if(skill==66){return ItemSkillExecution.RequireCurse(skill);}
         var ability=Ability(skill);var row=ItemSkillExecution.Skill(skill);var definition=SkillMechanics.For(ability);
         int function=skill switch{36 or 39 or 49=>0,38=>17,44 or 48=>22,_=>26};
@@ -36,6 +37,7 @@ internal static class NpcItemSpellDamage
     internal static NpcItemSpellPacket Calculate(int skill,int rank,int level,int mastery,int firePierce=0,int coldPierce=0,int lightningPierce=0)
     {
         _=Require(skill);
+        if(skill==62){throw new NotSupportedException("Original NPC Hydra creates owned heads,not a direct spell missile");}
         if(skill==66){throw new NotSupportedException("Original NPC curse uses its do30 effect,not a missile damage packet");}
         if(rank is<1 or>63||level is<1 or>99||mastery is<-100 or>10000)
         {throw new NotSupportedException("NPC proc damage needs its explicit six-bit rank,source level and supported mastery domain");}

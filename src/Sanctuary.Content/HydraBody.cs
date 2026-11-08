@@ -13,8 +13,11 @@ public partial class HydraBody:BaseCreature
     internal HydraHead Head=>Hydras.Head(_headId);
     internal string SourceMonsterId=>"hydra"+((Head?.Index??throw new System.InvalidOperationException("Hydra identity is detached"))+1);
     internal int Passive(string name)=>Head?.Source?.Birth.Passive(name)??0;
-    internal void Attach(long headId,PlayerMobile owner){_headId=headId;SummonMaster=owner;}
+    internal void Attach(long headId,Mobile owner){_headId=headId;SummonMaster=owner;}
     internal bool TargetAllowed(PlayerMobile owner,Mobile target)=>AssassinTrapTargets.Eligible(this,owner,target,()=>base.CanBeHarmful(target,false,true));
+    public override Mobile GetDamageMaster(Mobile damagee)
+        =>Head is{Source.NpcOwner:not null} head&&World.FindMobile((Serial)head.Owner) is PlayerMobile{Deleted:false} owner
+            ?owner:base.GetDamageMaster(damagee);
     public override bool BlocksFit=>false;
     public override bool UsesNativeSummonTimer=>false;
     public override bool CanBeDamaged()=>false;

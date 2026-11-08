@@ -127,7 +127,9 @@ internal static class NpcItemSpellCasts
         {throw new NotSupportedException("Original item frame needs its qualified attached NPC species");}
         ArgumentNullException.ThrowIfNull(allocate);Services frame=null;
         frame=new(caster,NpcItemSpellDamage.Require,i=>NpcItemSkillExecution.RunOriginal(caster,i.Target,new(i.Point.X,i.Point.Y,caster.Z),
-            i.Skill,i.Level,i.Mode,i.Item,i.Flag,at,allocate,frame.ServerDo,value=>frame.ServerDo=value),true,notified);
+            i.Skill,i.Level,i.Mode,i.Item,i.Flag,at,allocate,frame.ServerDo,value=>frame.ServerDo=value),true,notified,
+            (id,rank,item)=>id==62&&item==1?(NpcHydraCreation.Start(caster,frame.TargetForHydra,frame.PointForHydra,rank,out _)?1:0)
+                :throw new NotSupportedException("Original NPC start service is not admitted:"+id));
         return frame;
     }
     internal static bool CastOriginal(SkeletonGuardian caster,NpcItemTarget target,int skill,int rank,int flag,DateTime at,

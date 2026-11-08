@@ -1,5 +1,7 @@
 # Skill icons
 
+**NPC-owned Hydra equipment proc (2026-11-08 JST).** No new public talent/hotkey icon for the equipment proc. Existing Hydra and Shadow talent/hotkey placeholders remain;head/bolt effects and audio remain separate. [Checkpoint](npc-hydra-world-checkpoint.md).
+
 **Prepared original NPC item Hydra (2026-11-08 JST).** No extra talent/hotkey icon for an internal equipment proc. Existing Sorceress Hydra and Shadow Warrior/Master talent/hotkey placeholders remain;NPC head/bolt effects/audio stay in their separate inventory. [Checkpoint](npc-hydra-birth-checkpoint.md).
 
 **Prepared original Shadow death nova (2026-11-08 JST).** The internal modifier42 proc adds no public talent/hotkey icon. Shadow Warrior/Master retain their existing identified talent/hotkey text placeholders;final death/Nova effects and sound are tracked separately. [Checkpoint](shadow-death-checkpoint.md).

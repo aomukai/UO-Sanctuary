@@ -1,5 +1,7 @@
 # Skill effects
 
+**NPC-owned Hydra world (2026-11-08 JST).** Connected NPC heads/bolts reuse identified Hydra body and fire-bolt placeholders;no imagegen work performed. Final appearance,emergence/attack/death,bolt travel/impact/expiry and audio remain required in the shared Hydra family. [Checkpoint](npc-hydra-world-checkpoint.md). Independent lifetime changes no asset identity;icons stay separate.
+
 **Prepared original NPC Hydra factory (2026-11-08 JST).** No head/bolt asset is emitted by this prepared factory seam. Actual NPC-owned heads/bolts will reuse existing identified Hydra placeholders;final emergence/attack/death,fire-bolt travel/impact/expiry and sound remain required in the shared Hydra family. [Checkpoint](npc-hydra-birth-checkpoint.md). Icons remain separate.
 
 **Prepared original Shadow death nova (2026-11-08 JST).** Mechanically connected to the retained dead NPC and existing shared Nova projectile/contact presentation. Treat the current presentation as a placeholder:final Shadow death collapse,lightning ring,travel/impact/expiry cues and sound remain required in the Shadow/Nova effects family. No imagegen work was performed. [Checkpoint](shadow-death-checkpoint.md). Icons remain separate.

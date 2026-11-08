@@ -10,7 +10,11 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record HydraHeadSource(uint Actor,HydraCreationStats Birth,HydraControlState Control,DateTime NextUtc,
-    Point2D? CachedAim,DateTime? RetireUtc=null,string Fault=null);
+    Point2D? CachedAim,DateTime? RetireUtc=null,string Fault=null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public HydraNpcOwner NpcOwner{get;init;}
+}
 public sealed record HydraBoltSource(uint Actor,SourceStepTrace Steps,SlowMissilePayload Slow,ulong Seed,uint LastCollision,int VelocityFp8);
 
 internal static class PlayerHydras
@@ -58,7 +62,7 @@ public static partial class Hydras
             var head=new HydraHead(id,group,place.Index,owner.Serial.Value,birth.Rank,owner.Map.MapID,place.X,place.Y,point.Z,
                 ends.Min,ends.Max,birth.Passive("passive_fire_pierce"),seed,at.AddMilliseconds(10000),at.AddMilliseconds(1000),default,0)
                 {Source=new(body.Serial.Value,birth,HydraControl.Start(250,seed),at.AddMilliseconds(40),new(0,0))};
-            var oldest=_heads.Values.Where(x=>x.Owner==owner.Serial.Value).OrderBy(x=>x.Id).ToArray();
+            var oldest=_heads.Values.Where(x=>x.Owner==owner.Serial.Value&&x.Source?.NpcOwner==null).OrderBy(x=>x.Id).ToArray();
             foreach(var old in oldest.Take(Math.Max(0,oldest.Length+1-birth.MaximumHeads))){Retire(old,at);}
             _heads.Add(id,head);any=true;
         }
@@ -126,15 +130,16 @@ public static partial class Hydras
         }
         foreach(var h in _retired.Values.Where(x=>!onlyOwner.HasValue||x.Owner==onlyOwner).ToArray())
         {
-            if(PlayerBlizzards.Owner(h.Owner)==null||h.Source.RetireUtc<=at&&!_bolts.Values.Any(x=>x.Head==h.Id))
+            if(ResponsibleOwner(h)==null||h.Source.RetireUtc<=at&&!_bolts.Values.Any(x=>x.Head==h.Id))
             {RemoveSource(h);}
         }
     }
     private static HydraBolt StepHead(HydraHead head,DateTime at,bool? actions)
     {
-        var source=head.Source;var owner=PlayerBlizzards.Owner(head.Owner);
-        if(owner==null||World.FindMobile((Serial)source.Actor) is not HydraBody{Deleted:false} body||body.SummonMaster!=owner||body.Map?.MapID!=head.Map)
+        var source=head.Source;var owner=ResponsibleOwner(head);
+        if(owner==null||World.FindMobile((Serial)source.Actor) is not HydraBody{Deleted:false} body||!OwnerGraph(head,body,owner)||body.Map?.MapID!=head.Map)
         {RemoveSource(head);return null;}
+        // Approved NPC lifetime is independent of parent death/removal.
         bool loaded=_loadedHeads.Remove(head.Id),fighting=actions??AssassinTrapRoster.Fighting(head.Owner);
         if(loaded||!fighting)
         {
@@ -176,15 +181,15 @@ public static partial class Hydras
         if(velocity==0){throw new NotSupportedException("Hydra zero-velocity path flags need their adapter");}
         var v=MissileVectors.VelocityFp8(dx,dy,velocity);var ends=HydraCreation.Fire(head.Source.Birth,slow);
         var bolt=new HydraBolt(checked(++_nextId),head.Id,head.Owner,head.Map,head.X,head.Y,head.Z,v.X,v.Y,0,ends.Min,ends.Max,head.Pierce,at.AddMilliseconds(1200),at.AddMilliseconds(40))
-            {Source=new(body.Serial.Value,new([new((int)(head.X*2),(int)(head.Y*2))]),slow,SourceRandom.InitLow(Blazes.SeedLow()),body.Serial.Value,velocity)};
+            {Source=new(body.Serial.Value,new([new((int)(head.X*2),(int)(head.Y*2))]),slow,head.Source.NpcOwner==null?SourceRandom.InitLow(Blazes.SeedLow()):NpcWorldAllocation.UnitSeed(),body.Serial.Value,velocity)};
         _bolts.Add(bolt.Id,bolt);return bolt;
     }
     private static void StepBolt(HydraBolt bolt,DateTime at,bool? actions)
     {
-        var s=bolt.Source;var head=Head(bolt.Head);var owner=PlayerBlizzards.Owner(bolt.Owner);
+        var s=bolt.Source;var head=Head(bolt.Head);var owner=head==null?null:ResponsibleOwner(head);
         var body=World.FindMobile((Serial)s.Actor) as HydraBody;
         if(owner==null){_bolts.Remove(bolt.Id);return;}
-        bool loaded=_loadedBolts.Remove(bolt.Id);bool fighting=(actions??AssassinTrapRoster.Fighting(bolt.Owner))&&head?.Source?.Actor==s.Actor&&body is{Deleted:false}&&body.Map?.MapID==bolt.Map;
+        bool loaded=_loadedBolts.Remove(bolt.Id);bool fighting=(actions??AssassinTrapRoster.Fighting(bolt.Owner))&&head?.Source?.Actor==s.Actor&&body is{Deleted:false}&&OwnerGraph(head,body,owner)&&body.Map?.MapID==bolt.Map;
         if(loaded||!fighting)
         {
             int skip=(int)Math.Min(30-bolt.Frame,Math.Max(1,(at-bolt.NextUtc).TotalMilliseconds/40+1));
@@ -229,7 +234,7 @@ public static partial class Hydras
     private static void ValidateSource(HydraHead h)
     {
         if(h.Source is not{} s){return;}
-        HydraCreation.Validate(s.Birth);HydraControl.Validate(s.Control);var ends=HydraCreation.Fire(s.Birth,SlowMissilePayload.Normal);
+        NpcHydraWorld.Validate(h);HydraCreation.Validate(s.Birth);HydraControl.Validate(s.Control);var ends=HydraCreation.Fire(s.Birth,SlowMissilePayload.Normal);
         if(!Position(h.Owner,h.Map,h.X,h.Y,h.Z)||!((Serial)s.Actor).IsMobile||s.NextUtc.Kind!=DateTimeKind.Utc||h.UntilUtc.Kind!=DateTimeKind.Utc
             ||h.Rank!=s.Birth.Rank||h.Min256!=ends.Min||h.Max256!=ends.Max||h.Pierce!=s.Birth.Passive("passive_fire_pierce")||h.Seed!=s.Control.Seed
             ||s.Birth.Passive("item_pierce_fire_immunity")!=0||h.X*2!=Math.Floor(h.X*2)||h.Y*2!=Math.Floor(h.Y*2)
@@ -252,7 +257,7 @@ public static partial class Hydras
     {
         foreach(var h in _heads.Values.Concat(_retired.Values).Where(x=>x.Source!=null))
         {
-            if(World.FindMobile((Serial)h.Source.Actor) is not HydraBody{Deleted:false} b||b.Head?.Id!=h.Id||b.SummonMaster?.Serial.Value!=h.Owner||b.Map?.MapID!=h.Map
+            if(World.FindMobile((Serial)h.Source.Actor) is not HydraBody{Deleted:false} b||b.Head?.Id!=h.Id||!OwnerGraph(h,b,World.FindMobile((Serial)h.Owner)as PlayerMobile)||b.Map?.MapID!=h.Map
                 ||b.Location!=new Point3D((int)Math.Round(h.X),(int)Math.Round(h.Y),h.Z))
             {throw new InvalidDataException("Saved Hydra actor/owner/location graph mismatch");}
         }

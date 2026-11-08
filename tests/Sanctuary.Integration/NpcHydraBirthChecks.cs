@@ -60,14 +60,14 @@ public static class NpcHydraBirthChecks
                 frame.SetPosition(b.X,b.Y+1);frame.ServerDo=true;
                 int result=ground?ItemEffectCasts.Position(frame,62,3,point.X,point.Y,flag):ItemEffectCasts.Target(frame,62,3,NpcItemTarget.Capture(target),flag);
                 Require(result==(mask==0?0:1)&&notified==(mask==0?0:1)&&requests.Count==3,"NPC Hydra partial failure/notification result differs");
-                for(int i=0;i<3;i++){var r=requests[i];Require(r.Capture==capture&&r.Capture.Caster==b.Serial.Value&&r.Capture.ResponsibleOwner==p.Serial.Value&&r.Index==i&&r.X==point.X*2+i-1&&r.Y==point.Y*2-(i==1?0:1)&&r.Mode==9&&r.ExpiryUtc==at.AddSeconds(10),"NPC Hydra request lost actual caster,snapshot,source coordinates or expiry");}
+                for(int i=0;i<3;i++){var r=requests[i];Require(r.Capture==capture&&r.Capture.Caster==b.Serial.Value&&r.Capture.ResponsibleOwner==p.Serial.Value&&r.Index==i&&r.X==point.X*2+i-1&&r.Y==point.Y*2-(i==1?0:1)&&r.Mode==9&&r.Z==point.Z&&r.ExpiryUtc==at.AddSeconds(10),"NPC Hydra request lost actual caster,snapshot,source coordinates or expiry");}
                 Require(frame.CurrentTarget==null&&frame.FirstPathPoint==(b.X,b.Y+1)&&frame.ServerDo&&b.Combatant==current,"NPC Hydra frame did not restore target/path/server-do/combat target");
             }
             int called=0;var invalid=NpcItemSpellCasts.PreparedHydraFrame(b,TimedEffects.Now,_=>{called++;return true;});
             Require(ItemEffectCasts.Position(invalid,62,3,0,0,1)==0&&ItemEffectCasts.Position(invalid,62,3,b.Map.Width+1,b.Y,1)==0&&called==0,"Failed start reached Hydra factory");
             var throwing=NpcItemSpellCasts.PreparedHydraFrame(b,TimedEffects.Now,_=>throw new NotSupportedException("fixture factory failure"));throwing.SetPosition(b.X,b.Y+2);throwing.ServerDo=true;Reject(()=>ItemEffectCasts.Target(throwing,62,3,NpcItemTarget.Capture(target),1));Require(throwing.CurrentTarget==null&&throwing.FirstPathPoint==(b.X,b.Y+2)&&throwing.ServerDo,"Throwing Hydra factory lost frame restoration");
             Require(NpcEquipmentRandom.Require(b)==rng&&NpcWorldAllocation.Capture()==world&&b.SavedText==body&&Json(Hydras.Snapshot())==hydras&&NecromancerEffects.ManaBalance256(b)==0&&NecromancerEffects.ManaBalance256(p)==0,"Prepared Hydra interface allocated actors/seeds,spent mana or changed source data");
-            Reject(()=>NpcItemSpellDamage.Require(62));
+            Require(NpcItemSpellDamage.Require(62).Do==144,"Automatic Hydra do route lost metadata");Reject(()=>NpcItemSpellDamage.Calculate(62,3,99,0));
         }
         finally{b.Combatant=null;target.Delete();current.Delete();NecromancerEffects.SetMana256(p,mana);NecromancerEffects.SetMana256(b,ownMana);}
     }
@@ -94,6 +94,6 @@ public static class NpcHydraBirthChecks
         for(int i=0;i<bodies.Length;i++){Require(NpcHydraCreation.Capture(bodies[i],3)==before[i],"Prepared Hydra borrowed changed root player equipment/stats");}
         p.AddToBackpack(claw);claw.Delete();ClassGear.Refresh(p);var held=bodies.Select(Hold).ToArray();foreach(var b in bodies){PersistentMinions.Park(b);}p.Internalize();File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,held,generation)));
         Require(!AssassinCombat.Implemented(CombatAbility.ShadowWarrior)&&!AssassinCombat.Implemented(CombatAbility.ShadowMaster),"Prepared Hydra enabled learned Shadow");
-        Log.Information("NPC Hydra prepared birth/item frame:128reused nonhireling source contexts;own stats/hard synergies and actual NPC owner,zero player FIFO registration,all partial-failure masks,target/ground/start14/do144,free resources,restoration and no automatic materialization;real Warrior1/Master9original gear/root swaps/saves pass. NPC-owned head world host remains unimplemented.");
+        Log.Information("NPC Hydra prepared birth/item frame:128reused nonhireling source contexts;own stats/hard synergies and actual NPC owner,zero player FIFO registration,all partial-failure masks,target/ground/start14/do144,free resources,restoration and no automatic materialization;real Warrior1/Master9original gear/root swaps/saves pass. NPC-owned world consumer is verified separately.");
     }
 }

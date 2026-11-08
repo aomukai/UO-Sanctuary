@@ -8,7 +8,7 @@ namespace Sanctuary;
 // The NPC is the actual summon owner. ResponsibleOwner is credit/allegiance
 // provenance, not a player caster or a player18-head FIFO registration.
 internal sealed record NpcHydraBirth(uint Caster,uint ResponsibleOwner,string Binding,HydraCreationStats Birth);
-internal sealed record NpcHydraRequest(NpcHydraBirth Capture,int Index,int X,int Y,int Mode,DateTime ExpiryUtc);
+internal sealed record NpcHydraRequest(NpcHydraBirth Capture,int Index,int X,int Y,int Mode,DateTime ExpiryUtc,int Z=0);
 
 internal static class NpcHydraCreation
 {
@@ -63,7 +63,7 @@ internal static class NpcHydraCreation
         {
             // Source positions are subtiles; retain half-tile offsets rather
             // than prematurely rounding the three independent allocations.
-            var request=new NpcHydraRequest(capture,i,aim.X*2+i-1,aim.Y*2-(i==1?0:1),9,at.AddMilliseconds(capture.Birth.DurationFrames*40));
+            var request=new NpcHydraRequest(capture,i,aim.X*2+i-1,aim.Y*2-(i==1?0:1),9,at.AddMilliseconds(capture.Birth.DurationFrames*40),aim.Z);
             if(summon(request)){result=1;}
         }
         return result;

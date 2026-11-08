@@ -167,7 +167,7 @@ public static partial class Hydras
         }
         foreach(var head in save.Retired??[])
         {if(head.Source?.RetireUtc==null){throw new InvalidDataException("Missing retired Hydra lifetime");}heads.Remove(head.Id);retired.Add(head.Id,head);}
-        if(heads.Values.Any(x=>x.Source?.RetireUtc!=null)||heads.Values.Where(x=>x.Source!=null).GroupBy(x=>x.Owner).Any(x=>x.Count()>18)
+        if(heads.Values.Any(x=>x.Source?.RetireUtc!=null)||heads.Values.Where(x=>x.Source!=null&&x.Source.NpcOwner==null).GroupBy(x=>x.Owner).Any(x=>x.Count()>18)
             ||heads.Values.Concat(retired.Values).Where(x=>x.Source!=null).GroupBy(x=>x.Source.Actor).Any(x=>x.Count()>1))
         {throw new InvalidDataException("Invalid Hydra source roster");}
         foreach (var bolt in save.Bolts)
