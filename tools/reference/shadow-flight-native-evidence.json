@@ -1,0 +1,194 @@
+{
+  "parent": "72ce9beaed4e358ce8885208bae644785ab6fed5",
+  "referenceVersion": "3.3.93847",
+  "handlers": 208,
+  "assassinHandlers": 28,
+  "completedClasses": [],
+  "learnedShadowsEnabled": false,
+  "intrinsicFlightConnected": true,
+  "adaptationApproved": true,
+  "approval": "Approve this Shadow Flight rule",
+  "nativeMarkers": 33,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "dragon-flight-mechanics-check": 3,
+    "leap-geometry-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "shadow-flight-check": 1,
+    "shadow-kick-packets-check": 1,
+    "shadow-tail-check": 1,
+    "shadow-talon-check": 1,
+    "dragon-flight-landing-check": 1,
+    "dragon-flight-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "shadow-flight-reload-check": 2,
+    "shadow-kick-packets-reload-check": 2,
+    "shadow-tail-reload-check": 2,
+    "shadow-talon-reload-check": 2,
+    "dragon-flight-landing-reload-check": 2,
+    "dragon-flight-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 3,
+  "integrationBuild": 4,
+  "sourceSnapshot": 4,
+  "newClockSourceContexts": 12,
+  "completeClockRoutines": {
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f"
+  },
+  "authenticatedSource": {
+    "receipts": {
+      "tools/reference/dragon-tail-source-evidence.json": "28ab73369df0eea3768eea41b64f2f8ce9ee1a110dbaa7f69c9863086ce4a795",
+      "tools/reference/dragon-tail-clock-source-evidence.json": "97a9ba6f429f7d41e4df39662c777a7a05d3f3141da088bf47f44786fed9250f",
+      "tools/reference/dragon-tail-rate-source-evidence.json": "0502c75bb8e91e4494416acda3f23996ec577fc9c79266c6e1ae24887b244f33",
+      "tools/reference/dragon-tail-lifetime-source-evidence.json": "89d3e0ba545033bddafd4b5dbfab148b520136dc1523b707674455adc61b2ae8",
+      "tools/reference/dragon-tail-burst-source-evidence.json": "5224f4efb83da733df183c3879ac0fbac17d36621d05d98d793a87ebeb2b8bd4",
+      "tools/reference/dragon-tail-action-source-evidence.json": "98dc54b3a2fbf9683186d7e8778dfb9bcf54306f09c5cb4e2fbeefd675381d74"
+    },
+    "completeRoutines": {
+      "SKILLS_SrvSt27_DragonTail": "7cf295dfcb449dc27543f35dec2779f76a8f4a0e567dbe6670efd9d3e4a167ce",
+      "SKILLS_SrvDo050_DragonTail": "acf70f84a0a650c7249833a53d1d0df90c79e2c0fec07ff03deac77a05b9c45b",
+      "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+      "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+      "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+      "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+      "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+      "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+      "sub_6FD15470": "e4d5249cac8104b03ff1a97850f43fd54c43a32e65fc308eeff7599c06e02a2f",
+      "STATLIST_DeactivateTemporaryStates": "9fcd78e30dff76e5058fd49206dcb54d855d078ac5f723769119b827b60614d2",
+      "UNITS_ChangeAnimMode": "c64ba3f192f07026f9da42a4206fb50fb6c2242ff548e9b6bb04f6fdde09828a",
+      "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+      "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+      "sub_6FCF5BC0": "e740b401d198473cff5ce134603f63c196e37a3bc70994994d2ee7e1bd35bad4",
+      "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+      "DATATBLS_LoadStatesTxt": "be2ab3f5f530db966d17beec91125b74d306189704e73127a086114a37b46526"
+    },
+    "retainedFixtures": {
+      ".local/class-skills/dragon-tail-source-probe.json": {
+        "sha256": "ba1413b1c957ffacc16cf480d8482c594f7f18b72e4b6b1f05a5062b2ad72817",
+        "cases": 1920
+      },
+      ".local/class-skills/dragon-tail-clock-source-probe.json": {
+        "sha256": "569c4eb732729645eeb9fd9344213a263f670132826ff419b3c6e2b36624eace",
+        "cases": 4490
+      },
+      ".local/class-skills/dragon-tail-rate-source-probe.json": {
+        "sha256": "a36571bd6b1206edc0f348577fec12c17cce0479060d80687c3652a19cbe40b2",
+        "cases": 4608
+      },
+      ".local/class-skills/dragon-tail-lifetime-source-probe.json": {
+        "sha256": "0b020d9ff47f5a0f1727b1780e55f9ce94e110de9dad1eed0e9260b21a24a73f",
+        "cases": 384
+      }
+    },
+    "packetSource": {
+      "reused": {
+        "routines": {
+          "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+          "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+          "SKILLS_CalculateKickDamage": "5d135d473ce68448ad968e7f43858f7dab229846386e500f12d6f861bd460487",
+          "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+          "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+          "sub_6FC7C900": "4dc2c5c3cc92b6d8f835bc976bc1258dad0afa632a88b012c411f52eb5fdbf2f",
+          "sub_6FCF7CE0": "fb6cab859027d65162dcc79046b28daac2a7d2eacc51dae2314d2ae2bbe35329",
+          "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+          "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+          "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+          "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+          "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+          "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+          "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+          "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+          "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+          "SKILLS_SrvDo001_Attack_LeftHandSwing": "c20364bdd0433c0990308bba34248cecffb6a5d34439c13067c9fd724ec06528"
+        },
+        "receipts": {
+          "tools/reference/dragon-kick-damage-source-evidence.json": "c235213cfe1478351a33caafa136732d863a19f647f82e61871af90b2e7b33ae",
+          "tools/reference/dragon-talon-hands-source-evidence.json": "3d6958d3821930fa0663353116719c94630478710d7893315bc58e29a107c50d",
+          "tools/reference/dragon-kick-packet-source-evidence.json": "cd5df668c7a16aa07cdb22bbd6b7698d891f8cf76e3e960ae498e43818cb8ce8",
+          "tools/reference/npc-damage-fill-source-evidence.json": "839a00012d0275030fab9dc44cc334ceb2409c232455ebe9714b77d95a619b65",
+          "tools/reference/npc-blade-shield-fill-source-evidence.json": "28ff1ebe5779beb17788b27cabe7f95aa8822893197d2603e646f7412efd6964",
+          "tools/reference/shadow-finisher-source-review.json": "18f6f4941b325905999bc3a25a1a302a01a01830aa3921036492ad64b4dc475a"
+        },
+        "newCompilerMatrices": 0,
+        "generatorSuccessor": {
+          "path": "tools/probe_npc_damage_fill.py",
+          "historical": "376a29dba1a1d52347f504e8fcd207d435f2e163ffc681a52344b4374b209afa",
+          "current": "5d83a322bd01e1beb6aa428a935c894a372101714777df35b8d68644e11746a5",
+          "reason": "Later shield controls extended the generator;original5120 compiler/binary/cases remain unchanged and all six complete source bodies match."
+        }
+      },
+      "rewindReceipt": "be606276e206290cc4dee0377739e2163bd7fe2d774a37f6e86f4420f97239f0",
+      "newRewindControls": 46
+    },
+    "newCompilerMatrices": 0
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "879cbbc9880cd8a54cd03385ed0ad2c75ea788ff5d421baa6cee0d9a1b5654f7",
+    "Assemblies/Sanctuary.Integration.dll": "090289e8b9a242ef063056a5b9d94ee5cc67056e01365df6dbe381b77dce4932"
+  },
+  "files": {
+    ".local/class-skills/shadow-flight/source-snapshot-1.json": "7edfd8a969a9ae99c1978d30d2b78490b3832a00ad1ca235e3ee2faf3ce2364c",
+    ".local/class-skills/shadow-flight/source-snapshot-2.json": "284b7c67de7fe97a77a72ded7108163673c48133fd4371cedcc26fabefb2518b",
+    ".local/class-skills/shadow-flight/source-snapshot-3.json": "8b7b6171362566dec9585c4a85e59ae3f1c9b0615e3a7df506e843df08b305d2",
+    ".local/class-skills/shadow-flight/source-snapshot-4.json": "a4c15c5b9bfbccd53aed5946d9effe868ae77c684572509a1bd1a62a5c015499",
+    ".local/class-skills/shadow-flight/birth-inputs.json": "4469ddaa487284c91bc335ecc284bd9ef28b6a6b194417fa5150265e4ee0691c",
+    ".local/class-skills/shadow-flight/birth-native-checks.log": "546b8327f7af56599750d6ccbd76afd051df840c81bda2f5b66d044236b70aad",
+    ".local/class-skills/shadow-flight/birth-inputs-failed-1.json": "fa39677f8ef21d3485999c9088df1eea0d117341db3303a30500990eaa13db38",
+    ".local/class-skills/shadow-flight/birth-native-checks-failed-1.log": "49052d365a73cc85e1f86a62009de50031697d41a99f9218ecb5da1eb5b975e0",
+    ".local/class-skills/shadow-flight/birth-inputs-pre-arrival-pass.json": "7dc713b8f12518c55cafd884de551ecc60f772f7984d323813710e048f7f33c3",
+    ".local/class-skills/shadow-flight/birth-native-checks-pre-arrival-pass.log": "79258894bde6a4277c26c8e6542fff7f476c51271781d95aff1036fa770e2966",
+    ".local/class-skills/shadow-flight/native-run-1.log": "c16c5d1402d8a5dcfc639dea271202b2f6cae6ff7823f395485c5f0496558aa8",
+    ".local/class-skills/shadow-flight/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-flight/native-run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/shadow-flight/content-build-1.log": "f0ef086e3dc61773a725f79f913b49e1fa31b3cb49f45b5cce54762164426db6",
+    ".local/class-skills/shadow-flight/content-build-2.log": "f758b2b2e080b3b53323d0a080ae8c963da7a7845f7c2a3e6df4d2aefc2148f1",
+    ".local/class-skills/shadow-flight/content-build-3.log": "39f4d373980673bf0130c237d40f4ae09f456f27494b2ab89339aaf6cdaa227d",
+    ".local/class-skills/shadow-flight/integration-build-1.log": "28572d7c3016b2e0a75ae246abc054fa8cb3d96b5b619cb738958f07daa2dad8",
+    ".local/class-skills/shadow-flight/integration-build-2.log": "96af1882c0b5c62572f279f347839cde194b02858286ea848fa5e350aade16d9",
+    ".local/class-skills/shadow-flight/integration-build-3.log": "c5304d865639766f360f5e61e0ca5abb34180392c94b7f723f0490e0e6505744",
+    ".local/class-skills/shadow-flight/integration-build-4.log": "7296bb5906bb989f9e9985420bd1003cfaa07ea58cc6500db2821a645905f372",
+    ".local/class-skills/shadow-flight/shadow-flight-fixtures.json": "223ddd70ee3df1b33ddbad22b8863d8a3d0dcec06a21e1a955687b6cb84641a0",
+    ".local/class-skills/shadow-flight-clock-source/source-compile-failed-1.cpp": "716ee56ce240d1885f15143a26f72138cd7820ab853e7a6c3cc45419e7ce796a",
+    ".local/class-skills/shadow-flight-clock-source/compiler-failed-1.log": "78c5b0a57039a2ed641c1a371ed993fb881eb0b55add42b390d90ceb1154841c",
+    ".local/class-skills/shadow-flight-clock-source/source-failed-2.cpp": "3af7e858f265804439403d5b32bcee4de5477a1c845856986019abaebc4e976e",
+    ".local/class-skills/shadow-flight-clock-source/compiler-failed-2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-flight-clock-source/sanitizer-failed-2.log": "51c82068ae4095992b19fdbe26cad8dc3b622a14ec83ef0449ef679208d83d9f",
+    "tools/record_shadow_flight.py": "63303b36e231477bb54b2db4019930a3cc9c1d13247a5b120019ae0af3a31d53",
+    "tools/probe_shadow_flight_clock.py": "71338dc8fd5754d3a956adef1ae35bd5ee77bbca308d7687b52a5e5018ad6c79",
+    "tools/reference/shadow-flight-clock-source-evidence.json": "58e2212919712201114ce41db14725d84401f08e3c1e4ed1a4f8e67df3b0e121",
+    "tests/check_shadow_flight.py": "2e2433e62d6fa2da4e37b651d400c4b0f62847c154ef6d495311d4c2d87f4580",
+    "docs/shadow-flight-action-proposal.md": "40962101fa5a9d56a7a2b91c01c33034bd68e5cf94abf53b2d44399393782b8a"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "diagnostic": "Clock fixture first needed an aborting declaration for an unused nonsequence helper,then a leading sequence-id column on owned rows;both diagnostics retained. Initial content compile exposed stackalloc-in-loop warning,removed before acceptance. First native run passed initial boot but reload fixture started a fresh action before settling the existing loaded-controller skip;fixture now settles it before entry. Second run passed. Review then identified missing arrival-field dispatch;shared Mobile receiver and prior-cast pose merge were added with an actual field-callback interruption check. Final builds/cohort are clean.",
+  "scope": "Both original Shadows use own mode14/slot5 23-point sequence,full source clock services with qualified conversion supplied and approved explicit teleport10/kick15/end24 phases. Actual original NPC traveller uses shared ground/free-cell/occupancy/town/travel/arrival-field services,no owner movement/payment. Real transfer survives stored and in-flight local controller updates,including action cancellation inside arrival. Own full Flight kick/AR/typed fill/actor RNG and all-six per-contact charge services,accuracy-only guarantee with shield retained,miss/block/no early damage/consume,no mana threshold,deletion/escape/recovery/freeze/movement/park/offline cancellation,world requests/full recovery,natural Warrior AI and exact original actor/items/resources/wounds/RNG/charge saves through two reloads pass. Talon/Tail/packet,player Flight action/landing/mechanics and Leap geometry consumers remain passing.",
+  "limits": [
+    "Explicit approved NPC phase/landing/charge adaptation replaces unresolved older raw-point/flag behavior;no exact current executable proof. Clock conversion is the retained complete state119/monster14 result supplied to this new12-context clock composition,not a new transform or full NPC callback matrix.",
+    "Native tile/half-cell/height/room ordering and PvP/removal/stat mutation boundaries remain scoped. Arrival test proves shared field dispatch to the actual NPC and interruption/pose preservation;it does not independently certify every native field damage effect.",
+    "Both species world requests and natural Warrior AI are verified;unrestricted natural Master loadouts/selection retain their existing gaps. Own Fury/Sentinel/modifier42death/learned Shadow dependencies and player mixed-finisher audit remain.",
+    "No deployment or learned Shadow handler enabled. Final teleport/kick/charge effects/audio and talent/hotkey icons remain separately inventoried placeholders."
+  ]
+}

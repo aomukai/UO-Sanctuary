@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Approved own Shadow Flight implemented (2026-11-08 JST).** Own monster sequence consumes events at NPC frames10/15/end24; explicit first teleport/second kick, actual landing required, free NPC startup and shared charged-contact rule. Stored/current-frame pose and arrival interruption are verified. 33 native markers/two reloads, 12 new clock contexts. [Checkpoint](shadow-flight-checkpoint.md). Older raw-phase conflict is replaced by the approved adaptation; exact current executable parity remains unverified.
+
 **Shadow Flight rule approved (2026-11-08 JST):** first owned-sequence marker teleports; second kicks only after actual successful landing; retain target, no pet/player mana, shared approved charged-contact policy; interruption discards pending intent. This replaces unresolved older raw NPC phase/flag behavior, not a claim of modern executable equivalence. [Approved rule](shadow-flight-action-proposal.md) / [packet checkpoint](shadow-flight-packets-checkpoint.md).
 
 **Own NPC Tail (2026-11-08 JST).** Older start27/do50 flow now uses original Shadow equipment/RNG, action-local -40 rate and free NPC startup, combined with the approved charged accuracy-only/block/consume-one rule. Copied mitigated physical drives the separate post-contact fire/knockback area. Modern exact NPC parity remains unverified. [Checkpoint](shadow-tail-checkpoint.md).

@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Latest: own Shadow Dragon Flight (2026-11-08 JST), verified within scope.** Approved teleport-then-kick now uses the own NPC 10/15/24 clock, actual pet landing/arrival fields, shared kick/charges and synchronized stored/current-frame ground pose. 33 native markers/two reloads retain player Flight/Leap and Talon/Tail; 12 new clock contexts reuse old proofs. [Checkpoint](shadow-flight-checkpoint.md). **208/240 handlers; Assassin 28/30; no class complete.** Next Fury/Sentinel/death/learned gates. Installed build/saves unchanged.
+
 **Latest: own Shadow Flight packet (2026-11-08 JST), verified within scope.** Flight now reuses the original kick builder with its own damage percentage, equipment/RNG and six-family inline fill. 18 native markers/two reloads retain Talon/Tail actions. The user approved the NPC teleport-then-kick phase/landing rule; full Flight action remains pending. [Checkpoint](shadow-flight-packets-checkpoint.md). **208/240 handlers; no class complete.**
 
 **Latest: own Shadow Dragon Tail (2026-11-08 JST), verified within scope.** Own startup/cache, action-local rate, mitigated physical copy and parent-before-fire area now connect through shared kick/charge/elemental services. 24 native markers through two reloads; existing complete source controls reused without new matrices. [Checkpoint](shadow-tail-checkpoint.md). **208/240 handlers; Assassin 28/30; no class complete.** Next Flight/Fury/Sentinel/death/learned admission. Installed build/saves unchanged.

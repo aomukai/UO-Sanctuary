@@ -298,8 +298,10 @@ internal static class IronGolemWorld
             if(!body.Poisoned&&TimedEffects.CanRegenerateHits(body))
             {NpcEquipmentRegeneration.Apply(body,NpcEquipmentRegeneration.Delta(body is INecromancerGroundMotion equipped?equipped.GroundRegenerationBase:BattleOrders.Regeneration256(body),NpcEquipmentRegeneration.ItemRate(body),0,false,false));}
             if(body.Deleted||!body.Alive){return;}
+            var flight=body is AssassinShadowBody shadow?ShadowActions.State(shadow)?.Cast:null;
             if(body is INecromancerGroundPeriodic periodic){periodic.GroundFrame(s.Frame,frameAt);}
             if(body.Deleted||!body.Alive){return;}
+            if(body is AssassinShadowBody flightBody){s=ShadowDragonFlight.Synchronize(flightBody,s,flight);}
             if(body.Frozen||body.Paralyzed||CreatureHitRecovery.Remaining(body)>0||SourceKnockbacks.Remaining(body)>0){s=Park(s);Store(body,s);continue;}
             if(s.Mode is 2 or 15)
             {

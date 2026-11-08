@@ -20,6 +20,9 @@ internal static class ShadowSkillCasting
         internal readonly Point3D Aim=aim;
         internal readonly DateTime StartedUtc=started??TimedEffects.Now;
         internal bool Released;
+        internal bool FlightLanded,FlightKicked;
+        internal Point3D? FlightDestination;
+        internal int LastFlightFrame;
         internal int? SequencePoint;
         internal int LastSequencePoint=-1;
         internal bool ServerDo;
@@ -33,6 +36,7 @@ internal static class ShadowSkillCasting
         if(id==260){return ShadowDragonClaw.Row();}
         if(id==255){return ShadowDragonTalon.Row();}
         if(id==270){return ShadowDragonTail.Row();}
+        if(id==275){return ShadowDragonFlight.Row();}
         if(ShadowChargeStrikes.Handles(id)){return ShadowChargeStrikes.Row(id);}
         if(ShadowSentries.Handles(id)){return ShadowSentries.Row(id);}
         if(id==253){return ShadowPsychicHammers.Row();}
@@ -86,13 +90,13 @@ internal static class ShadowSkillCasting
         try
         {
             if(SkillStartup.Selected(new Startup(cast))!=0){return cast;}
-            if(skill is 255 or 270){Complete(cast);}return null;
+            if(skill is 255 or 270 or 275){Complete(cast);}return null;
         }
-        catch{if(skill is 255 or 270){Complete(cast);}throw;}
+        catch{if(skill is 255 or 270 or 275){Complete(cast);}throw;}
     }
     internal static int Release(Cast cast,DateTime at)
     {
-        if(cast==null||cast.Skill==255||ShadowClawSequence.Handles(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
+        if(cast==null||cast.Skill is 255 or 275||ShadowClawSequence.Handles(cast.Skill)||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=cast.Skill){return 0;}
         cast.Released=true;
         return SkillExecution.Run(new Execution(cast,at),cast.Skill,cast.Body.OwnedSkillRank(cast.Skill),true,false,false);
     }
@@ -116,6 +120,15 @@ internal static class ShadowSkillCasting
         if(action?.Cast!=cast||frame!=action.Frame+1||!action.Plan.Events.Any(e=>e.Type==1&&e.Kind==1&&e.Frame==frame)){return 0;}
         cast.LastTalonFrame=frame;
         return SkillExecution.Run(new Execution(cast,at),255,cast.Body.OwnedSkillRank(255),true,false,false);
+    }
+    internal static int ReleaseFlight(Cast cast,int point,int frame,DateTime at)
+    {
+        if(cast==null||cast.Skill!=275||cast.Released||!Attached(cast.Body)||cast.Body.Map!=cast.Map||cast.Body.OwnedSkills.Used!=275||frame<=cast.LastFlightFrame){return 0;}
+        var action=ShadowActions.State(cast.Body);
+        if(action?.Cast!=cast||frame!=action.Frame+1||!action.Plan.Events.Any(e=>e.Type==1&&e.Frame==frame&&e.Param==point)){return 0;}
+        cast.LastFlightFrame=frame;cast.SequencePoint=point;
+        try{return SkillExecution.Run(new Execution(cast,at),275,cast.Body.OwnedSkillRank(275),true,false,false);}
+        finally{cast.SequencePoint=null;}
     }
     private static bool Enemy(AssassinShadowBody body,BaseCreature target)=>body.ControlMaster is PlayerMobile owner
         &&target is{Alive:true,Deleted:false}&&ClassCombat.IsHostile(owner,target)&&!ClassCombat.Friendly(body,target)&&body.CanBeHarmful(target,false);
@@ -146,8 +159,9 @@ internal static class ShadowSkillCasting
                 :ShadowSentries.Handles(cast.Skill)?Body.InLOS(new Point3D(x/2,y/2,cast.Target?.Z??cast.Aim.Z)):throw Missing()
             :throw Missing(); // Shared native LOS projection;exact D2 terrain remains separate.
         internal override int StartCount=>29;
-        internal override bool HasStart(int function)=>function==0?false:function is 22 or 23 or 24 or 25 or 27 or 28?true:throw Missing();
-        internal override int ExecuteStart(int function,int skill,int rank)=>function==22&&skill==253?ShadowPsychicHammers.Valid(Body,cast.Target)?1:0
+        internal override bool HasStart(int function)=>function==0?false:function is 12 or 22 or 23 or 24 or 25 or 27 or 28?true:throw Missing();
+        internal override int ExecuteStart(int function,int skill,int rank)=>function==12&&skill==275?ShadowDragonFlight.Start(Body,cast.Target)?1:0
+            :function==22&&skill==253?ShadowPsychicHammers.Valid(Body,cast.Target)?1:0
             :function==23&&ShadowChargeStrikes.Handles(skill)?ShadowChargeStrikes.Start(Body,cast.Target)?1:0
             :function==24&&skill==255?ShadowDragonTalon.Start(cast,rank)
             :function==25&&skill==260?cast.Target!=null?1:0
@@ -173,7 +187,7 @@ internal static class ShadowSkillCasting
         internal override int Rank(ExecutionSkill skill,bool bonuses)=>Body.OwnedSkills.Rank(skill.Id,OriginalNpcEquipment.Graph(Body).Read,BattleCommand.Bonus(Body),bonuses);
         internal override int DoCount=>191;
         internal override bool ManaAllowed()=>true;
-        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 42 or 45 or 46 or 47 or 50 or 51 or 54?true:throw Missing();
+        internal override bool HasDo(int function)=>function==0?false:function is 18 or 33 or 34 or 35 or 42 or 45 or 46 or 47 or 50 or 51 or 52 or 54?true:throw Missing();
         internal override int Execute(int function,int skill,int level)=>function==18&&ShadowDefensiveBuffs.Handles(skill)
             ?GeneratedNpcLiveResources.ApplyShadowBuff(Body,skill,Values(Body,level,skill),at)?1:0
                 :function==33&&skill==253?ShadowPsychicHammers.Release(Body,cast.Target,level,at)
@@ -181,6 +195,7 @@ internal static class ShadowSkillCasting
                 :function==35&&ShadowChargeStrikes.Claws(skill)?ClawRelease(skill,level)
                 :function==42&&skill==255?ShadowDragonTalon.Release(cast,level,at)
                 :function==46&&skill==260?DragonRelease()
+                :function==52&&skill==275?ShadowDragonFlight.Release(cast,at)
                 :function==50&&skill==270?ShadowDragonTail.Release(cast,level,at)
                 :function==47&&skill==264?ShadowCloaks.Release(Body,level,at)
                 :function==45&&ShadowSentries.Handles(skill)?ShadowSentries.Release(Body,cast.Target,cast.Aim,skill,level,at)
@@ -211,7 +226,7 @@ internal static class ShadowSkillCasting
             var point=cast.Target is{Alive:true,Deleted:false} target?target.Location:cast.Aim;
             FireBlasts.EmitShadow(Body,point,level,at);
         }
-        internal override bool HasStart(int function)=>function==0?false:function is 22 or 23 or 24 or 25 or 27 or 28?true:throw Missing();
+        internal override bool HasStart(int function)=>function==0?false:function is 12 or 22 or 23 or 24 or 25 or 27 or 28?true:throw Missing();
         internal override void ConsumeMana(int skill,int level){}
         internal override void ConsumeQuantity()=>throw Missing();
         internal override int Delay(int formula,int skill,int level)=>formula==0?0:throw Missing();

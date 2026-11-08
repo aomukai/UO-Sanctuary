@@ -58,6 +58,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     int INecromancerGroundBrain.GroundSkill(PlayerMobile owner,int mode,int skill,BaseCreature target,DateTime at)
     {
         bool started=mode==9&&skill==251?ShadowActions.BeginFireBlast(this,target,target?.Location??Location,at)
+            :mode==14&&skill==275?ShadowActions.BeginDragonFlight(this,target,at)
             :mode==14&&skill==260?ShadowActions.BeginDragonClaw(this,target,at)
             :mode==4&&skill==255?ShadowActions.BeginDragonTalon(this,target,at)
             :mode==4&&skill==270?ShadowActions.BeginDragonTail(this,target,at)

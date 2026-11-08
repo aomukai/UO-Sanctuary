@@ -11,10 +11,10 @@ namespace Sanctuary;
 
 internal static class LeapTerrain
 {
-    internal static bool Allowed(PlayerMobile owner,Map map,Point3D point)=>map!=null && map!=Map.Internal
+    internal static bool Allowed(Mobile owner,Map map,Point3D point)=>map!=null && map!=Map.Internal
         && point.X>=0 && point.Y>=0 && point.X<map.Width && point.Y<map.Height && point.Z is >=-128 and <=127
         && !Town(owner,map,point) && !SpellHelper.CheckMulti(point,map);
-    private static bool Town(PlayerMobile owner,Map map,Point3D point)
+    private static bool Town(Mobile owner,Map map,Point3D point)
     {
         if(owner.Map==map){return SpellHelper.IsTown(point,owner);}
         // Offline load internalizes the body; inspect the saved world map rather
@@ -22,14 +22,14 @@ internal static class LeapTerrain
         var region=Region.Find(point,map);
         return region.GetRegion<SafeZone>()!=null || region.GetRegion<GuardedRegion>()?.IsDisabled()==false;
     }
-    internal static bool Clear(PlayerMobile owner,Map map,Point3D point)=>Allowed(owner,map,point) && Teleportation.Space(map,point,owner);
+    internal static bool Clear(Mobile owner,Map map,Point3D point)=>Allowed(owner,map,point) && Teleportation.Space(map,point,owner);
     internal static bool Flying(Map map,Point3D origin,Point3D destination)
     {
         // Native NoShoot/closed-door/Z geometry is an explicit port adapter for
         // source door/missile barriers; it does not use walking/hostile contact.
         return map.LineOfSight(new Point3D(origin.X,origin.Y,origin.Z+12),new Point3D(destination.X,destination.Y,destination.Z+12));
     }
-    internal static bool Ground(PlayerMobile owner,Map map,int x,int y,int preferredZ,out Point3D point)
+    internal static bool Ground(Mobile owner,Map map,int x,int y,int preferredZ,out Point3D point)
     {
         point=new(x,y,preferredZ);if(Clear(owner,map,point)){return true;}
         if(map==null || map==Map.Internal || x<0 || y<0 || x>=map.Width || y>=map.Height){return false;}

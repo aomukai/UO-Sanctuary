@@ -37,7 +37,7 @@ public static class Teleportation
             && TravelAllowed(p,map,point)
             && Space(map, point);
     }
-    internal static bool TravelAllowed(PlayerMobile p,Map map,Point3D point)
+    internal static bool TravelAllowed(Mobile p,Map map,Point3D point)
         =>SpellHelper.CheckTravel(p,TravelCheckType.TeleportFrom,out _)
             &&SpellHelper.CheckTravel(p,map,point,TravelCheckType.TeleportTo,out _)
             &&!SpellHelper.CheckMulti(point,map)&&!Region.Find(point,map).IsPartOf<HouseRegion>();
@@ -121,7 +121,7 @@ public static class Teleportation
         p.PlaySound(0x1FE);
         ArrivalFields(p);
     }
-    internal static void ArrivalFields(PlayerMobile p)
+    internal static void ArrivalFields(Mobile p)
     {
         using var fields = PooledRefQueue<Item>.Create();
         foreach (var item in p.GetItemsAt())

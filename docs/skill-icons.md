@@ -1,5 +1,7 @@
 # Skill icons
 
+**Own Shadow Flight action (2026-11-08 JST).** No new public icon identity. Dragon Flight and Shadow Warrior/Master retain identified talent/hotkey text placeholders. [Checkpoint](shadow-flight-checkpoint.md). Final effects/audio remain separate.
+
 **Own Shadow Flight packet (2026-11-08 JST).** Dragon Flight and both Shadow talents retain identified tree/hotkey text placeholders; no new skill/icon identity. [Checkpoint](shadow-flight-packets-checkpoint.md). Effects/audio stay separate.
 
 **Own Shadow Dragon Tail (2026-11-08 JST).** No new public skill/icon identity. Dragon Tail and Shadow Warrior/Master retain identified talent/hotkey text placeholders. [Checkpoint](shadow-tail-checkpoint.md). Effects/audio remain separate.

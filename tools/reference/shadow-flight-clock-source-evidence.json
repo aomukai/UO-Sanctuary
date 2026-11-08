@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "contexts": 12,
+  "completeClockRoutines": {
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f"
+  },
+  "inputs": {
+    ".local/class-skills/dragon-flight-mode/source.cpp": "53c34fcf3270c4b7f1b32e4f8c153e2dcb58940f6b48360950f9ba1573de638c"
+  },
+  "reusedProofs": {
+    "tools/reference/shadow-flight-source-review.json": "a3b84fbd9a19902a255a2d221f5af7b40f6f3ee648eee3f7b08b32cd78234be4",
+    "tools/reference/shadow-claw-sequence-source-evidence.json": "7b26679fcb13ac0cf00180046b96788b1853d047915ad08427e3f8ce021fa154",
+    "tools/reference/dragon-flight-mode-source-evidence.json": "43b1de91c63cd9d728d18af3fb8373254e699ae3bde0a8747fe2f515bd2df8a6"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-flight-clock-source/source.cpp": "7c9bbf9f4b6e30f829ad37872d86a8b326c08062efc294874476b9244fbff12c",
+    ".local/class-skills/shadow-flight-clock-source/probe": "7aa1bdaff0e26a1c661729464238168fef47120e59051cf347444c07ab445df1",
+    ".local/class-skills/shadow-flight-clock-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-flight-clock-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-flight-clock-source/cases.json": "604bbfa0f3382074ed89e61aa496f095e99a76c9dc461352ce59a495d78cb828",
+    "data/Sanctuary/Balance/shadow-flight-sequence.json": "359f8ba91a2c3ce993e81c1223054df791f8208a3de868403beeebca9f7a8d30",
+    "tools/probe_shadow_flight_clock.py": "71338dc8fd5754d3a956adef1ae35bd5ee77bbca308d7687b52a5e5018ad6c79"
+  },
+  "scope": "Own monster mode14/slot5 current23-point sequence,retained established state119 conversion supplied as a service,full initialization/rate dispatch/stop advance. Optional UseAttackRate0 and A1 transition select Other;only displayed animation speed changes,sequence stays256. NPC consume-before-advance gives first marker10,second15,end24. Phase meaning follows explicit user approval;this does not compile new modern code or a full NPC action/landing callback."
+}

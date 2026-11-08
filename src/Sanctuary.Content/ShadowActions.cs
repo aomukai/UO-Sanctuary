@@ -40,6 +40,13 @@ internal static class ShadowActions
         =>BeginSkill(body,target,target?.Location??body.Location,at,255);
     internal static bool BeginDragonTail(AssassinShadowBody body,BaseCreature target,DateTime at)
         =>BeginSkill(body,target,target?.Location??body.Location,at,270);
+    internal static bool BeginDragonFlight(AssassinShadowBody body,BaseCreature target,DateTime at)
+        =>BeginSkill(body,target,target?.Location??body.Location,at,275);
+    internal static bool ClaimFlightLanding(ShadowSkillCasting.Cast cast,Point3D destination)
+    {
+        var action=State(cast.Body);if(action?.Cast!=cast||cast.Skill!=275||cast.FlightLanded||cast.FlightKicked){return false;}
+        Actions[cast.Body.Serial.Value]=action with{Position=destination};return true;
+    }
     private static bool BeginSkill(AssassinShadowBody body,BaseCreature target,Point3D aim,DateTime at,int skill)
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddSeconds(-30)){throw new ArgumentException("Shadow action needs its UTC entry clock");}
@@ -49,11 +56,11 @@ internal static class ShadowActions
         {
             bool s2=skill==251||ShadowSentries.Handles(skill);
             bool claws=ShadowClawSequence.Handles(skill);
-            var plan=skill==270?ShadowAnimation.Tail(body):skill==255?ShadowAnimation.Talon(body):s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
+            var plan=skill==275?ShadowDragonFlight.Plan(body):skill==270?ShadowAnimation.Tail(body):skill==255?ShadowAnimation.Talon(body):s2?ShadowAnimation.S2(body):claws?ShadowAnimation.Claws(body):ShadowChargeStrikes.Handles(skill)?ShadowAnimation.Charge(body)
                 :skill is 253 or 273 or 277?ShadowAnimation.Cast(body):ShadowAnimation.Buff(body);
             int marker=s2?2:1;
             int releases=plan.Events.Count(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==marker);
-            if((claws?releases is <1 or >2:releases!=1)
+            if((claws?releases is <1 or >2:skill==275?releases!=2:releases!=1)
                 ||plan.Events.Count(e=>e.Type==SourceAnimationEvents.EndAnimation)!=1)
             {throw new NotSupportedException("Shadow S2 needs one actual release and end event");}
             Actions.Add(body.Serial.Value,new(cast,plan,body.Map,body.Location,ShadowLoadout.Binding(body).Identity,
@@ -100,6 +107,18 @@ internal static class ShadowActions
                     ||!body.EquipmentNumbers.ActiveItems.SequenceEqual(action.Items))
                 {Cancel(body);break;}
                 int frame=action.Frame+1;bool end=false;
+                if(action.Cast.Skill==275)
+                {
+                    if(action.Cast.Target is not{Alive:true,Deleted:false}||action.Cast.Target.Map!=body.Map){Cancel(body);break;}
+                    foreach(var e in action.Plan.Events.Where(e=>e.Frame==frame))
+                    {
+                        if(e.Type==1){_=ShadowSkillCasting.ReleaseFlight(action.Cast,e.Param,frame,action.NextUtc);}
+                        else if(e.Type==2){Cancel(body);break;}
+                        else{Cancel(body);throw new NotSupportedException("Unqualified own Flight event");}
+                    }
+                    if(!Actions.TryGetValue(actor,out var current)||current.Cast!=action.Cast){break;}
+                    Actions[actor]=current with{Frame=frame,NextUtc=action.NextUtc.AddMilliseconds(40)};continue;
+                }
                 if(action.Cast.Skill==255)
                 {
                     var talon=action.Cast.Talon;

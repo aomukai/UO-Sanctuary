@@ -1,5 +1,7 @@
 # Shadow world and action admission
 
+**Latest intrinsic action (2026-11-08 JST):** own Flight275 now connects approved first-marker actual teleport/second-marker kick, own NPC clock, shared charges and native ground/arrival synchronization. 33 native markers/two reloads include actual world/natural Warrior AI and original saves. [Checkpoint](shadow-flight-checkpoint.md). Fury/Sentinel/death/learned dependencies and unrestricted Master loadouts remain.
+
 **Flight preparation (2026-11-08 JST):** original Flight kick packet qualifies through the shared builder (18 native markers/two reloads). NPC first-marker teleport/second-marker kick, failed-landing cancellation, free startup and charged-contact policy are explicitly approved. [Checkpoint](shadow-flight-packets-checkpoint.md). Full action/clock/landing/ground-controller synchronization and AI remain pending.
 
 **Latest intrinsic admission (2026-11-08 JST):** own Dragon Tail270 now joins Talon255, using original startup/do50, shared kick/charge contacts and separate fire area. World requests for both species and natural Warrior AI pass, with 24 native markers/two reloads. [Checkpoint](shadow-tail-checkpoint.md). Flight/Fury/Sentinel/death/learned dependencies and unrestricted Master loadouts remain.
