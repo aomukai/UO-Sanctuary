@@ -12,7 +12,7 @@ using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record SigilActor(uint Marker,uint Owner,int Map,Point3D Origin,int Rank,int Level,int Missile,string MissileKey,
-    int Frames,DateTime BornUtc,int LastPulse=-1,bool Retiring=false);
+    int Frames,DateTime BornUtc,int LastPulse=-1,bool Retiring=false,CombatAbility Ability=CombatAbility.SigilLethargy);
 internal sealed record SigilStat(int Stat,int Layer,int Value);
 internal sealed record SigilOwnerState(uint Owner,DateTime EpochUtc,SigilStat[] Stats,float Expiry,uint Flags,DateTime EventUtc);
 internal sealed record SigilActorSave(SigilActor[] Actors,SigilOwnerState[] Owners);
@@ -30,8 +30,8 @@ public sealed class SigilActorProfiles:GenericPersistence
     }
 }
 
-// Prepared Lethargy world host. It composes the reviewed launch/tracking and
-// shared do14 driver;recipient status and paid learned input remain separate.
+// Shared original world host for the three Sigils. Prepared markers alone
+// do not admit learned skills;each recipient handler must opt into its ability.
 internal static class SigilActors
 {
     private static ImmutableDictionary<uint,SigilActor> _actors=ImmutableDictionary<uint,SigilActor>.Empty;
@@ -40,17 +40,27 @@ internal static class SigilActors
     internal static event Action<SigilActor,PlayerMobile,DateTime> Pulse;
     public static void Configure()=>_=new SigilActorProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
-    private static SkillValues Values(int rank,int level)=>new(SkillMechanics.For(CombatAbility.SigilLethargy),k=>k=="Sigil Lethargy"?rank:0,_=>0,level);
-    internal static SkillValues Values(SigilActor s)=>Values(s.Rank,s.Level);
+    private static bool Supported(CombatAbility ability)=>ability is CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath;
+    private static SkillValues Values(CombatAbility ability,int rank,int level)
+    {
+        if(!Supported(ability)){throw new InvalidDataException("Unsupported saved Sigil ability");}
+        var row=SkillMechanics.For(ability);return new(row,k=>k==row.SourceKey?rank:0,_=>0,level);
+    }
+    internal static SkillValues Values(SigilActor s)=>Values(s.Ability,s.Rank,s.Level);
+    internal static int RecipientFunction(CombatAbility ability)=>ability switch
+    {CombatAbility.SigilLethargy or CombatAbility.SigilDeath=>30,CombatAbility.SigilRancor=>61,_=>throw new NotSupportedException("Unknown Sigil recipient")};
     private static (int Id,string Key,int Frames) Body(SkillValues values)
     {
-        var row=SkillMechanics.For(CombatAbility.SigilLethargy);int tier=Math.Clamp(checked((int)values.Eval("prgcalc1")),1,3);
+        var row=SkillMechanics.For(values.Ability);int tier=Math.Clamp(checked((int)values.Eval("prgcalc1")),1,3);
         string key=row.Text("srvmissile"+"abc"[tier-1]);var source=Data.Value.Missiles.Single(m=>m.Key==key);var missile=new MissileValues(source.Fields,values);int id=missile.Number("*ID");
         int frames=checked((int)missile.Eval("Range"));
-        if(row.SourceId!=393||row.Number("srvdofunc")!=157||row.Text("aurastate")!="sigil"||values.Eval("calc3")!=1
-            ||id!=(tier==1?699:tier==2?686:702)||missile.Number("pSrvDoFunc")!=14||missile.Number("Param1")!=6||missile.Number("Param2")!=30
+        var ids=values.Ability switch
+        {CombatAbility.SigilLethargy=>new[]{393,699,686,702},CombatAbility.SigilRancor=>new[]{396,700,687,703},
+            CombatAbility.SigilDeath=>new[]{400,701,688,704},_=>throw new NotSupportedException("Unknown Sigil body")};
+        if(row.SourceId!=ids[0]||row.Number("srvdofunc")!=157||row.Text("aurastate")!="sigil"||values.Eval("calc3")!=1
+            ||id!=ids[tier]||missile.Number("pSrvDoFunc")!=14||missile.Number("Param1")!=6||missile.Number("Param2")!=RecipientFunction(values.Ability)
             ||missile.Number("Size")!=1||frames!=100+25*values.Rank||frames is <1 or >32767)
-        {throw new NotSupportedException("Unqualified current Lethargy body profile");}
+        {throw new NotSupportedException("Unqualified current Sigil body profile");}
         return(id,key,frames);
     }
     private static SigilTrackingState Tracking(SigilOwnerState saved)
@@ -96,7 +106,7 @@ internal static class SigilActors
     private static SigilActor Create(PlayerMobile owner,SkillValues values,Point3D point,DateTime at,Func<bool> payment)
     {
         if(owner is not{Alive:true,Deleted:false,Map:not null}||owner.Map==Map.Internal||at.Kind!=DateTimeKind.Utc
-            ||values?.Ability!=CombatAbility.SigilLethargy||values.Rank is <1 or >255||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
+            ||values==null||!Supported(values.Ability)||values.Rank is <1 or >255||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
             ||profile.Class!=DiabloClass.Warlock||MinionSafeAreas.Contains(owner)){return null;}
         var shape=Body(values);var map=owner.Map;
         if(!Ground(owner,map,point,out var ground)||!owner.InRange(ground,50)){return null;}
@@ -123,15 +133,15 @@ internal static class SigilActors
             {if(pair.Value.Lifetime==0&&_actors.TryGetValue(pair.Key,out var prior)){_actors=_actors.SetItem(pair.Key,prior with{Retiring=true});}}
             _owners=_owners.SetItem(owner.Serial.Value,saved with{Stats=Stats(tracking),Expiry=tracking.Expiry,Flags=tracking.Flags});return result;
         }
-        var context=new SigilLaunchContext(owner.Serial.Value,393,values.Rank,1,Data.Value.MissileCount,0,205,frame);
+        var context=new SigilLaunchContext(owner.Serial.Value,SkillMechanics.For(values.Ability).SourceId,values.Rank,1,Data.Value.MissileCount,0,205,frame);
         int result=SigilLaunch.Run(context,new(()=>true,()=>shape.Id,()=>{},id=>id==shape.Id&&Cell(owner,map,ground),
             ()=>new(ground.X*2,ground.Y*2),p=>SkillGeometry.SourceDistance(Math.Abs(p.X-owner.X*2),Math.Abs(p.Y-owner.Y*2)),request=>
             {
                 if(request.Body.Flags!=1||request.Body.Missile!=shape.Id||request.Body.Point!=new Point2D(ground.X*2,ground.Y*2))
                 {throw new NotSupportedException("World Sigil factory request changed");}
-                var marker=new Static(0x1B7A){Name="Sigil: Lethargy (placeholder)",Movable=false};marker.MoveToWorld(ground,map);
+                var marker=new Static(0x1B7A){Name=SkillMechanics.For(values.Ability).Name+" (placeholder)",Movable=false};marker.MoveToWorld(ground,map);
                 if(payment!=null&&!payment()){marker.Delete();return null;}
-                created=new(marker.Serial.Value,owner.Serial.Value,map.MapID,ground,values.Rank,profile.Level,shape.Id,shape.Key,shape.Frames,born);
+                created=new(marker.Serial.Value,owner.Serial.Value,map.MapID,ground,values.Rank,profile.Level,shape.Id,shape.Key,shape.Frames,born,Ability:values.Ability);
                 _actors=_actors.Add(created.Marker,created);
                 // Current flags1 stationary factory initializes float14 to
                 // int Range*40 (then converts to float),captured at400cc8.
@@ -157,14 +167,14 @@ internal static class SigilActors
             if(pulse>s.LastPulse)
             {
                 var next=s with{LastPulse=pulse};_actors=_actors.SetItem(s.Marker,next);
-                int driverFrame=terminal?elapsed:pulse;
+                int driverFrame=terminal?elapsed:pulse,skillId=SkillMechanics.For(s.Ability).SourceId,recipient=RecipientFunction(s.Ability);
                 var services=new GrimWardLifecycleServices(null,null,null,null,null,null,null,null,null,null,null,
-                    _=>new(-1,0,6,30),null,null,(id,fn,skill,rank)=>
+                    _=>new(-1,0,6,recipient),null,null,(id,fn,skill,rank)=>
                     {
-                        if(id!=unchecked((int)s.Marker)||fn!=30||skill!=393||rank!=s.Rank){throw new NotSupportedException("Sigil pulse source identity changed");}
+                        if(id!=unchecked((int)s.Marker)||fn!=recipient||skill!=skillId||rank!=s.Rank){throw new NotSupportedException("Sigil pulse source identity changed");}
                         if(fighting){Pulse?.Invoke(next,owner,at);}
                     },_=>terminal?2:1);
-                _=GrimWardLifecycle.Tick(new(unchecked((int)s.Marker),3,s.Missile,s.Origin.X*2,s.Origin.Y*2,393,s.Rank),driverFrame,services);
+                _=GrimWardLifecycle.Tick(new(unchecked((int)s.Marker),3,s.Missile,s.Origin.X*2,s.Origin.Y*2,skillId,s.Rank),driverFrame,services);
             }
             if(terminal){Remove(s);}
         }

@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "skillId": 396,
+  "name": "Sigil Rancor",
+  "currentDispatcherLinked": true,
+  "currentReceiverVerified": false,
+  "learnedHandlerEnabled": false,
+  "process": {
+    "pid": 556242,
+    "startTicks": 16928234,
+    "name": "Main"
+  },
+  "codeRva": "0x454b50",
+  "unreadableFragments": [
+    {
+      "rva": "0x454b50",
+      "endRva": "0x454bfc",
+      "unwindRva": "0x1868654",
+      "permissions": "---s",
+      "captured": false,
+      "reason": "Not readable executable or outside bounded capture budget;no forced read"
+    },
+    {
+      "rva": "0x454bfc",
+      "endRva": "0x454e21",
+      "unwindRva": "0x1868670",
+      "permissions": "---s",
+      "captured": false,
+      "reason": "Not readable executable or outside bounded capture budget;no forced read"
+    },
+    {
+      "rva": "0x454e21",
+      "endRva": "0x454e47",
+      "unwindRva": "0x1868688",
+      "permissions": "---s",
+      "captured": false,
+      "reason": "Not readable executable or outside bounded capture budget;no forced read"
+    },
+    {
+      "rva": "0x454e47",
+      "endRva": "0x454e66",
+      "unwindRva": "0x1868698",
+      "permissions": "---s",
+      "captured": false,
+      "reason": "Not readable executable or outside bounded capture budget;no forced read"
+    },
+    {
+      "rva": "0x454e66",
+      "endRva": "0x454e85",
+      "unwindRva": "0x1868688",
+      "permissions": "---s",
+      "captured": false,
+      "reason": "Not readable executable or outside bounded capture budget;no forced read"
+    }
+  ],
+  "bytesRead": 3616,
+  "forcedReads": false,
+  "processInput": false,
+  "protectionChanges": false,
+  "gameMemoryWritten": false,
+  "primary": {
+    "srvdofunc": 157,
+    "aurafilter": 2,
+    "auratargetstate": "sigilrancor",
+    "auralencalc": 12,
+    "aurarangecalc": "(lvl >= 20)?8:((lvl>=10)?6:4)",
+    "aurastat1": "damagepercent",
+    "aurastatcalc1": "ln34",
+    "aurastat2": "attackrate",
+    "aurastatcalc2": "ln56",
+    "calc1": 75,
+    "calc3": 1,
+    "mana": 12,
+    "manashift": 8
+  },
+  "state": {
+    "state": "sigilrancor",
+    "*ID": 193,
+    "group": 8,
+    "castoverlay": "curse_hit",
+    "colorpri": 90,
+    "colorshift": 106,
+    "onsound": "Warlock_Skill_Seal_Rancor_Hit",
+    "lineNumber": 193
+  },
+  "legacyDifference": "Complete older Confuse61 initializes secondary stats from index1,always applies Confuse to eligible evil monsters and divides the AI duration by difficulty. That body cannot establish current primary damagepercent,calc1=75 chance,allied-recipient or noncurse-state193 behavior.",
+  "unresolved": [
+    "When/how 75 percent AI chance rolls;RNG owner/reapplication behavior",
+    "Primary damagepercent writes,eligible allied/hostile recipients and immunity restrictions",
+    "Whether 12-frame noncurse recipient/AI duration is divided by difficulty",
+    "State193/group8 replacement,ordinary Confuse/Attract interactions and AI reset/removal"
+  ],
+  "unaffected": "Shared do157 launch/tracking,all3 Rancor marker tiers,do14 period6/function61 identity and approved temporary-actor lifecycle can be prepared independently. Do not enable learned Rancor or attach Lethargy receiver.",
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/warlock-confuse-61-20261108/capture.json": "7be8eede288805e1e4307ac157bf80e2b36c7123f177cc130029460129f736bc",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "tools/record_sigil_rancor_gap.py": "6d02aab1ff7b84a020b6a7ef72945f3f1041fc59fdc3bec66aa873c0620c8da5",
+    "tools/capture_warlock_skill_do.py": "14b59b0068fe7e3e324ee59927fb95bfabe8a76f053237a6822245ae59f37b10"
+  },
+  "legacyBodySha256": "40339b9c93208239fc4d5961c680286c8ab9aac5667f83ff48b4e1b55636885c"
+}

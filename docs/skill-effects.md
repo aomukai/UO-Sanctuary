@@ -1,5 +1,7 @@
 # Skill effects
 
+**Shared Sigil markers (2026-11-08 JST).** Lethargy, Rancor and Death now use one prepared world host with item0x1B7A labelled by its own skill name plus “placeholder.” Rancor/Death have no admitted recipient effects yet. Final cast, animated ground, pulse, recipient, expiry and audio remain pending for each skill. [Checkpoint](sigil-family-checkpoint.md). No image generation was performed; icon work stays separate.
+
 **Learned Lethargy (2026-11-08 JST).** Mechanical cast,stationary marker,pulses,recipient penalties and expiry now work. Item0x1B7Ais labelled`Sigil: Lethargy (placeholder)`;recipient effect0x375Aand cast sound0x1E5are identified placeholders. Final cast/animated ground/pulse/recipient/expiry art and audio remain needed;no final imagegen work was performed. [Checkpoint](sigil-cast-checkpoint.md). Icons remain separate.
 
 **Prepared Lethargy world marker (2026-11-08 JST).** Real stationary item0x1B7Ais named`Sigil: Lethargy (placeholder)`. It follows the reviewed clock/retirement and emits mechanical pulse callbacks;final cast,ground animation,pulse,recipient,expiry and audio are still needed. [Checkpoint](sigil-actor-checkpoint.md). No final art or automatic Rancor/Death world effect is claimed;icons remain separate.

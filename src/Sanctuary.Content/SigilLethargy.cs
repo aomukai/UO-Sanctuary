@@ -75,7 +75,7 @@ internal static class SigilLethargy
     }
     private static void Pulse(SigilActor actor,PlayerMobile owner,DateTime at)
     {
-        if(World.FindItem((Serial)actor.Marker)is not{Deleted:false} marker){return;}
+        if(actor.Ability!=CombatAbility.SigilLethargy||World.FindItem((Serial)actor.Marker)is not{Deleted:false} marker){return;}
         var values=SigilActors.Values(actor);int radius=checked((int)values.Eval("aurarangecalc"));
         var targets=new List<BaseCreature>();
         foreach(var target in marker.Map.GetMobilesInRange<BaseCreature>(marker.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
