@@ -1,0 +1,73 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedApocalypseEnabled": false,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "apocalypse-packets-check": 1,
+    "apocalypse-area-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "apocalypse-packets-reload-check": 2,
+    "apocalypse-area-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": {
+    "path": ".local/class-skills/apocalypse-area/source-snapshot-1.json",
+    "sha256": "47b61ae6101ed3c405d59cfb4c4539422ae6363d476af21787e3389acf95874a"
+  },
+  "nativeRun": 1,
+  "currentAreaContexts": 6,
+  "pinnedRadiusRanks": 255,
+  "packetRegression": "132 current roll/copy and108 current maximum contexts,plus existing packet HP/reload checks",
+  "source": "tools/reference/apocalypse-area-current-evidence.json",
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "4d0665a19009d11e1041486b55104ef0222eb1eeb0a132eae24548fa412f5275",
+    "Assemblies/Sanctuary.Integration.dll": "81a07c6c2675d5a369f91b109e97cb2e6b866a0df5fee0969a4b4254e940f863"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "limits": [
+    "Prepared ordinary-NPC area only;ground launch/hit23/startup/payment/localdelay/input and potion components remain unfinished.",
+    "Current source comparison supplies world room/hostility/collision leaves. Native shared map/hostile/safety/LOS projection is reused;D2 adjacency-list ordering and collision identity are not certified.",
+    "Captured current LOS uses explosion point;existing SourceDamageAreas callers retain caster-origin default.",
+    "Endpoint minimum uses approved table fallback;full raw stat/reentrant callback parity remains unverified.",
+    "Saved original test actors/walls prove reuse across reloads,not active explosion persistence.",
+    "No final artwork;effects and talent/hotkey icons remain separate."
+  ],
+  "nativeInputs": {
+    "path": ".local/class-skills/apocalypse-area/birth-inputs.json",
+    "sha256": "e9f60798e40d416a75e16303ec597737f7920daf38e0ab2acba069414c1ea75a"
+  },
+  "files": {
+    "src/Sanctuary.Content/ApocalypseArea.cs": "a9ab2939b18351f690f7b6d017ff45f65d4f2444cc2cd8538ba4f50643dd46b2",
+    "src/Sanctuary.Content/ApocalypsePackets.cs": "20b2204ab9edb34a06ac67dd4658f5569516fb4eaeaf54a211e3ce3dde45ddb3",
+    "src/Sanctuary.Content/DruidWeather.cs": "54fcf5ef5b702a72aa67507b8e9c15486d01f96de0f5b7b26f346f27c2080bb5",
+    "tests/Sanctuary.Integration/ApocalypseAreaChecks.cs": "cf74fcd9bd8cd3fc109108b7d1d1b13192c70fbcffc9efef513a5f25dcf47d80",
+    "tests/check_apocalypse_area.py": "911e04cf916095eb8c9f71543eee810e67376718c24930bbbbc1216787ad9ac9",
+    "tools/probe_apocalypse_area.py": "3ca412c1ec6f6d14b9c8655a5a0275c218a8a533491b630f570aaeba8cf4cf04",
+    "tools/reference/apocalypse-area-current-evidence.json": "b0dacd5fa172fa2c09f8048644e8ad5b3ce45aaf1b4e61431d7a1c72afff0515"
+  },
+  "copiedDataChanged": false
+}

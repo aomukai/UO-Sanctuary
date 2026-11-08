@@ -20,9 +20,9 @@ internal static class ApocalypsePackets
         // percentage primitive. Minimum uses the approved table fallback.
         return (int)Math.Clamp((long)value+SourcePercentage.Calculate(value,mastery,100),0,int.MaxValue);
     }
-    internal static ApocalypsePacket Capture(PlayerMobile owner,ref ulong seed)
+    internal static ApocalypsePacket Capture(PlayerMobile owner,ref ulong seed,int? rankOverride=null)
     {
-        var values=SkillMechanics.Values(owner,CombatAbility.Apocalypse);
+        var values=SkillMechanics.Values(owner,CombatAbility.Apocalypse,rankOverride);
         return CapturePrepared(owner,values.Rank,
             Endpoint(values,false,NamedElements.MasteryPercent(owner,"fire")),
             Endpoint(values,true,NamedElements.MasteryPercent(owner,"fire")),ref seed);

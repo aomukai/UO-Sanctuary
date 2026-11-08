@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "currentMachineCodeExecutedOffline": true,
+  "cases": 6,
+  "functions": [
+    "0x3a6160",
+    "0x3a5950"
+  ],
+  "scope": "Current enumeration plus actual0x8783 filter;supplied room,hostility and collision leaves. Two adjacency lists,center fallback,inclusive boundaries,cached-next mutation,dead/flags/town/missing-room/LOS rejection. Does not certify native Britannia room ordering,collision or hostility metadata.",
+  "artifacts": {
+    "tools/probe_apocalypse_area.py": "3ca412c1ec6f6d14b9c8655a5a0275c218a8a533491b630f570aaeba8cf4cf04",
+    ".local/class-skills/apocalypse-area-source/cases.json": "7615ce45ac38f0b3ddb5e1f40554d57e7f9f3786181352126c8c8ecc678e3a9c",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109.json": "80cf44379ef56596fde909b42a628a02416415292db7fda02671de09f96f9b3e",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6160-part0.bin": "6ae10bafe28a1a9c02e59cc0616b663912c9c02cc4e373d835b3faa4e067cc95",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6160-part1.bin": "25cb1983739fdff30c23fa232123549d3c0ceb29e042060558349e3f4482491e",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6160-part2.bin": "0c8b29ebafbd4557209d1365abb16a2537d79bc584896833a6b0172761d04f15",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6160-part3.bin": "4424cf4c88b2a704088c46e2aeb4e7aaefc35f67e77b4a11c5606e78e52fc6a3",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6160-part4.bin": "f9d6372b55af700fab4e6bb548f01a67a7da8f386627c479534c004691adcdae",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-packet-area-20261109-3a6160-part5.bin": "da7d75895d1522a8c7c0dc5ede63a411a10373cd329b1a0d23ffb36f0335fc39",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-area-filter-20261109.json": "4b5454d07554059dd5f82396386e591c5ee88132d9504356148e8e8b636b1f68",
+    ".local/class-skills/warlock-runtime-reference/callees-apocalypse-area-filter-20261109-3a5950-part0.bin": "388155c8e3241e0d4fd10ea918ae731448f14d7274af1ae1cd947097f723a838"
+  }
+}

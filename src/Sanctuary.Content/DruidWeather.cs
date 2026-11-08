@@ -31,12 +31,13 @@ internal static class DruidWeather
 // 0xA583 and0xA783. Optional NoAura/NPC filtering is absent in these callers.
 internal static class SourceDamageAreas
 {
-    internal static bool Recipient(PlayerMobile owner, BaseCreature target, int map, int x, int y, int z, int radius, bool lineOfSight = false)
+    internal static bool Recipient(PlayerMobile owner, BaseCreature target, int map, int x, int y, int z, int radius, bool lineOfSight = false, Point3D? lineOfSightOrigin = null)
     {
         bool attackable = target is EncounterCreature ? target.CanBeDamaged() : SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable == true;
         return attackable && owner.Map?.MapID == map && target.Map == owner.Map && ClassCombat.IsHostile(owner, target)
             && Math.Abs(target.Z - z) < 16 && DruidTornado.InPulse(x, y, target.X * 2, target.Y * 2, radius)
             && !SpellHelper.IsTown(target.Location, owner)
-            && (!lineOfSight || owner.Map.LineOfSight(new Point3D(owner.X, owner.Y, owner.Z + 12), new Point3D(target.X, target.Y, target.Z + 12)));
+            && (!lineOfSight || owner.Map.LineOfSight(lineOfSightOrigin is{} origin ? new Point3D(origin.X,origin.Y,origin.Z+12)
+                : new Point3D(owner.X, owner.Y, owner.Z + 12), new Point3D(target.X, target.Y, target.Z + 12)));
     }
 }
