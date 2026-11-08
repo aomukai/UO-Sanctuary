@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "contexts": 46,
+  "currentHeaderContexts": 42,
+  "counterfactualHeaderContexts": 4,
+  "ownedRows": [
+    {
+      "code": "AIKKHTH",
+      "rawSha256": "25850630dc04700a1cc4f48f66a4213bb09208449bd7c50af6b7de3c87b8a4e4",
+      "precedingFlag": 0
+    },
+    {
+      "code": "AIKKHT1",
+      "rawSha256": "9f7b0383d95abea6b0dabf34f972519346aaa47f28c543fa0c28e337bfc9bf46",
+      "precedingFlag": 0
+    },
+    {
+      "code": "AIKKHT2",
+      "rawSha256": "1e0b0c5fb0dc56756da0d488bd7216f627a3e7f27ccaada4a097e64a0e91c743",
+      "precedingFlag": 0
+    }
+  ],
+  "completeRoutineHashes": {
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/AnimTbls.h": "ee118dd6059c6160cb8e3998487bdabc6cfb9cdae5994a9e672a47376b986215",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "tools/probe_shadow_kick_rewind.py": "cd226df40818ad0660926b1b59356d5d2766813b950d9bc5d1f5279f29564856"
+  },
+  "artifacts": {
+    ".local/class-skills/shadow-kick-rewind-source/source.cpp": "50c531373c0858c6bf705c890253fdf3e4076efb61d3e7f44b84ba237811868a",
+    ".local/class-skills/shadow-kick-rewind-source/probe": "b06e2d603373ad727e042b0d6216342fca9e24fecb3b2e54b2de79c3a0457338",
+    ".local/class-skills/shadow-kick-rewind-source/cases.json": "f095f8c06f011f34a15cc75fd5345033e266ef1f7c9c77a34ec9d07d53a8609b",
+    ".local/class-skills/shadow-kick-rewind-source/input.txt": "453d67c422c0eec490be551d6a6ff12dce9f5190cf088567a6436946c1c93d97",
+    ".local/class-skills/shadow-kick-rewind-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/shadow-kick-rewind-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Full ordinary-animation percent rewind with declared event deletion/insertion and no sequence. Real owned13-frame/base256/event4 kick rows have preceding frameFlags byte0,from high speed-header byte at0x0f. Source reads index-1 inside one supplied byte-array object representation;ASan/UBSan clean. At speed256,100percent rewind schedules next kick at+4 and end at+13.",
+  "limits": [
+    "Sequence-event branch aborts and is not qualified. Four nonzero-header controls are declared counterfactuals,not actual D2R animation records.",
+    "No runtime rewind port,NPC cached kick loop,modern event/input/charge timing or learned Shadow admission established."
+  ]
+}

@@ -1,0 +1,21 @@
+# Own Shadow Talon packet checkpoint
+
+2026-11-08 JST. Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary rules first. Parent: `3d01c8bcc799b8dd9ef9bf20f051f2a1e63b79b6`.
+
+`ShadowKickPackets` now composes the original NPC body/boot roll with full source128 typed damage through the existing original NPC filler. Its `weapsel4` hand frame suppresses weapon damage lists and restores the original primary for typed stats. Flags3 preserve kick physical damage and bypass ordinary weapon Critical Strike/Deadly Strike; the existing separate intrinsic NPC critical stage remains. The caller writes HitClass1 after filling. Misses skip damage rolls. Supplying another actor's weapon frame is refused before RNG or target mutation.
+
+`ShadowFinisherDamage` now shares progressive-state validation and fire/ice/lightning/Cobra postfill with ordinary Shadow finishers and Dragon Claw. Tiger enters kick physical arithmetic before filling. Inline Ice replaces item cold length and adds its independent freeze lane. Preparing a kick neither consumes charges nor emits Phoenix/fire fields/cold cubes/lightning flights. Those belong to the later action/contact callback.
+
+Content3 / Integration4 / pre-build snapshot5 passes **24 native markers across three boots, two reloads and three saves**; production content/data is unchanged since snapshot4. The focused run checks both original Shadow species, exact body-plus-typed composition/RNG, primary-only typed stats, weapon ED/ordinary critical exclusion, all six charge families without premature release, miss handling, ordered native HP delivery, duplicate rejection and original saved state through two reloads. It retains own kick capture, Dragon Claw, ordinary finishers and original Valkyrie contacts. See [native receipt](../tools/reference/shadow-kick-packets-native-evidence.json), [checks](../tests/Sanctuary.Integration/ShadowKickPacketChecks.cs), and [runner](../tests/check_shadow_kick_packets.py).
+
+The save fixture deliberately stores a prepared contact through the existing contact format and releases it after reload. **It does not persist or authorize replaying an action windup.** Original item identity, resources, wounds and actor RNG remain intact.
+
+Seventeen prior complete source routines are authenticated without repeating their matrices. The older5120-case filler artifact is unchanged; its generator was subsequently extended for Blade Shield. The recorder verifies that successor receipt, unchanged complete routine hashes and both artifact sets rather than demanding the historical generator file still match.
+
+The next scheduler dependency is also prepared: [46 new complete source rewind controls](../tools/reference/shadow-kick-rewind-source-evidence.json) pass ASan/UBSan. All three owned kick records have13frames,base256,event1 at4 and preceding frame-flag byte0. That byte comes from the real speed header at0x0f. The harness supplies it within one byte-array object representation; it does not invent padding. At actor speed256,100% rewind schedules a kick at+4 and end at+13. The sequence branch is unqualified; four nonzero-header controls are explicitly counterfactual.
+
+The initial content build had a punctuation error. The first native run delivered damage but its replay assertion expected an empty result where the shared contact deliberately throws; that fixture was corrected. Foreign-frame preflight and resource-ledger snapshot capture were tightened before rerunning. Failed inputs/logs remain available.
+
+**Next:** port the qualified ordinary percent rewind, then connect start24's cached packet and do42's repeated contact stages, approved per-contact charge behavior, interruption/target-loss and own world/AI admission. Talon remains disconnected until those stages are verified. Tail/Flight/Fury/Sentinel/current death/learned routes and all previously recorded uncertainties remain. No exact modern NPC boundary certificate is claimed.
+
+**208/240 public handlers; Assassin28/30; no completed class or deployment.** Installed build and saves remain unchanged. Reuse the existing kick/contact and elemental effect families; final effects/audio and talent/hotkey icons remain in their separate inventories.

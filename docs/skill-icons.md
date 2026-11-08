@@ -1,5 +1,7 @@
 # Skill icons
 
+**Own Shadow Talon packet (2026-11-08 JST).** No new public binding or icon identity. Shadow Warrior/Master and Dragon Talon talent/hotkey icons retain identified text placeholders;effects/audio stay separate. [Checkpoint](shadow-kick-packets-checkpoint.md).
+
 **Own Shadow kick equipment (2026-11-08 JST).** No new public binding or icon identity. Existing Shadow Warrior/Master and Dragon Talon tree/hotkey text placeholders remain;effects/audio stay separate. [Checkpoint](shadow-kick-checkpoint.md).
 
 **Own Shadow Dragon Claw (2026-11-08 JST).** No new public binding/icon identity. Shadow Warrior/Master and Dragon Claw tree/hotkey icons retain identified text placeholders;effects/audio remain separate. [Checkpoint](shadow-dragon-claw-checkpoint.md).

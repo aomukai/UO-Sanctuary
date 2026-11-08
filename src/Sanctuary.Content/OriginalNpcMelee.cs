@@ -40,26 +40,35 @@ internal static class OriginalNpcMelee
         Func<NpcFillPacket,NpcFillPacket> afterFill=null)
     {
         RequireAllocation(body,target);
+        var fill=Allocate(body,TargetFacts(target),(initial??new()) with{ResultFlags=flags,AdditionalPercent=checked((initial?.AdditionalPercent??0)+CombatAuras.DamagePercent(body)+NecromancerEffects.DamageStatPercent(body))},sourceDamage);
+        if(afterFill!=null){fill=afterFill(fill);}
+        return FromFill(body,target,fill);
+    }
+    internal static GeneratedNpcFillTarget TargetFacts(BaseCreature target)
+    {
         int Armor()=>Math.Max(0,checked(CreatureProfiles.Defense(target)+NpcEquipmentCombat.Defense(target))-TimedEffects.DefenseLoss(target));
         void SetArmor(int value)
         {
             int delta=checked(value-Armor());WeaponStartEffects.ApplyArmorDelta(target,delta,TimedEffects.Now);
             if(target is not{Alive:true,Deleted:false}){throw new NotSupportedException("Recipient retired during original equipped NPC armor setup;do not retry allocation");}
         }
-        var facts=new GeneratedNpcFillTarget(true,true,NamedCombat.Demon(target),GemCombat.Undead(target),0,Armor,SetArmor,
+        return new(true,true,NamedCombat.Demon(target),GemCombat.Undead(target),0,Armor,SetArmor,
             (_,_)=>throw new NotSupportedException("Original target monster-type service is not admitted"));
+    }
+    internal static NpcWeaponImpact FromFill(SkeletonGuardian body,BaseCreature target,NpcFillPacket fill)
+    {
         var graph=OriginalNpcEquipment.Graph(body);
-        var fill=Allocate(body,facts,(initial??new()) with{ResultFlags=flags,AdditionalPercent=checked((initial?.AdditionalPercent??0)+CombatAuras.DamagePercent(body)+NecromancerEffects.DamageStatPercent(body))},sourceDamage);
-        if(afterFill!=null){fill=afterFill(fill);}
         var poison=new NpcPoisonSnapshot(body.Serial.Value,body.ControlMaster.Serial.Value,new(PoisonMin:graph.Read(57),PoisonMax:graph.Read(58),PoisonFrames:graph.Read(59),PoisonCount:graph.Read(326)),graph.Read(332),Math.Max(0,graph.Read(336)));
         var pierce=new NpcElementPierce(graph.Read(333),graph.Read(335),graph.Read(334),graph.Read(358));
         return NpcEquipmentImpact.FromFill(body,target,fill,poison,pierce.For,PaladinAuras.NativeWeaponMultiplier(body,true));
     }
-    internal static NpcFillPacket Allocate(SkeletonGuardian body,GeneratedNpcFillTarget target,NpcFillPacket initial=null,int sourceDamage=128)
+    internal static NpcFillPacket Allocate(SkeletonGuardian body,GeneratedNpcFillTarget target,NpcFillPacket initial=null,int sourceDamage=128,
+        GeneratedNpcWeaponFrame frame=null,bool resetWeaponDamage=false)
     {
         ArgumentNullException.ThrowIfNull(target);ArgumentNullException.ThrowIfNull(target.Armor);ArgumentNullException.ThrowIfNull(target.SetArmor);ArgumentNullException.ThrowIfNull(target.TypeMatches);
         if(sourceDamage is<0 or>255){throw new ArgumentOutOfRangeException(nameof(sourceDamage));}
-        var graph=OriginalNpcEquipment.Graph(body);var weapon=OriginalNpcEquipment.WeaponFrame(body);
+        var graph=OriginalNpcEquipment.Graph(body);var weapon=frame??OriginalNpcEquipment.WeaponFrame(body);
+        if(!weapon.BelongsTo(graph)){throw new NotSupportedException("Original NPC fill cannot borrow another actor's weapon frame");}
         var passives=body is AmazonValkyrieBody v?ValkyrieEquipmentDamage.Passives(v):Array.Empty<ValkyrieInheritedPassive>();
         NpcEquipmentRandom.Require(body);
         int critical=passives.Where(s=>s.Stat==337).Sum(s=>s.Value);
@@ -79,6 +88,6 @@ internal static class OriginalNpcMelee
         // must never be substituted with a generic item-proc callback here.
         return weapon.Fill(target,initial??new(),0,1,true,0,NecromancerSummons.Source(body.SourceMonsterId,"Crit"),
             bound=>NpcEquipmentRandom.Limited(body,bound),()=>NpcEquipmentRandom.Raw(body),
-            _=>throw new NotSupportedException("Unexpected player/hireling allocation event for original equipped NPC"),sourceDamage:sourceDamage,read:Read);
+            _=>throw new NotSupportedException("Unexpected player/hireling allocation event for original equipped NPC"),ranged:resetWeaponDamage,sourceDamage:sourceDamage,read:Read);
     }
 }

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Own Shadow Talon packet (2026-11-08 JST).** Prepared typed/charge damage uses existing contact/status services;allocation emits no new effect. Final NPC kick poses,impact/charge-release/chill/freeze cues and audio remain pending,sharing existing player and elemental families. [Checkpoint](shadow-kick-packets-checkpoint.md). Icons stay separate.
+
 **Own Shadow kick equipment (2026-11-08 JST).** Prepared numeric capture emits no new visual effect. Existing player/NPC kick poses,contact and charge-release cues/audio remain pending;reuse those families when the NPC action is connected. [Checkpoint](shadow-kick-checkpoint.md). Icons stay separate.
 
 **Own Shadow Dragon Claw (2026-11-08 JST).** Actual contacts and six-family releases now work through existing mechanical services. Final paired-claw A2/S4/basic poses,selected-hand contact,charge release/impact/expiry cues and audio remain pending placeholders;reuse the player Dragon Claw and existing elemental families. [Checkpoint](shadow-dragon-claw-checkpoint.md). Icons stay separate.

@@ -33,6 +33,7 @@ internal sealed class GeneratedNpcWeaponFrame:SourceWeaponServices<EquipmentStat
     private static GeneratedNpcItem Original(EquipmentStatUnit item)=>item?.Entity as GeneratedNpcItem;
     private GeneratedNpcItemState State(EquipmentStatUnit item)=>Items[Original(item).Serial.Value].State;
     private void Current(){_=Graph.Stats;}
+    internal bool BelongsTo(GeneratedNpcStatGraph graph)=>ReferenceEquals(Graph,graph);
     internal uint Selected{get{Current();return( SourceWeaponSelection.Select(this,Graph.Actor)?.Entity as GeneratedNpcItem)?.Serial.Value??0;}}
     internal void Enter(bool reset=false){Current();SourceWeaponSelection.Enter(this,Graph.Actor,reset);}
     internal void Restore(bool enabled=true){Current();SourceWeaponSelection.RestorePrimary(this,Graph.Actor,enabled);}

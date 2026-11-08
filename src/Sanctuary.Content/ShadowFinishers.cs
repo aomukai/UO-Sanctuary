@@ -15,37 +15,17 @@ internal static class ShadowFinishers
         if(skill is not(0 or 260)){throw new NotSupportedException("Unqualified own Shadow finisher skill");}
         var policy=skill==0?null:ShadowDragonClaw.Row();
         var skillValues=skill==0?null:ShadowSkillCasting.OwnValues(body,body.OwnedSkillRank(skill),skill);
-        var states=AssassinCharges.Finisher(body);
-        if(states.Any(s=>s.Ability is not(CombatAbility.TigerStrike or CombatAbility.CobraStrike or CombatAbility.PhoenixStrike or CombatAbility.FistsOfFire or CombatAbility.ClawsOfThunder or CombatAbility.BladesOfIce)))
-        {throw new NotSupportedException("Shadow ordinary finisher has an unqualified elemental release consumer");}
-        // Source state table order: Phoenix124,Fire125,Cold126,Lightning127.
-        // Inline writers and later callbacks must retain this ordering too.
-        if(new[]{280,259,274,269}.Where((id,i)=>GenericPetMetadata.Table.Skill(id).AuraState!=124+i).Any())
-        {throw new NotSupportedException("Unmapped current Shadow progressive state order");}
-        var iceState=states.FirstOrDefault(s=>s.Ability==CombatAbility.BladesOfIce);
-        if(iceState?.Count==3){NpcFreezeStatus.Require(body,target);}
+        var states=ShadowFinisherDamage.States(body,target);
         int flags=NpcMeleeResult.Resolve(body,target,range,()=>ClassCombat.IsHostile(owner,target),
             n=>NpcEquipmentRandom.Limited(body,n),checked(states.Sum(s=>s.AttackPercent)+(skillValues==null?0:(int)skillValues.Formula("toht"))),
             guaranteed:skill==260&&states.Length>0&&policy.Number("Param8")==1);
         if(!NpcEquipmentImpact.Fills(flags)){return new(rules,NpcEquipmentImpact.Prepare(body,target,flags));}
         int tiger=AssassinCharges.TigerPercent(states.FirstOrDefault(s=>s.Ability==CombatAbility.TigerStrike),body.OwnedSkillRank(254));
-        var cobra=AssassinCharges.CobraDrain(states.FirstOrDefault(s=>s.Ability==CombatAbility.CobraStrike),body.OwnedSkillRank(265));
-        FistsFirePacket fire=null;var fireState=states.FirstOrDefault(s=>s.Ability==CombatAbility.FistsOfFire);
-        ThunderPacket thunder=null;var thunderState=states.FirstOrDefault(s=>s.Ability==CombatAbility.ClawsOfThunder);
+        FistsFirePacket fire=null;
+        ThunderPacket thunder=null;
         IcePacket ice=null;
         var impact=OriginalNpcMelee.Impact(body,target,flags,new(AdditionalPercent:checked(tiger+(skillValues==null?0:(int)skillValues.Eval("calc1"))),HitFlags:2),sourceDamage:policy?.Number("SrcDam")??128,afterFill:fill=>
-        {
-            fire=FistsFireRelease.CaptureShadow(body,fireState);
-            fill=FistsFireRelease.InlineShadow(fill,fire);
-            ice=MartialCold.CaptureShadow(body,iceState);
-            fill=MartialCold.InlineShadow(fill,ice);
-            thunder=MartialLightning.CaptureShadow(body,thunderState);
-            if(thunder!=null){fill=fill with{Lightning=checked(fill.Lightning+thunder.Inline256),ResultFlags=fill.ResultFlags|16384};}
-            return fill with{
-            // Raw source fields are fixed-point flat amounts for ordinary
-            // non-hireling NPCs, even though the shared helper names percent.
-            LifeDrain=checked(fill.LifeDrain+cobra.LifePercent),ManaDrain=checked(fill.ManaDrain+cobra.ManaPercent)};
-        });
+            ShadowFinisherDamage.Inline(body,states,fill,out fire,out ice,out thunder));
         var prepared=new IronGolemContact.Prepared(rules,impact);
         // The source progressive-release routine checks tighter melee range
         // than GetResultFlags. Modern Attack's consume-one policy is shared
