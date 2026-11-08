@@ -1,5 +1,7 @@
 # Skill effects
 
+**Death Mark intrinsic interruption (2026-11-09 JST).** Cancellation adds no final art. Issued Tainted Fire Balls retain their current travel/impact placeholders and independent damage after caster warp;pending casts stop emitting. Existing landing0x3728,target0x375A and final cast/warp/mark/expiry/audio remain pending. [Checkpoint](death-mark-interrupt-checkpoint.md). Icons remain separate.
+
 **Approved native Death Mark bridge (2026-11-09 JST).** Live targeting and follower selection reuse the existing landing0x3728 and target0x375A placeholders;no new artwork is generated. Final cast,warp/landing,target/expiry and audio remain pending. [Checkpoint](death-mark-native-world-proposal.md). Icons remain separate.
 
 **Combined Death Mark release (2026-11-09 JST).** Actual pet relocation and approved recipient binding reuse identified landing0x3728 and target0x375A/hue0x48A placeholders. Final cast,warp/landing,target mark/expiry and audio remain needed;no final artwork was generated. [Checkpoint](death-mark-world-release-checkpoint.md). Icons remain a separate asset register.

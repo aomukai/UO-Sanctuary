@@ -1,0 +1,114 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 211,
+  "warlockHandlers": 2,
+  "completedClasses": [],
+  "learnedDeathMarkEnabled": false,
+  "automaticGenericPetAiEnabled": false,
+  "nativeMarkers": 29,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "death-mark-native-check": 1,
+    "death-mark-native-check-result": 1,
+    "death-mark-interrupt-check": 1,
+    "death-mark-interrupt-check-result": 1,
+    "tainted-casting-check": 1,
+    "death-mark-interrupt-save-check": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "death-mark-native-reload-check": 2,
+    "death-mark-native-reload-check-result": 2,
+    "death-mark-interrupt-reload-check": 2,
+    "death-mark-interrupt-reload-check-result": 2,
+    "tainted-casting-reload-check": 2,
+    "tainted-casting-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeRun": 2,
+  "priorCompilerMatricesRerun": 0,
+  "retainedTaintedAnimationCases": 401,
+  "captures": {
+    "0x425550": {
+      "bytes": 204,
+      "capture": ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108.json",
+      "artifacts": {
+        ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108-425550-part0.bin": "b2789969eb51c5d65b6a79cdaff1d7bb70971aabfa6ad06689b9e2823b91e4b5",
+        ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108-425550-part0.asm": "5683c586fe2eac14341e3d3a749ca268138e6110245f58dc25551fcde022e17b",
+        ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108-425550-part1.bin": "f78310b9064bcdc050765e99023ec12cf8bad04f14bf46c6041caf4b5c8c8c4c",
+        ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108-425550-part1.asm": "2615af689caf42a16e8d6740312d301c617334b9a00ca712090b530129859fd7",
+        ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108-425550-part2.bin": "9b6cd650a43cd9c38f38d088be1579133debce20d73fbab12fdb1d5288056183",
+        ".local/class-skills/warlock-runtime-reference/callees-death-mark-pet-services-20261108-425550-part2.asm": "a0b79384ab2ebb82d51964226c392d638df5983027160b7ce4c37581c975ca26"
+      }
+    },
+    "0x3dda90": {
+      "bytes": 1752,
+      "capture": ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107.json",
+      "artifacts": {
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part0.asm": "0448f3ffe40f29362b14ace3b1931f740509cbbd364d0ba70a48f7e639a2af33",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part0.bin": "6f7b700935fdcc41360c920dda50f63aa4ff18de69d524bf74d2c26433dba48f",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part1.asm": "61af2f4e013808349ec57aa06e6138c7ee2eb0cf056c2312906ab7f43502fcbe",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part1.bin": "c1a3ba629c744d49223364ae275a1168c93c9441dd7420439307af731b425cfa",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part2.asm": "3d5bcc5654362a9415108c7471ef2fb1abee33a40bcdc0568d17e0a1bf7cf5e8",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part2.bin": "3bef0f0b0f8cf2fc3e6842ebaa82927b3e14ba5185b911e7f90841b2ff7b22a0",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part3.asm": "079b552d89b7e7126a40cda5adba9b2e138b42dea939a06905f47aff374be570",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part3.bin": "c90329552cd070cacc59154107941f6f45f17a3ee82a437221906b65e3d2e204",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part4.asm": "41076d1d161c410ce098349f8a420e4e31263bfeff8f61e540f434af4eef8db3",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3dda90-part4.bin": "4e2b5ff85843d207f46dca3e178e39dc305263473942661e3108bff1a4d3fd62"
+      }
+    },
+    "0x3de170": {
+      "bytes": 346,
+      "capture": ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107.json",
+      "artifacts": {
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part0.asm": "e907faa72f8ef1bca13ebb3b2ec8b97c22032cfa99a0848b9e374e5d1e493391",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part0.bin": "c992db16f54cd2e6e3fe1bd1680534ad5c83d1d06b009ee635a6a78c6208594f",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part1.asm": "b9c990f7a6ce8488fe057bd342eaba1de173faad14d48e537e11c975c9562ab1",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part1.bin": "83defb9ad2bfbd57ba7728490a8db5d4faff8af9474f30f6ca281fd5ce857692",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part2.asm": "ea086e879f0ed099b844fbf34154c29b68b02dd339b1f7cc7558a3d9322922a7",
+        ".local/class-skills/warlock-runtime-reference/services-shadow-skill-entry-20261107-3de170-part2.bin": "721c7e4654b1fa4f161715a5238e5b3a5a117ca4359b677f162cabbf7c3e3f29"
+      }
+    }
+  },
+  "sourceEquivalence": "Retained current idle/mode-entry disassembly reviewed;existing managed mode/state and A2 services reused. No new full mode-executor emulation or event-allocator parity claim.",
+  "files": {
+    "src/Sanctuary.Content/DeathMarkWorld.cs": "48e8b794960b30e51ab8a74e5920bae4f22564ce5f20048bd44fbfcc491808e5",
+    "src/Sanctuary.Content/TaintedFireBallCasting.cs": "417fbb27835896732d699f1e9fd8e2b29006f265ea4e843fe7adf589c9d9f258",
+    "src/Sanctuary.Content/GoatmanBerserkEffects.cs": "b16852d05bf932ca9c1b7bc3929a9d7c45a25c66e649e06caaa08d5a076da899",
+    "tests/Sanctuary.Integration/DeathMarkInterruptChecks.cs": "9aecd412b2ca07a2b5b16fdbc703f745bc622e8f83cad7945bf72d6f305b6329",
+    "tests/check_death_mark_interrupt.py": "c3f50f66ef577214d02007643a666e85f20964ff5ab401b829c2d44bc4ac29f7",
+    "tools/record_death_mark_interrupt.py": "e5e4f4d729d3e7b91dc26fc9f454ed10bb294eae58cd59730c96c8f24adefb5f"
+  },
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "6a7997abc60c54e7c782ad6522421d1f804275aec2d0c2623f7d3b1ee83051a7",
+    "Assemblies/Sanctuary.Integration.dll": "5680dc52f108fde63fd640853930216b565ab2aa8feb63aaffb50fb440d87b96"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "historicalClientPatches": 40,
+    "intentionalSourceChanges": [
+      "shared/CombatProtocol.cs",
+      "patches/ClassicUO/0041-inferno-held-input.patch"
+    ],
+    "installed": false
+  },
+  "scope": "Registered real Tainted A2 starts mode5,unchanged mode retains pending action,Death Mark neutral transition cancels unissued action and natural end returns mode1. Already-issued missile retains original packet/origin/owner and still damages with original NPC credit after warp. Shared mode hook removes Goatman TEMPONLY Berserk while retaining ordinary timed Berserk. No healing,birth rebuild or payment. Before each save,after socket-detach cleanup,actual pending source mode5 is restored with an explicit future action-clock fixture. Actual reload drops transient action and normalizes only registered Tainted A2mode to1,preserving original body,birth,wounds,command/selector/map/nextrequest. Original native bridge and standalone Tainted registered/unregistered casting controls remain passing.",
+  "persistence": "No production timer/expiry is held. Future2minute start exists only in the unissued transient-save fixture;no persisted skill effect expiry is extended. First26marker pass was archived before strengthening pre-save mode coverage;production DLL is identical in both runs.",
+  "limits": [
+    "Automatic GenericPet decisions/movement/combat services and shared live event consumption remain unfinished. Stored next-AI request is not automatically replayed.",
+    "Full current mode-admission/failure/raw-event-list branches remain explicit;this completes the existing managed mode1/A2 projection and uses established TEMPONLY removal.",
+    "Original controller birth/path producer,startup/payment/localdelay/cancellation/input still required before learned DeathMark or demon casting.",
+    "Final effects/audio and talent/hotkey icons remain separate placeholders."
+  ]
+}

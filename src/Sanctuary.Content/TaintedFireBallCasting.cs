@@ -31,7 +31,9 @@ internal static class TaintedFireBallCasting
     });
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), () => Tick(TimedEffects.Now));
     internal static TaintedFireBallAction State(WarlockTaintedBody body) => body == null ? null : Actions.GetValueOrDefault(body.Serial.Value);
-    internal static void Cancel(WarlockTaintedBody body) { if (body != null) { Actions.Remove(body.Serial.Value); } }
+    private static void Remove(uint actor,WarlockTaintedBody body)
+    {if(Actions.Remove(actor)&&body!=null){DeathMarkWorld.FinishAction(body,5);}}
+    internal static void Cancel(WarlockTaintedBody body) { if (body != null) { Remove(body.Serial.Value,body); } }
     private static bool Attached(WarlockTaintedBody body, PlayerMobile owner) =>
         body is { Alive: true, Deleted: false } && owner is { Alive: true, Deleted: false } && body.Prepared?.Owner == owner.Serial.Value
         && body.ControlMaster == owner && body.Map != null && body.Map != Map.Internal && owner.Map == body.Map
@@ -58,6 +60,7 @@ internal static class TaintedFireBallCasting
         var clock = Timing(body);
         var state = new TaintedFireBallAction(body.Serial.Value, owner.Serial.Value, target.Serial.Value, suppliedRank, clock.Speed,
             at, at.AddMilliseconds(clock.Action * 40), at.AddMilliseconds(clock.End * 40));
+        DeathMarkWorld.ChangeMode(body,Clock.Value.Mode);
         Actions.Add(body.Serial.Value, state); body.Direction = body.GetDirectionTo(target); return true;
     }
     internal static bool BeginRegistered(WarlockTaintedBody body, Mobile target, DateTime at)
@@ -102,7 +105,7 @@ internal static class TaintedFireBallCasting
             if ((state.Released ? state.EndUtc : state.ActionUtc) > at) { continue; }
             var body = World.FindMobile((Serial)state.Actor) as WarlockTaintedBody;
             var owner = World.FindMobile((Serial)state.Owner) as PlayerMobile;
-            if (!Attached(body, owner) || !(allowActions ?? owner.NetState != null)) { Actions.Remove(state.Actor); continue; }
+            if (!Attached(body, owner) || !(allowActions ?? owner.NetState != null)) { Remove(state.Actor,body); continue; }
             var next = state;
             if (!state.Released)
             {
@@ -122,7 +125,7 @@ internal static class TaintedFireBallCasting
                 catch (Exception e)
                 { next = next with { Fault = e.Message }; Actions[state.Actor] = next; Log.Error(e, "Tainted A2 release suspended: {Actor}", state.Actor); }
             }
-            if (next.EndUtc <= at) { Actions.Remove(state.Actor); }
+            if (next.EndUtc <= at) { Remove(state.Actor,body); }
         }
     }
 }

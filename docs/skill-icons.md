@@ -1,5 +1,7 @@
 # Skill icons
 
+**Death Mark intrinsic interruption (2026-11-09 JST).** No learned binding or final icon artwork is added. Death Mark and demon talent,left/right/quick icons retain identified text/fallback placeholders. [Checkpoint](death-mark-interrupt-checkpoint.md). Effects/audio remain separate.
+
 **Approved native Death Mark bridge (2026-11-09 JST).** No learned input or final icon artwork is added. Talent,left/right and quick icons remain pending with identified text/fallback placeholders. [Checkpoint](death-mark-native-world-proposal.md). Effects/audio remain separate.
 
 **Combined Death Mark release (2026-11-09 JST).** No final icon artwork or learned bindings are added by the prepared cast transaction. Talent,left/right and quick icons remain pending with existing text/fallback placeholders. [Checkpoint](death-mark-world-release-checkpoint.md). Effects/audio remain separate.

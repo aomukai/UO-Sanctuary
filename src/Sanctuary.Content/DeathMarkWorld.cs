@@ -17,7 +17,7 @@ public sealed class DeathMarkWorldProfiles:GenericPersistence
     public override void Serialize(IGenericWriter writer){writer.Write(0);writer.Write(JsonSerializer.Serialize(_snapshot));}
     public override void Deserialize(IGenericReader reader)
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Death Mark world version");}DeathMarkWorld.Restore(JsonSerializer.Deserialize<DeathMarkWorldImage>(reader.ReadString()));}
-    public override void PostDeserialize()=>DeathMarkWorld.Prune();
+    public override void PostDeserialize()=>DeathMarkWorld.AfterLoad();
 }
 
 // Registered live original demon paths/commands. Registration takes an actual
@@ -45,6 +45,21 @@ internal static class DeathMarkWorld
         return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next);
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
+    // Registered source mode is shared with active intrinsic actions. Update
+    // it before cancellation so a callback cannot restore the outgoing mode.
+    internal static void ChangeMode(SkeletonGuardian body,int next)
+    {
+        if(body==null||!_actors.TryGetValue(unchecked((int)body.Serial.Value),out var actor)){return;}
+        if(next is <0 or >255){throw new NotSupportedException("Unqualified GenericPet mode");}
+        int previous=actor.Mode;if(previous==next){return;}actor.Mode=next;
+        GoatmanBerserkEffects.ModeChanged(body,previous,next);
+        if(body is WarlockTaintedBody tainted){TaintedFireBallCasting.Cancel(tainted);}
+        if(next==1){body.Combatant=null;body.FocusMob=null;body.Warmode=false;}
+    }
+    internal static void FinishAction(SkeletonGuardian body,int expected)
+    {
+        if(body!=null&&_actors.TryGetValue(unchecked((int)body.Serial.Value),out var actor)&&actor.Mode==expected){ChangeMode(body,1);}
+    }
     private static DeathMarkControlRoot Controls(SkeletonGuardian body,DateTime at)
     {
         var lists=new List<DeathMarkControlList>();
@@ -70,8 +85,8 @@ internal static class DeathMarkWorld
             body.FixedEffect(0x3728,10,15), // Identified Death Mark pet/landing placeholder.
             null,ticks=>
             {
-                if(actor.Mode!=1){body.Combatant=null;body.FocusMob=null;body.Warmode=false;}
-                actor.Mode=1;actor.Next=at.AddMilliseconds(Math.Max(1,ticks)*40L);body.AIObject?.AITimer.Stop();
+                ChangeMode(body,1);
+                actor.Next=at.AddMilliseconds(Math.Max(1,ticks)*40L);body.AIObject?.AITimer.Stop();
             },()=>Controls(body,at),(selector,list)=>
             {
                 if(selector!=actor.Selector){throw new NotSupportedException("Demon stat selector changed");}
@@ -95,6 +110,14 @@ internal static class DeathMarkWorld
             if(World.FindMobile((Serial)(uint)id)is SkeletonGuardian{Deleted:false,Alive:true} body&&WarlockDemonPlacement.Prepared(body)){continue;}
             var actor=_actors[id];_actors.Remove(id);var world=_worlds[actor.Map];world.Remove(id);if(world.Count==0){_worlds.Remove(actor.Map);}
         }
+    }
+    internal static void AfterLoad()
+    {
+        Prune();
+        // A2 windups are transient,as with the existing Tainted/player cast
+        // hosts. Do not restore a saved cast mode without its action events.
+        foreach(int id in _actors.Keys.ToArray())
+        {if(_actors[id].Mode==5&&World.FindMobile((Serial)(uint)id)is WarlockTaintedBody body){ChangeMode(body,1);}}
     }
     internal static DeathMarkWorldImage Capture()=>new(_worlds.Values.OrderBy(w=>w.Map.MapID).Select(w=>w.Capture()).ToArray(),
         _actors.OrderBy(p=>p.Key).Select(p=>new DeathMarkSavedActor(p.Key,p.Value.Map,p.Value.Selector,p.Value.Command.Data.Target48,p.Value.Command.Data.Type4c,p.Value.Mode,p.Value.Next)).ToArray());
