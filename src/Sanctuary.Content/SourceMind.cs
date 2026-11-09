@@ -74,7 +74,8 @@ public static class SourceMind
     }
     internal static void Changed(Mobile actor,NecromancerState state)
     {
-        if(state?.Mind is{Mode:2 or 3}||state?.RancorMind is{Mode:3}||state?.Curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract){Tracked.Add(actor.Serial);}
+        if(state?.Mind is{Mode:2 or 3}||state?.RancorMind is{Mode:3}||state?.RancorPrimary!=null
+            ||state?.Curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract){Tracked.Add(actor.Serial);}
         else{Tracked.Remove(actor.Serial);}
     }
     internal static void AfterLoad(IEnumerable<KeyValuePair<Serial,NecromancerState>> states)
@@ -85,6 +86,7 @@ public static class SourceMind
         {
             var actor=World.FindMobile(serial);var state=actor==null?null:NecromancerEffects.Profiles.Find(actor);
             if(state==null){Tracked.Remove(serial);continue;}
+            if(SigilRancorPulseProposal.ExpirePrepared(actor,TimedEffects.Now)){state=NecromancerEffects.Profiles.Find(actor);}
             bool changed=false;
             if(state.Curse is{Ability:CombatAbility.Confuse or CombatAbility.Attract} curse&&curse.UntilUtc<=TimedEffects.Now)
             {state=state with{Curse=null};changed=true;}

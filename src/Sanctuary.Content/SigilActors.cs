@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Items;
 using Server.Mobiles;
@@ -12,7 +13,8 @@ using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record SigilActor(uint Marker,uint Owner,int Map,Point3D Origin,int Rank,int Level,int Missile,string MissileKey,
-    int Frames,DateTime BornUtc,int LastPulse=-1,bool Retiring=false,CombatAbility Ability=CombatAbility.SigilLethargy);
+    int Frames,DateTime BornUtc,int LastPulse=-1,bool Retiring=false,CombatAbility Ability=CombatAbility.SigilLethargy,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? RancorPulse=null);
 internal sealed record SigilStat(int Stat,int Layer,int Value);
 internal sealed record SigilOwnerState(uint Owner,DateTime EpochUtc,SigilStat[] Stats,float Expiry,uint Flags,DateTime EventUtc);
 internal sealed record SigilActorSave(SigilActor[] Actors,SigilOwnerState[] Owners);
@@ -188,6 +190,12 @@ internal static class SigilActors
     internal static void Clear(PlayerMobile owner)
     {foreach(var s in _actors.Values){if(s.Owner==owner.Serial.Value){Remove(s);}}_owners=_owners.Remove(owner.Serial.Value);}
     internal static SigilActorSave Snapshot()=>new(_actors.Values.OrderBy(s=>s.Marker).ToArray(),_owners.Values.OrderBy(s=>s.Owner).ToArray());
+    internal static bool ClaimRancorPulse(SigilActor pulse)
+    {
+        if(pulse.Ability!=CombatAbility.SigilRancor||pulse.LastPulse<0||!_actors.TryGetValue(pulse.Marker,out var live)
+            ||live!=pulse||(live.RancorPulse??-1)>=pulse.LastPulse){return false;}
+        _actors=_actors.SetItem(live.Marker,live with{RancorPulse=pulse.LastPulse});return true;
+    }
     internal static void Restore(SigilActorSave saved)
     {
         if(saved?.Actors==null||saved.Owners==null){throw new InvalidDataException("Missing Sigil state");}
@@ -200,6 +208,8 @@ internal static class SigilActors
                 ||s.LastPulse is < -1||s.LastPulse>s.Frames||s.LastPulse!=-1&&s.LastPulse%6!=0||actors.ContainsKey(s.Marker))
             {throw new InvalidDataException("Invalid Sigil actor state");}
             var body=Body(Values(s));if(s.Missile!=body.Id||s.MissileKey!=body.Key||s.Frames!=body.Frames){throw new InvalidDataException("Saved Sigil body disagrees with pinned profile");}
+            if(s.RancorPulse is{} pulse&&(s.Ability!=CombatAbility.SigilRancor||pulse<0||pulse%6!=0||pulse>s.LastPulse))
+            {throw new InvalidDataException("Invalid prepared Rancor pulse cursor");}
             actors=actors.Add(s.Marker,s);
         }
         foreach(var s in saved.Owners)

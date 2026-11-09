@@ -22,10 +22,14 @@ internal static class SigilRancorMind
             ||SigilRancorPrimary.State(actor,at)==null||PaladinConversion.Active(actor)) {return false;}
         // Existing curse and item AI retain priority. A non-AI curse such as
         // Weaken remains independent and does not erase this prepared lease.
-        var curse=NecromancerEffects.Curse(actor);
-        return curse?.Ability is not(CombatAbility.Confuse or CombatAbility.Attract or CombatAbility.DimVision
-            or CombatAbility.Terror or CombatAbility.GrimWard or CombatAbility.Taunt or CombatAbility.CloakOfShadows)
-            &&state.ItemTerror==null&&!NamedControl.Fear(actor);
+        return !Suppressed(actor,state,at);
+    }
+    internal static bool Suppressed(Mobile actor,NecromancerState state,DateTime? at=null)
+    {
+        var time=at??TimedEffects.Now;var curse=state.Curse is{} c&&c.UntilUtc>time?c:null;
+        return curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract or CombatAbility.DimVision
+            or CombatAbility.Terror or CombatAbility.GrimWard or CombatAbility.Taunt or CombatAbility.CloakOfShadows
+            ||state.ItemTerror!=null||NamedControl.State(actor)is{} fear&&fear.FearUntil>time;
     }
     internal static bool ApplyPrepared(PlayerMobile owner,BaseCreature target,DateTime until,ulong seed,bool eligible)
     {
