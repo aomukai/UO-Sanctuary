@@ -9,7 +9,7 @@ namespace Sanctuary;
 internal static class PreparedWeaponEvents
 {
     internal static void BeforeReturn(Mobile attacker,Mobile defender,int physical256,bool ranged,
-        int absorbedLife256=0,Action<int> leech=null)
+        int absorbedLife256=0,Action<int> leech=null,PsychicWardReactionProposal.Ticket ward=null)
     {
         NpcLightningReturn.RequireNativeIncoming(attacker,defender,ranged);
         if(!ranged){NpcItemSlow.NativeClay(attacker,defender,TimedEffects.Now);}
@@ -17,6 +17,9 @@ internal static class PreparedWeaponEvents
         // Attacker damage events precede defender incoming events. A lethal
         // Iron Maiden return must not become a prior lightning packet.
         if(attacker is{Alive:true,Deleted:false}){NpcLightningReturn.NativeIncoming(attacker,defender,ranged,TimedEffects.Now);}
+        // Review-only ticket:captured before mitigation,consumed once here.
+        // Existing production callers supply null until explicit approval.
+        ward?.Deliver(attacker,defender,ranged,TimedEffects.Now);
         ClayGolemSlow.Incoming(attacker,defender,ranged,TimedEffects.Now);
         // Frozen Armor's incoming physical event belongs before HP/death, and
         // accepts positive fractional damage. Keep the existing other-event
