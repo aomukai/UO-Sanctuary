@@ -1,0 +1,91 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "sourceBytes": 390,
+  "sourceContexts": 30,
+  "newCapturedReferenceBytes": 3312,
+  "newCaptureBytesRead": 7744,
+  "capturedReferencesImplemented": false,
+  "oldLargeSourceMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-ai-post-target-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "1ead30fb87cb36dcacb882dd2958caefbc530bc39cec59a7f7ecd5111349aee3",
+    "Assemblies/Sanctuary.Integration.dll": "2517f9d6753c5d113886aab0d747e1d3732d04043f95fd9f38ad004762a7f791"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete390byte post-target source matches30native contexts:early exits,metadata lookup rereads,unsigned distance,special predicate and search/wander writes. Only three initialized descriptor9context fields are modeled.",
+    "Original three-species full entry invokes actual no-target post stage before registered root;unqualified leaves refuse if called. Commands/control6updates/births/fractionalwounds retain across two reloads.",
+    "Four missing helper bodies fully captured with no invalid instructions. Two direct post helpers and two table-qualified override callbacks are retained references;callback semantics are not certified by the post-stage comparison."
+  ],
+  "diagnostics": [
+    "Initial Content build used an unrelated corpse metadata type to carry the animation walk bit. Review changed the API to shared nullable walk availability before Integration/native run;exact pre-review sources/build retained. No native failure.",
+    "Override capture preflight initially named incorrect registers;corrected after checking retained instructions,before any target process access. Initial script retained."
+  ],
+  "limits": [
+    "First/second helper internals,descriptor9search and live world services remain explicit. Capturing a callback does not implement its mechanics.",
+    "Field14=2 remains explicit fixture,not authentic birth. Startup/control producer,special callbacks,global chain/clock and remaining live world/path/combat admission remain unfinished.",
+    "No new learned route,class certificate,assets or deployment."
+  ],
+  "inputs": {
+    "tools/reference/pet-ai-post-target-source-evidence.json": "de8f899fe99f6ee21412b4df230e9a18779b1627465fb547f3013dba8facc0cc",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-post-leaves-20261109.json": "274c63b796d65b20f1f8633d748f2caabfa8654c30caacbf4604b3574c8ed5db",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109.json": "a848a333f30c95f6ac9a7c1869c2b3932a729b1761749494d2b3923e284bca33",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-table-20261109.bin": "49a8054de409770c5406e68c9e925ead660554484de23083a0bbc2ba634012ec",
+    ".local/class-skills/pet-ai-post-target/birth-inputs.json": "4417b4846fc60c2f3e4347cb7187c6047f98fdae862729494f97366104c38cf0",
+    ".local/class-skills/pet-ai-post-target/source-snapshot-2.json": "cc54df06881dc2a175909dc545cd165937cc4deba7d15c2cdbb471d975bb9627",
+    ".local/class-skills/pet-ai-post-target/content-build-2.log": "b21570052d12b3cffb42576b783072931cabd2185998d810263b2aea00f87790",
+    ".local/class-skills/pet-ai-post-target/integration-build-1.log": "75a54bef754e16c26c6d75f7d15a22a921aec31a955bf698ace560abf4e43cbf",
+    ".local/class-skills/pet-ai-post-target/birth-native-checks.log": "6ffe9b4960cb26eb83aa568f0248144bbb2782c61bcec7b97ac2c8931a005330",
+    ".local/class-skills/pet-ai-post-target/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-ai-post-target/pet-command-target-fixtures.json": "385ecf68949fc397561605c0aaaa692e531fc124ec8bdfe0cfc6fbc6839f4cca",
+    ".local/class-skills/pet-ai-post-target/pre-review-1/GenericPetAiPostTarget.cs": "c9ed71216f811ef1f5914e4a3d46ef2e94cd223aa1e4cafa9e121a02b80e5daf",
+    ".local/class-skills/pet-ai-post-target/pre-review-1/GenericPetAiPostTargetChecks.cs": "a826550457584b028d154012b2767dd250c35bfa4083078918d5ec6e9270f613",
+    ".local/class-skills/pet-ai-post-target/pre-review-1/source-snapshot-1.json": "672af9c474364bdcf0aca1cb03acd27323226f783e10046771859dd0eca33e4b",
+    ".local/class-skills/pet-ai-post-target/pre-review-1/content-build-1.log": "feecd6356229627282f0ec4e38a34fd98f9ce312cb9948937088f609f46c4db5",
+    ".local/class-skills/pet-ai-post-target/pre-review-1/Sanctuary.Content.dll": "27e8e7a3a5375cfc060d28ea0f51c1a444e5a3bb0bd55bae5a89fcbaf60ca882",
+    ".local/class-skills/pet-ai-post-target/capture-diagnostics-1/incorrect-register-preflight.py": "b76dc74c41433b81058f518f74dfe21cfb550989481e0d239137f209008cffbf",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-ai-post-target-checkpoint.md": "df095182dba55b6b6faf585c8642f2dfbef2f06aaefc7d930ce42cc24bffdab4",
+    "docs/class-skills-resume-checkpoint.md": "b7d90eb0a0c1f43180c0b54685c3624aebef1d075aba9039a1c43eda30be4a20",
+    "docs/class-skill-roadmap.md": "57ce4f13e8fa995afae786e1128df522ff44ccd946dd13400d6f53432159fe7e",
+    "docs/class-skill-reuse-notes.md": "745e5229716b60a747800010426e62bb9fd4eb1f50af65acb8a49327036c1cca",
+    "docs/skill-mechanical-reference.md": "93c63759c0269f942a6d83eba1604926921b488fc4840179b8768b0fda845484",
+    "tests/check_pet_ai_post_target.py": "df4e95ee99076e66ebcdb5c968f59423e7212c60f11ad610e380990ed0616b46",
+    "tools/record_pet_ai_post_target.py": "d3f1edaed2beb50848b59535557c8f0901d56bc226fce087df5497b827dad34c"
+  }
+}

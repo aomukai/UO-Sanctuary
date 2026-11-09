@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceBytes": 390,
+  "sourceContexts": 30,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "scope": "Complete post-target orchestration against explicit first/second helper callbacks,metadata,room graph,special predicate,descriptor9search and wander leaves. Only caller-initialized search fields are qualified;unwritten bytes and helper internals are not inferred.",
+  "artifacts": {
+    ".local/class-skills/pet-ai-post-target-source/cases.json": "4412d02ae9e404368a6afbdf220f53455b65b29fa6824f17dc84b71966654336",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-43af30-part0.bin": "152c931374dc6eada61ae7e84f7c9637d225d0c3efbb20cc1b7a0a775348f7b5",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109.json": "6f8eb43004b1318b12db3e47f18f0d67a30cc5f89834901c11b83e16cb7be9aa",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_ai_post_target.py": "edd47331cab7b1b5225eec518921e275d90760cf6b015536306413315d1ec7c7"
+  }
+}

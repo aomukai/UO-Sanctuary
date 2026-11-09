@@ -81,7 +81,7 @@ public static class GenericPetAiEntryChecks
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowB lookup changed");return 2;},
             _=>throw new InvalidOperationException("Fixture has no special override"),tick=>GenericPetAiPreprocessChecks.Original(body,control,tick),(_,state)=>
             {Require(state==0,"Original fixture state changed");return GenericPetAiSelectionChecks.Original(body,state);},(_,_)=>throw new InvalidOperationException("GenericPet type0 should reuse its root targeting"),
-            _=>false,(_,_)=>throw new InvalidOperationException("Unexpected queued predicate"),(_,_,_)=>throw new InvalidOperationException("Unexpected queued action"),
+            tick=>GenericPetAiPostTargetChecks.Original(body,tick),(_,_)=>throw new InvalidOperationException("Unexpected queued predicate"),(_,_,_)=>throw new InvalidOperationException("Unexpected queued action"),
             _=>throw new InvalidOperationException("Unexpected release"),(_,_,_)=>throw new InvalidOperationException("Unexpected special override"),(function,tick)=>
             {
                 Require(function==0x4b60c0&&ReferenceEquals(tick.Control,control)&&tick.RowA==1&&tick.RowB==2,"Original entry/default context changed");
