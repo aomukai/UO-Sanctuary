@@ -1,0 +1,81 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "overrideBytes": 1715,
+  "initializerBytes": 360,
+  "composedBytes": 3410,
+  "sourceContexts": 74,
+  "newCaptureBytesRead": 1280,
+  "oldLargeOfflineMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-ai-overrides-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "c4e2ec1b0507e7822b4e9c36e89f256de4467925c5d1a115a1e69be8916735f6",
+    "Assemblies/Sanctuary.Integration.dll": "c2812d4b1f8926ee90119aa241f7dc76630539ad9518b991f63359939fa4e06f"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Both complete current override callbacks,default initializer,copy,survey(SwarmRaw0)and squared distance match74native contexts for guards,registry/validity,initialization/iteration,coordinates/leash,fallback/moving rereads,0/0search,high48,event removal/follow/idle and logical cleanup.",
+    "Pinned two-row override table loaded at runtime without publishing startup defaults. Original3species full-entry selects both actual table callbacks with explicit header/mode/search fixtures;native owner registry,shared survey and registered default root are used. Commands/control6updates/births/fractionalwounds retain through two reloads.",
+    "Pure-case event removal uses actual prepared timed store and preserves unrelated events. Existing AI entry,pre/post,default initialization,root,store and search production files unchanged;only new override composition and native entry fixture added."
+  ],
+  "diagnostics": [],
+  "limits": [
+    "Control State0/Mode10=1/Field14indices are supplied fixtures;authentic producer/startup unknown. No source-header mapping from native animation mode is implied.",
+    "Default override initializer does not consume commands,query life or persist control. Unwritten source frame tails remain unknown. Owner membership is explicit;non-default survey branches retain prior separate qualification.",
+    "Follow/default/search/moving/missing-owner actions remain service boundaries. Native prepared fixture runs actual registered root but supplies high48=1 search result. Raw allocator ABI,exceptions and arbitrary heap/frame contexts are not certified.",
+    "Global event chain/clock,live owner-store production and remaining status/world/path/combat admission are unfinished. No new learned route,class certificate,assets or deployment."
+  ],
+  "inputs": {
+    "tools/reference/pet-ai-overrides-source-evidence.json": "c802705de38b77f03f583556c1defd2add94082223429e44c132bafd931a6a0d",
+    "tools/reference/pet-ai-overrides-data-evidence.json": "6838e4463385ece0c2fa6a7a49a46467cbd409bbaf5d8872099a486318cb33c2",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-override-initialize-20261109.json": "b1b688500647f46e13d2078b5081c901246d77082fe934eed76cb010cdfd7fca",
+    ".local/class-skills/pet-ai-overrides/birth-inputs.json": "f3c6c5a4072ff565ab3ed1ab1ef241a4f5bf9c7ee902b1fa4114faee26758e34",
+    ".local/class-skills/pet-ai-overrides/source-snapshot-1.json": "17f099746c79cfafb9ce4467d9546e6849fb2859bf08178537ec8c50099cb99d",
+    ".local/class-skills/pet-ai-overrides/content-build-1.log": "84c5137b3cab9b6ca07408c0c763ca7a62eef7cb58e1c1c2b10dbdfacf990eec",
+    ".local/class-skills/pet-ai-overrides/integration-build-1.log": "825e2c3e3bd87f94bb0e4f40f4e0a76577d21ac22047a10e48a16f4ca01d45d0",
+    ".local/class-skills/pet-ai-overrides/birth-native-checks.log": "cbc23b4f0d9f1497df5bfe69f41cac0d0bbb782b2b9d767b4a7aea1e48b10c3e",
+    ".local/class-skills/pet-ai-overrides/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-ai-overrides/pet-command-target-fixtures.json": "e8cfd342f21b92cc812f266a2b7f0cc48361ff3bc19cafd586cd96bb131dacc0",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-ai-overrides-checkpoint.md": "99b13911838445aceb93e518e34bb88a0abdb1d0812c908e74c5e78d819f3b23",
+    "docs/class-skills-resume-checkpoint.md": "3500c00e8a417686d41eafa504fb89a59b5f345d499a3e28ae147c76329e9f34",
+    "docs/class-skill-roadmap.md": "e660bed7861e1cdb3a9187c217015f39e228ddb4c0a96af05cc892950f58481d",
+    "docs/class-skill-reuse-notes.md": "426245e0e129c40225e5f2398e6cfbf38215c9dca015fc9c1b1b8a0d6e6fa4fc",
+    "docs/skill-mechanical-reference.md": "f73a57a9165ba51cf3c28c5e63a86af2ebb5472f53db7930a9faf24f157e2bb9",
+    "tests/check_pet_ai_overrides.py": "4f30f619d2a277cf8ef967cd40ade81982ba2ba9fde8bbe7dd5a482c589e5c55",
+    "tools/record_pet_ai_overrides.py": "0a5e0e5cbb6c59aec404a32cd2aad156d6fbdf5f3f22cb8abedcb258926fd8d0"
+  }
+}

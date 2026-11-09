@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "tableRva": "0x1d187f0",
+  "stride": 16,
+  "rows": 2,
+  "controlProducerVerified": false,
+  "birthDefaultsPublished": false,
+  "processMemoryRead": false,
+  "processInput": false,
+  "artifacts": {
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109.json": "a848a333f30c95f6ac9a7c1869c2b3932a729b1761749494d2b3923e284bca33",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-table-20261109.bin": "49a8054de409770c5406e68c9e925ead660554484de23083a0bbc2ba634012ec",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "data/Sanctuary/Balance/generic-pet-ai-overrides.json": "c8c83fa4eb114c1def6e0a5f50c4a26064867a9a5580ae807b957784e228adff",
+    "tools/build_pet_ai_overrides.py": "292eb69cad74921fcfbc5cdae155d6f811941563372e8db11591d1d0eac06c58"
+  }
+}

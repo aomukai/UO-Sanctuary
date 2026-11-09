@@ -71,22 +71,26 @@ public static class GenericPetAiEntryChecks
     internal static void Original(SkeletonGuardian body,int owner,GenericPetWorldIdentity world,GenericPetInitializationServices leaves,GenericPetTimedEvents events)
     {
         int id=checked((int)body.Serial.Value),sourceClass=WarlockDemonPlacement.ClassId(body);int calls=0;
-        // Complete explicit fixture control. Field14=2 is not asserted to be
-        // an authentic birth value;the original saved three words stay owned
-        // by DeathMarkWorld and are read by its existing root binding.
-        var control=new GenericPetAiControl(0,0x4b60c0,2,false,[]);
+        // Both current table indices are exercised as explicit fixtures. Neither
+        // Field14 nor override Mode10=1 is asserted as an authentic birth value.
+        int index=sourceClass%2;var control=new GenericPetAiControl(0,0x4b60c0,index,false,[]);
+        void Default(int function,GenericPetAiTick tick)
+        {
+            Require(function==0x4b60c0&&ReferenceEquals(tick.Control,control)&&tick.RowA==1&&tick.RowB==2,"Original entry/default context changed");
+            calls++;GenericPetControlChecks.Root(body,owner,world,leaves,events);
+        }
         var services=new GenericPetAiEntryServices(()=>new(0x12345678,2,1,3),actor=>
         {Require(actor==id,"AI entry bound wrong original");return new(1,sourceClass,true,control,0,0);},
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowA lookup changed");return 1;},
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowB lookup changed");return 2;},
-            _=>throw new InvalidOperationException("Fixture has no special override"),tick=>GenericPetAiPreprocessChecks.Original(body,control,tick),(_,state)=>
+            GenericPetAiOverrideTables.At,tick=>GenericPetAiPreprocessChecks.Original(body,control,tick),(_,state)=>
             {Require(state==0,"Original fixture state changed");return GenericPetAiSelectionChecks.Original(body,state);},(_,_)=>throw new InvalidOperationException("GenericPet type0 should reuse its root targeting"),
             tick=>GenericPetAiPostTargetChecks.Original(body,tick),(_,_)=>throw new InvalidOperationException("Unexpected queued predicate"),(_,_,_)=>throw new InvalidOperationException("Unexpected queued action"),
-            _=>throw new InvalidOperationException("Unexpected release"),(_,_,_)=>throw new InvalidOperationException("Unexpected special override"),(function,tick)=>
+            _=>throw new InvalidOperationException("Unexpected release"),(function,tick,fallback)=>
             {
-                Require(function==0x4b60c0&&ReferenceEquals(tick.Control,control)&&tick.RowA==1&&tick.RowB==2,"Original entry/default context changed");
-                calls++;GenericPetControlChecks.Root(body,owner,world,leaves,events);
-            });
+                Require(function==GenericPetAiOverrideTables.At(index).Function,"Original override callback identity changed");
+                GenericPetAiOverrideChecks.Original(body,owner,world,leaves,events,index,control,tick,fallback,Default);
+            },Default);
         var result=GenericPetAiEntry.Run(id,0,services);Require(calls==1&&ReferenceEquals(result.Control,control)&&!control.Executing,"Original entry did not finish its default root");
         Log.Information("AI entry original:typed event->full prepared entry->registered demon root on same event store;birth/wound/command/control retained. Explicit helper/control fixtures;automatic admission remains gated.");
     }
