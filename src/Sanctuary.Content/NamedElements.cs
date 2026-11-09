@@ -74,7 +74,12 @@ public static class NamedElements
     public static double Enhance(Mobile source, double damage, string element)
     {
         if (damage <= 0) { return 0; }
-        return damage * Math.Max(0,100+MasteryPercent(source,element)) / 100.0;
+        return EnhanceAtMastery(damage,MasteryPercent(source,element));
+    }
+    internal static double EnhanceAtMastery(double damage,int mastery)
+    {
+        if (damage <= 0) { return 0; }
+        return damage * Math.Max(0,100+mastery) / 100.0;
     }
     internal static int MasteryPercent(Mobile source,string element)
     {

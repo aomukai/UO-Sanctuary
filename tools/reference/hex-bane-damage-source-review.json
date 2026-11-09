@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentMasterySelectorRva": "0x28cc10",
+  "currentSelectorReadable": false,
+  "newProcessReadBytes": 560,
+  "currentEvent36Parity": false,
+  "learnedEnabled": false,
+  "handlers": 216,
+  "warlockHandlers": 7,
+  "sourceBodyHashes": {
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetSpecialParamValue": "725f034cfdece6722e4a13ac7194ea6a0d0216b1ab9dc0bca31d22ab3fbc0328",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f"
+  },
+  "established": [
+    "Older melee durability/event callback copies an existing combat result,checks reach,then triggers domeleeattack for hits and misses before its final missile/HP consumer. This supports a post-result proposal,not current callback parity.",
+    "Current aliases enma/exma use mastered endpoint getters and whole-point storage. Older minimum getter requests mastery but its shared mastery switch omits magic. Older weapon fill nevertheless reads passive magic mastery in both branches. Nonzero current cast-stage magic mastery cannot be silently inferred from the older engine.",
+    "One new directly-linked current selector read observed protected nonexecutable pages;560bytes were identity anchors only,no helper code was forced. No unchanged retry."
+  ],
+  "proposal": [
+    "Capture table/synergy FP256 endpoints,apply cast magic mastery,then truncate to whole stored points. Let existing live weapon mastery apply again when delivering that stored magic.",
+    "Apply melee recipient Hex after the hit/block/dodge result so no same-hit accuracy gain;misses still apply. Current sibling order/overrides remain unverified."
+  ],
+  "inputs": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/warlock-runtime-reference/bane-mastery-selector-20261109.json": "553ecf7a938c517d026641c52e15dd0943d1146b5c691c466f333db25e4b1926"
+  }
+}
