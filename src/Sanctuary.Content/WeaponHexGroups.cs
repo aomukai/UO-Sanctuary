@@ -3,11 +3,11 @@ using System;
 using Server;
 namespace Sanctuary;
 
-// Prepared Sanctuary proposal for current groups6/7. No learned route or
-// automatic event dispatcher opts into this policy before approval.
+// Approved Sanctuary policy for current groups6/7. Learned Hex routes opt in
+// explicitly;legacy prepared callers retain their default guarded behavior.
 internal static class WeaponHexGroups
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static void Require(CombatAbility incoming)
     {if(incoming is not(CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.HexSiphon)){throw new ArgumentException("Not a weapon Hex");}}
     internal static void ReplaceBuff(Mobile owner,CombatAbility incoming)

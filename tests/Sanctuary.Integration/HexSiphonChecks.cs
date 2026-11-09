@@ -21,7 +21,7 @@ public static class HexSiphonChecks
     {
         int count=0;for(int rank=1;rank<=255;rank++)foreach(int engorge in new[]{0,1,20})foreach(int blast in new[]{0,1,20})
         {var v=HexSiphon.Capture(Values(rank,engorge,blast));Require(v.LifeAfterKill==rank+engorge&&v.ManaAfterKill==rank+engorge&&v.AttackPercent==20+9*(rank-1)&&v.BuffFrames==3600+300*(rank-1)&&v.DebuffFrames==150+5*blast&&v.DamagePercent==-33&&v.Mana256==(25+rank-1)*128,"Current Siphon values/hard-only synergies/constant target damage");count++;}
-        Require(count==2295&&HexSiphon.Capture(Values(1)) is{LifeAfterKill:1,ManaAfterKill:1,Mana256:3200},"Siphon rank1 values");Require(!WarlockCombat.Implemented(CombatAbility.HexSiphon),"Incomplete learned Siphon enabled");
+        Require(count==2295&&HexSiphon.Capture(Values(1)) is{LifeAfterKill:1,ManaAfterKill:1,Mana256:3200},"Siphon rank1 values");Require(WarlockCombat.Implemented(CombatAbility.HexSiphon),"Learned Siphon missing");
         Log.Information("Hex Siphon:2295current formula controls;192source buff/560source kill contexts pinned,event36delivery supplied");
     }
     private static void Train(PlayerMobile p,string id,int rank=1)

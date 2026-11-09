@@ -762,6 +762,11 @@ BLOCKERS['warlock.psychicward'] = 'Learned ordinary Warlock/Witch self SC/right/
 
 BLOCKERS['warlock.bladewarp']='User-authorized Sanctuary estimate implemented with ordinary SC,melee restriction,one15mana release/cooldown,release snapshots,one traveling blade/magic impact and shared safe teleport landing. Focused native/input/reload checks and explicit source/assumption receipt track qualification;protected do166/hit42 parity and final graphical/effects/icon acceptance remain separate.'
 
+BLOCKERS['warlock.hexsiphon']='Learned ordinary selfSC/right/quick route now uses existing captured AR/kill returns and approved group6/7replacement. Shared native/player melee-attempt and successful ranged weapon-event hooks apply the registered-rank noncurse damagepercent state,including melee misses and fully mitigated projectile contacts;qualified hextrigger entry is explicit. Native/input/original save checks track acceptance. Exact protected event36sibling order/special overrides,advanced producers,PvP/graphical acceptance and final assets remain separate.'
+
+BLOCKERS['warlock.hexbane']=BLOCKERS['warlock.hexbane'].replace('modern hex groups6/7, ','')+' Shared noncurse Hex group6/7replacement is now approved and reused;remaining Bane-specific callback/mastery/input work stays separate.'
+BLOCKERS['warlock.hexpurge']=BLOCKERS['warlock.hexpurge'].replace(' and cross-hex replacement','').replace('base Warlock clocks remain provisional','the shared ordinary SC clock is qualified separately')+' Shared Hex group6/7replacement is approved;Purge-specific events/explosion/charges remain incomplete.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

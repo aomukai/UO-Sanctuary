@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "Approve the shared Hex replacement rule",
+  "candidateCommit": "a7f70bcbde809275bfba4245da72c926d4d3f7ae",
+  "proposal": "docs/weapon-hex-groups-proposal.md",
+  "proposalAtApprovalSha256": "93217ca3ea24c51fdd4ad36c40f84e7a4bf9019310b91dcc62a733a329d9891d",
+  "scope": "Successful different-Hex self cast/recipient application replaces only its own group;failed cast/event preserves prior state;owner and recipient groups independent;unrelated curses unaffected.",
+  "limits": [
+    "Current group replacement is an explicit Sanctuary adaptation.",
+    "Same-Hex rank/refresh behavior retains existing helper rules;Purge charges/explosion and Bane magic mastery remain separate."
+  ]
+}

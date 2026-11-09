@@ -13,12 +13,13 @@ internal static class PreparedWeaponEvents
     {
         NpcLightningReturn.RequireNativeIncoming(attacker,defender,ranged);
         if(!ranged){NpcItemSlow.NativeClay(attacker,defender,TimedEffects.Now);}
+        if(ranged){HexSiphonEvents.MissileDamage(attacker,defender);}
         IronMaiden.MeleeDamage(attacker,defender,physical256,ranged);
         // Attacker damage events precede defender incoming events. A lethal
         // Iron Maiden return must not become a prior lightning packet.
         if(attacker is{Alive:true,Deleted:false}){NpcLightningReturn.NativeIncoming(attacker,defender,ranged,TimedEffects.Now);}
-        // Review-only ticket:captured before mitigation,consumed once here.
-        // Existing production callers supply null until explicit approval.
+        // Approved live ticket:captured before mitigation,consumed once here.
+        // Callers without an eligible Ward registration supply null.
         ward?.Deliver(attacker,defender,ranged,TimedEffects.Now);
         ClayGolemSlow.Incoming(attacker,defender,ranged,TimedEffects.Now);
         // Frozen Armor's incoming physical event belongs before HP/death, and

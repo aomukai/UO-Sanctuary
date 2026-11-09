@@ -81,7 +81,7 @@ public static class WeaponHexGroupChecks
     }
     private static void Check(bool reload)
     {
-        Require(!WeaponHexGroups.Approved&&Abilities.All(a=>!WarlockCombat.Handles(a)&&!WarlockCombat.Implemented(a)),"Unapproved Hex group enabled public input");Manifest manifest;
+        Require(WeaponHexGroups.Approved&&Abilities.Where(a=>a!=CombatAbility.HexSiphon).All(a=>!WarlockCombat.Handles(a)&&!WarlockCombat.Implemented(a))&&WarlockCombat.Handles(CombatAbility.HexSiphon),"Approved group/learned Siphon registration mismatch");Manifest manifest;
         if(!reload)
         {
             var rows=new Saved[2];int i=0;
@@ -107,6 +107,6 @@ public static class WeaponHexGroupChecks
             }
             manifest=old with{Generation=old.Generation+1};
         }
-        File.WriteAllText(FileName,JsonSerializer.Serialize(manifest));Log.Information("Hex group original:Warlock/Witch independent owner/target Hex family,original weapon and mana persist across two reloads;learned input remains gated.");
+        File.WriteAllText(FileName,JsonSerializer.Serialize(manifest));Log.Information("Hex group original:Warlock/Witch independent owner/target Hex family,original weapon and mana persist across two reloads;Bane/Purge input remains gated;Siphon has its dedicated learned route.");
     }
 }

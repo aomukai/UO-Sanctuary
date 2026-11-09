@@ -30,7 +30,8 @@ public static class PaladinThorns
     public static int ReturnedPercent(Mobile attacker,int percent)=>attacker is PlayerMobile or BaseHire ? (percent+4)/8 : percent;
     public static IDisposable Attempt(Mobile attacker,Mobile defender,bool ranged)
     {
-        if(ranged || !Eligible(attacker,defender)){return null;}var stats=Values(defender);
+        if(ranged || !Eligible(attacker,defender)){return null;}
+        HexSiphonEvents.MeleeAttempt(attacker,defender);var stats=Values(defender);
         IDisposable thorns=stats==default?null:_current=new(attacker,defender,stats,_current);
         return PlayerMeleeReturn.Attempt(attacker,defender,ShiverArmor.Attempt(attacker,defender,ranged,thorns));
     }

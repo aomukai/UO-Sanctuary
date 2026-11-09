@@ -1,0 +1,27 @@
+{
+  "nativeCommit": "ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93",
+  "inputManifest": {
+    "path": ".local/class-skills/hex-siphon-cast/client-inputs-1.json",
+    "sha256": "9a45f34392eee1c9263925fe03bc9c9edf90869c8b252fb9829880ab30c6e616"
+  },
+  "patches": 43,
+  "affectedPaths": 42,
+  "buildWarnings": 44,
+  "buildErrors": 0,
+  "graphicalInputVerified": false,
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "scope": "Required isolated client rebuild with Hex self-target metadata. Existing43patches reverse to exact local pinned source then forward to identical built inputs. All linked shared sources match workspace. No new patch,dependency update or installed-client change.",
+  "limits": [
+    "Existing/isolated-build warnings retained;no optional audit or package migration.",
+    "Connected server input is verified separately;actual graphical interaction/rendering remains unverified."
+  ],
+  "files": {
+    "tools/review_hex_siphon_client.py": "a9456a1d0e44d02f4d1982806cd7617b50038f9331b93a58b37a42b2996b99dd",
+    "tools/prepare_psychic_ward_client.py": "4e157aaa09f73f91c68adabe9b4ecbae184d8bc12c694a34421e0c641467b7d7",
+    "tools/prepare_hex_siphon_client.py": "b1415ba138097fe31db8bfb7df35f04f4ae771a697f07b02ff62b661573ca911",
+    ".local/class-skills/hex-siphon-cast/client-build-1.log": "c1fd6ea4dc2ecb90fea87d5d060054211f56894a1f35d1e330092f0d7ddff3d7",
+    ".local/class-skills/hex-siphon-cast/client/cuo.dll": "5a334961c90ef0834882ed9169b706d22ae9f28c889b028d5435a09e41f97e76"
+  }
+}

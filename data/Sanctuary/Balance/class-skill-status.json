@@ -2454,7 +2454,7 @@
       "implementation": "blocked",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared whole-point magic enchantment, effective-rank AR, hard-only35percent synergies, fractional mana and separate noncurse target defense/AR debuff have source/native controls. New event36 delivery, modern hex groups6/7, nonzero magic mastery and learned SC/input remain gated. Supplied eligible events use an explicitly prepared receiver; no automatic melee-miss/missile/hextrigger rule is inferred. See hex-bane-native-evidence.json; effects and icons remain separate."
+      "remaining": "Prepared whole-point magic enchantment, effective-rank AR, hard-only35percent synergies, fractional mana and separate noncurse target defense/AR debuff have source/native controls. New event36 delivery, nonzero magic mastery and learned SC/input remain gated. Supplied eligible events use an explicitly prepared receiver; no automatic melee-miss/missile/hextrigger rule is inferred. See hex-bane-native-evidence.json; effects and icons remain separate. Shared noncurse Hex group6/7replacement is now approved and reused;remaining Bane-specific callback/mastery/input work stays separate."
     },
     {
       "talentId": "warlock.cleave",
@@ -2487,7 +2487,7 @@
       "implementation": "blocked",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared weapon-conditioned skill attackrate/AR, buff persistence and explicit raw target plans have source/native controls. The shared speed pool preserves EIAS versus itemIAS/FCR. Modern event36/39 application, explosion geometry/damage/roll/charge/reapplication and cross-hex replacement remain gated; explicit plans do not detonate. Current-file pointer leads are unverified and base Warlock clocks remain provisional. See hex-purge-native-evidence.json; final effects/icons remain separate."
+      "remaining": "Prepared weapon-conditioned skill attackrate/AR, buff persistence and explicit raw target plans have source/native controls. The shared speed pool preserves EIAS versus itemIAS/FCR. Modern event36/39 application, explosion geometry/damage/roll/charge/reapplication remain gated; explicit plans do not detonate. Current-file pointer leads are unverified and the shared ordinary SC clock is qualified separately. See hex-purge-native-evidence.json; final effects/icons remain separate. Shared Hex group6/7replacement is approved;Purge-specific events/explosion/charges remain incomplete."
     },
     {
       "talentId": "warlock.bladewarp",
@@ -2528,10 +2528,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 386,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared weapon-conditioned AR/life-after-kill/mana-after-kill and separate noncurse minus33damagepercent state have source/native controls. Generic kill callbacks preserve FP resources and use direct-killer eligibility; actual owner weapon/spell versus dependent kills are checked separately. New event36, cross-hex groups6/7 and learned SC/input remain gated. Prepared cross-hex combinations are explicitly refused. See hex-siphon-native-evidence.json; effects/icons remain separate."
+      "remaining": "Learned ordinary selfSC/right/quick route now uses existing captured AR/kill returns and approved group6/7replacement. Shared native/player melee-attempt and successful ranged weapon-event hooks apply the registered-rank noncurse damagepercent state,including melee misses and fully mitigated projectile contacts;qualified hextrigger entry is explicit. Native/input/original save checks track acceptance. Exact protected event36sibling order/special overrides,advanced producers,PvP/graphical acceptance and final assets remain separate."
     },
     {
       "talentId": "warlock.mirroredblades",
