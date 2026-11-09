@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceContexts": 69,
+  "machineCodeBytes": 709,
+  "skillId": 382,
+  "doIndex": 158,
+  "dispatcherIndexLinked": true,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete current709byte do158 with declared eligibility/binding,transfer,AI stops,alignment,counter,registry,allocator and room effects. Return1after failed eligibility/binding,pre-bind mutations,event-next capture and current caster context are compared. This does not recover protected44b240/44b3b0 or admit learned binding/channel/payment.",
+  "artifacts": {
+    ".local/class-skills/bind-demon-cast-source/cases.json": "97dde98ba38b76d6db2569deec7eb4bc8a6068f0cc03c45f931ae8091d3dd04c",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/capture.json": "187309c19795e557ff35b55d08c9caf4bdaed039d6ca468b2d6d9bc5d436013d",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part0.bin": "cb9f12aac84cc170dde6d78032d815ed1f58dd7a9ee59d885a606511eb84e02f",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part1.bin": "fb93b73b556f30c67db8d73e40f15dacf0e49beb4f9e3b8ae438a3e6e2d8a156",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-158-20261108/do-158-part2.bin": "79f23abac446fcedd65a546b0aba5954dfd36b0882e5fc1279ef1fc91541ae8c",
+    "tools/probe_bind_demon_cast.py": "32259ba035c07ecb4b0b0b73db875c1d40dd973c643ecbbf9227eabdd7a27d4b",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "reviewOnly": true,
+  "learnedEnabled": false,
+  "sourceContexts": 69,
+  "machineCodeBytes": 709,
+  "newReferenceReadBytes": 560,
+  "protectedHelperBytes": 2299,
+  "oldLargeOfflineMatricesRerun": 0,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "bind-demon-cast-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "newTimers": 0,
+  "newSavedFormats": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "0aa53c3d686b42e12062cd24f02691bcaf890c37256781b45e9f2ee0057cf7c6",
+    "Assemblies/Sanctuary.Integration.dll": "5bdc8ae45fd66a731fc848f13d38ae2b9a37814e4914d02e1f0d81ceb08bd2e9"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete dispatcher-linked do158 agrees with69declared-service source/native cases. Current target refresh,state checks,AI branches,cached counter,linked event release,typed owner lookup,current caster context and source flags retained.",
+    "Eligibility refusal returns1before later effects;binding refusal returns1after preceding mutations. Neither is silently treated as rollback or a payment rule. Two helpers were checked once and remain protected;only560validation anchor bytes read.",
+    "Twelve native component/baseline checks pass across three boots/two reloads/three saves without allocating native Bind actors or opening learned route. Content inputs remain identical across source snapshots;only copied roadmap report changes."
+  ],
+  "limits": [
+    "Eligibility44b240,binding44b3b0,transfer/AI-stop/alignment/allocator/room services are supplied;actual native bind/controller/passive/cap lifecycle not certified.",
+    "Start64,channel/missile timing,input/payment and protected helper behavior remain unresolved. No guessed Conversion/Revive substitute,learned admission,class certificate,save migration,deployment or new art. Normal demon startup approval remains pending."
+  ],
+  "inputs": {
+    "tools/reference/bind-demon-cast-source-evidence.json": "a856fd2021d7832cbc1bd2283d264281d5ea3bb872829573c1dd4d7f7a384639",
+    ".local/class-skills/warlock-runtime-reference/callees-bind-demon-core-20261109.json": "2e83d2ec4a44cb500e65a8479322fcfb69cbc854253a200c76558f17196492ad",
+    ".local/class-skills/warlock-runtime-reference/bind-demon-parent-20261109.json": "b922c5036a10e0209b6f8edc4eca59235a759550403f1743480172dfc5887c50",
+    ".local/class-skills/bind-demon-cast/source-snapshot-1.json": "aa995476c2caa43b115731ca439b4af8cefc6db13c600d33b5bdff52f75feb2c",
+    ".local/class-skills/bind-demon-cast/source-snapshot-2.json": "ee2269675e6164941c4328dad5210dc2607140e97892ad0f72eb3ac6cbd90969",
+    ".local/class-skills/bind-demon-cast/birth-inputs.json": "143651c39efcd30af8eb77bfe132ebd4938334fb70d89851ee1b02214d268baf",
+    ".local/class-skills/bind-demon-cast/content-build-1.log": "a8eea1cd525b323bd971febdca1d861527fa712616f242330b341cc88fe862ba",
+    ".local/class-skills/bind-demon-cast/integration-build-1.log": "55c5329187b9d5a09fe0c61747e985ff6690cab29952bacb3c190f71dbf88836",
+    ".local/class-skills/bind-demon-cast/birth-native-checks.log": "c9b523b8ae31b5f64fd299e5ab8c6ad5ab1827fc42b665aa5e2f87ec3a09bd0f",
+    ".local/class-skills/bind-demon-cast/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/class-skill-status.json": "42b3c9d660bfccbfb0578d66ba7806006cc6cf6bfc073e6e1f19726bc5b0c165",
+    "tools/skill_checkpoint_evidence.py": "5d035fccb612fe3bf2be6700b47dfc3bc7eecdaa0b66096c6d090ceb27a4d432",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/bind-demon-cast-checkpoint.md": "487da0a03ed3cdb0dd709b66f0ccf4e3221e6b9899459d8506fbc412d0f8f722",
+    "docs/class-skills-resume-checkpoint.md": "6f6322be9c9413b537c12476f86b276407dd4d76649feeb124906a65f099457d",
+    "docs/class-skill-roadmap.md": "56903a7c9210ad032efda7499a5c7972e7d999b9551fae996b974b3ed91ca27d",
+    "docs/class-skill-reuse-notes.md": "dca25e04741d4029fc1ac37a0701f6ddc9bb77a5f7b7c1aaea42e7eceeb52a91",
+    "docs/skill-mechanical-reference.md": "4fbb464cbd8c315686bfc3b9f3590ccfa0d2b48403f01ed700ea3bb56372785f",
+    "tools/build_skill_roadmap.py": "502542bc22f567451385cefb9ab97da3f6f9311d78f481332cfa278eafd44501",
+    "tests/check_bind_demon_cast.py": "23f89ac5349d416be12da53272aed6ef743e8cd9540105c9c46ef6da425358b7",
+    "tools/record_bind_demon_cast.py": "1b959fec5cc609994fd1d1afe2a7da8d928109964077b51544808b489fc11ce7"
+  }
+}

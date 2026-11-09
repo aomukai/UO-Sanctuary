@@ -753,6 +753,9 @@ for _talent in ['warlock.summongoatman','warlock.summontainted','warlock.summond
     if _talent in BLOCKERS:
         BLOCKERS[_talent] += ' Current do56 is dispatcher-linked at4571d0,but its1207byte body is protected;AI control startup/production remains unknown despite completed prepared entry/pre/post/override policies. Optional existing-demon recast request is nonblocking;do not repeat unchanged reads or invent header defaults.'
 
+NATIVE_PARTIAL.add('warlock.binddemon')
+BLOCKERS['warlock.binddemon'] = 'Prepared current do158 orchestration matches69source/native contexts over709bytes. It reuses typed ownership/path/game views and preserves target refresh,AI-stop branches,cached encounter counter,event-list cleanup,owner resolution,current caster context and flags. Failed eligibility or binding still returns1 after its preceding effects;this is not a verified mana/channel rule. Direct target gate44b240(356bytes)and binding44b3b0(1943bytes)are protected in one bounded observation;no unchanged retry or invented conversion. Start64/channel missile/action,payment,real bind/passive/cap/lifecycle and learned input remain unfinished. See bind-demon-cast-checkpoint.md;effects/audio and talent/hotkey icons remain separate.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

@@ -2429,10 +2429,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 382,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared current do158 orchestration matches69source/native contexts over709bytes. It reuses typed ownership/path/game views and preserves target refresh,AI-stop branches,cached encounter counter,event-list cleanup,owner resolution,current caster context and flags. Failed eligibility or binding still returns1 after its preceding effects;this is not a verified mana/channel rule. Direct target gate44b240(356bytes)and binding44b3b0(1943bytes)are protected in one bounded observation;no unchanged retry or invented conversion. Start64/channel missile/action,payment,real bind/passive/cap/lifecycle and learned input remain unfinished. See bind-demon-cast-checkpoint.md;effects/audio and talent/hotkey icons remain separate."
     },
     {
       "talentId": "warlock.levitationmastery",
