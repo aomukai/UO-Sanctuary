@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceContexts": 84,
+  "machineCodeBytes": 1371,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete detach/type/data/bucket/packed routines over supplied finite store. Count/status application,client flush/send and broadcast are declared callbacks;no UO wire alias or native birth/persistence claimed. Unsupported fatal/null-data boundaries have no result. Unwritten packed tail explicitly supplied.",
+  "artifacts": {
+    ".local/class-skills/pet-owner-detach-source/cases.json": "dc0019fc837372e6d929ba76744c248b6572941db8785b9af89acfb60ac04d6a",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-packed-20261109-3706f0-part0.bin": "da49c2a84533252712079e64af0bcfe05a802ac25a6fe07a0ef129545bd05ecb",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-packed-20261109.json": "16a2e3938432cac4a5d2cca5953be74320f1eeaf47e5e4fdcdce71398b68386a",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-store-20261109-35b600-part0.bin": "a1303c4c81dfef3988e09a968e9c9056596c797b20d52e70786421454d201820",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-store-20261109-35d0e0-part0.bin": "966d15c95fc55f3ce7aab73fab4d25c724e8e9f32398c2b578f42a0c632d2020",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-store-20261109-35d410-part0.bin": "78fdb8216d6549427af6bf4fa87fff93443e333f856c5851c0ae3e86c5b9c518",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-store-20261109.json": "de4a7b26eae2fdbdf81d345ff12e242879e98ad122eb57dcb7e2bf5d36eb877e",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-35c970-part0.bin": "66087d797674a0423b14563fef39163e258aa2152fc6c00d9690b2c53b03488b",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-35c970-part1.bin": "1ffd20f7f834ff3a3cc9317eb347ab036f0b09d37da9202cceca6e7b10da8b04",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-35c970-part2.bin": "769484d99a45bdf641b8fb3194dce89aea14eb2c27be5c7d8baee4c40e0ad957",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-35c970-part3.bin": "61b4622a7c3526325dbeb7a2933a606aa222c6e5b7437ef319a50da050345f3c",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-35c970-part4.bin": "886a1652452877df015b7a222735a82f49da92d981709e6086b7435bf0631035",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109.json": "ddc99eeee9e313cbbcd2f2ed8308fd2a9fd636a1d1e46c0a052119cef3b5dcd7",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_owner_detach.py": "c853b292b5f510c4324061e5729ca2c0b75cb90f0a3f0c389856344ed9e4d36c"
+  }
+}

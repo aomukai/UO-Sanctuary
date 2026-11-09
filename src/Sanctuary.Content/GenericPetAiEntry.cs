@@ -46,7 +46,7 @@ internal static class GenericPetAiEntry
         var tick=new GenericPetAiTick
         {
             Control=unit is{Kind:1,HasData:true}?unit.Control:null,
-            Snapshot=unit is{Kind:1,HasData:true}&&(unit.Flags30&4)!=0?unit.Snapshot8c:game.Snapshot(stackTail)
+            Snapshot=GenericPetPackedContext.Read(game,unit,stackTail)
         };
         tick.RowA=services.RowA(game.Selector106,unit?.ClassId??-1);
         tick.RowB=services.RowB(services.Game().Selector106,actor==0?-1:services.Unit(actor).ClassId);
