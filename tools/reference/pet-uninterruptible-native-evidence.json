@@ -1,0 +1,98 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "reviewOnly": true,
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "sourceStates": {
+    "uninterruptable": 54,
+    "deathdelay": 92
+  },
+  "sourceContexts": 37,
+  "newRoutineBytes": 649,
+  "composedMachineCodeBytes": 2445,
+  "newReferenceReadBytes": 1858,
+  "oldLargeOfflineMatricesRerun": 0,
+  "nativeModeSchedulingChecks": 9,
+  "originalSpecies": 3,
+  "newTimers": 0,
+  "newSavedFormats": 0,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-scheduling-state-check": 3,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-native-status-check": 1,
+    "pet-native-status-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "be72ecbdb1a28a4169fa31cb12397416fea7f0cfffb0c3283000394f8161c583",
+    "Assemblies/Sanctuary.Integration.dll": "c7d767ee39db8f57a37419e432ee7e0d29c9c350be8cb2d29697ecd37e81bd56"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete current callback reuses shared MonsterUninterruptible.Change.37source/native contexts match state54first,cached game,kind/selector/root/count guards,state92clear-before-resolve,fresh flags2/zero-damage dispatch,owner-loss fallback and final kind-dependent AI-only removal including processing nodes. Qualified old event code reused.",
+    "Existing native mode provider supplies scheduling/switch state54. Actual activation/completion on three original demon types removes only old AI,retains non-AI,blocks switching while active,clears state on scheduler callback and admits exactly one future AI event. Nine healthy native mode checks across two reloads;no second mode store/timer.",
+    "Existing real freeze/stun event/entry checks still pass on the same cohort. Original commands,births,wounds,mana and control values retain across reloads. Native delayed-death effects remain mandatory unqualified leaves."
+  ],
+  "diagnostics": [
+    "Integration1 local deconstruction variable shadowed later kind variable. Test-only rename fixed;C1reused. Exact source/snapshot/log retainedcompile-diagnostics-1. First actual native cohort passes."
+  ],
+  "limits": [
+    "State setter,registry,fresh-return and owner-loss internals are explicit source services. Fresh callback keeps empty inline result/storage;arbitrary callback mutation/destructor ABI and allocator branch not certified.",
+    "Native verification admits healthy no-delayed-death mode completion only. Full native delayed-death return/owner-loss side effects,live flags/mode/search/world/actions,state143 and other statuses remain incomplete. No blanket Kill/Delete substitute.",
+    "No production automatic pump/startup admission/event persistence/save migration/learned skill/class certificate/deployment or assets. Startup proposal still pending."
+  ],
+  "inputs": {
+    "tools/reference/pet-uninterruptible-source-evidence.json": "466f02349a0012198886b5a6c2939bfa6fa3cbbeaabf0cd2654bc9453747377d",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-scheduling-state54-20261109.json": "21851de69969a4bdd5e55a605082af10713222fe307becd943f13bea3309d5d4",
+    "src/Sanctuary.Content/GenericPetUninterruptible.cs": "793d24159652e6b3cda6131b3899a763397986191f1163a21cf06867794b0633",
+    ".local/class-skills/pet-uninterruptible/compile-diagnostics-1/source-snapshot-1.json": "c5b850bfe242b6ef2223a62744ac5f4a90f62184f375ca73110d2d2b14ed8769",
+    ".local/class-skills/pet-uninterruptible/source-snapshot-2.json": "25fa3f5c13b3ce467a28e141d6a6e626381c51362ef849263a522b55b78445e6",
+    ".local/class-skills/pet-uninterruptible/compile-diagnostics-1/GenericPetSchedulingStateChecks.cs": "34f0193d022037792303e3c5efe70af67a77447ee1c168c4ddcc6fad2e6f00ff",
+    ".local/class-skills/pet-uninterruptible/compile-diagnostics-1/integration-build-1.log": "793dd6f1155058a666849b9711b6bad777dd3ef05fc5a9db4dd2633fe3986052",
+    ".local/class-skills/pet-uninterruptible/birth-inputs.json": "76d5eb6641a7be384caeba38256c7579e33df489baad095c92d11c47a44aa3e0",
+    ".local/class-skills/pet-uninterruptible/content-build-1.log": "e4e9c30b45d279b14512e6918861fd43d612bda87c6a7519c162f3c86670c764",
+    ".local/class-skills/pet-uninterruptible/integration-build-2.log": "9bc1fc4eeeda52c294d5e71a0fac20d03916959311e6a52b56684953c0f81d95",
+    ".local/class-skills/pet-uninterruptible/birth-native-checks.log": "31e5427ae6b3c5261acf5a2f264ef7f466f327a2e004af2fd5d746bafe55949a",
+    ".local/class-skills/pet-uninterruptible/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-uninterruptible/pet-native-status-fixtures.json": "9c38c4f4c85518af6e60b4371536af19cd04b180758ac3a3b945bc85bac0b745",
+    ".local/class-skills/pet-uninterruptible/pet-command-target-fixtures.json": "3bdb3f5684b45a5433e2f10385e866dc77570b2ce4384fd2a11196e447911a0a",
+    "tools/skill_checkpoint_evidence.py": "5d035fccb612fe3bf2be6700b47dfc3bc7eecdaa0b66096c6d090ceb27a4d432",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-uninterruptible-checkpoint.md": "9a3a8d2f795bb3ddd8ca4953e805db0413122e72b30ba18520bb638a32e2c634",
+    "docs/class-skills-resume-checkpoint.md": "1f74c0fb67a77888391caece60962b57b087dd9252c6d55f8008efb09ff26f88",
+    "docs/class-skill-roadmap.md": "973378cd91617dcc6b98fe3812d1c230ab172d892034e756b348c0e80b2e4062",
+    "docs/class-skill-reuse-notes.md": "fab7bc9db92d27cd8f04613a070c87364577af535590ae9abee20024dd11ba51",
+    "docs/skill-mechanical-reference.md": "0729501a43844c805d013db822853cccf78b4867627d830bc65142809f0453c1",
+    "tests/check_pet_uninterruptible.py": "55ff170aed132f4d51acdd67795881365934a3f4b09158245652f3b1cdb40c1a",
+    "src/Sanctuary.Content/GenericPetNativeControlStates.cs": "38540a0e21ff22377e6a695d7710bd5030ed8140a7761549af297762aec33225",
+    "tools/record_pet_uninterruptible.py": "9842220a773c6661ea9a5c2d3bc4db67b191eb0aadb38bea2b66b15c2cf15224"
+  }
+}

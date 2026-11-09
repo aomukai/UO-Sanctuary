@@ -13,7 +13,7 @@ internal static class GenericPetNativeControlStates
     {
         if(selector!=1){throw new NotSupportedException("Native control states require the qualified selector1 view");}
         var table=GenericPetMetadata.Table;
-        if(table?.State(1)?.Name!="freeze"||table.State(21)?.Name!="stunned")
+        if(table?.State(1)?.Name!="freeze"||table.State(21)?.Name!="stunned"||table.State(54)?.Name!="uninterruptable")
         {throw new NotSupportedException("Native control-state identities do not match pinned metadata");}
         return table.StateCount;
     }
@@ -30,5 +30,24 @@ internal static class GenericPetNativeControlStates
         if(original.StateCount!=count||original.HasRoot&&original.Root1c>=0)
         {throw new NotSupportedException("Cannot merge control states into an unqualified source root");}
         return original with{HasRoot=true,Root1c=-1,Rootb30=(original.Rootb30&~Mask)|Read(actor)};
+    }
+    private static uint ModeWord(BaseCreature actor,uint original)
+    {
+        if(actor is not{Deleted:false}){throw new NotSupportedException("Mode projection requires a native actor");}
+        return (original&~0x400000u)|(MonsterUninterruptibles.Active(actor)?0x400000u:0u);
+    }
+    internal static GenericPetEventClock Scheduling(BaseCreature actor,GenericPetEventClock original)
+    {
+        int count=Count(original.Selector);
+        if(original.StatCount!=count||original.HasStatRoot&&original.Root1c>=0)
+        {throw new NotSupportedException("Cannot merge native mode state into unqualified scheduling root");}
+        return original with{HasStatRoot=true,Root1c=-1,Rootb34=ModeWord(actor,original.Rootb34)};
+    }
+    internal static GenericPetAiSwitchUnit Switching(BaseCreature actor,GenericPetAiSwitchUnit original)
+    {
+        int count=Count(original.Selector);
+        if(original.StateCount!=count||original.HasRoot&&original.Root1c>=0)
+        {throw new NotSupportedException("Cannot merge native mode state into unqualified AI-switch root");}
+        return original with{HasRoot=true,Root1c=-1,Rootb34=ModeWord(actor,original.Rootb34)};
     }
 }
