@@ -1,0 +1,111 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "sourceBytes": 706,
+  "callbackBytes": 933,
+  "composedBytes": 1639,
+  "sourceContexts": 48,
+  "composedMissingOwnerContexts": 6,
+  "killableFieldMatches": 751,
+  "newReferenceBytesRead": 9204,
+  "newDeathCaptureBytesRead": 1972,
+  "protectedChecks": [
+    {
+      "slot": 56,
+      "rva": "0x4571d0",
+      "bytes": 1207,
+      "codeRead": false,
+      "mechanicsVerified": false
+    },
+    {
+      "slot": 156,
+      "rva": "0x44cfd0",
+      "bytes": 648,
+      "codeRead": false,
+      "mechanicsVerified": false
+    }
+  ],
+  "oldLargeOfflineMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-owner-loss-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "fb3bf6143b5ba63fc5de4f6ba596c4cd24c859c49b3b0997478e12b9af7c6bc1",
+    "Assemblies/Sanctuary.Integration.dll": "9a43c403573be8a9bbd78315342b9c583c2159b8455ed46d4eae2696ef6bfdfd"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete706byte death orchestrator matches48source/native contexts,including6composed actual933byte callback1 missing-owner transitions. Killable/dead/type gates,detach/linked notifications,killer credit,mode initialization/target/facing preservation,flag rereads and explicit source-class transforms retain source order.",
+    "Owned compiled/text killable field matches751rows at61bit128. Existing coordinate decoder,mode-request representation and secondary metadata reused. Bind connects special-AI missing-owner boundary to policy without inventing native death side effects.",
+    "Original3species prepared full entry/default root and override cohort retains commands/control6updates/births/fractionalwounds over two reloads. Native death execution itself is not admitted."
+  ],
+  "diagnostics": [
+    "First native cohort passed. Regenerating the roadmap then changed only class-skill-status report data(four blocker descriptions plus FlameWave pending->blocked);frozen-input checker refused stale data. Snapshot2/native2 validate updated data with identical C1/I1 DLLs and unchanged C#/project inputs;first exact artifacts retained pre-roadmap-1."
+  ],
+  "limits": [
+    "Current summon do56andFlameWave do156are dispatcher-linked but fully protected. No inaccessible body was read. Optional existing-demon recast request is nonblocking;no unchanged repeat without relevant state change.",
+    "Control allocation/header+10/Field14 startup remains unknown. Older allocator is only a locator reference,not a current default. No naive nativeDelete/Kill mapping is enabled.",
+    "Owner detach/linked cleanup/credit/mode execution/notifications/transforms remain explicit native leaves. Global scheduler/live owner-store and remaining status/world/path/combat admission remain unfinished. No new learned route,class certificate,assets or deployment."
+  ],
+  "inputs": {
+    "tools/reference/pet-owner-loss-source-evidence.json": "fcc6d7ee3f135c015edb0cc24f45c416c11265e2ded638f669a50550721367b5",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-missing-owner-20261109.json": "9c36616c461405224d0f9ca878de5301066ce91c2ce24fcd1266f8f61c77dfb8",
+    ".local/class-skills/warlock-runtime-reference/warlock-do56-control-path-20261109/capture.json": "8b87b9b8907f36afef454a731f710c8ca2eb9dd0fb6e816a514201cb2e75957d",
+    ".local/class-skills/warlock-runtime-reference/warlock-flame-wave-20261109/capture.json": "67dec0ec4937226662be3d66f6ed4717399e1e22324bdada2ae52bee9d0e322e",
+    "tools/reference/pet-ai-tables-data-evidence.json": "92e708dd1f252467ab6264fc19573f187059e6c372a1a610e00b5e7a3a090387",
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/generic-pet-search-services/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/pet-owner-loss/birth-inputs.json": "d6f18d8bb1a5b37c7a8da2bb9ef7adbb2d7846978467589ef482fc05f9d94678",
+    ".local/class-skills/pet-owner-loss/source-snapshot-2.json": "88df638e5d5f656de0143f19e3cd0e6a4d37606455c03dcae4459414829e74a3",
+    ".local/class-skills/pet-owner-loss/content-build-1.log": "786c25dbbcad4a2ecfc6c3144c6482887f0fff30263e2a053b74fd3f7fa3d434",
+    ".local/class-skills/pet-owner-loss/integration-build-1.log": "9aba818ccca6315a484c4052fe9c9e6f0f21c8491a7e90c73433684429c6d52f",
+    ".local/class-skills/pet-owner-loss/birth-native-checks.log": "88a79a831b411602fbb47e25436736a123a7eea774fcf6e99ceead38d835926a",
+    ".local/class-skills/pet-owner-loss/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-owner-loss/pet-command-target-fixtures.json": "68c516407466f2b788974bea3672aed8f221e37c9b91e6403c60f60a887ff6c0",
+    ".local/class-skills/pet-owner-loss/pre-roadmap-1/birth-native-checks.log": "05b8022c83b37e7208dc768523753812c1a3ceb70aa9d4657587ecda9f8f04ec",
+    ".local/class-skills/pet-owner-loss/pre-roadmap-1/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-owner-loss/pre-roadmap-1/birth-inputs.json": "74fc20fd21023224d81743e4559db748f5871f37f70e9bd3826b7b7a7338db3e",
+    ".local/class-skills/pet-owner-loss/pre-roadmap-1/source-snapshot-1.json": "d5ab80e6338d0754bd3a07383b3cb956fefce07c4e315b5332928cd675e427c5",
+    ".local/class-skills/pet-owner-loss/pre-roadmap-1/class-skill-status.json": "b61cfb3a08190605da93b9bdb5d7a28e8042a5ccafba9d7531fc74e7ab8aff87",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-owner-loss-checkpoint.md": "ebbf3ef1a28b95533d595af0e16ea0dc577f44e0c0087f5405a1083cc2cec96f",
+    "docs/class-skills-resume-checkpoint.md": "8d70d435ced1ef3feef852916dfa56d561ec65b543b306e25a4f142309e113a6",
+    "docs/class-skill-roadmap.md": "6afe6b3300d8bcbe1ca353268bdfaa8c36b82929263fe2e648de07a8cee2d21d",
+    "docs/class-skill-reuse-notes.md": "0419cba565ad81a4bbf80e75f9c78a13e7c17211487d80b7a1cf7db4225f4475",
+    "docs/skill-mechanical-reference.md": "26437b7be7ae94526a8318b0fbd9072a4a8b3be947d27901261ca08f80c02a49",
+    "tests/check_pet_owner_loss.py": "c07d2d4171750208ef7893f0b3e2c973147e2b01eadfb944baf2844e233675f4",
+    "tools/build_skill_roadmap.py": "84b1809125c448b37291d01e3864234f1b5a7d7e4ec7b082c84a54a24af6c40f",
+    "tools/record_pet_owner_loss.py": "5f00f364a9347b52b22cf695d7748260bc42238f497b1390c90c4a67c7e332e1"
+  }
+}

@@ -746,6 +746,13 @@ NATIVE_PARTIAL.add('warlock.eldritchblast')
 BLOCKERS['warlock.eldritchblast'] = 'Prepared pinned384 suppliers reuse SkillValues for magic endpoints,hard BladeWarp/HexPurge50percent synergies,hard PsychicWard duration,constant5life/mana recovery fields,raw range5,period30 and fractional mana. Nova721 is copied unchanged into an isolated profile,not emitted. Native tier/real gear/captured-context/reload checks qualify the suppliers only. Current do165 has only its92byte prefix readable;periodic state221 installation,perdelay timing,range geometry,nova emission,damage/recovery recipient order,magic mastery/pierce,RNG and startup/payment/input remain gated. Do not treat the skill as an ordinary travelling magic bolt or infer Param2/9 effects. See eldritch-blast-suppliers-checkpoint.md;effects/icons separate.'
 
 
+
+# Current dispatcher links are qualified,but these protected bodies establish no mechanics.
+BLOCKERS['warlock.flamewave'] = 'Current do156 is dispatcher-linked at44cfd0,but all648bytes across3unwind fragments remain protected in the2026-11-09reference check. Owned graph708unveiling/do42->690wave/do38->695/716fire/do6is data only;actual wall extension,offset tails,ground-fire lifetimes,hit-delay identity,packet/mastery/pierce and learned input/payment remain unsupported. Do not substitute an ordinary cone or travelling bolt. See pet-owner-loss-checkpoint.md;effects/audio/icons remain separate.'
+for _talent in ['warlock.summongoatman','warlock.summontainted','warlock.summondefiler','warlock.deathmark']:
+    if _talent in BLOCKERS:
+        BLOCKERS[_talent] += ' Current do56 is dispatcher-linked at4571d0,but its1207byte body is protected;AI control startup/production remains unknown despite completed prepared entry/pre/post/override policies. Optional existing-demon recast request is nonblocking;do not repeat unchanged reads or invent header defaults.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

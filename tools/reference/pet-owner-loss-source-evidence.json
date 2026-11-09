@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceBytes": 706,
+  "callbackBytes": 933,
+  "composedBytes": 1639,
+  "sourceContexts": 48,
+  "composedMissingOwnerContexts": 6,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete death orchestrator plus six actual callback1 missing-owner transitions,with explicit metadata,registry,owner detach,linked notification,credit and mode-execution leaves. Actual callback context0/1 and direct-call identities are known;world death admission remains separate. Packet fields outside target/facing stay owned by initialized mode service.",
+  "artifacts": {
+    ".local/class-skills/pet-owner-loss-source/cases.json": "db3a5178329a06134c19bbdd7281b6cf264a2ed471a9ba96fb83cb5bdc101226",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-missing-owner-20261109-392be0-part0.bin": "489a28006a736d034e3213be30e1fcbda3efd0f3502812588232ac67e4ec594f",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-missing-owner-20261109-392be0-part1.bin": "cd4f64a788b64ba2c25c249bec4d15c33a8742d24efd435e82bda728d0d72bdf",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-missing-owner-20261109-392be0-part2.bin": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-missing-owner-20261109-392be0-part3.bin": "79e5755e8a520df2a032d7ea59a0f8e27928d0ef08a5444cbd6ad7608dce5657",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-missing-owner-20261109.json": "9c36616c461405224d0f9ca878de5301066ce91c2ce24fcd1266f8f61c77dfb8",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109-4b66e0-part0.bin": "05c3792e2222b125829c846eebd74e8678ea9fe3c687749f44d1f6abbe7b6230",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109-4b66e0-part1.bin": "3af4c4145ea7bbc6a5a3e886afd5fc9e111b4411112178d9fed06698553a64e7",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109-4b66e0-part2.bin": "586d062f51c2919360c393b0c8be4e2444de94c5cf2115a162ffefba3b701d09",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109-4b66e0-part3.bin": "2adfd92bfc288f19483314b56a172b1034ac8158b07002dfe07c52b7339738d6",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109-4b66e0-part4.bin": "eddb6b7a856612552ea6ed85682334fa9df59ea6f3de078d58c9a7fefd1160a7",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-overrides-20261109.json": "a848a333f30c95f6ac9a7c1869c2b3932a729b1761749494d2b3923e284bca33",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_owner_loss.py": "03f82793be92c2ea59d232e2959bb15600ccd9fadead4ca0a746d0eec037b224"
+  }
+}
