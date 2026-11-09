@@ -30,6 +30,7 @@ public static class GenericPetNativeStatusChecks
         foreach(var body in bodies)
         {
             GenericPetSchedulingStateChecks.Original(body);
+            GenericPetLinkedUnitChecks.Original(body);
             int id=Id(body),cls=WarlockDemonPlacement.ClassId(body),life=SkillHealth.Balance256(body),mana=body.Mana;string birth=Birth(body);var command=DeathMarkWorld.State(body);
             Require(GenericPetNativeControlStates.Read(body)==0,"Fresh/reloaded status fixture retained a control effect");
             body.Frozen=true;body.Paralyzed=true;

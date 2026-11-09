@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceContexts": 55,
+  "machineCodeBytes": 1055,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete notification/cleanup/validity plus fixed owner-loss Invoke over stable caller-provided vector storage. Typed registry bucket/owner lookup and recursive death effects declared;actual Invoke runs. Logical fixed-functor release and allocator/memcpy services declared;arbitrary storage relocation/destructor/allocator ABI not certified.",
+  "artifacts": {
+    ".local/class-skills/pet-linked-units-source/cases.json": "77cb7c6813cbe14cb6b3b9f54be7037b3fcba7114759a19a46685e001d6d94ef",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-linked-validity-20261109-333b60-part0.bin": "a4c4e17887170b4483f0b6b6893e4fd579bc4ce758b1ea7a052556fb0ba1e328",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-linked-validity-20261109.json": "2df61f2ed8f92bff179244b2d5e2dcfe3612533833b99026215fa75a7e4580d3",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333c20-part0.bin": "ac2f163493c1f3e690d89d3188e441ebc01f9d644321d54012a851131d734d38",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333c20-part1.bin": "2b09e6d0bddfe646f43a15edfa6e066ca5a985212114b0d55991bbe7d22f2728",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333c20-part2.bin": "370a46fe44897e12ea2428ba76689828a95816b98023f0ef7396b3603d959bfd",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333c20-part3.bin": "c0f0cd14c0d25bbee23a6ba6676a768a8ec71fa7e1df3b64c154bba7fe2c2e96",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333e10-part0.bin": "61def5c67a25e8a732f8a5f78386850fbe93bdc2d275f72418e445cbccebd25c",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333e10-part1.bin": "c88ee45549127f74c03a1af6576cbbf2e02ed6a44138ba240d1ab428ba323521",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333e10-part2.bin": "769253a27914ecc9b5167db358c91d740a2f2088b35e46844fc909d8a54f778d",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333e10-part3.bin": "63c8f5d1e5b9ce1a0d4ecd05668daf5cb2f717a3f40181dbe87b2f471e640ad1",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333e10-part4.bin": "5d9e7d3c4381a78aceeecc046ebd71bcdbce26176a8d70293aa576bd03855d8f",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109-333e10-part5.bin": "d7c37382cd56bf9ed58934c46f094995a9abc59ff7352449dc981767ce0479d7",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-owner-loss-links-20261109.json": "ddc99eeee9e313cbbcd2f2ed8308fd2a9fd636a1d1e46c0a052119cef3b5dcd7",
+    ".local/class-skills/warlock-runtime-reference/pet-death-functor-20261109-334050-part0.bin": "876a3169e62618d0dd4c4bd829c5f1790af2bde5256f430753bc4aa2823382f0",
+    ".local/class-skills/warlock-runtime-reference/pet-death-functor-20261109.json": "5f24862b2f84a119f57c56284ea92043416b716c6017eb92f67e9a1541af1af1",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_linked_units.py": "eb7d490ed10038c361d84a418d256490549b375219e68d99c4e0e30fe08b8ea8"
+  }
+}

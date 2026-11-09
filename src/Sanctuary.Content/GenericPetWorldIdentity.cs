@@ -51,7 +51,8 @@ internal sealed class GenericPetWorldIdentity
         return checked((int)entity.Serial.Value);
     }
     internal int Resolve(int game,int kind,int id)=>GenericPetRegistry.Resolve(game,kind,id,Registry);
-    internal GenericPetOwnerControl PlayerOwner(BaseCreature actor)
+    internal GenericPetOwnerControl PlayerOwner(BaseCreature actor)=>DirectOwner(actor,false);
+    private GenericPetOwnerControl DirectOwner(BaseCreature actor,bool allowNpc)
     {
         ArgumentNullException.ThrowIfNull(actor);
         if(actor.Deleted){throw new NotSupportedException("Deleted actor has no live ownership projection");}
@@ -59,8 +60,8 @@ internal sealed class GenericPetWorldIdentity
         // flags. Reuse that policy rather than inventing two owner routes.
         var owner=actor.GetMaster();
         if(owner==null){return null;}
-        if(owner is not PlayerMobile){throw new NotSupportedException("NPC-owned unit needs the actual source owner-node list");}
-        return new(Game,0,checked((int)owner.Serial.Value),0);
+        int kind=owner is PlayerMobile?0:allowNpc&&owner is BaseCreature?1:throw new NotSupportedException("NPC-owned unit needs the actual source owner-node list");
+        return new(Game,kind,checked((int)owner.Serial.Value),0);
     }
     private BaseCreature Actor(int handle)
     {
@@ -91,6 +92,18 @@ internal sealed class GenericPetWorldIdentity
         {
             var u=original.Unit(id);
             return u.Position.Kind==1&&u.HasMonsterData?u with{Owner=Owner(id,u.Owner)}:u;
+        }};
+    }
+    // Linked validity needs only the direct owner,not an NPC owner-node list.
+    // Preserve supplied source flags/mode/vector;project actual native master
+    // changes and reuse the existing typed registry for player or NPC owners.
+    internal GenericPetLinkedServices Bind(GenericPetLinkedServices original)
+    {
+        ArgumentNullException.ThrowIfNull(original);
+        return original with{Resolve=Resolve,Unit=id=>
+        {
+            var unit=original.Unit(id);
+            return unit is{Kind:1,HasMonsterData:true,Ai:not null}?unit with{Ai=DirectOwner(Actor(id),true)}:unit;
         }};
     }
 }
