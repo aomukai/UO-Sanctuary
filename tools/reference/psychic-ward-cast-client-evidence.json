@@ -1,0 +1,26 @@
+{
+  "nativeCommit": "ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93",
+  "inputManifest": {
+    "path": ".local/class-skills/psychic-ward-cast/client-inputs-1.json",
+    "sha256": "14532493573e2044c3a2931f5fc53575c5a2a6fec830252a54eb8f689e350328"
+  },
+  "patches": 43,
+  "affectedPaths": 42,
+  "buildWarnings": 44,
+  "buildErrors": 0,
+  "graphicalInputVerified": false,
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "scope": "Required isolated client rebuild with Ward self-target metadata. Existing43patches reverse to exact local pinned source then forward to identical built inputs. All linked shared sources match workspace. No new patch,dependency update or installed-client change.",
+  "limits": [
+    "Existing/isolated-build warnings retained;no optional audit or package migration.",
+    "Connected server input is verified separately;actual graphical interaction/rendering remains unverified."
+  ],
+  "files": {
+    "tools/review_psychic_ward_client.py": "a89bc7f2a5cc78440a0eba17305fe37dbb4b7db5ef8ab653bc136657d43b146a",
+    "tools/prepare_psychic_ward_client.py": "4e157aaa09f73f91c68adabe9b4ecbae184d8bc12c694a34421e0c641467b7d7",
+    ".local/class-skills/psychic-ward-cast/client-build-1.log": "ae2b5ced359611530b0d079c2e84f0a86ac115df802b028dcd3cbeb81ee2fcc5",
+    ".local/class-skills/psychic-ward-cast/client/cuo.dll": "779d699d30a49e72b79c575c28214adcbdcd2c9c5be0ee237927c8841928d2ad"
+  }
+}

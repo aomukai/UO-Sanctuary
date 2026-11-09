@@ -104,6 +104,7 @@ public static class NecromancerEffects
     {
         Profiles = new(); EventSink.WorldSave += Profiles.Prune;
         ClassCombatHooks.SkillResistedDamage = SkillCombat.ResistedDamage;
+        ClassCombatHooks.SkillUnresistedDamage = SkillCombat.UnresistedDamage;
         // Native AOS supplies the fractional physical event before committing life.
         // Its later ordinary hit callback must not repeat Life Tap.
         ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false,ironMaiden:false,frozenArmor:false);
@@ -351,6 +352,11 @@ public static class NecromancerEffects
     }
     internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)
     {PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged);}
+    internal static void PreparedNativeWeaponHitContext(Mobile attacker,Mobile target,int physical256,bool ranged,object context)
+    {
+        if(context is not PsychicWardReactionProposal.Ticket ward){throw new NotSupportedException("Unknown native weapon-hit context");}
+        PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged,ward:ward);
+    }
     public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true,bool ironMaiden=true,bool frozenArmor=true)
     {
         SorceressEffects.MeleeHit(attacker, target, physicalLoss, ranged, frozenArmor);

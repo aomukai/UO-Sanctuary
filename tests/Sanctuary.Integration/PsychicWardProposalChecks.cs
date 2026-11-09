@@ -60,7 +60,7 @@ public static class PsychicWardProposalChecks
             Require(!PsychicWardCastingProposal.ResolveReview(p,effect)&&PsychicWard.State(p)==null&&NecromancerEffects.ManaBalance256(p)==mana,"Ward allocation failure group/debit changed");
         }
         finally{PsychicWard.Allocate=oldAllocate;}
-        Log.Information("Ward proposal windup:shared WKSC clock,unpaid windup,Stop/movement/freeze/late mana cancellation,once-only release and group-clear allocation failure pass;public input remains gated.");
+        Log.Information("Ward proposal windup:shared WKSC clock,unpaid windup,Stop/movement/freeze/late mana cancellation,once-only release and group-clear allocation failure pass;review helper remains separate from public route verification.");
     }
     private static void Reactions(PlayerMobile p)
     {
@@ -98,9 +98,9 @@ public static class PsychicWardProposalChecks
     }
     private static void Check(bool reload)
     {
-        bool refused=false;try{PsychicWardReactionProposal.RequireApproval();}catch(NotSupportedException){refused=true;}
-        Require(refused&&!WarlockCombat.Implemented(CombatAbility.PsychicWard),"Unapproved Ward admitted");
-        var temporary=Fresh();try{Windup(temporary);Reactions(temporary);Require(!SkillBindings.Instance.Assign(temporary,false,CombatAbility.PsychicWard)&&!SkillBindings.Instance.AssignQuick(temporary,0,CombatAbility.PsychicWard),"Unapproved Ward bindings accepted");}
+        PsychicWardReactionProposal.RequireApproval();
+        Require(WarlockCombat.Implemented(CombatAbility.PsychicWard),"Approved Ward route missing");
+        var temporary=Fresh();try{Windup(temporary);Reactions(temporary);Require(SkillBindings.Instance.Assign(temporary,false,CombatAbility.PsychicWard)&&SkillBindings.Instance.AssignQuick(temporary,0,CombatAbility.PsychicWard),"Approved Ward bindings refused");}
         finally{temporary.Delete();PsychicWard.Prune();}
         Manifest manifest;
         if(!reload)

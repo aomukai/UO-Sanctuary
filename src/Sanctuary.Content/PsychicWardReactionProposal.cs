@@ -4,11 +4,11 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Explicit Sanctuary candidate,not recovered event37 semantics. Production
-// callers do not capture tickets until approval; no mutable global hit cache.
+// Approved Sanctuary incoming rule,not recovered event37 semantics.
+// Each damage packet owns its ticket;there is no mutable global hit cache.
 internal static class PsychicWardReactionProposal
 {
-    internal const bool Approved=false;
+    internal static bool Approved=>true;
     internal static void RequireApproval()
     {if(!Approved){throw new NotSupportedException("Psychic Ward incoming-event proposal awaits approval");}}
     internal sealed class Ticket(PlayerMobile owner,BaseCreature attacker,PsychicWardState registered)

@@ -758,6 +758,8 @@ BLOCKERS['warlock.binddemon'] = 'Prepared current do158 orchestration matches69s
 
 BLOCKERS['warlock.psychicward'] += ' A tested explicit Sanctuary reaction/input proposal now reuses shared WKSC windup,mitigation and incoming return/stun services. It captures positive successful NPC physical-melee registration before absorption,reacts once before HP even on fully absorbed/exhausting hits,and retains original fractional pools through reload. Rule approved2026-11-09;production capture/learned bridge still needs implementation and verification. See psychic-ward-reaction-proposal.md.'
 
+BLOCKERS['warlock.psychicward'] = 'Learned ordinary Warlock/Witch self SC/right/quick cast uses the pinned table cost once at release and existing group1 pool persistence. Approved incoming rule captures the registration before absorption and carries per-packet context through native normal/armor-ignore damage or class weapon delivery into the shared return/stun slot;fully absorbed and depleting hits can stun before HP,with no extra mana. Actual native positive/negative contact,ranged/elemental/fractional overflow and saved original pools have dedicated checks. Current event37/40parity remains an explicit adaptation;EnergyShield coexistence,player-attacker/PvP,legacy non-AOS/special native modifiers/full source event/room/client-graphics acceptance remain unverified. See psychic-ward-cast-checkpoint.md;final effects/audio and talent/right/quick icons remain separate placeholders.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

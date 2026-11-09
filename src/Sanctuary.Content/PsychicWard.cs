@@ -17,8 +17,8 @@ public sealed class PsychicWardProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Psychic Ward version");}PsychicWard.Restore(JsonSerializer.Deserialize<PsychicWardState[]>(reader.ReadString()));}
     public override void PostDeserialize()=>PsychicWard.Prune();
 }
-// Prepared buff and physical-pool consumer. Learned casting and automatic
-// reactive event37 delivery stay gated; no guessed on-hit/HP-loss hook is added.
+// Persistent physical pool with approved captured incoming-melee reactions.
+// Pool exhaustion does not erase the current packet's registered reaction.
 public static class PsychicWard
 {
     private static ImmutableDictionary<uint,PsychicWardState> _states=ImmutableDictionary<uint,PsychicWardState>.Empty;
@@ -51,7 +51,7 @@ public static class PsychicWard
     internal static (int Capacity256,int StunFrames,int Mana256) Values(SkillValues values)
     {
         var s=SkillMechanics.For(CombatAbility.PsychicWard);
-        if(values.Ability!=CombatAbility.PsychicWard||values.Rank is <1 or >255||s.SourceId!=387||s.Number("srvdofunc")!=18||s.Text("aurastate")!="psychicward"
+        if(values.Ability!=CombatAbility.PsychicWard||values.Rank is <1 or >255||s.SourceId!=387||s.Number("srvdofunc")!=18||s.Number("InTown")!=1||s.Text("aurastate")!="psychicward"
             ||s.Text("aurastat1")!="psychicward"||s.Text("aurastat2")!="psychicwardmax"||s.Text("auraevent1")!="absorbdamage"||s.Number("auraeventfunc1")!=40
             ||s.Text("auraevent2")!="damagedinmelee"||s.Number("auraeventfunc2")!=37||values.Eval("auralencalc")!=0)
         {throw new NotSupportedException("Unsupported Psychic Ward route");}

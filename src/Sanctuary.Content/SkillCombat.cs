@@ -143,7 +143,7 @@ public static class SkillCombat
             impact(target);
         }
     }
-    public static ClassSkillDamage? ResistedDamage(Mobile target, Mobile source, int damage, int physical, int fire, int cold, int poison, int lightning, bool spell, bool weapon)
+    public static ClassSkillDamage? ResistedDamage(Mobile target, Mobile source, int damage, int physical, int fire, int cold, int poison, int lightning, bool spell, bool weapon,bool ranged=false)
     {
         bool classPlayer=target is PlayerMobile victim && ClassCombat.Enabled(victim) || source is PlayerMobile attacker && ClassCombat.Enabled(attacker);
         if (!classPlayer && !(target is BaseCreature equipped&&NpcEquipmentCombat.Context(equipped)!=null)
@@ -152,11 +152,24 @@ public static class SkillCombat
             && SorceressEffects.Shield(target) == null && SorceressEffects.Armor(target) == null
             && !PaladinResistance.Active(target) && !PaladinThorns.Active(target) && !PaladinConviction.Managed(target)
             && (!weapon || SorceressEffects.Enchantment(source) == null && !PaladinElements.WeaponActive(source) && PaladinAuras.NativeWeaponMultiplier(source,true)==1)) { return null; }
+        var ward=PsychicWardReactionProposal.Capture(source,target,NamedElements.To256(damage*physical/100.0),weapon&&!ranged,weapon);
         var parts = Mitigate(source, target, new(damage * physical / 100.0 * PaladinAuras.NativeWeaponMultiplier(source,weapon),
             damage * fire / 100.0 + (weapon ? SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),source.Weapon is BaseRanged) : 0),
             damage * cold / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * lightning / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * poison / 100.0, Magic: weapon?HexBane.WeaponMagic(source):0), spell);
         return new ClassSkillDamage((int)Math.Max(0, parts.Total), (int)Math.Max(0, parts.Physical))
-            {Total256=NamedElements.To256(parts.Total),Physical256=NamedElements.To256(parts.Physical)};
+            {Total256=NamedElements.To256(parts.Total),Physical256=NamedElements.To256(parts.Physical),WeaponContext=ward};
+    }
+    // Native armor-ignore bypasses resistance,not the Ward physical pool.
+    // Leave all pre-existing unshielded damage routes untouched.
+    internal static ClassSkillDamage? UnresistedDamage(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged)
+    {
+        if(PsychicWard.State(target)==null){return null;}
+        if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
+        int raw=NamedElements.To256(damage*physical/100.0);
+        var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);
+        int remaining=NamedElements.To256(PsychicWard.AbsorbPhysical(target,raw/256.0));
+        int total=Math.Max(0,NamedElements.To256(damage)-(raw-remaining));
+        return new(total/256,remaining/256){Total256=total,Physical256=remaining,WeaponContext=ward};
     }
     private static GearDamage Mitigate(Mobile source, Mobile target, GearDamage damage, bool spell,bool enhanceBase=true)
     {
@@ -230,11 +243,12 @@ public static class SkillCombat
             damage=damage with{Physical=damage.Physical*PaladinAuras.NativeWeaponMultiplier(source,true)};
             if(addWeaponElements){damage=damage with{Fire=damage.Fire+SorceressEffects.EnchantFire(source,Utility.RandomDouble())+PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),ranged),Cold=damage.Cold+PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),ranged),Lightning=damage.Lightning+PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),ranged),Magic=damage.Magic+HexBane.WeaponMagic(source)};}
         }
+        var ward=PsychicWardReactionProposal.Capture(source,target,NamedElements.To256(damage.Physical),weapon&&!ranged,weapon);
         var parts = Mitigate(source, target, damage with { Poison = 0 }, spell,enhanceBase);
         double physical = parts.Physical, total = parts.Total;
         int before = target.Hits;
         source.DoHarmful(target, true);
-        if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(physical),ranged);}
+        if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(physical),ranged,ward:ward);}
         if(weapon&&damage.Cold>0&&sourceColdFrames>0){ColdStates.Apply(source,target,sourceColdFrames,Core.TickCount);}
         if(sourceFreezeFrames>0){FreezeStates.Apply(source,target,sourceFreezeFrames,Core.TickCount);}
         if (total > 0) { SkillHealth.Damage(source,target,NamedElements.To256(total)); }

@@ -1,0 +1,93 @@
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -7,6 +7,7 @@
+ {
+     public int? Total256 { get; init; }
+     public int Physical256 { get; init; }
++    public object WeaponContext { get; init; }
+ }
+ public static class ClassCombatHooks
+ {
+@@ -18,11 +19,24 @@
+     public static Func<Mobile, Mobile, IDisposable> WeaponDamageHealth { get; set; }
+     public static Func<Mobile, Mobile, bool, IDisposable> MeleeAttempt { get; set; }
+     public static Action<Mobile, Mobile, int, bool> PreparedWeaponDamage { get; set; }
++    public static Action<Mobile, Mobile, int, bool, object> PreparedWeaponDamageContext { get; set; }
++    public static void DispatchPreparedWeaponDamage(Mobile source, Mobile target, int physical256, bool ranged, ClassSkillDamage? hit)
++    {
++        if (hit?.WeaponContext is { } context && PreparedWeaponDamageContext is { } receive)
++        {
++            receive(source, target, physical256, ranged, context);
++        }
++        else
++        {
++            PreparedWeaponDamage?.Invoke(source, target, physical256, ranged);
++        }
++    }
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
+     public static Action<Mobile, Mobile, string> SkillMissileHit { get; set; }
+     public static Action<Mobile> CreatureEffectsEnded { get; set; }
+     public static Func<PlayerMobile, int, int> WalkingDelay { get; set; }
+-    public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
++    public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, bool, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
++    public static Func<Mobile, Mobile, int, int, bool, bool, ClassSkillDamage?> SkillUnresistedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }
+     public static Func<Mobile, Mobile, bool> TargetAllowed { get; set; }
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -149,7 +149,7 @@
+                 totalDamage += damage * nrgy * (100 - resNrgy);
+ 
+                 totalDamage /= 10000;
+-                skillResistance = ClassCombatHooks.SkillResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy, spellDamage, weaponDamage);
++                skillResistance = ClassCombatHooks.SkillResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy, spellDamage, weaponDamage, archer);
+                 var projectResistance = skillResistance?.Total
+                     ?? (spellDamage ? ClassGearHooks.SpellResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy) : null)
+                     ?? ClassGearHooks.ResistedDamage?.Invoke(m, damage, phys, fire, cold, pois, nrgy)
+@@ -180,7 +180,7 @@
+                             var preparedPhysical = skillResistance is { } prepared
+                                 ? prepared.Physical256 > 0 ? prepared.Physical256 : (int)Math.Clamp((long)prepared.Physical * 256, 0, int.MaxValue)
+                                 : 0;
+-                            ClassCombatHooks.PreparedWeaponDamage?.Invoke(from, m, preparedPhysical, archer);
++                            ClassCombatHooks.DispatchPreparedWeaponDamage(from, m, preparedPhysical, archer, skillResistance);
+                         }
+                         return 0;
+                     }
+@@ -233,6 +233,15 @@
+             if (keepAlive && totalDamage > m.Hits)
+             {
+                 totalDamage = m.Hits;
++            }
++
++            if (ignoreArmor)
++            {
++                skillResistance = ClassCombatHooks.SkillUnresistedDamage?.Invoke(m, from, damage, phys, weaponDamage, archer);
++                if (skillResistance is { } unresisted)
++                {
++                    totalDamage -= damage - unresisted.Total;
++                }
+             }
+ 
+             var bcFrom = from as BaseCreature;
+@@ -273,6 +282,11 @@
+ 
+             if (totalDamage <= 0 && fixedTotal256 is not > 0)
+             {
++                if (weaponDamage && skillResistance?.WeaponContext != null)
++                {
++                    var physical256 = skillResistance.Value.Physical256;
++                    ClassCombatHooks.DispatchPreparedWeaponDamage(from, m, physical256, archer, skillResistance);
++                }
+                 return 0;
+             }
+ 
+@@ -281,7 +295,7 @@
+                 var preparedPhysical = skillResistance is { } prepared
+                     ? prepared.Physical256 > 0 ? prepared.Physical256 : (int)Math.Clamp((long)prepared.Physical * 256, 0, int.MaxValue)
+                     : (int)Math.Clamp((long)totalDamage * phys * 256 / 100, 0, int.MaxValue);
+-                ClassCombatHooks.PreparedWeaponDamage?.Invoke(from, m, preparedPhysical, archer);
++                ClassCombatHooks.DispatchPreparedWeaponDamage(from, m, preparedPhysical, archer, skillResistance);
+             }
+ 
+             if (from != null) // sanity check

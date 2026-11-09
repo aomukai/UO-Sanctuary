@@ -12,6 +12,7 @@ public static class PaladinThorns
     {
         ClassCombatHooks.MeleeAttempt=Attempt;
         ClassCombatHooks.PreparedWeaponDamage=NecromancerEffects.PreparedNativeWeaponHit;
+        ClassCombatHooks.PreparedWeaponDamageContext=NecromancerEffects.PreparedNativeWeaponHitContext;
         ClassCombatHooks.WeaponDamageHealth=PlayerMeleeReturn.Health;
     }
     // Legacy public entry point now consumes the shared physical ATD stat.

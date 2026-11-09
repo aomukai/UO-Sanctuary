@@ -26,7 +26,7 @@ public static class PsychicWardChecks
         foreach(var (rank,frames) in new[]{(1,44),(20,77),(21,77),(255,85)}){Require(PsychicWard.Values(Values(rank)).StunFrames==frames,"Ward stun frames/current shared diminishing curve");}
         foreach(int pool in new[]{0,1,255,256,257,3840})foreach(int damage in new[]{0,1,255,256,257,3840,9999})
         {var s=SourceAbsorptionPool.Take(pool,damage);Require(s.Remaining256+s.Absorbed256==pool&&s.Damage256+s.Absorbed256==damage&&s.Remaining256>=0&&s.Damage256>=0,"Physical pool conservation");}
-        Require(!WarlockCombat.Implemented(CombatAbility.PsychicWard),"Prepared Ward enabled incomplete learned casting");
+        Require(WarlockCombat.Implemented(CombatAbility.PsychicWard),"Approved Ward learned route missing");
         Log.Information("Psychic Ward:2295current formula controls,44frame rank1stun and fractional pool conservation pass; event37delivery remains supplied");
     }
     private static PlayerMobile Fresh(bool female=false)
@@ -81,7 +81,7 @@ public static class PsychicWardChecks
             Mana(p);PsychicWard.CastPrepared(p);var registered=PsychicWard.State(p);CombatStuns.Clear(enemy);
             Require(!PsychicWard.ReactPrepared(p,registered,enemy,false,TimedEffects.Now)&&CombatStuns.Remaining(enemy)==0,"Ineligible event applied stun");
             Require(PsychicWard.ReactPrepared(p,registered,enemy,true,TimedEffects.Now)&&CombatStuns.Remaining(enemy)>1500,"Explicit eligible event did not reach shared native stun");CombatStuns.Clear(enemy);
-            Require(!SkillBindings.Instance.Assign(p,false,CombatAbility.PsychicWard)&&!SkillBindings.Instance.AssignQuick(p,0,CombatAbility.PsychicWard),"Unfinished Ward input accepted");
+            Require(SkillBindings.Instance.Assign(p,false,CombatAbility.PsychicWard)&&SkillBindings.Instance.AssignQuick(p,0,CombatAbility.PsychicWard),"Ward input refused");
         }
         finally{enemy.Delete();p.Delete();PsychicWard.Prune();}
     }
