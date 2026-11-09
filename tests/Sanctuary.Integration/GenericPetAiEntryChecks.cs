@@ -68,7 +68,8 @@ public static class GenericPetAiEntryChecks
         Require(count==57,"Missing full-entry controls");
         Log.Information("AI entry:57complete-current contexts/1096bytes;metadata/snapshot ordering,all target modes,original/replaced overrides,stable queued predicates/FIFO/release and current default call match. Helper/native-world internals remain explicit.");
     }
-    internal static void Original(SkeletonGuardian body,int owner,GenericPetWorldIdentity world,GenericPetInitializationServices leaves,GenericPetTimedEvents events)
+    internal static void Original(SkeletonGuardian body,int owner,GenericPetWorldIdentity world,GenericPetInitializationServices leaves,GenericPetTimedEvents events,
+        Func<GenericPetAiControl,GenericPetAiTick,bool> preprocess=null,bool expectPreprocessStop=false)
     {
         int id=checked((int)body.Serial.Value),sourceClass=WarlockDemonPlacement.ClassId(body);int calls=0;
         // Both current table indices are exercised as explicit fixtures. Neither
@@ -83,7 +84,7 @@ public static class GenericPetAiEntryChecks
         {Require(actor==id,"AI entry bound wrong original");return new(1,sourceClass,true,control,0,0);},
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowA lookup changed");return 1;},
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowB lookup changed");return 2;},
-            GenericPetAiOverrideTables.At,tick=>GenericPetAiPreprocessChecks.Original(body,control,tick),(_,state)=>
+            GenericPetAiOverrideTables.At,tick=>preprocess==null?GenericPetAiPreprocessChecks.Original(body,control,tick):preprocess(control,tick),(_,state)=>
             {Require(state==0,"Original fixture state changed");return GenericPetAiSelectionChecks.Original(body,state);},(_,_)=>throw new InvalidOperationException("GenericPet type0 should reuse its root targeting"),
             tick=>GenericPetAiPostTargetChecks.Original(body,tick),(_,_)=>throw new InvalidOperationException("Unexpected queued predicate"),(_,_,_)=>throw new InvalidOperationException("Unexpected queued action"),
             _=>throw new InvalidOperationException("Unexpected release"),(function,tick,fallback)=>
@@ -91,7 +92,8 @@ public static class GenericPetAiEntryChecks
                 Require(function==GenericPetAiOverrideTables.At(index).Function,"Original override callback identity changed");
                 GenericPetAiOverrideChecks.Original(body,owner,world,leaves,events,index,control,tick,fallback,Default);
             },Default);
-        var result=GenericPetAiEntry.Run(id,0,services);Require(calls==1&&ReferenceEquals(result.Control,control)&&!control.Executing,"Original entry did not finish its default root");
-        Log.Information("AI entry original:typed event->full prepared entry->registered demon root on same event store;birth/wound/command/control retained. Explicit helper/control fixtures;automatic admission remains gated.");
+        var result=GenericPetAiEntry.Run(id,0,services);Require(calls==(expectPreprocessStop?0:1)&&ReferenceEquals(result.Control,control)&&!control.Executing,"Original entry did not finish its expected preprocess/root path");
+        if(expectPreprocessStop){Log.Information("AI entry original:live preprocessing stopped before default root;automatic admission remains gated.");}
+        else{Log.Information("AI entry original:typed event->full prepared entry->registered demon root on same event store;birth/wound/command/control retained. Explicit helper/control fixtures;automatic admission remains gated.");}
     }
 }

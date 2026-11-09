@@ -1,0 +1,89 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "reviewOnly": true,
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "sourceStates": {
+    "freeze": 1,
+    "stunned": 21
+  },
+  "selector": 1,
+  "newTimers": 0,
+  "newSavedFormats": 0,
+  "originalSpecies": 3,
+  "additionalOriginalReviewActors": 3,
+  "frozenDeliveriesSuppressed": 9,
+  "stunnedEntriesPaused": 9,
+  "recoveredRootRuns": 9,
+  "newReferenceReadBytes": 0,
+  "oldLargeOfflineMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-native-status-check": 1,
+    "pet-native-status-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "4649ea0690419fb1d027dfd17d3bd3b391f98459897f9905419b7a07fdb2cc80",
+    "Assemblies/Sanctuary.Integration.dll": "a9e39561057caef8968e5f10ca35eaa307b50375761476ee7a9a5a0377c52c95"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Existing freeze/stun providers supply pinned state1/21 bits. Unsupported selectors/state-count/root forms refuse. Preprocessing projection keeps unrelated words,flags,path and movement. Native movement locks and post-freeze AI waiting are not misrepresented as active source freeze/stun.",
+    "Real original actors stage existing effect producers. Shared pump/router blocks nine frozen AI events. Nine live stunned full entries pause three frames before root/control publication. Clear permits exactly nine single recovered roots at the scheduled deadline,with no early or replayed action. Actual overrides/initializer and default root retain supplied commands/birth/wounds/mana through two reloads.",
+    "Shared evidence protection helper now accepts an explicit current client receipt/patch count and verifies its input manifest. Legacy default receipt/count remain unchanged. Current43patch preservation passes."
+  ],
+  "limits": [
+    "Projection covers only two states consumed by these event/preprocess policies,not the complete source stat root. Caller still supplies qualified flags/mode/path/world leaves. State54/143,special AI,other live state and action/death bindings remain separate.",
+    "Tests clear only their own post-freeze waiting fixture before stun coverage;no gameplay wait rule changes. Existing freeze/stun persistence/providers unchanged. No production admission,automatic timer,event persistence,startup default,save migration,learned skill,class certificate,deployment or assets. Separate startup proposal still pending."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/GenericPetNativeControlStates.cs": "01858f8eee0f65c3854ebfd48ba5fd0f71fc7758ca739e881e13701ff0bb8eeb",
+    ".local/class-skills/pet-native-status/birth-inputs.json": "1e9138c47f9095b8c31020b5955f1943971ad28f18033ae8b1d11a5b0f04799e",
+    ".local/class-skills/pet-native-status/source-snapshot-1.json": "0302278063248398aca31bebc01b1aae221fb909f0ca3de1e057356a7655a6ac",
+    ".local/class-skills/pet-native-status/content-build-1.log": "8532cb58a001445f17158f925a2b8a12b2b4d79b25f66ce67ce5a76bb10f2330",
+    ".local/class-skills/pet-native-status/integration-build-1.log": "3858355a4ee842e8adac263610f9483fbc2628a71050f564b87a181a4ac1831c",
+    ".local/class-skills/pet-native-status/birth-native-checks.log": "03eb21d5d7b69b162ba3cc1c7077241f2d2cfdd042559cf7bc87550a0002c0f7",
+    ".local/class-skills/pet-native-status/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-native-status/pet-native-status-fixtures.json": "19ee7c86dc87db8456e32eabf675df52b095080083ed4906d96ab36a52d65953",
+    ".local/class-skills/pet-native-status/pet-command-target-fixtures.json": "8f4ce952acfb836f7f6d83fd70628448dd86270046def60ea48259222043c80d",
+    "tools/skill_checkpoint_evidence.py": "5d035fccb612fe3bf2be6700b47dfc3bc7eecdaa0b66096c6d090ceb27a4d432",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-native-status-checkpoint.md": "c14e764147581257247f9fc7ba104f897fc36eaa96f33b587ed19dd0e4bfecb4",
+    "docs/class-skills-resume-checkpoint.md": "b3b1506bb495c350c5af83551412581277b480c4d44f545e383ee737a8fcf336",
+    "docs/class-skill-roadmap.md": "514d9a934c3f9a7de0388bbd5f8da145431b312bf2d4225638fd976418367b3c",
+    "docs/class-skill-reuse-notes.md": "adf28f84adf0c8e82b8f398c391be80f09f88fee375c7e284cdd216207a0c63b",
+    "docs/skill-mechanical-reference.md": "07a9ef312475c4aa31a113eaa3ff7663df14d43d89ed5db5c8bdb86d857cb0c3",
+    "tests/check_pet_native_status.py": "5c028b889c47fdb8d33fd51078d7281ef95359b53381f749c653762cf3b54789",
+    "tests/Sanctuary.Integration/GenericPetAiEntryChecks.cs": "1852f5736d9b5d8cd7021f41d174f4a9bcebd1bcf655e3cb26fb2b44ad45e530",
+    "tools/record_pet_native_status.py": "4dee4f798cbb9deeddeacb82bbcee584e8b13a82dade64a46785215fdc02b728"
+  }
+}

@@ -51,7 +51,7 @@ def audits(stage,parent,artifacts):
     return counts
 
 
-def protection():
+def protection(client_reference='tools/reference/poison-corpse-aim-client-evidence.json',client_patches=40):
     installation=load(ROOT/'tools/reference/creeper-frame-installation-evidence.json')
     assert len(installation['installedArtifacts'])==106
     for path,digest in installation['installedArtifacts'].items():assert sha(Path(installation['runtimeRoot'])/path)==digest,path
@@ -59,10 +59,14 @@ def protection():
     for kind,relative,count in (('saves','Saves',38),('configuration','Configuration',20)):
         folder=Path(installation['runtimeRoot'])/'.local/server'/relative;assert len(protected[kind])==count
         assert {str(p.relative_to(folder)):sha(p) for p in folder.rglob('*') if p.is_file()}==protected[kind]
-    client=load(ROOT/'tools/reference/poison-corpse-aim-client-evidence.json');assert client['patches']==40
+    client=load(ROOT/client_reference);assert client['patches']==client_patches
+    if 'inputManifest' in client:
+        manifest=ROOT/client['inputManifest']['path'];assert sha(manifest)==client['inputManifest']['sha256']
+        client=load(manifest)
+    assert len(client['patchHashes'])==client_patches
     for kind in ('patchHashes','sharedInputs'):
         for path,digest in client[kind].items():assert sha(ROOT/path)==digest,path
-    return dict(installedArtifacts=106,saves=38,configuration=20,clientPatches=40)
+    return dict(installedArtifacts=106,saves=38,configuration=20,clientPatches=client_patches)
 
 
 def verification(stage):
