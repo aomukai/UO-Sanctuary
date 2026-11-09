@@ -23,6 +23,7 @@ public static class GenericPetNativeStatusChecks
     {bool refused=false;try{action();}catch(NotSupportedException){refused=true;}Require(refused,why);}
     private static void Run(PlayerMobile[] owners,SkeletonGuardian[] bodies,int generation)
     {
+        GenericPetPlayerIterationChecks.Original(owners);
         var world=new GenericPetWorldIdentity(71);
         var survey=new GenericPetOwnerSurveyServices(_=>throw new InvalidOperationException("Swarm0 unit"),(_,_)=>throw new InvalidOperationException("Swarm0 metadata"),_=>throw new InvalidOperationException("Swarm0 target"),(_,_,_)=>throw new InvalidOperationException("Swarm0 validity"),_=>throw new InvalidOperationException("Swarm0 path"));
         var leaves=new GenericPetInitializationServices(world.Resolve,_=>throw new InvalidOperationException("HP supplier not bound"),who=>World.FindMobile((Serial)(uint)who)is PlayerMobile?0:1,

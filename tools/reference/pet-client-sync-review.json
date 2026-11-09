@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "olderSourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "treeSha256": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+  "files": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/PLAYER/PlayerPets.cpp": {
+      "gitBlob": "4859b8c3c0a3ed21a683639bb86d8023957d3915",
+      "sha256": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1"
+    },
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": {
+      "gitBlob": "5e4eaddfb33abc5be6c465a6514361b42055270b",
+      "sha256": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+    }
+  },
+  "reviewOnly": true,
+  "currentCallbackVerified": false,
+  "currentCallbackRva": "0x35b3a0",
+  "currentIteratorRva": "0x3722a0",
+  "conclusion": "Older corresponding callback obtains the player client and sends packet0x7A. Current fully captured iterator walks player buckets and additionally excludes sharedstash. This supports classifying the unresolved current callback as a client-sync boundary;it does not establish its payload or lack of other current effects.",
+  "limits": [
+    "Current172byte callback remains protected;no unchanged retry,no invented packet or no-op adapter.",
+    "Actual registry birth/order and native state producers are outside the supplied iterator contract."
+  ],
+  "scriptSha256": "6ae7ee9060e5a80a84459dde57ebb849bec98b3fd0cf2e152e3142bc5174df85"
+}

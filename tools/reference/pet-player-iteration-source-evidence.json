@@ -1,0 +1,24 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceContexts": 69,
+  "machineCodeBytes": 581,
+  "playerIteratorBytes": 469,
+  "bucketLeafBytes": 112,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete current player enumeration plus bounded112byte registry leaf with all direct branches/RET inside sample. Supplied finite bucket/list/state graph and callback. Live next after callbacks,late bucket and duplicate membership compared. Registry birth/order and protected pet-notification payload are not certified.",
+  "artifacts": {
+    ".local/class-skills/pet-player-iteration-source/cases.json": "be94291f29e12be6589e1a8c26bcc8988113e53fbb7e5534d7e92564bebb0062",
+    ".local/class-skills/warlock-runtime-reference/pet-detach-broadcast-20261109-3722a0-part0.bin": "15fa03707a36f5309eb597e712c752c805a8ed0df800383d68285ae2b4bd6804",
+    ".local/class-skills/warlock-runtime-reference/pet-detach-broadcast-20261109-3722a0-part1.bin": "be00c3e8797cf234cb6e7c806ad3137963360e924528c4093cb0b04992531311",
+    ".local/class-skills/warlock-runtime-reference/pet-detach-broadcast-20261109-3722a0-part2.bin": "4f71844a92f5eb6c5544f639974e4b5ccaf4e28e1aa06e44e9e8eb9ae19f3e6f",
+    ".local/class-skills/warlock-runtime-reference/pet-detach-broadcast-20261109-3722a0-part3.bin": "430b0fecf869d413d21dcf4f7efd4127bd1b209ca7473a10522e6e8b0de67e1b",
+    ".local/class-skills/warlock-runtime-reference/pet-detach-broadcast-20261109.json": "a5caca2c94bb73f84cfc313dab7ddb6beef9c69ea78f64926c77a5948755b8ea",
+    ".local/class-skills/warlock-runtime-reference/services-pet-registry-bucket-leaf-20261109-370610-part0.bin": "9cdc70270199706c846fdb6df82459805b024eb08d19f18e0e897419c04815f0",
+    ".local/class-skills/warlock-runtime-reference/services-pet-registry-bucket-leaf-20261109.json": "502472e361a8d61311e5e2d7de5667865ae873a051f76f00734a459421b72d01",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_player_iteration.py": "69a2996d4255b257eea1cecd3b477f830654af1145c45f0947fa95e2a4777691"
+  }
+}

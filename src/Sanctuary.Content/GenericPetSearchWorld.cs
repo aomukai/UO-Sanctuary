@@ -76,9 +76,12 @@ internal static class GenericPetSearchWorld
     }
     internal static int HasState(int subject,int state,GenericPetSearchWorldServices s)
     {
-        if(subject==0){return 0;}var u=s.Unit(subject);
+        if(subject==0){return 0;}return HasState(s.Unit(subject),state,s.StateCount);
+    }
+    internal static int HasState(GenericPetSearchWorldUnit u,int state,Func<byte,int> stateCount)
+    {
         if(u.Position.Kind is not(0 or 1 or 3)||state<0){return 0;}
-        int count=s.StateCount(u.Selector445);if(state>=count||u.Stats is not{} stats||stats.Flags28>=0||state>=511){return 0;}
+        int count=stateCount(u.Selector445);if(state>=count||u.Stats is not{} stats||stats.Flags28>=0||state>=511){return 0;}
         if(state/32>=stats.Words.Count){throw new NotSupportedException("Missing source state bitset word");}
         return unchecked((int)(stats.Words[state/32]&(1u<<(state&31))));
     }
