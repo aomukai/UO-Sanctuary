@@ -2451,10 +2451,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 385,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared whole-point magic enchantment, effective-rank AR, hard-only35percent synergies, fractional mana and separate noncurse target defense/AR debuff have source/native controls. New event36 delivery, nonzero magic mastery and learned SC/input remain gated. Supplied eligible events use an explicitly prepared receiver; no automatic melee-miss/missile/hextrigger rule is inferred. See hex-bane-native-evidence.json; effects and icons remain separate. Shared noncurse Hex group6/7replacement is now approved and reused;remaining Bane-specific callback/mastery/input work stays separate."
+      "remaining": "Learned selfSC/right/quick Bane uses approved cast-stage mastery before whole-point storage and shared weapon mastery at delivery. Approved groups6/7reuse Siphon;post-result melee hooks preserve current accuracy/block/dodge while applying on misses,withsuccessful ranged weapon and qualified hextrigger paths. Old zero-mastery JSON defaults remain valid;captured mastery is explicit optional metadata. Native/input/save acceptance is recorded separately;live mastery gear,current protected selector/callback parity,advanced producers,PvP/graphical/final assets remain unqualified."
     },
     {
       "talentId": "warlock.cleave",

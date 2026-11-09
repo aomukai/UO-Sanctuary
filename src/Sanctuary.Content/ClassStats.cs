@@ -190,6 +190,7 @@ public static class ClassStats
         {hit=ShadowEquipmentDefense.World(shadowTarget,projectile,true)==0;}
         if(hit&&npcDefense&&ValkyrieEquipmentDefense.Active(defender))
         {hit=ValkyrieEquipmentDefense.World((AmazonValkyrieBody)defender,projectile,true)==0;}
+        if(!projectile&&notifyMelee&&npcDefense){HexBaneEvents.MeleeResult(attacker,defender);}
         return hit;
     }
     public static int DamageBonus(PlayerMobile player, BaseWeapon weapon)

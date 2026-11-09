@@ -4,12 +4,16 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record HexBaneValues(int Minimum,int Maximum,int AttackPercent,int BuffFrames,int DebuffFrames,int DefensePercent,int TargetAttackPercent,int Mana256);
-internal sealed record HexBaneBuff(uint Owner,int Rank,DateTime UntilUtc,HexBaneValues Values);
+internal sealed record HexBaneBuff(uint Owner,int Rank,DateTime UntilUtc,HexBaneValues Values)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public int CastMastery{get;init;}
+}
 internal sealed record HexBaneDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc,int DefensePercent,int AttackPercent);
 internal sealed record HexBaneSnapshot(HexBaneBuff[] Buffs,HexBaneDebuff[] Debuffs);
 public sealed class HexBaneProfiles:GenericPersistence
@@ -48,22 +52,22 @@ public static class HexBane
             ||s.Number("requiresweapon")!=1||s.Text("itypea1")!="weap"||s.Text("etypea1")!="h2h"||s.Text("EType")!="mag"||s.Text("auraevent1")!="domeleeattack"||s.Text("auraevent2")!="domissiledamage"||s.Text("auraevent3")!="hextrigger"
             ||Enumerable.Range(1,3).Any(i=>s.Number("auraeventfunc"+i)!=36))
         {throw new NotSupportedException("Unsupported Hex Bane route");}
-        // enma/exma are whole-point mastered endpoints. Zero magic mastery is
-        // the admitted prepared context; new magic-mastery placement is open.
+        // Zero-mastery supplier. The approved cast wrapper applies its captured
+        // mastery before whole-point storage;legacy callers retain these values.
         return new(v.Damage256(false)/256,v.Damage256(true)/256,checked((int)v.Eval("passivecalc3")),
             checked((int)v.Eval("auralencalc")),checked((int)v.Eval("calc1")),checked((int)v.Eval("aurastatcalc1")),checked((int)v.Eval("aurastatcalc2")),v.Mana256);
     }
     internal static bool CastPrepared(PlayerMobile p,bool replaceGroup=false)
     {
         if(!WeaponHexes.CanCast(p)){return false;}if(!replaceGroup){WeaponHexes.GuardBuff(p,CombatAbility.HexBane);}
-        if(NamedElements.MasteryPercent(p,"mag")!=0){throw new NotSupportedException("Modern Hex Bane magic mastery timing remains unverified");}
-        var v=SkillMechanics.Values(p,CombatAbility.HexBane);var values=Capture(v);var old=Buff(p);
+        if(!HexBaneDamageProposal.Approved&&NamedElements.MasteryPercent(p,"mag")!=0){throw new NotSupportedException("Modern Hex Bane magic mastery timing remains unverified");}
+        var v=SkillMechanics.Values(p,CombatAbility.HexBane);int mastery=HexBaneDamageProposal.Approved?NamedElements.MasteryPercent(p,"mag"):0;var values=HexBaneDamageProposal.Capture(v,mastery).Values;var old=Buff(p);
         // Complete shared do23/factory preserves a stronger same-skill state.
-        // Modern cross-hex group replacement is a separate unsupported route.
+        // Approved learned routes explicitly opt into shared Hex replacement.
         if((old!=null&&old.Rank>v.Rank)||!NecromancerEffects.CanPay(p,values.Mana256)){return false;}
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
         if(replaceGroup){WeaponHexGroups.ReplaceBuff(p,CombatAbility.HexBane);}
-        var next=new HexBaneBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
+        var next=new HexBaneBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values){CastMastery=mastery};Validate(next);
         _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48D,0);p.PlaySound(0x1E5); // Identified hex-enchant/cast placeholders.
         return true;
     }
@@ -75,7 +79,7 @@ public static class HexBane
     {
         if(p is not PlayerMobile owner||!WeaponHexes.Equipped(owner)||Buff(p) is not{} b){return 0;}
         WeaponHexes.GuardBuff(p,CombatAbility.HexBane);
-        if(NamedElements.MasteryPercent(owner,"mag")!=0){throw new NotSupportedException("Modern Hex Bane magic mastery timing remains unverified");}
+        if(!HexBaneDamageProposal.Approved&&NamedElements.MasteryPercent(owner,"mag")!=0){throw new NotSupportedException("Modern Hex Bane magic mastery timing remains unverified");}
         return b.Values.Minimum+(b.Values.Maximum-b.Values.Minimum)*Math.Clamp(roll,0,1);
     }
     internal static int DefensePercent(Mobile p)
@@ -102,7 +106,7 @@ public static class HexBane
         if(b==null||!IsMobile(b.Owner)||b.Rank is <1 or >255||!Time(b.UntilUtc)||b.Values is not{} v||v.Minimum<0||v.Maximum<v.Minimum
             ||v.AttackPercent!=20+9*(b.Rank-1)||v.BuffFrames!=3600+300*(b.Rank-1)||v.DebuffFrames is <150 or >250||v.DebuffFrames%5!=0
             ||v.DefensePercent!=-Math.Min(30+b.Rank-1,50)||v.TargetAttackPercent!=-25||v.Mana256!=(12+b.Rank-1)*128
-            ||!Enumerable.Range(0,61).Any(total=>{var row=SkillMechanics.For(CombatAbility.HexBane);var values=new SkillValues(row,k=>k==row.SourceKey?b.Rank:0,k=>k=="Consume"?total:0,99);return v.Minimum==values.Damage256(false)/256&&v.Maximum==values.Damage256(true)/256;}))
+            ||!Enumerable.Range(0,61).Any(total=>{var row=SkillMechanics.For(CombatAbility.HexBane);var values=new SkillValues(row,k=>k==row.SourceKey?b.Rank:0,k=>k=="Consume"?total:0,99);try{var expected=HexBaneDamageProposal.Capture(values,b.CastMastery).Values;return v.Minimum==expected.Minimum&&v.Maximum==expected.Maximum;}catch(NotSupportedException){return false;}}))
         {throw new InvalidDataException("Invalid Hex Bane buff");}
     }
     private static void Validate(HexBaneDebuff d)

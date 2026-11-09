@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "Approve this Bane rule",
+  "candidateCommit": "f1eb56a477cb781a0d00ea300a81456089b0f283",
+  "proposal": "docs/hex-bane-damage-proposal.md",
+  "proposalAtApprovalSha256": "d75332907b7ffa28c9aae9d116f97b9007d846541edacdc051c968aa363a1359",
+  "scope": "Apply cast-time magic mastery before whole-point storage;use current weapon mastery again in shared delivery;apply melee recipient Hex after hit/block/dodge result,including misses,so defense penalty benefits later attacks.",
+  "limits": [
+    "Explicit Sanctuary adaptation,current mastery selector/callback36 remain protected/unverified.",
+    "Live mastery-granting gear and exact ranged packet snapshot timing remain separately qualified."
+  ]
+}

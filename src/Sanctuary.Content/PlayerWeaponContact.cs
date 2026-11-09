@@ -62,6 +62,7 @@ internal static class PlayerWeaponContact
     {
         RequireOrdinary(source,target,allowNative);
         int flags=SourceMeleeResult.Resolve(new OrdinaryResult(source,target,inRange,hitRoll,Metadata(target,allowNative)==null),attackPercent);
+        HexBaneEvents.MeleeResult(source,target);
         PreparedWeaponImpact impact=default;int frames=0;
         if((flags&SourceMeleeResult.Successful)!=0)
         {

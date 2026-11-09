@@ -81,7 +81,7 @@ public static class WeaponHexGroupChecks
     }
     private static void Check(bool reload)
     {
-        Require(WeaponHexGroups.Approved&&Abilities.Where(a=>a!=CombatAbility.HexSiphon).All(a=>!WarlockCombat.Handles(a)&&!WarlockCombat.Implemented(a))&&WarlockCombat.Handles(CombatAbility.HexSiphon),"Approved group/learned Siphon registration mismatch");Manifest manifest;
+        Require(WeaponHexGroups.Approved&&!WarlockCombat.Handles(CombatAbility.HexPurge)&&WarlockCombat.Handles(CombatAbility.HexSiphon)&&WarlockCombat.Handles(CombatAbility.HexBane),"Approved group/learned Siphon registration mismatch");Manifest manifest;
         if(!reload)
         {
             var rows=new Saved[2];int i=0;

@@ -29,7 +29,7 @@ public static class HexBaneChecks
             Require(v.AttackPercent==20+9*(rank-1)&&v.BuffFrames==3600+300*(rank-1)&&v.DebuffFrames==150+5*e&&v.Mana256==(12+rank-1)*128&&v.DefensePercent==-Math.Min(30+rank-1,50)&&v.TargetAttackPercent==-25,"Bane source values");count++;
         }
         Require(count==6120&&HexBane.Capture(Values(1)) is{Minimum:4,Maximum:8,Mana256:1536,DefensePercent:-30,BuffFrames:3600,DebuffFrames:150},"Bane rank1 rounding/duration");
-        Require(!WarlockCombat.Implemented(CombatAbility.HexBane),"Prepared Bane enabled learned cast");
+        Require(WarlockCombat.Implemented(CombatAbility.HexBane),"Learned Bane missing");
         Log.Information("Hex Bane:6120current hard-synergy/whole-point controls;192source do23contexts pinned, event36delivery supplied");
     }
     private static void Train(PlayerMobile p,string id,int rank=1)

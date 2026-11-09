@@ -33,7 +33,7 @@ public static class HexBaneDamageProposalChecks
         }
         Require(cases==27,"Bane proposal context count");
         int rounded=HexBaneDamageProposal.Capture(Values(1,1),50).Values.Maximum;Require(rounded==16,$"Bane fractional synergy/mastery maximum differs:{rounded}");
-        Require(!HexBaneDamageProposal.Approved&&!WarlockCombat.Handles(CombatAbility.HexBane),"Unapproved Bane candidate enabled");
+        Require(HexBaneDamageProposal.Approved&&WarlockCombat.Handles(CombatAbility.HexBane),"Approved Bane admission mismatch");
         Log.Information("Bane damage candidate:27focused cast-stage contexts;synergy/mastery before whole-point storage and zero-mastery legacy values pass;public route stays gated.");
     }
     private static PlayerMobile Fresh(bool female,int x)
@@ -50,7 +50,7 @@ public static class HexBaneDamageProposalChecks
         try
         {
             var registration=HexBane.Buff(p);Require(registration!=null,"Bane legacy registration missing");int hp=SkillHealth.Balance256(t),defense=ClassStats.Defense(t);
-            bool hit=ClassStats.CheckHit(p,t,0,()=>1)==true;Require(!hit&&HexBane.Debuff(t)==null,"Bane changed state before hit result");
+            bool hit=ClassStats.CheckHit(p,t,0,()=>1,notifyMelee:false,npcDefense:false)==true;Require(!hit&&HexBane.Debuff(t)==null,"Bane changed state before hit result");
             Require(!HexBaneDamageProposal.AfterMeleeResult(p,t,registration,false)&&HexBane.Debuff(t)==null,"Non-attempt applied Bane");
             Require(HexBaneDamageProposal.AfterMeleeResult(p,t,registration,true)&&!hit&&SkillHealth.Balance256(t)==hp
                 &&ClassStats.Defense(t)==ClassStats.ScaleDefense(CreatureProfiles.Defense(t),registration.Values.DefensePercent)&&ClassStats.Defense(t)<=defense,"Post-result melee miss proposal");

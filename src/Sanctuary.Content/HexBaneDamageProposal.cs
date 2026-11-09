@@ -5,11 +5,11 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record HexBaneDamagePlan(int Rank,int CapturedMagicMastery,HexBaneValues Values);
-// Prepared rule only. Current28cc10 remains protected;no learned Bane route
-// adopts this candidate until its mastery/timing decision is approved.
+// Approved Sanctuary rule. Current28cc10 remains protected;the explicit
+// adaptation is recorded in hex-bane-damage-approval.json.
 internal static class HexBaneDamageProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static int Stored(int raw256,int mastery)
     {
         if(raw256<0){throw new ArgumentOutOfRangeException(nameof(raw256));}

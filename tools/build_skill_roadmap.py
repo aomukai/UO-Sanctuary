@@ -767,6 +767,8 @@ BLOCKERS['warlock.hexsiphon']='Learned ordinary selfSC/right/quick route now use
 BLOCKERS['warlock.hexbane']=BLOCKERS['warlock.hexbane'].replace('modern hex groups6/7, ','')+' Shared noncurse Hex group6/7replacement is now approved and reused;remaining Bane-specific callback/mastery/input work stays separate.'
 BLOCKERS['warlock.hexpurge']=BLOCKERS['warlock.hexpurge'].replace(' and cross-hex replacement','').replace('base Warlock clocks remain provisional','the shared ordinary SC clock is qualified separately')+' Shared Hex group6/7replacement is approved;Purge-specific events/explosion/charges remain incomplete.'
 
+BLOCKERS['warlock.hexbane']='Learned selfSC/right/quick Bane uses approved cast-stage mastery before whole-point storage and shared weapon mastery at delivery. Approved groups6/7reuse Siphon;post-result melee hooks preserve current accuracy/block/dodge while applying on misses,withsuccessful ranged weapon and qualified hextrigger paths. Old zero-mastery JSON defaults remain valid;captured mastery is explicit optional metadata. Native/input/save acceptance is recorded separately;live mastery gear,current protected selector/callback parity,advanced producers,PvP/graphical/final assets remain unqualified.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

@@ -8,13 +8,8 @@ namespace Sanctuary;
 // sibling order/overrides remain explicitly unqualified in the checkpoint.
 internal static class HexSiphonEvents
 {
-    private static bool Apply(Mobile source,Mobile target)
-    {
-        if(!WeaponHexGroups.Approved||source is not PlayerMobile owner||target is not BaseCreature{Alive:true,Deleted:false} npc
-            ||source.Map==null||source.Map==Map.Internal||source.Map!=target.Map||!WeaponHexes.Equipped(owner)
-            ||HexSiphon.Buff(owner) is not{} registered){return false;}
-        return HexSiphon.ApplyPrepared(owner,npc,registered,true,TimedEffects.Now,replaceGroup:true);
-    }
+    private static bool Apply(Mobile source,Mobile target)=>WeaponHexDelivery.Apply(source,target,static(owner,npc)=>
+        HexSiphon.Buff(owner) is{} registered&&HexSiphon.ApplyPrepared(owner,npc,registered,true,TimedEffects.Now,replaceGroup:true));
     internal static bool MeleeAttempt(Mobile source,Mobile target)
         =>source is PlayerMobile owner&&!NamedCombat.Ranged(owner)&&target is BaseCreature npc&&PlayerMeleeGeometry.Within(owner,npc,0)&&Apply(source,target);
     // Called only by the existing successful weapon-damage event path.
