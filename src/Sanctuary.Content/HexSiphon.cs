@@ -33,6 +33,8 @@ public static class HexSiphon
         &&_buffs.TryGetValue(p.Serial.Value,out var b)&&b.UntilUtc>TimedEffects.Now?b:null;
     internal static HexSiphonDebuff Debuff(Mobile p)=>Alive(p)&&_debuffs.TryGetValue(p.Serial.Value,out var d)&&d.UntilUtc>TimedEffects.Now?d:null;
     public static void Clear(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);_debuffs=_debuffs.Remove(p.Serial.Value);}}
+    internal static void ClearBuff(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);}}
+    internal static void ClearDebuff(Mobile p){if(p!=null){_debuffs=_debuffs.Remove(p.Serial.Value);}}
     internal static void Prune()
     {
         foreach(var b in _buffs.Values){if(Buff(World.FindMobile((Serial)b.Owner))==null){_buffs=_buffs.Remove(b.Owner);}}
@@ -49,12 +51,13 @@ public static class HexSiphon
         return new(checked((int)v.Eval("passivecalc1")),checked((int)v.Eval("passivecalc3")),checked((int)v.Eval("passivecalc5")),
             checked((int)v.Eval("auralencalc")),checked((int)v.Eval("calc1")),checked((int)v.Eval("aurastatcalc1")),v.Mana256);
     }
-    internal static bool CastPrepared(PlayerMobile p)
+    internal static bool CastPrepared(PlayerMobile p,bool replaceGroup=false)
     {
-        if(!WeaponHexes.CanCast(p)){return false;}WeaponHexes.GuardBuff(p,CombatAbility.HexSiphon);
+        if(!WeaponHexes.CanCast(p)){return false;}if(!replaceGroup){WeaponHexes.GuardBuff(p,CombatAbility.HexSiphon);}
         var v=SkillMechanics.Values(p,CombatAbility.HexSiphon);var values=Capture(v);var old=Buff(p);
         if(old!=null&&old.Rank>v.Rank||!NecromancerEffects.CanPay(p,values.Mana256)){return false;}
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
+        if(replaceGroup){WeaponHexGroups.ReplaceBuff(p,CombatAbility.HexSiphon);}
         var next=new HexSiphonBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
         _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48C,0);p.PlaySound(0x1E5); // Identified hex_enchant/cast placeholders.
         return true;
@@ -68,14 +71,14 @@ public static class HexSiphon
     internal static (int Life,int Mana) AfterKill(PlayerMobile p)=>Active(p) is{} v?(v.LifeAfterKill,v.ManaAfterKill):(0,0);
     internal static int DamagePercent(Mobile p)
     {if(Debuff(p) is not{} d){return 0;}WeaponHexes.GuardTarget(p,CombatAbility.HexSiphon);return d.DamagePercent;}
-    internal static bool ApplyPrepared(PlayerMobile p,BaseCreature target,HexSiphonBuff registered,bool eligible,DateTime at)
+    internal static bool ApplyPrepared(PlayerMobile p,BaseCreature target,HexSiphonBuff registered,bool eligible,DateTime at,bool replaceGroup=false)
     {
         if(!eligible||!Alive(p)||registered==null||registered.Owner!=p.Serial.Value||registered.UntilUtc<=at||!ClassCreation.Profiles.TryGet(p.Serial,out var c)||c.Class!=DiabloClass.Warlock||!ClassCombat.IsHostile(p,target)||!SourceAuraTargets.Eligible(target)){return false;}
-        WeaponHexes.GuardTarget(target,CombatAbility.HexSiphon);Validate(registered);var old=Debuff(target);
+        if(!replaceGroup){WeaponHexes.GuardTarget(target,CombatAbility.HexSiphon);}Validate(registered);var old=Debuff(target);
         if(old!=null&&old.Rank>registered.Rank){return false;}
         var until=at.AddMilliseconds(registered.Values.DebuffFrames*40L);
         var next=old!=null&&old.Rank==registered.Rank?old with{UntilUtc=until}:new(target.Serial.Value,p.Serial.Value,registered.Rank,until,registered.Values.DamagePercent);
-        Validate(next);_debuffs=_debuffs.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48C,0); // Identified hexsyphondebuff placeholder.
+        Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexSiphon);}_debuffs=_debuffs.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48C,0); // Identified hexsyphondebuff placeholder.
         return true;
     }
     internal static HexSiphonSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_debuffs.Values.OrderBy(x=>x.Target).ToArray());

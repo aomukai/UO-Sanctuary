@@ -34,6 +34,8 @@ public static class HexPurge
         &&_buffs.TryGetValue(p.Serial.Value,out var b)&&b.UntilUtc>TimedEffects.Now?b:null;
     internal static HexPurgeTarget Debuff(Mobile p)=>Alive(p)&&_targets.TryGetValue(p.Serial.Value,out var t)&&t.UntilUtc>TimedEffects.Now?t:null;
     public static void Clear(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);_targets=_targets.Remove(p.Serial.Value);}}
+    internal static void ClearBuff(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);}}
+    internal static void ClearDebuff(Mobile p){if(p!=null){_targets=_targets.Remove(p.Serial.Value);}}
     internal static void Prune()
     {
         foreach(var b in _buffs.Values){if(Buff(World.FindMobile((Serial)b.Owner))==null){_buffs=_buffs.Remove(b.Owner);}}
@@ -59,12 +61,13 @@ public static class HexPurge
         {throw new NotSupportedException("Unsupported Purge explosion context; modern magic mastery placement remains unverified");}
         return Plan(SkillMechanics.Values(p,CombatAbility.HexPurge));
     }
-    internal static bool CastPrepared(PlayerMobile p)
+    internal static bool CastPrepared(PlayerMobile p,bool replaceGroup=false)
     {
-        if(!WeaponHexes.CanCast(p)){return false;}WeaponHexes.GuardBuff(p,CombatAbility.HexPurge);
+        if(!WeaponHexes.CanCast(p)){return false;}if(!replaceGroup){WeaponHexes.GuardBuff(p,CombatAbility.HexPurge);}
         var v=SkillMechanics.Values(p,CombatAbility.HexPurge);var values=Capture(v);var old=Buff(p);
         if(old!=null&&old.Rank>v.Rank||!NecromancerEffects.CanPay(p,values.Mana256)){return false;}
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
+        if(replaceGroup){WeaponHexGroups.ReplaceBuff(p,CombatAbility.HexPurge);}
         var next=new HexPurgeBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
         _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48E,0);p.PlaySound(0x1E5); // Identified hex_enchant/cast placeholders.
         return true;
@@ -75,14 +78,14 @@ public static class HexPurge
     internal static int AttackRate(Mobile p)=>Active(p)?.AttackRate??0;
     // Store a caller-supplied plan for an explicitly eligible event. This does
     // not select a target, roll a chance, detonate, spend charges or reapply.
-    internal static bool ApplyPrepared(PlayerMobile p,BaseCreature target,HexPurgeBuff registered,HexPurgePlan supplied,bool eligible,DateTime at)
+    internal static bool ApplyPrepared(PlayerMobile p,BaseCreature target,HexPurgeBuff registered,HexPurgePlan supplied,bool eligible,DateTime at,bool replaceGroup=false)
     {
         if(!eligible||!Alive(p)||registered==null||registered.Owner!=p.Serial.Value||registered.UntilUtc<=at||supplied?.Rank!=registered.Rank||!ClassCreation.Profiles.TryGet(p.Serial,out var c)||c.Class!=DiabloClass.Warlock||!ClassCombat.IsHostile(p,target)||!SourceAuraTargets.Eligible(target)){return false;}
-        WeaponHexes.GuardTarget(target,CombatAbility.HexPurge);
+        if(!replaceGroup){WeaponHexes.GuardTarget(target,CombatAbility.HexPurge);}
         if(Debuff(target)!=null){throw new NotSupportedException("Modern Purge reapplication and charge reset remain unverified");}
         if(NamedElements.MasteryPercent(p,"mag")!=0){throw new NotSupportedException("Modern Purge magic mastery placement remains unverified");}
         Validate(registered);Validate(supplied);var next=new HexPurgeTarget(target.Serial.Value,p.Serial.Value,at.AddMilliseconds(supplied.DebuffFrames*40L),supplied);Validate(next);
-        _targets=_targets.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48E,0);return true; // Identified hexpurgedebuff placeholder.
+        if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexPurge);}_targets=_targets.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48E,0);return true; // Identified hexpurgedebuff placeholder.
     }
     internal static HexPurgeSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_targets.Values.OrderBy(x=>x.Target).ToArray());
     private static bool IsMobile(uint n)=>((Serial)n).IsMobile;
