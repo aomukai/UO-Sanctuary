@@ -45,7 +45,7 @@ public static class SkillCombat
         var parts=SorceressEffects.Absorb(target,element=="fire"?new(0,enhanced256/256.0,0,0,0):element=="cold"?new(0,0,enhanced256/256.0,0,0):element=="mag"?new(0,0,0,0,0,Magic:enhanced256/256.0):new(0,0,0,enhanced256/256.0,0));
         double value=NamedElements.Damage(source,target,element=="fire"?parts.Fire:element=="cold"?parts.Cold:element=="mag"?parts.Magic:parts.Lightning,element,enhance:false);
         // Source SOFTHIT pulse: no ordinary attack check, block, weapon proc or get-hit request.
-        return SkillHealth.Damage(source,target,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue));
+        return SkillHealth.Damage(source,target,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue),SkillDamageKind.Periodic);
     }
     public static int LightningImpact(PlayerMobile source, Mobile target, int enhanced256)
     {
@@ -80,18 +80,18 @@ public static class SkillCombat
     }
     public static int FireImpact(PlayerMobile source, Mobile target, int enhanced256, int? pierceOverride = null, int damageRate = 0)
     {
-        int loss = FireFrame(source, target, enhanced256, damageRate, pierceOverride);
+        int loss = FireFrame(source, target, enhanced256, damageRate, pierceOverride,SkillDamageKind.Direct);
         if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss); }
         return loss;
     }
-    public static int FireFrame(PlayerMobile source, Mobile target, int enhanced256, int damageRate = 0, int? pierceOverride = null)
+    public static int FireFrame(PlayerMobile source, Mobile target, int enhanced256, int damageRate = 0, int? pierceOverride = null, SkillDamageKind kind = SkillDamageKind.Periodic)
     {
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
         if(ClassAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
         double fire = SorceressEffects.Absorb(target, new(0, enhanced256 / 256.0, 0, 0, 0)).Fire;
         fire = NamedElements.Damage(source, target, fire, "fire", enhance: false, damageRate: damageRate, pierceOverride: pierceOverride);
-        return SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(fire * 256), 0, int.MaxValue));
+        return SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(fire * 256), 0, int.MaxValue),kind);
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now,
         Func<PlayerMobile, CombatAbility, Serial, Point3D, bool> validTarget,bool requireMana=true,ActionTiming? timing=null)

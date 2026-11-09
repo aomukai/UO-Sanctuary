@@ -255,7 +255,7 @@ public static class DruidMoltenBoulder
         if(plan.Damage)
         {
             var parts=SkillCombat.MitigatePrepared(owner,target,Potion(s.Modifiers,raw),damageRate:s.Missile==455?41:0);
-            loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+            loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total),s.Missile==455?SkillDamageKind.Periodic:SkillDamageKind.Direct);
         }
         if(!uninterruptible && target is BaseCreature survivor && s.Missile!=455)
         {

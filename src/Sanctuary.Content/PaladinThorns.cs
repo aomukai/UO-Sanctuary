@@ -81,7 +81,7 @@ public static class PaladinThorns
         double value=SkillCombat.MitigatePrepared(defender,attacker,
             new(Math.Min(physical256,int.MaxValue)/256.0,0,0,0,0)).Physical;
         defender.DoHarmful(attacker,true);
-        SkillHealth.Damage(defender,attacker,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue));
+        SkillHealth.Damage(defender,attacker,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue),SkillDamageKind.Return);
         attacker.FixedEffect(0x374A,5,5,0x481,0); // Placeholder retaliation flash; independent effect register.
     }
     private sealed class AttemptScope:IDisposable

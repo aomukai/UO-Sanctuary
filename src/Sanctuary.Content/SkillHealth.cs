@@ -57,7 +57,7 @@ public static class SkillHealth
     internal static int PayLife(Mobile owner,int damage256)
     {
         var previous=_selfCost;
-        try{_selfCost=owner;return Damage(owner,owner,damage256);}
+        try{_selfCost=owner;return Damage(owner,owner,damage256,SkillDamageKind.SelfCost);}
         finally{_selfCost=previous;}
     }
     public static SkillHealthProfiles Profiles { get; private set; }
@@ -100,8 +100,15 @@ public static class SkillHealth
         return (int)Math.Max(0,after-before);
     }
     public static int Damage(Mobile source, Mobile target, int damage256)
+        =>Damage(source,target,damage256,SkillDamageKind.Direct);
+    public static int Damage(Mobile source, Mobile target, int damage256, SkillDamageKind kind)
     {
         if (damage256 <= 0 || target is not { Alive: true, Deleted: false } || !target.CanBeDamaged()) { return 0; }
+        // A reaction may kill/remove the recipient or change its life. Read
+        // the live fractional balance only after that reaction has completed.
+        // With no reaction, preserve the original single admission check.
+        if(SkillDamageEvents.Notify(source,target,damage256,kind)
+            &&(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged())){return 0;}
         if(target is Server.Mobiles.BaseCreature original&&ReviveEquipmentIncoming.Handles(original))
         {return ReviveEquipmentIncoming.Damage(source,original,damage256);}
         var old = Profiles.Remainders.GetValueOrDefault(target.Serial);

@@ -193,7 +193,7 @@ public static class DruidFirestorm
             if(!ClassAvoidance.Missile(target))
             {
                 owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s.Modifiers,raw),damageRate:41);
-                SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total)); // No GETHIT, weapon procs, drain or extra19/128 callback.
+                SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total),SkillDamageKind.Periodic); // No GETHIT, weapon procs, drain or extra19/128 callback.
             }
         }
         if((s.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0){Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,0x489,0);} // Identified burning-patch placeholder.

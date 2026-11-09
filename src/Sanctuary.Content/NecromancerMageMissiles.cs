@@ -214,7 +214,7 @@ internal static class NecromancerMageMissiles
         {
             int resist=NamedElements.Resistance(actor,target,"pois",target.PoisonResistance);
             var poison=PoisonPackets.Mitigate(raw,packet.ElementFrames,target is PlayerMobile,resist,ItemDurationDefenses.PoisonLength(target),0,target is PlayerMobile p?Math.Max(0,ClassGear.Bonus(p,"res-pois-max")):0,0);
-            poison.Commit(actor,target,at);SkillHealth.Damage(actor,target,poison.Rate256); // Existing older-source initial-rate bridge.
+            poison.Commit(actor,target,at);SkillHealth.Damage(actor,target,poison.Rate256,SkillDamageKind.Periodic); // Existing older-source initial-rate bridge.
         }
         else
         {

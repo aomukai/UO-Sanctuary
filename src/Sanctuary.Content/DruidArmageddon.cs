@@ -213,7 +213,7 @@ public static class DruidArmageddon
         ulong seed = actor.Seed; var packet = Roll(actor, ref seed);
         _pool = _pool with { Actors = _pool.Actors.SetItem(actor.Id, next with { Seed = seed }) };
         owner.DoHarmful(target, true); var parts = SkillCombat.MitigatePrepared(owner, target, packet, damageRate: 41);
-        SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total)); // No GetHit, knockback or source weapon callbacks.
+        SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total),SkillDamageKind.Periodic); // No GetHit, knockback or source weapon callbacks.
     }
     internal static void Tick(DateTime at, bool? actions = null)
     {

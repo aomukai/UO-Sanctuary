@@ -118,7 +118,7 @@ public static class DruidHurricane
             owner.DoHarmful(target, true);
             var parts = SkillCombat.MitigatePrepared(owner, target, packet);
             ColdStates.Apply(owner, target, values.DurationFrames, TimedEffects.TickAt(state.NextUtc));
-            SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total));
+            SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total),SkillDamageKind.Periodic);
             // ResultFlags1 has no generic GETHIT4, stun or knockback request.
             target.FixedEffect(0x37CC, 3, 4, 0x480, 0); // Identified periodic wind/cold marker.
         }
