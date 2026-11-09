@@ -9,7 +9,11 @@ internal sealed class GenericPetOwnedEntry(uint flags,int id,uint field08,ushort
     internal ushort Field0c=field0c;
     internal GenericPetOwnedNode View()=>new(unchecked((byte)Flags),Id,Next);
 }
-internal sealed class GenericPetOwnerBucket(int first){internal int First=first;}
+internal sealed class GenericPetOwnerBucket(int first,int count=0)
+{
+    internal int First=first,Count=count;
+    internal GenericPetOwnerBucket Shared;
+}
 internal sealed class GenericPetOwnerClient(int id){internal int Id=id;}
 internal sealed record GenericPetDetachNotice(ushort Field0c,int Result);
 internal sealed record GenericPetOwnerStoreServices(Func<int,GenericPetOwnerPlayer> Player,Func<int,int> Store,

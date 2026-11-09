@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "reviewOnly": true,
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "sourceContexts": 52,
+  "machineCodeBytes": 1949,
+  "newRoutineBytes": 578,
+  "newReferenceReadBytes": 2136,
+  "capturedButUnported": {
+    "hireableCalculationBytes": 210
+  },
+  "oldLargeOfflineMatricesRerun": 0,
+  "originalRosterChecks": 9,
+  "newTimers": 0,
+  "newSavedFormats": 0,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-owner-remove-check": 3,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-native-status-check": 1,
+    "pet-native-status-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "0b15af9d11a178b0f8de24e7c32ca2197371c61ed7d379ada393d4e318d13c84",
+    "Assemblies/Sanctuary.Integration.dll": "31717271fe2076dead7f2a0c22fa4e3ac726e6ee50bc3690f3ea3b8a9ce98c37"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete current578byte callback composes with existing store/detach helpers in52source/native cases. First match unlinks before notification/registry/flag or special branch/free/counters. Shared aliases and unchecked counter/negative assertion chronology match;repeated broadcasts retained.",
+    "Pinned type7is hireable. Normal unique-pet outer detach no longer enters inactive/cost branch after real unlink callback. Duplicate nodes preserve source first-match behavior. Hireable210byte calculation retained separately,not invented as a class-pet status effect.",
+    "Nine original roster checks compose full normal unlink over actual GUIDs/typed registry. One logical release,local/shared count changes,source flags mask,three expected notifications and no hireable calculation;existing iterator sees remaining originals. Supplied native effects leave actual actor/master/wounds/mana/controller intact through reloads."
+  ],
+  "limits": [
+    "Source registry bucket,logical allocator release,raw special35b450,broadcast/client/hireable services remain declared. Native flags/free/broadcast and actual roster birth/persistence are not admitted by this component check.",
+    "No native death/automatic pump/startup admission,save migration,learned skill,class certificate,deployment or new assets. Startup proposal still pending;protected paths not retried."
+  ],
+  "inputs": {
+    "tools/reference/pet-owner-remove-source-evidence.json": "ffe7f40c6fdbd87197bce577c18e1ec3eb3d99aa7d8d770d38b1ed4b34ae87e0",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-detach-effects-20261109.json": "e641ea0d3616a194d539b6ac6802d77f678925002ef375e6e9a0857fc4b9fa42",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "src/Sanctuary.Content/GenericPetOwnerRemove.cs": "7d28795650e2568535b12899c60f809b2eb2bb63b716e208e66230335740ce24",
+    "src/Sanctuary.Content/GenericPetOwnerDetach.cs": "9df8e6589c88a771c20c882af20d8be5b797521201656f5839c1f8404175a6c9",
+    ".local/class-skills/pet-owner-remove/birth-inputs.json": "d16f23a554be6493ecb473fbca3faf54204805947a54b6778211d22e48578816",
+    ".local/class-skills/pet-owner-remove/source-snapshot-1.json": "52e441aa114209ba6d3e828653fdc09b5c95a8525c65c10d6f068b130f882750",
+    ".local/class-skills/pet-owner-remove/content-build-1.log": "d4a1d01f1a16ed130bc312873cec3bd696fcf7862f405f1570a856d5687c722e",
+    ".local/class-skills/pet-owner-remove/integration-build-1.log": "82d6fd6d3dc3f2fa0e64e8e3fd2703c50648db1e6fe35d7a0ec72916df4e8ae8",
+    ".local/class-skills/pet-owner-remove/birth-native-checks.log": "62ef9316e30a27956058997ecaf4c034cabc7bc110214a703ef6de7ef968d40b",
+    ".local/class-skills/pet-owner-remove/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-owner-remove/pet-native-status-fixtures.json": "2c20316cb162b62874a072b73265307ad8fc06045bbbd4e0accc964d89a1ffd6",
+    ".local/class-skills/pet-owner-remove/pet-command-target-fixtures.json": "9930291d31b3781c37449986ebdaa7640841791b2f2abec6dfe7e00f321fa20a",
+    "tools/skill_checkpoint_evidence.py": "5d035fccb612fe3bf2be6700b47dfc3bc7eecdaa0b66096c6d090ceb27a4d432",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-owner-remove-checkpoint.md": "87f1e1d32f3219f7fd8ca43310fa25687aaa35a874bf8aceb574a98c50a31a1f",
+    "docs/class-skills-resume-checkpoint.md": "1e62931dea571bf0f0a64327b33fc45345f1b22cb325deb72e931ddf67aadb8e",
+    "docs/class-skill-roadmap.md": "ad0f5d9bdefaac3b86938d91abd70121f002284100953148b2561670b6f5691d",
+    "docs/class-skill-reuse-notes.md": "a832ae6d5161e7d2676c1a1090de8ce3a0cb9eb12dbada9005a77d4ffc9fdbe3",
+    "docs/skill-mechanical-reference.md": "44957a7fcdc552448087fde6a4cc9c5942d625d0c1d26dd3e10be1b6c395e707",
+    "tests/check_pet_owner_remove.py": "993069109f43be362289e495207873c8a69b8628f0f62eaf54e6b4ecdd70541c",
+    "tools/record_pet_owner_remove.py": "f290cc1c1502faec3aece20bded32c9f567a1dbdaa949e09e7a7aa7fec744c11"
+  }
+}
