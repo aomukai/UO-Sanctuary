@@ -2495,10 +2495,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 390,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "User-authorized Sanctuary estimate implemented with ordinary SC,melee restriction,one15mana release/cooldown,release snapshots,one traveling blade/magic impact and shared safe teleport landing. Focused native/input/reload checks and explicit source/assumption receipt track qualification;protected do166/hit42 parity and final graphical/effects/icon acceptance remain separate."
     },
     {
       "talentId": "warlock.psychicward",

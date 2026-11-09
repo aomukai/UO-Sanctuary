@@ -760,6 +760,8 @@ BLOCKERS['warlock.psychicward'] += ' A tested explicit Sanctuary reaction/input 
 
 BLOCKERS['warlock.psychicward'] = 'Learned ordinary Warlock/Witch self SC/right/quick cast uses the pinned table cost once at release and existing group1 pool persistence. Approved incoming rule captures the registration before absorption and carries per-packet context through native normal/armor-ignore damage or class weapon delivery into the shared return/stun slot;fully absorbed and depleting hits can stun before HP,with no extra mana. Actual native positive/negative contact,ranged/elemental/fractional overflow and saved original pools have dedicated checks. Current event37/40parity remains an explicit adaptation;EnergyShield coexistence,player-attacker/PvP,legacy non-AOS/special native modifiers/full source event/room/client-graphics acceptance remain unverified. See psychic-ward-cast-checkpoint.md;final effects/audio and talent/right/quick icons remain separate placeholders.'
 
+BLOCKERS['warlock.bladewarp']='User-authorized Sanctuary estimate implemented with ordinary SC,melee restriction,one15mana release/cooldown,release snapshots,one traveling blade/magic impact and shared safe teleport landing. Focused native/input/reload checks and explicit source/assumption receipt track qualification;protected do166/hit42 parity and final graphical/effects/icon acceptance remain separate.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

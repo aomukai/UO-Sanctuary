@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "never used blade warp, sorry. don't leave it undecided, either - pick your best guesstimation",
+  "scope": "Blade Warp only;does not approve unrelated protected do166 Mirrored Blades semantics.",
+  "currentDo166Hit42Parity": false,
+  "sourceUrl": "https://diabloforfans.com/skill/blade-warp",
+  "sourceCheckedDate": "2026-11-09",
+  "pinned": {
+    "skill": 390,
+    "missile": 707,
+    "visualExplosion": 692,
+    "mana256": 3840,
+    "localDelayFrames": 20,
+    "velocity": 36,
+    "lifetimeUpdates": 20,
+    "radiusSourceUnits": 4,
+    "element": "magic",
+    "weaponDamageSourceByte": 0,
+    "hardSynergyPerPoint": 24
+  },
+  "rules": [
+    "Use shared Warlock SC windup;require an ordinary mapped unbroken melee weapon at start/release. Snapshot release rank,hard synergies,magic mastery and potion bonuses.",
+    "Spend15mana once after successful allocation at release;start20frame cooldown in existing saved shared store. No resource refund after release.",
+    "One projectile follows the released cursor/selected-enemy position at shared velocity36,ending at the chosen point,first hostile contact,wall or20updates. No homing,mirror/duplicate or separate direct-hit packet.",
+    "One2tile magic blast at the impact uses shared resistance/absorption/avoidance. No weapon physical damage,accuracy,critical,leech,wear or weapon procs.",
+    "After blast,try impact tile then eight neighbors sorted by distance/X/Y. Reuse native floor,fit,LOS,travel,town,house and arrival-field rules. Invalid landing leaves owner in place;impact and payment remain.",
+    "Movement/gear changes after release do not rewrite the packet. Windup cancellation uses shared action rules. Owner logout,death,facet travel or entering safe area cancels the flight. Stop after release does not recall it.",
+    "Mobility projectile is transient across process restart;no delayed offline teleport/replay. Existing saved cooldown still runs normally."
+  ],
+  "limits": [
+    "Protected do166/hit42 exact launch,collision,damage/teleport order and landing search remain estimated;numeric skill/missile rows are pinned separately.",
+    "No automatic adaptation of Mirrored Blades. Actual graphical interaction and final effect/audio/icon assets remain pending."
+  ],
+  "inputs": {
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    ".local/research/d2r-3.3.93847/missiles.txt": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27"
+  }
+}
