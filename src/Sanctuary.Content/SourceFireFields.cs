@@ -44,7 +44,7 @@ internal static class SourceFireFields
         // as in Shiver's SOFTHIT path. Do not invent a D2 species for UO actors.
         NativeMonsterReturn.Session(target); // Capture pre-hit life presentation state.
         var services=new InstantSpellNpcDamage(owner,target,new(-1,-1,0,0,false,"Ground fire unused return identity"),mods,at,"Ground fire",
-            ()=>throw new InvalidOperationException("Ground fire must not draw defender get-hit RNG"),damageRate:damageRate);
+            ()=>throw new InvalidOperationException("Ground fire must not draw defender get-hit RNG"),damageRate:damageRate,damageKind:SkillDamageKind.Periodic);
         return PreparedMonsterDamage.ReleaseMissile(owner,target,packet,new(NamedCombat.Elite(target),()=>false,()=>0,()=>false),
             _=>throw new InvalidOperationException("Ground fire has no timed stun"),services,at);
     }

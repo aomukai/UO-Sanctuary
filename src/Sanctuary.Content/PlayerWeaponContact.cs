@@ -118,6 +118,7 @@ internal static class PlayerWeaponContact
         {scope.Before=SkillHealth.Balance256(target);WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain);}
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
         {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);scope.After=after256;scope.Loss=Math.Max(0,scope.EntryHits-(after256+255)/256);}
+        internal override void DamageReaction(int nativeLifeDelta)=>scope.EntryHits+=nativeLifeDelta;
         internal override void ApplyCold(int frames)
         {
             if(frames>0){ColdStates.Commit(source,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}

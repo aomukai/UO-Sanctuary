@@ -65,7 +65,7 @@ internal static class IronGolemContact
         // presentation/return. Retain only this synchronous packet's identity.
         internal readonly MonsterReturnIdentity SourceIdentity=source is{Alive:true,Deleted:false}?NativeMonsterReturn.SourceIdentity(source):null;
         internal readonly NpcItemTarget RetainedTarget=prepared.Rules.SourceEvents.OriginalEvents&&target is{Alive:true,Deleted:false}?NpcItemTarget.Capture(target):null;
-        internal readonly int EntryHits=entryHits;internal int Loss;
+        internal int EntryHits=entryHits;internal int Loss;
     }
     private sealed class Contact(BaseCreature body,PlayerMobile owner,Func<int,bool> range,BaseCreature target,MonsterReturnMetadata metadata,Scope scope):MonsterContactServices
     {
@@ -92,6 +92,7 @@ internal static class IronGolemContact
         {if(scope.Impact==null){throw new InvalidOperationException("No allocated ordinary NPC drain context");}} // Existing allocators retain their preflight;qualified filled packets use the shared drain receiver.
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
             {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);scope.Loss=Math.Max(0,scope.EntryHits-(after256+255)/256);}
+        internal override void DamageReaction(int nativeLifeDelta)=>scope.EntryHits+=nativeLifeDelta;
         internal override void ApplyCold(int frames)
         {
             if(frames!=scope.Impact.Packet.ColdFrames){throw new InvalidOperationException("Allocated cold duration changed");}

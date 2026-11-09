@@ -5,7 +5,11 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record PreparedMonsterDamagePacket(int Physical256,int Total256,int StunFrames,int ColdFrames,int ResultFlags,
-    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0,int AbsorbedLife256=0,int LifeDrain256=0,int ManaDrain256=0,int StaminaDrain256=0,int FreezeFrames=0);
+    int HitClass=0,bool HitClassActive=false,int Overlay=0,int Magic256=0,int Fire256=0,int Lightning256=0,int Cold256=0,int Poison256=0,uint HitFlags=0,int AbsorbedLife256=0,int LifeDrain256=0,int ManaDrain256=0,int StaminaDrain256=0,int FreezeFrames=0)
+{
+    // Transient delivery state, never part of saved source damage packets.
+    internal bool ReactionSettled {get;init;}
+}
 internal sealed record PreparedMonsterRecipient(bool Unique,Func<bool> Boss,Func<int> Velocity,Func<bool> Hireling);
 // These services are mandatory. Supplying the actual callbacks, metadata and
 // return/mode policy remains the actor consumer's job; no missing event is
@@ -14,6 +18,10 @@ internal abstract class PreparedMonsterDamageServices
 {
     // Only an explicit retained-caster service can admit a dead missile source.
     internal virtual bool RetainedDeadSource(Mobile source)=>false;
+    internal virtual SkillDamageKind DamageKind=>SkillDamageKind.Direct;
+    // Keep secondary life changes out of this contact's native loss accounting,
+    // while retaining its earlier Crushing Blow and other owned damage.
+    internal virtual void DamageReaction(int nativeLifeDelta){}
     internal abstract void StoreLastAttacker();
     internal abstract PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket packet);
     internal abstract PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket packet);
@@ -103,7 +111,7 @@ internal static class PreparedMonsterDamage
     internal static PreparedMonsterCommitResult CommitQualified(Mobile attacker,BaseCreature target,PreparedMonsterDamagePacket packet,
         PreparedMonsterRecipient recipient,Func<int,int> limited,PreparedMonsterDamageServices services,DateTime at,bool missile=false,bool statusOnly=false)
     {
-        Checked(packet);if(statusOnly){CheckedStatus(packet);}
+        Checked(packet);if(packet.ReactionSettled){throw new InvalidOperationException("A settled reaction packet cannot be committed again");}if(statusOnly){CheckedStatus(packet);}
         ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(services);
         if(attacker is not(PlayerMobile or BaseCreature)||attacker.Deleted||!attacker.Alive&&!(missile&&services.RetainedDeadSource(attacker))||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()
             ||SkillHealth.Balance256(target)<=0||!statusOnly&&(packet.ResultFlags&1)==0||at.Kind!=DateTimeKind.Utc)
@@ -150,6 +158,16 @@ internal static class PreparedMonsterDamage
         int after=SkillHealth.Balance256(target);
         if(packet.Total256>0)
         {
+            int nativeBefore=target.Hits;
+            if((packet.ResultFlags&32)==0&&SkillDamageEvents.Notify(attacker,target,packet.Total256,services.DamageKind))
+            {
+                // A synchronous secondary hit/heal owns its own HP and death.
+                // Re-read instead of overwriting it with the pending balance.
+                services.DamageReaction(target.Hits-nativeBefore);
+                after=SkillHealth.Balance256(target);
+                if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()||after<=0)
+                {return new(packet with{ReactionSettled=true},before,after,0);}
+            }
             after-=packet.Total256;if(after<256){after=0;}
             services.BeforeHealthCommit(attacker,target,after);
             // Write source HP exactly once. Native Damage would dispatch death
@@ -175,6 +193,8 @@ internal static class PreparedMonsterDamage
         PreparedMonsterDamageServices services,bool hitPresentation=true,bool missile=false)
     {
         Checked(packet);ArgumentNullException.ThrowIfNull(services);
+        if(packet.ReactionSettled)
+        {services.FreePacket();return new(packet,false);}
         if(hitPresentation)
         {
             if(packet.Overlay>0){services.PresentOverlay(packet.Overlay);}

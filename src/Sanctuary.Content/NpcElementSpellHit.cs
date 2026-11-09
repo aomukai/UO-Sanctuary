@@ -36,7 +36,7 @@ internal static class NpcElementSpellHit
             return packet with{Total256=NamedElements.To256(parts.Total),Fire256=NamedElements.To256(parts.Fire),Cold256=NamedElements.To256(parts.Cold),Lightning256=NamedElements.To256(parts.Lightning),AbsorbedLife256=absorb,ColdFrames=frames,FreezeFrames=freeze};
         }
         NativeMonsterReturn.Session(target);
-        var services=new InstantSpellNpcDamage(owner,target,metadata,null,at,kind,()=>TelekinesisCombat.DefenderRoll(),knockback:knockback?SourceKnockbacks.BeginPrepared:null,cold:element=="cold",emitter:emitter,npcMitigation:Mitigate,freeze:freezeFrames>0,retainedSource:retainedSource);
+        var services=new InstantSpellNpcDamage(owner,target,metadata,null,at,kind,()=>TelekinesisCombat.DefenderRoll(),knockback:knockback?SourceKnockbacks.BeginPrepared:null,cold:element=="cold",emitter:emitter,npcMitigation:Mitigate,freeze:freezeFrames>0,retainedSource:retainedSource,damageKind:periodic?SkillDamageKind.Periodic:SkillDamageKind.Direct);
         return PreparedMonsterDamage.ReleaseMissile(emitter,target,new(0,raw256,0,coldFrames,(periodic?1:softHit?16385:5)|(knockback?8:0),HitClass:hitClass,HitClassActive:hitClassActive,
             Fire256:element=="fire"?raw256:0,Cold256:element=="cold"?raw256:0,Lightning256:element=="ltng"?raw256:0,HitFlags:hitFlags,FreezeFrames:freezeFrames),
             new(NamedCombat.Elite(target),()=>false,()=>metadata.Velocity,()=>false),_=>throw new InvalidOperationException(kind+" has no stun"),services,at);

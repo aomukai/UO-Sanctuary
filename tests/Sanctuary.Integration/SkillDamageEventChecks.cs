@@ -104,6 +104,7 @@ public static class SkillDamageEventChecks
             FixtureSpace.Corridor(owner,6560,12,3500);target=Enemy(owner);SkillHealth.Damage(owner,target,129);
         }
         Contacts(owner);
+        OrderedDamageEventChecks.Exercise(owner);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(generation,owner.Serial.Value,target.Serial.Value,SkillHealth.Balance256(target),owner.X,owner.Y)));
     }
 }
